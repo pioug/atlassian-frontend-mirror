@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-expand
 
+## 9.1.31
+
+### Patch Changes
+
+- [`1bd298ad0a152`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bd298ad0a152) -
+  [ux] EDITOR-6280 Clean up platform_editor_block_menu_v2_patch_3 to fix icon and copy in jira block
+  menu
+- Updated dependencies
+
+## 9.1.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.29
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.28
 
 ### Patch Changes

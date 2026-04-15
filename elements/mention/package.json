@@ -60,7 +60,7 @@
 		"query-string": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
-		"react-intl-next": "root:*",
+		"react-intl": "root:*",
 		"serialize-javascript": "root:*"
 	},
 	"exports": {
@@ -92,7 +92,7 @@
 	"peerDependencies": {
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"platform-feature-flags": {
 		"jira_ai_agent_avatar_issue_view_comment_mentions": {

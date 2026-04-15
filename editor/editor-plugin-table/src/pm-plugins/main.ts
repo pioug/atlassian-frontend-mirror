@@ -7,7 +7,7 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { insideTable } from '@atlaskit/editor-common/core-utils';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { isNestedTablesSupported } from '@atlaskit/editor-common/nesting';
@@ -379,9 +379,7 @@ export const createPlugin = (
 			},
 			handleClick: ({ state, dispatch }, _pos, event: MouseEvent) => {
 				const decorationSet = decorationsPluginKey.getState(state);
-				const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-					? getBrowserInfo()
-					: browserLegacy;
+				const browser = getBrowserInfo();
 				if (findControlsHoverDecoration(decorationSet).length) {
 					clearHoverSelection()(state, dispatch);
 				}

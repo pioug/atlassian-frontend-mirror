@@ -9,7 +9,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
 import ChangesIcon from '@atlaskit/icon/core/changes';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
@@ -39,16 +38,11 @@ export const FormatMenuComponent = ({
 		});
 	}, [api]);
 
-	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
-	// Adds size="small" to icons for better visual consistency in block menu.
-	// To clean up: remove conditional, keep only size="small" version.
-	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
-
 	return (
 		<ToolbarNestedDropdownMenu
 			text={formatMessage(blockMenuMessages.turnInto)}
-			elemBefore={<ChangesIcon label="" size={iconSize} />}
-			elemAfter={<ChevronRightIcon label="" size={iconSize} />}
+			elemBefore={<ChangesIcon label="" size="small" />}
+			elemAfter={<ChevronRightIcon label="" size="small" />}
 			enableMaxHeight={true}
 			onClick={handleClick}
 			dropdownTestId="editor-turn-into-menu"

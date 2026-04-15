@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import DecisionItem from '../../../../components/DecisionItem';
 import DecisionList from '../../../../components/DecisionList';
 import { dumpRef } from '../../../../../example-helpers/story-utils';

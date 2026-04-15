@@ -7,7 +7,6 @@ import { useContext } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { media } from '@atlaskit/primitives/responsive';
 
 import { localSlotLayers, UNSAFE_ribbonVar } from './constants';
@@ -52,10 +51,6 @@ export function UNSAFE_Ribbon({
 	const id = useLayoutId({ providedId });
 
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
-
-	if (!fg('platform_dst_nav4_ribbon_slot')) {
-		return null;
-	}
 
 	return (
 		<div id={id} data-layout-slot css={[styles.root]} style={{ width }} data-testid={testId}>

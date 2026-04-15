@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { useState } from 'react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import { jsx, css, cssMap } from '@compiled/react';
 
 import { token, useThemeObserver } from '@atlaskit/tokens';

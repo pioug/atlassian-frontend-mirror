@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/status",
-	"version": "3.2.13",
+	"version": "3.2.15",
 	"description": "Fabric Status React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,7 +40,7 @@
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
@@ -51,7 +51,7 @@
 		"@testing-library/react": "root:*",
 		"enzyme": "root:*",
 		"react": "root:*",
-		"react-intl-next": "root:*"
+		"react-intl": "root:*"
 	},
 	"keywords": [
 		"ui",

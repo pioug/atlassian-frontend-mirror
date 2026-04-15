@@ -20,7 +20,11 @@ const experimentConfig: Record<string, FeatureGateConfig> = {
 	},
 };
 
-const enabledGates = ['platform_sl_3p_preauth_better_hovercard_killswitch'];
+const enabledGates = [
+	'platform_sl_3p_preauth_better_hovercard_killswitch',
+	'rovogrowth-640-inline-action-nudge-fg',
+	'smart-card-inline-resolved-view-refactor',
+];
 
 const emptyConfig = {};
 const emptyGates: string[] = [];

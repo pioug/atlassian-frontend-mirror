@@ -45,7 +45,6 @@ export const AgentStarCount = ({
 					isShimmering
 					height={16}
 					width={75}
-					borderRadius={3}
 				/>
 			) : (
 				formatMessage(messages.starredCount, { starCount: formatNumber(starCount ?? 0) })

@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 import { cssMap, cx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import Tooltip from '@atlaskit/tooltip';
 import {

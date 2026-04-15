@@ -1,5 +1,46 @@
 # @atlaskit/editor-common
 
+## 112.21.2
+
+### Patch Changes
+
+- [`1bd298ad0a152`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bd298ad0a152) -
+  [ux] EDITOR-6280 Clean up platform_editor_block_menu_v2_patch_3 to fix icon and copy in jira block
+  menu
+- Updated dependencies
+
+## 112.21.1
+
+### Patch Changes
+
+- [`ef22944bdbbdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef22944bdbbdf) -
+  Migrate smart link visited analytics from UI event to track event. The `ui.smartLink.visited`
+  event has been replaced with `track.smartLink.visited` to better capture engagement metrics for
+  smart links. This change is gated behind the `cc_integrations_editor_open_link_click_analytics`
+  feature flag and includes additional attributes (displayCategory, extensionKey, status,
+  statusDetails) when the flag is enabled.
+- Updated dependencies
+
+## 112.21.0
+
+### Minor Changes
+
+- [`4f84bfcb00893`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f84bfcb00893) -
+  EDITOR-6370: Various UI improvements such as tooltips, scrollIntoView, stack styles etc.
+
+### Patch Changes
+
+- [`73b2fc243f544`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73b2fc243f544) -
+  Cleaning up getBrowserInfo which was behind experiment platform_editor_hydratable_ui and is now
+  rolled out
+- Updated dependencies
+
+## 112.20.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 112.20.2
 
 ### Patch Changes

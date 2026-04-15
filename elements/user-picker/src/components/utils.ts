@@ -1,4 +1,4 @@
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import { type ReactChild, type ReactElement, type ReactNode } from 'react';
 import {
 	type AtlaskitSelectValue,
@@ -65,7 +65,7 @@ export const optionToSelectableOption = (option: OptionData | OptionIdentifier):
 	}
 };
 
-export const extractOptionValue = (value: AtlaskitSelectValue) => {
+export const extractOptionValue = (value: AtlaskitSelectValue): OptionData | OptionData[] | undefined => {
 	if (!value) {
 		return undefined;
 	}
@@ -78,7 +78,7 @@ export const extractOptionValue = (value: AtlaskitSelectValue) => {
 export const isIterable = (a: any): a is Iterable<Promisable<OptionData | OptionData[]>> =>
 	typeof a?.[Symbol.iterator] === 'function';
 
-export const getOptions = memoizeOne((options: OptionData[]) =>
+export const getOptions: MemoizedFn<(options: OptionData[]) => Option[]> = memoizeOne((options: OptionData[]): Option[] =>
 	options.map(optionToSelectableOption),
 );
 
@@ -127,7 +127,7 @@ export const callCallback = <U extends any[], R>(
 	return undefined;
 };
 
-export const getAvatarUrl = (optionData: OptionData) => {
+export const getAvatarUrl = (optionData: OptionData): string | undefined => {
 	if (
 		isUser(optionData) ||
 		isTeam(optionData) ||

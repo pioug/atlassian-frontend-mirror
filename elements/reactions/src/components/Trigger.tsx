@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { type AriaAttributes } from 'react';
-import { defineMessages, useIntl } from 'react-intl-next';
+import { defineMessages, useIntl } from 'react-intl';
 import { type AnalyticsEvent, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Tooltip from '@atlaskit/tooltip';
 import { token } from '@atlaskit/tokens';

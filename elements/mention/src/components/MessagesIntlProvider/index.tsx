@@ -1,5 +1,5 @@
 import React, { type PropsWithChildren } from 'react';
-import { IntlProvider, useIntl } from 'react-intl-next';
+import { IntlProvider, useIntl } from 'react-intl';
 import { getMessagesForLocale } from '../../util/i18n';
 
 const EMPTY: Record<string, string> = {};

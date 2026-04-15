@@ -3,7 +3,7 @@
 import { mentionTestResult } from '@atlaskit/util-data-test/mention-test-data';
 import React from 'react';
 import MentionList from '../../../components/MentionList';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { screen, render, act } from '@testing-library/react';
 
 // TODO: After updating to expect.hasAssertions() and RTL, it identified some tests that are not correctly written.

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-tasks-and-decisions",
-	"version": "11.4.15",
+	"version": "11.4.18",
 	"description": "Tasks and decisions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -105,9 +105,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_element_browser_analytic": {
-			"type": "boolean"
-		},
-		"platform_editor_block_menu_v2_patch_3": {
 			"type": "boolean"
 		},
 		"platform_editor_toolbar_task_list_analytics": {

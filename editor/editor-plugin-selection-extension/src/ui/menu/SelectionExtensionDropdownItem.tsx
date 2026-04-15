@@ -131,21 +131,13 @@ export const SelectionExtensionDropdownItem = ({
 		}
 	}, []);
 
-	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
-	// Adds size="small" to icons for better visual co	nsistency in block menu.
-	// Adds overflow: visible to SVGs to fix when view port is in different zoom level, sometimes the right edge of the icon is cut off.
-	// To clean up: simplify conditional to just check if extensionLocation is inline-toolbar or block-menu,
-	// and always apply svgOverflowStyles wrapper for block-menu items.
 	const iconSize =
-		(extensionLocation === 'inline-toolbar' || extensionLocation === 'block-menu') &&
-		(fg('platform_editor_block_menu_v2_patch_1') || fg('platform_editor_block_menu_v2_patch_3'))
+		extensionLocation === 'inline-toolbar' || extensionLocation === 'block-menu'
 			? 'small'
 			: undefined;
 	const iconElement = IconComponent ? <IconComponent size={iconSize} label="" /> : undefined;
 	const elemBeforeIcon =
-		iconElement &&
-		extensionLocation === 'block-menu' &&
-		fg('platform_editor_block_menu_v2_patch_3') ? (
+		iconElement && extensionLocation === 'block-menu' ? (
 			<span css={styles.svgOverflow}>{iconElement}</span>
 		) : (
 			iconElement

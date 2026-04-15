@@ -15,9 +15,11 @@ export const requiresCrossProductAuth = ({
 };
 
 export const fetchTokenForSourceProduct = ({
+	contentAri,
 	contentId,
 	sourceProduct,
 }: {
+	contentAri: string;
 	contentId: string;
 	sourceProduct?: SyncBlockProduct;
 }): Promise<TokenData> => {
@@ -25,7 +27,7 @@ export const fetchTokenForSourceProduct = ({
 		case 'confluence-page':
 			return fetchMediaToken(contentId);
 		case 'jira-work-item':
-			return fetchJiraMediaToken(contentId);
+			return fetchJiraMediaToken(contentAri);
 		default:
 			throw new Error(`Unsupported source product for token fetch: ${sourceProduct}`);
 	}

@@ -11,7 +11,17 @@ export const mediaEmojiId = {
 	fallback: ':media:',
 };
 
-export const mediaEmoji = {
+export const mediaEmoji: {
+    altRepresentation: {
+        height: number;
+        mediaPath: "https://media.example.com/alt-path-to-image.png";
+        width: number;
+    }; category: string; fallback: string; id: string; name: string; order: number; representation: {
+        height: number;
+        mediaPath: "https://media.example.com/path-to-image.png";
+        width: number;
+    }; searchable: boolean; shortName: string; skinVariations: never[]; type: string;
+} = {
 	...mediaEmojiId,
 	name: 'Media example',
 	type: customType,

@@ -13,7 +13,6 @@ import {
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorAnalyticsAPI } from '../analytics';
@@ -22,7 +21,7 @@ import type { BreakoutEventPayload } from '../analytics/types/breakout-events';
 import type { GuidelineConfig } from '../guideline';
 import { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN } from '../styles';
 import type { EditorContainerWidth, getPosHandlerNode } from '../types';
-import { browser as browserLegacy, getBrowserInfo } from '../utils/browser';
+import { getBrowserInfo } from '../utils/browser';
 
 import Resizer from './Resizer';
 import { ResizerBreakoutModeLabel } from './ResizerBreakoutModeLabel';
@@ -157,9 +156,7 @@ const BreakoutResizer = ({
 		dynamicFullWidthGuidelineOffset,
 	);
 
-	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-		? getBrowserInfo()
-		: browserLegacy;
+	const browser = getBrowserInfo();
 
 	useEffect(() => {
 		if (displayGuidelines) {

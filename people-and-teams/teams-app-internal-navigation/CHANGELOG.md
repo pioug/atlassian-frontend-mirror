@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-navigation
 
+## 1.8.3
+
+### Patch Changes
+
+- [`9193f92bade74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9193f92bade74) -
+  Migrate examples to use playground package
+
 ## 1.8.2
 
 ### Patch Changes

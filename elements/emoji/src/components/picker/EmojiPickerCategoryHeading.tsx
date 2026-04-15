@@ -4,7 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 import { isMessagesKey } from '../../util/type-helpers';
 import { messages } from '../i18n';
 import type { CategoryGroupKey } from './categories';

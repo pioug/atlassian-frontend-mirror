@@ -22,7 +22,7 @@ import {
 	injectIntl,
 	type WithIntlProps,
 	type WrappedComponentProps,
-} from 'react-intl-next';
+} from 'react-intl';
 import TextField from '@atlaskit/textfield';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import AkButton from '@atlaskit/button/standard-button';

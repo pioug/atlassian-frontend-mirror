@@ -1,4 +1,4 @@
-import type { MessageDescriptor } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl';
 
 import { type EmojiProvider, supportsUploadFeature } from '../../api/EmojiResource';
 

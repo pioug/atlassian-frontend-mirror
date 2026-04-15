@@ -1,4 +1,4 @@
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { isTextSelection } from '@atlaskit/editor-common/utils';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
@@ -7,7 +7,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export const inlineCursorTargetStateKey: PluginKey = new PluginKey('inlineCursorTargetPlugin');
 
@@ -112,9 +111,7 @@ export default (): SafePlugin<InlineCursorTargetState> => {
 				// TODO: ED-26959 - We may be able to remove this when playing the following ticket:
 				// https://product-fabric.atlassian.net/browse/ED-14938
 				keydown: (view: EditorView, event: Event) => {
-					const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-						? getBrowserInfo()
-						: browserLegacy;
+					const browser = getBrowserInfo();
 					if (
 						browser.safari &&
 						event instanceof KeyboardEvent &&

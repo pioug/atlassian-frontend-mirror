@@ -1,4 +1,4 @@
-import { defineMessages, type MessageDescriptor } from 'react-intl-next';
+import { defineMessages, type MessageDescriptor } from 'react-intl';
 
 import type { AnonymousAssetId } from './types';
 

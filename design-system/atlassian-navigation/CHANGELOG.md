@@ -1,5 +1,16 @@
 # @atlaskit/atlassian-navigation
 
+## 5.7.0
+
+### Minor Changes
+
+- [`8b1c5f296653c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b1c5f296653c) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.6.18
 
 ### Patch Changes

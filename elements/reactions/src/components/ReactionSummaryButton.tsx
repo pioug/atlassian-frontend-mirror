@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { forwardRef, useMemo, type ForwardRefExoticComponent, type RefAttributes } from 'react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import { ResourcedEmoji } from '@atlaskit/emoji';
 import { messages } from '../shared/i18n';
 import { RESOURCED_EMOJI_COMPACT_HEIGHT } from '../shared/constants';

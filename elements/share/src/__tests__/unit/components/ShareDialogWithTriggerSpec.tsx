@@ -8,7 +8,7 @@ import {
 	IntlProvider,
 	type IntlShape,
 	type WrappedComponentProps,
-} from 'react-intl-next';
+} from 'react-intl';
 
 import WorldIcon from '@atlaskit/icon/core/globe';
 import Popup from '@atlaskit/popup';

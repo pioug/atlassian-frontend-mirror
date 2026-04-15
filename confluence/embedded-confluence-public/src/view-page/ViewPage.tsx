@@ -4,7 +4,7 @@ import {
 	ViewPage as ViewPageCommon,
 	type ViewPageProps as Props,
 } from '@atlassian/embedded-confluence-common';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 export type ViewPageProps = Omit<Props, 'locale'>;
 

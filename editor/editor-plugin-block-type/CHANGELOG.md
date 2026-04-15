@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-block-type
 
+## 12.1.33
+
+### Patch Changes
+
+- [`1bd298ad0a152`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bd298ad0a152) -
+  [ux] EDITOR-6280 Clean up platform_editor_block_menu_v2_patch_3 to fix icon and copy in jira block
+  menu
+- Updated dependencies
+
+## 12.1.32
+
+### Patch Changes
+
+- [`4e313eb8fb024`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e313eb8fb024) -
+  Add TextNormalIcon for normal text block type, gate behind
+  platform_editor_change_normal_text_icon, exclude editor-toolbar from barrel ratchet
+- Updated dependencies
+
+## 12.1.31
+
+### Patch Changes
+
+- [`73b2fc243f544`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73b2fc243f544) -
+  Cleaning up getBrowserInfo which was behind experiment platform_editor_hydratable_ui and is now
+  rolled out
+- Updated dependencies
+
+## 12.1.30
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.29
 
 ### Patch Changes

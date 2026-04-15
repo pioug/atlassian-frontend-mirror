@@ -5,7 +5,7 @@
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 import React, { type FormEvent, PureComponent } from 'react';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 import { css, jsx } from '@compiled/react';
 import ColorPalette from './internal/color-palette';
 import { type Color } from './Status';

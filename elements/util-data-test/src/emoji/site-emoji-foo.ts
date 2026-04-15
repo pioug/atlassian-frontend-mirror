@@ -1,4 +1,10 @@
-export const siteEmojiFoo = {
+export const siteEmojiFoo: {
+    category: string; creatorUserId: string; fallback: string; id: string; name: string; order: number; representation: {
+        height: number;
+        imagePath: string;
+        width: number;
+    }; searchable: boolean; shortName: string; skinVariations: never[]; type: string;
+} = {
 	id: 'foo',
 	name: 'foo',
 	fallback: ':foo:',

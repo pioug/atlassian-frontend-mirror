@@ -3,7 +3,7 @@ import React from 'react';
 import { Reactions, ReactionStatus } from '../../../src/';
 import type { ReactionSummary } from '../../types';
 import { Constants as ExampleConstants } from '../../../examples/utils';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { getMockEmojisForReactions } from '@atlaskit/editor-test-helpers/mock-emojis';
 

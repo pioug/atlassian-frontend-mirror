@@ -1,5 +1,24 @@
 # @atlaskit/editor-synced-block-provider
 
+## 4.5.4
+
+### Patch Changes
+
+- [`dc48cb1948508`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc48cb1948508) -
+  Return contentAri from retrieveSyncBlockParentInfo to be used for fetchJiraMediaToken.
+
+## 4.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.5.1
 
 ### Patch Changes

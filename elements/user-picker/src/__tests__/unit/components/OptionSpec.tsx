@@ -1,6 +1,6 @@
 import { components } from '@atlaskit/select';
 import noop from 'lodash/noop';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { mount } from 'enzyme';
 import React, { type ReactChildren } from 'react';

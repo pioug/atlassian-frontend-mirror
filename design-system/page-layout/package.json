@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/page-layout",
-	"version": "4.2.40",
+	"version": "4.3.0",
 	"description": "A collection of components which let you compose an application's page layout.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,7 +25,21 @@
 	],
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./page-layout": "./src/entry-points/page-layout.tsx",
+		"./main": "./src/entry-points/main.tsx",
+		"./content": "./src/entry-points/content.tsx",
+		"./right-sidebar": "./src/entry-points/right-sidebar.tsx",
+		"./left-sidebar": "./src/entry-points/left-sidebar.tsx",
+		"./left-sidebar-without-resize": "./src/entry-points/left-sidebar-without-resize.tsx",
+		"./right-panel": "./src/entry-points/right-panel.tsx",
+		"./left-panel": "./src/entry-points/left-panel.tsx",
+		"./banner-slot": "./src/entry-points/banner-slot.tsx",
+		"./top-navigation": "./src/entry-points/top-navigation.tsx",
+		"./use-custom-skip-link": "./src/entry-points/use-custom-skip-link.tsx",
+		"./constants": "./src/entry-points/constants.tsx",
+		"./sidebar-resize-context": "./src/entry-points/sidebar-resize-context.tsx",
+		"./types": "./src/entry-points/types.tsx"
 	},
 	"atlassian": {
 		"react-compiler": {

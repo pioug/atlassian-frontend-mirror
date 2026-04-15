@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import { cx } from '@atlaskit/css';
 import { css, cssMap, jsx } from '@compiled/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';

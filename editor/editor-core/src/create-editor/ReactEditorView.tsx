@@ -818,8 +818,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				}
 
 				if (
-					isChromeless(props.editorProps.appearance) &&
-					expValEquals('platform_editor_focus_on_chromeless_editor', 'isEnabled', true)
+					isChromeless(props.editorProps.appearance)
 				) {
 					focusTimeoutId.current = handleEditorFocus(editorView);
 				}

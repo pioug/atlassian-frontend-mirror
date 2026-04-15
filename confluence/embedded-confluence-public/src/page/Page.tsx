@@ -6,7 +6,7 @@ import {
 	type EditPageProps,
 	type ViewPageProps,
 } from '@atlassian/embedded-confluence-common';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { ViewPage } from '../view-page';
 import { EditPage } from '../edit-page';

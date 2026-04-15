@@ -1,4 +1,4 @@
-import { createIntl, createIntlCache, type IntlShape } from 'react-intl-next';
+import { createIntl, createIntlCache, type IntlShape } from 'react-intl';
 
 import { getDocument } from '@atlaskit/browser-apis';
 

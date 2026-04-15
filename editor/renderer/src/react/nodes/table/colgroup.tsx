@@ -8,7 +8,6 @@ import {
 	akEditorTableLegacyCellMinWidth,
 	akEditorTableCellMinWidth,
 } from '@atlaskit/editor-shared-styles';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { SharedTableProps } from './types';
 import { useFeatureFlags } from '../../../use-feature-flags';
@@ -439,10 +438,7 @@ export const Colgroup = (props: SharedTableProps): React.JSX.Element | null => {
 				(props.rendererAppearance === 'max' &&
 					(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
 						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))) ||
-				(props.rendererAppearance === 'comment' &&
-					editorExperiment('support_table_in_comment', true, { exposure: true })) ||
-				(props.rendererAppearance === 'comment' &&
-					editorExperiment('support_table_in_comment_jira', true, { exposure: true })),
+				props.rendererAppearance === 'comment',
 			isTableFixedColumnWidthsOptionEnabled:
 				isTableFixedColumnWidthsOptionEnabled &&
 				(props.rendererAppearance === 'full-page' ||
@@ -451,7 +447,6 @@ export const Colgroup = (props: SharedTableProps): React.JSX.Element | null => {
 						(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
 							expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)))),
 		});
-
 	if (!colStyles) {
 		return null;
 	}

@@ -1,13 +1,13 @@
 import React, { type ReactElement } from 'react';
 import { act, render, type RenderOptions, type RenderResult } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const IntlWrapper = ({ children, locale = 'en' }: React.PropsWithChildren<{ locale?: string }>) => {
 	return <IntlProvider locale={locale}>{children}</IntlProvider>;
 };
 
 /**
- * Render the given element from testing-library wrapped in react-intl-next context
+ * Render the given element from testing-library wrapped in react-intl context
  * @param ui React element
  * @param options optional extral options
  * @returns

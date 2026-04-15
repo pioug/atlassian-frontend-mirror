@@ -7,7 +7,7 @@ import { type MockEmojiResourceConfig } from './types';
 
 export const getEmojiResourceWithStandardAndAtlassianEmojis = (
 	config?: MockEmojiResourceConfig,
-) => {
+): Promise<any> => {
 	const standardEmojis: EmojiDescription[] = getStandardEmojis();
 	const atlassianEmojis: EmojiDescription[] = getAtlassianEmojis();
 

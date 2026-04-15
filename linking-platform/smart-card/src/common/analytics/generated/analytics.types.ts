@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::ba09a8b50ef409ef59594023566396c8>>
+ * @codegen <<SignedSource::1c5f802d8b5609627e5ffbebf73bad6e>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
@@ -174,13 +174,12 @@ export type SmartLinkIframeFocusedAttributesType = {
 	id: string;
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
 	definitionId: string | null;
-	interactionType?: 'mouseenter' | 'mouseleave' | 'focus';
+	interactionType?: 'mouseenter' | 'mouseleave' | 'focus' | null;
 };
 export type ApplicationAccountConnectedAttributesType = {
 	definitionId: string | null;
 };
 export type ApplicationAccountAuthStartedAttributesType = {};
-export type ButtonClickedDismissAttributesType = {};
 export type SmartLinkQuickActionStartedAttributesType = {
 	smartLinkActionType:
 		| 'FollowEntityAction'
@@ -367,6 +366,7 @@ export type SmartLinkRenderFailedAttributesType = {
 	errorInfo: Record<string, unknown>;
 	id: string | null;
 };
+export type ButtonClickedDismissAttributesType = {};
 export type SmartLinkClickedSmartlinkClickAnalyticsWorkflowsAttributesType = {
 	thirdPartyARI: string;
 	eventName: string;
@@ -375,9 +375,6 @@ export type SmartLinkClickedSmartlinkClickAnalyticsWorkflowsAttributesType = {
 };
 
 export type AnalyticsEventAttributes = {
-	/**
-	 * Fired when a button is clicked to dismiss a hover card */
-	'ui.button.clicked.dismiss': ButtonClickedDismissAttributesType;
 	/**
 	 * Fired when an copy link is clicked */
 	'ui.button.clicked.copyLink': ButtonClickedCopyLinkAttributesType;
@@ -493,8 +490,8 @@ export type AnalyticsEventAttributes = {
 	 * fires an event that represents when a user clicks on a Smart Link. */
 	'ui.smartLink.clicked': SmartLinkClickedAttributesType;
 	/**
-	 * fires an event that represents when a user visits a Smart Link target. */
-	'ui.smartLink.visited': SmartLinkVisitedAttributesType;
+	 * fires a tracking event that represents when a user visits a Smart Link target. */
+	'track.smartLink.visited': SmartLinkVisitedAttributesType;
 	/**
 	 * fires an event that represents when a user clicks on a Smart Link. */
 	'ui.smartLink.clicked.titleGoToLink': SmartLinkClickedTitleGoToLinkAttributesType;
@@ -550,6 +547,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fires an event that represents when a user clicks on a Smart Link to track analytics for the 3P Workflows team */
 	'ui.smartLink.clicked.smartlinkClickAnalyticsWorkflows': SmartLinkClickedSmartlinkClickAnalyticsWorkflowsAttributesType;
+	/**
+	 * fires an event that represents when a user dismisses a hover card */
+	'ui.button.clicked.dismiss': ButtonClickedDismissAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

@@ -10,7 +10,7 @@ import type { TypeaheadProps } from '../example-helpers/typeahead-props';
 import { EmojiTypeAhead } from '../src/typeahead';
 import type { EmojiId, OptionalEmojiDescription } from '../src/types';
 import debug from '../src/util/logger';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const loremContent = (
 	<div>

@@ -8,13 +8,12 @@ import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 import { base, keyName } from 'w3c-keyname';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { editorCommandToPMCommand } from '../preset/editor-commands';
 import type { Command } from '../types/command';
 import type { EditorCommand } from '../types/editor-command';
-import { browser as browserLegacy, getBrowserInfo } from '../utils/browser';
+import { getBrowserInfo } from '../utils/browser';
 
 export const addAltText: Keymap = makeKeyMapWithCommon('Add Alt Text', 'Mod-Alt-y');
 export const toggleViewChanges: Keymap = makeKeyMapWithCommon('View changes', 'Mod-Alt-z');
@@ -65,10 +64,6 @@ export const redo: Keymap = makeKeymap('Redo', 'Ctrl-y', 'Mod-Shift-z');
 export const openHelp: Keymap = makeKeyMapWithCommon('Open Help', 'Mod-/');
 export const addLink: Keymap = makeKeyMapWithCommon('Link', 'Mod-k');
 export const addInlineComment: Keymap = makeKeyMapWithCommon('Annotate', 'Mod-Alt-c');
-// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
-// Updated wording from "Copy link to block" to "Copy link to selection" for better UX clarity.
-// The actual displayed text is conditionally shown in the UI component based on the flag.
-// To clean up: This can remain as-is since it's the canonical name for the action.
 export const copyLinkToBlock: Keymap = makeKeyMapWithCommon('Copy link to selection', 'Mod-Alt-a');
 export const submit: Keymap = makeKeyMapWithCommon('Submit Content', 'Mod-Enter');
 export const enter: Keymap = makeKeyMapWithCommon('Enter', 'Enter');
@@ -231,9 +226,7 @@ const tooltipShortcutStyle = css({
 
 export function formatShortcut(keymap: Keymap): string | undefined {
 	let shortcut: string;
-	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-		? getBrowserInfo()
-		: browserLegacy;
+	const browser = getBrowserInfo();
 	if (browser.mac) {
 		// for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys
 		shortcut = keymap.mac
@@ -367,9 +360,7 @@ export function findShortcutByDescription(description: string): string | undefin
 }
 
 export function findShortcutByKeymap(keymap: Keymap): string | undefined {
-	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-		? getBrowserInfo()
-		: browserLegacy;
+	const browser = getBrowserInfo();
 	if (browser.mac) {
 		return keymap.mac;
 	}
@@ -379,9 +370,7 @@ export function findShortcutByKeymap(keymap: Keymap): string | undefined {
 
 export function getAriaKeyshortcuts(keymap: Keymap | string | undefined): string | undefined {
 	let keyShortcuts;
-	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-		? getBrowserInfo()
-		: browserLegacy;
+	const browser = getBrowserInfo();
 	if (typeof keymap === 'string') {
 		keyShortcuts = keymap;
 	} else if (typeof keymap === 'object') {
@@ -539,9 +528,7 @@ export function bindKeymapWithEditorCommand(
 
 export function findKeyMapForBrowser(keyMap: Keymap): string | undefined {
 	if (keyMap) {
-		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-			? getBrowserInfo()
-			: browserLegacy;
+		const browser = getBrowserInfo();
 		if (browser.mac) {
 			return keyMap.mac;
 		}

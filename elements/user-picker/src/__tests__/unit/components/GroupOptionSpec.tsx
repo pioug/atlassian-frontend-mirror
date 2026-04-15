@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import React, { type ReactElement } from 'react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import { token } from '@atlaskit/tokens';
 

@@ -9,7 +9,7 @@ import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { loggedUser } from '@atlaskit/util-data-test/logged-user';
 
 import type { EmojiProvider } from '../src/resource';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 export default function EmojiUploaderDisableFocusLock(): React.JSX.Element {
 	const [disableFocusLock, setDisableFocusLock] = useState(false);

@@ -11,7 +11,7 @@ const validOption: EmailValidationResponse[] = ['VALID', 'POTENTIAL'];
 
 const isValidNewOption =
 	(isValidEmail: EmailValidator = defaultIsValidEmail) =>
-	(inputValue?: string) =>
+	(inputValue?: string): boolean | "" | undefined =>
 		inputValue && validOption.includes(isValidEmail(inputValue));
 
 const getNewOptionData = (inputValue: string): Option => ({
@@ -40,7 +40,7 @@ const isOptionDisabled =
 		return !!option.isDisabled;
 	};
 
-function creatableProps(isValidEmail?: EmailValidator) {
+function creatableProps(isValidEmail?: EmailValidator): { allowCreateWhileLoading: boolean; createOptionPosition: string; formatCreateLabel: (inputText?: string) => string; getNewOptionData: (inputValue: string) => Option; isOptionDisabled: (option: Option) => boolean; isValidNewOption: (inputValue?: string) => boolean | "" | undefined; } {
 	return {
 		allowCreateWhileLoading: true,
 		createOptionPosition: 'first',

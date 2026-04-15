@@ -1,4 +1,5 @@
 import React from 'react';
+import type { EmailOptionProps } from './main';
 
 const AsyncEmailOption = React.lazy(() =>
 	import(
@@ -8,6 +9,6 @@ const AsyncEmailOption = React.lazy(() =>
 			default: module.EmailOption,
 		};
 	}),
-);
+) as React.LazyExoticComponent<React.ComponentType<EmailOptionProps>>;
 
 export default AsyncEmailOption;

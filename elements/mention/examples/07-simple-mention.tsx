@@ -11,7 +11,7 @@ import {
 	MENTION_ID_WITH_CONTAINER_ACCESS,
 	MENTION_ID_WITH_NO_ACCESS,
 } from '../src/__tests__/unit/_test-constants';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const padding = { padding: '10px' };
 

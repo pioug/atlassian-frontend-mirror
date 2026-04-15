@@ -7,7 +7,7 @@ import { getMockEmojis, getFallbackEmojis } from '@atlaskit/editor-test-helpers/
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 
 import type { EmojiProvider } from '../../resource';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const useProvider = (uploadSupported: boolean, useFallback: boolean = false) => {
 	return useMemo<Promise<EmojiProvider>>(() => {

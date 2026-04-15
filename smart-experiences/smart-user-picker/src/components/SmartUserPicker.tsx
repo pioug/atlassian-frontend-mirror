@@ -4,7 +4,7 @@ import debounce from 'lodash/debounce';
 import { v4 as uuidV4 } from 'uuid';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
-import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type WrappedComponentProps, injectIntl } from 'react-intl';
 import { type CustomData, type UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
 import UserPicker, {
 	type OptionData,

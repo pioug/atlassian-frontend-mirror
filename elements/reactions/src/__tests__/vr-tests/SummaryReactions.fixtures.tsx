@@ -8,7 +8,7 @@ import AddIcon from '@atlaskit/icon/core/add';
 import { token } from '@atlaskit/tokens';
 import type { ReactionSummary } from '../../types';
 import { Constants as ExampleConstants } from '../../../examples/utils';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const containerAri = `${ExampleConstants.ContainerAriPrefix}1`;
 const ari = `${ExampleConstants.AriPrefix}1`;

@@ -10,7 +10,7 @@ import {
 	INPUT_METHOD,
 	TABLE_OVERFLOW_CHANGE_TRIGGER,
 } from '@atlaskit/editor-common/analytics';
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
@@ -741,9 +741,7 @@ export const TableResizer = ({
 	const handleKeyDown = useCallback(
 		(event: KeyboardEvent): void => {
 			const isBracketKey = event.code === 'BracketRight' || event.code === 'BracketLeft';
-			const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-				? getBrowserInfo()
-				: browserLegacy;
+			const browser = getBrowserInfo();
 
 			const metaKey = browser.mac ? event.metaKey : event.ctrlKey;
 
@@ -781,9 +779,7 @@ export const TableResizer = ({
 		const resizeHandleThumbEl = resizerRef.current.getResizerThumbEl();
 
 		const globalKeyDownHandler = (event: KeyboardEvent): void => {
-			const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-				? getBrowserInfo()
-				: browserLegacy;
+			const browser = getBrowserInfo();
 			const metaKey = browser.mac ? event.metaKey : event.ctrlKey;
 
 			if (!isTableSelected) {

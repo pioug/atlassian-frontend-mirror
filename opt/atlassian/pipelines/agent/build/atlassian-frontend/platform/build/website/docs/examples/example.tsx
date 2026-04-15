@@ -45,7 +45,7 @@ const wrapperStyles = cssMap({
 	},
 });
 
-export function DefaultExample() {
+export function DefaultExample(): JSX.Element {
 	return (
 		<div css={wrapperStyles.root}>
 			<Example
@@ -60,7 +60,7 @@ export function DefaultExample() {
 	);
 }
 
-export function DefaultOpenExample() {
+export function DefaultOpenExample(): JSX.Element {
 	return (
 		<div css={wrapperStyles.root}>
 			<Example
@@ -76,7 +76,7 @@ export function DefaultOpenExample() {
 	);
 }
 
-export function SourceOnlyExample() {
+export function SourceOnlyExample(): JSX.Element {
 	return (
 		<div css={wrapperStyles.root}>
 			<Example
@@ -92,7 +92,7 @@ export function SourceOnlyExample() {
 	);
 }
 
-export function SourceOnlyOpenExample() {
+export function SourceOnlyOpenExample(): JSX.Element {
 	return (
 		<div css={wrapperStyles.root}>
 			<Example

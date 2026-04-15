@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { useMessages } from '../services/use-messages';
 import { useSafeIntl } from '../services/use-safe-intl';

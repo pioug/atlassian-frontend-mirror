@@ -1,6 +1,6 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import {
 	copyHTMLToClipboard,
 	copyHTMLToClipboardPolyfill,
@@ -16,7 +16,6 @@ import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations
 import type { MarkType, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CopyButtonPlugin } from '../copyButtonPluginType';
@@ -155,9 +154,7 @@ export const createToolbarCopyCommandForNode =
 			} else {
 				if (domNode) {
 					const div = document.createElement('div');
-					const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-						? getBrowserInfo()
-						: browserLegacy;
+					const browser = getBrowserInfo();
 					div.appendChild(domNode);
 
 					// if copying inline content

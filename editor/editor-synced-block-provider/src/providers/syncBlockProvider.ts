@@ -329,11 +329,13 @@ export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
 		switch (sourceProduct) {
 			case 'confluence-page':
 				return {
+					contentAri: sourceAri,
 					contentId: getPageIdAndTypeFromConfluencePageAri({ ari: sourceAri }).id,
 					contentProduct: sourceProduct,
 				};
 			case 'jira-work-item':
 				return {
+					contentAri: sourceAri,
 					contentId: sourceAri,
 					contentProduct: sourceProduct,
 				};

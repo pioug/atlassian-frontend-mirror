@@ -31,7 +31,7 @@ import { GroupHighlight } from '@atlaskit/user-picker';
 import { GroupType } from '@atlaskit/user-picker';
 import { HighlightRange } from '@atlaskit/user-picker';
 import { InputActionTypes } from '@atlaskit/user-picker';
-import { IntlShape } from 'react-intl-next';
+import { IntlShape } from 'react-intl';
 import { isEmail } from '@atlaskit/user-picker';
 import { isTeam } from '@atlaskit/user-picker';
 import { isUser } from '@atlaskit/user-picker';

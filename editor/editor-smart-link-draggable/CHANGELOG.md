@@ -1,5 +1,14 @@
 # @atlaskit/editor-smart-link-draggable
 
+## 0.5.0
+
+### Minor Changes
+
+- [`e643f1adf62c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e643f1adf62c9) -
+  Add isChangeboardTarget prop to SmartLinkDraggable. When true, renders
+  data-spotlight-target="smart-link-draggable-changeboard" on the inline card wrapper element,
+  enabling consumers to anchor to a specific smart link in the editor DOM.
+
 ## 0.4.3
 
 ### Patch Changes

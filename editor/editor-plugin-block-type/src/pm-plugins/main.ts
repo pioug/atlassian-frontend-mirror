@@ -1,6 +1,6 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	EditorCommand,
@@ -232,9 +232,7 @@ export const createPlugin = (
 					headingLevel = HEADING_NUMPAD_KEYS.indexOf(event.keyCode);
 				}
 
-				const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-					? getBrowserInfo()
-					: browserLegacy;
+				const browser = getBrowserInfo();
 
 				if (headingLevel > -1 && event.altKey) {
 					if (browser.mac && event.metaKey) {

@@ -58,7 +58,6 @@ export function BreakoutSSRInlineScript({
 export function createBreakoutInlineScript(id: number, shouldSkipScript: { table: boolean }) {
 	const flags = {
 		platform_editor_fix_media_in_renderer: fg('platform_editor_fix_media_in_renderer'),
-		platform_editor_fix_wide_media_in_renderer: fg('platform_editor_fix_wide_media_in_renderer'),
 		platform_editor_renderer_extension_width_fix: expValEquals(
 			'platform_editor_renderer_extension_width_fix',
 			'isEnabled',
@@ -242,16 +241,13 @@ function applyBreakoutAfterSSR(
 
 		// Pixel based resizing has width set in pixels based on its width attribute
 		// Thus, no need to override width
-		if (flags['platform_editor_fix_wide_media_in_renderer'] && isPixelBasedResizing) {
+		if (isPixelBasedResizing) {
 			return;
 		}
 
 		if (WIDE_LAYOUT_MODES.includes(mode)) {
 			card.style.width = '100%';
-		} else if (
-			width &&
-			(!isPixelBasedResizing || flags['platform_editor_fix_wide_media_in_renderer'])
-		) {
+		} else if (width) {
 			card.style.width = `${width}%`;
 		}
 	};

@@ -3,7 +3,7 @@ import type { Extension } from '@codemirror/state';
 import { keymap as cmKeymap } from '@codemirror/view';
 import type { KeyBinding } from '@codemirror/view';
 
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
 import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { exitCode, selectAll } from '@atlaskit/editor-prosemirror/commands';
@@ -52,9 +52,7 @@ const codeBlockKeymap = ({
 	onMaybeNodeSelection,
 	customFindReplace,
 }: KeymapProps): readonly KeyBinding[] => {
-	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-		? getBrowserInfo()
-		: browserLegacy;
+	const browser = getBrowserInfo();
 	return [
 		{
 			key: 'ArrowUp',

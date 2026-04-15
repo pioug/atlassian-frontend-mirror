@@ -1,192 +1,180 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-	normal: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	smallText: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	heading1: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	heading1Description: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	heading2: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	heading2Description: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	heading3: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	heading3Description: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	heading4: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	heading4Description: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	heading5: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	heading5Description: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	heading6: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	heading6Description: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	blockquote: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	blockquoteDescription: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	codeblock: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	codeblockDescription: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	infoPanel: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	infoPanelDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	notePanel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	notePanelDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	successPanel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	successPanelDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	warningPanel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	warningPanelDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	errorPanel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	errorPanelDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	customPanel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	customPanelDescription: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	syncedBlock: {
-		id: string;
+	errorPanel: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
-	// New message with updated wording. To clean up: remove old message and feature flag check when flag is removed.
-	syncBlock: {
-		id: string;
+	errorPanelDescription: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	syncedBlockDescription: {
-		id: string;
+	heading1: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	heading1Description: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	heading2: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	heading2Description: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	heading3: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	heading3Description: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	heading4: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	heading4Description: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	heading5: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	heading5Description: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	heading6: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	heading6Description: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	infoPanel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	infoPanelDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	newLozenge: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	panel: {
-		id: string;
+	normal: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	textBoxAriaLabel: {
-		id: string;
+	notePanel: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	notePanelDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	other: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	panel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	smallText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	successPanel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	successPanelDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedBlock: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedBlockDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	warningPanel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	warningPanelDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	normal: {
@@ -359,13 +347,6 @@ export const messages: {
 		defaultMessage: 'Create synced block',
 		description: 'Inserts a synced block that auto-updates content across Atlassian apps',
 	},
-	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
-	// New message with updated wording. To clean up: remove old message and feature flag check when flag is removed.
-	syncBlock: {
-		id: 'fabric.editor.syncBlock',
-		defaultMessage: 'Sync block',
-		description: 'Inserts a synced block that auto-updates content across Atlassian apps',
-	},
 	syncedBlockDescription: {
 		id: 'fabric.editor.syncedBlock.description',
 		defaultMessage: 'Sync content across multiple locations',
@@ -380,12 +361,6 @@ export const messages: {
 		id: 'fabric.editor.panel',
 		defaultMessage: 'Panel',
 		description: 'Visually distinguishes your text by adding a panel',
-	},
-	textBoxAriaLabel: {
-		id: 'fabric.editor.aria.textbox',
-		defaultMessage: 'textbox',
-		description:
-			'This is the definition of the HTML role textbox, it needs to be translated in the same way that a textbox with a HTML role of textbox',
 	},
 	other: {
 		id: 'fabric.editor.other',

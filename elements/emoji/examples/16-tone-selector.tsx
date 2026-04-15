@@ -7,7 +7,7 @@ import ToneSelector from '../src/components/common/ToneSelector';
 import filters from '../src/util/filters';
 import { onToneSelected } from '../example-helpers';
 import { DEFAULT_TONE } from '../src/util/constants';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const FLAG = 'platform_suppression_removal_emoji_radio_a11y';
 

@@ -50,12 +50,12 @@
 		"@babel/runtime": "root:*",
 		"lodash": "root:*",
 		"memoize-one": "root:*",
-		"react-intl-next": "root:*",
 		"uuid": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-dom": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@atlaskit/select": "workspace:^",
@@ -67,7 +67,8 @@
 		"enzyme": "root:*",
 		"fetch-mock": "root:*",
 		"graphql-tag": "root:*",
-		"mock-apollo-client": "root:*"
+		"mock-apollo-client": "root:*",
+		"react-intl": "root:*"
 	},
 	"platform-feature-flags": {
 		"twcg-444-invite-usd-improvements-m2-gate": {

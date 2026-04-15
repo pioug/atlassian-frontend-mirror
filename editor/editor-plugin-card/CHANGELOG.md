@@ -1,5 +1,47 @@
 # @atlaskit/editor-plugin-card
 
+## 14.1.2
+
+### Patch Changes
+
+- [`ef22944bdbbdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef22944bdbbdf) -
+  Migrate smart link visited analytics from UI event to track event. The `ui.smartLink.visited`
+  event has been replaced with `track.smartLink.visited` to better capture engagement metrics for
+  smart links. This change is gated behind the `cc_integrations_editor_open_link_click_analytics`
+  feature flag and includes additional attributes (displayCategory, extensionKey, status,
+  statusDetails) when the flag is enabled.
+- Updated dependencies
+
+## 14.1.1
+
+### Patch Changes
+
+- [`73b2fc243f544`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73b2fc243f544) -
+  Cleaning up getBrowserInfo which was behind experiment platform_editor_hydratable_ui and is now
+  rolled out
+- Updated dependencies
+
+## 14.1.0
+
+### Minor Changes
+
+- [`e643f1adf62c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e643f1adf62c9) -
+  Add resolvedInlineSmartLinks to CardPluginState, a generic ordered list of inline smart links that
+  have resolved during the editing session. Each entry tracks pos, url, and source, with positions
+  remapped on document changes. InlineCardNodeView reads this list and passes isChangeboardTarget to
+  SmartLinkDraggable based on the first entry, enabling Product Onboarding spotlight targeting.
+  Gated behind cc_dnd_smart_link_changeboard_po_template_gate.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.7
 
 ### Patch Changes

@@ -5,7 +5,7 @@ import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 
 import type { EmojiProvider } from '../src/resource';
 import { ResourcedEmoji } from '../src/element';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 export default function Example(): React.JSX.Element {
 	return (

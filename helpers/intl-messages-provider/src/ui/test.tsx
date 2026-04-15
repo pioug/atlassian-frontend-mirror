@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
-import { defineMessages, IntlProvider, useIntl } from 'react-intl-next';
+import { defineMessages, IntlProvider, useIntl } from 'react-intl';
 
 import { default as IntlMessagesProvider } from './main';
 import { type I18NMessages } from './types';

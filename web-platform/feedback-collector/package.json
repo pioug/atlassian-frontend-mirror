@@ -54,19 +54,20 @@
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/textarea": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "root:*",
-		"react-intl-next": "root:*"
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-dom": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",
-		"buffer": "root:*"
+		"buffer": "root:*",
+		"react-intl": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

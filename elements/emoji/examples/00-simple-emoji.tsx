@@ -3,7 +3,7 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojiRepository } from '@atlaskit/util-data-test/get-emoji-repository';
 import { Emoji } from '../src/element';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const emojiService = getEmojiRepository();
 

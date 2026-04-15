@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.13.1
+
+### Patch Changes
+
+- [`1205cd35c3b71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1205cd35c3b71) -
+  Remove the platform_reset_post_interaction_on_new_interaction feature gate and always reset
+  post-interaction logging when a new interaction aborts the previous one.
+
 ## 5.13.0
 
 ### Minor Changes

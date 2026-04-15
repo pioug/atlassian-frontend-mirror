@@ -5,7 +5,7 @@ import { ExternalUserOption } from '../../../components/ExternalUserOption/main'
 import { type ExternalUser, type UserSource, type UserSourceResult } from '../../../types';
 import { ExusUserSourceProvider } from '../../../clients/UserSourceProvider';
 import { createAndFireEventInElementsChannel } from '../../../analytics';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 jest.mock('../../../../src/analytics', () => ({
 	__esModule: true,

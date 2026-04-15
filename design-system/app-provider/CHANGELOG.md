@@ -1,5 +1,12 @@
 # @atlaskit/app-provider
 
+## 4.3.0
+
+### Minor Changes
+
+- [`b6726adedaa66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6726adedaa66) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 4.2.3
 
 ### Patch Changes

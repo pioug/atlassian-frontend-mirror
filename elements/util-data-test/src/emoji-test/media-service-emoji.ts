@@ -5,7 +5,19 @@ import {
 	mediaEmojiImagePath,
 } from '../emoji-constants';
 
-export const mediaServiceEmoji = {
+export const mediaServiceEmoji: {
+    altRepresentations: {
+        XHDPI: {
+            height: number;
+            imagePath: "https://media.example.com/alt-path-to-image.png";
+            width: number;
+        };
+    }; category: string; fallback: string; id: string; name: string; order: number; representation: {
+        height: number;
+        imagePath: "https://media.example.com/path-to-image.png";
+        width: number;
+    }; searchable: boolean; shortName: string; type: string;
+} = {
 	id: 'media',
 	shortName: ':media:',
 	name: 'Media example',

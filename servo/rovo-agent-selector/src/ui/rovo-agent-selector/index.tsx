@@ -5,7 +5,7 @@
 
 import { useCallback, useMemo, useRef, useState } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import { graphql, usePaginationFragment } from 'react-relay';
 
 import { jsx } from '@atlaskit/css';

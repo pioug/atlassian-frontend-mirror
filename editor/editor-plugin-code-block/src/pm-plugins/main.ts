@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl-next';
 
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { updateCodeBlockWrappedStateNodeKeys } from '@atlaskit/editor-common/code-block';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
@@ -62,9 +62,7 @@ export const createPlugin = ({
 			const keyEvent = event as InputEvent;
 			const eventInputType = keyEvent.inputType;
 			const eventText = keyEvent.data as string;
-			const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-				? getBrowserInfo()
-				: browserLegacy;
+			const browser = getBrowserInfo();
 
 			if (
 				browser.ios &&

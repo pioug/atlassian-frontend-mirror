@@ -1,7 +1,13 @@
 import { mediaBaseUrl } from '../emoji-constants';
 import { expiresAt } from './expires-at';
 
-export const getTestMediaApiToken = () => ({
+export const getTestMediaApiToken = (): {
+    clientId: string;
+    collectionName: string;
+    expiresAt: number;
+    jwt: string;
+    url: string;
+} => ({
 	url: mediaBaseUrl,
 	clientId: '1234',
 	jwt: 'abcd',

@@ -4,7 +4,7 @@
  */
 import { useState, memo, useEffect, type MemoExoticComponent } from 'react';
 import { jsx, css } from '@compiled/react';
-import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor } from 'react-intl';
 import type { AnalyticsEventPayload, CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { token } from '@atlaskit/tokens';
 

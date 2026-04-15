@@ -8,7 +8,7 @@ import React from 'react';
 import { render as renderRTL, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mount, shallow } from 'enzyme';
-import { FormattedMessage, IntlProvider, type MessageDescriptor } from 'react-intl-next';
+import { FormattedMessage, IntlProvider, type MessageDescriptor } from 'react-intl';
 
 import Form, { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import SmartUserPicker, { type OptionData } from '@atlaskit/smart-user-picker';

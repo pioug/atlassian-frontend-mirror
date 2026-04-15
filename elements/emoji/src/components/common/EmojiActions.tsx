@@ -20,7 +20,7 @@ import {
 	injectIntl,
 	type WithIntlProps,
 	type WrappedComponentProps,
-} from 'react-intl-next';
+} from 'react-intl';
 import type {
 	EmojiDescription,
 	EmojiDescriptionWithVariations,

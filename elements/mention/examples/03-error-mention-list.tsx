@@ -1,6 +1,6 @@
 import { token } from '@atlaskit/tokens';
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { HttpError } from '../src/api/MentionResource';
 import MentionList from '../src/components/MentionList';
 

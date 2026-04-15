@@ -115,11 +115,6 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 		};
 	}, [onRemoveHoverDecoration]);
 
-	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
-	// Adds size="small" to icons for better visual consistency in block menu.
-	// To clean up: remove conditional, keep only size="small" version.
-	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
-
 	return (
 		<Box
 			onMouseEnter={onShowHoverDecoration}
@@ -128,7 +123,7 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 			onBlur={onRemoveHoverDecoration}
 		>
 			<ToolbarDropdownItem
-				elemBefore={<DeleteIcon color={token('color.icon.danger')} label="" size={iconSize} />}
+				elemBefore={<DeleteIcon color={token('color.icon.danger')} label="" size="small" />}
 				onClick={onClick}
 				testId={BLOCK_MENU_ACTION_TEST_ID.DELETE}
 			>

@@ -1,4 +1,4 @@
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	Browsers,
@@ -7,10 +7,9 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 function getCurrentBrowserAndVersion(
-	browserEnv: typeof browserLegacy | ReturnType<typeof getBrowserInfo>,
+	browserEnv: ReturnType<typeof getBrowserInfo>,
 ):
 	| {
 			browser: Browsers;
@@ -41,9 +40,7 @@ export default (featureFlags: FeatureFlags): SafePlugin =>
 				const browserConfigFeatureFlag: DisableSpellcheckByBrowser | undefined =
 					featureFlags.disableSpellcheckByBrowser;
 
-				const browserEnv = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-					? getBrowserInfo()
-					: browserLegacy;
+				const browserEnv = getBrowserInfo();
 
 				const userCurrentBrowserAndVersion = getCurrentBrowserAndVersion(browserEnv);
 				if (!userCurrentBrowserAndVersion || !browserConfigFeatureFlag) {

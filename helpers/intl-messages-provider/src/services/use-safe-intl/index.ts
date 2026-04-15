@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { createIntl, createIntlCache, IntlContext, type IntlShape } from 'react-intl-next';
+import { createIntl, createIntlCache, IntlContext, type IntlShape } from 'react-intl';
 
 import { DEFAULT_LOCALE_STATE } from '../../common/constants';
 

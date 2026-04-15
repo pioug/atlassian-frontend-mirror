@@ -4,7 +4,7 @@ import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 
 import useInlineActionNudgeExperiment from '../../../state/hooks/use-inline-action-nudge-experiment';
 import { HoverCard } from '../../HoverCard';
-import { RovoActionsButton } from '../common/rovo-actions-button';
+import { RovoActionsCta } from '../common/rovo-actions-cta';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 
@@ -68,7 +68,7 @@ export function InlineCardResolvedViewBase({
 	);
 }
 
-export function InlineCardResolvedViewFunctionalWithRovoActionsButton({
+export function InlineCardResolvedViewFunctionalWithRovoActions({
 	id,
 	title = '',
 	isSelected,
@@ -108,9 +108,11 @@ export function InlineCardResolvedViewFunctionalWithRovoActionsButton({
 				hideIconLoadingSkeleton={hideIconLoadingSkeleton}
 			/>
 			{renderLozenge(lozenge)}
-			{isEnabled && link && (
-				<RovoActionsButton testId={`${testId}-rovo-actions-button`} />
-			)}
+			{
+				isEnabled && link && (
+					<RovoActionsCta testId={`${testId}-rovo-actions-cta`} />
+				)
+			}
 		</Frame>
 	);
 
@@ -132,6 +134,6 @@ export function InlineCardResolvedViewFunctionalWithRovoActionsButton({
 
 export const InlineCardResolvedViewFunctional = componentWithFG(
 	'rovogrowth-640-inline-action-nudge-fg',
-	InlineCardResolvedViewFunctionalWithRovoActionsButton,
+	InlineCardResolvedViewFunctionalWithRovoActions,
 	InlineCardResolvedViewBase,
 );

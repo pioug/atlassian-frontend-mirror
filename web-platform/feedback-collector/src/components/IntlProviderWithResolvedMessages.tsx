@@ -1,6 +1,6 @@
 import React, { type PropsWithChildren, useEffect, useState } from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { getMessagesForLocale } from '../utils/i18n-get-messages-for-locale';
 

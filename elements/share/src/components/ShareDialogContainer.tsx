@@ -2,7 +2,7 @@ import React from 'react';
 
 import deepEqual from 'fast-deep-equal';
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 import assert from 'tiny-invariant';
 
 import {

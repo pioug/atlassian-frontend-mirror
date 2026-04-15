@@ -5,7 +5,7 @@ import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoj
 import { getMockEmojis } from '@atlaskit/editor-test-helpers/mock-emojis';
 import type { ReactionSummary } from '../../types';
 import { Constants as ExampleConstants } from '../../../examples/utils';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const containerAri = `${ExampleConstants.ContainerAriPrefix}1`;
 const ari = `${ExampleConstants.AriPrefix}1`;

@@ -3,7 +3,7 @@ import MentionItem from '../../../components/MentionItem';
 import { type Props } from '../../../components/MentionList';
 import { type MentionDescription, type LozengeProps } from '../../../types';
 import { screen, render } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 // Helper to make <React.Suspense> and React.lazy() work with Enzyme
 jest.mock('react', () => {

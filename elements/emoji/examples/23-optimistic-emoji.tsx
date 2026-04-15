@@ -1,6 +1,6 @@
 import { token } from '@atlaskit/tokens';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import {
 	ResourcedEmojiControl,
 	getEmojiConfig,

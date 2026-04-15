@@ -1,6 +1,6 @@
 import { token } from '@atlaskit/tokens';
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { onSelection, resourceProvider } from '../example-helpers';
 import SearchTextInput from '../example-helpers/demo-search-text-input';
 import ResourcedMentionList from '../src/components/ResourcedMentionList';

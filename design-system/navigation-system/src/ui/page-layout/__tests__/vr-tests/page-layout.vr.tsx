@@ -268,18 +268,14 @@ snapshot(AllSlots, {
 	...defaultOptions,
 	// this example doesn't render the ribbon slot, this is a smoke test to check the layout doesn't break
 	description: 'All slots minus ribbon with ribbon flag enabled',
-	featureFlags: { platform_dst_nav4_ribbon_slot: true },
 });
 
 snapshot(RibbonExample, {
 	...defaultOptions,
 	description: 'Ribbon with side nav',
-	// Both on and off to check the ribbon is hidden properly when the flag is off
-	featureFlags: { platform_dst_nav4_ribbon_slot: [true, false] },
 });
 
 snapshot(RibbonWithoutSideNavExample, {
 	...defaultOptions,
 	description: 'Ribbon without side nav',
-	featureFlags: { platform_dst_nav4_ribbon_slot: true },
 });

@@ -1,7 +1,7 @@
 import { token } from '@atlaskit/tokens';
 import { shallow } from 'enzyme';
 import React, { type ReactElement } from 'react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 import { render, screen } from '@testing-library/react';
 import { AvatarItemOption, textWrapper } from '../../../components/AvatarItemOption';
 import { SizeableAvatar } from '../../../components/SizeableAvatar';

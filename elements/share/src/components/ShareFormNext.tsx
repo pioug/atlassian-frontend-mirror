@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';

@@ -4203,6 +4203,16 @@ const metadata: IconMetadata = {
 		slackChannel: '#icon-contributions',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
+	'text-normal': {
+		keywords: ['text style', 'text regular', 'text normal', 'paragraph', 'body'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Confluence Lovability',
+		status: 'published',
+		id: '66428:22573',
+		usage: 'Reserved for representing Paragraph text style / Normal text style.',
+		createdAt: '2026-04-14T04:39:53.216Z',
+	},
 	'text-paragraph': {
 		keywords: ['text', 'paragraph break', 'AI', 'generative', 'reformat'],
 		categorization: 'multi-purpose',
@@ -4223,6 +4233,16 @@ const metadata: IconMetadata = {
 		id: '37184:3585',
 		usage: 'Confluence Editor AI action for rephrasing text',
 		createdAt: '2025-07-31T03:28:03.217Z',
+	},
+	'text-small': {
+		keywords: ['text style', 'sm', 'text small'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Confluence Lovability',
+		status: 'published',
+		id: '66429:33213',
+		usage: 'Reserved for representing small text style in text editor experiences.',
+		createdAt: '2026-04-14T04:39:53.216Z',
 	},
 	'text-subscript': {
 		keywords: ['subscript', 'text formatting'],

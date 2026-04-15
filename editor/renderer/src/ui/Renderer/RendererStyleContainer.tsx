@@ -50,7 +50,7 @@ import {
 } from '@atlaskit/editor-common/styles';
 import { bulletListSelector, orderedListSelector } from '@atlaskit/adf-schema';
 import { shadowClassNames, shadowObserverClassNames } from '@atlaskit/editor-common/ui';
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { isStickyScrollbarEnabled, isTableResizingEnabled } from '../../react/nodes/table';
 import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
@@ -87,9 +87,7 @@ const LAYOUT_BREAKPOINT_RENDERER = 629;
 const tableRowHeight = 44;
 
 const isBackgroundClipBrowserFixNeeded = () => {
-	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-		? getBrowserInfo()
-		: browserLegacy;
+	const browser = getBrowserInfo();
 	return browser.isGecko || browser.isIE || (browser.isMac && browser.isChrome);
 };
 
@@ -1558,6 +1556,12 @@ const baseOtherStylesDuplicateAnchor = css({
 	},
 });
 
+const hideExtensionStyles = css({
+	[`.${RendererCssClassName.EXTENSION}:has([data-extension-key='hide'])`]: {
+		marginTop: 0,
+	},
+});
+
 const extensionCenterAlignLegacyStyles = css({
 	[`.${RendererCssClassName.DOCUMENT}`]: {
 		[`.${RendererCssClassName.EXTENSION_CENTER_ALIGN}`]: {
@@ -2904,9 +2908,9 @@ type RendererStyleContainerProps = Pick<
 	| 'children'
 	| 'allowRendererContainerStyles'
 > & {
+	isInsideOfSyncBlock?: boolean;
 	isInsideSyncBlock?: boolean;
 	testId?: string;
-	isInsideOfSyncBlock?: boolean;
 };
 
 export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
@@ -2938,9 +2942,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 	const isCompactModeEnabled = contentMode === 'compact' && isCompactModeSupported;
 
 	const baseFontSize = getBaseFontSize(appearance, contentMode);
-	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-		? getBrowserInfo()
-		: browserLegacy;
+	const browser = getBrowserInfo();
 	return (
 		<div
 			role="none"
@@ -3113,6 +3115,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				fg('platform_synced_block_patch_9')
 					? syncBlockRendererStyles
 					: null,
+				expValEquals('platform_editor_hide_extension_renderer_support', 'isEnabled', true) &&
+					hideExtensionStyles,
 			]}
 			data-testid={testId}
 		>

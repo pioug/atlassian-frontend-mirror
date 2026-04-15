@@ -8,7 +8,6 @@ import { blockMenuMessages as messages } from '@atlaskit/editor-common/messages'
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import AkFlag, { FlagGroup, AutoDismissFlag } from '@atlaskit/flag';
 import SuccessIcon from '@atlaskit/icon/core/check-circle';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
@@ -57,11 +56,6 @@ export const Flag = ({ api }: Props): React.JSX.Element | undefined => {
 
 	const FlagComponent = flagMap[showFlag].autoDismiss ? AutoDismissFlag : AkFlag;
 
-	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
-	// Adds size="small" to icons for better visual consistency in block menu.
-	// To clean up: remove conditional, keep only size="small" version.
-	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
-
 	return (
 		<FlagGroup>
 			<FlagComponent
@@ -69,7 +63,7 @@ export const Flag = ({ api }: Props): React.JSX.Element | undefined => {
 				title={formatMessage(title)}
 				id={showFlag}
 				testId={showFlag}
-				icon={<SuccessIcon label="" color={token('color.icon.success')} size={iconSize} />}
+				icon={<SuccessIcon label="" color={token('color.icon.success')} size="small" />}
 			/>
 		</FlagGroup>
 	);

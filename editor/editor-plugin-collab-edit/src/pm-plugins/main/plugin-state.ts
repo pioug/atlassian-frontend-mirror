@@ -1,4 +1,4 @@
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import {
 	TELEPOINTER_DIM_CLASS,
 	TELEPOINTER_PULSE_CLASS,
@@ -14,7 +14,6 @@ import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ReadOnlyParticipants } from '../../types';
 import { Participants } from '../participants';
@@ -237,9 +236,7 @@ export class PluginState {
 		this.decorationSet.find().forEach((deco: any) => {
 			if (deco.type.toDOM) {
 				const hasTelepointerDimClass = deco.type.toDOM.classList.contains(TELEPOINTER_DIM_CLASS);
-				const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-					? getBrowserInfo()
-					: browserLegacy;
+				const browser = getBrowserInfo();
 
 				if (deco.from === selection.from && deco.to === selection.to) {
 					if (!hasTelepointerDimClass) {

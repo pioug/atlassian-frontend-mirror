@@ -948,20 +948,6 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'test';
 		values: ('control' | 'test')[];
 	};
-	// Added 2024-09-05
-	support_table_in_comment: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2024-10-08
-	support_table_in_comment_jira: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-01-23
 	platform_editor_to_use_pmr_for_collab_edit_none_ic: {
 		defaultValue: boolean;
@@ -1009,6 +995,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-13
+	platform_editor_hide_extension_renderer_support: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-12-22
 	platform_editor_sample_renderer_rendered_event: {
 		defaultValue: boolean;
@@ -1025,13 +1018,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-01-21
 	platform_editor_copy_link_a11y_inconsistency_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-01-08
-	platform_editor_focus_on_chromeless_editor: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1726,6 +1712,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-12
+	platform_editor_media_reliability_enhancements: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -1991,14 +1984,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2024-09-05
-	support_table_in_comment: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_support_table_in_comment_exp',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2024-09-07
 	platform_editor_exp_lazy_node_views: createBooleanExperiment({
 		productKeys: {
@@ -2070,14 +2055,6 @@ export const editorExperimentsConfig: {
 	single_column_layouts: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_single_column_layout',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2024-10-08
-	support_table_in_comment_jira: createBooleanExperiment({
-		productKeys: {
-			jira: 'platform_editor_support_table_in_comment_jira',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2783,8 +2760,8 @@ export const editorExperimentsConfig: {
 	// Added 2026-04-09 — Inline action nudge on resolved inline smart links
 	rovogrowth_640_inline_action_nudge: createBooleanExperiment({
 		productKeys: {
-			confluence: 'rovogrowth_640_inline_action_nudge_exp',
-			jira: 'rovogrowth_640_inline_action_nudge_exp',
+			confluence: 'rovogrowth-640-inline-action-nudge-exp',
+			jira: 'rovogrowth-640-inline-action-nudge-exp',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2844,6 +2821,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-04-13
+	platform_editor_hide_extension_renderer_support: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_hide_extension_renderer_support',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-12-22
 	platform_editor_sample_renderer_rendered_event: createBooleanExperiment({
 		productKeys: {
@@ -2888,14 +2873,6 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_move_node: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_move_node',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-01-08
-	platform_editor_focus_on_chromeless_editor: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_focus_on_chromeless_editor',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3714,6 +3691,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_static_css',
 			jira: 'platform_editor_static_css',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-12
+	platform_editor_media_reliability_enhancements: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_media_reliability_enhancements',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

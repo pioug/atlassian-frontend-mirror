@@ -10,7 +10,7 @@
 import type { Component } from 'react';
 import { mount, type ReactWrapper } from 'enzyme';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 export function mountWithIntl<P = {}, S = {}, C extends Component<P, S> = Component<P, S>>(
 	jsx: JSX.Element,

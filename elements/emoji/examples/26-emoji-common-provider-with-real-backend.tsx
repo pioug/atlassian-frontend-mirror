@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { getRealEmojiResource } from '../example-helpers/demo-resource-control';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import EmojiPicker, {
 	type EmojiId,
 	type EmojiProvider,

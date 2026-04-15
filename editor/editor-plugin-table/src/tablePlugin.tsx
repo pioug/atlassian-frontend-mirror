@@ -22,7 +22,7 @@ import {
 	INPUT_METHOD,
 	TABLE_ACTION,
 } from '@atlaskit/editor-common/analytics';
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { IconTable } from '@atlaskit/editor-common/icons';
 import { toggleTable, tooltip } from '@atlaskit/editor-common/keymaps';
@@ -670,9 +670,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 				});
 			}
 
-			const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-				? getBrowserInfo()
-				: browserLegacy;
+			const browser = getBrowserInfo();
 
 			// Workaround for table element breaking issue caused by composition event with an inputType of deleteCompositionText.
 			// https://github.com/ProseMirror/prosemirror/issues/934

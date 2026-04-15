@@ -2,11 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { withAnalyticsEvents } from '@atlaskit/analytics-next';
-import Select, { CreatableSelect } from '@atlaskit/select';
+import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import Select, { CreatableSelect, type PopupSelectProps, type SelectComponentsConfig, type StylesConfig } from '@atlaskit/select';
 import { UFOExperienceState } from '@atlaskit/ufo';
 import React from 'react';
-import { type UserPickerProps } from '../types';
+import { type Appearance, type DefaultValue, type LoadOptions, type LoadUserSource, type OnChange, type OnInputChange, type OnOption, type OnPicker, type OptionData, type UserPickerProps, type UserPickerRef, type Value } from '../types';
 import { BaseUserPickerWithoutAnalytics } from './BaseUserPicker';
 import { getStyles } from './styles';
 import { getComponents } from './components';
@@ -22,6 +22,7 @@ import { jsx } from '@compiled/react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 import { fg } from '@atlaskit/platform-feature-flags';
+import type { EmailValidator } from './emailValidation';
 
 export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps> {
 	ufoId: string;
@@ -58,7 +59,7 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 		}
 	}
 
-	render() {
+	render(): JSX.Element {
 		const {
 			emailLabel,
 			allowEmail,
@@ -138,4 +139,89 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 	}
 }
 
-export const UserPicker = withAnalyticsEvents()(UserPickerWithoutAnalytics);
+export const UserPicker: React.ForwardRefExoticComponent<Pick<Omit<{
+    addMoreMessage?: string;
+    allowEmail?: boolean;
+    anchor?: React.ComponentType<any>;
+    appearance?: Appearance;
+    ariaDescribedBy?: string;
+    ariaLabel?: string;
+    ariaLabelledBy?: string;
+    ariaLive?: "polite" | "off" | "assertive";
+    autoFocus?: boolean;
+    captureMenuScroll?: boolean;
+    clearValueLabel?: string;
+    closeMenuOnScroll?: boolean | EventListener;
+    components?: SelectComponentsConfig<OptionData, boolean>;
+    customGroupLabels?: Partial<Record<NonNullable<OptionData["type"]>, React.ReactNode>>;
+    defaultValue?: DefaultValue;
+    disableInput?: boolean;
+    emailLabel?: string;
+    fieldId: string | null;
+    footer?: React.ReactNode;
+    forwardedRef?: React.ForwardedRef<UserPickerRef>;
+    groupByTypeOrder?: NonNullable<OptionData["type"]>[];
+    header?: React.ReactNode;
+    height?: number | string;
+    includeTeamsUpdates?: boolean;
+    inputId?: string;
+    isClearable?: boolean;
+    isDisabled?: boolean;
+    isFooterFocused?: boolean;
+    isHeaderFocused?: boolean;
+    isInvalid?: boolean;
+    isLoading?: boolean;
+    isMulti?: boolean;
+    isValidEmail?: EmailValidator;
+    loadOptions?: LoadOptions;
+    loadOptionsErrorMessage?: (value: {
+        inputValue: string;
+    }) => React.ReactNode;
+    loadUserSource?: LoadUserSource;
+    maxOptions?: number;
+    maxPickerHeight?: number;
+    menuIsOpen?: boolean;
+    menuMinWidth?: number;
+    menuPortalTarget?: HTMLElement;
+    menuPosition?: "absolute" | "fixed";
+    menuShouldBlockScroll?: boolean;
+    minHeight?: number | string;
+    name?: string;
+    noBorder?: boolean;
+    noOptionsMessage?: ((value: {
+        inputValue: string;
+    }) => string | null | React.ReactNode) | null | React.ReactNode;
+    onBlur?: OnPicker;
+    onChange?: OnChange;
+    onClear?: OnPicker;
+    onClose?: OnPicker;
+    onFocus?: OnPicker;
+    onInputChange?: OnInputChange;
+    onKeyDown?: (event: React.KeyboardEvent) => void;
+    onOpen?: OnPicker;
+    onSelection?: OnOption;
+    open?: boolean;
+    openMenuOnClick?: boolean;
+    openMenuOnFocus?: boolean;
+    options?: OptionData[];
+    placeholder?: React.ReactNode;
+    placeholderAvatar?: "person" | "team";
+    popupSelectProps?: PopupSelectProps<OptionData>;
+    required?: boolean;
+    search?: string;
+    setIsFooterFocused?: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsHeaderFocused?: React.Dispatch<React.SetStateAction<boolean>>;
+    showClearIndicator?: boolean;
+    strategy?: "fixed" | "absolute";
+    styles?: StylesConfig;
+    subtle?: boolean;
+    suggestEmailsForDomain?: string;
+    textFieldBackgroundColor?: boolean;
+    UNSAFE_hasDraggableParentComponent?: boolean;
+    value?: Value;
+    width?: number | string;
+}, keyof WithAnalyticsEventsProps>, "search" | "appearance" | "height" | "minHeight" | "open" | "isDisabled" | "options" | "anchor" | "footer" | "header" | "subtle" | "value" | "placeholderAvatar" | "noOptionsMessage" | "placeholder" | "defaultValue" | "autoFocus" | "onFocus" | "onBlur" | "onChange" | "onKeyDown" | "name" | "emailLabel" | "addMoreMessage" | "allowEmail" | "ariaDescribedBy" | "ariaLabel" | "ariaLabelledBy" | "ariaLive" | "captureMenuScroll" | "clearValueLabel" | "closeMenuOnScroll" | "components" | "disableInput" | "fieldId" | "forwardedRef" | "groupByTypeOrder" | "customGroupLabels" | "includeTeamsUpdates" | "inputId" | "isClearable" | "isFooterFocused" | "isHeaderFocused" | "isInvalid" | "isLoading" | "isValidEmail" | "loadOptions" | "loadOptionsErrorMessage" | "loadUserSource" | "maxOptions" | "maxPickerHeight" | "menuIsOpen" | "menuMinWidth" | "menuPortalTarget" | "menuPosition" | "menuShouldBlockScroll" | "noBorder" | "onClear" | "onClose" | "onInputChange" | "onOpen" | "onSelection" | "openMenuOnClick" | "openMenuOnFocus" | "popupSelectProps" | "required" | "setIsFooterFocused" | "setIsHeaderFocused" | "showClearIndicator" | "strategy" | "styles" | "suggestEmailsForDomain" | "textFieldBackgroundColor" | "UNSAFE_hasDraggableParentComponent"> & {
+    isMulti?: boolean | undefined;
+    width?: number | string | undefined;
+    // eslint-disable-next-line @typescript-eslint/ban-types -- intentional `{}` intersection for exotic component typing
+} & {} & React.RefAttributes<any>> = withAnalyticsEvents()(UserPickerWithoutAnalytics);

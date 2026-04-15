@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::18b8254ef184bd32e1ba88b25bbce029>>
+ * @codegen <<SignedSource::3074f95e45bf8036bb201627e54d907a>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:structured-docs-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -1571,12 +1571,6 @@ export const components: ComponentMcpPayload[] = [
 				type: 'string',
 				description:
 					'The latest enabled date. Dates after this are disabled on the calendar. This does not affect what users can type into the picker.',
-			},
-			{
-				name: 'menuInnerWrapper',
-				type: 'ComponentClass<{ children: ReactNode; }, any> | FunctionComponent<{ children: ReactNode; }>',
-				description:
-					'This overrides the inner wrapper the Calendar.\n@private Please use this with extreme caution, this API may be changed in the future.',
 			},
 			{
 				name: 'minDate',
@@ -10239,12 +10233,6 @@ export const components: ComponentMcpPayload[] = [
 					"Maximum width of the tag text. When exceeded, text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').",
 			},
 			{
-				name: 'migration_fallback',
-				type: 'string',
-				description:
-					"@internal\n**Temporary / Internal only for migration.**\n\nWhen set to `'lozenge'` and the feature flag `platform-dst-lozenge-tag-badge-visual-uplifts`\nis OFF, renders as a Lozenge component instead of Tag. This enables safe, staged migration\nfrom Lozenge to Tag for large consumers.\n\nThis prop will be removed via codemod after migration is complete.",
-			},
-			{
 				name: 'onAfterRemoveAction',
 				type: '(text: string) => void',
 				description:
@@ -10260,12 +10248,6 @@ export const components: ComponentMcpPayload[] = [
 				name: 'removeButtonLabel',
 				type: 'string',
 				description: 'Text rendered as the aria-label for remove button.',
-			},
-			{
-				name: 'swatchBefore',
-				type: 'boolean | TagSwatchBeforeTokenName',
-				description:
-					"@internal\n**Temporary / Internal only for migration.**\n\nEXPERIMENTAL - Leading color swatch (12×12px), rendered before `elemBefore`.\n- `true`: uses `color.background.accent.<color>.subtle` for swatch color\n- Pass a design token (e.g. `token('color.background.accent.red.subtle')`)",
 			},
 			{
 				name: 'text',
@@ -10326,18 +10308,6 @@ export const components: ComponentMcpPayload[] = [
 				type: 'string | number',
 				description:
 					"Maximum width of the tag text. When exceeded, text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').",
-			},
-			{
-				name: 'migration_fallback',
-				type: 'string',
-				description:
-					"@internal\n**Temporary / Internal only for migration.**\n\nWhen set to `'lozenge'` and the feature flag `platform-dst-lozenge-tag-badge-visual-uplifts`\nis OFF, renders as a Lozenge component instead of Tag. This enables safe, staged migration\nfrom Lozenge to Tag for large consumers.\n\nThis prop will be removed via codemod after migration is complete.",
-			},
-			{
-				name: 'swatchBefore',
-				type: 'boolean | TagSwatchBeforeTokenName',
-				description:
-					"@internal\n**Temporary / Internal only for migration.**\n\nEXPERIMENTAL - Leading color swatch (12×12px), rendered before `elemBefore`.\n- `true`: uses `color.background.accent.<color>.subtle` for swatch color\n- Pass a design token (e.g. `token('color.background.accent.red.subtle')`)",
 			},
 			{
 				name: 'text',
@@ -10414,12 +10384,6 @@ export const components: ComponentMcpPayload[] = [
 					"Maximum width of the tag text. When exceeded, text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').",
 			},
 			{
-				name: 'migration_fallback',
-				type: 'string',
-				description:
-					"@internal\n**Temporary / Internal only for migration.**\n\nWhen set to `'lozenge'` and the feature flag `platform-dst-lozenge-tag-badge-visual-uplifts`\nis OFF, renders as a Lozenge component instead of Tag. This enables safe, staged migration\nfrom Lozenge to Tag for large consumers.\n\nThis prop will be removed via codemod after migration is complete.",
-			},
-			{
 				name: 'onAfterRemoveAction',
 				type: '(text: string) => void',
 				description:
@@ -10435,12 +10399,6 @@ export const components: ComponentMcpPayload[] = [
 				name: 'removeButtonLabel',
 				type: 'string',
 				description: 'Text rendered as the aria-label for remove button.',
-			},
-			{
-				name: 'swatchBefore',
-				type: 'boolean | TagSwatchBeforeTokenName',
-				description:
-					"@internal\n**Temporary / Internal only for migration.**\n\nEXPERIMENTAL - Leading color swatch (12×12px), rendered before `elemBefore`.\n- `true`: uses `color.background.accent.<color>.subtle` for swatch color\n- Pass a design token (e.g. `token('color.background.accent.red.subtle')`)",
 			},
 			{
 				name: 'text',

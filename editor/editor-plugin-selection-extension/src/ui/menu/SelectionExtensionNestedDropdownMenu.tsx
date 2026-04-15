@@ -64,20 +64,16 @@ export const SelectionExtensionNestedDropdownMenu = ({
 			text={nestedDropdownMenu.label}
 			elemBefore={
 				IconComponent ? (
-					// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
-					// To clean up: keep only size="small"
 					<IconComponent
 						label=""
-						size={fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined}
+						size="small"
 					/>
 				) : undefined
 			}
 			elemAfter={
-				// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
-				// To clean up: keep only size="small"
 				<ChevronRightIcon
 					label=""
-					size={fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined}
+					size="small"
 				/>
 			}
 			onClick={handleClick}

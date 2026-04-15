@@ -1,9 +1,10 @@
 import React, { useContext, useLayoutEffect, useMemo, useState } from 'react';
 import { MediaClientContext, getMediaClient } from '@atlaskit/media-client-react';
 import type { MediaClientConfig } from '@atlaskit/media-core';
-import { useProviderLayout } from '@atlaskit/editor-common/provider-factory';
+import { useProviderFactory, useProviderLayout } from '@atlaskit/editor-common/provider-factory';
 
 import type { MediaSSR } from '../../types/mediaOptions';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export const EditorMediaClientProvider = ({
 	children,
@@ -11,13 +12,30 @@ export const EditorMediaClientProvider = ({
 }: React.PropsWithChildren<{ ssr?: MediaSSR }>): React.JSX.Element => {
 	const [mediaClientConfig, setMediaClientConfig] = useState<MediaClientConfig | undefined>();
 
+	const providerFactory = useProviderFactory();
 	const mediaProvider = useProviderLayout('mediaProvider');
 
 	/**
-	 * If a mediaClientConfig is provided then we will force
-	 * skip the mediaClient from context
+	 * Whether this renderer has its own media provider and should never inherit
+	 * the mediaClient from a parent renderer's context.
+	 *
+	 * We use providerFactory.hasProvider() rather and checking the mediaProvider
+	 * state value, because useProviderLayout subscribes via useLayoutEffect —
+	 * meaning mediaProvider state is always undefined on the first render, even
+	 * if the ProviderFactory already has a provider registered. This would cause
+	 * shouldSkipContext to be false on the first render, incorrectly allowing the
+	 * inner renderer to inherit the outer renderer's MediaClientContext (which
+	 * carries the wrong media token for this page).
+	 *
+	 * hasProvider() is synchronous and correct from render 1, closing that window.
 	 */
-	const shouldSkipContext = Boolean(ssr?.config || mediaProvider);
+	const shouldSkipContext = expValEquals(
+		'platform_editor_media_reliability_enhancements',
+		'isEnabled',
+		true,
+	)
+		? Boolean(ssr?.config || providerFactory.hasProvider('mediaProvider') || mediaProvider)
+		: Boolean(ssr?.config || mediaProvider);
 
 	const contextMediaClient = useContext(MediaClientContext);
 

@@ -1,6 +1,176 @@
-import { defineMessages } from 'react-intl-next';
+import { defineMessages } from 'react-intl';
 
-export const messages = defineMessages({
+export const messages: {
+    addEmail: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; addMore: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; adminManagedGroupByline: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; archivedLozenge: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; clear: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; confluenceSource: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; continueToAddEmail: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; customTypeLabel: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; emailTypeLabel: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; errorMessage: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; externalUserSourcesError: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; externalUserSourcesHeading: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; externalUserTypeLabel: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; gitHubProvider: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; googleProvider: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; groupByline: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; groupTypeLabel: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; guestGroupLozengeTooltip: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; guestLozengeText: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; guestUserLozengeTooltip: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; jiraSource: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; memberCountWithoutYou: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; memberCountWithYou: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; memberLozengeText: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; microsoftProvider: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; officialMemberCountWithoutYou: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; officialMemberCountWithYou: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; officialPlus50MembersWithoutYou: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; officialPlus50MembersWithYou: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; officialTeamByline: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; otherAtlassianSource: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; otherAtlassianSourceAppify: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; otherTypeLabel: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; placeholder: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; plus50MembersWithoutYou: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; plus50MembersWithYou: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; remove: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; selectToAddEmail: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; slackProvider: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; teamByline: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; teamTypeLabel: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; userTypeLabel: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    };
+} = defineMessages({
 	placeholder: {
 		id: 'fabric.elements.user-picker.placeholder',
 		defaultMessage: 'Enter people or teams...',

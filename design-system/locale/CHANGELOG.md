@@ -1,5 +1,12 @@
 # @atlaskit/locale
 
+## 4.1.0
+
+### Minor Changes
+
+- [`e9ea3d59f41a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9ea3d59f41a8) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 4.0.0
 
 ### Major Changes

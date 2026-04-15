@@ -13,7 +13,37 @@ const avatarImages = [
 
 const getAvatar = () => sample(avatarImages);
 
-export const profilecardData = [
+export const profilecardData: ({
+    Presence: {
+        state: string;
+    };
+    User: {
+        avatarUrl: string | undefined;
+        email: string;
+        fullName: string;
+        location: string;
+        meta: string;
+        nickname: string;
+        remoteTimeString: string;
+        remoteWeekdayIndex: number;
+        remoteWeekdayString: string;
+    };
+} | {
+    Presence: {
+        state: string;
+    };
+    User: {
+        avatarUrl: string | undefined;
+        email: string;
+        fullName: string;
+        location?: undefined;
+        meta: string;
+        nickname: string;
+        remoteTimeString?: undefined;
+        remoteWeekdayIndex?: undefined;
+        remoteWeekdayString?: undefined;
+    };
+})[] = [
 	{
 		User: {
 			avatarUrl: getAvatar(),
@@ -188,7 +218,22 @@ export const profilecardData = [
 	},
 ];
 
-export const profilecardDataStable = [
+export const profilecardDataStable: {
+    Presence: {
+        state: string;
+    };
+    User: {
+        avatarUrl: string;
+        email: string;
+        fullName: string;
+        location: string;
+        meta: string;
+        nickname: string;
+        remoteTimeString: string;
+        remoteWeekdayIndex: number;
+        remoteWeekdayString: string;
+    };
+}[] = [
 	{
 		User: {
 			avatarUrl: avatarImages[0],

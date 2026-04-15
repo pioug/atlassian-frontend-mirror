@@ -1,4 +1,10 @@
-export const getTestSiteEmojiWtf = () => ({
+export const getTestSiteEmojiWtf = (): {
+    category: string; creatorUserId: string; fallback: string; id: string; name: string; order: number; representation: {
+        height: number;
+        imagePath: string;
+        width: number;
+    }; searchable: boolean; shortName: string; skinVariations: never[]; type: string;
+} => ({
 	id: 'wtf',
 	name: 'wtf',
 	fallback: ':wtf:',

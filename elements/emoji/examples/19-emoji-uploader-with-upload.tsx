@@ -9,7 +9,7 @@ import { loggedUser } from '@atlaskit/util-data-test/logged-user';
 
 import { lorem } from '../example-helpers';
 import type { EmojiProvider } from '../src/resource';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 export default function EmojiUploaderWithUpload(): React.JSX.Element {
 	const emojiProvider: Promise<EmojiProvider> = getEmojiResource({

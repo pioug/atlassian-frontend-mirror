@@ -2,7 +2,7 @@ import React from 'react';
 
 import MentionItem from '../src/components/MentionItem';
 import { generateMentionItem, onSelection, sampleAvatarUrl as avatarUrl } from '../example-helpers';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 export default function Example(): React.JSX.Element {
 	const mention = {

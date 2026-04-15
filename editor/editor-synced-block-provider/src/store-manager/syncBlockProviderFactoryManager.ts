@@ -103,6 +103,7 @@ export class SyncBlockProviderFactoryManager {
 
 		let { contentId, product: contentProduct } = parsedResourceId;
 		const syncBlock = this.deps.getFromCache(resourceId);
+		let contentAri = syncBlock?.data?.sourceAri || '';
 		if (syncBlock?.data?.sourceAri && syncBlock.data.product) {
 			const parentInfo = dataProvider.retrieveSyncBlockParentInfo(
 				syncBlock.data.sourceAri,
@@ -111,11 +112,13 @@ export class SyncBlockProviderFactoryManager {
 			if (parentInfo) {
 				contentId = parentInfo.contentId;
 				contentProduct = parentInfo.contentProduct;
+				contentAri = parentInfo.contentAri;
 			}
 		}
 
 		try {
 			const mediaProvider = providerCreator.createSSRMediaProvider({
+				contentAri,
 				contentId,
 				contentProduct,
 			});
@@ -180,10 +183,11 @@ export class SyncBlockProviderFactoryManager {
 			throw new Error('Unable to retrieve sync block parent info');
 		}
 
-		const { contentId, contentProduct } = parentInfo;
+		const { contentAri, contentId, contentProduct } = parentInfo;
 
 		if (!hasMediaProvider && providerCreator.createMediaProvider && contentId && contentProduct) {
 			const mediaProvider = providerCreator.createMediaProvider({
+				contentAri,
 				contentProduct,
 				contentId,
 			});
@@ -194,6 +198,7 @@ export class SyncBlockProviderFactoryManager {
 
 		if (!hasEmojiProvider && providerCreator.createEmojiProvider && contentId && contentProduct) {
 			const emojiProvider = providerCreator.createEmojiProvider({
+				contentAri,
 				contentProduct,
 				contentId,
 			});

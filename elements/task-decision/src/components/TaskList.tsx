@@ -9,7 +9,7 @@ import { messages } from './i18n';
 import { token } from '@atlaskit/tokens';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 const oldListStyles = css({
 	listStyleType: 'none',

@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
-import { IntlProvider, useIntl } from 'react-intl-next';
+import { IntlProvider, useIntl } from 'react-intl';
 
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Textfield from '@atlaskit/textfield';

@@ -8,7 +8,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx, useTheme } from '@emotion/react';
 
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { richMediaClassName, tableSharedStyle } from '@atlaskit/editor-common/styles';
 import type {
 	EditorAppearance,
@@ -336,9 +336,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingDynamic()}px`,
 				};
 
-		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-			? getBrowserInfo()
-			: browserLegacy;
+		const browser = getBrowserInfo();
 
 		return (
 			<div

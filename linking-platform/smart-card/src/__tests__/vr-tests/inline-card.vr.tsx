@@ -358,7 +358,7 @@ snapshot(VRInlineProfileCard, {
 });
 
 snapshot(VRInlineCardResolvedRovoActions, {
-	description: 'inline card resolved view with Rovo actions button (treatment)',
+	description: 'inline card resolved view with Rovo actions CTA (treatment)',
 	featureFlags: {
 		'smart-card-inline-resolved-view-refactor': true,
 		'rovogrowth-640-inline-action-nudge-fg': true,

@@ -4,7 +4,7 @@ import { ColorPickerWithoutAnalytics as ColorPicker, type ColorPickerProps } fro
 import Trigger from '../../components/Trigger';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 jest.mock('@atlaskit/platform-feature-flags');

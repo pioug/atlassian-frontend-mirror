@@ -9,7 +9,7 @@ import { getEmojiResourceWithStandardAndAtlassianEmojis } from '@atlaskit/util-d
 import { loggedUser } from '@atlaskit/util-data-test/logged-user';
 import { onSelection } from '../example-helpers';
 import type { EmojiProvider } from '../src/resource';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const EmojiPickerWithUpload = (): React.JSX.Element => {
 	const [siteEmojiEnabled, setSiteEmojiEnabled] = useState(true);

@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 217.12.11
+
+### Patch Changes
+
+- [`73b2fc243f544`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73b2fc243f544) -
+  Cleaning up getBrowserInfo which was behind experiment platform_editor_hydratable_ui and is now
+  rolled out
+- [`33ad954adbde1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33ad954adbde1) -
+  [NO-ISSUE] Cleaning flag platform_editor_focus_on_chromeless_editor
+- Updated dependencies
+
+## 217.12.10
+
+### Patch Changes
+
+- [`0ad738e8f896e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ad738e8f896e) -
+  Remove `support_table_in_comment` and `support_table_in_comment_jira` experiment references. Both
+  experiments are fully rolled out — table resizing, alignment, scaling, and distribute columns are
+  now enabled unconditionally in comment editors.
+- Updated dependencies
+
 ## 217.12.9
 
 ### Patch Changes

@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import DecisionIcon from '@atlaskit/icon/core/decision';
 import { token } from '@atlaskit/tokens';

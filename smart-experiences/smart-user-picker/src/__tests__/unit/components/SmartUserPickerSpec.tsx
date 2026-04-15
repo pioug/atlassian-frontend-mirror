@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen, render, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { type DefaultValue, type OptionData, type Team, type User } from '@atlaskit/user-picker';
 import { AnalyticsListener, type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 // Commented due to HOT-111922

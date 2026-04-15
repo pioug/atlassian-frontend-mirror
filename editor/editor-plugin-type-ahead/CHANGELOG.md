@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 8.2.6
+
+### Patch Changes
+
+- [`73b2fc243f544`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73b2fc243f544) -
+  Cleaning up getBrowserInfo which was behind experiment platform_editor_hydratable_ui and is now
+  rolled out
+- Updated dependencies
+
+## 8.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.4
 
 ### Patch Changes

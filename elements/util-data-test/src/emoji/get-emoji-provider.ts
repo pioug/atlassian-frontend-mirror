@@ -8,11 +8,13 @@ import { loggedUser } from './logged-user';
 
 type DataFetch = () => Promise<EmojiServiceResponse>;
 
-export const currentUser = {
+export const currentUser: {
+    id: string;
+} = {
 	id: loggedUser,
 };
 
-export const defaultFetch = async () => {
+export const defaultFetch = async (): Promise<any> => {
 	const response = await fetch('./emoji/emoji-all.json');
 
 	if (!response.ok) {

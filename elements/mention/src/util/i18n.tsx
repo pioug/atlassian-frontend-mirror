@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl';
 import { messages } from '../components/i18n';
 
 export type Formatter = (props: {

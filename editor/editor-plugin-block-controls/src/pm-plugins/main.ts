@@ -7,7 +7,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { getNodeIdProvider } from '@atlaskit/editor-common/node-anchor';
 import {
 	isMeasuring,
@@ -419,9 +419,7 @@ export const apply = (
 		} else {
 			if (activeNode && meta?.isDragging !== true) {
 				let mappedPos;
-				const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-					? getBrowserInfo()
-					: browserLegacy;
+				const browser = getBrowserInfo();
 				// In safari, when platform_editor_controls is on,
 				// sometimes the drag handle for the layout disppears after you click on the handle for a few times
 				// Which caused the drag handle onClick event not firing, then block menu wouldn't be opened

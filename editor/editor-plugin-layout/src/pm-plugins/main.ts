@@ -21,6 +21,7 @@ import { fixColumnSizes, fixColumnStructure, getSelectedLayout } from './actions
 import { getColumnDividerDecorations } from './column-resize-divider';
 import { EVEN_DISTRIBUTED_COL_WIDTHS } from './consts';
 import { pluginKey } from './plugin-key';
+import { pluginKey as layoutResizingPluginKey } from './resizing';
 import type { Change, LayoutState } from './types';
 import { getMaybeLayoutSection } from './utils';
 
@@ -180,9 +181,12 @@ export default (options: LayoutPluginOptions): SafePlugin<LayoutState> => {
 			decorations(state) {
 				const layoutState = pluginKey.getState(state) as LayoutState;
 
+				const isLayoutResizingPluginAvailable = layoutResizingPluginKey.get(state) !== undefined;
+
 				if (
 					editorExperiment('advanced_layouts', true) &&
-					editorExperiment('platform_editor_layout_column_resize_handle', true)
+					editorExperiment('platform_editor_layout_column_resize_handle', true) &&
+					isLayoutResizingPluginAvailable
 				) {
 					const dividerDecorations = getColumnDividerDecorations(state, editorViewRef);
 					const selectedDecorations =

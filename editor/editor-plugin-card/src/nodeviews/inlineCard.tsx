@@ -21,6 +21,7 @@ import {
 	SMART_LINK_DRAG_TYPES,
 	SMART_LINK_APPEARANCE,
 } from '@atlaskit/editor-smart-link-draggable';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -257,16 +258,27 @@ export type InlineCardNodeViewProps = Pick<
 	| 'provider'
 >;
 
-const selector = (
+const selectorWithCard = (
+	states: NamedPluginStatesFromInjectionAPI<
+		ExtractInjectionAPI<typeof cardPlugin>,
+		'editorViewMode' | 'card'
+	>,
+) => ({
+	mode: states.editorViewModeState?.mode,
+	resolvedInlineSmartLinks: states.cardState?.resolvedInlineSmartLinks,
+});
+
+const selectorWithoutCard = (
 	states: NamedPluginStatesFromInjectionAPI<
 		ExtractInjectionAPI<typeof cardPlugin>,
 		'editorViewMode'
 	>,
-) => {
-	return {
-		mode: states.editorViewModeState?.mode,
-	};
-};
+) => ({
+	mode: states.editorViewModeState?.mode,
+	resolvedInlineSmartLinks: undefined as
+		| Array<{ pos: number; source: string; url: string }>
+		| undefined,
+});
 
 /**
  * Inline card node view component that renders a Smart Link inline card within the editor.
@@ -293,10 +305,12 @@ export function InlineCardNodeView(
 		CompetitorPrompt,
 	} = props;
 
-	const { mode } = useSharedPluginStateWithSelector(
+	const { mode, resolvedInlineSmartLinks } = useSharedPluginStateWithSelector(
 		pluginInjectionApi,
-		['editorViewMode'],
-		selector,
+		fg('cc_dnd_smart_link_changeboard_po_template_gate')
+			? ['editorViewMode', 'card']
+			: ['editorViewMode'],
+		fg('cc_dnd_smart_link_changeboard_po_template_gate') ? selectorWithCard : selectorWithoutCard,
 	);
 
 	const url = node.attrs.url;
@@ -313,6 +327,16 @@ export function InlineCardNodeView(
 		}
 	}, [provider, props.node]);
 
+	const linkPosition = useMemo(() => {
+		if (!getPos || typeof getPos === 'boolean') {
+			return undefined;
+		}
+		const pos = getPos();
+		return typeof pos === 'number' ? pos : undefined;
+	}, [getPos]);
+
+	const isChangeboardTarget =
+		linkPosition !== undefined && resolvedInlineSmartLinks?.[0]?.pos === linkPosition;
 	const inlineCardContent = (
 		<>
 			<WrappedInlineCardWithAwareness
@@ -340,6 +364,7 @@ export function InlineCardNodeView(
 			url={url}
 			appearance={SMART_LINK_APPEARANCE.INLINE}
 			source={SMART_LINK_DRAG_TYPES.EDITOR}
+			isChangeboardTarget={isChangeboardTarget}
 		>
 			{inlineCardContent}
 		</SmartLinkDraggable>

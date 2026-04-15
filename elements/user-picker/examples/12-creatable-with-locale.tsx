@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import Select from '@atlaskit/select';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import UserPicker from '../src';

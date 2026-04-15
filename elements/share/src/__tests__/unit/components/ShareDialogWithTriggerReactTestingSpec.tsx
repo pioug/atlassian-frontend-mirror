@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { IntlProvider, type IntlShape, type WrappedComponentProps } from 'react-intl-next';
+import { IntlProvider, type IntlShape, type WrappedComponentProps } from 'react-intl';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 

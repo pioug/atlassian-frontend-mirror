@@ -1,6 +1,5 @@
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { pluginKey } from './plugin-key';
 
@@ -22,9 +21,7 @@ const refreshBrowserSelectionOnChange = (
 	transaction: Readonly<Transaction>,
 	editorState: EditorState,
 ): void => {
-	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-		? getBrowserInfo()
-		: browserLegacy;
+	const browser = getBrowserInfo();
 	if (
 		browser.gecko &&
 		transaction.docChanged &&

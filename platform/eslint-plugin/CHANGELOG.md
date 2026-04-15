@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.9.1
+
+### Patch Changes
+
+- [`5fed54075f1b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5fed54075f1b8) -
+  add eslint rule for restricting isFedramp and isIsolatedCloud imports
+
 ## 2.9.0
 
 ### Minor Changes

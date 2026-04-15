@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import {
 	type ActionTypes,

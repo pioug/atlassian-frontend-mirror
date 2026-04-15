@@ -511,16 +511,13 @@ describe('EmbedModal', () => {
 				}),
 			);
 
-			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+			expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					action: 'visited',
 					actionSubject: 'smartLink',
 					attributes: expect.objectContaining({
-						...EXPECTED_COMMON_ATTRIBUTES,
 						id,
 						display: 'embedPreview',
-						status: 'resolved',
-						statusDetails: null,
 					}),
 					tags: ['media'],
 				}),
@@ -554,7 +551,7 @@ describe('EmbedModal', () => {
 			expect(ufoStartSpy).toHaveBeenCalledBefore(ufoSucceedSpy as jest.Mock);
 		});
 
-		it('dispatches ui.smartLink.visited event on resize when experiment is enabled', async () => {
+		it('dispatches track.smartLink.visited event on resize when experiment is enabled', async () => {
 			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
 			expValEquals.mockReturnValue(true);
 
@@ -568,7 +565,7 @@ describe('EmbedModal', () => {
 			const button = await screen.findByTestId(`${testId}-resize-button`);
 			await user.click(button);
 
-			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+			expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					action: 'visited',
 					actionSubject: 'smartLink',
@@ -576,15 +573,13 @@ describe('EmbedModal', () => {
 						...EXPECTED_COMMON_ATTRIBUTES,
 						id,
 						display: 'embedPreview',
-						status: 'resolved',
-						statusDetails: null,
 					}),
 					tags: ['media'],
 				}),
 			);
 		});
 
-		it('does not dispatch ui.smartLink.visited event on resize when experiment is disabled', async () => {
+		it('does not dispatch track.smartLink.visited event on resize when experiment is disabled', async () => {
 			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
 			expValEquals.mockReturnValue(false);
 
@@ -598,7 +593,7 @@ describe('EmbedModal', () => {
 			const button = await screen.findByTestId(`${testId}-resize-button`);
 			await user.click(button);
 
-			expect(mockAnalyticsClient.sendUIEvent).not.toHaveBeenCalledWith(
+			expect(mockAnalyticsClient.sendTrackEvent).not.toHaveBeenCalledWith(
 				expect.objectContaining({
 					action: 'visited',
 					actionSubject: 'smartLink',
@@ -606,7 +601,7 @@ describe('EmbedModal', () => {
 			);
 		});
 
-		it('does not dispatch ui.smartLink.visited event on resize when invokeViewAction is not provided', async () => {
+		it('does not dispatch track.smartLink.visited event on resize when invokeViewAction is not provided', async () => {
 			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
 			expValEquals.mockReturnValue(true);
 
@@ -619,7 +614,7 @@ describe('EmbedModal', () => {
 			const button = await screen.findByTestId(`${testId}-resize-button`);
 			await user.click(button);
 
-			expect(mockAnalyticsClient.sendUIEvent).not.toHaveBeenCalledWith(
+			expect(mockAnalyticsClient.sendTrackEvent).not.toHaveBeenCalledWith(
 				expect.objectContaining({
 					action: 'visited',
 					actionSubject: 'smartLink',

@@ -6,7 +6,6 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
@@ -122,19 +121,6 @@ export const newGetSelection = (
 			const $mediaStartPos = doc.resolve(start + 1);
 			return new NodeSelection($mediaStartPos);
 		}
-
-		// if heading with alignment nested inside a layout column, return TextSelection
-		// As NodeSelection cause the desc.selectNode is not a function error in the syncNodeSelection in prosemirror view
-		// Results in block menu not open on the first 2 clicks for a heading with alignment nested inside a layout column
-		if (
-			nodeName === 'heading' &&
-			node?.marks.some((mark) => mark.type.name === 'alignment') &&
-			doc.nodeAt(start - 1)?.type.name === 'layoutColumn' &&
-			!fg('platform_editor_block_menu_v2_patch_3')
-		) {
-			return TextSelection.create(doc, start, start + nodeSize);
-		}
-
 		return new NodeSelection(doc.resolve(start));
 	}
 

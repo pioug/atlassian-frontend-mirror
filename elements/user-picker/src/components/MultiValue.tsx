@@ -23,7 +23,7 @@ import PeopleIcon from '@atlaskit/icon/core/people-group';
 import { type MultiValueProps } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 import { messages } from './i18n';
 
 export const scrollToValue = (valueContainer: HTMLDivElement, control: HTMLElement): void => {

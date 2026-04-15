@@ -15,6 +15,7 @@ import {
 } from '@atlaskit/editor-common/toolbar';
 import {
 	TextIcon as EditorToolbarTextIcon,
+	TextNormalIcon,
 	QuoteIcon,
 	HeadingOneIcon,
 	HeadingTwoIcon,
@@ -31,6 +32,7 @@ import TextHeadingSixIcon from '@atlaskit/icon-lab/core/text-heading-six';
 import TextHeadingThreeIcon from '@atlaskit/icon-lab/core/text-heading-three';
 import TextHeadingTwoIcon from '@atlaskit/icon-lab/core/text-heading-two';
 import TextIcon from '@atlaskit/icon/core/text';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockType, BlockTypeWithRank } from './types';
@@ -157,7 +159,14 @@ export const toolbarBlockTypesWithRank = ({
 }): Record<ToolbarBlockTypes, BlockTypeWithRank> => ({
 	normal: {
 		...NORMAL_TEXT,
-		icon: <EditorToolbarTextIcon size="small" label="" />,
+		icon:
+			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+			expValEquals('platform_editor_small_font_size', 'isEnabled', true) &&
+			fg('platform_editor_change_normal_text_icon') ? (
+				<TextNormalIcon size="small" label="" />
+			) : (
+				<EditorToolbarTextIcon size="small" label="" />
+			),
 		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[NORMAL_TEXT_MENU_ITEM.key],
 		toolbarKey: NORMAL_TEXT_MENU_ITEM.key,
 	},

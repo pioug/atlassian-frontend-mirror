@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 import { css, jsx } from '@compiled/react';
 import AkButton from '@atlaskit/button/new';
 import Spinner from '@atlaskit/spinner';

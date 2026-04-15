@@ -6,7 +6,7 @@ import {
 	type MessageFormatElement,
 	type WithIntlProps,
 	type WrappedComponentProps,
-} from 'react-intl-next';
+} from 'react-intl';
 
 import { getMessagesForLocale, type LangCode } from '../util/i18n-util';
 

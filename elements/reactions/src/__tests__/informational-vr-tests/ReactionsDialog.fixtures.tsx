@@ -4,7 +4,7 @@ import { Reactions, ReactionStatus } from '../../../src/';
 import { currentUser } from '@atlaskit/util-data-test/get-emoji-provider';
 import type { ReactionSummary } from '../../types';
 import { Constants as ExampleConstants } from '../../../examples/utils';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import type { EmojiProvider } from '@atlaskit/emoji';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 

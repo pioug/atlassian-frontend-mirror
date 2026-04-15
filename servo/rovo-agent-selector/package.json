@@ -35,12 +35,12 @@
 		"@atlaskit/select": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
-		"react-intl-next": "root:*",
 		"react-relay": "root:*",
 		"relay-runtime": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
@@ -49,6 +49,7 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"react-dom": "root:*",
+		"react-intl": "root:*",
 		"react-magnetic-di": "root:*",
 		"relay-test-utils": "root:*"
 	},

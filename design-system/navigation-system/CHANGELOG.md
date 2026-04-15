@@ -1,5 +1,18 @@
 # @atlassian/navigation-system
 
+## 7.3.0
+
+### Minor Changes
+
+- [`1a76aa4057f18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a76aa4057f18) -
+  Cleans up the `platform_dst_nav4_ribbon_slot` feature gate. The 'ribbon' CSS grid area is now
+  always present on the page layout. There should be no perceivable change unless the Ribbon slot is
+  being rendered.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.2.1
 
 ### Patch Changes

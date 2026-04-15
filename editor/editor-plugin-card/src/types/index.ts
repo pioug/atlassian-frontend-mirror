@@ -116,6 +116,11 @@ export type CardPluginState = {
 	provider: CardProvider | null;
 	removeOverlay?: () => void;
 	requests: Request[];
+	resolvedInlineSmartLinks?: Array<{
+		pos: number;
+		source: CardReplacementInputMethod;
+		url: string;
+	}>;
 	resolvedToolbarAttributesByUrl: Record<string, ToolbarResolvedAttributes>;
 	selectedInlineLinkPosition?: number;
 	showDatasourceModal: boolean;

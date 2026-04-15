@@ -63,6 +63,7 @@ export function isSmartLinkNodeType(nodeType: string): boolean {
 
 export interface SmartLinkDraggableProps {
 	appearance: SMART_LINK_APPEARANCE;
+	isChangeboardTarget?: boolean;
 	/** Which context the smart link is being dragged from */
 	source: SMART_LINK_DRAG_TYPES;
 	title?: string;
@@ -172,6 +173,7 @@ function SmartLinkDraggableInner({
 	title: propTitle,
 	appearance,
 	source,
+	isChangeboardTarget = false,
 	children,
 }: PropsWithChildren<SmartLinkDraggableProps>) {
 	const ref = useRef<HTMLElement>(null);
@@ -308,14 +310,21 @@ function SmartLinkDraggableInner({
 			? ReactDOM.createPortal(
 					<SmartLinkDragPreview title={state.title} url={url} iconUrl={state.iconUrl} />,
 					state.container,
-				)
+			  )
 			: null;
 
 	// Use span with inline display for inline cards to preserve text flow.
 	if (appearance === SMART_LINK_APPEARANCE.INLINE) {
 		return (
 			<>
-				<span ref={ref} css={draggableInlineStyles} data-testid="smart-link-draggable-inline">
+				<span
+					ref={ref}
+					css={draggableInlineStyles}
+					data-testid="smart-link-draggable-inline"
+					data-spotlight-target={
+						isChangeboardTarget ? 'smart-link-draggable-changeboard' : undefined
+					}
+				>
 					{children}
 				</span>
 				{preview}
@@ -343,6 +352,7 @@ export function SmartLinkDraggable({
 	title,
 	appearance,
 	source,
+	isChangeboardTarget,
 	children,
 }: PropsWithChildren<SmartLinkDraggableProps>): JSX.Element {
 	if (!url || !isSafeUrl(url) || !fg('cc_drag_and_drop_smart_link_from_content_to_tree')) {
@@ -350,7 +360,13 @@ export function SmartLinkDraggable({
 	}
 
 	return (
-		<SmartLinkDraggableInner url={url} title={title} appearance={appearance} source={source}>
+		<SmartLinkDraggableInner
+			url={url}
+			title={title}
+			appearance={appearance}
+			source={source}
+			isChangeboardTarget={isChangeboardTarget}
+		>
 			{children}
 		</SmartLinkDraggableInner>
 	);

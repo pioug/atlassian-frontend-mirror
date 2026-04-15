@@ -2,15 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type RefObject, useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { Transition } from 'react-transition-group';
 
 import Form, { Field, type OnSubmitHandler } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
 import { useResizingHeight } from '@atlaskit/motion';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
 
 import { type FormValues } from '../types';
@@ -30,27 +28,6 @@ interface Props {
 	textPlaceholder: string;
 }
 
-type TransitionState = 'entering' | 'entered' | 'exiting' | 'exited' | 'unmounted';
-
-const getExpandedHeight = (
-	ref: RefObject<HTMLDivElement | null>,
-	state: TransitionState,
-): string => {
-	if (!ref.current) {
-		return '0';
-	}
-
-	switch (state) {
-		case 'entering':
-			return `${ref.current.scrollHeight}px`;
-		case 'entered':
-			// needed for TextField auto height expand
-			return `none`;
-		default:
-			return '0';
-	}
-};
-
 const TRANSITION_DURATION = 200;
 
 export default ({
@@ -64,7 +41,6 @@ export default ({
 	const [canContactDefault, setCanContactDefault] = useState(false);
 	const hasAutoFilledCanContactRef = useRef(false);
 
-	const expandedAreaRef = useRef<HTMLDivElement>(null);
 	const onScoreSelect = useCallback(() => {
 		setExpanded(true);
 	}, [setExpanded]);
@@ -112,8 +88,7 @@ export default ({
 								/>
 							)}
 						</Field>
-						{fg('platform_contextual_survey_use_atlaskit_motion') ? (
-							<div {...resizingHeightProps} css={transitionBaseStyles}>
+						<div {...resizingHeightProps} css={transitionBaseStyles}>
 								{expanded ? (
 									<SurveyFormExpandedFeedback
 										canContactDefault={canContactDefault}
@@ -124,28 +99,6 @@ export default ({
 									/>
 								) : null}
 							</div>
-						) : (
-							<Transition in={expanded} timeout={TRANSITION_DURATION} mountOnEnter>
-								{(state: TransitionState) => (
-									<div
-										css={transitionBaseStyles}
-										style={{
-											transition: `max-height ${TRANSITION_DURATION}ms ease-in-out`,
-											maxHeight: getExpandedHeight(expandedAreaRef, state),
-										}}
-										ref={expandedAreaRef}
-									>
-										<SurveyFormExpandedFeedback
-											canContactDefault={canContactDefault}
-											onFeedbackChange={onFeedbackChange}
-											submitting={submitting}
-											textLabel={textLabel}
-											textPlaceholder={textPlaceholder}
-										/>
-									</div>
-								)}
-							</Transition>
-						)}
 					</form>
 				)}
 			</Form>

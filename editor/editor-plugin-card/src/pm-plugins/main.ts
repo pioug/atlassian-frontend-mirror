@@ -9,6 +9,7 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { cardPlugin } from '../index';
 import { InlineCardNodeView } from '../nodeviews/inlineCard';
@@ -32,6 +33,8 @@ import { getNewRequests, getPluginState, getPluginStateWithUpdatedPos } from './
 import { isBlockSupportedAtPosition, isEmbedSupportedAtPosition } from './utils';
 
 const LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK = 'smart-link-upgrade-pulse';
+// Only the first resolved inline smart link is needed for PO spotlight targeting
+const MAX_RESOLVED_INLINE_SMART_LINKS = 1;
 
 const handleAwarenessOverlay = (view: EditorView): void => {
 	const currentState = getPluginState(view.state);
@@ -135,11 +138,35 @@ export const createPlugin =
 						return pluginStateWithUpdatedPos;
 					}
 
-					if (!enableInlineUpgradeFeatures) {
-						return reducer(pluginStateWithUpdatedPos, meta);
+					const newState = reducer(pluginStateWithUpdatedPos, meta);
+
+					// Track the first resolved inline smart link for PO spotlight DOM targeting
+					if (
+						meta.type === 'RESOLVE' &&
+						pluginState?.requests?.length &&
+						fg('cc_dnd_smart_link_changeboard_po_template_gate')
+					) {
+						const resolvedRequest = pluginState.requests.find((req) => req.url === meta.url);
+						if (resolvedRequest?.appearance === 'inline') {
+							if (
+								(newState.resolvedInlineSmartLinks?.length ?? 0) <
+								MAX_RESOLVED_INLINE_SMART_LINKS
+							) {
+								newState.resolvedInlineSmartLinks = [
+									...(newState.resolvedInlineSmartLinks ?? []),
+									{
+										pos: resolvedRequest.pos,
+										url: resolvedRequest.url,
+										source: resolvedRequest.source,
+									},
+								];
+							}
+						}
 					}
 
-					const newState = reducer(pluginStateWithUpdatedPos, meta);
+					if (!enableInlineUpgradeFeatures) {
+						return newState;
+					}
 
 					// the code below is related to the "Inline Switcher" project, for more information pls see EDM-7984
 					const isSingleInlineLink =

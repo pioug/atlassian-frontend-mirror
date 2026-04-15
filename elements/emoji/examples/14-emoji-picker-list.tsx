@@ -13,7 +13,7 @@ import {
 	type Props,
 } from '../src/components/picker/EmojiPickerList';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const allEmojis = getEmojis();
 

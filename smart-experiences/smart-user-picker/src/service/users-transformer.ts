@@ -11,7 +11,7 @@ import {
 	type User,
 	UserType,
 } from '@atlaskit/user-picker';
-import { type IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl';
 import { messages } from '../i18n';
 import type { UserEntityType } from '../types';
 import { EntityType } from '../types';

@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import React, { useMemo, useRef, type Ref } from 'react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { css, jsx } from '@compiled/react';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points

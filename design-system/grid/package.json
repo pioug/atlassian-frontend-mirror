@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/grid",
-	"version": "0.18.24",
+	"version": "0.19.0",
 	"description": "A responsive layout grid is a component designed to manage the content of a page.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -84,7 +84,11 @@
 		}
 	},
 	"exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./grid": "./src/entry-points/grid.tsx",
+		"./grid-container": "./src/entry-points/grid-container.tsx",
+		"./grid-item": "./src/entry-points/grid-item.tsx",
+		"./types": "./src/entry-points/types.tsx"
 	},
 	"homepage": "https://atlassian.design/components/grid/"
 }

@@ -3,7 +3,7 @@ import { screen, act, fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import { BaseUserPicker } from '../BaseUserPicker';
 import Select from '@atlaskit/select';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 class TestSelect extends React.Component {
 	render() {
 		return <div {...this.props} data-testid="test-select"></div>;

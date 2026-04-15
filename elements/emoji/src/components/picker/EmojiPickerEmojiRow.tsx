@@ -5,7 +5,7 @@
 import { memo, type MemoExoticComponent } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import type { EmojiDescription, OnEmojiEvent } from '../../types';
 import CachingEmoji from '../common/CachingEmoji';
 import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';

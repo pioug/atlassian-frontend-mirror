@@ -1,6 +1,6 @@
 import React, { type FunctionComponent } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { AutoDismissFlag } from '@atlaskit/flag';
 import SuccessIcon from '@atlaskit/icon/core/status-success';

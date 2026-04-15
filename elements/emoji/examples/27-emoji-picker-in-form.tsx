@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { loggedUser } from '@atlaskit/util-data-test/logged-user';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import EmojiPicker, { type EmojiId, type OnEmojiEvent, ResourcedEmoji } from '../src';
 import { EmojiPickerPopup } from './26-emoji-common-provider-with-real-backend';
 

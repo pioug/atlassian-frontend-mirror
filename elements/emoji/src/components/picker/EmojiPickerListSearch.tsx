@@ -8,7 +8,7 @@ import VisuallyHidden from '@atlaskit/visually-hidden';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import React, { useLayoutEffect, useRef, useState } from 'react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import { useDebouncedCallback } from 'use-debounce';
 import type { Styles } from '../../types';
 import { EMOJI_SEARCH_DEBOUNCE } from '../../util/constants';

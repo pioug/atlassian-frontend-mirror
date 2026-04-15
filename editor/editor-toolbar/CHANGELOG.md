@@ -1,5 +1,26 @@
 # @atlaskit/editor-toolbar
 
+## 0.20.30
+
+### Patch Changes
+
+- [`4e313eb8fb024`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e313eb8fb024) -
+  Add TextNormalIcon for normal text block type, gate behind
+  platform_editor_change_normal_text_icon, exclude editor-toolbar from barrel ratchet
+- Updated dependencies
+
+## 0.20.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.20.28
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.20.27
 
 ### Patch Changes

@@ -45,16 +45,17 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"react-animate-height": "root:*",
-		"react-focus-within": "root:*",
-		"react-intl-next": "root:*"
+		"react-focus-within": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0",
 		"styled-components": "^3.2.6"
 	},
 	"devDependencies": {
 		"@testing-library/react": "root:*",
-		"@testing-library/user-event": "root:*"
+		"@testing-library/user-event": "root:*",
+		"react-intl": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

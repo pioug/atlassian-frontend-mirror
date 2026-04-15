@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 6.1.13
+
+### Patch Changes
+
+- [`1bd298ad0a152`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bd298ad0a152) -
+  [ux] EDITOR-6280 Clean up platform_editor_block_menu_v2_patch_3 to fix icon and copy in jira block
+  menu
+- Updated dependencies
+
+## 6.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.10
 
 ### Patch Changes

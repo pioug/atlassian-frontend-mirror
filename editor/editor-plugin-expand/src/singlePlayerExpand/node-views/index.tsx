@@ -23,7 +23,6 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { redo, undo } from '@atlaskit/prosemirror-history';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -79,10 +78,7 @@ export class ExpandNodeView implements NodeView {
 		this.view = view;
 		this.node = node;
 
-		if (
-			editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
-			fg('platform_editor_block_menu_v2_patch_3')
-		) {
+		if (editorExperiment('platform_editor_block_menu', true, { exposure: true })) {
 			this.isExpanded.expanded = expandedState.get(node) ?? false;
 			this.isExpanded.localId = node.attrs.localId;
 		}
@@ -663,12 +659,10 @@ export class ExpandNodeView implements NodeView {
 
 			this.node = node;
 			const currentExpanded = expandedState.get(node) ?? false;
-			const hasChanged =
-				editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
-				fg('platform_editor_block_menu_v2_patch_3')
-					? this.isExpanded.expanded !== currentExpanded &&
-						this.isExpanded.localId === node.attrs.localId
-					: this.isExpanded.expanded !== currentExpanded;
+			const hasChanged = editorExperiment('platform_editor_block_menu', true, { exposure: true })
+				? this.isExpanded.expanded !== currentExpanded &&
+					this.isExpanded.localId === node.attrs.localId
+				: this.isExpanded.expanded !== currentExpanded;
 			if (hasChanged) {
 				this.updateExpandToggleIcon(node);
 				this.updateDisplayStyle(node);
@@ -701,11 +695,9 @@ export class ExpandNodeView implements NodeView {
 			}
 		}
 		this.updateExpandBodyContentEditable();
-		this.isExpanded =
-			editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
-			fg('platform_editor_block_menu_v2_patch_3')
-				? { expanded: expanded ?? false, localId: node.attrs.localId }
-				: { expanded: expanded ?? false };
+		this.isExpanded = editorExperiment('platform_editor_block_menu', true, { exposure: true })
+			? { expanded: expanded ?? false, localId: node.attrs.localId }
+			: { expanded: expanded ?? false };
 	}
 
 	private updateDisplayStyle(node: PmNode): void {

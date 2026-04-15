@@ -1,6 +1,6 @@
 import React from 'react';
 import { payloadPublisher, ufologger } from '@atlassian/ufo';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import {
 	ResourcedEmojiControl,
 	getEmojiConfig,

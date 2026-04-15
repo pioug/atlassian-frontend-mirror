@@ -1,5 +1,12 @@
 # @atlaskit/teams-avatar
 
+## 2.5.0
+
+### Minor Changes
+
+- [`d672e00aaa0e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d672e00aaa0e2) -
+  Updated teams avatar to use @atlaskit/avatar
+
 ## 2.4.15
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { injectable } from 'react-magnetic-di';
 import { graphql, RelayEnvironmentProvider, useLazyLoadQuery } from 'react-relay';
 import {

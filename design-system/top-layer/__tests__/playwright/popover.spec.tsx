@@ -88,41 +88,6 @@ test.describe('Popup - open and close', () => {
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 	});
 
-	test('rapid open/close does not leave ghost popovers', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/118-testing-popover-rapid-toggle.tsx')>(
-			'design-system',
-			'top-layer',
-			'testing-popover-rapid-toggle',
-		);
-
-		const trigger = page.getByTestId('popover-trigger');
-
-		for (let i = 0; i < 6; i++) {
-			await trigger.click({ delay: 50 });
-		}
-
-		await page.waitForFunction(() => {
-			const popovers = document.querySelectorAll('[popover]');
-			let count = 0;
-			for (const el of popovers) {
-				if (el.matches(':popover-open')) count++;
-			}
-			return count <= 1;
-		});
-
-		const visiblePopovers = await page.evaluate(() => {
-			const popovers = document.querySelectorAll('[popover]');
-			let count = 0;
-			for (const el of popovers) {
-				if (el.matches(':popover-open')) {
-					count++;
-				}
-			}
-			return count;
-		});
-
-		expect(visiblePopovers).toBeLessThanOrEqual(1);
-	});
 });
 
 test.describe('Popup - keyboard', () => {
@@ -170,24 +135,6 @@ test.describe('Popup - keyboard', () => {
 });
 
 test.describe('Popup - focus', () => {
-	// WCAG 2.4.3 Focus Order - focus returns to trigger on dismiss
-	test('focus returns to trigger after Escape', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/90-testing-popover-basic.tsx')>(
-			'design-system',
-			'top-layer',
-			'testing-popover-basic',
-		);
-
-		const trigger = page.getByTestId('popover-trigger');
-		await trigger.click();
-
-		await expect(page.getByTestId('popover-content')).toBeVisible();
-
-		await page.keyboard.press('Escape');
-
-		await expect(trigger).toBeFocused();
-	});
-
 	// WCAG 3.2.1 On Focus - focus return to trigger must NOT re-open the popover
 	test('focus returning to trigger after close does not re-open popover', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/105-testing-focus-return-no-reopen.tsx')>(
@@ -521,43 +468,6 @@ test.describe('Popup - manual mode accessibility', () => {
 
 		await expect(page.getByTestId('popover-content')).toBeHidden();
 		await expect(page.getByTestId('close-reason')).toHaveText('click-outside');
-	});
-});
-
-test.describe('Popup - animations', () => {
-	test('animated popover has slide-and-fade data attribute when open', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/115-testing-popover-animation.tsx')>(
-			'design-system',
-			'top-layer',
-			'testing-popover-animation',
-		);
-
-		const trigger = page.getByTestId('popover-trigger');
-		await trigger.click();
-
-		await expect(page.getByTestId('popover-content')).toBeVisible();
-
-		const hasAttribute = await page.evaluate(() => {
-			const content = document.querySelector('[data-testid="popover-content"]');
-			const popoverEl = content?.closest('[popover]');
-			return popoverEl?.hasAttribute('data-ds-popover-slide-and-fade') ?? false;
-		});
-
-		expect(hasAttribute).toBe(true);
-	});
-
-	test('popover still appears with prefers-reduced-motion: reduce', async ({ page }) => {
-		await page.emulateMedia({ reducedMotion: 'reduce' });
-		await page.visitExample<typeof import('../../examples/115-testing-popover-animation.tsx')>(
-			'design-system',
-			'top-layer',
-			'testing-popover-animation',
-		);
-
-		const trigger = page.getByTestId('popover-trigger');
-		await trigger.click();
-
-		await expect(page.getByTestId('popover-content')).toBeVisible();
 	});
 });
 

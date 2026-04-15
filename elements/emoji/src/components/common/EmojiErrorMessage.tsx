@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import type { Message } from '../../types';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { messages } from '../i18n';
 

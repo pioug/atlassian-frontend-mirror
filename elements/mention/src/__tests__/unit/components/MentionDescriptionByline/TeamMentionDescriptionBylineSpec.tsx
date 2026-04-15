@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import TeamMentionDescriptionByline from '../../../../components/MentionDescriptionByline';
 import { type MentionDescription } from '../../../..//types';
 import { teamMention } from './_commonData';

@@ -56,7 +56,6 @@ export const AgentMenuItemSkeleton = ({
 			<Skeleton
 				width={skeletonTextWidth}
 				height={skeletonTextHeight}
-				borderRadius={4}
 				isShimmering
 				testId={`loading-agents-text-skeleton-${index}`}
 			/>

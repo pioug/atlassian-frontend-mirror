@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 import { IconButton } from '@atlaskit/button/new';
 import EditorMoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Tooltip from '@atlaskit/tooltip';

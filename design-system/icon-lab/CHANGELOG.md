@@ -1,5 +1,22 @@
 # @atlaskit/icon-lab
 
+## 6.5.0
+
+### Minor Changes
+
+- [`a42fb7e88fcfa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a42fb7e88fcfa) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `text-normal`
+  - `text-small`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.4.0
 
 ### Minor Changes

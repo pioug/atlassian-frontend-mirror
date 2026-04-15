@@ -1,3 +1,7 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { TEAM_FALLBACK_AVATAR_DATA_URI } from './fallback/constants';
+
 /**
  * If a src value is given, we'll use that directly.
  * Otherwise we'll generate a static URL from the teamId.
@@ -9,5 +13,7 @@ export function getTeamAvatarSrc(src?: string, teamId?: string): string | undefi
 	} else if (teamId) {
 		return `/gateway/api/v4/teams/${teamId}/avatar`;
 	}
-	return undefined;
+	return fg('enable_teams_t26_design_drop_core_experiences')
+		? TEAM_FALLBACK_AVATAR_DATA_URI
+		: undefined;
 }

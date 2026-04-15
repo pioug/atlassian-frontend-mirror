@@ -1,7 +1,7 @@
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import React, { type ReactNode } from 'react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import { AtlassianIcon, ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
 import Spinner from '@atlaskit/spinner/spinner';

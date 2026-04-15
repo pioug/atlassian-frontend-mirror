@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { Field, useFormState } from '@atlaskit/form';
 import TextArea from '@atlaskit/textarea';

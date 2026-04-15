@@ -8,9 +8,11 @@ import { useEffect, useState } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import { type SizeType } from '@atlaskit/avatar';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { FallbackAvatar } from './fallback';
+import { TEAM_FALLBACK_AVATAR_DATA_URI } from './fallback/constants';
 import { getTeamAvatarSrc } from './utils';
 
 type AvatarImageProps = {
@@ -199,7 +201,7 @@ export const TeamAvatarImage = ({
 		setHasImageErrored(false);
 	}, [avatarSrc]);
 
-	if (!avatarSrc || hasImageErrored) {
+	if ((!avatarSrc || hasImageErrored) && !fg('enable_teams_t26_design_drop_core_experiences')) {
 		return (
 			<FallbackAvatar
 				aria-label={alt}
@@ -207,6 +209,19 @@ export const TeamAvatarImage = ({
 				height={SIZES[size]}
 				data-testid={testId}
 				compact={compact}
+			/>
+		);
+	}
+
+	if (fg('enable_teams_t26_design_drop_core_experiences')) {
+		const resolvedSrc = hasImageErrored ? TEAM_FALLBACK_AVATAR_DATA_URI : avatarSrc;
+		return (
+			<img
+				src={resolvedSrc}
+				alt={alt}
+				data-testid={testId && `${testId}--image`}
+				css={[avatarImageStyles.image]}
+				onError={() => setHasImageErrored(true)}
 			/>
 		);
 	}

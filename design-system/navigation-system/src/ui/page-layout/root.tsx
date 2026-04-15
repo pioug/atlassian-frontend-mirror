@@ -8,7 +8,6 @@ import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
 import { OpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SkipLinksProvider } from '../../context/skip-links/skip-links-provider';
 import { TopNavStartProvider } from '../../context/top-nav-start/top-nav-start-context-provider';
@@ -34,35 +33,6 @@ const styles = cssMap({
        `,
 		gridTemplateColumns: 'minmax(0, 1fr)',
 		gridTemplateRows: 'auto auto 1fr auto',
-		'@media (min-width: 64rem)': {
-			gridTemplateAreas: `
-            "banner banner banner"
-            "top-bar top-bar top-bar"
-            "side-nav main aside"
-       `,
-			gridTemplateRows: 'auto auto 3fr',
-			gridTemplateColumns: 'auto minmax(0,1fr) auto',
-		},
-		// Panel is only shown as a separate column on large viewports
-		'@media (min-width: 90rem)': {
-			gridTemplateAreas: `
-                "banner banner banner banner"
-                "top-bar top-bar top-bar top-bar"
-                "side-nav main aside panel"
-           `,
-			gridTemplateRows: 'auto auto 3fr',
-			gridTemplateColumns: 'auto minmax(0,1fr) auto auto',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'> :not([data-layout-slot])': {
-			// This hides any non-layout components that would otherwise be added to an implicit grid
-			// track and break the page layout grid in unexpected and hilarious ways. Adding anything
-			// as a child to page layout that is not a layout component is not supported.
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-			display: 'none !important',
-		},
-	},
-	ribbon: {
 		// There is no ribbon grid area on small viewports
 		'@media (min-width: 64rem)': {
 			gridTemplateAreas: `
@@ -82,6 +52,14 @@ const styles = cssMap({
            `,
 			gridTemplateRows: 'auto auto 3fr',
 			gridTemplateColumns: 'auto auto minmax(0,1fr) auto auto',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'> :not([data-layout-slot])': {
+			// This hides any non-layout components that would otherwise be added to an implicit grid
+			// track and break the page layout grid in unexpected and hilarious ways. Adding anything
+			// as a child to page layout that is not a layout component is not supported.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			display: 'none !important',
 		},
 	},
 });
@@ -199,7 +177,7 @@ This message will not be displayed in production.
 									<SkipLinksProvider label={skipLinksLabel} testId={testId}>
 										<div
 											ref={ref}
-											css={[styles.root, fg('platform_dst_nav4_ribbon_slot') && styles.ribbon]}
+											css={styles.root}
 											className={xcss}
 											id={gridRootId}
 											data-testid={testId}

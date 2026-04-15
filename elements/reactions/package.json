@@ -64,7 +64,7 @@
 	"peerDependencies": {
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
@@ -82,7 +82,7 @@
 		"fetch-mock": "root:*",
 		"raf-stub": "root:*",
 		"react": "root:*",
-		"react-intl-next": "root:*",
+		"react-intl": "root:*",
 		"wait-for-expect": "root:*",
 		"webpack-dev-server": "root:*"
 	},

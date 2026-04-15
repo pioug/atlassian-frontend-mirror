@@ -19,8 +19,8 @@ import {
 } from '@atlaskit/analytics-next';
 import { getOptions } from '../utils';
 import { css, jsx } from '@atlaskit/css';
-import { injectIntl } from 'react-intl-next';
-import type { IntlShape, WithIntlProps, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl';
+import type { IntlShape, WithIntlProps, WrappedComponentProps } from 'react-intl';
 import messages from '../messages';
 export interface Props {
 	/** color of checkmark on selected color */

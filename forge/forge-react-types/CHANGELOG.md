@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 1.0.3
+
+### Patch Changes
+
+- [`2fc22a970eeab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fc22a970eeab) -
+  Remove forYouUrl from Global Sidebar component
+- Updated dependencies
+
 ## 1.0.2
 
 ### Patch Changes

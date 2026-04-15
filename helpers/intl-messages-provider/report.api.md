@@ -18,7 +18,7 @@
 ```ts
 /// <reference types="react" />
 
-import { MessageFormatElement } from 'react-intl-next';
+import { MessageFormatElement } from 'react-intl';
 
 // @public (undocumented)
 export type I18NMessages = Record<string, MessageFormatElement[]> | Record<string, string>;
@@ -49,7 +49,7 @@ export type IntlMessagesProviderProps = {
 ```json
 {
 	"react": "^16.8.0",
-	"react-intl-next": "npm:react-intl@^5.18.1"
+	"react-intl": "npm:react-intl@^5.18.1"
 }
 ```
 

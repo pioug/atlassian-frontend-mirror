@@ -7,7 +7,7 @@ import { cssMap, cx, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { messages } from '../shared/i18n';
 

@@ -4,7 +4,7 @@
  */
 import { getAppearanceForAppType } from '@atlaskit/avatar';
 import { token } from '@atlaskit/tokens';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import React from 'react';
 import { type User } from '../types';
@@ -32,7 +32,7 @@ const styles = (color: string) =>
 	});
 
 export class UserOption extends React.PureComponent<UserOptionProps> {
-	getPrimaryText = () => {
+	getPrimaryText = (): jsx.JSX.Element[] => {
 		const {
 			user: { name, publicName, highlight },
 		} = this.props;
@@ -59,7 +59,7 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 					<span
 						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={fg('platform_user_picker_firefox_tab_fix') ? styles(color) : textWrapper(color)}
-						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
+					// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 					>
 						(
 						<HighlightText highlights={highlight && highlight.publicName}>
@@ -73,7 +73,7 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 		return result;
 	};
 
-	renderSecondaryText = () =>
+	renderSecondaryText = (): jsx.JSX.Element | undefined =>
 		this.props.user.byline ? (
 			<span
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -118,8 +118,8 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 	private getLozengeProps = () =>
 		typeof this.props.user.lozenge === 'string'
 			? {
-					text: this.props.user.lozenge,
-				}
+				text: this.props.user.lozenge,
+			}
 			: this.props.user.lozenge;
 
 	render(): React.JSX.Element {

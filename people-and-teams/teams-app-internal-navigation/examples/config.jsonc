@@ -5,6 +5,10 @@
  */
 {
   "testExamples": [
-    "basic.tsx"
+    "TeamsAnchor.example.tsx",
+    "TeamsLink.example.tsx",
+    "TeamsLinkButton.example.tsx",
+    "TeamsLinkItem.example.tsx",
+    "TeamsNavigationProvider.example.tsx"
   ]
 }

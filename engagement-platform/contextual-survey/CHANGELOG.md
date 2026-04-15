@@ -1,5 +1,13 @@
 # @atlaskit/contextual-survey
 
+## 6.1.0
+
+### Minor Changes
+
+- [`08f86d1686ebb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08f86d1686ebb) -
+  Making library react19 compatible - Converting JSX.Element to React.JSX.Element & using
+  @atlaskit/motion instead of react-transition-group
+
 ## 6.0.12
 
 ### Patch Changes

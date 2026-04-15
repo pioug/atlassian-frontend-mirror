@@ -55,6 +55,11 @@ export const getPluginStateWithUpdatedPos = (
 		sourceEvent?: UIAnalyticsEvent | null | undefined;
 		url: string;
 	}[];
+	resolvedInlineSmartLinks?: Array<{
+		pos: number;
+		source: CardReplacementInputMethod;
+		url: string;
+	}>;
 	resolvedToolbarAttributesByUrl: Record<string, ToolbarResolvedAttributes>;
 	selectedInlineLinkPosition?: number;
 	showDatasourceModal: boolean;
@@ -67,6 +72,10 @@ export const getPluginStateWithUpdatedPos = (
 		pos: tr.mapping.map(request.pos),
 	})),
 	cards: pluginState.cards.map((card) => ({
+		...card,
+		pos: tr.mapping.map(card.pos),
+	})),
+	resolvedInlineSmartLinks: pluginState.resolvedInlineSmartLinks?.map((card) => ({
 		...card,
 		pos: tr.mapping.map(card.pos),
 	})),

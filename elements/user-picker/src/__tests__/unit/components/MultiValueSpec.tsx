@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { MultiValue, scrollToValue } from '../../../components/MultiValue';
 import { type Email, EmailType, type User, type Team } from '../../../types';
 import { ffTest } from '@atlassian/feature-flags-test-utils';

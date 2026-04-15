@@ -1,5 +1,12 @@
 # @atlaskit/width-detector
 
+## 5.1.0
+
+### Minor Changes
+
+- [`b6726adedaa66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6726adedaa66) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 5.0.6
 
 ### Patch Changes

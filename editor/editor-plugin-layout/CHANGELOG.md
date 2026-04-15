@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-layout
 
+## 8.1.12
+
+### Patch Changes
+
+- [`1bd298ad0a152`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bd298ad0a152) -
+  [ux] EDITOR-6280 Clean up platform_editor_block_menu_v2_patch_3 to fix icon and copy in jira block
+  menu
+- Updated dependencies
+
+## 8.1.11
+
+### Patch Changes
+
+- [`8ad443c7b22d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ad443c7b22d0) -
+  Support 'max' editor appearance for layout column resize handle when
+  platform_editor_layout_column_resize_handle experiment is enabled; guard column divider
+  decorations behind layout resizing plugin availability check
+- Updated dependencies
+
+## 8.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.8
 
 ### Patch Changes

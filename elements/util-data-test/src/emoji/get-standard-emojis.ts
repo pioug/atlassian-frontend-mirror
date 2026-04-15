@@ -1,8 +1,9 @@
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import { denormaliseEmojiServiceResponse } from '@atlaskit/emoji/utils';
 import { getStandardEmojiData } from './get-standard-emoji-data';
+import type { EmojiDescriptionWithVariations } from '@atlaskit/emoji';
 
-export const getStandardEmojis = memoizeOne(() => {
+export const getStandardEmojis: MemoizedFn<() => EmojiDescriptionWithVariations[]> = memoizeOne((): EmojiDescriptionWithVariations[] => {
 	const standardEmojis = getStandardEmojiData();
 	const standardSprites = standardEmojis?.meta?.spriteSheets ?? {};
 

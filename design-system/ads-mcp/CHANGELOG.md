@@ -1,5 +1,13 @@
 # @atlaskit/ads-mcp
 
+## 0.19.4
+
+### Patch Changes
+
+- [`80a45143b4064`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80a45143b4064) -
+  Update ADS MCP slight documentation of private or internal props.
+- Updated dependencies
+
 ## 0.19.3
 
 ### Patch Changes

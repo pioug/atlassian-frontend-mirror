@@ -1,6 +1,6 @@
 import React from 'react';
 import { token } from '@atlaskit/tokens';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { emojiPickerWidth } from '../src/util/constants';
 import { EmojiPreviewComponent } from '../src/components/common/EmojiPreviewComponent';

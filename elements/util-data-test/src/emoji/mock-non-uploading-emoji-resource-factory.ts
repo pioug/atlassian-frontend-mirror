@@ -6,7 +6,7 @@ export const mockNonUploadingEmojiResourceFactory = (
 	emojiRepository: EmojiRepository,
 	config?: MockEmojiResourceConfig,
 	promiseBuilder?: PromiseBuilder<any>,
-) => {
+): Promise<any> => {
 	const mockEmojiResource = new MockNonUploadingEmojiResource(emojiRepository, config);
 	if (promiseBuilder) {
 		return promiseBuilder(mockEmojiResource, 'mockNonUploadingEmojiResourceFactory');

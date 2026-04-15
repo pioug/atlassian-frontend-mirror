@@ -22,7 +22,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
-import { browser as browserLegacy, getBrowserInfo } from '../../utils/browser';
+import { getBrowserInfo } from '../../utils/browser';
 
 import { CodeBlockSharedCssClassName } from './code-block';
 import { tableCellBackgroundStyleOverride } from './tableCell';
@@ -40,32 +40,32 @@ export const tablePadding = 8;
 export const tableControlsSpacing: number = tableMarginTop + tablePadding - tableCellBorderWidth;
 
 export const TableSharedCssClassName: {
-	readonly TABLE_CONTAINER: 'pm-table-container';
-	readonly TABLE_NODE_WRAPPER: 'pm-table-wrapper';
-	readonly TABLE_NODE_WRAPPER_NO_OVERFLOW: 'pm-table-wrapper-no-overflow';
-	readonly TABLE_SCROLL_INLINE_SHADOW: 'pm-table-scroll-inline-shadow';
-	readonly TABLE_RIGHT_BORDER: 'pm-table-right-border';
-	readonly TABLE_LEFT_BORDER: 'pm-table-left-border';
-	readonly TABLE_LEFT_SHADOW: 'pm-table-with-left-shadow';
-	readonly TABLE_RIGHT_SHADOW: 'pm-table-with-right-shadow';
-	readonly TABLE_STICKY_SHADOW: 'pm-table-sticky-shadow';
-	readonly TABLE_STICKY_WRAPPER: 'pm-table-sticky-wrapper';
-	readonly TABLE_STICKY_SCROLLBAR_CONTAINER: 'pm-table-sticky-scrollbar-container';
-	readonly TABLE_STICKY_SENTINEL_TOP: 'pm-table-sticky-sentinel-top';
-	readonly TABLE_STICKY_SENTINEL_BOTTOM: 'pm-table-sticky-sentinel-bottom';
-	readonly TABLE_STICKY_SCROLLBAR_SENTINEL_TOP: 'pm-table-sticky-scrollbar-sentinel-top';
-	readonly TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM: 'pm-table-sticky-scrollbar-sentinel-bottom';
-	readonly TABLE_SHADOW_SENTINEL_LEFT: 'pm-table-shadow-sentinel-left';
-	readonly TABLE_SHADOW_SENTINEL_RIGHT: 'pm-table-shadow-sentinel-right';
 	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	readonly TABLE_CELL_NODEVIEW_CONTENT_DOM: 'pm-table-cell-nodeview-content-dom';
 	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	readonly TABLE_CELL_WRAPPER: 'pm-table-cell-content-wrap';
+	readonly TABLE_COLUMN_CONTROLS_DECORATIONS: 'pm-table-column-controls-decoration';
+	readonly TABLE_CONTAINER: 'pm-table-container';
 	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	readonly TABLE_HEADER_CELL_WRAPPER: 'pm-table-header-content-wrap';
-	readonly TABLE_ROW_CONTROLS_WRAPPER: 'pm-table-row-controls-wrapper';
-	readonly TABLE_COLUMN_CONTROLS_DECORATIONS: 'pm-table-column-controls-decoration';
+	readonly TABLE_LEFT_BORDER: 'pm-table-left-border';
+	readonly TABLE_LEFT_SHADOW: 'pm-table-with-left-shadow';
+	readonly TABLE_NODE_WRAPPER: 'pm-table-wrapper';
+	readonly TABLE_NODE_WRAPPER_NO_OVERFLOW: 'pm-table-wrapper-no-overflow';
 	readonly TABLE_RESIZER_CONTAINER: 'pm-table-resizer-container';
+	readonly TABLE_RIGHT_BORDER: 'pm-table-right-border';
+	readonly TABLE_RIGHT_SHADOW: 'pm-table-with-right-shadow';
+	readonly TABLE_ROW_CONTROLS_WRAPPER: 'pm-table-row-controls-wrapper';
+	readonly TABLE_SCROLL_INLINE_SHADOW: 'pm-table-scroll-inline-shadow';
+	readonly TABLE_SHADOW_SENTINEL_LEFT: 'pm-table-shadow-sentinel-left';
+	readonly TABLE_SHADOW_SENTINEL_RIGHT: 'pm-table-shadow-sentinel-right';
+	readonly TABLE_STICKY_SCROLLBAR_CONTAINER: 'pm-table-sticky-scrollbar-container';
+	readonly TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM: 'pm-table-sticky-scrollbar-sentinel-bottom';
+	readonly TABLE_STICKY_SCROLLBAR_SENTINEL_TOP: 'pm-table-sticky-scrollbar-sentinel-top';
+	readonly TABLE_STICKY_SENTINEL_BOTTOM: 'pm-table-sticky-sentinel-bottom';
+	readonly TABLE_STICKY_SENTINEL_TOP: 'pm-table-sticky-sentinel-top';
+	readonly TABLE_STICKY_SHADOW: 'pm-table-sticky-shadow';
+	readonly TABLE_STICKY_WRAPPER: 'pm-table-sticky-wrapper';
 } = {
 	TABLE_CONTAINER: `${tablePrefixSelector}-container`,
 	TABLE_NODE_WRAPPER: `${tablePrefixSelector}-wrapper`,
@@ -123,9 +123,7 @@ const firstNodeWithNotMarginTop = () =>
 			`;
 
 const tableSharedStyle = (): SerializedStyles => {
-	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-		? getBrowserInfo()
-		: browserLegacy;
+	const browser = getBrowserInfo();
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Appears safe to auto-fix, but leaving it up to the team to remediate as the readability only gets worse with autofixing
 	return css`
 		${tableCellBackgroundStyleOverride()}

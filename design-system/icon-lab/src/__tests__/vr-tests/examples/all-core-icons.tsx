@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::4ca2366054f60d0314820ab60017dc71>>
+ * @codegen <<SignedSource::4216a2d7cb8b765dc9121ad5986554ac>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -425,8 +425,10 @@ import TextItalicUnderlineIcon from '../../../../core/text-italic-underline';
 import TextItalicUnderlineStrikethroughIcon from '../../../../core/text-italic-underline-strikethrough';
 import TextLengthenIcon from '../../../../core/text-lengthen';
 import TextLetterCaseIcon from '../../../../core/text-letter-case';
+import TextNormalIcon from '../../../../core/text-normal';
 import TextParagraphIcon from '../../../../core/text-paragraph';
 import TextRephraseIcon from '../../../../core/text-rephrase';
+import TextSmallIcon from '../../../../core/text-small';
 import TextSubscriptIcon from '../../../../core/text-subscript';
 import TextSuperscriptIcon from '../../../../core/text-superscript';
 import TextUnderlineStrikethroughIcon from '../../../../core/text-underline-strikethrough';
@@ -933,6 +935,8 @@ const Icons = [
 	VideoTimelineClipInsertEndIcon,
 	VideoTimelineClipInsertPlayheadIcon,
 	VideoTimelineClipInsertStartIcon,
+	TextNormalIcon,
+	TextSmallIcon,
 ];
 
 const groupSize = 50;

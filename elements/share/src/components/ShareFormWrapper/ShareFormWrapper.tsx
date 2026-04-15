@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 

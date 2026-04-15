@@ -9,7 +9,7 @@ import { getWidth } from '../utils';
 import { token } from '@atlaskit/tokens';
 import { css, jsx } from '@atlaskit/css';
 import { COLOR_PICKER } from '../constants';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import messages from '../messages';
 
 export const MenuList = (props: MenuListComponentProps<Color>): JSX.Element => {

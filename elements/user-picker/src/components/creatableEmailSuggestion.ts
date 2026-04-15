@@ -1,4 +1,4 @@
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import { EmailType, type Option } from '../types';
 import {
 	type EmailValidationResponse,
@@ -53,8 +53,35 @@ const isOptionDisabled =
 
 // Generates user picker props to always create an email item visible
 // to the user as a suggested option when they are typing in a value
-export const getCreatableSuggestedEmailProps = memoizeOne(
-	(emailDomain: string, isValidEmail?: EmailValidator) => ({
+export const getCreatableSuggestedEmailProps: MemoizedFn<(emailDomain: string, isValidEmail?: EmailValidator) => {
+    allowCreateWhileLoading: boolean;
+    createOptionPosition: string;
+    formatCreateLabel: (inputText?: string) => string;
+    getNewOptionData: (inputValue?: string) => {
+        data: {
+            id: string;
+            name: string;
+            suggestion: boolean;
+            type: string;
+        };
+        label: string;
+        value: string;
+    } | null;
+    isOptionDisabled: (option: Option) => boolean;
+    isValidNewOption: (inputValue?: string) => boolean | "" | undefined;
+}> = memoizeOne(
+	(emailDomain: string, isValidEmail?: EmailValidator): {
+        allowCreateWhileLoading: boolean; createOptionPosition: string; formatCreateLabel: (inputText?: string) => string; getNewOptionData: (inputValue?: string) => {
+            data: {
+                id: string;
+                name: string;
+                suggestion: boolean;
+                type: string;
+            };
+            label: string;
+            value: string;
+        } | null; isOptionDisabled: (option: Option) => boolean; isValidNewOption: (inputValue?: string) => boolean | "" | undefined;
+    } => ({
 		allowCreateWhileLoading: true,
 		createOptionPosition: 'last',
 		isValidNewOption,

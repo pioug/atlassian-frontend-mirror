@@ -14,7 +14,7 @@ import type { EmojiProvider } from '../src/resource';
 import { EmojiTypeAhead } from '../src/typeahead';
 import type { EmojiId, OptionalEmojiDescription } from '../src/types';
 import debug from '../src/util/logger';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const tallPageStyle = {
 	height: '1000px',

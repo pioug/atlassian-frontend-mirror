@@ -2,8 +2,6 @@ import React, { StrictMode, useState } from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
-
 import { type FormValues } from '../../../types';
 import ContextualSurvey, { AUTO_DISAPPEAR_DURATION } from '../../ContextualSurvey';
 import SurveyMarshal from '../../SurveyMarshal';
@@ -45,23 +43,9 @@ beforeEach(() => {
 	jest.useFakeTimers();
 });
 
-it.each([
-	{
-		enablePlatformContextualSurveyUseAtlaskitMotion: true,
-	},
-	{
-		enablePlatformContextualSurveyUseAtlaskitMotion: false,
-	},
-])(
+it(
 	'should allow a standard signup flow',
-	async ({ enablePlatformContextualSurveyUseAtlaskitMotion }) => {
-		setBooleanFeatureFlagResolver((flag) => {
-			if (flag === 'platform_contextual_survey_use_atlaskit_motion') {
-				return enablePlatformContextualSurveyUseAtlaskitMotion;
-			}
-			return false;
-		});
-
+	async () => {
 		const onSubmit = jest.fn().mockImplementation(() => {
 			return Promise.resolve();
 		});

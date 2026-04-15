@@ -587,7 +587,13 @@ export type Payload =
 	| UploadAndInsertMediaPayload
 	| SmartLinksContextPayload
 	| SpaceSelectedPayload
-	| SpaceDeselectedPayload;
+	| SpaceDeselectedPayload
+	| TaskPlanConfirmedPayload;
+
+export type TaskPlanConfirmedPayload = PayloadCore<
+	'task-plan-confirmed',
+	{ conversationId: string; planTitle: string }
+>;
 
 export type Callback = (payload: Payload) => void;
 

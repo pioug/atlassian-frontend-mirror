@@ -7,7 +7,7 @@ export const objectKeyToString = (objectKey: ObjectKey) => {
 	return `${objectAri}:${localId}`;
 };
 
-export const toggleTaskState = (state: string) => (state === 'DONE' ? 'TODO' : 'DONE');
+export const toggleTaskState = (state: string): "DONE" | "TODO" => (state === 'DONE' ? 'TODO' : 'DONE');
 
 export const findIndex = (array: any[], predicate: (item: any) => boolean): number => {
 	let index = -1;

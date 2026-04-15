@@ -56,9 +56,7 @@ export type TableArrayMapped = {
 };
 
 export const isTableResizingEnabled = (appearance: RendererAppearance): boolean =>
-	isFullWidthOrFullPageAppearance(appearance) ||
-	(isCommentAppearance(appearance) &&
-		editorExperiment('support_table_in_comment', true, { exposure: true }));
+	isFullWidthOrFullPageAppearance(appearance) || isCommentAppearance(appearance);
 
 export const isStickyScrollbarEnabled = (appearance: RendererAppearance): boolean =>
 	isFullWidthOrFullPageAppearance(appearance) &&

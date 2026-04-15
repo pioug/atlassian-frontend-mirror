@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 4.1.0
+
+### Minor Changes
+
+- [`af7c97b639e4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af7c97b639e4f) -
+  Removed hardcoded `borderRadius` pixel values from `Skeleton` components
+
 ## 4.0.0
 
 ### Major Changes

@@ -11,7 +11,6 @@ import type { HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import LockCircleIcon from '@atlaskit/icon/core/lock-locked';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
@@ -76,10 +75,8 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props): React.
 			allowTables: {
 				advanced: true,
 				allowControls: true,
-				allowTableAlignment: editorExperiment('support_table_in_comment', true, { exposure: true }),
-				allowTableResizing: editorExperiment('support_table_in_comment', true, {
-					exposure: true,
-				}),
+				allowTableAlignment: true,
+				allowTableResizing: true,
 			},
 			allowExpand: {
 				allowInsertion: false,

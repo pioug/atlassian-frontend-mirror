@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import Select from '@atlaskit/select';
 import { type DefaultValue, type OptionIdentifier } from '@atlaskit/user-picker';
 

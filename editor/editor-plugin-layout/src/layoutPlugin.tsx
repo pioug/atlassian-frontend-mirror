@@ -145,7 +145,10 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 			] as Array<PMPlugin>;
 
 			if (
-				(options.editorAppearance === 'full-page' || options.editorAppearance === 'full-width') &&
+				(options.editorAppearance === 'full-page' ||
+					options.editorAppearance === 'full-width' ||
+					(options.editorAppearance === 'max' &&
+						editorExperiment('platform_editor_layout_column_resize_handle', true))) &&
 				api &&
 				editorExperiment('advanced_layouts', true)
 			) {

@@ -608,10 +608,10 @@ events:
           type: boolean
           description: Whether a modifier key was pressed when clicking the Smart Link.
   - smartLink visited:
-      type: ui
-      description: fires an event that represents when a user visits a Smart Link target.
+      type: track
+      description: fires a tracking event that represents when a user visits a Smart Link target.
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext, *ResolvedContext]
+        <<: [*PackageMetaDataContext, *CommonContext]
         id:
           required: true
           type: string

@@ -82,7 +82,7 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 	//@ts-ignore react-select unsupported props
 	onValueContainerClick: any = this.props.selectProps.onValueContainerClick;
 
-	Wrapper = ({ children }: { children: React.ReactElement }) => {
+	Wrapper = ({ children }: { children: React.ReactElement }): JSX.Element => {
 		return this.onValueContainerClick ? (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlassian/a11y/no-static-element-interactions -- Ignored via go/DSP-18766
 			<div css={wrapperStyle} onMouseDown={this.onValueContainerClick}>
@@ -93,7 +93,7 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 		);
 	};
 
-	render() {
+	render(): JSX.Element {
 		const { children, ...valueContainerProps } = this.props;
 
 		return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { messages } from '../i18n';
 import { ToolTipContentWithKeymap } from './ToolTipContentWithKeymap';
 import { backspace } from '../../util/keymaps';

@@ -10,7 +10,7 @@ import { ResourcedEmoji } from '../src/element';
 import { customCategory } from '../src/util/constants';
 import { toEmojiId } from '../src/util/type-helpers';
 import type { EmojiDescription, EmojiSearchResult } from '../src/types';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const customFilter = (emoji: EmojiDescription) => emoji.category === customCategory;
 

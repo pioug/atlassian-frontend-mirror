@@ -66,11 +66,11 @@
 		"@emotion/react": "root:*",
 		"fast-deep-equal": "root:*",
 		"memoize-one": "root:*",
-		"react-intl-next": "root:*",
 		"tiny-invariant": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@atlaskit/editor-test-helpers": "workspace:^",
@@ -80,6 +80,7 @@
 		"@testing-library/user-event": "root:*",
 		"enzyme": "root:*",
 		"react": "root:*",
+		"react-intl": "root:*",
 		"typescript": "root:*"
 	},
 	"keywords": [

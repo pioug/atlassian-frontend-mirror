@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/width-detector",
-	"version": "5.0.6",
+	"version": "5.1.0",
 	"description": "Wrapper for components that need to respond to width changes",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -65,6 +65,7 @@
 	"homepage": "https://atlaskit.atlassian.com/packages/helpers/width-detector",
 	"exports": {
 		".": "./src/index.tsx",
-		"./WidthDetector": "./src/WidthDetector.tsx"
+		"./width-detector": "./src/entry-points/width-detector.tsx",
+		"./width-observer": "./src/entry-points/width-observer.tsx"
 	}
 }

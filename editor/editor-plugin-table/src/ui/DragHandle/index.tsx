@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -150,9 +150,7 @@ const DragHandleComponent = ({
 
 	useEffect(() => {
 		const dragHandleDivRefCurrent = dragHandleDivRef.current;
-		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-			? getBrowserInfo()
-			: browserLegacy;
+		const browser = getBrowserInfo();
 
 		if (dragHandleDivRefCurrent) {
 			return draggable({
@@ -198,9 +196,7 @@ const DragHandleComponent = ({
 	}, [tableLocalId, direction, indexes, isRow, editorView.state.selection, hasMergedCells]);
 
 	const showDragMenuAnchorId = isRow ? 'drag-handle-button-row' : 'drag-handle-button-column';
-	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-		? getBrowserInfo()
-		: browserLegacy;
+	const browser = getBrowserInfo();
 
 	return (
 		<>

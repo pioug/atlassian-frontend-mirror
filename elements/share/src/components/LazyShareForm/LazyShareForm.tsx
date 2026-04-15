@@ -7,7 +7,7 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { Text } from '@atlaskit/primitives/compiled';

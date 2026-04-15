@@ -387,7 +387,13 @@ type FailedToInsertSnippetAEP = OperationalAEP<
 	ACTION.FAILED_TO_INSERT,
 	ACTION_SUBJECT.DOCUMENT,
 	ACTION_SUBJECT_ID.SNIPPET,
-	{ reason: 'emptyBody' | 'parseError'; snippetId: string }
+	| { reason: 'emptyBody' | 'parseError'; snippetId: string }
+	| {
+			copiedMediaFiles: number;
+			reason: 'partialMediaCopyFailure';
+			snippetId: string;
+			totalMediaFiles: number;
+	  }
 >;
 
 export type InsertEventPayload =

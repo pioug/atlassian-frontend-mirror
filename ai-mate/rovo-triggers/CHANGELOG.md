@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 5.38.0
+
+### Minor Changes
+
+- [`5ba3c3832dd41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ba3c3832dd41) -
+  Add TODO_SNAPSHOT stream message type and TaskProgressView overlay for task mode
+
 ## 5.37.0
 
 ### Minor Changes

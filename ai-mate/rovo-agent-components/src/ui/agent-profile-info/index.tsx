@@ -141,13 +141,7 @@ export const AgentProfileCreator = ({
 		if (isLoading) {
 			return formatMessage(messages.agentCreatedBy, {
 				creatorNameWithLink: (
-					<Skeleton
-						testId="agent-profile-creator-skeleton"
-						isShimmering
-						height={18}
-						width={100}
-						borderRadius={3}
-					/>
+					<Skeleton testId="agent-profile-creator-skeleton" isShimmering height={18} width={100} />
 				),
 			});
 		}

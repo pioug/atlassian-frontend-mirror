@@ -1,10 +1,7 @@
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 
 export function getUAPrefix() {
-	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-		? getBrowserInfo()
-		: browserLegacy;
+	const browser = getBrowserInfo();
 	if (browser.chrome) {
 		return 'ua-chrome';
 	} else if (browser.ie) {

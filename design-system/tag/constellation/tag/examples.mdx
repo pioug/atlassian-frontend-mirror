@@ -11,6 +11,7 @@ import TagNewRemovable from '../../examples/constellation/tag-new-removable';
 import TagNewWithIcon from '../../examples/constellation/tag-new-with-icon';
 import TagNewLinkWithIcon from '../../examples/constellation/tag-new-link-with-icon';
 import TagNewMaxWidth from '../../examples/constellation/tag-new-max-width';
+import TagNewSwatchBefore from '../../examples/constellation/tag-new-swatch-before';
 
 ## Default
 
@@ -80,6 +81,19 @@ truncated with an ellipsis.
 
 <Example
 	Component={TagNewMaxWidth}
+	packageName="@atlaskit/tag"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
+
+## Swatch before
+
+Tags that use color as a wayfinding method (such as Jira epic or parent labels) can leverage the `swatchBefore` property to increase prominence of that color.
+Pass `true` to use the tag's own color, or pass a background design token to use a custom color. 
+
+This prop is early access and may be changed in the future. 
+
+<Example
+	Component={TagNewSwatchBefore}
 	packageName="@atlaskit/tag"
 	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
 />

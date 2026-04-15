@@ -1,6 +1,6 @@
 import { token } from '@atlaskit/tokens';
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { type MentionProvider } from '../src/api/MentionResource';
 import { type PresenceProvider } from '../src/api/PresenceResource';
 import MentionPicker, { type Position } from '../src/components/MentionPicker';

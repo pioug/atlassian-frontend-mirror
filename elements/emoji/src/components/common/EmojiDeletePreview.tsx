@@ -10,7 +10,7 @@ import {
 	injectIntl,
 	type WithIntlProps,
 	type WrappedComponentProps,
-} from 'react-intl-next';
+} from 'react-intl';
 import AkButton from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import { Text } from '@atlaskit/primitives/compiled';

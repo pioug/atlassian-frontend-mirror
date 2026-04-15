@@ -1,5 +1,47 @@
 # @atlaskit/editor-statsig-tmp
 
+## 62.2.0
+
+### Minor Changes
+
+- [`65f1d80415ae8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65f1d80415ae8) -
+  EDITOR-679 improve reliability of media provider
+
+## 62.1.0
+
+### Minor Changes
+
+- [`80a2b27ade0a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80a2b27ade0a5) -
+  [ux] EDITOR-6391 remove margin top from hide macro
+
+## 62.0.0
+
+### Major Changes
+
+- [`33ad954adbde1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33ad954adbde1) -
+  [NO-ISSUE] Cleaning flag platform_editor_focus_on_chromeless_editor
+
+## 61.0.1
+
+### Patch Changes
+
+- [`58913fb961b08`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58913fb961b08) -
+  [ux] Remove button/popup functionality from Rovo action CTA - just keep as icon for the inline
+  link.
+
+## 61.0.0
+
+### Major Changes
+
+- [`0ad738e8f896e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ad738e8f896e) -
+  Remove `support_table_in_comment` and `support_table_in_comment_jira` experiment references. Both
+  experiments are fully rolled out — table resizing, alignment, scaling, and distribute columns are
+  now enabled unconditionally in comment editors.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 60.2.0
 
 ### Minor Changes

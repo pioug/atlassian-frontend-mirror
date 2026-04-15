@@ -31,7 +31,7 @@ import {
 } from '../../util/analytics';
 import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
 import EmojiRadioButton from './EmojiRadioButton';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import { messages } from '../i18n';
 
 const hidden = css({

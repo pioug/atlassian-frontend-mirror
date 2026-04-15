@@ -9,7 +9,7 @@ import { Fragment } from 'react';
 import { jsx } from '@emotion/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages';
 import Heading from '@atlaskit/heading';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog';
@@ -28,9 +28,7 @@ interface ModalContentProps {
 }
 
 export const ModalContent = ({ formatting, onClose }: ModalContentProps): jsx.JSX.Element => {
-	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-		? getBrowserInfo()
-		: browserLegacy;
+	const browser = getBrowserInfo();
 	const intl = useIntl();
 	const isA11yFixEnabled = expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true);
 	return (

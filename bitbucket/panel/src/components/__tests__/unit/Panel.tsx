@@ -2,7 +2,7 @@ import React, { type PropsWithChildren } from 'react';
 
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import Panel from '../../Panel';
 

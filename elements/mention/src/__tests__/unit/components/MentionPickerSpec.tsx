@@ -11,7 +11,7 @@ import MentionPicker, {
 } from '../../../components/MentionPicker';
 import * as Analytics from '../../../util/analytics';
 import { screen, render, act, waitFor } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import userEvent from '@testing-library/user-event';
 
 const MAX_NOTIFIED_ITEMS = 20;

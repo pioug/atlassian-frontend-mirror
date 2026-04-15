@@ -13,7 +13,7 @@ import { getAppearanceForAppType } from '@atlaskit/avatar';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 
 import { messages } from './i18n';
@@ -65,7 +65,7 @@ const ElementAfter = (props: Props) => {
 	return null;
 };
 
-export const SingleValue = (props: Props) => {
+export const SingleValue = (props: Props): JSX.Element | null => {
 	const {
 		data: { label, data },
 		//@ts-ignore react-select unsupported props

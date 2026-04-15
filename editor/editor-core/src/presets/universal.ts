@@ -349,18 +349,7 @@ export default function createUniversalPresetInternal({
 				{
 					tableOptions:
 						!props.allowTables || typeof props.allowTables === 'boolean' ? {} : props.allowTables,
-					dragAndDropEnabled:
-						(featureFlags?.tableDragAndDrop &&
-							(isFullPage ||
-								((isComment || isChromeless) &&
-									editorExperiment('support_table_in_comment', true, { exposure: true })))) ||
-						(isComment &&
-							editorExperiment('support_table_in_comment_jira', true, { exposure: true })),
-					isTableScalingEnabled:
-						isFullPage ||
-						(isComment && editorExperiment('support_table_in_comment', true, { exposure: true })) ||
-						(isComment &&
-							editorExperiment('support_table_in_comment_jira', true, { exposure: true })),
+					isTableScalingEnabled: isFullPage || isComment,
 					allowContextualMenu: true,
 					fullWidthEnabled: appearance === 'full-width',
 					wasFullWidthEnabled: prevAppearance && prevAppearance === 'full-width',

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::0e1084de16143c52024155993edd3061>>
+ * @codegen <<SignedSource::41bc5a63cb76bd292f732c2a394b2248>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -6725,6 +6725,25 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
+	'text-normal': {
+		keywords: [
+			'text-normal',
+			'textnormal',
+			'icon',
+			'icon-lab',
+			'text style',
+			'text regular',
+			'text normal',
+			'paragraph',
+			'body',
+		],
+		componentName: 'TextNormalIcon',
+		package: '@atlaskit/icon-lab/core/text-normal',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing Paragraph text style / Normal text style.',
+		team: 'Confluence Lovability',
+		status: 'published',
+	},
 	'text-paragraph': {
 		keywords: [
 			'text-paragraph',
@@ -6761,6 +6780,15 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Confluence Editor AI action for rephrasing text',
 		team: 'Editor AI',
+		status: 'published',
+	},
+	'text-small': {
+		keywords: ['text-small', 'textsmall', 'icon', 'icon-lab', 'text style', 'sm', 'text small'],
+		componentName: 'TextSmallIcon',
+		package: '@atlaskit/icon-lab/core/text-small',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing small text style in text editor experiences.',
+		team: 'Confluence Lovability',
 		status: 'published',
 	},
 	'text-subscript': {

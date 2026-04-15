@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import ManagedStatusPicker from '../example-helpers/ManagedStatusPicker';
 
 export const NeutralStatus = (): React.JSX.Element => (

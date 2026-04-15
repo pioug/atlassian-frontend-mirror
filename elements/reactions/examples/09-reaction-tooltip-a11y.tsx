@@ -13,7 +13,7 @@
 import React, { useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
@@ -184,7 +184,7 @@ const TooltipDemo = ({ flagOn }: { flagOn: boolean }) => {
 	);
 };
 
-export default () => (
+export default (): JSX.Element => (
 	<IntlProvider locale="en">
 		{/* eslint-disable-next-line @atlaskit/design-system/use-primitives */}
 		<div css={pageStyle}>

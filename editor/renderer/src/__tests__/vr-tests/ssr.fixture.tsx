@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import ReactDOMServer from 'react-dom/server';
+// @ts-expect-error TS7016 - no type declarations for server.browser, but it avoids Atlaspack's TextEncoder shim that breaks in Gemini
+import ReactDOMServer from 'react-dom/server.browser';
 import {
 	ssrCodeBlockDoc,
 	ssrCodeBlockInBlockquoteDoc,

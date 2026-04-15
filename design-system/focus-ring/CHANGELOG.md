@@ -1,5 +1,16 @@
 # @atlaskit/focus-ring
 
+## 3.1.0
+
+### Minor Changes
+
+- [`e9ea3d59f41a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9ea3d59f41a8) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.14
 
 ### Patch Changes

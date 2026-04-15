@@ -38,11 +38,11 @@
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"memoize-one": "root:*",
-		"react-intl-next": "root:*",
 		"use-callback-ref": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
@@ -53,7 +53,8 @@
 		"@testing-library/user-event": "root:*",
 		"ast-types": "root:*",
 		"jscodeshift": "root:*",
-		"react": "root:*"
+		"react": "root:*",
+		"react-intl": "root:*"
 	},
 	"keywords": [
 		"ui",

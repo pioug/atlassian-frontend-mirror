@@ -15,7 +15,7 @@ import type {
 	RichMediaLayout as MediaSingleLayout,
 } from '@atlaskit/adf-schema';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { usePreviousState } from '@atlaskit/editor-common/hooks';
 import { captionMessages } from '@atlaskit/editor-common/media';
@@ -557,16 +557,12 @@ export const MediaSingleNodeNext = (
 	const mediaSingleWrapperRef = React.createRef<HTMLDivElement>();
 	const captionPlaceHolderRef = React.createRef<HTMLSpanElement>();
 
-	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-		? getBrowserInfo()
-		: browserLegacy;
+	const browser = getBrowserInfo();
 	const notIos = !browser.ios;
 
 	const onMediaSingleClicked = React.useCallback(
 		(event: MouseEvent) => {
-			const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-				? getBrowserInfo()
-				: browserLegacy;
+			const browser = getBrowserInfo();
 			// Workaround for iOS 16 Caption selection issue
 			// @see https://product-fabric.atlassian.net/browse/MEX-2012
 			if (!browser.ios) {

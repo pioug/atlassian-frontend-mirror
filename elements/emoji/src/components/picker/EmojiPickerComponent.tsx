@@ -17,7 +17,7 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { unstable_batchedUpdates as batchedUpdates } from 'react-dom';
-import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl';
 import { getEmojiVariation } from '../../api/EmojiRepository';
 import { type OnEmojiProviderChange, supportsUploadFeature } from '../../api/EmojiResource';
 import {

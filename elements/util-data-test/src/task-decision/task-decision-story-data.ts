@@ -6,10 +6,52 @@ import {
 // ServiceTaskResponse
 export const getServiceTasksResponse = () => require('../json-data/sample-tasks.json') as any;
 
-export const getMockTaskDecisionResource = (config?: MockTaskDecisionResourceConfig) =>
+export const getMockTaskDecisionResource = (config?: MockTaskDecisionResourceConfig): MockTaskDecisionResource =>
 	new MockTaskDecisionResource(config);
 
-export const document = {
+export const document: {
+    content: {
+        content: ({
+            attrs?: undefined;
+            marks?: undefined;
+            text: string;
+            type: string;
+        } | {
+            attrs?: undefined;
+            marks?: undefined;
+            text?: undefined;
+            type: string;
+        } | {
+            attrs: {
+                accessLevel?: undefined;
+                id: string;
+                shortName: string;
+                text: string;
+            };
+            marks?: undefined;
+            text?: undefined;
+            type: string;
+        } | {
+            attrs: {
+                accessLevel: string;
+                id: string;
+                shortName?: undefined;
+                text: string;
+            };
+            marks?: undefined;
+            text?: undefined;
+            type: string;
+        } | {
+            attrs?: undefined;
+            marks: {
+                type: string;
+            }[];
+            text: string;
+            type: string;
+        })[];
+        type: string;
+    }[]; type: string; version: number;
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

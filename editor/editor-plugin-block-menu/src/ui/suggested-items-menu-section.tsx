@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl-next';
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
@@ -29,13 +28,7 @@ export const SuggestedItemsMenuSection: React.NamedExoticComponent<SuggestedItem
 			return null;
 		}
 
-		// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
-		// Conditionally show separator based on whether there's content after this section.
-		// Old behavior: always show separator (true).
-		// To clean up: remove conditional, keep only the hasCreateSectionContent || hasStructureSectionContent logic.
-		const hasSeparator = fg('platform_editor_block_menu_v2_patch_3')
-			? hasCreateSectionContent(api) || hasStructureSectionContent(api)
-			: true;
+		const hasSeparator = hasCreateSectionContent(api) || hasStructureSectionContent(api);
 
 		return (
 			<ToolbarDropdownItemSection

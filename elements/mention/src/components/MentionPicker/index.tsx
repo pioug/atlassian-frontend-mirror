@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider, type IntlShape, type WithIntlProps, injectIntl } from 'react-intl-next';
+import { IntlProvider, type IntlShape, type WithIntlProps, injectIntl } from 'react-intl';
 
 import { Text } from '@atlaskit/primitives/compiled';
 import withAnalyticsEvents, {

@@ -7,7 +7,7 @@ import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next';
 import { FormattedMessage } from 'react-intl-next';
 
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import {
 	addInlineComment,
 	addLink,
@@ -471,9 +471,7 @@ const quickInsertAskAI: (intl: IntlShape) => Format = ({ formatMessage }) => ({
 });
 
 const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => {
-	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-		? getBrowserInfo()
-		: browserLegacy;
+	const browser = getBrowserInfo();
 	return [
 		{
 			name: formatMessage(toolbarMessages.clearFormatting),

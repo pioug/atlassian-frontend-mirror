@@ -17,7 +17,7 @@
 
 ```ts
 import { EntityType } from '@atlaskit/smart-common';
-import { IntlShape } from 'react-intl-next';
+import { IntlShape } from 'react-intl';
 import { MemoizedFn } from 'memoize-one';
 import { OptionData } from '@atlaskit/user-picker';
 import { UserSearchItem } from '@atlaskit/smart-common';
@@ -78,7 +78,7 @@ type UseUserRecommendationsProps = {
 ```json
 {
 	"react": "^16.8.0",
-	"react-intl-next": "npm:react-intl@^5.18.1"
+	"react-intl": "npm:react-intl@^5.18.1"
 }
 ```
 

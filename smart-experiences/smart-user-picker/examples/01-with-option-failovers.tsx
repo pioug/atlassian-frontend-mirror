@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback, type PropsWithChildren } from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { createMockClient } from 'mock-apollo-client';
 import { type OptionData } from '@atlaskit/user-picker';
 

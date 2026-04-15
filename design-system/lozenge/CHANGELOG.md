@@ -1,5 +1,29 @@
 # @atlaskit/lozenge
 
+## 13.7.0
+
+### Minor Changes
+
+- [`52b7aa6b3d721`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52b7aa6b3d721) -
+  Added a new `/new` entrypoint for `@atlaskit/lozenge`, `@atlaskit/badge`, and `@atlaskit/tag`.
+  These entrypoints export the new visual refresh components directly, bypassing the
+  `platform-dst-lozenge-tag-badge-visual-uplifts` feature flag. This is intended for products that
+  don't have Statsig integrated and cannot evaluate the feature flag.
+
+  New entrypoints:
+  - `import Lozenge from '@atlaskit/lozenge/new'`
+  - `import Badge from '@atlaskit/badge/new'`
+  - `import Tag from '@atlaskit/tag/new'`
+
+  **Note:** Do not use the `/new` entrypoint if your app can evaluate the
+  `platform-dst-lozenge-tag-badge-visual-uplifts` feature flag. These entrypoints will be removed
+  after the visual uplift rollout is complete, which will require updating import paths back to the
+  default entrypoint.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.6.1
 
 ### Patch Changes

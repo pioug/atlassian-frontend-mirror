@@ -13,7 +13,7 @@ import {
 	injectIntl,
 	type WithIntlProps,
 	type WrappedComponentProps,
-} from 'react-intl-next';
+} from 'react-intl';
 import { customCategory } from '../../util/constants';
 import type { EmojiDescription, Message } from '../../types';
 import { messages } from '../i18n';

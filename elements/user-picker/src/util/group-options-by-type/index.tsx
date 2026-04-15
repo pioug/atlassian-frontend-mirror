@@ -1,7 +1,7 @@
 import React from 'react';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { FormattedMessage } from 'react-intl-next';
-import memoizeOne from 'memoize-one';
+import { FormattedMessage } from 'react-intl';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import { messages } from '../../components/i18n';
 import type { OptionData, Option, GroupedOptions } from '../../types';
 
@@ -28,12 +28,12 @@ const getLabelForType = (
 	}
 };
 
-export const groupOptionsByType = memoizeOne(
+export const groupOptionsByType: MemoizedFn<(options: Option[], groupByTypeOrder: NonNullable<OptionData["type"]>[], customGroupLabels?: Partial<Record<NonNullable<OptionData["type"]>, React.ReactNode>>) => Option[] | GroupedOptions[]> = memoizeOne(
 	(
 		options: Option[],
 		groupByTypeOrder: NonNullable<OptionData['type']>[],
 		customGroupLabels?: Partial<Record<NonNullable<OptionData['type']>, React.ReactNode>>,
-	) => {
+	): Option[] | GroupedOptions[] => {
 		// If groupByTypeOrder is empty, just return the original options
 		if (groupByTypeOrder.length === 0) {
 			return options;

@@ -4,7 +4,7 @@ import rafSchedule from 'raf-schd';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import type { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
@@ -26,7 +26,6 @@ import {
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { Datasource } from '../nodeviews/datasource';
 import { registerCard, removeCard } from '../pm-plugins/actions';
@@ -94,9 +93,7 @@ export class BlockCardComponent extends React.PureComponent<
 	}
 
 	gapCursorSpan = (): React.JSX.Element | undefined => {
-		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-			? getBrowserInfo()
-			: browserLegacy;
+		const browser = getBrowserInfo();
 		// Don't render in EdgeHTMl version <= 18 (Edge version 44)
 		// as it forces the edit popup to render 24px lower than it should
 		if (browser.ie && browser.ie_version < 79) {

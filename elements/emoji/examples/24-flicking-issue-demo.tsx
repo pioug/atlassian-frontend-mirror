@@ -5,7 +5,7 @@ import {
 	getRealEmojiProvider,
 } from '../example-helpers/demo-resource-control';
 import { emojiPickerHeight } from '../src/util/constants';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { type EmojiProvider, ResourcedEmoji } from '../src';
 
 interface RenderRealEmojisProps {

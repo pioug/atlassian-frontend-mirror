@@ -6,7 +6,7 @@ import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
 
 import { emojiPickerWidth } from '../src/util/constants';
 import filters from '../src/util/filters';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { EmojiPreviewComponent } from '../src/components/common/EmojiPreviewComponent';
 
 const emojis = getEmojis();

@@ -3,10 +3,10 @@
  *
  * Generated prop types for Global component - ExpandableMenuItem
  *
- * @codegen <<SignedSource::c0d15e6d9f41fbd47c72b0f6c76ca0df>>
+ * @codegen <<SignedSource::74f9303dd5ad1be60ffdd1bf9fc17bca>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::c749a1bc5e1017e1bcbe09febba5a9a3>>
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/ExpandableMenuItem.tsx <<SignedSource::554f1c54ee96d013c0112275732eb8fc>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/ExpandableMenuItem.tsx <<SignedSource::42e91b3439f22096ddac998355428c7e>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -18,7 +18,8 @@ export type ExpandableMenuItemProps = {
 	 */
 	label: string;
 	/**
-	 * Accepts LinkMenuItem components.
+	 * Accepts LinkMenuItem and ExpandableMenuItem components.
+	 * Nesting is supported up to 3 levels deep
 	 */
 	children: React.ReactElement | React.ReactElement[];
 };

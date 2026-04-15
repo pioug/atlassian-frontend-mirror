@@ -8,7 +8,7 @@ import { Fragment, useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
@@ -85,9 +85,7 @@ export const TableFloatingControls = ({
 	const _selectRow = useCallback(
 		(row: number, expand: boolean) => {
 			const { state, dispatch } = editorView;
-			const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-				? getBrowserInfo()
-				: browserLegacy;
+			const browser = getBrowserInfo();
 			if (browser.ie_version === 11) {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -101,9 +99,7 @@ export const TableFloatingControls = ({
 	const _selectRows = useCallback(
 		(rowIndexes: number[]) => {
 			const { state, dispatch } = editorView;
-			const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-				? getBrowserInfo()
-				: browserLegacy;
+			const browser = getBrowserInfo();
 			if (browser.ie_version === 11) {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting

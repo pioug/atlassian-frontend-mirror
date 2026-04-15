@@ -63,6 +63,7 @@ export type SyncBlockSourceInfo = {
 };
 
 export type SyncBlockParentInfo = {
+	contentAri: string;
 	contentId: string;
 	contentProduct: SyncBlockProduct;
 };
@@ -146,6 +147,7 @@ export interface ADFWriteProvider {
 }
 
 export type MediaEmojiProviderOptions = {
+	contentAri: string;
 	contentId: string;
 	contentProduct: SyncBlockProduct;
 };

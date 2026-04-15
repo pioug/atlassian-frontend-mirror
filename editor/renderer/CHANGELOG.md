@@ -1,5 +1,49 @@
 # @atlaskit/renderer
 
+## 128.11.0
+
+### Minor Changes
+
+- [`65f1d80415ae8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65f1d80415ae8) -
+  EDITOR-679 improve reliability of media provider
+
+### Patch Changes
+
+- Updated dependencies
+
+## 128.10.6
+
+### Patch Changes
+
+- [`80a2b27ade0a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80a2b27ade0a5) -
+  [ux] EDITOR-6391 remove margin top from hide macro
+- Updated dependencies
+
+## 128.10.5
+
+### Patch Changes
+
+- [`73b2fc243f544`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73b2fc243f544) -
+  Cleaning up getBrowserInfo which was behind experiment platform_editor_hydratable_ui and is now
+  rolled out
+- Updated dependencies
+
+## 128.10.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 128.10.3
+
+### Patch Changes
+
+- [`0ad738e8f896e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ad738e8f896e) -
+  Remove `support_table_in_comment` and `support_table_in_comment_jira` experiment references. Both
+  experiments are fully rolled out — table resizing, alignment, scaling, and distribute columns are
+  now enabled unconditionally in comment editors.
+- Updated dependencies
+
 ## 128.10.2
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 import { transformUsers } from '../../../service/users-transformer';
 import { EntityType } from '../../../types';
 import { UserType, ExternalUserType, TeamType, GroupType } from '@atlaskit/user-picker';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 jest.mock('@atlaskit/platform-feature-flags');
 

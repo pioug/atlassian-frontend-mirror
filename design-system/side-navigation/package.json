@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/side-navigation",
-	"version": "11.1.17",
+	"version": "11.2.0",
 	"description": "A highly composable side navigation component that supports nested views.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -17,7 +17,26 @@
 	],
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./button-item": "./src/entry-points/button-item.tsx",
+		"./constants": "./src/entry-points/constants.tsx",
+		"./custom-item": "./src/entry-points/custom-item.tsx",
+		"./footer": "./src/entry-points/footer.tsx",
+		"./go-back-item": "./src/entry-points/go-back-item.tsx",
+		"./header": "./src/entry-points/header.tsx",
+		"./heading-item": "./src/entry-points/heading-item.tsx",
+		"./link-item": "./src/entry-points/link-item.tsx",
+		"./loading-items": "./src/entry-points/loading-items.tsx",
+		"./navigation-content": "./src/entry-points/navigation-content.tsx",
+		"./navigation-footer": "./src/entry-points/navigation-footer.tsx",
+		"./navigation-header": "./src/entry-points/navigation-header.tsx",
+		"./nestable-navigation-content": "./src/entry-points/nestable-navigation-content.tsx",
+		"./nesting-item": "./src/entry-points/nesting-item.tsx",
+		"./section": "./src/entry-points/section.tsx",
+		"./side-navigation": "./src/entry-points/side-navigation.tsx",
+		"./skeleton-heading-item": "./src/entry-points/skeleton-heading-item.tsx",
+		"./skeleton-item": "./src/entry-points/skeleton-item.tsx",
+		"./use-should-nested-element-render": "./src/entry-points/use-should-nested-element-render.tsx"
 	},
 	"atlassian": {
 		"react-compiler": {

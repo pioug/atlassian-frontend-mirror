@@ -83,7 +83,7 @@ const EmbedModal = ({
 				visitedDisplay &&
 				expValEquals('cc_integrations_editor_open_link_click_analytics', 'isEnabled', true)
 			) {
-				fireEvent?.('ui.smartLink.visited', {
+				fireEvent?.('track.smartLink.visited', {
 					id: invokeViewAction.id ?? iframeName,
 					display: visitedDisplay,
 					definitionId: invokeViewAction.definitionId ?? null,
@@ -106,7 +106,7 @@ const EmbedModal = ({
 				visitedDisplay &&
 				expValEquals('cc_integrations_editor_open_link_click_analytics', 'isEnabled', true)
 			) {
-				fireEvent?.('ui.smartLink.visited', {
+				fireEvent?.('track.smartLink.visited', {
 					id: invokeViewAction.id ?? iframeName,
 					display: visitedDisplay,
 					definitionId: invokeViewAction.definitionId ?? null,

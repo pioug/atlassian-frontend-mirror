@@ -1,5 +1,16 @@
 # @atlaskit/breadcrumbs
 
+## 16.1.0
+
+### Minor Changes
+
+- [`8b1c5f296653c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b1c5f296653c) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.0.7
 
 ### Patch Changes

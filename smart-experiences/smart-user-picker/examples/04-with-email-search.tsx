@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import SmartUserPicker from '../src';
 import { useEndpointMocks } from '../example-helpers/mock-endpoints-for-emails';
 import '../example-helpers/mock-ufo';

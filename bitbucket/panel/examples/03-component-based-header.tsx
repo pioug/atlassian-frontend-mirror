@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import FeedbackIcon from '@atlaskit/icon/core/feedback';
 import Link from '@atlaskit/link';

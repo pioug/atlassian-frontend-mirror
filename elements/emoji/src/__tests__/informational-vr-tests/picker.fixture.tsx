@@ -7,7 +7,7 @@ import { getMockEmojis } from '@atlaskit/editor-test-helpers/mock-emojis';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 
 import type { EmojiProvider } from '../../resource';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const useProvider = (uploadSupported: boolean) => {
 	return useMemo<Promise<EmojiProvider>>(() => {

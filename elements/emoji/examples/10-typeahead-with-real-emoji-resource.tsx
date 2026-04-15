@@ -12,7 +12,7 @@ import type { TypeaheadProps, TypeaheadState } from '../example-helpers/typeahea
 import { EmojiTypeAhead } from '../src/typeahead';
 import { emojiTypeAheadMaxHeight } from '../src/util/shared-styles';
 import type { EmojiId, OptionalEmojiDescription } from '../src/types';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 class EmojiTypeAheadTextInput extends Component<TypeaheadProps, TypeaheadState> {
 	private emojiTypeAheadRef?: EmojiTypeAhead | null;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 import { shallow } from 'enzyme';
-import { FormattedMessage, IntlProvider } from 'react-intl-next';
+import { FormattedMessage, IntlProvider } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';

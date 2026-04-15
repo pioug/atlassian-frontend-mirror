@@ -1,5 +1,38 @@
 # @atlaskit/smart-card
 
+## 44.0.4
+
+### Patch Changes
+
+- [`ef22944bdbbdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef22944bdbbdf) -
+  Migrate smart link visited analytics from UI event to track event. The `ui.smartLink.visited`
+  event has been replaced with `track.smartLink.visited` to better capture engagement metrics for
+  smart links. This change is gated behind the `cc_integrations_editor_open_link_click_analytics`
+  feature flag and includes additional attributes (displayCategory, extensionKey, status,
+  statusDetails) when the flag is enabled.
+- Updated dependencies
+
+## 44.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.0.2
+
+### Patch Changes
+
+- [`58913fb961b08`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58913fb961b08) -
+  [ux] Remove button/popup functionality from Rovo action CTA - just keep as icon for the inline
+  link.
+- Updated dependencies
+
+## 44.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.0.0
 
 ### Major Changes

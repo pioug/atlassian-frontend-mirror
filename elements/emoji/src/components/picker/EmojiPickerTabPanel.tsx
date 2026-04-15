@@ -5,7 +5,7 @@
 import React, { type PropsWithChildren, PureComponent } from 'react';
 import { css, jsx } from '@compiled/react';
 import VisuallyHidden from '@atlaskit/visually-hidden';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 import { messages } from '../i18n';
 import { RENDER_EMOJI_PICKER_LIST_TESTID } from './EmojiPickerList';
 

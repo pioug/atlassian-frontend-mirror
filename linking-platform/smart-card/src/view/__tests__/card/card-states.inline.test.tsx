@@ -462,7 +462,7 @@ describe('smart-card: card states, inline', () => {
 										</IntlProvider>,
 									);
 									expect(await screen.findByTestId('inline-card-resolved-view')).toBeInTheDocument();
-									expect(await screen.findByTestId('inline-card-resolved-view-rovo-actions-button')).toBeInTheDocument();
+									expect(await screen.findByTestId('inline-card-resolved-view-rovo-actions-cta')).toBeInTheDocument();
 								});
 
 								it('does not render rovo action button when rovo is disabled', async () => {
@@ -474,7 +474,7 @@ describe('smart-card: card states, inline', () => {
 										</IntlProvider>,
 									);
 									expect(await screen.findByTestId('inline-card-resolved-view')).toBeInTheDocument();
-									expect(screen.queryByTestId('inline-card-resolved-view-rovo-actions-button')).not.toBeInTheDocument();
+									expect(screen.queryByTestId('inline-card-resolved-view-rovo-actions-cta')).not.toBeInTheDocument();
 								});
 							});
 
@@ -490,7 +490,7 @@ describe('smart-card: card states, inline', () => {
 										</IntlProvider>,
 									);
 									expect(await screen.findByTestId('inline-card-resolved-view')).toBeInTheDocument();
-									expect(screen.queryByTestId('inline-card-resolved-view-rovo-actions-button')).not.toBeInTheDocument();
+									expect(screen.queryByTestId('inline-card-resolved-view-rovo-actions-cta')).not.toBeInTheDocument();
 								});
 							});
 					},
@@ -509,7 +509,7 @@ describe('smart-card: card states, inline', () => {
 								</IntlProvider>,
 							);
 							expect(await screen.findByTestId('inline-card-resolved-view')).toBeInTheDocument();
-							expect(screen.queryByTestId('inline-card-resolved-view-rovo-actions-button')).not.toBeInTheDocument();
+							expect(screen.queryByTestId('inline-card-resolved-view-rovo-actions-cta')).not.toBeInTheDocument();
 						});
 					},
 				);

@@ -2,8 +2,9 @@ import { denormaliseEmojiServiceResponse } from '@atlaskit/emoji/utils';
 import { getAtlassianEmojiData } from './get-atlassian-emoji-data';
 import { getSiteEmojiData } from './get-site-emoji-data';
 import { getStandardEmojiData } from './get-standard-emoji-data';
+import type { EmojiDescriptionWithVariations } from '@atlaskit/emoji';
 
-export const getEmojis = () => {
+export const getEmojis = (): EmojiDescriptionWithVariations[] => {
 	const standardEmojis = getStandardEmojiData();
 	const atlassianEmojis = getAtlassianEmojiData();
 	const siteEmojis = getSiteEmojiData();

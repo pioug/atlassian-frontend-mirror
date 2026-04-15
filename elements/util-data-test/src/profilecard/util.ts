@@ -4,9 +4,12 @@ function padMinutes(minutes: number): string {
 	return minutes < 10 ? `0${minutes}` : String(minutes);
 }
 
-export const random = (int: number) => Math.floor(Math.random() * (int + 1));
+export const random = (int: number): number => Math.floor(Math.random() * (int + 1));
 
-export const getWeekday = () => {
+export const getWeekday = (): {
+    index: number;
+    string: string;
+} => {
 	const array = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 	const index = random(6);
 

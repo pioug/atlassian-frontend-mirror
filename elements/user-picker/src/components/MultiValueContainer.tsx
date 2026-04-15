@@ -4,7 +4,7 @@
  */
 import { components, type MultiValueProps } from '@atlaskit/select';
 import React, { Fragment } from 'react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 import { type Option, type User } from '../types';
 import { messages } from './i18n';
 import { isChildInput } from './utils';

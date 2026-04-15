@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 import { UserType } from '../../types';
 import { type DescriptionBylineProps } from './types';
 import UserMentionDescriptionByline from './UserMentionDescriptionByline';

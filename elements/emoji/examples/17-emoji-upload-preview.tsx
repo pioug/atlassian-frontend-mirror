@@ -4,7 +4,7 @@ import EmojiUploadPicker from '../src/components/common/EmojiUploadPicker';
 
 import { emojiPickerWidth } from '../src/util/constants';
 import { onUploadEmoji, onUploadCancelled } from '../example-helpers';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const defaultStyles = {
 	width: emojiPickerWidth,

@@ -7,7 +7,7 @@ import React from 'react';
 import Mention, { ANALYTICS_HOVER_DELAY } from '../../../components/Mention';
 import ResourcedMention from '../../../components/Mention/ResourcedMention';
 import { ELEMENTS_CHANNEL } from '../../../_constants';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { MentionType, MentionNameStatus } from '../../../types';
 import MentionResource, { type MentionProvider } from '../../../api/MentionResource';
 import { type MentionNameResolver } from '../../../api/MentionNameResolver';

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getIsRovoChatEnabled } from '../../../utils/rovo';
 import { getExtensionKey } from '../../helpers';
@@ -50,7 +50,7 @@ const useInlineActionNudgeExperiment = (
 			return NOT_ENABLED_RESULT;
 		}
 
-		const isEnabled = editorExperiment('rovogrowth_640_inline_action_nudge', true);
+		const isEnabled = expValEquals('rovogrowth_640_inline_action_nudge', 'isEnabled', true);
 
 		return { isEnabled };
 	}, [isRovoChatEnabled, extensionKey]);

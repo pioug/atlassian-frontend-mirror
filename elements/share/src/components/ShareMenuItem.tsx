@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor } from 'react-intl';
 
 import { ButtonItem } from '@atlaskit/menu';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss

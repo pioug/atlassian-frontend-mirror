@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/task-decision",
-	"version": "19.3.31",
+	"version": "19.3.33",
 	"description": "Tasks and decisions react components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,13 +50,13 @@
 		"@atlaskit/util-service-support": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
-		"react-intl-next": "root:*",
 		"use-callback-ref": "root:*",
 		"uuid": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0",
 		"url-search-params": "^0.10.0"
 	},
 	"devDependencies": {
@@ -72,6 +72,7 @@
 		"date-fns": "root:*",
 		"enzyme": "root:*",
 		"fetch-mock": "root:*",
+		"react-intl": "root:*",
 		"sinon": "root:*",
 		"url-search-params": "root:*"
 	},

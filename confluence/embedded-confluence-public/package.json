@@ -33,16 +33,17 @@
 		"ak-postbuild": "NODE_OPTIONS=--max-old-space-size=4096 webpack --env NODE_ENV=production --env prod --config config/webpack.prod.js"
 	},
 	"dependencies": {
-		"@babel/runtime": "root:*",
-		"react-intl-next": "root:*"
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-dom": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
+		"react-intl": "root:*",
 		"react-markdown": "root:*",
 		"remark-gfm": "root:*",
 		"wait-for-expect": "root:*"

@@ -6,7 +6,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import {
 	ANCHOR_VARIABLE_NAME,
 	tableMarginTop,
@@ -292,9 +292,7 @@ const tableStickyHeaderColumnControlsDecorationsStyle = () => {
 };
 
 const tableStickyHeaderFirefoxFixStyle = () => {
-	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
-		? getBrowserInfo()
-		: browserLegacy;
+	const browser = getBrowserInfo();
 	/*
 	This is MAGIC!
 	This fixes a bug which occurs in firefox when the first row becomes sticky.
@@ -1025,9 +1023,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		position: relative;
 		float: right;
 		margin-left: ${akEditorTableToolbarSize}px;
-		top: ${props.isDragAndDropEnabled || editorExperiment('support_table_in_comment_jira', true)
-			? 0
-			: akEditorTableToolbarSize}px;
+		top: ${props.isDragAndDropEnabled ? 0 : akEditorTableToolbarSize}px;
 		width: ${akEditorTableNumberColumnWidth + 1}px;
 		box-sizing: border-box;
 	}

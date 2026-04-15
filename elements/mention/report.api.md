@@ -16,13 +16,13 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { IntlShape } from 'react-intl-next';
+import { IntlShape } from 'react-intl';
 import { default as React_2 } from 'react';
 import { ServiceConfig } from '@atlaskit/util-service-support/types';
 import { SyntheticEvent } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithAnalyticsEventsProps as WithAnalyticsEventsProps_2 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { WithIntlProps } from 'react-intl-next';
+import { WithIntlProps } from 'react-intl';
 
 // @public (undocumented)
 export class AbstractMentionResource
@@ -946,7 +946,7 @@ export enum UserType {
 {
 	"react": "^16.8.0",
 	"react-dom": "^16.8.0",
-	"react-intl-next": "npm:react-intl@^5.18.1"
+	"react-intl": "npm:react-intl@^5.18.1"
 }
 ```
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { cssMap, cx } from '@atlaskit/css';

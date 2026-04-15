@@ -39,7 +39,7 @@
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@atlassian/a11y-jest-testing": "workspace:^",
@@ -48,6 +48,7 @@
 		"enzyme": "root:*",
 		"fetch-mock": "root:*",
 		"react-dom": "root:*",
+		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

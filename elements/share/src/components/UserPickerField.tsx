@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl';
 
 import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import Link from '@atlaskit/link';

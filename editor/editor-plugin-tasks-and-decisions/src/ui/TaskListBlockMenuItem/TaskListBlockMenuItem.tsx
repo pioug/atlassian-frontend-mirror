@@ -7,7 +7,6 @@ import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import TaskIcon from '@atlaskit/icon/core/task';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
 
@@ -37,13 +36,9 @@ export const TaskListBlockMenuItem = ({
 		});
 	};
 
-	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
-	// Adds size="small" to icons for better visual consistency in block menu.
-	// To clean up: remove conditional, keep only size="small" version.
-	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
 
 	return (
-		<ToolbarDropdownItem onClick={onClick} elemBefore={<TaskIcon label="" size={iconSize} />}>
+		<ToolbarDropdownItem onClick={onClick} elemBefore={<TaskIcon label="" size="small" />}>
 			{formatMessage(tasksAndDecisionsMessages.taskList)}
 		</ToolbarDropdownItem>
 	);

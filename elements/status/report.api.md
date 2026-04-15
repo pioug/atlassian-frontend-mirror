@@ -22,8 +22,8 @@ import { ForwardRefExoticComponent } from 'react';
 import { default as React_2 } from 'react';
 import { RefAttributes } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { WithIntlProps } from 'react-intl-next';
-import { WrappedComponentProps } from 'react-intl-next';
+import { WithIntlProps } from 'react-intl';
+import { WrappedComponentProps } from 'react-intl';
 
 // @public (undocumented)
 export type Color = 'blue' | 'green' | 'neutral' | 'purple' | 'red' | 'yellow';
@@ -97,7 +97,7 @@ export type StatusStyle = 'bold' | 'subtle';
 ```json
 {
 	"react": "^16.8.0",
-	"react-intl-next": "npm:react-intl@^5.18.1"
+	"react-intl": "npm:react-intl@^5.18.1"
 }
 ```
 

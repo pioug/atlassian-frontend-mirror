@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/app-provider",
-	"version": "4.2.3",
+	"version": "4.3.0",
 	"description": "A top level provider for the Design System.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -42,7 +42,17 @@
 	],
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./app-provider": "./src/entry-points/app-provider.tsx",
+		"./use-color-mode-for-migration": "./src/entry-points/use-color-mode-for-migration.tsx",
+		"./use-color-mode": "./src/entry-points/use-color-mode.tsx",
+		"./use-set-color-mode": "./src/entry-points/use-set-color-mode.tsx",
+		"./use-set-theme": "./src/entry-points/use-set-theme.tsx",
+		"./use-theme": "./src/entry-points/use-theme.tsx",
+		"./theme": "./src/entry-points/theme.tsx",
+		"./theme-provider": "./src/entry-points/theme-provider.tsx",
+		"./router-link-provider": "./src/entry-points/router-link-provider.tsx",
+		"./use-router-link": "./src/entry-points/use-router-link.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/browser-apis": "workspace:^",

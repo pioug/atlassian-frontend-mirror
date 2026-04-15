@@ -36,7 +36,27 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	cardPrivateTooltipLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	cardRovoTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cardSourcesButtonLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cardSourcesHideButtonLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cardSourcesShowButtonLabel: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -57,6 +77,11 @@ export const aiSuggestionsMessages: {
 		id: string;
 	};
 	fetchSuggestionsButtonLoadingLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	iconButtonSuggestionsCountLabel: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -173,6 +198,12 @@ export const aiSuggestionsMessages: {
 		defaultMessage: 'Loading…',
 		description: 'Label for the fetch suggestions button when loading',
 	},
+	iconButtonSuggestionsCountLabel: {
+		id: 'fabric.editor.ai.suggestions.iconButton.suggestionsCountLabel.non-final',
+		defaultMessage: '{count} suggestions',
+		description:
+			'Tooltip text for the suggestion icon button when there are multiple AI suggestions',
+	},
 	fetchGenerateFromDocument: {
 		id: 'fabric.editor.ai.suggestions.quickInsert.generateFromDocument.non-final',
 		defaultMessage: 'Suggested edits (generate)',
@@ -223,6 +254,26 @@ export const aiSuggestionsMessages: {
 		id: 'fabric.editor.ai.suggestions.card.privateLabel.non-final',
 		defaultMessage: 'Private',
 		description: 'Label for the private/lock indicator on the AI suggestions card',
+	},
+	cardPrivateTooltipLabel: {
+		id: 'fabric.editor.ai.suggestions.card.privateTooltipLabel.non-final',
+		defaultMessage: 'Only you and those with access to the sources can see this private suggestion.',
+		description: 'Tooltip shown on the private indicator icon in the AI suggestions card',
+	},
+	cardSourcesButtonLabel: {
+		id: 'fabric.editor.ai.suggestions.card.sourcesButtonLabel.non-final',
+		defaultMessage: 'Sources',
+		description: 'Label for the sources toggle button on the AI suggestions card',
+	},
+	cardSourcesHideButtonLabel: {
+		id: 'fabric.editor.ai.suggestions.card.sourcesHideButtonLabel.non-final',
+		defaultMessage: 'Hide sources',
+		description: 'Label for the sources toggle button when sources are expanded',
+	},
+	cardSourcesShowButtonLabel: {
+		id: 'fabric.editor.ai.suggestions.card.sourcesShowButtonLabel.non-final',
+		defaultMessage: 'Show sources',
+		description: 'Label for the sources toggle button when sources are collapsed',
 	},
 	cardAcceptButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.card.acceptButtonLabel.non-final',

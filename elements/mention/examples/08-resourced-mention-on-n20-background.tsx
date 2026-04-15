@@ -8,7 +8,7 @@ import debug from '../src/util/logger';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { mentionResourceProviderWithResolver } from '@atlaskit/util-data-test/mention-story-data';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { ELEMENTS_CHANNEL } from '../src/_constants';
 import ResourcedMention from '../src/components/Mention/ResourcedMention';
 

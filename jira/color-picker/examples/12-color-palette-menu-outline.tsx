@@ -2,7 +2,7 @@ import React from 'react';
 import { ColorPaletteMenu } from '../src';
 import { simplePalette } from '../mock-data';
 import { token } from '@atlaskit/tokens';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { DiProvider, injectable } from 'react-magnetic-di';
 import { fg } from '@atlaskit/platform-feature-flags';
 

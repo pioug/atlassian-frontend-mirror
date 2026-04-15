@@ -84,15 +84,17 @@ test.describe('width-provider when table resizing is enabled', () => {
 			expect(beforeWidth).toBe(ADFTableWidth);
 			await renderer.page.setViewportSize({ width: newViwportWidth, height: 600 });
 
-			// NOTE: this tests uses 30% as MAX_SCALING_PERCENT because our Renderer Playwright tests
-			// do not support feature flags yet. When tablePreserveWidth is enabled,
-			// Comment Renderer should use 40% scaling.
+			// NOTE: Comment Renderer uses 40% as MAX_SCALING_PERCENT
+			// (MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION) because
+			// isTableScalingEnabled is always true for comment appearance.
 
 			// tableWidthDiff = (ADFTableWidth - newViwportWidth) / ADFTableWidth =
-			// 				  = (880 - 600) / 880 = 0.318;
+			// 				  = (880 - 500) / 880 = 0.432;
 			// Scale table by = tableWidthDiff > MAX_SCALING_PERCENT ? MAX_SCALING_PERCENT : tableWidthDiff;
-			// New table width will be using max scaling percent (30%). So new target width is equal:
-			const targetWidth = 0.7 * ADFTableWidth;
+			// New table width will be using max scaling percent (40%). So new target width is equal:
+			// Note: actual rendered width is 526 due to integer rounding of column widths
+			// (floor(880/3) = 293 per column, 293 * 3 = 879, 879 * 0.6 = 527.4 → 526px rendered)
+			const targetWidth = 526;
 
 			await renderer.page.waitForFunction(
 				(targetWidth) => {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.49.11",
+	"version": "25.0.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -92,12 +92,12 @@
 		"graphql": "root:*",
 		"graphql-tag": "root:*",
 		"lodash": "root:*",
-		"lru_map": "root:*",
-		"react-intl-next": "root:*"
+		"lru_map": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-dom": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
@@ -115,6 +115,7 @@
 		"es6-promise": "root:*",
 		"fetch-mock": "root:*",
 		"loader-utils": "root:*",
+		"react-intl": "root:*",
 		"sinon": "root:*",
 		"typescript": "root:*",
 		"uid": "root:*"
@@ -139,9 +140,6 @@
 			"type": "boolean"
 		},
 		"ptc-links-migrate-atlaskit-link-button": {
-			"type": "boolean"
-		},
-		"enable_appropriate_reading_order_in_profile_card": {
 			"type": "boolean"
 		},
 		"enable_ptc_townsquare_reporting_lines_unsharded": {

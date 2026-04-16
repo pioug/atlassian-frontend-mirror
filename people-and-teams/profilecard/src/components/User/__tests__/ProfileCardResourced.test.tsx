@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render, waitFor } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos';
 

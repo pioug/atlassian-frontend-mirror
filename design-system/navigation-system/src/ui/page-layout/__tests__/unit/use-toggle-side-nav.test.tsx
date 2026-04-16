@@ -5,12 +5,10 @@ import userEvent from '@testing-library/user-event';
 
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 
+import { SetSideNavVisibilityState } from '../../side-nav/set-side-nav-visibility-state';
+import { SideNavVisibilityState } from '../../side-nav/side-nav-visibility-state';
 import type { SideNavState, SideNavTrigger } from '../../side-nav/types';
 import { useToggleSideNav } from '../../side-nav/use-toggle-side-nav';
-import {
-	SetSideNavVisibilityState,
-	SideNavVisibilityState,
-} from '../../side-nav/visibility-context';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useToggleSideNav', () => {

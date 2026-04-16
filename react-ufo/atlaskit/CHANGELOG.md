@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.14.0
+
+### Minor Changes
+
+- [`270a4ff44f31c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/270a4ff44f31c) -
+  Enable raw VC observation collection when no client-side revisions are configured, behind
+  platform_ufo_vc_raw_handler_only gate
+
 ## 5.13.1
 
 ### Patch Changes

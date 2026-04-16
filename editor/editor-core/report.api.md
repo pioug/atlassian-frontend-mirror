@@ -91,8 +91,8 @@ import type { Transformer as Transformer_2 } from '@atlaskit/editor-common/types
 import { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import { UIComponentFactory } from '@atlaskit/editor-common/types';
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
-import { WithIntlProps } from 'react-intl-next';
-import type { WrappedComponentProps } from 'react-intl-next';
+import { WithIntlProps } from 'react-intl';
+import type { WrappedComponentProps } from 'react-intl';
 
 export { ACTION };
 
@@ -798,7 +798,7 @@ interface WithHelpTriggerProps {
 	"@atlaskit/media-core": "^34.1.2",
 	"react": "^16.8.0",
 	"react-dom": "^16.8.0",
-	"react-intl-next": "npm:react-intl@^5.18.1"
+	"react-intl": "npm:react-intl@^5.18.1"
 }
 ```
 

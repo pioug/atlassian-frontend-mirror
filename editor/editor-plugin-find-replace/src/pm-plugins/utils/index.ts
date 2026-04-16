@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { timestampToString } from '@atlaskit/editor-common/utils';

@@ -28,9 +28,9 @@ import { default as React_2 } from 'react';
 import { SortOrderType } from '@atlaskit/dynamic-table/types';
 import { TruncateProps } from '@atlaskit/media-ui/truncateText';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { WithIntlProps } from 'react-intl-next';
+import { WithIntlProps } from 'react-intl';
 import { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
-import { WrappedComponentProps } from 'react-intl-next';
+import { WrappedComponentProps } from 'react-intl';
 
 // @public (undocumented)
 export const MediaTable: React_2.ComponentType<
@@ -112,7 +112,7 @@ export { SortOrderType };
 	"@emotion/react": "^11.7.1",
 	"react": "^16.8.0",
 	"react-dom": "^16.8.0",
-	"react-intl-next": "npm:react-intl@^5.18.1"
+	"react-intl": "npm:react-intl@^5.18.1"
 }
 ```
 

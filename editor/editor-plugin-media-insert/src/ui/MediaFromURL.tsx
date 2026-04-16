@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import ButtonGroup from '@atlaskit/button/button-group';

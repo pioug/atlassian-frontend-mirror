@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import { placeholderTextMessages as messages } from '@atlaskit/editor-common/messages';
 import { PanelTextInput } from '@atlaskit/editor-common/ui';

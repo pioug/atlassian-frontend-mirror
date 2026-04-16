@@ -43,21 +43,6 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/button/tsconfig.app.json"
-		},
-		{
-			"path": "../../../build/website/docs/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/link/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/section-message/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/textfield/tsconfig.app.json"
-		},
-		{
 			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		},
 		{

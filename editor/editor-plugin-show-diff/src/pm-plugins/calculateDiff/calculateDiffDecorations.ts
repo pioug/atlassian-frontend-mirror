@@ -53,7 +53,8 @@ const getChanges = ({
 		if (diffType === 'block') {
 			return groupChangesByBlock(changeset.changes, originalDoc, steppedDoc);
 		}
-		return simplifyChanges(changeset.changes, tr.doc);
+		const changes = simplifyChanges(changeset.changes, tr.doc);
+		return optimizeChanges(changes);
 	}
 
 	const changes = simplifyChanges(changeset.changes, tr.doc);
@@ -67,6 +68,7 @@ const calculateNodesForBlockDecoration = ({
 	colorScheme,
 	isInserted = true,
 	activeIndexPos,
+	shouldHideDeleted = false,
 }: {
 	activeIndexPos?: { from: number; to: number };
 	colorScheme?: ColorScheme;
@@ -74,6 +76,7 @@ const calculateNodesForBlockDecoration = ({
 	from: number;
 	intl: IntlShape;
 	isInserted?: boolean;
+	shouldHideDeleted?: boolean;
 	to: number;
 }): Decoration[] => {
 	const decorations: Decoration[] = [];
@@ -93,6 +96,7 @@ const calculateNodesForBlockDecoration = ({
 				colorScheme,
 				isInserted,
 				isActive,
+				shouldHideDeleted,
 			});
 			if (blockChangedDecorations.length) {
 				decorations.push(...blockChangedDecorations);
@@ -124,11 +128,13 @@ const calculateDiffDecorationsInner = ({
 	api,
 	isInverted = false,
 	diffType = 'inline',
+	hideDeletedDiffs = false,
 }: {
 	activeIndexPos?: { from: number; to: number };
 	api: ExtractInjectionAPI<ShowDiffPlugin> | undefined;
 	colorScheme?: ColorScheme;
 	diffType?: DiffType;
+	hideDeletedDiffs?: boolean;
 	intl: IntlShape;
 	isInverted?: boolean;
 	nodeViewSerializer: NodeViewSerializer;
@@ -204,6 +210,13 @@ const calculateDiffDecorationsInner = ({
 		const isInserted = !isInverted;
 
 		if (change.inserted.length > 0) {
+			const shouldHideDeleted = expValEquals(
+				'platform_editor_diff_plugin_extended',
+				'isEnabled',
+				true,
+			)
+				? isInverted && hideDeletedDiffs
+				: false;
 			decorations.push(
 				createInlineChangedDecoration({
 					change,
@@ -211,6 +224,7 @@ const calculateDiffDecorationsInner = ({
 					isActive,
 					...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
 						isInserted,
+						shouldHideDeleted,
 					}),
 				}),
 			);
@@ -222,6 +236,7 @@ const calculateDiffDecorationsInner = ({
 					colorScheme,
 					...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
 						isInserted,
+						shouldHideDeleted,
 					}),
 					activeIndexPos,
 					intl,
@@ -229,21 +244,30 @@ const calculateDiffDecorationsInner = ({
 			);
 		}
 		if (change.deleted.length > 0) {
-			const decoration = createNodeChangedDecorationWidget({
-				change,
-				doc: originalDoc,
-				nodeViewSerializer,
-				colorScheme,
-				newDoc: tr.doc,
-				intl,
-				activeIndexPos,
-				...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
-					isInserted: !isInserted,
-					diffType,
-				}),
-			});
-			if (decoration) {
-				decorations.push(...decoration);
+			const shouldHideDeleted = expValEquals(
+				'platform_editor_diff_plugin_extended',
+				'isEnabled',
+				true,
+			)
+				? !isInverted && hideDeletedDiffs
+				: false;
+			if (!shouldHideDeleted) {
+				const decoration = createNodeChangedDecorationWidget({
+					change,
+					doc: originalDoc,
+					nodeViewSerializer,
+					colorScheme,
+					newDoc: tr.doc,
+					intl,
+					activeIndexPos,
+					...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
+						isInserted: !isInserted,
+						diffType,
+					}),
+				});
+				if (decoration) {
+					decorations.push(...decoration);
+				}
 			}
 		}
 	});
@@ -280,6 +304,7 @@ export const calculateDiffDecorations: MemoizedFn<
 		intl,
 		activeIndexPos,
 		api,
+		hideDeletedDiffs,
 	}: {
 		activeIndexPos?: {
 			from: number;
@@ -287,6 +312,7 @@ export const calculateDiffDecorations: MemoizedFn<
 		};
 		api: ExtractInjectionAPI<ShowDiffPlugin> | undefined;
 		colorScheme?: ColorScheme;
+		hideDeletedDiffs?: boolean;
 		intl: IntlShape;
 		nodeViewSerializer: NodeViewSerializer;
 		pluginState: Omit<ShowDiffPluginState, 'decorations'>;
@@ -296,7 +322,18 @@ export const calculateDiffDecorations: MemoizedFn<
 	calculateDiffDecorationsInner,
 	// Cache results unless relevant inputs change
 	(
-		[{ pluginState, state, colorScheme, intl, activeIndexPos, isInverted, diffType }],
+		[
+			{
+				pluginState,
+				state,
+				colorScheme,
+				intl,
+				activeIndexPos,
+				isInverted,
+				diffType,
+				hideDeletedDiffs,
+			},
+		],
 		[
 			{
 				pluginState: lastPluginState,
@@ -306,6 +343,7 @@ export const calculateDiffDecorations: MemoizedFn<
 				activeIndexPos: lastActiveIndexPos,
 				isInverted: lastIsInverted,
 				diffType: lastDiffType,
+				hideDeletedDiffs: lastHideDeletedDiffs,
 			},
 		],
 	) => {
@@ -323,7 +361,8 @@ export const calculateDiffDecorations: MemoizedFn<
 					isEqual(activeIndexPos, lastActiveIndexPos) &&
 					originalDocIsSame &&
 					isEqual(pluginState.steps, lastPluginState.steps) &&
-					state.doc.eq(lastState.doc)) ??
+					state.doc.eq(lastState.doc) &&
+					hideDeletedDiffs === lastHideDeletedDiffs) ??
 				false
 			);
 		}
@@ -333,7 +372,8 @@ export const calculateDiffDecorations: MemoizedFn<
 				state.doc.eq(lastState.doc) &&
 				colorScheme === lastColorScheme &&
 				intl.locale === lastIntl.locale &&
-				isEqual(activeIndexPos, lastActiveIndexPos)) ??
+				isEqual(activeIndexPos, lastActiveIndexPos) &&
+				hideDeletedDiffs === lastHideDeletedDiffs) ??
 			false
 		);
 	},

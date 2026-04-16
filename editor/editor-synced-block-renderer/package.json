@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-synced-block-renderer",
-	"version": "6.0.8",
+	"version": "7.0.0",
 	"description": "SyncedBlockRenderer for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -53,9 +53,10 @@
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"react-intl": "root:*",
 		"typescript": "root:*"
 	},
 	"techstack": {

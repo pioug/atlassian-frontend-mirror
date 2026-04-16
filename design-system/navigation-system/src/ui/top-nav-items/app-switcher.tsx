@@ -4,7 +4,7 @@ import { type IconButtonProps } from '@atlaskit/button/new';
 import AppSwitcherIcon from '@atlaskit/icon/core/app-switcher';
 import type { TriggerProps } from '@atlaskit/popup/types';
 
-import { IconButton } from './themed/migration';
+import { IconButton } from './themed/icon-button';
 
 interface AppSwitcherProps extends Partial<
 	Omit<

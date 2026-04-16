@@ -2,7 +2,7 @@ import type { PropsWithChildren } from 'react';
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import rafSchd from 'raf-schd';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import type { TableEventPayload } from '@atlaskit/editor-common/analytics';
 import {
@@ -852,11 +852,7 @@ export const TableResizer = ({
 				snap={guidelineSnaps}
 				handlePositioning="adjacent"
 				isHandleVisible={isTableSelected}
-				needExtendedResizeZone={
-					expValEquals('platform_editor_table_resizer_extended_zone', 'isEnabled', true)
-						? true
-						: !isTableSelected
-				}
+				needExtendedResizeZone={true}
 				appearance={isTableSelected && isWholeTableInDanger ? 'danger' : undefined}
 				handleHighlight="shadow"
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import type { LoadingComponentProps } from 'react-loadable';
 import Loadable from 'react-loadable';
 

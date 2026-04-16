@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 import Loadable from 'react-loadable';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';

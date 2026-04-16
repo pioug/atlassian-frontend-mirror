@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { expandedState } from '@atlaskit/editor-common/expand';
 import { expandClassNames } from '@atlaskit/editor-common/styles';

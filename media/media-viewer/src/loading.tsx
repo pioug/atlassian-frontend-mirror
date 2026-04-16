@@ -1,7 +1,7 @@
 import React from 'react';
 import AkSpinner from '@atlaskit/spinner';
 import { messages } from '@atlaskit/media-ui';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 export const Spinner = ({}: {}): React.JSX.Element => {
 	const intl = useIntl();

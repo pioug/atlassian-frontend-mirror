@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-analytics
 
+## 1.2.0
+
+### Minor Changes
+
+- [`17f2af77c77de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/17f2af77c77de) -
+  Add InsightsEventPayload for insights page date filter analytics
+
 ## 1.1.1
 
 ### Patch Changes

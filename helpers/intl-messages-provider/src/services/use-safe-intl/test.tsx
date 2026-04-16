@@ -1,27 +1,38 @@
-import React from 'react';
+import React, { type PropsWithChildren } from 'react';
 
-import { renderHook, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { DEFAULT_LOCALE_STATE } from '../../common/constants';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { renderHook } from '@atlassian/testing-library';
+
+import { DEFAULT_LOCALE_STATE, NEW_DEFAULT_LOCALE_STATE } from '../../common/constants';
 
 import { useSafeIntl } from './index';
 
-// Skipping as tests timing out due to open handles (#hot-112198)
-describe.skip('useSafeIntl()', () => {
+describe('useSafeIntl()', () => {
 	beforeEach(() => {
 		jest.restoreAllMocks();
 	});
 
 	const translated = { foo: 'Translated string' };
 
-	it('should return deafult Intl shape when no Intl Context', () => {
-		const { result } = renderHook(() => {
-			return useSafeIntl();
-		});
+	ffTest.on('navx-4615-fix-async-intl-for-gsn', '', () => {
+		it('should return NEW default Intl shape when no Intl Context', () => {
+			const result = renderHook(() => {
+				return useSafeIntl();
+			});
 
-		waitFor(() => {
-			expect(result.current).toEqual(DEFAULT_LOCALE_STATE);
+			expect(result.current.locale).toEqual(NEW_DEFAULT_LOCALE_STATE.locale);
+		});
+	});
+
+	ffTest.off('navx-4615-fix-async-intl-for-gsn', '', () => {
+		it('should return default Intl shape when no Intl Context', () => {
+			const result = renderHook(() => {
+				return useSafeIntl();
+			});
+
+			expect(result.current.locale).toEqual(DEFAULT_LOCALE_STATE.locale);
 		});
 	});
 
@@ -32,17 +43,15 @@ describe.skip('useSafeIntl()', () => {
 			</IntlProvider>
 		);
 
-		const wrapper = (props: {}) => testWrapper(props);
+		const wrapper = (props: PropsWithChildren) => testWrapper(props);
 
-		const { result } = renderHook(
+		const result = renderHook(
 			() => {
 				return useSafeIntl();
 			},
 			{ wrapper },
 		);
 
-		waitFor(() => {
-			expect(result.current.messages).toEqual(translated);
-		});
+		expect(result.current.messages).toEqual(translated);
 	});
 });

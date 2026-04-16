@@ -1,6 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 import EditorFilePreviewIcon from '@atlaskit/icon/core/grow-diagonal';
 import Button from '@atlaskit/button';
 import { messages } from '@atlaskit/media-ui';

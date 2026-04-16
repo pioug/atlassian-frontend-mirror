@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import { type DispatchAnalyticsEvent, INPUT_METHOD } from '@atlaskit/editor-common/analytics';

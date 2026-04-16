@@ -80,6 +80,75 @@ describe('VCObserverWrapper', () => {
 		// No exceptions should be thrown
 	});
 
+	describe('raw-handler-only mode (platform_ufo_vc_raw_handler_only)', () => {
+		it('should create VCObserverNew when no revisions enabled but raw-handler-only gate is on', () => {
+			(configModule.isVCRevisionEnabled as jest.Mock).mockImplementation(() => false);
+			(fg as jest.Mock).mockImplementation(
+				(flag: string) => flag === 'platform_ufo_vc_raw_handler_only',
+			);
+
+			const wrapper = new VCObserverWrapper();
+			wrapper.start({ startTime: 100, experienceKey: 'test' });
+
+			expect(VCObserverNew.prototype.start).toHaveBeenCalled();
+			expect(VCObserver.prototype.start).not.toHaveBeenCalled();
+		});
+
+		it('should not create VCObserverNew when no revisions enabled and raw-handler-only gate is off', () => {
+			(configModule.isVCRevisionEnabled as jest.Mock).mockImplementation(() => false);
+			(fg as jest.Mock).mockImplementation(() => false);
+
+			const wrapper = new VCObserverWrapper();
+			wrapper.start({ startTime: 100, experienceKey: 'test' });
+
+			expect(VCObserverNew.prototype.start).not.toHaveBeenCalled();
+			expect(VCObserver.prototype.start).not.toHaveBeenCalled();
+		});
+
+		it('should call getVCResult on VCObserverNew in raw-handler-only mode', async () => {
+			(configModule.isVCRevisionEnabled as jest.Mock).mockImplementation(() => false);
+			(fg as jest.Mock).mockImplementation(
+				(flag: string) => flag === 'platform_ufo_vc_raw_handler_only',
+			);
+
+			const mockRawResult = [
+				{
+					revision: 'raw-handler',
+					clean: true,
+					'metric:vc90': null,
+					rawData: { obs: [] },
+				},
+			];
+			(VCObserverNew.prototype.getVCResult as jest.Mock).mockResolvedValue(mockRawResult);
+
+			const wrapper = new VCObserverWrapper();
+			const result = await wrapper.getVCResult({
+				start: 0,
+				stop: 1000,
+				experienceKey: 'test',
+				interactionId: 'test-id',
+				interactionType: 'page_load',
+				isPageVisible: true,
+				includeRawData: true,
+			} as any);
+
+			expect(VCObserverNew.prototype.getVCResult).toHaveBeenCalled();
+			expect(result['ufo:vc:rev']).toEqual(mockRawResult);
+		});
+
+		it('should stop VCObserverNew in raw-handler-only mode', () => {
+			(configModule.isVCRevisionEnabled as jest.Mock).mockImplementation(() => false);
+			(fg as jest.Mock).mockImplementation(
+				(flag: string) => flag === 'platform_ufo_vc_raw_handler_only',
+			);
+
+			const wrapper = new VCObserverWrapper();
+			wrapper.stop('test');
+
+			expect(VCObserverNew.prototype.stop).toHaveBeenCalled();
+		});
+	});
+
 	it('should process SSR abort listeners even if some observers are disabled', () => {
 		// Setup
 		const mockUnbind = jest.fn();

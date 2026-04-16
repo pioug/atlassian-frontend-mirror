@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import type { Command } from '@atlaskit/editor-common/types';

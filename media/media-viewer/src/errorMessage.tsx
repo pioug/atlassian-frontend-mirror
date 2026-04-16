@@ -5,7 +5,7 @@ import {
 	injectIntl,
 	type MessageDescriptor,
 	type WrappedComponentProps,
-} from 'react-intl-next';
+} from 'react-intl';
 import { messages as i18nMessages } from '@atlaskit/media-ui';
 import { type FileState } from '@atlaskit/media-client';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';

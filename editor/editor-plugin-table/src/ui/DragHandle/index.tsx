@@ -4,8 +4,8 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import classnames from 'classnames';
 import ReactDOM from 'react-dom';
-import type { WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';

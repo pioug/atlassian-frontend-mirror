@@ -22,5 +22,12 @@
 		"../src/**/stories/*",
 		"../src/**/stories/**/*"
 	],
-	"references": []
+	"references": [
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags-react/afm-cc/tsconfig.json"
+		}
+	]
 }

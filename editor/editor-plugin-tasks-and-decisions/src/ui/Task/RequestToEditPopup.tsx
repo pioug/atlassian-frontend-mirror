@@ -8,7 +8,7 @@
 import { useEffect, useState } from 'react';
 
 import { css as cssUnbounded } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { css, cssMap, jsx } from '@atlaskit/css';
 import {

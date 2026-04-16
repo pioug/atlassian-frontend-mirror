@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 44.0.6
+
+### Patch Changes
+
+- [`3c416227aac6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c416227aac6e) -
+  NAVX-4612 cleaning up navx-vuln-1914676-fix-xss-in-ai-summaries
+
+## 44.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.0.4
 
 ### Patch Changes

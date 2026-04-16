@@ -10,7 +10,7 @@ import type { StrictXCSSProp } from '@atlaskit/css';
 import { media } from '@atlaskit/primitives/responsive';
 import { token } from '@atlaskit/tokens';
 
-import { useSkipLinkInternal } from '../../context/skip-links/skip-links-context';
+import { useSkipLinkInternal } from '../../context/skip-links/use-skip-link-internal';
 
 import {
 	contentHeightWhenFixed,
@@ -21,13 +21,13 @@ import {
 	sideNavLiveWidthVar,
 	UNSAFE_panelLayoutVar,
 } from './constants';
+import { DangerouslyHoistCssVarToDocumentRoot } from './dangerously-hoist-css-var-to-document-root';
 import { DangerouslyHoistSlotSizes } from './hoist-slot-sizes-context';
-import { DangerouslyHoistCssVarToDocumentRoot } from './hoist-utils';
-import { useLayoutId } from './id-utils';
 import { PanelSplitterProvider } from './panel-splitter/provider';
 import type { ResizeBounds } from './panel-splitter/types';
-import { useSideNavRef } from './side-nav/element-context';
+import { useSideNavRef } from './side-nav/use-side-nav-ref';
 import type { CommonSlotProps } from './types';
+import { useLayoutId } from './use-layout-id';
 import { useResizingWidthCssVarOnRootElement } from './use-resizing-width-css-var-on-root-element';
 import { useSafeDefaultWidth } from './use-safe-default-width';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type IntlShape, useIntl } from 'react-intl-next';
+import { type IntlShape, useIntl } from 'react-intl';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';

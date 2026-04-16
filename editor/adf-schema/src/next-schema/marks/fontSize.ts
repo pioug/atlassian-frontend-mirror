@@ -1,4 +1,8 @@
-import { adfMark, type ADFMark, type ADFMarkSpec } from '@atlaskit/adf-schema-generator';
+import {
+	adfMark,
+	type ADFMark,
+	type ADFMarkSpec,
+} from '@atlaskit/adf-schema-generator';
 
 /**
  * fontSize mark - applies size styling to block-level content
@@ -16,8 +20,6 @@ import { adfMark, type ADFMark, type ADFMarkSpec } from '@atlaskit/adf-schema-ge
  * ```
  */
 export const fontSize: ADFMark<ADFMarkSpec> = adfMark('fontSize').define({
-	spanning: false,
-	inclusive: false,
 	attrs: {
 		fontSize: { type: 'enum', values: ['small'] },
 	},

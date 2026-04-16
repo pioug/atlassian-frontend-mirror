@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 9.0.0
+
+### Patch Changes
+
+- [`d15da1c489b34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d15da1c489b34) -
+  Add drag handle and move selection keyboard shortcuts to the editor help dialog, gated behind the
+  platform_editor_drag_handle_keyboard_a11y experiment
+- Updated dependencies
+
 ## 8.0.33
 
 ### Patch Changes

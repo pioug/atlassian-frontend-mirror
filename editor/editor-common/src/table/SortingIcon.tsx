@@ -7,8 +7,8 @@ import type { FC, ComponentType } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import type { IntlShape, WithIntlProps, WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { IntlShape, WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';

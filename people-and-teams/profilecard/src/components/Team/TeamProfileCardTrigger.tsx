@@ -5,7 +5,7 @@ import {
 	injectIntl,
 	type WithIntlProps,
 	type WrappedComponentProps,
-} from 'react-intl-next';
+} from 'react-intl';
 
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -483,10 +483,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 					zIndex={layers.modal()}
 					shouldFlip
 					autoFocus={this.props.trigger !== 'hover' && !this.openedByHover}
-					shouldRenderToParent={
-						fg('enable_appropriate_reading_order_in_profile_card') &&
-						this.props.shouldRenderToParent
-					}
+					shouldRenderToParent={this.props.shouldRenderToParent}
 				/>
 			</ErrorBoundary>
 		);

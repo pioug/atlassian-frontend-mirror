@@ -6,7 +6,7 @@ import {
 } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button';
 import ShortcutIcon from '@atlaskit/icon/core/link-external';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import { messages } from '../../../messages';

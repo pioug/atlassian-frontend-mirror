@@ -50,7 +50,7 @@ import {
 import { formatDuration } from '../formatDuration';
 import { Shortcut, keyCodes } from '../shortcut';
 import { toggleFullscreen, getFullscreenElement } from './fullscreen';
-import { type WrappedComponentProps } from 'react-intl-next';
+import { type WrappedComponentProps } from 'react-intl';
 import { messages } from '../messages';
 import simultaneousPlayManager from './simultaneousPlayManager';
 import { TimeSaver, type TimeSaverConfig } from './timeSaver';

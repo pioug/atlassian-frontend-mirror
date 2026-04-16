@@ -13,7 +13,7 @@ import {
 } from '@atlaskit/media-client';
 import { MediaButton, messages } from '@atlaskit/media-ui';
 import React, { type ReactNode, useCallback, useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { type MediaTraceContext } from '@atlaskit/media-common';
 import {
 	type DownloadButtonClickedEventPayload,

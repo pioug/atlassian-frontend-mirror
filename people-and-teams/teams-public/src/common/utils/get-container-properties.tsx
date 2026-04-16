@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
 
-import { defineMessages, FormattedMessage } from 'react-intl-next';
+import { defineMessages, FormattedMessage } from 'react-intl';
 
 import { cssMap, cx } from '@atlaskit/css';
 import LinkIcon from '@atlaskit/icon/core/link';

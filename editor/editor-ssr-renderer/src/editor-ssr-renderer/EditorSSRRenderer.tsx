@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useLayoutEffect } from 'react';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet, type NodeView } from '@atlaskit/editor-prosemirror/view';

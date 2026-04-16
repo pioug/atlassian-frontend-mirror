@@ -5,8 +5,8 @@
 import type { FC, ComponentType } from 'react';
 
 import { css as cssUnbounded } from '@compiled/react';
-import { injectIntl } from 'react-intl-next';
-import type { MessageDescriptor, WithIntlProps, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl';
+import type { MessageDescriptor, WithIntlProps, WrappedComponentProps } from 'react-intl';
 
 import { css, jsx } from '@atlaskit/css';
 import type { Keymap } from '@atlaskit/editor-common/keymaps';

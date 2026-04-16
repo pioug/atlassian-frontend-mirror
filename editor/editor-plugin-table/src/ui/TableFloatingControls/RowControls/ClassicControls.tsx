@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';

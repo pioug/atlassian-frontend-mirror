@@ -11,8 +11,8 @@ import type { AnalyticsEventPayload } from '../../analytics/events';
 import { MODE, PLATFORM } from '../../analytics/events';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import { RendererCssClassName } from '../../consts';
-import { useIntl } from 'react-intl-next';
-import type { IntlShape } from 'react-intl-next';
+import { useIntl } from 'react-intl';
+import type { IntlShape } from 'react-intl';
 import { tableCellMessages } from '../../messages';
 
 type CellProps = CellAttributes & {

@@ -221,7 +221,7 @@ export type { SelectionToolbarGroup, SelectionToolbarHandler } from './selection
 
 export type { FeedbackInfo } from './feedback-dialog';
 
-import type { MessageDescriptor } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl';
 
 // eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /**

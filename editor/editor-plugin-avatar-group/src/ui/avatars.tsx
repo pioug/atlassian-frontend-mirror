@@ -7,7 +7,7 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import type { AnalyticsEvent } from '@atlaskit/analytics-next';
 import AvatarGroup from '@atlaskit/avatar-group';

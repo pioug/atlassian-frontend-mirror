@@ -1,0 +1,149 @@
+import React from 'react';
+
+import {
+	DragDropContext,
+	type DragStart,
+	Droppable,
+	type DropResult,
+} from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
+
+import type { WithSortedPageRowsProps } from '../../hoc/with-sorted-page-rows';
+import {
+	type HeadType,
+	type RankEnd,
+	type RankEndLocation,
+	type RankStart,
+	type RowType,
+} from '../../types';
+
+import TableRow from './table-row';
+
+// computes destination of ranking
+// - if drag was cancelled returns undefined
+// - if drag was finished, returns new position and after/before key
+const computeRankDestination = (
+	result: DropResult,
+	pageRows: RowType[],
+): RankEndLocation | undefined => {
+	const {
+		source: { index: sourceIndex },
+		destination,
+	} = result;
+	if (destination) {
+		const { index } = destination;
+
+		const keyIndex = index < sourceIndex ? index - 1 : index;
+		const afterKey = keyIndex !== -1 ? pageRows[keyIndex].key : undefined;
+		const beforeIndex = keyIndex === -1 ? 0 : keyIndex + 1;
+		const beforeKey = beforeIndex < pageRows.length ? pageRows[beforeIndex].key : undefined;
+
+		return {
+			index,
+			afterKey,
+			beforeKey,
+		};
+	}
+
+	return undefined;
+};
+
+export interface RankableBodyProps extends WithSortedPageRowsProps {
+	highlightedRowIndex?: number | number[];
+	onRankStart: (rankStart: RankStart) => void;
+	onRankEnd: (rankEnd: RankEnd) => void;
+	isFixedSize: boolean;
+	isRanking: boolean;
+	isRankingDisabled: boolean;
+	head?: HeadType;
+	testId?: string;
+	forwardedRef?: React.Ref<HTMLTableSectionElement>;
+}
+
+// eslint-disable-next-line @repo/internal/react/no-class-components
+export class RankableBody extends React.Component<RankableBodyProps, {}> {
+	onBeforeDragStart = (dragStart: DragStart): void => {
+		const {
+			draggableId: key,
+			source: { index },
+		} = dragStart;
+		const rankStartProps = {
+			index,
+			key,
+		};
+
+		this.props.onRankStart(rankStartProps);
+	};
+
+	onDragEnd = (result: DropResult): void => {
+		const { pageRows, onRankEnd } = this.props;
+		const {
+			draggableId: sourceKey,
+			source: { index: sourceIndex },
+		} = result;
+		const destination = computeRankDestination(result, pageRows);
+
+		const rankEndProps = {
+			sourceIndex,
+			sourceKey,
+			destination,
+		};
+
+		onRankEnd(rankEndProps);
+	};
+
+	render(): React.JSX.Element {
+		const {
+			highlightedRowIndex,
+			pageRows,
+			head,
+			isFixedSize,
+			isRanking,
+			isRankingDisabled,
+			testId,
+			forwardedRef,
+		} = this.props;
+
+		return (
+			<DragDropContext onBeforeDragStart={this.onBeforeDragStart} onDragEnd={this.onDragEnd}>
+				<Droppable droppableId="dynamic-table-droppable" isDropDisabled={isRankingDisabled}>
+					{(provided) => (
+						<tbody
+							data-testid={testId}
+							ref={(ref) => {
+								if (provided && typeof provided.innerRef === 'function') {
+									provided.innerRef(ref);
+								}
+
+								if (forwardedRef) {
+									(forwardedRef as React.MutableRefObject<HTMLTableSectionElement | null>).current =
+										ref;
+								}
+							}}
+							{...provided.droppableProps}
+						>
+							{pageRows.map((row, rowIndex) => (
+								<TableRow
+									head={head}
+									isRanking={isRanking}
+									isFixedSize={isFixedSize}
+									key={row.key}
+									rowIndex={rowIndex}
+									row={row}
+									isRankingDisabled={isRankingDisabled}
+									isHighlighted={
+										highlightedRowIndex !== undefined &&
+										(typeof highlightedRowIndex === 'number'
+											? highlightedRowIndex === rowIndex
+											: highlightedRowIndex.indexOf(rowIndex) > -1)
+									}
+									testId={testId && `${testId}--${row.key}--rankable--table--row`}
+								/>
+							))}
+							{provided.placeholder}
+						</tbody>
+					)}
+				</Droppable>
+			</DragDropContext>
+		);
+	}
+}

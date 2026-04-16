@@ -29,7 +29,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { render, waitFor } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { Media } from '../../../react/nodes';
 import * as renderDocumentModule from '../../../render-document';
 import Renderer from '../../../ui/Renderer';
@@ -123,7 +123,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 		await expect(document.body).toBeAccessible();
 	});
 
-	describe('react-intl-next', () => {
+	describe('react-intl', () => {
 		describe('when IntlProvider is not in component ancestry', () => {
 			it('should not throw an error', async () => {
 				expect(() => {

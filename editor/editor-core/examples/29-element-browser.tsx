@@ -6,8 +6,8 @@ import { useCallback } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
-import { injectIntl, IntlProvider } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
+import { injectIntl, IntlProvider } from 'react-intl';
 
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { AnalyticsListener } from '@atlaskit/analytics-next';

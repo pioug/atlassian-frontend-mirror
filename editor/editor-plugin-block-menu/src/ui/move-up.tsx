@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
-import { injectIntl, useIntl } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { injectIntl, useIntl } from 'react-intl';
 
 import { getDocument } from '@atlaskit/browser-apis';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';

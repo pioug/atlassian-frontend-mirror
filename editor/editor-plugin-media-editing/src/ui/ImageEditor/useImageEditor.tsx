@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
-import { useIntl, type MessageDescriptor } from 'react-intl-next';
+import { useIntl, type MessageDescriptor } from 'react-intl';
 
 import type { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
 

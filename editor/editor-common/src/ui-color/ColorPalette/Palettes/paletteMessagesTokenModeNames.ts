@@ -1,4 +1,4 @@
-import { defineMessages } from 'react-intl-next';
+import { defineMessages } from 'react-intl';
 
 // These messages are only to be used when showSomewhatSemanticTooltips is true.
 export const lightTextPaletteTooltipMessages: {

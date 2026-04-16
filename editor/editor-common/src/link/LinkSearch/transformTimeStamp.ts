@@ -1,7 +1,7 @@
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import format from 'date-fns/format';
 import formatDistance from 'date-fns/formatDistance';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import messages from '../../messages';
 

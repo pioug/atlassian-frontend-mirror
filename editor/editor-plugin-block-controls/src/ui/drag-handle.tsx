@@ -17,7 +17,7 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { getDocument } from '@atlaskit/browser-apis';
 import {
@@ -112,48 +112,48 @@ const buttonWrapperStyles = css({
 	alignItems: 'center',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-		{
-			background: `linear-gradient(to bottom, ${token('elevation.surface')} 90%, transparent)`,
-			marginBottom: token('space.negative.200'),
-			paddingBottom: token('space.200'),
-			marginTop: token('space.negative.400'),
-			paddingTop: `calc(${token('space.400')} - 1px)`,
-			marginRight: token('space.negative.150'),
-			paddingRight: token('space.150'),
-			boxSizing: 'border-box',
-		},
+	{
+		background: `linear-gradient(to bottom, ${token('elevation.surface')} 90%, transparent)`,
+		marginBottom: token('space.negative.200'),
+		paddingBottom: token('space.200'),
+		marginTop: token('space.negative.400'),
+		paddingTop: `calc(${token('space.400')} - 1px)`,
+		marginRight: token('space.negative.150'),
+		paddingRight: token('space.150'),
+		boxSizing: 'border-box',
+	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-		{
-			background: `linear-gradient(to bottom, ${token('elevation.surface')} 90%, transparent)`,
-			marginBottom: token('space.negative.200'),
-			paddingBottom: token('space.200'),
-			marginTop: token('space.negative.400'),
-			paddingTop: `calc(${token('space.400')} - 1px)`,
-			marginRight: token('space.negative.150'),
-			paddingRight: token('space.150'),
-			boxSizing: 'border-box',
-		},
+	{
+		background: `linear-gradient(to bottom, ${token('elevation.surface')} 90%, transparent)`,
+		marginBottom: token('space.negative.200'),
+		paddingBottom: token('space.200'),
+		marginTop: token('space.negative.400'),
+		paddingTop: `calc(${token('space.400')} - 1px)`,
+		marginRight: token('space.negative.150'),
+		paddingRight: token('space.150'),
+		boxSizing: 'border-box',
+	},
 });
 
 const buttonWrapperStylesPatch = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls [data-number-column="true"] tr.sticky) &':
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			marginRight: -akEditorTableToolbarSize,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			paddingRight: akEditorTableToolbarSize,
-		},
+	{
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		marginRight: -akEditorTableToolbarSize,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		paddingRight: akEditorTableToolbarSize,
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls [data-number-column="true"] tr.sticky) &':
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			marginRight: -akEditorTableToolbarSize,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			paddingRight: akEditorTableToolbarSize,
-		},
+	{
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		marginRight: -akEditorTableToolbarSize,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		paddingRight: akEditorTableToolbarSize,
+	},
 });
 
 // update color to match quick insert button for new editor controls
@@ -201,8 +201,8 @@ const dragHandleButtonStyles = css({
 
 // Calculate scaled dimensions based on the base font size using CSS calc()
 // Default font size is 16px, scale proportionally
-// Standard: 16px -> 24h x 12w, Dense: 13px -> 18h x 9w
-const dragHandleButtonDenseModeStyles = css({
+// Standard: 16px -> 24h x 12w, Dense: 13px -> 18h x 9w, Jira: 14px -> 21h x 12w
+const dragHandleButtonScaledStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 	height: relativeSizeToBaseFontSize(DRAG_HANDLE_HEIGHT),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -299,14 +299,14 @@ const tooltipContainerStylesStickyHeaderWithMask = css({
 	top: `${STICKY_CONTROLS_TOP_MARGIN}px`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-		{
-			top: '0',
-		},
+	{
+		top: '0',
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-		{
-			top: '0',
-		},
+	{
+		top: '0',
+	},
 });
 
 const tooltipContainerStylesImprovedStickyHeaderWithMask = css({
@@ -314,50 +314,50 @@ const tooltipContainerStylesImprovedStickyHeaderWithMask = css({
 	top: `${STICKY_CONTROLS_TOP_MARGIN}px`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-		{
-			top: '0',
-		},
+	{
+		top: '0',
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-		{
-			top: '0',
-		},
+	{
+		top: '0',
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-mark-name="fragment"] >[data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			top: tableControlsSpacing,
-		},
+	{
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		top: tableControlsSpacing,
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-mark-name="fragment"] >[data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			top: tableControlsSpacing,
-		},
+	{
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		top: tableControlsSpacing,
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] tr.pm-table-row-native-sticky.pm-table-row-native-sticky-active) &':
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			top: `${STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER}px`,
-		},
+	{
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		top: `${STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER}px`,
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] tr.pm-table-row-native-sticky.pm-table-row-native-sticky-active) &':
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			top: `${STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER}px`,
-		},
+	{
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		top: `${STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER}px`,
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-mark-name="fragment"] >[data-prosemirror-node-name="table"] tr.pm-table-row-native-sticky.pm-table-row-native-sticky-active) &':
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			top: `${STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER}px`,
-		},
+	{
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		top: `${STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER}px`,
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-mark-name="fragment"] > [data-prosemirror-node-name="table"] tr.pm-table-row-native-sticky.pm-table-row-native-sticky-active) &':
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			top: `${STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER}px`,
-		},
+	{
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		top: `${STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER}px`,
+	},
 });
 
 const tooltipContainerStylesStickyHeaderWithoutMask = css({
@@ -365,16 +365,16 @@ const tooltipContainerStylesStickyHeaderWithoutMask = css({
 	top: `${STICKY_CONTROLS_TOP_MARGIN}px`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			top: tableControlsSpacing,
-		},
+	{
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		top: tableControlsSpacing,
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			top: tableControlsSpacing,
-		},
+	{
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		top: tableControlsSpacing,
+	},
 });
 
 const dragHandleMultiLineSelectionFixFirefox = css({
@@ -1012,11 +1012,11 @@ export const DragHandle = ({
 					editorExperiment('advanced_layouts', true) && isLayoutColumn
 						? `calc(anchor(${safeAnchorName} top) - ${DRAG_HANDLE_WIDTH}px)`
 						: `calc(anchor(${safeAnchorName} start) + ${topPositionAdjustment(
-								expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
-									? ($pos && $pos.nodeAfter && getNodeTypeWithLevel($pos.nodeAfter)) || nodeType
-									: nodeType,
-								dom?.getAttribute('layout') || '',
-							)}px)`,
+							expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
+								? ($pos && $pos.nodeAfter && getNodeTypeWithLevel($pos.nodeAfter)) || nodeType
+								: nodeType,
+							dom?.getAttribute('layout') || '',
+						)}px)`,
 
 				...bottom,
 			};
@@ -1024,12 +1024,12 @@ export const DragHandle = ({
 
 		const height = editorExperiment('platform_editor_controls', 'variant1')
 			? getControlHeightCSSValue(
-					getNodeHeight(dom, safeAnchorName, anchorRectCache) || 0,
-					isSticky,
-					isTopLevelNodeValue,
-					`${DRAG_HANDLE_HEIGHT}`,
-					isLayoutColumn,
-				)
+				getNodeHeight(dom, safeAnchorName, anchorRectCache) || 0,
+				isSticky,
+				isTopLevelNodeValue,
+				`${DRAG_HANDLE_HEIGHT}`,
+				isLayoutColumn,
+			)
 			: {};
 		return {
 			left: isEdgeCase
@@ -1113,11 +1113,11 @@ export const DragHandle = ({
 					editorExperiment('advanced_layouts', true) && isLayoutColumn
 						? `calc(anchor(${safeAnchorName} top) - ${DRAG_HANDLE_WIDTH}px)`
 						: `calc(anchor(${safeAnchorName} start) + ${topPositionAdjustment(
-								expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
-									? ($pos && $pos.nodeAfter && getNodeTypeWithLevel($pos.nodeAfter)) || nodeType
-									: nodeType,
-								dom?.getAttribute('layout') || '',
-							)}px)`,
+							expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
+								? ($pos && $pos.nodeAfter && getNodeTypeWithLevel($pos.nodeAfter)) || nodeType
+								: nodeType,
+							dom?.getAttribute('layout') || '',
+						)}px)`,
 
 				...bottom,
 			};
@@ -1125,12 +1125,12 @@ export const DragHandle = ({
 
 		const height = editorExperiment('platform_editor_controls', 'variant1')
 			? getControlHeightCSSValue(
-					getNodeHeight(dom, safeAnchorName, anchorRectCache) || 0,
-					isSticky,
-					isTopLevelNodeValue,
-					`${DRAG_HANDLE_HEIGHT}`,
-					isLayoutColumn,
-				)
+				getNodeHeight(dom, safeAnchorName, anchorRectCache) || 0,
+				isSticky,
+				isTopLevelNodeValue,
+				`${DRAG_HANDLE_HEIGHT}`,
+				isLayoutColumn,
+			)
 			: {};
 		return {
 			left: isEdgeCase
@@ -1271,39 +1271,39 @@ export const DragHandle = ({
 
 	let helpDescriptors = isTopLevelNodeValue
 		? [
-				{
-					description: dragHandleMessage,
-				},
-				{
-					description: formatMessage(blockControlsMessages.moveUp),
-					keymap: dragToMoveUp,
-				},
-				{
-					description: formatMessage(blockControlsMessages.moveDown),
-					keymap: dragToMoveDown,
-				},
-				{
-					description: formatMessage(blockControlsMessages.moveLeft),
-					keymap: dragToMoveLeft,
-				},
-				{
-					description: formatMessage(blockControlsMessages.moveRight),
-					keymap: dragToMoveRight,
-				},
-			]
+			{
+				description: dragHandleMessage,
+			},
+			{
+				description: formatMessage(blockControlsMessages.moveUp),
+				keymap: dragToMoveUp,
+			},
+			{
+				description: formatMessage(blockControlsMessages.moveDown),
+				keymap: dragToMoveDown,
+			},
+			{
+				description: formatMessage(blockControlsMessages.moveLeft),
+				keymap: dragToMoveLeft,
+			},
+			{
+				description: formatMessage(blockControlsMessages.moveRight),
+				keymap: dragToMoveRight,
+			},
+		]
 		: [
-				{
-					description: dragHandleMessage,
-				},
-				{
-					description: formatMessage(blockControlsMessages.moveUp),
-					keymap: dragToMoveUp,
-				},
-				{
-					description: formatMessage(blockControlsMessages.moveDown),
-					keymap: dragToMoveDown,
-				},
-			];
+			{
+				description: dragHandleMessage,
+			},
+			{
+				description: formatMessage(blockControlsMessages.moveUp),
+				keymap: dragToMoveUp,
+			},
+			{
+				description: formatMessage(blockControlsMessages.moveDown),
+				keymap: dragToMoveDown,
+			},
+		];
 
 	let isParentNodeOfTypeLayout;
 
@@ -1392,20 +1392,20 @@ export const DragHandle = ({
 				// See https://product-fabric.atlassian.net/browse/ED-26266
 				browser.gecko && dragHandleMultiLineSelectionFixFirefox,
 				editorExperiment('advanced_layouts', true) &&
-					isLayoutColumn &&
-					layoutColumnDragHandleStyles,
+				isLayoutColumn &&
+				layoutColumnDragHandleStyles,
 				dragHandleSelected && hasHadInteraction && selectedStyles,
 				editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
-					editorExperiment('platform_editor_controls', 'control') &&
-					dragHandleButtonSmallScreenStyles,
+				editorExperiment('platform_editor_controls', 'control') &&
+				dragHandleButtonSmallScreenStyles,
 				editorExperiment('platform_editor_block_menu', true) &&
-					isFocused &&
-					keyboardFocusedDragHandleStyles,
+				isFocused &&
+				keyboardFocusedDragHandleStyles,
 				editorExperiment('platform_editor_block_menu', true) ? focusedStyles : focusedStylesOld,
-				(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+				((expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
 					(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-						fg('platform_editor_content_mode_button_mvp'))) &&
-					dragHandleButtonDenseModeStyles,
+						fg('platform_editor_content_mode_button_mvp'))) || (editorExperiment('platform_editor_block_menu', true) && fg('platform_editor_block_menu_jira_patch_1'))) &&
+				dragHandleButtonScaledStyles,
 			]}
 			ref={buttonRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -1464,7 +1464,7 @@ export const DragHandle = ({
 				onDragStart={handleIconDragStart}
 			>
 				{expValEquals('platform_editor_nested_drag_handle_icon', 'isEnabled', true) &&
-				!isTopLevelNodeValue ? (
+					!isTopLevelNodeValue ? (
 					<DragHandleNestedIcon />
 				) : (
 					<DragHandleVerticalIcon spacing="spacious" label="" size="small" />
@@ -1490,15 +1490,15 @@ export const DragHandle = ({
 				css={[
 					tooltipContainerStyles,
 					shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&
-						(expValEquals(
-							'platform_editor_table_sticky_header_improvements',
-							'cohort',
-							'test_with_overflow',
-						) && fg('platform_editor_table_sticky_header_patch_6')
-							? tooltipContainerStylesImprovedStickyHeaderWithMask
-							: tooltipContainerStylesStickyHeaderWithMask),
+					(expValEquals(
+						'platform_editor_table_sticky_header_improvements',
+						'cohort',
+						'test_with_overflow',
+					) && fg('platform_editor_table_sticky_header_patch_6')
+						? tooltipContainerStylesImprovedStickyHeaderWithMask
+						: tooltipContainerStylesStickyHeaderWithMask),
 					!shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&
-						tooltipContainerStylesStickyHeaderWithoutMask,
+					tooltipContainerStylesStickyHeaderWithoutMask,
 				]}
 			>
 				<Tooltip
@@ -1540,9 +1540,9 @@ export const DragHandle = ({
 				css={[
 					tooltipContainerStyles,
 					shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&
-						tooltipContainerStylesStickyHeaderWithMask,
+					tooltipContainerStylesStickyHeaderWithMask,
 					!shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&
-						tooltipContainerStylesStickyHeaderWithoutMask,
+					tooltipContainerStylesStickyHeaderWithoutMask,
 				]}
 			>
 				<span

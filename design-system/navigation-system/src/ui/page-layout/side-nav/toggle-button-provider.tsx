@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { SideNavToggleButtonAttachRef, SideNavToggleButtonElement } from './toggle-button-context';
+import { SideNavToggleButtonAttachRef } from './side-nav-toggle-button-attach-ref';
+import { SideNavToggleButtonElement } from './side-nav-toggle-button-element';
 
 /**
  * Provider for the side nav toggle button contexts.

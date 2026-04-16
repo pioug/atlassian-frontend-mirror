@@ -3,7 +3,7 @@ jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 import React from 'react';
 
 import { replaceRaf } from 'raf-stub';
-import { createIntl } from 'react-intl-next';
+import { createIntl } from 'react-intl';
 
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';

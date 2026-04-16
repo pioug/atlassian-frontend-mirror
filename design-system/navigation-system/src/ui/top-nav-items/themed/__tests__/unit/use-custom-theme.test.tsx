@@ -2,7 +2,8 @@ import { renderHook } from '@testing-library/react';
 
 import * as AppProvider from '@atlaskit/app-provider';
 
-import { useCustomTheme, useCustomThemeNew } from '../../use-custom-theme';
+import { useCustomTheme } from '../../use-custom-theme';
+import { useCustomThemeNew } from '../../use-custom-theme-new';
 
 describe('useCustomTheme()', () => {
 	it('should return an object with isEnabled and a style object', () => {

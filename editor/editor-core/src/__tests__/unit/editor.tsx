@@ -33,7 +33,7 @@ import React from 'react';
 
 import { matchers } from '@emotion/jest';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { shouldIgnoreLog } from '@af/suppress-react-warnings';
 import type * as ActivityProviderModule from '@atlaskit/activity-provider';
@@ -210,7 +210,7 @@ describe(`Editor`, () => {
 		});
 	});
 
-	describe('react-intl-next', () => {
+	describe('react-intl', () => {
 		beforeEach(() => {
 			jest.spyOn(global.console, 'error').mockImplementation();
 			jest.spyOn(global.console, 'warn').mockImplementation();

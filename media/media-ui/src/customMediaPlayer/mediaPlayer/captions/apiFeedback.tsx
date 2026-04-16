@@ -3,7 +3,7 @@ import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { token } from '@atlaskit/tokens';
-import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
 import { messages } from '../../../messages';
 
 export type NotificationTypes = 'success' | 'error' | null;

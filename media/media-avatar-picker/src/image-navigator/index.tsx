@@ -6,7 +6,7 @@ import React from 'react';
 import { jsx, css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { Component } from 'react';
-import { FormattedMessage, type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { FormattedMessage, type WrappedComponentProps, injectIntl } from 'react-intl';
 import Button from '@atlaskit/button/standard-button';
 import ImageCropper from '../image-cropper';
 import Spinner from '@atlaskit/spinner';

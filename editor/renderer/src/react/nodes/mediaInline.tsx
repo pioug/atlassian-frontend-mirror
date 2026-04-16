@@ -13,8 +13,8 @@ import { MediaClientContext, getMediaClient } from '@atlaskit/media-client-react
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
 import React, { useCallback, useEffect, useState, useContext } from 'react';
-import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { IntlShape, WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import type { ClipboardAttrs } from '../../ui/MediaCard';
 import { getClipboardAttrs, mediaIdentifierMap } from '../../ui/MediaCard';
 import type { RendererAppearance } from '../../ui/Renderer/types';

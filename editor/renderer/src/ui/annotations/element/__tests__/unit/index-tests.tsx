@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { MarkElement } from '../../';

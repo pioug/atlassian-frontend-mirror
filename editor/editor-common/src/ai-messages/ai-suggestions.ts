@@ -1,4 +1,4 @@
-import { defineMessages } from 'react-intl-next';
+import { defineMessages } from 'react-intl';
 
 export const aiSuggestionsMessages: {
 	applyChangesButtonLabel: {
@@ -21,12 +21,27 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	cardCompareWithOriginalOptionLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	cardDiscardButtonLabel: {
 		defaultMessage: string;
 		description: string;
 		id: string;
 	};
 	cardExpandButtonLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cardMoreOptionsButtonLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cardOnlyShowSuggestionOptionLabel: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -284,5 +299,20 @@ export const aiSuggestionsMessages: {
 		id: 'fabric.editor.ai.suggestions.card.discardButtonLabel.non-final',
 		defaultMessage: 'Discard',
 		description: 'Label for the discard button on the AI suggestions card',
+	},
+	cardMoreOptionsButtonLabel: {
+		id: 'fabric.editor.ai.suggestions.card.moreOptionsButtonLabel.non-final',
+		defaultMessage: 'More options',
+		description: 'Label for the overflow actions button on the AI suggestions card',
+	},
+	cardOnlyShowSuggestionOptionLabel: {
+		id: 'fabric.editor.ai.suggestions.card.onlyShowSuggestionOptionLabel.non-final',
+		defaultMessage: 'Only show suggestion',
+		description: 'Label for the dropdown action to only show the selected suggestion',
+	},
+	cardCompareWithOriginalOptionLabel: {
+		id: 'fabric.editor.ai.suggestions.card.compareWithOriginalOptionLabel.non-final',
+		defaultMessage: 'Compare with original',
+		description: 'Label for the dropdown action to compare suggestion with original content',
 	},
 });

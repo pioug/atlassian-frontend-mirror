@@ -1,6 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { createIntl } from 'react-intl-next';
+import { createIntl } from 'react-intl';
 import { type HeadType } from '@atlaskit/dynamic-table/types';
 import {
 	type MediaClient,

@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-paste
 
+## 10.0.1
+
+### Patch Changes
+
+- [`bae5d569f660c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bae5d569f660c) -
+  Prevent flexible list creation when platform_editor_flexible_list_schema is on but
+  platform_editor_flexible_list_indentation is off. Slice normalisation in paste pipeline.
+  appendTransaction normaliser in list plugin.
+
+  Paste plugin detects list-into-list paste and sets a transaction meta to skip closeHistory,
+  keeping the paste and normalisation appendTransaction as a single undo step.
+
+- Updated dependencies
+
+## 10.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.18
+
+### Patch Changes
+
+- [`bfe80c5eaf923`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfe80c5eaf923) -
+  Enable onedrive and MS teams links to render as smartlinks
+- Updated dependencies
+
 ## 9.1.17
 
 ### Patch Changes

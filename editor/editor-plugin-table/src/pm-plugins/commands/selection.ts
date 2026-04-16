@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next/src/types';
+import type { IntlShape } from 'react-intl/src/types';
 
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { SelectionSharedState } from '@atlaskit/editor-common/selection';

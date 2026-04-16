@@ -8,14 +8,12 @@ import { act, render, screen, userEvent, waitFor } from '@atlassian/testing-libr
 
 import { Main } from '../../main/main';
 import { Root } from '../../root';
+import { SetSideNavVisibilityState } from '../../side-nav/set-side-nav-visibility-state';
 import { onPeekStartDelayMs, SideNav } from '../../side-nav/side-nav';
+import { SideNavVisibilityState } from '../../side-nav/side-nav-visibility-state';
 import { SideNavToggleButton } from '../../side-nav/toggle-button';
 import type { SideNavState } from '../../side-nav/types';
 import { useToggleSideNav } from '../../side-nav/use-toggle-side-nav';
-import {
-	SetSideNavVisibilityState,
-	SideNavVisibilityState,
-} from '../../side-nav/visibility-context';
 import { TopNav } from '../../top-nav/top-nav';
 import { TopNavStart as RealTopNavStart } from '../../top-nav/top-nav-start';
 

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 
 import { cssMap } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
-import type { MessageDescriptor } from 'react-intl-next';
+import { useIntl } from 'react-intl';
+import type { MessageDescriptor } from 'react-intl';
 
 import { IconButton } from '@atlaskit/button/new';
 import commonMessages, { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';

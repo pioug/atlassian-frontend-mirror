@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste",
-	"version": "9.1.17",
+	"version": "10.0.1",
 	"description": "Paste plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -55,16 +55,17 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"lodash": "root:*",
-		"react-intl-next": "root:*",
 		"uuid": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-dom": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@testing-library/react": "root:*",
+		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

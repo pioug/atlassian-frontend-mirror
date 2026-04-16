@@ -31,6 +31,13 @@
 		"outDir": "../../../tsDist/@atlaskit__intl-messages-provider/app",
 		"isolatedDeclarations": true
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-react/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

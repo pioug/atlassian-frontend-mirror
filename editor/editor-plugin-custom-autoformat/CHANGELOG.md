@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-custom-autoformat
 
+## 9.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.4
 
 ### Patch Changes

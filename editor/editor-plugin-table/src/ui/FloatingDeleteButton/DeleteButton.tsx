@@ -1,8 +1,8 @@
 import type { SyntheticEvent } from 'react';
 import React from 'react';
 
-import type { MessageDescriptor, WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { MessageDescriptor, WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

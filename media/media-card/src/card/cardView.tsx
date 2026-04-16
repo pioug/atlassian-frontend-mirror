@@ -1,5 +1,5 @@
 import React, { type MouseEvent, useEffect, useState, useRef, useMemo } from 'react';
-import { type MessageDescriptor, defineMessages, useIntl } from 'react-intl-next';
+import { type MessageDescriptor, defineMessages, useIntl } from 'react-intl';
 
 import {
 	type MediaItemType,

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "9.1.18",
+	"version": "10.0.0",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -74,7 +74,7 @@
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -142,8 +142,14 @@
 		"platform_editor_expose_block_controls_deco_api": {
 			"type": "boolean"
 		},
+		"platform_editor_block_menu_jira_patch_1": {
+			"type": "boolean"
+		},
 		"confluence_remix_button_right_side_block_fg": {
 			"type": "boolean"
 		}
+	},
+	"devDependencies": {
+		"react-intl": "root:*"
 	}
 }

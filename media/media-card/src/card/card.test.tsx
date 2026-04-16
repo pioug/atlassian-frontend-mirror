@@ -101,7 +101,7 @@ import {
 } from '@atlaskit/media-client';
 import * as performanceModule from './performance';
 import { getFileStreamsCache } from '@atlaskit/media-client';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { shouldPerformanceBeSampled } from '../utils/ufoExperiences';
 import { MockIntersectionObserver } from '../utils/mockIntersectionObserver';
 import { DateOverrideContext } from '../dateOverrideContext';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { messages } from '../../messages';

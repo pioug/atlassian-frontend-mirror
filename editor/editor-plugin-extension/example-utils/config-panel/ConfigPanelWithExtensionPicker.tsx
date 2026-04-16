@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { CodeBlock } from '@atlaskit/code';

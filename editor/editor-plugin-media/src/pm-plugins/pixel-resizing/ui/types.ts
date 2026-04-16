@@ -1,6 +1,6 @@
 import type { ChangeEvent } from 'react';
 
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 export type PixelEntryProps = {
 	/**

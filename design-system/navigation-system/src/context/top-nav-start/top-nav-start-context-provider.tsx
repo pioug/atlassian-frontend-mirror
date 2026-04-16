@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { TopNavStartAttachRef, TopNavStartElement } from './top-nav-start-context';
+import { TopNavStartAttachRef } from './top-nav-start-attach-ref';
+import { TopNavStartElement } from './top-nav-start-element';
 
 /**
  * Provider for the TopNavStart container element contexts.

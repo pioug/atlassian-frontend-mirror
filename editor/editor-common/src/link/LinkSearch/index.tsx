@@ -1,8 +1,8 @@
 import React from 'react';
 import type { KeyboardEvent } from 'react';
 
-import { injectIntl } from 'react-intl-next';
-import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl';
+import type { WrappedComponentProps } from 'react-intl';
 
 import type { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider';
 

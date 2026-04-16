@@ -7,7 +7,7 @@ import type { TooltipProps } from '@atlaskit/tooltip';
 
 import { ListItem } from '../../components/list-item';
 
-import { IconButton } from './themed/migration';
+import { IconButton } from './themed/icon-button';
 
 export interface EndItemProps extends Partial<
 	Pick<TriggerProps, 'aria-controls' | 'aria-expanded' | 'aria-haspopup'>

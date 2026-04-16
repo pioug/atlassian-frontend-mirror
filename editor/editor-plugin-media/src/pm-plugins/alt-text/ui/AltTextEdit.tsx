@@ -7,8 +7,8 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';

@@ -6,8 +6,8 @@ import React, { useCallback, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';

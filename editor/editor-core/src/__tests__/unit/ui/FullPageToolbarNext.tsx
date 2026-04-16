@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { TOOLBARS } from '@atlaskit/editor-common/toolbar';
 import type { PublicPluginAPI, DocBuilder } from '@atlaskit/editor-common/types';

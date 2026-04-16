@@ -21,7 +21,7 @@ import {
 	injectIntl,
 	type MessageDescriptor,
 	type WrappedComponentProps,
-} from 'react-intl-next';
+} from 'react-intl';
 import { Field, HelperMessage } from '@atlaskit/form';
 import { fileToDataURI, dataURItoFile, messages } from '@atlaskit/media-ui';
 import { Box } from '@atlaskit/primitives/compiled';

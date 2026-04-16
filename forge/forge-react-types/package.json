@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/forge-react-types",
-	"version": "1.0.3",
+	"version": "1.0.5",
 	"description": "Component types for Forge UI Kit React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,6 +25,13 @@
 		"./global": "./src/components/global/__generated__/index.ts"
 	},
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Forge UI"
 	},
 	"dependencies": {
@@ -64,6 +71,7 @@
 	"devDependencies": {
 		"@atlassian/codegen": "workspace:^",
 		"@atlassian/forge-ui": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@types/node": "root:*",
 		"lodash": "root:*",
 		"react": "root:*",

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { toggleHighlightPalette, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { textColorMessages as messages } from '@atlaskit/editor-common/messages';

@@ -6,7 +6,7 @@ import * as closestEdge from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-e
 import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/types';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 
-import { RankableBody } from '../../rankable/body';
+import { RankableBody } from '../../rankable/rankable-body';
 
 import { headMock1, rowsWithKeys } from './_data';
 

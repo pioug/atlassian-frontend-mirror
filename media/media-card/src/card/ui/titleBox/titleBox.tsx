@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
 import LockFilledIcon from '@atlaskit/icon/core/lock-locked';
 import { Truncate } from '@atlaskit/media-ui/truncateText';

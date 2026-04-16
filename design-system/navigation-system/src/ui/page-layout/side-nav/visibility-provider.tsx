@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
+import { SetSideNavVisibilityState } from './set-side-nav-visibility-state';
+import { SideNavVisibilityState } from './side-nav-visibility-state';
 import type { SideNavState } from './types';
-import { SetSideNavVisibilityState, SideNavVisibilityState } from './visibility-context';
 
 /**
  * Manages the side nav visibility state and provides the context.

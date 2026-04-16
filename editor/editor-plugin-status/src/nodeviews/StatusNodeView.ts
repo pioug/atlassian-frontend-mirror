@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { statusMessages as messages } from '@atlaskit/editor-common/messages';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';

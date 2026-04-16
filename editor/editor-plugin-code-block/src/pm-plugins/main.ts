@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { updateCodeBlockWrappedStateNodeKeys } from '@atlaskit/editor-common/code-block';

@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, waitFor, fireEvent } from '@testing-library/react';
-import { createIntl, createIntlCache, IntlProvider } from 'react-intl-next';
+import { createIntl, createIntlCache, IntlProvider } from 'react-intl';
 
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 

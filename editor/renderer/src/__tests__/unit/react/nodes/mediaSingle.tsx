@@ -29,7 +29,7 @@ jest.mock('memoize-one', () => {
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import type { ReactWrapper } from 'enzyme';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
 
 describe('MediaSingle', () => {
 	const editorWidth = 123;

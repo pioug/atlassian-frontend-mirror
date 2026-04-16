@@ -161,7 +161,7 @@ type BackButtonContainerProps = {
 	transitionState: TransitionStatus;
 };
 
-export const BackButtonContainer = React.forwardRef<HTMLDivElement, BackButtonContainerProps>(
+export const BackButtonContainer: React.ForwardRefExoticComponent<BackButtonContainerProps & React.RefAttributes<HTMLDivElement>> = React.forwardRef<HTMLDivElement, BackButtonContainerProps>(
 	({ transitionState, children }, ref) => (
 		<div
 			ref={ref}

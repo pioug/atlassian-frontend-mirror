@@ -11,7 +11,7 @@ import { CardView } from '../src/card/cardView';
 import { type FileDetails, type MediaType } from '@atlaskit/media-client';
 import { tallImage, wideTransparentImage } from '@atlaskit/media-test-helpers';
 import { token } from '@atlaskit/tokens';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { MainWrapper, mediaCardErrorState } from '../example-helpers';
 import { CardViewWrapper } from '../example-helpers/cardViewWrapper';
 

@@ -1995,6 +1995,11 @@ const tableSharedStyle = css({
 			tableLayout: 'auto',
 		},
 
+		'&[data-initial-width-mode="content"]': {
+			tableLayout: 'auto',
+			width: 'auto',
+		},
+
 		'*': {
 			boxSizing: 'border-box',
 		},
@@ -2112,6 +2117,21 @@ const tableSharedStyle = css({
 				},
 			},
 		},
+	},
+});
+
+const tableContentModeStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}:has(table[data-initial-width-mode="content"])`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		width: 'max-content !important',
+		maxWidth: 'var(--renderer-table-max-width)',
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	[`.${RendererCssClassName.DOCUMENT} table[data-initial-width-mode="content"] > colgroup > col`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		width: 'unset !important',
 	},
 });
 
@@ -3068,6 +3088,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				// merge firstWrappedMediaStyles with mediaSingleSharedStyle when clean up platform_editor_fix_media_in_renderer
 				fg('platform_editor_fix_media_in_renderer') && firstWrappedMediaStyles,
 				tableSharedStyle,
+				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
+					tableContentModeStyles,
 				tableRendererHeaderStylesForTableCellOnly,
 				fg('platform_editor_bordered_panel_nested_in_table') && tableRendererNestedPanelStyles,
 				isBackgroundClipBrowserFixNeeded() && tableStylesBackGroundClipForGeckoForTableCellOnly,

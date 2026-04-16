@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { createIntl, createIntlCache } from 'react-intl-next';
+import { createIntl, createIntlCache } from 'react-intl';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';

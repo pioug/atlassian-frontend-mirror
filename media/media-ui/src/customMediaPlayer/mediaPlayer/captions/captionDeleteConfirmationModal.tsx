@@ -12,7 +12,7 @@ import { useMediaClient } from '@atlaskit/media-client-react';
 import { type MediaClient, type FileIdentifier } from '@atlaskit/media-client';
 import { parseError } from './artifactUploader/captions/util';
 import ApiFeedback, { type NotificationTypes } from './apiFeedback';
-import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
 import { messages } from '../../../messages';
 import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
 

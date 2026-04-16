@@ -79,7 +79,7 @@ import { type CardAction, createDownloadAction } from './actions';
 import { performanceNow } from './performance';
 import { useContext } from 'react';
 import { DateOverrideContext } from '../dateOverrideContext';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import { AbuseModal } from '@atlaskit/media-ui/abuseModal';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { getActiveTrace } from '@atlaskit/react-ufo/experience-trace-id-context';

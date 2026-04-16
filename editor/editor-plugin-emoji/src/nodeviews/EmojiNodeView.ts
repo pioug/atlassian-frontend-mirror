@@ -1,5 +1,5 @@
 import isEqual from 'lodash/isEqual';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import {

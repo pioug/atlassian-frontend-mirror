@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import Flag from '@atlaskit/flag';
 import { messages } from '@atlaskit/media-ui';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 const avatarPickerErrorStyles = css({
 	marginTop: token('space.0'),

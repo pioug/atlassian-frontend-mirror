@@ -1,4 +1,4 @@
-import type { MessageDescriptor } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl';
 
 import type { Keymap } from '@atlaskit/editor-common/keymaps';
 import type { IconComponent } from '@atlaskit/editor-toolbar';

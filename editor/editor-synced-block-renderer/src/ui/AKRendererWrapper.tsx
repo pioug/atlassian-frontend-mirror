@@ -1,6 +1,6 @@
 import React, { memo, useMemo } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import type { DocNode } from '@atlaskit/adf-schema';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';

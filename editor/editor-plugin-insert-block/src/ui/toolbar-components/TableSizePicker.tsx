@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar';

@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 7.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.1
+
+### Patch Changes
+
+- [`d1d3089a12aff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1d3089a12aff) -
+  EDITOR-6431: Improve diff styles to support text-like diffs better when inverted.
+- Updated dependencies
+
+## 6.4.0
+
+### Minor Changes
+
+- [`7739efec523bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7739efec523bc) -
+  EDITOR-6371: Add toggle for showing / hiding deleted changes in the diff.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.3.2
 
 ### Patch Changes

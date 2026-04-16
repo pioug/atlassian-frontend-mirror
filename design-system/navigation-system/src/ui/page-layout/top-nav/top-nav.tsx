@@ -11,12 +11,13 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import { token } from '@atlaskit/tokens';
 
-import { useSkipLink } from '../../../context/skip-links/skip-links-context';
+import { useSkipLink } from '../../../context/skip-links/use-skip-link';
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { type CustomTheme } from '../../top-nav-items/themed/get-custom-theme-styles';
 import { HasCustomThemeContext } from '../../top-nav-items/themed/has-custom-theme-context';
 import { HasDefaultBackgroundColorContext } from '../../top-nav-items/themed/has-default-background-color-context';
-import { useCustomTheme, useCustomThemeNew } from '../../top-nav-items/themed/use-custom-theme';
+import { useCustomTheme } from '../../top-nav-items/themed/use-custom-theme';
+import { useCustomThemeNew } from '../../top-nav-items/themed/use-custom-theme-new';
 import {
 	bannerMountedVar,
 	localSlotLayers,
@@ -24,11 +25,12 @@ import {
 	topNavMountedVar,
 	UNSAFE_topNavVar,
 } from '../constants';
+import { DangerouslyHoistCssVarToDocumentRoot } from '../dangerously-hoist-css-var-to-document-root';
+import { HoistCssVarToLocalGrid } from '../hoist-css-var-to-local-grid';
 import { DangerouslyHoistSlotSizes } from '../hoist-slot-sizes-context';
-import { DangerouslyHoistCssVarToDocumentRoot, HoistCssVarToLocalGrid } from '../hoist-utils';
-import { useLayoutId } from '../id-utils';
 import { useSideNavVisibility } from '../side-nav/use-side-nav-visibility';
 import type { CommonSlotProps } from '../types';
+import { useLayoutId } from '../use-layout-id';
 
 /**
  * Styles for the container for the top nav items.

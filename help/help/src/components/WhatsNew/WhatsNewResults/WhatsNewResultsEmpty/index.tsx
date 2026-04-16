@@ -4,7 +4,7 @@ import {
 	type UIAnalyticsEvent,
 	AnalyticsContext,
 } from '@atlaskit/analytics-next';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 import { Text } from '@atlaskit/primitives/compiled';
 import Button from '@atlaskit/button/new';
 

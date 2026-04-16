@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-picker",
-	"version": "70.1.19",
+	"version": "71.0.0",
 	"description": "Library for handling file uploads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -54,7 +54,7 @@
 		"@atlaskit/media-core": "workspace:^",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@atlaskit/analytics-listeners": "workspace:^",
@@ -78,7 +78,7 @@
 		"identity-obj-proxy": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
-		"react-intl-next": "root:*",
+		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

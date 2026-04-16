@@ -1,5 +1,5 @@
 import React from 'react';
-import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import Modal, {

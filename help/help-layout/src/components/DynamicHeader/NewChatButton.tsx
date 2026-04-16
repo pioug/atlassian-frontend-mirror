@@ -7,7 +7,7 @@ import { Inline } from '@atlaskit/primitives/compiled';
 import { jsx } from '@compiled/react';
 import Button from '@atlaskit/button/new';
 import EditIcon from '@atlaskit/icon/core/edit';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import { messages } from '../../messages';
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 

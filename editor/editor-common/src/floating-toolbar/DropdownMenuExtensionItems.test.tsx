@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Text } from '@atlaskit/primitives/compiled';

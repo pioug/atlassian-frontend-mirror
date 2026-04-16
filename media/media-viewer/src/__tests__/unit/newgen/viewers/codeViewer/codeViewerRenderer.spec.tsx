@@ -1,7 +1,7 @@
 import React from 'react';
 import { CodeViewRenderer } from '../../../../../viewers/codeViewer/codeViewerRenderer';
 import { render, screen, waitFor } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const defaultSrc = 'hello\n';
 const defaultLanguage = 'c';

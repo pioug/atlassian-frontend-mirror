@@ -1,6 +1,9 @@
 import { fontSize } from '../../../..';
 import { createSchema } from '../../../../schema/create-schema';
-import { toHTML, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+import {
+	toHTML,
+	fromHTML,
+} from '@af/adf-test-helpers/src/adf-schema/html-helpers';
 
 const packageName = process.env.npm_package_name as string;
 
@@ -14,14 +17,12 @@ describe(`${packageName}/schema fontSize mark`, () => {
 			attrs: {
 				fontSize: {},
 			},
-			inclusive: false,
 			parseDOM: [
 				{
 					getAttrs: expect.anything(),
 					tag: 'div.fabric-editor-font-size',
 				},
 			],
-			spanning: false,
 			toDOM: expect.anything(),
 		});
 	});
@@ -54,12 +55,6 @@ describe(`${packageName}/schema fontSize mark`, () => {
 		const node = schema.nodes.paragraph.create({}, [], [mark]);
 		expect(node.marks).toHaveLength(1);
 		expect(node.marks[0].type.name).toBe('fontSize');
-	});
-
-	it('fontSize mark has correct properties', () => {
-		const markSpec = schema.marks.fontSize.spec;
-		expect(markSpec.spanning).toBe(false);
-		expect(markSpec.inclusive).toBe(false);
 	});
 });
 

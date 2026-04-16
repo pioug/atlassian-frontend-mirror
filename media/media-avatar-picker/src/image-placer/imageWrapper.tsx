@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { jsx, css } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import { messages } from '@atlaskit/media-ui';
 
 const imageWrapperStyles = css({

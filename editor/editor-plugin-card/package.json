@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "14.1.2",
+	"version": "15.0.0",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -77,7 +77,7 @@
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/link-provider": "workspace:^",
 		"react": "^18.2.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -140,5 +140,8 @@
 			"checkDevDependencies": true
 		}
 	},
-	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/e6f3220b-0ca2-445a-a4c5-78cff6ca2a34"
+	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/e6f3220b-0ca2-445a-a4c5-78cff6ca2a34",
+	"devDependencies": {
+		"react-intl": "root:*"
+	}
 }

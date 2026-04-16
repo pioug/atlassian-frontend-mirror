@@ -1,6 +1,5 @@
 import { token } from '@atlaskit/tokens';
 
-import { themedButtonBackgroundHovered } from './button';
 import { useHasCustomTheme } from './has-custom-theme-context';
 
 export const themedSearchBorder = '--ds-top-bar-search-border';
@@ -60,7 +59,7 @@ const legacySearchTheme: {
 		 *
 		 * Instead it's used as the hover background color for a close button when on mobile.
 		 */
-		backgroundColor: `var(${themedButtonBackgroundHovered})`,
+		backgroundColor: `var(--ds-top-bar-button-background-hovered)`,
 	},
 };
 

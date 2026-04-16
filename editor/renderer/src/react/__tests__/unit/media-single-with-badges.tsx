@@ -10,7 +10,7 @@ import type {
 	MediaType,
 } from '@atlaskit/adf-schema';
 import { InlineCommentsStateContext } from '../../../ui/annotations/context';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 jest.mock('@atlaskit/editor-common/media-single', () => ({
 	...jest.requireActual('@atlaskit/editor-common/media-single'),

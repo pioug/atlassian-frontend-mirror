@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { mount, type ReactWrapper } from 'enzyme';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { Card } from '@atlaskit/smart-card';

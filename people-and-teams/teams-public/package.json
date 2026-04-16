@@ -63,14 +63,14 @@
 		"@types/string-hash": "root:*",
 		"graphql": "root:*",
 		"graphql-tag": "root:*",
-		"react-intl-next": "root:*",
 		"react-loosely-lazy": "root:*",
 		"react-router-dom": "^6.28.0",
 		"react-sweet-state": "root:*",
 		"string-hash": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
@@ -82,7 +82,8 @@
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
-		"react-dom": "root:*"
+		"react-dom": "root:*",
+		"react-intl": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -119,7 +120,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.74.3",
+	"version": "1.0.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

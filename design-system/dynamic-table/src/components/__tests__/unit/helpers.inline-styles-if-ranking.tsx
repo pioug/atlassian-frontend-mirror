@@ -1,4 +1,4 @@
-import { inlineStylesIfRanking } from '../../../internal/helpers';
+import { inlineStylesIfRanking } from '../../../internal/inline-styles-if-ranking';
 
 const width = 100;
 const height = 200;

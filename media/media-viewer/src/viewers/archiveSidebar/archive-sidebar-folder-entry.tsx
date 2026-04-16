@@ -17,7 +17,7 @@ import { type ArchiveViewerError } from '../../errors';
 import { CustomButtonItem } from './custom-button-item';
 import { messages } from '@atlaskit/media-ui';
 import { ArchiveDownloadButton } from './archive-download-button';
-import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
 
 type Entries = { [key: string]: ZipEntry };
 

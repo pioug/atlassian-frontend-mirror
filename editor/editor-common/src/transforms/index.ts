@@ -35,6 +35,7 @@ export {
 	transformToTaskList,
 	transformTaskListToBlockNodes,
 	getFormattedNode,
+	transformSliceEnsureListItemParagraphFirst,
 } from './list-transforms';
 export {
 	isBulletOrOrderedList,

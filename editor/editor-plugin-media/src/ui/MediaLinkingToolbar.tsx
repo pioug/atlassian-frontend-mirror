@@ -6,7 +6,7 @@ import React, { Fragment } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
-import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
+import type { IntlShape, WrappedComponentProps } from 'react-intl';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {

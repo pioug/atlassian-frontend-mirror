@@ -4,7 +4,7 @@
  */
 import { jsx, css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { messages } from '@atlaskit/media-ui';
 import { type Avatar } from '../avatar-list';
 

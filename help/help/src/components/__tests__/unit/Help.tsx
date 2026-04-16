@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, waitFor, fireEvent, act, within } from '@testing-library/react';
-import { createIntl, createIntlCache, IntlProvider } from 'react-intl-next';
+import { createIntl, createIntlCache, IntlProvider } from 'react-intl';
 
 import { getMockArticle, getMockArticleItemList } from '../../../util/testing/mock';
 import { messages } from '../../../messages';

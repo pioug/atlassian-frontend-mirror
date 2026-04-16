@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { getDocument } from '@atlaskit/browser-apis';
 import { fullPageMessages } from '@atlaskit/editor-common/messages';

@@ -1,6 +1,6 @@
 import type { Listener, UnbindFn } from 'bind-event-listener';
 import { bindAll } from 'bind-event-listener';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';

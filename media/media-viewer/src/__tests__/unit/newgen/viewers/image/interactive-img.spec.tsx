@@ -2,7 +2,7 @@ import React from 'react';
 import { createMouseEvent } from '@atlaskit/media-test-helpers';
 import { MAX_RESOLUTION } from '@atlaskit/media-client';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { InteractiveImgComponent, type Props } from '../../../../../viewers/image/interactive-img';
 import { fg } from '@atlaskit/platform-feature-flags';

@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { defineMessages, useIntl } from 'react-intl-next';
+import { defineMessages, useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import Modal, {

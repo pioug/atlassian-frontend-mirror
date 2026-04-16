@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import kebabCase from 'lodash/kebabCase';
 
 import { table, tableWithNestedTable } from '@atlaskit/adf-schema';
@@ -16,6 +17,7 @@ import {
 	getTableResizerContainerForFullPageWidthInCSS,
 	getTableResizerItemWidthInCSS,
 } from '../pm-plugins/table-resizing/utils/misc';
+import { isTableInContentMode } from '../pm-plugins/utils/tableMode';
 
 import { getAlignmentStyle } from './table-container-styles';
 
@@ -38,15 +40,23 @@ export const tableNodeSpecWithFixedToDOM = (
 	return {
 		...tableNode,
 		toDOM: (node: PMNode): DOMOutputSpec => {
+			const isFullPageEditor = !config.isChromelessEditor && !config.isCommentEditor;
+			const isInContentMode =
+				isTableInContentMode({
+					node,
+					allowColumnResizing: config.allowColumnResizing,
+					allowTableResizing: config.tableResizingEnabled,
+					isFullPageEditor,
+					isTableNested: config.isNested,
+				}) && expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true);
+
 			const alignmentStyle = Object.entries(getAlignmentStyle(node.attrs.layout))
 				.map(([k, v]) => `${kebabCase(k)}: ${kebabCase(v)}`)
 				.join(';');
 
 			const tableMinWidth = getResizerMinWidth(node);
 
-			const isFullPageEditor = !config.isChromelessEditor && !config.isCommentEditor;
-
-			const attrs: Record<string, string> = {
+			const attrs: Record<string, string | undefined> = {
 				'data-number-column': node.attrs.isNumberColumnEnabled,
 				'data-layout': node.attrs.layout,
 				'data-autosize': node.attrs.__autoSize,
@@ -55,6 +65,10 @@ export const tableNodeSpecWithFixedToDOM = (
 				'data-ssr-placeholder': `table-${node.attrs.localId}`,
 				'data-ssr-placeholder-replace': `table-${node.attrs.localId}`,
 			};
+
+			if (isInContentMode) {
+				attrs['data-initial-width-mode'] = 'content';
+			}
 
 			if (expValEquals('platform_editor_table_display_mode_in_to_dom', 'isEnabled', true)) {
 				attrs['data-table-display-mode'] = node.attrs.displayMode;
@@ -138,7 +152,7 @@ export const tableNodeSpecWithFixedToDOM = (
 									'data-testid': 'table-right-border',
 								},
 							],
-						]
+					  ]
 					: []),
 			];
 
@@ -170,19 +184,32 @@ export const tableNodeSpecWithFixedToDOM = (
 							'--ak-editor-table-gutter-padding': config.isTableScalingEnabled
 								? 'calc(var(--ak-editor--large-gutter-padding) * 2)'
 								: 'calc(var(--ak-editor--large-gutter-padding) * 2 - var(--ak-editor-resizer-handle-spacing))',
-							'--ak-editor-table-width': resizableTableWidth,
+							'--ak-editor-table-width': isInContentMode ? 'max-content' : resizableTableWidth,
 							width: `var(--ak-editor-table-width)`,
 						}),
 					},
 					[
 						'div',
 						{
-							class: 'resizer-item display-handle',
+							class: expValEquals(
+								'platform_editor_table_fit_to_content_auto_convert',
+								'isEnabled',
+								true,
+							)
+								? 'resizer-item display-handle'
+								: classNames('resizer-item', {
+										'display-handle': !isInContentMode,
+								  }),
 							style: convertToInlineCss({
 								position: 'relative',
 								userSelect: 'auto',
 								boxSizing: 'border-box',
-								'--ak-editor-table-max-width': `${expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) || expValEquals('confluence_max_width_content_appearance', 'isEnabled', true) ? TABLE_MAX_WIDTH : TABLE_FULL_WIDTH}px`,
+								'--ak-editor-table-max-width': `${
+									expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+									expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
+										? TABLE_MAX_WIDTH
+										: TABLE_FULL_WIDTH
+								}px`,
 								'--ak-editor-table-min-width': `${tableMinWidth}px`,
 								minWidth: 'var(--ak-editor-table-min-width)',
 								maxWidth: getTableResizerContainerMaxWidthInCSS(
@@ -190,11 +217,13 @@ export const tableNodeSpecWithFixedToDOM = (
 									config.isChromelessEditor,
 									config.isTableScalingEnabled,
 								),
-								width: getTableResizerItemWidthInCSS(
-									node,
-									config.isCommentEditor,
-									config.isChromelessEditor,
-								),
+								width: isInContentMode
+									? 'auto'
+									: getTableResizerItemWidthInCSS(
+											node,
+											config.isCommentEditor,
+											config.isChromelessEditor,
+									  ),
 							}),
 						},
 						[

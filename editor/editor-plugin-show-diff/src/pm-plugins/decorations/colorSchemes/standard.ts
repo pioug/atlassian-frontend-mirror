@@ -9,6 +9,13 @@ export const editingStyle: string = convertToInlineCss({
 	textDecorationColor: token('color.border.accent.purple'),
 });
 
+export const editingContentStyleInBlock: string = convertToInlineCss({
+	textDecoration: 'underline',
+	textDecorationStyle: 'dotted',
+	textDecorationThickness: token('space.025'),
+	textDecorationColor: token('color.border.accent.purple'),
+});
+
 export const editingStyleActive: string = convertToInlineCss({
 	background: token('color.background.accent.purple.subtler.pressed'),
 	textDecoration: 'underline',

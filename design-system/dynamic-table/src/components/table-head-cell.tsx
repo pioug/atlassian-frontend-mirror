@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-physical-properties */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -12,7 +13,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { ASC } from '../internal/constants';
-import { HeadCell } from '../styled/table-head';
+import { HeadCell } from '../styled/head-cell';
 import { type SortOrderType } from '../types';
 
 const styles = cssMap({

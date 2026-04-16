@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { withPlatformFeatureGates } from '@atlassian/feature-flags-storybook-utils';
 import {

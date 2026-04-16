@@ -330,6 +330,9 @@ export const createNodeChangedDecorationWidget = ({
 	decorations.push(
 		Decoration.widget(safeInsertPos, dom, {
 			key: `diff-widget-${isActive ? 'active' : 'inactive'}`,
+			...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
+				side: -1,
+			}),
 		}),
 	);
 	return decorations;

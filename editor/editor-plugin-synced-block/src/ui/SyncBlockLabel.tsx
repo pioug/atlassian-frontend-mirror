@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { SyncBlockLabelSharedCssClassName } from '@atlaskit/editor-common/sync-block';

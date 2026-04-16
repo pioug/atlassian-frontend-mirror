@@ -27,6 +27,7 @@ export type DiffParams = {
 
 export type PMDiffParams = {
 	diffType?: DiffType;
+	hideDeletedDiffs?: boolean;
 	isInverted?: boolean;
 	originalDoc: Node;
 	/**

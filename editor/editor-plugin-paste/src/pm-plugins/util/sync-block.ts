@@ -1,4 +1,4 @@
-import type { MessageDescriptor } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl';
 
 import { uuid } from '@atlaskit/adf-schema';
 import type { PasteSource } from '@atlaskit/editor-common/analytics';

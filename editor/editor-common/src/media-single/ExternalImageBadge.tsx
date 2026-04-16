@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import type { MediaType } from '@atlaskit/adf-schema';
 import InfoIcon from '@atlaskit/icon/core/status-information';

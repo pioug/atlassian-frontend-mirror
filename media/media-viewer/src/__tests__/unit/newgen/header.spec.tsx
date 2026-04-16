@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { type Identifier } from '@atlaskit/media-client';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';

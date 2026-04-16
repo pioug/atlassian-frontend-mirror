@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconMessageWrapper } from './iconMessageWrapper';
 import { messages } from '@atlaskit/media-ui';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 import { type InternalIconMessageProps, type CreatingPreviewProps } from './types';
 
 export const IconMessage: React.FC<InternalIconMessageProps> = ({

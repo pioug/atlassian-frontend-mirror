@@ -15,7 +15,7 @@ import Spinner from '@atlaskit/spinner';
 import SearchIcon from '@atlaskit/icon/core/search';
 import EditorCloseIcon from '@atlaskit/icon/core/cross';
 import { css, jsx } from '@compiled/react';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
 import { REQUEST_STATE } from '../../../model/Requests';
 import { useSearchContext } from '../../contexts/searchContext';

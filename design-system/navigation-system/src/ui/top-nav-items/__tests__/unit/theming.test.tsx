@@ -3,7 +3,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { TopNav } from '../../../page-layout/top-nav/top-nav';
-import { Button, IconButton } from '../../themed/migration';
+import { Button } from '../../themed/button';
+import { IconButton } from '../../themed/icon-button';
 
 const mockIcon = () => null;
 const noop = () => {};
@@ -18,9 +19,14 @@ jest.mock('@atlaskit/button/new', () => {
 	};
 });
 
-jest.mock('../../themed/button', () => {
+jest.mock('../../themed/themed-button', () => {
 	return {
 		ThemedButton: jest.fn(() => <button type="button">ThemedButton</button>),
+	};
+});
+
+jest.mock('../../themed/themed-icon-button', () => {
+	return {
 		ThemedIconButton: jest.fn(() => <button type="button">ThemedIconButton</button>),
 	};
 });

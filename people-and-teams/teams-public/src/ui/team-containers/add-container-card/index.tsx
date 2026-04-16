@@ -72,6 +72,9 @@ const AddContainerCardWrapper = ({
 	);
 };
 
+/**
+ * @deprecated Use the new AddContainerCard component in teams-public/src/next/ui instead.
+ */
 export const AddContainerCard = ({
 	containerType,
 	onAddAContainerClick,

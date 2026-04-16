@@ -9,6 +9,6 @@
     "9-avatar-picker-with-viewport-debug.tsx"
   ],
   "exampleDependencies": [
-    "react-intl-next"
+    "react-intl"
   ]
 }

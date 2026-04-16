@@ -1,4 +1,4 @@
-import { defineMessages } from 'react-intl-next';
+import { defineMessages } from 'react-intl';
 export const editorMessages = defineMessages({
 	editorAssistiveLabel: {
 		id: 'fabric.editor.editorAssistiveLabel',

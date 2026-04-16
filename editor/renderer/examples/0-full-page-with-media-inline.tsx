@@ -1,6 +1,6 @@
 import React from 'react';
 import RendererDemo from './helper/RendererDemo';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import adf from './helper/media-inline.adf.json';

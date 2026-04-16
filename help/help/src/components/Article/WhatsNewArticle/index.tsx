@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
 import HelpArticleContent from '@atlaskit/help-article';
 import { token } from '@atlaskit/tokens';

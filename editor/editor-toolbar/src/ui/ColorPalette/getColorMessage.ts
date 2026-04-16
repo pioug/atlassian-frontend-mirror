@@ -1,4 +1,4 @@
-import type { MessageDescriptor } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl';
 
 /**
  * Retrieves the appropriate internationalization message for a given color

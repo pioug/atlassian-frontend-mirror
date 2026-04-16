@@ -7,8 +7,8 @@ import type { ReactElement } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
-import type { MessageDescriptor, WrappedComponentProps } from 'react-intl-next';
-import { FormattedMessage } from 'react-intl-next';
+import type { MessageDescriptor, WrappedComponentProps } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { expandIconContainerStyle, wrapperStyle } from '@atlaskit/editor-common/styles';

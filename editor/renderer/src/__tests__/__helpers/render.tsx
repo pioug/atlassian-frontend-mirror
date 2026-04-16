@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { render as renderToDOM, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';

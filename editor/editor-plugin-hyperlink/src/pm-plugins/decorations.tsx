@@ -1,7 +1,7 @@
 import React, { type MouseEvent } from 'react';
 
 import { render } from 'react-dom';
-import { IntlProvider, type IntlShape } from 'react-intl-next';
+import { IntlProvider, type IntlShape } from 'react-intl';
 
 import { type HyperlinkState, LinkAction, OverlayButton } from '@atlaskit/editor-common/link';
 import type { PluginKey } from '@atlaskit/editor-prosemirror/state';

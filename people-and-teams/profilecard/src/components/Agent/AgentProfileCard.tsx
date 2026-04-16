@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { cssMap } from '@atlaskit/css';
 import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
@@ -17,7 +17,6 @@ import {
 	AgentProfileInfo,
 } from '@atlaskit/rovo-agent-components/ui/AgentProfileInfo';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
-import { TeamsNavigationProvider } from '@atlaskit/teams-app-internal-navigation';
 import { TeamsLink } from '@atlaskit/teams-app-internal-navigation/teams-link';
 import { token } from '@atlaskit/tokens';
 
@@ -181,127 +180,6 @@ const AgentProfileCard = ({
 		!(isRovoDev && fg('rovo_dev_themed_identity_card')) &&
 		!(fg('jira_ai_hide_conversation_starters_profilecard') && hideConversationStarters);
 
-	if (fg('ptc-links-migrate-atlaskit-link')) {
-		return (
-			<TeamsNavigationProvider
-				value={{
-					navigate: () => {},
-				}}
-			>
-				<AgentProfileCardWrapper>
-					<Box xcss={styles.cardContainerStyles}>
-						<AgentBanner
-							agentId={agent.id}
-							agentNamedId={agent.external_config_reference ?? agent.named_id}
-							height={48}
-							agentIdentityAccountId={agent.identity_account_id}
-							isRovoDev={isRovoDev && fg('rovo_dev_themed_identity_card')}
-						/>
-						<Box xcss={styles.avatarStyles}>
-							<AgentAvatar
-								agentId={agent.id}
-								agentNamedId={agent.external_config_reference ?? agent.named_id}
-								agentIdentityAccountId={agent.identity_account_id}
-								size="large"
-								isRovoDev={isRovoDev && fg('rovo_dev_themed_identity_card')}
-								isForgeAgent={
-									fg('rovo_agent_support_a2a_avatar')
-										? isForgeAgentByCreatorType(agent.creator_type as AgentCreatorType)
-										: agent.creator_type === 'FORGE' || agent.creator_type === 'THIRD_PARTY'
-								}
-								forgeAgentIconUrl={agent.icon}
-							/>
-						</Box>
-
-						<Stack space="space.100" xcss={styles.detailWrapper}>
-							<Box xcss={styles.agentProfileInfoWrapper}>
-								<AgentProfileInfo
-									agentName={agent.name}
-									isStarred={isStarred}
-									onStarToggle={handleSetFavourite}
-									showStarButton={!(isRovoDev && fg('rovo_dev_themed_identity_card'))}
-									isHidden={agent.visibility === 'PRIVATE'}
-									creatorRender={
-										agent.creatorInfo?.type && (
-											<AgentProfileCreator
-												creator={{
-													type: agent.creatorInfo?.type,
-													name: agent.creatorInfo?.name || '',
-													profileLink: agent.creatorInfo?.profileLink || '',
-												}}
-												isLoading={false}
-												onCreatorLinkClick={() => {}}
-											/>
-										)
-									}
-									starCountRender={null}
-									agentDescription={agent.description}
-								/>
-							</Box>
-							{!hideAiDisclaimer && fg('rovo_display_ai_disclaimer_on_agent_profile_card') && (
-								<Flex
-									alignItems="start"
-									direction="column"
-									gap="space.050"
-									xcss={styles.disclosureWrapper}
-								>
-									<TeamsLink
-										href="https://www.atlassian.com/trust/atlassian-intelligence"
-										intent="reference"
-										appearance="subtle"
-									>
-										<InformationCircleIcon
-											color={token('color.icon.subtlest')}
-											label=""
-											size="small"
-										/>
-										{` `}
-										<Text size="small" color="color.text.subtlest">
-											{formatMessage(messages.aiDisclaimer)}
-										</Text>
-									</TeamsLink>
-								</Flex>
-							)}
-							{shouldShowConversationStarters && (
-								<Box xcss={styles.conversationStartersWrapper}>
-									<ConversationStarters
-										isAgentDefault={agent.is_default}
-										userDefinedConversationStarters={userDefinedConversationStarters}
-										onConversationStarterClick={(conversationStarter: ConversationStarter) => {
-											onConversationStartersClick
-												? onConversationStartersClick(conversationStarter)
-												: onConversationStarter({
-														agentId: agent.id,
-														prompt: conversationStarter.message,
-													});
-										}}
-									/>
-								</Box>
-							)}
-						</Stack>
-						{!(isRovoDev && fg('rovo_dev_themed_identity_card')) && (
-							<AgentActions
-								agent={agent}
-								onEditAgent={() => onEditAgent(agent.id)}
-								onCopyAgent={() => onCopyAgent(agent.id)}
-								onDuplicateAgent={() => onDuplicateAgent(agent.id)}
-								onDeleteAgent={handleOnDelete}
-								onChatClick={
-									onChatClick
-										? (event: React.MouseEvent) => onChatClick(event)
-										: () => onOpenChatFullScreen(agent.id, agent.name)
-								}
-								resourceClient={resourceClient}
-								onViewFullProfileClick={() => onViewFullProfile(agent.id)}
-								hideMoreActions={hideMoreActions}
-							/>
-						)}
-					</Box>
-				</AgentProfileCardWrapper>
-			</TeamsNavigationProvider>
-		);
-	}
-
 	return (
 		<AgentProfileCardWrapper>
 			<Box xcss={styles.cardContainerStyles}>
@@ -360,18 +238,32 @@ const AgentProfileCard = ({
 							gap="space.050"
 							xcss={styles.disclosureWrapper}
 						>
-							<Link
-								href="https://www.atlassian.com/trust/atlassian-intelligence"
-								target="_blank"
-								rel="noopener noreferrer"
-								appearance="subtle"
-							>
-								<InformationCircleIcon color={token('color.icon.subtlest')} label="" size="small" />
-								{` `}
-								<Text size="small" color="color.text.subtlest">
-									{formatMessage(messages.aiDisclaimer)}
-								</Text>
-							</Link>
+							{fg('ptc-links-migrate-atlaskit-link') ? (
+								<TeamsLink
+									href="https://www.atlassian.com/trust/atlassian-intelligence"
+									intent="reference"
+									appearance="subtle"
+								>
+									<InformationCircleIcon color={token('color.icon.subtlest')} label="" size="small" />
+									{` `}
+									<Text size="small" color="color.text.subtlest">
+										{formatMessage(messages.aiDisclaimer)}
+									</Text>
+								</TeamsLink>
+							) : (
+								<Link
+									href="https://www.atlassian.com/trust/atlassian-intelligence"
+									target="_blank"
+									rel="noopener noreferrer"
+									appearance="subtle"
+								>
+									<InformationCircleIcon color={token('color.icon.subtlest')} label="" size="small" />
+									{` `}
+									<Text size="small" color="color.text.subtlest">
+										{formatMessage(messages.aiDisclaimer)}
+									</Text>
+								</Link>
+							)}
 						</Flex>
 					)}
 					{shouldShowConversationStarters && (

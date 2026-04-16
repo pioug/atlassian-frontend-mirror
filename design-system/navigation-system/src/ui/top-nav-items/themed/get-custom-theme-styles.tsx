@@ -3,23 +3,6 @@ import type React from 'react';
 import { themedLogoIcon, themedLogoText } from '../nav-logo/logo-renderer';
 
 import {
-	themedButtonBackground,
-	themedButtonBackgroundHovered,
-	themedButtonBackgroundPressed,
-	themedButtonBorder,
-	themedButtonDisabledBackground,
-	themedButtonDisabledText,
-	themedButtonPrimaryBackground,
-	themedButtonPrimaryBackgroundHovered,
-	themedButtonPrimaryBackgroundPressed,
-	themedButtonPrimaryText,
-	themedButtonSelectedBackground,
-	themedButtonSelectedBackgroundHovered,
-	themedButtonSelectedBackgroundPressed,
-	themedButtonSelectedBorder,
-	themedButtonSelectedText,
-} from './button';
-import {
 	type ColorMode,
 	getColorMode,
 	getTextColor,
@@ -28,7 +11,8 @@ import {
 } from './color-utils';
 import { parseHex } from './color-utils/formats/hex';
 import type { RGB, RGBA } from './color-utils/types';
-import { palette, paletteRgba } from './palette';
+import { palette } from './palette';
+import { paletteRgba } from './palette-rgba';
 import { themedSearchBorder, themedSearchBorderFocused } from './search';
 
 /**
@@ -60,33 +44,33 @@ type StyleObject = Record<string, string>;
 // Values here are not final
 const buttonStyles: Record<ColorMode, StyleObject> = {
 	light: {
-		[themedButtonBackground]: 'transparent',
-		[themedButtonBackgroundHovered]: palette.Neutral200A,
-		[themedButtonBackgroundPressed]: palette.Neutral300A,
-		[themedButtonBorder]: palette.Neutral300A,
-		[themedButtonSelectedBackground]: palette.Neutral300A,
-		[themedButtonSelectedBackgroundHovered]: palette.Neutral400A,
-		[themedButtonSelectedBackgroundPressed]: palette.Neutral500A,
-		[themedButtonDisabledText]: palette.Neutral400A,
-		[themedButtonDisabledBackground]: palette.Neutral100A,
+		['--ds-top-bar-button-background']: 'transparent',
+		['--ds-top-bar-button-background-hovered']: palette.Neutral200A,
+		['--ds-top-bar-button-background-pressed']: palette.Neutral300A,
+		['--ds-top-bar-button-border']: palette.Neutral300A,
+		['--ds-top-bar-button-selected-background']: palette.Neutral300A,
+		['--ds-top-bar-button-selected-background-hovered']: palette.Neutral400A,
+		['--ds-top-bar-button-selected-background-pressed']: palette.Neutral500A,
+		['--ds-top-bar-button-disabled-text']: palette.Neutral400A,
+		['--ds-top-bar-button-disabled-background']: palette.Neutral100A,
 	},
 	dark: {
-		[themedButtonBackground]: 'transparent',
-		[themedButtonBackgroundHovered]: palette.DarkNeutral200A,
-		[themedButtonBackgroundPressed]: palette.DarkNeutral300A,
-		[themedButtonBorder]: palette.DarkNeutral300A,
-		[themedButtonSelectedBackground]: palette.DarkNeutral300A,
-		[themedButtonSelectedBackgroundHovered]: palette.DarkNeutral400A,
-		[themedButtonSelectedBackgroundPressed]: palette.DarkNeutral500A,
-		[themedButtonDisabledText]: palette.DarkNeutral400A,
-		[themedButtonDisabledBackground]: palette.DarkNeutral100A,
+		['--ds-top-bar-button-background']: 'transparent',
+		['--ds-top-bar-button-background-hovered']: palette.DarkNeutral200A,
+		['--ds-top-bar-button-background-pressed']: palette.DarkNeutral300A,
+		['--ds-top-bar-button-border']: palette.DarkNeutral300A,
+		['--ds-top-bar-button-selected-background']: palette.DarkNeutral300A,
+		['--ds-top-bar-button-selected-background-hovered']: palette.DarkNeutral400A,
+		['--ds-top-bar-button-selected-background-pressed']: palette.DarkNeutral500A,
+		['--ds-top-bar-button-disabled-text']: palette.DarkNeutral400A,
+		['--ds-top-bar-button-disabled-background']: palette.DarkNeutral100A,
 	},
 };
 
 const logoStyles: Record<ColorMode, StyleObject> = {
 	light: {
-		[themedLogoIcon]: palette.DarkNeutral0,
-		[themedLogoText]: palette.DarkNeutral0,
+		['--ds-top-bar-logo-icon']: palette.DarkNeutral0,
+		['--ds-top-bar-logo-text']: palette.DarkNeutral0,
 	},
 	dark: {
 		[themedLogoIcon]: palette.Neutral0,
@@ -135,10 +119,10 @@ export function getCustomThemeStyles({
 		 * except the text color which can sometimes differ because we're
 		 * now following WCAG
 		 */
-		[themedButtonPrimaryBackground]: toRGBString(highlightRgb),
-		[themedButtonPrimaryBackgroundHovered]: toRGBAString({ ...highlightRgb, a: 0.8 }),
-		[themedButtonPrimaryBackgroundPressed]: toRGBAString({ ...highlightRgb, a: 0.65 }),
-		[themedButtonPrimaryText]: highlightTextColor.hex,
+		['--ds-top-bar-button-primary-background']: toRGBString(highlightRgb),
+		['--ds-top-bar-button-primary-background-hovered']: toRGBAString({ ...highlightRgb, a: 0.8 }),
+		['--ds-top-bar-button-primary-background-pressed']: toRGBAString({ ...highlightRgb, a: 0.65 }),
+		['--ds-top-bar-button-primary-text']: highlightTextColor.hex,
 	} as React.CSSProperties;
 }
 
@@ -177,9 +161,9 @@ function getSelectedStyles({
 	});
 
 	return {
-		[themedButtonSelectedText]: getTextColor(blendedBackground).hex,
+		['--ds-top-bar-button-selected-text']: getTextColor(blendedBackground).hex,
 		// Border colors are chosen to match the text, while remaining in the palette
-		[themedButtonSelectedBorder]: isLight(blendedBackground)
+		['--ds-top-bar-button-selected-border']: isLight(blendedBackground)
 			? palette.Neutral1100
 			: palette.DarkNeutral1100,
 	};

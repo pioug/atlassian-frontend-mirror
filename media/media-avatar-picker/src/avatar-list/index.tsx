@@ -5,7 +5,7 @@
 import { jsx, css } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import { messages } from '@atlaskit/media-ui';
 import { useState } from 'react';
 

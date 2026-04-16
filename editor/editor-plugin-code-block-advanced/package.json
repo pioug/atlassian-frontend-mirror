@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-block-advanced",
-	"version": "8.0.31",
+	"version": "9.0.0",
 	"description": "CodeBlockAdvanced plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -60,7 +60,7 @@
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -108,5 +108,8 @@
 		"platform_editor_content_mode_button_mvp": {
 			"type": "boolean"
 		}
+	},
+	"devDependencies": {
+		"react-intl": "root:*"
 	}
 }

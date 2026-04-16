@@ -43,6 +43,13 @@ const codeSm = xcss({
 	textAlign: 'center',
 });
 
+const arrowSymbols: Record<string, string> = {
+	arrowup: '↑',
+	arrowdown: '↓',
+	arrowleft: '←',
+	arrowright: '→',
+};
+
 const getKeyParts = (keymap: Keymap) => {
 	const browser = getBrowserInfo();
 	let shortcut: string = keymap[browser.mac ? 'mac' : 'windows'];
@@ -107,6 +114,16 @@ export const getComponentFromKeymap = (keymap: Keymap): jsx.JSX.Element => {
 							key={`${keyParts}-${index}`}
 						>
 							{'⏎'}
+						</Box>
+					);
+				} else if (
+					['arrowup', 'arrowdown', 'arrowleft', 'arrowright'].indexOf(part.toLowerCase()) >= 0
+				) {
+					return (
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/no-array-index-key
+						<Box as="span" xcss={codeSm} key={`${keyParts}-${index}`}>
+							{arrowSymbols[part.toLowerCase()]}
 						</Box>
 					);
 				}

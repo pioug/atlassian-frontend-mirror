@@ -6,8 +6,8 @@ import { Fragment, useEffect, useMemo, useState, type ComponentType, type FC } f
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import { DatePicker } from '@atlaskit/datetime-picker';
 import type { DateRangeField, DateRangeResult } from '@atlaskit/editor-common/extensions';

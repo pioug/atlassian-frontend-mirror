@@ -5,7 +5,7 @@ import {
 	useIntl,
 	type WithIntlProps,
 	type WrappedComponentProps,
-} from 'react-intl-next';
+} from 'react-intl';
 import { messages } from '@atlaskit/media-ui';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import VisuallyHidden from '@atlaskit/visually-hidden';

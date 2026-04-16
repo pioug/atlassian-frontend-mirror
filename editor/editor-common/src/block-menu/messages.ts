@@ -1,4 +1,4 @@
-import { defineMessages } from 'react-intl-next';
+import { defineMessages } from 'react-intl';
 
 // Do not add messages to this file
 // Add them here platform/packages/editor/editor-common/src/messages/block-menu.ts instead

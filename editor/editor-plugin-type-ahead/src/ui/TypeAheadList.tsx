@@ -7,8 +7,8 @@ import React, { useCallback, useLayoutEffect, useMemo, useRef, useState } from '
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
-import { injectIntl, useIntl } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { injectIntl, useIntl } from 'react-intl';
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 import type { ListRowRenderer } from 'react-virtualized/dist/commonjs/List';
 import { List } from 'react-virtualized/dist/commonjs/List';

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
-import { injectIntl, useIntl } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { injectIntl, useIntl } from 'react-intl';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { BlockMenuEventPayload } from '@atlaskit/editor-common/analytics';

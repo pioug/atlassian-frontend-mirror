@@ -888,7 +888,7 @@ export const avatarPickerProps: {
 									kind: 'import',
 									importKind: 'value',
 									name: 'WrappedComponentProps',
-									moduleSpecifier: 'react-intl-next',
+									moduleSpecifier: 'react-intl',
 								},
 							},
 						],

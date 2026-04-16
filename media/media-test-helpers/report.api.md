@@ -46,7 +46,7 @@ import { RequestErrorMetadata } from '@atlaskit/media-client';
 import { type RenderResult } from '@testing-library/react';
 import { StyledComponent } from '@emotion/styled-base';
 import { TableHTMLAttributes } from 'react';
-import { WrappedComponentProps } from 'react-intl-next';
+import { WrappedComponentProps } from 'react-intl';
 
 // @public (undocumented)
 export const addGlobalEventEmitterListeners: () => void;

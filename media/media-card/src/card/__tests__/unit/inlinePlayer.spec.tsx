@@ -9,7 +9,7 @@ import { InlinePlayer, getPreferredVideoArtifact } from '../../inlinePlayer';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { spinnerTestId, inlinePlayerTestId } from '../../../__tests__/utils/_testIDs';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import {
 	createMockedMediaApi,

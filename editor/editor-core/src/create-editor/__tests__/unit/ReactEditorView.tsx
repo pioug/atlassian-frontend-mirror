@@ -77,7 +77,7 @@ import React from 'react';
 
 import { fireEvent, screen, cleanup, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { createIntl } from 'react-intl-next';
+import { createIntl } from 'react-intl';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';

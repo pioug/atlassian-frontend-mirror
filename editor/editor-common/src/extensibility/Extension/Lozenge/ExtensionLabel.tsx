@@ -7,7 +7,7 @@ import type { CSSProperties } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 import classnames from 'classnames';
-import { FormattedMessage, defineMessages } from 'react-intl-next';
+import { FormattedMessage, defineMessages } from 'react-intl';
 
 import CustomizeIcon from '@atlaskit/icon/core/customize';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss

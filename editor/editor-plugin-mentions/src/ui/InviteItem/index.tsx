@@ -5,8 +5,8 @@
 import type { MouseEvent, SyntheticEvent } from 'react';
 import React, { useCallback, useEffect } from 'react';
 
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
-import { FormattedMessage, injectIntl } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 import { css, jsx } from '@atlaskit/css';
 import { mentionMessages as messages } from '@atlaskit/editor-common/messages';

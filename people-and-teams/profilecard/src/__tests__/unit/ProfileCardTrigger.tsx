@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 

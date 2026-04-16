@@ -2,8 +2,8 @@ import React from 'react';
 import { initialDoc } from '../../__fixtures__/initial-doc';
 import type { RendererProps } from '../../../ui/renderer-props';
 import Renderer from '../../../ui/Renderer';
-import type { WrappedComponentProps } from 'react-intl-next';
-import { IntlProvider } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
+import { IntlProvider } from 'react-intl';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Tooltip from '@atlaskit/tooltip';

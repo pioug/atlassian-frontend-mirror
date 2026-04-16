@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';

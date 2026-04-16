@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { unzip, type ZipInfo, type ZipEntry, HTTPRangeReader, type Reader } from 'unzipit';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import { type MediaClient, type FileState } from '@atlaskit/media-client';
 import { CustomMediaPlayer, messages } from '@atlaskit/media-ui';

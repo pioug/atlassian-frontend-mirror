@@ -8,7 +8,7 @@ import Button from '@atlaskit/button/new';
 import TextField from '@atlaskit/textfield';
 import LockIcon from '@atlaskit/icon/core/lock-locked';
 import Form, { Field, type OnSubmitHandler } from '@atlaskit/form';
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { messages } from '@atlaskit/media-ui';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { xcss, Box, Flex, Text } from '@atlaskit/primitives';

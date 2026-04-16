@@ -1,4 +1,4 @@
-import { defineMessages } from 'react-intl-next';
+import { defineMessages } from 'react-intl';
 
 export const helpDialogMessages: {
 	editorHelp: {
@@ -87,6 +87,31 @@ export const helpDialogMessages: {
 		description: string;
 	};
 	focusTableResizeHandle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	selectDragHandle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moveSelectionUp: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moveSelectionDown: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moveSelectionLeft: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moveSelectionRight: {
 		id: string;
 		defaultMessage: string;
 		description: string;
@@ -211,6 +236,36 @@ export const helpDialogMessages: {
 		defaultMessage: 'Focus table resize handle',
 		description:
 			'The text is shown as a label for a keyboard shortcut in the editor help dialog that describes how to move focus to the table resize handle for resizing columns.',
+	},
+	selectDragHandle: {
+		id: 'fabric.editor.selectDragHandle',
+		defaultMessage: 'Select drag handle',
+		description:
+			'The text is shown as a label for a keyboard shortcut in the editor help dialog that describes how to select and focus the drag handle on the current block.',
+	},
+	moveSelectionUp: {
+		id: 'fabric.editor.moveSelectionUp',
+		defaultMessage: 'Move selection up',
+		description:
+			'The text is shown as a label for a keyboard shortcut in the editor help dialog that describes how to move the selected block up in the document.',
+	},
+	moveSelectionDown: {
+		id: 'fabric.editor.moveSelectionDown',
+		defaultMessage: 'Move selection down',
+		description:
+			'The text is shown as a label for a keyboard shortcut in the editor help dialog that describes how to move the selected block down in the document.',
+	},
+	moveSelectionLeft: {
+		id: 'fabric.editor.moveSelectionLeft',
+		defaultMessage: 'Move selection left',
+		description:
+			'The text is shown as a label for a keyboard shortcut in the editor help dialog that describes how to move the selected block to the left layout column.',
+	},
+	moveSelectionRight: {
+		id: 'fabric.editor.moveSelectionRight',
+		defaultMessage: 'Move selection right',
+		description:
+			'The text is shown as a label for a keyboard shortcut in the editor help dialog that describes how to move the selected block to the right layout column.',
 	},
 	closeHelpDialog: {
 		id: 'fabric.editor.closeHelpDialog',

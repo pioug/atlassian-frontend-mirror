@@ -8,8 +8,8 @@ import React from 'react';
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { css, jsx } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
-import { injectIntl } from 'react-intl-next';
-import type { IntlShape } from 'react-intl-next';
+import { injectIntl } from 'react-intl';
+import type { IntlShape } from 'react-intl';
 import Transition from 'react-transition-group/Transition';
 
 import { ContextPanelConsumer } from '@atlaskit/editor-common/context-panel';

@@ -1,6 +1,6 @@
 import React, { Suspense, useCallback, useState } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { type Flag, GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import { ButtonItem } from '@atlaskit/menu';

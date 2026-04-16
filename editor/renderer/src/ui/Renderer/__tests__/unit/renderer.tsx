@@ -27,7 +27,7 @@ import { RendererContextProvider } from '../../../../renderer-context';
 import { Paragraph } from '../../../../react/nodes';
 import { AnnotationsContextWrapper } from '../../../annotations/wrapper';
 import type { RendererAppearance } from '../../types';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { adfNestedTableData } from '../__fixtures__/mockData';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 

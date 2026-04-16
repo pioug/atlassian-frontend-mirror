@@ -2,10 +2,10 @@ import rafSchedule from 'raf-schd';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import {
-	browser,
 	closestElement,
 	isElementInTableCell,
 	isLastItemMediaGroup,
@@ -103,7 +103,7 @@ export const handleBlur = (view: EditorView, event: Event): boolean => {
 	// IE version check for ED-4665
 	// Calendar focus check for ED-10466
 	if (
-		browser.ie_version !== 11 &&
+		getBrowserInfo().ie_version !== 11 &&
 		!isFocusingCalendar(event) &&
 		!isFocusingModal(event) &&
 		!isFocusingFloatingToolbar(event) &&
@@ -478,7 +478,7 @@ export const handleMouseMove =
 		handleMouseMoveDebounce(nodeViewPortalProviderAPI)(
 			view,
 			event as MouseEvent,
-			browser.gecko ? (event as MouseEvent).offsetX : NaN,
+			getBrowserInfo().gecko ? (event as MouseEvent).offsetX : NaN,
 		);
 		return false;
 	};

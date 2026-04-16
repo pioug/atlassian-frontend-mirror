@@ -1,5 +1,20 @@
 # @atlaskit/editor-presets
 
+## 1.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.3
+
+### Patch Changes
+
+- [`2df767cd2e0e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2df767cd2e0e9) -
+  Remove deprecated dragAndDropEnabled plugin option - table drag and drop is now always
+  enabled(EDITOR-6287)
+- Updated dependencies
+
 ## 0.2.2
 
 ### Patch Changes

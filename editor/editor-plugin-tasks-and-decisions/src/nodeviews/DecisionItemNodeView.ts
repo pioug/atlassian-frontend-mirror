@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
@@ -62,7 +62,7 @@ export class DecisionItemNodeView implements NodeView {
 	/**
 	 * Creates a new DecisionItemNodeView.
 	 * @import type {PMNode} from '@atlaskit/editor-prosemirror/model';
-	 * @import type {IntlShape} from 'react-intl-next';
+	 * @import type {IntlShape} from 'react-intl';
 	 * @param {PMNode} node - The ProseMirror node representing the decision item.
 	 * @param {IntlShape} intl - The IntlShape for internationalization, used to format the placeholder text.
 	 * @example

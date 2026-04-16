@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import Page from '@atlaskit/page';
 import { token } from '@atlaskit/tokens';
 

@@ -26,7 +26,7 @@ import type { FloatingToolbarItem } from '@atlaskit/editor-common/types';
 import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import type { HyperlinkState } from '@atlaskit/editor-common/link';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 import type { LinkInputType } from '@atlaskit/editor-common/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
@@ -119,7 +119,7 @@ export type UpdateLink = (href: string, text: string, pos: number, to?: number) 
 ```json
 {
 	"react": "^16.8.0",
-	"react-intl-next": "npm:react-intl@^5.18.1"
+	"react-intl": "npm:react-intl@^5.18.1"
 }
 ```
 

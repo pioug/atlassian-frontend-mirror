@@ -3,7 +3,9 @@ import React from 'react';
 import Spinner from '@atlaskit/spinner';
 
 import { LARGE, LOADING_CONTENTS_OPACITY } from '../internal/constants';
-import { Container, ContentsContainer, SpinnerContainer } from '../styled/loading-container';
+import { Container } from '../styled/container';
+import { ContentsContainer } from '../styled/contents-container';
+import { SpinnerContainer } from '../styled/spinner-container';
 import type { SpinnerSizeType } from '../types';
 
 interface LoadingContainerProps {

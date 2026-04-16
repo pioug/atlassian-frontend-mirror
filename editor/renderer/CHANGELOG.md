@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 129.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 128.11.1
+
+### Patch Changes
+
+- [`c4c9b75b91fe3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4c9b75b91fe3) -
+  Removed feature flag `platform_editor_fix_wide_media_in_renderer`. The fix for wide media in
+  renderer (skipping width override for pixel-based resizing) is now the default behavior.
+- Updated dependencies
+
 ## 128.11.0
 
 ### Minor Changes

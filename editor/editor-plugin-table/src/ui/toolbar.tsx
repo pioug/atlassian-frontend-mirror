@@ -58,6 +58,7 @@ import AlignImageLeftIcon from '@atlaskit/icon/core/align-image-left';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
 import DeleteIcon from '@atlaskit/icon/core/delete';
+import ShrinkHorizontalIcon from '@atlaskit/icon/core/shrink-horizontal';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -100,6 +101,10 @@ import { normaliseAlignment } from '../pm-plugins/utils/alignment';
 import { isTableNested } from '../pm-plugins/utils/nodes';
 import { getSelectedColumnIndexes, getSelectedRowIndexes } from '../pm-plugins/utils/selection';
 import { getMergedCellsPositions } from '../pm-plugins/utils/table';
+import {
+	applyMeasuredWidthToSelectedTable,
+	isContentModeSupported,
+} from '../pm-plugins/utils/tableMode';
 import type { TablePluginOptions } from '../tablePluginType';
 import type {
 	AlignmentOptions,
@@ -341,14 +346,14 @@ export const getToolbarCellOptionsConfig = (
 		) {
 			newResizeStateWithAnalytics = editorView
 				? getNewResizeStateFromSelectedColumns(
-						initialSelectionRect,
-						editorState,
-						editorView.domAtPos.bind(editorView),
-						getEditorContainerWidth,
-						isTableScalingEnabled,
-						isTableFixedColumnWidthsOptionEnabled,
-						isCommentEditor,
-					)
+					initialSelectionRect,
+					editorState,
+					editorView.domAtPos.bind(editorView),
+					getEditorContainerWidth,
+					isTableScalingEnabled,
+					isTableFixedColumnWidthsOptionEnabled,
+					isCommentEditor,
+				)
 				: undefined;
 			wouldChange = newResizeStateWithAnalytics?.changed ?? false;
 		}
@@ -495,8 +500,8 @@ export const getClosestSelectionRect = (state: EditorState): Rect | undefined =>
 	const selection = state.selection;
 	return isSelectionType(selection, 'cell')
 		? // Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			getSelectionRect(selection)!
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		getSelectionRect(selection)!
 		: findCellRectClosestToPos(selection.$from);
 };
 
@@ -546,315 +551,338 @@ export const getToolbarConfig =
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
 	) =>
-	(config: PluginConfig): FloatingToolbarHandler =>
-	(state, intl) => {
-		const tableObject = findTable(state.selection);
-		const pluginState = getPluginState(state);
-		const resizeState = tableResizingPluginKey.getState(state);
-		const tableWidthState = tableWidthPluginKey.getState(state);
-		const isTableScalingEnabled = options?.isTableScalingEnabled || false;
-		const nodeType = state.schema.nodes.table;
-		const toolbarTitle = 'Table floating controls';
-		const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
+		(config: PluginConfig): FloatingToolbarHandler =>
+			(state, intl) => {
+				const tableObject = findTable(state.selection);
+				const pluginState = getPluginState(state);
+				const resizeState = tableResizingPluginKey.getState(state);
+				const tableWidthState = tableWidthPluginKey.getState(state);
+				const isTableScalingEnabled = options?.isTableScalingEnabled || false;
+				const nodeType = state.schema.nodes.table;
+				const toolbarTitle = 'Table floating controls';
+				const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
-		if (editorExperiment('platform_editor_controls', 'variant1')) {
-			let isDragHandleMenuOpened = false;
-			let isTableRowOrColumnDragged = false;
-			if (options?.dragAndDropEnabled) {
-				const { isDragMenuOpen = false, isDragging = false } = getDragDropPluginState(state);
-				isDragHandleMenuOpened = isDragMenuOpen;
-				isTableRowOrColumnDragged = isDragging;
-			}
-
-			const isTableOrColumnResizing = !!(resizeState?.dragging || tableWidthState?.resizing);
-			const isTableMenuOpened = pluginState.isContextualMenuOpen || isDragHandleMenuOpened;
-			const isTableState =
-				isTableRowOrColumnDragged || isTableOrColumnResizing || isTableMenuOpened;
-			const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
-
-			// Note: when focus is in codeblocks, pluginState.editorHasFocus is false, so the codeblocks toolbar
-			// won't be suppressed.
-			const shouldSuppressAllToolbars = isTableState && pluginState.editorHasFocus && !isViewMode;
-
-			if (shouldSuppressAllToolbars) {
-				return {
-					title: toolbarTitle,
-					items: [],
-					nodeType,
-				};
-			}
-		}
-
-		// We don't want to show floating toolbar while resizing the table
-		const isWidthResizing = tableWidthState?.resizing;
-
-		if (tableObject && pluginState.editorHasFocus && !isWidthResizing) {
-			const isNested = pluginState.tablePos && isTableNested(state, pluginState.tablePos);
-			const isTableScalingWithFixedColumnWidthsOptionShown =
-				isTableScalingEnabled && isTableFixedColumnWidthsOptionEnabled && !isNested;
-			const areTableColumWidthsFixed = tableObject.node.attrs.displayMode === 'fixed';
-			const editorView = getEditorView();
-
-			const getDomRef = expValEquals('platform_editor_table_toolbar_perf_fix', 'isEnabled', true)
-				? (editorView: EditorView) => {
-						const domAtPos = editorView.domAtPos.bind(editorView);
-						const parent = findParentDomRefOfType(nodeType, domAtPos)(state.selection);
-						return getMemoizedTableWrapperFromParent(parent);
+				if (editorExperiment('platform_editor_controls', 'variant1')) {
+					let isDragHandleMenuOpened = false;
+					let isTableRowOrColumnDragged = false;
+					if (options?.dragAndDropEnabled) {
+						const { isDragMenuOpen = false, isDragging = false } = getDragDropPluginState(state);
+						isDragHandleMenuOpened = isDragMenuOpen;
+						isTableRowOrColumnDragged = isDragging;
 					}
-				: (editorView: EditorView) => {
-						let element: HTMLElement | undefined;
-						const domAtPos = editorView.domAtPos.bind(editorView);
-						const parent = findParentDomRefOfType(nodeType, domAtPos)(state.selection);
 
-						if (parent) {
-							const tableRef =
-								// Ignored via go/ees005
-								// eslint-disable-next-line @atlaskit/editor/no-as-casting
-								(parent as HTMLElement).querySelector<HTMLTableElement>('table') || undefined;
-							if (tableRef) {
-								element =
-									closestElement(tableRef, `.${TableCssClassName.TABLE_NODE_WRAPPER}`) || undefined;
-							}
+					const isTableOrColumnResizing = !!(resizeState?.dragging || tableWidthState?.resizing);
+					const isTableMenuOpened = pluginState.isContextualMenuOpen || isDragHandleMenuOpened;
+					const isTableState =
+						isTableRowOrColumnDragged || isTableOrColumnResizing || isTableMenuOpened;
+					const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+
+					// Note: when focus is in codeblocks, pluginState.editorHasFocus is false, so the codeblocks toolbar
+					// won't be suppressed.
+					const shouldSuppressAllToolbars = isTableState && pluginState.editorHasFocus && !isViewMode;
+
+					if (shouldSuppressAllToolbars) {
+						return {
+							title: toolbarTitle,
+							items: [],
+							nodeType,
+						};
+					}
+				}
+
+				// We don't want to show floating toolbar while resizing the table
+				const isWidthResizing = tableWidthState?.resizing;
+
+				if (tableObject && pluginState.editorHasFocus && !isWidthResizing) {
+					const isNested = pluginState.tablePos && isTableNested(state, pluginState.tablePos);
+					const isTableScalingWithFixedColumnWidthsOptionShown =
+						isTableScalingEnabled && isTableFixedColumnWidthsOptionEnabled && !isNested;
+					const areTableColumWidthsFixed = tableObject.node.attrs.displayMode === 'fixed';
+					const editorView = getEditorView();
+
+					const getDomRef = expValEquals('platform_editor_table_toolbar_perf_fix', 'isEnabled', true)
+						? (editorView: EditorView) => {
+							const domAtPos = editorView.domAtPos.bind(editorView);
+							const parent = findParentDomRefOfType(nodeType, domAtPos)(state.selection);
+							return getMemoizedTableWrapperFromParent(parent);
 						}
+						: (editorView: EditorView) => {
+							let element: HTMLElement | undefined;
+							const domAtPos = editorView.domAtPos.bind(editorView);
+							const parent = findParentDomRefOfType(nodeType, domAtPos)(state.selection);
 
-						return element;
-					};
+							if (parent) {
+								const tableRef =
+									// Ignored via go/ees005
+									// eslint-disable-next-line @atlaskit/editor/no-as-casting
+									(parent as HTMLElement).querySelector<HTMLTableElement>('table') || undefined;
+								if (tableRef) {
+									element =
+										closestElement(tableRef, `.${TableCssClassName.TABLE_NODE_WRAPPER}`) || undefined;
+								}
+							}
 
-			const menu = getToolbarMenuConfig(
-				config,
-				pluginState,
-				intl,
-				editorAnalyticsAPI,
-				isTableScalingWithFixedColumnWidthsOptionShown,
-				areTableColumWidthsFixed,
-			);
+							return element;
+						};
 
-			const alignmentMenu =
-				config.allowTableAlignment && !isNested
-					? getAlignmentOptionsConfig(
-							state,
-							intl,
-							editorAnalyticsAPI,
-							getEditorContainerWidth,
-							editorView,
-							shouldUseIncreasedScalingPercent,
-							areAnyNewToolbarFlagsEnabled,
-							options?.fullWidthEnabled,
-							options?.isCommentEditor,
-						)
-					: [];
-
-			const isLimitedModeEnabled = api?.limitedMode?.sharedState.currentState()?.enabled ?? false;
-
-			const cellItems = pluginState.isDragAndDropEnabled
-				? []
-				: getCellItems(
-						state,
-						editorView,
+					const menu = getToolbarMenuConfig(
+						config,
+						pluginState,
 						intl,
-						getEditorContainerWidth,
-						api,
 						editorAnalyticsAPI,
-						isTableScalingEnabled,
-						isTableFixedColumnWidthsOptionEnabled,
-						shouldUseIncreasedScalingPercent,
-						options?.isCommentEditor,
-						isLimitedModeEnabled,
+						isTableScalingWithFixedColumnWidthsOptionShown,
+						areTableColumWidthsFixed,
 					);
 
-			const columnSettingsItems = pluginState.isDragAndDropEnabled
-				? getColumnSettingItems(
-						state,
-						editorView,
-						intl,
-						getEditorContainerWidth,
-						api,
-						editorAnalyticsAPI,
-						isTableScalingEnabled,
-						isTableFixedColumnWidthsOptionEnabled,
-						options?.isCommentEditor,
-						isLimitedModeEnabled,
-					)
-				: [];
+					const alignmentMenu =
+						config.allowTableAlignment && !isNested
+							? getAlignmentOptionsConfig(
+								state,
+								intl,
+								editorAnalyticsAPI,
+								getEditorContainerWidth,
+								editorView,
+								shouldUseIncreasedScalingPercent,
+								areAnyNewToolbarFlagsEnabled,
+								options?.fullWidthEnabled,
+								options?.isCommentEditor,
+							)
+							: [];
 
-			const colorPicker = !areAnyNewToolbarFlagsEnabled
-				? getColorPicker(state, menu, intl, editorAnalyticsAPI, getEditorView)
-				: [];
+					const isLimitedModeEnabled = api?.limitedMode?.sharedState.currentState()?.enabled ?? false;
 
-			// Check if we need to show confirm dialog for delete button
-			let confirmDialog;
+					const cellItems = pluginState.isDragAndDropEnabled
+						? []
+						: getCellItems(
+							state,
+							editorView,
+							intl,
+							getEditorContainerWidth,
+							api,
+							editorAnalyticsAPI,
+							isTableScalingEnabled,
+							isTableFixedColumnWidthsOptionEnabled,
+							shouldUseIncreasedScalingPercent,
+							options?.isCommentEditor,
+							isLimitedModeEnabled,
+						);
 
-			if (isReferencedSource(state, tableObject.node)) {
-				const localSourceName = intl.formatMessage(messages.unnamedSource);
+					const columnSettingsItems = pluginState.isDragAndDropEnabled
+						? getColumnSettingItems(
+							state,
+							editorView,
+							intl,
+							getEditorContainerWidth,
+							api,
+							editorAnalyticsAPI,
+							isTableScalingEnabled,
+							isTableFixedColumnWidthsOptionEnabled,
+							options?.isCommentEditor,
+							isLimitedModeEnabled,
+						)
+						: [];
 
-				confirmDialog = (): ConfirmDialogOptions => ({
-					title: intl.formatMessage(messages.deleteElementTitle),
-					okButtonLabel: intl.formatMessage(messages.confirmDeleteLinkedModalOKButton),
-					message: intl.formatMessage(messages.confirmDeleteLinkedModalMessage, {
-						nodeName: getNodeName(state, tableObject.node) || localSourceName,
-					}),
-					messagePrefix: intl.formatMessage(messages.confirmDeleteLinkedModalMessagePrefix),
-					isReferentialityDialog: true,
-					getChildrenInfo: () => getChildrenInfo(state, tableObject.node),
-					checkboxLabel: intl.formatMessage(messages.confirmModalCheckboxLabel),
-					onConfirm: (isChecked = false) => clickWithCheckboxHandler(isChecked, tableObject.node),
-				});
-			}
+					const colorPicker = !areAnyNewToolbarFlagsEnabled
+						? getColorPicker(state, menu, intl, editorAnalyticsAPI, getEditorView)
+						: [];
 
-			const deleteButton = {
-				id: 'editor.table.delete',
-				type: 'button' as const,
-				appearance: 'danger',
-				icon: DeleteIcon,
-				onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
-				disabled: !!resizeState && !!resizeState.dragging,
-				onMouseEnter: hoverTable(true),
-				onFocus: hoverTable(true),
-				onBlur: clearHoverSelection(),
-				onMouseLeave: clearHoverSelection(),
-				title: intl.formatMessage(commonMessages.remove),
-				focusEditoronEnter: true,
-				confirmDialog,
-			};
+					const fitToContentButton: Array<FloatingToolbarItem<Command>> =
+						isContentModeSupported({
+							allowColumnResizing: !!pluginState.pluginConfig.allowColumnResizing,
+							allowTableResizing: !!pluginState.pluginConfig.allowTableResizing,
+							isFullPageEditor: !pluginState.isChromelessEditor && !pluginState.isCommentEditor,
+						}) && !isNested && api?.editorViewMode?.sharedState.currentState()?.mode !== 'view' && expValEquals('platform_editor_table_fit_to_content_on_demand', 'isEnabled', true)
+							? [
+								{
+									id: 'editor.table.fitToContent',
+									type: 'button',
+									title: intl.formatMessage(messages.fitToContent),
+									icon: () => <ShrinkHorizontalIcon spacing={'spacious'} label={''} />,
+									onClick: (_state, _dispatch, view) => {
+										if (view) {
+											applyMeasuredWidthToSelectedTable(view, api ?? undefined);
+										}
+										return true;
+									},
+								},
+							]
+							: [];
 
-			const copyButton = {
-				type: 'copy-button',
-				supportsViewMode: true,
-				items: [
-					{
-						state,
-						formatMessage: intl.formatMessage,
-						nodeType,
-						onMouseEnter: hoverTable(false, true),
-						onMouseLeave: clearHoverSelection(),
-						onFocus: hoverTable(false, true),
+					// Check if we need to show confirm dialog for delete button
+					let confirmDialog;
+
+					if (isReferencedSource(state, tableObject.node)) {
+						const localSourceName = intl.formatMessage(messages.unnamedSource);
+
+						confirmDialog = (): ConfirmDialogOptions => ({
+							title: intl.formatMessage(messages.deleteElementTitle),
+							okButtonLabel: intl.formatMessage(messages.confirmDeleteLinkedModalOKButton),
+							message: intl.formatMessage(messages.confirmDeleteLinkedModalMessage, {
+								nodeName: getNodeName(state, tableObject.node) || localSourceName,
+							}),
+							messagePrefix: intl.formatMessage(messages.confirmDeleteLinkedModalMessagePrefix),
+							isReferentialityDialog: true,
+							getChildrenInfo: () => getChildrenInfo(state, tableObject.node),
+							checkboxLabel: intl.formatMessage(messages.confirmModalCheckboxLabel),
+							onConfirm: (isChecked = false) => clickWithCheckboxHandler(isChecked, tableObject.node),
+						});
+					}
+
+					const deleteButton = {
+						id: 'editor.table.delete',
+						type: 'button' as const,
+						appearance: 'danger',
+						icon: DeleteIcon,
+						onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
+						disabled: !!resizeState && !!resizeState.dragging,
+						onMouseEnter: hoverTable(true),
+						onFocus: hoverTable(true),
 						onBlur: clearHoverSelection(),
-					},
-				],
-			};
+						onMouseLeave: clearHoverSelection(),
+						title: intl.formatMessage(commonMessages.remove),
+						focusEditoronEnter: true,
+						confirmDialog,
+					};
 
-			const isNestedTable =
-				isNestedTablesSupported(state.schema) && isSelectionTableNestedInTable(state);
+					const copyButton = {
+						type: 'copy-button',
+						supportsViewMode: true,
+						items: [
+							{
+								state,
+								formatMessage: intl.formatMessage,
+								nodeType,
+								onMouseEnter: hoverTable(false, true),
+								onMouseLeave: clearHoverSelection(),
+								onFocus: hoverTable(false, true),
+								onBlur: clearHoverSelection(),
+							},
+						],
+					};
 
-			const hoverTableProps = (isInDanger?: boolean, isSelected?: boolean) => ({
-				onMouseEnter: hoverTable(isInDanger, isSelected),
-				onMouseLeave: clearHoverSelection(),
-				onFocus: hoverTable(isInDanger, isSelected),
-				onBlur: clearHoverSelection(),
-			});
+					const isNestedTable =
+						isNestedTablesSupported(state.schema) && isSelectionTableNestedInTable(state);
 
-			// testId is required to show focus on trigger button on ESC key press
-			// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
-			const overflowDropdownTestId = 'table-overflow-dropdown-trigger';
+					const hoverTableProps = (isInDanger?: boolean, isSelected?: boolean) => ({
+						onMouseEnter: hoverTable(isInDanger, isSelected),
+						onMouseLeave: clearHoverSelection(),
+						onFocus: hoverTable(isInDanger, isSelected),
+						onBlur: clearHoverSelection(),
+					});
 
-			const extensionState = api?.extension?.sharedState?.currentState();
-			const extensionApi = api?.extension?.actions.api();
+					// testId is required to show focus on trigger button on ESC key press
+					// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
+					const overflowDropdownTestId = 'table-overflow-dropdown-trigger';
 
-			return {
-				title: toolbarTitle,
-				getDomRef,
-				nodeType,
-				offset: [0, 18],
-				absoluteOffset: { top: -6 },
-				zIndex: akEditorFloatingPanelZIndex + 1, // Place the context menu slightly above the others
-				items: [
-					menu,
-					...(!areAnyNewToolbarFlagsEnabled ? [separator(menu.hidden)] : []),
-					...alignmentMenu,
-					...(!areAnyNewToolbarFlagsEnabled ? [separator(alignmentMenu.length === 0)] : []),
-					...cellItems,
-					...columnSettingsItems,
-					...colorPicker,
-					...((!areAnyNewToolbarFlagsEnabled
-						? ([
-								{
-									type: 'extensions-placeholder',
-									separator: 'end',
-								},
-								copyButton,
-								{ type: 'separator' },
-								deleteButton,
-							] as Array<FloatingToolbarItem<Command>>)
-						: [
-								areAnyNewToolbarFlagsEnabled && { type: 'separator', fullHeight: true },
-								{
-									type: 'overflow-dropdown',
-									testId: overflowDropdownTestId,
-									dropdownWidth: 220,
-									options: [
-										{
-											type: 'custom',
-											fallback: [],
-											render: (editorView, dropdownOptions) => {
-												if (!editorView) {
-													return null;
-												}
+					const extensionState = api?.extension?.sharedState?.currentState();
+					const extensionApi = api?.extension?.actions.api();
 
-												if (!extensionApi || !extensionState?.extensionProvider) {
-													return null;
-												}
+					return {
+						title: toolbarTitle,
+						getDomRef,
+						nodeType,
+						offset: [0, 18],
+						absoluteOffset: { top: -6 },
+						zIndex: akEditorFloatingPanelZIndex + 1, // Place the context menu slightly above the others
+						items: [
+							menu,
+							...(!areAnyNewToolbarFlagsEnabled ? [separator(menu.hidden)] : []),
+							...alignmentMenu,
+							...(!areAnyNewToolbarFlagsEnabled ? [separator(alignmentMenu.length === 0)] : []),
+							...cellItems,
+							...columnSettingsItems,
+							...fitToContentButton,
+							...colorPicker,
+							...((!areAnyNewToolbarFlagsEnabled
+								? ([
+									{
+										type: 'extensions-placeholder',
+										separator: 'end',
+									},
+									copyButton,
+									{ type: 'separator' },
+									deleteButton,
+								] as Array<FloatingToolbarItem<Command>>)
+								: [
+									areAnyNewToolbarFlagsEnabled && { type: 'separator', fullHeight: true },
+									{
+										type: 'overflow-dropdown',
+										testId: overflowDropdownTestId,
+										dropdownWidth: 220,
+										options: [
+											{
+												type: 'custom',
+												fallback: [],
+												render: (editorView, dropdownOptions) => {
+													if (!editorView) {
+														return null;
+													}
 
-												return (
-													<DropdownMenuExtensionItems
-														node={tableObject.node}
-														editorView={editorView}
-														// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-														extension={{
-															extensionProvider: extensionState?.extensionProvider
-																? Promise.resolve(extensionState.extensionProvider)
-																: undefined,
-															extensionApi: extensionApi,
-														}}
-														dropdownOptions={dropdownOptions}
-														// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-														disabled={(key: string) => {
-															return (
-																isNestedTable &&
-																['referentiality:connections', 'chart:insert-chart'].includes(key)
-															);
-														}}
-														areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
-													/>
-												);
+													if (!extensionApi || !extensionState?.extensionProvider) {
+														return null;
+													}
+
+													return (
+														<DropdownMenuExtensionItems
+															node={tableObject.node}
+															editorView={editorView}
+															// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+															extension={{
+																extensionProvider: extensionState?.extensionProvider
+																	? Promise.resolve(extensionState.extensionProvider)
+																	: undefined,
+																extensionApi: extensionApi,
+															}}
+															dropdownOptions={dropdownOptions}
+															// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+															disabled={(key: string) => {
+																return (
+																	isNestedTable &&
+																	['referentiality:connections', 'chart:insert-chart'].includes(key)
+																);
+															}}
+															areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
+														/>
+													);
+												},
 											},
-										},
-										...(extensionApi &&
-										extensionState?.extensionProvider &&
-										!areAnyNewToolbarFlagsEnabled
-											? [{ type: 'separator' }]
-											: []),
-										{
-											title: intl.formatMessage(commonMessages.copyToClipboard),
-											onClick: () => {
-												api?.core?.actions.execute(
-													// @ts-ignore
-													api?.floatingToolbar?.commands.copyNode(
-														nodeType,
-														INPUT_METHOD.FLOATING_TB,
-													),
-												);
-												return true;
+											...(extensionApi &&
+												extensionState?.extensionProvider &&
+												!areAnyNewToolbarFlagsEnabled
+												? [{ type: 'separator' }]
+												: []),
+											{
+												title: intl.formatMessage(commonMessages.copyToClipboard),
+												onClick: () => {
+													api?.core?.actions.execute(
+														// @ts-ignore
+														api?.floatingToolbar?.commands.copyNode(
+															nodeType,
+															INPUT_METHOD.FLOATING_TB,
+														),
+													);
+													return true;
+												},
+												icon: <CopyIcon label={intl.formatMessage(commonMessages.copyToClipboard)} />,
+												...hoverTableProps(false, true),
 											},
-											icon: <CopyIcon label={intl.formatMessage(commonMessages.copyToClipboard)} />,
-											...hoverTableProps(false, true),
-										},
-										{
-											title: intl.formatMessage(commonMessages.delete),
-											onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
-											icon: <DeleteIcon label={intl.formatMessage(commonMessages.delete)} />,
-											...hoverTableProps(true),
-											confirmDialog,
-										},
-									],
-								},
-							]) as Array<FloatingToolbarItem<Command>>),
-				],
-				scrollable: true,
-			};
-		}
+											{
+												title: intl.formatMessage(commonMessages.delete),
+												onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
+												icon: <DeleteIcon label={intl.formatMessage(commonMessages.delete)} />,
+												...hoverTableProps(true),
+												confirmDialog,
+											},
+										],
+									},
+								]) as Array<FloatingToolbarItem<Command>>),
+						],
+						scrollable: true,
+					};
+				}
 
-		return;
-	};
+				return;
+			};
 
 const separator = (hidden?: boolean): FloatingToolbarItem<Command> => {
 	return {
@@ -908,31 +936,31 @@ const getDistributeConfig =
 		isTableFixedColumnWidthsOptionEnabled = false,
 		isCommentEditor = false,
 	): Command =>
-	(state, dispatch, editorView) => {
-		const selectionOrTableRect = getClosestSelectionOrTableRect(state);
-		if (!editorView || !selectionOrTableRect) {
+		(state, dispatch, editorView) => {
+			const selectionOrTableRect = getClosestSelectionOrTableRect(state);
+			if (!editorView || !selectionOrTableRect) {
+				return false;
+			}
+
+			const newResizeStateWithAnalytics = getNewResizeStateFromSelectedColumns(
+				selectionOrTableRect,
+				state,
+				editorView.domAtPos.bind(editorView),
+				getEditorContainerWidth,
+				isTableScalingEnabled,
+				isTableFixedColumnWidthsOptionEnabled,
+				isCommentEditor,
+			);
+
+			if (newResizeStateWithAnalytics) {
+				distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI, api)(
+					INPUT_METHOD.FLOATING_TB,
+					newResizeStateWithAnalytics,
+				)(state, dispatch);
+				return true;
+			}
 			return false;
-		}
-
-		const newResizeStateWithAnalytics = getNewResizeStateFromSelectedColumns(
-			selectionOrTableRect,
-			state,
-			editorView.domAtPos.bind(editorView),
-			getEditorContainerWidth,
-			isTableScalingEnabled,
-			isTableFixedColumnWidthsOptionEnabled,
-			isCommentEditor,
-		);
-
-		if (newResizeStateWithAnalytics) {
-			distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI, api)(
-				INPUT_METHOD.FLOATING_TB,
-				newResizeStateWithAnalytics,
-			)(state, dispatch);
-			return true;
-		}
-		return false;
-	};
+		};
 
 // this create the button group for distribute column and also fixed column width
 // fixed column button should be in this function call in the future
@@ -998,6 +1026,8 @@ const getColumnSettingItems = (
 		});
 	}
 
+
+
 	if (items.length !== 0 && !areToolbarFlagsEnabled(Boolean(api?.toolbar))) {
 		items.push({
 			type: 'separator',
@@ -1058,18 +1088,18 @@ const clickWithCheckboxHandler =
 		node?: PMNode,
 		editorAnalyticsAPI?: EditorAnalyticsAPI | undefined | null,
 	): Command =>
-	(state, dispatch) => {
-		if (!node) {
-			return false;
-		}
+		(state, dispatch) => {
+			if (!node) {
+				return false;
+			}
 
-		if (!isChecked) {
-			return deleteTableWithAnalytics(editorAnalyticsAPI)(state, dispatch);
-		} else {
-			removeDescendantNodes(node)(state, dispatch);
-		}
-		return true;
-	};
+			if (!isChecked) {
+				return deleteTableWithAnalytics(editorAnalyticsAPI)(state, dispatch);
+			} else {
+				removeDescendantNodes(node)(state, dispatch);
+			}
+			return true;
+		};
 
 const highlightRowsHandler = (state: EditorState, dispatch?: CommandDispatch) => {
 	const selectionRect = getClosestSelectionRect(state);
@@ -1153,19 +1183,19 @@ const getAlignmentOptionsConfig = (
 			true,
 		)
 			? getMemoizedIsLayoutOptionDisabled(
-					tableObject.node,
-					getEditorContainerWidth,
-					editorView !== null,
-					shouldUseIncreasedScalingPercent,
-					isFullWidthEditor,
-				)
+				tableObject.node,
+				getEditorContainerWidth,
+				editorView !== null,
+				shouldUseIncreasedScalingPercent,
+				isFullWidthEditor,
+			)
 			: isLayoutOptionDisabled(
-					tableObject.node,
-					getEditorContainerWidth,
-					editorView,
-					shouldUseIncreasedScalingPercent,
-					isFullWidthEditor,
-				);
+				tableObject.node,
+				getEditorContainerWidth,
+				editorView,
+				shouldUseIncreasedScalingPercent,
+				isFullWidthEditor,
+			);
 
 		return {
 			id: id,

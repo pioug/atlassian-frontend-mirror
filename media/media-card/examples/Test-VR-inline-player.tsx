@@ -10,7 +10,7 @@ import { createStorybookMediaClient, videoSquareFileId } from '@atlaskit/media-t
 import { token } from '@atlaskit/tokens';
 import { MediaClientContext } from '@atlaskit/media-client-react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { MainWrapper } from '../example-helpers';
 
 type WrapperDimensions = {

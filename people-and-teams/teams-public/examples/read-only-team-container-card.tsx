@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import { cssMap } from '@atlaskit/css';

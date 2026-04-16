@@ -1,17 +1,20 @@
+/* eslint-disable @atlaskit/design-system/use-primitives-text -- Legacy analytics-next docs intentionally use plain HTML prose instead of ADS docs primitives. */
 import React from 'react';
 
-import { code, md, Props } from '@atlaskit/docs';
+import { CodeBlock, PropsBlock } from './DocBlocks';
 
-const _default_1: any = md`
-  ${code`import { AnalyticsListener } from '@atlaskit/analytics-next';`}
-
-  An \`AnalyticsListener\` wraps your app and listens to any events which are fired within it.
-
-  ${(
-		<Props
-			heading="AnalyticsListener Props"
-			props={require('!!extract-react-types-loader!../src/components/AnalyticsListener/ModernAnalyticsListener')}
-		/>
-	)}
-`;
-export default _default_1;
+export default function Listeners(): React.JSX.Element {
+	return (
+		<div>
+			<CodeBlock code={`import { AnalyticsListener } from '@atlaskit/analytics-next';`} />
+			<p>
+				An <code>AnalyticsListener</code> wraps your app and listens to any events which are fired
+				within it.
+			</p>
+			<PropsBlock
+				heading="AnalyticsListener Props"
+				props={require('!!extract-react-types-loader!../src/components/AnalyticsListener/ModernAnalyticsListener')}
+			/>
+		</div>
+	);
+}

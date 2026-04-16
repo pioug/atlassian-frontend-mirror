@@ -35,21 +35,20 @@ import VisuallyHidden from '@atlaskit/visually-hidden';
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { contentInsetBlockStart } from '../constants';
 
-import {
-	OnDoubleClickContext,
-	PanelSplitterContext,
-	type PanelSplitterContextType,
-} from './context';
 import { convertResizeBoundToPixels } from './convert-resize-bound-to-pixels';
 import { getPercentageWithinPixelBounds } from './get-percentage-within-pixel-bounds';
-import { getPixelWidth, getWidthFromDragLocation } from './get-width';
+import { getPixelWidth } from './get-pixel-width';
+import { getWidthFromDragLocation } from './get-width-from-drag-location';
+import { isPanelSplitterDragData, type PanelSplitterDragData } from './is-panel-splitter-drag-data';
 import { createKeyboardResizeManager } from './keyboard-resize-manager';
-import type {
-	PixelResizeBounds,
-	ResizeBounds,
-	ResizeEndCallback,
-	ResizeStartCallback,
-} from './types';
+import { OnDoubleClickContext } from './on-double-click-context';
+import { PanelSplitterContext, type PanelSplitterContextType } from './panel-splitter-context';
+import { panelSplitterDragDataSymbol } from './panel-splitter-drag-symbol';
+import type { PixelResizeBounds, ResizeEndCallback, ResizeStartCallback } from './types';
+
+function signPanelSplitterDragData(data: PanelSplitterDragData) {
+	return { ...data, [panelSplitterDragDataSymbol]: true };
+}
 
 const containerStyles = cssMap({
 	root: {
@@ -161,53 +160,6 @@ const tooltipStyles = cssMap({
 	},
 });
 
-export type PanelSplitterProps = {
-	/**
-	 * The accessible label for the panel splitter. It is visually hidden, but is required for accessibility.
-	 */
-	label: React.ReactNode;
-
-	/**
-	 * Called when the user begins resizing the panel.
-	 * Intended for analytics.
-	 */
-	onResizeStart?: ResizeStartCallback;
-
-	/**
-	 * Called when the user finishes resizing the panel.
-	 */
-	onResizeEnd?: ResizeEndCallback;
-
-	/**
-	 * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
-	 */
-	testId?: string;
-
-	/**
-	 * Displays a tooltip with the provided content.
-	 *
-	 * The `tooltipContent` will not be announced by screen readers because it pertains to the draggable element, which lacks keyboard functionality.
-	 * Use the `label` prop to provide accessible information about the panel splitter.
-	 *
-	 * Only used if `useIsFhsEnabled` is true.
-	 */
-	tooltipContent?: TooltipProps['content'];
-};
-
-type PanelSplitterDragData = {
-	panelId: string | symbol | undefined;
-	initialWidth: number;
-	resizingWidth: string;
-	resizeBounds: ResizeBounds;
-	direction: 'ltr' | 'rtl';
-};
-
-const panelSplitterDragDataSymbol = Symbol('panel-splitter-drag-data');
-
-function signPanelSplitterDragData(data: PanelSplitterDragData) {
-	return { ...data, [panelSplitterDragDataSymbol]: true };
-}
-
 type MaybeTooltipProps = Pick<PanelSplitterProps, 'tooltipContent'> & {
 	children: ReactNode;
 	shortcut?: TooltipProps['shortcut'];
@@ -292,12 +244,6 @@ const MaybeTooltip = ({ tooltipContent, shortcut, children, testId }: MaybeToolt
 
 	return children;
 };
-
-export function isPanelSplitterDragData(
-	data: Record<string | symbol, unknown>,
-): data is PanelSplitterDragData {
-	return data[panelSplitterDragDataSymbol] === true;
-}
 
 function getTextDirection(element: HTMLElement): 'ltr' | 'rtl' {
 	const { direction } = window.getComputedStyle(element);
@@ -626,6 +572,39 @@ const PortaledPanelSplitter = ({
 		</div>,
 		portal,
 	);
+};
+
+export type PanelSplitterProps = {
+	/**
+	 * The accessible label for the panel splitter. It is visually hidden, but is required for accessibility.
+	 */
+	label: React.ReactNode;
+
+	/**
+	 * Called when the user begins resizing the panel.
+	 * Intended for analytics.
+	 */
+	onResizeStart?: ResizeStartCallback;
+
+	/**
+	 * Called when the user finishes resizing the panel.
+	 */
+	onResizeEnd?: ResizeEndCallback;
+
+	/**
+	 * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
+	 */
+	testId?: string;
+
+	/**
+	 * Displays a tooltip with the provided content.
+	 *
+	 * The `tooltipContent` will not be announced by screen readers because it pertains to the draggable element, which lacks keyboard functionality.
+	 * Use the `label` prop to provide accessible information about the panel splitter.
+	 *
+	 * Only used if `useIsFhsEnabled` is true.
+	 */
+	tooltipContent?: TooltipProps['content'];
 };
 
 /**

@@ -18,11 +18,11 @@ import type { PMPluginFactoryParams } from '../types';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
 import {
 	analyticsEventKey,
-	browser,
 	getPerformanceOptions,
 	startMeasureReactNodeViewRendered,
 	stopMeasureReactNodeViewRendered,
 } from '../utils';
+import { getBrowserInfo } from '../utils/browser';
 import { ZERO_WIDTH_SPACE } from '../whitespace';
 
 import { generateUniqueNodeKey } from './generateUniqueNodeKey';
@@ -434,7 +434,7 @@ function getPortalChildren<ExtraComponentProps>({
 					// eslint-disable-next-line react/jsx-props-no-spreading -- Spreading props to pass through dynamic component props
 					{...extraComponentProps}
 				/>
-				{browser.android ? (
+				{getBrowserInfo().android ? (
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					<span className={`zeroWidthSpaceContainer`} contentEditable="false">
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}

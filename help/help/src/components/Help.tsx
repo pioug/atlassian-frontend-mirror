@@ -6,7 +6,7 @@ import {
 	type WithContextProps,
 } from '@atlaskit/analytics-next';
 import { IntlProvider as ReactIntlProvider } from 'react-intl';
-import { IntlProvider as ReactIntlNextProvider } from 'react-intl-next';
+import { IntlProvider as ReactIntlNextProvider } from 'react-intl';
 import { defaultAnalyticsAttributes } from '../analytics';
 import { type Help as HelpInterface } from '../model/Help';
 

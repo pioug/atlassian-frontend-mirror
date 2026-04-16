@@ -54,7 +54,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	single_column_layouts: false,
 	platform_editor_ai_unsplash_page_header: false,
 	platform_editor_blockquote_in_text_formatting_menu: false,
-	platform_editor_element_drag_and_drop_multiselect: false,
 	platform_editor_ai_edit_response_in_preview: false,
 	platform_editor_offline_editing_web: false,
 	platform_editor_tables_drag_and_drop: false,
@@ -73,4 +72,7 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_paste_actions_menu: false,
 	platform_editor_diff_plugin_extended: false,
 	platform_editor_preserve_node_identity: false,
+	platform_editor_ai_rename_add_polish: false,
+	platform_editor_table_fit_to_content_on_demand: false,
+	platform_editor_table_fit_to_content_auto_convert: false,
 };

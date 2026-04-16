@@ -4,7 +4,7 @@ import {
 	injectIntl,
 	type WrappedComponentProps,
 	type WithIntlProps,
-} from 'react-intl-next';
+} from 'react-intl';
 import Button from '@atlaskit/button/new';
 import Modal, {
 	ModalFooter,

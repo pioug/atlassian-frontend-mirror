@@ -63,6 +63,10 @@ tester.run('visit-example-type-import-required', rule, {
 			code: `await page.visitExample('commerce', 'quote-line-items', 'basic');`,
 			filename: 'src/utils.ts',
 		},
+		{
+			code: `await visitMockedExample<typeof import('../examples/basic.tsx')>(page, 'commerce', 'quote-line-items', 'basic');`,
+			filename: '/workspace/packages/commerce/quote-line-items/integration-tests/test.spec.tsx',
+		},
 	],
 	invalid: [
 		{
@@ -102,6 +106,27 @@ tester.run('visit-example-type-import-required', rule, {
 			code: `await page.visitExample<SomeRandomType>('commerce', 'quote-line-items', 'basic');`,
 			filename: '/workspace/packages/commerce/quote-line-items/integration-tests/test.spec.tsx',
 			errors: [{ messageId: 'missingTypeofImport' }],
+		},
+		// visitMockedExample — valid calls should not trigger errors (covered in valid block)
+		// visitMockedExample — missing generic
+		{
+			code: `await visitMockedExample(page, 'commerce', 'quote-line-items', 'basic');`,
+			output: `await visitMockedExample<typeof import('../examples/basic.tsx')>(page, 'commerce', 'quote-line-items', 'basic');`,
+			filename: '/workspace/packages/commerce/quote-line-items/integration-tests/test.spec.tsx',
+			errors: [{ messageId: 'missingTypeofImport' }],
+		},
+		// visitMockedExample — path mismatch
+		{
+			code: `await visitMockedExample<typeof import('../examples/wrong-file.tsx')>(page, 'commerce', 'quote-line-items', 'basic');`,
+			output: `await visitMockedExample<typeof import('../examples/basic.tsx')>(page, 'commerce', 'quote-line-items', 'basic');`,
+			filename: '/workspace/packages/commerce/quote-line-items/integration-tests/test.spec.tsx',
+			errors: [{ messageId: 'pathMismatch' }],
+		},
+		// visitMockedExample — package imports
+		{
+			code: `await visitMockedExample<typeof import('@atlaskit/some-package/examples/basic.tsx')>(page, 'commerce', 'quote-line-items', 'basic');`,
+			filename: '/workspace/packages/commerce/quote-line-items/integration-tests/test.spec.tsx',
+			errors: [{ messageId: 'noPackageImports' }],
 		},
 	],
 });

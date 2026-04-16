@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 6.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.28
 
 ### Patch Changes

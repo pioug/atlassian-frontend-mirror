@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { injectIntl } from 'react-intl-next';
-import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl';
+import type { WrappedComponentProps } from 'react-intl';
 import Rusha from 'rusha';
 
 import Blog16Icon from '@atlaskit/icon-object/glyph/blog/16';

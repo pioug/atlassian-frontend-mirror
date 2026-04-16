@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { IconMessage, CheckInternetConnection } from '..';
 import { IconMessageWrapper } from '../iconMessageWrapper';
 import { messages } from '@atlaskit/media-ui';

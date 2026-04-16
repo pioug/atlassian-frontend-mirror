@@ -12,8 +12,8 @@ import type { SerializedStyles } from '@emotion/react';
 import debounce from 'lodash/debounce';
 import { flushSync } from 'react-dom';
 import FocusLock from 'react-focus-lock';
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
-import { defineMessages, injectIntl } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 import type { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider';
 import { isSafeUrl } from '@atlaskit/adf-schema';

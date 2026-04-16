@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { ACTION_SUBJECT_ID, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { getDomRefFromSelection } from '@atlaskit/editor-common/get-dom-ref-from-selection';

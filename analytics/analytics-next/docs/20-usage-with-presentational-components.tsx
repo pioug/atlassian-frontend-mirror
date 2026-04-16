@@ -1,85 +1,9 @@
+/* eslint-disable @atlaskit/design-system/use-primitives-text, @atlaskit/design-system/use-heading, @atlaskit/design-system/no-html-anchor -- Legacy analytics-next docs intentionally use plain HTML prose, tables, and links instead of ADS docs primitives. */
 import React from 'react';
 
-import { code, md } from '@atlaskit/docs';
-import Link from '@atlaskit/link';
+import { CodeBlock } from './DocBlocks';
 
-const _default_1: any = md`
-This section will guide how to add analytics tracking to presentational and other
-components that don't fit into the "Container" category.
-
-For a conceptual overview of \`@atlaskit/analytics-next\`, please consult the
-[concepts page](./concepts).
-
-There are several ways to add analytics to a component, via React hooks, or
-via higher order components (HOCs) - consult the Recommended Usage table for
-our suggested approach.
-
-## API
-
-### Hooks API
-
-* [\`useAnalyticsEvents\`](#use-analytics-events)
-* [\`useCallbackWithAnalytics\`](#use-callback-with-analytics)
-* [\`usePlatformLeafEventHandler\` and \`usePlatformLeafSyntheticEventHandler\`](#use-platform-leaf-event-handlers)
-
-### HOCs API
-
-* [\`withAnalyticsEvents\`](#with-analytics-events)
-
-### Recommended Usage
-
-${(
-	<table>
-		<tr>
-			<th>Component Type</th>
-			<th>Recommendation</th>
-		</tr>
-		<tr>
-			<td>Class components</td>
-			<td>
-				You have only the <Link href="#with-analytics-events">HOC option</Link>
-			</td>
-		</tr>
-		<tr>
-			<td>Atlaskit function components</td>
-			<td>
-				Use{' '}
-				<Link href="#use-platform-leaf-event-handler">
-					{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
-					<code>usePlatformLeafEventHandler</code>
-				</Link>
-				.
-			</td>
-		</tr>
-		<tr>
-			<td>Other function components</td>
-			<td>
-				Use{' '}
-				<Link href="#use-callback-with-analytics">
-					{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
-					<code>useCallbackWithAnalytics</code>
-				</Link>{' '}
-				if you want something basic.
-				<br />
-				Use{' '}
-				<Link href="#use-analytics-events">
-					{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
-					<code>useAnalyticsEvents</code>
-				</Link>{' '}
-				if you want more control.
-			</td>
-		</tr>
-	</table>
-)}
-
-### Examples
-
-<a name="use-analytics-events"></a>
-#### The \`useAnalyticsEvents\` hook
-
-This custom React hook provides a method \`createAnalyticsEvent\` for creating \`UIAnalyticsEvent\`s.
-
-${code`
+const useAnalyticsEventsCode = `
 import React, { useCallback } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
@@ -94,16 +18,8 @@ const MyButton = ({ onClick = () => {} }) => {
       packageVersion: '1.0.0'
     });
 
-    // do what you like with the event, fire / modify / clone
-    // this here is the typical usage pattern for atlaskit components
-
     const clonedEvent = analyticsEvent.clone();
-
     analyticsEvent.fire("atlaskit");
-
-    // firing is prevented from happening more than once
-    // so that's why we pass a clone to be accessed by the parent component
-    // which might also want to fire their own event on this ui interaction
     onClick(clickEvent, clonedEvent);
   }, [ createAnalyticsEvent, onClick ]);
 
@@ -113,17 +29,9 @@ const MyButton = ({ onClick = () => {} }) => {
 }
 
 export MyButton;
-`}
+`;
 
-<a name="use-callback-with-analytics"></a>
-#### The \`useCallbackWithAnalytics\` hook
-
-This custom React hook takes a callback function and an event payload, and channel, and
-returns a callback to fire the event and call the provided function.
-
-The hooks stores the input and memoizes the return value to optimize performance.
-
-${code`
+const useCallbackWithAnalyticsCode = `
 import React, { useCallback } from 'react';
 import { useCallbackWithAnalytics } from '@atlaskit/analytics-next';
 
@@ -135,25 +43,15 @@ const MyButton = ({ onClick = () => {} }) => {
     packageVersion: '1.0.0'
   }, 'atlaskit');
 
-    return (
+  return (
     <button onClick={handler}>Track me</button>
   );
 }
 
 export MyButton;
-`}
+`;
 
-<a name="with-analytics-events"></a>
-#### The \`withAnalyticsEvents\` HOC
-
-A HOC which provides the wrapped component with a method for creating \`UIAnalyticsEvent\`s,
-via \`props.createAnalyticsEvent\`.
-
-The HOC supports a few ways to use it for convinvience.
-
-The first is to use the \`createAnalyticsEvent\` prop the HOC passes to the component manually:
-
-${code`
+const hocManualCode = `
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 
 const MyButton = ({ onClick = () => {}, createAnalyticsEvent }) => {
@@ -165,16 +63,8 @@ const MyButton = ({ onClick = () => {}, createAnalyticsEvent }) => {
       packageVersion: '1.0.0'
     });
 
-    // do what you like with the event, fire / modify / clone
-    // this here is the typical usage pattern for atlaskit components
-
     const clonedEvent = analyticsEvent.clone();
-
     analyticsEvent.fire("atlaskit");
-
-    // firing is prevented from happening more than once
-    // so that's why we pass a clone to be accessed by the parent component
-    // which might also want to fire their own event on this ui interaction
     onClick(clickEvent, clonedEvent);
   };
 
@@ -186,28 +76,15 @@ const MyButton = ({ onClick = () => {}, createAnalyticsEvent }) => {
 const AnalyticsWrappedButton = withAnalyticsEvents()(MyButton);
 
 export AnalyticsWrappedButton;
-`}
+`;
 
-&nbsp;
-
-Altenatively, the HOC accepts an optional map as its first argument, which provides a shortcut
-for passing a new analytics event as an additional parameter to the corresponding callback prop.
-
-${code`
+const hocMappedCode = `
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 
 const MyButton = ({ onClick = () => {} }) => {
   const handler = (clickEvent, analyticsEvent) => {
-    // do what you like with the event, fire / modify / clone
-    // this here is the typical usage pattern for atlaskit components
-
     const clonedEvent = analyticsEvent.clone();
-
     analyticsEvent.fire("atlaskit");
-
-    // firing is prevented from happening more than once
-    // so that's why we pass a clone to be accessed by the parent component
-    // which might also want to fire their own event on this ui interaction
     onClick(clickEvent, clonedEvent);
   };
 
@@ -226,27 +103,15 @@ const AnalyticsWrappedButton = withAnalyticsEvents({
 })(MyButton);
 
 export AnalyticsWrappedButton;
-`}
+`;
 
-&nbsp;
-
-Since creating and returning an event is such a common pattern an even more concise shorthand is supported:
-
-${code`
+const hocShorthandCode = `
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 
 const MyButton = ({ onClick = () => {} }) => {
   const handler = (clickEvent, analyticsEvent) => {
-    // do what you like with the event, fire / modify / clone
-    // this here is the typical usage pattern for atlaskit components
-
     const clonedEvent = analyticsEvent.clone();
-
     analyticsEvent.fire("atlaskit");
-
-    // firing is prevented from happening more than once
-    // so that's why we pass a clone to be accessed by the parent component
-    // which might also want to fire their own event on this ui interaction
     onClick(clickEvent, clonedEvent);
   };
 
@@ -265,32 +130,9 @@ const AnalyticsWrappedButton = withAnalyticsEvents({
 })(MyButton);
 
 export AnalyticsWrappedButton;
-`}
+`;
 
-<a name="use-platform-leaf-event-handlers"></a>
-#### The \`usePlatformLeafEventHandler\` and \`usePlatformLeafSyntheticEventHandler\` hooks
-
-These hooks were built with internal leaf node components purely in mind.
-
-They dispatch an event on the \`atlaskit\` channel, then pass it to the
-wrapped function as the last argument in case you want to something additional with the event.
-
-\`usePlatformLeafEventHandler\` takes a function with two arguments (\`value\` and
- \`analyticsEvent\`), while \`usePlatformLeafSyntheticEventHandler\` takes a function
- with just one argument for the \`analyticsEvent\`
-
-&nbsp;
-
-**WARNING:** *These hooks make an assumption that the component being wrapped is a "leaf-node"
-component, i.e., they have no children that require analytics themselves. This
-is so it can include the component name, package name, and package version as context
-in the analytics event. It assumes no children need this context and makes no attempt to
-pass it to them. This gains us a decent performance optimization. Use the other hooks
-if you are unsure you can use these safely.*
-
-&nbsp;
-
-${code`
+const leafHandlersCode = `
 import React, { useCallback } from 'react';
 import {
   usePlatformLeafEventHandler,
@@ -298,64 +140,201 @@ import {
 } from '@atlaskit/analytics-next';
 
 const MyButton = ({ onClick = () => {}, onActivate = () => {}}) => {
-
-  /**
-   *        Event 1: usePlatformLeafEventHandler
-  */
-  // this isn't necessary if you are happy with just firing on the 'atlaskit' channel
   const wrapped = (clickEvent, analyticsEvent) => {
-    // do what you like with the event, fire / modify / clone
-    // this here is the typical usage pattern for atlaskit components
     const clonedEvent = analyticsEvent.clone();
     analyticsEvent.fire("otherChannel");
-
-    // firing is prevented from happening more than once
-    // so that's why we pass a clone to be accessed by the parent component
-    // which might also want to fire their own event on this ui interaction
     onClick(clickEvent, clonedEvent);
   };
   const handler = usePlatformLeafEventHandler({
-    fn: wrapped, // use onClick instead if you want to just fire on 'atlaskit'
+    fn: wrapped,
     action: 'clicked',
     componentName: 'my-button',
-    actionSubject : 'clickButton', // will use componentName as fallback if actionSubject is not passed
+    actionSubject : 'clickButton',
     packageName: '@atlaskit/my-button',
     packageVersion: '1.0.0',
     analyticsData: {
-      // any additional data can live here
       style: 'fancy'
     },
   });
 
-  /**
-   * Event 2: Synthetic event using usePlatformLeafSyntheticEventHandler
-  */
- const wrappedSynthetic = (analyticsEvent) => {
-    // A synthetic 'activate' event; same as above, but without a DOM event passed in
+  const wrappedSynthetic = (analyticsEvent) => {
     const clonedEvent = analyticsEvent.clone();
     analyticsEvent.fire("otherChannel");
     onActivate(clonedEvent);
   };
   const syntheticHandler = usePlatformLeafSyntheticEventHandler({
-    fn: wrappedSynthetic, // use onActivate instead if you want to just fire on 'atlaskit'
+    fn: wrappedSynthetic,
     action: 'activated',
     componentName: 'my-button',
     packageName: '@atlaskit/my-button',
     packageVersion: '1.0.0',
     analyticsData: {
-      // any additional data can live here
       style: 'fancy'
     },
   });
 
   return (
-    // In this example the synthetic event is triggered by onFocus
     <button onClick={handler} onFocus={syntheticHandler}>Track me</button>
   );
 }
 
 export MyButton;
-`}
-
 `;
-export default _default_1;
+
+export default function UsageWithPresentationalComponents(): React.JSX.Element {
+	return (
+		<div>
+			<p>
+				This section will guide how to add analytics tracking to presentational and other components
+				that don&apos;t fit into the &quot;Container&quot; category.
+			</p>
+			<p>
+				For a conceptual overview of <code>@atlaskit/analytics-next</code>, please consult the{' '}
+				<a href="./concepts">concepts page</a>.
+			</p>
+			<p>
+				There are several ways to add analytics to a component, via React hooks, or via higher order
+				components (HOCs) - consult the Recommended Usage table for our suggested approach.
+			</p>
+			<h2>API</h2>
+			<h3>Hooks API</h3>
+			<ul>
+				<li>
+					<a href="#use-analytics-events">
+						<code>useAnalyticsEvents</code>
+					</a>
+				</li>
+				<li>
+					<a href="#use-callback-with-analytics">
+						<code>useCallbackWithAnalytics</code>
+					</a>
+				</li>
+				<li>
+					<a href="#use-platform-leaf-event-handlers">
+						<code>usePlatformLeafEventHandler</code> and{' '}
+						<code>usePlatformLeafSyntheticEventHandler</code>
+					</a>
+				</li>
+			</ul>
+			<h3>HOCs API</h3>
+			<ul>
+				<li>
+					<a href="#with-analytics-events">
+						<code>withAnalyticsEvents</code>
+					</a>
+				</li>
+			</ul>
+			<h3>Recommended Usage</h3>
+			<table>
+				<tbody>
+					<tr>
+						<th>Component Type</th>
+						<th>Recommendation</th>
+					</tr>
+					<tr>
+						<td>Class components</td>
+						<td>
+							You have only the <a href="#with-analytics-events">HOC option</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Atlaskit function components</td>
+						<td>
+							Use{' '}
+							<a href="#use-platform-leaf-event-handlers">
+								<code>usePlatformLeafEventHandler</code>
+							</a>
+							.
+						</td>
+					</tr>
+					<tr>
+						<td>Other function components</td>
+						<td>
+							Use{' '}
+							<a href="#use-callback-with-analytics">
+								<code>useCallbackWithAnalytics</code>
+							</a>{' '}
+							if you want something basic.
+							<br />
+							Use{' '}
+							<a href="#use-analytics-events">
+								<code>useAnalyticsEvents</code>
+							</a>{' '}
+							if you want more control.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<h3>Examples</h3>
+			<h4 id="use-analytics-events">
+				The <code>useAnalyticsEvents</code> hook
+			</h4>
+			<p>
+				This custom React hook provides a method <code>createAnalyticsEvent</code> for creating{' '}
+				<code>UIAnalyticsEvent</code>s.
+			</p>
+			<CodeBlock code={useAnalyticsEventsCode} />
+			<h4 id="use-callback-with-analytics">
+				The <code>useCallbackWithAnalytics</code> hook
+			</h4>
+			<p>
+				This custom React hook takes a callback function and an event payload, and channel, and
+				returns a callback to fire the event and call the provided function.
+			</p>
+			<p>The hooks stores the input and memoizes the return value to optimize performance.</p>
+			<CodeBlock code={useCallbackWithAnalyticsCode} />
+			<h4 id="with-analytics-events">
+				The <code>withAnalyticsEvents</code> HOC
+			</h4>
+			<p>
+				A HOC which provides the wrapped component with a method for creating{' '}
+				<code>UIAnalyticsEvent</code>s, via <code>props.createAnalyticsEvent</code>.
+			</p>
+			<p>The HOC supports a few ways to use it for convinvience.</p>
+			<p>
+				The first is to use the <code>createAnalyticsEvent</code> prop the HOC passes to the
+				component manually:
+			</p>
+			<CodeBlock code={hocManualCode} />
+			<p>
+				Altenatively, the HOC accepts an optional map as its first argument, which provides a
+				shortcut for passing a new analytics event as an additional parameter to the corresponding
+				callback prop.
+			</p>
+			<CodeBlock code={hocMappedCode} />
+			<p>
+				Since creating and returning an event is such a common pattern an even more concise
+				shorthand is supported:
+			</p>
+			<CodeBlock code={hocShorthandCode} />
+			<h4 id="use-platform-leaf-event-handlers">
+				The <code>usePlatformLeafEventHandler</code> and{' '}
+				<code>usePlatformLeafSyntheticEventHandler</code> hooks
+			</h4>
+			<p>These hooks were built with internal leaf node components purely in mind.</p>
+			<p>
+				They dispatch an event on the <code>atlaskit</code> channel, then pass it to the wrapped
+				function as the last argument in case you want to something additional with the event.
+			</p>
+			<p>
+				<code>usePlatformLeafEventHandler</code> takes a function with two arguments (
+				<code>value</code> and <code>analyticsEvent</code>), while{' '}
+				<code>usePlatformLeafSyntheticEventHandler</code> takes a function with just one argument
+				for the <code>analyticsEvent</code>.
+			</p>
+			<p>
+				<strong>WARNING:</strong>{' '}
+				<em>
+					These hooks make an assumption that the component being wrapped is a &quot;leaf-node&quot;
+					component, i.e., they have no children that require analytics themselves. This is so it
+					can include the component name, package name, and package version as context in the
+					analytics event. It assumes no children need this context and makes no attempt to pass it
+					to them. This gains us a decent performance optimization. Use the other hooks if you are
+					unsure you can use these safely.
+				</em>
+			</p>
+			<CodeBlock code={leafHandlersCode} />
+		</div>
+	);
+}

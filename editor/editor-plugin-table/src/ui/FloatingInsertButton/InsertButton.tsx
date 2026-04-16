@@ -3,8 +3,8 @@ import type { SyntheticEvent } from 'react';
 import React from 'react';
 
 import classnames from 'classnames';
-import type { WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import { addColumnAfter, addRowAfter, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';

@@ -19,7 +19,7 @@ import { MediaViewer, type ViewerOptionsProps } from '@atlaskit/media-viewer';
 import Tooltip from '@atlaskit/tooltip';
 import React, { type FC, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { createIntl, injectIntl, IntlProvider, type WrappedComponentProps } from 'react-intl-next';
+import { createIntl, injectIntl, IntlProvider, type WrappedComponentProps } from 'react-intl';
 import { MediaCardError } from '../errors';
 import { type InlineCardEvent, type InlineCardOnClickCallback } from '../types';
 import { fireMediaCardEvent } from '../utils/analytics';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
 	CustomMediaPlayerBase as CompiledCustomMediaPlayerBase,

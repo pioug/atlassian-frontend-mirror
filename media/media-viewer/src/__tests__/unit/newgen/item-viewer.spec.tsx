@@ -10,7 +10,7 @@ import {
 } from '@atlaskit/media-client/test-helpers';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import * as analytics from '../../../analytics';
 import * as ufoWrapper from '../../../analytics/ufoExperiences';
 import { ItemViewer } from '../../../item-viewer';

@@ -25,7 +25,7 @@ interface GetFieldValuesProps {
 const AGG_BASE_URL = '/gateway/api/graphql';
 
 export const useBasicFilterAGG = (): {
-	getHydratedJQL: (cloudId: string, jql: string) => Promise<HydrateResponse>;
+	getCurrentUserInfo: () => Promise<UserInfoAGGResponse>;
 	getFieldValues: ({
 		cloudId,
 		jql,
@@ -33,7 +33,7 @@ export const useBasicFilterAGG = (): {
 		searchString,
 		pageCursor,
 	}: GetFieldValuesProps) => Promise<FieldValuesResponse>;
-	getCurrentUserInfo: () => Promise<UserInfoAGGResponse>;
+	getHydratedJQL: (cloudId: string, jql: string) => Promise<HydrateResponse>;
 	getUsersFromAccountIDs: (accountIds: string[]) => Promise<UserHydrationAGGResponse>;
 } => {
 	const requestCall = useCallback(

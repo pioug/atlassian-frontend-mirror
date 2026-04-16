@@ -1,4 +1,4 @@
-import { getPixelWidth } from '../../panel-splitter/get-width';
+import { getPixelWidth } from '../../panel-splitter/get-pixel-width';
 
 describe('getPixelWidth', () => {
 	it('should return the offsetWidth of an element', () => {

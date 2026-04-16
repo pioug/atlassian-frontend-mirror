@@ -19,7 +19,7 @@ import {
 	videoProcessingFailedId,
 } from '@atlaskit/media-test-helpers';
 import { type MediaTableItem, NameCell } from '../src';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 export const createMockFileData = (name: string, mediaType: MediaType): jsx.JSX.Element => {
 	return <NameCell text={name} mediaType={mediaType} endFixedChars={4} />;

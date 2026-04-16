@@ -6,7 +6,7 @@ import type { ReactNode } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
-import { type IntlShape, injectIntl } from 'react-intl-next';
+import { type IntlShape, injectIntl } from 'react-intl';
 import type { LoadingComponentProps } from 'react-loadable';
 
 import { messages } from '@atlaskit/editor-common/extensions';

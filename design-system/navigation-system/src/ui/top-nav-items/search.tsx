@@ -13,7 +13,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useIsFhsEnabled } from '../fhs-rollout/use-is-fhs-enabled';
 
-import { IconButton } from './themed/migration';
+import { IconButton } from './themed/icon-button';
 
 const styles = cssMap({
 	root: {

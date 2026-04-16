@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';

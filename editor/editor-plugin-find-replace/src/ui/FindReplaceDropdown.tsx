@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';

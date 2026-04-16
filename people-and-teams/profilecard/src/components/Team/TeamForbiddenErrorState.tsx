@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import EmptyState from '@atlaskit/empty-state';
 

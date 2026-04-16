@@ -8,14 +8,15 @@ import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
 
-import { useSkipLinkInternal } from '../../context/skip-links/skip-links-context';
+import { useSkipLinkInternal } from '../../context/skip-links/use-skip-link-internal';
 import { useIsFhsEnabled } from '../fhs-rollout/use-is-fhs-enabled';
 
 import { bannerMountedVar, localSlotLayers, UNSAFE_bannerVar } from './constants';
+import { DangerouslyHoistCssVarToDocumentRoot } from './dangerously-hoist-css-var-to-document-root';
+import { HoistCssVarToLocalGrid } from './hoist-css-var-to-local-grid';
 import { DangerouslyHoistSlotSizes } from './hoist-slot-sizes-context';
-import { DangerouslyHoistCssVarToDocumentRoot, HoistCssVarToLocalGrid } from './hoist-utils';
-import { useLayoutId } from './id-utils';
 import type { CommonSlotProps } from './types';
+import { useLayoutId } from './use-layout-id';
 
 const styles = cssMap({
 	root: {

@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { ASC } from '../internal/constants';
-import { getPageRows, validateSortKey } from '../internal/helpers';
+import { getPageRows } from '../internal/get-page-rows';
+import { validateSortKey } from '../internal/validate-sort-key';
 import { type HeadType, type RowCellType, type RowType, type SortOrderType } from '../types';
 
 const getSortingCellValue = (cells: RowCellType[], head: HeadType, sortKey: string) => {

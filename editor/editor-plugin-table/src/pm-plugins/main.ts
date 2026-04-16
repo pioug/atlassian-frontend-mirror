@@ -1,4 +1,5 @@
-import type { IntlShape } from 'react-intl-next';
+import { bind, type UnbindFn } from 'bind-event-listener';
+import type { IntlShape } from 'react-intl';
 
 import {
 	ACTION,
@@ -82,6 +83,7 @@ import {
 	isHeaderRowRequired,
 	transformSliceTableLayoutDefaultToCenter,
 } from './utils/paste';
+import { applyMeasuredWidthToAllTables, isContentModeSupported } from './utils/tableMode';
 
 export const createPlugin = (
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
@@ -106,6 +108,8 @@ export const createPlugin = (
 ) => {
 	const state = createPluginState(dispatch, {
 		pluginConfig,
+		isCommentEditor,
+		isChromelessEditor,
 		isTableHovered: false,
 		insertColumnButtonIndex: undefined,
 		insertRowButtonIndex: undefined,
@@ -213,6 +217,36 @@ export const createPlugin = (
 		view: (editorView: EditorView) => {
 			const domAtPos = editorView.domAtPos.bind(editorView);
 			editorViewRef = editorView;
+			let contentModeSizeTableId: number | null = null;
+			let focusListenerBinding: UnbindFn | null = null;
+
+			if (
+				pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode !== 'view' &&
+				isContentModeSupported({
+					allowColumnResizing: !!pluginConfig.allowColumnResizing,
+					allowTableResizing: !!pluginConfig.allowTableResizing,
+					isFullPageEditor: !isChromelessEditor && !isCommentEditor,
+				}) &&
+				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true)
+			) {
+				focusListenerBinding = bind(editorView.dom, {
+					type: 'focus',
+					listener: () => {
+						if (contentModeSizeTableId) {
+							return;
+						}
+						contentModeSizeTableId = requestAnimationFrame(() => {
+							if (!editorViewRef) {
+								return;
+							}
+							applyMeasuredWidthToAllTables(editorViewRef, pluginInjectionApi);
+						});
+					},
+					options: {
+						once: true,
+					},
+				});
+			}
 
 			return {
 				update: (view: EditorView, prevState: EditorState) => {
@@ -304,6 +338,10 @@ export const createPlugin = (
 					} else if (pluginState.isResizeHandleWidgetAdded) {
 						removeResizeHandleDecorations()(state, dispatch);
 					}
+				},
+				destroy: () => {
+					contentModeSizeTableId && cancelAnimationFrame(contentModeSizeTableId);
+					focusListenerBinding && focusListenerBinding();
 				},
 			};
 		},

@@ -161,4 +161,20 @@ export type {
 
 export type { ChartColorTokens } from './types';
 
-export type { FrameProps } from './components/frame';
+export type {
+	Option,
+	ButtonAppearance,
+	ForgeChildren,
+	ForgeElement,
+	ForgeNode,
+	FrameProps,
+	TFrame,
+	LinkProps,
+	TLink,
+	UserPickerProps,
+	TUserPicker,
+	Space,
+	UserGroupProps,
+	TUserGroup,
+	UserPickerValue,
+} from './components/base';

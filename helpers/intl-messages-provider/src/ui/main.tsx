@@ -17,12 +17,12 @@ export default function IntlMessagesProvider({
 
 	/**
 	 * IntlProvider does not inherit from upstream IntlProviders,
-	 * we lookup messages in the context and pass them downstream
-	 * This prevents the missing messages error
+	 * we lookup messages in the Intl context (via useSafeIntl) and pass them downstream
+	 * This prevents the missing messages error.
 	 */
 	const mergedMessages = useMemo(() => {
 		return { ...defaultMessages, ...intl.messages, ...messages };
-	}, [intl, messages, defaultMessages]);
+	}, [intl.messages, messages, defaultMessages]);
 
 	return (
 		<IntlProvider

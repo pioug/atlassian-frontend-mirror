@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { indent as toggleIndentKeymap, formatShortcut } from '@atlaskit/editor-common/keymaps';
 import { indentationMessages } from '@atlaskit/editor-common/messages';

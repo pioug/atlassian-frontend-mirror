@@ -1,7 +1,7 @@
 import { isFileIdentifier } from '@atlaskit/media-client';
 import { withMediaAnalyticsContext } from '@atlaskit/media-common';
 import React, { useEffect } from 'react';
-import { IntlProvider, type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { IntlProvider, type WrappedComponentProps, injectIntl } from 'react-intl';
 import { type CardProps } from '../types';
 import { ExternalImageCard } from './externalImageCard';
 import { FileCard } from './fileCard';

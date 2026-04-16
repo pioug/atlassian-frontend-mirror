@@ -180,55 +180,55 @@ export const mockFieldValuesResponse: FieldValuesResponse = {
 export const mockUserRecommendationsResponse: {
 	recommendedUsers: (
 		| {
-				entityType: string;
-				id: string;
-				name: string;
-				avatarUrl: string;
-				nickname: string;
-				matchPositions: {};
 				accessLevel: string;
 				accountStatus: string;
-				notMentionable: boolean;
-				userType: string;
 				attributes: {
 					isConfluenceExternalCollaborator: boolean;
 				};
+				avatarUrl: string;
 				email?: undefined;
+				entityType: string;
+				id: string;
 				locale?: undefined;
+				matchPositions: {};
+				name: string;
+				nickname: string;
+				notMentionable: boolean;
+				userType: string;
 		  }
 		| {
-				entityType: string;
-				id: string;
-				name: string;
+				accessLevel: string;
+				accountStatus: string;
+				attributes: {
+					isConfluenceExternalCollaborator: boolean;
+				};
+				avatarUrl: string;
 				email: string;
-				avatarUrl: string;
-				nickname: string;
-				matchPositions: {};
-				accessLevel: string;
-				accountStatus: string;
-				notMentionable: boolean;
-				locale: string;
-				userType: string;
-				attributes: {
-					isConfluenceExternalCollaborator: boolean;
-				};
-		  }
-		| {
 				entityType: string;
 				id: string;
-				name: string;
-				avatarUrl: string;
-				nickname: string;
+				locale: string;
 				matchPositions: {};
+				name: string;
+				nickname: string;
+				notMentionable: boolean;
+				userType: string;
+		  }
+		| {
 				accessLevel: string;
 				accountStatus: string;
-				notMentionable: boolean;
-				locale: string;
-				userType: string;
 				attributes: {
 					isConfluenceExternalCollaborator: boolean;
 				};
+				avatarUrl: string;
 				email?: undefined;
+				entityType: string;
+				id: string;
+				locale: string;
+				matchPositions: {};
+				name: string;
+				nickname: string;
+				notMentionable: boolean;
+				userType: string;
 		  }
 	)[];
 } = {

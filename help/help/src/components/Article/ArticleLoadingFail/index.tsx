@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@atlaskit/button';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 import {
 	useAnalyticsEvents,
 	type UIAnalyticsEvent,

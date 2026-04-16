@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';

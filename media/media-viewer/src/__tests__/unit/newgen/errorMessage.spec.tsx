@@ -5,7 +5,7 @@ jest.mock('../../../analytics/events/operational/previewUnsupported', () => ({
 	createPreviewUnsupportedEvent: jest.fn(),
 }));
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { mount } from 'enzyme';
 import * as ufoWrapper from '../../../analytics/ufoExperiences';
 import { ErrorMessage } from '../../../errorMessage';

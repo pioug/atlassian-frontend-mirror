@@ -1,5 +1,5 @@
 // Common Translations will live here
-import { defineMessages } from 'react-intl-next';
+import { defineMessages } from 'react-intl';
 
 export const messages: {
 	unorderedList: {

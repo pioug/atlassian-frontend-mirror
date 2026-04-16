@@ -8,7 +8,7 @@ jest.mock('@atlaskit/media-ui', () => {
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { smallImage } from '@atlaskit/media-test-helpers';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import * as isImageRemoteModule from '../../image-cropper/isImageRemote';
 import * as utilModule from '../../util';
 import ImageNavigator, { viewport } from '../../image-navigator';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../../messages';

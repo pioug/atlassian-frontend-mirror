@@ -41,6 +41,10 @@ import {
 	deletedTraditionalCellOverlayStyle,
 } from './colorSchemes/traditional';
 
+const displayNoneStyle = convertToInlineCss({
+	display: 'none',
+});
+
 const getNodeClass = (name: string) => {
 	switch (name) {
 		case 'extension':
@@ -221,13 +225,29 @@ export const createBlockChangedDecoration = ({
 	colorScheme,
 	isInserted = true,
 	isActive = false,
+	shouldHideDeleted = false,
 }: {
 	change: { from: number; name: string; to: number };
 	colorScheme?: ColorScheme;
 	isActive?: boolean;
 	isInserted?: boolean;
+	shouldHideDeleted?: boolean;
 }): Decoration[] => {
 	const decorations: Decoration[] = [];
+
+	if (shouldHideDeleted) {
+		return [
+			Decoration.node(
+				change.from,
+				change.to,
+				{ style: displayNoneStyle },
+				{ key: 'diff-block', nodeName: change.name },
+			),
+		];
+	}
+
+	let style: string | undefined;
+
 	if (
 		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) &&
 		['tableCell', 'tableHeader'].includes(change.name)
@@ -248,9 +268,10 @@ export const createBlockChangedDecoration = ({
 			}),
 		);
 	}
-	let style = getBlockNodeStyle({ nodeName: change.name, colorScheme, isActive });
 	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
 		style = getBlockNodeStyle({ nodeName: change.name, colorScheme, isInserted, isActive });
+	} else {
+		style = getBlockNodeStyle({ nodeName: change.name, colorScheme, isActive });
 	}
 	const className = getNodeClass(change.name);
 	if (fg('platform_editor_show_diff_scroll_navigation')) {

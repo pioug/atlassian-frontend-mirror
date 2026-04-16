@@ -1,12 +1,69 @@
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
-import React from 'react';
+/* eslint-disable @repo/internal/react/require-jsdoc */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import React, { type FC, forwardRef, type HTMLProps, type ReactNode } from 'react';
+
+import { css, jsx } from '@compiled/react';
 
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { LARGE } from '../internal/constants';
-import { Container, SpinnerBackdrop, SpinnerContainer } from '../styled/loading-container-advanced';
 import type { SpinnerSizeType } from '../types';
+
+const containerStyles = css({
+	position: 'relative',
+	marginBlockEnd: token('space.300'),
+});
+
+type ContainerProps = HTMLProps<HTMLDivElement> & { testId?: string };
+
+const Container: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<ContainerProps> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, ContainerProps>((props, ref) => {
+	const { children, testId, ...rest } = props;
+	return (
+		<div css={containerStyles} {...rest} data-testid={testId} ref={ref}>
+			{children}
+		</div>
+	);
+});
+
+const spinnerBackdropStyles = css({
+	display: 'flex',
+	position: 'absolute',
+	inset: 0,
+	alignItems: 'center',
+	justifyContent: 'center',
+	pointerEvents: 'none',
+});
+
+type SpinnerBackdropProps = {
+	testId?: string;
+	children: ReactNode;
+};
+
+const SpinnerBackdrop: FC<SpinnerBackdropProps> = ({ children, testId }) => (
+	<div css={spinnerBackdropStyles} data-testid={testId && `${testId}--spinner-backdrop`}>
+		{children}
+	</div>
+);
+
+const spinnerContainerStyles = css({
+	position: 'relative',
+	insetBlockStart: 0,
+});
+
+const SpinnerContainer: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<HTMLProps<HTMLDivElement>> & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(({ children }, ref) => (
+	<div css={spinnerContainerStyles} ref={ref}>
+		{children}
+	</div>
+));
 
 interface LoadingContainerAdvancedProps {
 	children?: React.ReactNode;

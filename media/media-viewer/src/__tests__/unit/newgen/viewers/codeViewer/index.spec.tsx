@@ -10,7 +10,7 @@ jest.mock('@atlaskit/media-client', () => {
 });
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import {
 	globalMediaEventEmitter,
 	type MediaViewedEventPayload,

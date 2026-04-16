@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-floating-toolbar",
-	"version": "10.0.34",
+	"version": "11.0.0",
 	"description": "Floating toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -54,19 +54,20 @@
 		"bind-event-listener": "root:*",
 		"lodash": "root:*",
 		"raf-schd": "root:*",
-		"react-intl-next": "root:*",
 		"react-loadable": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-dom": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@testing-library/dom": "root:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"enzyme": "root:*",
+		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

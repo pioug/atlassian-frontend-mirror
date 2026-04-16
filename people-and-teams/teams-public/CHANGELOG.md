@@ -1,5 +1,31 @@
 # @atlaskit/teams-public
 
+## 1.0.0
+
+### Major Changes
+
+- [`fbc8a506b5b08`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fbc8a506b5b08) -
+  Removed `react-intl-next` alias and replaced all usages with `react-intl` directly.
+
+  What changed: The `react-intl-next` npm alias (which resolved to `react-intl@^5`) has been
+  removed. All imports now reference `react-intl` directly, and `peerDependencies` have been updated
+  to `"^5.25.1 || ^6.0.0 || ^7.0.0"`.
+
+  How consumer should update their code: Ensure `react-intl` is installed at a version satisfying
+  `^5.25.1 || ^6.0.0 || ^7.0.0`. If your application was using `react-intl-next` as an npm alias, it
+  can be safely removed. Replace any remaining `react-intl-next` imports with `react-intl`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.74.4
+
+### Patch Changes
+
+- [`07762e36b9ca8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07762e36b9ca8) -
+  Mark old add-container-card as deprecated
+
 ## 0.74.3
 
 ### Patch Changes

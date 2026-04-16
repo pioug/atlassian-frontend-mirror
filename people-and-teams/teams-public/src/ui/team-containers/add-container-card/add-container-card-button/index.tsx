@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { defineMessages, FormattedMessage } from 'react-intl-next';
+import { defineMessages, FormattedMessage } from 'react-intl';
 
 import { Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 

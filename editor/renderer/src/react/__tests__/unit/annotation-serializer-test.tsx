@@ -7,7 +7,7 @@ import { ReactSerializer } from '../../../index';
 import AnnotationComponent from '../../marks/annotation';
 import { MarkElement as AnnotationMark } from '../../../ui/annotations/element';
 import { simpleDocument as doc } from './__fixtures__/documents';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 describe('Renderer - ReactSerializer - AnnotationMark', () => {
 	let docFromSchema: PMNode;

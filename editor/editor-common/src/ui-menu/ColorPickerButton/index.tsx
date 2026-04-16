@@ -6,7 +6,7 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import type { WithAnalyticsEventsProps, WithContextProps } from '@atlaskit/analytics-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';

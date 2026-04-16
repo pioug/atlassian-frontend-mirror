@@ -126,8 +126,9 @@ function extractCallArgs(
 	node: TSESTree.CallExpression,
 	programBody: TSESTree.Statement[],
 	variableCache: Map<string, string | null>,
+	argOffset: number = 0,
 ): CallArgs | null {
-	if (node.arguments.length < 3) {
+	if (node.arguments.length < argOffset + 3) {
 		return null;
 	}
 
@@ -141,9 +142,9 @@ function extractCallArgs(
 		return null;
 	}
 
-	const groupId = resolveArg(node.arguments[0]);
-	const packageId = resolveArg(node.arguments[1]);
-	const exampleId = resolveArg(node.arguments[2]);
+	const groupId = resolveArg(node.arguments[argOffset]);
+	const packageId = resolveArg(node.arguments[argOffset + 1]);
+	const exampleId = resolveArg(node.arguments[argOffset + 2]);
 
 	if (!groupId || !packageId || !exampleId) {
 		return null;
@@ -300,19 +301,26 @@ const rule: Rule.RuleModule = {
 					return;
 				}
 				const node = estreeNode as TSESTree.CallExpression;
-				// Only handle `<anything>.visitExample(...)` calls
+
+				let calleeIdentifier: TSESTree.Identifier | null = null;
+				let argOffset = 0;
+
 				if (
-					node.callee.type !== AST_NODE_TYPES.MemberExpression ||
-					node.callee.property.type !== AST_NODE_TYPES.Identifier ||
-					node.callee.property.name !== 'visitExample'
+					node.callee.type === AST_NODE_TYPES.MemberExpression &&
+					node.callee.property.type === AST_NODE_TYPES.Identifier &&
+					node.callee.property.name === 'visitExample'
 				) {
+					calleeIdentifier = node.callee.property;
+				} else if (
+					node.callee.type === AST_NODE_TYPES.Identifier &&
+					node.callee.name === 'visitMockedExample'
+				) {
+					calleeIdentifier = node.callee;
+					argOffset = 1; // first arg is `page`
+				} else {
 					return;
 				}
 
-				// Narrow callee — we've confirmed property is an Identifier above
-				const callee = node.callee as TSESTree.MemberExpression & {
-					property: TSESTree.Identifier;
-				};
 				// reportCallee is typed as estree.Node for context.report compatibility
 				const reportCallee = estreeNode.callee;
 
@@ -320,7 +328,7 @@ const rule: Rule.RuleModule = {
 
 				// ── Case 1: No generic type parameter ────────────────────────────────
 				if (genericType === null) {
-					const args = extractCallArgs(node, programBody, variableCache);
+					const args = extractCallArgs(node, programBody, variableCache, argOffset);
 					context.report({
 						node: reportCallee,
 						messageId: 'missingTypeofImport',
@@ -338,7 +346,7 @@ const rule: Rule.RuleModule = {
 								return null;
 							}
 							const importPath = computeRelativeImportPath(filename, examplePath);
-							const [start, end] = callee.property.range!;
+							const [start, end] = calleeIdentifier!.range!;
 							return fixer.insertTextAfterRange([start, end], `<typeof import('${importPath}')>`);
 						},
 					});
@@ -385,7 +393,7 @@ const rule: Rule.RuleModule = {
 				}
 
 				// Validate that the import path matches the arguments
-				const args = extractCallArgs(node, programBody, variableCache);
+				const args = extractCallArgs(node, programBody, variableCache, argOffset);
 				if (!args) {
 					// Dynamic arguments — can't validate statically
 					return;

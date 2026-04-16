@@ -10,10 +10,10 @@ import { cssMap, jsx } from '@compiled/react';
 import { media } from '@atlaskit/primitives/responsive';
 
 import { localSlotLayers, UNSAFE_ribbonVar } from './constants';
+import { DangerouslyHoistCssVarToDocumentRoot } from './dangerously-hoist-css-var-to-document-root';
 import { DangerouslyHoistSlotSizes } from './hoist-slot-sizes-context';
-import { DangerouslyHoistCssVarToDocumentRoot } from './hoist-utils';
-import { useLayoutId } from './id-utils';
 import type { CommonSlotProps } from './types';
+import { useLayoutId } from './use-layout-id';
 
 const styles = cssMap({
 	root: {

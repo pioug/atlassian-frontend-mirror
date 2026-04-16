@@ -3,7 +3,7 @@ jest.mock('../../../../../utils/isIE', () => ({
 }));
 
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { render, screen, waitFor } from '@testing-library/react';
 import { type ProcessedFileState } from '@atlaskit/media-client';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';

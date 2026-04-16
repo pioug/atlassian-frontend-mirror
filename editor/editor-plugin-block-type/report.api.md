@@ -23,7 +23,7 @@ import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import type { MessageDescriptor } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 
@@ -115,7 +115,7 @@ export type TextBlockTypes =
 ```json
 {
 	"react": "^16.8.0",
-	"react-intl-next": "npm:react-intl@^5.18.1"
+	"react-intl": "npm:react-intl@^5.18.1"
 }
 ```
 

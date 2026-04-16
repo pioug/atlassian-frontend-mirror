@@ -3,7 +3,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button';
 
 import * as Styled from './styled';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 import { footerMessages } from '../../messages';
 
 interface FooterProps {

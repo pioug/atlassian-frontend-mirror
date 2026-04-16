@@ -20,6 +20,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { TABLE_MAX_WIDTH, TABLE_FULL_WIDTH } from './table-resizing/utils/consts';
 import { ALIGN_START } from './utils/alignment';
+import { isTableInContentMode } from './utils/tableMode';
 
 type TableWidthPluginState = {
 	resizing: boolean;
@@ -91,6 +92,18 @@ const createPlugin = (
 
 			if (isReplaceDocumentOperation && !isCommentEditor) {
 				newState.doc.forEach((node, offset) => {
+					if (
+						isTableInContentMode({
+							node,
+							allowColumnResizing: true,
+							allowTableResizing: true,
+							isFullPageEditor: true,
+							isTableNested: false,
+						})
+					) {
+						return;
+					}
+
 					if (node.type === table) {
 						const width = node.attrs.width;
 						const layout = node.attrs.layout;

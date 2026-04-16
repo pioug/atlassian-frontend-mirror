@@ -1,2 +1,2 @@
-export { useSkipLinkId } from '../../ui/page-layout/id-utils';
-export { useSkipLink } from '../../context/skip-links/skip-links-context';
+export { useSkipLinkId } from '../../ui/page-layout/use-skip-link-id';
+export { useSkipLink } from '../../context/skip-links/use-skip-link';

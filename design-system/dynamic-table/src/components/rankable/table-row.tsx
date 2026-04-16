@@ -4,7 +4,7 @@ import React from 'react';
 import { Draggable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
 
 import withDimensions, { type State, type WithDimensionsProps } from '../../hoc/with-dimensions';
-import { inlineStylesIfRanking } from '../../internal/helpers';
+import { inlineStylesIfRanking } from '../../internal/inline-styles-if-ranking';
 import { RankableTableBodyRow } from '../../styled/rankable/table-row';
 import { type HeadType, type RowType } from '../../types';
 

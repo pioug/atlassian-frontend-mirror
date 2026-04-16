@@ -1449,13 +1449,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-03-05
-	platform_editor_table_resizer_extended_zone: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-03-10
 	platform_editor_fix_editor_unhandled_type_errors: {
 		defaultValue: boolean;
@@ -1586,6 +1579,18 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	platform_editor_table_fit_to_content_auto_convert: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	platform_editor_table_fit_to_content_on_demand: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-11
 	platform_editor_disable_last_node_para: {
 		defaultValue: boolean;
@@ -1698,6 +1703,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-15
+	platform_editor_ai_no_stream_skip_pacer: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-08
 	platform_editor_drag_handle_keyboard_a11y: {
 		defaultValue: boolean;
@@ -1712,8 +1724,22 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-14
+	improve_3p_smart_link_resolve_rate: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-12
 	platform_editor_media_reliability_enhancements: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-04-14
+	platform_editor_ai_rename_add_polish: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -3326,14 +3352,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-05
-	platform_editor_table_resizer_extended_zone: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_table_resizer_extended_zone',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-10
 	platform_editor_insert_location_check: createBooleanExperiment({
 		productKeys: {
@@ -3444,6 +3462,20 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_are_nodes_equal_ignore_mark_order',
 			jira: 'platform_editor_are_nodes_equal_ignore_mark_order',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	platform_editor_table_fit_to_content_auto_convert: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_fit_to_content_auto_convert',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	platform_editor_table_fit_to_content_on_demand: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_fit_to_content_on_demand',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3612,6 +3644,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-04-15
+	platform_editor_ai_no_stream_skip_pacer: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_no_stream_skip_pacer',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-04-01
 	platform_editor_layout_column_resize_handle: createBooleanExperiment({
 		productKeys: {
@@ -3662,6 +3702,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-04-14
+	improve_3p_smart_link_resolve_rate: createBooleanExperiment({
+		productKeys: {
+			confluence: 'improve_3p_smart_link_resolve_rate',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-04-01
 	platform_editor_hydration_skip_react_portal: createBooleanExperiment({
 		productKeys: {
@@ -3699,6 +3747,14 @@ export const editorExperimentsConfig: {
 	platform_editor_media_reliability_enhancements: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_media_reliability_enhancements',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-14
+	platform_editor_ai_rename_add_polish: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_rename_add_polish',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

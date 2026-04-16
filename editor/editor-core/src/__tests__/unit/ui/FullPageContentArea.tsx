@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import FeatureGates from '@atlaskit/feature-gate-js-client';

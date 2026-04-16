@@ -5,7 +5,7 @@ import {
 	TimeRangeWrapper as CompiledTimeRangeWrapper,
 } from './styled-compiled';
 import { formatDuration, secondsToTime } from '../formatDuration';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl';
 import { messages } from '../messages';
 import { BufferedTime, CurrentTimeLine, CurrentTimeLineThumb, TimeLine } from './styled';
 

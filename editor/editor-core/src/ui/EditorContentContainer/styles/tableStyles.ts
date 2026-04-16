@@ -91,3 +91,31 @@ export const tableEmptyRowStyles: SerializedStyles = css({
 		},
 	},
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const tableContentModeStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.pm-table-resizer-container:has(table[data-initial-width-mode="content"])': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		width: 'max-content !important',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'--ak-editor-table-width': 'max-content',
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.resizer-item:has(table[data-initial-width-mode="content"])': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		width: 'max-content !important',
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror .pm-table-wrapper table[data-initial-width-mode="content"]': {
+		tableLayout: 'auto',
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror .pm-table-wrapper table[data-initial-width-mode="content"] > colgroup > col': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		width: 'unset !important',
+	},
+});

@@ -8,7 +8,7 @@ import { token } from '@atlaskit/tokens';
 import { AvatarList, type Avatar } from '../avatar-list';
 import EditorMoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Button from '@atlaskit/button/standard-button';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import { messages } from '@atlaskit/media-ui';
 import { forwardRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 

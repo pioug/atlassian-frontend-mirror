@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { blockControlsMessages as messages } from '@atlaskit/editor-common/messages';

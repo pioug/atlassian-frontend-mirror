@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
 import { cssMap, cx } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { pasteOptionsToolbarMessages as messages } from '@atlaskit/editor-common/messages';

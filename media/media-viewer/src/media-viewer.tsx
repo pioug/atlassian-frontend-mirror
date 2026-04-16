@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect, useRef } from 'react';
 import { type SyntheticEvent } from 'react';
 import { type Identifier } from '@atlaskit/media-client';
 import { type MediaFeatureFlags } from '@atlaskit/media-common';
-import { IntlProvider, injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { IntlProvider, injectIntl, type WrappedComponentProps } from 'react-intl';
 import { Shortcut } from '@atlaskit/media-ui';
 import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { fireAnalytics } from './analytics';

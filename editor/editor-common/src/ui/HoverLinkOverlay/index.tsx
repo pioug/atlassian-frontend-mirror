@@ -8,7 +8,7 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports -- jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {

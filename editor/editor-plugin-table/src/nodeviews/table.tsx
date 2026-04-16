@@ -20,11 +20,13 @@ import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { pluginConfig as getPluginConfig } from '../pm-plugins/create-plugin-config';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
 import { isTableNested, tablesHaveDifferentColumnWidths } from '../pm-plugins/utils/nodes';
+import { isTableInContentMode } from '../pm-plugins/utils/tableMode';
 import type { PluginInjectionAPI } from '../types';
 
 import { TableComponentWithSharedState } from './TableComponentWithSharedState';
@@ -263,7 +265,16 @@ export default class TableView extends ReactNodeView<Props> {
 		if (!this.table) {
 			return; // width / attribute application to actual table will happen later when table is set
 		}
-		const attrs = tableAttributes(node);
+		const attrs = tableAttributes(node) as Record<string, string>;
+
+		if (expValEqualsNoExposure('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true)) {
+			if (isTableInContentMode({ node, allowColumnResizing: !!this.reactComponentProps.allowColumnResizing, allowTableResizing: !!this.reactComponentProps.allowTableResizing, isFullPageEditor: !this.reactComponentProps.options?.isCommentEditor && !this.reactComponentProps.options?.isChromelessEditor, isTableNested: isTableNested(this.view.state, this.getPos()) }) && expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true)) {
+				attrs['data-initial-width-mode'] = 'content';
+			} else {
+				this.table.removeAttribute('data-initial-width-mode');
+			}
+		}
+
 		(Object.keys(attrs) as Array<keyof typeof attrs>).forEach((attr) => {
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion

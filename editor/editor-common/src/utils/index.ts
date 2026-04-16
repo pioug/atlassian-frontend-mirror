@@ -30,15 +30,6 @@ export {
 	 * @private
 	 * @deprecated
 	 *
-	 * Please use `@atlaskit/editor-common/browser` entry-point instead.
-	 */
-	browser,
-} from './browser';
-export {
-	/**
-	 * @private
-	 * @deprecated
-	 *
 	 * Please use `@atlaskit/editor-common/error-reporter` entry-point instead.
 	 */
 	ErrorReporter,

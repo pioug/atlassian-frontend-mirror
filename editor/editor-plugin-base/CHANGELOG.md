@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-base
 
+## 10.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.31
+
+### Patch Changes
+
+- [`a0f40da6cf877`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0f40da6cf877) -
+  Preserve fontSize mark when pressing Enter at end of paragraph to create new paragraph
+- Updated dependencies
+
 ## 9.0.30
 
 ### Patch Changes

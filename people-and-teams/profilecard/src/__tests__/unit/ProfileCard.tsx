@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, fireEvent, within } from '@testing-library/react';
 import { mount } from 'enzyme';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';

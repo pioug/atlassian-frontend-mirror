@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { RevisionPayload, VCRawDataType, VCResult } from '../common/vc/types';
 import { isVCRevisionEnabled } from '../config';
 
@@ -19,6 +21,20 @@ export class VCObserverWrapper implements VCObserverInterface {
 	private newVCObserver: VCObserverNew | null;
 	private ssrPlaceholderHandler: SSRPlaceholderHandlers;
 
+	/**
+	 * Returns true if the new VC observer pipeline should be active.
+	 * This is needed even when no client-side revisions are enabled, because
+	 * the raw-handler must still collect observations for server-side TTVC
+	 * recalculation when the server-side sync gate is on.
+	 */
+	private static shouldUseNewVCObserver(experienceKey?: string): boolean {
+		return (
+			isVCRevisionEnabled('fy25.03', experienceKey) ||
+			isVCRevisionEnabled('fy26.04', experienceKey) ||
+			fg('platform_ufo_vc_raw_handler_only')
+		);
+	}
+
 	constructor(opts: VCObserverOptions = {}) {
 		this.newVCObserver = null;
 		this.oldVCObserver = null;
@@ -28,7 +44,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 			enablePageLayoutPlaceholder: opts.ssrEnablePageLayoutPlaceholder ?? false,
 		});
 
-		if (isVCRevisionEnabled('fy25.03') || isVCRevisionEnabled('fy26.04')) {
+		if (VCObserverWrapper.shouldUseNewVCObserver()) {
 			this.newVCObserver = new VCObserverNew({
 				selectorConfig: opts.selectorConfig,
 				isPostInteraction: opts.isPostInteraction,
@@ -80,10 +96,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 			this.oldVCObserver?.start({ startTime });
 		}
 
-		if (
-			isVCRevisionEnabled('fy25.03', experienceKey) ||
-			isVCRevisionEnabled('fy26.04', experienceKey)
-		) {
+		if (VCObserverWrapper.shouldUseNewVCObserver(experienceKey)) {
 			this.newVCObserver?.start({ startTime });
 		}
 
@@ -99,10 +112,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 			this.oldVCObserver?.stop();
 		}
 
-		if (
-			isVCRevisionEnabled('fy25.03', experienceKey) ||
-			isVCRevisionEnabled('fy26.04', experienceKey)
-		) {
+		if (VCObserverWrapper.shouldUseNewVCObserver(experienceKey)) {
 			this.newVCObserver?.stop();
 		}
 
@@ -129,9 +139,8 @@ export class VCObserverWrapper implements VCObserverInterface {
 				? await this.oldVCObserver?.getVCResult(param)
 				: {};
 
-		const v3v4Result =
-			isVCRevisionEnabled('fy25.03', experienceKey) || isVCRevisionEnabled('fy26.04', experienceKey)
-				? await this.newVCObserver?.getVCResult({
+		const v3v4Result = VCObserverWrapper.shouldUseNewVCObserver(experienceKey)
+			? await this.newVCObserver?.getVCResult({
 						start: param.start,
 						stop: param.stop,
 						interactionId: param.interactionId,

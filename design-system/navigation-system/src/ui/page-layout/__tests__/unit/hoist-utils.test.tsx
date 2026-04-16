@@ -4,7 +4,8 @@ import { render, screen } from '@testing-library/react';
 
 import { media } from '@atlaskit/primitives/responsive';
 
-import { DangerouslyHoistCssVarToDocumentRoot, HoistCssVarToLocalGrid } from '../../hoist-utils';
+import { DangerouslyHoistCssVarToDocumentRoot } from '../../dangerously-hoist-css-var-to-document-root';
+import { HoistCssVarToLocalGrid } from '../../hoist-css-var-to-local-grid';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('HoistCssVarToLocalGrid', () => {

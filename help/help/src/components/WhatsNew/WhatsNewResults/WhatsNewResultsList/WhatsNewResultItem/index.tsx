@@ -4,7 +4,7 @@ import {
 	type UIAnalyticsEvent,
 	AnalyticsContext,
 } from '@atlaskit/analytics-next';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
 import { type WhatsNewArticleItem, WHATS_NEW_ITEM_TYPES } from '../../../../../model/WhatsNew';
 import { getTypeIcon, getTypeTitle } from '../../../../../util';

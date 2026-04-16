@@ -29,7 +29,10 @@ const fixedActionBarStyle = css({
 	opacity: 1,
 });
 
-export const ActionsBarWrapper = (props: ActionBarWrapperProps): JSX.Element => {
+export const ActionsBarWrapper: {
+    (props: ActionBarWrapperProps): JSX.Element;
+    displayName: string;
+} = (props: ActionBarWrapperProps): JSX.Element => {
 	const a11yProps = fg('platform_media_a11y_suppression_fixes')
 		? {
 				role: 'presentation' as const,

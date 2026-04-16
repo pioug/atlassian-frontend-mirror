@@ -8,8 +8,8 @@ import { useCallback, useContext, useLayoutEffect, useMemo, useState } from 'rea
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports, jsdoc/require-description -- Ignored via go/DSP-18766; jsdoc debt surfaced by this mechanical PR */
 import { css, jsx } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
-import { useIntl } from 'react-intl-next';
-import type { MessageDescriptor } from 'react-intl-next';
+import { useIntl } from 'react-intl';
+import type { MessageDescriptor } from 'react-intl';
 import { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';

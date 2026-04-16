@@ -7,7 +7,7 @@ import React, { useEffect, useRef, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import rafSchedule from 'raf-schd';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { messages } from '@atlaskit/editor-common/floating-toolbar';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';

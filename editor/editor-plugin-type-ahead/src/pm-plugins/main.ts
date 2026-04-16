@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { InsertTypeAheadStep } from '@atlaskit/adf-schema/steps';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';

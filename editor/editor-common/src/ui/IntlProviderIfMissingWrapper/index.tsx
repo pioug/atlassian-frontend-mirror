@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { IntlContext, IntlProvider } from 'react-intl-next';
+import { IntlContext, IntlProvider } from 'react-intl';
 
 interface WrapProps {
 	children: JSX.Element;

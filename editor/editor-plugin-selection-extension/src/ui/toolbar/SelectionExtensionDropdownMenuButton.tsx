@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { injectIntl } from 'react-intl-next';
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 
 import { selectionExtensionMessages } from '@atlaskit/editor-common/messages';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';

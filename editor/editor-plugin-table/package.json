@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "18.1.33",
+	"version": "20.0.0",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -62,6 +62,7 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@emotion/react": "root:*",
+		"bind-event-listener": "root:*",
 		"classnames": "root:*",
 		"lodash": "root:*",
 		"memoize-one": "root:*",
@@ -72,7 +73,7 @@
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"exports": {
 		"./types": "./src/types/index.ts",
@@ -173,5 +174,8 @@
 		"platform_editor_max_width_default_width": {
 			"type": "boolean"
 		}
+	},
+	"devDependencies": {
+		"react-intl": "root:*"
 	}
 }

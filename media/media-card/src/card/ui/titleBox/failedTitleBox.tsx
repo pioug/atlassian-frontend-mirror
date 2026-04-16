@@ -4,7 +4,7 @@
  */
 import { jsx, css } from '@compiled/react';
 import React from 'react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import EditorWarningIcon from '@atlaskit/icon/core/status-warning';
 import { messages } from '@atlaskit/media-ui';

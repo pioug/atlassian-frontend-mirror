@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import { DatePicker } from '@atlaskit/datetime-picker';
 import type { DateField } from '@atlaskit/editor-common/extensions';

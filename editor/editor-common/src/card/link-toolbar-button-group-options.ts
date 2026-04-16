@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import type { NewCoreIconProps } from '@atlaskit/icon';
 import MinusIcon from '@atlaskit/icon/core/minus';

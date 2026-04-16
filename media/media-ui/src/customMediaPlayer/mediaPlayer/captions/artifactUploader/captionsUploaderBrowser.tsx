@@ -6,7 +6,7 @@ import { createUploadCaptionsFn, UploadCaptionsForm } from './captions';
 import ApiFeedback, { type NotificationTypes } from '../apiFeedback';
 import { type MediaItemDetails } from '@atlaskit/media-client';
 import { messages } from '../../../../messages';
-import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
 import { type MediaTraceContext } from '@atlaskit/media-common';
 
 export type CaptionsUploaderBrowserProps = ArtifactUploaderProps & {

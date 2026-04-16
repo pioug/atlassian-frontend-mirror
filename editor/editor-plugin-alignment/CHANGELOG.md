@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-alignment
 
+## 10.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.26
 
 ### Patch Changes

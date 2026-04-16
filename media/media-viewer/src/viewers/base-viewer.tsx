@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 import { messages } from '@atlaskit/media-ui';
 import deepEqual from 'deep-equal';
 import { type MediaClient, type FileState, globalMediaEventEmitter } from '@atlaskit/media-client';

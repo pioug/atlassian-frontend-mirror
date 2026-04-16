@@ -7,7 +7,7 @@
 
 /* eslint-disable compat/compat */
 
-import { test as base, expect as baseExpect, type Page } from '@af/integration-testing';
+import { test as base, expect as baseExpect, type Page, attachFixtureToPage } from '@af/integration-testing';
 
 import type { WindowWithReactUFOTestGlobals } from './window-type';
 
@@ -18,21 +18,19 @@ const test = base.extend<{
 	pageWithUFODisabled: async ({ browser, baseURL }, use) => {
 		const context = await browser.newContext();
 		const page = await context.newPage();
-
-		// Build URL with ufo_disabled=true
-		const searchParams = new URLSearchParams({
-			groupId: 'react-ufo',
-			packageId: 'atlaskit',
-			exampleId: 'basic-three-sections',
-			isTestRunner: 'true',
-			mode: 'light',
-			ufo_disabled: 'true',
-		});
-
-		const url = `${baseURL}/examples.html?${searchParams.toString()}`;
+		attachFixtureToPage(page, baseURL);
 
 		await page.setViewportSize({ width: 1920, height: 1080 });
-		await page.goto(url, { waitUntil: 'domcontentloaded' });
+
+		// Use visitExample with type import instead of direct goto
+		await page.visitExample<typeof import('../../examples/02-basic-three-sections.tsx')>(
+			'react-ufo',
+			'atlaskit',
+			'basic-three-sections',
+			{
+				ufo_disabled: 'true',
+			}
+		);
 
 		await use(page);
 		await context.close();
@@ -150,20 +148,16 @@ test.describe('UFO Enabled (control test)', () => {
 	test('should send UFO payloads when ufo_disabled is not set', async ({ browser, baseURL }) => {
 		const context = await browser.newContext();
 		const page = await context.newPage();
-
-		// Navigate WITHOUT ufo_disabled (normal behavior)
-		const searchParams = new URLSearchParams({
-			groupId: 'react-ufo',
-			packageId: 'atlaskit',
-			exampleId: 'basic-three-sections',
-			isTestRunner: 'true',
-			mode: 'light',
-		});
-
-		const url = `${baseURL}/examples.html?${searchParams.toString()}`;
+		attachFixtureToPage(page, baseURL);
 
 		await page.setViewportSize({ width: 1920, height: 1080 });
-		await page.goto(url, { waitUntil: 'domcontentloaded' });
+
+		// Navigate WITHOUT ufo_disabled (normal behavior) using visitExample
+		await page.visitExample<typeof import('../../examples/02-basic-three-sections.tsx')>(
+			'react-ufo',
+			'atlaskit',
+			'basic-three-sections',
+		);
 
 		// Wait for TTVC to be ready (this indicates UFO sent a payload)
 		const ttvcReady = page.locator('[data-is-ttvc-ready="true"]');

@@ -6,7 +6,7 @@ import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { getExamplesProviders } from '@af/editor-examples-helpers/utils';
 import { useConfluenceFullPagePreset } from '@af/editor-examples-helpers/example-presets';
-import { IntlProvider, useIntl } from 'react-intl-next';
+import { IntlProvider, useIntl } from 'react-intl';
 import type { DocNode } from '@atlaskit/adf-schema';
 import { EditorSSRRenderer } from '../src';
 

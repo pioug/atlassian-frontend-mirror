@@ -5,7 +5,7 @@
 import React from 'react';
 
 import { render, type RenderResult } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 export const renderWithIntl = (component: React.ReactNode): RenderResult => {
 	return render(<IntlProvider locale="en">{component}</IntlProvider>);

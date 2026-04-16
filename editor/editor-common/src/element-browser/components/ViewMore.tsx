@@ -5,7 +5,7 @@
 import { useEffect, useRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { ButtonItem, Section } from '@atlaskit/menu';

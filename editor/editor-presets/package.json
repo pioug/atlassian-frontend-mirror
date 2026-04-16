@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-presets",
-	"version": "0.2.2",
+	"version": "1.0.0",
 	"license": "Apache-2.0",
 	"description": "Public editor presets for Atlassian Editor containing base configurations for Confluence and other products",
 	"publishConfig": {
@@ -133,7 +133,7 @@
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -195,5 +195,8 @@
 		"confluence_remix_button_right_side_block_fg": {
 			"type": "boolean"
 		}
+	},
+	"devDependencies": {
+		"react-intl": "root:*"
 	}
 }

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-list
 
+## 11.0.1
+
+### Patch Changes
+
+- [`bae5d569f660c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bae5d569f660c) -
+  Prevent flexible list creation when platform_editor_flexible_list_schema is on but
+  platform_editor_flexible_list_indentation is off. Slice normalisation in paste pipeline.
+  appendTransaction normaliser in list plugin.
+
+  Paste plugin detects list-into-list paste and sets a transaction meta to skip closeHistory,
+  keeping the paste and normalisation appendTransaction as a single undo step.
+
+- Updated dependencies
+
+## 11.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.2.15
 
 ### Patch Changes

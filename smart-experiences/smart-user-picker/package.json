@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-user-picker",
-	"version": "9.2.2",
+	"version": "10.0.1",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -78,9 +78,6 @@
 			"type": "boolean"
 		},
 		"smart-user-picker-restrict-to-gate": {
-			"type": "boolean"
-		},
-		"smart-user-picker-attribution-header": {
 			"type": "boolean"
 		},
 		"user_picker_guest_lozenges": {

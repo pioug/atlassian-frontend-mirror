@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { defineMessages, useIntl } from 'react-intl-next';
+import { defineMessages, useIntl } from 'react-intl';
 
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap, cx } from '@atlaskit/css';

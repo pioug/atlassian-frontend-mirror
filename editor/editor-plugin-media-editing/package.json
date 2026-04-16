@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media-editing",
-	"version": "2.0.7",
+	"version": "3.0.0",
 	"description": "MediaEditing plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -44,14 +44,15 @@
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"bind-event-listener": "root:*",
-		"cropperjs": "root:*",
-		"react-intl-next": "root:*"
+		"cropperjs": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
-		"react": "^18.2.0"
+		"react": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"react-intl": "root:*",
 		"typescript": "root:*"
 	},
 	"techstack": {

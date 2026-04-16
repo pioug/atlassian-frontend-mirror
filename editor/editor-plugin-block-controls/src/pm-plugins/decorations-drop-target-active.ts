@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { expandSelectionBounds } from '@atlaskit/editor-common/selection';

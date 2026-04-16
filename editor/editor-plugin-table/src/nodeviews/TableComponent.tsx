@@ -2,8 +2,8 @@ import React from 'react';
 
 import classnames from 'classnames';
 import rafSchedule from 'raf-schd';
-import type { IntlShape } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';

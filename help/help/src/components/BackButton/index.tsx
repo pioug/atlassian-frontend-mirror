@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 import {
 	useAnalyticsEvents,
 	type UIAnalyticsEvent,

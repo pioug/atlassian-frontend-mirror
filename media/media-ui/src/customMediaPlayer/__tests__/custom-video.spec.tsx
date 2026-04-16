@@ -21,7 +21,7 @@ import simultaneousPlayManager from '../simultaneousPlayManager';
 import * as getControlsWrapperClassNameModule from '../getControlsWrapperClassName';
 import { act } from 'react';
 import { waitFor, render, screen, fireEvent } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { keyCodes } from '../../shortcut';
 
 const getControlsWrapperClassName = jest.spyOn(

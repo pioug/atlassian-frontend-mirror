@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media';
 import type {

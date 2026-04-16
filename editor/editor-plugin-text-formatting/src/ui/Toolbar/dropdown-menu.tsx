@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
 
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';

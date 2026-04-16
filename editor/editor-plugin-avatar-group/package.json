@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-avatar-group",
-	"version": "9.0.6",
+	"version": "10.0.0",
 	"description": "Avatar Group plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -47,12 +47,12 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@emotion/react": "root:*",
-		"memoize-one": "root:*",
-		"react-intl-next": "root:*"
+		"memoize-one": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
-		"react": "^18.2.0"
+		"react": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -99,5 +99,8 @@
 		"platform_ally_avatar_button_fix": {
 			"type": "boolean"
 		}
+	},
+	"devDependencies": {
+		"react-intl": "root:*"
 	}
 }

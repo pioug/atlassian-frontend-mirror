@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import type { TableLayout } from '@atlaskit/adf-schema';
 import { tableCellSelector, tableHeaderSelector, tablePrefixSelector } from '@atlaskit/adf-schema';
@@ -176,6 +176,8 @@ export interface TablePluginState {
 	insertColumnButtonIndex?: number;
 	insertRowButtonIndex?: number;
 	isCellMenuOpenByKeyboard?: boolean;
+	isChromelessEditor?: boolean;
+	isCommentEditor?: boolean;
 	isContextualMenuOpen?: boolean;
 	isDragAndDropEnabled?: boolean;
 	isFullWidthModeEnabled?: boolean;
@@ -198,17 +200,17 @@ export interface TablePluginState {
 	ordering?: TableColumnOrdering;
 	pluginConfig: PluginConfig;
 	resizeHandleColumnIndex?: number;
-	resizeHandleIncludeTooltip?: boolean;
-	resizeHandleRowIndex?: number;
 
+	resizeHandleIncludeTooltip?: boolean;
+
+	resizeHandleRowIndex?: number;
 	// controls need to be re-rendered when table content changes
 	// e.g. when pressing enter inside of a cell, it creates a new p and we need to update row controls
 	tableNode?: PmNode;
-
 	tablePos?: number;
+
 	tableRef?: HTMLTableElement;
 	tableWrapperTarget?: HTMLElement;
-
 	// position of a cell PM node that has cursor
 	targetCellPosition?: number;
 	wasFullWidthModeEnabled?: boolean;

@@ -18,7 +18,7 @@ import {
 	within,
 } from '@atlassian/testing-library';
 
-import * as panelSplitterWidthUtils from '../../panel-splitter/get-width';
+import * as panelSplitterWidthUtils from '../../panel-splitter/get-pixel-width';
 import { PanelSplitter, type PanelSplitterProps } from '../../panel-splitter/panel-splitter';
 import {
 	PanelSplitterProvider,

@@ -12,7 +12,7 @@ import {
 } from '@atlaskit/analytics-next';
 import SectionMessage from '@atlaskit/section-message';
 import Button from '@atlaskit/button/custom-theme-button';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl';
 import { Text } from '@atlaskit/primitives/compiled';
 import { css, jsx } from '@compiled/react';
 

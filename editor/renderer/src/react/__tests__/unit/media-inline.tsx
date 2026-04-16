@@ -5,7 +5,7 @@ import { ReactSerializer } from '../../../index';
 import { create } from 'react-test-renderer';
 import type { ReactTestRenderer, ReactTestInstance } from 'react-test-renderer';
 import AnnotationComponent from '../../marks/annotation';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 describe('Renderer - ReactSerializer - MediaInline', () => {
 	describe('mediaInline with Annotation', () => {

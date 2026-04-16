@@ -4,8 +4,8 @@
  */
 import React from 'react';
 
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import { jsx } from '@atlaskit/css';
 import { alignCenter, alignLeft, alignRight, tooltip } from '@atlaskit/editor-common/keymaps';

@@ -181,8 +181,6 @@ export interface FontSizeMark extends Mark {
 
 export const fontSize = createPMMarkSpecFactory<FontSizeMark>({
   attrs: { fontSize: {} },
-  inclusive: false,
-  spanning: false,
 });
 
 export interface FragmentMarkAttributes {

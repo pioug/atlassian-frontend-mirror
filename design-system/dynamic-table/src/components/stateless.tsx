@@ -3,10 +3,15 @@ import React, { forwardRef, lazy, Suspense, useEffect, useRef, useState } from '
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 
+import { assertIsSortable } from '../internal/assert-is-sortable';
 import { ASC, DESC, LARGE, SMALL } from '../internal/constants';
-import { assertIsSortable, getPageRows, validateSortKey } from '../internal/helpers';
-import { Caption, PaginationWrapper, Table } from '../styled/dynamic-table';
-import { EmptyViewContainer, EmptyViewWithFixedHeight } from '../styled/empty-body';
+import { getPageRows } from '../internal/get-page-rows';
+import { validateSortKey } from '../internal/validate-sort-key';
+import { Caption } from '../styled/caption';
+import { EmptyViewContainer } from '../styled/empty-view-container';
+import { EmptyViewWithFixedHeight } from '../styled/empty-view-with-fixed-height';
+import { PaginationWrapper } from '../styled/pagination-wrapper';
+import { Table } from '../styled/table';
 import {
 	type HeadType,
 	type StatelessProps as Props,

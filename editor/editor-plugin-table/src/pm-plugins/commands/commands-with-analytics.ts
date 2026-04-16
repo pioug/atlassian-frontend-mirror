@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next/src/types';
+import type { IntlShape } from 'react-intl/src/types';
 
 import type { TableLayout } from '@atlaskit/adf-schema';
 import { tableBackgroundColorPalette } from '@atlaskit/adf-schema';

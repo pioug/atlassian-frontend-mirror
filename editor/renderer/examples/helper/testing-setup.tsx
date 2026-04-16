@@ -28,7 +28,7 @@ import { WithRendererActions } from '../../src/ui/RendererActionsContext/WithRen
 import type { AnnotationId } from '@atlaskit/adf-schema';
 import { AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema';
 import { ExampleSelectionInlineComponent } from './annotations/selection';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const rootMap = new WeakMap<Element, Root>();
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { INPUT_METHOD, VIEW_METHOD } from '@atlaskit/editor-common/analytics';
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';

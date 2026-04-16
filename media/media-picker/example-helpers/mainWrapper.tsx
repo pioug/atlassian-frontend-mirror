@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 import { FeatureFlagsWrapper } from '@atlaskit/media-test-helpers';
 
 import { UfoLoggerWrapper } from './UfoWrapper';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 export const MainWrapper = ({ children }: { children: ReactNode }): React.JSX.Element => (
 	<UfoLoggerWrapper>

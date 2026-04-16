@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/textarea",
-	"version": "8.2.10",
+	"version": "8.3.0",
 	"description": "A text area lets users enter long form text which spans over multiple lines.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,8 +41,8 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./text-area": "./src/text-area.tsx",
-		"./types": "./src/types.tsx"
+		"./text-area": "./src/entry-points/text-area.tsx",
+		"./types": "./src/entry-points/types.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

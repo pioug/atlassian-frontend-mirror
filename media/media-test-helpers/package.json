@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-test-helpers",
-	"version": "40.0.8",
+	"version": "41.0.0",
 	"description": "Collection of test helpers used in media component stories and specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -49,19 +49,20 @@
 		"exenv": "root:*",
 		"kakapo": "root:*",
 		"mock-socket": "root:*",
-		"react-intl-next": "root:*",
 		"rxjs": "root:*",
 		"uuid": "root:*",
 		"xhr-mock": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/media-core": "workspace:^",
-		"react": "^18.2.0"
+		"react": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@atlaskit/media-core": "workspace:^",
 		"@types/exenv": "root:*",
-		"react-dom": "root:*"
+		"react-dom": "root:*",
+		"react-intl": "root:*"
 	},
 	"exports": {
 		"./renderWithIntl": "./src/renderWithIntl.tsx",

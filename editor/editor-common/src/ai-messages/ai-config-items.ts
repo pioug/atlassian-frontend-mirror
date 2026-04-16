@@ -1,432 +1,442 @@
-import { defineMessages } from 'react-intl-next';
+import { defineMessages } from 'react-intl';
 
 export const aiConfigItemMessages: {
-	// Agent config messages
-	agentConfigTitle: {
-		id: string;
+	addPolishDescription: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	agentConfigDescription: {
-		id: string;
+	addPolishTitle: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	agentConfigPromptHint: {
-		id: string;
+	adjustLengthNestingParentShortTitle: {
 		defaultMessage: string;
 		description: string;
-	};
-	// Config action messages
-	configActionInsert: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	configActionInsertAtTop: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	configActionInsertBelow: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	configActionInsertBelowOriginal: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	configActionReplace: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	configActionReplaceTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	configActionReplaceTitleTooLongDisabledTooltip: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	configActionContinueInChatLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	configActionContinueChatLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	configActionEdit: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	// Atlas shorten update messages
-	atlasShortenUpdatetitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	atlasShortenUpdateDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	// Brainstorm messages
-	brainstormTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	brainstormDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	brainstormPromptLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	brainstormPromptHint: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	// Adjust Length
 	adjustLengthNestingParentTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	adjustLengthNestingParentShortTitle: {
-		id: string;
+	agentConfigDescription: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	agentConfigPromptHint: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	// Agent config messages
+	agentConfigTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	atlasShortenUpdateDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	// Atlas shorten update messages
+	atlasShortenUpdatetitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	brainstormDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	brainstormPromptHint: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	brainstormPromptLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	// Brainstorm messages
+	brainstormTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	changeToneCasualToneDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	changeToneCasualToneSelectionToolbarDropdownItemTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	changeToneCasualToneShortTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	changeToneCasualToneTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	changeToneEducationalToneDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	changeToneEducationalToneSelectionToolbarDropdownItemTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	changeToneEducationalToneShortTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	changeToneEducationalToneTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	changeToneEmpatheticToneDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	changeToneEmpatheticToneSelectionToolbarDropdownItemTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	changeToneEmpatheticToneShortTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	changeToneEmpatheticToneTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	// Change tone messages
 	changeToneNestingParentTitlePostGA: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	changeToneNeutralToneTitle: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	changeToneNeutralToneShortTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	changeToneNeutralToneDescription: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	changeToneNeutralToneSelectionToolbarDropdownItemTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	changeToneProfessionalToneTitle: {
-		id: string;
+	changeToneNeutralToneShortTitle: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	changeToneProfessionalToneShortTitle: {
-		id: string;
+	changeToneNeutralToneTitle: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	changeToneProfessionalToneDescription: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	changeToneProfessionalToneSelectionToolbarDropdownItemTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	changeToneCasualToneTitle: {
-		id: string;
+	changeToneProfessionalToneShortTitle: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	changeToneCasualToneShortTitle: {
-		id: string;
+	changeToneProfessionalToneTitle: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	changeToneCasualToneDescription: {
-		id: string;
+	configActionContinueChatLabel: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	changeToneCasualToneSelectionToolbarDropdownItemTitle: {
-		id: string;
+	configActionContinueInChatLabel: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	changeToneEducationalToneTitle: {
-		id: string;
+	configActionEdit: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	changeToneEducationalToneShortTitle: {
-		id: string;
+	// Config action messages
+	configActionInsert: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	changeToneEducationalToneDescription: {
-		id: string;
+	configActionInsertAtTop: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	changeToneEducationalToneSelectionToolbarDropdownItemTitle: {
-		id: string;
+	configActionInsertBelow: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	changeToneEmpatheticToneTitle: {
-		id: string;
+	configActionInsertBelowOriginal: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	changeToneEmpatheticToneShortTitle: {
-		id: string;
+	configActionReplace: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	changeToneEmpatheticToneDescription: {
-		id: string;
+	configActionReplaceTitle: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	changeToneEmpatheticToneSelectionToolbarDropdownItemTitle: {
-		id: string;
+	configActionReplaceTitleTooLongDisabledTooltip: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	convertToBulletListDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	// Convert to bullet list messages
 	convertToBulletListTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	convertToBulletListDescription: {
-		id: string;
+	convertToTableDescription: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	// Convert to table messages
 	convertToTableTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	convertToTableDescription: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	// Draft reply messages
-	draftReplyTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	draftReplyDescription: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	draftReplyHeroPromptDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	// Draft reply pill messages
 	draftReplyHeroPromptTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	draftReplyHeroPromptDescription: {
-		id: string;
+	// Draft reply messages
+	draftReplyTitle: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	// Generate Escalation Notes messages
-	generateEscalationNotesTitle: {
-		id: string;
+	findActionItemsDescription: {
 		defaultMessage: string;
 		description: string;
-	};
-	generateEscalationNotesDescription: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	// Enhance messages
-	improveWritingTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	improveWritingSelectionToolbarDropdownItemTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	fixSpellingGrammarTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	improveWritingDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	fixSpellingGrammarDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	fixSpellingGrammarSelectionToolbarDropdownItemTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	// Find action items messages
 	findActionItemsTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	findActionItemsDescription: {
-		id: string;
+	fixSpellingGrammarDescription: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	// Free generate messages
-	freeGeneratePromptHint: {
-		id: string;
+	fixSpellingGrammarSelectionToolbarDropdownItemTitle: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	freeGenerateRovoPromptHint: {
-		id: string;
+	fixSpellingGrammarTitle: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	// Free generate disabled messages
 	freeGenerateDisabledPromptHint: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	// Improve description messages
-	reformatWithTemplateDescription: {
-		id: string;
+	// Free generate messages
+	freeGeneratePromptHint: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	freeGenerateRovoPromptHint: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	generateEscalationNotesDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	// Generate Escalation Notes messages
+	generateEscalationNotesTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	improveDescription: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	improveFormattingDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	improveFormattingTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	improveWritingDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	improveWritingSelectionToolbarDropdownItemTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	// Enhance messages
+	improveWritingTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	makeLongerDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	// Make longer messages
 	makeLongerTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	makeLongerDescription: {
-		id: string;
+	makeShorterDescription: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	makeShorterSelectionToolbarDropdownItemTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	// Make shorter messages
 	makeShorterTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	makeShorterDescription: {
-		id: string;
+	prDescriptionDescription: {
 		defaultMessage: string;
 		description: string;
-	};
-	makeShorterSelectionToolbarDropdownItemTitle: {
 		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	// PR Description messages
 	prDescriptionTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	prDescriptionDescription: {
-		id: string;
+	// Improve description messages
+	reformatWithTemplateDescription: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	rephraseDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	// Rephrase messages
 	rephraseTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	rephraseDescription: {
-		id: string;
+	suggestTitleDescription: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	// Suggest title messages
 	suggestTitleTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	suggestTitleDescription: {
-		id: string;
+	summarizeWritingDescription: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	summarizeWritingSelectionToolbarDropdownItemTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	// Summarize writing messages
 	summarizeWritingtitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	summarizeWritingDescription: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	summarizeWritingSelectionToolbarDropdownItemTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	addPolishTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	addPolishDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 } = defineMessages({
 	// Agent config messages
@@ -924,5 +934,16 @@ export const aiConfigItemMessages: {
 		id: 'fabric.editor.ai.config.item.addPolish.description',
 		defaultMessage: 'Polishes the content to make it more polished',
 		description: 'Description for the the Atlassian Intelligence "Add polish".',
+	},
+	improveFormattingTitle: {
+		id: 'fabric.editor.ai.config.item.improveFormatting.title',
+		defaultMessage: 'Improve formatting',
+		description:
+			'Describes an option to use Atlassian Intelligence to improve the formatting of the content currently selected by the user',
+	},
+	improveFormattingDescription: {
+		id: 'fabric.editor.ai.config.item.improveFormatting.description',
+		defaultMessage: 'Improves the formatting and presentation of your content',
+		description: 'Description for the Atlassian Intelligence "Improve Formatting" action.',
 	},
 });

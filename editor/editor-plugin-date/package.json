@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-date",
-	"version": "10.0.32",
+	"version": "11.0.0",
 	"description": "Date plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -52,16 +52,17 @@
 		"@babel/runtime": "root:*",
 		"bind-event-listener": "root:*",
 		"date-fns": "root:*",
-		"react-intl-next": "root:*",
 		"react-loadable": "root:*"
 	},
 	"devDependencies": {
-		"@testing-library/react": "root:*"
+		"@testing-library/react": "root:*",
+		"react-intl": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-dom": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

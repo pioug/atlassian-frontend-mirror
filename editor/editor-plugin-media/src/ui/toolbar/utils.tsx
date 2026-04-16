@@ -1,7 +1,7 @@
 import React from 'react';
 
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import type { ExternalMediaAttributes, MediaADFAttrs, RichMediaLayout } from '@atlaskit/adf-schema';
 import type { LayoutIcon } from '@atlaskit/editor-common/card';

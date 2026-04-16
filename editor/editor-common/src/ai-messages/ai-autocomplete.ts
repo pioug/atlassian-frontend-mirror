@@ -1,4 +1,4 @@
-import { defineMessages } from 'react-intl-next';
+import { defineMessages } from 'react-intl';
 
 /**
  * Default keyword lists omit longer phrases when a shorter phrase in the same list already

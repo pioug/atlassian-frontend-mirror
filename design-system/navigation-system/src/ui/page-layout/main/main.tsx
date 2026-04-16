@@ -9,10 +9,10 @@ import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
 
-import { useSkipLink } from '../../../context/skip-links/skip-links-context';
+import { useSkipLink } from '../../../context/skip-links/use-skip-link';
 import { contentHeightWhenFixed, contentInsetBlockStart } from '../constants';
-import { useLayoutId } from '../id-utils';
 import type { CommonSlotProps } from '../types';
+import { useLayoutId } from '../use-layout-id';
 
 const mainElementStyles = cssMap({
 	root: {

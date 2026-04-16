@@ -1,6 +1,6 @@
 import React from 'react';
 import type { ReactNode } from 'react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import CodeBidiWarning from '@atlaskit/code/bidi-warning';
 import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';

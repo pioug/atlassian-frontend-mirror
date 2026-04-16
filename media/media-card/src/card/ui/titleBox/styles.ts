@@ -19,7 +19,10 @@ type TitleBoxWrapperStyleArgs = {
 	display?: 'none' | 'flex';
 };
 
-export const titleBoxWrapperStyles = ({
+export const titleBoxWrapperStyles: {
+    ({ breakpoint, display, }: TitleBoxWrapperStyleArgs): SerializedStyles;
+    displayName: string;
+} = ({
 	breakpoint,
 	display = 'flex',
 }: TitleBoxWrapperStyleArgs): SerializedStyles =>

@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import AddIcon from '@atlaskit/icon/core/add';
 
-import { Button } from './themed/migration';
+import { Button } from './themed/button';
 
 type CreateButtonProps = {
 	/**

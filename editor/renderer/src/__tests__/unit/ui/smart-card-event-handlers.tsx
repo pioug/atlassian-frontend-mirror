@@ -9,7 +9,7 @@ import React from 'react';
 import type { ReactWrapper } from 'enzyme';
 import type { RendererProps } from '../../../ui/renderer-props';
 import Renderer from '../../../ui/Renderer';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { render, waitFor, screen } from '@testing-library/react';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { cardClient } from '@atlaskit/media-integration-test-helpers';

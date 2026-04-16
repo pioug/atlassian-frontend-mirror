@@ -2,7 +2,7 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, fireEvent } from '@testing-library/react';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { createIntl, createIntlCache } from 'react-intl-next';
+import { createIntl, createIntlCache } from 'react-intl';
 
 import { getMockWhatsNewArticleItem } from '../../../../../../../util/testing/mock';
 

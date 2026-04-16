@@ -23,7 +23,7 @@ import { Component } from 'react';
 import { CustomThemeButtonProps } from '@atlaskit/button/types';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { MediaType } from '@atlaskit/media-common';
-import { MessageDescriptor } from 'react-intl-next';
+import { MessageDescriptor } from 'react-intl';
 import { NumericalCardDimensions } from '@atlaskit/media-common';
 import { default as React_2 } from 'react';
 import { ReactElement } from 'react';
@@ -861,7 +861,7 @@ export interface WithShowControlMethodProp {
 {
 	"react": "^16.8.0",
 	"react-dom": "^16.8.0",
-	"react-intl-next": "npm:react-intl@^5.18.1"
+	"react-intl": "npm:react-intl@^5.18.1"
 }
 ```
 

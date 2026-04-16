@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
@@ -20,14 +20,15 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { SyncBlockRendererDataAttributeName } from '@atlaskit/editor-common/sync-block';
 import {
+	removeBreakoutFromRendererSyncBlockHTML,
 	transformSingleColumnLayout,
 	transformSingleLineCodeBlockToCodeMark,
+	transformSliceEnsureListItemParagraphFirst,
 	transformSliceNestedExpandToExpand,
 	transformSliceToDecisionList,
 	transformSliceToJoinAdjacentCodeBlocks,
 	transformSliceToRemoveLegacyContentMacro,
 	transformSliceToRemoveMacroId,
-	removeBreakoutFromRendererSyncBlockHTML,
 } from '@atlaskit/editor-common/transforms';
 import type {
 	ExtractInjectionAPI,
@@ -44,12 +45,17 @@ import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { contains, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import {
+	contains,
+	findParentNodeOfTypeClosestToPos,
+	hasParentNodeOfType,
+} from '@atlaskit/editor-prosemirror/utils';
 import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
 import { insm } from '@atlaskit/insm';
 import { extractClientIdsFromHtml } from '@atlaskit/media-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { PastePluginActionTypes } from '../editor-actions/actions';
@@ -99,8 +105,8 @@ import {
 	handleMacroAutoConvert,
 	handleMention,
 	handleParagraphBlockMarks,
-	handleTableContentPasteInBodiedExtension,
 	handlePasteExpand,
+	handleTableContentPasteInBodiedExtension,
 } from './util/handlers';
 import { handleSyncBlocksPaste } from './util/sync-block';
 import {
@@ -109,11 +115,45 @@ import {
 	tryRebuildCompleteTableHtml,
 } from './util/tinyMCE';
 
+function isListIntoListPaste(tr: Transaction, state: EditorState): boolean {
+	const { listItem, bulletList, orderedList } = state.schema.nodes;
+	const { $from, $to } = state.selection;
+
+	const selectionInList =
+		!!findParentNodeOfTypeClosestToPos($from, [listItem]) ||
+		!!findParentNodeOfTypeClosestToPos($to, [listItem]);
+	if (!selectionInList) {
+		return false;
+	}
+
+	return tr.steps.some((step) => {
+		const slice = extractSliceFromStep(step);
+		let listExists = false;
+		slice?.content?.forEach((node) => {
+			if (node.type === bulletList || node.type === orderedList) {
+				listExists = true;
+			}
+		});
+		return listExists;
+	});
+}
+
 export const isInsideBlockQuote = (state: EditorState): boolean => {
 	const { blockquote } = state.schema.nodes;
 
 	return hasParentNodeOfType(blockquote)(state.selection);
 };
+
+const enableNewDomainCheckToImproveSmartLinkResolveRate = (hostname: string): boolean => {
+	return expValEquals('improve_3p_smart_link_resolve_rate', 'isEnabled', true) && (
+		// OneDrive Shortlinks
+		hostname.endsWith('1drv.ms') ||
+		// MS Teams links
+		hostname.endsWith('teams.live.com') ||
+		hostname.endsWith('teams.cloud.microsoft') ||
+		hostname.endsWith('teams.microsoft.com')
+	);
+}
 
 const PASTE = 'Editor Paste Plugin Paste Duration';
 
@@ -136,7 +176,8 @@ export function isSharePointUrl(url: string | undefined): boolean {
 		return (
 			hostname.endsWith('sharepoint.com') ||
 			hostname.endsWith('onedrive.com') ||
-			hostname.endsWith('onedrive.live.com')
+			hostname.endsWith('onedrive.live.com') ||
+			enableNewDomainCheckToImproveSmartLinkResolveRate(hostname)
 		);
 	} catch {
 		// If URL parsing fails, return false for safety
@@ -358,10 +399,22 @@ export function createPlugin(
 						return tableExists;
 					});
 
+					// Don't add closeHistory if we're pasting a list into a list, as the list plugin will
+					// appendTransaction to normalise the list structure and we want to keep the paste and
+					// normalisation as one undo event. We also set a meta on the transaction so the list
+					// plugin's appendTransaction can cheaply detect this case without re-checking flags.
+					if (
+						expValEqualsNoExposure('platform_editor_flexible_list_schema', 'isEnabled', true) &&
+						isListIntoListPaste(tr, state)
+					) {
+						tr = tr.setMeta('listPasteNormalisation', true);
+					}
+
 					if (
 						!isPastingTextInsidePlaceholderText &&
 						!isPastingTable &&
 						!isPastingOverLayoutColumns &&
+						!tr.getMeta('listPasteNormalisation') &&
 						pluginInjectionApi?.betterTypeHistory
 					) {
 						tr = pluginInjectionApi?.betterTypeHistory?.actions.flagPasteEvent(tr);
@@ -823,6 +876,16 @@ export function createPlugin(
 				}
 
 				slice = transformSliceToRemoveMacroId(slice, schema);
+
+				if (
+					expValEquals('platform_editor_flexible_list_schema', 'isEnabled', true) &&
+					!expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true)
+				) {
+					// Prevent pasted externally-authored flexible list HTML from producing flexible list structures
+					// Only when schema support is enabled but indentation behaviour is not, meaning editor gracefully
+					// handles the structure, but ideally does not produce it
+					slice = transformSliceEnsureListItemParagraphFirst(slice, schema);
+				}
 
 				return slice;
 			},

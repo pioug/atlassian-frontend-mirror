@@ -14,8 +14,9 @@ import {
 } from '../constants';
 import { useToggleSideNav } from '../side-nav/use-toggle-side-nav';
 
-import { OnDoubleClickContext, PanelSplitterContext } from './context';
+import { OnDoubleClickContext } from './on-double-click-context';
 import { PanelSplitter, type PanelSplitterProps } from './panel-splitter';
+import { PanelSplitterContext } from './panel-splitter-context';
 
 /**
  * Namespaces to check for open layers that would interfere with the panel splitter.

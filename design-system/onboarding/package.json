@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/onboarding",
-	"version": "14.5.12",
+	"version": "14.6.0",
 	"description": "An onboarding spotlight introduces new features to users through focused messages or multi-step tours.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,7 +26,17 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
-		"./types": "./src/types.tsx"
+		"./modal": "./src/entry-points/modal.tsx",
+		"./modal-transition": "./src/entry-points/modal-transition.tsx",
+		"./spotlight": "./src/entry-points/spotlight.tsx",
+		"./spotlight-card": "./src/entry-points/spotlight-card.tsx",
+		"./spotlight-manager": "./src/entry-points/spotlight-manager.tsx",
+		"./spotlight-target": "./src/entry-points/spotlight-target.tsx",
+		"./spotlight-transition": "./src/entry-points/spotlight-transition.tsx",
+		"./target": "./src/entry-points/target.tsx",
+		"./theme": "./src/entry-points/theme.tsx",
+		"./types": "./src/entry-points/types.tsx",
+		"./use-spotlight": "./src/entry-points/use-spotlight.tsx"
 	},
 	"homepage": "https://atlassian.design/components/onboarding/",
 	"atlassian": {

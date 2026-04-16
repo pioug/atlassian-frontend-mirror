@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 interface ErrorBoundaryProps {
 	children?: React.ReactNode;
@@ -27,7 +27,7 @@ export class IntlErrorBoundary extends React.Component<ErrorBoundaryProps, Error
 		if (isMissingIntlProviderInAncestryError(error)) {
 			this.setState({ missingIntlProviderInAncestry: true });
 		} else {
-			// else we re-propagate the non-react-intl-next error
+			// else we re-propagate the non-react-intl error
 			throw error;
 		}
 	}

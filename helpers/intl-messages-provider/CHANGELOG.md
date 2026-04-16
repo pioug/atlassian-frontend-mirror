@@ -1,5 +1,28 @@
 # @atlaskit/intl-messages-provider
 
+## 3.1.0
+
+### Minor Changes
+
+- [`aa5bf3f26299b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa5bf3f26299b) -
+  Refactors the AsyncIntlProvider to reduce calls to the async loader function and sets the default
+  language to en-US, improving the happy-path hit-rate for language loading
+
+## 3.0.0
+
+### Major Changes
+
+- [`d2e14ba5ae9fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2e14ba5ae9fc) -
+  Removed `react-intl-next` alias and replaced all usages with `react-intl` directly.
+
+  What changed: The `react-intl-next` npm alias (which resolved to `react-intl@^5`) has been
+  removed. All imports now reference `react-intl` directly, and `peerDependencies` have been updated
+  to `"^5.25.1 || ^6.0.0 || ^7.0.0"`.
+
+  How consumer should update their code: Ensure `react-intl` is installed at a version satisfying
+  `^5.25.1 || ^6.0.0 || ^7.0.0`. If your application was using `react-intl-next` as an npm alias, it
+  can be safely removed. Replace any remaining `react-intl-next` imports with `react-intl`.
+
 ## 2.0.1
 
 ### Patch Changes

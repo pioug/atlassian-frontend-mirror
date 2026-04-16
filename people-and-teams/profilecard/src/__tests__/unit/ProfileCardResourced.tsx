@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { act, screen, waitFor } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';

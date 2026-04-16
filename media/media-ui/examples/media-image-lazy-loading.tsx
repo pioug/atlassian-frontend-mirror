@@ -1,6 +1,6 @@
 import { token } from '@atlaskit/tokens';
 import React, { type CSSProperties } from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import Page from '@atlaskit/page';
 import { atlassianLogoUrl } from '../src/test-helpers/atlassianLogoUrl';
 

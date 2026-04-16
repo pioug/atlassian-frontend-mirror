@@ -1,7 +1,7 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 
-import { defineMessages } from 'react-intl-next';
+import { defineMessages } from 'react-intl';
 
 export const limitedModeMessages: {
 	limitedModeTitle: {

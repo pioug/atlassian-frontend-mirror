@@ -12,7 +12,7 @@ import {
 	generateFilesFromTestData,
 	type MockFileInputParams,
 } from '@atlaskit/media-test-helpers';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import MediaInlineCard from '../src/inline/loader';
 import { MainWrapper } from '../example-helpers';
 import { mediaInlineTableStyles, mediaInlineWrapperStyles } from '../example-helpers/styles';

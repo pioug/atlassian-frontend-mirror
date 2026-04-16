@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { mount, shallow } from 'enzyme';
 import { ResourcedTaskItem as AkTaskItem } from '@atlaskit/task-decision';
 import FabricAnalyticsListener from '@atlaskit/analytics-listeners';

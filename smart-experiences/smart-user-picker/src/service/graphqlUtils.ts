@@ -1,4 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
 import { createAtlAttributionHeader, type AtlAttributionHeaderData } from './atl-attribution';
 export type { AtlAttributionHeaderData } from './atl-attribution';
 
@@ -6,10 +5,8 @@ const buildHeaders = (attributionData?: Partial<AtlAttributionHeaderData>) => {
 	const headers = new Headers();
 	headers.append('Content-Type', 'application/json');
 
-	if (fg('smart-user-picker-attribution-header')) {
-		const atlAttributionHeader = createAtlAttributionHeader(attributionData);
-		headers.append('atl-attribution', atlAttributionHeader['atl-attribution']);
-	}
+	const atlAttributionHeader = createAtlAttributionHeader(attributionData);
+	headers.append('atl-attribution', atlAttributionHeader['atl-attribution']);
 
 	return headers;
 };

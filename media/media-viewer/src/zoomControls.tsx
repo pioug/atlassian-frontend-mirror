@@ -14,7 +14,7 @@ import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/an
 import { fireAnalytics } from './analytics/';
 import { createZoomInButtonClickEvent } from './analytics/events/ui/zoomInButtonClicked';
 import { createZoomOutButtonClickedEvent } from './analytics/events/ui/zoomOutButtonClicked';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl';
 import { messages } from '@atlaskit/media-ui';
 
 export type ZoomControlsProps = React.PropsWithChildren<

@@ -10,7 +10,7 @@ import FullScreenIconOn from '@atlaskit/icon/core/fullscreen-enter';
 import FullScreenIconOff from '@atlaskit/icon/core/shrink-diagonal';
 import SoundIcon from '@atlaskit/icon/core/volume-high';
 import DownloadIcon from '@atlaskit/icon/core/download';
-import { injectIntl, type WithIntlProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps } from 'react-intl';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { cssMap } from '@atlaskit/css';
 import MediaButton from '../../MediaButton';
@@ -52,7 +52,7 @@ import {
 import { formatDuration } from '../../formatDuration';
 import { Shortcut, keyCodes } from '../../shortcut';
 import { toggleFullscreen, getFullscreenElement } from '../fullscreen';
-import { type WrappedComponentProps } from 'react-intl-next';
+import { type WrappedComponentProps } from 'react-intl';
 import { messages } from '../../messages';
 import simultaneousPlayManager from '../simultaneousPlayManager';
 import { TimeSaver } from '../timeSaver';

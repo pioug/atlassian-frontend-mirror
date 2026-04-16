@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MediaInlineCardErroredView } from '../..';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 
 describe('Errored view', () => {

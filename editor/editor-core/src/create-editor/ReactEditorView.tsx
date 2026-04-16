@@ -1,7 +1,7 @@
 import React, { useCallback, useLayoutEffect, useMemo, useRef, useState, useEffect } from 'react';
 
-import { injectIntl } from 'react-intl-next';
-import type { WrappedComponentProps, WithIntlProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl';
+import type { WrappedComponentProps, WithIntlProps } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 

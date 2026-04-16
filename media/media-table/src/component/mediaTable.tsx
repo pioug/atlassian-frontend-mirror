@@ -7,7 +7,7 @@ import { jsx } from '@emotion/react';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { IntlProvider, injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { IntlProvider, injectIntl, type WrappedComponentProps } from 'react-intl';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { type RowType, type RowCellType } from '@atlaskit/dynamic-table/types';
 import {

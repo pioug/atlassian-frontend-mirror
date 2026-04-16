@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { RankableTableCell } from '../../rankable/table-cell';
+import { RankableTableCell } from '../../rankable/rankable-table-cell';
 
 import { cellWithKey as cell, headMock1 } from './_data';
 

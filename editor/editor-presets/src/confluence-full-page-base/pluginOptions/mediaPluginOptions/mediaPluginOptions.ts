@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { MediaPluginOptions } from '@atlaskit/editor-plugin-media';

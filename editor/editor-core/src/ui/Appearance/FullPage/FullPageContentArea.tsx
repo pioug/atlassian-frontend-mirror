@@ -9,8 +9,8 @@ import React, { useImperativeHandle, useRef } from 'react';
 import { css, jsx, useTheme } from '@emotion/react';
 import type { Theme } from '@emotion/react';
 import classnames from 'classnames';
-import type { WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import { decisionListSelector, taskListSelector } from '@atlaskit/adf-schema';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';

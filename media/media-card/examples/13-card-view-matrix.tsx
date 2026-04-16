@@ -16,7 +16,7 @@ import EditIcon from '@atlaskit/icon/core/edit';
 import { type CardAction, type CardStatus } from '../src';
 import { CardView } from '../src/card/cardView';
 import { type FileDetails, type MediaType } from '@atlaskit/media-client';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { MainWrapper, mediaCardErrorState } from '../example-helpers';
 import { CardViewWrapper } from '../example-helpers/cardViewWrapper';
 

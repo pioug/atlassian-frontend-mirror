@@ -7,7 +7,7 @@ import React, { Fragment, useEffect } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import URLSearchParams from 'url-search-params';
 
 import { DevTools } from '@af/editor-examples-helpers/utils';

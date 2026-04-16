@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { AddContainerCard } from '../src/ui/team-containers/add-container-card';
+import { AddContainerCard } from '../src/next/ui/team-containers/add-container-card';
 
 const styles = cssMap({
 	root: {

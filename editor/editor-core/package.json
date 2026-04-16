@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "217.12.11",
+	"version": "218.0.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -89,7 +89,7 @@
 		"@atlaskit/media-core": "workspace:^",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@af/editor-libra": "workspace:^",
@@ -131,7 +131,7 @@
 		"mockdate": "root:*",
 		"raf-stub": "root:*",
 		"react": "root:*",
-		"react-intl-next": "root:*",
+		"react-intl": "root:*",
 		"url-search-params": "root:*"
 	},
 	"techstack": {

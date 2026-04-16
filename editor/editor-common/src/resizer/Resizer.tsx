@@ -11,7 +11,7 @@ import type { CSSProperties, ForwardRefRenderFunction, PropsWithChildren } from 
 import classnames from 'classnames';
 import type { HandleComponent, ResizeDirection } from 're-resizable';
 import { Resizable } from 're-resizable';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';

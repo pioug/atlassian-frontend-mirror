@@ -1,7 +1,7 @@
 import { createElement } from 'react';
 
-import { RawIntlProvider } from 'react-intl-next';
-import type { IntlShape } from 'react-intl-next';
+import { RawIntlProvider } from 'react-intl';
+import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 

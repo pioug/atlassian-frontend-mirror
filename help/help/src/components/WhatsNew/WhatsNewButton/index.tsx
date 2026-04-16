@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { type UIAnalyticsEvent, AnalyticsContext } from '@atlaskit/analytics-next';
 import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
 import { token } from '@atlaskit/tokens';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
 import { useWhatsNewArticleContext } from '../../contexts/whatsNewArticleContext';
 import { useNavigationContext } from '../../contexts/navigationContext';

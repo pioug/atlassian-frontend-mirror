@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 10.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.6
 
 ### Patch Changes

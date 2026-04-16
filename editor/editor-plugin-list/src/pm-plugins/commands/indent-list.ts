@@ -16,7 +16,7 @@ import type { EditorCommand } from '@atlaskit/editor-common/types';
 import { isBulletList } from '@atlaskit/editor-common/utils';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { closeHistory } from '@atlaskit/prosemirror-history';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { MAX_NESTED_LIST_INDENTATION } from '../../types';
 import { indentListItemsSelected as indentListAction } from '../actions/indent-list-items-selected';
@@ -82,7 +82,7 @@ export const indentList =
 			closeHistory(tr);
 
 			// Route to new or original implementation based on feature flag
-			if (expValEqualsNoExposure('platform_editor_flexible_list_indentation', 'isEnabled', true)) {
+			if (expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true)) {
 				return handleIndentListItems(tr, editorAnalyticsAPI, inputMethod);
 			}
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import type { AvatarProps } from '@atlaskit/avatar-group';
 import type { CollabParticipant } from '@atlaskit/editor-common/collab';

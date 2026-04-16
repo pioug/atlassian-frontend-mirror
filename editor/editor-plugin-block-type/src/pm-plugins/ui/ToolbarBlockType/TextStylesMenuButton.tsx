@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { toolbarMessages } from '@atlaskit/editor-common/messages';

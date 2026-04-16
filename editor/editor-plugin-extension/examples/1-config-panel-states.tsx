@@ -4,7 +4,7 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type { ExtensionManifest, ExtensionProvider } from '@atlaskit/editor-common/extensions';

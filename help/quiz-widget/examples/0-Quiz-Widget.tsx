@@ -4,7 +4,19 @@ import { QuizWidget } from '../src';
 import { type QuizElement } from '../src/components/QuizWidget/types';
 import { QuizWrapper } from '../src/styled';
 
-export const quizContent = {
+export const quizContent: {
+    answers: {
+        1: string[];
+        2: string[];
+        3: string[];
+        4: string[];
+    }; name: string; questions: {
+        1: string;
+        2: string;
+        3: string;
+        4: string;
+    };
+} = {
 	name: 'Quiz 1',
 	questions: {
 		1: 'Which button do you press?',

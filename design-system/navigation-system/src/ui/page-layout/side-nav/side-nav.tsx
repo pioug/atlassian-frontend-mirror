@@ -31,8 +31,8 @@ import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/ad
 import { media } from '@atlaskit/primitives/responsive';
 import { token } from '@atlaskit/tokens';
 
-import { useSkipLinkInternal } from '../../../context/skip-links/skip-links-context';
-import { TopNavStartElement } from '../../../context/top-nav-start/top-nav-start-context';
+import { useSkipLinkInternal } from '../../../context/skip-links/use-skip-link-internal';
+import { TopNavStartElement } from '../../../context/top-nav-start/top-nav-start-element';
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import {
 	bannerMountedVar,
@@ -46,21 +46,23 @@ import {
 	sideNavVar,
 	UNSAFE_sideNavLayoutVar,
 } from '../constants';
+import { DangerouslyHoistCssVarToDocumentRoot } from '../dangerously-hoist-css-var-to-document-root';
 import { DangerouslyHoistSlotSizes } from '../hoist-slot-sizes-context';
-import { DangerouslyHoistCssVarToDocumentRoot } from '../hoist-utils';
-import { useLayoutId } from '../id-utils';
 import { PanelSplitterProvider } from '../panel-splitter/provider';
 import type { ResizeBounds } from '../panel-splitter/types';
 import type { CommonSlotProps } from '../types';
+import { useLayoutId } from '../use-layout-id';
 import { useResizingWidthCssVarOnRootElement } from '../use-resizing-width-css-var-on-root-element';
 import { useSafeDefaultWidth } from '../use-safe-default-width';
 
-import { useSideNavRef } from './element-context';
 import { sideNavFlyoutCloseDelayMs } from './flyout-close-delay-ms';
-import { useIsSideNavShortcutEnabled } from './is-side-nav-shortcut-enabled-context';
+import { SetSideNavVisibilityState } from './set-side-nav-visibility-state';
+import { SideNavToggleButtonElement } from './side-nav-toggle-button-element';
 import { sideNavToggleTooltipKeyboardShortcut } from './side-nav-toggle-tooltip-keyboard-shortcut';
-import { SideNavToggleButtonElement } from './toggle-button-context';
+import { SideNavVisibilityState } from './side-nav-visibility-state';
 import { useExpandSideNav } from './use-expand-side-nav';
+import { useIsSideNavShortcutEnabled } from './use-is-side-nav-shortcut-enabled';
+import { useSideNavRef } from './use-side-nav-ref';
 import { useSideNavToggleKeyboardShortcut } from './use-side-nav-toggle-keyboard-shortcut';
 import { useSideNavVisibility } from './use-side-nav-visibility';
 import {
@@ -68,7 +70,6 @@ import {
 	type VisibilityCallback,
 } from './use-side-nav-visibility-callbacks';
 import { useToggleSideNav } from './use-toggle-side-nav';
-import { SetSideNavVisibilityState, SideNavVisibilityState } from './visibility-context';
 
 const panelSplitterResizingVar = '--n_snvRsz';
 // Used to share the side nav width with the panel splitter, which is rendered outside the side nav element

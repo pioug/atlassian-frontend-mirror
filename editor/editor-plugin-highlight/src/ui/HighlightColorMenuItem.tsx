@@ -5,7 +5,7 @@
 
 import { useCallback, useMemo } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { highlightMessages as messages } from '@atlaskit/editor-common/messages';

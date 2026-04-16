@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
 import Header from './Header';
 import { SideNav } from './SideNav';

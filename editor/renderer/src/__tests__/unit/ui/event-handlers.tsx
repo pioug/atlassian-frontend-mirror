@@ -2,7 +2,7 @@ import React from 'react';
 import type { ReactWrapper } from 'enzyme';
 import type { RendererProps } from '../../../ui/renderer-props';
 import Renderer from '../../../ui/Renderer';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { render } from '@testing-library/react';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers';
 import initialDoc from '../../__fixtures__/event-handlers.adf.json';

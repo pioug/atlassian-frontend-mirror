@@ -35,7 +35,7 @@ import { SSR } from '@atlaskit/media-common';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
-import { WrappedComponentProps } from 'react-intl-next';
+import { WrappedComponentProps } from 'react-intl';
 
 // @public (undocumented)
 export function Card(props: CardWithMediaClientConfigProps): JSX.Element;
@@ -414,7 +414,7 @@ export type TitleBoxIcon = 'LockFilledIcon';
 	"@emotion/react": "^11.7.1",
 	"react": "^16.8.0",
 	"react-dom": "^16.8.0",
-	"react-intl-next": "npm:react-intl@^5.18.1"
+	"react-intl": "npm:react-intl@^5.18.1"
 }
 ```
 

@@ -29,8 +29,8 @@ import { StyledComponent } from '@emotion/styled-base';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithContextProps } from '@atlaskit/analytics-next';
-import { WithIntlProps } from 'react-intl-next';
-import { WrappedComponentProps } from 'react-intl-next';
+import { WithIntlProps } from 'react-intl';
+import { WrappedComponentProps } from 'react-intl';
 
 // @public (undocumented)
 export interface Article extends ArticleItem {
@@ -416,7 +416,7 @@ interface whatsNewSearchResult {
 {
 	"react": "^16.8.0",
 	"react-dom": "^16.8.0",
-	"react-intl-next": "npm:react-intl@^5.18.1",
+	"react-intl": "npm:react-intl@^5.18.1",
 	"styled-components": "^3.2.6"
 }
 ```

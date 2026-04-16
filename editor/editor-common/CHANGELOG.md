@@ -1,5 +1,73 @@
 # @atlaskit/editor-common
 
+## 113.0.1
+
+### Patch Changes
+
+- [`bae5d569f660c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bae5d569f660c) -
+  Prevent flexible list creation when platform_editor_flexible_list_schema is on but
+  platform_editor_flexible_list_indentation is off. Slice normalisation in paste pipeline.
+  appendTransaction normaliser in list plugin.
+
+  Paste plugin detects list-into-list paste and sets a transaction meta to skip closeHistory,
+  keeping the paste and normalisation appendTransaction as a single undo step.
+
+## 113.0.0
+
+### Major Changes
+
+- [`b10c935ca9497`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b10c935ca9497) -
+  Removed deprecated `browser` singleton from editor-common. This has been replaced with a
+  `getBrowserInfo` function that returns the same information. This change was made to avoid issues
+  with module loading order and to provide a more consistent API for accessing browser information.
+
+  Please update any imports of `browser` to use `getBrowserInfo` instead. For example, the following
+  imports have been removed:
+
+  ```javascript
+  import { browser } from '@atlaskit/editor-common/utils';
+  import { browser } from '@atlaskit/editor-common/browser';
+  ```
+
+  Instead, please use:
+
+  ```javascript
+  import { getBrowserInfo } from '@atlaskit/editor-common/browser';
+  ```
+
+  If you were previously using `browser.ie_version`, you would now use
+  `getBrowserInfo().ie_version`.
+
+### Minor Changes
+
+- [`307fd7ae4cf53`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/307fd7ae4cf53) -
+  Export getNestedParentNode from editor-common/node-width and sync data-native-embed-nested
+  attribute on embed DOM elements after drag-and-drop to ensure correct nested styling
+
+### Patch Changes
+
+- [`d15da1c489b34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d15da1c489b34) -
+  Add drag handle and move selection keyboard shortcuts to the editor help dialog, gated behind the
+  platform_editor_drag_handle_keyboard_a11y experiment
+- Updated dependencies
+
+## 112.22.0
+
+### Minor Changes
+
+- [`7739efec523bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7739efec523bc) -
+  EDITOR-6371: Add toggle for showing / hiding deleted changes in the diff.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.21.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 112.21.2
 
 ### Patch Changes

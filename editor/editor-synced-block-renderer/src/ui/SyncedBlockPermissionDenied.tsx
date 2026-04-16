@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import { useMutation, graphql } from 'react-relay';
 
 import Button from '@atlaskit/button/new';

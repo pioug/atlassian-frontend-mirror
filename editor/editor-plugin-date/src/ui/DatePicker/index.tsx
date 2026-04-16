@@ -4,8 +4,8 @@
  */
 import React from 'react';
 
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import Calendar from '@atlaskit/calendar';
 import type { WeekDay } from '@atlaskit/calendar/types';

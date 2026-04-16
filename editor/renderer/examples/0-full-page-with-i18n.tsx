@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RendererDemo from './helper/RendererDemo';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { getTranslations } from './helper/get-translations';
 
 const Example = (): React.JSX.Element => {

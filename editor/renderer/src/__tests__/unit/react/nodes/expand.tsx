@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { fireEvent, render } from '@testing-library/react';
 
 import { HardBreak } from '../../../../react/nodes';

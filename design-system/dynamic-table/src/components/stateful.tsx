@@ -3,7 +3,7 @@ import React from 'react';
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 
-import { reorderRows } from '../internal/helpers';
+import { reorderRows } from '../internal/reorder-rows';
 import { type RankEnd, type RowType, type SortOrderType, type StatefulProps } from '../types';
 
 import DynamicTableStateless from './stateless';

@@ -42,11 +42,12 @@
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@testing-library/react": "root:*",
-		"react-dom": "root:*"
+		"react-dom": "root:*",
+		"react-intl": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

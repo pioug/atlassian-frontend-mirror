@@ -1,5 +1,5 @@
 import type Fuse from 'fuse.js';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import type { QuickInsertItem, QuickInsertProvider } from '../provider-factory';
 

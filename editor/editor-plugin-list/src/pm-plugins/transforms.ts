@@ -1,8 +1,11 @@
-import type { Node } from '@atlaskit/editor-prosemirror/model';
+import { isListNode } from '@atlaskit/editor-common/utils';
+import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, NodeRange, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { liftTarget, ReplaceAroundStep } from '@atlaskit/editor-prosemirror/transform';
+import { liftTarget, ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getListLiftTarget } from './utils/indentation';
 
@@ -113,5 +116,140 @@ export function liftTextSelectionList(selection: Selection, tr: Transaction): Tr
 			}
 		}
 	}
+	return tr;
+}
+
+/**
+ * Finds the top-level list nodes (bulletList/orderedList) that contain the positions
+ * affected by the given transactions. Returns a map of list node position → list node,
+ * so callers can scan only the affected subtrees rather than the entire document.
+ */
+function getAffectedListsFromTransactions(
+	transactions: readonly Transaction[],
+	doc: Node,
+	schema: Schema,
+): Map<number, Node> {
+	const { bulletList, orderedList } = schema.nodes;
+	const listTypes = [bulletList, orderedList].filter(Boolean);
+	if (listTypes.length === 0) {
+		return new Map();
+	}
+
+	const result = new Map<number, Node>();
+
+	for (const tr of transactions) {
+		for (const step of tr.steps) {
+			// ReplaceStep and ReplaceAroundStep both have from/to — other step types are skipped.
+			if (!(step instanceof ReplaceStep) && !(step instanceof ReplaceAroundStep)) {
+				continue;
+			}
+			// Check both the start and end of each changed range, mapped to post-paste positions.
+			for (const rawPos of [step.from, step.to]) {
+				const mappedPos = Math.min(tr.mapping.map(rawPos), doc.content.size - 1);
+				const $pos = doc.resolve(mappedPos);
+				const ancestor = findParentNodeOfTypeClosestToPos($pos, listTypes);
+				if (ancestor) {
+					result.set(ancestor.pos, ancestor.node);
+				}
+			}
+		}
+	}
+
+	return result;
+}
+
+interface ApplyListNormalisationFixesOptions {
+	doc: Node;
+	schema: Schema;
+	tr: Transaction;
+	transactions: readonly Transaction[];
+}
+
+/**
+ * Applies list normalisation fixes to the given transaction for all affected list subtrees.
+ * Processes nodes in reverse document order so that position offsets from insertions/joins
+ * do not affect earlier positions.
+ *
+ * When platform_editor_flexible_list_indentation is off: inserts an empty paragraph before any listItem whose
+ * first child is a list node, and merges adjacent same-type list nodes within a listItem.
+ * When platform_editor_flexible_list_indentation is on: only merges adjacent same-type list nodes.
+ */
+export function applyListNormalisationFixes({
+	tr,
+	transactions,
+	doc,
+	schema,
+}: ApplyListNormalisationFixesOptions): Transaction {
+	const affectedLists = getAffectedListsFromTransactions(transactions, doc, schema);
+	if (affectedLists.size === 0) {
+		return tr;
+	}
+
+	const { listItem, paragraph } = schema.nodes;
+	if (!listItem) {
+		return tr;
+	}
+
+	// Process lists in reverse position order so fixes at higher positions
+	// don't shift the positions of fixes at lower positions.
+	const sortedEntries = [...affectedLists.entries()].sort(([posA], [posB]) => posB - posA);
+
+	for (const [listPos, listNode] of sortedEntries) {
+		// Collect listItem positions in document order, then process in reverse so that
+		// fixes at higher positions don't shift positions of fixes at lower positions.
+		const listItemPositions: number[] = [];
+		listNode.descendants((node, offsetPos) => {
+			if (node.type === listItem) {
+				listItemPositions.push(listPos + 1 + offsetPos);
+				return false; // Don't descend — inner listItems are handled via their own ancestor list
+			}
+			return true;
+		});
+
+		for (let i = listItemPositions.length - 1; i >= 0; i--) {
+			const mappedPos = tr.mapping.map(listItemPositions[i]);
+			const node = tr.doc.nodeAt(mappedPos);
+			if (!node || node.type !== listItem) {
+				continue;
+			}
+
+			// Merge adjacent same-type list nodes (highest boundary first within the listItem).
+			for (let j = node.childCount - 1; j > 0; j--) {
+				const child = node.child(j);
+				const prevChild = node.child(j - 1);
+				if (isListNode(child) && child.type === prevChild.type) {
+					let offset = 1; // +1 for listItem opening token
+					for (let k = 0; k < j; k++) {
+						offset += node.child(k).nodeSize;
+					}
+					try {
+						tr.join(mappedPos + offset);
+					} catch (e) {
+						// join may fail if position is invalid after earlier transforms — skip
+						// eslint-disable-next-line no-console
+						console.warn(
+							'[editor-plugin-list] applyListNormalisationFixes: unexpected join failure',
+							e,
+						);
+					}
+				}
+			}
+
+			// Insert empty paragraph before list-first listItems when _indentation is off.
+			if (
+				paragraph &&
+				!expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true)
+			) {
+				const currentNode = tr.doc.nodeAt(mappedPos);
+				if (currentNode && currentNode.firstChild && currentNode.firstChild.type !== paragraph) {
+					const emptyParagraph = paragraph.createAndFill();
+					if (emptyParagraph) {
+						tr.insert(mappedPos + 1, emptyParagraph);
+					}
+				}
+			}
+		}
+	}
+
 	return tr;
 }

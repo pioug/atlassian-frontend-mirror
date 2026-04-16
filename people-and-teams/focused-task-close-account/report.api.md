@@ -16,7 +16,7 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { MessageDescriptor } from 'react-intl-next';
+import { MessageDescriptor } from 'react-intl';
 import { default as React_2 } from 'react';
 
 // @public (undocumented)

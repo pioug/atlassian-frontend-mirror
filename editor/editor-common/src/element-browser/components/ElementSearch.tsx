@@ -6,8 +6,8 @@ import React, { memo, useLayoutEffect, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import type { WithContextProps } from '@atlaskit/analytics-next/withAnalyticsContext';

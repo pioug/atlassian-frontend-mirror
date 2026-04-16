@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef } from 'react';
 
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import { cssMap, cx } from '@atlaskit/css';
 import {

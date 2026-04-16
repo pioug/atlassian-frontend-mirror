@@ -6,7 +6,7 @@ import React, { useCallback } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import { expandClassNames } from '@atlaskit/editor-common/styles';

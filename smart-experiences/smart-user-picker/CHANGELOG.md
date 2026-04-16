@@ -1,5 +1,31 @@
 # @atlassian/smart-user-picker
 
+## 10.0.1
+
+### Patch Changes
+
+- [`9b1521c6d0e35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b1521c6d0e35) -
+  FFCLEANUP-97327: Remove smart-user-picker-attribution-header feature gate (always-on cleanup)
+
+## 10.0.0
+
+### Major Changes
+
+- [`d2e14ba5ae9fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2e14ba5ae9fc) -
+  Removed `react-intl-next` alias and replaced all usages with `react-intl` directly.
+
+  What changed: The `react-intl-next` npm alias (which resolved to `react-intl@^5`) has been
+  removed. All imports now reference `react-intl` directly, and `peerDependencies` have been updated
+  to `"^5.25.1 || ^6.0.0 || ^7.0.0"`.
+
+  How consumer should update their code: Ensure `react-intl` is installed at a version satisfying
+  `^5.25.1 || ^6.0.0 || ^7.0.0`. If your application was using `react-intl-next` as an npm alias, it
+  can be safely removed. Replace any remaining `react-intl-next` imports with `react-intl`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.2.2
 
 ### Patch Changes

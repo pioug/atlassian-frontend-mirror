@@ -1,5 +1,5 @@
 import rafSchedule from 'raf-schd';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import {
 	ACTION,

@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';

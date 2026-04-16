@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-table",
-	"version": "18.1.16",
+	"version": "19.0.0",
 	"description": "Table UI component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,7 +50,7 @@
 		"@emotion/react": "^11.7.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@atlaskit/icon-file-type": "workspace:^",
@@ -63,7 +63,8 @@
 		"date-fns": "root:*",
 		"enzyme": "root:*",
 		"react": "root:*",
-		"react-dom": "root:*"
+		"react-dom": "root:*",
+		"react-intl": "root:*"
 	},
 	"techstack": {
 		"@repo/internal": {

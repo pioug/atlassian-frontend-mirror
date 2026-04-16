@@ -1,7 +1,7 @@
 import { useCallback, useContext } from 'react';
 
+import { SetSideNavVisibilityState } from './set-side-nav-visibility-state';
 import { type SideNavTrigger } from './types';
-import { SetSideNavVisibilityState } from './visibility-context';
 
 type ToggleSideNav = () => void;
 

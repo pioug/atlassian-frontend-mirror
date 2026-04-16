@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';

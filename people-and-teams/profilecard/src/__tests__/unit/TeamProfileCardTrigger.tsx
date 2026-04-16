@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { act, createEvent, fireEvent } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import VerifiedIcon from '@atlaskit/icon/core/status-verified';
 import type { IconSpacing } from '@atlaskit/icon/types';

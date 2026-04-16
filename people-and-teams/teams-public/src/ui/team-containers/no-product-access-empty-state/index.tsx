@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { defineMessages, FormattedMessage } from 'react-intl-next';
+import { defineMessages, FormattedMessage } from 'react-intl';
 
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';

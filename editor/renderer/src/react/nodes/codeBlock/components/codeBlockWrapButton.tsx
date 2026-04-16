@@ -5,8 +5,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import type { Dispatch, SetStateAction } from 'react';
-import type { WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
 
 import Button from '@atlaskit/button/custom-theme-button';

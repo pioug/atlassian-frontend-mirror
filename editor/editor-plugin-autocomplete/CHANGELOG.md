@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 1.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.4.0
 
 ### Minor Changes

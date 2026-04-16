@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import {
 	ACTION,

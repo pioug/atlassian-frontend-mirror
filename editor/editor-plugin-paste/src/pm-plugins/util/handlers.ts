@@ -4,8 +4,8 @@ import uuid from 'uuid/v4';
 import type { MentionAttributes } from '@atlaskit/adf-schema';
 import type { EditorAnalyticsAPI, InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import type { CardOptions, QueueCardsFromTransactionAction } from '@atlaskit/editor-common/card';
+import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import { insideTable } from '@atlaskit/editor-common/core-utils';
 import type { ExtensionAutoConvertHandler } from '@atlaskit/editor-common/extensions';
 import {
@@ -55,7 +55,6 @@ import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/linking-c
 import { fg } from '@atlaskit/platform-feature-flags';
 import { closeHistory } from '@atlaskit/prosemirror-history';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 // TODO: ED-20519 - Needs Macro extraction
 
 import {
@@ -1440,7 +1439,7 @@ export function handleRichText(
 		} else if (
 			noNeedForSafeInsert &&
 			!(
-				expValEqualsNoExposure('platform_editor_flexible_list_indentation', 'isEnabled', true) &&
+				expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true) &&
 				checkTaskListInList(state, slice)
 			)
 		) {
@@ -1610,7 +1609,7 @@ export const handleSelectedTable =
 export function checkTaskListInList(state: EditorState, slice: Slice): boolean {
 	return Boolean(
 		isInListItem(state) &&
-		['taskList', 'taskItem'].includes(slice.content.firstChild?.type?.name || ''),
+			['taskList', 'taskItem'].includes(slice.content.firstChild?.type?.name || ''),
 	);
 }
 

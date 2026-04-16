@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';

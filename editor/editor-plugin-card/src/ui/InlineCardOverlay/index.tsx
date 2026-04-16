@@ -9,7 +9,7 @@ import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace';

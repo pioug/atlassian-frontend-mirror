@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import type { DocNode } from '@atlaskit/adf-schema';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';

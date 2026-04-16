@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 import noop from '@atlaskit/ds-lib/noop';
 import { resetMatchMedia } from '@atlassian/test-utils';
 
-import { useSkipLink } from '../../../../context/skip-links/skip-links-context';
+import { useSkipLink } from '../../../../context/skip-links/use-skip-link';
 import {
 	filterFromConsoleErrorOutput,
 	parseCssErrorRegex,

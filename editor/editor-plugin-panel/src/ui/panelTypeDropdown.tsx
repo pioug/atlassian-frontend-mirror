@@ -1,6 +1,6 @@
 import type React from 'react';
 
-import type { IntlShape, MessageDescriptor } from 'react-intl-next';
+import type { IntlShape, MessageDescriptor } from 'react-intl';
 
 import { PanelType } from '@atlaskit/adf-schema';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';

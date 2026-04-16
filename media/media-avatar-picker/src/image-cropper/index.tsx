@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import CrossIcon from '@atlaskit/icon/core/cross';
-import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type WrappedComponentProps, injectIntl } from 'react-intl';
 import { messages, MediaImage } from '@atlaskit/media-ui';
 import { isImageRemote } from './isImageRemote';
 import { token } from '@atlaskit/tokens';

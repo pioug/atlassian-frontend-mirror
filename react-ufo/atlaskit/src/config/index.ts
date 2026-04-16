@@ -305,6 +305,9 @@ export function isVCRevisionEnabled(revision: TTVCRevision, experienceKey?: stri
 
 export function getMostRecentVCRevision(experienceKey: string = ''): TTVCRevision {
 	const enabledVCRevisions = getEnabledVCRevisions(experienceKey);
+	if (enabledVCRevisions.length === 0) {
+		return getDefaultTTVCRevision();
+	}
 	return enabledVCRevisions[enabledVCRevisions.length - 1];
 }
 

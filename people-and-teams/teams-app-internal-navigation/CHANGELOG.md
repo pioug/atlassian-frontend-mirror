@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-navigation
 
+## 1.8.4
+
+### Patch Changes
+
+- [`1624a6cc2aec4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1624a6cc2aec4) -
+  Removed unnecessary TeamsNavigationProviders and props
+
 ## 1.8.3
 
 ### Patch Changes

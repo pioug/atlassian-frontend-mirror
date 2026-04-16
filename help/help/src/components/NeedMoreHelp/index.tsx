@@ -1,7 +1,7 @@
 import React from 'react';
 import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
 import { Inline } from '@atlaskit/primitives/compiled';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { NeedMoreHelpContainer, NeedMoreHelpContent, HelpAskAI } from './styled';
 import { VIEW } from '../constants';

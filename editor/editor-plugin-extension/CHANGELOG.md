@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-extension
 
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.35
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.34
 
 ### Patch Changes

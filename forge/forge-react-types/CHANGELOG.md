@@ -1,5 +1,20 @@
 # @atlaskit/forge-react-types
 
+## 1.0.5
+
+### Patch Changes
+
+- [`eb0b56b0bfa58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb0b56b0bfa58) -
+  Enrol forge packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform
+
+## 1.0.4
+
+### Patch Changes
+
+- [`82ad484f26e5d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82ad484f26e5d) -
+  Consolidate UIKit component types to forge-react-types
+
 ## 1.0.3
 
 ### Patch Changes

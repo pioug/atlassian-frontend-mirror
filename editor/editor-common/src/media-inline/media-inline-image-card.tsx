@@ -7,8 +7,8 @@ import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx } from '@emotion/react';
 import ReactDOM from 'react-dom';
-import type { WrappedComponentProps } from 'react-intl-next';
-import { createIntl, injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
+import { createIntl, injectIntl } from 'react-intl';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import {

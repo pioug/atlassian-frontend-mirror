@@ -11,7 +11,7 @@ import { PredefinedAvatarList } from '../src/predefined-avatar-list';
 import { PredefinedAvatarView } from '../src/predefined-avatar-view';
 
 import { generateAvatars } from '../example-helpers';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const avatars: Array<Avatar> = generateAvatars(5);
 

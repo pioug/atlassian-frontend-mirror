@@ -38,23 +38,23 @@ export const datasourceActionsPermissionsPromiseCache: LRUMap<
 export const DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE = 20;
 
 export const useDatasourceClientExtension = (): {
-	getDatasourceDetails: (
-		datasourceId: string,
-		data: DatasourceDetailsRequest,
+	executeAtomicAction: (
+		data: AtomicActionExecuteRequest,
+	) => Promise<AtomicActionExecuteResponse<unknown>>;
+	getDatasourceActionsAndPermissions: (
+		data: ActionsDiscoveryRequest,
 		force?: boolean,
-	) => Promise<DatasourceDetailsResponse>;
+	) => Promise<ActionsDiscoveryResponse>;
 	getDatasourceData: (
 		datasourceId: string,
 		data: DatasourceDataRequest,
 		force?: boolean,
 	) => Promise<DatasourceDataResponse>;
-	getDatasourceActionsAndPermissions: (
-		data: ActionsDiscoveryRequest,
+	getDatasourceDetails: (
+		datasourceId: string,
+		data: DatasourceDetailsRequest,
 		force?: boolean,
-	) => Promise<ActionsDiscoveryResponse>;
-	executeAtomicAction: (
-		data: AtomicActionExecuteRequest,
-	) => Promise<AtomicActionExecuteResponse<unknown>>;
+	) => Promise<DatasourceDetailsResponse>;
 	invalidateDatasourceDataCacheByAri: (ari: string) => void;
 } => {
 	const {

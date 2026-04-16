@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { SideNavVisibilityState } from './visibility-context';
+import { SideNavVisibilityState } from './side-nav-visibility-state';
 
 type HookArgs = {
 	/**

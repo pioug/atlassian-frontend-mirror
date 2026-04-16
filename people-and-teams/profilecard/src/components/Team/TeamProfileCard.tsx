@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import Avatar from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
@@ -9,7 +9,6 @@ import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Lozenge from '@atlaskit/lozenge';
 import { LinkItem, MenuGroup } from '@atlaskit/menu';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { Inline, Text } from '@atlaskit/primitives/compiled';
 import { layers } from '@atlaskit/theme/constants';
@@ -93,8 +92,8 @@ const TeamMembers = ({
 			? messages.membersMoreThan50IncludingYou
 			: messages.memberCountIncludingYou
 		: count >= LARGE_MEMBER_COUNT
-			? messages.membersMoreThan50
-			: messages.memberCount;
+		? messages.membersMoreThan50
+		: messages.memberCount;
 
 	// Use a ref to track whether this is currently open, so we can fire events
 	// iff the more section is being opened (not closed).
@@ -303,7 +302,6 @@ const ExtraActions = ({ actions, analytics }: ActionProps) => {
 					);
 				}}
 				zIndex={layers.modal()}
-				shouldRenderToParent={fg('enable_appropriate_reading_order_in_profile_card')}
 			/>
 		</MoreButton>
 	);

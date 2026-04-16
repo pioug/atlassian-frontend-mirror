@@ -50,6 +50,8 @@ export enum TABLE_ACTION {
 	TABLE_EDITOR_HEIGHT_INFO = 'tableEditorHeightInformation',
 	TABLE_RENDERER_HEIGHT_INFO = 'tableRendererHeightInformation',
 	STICKY_HEADER_METHOD_TOGGLED = 'stickyHeaderMethodToggled',
+	FIT_TO_CONTENT_AUTO_CONVERTED = 'fitToContentAutoConverted',
+	FIT_TO_CONTENT_ON_DEMAND = 'fitToContentOnDemand',
 }
 
 export enum TABLE_BREAKOUT {
@@ -437,6 +439,29 @@ type TableStickyHeaderEnabledAEP = UIAEP<
 	undefined
 >;
 
+type TableFitToContentAutoConvertedAEP = TableAEP<
+	TABLE_ACTION.FIT_TO_CONTENT_AUTO_CONVERTED,
+	{
+		editorContainerWidth: number;
+		measurements: Array<{
+			tableWidth: number;
+			totalColumnCount: number;
+		}>;
+		totalTablesResized: number;
+	},
+	undefined
+>;
+
+type TableFitToContentOnDemandAEP = TableAEP<
+	TABLE_ACTION.FIT_TO_CONTENT_ON_DEMAND,
+	{
+		editorContainerWidth: number;
+		tableWidth: number;
+		totalColumnCount: number;
+	},
+	undefined
+>;
+
 export type TableEventPayload =
 	| TableDeleteAEP
 	| TableClearAEP
@@ -467,4 +492,6 @@ export type TableEventPayload =
 	| TableChangedAlignmentAEP
 	| TableWidthInfoAEP
 	| TableHeightInfoAEP
-	| TableStickyHeaderEnabledAEP;
+	| TableStickyHeaderEnabledAEP
+	| TableFitToContentAutoConvertedAEP
+	| TableFitToContentOnDemandAEP;

@@ -1,9 +1,10 @@
-import { createIntl } from 'react-intl-next';
-import type { IntlShape } from 'react-intl-next';
+import { createIntl } from 'react-intl';
+import type { IntlShape } from 'react-intl';
 
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
-import { browser, timestampToString } from '@atlaskit/editor-common/utils';
+import { timestampToString } from '@atlaskit/editor-common/utils';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -106,7 +107,7 @@ export const dateToDOM = (
 			? {
 					'data-node-type': 'date',
 					'data-timestamp': timestamp,
-				}
+			  }
 			: {}),
 		draggable: 'true',
 	};
@@ -133,12 +134,12 @@ export const dateToDOM = (
 			['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ZERO_WIDTH_SPACE],
 		],
 		['span', wrapperAttrs, ['span', attrs, displayString]],
-		browser.android
+		getBrowserInfo().android
 			? [
 					'span',
 					{ class: 'zeroWidthSpaceContainer', contentEditable: 'false' },
 					['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ZERO_WIDTH_SPACE],
-				]
+			  ]
 			: ['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ''],
 	] satisfies DOMOutputSpec;
 };

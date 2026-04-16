@@ -1,7 +1,7 @@
 import { token } from '@atlaskit/tokens';
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import Button from '@atlaskit/button/custom-theme-button';
 import { messages } from '@atlaskit/media-ui';

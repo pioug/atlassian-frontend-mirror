@@ -6,8 +6,8 @@ import React, { Fragment, useCallback, useLayoutEffect, useMemo, useRef, useStat
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
-import type { IntlShape } from 'react-intl-next';
-import { useIntl } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';

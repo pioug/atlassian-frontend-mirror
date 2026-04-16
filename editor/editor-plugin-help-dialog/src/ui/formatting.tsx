@@ -4,8 +4,8 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import type { IntlShape } from 'react-intl-next';
-import { FormattedMessage } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import {
@@ -17,7 +17,12 @@ import {
 	askAIQuickInsert,
 	clearFormatting,
 	decreaseMediaSize,
+	dragToMoveDown,
+	dragToMoveLeft,
+	dragToMoveRight,
+	dragToMoveUp,
 	focusTableResizer,
+	showElementDragHandle,
 	focusToContextMenuTrigger,
 	increaseMediaSize,
 	insertRule,
@@ -757,6 +762,37 @@ const focusTableResizeHandleFormatting: (intl: IntlShape) => Format[] = ({ forma
 	},
 ];
 
+// 'navigation' is used as the type for these entries because Format.type is designed to match ADF
+// schema node/mark names — these shortcuts have no corresponding ADF type, so 'navigation' acts as
+// a catch-all that passes the schema filter and routes entries to the keyboard shortcuts column in the UI.
+const blockControlsShortcutsFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
+	{
+		name: formatMessage(messages.selectDragHandle),
+		type: 'navigation',
+		keymap: () => showElementDragHandle,
+	},
+	{
+		name: formatMessage(messages.moveSelectionUp),
+		type: 'navigation',
+		keymap: () => dragToMoveUp,
+	},
+	{
+		name: formatMessage(messages.moveSelectionDown),
+		type: 'navigation',
+		keymap: () => dragToMoveDown,
+	},
+	{
+		name: formatMessage(messages.moveSelectionLeft),
+		type: 'navigation',
+		keymap: () => dragToMoveLeft,
+	},
+	{
+		name: formatMessage(messages.moveSelectionRight),
+		type: 'navigation',
+		keymap: () => dragToMoveRight,
+	},
+];
+
 const moveTableRowColumnFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 	{
 		name: formatMessage(tableMessages.moveColumnLeftHelpDialogLabel),
@@ -836,6 +872,9 @@ export const getSupportedFormatting = (
 		...navigationKeymaps(intl),
 		...otherFormatting(intl),
 		...supportedBySchema,
+		...(expValEquals('platform_editor_drag_handle_keyboard_a11y', 'isEnabled', true)
+			? blockControlsShortcutsFormatting(intl)
+			: []),
 		...(imageEnabled ? [imageAutoFormat] : []),
 		...(quickInsertEnabled ? [quickInsertAutoFormat(intl)] : []),
 		...focusTableResizeHandleFormatting(intl),

@@ -1,4 +1,4 @@
-import type { MessageDescriptor } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl';
 
 import type { PasteSource } from '@atlaskit/editor-common/analytics';
 import type { CardOptions } from '@atlaskit/editor-common/card';

@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-restricted-imports
-import { defineMessages } from 'react-intl-next';
+import { defineMessages } from 'react-intl';
 
 export const aiFailedStateMessages: {
 	aupViolationMessage: {

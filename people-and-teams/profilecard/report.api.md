@@ -21,7 +21,7 @@
 import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { ComponentType } from 'react';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { IntlShape } from 'react-intl-next';
+import { IntlShape } from 'react-intl';
 import { LRUMap } from 'lru_map';
 import { default as React_2 } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';

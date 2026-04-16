@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { timestampToString } from '@atlaskit/editor-common/utils';
 import type { Slice } from '@atlaskit/editor-prosemirror/model';

@@ -1,4 +1,4 @@
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
 
 import type { TOOLBAR_ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import type { Command } from '@atlaskit/editor-common/types';

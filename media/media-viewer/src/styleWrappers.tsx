@@ -21,7 +21,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import Heading from '@atlaskit/heading';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import { messages } from '@atlaskit/media-ui';
 
 const blanketStyles = css({

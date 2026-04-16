@@ -6,7 +6,7 @@ import type { ReactNode } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import SuccessIcon from '@atlaskit/icon/core/status-success';

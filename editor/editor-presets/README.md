@@ -31,7 +31,7 @@ const preset = confluenceFullPagePresetBase({
 import React from 'react';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { confluenceFullPagePresetBase } from '@atlaskit/editor-presets';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 function MyEditor() {
   const intl = useIntl();

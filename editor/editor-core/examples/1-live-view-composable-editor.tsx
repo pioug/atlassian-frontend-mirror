@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import {
 	EditorExampleControls,

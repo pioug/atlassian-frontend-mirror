@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "10.2.13",
+	"version": "11.0.0",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -85,7 +85,7 @@
 		"@atlaskit/media-core": "workspace:^",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -171,5 +171,8 @@
 		"no-unused-dependencies": {
 			"checkDevDependencies": true
 		}
+	},
+	"devDependencies": {
+		"react-intl": "root:*"
 	}
 }

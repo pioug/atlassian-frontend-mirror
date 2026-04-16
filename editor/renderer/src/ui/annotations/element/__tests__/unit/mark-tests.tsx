@@ -7,7 +7,7 @@ import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
 import { act, fireEvent } from '@testing-library/react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { MarkComponent } from '../../mark';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 jest.mock('@atlaskit/feature-gate-js-client');
 

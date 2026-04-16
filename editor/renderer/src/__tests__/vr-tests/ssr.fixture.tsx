@@ -14,7 +14,7 @@ import { resizedImagedoc } from '../__fixtures__/ssr-resized-image.adf';
 import { resizedMedia, mediaInTable } from '../__fixtures__/ssr-resized-media.adf';
 import { smartCardAdf, smartCardAtlassianProjectAdf } from '../__fixtures__/ssr-smart-card.adf';
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import Loadable from 'react-loadable';
 import { ReactRenderer } from '../../index';
 import type { RendererProps } from '../../index';

@@ -9,7 +9,7 @@ import React, { forwardRef } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
-import { defineMessages } from 'react-intl-next';
+import { defineMessages } from 'react-intl';
 
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';

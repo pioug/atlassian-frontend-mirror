@@ -1,5 +1,12 @@
 # @atlaskit/adf-schema
 
+## 52.5.0
+
+### Minor Changes
+
+- [`a0f40da6cf877`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0f40da6cf877) -
+  Enable spanning on fontSize mark so font size is retained when pressing Enter on a new line
+
 ## 52.4.23
 
 ### Patch Changes

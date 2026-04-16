@@ -1,5 +1,34 @@
 # @atlaskit/editor-statsig-tmp
 
+## 62.4.1
+
+### Patch Changes
+
+- [`eb34f250499a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb34f250499a5) -
+  [EDITOR-6274] remove experiment override from tests
+
+## 62.4.0
+
+### Minor Changes
+
+- [`5582de25d88ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5582de25d88ef) -
+  Add noStream flag to skip streaming pacer for pre-computed tool call results
+
+## 62.3.1
+
+### Patch Changes
+
+- [`ed96586aa0e43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed96586aa0e43) -
+  Cleanup experiment platform_editor_table_resizer_extended_zone: ship treatment
+  (needExtendedResizeZone always true)
+
+## 62.3.0
+
+### Minor Changes
+
+- [`bfe80c5eaf923`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfe80c5eaf923) -
+  Enable onedrive and MS teams links to render as smartlinks
+
 ## 62.2.0
 
 ### Minor Changes

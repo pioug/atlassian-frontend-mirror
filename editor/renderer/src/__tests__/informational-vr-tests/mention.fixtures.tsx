@@ -6,7 +6,7 @@ import type { MentionProvider } from '@atlaskit/mention/types';
 import type { DocNode } from '@atlaskit/adf-schema';
 import ProfileCardClient from '@atlaskit/profilecard/client';
 import { getMockProfileClient } from '@atlaskit/profilecard/mocks';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import Renderer from '../../ui/Renderer';
 

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 10.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.19
+
+### Patch Changes
+
+- [`7aff76124fe7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7aff76124fe7f) -
+  [ux] [EDITOR-6282] scale the size of the drag handle with the base font size
+- Updated dependencies
+
 ## 9.1.18
 
 ### Patch Changes

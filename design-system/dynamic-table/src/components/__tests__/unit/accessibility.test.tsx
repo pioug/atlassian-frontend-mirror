@@ -9,7 +9,7 @@ import Link from '@atlaskit/link';
 import DynamicTable, { DynamicTableStateless as StatelessDynamicTable } from '../../../index';
 import { type StatelessProps } from '../../../types';
 import LoadingContainer from '../../loading-container';
-import { RankableTableCell } from '../../rankable/table-cell';
+import { RankableTableCell } from '../../rankable/rankable-table-cell';
 
 import { cellWithKey as cell, headMock1, rows, rowsWithKeys, sortKey } from './_data';
 

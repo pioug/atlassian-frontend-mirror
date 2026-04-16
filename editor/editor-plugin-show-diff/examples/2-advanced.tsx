@@ -10,10 +10,13 @@ import applyDevTools from 'prosemirror-dev-tools';
 import { PanelType } from '@atlaskit/adf-schema';
 import {
 	blockCard,
+	blockQuote,
+	codeBlock,
 	decisionItem,
 	decisionList,
 	doc,
 	expand,
+	heading,
 	layoutColumn,
 	layoutSection,
 	media,
@@ -21,6 +24,8 @@ import {
 	panel,
 	p,
 	table,
+	taskItem,
+	taskList,
 	td,
 	text,
 	th,
@@ -102,7 +107,25 @@ const styles = cssMap({
 });
 
 const original = doc(
+	heading({ level: 1 })(text('Show Diff Advanced Example')),
 	p('Intro: original paragraph before changes.'),
+	blockQuote(
+		p('Original quote: requirements are still under review.'),
+		p('Second quoted line in the original document.'),
+	),
+	codeBlock({ language: 'ts' })(
+		text('const status = "draft";'),
+		text('\n'),
+		text('console.log(status);'),
+	),
+	taskList({ localId: 'diff-adv-task-list' })(
+		taskItem({ localId: 'diff-adv-task-a', state: 'TODO' })(
+			text('Task A: validate assumptions in design review.'),
+		),
+		taskItem({ localId: 'diff-adv-task-b', state: 'DONE' })(
+			text('Task B: capture original acceptance criteria.'),
+		),
+	),
 	p(
 		'Below: decision list (two items — one will be edited, one removed), blockCard, mediaSingle, then table / panel / layout / expand. Scroll to exercise the sticky toolbar.',
 	),
@@ -145,7 +168,25 @@ const original = doc(
 ) as JSONDocNode;
 
 const defaultDoc = doc(
+	heading({ level: 1 })(text('Show Diff Advanced Example (Updated)')),
 	p('Intro: updated paragraph after changes.'),
+	blockQuote(
+		p('Updated quote: requirements are approved for implementation.'),
+		p('Second quoted line was refined in the updated document.'),
+	),
+	codeBlock({ language: 'ts' })(
+		text('const status = "approved";'),
+		text('\n'),
+		text('console.log(status.toUpperCase());'),
+	),
+	taskList({ localId: 'diff-adv-task-list' })(
+		taskItem({ localId: 'diff-adv-task-a', state: 'DONE' })(
+			text('Task A: assumptions validated in design review.'),
+		),
+		taskItem({ localId: 'diff-adv-task-c', state: 'TODO' })(
+			text('Task C: publish rollout notes for stakeholders.'),
+		),
+	),
 	p(
 		'Below: decision list (edited first item, removed second, added third), blockCard URL change, different mediaSingle asset, then table / panel / layout / expand.',
 	),
@@ -194,6 +235,7 @@ export default function Editor(): React.JSX.Element {
 	const [isShowingDiff, setIsShowingDiff] = useState(false);
 	const [colorScheme, setColorScheme] = useState<ColorScheme>('standard');
 	const [isInverted, setisInverted] = useState(false);
+	const [hideDeletedDiffs, setHideDeletedDiffs] = useState(false);
 	const [diffType, setDiffType] = useState<DiffType>('inline');
 
 	const { preset, editorApi } = usePreset(
@@ -323,11 +365,12 @@ export default function Editor(): React.JSX.Element {
 				steps,
 				originalDoc,
 				isInverted,
+				hideDeletedDiffs,
 				diffType,
 			}),
 		);
 		setIsShowingDiff(true);
-	}, [editorApi, isInverted, diffType]);
+	}, [editorApi, isInverted, hideDeletedDiffs, diffType]);
 
 	useEffect(() => {
 		showDiff();
@@ -356,6 +399,14 @@ export default function Editor(): React.JSX.Element {
 					}}
 				>
 					Inverted: {isInverted ? 'on' : 'off'}
+				</Button>
+				<Button
+					onClick={() => {
+						hideDiff();
+						setHideDeletedDiffs((prev) => !prev);
+					}}
+				>
+					Deleted diffs: {hideDeletedDiffs ? 'hidden' : 'visible'}
 				</Button>
 				<Button
 					onClick={() => {

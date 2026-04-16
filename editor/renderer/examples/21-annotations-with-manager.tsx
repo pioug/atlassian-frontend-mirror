@@ -4,7 +4,7 @@
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ChangeEvent } from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { css, jsx } from '@atlaskit/css';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';

@@ -5,7 +5,7 @@
  * @jsx jsx
  */
 import { css } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { jsx, cssMap } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';

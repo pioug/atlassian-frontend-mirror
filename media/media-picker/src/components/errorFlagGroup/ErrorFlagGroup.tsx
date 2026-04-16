@@ -12,7 +12,7 @@ import {
 	useIntl,
 	type WithIntlProps,
 	type WrappedComponentProps,
-} from 'react-intl-next';
+} from 'react-intl';
 
 export interface ErrorFlagGroupProps {
 	readonly flagData: UploadRejectionData[];

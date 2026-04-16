@@ -6,7 +6,7 @@ import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import { messages } from '@atlaskit/editor-common/extensions';
 import CheckCircleIcon from '@atlaskit/icon/core/status-success';

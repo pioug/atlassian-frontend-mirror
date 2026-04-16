@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 

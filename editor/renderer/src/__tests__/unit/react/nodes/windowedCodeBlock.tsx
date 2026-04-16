@@ -1,6 +1,6 @@
 import React from 'react';
 import { render as renderToDOM } from 'react-dom';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { nextTick as flushLazyModuleFetching } from '@atlaskit/editor-test-helpers/next-tick';

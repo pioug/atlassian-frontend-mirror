@@ -118,7 +118,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin;
 ```json
 {
 	"react": "^16.8.0",
-	"react-intl-next": "npm:react-intl@^5.18.1"
+	"react-intl": "npm:react-intl@^5.18.1"
 }
 ```
 

@@ -3,7 +3,7 @@ import { createElement } from 'react';
 import { bind } from 'bind-event-listener';
 import type { UnbindFn } from 'bind-event-listener';
 import ReactDOM from 'react-dom';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 

@@ -1,5 +1,5 @@
 import type { Extension } from '@codemirror/state';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { withLazyLoading } from '@atlaskit/editor-common/lazy-node-view';
 import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';

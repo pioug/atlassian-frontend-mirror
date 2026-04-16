@@ -66,6 +66,7 @@ export const TableSharedCssClassName: {
 	readonly TABLE_STICKY_SENTINEL_TOP: 'pm-table-sticky-sentinel-top';
 	readonly TABLE_STICKY_SHADOW: 'pm-table-sticky-shadow';
 	readonly TABLE_STICKY_WRAPPER: 'pm-table-sticky-wrapper';
+	readonly TABLE_VIEW_CONTENT_WRAP: 'tableView-content-wrap';
 } = {
 	TABLE_CONTAINER: `${tablePrefixSelector}-container`,
 	TABLE_NODE_WRAPPER: `${tablePrefixSelector}-wrapper`,
@@ -93,6 +94,7 @@ export const TableSharedCssClassName: {
 	TABLE_ROW_CONTROLS_WRAPPER: `${tablePrefixSelector}-row-controls-wrapper`,
 	TABLE_COLUMN_CONTROLS_DECORATIONS: `${tablePrefixSelector}-column-controls-decoration`,
 	TABLE_RESIZER_CONTAINER: `${tablePrefixSelector}-resizer-container`,
+	TABLE_VIEW_CONTENT_WRAP: 'tableView-content-wrap',
 } as const;
 
 /* first block node has 0 top margin */

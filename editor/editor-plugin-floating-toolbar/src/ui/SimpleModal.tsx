@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import { messages } from '@atlaskit/editor-common/floating-toolbar';

@@ -335,7 +335,7 @@ export type UploadsStartEventPayload = {
 	"@atlaskit/media-core": "^34.1.2",
 	"react": "^16.8.0",
 	"react-dom": "^16.8.0",
-	"react-intl-next": "npm:react-intl@^5.18.1"
+	"react-intl": "npm:react-intl@^5.18.1"
 }
 ```
 

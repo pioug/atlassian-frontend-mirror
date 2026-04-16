@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider, injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { IntlProvider, injectIntl, type WrappedComponentProps } from 'react-intl';
 import { getMessagesForLocale, type LangCode } from '../util/i18n-util';
 
 export interface Props {

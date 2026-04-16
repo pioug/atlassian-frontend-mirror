@@ -36,8 +36,8 @@ const fixColumnWidth = ({
 }: {
 	columnWidth: number;
 	scaleDownPercent: number;
-	zeroWidthColumnsCount: number;
 	skipMinWidth?: boolean;
+	zeroWidthColumnsCount: number;
 }): number => {
 	if (columnWidth === 0) {
 		return columnWidth;
@@ -140,13 +140,13 @@ const renderSyncBlockColgroup = ({
 	renderWidth: renderWidthProp,
 	contextWidth,
 }: {
+	columnWidths: number[];
+	contextWidth: number;
 	isInsideOfSyncBlock: boolean;
 	isInsideOfTable: boolean;
-	tableNode?: SharedTableProps['tableNode'];
-	columnWidths: number[];
 	isNumberColumnEnabled: boolean;
 	renderWidth: number;
-	contextWidth: number;
+	tableNode?: SharedTableProps['tableNode'];
 }): CSSProperties[] | null => {
 	if (!isInsideOfSyncBlock || !fg('platform_synced_block_patch_9')) {
 		return null;
@@ -178,10 +178,10 @@ const renderSyncBlockColgroup = ({
 
 const renderScaleDownColgroup = (
 	props: SharedTableProps & {
+		isInsideOfSyncBlock?: boolean;
 		isTableFixedColumnWidthsOptionEnabled: boolean;
 		isTableScalingEnabled: boolean;
 		isTopLevelRenderer?: boolean;
-		isInsideOfSyncBlock?: boolean;
 	},
 ): CSSProperties[] | null => {
 	const {

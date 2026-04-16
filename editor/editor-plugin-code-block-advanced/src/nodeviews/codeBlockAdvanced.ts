@@ -4,7 +4,7 @@ import { Compartment, Facet, EditorState as CodeMirrorState } from '@codemirror/
 import type { Extension, StateEffect } from '@codemirror/state';
 import { EditorView as CodeMirror, lineNumbers, gutters } from '@codemirror/view';
 import type { ViewUpdate } from '@codemirror/view';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';

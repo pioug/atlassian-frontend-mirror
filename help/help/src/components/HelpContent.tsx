@@ -24,7 +24,7 @@ import { HelpFooter } from './styled';
 import { Tabs } from './Tabs';
 import AiChatIcon from '@atlaskit/icon/core/ai-chat';
 import SearchIcon from '@atlaskit/icon/core/search';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 import { messages } from '../messages';
 
 interface HelpContentInterface {

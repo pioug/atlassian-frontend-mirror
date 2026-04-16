@@ -2,7 +2,7 @@ import React from 'react';
 
 import { type ProcessedFileState } from '@atlaskit/media-client';
 import { awaitError, fakeMediaClient, asMockFunction } from '@atlaskit/media-test-helpers';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { getRandomTelemetryId, type MediaTraceContext } from '@atlaskit/media-common';
 import { ImageViewer, type ImageViewerProps } from '../../../../../viewers/image';

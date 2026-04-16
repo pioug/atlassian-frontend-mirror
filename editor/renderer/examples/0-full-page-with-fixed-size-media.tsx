@@ -2,7 +2,7 @@ import React from 'react';
 import RendererDemo from './helper/RendererDemo';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import adf from './helper/media-with-fixed-size.json';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const Example = (): React.JSX.Element => {
 	return (

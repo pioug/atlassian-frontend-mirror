@@ -5,7 +5,7 @@ jest.mock('@atlaskit/platform-feature-flags', () => ({
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 

@@ -8,7 +8,7 @@
 // nomenclature for what 'block type' is active.
 import type { ReactElement } from 'react';
 
-import type { MessageDescriptor } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl';
 
 import type { AllowedBlockTypes, HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';

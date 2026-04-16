@@ -4,7 +4,7 @@ const messages = defineMessages({
 	selectorLabel: {
 		id: 'rovo-agent-selector.label',
 		defaultMessage: 'Select agent',
-		description: 'Label for the agent selector dropdown',
+		description: 'The text is shown as the visible label for the drop-down selector component that allows the user to choose a Rovo AI agent from a list of available agents.',
 	},
 	rovoAgentPlaceholder: {
 		id: 'rovo-agent-selector.lplaceholder',

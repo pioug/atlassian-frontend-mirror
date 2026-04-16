@@ -5,7 +5,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import type { ChangeEvent } from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { getExamplesProviders } from '@af/editor-examples-helpers/utils';
 import { AnnotationTypes } from '@atlaskit/adf-schema';

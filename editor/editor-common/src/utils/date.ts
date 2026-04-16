@@ -1,6 +1,6 @@
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import isBefore from 'date-fns/isBefore';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

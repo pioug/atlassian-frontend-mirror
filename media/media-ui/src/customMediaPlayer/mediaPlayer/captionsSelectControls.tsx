@@ -1,6 +1,6 @@
 import React, { memo, useMemo } from 'react';
 import { type VideoTextTracks } from '../react-video-renderer';
-import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
 import Tooltip from '@atlaskit/tooltip';
 import { SplitButton } from '@atlaskit/button/new';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';

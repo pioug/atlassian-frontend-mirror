@@ -17,7 +17,7 @@ import {
 	MediaButton,
 } from '@atlaskit/media-ui';
 import { getLanguageType, getExtension, isCodeViewerItem } from '@atlaskit/media-ui/codeViewer';
-import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl';
 import { Outcome } from './domain';
 import {
 	Header as HeaderWrapper,

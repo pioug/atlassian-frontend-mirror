@@ -17,7 +17,7 @@ import { token } from '@atlaskit/tokens';
 import { List } from '../../../components/list';
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { HasCustomThemeContext } from '../../top-nav-items/themed/has-custom-theme-context';
-import { IconButton } from '../../top-nav-items/themed/migration';
+import { IconButton } from '../../top-nav-items/themed/icon-button';
 import { openLayerObserverTopNavEndNamespace } from '../constants';
 
 const containerStyles = cssMap({

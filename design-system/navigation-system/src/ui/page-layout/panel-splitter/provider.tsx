@@ -1,6 +1,6 @@
 import React, { Fragment, type MutableRefObject, useMemo, useRef } from 'react';
 
-import { PanelSplitterContext, type PanelSplitterContextType } from './context';
+import { PanelSplitterContext, type PanelSplitterContextType } from './panel-splitter-context';
 
 export type PanelSplitterProviderProps = Omit<
 	PanelSplitterContextType,

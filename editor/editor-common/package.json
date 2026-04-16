@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "112.21.2",
+	"version": "113.0.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -224,7 +224,7 @@
 		"@atlaskit/media-core": "workspace:^",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@atlaskit/media-core": "workspace:^",
@@ -240,6 +240,7 @@
 		"enzyme": "root:*",
 		"raf-stub": "root:*",
 		"react": "root:*",
+		"react-intl": "root:*",
 		"react-test-renderer": "root:*",
 		"sinon": "root:*"
 	},

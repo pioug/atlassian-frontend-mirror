@@ -5,7 +5,7 @@ import {
 	injectIntl,
 	type WithIntlProps,
 	type WrappedComponentProps,
-} from 'react-intl-next';
+} from 'react-intl';
 
 export interface Props {
 	children: React.ReactNode;

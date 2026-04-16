@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { bind } from 'bind-event-listener';
 import type { UnbindFn } from 'bind-event-listener';
 import rafSchedule from 'raf-schd';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { IconButton } from '@atlaskit/button/new';
 import { messages } from '@atlaskit/editor-common/floating-toolbar';

@@ -11,7 +11,7 @@ import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
 import type { AnnotationId, AnnotationDataAttributes } from '@atlaskit/adf-schema';
 import { AnnotationMarkStates } from '@atlaskit/adf-schema';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import { inlineCommentMessages } from '../../../messages';
 import { token } from '@atlaskit/tokens';
 import {

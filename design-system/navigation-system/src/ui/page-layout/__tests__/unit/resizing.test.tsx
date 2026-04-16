@@ -17,7 +17,7 @@ import { fireEvent, render, screen } from '@atlassian/testing-library';
 import { Aside } from '../../aside';
 import { Main } from '../../main/main';
 import { Panel } from '../../panel';
-import * as panelSplitterWidthUtils from '../../panel-splitter/get-width';
+import * as panelSplitterWidthUtils from '../../panel-splitter/get-pixel-width';
 import { PanelSplitter } from '../../panel-splitter/panel-splitter';
 import { Root } from '../../root';
 import { SideNav } from '../../side-nav/side-nav';

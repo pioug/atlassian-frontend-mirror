@@ -1,0 +1,15 @@
+export type {
+	HeadCellType,
+	HeadType,
+	I18nShape,
+	LoadingSpinnerSizeType,
+	RankEnd,
+	RankEndLocation,
+	RankStart,
+	RowCellType,
+	RowType,
+	SortOrderType,
+	SpinnerSizeType,
+	StatefulProps,
+	StatelessProps,
+} from '../types';

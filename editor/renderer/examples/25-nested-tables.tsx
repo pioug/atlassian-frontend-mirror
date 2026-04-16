@@ -4,7 +4,7 @@ import RendererDemo from './helper/RendererDemo';
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { ADFStage } from '@atlaskit/editor-common/validator';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const ADF_STAGE0 = 'stage0';
 const ADF_FINAL = 'final';

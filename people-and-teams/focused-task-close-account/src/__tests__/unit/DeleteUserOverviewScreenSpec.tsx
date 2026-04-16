@@ -5,7 +5,7 @@ import { DeleteUserOverviewScreen } from '../../components/DeleteUserOverviewScr
 import { catherineHirons } from '../../mocks/users';
 import accessibleSites from '../../mocks/accessibleSites';
 import { type DeleteUserOverviewScreenProps } from '../../components/DeleteUserOverviewScreen/types';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const defaultProps: Partial<DeleteUserOverviewScreenProps> = {
 	accessibleSites,

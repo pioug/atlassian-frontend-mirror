@@ -146,7 +146,7 @@ export const getParentNodeWidth = (
 	return parentWidth;
 };
 
-const getNestedParentNode = (tablePos: number, state: EditorState): PMNode | null => {
+export const getNestedParentNode = (tablePos: number, state: EditorState): PMNode | null => {
 	if (tablePos === undefined) {
 		return null;
 	}

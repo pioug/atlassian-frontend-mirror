@@ -1,4 +1,4 @@
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import type { DocNode } from '@atlaskit/adf-schema';
 import { createADFFromHTML } from '@atlaskit/editor-common/utils/create-adf-from-html';

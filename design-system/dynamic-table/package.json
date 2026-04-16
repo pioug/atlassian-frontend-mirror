@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/dynamic-table",
-	"version": "18.3.28",
+	"version": "18.4.0",
 	"description": "A dynamic table displays rows of data with built-in pagination, sorting, and re-ordering functionality.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,8 +27,10 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
-		"./theme": "./src/theme.tsx",
-		"./types": "./src/types.tsx"
+		"./stateful": "./src/entry-points/stateful.tsx",
+		"./stateless": "./src/entry-points/stateless.tsx",
+		"./theme": "./src/entry-points/theme.tsx",
+		"./types": "./src/entry-points/types.tsx"
 	},
 	"atlassian": {
 		"react-compiler": {

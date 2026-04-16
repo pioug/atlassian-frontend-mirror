@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback, useRef, useEffect } from 'react';
 
 import chromatism from 'chromatism';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { Grid, Inline } from '@atlaskit/primitives/compiled';
 import { token, useThemeObserver } from '@atlaskit/tokens';

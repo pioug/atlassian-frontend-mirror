@@ -7,7 +7,7 @@ import React, { useCallback, useLayoutEffect, useMemo } from 'react';
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports, @atlaskit/design-system/no-unsafe-style-overrides */
 import { css, jsx } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';

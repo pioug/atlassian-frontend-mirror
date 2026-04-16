@@ -2,7 +2,7 @@ import React from 'react';
 
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { IntlProvider, type MessageDescriptor } from 'react-intl-next';
+import { IntlProvider, type MessageDescriptor } from 'react-intl';
 
 import { useTeamContainers } from '@atlaskit/teams-public';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';

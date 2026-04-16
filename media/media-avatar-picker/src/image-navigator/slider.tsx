@@ -10,8 +10,8 @@ import { messages } from '@atlaskit/media-ui';
 import ScaleLargeIcon from '@atlaskit/icon/core/image';
 import ScaleSmallIcon from '@atlaskit/icon/core/image';
 import Button from '@atlaskit/button/standard-button';
-import { injectIntl } from 'react-intl-next';
-import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 
 export interface SliderProps {
 	value: number;

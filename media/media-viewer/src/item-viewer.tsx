@@ -11,7 +11,7 @@ import {
 	toCommonMediaClientError,
 } from '@atlaskit/media-client';
 import { Text } from '@atlaskit/primitives/compiled';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 import { messages, type WithShowControlMethodProp } from '@atlaskit/media-ui';
 import { isCodeViewerItem } from '@atlaskit/media-ui/codeViewer';
 import { useFileState, useMediaClient } from '@atlaskit/media-client-react';

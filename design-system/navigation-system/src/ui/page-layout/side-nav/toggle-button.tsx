@@ -15,14 +15,14 @@ import SidebarExpandIcon from '@atlaskit/icon/core/sidebar-expand';
 import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
-import { IconButton } from '../../top-nav-items/themed/migration';
+import { IconButton } from '../../top-nav-items/themed/icon-button';
 
-import { useIsSideNavShortcutEnabled } from './is-side-nav-shortcut-enabled-context';
+import { SideNavToggleButtonAttachRef } from './side-nav-toggle-button-attach-ref';
 import { sideNavToggleTooltipKeyboardShortcut } from './side-nav-toggle-tooltip-keyboard-shortcut';
-import { SideNavToggleButtonAttachRef } from './toggle-button-context';
+import { SideNavVisibilityState } from './side-nav-visibility-state';
+import { useIsSideNavShortcutEnabled } from './use-is-side-nav-shortcut-enabled';
 import { useSideNavVisibility } from './use-side-nav-visibility';
 import { useToggleSideNav } from './use-toggle-side-nav';
-import { SideNavVisibilityState } from './visibility-context';
 
 export type SideNavVisibilityChangeAnalyticsAttributes = {
 	isSideNavVisible: boolean;

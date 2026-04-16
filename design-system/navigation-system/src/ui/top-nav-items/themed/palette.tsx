@@ -1,9 +1,3 @@
-/**
- * Copied from the brand refresh palette.
- *
- * Ideally we'd codegen this but the brand refresh palette isn't exposed
- * through public API and we shouldn't use the private API of another package.
- */
 export const palette: {
 	'DarkNeutral-100': string;
 	'DarkNeutral-100A': string;
@@ -86,22 +80,4 @@ export const palette: {
 	Neutral900: '#3B3D42',
 	Neutral1000: '#292A2E',
 	Neutral1100: '#1E1F21',
-};
-
-export const paletteRgba: {
-	DarkNeutral300A: {
-		r: number;
-		g: number;
-		b: number;
-		a: number;
-	};
-	Neutral300A: {
-		r: number;
-		g: number;
-		b: number;
-		a: number;
-	};
-} = {
-	DarkNeutral300A: { r: 0xe3, g: 0xe4, b: 0xf2, a: 0x1f / 255 },
-	Neutral300A: { r: 0x0b, g: 0x12, b: 0x0e, a: 0x24 / 255 },
 };

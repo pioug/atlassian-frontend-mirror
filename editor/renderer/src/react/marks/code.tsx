@@ -1,6 +1,6 @@
 import React from 'react';
-import { injectIntl } from 'react-intl-next';
-import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl';
+import type { WrappedComponentProps } from 'react-intl';
 import AkCode from '@atlaskit/code/inline';
 import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';

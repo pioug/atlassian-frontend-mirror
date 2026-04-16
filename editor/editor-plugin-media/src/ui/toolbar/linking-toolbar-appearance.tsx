@@ -6,7 +6,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import { addLink, ToolTipContent } from '@atlaskit/editor-common/keymaps';

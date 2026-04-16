@@ -22,7 +22,7 @@ import { MediaViewerError } from '../../errors';
 import { clientRectangle, naturalSizeRectangle, zoomLevelAfterResize } from './utils';
 import { ImageWrapper } from './ImageWrapper';
 import { getErrorReason } from './errors';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 type WrapperScroll = {
 	scrollLeft: number;

@@ -2,8 +2,8 @@ import assert from 'assert';
 
 import React from 'react';
 
-import type { IntlShape } from 'react-intl-next';
-import { RawIntlProvider } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
+import { RawIntlProvider } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
@@ -16,6 +16,7 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
 import {
@@ -32,7 +33,7 @@ import type {
 	EditorContainerWidth as WidthPluginState,
 	ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
-import { browser, ErrorReporter } from '@atlaskit/editor-common/utils';
+import { ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
@@ -1200,6 +1201,7 @@ export const createPlugin = (
 					`[data-id="${CAPTION_PLACEHOLDER_ID}"]`,
 				);
 
+				const browser = getBrowserInfo();
 				// Workaround for Chrome given a regression introduced in prosemirror-view@1.18.6
 				// Returning true prevents that updateSelection() is getting called in the commit below:
 				// @see https://github.com/ProseMirror/prosemirror-view/compare/1.18.5...1.18.6

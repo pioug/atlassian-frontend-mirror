@@ -5,6 +5,9 @@ import type { SharedTableProps } from './types';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+import { isTableInContentMode } from './content-mode';
 
 type TableProps = SharedTableProps & {
 	children: React.ReactNode[];
@@ -64,6 +67,14 @@ export const Table = React.memo(
 		const tableLayout = tableNode?.attrs.layout;
 		const tableDisplayMode = tableNode?.attrs.displayMode;
 
+
+		const isContentMode = isTableInContentMode({
+			tableNode,
+			allowTableResizing,
+			rendererAppearance,
+			isTableNested: isInsideOfBlockNode || isInsideOfTable,
+		}) && expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true);
+
 		return (
 			<table
 				// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/platform/valid-gate-name
@@ -75,6 +86,7 @@ export const Table = React.memo(
 				data-table-width={tableWidth}
 				data-layout={tableLayout}
 				data-table-display-mode={tableDisplayMode}
+				data-initial-width-mode={isContentMode ? 'content' : undefined}
 				ref={innerRef}
 				style={{ marginTop: fixTableSSRResizing ? '0px' : '' }}
 			>

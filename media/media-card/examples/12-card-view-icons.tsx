@@ -9,7 +9,7 @@ import { type CardStatus } from '../src';
 import { CardView } from '../src/card/cardView';
 import { type FileDetails, type MediaType } from '@atlaskit/media-client';
 import { token } from '@atlaskit/tokens';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { MainWrapper } from '../example-helpers';
 import { CardViewWrapper } from '../example-helpers/cardViewWrapper';
 

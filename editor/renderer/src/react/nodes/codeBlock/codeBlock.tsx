@@ -5,8 +5,8 @@
 import { useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { CodeBlock as AkCodeBlock } from '@atlaskit/code';

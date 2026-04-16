@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { defineMessages, FormattedMessage } from 'react-intl-next';
+import { defineMessages, FormattedMessage } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';

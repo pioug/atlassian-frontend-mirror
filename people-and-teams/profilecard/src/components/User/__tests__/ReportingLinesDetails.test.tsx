@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render, screen, within } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import ReportingLinesDetails from '../ReportingLinesDetails';
 

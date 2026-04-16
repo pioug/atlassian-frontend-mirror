@@ -5,7 +5,7 @@
 import { useState, useEffect } from 'react';
 
 import { css, jsx, cssMap, keyframes, cx } from '@compiled/react';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import {

@@ -4,7 +4,7 @@
  */
 import { useCallback, useMemo } from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import AvatarGroup, { type AvatarProps } from '@atlaskit/avatar-group';
 import { cssMap, jsx } from '@atlaskit/css';

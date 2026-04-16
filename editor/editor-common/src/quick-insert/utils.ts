@@ -1,6 +1,6 @@
 import Fuse from 'fuse.js';
 import memoizeOne from 'memoize-one';
-import type { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 

@@ -24,8 +24,8 @@ import Tooltip from '@atlaskit/tooltip';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import _uniqueId from 'lodash/uniqueId';
-import type { WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import type { AnalyticsEventPayload } from '../analytics/events';
 import { MODE, PLATFORM } from '../analytics/events';
 import { ActiveHeaderIdConsumer } from './active-header-id-provider';

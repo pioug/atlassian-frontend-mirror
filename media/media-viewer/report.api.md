@@ -122,7 +122,7 @@ type MediaViewerWithMediaClientConfigProps = WithMediaClientConfigProps<MediaVie
 {
 	"@emotion/react": "^11.7.1",
 	"react": "^16.8.0",
-	"react-intl-next": "npm:react-intl@^5.18.1"
+	"react-intl": "npm:react-intl@^5.18.1"
 }
 ```
 

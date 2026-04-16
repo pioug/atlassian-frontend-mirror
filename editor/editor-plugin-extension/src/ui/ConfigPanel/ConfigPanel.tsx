@@ -4,8 +4,8 @@ import { bind, type UnbindFn } from 'bind-event-listener';
 import _isEqual from 'lodash/isEqual';
 import _mergeRecursive from 'lodash/merge';
 import memoizeOne from 'memoize-one';
-import type { WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import type { WithAnalyticsEventsProps, WithContextProps } from '@atlaskit/analytics-next';
 import { withAnalyticsContext, withAnalyticsEvents } from '@atlaskit/analytics-next';

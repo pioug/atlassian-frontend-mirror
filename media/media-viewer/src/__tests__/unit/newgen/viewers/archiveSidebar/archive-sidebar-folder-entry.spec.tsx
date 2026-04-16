@@ -7,7 +7,7 @@ import {
 } from '../../../../../viewers/archiveSidebar/archive-sidebar-folder-entry';
 import { fakeMediaClient, getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { type ZipEntry } from 'unzipit';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import * as MediaCommon from '@atlaskit/media-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 

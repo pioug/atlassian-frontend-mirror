@@ -4,7 +4,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import ReactSerializer from '../../../react/index';
 import { getPosFromRange, resolvePos } from '../../index';
 import {

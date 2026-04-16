@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { IconButton } from '@atlaskit/button/new';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';

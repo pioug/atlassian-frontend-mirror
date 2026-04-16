@@ -32,6 +32,7 @@ export type ShowDiffPluginState = {
 	activeIndexPos?: { from: number; to: number };
 	decorations: DecorationSet;
 	diffType?: DiffType;
+	hideDeletedDiffs?: boolean;
 	isDisplayingChanges: boolean;
 	isInverted?: boolean;
 	originalDoc: PMNode | undefined;
@@ -68,6 +69,7 @@ export const createPlugin = (
 						? {
 								isInverted: false,
 								diffType: 'inline',
+								hideDeletedDiffs: false,
 							}
 						: {}),
 				};
@@ -102,7 +104,11 @@ export const createPlugin = (
 								: undefined,
 							api,
 							...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-								? { isInverted: newPluginState?.isInverted, diffType: newPluginState?.diffType }
+								? {
+										isInverted: newPluginState?.isInverted,
+										diffType: newPluginState?.diffType,
+										hideDeletedDiffs: newPluginState?.hideDeletedDiffs,
+									}
 								: {}),
 						});
 						// Update the decorations
@@ -119,7 +125,7 @@ export const createPlugin = (
 							 * Otherwise this should persist for the diff-showing session
 							 */
 							...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-								? { isInverted: false, diffType: 'inline' }
+								? { isInverted: false, diffType: 'inline', hideDeletedDiffs: false }
 								: {}),
 						};
 					} else if (
@@ -165,7 +171,11 @@ export const createPlugin = (
 								activeIndexPos: newPluginState.activeIndexPos,
 								api,
 								...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-									? { isInverted: newPluginState.isInverted }
+									? {
+											isInverted: newPluginState.isInverted,
+											diffType: newPluginState.diffType,
+											hideDeletedDiffs: newPluginState.hideDeletedDiffs,
+										}
 									: {}),
 							});
 							newPluginState.decorations = updatedDecorations;

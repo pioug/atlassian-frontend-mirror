@@ -12,13 +12,13 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { TopNavStartAttachRef } from '../../../context/top-nav-start/top-nav-start-context';
+import { TopNavStartAttachRef } from '../../../context/top-nav-start/top-nav-start-attach-ref';
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { useHasCustomTheme } from '../../top-nav-items/themed/has-custom-theme-context';
 import { HasDefaultBackgroundColorContext } from '../../top-nav-items/themed/has-default-background-color-context';
 import { openLayerObserverTopNavStartNamespace } from '../constants';
+import { SideNavVisibilityState } from '../side-nav/side-nav-visibility-state';
 import { useSideNavVisibility } from '../side-nav/use-side-nav-visibility';
-import { SideNavVisibilityState } from '../side-nav/visibility-context';
 
 /**
  * Firefox does support these reorder animations, but only partially enabling layout animations would look odd.

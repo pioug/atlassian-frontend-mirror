@@ -6,8 +6,8 @@ import {
 	timestampToTaskContext,
 } from '@atlaskit/editor-common/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { injectIntl } from 'react-intl-next';
-import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl';
+import type { WrappedComponentProps } from 'react-intl';
 import { useRendererContext } from '../../renderer-context';
 import { useTaskItemsFormatContext } from '../../ui/TaskItemsFormatContext/TaskItemsFormatContext';
 import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';

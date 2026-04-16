@@ -5,7 +5,7 @@
  */
 import React, { useCallback } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/context-panel';

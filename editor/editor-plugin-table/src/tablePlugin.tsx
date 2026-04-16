@@ -544,14 +544,14 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 					plugin: ({ dispatchAnalyticsEvent, dispatch }) =>
 						options?.tableOptions.allowTableResizing
 							? createTableWidthPlugin(
-									dispatch,
-									dispatchAnalyticsEvent,
-									options.fullWidthEnabled ?? false,
-									options.maxWidthEnabled ?? false,
-									options.isTableScalingEnabled ?? false,
-									options.tableOptions.allowTableResizing ?? false,
-									options.isCommentEditor ?? false,
-								)
+								dispatch,
+								dispatchAnalyticsEvent,
+								options.fullWidthEnabled ?? false,
+								options.maxWidthEnabled ?? false,
+								options.isTableScalingEnabled ?? false,
+								options.tableOptions.allowTableResizing ?? false,
+								options.isCommentEditor ?? false,
+							)
 							: undefined,
 				},
 				{

@@ -40,7 +40,7 @@ This plugin requires the following peer dependencies:
 
 - `@atlaskit/editor-common`
 - `react` (^18.2.0)
-- `react-intl-next`
+- `react-intl`
 
 It also depends on the `@atlaskit/editor-plugin-code-block` plugin.
 

@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, Global, jsx } from '@emotion/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { layoutMessages as messages } from '@atlaskit/editor-common/messages';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';

@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
-import { defineMessages } from 'react-intl-next';
+import { defineMessages } from 'react-intl';
 
 export const headingAnchorLinkMessages = defineMessages({
 	copyHeadingLinkToClipboard: {

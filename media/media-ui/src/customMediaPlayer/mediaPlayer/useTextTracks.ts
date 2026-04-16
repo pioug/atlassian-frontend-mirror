@@ -22,7 +22,7 @@ import {
 	setUserCaptionsEnabled,
 	setUserCaptionsLocale,
 } from './captions';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
 import { createCaptionDisplayFailedEventPayload, fireAnalyticsEvent } from '../analytics';

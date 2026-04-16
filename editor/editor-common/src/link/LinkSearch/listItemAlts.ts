@@ -1,5 +1,5 @@
-import type { IntlShape } from 'react-intl-next';
-import { defineMessages } from 'react-intl-next';
+import type { IntlShape } from 'react-intl';
+import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
 	story: {

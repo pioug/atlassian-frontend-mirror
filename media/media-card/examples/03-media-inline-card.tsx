@@ -24,7 +24,7 @@ import {
 } from '@atlaskit/media-client';
 import MediaInlineCard from '../src/inline/loader';
 import { MainWrapper } from '../example-helpers';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { mediaInlineTableStyles, mediaInlineWrapperStyles } from '../example-helpers/styles';
 
 const mediaClientConfig = createUploadMediaClientConfig();

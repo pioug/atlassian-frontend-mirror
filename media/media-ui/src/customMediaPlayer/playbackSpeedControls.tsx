@@ -9,7 +9,7 @@ import {
 	type ActionMeta,
 } from '@atlaskit/select';
 import { type NumericalCardDimensions } from '@atlaskit/media-common';
-import { FormattedMessage, type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { FormattedMessage, type WrappedComponentProps, injectIntl } from 'react-intl';
 import Tooltip from '@atlaskit/tooltip';
 import MediaButton from '../MediaButton';
 import { messages } from '../messages';

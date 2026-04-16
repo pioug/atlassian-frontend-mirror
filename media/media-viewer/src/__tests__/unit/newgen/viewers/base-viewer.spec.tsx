@@ -8,7 +8,7 @@ import { MediaViewerError } from '../../../../errors';
 import { Spinner } from '../../../../loading';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { mount } from 'enzyme';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 const traceContext = { traceId: 'some-trace-id' };
 

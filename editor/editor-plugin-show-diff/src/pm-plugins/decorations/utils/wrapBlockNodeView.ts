@@ -18,6 +18,7 @@ import {
 	deletedContentStyleNew,
 	deletedStyleQuoteNodeWithLozenge,
 	deletedStyleQuoteNodeWithLozengeActive,
+	editingContentStyleInBlock,
 	editingStyle,
 	editingStyleActive,
 	editingStyleNode,
@@ -126,7 +127,10 @@ const getChangedNodeStyle = (
 	const isTraditional = colorScheme === 'traditional';
 
 	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && isInserted) {
-		if (shouldApplyStylesDirectly(nodeName)) {
+		if (isMultiContainerBlockNode(nodeName)) {
+			return editingContentStyleInBlock;
+		}
+		if (isTextLikeBlockNode(nodeName)) {
 			return undefined;
 		}
 		if (isTraditional) {
@@ -226,6 +230,16 @@ const maybeAddDeletedOutlineNewClass = ({
  */
 const shouldApplyStylesDirectly = (nodeName: string): boolean => {
 	return nodeName === 'heading';
+};
+
+const isMultiContainerBlockNode = (nodeName: string): boolean => {
+	return ['decisionList', 'layoutSection'].includes(nodeName);
+};
+
+const isTextLikeBlockNode = (nodeName: string): boolean => {
+	return ['heading', 'bulletList', 'orderedList', 'listItem', 'taskList', 'blockquote'].includes(
+		nodeName,
+	);
 };
 
 const applyCellOverlayStyles = ({
@@ -332,6 +346,82 @@ const applyStylesToElement = ({
 		getChangedNodeStyle(targetNode.type.name, colorScheme, isInserted, isActive) || '';
 
 	element.setAttribute('style', `${currentStyle}${contentStyle}${nodeSpecificStyle}`);
+};
+
+const applyMultiContainerLikeStyles = ({
+	element,
+	targetNode,
+	colorScheme,
+	isActive,
+	isInserted,
+}: {
+	colorScheme?: ColorScheme;
+	element: HTMLElement;
+	isActive: boolean;
+	isInserted: boolean;
+	targetNode: PMNode;
+}): void => {
+	const currentStyle = element.getAttribute('style') || '';
+	const nodeSpecificStyle =
+		getChangedNodeStyle(targetNode.type.name, colorScheme, isInserted, isActive) || '';
+
+	if (targetNode.type.name === 'decisionList') {
+		element.querySelectorAll('li').forEach((listItem) => {
+			const currentListItemStyle = listItem.getAttribute('style') || '';
+			listItem.setAttribute('style', `${currentListItemStyle}${editingStyleNode}`);
+		});
+	} else if (targetNode.type.name === 'layoutSection') {
+		element.querySelectorAll('[data-layout-column="true"]').forEach((section) => {
+			const currentSectionStyle = section.getAttribute('style') || '';
+			section.setAttribute('style', `${currentSectionStyle}${editingStyleNode}`);
+		});
+	} else if (targetNode.type.name === 'taskList') {
+		element.querySelectorAll('li').forEach((listItem) => {
+			const currentListItemStyle = listItem.getAttribute('style') || '';
+			listItem.setAttribute('style', `${currentListItemStyle}${editingStyleNode}`);
+		});
+	}
+
+	element.setAttribute('style', `${currentStyle};${nodeSpecificStyle}`);
+};
+
+const applyTextLikeBlockNodeStyles = ({
+	element,
+	targetNode,
+	colorScheme,
+	isActive,
+	isInserted,
+}: {
+	colorScheme?: ColorScheme;
+	element: HTMLElement;
+	isActive: boolean;
+	isInserted: boolean;
+	targetNode: PMNode;
+}): void => {
+	getChangedNodeStyle(targetNode.type.name, colorScheme, isInserted, isActive) || '';
+	const contentStyle = getChangedContentStyle(colorScheme, isActive, isInserted);
+
+	const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+	const textNodesToWrap: Text[] = [];
+	let currentNode = walker.nextNode();
+
+	while (currentNode) {
+		if (
+			currentNode instanceof Text &&
+			currentNode.textContent !== '' &&
+			currentNode.parentElement
+		) {
+			textNodesToWrap.push(currentNode);
+		}
+		currentNode = walker.nextNode();
+	}
+
+	textNodesToWrap.forEach((textNode) => {
+		const contentWrapper = document.createElement('span');
+		contentWrapper.setAttribute('style', contentStyle);
+		textNode.replaceWith(contentWrapper);
+		contentWrapper.append(textNode);
+	});
 };
 
 /**
@@ -555,19 +645,47 @@ export const wrapBlockNodeView = ({
 	nodeView: Node;
 	targetNode: PMNode;
 }): void => {
-	if (shouldApplyStylesDirectly(targetNode.type.name) && nodeView instanceof HTMLElement) {
-		// Apply deleted styles directly to preserve natural block-level margins
-		applyStylesToElement({ element: nodeView, targetNode, colorScheme, isActive, isInserted });
-		dom.append(nodeView);
-	} else if (
-		targetNode.type.name === 'table' &&
-		nodeView instanceof HTMLElement &&
-		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-	) {
-		applyCellOverlayStyles({ element: nodeView, colorScheme, isInserted });
-		dom.append(nodeView);
-	} else {
-		// Use wrapper approach for other block nodes
+	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		if (nodeView instanceof HTMLElement) {
+			if (isInserted && isMultiContainerBlockNode(targetNode.type.name)) {
+				applyMultiContainerLikeStyles({
+					element: nodeView,
+					targetNode,
+					colorScheme,
+					isActive,
+					isInserted,
+				});
+				dom.append(nodeView);
+				return;
+			}
+
+			if (isTextLikeBlockNode(targetNode.type.name)) {
+				applyTextLikeBlockNodeStyles({
+					element: nodeView,
+					targetNode,
+					colorScheme,
+					isActive,
+					isInserted,
+				});
+				dom.append(nodeView);
+				return;
+			}
+
+			if (targetNode.type.name === 'table') {
+				applyCellOverlayStyles({ element: nodeView, colorScheme, isInserted });
+				dom.append(nodeView);
+				return;
+			}
+		}
 		wrapBlockNode({ dom, nodeView, targetNode, colorScheme, intl, isActive, isInserted });
+		return;
+	} else {
+		if (shouldApplyStylesDirectly(targetNode.type.name) && nodeView instanceof HTMLElement) {
+			// Apply deleted styles directly to preserve natural block-level margins
+			applyStylesToElement({ element: nodeView, targetNode, colorScheme, isActive, isInserted });
+			dom.append(nodeView);
+		} else {
+			wrapBlockNode({ dom, nodeView, targetNode, colorScheme, intl, isActive, isInserted });
+		}
 	}
 };

@@ -43,7 +43,7 @@ type SearchResultsContainerProps = {
 	transitionState: TransitionStatus;
 };
 
-export const SearchResultsContainer = React.forwardRef<HTMLDivElement, SearchResultsContainerProps>(
+export const SearchResultsContainer: React.ForwardRefExoticComponent<SearchResultsContainerProps & React.RefAttributes<HTMLDivElement>> = React.forwardRef<HTMLDivElement, SearchResultsContainerProps>(
 	({ children, transitionState }, ref): JSX.Element => (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 		<div ref={ref} css={searchResultsContainerStyles} style={transitionStyles[transitionState]}>
@@ -75,7 +75,7 @@ const searchResultsContainerAiStyles = css({
 	visibility: 'hidden',
 });
 
-export const SearchResultsContainerAi = React.forwardRef<
+export const SearchResultsContainerAi: React.ForwardRefExoticComponent<SearchResultsContainerProps & React.RefAttributes<HTMLDivElement>> = React.forwardRef<
 	HTMLDivElement,
 	SearchResultsContainerProps
 >(

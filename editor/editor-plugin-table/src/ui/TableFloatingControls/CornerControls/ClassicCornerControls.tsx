@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 import classnames from 'classnames';
-import type { WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { TableMap } from '@atlaskit/editor-tables/table-map';

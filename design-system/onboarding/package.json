@@ -26,17 +26,7 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
-		"./modal": "./src/entry-points/modal.tsx",
-		"./modal-transition": "./src/entry-points/modal-transition.tsx",
-		"./spotlight": "./src/entry-points/spotlight.tsx",
-		"./spotlight-card": "./src/entry-points/spotlight-card.tsx",
-		"./spotlight-manager": "./src/entry-points/spotlight-manager.tsx",
-		"./spotlight-target": "./src/entry-points/spotlight-target.tsx",
-		"./spotlight-transition": "./src/entry-points/spotlight-transition.tsx",
-		"./target": "./src/entry-points/target.tsx",
-		"./theme": "./src/entry-points/theme.tsx",
-		"./types": "./src/entry-points/types.tsx",
-		"./use-spotlight": "./src/entry-points/use-spotlight.tsx"
+		"./types": "./src/types.tsx"
 	},
 	"homepage": "https://atlassian.design/components/onboarding/",
 	"atlassian": {

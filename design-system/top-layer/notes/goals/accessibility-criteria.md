@@ -148,12 +148,14 @@ and [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/) (see Requir
 All three aspects of focus management — initial focus, focus wrapping, and focus restoration — are
 now **role-based and automatic** in `@atlaskit/top-layer`:
 
-| Role                     | Initial Focus           | Focus Wrapping (Tab)    | Focus Restoration (on close) |
-| ------------------------ | ----------------------- | ----------------------- | ---------------------------- |
-| `dialog` / `alertdialog` | First focusable element | ✅ Wraps within content | ✅ Auto-restores to trigger  |
-| `menu`                   | First menu item         | ✅ Wraps within content | ✅ Auto-restores to trigger  |
-| `listbox`                | First/selected option   | ✅ Wraps within content | ✅ Auto-restores to trigger  |
-| `tooltip`                | No focus change         | No wrapping             | ❌ No restoration            |
+| Role      | Initial Focus           | Focus Wrapping (Tab)    | Focus Restoration (on close) |
+| --------- | ----------------------- | ----------------------- | ---------------------------- |
+| `dialog`  | First focusable element | ✅ Wraps within content | ✅ Auto-restores to trigger  |
+| `menu`    | First menu item         | ✅ Arrow navigation     | ✅ Auto-restores to trigger  |
+| `listbox` | Selected option         | ✅ Arrow navigation     | ✅ Auto-restores to trigger  |
+| `tooltip` | No focus change         | ❌ No wrapping          | ❌ No restoration            |
+
+> Note: `alertdialog` is intentionally unsupported in top-layer; use `dialog` instead.
 
 - **Popover** (primitive) handles initial focus and focus wrapping automatically based on role.
 - **PopupContent** (compound) handles focus restoration automatically via the browser's native
@@ -304,7 +306,7 @@ now **role-based and automatic** in `@atlaskit/top-layer`:
 - `<dialog>` **element** provides `role="dialog"` implicitly — no manual ARIA needed for modals and
   drawers
 - **TypeScript enforcement:** `TAriaRoleRequired` and `TAriaRoleOptional` discriminated union types
-  make missing accessible names a compile-time error for `dialog`, `alertdialog`, and `menu` roles
+  make missing accessible names a compile-time error for `dialog` and `menu` roles
 
 ---
 
@@ -454,7 +456,6 @@ experiences to work around portal-based DOM ordering issues. Complex scenarios s
 | -------------------- | ------------------------------------------------------------------------ | ------------------------------------------------ | -------------------------------------------------- | --------------------------- | -------------------------------------- |
 | `dialog` (modal)     | First interactive element, or close button, or the dialog element itself | **Cycles** — Tab wraps within dialog             | Not applicable                                     | ✅ Auto-restores to trigger | Modal Dialog, Drawer                   |
 | `dialog` (non-modal) | First interactive element, or close button, or the dialog element itself | **Cycles** — Tab wraps within dialog (soft-trap) | Not applicable                                     | ✅ Auto-restores to trigger | Popup (`role="dialog"`), Inline Dialog |
-| `alertdialog`        | First interactive element, or close button, or the dialog element itself | **Cycles** — Tab wraps within dialog             | Not applicable                                     | ✅ Auto-restores to trigger | Confirmation dialogs                   |
 | `menu`               | First menuitem                                                           | **Exits** — Tab closes the menu                  | **Cycles** — ArrowDown/Up navigate items, wrapping | ✅ Auto-restores to trigger | Dropdown Menu                          |
 | `listbox`            | First/selected option                                                    | **Cycles** — Tab wraps within content            | **Cycles** — ArrowDown/Up navigate options         | ✅ Auto-restores to trigger | Select, TimePicker                     |
 | `tooltip`            | No focus change                                                          | No wrapping                                      | Not applicable                                     | ❌ No restoration           | Tooltip                                |
@@ -754,18 +755,17 @@ location, disorienting keyboard and screen reader users.
 
 ### Roles That Auto-Restore Focus
 
-| Role          | Focus Restored? | Reason                                                |
-| ------------- | --------------- | ----------------------------------------------------- |
-| `dialog`      | ✅ Yes          | Focus moves into dialog content; must return on close |
-| `alertdialog` | ✅ Yes          | Same keyboard pattern as dialog                       |
-| `menu`        | ✅ Yes          | Focus moves to menu items for arrow-key navigation    |
-| `listbox`     | ✅ Yes          | Focus moves to options for selection                  |
-| `tooltip`     | ❌ No           | Focus never moves to tooltip; informational only      |
-| `note`        | ❌ No           | Passive content; focus not moved                      |
-| `status`      | ❌ No           | Live region; focus not moved                          |
-| `alert`       | ❌ No           | Live region; focus not moved                          |
-| `log`         | ❌ No           | Live region; focus not moved                          |
-| No role       | ❌ No           | No semantic requirement for focus restoration         |
+| Role      | Focus Restored? | Reason                                                |
+| --------- | --------------- | ----------------------------------------------------- |
+| `dialog`  | ✅ Yes          | Focus moves into dialog content; must return on close |
+| `menu`    | ✅ Yes          | Focus moves to menu items for arrow-key navigation    |
+| `listbox` | ✅ Yes          | Focus moves to options for selection                  |
+| `tooltip` | ❌ No           | Focus never moves to tooltip; informational only      |
+| `note`    | ❌ No           | Passive content; focus not moved                      |
+| `status`  | ❌ No           | Live region; focus not moved                          |
+| `alert`   | ❌ No           | Live region; focus not moved                          |
+| `log`     | ❌ No           | Live region; focus not moved                          |
+| No role   | ❌ No           | No semantic requirement for focus restoration         |
 
 ### Implementation
 

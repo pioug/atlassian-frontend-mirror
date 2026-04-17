@@ -97,13 +97,7 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./tab": "./src/entry-points/tab.tsx",
-		"./tab-list": "./src/entry-points/tab-list.tsx",
-		"./tab-panel": "./src/entry-points/tab-panel.tsx",
-		"./tabs": "./src/entry-points/tabs.tsx",
-		"./types": "./src/entry-points/types.tsx",
-		"./use-tab": "./src/entry-points/use-tab.tsx",
-		"./use-tab-panel": "./src/entry-points/use-tab-panel.tsx"
+		"./types": "./src/types.tsx"
 	},
 	"homepage": "https://atlassian.design/components/tabs/"
 }

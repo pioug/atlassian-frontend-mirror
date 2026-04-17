@@ -11,9 +11,9 @@ const _default_1: any = md`
   ${(
 		<Example
 			packageName="@atlaskit/team-containers"
-			Component={require('../examples/basic').default}
+			Component={require('../examples/TeamContainers.example').default}
 			title="Basic example"
-			source={require('!!raw-loader!../examples/basic')}
+			source={require('!!raw-loader!../examples/TeamContainers.example')}
 		/>
 	)}
 

@@ -1,5 +1,23 @@
 # @atlaskit/editor-synced-block-provider
 
+## 6.1.0
+
+### Minor Changes
+
+- [`fe5309f20a834`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe5309f20a834) -
+  Map EntityNotFound error code to dedicated SyncBlockError.EntityNotFound enum value and add a
+  specific error screen for synced blocks not available on the current site
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.0
 
 ### Patch Changes

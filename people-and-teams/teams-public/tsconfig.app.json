@@ -92,6 +92,9 @@
 			"path": "../teams-client/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/tile/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{

@@ -16,6 +16,7 @@ import {
 } from '@atlaskit/editor-synced-block-provider';
 import type { SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
 
+import { SyncedBlockEntityNotFoundError } from './SyncedBlockEntityNotFoundError';
 import { SyncedBlockGenericError } from './SyncedBlockGenericError';
 import { SyncedBlockLoadError } from './SyncedBlockLoadError';
 import { SyncedBlockNotFoundError } from './SyncedBlockNotFoundError';
@@ -78,6 +79,8 @@ export const SyncedBlockErrorComponent = ({
 
 	const getErrorContent = useMemo(() => {
 		switch (error?.type) {
+			case SyncBlockError.EntityNotFound:
+				return <SyncedBlockEntityNotFoundError />;
 			case SyncBlockError.Offline:
 				return <SyncedBlockOfflineError />;
 			case SyncBlockError.Forbidden:

@@ -1,5 +1,17 @@
 # @atlaskit/teams-public
 
+## 1.1.0
+
+### Minor Changes
+
+- [`5ad73d0a4dc97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ad73d0a4dc97) -
+  Aligned UI to conform with Team'26 US design drop
+
+### Patch Changes
+
+- [`2fee5f9932185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fee5f9932185) -
+  Migrate examples to use the playground package
+
 ## 1.0.0
 
 ### Major Changes

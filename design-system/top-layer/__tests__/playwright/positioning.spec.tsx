@@ -4,74 +4,56 @@ import invariant from 'tiny-invariant';
 import { expect, test } from '@af/integration-testing';
 
 test.describe('Positioning', () => {
-	test('popover appears below trigger (block-end default)', async ({ page }) => {
+	test('block-end (default): popover appears below trigger', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/112-testing-popover-positioning.tsx')>(
 			'design-system',
 			'top-layer',
 			'testing-popover-positioning',
 		);
-
 		const trigger = page.getByTestId('popover-trigger');
 		await trigger.click();
-
 		const popover = page.getByTestId('popover-content');
 		await expect(popover).toBeVisible();
-
 		const triggerBox = await trigger.boundingBox();
 		const popoverBox = await popover.boundingBox();
 		invariant(triggerBox, 'trigger bounding box should exist');
 		invariant(popoverBox, 'popover bounding box should exist');
-
 		expect(popoverBox.y).toBeGreaterThan(triggerBox.y);
 	});
 
-	test('popover appears above trigger (block-start)', async ({ page }) => {
+	test('block-start: popover appears above trigger', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/112-testing-popover-positioning.tsx')>(
 			'design-system',
 			'top-layer',
 			'testing-popover-positioning',
-			{
-				axis: 'block',
-				edge: 'start',
-			},
+			{ axis: 'block', edge: 'start' },
 		);
-
 		const trigger = page.getByTestId('popover-trigger');
 		await trigger.click();
-
 		const popover = page.getByTestId('popover-content');
 		await expect(popover).toBeVisible();
-
 		const triggerBox = await trigger.boundingBox();
 		const popoverBox = await popover.boundingBox();
 		invariant(triggerBox, 'trigger bounding box should exist');
 		invariant(popoverBox, 'popover bounding box should exist');
-
 		expect(popoverBox.y + popoverBox.height).toBeLessThanOrEqual(triggerBox.y + 2);
 	});
 
-	test('popover appears to the right of trigger (inline-end)', async ({ page }) => {
+	test('inline-end: popover appears to the right of trigger', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/112-testing-popover-positioning.tsx')>(
 			'design-system',
 			'top-layer',
 			'testing-popover-positioning',
-			{
-				axis: 'inline',
-				edge: 'end',
-			},
+			{ axis: 'inline', edge: 'end' },
 		);
-
 		const trigger = page.getByTestId('popover-trigger');
 		await trigger.click();
-
 		const popover = page.getByTestId('popover-content');
 		await expect(popover).toBeVisible();
-
 		const triggerBox = await trigger.boundingBox();
 		const popoverBox = await popover.boundingBox();
 		invariant(triggerBox, 'trigger bounding box should exist');
 		invariant(popoverBox, 'popover bounding box should exist');
-
 		expect(popoverBox.x).toBeGreaterThan(triggerBox.x);
 	});
 

@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import EyeOpenStrikethroughIcon from '@atlaskit/icon/core/eye-open-strikethrough';
-import { Anchor, Text } from '@atlaskit/primitives/compiled';
+import { Anchor } from '@atlaskit/primitives/compiled';
 
 import { SyncedBlockErrorStateCard } from './SyncedBlockErrorStateCard';
 
@@ -25,11 +25,9 @@ export const SyncedBlockUnpublishedError = ({
 	const description = formatMessage(messages.unpublishedError, {
 		link: (chunks: React.ReactNode[]) =>
 			sourceURL ? (
-				<Text>
-					<Anchor href={sourceURL} target="_blank" rel={'noopener noreferrer'} xcss={styles.link}>
-						{chunks}
-					</Anchor>
-				</Text>
+				<Anchor href={sourceURL} target="_blank" rel={'noopener noreferrer'} xcss={styles.link}>
+					{chunks}
+				</Anchor>
 			) : (
 				chunks
 			),

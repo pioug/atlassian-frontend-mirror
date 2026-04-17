@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-expand
 
+## 11.0.1
+
+### Patch Changes
+
+- [`c50b6810de5a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c50b6810de5a3) -
+  Fix `toggleExpandRange` to set a `forceExpandOpen` node decoration via transaction meta (gated by
+  `platform_editor_expand_force_open_decoration`) so `ExpandNodeView.update()` correctly opens
+  expands visually regardless of whether the `platform_editor_aifc_expand_collapses_oncreate_fix`
+  experiment is active. Also returns `null` when no expand nodes are found or no state changes, and
+  removes stray debug `console.log` statements.
+
+## 11.0.0
+
+### Major Changes
+
+- [`901c87a57486e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/901c87a57486e) -
+  Removed `react-intl-next` alias and replaced all usages with `react-intl` directly.
+
+  What changed: The `react-intl-next` npm alias (which resolved to `react-intl@^5`) has been
+  removed. All imports now reference `react-intl` directly, and `peerDependencies` have been updated
+  to `"^5.25.1 || ^6.0.0 || ^7.0.0"`.
+
+  How consumer should update their code: Ensure `react-intl` is installed at a version satisfying
+  `^5.25.1 || ^6.0.0 || ^7.0.0`. If your application was using `react-intl-next` as an npm alias, it
+  can be safely removed. Replace any remaining `react-intl-next` imports with `react-intl`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.0
 
 ### Patch Changes

@@ -41,18 +41,19 @@
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"query-string": "root:*",
-		"react-intl-next": "root:*",
 		"uuid": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@testing-library/react": "root:*",
-		"react-dom": "root:*"
+		"react-dom": "root:*",
+		"react-intl": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -93,7 +94,7 @@
 		}
 	},
 	"name": "@atlaskit/audit-logs-export",
-	"version": "1.5.1",
+	"version": "2.0.0",
 	"description": "Audit-logs export component",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

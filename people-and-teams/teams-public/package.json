@@ -56,6 +56,7 @@
 		"@atlaskit/teams-app-internal-navigation": "workspace:^",
 		"@atlaskit/teams-app-internal-product-permissions": "workspace:^",
 		"@atlaskit/teams-client": "workspace:^",
+		"@atlaskit/tile": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -79,6 +80,7 @@
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ptc-test-utils": "workspace:^",
+		"@atlassian/teams-app-internal-playground": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
@@ -120,7 +122,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -154,6 +156,9 @@
 			"type": "boolean"
 		},
 		"ptc-links-migrate-atlaskit-anchor-to-teams-anchor": {
+			"type": "boolean"
+		},
+		"enable_teams_t26_design_drop_core_experiences": {
 			"type": "boolean"
 		}
 	}

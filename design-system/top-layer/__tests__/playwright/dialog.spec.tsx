@@ -27,6 +27,10 @@ test.describe('Dialog - open and close', () => {
 		await page.getByTestId('dialog-trigger').click();
 		await expect(page.getByTestId('dialog-body')).toBeVisible();
 
+		// Dialog auto-focuses its first focusable element — run trial click for actionability
+		const closeBtn = page.locator('dialog button[aria-label="Close"]');
+		await expect(closeBtn).toBeFocused();
+		await closeBtn.click({ trial: true });
 		await page.keyboard.press('Escape');
 
 		await expect(page.getByTestId('dialog-body')).toBeHidden();
@@ -54,40 +58,35 @@ test.describe('Dialog - open and close', () => {
 		await expect(page.getByTestId('close-reason')).toHaveText('overlay-click');
 	});
 
-	test('onClose is called before dialog closes (Escape)', async ({ page }) => {
+	// onClose fires synchronously before the native dialog closes — verified for both dismiss paths.
+	// This timing matters for animation presets that delay unmounting.
+	test('onClose is called before dialog closes (Escape and backdrop click)', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/110-testing-dialog-close-timing.tsx')>(
 			'design-system',
 			'top-layer',
 			'testing-dialog-close-timing',
 		);
 
+		// ── Escape path ──
 		await page.getByTestId('dialog-trigger').click();
 		await expect(page.getByTestId('dialog-body')).toBeVisible();
-
+		// Dialog auto-focuses its first focusable element — trial click for actionability
+		const timingCloseBtn = page.locator('dialog button[aria-label="Close"]');
+		await expect(timingCloseBtn).toBeFocused();
+		await timingCloseBtn.click({ trial: true });
 		await page.keyboard.press('Escape');
-
+		// onClose fires first → close-reason is set while dialog-body is still visible
 		await expect(page.getByTestId('close-reason')).toHaveText('escape', { timeout: 500 });
 		await expect(page.getByTestId('dialog-body')).toBeVisible();
-
 		await page.waitForFunction(() => !document.querySelector('dialog[open]'));
 		await expect(page.getByTestId('dialog-body')).toBeHidden();
-	});
 
-	test('onClose is called before dialog closes (backdrop click)', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/110-testing-dialog-close-timing.tsx')>(
-			'design-system',
-			'top-layer',
-			'testing-dialog-close-timing',
-		);
-
+		// ── Backdrop click path ──
 		await page.getByTestId('dialog-trigger').click();
 		await expect(page.getByTestId('dialog-body')).toBeVisible();
-
 		await page.mouse.click(1, 1);
-
 		await expect(page.getByTestId('close-reason')).toHaveText('overlay-click', { timeout: 500 });
 		await expect(page.getByTestId('dialog-body')).toBeVisible();
-
 		await page.waitForFunction(() => !document.querySelector('dialog[open]'));
 		await expect(page.getByTestId('dialog-body')).toBeHidden();
 	});
@@ -155,8 +154,11 @@ test.describe('Dialog - focus', () => {
 		const trigger = page.getByTestId('dialog-trigger');
 		await trigger.click();
 
+		// Dialog auto-focuses the first focusable element (Close button, not dialog-button)
 		await expect(page.getByTestId('dialog-button')).toBeVisible();
-
+		const autoFocusedClose = page.locator('dialog button[aria-label="Close"]');
+		await expect(autoFocusedClose).toBeFocused();
+		await autoFocusedClose.click({ trial: true });
 		await page.keyboard.press('Escape');
 
 		await expect(trigger).toBeFocused();
@@ -428,8 +430,10 @@ test.describe('Dialog - autofocus', () => {
 });
 
 test.describe('Dialog - ARIA', () => {
-	// WCAG 4.1.2 Name, Role, Value - dialog has role="dialog" (native)
-	test('dialog element has native dialog role', async ({ page }) => {
+	// WCAG 4.1.2 Name, Role, Value — all ARIA assertions in one page load.
+	// Native <dialog> has implicit role="dialog"; aria-labelledby must point to the title;
+	// close button must have an accessible name for screen reader users.
+	test('dialog has correct ARIA role, labelledby, and close button label', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/91-testing-dialog-basic.tsx')>(
 			'design-system',
 			'top-layer',
@@ -441,58 +445,21 @@ test.describe('Dialog - ARIA', () => {
 		const dialog = page.locator('dialog');
 		await expect(dialog).toBeVisible();
 
+		// Role: native <dialog> exposes role="dialog" implicitly (no explicit attr needed)
 		const role = await dialog.evaluate((el) => el.getAttribute('role'));
 		// eslint-disable-next-line playwright/no-conditional-in-test -- native dialog may or may not have explicit role attr
 		expect(role === null || role === 'dialog').toBe(true);
-	});
 
-	// WCAG 4.1.2 Name, Role, Value - dialog has aria-labelledby pointing to title
-	test('heading is associated via aria-labelledby', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/91-testing-dialog-basic.tsx')>(
-			'design-system',
-			'top-layer',
-			'testing-dialog-basic',
-		);
-
-		await page.getByTestId('dialog-trigger').click();
-
-		const dialog = page.locator('dialog');
+		// Labelling: aria-labelledby must point to a visible heading
 		/* eslint-disable playwright/prefer-web-first-assertions -- need actual value for CSS selector */
 		const labelledBy = await dialog.getAttribute('aria-labelledby');
 		expect(labelledBy).toBeTruthy();
 		/* eslint-enable playwright/prefer-web-first-assertions */
+		await expect(page.locator(`#${labelledBy}`)).toHaveText('Test dialog');
 
-		const heading = page.locator(`#${labelledBy}`);
-		await expect(heading).toHaveText('Test dialog');
-	});
-
-	// WCAG 4.1.2 Name, Role, Value - close button has accessible name
-	test('close button has aria-label', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/91-testing-dialog-basic.tsx')>(
-			'design-system',
-			'top-layer',
-			'testing-dialog-basic',
-		);
-
-		await page.getByTestId('dialog-trigger').click();
-
+		// Close button: must have an accessible name (aria-label) for screen readers
 		const closeButton = page.locator('dialog button[aria-label="Close"]');
 		await expect(closeButton).toBeVisible();
 		await expect(closeButton).toHaveAttribute('aria-label', 'Close');
-	});
-
-	// WCAG 4.1.3 Status Messages - native <dialog> has implicit role="dialog" for SR announcement
-	test('dialog has a role that enables screen reader announcement', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/91-testing-dialog-basic.tsx')>(
-			'design-system',
-			'top-layer',
-			'testing-dialog-basic',
-		);
-
-		await page.getByTestId('dialog-trigger').click();
-
-		const dialog = page.locator('dialog');
-		const dialogRole = await dialog.evaluate((el) => el.getAttribute('role') ?? 'dialog');
-		expect(dialogRole).toBe('dialog');
 	});
 });

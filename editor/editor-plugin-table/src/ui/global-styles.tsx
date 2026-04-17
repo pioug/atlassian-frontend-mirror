@@ -14,12 +14,10 @@ import { tableStyles } from './common-styles';
 
 export const GlobalStylesWrapper = ({
 	featureFlags,
-	isDragAndDropEnabledOption,
 	api,
 }: {
 	api?: PluginInjectionAPI;
 	featureFlags: FeatureFlags | undefined;
-	isDragAndDropEnabledOption?: boolean;
 }) => {
 	const { mode } = useSharedPluginStateWithSelector(api, ['editorViewMode'], (states) => ({
 		mode: states.editorViewModeState?.mode,
@@ -29,7 +27,7 @@ export const GlobalStylesWrapper = ({
 		<Global
 			styles={tableStyles({
 				featureFlags,
-				isDragAndDropEnabled: isDragAndDropEnabledOption && !isLivePageViewMode,
+				isDragAndDropEnabled: !isLivePageViewMode,
 			})}
 		/>
 	);

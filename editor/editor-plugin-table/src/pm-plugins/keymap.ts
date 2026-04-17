@@ -78,7 +78,6 @@ export function keymapPlugin(
 	api: PluginInjectionAPI | undefined | null,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-	dragAndDropEnabled?: boolean,
 	isTableScalingEnabled = false,
 	isTableAlignmentEnabled = false,
 	isFullWidthEnabled?: boolean,
@@ -234,7 +233,6 @@ export function keymapPlugin(
 	);
 
 	if (
-		dragAndDropEnabled &&
 		moveRowDown.common &&
 		moveRowUp.common &&
 		moveColumnLeft.common &&

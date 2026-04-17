@@ -5,7 +5,12 @@
  */
 {
   "testExamples": [
-    "basic.tsx",
-    "selected.tsx"
+    "TeamContainers.example.tsx",
+    "TeamLinkCard.example.tsx",
+    "ContainerIcon.example.tsx",
+    "Separator.example.tsx",
+    "AddContainerCard.example.tsx",
+    "CustomComponents.example.tsx",
+    "TeamContainerSkeleton.example.tsx"
   ]
 }

@@ -31,12 +31,6 @@ export interface TablePluginOptions {
 	 * Note: This feature requires ADF schema changes to be supported.
 	 */
 	allowFixedColumnWidthOption?: boolean;
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-49683 Internal documentation for deprecation (no external access)}
-	 * Deprecating this prop to enable drag and drop in tables by default.
-	 * See {@link https://hello.atlassian.net/wiki/spaces/EDITOR/pages/6312469305/Deprecating+legacy+table+controls} for rollout plan
-	 **/
-	dragAndDropEnabled?: boolean;
 	// TODO: ED-26961 - these two need to be rethought
 	fullWidthEnabled?: boolean;
 	getEditorFeatureFlags?: GetEditorFeatureFlags;

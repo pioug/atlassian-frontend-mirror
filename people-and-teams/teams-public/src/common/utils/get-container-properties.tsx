@@ -6,7 +6,9 @@ import { cssMap, cx } from '@atlaskit/css';
 import LinkIcon from '@atlaskit/icon/core/link';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import Image from '@atlaskit/image';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
+import Tile from '@atlaskit/tile';
 import { token } from '@atlaskit/tokens';
 
 import ConfluenceIcon from '../assets/ConfluenceIcon.svg';
@@ -24,7 +26,7 @@ interface ContainerProperties {
 	isEmptyContainer?: boolean;
 }
 
-type IconSize = 'small' | 'medium';
+type IconSize = 'xxsmall' | 'xsmall' | 'small' | 'medium';
 const styles = cssMap({
 	avatarWrapper: {
 		width: '24px',
@@ -63,6 +65,13 @@ const styles = cssMap({
 		justifyContent: 'center',
 		backgroundColor: token('color.background.neutral'),
 		borderRadius: token('radius.small', '6px'),
+	},
+	profileCardWebLinkIconWrapper: {
+		width: '16px',
+		height: '16px',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
 	},
 });
 
@@ -170,6 +179,20 @@ export const messages: {
 	},
 });
 
+const ContainerIconWrapper = ({
+	children,
+	iconSize,
+}: {
+	children: ReactNode;
+	iconSize: IconSize;
+}) => {
+	return (
+		<Tile label="" size={iconSize} isInset={false}>
+			{children}
+		</Tile>
+	);
+};
+
 const getJiraIcon = (containerSubTypes?: string) => {
 	switch (containerSubTypes) {
 		case 'PRODUCT_DISCOVERY':
@@ -196,7 +219,11 @@ const getJiraContainerProperties = ({
 	const { subType, name } = containerTypeProperties || {};
 	const baseProperties = {
 		description: <FormattedMessage {...messages.jiraProjectDescription} />,
-		icon: (
+		icon: fg('enable_teams_t26_design_drop_core_experiences') ? (
+			<ContainerIconWrapper iconSize={iconSize}>
+				<Image src={getJiraIcon(subType)} alt="" testId="jira-project-container-icon" />
+			</ContainerIconWrapper>
+		) : (
 			<Flex
 				xcss={cx(
 					iconSize === 'small' ? styles.smallAvatarWrapper : styles.avatarWrapper,
@@ -248,7 +275,13 @@ const getWebLinkContainerProperties = ({
 				<LinkIcon label="" size="medium" />
 			</Box>
 		) : isDisplayedOnProfileCard ? (
-			<LinkExternalIcon label="" size="small" testId="team-link-card-external-link-icon" />
+			fg('enable_teams_t26_design_drop_core_experiences') ? (
+				<Box xcss={styles.profileCardWebLinkIconWrapper}>
+					<LinkExternalIcon label="" size="small" testId="team-link-card-external-link-icon" />
+				</Box>
+			) : (
+				<LinkExternalIcon label="" size="small" testId="team-link-card-external-link-icon" />
+			)
 		) : (
 			<Box xcss={styles.linkIconWrapper} testId="team-link-card-globe-icon">
 				<LinkIcon label="" size="small" />
@@ -272,16 +305,22 @@ interface GetContainerPropertiesParams {
 
 export const getContainerProperties = ({
 	containerType,
-	iconSize = 'medium',
+	iconSize = fg('enable_teams_t26_design_drop_core_experiences') ? 'small' : 'medium',
 	containerTypeProperties,
 	isEmptyContainer,
 	isDisplayedOnProfileCard,
 }: GetContainerPropertiesParams): ContainerProperties => {
+	const isT26DesignDropCoreExperiencesEnabled = fg('enable_teams_t26_design_drop_core_experiences');
+
 	switch (containerType) {
 		case 'ConfluenceSpace':
 			return {
 				description: <FormattedMessage {...messages.confluenceContainerDescription} />,
-				icon: (
+				icon: isT26DesignDropCoreExperiencesEnabled ? (
+					<ContainerIconWrapper iconSize={iconSize}>
+						<Image src={ConfluenceIcon} alt="" testId="confluence-space-container-icon" />
+					</ContainerIconWrapper>
+				) : (
 					<Flex
 						xcss={cx(
 							iconSize === 'small' ? styles.smallAvatarWrapper : styles.avatarWrapper,
@@ -297,7 +336,11 @@ export const getContainerProperties = ({
 		case 'LoomSpace':
 			return {
 				description: <FormattedMessage {...messages.loomSpaceDescription} />,
-				icon: (
+				icon: isT26DesignDropCoreExperiencesEnabled ? (
+					<ContainerIconWrapper iconSize={iconSize}>
+						<Image src={LoomIcon} alt="" testId="loom-space-container-icon" />
+					</ContainerIconWrapper>
+				) : (
 					<Flex
 						xcss={cx(
 							iconSize === 'small' ? styles.smallAvatarWrapper : styles.avatarWrapper,

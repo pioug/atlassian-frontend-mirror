@@ -30,9 +30,6 @@ export function tablePluginOptions({ options }: Props): TablePluginOptions {
 			stickyHeaders: true,
 			allowAddColumnWithCustomStep: false,
 		},
-		// SECTION: From confluence/next/packages/editor-features/src/hooks/useEditorFeatureFlags.ts
-		dragAndDropEnabled: true,
-		// END SECTION
 		isTableScalingEnabled: true,
 		allowContextualMenu: true,
 		fullWidthEnabled: options.editorAppearance === 'full-width',
@@ -45,7 +42,6 @@ export function tablePluginOptions({ options }: Props): TablePluginOptions {
 				? undefined
 				: true,
 			// END SECTION
-
 			// SECTION: From confluence/next/packages/full-page-editor/src/hooks/useEditorFullPageExperiments.ts
 			tableSelector: editorExperiment('platform_editor_tables_table_selector', true),
 			// END SECTION

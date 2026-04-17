@@ -20,7 +20,7 @@ import l3VocabularyData from './data/l3_vocabulary.json';
 import vocabularyData from './data/vocabulary_10k.json';
 import wordIndexData from './data/word_index_10k.json';
 // import { rankCandidates, isGrammarAllowed } from './scoring-pipeline';
-import { rankCandidates } from './scoring-pipeline';
+import { rankCandidates, STAGE1_WEIGHT, STAGE2_WEIGHT, MIN_STAGE1_SCORE } from './scoring-pipeline';
 import type { ScoringCandidate } from './scoring-pipeline';
 import { getStoredContextVector, getStoredLmLogits } from './slow-lane-client';
 
@@ -533,11 +533,19 @@ export const predict = (textBefore: string): string | null => {
 		sessionFreq: node.sessionFreq,
 	}));
 
-	const { candidates: ranked, grammarMeta } = rankCandidates(
+	// Filter the LM payload to only words matching the current prefix so that
+	// lmMax in rankCandidates reflects prefix-relevant signal, not the global distribution.
+	const prefix = currentWord.toLowerCase();
+	const prefixLmLogits = lmLogits
+		? Object.fromEntries(
+			Object.entries(lmLogits).filter(([word]) => word.startsWith(prefix))
+		)
+		: null;
+	const { candidates: ranked, grammarMeta, pipelineDebug } = rankCandidates(
 		scoringCandidates,
 		contextVector,
 		(w: string) => getWordVector(w),
-		lmLogits,
+		prefixLmLogits,
 		wordTrie.maxTenantFreq,
 		previousWord,
 	);
@@ -624,7 +632,7 @@ export const predict = (textBefore: string): string | null => {
 		// 4. Scoring formula active this prediction
 		const formulaLabel =
 			lmLogits && Object.keys(lmLogits).length > 0
-				? 'Stage1(×0.6) + LM(×0.4)'
+				? `Stage1(×${STAGE1_WEIGHT}) + LM(×${STAGE2_WEIGHT})`
 				: 'Stage1 only (no LM logits)';
 		// eslint-disable-next-line no-console
 		console.log('%cFormula:', 'color: #888; font-style: italic;', formulaLabel);
@@ -645,9 +653,17 @@ export const predict = (textBefore: string): string | null => {
 			}
 		}
 
-		// 6. Candidate table
+		// 6. Pipeline funnel
+		// eslint-disable-next-line no-console
+		console.log(
+			`%c[Pipeline Funnel] %c📥 In: ${pipelineDebug.initial} | ❌ Stage 1 (< ${MIN_STAGE1_SCORE}): -${pipelineDebug.stage1Rejected.length} | ❌ Grammar: -${pipelineDebug.grammarRejected.length} | ✅ Final: ${pipelineDebug.final}`,
+			'color: #9c27b0; font-weight: bold;',
+			'color: inherit;',
+		);
+
+		// 7. Candidate table
 		if (ranked.length > 0) {
-			const lmCoverage = ranked.slice(0, 10).filter((r) => r.lmScore > 0.05).length;
+			const lmCoverage = ranked.slice(0, 10).filter((r) => r.lmScore > 0).length;
 			// eslint-disable-next-line no-console
 			console.log(
 				`%cLM coverage: ${lmCoverage}/${Math.min(ranked.length, 10)} candidates had real logit scores`,
@@ -656,8 +672,8 @@ export const predict = (textBefore: string): string | null => {
 
 			const tableData = ranked.slice(0, 10).map((r) => {
 				let rawLogit: string | number = 'Not in Payload';
-				if (lmLogits) {
-					const val = lmLogits[r.word.toLowerCase()];
+				if (prefixLmLogits) {
+					const val = prefixLmLogits[r.word.toLowerCase()];
 					if (val !== undefined) {
 						rawLogit = Number(val.toFixed(5));
 					}

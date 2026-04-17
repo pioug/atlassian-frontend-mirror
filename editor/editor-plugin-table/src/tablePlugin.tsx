@@ -97,7 +97,6 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 	const options: TablePluginOptions = {
 		...config,
 		tableOptions: config?.tableOptions ?? {},
-		dragAndDropEnabled: config?.dragAndDropEnabled || fg('platform_editor_enable_table_dnd'),
 		isTableScalingEnabled:
 			config?.isTableScalingEnabled || fg('platform_editor_enable_table_scaling'),
 	};
@@ -389,7 +388,6 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 							wasFullWidthEnabled,
 							tableOptions,
 							getEditorFeatureFlags,
-							dragAndDropEnabled,
 							isTableScalingEnabled,
 							isCommentEditor,
 							isChromelessEditor,
@@ -407,7 +405,6 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 							getIntl,
 							fullWidthEnabled,
 							wasFullWidthEnabled,
-							dragAndDropEnabled,
 							editorAnalyticsAPI,
 							api,
 							isTableScalingEnabled,
@@ -448,7 +445,6 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 					name: 'tableKeymap',
 					plugin: ({ getIntl, nodeViewPortalProviderAPI }) => {
 						const {
-							dragAndDropEnabled,
 							isTableScalingEnabled = false,
 							fullWidthEnabled = false,
 							isCommentEditor = false,
@@ -461,7 +457,6 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 							api,
 							nodeViewPortalProviderAPI,
 							editorAnalyticsAPI,
-							dragAndDropEnabled,
 							isTableScalingEnabled,
 							tableOptions?.allowTableAlignment,
 							fullWidthEnabled,
@@ -482,8 +477,6 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 				{
 					name: 'tableEditing',
 					plugin: () => {
-						const { dragAndDropEnabled } = options || ({} as TablePluginOptions);
-
 						return tableEditing({
 							reportFixedTable: ({ tr, reason }: { reason: string; tr: Transaction }) => {
 								editorAnalyticsAPI?.attachAnalyticsEvent({
@@ -496,7 +489,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 									eventType: EVENT_TYPE.TRACK,
 								})(tr);
 							},
-							dragAndDropEnabled,
+							dragAndDropEnabled: true,
 						}) as SafePlugin;
 					},
 				},
@@ -510,16 +503,14 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 				{
 					name: 'tableDragAndDrop',
 					plugin: ({ dispatch }) => {
-						return options?.dragAndDropEnabled
-							? createDragAndDropPlugin(
-									dispatch,
-									editorAnalyticsAPI,
-									options?.isTableScalingEnabled,
-									isTableFixedColumnWidthsOptionEnabled,
-									options.isCommentEditor,
-									api,
-								)
-							: undefined;
+						return createDragAndDropPlugin(
+							dispatch,
+							editorAnalyticsAPI,
+							options?.isTableScalingEnabled,
+							isTableFixedColumnWidthsOptionEnabled,
+							options.isCommentEditor,
+							api,
+						);
 					},
 				},
 				{

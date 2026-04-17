@@ -121,22 +121,17 @@
 	},
 	"homepage": "https://atlassian.design/components/icon/",
 	"exports": {
-		".": "./src/index.tsx",
 		"./base-new": "./src/entry-points/base-new.tsx",
 		"./constants": "./src/entry-points/constants.tsx",
+		"./deprecated-map": "./src/entry-points/deprecated-map.tsx",
+		"./metadata": "./src/entry-points/metadata.tsx",
+		"./types": "./src/entry-points/types.tsx",
 		"./core": "./core",
 		"./core/*": {
 			"types": "./core/*.d.ts",
 			"default": "./core/*.js"
 		},
-		"./deprecated-core": "./src/entry-points/deprecated-core.tsx",
-		"./deprecated-map": "./src/entry-points/deprecated-map.tsx",
-		"./icon-new": "./src/entry-points/icon-new.tsx",
-		"./icon-tile": "./src/entry-points/icon-tile.tsx",
-		"./metadata": "./src/entry-points/metadata.tsx",
-		"./metadata-core": "./src/entry-points/metadata-core.tsx",
-		"./skeleton": "./src/entry-points/skeleton.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		".": "./src/index.tsx"
 	},
 	"platform-feature-flags": {
 		"platform_dst_new_icon_tile": {

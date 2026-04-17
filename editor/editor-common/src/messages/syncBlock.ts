@@ -131,6 +131,11 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	entityNotFoundDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	extensionInSyncBlockDescription: {
 		defaultMessage: string;
 		description: string;
@@ -651,6 +656,13 @@ export const syncBlockMessages: {
 		defaultMessage:
 			"We're unable to display this content as it's been deleted from <a>{title}</a>.",
 		description: 'Description for error state where the synced block has its source unsynced',
+	},
+	entityNotFoundDescription: {
+		id: 'fabric.editor.syncedBlockEntityNotFoundDescription',
+		defaultMessage:
+			"We're unable to display this synced block as it's not available on this site. <link>Learn more</link>",
+		description:
+			'Description for error state where the synced block does not exist on this site (e.g. cross-site reference or hard deleted)',
 	},
 	genericNotFoundDescription: {
 		id: 'fabric.editor.syncedBlockGenericNotFoundDescription',

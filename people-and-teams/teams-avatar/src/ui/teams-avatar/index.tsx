@@ -35,7 +35,7 @@ export default function TeamAvatar({
 		return (
 			<Avatar {...props} appearance="square" size={size} testId={`${testId}-team-avatar`}>
 				<AvatarContent>
-					<TeamAvatarImage src={src} size={size} testId={testId} teamId={teamId} />
+					<TeamAvatarImage key={teamId} src={src} size={size} testId={testId} teamId={teamId} />
 				</AvatarContent>
 			</Avatar>
 		);

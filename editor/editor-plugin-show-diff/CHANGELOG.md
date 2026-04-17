@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 8.1.0
+
+### Minor Changes
+
+- [`c50b6810de5a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c50b6810de5a3) -
+  Open expand nodes before scrolling to diff changes within them using `toggleExpandRange` from the
+  expand plugin. This is gated behind the `platform_editor_show_diff_open_expands_on_scroll` feature
+  flag.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.0
 
 ### Patch Changes

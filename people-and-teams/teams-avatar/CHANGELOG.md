@@ -1,5 +1,13 @@
 # @atlaskit/teams-avatar
 
+## 2.6.0
+
+### Minor Changes
+
+- [`e993a197e2357`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e993a197e2357) -
+  Fix stale avatar and error state when teamId changes by keying TeamAvatarImage on teamId in the
+  T26 branch
+
 ## 2.5.0
 
 ### Minor Changes

@@ -75,9 +75,12 @@ const mapErrorResponseCode = (errorCode: string): SyncBlockError => {
 		case 'FORBIDDEN':
 			return SyncBlockError.Forbidden;
 		case 'RESOURCE_NOT_FOUND':
-			return fg('block_service_source_repair') ? SyncBlockError.NotFound : SyncBlockError.Errored;
 		case 'NOT_FOUND':
 			return SyncBlockError.NotFound;
+		case 'EntityNotFound':
+			return fg('platform_synced_block_patch_9')
+				? SyncBlockError.EntityNotFound
+				: SyncBlockError.Errored;
 		case 'INVALID_REQUEST':
 			return SyncBlockError.InvalidRequest;
 		case 'CONFLICT':
@@ -202,7 +205,7 @@ export const fetchReferences = async (
 			({
 				error: { type: SyncBlockError.Errored },
 				resourceId: errorBlock.blockAri,
-			}) as SyncBlockInstance,
+			} as SyncBlockInstance),
 	);
 
 	return [...blocksInstances, ...errorInstances];
@@ -253,7 +256,7 @@ export const batchFetchData = async (
 				({
 					error: { type: SyncBlockError.Errored },
 					resourceId: blockNodeIdentifier.resourceId,
-				}) as SyncBlockInstance,
+				} as SyncBlockInstance),
 		);
 	}
 
@@ -922,11 +925,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 				for (const block of data) {
 					const error = errorResourceIds.get(block.resourceId);
 					if (error) {
-						if (fg('block_service_source_repair')) {
-							if (error !== SyncBlockError.NotFound) {
-								results.push({ error, resourceId: block.resourceId });
-							}
-						} else {
+						if (error !== SyncBlockError.NotFound) {
 							results.push({ error, resourceId: block.resourceId });
 						}
 					} else if (!results.some((r) => r.resourceId === block.resourceId)) {

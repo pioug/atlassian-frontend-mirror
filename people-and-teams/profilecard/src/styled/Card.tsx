@@ -99,9 +99,13 @@ const styles = cssMap({
 	cardContainerDisabledUser: {
 		backgroundImage: `linear-gradient(to bottom, ${token('color.background.disabled')} 0%, ${token('color.background.disabled')} 100%)`,
 	},
-	cardContainerWithElevation: {
+	cardContainerWithElevationDEPRECATED: {
 		boxShadow: token('elevation.shadow.overlay'),
 		borderRadius: token('radius.small'),
+	},
+	cardContainerWithElevation: {
+		boxShadow: token('elevation.shadow.overlay'),
+		borderRadius: token('radius.large'),
 	},
 	detailsLabel: {
 		display: 'flex',
@@ -333,7 +337,10 @@ export const CardContainer = ({
 		xcss={cx(
 			styles.cardContainer,
 			isDisabledUser ? styles.cardContainerDisabledUser : styles.cardContainerActiveUser,
-			!withoutElevation && styles.cardContainerWithElevation,
+			!withoutElevation &&
+				(fg('enable_teams_t26_design_drop_core_experiences')
+					? styles.cardContainerWithElevation
+					: styles.cardContainerWithElevationDEPRECATED),
 		)}
 	>
 		{children}

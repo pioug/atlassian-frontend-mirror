@@ -661,7 +661,7 @@ export class ExpandNodeView implements NodeView {
 			const currentExpanded = expandedState.get(node) ?? false;
 			const hasChanged = editorExperiment('platform_editor_block_menu', true, { exposure: true })
 				? this.isExpanded.expanded !== currentExpanded &&
-					this.isExpanded.localId === node.attrs.localId
+				  this.isExpanded.localId === node.attrs.localId
 				: this.isExpanded.expanded !== currentExpanded;
 			if (hasChanged) {
 				this.updateExpandToggleIcon(node);

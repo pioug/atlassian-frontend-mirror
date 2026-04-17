@@ -294,7 +294,6 @@ export const ContentComponent = ({
 		>
 			<GlobalStylesWrapper
 				featureFlags={api?.featureFlags?.sharedState.currentState()}
-				isDragAndDropEnabledOption={options?.dragAndDropEnabled}
 				api={api}
 			/>
 			<ContentComponentInternal

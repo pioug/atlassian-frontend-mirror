@@ -79,9 +79,6 @@
 			"path": "../form/tsconfig.app.json"
 		},
 		{
-			"path": "../grid/tsconfig.app.json"
-		},
-		{
 			"path": "../heading/tsconfig.app.json"
 		},
 		{

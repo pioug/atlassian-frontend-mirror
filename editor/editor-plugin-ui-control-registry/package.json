@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-ui-control-registry",
-	"version": "3.0.0",
+	"version": "4.0.0",
 	"description": "UiControlRegistry plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

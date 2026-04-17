@@ -1,1 +1,0 @@
-export { MSThemeColors } from '../theme';

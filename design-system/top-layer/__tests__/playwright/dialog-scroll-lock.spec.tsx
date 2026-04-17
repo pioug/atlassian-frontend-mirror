@@ -21,7 +21,10 @@ test.describe('DialogScrollLock', () => {
 		const overflowDuring = await page.evaluate(() => document.body.style.overflow);
 		expect(overflowDuring).toBe('hidden');
 
-		// Close dialog via Escape
+		// Close dialog via Escape — dialog auto-focuses first focusable element
+		const closeBtn = page.locator('dialog button[aria-label="Close"]');
+		await expect(closeBtn).toBeFocused();
+		await closeBtn.click({ trial: true });
 		await page.keyboard.press('Escape');
 		await expect(page.getByTestId('dialog-body')).toBeHidden();
 
@@ -50,7 +53,10 @@ test.describe('DialogScrollLock', () => {
 		const overflowDuring = await page.evaluate(() => document.body.style.overflow);
 		expect(overflowDuring).toBe('hidden');
 
-		// Close dialog
+		// Close dialog — dialog auto-focuses first focusable element
+		const closeBtn2 = page.locator('dialog button[aria-label="Close"]');
+		await expect(closeBtn2).toBeFocused();
+		await closeBtn2.click({ trial: true });
 		await page.keyboard.press('Escape');
 		await expect(page.getByTestId('dialog-body')).toBeHidden();
 

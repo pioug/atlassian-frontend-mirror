@@ -27,10 +27,8 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
-		"./stateful": "./src/entry-points/stateful.tsx",
-		"./stateless": "./src/entry-points/stateless.tsx",
-		"./theme": "./src/entry-points/theme.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./theme": "./src/theme.tsx",
+		"./types": "./src/types.tsx"
 	},
 	"atlassian": {
 		"react-compiler": {

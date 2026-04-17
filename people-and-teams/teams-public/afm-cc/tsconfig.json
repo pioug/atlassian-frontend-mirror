@@ -81,6 +81,9 @@
 			"path": "../../teams-client/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/tile/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tokens/afm-cc/tsconfig.json"
 		},
 		{

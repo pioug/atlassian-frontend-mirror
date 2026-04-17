@@ -41,10 +41,16 @@ const styles = cssMap({
 		top: token('space.300'),
 		left: token('space.200'),
 	},
+	cardContainerStylesDEPRECATED: {
+		borderRadius: token('radius.large'),
+		boxShadow: token('elevation.shadow.overlay'),
+		position: 'relative',
+	},
 	cardContainerStyles: {
 		borderRadius: token('radius.large'),
 		boxShadow: token('elevation.shadow.overlay'),
 		position: 'relative',
+		overflow: 'hidden',
 	},
 	agentProfileInfoWrapper: {
 		paddingInline: token('space.200'),
@@ -182,7 +188,13 @@ const AgentProfileCard = ({
 
 	return (
 		<AgentProfileCardWrapper>
-			<Box xcss={styles.cardContainerStyles}>
+			<Box
+				xcss={
+					fg('enable_teams_t26_design_drop_core_experiences')
+						? styles.cardContainerStyles
+						: styles.cardContainerStylesDEPRECATED
+				}
+			>
 				<AgentBanner
 					agentId={agent.id}
 					agentNamedId={agent.external_config_reference ?? agent.named_id}
@@ -244,7 +256,11 @@ const AgentProfileCard = ({
 									intent="reference"
 									appearance="subtle"
 								>
-									<InformationCircleIcon color={token('color.icon.subtlest')} label="" size="small" />
+									<InformationCircleIcon
+										color={token('color.icon.subtlest')}
+										label=""
+										size="small"
+									/>
 									{` `}
 									<Text size="small" color="color.text.subtlest">
 										{formatMessage(messages.aiDisclaimer)}
@@ -257,7 +273,11 @@ const AgentProfileCard = ({
 									rel="noopener noreferrer"
 									appearance="subtle"
 								>
-									<InformationCircleIcon color={token('color.icon.subtlest')} label="" size="small" />
+									<InformationCircleIcon
+										color={token('color.icon.subtlest')}
+										label=""
+										size="small"
+									/>
 									{` `}
 									<Text size="small" color="color.text.subtlest">
 										{formatMessage(messages.aiDisclaimer)}

@@ -199,9 +199,9 @@ Dialog                = <dialog> element + isOpen + animate + onExitFinish
 
 Focus management is **role-based and automatic**. See [focus.md](./focus.md) for full details.
 
-| Role                     | Initial Focus           | Focus Wrapping              | Focus Restoration           |
-| ------------------------ | ----------------------- | --------------------------- | --------------------------- |
-| `dialog` / `alertdialog` | First focusable element | Tab wraps within content    | ✅ Auto-restores to trigger |
-| `menu`                   | First menu item         | No Tab wrapping (Tab exits) | ✅ Auto-restores to trigger |
-| `listbox`                | First/selected option   | Tab wraps within content    | ✅ Auto-restores to trigger |
-| `tooltip`                | No focus change         | No wrapping                 | ❌ No restoration           |
+| Role      | Initial Focus           | Focus Wrapping              | Focus Restoration           |
+| --------- | ----------------------- | --------------------------- | --------------------------- |
+| `dialog`  | First focusable element | Tab wraps within content    | ✅ Auto-restores to trigger |
+| `menu`    | First menu item         | No Tab wrapping (Tab exits) | ✅ Auto-restores to trigger |
+| `listbox` | First/selected option   | Tab wraps within content    | ✅ Auto-restores to trigger |
+| `tooltip` | No focus change         | No wrapping                 | ❌ No restoration           |

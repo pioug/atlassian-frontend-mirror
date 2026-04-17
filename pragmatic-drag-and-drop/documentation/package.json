@@ -47,7 +47,6 @@
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/code": "workspace:^",
 		"@atlaskit/focus-ring": "workspace:^",
-		"@atlaskit/grid": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",

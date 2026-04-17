@@ -9,7 +9,6 @@ import Button, { IconButton } from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
 import { Label } from '@atlaskit/form';
-import Grid, { GridItem } from '@atlaskit/grid';
 import Heading from '@atlaskit/heading';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import LinkIcon from '@atlaskit/icon/core/link';
@@ -106,9 +105,21 @@ const styles = cssMap({
 		paddingInlineStart: token('space.200'),
 		maxWidth: '400px',
 	},
-	box: {
-		flexBasis: '300',
-		flexShrink: '1',
+	themePickerContainer: {
+		maxWidth: '300px',
+		width: '100%',
+	},
+	root: {
+		maxWidth: '1200px',
+		marginInline: 'auto',
+		paddingInline: token('space.200'),
+		paddingBlockStart: token('space.500'),
+		paddingBlockEnd: token('space.500'),
+	},
+	column: {
+		flexBasis: '480px',
+		flexGrow: '1',
+		minWidth: '300px',
 	},
 });
 /**
@@ -250,82 +261,77 @@ export default function ContrastChecker(): JSX.Element {
 	}, []);
 
 	return (
-		<Grid maxWidth="wide">
-			<GridItem>
-				<Box paddingBlockStart="space.500">
-					<Inline spread="space-between" shouldWrap={true} space="space.100">
-						<Heading size="xxlarge">Contrast Checker</Heading>
-						<Box xcss={styles.box}>
-							<Stack space="space.100">
-								<ThemePicker value={baseThemeType} onChange={setBaseThemeType} />
-							</Stack>
-						</Box>
-					</Inline>
-				</Box>
-			</GridItem>
-			<GridItem span={{ sm: 12, md: 6 }}>
-				<Stack space="space.200">
-					<Inline spread="space-between">
-						<Heading size="xlarge">Theme editor</Heading>
-						<Box>
-							<CustomThemeActions
-								customTheme={customTheme}
-								customBaseTokens={customBaseTokens}
-								baseThemeType={baseThemeType}
-								onImport={(theme) => {
-									setCustomTheme(theme.customTokens);
-									setCustomBaseTokens(theme.customBaseTokens);
-								}}
-								onClear={() => {
-									setCustomTheme([]);
+		<Box xcss={styles.root}>
+			<Stack space="space.300">
+				<Inline spread="space-between" shouldWrap={true} space="space.100" alignBlock="start">
+					<Heading size="xxlarge">Contrast Checker</Heading>
+					<Box xcss={styles.themePickerContainer}>
+						<ThemePicker value={baseThemeType} onChange={setBaseThemeType} />
+					</Box>
+				</Inline>
+				<Inline shouldWrap={true} space="space.300" alignBlock="start">
+					<Box xcss={styles.column}>
+						<Stack space="space.200">
+							<Inline spread="space-between" shouldWrap={true} alignBlock="center" space="space.100">
+								<Heading size="xlarge">Theme editor</Heading>
+								<Box>
+									<CustomThemeActions
+										customTheme={customTheme}
+										customBaseTokens={customBaseTokens}
+										baseThemeType={baseThemeType}
+										onImport={(theme) => {
+											setCustomTheme(theme.customTokens);
+											setCustomBaseTokens(theme.customBaseTokens);
+										}}
+										onClear={() => {
+											setCustomTheme([]);
+										}}
+									/>
+								</Box>
+							</Inline>
+							<Heading size="large">Base tokens:</Heading>
+							<Accordion description="Edit base tokens">
+								<BaseTokenEditor
+									baseTokens={customBaseTokens}
+									onChange={(baseTokens: typeof customBaseTokens) =>
+										setCustomBaseTokens({ ...baseTokens })
+									}
+								/>
+							</Accordion>
+							<Heading size="large">
+								{baseThemeType.charAt(0).toUpperCase() + baseThemeType.slice(1)} theme:
+							</Heading>
+							{customTheme && customTheme.length === 0 && (
+								<SectionMessage
+									appearance="information"
+									title="No custom theme"
+									actions={[
+										<SectionMessageAction onClick={() => setCustomTheme(defaultCustomTheme)}>
+											Load "purple" custom theme
+										</SectionMessageAction>,
+									]}
+								>
+									Add your first custom color below, or load in a sample theme
+								</SectionMessage>
+							)}
+							<CustomThemeEditor
+								// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+								theme={customTheme}
+								onChange={(theme) => {
+									setCustomTheme([...theme]);
 								}}
 							/>
-						</Box>
-					</Inline>
-					<Heading size="large">Base tokens:</Heading>
-					<Accordion description="Edit base tokens">
-						<BaseTokenEditor
-							baseTokens={customBaseTokens}
-							onChange={(baseTokens: typeof customBaseTokens) =>
-								setCustomBaseTokens({ ...baseTokens })
-							}
+						</Stack>
+					</Box>
+					<Box xcss={styles.column}>
+						<Results
+							customTheme={customTheme}
+							customBaseTokens={customBaseTokens}
+							baseThemeType={baseThemeType}
 						/>
-					</Accordion>
-					<Heading size="large">
-						{baseThemeType.charAt(0).toUpperCase() + baseThemeType.slice(1)} theme:
-					</Heading>
-					{customTheme && customTheme.length === 0 && (
-						<SectionMessage
-							appearance="information"
-							title="No custom theme"
-							actions={[
-								<SectionMessageAction onClick={() => setCustomTheme(defaultCustomTheme)}>
-									Load "purple" custom theme
-								</SectionMessageAction>,
-							]}
-						>
-							Add your first custom color below, or load in a sample theme
-						</SectionMessage>
-					)}
-					<CustomThemeEditor
-						// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-						theme={customTheme}
-						onChange={(theme) => {
-							setCustomTheme([...theme]);
-						}}
-					/>
-				</Stack>
-			</GridItem>
-			<GridItem start={{ sm: 1, md: 7 }} span={{ sm: 12, md: 6 }}>
-				<Results
-					customTheme={customTheme}
-					customBaseTokens={customBaseTokens}
-					baseThemeType={baseThemeType}
-				/>
-			</GridItem>
-			<GridItem>
-				<Box paddingBlockEnd="space.500" />
-			</GridItem>
-		</Grid>
+					</Box>
+				</Inline>
+			</Stack>
+		</Box>
 	);
 }

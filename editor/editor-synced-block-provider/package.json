@@ -86,7 +86,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "5.0.0",
+	"version": "6.1.0",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -94,13 +94,13 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"platform-feature-flags": {
-		"block_service_source_repair": {
-			"type": "boolean"
-		},
 		"platform_synced_block_update_refactor": {
 			"type": "boolean"
 		},
 		"platform_synced_block_patch_8": {
+			"type": "boolean"
+		},
+		"platform_synced_block_patch_9": {
 			"type": "boolean"
 		},
 		"platform_synced_block_add_info_web_socket_error": {

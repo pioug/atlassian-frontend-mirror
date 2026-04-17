@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 62.5.0
+
+### Minor Changes
+
+- [`ddaaad8a1e1c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddaaad8a1e1c9) -
+  Add toolbar component to jira remix integration
+
 ## 62.4.1
 
 ### Patch Changes

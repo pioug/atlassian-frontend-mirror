@@ -109,6 +109,9 @@
 		},
 		"teams-app_client_fix-invalid-ari": {
 			"type": "boolean"
+		},
+		"ptc-enable-team-type-permission-enabled": {
+			"type": "boolean"
 		}
 	}
 }

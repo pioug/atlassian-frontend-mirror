@@ -1,5 +1,62 @@
 # @atlaskit/editor-presets
 
+## 2.0.1
+
+### Patch Changes
+
+- [`b47ee185c5ac4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b47ee185c5ac4) -
+  Remove deprecated dragAndDropEnabled plugin option Drag and drop table rows/ columns and advanced
+  table controls used to be toggled with dragAndDropEnabled table plugin option however we're
+  deprecating this prop to make this the default behaviour.
+
+  ```
+  // Before - to turn on drag and drop:
+
+  const createPreset = () =>
+    createDefaultPreset({ featureFlags: {}, paste: {} })
+      .add([tablePlugin, {tableOptions: {}, dragAndDropEnabled: true}])
+
+  const { preset } = usePreset(createPreset);
+
+  // Now - drag and drop enabled even without prop
+  const createPreset = () =>
+    createDefaultPreset({ featureFlags: {}, paste: {} })
+      .add([tablePlugin, {tableOptions: {}}])
+
+  const { preset } = usePreset(createPreset);
+  ```
+
+  The `dragAndDropEnabled` property has also been removed from the `TablePluginOptions` TypeScript
+  interface.
+
+  **Note:** If you previously set `dragAndDropEnabled: false` to explicitly disable drag and drop,
+  this is no longer supported — drag and drop is now always enabled and cannot be turned off via
+  this option.
+
+  If issues occur when bumping editor package, please check if dragAndDropEnabled is still present
+  in editor integration.
+
+- Updated dependencies
+
+## 2.0.0
+
+### Major Changes
+
+- [`901c87a57486e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/901c87a57486e) -
+  Removed `react-intl-next` alias and replaced all usages with `react-intl` directly.
+
+  What changed: The `react-intl-next` npm alias (which resolved to `react-intl@^5`) has been
+  removed. All imports now reference `react-intl` directly, and `peerDependencies` have been updated
+  to `"^5.25.1 || ^6.0.0 || ^7.0.0"`.
+
+  How consumer should update their code: Ensure `react-intl` is installed at a version satisfying
+  `^5.25.1 || ^6.0.0 || ^7.0.0`. If your application was using `react-intl-next` as an npm alias, it
+  can be safely removed. Replace any remaining `react-intl-next` imports with `react-intl`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.0
 
 ### Patch Changes

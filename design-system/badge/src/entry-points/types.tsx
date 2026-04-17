@@ -1,1 +1,1 @@
-export type { BadgeNewProps, BadgeProps, NewAppearance, ThemeAppearance } from '../types';
+export type { BadgeProps, BadgeNewProps } from '../types';

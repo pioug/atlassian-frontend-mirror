@@ -9,6 +9,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import { type SizeType } from '@atlaskit/avatar';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { FallbackAvatar } from './fallback';
@@ -120,7 +121,9 @@ const avatarImageStyles = cssMap({
 		width: '100%',
 		height: '100%',
 	},
+
 });
+
 
 const SIZES: Record<SizeType, number> = {
 	xsmall: 16,
@@ -196,8 +199,10 @@ export const TeamAvatarImage = ({
 
 	const avatarSrc = getTeamAvatarSrc(src, teamId);
 
-	// If src changes, reset state
 	useEffect(() => {
+		if (fg('enable_teams_t26_design_drop_core_experiences')) {
+			return;
+		}
 		setHasImageErrored(false);
 	}, [avatarSrc]);
 
@@ -216,11 +221,12 @@ export const TeamAvatarImage = ({
 	if (fg('enable_teams_t26_design_drop_core_experiences')) {
 		const resolvedSrc = hasImageErrored ? TEAM_FALLBACK_AVATAR_DATA_URI : avatarSrc;
 		return (
-			<img
+			<Box
+				as="img"
 				src={resolvedSrc}
 				alt={alt}
-				data-testid={testId && `${testId}--image`}
-				css={[avatarImageStyles.image]}
+				testId={testId && `${testId}--image`}
+				xcss={avatarImageStyles.image}
 				onError={() => setHasImageErrored(true)}
 			/>
 		);

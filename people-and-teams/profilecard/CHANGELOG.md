@@ -1,5 +1,20 @@
 # @atlaskit/profilecard
 
+## 25.0.2
+
+### Patch Changes
+
+- [`a826b0d054fdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a826b0d054fdf) -
+  Minor changes to the border radius on both the agent and user profile cards
+- Updated dependencies
+
+## 25.0.1
+
+### Patch Changes
+
+- [`2948c61839699`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2948c61839699) -
+  PTC-14859: FG cleanup enable_appropriate_reading_order_in_profile_card
+
 ## 25.0.0
 
 ### Major Changes

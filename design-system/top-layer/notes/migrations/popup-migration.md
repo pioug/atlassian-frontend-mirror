@@ -102,13 +102,14 @@ Converts Popper.js placement strings (e.g. `'bottom-start'`) to the top-layer ob
 | `autoFocus`          | Passed through (native popover handles initial focus)                                      |
 | `shouldFitContainer` | Mapped to `width="trigger"` on `Popup.Content` (CSS `anchor-size(width)`)                  |
 | `shouldReturnFocus`  | Focus returned to trigger on Escape when true                                              |
-| `role`               | Mapped to `Popup.Content` role prop (dialog, alertdialog, menu, listbox, etc.)             |
-| `label`              | Mapped to `aria-label` on `Popup.Content`                                                  |
-| `titleId`            | Mapped to `labelledBy` on `Popup.Content` (overrides `label`)                              |
-| `shouldFitViewport`  | Adds `overflow: auto` wrapper on content                                                   |
-| `xcss`               | Forwarded to `popupComponent` (when used)                                                  |
-| `fallbackPlacements` | Accepted but not yet wired (CSS `position-try-fallbacks` handles flipping)                 |
-| `shouldFlip`         | Accepted but CSS Anchor Positioning handles flipping natively                              |
+| `role`               | Mapped to `Popup.Content` role prop (dialog, menu, listbox, etc.)                          |
+
+> Note: `alertdialog` is intentionally unsupported in top-layer; migrate to `dialog` instead. |
+> `label` | Mapped to `aria-label` on `Popup.Content` | | `titleId` | Mapped to `labelledBy` on
+> `Popup.Content` (overrides `label`) | | `shouldFitViewport` | Adds `overflow: auto` wrapper on
+> content | | `xcss` | Forwarded to `popupComponent` (when used) | | `fallbackPlacements` | Accepted
+> but not yet wired (CSS `position-try-fallbacks` handles flipping) | | `shouldFlip` | Accepted but
+> CSS Anchor Positioning handles flipping natively |
 
 ### No-op props (accepted for API compat, no effect)
 

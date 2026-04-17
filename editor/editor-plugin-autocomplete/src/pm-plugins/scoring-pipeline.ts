@@ -49,10 +49,15 @@ interface GrammarTransitions {
 const ALPHA = 0.5;
 const BETA = 0.5;
 const NEUTRAL_SCORE = 0.5;
-const STAGE1_WEIGHT = 0.6;
-const STAGE2_WEIGHT = 0.4;
-const MIN_STAGE1_SCORE = 0.35;
+export const STAGE1_WEIGHT = 0.35;
+export const STAGE2_WEIGHT = 0.65;
+export const MIN_STAGE1_SCORE = 0.35;
 const L1_SESSION_CAP = 1.2;
+// Minimum prefix-payload max LM probability before Stage 2 activates.
+// Below this threshold the LM signal is too weak to suppress Stage 1 — finalScore
+// falls back to stage1Score directly. Prevents weak prefixes (e.g. "ins" → "instances"
+// at 0.00024) from triggering re-ranking.
+const LM_GATE_THRESHOLD = 0.0005;
 
 // ─── Grammar Data (loaded once on import) ───────────────────
 
@@ -217,9 +222,17 @@ function getLmScore(word: string, lmLogits: Record<string, number> | null): numb
 
 // ─── Public API ─────────────────────────────────────────────
 
+export interface PipelineDebug {
+	final: number;
+	grammarRejected: string[];
+	initial: number;
+	stage1Rejected: string[];
+}
+
 export interface RankCandidatesResult {
 	candidates: ScoredCandidate[];
 	grammarMeta: GrammarFilterMeta | null;
+	pipelineDebug: PipelineDebug;
 }
 
 export function rankCandidates(
@@ -240,33 +253,39 @@ export function rankCandidates(
 		);
 		return { candidate, semanticScore, freqScore, stage1Score };
 	});
-
-	const stage1Survivors = stage1Results.filter((entry) => entry.stage1Score >= MIN_STAGE1_SCORE);
+	const stage1Survivors: typeof stage1Results = [];
+	const stage1Rejected: string[] = [];
+	for (const entry of stage1Results) {
+		if (entry.stage1Score >= MIN_STAGE1_SCORE) {
+			stage1Survivors.push(entry);
+		} else {
+			stage1Rejected.push(entry.candidate.word);
+		}
+	}
 
 	// Grammar Filter
 	const { filtered, grammarMeta } = applyGrammarFilter(stage1Survivors, previousWord);
 
 	// Stage 2 + final assembly
 	let lmMax = 0;
-	if (lmLogits && Object.keys(lmLogits).length > 0) {
+	if (lmLogits) {
 		const values = Object.values(lmLogits);
-		lmMax = Math.max(...values);
+		if (values.length > 0) lmMax = Math.max(...values);
 	}
 
 	const scored: ScoredCandidate[] = filtered.map((entry) => {
 		let lmScore = 0;
 		let finalScore = entry.stage1Score;
 
-		if (lmLogits && Object.keys(lmLogits).length > 0) {
+		if (lmLogits && lmMax >= LM_GATE_THRESHOLD) {
 			const rawLm = getLmScore(entry.candidate.word, lmLogits);
 
 			if (rawLm !== 0) {
-				// The word was in the top_k! Score it normally.
 				const logitDiff = Math.log(rawLm) - Math.log(lmMax);
 				lmScore = Math.exp(logitDiff);
-			} else {
-				lmScore = 0.05;
 			}
+			// Words absent from the prefix-filtered payload get lmScore = 0,
+			// not 0.05, so they don't outrank genuine LM predictions.
 
 			finalScore = STAGE1_WEIGHT * entry.stage1Score + STAGE2_WEIGHT * lmScore;
 		}
@@ -281,11 +300,18 @@ export function rankCandidates(
 	});
 
 	scored.sort((a, b) => {
-		if (b.finalScore !== a.finalScore) {
-			return b.finalScore - a.finalScore;
-		}
+		if (b.finalScore !== a.finalScore) return b.finalScore - a.finalScore;
 		return a.word.length - b.word.length;
 	});
 
-	return { candidates: scored, grammarMeta };
+	return {
+		candidates: scored,
+		grammarMeta,
+		pipelineDebug: {
+			initial: candidates.length,
+			stage1Rejected,
+			grammarRejected: grammarMeta?.dropped ?? [],
+			final: scored.length,
+		},
+	};
 }

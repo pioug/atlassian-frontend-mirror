@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 import { parse } from 'query-string';
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import Button, { type Appearance } from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';

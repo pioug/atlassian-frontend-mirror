@@ -540,6 +540,10 @@ export type SpaceSelectedPayload = PayloadCore<
 
 export type SpaceDeselectedPayload = PayloadCore<'space-deselected'>;
 
+export type RecommendedSpacesSelectedPayload = PayloadCore<'recommended-spaces-selected'>;
+
+export type RecommendedSpacesDeselectedPayload = PayloadCore<'recommended-spaces-deselected'>;
+
 export type SmartlinksSubscriptionChangedPayload =
 	PayloadCore<'smartlinks-subscription-changed'> & {
 		/** Never opens chat — internal signal only. */
@@ -588,11 +592,55 @@ export type Payload =
 	| SmartLinksContextPayload
 	| SpaceSelectedPayload
 	| SpaceDeselectedPayload
-	| TaskPlanConfirmedPayload;
+	| RecommendedSpacesSelectedPayload
+	| RecommendedSpacesDeselectedPayload
+	| TaskPlanConfirmedPayload
+	| TaskAskQuestionRenderedPayload
+	| TaskPlanRenderedPayload
+	| TaskSkipAllQuestionsPayload
+	| TaskCancelPlanPayload
+	| TaskAskQuestionConfirmedPayload
+	| TaskModifyPlanRequestedPayload
+	| TaskModifyPlanSubmittedPayload;
 
 export type TaskPlanConfirmedPayload = PayloadCore<
 	'task-plan-confirmed',
 	{ conversationId: string; planTitle: string }
+>;
+
+export type TaskAskQuestionRenderedPayload = PayloadCore<
+	'task-ask-question-rendered',
+	{ conversationId: string; invocationId: string }
+>;
+
+export type TaskPlanRenderedPayload = PayloadCore<
+	'task-plan-rendered',
+	{ conversationId: string; invocationId: string }
+>;
+
+export type TaskSkipAllQuestionsPayload = PayloadCore<
+	'task-skip-all-questions',
+	{ conversationId: string; invocationId: string }
+>;
+
+export type TaskAskQuestionConfirmedPayload = PayloadCore<
+	'task-ask-question-confirmed',
+	{ conversationId: string; invocationId: string }
+>;
+
+export type TaskCancelPlanPayload = PayloadCore<
+	'task-cancel-plan',
+	{ conversationId: string; invocationId: string }
+>;
+
+export type TaskModifyPlanRequestedPayload = PayloadCore<
+	'task-modify-plan-requested',
+	{ conversationId: string; invocationId: string }
+>;
+
+export type TaskModifyPlanSubmittedPayload = PayloadCore<
+	'task-modify-plan-submitted',
+	{ conversationId: string; invocationId: string; prompt: string }
 >;
 
 export type Callback = (payload: Payload) => void;

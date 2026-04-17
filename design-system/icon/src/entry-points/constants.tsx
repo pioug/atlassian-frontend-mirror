@@ -1,1 +1,1 @@
-export { dimensions, sizeMap, sizes } from '../constants';
+export { sizeMap, sizes } from '../constants';

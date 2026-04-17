@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap, cx } from '@atlaskit/css';
 import LinkIcon from '@atlaskit/icon/core/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
+import Tile from '@atlaskit/tile';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerTypes } from '../../types';
@@ -35,19 +37,32 @@ export const ContainerIcon = ({
 	size = 'medium',
 }: ContainerIconProps): React.JSX.Element => {
 	const isMedium = size === 'medium';
+	const [remoteIconFailed, setRemoteIconFailed] = React.useState(false);
+
+	useEffect(() => {
+		setRemoteIconFailed(false);
+	}, [containerIcon]);
 
 	if (containerType === 'LoomSpace') {
 		return (
 			<LoomSpaceAvatar
 				spaceName={title}
-				size={isMedium ? 'large' : size}
+				size={size}
 				testId={`linked-container-${containerType}-icon`}
 			/>
 		);
 	}
 
 	// This is a fallback icon for WebLink if the containerIcon is not present
-	if (containerType === 'WebLink' && !containerIcon) {
+	if ((containerType === 'WebLink' && !containerIcon) || remoteIconFailed) {
+		if (fg('enable_teams_t26_design_drop_core_experiences')) {
+			return (
+				<Tile label="" size={size} testId="linked-container-WebLink-new-icon" hasBorder>
+					<LinkIcon label="" />
+				</Tile>
+			);
+		}
+
 		return (
 			<Box xcss={cx(!isMedium && styles.linkIconWrapperSmall)}>
 				<IconButton
@@ -60,6 +75,27 @@ export const ContainerIcon = ({
 					icon={() => <LinkIcon label="" size={isMedium ? 'medium' : 'small'} />}
 				/>
 			</Box>
+		);
+	}
+
+	if (fg('enable_teams_t26_design_drop_core_experiences')) {
+		return (
+			<Tile
+				label=""
+				size={size}
+				testId="linked-container-WebLink-new-icon"
+				isInset={false}
+				backgroundColor="transparent"
+			>
+				<Box
+					as="img"
+					src={containerIcon}
+					alt={title}
+					onError={() => {
+						setRemoteIconFailed(true);
+					}}
+				/>
+			</Tile>
 		);
 	}
 

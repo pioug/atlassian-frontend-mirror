@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor-autocomplete-rest
 
+## 3.1.3
+
+### Patch Changes
+
+- [`85a5e662048f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85a5e662048f6) -
+  Enrol jql packages into the React Compiler with platform gating via isReactCompilerActivePlatform
+- Updated dependencies
+
 ## 3.1.2
 
 ### Patch Changes

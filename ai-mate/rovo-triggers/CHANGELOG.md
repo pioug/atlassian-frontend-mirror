@@ -1,5 +1,27 @@
 # @atlaskit/rovo-triggers
 
+## 5.41.0
+
+### Minor Changes
+
+- [`3ae00588c6402`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ae00588c6402) -
+  [ux] Move plan modification interaction from inline TextArea to ChatInput area using pubsub events
+  and render prop pattern
+
+## 5.40.0
+
+### Minor Changes
+
+- [`2b9eafe55a90d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b9eafe55a90d) -
+  [ux] Add recommended spaces from home threads to Spaces UI
+
+## 5.39.0
+
+### Minor Changes
+
+- [`680bee55a0e0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/680bee55a0e0f) -
+  Extend task progress with new states and pubsub events for action renderers
+
 ## 5.38.0
 
 ### Minor Changes

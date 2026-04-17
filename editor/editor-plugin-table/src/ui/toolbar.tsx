@@ -563,13 +563,8 @@ export const getToolbarConfig =
 				const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
 				if (editorExperiment('platform_editor_controls', 'variant1')) {
-					let isDragHandleMenuOpened = false;
-					let isTableRowOrColumnDragged = false;
-					if (options?.dragAndDropEnabled) {
-						const { isDragMenuOpen = false, isDragging = false } = getDragDropPluginState(state);
-						isDragHandleMenuOpened = isDragMenuOpen;
-						isTableRowOrColumnDragged = isDragging;
-					}
+					const { isDragMenuOpen: isDragHandleMenuOpened = false, isDragging: isTableRowOrColumnDragged = false } =
+						getDragDropPluginState(state);
 
 					const isTableOrColumnResizing = !!(resizeState?.dragging || tableWidthState?.resizing);
 					const isTableMenuOpened = pluginState.isContextualMenuOpen || isDragHandleMenuOpened;

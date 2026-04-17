@@ -5,12 +5,16 @@
 import React, { type ReactNode } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
-	cardWrapper: {
+	cardWrapperDEPRECATED: {
 		borderRadius: token('radius.small'),
+		width: '360px',
+	},
+	cardWrapper: {
 		width: '360px',
 	},
 	spinnerContainer: {
@@ -36,7 +40,11 @@ export const CardWrapper = ({
 	ariaLabel?: string;
 }): React.JSX.Element => (
 	<Box
-		xcss={cx(styles.cardWrapper)}
+		xcss={cx(
+			fg('enable_teams_t26_design_drop_core_experiences')
+				? styles.cardWrapper
+				: styles.cardWrapperDEPRECATED,
+		)}
 		backgroundColor={'elevation.surface.overlay'}
 		role={role}
 		testId={testId}

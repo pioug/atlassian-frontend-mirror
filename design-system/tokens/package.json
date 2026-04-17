@@ -60,7 +60,6 @@
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/dynamic-table": "workspace:^",
 		"@atlaskit/form": "workspace:^",
-		"@atlaskit/grid": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/inline-message": "workspace:^",

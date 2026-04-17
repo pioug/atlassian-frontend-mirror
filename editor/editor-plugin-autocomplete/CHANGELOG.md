@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 2.1.0
+
+### Minor Changes
+
+- [`6b36a63af0057`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b36a63af0057) -
+  Updated scoring math for contextual typeahead autocomplete
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.0
 
 ### Patch Changes

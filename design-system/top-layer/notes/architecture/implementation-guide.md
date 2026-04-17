@@ -229,7 +229,7 @@ manages:
 
 - Visibility lifecycle (`showPopover()` / `hidePopover()`)
 - Entry/exit animations
-- Focus wrapping (for `role="dialog"` / `role="alertdialog"`)
+- Focus wrapping (for `role="dialog"`)
 - Initial focus (role-based)
 - Close reason detection (escape vs light-dismiss)
 
@@ -261,7 +261,7 @@ background: transparent;
 | `animate`      | `TAnimationPreset \| false`                                    | —              | Animation preset. Entry via `@starting-style`, exit via `allow-discrete`.                                                            |
 | `placement`    | `TPlacementOptions`                                            | —              | Hint for directional animations (sets CSS vars like `--ds-popover-tx`). Does NOT control positioning.                                |
 | `role`         | `TRoleRequiringAccessibleName \| TRoleWithImplicitName`        | —              | ARIA role. Determines focus behavior.                                                                                                |
-| `label`        | `string`                                                       | —              | `aria-label`. Required for roles like `dialog`, `alertdialog`, `menu` (enforced by types).                                           |
+| `label`        | `string`                                                       | —              | `aria-label`. Required for roles like `dialog`, `menu` (enforced by types).                                                          |
 | `labelledBy`   | `string`                                                       | —              | `aria-labelledby`. Alternative to `label`.                                                                                           |
 | `id`           | `string`                                                       | auto-generated | HTML id. Used for `aria-controls` on triggers.                                                                                       |
 | `testId`       | `string`                                                       | —              | `data-testid` attribute.                                                                                                             |
@@ -501,22 +501,22 @@ API.
 
 **Props (`TPopupContentProps`):**
 
-| Prop                       | Type                                                    | Default      | Description                                                                   |
-| -------------------------- | ------------------------------------------------------- | ------------ | ----------------------------------------------------------------------------- |
-| `role`                     | `TRoleRequiringAccessibleName \| TRoleWithImplicitName` | _required_   | ARIA role. Determines focus and ARIA behavior.                                |
-| `label` / `labelledBy`     | `string`                                                | conditional  | Required for `dialog`, `alertdialog`, `menu` roles. TypeScript enforces this. |
-| `children`                 | `ReactNode`                                             | _required_   | Content.                                                                      |
-| `width`                    | `'content' \| 'trigger'`                                | `'content'`  | `'trigger'` matches trigger width via `anchor-size(width)`.                   |
-| `animate`                  | `TAnimationPreset \| false`                             | —            | Animation preset.                                                             |
-| `arrow`                    | `TArrowPreset \| false`                                 | —            | Arrow preset from `@atlaskit/top-layer/arrow`.                                |
-| `offset`                   | `number`                                                | `8`          | Gap between popover and trigger in px. Tooltip uses `4`.                      |
-| `mode`                     | `'auto' \| 'hint' \| 'manual'`                          | from context | Native popover mode override.                                                 |
-| `isOpen`                   | `boolean`                                               | from context | Override for standalone usage.                                                |
-| `triggerRef`               | `RefObject<HTMLElement \| null>`                        | from context | Override for standalone usage.                                                |
-| `placement`                | `TPlacementOptions`                                     | from context | Override for standalone usage.                                                |
-| `onClose`                  | `(args: { reason }) => void`                            | from context | Override for standalone usage.                                                |
-| `testId`                   | `string`                                                | from context | Override.                                                                     |
-| `forceFallbackPositioning` | `boolean`                                               | from context | Override.                                                                     |
+| Prop                       | Type                                                    | Default      | Description                                                    |
+| -------------------------- | ------------------------------------------------------- | ------------ | -------------------------------------------------------------- |
+| `role`                     | `TRoleRequiringAccessibleName \| TRoleWithImplicitName` | _required_   | ARIA role. Determines focus and ARIA behavior.                 |
+| `label` / `labelledBy`     | `string`                                                | conditional  | Required for `dialog`, `menu` roles. TypeScript enforces this. |
+| `children`                 | `ReactNode`                                             | _required_   | Content.                                                       |
+| `width`                    | `'content' \| 'trigger'`                                | `'content'`  | `'trigger'` matches trigger width via `anchor-size(width)`.    |
+| `animate`                  | `TAnimationPreset \| false`                             | —            | Animation preset.                                              |
+| `arrow`                    | `TArrowPreset \| false`                                 | —            | Arrow preset from `@atlaskit/top-layer/arrow`.                 |
+| `offset`                   | `number`                                                | `8`          | Gap between popover and trigger in px. Tooltip uses `4`.       |
+| `mode`                     | `'auto' \| 'hint' \| 'manual'`                          | from context | Native popover mode override.                                  |
+| `isOpen`                   | `boolean`                                               | from context | Override for standalone usage.                                 |
+| `triggerRef`               | `RefObject<HTMLElement \| null>`                        | from context | Override for standalone usage.                                 |
+| `placement`                | `TPlacementOptions`                                     | from context | Override for standalone usage.                                 |
+| `onClose`                  | `(args: { reason }) => void`                            | from context | Override for standalone usage.                                 |
+| `testId`                   | `string`                                                | from context | Override.                                                      |
+| `forceFallbackPositioning` | `boolean`                                               | from context | Override.                                                      |
 
 **Internal behavior:**
 
@@ -891,22 +891,26 @@ decisions are made.
 
 ### Three Concerns, Three Hooks
 
-| Concern                                            | Hook                         | Where Used                 | Active For                                 |
-| -------------------------------------------------- | ---------------------------- | -------------------------- | ------------------------------------------ |
-| **Initial focus** (move into content on open)      | `useInitialFocus`            | `Popover`                  | `dialog`, `alertdialog`, `menu`, `listbox` |
-| **Focus wrapping** (Tab cycling within content)    | `useFocusWrap`               | `Popover`, `Dialog`        | `dialog`, `alertdialog`                    |
-| **Focus restoration** (return to trigger on close) | Native browser (Popover API) | Automatic (no custom code) | All roles (native behavior)                |
+| Concern                                            | Hook                         | Where Used                 | Active For                  |
+| -------------------------------------------------- | ---------------------------- | -------------------------- | --------------------------- |
+| **Initial focus** (move into content on open)      | `useInitialFocus`            | `Popover`                  | `dialog`, `menu`, `listbox` |
+| **Focus wrapping** (Tab cycling within content)    | `useFocusWrap`               | `Popover`, `Dialog`        | `dialog`                    |
+| **Focus restoration** (return focus on close)      | _native_                     | `Popover`, `Dialog`        | _varies by dismiss reason_  |
+| **Focus restoration** (return to trigger on close) | Native browser (Popover API) | Automatic (no custom code) | All roles (native behavior) |
 
 ### `useInitialFocus`
 
 Moves focus into the popover when it opens, based on role:
 
-| Role                     | Focus Target                                              |
-| ------------------------ | --------------------------------------------------------- |
-| `dialog` / `alertdialog` | Element with `[autofocus]`, or first focusable element    |
-| `menu`                   | First focusable element (typically `[role="menuitem"]`)   |
-| `listbox`                | First `[aria-selected="true"]` option, or first focusable |
-| `tooltip` / other / none | No focus movement                                         |
+| Role      | Focus Target                                                  |
+| --------- | ------------------------------------------------------------- |
+| `dialog`  | Element with `[autofocus]`, or first focusable element        |
+| `menu`    | First focusable menu item                                     |
+| `listbox` | Selected option (`[aria-selected="true"]`) or first focusable |
+| `tooltip` | No focus movement                                             |
+| (no role) | No focus movement                                             |
+
+> Note: `alertdialog` is intentionally unsupported in top-layer — use `dialog` instead.
 
 **Timing:** Uses `requestAnimationFrame` to ensure the popover is fully rendered and visible in the
 top layer before focusing. The RAF is cancelled on cleanup.
@@ -923,7 +927,8 @@ of the native behavior (A → B → C → body → A).
 - On `Shift+Tab`: `event.preventDefault()`, calls
   `getNextFocusable({ container, direction: 'backwards' })`
 - Falls back to first/last focusable if current focus is not in the focusable list
-- Only active for `role="dialog"` or `role="alertdialog"`
+- Only active for `role="dialog"` (we intentionally do not support `alertdialog`) for focus
+  wrapping.
 
 **Why override native `<dialog>` wrapping:** Native `showModal()` wraps through `<body>` at the
 boundary per the HTML spec. The APG Dialog Pattern requires direct wrapping. This override aligns
@@ -986,15 +991,17 @@ All accept an optional `TFocusableFilter` callback for further restriction.
 ### Compile-Time WCAG 4.1.2 Enforcement
 
 The type system uses discriminated unions to enforce that roles requiring an accessible name
-(`dialog`, `alertdialog`, `menu`) MUST have either `label` (aria-label) or `labelledBy`
-(aria-labelledby). This is checked at compile time — you cannot create a
-`<Popup.Content role="dialog">` without providing a label.
+(`dialog`, `menu`) MUST have either `label` (aria-label) or `labelledBy` (aria-labelledby). This is
+checked at compile time — you cannot create a `<Popup.Content role="dialog">` without providing a
+label.
 
 ### Role Categories
 
 ```typescript
 /** Roles that REQUIRE an accessible name */
-type TRoleRequiringAccessibleName = 'dialog' | 'alertdialog' | 'menu';
+type TRoleRequiringAccessibleName = 'dialog' | 'menu';
+
+// Note: `alertdialog` is intentionally unsupported in top-layer.
 
 /** Roles where the name is derived from content or provided externally */
 type TRoleWithImplicitName =

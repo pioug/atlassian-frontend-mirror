@@ -21,9 +21,9 @@ background content.
 
 ### Decisions
 
-- **Popovers with `role="dialog"` or `role="alertdialog"` get focus wrapping.** Tab/Shift+Tab cycle
-  within the popover. Light dismiss (Escape, click outside) still works via `popover="auto"`.
-  Sources: [APG Dialog Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/),
+- **Popovers with `role="dialog"` get focus wrapping.** Tab/Shift+Tab cycle within the popover.
+  Light dismiss (Escape, click outside) still works via `popover="auto"`. Sources:
+  [APG Dialog Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/),
   [MDN `dialog` role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/dialog_role).
 
 - **Popovers with other roles do not get focus wrapping.** Focus is allowed to leave the popover,
@@ -43,7 +43,7 @@ background content.
 
 - Intercepts `Tab` and `Shift+Tab` (capture phase, `preventDefault()`)
 - Remaps them to `getNextFocusable({ container, direction })`, which handles wrapping
-- Used in `Popover` (active when role is `'dialog'` or `'alertdialog'`) and `Dialog` (always active)
+- Used in `Popover` (active when role is `'dialog'`) and `Dialog` (always active)
 
 ---
 
@@ -68,11 +68,11 @@ algorithm:
 This covers every case. No custom code needed. Validated as consistent across all three engines
 (April 2026, Playwright 1.57.0):
 
-| Engine   | Version        | `autofocus` respected | First focusable fallback |
-| -------- | -------------- | --------------------- | ------------------------ |
-| Chromium | 143.0.7499.4   | ✅                    | ✅                       |
-| Firefox  | 144.0.2        | ✅                    | ✅                       |
-| WebKit   | 26.0           | ✅                    | ✅                       |
+| Engine   | Version      | `autofocus` respected | First focusable fallback |
+| -------- | ------------ | --------------------- | ------------------------ |
+| Chromium | 143.0.7499.4 | ✅                    | ✅                       |
+| Firefox  | 144.0.2      | ✅                    | ✅                       |
+| WebKit   | 26.0         | ✅                    | ✅                       |
 
 **`showPopover()` does NOT auto-focus the first focusable child.** The
 [popover focusing steps](https://html.spec.whatwg.org/multipage/popover.html#popover-focusing-steps)
@@ -140,7 +140,7 @@ dialog focusing steps look for the HTML `autofocus` attribute.
 `useInitialFocus` hook (`src/internal/use-initial-focus.tsx`):
 
 - On open, resolves the correct focus target based on role:
-  - `dialog` / `alertdialog`: `[autofocus]` element, or first focusable
+  - `dialog`: `[autofocus]` element, or first focusable
   - `menu`: first focusable (menu item)
   - `listbox`: `[aria-selected="true"]` option, or first focusable
   - `tooltip` / no role: no focus movement
@@ -160,11 +160,11 @@ subtly different restoration behavior on light dismiss.
 `<dialog>.close()` **unconditionally** restores focus to the element that was focused before
 `showModal()` was called — regardless of how the close was triggered:
 
-| Dismissal method      | Focus restored? |
-| --------------------- | --------------- |
-| **Escape**            | ✅ Yes          |
-| **Backdrop click**    | ✅ Yes          |
-| **Programmatic close** | ✅ Yes         |
+| Dismissal method       | Focus restored? |
+| ---------------------- | --------------- |
+| **Escape**             | ✅ Yes          |
+| **Backdrop click**     | ✅ Yes          |
+| **Programmatic close** | ✅ Yes          |
 
 This is because all three paths end with `dialog.close()`, and the
 [dialog close algorithm](https://html.spec.whatwg.org/multipage/interactive-elements.html#close-the-dialog)
@@ -245,30 +245,30 @@ it.
 
 ### By role (Popover primitive)
 
-| Role                     | Initial Focus           | Focus Wrapping              | Focus Restoration (Escape) | Focus Restoration (click-outside) |
-| ------------------------ | ----------------------- | --------------------------- | -------------------------- | --------------------------------- |
-| `dialog` / `alertdialog` | First focusable element | Tab wraps within content    | ✅ Restores to trigger     | ❌ No restoration                 |
-| `menu`                   | First menu item         | No Tab wrapping (Tab exits) | ✅ Restores to trigger     | ❌ No restoration                 |
-| `listbox`                | First/selected option   | No Tab wrapping (Tab exits) | ✅ Restores to trigger     | ❌ No restoration                 |
-| `tooltip`                | No focus change         | No wrapping                 | ❌ No restoration          | ❌ No restoration                 |
+| Role      | Initial Focus           | Focus Wrapping              | Focus Restoration (Escape) | Focus Restoration (click-outside) |
+| --------- | ----------------------- | --------------------------- | -------------------------- | --------------------------------- |
+| `dialog`  | First focusable element | Tab wraps within content    | ✅ Restores to trigger     | ❌ No restoration                 |
+| `menu`    | First menu item         | No Tab wrapping (Tab exits) | ✅ Restores to trigger     | ❌ No restoration                 |
+| `listbox` | First/selected option   | No Tab wrapping (Tab exits) | ✅ Restores to trigger     | ❌ No restoration                 |
+| `tooltip` | No focus change         | No wrapping                 | ❌ No restoration          | ❌ No restoration                 |
 
 ### Dialog primitive (`<dialog>.showModal()`)
 
-| Concern            | Behavior                                                                    |
-| ------------------ | --------------------------------------------------------------------------- |
-| Initial focus      | Native `showModal()` algorithm: `[autofocus]` element, or first focusable   |
-| Focus wrapping     | `useFocusWrap` hook — Tab cycles within content (overrides native body hop) |
-| Focus restoration  | Always restores to trigger — Escape, backdrop click, and programmatic close |
+| Concern           | Behavior                                                                    |
+| ----------------- | --------------------------------------------------------------------------- |
+| Initial focus     | Native `showModal()` algorithm: `[autofocus]` element, or first focusable   |
+| Focus wrapping    | `useFocusWrap` hook — Tab cycles within content (overrides native body hop) |
+| Focus restoration | Always restores to trigger — Escape, backdrop click, and programmatic close |
 
 ---
 
 ## Contrast: Dialog vs Popover
 
-| Concern             | Dialog (`<dialog>`)                | Popover (`<div popover>`)                        |
-| ------------------- | ---------------------------------- | ------------------------------------------------ |
-| **Initial focus**   | Native `showModal()` — consistent  | `useInitialFocus` hook — fills a Popover API gap |
-| **Focus wrapping**  | `useFocusWrap` hook                | `useFocusWrap` hook (same)                       |
-| **Focus restore**   | Native `dialog.close()` — always   | Native Popover API — conditional on dismiss type |
+| Concern            | Dialog (`<dialog>`)               | Popover (`<div popover>`)                        |
+| ------------------ | --------------------------------- | ------------------------------------------------ |
+| **Initial focus**  | Native `showModal()` — consistent | `useInitialFocus` hook — fills a Popover API gap |
+| **Focus wrapping** | `useFocusWrap` hook               | `useFocusWrap` hook (same)                       |
+| **Focus restore**  | Native `dialog.close()` — always  | Native Popover API — conditional on dismiss type |
 
 Initial focus is the only area where the two primitives use different strategies: Dialog relies on
 native `showModal()` (which is consistent across browsers), while Popover requires the custom

@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor-common
 
+## 3.1.1
+
+### Patch Changes
+
+- [`85a5e662048f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85a5e662048f6) -
+  Enrol jql packages into the React Compiler with platform gating via isReactCompilerActivePlatform
+
 ## 3.1.0
 
 ### Minor Changes

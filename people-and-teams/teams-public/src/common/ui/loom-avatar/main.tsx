@@ -3,10 +3,37 @@
  * @jsx jsx
  */
 
-import { css, jsx } from '@atlaskit/css';
+import { css, cssMap, cx, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
+import Tile from '@atlaskit/tile';
 import { token } from '@atlaskit/tokens';
 
 import { getAvatarText, pickContainerColor, pickTextColor } from './utils';
+
+const typographyByAvatarSize = cssMap({
+	small: {
+		font: token('font.heading.xsmall'),
+	},
+	medium: {
+		font: token('font.heading.medium'),
+	},
+});
+
+const styles = cssMap({
+	loomAvatar: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		boxSizing: 'border-box',
+		width: '100%',
+		height: '100%',
+		borderWidth: token('border.width'),
+		borderStyle: 'solid',
+		borderColor: token('color.border'),
+		borderRadius: token('radius.tile'),
+	},
+});
 
 const boxStyle = css({
 	borderRadius: token('radius.small', '4px'),
@@ -41,13 +68,29 @@ export function LoomSpaceAvatar({
 	testId = '',
 }: {
 	spaceName: string;
-	size?: 'small' | 'large';
+	size?: 'small' | 'medium';
 	isDisabled?: boolean;
 	testId?: string;
 }): JSX.Element {
 	const avatarText = getAvatarText(spaceName);
 	const containerColor = pickContainerColor(spaceName);
 	const textColor = pickTextColor(spaceName);
+
+	if (fg('enable_teams_t26_design_drop_core_experiences')) {
+		return (
+			<Tile size={size} label="" isInset={false} testId={testId}>
+				<Box
+					xcss={cx(styles.loomAvatar, typographyByAvatarSize[size])}
+					style={{
+						backgroundColor: containerColor,
+						color: textColor,
+					}}
+				>
+					{avatarText}
+				</Box>
+			</Tile>
+		);
+	}
 
 	return (
 		<div

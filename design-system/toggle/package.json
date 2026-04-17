@@ -100,8 +100,7 @@
 		}
 	},
 	"exports": {
-		".": "./src/index.tsx",
-		"./toggle": "./src/entry-points/toggle.tsx"
+		".": "./src/index.tsx"
 	},
 	"homepage": "https://atlassian.design/components/toggle/",
 	"platform-feature-flags": {

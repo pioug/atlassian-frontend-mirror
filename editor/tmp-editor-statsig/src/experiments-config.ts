@@ -1710,6 +1710,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-15
+	jira_maui_remix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-08
 	platform_editor_drag_handle_keyboard_a11y: {
 		defaultValue: boolean;
@@ -3135,6 +3142,14 @@ export const editorExperimentsConfig: {
 	'cc-maui-experiment-phase-2': createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc-maui-experiment-phase-2',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-15
+	jira_maui_remix: createBooleanExperiment({
+		productKeys: {
+			jira: 'jira_maui_remix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

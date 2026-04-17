@@ -34,6 +34,8 @@ export enum SyncBlockError {
 	Unpublished = 'unpublished',
 	// request was aborted, typically due to client timeout
 	Aborted = 'aborted',
+	// block does not exist on this site (e.g. cross-site reference or hard deleted)
+	EntityNotFound = 'entity_not_found',
 }
 
 export interface SyncBlockData {

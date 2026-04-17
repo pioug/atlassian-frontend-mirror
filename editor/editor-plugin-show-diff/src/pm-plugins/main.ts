@@ -70,7 +70,7 @@ export const createPlugin = (
 								isInverted: false,
 								diffType: 'inline',
 								hideDeletedDiffs: false,
-							}
+						  }
 						: {}),
 				};
 			},
@@ -108,7 +108,7 @@ export const createPlugin = (
 										isInverted: newPluginState?.isInverted,
 										diffType: newPluginState?.diffType,
 										hideDeletedDiffs: newPluginState?.hideDeletedDiffs,
-									}
+								  }
 								: {}),
 						});
 						// Update the decorations
@@ -175,7 +175,7 @@ export const createPlugin = (
 											isInverted: newPluginState.isInverted,
 											diffType: newPluginState.diffType,
 											hideDeletedDiffs: newPluginState.hideDeletedDiffs,
-										}
+									  }
 									: {}),
 							});
 							newPluginState.decorations = updatedDecorations;
@@ -223,9 +223,27 @@ export const createPlugin = (
 
 						if (pluginState?.activeIndex !== undefined && activeIndexChanged) {
 							cancelPendingScrollToDecoration?.();
+							const scrollableDecorations = getScrollableDecorations(
+								pluginState.decorations,
+								view.state.doc,
+							);
+							const activeDecoration = scrollableDecorations[pluginState.activeIndex];
+							if (
+								activeDecoration &&
+								api?.expand?.commands?.toggleExpandRange &&
+								fg('platform_editor_show_diff_scroll_navigation')
+							) {
+								api?.core.actions.execute(
+									api.expand.commands.toggleExpandRange(
+										activeDecoration.from,
+										activeDecoration.to,
+										true,
+									),
+								);
+							}
 							cancelPendingScrollToDecoration = scrollToActiveDecoration(
 								view,
-								getScrollableDecorations(pluginState.decorations, view.state.doc),
+								scrollableDecorations,
 								pluginState.activeIndex,
 							);
 						}

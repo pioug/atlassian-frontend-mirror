@@ -43,7 +43,8 @@ test.describe('Animation lifecycle - exit animation', () => {
 
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 
-		// Close the popover
+		// Close via Escape — trial click on trigger (interactive button, always stable)
+		await trigger.click({ trial: true });
 		await page.keyboard.press('Escape');
 
 		// The popover element should still exist in the DOM immediately after close
@@ -102,6 +103,8 @@ test.describe('Animation lifecycle - reduced motion', () => {
 
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 
+		// Close via Escape — trial click on trigger (interactive button, always stable)
+		await trigger.click({ trial: true });
 		// Close the popover — should close instantly with reduced motion
 		await page.keyboard.press('Escape');
 

@@ -56,7 +56,9 @@ test.describe('Stacking - hint popover does not close auto popover', () => {
 		await page.getByTestId('hint-trigger').click();
 		await expect(page.getByTestId('hint-popover')).toBeVisible();
 
-		// Press Escape — hint should close
+		// Press Escape — hint-popover is visible; trial click on visible hint content
+		// (hint-trigger was clicked to open but focus behaviour varies after hint opens)
+		await page.getByTestId('hint-popover').click({ trial: true });
 		await page.keyboard.press('Escape');
 		await expect(page.getByTestId('hint-popover')).toBeHidden();
 

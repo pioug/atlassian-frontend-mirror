@@ -32,7 +32,7 @@ export const allPermissions = (
 	DELETE_TEAM: defaultPermission,
 	EDIT_TEAM_SETTINGS: defaultPermission,
 	EDIT_TEAM_MEMBERSHIP: defaultPermission,
-	EDIT_TEAM_TYPE: defaultPermission && isOrgAdmin,
+	EDIT_TEAM_TYPE: defaultPermission && (isOrgAdmin || fg('ptc-enable-team-type-permission-enabled')),
 	REMOVE_AGENT_FROM_TEAM: defaultPermission,
 	ADD_AGENT_TO_TEAM: defaultPermission,
 	ARCHIVE_TEAM: defaultPermission && isMember,
@@ -108,13 +108,13 @@ const getDisbandedTeamPermissionMap = (
 	// Base permission map - all actions disabled for disbanded teams
 	const basePermissions = allPermissions(false, false, false);
 
-	// UNARCHIVE_TEAM permission based on team settings
-	let canUnarchive = false;
+	let canUnarchive: boolean;
+
 	if (settings === 'EXTERNAL' || settings === 'ORG_ADMIN_MANAGED') {
 		// For EXTERNAL and ORG_ADMIN_MANAGED teams, only org admins can unarchive
 		canUnarchive = isOrgAdmin;
-	} else if (settings === 'OPEN' || settings === 'MEMBER_INVITE') {
-		// For OPEN and MEMBER_INVITE teams, members with FULL_WRITE can unarchive
+	} else {
+		// For OPEN and MEMBER_INVITE teams, members with FULL_WRITE (or org admins) can unarchive
 		canUnarchive = (isMember || isOrgAdmin) && permission === 'FULL_WRITE';
 	}
 

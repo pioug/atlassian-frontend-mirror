@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Box, Text } from '@atlaskit/primitives/compiled';

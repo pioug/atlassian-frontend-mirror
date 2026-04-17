@@ -77,13 +77,13 @@ items are medium/low severity and tracked below.
 
 ### 1.3 Popup Compound (`src/popup/`)
 
-| Criterion           | Status | Details                                                                                                  |
-| ------------------- | ------ | -------------------------------------------------------------------------------------------------------- |
-| **Trigger ARIA**    | Pass   | `aria-expanded`, `aria-controls`, `aria-haspopup` all correctly synchronized via context                 |
-| **Role on content** | Pass   | Consumer-specified role forwarded to `Popover`                                                           |
-| **Accessible name** | Pass   | Type system enforces `label` or `labelledBy` for roles that require it (`dialog`, `alertdialog`, `menu`) |
-| **Escape**          | Pass   | Popover API handles Escape                                                                               |
-| **Focus return**    | Pass   | Native popover focus return                                                                              |
+| Criterion           | Status | Details                                                                                   |
+| ------------------- | ------ | ----------------------------------------------------------------------------------------- |
+| **Trigger ARIA**    | Pass   | `aria-expanded`, `aria-controls`, `aria-haspopup` all correctly synchronized via context  |
+| **Role on content** | Pass   | Consumer-specified role forwarded to `Popover`                                            |
+| **Accessible name** | Pass   | Type system enforces `label` or `labelledBy` for roles that require it (`dialog`, `menu`) |
+| **Escape**          | Pass   | Popover API handles Escape                                                                |
+| **Focus return**    | Pass   | Native popover focus return                                                               |
 
 **Notes:**
 

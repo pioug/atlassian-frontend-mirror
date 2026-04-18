@@ -107,7 +107,7 @@ export const dateToDOM = (
 			? {
 					'data-node-type': 'date',
 					'data-timestamp': timestamp,
-			  }
+				}
 			: {}),
 		draggable: 'true',
 	};
@@ -139,7 +139,7 @@ export const dateToDOM = (
 					'span',
 					{ class: 'zeroWidthSpaceContainer', contentEditable: 'false' },
 					['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ZERO_WIDTH_SPACE],
-			  ]
+				]
 			: ['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ''],
 	] satisfies DOMOutputSpec;
 };

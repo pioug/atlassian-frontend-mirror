@@ -1764,7 +1764,9 @@ export type AnalyticsEventAttributes = {
 	'track.project.updated': ProjectUpdatedAttributesType | InviteToProjectUpdatedAttributesType;
 	/**
 	 * fired when a space invite for team members failed */
-	'track.projectUpdate.failed': ProjectUpdateFailedAttributesType | InviteToProjectUpdateFailedAttributesType;
+	'track.projectUpdate.failed':
+		| ProjectUpdateFailedAttributesType
+		| InviteToProjectUpdateFailedAttributesType;
 	'track.user.invited': UserInvitedAttributesType;
 	'track.productAccess.requested': ProductAccessRequestedAttributesType;
 	/**

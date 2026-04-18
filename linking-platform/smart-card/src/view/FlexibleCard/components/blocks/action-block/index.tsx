@@ -85,7 +85,7 @@ const ActionBlock = ({
 	spaceInline,
 	className,
 	testId = 'smart-block-action',
-	is3PAuthRovoActionsExperimentOn,
+	isAny3pRovoActionsExperimentOn,
 }: ActionBlockProps): JSX.Element | null => {
 	di(ActionFooter);
 
@@ -93,7 +93,9 @@ const ActionBlock = ({
 	const ui = useFlexibleUiOptionContext();
 
 	const isRovoChatActionAvailable =
-		is3PAuthRovoActionsExperimentOn && fg('platform_sl_3p_auth_rovo_action_kill_switch')
+		(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+			fg('rovogrowth-640-inline-action-nudge-fg')) &&
+		isAny3pRovoActionsExperimentOn
 			? context?.actions?.[InternalActionName.RovoChatAction] !== undefined
 			: undefined;
 
@@ -128,13 +130,15 @@ const ActionBlock = ({
 			return;
 		}
 
-		const arr = fg('platform_sl_3p_auth_rovo_action_kill_switch')
-			? isRovoChatActionAvailable
-				? [InternalActionName.RovoChatAction]
-				: (Object.keys(context.actions) as FlexibleUiActionName[]).filter(
-						(name) => name !== InternalActionName.RovoChatAction,
-					)
-			: (Object.keys(context.actions) as FlexibleUiActionName[]);
+		const arr =
+			fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+			fg('rovogrowth-640-inline-action-nudge-fg')
+				? isRovoChatActionAvailable
+					? [InternalActionName.RovoChatAction]
+					: (Object.keys(context.actions) as FlexibleUiActionName[]).filter(
+							(name) => name !== InternalActionName.RovoChatAction,
+						)
+				: (Object.keys(context.actions) as FlexibleUiActionName[]);
 
 		arr.sort(sort);
 

@@ -149,8 +149,7 @@ export default class RawDataHandler {
 					l: viewportEntry.labelStacks.labelStack,
 				};
 
-				const shouldCompactImplicitUnknown =
-					labelInfo.s === 'unknown' && labelInfo.l === 'unknown';
+				const shouldCompactImplicitUnknown = labelInfo.s === 'unknown' && labelInfo.l === 'unknown';
 
 				labelStacksMap[eid] = shouldCompactImplicitUnknown ? ('u' as const) : labelInfo;
 			}

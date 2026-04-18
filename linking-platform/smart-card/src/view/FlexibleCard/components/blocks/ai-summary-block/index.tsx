@@ -17,7 +17,7 @@ import { type AISummaryBlockProps } from './types';
  * @see Block
  */
 const AISummaryBlock = ({
-	is3PAuthRovoActionsExperimentOn,
+	isAny3pRovoActionsExperimentOn,
 	testId = 'smart-ai-summary-block',
 	...props
 }: AISummaryBlockProps): React.JSX.Element | null => {
@@ -34,7 +34,7 @@ const AISummaryBlock = ({
 		return null;
 	}
 
-	if (is3PAuthRovoActionsExperimentOn) {
+	if (isAny3pRovoActionsExperimentOn) {
 		return (
 			<RovoSummaryBlockResolvedView
 				{...props}

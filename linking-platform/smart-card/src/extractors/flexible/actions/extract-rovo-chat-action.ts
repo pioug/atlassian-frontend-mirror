@@ -1,6 +1,7 @@
 import type { JsonLd } from '@atlaskit/json-ld-types';
 import { extractSmartLinkUrl } from '@atlaskit/link-extractors';
 import type { ProductType } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { InternalActionName } from '../../../constants';
 import type { RovoChatActionData } from '../../../state/flexible-ui-context/types';
@@ -40,9 +41,15 @@ const extractRovoChatAction = ({
 		return;
 	}
 
-	// Experiment cleanup note: platform_sl_3p_auth_rovo_action
-	// If feature isn't support all 3P, this value should come from meta.supportedFeature
-	const isSupportedFeature = getExtensionKey(response) === 'google-object-provider';
+	const supportsRovoActions = response?.meta?.supportedFeature?.includes('RovoActions');
+	const isGoogleProvider = getExtensionKey(response) === 'google-object-provider';
+	const is3PAuthRovoActionEnabled =
+		isGoogleProvider && fg('platform_sl_3p_auth_rovo_action_kill_switch');
+	const is3PInlinePostAuthActionsEnabled =
+		!isGoogleProvider && fg('rovogrowth-640-inline-action-nudge-fg');
+
+	const isSupportedFeature =
+		(supportsRovoActions && is3PInlinePostAuthActionsEnabled) || is3PAuthRovoActionEnabled;
 	const isOptIn = actionOptions?.rovoChatAction?.optIn === true;
 
 	const url = extractSmartLinkUrl(response);

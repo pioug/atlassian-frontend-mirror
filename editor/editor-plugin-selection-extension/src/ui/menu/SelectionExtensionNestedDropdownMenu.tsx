@@ -62,20 +62,8 @@ export const SelectionExtensionNestedDropdownMenu = ({
 		<ToolbarNestedDropdownMenu
 			testId={EXTENSION_MENU_ITEM_TEST_ID}
 			text={nestedDropdownMenu.label}
-			elemBefore={
-				IconComponent ? (
-					<IconComponent
-						label=""
-						size="small"
-					/>
-				) : undefined
-			}
-			elemAfter={
-				<ChevronRightIcon
-					label=""
-					size="small"
-				/>
-			}
+			elemBefore={IconComponent ? <IconComponent label="" size="small" /> : undefined}
+			elemAfter={<ChevronRightIcon label="" size="small" />}
 			onClick={handleClick}
 			dropdownTestId="editor-selection-extension-menu"
 			shouldTitleWrap={fg('platform_editor_block_menu_v2_patch_2') ? false : undefined}

@@ -157,8 +157,7 @@ const shapeStyles = cssMap({
  * Props that are common between link buttons.
  */
 interface LinkVariantCommonProps<RouterLinkConfig extends Record<string, any> = never>
-	extends CommonProps,
-		Omit<AnchorProps<RouterLinkConfig>, OverriddenPrimitiveProps> {}
+	extends CommonProps, Omit<AnchorProps<RouterLinkConfig>, OverriddenPrimitiveProps> {}
 
 /**
  * Props shared by `ThemedPressable` and `ThemedAnchor`
@@ -169,8 +168,7 @@ interface ThemedPrimitiveProps {
 }
 
 interface ThemedAnchorProps<RouterLinkConfig extends Record<string, any> = never>
-	extends ThemedPrimitiveProps,
-		LinkVariantCommonProps<RouterLinkConfig> {}
+	extends ThemedPrimitiveProps, LinkVariantCommonProps<RouterLinkConfig> {}
 
 function ThemedAnchorFn<RouterLinkConfig extends Record<string, any> = never>(
 	{

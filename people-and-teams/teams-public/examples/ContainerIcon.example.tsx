@@ -8,7 +8,6 @@ import {
 	type PlaygroundConfig,
 } from '@atlassian/teams-app-internal-playground/playground';
 
-
 import { ConfluenceIcon, ContainerIcon, JiraIcon, LoomIcon } from '../src';
 
 const styles = cssMap({
@@ -62,7 +61,11 @@ export default function Example(): React.JSX.Element {
 										containerIcon: CONFLUENCE_ICON,
 									},
 									{ containerType: 'LoomSpace', title: 'Loom Space', containerIcon: undefined },
-									{ containerType: 'WebLink', title: 'Web Link (no icon)', containerIcon: undefined },
+									{
+										containerType: 'WebLink',
+										title: 'Web Link (no icon)',
+										containerIcon: undefined,
+									},
 									{
 										containerType: 'WebLink',
 										title: 'Web Link (with icon)',

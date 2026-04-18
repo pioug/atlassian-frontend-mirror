@@ -38,7 +38,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_sl_3p_auth_rovo_action: false,
 	platform_sl_3p_preauth_better_hovercard: true,
-	rovogrowth_640_inline_action_nudge: true,
+	'rovogrowth-640-inline-action-nudge-exp': true,
 	cwr_blank_object_experiment: false,
 	cc_editor_hover_link_overlay_css_fix: false,
 	platform_editor_feedback_mandatory_rating: false,

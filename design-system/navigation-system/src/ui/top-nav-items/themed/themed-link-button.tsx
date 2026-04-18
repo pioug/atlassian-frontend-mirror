@@ -27,12 +27,10 @@ const textButtonStyles = cssMap({
  * Props that are common between link buttons.
  */
 interface LinkVariantCommonProps<RouterLinkConfig extends Record<string, any> = never>
-	extends CommonProps,
-		Omit<AnchorProps<RouterLinkConfig>, OverriddenPrimitiveProps> {}
+	extends CommonProps, Omit<AnchorProps<RouterLinkConfig>, OverriddenPrimitiveProps> {}
 
 export interface ThemedLinkButtonProps<RouterLinkConfig extends Record<string, any> = never>
-	extends LinkVariantCommonProps<RouterLinkConfig>,
-		TextButtonCommonProps {}
+	extends LinkVariantCommonProps<RouterLinkConfig>, TextButtonCommonProps {}
 
 function ThemedLinkButtonFn<RouterLinkConfig extends Record<string, any> = never>(
 	{ iconBefore: IconBefore, children, ...props }: ThemedLinkButtonProps<RouterLinkConfig>,

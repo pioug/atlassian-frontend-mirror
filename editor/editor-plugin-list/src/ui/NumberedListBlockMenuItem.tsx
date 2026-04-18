@@ -36,7 +36,6 @@ const NumberedListBlockMenuItem = ({ api }: NumberedListBlockMenuItemProps) => {
 		});
 	};
 
-
 	return (
 		<ToolbarDropdownItem
 			onClick={handleClick}

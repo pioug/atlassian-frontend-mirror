@@ -191,11 +191,7 @@ function colorLiteral(j: core.JSCodeshift, value: string) {
 // ---------------------------------------------------------------------------
 // Helper: collect all import declarations that match the given source paths
 // ---------------------------------------------------------------------------
-function findImportDecls(
-	j: core.JSCodeshift,
-	source: ReturnType<typeof j>,
-	importPaths: string[],
-) {
+function findImportDecls(j: core.JSCodeshift, source: ReturnType<typeof j>, importPaths: string[]) {
 	return source
 		.find(j.ImportDeclaration)
 		.filter((path: ASTPath<ImportDeclaration>) =>
@@ -243,8 +239,7 @@ function replaceColorsNamespaceFromTheme(
 			.filter((path) => {
 				const prop = path.node.property;
 				return (
-					j.Identifier.check(prop) &&
-					Object.prototype.hasOwnProperty.call(COLOR_MAP, prop.name)
+					j.Identifier.check(prop) && Object.prototype.hasOwnProperty.call(COLOR_MAP, prop.name)
 				);
 			})
 			.replaceWith((path) => {
@@ -277,10 +272,7 @@ function replaceColorsNamespaceFromTheme(
 //           and `import colors from '@atlaskit/theme/colors'`  (namespace / default)
 //           Replace `colors.<COLOR>` member-expression usages.
 // ---------------------------------------------------------------------------
-function replaceColorsObjectImport(
-	j: core.JSCodeshift,
-	source: ReturnType<typeof j>,
-): boolean {
+function replaceColorsObjectImport(j: core.JSCodeshift, source: ReturnType<typeof j>): boolean {
 	let changed = false;
 
 	const colorsImports = findImportDecls(j, source, ['@atlaskit/theme/colors']);
@@ -312,8 +304,7 @@ function replaceColorsObjectImport(
 			.filter((path) => {
 				const prop = path.node.property;
 				return (
-					j.Identifier.check(prop) &&
-					Object.prototype.hasOwnProperty.call(COLOR_MAP, prop.name)
+					j.Identifier.check(prop) && Object.prototype.hasOwnProperty.call(COLOR_MAP, prop.name)
 				);
 			})
 			.replaceWith((path) => {
@@ -347,16 +338,10 @@ function replaceColorsObjectImport(
 //
 //   Replace every identifier reference with the hex literal and remove specifier.
 // ---------------------------------------------------------------------------
-function replaceNamedColorImports(
-	j: core.JSCodeshift,
-	source: ReturnType<typeof j>,
-): boolean {
+function replaceNamedColorImports(j: core.JSCodeshift, source: ReturnType<typeof j>): boolean {
 	let changed = false;
 
-	const colorImports = findImportDecls(j, source, [
-		'@atlaskit/theme/colors',
-		'@atlaskit/theme',
-	]);
+	const colorImports = findImportDecls(j, source, ['@atlaskit/theme/colors', '@atlaskit/theme']);
 
 	// Map from local binding name → hex value, plus track which import path → specifier name
 	// so we can remove only the relevant specifiers.
@@ -399,11 +384,20 @@ function replaceNamedColorImports(
 				}
 				// Skip when used as a non-computed property key in a member expression
 				// e.g. `foo.R50` — here R50 is the property, not a reference to the binding
-				if (parentType === 'MemberExpression' && parentNode.property === path.node && !parentNode.computed) {
+				if (
+					parentType === 'MemberExpression' &&
+					parentNode.property === path.node &&
+					!parentNode.computed
+				) {
 					return false;
 				}
 				// Skip object property keys (shorthand is fine, but `{ R50: value }` key should not be replaced)
-				if (parentType === 'Property' && parentNode.key === path.node && !parentNode.computed && !parentNode.shorthand) {
+				if (
+					parentType === 'Property' &&
+					parentNode.key === path.node &&
+					!parentNode.computed &&
+					!parentNode.shorthand
+				) {
 					return false;
 				}
 				return true;
@@ -441,7 +435,11 @@ function replaceNamedColorImports(
 // ---------------------------------------------------------------------------
 // Main transformer
 // ---------------------------------------------------------------------------
-export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options): string {
+export default function transformer(
+	fileInfo: FileInfo,
+	{ jscodeshift: j }: API,
+	options: Options,
+): string {
 	const source = j(fileInfo.source);
 
 	const hasThemeImport =

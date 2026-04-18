@@ -355,6 +355,9 @@
 			"path": "../adf-schema-json/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-rovo-bridge/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flag-storybook-utils/tsconfig.app.json"
 		},
 		{

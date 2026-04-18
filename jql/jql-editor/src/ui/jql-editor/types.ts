@@ -44,7 +44,12 @@ export type HydratedDeprecatedField = {
 	type: 'deprecated-field';
 };
 
-export type HydratedValue = HydratedUser | HydratedTeam | HydratedProject | HydratedGoal | HydratedDeprecatedField;
+export type HydratedValue =
+	| HydratedUser
+	| HydratedTeam
+	| HydratedProject
+	| HydratedGoal
+	| HydratedDeprecatedField;
 
 export type HydratedValues = {
 	[fieldName: string]: HydratedValue[];

@@ -65,7 +65,9 @@ export const optionToSelectableOption = (option: OptionData | OptionIdentifier):
 	}
 };
 
-export const extractOptionValue = (value: AtlaskitSelectValue): OptionData | OptionData[] | undefined => {
+export const extractOptionValue = (
+	value: AtlaskitSelectValue,
+): OptionData | OptionData[] | undefined => {
 	if (!value) {
 		return undefined;
 	}
@@ -78,8 +80,8 @@ export const extractOptionValue = (value: AtlaskitSelectValue): OptionData | Opt
 export const isIterable = (a: any): a is Iterable<Promisable<OptionData | OptionData[]>> =>
 	typeof a?.[Symbol.iterator] === 'function';
 
-export const getOptions: MemoizedFn<(options: OptionData[]) => Option[]> = memoizeOne((options: OptionData[]): Option[] =>
-	options.map(optionToSelectableOption),
+export const getOptions: MemoizedFn<(options: OptionData[]) => Option[]> = memoizeOne(
+	(options: OptionData[]): Option[] => options.map(optionToSelectableOption),
 );
 
 export interface OptionToSelectableOptions {

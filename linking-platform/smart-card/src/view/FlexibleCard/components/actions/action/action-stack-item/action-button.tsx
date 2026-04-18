@@ -69,12 +69,19 @@ const ActionButton = ({
 		}
 	}, [isDisabled, isLoading, onClickCallback]);
 
+	const is3pExperimentEnabled =
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		(fg('platform_sl_3p_auth_rovo_action_kill_switch') &&
+			expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true)) ||
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		(fg('rovogrowth-640-inline-action-nudge-fg') &&
+			expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true));
+
 	const icon =
 		iconOption && isLoading ? (
 			<ActionIcon
 				icon={
-					expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true) &&
-					fg('platform_sl_3p_auth_rovo_action_kill_switch') ? (
+					is3pExperimentEnabled ? (
 						<Box xcss={styles.spinner}>
 							<Spinner size={16} testId={`${testId}-loading`} />
 						</Box>

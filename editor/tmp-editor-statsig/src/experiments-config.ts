@@ -236,12 +236,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	'cc_perf-insights-cards_extension_a11y_list': {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	ccpi_fix_broken_uploaded_img: {
 		defaultValue: boolean;
 		param: string;
@@ -884,7 +878,7 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	// Added 2026-04-09 — Inline action nudge experiment for resolved inline smart links (boolean: isEnabled)
-	rovogrowth_640_inline_action_nudge: {
+	'rovogrowth-640-inline-action-nudge-exp': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1675,6 +1669,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-14
+	platform_editor_ai_multi_format_streaming: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-31
 	platform_editor_dnd_accessibility_fixes_expand: {
 		defaultValue: boolean;
@@ -1747,6 +1748,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-14
 	platform_editor_ai_rename_add_polish: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+
+	cc_dnd_smart_link_changeboard_po_template: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2504,14 +2512,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-05
-	'cc_perf-insights-cards_extension_a11y_list': createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_perf-insights-cards_extension_a11y_list',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-12
 	ccpi_fix_broken_uploaded_img: createBooleanExperiment({
 		productKeys: {
@@ -2791,7 +2791,7 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2026-04-09 — Inline action nudge on resolved inline smart links
-	rovogrowth_640_inline_action_nudge: createBooleanExperiment({
+	'rovogrowth-640-inline-action-nudge-exp': createBooleanExperiment({
 		productKeys: {
 			confluence: 'rovogrowth-640-inline-action-nudge-exp',
 			jira: 'rovogrowth-640-inline-action-nudge-exp',
@@ -3651,6 +3651,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-04-14
+	platform_editor_ai_multi_format_streaming: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_multi_format_streaming',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-31
 	platform_editor_dnd_accessibility_fixes_expand: createBooleanExperiment({
 		productKeys: {
@@ -3770,6 +3778,14 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_rename_add_polish: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_rename_add_polish',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-16
+	cc_dnd_smart_link_changeboard_po_template: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_dnd_smart_link_changeboard_po_template',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

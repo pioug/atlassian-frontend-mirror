@@ -32,7 +32,8 @@ export const allPermissions = (
 	DELETE_TEAM: defaultPermission,
 	EDIT_TEAM_SETTINGS: defaultPermission,
 	EDIT_TEAM_MEMBERSHIP: defaultPermission,
-	EDIT_TEAM_TYPE: defaultPermission && (isOrgAdmin || fg('ptc-enable-team-type-permission-enabled')),
+	EDIT_TEAM_TYPE:
+		defaultPermission && (isOrgAdmin || fg('ptc-enable-team-type-permission-enabled')),
 	REMOVE_AGENT_FROM_TEAM: defaultPermission,
 	ADD_AGENT_TO_TEAM: defaultPermission,
 	ARCHIVE_TEAM: defaultPermission && isMember,

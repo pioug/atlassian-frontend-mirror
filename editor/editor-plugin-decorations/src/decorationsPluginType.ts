@@ -9,7 +9,11 @@ export type HoverDecorationProps = {
 	selection?: Selection;
 };
 
-export type HoverDecorationCommand = ({ add, className, selection }: HoverDecorationProps) => EditorCommand;
+export type HoverDecorationCommand = ({
+	add,
+	className,
+	selection,
+}: HoverDecorationProps) => EditorCommand;
 
 export type DecorationsPlugin = NextEditorPlugin<
 	'decorations',

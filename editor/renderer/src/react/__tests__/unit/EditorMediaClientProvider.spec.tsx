@@ -107,7 +107,7 @@ describe('child MediaClientContext with config should not use mediaClient from p
 describe('child MediaClientContext should not inherit parent mediaClient on first render when provider is pre-registered', () => {
 	eeTest('platform_editor_media_reliability_enhancements', {
 		true: () => {
-			const firstRenderValues: Array<{ hasClient: boolean; prefix: string; }> = [];
+			const firstRenderValues: Array<{ hasClient: boolean; prefix: string }> = [];
 
 			function CapturingConsumer({ testIdPrefix }: { testIdPrefix: string }) {
 				const mediaClient = useContext(MediaClientContext);
@@ -151,7 +151,7 @@ describe('child MediaClientContext should not inherit parent mediaClient on firs
 		},
 		false: () => {
 			// When the experiment is off, the child may inherit the parent's client. Smoke test only.
-			const firstRenderValues: Array<{ hasClient: boolean; prefix: string; }> = [];
+			const firstRenderValues: Array<{ hasClient: boolean; prefix: string }> = [];
 
 			function CapturingConsumer({ testIdPrefix }: { testIdPrefix: string }) {
 				const mediaClient = useContext(MediaClientContext);

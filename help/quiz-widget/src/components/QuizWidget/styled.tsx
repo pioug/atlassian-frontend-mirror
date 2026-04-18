@@ -6,10 +6,14 @@ import type { Theme } from '@emotion/react';
 import type { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const Quiz: StyledComponent<{
-    as?: React.ElementType;
-    theme?: Theme;
-}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> = styled.div({
+export const Quiz: StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+> = styled.div({
 	display: 'flex',
 	flexDirection: 'column',
 	font: token('font.body.large'),
@@ -22,30 +26,42 @@ export const Quiz: StyledComponent<{
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const QuizName: StyledComponent<{
-    as?: React.ElementType;
-    theme?: Theme;
-}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> = styled.div({
+export const QuizName: StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+> = styled.div({
 	margin: '3px 0',
 	font: token('font.heading.large'),
 	paddingLeft: token('space.250'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const Header: StyledComponent<{
-    as?: React.ElementType;
-    theme?: Theme;
-}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> = styled.div({
+export const Header: StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+> = styled.div({
 	display: 'flex',
 	alignItems: 'start',
 	flexDirection: 'column',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const QuizBlock: StyledComponent<{
-    as?: React.ElementType;
-    theme?: Theme;
-}, DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>, {}> = styled.ul({
+export const QuizBlock: StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>,
+	{}
+> = styled.ul({
 	paddingLeft: token('space.200'),
 	marginBottom: token('space.200'),
 	marginTop: 0,
@@ -53,10 +69,14 @@ export const QuizBlock: StyledComponent<{
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const Footer: StyledComponent<{
-    as?: React.ElementType;
-    theme?: Theme;
-}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> = styled.div({
+export const Footer: StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+> = styled.div({
 	paddingLeft: token('space.100'),
 	display: 'flex',
 	justifyContent: 'space-between',
@@ -65,10 +85,14 @@ export const Footer: StyledComponent<{
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const Question: StyledComponent<{
-    as?: React.ElementType;
-    theme?: Theme;
-}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> = styled.div({
+export const Question: StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+> = styled.div({
 	paddingLeft: token('space.075'),
 	marginBottom: token('space.150'),
 	font: token('font.body'),
@@ -77,10 +101,14 @@ export const Question: StyledComponent<{
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const NavQuiz: StyledComponent<{
-    as?: React.ElementType;
-    theme?: Theme;
-}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> = styled.div({
+export const NavQuiz: StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+> = styled.div({
 	display: 'flex',
 	alignContent: 'center',
 	justifyContent: 'center',
@@ -92,10 +120,14 @@ export const NavQuiz: StyledComponent<{
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const NavAction: StyledComponent<{
-    as?: React.ElementType;
-    theme?: Theme;
-}, DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>, {}> = styled.span({
+export const NavAction: StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
+	{}
+> = styled.span({
 	font: token('font.body'),
 	fontWeight: token('font.weight.medium'),
 	display: 'flex',
@@ -103,10 +135,14 @@ export const NavAction: StyledComponent<{
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const Score: StyledComponent<{
-    as?: React.ElementType;
-    theme?: Theme;
-}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> = styled.div({
+export const Score: StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+> = styled.div({
 	marginTop: token('space.150'),
 	paddingLeft: token('space.075'),
 	display: 'flex',
@@ -117,10 +153,14 @@ export const Score: StyledComponent<{
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const Answer: StyledComponent<{
-    as?: React.ElementType;
-    theme?: Theme;
-}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> = styled.div({
+export const Answer: StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+> = styled.div({
 	display: 'flex',
 	alignItems: 'flex-end',
 	maxHeight: '25px',

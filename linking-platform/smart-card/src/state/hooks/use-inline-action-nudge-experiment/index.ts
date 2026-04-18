@@ -22,7 +22,7 @@ const NOT_ENABLED_RESULT: InlineActionNudgeExperiment = {
 };
 
 /**
- * Returns whether the rovogrowth_640_inline_action_nudge experiment
+ * Returns whether the rovogrowth-640-inline-action-nudge-exp experiment
  * is enabled for the current user and link context.
  *
  * All eligibility criteria are consolidated here:
@@ -33,9 +33,7 @@ const NOT_ENABLED_RESULT: InlineActionNudgeExperiment = {
  * The extension key is derived from the card store via the resolved URL,
  * so callers don't need to thread it as a prop.
  */
-const useInlineActionNudgeExperiment = (
-	url?: string,
-): InlineActionNudgeExperiment => {
+const useInlineActionNudgeExperiment = (url?: string): InlineActionNudgeExperiment => {
 	const rovoConfig = useRovoConfig();
 	const isRovoChatEnabled = getIsRovoChatEnabled(rovoConfig);
 	const cardState = useSmartCardState(url ?? '');
@@ -50,7 +48,7 @@ const useInlineActionNudgeExperiment = (
 			return NOT_ENABLED_RESULT;
 		}
 
-		const isEnabled = expValEquals('rovogrowth_640_inline_action_nudge', 'isEnabled', true);
+		const isEnabled = expValEquals('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true);
 
 		return { isEnabled };
 	}, [isRovoChatEnabled, extensionKey]);

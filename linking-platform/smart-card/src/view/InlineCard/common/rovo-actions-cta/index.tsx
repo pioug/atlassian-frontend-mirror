@@ -24,7 +24,7 @@ const styles = cssMap({
 		borderBottomRightRadius: token('radius.xsmall'),
 		paddingTop: token('space.025'),
 		paddingBottom: token('space.025'),
-	}
+	},
 });
 
 export const RovoActionsCta = ({ testId }: { testId?: string }) => {

@@ -39,7 +39,6 @@ export const DecisionListBlockMenuItem = ({
 		});
 	};
 
-
 	return (
 		<ToolbarDropdownItem onClick={onClick} elemBefore={<DecisionIcon label="" size="small" />}>
 			{formatMessage(blockMenuMessages.decisionList)}

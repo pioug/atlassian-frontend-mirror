@@ -36,7 +36,6 @@ export const TaskListBlockMenuItem = ({
 		});
 	};
 
-
 	return (
 		<ToolbarDropdownItem onClick={onClick} elemBefore={<TaskIcon label="" size="small" />}>
 			{formatMessage(tasksAndDecisionsMessages.taskList)}

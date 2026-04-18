@@ -205,7 +205,7 @@ export const fetchReferences = async (
 			({
 				error: { type: SyncBlockError.Errored },
 				resourceId: errorBlock.blockAri,
-			} as SyncBlockInstance),
+			}) as SyncBlockInstance,
 	);
 
 	return [...blocksInstances, ...errorInstances];
@@ -256,7 +256,7 @@ export const batchFetchData = async (
 				({
 					error: { type: SyncBlockError.Errored },
 					resourceId: blockNodeIdentifier.resourceId,
-				} as SyncBlockInstance),
+				}) as SyncBlockInstance,
 		);
 	}
 

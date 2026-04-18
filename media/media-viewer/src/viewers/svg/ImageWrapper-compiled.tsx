@@ -27,7 +27,9 @@ export type ImageWrapperProps = {
 	onClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
 };
 
-export const ImageWrapper: React.ForwardRefExoticComponent<ImageWrapperProps & React.RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, ImageWrapperProps>(
+export const ImageWrapper: React.ForwardRefExoticComponent<
+	ImageWrapperProps & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, ImageWrapperProps>(
 	({ children, onClick, isHidden }: ImageWrapperProps, ref) => {
 		const intl = useIntl();
 		return fg('platform_media_a11y_suppression_fixes') ? (

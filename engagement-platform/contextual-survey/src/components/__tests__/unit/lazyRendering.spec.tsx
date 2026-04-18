@@ -4,15 +4,12 @@ import { render } from '@testing-library/react';
 
 import SurveyMarshal from '../../SurveyMarshal';
 
-it(
-	'should not render anything when not open',
-	() => {
-		const mock = jest.fn().mockImplementation(() => null);
-		render(<SurveyMarshal shouldShow={false}>{mock}</SurveyMarshal>);
+it('should not render anything when not open', () => {
+	const mock = jest.fn().mockImplementation(() => null);
+	render(<SurveyMarshal shouldShow={false}>{mock}</SurveyMarshal>);
 
-		expect(mock).not.toHaveBeenCalled();
-	},
-);
+	expect(mock).not.toHaveBeenCalled();
+});
 
 it('should render the form when open', () => {
 	const mock = jest.fn().mockImplementation(() => null);

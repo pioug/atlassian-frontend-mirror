@@ -310,7 +310,7 @@ function SmartLinkDraggableInner({
 			? ReactDOM.createPortal(
 					<SmartLinkDragPreview title={state.title} url={url} iconUrl={state.iconUrl} />,
 					state.container,
-			  )
+				)
 			: null;
 
 	// Use span with inline display for inline cards to preserve text flow.

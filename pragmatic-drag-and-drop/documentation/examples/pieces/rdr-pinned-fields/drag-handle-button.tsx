@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import { forwardRef } from 'react';
+import { forwardRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -44,17 +44,20 @@ const selectedStyles = css({
 
 type DragHandleButtonProps = Omit<CustomTriggerProps, 'triggerRef'>;
 
-export const DragHandleButton = forwardRef<HTMLButtonElement, DragHandleButtonProps>(
-	function DragHandleButton({ isSelected, testId, ...props }, ref) {
-		return (
-			<FocusRing isInset>
-				<button ref={ref} css={[dragHandleButtonStyles, isSelected && selectedStyles]} {...props}>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-					<div style={{ marginInline: '-2px' }}>
-						<DragHandleVerticalIcon spacing="spacious" color="currentColor" label="" size="small" />
-					</div>
-				</button>
-			</FocusRing>
-		);
-	},
-);
+export const DragHandleButton: ForwardRefExoticComponent<
+	DragHandleButtonProps & RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, DragHandleButtonProps>(function DragHandleButton(
+	{ isSelected, testId, ...props },
+	ref,
+) {
+	return (
+		<FocusRing isInset>
+			<button ref={ref} css={[dragHandleButtonStyles, isSelected && selectedStyles]} {...props}>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<div style={{ marginInline: '-2px' }}>
+					<DragHandleVerticalIcon spacing="spacious" color="currentColor" label="" size="small" />
+				</div>
+			</button>
+		</FocusRing>
+	);
+});

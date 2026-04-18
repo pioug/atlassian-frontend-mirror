@@ -78,7 +78,8 @@ export default function NewEntrypointLozengeExample(): JSX.Element {
 					These lozenges are imported from <Code>@atlaskit/lozenge/new</Code> and render the new
 					visual refresh without needing the feature flag. This entrypoint is intended for products
 					that don't have access to feature flags. It will be removed after rollout, requiring
-					callsite cleanup. If your app has access to feature flags, please use the default entrypoint instead.
+					callsite cleanup. If your app has access to feature flags, please use the default
+					entrypoint instead.
 				</Text>
 			</Stack>
 

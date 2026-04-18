@@ -32,13 +32,7 @@ const styles = cssMap({
 
 const popoverArrow = arrow();
 
-function ArrowPopup({
-	placement,
-	label,
-}: {
-	placement: TPlacementOptions;
-	label: string;
-}) {
+function ArrowPopup({ placement, label }: { placement: TPlacementOptions; label: string }) {
 	return (
 		<Popup placement={placement} onClose={() => {}}>
 			<Popup.Trigger>
@@ -73,18 +67,9 @@ export default function PopoverWithArrowExample(): JSX.Element {
 		<div css={styles.root}>
 			<div css={styles.grid}>
 				{/* Top row: block-start (above) */}
-				<ArrowPopup
-					placement={{ axis: 'block', edge: 'start', align: 'end' }}
-					label="top-start"
-				/>
-				<ArrowPopup
-					placement={{ axis: 'block', edge: 'start' }}
-					label="top-center"
-				/>
-				<ArrowPopup
-					placement={{ axis: 'block', edge: 'start', align: 'start' }}
-					label="top-end"
-				/>
+				<ArrowPopup placement={{ axis: 'block', edge: 'start', align: 'end' }} label="top-start" />
+				<ArrowPopup placement={{ axis: 'block', edge: 'start' }} label="top-center" />
+				<ArrowPopup placement={{ axis: 'block', edge: 'start', align: 'start' }} label="top-end" />
 
 				{/* Middle row: inline (left/right) */}
 				<ArrowPopup
@@ -92,34 +77,19 @@ export default function PopoverWithArrowExample(): JSX.Element {
 					label="left-start"
 				/>
 				<div />
-				<ArrowPopup
-					placement={{ axis: 'inline', edge: 'end', align: 'end' }}
-					label="right-start"
-				/>
+				<ArrowPopup placement={{ axis: 'inline', edge: 'end', align: 'end' }} label="right-start" />
 
 				<ArrowPopup
 					placement={{ axis: 'inline', edge: 'start', align: 'start' }}
 					label="left-end"
 				/>
 				<div />
-				<ArrowPopup
-					placement={{ axis: 'inline', edge: 'end', align: 'start' }}
-					label="right-end"
-				/>
+				<ArrowPopup placement={{ axis: 'inline', edge: 'end', align: 'start' }} label="right-end" />
 
 				{/* Bottom row: block-end (below) */}
-				<ArrowPopup
-					placement={{ axis: 'block', edge: 'end', align: 'end' }}
-					label="bottom-start"
-				/>
-				<ArrowPopup
-					placement={{ axis: 'block', edge: 'end' }}
-					label="bottom-center"
-				/>
-				<ArrowPopup
-					placement={{ axis: 'block', edge: 'end', align: 'start' }}
-					label="bottom-end"
-				/>
+				<ArrowPopup placement={{ axis: 'block', edge: 'end', align: 'end' }} label="bottom-start" />
+				<ArrowPopup placement={{ axis: 'block', edge: 'end' }} label="bottom-center" />
+				<ArrowPopup placement={{ axis: 'block', edge: 'end', align: 'start' }} label="bottom-end" />
 			</div>
 		</div>
 	);

@@ -52,8 +52,9 @@ const CardView = ({
 }: MultiCardViewProps): JSX.Element => (
 	<SmartCardProvider client={client}>
 		<EmbedCardWrapper inheritDimensions={inheritDimensions}>
-			{(urls || [url]).map((currentUrl = defaultUrl) => (
+			{(urls || [url]).map((currentUrl = defaultUrl, idx: number) => (
 				<Card
+					key={`${currentUrl?.slice(0, 3)}-${idx}`}
 					appearance={appearance}
 					url={currentUrl}
 					/* Embed-specific props */

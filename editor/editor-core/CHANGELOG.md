@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 219.0.1
+
+### Patch Changes
+
+- [`9b150a7caa3b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b150a7caa3b5) -
+  Adding multi-format response streaming capability for editor minion. Includes demo example in
+  editor-core.
+- Updated dependencies
+
 ## 219.0.0
 
 ### Major Changes

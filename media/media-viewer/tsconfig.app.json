@@ -1,6 +1,9 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx"
+	],
 	"exclude": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
@@ -29,7 +32,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__media-viewer/app"
+		"outDir": "../../../tsDist/@atlaskit__media-viewer/app",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

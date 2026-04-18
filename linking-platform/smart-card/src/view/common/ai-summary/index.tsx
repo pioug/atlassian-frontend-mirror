@@ -46,18 +46,19 @@ const AISummary = ({
 		return null;
 	}
 
+	const is3pExperimentEnabled =
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		(fg('platform_sl_3p_auth_rovo_action_kill_switch') &&
+			expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true)) ||
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		(fg('rovogrowth-640-inline-action-nudge-fg') &&
+			expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true));
 	return (
 		<Markdown
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
-			css={[
-				baseStyle,
-				expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true) &&
-				fg('platform_sl_3p_auth_rovo_action_kill_switch')
-					? textStyleNew
-					: textStyleOld,
-			]}
+			css={[baseStyle, is3pExperimentEnabled ? textStyleNew : textStyleOld]}
 			children={content}
 			options={{
 				forceWrapper: true,

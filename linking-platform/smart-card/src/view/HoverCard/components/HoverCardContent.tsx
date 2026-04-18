@@ -273,7 +273,8 @@ const HoverCardContent = ({
 			if (isResolved) {
 				return (
 					<HoverCardResolvedView
-						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
+						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+						fg('rovogrowth-640-inline-action-nudge-fg')
 							? { actionOptions, showRovoResolvedView }
 							: undefined)}
 						cardState={cardState}
@@ -342,7 +343,8 @@ const HoverCardContent = ({
 			if (cardState.status === 'resolved') {
 				return (
 					<HoverCardResolvedView
-						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
+						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+						fg('rovogrowth-640-inline-action-nudge-fg')
 							? { actionOptions, showRovoResolvedView }
 							: undefined)}
 						cardState={cardState}
@@ -393,7 +395,8 @@ const HoverCardContentWithViewVariant = (props: HoverCardContentProps): React.JS
 		let viewVariant = 'default';
 		if (
 			showRovoResolvedView &&
-			expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true)
+			(expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true) ||
+				expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true))
 		) {
 			viewVariant = 'rovo-resolved-view';
 		} else if (showPreauthBetterHovercard) {
@@ -416,7 +419,8 @@ export default componentWithCondition(
 		// We need to read both of them to sutisfy some of the tests that expect both to be checked.
 		const flagA = fg('platform_sl_3p_preauth_better_hovercard_killswitch');
 		const flagB = fg('platform_sl_3p_auth_rovo_action_kill_switch');
-		return flagA || flagB;
+		const flagC = fg('rovogrowth-640-inline-action-nudge-fg');
+		return flagA || flagB || flagC;
 	},
 	HoverCardContentWithViewVariant,
 	HoverCardContent,

@@ -7,12 +7,7 @@ import { getLighthouseMetrics } from '../additional-payload';
 import { CHRReporter } from '../assets';
 import * as bundleEvalTiming from '../bundle-eval-timing';
 import coinflip from '../coinflip';
-import type {
-	BM3Event,
-	InteractionMetrics,
-	InteractionType,
-	RevisionPayload,
-} from '../common';
+import type { BM3Event, InteractionMetrics, InteractionType, RevisionPayload } from '../common';
 import { type ResourceTiming } from '../common/react-ufo-payload-schema';
 import {
 	getConfig,
@@ -265,10 +260,7 @@ function getTracingContextData(interaction: InteractionMetrics) {
 	return tracingContextData;
 }
 
-function optimizeCustomData(
-	interaction: InteractionMetrics,
-	registry?: LabelStackRegistry,
-) {
+function optimizeCustomData(interaction: InteractionMetrics, registry?: LabelStackRegistry) {
 	const { customData, cohortingCustomData, legacyMetrics } = interaction;
 	const customDataMap = customData.reduce((result, { labelStack, data }) => {
 		const label = stringifyLabelStackFully(labelStack);
@@ -602,8 +594,7 @@ async function createInteractionMetricsPayload(
 			errors: interaction.errors.map(({ labelStack, ...others }) => ({
 				...others,
 				labelStack:
-					labelStack &&
-					optimizeLabelStackWithRegistry(labelStack, reactUFOVersion, registry),
+					labelStack && optimizeLabelStackWithRegistry(labelStack, reactUFOVersion, registry),
 			})),
 			holdActive: [...interaction.holdActive.values()],
 			redirects: optimizeRedirects(interaction.redirects, start),
@@ -614,12 +605,7 @@ async function createInteractionMetricsPayload(
 				registry,
 			),
 			spans: optimizeSpans(spans, start, reactUFOVersion, registry),
-			requestInfo: optimizeRequestInfo(
-				interaction.requestInfo,
-				start,
-				reactUFOVersion,
-				registry,
-			),
+			requestInfo: optimizeRequestInfo(interaction.requestInfo, start, reactUFOVersion, registry),
 			customTimings: optimizeCustomTimings(interaction.customTimings, start),
 			bundleEvalTimings: objectToArray(getBundleEvalTimings(start)),
 			resourceTimings: objectToArray(resourceTimings) as ResourceTiming[],
@@ -808,9 +794,7 @@ async function createInteractionMetricsPayload(
 					'metric:experimental:ttai': expTTAI,
 					...(unknownElementName ? { unknownElementName } : {}),
 					...(unknownElementHierarchy ? { unknownElementHierarchy } : {}),
-					...(registry && registry.size > 0
-						? { _ls: registry.getLookupTable() }
-						: {}),
+					...(registry && registry.size > 0 ? { _ls: registry.getLookupTable() } : {}),
 				},
 				'ufo:payloadTime': roundEpsilon(performance.now() - interactionPayloadStart),
 			},
@@ -966,10 +950,7 @@ export async function createPayloads(
 		}
 	}
 
-	const payloads: (
-		| CriticalMetricsPayload
-		| InteractionMetricsPayloadResult
-	)[] = [];
+	const payloads: (CriticalMetricsPayload | InteractionMetricsPayloadResult)[] = [];
 	const isCriticalMetricsEnabled = fg('platform_ufo_critical_metrics_payload');
 
 	// Calculate VC metrics once to avoid duplicate expensive calculations
@@ -1091,10 +1072,7 @@ export async function createExtraSearchPageInteractionPayload(
 		ufoName: NAME_OVERRIDE,
 	};
 
-	const payloads: (
-		| CriticalMetricsPayload
-		| InteractionMetricsPayloadResult
-	)[] = [];
+	const payloads: (CriticalMetricsPayload | InteractionMetricsPayloadResult)[] = [];
 
 	const vcMetrics = await getVCMetrics(interaction, false, true);
 

@@ -7,11 +7,14 @@ import {
 	UFOExperienceState,
 } from '@atlaskit/ufo';
 
-export const userPickerRenderedUfoExperience: ConcurrentExperience = new ConcurrentExperience('user-picker-rendered', {
-	platform: { component: 'user-picker' },
-	type: ExperienceTypes.Load,
-	performanceType: ExperiencePerformanceTypes.PageSegmentLoad,
-});
+export const userPickerRenderedUfoExperience: ConcurrentExperience = new ConcurrentExperience(
+	'user-picker-rendered',
+	{
+		platform: { component: 'user-picker' },
+		type: ExperienceTypes.Load,
+		performanceType: ExperiencePerformanceTypes.PageSegmentLoad,
+	},
+);
 
 export const userPickerOptionsShownUfoExperience: ConcurrentExperience = new ConcurrentExperience(
 	'user-picker-options-shown',

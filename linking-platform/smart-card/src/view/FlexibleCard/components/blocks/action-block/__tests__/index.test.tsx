@@ -103,9 +103,9 @@ describe('ActionBlock', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	describe('is3PAuthRovoActionsExperimentOn', () => {
-		it('renders actions excluding Rovo when is3PAuthRovoActionsExperimentOn is false', async () => {
-			setup({ is3PAuthRovoActionsExperimentOn: false }, undefined, getContextWithoutRovo());
+	describe('isAny3pRovoActionsExperimentOn', () => {
+		it('renders actions excluding Rovo when isAny3pRovoActionsExperimentOn is false', async () => {
+			setup({ isAny3pRovoActionsExperimentOn: false }, undefined, getContextWithoutRovo());
 
 			await screen.findByTestId('smart-action-preview-action');
 			await screen.findByTestId('smart-action-ai-summary-action-summarise-action');
@@ -114,7 +114,7 @@ describe('ActionBlock', () => {
 			expect(screen.getAllByRole('button').length).toBe(7);
 		});
 
-		it('renders actions excluding Rovo when is3PAuthRovoActionsExperimentOn is undefined', async () => {
+		it('renders actions excluding Rovo when isAny3pRovoActionsExperimentOn is undefined', async () => {
 			setup(undefined, undefined, getContextWithoutRovo());
 
 			await screen.findByTestId('smart-action-preview-action');
@@ -127,7 +127,7 @@ describe('ActionBlock', () => {
 		ffTest.off('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
 			it('renders actions excluding Rovo when experiment is on but kill switch is off', async () => {
 				// When kill switch is off, extractor never adds Rovo → use context without Rovo
-				setup({ is3PAuthRovoActionsExperimentOn: true }, undefined, getContextWithoutRovo());
+				setup({ isAny3pRovoActionsExperimentOn: true }, undefined, getContextWithoutRovo());
 
 				await screen.findByTestId('smart-action-preview-action');
 				await screen.findByTestId('smart-action-ai-summary-action-summarise-action');
@@ -144,7 +144,7 @@ describe('ActionBlock', () => {
 					state: { status: 'done', content: 'this is a summary' },
 				});
 
-				setup({ is3PAuthRovoActionsExperimentOn: true });
+				setup({ isAny3pRovoActionsExperimentOn: true });
 
 				const rovoAction = await screen.findByTestId('smart-action-rovo-chat-action-1');
 				expect(rovoAction).toBeInTheDocument();
@@ -165,7 +165,7 @@ describe('ActionBlock', () => {
 						[InternalActionName.RovoChatAction]: undefined,
 					},
 				};
-				setup({ is3PAuthRovoActionsExperimentOn: true }, undefined, contextWithoutRovo);
+				setup({ isAny3pRovoActionsExperimentOn: true }, undefined, contextWithoutRovo);
 
 				await screen.findByTestId('smart-action-preview-action');
 				expect(screen.queryByTestId('smart-action-rovo-chat-action-1')).not.toBeInTheDocument();

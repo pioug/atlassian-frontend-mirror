@@ -7,7 +7,12 @@
 
 /* eslint-disable compat/compat */
 
-import { test as base, expect as baseExpect, type Page, attachFixtureToPage } from '@af/integration-testing';
+import {
+	test as base,
+	expect as baseExpect,
+	type Page,
+	attachFixtureToPage,
+} from '@af/integration-testing';
 
 import type { WindowWithReactUFOTestGlobals } from './window-type';
 
@@ -29,7 +34,7 @@ const test = base.extend<{
 			'basic-three-sections',
 			{
 				ufo_disabled: 'true',
-			}
+			},
 		);
 
 		await use(page);

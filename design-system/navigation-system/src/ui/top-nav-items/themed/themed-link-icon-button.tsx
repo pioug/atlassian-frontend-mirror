@@ -13,12 +13,10 @@ import type { CommonProps, IconButtonCommonProps, OverriddenPrimitiveProps } fro
  * Props that are common between link buttons.
  */
 interface LinkVariantCommonProps<RouterLinkConfig extends Record<string, any> = never>
-	extends CommonProps,
-		Omit<AnchorProps<RouterLinkConfig>, OverriddenPrimitiveProps> {}
+	extends CommonProps, Omit<AnchorProps<RouterLinkConfig>, OverriddenPrimitiveProps> {}
 
 export interface ThemedLinkIconButtonProps<RouterLinkConfig extends Record<string, any> = never>
-	extends LinkVariantCommonProps<RouterLinkConfig>,
-		IconButtonCommonProps {
+	extends LinkVariantCommonProps<RouterLinkConfig>, IconButtonCommonProps {
 	href: string | RouterLinkConfig;
 }
 

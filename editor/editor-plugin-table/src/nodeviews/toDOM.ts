@@ -152,7 +152,7 @@ export const tableNodeSpecWithFixedToDOM = (
 									'data-testid': 'table-right-border',
 								},
 							],
-					  ]
+						]
 					: []),
 			];
 
@@ -199,7 +199,7 @@ export const tableNodeSpecWithFixedToDOM = (
 								? 'resizer-item display-handle'
 								: classNames('resizer-item', {
 										'display-handle': !isInContentMode,
-								  }),
+									}),
 							style: convertToInlineCss({
 								position: 'relative',
 								userSelect: 'auto',
@@ -223,7 +223,7 @@ export const tableNodeSpecWithFixedToDOM = (
 											node,
 											config.isCommentEditor,
 											config.isChromelessEditor,
-									  ),
+										),
 							}),
 						},
 						[

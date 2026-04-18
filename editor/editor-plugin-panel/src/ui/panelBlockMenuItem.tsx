@@ -36,7 +36,6 @@ const PanelBlockMenuItem = ({ api }: Props) => {
 		});
 	};
 
-
 	return (
 		<ToolbarDropdownItem
 			onClick={handleClick}

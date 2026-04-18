@@ -58,65 +58,58 @@ const wrapper =
 
 describe('useInlineActionNudgeExperiment', () => {
 	it('returns isEnabled=false when rovo is disabled', () => {
-		const { result } = renderHook(
-			() => useInlineActionNudgeExperiment(mockUrl),
-			{ wrapper: wrapper(disabledRovoOptions) },
-		);
+		const { result } = renderHook(() => useInlineActionNudgeExperiment(mockUrl), {
+			wrapper: wrapper(disabledRovoOptions),
+		});
 		expect(result.current.isEnabled).toBe(false);
 	});
 
 	it('returns isEnabled=false when extensionKey is figma-object-provider', () => {
-		const { result } = renderHook(
-			() => useInlineActionNudgeExperiment(mockUrl),
-			{ wrapper: wrapper(enabledRovoOptions, 'figma-object-provider') },
-		);
+		const { result } = renderHook(() => useInlineActionNudgeExperiment(mockUrl), {
+			wrapper: wrapper(enabledRovoOptions, 'figma-object-provider'),
+		});
 		expect(result.current.isEnabled).toBe(false);
 	});
 
 	it('returns isEnabled=false when extensionKey is google-object-provider', () => {
-		const { result } = renderHook(
-			() => useInlineActionNudgeExperiment(mockUrl),
-			{ wrapper: wrapper(enabledRovoOptions, 'google-object-provider') },
-		);
+		const { result } = renderHook(() => useInlineActionNudgeExperiment(mockUrl), {
+			wrapper: wrapper(enabledRovoOptions, 'google-object-provider'),
+		});
 		expect(result.current.isEnabled).toBe(false);
 	});
 
 	eeTest
-		.describe('rovogrowth_640_inline_action_nudge', 'inline action nudge experiment')
+		.describe('rovogrowth-640-inline-action-nudge-exp', 'inline action nudge experiment')
 		.variant(true, () => {
 			it('returns isEnabled=true when rovo is enabled and experiment is on', () => {
-				const { result } = renderHook(
-					() => useInlineActionNudgeExperiment(mockUrl),
-					{ wrapper: wrapper() },
-				);
+				const { result } = renderHook(() => useInlineActionNudgeExperiment(mockUrl), {
+					wrapper: wrapper(),
+				});
 				expect(result.current.isEnabled).toBe(true);
 			});
 
 			it('returns isEnabled=true for non-excluded extensionKeys', () => {
-				const { result } = renderHook(
-					() => useInlineActionNudgeExperiment(mockUrl),
-					{ wrapper: wrapper(enabledRovoOptions, 'confluence-object-provider') },
-				);
+				const { result } = renderHook(() => useInlineActionNudgeExperiment(mockUrl), {
+					wrapper: wrapper(enabledRovoOptions, 'confluence-object-provider'),
+				});
 				expect(result.current.isEnabled).toBe(true);
 			});
 
 			it('returns isEnabled=false when rovo is disabled even with experiment on', () => {
-				const { result } = renderHook(
-					() => useInlineActionNudgeExperiment(mockUrl),
-					{ wrapper: wrapper(disabledRovoOptions) },
-				);
+				const { result } = renderHook(() => useInlineActionNudgeExperiment(mockUrl), {
+					wrapper: wrapper(disabledRovoOptions),
+				});
 				expect(result.current.isEnabled).toBe(false);
 			});
 		});
 
 	eeTest
-		.describe('rovogrowth_640_inline_action_nudge', 'inline action nudge experiment off')
+		.describe('rovogrowth-640-inline-action-nudge-exp', 'inline action nudge experiment off')
 		.variant(false, () => {
 			it('returns isEnabled=false when experiment is off', () => {
-				const { result } = renderHook(
-					() => useInlineActionNudgeExperiment(mockUrl),
-					{ wrapper: wrapper() },
-				);
+				const { result } = renderHook(() => useInlineActionNudgeExperiment(mockUrl), {
+					wrapper: wrapper(),
+				});
 				expect(result.current.isEnabled).toBe(false);
 			});
 		});

@@ -18,9 +18,7 @@ import { ThemedPressable } from './themed-pressable';
 import type { CommonProps, IconButtonCommonProps, OverriddenPrimitiveProps } from './types';
 
 export interface ThemedIconButtonProps
-	extends CommonProps,
-		Omit<PressableProps, OverriddenPrimitiveProps>,
-		IconButtonCommonProps {}
+	extends CommonProps, Omit<PressableProps, OverriddenPrimitiveProps>, IconButtonCommonProps {}
 
 export const ThemedIconButton: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<ThemedIconButtonProps> & React.RefAttributes<HTMLButtonElement>

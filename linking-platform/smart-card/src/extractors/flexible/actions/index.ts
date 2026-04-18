@@ -88,7 +88,8 @@ export const extractFlexibleCardActions = ({
 			actionOptions,
 			aiSummaryConfig,
 		),
-		...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
+		...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+		fg('rovogrowth-640-inline-action-nudge-fg')
 			? {
 					[InternalActionName.RovoChatAction]: extractRovoChatAction({
 						actionOptions,

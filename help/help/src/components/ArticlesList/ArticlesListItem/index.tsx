@@ -64,7 +64,9 @@ const highlightText = (text?: string) => {
 	return sections;
 };
 
-export const ArticlesListItem: React.ForwardRefExoticComponent<Props & Partial<ArticleItem> & WrappedComponentProps & React.RefAttributes<HTMLAnchorElement>> = forwardRef<HTMLAnchorElement, ArticlesListItemProps>(
+export const ArticlesListItem: React.ForwardRefExoticComponent<
+	Props & Partial<ArticleItem> & WrappedComponentProps & React.RefAttributes<HTMLAnchorElement>
+> = forwardRef<HTMLAnchorElement, ArticlesListItemProps>(
 	(
 		{ styles, title, description, href = '', onClick, trustFactors, source, lastPublished },
 		ref,
@@ -148,7 +150,22 @@ const ArticlesListItemWithContext = forwardRef<HTMLAnchorElement, ArticlesListIt
 	},
 );
 
-const _default_1: React.ForwardRefExoticComponent<Omit<WithIntlProps<React.PropsWithChildren<Props & Partial<ArticleItem> & WrappedComponentProps & React.RefAttributes<HTMLAnchorElement>>>, "ref"> & React.RefAttributes<any>> & {
-    WrappedComponent: React.ComponentType<Props & Partial<ArticleItem> & WrappedComponentProps & React.RefAttributes<HTMLAnchorElement>>;
+const _default_1: React.ForwardRefExoticComponent<
+	Omit<
+		WithIntlProps<
+			React.PropsWithChildren<
+				Props &
+					Partial<ArticleItem> &
+					WrappedComponentProps &
+					React.RefAttributes<HTMLAnchorElement>
+			>
+		>,
+		'ref'
+	> &
+		React.RefAttributes<any>
+> & {
+	WrappedComponent: React.ComponentType<
+		Props & Partial<ArticleItem> & WrappedComponentProps & React.RefAttributes<HTMLAnchorElement>
+	>;
 } = injectIntl(ArticlesListItemWithContext, { forwardRef: true });
 export default _default_1;

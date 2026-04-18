@@ -7,8 +7,8 @@ function padMinutes(minutes: number): string {
 export const random = (int: number): number => Math.floor(Math.random() * (int + 1));
 
 export const getWeekday = (): {
-    index: number;
-    string: string;
+	index: number;
+	string: string;
 } => {
 	const array = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 	const index = random(6);

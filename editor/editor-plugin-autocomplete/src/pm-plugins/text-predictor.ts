@@ -537,11 +537,13 @@ export const predict = (textBefore: string): string | null => {
 	// lmMax in rankCandidates reflects prefix-relevant signal, not the global distribution.
 	const prefix = currentWord.toLowerCase();
 	const prefixLmLogits = lmLogits
-		? Object.fromEntries(
-			Object.entries(lmLogits).filter(([word]) => word.startsWith(prefix))
-		)
+		? Object.fromEntries(Object.entries(lmLogits).filter(([word]) => word.startsWith(prefix)))
 		: null;
-	const { candidates: ranked, grammarMeta, pipelineDebug } = rankCandidates(
+	const {
+		candidates: ranked,
+		grammarMeta,
+		pipelineDebug,
+	} = rankCandidates(
 		scoringCandidates,
 		contextVector,
 		(w: string) => getWordVector(w),

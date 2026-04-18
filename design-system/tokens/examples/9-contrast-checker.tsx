@@ -272,7 +272,12 @@ export default function ContrastChecker(): JSX.Element {
 				<Inline shouldWrap={true} space="space.300" alignBlock="start">
 					<Box xcss={styles.column}>
 						<Stack space="space.200">
-							<Inline spread="space-between" shouldWrap={true} alignBlock="center" space="space.100">
+							<Inline
+								spread="space-between"
+								shouldWrap={true}
+								alignBlock="center"
+								space="space.100"
+							>
 								<Heading size="xlarge">Theme editor</Heading>
 								<Box>
 									<CustomThemeActions

@@ -8,7 +8,6 @@ import {
 	type PlaygroundConfig,
 } from '@atlassian/teams-app-internal-playground/playground';
 
-
 import { TeamLinkCard } from '../src';
 
 const styles = cssMap({

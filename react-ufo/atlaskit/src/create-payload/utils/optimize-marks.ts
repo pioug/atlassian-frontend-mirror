@@ -17,8 +17,7 @@ export function optimizeMarks(
 }[] {
 	return marks.map(({ labelStack, time, ...others }) => ({
 		...others,
-		labelStack:
-			labelStack && optimizeLabelStackWithRegistry(labelStack, reactUFOVersion, registry),
+		labelStack: labelStack && optimizeLabelStackWithRegistry(labelStack, reactUFOVersion, registry),
 		time: Math.round(time),
 	}));
 }

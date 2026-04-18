@@ -141,22 +141,22 @@ export class VCObserverWrapper implements VCObserverInterface {
 
 		const v3v4Result = VCObserverWrapper.shouldUseNewVCObserver(experienceKey)
 			? await this.newVCObserver?.getVCResult({
-						start: param.start,
-						stop: param.stop,
-						interactionId: param.interactionId,
-						ssr: param.ssr,
-						include3p,
-						excludeSmartAnswersInSearch,
-						includeSSRRatio,
-						interactionType: param.interactionType,
-						isPageVisible: param.isPageVisible,
-						interactionAbortReason: param.interactionAbortReason,
-						includeRawData,
-						includeSSRInV3: param.includeSSRInV3,
-						rawDataStopTime: param.rawDataStopTime,
-						reportLayoutShiftOffenders: param.reportLayoutShiftOffenders,
-					})
-				: [];
+					start: param.start,
+					stop: param.stop,
+					interactionId: param.interactionId,
+					ssr: param.ssr,
+					include3p,
+					excludeSmartAnswersInSearch,
+					includeSSRRatio,
+					interactionType: param.interactionType,
+					isPageVisible: param.isPageVisible,
+					interactionAbortReason: param.interactionAbortReason,
+					includeRawData,
+					includeSSRInV3: param.includeSSRInV3,
+					rawDataStopTime: param.rawDataStopTime,
+					reportLayoutShiftOffenders: param.reportLayoutShiftOffenders,
+				})
+			: [];
 
 		if (!v3v4Result || v3v4Result.length === 0) {
 			return v1v2Result ?? {};

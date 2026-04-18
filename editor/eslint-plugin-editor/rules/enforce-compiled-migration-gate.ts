@@ -62,7 +62,10 @@ function findCssProp(node: TSESTree.JSXOpeningElement): TSESTree.JSXAttribute | 
  * text doesn't contain `withCompiledMigration` at all — which is the case for
  * the vast majority of files.
  */
-const rule = ESLintUtils.RuleCreator.withoutDocs<[], 'missingGate' | 'missingCssProp' | 'emotionPragma'>({
+const rule = ESLintUtils.RuleCreator.withoutDocs<
+	[],
+	'missingGate' | 'missingCssProp' | 'emotionPragma'
+>({
 	defaultOptions: [],
 	meta: {
 		type: 'problem',
@@ -87,7 +90,8 @@ const rule = ESLintUtils.RuleCreator.withoutDocs<[], 'missingGate' | 'missingCss
 
 		const wrappedComponents = new Set<string>();
 		const hasEmotionPragma =
-			/\*\s*@jsx\s+jsx\b/u.test(sourceText) || /@jsxImportSource\s+@emotion\/react/u.test(sourceText);
+			/\*\s*@jsx\s+jsx\b/u.test(sourceText) ||
+			/@jsxImportSource\s+@emotion\/react/u.test(sourceText);
 
 		return {
 			// Phase 1: track identifiers assigned from withCompiledMigration(...)

@@ -347,13 +347,13 @@ describe('AISummaryBlock', () => {
 			const spy = jest.fn();
 
 			const { rerender, ...result } = render(
-				<TestComponent is3PAuthRovoActionsExperimentOn={true} spy={spy} {...props} />,
+				<TestComponent isAny3pRovoActionsExperimentOn={true} spy={spy} {...props} />,
 				{
 					wrapper: getFlexibleCardTestWrapper(context, undefined, status),
 				},
 			);
 			const rerenderTestComponent = () =>
-				rerender(<TestComponent is3PAuthRovoActionsExperimentOn={true} spy={spy} {...props} />);
+				rerender(<TestComponent isAny3pRovoActionsExperimentOn={true} spy={spy} {...props} />);
 
 			return {
 				...result,

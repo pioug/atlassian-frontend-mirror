@@ -20,12 +20,9 @@ type TitleBoxWrapperStyleArgs = {
 };
 
 export const titleBoxWrapperStyles: {
-    ({ breakpoint, display, }: TitleBoxWrapperStyleArgs): SerializedStyles;
-    displayName: string;
-} = ({
-	breakpoint,
-	display = 'flex',
-}: TitleBoxWrapperStyleArgs): SerializedStyles =>
+	({ breakpoint, display }: TitleBoxWrapperStyleArgs): SerializedStyles;
+	displayName: string;
+} = ({ breakpoint, display = 'flex' }: TitleBoxWrapperStyleArgs): SerializedStyles =>
 	css(
 		{
 			position: 'absolute',

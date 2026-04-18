@@ -33,8 +33,9 @@ describe('addCustomTiming timing name length validation', () => {
 
 	it('truncates long custom timing names when the gate is enabled', () => {
 		const interactionId = 'test-interaction-id';
-		mockFg.mockImplementation((flagName: string) =>
-			flagName === 'platform_ufo_validate_timing_name_length');
+		mockFg.mockImplementation(
+			(flagName: string) => flagName === 'platform_ufo_validate_timing_name_length',
+		);
 		addNewInteraction(interactionId, 'test-ufo-name', 'page_load', performance.now(), 1.0, []);
 		const longKey = 'a'.repeat(300);
 

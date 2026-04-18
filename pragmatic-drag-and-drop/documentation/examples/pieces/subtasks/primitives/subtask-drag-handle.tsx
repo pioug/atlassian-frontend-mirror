@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef } from 'react';
+import { forwardRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -118,27 +118,30 @@ function SubtaskDragHandleTrigger({
 	);
 }
 
-export const SubtaskDragHandle = forwardRef<HTMLButtonElement, SubtaskDragHandleProps>(
-	function SubtaskDragHandle({ isHovering = false, dragState }, ref) {
-		return (
-			<DropdownMenu<HTMLButtonElement>
-				trigger={(triggerProps) => (
-					<SubtaskDragHandleTrigger
-						{...triggerProps}
-						isHovering={isHovering}
-						isIdle={dragState === 'idle'}
-					/>
-				)}
-			>
-				<DropdownItemGroup>
-					<DropdownItem>Edit</DropdownItem>
-					<DropdownItem>Share</DropdownItem>
-					<DropdownItem>Move</DropdownItem>
-					<DropdownItem>Clone</DropdownItem>
-					<DropdownItem>Delete</DropdownItem>
-					<DropdownItem>Report</DropdownItem>
-				</DropdownItemGroup>
-			</DropdownMenu>
-		);
-	},
-);
+export const SubtaskDragHandle: ForwardRefExoticComponent<
+	SubtaskDragHandleProps & RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, SubtaskDragHandleProps>(function SubtaskDragHandle(
+	{ isHovering = false, dragState },
+	ref,
+) {
+	return (
+		<DropdownMenu<HTMLButtonElement>
+			trigger={(triggerProps) => (
+				<SubtaskDragHandleTrigger
+					{...triggerProps}
+					isHovering={isHovering}
+					isIdle={dragState === 'idle'}
+				/>
+			)}
+		>
+			<DropdownItemGroup>
+				<DropdownItem>Edit</DropdownItem>
+				<DropdownItem>Share</DropdownItem>
+				<DropdownItem>Move</DropdownItem>
+				<DropdownItem>Clone</DropdownItem>
+				<DropdownItem>Delete</DropdownItem>
+				<DropdownItem>Report</DropdownItem>
+			</DropdownItemGroup>
+		</DropdownMenu>
+	);
+});

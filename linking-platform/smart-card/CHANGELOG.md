@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 44.1.0
+
+### Minor Changes
+
+- [`5cdbb45dd8b9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5cdbb45dd8b9b) -
+  [ux] Add generic 3P rovo actions for the rovogrowth-640-inline-action-nudge-exp experiment to the
+  hovercard content
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.0.6
 
 ### Patch Changes

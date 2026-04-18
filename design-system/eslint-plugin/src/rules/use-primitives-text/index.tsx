@@ -4,12 +4,7 @@ import { createLintRule } from '../utils/create-rule';
 import { errorBoundary } from '../utils/error-boundary';
 
 import { getConfig, PATTERNS, type RuleConfig } from './config';
-import {
-	EmphasisElements,
-	ParagraphElements,
-	SpanElements,
-	StrongElements,
-} from './transformers';
+import { EmphasisElements, ParagraphElements, SpanElements, StrongElements } from './transformers';
 
 const textDocsUrl = 'https://atlassian.design/components/primitives/text';
 

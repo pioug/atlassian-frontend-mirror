@@ -2122,11 +2122,12 @@ const tableSharedStyle = css({
 
 const tableContentModeStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}:has(table[data-initial-width-mode="content"])`]: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-		width: 'max-content !important',
-		maxWidth: 'var(--renderer-table-max-width)',
-	},
+	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}:has(table[data-initial-width-mode="content"])`]:
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			width: 'max-content !important',
+			maxWidth: 'var(--renderer-table-max-width)',
+		},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	[`.${RendererCssClassName.DOCUMENT} table[data-initial-width-mode="content"] > colgroup > col`]: {

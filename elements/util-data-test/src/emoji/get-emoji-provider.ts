@@ -9,7 +9,7 @@ import { loggedUser } from './logged-user';
 type DataFetch = () => Promise<EmojiServiceResponse>;
 
 export const currentUser: {
-    id: string;
+	id: string;
 } = {
 	id: loggedUser,
 };

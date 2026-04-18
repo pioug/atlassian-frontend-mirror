@@ -267,8 +267,21 @@ export default class TableView extends ReactNodeView<Props> {
 		}
 		const attrs = tableAttributes(node) as Record<string, string>;
 
-		if (expValEqualsNoExposure('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true)) {
-			if (isTableInContentMode({ node, allowColumnResizing: !!this.reactComponentProps.allowColumnResizing, allowTableResizing: !!this.reactComponentProps.allowTableResizing, isFullPageEditor: !this.reactComponentProps.options?.isCommentEditor && !this.reactComponentProps.options?.isChromelessEditor, isTableNested: isTableNested(this.view.state, this.getPos()) }) && expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true)) {
+		if (
+			expValEqualsNoExposure('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true)
+		) {
+			if (
+				isTableInContentMode({
+					node,
+					allowColumnResizing: !!this.reactComponentProps.allowColumnResizing,
+					allowTableResizing: !!this.reactComponentProps.allowTableResizing,
+					isFullPageEditor:
+						!this.reactComponentProps.options?.isCommentEditor &&
+						!this.reactComponentProps.options?.isChromelessEditor,
+					isTableNested: isTableNested(this.view.state, this.getPos()),
+				}) &&
+				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true)
+			) {
 				attrs['data-initial-width-mode'] = 'content';
 			} else {
 				this.table.removeAttribute('data-initial-width-mode');

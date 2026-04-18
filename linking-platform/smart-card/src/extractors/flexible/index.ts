@@ -88,7 +88,10 @@ const extractFlexibleUiContext = ({
 			fireEvent,
 			id,
 			origin,
-			...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { product, rovoConfig } : undefined),
+			...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+			fg('rovogrowth-640-inline-action-nudge-fg')
+				? { product, rovoConfig }
+				: undefined),
 			response,
 			url: props.url, // Use the original URL in edge cases, such as short links for AI summary and copy link actions.
 			isPreviewPanelAvailable,

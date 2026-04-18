@@ -121,9 +121,7 @@ const avatarImageStyles = cssMap({
 		width: '100%',
 		height: '100%',
 	},
-
 });
-
 
 const SIZES: Record<SizeType, number> = {
 	xsmall: 16,

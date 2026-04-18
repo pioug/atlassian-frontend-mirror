@@ -8,10 +8,7 @@ test.describe('ReactUFO: post-interaction-log late holds', () => {
 		examplePage: 'basic-with-late-hold',
 	});
 
-	test('adds postInteractionHoldInfo', async ({
-		page,
-		waitForPostInteractionLogPayload,
-	}) => {
+	test('adds postInteractionHoldInfo', async ({ page, waitForPostInteractionLogPayload }) => {
 		const mainDiv = page.locator('[data-testid="main"]');
 		await expect(mainDiv).toBeVisible();
 

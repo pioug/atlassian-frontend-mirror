@@ -26,9 +26,7 @@ const textButtonStyles = cssMap({
 });
 
 export interface ThemedButtonProps
-	extends CommonProps,
-		Omit<PressableProps, OverriddenPrimitiveProps>,
-		TextButtonCommonProps {}
+	extends CommonProps, Omit<PressableProps, OverriddenPrimitiveProps>, TextButtonCommonProps {}
 
 export const ThemedButton: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<ThemedButtonProps> & React.RefAttributes<HTMLButtonElement>

@@ -15,8 +15,7 @@ test.describe('table scaling in comment renderer', () => {
 				UNSTABLE_allowTableResizing: true,
 			},
 			viewport: { width: 760, height: 600 },
-			editorExperiments: {
-			},
+			editorExperiments: {},
 		});
 		test('table should scale down when scale percent is bigger than 0.4', async ({ renderer }) => {
 			const table = renderer.page.getByRole('table');
@@ -45,8 +44,7 @@ test.describe('table scaling in comment renderer', () => {
 				UNSTABLE_allowTableResizing: true,
 			},
 			viewport: { width: 760, height: 600 },
-			editorExperiments: {
-			},
+			editorExperiments: {},
 		});
 
 		test('table should scale down when scale percent is bigger than 0.4', async ({ renderer }) => {
@@ -88,8 +86,7 @@ test.describe('table scaling in comment renderer', () => {
 				UNSTABLE_allowTableResizing: true,
 			},
 			viewport: { width: 760, height: 600 },
-			editorExperiments: {
-			},
+			editorExperiments: {},
 		});
 
 		test('table should not scale down when scale percent is bigger than 0.4', async ({
@@ -147,8 +144,7 @@ test.describe('table scaling in comment renderer', () => {
 				UNSTABLE_allowTableResizing: true,
 			},
 			viewport: { width: 760, height: 600 },
-			editorExperiments: {
-			},
+			editorExperiments: {},
 		});
 
 		test('table should not scale down when scale percent is bigger than 0.4', async ({

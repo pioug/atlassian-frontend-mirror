@@ -119,12 +119,11 @@ const AutocompleteDropdown = ({
 
 	const isPopperPositioningEnabled = fg('jql_editor_autocomplete_use_popper');
 
-	const isScrollUIFixEnabled =
-		FeatureGates.getExperimentValue(
-			'anip-1289-scroll-issues-in-jql-autocomplete',
-			'isEnabled',
-			false,
-		);
+	const isScrollUIFixEnabled = FeatureGates.getExperimentValue(
+		'anip-1289-scroll-issues-in-jql-autocomplete',
+		'isEnabled',
+		false,
+	);
 
 	// Create virtual reference element positioned at cursor location (for popper implementation)
 	const virtualReferenceElement = useMemo(() => {

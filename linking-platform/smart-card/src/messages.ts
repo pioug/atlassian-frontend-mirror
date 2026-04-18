@@ -29,7 +29,12 @@ export type RovoChatActionMessageKey =
 	| 'rovo_prompt_button_show_other_mentions'
 	| 'rovo_prompt_message_show_other_mentions'
 	| 'rovo_prompt_button_suggest_improvement'
-	| 'rovo_prompt_message_suggest_improvement';
+	| 'rovo_prompt_message_suggest_improvement'
+	| 'rovo_prompt_message_summarize'
+	| 'rovo_prompt_button_key_highlights'
+	| 'rovo_prompt_message_key_highlights'
+	| 'rovo_prompt_button_ask_rovo_anything'
+	| 'rovo_prompt_message_ask_rovo_anything';
 export type MessageKey =
 	| 'assigned_to'
 	| 'ai_summarize'
@@ -1220,5 +1225,37 @@ export const messages: Messages = defineMessages({
 			'<p>Using the {context} I’m viewing now, plus all files and links referenced in it (including <a>{url}</a>):</p><ul><li><p>Identify unclear reasoning, missing context, or contradictions between the item and its linked files.</p></li><li><p>Call out any places where assumptions are not backed up by data or prior docs.</p></li><li><p>Stay concise: summarize your findings in <b>no more than three short paragraphs of content listed as bullets</b> of no more than a couple of sentences long focused only on the two points above.</p></li><li><p>After presenting that summary, <b>ask me explicitly</b> if I want you to go deeper. Only if I say yes, then:</p><ul><li><p>Suggest concrete rewrites (bullets or short paragraphs) to make the argument clearer, more concise, and better aligned with the supporting files.</p></li><li><p>Propose 3–5 follow‑up edits or additions that would make this item and its linked docs “share‑ready” for stakeholders.</p></li></ul></li></ul>',
 		description:
 			'The prompt message to send to Rovo Chat. {context} refers to the content the user triggered from, e.g. Confluence page or Jira work item. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
+	},
+	rovo_prompt_message_summarize: {
+		id: 'fabric.linking.rovo_prompt_message_summarize.non-final',
+		defaultMessage:
+			'<p>Summarize the main ideas and key points of <a>{url}</a> in 3-5 clear, complete sentences.</p><p>Preserve any important details such as names, dates, and key decisions.</p>',
+		description:
+			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
+	},
+	rovo_prompt_button_key_highlights: {
+		id: 'fabric.linking.rovo_prompt_button_key_highlights.non-final',
+		defaultMessage: 'Key highlights',
+		description:
+			'The name of the action to send a key highlights prompt message to Rovo Chat in relation to current Smart Link',
+	},
+	rovo_prompt_message_key_highlights: {
+		id: 'fabric.linking.rovo_prompt_message_key_highlights.non-final',
+		defaultMessage:
+			"<p>Based on <a>{url}</a> and the page or ticket I'm currently viewing, highlight the parts of the linked content that are most relevant to this work. Explain briefly why each part is relevant.</p>",
+		description:
+			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
+	},
+	rovo_prompt_button_ask_rovo_anything: {
+		id: 'fabric.linking.rovo_prompt_button_ask_rovo.non-final',
+		defaultMessage: 'Ask Rovo',
+		description:
+			'The name of the action to open Rovo Chat and ask a question in relation to current Smart Link',
+	},
+	rovo_prompt_message_ask_rovo_anything: {
+		id: 'fabric.linking.rovo_prompt_message_ask_rovo_anything.non-final',
+		defaultMessage: '`I have a question about this linked item` {url}',
+		description:
+			'The placeholder prompt message pre-filled in Rovo Chat input. {url} refers to the Smart Link URL. This is not auto-submitted — the user types their question.',
 	},
 });

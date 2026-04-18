@@ -332,7 +332,18 @@ const IconElement = ({
 			) ||
 			defaultIcon
 		);
-	}, [label, testId, overrideIcon, render, url, size, appearance, hideLoadingSkeleton, icon, isTiledIcon]);
+	}, [
+		label,
+		testId,
+		overrideIcon,
+		render,
+		url,
+		size,
+		appearance,
+		hideLoadingSkeleton,
+		icon,
+		isTiledIcon,
+	]);
 
 	const width = getIconWidth(size);
 

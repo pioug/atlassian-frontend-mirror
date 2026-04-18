@@ -52,7 +52,11 @@ const QuoteBlockMenuItem = ({ api }: QuoteBlockMenuItemProps) => {
 	return (
 		<ToolbarDropdownItem
 			onClick={handleClick}
-			elemBefore={<span css={styles.svgOverflow}><QuotationMarkIcon label="" size="small" /></span>}
+			elemBefore={
+				<span css={styles.svgOverflow}>
+					<QuotationMarkIcon label="" size="small" />
+				</span>
+			}
 		>
 			{formatMessage(blockTypeMessages.blockquote)}
 		</ToolbarDropdownItem>

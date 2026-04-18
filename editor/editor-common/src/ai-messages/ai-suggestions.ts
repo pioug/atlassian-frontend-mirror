@@ -272,7 +272,8 @@ export const aiSuggestionsMessages: {
 	},
 	cardPrivateTooltipLabel: {
 		id: 'fabric.editor.ai.suggestions.card.privateTooltipLabel.non-final',
-		defaultMessage: 'Only you and those with access to the sources can see this private suggestion.',
+		defaultMessage:
+			'Only you and those with access to the sources can see this private suggestion.',
 		description: 'Tooltip shown on the private indicator icon in the AI suggestions card',
 	},
 	cardSourcesButtonLabel: {

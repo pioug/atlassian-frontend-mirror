@@ -1,5 +1,24 @@
 # @atlaskit/editor-statsig-tmp
 
+## 62.7.0
+
+### Minor Changes
+
+- [`3e5cf48f0f52f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e5cf48f0f52f) -
+  Replace `cc_dnd_smart_link_changeboard_po_template_gate` feature gate with
+  `cc_dnd_smart_link_changeboard_po_template` experiment using `expValNoExposure`.
+- [`5cdbb45dd8b9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5cdbb45dd8b9b) -
+  [ux] Add generic 3P rovo actions for the rovogrowth-640-inline-action-nudge-exp experiment to the
+  hovercard content
+
+## 62.6.0
+
+### Minor Changes
+
+- [`b0377daa5ac26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0377daa5ac26) -
+  Clean up experiment cc_perf-insights-cards_extension_a11y_list - ship treatment (list/listitem
+  roles for a11y)
+
 ## 62.5.0
 
 ### Minor Changes

@@ -3,8 +3,10 @@ import { denormaliseEmojiServiceResponse } from '@atlaskit/emoji/utils';
 import { getSiteEmojiData } from './get-site-emoji-data';
 import type { EmojiDescriptionWithVariations } from '@atlaskit/emoji';
 
-export const getSiteEmojis: MemoizedFn<() => EmojiDescriptionWithVariations[]> = memoizeOne((): EmojiDescriptionWithVariations[] => {
-	return denormaliseEmojiServiceResponse({
-		emojis: getSiteEmojiData().emojis,
-	}).emojis;
-});
+export const getSiteEmojis: MemoizedFn<() => EmojiDescriptionWithVariations[]> = memoizeOne(
+	(): EmojiDescriptionWithVariations[] => {
+		return denormaliseEmojiServiceResponse({
+			emojis: getSiteEmojiData().emojis,
+		}).emojis;
+	},
+);

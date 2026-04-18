@@ -92,8 +92,8 @@ const TeamMembers = ({
 			? messages.membersMoreThan50IncludingYou
 			: messages.memberCountIncludingYou
 		: count >= LARGE_MEMBER_COUNT
-		? messages.membersMoreThan50
-		: messages.memberCount;
+			? messages.membersMoreThan50
+			: messages.memberCount;
 
 	// Use a ref to track whether this is currently open, so we can fire events
 	// iff the more section is being opened (not closed).

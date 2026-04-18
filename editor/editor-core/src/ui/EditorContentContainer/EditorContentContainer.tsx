@@ -826,9 +826,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					tableEmptyRowStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true)
-					    // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						&& tableContentModeStyles,
+					expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						tableContentModeStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					hyperLinkFloatingToolbarStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

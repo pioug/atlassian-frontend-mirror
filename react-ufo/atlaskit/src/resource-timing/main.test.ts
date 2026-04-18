@@ -54,8 +54,9 @@ describe('getResourceTimings timing name length validation', () => {
 
 	it('truncates long resource timing names when the gate is enabled', () => {
 		const longName = `https://example.com/${'a'.repeat(300)}`;
-		mockFg.mockImplementation((flagName: string) =>
-			flagName === 'platform_ufo_validate_timing_name_length');
+		mockFg.mockImplementation(
+			(flagName: string) => flagName === 'platform_ufo_validate_timing_name_length',
+		);
 		Object.defineProperty(window, 'performance', {
 			writable: true,
 			value: {

@@ -161,9 +161,7 @@ interface ThemedPrimitiveProps {
 }
 
 interface ThemedPressableProps
-	extends ThemedPrimitiveProps,
-		CommonProps,
-		Omit<PressableProps, OverriddenPrimitiveProps> {}
+	extends ThemedPrimitiveProps, CommonProps, Omit<PressableProps, OverriddenPrimitiveProps> {}
 
 export const ThemedPressable: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<ThemedPressableProps> & React.RefAttributes<HTMLButtonElement>

@@ -37,10 +37,11 @@ test.describe('Popup - rapid toggle', () => {
 		await expect(page.getByTestId('click-count')).toHaveText('4');
 
 		// At most one popover element should be open in the DOM at any point
-		const visiblePopovers = await page.evaluate(() =>
-			Array.from(document.querySelectorAll('[popover]')).filter((el) =>
-				el.matches(':popover-open'),
-			).length,
+		const visiblePopovers = await page.evaluate(
+			() =>
+				Array.from(document.querySelectorAll('[popover]')).filter((el) =>
+					el.matches(':popover-open'),
+				).length,
 		);
 		expect(visiblePopovers).toBeLessThanOrEqual(1);
 	});

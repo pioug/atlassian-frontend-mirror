@@ -536,8 +536,8 @@ export class TableContainer extends React.Component<
 		const lineLengthCSS = isFullWidthAppearance(rendererAppearance)
 			? fullWidthLineLengthCSS
 			: isMaxWidthAppearance(rendererAppearance) &&
-				(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))
+				  (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))
 				? maxWidthLineLengthCSS
 				: isCommentAppearanceAndTableAlignmentEnabled
 					? renderWidthCSS
@@ -618,7 +618,7 @@ export class TableContainer extends React.Component<
 			// instead of 760 that was set on tableNode when the table had been published.
 			finalTableContainerWidth =
 				(tableNode?.attrs.layout === 'align-start' || tableNode?.attrs.layout === 'center') &&
-					tableNode?.attrs.width
+				tableNode?.attrs.width
 					? `calc(${tableWidthCSS})`
 					: 'inherit';
 		}
@@ -645,13 +645,14 @@ export class TableContainer extends React.Component<
 			<>
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={`${TableSharedCssClassName.TABLE_CONTAINER} ${this.props.shadowClassNames || ''
-						}`}
+					className={`${TableSharedCssClassName.TABLE_CONTAINER} ${
+						this.props.shadowClassNames || ''
+					}`}
 					data-layout={updatedLayout}
 					data-testid="table-container"
 					ref={this.props.handleRef}
 					style={style}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				>
 					{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
 						<div

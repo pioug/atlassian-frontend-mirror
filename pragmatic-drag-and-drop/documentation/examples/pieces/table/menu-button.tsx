@@ -2,7 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, useCallback, useContext } from 'react';
+import {
+	forwardRef,
+	useCallback,
+	useContext,
+	type ForwardRefExoticComponent,
+	type RefAttributes,
+} from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -34,7 +40,12 @@ const columnMenuButtonWrapperStyles = css({
 	right: 12,
 });
 
-export const RowMenuButton = forwardRef<
+export const RowMenuButton: ForwardRefExoticComponent<
+	{
+		rowIndex: number;
+		amountOfRows: number;
+	} & RefAttributes<HTMLButtonElement>
+> = forwardRef<
 	HTMLButtonElement,
 	{
 		rowIndex: number;
@@ -81,7 +92,12 @@ export const RowMenuButton = forwardRef<
 	);
 });
 
-export const ColumnMenuButton = forwardRef<
+export const ColumnMenuButton: ForwardRefExoticComponent<
+	{
+		columnIndex: number;
+		amountOfHeaders: number;
+	} & RefAttributes<HTMLButtonElement>
+> = forwardRef<
 	HTMLButtonElement,
 	{
 		columnIndex: number;

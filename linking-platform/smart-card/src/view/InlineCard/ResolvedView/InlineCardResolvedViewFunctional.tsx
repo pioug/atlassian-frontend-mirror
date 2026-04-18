@@ -11,7 +11,6 @@ import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { renderLozenge } from './renderLozenge';
 import { type InlineCardResolvedViewFunctionalProps } from './types';
 
-
 export function InlineCardResolvedViewBase({
 	id,
 	title = '',
@@ -108,11 +107,7 @@ export function InlineCardResolvedViewFunctionalWithRovoActions({
 				hideIconLoadingSkeleton={hideIconLoadingSkeleton}
 			/>
 			{renderLozenge(lozenge)}
-			{
-				isEnabled && link && (
-					<RovoActionsCta testId={`${testId}-rovo-actions-cta`} />
-				)
-			}
+			{isEnabled && link && <RovoActionsCta testId={`${testId}-rovo-actions-cta`} />}
 		</Frame>
 	);
 

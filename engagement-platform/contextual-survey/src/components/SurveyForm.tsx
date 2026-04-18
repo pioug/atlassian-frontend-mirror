@@ -89,16 +89,16 @@ export default ({
 							)}
 						</Field>
 						<div {...resizingHeightProps} css={transitionBaseStyles}>
-								{expanded ? (
-									<SurveyFormExpandedFeedback
-										canContactDefault={canContactDefault}
-										onFeedbackChange={onFeedbackChange}
-										submitting={submitting}
-										textLabel={textLabel}
-										textPlaceholder={textPlaceholder}
-									/>
-								) : null}
-							</div>
+							{expanded ? (
+								<SurveyFormExpandedFeedback
+									canContactDefault={canContactDefault}
+									onFeedbackChange={onFeedbackChange}
+									submitting={submitting}
+									textLabel={textLabel}
+									textPlaceholder={textPlaceholder}
+								/>
+							) : null}
+						</div>
 					</form>
 				)}
 			</Form>

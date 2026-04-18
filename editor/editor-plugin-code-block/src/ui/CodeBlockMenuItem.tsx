@@ -36,7 +36,6 @@ const CodeBlockMenuItem = ({ api }: Props) => {
 		});
 	};
 
-
 	return (
 		<ToolbarDropdownItem
 			onClick={handleClick}

@@ -51,7 +51,8 @@ export const TitleBoxWrapper: {
 	displayName: string;
 } = (props: TitleBoxWrapperProps): JSX.Element => {
 	const { breakpoint, titleBoxBgColor, hidden } = props;
-	const color = titleBoxBgColor && rgba(HEX_REGEX.test(titleBoxBgColor) ? titleBoxBgColor : '#FFFFFF', 1);
+	const color =
+		titleBoxBgColor && rgba(HEX_REGEX.test(titleBoxBgColor) ? titleBoxBgColor : '#FFFFFF', 1);
 
 	return (
 		<div

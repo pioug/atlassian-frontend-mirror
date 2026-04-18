@@ -261,12 +261,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 				{
 					name: 'emojiAsciiInputRule',
 					plugin: ({ schema }) =>
-						asciiInputRulePlugin(
-							schema,
-							api?.analytics?.actions,
-							api,
-							options?.disableAutoformat,
-						),
+						asciiInputRulePlugin(schema, api?.analytics?.actions, api, options?.disableAutoformat),
 				},
 			];
 		},

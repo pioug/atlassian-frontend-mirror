@@ -36,7 +36,6 @@ const ParagraphBlockMenuItem = ({ api }: ParagraphBlockMenuItemProps) => {
 		});
 	};
 
-
 	return (
 		<ToolbarDropdownItem
 			onClick={handleClick}

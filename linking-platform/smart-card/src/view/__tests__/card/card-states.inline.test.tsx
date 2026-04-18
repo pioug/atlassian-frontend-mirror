@@ -19,7 +19,6 @@ import { fakeFactory, mocks, waitFor } from '../../../utils/mocks';
 import { Card } from '../../Card';
 import { InlineCardResolvingView } from '../../InlineCard';
 
-
 mockSimpleIntersectionObserver();
 
 describe('smart-card: card states, inline', () => {
@@ -442,65 +441,12 @@ describe('smart-card: card states, inline', () => {
 	describe('rovogrowth-640-inline-action-nudge experiment', () => {
 		const rovoOptions = { isRovoEnabled: true, isRovoLLMEnabled: true };
 
-		ffTest.on(
-			'smart-card-inline-resolved-view-refactor',
-			'with functional resolved view',
-			() => {
-				ffTest.on(
-					'rovogrowth-640-inline-action-nudge-fg',
-					'with inline nudge fg on',
-					() => {
-						eeTest
-							.describe('rovogrowth_640_inline_action_nudge', 'inline action nudge experiment')
-							.variant(true, () => {
-								it('renders the rovo action button when experiment is enabled', async () => {
-									render(
-										<IntlProvider locale="en">
-											<Provider client={mockClient} rovoOptions={rovoOptions}>
-												<Card appearance="inline" url={mockUrl} />
-											</Provider>
-										</IntlProvider>,
-									);
-									expect(await screen.findByTestId('inline-card-resolved-view')).toBeInTheDocument();
-									expect(await screen.findByTestId('inline-card-resolved-view-rovo-actions-cta')).toBeInTheDocument();
-								});
-
-								it('does not render rovo action button when rovo is disabled', async () => {
-									render(
-										<IntlProvider locale="en">
-											<Provider client={mockClient} rovoOptions={{ isRovoEnabled: false, isRovoLLMEnabled: false }}>
-												<Card appearance="inline" url={mockUrl} />
-											</Provider>
-										</IntlProvider>,
-									);
-									expect(await screen.findByTestId('inline-card-resolved-view')).toBeInTheDocument();
-									expect(screen.queryByTestId('inline-card-resolved-view-rovo-actions-cta')).not.toBeInTheDocument();
-								});
-							});
-
-						eeTest
-							.describe('rovogrowth_640_inline_action_nudge', 'inline action nudge experiment off')
-							.variant(false, () => {
-								it('does not render rovo action button when experiment is off', async () => {
-									render(
-										<IntlProvider locale="en">
-											<Provider client={mockClient} rovoOptions={rovoOptions}>
-												<Card appearance="inline" url={mockUrl} />
-											</Provider>
-										</IntlProvider>,
-									);
-									expect(await screen.findByTestId('inline-card-resolved-view')).toBeInTheDocument();
-									expect(screen.queryByTestId('inline-card-resolved-view-rovo-actions-cta')).not.toBeInTheDocument();
-								});
-							});
-					},
-				);
-
-				ffTest.off(
-					'rovogrowth-640-inline-action-nudge-fg',
-					'with inline nudge fg off',
-					() => {
-						it('does not render rovo action button when fg is off', async () => {
+		ffTest.on('smart-card-inline-resolved-view-refactor', 'with functional resolved view', () => {
+			ffTest.on('rovogrowth-640-inline-action-nudge-fg', 'with inline nudge fg on', () => {
+				eeTest
+					.describe('rovogrowth-640-inline-action-nudge-exp', 'inline action nudge experiment')
+					.variant(true, () => {
+						it('renders the rovo action button when experiment is enabled', async () => {
 							render(
 								<IntlProvider locale="en">
 									<Provider client={mockClient} rovoOptions={rovoOptions}>
@@ -509,12 +455,63 @@ describe('smart-card: card states, inline', () => {
 								</IntlProvider>,
 							);
 							expect(await screen.findByTestId('inline-card-resolved-view')).toBeInTheDocument();
-							expect(screen.queryByTestId('inline-card-resolved-view-rovo-actions-cta')).not.toBeInTheDocument();
+							expect(
+								await screen.findByTestId('inline-card-resolved-view-rovo-actions-cta'),
+							).toBeInTheDocument();
 						});
-					},
-				);
-			},
-		);
-	});
 
+						it('does not render rovo action button when rovo is disabled', async () => {
+							render(
+								<IntlProvider locale="en">
+									<Provider
+										client={mockClient}
+										rovoOptions={{ isRovoEnabled: false, isRovoLLMEnabled: false }}
+									>
+										<Card appearance="inline" url={mockUrl} />
+									</Provider>
+								</IntlProvider>,
+							);
+							expect(await screen.findByTestId('inline-card-resolved-view')).toBeInTheDocument();
+							expect(
+								screen.queryByTestId('inline-card-resolved-view-rovo-actions-cta'),
+							).not.toBeInTheDocument();
+						});
+					});
+
+				eeTest
+					.describe('rovogrowth-640-inline-action-nudge-exp', 'inline action nudge experiment off')
+					.variant(false, () => {
+						it('does not render rovo action button when experiment is off', async () => {
+							render(
+								<IntlProvider locale="en">
+									<Provider client={mockClient} rovoOptions={rovoOptions}>
+										<Card appearance="inline" url={mockUrl} />
+									</Provider>
+								</IntlProvider>,
+							);
+							expect(await screen.findByTestId('inline-card-resolved-view')).toBeInTheDocument();
+							expect(
+								screen.queryByTestId('inline-card-resolved-view-rovo-actions-cta'),
+							).not.toBeInTheDocument();
+						});
+					});
+			});
+
+			ffTest.off('rovogrowth-640-inline-action-nudge-fg', 'with inline nudge fg off', () => {
+				it('does not render rovo action button when fg is off', async () => {
+					render(
+						<IntlProvider locale="en">
+							<Provider client={mockClient} rovoOptions={rovoOptions}>
+								<Card appearance="inline" url={mockUrl} />
+							</Provider>
+						</IntlProvider>,
+					);
+					expect(await screen.findByTestId('inline-card-resolved-view')).toBeInTheDocument();
+					expect(
+						screen.queryByTestId('inline-card-resolved-view-rovo-actions-cta'),
+					).not.toBeInTheDocument();
+				});
+			});
+		});
+	});
 });

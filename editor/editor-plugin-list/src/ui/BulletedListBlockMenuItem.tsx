@@ -36,7 +36,6 @@ const BulletedListBlockMenuItem = ({ api }: BulletedListBlockMenuItemProps) => {
 		});
 	};
 
-
 	return (
 		<ToolbarDropdownItem
 			onClick={handleClick}

@@ -3,6 +3,7 @@ import React, { useCallback, useMemo } from 'react';
 import { type IntlShape, useIntl } from 'react-intl';
 
 import type { ProductType } from '@atlaskit/linking-common';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { InternalActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
@@ -21,12 +22,24 @@ export enum RovoChatPromptKey {
 	RECOMMEND_OTHER_SOURCES = 'recommend-other-sources',
 	SHOW_OTHER_MENTIONS = 'show-other-mentions',
 	SUGGEST_IMPROVEMENT = 'suggest-improvement',
+	SUMMARIZE_LINK = 'summarize-link',
+	KEY_HIGHLIGHTS = 'key-highlights',
+	ASK_ROVO_ANYTHING = 'ask-rovo-anything',
 }
-const DEFAULT_PROMPTS = [
+const GOOGLE_PROMPTS = [
 	RovoChatPromptKey.RECOMMEND_OTHER_SOURCES,
 	RovoChatPromptKey.SHOW_OTHER_MENTIONS,
 	RovoChatPromptKey.SUGGEST_IMPROVEMENT,
 ];
+
+const GENERIC_3P_PROMPTS = [
+	// For rovogrowth-640-inline-action-nudge-exp only. Applies to all RovoActions eligible providers, except Google
+	RovoChatPromptKey.SUMMARIZE_LINK,
+	RovoChatPromptKey.KEY_HIGHLIGHTS,
+	RovoChatPromptKey.ASK_ROVO_ANYTHING,
+];
+
+const DEFAULT_PROMPTS = GOOGLE_PROMPTS;
 
 type CurrentContextType = {
 	contextLong: string;
@@ -124,6 +137,66 @@ const getPromptAction = (
 					prompt: htmlToAdf(html_improvement),
 				},
 			};
+		case RovoChatPromptKey.SUMMARIZE_LINK:
+			const label_summarize = intl.formatMessage(messages.ai_summarize);
+			const html_summarize = intl.formatMessage(
+				messages.rovo_prompt_message_summarize,
+				{ url },
+				{ ignoreTag: true },
+			);
+			return {
+				icon: <AIEditIcon />,
+				content: label_summarize,
+				tooltipMessage: label_summarize,
+				data: {
+					name: label_summarize,
+					dialogues: [],
+					prompt: htmlToAdf(html_summarize),
+					mode: {
+						fastModeEnabled: true,
+					},
+				},
+			};
+		case RovoChatPromptKey.KEY_HIGHLIGHTS:
+			const label_key_highlights = intl.formatMessage(messages.rovo_prompt_button_key_highlights);
+			const html_key_highlights = intl.formatMessage(
+				messages.rovo_prompt_message_key_highlights,
+				{ url },
+				{ ignoreTag: true },
+			);
+			return {
+				icon: <AiChapterIcon />,
+				content: label_key_highlights,
+				tooltipMessage: label_key_highlights,
+				data: {
+					name: label_key_highlights,
+					dialogues: [],
+					prompt: htmlToAdf(html_key_highlights),
+					mode: {
+						fastModeEnabled: true,
+					},
+				},
+			};
+		case RovoChatPromptKey.ASK_ROVO_ANYTHING:
+			const label_ask_rovo_anything = intl.formatMessage(
+				messages.rovo_prompt_button_ask_rovo_anything,
+			);
+			const prompt_ask_rovo_anything = intl.formatMessage(
+				messages.rovo_prompt_message_ask_rovo_anything,
+				{ url },
+			);
+			return {
+				icon: <AISearchIcon />,
+				content: label_ask_rovo_anything,
+				tooltipMessage: label_ask_rovo_anything,
+				data: {
+					name: label_ask_rovo_anything,
+					dialogues: [],
+					prompt: prompt_ask_rovo_anything,
+					isPromptPlaceholder: true,
+					placeholderType: 'generic',
+				},
+			};
 	}
 };
 
@@ -132,7 +205,7 @@ type RovoChatActionProps = LinkActionProps & {
 };
 const RovoChatAction = ({
 	onClick: onClickCallback,
-	prompts = DEFAULT_PROMPTS,
+	prompts,
 	testId = 'smart-action-rovo-chat-action',
 	...props
 }: RovoChatActionProps): React.JSX.Element | null => {
@@ -140,6 +213,19 @@ const RovoChatAction = ({
 	const { isRovoChatEnabled, sendPromptMessage } = useRovoChat();
 	const context = useFlexibleUiContext();
 	const data = context?.actions?.[InternalActionName.RovoChatAction];
+
+	const resolvedPrompts = useMemo(() => {
+		if (prompts) {
+			return prompts;
+		}
+		if (
+			expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true) &&
+			data?.invokeAction?.extensionKey !== 'google-object-provider'
+		) {
+			return GENERIC_3P_PROMPTS;
+		}
+		return DEFAULT_PROMPTS;
+	}, [prompts, data?.invokeAction?.extensionKey]);
 	const invoke = useInvokeClientAction({});
 
 	const onClick = useCallback(
@@ -158,7 +244,7 @@ const RovoChatAction = ({
 	);
 
 	const promptActions = useMemo(() => {
-		return prompts.map((promptKey: RovoChatPromptKey, idx: number) => {
+		return resolvedPrompts.map((promptKey: RovoChatPromptKey, idx: number) => {
 			const {
 				icon,
 				content,
@@ -178,7 +264,7 @@ const RovoChatAction = ({
 				/>
 			) : null;
 		});
-	}, [data, intl, onClick, prompts, props, testId]);
+	}, [data, intl, onClick, resolvedPrompts, props, testId]);
 
 	return isRovoChatEnabled && data && promptActions?.length > 0 ? <>{promptActions}</> : null;
 };

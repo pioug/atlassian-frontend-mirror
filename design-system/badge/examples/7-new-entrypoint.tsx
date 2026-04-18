@@ -82,9 +82,10 @@ export default function NewEntrypointBadgeExample(): JSX.Element {
 				<Heading size="large">Badge — /new entrypoint</Heading>
 				<Text>
 					These badges are imported from <Code>@atlaskit/badge/new</Code> and render the new visual
-					refresh without needing the feature flag. This entrypoint is intended for products
-					that don't have access to feature flags. It will be removed after rollout, requiring
-					callsite cleanup. If your app has access to feature flags, please use the default entrypoint instead.
+					refresh without needing the feature flag. This entrypoint is intended for products that
+					don't have access to feature flags. It will be removed after rollout, requiring callsite
+					cleanup. If your app has access to feature flags, please use the default entrypoint
+					instead.
 				</Text>
 
 				{/* All new appearances */}

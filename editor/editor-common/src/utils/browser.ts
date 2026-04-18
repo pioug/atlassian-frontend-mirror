@@ -116,13 +116,13 @@ export const getBrowserInfo: MemoizedFn<
 			// inspired from https://github.com/bowser-js/bowser/blob/master/src/parser-browsers.js
 			result.ie_version = ieEdge
 				? // eslint-disable-next-line require-unicode-regexp
-				  parseInt(getFirstMatch(/\sedg\/(\d+(\.?_?\d+)+)/i, userAgent), 10)
+					parseInt(getFirstMatch(/\sedg\/(\d+(\.?_?\d+)+)/i, userAgent), 10)
 				: // eslint-disable-next-line require-unicode-regexp
-				ieEdge2
-				? // eslint-disable-next-line require-unicode-regexp
-				  parseInt(getSecondMatch(/edg([ea]|ios)\/(\d+(\.?_?\d+)+)/i, userAgent), 10)
-				: // eslint-disable-next-line require-unicode-regexp
-				  parseInt(getFirstMatch(/(?:msie |rv:)(\d+(\.?_?\d+)+)/i, userAgent), 10);
+					ieEdge2
+					? // eslint-disable-next-line require-unicode-regexp
+						parseInt(getSecondMatch(/edg([ea]|ios)\/(\d+(\.?_?\d+)+)/i, userAgent), 10)
+					: // eslint-disable-next-line require-unicode-regexp
+						parseInt(getFirstMatch(/(?:msie |rv:)(\d+(\.?_?\d+)+)/i, userAgent), 10);
 
 			// Ignored via go/ees005
 			// eslint-disable-next-line require-unicode-regexp

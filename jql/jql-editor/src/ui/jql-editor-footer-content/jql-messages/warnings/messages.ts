@@ -17,6 +17,7 @@ export const messages = defineMessages({
 	defaultWarning: {
 		id: 'jql-editor.ui.jql-warning-message.default',
 		defaultMessage: '{deprecatedField} has been deprecated and may stop working in the future.',
-		description: 'The text is shown as a warning message in the JQL editor footer when a deprecated field is used in the query. The placeholder {deprecatedField} will be substituted with the name of the deprecated JQL field.',
+		description:
+			'The text is shown as a warning message in the JQL editor footer when a deprecated field is used in the query. The placeholder {deprecatedField} will be substituted with the name of the deprecated JQL field.',
 	},
 });

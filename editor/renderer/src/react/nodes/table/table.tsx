@@ -67,13 +67,13 @@ export const Table = React.memo(
 		const tableLayout = tableNode?.attrs.layout;
 		const tableDisplayMode = tableNode?.attrs.displayMode;
 
-
-		const isContentMode = isTableInContentMode({
-			tableNode,
-			allowTableResizing,
-			rendererAppearance,
-			isTableNested: isInsideOfBlockNode || isInsideOfTable,
-		}) && expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true);
+		const isContentMode =
+			isTableInContentMode({
+				tableNode,
+				allowTableResizing,
+				rendererAppearance,
+				isTableNested: isInsideOfBlockNode || isInsideOfTable,
+			}) && expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true);
 
 		return (
 			<table

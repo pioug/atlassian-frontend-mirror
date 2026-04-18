@@ -1,6 +1,11 @@
 import type React from 'react';
 
-import { isModified, getRoutePathFromUrl, isTeamsAppRoute, prefixWithContextEntryPoint } from '../utils/utils';
+import {
+	isModified,
+	getRoutePathFromUrl,
+	isTeamsAppRoute,
+	prefixWithContextEntryPoint,
+} from '../utils/utils';
 
 import { classifyNavigationIntent } from './classifyNavigationIntent';
 

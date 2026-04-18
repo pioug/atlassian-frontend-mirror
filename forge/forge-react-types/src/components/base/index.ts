@@ -132,7 +132,7 @@ export type UserPickerProps = {
 	onChange?: (user: UserPickerValue) => void;
 	/** The placeholder helper text shown when no user is selected. */
 	placeholder?: string;
-}
+};
 
 /**
  * A dropdown field that allows users to search and select users from a list.

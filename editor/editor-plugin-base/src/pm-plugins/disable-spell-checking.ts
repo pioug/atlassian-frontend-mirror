@@ -8,9 +8,7 @@ import type {
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
-function getCurrentBrowserAndVersion(
-	browserEnv: ReturnType<typeof getBrowserInfo>,
-):
+function getCurrentBrowserAndVersion(browserEnv: ReturnType<typeof getBrowserInfo>):
 	| {
 			browser: Browsers;
 			version: number;

@@ -3,11 +3,22 @@ import { mergeStyles, type StylesConfig } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
 
-export const BORDER_PADDING: "var(--ds-space-075)" = token('space.075');
+export const BORDER_PADDING: 'var(--ds-space-075)' = token('space.075');
 export const AVATAR_PADDING = 6;
 export const INDICATOR_WIDTH = 39;
 
-export const getStyles: MemoizedFn<(width: string | number, isMulti?: boolean, isCompact?: boolean, overrideStyles?: StylesConfig, isVisualRefresh?: boolean, isPopupStyles?: boolean, height?: number | string, minHeight?: number | string) => StylesConfig> = memoizeOne(
+export const getStyles: MemoizedFn<
+	(
+		width: string | number,
+		isMulti?: boolean,
+		isCompact?: boolean,
+		overrideStyles?: StylesConfig,
+		isVisualRefresh?: boolean,
+		isPopupStyles?: boolean,
+		height?: number | string,
+		minHeight?: number | string,
+	) => StylesConfig
+> = memoizeOne(
 	(
 		width: string | number,
 		isMulti?: boolean,
@@ -198,7 +209,14 @@ export const getStyles: MemoizedFn<(width: string | number, isMulti?: boolean, i
 	},
 );
 
-export const getPopupStyles: MemoizedFn<(width: string | number, isMulti?: boolean, overrideStyles?: StylesConfig, isVisualRefresh?: boolean) => StylesConfig> = memoizeOne(
+export const getPopupStyles: MemoizedFn<
+	(
+		width: string | number,
+		isMulti?: boolean,
+		overrideStyles?: StylesConfig,
+		isVisualRefresh?: boolean,
+	) => StylesConfig
+> = memoizeOne(
 	(
 		width: string | number,
 		isMulti?: boolean,

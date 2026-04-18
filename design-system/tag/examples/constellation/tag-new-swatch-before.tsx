@@ -6,7 +6,15 @@ import { token } from '@atlaskit/tokens';
 
 export default (): React.JSX.Element => (
 	<Stack space="space.100">
-		<Inline><SimpleTag text="Project A" color="blue" swatchBefore /></Inline>
-		<Inline><SimpleTag text="Project B" color="blue" swatchBefore={token('color.background.accent.blue.subtler')} /></Inline>
+		<Inline>
+			<SimpleTag text="Project A" color="blue" swatchBefore />
+		</Inline>
+		<Inline>
+			<SimpleTag
+				text="Project B"
+				color="blue"
+				swatchBefore={token('color.background.accent.blue.subtler')}
+			/>
+		</Inline>
 	</Stack>
 );

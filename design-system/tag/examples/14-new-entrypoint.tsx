@@ -12,22 +12,22 @@ import type { NewTagColor } from '@atlaskit/tag/new';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({
-  display: 'flex',
-  gap: token('space.200'),
-  flexDirection: 'column',
-  paddingBlockEnd: token('space.200'),
-  paddingBlockStart: token('space.200'),
-  paddingInlineEnd: token('space.200'),
-  paddingInlineStart: token('space.200')
+	display: 'flex',
+	gap: token('space.200'),
+	flexDirection: 'column',
+	paddingBlockEnd: token('space.200'),
+	paddingBlockStart: token('space.200'),
+	paddingInlineEnd: token('space.200'),
+	paddingInlineStart: token('space.200'),
 });
 
 const sectionStyles = css({
-  backgroundColor: token('color.background.neutral.subtle'),
-  borderRadius: token('radius.small', '3px'),
-  paddingBlockEnd: token('space.200'),
-  paddingBlockStart: token('space.200'),
-  paddingInlineEnd: token('space.200'),
-  paddingInlineStart: token('space.200')
+	backgroundColor: token('color.background.neutral.subtle'),
+	borderRadius: token('radius.small', '3px'),
+	paddingBlockEnd: token('space.200'),
+	paddingBlockStart: token('space.200'),
+	paddingInlineEnd: token('space.200'),
+	paddingInlineStart: token('space.200'),
 });
 
 const colors: NewTagColor[] = [
@@ -62,9 +62,10 @@ export default function NewEntrypointTagExample(): JSX.Element {
 					<Heading size="large">Tag — /new entrypoint</Heading>
 					<Text>
 						These tags are imported from <Code>@atlaskit/tag/new</Code> and render the new visual
-						refresh without needing the feature flag. This entrypoint is intended for products
-						that don't have access to feature flags. It will be removed after rollout, requiring
-						callsite cleanup. If your app has access to feature flags, please use the default entrypoint instead.
+						refresh without needing the feature flag. This entrypoint is intended for products that
+						don't have access to feature flags. It will be removed after rollout, requiring callsite
+						cleanup. If your app has access to feature flags, please use the default entrypoint
+						instead.
 					</Text>
 				</Stack>
 
@@ -103,9 +104,24 @@ export default function NewEntrypointTagExample(): JSX.Element {
 					<Stack space="space.200">
 						<Text weight="bold">As Links</Text>
 						<Inline space="space.100" alignBlock="center">
-							<Tag text="Blue link" color="blue" href="https://atlassian.design" isRemovable={false} />
-							<Tag text="Green link" color="green" href="https://atlassian.design" isRemovable={false} />
-							<Tag text="Purple link" color="purple" href="https://atlassian.design" isRemovable={false} />
+							<Tag
+								text="Blue link"
+								color="blue"
+								href="https://atlassian.design"
+								isRemovable={false}
+							/>
+							<Tag
+								text="Green link"
+								color="green"
+								href="https://atlassian.design"
+								isRemovable={false}
+							/>
+							<Tag
+								text="Purple link"
+								color="purple"
+								href="https://atlassian.design"
+								isRemovable={false}
+							/>
 						</Inline>
 					</Stack>
 				</div>

@@ -292,10 +292,7 @@ export const ContentComponent = ({
 			dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 			fallbackComponent={null}
 		>
-			<GlobalStylesWrapper
-				featureFlags={api?.featureFlags?.sharedState.currentState()}
-				api={api}
-			/>
+			<GlobalStylesWrapper featureFlags={api?.featureFlags?.sharedState.currentState()} api={api} />
 			<ContentComponentInternal
 				api={api}
 				editorView={editorView}

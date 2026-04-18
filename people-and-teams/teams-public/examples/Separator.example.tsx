@@ -3,7 +3,6 @@ import React from 'react';
 import { Inline, Text } from '@atlaskit/primitives/compiled';
 import { Playground } from '@atlassian/teams-app-internal-playground/playground';
 
-
 import { Separator } from '../src';
 
 export default function Example(): React.JSX.Element {

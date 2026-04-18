@@ -2,7 +2,10 @@ import { snapshot } from '@af/visual-regression';
 
 import HoverCardActions from '../../../examples/vr-hover-card/vr-hover-card-actions';
 import HoverCardPositioning from '../../../examples/vr-hover-card/vr-hover-card-can-open-positioning';
-import HoverCardRovoChatAction from '../../../examples/vr-hover-card/vr-hover-card-rovo-chat-action';
+import {
+	HoverCardRovoChatActionGoogle,
+	HoverCardRovoChatActionSlack,
+} from '../../../examples/vr-hover-card/vr-hover-card-rovo-chat-action';
 import HoverCard from '../../../examples/vr-hover-card/vr-hover-cards';
 import HoverCardWithEntities from '../../../examples/vr-hover-card/vr-hover-cards-entities';
 import HoverCardSSRError from '../../../examples/vr-hover-card/vr-hover-cards-ssr-error';
@@ -81,7 +84,8 @@ snapshot(HoverCardActions, {
 	waitForReactLazy: true,
 });
 
-snapshot(HoverCardRovoChatAction, {
+snapshot(HoverCardRovoChatActionGoogle, {
+	description: 'hover card with google rovo chat action',
 	drawsOutsideBounds: true,
 	states: [
 		{
@@ -92,6 +96,21 @@ snapshot(HoverCardRovoChatAction, {
 	featureFlags: {
 		platform_sl_3p_auth_rovo_action_kill_switch: true,
 		platform_sl_3p_auth_rovo_action: true,
+	},
+	waitForReactLazy: true,
+});
+
+snapshot(HoverCardRovoChatActionSlack, {
+	description: 'hover card with generic 3P rovo chat action',
+	drawsOutsideBounds: true,
+	states: [
+		{
+			state: 'hovered',
+			selector: { byTestId: 'hover-card-trigger-wrapper' },
+		},
+	],
+	featureFlags: {
+		'rovogrowth-640-inline-action-nudge-fg': true,
 	},
 	waitForReactLazy: true,
 });

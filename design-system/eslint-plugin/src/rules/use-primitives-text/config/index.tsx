@@ -21,12 +21,7 @@ export interface RuleConfig {
 
 const defaults: RuleConfig = {
 	failSilently: false,
-	patterns: [
-		'paragraph-elements',
-		'span-elements',
-		'strong-elements',
-		'emphasis-elements',
-	],
+	patterns: ['paragraph-elements', 'span-elements', 'strong-elements', 'emphasis-elements'],
 	inheritColor: false,
 	enableUnsafeAutofix: false,
 	enableUnsafeReport: true,

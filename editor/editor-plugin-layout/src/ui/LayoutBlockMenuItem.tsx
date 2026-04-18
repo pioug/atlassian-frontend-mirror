@@ -55,7 +55,11 @@ const LayoutBlockMenuItem = ({ api }: Props) => {
 	return (
 		<ToolbarDropdownItem
 			onClick={handleClick}
-			elemBefore={<span css={styles.svgOverflow}><LayoutTwoColumnsIcon label="" size="small" /></span>}
+			elemBefore={
+				<span css={styles.svgOverflow}>
+					<LayoutTwoColumnsIcon label="" size="small" />
+				</span>
+			}
 		>
 			{formatMessage(blockMenuMessages.layout)}
 		</ToolbarDropdownItem>

@@ -28,7 +28,13 @@ const getLabelForType = (
 	}
 };
 
-export const groupOptionsByType: MemoizedFn<(options: Option[], groupByTypeOrder: NonNullable<OptionData["type"]>[], customGroupLabels?: Partial<Record<NonNullable<OptionData["type"]>, React.ReactNode>>) => Option[] | GroupedOptions[]> = memoizeOne(
+export const groupOptionsByType: MemoizedFn<
+	(
+		options: Option[],
+		groupByTypeOrder: NonNullable<OptionData['type']>[],
+		customGroupLabels?: Partial<Record<NonNullable<OptionData['type']>, React.ReactNode>>,
+	) => Option[] | GroupedOptions[]
+> = memoizeOne(
 	(
 		options: Option[],
 		groupByTypeOrder: NonNullable<OptionData['type']>[],

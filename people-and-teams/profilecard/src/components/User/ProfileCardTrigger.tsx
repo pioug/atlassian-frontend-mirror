@@ -157,8 +157,7 @@ export default function ProfilecardTriggerNext({
 	// When externally controlled with the flashing fix enabled, use a short debounce
 	// to absorb rapid focus changes from dropdown options settling after async load.
 	const REDUCED_DELAY_MS = 100;
-	const shouldReduceDelay =
-		isExternalControl && fg('jira_ai_fix_agent_profile_card_flashing');
+	const shouldReduceDelay = isExternalControl && fg('jira_ai_fix_agent_profile_card_flashing');
 
 	let showDelay = customShowDelay ?? DELAY_MS_SHOW;
 	let hideDelay = customHideDelay ?? DELAY_MS_HIDE;

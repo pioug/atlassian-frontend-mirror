@@ -232,7 +232,8 @@ export const messages: Messages = defineMessages({
 	retry: {
 		id: 'fabric.media.retry',
 		defaultMessage: 'Retry',
-		description: 'The text is shown on a button in the media UI when an action has failed and the user can attempt it again, such as retrying a failed upload or file load.',
+		description:
+			'The text is shown on a button in the media UI when an action has failed and the user can attempt it again, such as retrying a failed upload or file load.',
 	},
 	failed_to_load: {
 		id: 'fabric.media.failed_to_load',
@@ -279,27 +280,32 @@ export const messages: Messages = defineMessages({
 	upload: {
 		id: 'fabric.media.upload',
 		defaultMessage: 'Upload',
-		description: 'The text is shown on a button in the media UI that initiates the upload of a selected file to the server.',
+		description:
+			'The text is shown on a button in the media UI that initiates the upload of a selected file to the server.',
 	},
 	cancel: {
 		id: 'fabric.media.cancel',
 		defaultMessage: 'Cancel',
-		description: 'The text is shown on a button in the media UI that cancels the current operation, such as an in-progress upload or file selection.',
+		description:
+			'The text is shown on a button in the media UI that cancels the current operation, such as an in-progress upload or file selection.',
 	},
 	delete: {
 		id: 'fabric.media.delete',
 		defaultMessage: 'Delete',
-		description: 'The text is shown on a button in the media UI that permanently deletes the selected media file.',
+		description:
+			'The text is shown on a button in the media UI that permanently deletes the selected media file.',
 	},
 	success: {
 		id: 'fabric.media.success',
 		defaultMessage: 'Success',
-		description: 'The text is shown as a status indicator in the media UI when an operation, such as uploading or saving a file, has completed successfully.',
+		description:
+			'The text is shown as a status indicator in the media UI when an operation, such as uploading or saving a file, has completed successfully.',
 	},
 	error: {
 		id: 'fabric.media.error',
 		defaultMessage: 'Error',
-		description: 'The text is shown as a status indicator in the media UI when an operation has encountered an error, such as a failed upload or file load.',
+		description:
+			'The text is shown as a status indicator in the media UI when an operation has encountered an error, such as a failed upload or file load.',
 	},
 	search_all_gifs: {
 		id: 'fabric.media.search_all_gifs',
@@ -325,7 +331,8 @@ export const messages: Messages = defineMessages({
 	try_again: {
 		id: 'fabric.media.try_again',
 		defaultMessage: 'Try again',
-		description: 'The text is shown on a button in the media UI when a previous action has failed and the user is prompted to attempt it again, such as retrying a failed file preview or upload.',
+		description:
+			'The text is shown on a button in the media UI when a previous action has failed and the user is prompted to attempt it again, such as retrying a failed file preview or upload.',
 	},
 	try_another_account: {
 		id: 'fabric.media.try_another_account',
@@ -345,12 +352,14 @@ export const messages: Messages = defineMessages({
 	load_more_gifs: {
 		id: 'fabric.media.load_more_gifs',
 		defaultMessage: 'Load more GIFs',
-		description: 'The text is shown on a button in the media GIF picker that loads the next page of GIF search results when clicked.',
+		description:
+			'The text is shown on a button in the media GIF picker that loads the next page of GIF search results when clicked.',
 	},
 	add_account: {
 		id: 'fabric.media.add_account',
 		defaultMessage: 'Add account',
-		description: 'The text is shown on a button in the media file picker that allows the user to connect an additional cloud storage account (e.g. Google Drive, Dropbox) as a media source.',
+		description:
+			'The text is shown on a button in the media file picker that allows the user to connect an additional cloud storage account (e.g. Google Drive, Dropbox) as a media source.',
 	},
 	unlink_account: {
 		id: 'fabric.media.unlink_account',
@@ -443,17 +452,20 @@ export const messages: Messages = defineMessages({
 	loading_file: {
 		id: 'fabric.media.loading_file',
 		defaultMessage: 'Loading file...',
-		description: 'The text is shown as a loading indicator on a media card while the file is being fetched from the server and is not yet ready to display.',
+		description:
+			'The text is shown as a loading indicator on a media card while the file is being fetched from the server and is not yet ready to display.',
 	},
 	save: {
 		id: 'fabric.media.save',
 		defaultMessage: 'Save',
-		description: 'The text is shown on a primary action button in the media editor or settings panel that saves the current changes made by the user.',
+		description:
+			'The text is shown on a primary action button in the media editor or settings panel that saves the current changes made by the user.',
 	},
 	or: {
 		id: 'fabric.media.or',
 		defaultMessage: 'or',
-		description: 'The text is shown as a conjunction between two alternative upload options in the media picker, separating options such as drag-and-drop and file browsing.',
+		description:
+			'The text is shown as a conjunction between two alternative upload options in the media picker, separating options such as drag-and-drop and file browsing.',
 	},
 	upload_photo: {
 		id: 'fabric.media.upload_photo',
@@ -463,7 +475,8 @@ export const messages: Messages = defineMessages({
 	default_avatars: {
 		id: 'fabric.media.default_avatars',
 		defaultMessage: 'Default avatars',
-		description: 'The text is shown as a section heading above the list of pre-built default avatars that users can choose from in the avatar selection UI.',
+		description:
+			'The text is shown as a section heading above the list of pre-built default avatars that users can choose from in the avatar selection UI.',
 	},
 	avatar_picker_back_btn_label: {
 		id: 'fabric.media.avatar_picker_back_btn_label',
@@ -478,12 +491,14 @@ export const messages: Messages = defineMessages({
 	alt_text: {
 		id: 'fabric.media.alt_text_label',
 		defaultMessage: 'Alt text',
-		description: 'The text is shown as the label above the alt text input field in the media editor, prompting the user to enter a text description for the selected image for accessibility purposes.',
+		description:
+			'The text is shown as the label above the alt text input field in the media editor, prompting the user to enter a text description for the selected image for accessibility purposes.',
 	},
 	alt_text_description: {
 		id: 'fabric.media.alt_text_helper_message',
 		defaultMessage: 'How would you describe the selected image to someone with low vision?',
-		description: 'The text is shown as helper text below the alt text input field in the media editor, guiding users to write a description of the image for people with visual impairments.',
+		description:
+			'The text is shown as helper text below the alt text input field in the media editor, guiding users to write a description of the image for people with visual impairments.',
 	},
 	image_url_invalid_error: {
 		id: 'fabric.media.image_url_invalid_error',
@@ -493,12 +508,14 @@ export const messages: Messages = defineMessages({
 	image_format_invalid_error: {
 		id: 'fabric.media.image_format_invalid_error',
 		defaultMessage: 'Could not load image, the format is invalid.',
-		description: 'The text is shown as an error message in the media image editor when the uploaded image file has an unsupported or invalid format and cannot be loaded.',
+		description:
+			'The text is shown as an error message in the media image editor when the uploaded image file has an unsupported or invalid format and cannot be loaded.',
 	},
 	image_size_too_large_error: {
 		id: 'fabric.media.image_size_too_large_error',
 		defaultMessage: 'Image is too large, must be no larger than {MAX_SIZE_MB}Mb',
-		description: 'The text is shown as an error message in the media image editor when the uploaded image exceeds the maximum allowed file size. The placeholder {MAX_SIZE_MB} will be substituted with the maximum allowed size in megabytes.',
+		description:
+			'The text is shown as an error message in the media image editor when the uploaded image exceeds the maximum allowed file size. The placeholder {MAX_SIZE_MB} will be substituted with the maximum allowed size in megabytes.',
 	},
 	something_went_wrong: {
 		id: 'fabric.media.something_went_wrong',
@@ -554,12 +571,14 @@ export const messages: Messages = defineMessages({
 	password: {
 		id: 'fabric.media.password',
 		defaultMessage: 'Password',
-		description: 'The text is shown as the label for the password input field in the media file access form, indicating that the user must enter a password to access the protected file.',
+		description:
+			'The text is shown as the label for the password input field in the media file access form, indicating that the user must enter a password to access the protected file.',
 	},
 	enter_password: {
 		id: 'fabric.media.enter_password',
 		defaultMessage: 'Enter password',
-		description: 'The text is shown as the placeholder hint inside the password input field in the media file access form, prompting the user to type in the password required to open the file.',
+		description:
+			'The text is shown as the placeholder hint inside the password input field in the media file access form, prompting the user to type in the password required to open the file.',
 	},
 	incorrect_password: {
 		id: 'fabric.media.incorrect_password',
@@ -710,17 +729,20 @@ export const messages: Messages = defineMessages({
 	zoom_out: {
 		id: 'fabric.media.zoom_out',
 		defaultMessage: 'zoom out',
-		description: 'The text is shown as the accessible label for the zoom-out button in the media viewer toolbar, allowing the user to decrease the zoom level of the currently displayed file.',
+		description:
+			'The text is shown as the accessible label for the zoom-out button in the media viewer toolbar, allowing the user to decrease the zoom level of the currently displayed file.',
 	},
 	zoom_in: {
 		id: 'fabric.media.zoom_in',
 		defaultMessage: 'zoom in',
-		description: 'The text is shown as the accessible label for the zoom-in button in the media viewer toolbar, allowing the user to increase the zoom level of the currently displayed file.',
+		description:
+			'The text is shown as the accessible label for the zoom-in button in the media viewer toolbar, allowing the user to increase the zoom level of the currently displayed file.',
 	},
 	remove_image: {
 		id: 'fabric.media.remove_image',
 		defaultMessage: 'Remove image',
-		description: 'The text is shown on a button in the media image editor or avatar picker that removes the currently selected or uploaded image, clearing the selection.',
+		description:
+			'The text is shown on a button in the media image editor or avatar picker that removes the currently selected or uploaded image, clearing the selection.',
 	},
 	play: {
 		id: 'fabric.media.play',
@@ -805,7 +827,8 @@ export const messages: Messages = defineMessages({
 	displayThumbnail: {
 		id: 'fabric.media.display_thumbnail',
 		defaultMessage: 'Display thumbnail',
-		description: 'The text is shown as a label for the thumbnail display option in the media viewer settings, allowing the user to switch the file view to a thumbnail representation.',
+		description:
+			'The text is shown as a label for the thumbnail display option in the media viewer settings, allowing the user to switch the file view to a thumbnail representation.',
 	},
 	search: {
 		id: 'fabric.media.search',
@@ -961,32 +984,38 @@ export const messages: Messages = defineMessages({
 	preview_unavailable: {
 		id: 'fabric.media.preview_unavailable',
 		defaultMessage: 'Preview unavailable',
-		description: 'The text is shown on a media card when a preview of the file cannot be generated or displayed, indicating to the user that no visual preview is available for this file.',
+		description:
+			'The text is shown on a media card when a preview of the file cannot be generated or displayed, indicating to the user that no visual preview is available for this file.',
 	},
 	couldnt_load_file: {
 		id: 'fabric.media.couldnt_load_file',
 		defaultMessage: "We couldn't load the file.",
-		description: 'The text is shown on a media card as an error message when the file cannot be loaded because the request has been rate limited and no file metadata is available.',
+		description:
+			'The text is shown on a media card as an error message when the file cannot be loaded because the request has been rate limited and no file metadata is available.',
 	},
 	error_429: {
 		id: 'fabric.media.error_429',
 		defaultMessage: 'Error 429',
-		description: 'The text is shown as the error code label on a media card or viewer when an HTTP 429 Too Many Requests error occurs, indicating the user has been rate limited.',
+		description:
+			'The text is shown as the error code label on a media card or viewer when an HTTP 429 Too Many Requests error occurs, indicating the user has been rate limited.',
 	},
 	close_and_reopen: {
 		id: 'fabric.media.close_and_reopen',
 		defaultMessage: 'Try closing this file and reopening.',
-		description: 'The text is shown as an instructional message on a media card or viewer when the file preview is rate limited, guiding the user to close and reopen the file to try again.',
+		description:
+			'The text is shown as an instructional message on a media card or viewer when the file preview is rate limited, guiding the user to close and reopen the file to try again.',
 	},
 	viewer_rateLimited: {
 		id: 'fabric.media.viewer_rateLimited',
 		defaultMessage: `We're having difficulties loading your file.`,
-		description: 'The text is shown in the media viewer when the viewer has been rate limited and cannot display the file. This message is composed from other sibling messages (error code, instructional text).',
+		description:
+			'The text is shown in the media viewer when the viewer has been rate limited and cannot display the file. This message is composed from other sibling messages (error code, instructional text).',
 	},
 	zip_entry_load_fail: {
 		id: 'fabric.media.zip_entry_load_failed',
 		defaultMessage: `We couldn't load that zip file item to preview`,
-		description: 'The text is shown in the media viewer when a specific entry (file) inside a ZIP archive fails to load or cannot be displayed.',
+		description:
+			'The text is shown in the media viewer when a specific entry (file) inside a ZIP archive fails to load or cannot be displayed.',
 	},
 	file_image_is_selected: {
 		id: 'fabric.media.file_is_selected',
@@ -1036,23 +1065,27 @@ export const messages: Messages = defineMessages({
 	video_seeker_label_assistive_text: {
 		id: 'fabric.media.video_seeker_label_assistive_text',
 		defaultMessage: 'Seek slider',
-		description: 'The text is shown as the accessible aria-label for the seek slider control in the media video player, allowing users relying on assistive technology to understand this control adjusts the video playback position.',
+		description:
+			'The text is shown as the accessible aria-label for the seek slider control in the media video player, allowing users relying on assistive technology to understand this control adjusts the video playback position.',
 	},
 	abuse_modal_body: {
 		id: 'fabric.media.abuse_modal_body',
 		defaultMessage:
 			'For your security, our system automatically scans all uploaded files. The file you are about to download potentially contains malicious content',
-		description: 'The text is shown as the body content of a warning modal that appears before a user downloads a file flagged as potentially malicious by an automated security scan.',
+		description:
+			'The text is shown as the body content of a warning modal that appears before a user downloads a file flagged as potentially malicious by an automated security scan.',
 	},
 	abuse_modal_title: {
 		id: 'fabric.media.abuse_modal_title',
 		defaultMessage: 'Warning',
-		description: 'The text is shown as the heading of the warning modal that appears before a user downloads a file flagged as potentially malicious by the automated security system.',
+		description:
+			'The text is shown as the heading of the warning modal that appears before a user downloads a file flagged as potentially malicious by the automated security system.',
 	},
 	abuse_modal_submit: {
 		id: 'fabric.media.abuse_modal_submit',
 		defaultMessage: 'Proceed with download',
-		description: 'The text is shown on the confirm button in the security warning modal, allowing the user to proceed with downloading a file that has been flagged as potentially malicious.',
+		description:
+			'The text is shown on the confirm button in the security warning modal, allowing the user to proceed with downloading a file that has been flagged as potentially malicious.',
 	},
 	image_cropper_arrow_keys_label: {
 		id: 'media.media-avatar-picker.image-cropper.arrow-keys.label',
@@ -1089,12 +1122,14 @@ export const messages: Messages = defineMessages({
 	svg_base_alt: {
 		id: 'media.media-viewer.base-svg.alt',
 		defaultMessage: 'Svg Image',
-		description: 'The text is shown as the alt attribute for the SVG image element in the media viewer, providing an accessible text description for screen reader users.',
+		description:
+			'The text is shown as the alt attribute for the SVG image element in the media viewer, providing an accessible text description for screen reader users.',
 	},
 	svg_image_preview_label_assistive_text: {
 		id: 'media.media-viewer.svg-wrapper.label_assistive_text',
 		defaultMessage: 'Close Image Preview',
-		description: 'The text is shown as the aria-label for the interactive SVG image wrapper in the media viewer, indicating to assistive technology users that clicking it closes the image preview.',
+		description:
+			'The text is shown as the aria-label for the interactive SVG image wrapper in the media viewer, indicating to assistive technology users that clicking it closes the image preview.',
 	},
 	archive_download_label_assistive_text: {
 		id: 'media.media-viewer.archive-sidebar.wrapper.label_assistive_text',
@@ -1104,6 +1139,7 @@ export const messages: Messages = defineMessages({
 	media_card_wrapper_label_assistive_text: {
 		id: 'media.media-card.wrapper.label_assistive_text',
 		defaultMessage: 'Media file card',
-		description: 'The text is shown as the aria-label for the media file card wrapper element, providing an accessible name that identifies this component as a media file card to screen reader users.',
+		description:
+			'The text is shown as the aria-label for the media file card wrapper element, providing an accessible name that identifies this component as a media file card to screen reader users.',
 	},
 });

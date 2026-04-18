@@ -36,7 +36,6 @@ const ExpandBlockMenuItem = ({ api }: Props) => {
 		});
 	};
 
-
 	return (
 		<ToolbarDropdownItem
 			onClick={handleClick}

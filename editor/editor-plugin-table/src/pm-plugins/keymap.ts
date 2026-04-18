@@ -232,12 +232,7 @@ export function keymapPlugin(
 		list,
 	);
 
-	if (
-		moveRowDown.common &&
-		moveRowUp.common &&
-		moveColumnLeft.common &&
-		moveColumnRight.common
-	) {
+	if (moveRowDown.common && moveRowUp.common && moveColumnLeft.common && moveColumnRight.common) {
 		const isNewKeyMapExperiment = expValEquals(
 			'editor-a11y-fy26-keyboard-move-row-column',
 			'isEnabled',

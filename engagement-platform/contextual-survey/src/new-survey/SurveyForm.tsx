@@ -102,15 +102,15 @@ export default ({
 							)}
 						</Field>
 						<div {...resizingHeightProps} css={transitionBaseStyles}>
-								{expanded ? (
-									<SurveyFormExpandedFeedback
-										canContactDefault={canContactDefault}
-										onFeedbackChange={onFeedbackChange}
-										submitting={submitting}
-										textLabel={textLabel}
-									/>
-								) : null}
-							</div>
+							{expanded ? (
+								<SurveyFormExpandedFeedback
+									canContactDefault={canContactDefault}
+									onFeedbackChange={onFeedbackChange}
+									submitting={submitting}
+									textLabel={textLabel}
+								/>
+							) : null}
+						</div>
 						<Box xcss={styles.buttonContainer}>
 							<Button
 								isDisabled={!expanded}

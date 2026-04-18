@@ -145,15 +145,16 @@ export const isInsideBlockQuote = (state: EditorState): boolean => {
 };
 
 const enableNewDomainCheckToImproveSmartLinkResolveRate = (hostname: string): boolean => {
-	return expValEquals('improve_3p_smart_link_resolve_rate', 'isEnabled', true) && (
+	return (
+		expValEquals('improve_3p_smart_link_resolve_rate', 'isEnabled', true) &&
 		// OneDrive Shortlinks
-		hostname.endsWith('1drv.ms') ||
-		// MS Teams links
-		hostname.endsWith('teams.live.com') ||
-		hostname.endsWith('teams.cloud.microsoft') ||
-		hostname.endsWith('teams.microsoft.com')
+		(hostname.endsWith('1drv.ms') ||
+			// MS Teams links
+			hostname.endsWith('teams.live.com') ||
+			hostname.endsWith('teams.cloud.microsoft') ||
+			hostname.endsWith('teams.microsoft.com'))
 	);
-}
+};
 
 const PASTE = 'Editor Paste Plugin Paste Duration';
 

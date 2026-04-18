@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-	RawIntlProvider,
-	createIntl,
-	type WrappedComponentProps,
-	IntlProvider,
-} from 'react-intl';
+import { RawIntlProvider, createIntl, type WrappedComponentProps, IntlProvider } from 'react-intl';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { mount, type ReactWrapper, shallow, type ShallowWrapper } from 'enzyme';
 import { type Component, type ReactElement } from 'react';

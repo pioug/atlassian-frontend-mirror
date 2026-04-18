@@ -178,5 +178,4 @@ describe('HeadingWithSectionLink', () => {
 			'test-heading',
 		);
 	});
-
 });

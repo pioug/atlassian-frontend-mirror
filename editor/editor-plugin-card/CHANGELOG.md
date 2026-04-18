@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 16.0.1
+
+### Patch Changes
+
+- [`3e5cf48f0f52f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e5cf48f0f52f) -
+  Replace `cc_dnd_smart_link_changeboard_po_template_gate` feature gate with
+  `cc_dnd_smart_link_changeboard_po_template` experiment using `expValNoExposure`.
+- Updated dependencies
+
 ## 16.0.0
 
 ### Major Changes

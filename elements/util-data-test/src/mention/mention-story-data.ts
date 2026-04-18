@@ -8,153 +8,164 @@ enableLogger(true);
 export const mentionSampleAvatarUrl =
 	'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/2wCEAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRQBAwQEBQQFCQUFCRQNCw0UFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFP/AABEIACAAIAMBIgACEQEDEQH/xAB1AAEAAwEAAAAAAAAAAAAAAAAHAgUGCBAAAQMCBQMDAgcAAAAAAAAAAQIDBAURAAYSIUEHEzEUImEVcSMyQlGBweEBAAMBAAAAAAAAAAAAAAAAAAMEBwURAAICAgMBAQEAAAAAAAAAAAECAxEABBIhIkExgf/aAAwDAQACEQMRAD8AxWVci1ipwmJdT7seKFbIMgLKrGxTYkkH4NsMH1D0UFwsqsAACom1zbxvje9QMoU6BVnnFPswkqBX71JQkj7nnBFmwNx6JJmw5zUtkKUlCmFhaCAkG+21/IxCZ2keQ2KA6/uWzyF5X2cs1T1To62n3jYoWUuDfyLf3gUzhl/MuUI06fDLjdMBGh5EtCyQogBOm2q9+L+MJ1Ep0p1SFd5lptwqSe6sJCRpBvvySQP4xoqZlFt6QluQ4iSUL1eQQP8AcG1pHieqsHFHcVyv8xB6l0hnNOUrzGPUKlsBBXYa0FJ/MkkEbEA253GB/I/SeH0wy1PocFtoU6pOeqbbUjthp3TY8nyPngbADHT1ejCi02LGaShx6GlJKFH2rPlV/ub4H85yI+bSqPGdRSZjThdbYeSUNlRFlAnwQfixGNTZn4zSRq3hjdYprRK0cbyD2ABeBHULpiOo8ymrluBNMpai4lgoU5+MFg6zpULWtbkEXww5Ey/EpFOhoYQtllsDVqPudI5V9/OI0ZNMyahuI4tqsy/euykak90nlXgC9hsNv3xd0xuTMImylLaSE3S3+kE8cYHJslwsQbyvzADXRHaSuz9z/9k=';
 
-export const mentions: ({
-    accessLevel: string;
-    avatarUrl: string;
-    context?: undefined;
-    id: string;
-    lozenge: string;
-    mentionName: string;
-    name: string;
-    nickname?: undefined;
-    nonLicensedUser?: undefined;
-    presence: {
-        status: string;
-        time: string;
-    };
-    userType?: undefined;
-} | {
-    accessLevel: string;
-    avatarUrl: string;
-    context?: undefined;
-    id: string;
-    lozenge: string;
-    mentionName: string;
-    name: string;
-    nickname?: undefined;
-    nonLicensedUser?: undefined;
-    presence: {
-        status: string;
-        time?: undefined;
-    };
-    userType?: undefined;
-} | {
-    accessLevel?: undefined;
-    avatarUrl: string;
-    context?: undefined;
-    id: string;
-    lozenge?: undefined;
-    mentionName: string;
-    name: string;
-    nickname?: undefined;
-    nonLicensedUser?: undefined;
-    presence: {
-        status: string;
-        time: string;
-    };
-    userType?: undefined;
-} | {
-    accessLevel: string;
-    avatarUrl: string;
-    context?: undefined;
-    id: string;
-    lozenge: string;
-    mentionName: string;
-    name: string;
-    nickname: string;
-    nonLicensedUser?: undefined;
-    presence: {
-        status: string;
-        time?: undefined;
-    };
-    userType?: undefined;
-} | {
-    accessLevel: string;
-    avatarUrl: string;
-    context?: undefined;
-    id: string;
-    lozenge?: undefined;
-    mentionName: string;
-    name: string;
-    nickname: string;
-    nonLicensedUser?: undefined;
-    presence: {
-        status: string;
-        time?: undefined;
-    };
-    userType?: undefined;
-} | {
-    accessLevel?: undefined;
-    avatarUrl: string;
-    context?: undefined;
-    id: string;
-    lozenge?: undefined;
-    mentionName: string;
-    name: string;
-    nickname: string;
-    nonLicensedUser?: undefined;
-    presence?: undefined;
-    userType?: undefined;
-} | {
-    accessLevel?: undefined;
-    avatarUrl?: undefined;
-    context?: undefined;
-    id: string;
-    lozenge?: undefined;
-    mentionName: string;
-    name: string;
-    nickname?: undefined;
-    nonLicensedUser?: undefined;
-    presence: {
-        status?: undefined;
-        time: string;
-    };
-    userType?: undefined;
-} | {
-    accessLevel: string;
-    avatarUrl: string;
-    context?: undefined;
-    id: string;
-    lozenge?: undefined;
-    mentionName: string;
-    name: string;
-    nickname: string;
-    nonLicensedUser: boolean;
-    presence: {
-        status: string;
-        time?: undefined;
-    };
-    userType?: undefined;
-} | {
-    accessLevel?: undefined;
-    avatarUrl: string;
-    context?: undefined;
-    id: string;
-    lozenge: string;
-    mentionName: string;
-    name: string;
-    nickname?: undefined;
-    nonLicensedUser?: undefined;
-    presence?: undefined;
-    userType?: undefined;
-} | {
-    accessLevel?: undefined;
-    avatarUrl: string;
-    context: {
-        includesYou: boolean;
-        memberCount: number;
-        members: never[];
-        teamLink: string;
-    };
-    id: string;
-    lozenge?: undefined;
-    mentionName?: undefined;
-    name: string;
-    nickname?: undefined;
-    nonLicensedUser?: undefined;
-    presence?: undefined;
-    userType: string;
-})[] = [
+export const mentions: (
+	| {
+			accessLevel: string;
+			avatarUrl: string;
+			context?: undefined;
+			id: string;
+			lozenge: string;
+			mentionName: string;
+			name: string;
+			nickname?: undefined;
+			nonLicensedUser?: undefined;
+			presence: {
+				status: string;
+				time: string;
+			};
+			userType?: undefined;
+	  }
+	| {
+			accessLevel: string;
+			avatarUrl: string;
+			context?: undefined;
+			id: string;
+			lozenge: string;
+			mentionName: string;
+			name: string;
+			nickname?: undefined;
+			nonLicensedUser?: undefined;
+			presence: {
+				status: string;
+				time?: undefined;
+			};
+			userType?: undefined;
+	  }
+	| {
+			accessLevel?: undefined;
+			avatarUrl: string;
+			context?: undefined;
+			id: string;
+			lozenge?: undefined;
+			mentionName: string;
+			name: string;
+			nickname?: undefined;
+			nonLicensedUser?: undefined;
+			presence: {
+				status: string;
+				time: string;
+			};
+			userType?: undefined;
+	  }
+	| {
+			accessLevel: string;
+			avatarUrl: string;
+			context?: undefined;
+			id: string;
+			lozenge: string;
+			mentionName: string;
+			name: string;
+			nickname: string;
+			nonLicensedUser?: undefined;
+			presence: {
+				status: string;
+				time?: undefined;
+			};
+			userType?: undefined;
+	  }
+	| {
+			accessLevel: string;
+			avatarUrl: string;
+			context?: undefined;
+			id: string;
+			lozenge?: undefined;
+			mentionName: string;
+			name: string;
+			nickname: string;
+			nonLicensedUser?: undefined;
+			presence: {
+				status: string;
+				time?: undefined;
+			};
+			userType?: undefined;
+	  }
+	| {
+			accessLevel?: undefined;
+			avatarUrl: string;
+			context?: undefined;
+			id: string;
+			lozenge?: undefined;
+			mentionName: string;
+			name: string;
+			nickname: string;
+			nonLicensedUser?: undefined;
+			presence?: undefined;
+			userType?: undefined;
+	  }
+	| {
+			accessLevel?: undefined;
+			avatarUrl?: undefined;
+			context?: undefined;
+			id: string;
+			lozenge?: undefined;
+			mentionName: string;
+			name: string;
+			nickname?: undefined;
+			nonLicensedUser?: undefined;
+			presence: {
+				status?: undefined;
+				time: string;
+			};
+			userType?: undefined;
+	  }
+	| {
+			accessLevel: string;
+			avatarUrl: string;
+			context?: undefined;
+			id: string;
+			lozenge?: undefined;
+			mentionName: string;
+			name: string;
+			nickname: string;
+			nonLicensedUser: boolean;
+			presence: {
+				status: string;
+				time?: undefined;
+			};
+			userType?: undefined;
+	  }
+	| {
+			accessLevel?: undefined;
+			avatarUrl: string;
+			context?: undefined;
+			id: string;
+			lozenge: string;
+			mentionName: string;
+			name: string;
+			nickname?: undefined;
+			nonLicensedUser?: undefined;
+			presence?: undefined;
+			userType?: undefined;
+	  }
+	| {
+			accessLevel?: undefined;
+			avatarUrl: string;
+			context: {
+				includesYou: boolean;
+				memberCount: number;
+				members: never[];
+				teamLink: string;
+			};
+			id: string;
+			lozenge?: undefined;
+			mentionName?: undefined;
+			name: string;
+			nickname?: undefined;
+			nonLicensedUser?: undefined;
+			presence?: undefined;
+			userType: string;
+	  }
+)[] = [
 	{
 		id: '666',
 		avatarUrl: mentionSampleAvatarUrl,
@@ -346,15 +357,17 @@ export const mentionResourceProviderWithResolver2: MentionResource = new Mention
 	mentionNameResolver: createMockMentionNameResolver(),
 });
 
-export const mentionResourceProviderWithInfoHints: MentionResourceWithInfoHints = new MentionResourceWithInfoHints({
-	minWait: 10,
-	maxWait: 25,
-});
+export const mentionResourceProviderWithInfoHints: MentionResourceWithInfoHints =
+	new MentionResourceWithInfoHints({
+		minWait: 10,
+		maxWait: 25,
+	});
 
-export const mentionResourceProviderWithInviteFromMentionEnabled: MentionResource = new MentionResource({
-	minWait: 10,
-	maxWait: 25,
-	productName: 'confluence',
-	shouldEnableInvite: true,
-	userRole: 'admin',
-});
+export const mentionResourceProviderWithInviteFromMentionEnabled: MentionResource =
+	new MentionResource({
+		minWait: 10,
+		maxWait: 25,
+		productName: 'confluence',
+		shouldEnableInvite: true,
+		userRole: 'admin',
+	});

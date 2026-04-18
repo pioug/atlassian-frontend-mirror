@@ -121,7 +121,9 @@ export class MockNonUploadingEmojiResource
 		);
 	}
 
-	async getMediaEmojiDescriptionURLWithInlineToken(emoji: EmojiDescription): Promise<EmojiDescription> {
+	async getMediaEmojiDescriptionURLWithInlineToken(
+		emoji: EmojiDescription,
+	): Promise<EmojiDescription> {
 		return emoji;
 	}
 

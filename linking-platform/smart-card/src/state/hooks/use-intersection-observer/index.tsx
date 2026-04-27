@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, type MutableRefObject } from 'react';
 
 // This property enables the intersection observer to be run once the
 // HTML element being observed is within `X` px of the target container it is
@@ -13,7 +13,7 @@ type UseIntersectionObserverProps = {
 const useIntersectionObserver = ({
 	onIntersecting: onIntersectingCallback,
 	onIntersection: onIntersectionCallback,
-}: UseIntersectionObserverProps) => {
+}: UseIntersectionObserverProps): MutableRefObject<HTMLDivElement | null> => {
 	const ref = useRef<HTMLDivElement | null>(null);
 
 	const onIntersectingCallbackRef = useRef(onIntersectingCallback);

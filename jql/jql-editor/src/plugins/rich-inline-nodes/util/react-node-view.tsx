@@ -1,4 +1,4 @@
-import React, { type FunctionComponent, useEffect, useLayoutEffect, useState } from 'react';
+import React, { type ComponentType, useEffect, useLayoutEffect, useState } from 'react';
 
 import { Subject } from 'rxjs/Subject';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
@@ -17,7 +17,7 @@ export type NodeViewProps<Props> = Props & {
 };
 
 export class ReactNodeView<Props> implements NodeView {
-	private readonly component: FunctionComponent<NodeViewProps<Props>>;
+	private readonly component: ComponentType<NodeViewProps<Props>>;
 	private readonly componentSubject: Subject<NodeViewProps<Props>> = new Subject();
 	private readonly node: Node;
 	private readonly portalActions: PortalActions;
@@ -26,7 +26,7 @@ export class ReactNodeView<Props> implements NodeView {
 	public readonly dom: HTMLSpanElement;
 
 	constructor(
-		component: FunctionComponent<NodeViewProps<Props>>,
+		component: ComponentType<NodeViewProps<Props>>,
 		portalActions: PortalActions,
 		node: Node,
 	) {
@@ -39,20 +39,21 @@ export class ReactNodeView<Props> implements NodeView {
 		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		this.portalKey = uuid();
 		// Creating span under the assumption that all node views will be inline elements in JQL Editor
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- ProseMirror NodeView requires a real DOM container
 		this.dom = document.createElement('span');
 		this.dom.setAttribute('data-testid', 'jql-editor-node-view');
 	}
 
 	static for<Props>(
-		component: FunctionComponent<NodeViewProps<Props>>,
+		component: ComponentType<NodeViewProps<Props>>,
 		portalActions: PortalActions,
 		node: Node,
 		decorations: readonly Decoration[],
-	) {
+	): ReactNodeView<Props> {
 		return new ReactNodeView<Props>(component, portalActions, node).init(decorations);
 	}
 
-	init = (decorations: readonly Decoration[]) => {
+	init = (decorations: readonly Decoration[]): this => {
 		const Component = this.component;
 
 		const PortallingComponent = () => {

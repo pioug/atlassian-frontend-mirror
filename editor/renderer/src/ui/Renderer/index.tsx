@@ -12,7 +12,6 @@ import React, {
 	useRef,
 } from 'react';
 import type { ComponentProps } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { ProviderFactory, ProviderFactoryProvider } from '@atlaskit/editor-common/provider-factory';
 import {
@@ -24,8 +23,8 @@ import {
 } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- emotion jsx pragma; go/DSP-18766
+import { css, jsx } from '@emotion/react'; // oxlint-ignore @typescript-eslint/consistent-type-imports -- classic @jsx jsx factory + jsx.JSX.Element types
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
@@ -228,7 +227,7 @@ export const RendererFunctionalComponent = (
 		startPos?: number;
 		validationOverrides?: { allowNestedTables?: boolean };
 	},
-) => {
+): jsx.JSX.Element => {
 	const { createAnalyticsEvent } = props;
 	const mouseDownSelection = useRef<string | undefined>(undefined);
 	const providerFactory = useMemo(
@@ -390,6 +389,7 @@ export const RendererFunctionalComponent = (
 		const disableHeadingIDs = props.disableHeadingIDs;
 
 		if (!disableHeadingIDs && hash && editorRef && editorRef.current instanceof HTMLElement) {
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- anchor navigation uses document.getElementById for hash targets
 			const anchorLinkElement = document.getElementById(hash);
 			if (anchorLinkElement && editorRef.current.contains(anchorLinkElement)) {
 				fireAnalyticsEvent({
@@ -690,11 +690,10 @@ const RendererFunctionalComponentWithPortalContext = React.memo(
 );
 
 /**
- *
- * @param props
- * @example
+ * Top-level ADF renderer: renders document content with analytics and validation context.
+ * @param props Renderer configuration and document tree.
  */
-export function Renderer(props: RendererProps) {
+export function Renderer(props: RendererProps): jsx.JSX.Element {
 	const { startPos } = React.useContext(AnnotationsPositionContext);
 	const { isTopLevelRenderer } = useRendererContext();
 	const { skipValidation, allowNestedTables } = useContext(ValidationContext) || {};
@@ -716,7 +715,7 @@ export function Renderer(props: RendererProps) {
 // Usage notes:
 // Used by Confluence for View page renderer
 // For the nested renderers - see RendererWithAnnotationSelection.
-export const RendererWithAnalytics = React.memo((props: RendererProps) => (
+export const RendererWithAnalytics: React.MemoExoticComponent<(props: RendererProps) => jsx.JSX.Element> = React.memo((props: RendererProps): jsx.JSX.Element => (
 	<FabricEditorAnalyticsContext
 		// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 		data={{
@@ -798,6 +797,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 	} = props;
 
 	const createTelepointer = () => {
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- telepointer span for collaborative presence
 		const telepointer = document.createElement('span');
 		telepointer.textContent = '\u200b';
 		telepointer.id = TELEPOINTER_ID;
@@ -901,7 +901,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 
 	const renderer = (
 		<WidthProvider
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-classname-prop -- legacy renderer wrapper appearance classes
 			className={`ak-renderer-wrapper is-${appearance}`}
 			data-appearance={appearance}
 			shouldCheckExistingValue={isInsideOfInlineExtension}
@@ -1016,7 +1016,7 @@ function RendererActionsInternalUpdater({
 // Usage notes:
 // Used by Confluence for nested renderers
 // For the View page renderer - see RendererWithAnalytics
-const RendererWithAnnotationSelection = (props: RendererProps) => {
+const RendererWithAnnotationSelection = (props: RendererProps): jsx.JSX.Element => {
 	const { allowAnnotations, document: adfDocument } = props;
 	const localRef = React.useRef<HTMLDivElement>(null);
 	const innerRef = props.innerRef || localRef;

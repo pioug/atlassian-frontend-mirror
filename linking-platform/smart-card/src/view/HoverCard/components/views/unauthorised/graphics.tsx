@@ -4,7 +4,7 @@
  */
 import { jsx } from '@compiled/react';
 
-export const DenseSparkle = () => {
+export const DenseSparkle = (): JSX.Element => {
 	return (
 		<svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
@@ -15,7 +15,7 @@ export const DenseSparkle = () => {
 	);
 };
 
-export const SparseSparkle = () => {
+export const SparseSparkle = (): JSX.Element => {
 	return (
 		<svg width="35" height="34" viewBox="0 0 35 34" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
@@ -26,7 +26,7 @@ export const SparseSparkle = () => {
 	);
 };
 
-export const SquiglyArrow = () => {
+export const SquiglyArrow = (): JSX.Element => {
 	return (
 		<svg width="31" height="21" viewBox="0 0 31 21" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path

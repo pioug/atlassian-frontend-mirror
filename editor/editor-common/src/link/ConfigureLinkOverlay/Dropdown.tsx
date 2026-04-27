@@ -12,11 +12,12 @@ import { useIntl } from 'react-intl';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import type { WithContextProps } from '@atlaskit/analytics-next/withAnalyticsContext';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
+import type { CustomTriggerProps, OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import PreferencesIcon from '@atlaskit/icon/core/customize';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { cardMessages as messages } from '../../messages';
 
@@ -88,23 +89,44 @@ const Dropdown = ({
 		focusEditor();
 	}, [fireActionClickEvent, focusEditor, onConfigureClickCallback]);
 
+	const memoizedTrigger = useCallback(
+		({ onClick, triggerRef, ...props }: CustomTriggerProps<HTMLButtonElement>) => (
+			<StyledButton
+				innerRef={triggerRef}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				{...props}
+				iconBefore={<ChevronDownIcon label={configureLinkLabel} size="small" />}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional: onClick closes over per-render trigger prop
+				onClick={(e) => {
+					onClick?.(e);
+					fireLinkClickEvent();
+				}}
+			/>
+		),
+		[configureLinkLabel, fireLinkClickEvent],
+	);
+
 	return (
 		<DropdownMenu<HTMLButtonElement>
-			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			trigger={({ onClick, triggerRef, ...props }) => (
-				<StyledButton
-					innerRef={triggerRef}
-					// Ignored via go/ees005
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...props}
-					iconBefore={<ChevronDownIcon label={configureLinkLabel} size="small" />}
-					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					onClick={(e) => {
-						onClick?.(e);
-						fireLinkClickEvent();
-					}}
-				/>
-			)}
+			trigger={
+				expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+					? memoizedTrigger
+					: ({ onClick, triggerRef, ...props }) => (
+							<StyledButton
+								innerRef={triggerRef}
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
+								{...props}
+								iconBefore={<ChevronDownIcon label={configureLinkLabel} size="small" />}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
+								onClick={(e) => {
+									onClick?.(e);
+									fireLinkClickEvent();
+								}}
+							/>
+					  )
+			}
 			testId={`${testId}-dropdown`}
 			onOpenChange={onOpenChange}
 		>

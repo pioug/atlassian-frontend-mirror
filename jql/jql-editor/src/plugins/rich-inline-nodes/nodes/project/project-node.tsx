@@ -44,7 +44,7 @@ const getTownsquareEmojiProvider = () => {
  * This component is a component for rendering a pill-like view for Project (Atlas) node type
  * in the JQL editor
  */
-export const ProjectNode = (props: NodeViewProps<Props>) => {
+export const ProjectNode = (props: NodeViewProps<Props>): React.JSX.Element => {
 	const { id, fieldName, name, privateProject, ...rest } = props;
 	const { formatMessage } = useIntl();
 

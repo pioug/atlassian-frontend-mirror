@@ -1,6 +1,12 @@
 import { defineMessages } from 'react-intl';
 
-export const messages = defineMessages({
+export const messages: {
+    inputLabel: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    };
+} = defineMessages({
 	inputLabel: {
 		id: 'jql-editor.ui.input-label',
 		defaultMessage: 'JQL query',

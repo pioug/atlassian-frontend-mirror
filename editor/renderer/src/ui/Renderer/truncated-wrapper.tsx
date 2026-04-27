@@ -2,8 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- emotion jsx pragma; go/DSP-18766
+import { css, jsx } from '@emotion/react'; // oxlint-ignore @typescript-eslint/consistent-type-imports -- classic @jsx jsx factory + jsx.JSX.Element types
 import { Component } from 'react';
 import { token } from '@atlaskit/tokens';
 
@@ -55,7 +55,7 @@ export class TruncatedWrapper extends Component<TruncatedWrapperProps, unknown> 
 	}
 
 	// TODO: DSP-4123 - Quality ticket as elevation.surface will be issue when sits top of modal.
-	render() {
+	render(): jsx.JSX.Element {
 		const {
 			height = 95,
 			fadeHeight = 24,

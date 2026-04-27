@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-jsdoc */
 import React from 'react';
 import type { ReactNode } from 'react';
 
@@ -23,7 +24,7 @@ export function TaskItemsFormatProvider({ children }: { children: ReactNode }): 
 	);
 }
 
-export function useTaskItemsFormatContext() {
+export function useTaskItemsFormatContext(): TaskItemsStateContext {
 	return React.useContext(TaskItemsFormatContext);
 }
 

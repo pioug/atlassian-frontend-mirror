@@ -93,11 +93,13 @@ const HyperlinkWithSmartLinkResolverInner = ({
 	if (
 		state?.status === 'unauthorized' &&
 		shouldRenderConnectBtn() &&
+		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils -- Statsig migration pending for Bluelink connect experiments
 		(FeatureGates.getExperimentValue(
 			'platform_linking_bluelink_connect_confluence',
 			'isEnabled',
 			false,
 		) ||
+			// eslint-disable-next-line @atlaskit/platform/use-recommended-utils -- Statsig migration pending for Bluelink connect experiments
 			FeatureGates.getExperimentValue('platform_linking_bluelink_connect_jira', 'isEnabled', false))
 	) {
 		const provider = extractSmartLinkProvider(state?.details);
@@ -115,7 +117,7 @@ const HyperlinkWithSmartLinkResolverInner = ({
 	return <Hyperlink {...props} onClick={onClick} />;
 };
 
-export const HyperlinkWithSmartLinkResolver = withReactErrorBoundary(
+export const HyperlinkWithSmartLinkResolver: React.ForwardRefExoticComponent<LinkUrlProps & React.RefAttributes<any>> = withReactErrorBoundary(
 	withValidator(
 		injectIntl(withIntlProvider(HyperlinkWithSmartLinkResolverInner), { enforceContext: false }),
 		Hyperlink,

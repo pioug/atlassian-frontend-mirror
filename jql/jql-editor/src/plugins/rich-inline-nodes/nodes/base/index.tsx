@@ -80,10 +80,11 @@ const styles = cssMap({
  * a uniform look and feel across different node types.
  */
 
-export const NodeBase = (props: NodeViewProps<NodeBaseProps>) => {
+export const NodeBase = (props: NodeViewProps<NodeBaseProps>): React.JSX.Element => {
 	const { iconBefore, text, isLocked, selected, error, isRichNodeDisplay } = props;
 
 	const isNewExperienceEnabled =
+		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils -- Statsig migration pending for this experiment gate
 		FeatureGates.getExperimentValue(
 			'projects_in_jira_eap_drop2_fast_follow_filters',
 			'isEnabled',

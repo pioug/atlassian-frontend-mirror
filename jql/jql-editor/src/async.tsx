@@ -9,19 +9,22 @@ import { withErrorBoundary } from './ui/error-boundary';
 import { withIntlProvider } from './ui/intl-provider';
 import { JQLEditorReadOnly } from './ui/jql-editor-layout';
 import { type JQLEditorUIProps } from './ui/jql-editor/types';
+// eslint-disable-next-line import/order
 import { type JQLEditorProps } from './ui/types';
+// eslint-disable-next-line import/order
+import type { Cleanup } from 'react-loosely-lazy/dist/types/cleanup';
 
 const JQLEditor = lazyForPaint<ComponentType<JQLEditorUIProps>>(
 	() =>
-		import(/* webpackChunkName: "async-jql-editor" */ './ui/jql-editor').then(
+		import(/* webpackChunkName: "@atlassian/async-jql-editor-ui" */ './ui/jql-editor').then(
 			({ default: JQLEditorUI }) => JQLEditorUI,
 		),
 	{ ssr: false },
 );
 
-export const preloadJQLEditor = () => JQLEditor.preload();
+export const preloadJQLEditor = (): Cleanup => JQLEditor.preload();
 
-export const JQLEditorAsync = withIntlProvider<JQLEditorProps>(
+export const JQLEditorAsync: (props: JQLEditorProps) => React.JSX.Element = withIntlProvider<JQLEditorProps>(
 	withErrorBoundary<JQLEditorUIProps>((props: JQLEditorUIProps) => {
 		return (
 			<LazySuspense

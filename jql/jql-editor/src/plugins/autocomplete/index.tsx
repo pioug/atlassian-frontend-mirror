@@ -27,7 +27,7 @@ const getKeyHandler =
 		return binding ? binding(state, dispatch, view) : false;
 	};
 
-const autocompletePlugin = (portalActions: PortalActions, enableRichInlineNodes: boolean) => {
+const autocompletePlugin = (portalActions: PortalActions, enableRichInlineNodes: boolean): Plugin<void> => {
 	// Empty keymap passed down to the React component so it can register key bindings
 	const keymap = new PluginKeymap();
 	return new Plugin<void>({

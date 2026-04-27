@@ -15,10 +15,10 @@ import {
 import { commitTransaction, getClientSdkKeyDBKey, requestToPromise } from './utils';
 
 // Expire after 7 days
-export const EXPERIMENT_VALUES_EXPIRY_PERIOD = 1000 * 60 * 60 * 24 * 7;
+export const EXPERIMENT_VALUES_EXPIRY_PERIOD: number = 1000 * 60 * 60 * 24 * 7;
 
 // Expire after 1 day
-export const CLIENT_SDK_KEY_EXPIRY_PERIOD = 1000 * 60 * 60 * 24 * 1;
+export const CLIENT_SDK_KEY_EXPIRY_PERIOD: number = 1000 * 60 * 60 * 24 * 1;
 
 export default class FeatureGatesDB {
 	private db: Promise<IDBDatabase>;

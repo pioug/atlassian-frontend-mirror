@@ -12,7 +12,7 @@ import { type PollingConfig, type ProviderOptions } from './types';
 import { getValidatedPollingInterval } from './utils';
 
 // 5 min
-export const EXPERIMENT_VALUES_STALE_TIMEOUT_MS = 1000 * 60 * 5;
+export const EXPERIMENT_VALUES_STALE_TIMEOUT_MS: number = 1000 * 60 * 5;
 
 export const SCHEDULER_OPTIONS_DEFAULT: PollingConfig = {
 	minWaitInterval: 300_000, // 300 second = 5 mins
@@ -125,11 +125,13 @@ export default class Refresh {
 	}
 
 	private static isTabHidden(): boolean {
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- visibilityState is read from the active document
 		return document.visibilityState === 'hidden';
 	}
 
 	// bind tab visibility change callback
 	private bindVisibilityChange(): void {
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- page visibility listener is bound on document
 		this.unbind = bind(document, {
 			type: 'visibilitychange',
 			listener: this.visibilityChangeHandler,

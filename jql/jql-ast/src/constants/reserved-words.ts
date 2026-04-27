@@ -4,7 +4,7 @@ import escapeRegExp from 'lodash/escapeRegExp';
 // See section: "Reserved characters"
 // Derived from JQLLexer#VALID_UNQUOTED_CHARS:
 // https://bitbucket.org/atlassian/jql-grammar/src/master/grammar/g4/JQLLexer.g4
-export const RESERVED_CHARACTERS_REGEX = new RegExp(
+export const RESERVED_CHARACTERS_REGEX: RegExp = new RegExp(
 	`[\\s${escapeRegExp(`"'=!<>()~,[]|&{}*/%+^$#@?;`)}]`,
 );
 
@@ -12,7 +12,7 @@ export const RESERVED_CHARACTERS_REGEX = new RegExp(
 // See section: "Reserved words"
 // Additionally, ensure that all reserved words from JQLLexer are included here too:
 // https://bitbucket.org/atlassian/jql-grammar/src/master/grammar/g4/JQLLexer.g4
-export const RESERVED_WORDS = new Set([
+export const RESERVED_WORDS: Set<string> = new Set([
 	'a',
 	'an',
 	'abort',

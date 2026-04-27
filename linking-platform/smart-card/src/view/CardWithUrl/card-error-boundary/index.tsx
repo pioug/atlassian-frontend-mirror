@@ -9,7 +9,7 @@ type CardErrorBoundaryProps = CardProps & Required<Pick<CardProps, 'id' | 'url'>
 const CardErrorBoundary = ({
 	children,
 	...props
-}: React.PropsWithChildren<CardErrorBoundaryProps>) => {
+}: React.PropsWithChildren<CardErrorBoundaryProps>): React.JSX.Element => {
 	// TODO: NAVX-4682: Add feature parity to CardWithURLRenderer
 	const ErrorFallbackComponent = props.fallbackComponent;
 

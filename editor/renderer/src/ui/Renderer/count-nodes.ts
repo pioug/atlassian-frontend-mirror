@@ -1,8 +1,9 @@
+/* eslint-disable jsdoc/require-jsdoc */
 import { reduce } from '@atlaskit/adf-utils/traverse';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function countNodes(adfDocument: any) {
+export function countNodes(adfDocument: any): Record<string, number> {
 	return reduce<Record<string, number>>(
 		adfDocument,
 		(acc, node) => {

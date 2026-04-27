@@ -3,7 +3,7 @@ import { type AstNode } from '../types';
 /**
  * Default `getChildren` implementation for nodes in the AST that have no children.
  */
-export const noChildren = () => [];
+export const noChildren = (): never[] => [];
 
 /**
  * Assign the provided node as the parent of all child nodes.

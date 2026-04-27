@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-jsdoc */
 import { useMemo, useRef } from 'react';
 
 export function useMemoFromPropsDerivative<
@@ -9,7 +10,7 @@ export function useMemoFromPropsDerivative<
 	factory: (propsDerivative: PropsDerivative) => Memo,
 	propsDerivator: (props: Props) => PropsDerivative,
 	props: Props,
-) {
+): Memo | null {
 	// cache the last set of props
 	const prev = useRef<Props>(props);
 	const prevFactory = useRef<Memo | null>(null);

@@ -28,7 +28,7 @@ function toGoalIconKey(iconKey: string | null | undefined): GoalIconKey {
  * This component is a component for rendering a pill-like view for Goal node type
  * in the JQL editor
  */
-export const GoalNode = (props: NodeViewProps<Props>) => {
+export const GoalNode = (props: NodeViewProps<Props>): React.JSX.Element => {
 	const { id, fieldName, name, ...rest } = props;
 
 	const [goal] = useHydratedGoal({

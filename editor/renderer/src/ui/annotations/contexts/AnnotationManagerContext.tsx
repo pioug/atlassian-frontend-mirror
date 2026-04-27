@@ -56,9 +56,9 @@ const initState: AnnotationManagerStateContext = {
 	currentHoveredAnnotationId: undefined,
 };
 
-const AnnotationManagerStateContext = createContext<AnnotationManagerStateContext>(initState);
+const AnnotationManagerStateContext: React.Context<AnnotationManagerStateContext> = createContext<AnnotationManagerStateContext>(initState);
 
-const AnnotationManagerDispatchContext = createContext<AnnotationManagerDispatchContext>({
+const AnnotationManagerDispatchContext: React.Context<AnnotationManagerDispatchContext> = createContext<AnnotationManagerDispatchContext>({
 	annotationManager: undefined,
 	dispatch: () => {},
 });
@@ -419,6 +419,7 @@ export const AnnotationManagerProvider = ({
 				dispatch({
 					type: 'setSelectedMarkRef',
 					data: {
+						// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- resolve mark node by id in the document
 						markRef: document.getElementById(id) || undefined,
 					},
 				});
@@ -683,10 +684,10 @@ export const AnnotationManagerProvider = ({
 	);
 };
 
-export const useAnnotationManagerState = () => {
+export const useAnnotationManagerState = (): AnnotationManagerStateContext => {
 	return useContext(AnnotationManagerStateContext);
 };
 
-export const useAnnotationManagerDispatch = () => {
+export const useAnnotationManagerDispatch = (): AnnotationManagerDispatchContext => {
 	return useContext(AnnotationManagerDispatchContext);
 };

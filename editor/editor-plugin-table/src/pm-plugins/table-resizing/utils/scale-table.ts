@@ -158,7 +158,7 @@ export const previewScaleTable = (
 	domAtPos: DomAtPos,
 	isTableScalingEnabled: boolean = false,
 	allowFixedColumnWidthOption: boolean = false,
-	isCommentEditor: boolean = false,
+	isCommentOrChromelessEditor: boolean = false,
 ): void => {
 	const { node, start, parentWidth } = options;
 
@@ -190,7 +190,7 @@ export const previewScaleTable = (
 	}
 
 	const shouldUseIncreasedScalingPercent =
-		isTableScalingWithFixedColumnWidthsOptionEnabled || (isTableScalingEnabled && isCommentEditor);
+		isTableScalingWithFixedColumnWidthsOptionEnabled || (isTableScalingEnabled && isCommentOrChromelessEditor);
 
 	const resizeState = parentWidth
 		? scaleWithParent(
@@ -218,7 +218,7 @@ export const scaleTable =
 		api: PluginInjectionAPI | undefined | null,
 		isTableScalingEnabledOnCurrentTable = false,
 		shouldUseIncreasedScalingPercent = false,
-		isCommentEditor = false,
+		isCommentOrChromelessEditor = false,
 	) =>
 	(tr: Transaction): Transaction => {
 		if (!tableRef) {
@@ -237,7 +237,7 @@ export const scaleTable =
 					isTableScalingEnabled,
 					undefined,
 					shouldUseIncreasedScalingPercent,
-					isCommentEditor,
+					isCommentOrChromelessEditor,
 				);
 			}
 			tr.setMeta('scrollIntoView', false);

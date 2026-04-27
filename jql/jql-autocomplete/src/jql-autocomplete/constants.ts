@@ -31,7 +31,7 @@ export const predicateOperators: string[] = ['after', 'before', 'on', 'during', 
  * Here we maintain an opinionated subset of rules we believe need to leverage context data.
  * New rules supported by autocomplete that require contextual data should be included here.
  */
-export const rulesWithContext = [
+export const rulesWithContext: number[] = [
 	JQLParser.RULE_jqlField,
 	JQLParser.RULE_jqlEqualsOperator,
 	JQLParser.RULE_jqlLikeOperator,
@@ -49,7 +49,7 @@ export const rulesWithContext = [
 /**
  * A subset/collection of parser tokens for strings with unclosed single or double quote
  */
-export const unclosedStringTokens = [
+export const unclosedStringTokens: number[] = [
 	JQLParser.UNCLOSED_QUOTE_STRING,
 	JQLParser.UNCLOSED_SQUOTE_STRING,
 ];

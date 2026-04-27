@@ -44,6 +44,7 @@ import {
 	TABLE_MAX_WIDTH,
 	TABLE_FULL_WIDTH,
 	TABLE_OFFSET_IN_COMMENT_EDITOR,
+	RESIZE_HANDLE_SPACING,
 } from '../pm-plugins/table-resizing/utils/consts';
 import { previewScaleTable, scaleTable } from '../pm-plugins/table-resizing/utils/scale-table';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
@@ -86,6 +87,7 @@ interface TableResizerProps {
 	displayGuideline: (guideline: GuidelineConfig[]) => boolean;
 	editorView: EditorView;
 	getPos: () => number | undefined;
+	isChromelessEditor?: boolean;
 	isCommentEditor?: boolean;
 	isFullWidthModeEnabled?: boolean;
 	isTableAlignmentEnabled?: boolean;
@@ -119,13 +121,13 @@ const handleStyles = {
 const getResizerHandleHeight = (tableRef: HTMLTableElement | undefined): HandleSize | undefined => {
 	const tableHeight = tableRef?.clientHeight ?? 0;
 	/*
-    - One row table height (minimum possible table height) ~ 45px
-    - Two row table height ~ 90px
-    - Three row table height ~ 134px
+	- One row table height (minimum possible table height) ~ 45px
+	- Two row table height ~ 90px
+	- Three row table height ~ 134px
 
-    In the if below we need to use:
-    - > 46 because the height of the table can be a float number like 45.44.
-    - < 96 is the height of large resize handle.
+	In the if below we need to use:
+	- > 46 because the height of the table can be a float number like 45.44.
+	- < 96 is the height of large resize handle.
   */
 	if (tableHeight >= 96) {
 		return 'large';
@@ -153,6 +155,19 @@ const getPadding = (containerWidth: number) => {
 		})
 		? akEditorGutterPaddingReduced
 		: akEditorGutterPaddingDynamic();
+};
+
+const getTableMaxWidth = (containerWidth: number, lineLength: number, isCommentEditor?: boolean, isChromelessEditor?: boolean) => {
+	if (isCommentEditor) {
+		return Math.floor(containerWidth - TABLE_OFFSET_IN_COMMENT_EDITOR);
+	} else if (isChromelessEditor) {
+		return Number.isFinite(lineLength) && lineLength !== undefined ? lineLength : Math.floor(containerWidth - RESIZE_HANDLE_SPACING);
+	} else {
+		return expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+			expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
+			? TABLE_MAX_WIDTH
+			: TABLE_FULL_WIDTH;
+	}
 };
 
 /**
@@ -225,6 +240,7 @@ export const TableResizer = ({
 	pluginInjectionApi,
 	isFullWidthModeEnabled,
 	isCommentEditor,
+	isChromelessEditor,
 	disabled,
 }: PropsWithChildren<TableResizerProps>): React.JSX.Element => {
 	const currentGap = useRef(0);
@@ -249,6 +265,7 @@ export const TableResizer = ({
 	const [snappingEnabled, setSnappingEnabled] = useState(false);
 
 	const { formatMessage } = useIntl();
+	const isFullPageAppearance = !isCommentEditor && !isChromelessEditor;
 
 	const currentSelection = editorView.state?.selection;
 	const tableFromSelection = useMemo(() => {
@@ -301,12 +318,12 @@ export const TableResizer = ({
 				const visibleGuidelines = getVisibleGuidelines(
 					isTableScalingEnabled
 						? defaultGuidelinesForPreserveTable(
-								PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
-								isFullWidthModeEnabled
-									? lineLength + 2 * getPadding(containerWidth)
-									: containerWidth,
-								excludeGuidelineConfig,
-							)
+							PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
+							isFullWidthModeEnabled
+								? lineLength + 2 * getPadding(containerWidth)
+								: containerWidth,
+							excludeGuidelineConfig,
+						)
 						: defaultGuidelines,
 					containerWidth,
 					lineLength,
@@ -330,16 +347,16 @@ export const TableResizer = ({
 		() =>
 			snappingEnabled
 				? {
-						x: isTableScalingEnabled
-							? defaultTablePreserveSnappingWidths(
-									PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET, // was hardcoded to 0, using PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET instead.
-									isFullWidthModeEnabled
-										? lineLength + 2 * getPadding(containerWidth)
-										: containerWidth,
-									excludeGuidelineConfig,
-								)
-							: defaultSnappingWidths,
-					}
+					x: isTableScalingEnabled
+						? defaultTablePreserveSnappingWidths(
+							PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET, // was hardcoded to 0, using PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET instead.
+							isFullWidthModeEnabled
+								? lineLength + 2 * getPadding(containerWidth)
+								: containerWidth,
+							excludeGuidelineConfig,
+						)
+						: defaultSnappingWidths,
+				}
 				: undefined,
 		[
 			snappingEnabled,
@@ -434,10 +451,10 @@ export const TableResizer = ({
 		const visibleGuidelines = getVisibleGuidelines(
 			isTableScalingEnabled
 				? defaultGuidelinesForPreserveTable(
-						PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
-						isFullWidthModeEnabled ? lineLength + 2 * getPadding(containerWidth) : containerWidth,
-						excludeGuidelineConfig,
-					)
+					PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
+					isFullWidthModeEnabled ? lineLength + 2 * getPadding(containerWidth) : containerWidth,
+					excludeGuidelineConfig,
+				)
 				: defaultGuidelines,
 			containerWidth,
 			lineLength,
@@ -486,22 +503,23 @@ export const TableResizer = ({
 				: containerWidth;
 
 			const closestSnap =
-				!isCommentEditor &&
+				// remove isCommentEditor check if platform_editor_table_resize_chromeless is cleaned up
+				((expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) && isFullPageAppearance) || !isCommentEditor) &&
 				findClosestSnap(
 					newWidth,
 					isTableScalingEnabled
 						? defaultTablePreserveSnappingWidths(
-								PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET,
-								editorContainerWidth,
-								excludeGuidelineConfig,
-							)
+							PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET,
+							editorContainerWidth,
+							excludeGuidelineConfig,
+						)
 						: defaultSnappingWidths,
 					isTableScalingEnabled
 						? defaultGuidelinesForPreserveTable(
-								PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
-								editorContainerWidth,
-								excludeGuidelineConfig,
-							)
+							PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
+							editorContainerWidth,
+							excludeGuidelineConfig,
+						)
 						: defaultGuidelines,
 					TABLE_HIGHLIGHT_GAP,
 					TABLE_HIGHLIGHT_TOLERANCE,
@@ -521,23 +539,23 @@ export const TableResizer = ({
 
 			const isFullWidthGuidelineActive =
 				expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-				expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
+					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
 					? closestSnap && fullWidthGuideline && closestSnap.keys.includes(fullWidthGuideline.key)
 					: closestSnap && closestSnap.keys.includes(fullWidthGuideline.key);
 
-			const tableMaxWidth = isCommentEditor
+			const tableMaxWidth = expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) ? getTableMaxWidth(containerWidth, lineLength, isCommentEditor, isChromelessEditor) : isCommentEditor
 				? Math.floor(containerWidth - TABLE_OFFSET_IN_COMMENT_EDITOR)
 				: expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-					  expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
+					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
 					? TABLE_MAX_WIDTH
 					: TABLE_FULL_WIDTH;
 
-			const shouldUpdateWidthToWidest = isCommentEditor
+			const shouldUpdateWidthToWidest = (expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) && !isFullPageAppearance) || isCommentEditor
 				? tableMaxWidth <= newWidth
 				: !!isTableScalingEnabled && isFullWidthGuidelineActive;
 
 			const previewParentWidth =
-				isCommentEditor && shouldUpdateWidthToWidest ? tableMaxWidth : newWidth;
+				((expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) && !isFullPageAppearance) || isCommentEditor) && shouldUpdateWidthToWidest ? tableMaxWidth : newWidth;
 
 			previewScaleTable(
 				tableRef,
@@ -550,7 +568,7 @@ export const TableResizer = ({
 				editorView.domAtPos.bind(editorView),
 				isTableScalingEnabled,
 				allowFixedColumnWidthOption,
-				isCommentEditor,
+				expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) ? !isFullPageAppearance : isCommentEditor,
 			);
 
 			chainCommands(
@@ -569,6 +587,8 @@ export const TableResizer = ({
 		[
 			countFrames,
 			isCommentEditor,
+			isChromelessEditor,
+			isFullPageAppearance,
 			isTableScalingEnabled,
 			allowFixedColumnWidthOption,
 			isFullWidthModeEnabled,
@@ -596,10 +616,10 @@ export const TableResizer = ({
 			const pos = getPos();
 			const currentTableNodeLocalId = node?.attrs?.localId ?? '';
 
-			const tableMaxWidth = isCommentEditor
+			const tableMaxWidth = (expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) && !isFullPageAppearance) || isCommentEditor
 				? undefined // Table's full-width in comment appearance inherit the width of the Editor/Renderer
 				: expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-					  expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
+					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
 					? TABLE_MAX_WIDTH
 					: TABLE_FULL_WIDTH;
 
@@ -650,13 +670,14 @@ export const TableResizer = ({
 						// We use originalNewWidth in comment editor, because in comment editor
 						// newWidth can be underined when table is resized to 'full-width'
 						// scaleTable function needs number value to work correctly.
-						parentWidth: isCommentEditor ? originalNewWidth : newWidth,
+						// remove isCommentEditor check when platform_editor_table_resize_chromeless is removed
+						parentWidth: ((expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) && !isFullPageAppearance) || isCommentEditor) ? originalNewWidth : newWidth,
 					},
 					editorView.domAtPos.bind(editorView),
 					pluginInjectionApi,
 					isTableScalingEnabled,
 					shouldUseIncreasedScalingPercent || false,
-					isCommentEditor,
+					expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) ? !isFullPageAppearance : isCommentEditor,
 				)(tr);
 
 				// Ignored via go/ees005
@@ -720,6 +741,7 @@ export const TableResizer = ({
 			isTableScalingEnabled,
 			shouldUseIncreasedScalingPercent,
 			formatMessage,
+			isFullPageAppearance,
 		],
 	);
 
@@ -829,7 +851,7 @@ export const TableResizer = ({
 
 	const resizeRatio =
 		!isTableAlignmentEnabled ||
-		(isTableAlignmentEnabled && normaliseAlignment(node.attrs.layout) === ALIGN_CENTER)
+			(isTableAlignmentEnabled && normaliseAlignment(node.attrs.layout) === ALIGN_CENTER)
 			? 2
 			: 1;
 

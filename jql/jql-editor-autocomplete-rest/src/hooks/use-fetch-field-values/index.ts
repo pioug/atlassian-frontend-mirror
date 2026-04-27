@@ -11,12 +11,13 @@ export const getAutocompleteSuggestionsUrl = (field: string, query?: string) =>
 export const useFetchFieldValues = (
 	getSuggestions: GetAutocompleteSuggestions,
 	createAndFireAnalyticsEvent: (payload: JqlEditorAutocompleteAnalyticsEvent) => void,
-) => {
+): (field: string, query?: string) => Promise<AutocompleteOptions> => {
 	return useCallback(
 		async (field: string, query?: string): Promise<AutocompleteOptions> => {
 			try {
 				const data = await getSuggestions(getAutocompleteSuggestionsUrl(field, query));
 
+				// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- parse HTML displayName to plain text
 				const div = document.createElement('div');
 				const results = data.results.map((operand) => {
 					// The displayName from the API includes HTML tags to bold matching text e.g. `<b>o</b>pen`

@@ -34,7 +34,7 @@ type Props = {
 	wrapperDOM: React.RefObject<HTMLDivElement>;
 };
 
-export const Mounter = React.memo((props: Props): React.JSX.Element => {
+export const Mounter: React.MemoExoticComponent<(props: Props) => React.JSX.Element> = React.memo((props: Props): React.JSX.Element => {
 	const {
 		component: Component,
 		range,

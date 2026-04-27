@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 219.1.7
+
+### Patch Changes
+
+- [`f7254db909ac9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7254db909ac9) -
+  Replace platform_editor_ai_chromeless_akeditor_class experiment with
+  platform_editor_chromeless_akeditor_class feature gate
+- Updated dependencies
+
 ## 219.1.6
 
 ### Patch Changes

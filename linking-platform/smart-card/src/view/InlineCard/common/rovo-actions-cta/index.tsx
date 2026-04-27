@@ -27,7 +27,7 @@ const styles = cssMap({
 	},
 });
 
-export const RovoActionsCta = ({ testId }: { testId?: string }) => {
+export const RovoActionsCta = ({ testId }: { testId?: string }): JSX.Element => {
 	return (
 		<Box xcss={cx(styles.innerContainer, styles.rovoIcon)} testId={testId}>
 			<RovoChatIcon label="Rovo" color={token('color.icon.inverse')} size="small" />

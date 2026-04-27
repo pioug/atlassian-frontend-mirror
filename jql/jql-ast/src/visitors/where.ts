@@ -20,7 +20,7 @@ import {
 import { TerminalClauseVisitor } from './terminal-clause';
 
 export class WhereVisitor extends JastBuildingVisitor<Clause | void> {
-	terminalClauseVisitor = new TerminalClauseVisitor(this.tokens);
+	terminalClauseVisitor: TerminalClauseVisitor = new TerminalClauseVisitor(this.tokens);
 
 	visitJqlWhere = (ctx: JqlWhereContext): Clause | void => {
 		return this.visitJqlOrClause(ctx.jqlOrClause());

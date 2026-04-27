@@ -5,10 +5,10 @@
 import type React from 'react';
 import { useMemo, useCallback } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
-import type { AnnotationId, AnnotationDataAttributes } from '@atlaskit/adf-schema';
+import type { AnnotationId, AnnotationDataAttributes, AnnotationTypes } from '@atlaskit/adf-schema';
 import { AnnotationMarkStates } from '@atlaskit/adf-schema';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { useIntl } from 'react-intl';
@@ -179,7 +179,111 @@ export const MarkComponent = ({
 	isHovered,
 	onClick,
 	useBlockLevel,
-}: React.PropsWithChildren<MarkComponentProps>) => {
+}: React.PropsWithChildren<MarkComponentProps>): React.ReactElement<{
+        'aria-disabled': boolean;
+        css?: (false | SerializedStyles)[] | undefined;
+        'data-id': AnnotationId;
+        'data-mark-annotation-state'?: AnnotationMarkStates;
+        'data-mark-annotation-type': AnnotationTypes;
+        'data-mark-type': string;
+        id: string;
+        ref: ((node: HTMLElement | null) => void) | undefined;
+        style?: {
+            '--ak-renderer-annotation-endmarker': string;
+            '--ak-renderer-annotation-startmarker': string;
+        } | undefined;
+    } | {
+        'aria-disabled': boolean;
+        css?: (false | SerializedStyles)[] | undefined;
+        'data-has-focus': boolean;
+        'data-id': AnnotationId;
+        'data-is-hovered': boolean;
+        'data-mark-annotation-state': AnnotationMarkStates;
+        'data-mark-annotation-type': AnnotationTypes;
+        'data-mark-type': string;
+        id: string;
+        ref: ((node: HTMLElement | null) => void) | undefined;
+        style?: {
+            '--ak-renderer-annotation-endmarker': string;
+            '--ak-renderer-annotation-startmarker': string;
+        } | undefined;
+    } | {
+        'aria-details': string;
+        'aria-disabled'?: undefined;
+        'aria-expanded'?: undefined;
+        css?: (false | SerializedStyles)[] | undefined;
+        'data-id': AnnotationId;
+        'data-mark-annotation-state'?: AnnotationMarkStates;
+        'data-mark-annotation-type': AnnotationTypes;
+        'data-mark-type': string;
+        id: string;
+        onKeyDown?: undefined;
+        ref: ((node: HTMLElement | null) => void) | undefined;
+        role?: undefined;
+        style?: {
+            '--ak-renderer-annotation-endmarker': string;
+            '--ak-renderer-annotation-startmarker': string;
+        } | undefined;
+        tabIndex?: undefined;
+    } | {
+        'aria-details': string;
+        'aria-disabled'?: undefined;
+        'aria-expanded'?: undefined;
+        css?: (false | SerializedStyles)[] | undefined;
+        'data-has-focus': boolean;
+        'data-id': AnnotationId;
+        'data-is-hovered': boolean;
+        'data-mark-annotation-state': AnnotationMarkStates;
+        'data-mark-annotation-type': AnnotationTypes;
+        'data-mark-type': string;
+        id: string;
+        onKeyDown?: undefined;
+        ref: ((node: HTMLElement | null) => void) | undefined;
+        role?: undefined;
+        style?: {
+            '--ak-renderer-annotation-endmarker': string;
+            '--ak-renderer-annotation-startmarker': string;
+        } | undefined;
+        tabIndex?: undefined;
+    } | {
+        'aria-details': string;
+        'aria-disabled'?: undefined;
+        'aria-expanded': boolean;
+        css?: (false | SerializedStyles)[] | undefined;
+        'data-id': AnnotationId;
+        'data-mark-annotation-state'?: AnnotationMarkStates;
+        'data-mark-annotation-type': AnnotationTypes;
+        'data-mark-type': string;
+        id: string;
+        onKeyDown: (evt: KeyboardEvent) => void;
+        ref: ((node: HTMLElement | null) => void) | undefined;
+        role: string;
+        style?: {
+            '--ak-renderer-annotation-endmarker': string;
+            '--ak-renderer-annotation-startmarker': string;
+        } | undefined;
+        tabIndex: number;
+    } | {
+        'aria-details': string;
+        'aria-disabled'?: undefined;
+        'aria-expanded': boolean;
+        css?: (false | SerializedStyles)[] | undefined;
+        'data-has-focus': boolean;
+        'data-id': AnnotationId;
+        'data-is-hovered': boolean;
+        'data-mark-annotation-state': AnnotationMarkStates;
+        'data-mark-annotation-type': AnnotationTypes;
+        'data-mark-type': string;
+        id: string;
+        onKeyDown: (evt: KeyboardEvent) => void;
+        ref: ((node: HTMLElement | null) => void) | undefined;
+        role: string;
+        style?: {
+            '--ak-renderer-annotation-endmarker': string;
+            '--ak-renderer-annotation-startmarker': string;
+        } | undefined;
+        tabIndex: number;
+    }> => {
 	const intl = useIntl();
 	const annotationIds = useMemo(
 		() => [...new Set([...annotationParentIds, id])],
@@ -251,6 +355,7 @@ export const MarkComponent = ({
 	);
 
 	const onMarkEnter = (evt: KeyboardEvent) => {
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- keyboard focus for mark / Enter handling
 		const focusedElementTag = document.activeElement?.tagName;
 
 		if (focusedElementTag === 'MARK' && evt.key === 'Enter') {

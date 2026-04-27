@@ -6,7 +6,7 @@ export const PREDICATE_OPERATOR_FROM = 'from';
 export const PREDICATE_OPERATOR_ON = 'on';
 export const PREDICATE_OPERATOR_TO = 'to';
 
-export const PREDICATE_OPERATORS = [
+export const PREDICATE_OPERATORS: readonly ["after", "before", "by", "during", "from", "on", "to"] = [
 	PREDICATE_OPERATOR_AFTER,
 	PREDICATE_OPERATOR_BEFORE,
 	PREDICATE_OPERATOR_BY,

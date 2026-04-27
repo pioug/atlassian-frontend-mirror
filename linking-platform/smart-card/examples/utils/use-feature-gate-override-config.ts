@@ -53,7 +53,7 @@ function getUserSelectedFeatureFlagsFromExamplesLocalStorage(): string[] {
 	return raw?.split(',').filter(Boolean) ?? [];
 }
 
-const useFeatureGateOverrideConfig = (withExperiments: boolean = true) => {
+const useFeatureGateOverrideConfig = (withExperiments: boolean = true): number => {
 	// Revision counter: 0 = not yet initialized, >0 = ready.
 	// Incrementing on each config change forces children to re-render
 	// (via key={revision} in the consumer) without showing "Loading...".

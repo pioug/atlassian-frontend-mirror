@@ -1,4 +1,4 @@
-import { type JQLEditorKeymap } from '../../schema';
+import { type JQLEditorCommand, type JQLEditorKeymap } from '../../schema';
 
 export class PluginKeymap {
 	private keymap: JQLEditorKeymap = {};
@@ -24,7 +24,7 @@ export class PluginKeymap {
 		this.keymap = rest;
 	}
 
-	getKeyBinding(key: string) {
+	getKeyBinding(key: string): JQLEditorCommand {
 		return this.keymap[key];
 	}
 }

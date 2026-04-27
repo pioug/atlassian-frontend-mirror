@@ -3,7 +3,9 @@ import React, { forwardRef } from 'react';
 import type { CardProps } from '../../Card';
 
 type CardLoaderWrapperProps = Pick<CardProps, 'appearance'>;
-const CardLoaderWrapper = forwardRef<
+const CardLoaderWrapper: React.ForwardRefExoticComponent<CardLoaderWrapperProps & {
+    children?: React.ReactNode | undefined;
+} & React.RefAttributes<HTMLDivElement>> = forwardRef<
 	HTMLDivElement,
 	React.PropsWithChildren<CardLoaderWrapperProps>
 >(({ appearance, children }, ref) => {

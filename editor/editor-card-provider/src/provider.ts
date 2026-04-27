@@ -1,6 +1,7 @@
 /* eslint-disable require-unicode-regexp,prefer-regex-literals */
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
 import type { CallbackPayload } from '@atlaskit/node-data-provider';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeDataProvider } from '@atlaskit/node-data-provider';
@@ -276,21 +277,45 @@ export class EditorCardProvider
 		// if we can load a response from cache, use it first
 		const key = this.nodeDataKey(jsonNode);
 		const details = this.smartCardLocalCacheClient.getItem(key);
-		if (details) {
-			callback({ data: details });
-		}
+		if (expValEquals('platform_sl_fix_cache_unresolved', 'isEnabled', true)) {
+			// NAVX-4712: Handle responses with non-resolved statuses that were previously cached
+			const isResolvedCachedResponse = details && details.meta && getStatus(details) === 'resolved';
+			if (isResolvedCachedResponse) {
+				callback({ data: details });
+			}
 
-		// if parent class NodeDataProvider has cached the network request for the node
-		// we can skip fetching the data async and updating the session storage cache
-		const cacheStatus = this.getCacheStatusForNode(jsonNode);
-		if (cacheStatus === 'network') {
-			return;
+			// if parent class NodeDataProvider has cached the network request for the node
+			// we can skip fetching the data async and updating the session storage cache
+			if (isResolvedCachedResponse && this.getCacheStatusForNode(jsonNode) === 'network') {
+				return;
+			}
+		} else {
+			if (details) {
+				callback({ data: details });
+			}
+
+			// if parent class NodeDataProvider has cached the network request for the node
+			// we can skip fetching the data async and updating the session storage cache
+			const cacheStatus = this.getCacheStatusForNode(jsonNode);
+			if (cacheStatus === 'network') {
+				return;
+			}
 		}
 
 		// fetch the latest data async and update the session storage cache
 		this.getDataAsync(node, (payload) => {
-			if (payload.data && !payload.error) {
-				this.smartCardLocalCacheClient.setItem(key, payload.data);
+			if (expValEquals('platform_sl_fix_cache_unresolved', 'isEnabled', true)) {
+				const response: SmartLinkResponse | undefined = payload.data;
+				if (!payload.error && response?.meta) {
+					const status = getStatus(response);
+					if (status === 'resolved') {
+						this.smartCardLocalCacheClient.setItem(key, response);
+					}
+				}
+			} else {
+				if (payload.data && !payload.error) {
+					this.smartCardLocalCacheClient.setItem(key, payload.data);
+				}
 			}
 
 			callback(payload);

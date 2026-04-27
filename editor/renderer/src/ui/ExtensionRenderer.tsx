@@ -2,8 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- emotion jsx pragma; go/DSP-18766
+import { css, jsx } from '@emotion/react'; // oxlint-ignore @typescript-eslint/consistent-type-imports -- classic @jsx jsx factory + jsx.JSX.Element types
 import React from 'react';
 import memoizeOne from 'memoize-one';
 
@@ -82,7 +82,8 @@ const plainTextMacroStyle = css({
 	},
 });
 
-export default function ExtensionRenderer(props: Props) {
+/** Renders extension (macro) nodes inside the ADF renderer. */
+export default function ExtensionRenderer(props: Props): jsx.JSX.Element {
 	const {
 		extensionHandlers,
 		rendererContext,
@@ -216,7 +217,7 @@ export const InlineNodeRendererWrapper = ({
 	isPlainTextMacro?: boolean;
 	ssrPlaceholder?: string;
 	ssrPlaceholderReplace?: string;
-}>) => {
+}>): jsx.JSX.Element => {
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

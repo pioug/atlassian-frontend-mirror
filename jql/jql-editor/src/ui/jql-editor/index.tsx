@@ -83,4 +83,5 @@ const JQLEditorInner = ({
 	);
 };
 
-export default injectIntl<'intl', JQLEditorInnerProps>(JQLEditorInner);
+const _default_1 = injectIntl<'intl', JQLEditorInnerProps>(JQLEditorInner);
+export default _default_1;

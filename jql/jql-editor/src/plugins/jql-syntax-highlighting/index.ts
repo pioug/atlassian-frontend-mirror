@@ -29,7 +29,7 @@ const getHighlights = (state: EditorState): Highlight[] => {
 
 const JQLSyntaxHighlightingPluginKey = new PluginKey<Highlight[]>('jql-syntax-highlighting-plugin');
 
-const jqlSyntaxHighlightingPlugin = () =>
+const jqlSyntaxHighlightingPlugin = (): Plugin<Highlight[]> =>
 	new Plugin<Highlight[]>({
 		key: JQLSyntaxHighlightingPluginKey,
 		appendTransaction: (_, oldState, newState) => {

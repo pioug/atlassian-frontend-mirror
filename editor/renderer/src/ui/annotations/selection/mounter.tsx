@@ -50,7 +50,7 @@ type Props = {
 	wrapperDOM: React.RefObject<HTMLDivElement>;
 };
 
-export const SelectionInlineCommentMounter = React.memo(
+export const SelectionInlineCommentMounter: React.MemoExoticComponent<(props: React.PropsWithChildren<Props>) => React.JSX.Element> = React.memo(
 	(props: React.PropsWithChildren<Props>): React.JSX.Element => {
 		const {
 			component: Component,

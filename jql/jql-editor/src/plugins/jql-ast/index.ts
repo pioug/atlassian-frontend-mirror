@@ -27,7 +27,7 @@ export const getJastFromState = (state: EditorState): Jast => {
 	return jast;
 };
 
-const jqlAstPlugin = (intlRef: MutableRefObject<IntlShape>) => {
+const jqlAstPlugin = (intlRef: MutableRefObject<IntlShape>): Plugin<Jast> => {
 	const jastBuilder = new JastBuilder().setErrorHandler(new JQLEditorErrorStrategy(intlRef));
 
 	return new Plugin<Jast>({

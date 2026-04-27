@@ -25,31 +25,31 @@ export class SyntaxHighlightingVisitor extends AbstractJastVisitor<Highlight[]> 
 		this.state = state;
 	}
 
-	visitCompoundOperator = (compoundOperator: CompoundOperator) => {
+	visitCompoundOperator = (compoundOperator: CompoundOperator): Highlight[] => {
 		return compoundOperator.positions.map((position) => this.createHighlight('keyword', position));
 	};
 
-	visitNotClauseOperator = (notClauseOperator: NotClauseOperator) => {
+	visitNotClauseOperator = (notClauseOperator: NotClauseOperator): Highlight[] => {
 		return this.getHighlightsIfPosition('keyword', notClauseOperator.position);
 	};
 
-	visitOrderByOperator = (orderByOperator: OrderByOperator) => {
+	visitOrderByOperator = (orderByOperator: OrderByOperator): Highlight[] => {
 		return this.getHighlightsIfPosition('keyword', orderByOperator.position);
 	};
 
-	visitOrderByDirection = (orderByDirection: OrderByDirection) => {
+	visitOrderByDirection = (orderByDirection: OrderByDirection): Highlight[] => {
 		return this.getHighlightsIfPosition('keyword', orderByDirection.position);
 	};
 
-	visitField = (field: Field) => {
+	visitField = (field: Field): Highlight[] => {
 		return this.getHighlightsIfPosition('field', field.position);
 	};
 
-	visitOperator = (operator: Operator) => {
+	visitOperator = (operator: Operator): Highlight[] => {
 		return this.getHighlightsIfPosition('operator', operator.position);
 	};
 
-	visitPredicateOperator = (predicateOperator: PredicateOperator) => {
+	visitPredicateOperator = (predicateOperator: PredicateOperator): Highlight[] => {
 		return this.getHighlightsIfPosition('operator', predicateOperator.position);
 	};
 
@@ -58,11 +58,11 @@ export class SyntaxHighlightingVisitor extends AbstractJastVisitor<Highlight[]> 
 		return !isOperandNode(node);
 	}
 
-	protected aggregateResult(aggregate: Highlight[], nextResult: Highlight[]) {
+	protected aggregateResult(aggregate: Highlight[], nextResult: Highlight[]): Highlight[] {
 		return aggregate.concat(nextResult);
 	}
 
-	protected defaultResult() {
+	protected defaultResult(): never[] {
 		return [];
 	}
 

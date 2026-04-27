@@ -1,4 +1,58 @@
-export const adfNestedTableData = {
+export const adfNestedTableData: {
+    content: {
+        attrs: {};
+        content: ({
+            content: {
+                attrs: {};
+                content: {
+                    content: never[];
+                    type: string;
+                }[];
+                type: string;
+            }[];
+            type: string;
+        } | {
+            content: {
+                attrs: {};
+                content: {
+                    attrs: {
+                        isNumberColumnEnabled: boolean;
+                        layout: string;
+                        localId: string;
+                    };
+                    content: {
+                        content: ({
+                            attrs: {};
+                            content: {
+                                content: never[];
+                                type: string;
+                            }[];
+                            type: string;
+                        } | {
+                            attrs: {};
+                            content: {
+                                attrs: {
+                                    localId: null;
+                                };
+                                content: {
+                                    text: string;
+                                    type: string;
+                                }[];
+                                type: string;
+                            }[];
+                            type: string;
+                        })[];
+                        type: string;
+                    }[];
+                    type: string;
+                }[];
+                type: string;
+            }[];
+            type: string;
+        })[];
+        type: string;
+    }[]; type: string; version: number;
+} = {
 	type: 'doc',
 	version: 1,
 	content: [
@@ -160,7 +214,64 @@ export const adfNestedTableData = {
 	],
 };
 
-export const mockCommentData = [
+export const mockCommentData: ({
+    attrs: {
+        isNumberColumnEnabled?: undefined;
+        layout: string;
+        localId?: undefined;
+        width: number;
+        widthType: string;
+    };
+    content: {
+        attrs: {
+            alt: string;
+            collection: string;
+            height: number;
+            id: string;
+            type: string;
+            width: number;
+        };
+        type: string;
+    }[];
+    type: string;
+} | {
+    attrs: {
+        isNumberColumnEnabled: boolean;
+        layout: string;
+        localId: string;
+        width?: undefined;
+        widthType?: undefined;
+    };
+    content: {
+        content: {
+            attrs: {};
+            content: {
+                content: never[];
+                type: string;
+            }[];
+            type: string;
+        }[];
+        type: string;
+    }[];
+    type: string;
+} | {
+    attrs?: undefined;
+    content: ({
+        attrs: {
+            accessLevel: string;
+            id: string;
+            localId: string;
+            text: string;
+        };
+        text?: undefined;
+        type: string;
+    } | {
+        attrs?: undefined;
+        text: string;
+        type: string;
+    })[];
+    type: string;
+})[] = [
 	{
 		type: 'paragraph',
 		content: [],

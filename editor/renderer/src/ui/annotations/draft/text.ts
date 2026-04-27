@@ -43,7 +43,10 @@ export const calcTextSplitOffset = (
 	position: Position,
 	textPosition: TextPosition,
 	text: string,
-) => {
+): {
+        endOffset: number;
+        startOffset: number;
+    } => {
 	const { start, end } = textPosition;
 	const startOffset = Math.max(position.from - start, 0);
 	const endOffset = Math.min(Math.abs(end - position.to - text.length), text.length);

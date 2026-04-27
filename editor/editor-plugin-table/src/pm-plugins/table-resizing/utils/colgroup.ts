@@ -165,7 +165,7 @@ export const generateColgroup = (
 	table: PmNode,
 	tableRef?: HTMLElement,
 	shouldUseIncreasedScalingPercent?: boolean,
-	isCommentEditor?: boolean,
+	isCommentOrChromelessEditor?: boolean,
 ): Col[] => {
 	const cols: Col[] = [];
 	const map = TableMap.get(table);
@@ -180,7 +180,7 @@ export const generateColgroup = (
 			if (tableRef) {
 				// if we have tableRef here, isTableScalingEnabled is true
 				let scalePercent = 1;
-				if (isCommentEditor && !table.attrs?.width) {
+				if (isCommentOrChromelessEditor && !table.attrs?.width) {
 					scalePercent = getScalingPercentForTableWithoutWidth(table, tableRef);
 				} else {
 					scalePercent = getTableScalingPercent(table, tableRef, shouldUseIncreasedScalingPercent);
@@ -232,7 +232,7 @@ export const insertColgroupFromNode = (
 	isTableScalingEnabled = false,
 	shouldRemove = true,
 	shouldUseIncreasedScalingPercent = false,
-	isCommentEditor = false,
+	isCommentOrChromelessEditor = false,
 ): HTMLCollection => {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -245,7 +245,7 @@ export const insertColgroupFromNode = (
 		table,
 		isTableScalingEnabled ? (tableRef ?? undefined) : undefined,
 		shouldUseIncreasedScalingPercent,
-		isCommentEditor,
+		isCommentOrChromelessEditor,
 	);
 	if (shouldRemove) {
 		tableRef?.insertBefore(colgroup, tableRef?.firstChild);
@@ -288,12 +288,17 @@ function renderColgroupFromNode(
 	table: PmNode,
 	maybeTableRef: HTMLElement | undefined,
 	shouldUseIncreasedScalingPercent: boolean,
-	isCommentEditor: boolean,
+	isCommentOrChromelessEditor: boolean,
 ): HTMLElement {
 	const rendered = DOMSerializer.renderSpec(document, [
 		'colgroup',
 		{},
-		...generateColgroup(table, maybeTableRef, shouldUseIncreasedScalingPercent, isCommentEditor),
+		...generateColgroup(
+			table,
+			maybeTableRef,
+			shouldUseIncreasedScalingPercent,
+			isCommentOrChromelessEditor,
+		),
 	]);
 
 	// Ignored via go/ees005

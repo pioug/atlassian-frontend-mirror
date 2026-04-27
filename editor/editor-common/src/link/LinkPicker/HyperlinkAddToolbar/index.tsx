@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { LinkPickerProps } from '@atlaskit/link-picker';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { INPUT_METHOD } from '../../../analytics';
-import type { ProviderFactory } from '../../../provider-factory';
+import type { ProviderFactory, Providers } from '../../../provider-factory';
 import { WithProviders } from '../../../provider-factory';
 import type { Command, EditorAppearance, LinkInputType, LinkPickerOptions } from '../../../types';
 import type { EditorLinkPickerProps } from '../EditorLinkPicker';
@@ -13,10 +14,10 @@ import { EditorLinkPicker } from '../EditorLinkPicker';
 
 import HyperlinkAddToolbarComp from './HyperlinkAddToolbar';
 
-export interface HyperlinkAddToolbarProps extends Pick<
-	EditorLinkPickerProps,
-	'onCancel' | 'invokeMethod' | 'onClose'
-> {
+const HYPERLINK_PROVIDERS: (keyof Providers)[] = ['activityProvider', 'searchProvider'];
+
+export interface HyperlinkAddToolbarProps
+	extends Pick<EditorLinkPickerProps, 'onCancel' | 'invokeMethod' | 'onClose'> {
 	displayText?: string;
 	displayUrl?: string;
 	editorAppearance?: EditorAppearance;
@@ -75,55 +76,129 @@ export function HyperlinkAddToolbar({
 	timesViewed,
 	isOffline,
 }: HyperlinkAddToolbarProps): React.JSX.Element {
-	return (
-		<WithProviders
-			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			providers={['activityProvider', 'searchProvider']}
-			providerFactory={providerFactory}
-			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			renderNode={({ activityProvider, searchProvider }) => {
-				// If we're offline fallback to HyperlinkAddToolbarComp as we may not have loaded
-				// EditorLinkPicker into the bundle
-				if (lpLinkPicker && !Boolean(isOffline)) {
-					return (
-						<EditorLinkPicker
-							view={view}
-							invokeMethod={
-								// Provide `invokeMethod` prop as preferred value (card plugin passes as prop) otherwise assume this
-								// is being used from inside the hyperlink plugin and use inputMethod from plugin state
-								invokeMethod ?? inputMethod
-							}
-							editorAppearance={editorAppearance}
-							// Ignored via go/ees005
-							// eslint-disable-next-line react/jsx-props-no-spreading
-							{...linkPickerOptions}
-							url={displayUrl}
-							displayText={displayText}
-							onSubmit={onSubmitInterface(onSubmit)}
-							onCancel={onCancel}
-							onClose={onClose}
-							onEscapeCallback={onEscapeCallback}
-							onClickAwayCallback={onClickAwayCallback}
-						/>
-					);
-				}
+	const memoizedOnSubmitWithInterface = useMemo(() => onSubmitInterface(onSubmit), [onSubmit]);
 
+	const memoizedRenderNode = useCallback<(providers: Providers) => JSX.Element | null>(
+		({ activityProvider, searchProvider }) => {
+			// If we're offline fallback to HyperlinkAddToolbarComp as we may not have loaded
+			// EditorLinkPicker into the bundle
+			if (lpLinkPicker && !Boolean(isOffline)) {
 				return (
-					<HyperlinkAddToolbarComp
-						activityProvider={activityProvider}
-						searchProvider={searchProvider}
-						onSubmit={onSubmit}
-						displayText={displayText}
-						displayUrl={displayUrl}
+					<EditorLinkPicker
 						view={view}
+						invokeMethod={
+							// Provide `invokeMethod` prop as preferred value (card plugin passes as prop) otherwise assume this
+							// is being used from inside the hyperlink plugin and use inputMethod from plugin state
+							invokeMethod ?? inputMethod
+						}
+						editorAppearance={editorAppearance}
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...linkPickerOptions}
+						url={displayUrl}
+						displayText={displayText}
+						onSubmit={memoizedOnSubmitWithInterface}
+						onCancel={onCancel}
+						onClose={onClose}
 						onEscapeCallback={onEscapeCallback}
 						onClickAwayCallback={onClickAwayCallback}
-						inputMethod={inputMethod}
-						searchSessionId={searchSessionId}
-						timesViewed={timesViewed}
 					/>
 				);
-			}}
+			}
+
+			return (
+				<HyperlinkAddToolbarComp
+					activityProvider={activityProvider}
+					searchProvider={searchProvider}
+					onSubmit={onSubmit}
+					displayText={displayText}
+					displayUrl={displayUrl}
+					view={view}
+					onEscapeCallback={onEscapeCallback}
+					onClickAwayCallback={onClickAwayCallback}
+					inputMethod={inputMethod}
+					searchSessionId={searchSessionId}
+					timesViewed={timesViewed}
+				/>
+			);
+		},
+		[
+			lpLinkPicker,
+			isOffline,
+			view,
+			invokeMethod,
+			inputMethod,
+			editorAppearance,
+			linkPickerOptions,
+			displayUrl,
+			displayText,
+			onSubmit,
+			memoizedOnSubmitWithInterface,
+			onCancel,
+			onClose,
+			onEscapeCallback,
+			onClickAwayCallback,
+			searchSessionId,
+			timesViewed,
+		],
+	);
+
+	const providers = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? HYPERLINK_PROVIDERS
+		: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
+		  (['activityProvider', 'searchProvider'] satisfies (keyof Providers)[]);
+
+	return (
+		<WithProviders
+			providers={providers}
+			providerFactory={providerFactory}
+			renderNode={
+				expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+					? memoizedRenderNode
+					: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
+					  ({ activityProvider, searchProvider }) => {
+							// If we're offline fallback to HyperlinkAddToolbarComp as we may not have loaded
+							// EditorLinkPicker into the bundle
+							if (lpLinkPicker && !Boolean(isOffline)) {
+								return (
+									<EditorLinkPicker
+										view={view}
+										invokeMethod={
+											// Provide `invokeMethod` prop as preferred value (card plugin passes as prop) otherwise assume this
+											// is being used from inside the hyperlink plugin and use inputMethod from plugin state
+											invokeMethod ?? inputMethod
+										}
+										editorAppearance={editorAppearance}
+										// Ignored via go/ees005
+										// eslint-disable-next-line react/jsx-props-no-spreading
+										{...linkPickerOptions}
+										url={displayUrl}
+										displayText={displayText}
+										onSubmit={onSubmitInterface(onSubmit)}
+										onCancel={onCancel}
+										onClose={onClose}
+										onEscapeCallback={onEscapeCallback}
+										onClickAwayCallback={onClickAwayCallback}
+									/>
+								);
+							}
+							return (
+								<HyperlinkAddToolbarComp
+									activityProvider={activityProvider}
+									searchProvider={searchProvider}
+									onSubmit={onSubmit}
+									displayText={displayText}
+									displayUrl={displayUrl}
+									view={view}
+									onEscapeCallback={onEscapeCallback}
+									onClickAwayCallback={onClickAwayCallback}
+									inputMethod={inputMethod}
+									searchSessionId={searchSessionId}
+									timesViewed={timesViewed}
+								/>
+							);
+					  }
+			}
 		/>
 	);
 }

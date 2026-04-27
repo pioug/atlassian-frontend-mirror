@@ -1,6 +1,6 @@
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
-export const JQLValidationTooltipPluginKey = new PluginKey<boolean>(
+export const JQLValidationTooltipPluginKey: PluginKey<boolean> = new PluginKey<boolean>(
 	'jql-validation-tooltip-plugin',
 );
 

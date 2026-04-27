@@ -142,7 +142,7 @@ function reducer(state: State, action: Action): State {
 	}
 }
 
-export const AnnotationRangeStateContext = createContext<AnnotationRangeStateContext>({
+export const AnnotationRangeStateContext: React.Context<AnnotationRangeStateContext> = createContext<AnnotationRangeStateContext>({
 	range: null,
 	type: null,
 	selectionDraftRange: null,
@@ -151,7 +151,7 @@ export const AnnotationRangeStateContext = createContext<AnnotationRangeStateCon
 	hoverDraftDocumentPosition: null,
 });
 
-export const AnnotationRangeDispatchContext = createContext<AnnotationRangeDispatchContext>({
+export const AnnotationRangeDispatchContext: React.Context<AnnotationRangeDispatchContext> = createContext<AnnotationRangeDispatchContext>({
 	clearSelectionRange: () => {},
 	clearHoverRange: () => {},
 	setSelectionRange: () => {},
@@ -195,6 +195,7 @@ export const AnnotationRangeProviderInner = ({
 		if (!mediaNode) {
 			return;
 		}
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- range for media hover highlight
 		const range = document.createRange();
 		range.setStartBefore(mediaNode);
 		range.setEndAfter(mediaNode);
@@ -294,10 +295,10 @@ export const AnnotationRangeProvider = ({
 	);
 };
 
-export const useAnnotationRangeState = () => {
+export const useAnnotationRangeState = (): AnnotationRangeStateContext => {
 	return useContext(AnnotationRangeStateContext);
 };
 
-export const useAnnotationRangeDispatch = () => {
+export const useAnnotationRangeDispatch = (): AnnotationRangeDispatchContext => {
 	return useContext(AnnotationRangeDispatchContext);
 };

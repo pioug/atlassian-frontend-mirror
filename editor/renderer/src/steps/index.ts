@@ -1,8 +1,9 @@
+/* eslint-disable jsdoc/require-jsdoc -- internal step helpers */
 import { fg } from '@atlaskit/platform-feature-flags';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
 
-export function getStartPos(element: HTMLElement) {
+export function getStartPos(element: HTMLElement): number {
 	return parseInt(element.dataset.rendererStartPos || '-1', 10);
 }
 
@@ -157,7 +158,7 @@ export function isRendererRoot(element: HTMLElement | null): boolean {
 	return !!element && element.classList.contains('ak-renderer-document');
 }
 
-export function resolvePos(node: Node | null, offset: number, findEnd = false) {
+export function resolvePos(node: Node | null, offset: number, findEnd = false): number | false {
 	// If the passed node doesn't exist, we should abort
 	if (!node) {
 		return false;
@@ -284,7 +285,7 @@ export function getPosFromRange(range: Range): { from: number; to: number } | fa
 	return { from, to };
 }
 
-export function createAnnotationStep(from: number, to: number, opts: AnnotationStepOptions) {
+export function createAnnotationStep(from: number, to: number, opts: AnnotationStepOptions): AddMarkStep {
 	return new AddMarkStep(
 		Math.min(from, to),
 		Math.max(from, to),

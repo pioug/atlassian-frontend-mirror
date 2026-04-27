@@ -33,7 +33,7 @@ const decorateNodesInRange = (
 
 const RichInlineNodesPluginKey = new PluginKey<void>('rich-inline-nodes-plugin');
 
-const richInlineNodesPlugin = (portalActions: PortalActions) =>
+const richInlineNodesPlugin = (portalActions: PortalActions): Plugin<void> =>
 	new Plugin<void>({
 		key: RichInlineNodesPluginKey,
 		props: {

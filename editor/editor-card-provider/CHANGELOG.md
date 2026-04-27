@@ -1,5 +1,14 @@
 # @atlaskit/editor-card-provider
 
+## 6.7.7
+
+### Patch Changes
+
+- [`1e1cd867149d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e1cd867149d8) -
+  Add platform_sl_fix_cache_unresolved - cache Smart Link with resolved status, related to
+  platform_editor_smartlink_local_cache
+- Updated dependencies
+
 ## 6.7.6
 
 ### Patch Changes

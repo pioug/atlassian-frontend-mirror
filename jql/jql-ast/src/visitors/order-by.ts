@@ -9,7 +9,7 @@ import { getPositionFromContext, getPositionFromToken, JastBuildingVisitor } fro
 import { FieldVisitor } from './field';
 
 export class OrderByVisitor extends JastBuildingVisitor<OrderBy> {
-	searchSortVisitor = new SearchSortVisitor(this.tokens);
+	searchSortVisitor: SearchSortVisitor = new SearchSortVisitor(this.tokens);
 
 	visitJqlOrderBy = (ctx: JqlOrderByContext): OrderBy | void => {
 		// If this rule returned due to an exception then the order by operator is incomplete so we should exit early,
@@ -32,7 +32,7 @@ export class OrderByVisitor extends JastBuildingVisitor<OrderBy> {
 }
 
 class SearchSortVisitor extends JastBuildingVisitor<OrderByField | void> {
-	fieldVisitor = new FieldVisitor(this.tokens);
+	fieldVisitor: FieldVisitor = new FieldVisitor(this.tokens);
 
 	visitJqlSearchSort = (ctx: JqlSearchSortContext): OrderByField | void => {
 		const fieldCtx = ctx.jqlField();

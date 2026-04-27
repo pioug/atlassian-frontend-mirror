@@ -11,11 +11,11 @@ interface AnnotationHoverDispatchContext {
 	setIsWithinRange: (isWithinRange: boolean) => void;
 }
 
-const AnnotationHoverStateContext = createContext<AnnotationHoverStateContext>({
+const AnnotationHoverStateContext: React.Context<AnnotationHoverStateContext> = createContext<AnnotationHoverStateContext>({
 	isWithinRange: false,
 });
 
-const AnnotationHoverDispatchContext = createContext<AnnotationHoverDispatchContext>({
+const AnnotationHoverDispatchContext: React.Context<AnnotationHoverDispatchContext> = createContext<AnnotationHoverDispatchContext>({
 	cancelTimeout: () => {},
 	initiateTimeout: () => {},
 	setIsWithinRange: () => {},
@@ -58,10 +58,10 @@ export const AnnotationHoverContext = ({
 	);
 };
 
-export const useAnnotationHoverContext = () => {
+export const useAnnotationHoverContext = (): AnnotationHoverStateContext => {
 	return useContext(AnnotationHoverStateContext);
 };
 
-export const useAnnotationHoverDispatch = () => {
+export const useAnnotationHoverDispatch = (): AnnotationHoverDispatchContext => {
 	return useContext(AnnotationHoverDispatchContext);
 };

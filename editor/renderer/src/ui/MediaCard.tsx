@@ -22,7 +22,7 @@ import { MediaClientContext } from '@atlaskit/media-client-react';
 import type { MediaType } from '@atlaskit/adf-schema';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { withImageLoader } from '@atlaskit/editor-common/utils';
-import type { ImageStatus } from '@atlaskit/editor-common/utils';
+import type { ImageLoaderProps, ImageStatus } from '@atlaskit/editor-common/utils';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import type { RendererAppearance } from './Renderer/types';
 import type { RendererContext } from '../react/types';
@@ -499,4 +499,4 @@ export const MediaCardInternal = (props: MediaCardProps): React.JSX.Element => {
 	);
 };
 
-export const MediaCard = withImageLoader<MediaCardProps>(MediaCardInternal);
+export const MediaCard: React.ComponentClass<MediaCardProps & ImageLoaderProps> = withImageLoader<MediaCardProps>(MediaCardInternal);

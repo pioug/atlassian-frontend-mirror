@@ -87,7 +87,7 @@ export interface RovoPostAuthActionsModalProps {
 	url: string;
 }
 
-export const RovoPostAuthActionsModal = ({ title, url, testId }: RovoPostAuthActionsModalProps) => {
+export const RovoPostAuthActionsModal = ({ title, url, testId }: RovoPostAuthActionsModalProps): JSX.Element => {
 	return (
 		<Stack xcss={styles.container} testId={testId} space="space.0">
 			<Stack xcss={styles.header} space="space.100">

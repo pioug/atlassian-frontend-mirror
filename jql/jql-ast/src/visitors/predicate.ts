@@ -28,8 +28,8 @@ type PredicateOperatorContext =
 	| void;
 
 export class PredicateVisitor extends JastBuildingVisitor<Predicate> {
-	predicateOperatorVisitor = new PredicateOperatorVisitor(this.tokens);
-	predicateOperandVisitor = new PredicateOperandVisitor(this.tokens);
+	predicateOperatorVisitor: PredicateOperatorVisitor = new PredicateOperatorVisitor(this.tokens);
+	predicateOperandVisitor: PredicateOperandVisitor = new PredicateOperandVisitor(this.tokens);
 
 	visitJqlWasPredicate = (ctx: JqlWasPredicateContext): Predicate => {
 		const operator = this.getOperatorForContexts([
@@ -100,9 +100,9 @@ class PredicateOperatorVisitor extends JastBuildingVisitor<PredicateOperator> {
 }
 
 class PredicateOperandVisitor extends JastBuildingVisitor<Operand> {
-	operandVisitor = new OperandVisitor(this.tokens);
+	operandVisitor: OperandVisitor = new OperandVisitor(this.tokens);
 
-	visitJqlPredicateOperand = (ctx: JqlPredicateOperandContext) => {
+	visitJqlPredicateOperand = (ctx: JqlPredicateOperandContext): void | Operand => {
 		return ctx.jqlOperand().accept(this.operandVisitor);
 	};
 }

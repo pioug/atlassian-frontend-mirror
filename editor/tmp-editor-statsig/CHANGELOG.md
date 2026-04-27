@@ -1,5 +1,32 @@
 # @atlaskit/editor-statsig-tmp
 
+## 70.3.0
+
+### Minor Changes
+
+- [`8ba7595a14e53`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ba7595a14e53) -
+  [ux] Opens iframe preview panel for smart links and related works links in new work item view for
+  certain routes ( boards, backlog).
+
+## 70.2.0
+
+### Minor Changes
+
+- [`1e1cd867149d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e1cd867149d8) -
+  Add platform_sl_fix_cache_unresolved - cache Smart Link with resolved status, related to
+  platform_editor_smartlink_local_cache
+- [`f7254db909ac9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7254db909ac9) -
+  Replace platform_editor_ai_chromeless_akeditor_class experiment with
+  platform_editor_chromeless_akeditor_class feature gate
+
+## 70.1.0
+
+### Minor Changes
+
+- [`aaa61a61efb94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaa61a61efb94) -
+  Add support for table resize in chromeless editor, behind platform_editor_table_resize_chromeless
+  experiment
+
 ## 70.0.0
 
 ### Major Changes

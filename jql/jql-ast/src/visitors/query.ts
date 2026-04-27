@@ -8,8 +8,8 @@ import { OrderByVisitor } from './order-by';
 import { WhereVisitor } from './where';
 
 export class QueryVisitor extends JastBuildingVisitor<Query> {
-	whereVisitor = new WhereVisitor(this.tokens);
-	orderByVisitor = new OrderByVisitor(this.tokens);
+	whereVisitor: WhereVisitor = new WhereVisitor(this.tokens);
+	orderByVisitor: OrderByVisitor = new OrderByVisitor(this.tokens);
 
 	visitJqlQuery = (ctx: JqlQueryContext): Query => {
 		const whereContext = ctx.jqlWhere();

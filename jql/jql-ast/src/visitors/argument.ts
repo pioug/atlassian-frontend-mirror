@@ -7,7 +7,7 @@ import { getPositionFromContext, JastBuildingVisitor } from './common';
 import { StringVisitor } from './string';
 
 export class ArgumentVisitor extends JastBuildingVisitor<Argument> {
-	stringVisitor = new StringVisitor(this.tokens);
+	stringVisitor: StringVisitor = new StringVisitor(this.tokens);
 
 	visitJqlArgument = (ctx: JqlArgumentContext): Argument => {
 		const stringContext = ctx.jqlString();

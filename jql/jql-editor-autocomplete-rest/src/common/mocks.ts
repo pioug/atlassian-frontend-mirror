@@ -4,7 +4,15 @@ export const jqlFieldsString =
 export const jqlFunctionsString =
 	'[{"value":"approved()","displayName":"approved()","types":["com.atlassian.servicedesk.plugins.approvals.internal.searcher.ApprovalsDataTypes$ApprovalDataType"]},{"value":"approver(\\"\\")","displayName":"approver(\\"\\")","types":["com.atlassian.servicedesk.plugins.approvals.internal.searcher.ApprovalsDataTypes$ApprovalDataType"]},{"value":"breached()","displayName":"breached()","types":["com.atlassian.servicedesk.internal.sla.searcher.SlaDataTypes$SlaDataType"]},{"value":"cascadeOption(\\"\\")","displayName":"cascadeOption(\\"\\")","types":["com.atlassian.jira.issue.customfields.option.CascadingOption"]},{"value":"closedSprints()","displayName":"closedSprints()","types":["com.atlassian.greenhopper.service.sprint.Sprint"]},{"value":"completed()","displayName":"completed()","types":["com.atlassian.servicedesk.internal.sla.searcher.SlaDataTypes$SlaDataType"]},{"value":"componentsLeadByUser()","displayName":"componentsLeadByUser()","types":["com.atlassian.jira.bc.project.component.ProjectComponent"]},{"value":"currentLogin()","displayName":"currentLogin()","types":["java.util.Date"]},{"value":"currentUser()","displayName":"currentUser()","types":["com.atlassian.jira.user.ApplicationUser"]},{"value":"earliestUnreleasedVersion()","displayName":"earliestUnreleasedVersion()","types":["com.atlassian.jira.project.version.Version"]},{"value":"elapsed(\\"\\")","displayName":"elapsed(\\"\\")","types":["com.atlassian.servicedesk.internal.sla.searcher.SlaDataTypes$SlaDataType"]},{"value":"endOfDay()","displayName":"endOfDay()","types":["java.util.Date"]},{"value":"endOfMonth()","displayName":"endOfMonth()","types":["java.util.Date"]},{"value":"endOfWeek()","displayName":"endOfWeek()","types":["java.util.Date"]},{"value":"endOfYear()","displayName":"endOfYear()","types":["java.util.Date"]},{"value":"everBreached()","displayName":"everBreached()","types":["com.atlassian.servicedesk.internal.sla.searcher.SlaDataTypes$SlaDataType"]},{"value":"futureSprints()","displayName":"futureSprints()","types":["com.atlassian.greenhopper.service.sprint.Sprint"]},{"value":"inactiveUsers()","displayName":"inactiveUsers()","types":["com.atlassian.jira.user.ApplicationUser"]},{"value":"issueHistory()","displayName":"issueHistory()","types":["com.atlassian.jira.issue.Issue"]},{"value":"issuesWithRemoteLinksByGlobalId(\\"\\")","displayName":"issuesWithRemoteLinksByGlobalId(\\"\\")","types":["com.atlassian.jira.issue.Issue"]},{"value":"lastLogin()","displayName":"lastLogin()","types":["java.util.Date"]},{"value":"latestReleasedVersion()","displayName":"latestReleasedVersion()","types":["com.atlassian.jira.project.version.Version"]},{"value":"linkedIssues(\\"\\")","displayName":"linkedIssues(\\"\\")","types":["com.atlassian.jira.issue.Issue"]},{"value":"membersOf(\\"\\")","displayName":"membersOf(\\"\\")","types":["com.atlassian.jira.user.ApplicationUser"]},{"value":"myApproval()","displayName":"myApproval()","types":["com.atlassian.servicedesk.plugins.approvals.internal.searcher.ApprovalsDataTypes$ApprovalDataType"]},{"value":"myPending()","displayName":"myPending()","types":["com.atlassian.servicedesk.plugins.approvals.internal.searcher.ApprovalsDataTypes$ApprovalDataType"]},{"value":"now()","displayName":"now()","types":["java.util.Date"]},{"value":"openSprints()","displayName":"openSprints()","types":["com.atlassian.greenhopper.service.sprint.Sprint"]},{"value":"organizationMembers(\\"\\")","displayName":"organizationMembers(\\"\\")","types":["com.atlassian.jira.user.ApplicationUser"]},{"value":"paused()","displayName":"paused()","types":["com.atlassian.servicedesk.internal.sla.searcher.SlaDataTypes$SlaDataType"]},{"value":"pending()","displayName":"pending()","types":["com.atlassian.servicedesk.plugins.approvals.internal.searcher.ApprovalsDataTypes$ApprovalDataType"]},{"value":"pendingBy(\\"\\")","displayName":"pendingBy(\\"\\")","types":["com.atlassian.servicedesk.plugins.approvals.internal.searcher.ApprovalsDataTypes$ApprovalDataType"]},{"value":"projectsLeadByUser()","displayName":"projectsLeadByUser()","types":["com.atlassian.jira.project.Project"]},{"value":"projectsWhereUserHasPermission(\\"\\")","displayName":"projectsWhereUserHasPermission(\\"\\")","types":["com.atlassian.jira.project.Project"]},{"value":"projectsWhereUserHasRole(\\"\\")","displayName":"projectsWhereUserHasRole(\\"\\")","types":["com.atlassian.jira.project.Project"]},{"value":"releasedVersions()","displayName":"releasedVersions()","types":["com.atlassian.jira.project.version.Version"]},{"value":"remaining(\\"\\")","displayName":"remaining(\\"\\")","types":["com.atlassian.servicedesk.internal.sla.searcher.SlaDataTypes$SlaDataType"]},{"value":"running()","displayName":"running()","types":["com.atlassian.servicedesk.internal.sla.searcher.SlaDataTypes$SlaDataType"]},{"value":"standardIssueTypes()","displayName":"standardIssueTypes()","types":["com.atlassian.jira.issue.issuetype.IssueType"]},{"value":"startOfDay()","displayName":"startOfDay()","types":["java.util.Date"]},{"value":"startOfMonth()","displayName":"startOfMonth()","types":["java.util.Date"]},{"value":"startOfWeek()","displayName":"startOfWeek()","types":["java.util.Date"]},{"value":"startOfYear()","displayName":"startOfYear()","types":["java.util.Date"]},{"value":"subTaskIssueTypes()","displayName":"subTaskIssueTypes()","types":["com.atlassian.jira.issue.issuetype.IssueType"]},{"value":"unreleasedVersions()","displayName":"unreleasedVersions()","types":["com.atlassian.jira.project.version.Version"]},{"value":"updatedBy(\\"\\")","displayName":"updatedBy(\\"\\")","types":["com.atlassian.jira.issue.Issue"]},{"value":"votedIssues()","displayName":"votedIssues()","types":["com.atlassian.jira.issue.Issue"]},{"value":"watchedIssues()","displayName":"watchedIssues()","types":["com.atlassian.jira.issue.Issue"]},{"value":"withinCalendarHours()","displayName":"withinCalendarHours()","types":["com.atlassian.servicedesk.internal.sla.searcher.SlaDataTypes$SlaDataType"]}]';
 
-export const assigneeJqlField = {
+export const assigneeJqlField: {
+    auto: string;
+    displayName: string;
+    operators: string[];
+    orderable: string;
+    searchable: string;
+    types: string[];
+    value: string;
+} = {
 	value: 'assignee',
 	displayName: 'assignee',
 	operators: [
@@ -25,7 +33,15 @@ export const assigneeJqlField = {
 	orderable: 'true',
 	auto: 'true',
 };
-export const componentJqlField = {
+export const componentJqlField: {
+    auto: string;
+    displayName: string;
+    operators: string[];
+    orderable: string;
+    searchable: string;
+    types: string[];
+    value: string;
+} = {
 	value: 'cf[10111]',
 	displayName: 'Component - cf[10111]',
 	operators: ['=', '!=', 'in', 'not in', 'is', 'is not'],
@@ -34,7 +50,15 @@ export const componentJqlField = {
 	orderable: 'true',
 	auto: 'true',
 };
-export const statusJqlField = {
+export const statusJqlField: {
+    auto: string;
+    displayName: string;
+    operators: string[];
+    orderable: string;
+    searchable: string;
+    types: string[];
+    value: string;
+} = {
 	value: 'status',
 	displayName: 'status',
 	operators: [
@@ -55,7 +79,16 @@ export const statusJqlField = {
 	orderable: 'true',
 	auto: 'true',
 };
-export const accountJqlField = {
+export const accountJqlField: {
+    auto: string;
+    cfid: string;
+    displayName: string;
+    operators: string[];
+    orderable: string;
+    searchable: string;
+    types: string[];
+    value: string;
+} = {
 	value: 'Account',
 	displayName: 'Account - cf[10112]',
 	operators: ['=', '!=', 'in', 'not in', 'is', 'is not'],
@@ -65,7 +98,15 @@ export const accountJqlField = {
 	auto: 'true',
 	cfid: 'cf[10112]',
 };
-export const accountManagerJqlField = {
+export const accountManagerJqlField: {
+    auto: string;
+    displayName: string;
+    operators: string[];
+    orderable: string;
+    searchable: string;
+    types: string[];
+    value: string;
+} = {
 	value: '"Account manager"',
 	displayName: 'Account manager - cf[10113]',
 	operators: ['=', '!=', 'in', 'not in', 'is', 'is not'],
@@ -74,7 +115,15 @@ export const accountManagerJqlField = {
 	orderable: 'true',
 	auto: 'true',
 };
-export const doubleQuotedJqlField = {
+export const doubleQuotedJqlField: {
+    auto: string;
+    displayName: string;
+    operators: string[];
+    orderable: string;
+    searchable: string;
+    types: string[];
+    value: string;
+} = {
 	value: '"Field with \\"double quotes\\""',
 	displayName: '"Field with \\"double quotes\\" - cf[10114]"',
 	operators: ['=', '!=', 'in', 'not in', 'is', 'is not'],
@@ -83,7 +132,15 @@ export const doubleQuotedJqlField = {
 	orderable: 'true',
 	auto: 'true',
 };
-export const singleQuotedJqlField = {
+export const singleQuotedJqlField: {
+    auto: string;
+    displayName: string;
+    operators: string[];
+    orderable: string;
+    searchable: string;
+    types: string[];
+    value: string;
+} = {
 	value: "'Field with \\'single quotes\\''",
 	displayName: "'Field with \\'single quotes\\' - cf[10114]'",
 	operators: ['=', '!=', 'in', 'not in', 'is', 'is not'],
@@ -92,7 +149,14 @@ export const singleQuotedJqlField = {
 	orderable: 'true',
 	auto: 'true',
 };
-export const nonSearchableJqlField = {
+export const nonSearchableJqlField: {
+    auto: string;
+    displayName: string;
+    operators: string[];
+    orderable: string;
+    types: string[];
+    value: string;
+} = {
 	value: 'ThisFieldShouldNotShowOnLHS',
 	displayName: 'ThisFieldShouldNotShowOnLHS',
 	operators: ['=', '!=', 'in', 'not in', 'is', 'is not'],
@@ -100,7 +164,14 @@ export const nonSearchableJqlField = {
 	orderable: 'true',
 	auto: 'true',
 };
-export const nonOrderableJqlField = {
+export const nonOrderableJqlField: {
+    auto: string;
+    displayName: string;
+    operators: string[];
+    searchable: string;
+    types: string[];
+    value: string;
+} = {
 	value: 'ThisFieldShouldNotShowOnOrderBy',
 	displayName: 'ThisFieldShouldNotShowOnOrderBy',
 	operators: ['=', '!=', 'in', 'not in', 'is', 'is not'],
@@ -108,7 +179,14 @@ export const nonOrderableJqlField = {
 	searchable: 'true',
 	auto: 'true',
 };
-export const nonAutocompletableField = {
+export const nonAutocompletableField: {
+    displayName: string;
+    operators: string[];
+    orderable: string;
+    searchable: string;
+    types: string[];
+    value: string;
+} = {
 	value: 'ThisFieldShouldNotSupportRHSAutocomplete',
 	displayName: 'ThisFieldShouldNotSupportRHSAutocomplete',
 	operators: ['=', '!=', 'in', 'not in', 'is', 'is not'],
@@ -116,7 +194,15 @@ export const nonAutocompletableField = {
 	searchable: 'true',
 	orderable: 'true',
 };
-export const collapsedCustomField = {
+export const collapsedCustomField: {
+    auto: string;
+    displayName: string;
+    operators: string[];
+    orderable: string;
+    searchable: string;
+    types: string[];
+    value: string;
+} = {
 	value: '"Collapsed[Dropdown]"',
 	displayName: 'Collapsed - Collapsed[Dropdown]',
 	operators: ['=', '!=', 'in', 'not in', 'is', 'is not'],
@@ -125,7 +211,15 @@ export const collapsedCustomField = {
 	orderable: 'true',
 	auto: 'true',
 };
-export const cfidField = {
+export const cfidField: {
+    auto: string;
+    displayName: string;
+    operators: string[];
+    orderable: string;
+    searchable: string;
+    types: string[];
+    value: string;
+} = {
 	value: 'cf[12345]',
 	displayName: 'Custom field',
 	operators: ['=', '!=', 'in', 'not in', 'is', 'is not'],
@@ -135,7 +229,7 @@ export const cfidField = {
 	auto: 'true',
 };
 
-export const deprecatedEpicLinkField = {
+export const deprecatedEpicLinkField: { auto: string; cfid: string; deprecated: string; deprecatedSearcherKey: string; displayName: string; operators: string[]; orderable: string; searchable: string; types: string[]; value: string; } = {
 	displayName: 'Epic Link - cf[10014]',
 	value: '"Epic Link"',
 	deprecated: 'true',
@@ -148,7 +242,7 @@ export const deprecatedEpicLinkField = {
 	types: ['com.atlassian.jira.issue.Issue'],
 };
 
-export const deprecatedParentLinkField = {
+export const deprecatedParentLinkField: { auto: string; cfid: string; deprecated: string; deprecatedSearcherKey: string; displayName: string; operators: string[]; orderable: string; searchable: string; types: string[]; value: string; } = {
 	auto: 'true',
 	cfid: 'cf[10018]',
 	deprecated: 'true',
@@ -161,32 +255,54 @@ export const deprecatedParentLinkField = {
 	value: '"Parent Link"',
 };
 
-export const currentUserFunction = {
+export const currentUserFunction: {
+    displayName: string;
+    types: string[];
+    value: string;
+} = {
 	value: 'currentUser()',
 	displayName: 'currentUser()',
 	types: ['com.atlassian.jira.user.ApplicationUser'],
 };
 
-export const membersOfFunction = {
+export const membersOfFunction: {
+    displayName: string;
+    types: string[];
+    value: string;
+} = {
 	value: 'membersOf("")',
 	displayName: 'membersOf("")',
 	types: ['com.atlassian.jira.user.ApplicationUser'],
 };
 
-export const inactiveUsersFunction = {
+export const inactiveUsersFunction: {
+    displayName: string;
+    isList: string;
+    types: string[];
+    value: string;
+} = {
 	value: 'inactiveUsers()',
 	displayName: 'inactiveUsers()',
 	types: ['com.atlassian.jira.user.ApplicationUser'],
 	isList: 'true',
 };
 
-export const updatedByFunction = {
+export const updatedByFunction: {
+    displayName: string;
+    types: string[];
+    value: string;
+} = {
 	value: 'updatedBy("")',
 	displayName: 'updatedBy("")',
 	types: ['com.atlassian.jira.issue.Issue'],
 };
 
-export const forgeJqlFunction = {
+export const forgeJqlFunction: {
+    displayName: string;
+    supportsListAndSingleValueOperators: string;
+    types: string[];
+    value: string;
+} = {
 	value: 'myForgeJqlFunction()',
 	displayName: 'myForgeJqlFunction()',
 	supportsListAndSingleValueOperators: 'true',
@@ -194,7 +310,10 @@ export const forgeJqlFunction = {
 };
 
 // This is the field value API response before it has been mapped for autocomplete
-export const fieldValuesMock = [
+export const fieldValuesMock: {
+    displayName: string;
+    value: string;
+}[] = [
 	{
 		value: '"[System] Change"',
 		displayName: '[System] Change',

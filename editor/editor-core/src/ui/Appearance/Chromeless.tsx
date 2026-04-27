@@ -14,6 +14,7 @@ import type {
 	MaxContentSizePlugin,
 	MaxContentSizePluginState,
 } from '@atlaskit/editor-plugins/max-content-size';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -211,11 +212,7 @@ export function ChromelessEditorContainer({
 		<div
 			css={[chromelessEditorStylesNew, scrollbarStylesNew]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={
-				expValEquals('platform_editor_ai_chromeless_akEditor_class', 'isEnabled', true)
-					? 'akEditor'
-					: undefined
-			}
+			className={fg('platform_editor_chromeless_akeditor_class') ? 'akEditor' : undefined}
 			style={{
 				maxHeight: maxHeight ? `${maxHeight}px` : undefined,
 				minHeight: `${minHeight}px`,

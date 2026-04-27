@@ -105,6 +105,6 @@ export const AccessLockSVGWrapper = (props: { children: React.ReactNode }): Reac
 	<Box xcss={cx(styles.accesslocksvgwrapper)} {...props} />
 );
 
-export const ArchiveLozengeWrapper = (props: { children: React.ReactNode }) => (
+export const ArchiveLozengeWrapper = (props: { children: React.ReactNode }): React.JSX.Element => (
 	<Inline xcss={cx(styles.archiveLozengeWrapper)} {...props} />
 );

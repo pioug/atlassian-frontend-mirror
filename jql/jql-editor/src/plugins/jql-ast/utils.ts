@@ -13,7 +13,7 @@ export const getTokenDisplayNames = (parser: JQLParser, tokens: number[]): strin
 export const getExpectedTokensFromParserOrException = (
 	parser: JQLParser,
 	exception?: RecognitionException,
-) => {
+): number[] => {
 	// Read expected tokens from the exception if present, as it refers to the expected input symbols at the time the
 	// exception was thrown (whereas JQLParser will give us possible tokens from the current parser state).
 	const expectedTokenSet = exception?.expectedTokens ?? parser.getExpectedTokens();

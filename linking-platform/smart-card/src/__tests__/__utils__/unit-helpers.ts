@@ -1,4 +1,5 @@
-import { act, screen, waitForElementToBeRemoved, type userEvent } from '@atlassian/testing-library';
+// oxlint-disable-next-line @typescript-eslint/consistent-type-imports -- userEvent only used in typeof userEvent.setup for param typing
+import { act, screen, userEvent, waitForElementToBeRemoved } from '@atlassian/testing-library';
 
 /**
  * This function checks for an exact string match across all children elements.
@@ -20,7 +21,9 @@ export const expectElementWithText = async (testId: string, text: string): Promi
 /**
  * Close embed modal
  */
-export const closeEmbedModal = async (event: ReturnType<typeof userEvent.setup>) => {
+export const closeEmbedModal = async (
+	event: Awaited<ReturnType<typeof userEvent.setup>>,
+): Promise<void> => {
 	const closeButton = screen.queryByTestId('smart-embed-preview-modal--close-button');
 	if (closeButton) {
 		await event.click(closeButton);

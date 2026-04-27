@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 22.2.7
+
+### Patch Changes
+
+- [`aaa61a61efb94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaa61a61efb94) -
+  Add support for table resize in chromeless editor, behind platform_editor_table_resize_chromeless
+  experiment
+- Updated dependencies
+
 ## 22.2.6
 
 ### Patch Changes

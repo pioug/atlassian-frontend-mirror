@@ -13,7 +13,10 @@ type Props = {
 	>;
 };
 
-export const SelectionRangeValidator = (props: Props): React.JSX.Element | null => {
+export const SelectionRangeValidator: {
+    (props: Props): React.JSX.Element | null;
+    displayName: string;
+} = (props: Props): React.JSX.Element | null => {
 	const { selectionComponent, rendererRef, createAnalyticsEvent } = props;
 	const actions = useContext(ActionsContext);
 	const [type, range, draftRange, clearRange] = useUserSelectionRange({

@@ -38,7 +38,7 @@ type UseAnnotationUpdateSatteByEventProps = {
 export const useAnnotationStateByTypeEvent = ({
 	type,
 	updateSubscriber,
-}: UseAnnotationUpdateSatteByEventProps) => {
+}: UseAnnotationUpdateSatteByEventProps): Record<string, AnnotationMarkStates | null> => {
 	const [states, setStates] = useState<Record<AnnotationId, AnnotationMarkStates | null>>({});
 	const { annotationManager, dispatch } = useAnnotationManagerDispatch();
 	const { annotations } = useAnnotationManagerState();
@@ -106,7 +106,10 @@ export const useAnnotationStateByTypeEvent = ({
 	}
 };
 
-export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps) => {
+export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps): {
+    hasFocus: boolean;
+    isHovered: boolean;
+} => {
 	const [hasFocus, setHasFocus] = useState<boolean>(false);
 	const [isHovered, setIsHovered] = useState<boolean>(false);
 	const { currentSelectedAnnotationId, currentHoveredAnnotationId } = useAnnotationManagerState();

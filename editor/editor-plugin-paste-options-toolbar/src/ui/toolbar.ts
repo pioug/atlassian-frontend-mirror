@@ -13,6 +13,7 @@ import type { LastContentPasted } from '@atlaskit/editor-plugin-paste';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+import ClipboardIcon from '@atlaskit/icon/core/clipboard';
 
 import {
 	changeToMarkdownWithAnalytics,
@@ -33,8 +34,6 @@ import {
 } from '../pm-plugins/util';
 import type { PasteOptionsPluginState, Position } from '../types/types';
 import { pasteOptionsPluginKey, ToolbarDropdownOption } from '../types/types';
-
-import EditorPasteIcon from './paste-icon';
 
 export const isToolbarVisible = (
 	state: EditorState,
@@ -97,7 +96,7 @@ export const getToolbarMenuConfig = (
 
 	return {
 		id: PASTE_TOOLBAR_ITEM_CLASS,
-		icon: EditorPasteIcon,
+		icon: ClipboardIcon,
 		type: 'dropdown',
 		testId: PASTE_OPTIONS_TEST_ID,
 		title: intl.formatMessage(messages.pasteOptions),

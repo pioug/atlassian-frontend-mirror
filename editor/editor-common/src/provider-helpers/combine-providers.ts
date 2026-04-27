@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import {
 	getOnlyFulfilled,
 	waitForAllPromises,
@@ -27,9 +25,6 @@ export default <P>(
 	const getFulfilledProviders = async () => {
 		const results = await waitForAllPromises<P>(providers.map((result) => Promise.resolve(result)));
 
-		if (!fg('platform_editor_fix_getautoconverter_null_error')) {
-			return getOnlyFulfilled<P>(results);
-		}
 		// Filter out null/undefined providers to prevent errors when calling methods on them
 		return getOnlyFulfilled<P>(results).filter((provider): provider is P => provider != null);
 	};

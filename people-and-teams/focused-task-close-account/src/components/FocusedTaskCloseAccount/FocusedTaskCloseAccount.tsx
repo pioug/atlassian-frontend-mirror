@@ -40,7 +40,7 @@ export class FocusedTaskCloseAccount extends React.Component<Props, State> {
 		this.setState({ currentScreenIdx: previousScreenIdx });
 	};
 
-	renderCurrentScreen = () => {
+	renderCurrentScreen = (): React.ReactNode => {
 		const currentScreen = this.props.screens[this.state.currentScreenIdx];
 		return currentScreen;
 	};

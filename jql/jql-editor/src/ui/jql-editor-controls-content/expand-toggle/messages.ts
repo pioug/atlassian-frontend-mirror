@@ -1,6 +1,20 @@
 import { defineMessages } from 'react-intl';
 
-export const messages = defineMessages({
+export const messages: {
+    buttonLabel: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; collapseTooltip: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expandTooltip: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    };
+} = defineMessages({
 	buttonLabel: {
 		id: 'jql-editor.ui.jql-editor-controls-content.expand-toggle.button-label',
 		defaultMessage: 'Editor',

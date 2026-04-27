@@ -1124,6 +1124,12 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	platform_editor_table_resize_chromeless: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-05
 	platform_editor_toolbar_split_button_ui: {
 		defaultValue: boolean;
@@ -1715,14 +1721,21 @@ export const editorExperimentsConfig: {
 	};
 
 	// Added 2026-04-23
-	platform_editor_ai_chromeless_akEditor_class: {
+	platform_editor_emojis_in_renderer_smart_links: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
 	// Added 2026-04-23
-	platform_editor_emojis_in_renderer_smart_links: {
+	work_item_modernization: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-04-27
+	platform_sl_fix_cache_unresolved: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2991,6 +3004,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	platform_editor_table_resize_chromeless: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_resize_chromeless',
+			jira: 'platform_editor_table_resize_chromeless',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-02-05
 	platform_editor_toolbar_split_button_ui: createBooleanExperiment({
 		productKeys: {
@@ -3709,18 +3730,25 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2026-04-23
-	platform_editor_ai_chromeless_akEditor_class: createBooleanExperiment({
+	platform_editor_emojis_in_renderer_smart_links: createBooleanExperiment({
 		productKeys: {
-			confluence: 'platform_editor_ai_chromeless_akEditor_class',
-			jira: 'platform_editor_ai_chromeless_akEditor_class',
+			confluence: 'platform_editor_emojis_in_renderer_smart_links',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
 	// Added 2026-04-23
-	platform_editor_emojis_in_renderer_smart_links: createBooleanExperiment({
+	work_item_modernization: createBooleanExperiment({
 		productKeys: {
-			confluence: 'platform_editor_emojis_in_renderer_smart_links',
+			jira: 'work_item_modernization',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-27
+	platform_sl_fix_cache_unresolved: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_sl_fix_cache_unresolved',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

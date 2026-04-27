@@ -352,15 +352,15 @@ export class RuleContextVisitor implements JQLParserVisitor<JQLRuleContext> {
 		return { errorNodes };
 	};
 
-	visit = () => {
+	visit = (): never => {
 		throw new Error('Unsupported operation visit(ParseTree)');
 	};
 
-	visitErrorNode = () => {
+	visitErrorNode = (): never => {
 		throw new Error('Unsupported operation visitErrorNode(ErrorNode)');
 	};
 
-	visitTerminal = () => {
+	visitTerminal = (): never => {
 		throw new Error('Unsupported operation visitTerminal(TerminalNode)');
 	};
 }

@@ -36,6 +36,7 @@ export default function withActivityProvider<Props>(
 			const { providerFactory } = this.props;
 			return (
 				<WithProviders
+					// Memoising this array causes the component fail tests in platform/packages/editor/editor-plugin-media-tests/src/__tests__/playwright/media-link.spec.ts because the WithProviders component doesn't update when the parent rerenders - this is a bug with the underlying WithProviders component
 					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					providers={['activityProvider']}
 					providerFactory={providerFactory}

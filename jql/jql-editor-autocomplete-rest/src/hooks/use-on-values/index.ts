@@ -45,6 +45,7 @@ const getValueType = (field: JQLFieldResponse): AutocompleteValueType | void => 
 	}
 	if (
 		field.types.includes(GOAL_FIELD_TYPE) &&
+		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils -- Statsig migration pending for this experiment gate
 		FeatureGates.getExperimentValue('anip-1095-goals-in-harmonised-filter', 'isEnabled', false)
 	) {
 		return 'goal';
@@ -78,7 +79,7 @@ const useOnValues = (
 	jqlSearchableFields$: Observable<JQLFieldResponse>,
 	getSuggestions: GetAutocompleteSuggestions,
 	createAndFireAnalyticsEvent: (payload: JqlEditorAutocompleteAnalyticsEvent) => void,
-) => {
+): (query?: string, field?: string) => Observable<AutocompleteOptions> => {
 	di(useReducer);
 
 	const fetchFieldValues = useFetchFieldValues(getSuggestions, createAndFireAnalyticsEvent);
@@ -132,6 +133,7 @@ const useOnValues = (
 									if (
 										valueType === 'team' ||
 										(valueType === 'goal' &&
+											// eslint-disable-next-line @atlaskit/platform/use-recommended-utils -- Statsig migration pending for this experiment gate
 											FeatureGates.getExperimentValue(
 												'anip-1095-goals-in-harmonised-filter',
 												'isEnabled',

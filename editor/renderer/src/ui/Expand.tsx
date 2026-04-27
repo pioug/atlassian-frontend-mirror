@@ -24,7 +24,7 @@ import Tooltip from '@atlaskit/tooltip';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import _uniqueId from 'lodash/uniqueId';
-import type { WrappedComponentProps } from 'react-intl';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 import type { AnalyticsEventPayload } from '../analytics/events';
 import { MODE, PLATFORM } from '../analytics/events';
@@ -385,4 +385,8 @@ function Expand({
 	);
 }
 
-export default injectIntl(Expand);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<ExpandProps & WrappedComponentProps>> & {
+    WrappedComponent: React.ComponentType<ExpandProps & WrappedComponentProps>;
+} = injectIntl(Expand);
+export default _default_1;

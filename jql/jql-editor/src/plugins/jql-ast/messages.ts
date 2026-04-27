@@ -1,6 +1,144 @@
 import { defineMessages } from 'react-intl';
 
-export const errorMessages = defineMessages({
+export const errorMessages: {
+    expectingCFButReceived: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingCustomFieldId: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingFieldBeforeEOF: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingFieldButReceived: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingFieldPropertyIdBeforeEOF: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingFieldPropertyIdButReceived: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingFunctionArgBeforeEOF: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingFunctionArgButReceived: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingFunctionBeforeEOF: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingFunctionButReceived: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingListBeforeEOF: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingListButReceived: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingListOrFunctionBeforeEOF: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingListOrFunctionButReceived: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingMultipleTokensBeforeEOF: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingMultipleTokensButReceived: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingOperandBeforeEOF: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingOperandButReceived: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingOperatorBeforeEOF: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingOperatorButReceived: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingTokenBeforeEOF: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingTokenButReceived: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingValueBeforeEOF: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingValueButReceived: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingValueOrFunctionBeforeEOF: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; expectingValueOrFunctionButReceived: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; illegalChar: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; illegalEscape: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; illegalEscapeBlank: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; reservedChar: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; reservedWord: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; unfinishedString: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; unfinishedStringBlank: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; unknownErrorAtToken: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    };
+} = defineMessages({
 	expectingOperatorButReceived: {
 		id: 'jql-editor.plugins.jql-ast.error-messages.expectingOperatorButReceived',
 		defaultMessage:

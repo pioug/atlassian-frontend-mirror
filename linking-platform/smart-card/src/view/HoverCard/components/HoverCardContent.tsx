@@ -429,14 +429,15 @@ const HoverCardContentWithViewVariant = (props: HoverCardContentProps): React.JS
 	);
 };
 
-export default componentWithCondition(
-	() => {
-		// We need to read both of them to sutisfy some of the tests that expect both to be checked.
-		const flagA = fg('platform_sl_3p_preauth_better_hovercard_killswitch');
-		const flagB = fg('platform_sl_3p_auth_rovo_action_kill_switch');
-		const flagC = fg('rovogrowth-640-inline-action-nudge-fg');
-		return flagA || flagB || flagC;
-	},
-	HoverCardContentWithViewVariant,
-	HoverCardContent,
+const _default_1 = componentWithCondition(
+    () => {
+        // We need to read both of them to sutisfy some of the tests that expect both to be checked.
+        const flagA = fg('platform_sl_3p_preauth_better_hovercard_killswitch');
+        const flagB = fg('platform_sl_3p_auth_rovo_action_kill_switch');
+        const flagC = fg('rovogrowth-640-inline-action-nudge-fg');
+        return flagA || flagB || flagC;
+    },
+    HoverCardContentWithViewVariant,
+    HoverCardContent
 );
+export default _default_1;

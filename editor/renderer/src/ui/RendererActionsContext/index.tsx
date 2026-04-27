@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-jsdoc */
 import React, { useMemo } from 'react';
 import type { PropsWithChildren } from 'react';
 
@@ -8,7 +9,7 @@ import { EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 
 import RendererActions from '../../actions/index';
 
-export const RendererContext = React.createContext(new RendererActions());
+export const RendererContext: React.Context<RendererActions> = React.createContext(new RendererActions());
 
 type RendererActionsContextProps = PropsWithChildren<{
 	context?: RendererActions;
@@ -50,4 +51,4 @@ export function RendererActionsContext({
 	);
 }
 
-export const RendererActionsContextConsumer = RendererContext.Consumer;
+export const RendererActionsContextConsumer: React.Consumer<RendererActions> = RendererContext.Consumer;

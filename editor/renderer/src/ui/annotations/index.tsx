@@ -31,7 +31,9 @@ const LoadAnnotations = React.memo<LoadAnnotationsProps>(
 // By default it is 1 (the possible starting position of any document).
 // The bodied extension component then sets a new value for this context based on its on position
 // in the document.
-export const AnnotationsPositionContext = React.createContext<{ startPos: number }>({
+export const AnnotationsPositionContext: React.Context<{
+    startPos: number;
+}> = React.createContext<{ startPos: number }>({
 	startPos: 1,
 });
 

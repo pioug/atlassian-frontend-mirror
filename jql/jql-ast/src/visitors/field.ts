@@ -13,8 +13,8 @@ import { getPositionFromContext, JastBuildingVisitor } from './common';
 import { StringVisitor } from './string';
 
 export class FieldVisitor extends JastBuildingVisitor<Field> {
-	stringVisitor = new StringVisitor(this.tokens);
-	fieldPropertyVisitor = new FieldPropertyVisitor(this.tokens);
+	stringVisitor: StringVisitor = new StringVisitor(this.tokens);
+	fieldPropertyVisitor: FieldPropertyVisitor = new FieldPropertyVisitor(this.tokens);
 
 	visitJqlNumberField = (ctx: JqlNumberFieldContext): Field => {
 		const text = this.tokens.getText(ctx);
@@ -44,8 +44,8 @@ export class FieldVisitor extends JastBuildingVisitor<Field> {
 }
 
 class FieldPropertyVisitor extends JastBuildingVisitor<Property> {
-	argumentVisitor = new ArgumentVisitor(this.tokens);
-	propertyArgumentVisitor = new PropertyArgumentVisitor(this.tokens);
+	argumentVisitor: ArgumentVisitor = new ArgumentVisitor(this.tokens);
+	propertyArgumentVisitor: PropertyArgumentVisitor = new PropertyArgumentVisitor(this.tokens);
 
 	visitJqlFieldProperty = (ctx: JqlFieldPropertyContext): Property => {
 		const argumentContext = ctx.jqlArgument();
@@ -64,7 +64,7 @@ class FieldPropertyVisitor extends JastBuildingVisitor<Property> {
 }
 
 class PropertyArgumentVisitor extends JastBuildingVisitor<Argument> {
-	argumentVisitor = new ArgumentVisitor(this.tokens);
+	argumentVisitor: ArgumentVisitor = new ArgumentVisitor(this.tokens);
 
 	visitJqlPropertyArgument = (ctx: JqlPropertyArgumentContext): Argument => {
 		return ctx.jqlArgument().accept(this.argumentVisitor);

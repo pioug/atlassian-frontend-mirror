@@ -43,7 +43,7 @@ export const ORDERED_OPERATORS: string[] = [
 	OPERATOR_CHANGED,
 ];
 
-export const sortOperators = (operators$: Observable<AutocompleteOptions>) => {
+export const sortOperators = (operators$: Observable<AutocompleteOptions>): Observable<AutocompleteOptions> => {
 	return operators$.pipe(
 		map((options) => {
 			return ORDERED_OPERATORS.reduce<AutocompleteOptions>((result, orderedOperator) => {

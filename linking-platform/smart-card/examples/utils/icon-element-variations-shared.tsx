@@ -126,7 +126,7 @@ export const iconTypeGroups: { icons: IconType[]; title: string }[] = [
 	},
 ];
 
-export const iconTypeEntries = iconTypeGroups.flatMap((group) =>
+export const iconTypeEntries: [string, IconType][] = iconTypeGroups.flatMap((group) =>
 	group.icons.map<[string, IconType]>((icon: IconType) => [icon.toString(), icon]),
 );
 
@@ -262,7 +262,7 @@ export const IconGrid = ({
 }: {
 	children: React.ReactNode;
 	gridTemplateColumns: string;
-}) => (
+}): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 	<div css={gridStyles} style={{ gridTemplateColumns }}>
 		{children}
@@ -509,7 +509,7 @@ export const IconVariant = ({
 	showSizingOverlay,
 	showTitle,
 	zoom,
-}: IconVariantProps) => (
+}: IconVariantProps): JSX.Element => (
 	<div css={[cellStyles, showBorder && !showSizingOverlay && cellBorderStyles]}>
 		{showTitle && <div css={labelTextStyles}>{label}</div>}
 		{tileVariants.map((isTiled) =>

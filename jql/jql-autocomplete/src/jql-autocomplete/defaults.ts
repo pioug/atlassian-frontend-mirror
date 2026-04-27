@@ -1,6 +1,6 @@
 import { JQLLexer, JQLParser } from '@atlaskit/jql-parser';
 
-export const defaultIgnoredTokens = new Set([
+export const defaultIgnoredTokens: Set<number> = new Set([
 	JQLLexer.EOF,
 	JQLLexer.LPAREN,
 	JQLLexer.RPAREN,
@@ -70,7 +70,7 @@ const operandRules = [
  *
  * More info at https://github.com/mike-lischke/antlr4-c3#preferred-rules
  */
-export const defaultPreferredRules = new Set([
+export const defaultPreferredRules: Set<number> = new Set([
 	JQLParser.RULE_jqlField,
 	...operatorRules,
 	...operandRules,
@@ -80,4 +80,4 @@ export const defaultPreferredRules = new Set([
 	JQLParser.RULE_jqlPredicateOperand,
 ]);
 
-export const defaultDelimiterTokens = new Set([JQLLexer.LPAREN, JQLLexer.COMMA]);
+export const defaultDelimiterTokens: Set<number> = new Set([JQLLexer.LPAREN, JQLLexer.COMMA]);

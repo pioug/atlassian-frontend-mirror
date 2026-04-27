@@ -22,4 +22,5 @@ class MessagesIntlProvider extends React.Component<Props & WrappedComponentProps
 	}
 }
 
-export default injectIntl(MessagesIntlProvider);
+const _default_1 = injectIntl(MessagesIntlProvider);
+export default _default_1;

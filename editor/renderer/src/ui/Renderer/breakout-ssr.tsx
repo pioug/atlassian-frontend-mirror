@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-jsdoc -- SSR inline script helpers */
 import React from 'react';
 import { breakoutConsts } from '@atlaskit/editor-common/utils';
 import type { BreakoutConstsType } from '@atlaskit/editor-common/utils';
@@ -113,6 +114,7 @@ function applyBreakoutAfterSSR(
 	}
 
 	const renderer: HTMLElement | undefined = findUp(
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- inline script runs in browser document context
 		document.querySelector(`[data-breakout-script-id="${id}"]`),
 		(elem) => !!elem.parentElement?.classList.contains('ak-renderer-wrapper'),
 	);
@@ -278,4 +280,4 @@ function applyBreakoutAfterSSR(
 	window.addEventListener('load', disconnect);
 }
 
-export const calcLineLength = breakoutConsts.calcLineLength(breakoutConsts);
+export const calcLineLength: () => number = breakoutConsts.calcLineLength(breakoutConsts);

@@ -856,4 +856,4 @@ export const CardWithUrlContent = (props: CardWithUrlContentProps): React.JSX.El
 	);
 };
 
-export const CardWithUrl = withCardIntersectionObserver(CardWithUrlContent);
+export const CardWithUrl: (props: CardWithUrlContentProps) => React.JSX.Element = withCardIntersectionObserver(CardWithUrlContent);

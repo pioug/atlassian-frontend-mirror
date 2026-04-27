@@ -3,8 +3,8 @@
  * @jsx jsx
  */
 import React, { Fragment, useCallback } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- emotion jsx pragma; go/DSP-18766
+import { css, jsx } from '@emotion/react'; // oxlint-ignore @typescript-eslint/consistent-type-imports -- classic @jsx jsx factory + jsx.JSX.Element types
 
 import { token } from '@atlaskit/tokens';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
@@ -45,7 +45,7 @@ const markStyles = css({
 export const AnnotationDraft = ({
 	draftPosition,
 	children,
-}: React.PropsWithChildren<{ draftPosition: Position }>) => {
+}: React.PropsWithChildren<{ draftPosition: Position }>): jsx.JSX.Element => {
 	const { dispatch } = useAnnotationManagerDispatch();
 
 	const markRef = useCallback(
@@ -148,7 +148,7 @@ export const TextWithAnnotationDraft = ({
 	children,
 	textHighlighter,
 	marks,
-}: Props) => {
+}: Props): jsx.JSX.Element => {
 	const textPosition = React.useMemo(
 		() => ({
 			start: startPos,

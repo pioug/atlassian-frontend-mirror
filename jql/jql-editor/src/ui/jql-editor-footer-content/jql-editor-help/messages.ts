@@ -1,6 +1,20 @@
 import { defineMessages } from 'react-intl';
 
-export const messages = defineMessages({
+export const messages: {
+    fieldNewLineCommand: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; newLineCommand: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; searchCommand: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    };
+} = defineMessages({
 	searchCommand: {
 		id: 'jql-editor.ui.jql-editor-help.search-command',
 		defaultMessage: '<b>Enter</b> to search',

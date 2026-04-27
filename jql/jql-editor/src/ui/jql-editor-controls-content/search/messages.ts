@@ -1,6 +1,12 @@
 import { defineMessages } from 'react-intl';
 
-export const messages = defineMessages({
+export const messages: {
+    searchLabel: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    };
+} = defineMessages({
 	searchLabel: {
 		id: 'jql-editor.ui.jql-editor-controls-content.search.label',
 		defaultMessage: 'Search',

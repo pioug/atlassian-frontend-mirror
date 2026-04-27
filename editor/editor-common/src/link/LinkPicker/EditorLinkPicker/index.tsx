@@ -12,6 +12,8 @@ import { getAnalyticsEditorAppearance } from '../../../utils';
 
 import { useEscapeClickaway } from './useEscapeClickaway';
 
+const PREVENT_SCROLL = { preventScroll: true };
+
 /**
  * Returns a type that matches T but where keys (K) are now optional
  */
@@ -88,12 +90,20 @@ export const EditorLinkPicker = ({
 		[invokeMethod, analyticsEditorAppearance],
 	);
 
+	const returnFocus = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? PREVENT_SCROLL
+		: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
+		  { preventScroll: true };
+	const focusOptions = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? PREVENT_SCROLL
+		: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
+		  { preventScroll: true };
+
 	if (expValEquals('platform_editor_a11y_escape_link_dialog', 'isEnabled', true)) {
 		return (
 			<div ref={ref}>
 				<AnalyticsContext data={analyticsData}>
-					{/* eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */}
-					<FocusLock returnFocus={{ preventScroll: true }} focusOptions={{ preventScroll: true }}>
+					<FocusLock returnFocus={returnFocus} focusOptions={focusOptions}>
 						<LazyLinkPicker
 							// Ignored via go/ees005
 							// eslint-disable-next-line react/jsx-props-no-spreading

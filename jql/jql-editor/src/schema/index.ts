@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/platform/no-direct-document-usage -- ProseMirror schema uses document to build DOM markers */
 import { type MutableRefObject } from 'react';
 
 import mapValues from 'lodash/mapValues';
@@ -40,7 +41,7 @@ const createMarkWithStyle = (tokenType: string) => {
 type Nodes = 'doc' | 'paragraph' | 'text' | keyof typeof richInlineNodes;
 type Marks = 'token' | 'cursor';
 
-export const JQLEditorSchema = new Schema<Nodes, Marks>({
+export const JQLEditorSchema: Schema<Nodes, Marks> = new Schema<Nodes, Marks>({
 	nodes: {
 		doc: { content: 'paragraph+' },
 		paragraph: {
@@ -92,7 +93,7 @@ export const clipboardTextParser = (text: string, $context: ResolvedPos): Slice 
 	});
 };
 
-export const defaultEditorState = EditorState.create({
+export const defaultEditorState: EditorState = EditorState.create({
 	schema: JQLEditorSchema,
 });
 

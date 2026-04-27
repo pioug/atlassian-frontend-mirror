@@ -103,7 +103,7 @@ const enterNode = (
  * @param doc Prosemirror document
  * @param textPosition Text position to find in the Prosemirror document.
  */
-const getDocumentPosition = (doc: Node, textPosition: number) => {
+const getDocumentPosition = (doc: Node, textPosition: number): number => {
 	const currentPos: NodePositionAccumulator = {
 		doc: 0,
 		text: 0,

@@ -17,7 +17,7 @@ import { type OnFunctions } from '../use-autocomplete-provider/types';
 const useOnFunctions = (
 	jqlSearchableFields$: Observable<JQLFieldResponse>,
 	jqlFunctions$: Observable<JQLFunctionResponse>,
-) => {
+): (query?: string, field?: string, isListOperator?: boolean) => Observable<AutocompleteOptions> => {
 	return useCallback<OnFunctions>(
 		(query?: string, field?: string, isListOperator?: boolean): Observable<AutocompleteOptions> => {
 			if (typeof field !== 'string' || field === '') {

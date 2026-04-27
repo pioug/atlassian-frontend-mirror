@@ -239,7 +239,7 @@ export class AstToDocVisitor extends AbstractJastVisitor<Doc> {
 	}
 }
 
-export const printAstToDoc = (jast: Jast, options?: PrintOptions) => {
+export const printAstToDoc = (jast: Jast, options?: PrintOptions): Doc => {
 	const astToDocVisitor = new AstToDocVisitor(options);
 	return jast.query ? jast.query.accept(astToDocVisitor) : '';
 };

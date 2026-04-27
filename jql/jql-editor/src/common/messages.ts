@@ -1,6 +1,12 @@
 import { defineMessages } from 'react-intl';
 
-export const commonMessages = defineMessages({
+export const commonMessages: {
+    unknownError: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    };
+} = defineMessages({
 	unknownError: {
 		id: 'jql-editor.common.validation.unknown-error',
 		defaultMessage: 'Unable to parse the query.',

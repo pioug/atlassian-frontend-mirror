@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 11.0.9
+
+### Patch Changes
+
+- [`aaa61a61efb94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaa61a61efb94) -
+  Remove unecessary paste icon re-export
+- Updated dependencies
+
 ## 11.0.8
 
 ### Patch Changes

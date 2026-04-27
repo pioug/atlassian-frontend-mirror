@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useMemo, useState, type Context } from 'react';
 
 import noop from 'lodash/noop';
 
@@ -49,7 +49,7 @@ const defaultEditorTheme: EditorTheme = {
 	isCompact: false,
 };
 
-export const EditorThemeContext = createContext<EditorTheme>(defaultEditorTheme);
+export const EditorThemeContext: Context<EditorTheme> = createContext<EditorTheme>(defaultEditorTheme);
 
 /**
  * Hook to manage the theming state of the editor.
@@ -86,4 +86,4 @@ export const useEditorTheme = ({
 	);
 };
 
-export const useEditorThemeContext = () => useContext(EditorThemeContext);
+export const useEditorThemeContext = (): EditorTheme => useContext(EditorThemeContext);

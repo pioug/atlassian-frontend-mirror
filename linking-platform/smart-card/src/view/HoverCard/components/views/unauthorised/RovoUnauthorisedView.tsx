@@ -131,7 +131,7 @@ const RovoUnauthorisedView = ({
 	onDismiss,
 	testId = 'hover-card-rovo-unauthorised-view',
 	url,
-}: HoverCardUnauthorisedProps) => {
+}: HoverCardUnauthorisedProps): JSX.Element => {
 	const providerName = useMemo(
 		() => extractSmartLinkProvider(flexibleCardProps.cardState.details)?.text,
 		[flexibleCardProps.cardState.details],

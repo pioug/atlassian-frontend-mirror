@@ -1,6 +1,32 @@
 import { defineMessages } from 'react-intl';
 
-export const commonMessages = defineMessages({
+export const commonMessages: {
+    deactivateAccount: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; deleteAccount: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; learnMore: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; cancel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; next: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; previous: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	deactivateAccount: {
 		id: 'focused-task-close-account.deactivate-account',
 		defaultMessage: 'Deactivate account',
@@ -40,7 +66,189 @@ export const commonMessages = defineMessages({
 	},
 });
 
-export const overviewMessages = defineMessages({
+export const overviewMessages: {
+    headingSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; headingAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; firstLineSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; firstLineAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; warningSectionBody: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; warningSectionBodyDeactivated: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphAboutToDeleteAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphAboutToDeleteSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphLoseAccessAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphLoseAccessSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphLoseAccessAdminNoSites: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphLoseAccessSelfNoSites: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphLoseAccessFootnote: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphContentCreatedAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphContentCreatedSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogContentCreatedAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogContentCreatedAdminissuetermrefresh: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogContentCreatedSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphPersonalDataWillBeDeletedAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphPersonalDataWillBeDeletedSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphListOfAppsWithPersonalDataAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphListOfAppsWithPersonalDataSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphGracePeriodAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataWillBeDeletedP1Admin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataWillBeDeletedP1Self: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataWillBeDeletedLi1Admin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataWillBeDeletedLi1Self: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataWillBeDeletedLi2Admin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataWillBeDeletedLi2Self: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataWillBeDeletedLi3Admin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataWillBeDeletedLi3Self: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataWillBeDeletedP2Admin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataWillBeDeletedP2Self: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataWillBeDeletedP3Admin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataWillBeDeletedP3Self: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataAppsAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataAppsSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphListOfAppsWithPersonalDataAdminAppify: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphListOfAppsWithPersonalDataSelfAppify: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogContentCreatedAdminissuetermrefreshAppify: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogContentCreatedSelfAppify: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataWillBeDeletedP2AdminAppify: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataWillBeDeletedP2SelfAppify: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataAppsAdminAppify: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inlineDialogDataAppsSelfAppify: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	headingSelf: {
 		id: 'focused-task-close-account.delete-account.overview.heading.self',
 		defaultMessage: 'Delete your account',
@@ -354,7 +562,77 @@ export const overviewMessages = defineMessages({
 	},
 });
 
-export const deactivateUserOverviewMessages = defineMessages({
+export const deactivateUserOverviewMessages: {
+    headingSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; headingAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; firstLineSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; firstLineAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; lastLineSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; lastLineAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphAboutToDeactivateAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphAboutToDeactivateSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphLoseAccessAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphLoseAccessSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphLoseAccessAdminNoSites: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphLoseAccessSelfNoSites: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphLoseAccessFootnote: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphPersonalDataAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphPersonalDataSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphBillingAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphBillingSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	headingSelf: {
 		id: 'focused-task-close-account.deactivate-account.overview.heading.self',
 		defaultMessage: 'Deactivate account',
@@ -464,7 +742,45 @@ export const deactivateUserOverviewMessages = defineMessages({
 	},
 });
 
-export const contentPreviewMessages = defineMessages({
+export const contentPreviewMessages: {
+    headingAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; headingSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphSurveyAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; paragraphSurveySelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; lineSurveyAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; lineSurveySelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; footnoteAdmin: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; footnoteSelf: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; formerUser: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	headingAdmin: {
 		id: 'focused-task-close-account.delete-account.content-preview.heading.admin',
 		defaultMessage: 'How would you prefer the deleted user to appear?',
@@ -517,7 +833,17 @@ export const contentPreviewMessages = defineMessages({
 	},
 });
 
-export const dropDownListMessages = defineMessages({
+export const dropDownListMessages: {
+    expandButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; collapseButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	expandButton: {
 		id: 'focused-task-close-account.delete-account.drop-down-expand-button',
 		defaultMessage: '{num} more',
@@ -531,7 +857,21 @@ export const dropDownListMessages = defineMessages({
 	},
 });
 
-export const footerMessages = defineMessages({
+export const footerMessages: {
+    cancel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; previous: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; next: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	cancel: {
 		id: 'focused-task-close-account.footer.cancel',
 		defaultMessage: 'Cancel',

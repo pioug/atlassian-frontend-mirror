@@ -41,7 +41,7 @@ export const getFieldType = (field: JQLFieldResponse): string | null => {
 const useOnFields = (
 	jqlSearchableFields$: Observable<JQLFieldResponse>,
 	jqlOrderableFields$: Observable<JQLFieldResponse>,
-) => {
+): (query?: string, clause?: JQLClause) => Observable<AutocompleteOptions> => {
 	// Returns an Observable of the fields to render for the provided query string
 	return useCallback<OnFields>(
 		(query?: string, clause?: JQLClause): Observable<AutocompleteOptions> => {

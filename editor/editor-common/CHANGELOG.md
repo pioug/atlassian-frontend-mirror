@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 114.11.1
+
+### Patch Changes
+
+- [`8233fa7c20ca7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8233fa7c20ca7) -
+  Remove feature flag platform_editor_fix_getautoconverter_null_error - always filter out
+  null/undefined providers in combine-providers
+
+## 114.11.0
+
+### Minor Changes
+
+- [`dbd5382b86e3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbd5382b86e3e) -
+  Perf-linting cleanup: fix performance linting violations in editor-common, gated behind
+  platform_editor_perf_lint_cleanup experiment
+
 ## 114.10.2
 
 ### Patch Changes

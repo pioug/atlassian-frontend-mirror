@@ -79,7 +79,7 @@ const selectOptions: GroupType[] = Object.entries(
 	options: paths.map((path) => ({ label: path.split('/')[1], value: path })),
 }));
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [selected, setSelected] = useState<OptionType | null>(null);
 	// Store component in an object wrapper to prevent React from treating
 	// a function component as a setState updater function.
@@ -121,6 +121,7 @@ export default () => {
 					onChange={handleChange}
 					placeholder="Select a VR example..."
 					menuPortalTarget={document.body}
+					// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides -- example: control select portalled z-index
 					styles={{ menuPortal: (base) => ({ ...base, zIndex: VR_DROPDOWN_ZINDEX }) }}
 				/>
 			</Box>

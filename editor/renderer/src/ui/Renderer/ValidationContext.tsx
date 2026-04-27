@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, type Context, type Provider } from 'react';
 
 type ValidationContextType = { allowNestedTables?: boolean; skipValidation?: boolean } | null;
 
@@ -8,5 +8,5 @@ type ValidationContextType = { allowNestedTables?: boolean; skipValidation?: boo
  * to bypass the ADF schema validation when necessary.
  * It also allows validation overrides to be passed to nested renderers. For example renderers nested inside bodiedExtension
  */
-export const ValidationContext = createContext<ValidationContextType>(null);
-export const ValidationContextProvider = ValidationContext.Provider;
+export const ValidationContext: Context<ValidationContextType> = createContext<ValidationContextType>(null);
+export const ValidationContextProvider: Provider<ValidationContextType> = ValidationContext.Provider;

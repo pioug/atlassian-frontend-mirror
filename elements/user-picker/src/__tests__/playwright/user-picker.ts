@@ -1,5 +1,7 @@
 import { test as baseTest, type Locator, type Page } from '@af/integration-testing';
+import type { PlaywrightCoverageOptions } from '@af/integration-testing/fixtures';
 import { PageRequestController } from '@af/search-test-utils/PageRequestController';
+import type { TestType, PlaywrightTestArgs, PlaywrightTestOptions, PlaywrightWorkerArgs, PlaywrightWorkerOptions } from 'playwright/test';
 
 const Selectors = {
 	SELECTED_SINGLE_VALUE: '[class*="singleValue"]',
@@ -58,7 +60,9 @@ type UserPickerTest = {
 	userPicker: UserPicker;
 };
 
-export const test = baseTest.extend<UserPickerTest>({
+export const test: TestType<PlaywrightTestArgs & PlaywrightTestOptions & {
+    skipAxeCheck: () => void;
+} & PlaywrightCoverageOptions & UserPickerTest, PlaywrightWorkerArgs & PlaywrightWorkerOptions> = baseTest.extend<UserPickerTest>({
 	userPicker: async ({ page }, use) => {
 		const userPicker = new UserPicker(page);
 		await use(userPicker);

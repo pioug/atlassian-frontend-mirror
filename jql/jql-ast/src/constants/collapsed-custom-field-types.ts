@@ -10,5 +10,5 @@ export const TEAM_CUSTOM_FIELD_TYPE = '[team]';
 
 // This is the regular expression pattern that can be used to extract the
 // custom field type from the field name.
-export const COLLAPSED_CUSTOM_FIELD_PATTERN = /^['"].+\[(\D+)]['"]$/i;
-export const COLLAPSED_CUSTOM_FIELD_PATTERN_NO_QUOTES = /^.+\[(\D+)]$/i;
+export const COLLAPSED_CUSTOM_FIELD_PATTERN: RegExp = /^['"].+\[(\D+)]['"]$/i;
+export const COLLAPSED_CUSTOM_FIELD_PATTERN_NO_QUOTES: RegExp = /^.+\[(\D+)]$/i;

@@ -1,11 +1,11 @@
-import { type Page } from '@af/integration-testing';
+import { type Locator, type Page, type Response } from '@af/integration-testing';
 export class JQLEditorPage {
 	private page;
-	public input;
-	public errorToken;
-	public searchButton;
-	public validationTooltip;
-	public validation;
+	public input: Locator;
+	public errorToken: Locator;
+	public searchButton: Locator;
+	public validationTooltip: Locator;
+	public validation: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -16,15 +16,15 @@ export class JQLEditorPage {
 		this.validation = this.getEditorLocatorByTestId('validation');
 	}
 
-	getEditorLocatorByTestId(text: string) {
+	getEditorLocatorByTestId(text: string): Locator {
 		return this.page.getByTestId(`jql-editor-${text}`);
 	}
 
-	getValidationLocatorByTestId(text: string) {
+	getValidationLocatorByTestId(text: string): Locator {
 		return this.page.getByTestId(`jql-validation-${text}`);
 	}
 
-	visitExample<_T = unknown>(exampleId: string) {
+	visitExample<_T = unknown>(exampleId: string): Promise<Response | null> {
 		return this.page.visitExample('jql', 'jql-editor', exampleId);
 	}
 
@@ -48,6 +48,7 @@ export class JQLEditorPage {
 	selectAutocompleteOptionWithKeyboard = async (optionText: string): Promise<void> => {
 		const dropdown = this.getEditorLocatorByTestId('autocomplete');
 
+		// eslint-disable-next-line testing-library/prefer-screen-queries -- Playwright Locator, not @testing-library
 		const options = await dropdown.getByRole('option').all();
 		for (let i = 0; i < options.length; i++) {
 			const currentOptionText = await options[i].innerText();

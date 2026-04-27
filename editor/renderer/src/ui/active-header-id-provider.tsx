@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-const { Provider, Consumer } = React.createContext<string | undefined>(undefined);
+const dest = React.createContext<string | undefined>(undefined);
+const Provider: React.Provider<string | undefined> = dest.Provider;
+const Consumer: React.Consumer<string | undefined> = dest.Consumer;
 
 type Props = {
 	nestedHeaderIds: string[];

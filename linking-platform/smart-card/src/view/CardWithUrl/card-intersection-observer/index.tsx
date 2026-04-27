@@ -36,7 +36,7 @@ const withCardIntersectionObserverFallback =
 		</CardLoaderWrapper>
 	);
 
-export default <T extends WithCardIntersectionObserverProps>(Component: React.ComponentType<T>) =>
+export default <T extends WithCardIntersectionObserverProps>(Component: React.ComponentType<T>): (props: T) => React.JSX.Element =>
 	isIntersectionObserverSupported()
 		? withCardIntersectionObserver(Component)
 		: withCardIntersectionObserverFallback(Component);

@@ -375,7 +375,7 @@ const ExampleAnnotationsWithManagerRenderer = React.memo(
 ExampleAnnotationsWithManagerRenderer.displayName = 'ExampleAnnotationsWithManagerRenderer';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
-export default function ExampleAnnotationsWithManager() {
+function ExampleAnnotationsWithManager(): JSX.Element {
 	const [adf, setAdf] = useState<JSONDocNode>(exampleDocumentWithComments);
 
 	// this will be called when the renderer changes the document such as adding/deleting annotations
@@ -395,4 +395,5 @@ export default function ExampleAnnotationsWithManager() {
 		</IntlProvider>
 	);
 }
-ExampleAnnotationsWithManager.displayName = 'ExampleAnnotationsWithManager';
+
+export default ExampleAnnotationsWithManager;

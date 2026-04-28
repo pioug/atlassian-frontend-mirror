@@ -290,7 +290,7 @@ function Component({
 	// Fire smartLink seen event once on a successful render card is in the viewport
 	useEffect(() => {
 		if (fg('platform_sl_event_ui_seen')) {
-			if (!isFinalState(state.status)) return;
+			if (state.status !== 'unauthorized') return;
 
 			if (isIntersected && !hasFiredSeenRef.current) {
 				fireEvent('ui.smartLink.seen', { display: appearance });
@@ -673,7 +673,7 @@ function ComponentUpdated({
 	// Fire smartLink seen event once on a successful render card is in the viewport
 	useEffect(() => {
 		if (fg('platform_sl_event_ui_seen')) {
-			if (!isFinalState(state.status)) return;
+			if (state.status !== 'unauthorized') return;
 
 			if (isIntersected && !hasFiredSeenRef.current) {
 				fireEvent('ui.smartLink.seen', { display: appearance });

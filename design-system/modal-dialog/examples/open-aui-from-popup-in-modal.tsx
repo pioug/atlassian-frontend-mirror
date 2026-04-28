@@ -14,7 +14,8 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import Popup from '@atlaskit/popup';
-import { Box, Flex } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
+import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({
@@ -151,9 +152,9 @@ const OpenAuiFromModalExample = (): React.JSX.Element => {
 					</header>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop */}
 					<div className="aui-dialog2-content" id="dialog-show-button--description">
-						<p>We've detected debris of some sort in a loose orbit.</p>
-						<p>I suggest we beam a section aboard for analysis...</p>
-						<input data-testid="aui-input" type="text" aria-label="Receive focus" />
+						<Text as="p">We've detected debris of some sort in a loose orbit.</Text>
+						<Text as="p">I suggest we beam a section aboard for analysis...</Text>
+						<Textfield data-testid="aui-input" aria-label="Receive focus" />
 					</div>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop */}
 					<footer className="aui-dialog2-footer">

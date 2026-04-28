@@ -2,15 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { type MouseEvent, memo, forwardRef } from 'react';
+import React, { memo, forwardRef } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import type { EmojiDescription } from '../../types';
-import { leftClick } from '../../util/mouse';
 import Emoji from './Emoji';
 import { TONESELECTOR_KEYBOARD_KEYS_SUPPORTED } from '../../util/constants';
 import VisuallyHidden from '@atlaskit/visually-hidden';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const emojiButton = css({
 	backgroundColor: 'transparent',
@@ -80,14 +78,6 @@ export interface Props {
 	selectOnHover?: boolean;
 }
 
-const handleMouseDown = (props: Props, event: MouseEvent<any>) => {
-	const { onSelected } = props;
-	event.preventDefault();
-	if (onSelected && leftClick(event)) {
-		onSelected();
-	}
-};
-
 const handleKeyDown = (props: Props, event: React.KeyboardEvent) => {
 	if (TONESELECTOR_KEYBOARD_KEYS_SUPPORTED.includes(event.key)) {
 		const { onSelected } = props;
@@ -106,19 +96,8 @@ export const EmojiRadioButton: React.ForwardRefExoticComponent<
 	const { emoji, selectOnHover, ariaLabelText, defaultChecked } = props;
 
 	return (
-		// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions
 		<label
 			css={emojiButton}
-			onMouseDown={
-				!fg('platform_suppression_removal_emoji_radio_a11y')
-					? (event) => handleMouseDown(props, event)
-					: undefined
-			}
-			onKeyDown={
-				!fg('platform_suppression_removal_emoji_radio_a11y')
-					? (event) => handleKeyDown(props, event)
-					: undefined
-			}
 		>
 			<VisuallyHidden>{ariaLabelText}</VisuallyHidden>
 			{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
@@ -129,16 +108,8 @@ export const EmojiRadioButton: React.ForwardRefExoticComponent<
 				name="skin-tone"
 				css={emojiRadio.default}
 				defaultChecked={defaultChecked}
-				onClick={
-					fg('platform_suppression_removal_emoji_radio_a11y')
-						? () => props.onSelected?.()
-						: undefined
-				}
-				onKeyDown={
-					fg('platform_suppression_removal_emoji_radio_a11y')
-						? (event) => handleKeyDown(props, event)
-						: undefined
-				}
+				onClick={() => props.onSelected?.()}
+				onKeyDown={(event) => handleKeyDown(props, event)}
 			/>
 			<Emoji
 				emoji={emoji}

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 22.2.8
+
+### Patch Changes
+
+- [`bc415f8eb86a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc415f8eb86a9) -
+  Add OR check with create_work_item_modernization_exp experiment to
+  platform_editor_fix_scrolling_popup_position, platform_editor_table_resize_chromeless, and
+  platform_editor_chromeless_akeditor_class usages
+- Updated dependencies
+
 ## 22.2.7
 
 ### Patch Changes

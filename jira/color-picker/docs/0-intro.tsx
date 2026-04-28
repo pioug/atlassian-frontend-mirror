@@ -19,7 +19,7 @@ const marginTopStyles = xcss({
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const _default_1: any = md`
+const ExportedDefault: any = md`
 ${(
 	<>
 		<Box xcss={marginBottomStyles}>
@@ -68,4 +68,4 @@ ${(
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export default _default_1;
+export default ExportedDefault;

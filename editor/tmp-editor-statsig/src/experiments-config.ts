@@ -1691,6 +1691,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-28
+	create_work_item_modernization_exp: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-14
 	improve_3p_smart_link_resolve_rate: {
 		defaultValue: boolean;
@@ -1713,7 +1720,7 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 
-	cc_dnd_smart_link_changeboard_po_template: {
+	cc_dnd_smart_link_changeboard_platform_css: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1736,6 +1743,20 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-27
 	platform_sl_fix_cache_unresolved: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-04-22
+	platform_editor_korean_characters_split: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-04-28
+	platform_editor_use_markdown_plus_parser: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2932,6 +2953,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-04-28
+	create_work_item_modernization_exp: createBooleanExperiment({
+		productKeys: {
+			jira: 'create_work_item_modernization_exp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-01-30
 	platform_editor_fix_cross_origin_editor_focus: createBooleanExperiment({
 		productKeys: {
@@ -3696,6 +3725,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-04-28
+	platform_editor_use_markdown_plus_parser: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_use_markdown_plus_parser',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-04-10
 	platform_editor_static_css: createBooleanExperiment({
 		productKeys: {
@@ -3722,9 +3759,9 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2026-04-16
-	cc_dnd_smart_link_changeboard_po_template: createBooleanExperiment({
+	cc_dnd_smart_link_changeboard_platform_css: createBooleanExperiment({
 		productKeys: {
-			confluence: 'cc_dnd_smart_link_changeboard_po_template',
+			confluence: 'cc_dnd_smart_link_changeboard_platform_css',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3749,6 +3786,14 @@ export const editorExperimentsConfig: {
 	platform_sl_fix_cache_unresolved: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_sl_fix_cache_unresolved',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-22
+	platform_editor_korean_characters_split: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_korean_characters_split',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

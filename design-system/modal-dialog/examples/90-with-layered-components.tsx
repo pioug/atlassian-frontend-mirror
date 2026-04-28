@@ -5,12 +5,13 @@ import Lorem from 'react-lorem-component';
 import AvatarGroup from '@atlaskit/avatar-group';
 import Button, { IconButton } from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
+import { Code } from '@atlaskit/code';
 import { cssMap } from '@atlaskit/css';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import noop from '@atlaskit/ds-lib/noop';
 import Flag, { FlagGroup } from '@atlaskit/flag';
-import { Field } from '@atlaskit/form';
+import { CheckboxField } from '@atlaskit/form';
 import AddCommentIcon from '@atlaskit/icon/core/comment-add';
 import Info from '@atlaskit/icon/core/status-information';
 import ModalDialog, {
@@ -21,7 +22,7 @@ import ModalDialog, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import Popup from '@atlaskit/popup';
-import { Box, Flex } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 import Select, { PopupSelect } from '@atlaskit/select';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -58,7 +59,7 @@ export function WithLayeredComponentsExample(): React.JSX.Element {
 
 	return (
 		<Box padding="space.200" testId="container">
-			<Field name="sb" label="Scrolling behavior">
+			<CheckboxField name="sb" label="Scrolling behavior">
 				{() => (
 					<Checkbox
 						label="Should scroll within the viewport"
@@ -68,7 +69,7 @@ export function WithLayeredComponentsExample(): React.JSX.Element {
 						isChecked={shouldScrollInViewport}
 					/>
 				)}
-			</Field>
+			</CheckboxField>
 			<Break />
 			<Button aria-haspopup="dialog" appearance="primary" onClick={open} testId="open-modal">
 				Open modal
@@ -135,11 +136,15 @@ export function WithLayeredComponentsExample(): React.JSX.Element {
 							{/* This replicates the bug reported in
               https://ecosystem.atlassian.net/browse/DS-7622,
               but 'fixed' by setting the menuPosition. */}
+							<Text>
+								<Code>
+									placeholder="zIndex: 9999, menuPortalTarget: document.body, menuPosition: fixed"
+								</Code>
+							</Text>
 							<Select
 								testId="select-zindex-fixed"
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className="select-zindex-fixed"
-								placeholder="zIndex: 9999, menuPortalTarget: document.body, menuPosition: fixed"
 								options={selectOptions}
 								menuPortalTarget={document.body}
 								styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
@@ -151,11 +156,13 @@ export function WithLayeredComponentsExample(): React.JSX.Element {
 								)}
 							/>
 							<Break />
+							<Text>
+								<Code>placeholder="menuPosition: fixed"</Code>
+							</Text>
 							<Select
 								testId="select-fixed"
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className="select-fixed"
-								placeholder="menuPosition: fixed"
 								options={selectOptions}
 								menuPosition="fixed"
 								formatOptionLabel={({ label }) => (
@@ -165,11 +172,13 @@ export function WithLayeredComponentsExample(): React.JSX.Element {
 								)}
 							/>
 							<Break />
+							<Text>
+								<Code>placeholder="menuPosition: absolute"</Code>
+							</Text>
 							<Select
 								testId="select-absolute"
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className="select-absolute"
-								placeholder="menuPosition: absolute"
 								options={selectOptions}
 								menuPosition="absolute"
 								formatOptionLabel={({ label }) => (

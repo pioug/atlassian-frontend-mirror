@@ -15,7 +15,7 @@ import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { findVariable } from '@atlaskit/eslint-utils/find-variable';
 import { CSS_IN_JS_IMPORTS } from '@atlaskit/eslint-utils/is-supported-import';
 
-import { Import } from '../../ast-nodes';
+import { Import } from '../../ast-nodes/import';
 import { createLintRule } from '../utils/create-rule';
 import { getFirstSupportedImport } from '../utils/get-first-supported-import';
 import { getModuleOfIdentifier } from '../utils/get-module-of-identifier';

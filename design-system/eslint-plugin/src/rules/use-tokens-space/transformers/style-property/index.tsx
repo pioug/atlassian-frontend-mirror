@@ -2,8 +2,9 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, type Property } from 'eslint-codemod-utils';
 
-import * as ast from '../../../../ast-nodes';
-import { isStringOrNumber } from '../../utils';
+import { ObjectEntry } from '../../../../ast-nodes/object-entry';
+import { Root } from '../../../../ast-nodes/root';
+import { isStringOrNumber } from '../../utils/is-string-or-number';
 
 import { styleMap } from './style-map';
 import supported from './supported';
@@ -75,14 +76,14 @@ export const StyleProperty: {
 			return { success: false, ref: undefined };
 		}
 
-		const { value: property } = ast.ObjectEntry.getProperty(node);
+		const { value: property } = ObjectEntry.getProperty(node);
 
 		// Bail if the property is not `padding`, `margin`, etc
 		if (!property || !styleMap[property]) {
 			return { success: false, ref: undefined };
 		}
 
-		const value = ast.ObjectEntry.getValue(node);
+		const value = ObjectEntry.getValue(node);
 
 		// This is mainly useful as a type guard, so the checks after don't have to have duplicate checks for other types.
 		if (!isStringOrNumber(value)) {
@@ -119,7 +120,7 @@ export const StyleProperty: {
 	 */
 	_fix(ref: Ref, context: Rule.RuleContext) {
 		return (fixer: Rule.RuleFixer) => {
-			const importFix = ast.Root.upsertNamedImportDeclaration(
+			const importFix = Root.upsertNamedImportDeclaration(
 				{
 					module: '@atlaskit/tokens',
 					specifiers: ['token'],

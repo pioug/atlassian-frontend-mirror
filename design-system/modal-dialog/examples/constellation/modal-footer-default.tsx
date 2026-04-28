@@ -39,21 +39,21 @@ export default function Example(): JSX.Element {
 							<ModalTitle>Default modal footer</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
-							<p>
+							<Text as="p">
 								If you wish to customise a modal dialog, it accepts any valid React element as
 								children.
-							</p>
+							</Text>
 
-							<p>
+							<Text as="p">
 								Modal header accepts any valid React element as children, so you can use modal title
 								in conjunction with other elements like an exit button in the top right.
-							</p>
+							</Text>
 
-							<p>
+							<Text as="p">
 								Modal footer accepts any valid React element as children. For example, you can add
 								an avatar in the footer. For very custom use cases, you can achieve the same thing
 								without modal footer.
-							</p>
+							</Text>
 						</ModalBody>
 						<ModalFooter>
 							<Flex xcss={styles.footer} justifyContent="space-between">
@@ -62,7 +62,7 @@ export default function Example(): JSX.Element {
 										size="small"
 										src="https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg"
 									/>
-									<Text>Hey there!</Text>
+									<Text as="p">Hey there!</Text>
 								</Flex>
 								<Button appearance="primary" onClick={closeModal}>
 									Close

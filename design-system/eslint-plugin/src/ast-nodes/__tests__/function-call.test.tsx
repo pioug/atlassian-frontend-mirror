@@ -1,7 +1,7 @@
 import type { Rule } from 'eslint';
 import j from 'jscodeshift';
 
-import * as ast from '../index';
+import { FunctionCall as FunctionCallHelper } from '../function-call';
 
 describe('FunctionCall', () => {
 	describe('getName', () => {
@@ -9,7 +9,7 @@ describe('FunctionCall', () => {
 			const root = j(`css({ padding: '8px' })`);
 			const node = root.find(j.CallExpression).get().value;
 
-			const result = ast.FunctionCall.getName(node);
+			const result = FunctionCallHelper.getName(node);
 			expect(result).toBe('css');
 		});
 	});
@@ -22,7 +22,7 @@ describe('FunctionCall', () => {
 			const root = j(`css({ padding: '8px' })`);
 			const node = root.find(j.CallExpression).get().value;
 
-			ast.FunctionCall.updateName(node, 'xcss', fixer);
+			FunctionCallHelper.updateName(node, 'xcss', fixer);
 
 			expect(fixer.replaceText).toHaveBeenCalledTimes(1);
 		});
@@ -33,7 +33,7 @@ describe('FunctionCall', () => {
 			const root = j(`css({ padding: '8px' })`);
 			const node = root.find(j.CallExpression).get().value;
 
-			const result = ast.FunctionCall.getArgumentAtPos(node, 0);
+			const result = FunctionCallHelper.getArgumentAtPos(node, 0);
 			expect(result).toEqual({
 				type: 'ObjectExpression',
 				value: expect.any(Object),
@@ -44,7 +44,7 @@ describe('FunctionCall', () => {
 			const root = j(`css('first arg')`);
 			const node = root.find(j.CallExpression).get().value;
 
-			const result = ast.FunctionCall.getArgumentAtPos(node, 0);
+			const result = FunctionCallHelper.getArgumentAtPos(node, 0);
 			expect(result).toEqual({
 				type: 'Literal',
 				value: 'first arg',
@@ -55,7 +55,7 @@ describe('FunctionCall', () => {
 			const root = j(`css({ padding: '8px' })`);
 			const node = root.find(j.CallExpression).get().value;
 
-			const result = ast.FunctionCall.getArgumentAtPos(node, 1);
+			const result = FunctionCallHelper.getArgumentAtPos(node, 1);
 			expect(result).toBeUndefined();
 		});
 
@@ -63,7 +63,7 @@ describe('FunctionCall', () => {
 			const root = j(`css()`);
 			const node = root.find(j.CallExpression).get().value;
 
-			const result = ast.FunctionCall.getArgumentAtPos(node, 0);
+			const result = FunctionCallHelper.getArgumentAtPos(node, 0);
 			expect(result).toBeUndefined();
 		});
 	});

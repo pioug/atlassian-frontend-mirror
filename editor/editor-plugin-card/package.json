@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "16.3.4",
+	"version": "16.4.1",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -114,16 +114,13 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform-native-embeds-short-link-expansion": {
+		"platform_native_embeds_rollout_non_maui_experience": {
 			"type": "boolean"
 		},
 		"cc_drag_and_drop_smart_link_from_content_to_tree": {
 			"type": "boolean"
 		},
 		"confluence-issue-terminology-refresh": {
-			"type": "boolean"
-		},
-		"dst-a11y__replace-anchor-with-link__linking-platfo": {
 			"type": "boolean"
 		},
 		"platform_editor_adf_with_localid": {

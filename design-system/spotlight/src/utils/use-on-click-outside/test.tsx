@@ -2,7 +2,8 @@ import React, { type MutableRefObject } from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import { SpotlightContext, type SpotlightContextType } from '../../controllers/context';
+import type { SpotlightContextType } from '../../controllers/context';
+import { SpotlightContext } from '../../controllers/spotlight-context';
 
 import { useOnClickOutside } from './index';
 

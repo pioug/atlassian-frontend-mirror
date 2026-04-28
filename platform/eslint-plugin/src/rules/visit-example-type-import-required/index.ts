@@ -197,8 +197,15 @@ function resolveExamplePathFromArgs(
 	const examplesDir = path.resolve(packagesBase.basePath, groupId, packageId, 'examples');
 	const fallback = path.resolve(examplesDir, `${exampleId}.tsx`);
 
-	// Match: exact name OR numeric-prefixed variant, with optional `.examples` infix
-	const candidateRe = new RegExp(`^(?:\\d+-)?${exampleId}(?:\\.examples?)?\\.tsx$`);
+	// Phase 4: loosen candidateRe to match both pre- and post-rename filename shapes.
+	// Pre-rename:  ^(\d+-)?<id>(\.(examples?))?\.tsx$
+	// Post-rename: ^(\d+-)?<id>(\.<ident>){0,3}\.tsx$   (Volt prefix, optional .dup<N>, optional role)
+	// The {0,3} cap prevents matching arbitrary strings (e.g. 4-component names).
+	// Escape regex metacharacters in exampleId (ids are kebab-case today, but defensive).
+	const escapedId = exampleId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	const candidateRe = new RegExp(
+		`^(?:\\d+-)?${escapedId}(?:\\.[A-Za-z][A-Za-z0-9_]*){0,3}\\.tsx$`,
+	);
 
 	try {
 		const match = fs.readdirSync(examplesDir).find((f) => candidateRe.test(f));

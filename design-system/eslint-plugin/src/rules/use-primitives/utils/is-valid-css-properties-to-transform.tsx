@@ -3,7 +3,7 @@ import type { CSSProperties } from 'react';
 import type { Rule } from 'eslint';
 import { isNodeOfType, type SimpleCallExpression } from 'eslint-codemod-utils';
 
-import * as ast from '../../../ast-nodes';
+import { Object as ObjectHelper } from '../../../ast-nodes/object';
 import type { RuleConfig } from '../config';
 import { supportedDimensionAttributesMap, supportedStylesMap } from '../transformers/css-to-xcss';
 
@@ -22,12 +22,12 @@ export const isValidCssPropertiesToTransform = (
 		return false;
 	}
 
-	if (!ast.Object.isFlat(cssObjectExpression)) {
+	if (!ObjectHelper.isFlat(cssObjectExpression)) {
 		return false;
 	}
 
 	// `use-primitives` should not report on empty style objects. See: https://product-fabric.atlassian.net/browse/DSP-16520
-	if (ast.Object.getEntries(cssObjectExpression).length === 0) {
+	if (ObjectHelper.getEntries(cssObjectExpression).length === 0) {
 		return false;
 	}
 

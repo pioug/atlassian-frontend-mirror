@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-image",
-	"version": "20.1.7",
+	"version": "20.2.0",
 	"description": "Media image element - provides single display of image",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,7 +26,8 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./internal-types": "./src/types.tsx"
+		"./internal-types": "./src/types.tsx",
+		"./media-image-error-boundary": "./src/mediaImageErrorBoundary.tsx"
 	},
 	"atlassian": {
 		"team": "Media Exif",

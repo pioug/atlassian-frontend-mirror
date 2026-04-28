@@ -1,7 +1,7 @@
 import type { Rule } from 'eslint';
 import j from 'jscodeshift';
 
-import * as ast from '../index';
+import { JSXAttribute } from '../jsx-attribute';
 
 describe('JSXAttribute', () => {
 	describe('getName', () => {
@@ -9,7 +9,7 @@ describe('JSXAttribute', () => {
 			const root = j(`<div css={myStyles}></div>`);
 			const node = root.find(j.JSXAttribute).get().value;
 
-			const result = ast.JSXAttribute.getName(node);
+			const result = JSXAttribute.getName(node);
 			expect(result).toBe('css');
 		});
 	});
@@ -22,7 +22,7 @@ describe('JSXAttribute', () => {
 			const root = j(`<div css={myStyles}></div>`);
 			const node = root.find(j.JSXAttribute).get().value;
 
-			ast.JSXAttribute.updateName(node, 'xcss', fixer);
+			JSXAttribute.updateName(node, 'xcss', fixer);
 
 			expect(fixer.replaceText).toHaveBeenCalledTimes(1);
 		});
@@ -33,7 +33,7 @@ describe('JSXAttribute', () => {
 			const root = j(`<div css={myStyles}></div>`);
 			const node = root.find(j.JSXAttribute).get().value;
 
-			const result = ast.JSXAttribute.getValue(node);
+			const result = JSXAttribute.getValue(node);
 			expect(result).toEqual({
 				type: 'ExpressionStatement',
 				value: 'myStyles',
@@ -44,7 +44,7 @@ describe('JSXAttribute', () => {
 			const root = j(`<div css='myStyles'></div>`);
 			const node = root.find(j.JSXAttribute).get().value;
 
-			const result = ast.JSXAttribute.getValue(node);
+			const result = JSXAttribute.getValue(node);
 			expect(result).toEqual({
 				type: 'Literal',
 				value: 'myStyles',
@@ -55,7 +55,7 @@ describe('JSXAttribute', () => {
 			const root = j(`<div css={[styles1, styles2]}></div>`);
 			const node = root.find(j.JSXAttribute).get().value;
 
-			const result = ast.JSXAttribute.getValue(node);
+			const result = JSXAttribute.getValue(node);
 			expect(result).toBe(undefined);
 		});
 	});

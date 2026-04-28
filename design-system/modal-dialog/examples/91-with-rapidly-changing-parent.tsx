@@ -12,7 +12,7 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = cssMap({
@@ -42,16 +42,16 @@ function Child() {
 
 	return (
 		<Box xcss={containerStyles.root}>
-			<p>
+			<Text as="p">
 				This shows a use case where the parent of modal dialog rapidly re-renders, which is not
 				always in sync with the duration of modal dialog's enter/exit animation.
-			</p>
-			<p>
+			</Text>
+			<Text as="p">
 				This replicates{' '}
 				<Link href="https://product-fabric.atlassian.net/browse/DSP-640">DSP-640</Link>, except now
 				that the bug is fixed, modal dialog's exit animation should be followed through even when
 				its parent's render cycle is quicker than its own.
-			</p>
+			</Text>
 			<br />
 			<Button aria-haspopup="dialog" appearance="primary" onClick={open} testId="modal-trigger">
 				Open Modal

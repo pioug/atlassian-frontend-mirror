@@ -10,7 +10,7 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { cardPlugin } from '../index';
 import { InlineCardNodeView } from '../nodeviews/inlineCard';
@@ -145,7 +145,7 @@ export const createPlugin =
 					if (
 						meta.type === 'RESOLVE' &&
 						pluginState?.requests?.length &&
-						expValNoExposure('cc_dnd_smart_link_changeboard_po_template', 'isEnabled', false) &&
+						expVal('cc_dnd_smart_link_changeboard_platform_css', 'isEnabled', false) &&
 						fg('cc_drag_and_drop_smart_link_from_content_to_tree')
 					) {
 						const resolvedRequest = pluginState.requests.find((req) => req.url === meta.url);

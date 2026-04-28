@@ -1164,7 +1164,7 @@ const typeSerializableComponentPropSymbols = [
 const generateComponentPropTypeSourceCode = (
 	componentPropSymbol: Symbol,
 	sourceFile: SourceFile,
-) => {
+): string => {
 	const sourceCodeGenerator = typeSerializableComponentPropSymbols.includes(
 		componentPropSymbol.getName(),
 	)

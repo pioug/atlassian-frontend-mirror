@@ -6,10 +6,12 @@ import {
 	type SpreadElement,
 } from 'eslint-codemod-utils';
 
-import * as ast from '../../../ast-nodes';
+import { FunctionCall } from '../../../ast-nodes/function-call';
+import { Object as ObjectHelper } from '../../../ast-nodes/object';
+import { ObjectEntry } from '../../../ast-nodes/object-entry';
 import type { RuleConfig } from '../config';
-import { spaceTokenMap, supportedStylesMap } from '../transformers';
-import { supportedDimensionAttributesMap } from '../transformers/css-to-xcss';
+import { supportedDimensionAttributesMap, supportedStylesMap } from '../transformers/css-to-xcss';
+import { spaceTokenMap } from '../transformers/space-token-map';
 
 export const validateStyles = (node: CallExpression, config: RuleConfig): boolean => {
 	if (!node) {
@@ -21,11 +23,11 @@ export const validateStyles = (node: CallExpression, config: RuleConfig): boolea
 		return false;
 	}
 
-	if (!ast.Object.isFlat(cssObjectExpression)) {
+	if (!ObjectHelper.isFlat(cssObjectExpression)) {
 		return false;
 	}
 
-	const entries = ast.Object.getEntries(cssObjectExpression);
+	const entries = ObjectHelper.getEntries(cssObjectExpression);
 
 	if (entries.length === 0) {
 		return false;
@@ -48,7 +50,7 @@ export const validateStyles = (node: CallExpression, config: RuleConfig): boolea
 			return false;
 		}
 
-		const property = ast.ObjectEntry.getPropertyName(entry);
+		const property = ObjectEntry.getPropertyName(entry);
 		if (!property) {
 			return false;
 		}
@@ -106,11 +108,11 @@ const isTokenCall = (node: EslintNode): node is CallExpression => {
 	}
 
 	// Is the function called 'token'?
-	if (ast.FunctionCall.getName(node) !== 'token') {
+	if (FunctionCall.getName(node) !== 'token') {
 		return false;
 	}
 
-	const token = ast.FunctionCall.getArgumentAtPos(node, 0);
+	const token = FunctionCall.getArgumentAtPos(node, 0);
 
 	if (!token || token.type !== 'Literal') {
 		return false;
@@ -123,7 +125,7 @@ const isTokenCall = (node: EslintNode): node is CallExpression => {
 
 	// Not all `token()` calls have a fall back. This is fine, but if there is a fallback, make sure it's the same as the fallback xcss will use
 	if (node.arguments.length === 2) {
-		const fallback = ast.FunctionCall.getArgumentAtPos(node, 1);
+		const fallback = FunctionCall.getArgumentAtPos(node, 1);
 
 		// `getArgumentAtPos` is only able to understand `Literal` and `ObjectExpression` statements
 		// If there are 2 args, but `fallback` is undefined, then the fallback is something wild, like `token('space.100, `${gridSize * rem(3)`})`

@@ -501,5 +501,3 @@ const kebabize = (str: string) =>
 
 export const isColorCssPropertyName = (value: string): boolean =>
 	validColorPropertyNames.has(kebabize(value));
-
-export { isCurrentSurfaceCustomPropertyName } from './is-current-surface-custom-property-name';

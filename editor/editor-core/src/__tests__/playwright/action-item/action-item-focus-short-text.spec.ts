@@ -7,6 +7,7 @@ import { simpleActionListWithShortText } from './__fixtures__/base-adfs';
 
 test.describe(`when pressing arrow key to focus checkbox at the simple action list with short text`, () => {
 	test.use({
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 		editorProps: {
 			appearance: 'full-page',
 		},

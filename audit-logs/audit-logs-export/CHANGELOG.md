@@ -1,5 +1,25 @@
 # @atlaskit/audit-logs-export
 
+## 2.1.0
+
+### Minor Changes
+
+- [`d8f4cf3aef8ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8f4cf3aef8ea) -
+  Autofix: add explicit package exports (barrel removal)
+
+## 2.0.1
+
+### Patch Changes
+
+- [`b18a851e66bd8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b18a851e66bd8) -
+  Remove unused afm-products directory from audit-logs-export package
+- [`7b08c7ca09208`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b08c7ca09208) -
+  Remove unused afm-cc directory from audit-logs-export package
+- [`3321579853a4b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3321579853a4b) -
+  Remove unused examples directory from audit-logs-export package
+- [`9445427f3cea1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9445427f3cea1) -
+  Remove unused docs directory from audit-logs-export package
+
 ## 2.0.0
 
 ### Major Changes

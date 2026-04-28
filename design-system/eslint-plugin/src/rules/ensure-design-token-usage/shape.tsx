@@ -32,7 +32,3 @@ export function isBorderSizeProperty(propertyName: string): boolean {
 export function isShapeProperty(propertyName: string): boolean {
 	return isRadiusProperty(propertyName) || isBorderSizeProperty(propertyName);
 }
-
-export { radiusValueToToken } from './radius-value-to-token';
-export { borderWidthValueToToken } from './border-width-value-to-token';
-export { isBorderRadius } from './is-border-radius';

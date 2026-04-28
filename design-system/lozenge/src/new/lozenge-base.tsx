@@ -13,9 +13,10 @@ import Pressable from '@atlaskit/primitives/pressable';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
+import { getThemeStyles } from './get-theme-styles';
 import IconRenderer from './icon-renderer';
 import { type LozengeBaseProps } from './types';
-import { getThemeStyles, resolveLozengeColor } from './utils';
+import { resolveLozengeColor } from './utils';
 
 type LozengeBasePropsWithRef = LozengeBaseProps & {
 	ref?: Ref<HTMLElement | HTMLButtonElement>;
@@ -592,7 +593,7 @@ const LozengeBase: import('react').MemoExoticComponent<
 			const interactiveStyleKey = `interactive.${category}.${key}` as keyof typeof styles;
 
 			const maxWidthValue = typeof maxWidth === 'string' ? maxWidth : `${maxWidth}px`;
-			const maxWidthIsPc = typeof maxWidth === 'string' && /%$/.test(maxWidth);
+			const maxWidthIsPc = typeof maxWidth === 'string' && maxWidth.endsWith('%');
 
 			const resolvedTrailingMetricAppearance = trailingMetricAppearance
 				? trailingMetricAppearance === 'inverse'

@@ -196,7 +196,7 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 	);
 };
 
-const _default_1: ForwardRefExoticComponent<
+const ExportedDefault: ForwardRefExoticComponent<
 	Omit<Omit<Props, keyof WithAnalyticsEventsProps> & RefAttributes<any> & WithContextProps, 'ref'> &
 		RefAttributes<any>
 > = withAnalyticsContext({
@@ -204,7 +204,7 @@ const _default_1: ForwardRefExoticComponent<
 	packageName: process.env._PACKAGE_NAME_,
 	packageVersion: process.env._PACKAGE_VERSION_,
 })(withAnalyticsEvents()(ColorPaletteMenuWithoutAnalytics));
-export default _default_1;
+export default ExportedDefault;
 
 const colorCardWrapperStyles = css({
 	display: 'flex',

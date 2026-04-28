@@ -142,9 +142,6 @@
 		"platform_suppression_removal_fix_reactions": {
 			"type": "boolean"
 		},
-		"platform_suppression_removal_emoji_radio_a11y": {
-			"type": "boolean"
-		},
 		"platform_change_emoji_button_label": {
 			"type": "boolean"
 		},

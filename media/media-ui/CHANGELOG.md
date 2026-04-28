@@ -1,5 +1,16 @@
 # @atlaskit/media-ui
 
+## 29.1.0
+
+### Minor Changes
+
+- [`818d7e656a226`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/818d7e656a226) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.0.0
 
 ### Major Changes

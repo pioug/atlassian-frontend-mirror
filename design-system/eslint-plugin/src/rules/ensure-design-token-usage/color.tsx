@@ -410,5 +410,3 @@ export const getTokenSuggestion = (
 const filterSuggestion = ({ shouldReturnSuggestion }: Suggestion) => shouldReturnSuggestion;
 
 const getNodeColumn = (node: Rule.Node) => (node.loc ? node.loc.start.column : 0);
-
-export { getElevationTokenExample } from './get-elevation-token-example';

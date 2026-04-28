@@ -1,12 +1,15 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import type { DetailedHTMLProps, HTMLAttributes } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { css, type SerializedStyles, type Theme } from '@emotion/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import styled, { type StyledComponent } from '@emotion/styled';
 
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const hiddenMixin = css({
+export const hiddenMixin: SerializedStyles = css({
 	clip: 'rect(1px, 1px, 1px, 1px)',
 	clipPath: 'inset(50%)',
 	height: '1px',
@@ -18,7 +21,12 @@ export const hiddenMixin = css({
 	position: 'absolute',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const TooltipContent = styled.div({
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const TooltipContent: StyledComponent<{
+	as?: React.ElementType;
+	theme?: Theme;
+}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> =
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+	styled.div({
 	fontFamily: token('font.family.body'),
 });

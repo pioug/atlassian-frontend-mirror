@@ -1,6 +1,6 @@
 import { isNodeOfType } from 'eslint-codemod-utils';
 
-import * as ast from '../../ast-nodes';
+import { JSXElement } from '../../ast-nodes/jsx-element';
 import { createLintRule } from '../utils/create-rule';
 
 export const AFFECTED_HTML_ELEMENTS: string[] = ['input', 'textarea'];
@@ -107,7 +107,7 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 					return false;
 				}
 
-				const elName = ast.JSXElement.getName(node);
+				const elName = JSXElement.getName(node);
 				if (!elName) {
 					return false;
 				}

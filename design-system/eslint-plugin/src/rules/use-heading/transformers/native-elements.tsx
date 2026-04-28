@@ -7,7 +7,8 @@ import {
 	type JSXOpeningElement,
 } from 'eslint-codemod-utils';
 
-import * as ast from '../../../ast-nodes';
+import { JSXElement as JSXElementHelper } from '../../../ast-nodes/jsx-element';
+import { Root } from '../../../ast-nodes/root';
 
 import { allowedAttrs } from './allowed-attrs';
 import type { MetaData } from './common';
@@ -64,7 +65,7 @@ export const NativeElements = {
 			return { success: false };
 		}
 
-		const elementName = ast.JSXElement.getName(node);
+		const elementName = JSXElementHelper.getName(node);
 		if (!Object.keys(tagSizeMap).includes(elementName)) {
 			return { success: false };
 		}
@@ -77,7 +78,7 @@ export const NativeElements = {
 		if (!(isNodeOfType(node.parent, 'JSXElement') || isNodeOfType(node.parent, 'JSXFragment'))) {
 			return { success: true, autoFixable: false };
 		}
-		const siblings = ast.JSXElement.getChildren(node.parent);
+		const siblings = JSXElementHelper.getChildren(node.parent);
 		if (siblings.length > 1) {
 			// Only report if element is first child element
 			if (
@@ -88,7 +89,7 @@ export const NativeElements = {
 			}
 		}
 
-		if (!ast.JSXElement.hasAllowedAttrsOnly(node, allowedAttrs)) {
+		if (!JSXElementHelper.hasAllowedAttrsOnly(node, allowedAttrs)) {
 			return { success: true, autoFixable: false };
 		}
 
@@ -98,7 +99,7 @@ export const NativeElements = {
 	_fix(node: ValidHeadingElement, { context }: MetaData): Rule.ReportFixer {
 		return (fixer) => {
 			// change to default import
-			const importFix = ast.Root.upsertDefaultImportDeclaration(
+			const importFix = Root.upsertDefaultImportDeclaration(
 				{
 					module: '@atlaskit/heading',
 					localName: 'Heading',
@@ -107,10 +108,10 @@ export const NativeElements = {
 				fixer,
 			);
 
-			const elementName = ast.JSXElement.getName(node) as ValidTags;
-			const elementNameFixes = ast.JSXElement.updateName(node, 'Heading', fixer);
+			const elementName = JSXElementHelper.getName(node) as ValidTags;
+			const elementNameFixes = JSXElementHelper.updateName(node, 'Heading', fixer);
 			const size = tagSizeMap[elementName];
-			const asAttributeFix = ast.JSXElement.addAttribute(node, 'size', size, fixer);
+			const asAttributeFix = JSXElementHelper.addAttribute(node, 'size', size, fixer);
 			const testAttributeFix = updateTestIdAttributeFix(node, fixer);
 
 			return [importFix, ...elementNameFixes, asAttributeFix, testAttributeFix].filter(

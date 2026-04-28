@@ -122,6 +122,7 @@ export type EditorToolbarHandlers = Partial<{
 	onDeleteClick: EditorToolbarHandler;
 	onEditClick: EditorToolbarHandler;
 	onEditUrlClick: EditorToolbarHandler;
+	onExpandClick: EditorToolbarHandler;
 	onOpenInNewWindowClick: EditorToolbarHandler;
 	onRefreshClick: EditorToolbarHandler;
 	onSetEmbedTypeClick: EditorToolbarHandler;

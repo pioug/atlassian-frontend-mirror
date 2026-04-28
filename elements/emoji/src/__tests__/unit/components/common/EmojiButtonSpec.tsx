@@ -27,7 +27,7 @@ describe('<EmojiButton />', () => {
 			const btn = await screen.findByRole('radio');
 			expect(btn).toBeInTheDocument();
 			act(() => {
-				fireEvent.mouseDown(btn);
+				fireEvent.click(btn);
 			});
 			expect(mockOnClickSpy).toBeCalled();
 		});
@@ -43,7 +43,7 @@ describe('<EmojiButton />', () => {
 			const btn = await screen.findByRole('radio');
 			expect(btn).toBeInTheDocument();
 			act(() => {
-				fireEvent.mouseDown(btn);
+				fireEvent.click(btn);
 			});
 			expect(mockOnClickSpy).toBeCalled();
 		});

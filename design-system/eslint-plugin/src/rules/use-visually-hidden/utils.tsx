@@ -64,6 +64,3 @@ export const countMatchingKeyValues: (styleEntries: KeyValue[]) => number = (
 		) / styleEntries.length
 	);
 };
-
-export { getFirstImport } from './get-first-import';
-export { makeTemplateLiteralIntoEntries } from './make-template-literal-into-entries';

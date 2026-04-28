@@ -212,6 +212,9 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 
 	handleCompositionStart = () => {
 		this.isComposing = true;
+		if (expValEquals('platform_editor_korean_characters_split', 'isEnabled', true)) {
+			this.debouncedFind.cancel();
+		}
 	};
 
 	handleCompositionEnd = (event: React.CompositionEvent<HTMLInputElement>) => {

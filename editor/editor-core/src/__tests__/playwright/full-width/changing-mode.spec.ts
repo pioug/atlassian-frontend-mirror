@@ -5,6 +5,7 @@ import { mediumSizeDoc } from './changing-mode.spec.ts-fixtures';
 
 test.describe('Full-Width', () => {
 	test.use({
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 		editorProps: {
 			appearance: 'full-page',
 			allowTables: {

@@ -80,12 +80,3 @@ export const isDecendantOfStyleBlock = (node: Rule.Node): boolean => {
 
 	return false;
 };
-
-export { isDecendantOfGlobalToken } from './is-decendant-of-global-token';
-export { isDecendantOfType } from './is-decendant-of-type';
-export { isDecendantOfStyleJsxAttribute } from './is-decendant-of-style-jsx-attribute';
-export { isDecendantOfSvgElement } from './is-decendant-of-svg-element';
-export { isDecendantOfPrimitive } from './is-decendant-of-primitive';
-export { isCssInJsTemplateNode } from './is-css-in-js-template-node';
-export { isDecendantOfXcssBlock } from './is-decendant-of-xcss-block';
-export { isChildOfType } from './is-child-of-type';

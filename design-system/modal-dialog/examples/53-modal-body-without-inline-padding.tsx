@@ -1,7 +1,7 @@
 /**
+ * @jsxRuntime classic
  * @jsx jsx
  */
-
 import { Fragment, useCallback, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
@@ -15,6 +15,7 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const contentStyles = cssMap({
@@ -48,10 +49,10 @@ export default function ModalBodyWithoutInlinePaddingExample(): JSX.Element {
 						</ModalHeader>
 						<ModalBody hasInlinePadding={false}>
 							<div css={contentStyles.root}>
-								<p>
+								<Text as="p">
 									This <Code>ModalBody</Code> has no inline padding.
-								</p>
-								<p>The content can touch the edges of the modal.</p>
+								</Text>
+								<Text as="p">The content can touch the edges of the modal.</Text>
 							</div>
 						</ModalBody>
 						<ModalFooter>

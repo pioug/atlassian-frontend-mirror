@@ -9,6 +9,7 @@ import {
 
 test.describe(`inline-nodes - placeholder`, () => {
 	test.use({
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 		editorProps: {
 			appearance: 'full-page',
 			allowTextAlignment: true,
@@ -24,6 +25,7 @@ test.describe(`inline-nodes - placeholder`, () => {
 
 	test.describe(`trailing spaces`, () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 			adf: trailingSpacesWithPlaceholder,
 		});
 
@@ -139,6 +141,7 @@ test.describe(`inline-nodes - placeholder`, () => {
 
 	test.describe(`no trailing spaces`, () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 			adf: noTrailingSpacesWithPlaceholder,
 		});
 

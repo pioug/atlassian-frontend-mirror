@@ -4,7 +4,7 @@ import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
-import { Field } from '@atlaskit/form';
+import { CheckboxField, Field } from '@atlaskit/form';
 import ModalDialog, {
 	type Appearance,
 	ModalBody,
@@ -69,7 +69,7 @@ export default function MultiLineTitles(): React.JSX.Element {
 								)}
 							</Field>
 
-							<Field name="hs" label="Toggle multi-line">
+							<CheckboxField name="hs" label="Toggle multi-line">
 								{() => (
 									<Checkbox
 										label="Is title multi-line?"
@@ -79,9 +79,9 @@ export default function MultiLineTitles(): React.JSX.Element {
 										isChecked={isTitleMultiline}
 									/>
 								)}
-							</Field>
+							</CheckboxField>
 
-							<Field name="hs" label="Toggle appearance">
+							<CheckboxField name="hs" label="Toggle appearance">
 								{() => (
 									<Checkbox
 										label="Set warning appearance?"
@@ -91,7 +91,7 @@ export default function MultiLineTitles(): React.JSX.Element {
 										isChecked={Boolean(appearance)}
 									/>
 								)}
-							</Field>
+							</CheckboxField>
 
 							<br />
 							<Lorem count="5" />

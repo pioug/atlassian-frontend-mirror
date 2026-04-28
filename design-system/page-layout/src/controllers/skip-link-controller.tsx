@@ -2,7 +2,7 @@ import React, { type FC, type ReactNode, useRef, useState } from 'react';
 
 import { PAGE_LAYOUT_SLOT_SELECTOR } from '../common/constants';
 
-import { SkipLinksContext } from './skip-link-context';
+import { SkipLinksContext } from './skip-links-context';
 import type { SkipLinkData } from './types';
 
 const byDOMOrder = (a: SkipLinkData, b: SkipLinkData) => {

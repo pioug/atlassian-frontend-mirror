@@ -14,6 +14,7 @@ import {
 
 test.describe('Cursor Inline Nodes', () => {
 	test.use({
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 		editorProps: {
 			appearance: 'full-page',
 			allowStatus: true,
@@ -22,6 +23,7 @@ test.describe('Cursor Inline Nodes', () => {
 
 	test.describe('Status', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 			editorProps: {
 				appearance: 'full-page',
 				allowStatus: true,
@@ -47,6 +49,7 @@ test.describe('Cursor Inline Nodes', () => {
 
 	test.describe('Emoji', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 			editorProps: {
 				appearance: 'full-page',
 				allowStatus: true,
@@ -67,6 +70,7 @@ test.describe('Cursor Inline Nodes', () => {
 	});
 	test.describe('Inline Extension', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 			editorProps: {
 				appearance: 'full-page',
 				allowStatus: true,
@@ -85,6 +89,7 @@ test.describe('Cursor Inline Nodes', () => {
 
 	test.describe('Mention', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 			editorProps: {
 				appearance: 'full-page',
 				allowStatus: true,
@@ -101,6 +106,7 @@ test.describe('Cursor Inline Nodes', () => {
 	});
 	test.describe('Date', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 			editorProps: {
 				appearance: 'full-page',
 				allowStatus: true,
@@ -119,6 +125,7 @@ test.describe('Cursor Inline Nodes', () => {
 
 	test.describe('Multiple Inline Nodes', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 			editorProps: {
 				appearance: 'full-page',
 				allowStatus: true,

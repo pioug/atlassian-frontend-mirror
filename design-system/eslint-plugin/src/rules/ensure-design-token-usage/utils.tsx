@@ -592,16 +592,3 @@ export function getValueForPropertyNode(
 
 	return propertyValue;
 }
-
-export { insertTokensImport } from './insert-tokens-import';
-export { splitShorthandValues } from './split-shorthand-values';
-export { getRawExpression } from './get-raw-expression';
-export { isZero } from './is-zero';
-export { isAuto } from './is-auto';
-export { convertHyphenatedNameToCamelCase } from './convert-hyphenated-name-to-camel-case';
-export { findParentNodeForLine } from './find-parent-node-for-line';
-export { cleanComments } from './clean-comments';
-export { splitCssProperties } from './split-css-properties';
-export { isTokenValueString } from './is-token-value-string';
-export { includesTokenString } from './includes-token-string';
-export { normaliseValue } from './normalise-value';

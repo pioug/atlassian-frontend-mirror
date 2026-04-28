@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { Code } from '@atlaskit/code';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -27,7 +28,7 @@ export default function DefaultModal(): React.JSX.Element {
 							<ModalTitle>Modal Title</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
-							This modal has an <code>aria-label</code> for users of assistive technology.
+							This modal has an <Code>aria-label</Code> for users of assistive technology.
 						</ModalBody>
 						<ModalFooter>
 							<Button testId="secondary" appearance="subtle" onClick={close}>

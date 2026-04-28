@@ -1,5 +1,30 @@
 # @atlaskit/editor-statsig-tmp
 
+## 70.6.0
+
+### Minor Changes
+
+- [`f3300976cae54`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3300976cae54) -
+  Use markdown plus for FE parser in streaming path instead of the legacy markdown transformer
+
+## 70.5.0
+
+### Minor Changes
+
+- [`bc415f8eb86a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc415f8eb86a9) -
+  Add OR check with create_work_item_modernization_exp experiment to
+  platform_editor_fix_scrolling_popup_position, platform_editor_table_resize_chromeless, and
+  platform_editor_chromeless_akeditor_class usages
+
+## 70.4.0
+
+### Minor Changes
+
+- [`aef936f5a23ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aef936f5a23ea) -
+  Rename the changeboard smart link drag-and-drop experiment from
+  `cc_dnd_smart_link_changeboard_po_template` to `cc_dnd_smart_link_changeboard_platform_css` across
+  the card plugin and editor statsig config.
+
 ## 70.3.0
 
 ### Minor Changes

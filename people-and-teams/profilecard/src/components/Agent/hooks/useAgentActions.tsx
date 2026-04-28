@@ -96,7 +96,8 @@ export const useAgentUrlActions = ({
 
 			// Check if versioning migration has completed for this site
 			const hasVersionCapability = await fetchHasVersionCapability(cloudId);
-			if (!hasVersionCapability) {
+			// TODO https://product-fabric.atlassian.net/browse/RAGE-2910 remove OR fg condition
+			if (!hasVersionCapability && !fg('rovo_agent_versioning_enabled')) {
 				// Opening in same tab because, we cannot open in new tab after async operation, because browsers prevent `.open` after certain duration
 				window.location.assign(legacyDuplicateUrl);
 				return;

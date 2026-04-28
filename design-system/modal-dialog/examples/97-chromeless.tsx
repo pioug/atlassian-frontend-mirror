@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -42,7 +42,7 @@ export default function Example(): React.JSX.Element {
 			<Flex gap="space.300" direction="column" xcss={styles.wrapper}>
 				<Heading size="medium">You’re about to delete this page</Heading>
 				<Box xcss={styles.body}>
-					<p>Before you delete it permanently, there’s some things you should know:</p>
+					<Text as="p">Before you delete it permanently, there’s some things you should know:</Text>
 					<ul>
 						<li>4 pages have links to this page that will break</li>
 						<li>2 child pages will be left behind in the page tree</li>

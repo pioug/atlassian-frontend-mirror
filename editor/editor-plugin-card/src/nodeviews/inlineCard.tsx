@@ -26,7 +26,7 @@ import { Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { cardPlugin } from '../cardPlugin';
 import { registerCard, removeCard } from '../pm-plugins/actions';
@@ -308,11 +308,11 @@ export function InlineCardNodeView(
 
 	const { mode, resolvedInlineSmartLinks } = useSharedPluginStateWithSelector(
 		pluginInjectionApi,
-		expValNoExposure('cc_dnd_smart_link_changeboard_po_template', 'isEnabled', false) &&
+		expVal('cc_dnd_smart_link_changeboard_platform_css', 'isEnabled', false) &&
 			fg('cc_drag_and_drop_smart_link_from_content_to_tree')
 			? ['editorViewMode', 'card']
 			: ['editorViewMode'],
-		expValNoExposure('cc_dnd_smart_link_changeboard_po_template', 'isEnabled', false) &&
+		expVal('cc_dnd_smart_link_changeboard_platform_css', 'isEnabled', false) &&
 			fg('cc_drag_and_drop_smart_link_from_content_to_tree')
 			? selectorWithCard
 			: selectorWithoutCard,

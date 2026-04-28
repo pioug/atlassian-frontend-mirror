@@ -1,5 +1,18 @@
 # @atlaskit/audit-log-tabs
 
+## 1.0.1
+
+### Patch Changes
+
+- [`4f39b3994834f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f39b3994834f) -
+  Remove unused afm-products directory from audit-log-tabs package
+- [`b6aa1f9c45217`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6aa1f9c45217) -
+  Remove unused docs directory from audit-log-tabs package
+- [`a4a0565837187`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4a0565837187) -
+  Remove unused stories directory from audit-log-tabs package
+- [`c27374e4efd80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c27374e4efd80) -
+  Remove unused examples directory from audit-log-tabs package
+
 ## 1.0.0
 
 ### Major Changes

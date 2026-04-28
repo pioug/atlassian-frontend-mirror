@@ -6,6 +6,7 @@ import {
 } from '@af/editor-libra/page-models';
 
 test.use({
+	exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 	editorProps: {
 		appearance: 'full-width',
 		elementBrowser: {

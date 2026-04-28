@@ -292,6 +292,8 @@ export type ForgeAppAuthSuccess = PayloadCore<
 	'forge-auth-success',
 	{
 		is3pActionAuth?: boolean;
+		agentMessageId?: string;
+		authUrl?: string;
 	}
 >;
 export type ForgeAppAuthFailure = PayloadCore<

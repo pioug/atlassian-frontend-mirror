@@ -13,6 +13,7 @@ const shortcutSelectAll = process.platform === 'darwin' ? 'Meta+a' : 'Control+a'
 test.describe('text formatting toolbar: styles', () => {
 	for (const appearance of appearances) {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 			editorProps: {
 				appearance: appearance,
 			},
@@ -104,6 +105,7 @@ test.describe('text formatting toolbar: styles', () => {
 test.describe('text formatting toolbar: advanced', () => {
 	for (const appearance of appearances) {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 			adf: blockQuoteAdf,
 			editorProps: {
 				appearance: appearance,

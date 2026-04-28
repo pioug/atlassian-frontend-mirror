@@ -50,5 +50,3 @@ export const shouldSuggest: (node: JSXElement) => boolean = (node: JSXElement): 
 
 	return true;
 };
-
-export { validPrimitiveElements } from './valid-primitive-elements';

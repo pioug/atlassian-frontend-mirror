@@ -2,15 +2,14 @@ import type { Rule } from 'eslint';
 import type { Directive, ModuleDeclaration, Statement } from 'eslint-codemod-utils';
 import j from 'jscodeshift';
 
-import * as ast from '../index';
+import { Root } from '../root';
 
 describe('Root', () => {
 	describe('findImportsByModule', () => {
 		it('returns correct ImportDeclaration', () => {
 			const root = j(`import { Box } from '@atlaskit/primitives';`);
 			const node = root.paths()[0].value.program.body;
-
-			const result = ast.Root.findImportsByModule(node, '@atlaskit/primitives');
+			const result = Root.findImportsByModule(node, '@atlaskit/primitives');
 
 			expect(result).toEqual([
 				expect.objectContaining({
@@ -26,8 +25,7 @@ describe('Root', () => {
         import { css } from '@emotion/react';
       `);
 			const node = root.paths()[0].value.program.body;
-
-			const result = ast.Root.findImportsByModule(node, '@atlaskit/primitives');
+			const result = Root.findImportsByModule(node, '@atlaskit/primitives');
 
 			expect(result).toEqual([
 				expect.objectContaining({
@@ -47,7 +45,7 @@ describe('Root', () => {
 				insertTextBefore: jest.fn(),
 			} as unknown as Rule.RuleFixer; // Aggressive typing only for testing purposes
 
-			ast.Root.insertImport(
+			Root.insertImport(
 				root,
 				{
 					module: '@atlaskit/primitives',

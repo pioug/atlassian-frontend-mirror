@@ -83,9 +83,6 @@
 			"path": "../../media/media-client-react/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/popup/tsconfig.app.json"
 		},
 		{

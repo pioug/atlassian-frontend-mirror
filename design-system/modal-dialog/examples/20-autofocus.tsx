@@ -13,7 +13,7 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = cssMap({
@@ -44,10 +44,10 @@ export default function ModalDemo(): React.JSX.Element {
 			<Heading as="h2" size="large">
 				Variants
 			</Heading>
-			<p>
+			<Text as="p">
 				Using ModalDialog <Code>autoFocus</Code> prop, not to be confused with the HTML{' '}
 				<Code>autofocus</Code> attribute.
-			</p>
+			</Text>
 			<ButtonGroup label="Auto focus options">
 				<Button aria-haspopup="dialog" testId="boolean-trigger" onClick={openRoot}>
 					Default
@@ -58,7 +58,7 @@ export default function ModalDemo(): React.JSX.Element {
 				</Button>
 			</ButtonGroup>
 
-			<p>This example is here for testing purposes only.</p>
+			<Text as="p">This example is here for testing purposes only.</Text>
 
 			<ModalTransition>
 				{isOpen === 'root' && (
@@ -67,7 +67,7 @@ export default function ModalDemo(): React.JSX.Element {
 							<ModalTitle>Boolean on dialog</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
-							<p>The first {'"tabbable"'} element will be focused.</p>
+							<Text as="p">The first {'"tabbable"'} element will be focused.</Text>
 							<Button>I am focused!</Button>
 							<Button>I am NOT focused</Button>
 						</ModalBody>
@@ -88,11 +88,11 @@ export default function ModalDemo(): React.JSX.Element {
 							<ModalTitle>input is automatically focused</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
-							<p>
+							<Text as="p">
 								Note: Usually the first focusable element, preferably a Close button at the top of
 								the dialog, should be focused initially. This test deviates only to properly test
 								the <Code>autoFocus</Code> prop.
-							</p>
+							</Text>
 							<Box>
 								<label htmlFor="not">
 									This textbox should not be focused

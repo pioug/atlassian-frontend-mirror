@@ -83,5 +83,3 @@ export const convertASTObjectExpressionToJSObject: (
 
 	return styleObj;
 };
-
-export { SPREAD_SYNTAX } from './spread-syntax';

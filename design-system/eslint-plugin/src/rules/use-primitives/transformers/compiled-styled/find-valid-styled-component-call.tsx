@@ -1,7 +1,7 @@
 import type { Rule } from 'eslint';
 import { closestOfType, isNodeOfType, type VariableDeclarator } from 'eslint-codemod-utils';
 
-import * as supported from './supported';
+import { elements } from './elements';
 
 /**
  * returns a variable reference if preconditions are favourable for
@@ -52,7 +52,7 @@ const isStyledCallExpression = (call: Rule.Node): boolean => {
 
 	if (
 		/^styled2?$/.test(call.callee.object.name) &&
-		supported.elements.includes(call.callee.property.name)
+		elements.includes(call.callee.property.name)
 	) {
 		return true;
 	}

@@ -1,15 +1,16 @@
 import type { Rule } from 'eslint';
 import { type JSXElement } from 'eslint-codemod-utils';
 
-import * as ast from '../../../ast-nodes';
+import { JSXAttribute } from '../../../ast-nodes/jsx-attribute';
+import { JSXElement as JSXElementHelper } from '../../../ast-nodes/jsx-element';
 
 // Rename data-testid prop to testId if present
 export function updateTestIdAttributeFix(
 	node: JSXElement,
 	fixer: Rule.RuleFixer,
 ): Rule.Fix | undefined {
-	const testIdAttr = ast.JSXElement.getAttributeByName(node, 'data-testid');
+	const testIdAttr = JSXElementHelper.getAttributeByName(node, 'data-testid');
 	if (testIdAttr) {
-		return ast.JSXAttribute.updateName(testIdAttr, 'testId', fixer);
+		return JSXAttribute.updateName(testIdAttr, 'testId', fixer);
 	}
 }

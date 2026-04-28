@@ -3,16 +3,15 @@ import * as eslintCodemodUtils from 'eslint-codemod-utils';
 import j from 'jscodeshift';
 
 import { cssToXcssTransformer, styledObjectToXcssTokens } from '../../transformers/css-to-xcss';
-import * as utils from '../../utils';
+import { getVariableDefinitionValue } from '../../utils/get-variable-definition-value';
 
 jest.mock('eslint-codemod-utils', () => ({
 	__esModule: true,
 	...jest.requireActual('eslint-codemod-utils'),
 	getIdentifierInParentScope: jest.fn(),
 }));
-jest.mock('../../utils', () => ({
+jest.mock('../../utils/get-variable-definition-value', () => ({
 	__esModule: true,
-	...jest.requireActual('../../utils'),
 	getVariableDefinitionValue: jest.fn(),
 }));
 
@@ -40,9 +39,9 @@ describe('cssToXcssTransformer', () => {
       <div css={paddingStyles}></div>
       `,
 		);
-		jest.mocked(utils.getVariableDefinitionValue).mockReturnValue({
+		jest.mocked(getVariableDefinitionValue).mockReturnValue({
 			node: root.find(j.VariableDeclarator).get().value,
-		} as ReturnType<typeof utils.getVariableDefinitionValue>);
+		} as ReturnType<typeof getVariableDefinitionValue>);
 
 		// ACT
 		const result = cssToXcssTransformer(
@@ -78,9 +77,9 @@ describe('cssToXcssTransformer', () => {
       <div css={marginStyles}></div>
       `,
 		);
-		jest.mocked(utils.getVariableDefinitionValue).mockReturnValue({
+		jest.mocked(getVariableDefinitionValue).mockReturnValue({
 			node: root.find(j.VariableDeclarator).get().value,
-		} as ReturnType<typeof utils.getVariableDefinitionValue>);
+		} as ReturnType<typeof getVariableDefinitionValue>);
 
 		// ACT
 		const result = cssToXcssTransformer(
@@ -116,9 +115,9 @@ describe('cssToXcssTransformer', () => {
       <div css={paddingStyles}></div>
       `,
 		);
-		jest.mocked(utils.getVariableDefinitionValue).mockReturnValue({
+		jest.mocked(getVariableDefinitionValue).mockReturnValue({
 			node: root.find(j.VariableDeclarator).get().value,
-		} as ReturnType<typeof utils.getVariableDefinitionValue>);
+		} as ReturnType<typeof getVariableDefinitionValue>);
 
 		// ACT
 		const result = cssToXcssTransformer(
@@ -160,9 +159,9 @@ describe('styledObjectToXcssTokens', () => {
       <div css={paddingStyles}></div>
       `,
 		);
-		jest.mocked(utils.getVariableDefinitionValue).mockReturnValue({
+		jest.mocked(getVariableDefinitionValue).mockReturnValue({
 			node: root.find(j.VariableDeclarator).get().value,
-		} as ReturnType<typeof utils.getVariableDefinitionValue>);
+		} as ReturnType<typeof getVariableDefinitionValue>);
 
 		// ACT
 		const result = styledObjectToXcssTokens(root.find(j.ObjectExpression).get().value, mockFixer);

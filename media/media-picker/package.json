@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-picker",
-	"version": "71.0.1",
+	"version": "71.1.0",
 	"description": "Library for handling file uploads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,8 +23,14 @@
 	},
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		"./types": "./src/types.ts",
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./browser": "./src/components/browser/index.tsx",
+		"./clipboard": "./src/components/clipboard/index.tsx",
+		"./components/types": "./src/components/types.ts",
+		"./dropzone": "./src/components/dropzone/index.tsx",
+		"./plugin": "./src/domain/plugin.ts",
+		"./preview": "./src/domain/preview.ts",
+		"./types": "./src/types.ts"
 	},
 	"atlassian": {
 		"team": "Media Exif",

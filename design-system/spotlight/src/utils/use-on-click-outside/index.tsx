@@ -4,7 +4,7 @@ import { bind } from 'bind-event-listener';
 
 import { getDocument } from '@atlaskit/browser-apis';
 
-import { SpotlightContext } from '../../controllers/context';
+import { SpotlightContext } from '../../controllers/spotlight-context';
 
 export const useOnClickOutside = (onClickOutside: (event: MouseEvent) => void): void => {
 	const { card } = useContext(SpotlightContext);

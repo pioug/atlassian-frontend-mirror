@@ -10,7 +10,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable, type PressableProps } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { SpotlightContext } from '../../controllers/context';
+import { SpotlightContext } from '../../controllers/spotlight-context';
 
 const styles = cssMap({
 	root: {

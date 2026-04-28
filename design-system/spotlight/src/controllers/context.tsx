@@ -2,22 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import {
-	type Context,
-	createContext,
-	type Dispatch,
-	type MutableRefObject,
-	type ReactNode,
-	type SetStateAction,
-	useId,
-	useRef,
-	useState,
-} from 'react';
+import { type Dispatch, type MutableRefObject, type ReactNode, type SetStateAction, useId, useRef, useState } from 'react';
 
 import { jsx } from '@atlaskit/css';
 
 import type { BackEvent, DismissEvent, DoneEvent, Placement } from '../types';
 
+import { SpotlightContext } from './spotlight-context';
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export interface SpotlightContextType {
 	card: {
@@ -49,38 +40,6 @@ export interface SpotlightContextType {
 		setAction: (backFn: (_event: BackEvent) => void) => void;
 	};
 }
-
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SpotlightContext: Context<SpotlightContextType> = createContext<SpotlightContextType>({
-	card: {
-		ref: null,
-		setRef: () => undefined,
-		placement: 'bottom-end',
-		setPlacement: () => undefined,
-		motion: undefined,
-		setMotion: () => undefined,
-	},
-	heading: {
-		id: '',
-		setId: () => undefined,
-	},
-	popoverContent: {
-		ref: undefined,
-		setRef: () => undefined,
-		update: () => () => new Promise(() => null),
-		setUpdate: () => () => new Promise(() => null),
-		dismiss: { current: () => undefined },
-		setDismiss: () => undefined,
-	},
-	primaryAction: {
-		action: { current: () => undefined },
-		setAction: () => undefined,
-	},
-	secondaryAction: {
-		action: { current: () => undefined },
-		setAction: () => undefined,
-	},
-});
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SpotlightContextProvider = ({ children }: { children: ReactNode }): JSX.Element => {
@@ -146,3 +105,5 @@ export const SpotlightContextProvider = ({ children }: { children: ReactNode }):
 		</SpotlightContext.Provider>
 	);
 };
+
+export { SpotlightContext } from './spotlight-context';

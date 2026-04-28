@@ -3,7 +3,7 @@ import { isNodeOfType } from 'eslint-codemod-utils';
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import { Root } from '../../ast-nodes';
+import { Root } from '../../ast-nodes/root';
 
 export const isDecendantOfPrimitive = (node: Rule.Node, context: Rule.RuleContext): boolean => {
 	const primitivesToCheck = ['Box', 'Text', 'Tile'];

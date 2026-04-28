@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-card
 
+## 16.4.1
+
+### Patch Changes
+
+- [`3a31723096050`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a31723096050) -
+  Swap feature gate from `platform-native-embeds-short-link-expansion` to
+  `platform_native_embeds_rollout_non_maui_experience` for Confluence short-link URL expansion in
+  native embeds. This consolidates the short-link expansion behaviour under the existing non-MaUI
+  experience rollout gate.
+
+## 16.4.0
+
+### Minor Changes
+
+- [`aef936f5a23ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aef936f5a23ea) -
+  Rename the changeboard smart link drag-and-drop experiment from
+  `cc_dnd_smart_link_changeboard_po_template` to `cc_dnd_smart_link_changeboard_platform_css` across
+  the card plugin and editor statsig config.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.3.4
 
 ### Patch Changes

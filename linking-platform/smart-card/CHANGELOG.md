@@ -1,5 +1,28 @@
 # @atlaskit/smart-card
 
+## 44.3.16
+
+### Patch Changes
+
+- [`2427776577054`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2427776577054) -
+  Update smartLink seen event to only fire on an unauthorized status
+
+## 44.3.15
+
+### Patch Changes
+
+- [`5109949ae3c5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5109949ae3c5f) -
+  [ux] Fix ForbiddenSVG lock icon gradient not rendering in Confluence preview mode.Replaced the
+  hardcoded `linearGradient` `id` with a dynamic one generated via React's `useId()` hook.
+
+## 44.3.14
+
+### Patch Changes
+
+- [`c124b0a8a84ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c124b0a8a84ba) -
+  [ux] Update rovo chat prompt message for Summarize in hovercard experiment
+- Updated dependencies
+
 ## 44.3.13
 
 ### Patch Changes

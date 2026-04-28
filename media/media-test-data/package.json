@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-test-data",
-	"version": "3.2.1",
+	"version": "3.3.0",
 	"description": "Sample data to be used in Media tests",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -30,7 +30,14 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./artifact-sets": "./src/itemsWithBinaries/artifactSets.ts",
+		"./create-item-with-binaries": "./src/itemsWithBinaries/createItemWithBinaries.ts",
+		"./items-with-binaries/types": "./src/itemsWithBinaries/types.ts",
+		"./items-with-binaries": "./src/itemsWithBinaries/itemsWithBinaries.ts",
+		"./sample-binaries": "./src/itemsWithBinaries/sampleBinaries/index.ts",
+		"./sample-file-items": "./src/sampleFileItems/sampleFileItems.ts",
+		"./types": "./src/sampleFileItems/types.ts"
 	},
 	"dependencies": {
 		"@atlaskit/media-client": "workspace:^",

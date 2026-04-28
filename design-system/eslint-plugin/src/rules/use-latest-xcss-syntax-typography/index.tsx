@@ -4,7 +4,9 @@ import { createLintRule } from '../utils/create-rule';
 import { errorBoundary } from '../utils/error-boundary';
 
 import { getConfig, PATTERNS, type RuleConfig } from './config';
-import { RestrictedCapitalisation, RestrictedProperty, WrappedTokenValue } from './linters';
+import { RestrictedCapitalisation } from './linters/restricted-capitalisation';
+import { RestrictedProperty } from './linters/restricted-property';
+import { WrappedTokenValue } from './linters/wrapped-token-value';
 
 const typescriptErrorMessage =
 	'There is ongoing work to make this a TypeScript error. Once that happens, you will have to delete/refactor anyway.';

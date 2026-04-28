@@ -4,6 +4,7 @@ import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { Code } from '@atlaskit/code';
 import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
 import ModalDialog, {
@@ -12,7 +13,7 @@ import ModalDialog, {
 	ModalHeader,
 	ModalTitle,
 } from '@atlaskit/modal-dialog';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
 
 const allowlistElement = (element: HTMLElement) => {
@@ -41,14 +42,14 @@ export default function Allowlist(): React.JSX.Element {
 						Open Modal
 					</Button>
 				</ButtonGroup>
-				<p>
+				<Text as="p">
 					This example shows how the focus lock allowlist lets people interact with content outside
 					of the modal dialog. When the nested modal is open, the parent modal remains accessible.
-				</p>
-				<p>
-					Focus lock ignores specified areas. Pass the <code>focusLockAllowlist</code> prop a
-					function which returns <code>false</code> for node which should ignored by focus lock.
-				</p>
+				</Text>
+				<Text as="p">
+					Focus lock ignores specified areas. Pass the <Code>focusLockAllowlist</Code> prop a
+					function which returns <Code>false</Code> for node which should ignored by focus lock.
+				</Text>
 			</Box>
 			{isOpen && (
 				<ModalDialog testId="modal-focus-lock" width="large" onClose={close}>
@@ -57,12 +58,12 @@ export default function Allowlist(): React.JSX.Element {
 					</ModalHeader>
 					<Box data-allowlist-container="true">
 						<ModalBody>
-							<p>
+							<Text as="p">
 								All elements of this modal are accessible through focus lock due to allowlisted
 								container.
-							</p>
+							</Text>
 							<Label htmlFor="allowlist-input">Allow List Input</Label>
-							<TextField placeholder="first" id="allowlist-input" />
+							<TextField id="allowlist-input" />
 						</ModalBody>
 						<ModalFooter>
 							<ButtonGroup label="Modal Controls">

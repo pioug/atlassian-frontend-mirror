@@ -35,8 +35,7 @@ export const ActionsBarWrapper: {
 } = (props: ActionBarWrapperProps): JSX.Element => {
 	const a11yProps = fg('platform_media_a11y_suppression_fixes')
 		? {
-				role: 'presentation' as const,
-				tabIndex: -1,
+				role: 'none' as const,
 			}
 		: {};
 	return (

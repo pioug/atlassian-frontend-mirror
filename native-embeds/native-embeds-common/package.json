@@ -25,6 +25,7 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
+		"./embed-depth": "./src/embed-depth.ts",
 		"./fallback-ui": "./src/ui/index.tsx"
 	},
 	"dependencies": {
@@ -90,7 +91,7 @@
 		}
 	},
 	"name": "@atlaskit/native-embeds-common",
-	"version": "1.0.2",
+	"version": "1.1.0",
 	"description": "A shared package for native embeds to be used across experiences and plugin",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

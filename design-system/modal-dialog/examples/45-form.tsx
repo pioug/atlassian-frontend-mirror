@@ -10,7 +10,7 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
 import Textfield from '@atlaskit/textfield';
 
@@ -27,7 +27,7 @@ export default function ModalDialogForm(): React.JSX.Element {
 		},
 		Function,
 	] = useState({});
-	const onFormSubmit = (data: Object) => {
+	const onFormSubmit = (data: any) => {
 		setData(data);
 		close();
 	};
@@ -46,17 +46,23 @@ export default function ModalDialogForm(): React.JSX.Element {
 						</ModalHeader>
 						<ModalBody>
 							<Form onSubmit={onFormSubmit} id="modal-form">
-								<p>Enter some text then submit the form to see the response.</p>
+								<Text as="p">Enter some text then submit the form to see the response.</Text>
 
-								<Field label="Name" name="name" defaultValue="" isRequired={true}>
-									{({ fieldProps }) => <Textfield {...fieldProps} />}
-								</Field>
+								<Field
+									label="Name"
+									name="name"
+									defaultValue=""
+									isRequired={true}
+									component={({ fieldProps }) => <Textfield {...fieldProps} />}
+								></Field>
 
-								<Field label="Email" name="email" defaultValue="" isRequired={true}>
-									{({ fieldProps }) => (
-										<Textfield autoComplete="off" placeholder="gbelson@hooli.com" {...fieldProps} />
-									)}
-								</Field>
+								<Field
+									label="Email"
+									name="email"
+									defaultValue=""
+									isRequired={true}
+									component={({ fieldProps }) => <Textfield autoComplete="off" {...fieldProps} />}
+								></Field>
 
 								<CheckboxField name="checkbox" defaultIsChecked>
 									{({ fieldProps }) => (
@@ -64,8 +70,11 @@ export default function ModalDialogForm(): React.JSX.Element {
 									)}
 								</CheckboxField>
 
-								<Field name="radiogroup" defaultValue="" label="Basic Radio Group Example">
-									{({ fieldProps }) => (
+								<Field
+									name="radiogroup"
+									defaultValue=""
+									label="Basic Radio Group Example"
+									component={({ fieldProps }) => (
 										<RadioGroup
 											options={[
 												{ name: 'color', value: 'red', label: 'Red' },
@@ -75,7 +84,7 @@ export default function ModalDialogForm(): React.JSX.Element {
 											{...fieldProps}
 										/>
 									)}
-								</Field>
+								></Field>
 							</Form>
 						</ModalBody>
 						<ModalFooter>

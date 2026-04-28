@@ -2,7 +2,7 @@ import type { Rule } from 'eslint';
 
 import { createLintRule } from '../utils/create-rule';
 
-import { ImportDeclaration } from './linters';
+import { ImportDeclaration } from './linters/import-declaration';
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {

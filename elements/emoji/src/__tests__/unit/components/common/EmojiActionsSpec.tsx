@@ -88,19 +88,17 @@ describe('<EmojiActions />', () => {
 			const toneSelectorToneOption1 = within(toneSelector)
 				.getByLabelText(':raised_back_of_hand:')
 				.closest('label');
-			const toneSelectorToneOption2 = within(toneSelector)
-				.getByLabelText(':raised_back_of_hand-2:')
-				.closest('label');
 
-			// No tone selected, focus on default tone radop input
+			// No tone selected, focus on default tone radio input
 			expect(within(toneSelectorToneOption1!).getByRole('radio')).toHaveFocus();
 
-			fireEvent.mouseDown(toneSelectorToneOption2!);
+			const toneSelectorToneOption2 = within(toneSelector).getByLabelText(':raised_back_of_hand-2:');
+			fireEvent.click(toneSelectorToneOption2);
 
-			// this is the Compiled hash class value for `opacity:0`
-			// the component is missing the style declaration
-			// discussion here: https://atlassian.slack.com/archives/C017XR8K1RB/p1740355117740189
-			expect(toneSelector).toHaveClass('_tzy4idpf');
+			// Automatically close tone ui
+			expect(
+				await screen.findByLabelText('Choose your skin tone', { exact: false }),
+			).toHaveAttribute('aria-expanded', 'false');
 
 			// tone 2 is selected
 			expect(props.onToneSelected).toHaveBeenCalledWith(2);
@@ -138,7 +136,7 @@ describe('<EmojiActions />', () => {
 
 			// Click a Different Tone
 			const toneSelectorToneOption = await screen.findByLabelText(':raised_back_of_hand-2:');
-			fireEvent.mouseDown(toneSelectorToneOption);
+			fireEvent.click(toneSelectorToneOption);
 
 			// Automatically close tone ui
 			expect(
@@ -162,12 +160,13 @@ describe('<EmojiActions />', () => {
 				expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
 
 				const toneSelectorToneOption = await screen.findByLabelText(':raised_back_of_hand-2:');
-				fireEvent.mouseDown(toneSelectorToneOption);
+				fireEvent.click(toneSelectorToneOption);
 
-				// this is the Compiled hash class value for `opacity:0`
-				// the component is missing the style declaration
-				// discussion here: https://atlassian.slack.com/archives/C017XR8K1RB/p1740355117740189
-				expect(await screen.findByTestId(toneSelectorTestId)).toHaveClass('_tzy4idpf');
+				// Automatically close tone ui
+				expect(
+					await screen.findByLabelText('Choose your skin tone', { exact: false }),
+				).toHaveAttribute('aria-expanded', 'false');
+
 				expect(props.onToneSelected).toHaveBeenCalledWith(2);
 			}
 			expect(props.onToneSelected).toHaveBeenCalledTimes(1);
@@ -185,19 +184,14 @@ describe('<EmojiActions />', () => {
 
 			const toneSelectorToneOption = await screen.findByLabelText(':raised_back_of_hand-2:');
 
-			fireEvent.mouseDown(toneSelectorToneOption);
+			fireEvent.click(toneSelectorToneOption);
 
-			// this is the Compiled hash class value for `opacity:0`
-			// the component is missing the style declaration
-			// discussion here: https://atlassian.slack.com/archives/C017XR8K1RB/p1740355117740189
-			expect(await screen.findByTestId(toneSelectorTestId)).toHaveClass('_tzy4idpf');
+			// Automatically close tone ui
+			const closedButton = await screen.findByLabelText('Choose your skin tone', { exact: false });
+			expect(closedButton).toHaveAttribute('aria-expanded', 'false');
 
-			waitFor(async () => {
-				expect(
-					await screen.findByLabelText('Choose your skin tone', {
-						exact: false,
-					}),
-				).toHaveFocus();
+			waitFor(() => {
+				expect(closedButton).toHaveFocus();
 			});
 		});
 

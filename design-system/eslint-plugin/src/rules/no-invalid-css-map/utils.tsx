@@ -120,5 +120,3 @@ export class CssMapObjectChecker {
 		this.checkCssMapObject(this.cssMapObject);
 	}
 }
-
-export { getCssMapObject } from './get-css-map-object';

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-import { injectIntl, type IntlShape } from 'react-intl';
+import { injectIntl, type IntlShape, type WithIntlProps } from 'react-intl';
 import { di } from 'react-magnetic-di';
 
 import { useJqlEditorAnalytics } from '../../analytics';
@@ -83,5 +83,7 @@ const JQLEditorInner = ({
 	);
 };
 
-const _default_1 = injectIntl<'intl', JQLEditorInnerProps>(JQLEditorInner);
+const _default_1: React.FC<WithIntlProps<JQLEditorInnerProps>> & {
+    WrappedComponent: React.ComponentType<JQLEditorInnerProps>;
+} = injectIntl<'intl', JQLEditorInnerProps>(JQLEditorInner);
 export default _default_1;

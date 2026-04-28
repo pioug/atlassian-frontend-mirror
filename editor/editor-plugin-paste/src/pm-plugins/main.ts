@@ -455,7 +455,7 @@ export function createPlugin(
 
 				slice = handleVSCodeBlock({ state, slice, event, text });
 
-				if (editorExperiment('platform_synced_block', true)) {
+				if (editorExperiment('platform_synced_block', true) || fg('platform_synced_block_unsupported_products')) {
 					slice = handleSyncBlocksPaste(
 						slice,
 						schema,

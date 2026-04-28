@@ -8,6 +8,7 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { Text } from '@atlaskit/primitives/compiled';
 
 export default function Example(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
@@ -27,21 +28,21 @@ export default function Example(): React.JSX.Element {
 							<ModalTitle>Default modal header</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
-							<p>
+							<Text as="p">
 								If you wish to customise a modal dialog, it accepts any valid React element as
 								children.
-							</p>
+							</Text>
 
-							<p>
+							<Text as="p">
 								Modal header accepts any valid React element as children, so you can use modal title
 								in conjunction with other elements like an exit button in the top right.
-							</p>
+							</Text>
 
-							<p>
+							<Text as="p">
 								Modal footer accepts any valid React element as children. For example, you can add
 								an avatar in the footer. For very custom use cases, you can achieve the same thing
 								without modal footer.
-							</p>
+							</Text>
 						</ModalBody>
 						<ModalFooter>
 							<Button appearance="subtle">About modals</Button>

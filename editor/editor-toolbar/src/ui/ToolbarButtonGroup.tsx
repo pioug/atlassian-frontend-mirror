@@ -7,6 +7,7 @@ import type { ReactNode } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -65,8 +66,12 @@ type ToolbarButtonGroupProps = {
 
 export const ToolbarButtonGroup = ({ children }: ToolbarButtonGroupProps): JSX.Element => {
 	const items = Children.toArray(children);
-	const FirstChild = items.at(0);
-	const LastChild = items.at(-1);
+	//  The .at() method is a relatively newer JavaScript API (ES2022) that isn't supported in older browsers
+	//  Using items[i] is more compatible with older browsers.
+	const FirstChild = fg('platform_editor_fix_t_at_is_not_a_function') ? items[0] : items.at(0);
+	const LastChild = fg('platform_editor_fix_t_at_is_not_a_function')
+		? items[items.length - 1]
+		: items.at(-1);
 	const middleChildren = items.slice(1, -1);
 
 	return (

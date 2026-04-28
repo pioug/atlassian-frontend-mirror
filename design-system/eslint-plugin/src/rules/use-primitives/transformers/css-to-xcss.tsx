@@ -12,12 +12,10 @@ import {
 
 import { getScope } from '@atlaskit/eslint-utils/context-compat';
 
-import {
-	getAttributeValueIdentifier,
-	getFunctionArgumentAtPos,
-	getJSXAttributeByName,
-	getVariableDefinitionValue,
-} from '../utils';
+import { getAttributeValueIdentifier } from '../utils/get-attribute-value-identifier';
+import { getFunctionArgumentAtPos } from '../utils/get-function-argument-at-pos';
+import { getJSXAttributeByName } from '../utils/get-jsx-attribute-by-name';
+import { getVariableDefinitionValue } from '../utils/get-variable-definition-value';
 
 import { dimensionsMap } from './dimensions-map';
 import { spaceTokenMap } from './space-token-map';
@@ -153,7 +151,3 @@ export const supportedStylesMap: { [key: string]: typeof spaceTokenMap } = {
 	marginTop: spaceTokenMap,
 	...supportedDimensionAttributesMap,
 };
-
-export { spaceTokenMap } from './space-token-map';
-export { spaceTokenPositiveMap } from './space-token-positive-map';
-export { dimensionsMap } from './dimensions-map';

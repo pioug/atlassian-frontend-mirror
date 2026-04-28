@@ -1,5 +1,15 @@
 # @atlaskit/profilecard
 
+## 25.1.11
+
+### Patch Changes
+
+- [`2172074697645`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2172074697645) -
+  [RAGE-2910] Temporarily OR `hasVersionCapability` GraphQL gate with
+  `fg('rovo_agent_versioning_enabled')` to unblock demo while BE backfill is incomplete. TODO:
+  revert OR-with-fg condition once backfill is complete (tracked in
+  https://product-fabric.atlassian.net/browse/RAGE-2910).
+
 ## 25.1.10
 
 ### Patch Changes

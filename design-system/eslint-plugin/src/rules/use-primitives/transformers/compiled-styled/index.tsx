@@ -4,9 +4,10 @@ import { isNodeOfType, type JSXElement, type VariableDeclarator } from 'eslint-c
 
 import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import * as ast from '../../../../ast-nodes';
+import { JSXElement as JSXElementHelper } from '../../../../ast-nodes/jsx-element';
+import { Root } from '../../../../ast-nodes/root';
 import type { RuleConfig } from '../../config';
-import { isValidCssPropertiesToTransform } from '../../utils';
+import { isValidCssPropertiesToTransform } from '../../utils/is-valid-css-properties-to-transform';
 import { validateStyles } from '../../utils/validate-styles';
 
 import { convertJsxCallSite } from './convert-jsx-call-site';
@@ -46,7 +47,7 @@ export const CompiledStyled = {
 			messageId: 'preferPrimitivesBox',
 			suggest: [
 				{
-					desc: `Convert ${ast.JSXElement.getName(refs.jsxElement)} to Box`,
+					desc: `Convert ${JSXElementHelper.getName(refs.jsxElement)} to Box`,
 					fix: CompiledStyled._fix(refs, context),
 				},
 			],
@@ -89,7 +90,7 @@ export const CompiledStyled = {
 			return { success: false };
 		}
 
-		const importDeclaration = ast.Root.findImportsByModule(
+		const importDeclaration = Root.findImportsByModule(
 			getSourceCode(context).ast.body,
 			'@atlaskit/primitives',
 		);
@@ -125,7 +126,7 @@ export const CompiledStyled = {
 				return [];
 			}
 
-			const importFixes = ast.Root.upsertNamedImportDeclaration(
+			const importFixes = Root.upsertNamedImportDeclaration(
 				{
 					module: '@atlaskit/primitives',
 					specifiers: ['Box', 'xcss'],

@@ -14,6 +14,7 @@ import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { SortOrder } from '@atlaskit/editor-common/types';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 
@@ -27,13 +28,17 @@ import {
 	SORTING_ICON_CLASS_NAME,
 } from './consts';
 import { tableViewModeSortPluginKey as key } from './plugin-key';
-import type { ViewModeSortPluginState } from './types';
+import type { TableSortMeta, ViewModeSortPluginState } from './types';
 import { getTableElements, toggleSort } from './utils';
 
 export const createPlugin = (
 	api: ExtractInjectionAPI<typeof tablePlugin>,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
-) => {
+): SafePlugin<{
+        allTables: [string, Node, number][];
+        decorations: DecorationSet;
+        sort: TableSortMeta;
+    }> => {
 	return new SafePlugin({
 		state: {
 			init: () => ({

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-table",
-	"version": "19.0.0",
+	"version": "19.1.0",
 	"description": "Table UI component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,7 +23,10 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./media-table": "./src/component/mediaTable.tsx",
+		"./name-cell": "./src/component/nameCell.tsx",
+		"./types": "./src/types.ts"
 	},
 	"atlassian": {
 		"team": "Media Exif",

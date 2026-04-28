@@ -1,5 +1,27 @@
 # @atlaskit/media-card
 
+## 80.3.0
+
+### Minor Changes
+
+- [`818d7e656a226`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/818d7e656a226) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 80.2.3
+
+### Patch Changes
+
+- [`87c390129e175`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87c390129e175) -
+  [ux] Fix accessibility suppression for media components behind feature gate
+  `platform_media_a11y_suppression_fixes`. Replaces `role="presentation"` with `role="none"` and
+  removes `tabIndex={-1}`, `onKeyDown`, and `onFocus` handlers from non-interactive media wrappers
+  to prevent focus being stolen from the editor when media cards are clicked.
+- Updated dependencies
+
 ## 80.2.2
 
 ### Patch Changes

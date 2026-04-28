@@ -9,17 +9,19 @@ import {
 
 import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import * as ast from '../../../../ast-nodes';
+import { FunctionCall } from '../../../../ast-nodes/function-call';
+import { JSXAttribute as JSXAttributeHelper } from '../../../../ast-nodes/jsx-attribute';
+import { JSXElement as JSXElementHelper } from '../../../../ast-nodes/jsx-element';
+import { Root } from '../../../../ast-nodes/root';
 import type { RuleConfig } from '../../config';
-import {
-	getVariableDefinitionValue,
-	getVariableUsagesCount,
-	isValidCssPropertiesToTransform,
-} from '../../utils';
+import { getVariableDefinitionValue } from '../../utils/get-variable-definition-value';
+import { getVariableUsagesCount } from '../../utils/get-variable-usage-count';
+import { isValidCssPropertiesToTransform } from '../../utils/is-valid-css-properties-to-transform';
 import { validateStyles } from '../../utils/validate-styles';
 import { cssToXcssTransformer } from '../css-to-xcss';
 
-import * as supported from './supported';
+import { attributes } from './attributes';
+import { elements } from './elements';
 
 interface MetaData {
 	context: Rule.RuleContext;
@@ -58,29 +60,29 @@ export const EmotionCSS = {
 			return false;
 		}
 
-		const elementName = ast.JSXElement.getName(node);
+		const elementName = JSXElementHelper.getName(node);
 		if (!elementName) {
 			return false;
 		}
 
 		// Currently we only support `div`. This may change in future.
-		if (!supported.elements.includes(elementName)) {
+		if (!elements.includes(elementName)) {
 			return false;
 		}
 
 		// Ignore elements that contain dangerous attributes like `id`.
-		if (!ast.JSXElement.hasAllowedAttrsOnly(node, supported.attributes)) {
+		if (!JSXElementHelper.hasAllowedAttrsOnly(node, attributes)) {
 			return false;
 		}
 
 		// Currently we don't transform anything to `Box` unless it defines styles
-		const cssAttr = ast.JSXElement.getAttributeByName(node, 'css');
+		const cssAttr = JSXElementHelper.getAttributeByName(node, 'css');
 		if (!cssAttr) {
 			return false;
 		}
 
 		// Get `myStyles` in `css={myStyles}` as a string so we can search for the `const myStyles` VariableDefinition
-		const cssAttrValue = ast.JSXAttribute.getValue(cssAttr);
+		const cssAttrValue = JSXAttributeHelper.getValue(cssAttr);
 
 		if (cssAttrValue?.type !== 'ExpressionStatement') {
 			return false;
@@ -101,7 +103,7 @@ export const EmotionCSS = {
 
 		const cssVariableValue = getVariableDefinitionValue(cssVariableDefinition);
 		// Check if `cssVariableValue` is a function called `css()`
-		if (ast.FunctionCall.getName(cssVariableValue?.node.init) !== 'css') {
+		if (FunctionCall.getName(cssVariableValue?.node.init) !== 'css') {
 			return false;
 		}
 
@@ -113,7 +115,7 @@ export const EmotionCSS = {
 			return false;
 		}
 
-		const importDeclaration = ast.Root.findImportsByModule(
+		const importDeclaration = Root.findImportsByModule(
 			getSourceCode(context).ast.body,
 			'@atlaskit/primitives',
 		);
@@ -128,7 +130,7 @@ export const EmotionCSS = {
 
 	_fix(node: JSXElement, { context }: { context: Rule.RuleContext }): Rule.ReportFixer {
 		return (fixer) => {
-			const importFix = ast.Root.upsertNamedImportDeclaration(
+			const importFix = Root.upsertNamedImportDeclaration(
 				{
 					module: '@atlaskit/primitives',
 					specifiers: ['Box', 'xcss'],
@@ -137,9 +139,9 @@ export const EmotionCSS = {
 				fixer,
 			);
 
-			const cssAttr = ast.JSXElement.getAttributeByName(node, 'css') as JSXAttribute; // Can strongly assert the type here, because we validated it exists in `check()`.
-			const attributeFix = ast.JSXAttribute.updateName(cssAttr, 'xcss', fixer);
-			const elementNameFixes = ast.JSXElement.updateName(node, 'Box', fixer);
+			const cssAttr = JSXElementHelper.getAttributeByName(node, 'css') as JSXAttribute; // Can strongly assert the type here, because we validated it exists in `check()`.
+			const attributeFix = JSXAttributeHelper.updateName(cssAttr, 'xcss', fixer);
+			const elementNameFixes = JSXElementHelper.updateName(node, 'Box', fixer);
 			const cssToXcssTransform = cssToXcssTransformer(node, context, fixer);
 
 			return [importFix, attributeFix, ...elementNameFixes, ...cssToXcssTransform].filter(

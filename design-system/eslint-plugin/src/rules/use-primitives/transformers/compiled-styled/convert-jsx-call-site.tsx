@@ -1,7 +1,7 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, type JSXElement } from 'eslint-codemod-utils';
 
-import * as ast from '../../../../ast-nodes';
+import { JSXElement as JSXElementHelper } from '../../../../ast-nodes/jsx-element';
 
 /**
  * Transforms a JSXElement from:
@@ -26,7 +26,7 @@ export const convertJsxCallSite = (
 
 	// renames the JSX call site
 	if (isNodeOfType(jsxElement, 'JSXElement')) {
-		fixes.push(...ast.JSXElement.updateName(jsxElement, 'Box', fixer));
+		fixes.push(...JSXElementHelper.updateName(jsxElement, 'Box', fixer));
 	}
 
 	// adds xcss prop

@@ -176,9 +176,7 @@ export type MessageKey =
 	| 'manage_captions'
 	| 'add_captions'
 	| 'svg_base_alt'
-	| 'svg_image_preview_label_assistive_text'
 	| 'archive_download_label_assistive_text'
-	| 'media_card_wrapper_label_assistive_text'
 	| RequestAccessMessageKey;
 
 type Messages = {
@@ -1125,21 +1123,9 @@ export const messages: Messages = defineMessages({
 		description:
 			'The text is shown as the alt attribute for the SVG image element in the media viewer, providing an accessible text description for screen reader users.',
 	},
-	svg_image_preview_label_assistive_text: {
-		id: 'media.media-viewer.svg-wrapper.label_assistive_text',
-		defaultMessage: 'Close Image Preview',
-		description:
-			'The text is shown as the aria-label for the interactive SVG image wrapper in the media viewer, indicating to assistive technology users that clicking it closes the image preview.',
-	},
 	archive_download_label_assistive_text: {
 		id: 'media.media-viewer.archive-sidebar.wrapper.label_assistive_text',
 		defaultMessage: 'Download Media',
 		description: 'Aria-label for media archive download button',
-	},
-	media_card_wrapper_label_assistive_text: {
-		id: 'media.media-card.wrapper.label_assistive_text',
-		defaultMessage: 'Media file card',
-		description:
-			'The text is shown as the aria-label for the media file card wrapper element, providing an accessible name that identifies this component as a media file card to screen reader users.',
-	},
+	}
 });

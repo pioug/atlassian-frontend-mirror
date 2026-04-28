@@ -1,15 +1,7 @@
-import { type Context, createContext, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
-import noop from '@atlaskit/ds-lib/noop';
-
+import { SkipLinksContext } from './skip-links-context';
 import { type SkipLinkContextProps, type SkipLinkData } from './types';
-
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SkipLinksContext: Context<SkipLinkContextProps> = createContext<SkipLinkContextProps>({
-	skipLinksData: [],
-	registerSkipLink: noop,
-	unregisterSkipLink: noop,
-});
 
 export const useSkipLinks = (): SkipLinkContextProps => useContext(SkipLinksContext);
 
@@ -27,3 +19,5 @@ export const useSkipLink = (
 		};
 	}, [id, skipLinkTitle, registerSkipLink, unregisterSkipLink]);
 };
+
+export { SkipLinksContext } from './skip-links-context';

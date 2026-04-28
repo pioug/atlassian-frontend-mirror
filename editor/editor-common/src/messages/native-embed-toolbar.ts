@@ -2,24 +2,29 @@ import { defineMessages } from 'react-intl';
 
 export const nativeEmbedToolbarMessages: {
 	alwaysShowTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	expandPreview: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	refresh: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	summarise: {
 		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	setEmbedType: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	summarise: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	alwaysShowTitle: {
@@ -42,5 +47,10 @@ export const nativeEmbedToolbarMessages: {
 		id: 'fabric.editor.setEmbedType.non-final',
 		defaultMessage: 'Set embed type',
 		description: 'Label for the button to set the type of embed.',
+	},
+	expandPreview: {
+		id: 'fabric.editor.nativeEmbeds.expandPreview',
+		defaultMessage: 'Expand preview',
+		description: 'Label for the button to open the embed in a fullscreen preview.',
 	},
 });

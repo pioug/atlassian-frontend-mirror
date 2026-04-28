@@ -11,7 +11,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Popper, type Placement as PopperPlacement } from '@atlaskit/popper';
 import { token } from '@atlaskit/tokens';
 
-import { SpotlightContext } from '../../controllers/context';
+import { SpotlightContext } from '../../controllers/spotlight-context';
 import type { BackEvent, DismissEvent, DoneEvent, NextEvent, Placement } from '../../types';
 import { useFocusWithin } from '../../utils/use-focus-within';
 import { useOnClickOutside } from '../../utils/use-on-click-outside';

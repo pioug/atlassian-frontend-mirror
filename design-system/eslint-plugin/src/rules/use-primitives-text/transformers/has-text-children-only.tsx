@@ -1,6 +1,7 @@
 import { isNodeOfType, type JSXElement } from 'eslint-codemod-utils';
 
-import * as ast from '../../../ast-nodes';
+import { FunctionCall } from '../../../ast-nodes/function-call';
+import { JSXElement as JSXElementHelper } from '../../../ast-nodes/jsx-element';
 
 // The use of `<FormattedMessage ... />` component and `{formatMessage(...)}` are allowed as these are used for i18n
 export function hasTextChildrenOnly(node: JSXElement): boolean {
@@ -10,7 +11,10 @@ export function hasTextChildrenOnly(node: JSXElement): boolean {
 		}
 
 		// JSX child element <span><FormattedMessage /></span>
-		if (isNodeOfType(child, 'JSXElement') && ast.JSXElement.getName(child) === 'FormattedMessage') {
+		if (
+			isNodeOfType(child, 'JSXElement') &&
+			JSXElementHelper.getName(child) === 'FormattedMessage'
+		) {
 			return true;
 		}
 
@@ -19,7 +23,7 @@ export function hasTextChildrenOnly(node: JSXElement): boolean {
 			isNodeOfType(child, 'JSXExpressionContainer') &&
 			isNodeOfType(child.expression, 'CallExpression')
 		) {
-			return ast.FunctionCall.getName(child.expression) === 'formatMessage';
+			return FunctionCall.getName(child.expression) === 'formatMessage';
 		}
 
 		return false;

@@ -18,7 +18,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import Link from '@atlaskit/link';
 import type { CardContext } from '@atlaskit/link-provider';
 import type { APIError } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardProps as BaseCardProps } from '@atlaskit/smart-card';
 
 import type { CardPlugin } from '../cardPluginType';
@@ -150,7 +149,7 @@ export function Card(
 
 			if (this.state.isError) {
 				if (url) {
-					return fg('dst-a11y__replace-anchor-with-link__linking-platfo') ? (
+					return (
 						<Link
 							href={url}
 							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
@@ -160,16 +159,6 @@ export function Card(
 						>
 							{url}
 						</Link>
-					) : (
-						// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-						<a
-							href={url}
-							onClick={(e) => {
-								e.preventDefault();
-							}}
-						>
-							{url}
-						</a>
 					);
 				} else {
 					return <UnsupportedComponent />;

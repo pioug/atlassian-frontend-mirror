@@ -1,11 +1,24 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import type { DetailedHTMLProps, HTMLAttributes } from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import type { Theme } from '@emotion/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import styled, { type StyledComponent } from '@emotion/styled';
 
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const AutocompleteContainer = styled.div<{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const AutocompleteContainer: StyledComponent<{
+	as?: React.ElementType;
+	theme?: Theme;
+} & {
+	isOpen: boolean;
+	usePopper?: boolean;
+}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> =
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+	styled.div<{
 	isOpen: boolean;
 	usePopper?: boolean;
 }>(
@@ -34,21 +47,38 @@ export const AutocompleteContainer = styled.div<{
 		},
 );
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const AutocompleteOptionsContainer = styled.div({
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const AutocompleteOptionsContainer: StyledComponent<{
+	as?: React.ElementType;
+	theme?: Theme;
+}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> =
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+	styled.div({
 	maxHeight: '288px',
 	overflow: 'auto',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const OptionList = styled.ul({
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const OptionList: StyledComponent<{
+	as?: React.ElementType;
+	theme?: Theme;
+}, DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>, {}> =
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+	styled.ul({
 	listStyle: 'none',
 	margin: `${token('space.0')}`,
 	padding: `${token('space.0')}`,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const AutocompleteLoadingFooter = styled.div<{ hasOptions: boolean }>(
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const AutocompleteLoadingFooter: StyledComponent<{
+	as?: React.ElementType;
+	theme?: Theme;
+} & {
+	hasOptions: boolean;
+}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> =
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+	styled.div<{ hasOptions: boolean }>(
 	{
 		display: 'flex',
 		justifyContent: 'center',

@@ -5,7 +5,7 @@ import Lorem from 'react-lorem-component';
 import Button from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
 import { cssMap } from '@atlaskit/css';
-import { Field } from '@atlaskit/form';
+import { CheckboxField } from '@atlaskit/form';
 import ModalDialog, {
 	ModalBody,
 	ModalFooter,
@@ -13,7 +13,7 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 
 const containerStyles = cssMap({
 	root: {
@@ -39,7 +39,9 @@ export function ScrollHorizontalExample(): React.JSX.Element {
 	return (
 		<Box xcss={containerStyles.root} padding="space.200">
 			<Box>
-				<p>The width of body is greater than viewport width (horizontally scrollable).</p>
+				<Text as="p">
+					The width of body is greater than viewport width (horizontally scrollable).
+				</Text>
 
 				<br />
 				<Button appearance="primary" onClick={scrollTriggerIntoView} testId="scroll-into-view">
@@ -48,7 +50,7 @@ export function ScrollHorizontalExample(): React.JSX.Element {
 			</Box>
 
 			<Box ref={triggerRef}>
-				<Field name="sb" label="Scrolling behavior">
+				<CheckboxField name="sb" label="Scrolling behavior">
 					{() => (
 						<Checkbox
 							label="Should scroll within the viewport"
@@ -58,7 +60,7 @@ export function ScrollHorizontalExample(): React.JSX.Element {
 							isChecked={shouldScrollInViewport}
 						/>
 					)}
-				</Field>
+				</CheckboxField>
 
 				<br />
 				<Button aria-haspopup="dialog" onClick={open} testId="modal-trigger">

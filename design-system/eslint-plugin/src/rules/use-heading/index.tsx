@@ -4,7 +4,7 @@ import { createLintRule } from '../utils/create-rule';
 import { errorBoundary } from '../utils/error-boundary';
 
 import { getConfig, type RuleConfig } from './config';
-import { NativeElements } from './transformers';
+import { NativeElements } from './transformers/native-elements';
 
 const docsUrl = 'https://atlassian.design/components/heading';
 

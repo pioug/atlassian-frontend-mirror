@@ -84,12 +84,3 @@ export function upsertCssMapVariable(
 
 	return undefined;
 }
-
-export { SPACING_TO_PADDING } from './spacing-to-padding';
-export { getCssMapKey } from './get-css-map-key';
-export { getSpacingAttribute } from './get-spacing-attribute';
-export { getStaticAttributeValue } from './get-static-attribute-value';
-export { hasSpreadProps } from './has-spread-props';
-export { upsertFlexImport } from './upsert-flex-import';
-export { upsertCssMapImport } from './upsert-css-map-import';
-export { upsertTokenImport } from './upsert-token-import';

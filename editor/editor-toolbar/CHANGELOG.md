@@ -1,5 +1,14 @@
 # @atlaskit/editor-toolbar
 
+## 1.0.10
+
+### Patch Changes
+
+- [`bb13ee29107b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb13ee29107b7) -
+  Editor-6656: Fix TypeError: .at() is not a function in ToolbarButtonGroup by replacing
+  Array.prototype.at() calls
+- Updated dependencies
+
 ## 1.0.9
 
 ### Patch Changes

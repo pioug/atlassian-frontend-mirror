@@ -1,7 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, keyframes } from '@emotion/react';
+import type { DetailedHTMLProps, HTMLAttributes, ClassAttributes } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { css, keyframes, type Theme } from '@emotion/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import styled, { type StyledComponent } from '@emotion/styled';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { layers } from '@atlaskit/theme/constants';
@@ -32,8 +35,13 @@ const fadeOut = keyframes({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const EditorMain = styled.div`
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const EditorMain: StyledComponent<{
+	as?: React.ElementType;
+	theme?: Theme;
+}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> =
+	// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+	styled.div`
 	/* CSS reset */
 	font-family: ${token('font.family.body')};
 	font-size: 14px;
@@ -71,8 +79,13 @@ export const EditorMain = styled.div`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const EditorFooter = styled.div({
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const EditorFooter: StyledComponent<{
+	as?: React.ElementType;
+	theme?: Theme;
+}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> =
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+	styled.div({
 	display: 'flex',
 	justifyContent: 'space-between',
 	minHeight: '20px',
@@ -88,8 +101,13 @@ type EditorViewContainerProps = {
 	editorViewHasFocus?: boolean;
 	editorViewIsInvalid?: boolean;
 };
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const EditorViewContainer = styled.div<EditorViewContainerProps>(
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const EditorViewContainer: StyledComponent<{
+	as?: React.ElementType;
+	theme?: Theme;
+} & EditorViewContainerProps, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> =
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+	styled.div<EditorViewContainerProps>(
 	{
 		backgroundColor: token('color.background.input'),
 		borderStyle: 'solid',
@@ -128,15 +146,29 @@ export const EditorViewContainer = styled.div<EditorViewContainerProps>(
 				}),
 );
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const ReadOnlyEditorViewContainer = styled(EditorViewContainer)({
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const ReadOnlyEditorViewContainer: StyledComponent<{
+	as?: React.ElementType;
+	theme?: Theme;
+} & EditorViewContainerProps & ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & {
+	theme?: Theme;
+}, {}, {}> =
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+	styled(EditorViewContainer)({
 	backgroundColor: token('color.background.disabled'),
 	color: token('color.text.disabled'),
 	pointerEvents: 'none',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const LineNumberToolbar = styled.div<{ lineNumbersVisible: boolean }>(
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const LineNumberToolbar: StyledComponent<{
+	as?: React.ElementType;
+	theme?: Theme;
+} & {
+	lineNumbersVisible: boolean;
+}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> =
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+	styled.div<{ lineNumbersVisible: boolean }>(
 	{
 		backgroundColor: token('color.background.neutral'),
 		flexShrink: 0,
@@ -156,14 +188,25 @@ export const LineNumberToolbar = styled.div<{ lineNumbersVisible: boolean }>(
 /**
  * The main div which the Prosemirror editor will be rendered into.
  */
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const EditorView = styled.div<{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const EditorView: StyledComponent<{
+	as?: React.ElementType;
+	theme?: Theme;
+} & {
 	defaultMaxRows: number;
 	defaultRows?: number;
 	expandedRows: number;
 	isCompact: boolean;
 	lineNumbersVisible: boolean;
-}>`
+}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> =
+	// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+	styled.div<{
+		defaultMaxRows: number;
+		defaultRows?: number;
+		expandedRows: number;
+		isCompact: boolean;
+		lineNumbersVisible: boolean;
+	}>`
 	counter-reset: lineNumber;
 	flex-grow: 1;
 
@@ -262,22 +305,40 @@ export const EditorView = styled.div<{
 `;
 
 // FIXME: convert-props-syntax rule doesn't catch this
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const ReadOnlyEditorView = styled(EditorView)`
-	/* We need to replicate padding from the inner prosemirror element in our read only state. That means we also need
-  recompute max height excluding the child padding. */
-	padding: ${(props) => getEditorInputVerticalPadding(props.isCompact)}px
-		${editorInputHorizontalPadding}px;
-	max-height: ${(props) => rowHeight * props.defaultMaxRows}px;
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const ReadOnlyEditorView: StyledComponent<{
+	as?: React.ElementType;
+	theme?: Theme;
+} & {
+	defaultMaxRows: number;
+	defaultRows?: number;
+	expandedRows: number;
+	isCompact: boolean;
+	lineNumbersVisible: boolean;
+} & ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & {
+	theme?: Theme;
+}, {}, {}> =
+	/* eslint-disable @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-dynamic-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766 */
+	styled(EditorView)((props) => ({
+		padding: `${getEditorInputVerticalPadding(props.isCompact)}px ${editorInputHorizontalPadding}px`,
+		maxHeight: `${rowHeight * props.defaultMaxRows}px`,
+		'> p': {
+			minHeight: `${rowHeight}px`,
+		},
+	}));
+/* eslint-enable @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-dynamic-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-nested-selectors */
 
-	> p {
-		/* Prevent collapsing empty paragraphs */
-		min-height: ${rowHeight}px;
-	}
-`;
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const EditorControls = styled.div<{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const EditorControls: StyledComponent<{
+	as?: React.ElementType;
+	theme?: Theme;
+} & {
+	isCompact: boolean;
+	isSearch: boolean;
+	isVisualRefresh?: boolean;
+}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> =
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+	styled.div<{
 	isCompact: boolean;
 	isSearch: boolean;
 	isVisualRefresh?: boolean;

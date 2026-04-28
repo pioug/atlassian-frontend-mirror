@@ -272,7 +272,7 @@ const generateSharedTokensFile = (componentOutputDir: string) => {
 	fs.writeFileSync(tokensFilePath, signedSourceCode);
 };
 
-const generateComponentPropTypes = (componentNames?: string) => {
+const generateComponentPropTypes = (componentNames?: string): void => {
 	const componentOutputDir = resolve(__dirname, '..', '..', 'src', 'components', '__generated__');
 	const componentIndexSourceFile = forgeUIProject.addSourceFileAtPath(
 		require.resolve('@atlassian/forge-ui/UIKit'),

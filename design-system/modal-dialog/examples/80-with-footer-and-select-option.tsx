@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { Label } from '@atlaskit/form';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -11,29 +12,8 @@ import Modal, {
 import { Box } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
 
-const SingleExample = () => (
-	<Select
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-		className="single-select"
-		classNamePrefix="react-select"
-		options={[
-			{ label: 'Adelaide', value: 'adelaide' },
-			{ label: 'Brisbane', value: 'brisbane' },
-			{ label: 'Canberra', value: 'canberra' },
-			{ label: 'Darwin', value: 'darwin' },
-			{ label: 'Hobart', value: 'hobart' },
-			{ label: 'Melbourne', value: 'melbourne' },
-			{ label: 'Perth', value: 'perth' },
-			{ label: 'Sydney', value: 'sydney' },
-		]}
-		placeholder="Choose a City"
-		// Make it appear over the top of the modal rather than scrollable
-		menuPosition="fixed"
-	/>
-);
-
 export function WithFooterAndSelectOptionExample(): React.JSX.Element {
-	const [isOpen, setIsOpen] = useState<Boolean>(false);
+	const [isOpen, setIsOpen] = useState(false);
 
 	const open = useCallback(() => setIsOpen(true), []);
 	const close = useCallback(() => setIsOpen(false), []);
@@ -61,7 +41,25 @@ export function WithFooterAndSelectOptionExample(): React.JSX.Element {
 						</ModalHeader>
 						<ModalBody>
 							<Box testId="dialog-body">
-								<SingleExample />
+								<Label htmlFor="city-select">City</Label>
+								<Select
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
+									className="single-select"
+									inputId="city-select"
+									classNamePrefix="react-select"
+									options={[
+										{ label: 'Adelaide', value: 'adelaide' },
+										{ label: 'Brisbane', value: 'brisbane' },
+										{ label: 'Canberra', value: 'canberra' },
+										{ label: 'Darwin', value: 'darwin' },
+										{ label: 'Hobart', value: 'hobart' },
+										{ label: 'Melbourne', value: 'melbourne' },
+										{ label: 'Perth', value: 'perth' },
+										{ label: 'Sydney', value: 'sydney' },
+									]}
+									// Make it appear over the top of the modal rather than scrollable
+									menuPosition="fixed"
+								/>
 							</Box>
 						</ModalBody>
 						<Footer />

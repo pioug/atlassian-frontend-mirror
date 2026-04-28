@@ -2,8 +2,8 @@ import type { Rule } from 'eslint';
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import * as ast from '../../ast-nodes';
 import { Import } from '../../ast-nodes/import';
+import { Root } from '../../ast-nodes/root';
 
 const FLEX_IMPORT_MODULE = '@atlaskit/primitives/compiled';
 const FLEX_IMPORT_MODULE_NON_COMPILED = '@atlaskit/primitives';
@@ -59,7 +59,7 @@ export function upsertFlexImport(
 		);
 	}
 
-	return ast.Root.upsertNamedImportDeclaration(
+	return Root.upsertNamedImportDeclaration(
 		{ module: FLEX_IMPORT_MODULE, specifiers: ['Flex'] },
 		context,
 		fixer,

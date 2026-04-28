@@ -4,12 +4,13 @@
  */
 import { useCallback, useState } from 'react';
 
+// oxlint-disable-next-line no-unused-vars
 import { css, cssMap, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import { Field } from '@atlaskit/form';
 import Modal, { ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
 import { token } from '@atlaskit/tokens';
 
@@ -63,11 +64,11 @@ export function ModalWithCustomChildExample(): JSX.Element {
 
 	return (
 		<Box xcss={containerStyles.root}>
-			<p>
+			<Text as="p">
 				If using a custom child which has its own background you should set the border radius to be
 				3px. If it is set less than 3px the border radius will not match the box shadow, and if set
 				to be more than 3px you will start to see the background of the modal dialog.
-			</p>
+			</Text>
 
 			<Field name="sb" label="Border radius">
 				{() => (

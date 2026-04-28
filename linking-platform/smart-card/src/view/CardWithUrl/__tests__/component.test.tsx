@@ -7,10 +7,13 @@ import { IntlProvider } from 'react-intl';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
+	ErroredClient,
 	flushPromises,
+	ForbiddenClient,
+	NotFoundClient,
 	ResolvedClient,
-	ResolvedClientUrl,
 	ResolvingClient,
+	UnAuthClient,
 } from '@atlaskit/link-test-helpers';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { act, render, waitFor } from '@atlassian/testing-library';
@@ -19,10 +22,11 @@ import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { CardWithUrl } from '../component';
 
 describe('CardWithUrl', () => {
-	const setup = (CustomClient = ResolvedClient) => {
+	const setup = (CustomClient = UnAuthClient) => {
 		const onEvent = jest.fn();
 
-		const card = <CardWithUrl appearance="inline" id="uid" url={ResolvedClientUrl} />;
+		const url = 'https://example.com';
+		const card = <CardWithUrl appearance="inline" id="uid" url={url} />;
 		const renderResult = render(card, {
 			wrapper: ({ children }) => (
 				<IntlProvider locale="en">
@@ -139,7 +143,7 @@ describe('CardWithUrl', () => {
 
 		ffTest.on('platform_sl_event_ui_seen', '', () => {
 			ffTest.both('rovo_chat_embed_card_dwell_and_hover_metrics', '', () => {
-				it('should fire ui.smartLink.seen event', async () => {
+				it('should fire ui.smartLink.seen event on unauthorized status', async () => {
 					const { onEvent, unmount } = setup();
 
 					await waitFor(() => {
@@ -158,20 +162,29 @@ describe('CardWithUrl', () => {
 					unmount();
 				});
 
-				it('should not fire ui.smartLink.seen when intersected but card is not yet resolved', async () => {
-					// Use a client that never resolves / hangs
-					const { onEvent } = setup(ResolvingClient);
+				it.each([
+					['pending', ResolvingClient],
+					['resolved', ResolvedClient],
+					['forbidden', ForbiddenClient],
+					['errored', ErroredClient],
+					['not_found', NotFoundClient],
+				])(
+					'should not fire ui.smartLink.seen when intersected but card has %s status',
+					async (status, Client) => {
+						// Use a client that never resolves / hangs
+						const { onEvent } = setup(Client);
 
-					// Give effects time to run
-					await act(async () => {
-						await flushPromises();
-					});
+						// Give effects time to run
+						await act(async () => {
+							await flushPromises();
+						});
 
-					expect(onEvent).not.toHaveBeenCalledWith(
-						expect.objectContaining({ payload: expect.objectContaining({ action: 'seen' }) }),
-						ANALYTICS_CHANNEL,
-					);
-				});
+						expect(onEvent).not.toHaveBeenCalledWith(
+							expect.objectContaining({ payload: expect.objectContaining({ action: 'seen' }) }),
+							ANALYTICS_CHANNEL,
+						);
+					},
+				);
 
 				it('should fire ui.smartLink.seen only once even on re-render', async () => {
 					const { card, onEvent, rerender } = setup();

@@ -144,7 +144,7 @@ export default class Popup extends React.Component<Props, State> {
 			boundariesElement: boundariesElement || document.body,
 			minPopupMargin,
 			scrollableElement:
-				stick && expValEquals('platform_editor_fix_scrolling_popup_position', 'isEnabled', true)
+				stick && (expValEquals('platform_editor_fix_scrolling_popup_position', 'isEnabled', true) || expValEquals('create_work_item_modernization_exp', 'isEnabled', true))
 					? this.scrollElement
 					: undefined,
 		});
@@ -364,7 +364,7 @@ export default class Popup extends React.Component<Props, State> {
 		this.handleChangedFocusTrapProp(prevProps);
 
 		if (
-			expValEquals('platform_editor_fix_scrolling_popup_position', 'isEnabled', true) &&
+			(expValEquals('platform_editor_fix_scrolling_popup_position', 'isEnabled', true) || expValEquals('create_work_item_modernization_exp', 'isEnabled', true)) &&
 			prevProps.scrollableElement !== this.props.scrollableElement
 		) {
 			this.initScrollElement();
@@ -380,7 +380,7 @@ export default class Popup extends React.Component<Props, State> {
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.addEventListener('resize', this.onResize);
 
-		if (expValEquals('platform_editor_fix_scrolling_popup_position', 'isEnabled', true)) {
+		if (expValEquals('platform_editor_fix_scrolling_popup_position', 'isEnabled', true) || expValEquals('create_work_item_modernization_exp', 'isEnabled', true)) {
 			this.initScrollElement();
 			return;
 		}

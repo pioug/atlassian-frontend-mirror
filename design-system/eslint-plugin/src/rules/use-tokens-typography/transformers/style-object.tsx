@@ -10,7 +10,9 @@ import {
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import { Object as ASTObject, ObjectEntry, Root } from '../../../ast-nodes';
+import { Object as ASTObject } from '../../../ast-nodes/object';
+import { ObjectEntry } from '../../../ast-nodes/object-entry';
+import { Root } from '../../../ast-nodes/root';
 import { normaliseValue } from '../../ensure-design-token-usage/normalise-value';
 import { getValueForPropertyNode } from '../../ensure-design-token-usage/utils';
 import { isDecendantOfGlobalToken } from '../../utils/is-decendant-of-global-token';

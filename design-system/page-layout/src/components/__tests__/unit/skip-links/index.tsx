@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 import noop from '@atlaskit/ds-lib/noop';
 
 import { DEFAULT_I18N_PROPS_SKIP_LINKS } from '../../../../common/constants';
-import { SkipLinksContext } from '../../../../controllers/skip-link-context';
+import { SkipLinksContext } from '../../../../controllers/skip-links-context';
 import { SkipLinkWrapper, useCustomSkipLink } from '../../../skip-links';
 import Banner from '../../../slots/banner-slot';
 import PageLayout from '../../../slots/page-layout';

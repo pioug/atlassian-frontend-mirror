@@ -96,7 +96,7 @@ function EventButtons({ testAttribute }: { testAttribute: string }) {
 	);
 }
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	return (
 		<Playground config={config}>
 			{({ source, consumer, testAttribute }) => (

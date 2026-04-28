@@ -1,5 +1,12 @@
 # @atlaskit/media-test-data
 
+## 3.3.0
+
+### Minor Changes
+
+- [`818d7e656a226`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/818d7e656a226) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 3.2.1
 
 ### Patch Changes

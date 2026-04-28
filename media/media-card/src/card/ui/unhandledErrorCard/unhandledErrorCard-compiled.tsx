@@ -63,30 +63,15 @@ const wrapperStyle = css({
 	},
 });
 
-const plainButtonStyle = css({
-	all: 'unset',
-	display: 'block',
-});
-
 export class UnhandledErrorCard extends Component<UnhandledErrorCardProps, {}> {
 	render(): JSX.Element {
 		const { dimensions = defaultImageCardDimensions, onClick } = this.props;
 		const convertedDimensions = getConvertedDimension(dimensions);
 		const hideText = !shouldShowText(getConvertedDimension(dimensions));
-		return fg('platform_media_a11y_suppression_fixes') ? (
-			<button
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				style={convertedDimensions}
-				css={[plainButtonStyle, wrapperStyle]}
-				onClick={onClick}
-				data-testid="unhandled-error-card"
-				// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
-				aria-label="Preview unavailable"
-			>
-				<WarningIcon label="Error" color={token('color.icon.warning')} spacing="spacious" />
-				<ContentLoadingErrorMessage isHidden={hideText} />
-			</button>
-		) : (
+
+		const a11yProps = fg('platform_media_a11y_suppression_fixes') ? { role: 'none' as const } : {};
+
+		return (
 			// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
@@ -94,6 +79,7 @@ export class UnhandledErrorCard extends Component<UnhandledErrorCardProps, {}> {
 				css={wrapperStyle}
 				onClick={onClick}
 				data-testid="unhandled-error-card"
+				{...a11yProps}
 			>
 				<WarningIcon label="Error" color={token('color.icon.warning')} spacing="spacious" />
 				<ContentLoadingErrorMessage isHidden={hideText} />

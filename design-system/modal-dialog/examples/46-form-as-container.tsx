@@ -10,6 +10,7 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { Text } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
 import Textfield from '@atlaskit/textfield';
 
@@ -17,7 +18,7 @@ export default function FormAsContainer(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const open = useCallback(() => setIsOpen(true), []);
 	const close = useCallback(() => setIsOpen(false), []);
-	const onFormSubmit = useCallback((data: Object) => alert(JSON.stringify(data, null, 4)), []);
+	const onFormSubmit = useCallback((data: any) => alert(JSON.stringify(data, null, 4)), []);
 
 	return (
 		<>
@@ -33,21 +34,25 @@ export default function FormAsContainer(): React.JSX.Element {
 								<ModalTitle>Form as Container Demo</ModalTitle>
 							</ModalHeader>
 							<ModalBody>
-								<p>
-									This is an example where the form is wrapped around <strong>all</strong> modal
-									contents, <strong>including</strong> the header and footer. Enter some text then
-									submit the form to see the response.
-								</p>
+								<Text as="p">
+									This is an example where the form is wrapped around <Text as="strong">all</Text>{' '}
+									modal contents, <Text as="strong">including</Text> the header and footer. Enter
+									some text then submit the form to see the response.
+								</Text>
 
-								<Field label="Name" name="my-name" defaultValue="">
-									{({ fieldProps }) => <Textfield {...fieldProps} />}
-								</Field>
+								<Field
+									label="Name"
+									name="my-name"
+									defaultValue=""
+									component={({ fieldProps }) => <Textfield {...fieldProps} />}
+								></Field>
 
-								<Field label="Email" name="my-email" defaultValue="">
-									{({ fieldProps }) => (
-										<Textfield autoComplete="off" placeholder="gbelson@hooli.com" {...fieldProps} />
-									)}
-								</Field>
+								<Field
+									label="Email"
+									name="my-email"
+									defaultValue=""
+									component={({ fieldProps }) => <Textfield autoComplete="off" {...fieldProps} />}
+								></Field>
 
 								<CheckboxField name="checkbox" defaultIsChecked>
 									{({ fieldProps }) => (
@@ -55,8 +60,11 @@ export default function FormAsContainer(): React.JSX.Element {
 									)}
 								</CheckboxField>
 
-								<Field name="radiogroup" defaultValue="" label="Basic Radio Group Example">
-									{({ fieldProps }) => (
+								<Field
+									name="radiogroup"
+									defaultValue=""
+									label="Basic Radio Group Example"
+									component={({ fieldProps }) => (
 										<RadioGroup
 											options={[
 												{ name: 'color', value: 'red', label: 'Red' },
@@ -66,7 +74,7 @@ export default function FormAsContainer(): React.JSX.Element {
 											{...fieldProps}
 										/>
 									)}
-								</Field>
+								></Field>
 							</ModalBody>
 							<ModalFooter>
 								<Button appearance="primary" type="submit" form="modal-form">

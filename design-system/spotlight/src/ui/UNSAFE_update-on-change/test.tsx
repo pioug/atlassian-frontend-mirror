@@ -2,7 +2,8 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { SpotlightContext, type SpotlightContextType } from '../../controllers/context';
+import type { SpotlightContextType } from '../../controllers/context';
+import { SpotlightContext } from '../../controllers/spotlight-context';
 
 import { UNSAFE_UpdateOnChange } from './index';
 

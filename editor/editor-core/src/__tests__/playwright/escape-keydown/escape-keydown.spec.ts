@@ -12,6 +12,7 @@ import { adfDate, emptyDocument } from './escape-keydown.spec.ts-fixtures';
 
 test.describe('Escape Keydown: date', () => {
 	test.use({
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 		editorProps: {
 			appearance: 'full-page',
 			allowDate: true,
@@ -55,6 +56,7 @@ test.describe('Escape Keydown: date', () => {
 
 test.describe('Escape Keydown: insert block', () => {
 	test.use({
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 		editorProps: {
 			appearance: 'full-page',
 		},
@@ -95,6 +97,7 @@ test.describe('Escape Keydown: insert block', () => {
 
 test.describe('Escape Keydown: text color', () => {
 	test.use({
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 		editorProps: {
 			appearance: 'full-page',
 			allowTextColor: true,
@@ -137,6 +140,7 @@ test.describe('Escape Keydown: text color', () => {
 
 test.describe('Escape Keydown: font style', () => {
 	test.use({
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 		editorProps: {
 			appearance: 'full-page',
 		},
@@ -175,6 +179,7 @@ test.describe('Escape Keydown: font style', () => {
 
 test.describe('Escape Keydown: text alignment', () => {
 	test.use({
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 		editorProps: {
 			appearance: 'full-page',
 			allowTextAlignment: true,
@@ -216,6 +221,7 @@ test.describe('Escape Keydown: text alignment', () => {
 
 test.describe('Escape Keydown: more formatting', () => {
 	test.use({
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 		editorProps: {
 			appearance: 'full-page',
 		},
@@ -257,6 +263,7 @@ test.describe('Escape Keydown: more formatting', () => {
 
 test.describe('Escape Keydown: Emoji', () => {
 	test.use({
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 		editorProps: {
 			appearance: 'full-page',
 		},
@@ -293,6 +300,7 @@ test.describe('Escape Keydown: Emoji', () => {
 
 test.describe('Escape Keydown: Quick Insert', () => {
 	test.use({
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 		editorProps: {
 			appearance: 'full-page',
 		},

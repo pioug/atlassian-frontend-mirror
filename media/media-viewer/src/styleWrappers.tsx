@@ -21,8 +21,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import Heading from '@atlaskit/heading';
-import { useIntl } from 'react-intl';
-import { messages } from '@atlaskit/media-ui';
 
 const blanketStyles = css({
 	position: 'fixed',
@@ -424,11 +422,6 @@ const spinnerWrapperStyles = css({
 	height: '100%',
 });
 
-const resetButtonStyle = css({
-	all: 'unset',
-	display: 'block',
-});
-
 const formattedMessageWrapperStyles = css({});
 
 type Children = {
@@ -683,26 +676,15 @@ export const ImageWrapper: ForwardRefExoticComponent<
 		}: ImageWrapperProps & ClassName,
 		ref,
 	) => {
-		const intl = useIntl();
-		return fg('platform_media_a11y_suppression_fixes') ? (
-			<button
-				data-testid={datatestId}
-				onClick={(event) =>
-					onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)
-				}
-				ref={ref as React.RefObject<HTMLButtonElement>}
-				css={[resetButtonStyle, imageWrapperStyles]}
-				aria-label={intl.formatMessage(messages.svg_image_preview_label_assistive_text)}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				style={style}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={className}
-			>
-				{children}
-			</button>
-		) : (
-			// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
+
+		const a11yProps = fg("platform_media_a11y_suppression_fixes") ? {
+			role: "none" as const,
+		} : {}
+
+		return (
+			// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
 			<div
+				{...a11yProps}
 				data-testid={datatestId}
 				onClick={onClick}
 				ref={ref as React.RefObject<HTMLDivElement>}

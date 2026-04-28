@@ -29,7 +29,7 @@ type TableWidthPluginState = {
 	tableRef: HTMLTableElement | null;
 };
 
-export const pluginKey = new PluginKey<TableWidthPluginState>('tableWidthPlugin');
+export const pluginKey: PluginKey<TableWidthPluginState> = new PluginKey<TableWidthPluginState>('tableWidthPlugin');
 
 const createPlugin = (
 	dispatch: Dispatch,
@@ -39,8 +39,8 @@ const createPlugin = (
 	isTableScalingEnabled: boolean,
 	isTableAlignmentEnabled: boolean,
 	isCommentEditor: boolean,
-) => {
-	return new SafePlugin({
+): SafePlugin<TableWidthPluginState> => {
+	return new SafePlugin<TableWidthPluginState>({
 		key: pluginKey,
 		state: {
 			init() {

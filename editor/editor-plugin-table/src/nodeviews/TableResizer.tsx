@@ -504,7 +504,7 @@ export const TableResizer = ({
 
 			const closestSnap =
 				// remove isCommentEditor check if platform_editor_table_resize_chromeless is cleaned up
-				((expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) && isFullPageAppearance) || !isCommentEditor) &&
+				(((expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) || expValEquals('create_work_item_modernization_exp', 'isEnabled', true)) && isFullPageAppearance) || !isCommentEditor) &&
 				findClosestSnap(
 					newWidth,
 					isTableScalingEnabled
@@ -543,19 +543,19 @@ export const TableResizer = ({
 					? closestSnap && fullWidthGuideline && closestSnap.keys.includes(fullWidthGuideline.key)
 					: closestSnap && closestSnap.keys.includes(fullWidthGuideline.key);
 
-			const tableMaxWidth = expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) ? getTableMaxWidth(containerWidth, lineLength, isCommentEditor, isChromelessEditor) : isCommentEditor
+			const tableMaxWidth = (expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) || expValEquals('create_work_item_modernization_exp', 'isEnabled', true)) ? getTableMaxWidth(containerWidth, lineLength, isCommentEditor, isChromelessEditor) : isCommentEditor
 				? Math.floor(containerWidth - TABLE_OFFSET_IN_COMMENT_EDITOR)
 				: expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
 					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
 					? TABLE_MAX_WIDTH
 					: TABLE_FULL_WIDTH;
 
-			const shouldUpdateWidthToWidest = (expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) && !isFullPageAppearance) || isCommentEditor
+			const shouldUpdateWidthToWidest = ((expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) || expValEquals('create_work_item_modernization_exp', 'isEnabled', true)) && !isFullPageAppearance) || isCommentEditor
 				? tableMaxWidth <= newWidth
 				: !!isTableScalingEnabled && isFullWidthGuidelineActive;
 
 			const previewParentWidth =
-				((expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) && !isFullPageAppearance) || isCommentEditor) && shouldUpdateWidthToWidest ? tableMaxWidth : newWidth;
+				(((expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) || expValEquals('create_work_item_modernization_exp', 'isEnabled', true)) && !isFullPageAppearance) || isCommentEditor) && shouldUpdateWidthToWidest ? tableMaxWidth : newWidth;
 
 			previewScaleTable(
 				tableRef,
@@ -568,7 +568,7 @@ export const TableResizer = ({
 				editorView.domAtPos.bind(editorView),
 				isTableScalingEnabled,
 				allowFixedColumnWidthOption,
-				expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) ? !isFullPageAppearance : isCommentEditor,
+				(expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) || expValEquals('create_work_item_modernization_exp', 'isEnabled', true)) ? !isFullPageAppearance : isCommentEditor,
 			);
 
 			chainCommands(
@@ -616,7 +616,7 @@ export const TableResizer = ({
 			const pos = getPos();
 			const currentTableNodeLocalId = node?.attrs?.localId ?? '';
 
-			const tableMaxWidth = (expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) && !isFullPageAppearance) || isCommentEditor
+			const tableMaxWidth = ((expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) || expValEquals('create_work_item_modernization_exp', 'isEnabled', true)) && !isFullPageAppearance) || isCommentEditor
 				? undefined // Table's full-width in comment appearance inherit the width of the Editor/Renderer
 				: expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
 					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
@@ -671,13 +671,13 @@ export const TableResizer = ({
 						// newWidth can be underined when table is resized to 'full-width'
 						// scaleTable function needs number value to work correctly.
 						// remove isCommentEditor check when platform_editor_table_resize_chromeless is removed
-						parentWidth: ((expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) && !isFullPageAppearance) || isCommentEditor) ? originalNewWidth : newWidth,
+						parentWidth: (((expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) || expValEquals('create_work_item_modernization_exp', 'isEnabled', true)) && !isFullPageAppearance) || isCommentEditor) ? originalNewWidth : newWidth,
 					},
 					editorView.domAtPos.bind(editorView),
 					pluginInjectionApi,
 					isTableScalingEnabled,
 					shouldUseIncreasedScalingPercent || false,
-					expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) ? !isFullPageAppearance : isCommentEditor,
+					(expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) || expValEquals('create_work_item_modernization_exp', 'isEnabled', true)) ? !isFullPageAppearance : isCommentEditor,
 				)(tr);
 
 				// Ignored via go/ees005

@@ -495,7 +495,7 @@ const wirePreviewStyles = css({
 
 type LogEntry = { id: string; line: string };
 
-const MultiFormatStreamingExample = () => {
+const MultiFormatStreamingExample = (): JSX.Element => {
 	const editorApiRef = useRef<EditorAPI>(undefined);
 	const logIdRef = useRef(0);
 	const [activeStream, setActiveStream] = useState<string | null>(null);

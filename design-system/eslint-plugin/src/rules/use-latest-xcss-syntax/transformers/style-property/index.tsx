@@ -4,7 +4,9 @@ import { isNodeOfType, type Property as ObjectEntry } from 'eslint-codemod-utils
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import * as ast from '../../../../ast-nodes';
+import { Import } from '../../../../ast-nodes/import';
+import { ObjectEntry as ObjectEntryHelper } from '../../../../ast-nodes/object-entry';
+import { Root } from '../../../../ast-nodes/root';
 
 import { styleMap } from './style-map';
 import supported from './supported';
@@ -40,13 +42,13 @@ export const StyleProperty = {
 			return { success: false, ref: undefined };
 		}
 
-		const importDeclarations = ast.Root.findImportsByModule(
+		const importDeclarations = Root.findImportsByModule(
 			getSourceCode(context).ast.body,
 			'@atlaskit/primitives',
 		);
 
 		const isXcssImported = importDeclarations.some((importDeclaration) => {
-			return ast.Import.containsNamedSpecifier(importDeclaration, 'xcss');
+			return Import.containsNamedSpecifier(importDeclaration, 'xcss');
 		});
 
 		if (!isXcssImported) {
@@ -73,14 +75,14 @@ export const StyleProperty = {
 			return { success: false, ref: undefined };
 		}
 
-		const { value: property } = ast.ObjectEntry.getProperty(node);
+		const { value: property } = ObjectEntryHelper.getProperty(node);
 
 		// Bail if the property is not `padding`, `margin`, etc
 		if (!property || !styleMap.includes(property)) {
 			return { success: false, ref: undefined };
 		}
 
-		const value = ast.ObjectEntry.getValue(node);
+		const value = ObjectEntryHelper.getValue(node);
 
 		if (typeof value !== 'string') {
 			return { success: false, ref: undefined };

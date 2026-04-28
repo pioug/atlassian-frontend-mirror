@@ -63,7 +63,7 @@ const PluginSlot = ({
 	dispatchAnalyticsEvent,
 	wrapperElement,
 	pluginHooks,
-}: Props) => {
+}: Props): JSX.Element | null => {
 	if (!items && !pluginHooks) {
 		return null;
 	}
@@ -118,7 +118,7 @@ const PluginSlot = ({
 	);
 };
 
-const PluginSlotComponent = React.memo(PluginSlot, isEqual);
+const PluginSlotComponent: React.MemoExoticComponent<({ items, editorView, editorActions, eventDispatcher, providerFactory, appearance, popupsMountPoint, popupsBoundariesElement, popupsScrollableElement, containerElement, disabled, dispatchAnalyticsEvent, wrapperElement, pluginHooks, }: Props) => JSX.Element | null> = React.memo(PluginSlot, isEqual);
 
 PluginSlotComponent.displayName = 'PluginSlot';
 

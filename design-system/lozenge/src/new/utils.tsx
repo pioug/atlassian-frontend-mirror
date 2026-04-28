@@ -20,14 +20,4 @@ export const resolveLozengeColor: (appearance?: string) => LozengeColor = (
 	return legacyAppearanceMap[appearance] ?? (appearance as SemanticColor);
 };
 
-// extract the category and key from the resolved color
-export const getThemeStyles: (resolvedColor: LozengeColor) => {
-	category: string;
-	key: string;
-} = (resolvedColor: LozengeColor) => {
-	const isAccent = resolvedColor.startsWith('accent-');
-	const category = isAccent ? 'accent' : 'semantic';
-	const key = isAccent ? resolvedColor.replace('accent-', '') : resolvedColor;
-
-	return { category, key };
-};
+export { getThemeStyles } from './get-theme-styles';

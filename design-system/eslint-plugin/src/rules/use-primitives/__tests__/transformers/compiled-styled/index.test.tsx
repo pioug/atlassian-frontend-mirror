@@ -1,7 +1,7 @@
 import type { Rule } from 'eslint';
 import j from 'jscodeshift';
 
-import { CompiledStyled } from '../../../transformers';
+import { CompiledStyled } from '../../../transformers/compiled-styled';
 
 jest.mock('eslint-codemod-utils', () => ({
 	__esModule: true,

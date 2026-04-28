@@ -10,6 +10,7 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { Text } from '@atlaskit/primitives/compiled';
 import Select, { type OptionType as Option, type ValueType as Value } from '@atlaskit/select';
 
 export default function ModalDialogSelect(): React.JSX.Element {
@@ -38,11 +39,11 @@ export default function ModalDialogSelect(): React.JSX.Element {
 			>
 				Open Modal
 			</Button>
-			<p>
+			<Text as="p">
 				{country
 					? `The selected country is '${country.label}'.`
 					: 'No country has been selected yet.'}
-			</p>
+			</Text>
 
 			<ModalTransition>
 				{isOpen && (
@@ -51,13 +52,15 @@ export default function ModalDialogSelect(): React.JSX.Element {
 							<ModalTitle>Using select in a modal dialog</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
-							<p>
+							<Text as="p">
 								This select should open and be visible on top of the modal dialog. This is because
 								of the usage of <Code>menuPosition="fixed"</Code> on <Code>@atlaskit/select</Code>.
-							</p>
+							</Text>
 							<Form onSubmit={onSubmit} id="modal-form">
-								<Field<Value<Option, true>> name="country" label="Country of residence">
-									{({ fieldProps }) => (
+								<Field<Value<Option, true>>
+									name="country"
+									label="Country of residence"
+									component={({ fieldProps }) => (
 										<Select<Option, true>
 											{...fieldProps}
 											menuPosition="fixed"
@@ -73,7 +76,7 @@ export default function ModalDialogSelect(): React.JSX.Element {
 											]}
 										/>
 									)}
-								</Field>
+								></Field>
 							</Form>
 						</ModalBody>
 						<ModalFooter>

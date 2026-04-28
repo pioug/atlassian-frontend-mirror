@@ -1235,7 +1235,7 @@ export const messages: Messages = defineMessages({
 	rovo_prompt_message_summarize: {
 		id: 'fabric.linking.rovo_prompt_message_summarize.non-final',
 		defaultMessage:
-			'<p>Summarize the main ideas and key points of <a>{url}</a> in 3-5 clear, complete sentences.</p><p>Preserve any important details such as names, dates, and key decisions.</p>',
+			'<p>Summarize the main ideas and key points of <a>{url}</a> in 3-5 clear, complete bullet points (markdown list).</p><p>Preserve important details such as names, dates, and key decisions.</p>',
 		description:
 			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
 	},

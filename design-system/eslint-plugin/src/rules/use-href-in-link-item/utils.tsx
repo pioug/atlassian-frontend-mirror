@@ -96,7 +96,3 @@ export const getUniqueButtonItemName: (
 		return 'ButtonItem';
 	}
 };
-
-export { hasImportOfName } from './has-import-of-name';
-export { insertButtonItemDefaultImport } from './insert-button-item-default-import';
-export { insertButtonItemImport } from './insert-button-item-import';

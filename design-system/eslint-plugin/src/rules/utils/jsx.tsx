@@ -20,5 +20,3 @@ export function getJSXElementName(jsx: JSXOpeningElement): string {
 			return jsx.name.namespace.name;
 	}
 }
-
-export { findProp } from './find-prop';

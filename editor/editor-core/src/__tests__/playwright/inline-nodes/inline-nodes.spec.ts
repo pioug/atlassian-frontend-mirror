@@ -140,6 +140,7 @@ const filterTestCasesIfOnlySet = (testCases: Array<TestSuiteOptions>) =>
 filterTestCasesIfOnlySet(testCases).forEach(({ nodeName, adfs, editorOptions }) => {
 	test.describe(`inline-nodes - ${nodeName}`, () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 			editorProps: {
 				appearance: 'full-page',
 				allowTextAlignment: true,
@@ -153,6 +154,7 @@ filterTestCasesIfOnlySet(testCases).forEach(({ nodeName, adfs, editorOptions }) 
 
 		test.describe(`trailing spaces`, () => {
 			test.use({
+				exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 				adf: adfs.trailingSpaces,
 			});
 
@@ -202,6 +204,7 @@ filterTestCasesIfOnlySet(testCases).forEach(({ nodeName, adfs, editorOptions }) 
 
 		test.describe(`no trailing spaces`, () => {
 			test.use({
+				exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 				adf: adfs.notrailingSpaces,
 			});
 
@@ -337,6 +340,7 @@ filterTestCasesIfOnlySet(testCases).forEach(({ nodeName, adfs, editorOptions }) 
 
 		test.describe(`multiple nodes across lines`, () => {
 			test.use({
+				exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 				adf: adfs.multipleNodesAcrossLines,
 			});
 			test(`Can move the selection down one line using down arrow key when ${nodeName} is the first node of each line`, async ({
@@ -554,6 +558,7 @@ filterTestCasesIfOnlySet(testCases).forEach(({ nodeName, adfs, editorOptions }) 
 
 		test.describe(`multiline`, () => {
 			test.use({
+				exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 				adf: adfs.multiline,
 			});
 			test('Can insert text directly after the last node view in the same paragraph', async ({

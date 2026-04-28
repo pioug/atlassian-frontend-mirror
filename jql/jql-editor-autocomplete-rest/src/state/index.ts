@@ -1,8 +1,11 @@
 import {
+    type BoundActions,
 	type ContainerComponent,
 	createContainer,
 	createHook,
 	createStore,
+    type HookFunction,
+    type Store,
 } from 'react-sweet-state';
 import type { Observable } from 'rxjs/Observable';
 import { from } from 'rxjs/observable/from';
@@ -13,7 +16,7 @@ import { EventType } from '@atlaskit/jql-editor-common';
 import { Action, ActionSubject } from '../analytics';
 import { type JQLFieldResponse, type JQLFunctionResponse } from '../common/types';
 
-import { type Actions, type Store } from './types';
+import { type Actions, type Store as JqlAutocompleteStoreModel } from './types';
 
 const initialData = {
 	jqlSearchableFields: [],
@@ -21,7 +24,7 @@ const initialData = {
 	jqlFunctions: [],
 };
 
-const initialState: Store = {
+const initialState: JqlAutocompleteStoreModel = {
 	initialDataFetched: false,
 	jqlSearchableFields$: from(initialData.jqlSearchableFields),
 	jqlOrderableFields$: from(initialData.jqlOrderableFields),
@@ -105,7 +108,7 @@ export const actions: Actions = {
 		},
 };
 
-export const store = createStore<Store, Actions>({ initialState, actions });
+export const store: Store<JqlAutocompleteStoreModel, Actions> = createStore<JqlAutocompleteStoreModel, Actions>({ initialState, actions });
 
 /**
  * Exported to allow consumers to have multiple store instances with initial JQL data. Typically this is unnecessary as
@@ -113,16 +116,16 @@ export const store = createStore<Store, Actions>({ initialState, actions });
  * if you want to mock different responses for each story.
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
-export const JQLAutocompleteContainer: ContainerComponent<{}> = createContainer<Store, Actions>(
+export const JQLAutocompleteContainer: ContainerComponent<{}> = createContainer<JqlAutocompleteStoreModel, Actions>(
 	store,
 );
 
-export const useJqlAutocompleteActions = createHook<Store, Actions, void, void>(store, {
+export const useJqlAutocompleteActions: HookFunction<void, BoundActions<JqlAutocompleteStoreModel, Actions>, void> = createHook<JqlAutocompleteStoreModel, Actions, void, void>(store, {
 	selector: null,
 });
 
-export const useJqlSearchableFieldsObservable = createHook<
-	Store,
+export const useJqlSearchableFieldsObservable: HookFunction<Observable<JQLFieldResponse>, BoundActions<JqlAutocompleteStoreModel, Actions>, void> = createHook<
+	JqlAutocompleteStoreModel,
 	Actions,
 	Observable<JQLFieldResponse>,
 	void
@@ -130,8 +133,8 @@ export const useJqlSearchableFieldsObservable = createHook<
 	selector: ({ jqlSearchableFields$ }) => jqlSearchableFields$,
 });
 
-export const useJqlOrderableFieldsObservable = createHook<
-	Store,
+export const useJqlOrderableFieldsObservable: HookFunction<Observable<JQLFieldResponse>, BoundActions<JqlAutocompleteStoreModel, Actions>, void> = createHook<
+	JqlAutocompleteStoreModel,
 	Actions,
 	Observable<JQLFieldResponse>,
 	void
@@ -139,8 +142,8 @@ export const useJqlOrderableFieldsObservable = createHook<
 	selector: ({ jqlOrderableFields$ }) => jqlOrderableFields$,
 });
 
-export const useJqlFunctionsObservable = createHook<
-	Store,
+export const useJqlFunctionsObservable: HookFunction<Observable<JQLFunctionResponse>, BoundActions<JqlAutocompleteStoreModel, Actions>, void> = createHook<
+	JqlAutocompleteStoreModel,
 	Actions,
 	Observable<JQLFunctionResponse>,
 	void

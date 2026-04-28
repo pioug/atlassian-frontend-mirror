@@ -4,7 +4,8 @@ import { isNodeOfType, type JSXElement } from 'eslint-codemod-utils';
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import * as ast from '../../../ast-nodes';
+import { JSXElement as JSXElementHelper } from '../../../ast-nodes/jsx-element';
+import { Root } from '../../../ast-nodes/root';
 
 import { addColorInheritAttributeFix } from './add-color-inherit-attribute-fix';
 import { allowedAttrs } from './allowed-attrs';
@@ -38,7 +39,7 @@ export const StrongElements = {
 			return { success: false };
 		}
 
-		const elementName = ast.JSXElement.getName(node);
+		const elementName = JSXElementHelper.getName(node);
 		if (elementName !== 'strong') {
 			return { success: false };
 		}
@@ -48,12 +49,12 @@ export const StrongElements = {
 		}
 
 		// Element has no unallowed props
-		if (!ast.JSXElement.hasAllowedAttrsOnly(node, allowedAttrs)) {
+		if (!JSXElementHelper.hasAllowedAttrsOnly(node, allowedAttrs)) {
 			return { success: true, autoFixable: false };
 		}
 
 		// If there is more than one `@atlaskit/primitives` import, then it becomes difficult to determine which import to transform
-		const importDeclaration = ast.Root.findImportsByModule(
+		const importDeclaration = Root.findImportsByModule(
 			getSourceCode(context).ast.body,
 			'@atlaskit/primitives',
 		);
@@ -66,7 +67,7 @@ export const StrongElements = {
 
 	_fix(node: JSXElement, { context, config }: MetaData): Rule.ReportFixer {
 		return (fixer) => {
-			const importFix = ast.Root.upsertNamedImportDeclaration(
+			const importFix = Root.upsertNamedImportDeclaration(
 				{
 					module: '@atlaskit/primitives',
 					specifiers: ['Text'],
@@ -75,9 +76,9 @@ export const StrongElements = {
 				fixer,
 			);
 
-			const elementNameFixes = ast.JSXElement.updateName(node, 'Text', fixer);
+			const elementNameFixes = JSXElementHelper.updateName(node, 'Text', fixer);
 
-			const asAttributeFix = ast.JSXElement.addAttribute(node, 'as', 'strong', fixer);
+			const asAttributeFix = JSXElementHelper.addAttribute(node, 'as', 'strong', fixer);
 			const colorAttributeFix = addColorInheritAttributeFix(node, config, fixer);
 			const testAttributeFix = updateTestIdAttributeFix(node, fixer);
 

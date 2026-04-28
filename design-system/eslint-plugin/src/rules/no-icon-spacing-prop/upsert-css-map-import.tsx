@@ -2,8 +2,8 @@ import type { Rule } from 'eslint';
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import * as ast from '../../ast-nodes';
 import { Import } from '../../ast-nodes/import';
+import { Root } from '../../ast-nodes/root';
 
 const CSS_IMPORT_MODULE = '@atlaskit/css';
 
@@ -57,7 +57,7 @@ export function upsertCssMapImport(
 		return undefined;
 	}
 
-	return ast.Root.upsertNamedImportDeclaration(
+	return Root.upsertNamedImportDeclaration(
 		{ module: CSS_IMPORT_MODULE, specifiers: ['cssMap'] },
 		context,
 		fixer,

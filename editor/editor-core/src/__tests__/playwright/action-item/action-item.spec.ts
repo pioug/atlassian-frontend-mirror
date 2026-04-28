@@ -4,6 +4,7 @@ import { doc, taskItem, taskList } from '@atlaskit/editor-test-helpers/doc-build
 
 test.describe(`action item`, () => {
 	test.use({
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 		editorProps: {
 			appearance: 'full-page',
 		},

@@ -1,6 +1,6 @@
 import { type EslintNode, isNodeOfType } from 'eslint-codemod-utils';
 
-import * as ast from '../../../ast-nodes';
+import { JSXElement } from '../../../ast-nodes/jsx-element';
 
 type SupportedElements = Array<{
 	name: string;
@@ -42,7 +42,7 @@ export function isSupportedForLint(
 
 	// Allow passing in the element name because the jsxNode doesn't
 	// represent the element name with styled components
-	const elName = elementName || ast.JSXElement.getName(jsxNode);
+	const elName = elementName || JSXElement.getName(jsxNode);
 	if (!elName) {
 		return false;
 	}
@@ -63,7 +63,7 @@ export function isSupportedForLint(
 	}
 
 	// Check if the element has any attributes that are not supported
-	const attributes = ast.JSXElement.getAttributes(jsxNode);
+	const attributes = JSXElement.getAttributes(jsxNode);
 	if (
 		supportedElement.attributes &&
 		// If not every attribute resolves to `true`

@@ -179,16 +179,3 @@ export function getTokenProperty(
 		value: getTokenNode(tokenName, tokenFallback, isFallbackMember),
 	});
 }
-
-export { typographyProperties } from './typography-properties';
-export { isFontSize } from './is-font-size';
-export { isFontSizeSmall } from './is-font-size-small';
-export { isFontFamily } from './is-font-family';
-export { isCodeFontFamily } from './is-code-font-family';
-export { isValidTypographyToken } from './is-valid-typography-token';
-export { findFontFamilyTokenForValue } from './find-font-family-token-for-value';
-export { notUndefined } from './not-undefined';
-export { isValidPropertyNode } from './is-valid-property-node';
-export { getLiteralProperty } from './get-literal-property';
-export { convertPropertyNodeToStringableNode } from './convert-property-node-to-stringable-node';
-export { insertTokensImport } from './insert-tokens-import';

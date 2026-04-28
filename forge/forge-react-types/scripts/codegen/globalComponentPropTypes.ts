@@ -266,7 +266,7 @@ const generateComponentPropTypeCode = (
  * 4. Extract type info and resolve to primitives
  * 5. Generate signed .codegen.tsx files and index.ts
  */
-const generateGlobalComponentPropTypes = () => {
+const generateGlobalComponentPropTypes = (): void => {
 	// eslint-disable-next-line no-console
 	console.log('Generating Global component prop types...');
 

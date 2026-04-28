@@ -9,7 +9,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { SpotlightContext } from '../../controllers/context';
+import { SpotlightContext } from '../../controllers/spotlight-context';
 import type { Placement } from '../../types';
 
 import { Caret } from './caret';

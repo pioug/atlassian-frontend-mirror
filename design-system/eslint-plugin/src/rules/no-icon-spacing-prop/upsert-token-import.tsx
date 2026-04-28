@@ -2,8 +2,8 @@ import type { Rule } from 'eslint';
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import * as ast from '../../ast-nodes';
 import { Import } from '../../ast-nodes/import';
+import { Root } from '../../ast-nodes/root';
 
 const TOKEN_IMPORT_MODULE = '@atlaskit/tokens';
 
@@ -40,7 +40,7 @@ export function upsertTokenImport(
 		);
 	}
 
-	return ast.Root.upsertNamedImportDeclaration(
+	return Root.upsertNamedImportDeclaration(
 		{ module: TOKEN_IMPORT_MODULE, specifiers: ['token'] },
 		context,
 		fixer,

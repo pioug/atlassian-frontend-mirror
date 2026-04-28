@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 10.0.9
+
+### Patch Changes
+
+- [`712e503425ecc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/712e503425ecc) -
+  Fix composition of CJK characters in find/replace editor modal find input
+
 ## 10.0.8
 
 ### Patch Changes

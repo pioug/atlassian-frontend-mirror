@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 5.44.0
+
+### Minor Changes
+
+- [`ec3410f5b4e80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec3410f5b4e80) -
+  fix: send auth completion notification to agent instead of re-executing prompt when 3P auth
+  completes, gated behind rovo_chat_fix_oauth_from_message_agent_ack
+
 ## 5.43.0
 
 ### Minor Changes

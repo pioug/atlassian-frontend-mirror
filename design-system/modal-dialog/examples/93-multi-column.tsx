@@ -11,7 +11,7 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -68,7 +68,7 @@ export function MultiColumnExample(): React.JSX.Element {
 							<ModalTitle>Two-column layout</ModalTitle>
 						</ModalHeader>
 						<Box xcss={styles.modalBody}>
-							<p>These columns should scroll independently</p>
+							<Text as="p">These columns should scroll independently</Text>
 							<Button onClick={toggleContentLength}>Toggle short/long content</Button>
 							<Box xcss={styles.columnNonFlexWrapper}>
 								<Box xcss={styles.columnContainer} backgroundColor="color.background.neutral">

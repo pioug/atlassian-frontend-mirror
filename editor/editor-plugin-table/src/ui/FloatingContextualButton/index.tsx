@@ -231,7 +231,7 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 
 const FloatingContextualButton = injectIntl(FloatingContextualButtonInner);
 
-export default function (props: Props) {
+export default function (props: Props): JSX.Element {
 	return (
 		<ErrorBoundary
 			component={ACTION_SUBJECT.FLOATING_CONTEXTUAL_BUTTON}

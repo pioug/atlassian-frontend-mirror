@@ -2,6 +2,7 @@ import { expect, editorTestCase as test } from '@af/editor-libra';
 import { EditorTypeAheadModel } from '@af/editor-libra/page-models';
 import { skipAutoA11y } from '@atlassian/a11y-playwright-testing';
 test.use({
+	exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
 	editorProps: {
 		appearance: 'full-page',
 		elementBrowser: {

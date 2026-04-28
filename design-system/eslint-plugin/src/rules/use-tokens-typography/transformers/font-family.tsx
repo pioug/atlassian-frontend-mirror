@@ -4,7 +4,7 @@ import { isNodeOfType, type Property } from 'eslint-codemod-utils';
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import { Root } from '../../../ast-nodes';
+import { Root } from '../../../ast-nodes/root';
 import { getNodeSource } from '../../utils/get-node-source';
 import { isDecendantOfType } from '../../utils/is-decendant-of-type';
 import { isDecendantOfStyleBlock } from '../../utils/is-node';

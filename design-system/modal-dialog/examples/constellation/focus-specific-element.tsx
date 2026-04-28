@@ -63,9 +63,12 @@ export default function Example(): React.JSX.Element {
 							</Flex>
 						</ModalHeader>
 						<ModalBody>
-							<Field label="Email" name="my-email" defaultValue="">
-								{({ fieldProps }) => <Textfield autoComplete="off" {...fieldProps} />}
-							</Field>
+							<Field
+								label="Email"
+								name="my-email"
+								defaultValue=""
+								component={({ fieldProps }) => <Textfield autoComplete="off" {...fieldProps} />}
+							></Field>
 						</ModalBody>
 						<ModalFooter>
 							<Button appearance="subtle">Account settings</Button>

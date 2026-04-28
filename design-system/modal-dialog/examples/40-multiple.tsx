@@ -19,7 +19,7 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import { FullScreenModalDialog } from '@atlaskit/modal-dialog/full-screen';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const sizes = ['large', 'medium', 'small'];
@@ -139,14 +139,14 @@ export default function NestedModalExample(): JSX.Element {
 				</FormFooter>
 			</div>
 
-			<p>
+			<Text as="p">
 				For illustrative purposes three {'"stacked"'} modals can be opened in this demo, though ADG3
 				recommends only two at any time.
-			</p>
-			<p>
+			</Text>
+			<Text as="p">
 				Check the storybook{"'"}s {'"action logger"'} (or your console) to see how you can make use
-				of the <code>onStackChange</code> property.
-			</p>
+				of the <Code>onStackChange</Code> property.
+			</Text>
 
 			{sizes.map((name, index) => {
 				const nextModal = sizes[index + 1];
@@ -173,12 +173,12 @@ export default function NestedModalExample(): JSX.Element {
 											hasLongContent && modalContentStyles.longContent,
 										]}
 									>
-										<p>
+										<Text as="p">
 											Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam nobis delectus
 											accusamus iusto atque excepturi qui, mollitia, labore voluptas quo ipsum
 											accusantium. Itaque iure hic, voluptatum consequatur quae vitae sit.
-										</p>
-										<p>
+										</Text>
+										<Text as="p">
 											Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci id mollitia,
 											autem provident atque explicabo enim saepe beatae voluptates facilis optio
 											quaerat harum suscipit tempora laudantium itaque maiores? Illum, consequuntur.
@@ -186,7 +186,7 @@ export default function NestedModalExample(): JSX.Element {
 											necessitatibus ducimus beatae, corrupti soluta! Quibusdam, mollitia, quos
 											ipsam voluptatibus deserunt dolorem quia consequuntur fugit nisi dolorum iure
 											in corporis?
-										</p>
+										</Text>
 									</div>
 								</ModalBody>
 								<ModalFooter>

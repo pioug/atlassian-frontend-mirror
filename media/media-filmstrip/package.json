@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-filmstrip",
-	"version": "51.2.11",
+	"version": "51.3.0",
 	"description": "Includes components that show media cards as a filmstrip",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,8 +25,12 @@
 	],
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
+		".": "./src/index.tsx",
+		"./dom": "./src/dom.ts",
 		"./filmstrip": "./src/filmstrip.tsx",
-		".": "./src/index.tsx"
+		"./filmstrip-view": "./src/filmstripView/index.tsx",
+		"./types": "./src/types.ts",
+		"./wrappers": "./src/filmstripView/wrappers.tsx"
 	},
 	"atlassian": {
 		"team": "Media Exif",

@@ -3,7 +3,7 @@ import { type ImportDeclaration, isNodeOfType } from 'eslint-codemod-utils';
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import * as ast from '../../../../ast-nodes';
+import { JSXElement as JSXElementHelper } from '../../../../ast-nodes/jsx-element';
 import { isSupportedForLint } from '../supported';
 
 interface MetaData {
@@ -20,7 +20,7 @@ export const JSXElement = {
 			return;
 		}
 
-		const nodeName = ast.JSXElement.getName(node);
+		const nodeName = JSXElementHelper.getName(node);
 		const sourceCode = getSourceCode(context);
 		const importDeclarations = sourceCode.ast.body.filter(isImportDeclaration);
 

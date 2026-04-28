@@ -70,5 +70,3 @@ export const logicalPhysicalMap = {
 	insetBlockStart: 'top',
 	insetBlockEnd: 'bottom',
 } as const;
-
-export { physicalLogicalMap } from './physical-logical-map';

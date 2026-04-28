@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 
 import { getDocument } from '@atlaskit/browser-apis';
 
-import { SpotlightContext } from '../../controllers/context';
+import { SpotlightContext } from '../../controllers/spotlight-context';
 
 interface UpdateOnChangeProps {
 	selectors?: string[];

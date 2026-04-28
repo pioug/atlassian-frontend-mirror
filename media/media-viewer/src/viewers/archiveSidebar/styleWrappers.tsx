@@ -74,6 +74,17 @@ const archiveDownloadButtonWrapperStyles = css({
 	},
 });
 
+const archiveDownloadButtonWrapperStyleFix = css ({
+	all: 'unset',
+	display: 'block',
+	'&:focus-visible': {
+		outlineOffset: token('space.025'),
+		outlineWidth: token('border.width.focused'),
+		outlineColor: token('color.border.focused'),
+		outlineStyle: 'solid',
+	},
+})
+
 const disabledArchiveDownloadButtonWrapperStyles = css({
 	paddingTop: `${token('space.100')}`,
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
@@ -208,7 +219,7 @@ export const ArchiveDownloadButtonWrapper = ({
 	return fg('platform_media_a11y_suppression_fixes') ? (
 		<button
 			aria-label={intl.formatMessage(messages.archive_download_label_assistive_text)}
-			css={archiveDownloadButtonWrapperStyles}
+			css={[archiveDownloadButtonWrapperStyleFix, archiveDownloadButtonWrapperStyles]}
 			onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
 			data-testid="media-archiveDownloadButton"
 		>

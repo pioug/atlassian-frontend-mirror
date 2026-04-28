@@ -380,7 +380,7 @@ export const ResizableTableContainer: React.MemoExoticComponent<
 				}
 			} else if (isCommentEditor) {
 				responsiveContainerWidth = containerWidth - TABLE_OFFSET_IN_COMMENT_EDITOR;
-			} else if (isChromelessEditor && expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true)) {
+			} else if (isChromelessEditor && (expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) || expValEquals('create_work_item_modernization_exp', 'isEnabled', true))) {
 				// there's no padding included in chromeless appearance, so we need to reduce table
 				// width to ensure all controls are visible.
 				// use lineLength as the value is updated by scrollbar visibility changes
@@ -399,7 +399,7 @@ export const ResizableTableContainer: React.MemoExoticComponent<
 			// For wide tables, ensure they don't exceed container width and can be scrolled
 			const calculatedWidth =
 				// remove isCommentEditor check if platform_editor_table_resize_chromeless is cleaned up
-				!node.attrs.width && ((expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) && !isFullPageAppearance) || isCommentEditor)
+				!node.attrs.width && (((expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) || expValEquals('create_work_item_modernization_exp', 'isEnabled', true)) && !isFullPageAppearance) || isCommentEditor)
 					? responsiveContainerWidth
 					: Math.min(tableWidth, responsiveContainerWidth);
 
@@ -407,7 +407,7 @@ export const ResizableTableContainer: React.MemoExoticComponent<
 			const width = Math.max(calculatedWidth, Math.min(responsiveContainerWidth * 0.5, 300));
 
 			// remove isCommentEditor check if platform_editor_table_resize_chromeless is cleaned up
-			const maxResizerWidth = (expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) && !isFullPageAppearance) || isCommentEditor
+			const maxResizerWidth = ((expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) || expValEquals('create_work_item_modernization_exp', 'isEnabled', true)) && !isFullPageAppearance) || isCommentEditor
 				? responsiveContainerWidth
 				: Math.min(
 					responsiveContainerWidth,

@@ -6,7 +6,6 @@ import { EditorState, NodeSelection, TextSelection } from '@atlaskit/editor-pros
 import { p, table, td, tr } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 import { CellSelection } from '../../cell-selection';
 import { tableEditing } from '../../pm-plugins/table-editing';
@@ -23,6 +22,11 @@ import {
 	createTableWithDoc,
 } from '../__helpers/doc-builder';
 import { selectionFor } from '../__helpers/selection-for';
+
+// TODO: EDITOR-6274 - this can be cleaned up once `platform_editor_element_drag_and_drop_multiselect` is cleaned up
+jest.mock('@atlaskit/tmp-editor-statsig/experiments', () => ({
+	editorExperiment: jest.fn((_name: string, defaultValue: unknown) => defaultValue),
+}));
 
 describe('CellSelection', () => {
 	const tbl = createTableWithDoc(
@@ -191,34 +195,16 @@ describe('normalizeSelection', () => {
 		expect(a.eq(b)).toEqual(true);
 	});
 
-	describe('retains text selection when selection between paragraph outside of table, and paragraph within cell', () => {
-		eeTest('platform_editor_element_drag_and_drop_multiselect', {
-			true: () => {
-				const a = normalize(TextSelection.create(tblWithParagraph, 2, 16));
-				const b = TextSelection.create(tblWithParagraph, 2, 16);
-				expect(a.eq(b)).toEqual(true);
-			},
-			false: () => {
-				const a = normalize(TextSelection.create(tblWithParagraph, 2, 16));
-				const b = TextSelection.create(tblWithParagraph, 2, 16);
-				expect(a.eq(b)).toEqual(false);
-			},
-		});
+	it('retains text selection when selection between paragraph outside of table, and paragraph within cell', () => {
+		const a = normalize(TextSelection.create(tblWithParagraph, 2, 16));
+		const b = TextSelection.create(tblWithParagraph, 2, 16);
+		expect(a.eq(b)).toEqual(true);
 	});
 
-	describe('retains text selection when selection between cells in different tables', () => {
-		eeTest('platform_editor_element_drag_and_drop_multiselect', {
-			true: () => {
-				const a = normalize(TextSelection.create(twoTablesWithParagraphBetween, 4, 114));
-				const b = TextSelection.create(twoTablesWithParagraphBetween, 4, 114);
-				expect(a.eq(b)).toEqual(true);
-			},
-			false: () => {
-				const a = normalize(TextSelection.create(twoTablesWithParagraphBetween, 4, 114));
-				const b = TextSelection.create(twoTablesWithParagraphBetween, 4, 114);
-				expect(a.eq(b)).toEqual(false);
-			},
-		});
+	it('retains text selection when selection between cells in different tables', () => {
+		const a = normalize(TextSelection.create(twoTablesWithParagraphBetween, 4, 114));
+		const b = TextSelection.create(twoTablesWithParagraphBetween, 4, 114);
+		expect(a.eq(b)).toEqual(true);
 	});
 });
 

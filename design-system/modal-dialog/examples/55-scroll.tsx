@@ -4,8 +4,9 @@ import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
+import { Code } from '@atlaskit/code';
 import { cssMap } from '@atlaskit/css';
-import { Field } from '@atlaskit/form';
+import { CheckboxField } from '@atlaskit/form';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -13,7 +14,7 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 
 const containerStyles = cssMap({
 	root: {
@@ -35,17 +36,17 @@ export default function ExampleScroll(): React.JSX.Element {
 	return (
 		<Box xcss={containerStyles.root} padding="space.200">
 			<Stack space="space.200" alignInline="start">
-				<p>
+				<Text as="p">
 					The scroll behavior of modals can be configured so that scrolling happens inside the modal
 					body or outside the modal, within the viewport.
-				</p>
-				<p>
+				</Text>
+				<Text as="p">
 					In either case, modals prevent the window from being scrolled both natively and
 					programatically. This means that certain browser issues such as{' '}
-					<code>scrollIntoView</code> scrolling the window instead of only the closest scroll parent
+					<Code>scrollIntoView</Code> scrolling the window instead of only the closest scroll parent
 					will be prevented.
-				</p>
-				<Field name="sb" label="Scrolling behavior">
+				</Text>
+				<CheckboxField name="sb" label="Scrolling behavior">
 					{() => (
 						<Checkbox
 							label="Should scroll within the viewport"
@@ -55,8 +56,8 @@ export default function ExampleScroll(): React.JSX.Element {
 							isChecked={shouldScrollInViewport}
 						/>
 					)}
-				</Field>
-				<Field name="hs" label="Visibility">
+				</CheckboxField>
+				<CheckboxField name="hs" label="Visibility">
 					{() => (
 						<Checkbox
 							label="Header/footer shown"
@@ -66,7 +67,7 @@ export default function ExampleScroll(): React.JSX.Element {
 							isChecked={titleShown}
 						/>
 					)}
-				</Field>
+				</CheckboxField>
 
 				<Button aria-haspopup="dialog" appearance="primary" onClick={open} testId="modal-trigger">
 					Open modal

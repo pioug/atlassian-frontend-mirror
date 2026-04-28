@@ -24,7 +24,7 @@ export interface State {
 
 const GENERIC_USER_IDS = ['HipChat', 'all', 'here'];
 
-export const MentionWithProviders = React.memo(
+export const MentionWithProviders: React.MemoExoticComponent<({ accessLevel, eventHandlers, id, mentionProvider, profilecardProvider, text, localId, }: Props) => React.JSX.Element> = React.memo(
 	({
 		accessLevel,
 		eventHandlers,

@@ -30,6 +30,7 @@ skipAutoA11yFile();
 
 test.describe('first block node styles', () => {
 	test.use({
+		exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 		editorProps: {
 			appearance: 'full-page',
 			allowPanel: true,
@@ -56,6 +57,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('panel', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: panelAdf,
 		});
 		test('should have correct margin tops', async ({ editor }) => {
@@ -77,6 +79,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('panel with small font size block mark', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: panelWithSmallFontSizeAdf,
 			editorExperiments: {
 				platform_editor_small_font_size: true,
@@ -98,6 +101,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('code block', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: codeBlockAdf,
 		});
 		test('should have correct margin tops', async ({ editor }) => {
@@ -111,6 +115,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('taskList', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: taskListAdf,
 		});
 		test('should have correct margin tops', async ({ editor }) => {
@@ -124,6 +129,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('rules', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: ruleNodeAdf,
 		});
 		test('should have correct margin tops', async ({ editor }) => {
@@ -137,6 +143,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('expand', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: expandAdf,
 		});
 		test('should have correct margin tops', async ({ editor }) => {
@@ -151,6 +158,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('layout', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: layoutAndBigParagraphs,
 		});
 		test('should have correct margin tops', async ({ editor }) => {
@@ -164,6 +172,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('blockCard', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: blockCardAdf,
 		});
 		test('should have correct margin tops', async ({ editor }) => {
@@ -177,6 +186,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('mediaSingle', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: mediaSingleAdf,
 		});
 		test('should have correct margin tops', async ({ editor }) => {
@@ -190,6 +200,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('mediaGroup', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: mediaGroupAdf,
 		});
 		test('should have correct margin tops', async ({ editor }) => {
@@ -203,6 +214,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('BodiedExtension', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: bodiedExtensionAdf,
 		});
 		test('should have correct margin tops', async ({ editor }) => {
@@ -216,6 +228,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('Extension', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: extensionAdf,
 		});
 		test('should have correct margin tops', async ({ editor }) => {
@@ -229,6 +242,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('embedCard', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: embedCardAdf,
 		});
 		test('should have correct margin tops', async ({ editor }) => {
@@ -242,6 +256,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('decisionList', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: decisionListAdf,
 		});
 		test('should have correct margin tops', async ({ editor }) => {
@@ -255,6 +270,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('paragraph', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: paragraphAdf,
 		});
 		test('should have correct margin tops', async ({ editor }) => {
@@ -268,6 +284,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('bullet list', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: bulletListAdf,
 		});
 		test('should have correct margin tops', async ({ editor }) => {
@@ -281,6 +298,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('headings', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: headingNodeAdf,
 		});
 		test('should have correct margin tops', async ({ editor }) => {
@@ -297,6 +315,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('blockquote', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: blockquoteAdf,
 		});
 		test('should have correct margin tops', async ({ editor }) => {
@@ -310,6 +329,7 @@ test.describe('first block node styles', () => {
 
 	test.describe('table', () => {
 		test.use({
+			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
 			adf: tableAdf,
 		});
 		test('should have correct margin tops', async ({ editor }) => {

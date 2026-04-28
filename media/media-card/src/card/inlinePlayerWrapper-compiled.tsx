@@ -99,8 +99,7 @@ export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps): JSX.Elemen
 	const { testId, selected, dimensions, onClick, innerRef } = props;
 	const a11yProps = fg('platform_media_a11y_suppression_fixes')
 		? {
-				role: 'presentation' as const,
-				tabIndex: -1,
+				role: 'none' as const,
 			}
 		: {};
 	return (

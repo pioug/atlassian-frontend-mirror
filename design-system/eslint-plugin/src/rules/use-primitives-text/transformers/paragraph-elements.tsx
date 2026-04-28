@@ -4,7 +4,8 @@ import { isNodeOfType, type JSXElement } from 'eslint-codemod-utils';
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import * as ast from '../../../ast-nodes';
+import { JSXElement as JSXElementHelper } from '../../../ast-nodes/jsx-element';
+import { Root } from '../../../ast-nodes/root';
 
 import { addColorInheritAttributeFix } from './add-color-inherit-attribute-fix';
 import { allowedAttrs } from './allowed-attrs';
@@ -70,7 +71,7 @@ export const ParagraphElements = {
 			return { success: false, refs: { siblings: [] } };
 		}
 
-		const elementName = ast.JSXElement.getName(node);
+		const elementName = JSXElementHelper.getName(node);
 		if (elementName !== 'p') {
 			return { success: false, refs: { siblings: [] } };
 		}
@@ -87,7 +88,7 @@ export const ParagraphElements = {
 				refs: { siblings: [] },
 			};
 		}
-		const siblings = ast.JSXElement.getChildren(node.parent);
+		const siblings = JSXElementHelper.getChildren(node.parent);
 		if (siblings.length > 1) {
 			// Only report for the first p element by comparing node location
 			if (
@@ -102,20 +103,20 @@ export const ParagraphElements = {
 					return false;
 				}
 
-				if (ast.JSXElement.getName(child) !== 'p') {
+				if (JSXElementHelper.getName(child) !== 'p') {
 					return false;
 				}
 
-				return ast.JSXElement.hasAllowedAttrsOnly(child, allowedAttrs);
+				return JSXElementHelper.hasAllowedAttrsOnly(child, allowedAttrs);
 			});
 			if (!siblingsMatch) {
 				return { success: true, autoFixable: false, refs: { siblings } };
 			}
-		} else if (!ast.JSXElement.hasAllowedAttrsOnly(node, allowedAttrs)) {
+		} else if (!JSXElementHelper.hasAllowedAttrsOnly(node, allowedAttrs)) {
 			return { success: true, autoFixable: false, refs: { siblings } };
 		}
 
-		const importDeclaration = ast.Root.findImportsByModule(
+		const importDeclaration = Root.findImportsByModule(
 			getSourceCode(context).ast.body,
 			'@atlaskit/primitives',
 		);
@@ -133,7 +134,7 @@ export const ParagraphElements = {
 		{ context, config }: MetaData,
 	): Rule.ReportFixer {
 		return (fixer) => {
-			const importFix = ast.Root.upsertNamedImportDeclaration(
+			const importFix = Root.upsertNamedImportDeclaration(
 				{
 					module: '@atlaskit/primitives',
 					specifiers: ['Text'],
@@ -142,8 +143,8 @@ export const ParagraphElements = {
 				fixer,
 			);
 
-			const elementNameFixes = ast.JSXElement.updateName(node, 'Text', fixer);
-			const asAttributeFix = ast.JSXElement.addAttribute(node, 'as', 'p', fixer);
+			const elementNameFixes = JSXElementHelper.updateName(node, 'Text', fixer);
+			const asAttributeFix = JSXElementHelper.addAttribute(node, 'as', 'p', fixer);
 			const colorAttributeFix = addColorInheritAttributeFix(node, config, fixer);
 			const testAttributeFix = updateTestIdAttributeFix(node, fixer);
 
@@ -166,7 +167,7 @@ export const ParagraphElements = {
 				return [];
 			}
 
-			const importFix = ast.Root.upsertNamedImportDeclaration(
+			const importFix = Root.upsertNamedImportDeclaration(
 				{
 					module: '@atlaskit/primitives',
 					specifiers: ['Text', 'Stack'],
@@ -179,8 +180,8 @@ export const ParagraphElements = {
 			const siblingFixes = refs.siblings
 				.map((sibling) => {
 					if (isNodeOfType(sibling, 'JSXElement')) {
-						const elementNameFixes = ast.JSXElement.updateName(sibling, 'Text', fixer);
-						const asAttributeFix = ast.JSXElement.addAttribute(sibling, 'as', 'p', fixer);
+						const elementNameFixes = JSXElementHelper.updateName(sibling, 'Text', fixer);
+						const asAttributeFix = JSXElementHelper.addAttribute(sibling, 'as', 'p', fixer);
 						const colorAttributeFix = addColorInheritAttributeFix(sibling, config, fixer);
 						const testAttributeFix = updateTestIdAttributeFix(sibling, fixer);
 

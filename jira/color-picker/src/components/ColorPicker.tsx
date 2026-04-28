@@ -183,7 +183,7 @@ export const ColorPickerWithoutAnalytics: React.FC<WithIntlProps<Props & Wrapped
 	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(ColorPickerWithoutAnalyticsBase);
 
-const _default_1: React.ForwardRefExoticComponent<
+const ExportedDefault: React.ForwardRefExoticComponent<
 	Omit<
 		Omit<
 			Omit<Props & WrappedComponentProps, 'intl'> & {
@@ -201,7 +201,7 @@ const _default_1: React.ForwardRefExoticComponent<
 	packageName,
 	packageVersion,
 })(withAnalyticsEvents()(ColorPickerWithoutAnalytics));
-export default _default_1;
+export default ExportedDefault;
 
 const colorCardWrapperStyles = css({
 	display: 'inline-block',

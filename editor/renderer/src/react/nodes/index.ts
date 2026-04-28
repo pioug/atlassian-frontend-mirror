@@ -3,7 +3,7 @@
 import type React from 'react';
 import Loadable from 'react-loadable';
 import type { Fragment, Node, Mark } from '@atlaskit/editor-prosemirror/model';
-import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common/ui';
+import { UnsupportedBlock, UnsupportedInline, type EventHandlers } from '@atlaskit/editor-common/ui';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import Blockquote from './blockquote';
@@ -49,14 +49,38 @@ import type MediaInlineComponent from './mediaInline';
 import type MediaSingleComponent from './mediaSingle';
 import type MentionComponent from './mention';
 import type ExpandComponent from '../../ui/Expand';
-import type { NodeComponentsProps } from '../../ui/Renderer/types';
+import type { NodeComponentsProps, RendererAppearance } from '../../ui/Renderer/types';
 
 import type CodeBlockComponent from './codeBlock/codeBlock';
 import type WindowedCodeBlockComponent from './codeBlock/windowedCodeBlock';
 import type SyncBlock from './syncBlock';
 import type BodiedSyncBlockComponent from './bodiedSyncBlock';
+import type { RichMediaLayout, DatasourceAttributeProperties } from '@atlaskit/adf-schema';
+import type { MediaInlineAttrs } from '@atlaskit/editor-common/media-inline';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { Diff } from '@atlaskit/editor-common/utils';
+import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
+import type { MediaSSR } from '../../types/mediaOptions';
+import type { SmartLinksOptions } from '../../types/smartLinksOptions';
+import type { ExpandProps } from '../../ui/Expand';
+import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
+import type { NodeProps } from '../types';
+import type { Props as CodeBlockNodeProps } from './codeBlock/codeBlock';
+import type { Props as DateNodeProps } from './date';
+import type { Props as DecisionListNodeProps } from './decisionList';
+import type { EmojiProps } from './emoji';
+import type { InlineCardProps } from './inlineCard';
+import type { MediaProps } from './media';
+import type { MediaGroupProps } from './mediaGroup';
+import type { Props as MediaSingleNodeProps } from './mediaSingle';
+import type { Props as MentionNodeProps } from './mention';
+import type { Props as PanelNodeProps } from './panel';
+import type { Props as StatusNodeProps } from './status';
+import type { Props as TaskItemNodeProps } from './taskItem';
+import type { Props as TaskListNodeProps } from './taskList';
 
-const WindowedCodeBlock = Loadable({
+const WindowedCodeBlock: React.ComponentType<CodeBlockNodeProps> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_WindowedCodeBlock" */
@@ -65,7 +89,7 @@ const WindowedCodeBlock = Loadable({
 	loading: () => null,
 });
 
-const CodeBlock = Loadable({
+const CodeBlock: React.ComponentType<WithIntlProps<CodeBlockNodeProps & WrappedComponentProps>> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_CodeBlock" */
@@ -74,7 +98,7 @@ const CodeBlock = Loadable({
 	loading: () => null,
 });
 
-const TaskList = Loadable({
+const TaskList: React.ComponentType<TaskListNodeProps> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_TaskList" */
@@ -83,7 +107,7 @@ const TaskList = Loadable({
 	loading: () => null,
 });
 
-const TaskItem = Loadable({
+const TaskItem: React.ComponentType<NodeProps<TaskItemNodeProps>> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_TaskItem" */
@@ -92,7 +116,7 @@ const TaskItem = Loadable({
 	loading: () => null,
 });
 
-const DecisionList = Loadable({
+const DecisionList: React.ComponentType<DecisionListNodeProps> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_DecisionList" */
@@ -101,7 +125,7 @@ const DecisionList = Loadable({
 	loading: () => null,
 });
 
-const DecisionItem = Loadable({
+const DecisionItem: React.ComponentType<NodeProps> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_DecisionItem" */
@@ -110,7 +134,7 @@ const DecisionItem = Loadable({
 	loading: () => null,
 });
 
-const Date = Loadable({
+const Date: React.ComponentType<DateNodeProps> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_Date" */
@@ -119,7 +143,7 @@ const Date = Loadable({
 	loading: () => null,
 });
 
-const Status = Loadable({
+const Status: React.ComponentType<StatusNodeProps> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_Status" */
@@ -128,7 +152,7 @@ const Status = Loadable({
 	loading: () => null,
 });
 
-const Emoji = Loadable({
+const Emoji: React.ComponentType<EmojiProps> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_Emoji" */
@@ -137,7 +161,7 @@ const Emoji = Loadable({
 	loading: () => null,
 });
 
-const Panel = Loadable({
+const Panel: React.ComponentType<PanelNodeProps> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_Panel" */
@@ -146,7 +170,21 @@ const Panel = Loadable({
 	loading: () => null,
 });
 
-const EmbedCard = Loadable({
+const EmbedCard: React.ComponentType<{
+    data?: object;
+    eventHandlers?: EventHandlers;
+    isInsideOfBlockNode?: boolean;
+    isInsideOfInlineExtension?: boolean;
+    layout: RichMediaLayout;
+    onSetLinkTarget?: (url: string) => "_blank" | undefined;
+    originalHeight?: number;
+    originalWidth?: number;
+    portal?: HTMLElement;
+    rendererAppearance?: RendererAppearance;
+    smartLinks?: SmartLinksOptions;
+    url?: string;
+    width?: number;
+}> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_EmbedCard" */
@@ -155,7 +193,7 @@ const EmbedCard = Loadable({
 	loading: () => null,
 });
 
-const InlineCard = Loadable({
+const InlineCard: React.ComponentType<Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_InlineCard" */
@@ -164,7 +202,19 @@ const InlineCard = Loadable({
 	loading: () => null,
 });
 
-const BlockCard = Loadable({
+const BlockCard: React.ComponentType<{
+    data?: object;
+    datasource?: DatasourceAttributeProperties;
+    eventHandlers?: EventHandlers;
+    isNodeNested?: boolean;
+    layout?: string;
+    localId?: string;
+    onSetLinkTarget?: (url: string) => "_blank" | undefined;
+    portal?: HTMLElement;
+    rendererAppearance?: RendererAppearance;
+    smartLinks?: SmartLinksOptions;
+    url?: string;
+}> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_BlockCard" */
@@ -173,7 +223,7 @@ const BlockCard = Loadable({
 	loading: () => null,
 });
 
-const Media = Loadable({
+const Media: React.ComponentType<React.PropsWithChildren<MediaProps>> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_Media" */
@@ -182,7 +232,7 @@ const Media = Loadable({
 	loading: () => null,
 });
 
-const MediaGroup = Loadable({
+const MediaGroup: React.ComponentType<MediaGroupProps> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_MediaGroup" */
@@ -191,7 +241,17 @@ const MediaGroup = Loadable({
 	loading: () => null,
 });
 
-const MediaInline = Loadable({
+const MediaInline: React.ComponentType<WithIntlProps<{
+    collection?: string;
+    eventHandlers?: EventHandlers;
+    fallbackMediaNameFetcher?: (id: string) => Promise<string>;
+    featureFlags?: MediaFeatureFlags;
+    id: string;
+    marks?: Array<Mark>;
+    providers: ProviderFactory;
+    rendererAppearance?: RendererAppearance;
+    ssr?: MediaSSR;
+} & WrappedComponentProps & MediaInlineAttrs>> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_MediaInline" */
@@ -200,7 +260,7 @@ const MediaInline = Loadable({
 	loading: () => null,
 });
 
-const MediaSingle = Loadable({
+const MediaSingle: React.ComponentType<WithIntlProps<MediaSingleNodeProps & WrappedComponentProps>> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_MediaSingle" */
@@ -209,7 +269,7 @@ const MediaSingle = Loadable({
 	loading: () => null,
 });
 
-const Mention = Loadable({
+const Mention: React.ComponentType<MentionNodeProps> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_Mention" */
@@ -218,7 +278,7 @@ const Mention = Loadable({
 	loading: () => null,
 });
 
-const Expand = Loadable({
+const Expand: React.ComponentType<WithIntlProps<ExpandProps & WrappedComponentProps>> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-node_Expand" */
@@ -402,7 +462,7 @@ interface NodeSimple {
  *    }
  *  ]
  */
-export const mergeTextNodes = (nodes: (Node | NodeSimple)[]) => {
+export const mergeTextNodes = (nodes: (Node | NodeSimple)[]): (Node | TextWrapper | NodeSimple)[] => {
 	return nodes.reduce<(TextWrapper | Node | NodeSimple)[]>((acc, current) => {
 		if (!isText(current.type.name)) {
 			acc.push(current);

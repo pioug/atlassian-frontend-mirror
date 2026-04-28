@@ -1,5 +1,18 @@
 # @atlaskit/native-embeds-common
 
+## 1.1.0
+
+### Minor Changes
+
+- [`7fe1914f87802`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fe1914f87802) -
+  MAUI-463: Add expand (fullscreen preview) button to native embed editor floating toolbar. Removes
+  expand button from embed header for MAUI embeds (Infographic, Chart, Visualization) since it is
+  now in the editor toolbar.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.2
 
 ### Patch Changes

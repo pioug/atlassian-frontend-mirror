@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 11.2.9
+
+### Patch Changes
+
+- [`f35afb9a5ed6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f35afb9a5ed6e) -
+  Fix getMatchingBlockMarks to check both adjacent siblings before returning marks
+- Updated dependencies
+
+## 11.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.2.6
 
 ### Patch Changes

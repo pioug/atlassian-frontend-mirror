@@ -1,5 +1,24 @@
 # @atlaskit/adf-schema
 
+## 52.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 52.6.4
+
+### Patch Changes
+
+- [`4175fc4bd57f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4175fc4bd57f5) -
+  Fix bug in linkify util which extracts URLs from text strings
+
+## 52.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.6.2
 
 ### Patch Changes

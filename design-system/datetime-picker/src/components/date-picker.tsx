@@ -35,7 +35,7 @@ import Select, {
 } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
-import { EmptyComponent } from '../internal';
+import { EmptyComponent } from '../internal/empty-component';
 import { formatDate } from '../internal/format-date';
 import { getParsedISO } from '../internal/get-parsed-iso';
 import { getPlaceholder } from '../internal/get-placeholder';

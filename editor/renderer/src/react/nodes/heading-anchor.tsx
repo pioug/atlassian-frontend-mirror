@@ -144,11 +144,7 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 				id={this.copyLinkId}
 				css={copyAnchorButtonStyles}
 				onMouseLeave={this.resetMessage}
-				onBlur={
-					expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
-						? this.resetMessage
-						: undefined
-				}
+				onBlur={this.resetMessage}
 				onClick={this.copyToClipboard}
 				aria-hidden={hideFromScreenReader}
 				tabIndex={tabIndex}

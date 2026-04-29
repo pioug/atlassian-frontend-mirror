@@ -179,111 +179,130 @@ export const MarkComponent = ({
 	isHovered,
 	onClick,
 	useBlockLevel,
-}: React.PropsWithChildren<MarkComponentProps>): React.ReactElement<{
-        'aria-disabled': boolean;
-        css?: (false | SerializedStyles)[] | undefined;
-        'data-id': AnnotationId;
-        'data-mark-annotation-state'?: AnnotationMarkStates;
-        'data-mark-annotation-type': AnnotationTypes;
-        'data-mark-type': string;
-        id: string;
-        ref: ((node: HTMLElement | null) => void) | undefined;
-        style?: {
-            '--ak-renderer-annotation-endmarker': string;
-            '--ak-renderer-annotation-startmarker': string;
-        } | undefined;
-    } | {
-        'aria-disabled': boolean;
-        css?: (false | SerializedStyles)[] | undefined;
-        'data-has-focus': boolean;
-        'data-id': AnnotationId;
-        'data-is-hovered': boolean;
-        'data-mark-annotation-state': AnnotationMarkStates;
-        'data-mark-annotation-type': AnnotationTypes;
-        'data-mark-type': string;
-        id: string;
-        ref: ((node: HTMLElement | null) => void) | undefined;
-        style?: {
-            '--ak-renderer-annotation-endmarker': string;
-            '--ak-renderer-annotation-startmarker': string;
-        } | undefined;
-    } | {
-        'aria-details': string;
-        'aria-disabled'?: undefined;
-        'aria-expanded'?: undefined;
-        css?: (false | SerializedStyles)[] | undefined;
-        'data-id': AnnotationId;
-        'data-mark-annotation-state'?: AnnotationMarkStates;
-        'data-mark-annotation-type': AnnotationTypes;
-        'data-mark-type': string;
-        id: string;
-        onKeyDown?: undefined;
-        ref: ((node: HTMLElement | null) => void) | undefined;
-        role?: undefined;
-        style?: {
-            '--ak-renderer-annotation-endmarker': string;
-            '--ak-renderer-annotation-startmarker': string;
-        } | undefined;
-        tabIndex?: undefined;
-    } | {
-        'aria-details': string;
-        'aria-disabled'?: undefined;
-        'aria-expanded'?: undefined;
-        css?: (false | SerializedStyles)[] | undefined;
-        'data-has-focus': boolean;
-        'data-id': AnnotationId;
-        'data-is-hovered': boolean;
-        'data-mark-annotation-state': AnnotationMarkStates;
-        'data-mark-annotation-type': AnnotationTypes;
-        'data-mark-type': string;
-        id: string;
-        onKeyDown?: undefined;
-        ref: ((node: HTMLElement | null) => void) | undefined;
-        role?: undefined;
-        style?: {
-            '--ak-renderer-annotation-endmarker': string;
-            '--ak-renderer-annotation-startmarker': string;
-        } | undefined;
-        tabIndex?: undefined;
-    } | {
-        'aria-details': string;
-        'aria-disabled'?: undefined;
-        'aria-expanded': boolean;
-        css?: (false | SerializedStyles)[] | undefined;
-        'data-id': AnnotationId;
-        'data-mark-annotation-state'?: AnnotationMarkStates;
-        'data-mark-annotation-type': AnnotationTypes;
-        'data-mark-type': string;
-        id: string;
-        onKeyDown: (evt: KeyboardEvent) => void;
-        ref: ((node: HTMLElement | null) => void) | undefined;
-        role: string;
-        style?: {
-            '--ak-renderer-annotation-endmarker': string;
-            '--ak-renderer-annotation-startmarker': string;
-        } | undefined;
-        tabIndex: number;
-    } | {
-        'aria-details': string;
-        'aria-disabled'?: undefined;
-        'aria-expanded': boolean;
-        css?: (false | SerializedStyles)[] | undefined;
-        'data-has-focus': boolean;
-        'data-id': AnnotationId;
-        'data-is-hovered': boolean;
-        'data-mark-annotation-state': AnnotationMarkStates;
-        'data-mark-annotation-type': AnnotationTypes;
-        'data-mark-type': string;
-        id: string;
-        onKeyDown: (evt: KeyboardEvent) => void;
-        ref: ((node: HTMLElement | null) => void) | undefined;
-        role: string;
-        style?: {
-            '--ak-renderer-annotation-endmarker': string;
-            '--ak-renderer-annotation-startmarker': string;
-        } | undefined;
-        tabIndex: number;
-    }> => {
+}: React.PropsWithChildren<MarkComponentProps>): React.ReactElement<
+	| {
+			'aria-disabled': boolean;
+			css?: (false | SerializedStyles)[] | undefined;
+			'data-id': AnnotationId;
+			'data-mark-annotation-state'?: AnnotationMarkStates;
+			'data-mark-annotation-type': AnnotationTypes;
+			'data-mark-type': string;
+			id: string;
+			ref: ((node: HTMLElement | null) => void) | undefined;
+			style?:
+				| {
+						'--ak-renderer-annotation-endmarker': string;
+						'--ak-renderer-annotation-startmarker': string;
+				  }
+				| undefined;
+	  }
+	| {
+			'aria-disabled': boolean;
+			css?: (false | SerializedStyles)[] | undefined;
+			'data-has-focus': boolean;
+			'data-id': AnnotationId;
+			'data-is-hovered': boolean;
+			'data-mark-annotation-state': AnnotationMarkStates;
+			'data-mark-annotation-type': AnnotationTypes;
+			'data-mark-type': string;
+			id: string;
+			ref: ((node: HTMLElement | null) => void) | undefined;
+			style?:
+				| {
+						'--ak-renderer-annotation-endmarker': string;
+						'--ak-renderer-annotation-startmarker': string;
+				  }
+				| undefined;
+	  }
+	| {
+			'aria-details': string;
+			'aria-disabled'?: undefined;
+			'aria-expanded'?: undefined;
+			css?: (false | SerializedStyles)[] | undefined;
+			'data-id': AnnotationId;
+			'data-mark-annotation-state'?: AnnotationMarkStates;
+			'data-mark-annotation-type': AnnotationTypes;
+			'data-mark-type': string;
+			id: string;
+			onKeyDown?: undefined;
+			ref: ((node: HTMLElement | null) => void) | undefined;
+			role?: undefined;
+			style?:
+				| {
+						'--ak-renderer-annotation-endmarker': string;
+						'--ak-renderer-annotation-startmarker': string;
+				  }
+				| undefined;
+			tabIndex?: undefined;
+	  }
+	| {
+			'aria-details': string;
+			'aria-disabled'?: undefined;
+			'aria-expanded'?: undefined;
+			css?: (false | SerializedStyles)[] | undefined;
+			'data-has-focus': boolean;
+			'data-id': AnnotationId;
+			'data-is-hovered': boolean;
+			'data-mark-annotation-state': AnnotationMarkStates;
+			'data-mark-annotation-type': AnnotationTypes;
+			'data-mark-type': string;
+			id: string;
+			onKeyDown?: undefined;
+			ref: ((node: HTMLElement | null) => void) | undefined;
+			role?: undefined;
+			style?:
+				| {
+						'--ak-renderer-annotation-endmarker': string;
+						'--ak-renderer-annotation-startmarker': string;
+				  }
+				| undefined;
+			tabIndex?: undefined;
+	  }
+	| {
+			'aria-details': string;
+			'aria-disabled'?: undefined;
+			'aria-expanded': boolean;
+			css?: (false | SerializedStyles)[] | undefined;
+			'data-id': AnnotationId;
+			'data-mark-annotation-state'?: AnnotationMarkStates;
+			'data-mark-annotation-type': AnnotationTypes;
+			'data-mark-type': string;
+			id: string;
+			onKeyDown: (evt: KeyboardEvent) => void;
+			ref: ((node: HTMLElement | null) => void) | undefined;
+			role: string;
+			style?:
+				| {
+						'--ak-renderer-annotation-endmarker': string;
+						'--ak-renderer-annotation-startmarker': string;
+				  }
+				| undefined;
+			tabIndex: number;
+	  }
+	| {
+			'aria-details': string;
+			'aria-disabled'?: undefined;
+			'aria-expanded': boolean;
+			css?: (false | SerializedStyles)[] | undefined;
+			'data-has-focus': boolean;
+			'data-id': AnnotationId;
+			'data-is-hovered': boolean;
+			'data-mark-annotation-state': AnnotationMarkStates;
+			'data-mark-annotation-type': AnnotationTypes;
+			'data-mark-type': string;
+			id: string;
+			onKeyDown: (evt: KeyboardEvent) => void;
+			ref: ((node: HTMLElement | null) => void) | undefined;
+			role: string;
+			style?:
+				| {
+						'--ak-renderer-annotation-endmarker': string;
+						'--ak-renderer-annotation-startmarker': string;
+				  }
+				| undefined;
+			tabIndex: number;
+	  }
+> => {
 	const intl = useIntl();
 	const annotationIds = useMemo(
 		() => [...new Set([...annotationParentIds, id])],

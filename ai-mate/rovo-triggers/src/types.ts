@@ -16,6 +16,7 @@ export const Topics = {
 	AI_MATE: 'ai-mate',
 	AI_MATE_ACTIONS: 'ai-mate-actions',
 	AI_MATE_INSERT_URLS: 'ai-mate-chat-inserts',
+	AI_MATE_CHAT_INPUT_OVERLAY: 'ai-mate-chat-input-overlay',
 	AVP: 'avp',
 } as const;
 export type Topic = (typeof Topics)[keyof typeof Topics];
@@ -285,6 +286,8 @@ export type ChatOpenPayload = PayloadCore<
 		avatarUrl?: string;
 		// Reset to default chat view from previously selected view, e.g. Browse agents
 		resetActiveMenu?: boolean;
+		// Open the agent selector menu when chat is opened
+		openAgentSelector?: boolean;
 	}
 >;
 

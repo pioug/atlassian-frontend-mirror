@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { ASC } from '../internal/constants';
 import { getPageRows } from '../internal/get-page-rows';
 import { validateSortKey } from '../internal/validate-sort-key';
 import { type HeadType, type RowCellType, type RowType, type SortOrderType } from '../types';
@@ -29,7 +28,7 @@ const getSortedRows = (
 		return [];
 	}
 
-	const modifier = sortOrder === ASC ? 1 : -1;
+	const modifier = sortOrder === 'ASC' ? 1 : -1;
 
 	// Re-initialising an I18n Collator on every sort is performance intensive, thus constructed outside
 	const collator = new Intl.Collator(undefined, {

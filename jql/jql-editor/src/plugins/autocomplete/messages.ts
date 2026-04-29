@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl';
 
 export const messages: {
-    optionsFound: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    };
+	optionsFound: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 } = defineMessages({
 	optionsFound: {
 		id: 'jql-editor.plugins.autocomplete.options-found',

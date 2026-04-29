@@ -5,7 +5,7 @@ import { adfWithParagraph } from './node-anchor.spec-fixtures';
 
 test.describe('native node anchor', () => {
 	test.use({
-		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 		editorProps: {
 			appearance: 'full-page',
 		},

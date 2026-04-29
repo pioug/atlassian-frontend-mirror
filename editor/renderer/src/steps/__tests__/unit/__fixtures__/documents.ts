@@ -1,355 +1,414 @@
 export const complexDocument: {
-    content: ({
-        attrs: {
-            __autoSize?: undefined;
-            isNumberColumnEnabled?: undefined;
-            language?: undefined;
-            layout?: undefined;
-            level: number;
-            uniqueId?: undefined;
-        };
-        content: {
-            text: string;
-            type: string;
-        }[];
-        type: string;
-    } | {
-        attrs?: undefined;
-        content: ({
-            attrs?: undefined;
-            text: string;
-            type: string;
-        } | {
-            attrs: {
-                color: string;
-                localId: string;
-                style: string;
-                text: string;
-            };
-            text?: undefined;
-            type: string;
-        })[];
-        type: string;
-    } | {
-        attrs?: undefined;
-        content: ({
-            attrs: {
-                id: string;
-                shortName: string;
-                text: string;
-            };
-            text?: undefined;
-            type: string;
-        } | {
-            attrs?: undefined;
-            text: string;
-            type: string;
-        })[];
-        type: string;
-    } | {
-        attrs: {
-            __autoSize?: undefined;
-            isNumberColumnEnabled?: undefined;
-            language: null;
-            layout?: undefined;
-            level?: undefined;
-            uniqueId: null;
-        };
-        content: {
-            text: string;
-            type: string;
-        }[];
-        type: string;
-    } | {
-        attrs?: undefined;
-        content: ({
-            attrs: {
-                accessLevel: string;
-                id: string;
-                text: string;
-                userType: null;
-            };
-            text?: undefined;
-            type: string;
-        } | {
-            attrs?: undefined;
-            text: string;
-            type: string;
-        })[];
-        type: string;
-    } | {
-        attrs?: undefined;
-        content: {
-            marks: {
-                attrs: {
-                    __confluenceMetadata: null;
-                    href: string;
-                };
-                type: string;
-            }[];
-            text: string;
-            type: string;
-        }[];
-        type: string;
-    } | {
-        attrs?: undefined;
-        content: {
-            marks: ({
-                attrs?: undefined;
-                type: string;
-            } | {
-                attrs: {
-                    annotationType: string;
-                    id: string;
-                };
-                type: string;
-            })[];
-            text: string;
-            type: string;
-        }[];
-        type: string;
-    } | {
-        attrs?: undefined;
-        content: ({
-            content: {
-                marks: ({
-                    attrs?: undefined;
-                    type: string;
-                } | {
-                    attrs: {
-                        annotationType: string;
-                        id: string;
-                    };
-                    type: string;
-                })[];
-                text: string;
-                type: string;
-            }[];
-            type: string;
-        } | {
-            content: {
-                text: string;
-                type: string;
-            }[];
-            type: string;
-        })[];
-        type: string;
-    } | {
-        attrs?: undefined;
-        content: ({
-            content: {
-                content: {
-                    marks: ({
-                        attrs?: undefined;
-                        type: string;
-                    } | {
-                        attrs: {
-                            annotationType: string;
-                            id: string;
-                        };
-                        type: string;
-                    })[];
-                    text: string;
-                    type: string;
-                }[];
-                type: string;
-            }[];
-            type: string;
-        } | {
-            content: {
-                content: {
-                    text: string;
-                    type: string;
-                }[];
-                type: string;
-            }[];
-            type: string;
-        })[];
-        type: string;
-    } | {
-        attrs: {
-            __autoSize: boolean;
-            isNumberColumnEnabled: boolean;
-            language?: undefined;
-            layout: string;
-            level?: undefined;
-            uniqueId?: undefined;
-        };
-        content: ({
-            content: {
-                attrs: {
-                    background: null;
-                    colspan: number;
-                    colwidth: null;
-                    rowspan: number;
-                };
-                content: {
-                    content: {
-                        marks: ({
-                            attrs?: undefined;
-                            type: string;
-                        } | {
-                            attrs: {
-                                annotationType: string;
-                                id: string;
-                            };
-                            type: string;
-                        })[];
-                        text: string;
-                        type: string;
-                    }[];
-                    type: string;
-                }[];
-                type: string;
-            }[];
-            type: string;
-        } | {
-            content: {
-                attrs: {
-                    background: null;
-                    colspan: number;
-                    colwidth: null;
-                    rowspan: number;
-                };
-                content: {
-                    content: {
-                        text: string;
-                        type: string;
-                    }[];
-                    type: string;
-                }[];
-                type: string;
-            }[];
-            type: string;
-        })[];
-        type: string;
-    } | {
-        attrs: {
-            __autoSize: boolean;
-            isNumberColumnEnabled: boolean;
-            language?: undefined;
-            layout: string;
-            level?: undefined;
-            uniqueId?: undefined;
-        };
-        content: ({
-            content: ({
-                attrs: {
-                    background: null;
-                    colspan: number;
-                    colwidth: number[];
-                    rowspan: number;
-                };
-                content: {
-                    type: string;
-                }[];
-                type: string;
-            } | {
-                attrs: {
-                    background: null;
-                    colspan: number;
-                    colwidth: number[];
-                    rowspan: number;
-                };
-                content: {
-                    content: {
-                        marks: {
-                            type: string;
-                        }[];
-                        text: string;
-                        type: string;
-                    }[];
-                    type: string;
-                }[];
-                type: string;
-            })[];
-            type: string;
-        } | {
-            content: ({
-                attrs: {
-                    background: null;
-                    colspan: number;
-                    colwidth: number[];
-                    rowspan: number;
-                };
-                content: {
-                    content: {
-                        marks: {
-                            type: string;
-                        }[];
-                        text: string;
-                        type: string;
-                    }[];
-                    type: string;
-                }[];
-                type: string;
-            } | {
-                attrs: {
-                    background: null;
-                    colspan: number;
-                    colwidth: number[];
-                    rowspan: number;
-                };
-                content: {
-                    content: {
-                        marks: {
-                            attrs: {
-                                annotationType: string;
-                                id: string;
-                            };
-                            type: string;
-                        }[];
-                        text: string;
-                        type: string;
-                    }[];
-                    type: string;
-                }[];
-                type: string;
-            })[];
-            type: string;
-        })[];
-        type: string;
-    } | {
-        attrs?: undefined;
-        content: ({
-            attrs?: undefined;
-            marks?: undefined;
-            // the string at the start helps gives us a range to test with
-            text: string;
-            type: string;
-        } | {
-            attrs?: undefined;
-            marks: {
-                attrs: {
-                    annotationType: string;
-                    // this id helps gives us a range to test with
-                    id: string;
-                };
-                type: string;
-            }[];
-            text: string;
-            type: string;
-        } | {
-            attrs: {
-                data: null;
-                url: string;
-            };
-            marks: {
-                attrs: {
-                    annotationType: string;
-                    id: string;
-                };
-                type: string;
-            }[];
-            text?: undefined;
-            type: string;
-        })[];
-        type: string;
-    } | {
-        attrs?: undefined;
-        content?: undefined;
-        type: string;
-    })[]; type: string; version: number;
+	content: (
+		| {
+				attrs: {
+					__autoSize?: undefined;
+					isNumberColumnEnabled?: undefined;
+					language?: undefined;
+					layout?: undefined;
+					level: number;
+					uniqueId?: undefined;
+				};
+				content: {
+					text: string;
+					type: string;
+				}[];
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							attrs?: undefined;
+							text: string;
+							type: string;
+					  }
+					| {
+							attrs: {
+								color: string;
+								localId: string;
+								style: string;
+								text: string;
+							};
+							text?: undefined;
+							type: string;
+					  }
+				)[];
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							attrs: {
+								id: string;
+								shortName: string;
+								text: string;
+							};
+							text?: undefined;
+							type: string;
+					  }
+					| {
+							attrs?: undefined;
+							text: string;
+							type: string;
+					  }
+				)[];
+				type: string;
+		  }
+		| {
+				attrs: {
+					__autoSize?: undefined;
+					isNumberColumnEnabled?: undefined;
+					language: null;
+					layout?: undefined;
+					level?: undefined;
+					uniqueId: null;
+				};
+				content: {
+					text: string;
+					type: string;
+				}[];
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							attrs: {
+								accessLevel: string;
+								id: string;
+								text: string;
+								userType: null;
+							};
+							text?: undefined;
+							type: string;
+					  }
+					| {
+							attrs?: undefined;
+							text: string;
+							type: string;
+					  }
+				)[];
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: {
+					marks: {
+						attrs: {
+							__confluenceMetadata: null;
+							href: string;
+						};
+						type: string;
+					}[];
+					text: string;
+					type: string;
+				}[];
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: {
+					marks: (
+						| {
+								attrs?: undefined;
+								type: string;
+						  }
+						| {
+								attrs: {
+									annotationType: string;
+									id: string;
+								};
+								type: string;
+						  }
+					)[];
+					text: string;
+					type: string;
+				}[];
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							content: {
+								marks: (
+									| {
+											attrs?: undefined;
+											type: string;
+									  }
+									| {
+											attrs: {
+												annotationType: string;
+												id: string;
+											};
+											type: string;
+									  }
+								)[];
+								text: string;
+								type: string;
+							}[];
+							type: string;
+					  }
+					| {
+							content: {
+								text: string;
+								type: string;
+							}[];
+							type: string;
+					  }
+				)[];
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							content: {
+								content: {
+									marks: (
+										| {
+												attrs?: undefined;
+												type: string;
+										  }
+										| {
+												attrs: {
+													annotationType: string;
+													id: string;
+												};
+												type: string;
+										  }
+									)[];
+									text: string;
+									type: string;
+								}[];
+								type: string;
+							}[];
+							type: string;
+					  }
+					| {
+							content: {
+								content: {
+									text: string;
+									type: string;
+								}[];
+								type: string;
+							}[];
+							type: string;
+					  }
+				)[];
+				type: string;
+		  }
+		| {
+				attrs: {
+					__autoSize: boolean;
+					isNumberColumnEnabled: boolean;
+					language?: undefined;
+					layout: string;
+					level?: undefined;
+					uniqueId?: undefined;
+				};
+				content: (
+					| {
+							content: {
+								attrs: {
+									background: null;
+									colspan: number;
+									colwidth: null;
+									rowspan: number;
+								};
+								content: {
+									content: {
+										marks: (
+											| {
+													attrs?: undefined;
+													type: string;
+											  }
+											| {
+													attrs: {
+														annotationType: string;
+														id: string;
+													};
+													type: string;
+											  }
+										)[];
+										text: string;
+										type: string;
+									}[];
+									type: string;
+								}[];
+								type: string;
+							}[];
+							type: string;
+					  }
+					| {
+							content: {
+								attrs: {
+									background: null;
+									colspan: number;
+									colwidth: null;
+									rowspan: number;
+								};
+								content: {
+									content: {
+										text: string;
+										type: string;
+									}[];
+									type: string;
+								}[];
+								type: string;
+							}[];
+							type: string;
+					  }
+				)[];
+				type: string;
+		  }
+		| {
+				attrs: {
+					__autoSize: boolean;
+					isNumberColumnEnabled: boolean;
+					language?: undefined;
+					layout: string;
+					level?: undefined;
+					uniqueId?: undefined;
+				};
+				content: (
+					| {
+							content: (
+								| {
+										attrs: {
+											background: null;
+											colspan: number;
+											colwidth: number[];
+											rowspan: number;
+										};
+										content: {
+											type: string;
+										}[];
+										type: string;
+								  }
+								| {
+										attrs: {
+											background: null;
+											colspan: number;
+											colwidth: number[];
+											rowspan: number;
+										};
+										content: {
+											content: {
+												marks: {
+													type: string;
+												}[];
+												text: string;
+												type: string;
+											}[];
+											type: string;
+										}[];
+										type: string;
+								  }
+							)[];
+							type: string;
+					  }
+					| {
+							content: (
+								| {
+										attrs: {
+											background: null;
+											colspan: number;
+											colwidth: number[];
+											rowspan: number;
+										};
+										content: {
+											content: {
+												marks: {
+													type: string;
+												}[];
+												text: string;
+												type: string;
+											}[];
+											type: string;
+										}[];
+										type: string;
+								  }
+								| {
+										attrs: {
+											background: null;
+											colspan: number;
+											colwidth: number[];
+											rowspan: number;
+										};
+										content: {
+											content: {
+												marks: {
+													attrs: {
+														annotationType: string;
+														id: string;
+													};
+													type: string;
+												}[];
+												text: string;
+												type: string;
+											}[];
+											type: string;
+										}[];
+										type: string;
+								  }
+							)[];
+							type: string;
+					  }
+				)[];
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: (
+					| {
+							attrs?: undefined;
+							marks?: undefined;
+							// the string at the start helps gives us a range to test with
+							text: string;
+							type: string;
+					  }
+					| {
+							attrs?: undefined;
+							marks: {
+								attrs: {
+									annotationType: string;
+									// this id helps gives us a range to test with
+									id: string;
+								};
+								type: string;
+							}[];
+							text: string;
+							type: string;
+					  }
+					| {
+							attrs: {
+								data: null;
+								url: string;
+							};
+							marks: {
+								attrs: {
+									annotationType: string;
+									id: string;
+								};
+								type: string;
+							}[];
+							text?: undefined;
+							type: string;
+					  }
+				)[];
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content?: undefined;
+				type: string;
+		  }
+	)[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -1406,20 +1465,25 @@ export const complexDocument: {
 };
 
 export const docWithFormattedText: {
-    content: {
-        content: ({
-            marks: {
-                type: string;
-            }[];
-            text: string;
-            type: string;
-        } | {
-            marks?: undefined;
-            text: string;
-            type: string;
-        })[];
-        type: string;
-    }[]; type: string; version: number;
+	content: {
+		content: (
+			| {
+					marks: {
+						type: string;
+					}[];
+					text: string;
+					type: string;
+			  }
+			| {
+					marks?: undefined;
+					text: string;
+					type: string;
+			  }
+		)[];
+		type: string;
+	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -1458,37 +1522,45 @@ export const docWithFormattedText: {
 };
 
 export const docWithImage: {
-    content: ({
-        attrs: {
-            layout: string;
-            width: number;
-            widthType: string;
-        };
-        content: ({
-            attrs: {
-                alt: string;
-                collection: string;
-                height: number;
-                id: string;
-                type: string;
-                width: number;
-            };
-            content?: undefined;
-            type: string;
-        } | {
-            attrs?: undefined;
-            content: {
-                text: string;
-                type: string;
-            }[];
-            type: string;
-        })[];
-        type: string;
-    } | {
-        attrs?: undefined;
-        content: never[];
-        type: string;
-    })[]; type: string; version: number;
+	content: (
+		| {
+				attrs: {
+					layout: string;
+					width: number;
+					widthType: string;
+				};
+				content: (
+					| {
+							attrs: {
+								alt: string;
+								collection: string;
+								height: number;
+								id: string;
+								type: string;
+								width: number;
+							};
+							content?: undefined;
+							type: string;
+					  }
+					| {
+							attrs?: undefined;
+							content: {
+								text: string;
+								type: string;
+							}[];
+							type: string;
+					  }
+				)[];
+				type: string;
+		  }
+		| {
+				attrs?: undefined;
+				content: never[];
+				type: string;
+		  }
+	)[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -1531,53 +1603,61 @@ export const docWithImage: {
 };
 
 export const docWithImageInTable: {
-    content: {
-        attrs: {
-            isNumberColumnEnabled: boolean;
-            layout: string;
-            localId: string;
-            width: number;
-        };
-        content: {
-            content: {
-                attrs: {};
-                content: ({
-                    attrs: {
-                        layout: string;
-                        width: number;
-                        widthType: string;
-                    };
-                    content: ({
-                        attrs: {
-                            alt: string;
-                            collection: string;
-                            height: number;
-                            id: string;
-                            type: string;
-                            width: number;
-                        };
-                        content?: undefined;
-                        type: string;
-                    } | {
-                        attrs?: undefined;
-                        content: {
-                            text: string;
-                            type: string;
-                        }[];
-                        type: string;
-                    })[];
-                    type: string;
-                } | {
-                    attrs?: undefined;
-                    content: never[];
-                    type: string;
-                })[];
-                type: string;
-            }[];
-            type: string;
-        }[];
-        type: string;
-    }[]; type: string; version: number;
+	content: {
+		attrs: {
+			isNumberColumnEnabled: boolean;
+			layout: string;
+			localId: string;
+			width: number;
+		};
+		content: {
+			content: {
+				attrs: {};
+				content: (
+					| {
+							attrs: {
+								layout: string;
+								width: number;
+								widthType: string;
+							};
+							content: (
+								| {
+										attrs: {
+											alt: string;
+											collection: string;
+											height: number;
+											id: string;
+											type: string;
+											width: number;
+										};
+										content?: undefined;
+										type: string;
+								  }
+								| {
+										attrs?: undefined;
+										content: {
+											text: string;
+											type: string;
+										}[];
+										type: string;
+								  }
+							)[];
+							type: string;
+					  }
+					| {
+							attrs?: undefined;
+							content: never[];
+							type: string;
+					  }
+				)[];
+				type: string;
+			}[];
+			type: string;
+		}[];
+		type: string;
+	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',

@@ -16,7 +16,15 @@ export interface InlineActionNudgeExperiment {
 	isEnabled: boolean;
 }
 
-const EXCLUDED_EXTENSION_KEYS = new Set(['figma-object-provider', 'google-object-provider']);
+const ELIGIBLE_EXTENSION_KEYS = new Set([
+	'slack-object-provider',
+	'google-object-provider',
+	'onedrive-object-provider',
+	'github-object-provider',
+	'ms-teams-object-provider',
+	'gitlab-object-provider',
+	'salesforce-object-provider',
+]);
 
 const NOT_ENABLED_RESULT: InlineActionNudgeExperiment = {
 	isEnabled: false,
@@ -30,7 +38,7 @@ const NOT_ENABLED_RESULT: InlineActionNudgeExperiment = {
  * 1. Rovo chat must be enabled for the tenant.
  * 2. The consumer must have opted in via actionOptions.rovoChatAction.optIn.
  * 3. The link must support the RovoActions feature.
- * 4. The extension key must not be excluded (Figma and Google links are excluded).
+ * 4. The extension key must be one of the supported options.
  * 5. The experiment value must be true (via tmp-editor-statsig).
  *
  * The extension key is derived from the card store via the resolved URL,
@@ -44,37 +52,22 @@ const useInlineActionNudgeExperiment = (
 	const rovoConfig = useRovoConfig();
 	const isRovoChatEnabled = getIsRovoChatEnabled(rovoConfig);
 	const cardState = useSmartCardState(url ?? '');
-	const supportsRovoActions =
-		cardState?.details?.meta?.supportedFeature?.includes('RovoActions') ?? false;
 	const extensionKey = getExtensionKey(cardState.details);
 	const isRovoChatActionOptedIn = actionOptions?.rovoChatAction?.optIn ?? false;
 
 	return useMemo(() => {
-		if (
-			!isRovoChatEnabled ||
-			!showHoverPreview ||
-			!supportsRovoActions ||
-			!url ||
-			!isRovoChatActionOptedIn
-		) {
+		if (!isRovoChatEnabled || !showHoverPreview || !url || !isRovoChatActionOptedIn) {
 			return NOT_ENABLED_RESULT;
 		}
 
-		if (extensionKey && EXCLUDED_EXTENSION_KEYS.has(extensionKey)) {
+		if (extensionKey && !ELIGIBLE_EXTENSION_KEYS.has(extensionKey)) {
 			return NOT_ENABLED_RESULT;
 		}
 
 		const isEnabled = expValEquals('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true);
 
 		return { isEnabled };
-	}, [
-		isRovoChatEnabled,
-		extensionKey,
-		showHoverPreview,
-		supportsRovoActions,
-		url,
-		isRovoChatActionOptedIn,
-	]);
+	}, [isRovoChatEnabled, extensionKey, showHoverPreview, url, isRovoChatActionOptedIn]);
 };
 
 export default useInlineActionNudgeExperiment;

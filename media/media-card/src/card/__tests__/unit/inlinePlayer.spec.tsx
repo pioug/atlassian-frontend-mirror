@@ -584,5 +584,4 @@ describe('<InlinePlayer />', () => {
 			expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
 		});
 	});
-
 });

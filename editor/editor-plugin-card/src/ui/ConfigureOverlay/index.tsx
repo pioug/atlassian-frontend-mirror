@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 
 import { OverlayButton } from '@atlaskit/editor-common/link';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const ConfigureOverlayWrapperStyles = css({
@@ -42,36 +41,24 @@ const OverlayWrapper = ({
 		}
 	}, []);
 
+	const showOverlay = useCallback(() => {
+		setShowConfigureButton(true);
+		hoverCallback(true);
+	}, [hoverCallback]);
+
+	const hideOverlay = useCallback(() => {
+		if (!dropdownOpen) {
+			setShowConfigureButton(false);
+			hoverCallback(false);
+		}
+	}, [dropdownOpen, hoverCallback]);
+
 	return (
 		<span
-			onMouseEnter={() => {
-				setShowConfigureButton(true);
-				hoverCallback(true);
-			}}
-			onMouseLeave={() => {
-				if (!dropdownOpen) {
-					setShowConfigureButton(false);
-					hoverCallback(false);
-				}
-			}}
-			onFocus={
-				expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
-					? () => {
-							setShowConfigureButton(true);
-							hoverCallback(true);
-						}
-					: undefined
-			}
-			onBlur={
-				expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
-					? () => {
-							if (!dropdownOpen) {
-								setShowConfigureButton(false);
-								hoverCallback(false);
-							}
-						}
-					: undefined
-			}
+			onMouseEnter={showOverlay}
+			onMouseLeave={hideOverlay}
+			onFocus={showOverlay}
+			onBlur={hideOverlay}
 			data-testid="inline-card-overlay-wrapper"
 		>
 			<span css={ConfigureOverlayWrapperStyles}>

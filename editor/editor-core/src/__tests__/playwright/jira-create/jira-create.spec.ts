@@ -20,7 +20,7 @@ export const emptyDoc: {
 test.describe('Jira Create', () => {
 	test.describe('Full Page', () => {
 		test.use({
-			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 			adf: emptyDoc,
 			editorProps: {
 				appearance: 'full-page',

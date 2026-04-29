@@ -1,11 +1,11 @@
 import {
-    type BoundActions,
+	type BoundActions,
 	type ContainerComponent,
 	createContainer,
 	createHook,
 	createStore,
-    type HookFunction,
-    type Store,
+	type HookFunction,
+	type Store,
 } from 'react-sweet-state';
 import type { Observable } from 'rxjs/Observable';
 import { from } from 'rxjs/observable/from';
@@ -108,7 +108,10 @@ export const actions: Actions = {
 		},
 };
 
-export const store: Store<JqlAutocompleteStoreModel, Actions> = createStore<JqlAutocompleteStoreModel, Actions>({ initialState, actions });
+export const store: Store<JqlAutocompleteStoreModel, Actions> = createStore<
+	JqlAutocompleteStoreModel,
+	Actions
+>({ initialState, actions });
 
 /**
  * Exported to allow consumers to have multiple store instances with initial JQL data. Typically this is unnecessary as
@@ -116,37 +119,39 @@ export const store: Store<JqlAutocompleteStoreModel, Actions> = createStore<JqlA
  * if you want to mock different responses for each story.
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
-export const JQLAutocompleteContainer: ContainerComponent<{}> = createContainer<JqlAutocompleteStoreModel, Actions>(
-	store,
-);
+export const JQLAutocompleteContainer: ContainerComponent<{}> = createContainer<
+	JqlAutocompleteStoreModel,
+	Actions
+>(store);
 
-export const useJqlAutocompleteActions: HookFunction<void, BoundActions<JqlAutocompleteStoreModel, Actions>, void> = createHook<JqlAutocompleteStoreModel, Actions, void, void>(store, {
+export const useJqlAutocompleteActions: HookFunction<
+	void,
+	BoundActions<JqlAutocompleteStoreModel, Actions>,
+	void
+> = createHook<JqlAutocompleteStoreModel, Actions, void, void>(store, {
 	selector: null,
 });
 
-export const useJqlSearchableFieldsObservable: HookFunction<Observable<JQLFieldResponse>, BoundActions<JqlAutocompleteStoreModel, Actions>, void> = createHook<
-	JqlAutocompleteStoreModel,
-	Actions,
+export const useJqlSearchableFieldsObservable: HookFunction<
 	Observable<JQLFieldResponse>,
+	BoundActions<JqlAutocompleteStoreModel, Actions>,
 	void
->(store, {
+> = createHook<JqlAutocompleteStoreModel, Actions, Observable<JQLFieldResponse>, void>(store, {
 	selector: ({ jqlSearchableFields$ }) => jqlSearchableFields$,
 });
 
-export const useJqlOrderableFieldsObservable: HookFunction<Observable<JQLFieldResponse>, BoundActions<JqlAutocompleteStoreModel, Actions>, void> = createHook<
-	JqlAutocompleteStoreModel,
-	Actions,
+export const useJqlOrderableFieldsObservable: HookFunction<
 	Observable<JQLFieldResponse>,
+	BoundActions<JqlAutocompleteStoreModel, Actions>,
 	void
->(store, {
+> = createHook<JqlAutocompleteStoreModel, Actions, Observable<JQLFieldResponse>, void>(store, {
 	selector: ({ jqlOrderableFields$ }) => jqlOrderableFields$,
 });
 
-export const useJqlFunctionsObservable: HookFunction<Observable<JQLFunctionResponse>, BoundActions<JqlAutocompleteStoreModel, Actions>, void> = createHook<
-	JqlAutocompleteStoreModel,
-	Actions,
+export const useJqlFunctionsObservable: HookFunction<
 	Observable<JQLFunctionResponse>,
+	BoundActions<JqlAutocompleteStoreModel, Actions>,
 	void
->(store, {
+> = createHook<JqlAutocompleteStoreModel, Actions, Observable<JQLFunctionResponse>, void>(store, {
 	selector: ({ jqlFunctions$ }) => jqlFunctions$,
 });

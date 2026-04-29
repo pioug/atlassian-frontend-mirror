@@ -1,1 +1,1 @@
-export { WidthObserver } from '../WidthObserver/index';
+export { default as WidthObserver } from '../WidthObserver/index';

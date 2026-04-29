@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl';
 
 export const messages: {
-    restrictedProject: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    };
+	restrictedProject: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 } = defineMessages({
 	restrictedProject: {
 		id: 'jql-editor.plugins.rich-inline-nodes.project.restrictedProject',

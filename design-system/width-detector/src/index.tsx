@@ -1,2 +1,2 @@
 export { default } from './WidthDetector';
-export { WidthObserver } from './WidthObserver';
+export { default as WidthObserver } from './WidthObserver';

@@ -22,11 +22,15 @@ export const hiddenMixin: SerializedStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const TooltipContent: StyledComponent<{
-	as?: React.ElementType;
-	theme?: Theme;
-}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> =
+export const TooltipContent: StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+> =
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 	styled.div({
-	fontFamily: token('font.family.body'),
-});
+		fontFamily: token('font.family.body'),
+	});

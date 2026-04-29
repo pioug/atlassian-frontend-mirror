@@ -125,7 +125,7 @@ const Dropdown = ({
 									fireLinkClickEvent();
 								}}
 							/>
-					  )
+						)
 			}
 			testId={`${testId}-dropdown`}
 			onOpenChange={onOpenChange}

@@ -78,8 +78,7 @@ tester.run(`${RULE_NAME} — candidateRe post-rename shapes`, rule, {
 	valid: [
 		// bare shape: 00-id.AiMateXxx.tsx
 		{
-			filename:
-				'/workspace/packages/commerce/quote-line-items/integration-tests/test.spec.tsx',
+			filename: '/workspace/packages/commerce/quote-line-items/integration-tests/test.spec.tsx',
 			code: `await visitMockedExample<typeof import('../examples/00-mocked-sculptor.AiMateCommerceQuoteLineItems.tsx')>(page, 'commerce', 'quote-line-items', 'mocked-sculptor');`,
 		},
 		// role shape: 00-id.AiMateXxx.example.tsx
@@ -96,8 +95,7 @@ tester.run(`${RULE_NAME} — candidateRe post-rename shapes`, rule, {
 		},
 		// dup2 collision shape: 00-id.AiMateXxx.dup2.example.tsx
 		{
-			filename:
-				'/workspace/packages/commerce/quote-line-items-dup/integration-tests/test.spec.tsx',
+			filename: '/workspace/packages/commerce/quote-line-items-dup/integration-tests/test.spec.tsx',
 			code: `await visitMockedExample<typeof import('../examples/00-foo.AiMateCommerceQuoteLineItemsDup.dup2.example.tsx')>(page, 'commerce', 'quote-line-items-dup', 'foo');`,
 		},
 	],

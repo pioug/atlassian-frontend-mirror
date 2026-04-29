@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/flag",
-	"version": "17.10.0",
+	"version": "17.11.0",
 	"description": "A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction, often displayed using a flag group.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -51,6 +51,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
+		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
@@ -64,7 +65,8 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
 		"@babel/runtime": "root:*",
-		"@compiled/react": "root:*"
+		"@compiled/react": "root:*",
+		"bind-event-listener": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -79,6 +81,7 @@
 		"@atlaskit/radio": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
@@ -120,6 +123,9 @@
 			"type": "boolean"
 		},
 		"platform-dst-motion-uplift": {
+			"type": "boolean"
+		},
+		"platform_dst_flag_keyboard_dismiss": {
 			"type": "boolean"
 		}
 	}

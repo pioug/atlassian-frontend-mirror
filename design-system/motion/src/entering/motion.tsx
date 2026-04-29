@@ -311,13 +311,13 @@ const Motion: React.ForwardRefExoticComponent<
 		let customAnimation: CustomMotionXCSS | undefined;
 		if (state === 'entering') {
 			if (enteringAnimation) {
-				style.animation = enteringAnimation;
+				style.animation = `${enteringAnimation} backwards`;
 			} else if (enteringAnimationXcss) {
 				customAnimation = enteringAnimationXcss;
 			}
 		} else if (state === 'exiting') {
 			if (exitingAnimation) {
-				style.animation = exitingAnimation;
+				style.animation = `${exitingAnimation} forwards`;
 			} else if (exitingAnimationXcss) {
 				customAnimation = exitingAnimationXcss;
 			}

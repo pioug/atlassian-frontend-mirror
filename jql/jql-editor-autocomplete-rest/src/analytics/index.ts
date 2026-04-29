@@ -1,9 +1,17 @@
-import { ANALYTICS_CHANNEL, useJqlPackageAnalytics, type JqlAnalyticsEvent } from '@atlaskit/jql-editor-common';
+import {
+	ANALYTICS_CHANNEL,
+	useJqlPackageAnalytics,
+	type JqlAnalyticsEvent,
+} from '@atlaskit/jql-editor-common';
 
 import { type Action, type ActionSubject, type ActionSubjectId } from './types';
 
-export const useJqlEditorAutocompleteAnalytics = (analyticsSource: string): {
-    createAndFireAnalyticsEvent: (payload: JqlAnalyticsEvent<Action, ActionSubject, ActionSubjectId>) => void;
+export const useJqlEditorAutocompleteAnalytics = (
+	analyticsSource: string,
+): {
+	createAndFireAnalyticsEvent: (
+		payload: JqlAnalyticsEvent<Action, ActionSubject, ActionSubjectId>,
+	) => void;
 } => {
 	return useJqlPackageAnalytics<Action, ActionSubject, ActionSubjectId>(
 		analyticsSource,

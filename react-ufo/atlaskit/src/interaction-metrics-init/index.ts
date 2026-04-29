@@ -257,7 +257,10 @@ export function init(
 		};
 
 		postInteractionLog.initializeVCObserver(vcOptions);
-		if (config?.experimentalInteractionMetrics?.enabled) {
+		if (
+			!fg('platform_ufo_remove_experimental_holds') &&
+			config?.experimentalInteractionMetrics?.enabled
+		) {
 			experimentalVC.initialize(vcOptions).start({ startTime: 0 });
 		}
 
@@ -309,7 +312,10 @@ export function init(
 					if (config?.terminalErrors?.enabled && fg('platform_ufo_enable_terminal_errors')) {
 						sinkTerminalErrors(instance, createTerminalErrorPayloadPackage.default);
 					}
-					if (config?.experimentalInteractionMetrics?.enabled) {
+					if (
+						!fg('platform_ufo_remove_experimental_holds') &&
+						config?.experimentalInteractionMetrics?.enabled
+					) {
 						sinkExperimentalInteractionMetrics(instance, payloadPackage);
 					}
 					if (config.postInteractionLog?.enabled) {
@@ -333,7 +339,10 @@ export function init(
 						createTerminalErrorPayloadPackage.default,
 					);
 				}
-				if (config?.experimentalInteractionMetrics?.enabled) {
+				if (
+					!fg('platform_ufo_remove_experimental_holds') &&
+					config?.experimentalInteractionMetrics?.enabled
+				) {
 					sinkExperimentalInteractionMetrics(
 						awc as GenericAnalyticWebClientInstance,
 						payloadPackage,

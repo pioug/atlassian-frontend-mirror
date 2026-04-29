@@ -14,7 +14,6 @@ import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages
 import Heading from '@atlaskit/heading';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog';
 import { Text } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { Format } from './Format';
 import ModalFooter from './ModalFooter';
@@ -30,7 +29,6 @@ interface ModalContentProps {
 export const ModalContent = ({ formatting, onClose }: ModalContentProps): jsx.JSX.Element => {
 	const browser = getBrowserInfo();
 	const intl = useIntl();
-	const isA11yFixEnabled = expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true);
 	return (
 		<Fragment>
 			<ModalHeader onClose={onClose} />
@@ -38,8 +36,8 @@ export const ModalContent = ({ formatting, onClose }: ModalContentProps): jsx.JS
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={contentWrapper}
 				tabIndex={0}
-				role={isA11yFixEnabled ? 'region' : undefined}
-				aria-label={isA11yFixEnabled ? intl.formatMessage(messages.editorHelp) : undefined}
+				role={'region'}
+				aria-label={intl.formatMessage(messages.editorHelp)}
 			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<div css={line} />

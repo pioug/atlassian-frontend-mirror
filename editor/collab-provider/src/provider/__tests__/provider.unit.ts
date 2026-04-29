@@ -460,6 +460,53 @@ describe('Provider', () => {
 		});
 	});
 
+	describe('getInitPayload', () => {
+		it('Should return undefined before the provider has been initialised', () => {
+			const provider = createSocketIOCollabProvider(testProviderConfig);
+			expect(provider.getInitPayload()).toBeUndefined();
+		});
+
+		it('Should return the cached init payload after the channel emits init', () => {
+			const provider = createSocketIOCollabProvider(testProviderConfig);
+			provider.initialize(() => editorState);
+			channel.emit('connected', { sid: 'sid-123' });
+			channel.emit('init', {
+				doc: 'cached-doc',
+				version: 7,
+				userId: 'user-123',
+				metadata: { title: 'cached-title' },
+			});
+
+			expect(provider.getInitPayload()).toEqual({
+				doc: 'cached-doc',
+				version: 7,
+				metadata: { title: 'cached-title' },
+				caller: 'initHandler',
+			});
+		});
+
+		it('Should return the cached init payload from initialDraft (early init)', async () => {
+			const testProviderConfigWithDraft = {
+				initialDraft: {
+					document: 'early-init-doc' as any,
+					version: 3,
+					metadata: { title: 'early-init-title' },
+				},
+				...testProviderConfig,
+			};
+			const provider = createSocketIOCollabProvider(testProviderConfigWithDraft);
+			provider.initialize(() => editorState);
+			channel.emit('connected', { sid: 'sid-123', initialized: true });
+
+			expect(provider.getInitPayload()).toEqual({
+				doc: 'early-init-doc',
+				version: 3,
+				metadata: { title: 'early-init-title' },
+				caller: 'connectedHandler',
+			});
+		});
+	});
+
 	describe('presence', () => {
 		it('Should not emit empty joined or left presence', async () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);

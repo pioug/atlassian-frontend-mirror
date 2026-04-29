@@ -50,10 +50,7 @@ const isStyledCallExpression = (call: Rule.Node): boolean => {
 		return false;
 	}
 
-	if (
-		/^styled2?$/.test(call.callee.object.name) &&
-		elements.includes(call.callee.property.name)
-	) {
+	if (/^styled2?$/.test(call.callee.object.name) && elements.includes(call.callee.property.name)) {
 		return true;
 	}
 

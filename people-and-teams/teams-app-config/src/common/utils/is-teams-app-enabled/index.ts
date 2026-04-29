@@ -1,4 +1,5 @@
 import { isIsolatedCloud } from '@atlaskit/atlassian-context';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type NavigationActionCommon } from '../../types';
 
@@ -6,7 +7,7 @@ export function isTeamsAppEnabled(
 	_config?: Pick<NavigationActionCommon, 'userHasNav4Enabled' | 'hostProduct'>,
 ): boolean {
 	//  Hard kill switch for isolated cloud until Standalone directory is deployed
-	if (isIsolatedCloud()) {
+	if (isIsolatedCloud() && !fg('remove-ic-kill-switch-teams-app')) {
 		return false;
 	}
 

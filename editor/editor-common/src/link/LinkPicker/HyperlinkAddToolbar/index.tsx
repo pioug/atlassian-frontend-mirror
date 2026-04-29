@@ -16,8 +16,10 @@ import HyperlinkAddToolbarComp from './HyperlinkAddToolbar';
 
 const HYPERLINK_PROVIDERS: (keyof Providers)[] = ['activityProvider', 'searchProvider'];
 
-export interface HyperlinkAddToolbarProps
-	extends Pick<EditorLinkPickerProps, 'onCancel' | 'invokeMethod' | 'onClose'> {
+export interface HyperlinkAddToolbarProps extends Pick<
+	EditorLinkPickerProps,
+	'onCancel' | 'invokeMethod' | 'onClose'
+> {
 	displayText?: string;
 	displayUrl?: string;
 	editorAppearance?: EditorAppearance;
@@ -146,7 +148,7 @@ export function HyperlinkAddToolbar({
 	const providers = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
 		? HYPERLINK_PROVIDERS
 		: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
-		  (['activityProvider', 'searchProvider'] satisfies (keyof Providers)[]);
+			(['activityProvider', 'searchProvider'] satisfies (keyof Providers)[]);
 
 	return (
 		<WithProviders
@@ -156,7 +158,7 @@ export function HyperlinkAddToolbar({
 				expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
 					? memoizedRenderNode
 					: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
-					  ({ activityProvider, searchProvider }) => {
+						({ activityProvider, searchProvider }) => {
 							// If we're offline fallback to HyperlinkAddToolbarComp as we may not have loaded
 							// EditorLinkPicker into the bundle
 							if (lpLinkPicker && !Boolean(isOffline)) {
@@ -197,7 +199,7 @@ export function HyperlinkAddToolbar({
 									timesViewed={timesViewed}
 								/>
 							);
-					  }
+						}
 			}
 		/>
 	);

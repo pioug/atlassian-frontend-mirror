@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 44.3.19
+
+### Patch Changes
+
+- [`041a640067ec8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/041a640067ec8) -
+  [ux] Fix typo in an unauth hover card content
+- Updated dependencies
+
+## 44.3.18
+
+### Patch Changes
+
+- [`3c706ac2f9b52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c706ac2f9b52) -
+  [ux] Opt Google into 640 experiment with AI actions and CTA. Change RovoActions check to an
+  allowlist of extensionkeys
+
+## 44.3.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.3.16
 
 ### Patch Changes

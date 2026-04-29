@@ -85,12 +85,12 @@ const createHoverCardRovoChatAction = (provider: 'google' | 'slack') => {
 };
 
 export const HoverCardRovoChatActionGoogle: {
-    (): React.JSX.Element;
-    displayName: string;
+	(): React.JSX.Element;
+	displayName: string;
 } = createHoverCardRovoChatAction('google');
 export const HoverCardRovoChatActionSlack: {
-    (): React.JSX.Element;
-    displayName: string;
+	(): React.JSX.Element;
+	displayName: string;
 } = createHoverCardRovoChatAction('slack');
 
 export default HoverCardRovoChatActionGoogle;

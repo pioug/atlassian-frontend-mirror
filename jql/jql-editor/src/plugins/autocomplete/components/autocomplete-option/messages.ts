@@ -1,15 +1,16 @@
 import { defineMessages } from 'react-intl';
 
 export const messages: {
-    deprecatedFieldTooltipDefaultMessage: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; deprecatedFieldTooltipParentReplacementMessage: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    };
+	deprecatedFieldTooltipDefaultMessage: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deprecatedFieldTooltipParentReplacementMessage: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 } = defineMessages({
 	deprecatedFieldTooltipDefaultMessage: {
 		id: 'jql-editor.plugins.autocomplete.autocomplete-option.deprecated-tooltip.default',

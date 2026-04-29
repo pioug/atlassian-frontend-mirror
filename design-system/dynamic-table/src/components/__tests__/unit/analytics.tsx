@@ -6,7 +6,8 @@ import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import DynamicTable from '../../stateless';
 
-import { headMock1, rows } from './_data';
+import { rows } from './_data';
+import { headMock1 } from './_head-mock';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DynamicTable', () => {

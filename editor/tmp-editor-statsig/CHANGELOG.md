@@ -1,5 +1,49 @@
 # @atlaskit/editor-statsig-tmp
 
+## 72.1.0
+
+### Minor Changes
+
+- [`fb1ec78192b09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb1ec78192b09) -
+  Cleanup platform_editor_ai_update_actioned_event_timeout experiment - keep enabled path (30s
+  actioned-event delay, no delayed 20s/30s events)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.0.0
+
+### Major Changes
+
+- [`d94df511393a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d94df511393a9) -
+  Removing FG platform_editor_a11y_eslint_fix
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.1.0
+
+### Minor Changes
+
+- [`251c0e140edf6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/251c0e140edf6) -
+  [EDITOR-6540] AI-mate error screen dismissal incorrectly triggers discard confirmation, bug fix.
+
+## 71.0.1
+
+### Patch Changes
+
+- [`0281a1c2161a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0281a1c2161a9) -
+  [ux] cleanup platform_editor_table_remove_last_cell_decoration
+
+## 71.0.0
+
+### Major Changes
+
+- [`c90e53d27bbe9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c90e53d27bbe9) -
+  Re-use maui experiment for Jira
+
 ## 70.6.0
 
 ### Minor Changes

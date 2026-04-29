@@ -190,7 +190,8 @@ export const previewScaleTable = (
 	}
 
 	const shouldUseIncreasedScalingPercent =
-		isTableScalingWithFixedColumnWidthsOptionEnabled || (isTableScalingEnabled && isCommentOrChromelessEditor);
+		isTableScalingWithFixedColumnWidthsOptionEnabled ||
+		(isTableScalingEnabled && isCommentOrChromelessEditor);
 
 	const resizeState = parentWidth
 		? scaleWithParent(

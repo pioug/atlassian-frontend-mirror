@@ -9,8 +9,22 @@ import Spinner from '@atlaskit/spinner';
 import DynamicTable, { DynamicTableStateless } from '../../../index';
 import { type RowCellType, type RowType } from '../../../types';
 
-import { headMock1, rows, rowsWithKeys, secondSortKey } from './_data';
-import { headNumeric, rowsNumeric } from './_data-numeric';
+import { rows, rowsWithKeys } from './_data';
+import rowsNumeric from './_data-numeric-json.json';
+import { headMock1 } from './_head-mock';
+
+const headNumeric: {
+	cells: {
+		key: string;
+		content: string;
+		isSortable: boolean;
+	}[];
+} = {
+	cells: [
+		{ key: 'first_name', content: 'first name', isSortable: true },
+		{ key: 'numeric', content: 'Arbitrary numeric', isSortable: true },
+	],
+};
 
 jest.mock('@atlaskit/spinner', () => {
 	const actual = jest.requireActual('@atlaskit/spinner');
@@ -507,7 +521,7 @@ describe('@atlaskit/dynamic-table', () => {
 					head={headMock1}
 					rows={rows}
 					sortOrder="DESC"
-					sortKey={secondSortKey}
+					sortKey="last_name"
 					testId={testId}
 				/>,
 			);

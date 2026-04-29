@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-ssr-renderer",
-	"version": "5.1.5",
+	"version": "5.1.7",
 	"description": "SSR Renderer based on Editor",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {

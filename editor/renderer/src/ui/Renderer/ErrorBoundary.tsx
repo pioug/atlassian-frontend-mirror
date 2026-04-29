@@ -93,7 +93,14 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 		}
 	}
 
-	render(): string | number | boolean | Iterable<React.ReactNode> | React.JSX.Element | null | undefined {
+	render():
+		| string
+		| number
+		| boolean
+		| Iterable<React.ReactNode>
+		| React.JSX.Element
+		| null
+		| undefined {
 		if (this.state.domError) {
 			const key = expValEquals(
 				'platform_editor_renderer_error_boundary_stable_key',

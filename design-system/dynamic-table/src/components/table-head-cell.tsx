@@ -12,7 +12,6 @@ import { Box, Flex, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import { ASC } from '../internal/constants';
 import { HeadCell } from '../styled/head-cell';
 import { type SortOrderType } from '../types';
 
@@ -144,7 +143,7 @@ const TableHeadCell: FC<TableHeadCellProps> = ({
 			onFocus={handleFocus}
 			onBlur={handleBlur}
 		>
-			<Tooltip content={sortOrder === ASC ? ascendingSortTooltip : descendingSortTooltip}>
+			<Tooltip content={sortOrder === 'ASC' ? ascendingSortTooltip : descendingSortTooltip}>
 				<Pressable
 					onClick={onClick}
 					xcss={styles.buttonWrapper}
@@ -163,7 +162,7 @@ const TableHeadCell: FC<TableHeadCellProps> = ({
 								isSortIconVisible ? styles.sortIconVisibleWrapper : styles.sortIconHiddenWrapper
 							}
 						>
-							{sortOrder === ASC ? (
+							{sortOrder === 'ASC' ? (
 								<ArrowUpIcon
 									label=""
 									color={token('color.text.subtle')}

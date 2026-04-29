@@ -9,7 +9,9 @@ import { EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 
 import RendererActions from '../../actions/index';
 
-export const RendererContext: React.Context<RendererActions> = React.createContext(new RendererActions());
+export const RendererContext: React.Context<RendererActions> = React.createContext(
+	new RendererActions(),
+);
 
 type RendererActionsContextProps = PropsWithChildren<{
 	context?: RendererActions;
@@ -51,4 +53,5 @@ export function RendererActionsContext({
 	);
 }
 
-export const RendererActionsContextConsumer: React.Consumer<RendererActions> = RendererContext.Consumer;
+export const RendererActionsContextConsumer: React.Consumer<RendererActions> =
+	RendererContext.Consumer;

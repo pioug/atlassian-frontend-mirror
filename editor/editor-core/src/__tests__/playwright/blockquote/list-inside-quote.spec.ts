@@ -36,14 +36,14 @@ skipAutoA11yFile();
 
 test.describe('List inside a blockquote', () => {
 	test.use({
-		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 		editorProps: {
 			appearance: 'full-page',
 		},
 	});
 	test.describe('List in a non-nested blockquote', () => {
 		test.use({
-			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 			adf: blockquoteAdf,
 		});
 
@@ -73,7 +73,7 @@ test.describe('List inside a blockquote', () => {
 
 		[true, false].forEach((flexibleListIndentation) => {
 			test.use({
-				exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+				exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 				editorExperiments: {
 					platform_editor_flexible_list_indentation: flexibleListIndentation,
 					platform_editor_flexible_list_schema: flexibleListIndentation,
@@ -104,7 +104,7 @@ test.describe('List inside a blockquote', () => {
 
 	test.describe('List inside a blockquote nested in a table', () => {
 		test.use({
-			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 			adf: blockquoteInsideTableAdf,
 			editorProps: {
 				allowTables: true,
@@ -122,7 +122,7 @@ test.describe('List inside a blockquote', () => {
 
 	test.describe('List inside a blockquote nested in an expand', () => {
 		test.use({
-			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 			adf: blockquoteInsideExpandAdf,
 			editorProps: {
 				allowExpand: true,
@@ -141,7 +141,7 @@ test.describe('List inside a blockquote', () => {
 
 	test.describe('Media inside list within a blockquote', () => {
 		test.use({
-			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 			adf: blockquoteAdf,
 			editorProps: {
 				appearance: 'full-page',
@@ -172,7 +172,7 @@ test.describe('List inside a blockquote', () => {
 
 test.describe('quick-insert: numbered list', () => {
 	test.use({
-		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 		adf: numberedListDocument,
 	});
 
@@ -237,7 +237,7 @@ test.describe('quick-insert: numbered list', () => {
 
 test.describe('quick-insert: nested numbered list', () => {
 	test.use({
-		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 		adf: nestedNumberedListDocument,
 	});
 

@@ -12,7 +12,6 @@ import {
 } from 'react';
 import { css, jsx } from '@compiled/react';
 import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import {
 	type WithAnalyticsEventsProps,
 	type CreateUIAnalyticsEvent,
@@ -130,32 +129,12 @@ class StatusInternal extends PureComponent<Props, any> {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="status-lozenge-span"
 				onClick={onClick}
-				onKeyDown={
-					expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
-						? onClick
-							? this.handleKeyDown
-							: undefined
-						: undefined
-				}
+				onKeyDown={onClick ? this.handleKeyDown : undefined}
 				onMouseEnter={this.handleMouseEnter}
 				onMouseLeave={this.handleMouseLeave}
-				onFocus={
-					expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
-						? this.handleFocus
-						: undefined
-				}
-				onBlur={
-					expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
-						? this.handleBlur
-						: undefined
-				}
-				tabIndex={
-					expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
-						? onClick
-							? -1
-							: undefined
-						: undefined
-				}
+				onFocus={this.handleFocus}
+				onBlur={this.handleBlur}
+				tabIndex={onClick ? -1 : undefined}
 				data-node-type="status"
 				data-color={color}
 				data-style={style}

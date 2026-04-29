@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl';
 
 export const messages: {
-    jqlErrorPosition: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    };
+	jqlErrorPosition: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 } = defineMessages({
 	jqlErrorPosition: {
 		id: 'jql-editor.ui.jql-validation-message.jql-error-position',

@@ -6,13 +6,13 @@ import { type AnalyticsPayload } from '../types';
 export const ANALYTICS_CHANNEL = 'media';
 
 export const context: {
-    componentName: string;
-    packageName: string;
-    packageVersion: string;
+	componentName: string;
+	packageName: string;
+	packageVersion: string;
 } = {
 	componentName: 'smart-cards',
-	packageName: process.env._PACKAGE_NAME_,
-	packageVersion: process.env._PACKAGE_VERSION_,
+	packageName: process.env._PACKAGE_NAME_ || '',
+	packageVersion: process.env._PACKAGE_VERSION_ || '',
 };
 
 export enum TrackQuickActionType {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import noop from '@atlaskit/ds-lib/noop';
@@ -175,9 +175,7 @@ describe('Flag', () => {
 		});
 
 		describe('flag actions', () => {
-			it('onDismissed should be called with flag id as param when dismiss icon clicked', async () => {
-				const user = userEvent.setup();
-
+			it('onDismissed should be called with flag id as param when dismiss icon clicked', () => {
 				const spy = jest.fn();
 				render(
 					<FlagGroup onDismissed={spy}>
@@ -188,7 +186,12 @@ describe('Flag', () => {
 					</FlagGroup>,
 				);
 
-				await user.click(screen.getByTestId('flag-test-dismiss'));
+				// Use fireEvent rather than userEvent because @atlaskit/button/new's
+				// IconButton renders with pointer-events: none in the jsdom test
+				// environment (a Compiled CSS injection issue), which causes
+				// userEvent.click to throw. fireEvent bypasses this check and is
+				// sufficient here since we only care that the callback is invoked.
+				fireEvent.click(screen.getByTestId('flag-test-dismiss'));
 
 				expect(spy).toHaveBeenCalledTimes(1);
 				expect(spy).toHaveBeenCalledWith('a', expect.anything());

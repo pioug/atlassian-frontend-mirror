@@ -1,5 +1,19 @@
 # @atlaskit/editor-extension-dropbox
 
+## 8.0.11
+
+### Patch Changes
+
+- [`d94df511393a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d94df511393a9) -
+  Removing FG platform_editor_a11y_eslint_fix
+- Updated dependencies
+
+## 8.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.9
 
 ### Patch Changes

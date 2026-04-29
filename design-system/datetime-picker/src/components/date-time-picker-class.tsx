@@ -18,8 +18,8 @@ import SelectClearIcon from '@atlaskit/icon/core/cross-circle';
 import { mergeStyles, type StylesConfig } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
-import { formatDateTimeZoneIntoIso } from '../internal';
 import { DateTimePickerContainer } from '../internal/date-time-picker-container';
+import { formatDateTimeZoneIntoIso } from '../internal/format-date-time-zone-into-iso';
 import { convertTokens } from '../internal/parse-tokens';
 import { type DateTimePickerBaseProps } from '../types';
 
@@ -97,9 +97,6 @@ const dateTimePickerDefaultProps: DateTimePickerBaseProps = {
 	// Not including a default prop for value as it will
 	// Make the component a controlled component
 };
-
-export const datePickerDefaultAriaLabel = 'Date';
-export const timePickerDefaultAriaLabel = 'Time';
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, State> {
@@ -282,7 +279,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 
 		const datePickerSelectProps = datePickerProps?.selectProps;
 		const datePickerAriaDescribedBy = datePickerProps['aria-describedby'] || ariaDescribedBy;
-		const datePickerLabel = datePickerProps.label || datePickerDefaultAriaLabel;
+		const datePickerLabel = datePickerProps.label || 'Date';
 
 		const mergedDatePickerSelectProps = {
 			...datePickerSelectProps,
@@ -291,7 +288,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 
 		const timePickerSelectProps = timePickerProps?.selectProps;
 		const timePickerAriaDescribedBy = timePickerProps['aria-describedby'] || ariaDescribedBy;
-		const timePickerLabel = timePickerProps.label || timePickerDefaultAriaLabel;
+		const timePickerLabel = timePickerProps.label || 'Time';
 
 		const mergedTimePickerSelectProps = {
 			...timePickerSelectProps,

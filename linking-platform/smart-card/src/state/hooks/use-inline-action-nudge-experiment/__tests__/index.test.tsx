@@ -74,13 +74,6 @@ describe('useInlineActionNudgeExperiment', () => {
 		expect(result.current.isEnabled).toBe(false);
 	});
 
-	it('returns isEnabled=false when extensionKey is google-object-provider', () => {
-		const result = renderHook(() => useInlineActionNudgeExperiment(mockUrl), {
-			wrapper: wrapper(enabledRovoOptions, 'google-object-provider'),
-		});
-		expect(result.current.isEnabled).toBe(false);
-	});
-
 	it('returns isEnabled=false when showHoverPreview is false', () => {
 		const result = renderHook(() => useInlineActionNudgeExperiment(mockUrl, false), {
 			wrapper: wrapper(enabledRovoOptions, 'slack-object-provider'),
@@ -108,11 +101,21 @@ describe('useInlineActionNudgeExperiment', () => {
 				expect(result.current.isEnabled).toBe(true);
 			});
 
-			it('returns isEnabled=true for non-excluded extensionKeys', () => {
+			it('returns isEnabled=true for eligible extensionKeys', () => {
 				const result = renderHook(
 					() => useInlineActionNudgeExperiment(mockUrl, true, optedInActionOptions),
 					{
-						wrapper: wrapper(enabledRovoOptions, 'confluence-object-provider'),
+						wrapper: wrapper(enabledRovoOptions, 'onedrive-object-provider'),
+					},
+				);
+				expect(result.current.isEnabled).toBe(true);
+			});
+
+			it('returns isEnabled=true for google-object-provider', () => {
+				const result = renderHook(
+					() => useInlineActionNudgeExperiment(mockUrl, true, optedInActionOptions),
+					{
+						wrapper: wrapper(enabledRovoOptions, 'google-object-provider'),
 					},
 				);
 				expect(result.current.isEnabled).toBe(true);

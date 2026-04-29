@@ -3,11 +3,13 @@
  * @jsx jsx
  */
 
-import { Children, createContext, type ReactElement, useContext, useMemo } from 'react';
+import { Children, type ReactElement, useEffect, useMemo, useRef } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
+import { bind } from 'bind-event-listener';
 
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { getDocument } from '@atlaskit/browser-apis';
 import { cssMap as cssMapAK, cx } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import { ExitingPersistence, SlideIn, Motion } from '@atlaskit/motion';
@@ -17,6 +19,9 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
+
+import { defaultFlagGroupContext } from './internal/default-flag-group-context';
+import { FlagGroupContext, type FlagGroupAPI } from './internal/flag-group-context';
 
 type FlagGroupProps = {
 	/**
@@ -51,25 +56,6 @@ type FlagGroupProps = {
 };
 
 export const flagWidth = 400;
-
-type FlagGroupAPI = {
-	onDismissed: (id: number | string, analyticsEvent: UIAnalyticsEvent) => void;
-	isDismissAllowed: boolean;
-};
-
-const defaultFlagGroupContext = {
-	onDismissed: noop,
-	isDismissAllowed: false,
-};
-
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const FlagGroupContext: import('react').Context<FlagGroupAPI> =
-	createContext<FlagGroupAPI>(defaultFlagGroupContext);
-
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
-export function useFlagGroup(): FlagGroupAPI {
-	return useContext(FlagGroupContext);
-}
 
 // transition: none is set on first-of-type to prevent a bug in Firefox
 // that causes a broken transition
@@ -181,6 +167,67 @@ const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 		[onDismissed],
 	);
 
+	// Keep a stable reference to the latest children, dismiss handler, and
+	// analytics creator so the keydown listener never reads stale closures.
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const latestRef = useRef<{
+		children: FlagGroupProps['children'];
+		onDismissed: FlagGroupProps['onDismissed'];
+		createAnalyticsEvent: typeof createAnalyticsEvent;
+	}>({ children, onDismissed, createAnalyticsEvent });
+	latestRef.current = { children, onDismissed, createAnalyticsEvent };
+
+	// Accessibility (JRACLOUD-97876): allow keyboard-only and assistive
+	// technology users to dismiss the topmost (and only dismissable) flag with
+	// the Escape key, without having to tab through the entire page to reach
+	// the dismiss button. Behaviour is gated behind a feature flag so it can
+	// be rolled out and validated incrementally.
+	useEffect(() => {
+		if (!fg('platform_dst_flag_keyboard_dismiss')) {
+			return;
+		}
+		if (!hasFlags) {
+			return;
+		}
+
+		const doc = getDocument();
+		if (!doc) {
+			return;
+		}
+
+		return bind(doc, {
+			type: 'keydown',
+			listener: (event: KeyboardEvent) => {
+				if (event.key !== 'Escape' || event.defaultPrevented) {
+					return;
+				}
+
+				const currentChildren = latestRef.current.children;
+				const firstFlag = Array.isArray(currentChildren)
+					? currentChildren.find(Boolean)
+					: currentChildren;
+
+				if (!firstFlag || typeof firstFlag !== 'object') {
+					return;
+				}
+
+				const id = (firstFlag as ReactElement).props?.id;
+				if (id === undefined || id === null || id === '') {
+					return;
+				}
+
+				const analyticsEvent = latestRef.current.createAnalyticsEvent({
+					action: 'dismissed',
+					actionSubject: 'flag',
+					attributes: { dismissedVia: 'keyboardShortcut', key: 'Escape' },
+				});
+
+				event.preventDefault();
+				latestRef.current.onDismissed?.(id, analyticsEvent);
+			},
+		});
+	}, [hasFlags]);
+
 	const renderChildren = () => {
 		return children && typeof children === 'object'
 			? Children.map(children, (flag: ReactElement, index: number) => {
@@ -249,12 +296,18 @@ const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 			: false;
 	};
 
+	const isKeyboardDismissEnabled = fg('platform_dst_flag_keyboard_dismiss');
+	// When the keyboard dismiss shortcut is available, surface it to assistive
+	// technology users via the existing visually-hidden landmark heading so they
+	// know they can press Escape to dismiss the topmost flag.
+	const screenReaderLabel = isKeyboardDismissEnabled ? `${label}. Press Escape to dismiss.` : label;
+
 	const flags = (
 		<div id={id} css={flagGroupContainerStyles} data-vc-oob>
 			{hasFlags ? (
 				<VisuallyHidden>
 					{/* @ts-ignore - TS2604/TS2786: LabelTag type union causing issues for help-center local consumption with TS 5.9.2 */}
-					<LabelTag>{label}</LabelTag>
+					<LabelTag>{screenReaderLabel}</LabelTag>
 				</VisuallyHidden>
 			) : null}
 

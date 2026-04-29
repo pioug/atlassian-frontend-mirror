@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-paste
 
+## 11.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.0
+
+### Minor Changes
+
+- [`da0f71ae99150`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da0f71ae99150) -
+  Add other MS product like AzureDevops and Power BI to render as SmartLinks
+
+## 11.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.12
+
+### Patch Changes
+
+- [`c5778756509ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5778756509ab) -
+  EDITOR-5011 Show paste warning for synced blocks in unsupported products
+
 ## 11.0.11
 
 ### Patch Changes

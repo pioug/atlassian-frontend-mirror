@@ -96,9 +96,7 @@ export const EmojiRadioButton: React.ForwardRefExoticComponent<
 	const { emoji, selectOnHover, ariaLabelText, defaultChecked } = props;
 
 	return (
-		<label
-			css={emojiButton}
-		>
+		<label css={emojiButton}>
 			<VisuallyHidden>{ariaLabelText}</VisuallyHidden>
 			{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
 			<input

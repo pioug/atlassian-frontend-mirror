@@ -125,7 +125,12 @@ const enableNewDomainCheckToImproveSmartLinkResolveRate = (hostname: string): bo
 			// MS Teams links
 			hostname.endsWith('teams.live.com') ||
 			hostname.endsWith('teams.cloud.microsoft') ||
-			hostname.endsWith('teams.microsoft.com'))
+			hostname.endsWith('teams.microsoft.com') ||
+			// MS Power BI
+			hostname.endsWith('powerbi.com') ||
+			// MS Azure devops
+			hostname.endsWith('dev.azure.com') ||
+			hostname.endsWith('visualstudio.com'))
 	);
 };
 
@@ -455,7 +460,10 @@ export function createPlugin(
 
 				slice = handleVSCodeBlock({ state, slice, event, text });
 
-				if (editorExperiment('platform_synced_block', true) || fg('platform_synced_block_unsupported_products')) {
+				if (
+					editorExperiment('platform_synced_block', true) ||
+					fg('platform_synced_block_unsupported_products')
+				) {
 					slice = handleSyncBlocksPaste(
 						slice,
 						schema,

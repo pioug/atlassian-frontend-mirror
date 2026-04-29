@@ -16,8 +16,8 @@ type Props = {
 };
 
 export const RangeValidator: {
-    (props: Props): React.JSX.Element | null;
-    displayName: string;
+	(props: Props): React.JSX.Element | null;
+	displayName: string;
 } = (props: Props): React.JSX.Element | null => {
 	const { component, rendererRef, createAnalyticsEvent } = props;
 	const actions = useContext(ActionsContext);

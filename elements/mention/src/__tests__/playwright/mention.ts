@@ -1,7 +1,13 @@
 import { test as baseTest, type Locator, type Page } from '@af/integration-testing';
 import type { PlaywrightCoverageOptions } from '@af/integration-testing/fixtures';
 import { PageRequestController } from '@af/search-test-utils/PageRequestController';
-import type { TestType, PlaywrightTestArgs, PlaywrightTestOptions, PlaywrightWorkerArgs, PlaywrightWorkerOptions } from 'playwright/test';
+import type {
+	TestType,
+	PlaywrightTestArgs,
+	PlaywrightTestOptions,
+	PlaywrightWorkerArgs,
+	PlaywrightWorkerOptions,
+} from 'playwright/test';
 
 const Selectors = {
 	MENTION_LIST_ITEM: '[data-mention-item]',
@@ -52,9 +58,14 @@ type MentionTest = {
 	mention: Mention;
 };
 
-export const test: TestType<PlaywrightTestArgs & PlaywrightTestOptions & {
-    skipAxeCheck: () => void;
-} & PlaywrightCoverageOptions & MentionTest, PlaywrightWorkerArgs & PlaywrightWorkerOptions> = baseTest.extend<MentionTest>({
+export const test: TestType<
+	PlaywrightTestArgs &
+		PlaywrightTestOptions & {
+			skipAxeCheck: () => void;
+		} & PlaywrightCoverageOptions &
+		MentionTest,
+	PlaywrightWorkerArgs & PlaywrightWorkerOptions
+> = baseTest.extend<MentionTest>({
 	mention: async ({ page }, use) => {
 		const mention = new Mention(page);
 		await use(mention);

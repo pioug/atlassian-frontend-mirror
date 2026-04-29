@@ -1,5 +1,13 @@
 # @atlaskit/avatar
 
+## 25.14.1
+
+### Patch Changes
+
+- [`0b2913c48cd7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b2913c48cd7a) -
+  Fix hexagon avatar hover scaling: apply motion scale transform to the outermost hexagon wrapper so
+  the border and content scale together, instead of only the inner content scaling.
+
 ## 25.14.0
 
 ### Minor Changes

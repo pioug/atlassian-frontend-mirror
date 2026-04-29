@@ -1,5 +1,20 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.17.0
+
+### Minor Changes
+
+- [`d6c4c4f7f3336`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6c4c4f7f3336) -
+  Gate-remove experimental holds and experimental interaction metrics payload behind
+  platform_ufo_remove_experimental_holds feature gate
+
+## 5.16.3
+
+### Patch Changes
+
+- [`47eaa72a51569`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47eaa72a51569) -
+  Clean up platform_ufo_3p_forge_detection_fix feature gate
+
 ## 5.16.2
 
 ### Patch Changes

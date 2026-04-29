@@ -3,7 +3,39 @@ import type { Node as ESTreeNode } from 'estree';
 
 import { createLintRule } from '../utils/create-rule';
 
-export const rule: import('eslint').Rule.RuleModule = createLintRule({
+type Options = [{ allowPrimitiveExports?: boolean }?];
+
+/**
+ * Returns true if the variable declarator's initializer is a primitive literal
+ * (string, number, boolean, template literal, or null/undefined).
+ */
+function isPrimitiveLiteral(declarator: TSESTree.VariableDeclarator): boolean {
+	const init = declarator.init;
+	if (init == null) {
+		return false;
+	}
+	if (init.type === AST_NODE_TYPES.Literal) {
+		return (
+			typeof (init as TSESTree.Literal).value === 'string' ||
+			typeof (init as TSESTree.Literal).value === 'number' ||
+			typeof (init as TSESTree.Literal).value === 'boolean' ||
+			(init as TSESTree.Literal).value === null
+		);
+	}
+	if (init.type === AST_NODE_TYPES.TemplateLiteral) {
+		return true;
+	}
+	// undefined is represented as an Identifier named "undefined"
+	if (
+		init.type === AST_NODE_TYPES.Identifier &&
+		(init as TSESTree.Identifier).name === 'undefined'
+	) {
+		return true;
+	}
+	return false;
+}
+
+const rule: import('eslint').Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-multiple-exports',
 		docs: {
@@ -16,9 +48,25 @@ export const rule: import('eslint').Rule.RuleModule = createLintRule({
 			'no-multiple-exports':
 				'Volt Strict Mode allows only one runtime export per file. Split additional exports into separate modules. `export type` / `export interface` for types are exempt.',
 		},
+		schema: [
+			{
+				type: 'object',
+				properties: {
+					allowPrimitiveExports: {
+						type: 'boolean',
+						description:
+							'When true, multiple exports of primitive values (strings, numbers, booleans) are allowed. Only complex exports like functions and components are restricted to one per file.',
+					},
+				},
+				additionalProperties: false,
+			},
+		],
 		type: 'problem',
 	},
 	create(context) {
+		const options = (context.options as Options)[0] ?? {};
+		const allowPrimitiveExports = options.allowPrimitiveExports ?? false;
+
 		return {
 			Program(node) {
 				const parts: ESTreeNode[] = [];
@@ -55,6 +103,12 @@ export const rule: import('eslint').Rule.RuleModule = createLintRule({
 
 						if (decl.type === AST_NODE_TYPES.VariableDeclaration) {
 							for (const declarator of decl.declarations) {
+								if (
+									allowPrimitiveExports &&
+									isPrimitiveLiteral(declarator as TSESTree.VariableDeclarator)
+								) {
+									continue;
+								}
 								parts.push(declarator as ESTreeNode);
 							}
 						} else {

@@ -31,7 +31,10 @@ export class DeleteUserContentPreviewScreen extends React.Component<
 		return position === this.state.currentActive;
 	};
 
-	selectAdminOrSelfCopy = (adminCopy: MessageDescriptor, selfCopy: MessageDescriptor): MessageDescriptor => {
+	selectAdminOrSelfCopy = (
+		adminCopy: MessageDescriptor,
+		selfCopy: MessageDescriptor,
+	): MessageDescriptor => {
 		return this.props.isCurrentUser ? selfCopy : adminCopy;
 	};
 

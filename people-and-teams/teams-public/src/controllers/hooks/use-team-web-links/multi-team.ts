@@ -316,10 +316,9 @@ export const actions = {
 			});
 		},
 
-		fetchWebLinkTitle:
-			(url: string) =>
-			async ({ setState }: StoreApi<TeamWebLinksState>): Promise<string | undefined> => {
-
+	fetchWebLinkTitle:
+		(url: string) =>
+		async ({ setState }: StoreApi<TeamWebLinksState>): Promise<string | undefined> => {
 			if (!url) {
 				return undefined;
 			}
@@ -363,13 +362,36 @@ export const useTeamWebLinks = (teamId: string): [TeamWebLinksStateType, typeof 
 	];
 };
 
-export const useTeamWebLinksActions: HookFunction<TeamWebLinksState, BoundActions<TeamWebLinksState, {
-    getTeamWebLinks: (teamId: string) => ({ getState, setState, dispatch }: StoreApi<TeamWebLinksState>) => Promise<void>;
-    getTeamWebLinkIcons: (teamId: string) => ({ getState, setState }: StoreApi<TeamWebLinksState>) => Promise<void>;
-    createTeamWebLink: (teamId: string, newLink: NewTeamWebLink) => ({ getState, setState, dispatch }: StoreApi<TeamWebLinksState>) => Promise<TeamLink>;
-    updateTeamWebLink: (teamId: string, linkId: string, newLink: NewTeamWebLink) => ({ getState, setState, dispatch }: StoreApi<TeamWebLinksState>) => Promise<TeamLink>;
-    removeWebLink: (teamId: string, linkId: string) => ({ getState, setState }: StoreApi<TeamWebLinksState>) => Promise<void>;
-	fetchWebLinkTitle: (url: string) => ({ setState }: StoreApi<TeamWebLinksState>) => Promise<string | undefined>;
+export const useTeamWebLinksActions: HookFunction<
+	TeamWebLinksState,
+	BoundActions<
+		TeamWebLinksState,
+		{
+			getTeamWebLinks: (
+				teamId: string,
+			) => ({ getState, setState, dispatch }: StoreApi<TeamWebLinksState>) => Promise<void>;
+			getTeamWebLinkIcons: (
+				teamId: string,
+			) => ({ getState, setState }: StoreApi<TeamWebLinksState>) => Promise<void>;
+			createTeamWebLink: (
+				teamId: string,
+				newLink: NewTeamWebLink,
+			) => ({ getState, setState, dispatch }: StoreApi<TeamWebLinksState>) => Promise<TeamLink>;
+			updateTeamWebLink: (
+				teamId: string,
+				linkId: string,
+				newLink: NewTeamWebLink,
+			) => ({ getState, setState, dispatch }: StoreApi<TeamWebLinksState>) => Promise<TeamLink>;
+			removeWebLink: (
+				teamId: string,
+				linkId: string,
+			) => ({ getState, setState }: StoreApi<TeamWebLinksState>) => Promise<void>;
+			fetchWebLinkTitle: (
+				url: string,
+			) => ({ setState }: StoreApi<TeamWebLinksState>) => Promise<string | undefined>;
 
-    initialState: () => ({ setState }: StoreApi<TeamWebLinksState>) => void;
-}>, void> = useTeamWebLinksHook;
+			initialState: () => ({ setState }: StoreApi<TeamWebLinksState>) => void;
+		}
+	>,
+	void
+> = useTeamWebLinksHook;

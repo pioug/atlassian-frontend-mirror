@@ -1,4 +1,3 @@
-
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { Command } from '@atlaskit/editor-common/types';
 import { pluginFactory } from '@atlaskit/editor-common/utils';
@@ -6,7 +5,6 @@ import type { EditorState, SafeStateField, Transaction } from '@atlaskit/editor-
 
 import { pluginKey } from './plugin-key';
 import type { StickyPluginAction, StickyPluginState } from './types';
-
 
 const reducer = (pluginState: StickyPluginState, action: StickyPluginAction): StickyPluginState => {
 	if (action.name === 'UPDATE') {
@@ -35,25 +33,31 @@ const reducer = (pluginState: StickyPluginState, action: StickyPluginAction): St
 };
 
 const dest = pluginFactory(pluginKey, reducer, {
-    mapping: (tr, pluginState) => {
-        if (tr.docChanged) {
-            return pluginState
-                .map((rowInfo) => {
-                    const remapped = tr.mapping.mapResult(rowInfo.pos);
-                    return remapped
-                        ? {
-                            ...rowInfo,
-                            pos: remapped.pos,
-                        }
-                        : undefined;
-                })
-                .filter((f) => f !== undefined) as StickyPluginState;
-        }
+	mapping: (tr, pluginState) => {
+		if (tr.docChanged) {
+			return pluginState
+				.map((rowInfo) => {
+					const remapped = tr.mapping.mapResult(rowInfo.pos);
+					return remapped
+						? {
+								...rowInfo,
+								pos: remapped.pos,
+							}
+						: undefined;
+				})
+				.filter((f) => f !== undefined) as StickyPluginState;
+		}
 
-        return pluginState;
-    },
+		return pluginState;
+	},
 });
-const createPluginState: (dispatch: Dispatch, initialState: StickyPluginState | ((state: EditorState) => StickyPluginState)) => SafeStateField<StickyPluginState> = dest.createPluginState;
-const createCommand: <A = StickyPluginAction>(action: A | ((state: Readonly<EditorState>) => false | A), transform?: (tr: Transaction, state: EditorState) => Transaction) => Command = dest.createCommand;
+const createPluginState: (
+	dispatch: Dispatch,
+	initialState: StickyPluginState | ((state: EditorState) => StickyPluginState),
+) => SafeStateField<StickyPluginState> = dest.createPluginState;
+const createCommand: <A = StickyPluginAction>(
+	action: A | ((state: Readonly<EditorState>) => false | A),
+	transform?: (tr: Transaction, state: EditorState) => Transaction,
+) => Command = dest.createCommand;
 
 export { createPluginState, createCommand };

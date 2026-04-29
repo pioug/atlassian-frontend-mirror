@@ -1,5 +1,26 @@
 # @atlaskit/profilecard
 
+## 25.1.14
+
+### Patch Changes
+
+- [`3f13070221110`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f13070221110) -
+  Clean up stale feature gate `rovo_dev_themed_identity_card`. The gated code path is now
+  permanently enabled.
+- Updated dependencies
+
+## 25.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.1.11
 
 ### Patch Changes

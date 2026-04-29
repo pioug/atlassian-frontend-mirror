@@ -11,7 +11,7 @@ export const getAutocompleteSuggestionsUrl = (field: string, query?: string) =>
 export const useFetchFieldValues = (
 	getSuggestions: GetAutocompleteSuggestions,
 	createAndFireAnalyticsEvent: (payload: JqlEditorAutocompleteAnalyticsEvent) => void,
-): (field: string, query?: string) => Promise<AutocompleteOptions> => {
+): ((field: string, query?: string) => Promise<AutocompleteOptions>) => {
 	return useCallback(
 		async (field: string, query?: string): Promise<AutocompleteOptions> => {
 			try {

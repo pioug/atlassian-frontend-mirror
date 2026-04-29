@@ -12,7 +12,7 @@ import { tableAdf, twoDatesAdf } from './full-page.spec.ts-fixtures/adf';
 
 test.describe('calendar', () => {
 	test.use({
-		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 		editorProps: {
 			appearance: 'full-page',
 			allowDate: true,
@@ -52,7 +52,7 @@ test.describe('calendar', () => {
 
 test.describe('calendar duo', () => {
 	test.use({
-		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 		editorProps: {
 			appearance: 'full-page',
 			allowDate: true,
@@ -86,7 +86,7 @@ test.describe('calendar duo', () => {
 
 test.describe('table', () => {
 	test.use({
-		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 		editorProps: {
 			appearance: 'full-page',
 			allowTables: true,
@@ -116,7 +116,7 @@ test.describe('table', () => {
 
 	test.describe('full page height', () => {
 		test.use({
-			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 			editorProps: {
 				appearance: 'full-page',
 				allowTables: true,

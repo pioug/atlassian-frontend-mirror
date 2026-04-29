@@ -11,7 +11,6 @@ import { css, jsx } from '@compiled/react';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
-import { LARGE } from '../internal/constants';
 import type { SpinnerSizeType } from '../types';
 
 const containerStyles = css({
@@ -90,7 +89,7 @@ export default class LoadingContainerAdvanced extends React.Component<
 		loadingLabel: string;
 	} = {
 		isLoading: true,
-		spinnerSize: LARGE,
+		spinnerSize: 'large',
 		contentsOpacity: token('opacity.loading'),
 		loadingLabel: 'Loading table',
 	};

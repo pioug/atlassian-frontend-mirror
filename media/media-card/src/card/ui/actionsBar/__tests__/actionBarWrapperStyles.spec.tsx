@@ -26,5 +26,4 @@ describe('Actions Bar Styles', () => {
 
 		expect(styles['opacity']).toBe('1');
 	});
-
 });

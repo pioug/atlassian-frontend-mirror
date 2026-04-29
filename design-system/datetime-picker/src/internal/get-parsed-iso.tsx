@@ -19,7 +19,7 @@
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import { lastDayOfMonth } from 'date-fns';
 
-import { padToTwo } from './index';
+import { padToTwo } from './pad-two';
 
 export const getParsedISO: (di: { iso: string }) => string = (di: { iso: string }): string => {
 	const { iso } = di;

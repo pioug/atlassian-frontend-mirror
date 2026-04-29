@@ -285,7 +285,11 @@ export function getPosFromRange(range: Range): { from: number; to: number } | fa
 	return { from, to };
 }
 
-export function createAnnotationStep(from: number, to: number, opts: AnnotationStepOptions): AddMarkStep {
+export function createAnnotationStep(
+	from: number,
+	to: number,
+	opts: AnnotationStepOptions,
+): AddMarkStep {
 	return new AddMarkStep(
 		Math.min(from, to),
 		Math.max(from, to),

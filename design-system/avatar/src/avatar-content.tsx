@@ -262,6 +262,7 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 				isInteractive && !isDisabled && unboundStyles.interactive,
 				isInteractive &&
 					!isDisabled &&
+					appearance !== 'hexagon' &&
 					fg('platform-dst-motion-uplift') &&
 					unboundStyles.interactiveMotion,
 				isDisabled && styles.disabled,
@@ -307,6 +308,10 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 				!fg('platform_dst_hexagon_avatar_unified_size') && marginAdjustmentMap[size],
 				fg('platform_dst_hexagon_avatar_unified_size') &&
 					unboundStyles.hexagonFocusContainerMarginFg,
+				isInteractive &&
+					!isDisabled &&
+					fg('platform-dst-motion-uplift') &&
+					unboundStyles.interactiveMotion,
 			]}
 			style={
 				{

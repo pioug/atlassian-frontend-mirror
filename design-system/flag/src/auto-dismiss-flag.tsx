@@ -5,7 +5,7 @@ import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatfor
 import noop from '@atlaskit/ds-lib/noop';
 
 import Flag from './flag';
-import { useFlagGroup } from './flag-group';
+import { useFlagGroup } from './internal/use-flag-group';
 import { type AutoDismissFlagProps } from './types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;

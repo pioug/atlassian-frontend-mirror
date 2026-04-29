@@ -10,8 +10,10 @@ export const useJqlPackageAnalytics = <Action, ActionSubject, ActionSubjectId>(
 	packageVersion: string,
 	analyticsChannel: string,
 ): {
-        createAndFireAnalyticsEvent: (payload: JqlAnalyticsEvent<Action, ActionSubject, ActionSubjectId>) => void;
-    } => {
+	createAndFireAnalyticsEvent: (
+		payload: JqlAnalyticsEvent<Action, ActionSubject, ActionSubjectId>,
+	) => void;
+} => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	const createAndFireAnalyticsEvent = useCallback(

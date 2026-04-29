@@ -183,7 +183,7 @@ const AgentProfileCard = ({
 	const isRovoDev = agent.creator_type === 'ROVO_DEV';
 
 	const shouldShowConversationStarters =
-		!(isRovoDev && fg('rovo_dev_themed_identity_card')) &&
+		!isRovoDev &&
 		!(fg('jira_ai_hide_conversation_starters_profilecard') && hideConversationStarters);
 
 	return (
@@ -200,7 +200,7 @@ const AgentProfileCard = ({
 					agentNamedId={agent.external_config_reference ?? agent.named_id}
 					height={48}
 					agentIdentityAccountId={agent.identity_account_id}
-					isRovoDev={isRovoDev && fg('rovo_dev_themed_identity_card')}
+					isRovoDev={isRovoDev}
 				/>
 				<Box xcss={styles.avatarStyles}>
 					<AgentAvatar
@@ -208,7 +208,7 @@ const AgentProfileCard = ({
 						agentNamedId={agent.external_config_reference ?? agent.named_id}
 						agentIdentityAccountId={agent.identity_account_id}
 						size="large"
-						isRovoDev={isRovoDev && fg('rovo_dev_themed_identity_card')}
+						isRovoDev={isRovoDev}
 						isForgeAgent={
 							fg('rovo_agent_support_a2a_avatar')
 								? isForgeAgentByCreatorType(agent.creator_type as AgentCreatorType)
@@ -224,7 +224,7 @@ const AgentProfileCard = ({
 							agentName={agent.name}
 							isStarred={isStarred}
 							onStarToggle={handleSetFavourite}
-							showStarButton={!(isRovoDev && fg('rovo_dev_themed_identity_card'))}
+							showStarButton={!isRovoDev}
 							isHidden={agent.visibility === 'PRIVATE'}
 							creatorRender={
 								agent.creatorInfo?.type && (
@@ -303,7 +303,7 @@ const AgentProfileCard = ({
 						</Box>
 					)}
 				</Stack>
-				{!(isRovoDev && fg('rovo_dev_themed_identity_card')) && (
+				{!isRovoDev && (
 					<AgentActions
 						agent={agent}
 						onEditAgent={() => onEditAgent(agent.id)}

@@ -262,14 +262,14 @@ describe('Using checkWithinComponent to check UFOThirdPartySegment', () => {
 		expect(result.isWithin).toBe(false);
 	});
 
-	it('should stop DOM walk after 20 levels when feature flag is disabled', () => {
+	it('should stop DOM walk after 40 levels', () => {
 		let currentElement = createMockNode({
 			key: null,
 			type: { name: 'UFOThirdPartySegment' },
 			return: null,
 		});
 
-		for (let i = 0; i < 21; i++) {
+		for (let i = 0; i < 41; i++) {
 			const childElement = document.createElement('div') as HTMLElement;
 			Object.defineProperty(childElement, 'parentElement', {
 				value: currentElement,
@@ -282,9 +282,7 @@ describe('Using checkWithinComponent to check UFOThirdPartySegment', () => {
 		expect(result.isWithin).toBe(false);
 	});
 
-	it('should walk up to 40 DOM levels when feature flag is enabled', () => {
-		mockFg.mockReturnValue(true);
-
+	it('should walk up to 40 DOM levels', () => {
 		let currentElement = createMockNode({
 			key: null,
 			type: { name: 'UFOThirdPartySegment' },
@@ -304,42 +302,7 @@ describe('Using checkWithinComponent to check UFOThirdPartySegment', () => {
 		expect(result.isWithin).toBe(true);
 	});
 
-	it('should stop fiber walk after 20 levels when platform_ufo_3p_forge_detection_fix is disabled', () => {
-		mockFg.mockImplementation((flag: string) => {
-			if (flag === 'platform_ufo_3p_forge_detection_fix') {
-				return false;
-			}
-			return false;
-		});
-
-		let topFiber: MockFiber = {
-			key: null,
-			type: { name: 'UFOThirdPartySegment' },
-			return: null,
-		};
-		let currentFiber: MockFiber = topFiber;
-		for (let i = 0; i < 21; i++) {
-			const childFiber: MockFiber = {
-				key: null,
-				type: { name: `Wrapper${i}` },
-				return: currentFiber,
-			};
-			currentFiber = childFiber;
-		}
-
-		const node = createMockNode(currentFiber);
-		const result = checkWithinComponent(node, 'UFOThirdPartySegment', new WeakMap());
-		expect(result.isWithin).toBe(false);
-	});
-
-	it('should walk up to 40 fiber levels when platform_ufo_3p_forge_detection_fix is enabled', () => {
-		mockFg.mockImplementation((flag: string) => {
-			if (flag === 'platform_ufo_3p_forge_detection_fix') {
-				return true;
-			}
-			return false;
-		});
-
+	it('should walk up to 40 fiber levels', () => {
 		let topFiber: MockFiber = {
 			key: null,
 			type: { name: 'UFOThirdPartySegment' },
@@ -360,14 +323,7 @@ describe('Using checkWithinComponent to check UFOThirdPartySegment', () => {
 		expect(result.isWithin).toBe(true);
 	});
 
-	it('should stop fiber walk after 40 levels even when platform_ufo_3p_forge_detection_fix is enabled', () => {
-		mockFg.mockImplementation((flag: string) => {
-			if (flag === 'platform_ufo_3p_forge_detection_fix') {
-				return true;
-			}
-			return false;
-		});
-
+	it('should stop fiber walk after 40 levels', () => {
 		let topFiber: MockFiber = {
 			key: null,
 			type: { name: 'UFOThirdPartySegment' },

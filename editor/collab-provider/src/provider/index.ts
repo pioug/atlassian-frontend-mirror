@@ -71,6 +71,14 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 	private initialDraft?: InitialDraft;
 	private isProviderInitialized: boolean = false;
 	private isBuffered: boolean = false;
+	/**
+	 * Cache of the last `init` payload, populated when the document and metadata
+	 * are first applied. Returned by {@link getInitPayload} so that late
+	 * subscribers (e.g. a freshly-attached collab plugin view after editor
+	 * preset reconfigure) can be seeded without waiting for the `init` event
+	 * which is only emitted once per session.
+	 */
+	private lastInitPayload?: CollabInitPayload;
 	// User permit is used to determine if the user is allowed to view, comment or edit the document
 	// Therefore, the initial value is false for all three
 	private permit: UserPermitType = {
@@ -140,6 +148,9 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 			});
 			this.metadataService.updateMetadata(metadata);
 			this.isProviderInitialized = true;
+			// Cache the init payload so late subscribers (e.g. plugin views attached
+			// after an editor preset reconfigure) can be seeded via getInitPayload().
+			this.lastInitPayload = { doc, version, metadata, caller };
 		} catch (e) {
 			this.analyticsHelper?.sendErrorEvent(
 				e,
@@ -730,6 +741,24 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 	 */
 	getMetadata = (): Metadata => {
 		return this.metadataService.getMetaData();
+	};
+
+	/**
+	 * Returns the cached `init` payload if the provider has already initialised
+	 * the document, otherwise `undefined`.
+	 *
+	 * Used by the collab plugin's `view()` factory to seed a freshly-attached
+	 * plugin view (e.g. after editor preset reconfigure or full EditorView
+	 * recreation) with the same `init` data the original subscribers received.
+	 * Without this, late subscribers never receive `init` (it is emitted only
+	 * once per session) and the editor stays in `!isReady`, silently dropping
+	 * doc-changing transactions.
+	 */
+	getInitPayload = (): CollabInitPayload | undefined => {
+		if (!this.isProviderInitialized) {
+			return undefined;
+		}
+		return this.lastInitPayload;
 	};
 
 	/**

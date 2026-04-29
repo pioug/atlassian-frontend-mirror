@@ -2,7 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type Dispatch, type MutableRefObject, type ReactNode, type SetStateAction, useId, useRef, useState } from 'react';
+import {
+	type Dispatch,
+	type MutableRefObject,
+	type ReactNode,
+	type SetStateAction,
+	useId,
+	useRef,
+	useState,
+} from 'react';
 
 import { jsx } from '@atlaskit/css';
 

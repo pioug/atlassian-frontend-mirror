@@ -676,10 +676,11 @@ export const ImageWrapper: ForwardRefExoticComponent<
 		}: ImageWrapperProps & ClassName,
 		ref,
 	) => {
-
-		const a11yProps = fg("platform_media_a11y_suppression_fixes") ? {
-			role: "none" as const,
-		} : {}
+		const a11yProps = fg('platform_media_a11y_suppression_fixes')
+			? {
+					role: 'none' as const,
+				}
+			: {};
 
 		return (
 			// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable

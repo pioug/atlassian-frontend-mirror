@@ -294,6 +294,9 @@ function FullPageDiffEditor(): React.JSX.Element {
 						originalDoc: { content: [], version: 1, type: 'doc' },
 						steps: [],
 					},
+					aiSuggestions: {
+						contentAri: '',
+					},
 				},
 				providers: {
 					autoformattingProvider: undefined,
@@ -334,6 +337,10 @@ function FullPageDiffEditor(): React.JSX.Element {
 					codeBidiWarning: false,
 					contentFormat: false,
 					uiControlRegistry: true,
+					aiSuggestions: true,
+					aiSpeechToText: false,
+					aiImageGeneration: false,
+					collabEdit: false,
 				},
 			}),
 		[],

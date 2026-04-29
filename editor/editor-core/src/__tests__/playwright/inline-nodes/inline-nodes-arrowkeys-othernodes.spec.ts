@@ -107,7 +107,7 @@ const filterTestCasesIfOnlySet = (testCases: Array<TestSuiteOptions>) =>
 filterTestCasesIfOnlySet(testCases).forEach(({ nodeName, adfs, editorOptions }) => {
 	test.describe(`inline-nodes - ${nodeName}`, () => {
 		test.use({
-			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 			editorProps: {
 				appearance: 'full-page',
 				allowTextAlignment: true,
@@ -121,7 +121,7 @@ filterTestCasesIfOnlySet(testCases).forEach(({ nodeName, adfs, editorOptions }) 
 
 		test.describe(`trailing spaces`, () => {
 			test.use({
-				exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+				exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 				adf: adfs.trailingSpaces,
 			});
 
@@ -239,7 +239,7 @@ filterTestCasesIfOnlySet(testCases).forEach(({ nodeName, adfs, editorOptions }) 
 
 		test.describe(`no trailing spaces`, () => {
 			test.use({
-				exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+				exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 				adf: adfs.notrailingSpaces,
 			});
 

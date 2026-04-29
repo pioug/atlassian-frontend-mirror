@@ -4,6 +4,7 @@
  * Ticket for dedeplication: https://product-fabric.atlassian.net/browse/EDM-7138
  * Ticket for fixing linkification of filename-like urls: https://product-fabric.atlassian.net/browse/EDM-7190
  */
+import { fg } from '@atlaskit/platform-feature-flags';
 import LinkifyIt from 'linkify-it';
 
 const linkify = LinkifyIt();
@@ -89,7 +90,7 @@ const getLinkMatch = (str?: string): Match | null => {
 
 const LINK_REGEXP = /(https?|ftp|jamfselfservice|gopher|dynamicsnav|integrity|file|smb):\/\/[^\s]+/;
 
-const linkifyMatch = (text: string): Match[] => {
+export const linkifyMatch = (text: string): Match[] => {
 	const matches: Match[] = [];
 
 	if (!LINK_REGEXP.test(text)) {
@@ -113,7 +114,7 @@ const linkifyMatch = (text: string): Match[] => {
 				text: link,
 				schema: '',
 			});
-			startpos += end;
+			startpos = fg('platform_editor_linkify-text-improvement') ? end : startpos + end;
 		} else {
 			break;
 		}

@@ -518,16 +518,18 @@ export function addHold(
 			removeHoldCriterion(id);
 			const currentInteraction = interactions.get(interactionId);
 			const currentHold = interaction.holdActive.get(id);
-			const expHold = interaction.holdExpActive.get(id);
 			if (currentInteraction != null) {
 				if (currentHold != null) {
 					currentInteraction.holdInfo.push({ ...currentHold, end });
 					interaction.holdActive.delete(id);
 				}
 
-				if (expHold != null) {
-					currentInteraction.holdExpInfo.push({ ...expHold, end });
-					interaction.holdExpActive.delete(id);
+				if (!fg('platform_ufo_remove_experimental_holds')) {
+					const expHold = interaction.holdExpActive.get(id);
+					if (expHold != null) {
+						currentInteraction.holdExpInfo.push({ ...expHold, end });
+						interaction.holdExpActive.delete(id);
+					}
 				}
 
 				if (interaction.hold3pActive) {
@@ -798,7 +800,10 @@ function finishInteraction(
 	if (!coinflip(getExtraInteractionRate(sanitisedUfoName, data.type))) {
 		interactionExtraMetrics.stopAll(id);
 	} else if (!data.hold3pActive || data.hold3pActive.size === 0) {
-		if (!getConfig()?.experimentalInteractionMetrics?.enabled) {
+		if (
+			fg('platform_ufo_remove_experimental_holds') ||
+			!getConfig()?.experimentalInteractionMetrics?.enabled
+		) {
 			remove(id);
 		}
 	}
@@ -893,7 +898,9 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		const noMoreActiveHolds = interaction.holdActive.size === 0;
-		const noMoreExpHolds = interaction.holdExpActive.size === 0;
+		const noMoreExpHolds = fg('platform_ufo_remove_experimental_holds')
+			? true
+			: interaction.holdExpActive.size === 0;
 		const shouldUseRawDataThirdParty = shouldUseRawDataThirdPartyBehavior(
 			interaction.ufoName,
 			interaction.type,
@@ -903,7 +910,10 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 			if (getConfig()?.postInteractionLog?.enabled) {
 				let experimentalVC90;
 				let experimentalTTAI;
-				if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+				if (
+					!fg('platform_ufo_remove_experimental_holds') &&
+					getConfig()?.experimentalInteractionMetrics?.enabled
+				) {
 					experimentalVC90 = (await getExperimentalVCMetrics(interaction))?.[
 						'metric:experimental:vc90'
 					] as number;
@@ -919,7 +929,10 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 
 			if (interactionExtraMetrics.finishedInteraction?.id !== interactionId) {
 				// If interactionExtraMetrics is not waiting for measuring this interaction
-				if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+				if (
+					!fg('platform_ufo_remove_experimental_holds') &&
+					getConfig()?.experimentalInteractionMetrics?.enabled
+				) {
 					remove(interactionId);
 				}
 			}
@@ -969,7 +982,10 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 				}
 
 				if (noMoreExpHolds) {
-					if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+					if (
+						!fg('platform_ufo_remove_experimental_holds') &&
+						getConfig()?.experimentalInteractionMetrics?.enabled
+					) {
 						onExperimentalInteractionComplete(
 							interactionId,
 							interaction,
@@ -1007,7 +1023,10 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 				}
 
 				if (noMoreExpHolds) {
-					if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+					if (
+						!fg('platform_ufo_remove_experimental_holds') &&
+						getConfig()?.experimentalInteractionMetrics?.enabled
+					) {
 						onExperimentalInteractionComplete(interactionId, interaction, endTime);
 					}
 					postInteraction();
@@ -1050,7 +1069,10 @@ export function abort(interactionId: string, abortReason: AbortReasonType): void
 
 			interactionExtraMetrics.stopAll(interactionId);
 
-			if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
+			if (
+				!fg('platform_ufo_remove_experimental_holds') &&
+				coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))
+			) {
 				onExperimentalInteractionComplete(interactionId, interaction, endTime);
 				remove(interactionId);
 			}
@@ -1065,7 +1087,10 @@ export function abort(interactionId: string, abortReason: AbortReasonType): void
 
 		interactionExtraMetrics.stopAll(interactionId);
 
-		if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
+		if (
+			!fg('platform_ufo_remove_experimental_holds') &&
+			coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))
+		) {
 			onExperimentalInteractionComplete(interactionId, interaction);
 			remove(interactionId);
 		}
@@ -1093,7 +1118,10 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 
 			interactionExtraMetrics.stopAll(interactionId);
 
-			if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
+			if (
+				!fg('platform_ufo_remove_experimental_holds') &&
+				coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))
+			) {
 				onExperimentalInteractionComplete(interactionId, interaction, endTime);
 				remove(interactionId);
 			}
@@ -1109,7 +1137,10 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 
 		interactionExtraMetrics.stopAll(interactionId);
 
-		if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
+		if (
+			!fg('platform_ufo_remove_experimental_holds') &&
+			coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))
+		) {
 			onExperimentalInteractionComplete(interactionId, interaction);
 			remove(interactionId);
 		}
@@ -1155,7 +1186,10 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 
 			interactionExtraMetrics.stopAll(interactionId);
 
-			if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
+			if (
+				!fg('platform_ufo_remove_experimental_holds') &&
+				coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))
+			) {
 				onExperimentalInteractionComplete(interactionId, interaction, endTime);
 				remove(interactionId);
 			}
@@ -1176,7 +1210,10 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 
 		interactionExtraMetrics.stopAll(interactionId);
 
-		if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
+		if (
+			!fg('platform_ufo_remove_experimental_holds') &&
+			coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))
+		) {
 			onExperimentalInteractionComplete(interactionId, interaction);
 			remove(interactionId);
 		}
@@ -1343,7 +1380,10 @@ export function addNewInteraction(
 			postInteractionLog.startVCObserver({ startTime });
 		}
 
-		if (coinflip(getExperimentalInteractionRate(ufoName, type))) {
+		if (
+			!fg('platform_ufo_remove_experimental_holds') &&
+			coinflip(getExperimentalInteractionRate(ufoName, type))
+		) {
 			experimentalVC.start({ startTime });
 		}
 		if (config?.extraInteractionMetrics?.enabled) {

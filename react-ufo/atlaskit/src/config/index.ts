@@ -521,6 +521,9 @@ export function getExperimentalInteractionRate(
 	interactionType: InteractionType,
 ): number {
 	try {
+		if (fg('platform_ufo_remove_experimental_holds')) {
+			return 0;
+		}
 		if (!config) {
 			return 0;
 		}

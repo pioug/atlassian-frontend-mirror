@@ -33,12 +33,15 @@ const BlockCardResolvedIconVariationsInner = (): React.JSX.Element => (
  * Visual regression: all ResolvedClient icon-test URLs as block cards
  * (flexible link icon path + same mocks as iconTestUrls).
  */
-const _default_1: React.ComponentType<object> = withWaitForItem(BlockCardResolvedIconVariationsInner, () => {
-    const items = document.body.querySelectorAll('[data-testid="smart-block-title-resolved-view"]');
-    const last = items[resolvedBlockTitleCount - 1];
-    if (!last && items.length) {
-        items[items.length - 1].scrollIntoView();
-    }
-    return last;
-});
+const _default_1: React.ComponentType<object> = withWaitForItem(
+	BlockCardResolvedIconVariationsInner,
+	() => {
+		const items = document.body.querySelectorAll('[data-testid="smart-block-title-resolved-view"]');
+		const last = items[resolvedBlockTitleCount - 1];
+		if (!last && items.length) {
+			items[items.length - 1].scrollIntoView();
+		}
+		return last;
+	},
+);
 export default _default_1;

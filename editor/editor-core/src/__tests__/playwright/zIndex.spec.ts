@@ -14,7 +14,7 @@ import { emptyAdf } from '../__fixtures__/base-adfs';
 
 test.describe('z indexes', () => {
 	test.use({
-		exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
+		exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 		adf: emptyAdf,
 		editorProps: {
 			appearance: 'full-page',

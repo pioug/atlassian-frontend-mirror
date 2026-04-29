@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.9.2
+
+### Patch Changes
+
+- [`48fa19b8ba41a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48fa19b8ba41a) -
+  Add `no-xcss-in-cx` ESLint rule to prevent `xcss()` from `@atlaskit/primitives` being called
+  inline inside `cx()` in an `xcss` prop. Calling `xcss()` inline produces a StyleRule opaque object
+  rather than a Compiled atomic class string, which causes runtime errors. The rule is import-aware
+  and recurses into logical (`&&`) and conditional (`?:`) expressions.
+
 ## 2.9.1
 
 ### Patch Changes

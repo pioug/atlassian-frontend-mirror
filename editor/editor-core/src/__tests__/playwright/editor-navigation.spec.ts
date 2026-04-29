@@ -18,7 +18,7 @@ const helloWorldADF = {
 
 test.describe('editor: line navigation', () => {
 	test.use({
-		exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') ,
+		exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 		adf: helloWorldADF,
 		editorProps: {
 			appearance: 'full-page',

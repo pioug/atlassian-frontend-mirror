@@ -14,8 +14,8 @@ import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { mergeStyles, type StylesConfig } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
-import { formatDateTimeZoneIntoIso } from '../internal';
 import { DateTimePickerContainer } from '../internal/date-time-picker-container';
+import { formatDateTimeZoneIntoIso } from '../internal/format-date-time-zone-into-iso';
 import { convertTokens } from '../internal/parse-tokens';
 import { type DateTimePickerBaseProps } from '../types';
 
@@ -86,9 +86,6 @@ type DateTimeState = {
 type DateTimeAction =
 	| { type: 'APPLY'; payload: DateTimeState }
 	| { type: 'SET_VALUE'; payload: string };
-
-export const datePickerDefaultAriaLabel = 'Date';
-export const timePickerDefaultAriaLabel = 'Time';
 
 /**
  * __Date time picker__

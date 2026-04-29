@@ -52,7 +52,7 @@ describe('extractRovoChatAction', () => {
 
 	ffTest.on(
 		'rovogrowth-640-inline-action-nudge-fg',
-		'returns Rovo Chat action for non-Google provider',
+		'returns Rovo Chat action for eligible providers',
 		() => {
 			eeTest
 				.describe('rovogrowth-640-inline-action-nudge-exp', 'inline action nudge experiment on')
@@ -93,13 +93,13 @@ describe('extractRovoChatAction', () => {
 						});
 					});
 
-					it('does not return Rovo Chat action for non-Google provider without RovoActions', () => {
-						const nonGoogleResponse: JsonLd.Response = {
+					it('does not return Rovo Chat action for ineligible extension key', () => {
+						const ineligibleResponse: JsonLd.Response = {
 							data: TEST_DOCUMENT,
 							meta: {
 								...TEST_RESOLVED_META_DATA,
 								definitionId: 'd1',
-								key: 'slack-object-provider',
+								key: 'confluence-object-provider',
 								resourceType: 'r1',
 							},
 						};
@@ -109,7 +109,7 @@ describe('extractRovoChatAction', () => {
 							appearance: 'hoverCardPreview',
 							product: 'JSM',
 							id: 'uid',
-							response: nonGoogleResponse,
+							response: ineligibleResponse,
 							rovoConfig,
 						});
 
@@ -228,10 +228,10 @@ describe('extractRovoChatAction', () => {
 		},
 	);
 
-	// Isolation: rovogrowth-640-inline-action-nudge-fg + exp must not affect Google links
+	// rovogrowth-640-inline-action-nudge-fg + exp now includes Google links
 	ffTest.on(
 		'rovogrowth-640-inline-action-nudge-fg',
-		'rovogrowth-640-inline-action-nudge-fg on - isolation: does not affect Google links',
+		'rovogrowth-640-inline-action-nudge-fg on - Google links are now eligible',
 		() => {
 			eeTest
 				.describe(
@@ -239,18 +239,40 @@ describe('extractRovoChatAction', () => {
 					'rovogrowth-640-inline-action-nudge-exp on',
 				)
 				.variant(true, () => {
-					it('does not show Rovo actions for Google links even when rovogrowth-640-inline-action-nudge-fg and exp are on', () => {
+					it('shows Rovo actions for Google links when rovogrowth-640-inline-action-nudge-fg and exp are on', () => {
+						const googleResponseWithRovoActions: JsonLd.Response = {
+							data: TEST_DOCUMENT,
+							meta: {
+								...TEST_RESOLVED_META_DATA,
+								definitionId: 'd1',
+								key: 'google-object-provider',
+								resourceType: 'r1',
+								supportedFeature: ['RovoActions'],
+							},
+						};
+
 						const action = extractRovoChatAction({
 							actionOptions,
 							appearance: 'hoverCardPreview',
 							product: 'JSM',
 							id: 'uid',
-							response, // google-object-provider
+							response: googleResponseWithRovoActions,
 							rovoConfig,
 						});
 
-						// My experiment only applies to non-Google providers
-						expect(action).toBeUndefined();
+						expect(action).toEqual({
+							invokeAction: {
+								actionSubjectId: 'rovoChatPrompt',
+								actionType: 'RovoChatAction',
+								definitionId: 'd1',
+								display: 'hoverCardPreview',
+								extensionKey: 'google-object-provider',
+								id: 'uid',
+								resourceType: 'r1',
+							},
+							product: 'JSM',
+							url: 'https://my.url.com',
+						});
 					});
 				});
 		},

@@ -577,6 +577,22 @@ export type SyncUpErrorFunction = (attributes: NewCollabSyncUpErrorAttributes) =
 export interface CollabEditProvider<Events extends CollabEvents = CollabEvents> {
 	getFinalAcknowledgedState: (reason: GetResolvedEditorStateReason) => Promise<ResolvedEditorState>;
 
+	/**
+	 * Returns the cached `init` payload if the provider has already initialised the
+	 * document with NCS, otherwise `undefined`.
+	 *
+	 * Used by the collab plugin to seed a freshly-attached plugin view (e.g. after
+	 * an editor preset reconfigure or a full EditorView recreation) with the same
+	 * `init` data the original subscribers received. Without this, late subscribers
+	 * never receive `init` (it is fired once at session start) and the editor
+	 * gets stuck in the `!isReady` state, silently dropping doc-changing
+	 * transactions via `filterTransaction`.
+	 *
+	 * Optional for backwards compatibility with custom provider implementations
+	 * (e.g. test mocks). When undefined, the rebind path is skipped.
+	 */
+	getInitPayload?: () => CollabEventInitData | undefined;
+
 	getIsNamespaceLocked: () => boolean;
 
 	// Ignored via go/ees005

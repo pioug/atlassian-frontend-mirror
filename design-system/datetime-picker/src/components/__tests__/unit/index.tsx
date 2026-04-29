@@ -1,5 +1,5 @@
-import { formatDateTimeZoneIntoIso } from '../../../internal';
 import { convertTo24hrTime } from '../../../internal/convert-to24hr-time';
+import { formatDateTimeZoneIntoIso } from '../../../internal/format-date-time-zone-into-iso';
 import { isValid } from '../../../internal/is-valid';
 import { removeSpacer } from '../../../internal/remove-spacer';
 

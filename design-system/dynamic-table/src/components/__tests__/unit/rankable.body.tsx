@@ -8,7 +8,8 @@ import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 
 import { RankableBody } from '../../rankable/rankable-body';
 
-import { headMock1, rowsWithKeys } from './_data';
+import { rowsWithKeys } from './_data';
+import { headMock1 } from './_head-mock';
 
 const createProps = () => ({
 	head: headMock1,

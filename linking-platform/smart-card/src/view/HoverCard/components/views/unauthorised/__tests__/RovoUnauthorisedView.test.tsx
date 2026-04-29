@@ -102,7 +102,7 @@ describe('RovoUnauthorisedView', () => {
 		expect(
 			screen.getByTestId('hover-card-rovo-unauthorised-view-feature-go-deeper-smart-suggestions'),
 		).toBeInTheDocument();
-		expect(screen.getByText('Turn long URL into clear link names')).toBeInTheDocument();
+		expect(screen.getByText('Turn long URLs into clear link names')).toBeInTheDocument();
 		expect(screen.getByText('Understand linked docs in seconds')).toBeInTheDocument();
 		expect(screen.getByText('Go deeper with smart suggestions')).toBeInTheDocument();
 		expect(

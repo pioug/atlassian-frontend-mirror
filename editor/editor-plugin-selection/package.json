@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection",
-	"version": "10.0.8",
+	"version": "10.0.10",
 	"description": "Selection plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

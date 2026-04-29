@@ -4,9 +4,10 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { Box } from '@atlaskit/primitives/compiled';
 
-import { AUTO_DISMISS_SECONDS } from '../../auto-dismiss-flag';
 import { AutoDismissFlag, FlagGroup } from '../../index';
 import { type AutoDismissFlagProps } from '../../types';
+
+const AUTO_DISMISS_SECONDS = 8;
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Auto dismiss flag', () => {

@@ -53,4 +53,7 @@ export const rule: TSESLint.RuleModule<string> = {
 	defaultOptions: [],
 };
 
-export default { rule };
+const EnforceEditorViewStateScopeRule: {
+	rule: TSESLint.RuleModule<string, [], TSESLint.RuleListener>;
+} = { rule };
+export default EnforceEditorViewStateScopeRule;

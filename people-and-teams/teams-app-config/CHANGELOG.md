@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-config
 
+## 1.12.18
+
+### Patch Changes
+
+- [`ab63ff648e1e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab63ff648e1e3) -
+  Remove kill switch for IC
+
 ## 1.12.17
 
 ### Patch Changes

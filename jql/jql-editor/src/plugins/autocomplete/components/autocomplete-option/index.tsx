@@ -100,7 +100,9 @@ const getDeprecatedTooltipMessage = (deprecatedSearcherKey: string | undefined) 
 	}
 };
 
-const AutocompleteOption: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLLIElement>> = forwardRef<HTMLLIElement, Props>((props, ref) => {
+const AutocompleteOption: React.ForwardRefExoticComponent<
+	Props & React.RefAttributes<HTMLLIElement>
+> = forwardRef<HTMLLIElement, Props>((props, ref) => {
 	const {
 		option: { id, name, fieldType, matchedText, isDeprecated = false, deprecatedSearcherKey },
 		isSelected,

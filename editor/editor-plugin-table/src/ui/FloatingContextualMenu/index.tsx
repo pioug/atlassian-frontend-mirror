@@ -51,7 +51,24 @@ interface Props {
 	targetCellPosition?: number;
 }
 
-const FloatingContextualMenu: { ({ mountPoint, boundariesElement, scrollableElement, editorView, isOpen, pluginConfig, editorAnalyticsAPI, getEditorContainerWidth, getEditorFeatureFlags, isCellMenuOpenByKeyboard, isCommentEditor, api, isDragMenuOpen, }: Props): JSX.Element | null; displayName: string; } = ({
+const FloatingContextualMenu: {
+	({
+		mountPoint,
+		boundariesElement,
+		scrollableElement,
+		editorView,
+		isOpen,
+		pluginConfig,
+		editorAnalyticsAPI,
+		getEditorContainerWidth,
+		getEditorFeatureFlags,
+		isCellMenuOpenByKeyboard,
+		isCommentEditor,
+		api,
+		isDragMenuOpen,
+	}: Props): JSX.Element | null;
+	displayName: string;
+} = ({
 	mountPoint,
 	boundariesElement,
 	scrollableElement,

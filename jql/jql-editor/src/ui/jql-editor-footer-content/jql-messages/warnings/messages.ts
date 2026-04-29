@@ -1,19 +1,21 @@
 import { defineMessages } from 'react-intl';
 
 export const messages: {
-    defaultWarning: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; deprecatedBothParentReplacementMessage: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; deprecatedParentReplacementMessage: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    };
+	defaultWarning: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deprecatedBothParentReplacementMessage: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deprecatedParentReplacementMessage: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 } = defineMessages({
 	deprecatedParentReplacementMessage: {
 		id: 'jql-editor.ui.jql-warning-message.deprecated-epic-link-or-parent-link-field',

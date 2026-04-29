@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 10.1.7
+
+### Patch Changes
+
+- [`d94df511393a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d94df511393a9) -
+  Removing FG platform_editor_a11y_eslint_fix
+- Updated dependencies
+
+## 10.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.5
 
 ### Patch Changes

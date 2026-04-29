@@ -79,7 +79,7 @@ const useOnValues = (
 	jqlSearchableFields$: Observable<JQLFieldResponse>,
 	getSuggestions: GetAutocompleteSuggestions,
 	createAndFireAnalyticsEvent: (payload: JqlEditorAutocompleteAnalyticsEvent) => void,
-): (query?: string, field?: string) => Observable<AutocompleteOptions> => {
+): ((query?: string, field?: string) => Observable<AutocompleteOptions>) => {
 	di(useReducer);
 
 	const fetchFieldValues = useFetchFieldValues(getSuggestions, createAndFireAnalyticsEvent);

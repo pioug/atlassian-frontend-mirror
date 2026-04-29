@@ -35,10 +35,10 @@ export const createPlugin = (
 	api: ExtractInjectionAPI<typeof tablePlugin>,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 ): SafePlugin<{
-        allTables: [string, Node, number][];
-        decorations: DecorationSet;
-        sort: TableSortMeta;
-    }> => {
+	allTables: [string, Node, number][];
+	decorations: DecorationSet;
+	sort: TableSortMeta;
+}> => {
 	return new SafePlugin({
 		state: {
 			init: () => ({

@@ -8,7 +8,7 @@ test.describe('collab', () => {
 	test.slow();
 
 	test.use({
-		exampleName: 'collab' as keyof typeof import('../../../../examples/3-collab.tsx') ,
+		exampleName: 'collab' as keyof typeof import('../../../../examples/3-collab.tsx'),
 	});
 
 	test('collab should work', async ({ firstEditor, secondEditor, thirdEditor, page }) => {

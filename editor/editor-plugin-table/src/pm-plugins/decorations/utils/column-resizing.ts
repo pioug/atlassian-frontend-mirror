@@ -9,8 +9,6 @@ import { createResizeHandleDecoration, updateDecorations } from '../../utils/dec
 import { composeDecorations } from './compose-decorations';
 import type { DecorationTransformer } from './types';
 
-const emptyDecorations = [[], []];
-
 const updateColumnResizeHandle =
 	(columnResizesDecorations: Decoration[]): DecorationTransformer =>
 	({ decorationSet, tr }) =>
@@ -19,16 +17,6 @@ const updateColumnResizeHandle =
 			decorationSet,
 			columnResizesDecorations,
 			TableDecorations.COLUMN_RESIZING_HANDLE_WIDGET,
-		);
-
-const updateLastCellElement =
-	(lastCellElementsDecorations: Decoration[]): DecorationTransformer =>
-	({ decorationSet, tr }) =>
-		updateDecorations(
-			tr.doc,
-			decorationSet,
-			lastCellElementsDecorations,
-			TableDecorations.LAST_CELL_ELEMENT,
 		);
 
 export const buildColumnResizingDecorations =
@@ -40,9 +28,9 @@ export const buildColumnResizingDecorations =
 		nodeViewPortalProviderAPI: PortalProviderAPI,
 	): DecorationTransformer =>
 	({ tr, decorationSet }): DecorationSet => {
-		const [columnResizesDecorations, lastCellElementsDecorations] =
+		const columnResizesDecorations =
 			columnEndIndex < 0
-				? emptyDecorations
+				? []
 				: createResizeHandleDecoration(
 						tr,
 						rowEndIndex,
@@ -54,18 +42,14 @@ export const buildColumnResizingDecorations =
 						nodeViewPortalProviderAPI,
 					);
 
-		return composeDecorations([
-			updateColumnResizeHandle(columnResizesDecorations),
-			updateLastCellElement(lastCellElementsDecorations),
-		])({ decorationSet, tr });
+		return composeDecorations([updateColumnResizeHandle(columnResizesDecorations)])({
+			decorationSet,
+			tr,
+		});
 	};
 
 export const clearColumnResizingDecorations =
 	(): DecorationTransformer =>
 	({ tr, decorationSet }): DecorationSet => {
-		const [columnResizesDecorations, lastCellElementsDecorations] = emptyDecorations;
-		return composeDecorations([
-			updateColumnResizeHandle(columnResizesDecorations),
-			updateLastCellElement(lastCellElementsDecorations),
-		])({ decorationSet, tr });
+		return composeDecorations([updateColumnResizeHandle([])])({ decorationSet, tr });
 	};

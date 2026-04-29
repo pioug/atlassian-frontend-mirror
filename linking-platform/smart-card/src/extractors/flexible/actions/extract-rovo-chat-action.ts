@@ -25,6 +25,17 @@ type ExtractInvokeRovoChatActionParam = {
 	rovoConfig?: RovoConfig;
 };
 
+// For rovogrowth-640 post auth inline experiment
+const ELIGIBLE_EXTENSION_KEYS = new Set([
+	'slack-object-provider',
+	'google-object-provider',
+	'onedrive-object-provider',
+	'github-object-provider',
+	'ms-teams-object-provider',
+	'gitlab-object-provider',
+	'salesforce-object-provider',
+]);
+
 const extractRovoChatAction = ({
 	actionOptions,
 	appearance,
@@ -43,12 +54,13 @@ const extractRovoChatAction = ({
 	}
 
 	const supportsRovoActions = response?.meta?.supportedFeature?.includes('RovoActions');
-	const isGoogleProvider = getExtensionKey(response) === 'google-object-provider';
+	const extensionKey = getExtensionKey(response);
+	const isGoogleProvider = extensionKey === 'google-object-provider';
 	const is3PAuthRovoActionEnabled =
 		isGoogleProvider && fg('platform_sl_3p_auth_rovo_action_kill_switch');
 	const is3PInlinePostAuthActionsEnabled =
-		supportsRovoActions &&
-		!isGoogleProvider &&
+		extensionKey !== undefined &&
+		ELIGIBLE_EXTENSION_KEYS.has(extensionKey) &&
 		fg('rovogrowth-640-inline-action-nudge-fg') &&
 		expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true);
 	const is3PBlockPostAuthActionsEnabled =
@@ -68,7 +80,7 @@ const extractRovoChatAction = ({
 					actionType: ActionName.RovoChatAction,
 					definitionId: getDefinitionId(response),
 					display: appearance,
-					extensionKey: getExtensionKey(response),
+					extensionKey,
 					id,
 					resourceType: getResourceType(response),
 				},

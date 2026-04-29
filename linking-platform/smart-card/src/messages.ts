@@ -1134,7 +1134,7 @@ export const messages: Messages = defineMessages({
 	},
 	rovo_unauthorised_feature_clear_link_names: {
 		id: 'fabric.linking.rovo_unauthorised.feature.clear_link_names',
-		defaultMessage: 'Turn long URL into clear link names',
+		defaultMessage: 'Turn long URLs into clear link names',
 		description: 'First feature bullet in Rovo unauthorised hover card.',
 	},
 	rovo_unauthorised_feature_understand_linked_docs: {

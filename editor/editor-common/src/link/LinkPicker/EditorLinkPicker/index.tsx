@@ -93,11 +93,11 @@ export const EditorLinkPicker = ({
 	const returnFocus = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
 		? PREVENT_SCROLL
 		: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
-		  { preventScroll: true };
+			{ preventScroll: true };
 	const focusOptions = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
 		? PREVENT_SCROLL
 		: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
-		  { preventScroll: true };
+			{ preventScroll: true };
 
 	if (expValEquals('platform_editor_a11y_escape_link_dialog', 'isEnabled', true)) {
 		return (

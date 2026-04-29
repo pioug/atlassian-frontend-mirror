@@ -142,24 +142,26 @@ function reducer(state: State, action: Action): State {
 	}
 }
 
-export const AnnotationRangeStateContext: React.Context<AnnotationRangeStateContext> = createContext<AnnotationRangeStateContext>({
-	range: null,
-	type: null,
-	selectionDraftRange: null,
-	hoverDraftRange: null,
-	selectionDraftDocumentPosition: null,
-	hoverDraftDocumentPosition: null,
-});
+export const AnnotationRangeStateContext: React.Context<AnnotationRangeStateContext> =
+	createContext<AnnotationRangeStateContext>({
+		range: null,
+		type: null,
+		selectionDraftRange: null,
+		hoverDraftRange: null,
+		selectionDraftDocumentPosition: null,
+		hoverDraftDocumentPosition: null,
+	});
 
-export const AnnotationRangeDispatchContext: React.Context<AnnotationRangeDispatchContext> = createContext<AnnotationRangeDispatchContext>({
-	clearSelectionRange: () => {},
-	clearHoverRange: () => {},
-	setSelectionRange: () => {},
-	promoteSelectionToDraft: () => {},
-	promoteHoverToDraft: () => {},
-	clearSelectionDraft: () => {},
-	clearHoverDraft: () => {},
-});
+export const AnnotationRangeDispatchContext: React.Context<AnnotationRangeDispatchContext> =
+	createContext<AnnotationRangeDispatchContext>({
+		clearSelectionRange: () => {},
+		clearHoverRange: () => {},
+		setSelectionRange: () => {},
+		promoteSelectionToDraft: () => {},
+		promoteHoverToDraft: () => {},
+		clearSelectionDraft: () => {},
+		clearHoverDraft: () => {},
+	});
 
 export const AnnotationRangeProviderInner = ({
 	children,

@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 4.3.1
+
+### Patch Changes
+
+- [`3f13070221110`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f13070221110) -
+  Clean up stale feature gate `rovo_dev_themed_identity_card`. The gated code path is now
+  permanently enabled.
+
 ## 4.3.0
 
 ### Minor Changes

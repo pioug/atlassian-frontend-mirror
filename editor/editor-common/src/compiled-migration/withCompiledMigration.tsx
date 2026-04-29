@@ -66,8 +66,8 @@ export function withCompiledMigration<P extends { className?: string }>(
 	WrappedComponent: ComponentType<P>,
 	emotionStyles: SerializedStyles,
 ): {
-    (props: P): JSX.Element;
-    displayName: string;
+	(props: P): JSX.Element;
+	displayName: string;
 } {
 	// The cast is required because emotion's `css` prop is injected by the JSX pragma
 	// and is not part of the component's declared props type. We widen to P & { css? }

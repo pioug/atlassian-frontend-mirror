@@ -7,10 +7,10 @@ import type { JQLNodeSpec } from './types';
 import { user, type Props as UserRichInlineProps } from './user';
 
 export const richInlineNodes: {
-    goal: JQLNodeSpec<GoalRichInlineProps>;
-    project: JQLNodeSpec<ProjectRichInlineProps>;
-    team: JQLNodeSpec<TeamRichInlineProps>;
-    user: JQLNodeSpec<UserRichInlineProps>;
+	goal: JQLNodeSpec<GoalRichInlineProps>;
+	project: JQLNodeSpec<ProjectRichInlineProps>;
+	team: JQLNodeSpec<TeamRichInlineProps>;
+	user: JQLNodeSpec<UserRichInlineProps>;
 } = {
 	user,
 	team,

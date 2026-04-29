@@ -499,4 +499,5 @@ export const MediaCardInternal = (props: MediaCardProps): React.JSX.Element => {
 	);
 };
 
-export const MediaCard: React.ComponentClass<MediaCardProps & ImageLoaderProps> = withImageLoader<MediaCardProps>(MediaCardInternal);
+export const MediaCard: React.ComponentClass<MediaCardProps & ImageLoaderProps> =
+	withImageLoader<MediaCardProps>(MediaCardInternal);

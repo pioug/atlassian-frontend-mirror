@@ -19,7 +19,10 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 		isCurrentUser: false,
 	};
 
-	selectAdminOrSelfCopy = (adminCopy: MessageDescriptor, selfCopy: MessageDescriptor): MessageDescriptor => {
+	selectAdminOrSelfCopy = (
+		adminCopy: MessageDescriptor,
+		selfCopy: MessageDescriptor,
+	): MessageDescriptor => {
 		return this.props.isCurrentUser ? selfCopy : adminCopy;
 	};
 

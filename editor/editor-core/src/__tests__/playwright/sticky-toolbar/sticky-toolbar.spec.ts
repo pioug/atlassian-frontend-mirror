@@ -3,7 +3,7 @@ import { EditorMainToolbarModel } from '@af/editor-libra/page-models';
 
 test.describe('Sticky Toolbar', () => {
 	test.use({
-		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 		editorProps: {
 			appearance: 'comment',
 		},

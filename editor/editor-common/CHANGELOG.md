@@ -1,5 +1,36 @@
 # @atlaskit/editor-common
 
+## 114.13.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.13.0
+
+### Minor Changes
+
+- [`e6053f4348753`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6053f4348753) -
+  Fix cc-markdown-mode duplication and stuck-loading issues on rich/markdown convert. Cache the
+  latest init payload on the native collab provider and expose it via an optional getInitPayload()
+  getter so editor-plugin-collab-edit can seed collabInitialised=true on a rebind (e.g. preset
+  rebuild) without re-running handleInit. Gate a synthetic-BE-step filter in
+  documentService.processSteps that neutralises NCS reconcile-generated steps tagged with the user's
+  userId but no clientId (prevents HelloHello duplication after a markdown-mode flip). Defensively
+  hide the WYSIWYG editor DOM in MarkdownModeContentComponent when the source view is active so the
+  floating toolbar/cursor doesn't leak through. All behaviour changes are behind the
+  cc-markdown-mode experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.12.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.12.2
 
 ### Patch Changes

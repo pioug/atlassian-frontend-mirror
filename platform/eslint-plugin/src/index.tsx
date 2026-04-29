@@ -39,6 +39,7 @@ import noRelativeBarrelFileImports from './rules/import/no-relative-barrel-file-
 import noConversationAssistantBarrelImports from './rules/import/no-conversation-assistant-barrel-imports';
 import visitExampleTypeImportRequired from './rules/visit-example-type-import-required';
 import ensureUseSyncExternalStoreServerSnapshot from './rules/ensure-use-sync-external-store-server-snapshot';
+import noXcssInCx from './rules/no-xcss-in-cx';
 import { join, normalize } from 'node:path';
 import { readFileSync } from 'node:fs';
 
@@ -106,6 +107,7 @@ const rules: {
 	'no-relative-barrel-file-imports': Rule.RuleModule;
 	'no-conversation-assistant-barrel-imports': Rule.RuleModule;
 	'visit-example-type-import-required': Rule.RuleModule;
+	'no-xcss-in-cx': Rule.RuleModule;
 	'ensure-use-sync-external-store-server-snapshot': Rule.RuleModule;
 } = {
 	'ensure-feature-flag-registration': ensureFeatureFlagRegistration,
@@ -145,6 +147,7 @@ const rules: {
 	'no-relative-barrel-file-imports': noRelativeBarrelFileImports,
 	'no-conversation-assistant-barrel-imports': noConversationAssistantBarrelImports,
 	'visit-example-type-import-required': visitExampleTypeImportRequired,
+	'no-xcss-in-cx': noXcssInCx,
 	'ensure-use-sync-external-store-server-snapshot': ensureUseSyncExternalStoreServerSnapshot,
 };
 
@@ -158,6 +161,7 @@ const commonConfig = {
 	'@atlaskit/platform/no-module-level-eval-nav4': 'error',
 	'@atlaskit/platform/no-direct-document-usage': 'warn',
 	'@atlaskit/platform/no-set-immediate': 'error',
+	'@atlaskit/platform/no-xcss-in-cx': 'error',
 	// Compiled: rules that are not included via `@compiled/recommended
 	'@atlaskit/platform/expand-border-shorthand': 'error',
 	'@atlaskit/platform/expand-background-shorthand': 'error',

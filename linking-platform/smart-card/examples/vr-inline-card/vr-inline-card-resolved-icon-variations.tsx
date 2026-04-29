@@ -20,8 +20,11 @@ const InlineCardResolvedIconVariationsInner = (): React.JSX.Element => (
  * Visual regression: all ResolvedClient icon-test URLs in a single inline column
  * (same JSON-LD set as examples 11-inline-card-views / CardViewExample [Resolved]).
  */
-const _default_1: React.ComponentType<object> = withWaitForItem(InlineCardResolvedIconVariationsInner, () => {
-    const items = document.body.querySelectorAll('[data-testid="inline-card-resolved-view"]');
-    return items[resolvedInlineCardCount - 1];
-});
+const _default_1: React.ComponentType<object> = withWaitForItem(
+	InlineCardResolvedIconVariationsInner,
+	() => {
+		const items = document.body.querySelectorAll('[data-testid="inline-card-resolved-view"]');
+		return items[resolvedInlineCardCount - 1];
+	},
+);
 export default _default_1;

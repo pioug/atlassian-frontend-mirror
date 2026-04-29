@@ -9,7 +9,6 @@ import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { ASC, DESC } from '../internal/constants';
 import type { SortOrderType } from '../types';
 
 import { getTruncationStyleVars, type TruncateStyleProps } from './constants';
@@ -81,8 +80,8 @@ export const HeadCell: import('react').ForwardRefExoticComponent<
 			...(width && getTruncationStyleVars({ width })),
 			[CSS_VAR_TEXT_COLOR]: token('color.text.subtlest'),
 		};
-		const isASC = sortOrder === ASC;
-		const isDESC = sortOrder === DESC;
+		const isASC = sortOrder === 'ASC';
+		const isDESC = sortOrder === 'DESC';
 
 		const getFormattedSortOrder = () => {
 			if (isASC) {

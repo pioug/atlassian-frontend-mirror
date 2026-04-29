@@ -1,5 +1,12 @@
 # @atlaskit/linking-common
 
+## 9.11.5
+
+### Patch Changes
+
+- [`4175fc4bd57f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4175fc4bd57f5) -
+  Fix bug in linkify util which extracts URLs from text strings
+
 ## 9.11.4
 
 ### Patch Changes

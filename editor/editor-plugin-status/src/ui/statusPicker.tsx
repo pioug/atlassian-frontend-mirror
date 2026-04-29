@@ -25,7 +25,6 @@ import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import type { ColorType as Color } from '@atlaskit/status/picker';
 import { StatusPicker as AkStatusPicker } from '@atlaskit/status/picker';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -211,9 +210,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 	private handleTabPress = (event: React.KeyboardEvent) => {
 		const colorButtons = event.currentTarget.querySelectorAll('button');
 		const inputField = event.currentTarget.querySelector<HTMLInputElement>('input');
-		const activeElement = expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
-			? getDocument()?.activeElement
-			: document?.activeElement;
+		const activeElement = getDocument()?.activeElement;
 		const isInputFocussed = activeElement === inputField;
 		const isButtonFocussed = Array.from(colorButtons).some((buttonElement) => {
 			return activeElement === buttonElement;
@@ -240,9 +237,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 		}
 	};
 	private handleArrow = (event: React.KeyboardEvent, closingMethod: closingMethods) => {
-		const activeElement = expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
-			? getDocument()?.activeElement
-			: document?.activeElement;
+		const activeElement = getDocument()?.activeElement;
 		if (activeElement === this.popupBodyWrapper.current) {
 			event.preventDefault();
 			this.popupBodyWrapper?.current?.blur();

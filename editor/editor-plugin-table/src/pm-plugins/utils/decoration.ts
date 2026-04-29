@@ -20,7 +20,6 @@ import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable, getCellsInRow, getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { Cell, CellColumnPositioning } from '../../types';
 import { TableCssClassName as ClassName, TableDecorations } from '../../types';
@@ -254,9 +253,7 @@ const makeArray = (n: number) => Array.from(Array(n).keys());
  * the CellColumnPositioning interface.
  *
  * Let's say the `columnEndIndexTarget.right` is 3,
- * so this function will return two types of decorations for each cell on that column,
- * that means 2 `resizerHandle` and 2 `lastCellElement`,
- * here is the explanation for each one of them :
+ * so this function will return the resize handle decoration for each cell on that column:
  *
  * - resizerHandle:
  *
@@ -271,32 +268,6 @@ const makeArray = (n: number) => Array.from(Array(n).keys());
  *   This ▒ represents the area where table resizing will start,
  *   and you can follow that using checking the class name `ClassName.RESIZE_HANDLE_DECORATION` on the code
  *
- * - lastCellElementDecoration
- *
- *   Given the content of the cell C1
- *    ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
- *   |                   |
- *   |   _____________   |
- *   |  |             |  |
- *   |  |     <p>     |  |
- *   |  |_____________|  |
- *   |                   |
- *   |   _____________   |
- *   |  |             |  |
- *   |  |   <media>   |  |
- *   |  |_____________|  |
- *   |                   |
- *   |   _____________   |
- *   |  |             |  |
- *   |  |   <media>   |  |
- *   |  |_____________|  |
- *   |                   |
- *    ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
- *   Currently, we are removing the margin-bottom from the last media using this kind of CSS rule:
- *   `div:last-of-type`; This is quite unstable, and after we create the `resizerHandle` div,
- *   that logic will apply the margin in the wrong element, to avoid that,
- *   we will add a new class on the last item for each cell,
- *   hence the second media will receive this class `ClassName.LAST_ITEM_IN_CELL`
  */
 export const createResizeHandleDecoration = (
 	tr: Transaction | ReadonlyTransaction,
@@ -305,16 +276,15 @@ export const createResizeHandleDecoration = (
 	includeTooltip: boolean = false,
 	getIntl: () => IntlShape,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
-): [Decoration[], Decoration[]] => {
-	const emptyResult: [Decoration[], Decoration[]] = [[], []];
+): Decoration[] => {
 	const table = findTable(tr.selection);
 	if (!table || !table.node) {
-		return emptyResult;
+		return [];
 	}
 
 	const map = TableMap.get(table.node);
 	if (!map.width) {
-		return emptyResult;
+		return [];
 	}
 
 	const createResizerHandleDecoration = (
@@ -358,46 +328,7 @@ export const createResizeHandleDecoration = (
 		);
 	};
 
-	const createLastCellElementDecoration = (
-		cellColumnPositioning: CellColumnPositioning,
-		cellPos: number,
-		cellNode: PmNode,
-	): Decoration | null => {
-		if (expValEquals('platform_editor_table_remove_last_cell_decoration', 'isEnabled', true)) {
-			// no longer need to add the last cell decoration to override marginBottom as media wrapper doesn't have margin bottom. This will avoid unnecessary decoration computation/mutation and improve performance
-			// consider clean up ClassName.LAST_ITEM_IN_CELL with platform_editor_table_remove_last_cell_decoration experiment
-			return null;
-		}
-
-		let lastItemPositions: { from: number; to: number } | undefined;
-		cellNode.forEach((childNode, offset, index) => {
-			if (index === cellNode.childCount - 1) {
-				const from = offset + cellPos + 1;
-				lastItemPositions = {
-					from,
-					to: from + childNode.nodeSize,
-				};
-			}
-		});
-
-		if (!lastItemPositions) {
-			return null;
-		}
-
-		return Decoration.node(
-			lastItemPositions.from,
-			lastItemPositions.to,
-			{
-				class: ClassName.LAST_ITEM_IN_CELL,
-			},
-			{
-				key: `${TableDecorations.LAST_CELL_ELEMENT}_${cellColumnPositioning.left}_${cellColumnPositioning.right}`,
-			},
-		);
-	};
-
 	const resizeHandleCellDecorations: Decoration[] = [];
-	const lastCellElementsDecorations: Array<Decoration | null> = [];
 
 	for (let rowIndex = 0; rowIndex < map.height; rowIndex++) {
 		const seen: { [key: number]: boolean } = {};
@@ -433,18 +364,12 @@ export const createResizeHandleDecoration = (
 				cellPos,
 				cell,
 			);
-			const lastCellDec = createLastCellElementDecoration(
-				{ left: startIndex, right: endIndex },
-				cellPos,
-				cell,
-			);
 
 			resizeHandleCellDecorations.push(resizerHandleDec);
-			lastCellElementsDecorations.push(lastCellDec);
 		}
 	}
 
-	return [resizeHandleCellDecorations, lastCellElementsDecorations.filter(nonNullable)];
+	return resizeHandleCellDecorations;
 };
 
 /*

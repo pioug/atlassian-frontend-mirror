@@ -14,7 +14,9 @@ import { type JQLFieldResponse } from '../../common/types';
 import findField$ from '../../utils/find-field-observable';
 import { type OnOperators } from '../use-autocomplete-provider/types';
 
-const useOnOperators = (jqlSearchableFields$: Observable<JQLFieldResponse>): (query?: string, field?: string) => Observable<AutocompleteOptions> => {
+const useOnOperators = (
+	jqlSearchableFields$: Observable<JQLFieldResponse>,
+): ((query?: string, field?: string) => Observable<AutocompleteOptions>) => {
 	return useCallback<OnOperators>(
 		(query?: string, field?: string): Observable<AutocompleteOptions> => {
 			if (typeof field !== 'string' || field === '') {

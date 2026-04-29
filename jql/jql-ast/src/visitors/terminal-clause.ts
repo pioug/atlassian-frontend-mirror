@@ -17,7 +17,14 @@ import {
 } from '@atlaskit/jql-parser';
 
 import { internalCreators } from '../creators';
-import { type Clause, type Operand, type Operator, type Predicate, type TerminalClause, type TerminalClauseRhs } from '../types';
+import {
+	type Clause,
+	type Operand,
+	type Operator,
+	type Predicate,
+	type TerminalClause,
+	type TerminalClauseRhs,
+} from '../types';
 import { notUndefined } from '../utils';
 
 import { getPositionFromContext, JastBuildingVisitor } from './common';
@@ -49,64 +56,78 @@ export class TerminalClauseVisitor extends JastBuildingVisitor<Clause> {
 
 class TerminalClauseRhsVisitor extends JastBuildingVisitor<TerminalClauseRhs> {
 	operatorVisitor: OperatorVisitor = new OperatorVisitor(this.tokens);
-	terminalClauseOperandVisitor: TerminalClauseOperandVisitor = new TerminalClauseOperandVisitor(this.tokens);
+	terminalClauseOperandVisitor: TerminalClauseOperandVisitor = new TerminalClauseOperandVisitor(
+		this.tokens,
+	);
 	predicateVisitor: PredicateVisitor = new PredicateVisitor(this.tokens);
 
-	visitJqlEqualsClause = (ctx: JqlEqualsClauseContext): {
-        operand: void | Operand;
-        operator: void | Operator | undefined;
-        predicates: never[];
-    } => {
+	visitJqlEqualsClause = (
+		ctx: JqlEqualsClauseContext,
+	): {
+		operand: void | Operand;
+		operator: void | Operator | undefined;
+		predicates: never[];
+	} => {
 		const operator = ctx.jqlEqualsOperator().accept(this.operatorVisitor);
 		const operand = ctx.accept(this.terminalClauseOperandVisitor);
 		return { operator, operand, predicates: [] };
 	};
 
-	visitJqlLikeClause = (ctx: JqlLikeClauseContext): {
-        operand: void | Operand;
-        operator: void | Operator | undefined;
-        predicates: never[];
-    } => {
+	visitJqlLikeClause = (
+		ctx: JqlLikeClauseContext,
+	): {
+		operand: void | Operand;
+		operator: void | Operator | undefined;
+		predicates: never[];
+	} => {
 		const operator = ctx.jqlLikeOperator().accept(this.operatorVisitor);
 		const operand = ctx.accept(this.terminalClauseOperandVisitor);
 		return { operator, operand, predicates: [] };
 	};
 
-	visitJqlComparisonClause = (ctx: JqlComparisonClauseContext): {
-        operand: void | Operand;
-        operator: void | Operator | undefined;
-        predicates: never[];
-    } => {
+	visitJqlComparisonClause = (
+		ctx: JqlComparisonClauseContext,
+	): {
+		operand: void | Operand;
+		operator: void | Operator | undefined;
+		predicates: never[];
+	} => {
 		const operator = ctx.jqlComparisonOperator().accept(this.operatorVisitor);
 		const operand = ctx.accept(this.terminalClauseOperandVisitor);
 		return { operator, operand, predicates: [] };
 	};
 
-	visitJqlInClause = (ctx: JqlInClauseContext): {
-        operand: void | Operand;
-        operator: void | Operator | undefined;
-        predicates: never[];
-    } => {
+	visitJqlInClause = (
+		ctx: JqlInClauseContext,
+	): {
+		operand: void | Operand;
+		operator: void | Operator | undefined;
+		predicates: never[];
+	} => {
 		const operator = ctx.jqlInOperator().accept(this.operatorVisitor);
 		const operand = ctx.accept(this.terminalClauseOperandVisitor);
 		return { operator, operand, predicates: [] };
 	};
 
-	visitJqlIsClause = (ctx: JqlIsClauseContext): {
-        operand: void | Operand;
-        operator: void | Operator | undefined;
-        predicates: never[];
-    } => {
+	visitJqlIsClause = (
+		ctx: JqlIsClauseContext,
+	): {
+		operand: void | Operand;
+		operator: void | Operator | undefined;
+		predicates: never[];
+	} => {
 		const operator = ctx.jqlIsOperator().accept(this.operatorVisitor);
 		const operand = ctx.accept(this.terminalClauseOperandVisitor);
 		return { operator, operand, predicates: [] };
 	};
 
-	visitJqlWasClause = (ctx: JqlWasClauseContext): {
-        operand: void | Operand;
-        operator: void | Operator | undefined;
-        predicates: Predicate[];
-    } => {
+	visitJqlWasClause = (
+		ctx: JqlWasClauseContext,
+	): {
+		operand: void | Operand;
+		operator: void | Operator | undefined;
+		predicates: Predicate[];
+	} => {
 		const operator = ctx.jqlWasOperator().accept(this.operatorVisitor);
 		const operand = ctx.accept(this.terminalClauseOperandVisitor);
 		const predicates = ctx
@@ -116,11 +137,13 @@ class TerminalClauseRhsVisitor extends JastBuildingVisitor<TerminalClauseRhs> {
 		return { operator, operand, predicates };
 	};
 
-	visitJqlWasInClause = (ctx: JqlWasInClauseContext): {
-        operand: void | Operand;
-        operator: void | Operator | undefined;
-        predicates: Predicate[];
-    } => {
+	visitJqlWasInClause = (
+		ctx: JqlWasInClauseContext,
+	): {
+		operand: void | Operand;
+		operator: void | Operator | undefined;
+		predicates: Predicate[];
+	} => {
 		const operator = ctx.jqlWasInOperator().accept(this.operatorVisitor);
 		const operand = ctx.accept(this.terminalClauseOperandVisitor);
 		const predicates = ctx

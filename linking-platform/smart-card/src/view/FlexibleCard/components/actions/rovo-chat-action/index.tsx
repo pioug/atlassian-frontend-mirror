@@ -302,14 +302,11 @@ const RovoChatAction = ({
 		if (prompts) {
 			return prompts;
 		}
-		if (
-			expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true) &&
-			data?.invokeAction?.extensionKey !== 'google-object-provider'
-		) {
+		if (expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)) {
 			return GENERIC_3P_PROMPTS;
 		}
 		return DEFAULT_PROMPTS;
-	}, [prompts, data?.invokeAction?.extensionKey]);
+	}, [prompts]);
 	const invoke = useInvokeClientAction({});
 
 	const onClick = useCallback(

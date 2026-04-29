@@ -117,10 +117,11 @@ const HyperlinkWithSmartLinkResolverInner = ({
 	return <Hyperlink {...props} onClick={onClick} />;
 };
 
-export const HyperlinkWithSmartLinkResolver: React.ForwardRefExoticComponent<LinkUrlProps & React.RefAttributes<any>> = withReactErrorBoundary(
-	withValidator(
-		injectIntl(withIntlProvider(HyperlinkWithSmartLinkResolverInner), { enforceContext: false }),
-		Hyperlink,
-	),
-	{ FallbackComponent: HyperlinkFallbackComponent },
-);
+export const HyperlinkWithSmartLinkResolver: React.ComponentType<LinkUrlProps> =
+	withReactErrorBoundary(
+		withValidator(
+			injectIntl(withIntlProvider(HyperlinkWithSmartLinkResolverInner), { enforceContext: false }),
+			Hyperlink,
+		),
+		{ FallbackComponent: HyperlinkFallbackComponent },
+	);

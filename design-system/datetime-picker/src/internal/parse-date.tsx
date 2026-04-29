@@ -17,7 +17,7 @@
  */
 import { type LocalizationProvider } from '@atlaskit/locale';
 
-import { defaultDateFormat } from './index';
+import { defaultDateFormat } from './default-date-format';
 
 /**
  * There are two props that can change how the date is parsed.

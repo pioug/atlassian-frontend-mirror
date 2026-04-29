@@ -24,21 +24,24 @@ const JQLEditor = lazyForPaint<ComponentType<JQLEditorUIProps>>(
 
 export const preloadJQLEditor = (): Cleanup => JQLEditor.preload();
 
-export const JQLEditorAsync: (props: JQLEditorProps) => React.JSX.Element = withIntlProvider<JQLEditorProps>(
-	withErrorBoundary<JQLEditorUIProps>((props: JQLEditorUIProps) => {
-		return (
-			<LazySuspense
-				fallback={
-					<JQLEditorReadOnly
-						query={props.query}
-						isSearch={!!props.onSearch}
-						isCompact={props.isCompact}
-						{...(fg('list_lovability_improving_filters') ? { defaultRows: props.defaultRows } : {})}
-					/>
-				}
-			>
-				<JQLEditor {...props} />
-			</LazySuspense>
-		);
-	}),
-);
+export const JQLEditorAsync: (props: JQLEditorProps) => React.JSX.Element =
+	withIntlProvider<JQLEditorProps>(
+		withErrorBoundary<JQLEditorUIProps>((props: JQLEditorUIProps) => {
+			return (
+				<LazySuspense
+					fallback={
+						<JQLEditorReadOnly
+							query={props.query}
+							isSearch={!!props.onSearch}
+							isCompact={props.isCompact}
+							{...(fg('list_lovability_improving_filters')
+								? { defaultRows: props.defaultRows }
+								: {})}
+						/>
+					}
+				>
+					<JQLEditor {...props} />
+				</LazySuspense>
+			);
+		}),
+	);

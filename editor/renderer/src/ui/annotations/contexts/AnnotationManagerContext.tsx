@@ -56,12 +56,14 @@ const initState: AnnotationManagerStateContext = {
 	currentHoveredAnnotationId: undefined,
 };
 
-const AnnotationManagerStateContext: React.Context<AnnotationManagerStateContext> = createContext<AnnotationManagerStateContext>(initState);
+const AnnotationManagerStateContext: React.Context<AnnotationManagerStateContext> =
+	createContext<AnnotationManagerStateContext>(initState);
 
-const AnnotationManagerDispatchContext: React.Context<AnnotationManagerDispatchContext> = createContext<AnnotationManagerDispatchContext>({
-	annotationManager: undefined,
-	dispatch: () => {},
-});
+const AnnotationManagerDispatchContext: React.Context<AnnotationManagerDispatchContext> =
+	createContext<AnnotationManagerDispatchContext>({
+		annotationManager: undefined,
+		dispatch: () => {},
+	});
 
 type AnnotationManagerAction =
 	| { type: 'reset' }

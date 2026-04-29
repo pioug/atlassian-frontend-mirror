@@ -17,7 +17,7 @@ import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { QuickInsertWithVisibility } from '../ui/quick-insert-button';
 
 import type { AnchorRectCache } from './utils/anchor-utils';
-import { getActiveBlockMarks } from './utils/marks';
+import { getActiveBlockMarks, getMatchingBlockMarks } from './utils/marks';
 
 const TYPE_QUICK_INSERT = 'INSERT_BUTTON';
 
@@ -68,9 +68,14 @@ export const quickInsertButtonDecoration = ({
 				 * Other block marks must be added, otherwise PM will split the DOM elements causing mutations and re-draws
 				 */
 
-				marks: expValEquals('platform_editor_clean_up_widget_mark_logic', 'isEnabled', true)
-					? []
-					: getActiveBlockMarks(editorState, rootPos),
+				marks: expValEquals('platform_editor_small_font_size', 'isEnabled', true)
+					? getMatchingBlockMarks(editorState, rootPos, [
+							editorState.schema.marks.alignment,
+							editorState.schema.marks.fontSize,
+						])
+					: expValEquals('platform_editor_clean_up_widget_mark_logic', 'isEnabled', true)
+						? []
+						: getActiveBlockMarks(editorState, rootPos),
 				destroy: (_: Node) => {
 					if (fg('platform_editor_fix_widget_destroy')) {
 						nodeViewPortalProviderAPI.remove(key);

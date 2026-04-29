@@ -49,7 +49,8 @@ const defaultEditorTheme: EditorTheme = {
 	isCompact: false,
 };
 
-export const EditorThemeContext: Context<EditorTheme> = createContext<EditorTheme>(defaultEditorTheme);
+export const EditorThemeContext: Context<EditorTheme> =
+	createContext<EditorTheme>(defaultEditorTheme);
 
 /**
  * Hook to manage the theming state of the editor.

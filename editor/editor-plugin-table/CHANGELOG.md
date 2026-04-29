@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-table
 
+## 22.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.2.10
+
+### Patch Changes
+
+- [`0281a1c2161a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0281a1c2161a9) -
+  [ux] cleanup platform_editor_table_remove_last_cell_decoration
+- Updated dependencies
+
+## 22.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.2.8
 
 ### Patch Changes

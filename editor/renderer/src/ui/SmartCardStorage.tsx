@@ -5,7 +5,9 @@ export interface WithSmartCardStorageProps {
 	smartCardStorage: Map<string, string>;
 }
 
-export const Context: React.Context<Map<string, string>> = React.createContext<Map<string, string>>(new Map());
+export const Context: React.Context<Map<string, string>> = React.createContext<Map<string, string>>(
+	new Map(),
+);
 
 export const Provider = function ({
 	children,

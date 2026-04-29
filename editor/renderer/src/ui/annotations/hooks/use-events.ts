@@ -106,9 +106,12 @@ export const useAnnotationStateByTypeEvent = ({
 	}
 };
 
-export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps): {
-    hasFocus: boolean;
-    isHovered: boolean;
+export const useHasFocusEvent = ({
+	id,
+	updateSubscriber,
+}: ListenEventProps): {
+	hasFocus: boolean;
+	isHovered: boolean;
 } => {
 	const [hasFocus, setHasFocus] = useState<boolean>(false);
 	const [isHovered, setIsHovered] = useState<boolean>(false);

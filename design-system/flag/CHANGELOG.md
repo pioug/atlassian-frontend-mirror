@@ -1,5 +1,15 @@
 # @atlaskit/flag
 
+## 17.11.0
+
+### Minor Changes
+
+- [`523cde9208825`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/523cde9208825) -
+  Add Escape key shortcut to dismiss the topmost flag, behind the platform_dst_flag_keyboard_dismiss
+  feature gate. Improves keyboard and screen-reader accessibility (JRACLOUD-97876) by removing the
+  need to tab through the entire page to reach the flag's dismiss button. The visually-hidden
+  landmark label also announces the new shortcut when the gate is on.
+
 ## 17.10.0
 
 ### Minor Changes

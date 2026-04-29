@@ -29,7 +29,9 @@ type TableWidthPluginState = {
 	tableRef: HTMLTableElement | null;
 };
 
-export const pluginKey: PluginKey<TableWidthPluginState> = new PluginKey<TableWidthPluginState>('tableWidthPlugin');
+export const pluginKey: PluginKey<TableWidthPluginState> = new PluginKey<TableWidthPluginState>(
+	'tableWidthPlugin',
+);
 
 const createPlugin = (
 	dispatch: Dispatch,

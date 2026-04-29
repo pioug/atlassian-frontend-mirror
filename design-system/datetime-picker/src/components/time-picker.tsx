@@ -23,15 +23,19 @@ import Select, {
 	type ValueType,
 } from '@atlaskit/select';
 
-import { defaultTimeFormat, defaultTimes, EmptyComponent, placeholderDatetime } from '../internal';
+import { defaultTimes } from '../internal/default-times';
+import { EmptyComponent } from '../internal/empty-component';
 import { FixedLayerMenu } from '../internal/fixed-layer-menu';
 import parseTime from '../internal/parse-time';
 import { convertTokens } from '../internal/parse-tokens';
+import { placeholderDatetime } from '../internal/placeholder-date-time';
 import { makeSingleValue } from '../internal/single-value';
 import { type Appearance, type Spacing, type TimePickerBaseProps } from '../types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
+
+const defaultTimeFormat = 'h:mma';
 
 interface Option {
 	label: string;

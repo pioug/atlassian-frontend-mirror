@@ -326,10 +326,6 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		'test_with_overflow',
 	) && tableAnchorStyles};
 
-	.${ClassName.LAST_ITEM_IN_CELL} {
-		margin-bottom: 0;
-	}
-
 	.${ClassName.TABLE_NODE_WRAPPER} {
 		td.${ClassName.TABLE_CELL}, th.${ClassName.TABLE_HEADER_CELL} {
 			position: relative;

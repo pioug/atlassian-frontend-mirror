@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { act, render, screen } from '@testing-library/react';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { act, render, screen } from '@atlassian/testing-library';
 
 import UFOInteractionContext, { type UFOInteractionContextType } from '../../interaction-context';
 import UFOInteractionIDContext, { DefaultInteractionID } from '../../interaction-id-context';
@@ -149,6 +150,40 @@ describe('UFOLoadHold', () => {
 			expect(mockHold).toHaveBeenCalledWith('regular-hold');
 			expect(mockHoldExperimental).not.toHaveBeenCalled();
 		});
+
+		ffTest(
+			'platform_ufo_remove_experimental_holds',
+			() => {
+				const mockContext = createMockContext();
+
+				render(
+					<UFOInteractionIDContext.Provider value={DefaultInteractionID}>
+						<UFOInteractionContext.Provider value={mockContext}>
+							<UFOLoadHold name="experimental-hold" experimental={true} />
+						</UFOInteractionContext.Provider>
+					</UFOInteractionIDContext.Provider>,
+				);
+
+				// When feature gate is ON, experimental prop is ignored; regular hold is called
+				expect(mockHold).toHaveBeenCalledWith('experimental-hold');
+				expect(mockHoldExperimental).not.toHaveBeenCalled();
+			},
+			() => {
+				const mockContext = createMockContext();
+
+				render(
+					<UFOInteractionIDContext.Provider value={DefaultInteractionID}>
+						<UFOInteractionContext.Provider value={mockContext}>
+							<UFOLoadHold name="experimental-hold" experimental={true} />
+						</UFOInteractionContext.Provider>
+					</UFOInteractionIDContext.Provider>,
+				);
+
+				// When feature gate is OFF, experimental hold is called as before
+				expect(mockHoldExperimental).toHaveBeenCalledWith('experimental-hold');
+				expect(mockHold).not.toHaveBeenCalled();
+			},
+		);
 	});
 
 	describe('children rendering', () => {

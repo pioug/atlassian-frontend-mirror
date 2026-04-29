@@ -74,7 +74,7 @@ const archiveDownloadButtonWrapperStyles = css({
 	},
 });
 
-const archiveDownloadButtonWrapperStyleFix = css ({
+const archiveDownloadButtonWrapperStyleFix = css({
 	all: 'unset',
 	display: 'block',
 	'&:focus-visible': {
@@ -83,7 +83,7 @@ const archiveDownloadButtonWrapperStyleFix = css ({
 		outlineColor: token('color.border.focused'),
 		outlineStyle: 'solid',
 	},
-})
+});
 
 const disabledArchiveDownloadButtonWrapperStyles = css({
 	paddingTop: `${token('space.100')}`,

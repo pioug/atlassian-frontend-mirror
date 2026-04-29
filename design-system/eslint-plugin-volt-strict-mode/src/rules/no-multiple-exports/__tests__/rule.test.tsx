@@ -114,6 +114,104 @@ typescriptEslintTester.run(
         `,
 				errors: [{ messageId: 'no-multiple-exports' }, { messageId: 'no-multiple-exports' }],
 			},
+			// allowPrimitiveExports: still errors on complex exports
+			{
+				name: 'allowPrimitiveExports: two component exports still error',
+				code: `
+          export const Foo = () => null;
+          export const Bar = () => null;
+        `,
+				options: [{ allowPrimitiveExports: true }],
+				errors: [{ messageId: 'no-multiple-exports' }],
+			},
+			{
+				name: 'allowPrimitiveExports: primitive and component export errors on component',
+				code: `
+          export const LABEL = 'hello';
+          export const Foo = () => null;
+          export const Bar = () => null;
+        `,
+				options: [{ allowPrimitiveExports: true }],
+				errors: [{ messageId: 'no-multiple-exports' }],
+			},
+			{
+				name: 'allowPrimitiveExports: default export alongside component still errors',
+				code: `
+          export const Foo = () => null;
+          export default function Bar() { return null; }
+        `,
+				options: [{ allowPrimitiveExports: true }],
+				errors: [{ messageId: 'no-multiple-exports' }],
+			},
 		],
+	},
+);
+
+typescriptEslintTester.run(
+	'no-multiple-exports with allowPrimitiveExports',
+	// @ts-expect-error — RuleTester accepts our rule module shape
+	rule,
+	{
+		valid: [
+			{
+				name: 'allowPrimitiveExports: multiple number constant exports',
+				code: `
+          export const SPACING_SMALL = 4;
+          export const SPACING_MEDIUM = 8;
+          export const SPACING_LARGE = 16;
+        `,
+				options: [{ allowPrimitiveExports: true }],
+			},
+			{
+				name: 'allowPrimitiveExports: multiple string constant exports',
+				code: `
+          export const FOO = 'foo';
+          export const BAR = 'bar';
+        `,
+				options: [{ allowPrimitiveExports: true }],
+			},
+			{
+				name: 'allowPrimitiveExports: multiple boolean constant exports',
+				code: `
+          export const IS_ENABLED = true;
+          export const IS_VISIBLE = false;
+        `,
+				options: [{ allowPrimitiveExports: true }],
+			},
+			{
+				name: 'allowPrimitiveExports: mixed primitive types',
+				code: `
+          export const NAME = 'button';
+          export const SIZE = 32;
+          export const ACTIVE = true;
+        `,
+				options: [{ allowPrimitiveExports: true }],
+			},
+			{
+				name: 'allowPrimitiveExports: primitive alongside type exports',
+				code: `
+          export type Id = string;
+          export const FOO = 'foo';
+          export const BAR = 'bar';
+        `,
+				options: [{ allowPrimitiveExports: true }],
+			},
+			{
+				name: 'allowPrimitiveExports: template literal constants',
+				code: `
+          export const A = \`hello\`;
+          export const B = \`world\`;
+        `,
+				options: [{ allowPrimitiveExports: true }],
+			},
+			{
+				name: 'allowPrimitiveExports: single component export still valid',
+				code: `
+          export const Foo = () => null;
+        `,
+				options: [{ allowPrimitiveExports: true }],
+			},
+		],
+		invalid: [],
 	},
 );

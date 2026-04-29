@@ -82,36 +82,18 @@ const baseFeatureGates = {
 
 export const Standard: Story = {
 	name: 'Standard (non-Rovo Dev)',
-	decorators: [
-		withPlatformFeatureGates({ ...baseFeatureGates, rovo_dev_themed_identity_card: false }),
-	],
+	decorators: [withPlatformFeatureGates({ ...baseFeatureGates })],
 	render: (props) => <AgentProfileCard {...props} />,
 };
 
-export const RovoDevGateOff: Story = {
-	name: 'Rovo Dev (gate OFF)',
+export const RovoDev: Story = {
+	name: 'Rovo Dev',
 	args: {
 		agent: {
 			...agent,
 			creator_type: 'ROVO_DEV',
 		},
 	},
-	decorators: [
-		withPlatformFeatureGates({ ...baseFeatureGates, rovo_dev_themed_identity_card: false }),
-	],
-	render: (props) => <AgentProfileCard {...props} />,
-};
-
-export const RovoDevGateOn: Story = {
-	name: 'Rovo Dev (gate ON)',
-	args: {
-		agent: {
-			...agent,
-			creator_type: 'ROVO_DEV',
-		},
-	},
-	decorators: [
-		withPlatformFeatureGates({ ...baseFeatureGates, rovo_dev_themed_identity_card: true }),
-	],
+	decorators: [withPlatformFeatureGates({ ...baseFeatureGates })],
 	render: (props) => <AgentProfileCard {...props} />,
 };

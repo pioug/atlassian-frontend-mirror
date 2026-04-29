@@ -1,15 +1,16 @@
 import { defineMessages } from 'react-intl';
 
 export const messages: {
-    syntaxHelpDescription: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; syntaxHelpTooltip: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    };
+	syntaxHelpDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syntaxHelpTooltip: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 } = defineMessages({
 	syntaxHelpDescription: {
 		id: 'jql-editor.ui.jql-editor-footer-content.jql-editor-help.syntax-help.description',

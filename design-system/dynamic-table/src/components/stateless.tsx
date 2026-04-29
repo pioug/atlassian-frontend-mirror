@@ -4,7 +4,6 @@ import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/an
 import noop from '@atlaskit/ds-lib/noop';
 
 import { assertIsSortable } from '../internal/assert-is-sortable';
-import { ASC, DESC, LARGE, SMALL } from '../internal/constants';
 import { getPageRows } from '../internal/get-page-rows';
 import { validateSortKey } from '../internal/validate-sort-key';
 import { Caption } from '../styled/caption';
@@ -31,10 +30,10 @@ import TableHead from './table-head';
 
 function toggleSortOrder(currentSortOrder?: SortOrderType) {
 	switch (currentSortOrder) {
-		case DESC:
-			return ASC;
-		case ASC:
-			return DESC;
+		case 'DESC':
+			return 'ASC';
+		case 'ASC':
+			return 'DESC';
 		default:
 			return currentSortOrder;
 	}
@@ -101,12 +100,12 @@ const DynamicTable = ({
 			return;
 		}
 
-		if (onSort && isRankable && key === sortKey && sortOrder === DESC) {
+		if (onSort && isRankable && key === sortKey && sortOrder === 'DESC') {
 			onSort({ key: null, sortOrder: null, item });
 			return;
 		}
 
-		const sortOrderFormatted = key !== sortKey ? ASC : toggleSortOrder(sortOrder);
+		const sortOrderFormatted = key !== sortKey ? 'ASC' : toggleSortOrder(sortOrder);
 		if (onSort) {
 			onSort({ key, item, sortOrder: sortOrderFormatted });
 		}
@@ -131,7 +130,7 @@ const DynamicTable = ({
 			return loadingSpinnerSize;
 		}
 
-		return getPageRows(rows || [], page, rowsPerPage).length > 2 ? LARGE : SMALL;
+		return getPageRows(rows || [], page, rowsPerPage).length > 2 ? 'large' : 'small';
 	};
 
 	const renderEmptyBody = () => {
@@ -240,7 +239,7 @@ const DynamicTable = ({
 			{!rowsExist && emptyBody && (
 				<LoadingContainer
 					isLoading={isLoading}
-					spinnerSize={LARGE}
+					spinnerSize="large"
 					testId={testId}
 					loadingLabel={loadingLabel}
 				>

@@ -1127,5 +1127,5 @@ export const messages: Messages = defineMessages({
 		id: 'media.media-viewer.archive-sidebar.wrapper.label_assistive_text',
 		defaultMessage: 'Download Media',
 		description: 'Aria-label for media archive download button',
-	}
+	},
 });

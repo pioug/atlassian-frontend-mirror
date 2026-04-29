@@ -21,7 +21,7 @@ import { DragHandle, DragHandleWithVisibility } from '../ui/drag-handle';
 
 import { TYPE_HANDLE_DEC, TYPE_NODE_DEC, unmountDecorations } from './decorations-common';
 import type { AnchorRectCache } from './utils/anchor-utils';
-import { getActiveBlockMarks } from './utils/marks';
+import { getActiveBlockMarks, getMatchingBlockMarks } from './utils/marks';
 
 export const emptyParagraphNodeDecorations = (): Decoration => {
 	const anchorName = `--node-anchor-paragraph-0`;
@@ -91,9 +91,14 @@ export const dragHandleDecoration = ({
 				 * Exclude 'breakout' on purpose, so the widgets render at the top of the document to avoid z-index issues
 				 * Other block marks must be added, otherwise PM will split the DOM elements causing mutations and re-draws
 				 */
-				marks: expValEquals('platform_editor_clean_up_widget_mark_logic', 'isEnabled', true)
-					? []
-					: getActiveBlockMarks(editorState, pos),
+				marks: expValEquals('platform_editor_small_font_size', 'isEnabled', true)
+					? getMatchingBlockMarks(editorState, pos, [
+							editorState.schema.marks.alignment,
+							editorState.schema.marks.fontSize,
+						])
+					: expValEquals('platform_editor_clean_up_widget_mark_logic', 'isEnabled', true)
+						? []
+						: getActiveBlockMarks(editorState, pos),
 				destroy: (node: Node) => {
 					unbind && unbind();
 				},
@@ -103,11 +108,16 @@ export const dragHandleDecoration = ({
 				type: TYPE_HANDLE_DEC,
 				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
-				marks: expValEquals('platform_editor_clean_up_widget_mark_logic', 'isEnabled', true)
-					? []
-					: expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
-						? getActiveBlockMarks(editorState, pos)
-						: undefined,
+				marks: expValEquals('platform_editor_small_font_size', 'isEnabled', true)
+					? getMatchingBlockMarks(editorState, pos, [
+							editorState.schema.marks.alignment,
+							editorState.schema.marks.fontSize,
+						])
+					: expValEquals('platform_editor_clean_up_widget_mark_logic', 'isEnabled', true)
+						? []
+						: expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
+							? getActiveBlockMarks(editorState, pos)
+							: undefined,
 				destroy: (node: Node) => {
 					unbind && unbind();
 				},

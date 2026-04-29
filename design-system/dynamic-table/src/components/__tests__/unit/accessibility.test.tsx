@@ -11,7 +11,8 @@ import { type StatelessProps } from '../../../types';
 import LoadingContainer from '../../loading-container';
 import { RankableTableCell } from '../../rankable/rankable-table-cell';
 
-import { cellWithKey as cell, headMock1, rows, rowsWithKeys, sortKey } from './_data';
+import { cellWithKey as cell, rows, rowsWithKeys } from './_data';
+import { headMock1 } from './_head-mock';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Dynamic Table Accessibility', () => {
@@ -37,7 +38,7 @@ describe('Dynamic Table Accessibility', () => {
 		const createStatelessProps: () => StatelessProps = () => ({
 			head: headMock1,
 			rows: rowsWithKeys,
-			sortKey,
+			sortKey: 'first_name',
 			sortOrder: 'ASC',
 			onSort: jest.fn(),
 			onPageRowsUpdate: jest.fn(),

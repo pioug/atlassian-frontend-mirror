@@ -101,4 +101,7 @@ export const rule: TSESLint.RuleModule<string> = {
 	defaultOptions: [],
 };
 
-export default { rule };
+const NoHtmlElementAssignmentRule: {
+	rule: TSESLint.RuleModule<string, [], TSESLint.RuleListener>;
+} = { rule };
+export default NoHtmlElementAssignmentRule;

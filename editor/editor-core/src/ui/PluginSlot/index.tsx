@@ -118,7 +118,24 @@ const PluginSlot = ({
 	);
 };
 
-const PluginSlotComponent: React.MemoExoticComponent<({ items, editorView, editorActions, eventDispatcher, providerFactory, appearance, popupsMountPoint, popupsBoundariesElement, popupsScrollableElement, containerElement, disabled, dispatchAnalyticsEvent, wrapperElement, pluginHooks, }: Props) => JSX.Element | null> = React.memo(PluginSlot, isEqual);
+const PluginSlotComponent: React.MemoExoticComponent<
+	({
+		items,
+		editorView,
+		editorActions,
+		eventDispatcher,
+		providerFactory,
+		appearance,
+		popupsMountPoint,
+		popupsBoundariesElement,
+		popupsScrollableElement,
+		containerElement,
+		disabled,
+		dispatchAnalyticsEvent,
+		wrapperElement,
+		pluginHooks,
+	}: Props) => JSX.Element | null
+> = React.memo(PluginSlot, isEqual);
 
 PluginSlotComponent.displayName = 'PluginSlot';
 

@@ -1,5 +1,7 @@
 import React, { type ReactNode, useContext, useEffect, useLayoutEffect, useState } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { isUFOEnabled } from '../config';
 import UFOInteractionContext from '../interaction-context';
 import UFOInteractionIDContext, {
@@ -101,7 +103,11 @@ export default function UFOLoadHold({
 			return;
 		}
 		if (hold && context != null) {
-			if (experimental && context.holdExperimental) {
+			if (
+				!fg('platform_ufo_remove_experimental_holds') &&
+				experimental &&
+				context.holdExperimental
+			) {
 				return context.holdExperimental(name);
 			}
 			return context.hold(name);

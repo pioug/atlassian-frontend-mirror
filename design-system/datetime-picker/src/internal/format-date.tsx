@@ -21,9 +21,8 @@ import { format, parseISO } from 'date-fns';
 
 import { type LocalizationProvider } from '@atlaskit/locale';
 
+import { defaultDateFormat } from './default-date-format';
 import { convertTokens } from './parse-tokens';
-
-import { defaultDateFormat } from './index';
 
 export const formatDate: (
 	value: string,

@@ -1,8 +1,4 @@
-import {
-	EMBED_DEPTH_QUERY_PARAM,
-	getCurrentEmbedDepth,
-	MAX_EMBED_DEPTH,
-} from '../constants';
+import { EMBED_DEPTH_QUERY_PARAM, getCurrentEmbedDepth, MAX_EMBED_DEPTH } from '../constants';
 
 describe('embed depth constants', () => {
 	it('should export EMBED_DEPTH_QUERY_PARAM as "nativeEmbedDepth"', () => {

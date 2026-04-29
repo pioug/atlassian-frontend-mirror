@@ -3,8 +3,14 @@
  * @jsx jsx
  */
 
-
-import { type Context, createContext, type Dispatch, type MutableRefObject, type ReactNode, type SetStateAction } from 'react';
+import {
+	type Context,
+	createContext,
+	type Dispatch,
+	type MutableRefObject,
+	type ReactNode,
+	type SetStateAction,
+} from 'react';
 
 import type { BackEvent, DismissEvent, DoneEvent, Placement } from '../types';
 

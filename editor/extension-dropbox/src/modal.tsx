@@ -16,8 +16,6 @@ import ModalDialog, {
 import Heading from '@atlaskit/heading';
 import { token } from '@atlaskit/tokens';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 import { DROPBOX_IFRAME_NAME } from './constants';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { xcss, Box } from '@atlaskit/primitives';
@@ -105,11 +103,7 @@ const Modal = ({
 								<iframe
 									css={iframeStyle}
 									name={DROPBOX_IFRAME_NAME}
-									title={
-										expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
-											? 'Dropbox file chooser'
-											: undefined
-									}
+									title="Dropbox file chooser"
 									frameBorder={0}
 									src={TEST_ONLY_src}
 								/>
@@ -117,11 +111,7 @@ const Modal = ({
 								<iframe
 									css={iframeStyle}
 									name={DROPBOX_IFRAME_NAME}
-									title={
-										expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
-											? 'Dropbox file chooser'
-											: undefined
-									}
+									title="Dropbox file chooser"
 									frameBorder={0}
 								/>
 							)}

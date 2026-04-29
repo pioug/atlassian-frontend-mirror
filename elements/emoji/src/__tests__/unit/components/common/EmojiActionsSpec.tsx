@@ -92,7 +92,8 @@ describe('<EmojiActions />', () => {
 			// No tone selected, focus on default tone radio input
 			expect(within(toneSelectorToneOption1!).getByRole('radio')).toHaveFocus();
 
-			const toneSelectorToneOption2 = within(toneSelector).getByLabelText(':raised_back_of_hand-2:');
+			const toneSelectorToneOption2 =
+				within(toneSelector).getByLabelText(':raised_back_of_hand-2:');
 			fireEvent.click(toneSelectorToneOption2);
 
 			// Automatically close tone ui

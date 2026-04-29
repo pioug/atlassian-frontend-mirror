@@ -84,6 +84,6 @@ const JQLEditorInner = ({
 };
 
 const _default_1: React.FC<WithIntlProps<JQLEditorInnerProps>> & {
-    WrappedComponent: React.ComponentType<JQLEditorInnerProps>;
+	WrappedComponent: React.ComponentType<JQLEditorInnerProps>;
 } = injectIntl<'intl', JQLEditorInnerProps>(JQLEditorInner);
 export default _default_1;

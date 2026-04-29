@@ -6,17 +6,32 @@ import userEvent from '@testing-library/user-event';
 import type { HeadType, SortOrderType, StatelessProps } from '../../../types';
 import DynamicTable from '../../stateless';
 
-import {
-	fourthSortKey,
-	headMock1,
-	headMock2,
-	rowsWithKeys,
-	secondSortKey,
-	sortKey,
-	thirdSortKey,
-} from './_data';
+import { rowsWithKeys } from './_data';
+import { headMock1 } from './_head-mock';
 
 const testId = 'dynamic--table--test--id';
+
+const headMock2: HeadType = {
+	cells: [
+		{
+			key: 'first_name',
+			content: 'First name',
+			isSortable: true,
+			ascendingSortTooltip: 'Sort A to Z',
+			descendingSortTooltip: 'Sort Z to A',
+			buttonAriaRoleDescription: 'Sort by first name',
+		},
+		{
+			key: 'last_name',
+			content: 'Last name',
+		},
+		{
+			key: 'party',
+			content: 'Party',
+			isSortable: true,
+		},
+	],
+};
 
 type OverrideProps = {
 	sortOrder?: SortOrderType;
@@ -27,7 +42,7 @@ const createProps = (overrides?: OverrideProps): StatelessProps => {
 	return {
 		head: headMock1,
 		rows: rowsWithKeys,
-		sortKey,
+		sortKey: 'first_name',
 		sortOrder: 'ASC',
 		onSort: jest.fn(),
 		onPageRowsUpdate: jest.fn(),
@@ -43,12 +58,12 @@ test('onSort should change to ASC from DESC if table is not rankable', async () 
 	const sortButtons = screen.getAllByRole('button');
 	await userEvent.click(sortButtons[0]);
 
-	const item = { key: sortKey, content: 'First name', isSortable: true };
+	const item = { key: 'first_name', content: 'First name', isSortable: true };
 
 	expect(props.onSort).toHaveBeenCalledTimes(1);
 	expect(props.onSort).toHaveBeenLastCalledWith(
 		{
-			key: sortKey,
+			key: 'first_name',
 			item,
 			sortOrder: 'ASC',
 		},
@@ -63,7 +78,7 @@ test('onSort should change to none if table is rankable and sort order was DESC'
 	const sortButtons = screen.getAllByRole('button');
 	await userEvent.click(sortButtons[0]);
 
-	const item = { key: sortKey, content: 'First name', isSortable: true };
+	const item = { key: 'first_name', content: 'First name', isSortable: true };
 
 	expect(props.onSort).toHaveBeenCalledTimes(1);
 	expect(props.onSort).toHaveBeenLastCalledWith(
@@ -83,12 +98,12 @@ test('onSort should change to DESC if table is rankable and sort order was ASC',
 	const sortButtons = screen.getAllByRole('button');
 	await userEvent.click(sortButtons[0]);
 
-	const item = { key: sortKey, content: 'First name', isSortable: true };
+	const item = { key: 'first_name', content: 'First name', isSortable: true };
 
 	expect(props.onSort).toHaveBeenCalledTimes(1);
 	expect(props.onSort).toHaveBeenLastCalledWith(
 		{
-			key: sortKey,
+			key: 'first_name',
 			item,
 			sortOrder: 'DESC',
 		},
@@ -98,17 +113,17 @@ test('onSort should change to DESC if table is rankable and sort order was ASC',
 
 test('onSort should change to ASC if table is rankable and was sorted using on different row', async () => {
 	const props = createProps();
-	render(<DynamicTable {...props} sortOrder="DESC" sortKey={secondSortKey} isRankable />);
+	render(<DynamicTable {...props} sortOrder="DESC" sortKey="secondSortKey" isRankable />);
 
 	const sortButtons = screen.getAllByRole('button');
 	await userEvent.click(sortButtons[0]);
 
-	const item = { key: sortKey, content: 'First name', isSortable: true };
+	const item = { key: 'first_name', content: 'First name', isSortable: true };
 
 	expect(props.onSort).toHaveBeenCalledTimes(1);
 	expect(props.onSort).toHaveBeenLastCalledWith(
 		{
-			key: sortKey,
+			key: 'first_name',
 			item,
 			sortOrder: 'ASC',
 		},
@@ -229,7 +244,7 @@ describe('Sort button', () => {
 
 	test('sort button icon should persist for the current sorted column', async () => {
 		const props = createProps();
-		render(<DynamicTable {...props} sortKey={thirdSortKey} />);
+		render(<DynamicTable {...props} sortKey="party" />);
 
 		const firstNameColumnSortButton = screen.getByRole('button', { name: 'First name' });
 
@@ -267,7 +282,7 @@ describe('Sort button', () => {
 
 	test('sort button icon should persist over icon for the current sorted icon column', async () => {
 		const props = createProps();
-		render(<DynamicTable {...props} sortKey={fourthSortKey} />);
+		render(<DynamicTable {...props} sortKey="star" />);
 
 		const partyColumnSortButton = screen.getByRole('button', { name: 'Party' });
 		const starIcon = screen.queryByLabelText('starred');
@@ -307,7 +322,7 @@ describe('Sort button', () => {
 
 	test('sort button tooltips should be default ascending sort values if not customised', async () => {
 		const props = createProps();
-		render(<DynamicTable {...props} sortKey={thirdSortKey} />);
+		render(<DynamicTable {...props} sortKey="party" />);
 
 		const partyColumnSortButton = screen.getByRole('button', { name: 'Party' });
 
@@ -319,7 +334,7 @@ describe('Sort button', () => {
 
 	test('sort button tooltips should be default descending sort values if not customised', async () => {
 		const props = createProps({ sortOrder: 'DESC' });
-		render(<DynamicTable {...props} sortKey={thirdSortKey} />);
+		render(<DynamicTable {...props} sortKey="party" />);
 
 		const partyColumnSortButton = screen.getByRole('button', { name: 'Party' });
 
@@ -367,7 +382,7 @@ describe('Sort button', () => {
 
 	test('sort button aria role description should be default if not customised', async () => {
 		const props = createProps();
-		render(<DynamicTable {...props} sortKey={thirdSortKey} />);
+		render(<DynamicTable {...props} sortKey="party" />);
 
 		const partyColumnSortButton = screen.getByRole('button', { name: 'Party' });
 

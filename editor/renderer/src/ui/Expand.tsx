@@ -387,6 +387,6 @@ function Expand({
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 const _default_1: React.FC<WithIntlProps<ExpandProps & WrappedComponentProps>> & {
-    WrappedComponent: React.ComponentType<ExpandProps & WrappedComponentProps>;
+	WrappedComponent: React.ComponentType<ExpandProps & WrappedComponentProps>;
 } = injectIntl(Expand);
 export default _default_1;

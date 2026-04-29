@@ -95,7 +95,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-config",
-	"version": "1.12.17",
+	"version": "1.12.18",
 	"description": "Teams App related config",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -110,6 +110,9 @@
 			"type": "boolean"
 		},
 		"teams-app-migration-exclusions": {
+			"type": "boolean"
+		},
+		"remove-ic-kill-switch-teams-app": {
 			"type": "boolean"
 		}
 	}

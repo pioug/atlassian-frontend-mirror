@@ -22,4 +22,6 @@ export const defaultAutocompleteProvider: AutocompleteProvider = {
 	onFunctions: () => empty(),
 };
 
-export const JQLAutocompletePluginKey: PluginKey<void> = new PluginKey<void>(AUTOCOMPLETE_PLUGIN_NAME);
+export const JQLAutocompletePluginKey: PluginKey<void> = new PluginKey<void>(
+	AUTOCOMPLETE_PLUGIN_NAME,
+);

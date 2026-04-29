@@ -6,11 +6,7 @@ import userEvent, { type UserEvent } from '@testing-library/user-event';
 import Select, { type OptionsType } from '@atlaskit/select';
 
 import { type DateTimePickerBaseProps } from '../../../types';
-import {
-	datePickerDefaultAriaLabel,
-	DateTimePickerWithoutAnalytics as DateTimePicker,
-	timePickerDefaultAriaLabel,
-} from '../../date-time-picker-class';
+import { DateTimePickerWithoutAnalytics as DateTimePicker } from '../../date-time-picker-class';
 
 jest.mock('@atlaskit/select', () => {
 	const actual = jest.requireActual('@atlaskit/select');
@@ -424,8 +420,8 @@ describe('DateTimePicker', () => {
 
 			// This tests `label` because we are mocking the select and just spreading
 			// everything in it. Yeah it sucks.
-			expect(datePicker).toHaveAttribute('label', datePickerDefaultAriaLabel);
-			expect(timePicker).toHaveAttribute('aria-label', timePickerDefaultAriaLabel);
+			expect(datePicker).toHaveAttribute('label', 'Date');
+			expect(timePicker).toHaveAttribute('aria-label', 'Time');
 		});
 
 		it('should not use the default aria-label on the internal date picker if `label` prop is provided by [date|time]PickerProps', () => {

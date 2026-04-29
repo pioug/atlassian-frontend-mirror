@@ -1,5 +1,12 @@
 # @atlaskit/motion
 
+## 6.1.0
+
+### Minor Changes
+
+- [`0c29c3e6feae5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c29c3e6feae5) -
+  Fixes token based animations in Motion primitive exiting incorrectly
+
 ## 6.0.0
 
 ### Major Changes

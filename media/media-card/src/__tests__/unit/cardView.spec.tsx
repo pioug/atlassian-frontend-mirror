@@ -1022,5 +1022,4 @@ describe('CardView', () => {
 			expect(screen.queryByText(/Use Trace ID/)).not.toBeInTheDocument();
 		});
 	});
-
 });

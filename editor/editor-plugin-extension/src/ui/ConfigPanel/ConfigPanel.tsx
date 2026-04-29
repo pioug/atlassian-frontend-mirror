@@ -36,7 +36,6 @@ import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import Form, { FormFooter } from '@atlaskit/form';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ExtensionPlugin, RejectSave } from '../../extensionPluginType';
@@ -225,14 +224,12 @@ class ConfigPanel extends React.Component<Props, State> {
 	componentDidMount() {
 		const { fields, parameters } = this.props;
 		this.parseParameters(fields, parameters);
-		if (expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)) {
-			const doc = getDocument();
-			if (doc) {
-				this.unbindKeyDownHandler = bind(doc, {
-					type: 'keydown',
-					listener: this.handleKeyDown,
-				});
-			}
+		const doc = getDocument();
+		if (doc) {
+			this.unbindKeyDownHandler = bind(doc, {
+				type: 'keydown',
+				listener: this.handleKeyDown,
+			});
 		}
 	}
 
@@ -498,10 +495,9 @@ class ConfigPanel extends React.Component<Props, State> {
 
 		const { errorMessage, fields, isLoading, onCancel, api } = this.props;
 		const { currentParameters, hasParsedParameters, firstVisibleFieldName } = this.state;
-		const { handleSubmit, handleKeyDown } = this;
 
 		return (
-			<Form onSubmit={handleSubmit}>
+			<Form onSubmit={this.handleSubmit}>
 				{({ formProps, getState, submitting }) => {
 					return (
 						<WithOnFieldChange
@@ -512,7 +508,7 @@ class ConfigPanel extends React.Component<Props, State> {
 									values: Parameters;
 								}
 							}
-							handleSubmit={handleSubmit}
+							handleSubmit={this.handleSubmit}
 						>
 							{(onFieldChange) => {
 								this.onFieldChange = onFieldChange;
@@ -522,11 +518,6 @@ class ConfigPanel extends React.Component<Props, State> {
 										// eslint-disable-next-line react/jsx-props-no-spreading
 										{...formProps}
 										noValidate
-										onKeyDown={
-											expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
-												? undefined
-												: handleKeyDown
-										}
 										data-testid="extension-config-panel"
 									>
 										{this.renderHeader(extensionManifest)}

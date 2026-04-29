@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/adf-schema",
-	"version": "52.6.2",
+	"version": "52.6.5",
 	"description": "Shared package that contains the ADF-schema (json) and ProseMirror node/mark specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -42,6 +42,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema-generator": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
 		"css-color-names": "root:*",
@@ -99,5 +100,10 @@
 		"./json-schema": "./src/json-schema/index.ts",
 		"./schema-validator": "./src/validator-schema/generated/validatorSpec.ts",
 		"./schema-default": "./src/schema/default-schema.ts"
+	},
+	"platform-feature-flags": {
+		"platform_editor_linkify-text-improvement": {
+			"type": "boolean"
+		}
 	}
 }

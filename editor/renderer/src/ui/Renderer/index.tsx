@@ -715,43 +715,47 @@ export function Renderer(props: RendererProps): jsx.JSX.Element {
 // Usage notes:
 // Used by Confluence for View page renderer
 // For the nested renderers - see RendererWithAnnotationSelection.
-export const RendererWithAnalytics: React.MemoExoticComponent<(props: RendererProps) => jsx.JSX.Element> = React.memo((props: RendererProps): jsx.JSX.Element => (
-	<FabricEditorAnalyticsContext
-		// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-		data={{
-			appearance: getAnalyticsAppearance(props.appearance),
-			packageName,
-			packageVersion,
-			componentName: 'renderer',
-			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-			editorSessionId: uuid(),
-		}}
-	>
-		<WithCreateAnalyticsEvent
+export const RendererWithAnalytics: React.MemoExoticComponent<
+	(props: RendererProps) => jsx.JSX.Element
+> = React.memo(
+	(props: RendererProps): jsx.JSX.Element => (
+		<FabricEditorAnalyticsContext
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			render={(createAnalyticsEvent) => {
-				// `IntlErrorBoundary` only captures Internationalisation errors, leaving others for `ErrorBoundary`.
-				return (
-					<ErrorBoundary
-						component={ACTION_SUBJECT.RENDERER}
-						rethrowError
-						fallbackComponent={null}
-						createAnalyticsEvent={createAnalyticsEvent}
-					>
-						<IntlErrorBoundary>
-							<Renderer
-								// Ignored via go/ees005
-								// eslint-disable-next-line react/jsx-props-no-spreading
-								{...props}
-								createAnalyticsEvent={createAnalyticsEvent}
-							/>
-						</IntlErrorBoundary>
-					</ErrorBoundary>
-				);
+			data={{
+				appearance: getAnalyticsAppearance(props.appearance),
+				packageName,
+				packageVersion,
+				componentName: 'renderer',
+				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+				editorSessionId: uuid(),
 			}}
-		/>
-	</FabricEditorAnalyticsContext>
-));
+		>
+			<WithCreateAnalyticsEvent
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+				render={(createAnalyticsEvent) => {
+					// `IntlErrorBoundary` only captures Internationalisation errors, leaving others for `ErrorBoundary`.
+					return (
+						<ErrorBoundary
+							component={ACTION_SUBJECT.RENDERER}
+							rethrowError
+							fallbackComponent={null}
+							createAnalyticsEvent={createAnalyticsEvent}
+						>
+							<IntlErrorBoundary>
+								<Renderer
+									// Ignored via go/ees005
+									// eslint-disable-next-line react/jsx-props-no-spreading
+									{...props}
+									createAnalyticsEvent={createAnalyticsEvent}
+								/>
+							</IntlErrorBoundary>
+						</ErrorBoundary>
+					);
+				}}
+			/>
+		</FabricEditorAnalyticsContext>
+	),
+);
 
 export type RendererWrapperProps = {
 	addTelepointer?: boolean;

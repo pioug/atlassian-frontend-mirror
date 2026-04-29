@@ -5,7 +5,7 @@ import { adf } from './box-shadow.spec.ts-fixtures';
 
 test.describe('Box shadow with short browsers', () => {
 	test.use({
-		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 		viewport: { width: 1280, height: 200 },
 		adf,
 		editorProps: {

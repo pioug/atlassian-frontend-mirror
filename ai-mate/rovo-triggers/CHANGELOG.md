@@ -1,5 +1,26 @@
 # @atlaskit/rovo-triggers
 
+## 5.45.1
+
+### Patch Changes
+
+- [`7a24a72e474d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a24a72e474d7) -
+  Fix blitz issues: use ai-mate-chat-input-overlay topic for overlay pubsub, add getStatus prop for
+  deriving invoked status in action renderers, preserve terminal states in local action state
+- Updated dependencies
+
+## 5.45.0
+
+### Minor Changes
+
+- [`8aae8054b8f6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8aae8054b8f6a) -
+  Add optional openAgentSelector attribute to the chat-open pubsub event. When true, the agent
+  selector menu will open after the chat sidebar opens.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.44.0
 
 ### Minor Changes

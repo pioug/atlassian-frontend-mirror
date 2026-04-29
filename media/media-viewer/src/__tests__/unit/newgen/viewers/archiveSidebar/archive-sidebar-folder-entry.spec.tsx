@@ -502,5 +502,4 @@ describe('ArchiveSidebarFolderEntry', () => {
 		expect(onErrorMock).toHaveBeenCalledWith(new Error(), entry);
 		expect(MediaCommon.downloadUrl).toHaveBeenCalledTimes(0);
 	});
-
 });

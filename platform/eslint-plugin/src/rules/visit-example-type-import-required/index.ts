@@ -203,9 +203,7 @@ function resolveExamplePathFromArgs(
 	// The {0,3} cap prevents matching arbitrary strings (e.g. 4-component names).
 	// Escape regex metacharacters in exampleId (ids are kebab-case today, but defensive).
 	const escapedId = exampleId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-	const candidateRe = new RegExp(
-		`^(?:\\d+-)?${escapedId}(?:\\.[A-Za-z][A-Za-z0-9_]*){0,3}\\.tsx$`,
-	);
+	const candidateRe = new RegExp(`^(?:\\d+-)?${escapedId}(?:\\.[A-Za-z][A-Za-z0-9_]*){0,3}\\.tsx$`);
 
 	try {
 		const match = fs.readdirSync(examplesDir).find((f) => candidateRe.test(f));

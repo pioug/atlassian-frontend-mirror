@@ -15,34 +15,38 @@ type HelpContainerProps = {
 };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const HelpContainer: StyledComponent<{
-	as?: React.ElementType;
-	theme?: Theme;
-} & HelpContainerProps, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> =
+export const HelpContainer: StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	} & HelpContainerProps,
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+> =
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 	styled.div<HelpContainerProps>(
-	{
-		display: 'flex',
-		marginLeft: 'auto',
-		marginRight: 0,
-		flexShrink: 0,
-		padding: `0 ${token('space.100')}`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'> * + *': {
-			marginLeft: token('space.200'),
+		{
+			display: 'flex',
+			marginLeft: 'auto',
+			marginRight: 0,
+			flexShrink: 0,
+			padding: `0 ${token('space.100')}`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+			'> * + *': {
+				marginLeft: token('space.200'),
+			},
 		},
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
-	(props) =>
-		props.isVisible
-			? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				css({
-					visibility: 'visible',
-					opacity: 1,
-					transition: 'opacity 250ms cubic-bezier(0.15, 1, 0.3, 1)',
-				})
-			: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				css(hiddenMixin, {
-					opacity: 0,
-				}),
-);
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
+		(props) =>
+			props.isVisible
+				? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					css({
+						visibility: 'visible',
+						opacity: 1,
+						transition: 'opacity 250ms cubic-bezier(0.15, 1, 0.3, 1)',
+					})
+				: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+					css(hiddenMixin, {
+						opacity: 0,
+					}),
+	);

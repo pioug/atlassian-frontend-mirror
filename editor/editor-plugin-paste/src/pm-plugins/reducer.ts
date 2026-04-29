@@ -28,7 +28,10 @@ export const reducer = (state: State, action: Action): State => {
 			return { ...state, lastContentPasted: action.contentPasted };
 		}
 		case ActionTypes.SET_ACTIVE_FLAG: {
-			if (!editorExperiment('platform_synced_block', true) && !fg('platform_synced_block_unsupported_products')) {
+			if (
+				!editorExperiment('platform_synced_block', true) &&
+				!fg('platform_synced_block_unsupported_products')
+			) {
 				return state;
 			}
 			return { ...state, activeFlag: action.activeFlag };

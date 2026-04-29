@@ -31,6 +31,10 @@ const googleDocResponse = {
 		},
 		icon: iconGoogleDrive,
 	},
+	meta: {
+		...GoogleDoc.meta,
+		supportedFeature: ['RovoActions'],
+	},
 } as JsonLd.Response<JsonLd.Data.BaseData>;
 
 const slackMessageResponse = {

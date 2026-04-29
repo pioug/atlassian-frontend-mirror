@@ -477,6 +477,7 @@ async function createInteractionMetricsPayload(
 	vcMetrics?: Awaited<ReturnType<typeof getVCMetrics>>,
 ): Promise<InteractionMetricsPayloadResult> {
 	const interactionPayloadStart = performance.now();
+	const isExperimental = !fg('platform_ufo_remove_experimental_holds') && experimental;
 	const config = getConfig();
 	if (!config) {
 		throw Error('UFO Configuration not provided');
@@ -555,7 +556,7 @@ async function createInteractionMetricsPayload(
 			interaction.metaData.__legacy__bm3ConfigSSRDoneAsFmp || !!config?.ssr?.getSSRDoneTime;
 
 		if (
-			!experimental &&
+			!isExperimental &&
 			(isBM3ConfigSSRDoneAsFmp || isUFOConfigSSRDoneAsFmp) &&
 			SSRDoneTimeValue !== undefined
 		) {
@@ -581,7 +582,7 @@ async function createInteractionMetricsPayload(
 
 	// Detailed payload. Page visibility = visible
 	const getDetailedInteractionMetrics = (resourceTimings: ResourceTimings) => {
-		if (experimental || window.__UFO_COMPACT_PAYLOAD__ || !isDetailedPayload) {
+		if (isExperimental || window.__UFO_COMPACT_PAYLOAD__ || !isDetailedPayload) {
 			return {};
 		}
 
@@ -599,7 +600,7 @@ async function createInteractionMetricsPayload(
 			holdActive: [...interaction.holdActive.values()],
 			redirects: optimizeRedirects(interaction.redirects, start),
 			holdInfo: optimizeHoldInfo(
-				experimental ? interaction.holdExpInfo : interaction.holdInfo,
+				isExperimental ? interaction.holdExpInfo : interaction.holdInfo,
 				start,
 				reactUFOVersion,
 				registry,
@@ -648,7 +649,7 @@ async function createInteractionMetricsPayload(
 		};
 	};
 
-	if (experimental) {
+	if (!fg('platform_ufo_remove_experimental_holds') && experimental) {
 		expTTAI = getTTAI(interaction);
 	} else {
 		regularTTAI = getTTAI(interaction);
@@ -659,12 +660,12 @@ async function createInteractionMetricsPayload(
 
 	const [finalVCMetrics, experimentalMetrics, paintMetrics, batteryInfo] = await Promise.all([
 		vcMetrics || (await getVCMetrics(interaction)),
-		experimental ? getExperimentalVCMetrics(interaction) : Promise.resolve(undefined),
+		isExperimental ? getExperimentalVCMetrics(interaction) : Promise.resolve(undefined),
 		getPaintMetricsToLegacyFormat(type, end),
 		getBatteryInfoToLegacyFormat(),
 	]);
 
-	if (!experimental) {
+	if (!isExperimental) {
 		addPerformanceMeasures(interaction.start, [
 			...((finalVCMetrics?.['ufo:vc:rev'] as RevisionPayload | undefined) || []),
 		]);
@@ -696,7 +697,7 @@ async function createInteractionMetricsPayload(
 					version: reactUFOVersion,
 				},
 				'event:region': config.region || 'unknown',
-				'experience:key': experimental
+				'experience:key': isExperimental
 					? 'custom.experimental-interaction-metrics'
 					: 'custom.interaction-metrics',
 				'experience:name': newUFOName,
@@ -791,7 +792,7 @@ async function createInteractionMetricsPayload(
 					...getDetailedInteractionMetrics(resourceTimings),
 					...getPageLoadDetailedInteractionMetrics(),
 					...getBm3TrackerTimings(interaction),
-					'metric:ttai': experimental ? regularTTAI || expTTAI : undefined,
+					'metric:ttai': isExperimental ? regularTTAI || expTTAI : undefined,
 					'metric:experimental:ttai': expTTAI,
 					...(unknownElementName ? { unknownElementName } : {}),
 					...(unknownElementHierarchy ? { unknownElementHierarchy } : {}),
@@ -802,7 +803,7 @@ async function createInteractionMetricsPayload(
 		},
 	};
 
-	if (experimental) {
+	if (isExperimental) {
 		regularTTAI = undefined;
 		expTTAI = undefined;
 	}

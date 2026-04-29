@@ -1,9 +1,14 @@
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { addFeatureFlagAccessed } from '@atlaskit/react-ufo/feature-flags-accessed';
 
-import type { EditorExperimentsConfig } from './experiments-config';
+import { editorExperimentsConfig, type EditorExperimentsConfig } from './experiments-config';
 
 import { _overrides, _product } from './setup';
+
+// This internal representation doesn't currently support productKeys
+// the way expVal(...) does, this adds temporary support for some keys while
+// we determine our preferred approach forward
+const allowsProductKeys = ['cc-maui-experiment'];
 
 /**
  * Check the value if an editor experiment.
@@ -39,9 +44,15 @@ export function expValEqualsInternal<ExperimentName extends keyof EditorExperime
 		return experimentDefaultValue === experimentExpectedValue;
 	}
 
+	// Typescript is complaining here about accessing the productKeys property
+	const experimentKeyName = allowsProductKeys.includes(experimentName)
+		? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			(editorExperimentsConfig[experimentName]?.productKeys?.[_product!] ?? experimentName)
+		: experimentName;
+
 	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
 	const experimentValue = FeatureGates.getExperimentValue(
-		experimentName,
+		experimentKeyName,
 		experimentParam,
 		experimentDefaultValue,
 		{ fireExperimentExposure: experimentExposure },
@@ -52,7 +63,7 @@ export function expValEqualsInternal<ExperimentName extends keyof EditorExperime
 		FeatureGates.getExperimentValue('cc_editor_experiments_ufo_gate_reporting', 'isEnabled', false)
 	) {
 		// Duplicated from /confluence/next/packages/feature-experiments/src/index.ts
-		addFeatureFlagAccessed(`${experimentName}:${experimentParam}`, experimentValue as never);
+		addFeatureFlagAccessed(`${experimentKeyName}:${experimentParam}`, experimentValue as never);
 	}
 
 	return experimentValue === experimentExpectedValue;

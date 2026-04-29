@@ -549,7 +549,7 @@ const getAvatarRender = ({
 	isRovoDev,
 	size,
 }: GeneratedAvatarProps) => {
-	if (isRovoDev && fg('rovo_dev_themed_identity_card')) {
+	if (isRovoDev) {
 		return {
 			render: <RovoDevAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />,
 			color: greenColor,

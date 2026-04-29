@@ -5,7 +5,6 @@
 import Button from '@atlaskit/button/custom-theme-button';
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
 import CopyIcon from '@atlaskit/icon/core/copy';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import Tooltip from '@atlaskit/tooltip';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -34,14 +33,7 @@ const CopyButton = ({ content, intl }: Props & WrappedComponentProps) => {
 			{({ fireAnalyticsEvent }) => (
 				<span>
 					<Tooltip content={tooltip} hideTooltipOnClick={false} position="top">
-						<div
-							onMouseLeave={onMouseLeave}
-							onBlur={
-								expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
-									? onMouseLeave
-									: undefined
-							}
-						>
+						<div onMouseLeave={onMouseLeave} onBlur={onMouseLeave}>
 							<Button
 								appearance="subtle"
 								aria-haspopup={true}

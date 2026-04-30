@@ -16,7 +16,6 @@ import AiChatIcon from '@atlaskit/icon/core/ai-chat';
 import CreditCardIcon from '@atlaskit/icon/core/credit-card';
 import PremiumIcon from '@atlaskit/icon/core/premium';
 import { ConfluenceIcon } from '@atlaskit/logo';
-import { TopNavButton } from '@atlaskit/navigation-system/experimental/top-nav-button';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	TopNav,
@@ -24,6 +23,7 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
+import { TopNavButton } from '@atlaskit/navigation-system/theming/top-nav-button';
 import {
 	AppLogo,
 	AppSwitcher,

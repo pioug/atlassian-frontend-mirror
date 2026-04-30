@@ -14,6 +14,7 @@ import { renderSyncedBlockContent } from './renderSyncedBlockContent';
 
 export type SyncedBlockRendererProps = {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
+	getAccountId?: () => string | null;
 	syncBlockFetchResult: UseFetchSyncBlockDataResult;
 	syncBlockRendererOptions?: SyncedBlockRendererOptions;
 };
@@ -22,6 +23,7 @@ const SyncedBlockRendererComponent = ({
 	syncBlockRendererOptions,
 	syncBlockFetchResult,
 	api,
+	getAccountId,
 }: SyncedBlockRendererProps): React.JSX.Element => {
 	useEffect(() => {
 		const timeoutId = setTimeout(() => {
@@ -80,6 +82,7 @@ const SyncedBlockRendererComponent = ({
 		fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
 		resourceId: syncBlockInstance?.resourceId,
 		isOffline: isCollabOffline,
+		getAccountId,
 	});
 	return result.element;
 };
@@ -89,5 +92,6 @@ export const SyncedBlockRenderer: React.MemoExoticComponent<
 		syncBlockRendererOptions,
 		syncBlockFetchResult,
 		api,
+		getAccountId,
 	}: SyncedBlockRendererProps) => React.JSX.Element
 > = memo(SyncedBlockRendererComponent);

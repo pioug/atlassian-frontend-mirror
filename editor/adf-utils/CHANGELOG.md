@@ -1,5 +1,31 @@
 # @atlaskit/adf-utils
 
+## 19.28.0
+
+### Minor Changes
+
+- [`9ea3b02135766`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ea3b02135766) -
+  EDITOR-5613: Remove flexible list variants and consolidate into base list types.
+
+  The `listItem` and `taskList` node specs now natively support the flexible content model (allowing
+  lists as first child of listItem, and nested taskLists without requiring taskItem first). The
+  separate `listItemWithFlexibleFirstChildStage0` and `taskListWithFlexibleFirstChildStage0`
+  variants have been removed from public exports — the flexible behavior is now the default for all
+  schema stages. Consumers importing these removed exports should switch to `listItem` / `taskList`.
+
+  This is a schema simplification: the flexible content spec is a strict superset of the old
+  restrictive spec, so all previously valid content remains valid.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.27.47
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.27.46
 
 ### Patch Changes

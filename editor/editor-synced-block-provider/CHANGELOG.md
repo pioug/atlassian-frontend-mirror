@@ -1,5 +1,22 @@
 # @atlaskit/editor-synced-block-provider
 
+## 6.3.1
+
+### Patch Changes
+
+- [`717df2cfeca9e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/717df2cfeca9e) -
+  [ux] Pass accountId to SyncedBlockRenderer from Jira.
+- Updated dependencies
+
+## 6.3.0
+
+### Minor Changes
+
+- [`943c90327ad3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/943c90327ad3b) -
+  Add discardUnpublishedSyncBlocks action to clean up orphaned synced blocks when user cancels
+  editing. Fetches block statuses from the backend on editor init and deletes all blocks with
+  'unpublished' status on cancel.
+
 ## 6.2.6
 
 ### Patch Changes

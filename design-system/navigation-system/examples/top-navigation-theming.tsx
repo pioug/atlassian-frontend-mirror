@@ -2,9 +2,6 @@ import React, { useReducer } from 'react';
 
 import AKBadge from '@atlaskit/badge';
 import { AtlassianIcon, AtlassianLogo, JiraIcon } from '@atlaskit/logo';
-import { parseHex } from '@atlaskit/navigation-system/experimental/color-utils/parse-hex';
-import { parseHsl } from '@atlaskit/navigation-system/experimental/color-utils/parse-hsl';
-import { parseRgb } from '@atlaskit/navigation-system/experimental/color-utils/parse-rgb';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	TopNav,
@@ -12,6 +9,9 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
+import { parseHex } from '@atlaskit/navigation-system/theming/color-utils/parse-hex';
+import { parseHsl } from '@atlaskit/navigation-system/theming/color-utils/parse-hsl';
+import { parseRgb } from '@atlaskit/navigation-system/theming/color-utils/parse-rgb';
 import {
 	AppLogo,
 	AppSwitcher,

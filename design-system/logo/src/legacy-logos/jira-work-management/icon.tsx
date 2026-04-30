@@ -6,7 +6,7 @@ import { useThemeObserver } from '@atlaskit/tokens';
 import { defaultLogoParams, legacyDefaultLogoParams } from '../../constants';
 import type { LogoProps } from '../../types';
 import Wrapper from '../../wrapper';
-import { getColorsFromAppearanceOldLogos } from '../utils';
+import { getColorsFromAppearanceOldLogos } from '../get-colors-from-appearance-old-logos';
 
 const svg = ({ appearance, iconColor }: LogoProps, colorMode: string | undefined, id: string) => {
 	let colors: Partial<ReturnType<typeof getColorsFromAppearanceOldLogos>> = {

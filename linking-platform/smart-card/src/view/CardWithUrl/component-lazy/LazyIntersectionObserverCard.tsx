@@ -104,7 +104,7 @@ const LazyIntersectionObserverCardNew = (props: CardWithUrlContentProps): React.
 	return <CardLoaderWrapper appearance={appearance}>{content}</CardLoaderWrapper>;
 };
 
-export const LazyIntersectionObserverCard = componentWithFG(
+export const LazyIntersectionObserverCard: React.FC<CardWithUrlContentProps> = componentWithFG(
 	'platform_sl_event_ui_seen',
 	LazyIntersectionObserverCardNew,
 	LazyIntersectionObserverCardOld,

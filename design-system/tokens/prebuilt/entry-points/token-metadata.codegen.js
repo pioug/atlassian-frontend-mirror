@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::cc165f5e3a3a334da8899d36a5cd4535>>
+ * @codegen <<SignedSource::84f21045f3136acc13a56a289840c82a>>
  * @codegenCommand yarn build tokens
  */
 

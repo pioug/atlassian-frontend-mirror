@@ -55,7 +55,8 @@
 		"@atlaskit/link-test-helpers": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^"
+		"@atlassian/react-compiler-gating": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

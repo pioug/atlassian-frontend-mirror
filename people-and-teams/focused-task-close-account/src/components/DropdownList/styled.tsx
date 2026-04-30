@@ -1,8 +1,9 @@
-import { styled } from '@compiled/react';
+/* eslint-disable @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766 */
+import { styled, type StyledProps } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
+import type { ComponentType, ClassAttributes, HTMLAttributes } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const AccessibleSitesList = styled.ul({
+export const AccessibleSitesList: ComponentType<ClassAttributes<HTMLUListElement> & HTMLAttributes<HTMLUListElement> & StyledProps> = styled.ul({
 	listStyle: 'none',
 	paddingLeft: 0,
 	fontWeight: token('font.weight.semibold'),
@@ -13,14 +14,12 @@ export const AccessibleSitesList = styled.ul({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const AccessibleSitesListFootnote = styled.div({
+export const AccessibleSitesListFootnote: ComponentType<ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyledProps> = styled.div({
 	paddingLeft: 0,
 	marginLeft: token('space.100'),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const ButtonWrapper = styled.div({
+export const ButtonWrapper: ComponentType<ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyledProps> = styled.div({
 	paddingTop: 0,
 	paddingBottom: 0,
 	paddingLeft: token('space.100'),

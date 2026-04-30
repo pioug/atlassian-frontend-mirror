@@ -916,14 +916,7 @@ describe('CardView', () => {
 	});
 
 	describe('Trace support tooltip', () => {
-		afterEach(() => {
-			(fg as jest.Mock).mockReturnValue(false);
-		});
-
-		it('should show trace support text in the tooltip for preview unavailable when experiment is enabled', () => {
-			(fg as jest.Mock).mockImplementation((gateName: string) =>
-				gateName === 'platform_trace_id_tooltip_attachment_failures' ? true : false,
-			);
+		it('should show trace support text in the tooltip for preview unavailable', () => {
 			renderCardViewBase({
 				status: 'error',
 				metadata: file,
@@ -936,10 +929,7 @@ describe('CardView', () => {
 			);
 		});
 
-		it('should show trace support text in the tooltip for failed to load when experiment is enabled', () => {
-			(fg as jest.Mock).mockImplementation((gateName: string) =>
-				gateName === 'platform_trace_id_tooltip_attachment_failures' ? true : false,
-			);
+		it('should show trace support text in the tooltip for failed to load', () => {
 			renderCardViewBase({
 				status: 'error',
 				traceId: 'test-trace-abc',
@@ -949,23 +939,9 @@ describe('CardView', () => {
 				'data-content',
 				'Use Trace ID test-trace-abc when reaching out to support.',
 			);
-		});
-
-		it('should fall back to the filename tooltip when experiment is disabled', () => {
-			renderCardViewBase({
-				status: 'error',
-				metadata: file,
-				traceId: 'test-trace-abc',
-			});
-
-			expect(screen.getByTestId('mock-tooltip')).toHaveAttribute('data-content', 'my-file');
-			expect(screen.queryByText(/Use Trace ID/)).not.toBeInTheDocument();
 		});
 
 		it('should fall back to the filename tooltip when traceId is not provided', () => {
-			(fg as jest.Mock).mockImplementation((gateName: string) =>
-				gateName === 'platform_trace_id_tooltip_attachment_failures' ? true : false,
-			);
 			renderCardViewBase({
 				status: 'error',
 				metadata: file,
@@ -976,9 +952,6 @@ describe('CardView', () => {
 		});
 
 		it('should fall back to the filename tooltip when status is not an error state', () => {
-			(fg as jest.Mock).mockImplementation((gateName: string) =>
-				gateName === 'platform_trace_id_tooltip_attachment_failures' ? true : false,
-			);
 			renderCardViewBase({
 				status: 'complete',
 				metadata: file,
@@ -989,10 +962,7 @@ describe('CardView', () => {
 			expect(screen.queryByText(/Use Trace ID/)).not.toBeInTheDocument();
 		});
 
-		it('should fall back to the filename tooltip for upload errors even when experiment is enabled', () => {
-			(fg as jest.Mock).mockImplementation((gateName: string) =>
-				gateName === 'platform_trace_id_tooltip_attachment_failures' ? true : false,
-			);
+		it('should fall back to the filename tooltip for upload errors', () => {
 			renderCardViewBase({
 				status: 'error',
 				metadata: file,
@@ -1004,12 +974,9 @@ describe('CardView', () => {
 			expect(screen.queryByText(/Use Trace ID/)).not.toBeInTheDocument();
 		});
 
-		it('should fall back to the filename tooltip for network errors even when experiment is enabled', () => {
+		it('should fall back to the filename tooltip for network errors', () => {
 			(fg as jest.Mock).mockImplementation((gateName: string) =>
-				gateName === 'media_card_failed_messaging_ui_revamp' ||
-				gateName === 'platform_trace_id_tooltip_attachment_failures'
-					? true
-					: false,
+				gateName === 'media_card_failed_messaging_ui_revamp' ? true : false,
 			);
 			renderCardViewBase({
 				status: 'error',

@@ -2,61 +2,10 @@ import React from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { createFeatureFlaggedServiceCollectionComponent } from './create-feature-flagged-service-collection-component';
+import { tempSizeWrapper } from './temp-size-wrapper';
 import { type LogoProps } from './types';
 import { type AppIconProps, type AppLogoProps } from './utils/types';
-
-/**
- * Creates a feature flagged component that renders the legacy logo or the new logo
- * based on the platform-logo-rebrand feature flag.
- *
- * @param LegacyComponent - The legacy logo component.
- * @param NewComponent - The new logo component.
- * @returns A feature flagged component that renders the legacy logo or the new logo.
- */
-export const createFeatureFlaggedComponent: (
-	LegacyComponent: React.ComponentType<LogoProps>,
-	NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
-) => ({ size, shouldUseNewLogoDesign, ...props }: LogoProps) => React.JSX.Element = (
-	LegacyComponent: React.ComponentType<LogoProps>,
-	NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
-) => {
-	// Note: textColor and iconColor aren't supported on all new logos
-	// These props will be deprecated in the future
-	return ({ size, shouldUseNewLogoDesign, ...props }: LogoProps): React.JSX.Element => {
-		if (fg('platform-logo-rebrand') || shouldUseNewLogoDesign) {
-			// Size defaults need to be set, as the temp library had different defaults
-			return <NewComponent size={size || 'medium'} {...props} />;
-		}
-		return <LegacyComponent size={size} {...props} />;
-	};
-};
-
-/**
- * Creates a feature flagged component that renders the legacy logo or the new logo
- * based on the platform-logo-rebrand feature flag.
- *
- * @param LegacyComponent - The legacy logo component.
- * @param NewComponent - The new logo component.
- * @returns A feature flagged component that renders the legacy logo or the new logo.
- */
-export const createFeatureFlaggedServiceCollectionComponent: (
-	LegacyComponent: React.ComponentType<LogoProps>,
-	NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
-) => ({ size, shouldUseNewLogoDesign, ...props }: LogoProps) => React.JSX.Element = (
-	LegacyComponent: React.ComponentType<LogoProps>,
-	NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
-) => {
-	// Note: textColor and iconColor aren't supported on all new logos
-	// These props will be deprecated in the future
-	return ({ size, shouldUseNewLogoDesign, ...props }: LogoProps): React.JSX.Element => {
-		if (fg('platform-logo-rebrand') || shouldUseNewLogoDesign) {
-			// Size defaults need to be set, as the temp library had different defaults
-			return <NewComponent size={size || 'medium'} {...props} />;
-		}
-
-		return <LegacyComponent size={size} {...props} />;
-	};
-};
 
 export const createFeatureFlaggedRovoComponent: (
 	LegacyComponent: React.ComponentType<LogoProps>,
@@ -106,21 +55,6 @@ export const createFeatureFlaggedRovoComponent: (
 		} else {
 			return <RovoServiceCollectionWrapped {...props} />;
 		}
-	};
-};
-
-/**
- * Creates a wrapper around the new logo or icon component to ensure it receives the correct default (medium) size prop.
- *
- * @param NewComponent - The new logo or icon component.
- */
-export const tempSizeWrapper: (
-	NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
-) => ({ size, ...props }: LogoProps) => React.JSX.Element = (
-	NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
-) => {
-	return ({ size, ...props }: LogoProps): React.JSX.Element => {
-		return <NewComponent size={size || 'medium'} {...props} />;
 	};
 };
 
@@ -233,3 +167,7 @@ export const SHARED_LOGOS: LogoDocsSchema[] = logoDocsSchema.filter(
 export const NEW_ONLY_LOGOS: LogoDocsSchema[] = logoDocsSchema.filter(
 	(logo) => logo.type === 'new',
 );
+
+export { createFeatureFlaggedComponent } from './create-feature-flagged-component';
+export { createFeatureFlaggedServiceCollectionComponent } from './create-feature-flagged-service-collection-component';
+export { tempSizeWrapper } from './temp-size-wrapper';

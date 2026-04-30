@@ -1,5 +1,7 @@
 import React, { type ReactElement } from 'react';
 
+import type { MatcherOptions, waitForOptions, ByRoleMatcher, ByRoleOptions } from '@testing-library/react';
+import type { UserEvent } from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
@@ -51,7 +53,24 @@ export const setup = async ({
 	storeOptions,
 	userEventOptions = { delay: null },
 	product,
-}: SetUpParams = {}) => {
+}: SetUpParams = {}): Promise<{
+        analyticsSpy: jest.Mock<any, any, any>;
+        container: HTMLElement;
+        dateSpy: jest.SpyInstance<number, [], any>;
+        element: HTMLElement;
+        event: UserEvent;
+        findAllByTestId: (id: Matcher, options?: MatcherOptions | undefined, waitForElementOptions?: waitForOptions | undefined) => Promise<HTMLElement[]>;
+        findByRole: (role: ByRoleMatcher, options?: ByRoleOptions | undefined, waitForElementOptions?: waitForOptions | undefined) => Promise<HTMLElement>;
+        findByTestId: (id: Matcher, options?: MatcherOptions | undefined, waitForElementOptions?: waitForOptions | undefined) => Promise<HTMLElement>;
+        mockAnalyticsClient: {
+            sendOperationalEvent: jest.Mock<any, any, any>;
+            sendScreenEvent: jest.Mock<any, any, any>;
+            sendTrackEvent: jest.Mock<any, any, any>;
+            sendUIEvent: jest.Mock<any, any, any>;
+        };
+        queryByRole: (role: ByRoleMatcher, options?: ByRoleOptions | undefined) => HTMLElement | null;
+        queryByTestId: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement | null;
+    }> => {
 	const mockClient = new (fakeFactory(mockFetch))();
 	const analyticsSpy = jest.fn();
 	const mockAnalyticsClient = {

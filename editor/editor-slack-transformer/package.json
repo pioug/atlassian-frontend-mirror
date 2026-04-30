@@ -44,6 +44,7 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@emotion/react": "root:*"
 	},
 	"exports": {

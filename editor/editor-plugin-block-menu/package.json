@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-menu",
-	"version": "9.0.10",
+	"version": "9.0.11",
 	"description": "BlockMenu plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -111,6 +111,7 @@
 		}
 	},
 	"devDependencies": {
+		"@atlassian/structured-docs-types": "workspace:^",
 		"react-intl": "root:*"
 	}
 }

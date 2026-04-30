@@ -12,6 +12,7 @@ import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 
 import { InlineCardResolvedViewFunctional } from './InlineCardResolvedViewFunctional';
+import type { InlineCardResolvedViewFunctionalProps } from './types';
 
 export interface InlineCardResolvedViewProps {
 	/** Configure visibility of server and client actions */
@@ -149,7 +150,7 @@ class InlineCardResolvedViewClass extends React.Component<InlineCardResolvedView
 	}
 }
 
-export const InlineCardResolvedView = componentWithFG(
+export const InlineCardResolvedView: React.FC<InlineCardResolvedViewFunctionalProps & InlineCardResolvedViewProps> = componentWithFG(
 	'smart-card-inline-resolved-view-refactor',
 	InlineCardResolvedViewFunctional,
 	InlineCardResolvedViewClass,

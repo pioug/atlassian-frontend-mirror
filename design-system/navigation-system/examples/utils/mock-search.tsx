@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { useLegacySearchTheme } from '@atlaskit/navigation-system/experimental/use-legacy-search-theme';
+import { useLegacySearchTheme } from '@atlaskit/navigation-system/theming/use-legacy-search-theme';
 import { Text } from '@atlaskit/primitives/compiled';
 // eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports -- These components require theme context and must be imported from barrel
 import { SearchInput, EnlargedSearchInput } from '@atlassian/search-dialog';

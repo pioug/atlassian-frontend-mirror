@@ -10,8 +10,9 @@ export type NativeEmbedAppearance = 'url' | 'inline' | 'block' | 'embed';
 export type NativeEmbedParameterValues = {
 	alignment: AlignmentValue;
 	alwaysShowTitle: boolean;
+	aspectRatio: number;
 	displayText?: string;
-	height: number;
+	height: number; // Deprecated: height is only used when aspectRatio is not available, but it remains a required parameter for backwards compatibility. New code should use aspectRatio and optionally width instead of height.
 	url?: string;
 	width?: number;
 };
@@ -24,8 +25,9 @@ export type NativeEmbedParameters = {
 	macroParams?: {
 		alignment?: NativeEmbedParameterValue;
 		alwaysShowTitle?: NativeEmbedParameterValue;
+		aspectRatio?: NativeEmbedParameterValue;
 		displayText?: NativeEmbedParameterValue;
-		height?: NativeEmbedParameterValue;
+		height?: NativeEmbedParameterValue; // Deprecated: height is only used when aspectRatio is not available, but it remains a supported parameter for backwards compatibility. New code should use aspectRatio and optionally width instead of height.
 		url?: NativeEmbedParameterValue;
 		width?: NativeEmbedParameterValue;
 	};

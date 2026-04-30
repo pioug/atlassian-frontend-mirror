@@ -606,14 +606,7 @@
         "content": {
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/definitions/listItem_node"
-              },
-              {
-                "$ref": "#/definitions/listItem_with_flexible_first_child_node"
-              }
-            ]
+            "$ref": "#/definitions/listItem_node"
           },
           "minItems": 1
         }
@@ -1879,84 +1872,6 @@
         },
         "content": {
           "type": "array",
-          "items": [
-            {
-              "anyOf": [
-                {
-                  "$ref": "#/definitions/paragraph_with_font_size_node"
-                },
-                {
-                  "$ref": "#/definitions/paragraph_with_no_marks_node"
-                },
-                {
-                  "$ref": "#/definitions/mediaSingle_caption_node"
-                },
-                {
-                  "$ref": "#/definitions/mediaSingle_full_node"
-                },
-                {
-                  "$ref": "#/definitions/codeBlock_node"
-                },
-                {
-                  "$ref": "#/definitions/extension_with_marks_node"
-                }
-              ]
-            },
-            {
-              "anyOf": [
-                {
-                  "$ref": "#/definitions/paragraph_with_font_size_node"
-                },
-                {
-                  "$ref": "#/definitions/paragraph_with_no_marks_node"
-                },
-                {
-                  "$ref": "#/definitions/bulletList_node"
-                },
-                {
-                  "$ref": "#/definitions/orderedList_node"
-                },
-                {
-                  "$ref": "#/definitions/taskList_node"
-                },
-                {
-                  "$ref": "#/definitions/mediaSingle_caption_node"
-                },
-                {
-                  "$ref": "#/definitions/mediaSingle_full_node"
-                },
-                {
-                  "$ref": "#/definitions/codeBlock_node"
-                },
-                {
-                  "$ref": "#/definitions/extension_with_marks_node"
-                }
-              ]
-            }
-          ],
-          "minItems": 1
-        }
-      },
-      "additionalProperties": false,
-      "required": ["type", "content"]
-    },
-    "listItem_with_flexible_first_child_node": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "enum": ["listItem"]
-        },
-        "attrs": {
-          "type": "object",
-          "properties": {
-            "localId": {
-              "type": "string"
-            }
-          },
-          "additionalProperties": false
-        },
-        "content": {
-          "type": "array",
           "items": {
             "anyOf": [
               {
@@ -1973,9 +1888,6 @@
               },
               {
                 "$ref": "#/definitions/taskList_node"
-              },
-              {
-                "$ref": "#/definitions/taskList_with_flexible_first_child_node"
               },
               {
                 "$ref": "#/definitions/mediaSingle_caption_node"
@@ -2553,14 +2465,7 @@
         "content": {
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/definitions/listItem_node"
-              },
-              {
-                "$ref": "#/definitions/listItem_with_flexible_first_child_node"
-              }
-            ]
+            "$ref": "#/definitions/listItem_node"
           },
           "minItems": 1
         }
@@ -3238,67 +3143,24 @@
         },
         "content": {
           "type": "array",
-          "items": [
-            {
-              "anyOf": [
-                {
-                  "$ref": "#/definitions/taskItem_node"
-                },
-                {
-                  "$ref": "#/definitions/blockTaskItem_node"
-                }
-              ]
-            },
-            {
-              "anyOf": [
-                {
-                  "$ref": "#/definitions/taskItem_node"
-                },
-                {
-                  "$ref": "#/definitions/taskList_node"
-                },
-                {
-                  "$ref": "#/definitions/blockTaskItem_node"
-                }
-              ]
-            }
-          ],
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/taskItem_node"
+              },
+              {
+                "$ref": "#/definitions/taskList_node"
+              },
+              {
+                "$ref": "#/definitions/blockTaskItem_node"
+              }
+            ]
+          },
           "minItems": 1
         }
       },
       "additionalProperties": false,
       "required": ["type", "attrs", "content"]
-    },
-    "taskList_with_flexible_first_child_node": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/taskList_node"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "content": {
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "$ref": "#/definitions/taskItem_node"
-                  },
-                  {
-                    "$ref": "#/definitions/taskList_node"
-                  },
-                  {
-                    "$ref": "#/definitions/blockTaskItem_node"
-                  }
-                ]
-              },
-              "minItems": 1
-            }
-          },
-          "required": ["content"],
-          "additionalProperties": true
-        }
-      ]
     },
     "text_node": {
       "type": "object",

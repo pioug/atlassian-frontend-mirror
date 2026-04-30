@@ -1,5 +1,3 @@
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-
 import type { ADFEntity, ADFEntityMark } from '../types';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
@@ -81,9 +79,6 @@ const partitionObject = <T extends { [key: string]: any }>(
  * Checks if a spec is a variant spec.
  * A variant spec is an array where the first element is a string (base spec name)
  * and the second element is a ValidatorSpec object { props: { ... } }
- *
- * @param spec - The spec to check
- * @returns true if the spec is a variant spec, false otherwise
  */
 const isVariant = (spec: unknown): spec is { 0: string; 1: ValidatorSpec } =>
 	typeof spec === 'object' &&
@@ -98,6 +93,7 @@ const isVariant = (spec: unknown): spec is { 0: string; 1: ValidatorSpec } =>
  * We denormalised the spec to save bundle size.
  */
 export function createSpec(nodes?: Array<string>, marks?: Array<string>): CreateSpecReturn {
+	const variantOverrides = getVariantSpecOverrides();
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	return Object.keys(specs).reduce<CreateSpecReturn>((newSpecs, k) => {
@@ -105,16 +101,9 @@ export function createSpec(nodes?: Array<string>, marks?: Array<string>): Create
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		let spec = { ...(specs as any)[k] };
 
-		if (
-			expValEqualsNoExposure('platform_editor_flexible_list_schema', 'isEnabled', true) &&
-			isVariant(spec) &&
-			// Only apply to variants which are explicitly marked for override in `variantSpecOverrides`
-			Object.values(variantSpecOverrides).includes(k)
-		) {
-			// This allows the variant spec to also have the content normalization applied to it
+		if (isVariant(spec) && Object.values(variantOverrides).includes(k)) {
 			// When the spec is a variant it will be in the form of ['base_spec_name', { props: { ... } }]
-			// So the actual validator spec of the variant will be the second item in the array
-			// We also need to shallow clone this to ensure we don't mutate the original spec
+			// The actual validator spec of the variant will be the second item in the array
 			spec = { ...spec[1] };
 		}
 
@@ -238,6 +227,9 @@ const isValidatorSpecAttrs = (spec: AttributesSpec): spec is ValidatorSpecAttrs 
 	return !!(spec as ValidatorSpecAttrs).props;
 };
 
+/**
+ * Validates attributes against the provided attribute specification.
+ */
 export function validateAttrs<T>(spec: AttributesSpec, value: T): boolean {
 	if (!isDefined(value)) {
 		return !!spec.optional;
@@ -403,21 +395,22 @@ const unsupportedNodeAttributesContent = (
 };
 
 /**
- * Map of base spec names to a preferred variant spec that should be used in their place during validation.
+ * Returns a map of base spec names to a preferred variant spec that should be used
+ * in their place during validation. Implemented as a getter function so that entries
+ * can be conditionally included behind feature gates.
  *
  * WARNING: The variant spec must be a strict superset of the base spec, i.e. any content valid
- * under the base spec must also be valid under the variant
+ * under the base spec must also be valid under the variant.
  */
-const variantSpecOverrides: Record<string, string> = {
-	listItem: 'listItem_with_flexible_first_child',
-	taskList: 'taskList_with_flexible_first_child',
+const getVariantSpecOverrides = (): Record<string, string> => {
+	return {};
 };
 
 /**
- * Replaces base validator specs with their designated variant overrides
+ * Replaces base validator specs with their designated variant overrides.
  */
 const applyVariantSpecOverrides = (validatorSpecs: CreateSpecReturn) => {
-	Object.entries(variantSpecOverrides).forEach(([base, variant]) => {
+	Object.entries(getVariantSpecOverrides()).forEach(([base, variant]) => {
 		const baseSpec = validatorSpecs[base];
 		const variantOverride = validatorSpecs[variant];
 
@@ -436,6 +429,10 @@ const applyVariantSpecOverrides = (validatorSpecs: CreateSpecReturn) => {
 	});
 };
 
+/**
+ * Creates a validator function for ADF documents.
+ * Validates document structure against the ADF specification.
+ */
 export function validator(
 	nodes?: Array<string>,
 	marks?: Array<string>,
@@ -443,9 +440,7 @@ export function validator(
 ): Validate {
 	const validatorSpecs = createSpec(nodes, marks);
 
-	if (expValEqualsNoExposure('platform_editor_flexible_list_schema', 'isEnabled', true)) {
-		applyVariantSpecOverrides(validatorSpecs);
-	}
+	applyVariantSpecOverrides(validatorSpecs);
 
 	const { mode = 'strict', allowPrivateAttributes = false } = options || {};
 	const validate: Validate = (entity, errorCallback, allowed, parentSpec) => {

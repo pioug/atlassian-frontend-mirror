@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-code-bidi-warning
 
+## 10.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.10
 
 ### Patch Changes

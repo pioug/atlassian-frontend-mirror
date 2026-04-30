@@ -6,10 +6,8 @@ import type { AnimationCurve } from './types';
 /**
  * Props for controlling the behavior of the AnimateIn animation
  */
-export interface AnimateKeyframesMotionProps extends Omit<
-	KeyframesMotionProps,
-	'animationTimingFunctionExiting'
-> {
+export interface AnimateKeyframesMotionProps
+	extends Omit<KeyframesMotionProps, 'animationTimingFunctionExiting'> {
 	/**
 	 * CSS keyframes for the entering animation.
 	 */
@@ -27,7 +25,7 @@ export interface AnimateKeyframesMotionProps extends Omit<
  *
  * Useful for Animating in one or more elements.
  *
- * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motions)
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motion)
  */
 const AnimateIn = ({
 	children,

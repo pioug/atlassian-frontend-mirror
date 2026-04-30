@@ -1,21 +1,20 @@
-import { styled } from '@compiled/react';
+/* eslint-disable @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766 */
+import { styled, type StyledProps } from '@compiled/react';
+import type { ComponentType, ClassAttributes, HTMLAttributes } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const DrawerInner = styled.div({
+export const DrawerInner: ComponentType<ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyledProps> = styled.div({
 	display: 'flex',
 	flexWrap: 'wrap',
 	flexDirection: 'column',
 	alignItems: 'center',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const ContentFooter = styled.div({
+export const ContentFooter: ComponentType<ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyledProps> = styled.div({
 	display: 'flex',
 	justifyContent: 'flex-end',
 });
 
 /** Delete me once real content is present in the drawer */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const PlaceholderContent = styled.div({
+export const PlaceholderContent: ComponentType<ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyledProps> = styled.div({
 	width: '352px',
 });

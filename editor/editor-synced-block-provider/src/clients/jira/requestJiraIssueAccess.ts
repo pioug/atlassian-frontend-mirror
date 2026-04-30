@@ -11,7 +11,7 @@ const REQUEST_ACCESS_URL = '/rest/internal/latest/project-access/access-requeste
 export type AccessRequestPayload = {
 	accountId: string | null;
 	boardId?: number | null;
-	issueId?: string | null;
+	issueId?: number | null;
 	issueKey?: string | null;
 	message?: string | null;
 	projectKey: string | null;

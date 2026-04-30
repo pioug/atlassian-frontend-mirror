@@ -21,14 +21,12 @@ describe('infinite nesting', () => {
 		const graph = createGraphFromSchema(v1SchemaStage0);
 		const cyclicNodes = detectAllCycles(graph);
 		cyclicNodes.sort();
-		expect(cyclicNodes.length).toBe(5);
+		expect(cyclicNodes.length).toBe(3);
 		expect(cyclicNodes).toStrictEqual(
 			expect.arrayContaining([
 				{ from: 'taskList_node', to: 'taskList_node' },
 				{ from: 'bulletList_node', to: 'listItem_node' },
 				{ from: 'listItem_node', to: 'orderedList_node' },
-				{ from: 'bulletList_node', to: 'listItem_with_flexible_first_child_node' },
-				{ from: 'orderedList_node', to: 'listItem_with_flexible_first_child_node' },
 			]),
 		);
 	});

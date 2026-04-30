@@ -1,6 +1,6 @@
 import { TrelloIcon as NewTrelloIcon } from '../artifacts/logo-components/trello';
+import { createFeatureFlaggedComponent } from '../create-feature-flagged-component';
 import { TrelloIcon as LegacyTrelloIcon } from '../legacy-logos/trello';
-import { createFeatureFlaggedComponent } from '../logo-config';
 import type { LogoProps } from '../types';
 
 /**

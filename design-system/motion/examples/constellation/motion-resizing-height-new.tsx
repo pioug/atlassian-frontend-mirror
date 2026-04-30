@@ -2,38 +2,29 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { cssMap, jsx } from '@atlaskit/css';
-import {
-	BitbucketIcon,
-	ConfluenceIcon,
-	JiraSoftwareIcon,
-	OpsgenieIcon,
-	StatuspageIcon,
-} from '@atlaskit/logo';
-import { Motion } from '@atlaskit/motion';
+import { cssMap, cx, jsx } from '@atlaskit/css';
+import { Label } from '@atlaskit/form';
+import { AtlassianIcon } from '@atlaskit/logo';
 import { useResizing } from '@atlaskit/motion/resizing';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
+import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
 
-import { Centered } from '../utils';
-
 const styles = cssMap({
-	buttonContainer: {
-		marginBlockEnd: token('space.300'),
-		textAlign: 'center',
-	},
 	container: {
-		borderRadius: token('radius.small', '3px'),
-		boxShadow: token('elevation.shadow.overlay'),
-		paddingBlockEnd: token('space.200'),
-		paddingBlockStart: token('space.200'),
-		paddingInlineEnd: token('space.200'),
-		paddingInlineStart: token('space.200'),
+		display: 'inline-flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderRadius: token('radius.xxlarge'),
+		borderWidth: token('border.width'),
+		borderStyle: 'solid',
+		borderColor: token('color.border'),
+		backgroundColor: token('elevation.surface'),
+		marginBlockStart: token('space.200'),
 	},
-	item: {
+	logo: {
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -44,57 +35,38 @@ const styles = cssMap({
 		paddingInlineEnd: token('space.200'),
 		paddingInlineStart: token('space.200'),
 	},
-	entering: {
-		animationDuration: token('motion.duration.short'),
-		animationTimingFunction: token('motion.easing.out.practical'),
-		animationName: token('motion.keyframe.fade.in'),
+	small: {
+		height: '50px',
+	},
+	large: {
+		height: '100px',
 	},
 });
 
-const logos = [
-	[<BitbucketIcon size="small" />, 'Bitbucket'],
-	[<ConfluenceIcon size="small" />, 'Confluence'],
-	[<JiraSoftwareIcon size="small" />, 'Jira'],
-	[<OpsgenieIcon size="small" />, 'Opsgenie'],
-	[<StatuspageIcon size="small" />, 'Statuspage'],
-];
-
 const MotionResizingHeightNew = (): JSX.Element => {
-	const [num, setNum] = useState(1);
+	const [expand, setExpand] = useState(false);
+	const toggleExpand = useCallback(() => {
+		setExpand((expand) => !expand);
+	}, []);
 
 	const resizingProps = useResizing({
 		dimension: 'height',
-		duration: token('motion.duration.short'),
+		duration: token('motion.duration.xxlong'),
 		easing: token('motion.easing.out.practical'),
 	});
 
 	return (
-		<div>
-			<div css={styles.buttonContainer}>
-				{[1, 2, 3, 4, 5].map((number) => (
-					<Button
-						testId={`height-button--${number}`}
-						key={number}
-						isSelected={num === number}
-						onClick={() => setNum(number)}
-					>
-						{number}
-					</Button>
-				))}
-			</div>
-			<Centered>
-				<Stack {...resizingProps} xcss={styles.container}>
-					{Array(num)
-						.fill(undefined)
-						.map((_, index) => (
-							<Motion key={index} xcss={styles.item} enteringAnimationXcss={styles.entering}>
-								{logos[index][0]}
-								<span>{logos[index][1]}</span>
-							</Motion>
-						))}
-				</Stack>
-			</Centered>
-		</div>
+		<Box>
+			<Inline alignBlock="center">
+				<Label htmlFor="inline-toggle-expand">Toggle expand</Label>
+				<Toggle id="inline-toggle-expand" onChange={toggleExpand} />
+			</Inline>
+			<Box {...resizingProps} xcss={styles.container}>
+				<Box xcss={cx(expand ? styles.large : styles.small, styles.logo)}>
+					<AtlassianIcon size="medium" />
+				</Box>
+			</Box>
+		</Box>
 	);
 };
 

@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::3074f95e45bf8036bb201627e54d907a>>
+ * @codegen <<SignedSource::317aba543088c06e6139eb437ebacf13>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:structured-docs-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -5189,7 +5189,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['modal', 'close', 'button', 'dismiss'],
 		category: 'overlay',
 		examples: [
-			"import React, { Fragment, useCallback, useState } from 'react';\nimport Button from '@atlaskit/button/new';\nimport { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading';\nimport Modal, {\n\tCloseButton,\n\tModalBody,\n\tModalFooter,\n\tModalTransition,\n\tuseModal,\n} from '@atlaskit/modal-dialog';\nimport { Box } from '@atlaskit/primitives/compiled';\nconst styles = cssMap({\n\theader: {\n\t\tdisplay: 'flex',\n\t\talignItems: 'center',\n\t\tjustifyContent: 'space-between',\n\t\tflexDirection: 'row-reverse',\n\t},\n});\nconst CustomHeader = () => {\n\tconst { onClose, titleId } = useModal();\n\treturn (\n\t\t<Box xcss={styles.header} padding=\"space.300\">\n\t\t\t{/* We have the close button first in the DOM and then are reversing it\n\t\t\tusing the flex styles to ensure that it is focused as the first\n\t\t\tinteractive element in the modal, *before* any other relevant content\n\t\t\tinside the modal. This ensures users of assistive technology get all\n\t\t\trelevant content. */}\n\t\t\t<CloseButton onClick={onClose} />\n\t\t\t<Heading as=\"h1\" size=\"medium\" id={titleId}>\n\t\t\t\tCustom modal header\n\t\t\t</Heading>\n\t\t</Box>\n\t);\n};\nexport default function Example(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup=\"dialog\" appearance=\"primary\" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t// This is fixed in the custom header\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<CustomHeader />\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tIf you wish to customise a modal dialog, it accepts any valid React element as\n\t\t\t\t\t\t\t\tchildren.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tModal header accepts any valid React element as children, so you can use modal title\n\t\t\t\t\t\t\t\tin conjunction with other elements like an exit button in the top right.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tModal footer accepts any valid React element as children. For example, you can add\n\t\t\t\t\t\t\t\tan avatar in the footer. For very custom use cases, you can achieve the same thing\n\t\t\t\t\t\t\t\twithout modal footer.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Button appearance=\"subtle\">About modals</Button>\n\t\t\t\t\t\t\t<Button appearance=\"primary\" onClick={closeModal}>\n\t\t\t\t\t\t\t\tClose\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}",
+			'import React, { Fragment, useCallback, useState } from \'react\';\nimport Button from \'@atlaskit/button/new\';\nimport { cssMap } from \'@atlaskit/css\';\nimport Heading from \'@atlaskit/heading\';\nimport Modal, {\n\tCloseButton,\n\tModalBody,\n\tModalFooter,\n\tModalTransition,\n\tuseModal,\n} from \'@atlaskit/modal-dialog\';\nimport { Box, Text } from \'@atlaskit/primitives/compiled\';\nconst styles = cssMap({\n\theader: {\n\t\tdisplay: \'flex\',\n\t\talignItems: \'center\',\n\t\tjustifyContent: \'space-between\',\n\t\tflexDirection: \'row-reverse\',\n\t},\n});\nconst CustomHeader = () => {\n\tconst { onClose, titleId } = useModal();\n\treturn (\n\t\t<Box xcss={styles.header} padding="space.300">\n\t\t\t{/* We have the close button first in the DOM and then are reversing it\n\t\t\tusing the flex styles to ensure that it is focused as the first\n\t\t\tinteractive element in the modal, *before* any other relevant content\n\t\t\tinside the modal. This ensures users of assistive technology get all\n\t\t\trelevant content. */}\n\t\t\t<CloseButton onClick={onClose} />\n\t\t\t<Heading as="h1" size="medium" id={titleId}>\n\t\t\t\tCustom modal header\n\t\t\t</Heading>\n\t\t</Box>\n\t);\n};\nexport default function Example(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t// This is fixed in the custom header\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<CustomHeader />\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\t<Text as="p">\n\t\t\t\t\t\t\t\tIf you wish to customise a modal dialog, it accepts any valid React element as\n\t\t\t\t\t\t\t\tchildren.\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t\t<Text as="p">\n\t\t\t\t\t\t\t\tModal header accepts any valid React element as children, so you can use modal title\n\t\t\t\t\t\t\t\tin conjunction with other elements like an exit button in the top right.\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t\t<Text as="p">\n\t\t\t\t\t\t\t\tModal footer accepts any valid React element as children. For example, you can add\n\t\t\t\t\t\t\t\tan avatar in the footer. For very custom use cases, you can achieve the same thing\n\t\t\t\t\t\t\t\twithout modal footer.\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Button appearance="subtle">About modals</Button>\n\t\t\t\t\t\t\t<Button appearance="primary" onClick={closeModal}>\n\t\t\t\t\t\t\t\tClose\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}',
 		],
 		props: [
 			{
@@ -5378,7 +5378,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['modal', 'footer', 'actions', 'buttons'],
 		category: 'overlay',
 		examples: [
-			'/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { Fragment, useCallback, useState } from \'react\';\nimport Avatar from \'@atlaskit/avatar\';\nimport Button from \'@atlaskit/button/new\';\nimport { cssMap, jsx } from \'@atlaskit/css\';\nimport Modal, {\n\tModalBody,\n\tModalFooter,\n\tModalHeader,\n\tModalTitle,\n\tModalTransition,\n} from \'@atlaskit/modal-dialog\';\nimport { Flex, Text } from \'@atlaskit/primitives/compiled\';\nconst styles = cssMap({\n\tfooter: { flex: \'1\' },\n});\nexport default function Example(): JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<ModalHeader hasCloseButton>\n\t\t\t\t\t\t\t<ModalTitle>Default modal footer</ModalTitle>\n\t\t\t\t\t\t</ModalHeader>\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tIf you wish to customise a modal dialog, it accepts any valid React element as\n\t\t\t\t\t\t\t\tchildren.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tModal header accepts any valid React element as children, so you can use modal title\n\t\t\t\t\t\t\t\tin conjunction with other elements like an exit button in the top right.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tModal footer accepts any valid React element as children. For example, you can add\n\t\t\t\t\t\t\t\tan avatar in the footer. For very custom use cases, you can achieve the same thing\n\t\t\t\t\t\t\t\twithout modal footer.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Flex xcss={styles.footer} justifyContent="space-between">\n\t\t\t\t\t\t\t\t<Flex alignItems="center" gap="space.100">\n\t\t\t\t\t\t\t\t\t<Avatar\n\t\t\t\t\t\t\t\t\t\tsize="small"\n\t\t\t\t\t\t\t\t\t\tsrc="https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg"\n\t\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t\t\t<Text>Hey there!</Text>\n\t\t\t\t\t\t\t\t</Flex>\n\t\t\t\t\t\t\t\t<Button appearance="primary" onClick={closeModal}>\n\t\t\t\t\t\t\t\t\tClose\n\t\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t</Flex>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}',
+			'/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { Fragment, useCallback, useState } from \'react\';\nimport Avatar from \'@atlaskit/avatar\';\nimport Button from \'@atlaskit/button/new\';\nimport { cssMap, jsx } from \'@atlaskit/css\';\nimport Modal, {\n\tModalBody,\n\tModalFooter,\n\tModalHeader,\n\tModalTitle,\n\tModalTransition,\n} from \'@atlaskit/modal-dialog\';\nimport { Flex, Text } from \'@atlaskit/primitives/compiled\';\nconst styles = cssMap({\n\tfooter: { flex: \'1\' },\n});\nexport default function Example(): JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<ModalHeader hasCloseButton>\n\t\t\t\t\t\t\t<ModalTitle>Default modal footer</ModalTitle>\n\t\t\t\t\t\t</ModalHeader>\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\t<Text as="p">\n\t\t\t\t\t\t\t\tIf you wish to customise a modal dialog, it accepts any valid React element as\n\t\t\t\t\t\t\t\tchildren.\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t\t<Text as="p">\n\t\t\t\t\t\t\t\tModal header accepts any valid React element as children, so you can use modal title\n\t\t\t\t\t\t\t\tin conjunction with other elements like an exit button in the top right.\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t\t<Text as="p">\n\t\t\t\t\t\t\t\tModal footer accepts any valid React element as children. For example, you can add\n\t\t\t\t\t\t\t\tan avatar in the footer. For very custom use cases, you can achieve the same thing\n\t\t\t\t\t\t\t\twithout modal footer.\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Flex xcss={styles.footer} justifyContent="space-between">\n\t\t\t\t\t\t\t\t<Flex alignItems="center" gap="space.100">\n\t\t\t\t\t\t\t\t\t<Avatar\n\t\t\t\t\t\t\t\t\t\tsize="small"\n\t\t\t\t\t\t\t\t\t\tsrc="https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg"\n\t\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t\t\t<Text as="p">Hey there!</Text>\n\t\t\t\t\t\t\t\t</Flex>\n\t\t\t\t\t\t\t\t<Button appearance="primary" onClick={closeModal}>\n\t\t\t\t\t\t\t\t\tClose\n\t\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t</Flex>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}',
 		],
 		props: [
 			{
@@ -5404,7 +5404,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['modal', 'header', 'title', 'close'],
 		category: 'overlay',
 		examples: [
-			'import React, { Fragment, useCallback, useState } from \'react\';\nimport Button from \'@atlaskit/button/new\';\nimport Modal, {\n\tModalBody,\n\tModalFooter,\n\tModalHeader,\n\tModalTitle,\n\tModalTransition,\n} from \'@atlaskit/modal-dialog\';\nexport default function Example(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<ModalHeader hasCloseButton>\n\t\t\t\t\t\t\t<ModalTitle>Default modal header</ModalTitle>\n\t\t\t\t\t\t</ModalHeader>\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tIf you wish to customise a modal dialog, it accepts any valid React element as\n\t\t\t\t\t\t\t\tchildren.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tModal header accepts any valid React element as children, so you can use modal title\n\t\t\t\t\t\t\t\tin conjunction with other elements like an exit button in the top right.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tModal footer accepts any valid React element as children. For example, you can add\n\t\t\t\t\t\t\t\tan avatar in the footer. For very custom use cases, you can achieve the same thing\n\t\t\t\t\t\t\t\twithout modal footer.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Button appearance="subtle">About modals</Button>\n\t\t\t\t\t\t\t<Button appearance="primary" onClick={closeModal}>\n\t\t\t\t\t\t\t\tClose\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}',
+			'import React, { Fragment, useCallback, useState } from \'react\';\nimport Button from \'@atlaskit/button/new\';\nimport Modal, {\n\tModalBody,\n\tModalFooter,\n\tModalHeader,\n\tModalTitle,\n\tModalTransition,\n} from \'@atlaskit/modal-dialog\';\nimport { Text } from \'@atlaskit/primitives/compiled\';\nexport default function Example(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<ModalHeader hasCloseButton>\n\t\t\t\t\t\t\t<ModalTitle>Default modal header</ModalTitle>\n\t\t\t\t\t\t</ModalHeader>\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\t<Text as="p">\n\t\t\t\t\t\t\t\tIf you wish to customise a modal dialog, it accepts any valid React element as\n\t\t\t\t\t\t\t\tchildren.\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t\t<Text as="p">\n\t\t\t\t\t\t\t\tModal header accepts any valid React element as children, so you can use modal title\n\t\t\t\t\t\t\t\tin conjunction with other elements like an exit button in the top right.\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t\t<Text as="p">\n\t\t\t\t\t\t\t\tModal footer accepts any valid React element as children. For example, you can add\n\t\t\t\t\t\t\t\tan avatar in the footer. For very custom use cases, you can achieve the same thing\n\t\t\t\t\t\t\t\twithout modal footer.\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Button appearance="subtle">About modals</Button>\n\t\t\t\t\t\t\t<Button appearance="primary" onClick={closeModal}>\n\t\t\t\t\t\t\t\tClose\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}',
 		],
 		props: [
 			{
@@ -5477,6 +5477,217 @@ export const components: ComponentMcpPayload[] = [
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 				description:
 					'Children can be any valid react node.\nEither a single element,\nmultiple elements,\nor multiple elements in an array.',
+			},
+		],
+	},
+	{
+		name: 'ExitingPersistence',
+		package: '@atlaskit/motion',
+		description:
+			'Keeps elements mounted and plays their exit animation before they are removed from the DOM. Without it, elements are removed immediately and no exit animation plays. Works with both the Motion primitive and legacy entering-motion components.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Wrap motion elements with ExitingPersistence to enable exit animations when elements are removed from the DOM',
+			'Set the appear prop to also trigger the entering animation when the component first mounts',
+			'Use exitThenEnter prop to make elements exit before new ones enter (sequential transition)',
+			'All direct children must have a unique key prop for ExitingPersistence to track additions and removals',
+			'Works with both the recommended Motion primitive and legacy FadeIn, SlideIn, ZoomIn, ShrinkOut components',
+		],
+		keywords: ['motion', 'animation', 'exit', 'persistence', 'unmount', 'transition', 'fade'],
+		category: 'animation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { type ReactNode, useState } from 'react';\nimport { jsx } from '@compiled/react';\nimport Button from '@atlaskit/button/new';\nimport { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading';\nimport { ConfluenceIcon, JiraServiceManagementIcon } from '@atlaskit/logo';\nimport { ExitingPersistence, Motion } from '@atlaskit/motion';\nimport { Box, Inline, Stack } from '@atlaskit/primitives/compiled';\nimport { Radio } from '@atlaskit/radio';\nimport { token } from '@atlaskit/tokens';\nimport { Block, RetryContainer } from '../utils';\nconst styles = cssMap({\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.long'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nconst MotionFadeBetweenElements = (): JSX.Element => {\n\tconst [index, setIndex] = useState(0);\n\tconst [appear, setAppear] = useState(true);\n\tconst [exitThenEnter, setExitThenEnter] = useState(false);\n\treturn (\n\t\t<RetryContainer>\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<Inline space=\"space.200\">\n\t\t\t\t\t<Stack alignBlock=\"center\" space=\"space.100\">\n\t\t\t\t\t\t<Heading size=\"small\">Appear on mount</Heading>\n\t\t\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t\t\t<Radio label=\"Animate on mount\" isChecked={appear} onChange={() => setAppear(true)} />\n\t\t\t\t\t\t\t<Radio\n\t\t\t\t\t\t\t\tlabel=\"Immediately appear on mount\"\n\t\t\t\t\t\t\t\tisChecked={!appear}\n\t\t\t\t\t\t\t\tonChange={() => setAppear(false)}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t</Stack>\n\t\t\t\t\t</Stack>\n\t\t\t\t\t<Stack alignBlock=\"center\" space=\"space.100\">\n\t\t\t\t\t\t<Heading size=\"small\">Exit then enter</Heading>\n\t\t\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t\t\t<Radio\n\t\t\t\t\t\t\t\tlabel=\"Exit first then enter\"\n\t\t\t\t\t\t\t\tisChecked={exitThenEnter}\n\t\t\t\t\t\t\t\tonChange={() => setExitThenEnter(true)}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t<Radio\n\t\t\t\t\t\t\t\tlabel=\"Exit and enter at the same time\"\n\t\t\t\t\t\t\t\tisChecked={!exitThenEnter}\n\t\t\t\t\t\t\t\tonChange={() => setExitThenEnter(false)}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t</Stack>\n\t\t\t\t\t</Stack>\n\t\t\t\t</Inline>\n\t\t\t\t<Box>\n\t\t\t\t\t<Button onClick={() => setIndex((prev) => (prev + 1) % elements.length)}>Switch</Button>\n\t\t\t\t</Box>\n\t\t\t\t<Inline>\n\t\t\t\t\t<ExitingPersistence appear={appear} exitThenEnter={exitThenEnter}>\n\t\t\t\t\t\t<div key={index}>{elements[index]}</div>\n\t\t\t\t\t</ExitingPersistence>\n\t\t\t\t</Inline>\n\t\t\t</Stack>\n\t\t</RetryContainer>\n\t);\n};\nconst EnteringBlock = ({ children }: { children: ReactNode }) => (\n\t<Motion enteringAnimationXcss={styles.entering} exitingAnimationXcss={styles.exiting}>\n\t\t<Block>{children}</Block>\n\t</Motion>\n);\nconst elements = [\n\t<EnteringBlock>\n\t\t<ConfluenceIcon size=\"xlarge\" />\n\t</EnteringBlock>,\n\t<EnteringBlock>\n\t\t<JiraServiceManagementIcon size=\"xlarge\" />\n\t</EnteringBlock>,\n];\nexport default MotionFadeBetweenElements;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { useState } from 'react';\nimport { jsx } from '@compiled/react';\nimport Button from '@atlaskit/button/new';\nimport { cssMap } from '@atlaskit/css';\nimport {\n\tBitbucketIcon,\n\tConfluenceIcon,\n\tJiraServiceManagementIcon,\n\tJiraSoftwareIcon,\n\tOpsgenieIcon,\n\tStatuspageIcon,\n} from '@atlaskit/logo';\nimport { ExitingPersistence, Motion } from '@atlaskit/motion';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tlist: {\n\t\twidth: '100%',\n\t\tmarginBlockEnd: token('space.200'),\n\t},\n\tlistItem: {\n\t\tdisplay: 'flex',\n\t\talignItems: 'center',\n\t\tbackgroundColor: token('elevation.surface'),\n\t\tborderRadius: token('radius.medium'),\n\t\tboxShadow: token('elevation.shadow.overlay'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.100'),\n\t\tpaddingInlineStart: token('space.100'),\n\t},\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.long'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nconst MotionFadeOutListOfElementsExample = (): JSX.Element => {\n\tconst [items, setItems] = useState(logos);\n\treturn (\n\t\t<Stack space=\"space.200\">\n\t\t\t<Inline space=\"space.100\">\n\t\t\t\t<Button onClick={() => setItems((list) => randRemove(list))}>Random remove</Button>\n\t\t\t\t<Button onClick={() => setItems(logos)}>Reset</Button>\n\t\t\t</Inline>\n\t\t\t<Stack space=\"space.100\" xcss={styles.list}>\n\t\t\t\t<ExitingPersistence appear exitThenEnter>\n\t\t\t\t\t{items.map((logo) => (\n\t\t\t\t\t\t// Gotcha #1 set propery keys YO\n\t\t\t\t\t\t<Motion\n\t\t\t\t\t\t\tenteringAnimationXcss={styles.entering}\n\t\t\t\t\t\t\texitingAnimationXcss={styles.exiting}\n\t\t\t\t\t\t\tkey={logo[1] as string}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<Inline xcss={styles.listItem} space=\"space.100\">\n\t\t\t\t\t\t\t\t{logo[0]}\n\t\t\t\t\t\t\t\t<Text>{logo[1]}</Text>\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Motion>\n\t\t\t\t\t))}\n\t\t\t\t</ExitingPersistence>\n\t\t\t</Stack>\n\t\t</Stack>\n\t);\n};\nconst logos = [\n\t[<BitbucketIcon size=\"small\" />, 'Bitbucket'],\n\t[<ConfluenceIcon size=\"small\" />, 'Confluence'],\n\t[<JiraServiceManagementIcon size=\"small\" />, 'Jira Service Management'],\n\t[<JiraSoftwareIcon size=\"small\" />, 'Jira Software'],\n\t[<OpsgenieIcon size=\"small\" />, 'Opsgenie'],\n\t[<StatuspageIcon size=\"small\" />, 'Statuspage'],\n];\nconst randRemove = <T extends Array<TItem>, TItem>(arr: T) => {\n\tif (arr.length === 0) return arr;\n\tconst newArr = arr.concat([]);\n\tnewArr.splice(Date.now() % newArr.length, 1);\n\treturn newArr;\n};\nexport default MotionFadeOutListOfElementsExample;",
+		],
+		props: [
+			{
+				name: 'appear',
+				type: 'boolean',
+				description: 'When initially mounting if set to `true` all child motions will animate in.',
+			},
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description:
+					'Children can be any valid react node.\nEither a single element,\nmultiple elements,\nor multiple elements in an array.',
+			},
+			{
+				name: 'exitThenEnter',
+				type: 'boolean',
+				description:
+					'When elements are exiting will exit all elements first and then mount the new ones.\nDefaults to `false`.',
+			},
+		],
+	},
+	{
+		name: 'Motion',
+		package: '@atlaskit/motion',
+		description:
+			'A motion primitive that can be used to animate the entry and exit of components. The recommended way to apply entry and exit animations in @atlaskit/motion. Wrap with ExitingPersistence to enable exit animations when elements are removed from the DOM.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Use the Motion primitive as the recommended way to apply entry and exit animations',
+			'Wrap with ExitingPersistence to enable exit animations when elements are removed from the DOM',
+			'Pass pre-defined motion tokens to enteringAnimation and exitingAnimation for the simplest setup',
+			'Use enteringAnimationXcss and exitingAnimationXcss with cssMap styles for full control over animation properties',
+			'Multiple keyframes can be composed by joining them in animationName (e.g. combining scale and fade)',
+			'Works with any React content including ADS Primitives — no render-prop pattern required',
+			'Use the appear prop on ExitingPersistence to also trigger the entering animation on first mount',
+		],
+		accessibilityGuidelines: [
+			"Always respect the user's reduced-motion preference — use isReducedMotion() or useIsReducedMotion() to conditionally disable animations",
+			'Every motion component and custom animation should respect prefers-reduced-motion',
+		],
+		keywords: ['motion', 'animation', 'enter', 'exit', 'transition', 'primitive', 'fade', 'css'],
+		category: 'animation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { useState } from 'react';\nimport Button from '@atlaskit/button/new';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { ExitingPersistence, Motion } from '@atlaskit/motion';\nimport { token } from '@atlaskit/tokens';\nimport { Block, Centered, RetryContainer } from '../utils';\nconst styles = cssMap({\n\tcontainer: {\n\t\ttextAlign: 'center',\n\t},\n\tcentered: {\n\t\theight: '182px',\n\t},\n});\nconst MotionPrimitiveTokenExample = (): JSX.Element => {\n\tconst [isIn, setIsIn] = useState(true);\n\treturn (\n\t\t<RetryContainer>\n\t\t\t<div css={styles.container}>\n\t\t\t\t<Button onClick={() => setIsIn((prev) => !prev)}>{isIn ? 'Exit' : 'Enter'}</Button>\n\t\t\t\t<Centered css={styles.centered}>\n\t\t\t\t\t<ExitingPersistence appear>\n\t\t\t\t\t\t{isIn && (\n\t\t\t\t\t\t\t<Motion\n\t\t\t\t\t\t\t\tenteringAnimation={token('motion.blanket.enter')}\n\t\t\t\t\t\t\t\texitingAnimation={token('motion.blanket.exit')}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t<Block />\n\t\t\t\t\t\t\t</Motion>\n\t\t\t\t\t\t)}\n\t\t\t\t\t</ExitingPersistence>\n\t\t\t\t</Centered>\n\t\t\t</div>\n\t\t</RetryContainer>\n\t);\n};\nexport default MotionPrimitiveTokenExample;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { useState } from 'react';\nimport Button from '@atlaskit/button/new';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { ExitingPersistence, Motion } from '@atlaskit/motion';\nimport { token } from '@atlaskit/tokens';\nimport { Block, Centered, RetryContainer } from '../utils';\nconst styles = cssMap({\n\tcontainer: {\n\t\ttextAlign: 'center',\n\t},\n\tcentered: {\n\t\theight: '182px',\n\t},\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.long'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nconst MotionPrimitiveCustomExample = (): JSX.Element => {\n\tconst [isIn, setIsIn] = useState(true);\n\treturn (\n\t\t<RetryContainer>\n\t\t\t<div css={styles.container}>\n\t\t\t\t<Button onClick={() => setIsIn((prev) => !prev)}>{isIn ? 'Exit' : 'Enter'}</Button>\n\t\t\t\t<Centered css={styles.centered}>\n\t\t\t\t\t<ExitingPersistence appear>\n\t\t\t\t\t\t{isIn && (\n\t\t\t\t\t\t\t<Motion enteringAnimationXcss={styles.entering} exitingAnimationXcss={styles.exiting}>\n\t\t\t\t\t\t\t\t<Block />\n\t\t\t\t\t\t\t</Motion>\n\t\t\t\t\t\t)}\n\t\t\t\t\t</ExitingPersistence>\n\t\t\t\t</Centered>\n\t\t\t</div>\n\t\t</RetryContainer>\n\t);\n};\nexport default MotionPrimitiveCustomExample;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { useState } from 'react';\nimport { keyframes } from '@compiled/react';\nimport Button from '@atlaskit/button/new';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { ExitingPersistence, Motion } from '@atlaskit/motion';\nimport { token } from '@atlaskit/tokens';\nimport { Block, Centered, RetryContainer } from '../utils';\nconst slideIn = keyframes({\n\t'0%': { transform: 'translateX(-24px)' },\n\t'100%': { transform: 'translateX(0)' },\n});\nconst slideOut = keyframes({\n\t'0%': { transform: 'translateX(0)' },\n\t'100%': { transform: 'translateX(-24px)' },\n});\nconst styles = cssMap({\n\tcontainer: {\n\t\ttextAlign: 'center',\n\t},\n\tcentered: {\n\t\theight: '182px',\n\t},\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xxlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${slideIn}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.xxlong'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${slideOut}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nconst MotionPrimitiveCustomKeyframeExample = (): JSX.Element => {\n\tconst [isIn, setIsIn] = useState(true);\n\treturn (\n\t\t<RetryContainer>\n\t\t\t<div css={styles.container}>\n\t\t\t\t<Button onClick={() => setIsIn((prev) => !prev)}>{isIn ? 'Exit' : 'Enter'}</Button>\n\t\t\t\t<Centered css={styles.centered}>\n\t\t\t\t\t<ExitingPersistence appear>\n\t\t\t\t\t\t{isIn && (\n\t\t\t\t\t\t\t<Motion enteringAnimationXcss={styles.entering} exitingAnimationXcss={styles.exiting}>\n\t\t\t\t\t\t\t\t<Block />\n\t\t\t\t\t\t\t</Motion>\n\t\t\t\t\t\t)}\n\t\t\t\t\t</ExitingPersistence>\n\t\t\t\t</Centered>\n\t\t\t</div>\n\t\t</RetryContainer>\n\t);\n};\nexport default MotionPrimitiveCustomKeyframeExample;",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'Children to be animated.',
+				isRequired: true,
+			},
+			{
+				name: 'enteringAnimation',
+				type: '"var(--ds-avatar-enter)" | "var(--ds-avatar-exit)" | "var(--ds-avatar-hovered)" | "var(--ds-blanket-enter)" | "var(--ds-blanket-exit)" | "var(--ds-flag-enter)" | "var(--ds-flag-exit)" | ... 12 more ... | "var(--ds-spotlight-exit)"',
+				description: 'Motion token for the entering animation.',
+			},
+			{
+				name: 'enteringAnimationXcss',
+				type: 'false | (XCSSValue<"animationDelay" | "animationDuration" | "animationName" | "animationTimingFunction", object, ""> & {} & XCSSPseudo<"animationDelay" | "animationDuration" | "animationName" | "animationTimingFunction", never, never, object> & XCSSMediaQuery<...> & { ...; } & { ...; })',
+				description: 'CSS properties to apply to the entering animation.',
+			},
+			{
+				name: 'exitingAnimation',
+				type: '"var(--ds-avatar-enter)" | "var(--ds-avatar-exit)" | "var(--ds-avatar-hovered)" | "var(--ds-blanket-enter)" | "var(--ds-blanket-exit)" | "var(--ds-flag-enter)" | "var(--ds-flag-exit)" | ... 12 more ... | "var(--ds-spotlight-exit)"',
+				description: 'Motion token for the exiting animation.',
+			},
+			{
+				name: 'exitingAnimationXcss',
+				type: 'false | (XCSSValue<"animationDelay" | "animationDuration" | "animationName" | "animationTimingFunction", object, ""> & {} & XCSSPseudo<"animationDelay" | "animationDuration" | "animationName" | "animationTimingFunction", never, never, object> & XCSSMediaQuery<...> & { ...; } & { ...; })',
+				description: 'CSS properties to apply to the exiting animation.',
+			},
+			{
+				name: 'onFinish',
+				type: '(state: Transition) => void',
+				description:
+					'Will callback when the motion has finished in the particular direction.\nIf it finished entering direction will be `entering`.\nAnd vice versa for `exiting`.',
+			},
+			{
+				name: 'xcss',
+				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", object, ""> & ... 4 more ... & { ...; })',
+				description: 'CSS properties to apply to the motion container.',
+			},
+		],
+	},
+	{
+		name: 'StaggeredEntrance',
+		package: '@atlaskit/motion',
+		description:
+			'Staggers the entering animation of its child motion elements in sequence, creating a cascading effect. Works with both the Motion primitive and legacy entering-motion components.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Wrap entering motion elements with StaggeredEntrance to create a cascading stagger effect',
+			'All entering motion components must be direct descendants of StaggeredEntrance',
+			'Use the columns prop to specify a fixed grid layout, or "responsive" to calculate dynamically on the client',
+			'Use the delayStep prop to control how long each element group is staggered (defaults to 50ms)',
+			'Stagger delay uses a logarithmic scale so large lists do not feel excessively slow',
+			'Setting columns to a fixed number avoids elements being invisible before JavaScript executes (SSR-safe)',
+		],
+		keywords: ['motion', 'animation', 'stagger', 'entrance', 'list', 'grid', 'cascade', 'delay'],
+		category: 'animation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { jsx } from '@compiled/react';\nimport { cssMap } from '@atlaskit/css';\nimport {\n\tBitbucketIcon,\n\tConfluenceIcon,\n\tJiraIcon,\n\tJiraServiceManagementIcon,\n\tStatuspageIcon,\n\tTrelloIcon,\n} from '@atlaskit/logo';\nimport { Motion, StaggeredEntrance } from '@atlaskit/motion';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { RetryContainer } from '../utils';\nconst styles = cssMap({\n\tlist: {\n\t\twidth: '100%',\n\t\tmarginBlockEnd: token('space.200'),\n\t},\n\tlistItem: {\n\t\tdisplay: 'flex',\n\t\talignItems: 'center',\n\t\tbackgroundColor: token('elevation.surface'),\n\t\tborderRadius: token('radius.medium'),\n\t\tboxShadow: token('elevation.shadow.overlay'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.100'),\n\t\tpaddingInlineStart: token('space.100'),\n\t},\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.long'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nconst MotionFadeInListOfElementsExample = (): JSX.Element => {\n\treturn (\n\t\t<RetryContainer>\n\t\t\t<Stack space=\"space.100\" xcss={styles.list}>\n\t\t\t\t<StaggeredEntrance>\n\t\t\t\t\t{logos.map((logo) => (\n\t\t\t\t\t\t// Gotcha #1 set propery keys YO\n\t\t\t\t\t\t<Motion\n\t\t\t\t\t\t\tenteringAnimationXcss={styles.entering}\n\t\t\t\t\t\t\texitingAnimationXcss={styles.exiting}\n\t\t\t\t\t\t\tkey={logo[1] as string}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<Inline xcss={styles.listItem} space=\"space.100\">\n\t\t\t\t\t\t\t\t{logo[0]}\n\t\t\t\t\t\t\t\t<Text>{logo[1]}</Text>\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Motion>\n\t\t\t\t\t))}\n\t\t\t\t</StaggeredEntrance>\n\t\t\t</Stack>\n\t\t</RetryContainer>\n\t);\n};\nconst logos = [\n\t[<BitbucketIcon size=\"small\" />, 'Bitbucket'],\n\t[<ConfluenceIcon size=\"small\" />, 'Confluence'],\n\t[<JiraServiceManagementIcon size=\"small\" />, 'Jira Service Management'],\n\t[<JiraIcon size=\"small\" />, 'Jira'],\n\t[<TrelloIcon size=\"small\" />, 'Trello'],\n\t[<StatuspageIcon size=\"small\" />, 'Statuspage'],\n];\nexport default MotionFadeInListOfElementsExample;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cloneElement, useState } from 'react';\nimport { css, jsx } from '@compiled/react';\nimport Button from '@atlaskit/button/new';\nimport { cssMap } from '@atlaskit/css';\nimport {\n\tBitbucketIcon,\n\tConfluenceIcon,\n\tJiraIcon,\n\tJiraServiceManagementIcon,\n\tJiraSoftwareIcon,\n\tJiraWorkManagementIcon,\n\tOpsgenieIcon,\n\tStatuspageIcon,\n\tTrelloIcon,\n} from '@atlaskit/logo';\nimport { Motion, StaggeredEntrance } from '@atlaskit/motion';\nimport { token } from '@atlaskit/tokens';\nimport { Block, RetryContainer } from '../utils';\nconst styles = cssMap({\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.long'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nconst MotionFadeInGridOfElementsExample = (): JSX.Element => {\n\tconst [state, setState] = useState(() => ({\n\t\tsize: 'medium' as any,\n\t\tnumOfChildren: 9,\n\t}));\n\treturn (\n\t\t<div>\n\t\t\t<div css={buttonContainerStyles}>\n\t\t\t\t{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 50, 80].map((num) => (\n\t\t\t\t\t<Button\n\t\t\t\t\t\tkey={num}\n\t\t\t\t\t\tisSelected={num === state.numOfChildren}\n\t\t\t\t\t\tonClick={() => {\n\t\t\t\t\t\t\tsetState({\n\t\t\t\t\t\t\t\tsize: num > 9 ? 'small' : 'medium',\n\t\t\t\t\t\t\t\tnumOfChildren: num,\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\t{num}\n\t\t\t\t\t</Button>\n\t\t\t\t))}\n\t\t\t</div>\n\t\t\t<RetryContainer key={state.numOfChildren}>\n\t\t\t\t<ul css={listStyles}>\n\t\t\t\t\t<StaggeredEntrance columns=\"responsive\">\n\t\t\t\t\t\t{Array(state.numOfChildren)\n\t\t\t\t\t\t\t.fill(undefined)\n\t\t\t\t\t\t\t.map((_, index) => (\n\t\t\t\t\t\t\t\t<Motion\n\t\t\t\t\t\t\t\t\tenteringAnimationXcss={styles.entering}\n\t\t\t\t\t\t\t\t\texitingAnimationXcss={styles.exiting}\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t<li css={listItemStyles}>\n\t\t\t\t\t\t\t\t\t\t<Block appearance={state.size}>\n\t\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\t{cloneElement(logos[index % logos.length], {\n\t\t\t\t\t\t\t\t\t\t\t\tsize: state.numOfChildren > 9 ? 'small' : 'xlarge',\n\t\t\t\t\t\t\t\t\t\t\t})}\n\t\t\t\t\t\t\t\t\t\t</Block>\n\t\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t\t</Motion>\n\t\t\t\t\t\t\t))}\n\t\t\t\t\t</StaggeredEntrance>\n\t\t\t\t</ul>\n\t\t\t</RetryContainer>\n\t\t</div>\n\t);\n};\nconst logos = [\n\t<BitbucketIcon size=\"xlarge\" />,\n\t<ConfluenceIcon size=\"xlarge\" />,\n\t<JiraServiceManagementIcon size=\"xlarge\" />,\n\t<JiraIcon size=\"xlarge\" />,\n\t<JiraSoftwareIcon size=\"xlarge\" />,\n\t<JiraWorkManagementIcon size=\"xlarge\" />,\n\t<OpsgenieIcon size=\"xlarge\" />,\n\t<StatuspageIcon size=\"xlarge\" />,\n\t<TrelloIcon size=\"xlarge\" />,\n];\nconst buttonContainerStyles = css({\n\ttextAlign: 'center',\n\t'> *': {\n\t\tmarginBlockEnd: token('space.025'),\n\t\tmarginBlockStart: token('space.025'),\n\t\tmarginInlineEnd: token('space.025'),\n\t\tmarginInlineStart: token('space.025'),\n\t},\n});\nconst listStyles = css({\n\tdisplay: 'flex',\n\tmaxWidth: '474px',\n\tjustifyContent: 'flex-start',\n\tflexWrap: 'wrap',\n\tmarginBlockEnd: token('space.200'),\n\tmarginBlockStart: token('space.200'),\n\tmarginInlineEnd: token('space.200'),\n\tmarginInlineStart: token('space.200'),\n\tpaddingBlockEnd: token('space.0'),\n\tpaddingBlockStart: token('space.0'),\n\tpaddingInlineEnd: token('space.0'),\n\tpaddingInlineStart: token('space.0'),\n\tdiv: {\n\t\tmarginBlockEnd: token('space.0'),\n\t\tmarginBlockStart: token('space.0'),\n\t\tmarginInlineEnd: token('space.0'),\n\t\tmarginInlineStart: token('space.0'),\n\t},\n});\nconst listItemStyles = css({\n\tdisplay: 'block',\n\tmarginBlockEnd: token('space.050'),\n\tmarginBlockStart: token('space.050'),\n\tmarginInlineEnd: token('space.050'),\n\tmarginInlineStart: token('space.050'),\n\tpaddingBlockEnd: token('space.0'),\n\tpaddingBlockStart: token('space.0'),\n\tpaddingInlineEnd: token('space.0'),\n\tpaddingInlineStart: token('space.0'),\n});\nexport default MotionFadeInGridOfElementsExample;",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'JSX.Element | JSX.Element[]',
+				description:
+					'Any valid react child with an entrance motion somewhere in the tree as a descendant.',
+				isRequired: true,
+			},
+			{
+				name: 'column',
+				type: 'number',
+				description:
+					'Index of the column.\nUseful if you want to have columns inside separate containers.\nStarts from `0`.',
+			},
+			{
+				name: 'columns',
+				type: 'number | "responsive"',
+				description:
+					'Number of columns the children elements will be displayed over. Use\n`"responsive"` to have it calculate dynamically on the client side.\n\n__NOTE:__ This has a big caveat that the elements will be invisible until\nthe client side Javascript executes. If you have a fixed grid or list, set\nthis to a specific number. Defaults to `"responsive"`.',
+				defaultValue: '"responsive"',
+			},
+			{
+				name: 'delayStep',
+				type: 'number',
+				description:
+					'Delay in ms.\nHow long each element group will be staggered.\nThis will be multipled by the column and row of the element.\nDefaults to `50`.',
+				defaultValue: '50',
+			},
+		],
+	},
+	{
+		name: 'Resizing',
+		package: '@atlaskit/motion',
+		description:
+			'Animates width, height, or both dimensions of an element as its content changes. Use with caution — animating dimensions is notoriously unperformant. Test on low-powered devices.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use to animate width, height, or both dimensions as content changes',
+			'Pass the returned ref to the element you want to animate',
+			'Use the dimension prop to specify "width", "height", or "both"',
+			'Pass a motion duration token to the duration prop (e.g. token("motion.duration.medium"))',
+			'Pass a motion easing token to the easing prop (e.g. token("motion.easing.inout.bold"))',
+			'Wrap in React.memo or use PureComponent to limit unnecessary re-renders and avoid performance issues',
+			'Test on low-powered devices — animating dimensions can cause jank and impact FPS',
+		],
+		keywords: ['motion', 'animation', 'resize', 'width', 'height', 'dimension', 'transition'],
+		category: 'animation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { useCallback, useState } from 'react';\nimport { cssMap, cx, jsx } from '@atlaskit/css';\nimport { Label } from '@atlaskit/form';\nimport { AtlassianIcon } from '@atlaskit/logo';\nimport { useResizing } from '@atlaskit/motion/resizing';\nimport { Box, Inline } from '@atlaskit/primitives/compiled';\nimport Toggle from '@atlaskit/toggle';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tcontainer: {\n\t\tdisplay: 'inline-flex',\n\t\talignItems: 'center',\n\t\tjustifyContent: 'center',\n\t\tborderRadius: token('radius.xxlarge'),\n\t\tborderWidth: token('border.width'),\n\t\tborderStyle: 'solid',\n\t\tborderColor: token('color.border'),\n\t\tbackgroundColor: token('elevation.surface'),\n\t\tmarginBlockStart: token('space.200'),\n\t},\n\tlogo: {\n\t\tdisplay: 'flex',\n\t\talignItems: 'center',\n\t\tjustifyContent: 'center',\n\t\tflexDirection: 'column',\n\t\tfontWeight: token('font.weight.medium'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.200'),\n\t\tpaddingInlineStart: token('space.200'),\n\t},\n\tsmall: {\n\t\twidth: '50px',\n\t},\n\tlarge: {\n\t\twidth: '100px',\n\t},\n});\nconst MotionResizingWidth = (): JSX.Element => {\n\tconst [expand, setExpand] = useState(false);\n\tconst toggleExpand = useCallback(() => {\n\t\tsetExpand((expand) => !expand);\n\t}, []);\n\tconst resizingProps = useResizing({\n\t\tdimension: 'width',\n\t\tduration: token('motion.duration.xxlong'),\n\t\teasing: token('motion.easing.out.practical'),\n\t});\n\treturn (\n\t\t<Box>\n\t\t\t<Inline alignBlock=\"center\">\n\t\t\t\t<Label htmlFor=\"inline-toggle-expand\">Toggle expand</Label>\n\t\t\t\t<Toggle id=\"inline-toggle-expand\" onChange={toggleExpand} />\n\t\t\t</Inline>\n\t\t\t<Box {...resizingProps} xcss={styles.container}>\n\t\t\t\t<Box xcss={cx(expand ? styles.large : styles.small, styles.logo)}>\n\t\t\t\t\t<AtlassianIcon size=\"medium\" />\n\t\t\t\t</Box>\n\t\t\t</Box>\n\t\t</Box>\n\t);\n};\nexport default MotionResizingWidth;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { useCallback, useState } from 'react';\nimport { cssMap, cx, jsx } from '@atlaskit/css';\nimport { Label } from '@atlaskit/form';\nimport { AtlassianIcon } from '@atlaskit/logo';\nimport { useResizing } from '@atlaskit/motion/resizing';\nimport { Box, Inline } from '@atlaskit/primitives/compiled';\nimport Toggle from '@atlaskit/toggle';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tcontainer: {\n\t\tdisplay: 'inline-flex',\n\t\talignItems: 'center',\n\t\tjustifyContent: 'center',\n\t\tborderRadius: token('radius.xxlarge'),\n\t\tborderWidth: token('border.width'),\n\t\tborderStyle: 'solid',\n\t\tborderColor: token('color.border'),\n\t\tbackgroundColor: token('elevation.surface'),\n\t\tmarginBlockStart: token('space.200'),\n\t},\n\tlogo: {\n\t\tdisplay: 'flex',\n\t\talignItems: 'center',\n\t\tjustifyContent: 'center',\n\t\tflexDirection: 'column',\n\t\tfontWeight: token('font.weight.medium'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.200'),\n\t\tpaddingInlineStart: token('space.200'),\n\t},\n\tsmall: {\n\t\theight: '50px',\n\t},\n\tlarge: {\n\t\theight: '100px',\n\t},\n});\nconst MotionResizingHeightNew = (): JSX.Element => {\n\tconst [expand, setExpand] = useState(false);\n\tconst toggleExpand = useCallback(() => {\n\t\tsetExpand((expand) => !expand);\n\t}, []);\n\tconst resizingProps = useResizing({\n\t\tdimension: 'height',\n\t\tduration: token('motion.duration.xxlong'),\n\t\teasing: token('motion.easing.out.practical'),\n\t});\n\treturn (\n\t\t<Box>\n\t\t\t<Inline alignBlock=\"center\">\n\t\t\t\t<Label htmlFor=\"inline-toggle-expand\">Toggle expand</Label>\n\t\t\t\t<Toggle id=\"inline-toggle-expand\" onChange={toggleExpand} />\n\t\t\t</Inline>\n\t\t\t<Box {...resizingProps} xcss={styles.container}>\n\t\t\t\t<Box xcss={cx(expand ? styles.large : styles.small, styles.logo)}>\n\t\t\t\t\t<AtlassianIcon size=\"medium\" />\n\t\t\t\t</Box>\n\t\t\t</Box>\n\t\t</Box>\n\t);\n};\nexport default MotionResizingHeightNew;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { useCallback, useState } from 'react';\nimport { cssMap, cx, jsx } from '@atlaskit/css';\nimport { Label } from '@atlaskit/form';\nimport { AtlassianIcon } from '@atlaskit/logo';\nimport { useResizing } from '@atlaskit/motion/resizing';\nimport { Box, Inline } from '@atlaskit/primitives/compiled';\nimport Toggle from '@atlaskit/toggle';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tcontainer: {\n\t\tdisplay: 'inline-flex',\n\t\talignItems: 'center',\n\t\tjustifyContent: 'center',\n\t\tborderRadius: token('radius.xxlarge'),\n\t\tborderWidth: token('border.width'),\n\t\tborderStyle: 'solid',\n\t\tborderColor: token('color.border'),\n\t\tbackgroundColor: token('elevation.surface'),\n\t\tmarginBlockStart: token('space.200'),\n\t},\n\tlogo: {\n\t\tdisplay: 'flex',\n\t\talignItems: 'center',\n\t\tjustifyContent: 'center',\n\t\tflexDirection: 'column',\n\t\tfontWeight: token('font.weight.medium'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.200'),\n\t\tpaddingInlineStart: token('space.200'),\n\t},\n\tsmall: {\n\t\twidth: '50px',\n\t\theight: '50px',\n\t},\n\tlarge: {\n\t\twidth: '100px',\n\t\theight: '100px',\n\t},\n});\nconst MotionResizingBoth = (): JSX.Element => {\n\tconst [expand, setExpand] = useState(false);\n\tconst toggleExpand = useCallback(() => {\n\t\tsetExpand((expand) => !expand);\n\t}, []);\n\tconst resizingProps = useResizing({\n\t\tdimension: 'both',\n\t\tduration: token('motion.duration.xxlong'),\n\t\teasing: token('motion.easing.out.practical'),\n\t});\n\treturn (\n\t\t<Box>\n\t\t\t<Inline alignBlock=\"center\">\n\t\t\t\t<Label htmlFor=\"inline-toggle-expand\">Toggle expand</Label>\n\t\t\t\t<Toggle id=\"inline-toggle-expand\" onChange={toggleExpand} />\n\t\t\t</Inline>\n\t\t\t<Box {...resizingProps} xcss={styles.container}>\n\t\t\t\t<Box xcss={cx(expand ? styles.large : styles.small, styles.logo)}>\n\t\t\t\t\t<AtlassianIcon size=\"medium\" />\n\t\t\t\t</Box>\n\t\t\t</Box>\n\t\t</Box>\n\t);\n};\nexport default MotionResizingBoth;",
+		],
+		props: [
+			{
+				name: 'children',
+				type: '(opts: {    ref: CallbackRef;}) => React.ReactNode',
+				isRequired: true,
+			},
+			{
+				name: 'dimension',
+				type: '"width" | "height" | "both"',
+				description: "Which dimension(s) to animate. One of `'width'`, `'height'`, or `'both'`.",
+				isRequired: true,
+			},
+			{
+				name: 'duration',
+				type: '"var(--ds-duration-instant)" | "var(--ds-duration-long)" | "var(--ds-duration-medium)" | "var(--ds-duration-short)" | "var(--ds-duration-xlong)" | "var(--ds-duration-xshort)" | "var(--ds-duration-xxlong)" | "var(--ds-duration-xxshort)"',
+				description:
+					"Duration of the resize transition as a design token CSS variable.\n\nAccepts a `MotionDuration` token value, e.g. `token('motion.duration.medium')`.",
+				isRequired: true,
+			},
+			{
+				name: 'easing',
+				type: '"var(--ds-easing-in-practical)" | "var(--ds-easing-inout-bold)" | "var(--ds-easing-out-practical)" | "var(--ds-easing-out-bold)" | "var(--ds-easing-spring)"',
+				description:
+					"Easing of the resize transition as a design token CSS variable.\n\nAccepts a `MotionEasing` token value, e.g. `token('motion.easing.inout.bold')`.",
+				isRequired: true,
+			},
+			{
+				name: 'onFinishMotion',
+				type: '() => void',
+				description:
+					'Callback fired once the resize animation has completed,\nor immediately if the dimension(s) did not change (no animation was needed).',
 			},
 		],
 	},
@@ -10100,8 +10311,14 @@ export const components: ComponentMcpPayload[] = [
 				name: 'avatar',
 				type: 'ComponentType<AvatarPropTypes> | ComponentType<TeamAvatarProps>',
 				description:
-					'The avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).\nAccepts Avatar or any compatible component.\n@example avatar={Avatar}\n@example avatar={(props) => <Avatar {...props} src="user.png" />}\nThe avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).\nAccepts Avatar, TeamAvatar, or any compatible component.\n@example avatar={TeamAvatar}\n@example avatar={(props) => <TeamAvatar {...props} name="Team" />}\nThe avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).\nAccepts Avatar or any compatible component.\n@example avatar={Avatar}\n@example avatar={(props) => <Avatar {...props} src="agent.png" />}',
+					'The avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).\nAccepts Avatar from `@atlaskit/avatar` package\nThe avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).\nAccepts Avatar from `@atlaskit/avatar` or `@atlaskit/teams-avatar` package\nThe avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).\nAccepts Avatar from `@atlaskit/avatar` package',
 				isRequired: true,
+			},
+			{
+				name: 'hasMargin',
+				type: 'boolean',
+				description:
+					"When false, removes the tag's default margin. Use in contexts like User-picker\nwhere the parent controls spacing. Defaults to `true`.\nWhen false, removes the tag's default margin. Use in contexts like User-picker\nwhere the parent controls spacing. Defaults to `true`.\nWhen false, removes the tag's default margin. Use in contexts like User-picker\nwhere the parent controls spacing. Defaults to `true`.",
 			},
 			{
 				name: 'href',
@@ -10213,6 +10430,12 @@ export const components: ComponentMcpPayload[] = [
 				description: 'The component to be rendered before the tag.',
 			},
 			{
+				name: 'hasMargin',
+				type: 'boolean',
+				description:
+					"When false, removes the tag's default margin. Use when parent controls spacing (e.g. Select). Defaults to `true`.",
+			},
+			{
 				name: 'href',
 				type: 'string',
 				description: 'URI or path. If provided, the tag will be a link.',
@@ -10295,6 +10518,12 @@ export const components: ComponentMcpPayload[] = [
 				description: 'The component to be rendered before the tag.',
 			},
 			{
+				name: 'hasMargin',
+				type: 'boolean',
+				description:
+					"When false, removes the tag's default margin. Use when parent controls spacing (e.g. Select). Defaults to `true`.",
+			},
+			{
 				name: 'href',
 				type: 'string',
 				description: 'URI or path. If provided, the tag will be a link.',
@@ -10362,6 +10591,12 @@ export const components: ComponentMcpPayload[] = [
 				name: 'elemBefore',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
 				description: 'The component to be rendered before the tag.',
+			},
+			{
+				name: 'hasMargin',
+				type: 'boolean',
+				description:
+					"When false, removes the tag's default margin. Use when parent controls spacing (e.g. Select). Defaults to `true`.",
 			},
 			{
 				name: 'href',

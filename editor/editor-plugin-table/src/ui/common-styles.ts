@@ -307,6 +307,23 @@ const tableStickyHeaderFirefoxFixStyle = () => {
 	}
 };
 
+const activeCellHighlightStyles = () => {
+	return css`
+		.${ClassName.TABLE_NODE_WRAPPER} {
+			td.${ClassName.TABLE_CELL}.${ClassName.ACTIVE_CURSOR_CELL}::after,
+				th.${ClassName.TABLE_HEADER_CELL}.${ClassName.ACTIVE_CURSOR_CELL}::after {
+				border: 1px solid ${token('color.border.selected')};
+				box-shadow: ${token('elevation.shadow.raised')};
+				content: '';
+				position: absolute;
+				inset: -1px;
+				z-index: ${akEditorSmallZIndex};
+				pointer-events: none;
+			}
+		}
+	`;
+};
+
 const baseTableStylesWithoutSharedStyle = (props: {
 	featureFlags?: FeatureFlags;
 	isDragAndDropEnabled?: boolean;
@@ -1250,6 +1267,11 @@ const baseTableStylesWithoutSharedStyle = (props: {
 			}
 		}
 	}
+
+	/* Active cursor cell highlight */
+	${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+		? activeCellHighlightStyles()
+		: ''}
 
 	/* override for DnD controls */
 	.${ClassName.DRAG_ROW_CONTROLS_WRAPPER} {

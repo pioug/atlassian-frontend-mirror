@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.20.1
+
+### Patch Changes
+
+- [`76e1c8d4195e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76e1c8d4195e2) -
+  Minor changes to Motion props in MCP
+
 ## 0.20.0
 
 ### Minor Changes

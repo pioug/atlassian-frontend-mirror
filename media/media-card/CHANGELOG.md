@@ -1,5 +1,19 @@
 # @atlaskit/media-card
 
+## 80.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 80.3.3
+
+### Patch Changes
+
+- [`83abdc123b304`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83abdc123b304) -
+  Remove platform_trace_id_tooltip_attachment_failures experiment gate - trace ID tooltip on
+  attachment failures is now always enabled
+
 ## 80.3.2
 
 ### Patch Changes

@@ -103,6 +103,8 @@ export type ChatNewPayload = PayloadCore<
 		minionAlias?: string;
 		// Skip creating a seeded conversation in the BE with auto-generated name
 		skipCreatingSeededConversation?: boolean;
+		// Space to set as the selected space pill in the chat input
+		selectedSpace?: { id: string; name: string; emoji?: string };
 		// Reset to default chat view from previously selected view, e.g. Browse agents
 		resetActiveMenu?: boolean;
 		// Chat mode options to configure the conversation behavior

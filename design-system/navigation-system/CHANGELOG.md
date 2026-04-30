@@ -1,5 +1,33 @@
 # @atlassian/navigation-system
 
+## 9.0.0
+
+### Major Changes
+
+- [`2d4e2aa315dc1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d4e2aa315dc1) -
+  Renamed the experimental theming entrypoints from `/experimental/*` to `/theming/*`. The
+  `/experimental/ribbon` entrypoint is unaffected.
+
+  Migration:
+  - `@atlaskit/navigation-system/experimental/top-nav-button` →
+    `@atlaskit/navigation-system/theming/top-nav-button`
+  - `@atlaskit/navigation-system/experimental/use-has-custom-theme` →
+    `@atlaskit/navigation-system/theming/use-has-custom-theme`
+  - `@atlaskit/navigation-system/experimental/use-legacy-search-theme` →
+    `@atlaskit/navigation-system/theming/use-legacy-search-theme`
+  - `@atlaskit/navigation-system/experimental/color-utils/parse-hex` →
+    `@atlaskit/navigation-system/theming/color-utils/parse-hex`
+  - `@atlaskit/navigation-system/experimental/color-utils/parse-hsl` →
+    `@atlaskit/navigation-system/theming/color-utils/parse-hsl`
+  - `@atlaskit/navigation-system/experimental/color-utils/parse-rgb` →
+    `@atlaskit/navigation-system/theming/color-utils/parse-rgb`
+  - `@atlaskit/navigation-system/experimental/color-utils/parse-user-color` →
+    `@atlaskit/navigation-system/theming/color-utils/parse-user-color`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.0
 
 ### Minor Changes

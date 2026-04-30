@@ -379,6 +379,7 @@ export enum TableDecorations {
 }
 
 export const TableCssClassName: {
+	ACTIVE_CURSOR_CELL: string;
 	/** Classic controls */
 	COLUMN_CONTROLS: string;
 	COLUMN_CONTROLS_DECORATIONS: string;
@@ -652,6 +653,8 @@ export const TableCssClassName: {
 	NATIVE_STICKY: `${tablePrefixSelector}-row-native-sticky`,
 	NATIVE_STICKY_ACTIVE: `${tablePrefixSelector}-row-native-sticky-active`,
 	NO_OVERFLOW: `${tablePrefixSelector}-no-overflow`,
+
+	ACTIVE_CURSOR_CELL: `${tablePrefixSelector}-active-cursor-cell`,
 };
 
 export interface ToolbarMenuConfig {

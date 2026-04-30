@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 8.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.0
+
+### Minor Changes
+
+- [`943c90327ad3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/943c90327ad3b) -
+  Add discardUnpublishedSyncBlocks action to clean up orphaned synced blocks when user cancels
+  editing. Fetches block statuses from the backend on editor init and deletes all blocks with
+  'unpublished' status on cancel.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.13
 
 ### Patch Changes

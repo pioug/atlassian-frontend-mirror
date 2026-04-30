@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-annotation
 
+## 10.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.7
 
 ### Patch Changes

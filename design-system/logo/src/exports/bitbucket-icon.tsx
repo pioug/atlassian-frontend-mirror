@@ -1,6 +1,6 @@
 import { BitbucketIcon as NewBitbucketIcon } from '../artifacts/logo-components/bitbucket';
+import { createFeatureFlaggedComponent } from '../create-feature-flagged-component';
 import { BitbucketIcon as LegacyBitbucketIcon } from '../legacy-logos/bitbucket';
-import { createFeatureFlaggedComponent } from '../logo-config';
 import type { LogoProps } from '../types';
 
 /**

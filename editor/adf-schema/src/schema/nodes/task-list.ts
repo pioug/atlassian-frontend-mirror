@@ -1,8 +1,5 @@
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
-import {
-	taskList as taskListFactory,
-	taskListWithFlexibleFirstChildStage0 as taskListWithFlexibleFirstChildStage0Factory,
-} from '../../next-schema/generated/nodeTypes';
+import { taskList as taskListFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
 import type {
 	BlockTaskItemDefinition as BlockTaskItem,
@@ -60,17 +57,7 @@ const taskListParseDOMAndToDOM = {
 	},
 };
 
-export const taskList: NodeSpec = taskListFactory(taskListParseDOMAndToDOM);
-
-const taskListWithFlexibleFirstChild =
-	taskListWithFlexibleFirstChildStage0Factory(taskListParseDOMAndToDOM);
-
 /**
- * @name task_list_with_flexible_first_child_stage0
- * @description stage0 taskList with flexible first child content (see EDITOR-5417)
+ * @name taskList
  */
-export const taskListWithFlexibleFirstChildStage0: NodeSpec = {
-	...taskListWithFlexibleFirstChild,
-	// Generated spec omits PM group; keep taskList in block content for doc validation.
-	group: 'block',
-};
+export const taskList: NodeSpec = taskListFactory(taskListParseDOMAndToDOM);

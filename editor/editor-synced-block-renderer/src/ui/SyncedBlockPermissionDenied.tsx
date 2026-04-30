@@ -170,7 +170,7 @@ const SyncedBlockPermissionDeniedJiraWorkItem = ({
 		try {
 			await requestJiraSpaceAccess({
 				accountId,
-				issueId: sourceContentId,
+				issueId: Number(sourceContentId) || null,
 				projectKey: null,
 			});
 		} catch (_e) {

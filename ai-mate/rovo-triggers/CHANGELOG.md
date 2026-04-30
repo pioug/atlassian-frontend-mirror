@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 5.46.0
+
+### Minor Changes
+
+- [`637f285c2efbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/637f285c2efbf) -
+  [ux] Launch Rovo Space from For You Tab
+
 ## 5.45.1
 
 ### Patch Changes

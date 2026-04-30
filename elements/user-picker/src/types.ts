@@ -39,6 +39,15 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	closeMenuOnScroll?: boolean | EventListener;
 	/** Override the default components used in the user picker. */
 	components?: SelectComponentsConfig<OptionData, boolean>;
+	/**
+	 * Stable, locale-independent labels keyed by option type, used only for analytics events.
+	 * When provided alongside `customGroupLabels`, the corresponding string will be emitted as the
+	 * `selectedLabel` analytics attribute instead of the raw option type, allowing consumers to
+	 * report meaningful group identifiers (e.g. `'recommendedAgents'`) without leaking display text.
+	 */
+	customGroupAnalyticsLabels?: Partial<Record<NonNullable<OptionData['type']>, string>>;
+	/** Custom labels for grouped option types. Overrides default labels when groupByTypeOrder is used. */
+	customGroupLabels?: Partial<Record<NonNullable<OptionData['type']>, React.ReactNode>>;
 	/** Default value for the field to be used on initial render.
 	 * `defaultValue` differs from `value` in that it sets the initial value then leaves the component 'uncontrolled'
 	 * whereas setting the `value` prop delegates responsibility for maintaining the value to the caller
@@ -72,8 +81,6 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	forwardedRef?: React.ForwardedRef<UserPickerRef>;
 	/** group the options by type */
 	groupByTypeOrder?: NonNullable<OptionData['type']>[];
-	/** Custom labels for grouped option types. Overrides default labels when groupByTypeOrder is used. */
-	customGroupLabels?: Partial<Record<NonNullable<OptionData['type']>, React.ReactNode>>;
 	/** Header to be displayed in MenuList */
 	header?: React.ReactNode;
 	/** Sets the height of the user picker. If not set, the height settings will be based on the "compact" or "normal" appearance. */

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { parseHsl } from '@atlaskit/navigation-system/experimental/color-utils/parse-hsl';
 import { TopNav } from '@atlaskit/navigation-system/layout/top-nav';
+import { parseHsl } from '@atlaskit/navigation-system/theming/color-utils/parse-hsl';
 
 import { MockRoot } from '../../utils/mock-root';
 import { MockContent } from '../common/mock-content';

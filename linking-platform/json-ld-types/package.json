@@ -36,6 +36,7 @@
 		"schema-dts": "root:*"
 	},
 	"devDependencies": {
+		"@atlassian/structured-docs-types": "workspace:^",
 		"react-dom": "root:*"
 	},
 	"techstack": {

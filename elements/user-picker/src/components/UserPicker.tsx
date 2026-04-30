@@ -174,6 +174,7 @@ export const UserPicker: React.ForwardRefExoticComponent<
 				clearValueLabel?: string;
 				closeMenuOnScroll?: boolean | EventListener;
 				components?: SelectComponentsConfig<OptionData, boolean>;
+				customGroupAnalyticsLabels?: Partial<Record<NonNullable<OptionData['type']>, string>>;
 				customGroupLabels?: Partial<Record<NonNullable<OptionData['type']>, React.ReactNode>>;
 				defaultValue?: DefaultValue;
 				disableInput?: boolean;
@@ -281,6 +282,7 @@ export const UserPicker: React.ForwardRefExoticComponent<
 		| 'forwardedRef'
 		| 'groupByTypeOrder'
 		| 'customGroupLabels'
+		| 'customGroupAnalyticsLabels'
 		| 'includeTeamsUpdates'
 		| 'inputId'
 		| 'isClearable'

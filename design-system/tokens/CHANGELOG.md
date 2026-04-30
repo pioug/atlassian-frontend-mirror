@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 13.0.2
+
+### Patch Changes
+
+- [`125ae08eb4dbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/125ae08eb4dbf) -
+  Updated tokens structured content to mention motion tokens
+
 ## 13.0.1
 
 ### Patch Changes

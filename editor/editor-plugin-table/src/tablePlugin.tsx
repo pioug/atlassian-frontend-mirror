@@ -43,6 +43,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { tableNodeSpecWithFixedToDOM } from './nodeviews/toDOM';
+import { createPlugin as createActiveCellHighlightPlugin } from './pm-plugins/active-cell-highlight/plugin';
 import { createPlugin as createTableAnalyticsPlugin } from './pm-plugins/analytics/plugin';
 import { insertTableWithNestingSupport } from './pm-plugins/commands/insert';
 import { pluginConfig } from './pm-plugins/create-plugin-config';
@@ -657,6 +658,13 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 				plugins.push({
 					name: 'tableAnchorNames',
 					plugin: () => createTableAnchorNamesPlugin(),
+				});
+			}
+
+			if (expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)) {
+				plugins.push({
+					name: 'tableActiveCellHighlight',
+					plugin: () => createActiveCellHighlightPlugin(),
 				});
 			}
 

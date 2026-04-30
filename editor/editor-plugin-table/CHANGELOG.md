@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 22.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.2.12
+
+### Patch Changes
+
+- [`7f1df88caac2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f1df88caac2a) -
+  Add active cell highlight to table cells - highlights the current table cell when cursor is inside
+  it
+- Updated dependencies
+
 ## 22.2.11
 
 ### Patch Changes

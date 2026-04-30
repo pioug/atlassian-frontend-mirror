@@ -1,8 +1,4 @@
-import type {
-	ADFCommonNodeSpec,
-	ADFNode,
-	ADFNodeContentOneOrMoreSpec,
-} from '@atlaskit/adf-schema-generator';
+import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, $zeroPlus, adfNode } from '@atlaskit/adf-schema-generator';
 import { inlineContentGroup } from '../groups/inlineContentGroup';
 import { inlineGroup } from '../groups/inlineGroup';
@@ -75,21 +71,5 @@ taskList.define({
 	},
 
 	contentMinItems: 1,
-	content: [
-		$onePlus($or(taskItem, unsupportedBlock, blockTaskItem)),
-		$zeroPlus($or(taskItem, taskList, unsupportedBlock, blockTaskItem)),
-	],
-});
-
-export const taskListWithFlexibleFirstChild: ADFNode<
-	[string, 'with_flexible_first_child'],
-	ADFCommonNodeSpec & {
-		contentMinItems: number;
-		content: ADFNodeContentOneOrMoreSpec[];
-		stage0: true;
-	}
-> = taskList.variant('with_flexible_first_child', {
-	contentMinItems: 1,
 	content: [$onePlus($or(taskItem, taskList, unsupportedBlock, blockTaskItem))],
-	stage0: true,
 });

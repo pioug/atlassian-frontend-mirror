@@ -6,7 +6,7 @@ const documentation: ComponentStructuredContentSource[] = [
 	{
 		name: 'token',
 		description:
-			'Design tokens provide consistent, semantic values for colors, spacing, typography, and other design properties across the Atlassian Design System. Use tokens instead of hardcoded values to ensure consistency and proper theming.',
+			'Design tokens provide consistent, semantic values for colors, spacing, typography, motion, and other design properties across the Atlassian Design System. Use tokens instead of hardcoded values to ensure consistency and proper theming.',
 		status: 'general-availability',
 		import: {
 			name: 'token',
@@ -37,6 +37,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			'design',
 			'system',
 			'color',
+			'motion',
 			'spacing',
 			'typography',
 			'radius',

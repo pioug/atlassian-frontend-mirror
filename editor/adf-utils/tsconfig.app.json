@@ -2,6 +2,7 @@
 	"extends": "../../../tsconfig.base.json",
 	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
 	"exclude": [
+		"**/*.docs.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -38,9 +39,6 @@
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
-			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		}
 	]
 }

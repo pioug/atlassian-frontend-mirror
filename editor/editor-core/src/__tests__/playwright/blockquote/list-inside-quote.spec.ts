@@ -90,11 +90,10 @@ test.describe('List inside a blockquote', () => {
 				// Add an action item from the toolbar
 				const toolbar = EditorMainToolbarModel.from(editor);
 				await toolbar.clickAt('Action item');
-				// action item should be inserted inside the list item within the blockquote
 				await expect(editor).toMatchDocument(
 					doc(
 						blockquote(
-							ul(li(p('item 1')), li(p(''), taskList({})(taskItem({ state: 'TODO' })('')))),
+							ul(li(p('item 1')), li(taskList({})(taskItem({ state: 'TODO' })('')))),
 						),
 					),
 				);

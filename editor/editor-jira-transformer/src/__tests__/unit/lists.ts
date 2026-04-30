@@ -38,14 +38,14 @@ describe('JIRATransformer', () => {
 			'nested unordered list with no text content',
 			schema,
 			'<ul class="alternate" type="disc"><li data-parent="ul"><ul class="alternate" type="circle"><li data-parent="ul"><ul class="alternate" type="square"><li data-parent="ul">test</li></ul></li></ul></li></ul>',
-			doc(ul(li(p(''), ul(li(p(''), ul(li(p('test')))))))),
+			doc(ul(li(ul(li(ul(li(p('test')))))))),
 		);
 
 		checkParseEncodeRoundTrips(
 			'nested ordered list with no text content',
 			schema,
 			'<ol><li data-parent="ol"><ol><li data-parent="ol"><ol><li data-parent="ol">test</li></ol></li></ol></li></ol>',
-			doc(ol()(li(p(''), ol()(li(p(''), ol()(li(p('test')))))))),
+			doc(ol()(li(ol()(li(ol()(li(p('test')))))))),
 		);
 
 		checkParseEncodeRoundTrips(

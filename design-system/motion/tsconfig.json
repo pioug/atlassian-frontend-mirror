@@ -1,6 +1,7 @@
 {
 	"extends": "../../../tsconfig.json",
 	"include": [
+		"./motion.docs.tsx",
 		"./src/**/*.ts",
 		"./src/**/*.tsx",
 		"./docs/**/*.ts",

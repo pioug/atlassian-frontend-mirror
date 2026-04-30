@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 12.0.11
+
+### Patch Changes
+
+- [`b3e797be9eed5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3e797be9eed5) -
+  Clean up platform_editor_floating_toolbar_button_aria_label experiment.
+  - Remove expValEquals gate in editor-plugin-floating-toolbar Toolbar.tsx, always pass
+    ariaLabel={item?.ariaLabel}
+  - Remove expValEquals gate in editor-plugin-ai floating-toolbar-button.tsx, always set ariaLabel
+    to formatted message
+  - Remove type definition and createBooleanExperiment config entry from tmp-editor-statsig
+    experiments-config.ts
+
+- Updated dependencies
+
 ## 12.0.10
 
 ### Patch Changes

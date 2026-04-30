@@ -13,14 +13,14 @@ import { token } from '@atlaskit/tokens';
 
 import { Block, Centered, RetryContainer } from '../utils';
 
-const rotateIn = keyframes({
-	'0%': { transform: 'rotate(0deg)' },
-	'100%': { transform: 'rotate(360deg)' },
+const slideIn = keyframes({
+	'0%': { transform: 'translateX(-24px)' },
+	'100%': { transform: 'translateX(0)' },
 });
 
-const rotateOut = keyframes({
-	'0%': { transform: 'rotate(0deg)' },
-	'100%': { transform: 'rotate(-360deg)' },
+const slideOut = keyframes({
+	'0%': { transform: 'translateX(0)' },
+	'100%': { transform: 'translateX(-24px)' },
 });
 
 const styles = cssMap({
@@ -33,12 +33,12 @@ const styles = cssMap({
 	entering: {
 		animationDuration: token('motion.duration.xxlong'),
 		animationTimingFunction: token('motion.easing.out.practical'),
-		animationName: `${rotateIn}, ${token('motion.keyframe.fade.in')}`,
+		animationName: `${slideIn}, ${token('motion.keyframe.fade.in')}`,
 	},
 	exiting: {
 		animationDuration: token('motion.duration.xxlong'),
 		animationTimingFunction: token('motion.easing.in.practical'),
-		animationName: `${rotateOut}, ${token('motion.keyframe.fade.out')}`,
+		animationName: `${slideOut}, ${token('motion.keyframe.fade.out')}`,
 	},
 });
 

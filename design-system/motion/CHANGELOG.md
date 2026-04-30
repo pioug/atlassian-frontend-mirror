@@ -1,5 +1,13 @@
 # @atlaskit/motion
 
+## 6.1.1
+
+### Patch Changes
+
+- [`125ae08eb4dbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/125ae08eb4dbf) -
+  Added motion structured content
+- Updated dependencies
+
 ## 6.1.0
 
 ### Minor Changes

@@ -232,15 +232,7 @@ const ToolbarItems = React.memo(
 							ariaHasPopup={item.ariaHasPopup}
 							tabIndex={item.tabIndex}
 							isRadioButton={item.isRadioButton}
-							ariaLabel={
-								expValEquals(
-									'platform_editor_floating_toolbar_button_aria_label',
-									'isEnabled',
-									true,
-								)
-									? item?.ariaLabel
-									: undefined
-							}
+							ariaLabel={item?.ariaLabel}
 							pulse={item.pulse}
 							interactionName={item.interactionName}
 							areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}

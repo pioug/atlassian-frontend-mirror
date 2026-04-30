@@ -442,6 +442,16 @@ const outOfTheBoxAgentAvatar: {
 		),
 		color: blueColor,
 	},
+	jira_admin_agent: {
+		getRender: (size: SizeType) => (
+			<AutoDevAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={blueColor.primary}
+				secondaryColor={blueColor.secondary}
+			/>
+		),
+		color: blueColor,
+	},
 	jsm_rovo_service_agent: {
 		getRender: (size: SizeType) => (
 			<JsmRovoServiceAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />

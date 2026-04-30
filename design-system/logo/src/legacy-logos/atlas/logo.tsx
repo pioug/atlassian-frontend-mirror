@@ -5,7 +5,7 @@ import { useThemeObserver } from '@atlaskit/tokens';
 import { defaultLogoParams } from '../../constants';
 import type { LogoProps, LogoPropsAppearanceRequired } from '../../types';
 import Wrapper from '../../wrapper';
-import { getColorsFromAppearance } from '../utils';
+import { getColorsFromAppearance } from '../get-colors-from-appearance';
 
 const svg = ({ appearance }: LogoProps, colorMode: string | undefined) => {
 	let colors = getColorsFromAppearance(appearance ? appearance : 'brand', colorMode);

@@ -56,6 +56,7 @@
 		"lodash": "root:*"
 	},
 	"devDependencies": {
+		"@atlassian/structured-docs-types": "workspace:^",
 		"mkdirp": "root:*",
 		"mockdate": "root:*",
 		"react": "root:*",

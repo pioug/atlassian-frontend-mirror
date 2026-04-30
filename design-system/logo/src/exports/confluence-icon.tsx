@@ -1,6 +1,6 @@
 import { ConfluenceIcon as NewConfluenceIcon } from '../artifacts/logo-components/confluence';
+import { createFeatureFlaggedComponent } from '../create-feature-flagged-component';
 import { ConfluenceIcon as LegacyConfluenceIcon } from '../legacy-logos/confluence';
-import { createFeatureFlaggedComponent } from '../logo-config';
 import type { LogoProps } from '../types';
 /**
  * __Confluence icon__

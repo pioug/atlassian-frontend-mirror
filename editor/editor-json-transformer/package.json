@@ -43,6 +43,7 @@
 	},
 	"devDependencies": {
 		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"react": "root:*"
 	},
 	"techstack": {

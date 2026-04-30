@@ -4,7 +4,6 @@ import {
 	bulletList,
 	bulletListWithLocalId,
 	listItem,
-	listItemWithFlexibleFirstChildStage0,
 	listItemWithLocalId,
 	orderedListWithOrder,
 	orderedListWithOrderAndLocalId,
@@ -20,7 +19,6 @@ import { toggleBulletList, toggleOrderedList, tooltip } from '@atlaskit/editor-c
 import { listMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ListPlugin } from './listPluginType';
@@ -78,9 +76,7 @@ export const listPlugin: ListPlugin = ({ api }) => {
 
 		nodes() {
 			const getListItemNode = () => {
-				if (expValEquals('platform_editor_flexible_list_schema', 'isEnabled', true)) {
-					return listItemWithFlexibleFirstChildStage0;
-				} else if (fg('platform_editor_adf_with_localid')) {
+				if (fg('platform_editor_adf_with_localid')) {
 					return listItemWithLocalId;
 				}
 				return listItem;

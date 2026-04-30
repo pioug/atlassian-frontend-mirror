@@ -65,6 +65,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { getInteractionId } from '@atlaskit/react-ufo/interaction-id-context';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { useProviders } from '../composable-editor/hooks/useProviders';
 import type { EditorConfig, EditorProps } from '../types';
@@ -502,6 +503,11 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		};
 	}, [eventDispatcher]);
 
+	// Bumped after `reconfigureState` so the render prop re-reads the
+	// in-place-mutated `config.current` (contentComponents / toolbar
+	// components from the rebuilt preset).
+	const [, bumpConfigVersion] = useState(0);
+
 	const reconfigureState = useCallback(
 		(props: EditorViewProps) => {
 			if (!viewRef.current) {
@@ -547,7 +553,15 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			// using the latest plugins
 			viewRef.current.updateState(newState);
 
-			return viewRef.current.update({ ...viewRef.current.props, state: newState });
+			const result = viewRef.current.update({ ...viewRef.current.props, state: newState });
+
+			// EDITOR-6702: gated until we have a broader gate; reconfigure is a
+			// low-level path so use NoExposure.
+			if (expValEqualsNoExposure('cc-markdown-mode', 'isEnabled', true)) {
+				bumpConfigVersion((v) => v + 1);
+			}
+
+			return result;
 		},
 		[blur, dispatchAnalyticsEvent, eventDispatcher, dispatch, errorReporter, featureFlags],
 	);

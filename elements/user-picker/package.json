@@ -133,6 +133,9 @@
 		"enable-sup-archive-experience": {
 			"type": "boolean"
 		},
+		"jsm_routing_recommended_agent_minor_fix": {
+			"type": "boolean"
+		},
 		"jsm-wfo-assignee-recommendation-on-queues": {
 			"type": "boolean"
 		}

@@ -1677,55 +1677,34 @@
         },
         "content": {
           "type": "array",
-          "items": [
-            {
-              "anyOf": [
-                {
-                  "$ref": "#/definitions/paragraph_with_no_marks_node"
-                },
-                {
-                  "$ref": "#/definitions/mediaSingle_caption_node"
-                },
-                {
-                  "$ref": "#/definitions/mediaSingle_full_node"
-                },
-                {
-                  "$ref": "#/definitions/codeBlock_node"
-                },
-                {
-                  "$ref": "#/definitions/extension_with_marks_node"
-                }
-              ]
-            },
-            {
-              "anyOf": [
-                {
-                  "$ref": "#/definitions/paragraph_with_no_marks_node"
-                },
-                {
-                  "$ref": "#/definitions/bulletList_node"
-                },
-                {
-                  "$ref": "#/definitions/orderedList_node"
-                },
-                {
-                  "$ref": "#/definitions/taskList_node"
-                },
-                {
-                  "$ref": "#/definitions/mediaSingle_caption_node"
-                },
-                {
-                  "$ref": "#/definitions/mediaSingle_full_node"
-                },
-                {
-                  "$ref": "#/definitions/codeBlock_node"
-                },
-                {
-                  "$ref": "#/definitions/extension_with_marks_node"
-                }
-              ]
-            }
-          ],
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/paragraph_with_no_marks_node"
+              },
+              {
+                "$ref": "#/definitions/bulletList_node"
+              },
+              {
+                "$ref": "#/definitions/orderedList_node"
+              },
+              {
+                "$ref": "#/definitions/taskList_node"
+              },
+              {
+                "$ref": "#/definitions/mediaSingle_caption_node"
+              },
+              {
+                "$ref": "#/definitions/mediaSingle_full_node"
+              },
+              {
+                "$ref": "#/definitions/codeBlock_node"
+              },
+              {
+                "$ref": "#/definitions/extension_with_marks_node"
+              }
+            ]
+          },
           "minItems": 1
         }
       },
@@ -2825,31 +2804,19 @@
         },
         "content": {
           "type": "array",
-          "items": [
-            {
-              "anyOf": [
-                {
-                  "$ref": "#/definitions/taskItem_node"
-                },
-                {
-                  "$ref": "#/definitions/blockTaskItem_node"
-                }
-              ]
-            },
-            {
-              "anyOf": [
-                {
-                  "$ref": "#/definitions/taskItem_node"
-                },
-                {
-                  "$ref": "#/definitions/taskList_node"
-                },
-                {
-                  "$ref": "#/definitions/blockTaskItem_node"
-                }
-              ]
-            }
-          ],
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/taskItem_node"
+              },
+              {
+                "$ref": "#/definitions/taskList_node"
+              },
+              {
+                "$ref": "#/definitions/blockTaskItem_node"
+              }
+            ]
+          },
           "minItems": 1
         }
       },

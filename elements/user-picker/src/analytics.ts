@@ -115,16 +115,26 @@ export interface EventCreator {
 	): AnalyticsEventPayload;
 }
 
-/**
- * `customGroupLabels` values are React nodes; analytics only records that custom labels are in use.
- */
-const customGroupLabelsAnalyticsAttributes = (
+const selectedCustomGroupAnalyticsAttributes = (
 	props: UserPickerProps,
-): { hasCustomGroupLabels?: true } => {
+	option?: Option,
+): {
+	hasCustomGroupLabels?: true;
+	selectedLabel?: string;
+} => {
 	if (!props.customGroupLabels) {
 		return {};
 	}
-	return { hasCustomGroupLabels: true };
+
+	const selectedType = option?.data.type;
+	const analyticsLabel = selectedType
+		? props.customGroupAnalyticsLabels?.[selectedType]
+		: undefined;
+
+	return {
+		hasCustomGroupLabels: true,
+		...(analyticsLabel ? { selectedLabel: analyticsLabel } : {}),
+	};
 };
 
 const createDefaultPickerAttributes = (
@@ -136,9 +146,6 @@ const createDefaultPickerAttributes = (
 	sessionId: sessionId(session),
 	pickerType: pickerType(props),
 	journeyId,
-	...(fg('jsm-wfo-assignee-recommendation-on-queues')
-		? customGroupLabelsAnalyticsAttributes(props)
-		: {}),
 });
 
 export const focusEvent: EventCreator = (
@@ -219,6 +226,9 @@ export const selectEvent: EventCreator = (
 		downKeyCount: downKeyCount(session),
 		result: result(args[0]),
 		numberOfResults: numberOfResults(state),
+		...(fg('jsm_routing_recommended_agent_minor_fix')
+			? selectedCustomGroupAnalyticsAttributes(props, args[0])
+			: {}),
 	});
 };
 

@@ -1,5 +1,17 @@
 # @atlaskit/forge-react-types
 
+## 1.1.0
+
+### Minor Changes
+
+- [`1cd16f49a36f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1cd16f49a36f1) -
+  Add new UI Kit components: Banner, Blanket, Bleed, Breadcrumbs, BreadcrumbsItem, Focusable,
+  Pagination, Skeleton
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.9
 
 ### Patch Changes

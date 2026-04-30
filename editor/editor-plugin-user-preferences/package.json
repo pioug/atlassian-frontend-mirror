@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-user-preferences",
-	"version": "8.0.10",
+	"version": "8.0.11",
 	"description": "UserPreferences plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -81,5 +81,8 @@
 		"platform_editor_use_preferences_plugin": {
 			"type": "boolean"
 		}
+	},
+	"devDependencies": {
+		"@atlassian/structured-docs-types": "workspace:^"
 	}
 }

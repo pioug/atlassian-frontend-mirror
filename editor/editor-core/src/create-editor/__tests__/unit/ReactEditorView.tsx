@@ -75,7 +75,7 @@ jest.mock('@atlaskit/react-ufo/interaction-id-context', () => ({
 
 import React from 'react';
 
-import { fireEvent, screen, cleanup, waitFor } from '@testing-library/react';
+import { act, fireEvent, screen, cleanup, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createIntl } from 'react-intl';
 
@@ -91,7 +91,7 @@ import {
 	processRawValueWithoutValidation,
 } from '@atlaskit/editor-common/process-raw-value';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { PublicPluginAPI, NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { measureRender, SEVERITY, toJSON } from '@atlaskit/editor-common/utils';
 import type { EditorProps } from '@atlaskit/editor-core/editor';
 // @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
@@ -1253,6 +1253,97 @@ describe('@atlaskit/editor-core', () => {
 				expect(editor).toBeInTheDocument();
 				expect(editor).not.toBeEmptyDOMElement();
 			});
+		});
+	});
+
+	describe('reconfigureState', () => {
+		// Marker plugin whose `contentComponent` we assert flows into the
+		// `config.contentComponents` array passed to the render prop after a
+		// preset reconfigure. Mounting the editor (via render prop returning
+		// `editor`) is required so `viewRef.current` is set — otherwise
+		// `reconfigureState` early-returns.
+		const markerContentComponent = jest.fn(() => null);
+		const markerPlugin: NextEditorPlugin<'reconfigureTestMarker'> = () => ({
+			name: 'reconfigureTestMarker',
+			contentComponent: markerContentComponent,
+		});
+
+		const captureRenderProp = () => {
+			const calls: Array<EditorConfig['contentComponents']> = [];
+			const renderProp = ({
+				editor,
+				config,
+			}: {
+				config: EditorConfig;
+				editor: JSX.Element;
+			}) => {
+				// `config` is a useRef value mutated in place by `reconfigureState`,
+				// so snapshot the array now.
+				calls.push([...config.contentComponents]);
+				return <>{editor}</>;
+			};
+			return { calls, renderProp };
+		};
+
+		eeTest('cc-markdown-mode', {
+			true: async () => {
+				const { calls, renderProp } = captureRenderProp();
+				const baseProps = requiredProps();
+				const presetWithoutMarker = createUniversalPreset({ props: {} });
+				const presetWithMarker = createUniversalPreset({ props: {} }).add(markerPlugin);
+
+				const { rerender } = renderWithIntl(
+					<ReactEditorView
+						{...baseProps}
+						preset={presetWithoutMarker}
+						render={renderProp}
+					/>,
+				);
+				expect(calls.at(-1)).not.toContain(markerContentComponent);
+
+				rerender(
+					<ReactEditorView
+						{...baseProps}
+						preset={presetWithMarker}
+						render={renderProp}
+					/>,
+				);
+
+				// With the gate ON, `bumpConfigVersion` schedules a follow-up
+				// render so the render prop is re-invoked with the post-mutation
+				// `config.current.contentComponents`.
+				await waitFor(() => {
+					expect(calls.at(-1)).toContain(markerContentComponent);
+				});
+			},
+			false: async () => {
+				const { calls, renderProp } = captureRenderProp();
+				const baseProps = requiredProps();
+				const presetWithoutMarker = createUniversalPreset({ props: {} });
+				const presetWithMarker = createUniversalPreset({ props: {} }).add(markerPlugin);
+
+				const { rerender } = renderWithIntl(
+					<ReactEditorView
+						{...baseProps}
+						preset={presetWithoutMarker}
+						render={renderProp}
+					/>,
+				);
+
+				rerender(
+					<ReactEditorView
+						{...baseProps}
+						preset={presetWithMarker}
+						render={renderProp}
+					/>,
+				);
+
+				// Gate OFF: the layout effect mutates `config.current` in place
+				// without scheduling a re-render. Flush any pending React work so
+				// the assertion is deterministic rather than racing a wall clock.
+				await act(async () => {});
+				expect(calls.at(-1)).not.toContain(markerContentComponent);
+			},
 		});
 	});
 

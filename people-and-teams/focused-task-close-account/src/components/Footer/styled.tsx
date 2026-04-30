@@ -1,8 +1,9 @@
-import { styled } from '@compiled/react';
+/* eslint-disable @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766 */
+import { styled, type StyledProps } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
+import type { ComponentType, ClassAttributes, HTMLAttributes } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const FooterOuter = styled.div({
+export const FooterOuter: ComponentType<ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyledProps> = styled.div({
 	display: 'flex',
 	width: '100%',
 	maxWidth: '640px',

@@ -1507,9 +1507,45 @@ describe('BaseUserPicker', () => {
 				await expect(document.body).toBeAccessible();
 			});
 
-			ffTest.on('jsm-wfo-assignee-recommendation-on-queues', 'custom group label analytics', () => {
-				it('should include custom group label metadata when customGroupLabels is set', async () => {
+			ffTest.on('jsm_routing_recommended_agent_minor_fix', 'custom group label analytics', () => {
+				it('should emit the explicit analytics label for the selected option type', async () => {
 					component.setProps({
+						options,
+						customGroupLabels: {
+							custom: <span>Suggested</span>,
+							user: <span>Other agents</span>,
+						},
+						customGroupAnalyticsLabels: {
+							custom: 'recommendedAgents',
+							user: 'otherAgents',
+						},
+					});
+					const input = component.find('input');
+					input.simulate('focus');
+					input.simulate('keyDown', { keyCode: 40 });
+					component.find(Select).prop('onChange')(optionToSelectableOption(options[0]), {
+						action: 'select-option',
+					});
+					expect(onEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							payload: expect.objectContaining({
+								action: 'clicked',
+								actionSubject: 'userPicker',
+								attributes: expect.objectContaining({
+									hasCustomGroupLabels: true,
+									selectedLabel: 'otherAgents',
+								}),
+							}),
+						}),
+						'fabric-elements',
+					);
+
+					await expect(document.body).toBeAccessible();
+				});
+
+				it('should omit selectedLabel when no analytics label is provided for the selected type', async () => {
+					component.setProps({
+						options,
 						customGroupLabels: {
 							custom: <span>Suggested</span>,
 							user: <span>Other agents</span>,
@@ -1517,7 +1553,6 @@ describe('BaseUserPicker', () => {
 					});
 					const input = component.find('input');
 					input.simulate('focus');
-					component.setProps({ options });
 					input.simulate('keyDown', { keyCode: 40 });
 					component.find(Select).prop('onChange')(optionToSelectableOption(options[0]), {
 						action: 'select-option',
@@ -1534,8 +1569,10 @@ describe('BaseUserPicker', () => {
 						}),
 						'fabric-elements',
 					);
-
-					await expect(document.body).toBeAccessible();
+					const clickedCall = onEvent.mock.calls.find(
+						([event]) => event?.payload?.action === 'clicked',
+					);
+					expect(clickedCall?.[0].payload.attributes).not.toHaveProperty('selectedLabel');
 				});
 			});
 

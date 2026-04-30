@@ -47,7 +47,7 @@ export interface SlideInProps extends KeyframesMotionProps {
  *
  * Will slide an element into position, generally used for things that appear from outside of the viewport into view.
  *
- * See [examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motions).
+ * See [examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motion).
  */
 const SlideIn = ({
 	children,

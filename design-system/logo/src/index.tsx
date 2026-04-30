@@ -149,6 +149,8 @@ import {
 	TrelloIcon as NewTrelloIcon,
 	TrelloLogoCS as NewTrelloLogo,
 } from './artifacts/logo-components/trello';
+import { createFeatureFlaggedComponent } from './create-feature-flagged-component';
+import { createFeatureFlaggedServiceCollectionComponent } from './create-feature-flagged-service-collection-component';
 import {
 	AtlassianAdminIcon as LegacyAtlassianAdminIcon,
 	AtlassianAdminLogo as LegacyAtlassianAdminLogo,
@@ -218,12 +220,8 @@ export {
 } from './legacy-logos/jira-work-management';
 export { AtlassianIcon, AtlassianLogo } from './legacy-logos/atlassian';
 export { JiraSoftwareIcon, JiraSoftwareLogo } from './legacy-logos/jira-software';
-import {
-	createFeatureFlaggedComponent,
-	createFeatureFlaggedRovoComponent,
-	createFeatureFlaggedServiceCollectionComponent,
-	tempSizeWrapper,
-} from './logo-config';
+import { createFeatureFlaggedRovoComponent } from './logo-config';
+import { tempSizeWrapper } from './temp-size-wrapper';
 
 /**
  * __Admin icon__

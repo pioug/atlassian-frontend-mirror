@@ -2,6 +2,10 @@ import path from 'path';
 
 import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
 
+import packageJson from './package.json';
+
+const packagePath = path.resolve(__dirname);
+
 const documentation: ComponentStructuredContentSource[] = [
 	{
 		name: 'Button',
@@ -12,8 +16,8 @@ const documentation: ComponentStructuredContentSource[] = [
 			name: 'Button',
 			package: '@atlaskit/button/new',
 			type: 'default',
-			packagePath: path.resolve(__dirname),
-			packageJson: require('./package.json'),
+			packagePath,
+			packageJson,
 		},
 		usageGuidelines: [
 			'Use primary buttons for the main action on a page',
@@ -45,7 +49,7 @@ const documentation: ComponentStructuredContentSource[] = [
 				description:
 					"Set `isDisabled` to disable a button that shouldn't be actionable. The button will appear faded and won't respond to user interaction. Disabled buttons can cause accessibility issues (disabled elements are not in the tab order) so wherever possible, avoid using `isDisabled`. Instead, use [validation](/components/button/usage) or other techniques to show users how to proceed.",
 				source: path.resolve(
-					__dirname,
+					packagePath,
 					'./examples/constellation/new-button/button/button-disabled.tsx',
 				),
 			},
@@ -54,7 +58,7 @@ const documentation: ComponentStructuredContentSource[] = [
 				description:
 					'A danger button appears as a final confirmation for a destructive and irreversible action, such as deleting.',
 				source: path.resolve(
-					__dirname,
+					packagePath,
 					'./examples/constellation/new-button/button/button-danger.tsx',
 				),
 			},
@@ -62,7 +66,7 @@ const documentation: ComponentStructuredContentSource[] = [
 				name: 'Icon after',
 				description: 'Display an icon after the text.',
 				source: path.resolve(
-					__dirname,
+					packagePath,
 					'./examples/constellation/new-button/button/button-with-icon-after.tsx',
 				),
 			},
@@ -79,8 +83,8 @@ const documentation: ComponentStructuredContentSource[] = [
 			name: 'IconButton',
 			package: '@atlaskit/button/new',
 			type: 'named',
-			packagePath: path.resolve(__dirname),
-			packageJson: require('./package.json'),
+			packagePath,
+			packageJson,
 		},
 		usageGuidelines: [
 			'Use for toolbar actions and compact interfaces',
@@ -101,7 +105,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			{
 				name: 'Icon Button',
 				description: 'Icon Button example',
-				source: path.resolve(__dirname, './examples/ai/icon-button.tsx'),
+				source: path.resolve(packagePath, './examples/ai/icon-button.tsx'),
 			},
 		],
 		keywords: ['button', 'icon', 'action', 'click', 'interactive', 'toolbar'],
@@ -116,8 +120,8 @@ const documentation: ComponentStructuredContentSource[] = [
 			name: 'SplitButton',
 			package: '@atlaskit/button/new',
 			type: 'named',
-			packagePath: path.resolve(__dirname),
-			packageJson: require('./package.json'),
+			packagePath,
+			packageJson,
 		},
 		usageGuidelines: [
 			'Always must have exactly two children: `Button` and `DropdownMenu` that are related to each other',
@@ -135,7 +139,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			{
 				name: 'Split Button',
 				description: 'Split Button example',
-				source: path.resolve(__dirname, './examples/ai/split-button.tsx'),
+				source: path.resolve(packagePath, './examples/ai/split-button.tsx'),
 			},
 		],
 		keywords: ['button', 'split', 'dropdown', 'menu', 'action', 'options'],
@@ -150,8 +154,8 @@ const documentation: ComponentStructuredContentSource[] = [
 			name: 'LinkButton',
 			package: '@atlaskit/button/new',
 			type: 'named',
-			packagePath: path.resolve(__dirname),
-			packageJson: require('./package.json'),
+			packagePath,
+			packageJson,
 		},
 		usageGuidelines: [
 			'Use for navigation actions that change the URL',
@@ -172,7 +176,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			{
 				name: 'Link Button',
 				description: 'Link Button example',
-				source: path.resolve(__dirname, './examples/ai/link-button.tsx'),
+				source: path.resolve(packagePath, './examples/ai/link-button.tsx'),
 			},
 		],
 		keywords: ['button', 'link', 'navigation', 'href', 'anchor'],
@@ -187,8 +191,8 @@ const documentation: ComponentStructuredContentSource[] = [
 			name: 'ButtonGroup',
 			package: '@atlaskit/button/button-group',
 			type: 'default',
-			packagePath: path.resolve(__dirname),
-			packageJson: require('./package.json'),
+			packagePath,
+			packageJson,
 		},
 		usageGuidelines: [
 			'Use for related actions that belong together',
@@ -209,7 +213,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			{
 				name: 'Button Group',
 				description: 'Button Group example',
-				source: path.resolve(__dirname, './examples/ai/button-group.tsx'),
+				source: path.resolve(packagePath, './examples/ai/button-group.tsx'),
 			},
 		],
 		keywords: ['button', 'group', 'container', 'layout', 'spacing'],
@@ -224,8 +228,8 @@ const documentation: ComponentStructuredContentSource[] = [
 			name: 'Button',
 			package: '@atlaskit/button',
 			type: 'default',
-			packagePath: path.resolve(__dirname),
-			packageJson: require('./package.json'),
+			packagePath,
+			packageJson,
 		},
 		usageGuidelines: [
 			'Use the new Button component from @atlaskit/button/new instead',
@@ -245,7 +249,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			{
 				name: '99 Button Old Button',
 				description: '99 Button Old Button example',
-				source: path.resolve(__dirname, './examples/99-button-old-button.tsx'),
+				source: path.resolve(packagePath, './examples/99-button-old-button.tsx'),
 			},
 		],
 		keywords: ['button', 'legacy', 'deprecated', 'action', 'click', 'submit', 'form'],

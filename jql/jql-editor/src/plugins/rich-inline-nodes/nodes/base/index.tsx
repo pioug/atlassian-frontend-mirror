@@ -85,11 +85,7 @@ export const NodeBase = (props: NodeViewProps<NodeBaseProps>): React.JSX.Element
 
 	const isNewExperienceEnabled =
 		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils -- Statsig migration pending for this experiment gate
-		FeatureGates.getExperimentValue(
-			'projects_in_jira_eap_drop2_fast_follow_filters',
-			'isEnabled',
-			false,
-		) || isRichNodeDisplay;
+		FeatureGates.checkGate('projects_in_jira_ga_drop') || isRichNodeDisplay;
 
 	return (
 		<Pressable

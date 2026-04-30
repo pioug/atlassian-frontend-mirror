@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "6.1.0",
+	"version": "6.1.1",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -62,8 +62,8 @@
 					}
 				},
 				{
-					"title": "Resizing motions",
-					"id": "resizing-motions",
+					"title": "Resizing motion",
+					"id": "resizing-motion",
 					"sortKey": 2
 				},
 				{
@@ -82,8 +82,8 @@
 					"sortKey": 5
 				},
 				{
-					"title": "Entering motions",
-					"id": "entering-motions",
+					"title": "Entering motion",
+					"id": "entering-motion",
 					"sortKey": 6,
 					"status": {
 						"type": "intent-to-deprecate",
@@ -125,6 +125,7 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"raf-stub": "root:*",

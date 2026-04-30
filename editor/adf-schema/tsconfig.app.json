@@ -8,7 +8,8 @@
     "json-schema/**/*.json"
   ],
   "exclude": [
-    "**/docs/**/*",
+    "**/*.docs.tsx",
+		"**/docs/**/*",
     "**/__tests__/**/*",
     "**/vr-tests/**/*",
     "**/__perf__/**/*",

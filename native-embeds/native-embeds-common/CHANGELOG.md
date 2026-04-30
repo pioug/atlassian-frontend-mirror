@@ -1,5 +1,28 @@
 # @atlaskit/native-embeds-common
 
+## 1.1.1
+
+### Patch Changes
+
+- [`9e964a88958bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e964a88958bd) -
+  Fix resize overlay placeholder height and aspect ratio calculation to use the stored `aspectRatio`
+  node parameter (set from originalWidth/originalHeight during card-to-native-embed conversion)
+  rather than relying solely on live DOM measurements. This ensures resize handles and the overlay
+  placeholder reflect the correct proportions from the very first selection, before a resize has
+  occurred. Applies to both `EmbedResizeOverlay` and `ResizableNativeEmbedLegacy`.
+
+  Add `aspectRatio` to `NativeEmbedParameters` macroParams type so that `getParameters` and
+  `setParameters` correctly serialize and deserialize the stored width-to-height ratio. This enables
+  native embed containers to derive their height from the original embed dimensions without
+  requiring a resize interaction.
+
+  Fix native embed containers incorrectly defaulting to a 1:1 or 1200/600 aspect ratio on initial
+  render when `aspectRatio` (originalWidth/originalHeight) is stored in the node parameters. The
+  container now derives the correct height from the stored `aspectRatio` on the very first render,
+  before any resize interaction occurs.
+
+- Updated dependencies
+
 ## 1.1.0
 
 ### Minor Changes

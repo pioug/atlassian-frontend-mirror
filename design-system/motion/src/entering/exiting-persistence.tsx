@@ -164,7 +164,7 @@ const getMissingKeys = (current: ElementWithKey[], previous: ElementWithKey[]) =
  *
  * Useful for enabling elements to persist and animate away when they are removed from the DOM.
  *
- * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motions)
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motion)
  */
 const ExitingPersistence: React.MemoExoticComponent<
 	({ appear, children, exitThenEnter }: ExitingPersistenceProps) => any

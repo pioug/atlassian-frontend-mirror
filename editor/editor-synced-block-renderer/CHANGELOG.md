@@ -1,5 +1,16 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 8.2.0
+
+### Minor Changes
+
+- [`717df2cfeca9e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/717df2cfeca9e) -
+  [ux] Pass accountId to SyncedBlockRenderer from Jira.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.2
 
 ### Patch Changes

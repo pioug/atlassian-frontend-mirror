@@ -17,7 +17,6 @@ import AiChatIcon from '@atlaskit/icon/core/ai-chat';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import { ConfluenceIcon } from '@atlaskit/logo';
-import { TopNavButton } from '@atlaskit/navigation-system/experimental/top-nav-button';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Panel } from '@atlaskit/navigation-system/layout/panel';
 import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';
@@ -28,6 +27,7 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
+import { TopNavButton } from '@atlaskit/navigation-system/theming/top-nav-button';
 import {
 	AppLogo,
 	AppSwitcher,

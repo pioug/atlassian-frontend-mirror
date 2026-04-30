@@ -294,11 +294,7 @@ export const bulletList = {
       props: { localId: { type: 'string', optional: true } },
       optional: true,
     },
-    content: {
-      type: 'array',
-      items: [['listItem', 'listItem_with_flexible_first_child']],
-      minItems: 1,
-    },
+    content: { type: 'array', items: ['listItem'], minItems: 1 },
   },
 };
 
@@ -866,16 +862,7 @@ export const listItem = {
     },
     content: {
       type: 'array',
-      isTupleLike: true,
       items: [
-        [
-          'paragraph_with_font_size',
-          'paragraph_with_no_marks',
-          'mediaSingle_caption',
-          'mediaSingle_full',
-          'codeBlock',
-          'extension_with_marks',
-        ],
         [
           'paragraph_with_font_size',
           'paragraph_with_no_marks',
@@ -893,33 +880,6 @@ export const listItem = {
     },
   },
 };
-
-export const listItem_with_flexible_first_child = [
-  'listItem',
-  {
-    props: {
-      content: {
-        type: 'array',
-        items: [
-          [
-            'paragraph_with_font_size',
-            'paragraph_with_no_marks',
-            'bulletList',
-            'orderedList',
-            'taskList',
-            'taskList_with_flexible_first_child',
-            'mediaSingle_caption',
-            'mediaSingle_full',
-            'codeBlock',
-            'extension_with_marks',
-          ],
-        ],
-        minItems: 1,
-        allowUnsupportedBlock: true,
-      },
-    },
-  },
-];
 
 export const media = {
   props: {
@@ -1210,11 +1170,7 @@ export const orderedList = {
       },
       optional: true,
     },
-    content: {
-      type: 'array',
-      items: [['listItem', 'listItem_with_flexible_first_child']],
-      minItems: 1,
-    },
+    content: { type: 'array', items: ['listItem'], minItems: 1 },
   },
 };
 
@@ -1566,30 +1522,12 @@ export const taskList = {
     attrs: { props: { localId: { type: 'string' } } },
     content: {
       type: 'array',
-      isTupleLike: true,
-      items: [
-        ['taskItem', 'blockTaskItem'],
-        ['taskItem', 'taskList', 'blockTaskItem'],
-      ],
+      items: [['taskItem', 'taskList', 'blockTaskItem']],
       minItems: 1,
       allowUnsupportedBlock: true,
     },
   },
 };
-
-export const taskList_with_flexible_first_child = [
-  'taskList',
-  {
-    props: {
-      content: {
-        type: 'array',
-        items: [['taskItem', 'taskList', 'blockTaskItem']],
-        minItems: 1,
-        allowUnsupportedBlock: true,
-      },
-    },
-  },
-];
 
 export const text = {
   props: {

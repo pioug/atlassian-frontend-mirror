@@ -1,5 +1,39 @@
 # @atlaskit/editor-statsig-tmp
 
+## 73.0.0
+
+### Major Changes
+
+- [`b3e797be9eed5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3e797be9eed5) -
+  Clean up platform_editor_floating_toolbar_button_aria_label experiment.
+  - Remove expValEquals gate in editor-plugin-floating-toolbar Toolbar.tsx, always pass
+    ariaLabel={item?.ariaLabel}
+  - Remove expValEquals gate in editor-plugin-ai floating-toolbar-button.tsx, always set ariaLabel
+    to formatted message
+  - Remove type definition and createBooleanExperiment config entry from tmp-editor-statsig
+    experiments-config.ts
+
+## 72.2.0
+
+### Minor Changes
+
+- [`e790234874a2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e790234874a2a) -
+  [ux] The page selector dropdown in the "Create Confluence page comment" message action was not
+  stretching to fill the available width. The fix wraps the ConfluencePageSelector in a
+  MaybeContainer component that, when the platform_rovo_page_comment_selector_full_width experiment
+  is enabled, applies flexGrow: 1 to the wrapper box — causing the selector to expand and fill the
+  remaining horizontal space in its Inline container.
+- [`7f1df88caac2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f1df88caac2a) -
+  Add active cell highlight to table cells - highlights the current table cell when cursor is inside
+  it
+
+## 72.1.1
+
+### Patch Changes
+
+- [`387b9066cd2c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/387b9066cd2c2) -
+  Update CWR modal illustration size behind cwr-modal-ui-refresh experiment
+
 ## 72.1.0
 
 ### Minor Changes

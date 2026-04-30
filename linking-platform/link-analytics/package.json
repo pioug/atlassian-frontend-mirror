@@ -58,6 +58,7 @@
 		"@atlaskit/link-picker": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",

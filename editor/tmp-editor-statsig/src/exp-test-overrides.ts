@@ -71,4 +71,5 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_ai_rename_add_polish: false,
 	platform_editor_table_fit_to_content_on_demand: false,
 	platform_editor_table_fit_to_content_auto_convert: false,
+	platform_editor_table_q4_loveability: false,
 };

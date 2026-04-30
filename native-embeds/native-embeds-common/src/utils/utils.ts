@@ -31,8 +31,29 @@ const PARAMETER_VALIDATORS: Partial<{
 	alignment: (value) => ALIGNMENT_VALUES.includes(value),
 };
 
-const parseFromDefault = <TValue>(defaultValue: TValue, value: unknown): TValue | undefined => {
-	if (typeof defaultValue === 'boolean') {
+/**
+ * Explicitly declares the intended primitive type for each parameter key.
+ * This is necessary for keys whose default value is `undefined` (e.g. `url`, `width`),
+ * because `typeof undefined === 'undefined'` gives no type information for deserialization.
+ */
+const PARAMETER_TYPES: Record<NativeEmbedParameterKey, 'string' | 'number' | 'boolean'> = {
+	alignment: 'string',
+	alwaysShowTitle: 'boolean',
+	aspectRatio: 'number',
+	displayText: 'string',
+	height: 'number',
+	url: 'string',
+	width: 'number',
+};
+
+const parseFromDefault = <TValue>(
+	defaultValue: TValue,
+	value: unknown,
+	explicitType?: 'string' | 'number' | 'boolean',
+): TValue | undefined => {
+	const resolvedType = explicitType ?? typeof defaultValue;
+
+	if (resolvedType === 'boolean') {
 		if (typeof value === 'boolean') {
 			return value as TValue;
 		}
@@ -45,13 +66,13 @@ const parseFromDefault = <TValue>(defaultValue: TValue, value: unknown): TValue 
 		return undefined;
 	}
 
-	if (typeof defaultValue === 'number') {
+	if (resolvedType === 'number') {
 		const parsed =
 			typeof value === 'number' ? value : typeof value === 'string' ? Number(value) : NaN;
 		return Number.isFinite(parsed) ? (parsed as TValue) : undefined;
 	}
 
-	// String-like values (including keys whose default is undefined, e.g. url/width)
+	// String-like values
 	return typeof value === 'string' ? (value as TValue) : undefined;
 };
 
@@ -70,7 +91,7 @@ const deserializeParameterValue = <TKey extends NativeEmbedParameterKey>(
 	key: TKey,
 	value: unknown,
 ): NativeEmbedParameterValues[TKey] | undefined => {
-	const parsedValue = parseFromDefault(NATIVE_EMBED_PARAMETER_DEFAULTS[key], value);
+	const parsedValue = parseFromDefault(NATIVE_EMBED_PARAMETER_DEFAULTS[key], value, PARAMETER_TYPES[key]);
 	const validator = PARAMETER_VALIDATORS[key];
 
 	if (parsedValue === undefined) {

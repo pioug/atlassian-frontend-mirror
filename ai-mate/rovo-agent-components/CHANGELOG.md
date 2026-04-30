@@ -1,5 +1,19 @@
 # @atlaskit/rovo-agent-components
 
+## 4.4.0
+
+### Minor Changes
+
+- [`9caad6633bc3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9caad6633bc3d) -
+  Add jira_admin_agent avatar to out-of-the-box agent avatars.
+
+## 4.3.2
+
+### Patch Changes
+
+- [`ab6e1ed0c80d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab6e1ed0c80d9) -
+  We have added the jira_admin_agent as an option such that it has an allocated ottb agent icon
+
 ## 4.3.1
 
 ### Patch Changes

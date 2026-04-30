@@ -44,6 +44,7 @@ export const NATIVE_EMBED_PARAMETER_DEFAULTS: NativeEmbedParameterValues = {
 	alignment: DEFAULT_ALIGNMENT,
 	displayText: undefined,
 	height: 600,
+	aspectRatio: 1,
 	width: undefined,
 };
 

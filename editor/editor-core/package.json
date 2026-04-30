@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "219.1.10",
+	"version": "219.1.11",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -130,6 +130,7 @@
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/search-client": "workspace:^",
 		"@atlassian/search-provider": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@emotion/jest": "root:*",
 		"@testing-library/react": "root:*",
 		"@types/diff": "root:*",

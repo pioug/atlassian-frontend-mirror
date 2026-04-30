@@ -18,7 +18,7 @@ describe(`${packageName} json-schema v1`, () => {
 	const validateFull = ajv.compile(v1SchemaFull);
 	const validateStage0 = ajv.compile(v1SchemaStage0);
 
-	describe('listItem flexible first child', () => {
+	describe('listItem with nested list as first child', () => {
 		const legacyParagraphFirst = {
 			version: 1,
 			type: 'doc',
@@ -96,7 +96,19 @@ describe(`${packageName} json-schema v1`, () => {
 			expect(validateStage0.errors).toEqual(null);
 		});
 
-		it('accepts nested list first child only in stage-0', () => {
+		it('accepts nested list first child in full and stage-0', () => {
+			const isValidFull = validateFull(nestedListFirst);
+			if (!isValidFull) {
+				// eslint-disable-next-line no-console
+				console.error(
+					'Full schema - Nested list first child - Errors',
+					betterAjvErrors(v1SchemaFull, nestedListFirst, validateFull.errors, {
+						indent: 2,
+					}),
+				);
+			}
+			expect(validateFull.errors).toEqual(null);
+
 			const isValidStage0 = validateStage0(nestedListFirst);
 			if (!isValidStage0) {
 				// eslint-disable-next-line no-console
@@ -108,7 +120,6 @@ describe(`${packageName} json-schema v1`, () => {
 				);
 			}
 			expect(validateStage0.errors).toEqual(null);
-			expect(validateFull(nestedListFirst)).toEqual(false);
 		});
 	});
 

@@ -35,7 +35,7 @@ describe(`${packageName}/schema listItem node`, () => {
 	it('should return correct node spec', () => {
 		expect(listItem).toStrictEqual({
 			content:
-				'(paragraph | mediaSingle | codeBlock | unsupportedBlock | extension) (paragraph | bulletList | orderedList | taskList | mediaSingle | codeBlock | unsupportedBlock | extension)*',
+				'(paragraph | bulletList | orderedList | taskList | mediaSingle | codeBlock | unsupportedBlock | extension)+',
 			defining: true,
 			marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
 			parseDOM: [

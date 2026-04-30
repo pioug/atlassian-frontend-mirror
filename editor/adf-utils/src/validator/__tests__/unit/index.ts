@@ -362,10 +362,10 @@ describe('validator', () => {
 	});
 });
 
-describe('flexible list indentation validation', () => {
+describe('nested list validation', () => {
 	const validate = validator();
 
-	it('should validate bulletList with nested list as first child in listItem (flexible first child)', () => {
+	it('should validate bulletList with nested list as first child in listItem', () => {
 		const doc = {
 			version: 1,
 			type: 'doc',
@@ -491,7 +491,7 @@ describe('flexible list indentation validation', () => {
 		expect(run).not.toThrowError();
 	});
 
-	it('should validate deeply nested lists with flexible first child', () => {
+	it('should validate deeply nested lists', () => {
 		const doc = {
 			version: 1,
 			type: 'doc',

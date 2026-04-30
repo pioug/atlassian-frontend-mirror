@@ -3,12 +3,12 @@ import React from 'react';
 import PremiumIcon from '@atlaskit/icon/core/premium';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import { ConfluenceIcon } from '@atlaskit/logo';
+import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
+import { TopNav, TopNavEnd, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
 import {
 	TopNavButton,
 	TopNavLinkButton,
-} from '@atlaskit/navigation-system/experimental/top-nav-button';
-import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
-import { TopNav, TopNavEnd, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
+} from '@atlaskit/navigation-system/theming/top-nav-button';
 import { AppLogo, AppSwitcher } from '@atlaskit/navigation-system/top-nav-items';
 import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
 

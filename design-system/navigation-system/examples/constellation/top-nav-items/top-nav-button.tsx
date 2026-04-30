@@ -2,13 +2,13 @@ import React from 'react';
 
 import AiChatIcon from '@atlaskit/icon/core/ai-chat';
 import TeamsIcon from '@atlaskit/icon/core/teams';
+import { TopNav, TopNavEnd } from '@atlaskit/navigation-system/layout/top-nav';
 import {
 	TopNavButton,
 	TopNavIconButton,
 	TopNavLinkButton,
 	TopNavLinkIconButton,
-} from '@atlaskit/navigation-system/experimental/top-nav-button';
-import { TopNav, TopNavEnd } from '@atlaskit/navigation-system/layout/top-nav';
+} from '@atlaskit/navigation-system/theming/top-nav-button';
 
 import { MockRoot } from '../../utils/mock-root';
 

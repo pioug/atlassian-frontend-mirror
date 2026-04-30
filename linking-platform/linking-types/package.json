@@ -39,6 +39,7 @@
 		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
+		"@atlassian/structured-docs-types": "workspace:^",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"
 	},

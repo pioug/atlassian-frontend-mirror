@@ -353,8 +353,7 @@ export const CardViewBase = ({
 	const isTickBoxSelectable = !disableOverlay && !!selectable && !selected;
 
 	const { mediaType, mimeType, name, createdAt } = metadata || {};
-	const shouldShowTraceIdTooltip =
-		!!traceTooltipVariant && !!traceId && fg('platform_trace_id_tooltip_attachment_failures');
+	const shouldShowTraceIdTooltip = !!traceTooltipVariant && !!traceId;
 	const tooltipContent = shouldShowTraceIdTooltip
 		? intl.formatMessage(i18n.traceIdTooltip, { traceId })
 		: name;

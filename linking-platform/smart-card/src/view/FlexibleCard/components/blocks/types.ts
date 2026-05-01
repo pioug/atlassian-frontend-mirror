@@ -4,6 +4,7 @@ import { type LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
 
 import {
 	type ActionName,
+	type CardDisplay,
 	type ElementName,
 	type SmartLinkDirection,
 	type SmartLinkSize,
@@ -155,6 +156,12 @@ export type BaseActionItem = {
  */
 export type BaseDataActionItem = {
 	/**
+	 * Used in block card 3P post-auth experiment to show different icons for Rovo actions
+	 * Should be removed on clean up of platform_sl_3p_auth_rovo_block_card_kill_switch after finalizing which icons to use long term
+	 */
+	cardAppearance?: CardDisplay;
+
+	/**
 	 * Determines whether the action should hide the text content of the button.
 	 */
 	hideContent?: boolean;
@@ -209,7 +216,7 @@ export type NamedDataActionItem = BaseDataActionItem & {
 		| ActionName.AutomationAction
 		| ActionName.CopyLinkAction
 		| ActionName.RovoChatAction;
-};
+} & Pick<ActionProps, 'iconSize'>;
 
 /**
  * This represents an action that does not fetch data where Icon and Content are provided implicitly.

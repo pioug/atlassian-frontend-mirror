@@ -95,9 +95,6 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/icon-object/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/link/tsconfig.app.json"
 		},
 		{
@@ -141,6 +138,9 @@
 		},
 		{
 			"path": "../../design-system/menu/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/object/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/onboarding/tsconfig.app.json"

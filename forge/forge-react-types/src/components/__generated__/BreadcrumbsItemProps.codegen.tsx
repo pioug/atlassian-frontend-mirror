@@ -305,7 +305,13 @@ export type BreadcrumbsItemProps = Pick<
 	PlatformBreadcrumbsItemProps,
 	'href' | 'text' | 'testId'
 > & {
+	/**
+	 * Places an icon before the breadcrumb item's text.
+	 */
 	iconBefore?: IconType;
+	/**
+	 * Places an icon after the breadcrumb item's text.
+	 */
 	iconAfter?: IconType;
 };
 

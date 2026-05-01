@@ -1,5 +1,12 @@
 # @atlassian/give-kudos
 
+## 5.5.0
+
+### Minor Changes
+
+- [`f14521b15a464`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f14521b15a464) -
+  Update i18n NPM package versions for townsquare,team-central (Group 10)
+
 ## 5.4.0
 
 ### Minor Changes

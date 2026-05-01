@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/datetime-picker",
-	"version": "17.7.0",
+	"version": "17.8.0",
 	"description": "A date time picker allows the user to select an associated date and time.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,7 +26,10 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
-		"./types": "./src/types.tsx"
+		"./date-picker": "./src/entry-points/date-picker.tsx",
+		"./date-time-picker": "./src/entry-points/date-time-picker.tsx",
+		"./time-picker": "./src/entry-points/time-picker.tsx",
+		"./types": "./src/entry-points/types.tsx"
 	},
 	"atlassian": {
 		"react-compiler": {

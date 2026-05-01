@@ -1,6 +1,13 @@
 import type { HTMLProps, ReactNode } from 'react';
 
-export type { SupportedLanguages, Language, LanguageAlias, CodeBlockProps } from './internal/types';
+export type {
+	SupportedLanguages,
+	Language,
+	LanguageAlias,
+	CodeBlockProps,
+	CodeBlockTheme,
+	CodeTheme,
+} from './internal/types';
 
 export interface CodeProps extends HTMLProps<HTMLElement> {
 	/**

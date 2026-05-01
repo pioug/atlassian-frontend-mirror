@@ -18,6 +18,7 @@ import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import { AnnotationsPositionContext } from '../../ui/annotations';
 import { ValidationContextProvider } from '../../ui/Renderer/ValidationContext';
 import type { RendererAppearance } from '../../ui/Renderer/types';
+import type { AnalyticsEventPayload } from '../../analytics/events';
 
 interface Props {
 	// Ignored via go/ees005
@@ -27,6 +28,7 @@ interface Props {
 	extensionKey: string;
 	extensionType: string;
 	extensionViewportSizes?: ExtensionViewportSize[];
+	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
 	layout?: ExtensionLayout;
 	localId?: string;
 	marks?: PMMark[];
@@ -58,6 +60,7 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 		extensionViewportSizes,
 		localId,
 		shouldDisplayExtensionAsInline,
+		fireAnalyticsEvent,
 	} = props;
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const removeOverflow = React.Children.toArray(children)
@@ -100,6 +103,7 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 										{
 											isTopLevel: path.length < 1,
 											rendererAppearance: props.rendererAppearance,
+											fireAnalyticsEvent,
 										},
 										removeOverflow,
 										parameters?.extensionId,
@@ -122,6 +126,7 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 								{
 									isTopLevel: path.length < 1,
 									rendererAppearance: props.rendererAppearance,
+									fireAnalyticsEvent,
 								},
 								removeOverflow,
 								parameters?.extensionId,

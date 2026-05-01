@@ -1,6 +1,71 @@
-import { isFedramp, isIsolatedCloud, isTeamsAppRoute } from '../../../src/common/utils/utils';
+import {
+	isFedramp,
+	isIsolatedCloud,
+	isTeamsAppRoute,
+	prefixWithContextEntryPoint,
+} from '../../../src/common/utils/utils';
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn().mockReturnValue(true),
+}));
 
 // Not testing isModified or getRoutePathFromUrl because they are logic that was migrated from other packages
+
+describe('prefixWithContextEntryPoint', () => {
+	describe('with a non-empty contextEntryPoint (Home, Confluence/Jira embed)', () => {
+		const contextEntryPoint = '/wiki/people';
+
+		test.each([
+			['team/1', '/wiki/people/team/1'],
+			['kudos/abc', '/wiki/people/kudos/abc'],
+			['userId-123', '/wiki/people/userId-123'],
+		])('prefixes bare segment "%s" → "%s"', (input, expected) => {
+			expect(prefixWithContextEntryPoint(input, contextEntryPoint)).toBe(expected);
+		});
+
+		test.each([
+			['/wiki/people/team/1', '/wiki/people/team/1'],
+			['/wiki/people/kudos/abc', '/wiki/people/kudos/abc'],
+			['/some/other/path', '/some/other/path'],
+			['https://example.com/y', 'https://example.com/y'],
+			['http://example.com/y', 'http://example.com/y'],
+			['www.example.com/y', 'www.example.com/y'],
+		])('returns "%s" unchanged', (input, expected) => {
+			expect(prefixWithContextEntryPoint(input, contextEntryPoint)).toBe(expected);
+		});
+	});
+
+	describe('with an empty contextEntryPoint (standalone, teams-isolated, embed-at-root)', () => {
+		const contextEntryPoint = '';
+
+		test.each([
+			['team/1', '/team/1'],
+			['kudos/abc', '/kudos/abc'],
+			['userId-123', '/userId-123'],
+		])('root-normalizes bare segment "%s" → "%s"', (input, expected) => {
+			expect(prefixWithContextEntryPoint(input, contextEntryPoint)).toBe(expected);
+		});
+
+		test.each([
+			['/team/1', '/team/1'],
+			['/kudos/abc', '/kudos/abc'],
+			['https://example.com/y', 'https://example.com/y'],
+		])('returns "%s" unchanged', (input, expected) => {
+			expect(prefixWithContextEntryPoint(input, contextEntryPoint)).toBe(expected);
+		});
+	});
+
+	describe('default arg', () => {
+		it('treats omitted contextEntryPoint as empty string and root-normalizes', () => {
+			expect(prefixWithContextEntryPoint('team/1')).toBe('/team/1');
+			expect(prefixWithContextEntryPoint('kudos/abc')).toBe('/kudos/abc');
+		});
+
+		it('returns absolute URLs unchanged with omitted contextEntryPoint', () => {
+			expect(prefixWithContextEntryPoint('https://example.com/y')).toBe('https://example.com/y');
+		});
+	});
+});
 
 describe('isFedramp', () => {
 	test.each([

@@ -1,11 +1,8 @@
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { withLazyLoading, type NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
+import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import type { MediaPluginOptions } from '../types';
@@ -19,29 +16,5 @@ export const lazyMediaGroupView = (
 	options: MediaPluginOptions | undefined = {},
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 ): NodeViewConstructor => {
-	if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
-		return ReactMediaGroupNode(portalProviderAPI, eventDispatcher, providerFactory, options, api);
-	}
-
-	return withLazyLoading({
-		nodeName: 'mediaGroup',
-		getNodeViewOptions: () => {},
-		loader: () => {
-			const result = import(
-				/* webpackChunkName: "@atlaskit-internal_editor-plugin-media-group-lazy-node-view" */
-				'./mediaGroup'
-			).then(({ ReactMediaGroupNode }) => {
-				return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
-					return ReactMediaGroupNode(
-						portalProviderAPI,
-						eventDispatcher,
-						providerFactory,
-						options,
-						api,
-					)(node, view, getPos);
-				};
-			});
-			return result;
-		},
-	});
+	return ReactMediaGroupNode(portalProviderAPI, eventDispatcher, providerFactory, options, api);
 };

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-mentions
 
+## 12.1.11
+
+### Patch Changes
+
+- [`7043ace1c45f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7043ace1c45f2) -
+  [ux] reduces slipperiness and improves clarity of inline invites for editor mentions
+- Updated dependencies
+
+## 12.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.9
 
 ### Patch Changes

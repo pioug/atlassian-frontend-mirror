@@ -5,7 +5,8 @@ import { isNodeOfType, type SimpleCallExpression } from 'eslint-codemod-utils';
 
 import { Object as ObjectHelper } from '../../../ast-nodes/object';
 import type { RuleConfig } from '../config';
-import { supportedDimensionAttributesMap, supportedStylesMap } from '../transformers/css-to-xcss';
+import { supportedStylesMap } from '../transformers/css-to-xcss';
+import { supportedDimensionAttributesMap } from '../transformers/supported-dimension-attributes-map';
 
 import { convertASTObjectExpressionToJSObject } from './convert-ast-object-expression-to-js-object';
 

@@ -201,7 +201,9 @@ describe('ProfileCard', () => {
 		});
 
 		it('should have the proper label for actions button with fullName', () => {
-			(fg as jest.Mock).mockReturnValue(true);
+			(fg as jest.Mock).mockImplementation(
+				(key) => key === 'jfp_a11y_team_profile_card_actions_label',
+			);
 			const { getByRole } = render(
 				<IntlProvider locale="en" defaultLocale="en-US">
 					<ProfileCard {...defaultProps} actions={actions} />

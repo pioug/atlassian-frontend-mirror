@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/portal",
-	"version": "5.4.2",
+	"version": "5.5.0",
 	"description": "A wrapper for rendering components in React portals.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,8 +39,10 @@
 		}
 	},
 	"exports": {
-		"./types": "./src/entry-points/types.tsx",
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./constants": "./src/entry-points/constants.tsx",
+		"./portal": "./src/entry-points/portal.tsx",
+		"./types": "./src/entry-points/types.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/app-provider": "workspace:^",

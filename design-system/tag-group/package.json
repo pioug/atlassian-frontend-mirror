@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tag-group",
-	"version": "12.0.5",
+	"version": "12.1.0",
 	"description": "A tag group controls the layout and alignment for a collection of tags.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -88,6 +88,7 @@
 	},
 	"homepage": "https://atlassian.design/components/tag-group/",
 	"exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./tag-group": "./src/entry-points/tag-group.tsx"
 	}
 }

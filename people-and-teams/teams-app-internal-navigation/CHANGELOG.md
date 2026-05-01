@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-navigation
 
+## 1.9.0
+
+### Minor Changes
+
+- [`69b7956cd2bbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69b7956cd2bbf) -
+  Improve logic for handling context entry points
+
 ## 1.8.6
 
 ### Patch Changes

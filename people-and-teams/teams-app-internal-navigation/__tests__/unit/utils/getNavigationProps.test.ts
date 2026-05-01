@@ -14,6 +14,10 @@ const CONFLUENCE_HREF = 'https://confluence.atlassian.com/pages/123';
 
 let mockWindowOpen: jest.SpyInstance;
 
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn().mockReturnValue(true),
+}));
+
 beforeEach(() => {
 	mockWindowOpen = jest.spyOn(window, 'open').mockImplementation(() => null);
 });
@@ -198,25 +202,31 @@ describe('contextEntryPoint prefixing', () => {
 		expect(props.href).toBe('/people/team/123');
 	});
 
-	test('does not prefix for external intent', () => {
+	test('prefixes relative href with contextEntryPoint for external intent (tab-opening is orthogonal to URL normalisation)', () => {
 		const context = createMockContext({ contextEntryPoint: '/wiki/people' });
 		const props = getNavigationProps({ href: 'team/123', intent: 'external', context });
-		expect(props.href).toBe('team/123');
+		expect(props.href).toBe('/wiki/people/team/123');
 	});
 
-	test('does not prefix when forceExternalIntent is true', () => {
+	test('prefixes relative href with contextEntryPoint when forceExternalIntent is true', () => {
 		const context = createMockContext({
 			contextEntryPoint: '/wiki/people',
 			forceExternalIntent: true,
 		});
 		const props = getNavigationProps({ href: 'team/123', intent: 'navigation', context });
-		expect(props.href).toBe('team/123');
+		expect(props.href).toBe('/wiki/people/team/123');
 	});
 
-	test('does not prefix when contextEntryPoint is not set', () => {
+	test('absolute URLs are unchanged for external intent regardless of contextEntryPoint', () => {
+		const context = createMockContext({ contextEntryPoint: '/wiki/people' });
+		const props = getNavigationProps({ href: EXTERNAL_HREF, intent: 'external', context });
+		expect(props.href).toBe(EXTERNAL_HREF);
+	});
+
+	test('converts path relative href to root relative href when contextEntryPoint is not set', () => {
 		const context = createMockContext();
 		const props = getNavigationProps({ href: 'team/123', intent: 'navigation', context });
-		expect(props.href).toBe('team/123');
+		expect(props.href).toBe('/team/123');
 	});
 });
 

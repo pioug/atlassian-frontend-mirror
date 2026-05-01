@@ -1,7 +1,10 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { SearchPageConfig } from '../../types';
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
 import isDnDStyleMutation from '../../vc-observer/observers/non-visual-styles/is-dnd-style-mutation';
 import isNonVisualStyleMutation from '../../vc-observer/observers/non-visual-styles/is-non-visual-style-mutation';
+import isPdndAttribute from '../../vc-observer/observers/non-visual-styles/is-pdnd-attribute';
 import { RLLPlaceholderHandlers } from '../../vc-observer/observers/rll-placeholders';
 import { type VCObserverEntryType } from '../types';
 
@@ -499,6 +502,23 @@ export default class ViewportObserver {
 			}
 
 			if (isNonVisualStyleMutation({ target, attributeName, type: 'attributes' })) {
+				return {
+					type: 'mutation:attribute:non-visual-style',
+					mutationData: {
+						attributeName,
+						oldValue,
+						newValue,
+						timestamp,
+					},
+				};
+			}
+
+			// Pragmatic Drag and Drop attributes added during post-paint
+			// registration; do not affect layout or paint.
+			if (
+				isPdndAttribute({ target, attributeName }) &&
+				fg('platform_ufo_exclude_pdnd_attributes_from_vc')
+			) {
 				return {
 					type: 'mutation:attribute:non-visual-style',
 					mutationData: {

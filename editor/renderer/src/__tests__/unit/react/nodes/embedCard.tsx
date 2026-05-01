@@ -163,7 +163,10 @@ describe('Renderer - React/Nodes/EmbedCard', () => {
 					const { baseElement } = mountEmbedCardSSR();
 					const mediaSingleElement = baseElement.querySelector(mediaSingleSelector);
 					expect(mediaSingleElement).toHaveAttribute('data-width-type', 'percentage');
-					expect(mediaSingleElement).toHaveStyleDeclaration('max-width', '100%');
+					expect(mediaSingleElement).toHaveStyleDeclaration(
+						'max-width',
+						'var(--ak-editor-max-container-width)',
+					);
 				});
 			});
 		});

@@ -389,10 +389,17 @@ type FailedToInsertSnippetAEP = OperationalAEP<
 	ACTION_SUBJECT_ID.SNIPPET,
 	| { reason: 'emptyBody' | 'parseError'; snippetId: string }
 	| {
-			failedMediaFiles: number;
-			reason: 'partialMediaCopyIntentFailure';
+			numFailedMediaFiles: number;
+			numTotalMediaFiles: number;
+			reason: 'snippetMediaDirectCopyFailed';
 			snippetId: string;
-			totalMediaFiles: number;
+			snippetMediaCopyStatus: 'copied' | 'partial-copy' | 'failed' | 'copy-unavailable';
+	  }
+	| {
+			numFailedMediaFiles: number;
+			numTotalMediaFiles: number;
+			reason: 'snippetMediaDirectCopyUnexpectedError';
+			snippetId: string;
 	  }
 >;
 

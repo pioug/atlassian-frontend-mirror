@@ -1,4 +1,4 @@
-import { getDurationMs } from '../../../utils/animation';
+import { getDurationMs } from '../../../utils/get-duration-ms';
 
 describe('getDurationMs', () => {
 	it('should return default values animation is empty string', () => {

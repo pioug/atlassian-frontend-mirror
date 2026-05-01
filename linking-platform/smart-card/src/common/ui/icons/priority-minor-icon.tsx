@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { FC } from 'react';
+
 import { cssMap, jsx } from '@atlaskit/css';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 
@@ -49,21 +51,23 @@ const PriorityMinorIconLegacy: {
 
 PriorityMinorIconLegacy.displayName = 'PriorityMinorIcon';
 
-export default componentWithFG(
-	'platform_sl_icons_refactor',
-	createPriorityIcon('PriorityMinorIcon', [
-		{
-			d: 'M18.449 14.975a1 1 0 011.027 1.716l-6.97 4.173a1 1 0 01-1.03-.002L4.57 16.69a1 1 0 011.034-1.712l6.391 3.862 6.454-3.864z',
-			fill: '#0065FF',
-		},
-		{
-			d: 'M11.995 12.837l6.454-3.865a1 1 0 011.027 1.716l-6.97 4.174a1 1 0 01-1.03-.002L4.57 10.686a1 1 0 011.034-1.712l6.391 3.863z',
-			fill: '#2684FF',
-		},
-		{
-			d: 'M11.995 6.823l6.454-3.865a1 1 0 111.027 1.716l-6.97 4.174a1 1 0 01-1.03-.002L4.57 4.672A1 1 0 015.604 2.96l6.391 3.863z',
-			fill: '#4C9AFF',
-		},
-	]),
-	PriorityMinorIconLegacy,
-);
+const _default_1: FC<Omit<PriorityIconProps, 'ref'> & Omit<PriorityIconProps, 'ref'>> =
+	componentWithFG(
+		'platform_sl_icons_refactor',
+		createPriorityIcon('PriorityMinorIcon', [
+			{
+				d: 'M18.449 14.975a1 1 0 011.027 1.716l-6.97 4.173a1 1 0 01-1.03-.002L4.57 16.69a1 1 0 011.034-1.712l6.391 3.862 6.454-3.864z',
+				fill: '#0065FF',
+			},
+			{
+				d: 'M11.995 12.837l6.454-3.865a1 1 0 011.027 1.716l-6.97 4.174a1 1 0 01-1.03-.002L4.57 10.686a1 1 0 011.034-1.712l6.391 3.863z',
+				fill: '#2684FF',
+			},
+			{
+				d: 'M11.995 6.823l6.454-3.865a1 1 0 111.027 1.716l-6.97 4.174a1 1 0 01-1.03-.002L4.57 4.672A1 1 0 015.604 2.96l6.391 3.863z',
+				fill: '#4C9AFF',
+			},
+		]),
+		PriorityMinorIconLegacy,
+	);
+export default _default_1;

@@ -33,9 +33,6 @@
 			"path": "../../icon-lab/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../primitives/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../tile/afm-jira/tsconfig.json"
 		},
 		{

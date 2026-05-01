@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import Document16Icon from '@atlaskit/icon-file-type/glyph/document/16';
-import PageLiveDoc16Icon from '@atlaskit/icon-object/glyph/page-live-doc/16';
+import PageLiveDocObject from '@atlaskit/object/page-live-doc';
 import { token } from '@atlaskit/tokens';
 
 import { iconLabelMessages } from './messages';
@@ -50,5 +50,5 @@ export const PageIcon = (): JSX.Element => {
 export const LiveDocIcon = (): JSX.Element => {
 	const intl = useIntl();
 
-	return <PageLiveDoc16Icon label={intl.formatMessage(iconLabelMessages.pageIconLabel)} />;
+	return <PageLiveDocObject label={intl.formatMessage(iconLabelMessages.pageIconLabel)} />;
 };

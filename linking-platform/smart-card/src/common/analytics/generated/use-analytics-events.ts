@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::676f76a2e45920437adc8c35a9af8b37>>
+ * @codegen <<SignedSource::ac0d75fa9e8d43c947e88f47ba1267aa>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 import { useCallback } from 'react';
@@ -15,16 +15,22 @@ import { EVENT_CHANNEL } from '../constants';
 import type { EventKey } from './analytics.types';
 import createEventPayload from './create-event-payload';
 
-export const useAnalyticsEvents = () => {
+type UseAnalyticsEventsFireFn = <K extends EventKey>(
+	...params: Parameters<typeof createEventPayload<K>>
+) => void;
+
+export const useAnalyticsEvents = (): {
+	fireEvent: UseAnalyticsEventsFireFn;
+} => {
 	const { createAnalyticsEvent } = useAnalyticsNextEvents();
-	const fireEvent = useCallback(
-		<K extends EventKey>(...params: Parameters<typeof createEventPayload<K>>): void => {
+	const fireEvent: UseAnalyticsEventsFireFn = useCallback(
+		<K extends EventKey>(...params: Parameters<typeof createEventPayload<K>>) => {
 			const event = createAnalyticsEvent(createEventPayload<K>(...params));
 			event.fire(EVENT_CHANNEL);
 		},
 		[createAnalyticsEvent],
 	);
 	return {
-		fireEvent,
+		fireEvent: fireEvent,
 	};
 };

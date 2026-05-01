@@ -3,10 +3,10 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::819168596ba17484cadda969f8ecf82d>>
+ * @codegen <<SignedSource::3e1ed99ac9944625e5358af3c7ce631d>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
-import { type AnalyticsEventAttributes, type EventKey } from './analytics.types';
+import type { AnalyticsEventAttributes, EventKey } from './analytics.types';
 
 type OptionalIfUndefined<T> = undefined extends T ? [param?: T] : [param: T];
 
@@ -35,20 +35,25 @@ const createEventPayload = <K extends EventKey>(
 	eventKey: K,
 	...[attributes]: EventPayloadAttributes<K>
 ): ScreenEventPayload<K> | EventPayload<K> => {
-	const [eventType, actionSubject, action, actionSubjectId] = eventKey.split('.');
+	const [eventType, actionSubject, action, actionSubjectId] = eventKey.split('.') as [
+		string,
+		string,
+		string,
+		string | undefined,
+	];
 	if (eventType === 'screen') {
 		return {
-			eventType,
+			eventType: eventType,
 			name: actionSubject,
 			action: 'viewed',
 			attributes: attributes,
 		};
 	}
 	return {
-		eventType,
-		actionSubject,
-		action,
-		actionSubjectId,
+		eventType: eventType,
+		actionSubject: actionSubject,
+		action: action,
+		actionSubjectId: actionSubjectId,
 		attributes: attributes,
 	};
 };

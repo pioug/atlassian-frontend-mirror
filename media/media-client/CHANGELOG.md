@@ -1,5 +1,23 @@
 # @atlaskit/media-client
 
+## 36.1.0
+
+### Minor Changes
+
+- [`5653e8be24c05`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5653e8be24c05) -
+  Replace `uuid-validate` with an inlined, browser-only `isValidUuid` helper in
+  `@atlaskit/media-common`. Removes the `uuid-validate` dependency from `media-card`,
+  `media-client`, `media-common` and `media-picker` so consumers no longer pull in the Node `Buffer`
+  polyfill purely for a `Buffer.isBuffer` check that always returned `false` in the browser.
+
+  Adds a new `@atlaskit/media-common/isValidUuid` subpath export so consumers can import the helper
+  without going through the package's barrel file (in line with the Debarreling Platform Packages
+  initiative).
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.0.6
 
 ### Patch Changes

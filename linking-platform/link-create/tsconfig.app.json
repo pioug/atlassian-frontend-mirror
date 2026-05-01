@@ -56,9 +56,6 @@
 			"path": "../../media/icon-file-type/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/icon-object/tsconfig.app.json"
-		},
-		{
 			"path": "../../helpers/intl-messages-provider/tsconfig.app.json"
 		},
 		{
@@ -69,6 +66,9 @@
 		},
 		{
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/object/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"

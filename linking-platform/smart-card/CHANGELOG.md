@@ -1,5 +1,49 @@
 # @atlaskit/smart-card
 
+## 44.4.0
+
+### Minor Changes
+
+- [`5039083517ce8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5039083517ce8) -
+  [ux] NAVX-4533 Updating icons and styling for Block Card 3P Post Auth experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.3.24
+
+### Patch Changes
+
+- [`0e8d752e6dbb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e8d752e6dbb2) -
+  fix the conditional for fg check for mini modal logic
+- [`5f2a9a94761d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f2a9a94761d1) -
+  FG Cleanup platform_sl_a11y_enghealth_46829
+
+## 44.3.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.3.22
+
+### Patch Changes
+
+- [`1f06e9ed4dc63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f06e9ed4dc63) -
+  [ux] add rovogrowth-640-inline-action-nudge-fg feature gate to the jira open mini modal logic for
+  useRovoChat hook
+- [`6ba679afd57d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ba679afd57d7) -
+  [ux] Update design for post auth inline hovercard exp - use pill buttons, ask rovo header, button
+  prompts"
+
+## 44.3.21
+
+### Patch Changes
+
+- [`e3b0e12b4d832`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3b0e12b4d832) -
+  [ux] NAVX-4532 Use mini-modal instead of sidebar for rovo chat in Jira products
+
 ## 44.3.20
 
 ### Patch Changes

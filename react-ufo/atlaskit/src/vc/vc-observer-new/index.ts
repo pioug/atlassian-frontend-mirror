@@ -83,13 +83,8 @@ export default class VCObserverNew {
 
 		// Selector-config resolution is centralised in `getSelectorConfig()`
 		// (`../../config`). It applies the FedRAMP all-`false` override when
-		// `platform_ufo_fedramp_overrides` + `isFedrampModerate()` are both
-		// true; otherwise it returns `caller-override → setUFOConfig value →
-		// historical default`.
-		//
-		// When the gate is OFF, `getSelectorConfig()` returns the same value
-		// it always did, so the local `?? DEFAULT_SELECTOR_CONFIG` fallback
-		// preserves the previous behaviour byte-for-byte.
+		// `isFedrampModerate()` is true; otherwise it returns `caller-override
+		// → setUFOConfig value → historical default`.
 		this.selectorConfig =
 			getSelectorConfig(config.selectorConfig, DEFAULT_SELECTOR_CONFIG) ??
 			config.selectorConfig ??

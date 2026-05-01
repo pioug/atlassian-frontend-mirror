@@ -1,5 +1,37 @@
 # @atlaskit/media-card
 
+## 80.4.2
+
+### Patch Changes
+
+- [`e8a04d9738c5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8a04d9738c5a) -
+  Add a rainbow `AIGeneratingOverlay` shown over media nodes during AI inline edits, gated by
+  `fg('cc-maui-phase-2-loading')` layered on top of the existing MAUI gates and killswitch.
+
+## 80.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 80.4.0
+
+### Minor Changes
+
+- [`5653e8be24c05`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5653e8be24c05) -
+  Replace `uuid-validate` with an inlined, browser-only `isValidUuid` helper in
+  `@atlaskit/media-common`. Removes the `uuid-validate` dependency from `media-card`,
+  `media-client`, `media-common` and `media-picker` so consumers no longer pull in the Node `Buffer`
+  polyfill purely for a `Buffer.isBuffer` check that always returned `false` in the browser.
+
+  Adds a new `@atlaskit/media-common/isValidUuid` subpath export so consumers can import the helper
+  without going through the package's barrel file (in line with the Debarreling Platform Packages
+  initiative).
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 80.3.4
 
 ### Patch Changes

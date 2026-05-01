@@ -62,7 +62,10 @@ export function AISummariseAction({
 					spacing="spacious"
 					color="currentColor"
 					label="Summarise with AI"
-					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { size: props.iconSize } : {})}
+					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+					fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
+						? { size: props.iconSize }
+						: {})}
 				/>
 			}
 			onClick={handleActionClick}

@@ -7,8 +7,11 @@ import {
 	type CustomData,
 } from '@atlaskit/ufo';
 import { type CardStatus } from '../types';
-import { type FileAttributes, getFeatureFlagKeysAllProducts } from '@atlaskit/media-common';
-import isValidId from 'uuid-validate';
+import {
+	type FileAttributes,
+	getFeatureFlagKeysAllProducts,
+} from '@atlaskit/media-common';
+import { isValidUuid } from '@atlaskit/media-common/isValidUuid';
 import { UFOExperienceState } from '@atlaskit/ufo';
 import {
 	extractErrorInfo,
@@ -188,7 +191,7 @@ const addResourceTimingMarks = (
 
 const sanitiseFileAttributes = (fileAttributes: FileAttributes) => {
 	let sanitisedFileId = 'INVALID_FILE_ID';
-	if (fileAttributes.fileId === 'external-image' || isValidId(fileAttributes.fileId)) {
+	if (fileAttributes.fileId === 'external-image' || isValidUuid(fileAttributes.fileId)) {
 		sanitisedFileId = fileAttributes.fileId;
 	}
 	return {

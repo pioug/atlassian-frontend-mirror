@@ -8,4 +8,7 @@ export type {
 	MediaInsertPluginDependencies,
 	MediaInsertPluginCommands,
 	MediaInsertPluginConfig,
+	MediaInsertPluginActions,
+	MediaInsertTabProps,
+	RegisterInsertTab,
 } from '@atlaskit/editor-plugin-media-insert';

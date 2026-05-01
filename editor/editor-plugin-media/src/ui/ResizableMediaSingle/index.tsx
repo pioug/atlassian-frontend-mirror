@@ -29,7 +29,6 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 import type { MediaClientConfig } from '@atlaskit/media-core';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { checkMediaType } from '../../pm-plugins/utils/check-media-type';
@@ -159,7 +158,7 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 			view: { state },
 		} = this.props;
 
-		if (!this.hasResized && expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
+		if (!this.hasResized) {
 			const mediaDomEl = this.wrapper?.querySelector('div[data-prosemirror-node-name="media"]');
 			if (mediaDomEl) {
 				const event = new CustomEvent('resized');
@@ -347,11 +346,9 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 		const enable: EnabledHandles = {};
 		handleSides.forEach((side) => {
 			const oppositeSide = side === 'left' ? 'right' : 'left';
-			if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
-				if (this.props.disableHandles) {
-					enable[side] = false;
-					return;
-				}
+			if (this.props.disableHandles) {
+				enable[side] = false;
+				return;
 			}
 			enable[side] =
 				['full-width', 'wide', 'center']

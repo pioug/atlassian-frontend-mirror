@@ -20,8 +20,8 @@ import { isSafeUrl } from '@atlaskit/adf-schema';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
+import PageObject from '@atlaskit/object/page';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Pressable, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -223,7 +223,7 @@ export interface State {
 	selectedIndex: number;
 }
 
-const defaultIcon = <Page16Icon label={'page'} />;
+const defaultIcon = <PageObject label="page" />;
 
 const mapActivityProviderResultToLinkSearchItemData = ({
 	name,

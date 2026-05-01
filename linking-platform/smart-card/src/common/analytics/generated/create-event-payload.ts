@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::f914fb83fac56e7154ef460866628f7d>>
+ * @codegen <<SignedSource::268e746266cde1271e40a794eb774cf3>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 import type { AnalyticsEventAttributes, EventKey } from './analytics.types';
@@ -35,20 +35,25 @@ const createEventPayload = <K extends EventKey>(
 	eventKey: K,
 	...[attributes]: EventPayloadAttributes<K>
 ): ScreenEventPayload<K> | EventPayload<K> => {
-	const [eventType, actionSubject, action, actionSubjectId] = eventKey.split('.');
+	const [eventType, actionSubject, action, actionSubjectId] = eventKey.split('.') as [
+		string,
+		string,
+		string,
+		string | undefined,
+	];
 	if (eventType === 'screen') {
 		return {
-			eventType,
+			eventType: eventType,
 			name: actionSubject,
 			action: 'viewed',
 			attributes: attributes,
 		};
 	}
 	return {
-		eventType,
-		actionSubject,
-		action,
-		actionSubjectId,
+		eventType: eventType,
+		actionSubject: actionSubject,
+		action: action,
+		actionSubjectId: actionSubjectId,
 		attributes: attributes,
 	};
 };

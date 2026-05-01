@@ -61,6 +61,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	cardShowSidebarButtonLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	cardSourcesButtonLabel: {
 		defaultMessage: string;
 		description: string;
@@ -249,6 +254,11 @@ export const aiSuggestionsMessages: {
 		id: 'fabric.editor.ai.suggestions.card.closeButtonLabel.non-final',
 		defaultMessage: 'Close',
 		description: 'Label for the close button on the AI suggestions card',
+	},
+	cardShowSidebarButtonLabel: {
+		id: 'fabric.editor.ai.suggestions.card.showSidebarButtonLabel.non-final',
+		defaultMessage: 'Show sidebar',
+		description: 'Label for the show sidebar button on the AI suggestions card',
 	},
 	cardExpandButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.card.expandButtonLabel.non-final',

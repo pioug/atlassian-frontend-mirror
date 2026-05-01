@@ -1,13 +1,10 @@
 import { getDefaultImportSpecifierName } from '@hypermod/utils';
 import type { API, FileInfo } from 'jscodeshift';
 
-import {
-	BUTTON_TYPES,
-	entryPointsMapping,
-	NEW_BUTTON_ENTRY_POINT,
-	PRINT_SETTINGS,
-} from '../utils/constants';
+import { BUTTON_TYPES, entryPointsMapping, NEW_BUTTON_ENTRY_POINT } from '../utils/constants';
 import renameElements from '../utils/rename-elements';
+
+const PRINT_SETTINGS = { quote: 'single' as const };
 
 const transformer = (file: FileInfo, api: API): string => {
 	const j = api.jscodeshift;

@@ -1,10 +1,11 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
 import type { API, FileInfo, ImportDeclaration, ImportDefaultSpecifier } from 'jscodeshift';
 
-import { OLD_ICON_OBJECT_ENTRY_POINT, PRINT_SETTINGS } from '../utils/constants';
+import { OLD_ICON_OBJECT_ENTRY_POINT } from '../utils/constants';
 import { createDefaultImportDeclaration } from '../utils/create-default-import-declaration';
 import { getNewImportInfo } from '../utils/get-new-import-info';
 import { parseIconObjectImport } from '../utils/parse-icon-object-import';
+import { PRINT_SETTINGS } from '../utils/print-settings';
 
 const transformer = (file: FileInfo, api: API): string => {
 	const j = api.jscodeshift;

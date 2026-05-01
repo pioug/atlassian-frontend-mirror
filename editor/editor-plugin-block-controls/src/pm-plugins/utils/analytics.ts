@@ -15,12 +15,11 @@ export const attachMoveNodeAnalytics = (
 	tr: Transaction,
 	inputMethod: string,
 	fromDepth: number,
-	fromNodeType: string,
+	fromNodeTypes: string | undefined,
 	toDepth?: number,
 	toNodeType?: string,
 	isSameParent?: boolean,
 	api?: ExtractInjectionAPI<BlockControlsPlugin>,
-	fromNodeTypes?: string,
 	hasSelectedMultipleNodes?: boolean,
 ): boolean | undefined => {
 	return api?.analytics?.actions?.attachAnalyticsEvent({
@@ -30,7 +29,6 @@ export const attachMoveNodeAnalytics = (
 		actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
 		attributes: {
 			nodeDepth: fromDepth,
-			nodeType: fromNodeType,
 			nodeTypes: fromNodeTypes,
 			hasSelectedMultipleNodes,
 			destinationNodeDepth: toDepth,
@@ -70,8 +68,8 @@ export const getMultiSelectAnalyticsAttributes = (
 	anchor: number,
 	head: number,
 ): {
-	nodeTypes: string | undefined;
 	hasSelectedMultipleNodes: boolean;
+	nodeTypes: string | undefined;
 } => {
 	const nodeTypes: string[] = [];
 	const from = Math.min(anchor, head);

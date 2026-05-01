@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 22.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.2.13
 
 ### Patch Changes

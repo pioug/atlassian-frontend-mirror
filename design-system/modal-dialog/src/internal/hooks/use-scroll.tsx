@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { ScrollContext } from '../context';
+import { ScrollContext } from '../scroll-context';
 
 /**
  * This returns whether or not scrolling is allowed based on the existing

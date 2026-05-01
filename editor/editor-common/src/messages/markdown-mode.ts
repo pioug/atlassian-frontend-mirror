@@ -24,21 +24,21 @@ export const markdownModeMessages: {
 	},
 	source: {
 		id: 'fabric.editor.markdownMode.viewToggle.source',
-		defaultMessage: 'Markdown source',
+		defaultMessage: 'Syntax editor',
 		description:
-			'Tooltip and accessible label for the toggle button that switches the editor into raw markdown source view.',
+			'Tooltip and accessible label for the toggle button that switches the editor into raw markdown source (syntax) view.',
 	},
 	wysiwyg: {
 		id: 'fabric.editor.markdownMode.viewToggle.wysiwyg',
-		defaultMessage: 'WYSIWYG',
+		defaultMessage: 'WYSIWYG editor',
 		description:
 			'Tooltip and accessible label for the toggle button that switches the editor into the WYSIWYG markdown editing view (the default).',
 	},
 	preview: {
 		id: 'fabric.editor.markdownMode.viewToggle.preview',
-		defaultMessage: 'Preview',
+		defaultMessage: 'Split view (coming soon)',
 		description:
-			'Tooltip and accessible label for the toggle button that switches the editor into a read-only rendered markdown preview.',
+			'Tooltip and accessible label for the toggle button that will switch the editor into a split view. This feature is not yet available.',
 	},
 	sourceAriaLabel: {
 		id: 'fabric.editor.markdownMode.sourceView.ariaLabel',

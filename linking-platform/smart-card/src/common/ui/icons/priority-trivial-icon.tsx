@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { FC } from 'react';
+
 import { cssMap, jsx } from '@atlaskit/css';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 
@@ -41,13 +43,15 @@ const PriorityTrivialIconLegacy: {
 
 PriorityTrivialIconLegacy.displayName = 'PriorityTrivialIcon';
 
-export default componentWithFG(
-	'platform_sl_icons_refactor',
-	createPriorityIcon('PriorityTrivialIcon', [
-		{
-			d: 'M12 20a8 8 0 100-16 8 8 0 000 16zm0 2C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z',
-			fill: '#7A8699',
-		},
-	]),
-	PriorityTrivialIconLegacy,
-);
+const _default_1: FC<Omit<PriorityIconProps, 'ref'> & Omit<PriorityIconProps, 'ref'>> =
+	componentWithFG(
+		'platform_sl_icons_refactor',
+		createPriorityIcon('PriorityTrivialIcon', [
+			{
+				d: 'M12 20a8 8 0 100-16 8 8 0 000 16zm0 2C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z',
+				fill: '#7A8699',
+			},
+		]),
+		PriorityTrivialIconLegacy,
+	);
+export default _default_1;

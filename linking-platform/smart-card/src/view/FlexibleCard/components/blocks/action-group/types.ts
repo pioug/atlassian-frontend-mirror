@@ -10,6 +10,11 @@ export type ActionGroupProps = {
 	appearance?: Appearance;
 
 	/**
+	 * The measured width of the stable footer container (from FooterBlockResolvedView).
+	 */
+	containerWidth?: number;
+
+	/**
 	 * Determines the direction that the actions are rendered. Can be vertical
 	 * or horizontal.
 	 */
@@ -36,7 +41,6 @@ export type ActionGroupProps = {
 	 * serving as a hook for automated tests
 	 */
 	testId?: string;
-
 	/**
 	 * Determines the maximum number of singular actions that should be rendered
 	 * before collapsing all actions into a Dropdown.

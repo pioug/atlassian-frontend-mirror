@@ -1,12 +1,8 @@
 export { durations, exitingDurations, durationStep } from './utils/durations';
 export type { Durations } from './utils/durations';
 export { easeIn, easeInOut, easeOut, linear } from './utils/curves';
-export {
-	isReducedMotion,
-	useIsReducedMotion,
-	reduceMotionAsPerUserPreference,
-	prefersReducedMotion,
-} from './utils/accessibility';
+export { isReducedMotion, useIsReducedMotion, prefersReducedMotion } from './utils/accessibility';
+export { reduceMotionAsPerUserPreference } from './utils/reduce-motion-as-per-user-preference';
 export { default as FadeIn } from './entering/fade-in';
 export type { FadeKeyframesMotionProps } from './entering/fade-in';
 export { default as AnimateIn } from './entering/animate-in';

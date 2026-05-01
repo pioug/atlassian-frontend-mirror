@@ -1,12 +1,12 @@
 import { type WithFileAttributes, type OperationalEventPayload } from './types';
-import isValidId from 'uuid-validate';
 import { produce } from 'immer';
+import { isValidUuid } from '../utils/isValidUuid';
 type PayloadWithFileAttributes = OperationalEventPayload<WithFileAttributes, any, any>;
 
 const sanitiseFileId = (draft: PayloadWithFileAttributes) => {
 	const { fileId } = draft.attributes.fileAttributes;
 	draft.attributes.fileAttributes.fileId =
-		fileId === 'external-image' || isValidId(fileId) ? fileId : 'INVALID_FILE_ID';
+		fileId === 'external-image' || isValidUuid(fileId) ? fileId : 'INVALID_FILE_ID';
 };
 
 const hasFileAttributesWithFileId = (payload: Object): payload is PayloadWithFileAttributes =>

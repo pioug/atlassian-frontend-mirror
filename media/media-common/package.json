@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-common",
-	"version": "13.1.0",
+	"version": "13.2.0",
 	"description": "Includes common utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,6 +36,7 @@
 		"./helpers": "./src/utils/helpers.ts",
 		"./isMimeTypeSupportedByBrowser": "./src/mediaTypeUtils/isMimeTypeSupportedByBrowser.ts",
 		"./isMimeTypeSupportedByServer": "./src/mediaTypeUtils/isMimeTypeSupportedByServer.ts",
+		"./isValidUuid": "./src/utils/isValidUuid.ts",
 		"./jestHelpers": "./src/test-helpers/jestHelpers.ts",
 		"./media-use-only": "./src/docs/media-use-only.tsx",
 		"./mediaFeatureFlags": "./src/mediaFeatureFlags/index.ts",
@@ -71,8 +72,7 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@babel/runtime": "root:*",
-		"immer": "root:*",
-		"uuid-validate": "root:*"
+		"immer": "root:*"
 	},
 	"peerDependencies": {
 		"enzyme": ">=3.10.0",
@@ -85,7 +85,6 @@
 		}
 	},
 	"devDependencies": {
-		"@types/uuid-validate": "root:*",
 		"enzyme": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*"

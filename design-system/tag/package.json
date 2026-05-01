@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tag",
-	"version": "14.12.1",
+	"version": "14.13.0",
 	"description": "A tag labels UI objects for quick recognition and navigation.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -58,12 +58,15 @@
 		}
 	},
 	"exports": {
-		"./simple-tag": "./src/tag/simple-tag.tsx",
-		"./removable-tag": "./src/tag/removable-tag.tsx",
-		"./avatar-tag": "./src/tag-new/avatar-tag.tsx",
-		"./tag-dropdown-trigger": "./src/tag-new/tag-dropdown-trigger.tsx",
+		".": "./src/index.tsx",
+		"./avatar-tag": "./src/entry-points/avatar-tag.tsx",
 		"./new": "./src/tag-new/entrypoint.tsx",
-		".": "./src/index.tsx"
+		"./removable-tag": "./src/entry-points/removable-tag.tsx",
+		"./simple-tag": "./src/entry-points/simple-tag.tsx",
+		"./tag-dropdown-trigger": "./src/entry-points/tag-dropdown-trigger.tsx",
+		"./tag-new/types": "./src/entry-points/tag-new-types.tsx",
+		"./tag/types": "./src/entry-points/tag-types.tsx",
+		"./types": "./src/entry-points/types.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

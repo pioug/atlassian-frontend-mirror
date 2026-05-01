@@ -1,5 +1,7 @@
 import type React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import {
 	isModified,
 	getRoutePathFromUrl,
@@ -93,14 +95,16 @@ export function getNavigationProps(input: NavigationInput): NavigationByIntent {
 	const { href: rawHref, intent, context, onClick: rawOnClick } = input;
 	const previewPanelProps = 'previewPanelProps' in input ? input.previewPanelProps : undefined;
 	const resolvedIntent = intent !== 'unknown' ? intent : classifyNavigationIntent(rawHref);
+	const openLinkInNewTab = resolvedIntent === 'external' || context.forceExternalIntent;
 
 	// Prefix relative hrefs with the context entry point for the current product
-	const href =
-		resolvedIntent === 'external' || context.forceExternalIntent
+	const href = fg('ptc-fix-teams-isolated-links')
+		? prefixWithContextEntryPoint(rawHref, context.contextEntryPoint)
+		: openLinkInNewTab
 			? rawHref
 			: prefixWithContextEntryPoint(rawHref, context.contextEntryPoint ?? '');
 
-	if (resolvedIntent === 'external' || context.forceExternalIntent) {
+	if (openLinkInNewTab) {
 		return {
 			href,
 			target: '_blank',

@@ -1,40 +1,45 @@
 import { defineMessages } from 'react-intl';
 
 export const mentionMessages: {
+	inviteButton: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	inviteItemTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	mentionsAddLabel: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	mentionsIconLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	mentionsNodeLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	unknownLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	inviteTeammateInvalidEmail: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	mentionsAddLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	mentionsIconLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	mentionsNodeLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	sendInvite: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	unknownLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	inviteItemTitle: {
@@ -74,5 +79,10 @@ export const mentionMessages: {
 		id: 'fabric.editor.inviteItem.sendInvite',
 		defaultMessage: 'Send request to invite teammate',
 		description: 'By line text for send request to invite teammate option shown in mentions.',
+	},
+	inviteButton: {
+		id: 'fabric.editor.inviteItem.inviteButton',
+		defaultMessage: 'Invite',
+		description: 'Label for the invite button shown in the mention typeahead invite item.',
 	},
 });

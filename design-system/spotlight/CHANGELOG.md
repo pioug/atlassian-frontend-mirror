@@ -1,5 +1,16 @@
 # @atlaskit/spotlight
 
+## 0.13.0
+
+### Minor Changes
+
+- [`aef119573f01b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aef119573f01b) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.12.2
 
 ### Patch Changes

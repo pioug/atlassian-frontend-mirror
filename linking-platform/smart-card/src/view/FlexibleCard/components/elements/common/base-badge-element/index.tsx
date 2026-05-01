@@ -8,6 +8,7 @@ import React, { forwardRef } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 import { type MessageDescriptor } from 'react-intl';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -113,6 +114,11 @@ export type BaseBadgeElementProps = ElementProps & {
 	 */
 	hideIconLoadingSkeleton?: boolean;
 	/**
+	 * Determines whether the badge label should be hidden. When set to true,
+	 * the badge will be displayed without the label, showing only the icon.
+	 */
+	hideLabel?: boolean;
+	/**
 	 * The Atlaskit Icon to display next to the label. If this is not supplied,
 	 * then the badge icon will fallback to the URL provided.
 	 */
@@ -151,6 +157,7 @@ const BaseBadgeRefreshNew = forwardRef(
 			testId = 'smart-element-badge',
 			url,
 			color,
+			hideLabel = false,
 		}: BaseBadgeElementProps,
 		ref: React.Ref<HTMLElement>,
 	) => {
@@ -162,6 +169,8 @@ const BaseBadgeRefreshNew = forwardRef(
 		if (!formattedMessageOrLabel || !badgeIcon) {
 			return null;
 		}
+
+		const shouldHideLabel = hideLabel && fg('platform_sl_3p_auth_rovo_block_card_kill_switch');
 
 		return (
 			<span
@@ -179,9 +188,11 @@ const BaseBadgeRefreshNew = forwardRef(
 						{badgeIcon}
 					</Box>
 				)}
-				<Box as="span" testId={`${testId}-label`} xcss={styles.text}>
-					{formattedMessageOrLabel}
-				</Box>
+				{!shouldHideLabel && (
+					<Box as="span" testId={`${testId}-label`} xcss={styles.text}>
+						{formattedMessageOrLabel}
+					</Box>
+				)}
 			</span>
 		);
 	},

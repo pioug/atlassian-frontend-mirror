@@ -43,7 +43,7 @@ import {
 	getMultiSelectAnalyticsAttributes,
 } from '../pm-plugins/utils/analytics';
 import { getNestedNodePosition } from '../pm-plugins/utils/getNestedNodePosition';
-import { selectNode, setCursorPositionAtMovedNode } from '../pm-plugins/utils/getSelection';
+import { setCursorPositionAtMovedNode } from '../pm-plugins/utils/getSelection';
 import { removeFromSource } from '../pm-plugins/utils/remove-from-source';
 import { getSelectedSlicePosition } from '../pm-plugins/utils/selection';
 import { getInsertLayoutStep, updateSelection } from '../pm-plugins/utils/update-selection';
@@ -172,11 +172,6 @@ export const moveNodeViaShortcut = (
 			state.selection,
 		);
 
-		const isMultiSelectEnabled = editorExperiment(
-			'platform_editor_element_drag_and_drop_multiselect',
-			true,
-		);
-
 		const expandedSelection = expandSelectionBounds(selection.$anchor, selection.$head);
 		const expandedAnchor = expandedSelection.$anchor.pos;
 		const expandedHead = expandedSelection.$head.pos;
@@ -189,16 +184,15 @@ export const moveNodeViaShortcut = (
 			hoistedPos = state.doc.resolve(from).before(LAYOUT_COL_DEPTH);
 		}
 
-		const currentNodePos =
-			isMultiSelectEnabled && !getFocusedHandle(state) && !selection.empty
-				? (hoistedPos ?? from)
-				: getCurrentNodePos(state);
+		const currentNodePos = !getFocusedHandle(state) && !selection.empty
+			? (hoistedPos ?? from)
+			: getCurrentNodePos(state);
+
 		if (currentNodePos > -1) {
 			const $currentNodePos = state.doc.resolve(currentNodePos);
-			const nodeAfterPos =
-				isMultiSelectEnabled && !getFocusedHandle(state)
-					? Math.max(expandedAnchor, expandedHead)
-					: $currentNodePos.posAtIndex($currentNodePos.index() + 1);
+			const nodeAfterPos = !getFocusedHandle(state)
+				? Math.max(expandedAnchor, expandedHead)
+				: $currentNodePos.posAtIndex($currentNodePos.index() + 1);
 
 			const isTopLevelNode = $currentNodePos.depth === 0;
 
@@ -346,15 +340,7 @@ export const moveNodeViaShortcut = (
 					return tr;
 				});
 				return true;
-			} else if (nodeType && !isMultiSelectEnabled) {
-				// If the node is first/last one, only select the node
-				api?.core?.actions.execute(({ tr }) => {
-					selectNode(tr, currentNodePos, nodeType, api);
-					tr.scrollIntoView();
-					return tr;
-				});
-				return true;
-			} else if (isMultiSelectEnabled) {
+			} else {
 				api?.core?.actions.execute(({ tr }) => {
 					api?.blockControls.commands.setMultiSelectPositions($newAnchor.pos, $newHead.pos)({ tr });
 					tr.scrollIntoView();
@@ -369,232 +355,221 @@ export const moveNodeViaShortcut = (
 
 export const moveNode =
 	(api?: ExtractInjectionAPI<BlockControlsPlugin>) =>
-	(
-		start: number,
-		to: number,
-		inputMethod: MoveNodeMethod = INPUT_METHOD.DRAG_AND_DROP,
-		formatMessage?: IntlShape['formatMessage'],
-	): EditorCommand =>
-	({ tr }) => {
-		if (!api || start < 0 || to < 0) {
-			return tr;
-		}
-		const handleNode = tr.doc.nodeAt(start);
+		(
+			start: number,
+			to: number,
+			inputMethod: MoveNodeMethod = INPUT_METHOD.DRAG_AND_DROP,
+			formatMessage?: IntlShape['formatMessage'],
+		): EditorCommand =>
+			({ tr }) => {
+				if (!api || start < 0 || to < 0) {
+					return tr;
+				}
+				const handleNode = tr.doc.nodeAt(start);
 
-		if (!handleNode) {
-			return tr;
-		}
+				if (!handleNode) {
+					return tr;
+				}
 
-		let sliceFrom = start;
-		let sliceTo;
-		let sourceNodeTypes, hasSelectedMultipleNodes;
+				let sliceFrom = start;
+				let sliceTo;
+				let sourceNodeTypes, hasSelectedMultipleNodes;
 
-		const isMultiSelect = editorExperiment(
-			'platform_editor_element_drag_and_drop_multiselect',
-			true,
-		);
-
-		if (fg('platform_editor_ease_of_use_metrics')) {
-			api?.metrics?.commands.setContentMoved()({ tr });
-		}
+				if (fg('platform_editor_ease_of_use_metrics')) {
+					api?.metrics?.commands.setContentMoved()({ tr });
+				}
 
 		const preservedSelection = editorExperiment('platform_editor_block_menu', true)
 			? api?.blockControls.sharedState.currentState()?.preservedSelection
 			: undefined;
 
-		if (preservedSelection) {
-			const $from = tr.doc.resolve(Math.min(start, preservedSelection.from));
-			const expandedRange = $from.blockRange(preservedSelection.$to);
+				if (preservedSelection) {
+					const $from = tr.doc.resolve(Math.min(start, preservedSelection.from));
+					const expandedRange = $from.blockRange(preservedSelection.$to);
 
-			sliceFrom = expandedRange ? expandedRange.start : preservedSelection.from;
-			sliceTo = expandedRange ? expandedRange.end : preservedSelection.to;
+					sliceFrom = expandedRange ? expandedRange.start : preservedSelection.from;
+					sliceTo = expandedRange ? expandedRange.end : preservedSelection.to;
 
-			const attributes = getMultiSelectAnalyticsAttributes(tr, sliceFrom, sliceTo);
-			hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
-			sourceNodeTypes = attributes.nodeTypes;
-		} else if (isMultiSelect) {
-			const slicePosition = getSelectedSlicePosition(start, tr, api);
+					const attributes = getMultiSelectAnalyticsAttributes(tr, sliceFrom, sliceTo);
+					hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
+					sourceNodeTypes = attributes.nodeTypes;
+				} else {
+					const slicePosition = getSelectedSlicePosition(start, tr, api);
 
-			sliceFrom = slicePosition.from;
-			sliceTo = slicePosition.to;
+					sliceFrom = slicePosition.from;
+					sliceTo = slicePosition.to;
 
-			const attributes = getMultiSelectAnalyticsAttributes(tr, sliceFrom, sliceTo);
-			hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
-			sourceNodeTypes = attributes.nodeTypes;
-		} else {
-			const size = handleNode?.nodeSize ?? 1;
-			sliceTo = sliceFrom + size;
-		}
+					const attributes = getMultiSelectAnalyticsAttributes(tr, sliceFrom, sliceTo);
+					hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
+					sourceNodeTypes = attributes.nodeTypes;
+				}
 
-		const { expand, nestedExpand } = tr.doc.type.schema.nodes;
-		const $to = tr.doc.resolve(to);
-		const $handlePos = tr.doc.resolve(start);
+				const { expand, nestedExpand } = tr.doc.type.schema.nodes;
+				const $to = tr.doc.resolve(to);
+				const $handlePos = tr.doc.resolve(start);
 
-		const nodeCopy = tr.doc.slice(sliceFrom, sliceTo, false); // cut the content
-		const destNode = $to.node();
-		const destType = destNode.type;
-		const destParent = $to.node($to.depth);
+				const nodeCopy = tr.doc.slice(sliceFrom, sliceTo, false); // cut the content
+				const destNode = $to.node();
+				const destType = destNode.type;
+				const destParent = $to.node($to.depth);
 
-		const sourceNode = $handlePos.nodeAfter;
+				const sourceNode = $handlePos.nodeAfter;
 
-		//TODO: ED-26959 - Does this need to be updated with new selection logic above? ^
-		// Move a layout column to top level, or table cell, or panel, or expand, only moves the content into them
-		if (sourceNode && isDragLayoutColumnIntoSupportedNodes($handlePos, $to)) {
-			// need update after we support single column layout.
-			const layoutColumnContent = sourceNode.content;
-			let fragment;
-			// if drop into table, and layout column contains expand, transform it to nestedExpand
-			if (['tableCell', 'tableHeader'].includes($to.parent.type.name)) {
-				const contentContainsExpand = findChildrenByType(sourceNode, expand).length > 0;
-				fragment = contentContainsExpand
-					? transformFragmentExpandToNestedExpand(Fragment.from(layoutColumnContent))
-					: Fragment.from(layoutColumnContent);
+				//TODO: ED-26959 - Does this need to be updated with new selection logic above? ^
+				// Move a layout column to top level, or table cell, or panel, or expand, only moves the content into them
+				if (sourceNode && isDragLayoutColumnIntoSupportedNodes($handlePos, $to)) {
+					// need update after we support single column layout.
+					const layoutColumnContent = sourceNode.content;
+					let fragment;
+					// if drop into table, and layout column contains expand, transform it to nestedExpand
+					if (['tableCell', 'tableHeader'].includes($to.parent.type.name)) {
+						const contentContainsExpand = findChildrenByType(sourceNode, expand).length > 0;
+						fragment = contentContainsExpand
+							? transformFragmentExpandToNestedExpand(Fragment.from(layoutColumnContent))
+							: Fragment.from(layoutColumnContent);
 
-				if (!fragment) {
+						if (!fragment) {
+							return tr;
+						}
+					} else {
+						fragment = Fragment.from(layoutColumnContent);
+					}
+
+					removeFromSource(tr, $handlePos, $handlePos.pos + sourceNode.nodeSize);
+					const mappedTo = tr.mapping.map(to);
+					tr.insert(mappedTo, fragment)
+						.setSelection(Selection.near(tr.doc.resolve(mappedTo)))
+						.scrollIntoView();
+
 					return tr;
 				}
-			} else {
-				fragment = Fragment.from(layoutColumnContent);
-			}
 
-			removeFromSource(tr, $handlePos, $handlePos.pos + sourceNode.nodeSize);
-			const mappedTo = tr.mapping.map(to);
-			tr.insert(mappedTo, fragment)
-				.setSelection(Selection.near(tr.doc.resolve(mappedTo)))
-				.scrollIntoView();
+				if (
+					!canMoveNodeToIndex(destParent, $to.index(), $handlePos.node().child($handlePos.index()), $to)
+				) {
+					return tr;
+				}
 
-			return tr;
-		}
+				let convertedNodeSlice = transformSourceSlice(nodeCopy, destType);
+				let convertedNode = convertedNodeSlice?.content;
+				if (!convertedNode) {
+					return tr;
+				}
 
-		if (
-			!canMoveNodeToIndex(destParent, $to.index(), $handlePos.node().child($handlePos.index()), $to)
-		) {
-			return tr;
-		}
+				// Currently we don't support breakout mark for children nodes of bodiedSyncBlock node
+				// Hence strip out the mark for now
+				if (
+					destNode.type.name === 'bodiedSyncBlock' &&
+					editorExperiment('platform_synced_block', true)
+				) {
+					const nodes: PMNode[] = [];
 
-		let convertedNodeSlice = transformSourceSlice(nodeCopy, destType);
-		let convertedNode = convertedNodeSlice?.content;
-		if (!convertedNode) {
-			return tr;
-		}
+					convertedNodeSlice?.content.forEach((node) => {
+						nodes.push(node.mark(node.marks.filter((mark) => mark.type.name !== 'breakout')));
+					});
 
-		// Currently we don't support breakout mark for children nodes of bodiedSyncBlock node
-		// Hence strip out the mark for now
-		if (
-			destNode.type.name === 'bodiedSyncBlock' &&
-			editorExperiment('platform_synced_block', true)
-		) {
-			const nodes: PMNode[] = [];
+					convertedNodeSlice = new Slice(Fragment.from(nodes), 0, 0);
+					convertedNode = convertedNodeSlice.content;
+				}
 
-			convertedNodeSlice?.content.forEach((node) => {
-				nodes.push(node.mark(node.marks.filter((mark) => mark.type.name !== 'breakout')));
-			});
+				// delete the content from the original position
+				tr.delete(sliceFrom, sliceTo);
+				const mappedTo = tr.mapping.map(to);
 
-			convertedNodeSlice = new Slice(Fragment.from(nodes), 0, 0);
-			convertedNode = convertedNodeSlice.content;
-		}
+				const isDestNestedLoneEmptyParagraph =
+					destParent.type.name !== 'doc' &&
+					destParent.childCount === 1 &&
+					isEmptyParagraph($to.nodeAfter);
 
-		// delete the content from the original position
-		tr.delete(sliceFrom, sliceTo);
-		const mappedTo = tr.mapping.map(to);
+				if (convertedNodeSlice && isDestNestedLoneEmptyParagraph) {
+					// if only a single empty paragraph within container, replace it
+					tr.replace(mappedTo, mappedTo + 1, convertedNodeSlice);
+				} else {
+					// otherwise just insert the content at the new position
+					tr.insert(mappedTo, convertedNode);
+				}
 
-		const isDestNestedLoneEmptyParagraph =
-			destParent.type.name !== 'doc' &&
-			destParent.childCount === 1 &&
-			isEmptyParagraph($to.nodeAfter);
+				const sliceSize = sliceTo - sliceFrom;
+				if (inputMethod === INPUT_METHOD.DRAG_AND_DROP) {
+					tr = setCursorPositionAtMovedNode(tr, mappedTo, api);
+				} else if (preservedSelection) {
+					const currMeta = tr.getMeta(key);
+					const nodeMovedOffset = mappedTo - sliceFrom;
+					tr.setMeta(key, {
+						...currMeta,
+						preservedSelectionMapping: new Mapping([new StepMap([0, 0, nodeMovedOffset])]),
+					});
+				} else {
+					tr =
+						api?.blockControls.commands.setMultiSelectPositions(
+							mappedTo,
+							mappedTo + sliceSize,
+						)({ tr }) ?? tr;
+				}
 
-		if (convertedNodeSlice && isDestNestedLoneEmptyParagraph) {
-			// if only a single empty paragraph within container, replace it
-			tr.replace(mappedTo, mappedTo + 1, convertedNodeSlice);
-		} else {
-			// otherwise just insert the content at the new position
-			tr.insert(mappedTo, convertedNode);
-		}
+				const currMeta = tr.getMeta(key);
+				tr.setMeta(key, { ...currMeta, nodeMoved: true });
+				if (
+					// when move node via block menu, we need to keep the focus on block menu popup, so don't move focus to editor in this scenario
+					!(
+						inputMethod === INPUT_METHOD.BLOCK_MENU &&
+						editorExperiment('platform_editor_block_menu', true)
+					)
+				) {
+					api?.core.actions.focus();
+				}
 
-		const sliceSize = sliceTo - sliceFrom;
-		if (inputMethod === INPUT_METHOD.DRAG_AND_DROP) {
-			tr = setCursorPositionAtMovedNode(tr, mappedTo, api);
-		} else if (preservedSelection) {
-			const currMeta = tr.getMeta(key);
-			const nodeMovedOffset = mappedTo - sliceFrom;
-			tr.setMeta(key, {
-				...currMeta,
-				preservedSelectionMapping: new Mapping([new StepMap([0, 0, nodeMovedOffset])]),
-			});
-		} else if (isMultiSelect) {
-			tr =
-				api?.blockControls.commands.setMultiSelectPositions(
-					mappedTo,
-					mappedTo + sliceSize,
-				)({ tr }) ?? tr;
-		} else {
-			tr = selectNode(tr, mappedTo, handleNode.type.name, api);
-		}
+				const $mappedTo = tr.doc.resolve(mappedTo);
 
-		const currMeta = tr.getMeta(key);
-		tr.setMeta(key, { ...currMeta, nodeMoved: true });
-		if (
-			// when move node via block menu, we need to keep the focus on block menu popup, so don't move focus to editor in this scenario
-			!(
-				inputMethod === INPUT_METHOD.BLOCK_MENU &&
-				editorExperiment('platform_editor_block_menu', true)
-			)
-		) {
-			api?.core.actions.focus();
-		}
+				const expandAncestor = findParentNodeOfTypeClosestToPos($to, [expand, nestedExpand]);
 
-		const $mappedTo = tr.doc.resolve(mappedTo);
+				if (expandAncestor) {
+					const wasExpandExpanded = expandedState.get(expandAncestor.node);
+					const updatedExpandAncestor = findParentNodeOfTypeClosestToPos($mappedTo, [
+						expand,
+						nestedExpand,
+					]);
+					if (wasExpandExpanded !== undefined && updatedExpandAncestor) {
+						expandedState.set(updatedExpandAncestor.node, wasExpandExpanded);
+					}
+				}
 
-		const expandAncestor = findParentNodeOfTypeClosestToPos($to, [expand, nestedExpand]);
+				if (editorExperiment('advanced_layouts', true)) {
+					attachMoveNodeAnalytics(
+						tr,
+						inputMethod,
+						$handlePos.depth,
+						sourceNodeTypes,
+						$mappedTo?.depth,
+						$mappedTo?.parent.type.name,
+						$handlePos.sameParent($mappedTo),
+						api,
+						hasSelectedMultipleNodes,
+					);
+				} else {
+					api?.analytics?.actions.attachAnalyticsEvent({
+						eventType: EVENT_TYPE.TRACK,
+						action: ACTION.MOVED,
+						actionSubject: ACTION_SUBJECT.ELEMENT,
+						actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
+						attributes: {
+							nodeDepth: $handlePos.depth,
+							nodeTypes: sourceNodeTypes,
+							destinationNodeDepth: $mappedTo?.depth,
+							destinationNodeType: $mappedTo?.parent.type.name,
+							inputMethod,
+							hasSelectedMultipleNodes,
+						},
+					})(tr);
+				}
 
-		if (expandAncestor) {
-			const wasExpandExpanded = expandedState.get(expandAncestor.node);
-			const updatedExpandAncestor = findParentNodeOfTypeClosestToPos($mappedTo, [
-				expand,
-				nestedExpand,
-			]);
-			if (wasExpandExpanded !== undefined && updatedExpandAncestor) {
-				expandedState.set(updatedExpandAncestor.node, wasExpandExpanded);
-			}
-		}
+				const movedMessage =
+					to > sliceFrom ? blockControlsMessages.movedDown : blockControlsMessages.movedup;
 
-		if (editorExperiment('advanced_layouts', true)) {
-			attachMoveNodeAnalytics(
-				tr,
-				inputMethod,
-				$handlePos.depth,
-				handleNode.type.name,
-				$mappedTo?.depth,
-				$mappedTo?.parent.type.name,
-				$handlePos.sameParent($mappedTo),
-				api,
-				sourceNodeTypes,
-				hasSelectedMultipleNodes,
-			);
-		} else {
-			api?.analytics?.actions.attachAnalyticsEvent({
-				eventType: EVENT_TYPE.TRACK,
-				action: ACTION.MOVED,
-				actionSubject: ACTION_SUBJECT.ELEMENT,
-				actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
-				attributes: {
-					nodeDepth: $handlePos.depth,
-					nodeType: handleNode.type.name,
-					destinationNodeDepth: $mappedTo?.depth,
-					destinationNodeType: $mappedTo?.parent.type.name,
-					inputMethod,
-					...(isMultiSelect && { sourceNodeTypes, hasSelectedMultipleNodes }),
-				},
-			})(tr);
-		}
+				api?.accessibilityUtils?.actions.ariaNotify(
+					formatMessage ? formatMessage(movedMessage) : movedMessage.defaultMessage,
+					{ priority: 'important' },
+				);
 
-		const movedMessage =
-			to > sliceFrom ? blockControlsMessages.movedDown : blockControlsMessages.movedup;
-
-		api?.accessibilityUtils?.actions.ariaNotify(
-			formatMessage ? formatMessage(movedMessage) : movedMessage.defaultMessage,
-			{ priority: 'important' },
-		);
-
-		return tr;
-	};
+				return tr;
+			};

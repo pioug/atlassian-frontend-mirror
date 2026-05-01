@@ -36,6 +36,11 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	cannotPasteSyncedBlockUnsupportedDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	cannotPasteSyncedBlockTitle: {
 		defaultMessage: string;
 		description: string;
@@ -835,6 +840,12 @@ export const syncBlockMessages: {
 		id: 'fabric.editor.cannotPasteSyncedBlockDescription',
 		defaultMessage:
 			'We’re still building this feature. Currently, you can only paste synced content once your work item has been created. ',
+		description: 'Description in flag which appears when a synced block cannot be pasted',
+	},
+	cannotPasteSyncedBlockUnsupportedDescription: {
+		id: 'fabric.editor.cannotPasteSyncedBlockUnsupportedDescription',
+		defaultMessage:
+			`Sync blocks aren't supported here yet. `,
 		description: 'Description in flag which appears when a synced block cannot be pasted',
 	},
 	cannotPasteSyncedBlockAction: {

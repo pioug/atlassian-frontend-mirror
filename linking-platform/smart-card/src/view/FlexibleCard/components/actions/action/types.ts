@@ -4,7 +4,7 @@ import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { Appearance } from '@atlaskit/button/types';
 import type { Space } from '@atlaskit/primitives/compiled';
 
-import type { SmartLinkSize } from '../../../../../constants';
+import type { CardDisplay, SmartLinkSize } from '../../../../../constants';
 
 export type ActionMessageAppearance = 'error';
 
@@ -35,6 +35,12 @@ export type ActionProps = {
 	 * Used to determine whether the Action is in a Dropdown.
 	 */
 	asDropDownItem?: boolean;
+
+	/**
+	 * Used in block card 3P post-auth experiment to show different icons for Rovo actions
+	 * Should be removed on clean up of platform_sl_3p_auth_rovo_block_card_kill_switch after finalizing which icons to use long term
+	 */
+	cardAppearance?: CardDisplay;
 
 	/**
 	 * For compiled css

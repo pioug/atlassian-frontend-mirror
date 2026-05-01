@@ -2,12 +2,15 @@ import { useMemo } from 'react';
 
 import { type ProviderProps, useSmartLinkContext } from '@atlaskit/link-provider';
 
-export type RovoConfig = ProviderProps['rovoOptions'];
+export type RovoConfig = {
+	product?: ProviderProps['product'],
+	rovoOptions?: ProviderProps['rovoOptions'],
+};
 
 const useRovoConfig = (): RovoConfig => {
-	const { rovoOptions } = useSmartLinkContext();
+	const { rovoOptions, product } = useSmartLinkContext();
 
-	return useMemo(() => rovoOptions, [rovoOptions]);
+	return useMemo(() => ({ rovoOptions, product }), [rovoOptions, product]);
 };
 
 export default useRovoConfig;

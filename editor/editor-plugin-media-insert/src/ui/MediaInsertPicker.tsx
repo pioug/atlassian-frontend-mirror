@@ -61,6 +61,10 @@ export const MediaInsertPicker = ({
 	customizedUrlValidation,
 	customizedHelperMessage,
 }: MediaInsertPickerProps): React.JSX.Element | null => {
+	// Tabs registered by other plugins via `api.mediaInsert.actions.registerInsertTab(...)`.
+	// Read once per render; the registry is mutated only at plugin setup time so this is stable
+	// for the lifetime of an editor instance.
+	const registeredTabs = api?.mediaInsert?.actions?.getInsertTabs?.() ?? [];
 	const { mediaProvider, isOpen, mountInfo } = useSharedPluginStateWithSelector(
 		api,
 		['media', 'mediaInsert'],
@@ -95,6 +99,15 @@ export const MediaInsertPicker = ({
 
 	const handleClose =
 		(exitMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.MOUSE) => (event: Event) => {
+			// Same as AIImageGenerationPopup: react-select can detach the option
+			// before `click` fires, so withOuterListeners treats it as outside.
+			if (
+				exitMethod === INPUT_METHOD.MOUSE &&
+				event.target instanceof Node &&
+				!event.target.isConnected
+			) {
+				return;
+			}
 			event.preventDefault();
 			if (dispatchAnalyticsEvent) {
 				const payload: AnalyticsEventPayload = {
@@ -133,12 +146,29 @@ export const MediaInsertPicker = ({
 						<Tabs id="media-insert-tab-navigation">
 							<Box paddingBlockEnd="space.150">
 								<TabList>
+									{registeredTabs.map((tab) => (
+										<Tab key={tab.key}>{tab.label}</Tab>
+									))}
 									{!isOnlyExternalLinks && (
 										<Tab>{intl.formatMessage(mediaInsertMessages.fileTabTitle)}</Tab>
 									)}
 									<Tab>{intl.formatMessage(mediaInsertMessages.linkTabTitle)}</Tab>
 								</TabList>
 							</Box>
+							{registeredTabs.map(({ key, component: TabComponent }) => (
+								<CustomTabPanel key={key}>
+									<TabComponent
+										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+										closeMediaInsertPicker={() => {
+											closeMediaInsertPicker();
+											focusEditor();
+										}}
+										dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+										insertMediaSingle={insertMediaSingle}
+										mediaProvider={mediaProvider}
+									/>
+								</CustomTabPanel>
+							))}
 							{!isOnlyExternalLinks && (
 								<CustomTabPanel>
 									<LocalMedia

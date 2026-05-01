@@ -358,5 +358,3 @@ const Form: <FormValues extends Record<string, any>>(
 ) => React.ReactElement | null = forwardRefWithGeneric(FormBase);
 
 export default Form;
-
-export { IsDisabledContext } from './is-disabled-context';

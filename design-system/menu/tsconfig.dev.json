@@ -71,13 +71,13 @@
 			"path": "../../media/icon-file-type/tsconfig.app.json"
 		},
 		{
-			"path": "../icon-object/tsconfig.app.json"
-		},
-		{
 			"path": "../../observability/interaction-context/tsconfig.app.json"
 		},
 		{
 			"path": "../link/tsconfig.app.json"
+		},
+		{
+			"path": "../object/tsconfig.app.json"
 		},
 		{
 			"path": "../primitives/tsconfig.app.json"

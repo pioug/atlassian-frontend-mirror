@@ -1,75 +1,80 @@
 import { defineMessages } from 'react-intl';
 
 export const mediaInsertMessages: {
-	loadPreview: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	insert: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	pasteLinkToUpload: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	cancel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	fromUrlErrorMessage: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	fromUrlWarning: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	localFileNetworkErrorMessage: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	localFileErrorMessage: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	mediaAlt: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	upload: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	linkTabTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	fileTabTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	mediaPickerPopupAriaLabel: {
-		id: string;
+	fromUrlErrorMessage: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	fromUrlWarning: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	generateTabTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	},
+	insert: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	invalidUrlErrorMessage: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	linkTabTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	loadPreview: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	localFileErrorMessage: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	localFileNetworkErrorMessage: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	mediaAlt: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	mediaPickerPopupAriaLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	pasteLinkToUpload: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	upload: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	loadPreview: {
@@ -140,6 +145,11 @@ export const mediaInsertMessages: {
 		id: 'fabric.editor.media.insert.fileTabTitle',
 		defaultMessage: 'File',
 		description: 'Title of the navigation tab that allows users to upload local media files',
+	},
+	generateTabTitle: {
+		id: 'fabric.editor.media.insert.generateTabTitle',
+		defaultMessage: 'Create',
+		description: 'Title of the navigation tab that allows users to generate an image through AI',
 	},
 	mediaPickerPopupAriaLabel: {
 		id: 'fabric.editor.media.insert.mediaPickerPopupAriaLabel',

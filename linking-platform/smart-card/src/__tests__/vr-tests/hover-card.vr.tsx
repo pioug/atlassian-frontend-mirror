@@ -96,6 +96,7 @@ snapshot(HoverCardRovoChatActionGoogle, {
 	featureFlags: {
 		platform_sl_3p_auth_rovo_action_kill_switch: true,
 		platform_sl_3p_auth_rovo_action: true,
+		'rovogrowth-640-inline-action-nudge-fg': true,
 		'rovogrowth-640-inline-action-nudge-exp': [true, false],
 	},
 	waitForReactLazy: true,

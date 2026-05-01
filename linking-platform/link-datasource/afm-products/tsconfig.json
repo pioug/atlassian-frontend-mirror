@@ -75,9 +75,6 @@
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/icon-object/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/image/afm-products/tsconfig.json"
 		},
 		{
@@ -121,6 +118,9 @@
 		},
 		{
 			"path": "../../../design-system/modal-dialog/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/object/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../teamwork-ecosystem/outbound-auth-flow-client/afm-products/tsconfig.json"

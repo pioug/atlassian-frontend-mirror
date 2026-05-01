@@ -5,6 +5,7 @@ import { expandClassNames } from '@atlaskit/editor-common/styles';
 import { expandMessages } from '@atlaskit/editor-common/ui';
 import type { DOMOutputSpec, Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 export const buildExpandClassName = (type: string, expanded: boolean) => {
@@ -77,6 +78,12 @@ export const toDOM = (
 			class: `${expandClassNames.content} ${expandedState.get(node) ? '' : expandClassNames.contentCollapsed}`,
 			contenteditable:
 				contentEditable !== undefined ? (contentEditable ? 'true' : 'false') : undefined,
+			...(expValEquals('platform_editor_expand_content_a11y', 'isEnabled', true) && {
+				role: 'group',
+				'aria-label':
+					(intl && intl.formatMessage(expandMessages.expandBodyAriaLabel)) ||
+					expandMessages.expandBodyAriaLabel.defaultMessage,
+			}),
 		},
 		0,
 	],

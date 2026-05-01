@@ -55,7 +55,6 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -294,10 +293,7 @@ export const ResizableMediaSingleNextFunctional = (
 	const [isVideoFile, setIsVideoFile] = useState<boolean>(false);
 	const [hasResized, setHasResized] = useState<boolean>(false);
 
-	const nodePosition = expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)
-		? getNodePosition(getPos)
-		: // eslint-disable-next-line react-hooks/rules-of-hooks
-			useMemo(() => getNodePosition(getPos), [getPos]);
+	const nodePosition = getNodePosition(getPos);
 	const isNestedNode = useMemo(() => {
 		if (nodePosition === null) {
 			return false;
@@ -340,7 +336,7 @@ export const ResizableMediaSingleNextFunctional = (
 			return lineLength;
 		}
 
-		if (!isResizing && expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
+		if (!isResizing) {
 			return `var(--ak-editor-max-container-width)`;
 		}
 
@@ -371,9 +367,7 @@ export const ResizableMediaSingleNextFunctional = (
 			className,
 			resizerItemClassName,
 			{
-				'display-handle': expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)
-					? selected && !disableHandles
-					: selected,
+				'display-handle': selected && !disableHandles,
 				'richMedia-selected': selected,
 				'rich-media-wrapped': layout === 'wrap-left' || layout === 'wrap-right',
 			},
@@ -393,7 +387,7 @@ export const ResizableMediaSingleNextFunctional = (
 	}, [nodePosition, view]);
 
 	const enable: EnabledHandles = useMemo(() => {
-		if (disableHandles && expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
+		if (disableHandles) {
 			return {
 				left: false,
 				right: false,
@@ -539,11 +533,7 @@ export const ResizableMediaSingleNextFunctional = (
 			})(size, delta, false, aspectRatioRef.current);
 
 			const resizerDomEl = resizerContainerRef.current;
-			if (
-				resizerDomEl &&
-				!hasResized &&
-				expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)
-			) {
+			if (resizerDomEl && !hasResized) {
 				// dispatch resize event to media node DOM element inside resizerDom
 				const mediaDomEl = resizerDomEl.querySelector('div[data-prosemirror-node-name="media"]');
 				const event = new CustomEvent('resized');
@@ -735,11 +725,7 @@ export const ResizableMediaSingleNextFunctional = (
 				snap={snaps}
 				resizeRatio={nonWrappedLayouts.includes(layout) ? 2 : 1}
 				data-testid={resizerNextTestId}
-				isHandleVisible={
-					expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)
-						? selected && !disableHandles
-						: selected
-				}
+				isHandleVisible={selected && !disableHandles}
 				handlePositioning={handlePositioning}
 				handleHighlight="full-height"
 			>

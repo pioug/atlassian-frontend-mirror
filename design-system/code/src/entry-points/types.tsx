@@ -1,7 +1,9 @@
 export type {
 	CodeBlockProps,
+	CodeBlockTheme,
 	CodeProps,
-	SupportedLanguages,
-	LanguageAlias,
+	CodeTheme,
 	Language,
+	LanguageAlias,
+	SupportedLanguages,
 } from '../types';

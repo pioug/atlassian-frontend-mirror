@@ -24,7 +24,6 @@ import {
 	noSpacinglinkButtonMissingHrefComment,
 	OLD_BUTTON_ENTRY_POINT,
 	OLD_BUTTON_VARIANTS,
-	PRINT_SETTINGS,
 	unsupportedProps,
 } from '../utils/constants';
 import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
@@ -490,7 +489,7 @@ const transformer = (file: FileInfo, api: API): string => {
 
 	addCommentForCustomThemeButtons(fileSource, j);
 
-	return fileSource.toSource(PRINT_SETTINGS);
+	return fileSource.toSource({ quote: 'single' });
 };
 
 export default transformer;

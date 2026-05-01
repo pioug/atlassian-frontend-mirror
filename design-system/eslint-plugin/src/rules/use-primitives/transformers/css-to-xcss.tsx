@@ -17,9 +17,10 @@ import { getFunctionArgumentAtPos } from '../utils/get-function-argument-at-pos'
 import { getJSXAttributeByName } from '../utils/get-jsx-attribute-by-name';
 import { getVariableDefinitionValue } from '../utils/get-variable-definition-value';
 
-import { dimensionsMap } from './dimensions-map';
 import { spaceTokenMap } from './space-token-map';
 import { spaceTokenPositiveMap } from './space-token-positive-map';
+import { supportedDimensionAttributesMap } from './supported-dimension-attributes-map';
+
 export const cssToXcssTransformer = (
 	node: JSXElement,
 	context: Rule.RuleContext,
@@ -113,17 +114,6 @@ export const styledObjectToXcssTokens = (
 			);
 		}
 	});
-};
-
-export const supportedDimensionAttributesMap: {
-	[key: string]: typeof spaceTokenMap;
-} = {
-	width: dimensionsMap,
-	height: dimensionsMap,
-	minWidth: dimensionsMap,
-	minHeight: dimensionsMap,
-	maxWidth: dimensionsMap,
-	maxHeight: dimensionsMap,
 };
 
 export const supportedStylesMap: { [key: string]: typeof spaceTokenMap } = {

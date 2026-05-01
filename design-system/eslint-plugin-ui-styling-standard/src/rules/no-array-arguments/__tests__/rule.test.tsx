@@ -1,4 +1,4 @@
-import { typescriptEslintTester } from '../../__tests__/utils/_tester';
+import { typescriptEslintTester } from '../../__tests__/utils/_ts-tester';
 import rule from '../index';
 
 typescriptEslintTester.run(

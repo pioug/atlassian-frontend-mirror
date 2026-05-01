@@ -350,9 +350,8 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				baseStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				maxModeReizeFixStyles,
-				expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true) &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					baseStylesMaxContainerWidthFixes,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				baseStylesMaxContainerWidthFixes,
 				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 				fg('platform_editor_controls_increase_full_page_gutter') &&
 				editorExperiment('platform_editor_controls', 'variant1')

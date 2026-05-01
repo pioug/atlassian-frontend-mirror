@@ -108,6 +108,12 @@ const toDOM = (
 			class: `${expandClassNames.content} ${(__livePage ? !node.attrs.__expanded : node.attrs.__expanded) ? '' : expandClassNames.contentCollapsed}`,
 			contenteditable:
 				contentEditable !== undefined ? (contentEditable ? 'true' : 'false') : undefined,
+			...(expValEquals('platform_editor_expand_content_a11y', 'isEnabled', true) && {
+				role: 'group',
+				'aria-label':
+					(intl && intl.formatMessage(expandMessages.expandBodyAriaLabel)) ||
+					expandMessages.expandBodyAriaLabel.defaultMessage,
+			}),
 		},
 		0,
 	],

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/spotlight",
-	"version": "0.12.2",
+	"version": "0.13.0",
 	"description": "A spotlight introduces users to points of interest, from focused messages to multi-step tours.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,7 +39,28 @@
 	],
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./actions": "./src/entry-points/actions.tsx",
+		"./body": "./src/entry-points/body.tsx",
+		"./card": "./src/entry-points/card.tsx",
+		"./controls": "./src/entry-points/controls.tsx",
+		"./dismiss-control": "./src/entry-points/dismiss-control.tsx",
+		"./footer": "./src/entry-points/footer.tsx",
+		"./header": "./src/entry-points/header.tsx",
+		"./headline": "./src/entry-points/headline.tsx",
+		"./media": "./src/entry-points/media.tsx",
+		"./popover-content": "./src/entry-points/popover-content.tsx",
+		"./popover-provider": "./src/entry-points/popover-provider.tsx",
+		"./popover-target": "./src/entry-points/popover-target.tsx",
+		"./primary-action": "./src/entry-points/primary-action.tsx",
+		"./primary-link": "./src/entry-points/primary-link.tsx",
+		"./secondary-action": "./src/entry-points/secondary-action.tsx",
+		"./secondary-link": "./src/entry-points/secondary-link.tsx",
+		"./show-more-control": "./src/entry-points/show-more-control.tsx",
+		"./step-count": "./src/entry-points/step-count.tsx",
+		"./types": "./src/entry-points/types.tsx",
+		"./update-on-change": "./src/entry-points/update-on-change.tsx",
+		"./use-preload-media": "./src/entry-points/use-preload-media.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/browser-apis": "workspace:^",

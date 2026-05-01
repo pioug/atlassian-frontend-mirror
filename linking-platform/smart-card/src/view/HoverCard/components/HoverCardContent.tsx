@@ -69,7 +69,7 @@ const useIsUnauthorisedView = ({
 const useIsShowPreauthBetterHovercard = (
 	props: Parameters<typeof useIsUnauthorisedView>[0],
 ): boolean => {
-	const rovoConfig = useRovoConfig();
+	const { rovoOptions: rovoConfig } = useRovoConfig();
 	return Boolean(
 		useIsUnauthorisedView(props) &&
 		rovoConfig?.isRovoEnabled &&
@@ -429,7 +429,7 @@ const HoverCardContentWithViewVariant = (props: HoverCardContentProps): React.JS
 	);
 };
 
-const _default_1 = componentWithCondition(
+const _default_1: React.FC<HoverCardContentProps> = componentWithCondition(
 	() => {
 		// We need to read both of them to sutisfy some of the tests that expect both to be checked.
 		const flagA = fg('platform_sl_3p_preauth_better_hovercard_killswitch');

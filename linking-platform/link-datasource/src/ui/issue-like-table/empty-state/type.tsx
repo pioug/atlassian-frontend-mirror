@@ -2,12 +2,12 @@ import React from 'react';
 
 import { styled } from '@compiled/react';
 
-import Bug16Icon from '@atlaskit/icon-object/glyph/bug/16';
-import Commit16Icon from '@atlaskit/icon-object/glyph/commit/16';
-import Epic16Icon from '@atlaskit/icon-object/glyph/epic/16';
-import Issue16Icon from '@atlaskit/icon-object/glyph/issue/16';
-import Story16Icon from '@atlaskit/icon-object/glyph/story/16';
-import Task16Icon from '@atlaskit/icon-object/glyph/task/16';
+import BugObject from '@atlaskit/object/bug';
+import CommitObject from '@atlaskit/object/commit';
+import EpicObject from '@atlaskit/object/epic';
+import StoryObject from '@atlaskit/object/story';
+import TaskObject from '@atlaskit/object/task';
+import WorkItemObject from '@atlaskit/object/work-item';
 
 import { type IssueType } from './types';
 
@@ -22,17 +22,17 @@ const EmptyStateIcon = ({ type }: { type: IssueType }): React.JSX.Element => {
 	const TypeIcon = () => {
 		switch (type) {
 			case 'issue':
-				return <Issue16Icon label={'issue'} />;
+				return <WorkItemObject label={'issue'} />;
 			case 'commit':
-				return <Commit16Icon label={'commit'} />;
+				return <CommitObject label={'commit'} />;
 			case 'story':
-				return <Story16Icon label={'story'} />;
+				return <StoryObject label={'story'} />;
 			case 'epic':
-				return <Epic16Icon label={'epic'} />;
+				return <EpicObject label={'epic'} />;
 			case 'bug':
-				return <Bug16Icon label={'bug'} />;
+				return <BugObject label={'bug'} />;
 			case 'task':
-				return <Task16Icon label={'task'} />;
+				return <TaskObject label={'task'} />;
 		}
 	};
 

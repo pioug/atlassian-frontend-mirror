@@ -1,2 +1,3 @@
 export { Layering } from './components/layering';
-export { useCloseOnEscapePress, useLayering } from './hooks/index';
+export { useCloseOnEscapePress } from './hooks/use-close-on-escape-press';
+export { useLayering } from './hooks/use-layering';

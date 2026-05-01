@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-picker",
-	"version": "71.1.0",
+	"version": "71.2.0",
 	"description": "Library for handling file uploads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -53,8 +53,7 @@
 		"eventemitter2": "root:*",
 		"exenv": "root:*",
 		"perf-marks": "root:*",
-		"uuid": "root:*",
-		"uuid-validate": "root:*"
+		"uuid": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/media-core": "workspace:^",
@@ -78,7 +77,6 @@
 		"@types/enzyme": "root:*",
 		"@types/exenv": "root:*",
 		"@types/react": "root:*",
-		"@types/uuid-validate": "root:*",
 		"enzyme": "root:*",
 		"fetch-mock": "root:*",
 		"identity-obj-proxy": "root:*",

@@ -90,9 +90,6 @@
 			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/icon-object/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/link/afm-cc/tsconfig.json"
 		},
 		{
@@ -130,6 +127,9 @@
 		},
 		{
 			"path": "../../../design-system/menu/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/object/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/onboarding/afm-cc/tsconfig.json"

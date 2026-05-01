@@ -22,6 +22,7 @@ const enabledGates = [
 	'platform_sl_3p_auth_rovo_action_kill_switch',
 	'rovogrowth-640-inline-action-nudge-fg',
 	'smart-card-inline-resolved-view-refactor',
+	'platform_sl_3p_auth_rovo_block_card_kill_switch',
 ];
 
 const emptyConfig = {};

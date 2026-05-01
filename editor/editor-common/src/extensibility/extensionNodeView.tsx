@@ -44,6 +44,76 @@ interface ReactExtensionNodeProps {
 	showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
 }
 
+/**
+ * Allowlists of extension keys + layout
+ * Currently, only toc with default layout allows to skip React render.
+ * Extensions NOT in this list always follow the normal React render path.
+ */
+const ssrHydrationExtensionAllowlist = ['toc'];
+const ssrHydrationLayoutAllowlist = ['default'];
+
+const isSSRHydrationEligible = (node: PmNode): boolean => {
+	if (node.type.name !== 'extension') {
+		return false;
+	}
+	const { extensionKey, layout } = node.attrs ?? {};
+	if (!ssrHydrationExtensionAllowlist.includes(extensionKey)) {
+		return false;
+	}
+	// Treat a missing layout attr as `default` (the schema default).
+	const effectiveLayout = layout ?? 'default';
+	return ssrHydrationLayoutAllowlist.includes(effectiveLayout);
+};
+
+/**
+ * Per-(EditorView, extensionKey + localId) record of which extension identities
+ * have already had their initial-hydration init pass. SSR DOM reuse is only valid
+ * the very first time an ExtensionNode init runs for a given identity in a given
+ * editor — that is the only moment a real SSR-rendered element for that identity
+ * can exist in the editor DOM.
+ *
+ * After the first init, any element matching the SSR selector is the previous
+ * node view's React-rendered domRef that ProseMirror has not yet detached (e.g.
+ * during DnD / layout resize, where ProseMirror constructs the new node view
+ * BEFORE destroying the old one). Reusing it as if it were SSR DOM causes the
+ * new node view to skip React rendering and leaves the extension invisible
+ * (EDITOR-6613).
+ */
+const consumedHydrationIdentitiesByEditor = new WeakMap<EditorView, Set<string>>();
+
+const getHydrationIdentityKey = (
+	extensionKey: unknown,
+	localId: unknown,
+): string | null => {
+	if (typeof extensionKey !== 'string' || typeof localId !== 'string') {
+		return null;
+	}
+	if (extensionKey === '' || localId === '') {
+		return null;
+	}
+	return `${extensionKey}::${localId}`;
+};
+
+const hasHydrationIdentityBeenConsumed = (
+	view: EditorView,
+	identityKey: string,
+): boolean => {
+	const consumed = consumedHydrationIdentitiesByEditor.get(view);
+	return consumed ? consumed.has(identityKey) : false;
+};
+
+const markHydrationIdentityAsConsumed = (
+	view: EditorView,
+	identityKey: string,
+): void => {
+	let consumed = consumedHydrationIdentitiesByEditor.get(view);
+	if (!consumed) {
+		consumed = new Set<string>();
+		consumedHydrationIdentitiesByEditor.set(view, consumed);
+	}
+	consumed.add(identityKey);
+};
+
 // getInlineNodeViewProducer is a new api to use instead of ReactNodeView
 // when creating inline node views, however, it is difficult to test the impact
 // on selections when migrating inlineExtension to use the new api.
@@ -52,17 +122,8 @@ interface ReactExtensionNodeProps {
 export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 	ReactExtensionNodeProps & AdditionalParams
 > {
-	/**
-	 * Track whether we found and are reusing SSR'd DOM.
-	 * When true, we skip React Portal rendering on first init to preserve SSR content.
-	 */
+	/** True between SSR DOM adoption in `createDomRef` and the SSR→React handoff in `update`. */
 	private didReuseSsrDom = false;
-
-	/**
-	 * Track whether this is the first init call.
-	 * SSR content preservation only happens on the very first init.
-	 */
-	private isFirstInit = true;
 
 	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection' }): boolean {
 		// Extensions can perform async operations that will change the DOM.
@@ -75,16 +136,31 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 		);
 	}
 
+	/** See {@link consumedHydrationIdentitiesByEditor}. Null when attrs are missing → SSR reuse skipped. */
+	private getHydrationIdentityKey(): string | null {
+		return getHydrationIdentityKey(
+			this.node.attrs?.extensionKey,
+			this.node.attrs?.localId,
+		);
+	}
+
+	/** True only for the first ExtensionNode of this identity in this editor. See {@link consumedHydrationIdentitiesByEditor}. */
+	private isInInitialHydrationWindow(): boolean {
+		const identityKey = this.getHydrationIdentityKey();
+		if (identityKey === null) {
+			return false;
+		}
+		return !hasHydrationIdentityBeenConsumed(this.view, identityKey);
+	}
+
 	// Reserve height by setting a minimum height for the extension node view element
 	createDomRef(): HTMLElement {
 		if (!fg('confluence_connect_macro_preset_height')) {
-			// Try to reuse SSR'd DOM node on first init only
-			// This preserves SSR content and avoids TTVC mutations during hydration
+			// SSR DOM reuse — see {@link consumedHydrationIdentitiesByEditor}.
 			if (
 				!isSSR() &&
-				this.isFirstInit &&
-				this.node.type.name === 'extension' &&
-				this.node.attrs.extensionKey === 'toc' &&
+				isSSRHydrationEligible(this.node) &&
+				this.isInInitialHydrationWindow() &&
 				expValEquals('platform_editor_hydration_skip_react_portal', 'isEnabled', true)
 			) {
 				const ssrElement = this.findSSRElement();
@@ -144,24 +220,21 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 		return null;
 	}
 
-	/**
-	 * Override init() to skip React Portal rendering on first init if we're reusing SSR'd DOM.
-	 * This preserves the SSR content without React unnecessarily re-rendering it.
-	 */
+	/** Skip React Portal render on first init when reusing SSR DOM. See {@link consumedHydrationIdentitiesByEditor}. */
 	init(): this {
 		if (!expValEquals('platform_editor_hydration_skip_react_portal', 'isEnabled', true)) {
 			super.init();
 		} else {
-			if (
-				!isSSR() &&
-				this.node.type.name === 'extension' &&
-				this.node.attrs.extensionKey === 'toc'
-			) {
+			const isEligibleForSsrReuse = !isSSR() && isSSRHydrationEligible(this.node);
+
+			if (isEligibleForSsrReuse && this.isInInitialHydrationWindow()) {
 				const ssrElement = this.findSSRElement();
 				const shouldSkipInitRender = ssrElement !== null;
 				super.init(shouldSkipInitRender);
-				if (shouldSkipInitRender) {
-					this.isFirstInit = false;
+				const identityKey = this.getHydrationIdentityKey();
+				if (identityKey !== null) {
+					// Close the hydration window — see {@link consumedHydrationIdentitiesByEditor}.
+					markHydrationIdentityAsConsumed(this.view, identityKey);
 				}
 			} else {
 				super.init();
@@ -277,9 +350,8 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 		},
 		forwardRef: ForwardRef,
 	): React.JSX.Element {
-		// If we reused SSR'd DOM on first init, don't render React Portal
-		// The SSR content is already perfect and doesn't need re-rendering
-		if (this.didReuseSsrDom && this.isFirstInit) {
+		// While sitting on SSR DOM, skip the React portal — see {@link didReuseSsrDom}.
+		if (this.didReuseSsrDom) {
 			return null as unknown as React.JSX.Element;
 		}
 

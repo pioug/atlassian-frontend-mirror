@@ -7,6 +7,7 @@ import type {
 	ExperienceEventPayload,
 	TABLE_ACTION,
 	SyncedBlockSSRErrorAEP,
+	ExtensionType,
 } from '@atlaskit/editor-common/analytics';
 
 import type { AEP } from './enums';
@@ -385,6 +386,16 @@ type ReferenceSyncedBlockUpdateErrorAEP = OperationalAEP<
 	{ error: string; resourceId?: string }
 >;
 
+type ExtensionRenderedAsInlineAEP = OperationalAEP<
+	ACTION.RENDERED,
+	ACTION_SUBJECT.EXTENSION_AS_INLINE,
+	ExtensionType,
+	{
+		extensionKey: string;
+		extensionType: string;
+	}
+>;
+
 export type AnalyticsEventPayload<_T = void> =
 	| RendererStartAEP
 	| RendererRenderedAEP
@@ -420,7 +431,8 @@ export type AnalyticsEventPayload<_T = void> =
 	| SyncedBlockSSRErrorAEP
 	| ReferenceSyncedBlockUpdateErrorAEP
 	| SyncedBlockFetchSuccessAEP
-	| ExperienceEventPayload;
+	| ExperienceEventPayload
+	| ExtensionRenderedAsInlineAEP;
 
 export type FireAnalyticsCallback = <T = void>(
 	payload: AnalyticsEventPayload<T>,

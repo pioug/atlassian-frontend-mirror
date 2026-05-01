@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-card",
-	"version": "80.3.4",
+	"version": "80.4.2",
 	"description": "Includes all media card related components, CardView, CardViewSmall, Card...",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -80,8 +80,7 @@
 		"eventemitter2": "root:*",
 		"lru_map": "root:*",
 		"react-loadable": "root:*",
-		"use-callback-ref": "root:*",
-		"uuid-validate": "root:*"
+		"use-callback-ref": "root:*"
 	},
 	"peerDependencies": {
 		"@emotion/react": "^11.7.1",
@@ -121,6 +120,9 @@
 		"wait-for-expect": "root:*"
 	},
 	"platform-feature-flags": {
+		"cc-maui-phase-2-loading": {
+			"type": "boolean"
+		},
 		"platform_editor_maui_edit": {
 			"type": "boolean"
 		},

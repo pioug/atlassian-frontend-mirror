@@ -1,5 +1,16 @@
 # @atlaskit/drawer
 
+## 12.1.0
+
+### Minor Changes
+
+- [`31b1ede297136`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31b1ede297136) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.7
 
 ### Patch Changes

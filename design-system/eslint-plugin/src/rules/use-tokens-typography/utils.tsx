@@ -15,13 +15,6 @@ import {
 import { typographyPalette } from '@atlaskit/tokens/palettes-raw';
 import { typography as typographyTokens } from '@atlaskit/tokens/tokens-raw';
 
-import { typographyProperties } from './typography-properties';
-export const isTypographyProperty: (propertyName: string) => boolean = (
-	propertyName: string,
-): boolean => {
-	return typographyProperties.includes(propertyName);
-};
-
 export type TokenValueMap = {
 	tokenName: string;
 	tokenValue: string;
@@ -179,3 +172,5 @@ export function getTokenProperty(
 		value: getTokenNode(tokenName, tokenFallback, isFallbackMember),
 	});
 }
+
+export { isTypographyProperty } from './is-typography-property';

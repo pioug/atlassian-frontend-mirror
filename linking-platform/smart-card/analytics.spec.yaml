@@ -772,6 +772,11 @@ events:
           required: false
           type: ['large', 'small']
           description: The size of the modal
+  - button clicked (dismiss):
+      type: ui
+      description: fires when a user dismisses a dismissible Smart Link or hover card control.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
   - button clicked (learnMore):
       type: ui
       description:

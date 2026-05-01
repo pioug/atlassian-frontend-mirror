@@ -1,5 +1,47 @@
 # @atlaskit/editor-plugins
 
+## 13.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.0
+
+### Minor Changes
+
+- [`1b208e1f7d8f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b208e1f7d8f7) -
+  [ux] Adds the entry point for ai image generation to the media insert picker plugin as a new tab.
+  This feature is fully behind an experiment gate.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.171
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.170
 
 ### Patch Changes

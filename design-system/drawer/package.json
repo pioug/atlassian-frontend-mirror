@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/drawer",
-	"version": "12.0.7",
+	"version": "12.1.0",
 	"description": "A drawer is a panel that slides in from the left side of the screen.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,7 +25,12 @@
 	],
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./drawer": "./src/entry-points/drawer.tsx",
+		"./drawer-close-button": "./src/entry-points/drawer-close-button.tsx",
+		"./drawer-content": "./src/entry-points/drawer-content.tsx",
+		"./drawer-sidebar": "./src/entry-points/drawer-sidebar.tsx",
+		"./types": "./src/entry-points/types.tsx"
 	},
 	"homepage": "https://atlassian.design/components/drawer",
 	"atlassian": {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/code",
-	"version": "17.4.8",
+	"version": "17.5.0",
 	"description": "Code highlights short strings of code snippets inline with body text.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -113,13 +113,16 @@
 		}
 	},
 	"exports": {
-		"./types": "./src/entry-points/types.tsx",
 		".": "./src/index.tsx",
 		"./bidi-warning": "./src/bidi-warning/index.tsx",
-		"./bidi-warning-decorator": "./src/bidi-warning/bidi-warning-decorator.tsx",
+		"./bidi-warning-decorator": "./src/entry-points/bidi-warning-decorator.tsx",
+		"./bidi-warning-ui": "./src/entry-points/bidi-warning-ui.tsx",
 		"./block": "./src/entry-points/block.tsx",
+		"./code": "./src/entry-points/code.tsx",
+		"./code-block": "./src/entry-points/code-block.tsx",
+		"./constants": "./src/entry-points/constants.tsx",
 		"./inline": "./src/entry-points/inline.tsx",
-		"./constants": "./src/entry-points/constants.tsx"
+		"./types": "./src/entry-points/types.tsx"
 	},
 	"homepage": "https://atlassian.design/components/code/",
 	"platform-feature-flags": {

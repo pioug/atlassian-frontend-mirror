@@ -17,7 +17,6 @@ import {
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { nonWrappedLayouts } from '../../utils';
@@ -168,17 +167,6 @@ export function calcResizedWidth(
 	}
 }
 
-function calcMaxWidth(layout: MediaSingleLayout, containerWidth: number) {
-	switch (layout) {
-		case 'wide':
-			return calcWideWidth(containerWidth);
-		case 'full-width':
-			return calcBreakoutWidth(layout, containerWidth);
-		default:
-			return '100%';
-	}
-}
-
 function calcMargin(layout: MediaSingleLayout): string {
 	switch (layout) {
 		case 'wrap-right':
@@ -299,10 +287,6 @@ export const MediaSingleDimensionHelper = ({
 					),
 	);
 
-	const calculatedMaxWidth = roundToClosestEvenPxValue(
-		isExtendedResizeExperienceOn ? `${containerWidth}px` : calcMaxWidth(layout, containerWidth),
-	);
-
 	const cssMaxWidth = isExtendedResizeExperienceOn
 		? 'var(--ak-editor-max-container-width)'
 		: calcMaxCssForPercentageTypeMedia(layout);
@@ -340,9 +324,7 @@ export const MediaSingleDimensionHelper = ({
 						maxWidth: '100cqw',
 					},
 				})
-			: expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)
-				? `max-width: ${cssMaxWidth};`
-				: `max-width: ${calculatedMaxWidth};`}
+			: `max-width: ${cssMaxWidth};`}
 
 		${isExtendedResizeExperienceOn &&
 		`&[class*='is-resizing'] {

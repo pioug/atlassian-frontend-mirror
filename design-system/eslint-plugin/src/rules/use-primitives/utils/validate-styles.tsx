@@ -10,8 +10,9 @@ import { FunctionCall } from '../../../ast-nodes/function-call';
 import { Object as ObjectHelper } from '../../../ast-nodes/object';
 import { ObjectEntry } from '../../../ast-nodes/object-entry';
 import type { RuleConfig } from '../config';
-import { supportedDimensionAttributesMap, supportedStylesMap } from '../transformers/css-to-xcss';
+import { supportedStylesMap } from '../transformers/css-to-xcss';
 import { spaceTokenMap } from '../transformers/space-token-map';
+import { supportedDimensionAttributesMap } from '../transformers/supported-dimension-attributes-map';
 
 export const validateStyles = (node: CallExpression, config: RuleConfig): boolean => {
 	if (!node) {

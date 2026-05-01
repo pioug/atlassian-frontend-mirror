@@ -1,5 +1,40 @@
 # @atlaskit/editor-core
 
+## 219.2.0
+
+### Minor Changes
+
+- [`a759f33417d9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a759f33417d9b) -
+  [PIRA-1311](https://opsj.atlassian.net/browse/PIRA-1311) - clean up platform_editor_media_vc_fixes
+
+### Patch Changes
+
+- Updated dependencies
+
+## 219.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 219.1.12
+
+### Patch Changes
+
+- [`673df46586c14`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/673df46586c14) -
+  Fix `contentComponents` / `primaryToolbarComponents` going stale after a preset reconfigure.
+
+  `ReactEditorView.reconfigureState` mutates `config.current` (a `useRef`) but didn't schedule a
+  re-render, so the `render` prop kept passing the pre-reconfigure component arrays to the editor's
+  `AppearanceComponent`. Plugins added via reconfigure (e.g. `markdownModePlugin` flipping in via
+  `.maybeAdd(..., isMarkdownMode)`) had their `contentComponent` / `primaryToolbarComponent` ignored
+  until some unrelated state change (focus, selection) re-rendered the editor view. Now bumps a
+  state counter at the end of `reconfigureState` to trigger a follow-up render with the
+  freshly-mutated config. Gated on the `cc-markdown-mode` experiment for now since that's the only
+  known consumer flipping plugins via `.maybeAdd` mid-life.
+
+- Updated dependencies
+
 ## 219.1.11
 
 ### Patch Changes

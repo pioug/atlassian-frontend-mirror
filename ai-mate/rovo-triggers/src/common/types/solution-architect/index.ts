@@ -14,7 +14,7 @@ export type AutomationHandoffPayload = BaseHandoffPayload & {
 
 export type AgentHandoffPayload = BaseHandoffPayload & {
 	type: 'ROVO_AGENT';
-	ari?: never;
+	ari?: string | null | undefined;
 	buildId: string;
 	appBuilderAutoStart?: never;
 	shouldActivateAgent?: boolean;
@@ -38,6 +38,7 @@ export type SolutionArchitectAgentActivationPayload = PayloadCore<
 	'solution-architect-agent-activation',
 	{
 		draftBuildId: string;
+		ari?: string | null | undefined;
 	}
 >;
 

@@ -674,9 +674,8 @@ export const MediaSingleNodeNext = (
 	);
 
 	if (
-		!expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true) ||
-		(widthType !== 'pixel' &&
-			expValEquals('platform_editor_media_vc_fixes_patch1', 'isEnabled', true))
+		widthType !== 'pixel' &&
+		expValEquals('platform_editor_media_vc_fixes_patch1', 'isEnabled', true)
 	) {
 		return (
 			<Fragment>
@@ -701,7 +700,7 @@ export const MediaSingleNodeNext = (
 							hasFallbackContainer={false}
 							mediaSingleWidth={mediaSingleWidth}
 							editorAppearance={editorAppearance}
-							showLegacyNotification={widthType !== 'pixel'}
+							showLegacyNotification={true}
 							forceHandlePositioning={mediaOptions?.forceHandlePositioning}
 						>
 							{MediaChildren}

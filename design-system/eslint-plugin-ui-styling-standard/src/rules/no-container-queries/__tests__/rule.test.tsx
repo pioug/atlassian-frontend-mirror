@@ -1,4 +1,4 @@
-import { typescriptEslintTester } from '../../__tests__/utils/_tester';
+import { typescriptEslintTester } from '../../__tests__/utils/_ts-tester';
 import rule from '../index';
 
 typescriptEslintTester.run(
@@ -125,7 +125,7 @@ typescriptEslintTester.run(
             display: 'flex',
             flexDirection: 'column',
             boxSizing: 'border-box',
-        
+
             [\`@container cardContainer (max-width: \${DISPLAYING_FIELDS_MIN_CARD_WIDTH}px)\`]: {
                 paddingLeft: '10px',
                 paddingRight: 0,

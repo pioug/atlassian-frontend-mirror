@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client",
-	"version": "36.0.6",
+	"version": "36.1.0",
 	"description": "Media API Web Client Library",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,7 +47,6 @@
 		"rusha": "root:*",
 		"rxjs": "root:*",
 		"uuid": "root:*",
-		"uuid-validate": "root:*",
 		"xstate": "root:*"
 	},
 	"peerDependencies": {
@@ -63,7 +62,6 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@emotion/react": "root:*",
 		"@types/deep-equal": "root:*",
-		"@types/uuid-validate": "root:*",
 		"fetch-mock": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*"

@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 34.0.5
+
+### Patch Changes
+
+- [`be08cb30f2af2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be08cb30f2af2) -
+  Fix reactions list view more link in wrong colour
+
 ## 34.0.4
 
 ### Patch Changes

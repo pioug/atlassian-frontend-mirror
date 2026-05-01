@@ -36,10 +36,9 @@ import { ProgressBar } from './ui/progressBar/progressBar';
 import { PlayButton } from './ui/playButton/playButton';
 import { TickBox } from './ui/tickBox/tickBox';
 import { Blanket } from './ui/blanket/blanket';
-import { TransparentProgressBar } from '@atlaskit/progress-bar';
-import { AIBorder } from './ui/aiBorder/aiBorder';
 import { ActionsBar } from './ui/actionsBar/actionsBar';
 import { IconWrapper } from './ui/iconWrapper/iconWrapper';
+import { AIGeneratingOverlay } from './ai-generating-overlay';
 import {
 	PreviewUnavailable,
 	CreatingPreview,
@@ -56,6 +55,7 @@ import OpenMediaViewerButton from './ui/openMediaViewerButton/openMediaViewerBut
 import { useCurrentValueRef } from '../utils/useCurrentValueRef';
 import { SvgView } from './svgView';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const i18n = defineMessages({
 	traceIdTooltip: {
@@ -138,14 +138,6 @@ export interface RenderConfigByStatus {
 	traceTooltipVariant?: TraceTooltipVariant;
 }
 
-const aiProgressBarWrapperStyle: React.CSSProperties = {
-	position: 'absolute',
-	top: '50%',
-	left: '50%',
-	transform: 'translate(-50%, -50%)',
-	width: '60%',
-	zIndex: 2,
-};
 
 export const CardViewBase = ({
 	identifier,
@@ -343,10 +335,14 @@ export const CardViewBase = ({
 		traceTooltipVariant,
 	} = getRenderConfigByStatus();
 
-	// When AI is generating, always show the AI border.
-	// The AI generating decoration is cleared when the replacement upload completes,
-	// so we don't need to check status here.
-	const renderAIBorderOverride = !!isAIGenerating && fg('platform_editor_maui_edit');
+	// AI border shown while generating; cleared by the decoration on upload completion.
+	/* eslint-disable @atlaskit/platform/no-preconditioning -- loading-specific gate (cc-maui-phase-2-loading) layered on the existing platform_editor_maui_edit gate + MAUI experiment cohort during phased rollout; preconditioning is intentional and will be removed when the existing gates are cleaned up */
+	const renderAIBorderOverride =
+		!!isAIGenerating &&
+		fg('platform_editor_maui_edit') &&
+		fg('cc-maui-phase-2-loading') &&
+		expValEquals('cc-maui-experiment', 'isEnabled', true);
+	/* eslint-enable @atlaskit/platform/no-preconditioning */
 	const shouldDisplayBackground =
 		!cardPreview || !disableOverlay || status === 'error' || status === 'failed-processing';
 	const isPlayButtonClickable = shouldRenderPlayButton() && !!disableOverlay;
@@ -445,16 +441,10 @@ export const CardViewBase = ({
 					</IconWrapper>
 				)}
 				{renderAIBorderOverride ? (
-					<>
-						<Blanket isFixed />
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Feature-gated temporary AI loading styles */}
-						<div style={aiProgressBarWrapperStyle}>
-							<TransparentProgressBar
-								isIndeterminate
-								ariaLabel={intl.formatMessage(i18n.aiGeneratingImage)}
-							/>
-						</div>
-					</>
+					<AIGeneratingOverlay
+						label={intl.formatMessage(i18n.aiGeneratingImage)}
+						testId="media-card-ai-generating-overlay"
+					/>
 				) : (
 					renderBlanket && <Blanket isFixed={isFixedBlanket} />
 				)}
@@ -480,7 +470,6 @@ export const CardViewBase = ({
 				)}
 				{renderTickBox && <TickBox selected={selected} />}
 			</ImageContainer>
-			{renderAIBorderOverride && <AIBorder />}
 			{disableOverlay || !actions || actions.length === 0 ? null : (
 				<ActionsBar filename={name} actions={actionsWithDetails} />
 			)}

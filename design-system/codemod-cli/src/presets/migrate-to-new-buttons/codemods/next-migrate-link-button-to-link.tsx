@@ -9,7 +9,6 @@ import {
 	migrateSubtleButtonToSubtleLinkButton,
 	NEW_BUTTON_ENTRY_POINT,
 	NEW_BUTTON_VARIANTS,
-	PRINT_SETTINGS,
 } from '../utils/constants';
 import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
 import { modifyLinkAttributes } from '../utils/modify-link-attributes';
@@ -167,7 +166,7 @@ function transformer(file: FileInfo, api: API): string {
 		}
 	}
 
-	return source.toSource(PRINT_SETTINGS);
+	return source.toSource({ quote: 'single' });
 }
 
 export default transformer;

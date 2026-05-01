@@ -3,19 +3,19 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::7beb355391f6269c701cf87b0c222d69>>
+ * @codegen <<SignedSource::af3c25c127bdcca927adcfc972a0d6cb>>
  * @codegenCommand yarn workspace @atlaskit/link-create run codegen-analytics
  */
 export type PackageMetaDataType = {
-  packageName: string;
-  packageVersion: string;
-  component: 'linkCreate';
-  componentName: 'linkCreate';
+	packageName: string;
+	packageVersion: string;
+	component: 'linkCreate';
+	componentName: 'linkCreate';
 };
 export type LinkCreateAnalyticsContextType = {
-  triggeredFrom: string;
-  objectName: string;
-  appearance: 'modal' | 'popup';
+	triggeredFrom: string;
+	objectName: string;
+	appearance: 'modal' | 'popup';
 };
 export type LinkCreateScreenViewedAttributesType = {};
 export type LinkCreateEditScreenViewedAttributesType = {};
@@ -27,62 +27,74 @@ export type ButtonClickedConfirmAttributesType = {};
 export type ModalDialogClosedLinkCreateAttributesType = {};
 export type ModalDialogOpenedLinkCreateAttributesType = {};
 export type LinkCreateUnhandledErrorCaughtAttributesType = {
-  browserInfo: string;
-  error: string;
-  componentStack: string | null;
+	browserInfo: string;
+	error: string;
+	componentStack?: string | null;
 };
 export type ObjectCreatedLinkCreateAttributesType = {
-  objectId: string;
-  objectType: string;
+	objectId: string;
+	objectType: string;
 };
 export type ObjectCreateFailedLinkCreateAttributesType = {
-  failureType: string;
+	failureType: string;
 };
 export type LinkCreateExperienceFailedAttributesType = {
-  errorType: string | null;
-  errorMessage: string | null;
-  experienceStatus: 'SUCCEEDED' | 'FAILED';
-  previousExperienceStatus: 'STARTED' | 'SUCCEEDED' | 'FAILED';
-  path: string | null;
-  status: number | null;
-  traceId: string | null;
-  isSLOFailure: boolean;
+	errorType?: string | null;
+	errorMessage?: string | null;
+	experienceStatus: 'SUCCEEDED' | 'FAILED';
+	previousExperienceStatus: 'STARTED' | 'SUCCEEDED' | 'FAILED';
+	path?: string | null;
+	status?: number | null;
+	traceId?: string | null;
+	isSLOFailure: boolean;
 };
 export type AnalyticsEventAttributes = {
-  'screen.linkCreateScreen.viewed': LinkCreateScreenViewedAttributesType;
-  'screen.linkCreateEditScreen.viewed': LinkCreateEditScreenViewedAttributesType;
-  'screen.linkCreateExitWarningScreen.viewed': LinkCreateExitWarningScreenViewedAttributesType;
-  'ui.button.clicked.create': ButtonClickedCreateAttributesType;
-  'ui.button.clicked.edit': ButtonClickedEditAttributesType;
-  'ui.button.clicked.cancel': ButtonClickedCancelAttributesType;
-  'ui.button.clicked.confirm': ButtonClickedConfirmAttributesType;
-  'ui.modalDialog.closed.linkCreate': ModalDialogClosedLinkCreateAttributesType;
-  'ui.modalDialog.opened.linkCreate': ModalDialogOpenedLinkCreateAttributesType;
-  'operational.linkCreate.unhandledErrorCaught': LinkCreateUnhandledErrorCaughtAttributesType;
-  'track.object.created.linkCreate': ObjectCreatedLinkCreateAttributesType;
-  'track.object.createFailed.linkCreate': ObjectCreateFailedLinkCreateAttributesType;
-  'operational.linkCreateExperience.failed': LinkCreateExperienceFailedAttributesType;
+	'screen.linkCreateScreen.viewed': LinkCreateScreenViewedAttributesType;
+	'screen.linkCreateEditScreen.viewed': LinkCreateEditScreenViewedAttributesType;
+	'screen.linkCreateExitWarningScreen.viewed': LinkCreateExitWarningScreenViewedAttributesType;
+	'ui.button.clicked.create': ButtonClickedCreateAttributesType;
+	'ui.button.clicked.edit': ButtonClickedEditAttributesType;
+	'ui.button.clicked.cancel': ButtonClickedCancelAttributesType;
+	'ui.button.clicked.confirm': ButtonClickedConfirmAttributesType;
+	'ui.modalDialog.closed.linkCreate': ModalDialogClosedLinkCreateAttributesType;
+	'ui.modalDialog.opened.linkCreate': ModalDialogOpenedLinkCreateAttributesType;
+	'operational.linkCreate.unhandledErrorCaught': LinkCreateUnhandledErrorCaughtAttributesType;
+	'track.object.created.linkCreate': ObjectCreatedLinkCreateAttributesType;
+	'track.object.createFailed.linkCreate': ObjectCreateFailedLinkCreateAttributesType;
+	'operational.linkCreateExperience.failed': LinkCreateExperienceFailedAttributesType;
+};
+type CreateEventPayloadResult<K extends keyof AnalyticsEventAttributes> = {
+	eventType: string;
+	action: string;
+	attributes: AnalyticsEventAttributes[K];
+	name?: string;
+	actionSubject?: string;
+	actionSubjectId?: string;
 };
 function createEventPayload<K extends keyof AnalyticsEventAttributes>(
-  eventKey: K,
-  attributes: AnalyticsEventAttributes[K]
-) {
-  const [eventType, actionSubject, action, actionSubjectId] =
-    eventKey.split('.');
-  if (eventType === 'screen') {
-    return {
-      eventType,
-      name: actionSubject,
-      action: 'viewed',
-      attributes: attributes,
-    };
-  }
-  return {
-    eventType,
-    actionSubject,
-    actionSubjectId,
-    action,
-    attributes: attributes,
-  };
+	eventKey: K,
+	attributes: AnalyticsEventAttributes[K],
+): CreateEventPayloadResult<K> {
+	const [eventType, actionSubject, action, actionSubjectId] = eventKey.split('.') as [
+		string,
+		string,
+		string,
+		string | undefined,
+	];
+	if (eventType === 'screen') {
+		return {
+			eventType: eventType,
+			name: actionSubject,
+			action: 'viewed',
+			attributes: attributes,
+		};
+	}
+	return {
+		eventType: eventType,
+		actionSubject: actionSubject,
+		actionSubjectId: actionSubjectId,
+		action: action,
+		attributes: attributes,
+	};
 }
 export default createEventPayload;

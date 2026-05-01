@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { FC } from 'react';
+
 import { cssMap, jsx } from '@atlaskit/css';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 
@@ -41,13 +43,15 @@ const PriorityLowIconLegacy: {
 
 PriorityLowIconLegacy.displayName = 'PriorityLowIcon';
 
-export default componentWithFG(
-	'platform_sl_icons_refactor',
-	createPriorityIcon('PriorityLowIcon', [
-		{
-			d: 'M11.996 13.861l6.454-3.865a1 1 0 111.027 1.716l-6.97 4.174a1 1 0 01-1.03-.002L4.57 11.71A1 1 0 015.606 10l6.39 3.862z',
-			fill: '#0065FF',
-		},
-	]),
-	PriorityLowIconLegacy,
-);
+const _default_1: FC<Omit<PriorityIconProps, 'ref'> & Omit<PriorityIconProps, 'ref'>> =
+	componentWithFG(
+		'platform_sl_icons_refactor',
+		createPriorityIcon('PriorityLowIcon', [
+			{
+				d: 'M11.996 13.861l6.454-3.865a1 1 0 111.027 1.716l-6.97 4.174a1 1 0 01-1.03-.002L4.57 11.71A1 1 0 015.606 10l6.39 3.862z',
+				fill: '#0065FF',
+			},
+		]),
+		PriorityLowIconLegacy,
+	);
+export default _default_1;

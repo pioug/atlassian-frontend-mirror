@@ -4,7 +4,7 @@
  */
 import React, { forwardRef, useCallback, useMemo } from 'react';
 
-import { css, jsx } from '@compiled/react';
+import { css, cssMap, cx, jsx } from '@compiled/react';
 
 import { LoadingButton } from '@atlaskit/button';
 import Button, {
@@ -15,12 +15,13 @@ import Button, {
 	LinkButton,
 	LinkIconButton,
 } from '@atlaskit/button/new';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import { SmartLinkSize } from '../../../../../../constants';
-import { useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context';
+import { ActionName, SmartLinkSize } from '../../../../../../constants';
+import { useFlexibleUiContext, useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context';
 import { withOverrideCss } from '../../../common/with-override-css';
 import { sizeToButtonSpacing } from '../../../utils';
 
@@ -40,6 +41,18 @@ const IconOnlyLarge = css({
 const SizeSmall = css({
 	font: token('font.body.small'),
 	fontWeight: token('font.weight.medium'),
+});
+
+const styles = cssMap({
+	textSmall: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'button': {
+			font: token('font.body.small'),
+			fontWeight: token('font.weight.medium'),
+			flexWrap: 'wrap',
+			alignContent: 'center',
+		},
+	},
 });
 
 const SizeSmallIconOnly = css({
@@ -104,6 +117,9 @@ const ActionButtonRefresh = forwardRef(
 		ref: React.Ref<HTMLElement>,
 	) => {
 		const iconOnly = !content;
+
+		const context = useFlexibleUiContext();
+		const isRovoSupported = !!context?.actions?.[ActionName.RovoChatAction] && fg('platform_sl_3p_auth_rovo_block_card_kill_switch');
 
 		const onButtonClick = useCallback(
 			(handler: Function) => (e: React.BaseSyntheticEvent) => {
@@ -212,7 +228,7 @@ const ActionButtonRefresh = forwardRef(
 		]);
 
 		return (
-			<Box testId={`${testId}-button-wrapper`} ref={ref}>
+			<Box testId={`${testId}-button-wrapper`} ref={ref} xcss={cx(isRovoSupported && size === SmartLinkSize.Small && styles.textSmall)}>
 				{button}
 			</Box>
 		);

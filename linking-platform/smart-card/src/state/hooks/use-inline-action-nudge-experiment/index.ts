@@ -49,7 +49,7 @@ const useInlineActionNudgeExperiment = (
 	showHoverPreview?: boolean,
 	actionOptions?: CardActionOptions,
 ): InlineActionNudgeExperiment => {
-	const rovoConfig = useRovoConfig();
+	const { rovoOptions: rovoConfig } = useRovoConfig();
 	const isRovoChatEnabled = getIsRovoChatEnabled(rovoConfig);
 	const cardState = useSmartCardState(url ?? '');
 	const extensionKey = getExtensionKey(cardState.details);

@@ -103,11 +103,7 @@ export class Observers implements BrowserObservers {
 	constructor(opts: ConstructorOptions) {
 		// Selector-config resolution is centralised in `getSelectorConfig()`.
 		// It enforces FedRAMP-override > caller-override > centrally
-		// configured > caller default, gated by
-		// `platform_ufo_fedramp_overrides`. When the gate is OFF the helper
-		// returns `opts.selectorConfig ?? config?.vc?.selectorConfig`, and we
-		// fall back to the historical merge — byte-for-byte unchanged from
-		// pre-FedRAMP behaviour.
+		// configured > caller default.
 		const resolved = getSelectorConfig(opts.selectorConfig, this.selectorConfig);
 		this.selectorConfig = resolved ?? {
 			...this.selectorConfig,

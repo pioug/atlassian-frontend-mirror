@@ -1,5 +1,30 @@
 # @atlaskit/editor-statsig-tmp
 
+## 74.1.0
+
+### Minor Changes
+
+- [`a759f33417d9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a759f33417d9b) -
+  [PIRA-1311](https://opsj.atlassian.net/browse/PIRA-1311) - clean up platform_editor_media_vc_fixes
+- [`2dd9adb1df970`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2dd9adb1df970) -
+  [EDITOR-6722] added experiment gate for adding skills to insert/command menu experiment
+
+## 74.0.0
+
+### Major Changes
+
+- [`ab837b5646256`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab837b5646256) -
+  [ux] EDITOR-6274 Clean up platform_editor_element_drag_and_drop_multiselect
+
+### Minor Changes
+
+- [`1c1f0af056fcb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c1f0af056fcb) -
+  migrate react components from emotion to compiled for link, panel and layoutColumn
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 73.0.0
 
 ### Major Changes

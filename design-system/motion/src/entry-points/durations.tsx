@@ -1,3 +1,3 @@
-export { durationStep, durations } from '../utils/durations';
+export { durationStep, durations, exitingDurations } from '../utils/durations';
 
 export type { Durations } from '../utils/durations';

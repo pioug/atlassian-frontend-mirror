@@ -263,7 +263,6 @@ export const dropTargetDecorations = (
 	const activeNodePos = activeNode?.pos;
 	const $activeNodePos = typeof activeNodePos === 'number' && newState.doc.resolve(activeNodePos);
 	const activePMNode = $activeNodePos && $activeNodePos.nodeAfter;
-	const isMultiSelect = editorExperiment('platform_editor_element_drag_and_drop_multiselect', true);
 
 	anchorRectCache?.clear();
 
@@ -340,41 +339,31 @@ export const dropTargetDecorations = (
 			return shouldDescend(node); //skip over, don't consider it a valid depth
 		}
 
-		// When multi select is on, validate all the nodes in the selection instead of just the handle node
-		if (isMultiSelect) {
-			const selectionSlice = newState.doc.slice(selectionFrom, selectionTo, false);
-			const selectionSliceChildCount = selectionSlice.content.childCount;
-			let canDropSingleNode: boolean = true;
-			let canDropMultipleNodes: boolean = true;
+		// validate all the nodes in the selection instead of just the handle node
+		const selectionSlice = newState.doc.slice(selectionFrom, selectionTo, false);
+		const selectionSliceChildCount = selectionSlice.content.childCount;
+		let canDropSingleNode: boolean = true;
+		let canDropMultipleNodes: boolean = true;
 
-			// when there is only one node in the slice, use the same logic as when multi select is not on
-			if (selectionSliceChildCount > 1 && handleInsideSelection) {
-				canDropMultipleNodes = canMoveSliceToIndex(
-					selectionSlice,
-					selectionFrom,
-					selectionTo,
-					parent,
-					index,
-					$pos,
-				);
-			} else {
-				canDropSingleNode = !!(
-					activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $pos, node)
-				);
-			}
-
-			if (!canDropMultipleNodes || !canDropSingleNode) {
-				pushNodeStack(node, depth);
-				return false; //not valid pos, so nested not valid either
-			}
+		// when there is only one node in the slice, use the same logic as when multi select is not on
+		if (selectionSliceChildCount > 1 && handleInsideSelection) {
+			canDropMultipleNodes = canMoveSliceToIndex(
+				selectionSlice,
+				selectionFrom,
+				selectionTo,
+				parent,
+				index,
+				$pos,
+			);
 		} else {
-			const canDrop = activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $pos, node);
+			canDropSingleNode = !!(
+				activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $pos, node)
+			);
+		}
 
-			//NOTE: This will block drop targets showing for nodes that are valid after transformation (i.e. expand -> nestedExpand)
-			if (!canDrop) {
-				pushNodeStack(node, depth);
-				return false; //not valid pos, so nested not valid either
-			}
+		if (!canDropMultipleNodes || !canDropSingleNode) {
+			pushNodeStack(node, depth);
+			return false; //not valid pos, so nested not valid either
 		}
 
 		const parentTypesWithEndDropTarget = editorExperiment('platform_synced_block', true)

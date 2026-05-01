@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "12.2.5",
+	"version": "12.4.0",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -165,6 +165,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_media_disable_save_during_upload": {
+			"type": "boolean"
+		},
+		"cc-maui-phase-2-loading": {
 			"type": "boolean"
 		}
 	},

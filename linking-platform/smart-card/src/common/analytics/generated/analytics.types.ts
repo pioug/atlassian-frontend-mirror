@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::4d978bf4946aee0ad737d8305df7a6a0>>
+ * @codegen <<SignedSource::4e18b8952a94e4fc3afd62ef6213f7b1>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
@@ -11,15 +11,15 @@ export type PackageMetaDataContextType = {
 	packageVersion: string;
 };
 export type CommonContextType = {
-	extensionKey: string | null;
-	destinationObjectType: string | null;
-	destinationSubproduct: string | null;
-	destinationProduct: string | null;
-	location: string | null;
-	statusDetails: string | null;
+	extensionKey?: string | null;
+	destinationObjectType?: string | null;
+	destinationSubproduct?: string | null;
+	destinationProduct?: string | null;
+	location?: string | null;
+	statusDetails?: string | null;
 };
 export type ResolvedContextType = {
-	status:
+	status?:
 		| 'pending'
 		| 'resolving'
 		| 'resolved'
@@ -29,25 +29,25 @@ export type ResolvedContextType = {
 		| 'forbidden'
 		| 'not_found'
 		| null;
-	statusDetails: string | null;
+	statusDetails?: string | null;
 	displayCategory: 'smartLink' | 'link';
-	extensionKey: string | null;
-	destinationProduct: string | null;
-	destinationSubproduct: string | null;
-	destinationCategory: string | null;
-	destinationObjectId: string | null;
-	destinationObjectType: string | null;
-	destinationContainerId: string | null;
-	destinationTenantId: string | null;
-	canBeDatasource: boolean | null;
-	location: string | null;
+	extensionKey?: string | null;
+	destinationProduct?: string | null;
+	destinationSubproduct?: string | null;
+	destinationCategory?: string | null;
+	destinationObjectId?: string | null;
+	destinationObjectType?: string | null;
+	destinationContainerId?: string | null;
+	destinationTenantId?: string | null;
+	canBeDatasource?: boolean | null;
+	location?: string | null;
 };
 
 export type ButtonClickedCopyLinkAttributesType = {
-	actionType: string | null;
-	id: string | null;
-	definitionId: string | null;
-	display:
+	actionType?: string | null;
+	id?: string | null;
+	definitionId?: string | null;
+	display?:
 		| 'inline'
 		| 'block'
 		| 'embed'
@@ -56,13 +56,13 @@ export type ButtonClickedCopyLinkAttributesType = {
 		| 'hoverCardPreview'
 		| 'url'
 		| null;
-	resourceType: string | null;
+	resourceType?: string | null;
 };
 export type ButtonClickedDownloadDocumentAttributesType = {
-	actionType: string | null;
-	id: string | null;
-	definitionId: string | null;
-	display:
+	actionType?: string | null;
+	id?: string | null;
+	definitionId?: string | null;
+	display?:
 		| 'inline'
 		| 'block'
 		| 'embed'
@@ -71,13 +71,13 @@ export type ButtonClickedDownloadDocumentAttributesType = {
 		| 'hoverCardPreview'
 		| 'url'
 		| null;
-	resourceType: string | null;
+	resourceType?: string | null;
 };
 export type ButtonClickedInvokePreviewScreenAttributesType = {
-	actionType: string | null;
-	id: string | null;
-	definitionId: string | null;
-	display:
+	actionType?: string | null;
+	id?: string | null;
+	definitionId?: string | null;
+	display?:
 		| 'inline'
 		| 'block'
 		| 'embed'
@@ -86,13 +86,13 @@ export type ButtonClickedInvokePreviewScreenAttributesType = {
 		| 'hoverCardPreview'
 		| 'url'
 		| null;
-	resourceType: string | null;
+	resourceType?: string | null;
 };
 export type ButtonClickedShortcutGoToLinkAttributesType = {
-	actionType: string | null;
-	id: string | null;
-	definitionId: string | null;
-	display:
+	actionType?: string | null;
+	id?: string | null;
+	definitionId?: string | null;
+	display?:
 		| 'inline'
 		| 'block'
 		| 'embed'
@@ -101,13 +101,13 @@ export type ButtonClickedShortcutGoToLinkAttributesType = {
 		| 'hoverCardPreview'
 		| 'url'
 		| null;
-	resourceType: string | null;
+	resourceType?: string | null;
 };
 export type ButtonClickedIssueStatusUpdateAttributesType = {
-	actionType: string | null;
-	id: string | null;
-	definitionId: string | null;
-	display:
+	actionType?: string | null;
+	id?: string | null;
+	definitionId?: string | null;
+	display?:
 		| 'inline'
 		| 'block'
 		| 'embed'
@@ -116,14 +116,14 @@ export type ButtonClickedIssueStatusUpdateAttributesType = {
 		| 'hoverCardPreview'
 		| 'url'
 		| null;
-	resourceType: string | null;
+	resourceType?: string | null;
 };
 export type ButtonClickedAiSummaryAttributesType = {};
 export type ButtonClickedRovoChatPromptAttributesType = {
-	actionType: string | null;
-	id: string | null;
-	definitionId: string | null;
-	display:
+	actionType?: string | null;
+	id?: string | null;
+	definitionId?: string | null;
+	display?:
 		| 'inline'
 		| 'block'
 		| 'embed'
@@ -132,17 +132,17 @@ export type ButtonClickedRovoChatPromptAttributesType = {
 		| 'hoverCardPreview'
 		| 'url'
 		| null;
-	resourceType: string | null;
-	prompt: string | null;
+	resourceType?: string | null;
+	prompt?: string | null;
 };
 export type ButtonClickedCopySummaryAttributesType = {};
 export type SummaryViewedAttributesType = {
-	fromCache: boolean | null;
+	fromCache?: boolean | null;
 };
 export type ErrorViewedAiSummaryAttributesType = {};
 export type SummarySuccessAttributesType = {};
 export type SummaryFailedAttributesType = {
-	reason: string | null;
+	reason?: string | null;
 	isSloError: boolean;
 };
 export type AiInteractionInitiatedAttributesType = {
@@ -166,18 +166,18 @@ export type RelatedLinksFailedAttributesType = {
 export type SmartLinkIframeDwelledAttributesType = {
 	id: string;
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
-	definitionId: string | null;
+	definitionId?: string | null;
 	dwellTime: number;
 	dwellPercentVisible: number;
 };
 export type SmartLinkIframeFocusedAttributesType = {
 	id: string;
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
-	definitionId: string | null;
+	definitionId?: string | null;
 	interactionType?: 'mouseenter' | 'mouseleave' | 'focus' | null;
 };
 export type ApplicationAccountConnectedAttributesType = {
-	definitionId: string | null;
+	definitionId?: string | null;
 };
 export type ApplicationAccountAuthStartedAttributesType = {};
 export type SmartLinkQuickActionStartedAttributesType = {
@@ -203,47 +203,67 @@ export type SmartLinkQuickActionFailedAttributesType = {
 		| 'StatusUpdateAction'
 		| 'UnfollowEntityAction'
 		| 'StatusUpdate';
-	reason: 'PermissionError' | 'ValidationError' | 'UnknownError' | null;
+	reason?: 'PermissionError' | 'ValidationError' | 'UnknownError' | null;
 };
 export type ConsentModalViewedAttributesType = {
-	definitionId: string | null;
+	definitionId?: string | null;
 };
 export type EmbedPreviewModalViewedAttributesType = {
-	origin:
+	origin?:
 		| 'smartLinkCard'
 		| 'smartLinkEmbed'
 		| 'smartLinkInline'
 		| 'smartLinkPreviewHoverCard'
 		| null;
-	size: 'large' | 'small' | null;
+	size?: 'large' | 'small' | null;
 };
 export type SmartLinkConnectSucceededAttributesType = {
-	definitionId: string | null;
+	definitionId?: string | null;
 };
 export type SmartLinkConnectFailedAttributesType = {
-	reason: string | null;
-	definitionId: string | null;
+	reason?: string | null;
+	definitionId?: string | null;
 };
 export type SmartLinkResolvedAttributesType = {
-	definitionId: string | null;
-	duration: number | null;
+	status?:
+		| 'pending'
+		| 'resolving'
+		| 'resolved'
+		| 'errored'
+		| 'fallback'
+		| 'unauthorized'
+		| 'forbidden'
+		| 'not_found'
+		| null;
+	definitionId?: string | null;
+	duration?: number | null;
 };
 export type SmartLinkUnresolvedAttributesType = {
-	definitionId: string | null;
-	error: Record<string, unknown> | null;
+	status?:
+		| 'pending'
+		| 'resolving'
+		| 'resolved'
+		| 'errored'
+		| 'fallback'
+		| 'unauthorized'
+		| 'forbidden'
+		| 'not_found'
+		| null;
+	definitionId?: string | null;
+	error?: Record<string, unknown> | null;
 	reason: string;
 };
 export type SmartLinkChunkLoadFailedAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
-	definitionId: string | null;
+	definitionId?: string | null;
 	error: Record<string, unknown>;
 	errorInfo: Record<string, unknown>;
 };
 export type SmartLinkActionResolvedAttributesType = {
-	actionType: string | null;
-	id: string | null;
-	definitionId: string | null;
-	display:
+	actionType?: string | null;
+	id?: string | null;
+	definitionId?: string | null;
+	display?:
 		| 'inline'
 		| 'block'
 		| 'embed'
@@ -252,14 +272,14 @@ export type SmartLinkActionResolvedAttributesType = {
 		| 'hoverCardPreview'
 		| 'url'
 		| null;
-	resourceType: string | null;
-	duration: number | null;
+	resourceType?: string | null;
+	duration?: number | null;
 };
 export type SmartLinkActionUnresolvedAttributesType = {
-	actionType: string | null;
-	id: string | null;
-	definitionId: string | null;
-	display:
+	actionType?: string | null;
+	id?: string | null;
+	definitionId?: string | null;
+	display?:
 		| 'inline'
 		| 'block'
 		| 'embed'
@@ -268,39 +288,39 @@ export type SmartLinkActionUnresolvedAttributesType = {
 		| 'hoverCardPreview'
 		| 'url'
 		| null;
-	resourceType: string | null;
-	duration: number | null;
-	reason: string | null;
+	resourceType?: string | null;
+	duration?: number | null;
+	reason?: string | null;
 };
 export type HyperlinkResolvedAttributesType = {
-	definitionId: string | null;
-	extensionKey: string | null;
-	resourceType: string | null;
-	duration: number | null;
+	extensionKey?: string | null;
+	definitionId?: string | null;
+	resourceType?: string | null;
+	duration?: number | null;
 };
 export type HyperlinkUnresolvedAttributesType = {
-	definitionId: string | null;
-	extensionKey: string | null;
-	resourceType: string | null;
-	reason: string | null;
-	error: Record<string, unknown> | null;
+	extensionKey?: string | null;
+	definitionId?: string | null;
+	resourceType?: string | null;
+	reason?: string | null;
+	error?: Record<string, unknown> | null;
 };
 export type SmartLinkClickedAttributesType = {
 	id: string;
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
-	definitionId: string | null;
-	isModifierKeyPressed: boolean | null;
+	definitionId?: string | null;
+	isModifierKeyPressed?: boolean | null;
 };
 export type SmartLinkVisitedAttributesType = {
 	id: string;
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
-	definitionId: string | null;
+	definitionId?: string | null;
 };
 export type SmartLinkClickedTitleGoToLinkAttributesType = {
 	id: string;
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
-	definitionId: string | null;
-	isModifierKeyPressed: boolean | null;
+	definitionId?: string | null;
+	isModifierKeyPressed?: boolean | null;
 };
 export type SmartLinkClickedPreviewHoverCardAttributesType = {
 	id: string;
@@ -309,39 +329,40 @@ export type SmartLinkClickedPreviewHoverCardAttributesType = {
 };
 export type HoverCardViewedAttributesType = {
 	previewDisplay: 'card' | 'embed';
-	previewInvokeMethod: 'keyboard' | 'mouse_hover' | 'mouse_click' | null;
-	definitionId: string | null;
-	rovoActionsCtaShown?: boolean;
+	previewInvokeMethod?: 'keyboard' | 'mouse_hover' | 'mouse_click' | null;
+	definitionId?: string | null;
+	rovoActionsCtaShown?: boolean | null;
 };
 export type HoverCardDismissedAttributesType = {
 	previewDisplay: 'card' | 'embed';
 	hoverTime: number;
-	previewInvokeMethod: 'keyboard' | 'mouse_hover' | 'mouse_click' | null;
-	definitionId: string | null;
-	rovoActionsCtaShown?: boolean;
+	previewInvokeMethod?: 'keyboard' | 'mouse_hover' | 'mouse_click' | null;
+	definitionId?: string | null;
+	rovoActionsCtaShown?: boolean | null;
 };
 export type ButtonClickedConnectAccountAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
-	definitionId: string | null;
+	definitionId?: string | null;
 };
 export type SmartLinkClickedTryAnotherAccountAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
-	definitionId: string | null;
+	definitionId?: string | null;
 };
 export type ConsentModalClosedAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
-	definitionId: string | null;
+	definitionId?: string | null;
 };
 export type ModalClosedEmbedPreviewAttributesType = {
-	origin:
+	origin?:
 		| 'smartLinkCard'
 		| 'smartLinkEmbed'
 		| 'smartLinkInline'
 		| 'smartLinkPreviewHoverCard'
 		| null;
-	previewTime: number | null;
-	size: 'large' | 'small' | null;
+	previewTime?: number | null;
+	size?: 'large' | 'small' | null;
 };
+export type ButtonClickedDismissAttributesType = {};
 export type ButtonClickedLearnMoreAttributesType = {};
 export type ButtonClickedSmartLinkStatusLozengeAttributesType = {};
 export type ButtonClickedSmartLinkStatusListItemAttributesType = {};
@@ -351,7 +372,7 @@ export type ButtonClickedStatusUpdateActionAttributesType = {};
 export type ButtonClickedGetStatusTransitionsActionAttributesType = {};
 export type ButtonClickedEmbedPreviewResizeAttributesType = {
 	newSize: 'large' | 'small';
-	origin:
+	origin?:
 		| 'smartLinkCard'
 		| 'smartLinkEmbed'
 		| 'smartLinkInline'
@@ -361,22 +382,21 @@ export type ButtonClickedEmbedPreviewResizeAttributesType = {
 };
 export type SmartLinkRenderSuccessAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
-	rovoActionsCtaShown?: boolean;
+	rovoActionsCtaShown?: boolean | null;
 };
 export type SmartLinkRenderFailedAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
 	error: Record<string, unknown>;
 	errorInfo: Record<string, unknown>;
-	id: string | null;
+	id?: string | null;
 };
-export type ButtonClickedDismissAttributesType = {};
 export type SmartLinkSeenAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'flexible';
 };
 export type SmartLinkClickedSmartlinkClickAnalyticsWorkflowsAttributesType = {
 	thirdPartyARI: string;
 	eventName: string;
-	firstPartyIdentifier: string | null;
+	firstPartyIdentifier?: string | null;
 	clickedAt: string;
 };
 
@@ -523,6 +543,9 @@ export type AnalyticsEventAttributes = {
 	 * Fires an event that represents when a user close a modal. */
 	'ui.modal.closed.embedPreview': ModalClosedEmbedPreviewAttributesType;
 	/**
+	 * fires when a user dismisses a dismissible Smart Link or hover card control. */
+	'ui.button.clicked.dismiss': ButtonClickedDismissAttributesType;
+	/**
 	 * fires an event that signifies that a "Learn More" link was clicked on an unauthenticated card */
 	'ui.button.clicked.learnMore': ButtonClickedLearnMoreAttributesType;
 	/**
@@ -556,9 +579,6 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fires an event that represents when a user clicks on a Smart Link to track analytics for the 3P Workflows team */
 	'ui.smartLink.clicked.smartlinkClickAnalyticsWorkflows': SmartLinkClickedSmartlinkClickAnalyticsWorkflowsAttributesType;
-	/**
-	 * fires an event that represents when a user dismisses a hover card */
-	'ui.button.clicked.dismiss': ButtonClickedDismissAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

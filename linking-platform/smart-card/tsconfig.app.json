@@ -94,9 +94,6 @@
 			"path": "../../design-system/icon-lab/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/icon-object/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/image/tsconfig.app.json"
 		},
 		{
@@ -134,6 +131,9 @@
 		},
 		{
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/object/tsconfig.app.json"
 		},
 		{
 			"path": "../../teamwork-ecosystem/outbound-auth-flow-client/tsconfig.app.json"
@@ -191,6 +191,9 @@
 		},
 		{
 			"path": "../../data/ufo-external/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/width-detector/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"

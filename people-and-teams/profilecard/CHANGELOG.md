@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 25.1.16
+
+### Patch Changes
+
+- [`69b7956cd2bbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69b7956cd2bbf) -
+  Fixed unit test
+- Updated dependencies
+
 ## 25.1.15
 
 ### Patch Changes

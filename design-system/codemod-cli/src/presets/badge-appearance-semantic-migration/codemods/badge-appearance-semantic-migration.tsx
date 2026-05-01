@@ -16,6 +16,9 @@ const OLD_TO_NEW_APPEARANCE_MAP: Record<string, string> = {
 	important: 'danger',
 };
 
+// New semantic values that are already valid and should be left unchanged
+const NEW_SEMANTIC_VALUES = new Set(Object.values(OLD_TO_NEW_APPEARANCE_MAP));
+
 type BadgeElement = {
 	path: ASTPath<JSXElement>;
 	hasAppearanceProp: boolean;
@@ -139,15 +142,15 @@ Please verify the visual appearance matches your expectations.`,
 						if (attr.value?.type === 'StringLiteral') {
 							attr.value.value = OLD_TO_NEW_APPEARANCE_MAP[appearanceValue];
 						}
+					} else if (appearanceValue && NEW_SEMANTIC_VALUES.has(appearanceValue)) {
+						// Already using new semantic values, skip
 					} else if (appearanceValue && !OLD_TO_NEW_APPEARANCE_MAP[appearanceValue]) {
 						// For invalid string values, add a warning comment
 						addCommentBefore(
 							j,
 							j(path),
 							`FIXME: This Badge component uses an unknown \`appearance\` value "${appearanceValue}".
-Valid new semantic appearance values are: ${Object.values(OLD_TO_NEW_APPEARANCE_MAP)
-								.filter((v, i, arr) => arr.indexOf(v) === i)
-								.join(', ')}.
+Valid new semantic appearance values are: ${[...NEW_SEMANTIC_VALUES].join(', ')}.
 Please update this value to a valid semantic appearance value.`,
 						);
 					} else if (appearanceValue && OLD_TO_NEW_APPEARANCE_MAP[appearanceValue]) {

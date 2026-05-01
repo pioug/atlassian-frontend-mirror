@@ -1,5 +1,43 @@
 # @atlaskit/native-embeds-common
 
+## 1.2.0
+
+### Minor Changes
+
+- [`6909e71070730`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6909e71070730) -
+  Show an AI generating overlay (rainbow loading bar) on the targeted native embed while Rovo is
+  processing an inline-edit prompt. Behind the `cc-maui-phase-2-loading` feature gate.
+
+  Two-stage commit pattern so the overlay only appears once the user has actually submitted a prompt
+  — not when the AI modal first opens:
+  - The toolbar handler for "Ask Rovo" (`maui:onAskRovoClick`) **stages** the embed `localId` via
+    the new `stageInlineRovoStreaming` action. The toolbar handler factory now propagates the
+    selected node's `localId` to manifest handlers via
+    `EditorToolbarHandlerContext.selectedNodeLocalId` so MAUI can stage the correct target before
+    opening the AI modal.
+  - `RovoPromptScreenWithLogic.onSubmit` **commits** the staged id via `commitInlineRovoStreaming`.
+    This is what triggers the consumer-visible loading overlay.
+  - `RovoPromptScreenWithLogic.onComplete` / `handleAbort` dispatches `endInlineRovoStreaming` to
+    clear it.
+
+  The native-embeds extension subscribes to the AI plugin's new `inlineRovoStreamingTargetId`
+  shared-state field and renders the overlay when its own `localId` matches.
+
+  The overlay component (`AIGeneratingOverlay`) is colocated inside `native-embeds-core` rather than
+  extracted to a shared package. Hosting it in `@atlaskit/editor-common` (the natural shared spot)
+  would create a TS6202 circular project reference because `editor-common` already depends on
+  `@atlaskit/media-card`. A new leaf-level package would force workspace registrations across every
+  product `package.json`, plus tsconfig project-reference updates and lockfile churn — large
+  unrelated review surface for a 130-line component. When the parallel media inline-edit branch
+  lands (PR #357140), the two implementations should be consolidated into a shared package below
+  both consumers in the dependency graph.
+
+  Includes reducer + consumer unit tests covering both gate-on and gate-off paths.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.1
 
 ### Patch Changes

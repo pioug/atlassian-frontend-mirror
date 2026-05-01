@@ -57,7 +57,7 @@ function readConfig(context: Rule.RuleContext): Config {
 	return Object.assign({}, defaultConfig, config);
 }
 
-export const rule: Rule.RuleModule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-compiled',
 		type: 'problem',

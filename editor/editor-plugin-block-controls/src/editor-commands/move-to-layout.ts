@@ -62,7 +62,7 @@ const createNewLayout = (schema: Schema, layoutContents: LayoutContent[]) => {
 const moveToExistingLayout = (
 	toLayout: PMNode,
 	toLayoutPos: number,
-	sourceContent: PMNode | Fragment,
+	sourceContent: Fragment,
 	from: number,
 	to: number,
 	tr: Transaction,
@@ -72,26 +72,10 @@ const moveToExistingLayout = (
 	selectMovedNode?: boolean,
 ) => {
 	const isSameLayout = isInSameLayout($originalFrom, $originalTo);
-	let sourceContentEndPos: number = -1;
-	const isMultiSelect = editorExperiment('platform_editor_element_drag_and_drop_multiselect', true);
-	let sourceNodeTypes, hasSelectedMultipleNodes;
 
-	if (isMultiSelect) {
-		if (sourceContent instanceof Fragment) {
-			sourceContentEndPos = from + sourceContent.size;
-			const attributes = getMultiSelectAnalyticsAttributes(tr, from, sourceContentEndPos);
-			hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
-			sourceNodeTypes = attributes.nodeTypes;
-		}
-	} else {
-		if (sourceContent instanceof PMNode) {
-			sourceContentEndPos = from + sourceContent.nodeSize;
-		}
-	}
-
-	if (sourceContentEndPos === -1) {
-		return tr;
-	}
+	const sourceContentEndPos: number = from + sourceContent.size;
+	const attributes = getMultiSelectAnalyticsAttributes(tr, from, sourceContentEndPos);
+	const { nodeTypes: sourceNodeTypes, hasSelectedMultipleNodes } = attributes;
 
 	if (isSameLayout) {
 		// reorder columns
@@ -108,12 +92,11 @@ const moveToExistingLayout = (
 			tr,
 			INPUT_METHOD.DRAG_AND_DROP,
 			$originalFrom.depth,
-			$originalFrom.nodeAfter?.type.name || '',
+			sourceNodeTypes,
 			1,
 			'layoutSection',
 			true,
 			api,
-			sourceNodeTypes,
 			hasSelectedMultipleNodes,
 		);
 	} else if (toLayout.childCount < maxLayoutColumnSupported()) {
@@ -124,12 +107,11 @@ const moveToExistingLayout = (
 			tr,
 			INPUT_METHOD.DRAG_AND_DROP,
 			$originalFrom.depth,
-			$originalFrom.nodeAfter?.type.name || '',
+			sourceNodeTypes,
 			1,
 			'layoutSection',
 			false,
 			api,
-			sourceNodeTypes,
 			hasSelectedMultipleNodes,
 		);
 	}
@@ -147,31 +129,19 @@ const moveToExistingLayout = (
 const insertToDestinationNoWidthUpdate = (
 	tr: Transaction,
 	to: number,
-	sourceContent: PMNode | Fragment,
+	sourceContent: Fragment,
 ) => {
 	const { layoutColumn } = tr.doc.type.schema.nodes || {};
 	let content: PMNode | null = null;
 
 	try {
-		if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
-			if (sourceContent instanceof Fragment) {
-				const sourceFragment = sourceContent;
-				content = layoutColumn.createChecked(
-					{ width: 0 },
-					isFragmentOfType(sourceFragment, 'layoutColumn')
-						? sourceFragment.firstChild?.content
-						: sourceFragment,
-				);
-			}
-		} else {
-			if (sourceContent instanceof PMNode) {
-				const sourceNode = sourceContent;
-				content = layoutColumn.createChecked(
-					{ width: 0 },
-					sourceNode.type.name === 'layoutColumn' ? sourceNode.content : sourceNode,
-				);
-			}
-		}
+		const sourceFragment = sourceContent;
+		content = layoutColumn.createChecked(
+			{ width: 0 },
+			isFragmentOfType(sourceFragment, 'layoutColumn')
+				? sourceFragment.firstChild?.content
+				: sourceFragment,
+		);
 	} catch (error) {
 		logException(error as Error, { location: 'editor-plugin-block-controls/move-to-layout' });
 	}
@@ -221,7 +191,6 @@ const canMoveToLayout = (
 	}
 
 	const $from = tr.doc.resolve(from);
-	const isMultiSelect = editorExperiment('platform_editor_element_drag_and_drop_multiselect', true);
 
 	// invalid from position or dragging a layout
 	if (!$from.nodeAfter || $from.nodeAfter.type === layoutSection) {
@@ -231,7 +200,7 @@ const canMoveToLayout = (
 	let sourceContent: Fragment | PMNode = $from.nodeAfter;
 	let sourceFrom = from;
 	let sourceTo: number = from + sourceContent.nodeSize;
-	if (isMultiSelect && !moveNodeAtCursorPos) {
+	if (!moveNodeAtCursorPos) {
 		const { anchor, head } = getMultiSelectionIfPosInside(api, from);
 		if (anchor !== undefined && head !== undefined) {
 			sourceFrom = Math.min(anchor, head);
@@ -252,62 +221,47 @@ const canMoveToLayout = (
 	return { toNode, $to, sourceContent, $sourceFrom: tr.doc.resolve(sourceFrom), sourceTo };
 };
 
-const removeBreakoutMarks = (tr: Transaction, $from: ResolvedPos, to: number) => {
-	let fromContentWithoutBreakout: PMNode | Fragment | null = $from.nodeAfter;
+const removeBreakoutMarks = (tr: Transaction, $from: ResolvedPos, to: number): Fragment => {
+	let fromContentWithoutBreakout: Fragment | null = null;
 	const { breakout } = tr.doc.type.schema.marks || {};
 
-	if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
-		tr.doc.nodesBetween($from.pos, to, (node, pos, parent) => {
-			// should never remove breakout from previous layoutSection
-			if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
-				if (node.type.name === 'layoutSection') {
-					return false;
-				}
+	tr.doc.nodesBetween($from.pos, to, (node, pos, parent) => {
+		// should never remove breakout from previous layoutSection
+		if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
+			if (node.type.name === 'layoutSection') {
+				return false;
 			}
-
-			// breakout doesn't exist on nested nodes
-			if (parent?.type.name === 'doc' && node.marks.some((m) => m.type === breakout)) {
-				tr.removeNodeMark(pos, breakout);
-			}
-
-			// descending is not needed as  breakout doesn't exist on nested nodes
-			return false;
-		});
-		// resolve again the source content after node updated (remove breakout marks)
-		fromContentWithoutBreakout = tr.doc.slice($from.pos, to).content;
-	} else {
-		if (breakout && $from.nodeAfter && $from.nodeAfter.marks.some((m) => m.type === breakout)) {
-			tr.removeNodeMark($from.pos, breakout);
-			// resolve again the source node after node updated (remove breakout marks)
-			fromContentWithoutBreakout = tr.doc.resolve($from.pos).nodeAfter;
 		}
-	}
+
+		// breakout doesn't exist on nested nodes
+		if (parent?.type.name === 'doc' && node.marks.some((m) => m.type === breakout)) {
+			tr.removeNodeMark(pos, breakout);
+		}
+
+		// descending is not needed as  breakout doesn't exist on nested nodes
+		return false;
+	});
+	// resolve again the source content after node updated (remove breakout marks)
+	fromContentWithoutBreakout = tr.doc.slice($from.pos, to).content;
 	return fromContentWithoutBreakout;
 };
 
 const getBreakoutMode = (content: PMNode | Fragment, breakout: MarkType) => {
-	if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
-		if (content instanceof PMNode) {
-			return content.marks.find((m) => m.type === breakout)?.attrs.mode;
-		} else if (content instanceof Fragment) {
-			// Find the first breakout mode in the fragment
-			let firstBreakoutMode;
-			for (let i = 0; i < content.childCount; i++) {
-				const child = content.child(i);
-				const breakoutMark = child.marks.find((m) => m.type === breakout);
-				if (breakoutMark) {
-					firstBreakoutMode = breakoutMark.attrs.mode;
-					break;
-				}
+	if (content instanceof PMNode) {
+		return content.marks.find((m) => m.type === breakout)?.attrs.mode;
+	} else if (content instanceof Fragment) {
+		// Find the first breakout mode in the fragment
+		let firstBreakoutMode;
+		for (let i = 0; i < content.childCount; i++) {
+			const child = content.child(i);
+			const breakoutMark = child.marks.find((m) => m.type === breakout);
+			if (breakoutMark) {
+				firstBreakoutMode = breakoutMark.attrs.mode;
+				break;
 			}
+		}
 
-			return firstBreakoutMode;
-		}
-	} else {
-		// Without multi-select support, we can assume source content is of type PMNode
-		if (content instanceof PMNode) {
-			return content.marks.find((m) => m.type === breakout)?.attrs.mode;
-		}
+		return firstBreakoutMode;
 	}
 };
 
@@ -317,190 +271,155 @@ const getBreakoutModeAndWidth = (content: PMNode | Fragment, breakout: MarkType)
 	const extractBreakoutAttributes = (mark?: Mark) =>
 		mark ? { breakoutMode: mark.attrs.mode, breakoutWidth: mark.attrs.width } : null;
 
-	if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
-		if (content instanceof PMNode) {
-			return extractBreakoutAttributes(findBreakoutMark(content));
-		} else if (content instanceof Fragment) {
-			// Find the first breakout mode in the fragment
-			for (let i = 0; i < content.childCount; i++) {
-				const child = content.child(i);
-				const breakoutMark = findBreakoutMark(child);
-				if (breakoutMark) {
-					return extractBreakoutAttributes(breakoutMark);
-				}
+	if (content instanceof PMNode) {
+		return extractBreakoutAttributes(findBreakoutMark(content));
+	} else if (content instanceof Fragment) {
+		// Find the first breakout mode in the fragment
+		for (let i = 0; i < content.childCount; i++) {
+			const child = content.child(i);
+			const breakoutMark = findBreakoutMark(child);
+			if (breakoutMark) {
+				return extractBreakoutAttributes(breakoutMark);
 			}
-		}
-	} else {
-		// Without multi-select support, we can assume source content is of type PMNode
-		if (content instanceof PMNode) {
-			return extractBreakoutAttributes(findBreakoutMark(content));
 		}
 	}
 	return null;
 };
 
-// TODO: ED-26959 - As part of platform_editor_element_drag_and_drop_multiselect clean up,
-// source content variable that has type of `PMNode | Fragment` should be updated to `Fragment` only
 export const moveToLayout =
 	(api?: ExtractInjectionAPI<BlockControlsPlugin>) =>
-	(
-		from: number,
-		to: number,
-		options?: { moveNodeAtCursorPos?: boolean; moveToEnd?: boolean; selectMovedNode?: boolean },
-	): EditorCommand =>
-	({ tr }) => {
-		if (!api) {
-			return tr;
-		}
-		const canMove = canMoveToLayout(api, from, to, tr, options?.moveNodeAtCursorPos);
-		if (!canMove) {
-			return tr;
-		}
-
-		const { toNode, $to, sourceContent, $sourceFrom, sourceTo } = canMove;
-		const { layoutSection, layoutColumn } = tr.doc.type.schema.nodes || {};
-		const { breakout } = tr.doc.type.schema.marks || {};
-
-		// get breakout mode from destination node,
-		// if not found, get from source node,
-		let breakoutMode;
-		let breakoutWidth;
-		if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
-			({ breakoutMode, breakoutWidth } =
-				getBreakoutModeAndWidth(toNode, breakout) ||
-				getBreakoutModeAndWidth(sourceContent, breakout) ||
-				{});
-		} else {
-			breakoutMode = getBreakoutMode(toNode, breakout) || getBreakoutMode(sourceContent, breakout);
-		}
-
-		// we don't want to remove marks when moving/re-ordering layoutSection
-		const shouldRemoveMarks = !(
-			$sourceFrom.node().type === layoutSection &&
-			editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)
-		);
-
-		const fromContentBeforeBreakoutMarksRemoved = editorExperiment(
-			'platform_editor_element_drag_and_drop_multiselect',
-			true,
-		)
-			? tr.doc.slice($sourceFrom.pos, sourceTo).content
-			: $sourceFrom.nodeAfter;
-
-		// remove breakout from source content
-		let fromContentWithoutBreakout = shouldRemoveMarks
-			? removeBreakoutMarks(tr, $sourceFrom, sourceTo)
-			: fromContentBeforeBreakoutMarksRemoved;
-
-		if (!fromContentWithoutBreakout) {
-			return tr;
-		}
-
-		if (fg('platform_editor_ease_of_use_metrics')) {
-			api?.metrics?.commands.setContentMoved()({ tr });
-		}
-
-		const isMultiSelect = editorExperiment(
-			'platform_editor_element_drag_and_drop_multiselect',
-			true,
-		);
-
-		if (toNode.type === layoutSection) {
-			const toPos = options?.moveToEnd ? to + toNode.nodeSize - 1 : to + 1;
-
-			return moveToExistingLayout(
-				toNode,
-				to,
-				fromContentWithoutBreakout,
-				$sourceFrom.pos,
-				toPos,
-				tr,
-				$sourceFrom,
-				$to,
-				api,
-				options?.selectMovedNode,
-			);
-		} else if (toNode.type === layoutColumn) {
-			const toLayout = $to.parent;
-			const toLayoutPos = to - $to.parentOffset - 1;
-			const toPos = options?.moveToEnd ? to + toNode.nodeSize : to;
-			return moveToExistingLayout(
-				toLayout,
-				toLayoutPos,
-				fromContentWithoutBreakout,
-				$sourceFrom.pos,
-				toPos,
-				tr,
-				$sourceFrom,
-				$to,
-				api,
-				options?.selectMovedNode,
-			);
-		} else {
-			let toNodeWithoutBreakout: PMNode | Fragment = toNode;
-
-			// remove breakout from node;
-			if (breakout && $to.nodeAfter && $to.nodeAfter.marks.some((m) => m.type === breakout)) {
-				tr.removeNodeMark(to, breakout);
-				// resolve again the source node after node updated (remove breakout marks)
-				toNodeWithoutBreakout = tr.doc.resolve(to).nodeAfter || toNode;
-			}
-
-			if (isMultiSelect) {
-				if (
-					isFragmentOfType(fromContentWithoutBreakout as Fragment, 'layoutColumn') &&
-					fromContentWithoutBreakout.firstChild
-				) {
-					fromContentWithoutBreakout = fromContentWithoutBreakout.firstChild.content;
+		(
+			from: number,
+			to: number,
+			options?: { moveNodeAtCursorPos?: boolean; moveToEnd?: boolean; selectMovedNode?: boolean },
+		): EditorCommand =>
+			({ tr }) => {
+				if (!api) {
+					return tr;
 				}
-			} else {
-				if (
-					fromContentWithoutBreakout instanceof PMNode &&
-					fromContentWithoutBreakout.type.name === 'layoutColumn'
-				) {
-					fromContentWithoutBreakout = fromContentWithoutBreakout.content;
-				}
-			}
-
-			const layoutContents = options?.moveToEnd
-				? [toNodeWithoutBreakout, fromContentWithoutBreakout]
-				: [fromContentWithoutBreakout, toNodeWithoutBreakout];
-
-			const newLayout = createNewLayout(tr.doc.type.schema, layoutContents);
-
-			if (newLayout) {
-				let sourceNodeTypes, hasSelectedMultipleNodes;
-				if (isMultiSelect) {
-					const attributes = getMultiSelectAnalyticsAttributes(tr, $sourceFrom.pos, sourceTo);
-					hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
-					sourceNodeTypes = attributes.nodeTypes;
+				const canMove = canMoveToLayout(api, from, to, tr, options?.moveNodeAtCursorPos);
+				if (!canMove) {
+					return tr;
 				}
 
-				tr = removeFromSource(tr, $sourceFrom, sourceTo);
-				const mappedTo = tr.mapping.map(to);
+				const { toNode, $to, sourceContent, $sourceFrom, sourceTo } = canMove;
+				const { layoutSection, layoutColumn } = tr.doc.type.schema.nodes || {};
+				const { breakout } = tr.doc.type.schema.marks || {};
 
-				tr.delete(mappedTo, mappedTo + toNodeWithoutBreakout.nodeSize).insert(mappedTo, newLayout);
-
+				// get breakout mode from destination node,
+				// if not found, get from source node,
+				let breakoutMode;
+				let breakoutWidth;
 				if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
-					breakoutMode &&
-						tr.setNodeMarkup(mappedTo, newLayout.type, newLayout.attrs, [
-							breakout.create({ mode: breakoutMode, width: breakoutWidth }),
-						]);
+					({ breakoutMode, breakoutWidth } =
+						getBreakoutModeAndWidth(toNode, breakout) ||
+						getBreakoutModeAndWidth(sourceContent, breakout) ||
+						{});
 				} else {
-					breakoutMode &&
-						tr.setNodeMarkup(mappedTo, newLayout.type, newLayout.attrs, [
-							breakout.create({ mode: breakoutMode }),
-						]);
+					breakoutMode = getBreakoutMode(toNode, breakout) || getBreakoutMode(sourceContent, breakout);
 				}
 
-				if (fg('platform_editor_column_count_analytics')) {
-					// layout created via drag and drop will always be 2 columns
-					fireInsertLayoutAnalytics(tr, api, sourceNodeTypes, hasSelectedMultipleNodes, 2);
-				} else {
-					fireInsertLayoutAnalytics(tr, api, sourceNodeTypes, hasSelectedMultipleNodes);
-				}
-			}
+				// we don't want to remove marks when moving/re-ordering layoutSection
+				const shouldRemoveMarks = ($sourceFrom.node().type !== layoutSection);
 
-			return tr;
-		}
-	};
+				const fromContentBeforeBreakoutMarksRemoved = tr.doc.slice($sourceFrom.pos, sourceTo).content;
+
+				// remove breakout from source content
+				let fromContentWithoutBreakout = shouldRemoveMarks
+					? removeBreakoutMarks(tr, $sourceFrom, sourceTo)
+					: fromContentBeforeBreakoutMarksRemoved;
+
+				if (!fromContentWithoutBreakout) {
+					return tr;
+				}
+
+				if (fg('platform_editor_ease_of_use_metrics')) {
+					api?.metrics?.commands.setContentMoved()({ tr });
+				}
+
+				if (toNode.type === layoutSection) {
+					const toPos = options?.moveToEnd ? to + toNode.nodeSize - 1 : to + 1;
+
+					return moveToExistingLayout(
+						toNode,
+						to,
+						fromContentWithoutBreakout,
+						$sourceFrom.pos,
+						toPos,
+						tr,
+						$sourceFrom,
+						$to,
+						api,
+						options?.selectMovedNode,
+					);
+				} else if (toNode.type === layoutColumn) {
+					const toLayout = $to.parent;
+					const toLayoutPos = to - $to.parentOffset - 1;
+					const toPos = options?.moveToEnd ? to + toNode.nodeSize : to;
+					return moveToExistingLayout(
+						toLayout,
+						toLayoutPos,
+						fromContentWithoutBreakout,
+						$sourceFrom.pos,
+						toPos,
+						tr,
+						$sourceFrom,
+						$to,
+						api,
+						options?.selectMovedNode,
+					);
+				} else {
+					let toNodeWithoutBreakout: PMNode | Fragment = toNode;
+
+					// remove breakout from node;
+					if (breakout && $to.nodeAfter && $to.nodeAfter.marks.some((m) => m.type === breakout)) {
+						tr.removeNodeMark(to, breakout);
+						// resolve again the source node after node updated (remove breakout marks)
+						toNodeWithoutBreakout = tr.doc.resolve(to).nodeAfter || toNode;
+					}
+
+					if (
+						isFragmentOfType(fromContentWithoutBreakout as Fragment, 'layoutColumn') &&
+						fromContentWithoutBreakout.firstChild
+					) {
+						fromContentWithoutBreakout = fromContentWithoutBreakout.firstChild.content;
+					}
+
+					const layoutContents = options?.moveToEnd
+						? [toNodeWithoutBreakout, fromContentWithoutBreakout]
+						: [fromContentWithoutBreakout, toNodeWithoutBreakout];
+
+					const newLayout = createNewLayout(tr.doc.type.schema, layoutContents);
+
+					if (newLayout) {
+						const attributes = getMultiSelectAnalyticsAttributes(tr, $sourceFrom.pos, sourceTo);
+						const { nodeTypes: sourceNodeTypes, hasSelectedMultipleNodes } = attributes;
+
+						tr = removeFromSource(tr, $sourceFrom, sourceTo);
+						const mappedTo = tr.mapping.map(to);
+
+						tr.delete(mappedTo, mappedTo + toNodeWithoutBreakout.nodeSize).insert(mappedTo, newLayout);
+
+						if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
+							breakoutMode &&
+								tr.setNodeMarkup(mappedTo, newLayout.type, newLayout.attrs, [
+									breakout.create({ mode: breakoutMode, width: breakoutWidth }),
+								]);
+						} else {
+							breakoutMode &&
+								tr.setNodeMarkup(mappedTo, newLayout.type, newLayout.attrs, [
+									breakout.create({ mode: breakoutMode }),
+								]);
+						}
+
+						if (fg('platform_editor_column_count_analytics')) {
+							// layout created via drag and drop will always be 2 columns
+							fireInsertLayoutAnalytics(tr, api, sourceNodeTypes, hasSelectedMultipleNodes, 2);
+						} else {
+							fireInsertLayoutAnalytics(tr, api, sourceNodeTypes, hasSelectedMultipleNodes);
+						}
+					}
+
+					return tr;
+				}
+			};

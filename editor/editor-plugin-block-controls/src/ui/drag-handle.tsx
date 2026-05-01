@@ -486,7 +486,6 @@ export const DragHandle = ({
 
 	const start = getPos();
 	const isLayoutColumn = nodeType === 'layoutColumn';
-	const isMultiSelect = editorExperiment('platform_editor_element_drag_and_drop_multiselect', true);
 
 	// Dynamically calculate if node is top-level based on current position (gated by experiment)
 	const isTopLevelNodeDynamic = useMemo(() => {
@@ -583,7 +582,7 @@ export const DragHandle = ({
 					actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
 					attributes: {
 						nodeDepth: resolvedStartPos.depth,
-						nodeType: resolvedStartPos.nodeAfter?.type.name || '',
+						nodeTypes: resolvedStartPos.nodeAfter?.type.name || '',
 					},
 				})(tr);
 
@@ -618,9 +617,6 @@ export const DragHandle = ({
 
 	const handleOnClick = useCallback(
 		(e: MouseEvent<HTMLButtonElement>) => {
-			if (!isMultiSelect) {
-				setDragHandleSelected(!dragHandleSelected);
-			}
 			api?.core?.actions.execute(({ tr }) => {
 				const startPos = getPos();
 				if (startPos === undefined) {
@@ -629,7 +625,7 @@ export const DragHandle = ({
 				const mSelect = api?.blockControls.sharedState.currentState()?.multiSelectDnD;
 				const $anchor =
 					mSelect?.anchor !== undefined ? tr.doc.resolve(mSelect?.anchor) : tr.selection.$anchor;
-				if (!isMultiSelect || tr.selection.empty || !e.shiftKey) {
+				if (tr.selection.empty || !e.shiftKey) {
 					tr = selectNode(tr, startPos, nodeType, api);
 				} else if (
 					isTopLevelNodeValue &&
@@ -656,7 +652,7 @@ export const DragHandle = ({
 					actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
 					attributes: {
 						nodeDepth: resolvedMovingNode.depth,
-						nodeType: maybeNode?.type.name || '',
+						nodeTypes: maybeNode?.type.name || '',
 					},
 				})(tr);
 				return tr;
@@ -664,7 +660,7 @@ export const DragHandle = ({
 
 			view.focus();
 		},
-		[isMultiSelect, api, view, dragHandleSelected, getPos, isTopLevelNodeValue, nodeType],
+		[api, view, getPos, isTopLevelNodeValue, nodeType],
 	);
 
 	const handleKeyDown = useCallback(
@@ -684,7 +680,6 @@ export const DragHandle = ({
 					const $startPos = tr.doc.resolve(startPos + node.nodeSize);
 					const selection = new TextSelection($startPos);
 					tr.setSelection(selection);
-					!isMultiSelect && tr.setMeta(key, { pos: startPos });
 					return tr;
 				});
 			} else if (![e.altKey, e.ctrlKey, e.shiftKey].some((pressed) => pressed)) {
@@ -693,7 +688,7 @@ export const DragHandle = ({
 				view.focus();
 			}
 		},
-		[getPos, api?.core?.actions, isMultiSelect, view],
+		[getPos, api?.core?.actions, view],
 	);
 
 	const handleKeyDownNew = useCallback(
@@ -770,26 +765,24 @@ export const DragHandle = ({
 			}),
 
 			onGenerateDragPreview: ({ nativeSetDragImage }) => {
-				if (isMultiSelect) {
-					api?.core?.actions.execute(({ tr }) => {
-						const handlePos = getPos();
-						if (typeof handlePos !== 'number') {
-							return tr;
-						}
-						const newHandlePosCheck = isHandleCorrelatedToSelection(
-							view.state,
-							tr.selection,
-							handlePos,
-						);
-						if (!tr.selection.empty && newHandlePosCheck) {
-							api?.blockControls?.commands.setMultiSelectPositions()({ tr });
-						} else {
-							tr = selectNode(tr, handlePos, nodeType, api);
-						}
-
+				api?.core?.actions.execute(({ tr }) => {
+					const handlePos = getPos();
+					if (typeof handlePos !== 'number') {
 						return tr;
-					});
-				}
+					}
+					const newHandlePosCheck = isHandleCorrelatedToSelection(
+						view.state,
+						tr.selection,
+						handlePos,
+					);
+					if (!tr.selection.empty && newHandlePosCheck) {
+						api?.blockControls?.commands.setMultiSelectPositions()({ tr });
+					} else {
+						tr = selectNode(tr, handlePos, nodeType, api);
+					}
+
+					return tr;
+				});
 
 				const startPos = getPos();
 				const state = view.state;
@@ -805,7 +798,6 @@ export const DragHandle = ({
 				const expandedSlice = doc.slice(sliceFrom, sliceTo);
 
 				const isDraggingMultiLine =
-					isMultiSelect &&
 					startPos !== undefined &&
 					startPos >= sliceFrom &&
 					startPos < sliceTo &&
@@ -923,8 +915,8 @@ export const DragHandle = ({
 						actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
 						attributes: {
 							nodeDepth: resolvedMovingNode.depth,
-							nodeType: maybeNode?.type.name || '',
-							...(isMultiSelect && { nodeTypes, hasSelectedMultipleNodes }),
+							nodeTypes: nodeTypes || '',
+							hasSelectedMultipleNodes,
 						},
 					})(tr);
 					return tr;
@@ -933,7 +925,7 @@ export const DragHandle = ({
 				view.focus();
 			},
 		});
-	}, [anchorName, api, getPos, isMultiSelect, nodeType, start, view]);
+	}, [anchorName, api, getPos, nodeType, start, view]);
 
 	const calculatePositionOld = useCallback(() => {
 		const pos = getPos();
@@ -1076,16 +1068,15 @@ export const DragHandle = ({
 	}, [buttonRef, handleOptions?.isFocused, view]);
 
 	useEffect(() => {
-		if (!isMultiSelect || typeof start !== 'number' || !selection) {
+		if (typeof start !== 'number' || !selection) {
 			return;
 		}
 
 		setDragHandleSelected(isHandleCorrelatedToSelection(view.state, selection, start));
-	}, [start, selection, view, isMultiSelect]);
+	}, [start, selection, view]);
 
 	useEffect(() => {
 		if (
-			!isMultiSelect ||
 			isShiftDown === undefined ||
 			view.state.selection.empty ||
 			!fg('platform_editor_elements_dnd_shift_click_select')
@@ -1106,7 +1097,7 @@ export const DragHandle = ({
 		} else {
 			setDragHandleDisabled(false);
 		}
-	}, [api?.blockControls.sharedState, isMultiSelect, isShiftDown, isTopLevelNodeValue, view]);
+	}, [api?.blockControls.sharedState, isShiftDown, isTopLevelNodeValue, view]);
 
 	const dragHandleMessage = editorExperiment('platform_editor_block_menu', true)
 		? formatMessage(blockControlsMessages.dragToMoveClickToOpen, { br: <br /> })
@@ -1223,8 +1214,7 @@ export const DragHandle = ({
 		.join('. ');
 
 	const handleOnDrop = (event: MouseEvent<HTMLButtonElement>) => {
-		editorExperiment('platform_editor_element_drag_and_drop_multiselect', true) &&
-			event.stopPropagation();
+		event.stopPropagation();
 	};
 
 	const hasHadInteraction = interactionState !== 'hasNotHadInteraction';

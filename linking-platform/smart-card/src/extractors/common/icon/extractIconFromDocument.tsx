@@ -1,9 +1,9 @@
 import React from 'react';
 
-import BlogIconGlyph from '@atlaskit/icon-object/glyph/blog/16';
-import LiveDocumentIconGlyph from '@atlaskit/icon-object/glyph/page-live-doc/16';
 import DocumentFilledIcon from '@atlaskit/icon/core/file';
 import { isConfluenceGenerator } from '@atlaskit/link-extractors';
+import BlogIconObject from '@atlaskit/object/blog';
+import LiveDocumentIconObject from '@atlaskit/object/page-live-doc';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import BlogIconWrapped from '../../../common/ui/icons/blog-icon';
@@ -70,7 +70,7 @@ const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode
 	switch (type) {
 		case 'schema:BlogPosting':
 			return fg('platform_sl_icons_refactor') ? (
-				<BlogIconGlyph label={documentLabel(opts, 'blog')} testId="blog-icon" />
+				<BlogIconObject label={documentLabel(opts, 'blog')} testId="blog-icon" />
 			) : (
 				<BlogIconWrapped label={documentLabel(opts, 'blog')} testId="blog-icon" />
 			);
@@ -110,7 +110,7 @@ const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode
 const digitalDocumentToIcon = (opts: IconOpts): React.ReactNode => {
 	if (opts.provider?.id && isConfluenceGenerator(opts.provider.id)) {
 		return fg('platform_sl_icons_refactor') ? (
-			<LiveDocumentIconGlyph label={documentLabel(opts, 'live document')} testId="live-doc-icon" />
+			<LiveDocumentIconObject label={documentLabel(opts, 'live document')} testId="live-doc-icon" />
 		) : (
 			<LiveDocumentIconWrapped
 				label={documentLabel(opts, 'live document')}

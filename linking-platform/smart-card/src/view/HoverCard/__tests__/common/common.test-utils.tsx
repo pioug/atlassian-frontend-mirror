@@ -202,7 +202,10 @@ export const runCommonHoverCardTests = (
 				jest.runAllTimers();
 			});
 
-			expect(await screen.findByTestId('hover-card-trigger-wrapper')).not.toHaveAttribute('role');
+			expect(await screen.findByTestId('hover-card-trigger-wrapper')).toHaveAttribute(
+				'role',
+				'none',
+			);
 		});
 	});
 

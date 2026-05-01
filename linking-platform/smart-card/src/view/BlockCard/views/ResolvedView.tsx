@@ -11,7 +11,7 @@ import { browser } from '@atlaskit/linking-common/user-agent';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { ActionName, ElementName, SmartLinkPosition } from '../../../constants';
+import { ActionName, CardDisplay, ElementName, SmartLinkPosition } from '../../../constants';
 import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
 import { getExtensionKey } from '../../../state/helpers';
 import useRovoConfig from '../../../state/hooks/use-rovo-config';
@@ -74,7 +74,6 @@ const ResolvedView = ({
 }: FlexibleBlockCardProps) => {
 	const [isPreviewBlockErrored, setIsPreviewBlockErrored] = useState<boolean>(false);
 	const extensionKey = getExtensionKey(cardState.details);
-
 	const rovoConfig = fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
 			useRovoConfig()
@@ -109,8 +108,7 @@ const ResolvedView = ({
 	const prompts = useMemo(() => {
 		if (fg('platform_sl_3p_auth_rovo_block_card_kill_switch')) {
 			const defaultPrompts = [
-				RovoChatPromptKey.HIGHLIGHT_RELEVANT_CONTENT,
-				RovoChatPromptKey.ASK_ROVO_ANYTHING,
+				RovoChatPromptKey.KEY_HIGHLIGHTS
 			];
 
 			const linkType = cardState.details?.data?.['@type'];
@@ -136,24 +134,26 @@ const ResolvedView = ({
 		return [];
 	}, [cardState?.details?.data, extensionKey]);
 
-	const footerActions: ActionItem[] = useMemo(
-		() =>
-			showRovoResolvedView && fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
-				? [
-						{
-							name: ActionName.RovoChatAction,
-							prompts: prompts,
-						},
-						{ name: ActionName.FollowAction, hideIcon: true },
-						{ name: ActionName.DownloadAction, hideIcon: true },
-					]
-				: [
-						{ name: ActionName.FollowAction, hideIcon: true },
-						{ name: ActionName.PreviewAction, hideIcon: true },
-						{ name: ActionName.DownloadAction, hideIcon: true },
-					],
-		[showRovoResolvedView, prompts],
-	);
+	const footerActions: ActionItem[] = useMemo(() => {
+		if (showRovoResolvedView && fg('platform_sl_3p_auth_rovo_block_card_kill_switch')) {
+			return [
+				{
+					name: ActionName.RovoChatAction,
+					prompts: prompts,
+					iconSize: 'small',
+					cardAppearance: CardDisplay.Block,
+				},
+				{ name: ActionName.FollowAction, iconSize: 'small' },
+				{ name: ActionName.DownloadAction, iconSize: 'small' },
+			];
+		}
+
+		return [
+			{ name: ActionName.FollowAction, hideIcon: true },
+			{ name: ActionName.PreviewAction, hideIcon: true },
+			{ name: ActionName.DownloadAction, hideIcon: true },
+		];
+	}, [showRovoResolvedView, prompts]);
 
 	const uiOptions = FlexibleCardUiOptions;
 	uiOptions.enableSnippetRenderer = true;
@@ -196,6 +196,7 @@ const ResolvedView = ({
 			<FooterBlock
 				css={[footerBlockCss, safari && footerBlockSafariStyles]}
 				actions={footerActions}
+				isPreviewBlockErrored={isPreviewBlockErrored}
 			/>
 		</FlexibleCard>
 	);

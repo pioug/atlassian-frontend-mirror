@@ -3,6 +3,8 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 /**
  * ProseMirror plugin that manages AI-generating decorations on media nodes.
@@ -122,9 +124,13 @@ export function createAIGeneratingDecorationPlugin(): SafePlugin {
 			},
 
 			apply(tr, pluginState, _oldState, newState): AIGeneratingDecorationState {
-				// Killswitch — if active, clear any existing decorations and stop
-				// eslint-disable-next-line @atlaskit/platform/use-recommended-utils -- dynamic config killswitch, not a standard feature gate
-				if (FeatureGates.getExperimentValue<boolean>('maui_ai_border_killswitch', 'value', false)) {
+				// Disabled when killswitch is on or gate/experiment off — drop decorations.
+				if (
+					// eslint-disable-next-line @atlaskit/platform/use-recommended-utils -- dynamic config killswitch, not a standard feature gate
+					FeatureGates.getExperimentValue<boolean>('maui_ai_border_killswitch', 'value', false) ||
+					!fg('cc-maui-phase-2-loading') ||
+					!expValEquals('cc-maui-experiment', 'isEnabled', true)
+				) {
 					if (pluginState.generatingMediaIds.size > 0) {
 						return {
 							generatingMediaIds: new Set(),

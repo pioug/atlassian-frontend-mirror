@@ -2,11 +2,16 @@ import React, { useCallback, useMemo } from 'react';
 
 import { type IntlShape, useIntl } from 'react-intl';
 
-import AiGenerativeTextIcon from '@atlaskit/icon-lab/core/ai-generative-text';
+import AiSearchIcon from '@atlaskit/icon-lab/core/ai-search';
+import AiChatIcon from '@atlaskit/icon/core/ai-chat';
+import AiGenerativeTextSummaryIcon from '@atlaskit/icon/core/ai-generative-text-summary';
+import RovoChatIcon from '@atlaskit/icon/core/rovo-chat';
 import type { ProductType } from '@atlaskit/linking-common';
+import { RovoIcon } from '@atlaskit/logo';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
-import { ActionName } from '../../../../../constants';
+import { ActionName, CardDisplay } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
@@ -15,6 +20,7 @@ import AiChapterIcon from '../../../assets/ai-chapter-icon';
 import AIEditIcon from '../../../assets/ai-edit-icon';
 import AISearchIcon from '../../../assets/ai-search-icon';
 import Action from '../action';
+import type { ActionProps } from "../action/types";
 import { type LinkActionProps } from '../types';
 
 import htmlToAdf from './html-to-adf';
@@ -30,6 +36,9 @@ export enum RovoChatPromptKey {
 	IDENTIFY_KEY_TRENDS = 'identify-key-trends',
 	FIND_OPEN_QUESTIONS = 'find-open-questions',
 	HIGHLIGHT_RELEVANT_CONTENT = 'highlight-relevant-content',
+	SUMMARIZE_THIS_FOR_ME = 'summarize-this-for-me',
+	ASK_A_SPECIFIC_QUESTION = 'ask-a-specific-question',
+	SHOW_ME_WHATS_RELEVANT = 'show-me-whats-relevant',
 }
 const GOOGLE_PROMPTS = [
 	RovoChatPromptKey.RECOMMEND_OTHER_SOURCES,
@@ -38,10 +47,10 @@ const GOOGLE_PROMPTS = [
 ];
 
 const GENERIC_3P_PROMPTS = [
-	// For rovogrowth-640-inline-action-nudge-exp only. Applies to all RovoActions eligible providers, except Google
-	RovoChatPromptKey.SUMMARIZE_LINK,
-	RovoChatPromptKey.KEY_HIGHLIGHTS,
-	RovoChatPromptKey.ASK_ROVO_ANYTHING,
+	// For rovogrowth-640-inline-action-nudge-exp only
+	RovoChatPromptKey.SHOW_ME_WHATS_RELEVANT,
+	RovoChatPromptKey.SUMMARIZE_THIS_FOR_ME,
+	RovoChatPromptKey.ASK_A_SPECIFIC_QUESTION,
 ];
 
 const DEFAULT_PROMPTS = GOOGLE_PROMPTS;
@@ -73,6 +82,8 @@ const getPromptAction = (
 	intl: IntlShape,
 	url: string = '',
 	product?: ProductType,
+	iconSize?: ActionProps['iconSize'],
+	cardAppearance?: CardDisplay,
 ):
 	| (Pick<React.ComponentProps<typeof Action>, 'content' | 'icon' | 'tooltipMessage'> & {
 			data: SendPromptMessageData;
@@ -150,7 +161,13 @@ const getPromptAction = (
 				{ ignoreTag: true },
 			);
 			return {
-				icon: <AIEditIcon />,
+				icon:
+					cardAppearance === CardDisplay.Block &&
+					fg('platform_sl_3p_auth_rovo_block_card_kill_switch') ? (
+						<AiChatIcon label={label_summarize} size={iconSize} />
+					) : (
+						<AIEditIcon />
+					),
 				content: label_summarize,
 				tooltipMessage: label_summarize,
 				data: {
@@ -162,23 +179,43 @@ const getPromptAction = (
 					},
 				},
 			};
-		case RovoChatPromptKey.KEY_HIGHLIGHTS:
-			const label_key_highlights = intl.formatMessage(
+		case RovoChatPromptKey.SUMMARIZE_THIS_FOR_ME:
+			const label_summarize_this_for_me = intl.formatMessage(messages.rovo_prompt_button_summarize_this);
+			const html_summarize_this_for_me = intl.formatMessage(
+				messages.rovo_prompt_message_summarize,
+				{ url },
+				{ ignoreTag: true },
+			);
+			return {
+				icon: <AiGenerativeTextSummaryIcon label={label_summarize_this_for_me} />,
+				content: label_summarize_this_for_me,
+				tooltipMessage: label_summarize_this_for_me,
+				data: {
+					name: label_summarize_this_for_me,
+					dialogues: [],
+					prompt: htmlToAdf(html_summarize_this_for_me),
+					mode: {
+						fastModeEnabled: true,
+					},
+				},
+			};
+		case RovoChatPromptKey.HIGHLIGHT_RELEVANT_CONTENT:
+			const label_highlight_relevant_content = intl.formatMessage(
 				messages.rovo_prompt_button_highlight_relevant_content,
 			);
-			const html_key_highlights = intl.formatMessage(
+			const html_highlight_relevant_content = intl.formatMessage(
 				messages.rovo_prompt_message_highlight_relevant_content,
 				{ context: contextLong, url },
 				{ ignoreTag: true },
 			);
 			return {
 				icon: <AiChapterIcon />,
-				content: label_key_highlights,
-				tooltipMessage: label_key_highlights,
+				content: label_highlight_relevant_content,
+				tooltipMessage: label_highlight_relevant_content,
 				data: {
-					name: label_key_highlights,
+					name: label_highlight_relevant_content,
 					dialogues: [],
-					prompt: htmlToAdf(html_key_highlights),
+					prompt: htmlToAdf(html_highlight_relevant_content),
 					mode: {
 						fastModeEnabled: true,
 					},
@@ -193,7 +230,13 @@ const getPromptAction = (
 				{ url },
 			);
 			return {
-				icon: <AISearchIcon />,
+				icon:
+					cardAppearance === CardDisplay.Block &&
+					fg('platform_sl_3p_auth_rovo_block_card_kill_switch') ? (
+						<RovoIcon label={label_ask_rovo_anything} size={'xxsmall'} shouldUseHexLogo />
+					) : (
+						<AISearchIcon />
+					),
 				content: label_ask_rovo_anything,
 				tooltipMessage: label_ask_rovo_anything,
 				data: {
@@ -204,24 +247,63 @@ const getPromptAction = (
 					placeholderType: 'generic',
 				},
 			};
-
-		case RovoChatPromptKey.HIGHLIGHT_RELEVANT_CONTENT:
-			const label_highlight_relevant_content = intl.formatMessage(
-				messages.rovo_prompt_button_highlight_relevant_content,
+case RovoChatPromptKey.ASK_A_SPECIFIC_QUESTION:
+			const label_ask_a_specific_question = intl.formatMessage(
+				messages.rovo_prompt_button_ask_a_specific_question,
 			);
-			const html_highlight_relevant_content = intl.formatMessage(
+			const prompt_ask_a_specific_question = intl.formatMessage(
+				messages.rovo_prompt_message_ask_rovo_anything,
+				{ url },
+			);
+			return {
+				icon: <RovoChatIcon label={label_ask_a_specific_question} />,
+				content: label_ask_a_specific_question,
+				tooltipMessage: label_ask_a_specific_question,
+				data: {
+					name: label_ask_a_specific_question,
+					dialogues: [],
+					prompt: prompt_ask_a_specific_question,
+					isPromptPlaceholder: true,
+					placeholderType: 'generic',
+				},
+			};
+
+		case RovoChatPromptKey.KEY_HIGHLIGHTS:
+			const label_key_highlights = intl.formatMessage(
+				messages.rovo_prompt_button_key_highlights,
+			);
+			const html_key_highlights = intl.formatMessage(
+				messages.rovo_prompt_message_key_highlights,
+				{ context: contextLong, url },
+				{ ignoreTag: true },
+			);
+			return {
+				icon: <AiChatIcon label={label_key_highlights} size={iconSize} />,
+				content: label_key_highlights,
+				tooltipMessage: label_key_highlights,
+				data: {
+					name: label_key_highlights,
+					dialogues: [],
+					prompt: htmlToAdf(html_key_highlights),
+				},
+			};
+		case RovoChatPromptKey.SHOW_ME_WHATS_RELEVANT:
+			const label_show_me_whats_relevant = intl.formatMessage(
+				messages.rovo_prompt_button_show_me_whats_relevant,
+			);
+			const html_show_me_whats_relevant = intl.formatMessage(
 				messages.rovo_prompt_message_highlight_relevant_content,
 				{ context: contextLong, url },
 				{ ignoreTag: true },
 			);
 			return {
-				icon: <AiGenerativeTextIcon label={label_highlight_relevant_content} />,
-				content: label_highlight_relevant_content,
-				tooltipMessage: label_highlight_relevant_content,
+				icon: <AiSearchIcon label={label_show_me_whats_relevant} />,
+				content: label_show_me_whats_relevant,
+				tooltipMessage: label_show_me_whats_relevant,
 				data: {
-					name: label_highlight_relevant_content,
+					name: label_show_me_whats_relevant,
 					dialogues: [],
-					prompt: htmlToAdf(html_highlight_relevant_content),
+					prompt: htmlToAdf(html_show_me_whats_relevant),
 				},
 			};
 		case RovoChatPromptKey.IDENTIFY_KEY_TRENDS:
@@ -234,7 +316,7 @@ const getPromptAction = (
 				{ ignoreTag: true },
 			);
 			return {
-				icon: <AiGenerativeTextIcon label={label_identify_key_trends} />,
+				icon: <AiChatIcon label={label_identify_key_trends} size={iconSize} />,
 				content: label_identify_key_trends,
 				tooltipMessage: label_identify_key_trends,
 				data: {
@@ -253,7 +335,7 @@ const getPromptAction = (
 				{ ignoreTag: true },
 			);
 			return {
-				icon: <AiGenerativeTextIcon label={label_identify_key_points} />,
+				icon: <AiChatIcon label={label_identify_key_points} size={iconSize} />,
 				content: label_identify_key_points,
 				tooltipMessage: label_identify_key_points,
 				data: {
@@ -272,7 +354,7 @@ const getPromptAction = (
 				{ ignoreTag: true },
 			);
 			return {
-				icon: <AiGenerativeTextIcon label={label_find_open_questions} />,
+				icon: <AiChatIcon label={label_find_open_questions} size={iconSize} />,
 				content: label_find_open_questions,
 				tooltipMessage: label_find_open_questions,
 				data: {
@@ -283,6 +365,7 @@ const getPromptAction = (
 			};
 	}
 };
+
 
 type RovoChatActionProps = LinkActionProps & {
 	prompts?: RovoChatPromptKey[];
@@ -331,7 +414,14 @@ const RovoChatAction = ({
 				content,
 				tooltipMessage,
 				data: promptData,
-			} = getPromptAction(promptKey, intl, data?.url, data?.product) || {};
+			} = getPromptAction(
+				promptKey,
+				intl,
+				data?.url,
+				data?.product,
+				props.iconSize,
+				props.cardAppearance,
+			) || {};
 
 			return promptData ? (
 				<Action

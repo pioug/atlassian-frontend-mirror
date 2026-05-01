@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - BreadcrumbsProps
  *
- * @codegen <<SignedSource::73741dbc7a068418c1016503ad83cd71>>
+ * @codegen <<SignedSource::6c6926eec00e9c2feaf42a5f65e8e930>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/breadcrumbs/breadcrumbs.tsx <<SignedSource::bb9d59deaeb1908f6bd21516c369b4e2>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/breadcrumbs/breadcrumbs.tsx <<SignedSource::33fdf711cf7f65f7f5b472284518a050>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -21,6 +21,7 @@ export type BreadcrumbsProps = Pick<
 	| 'maxItems'
 	| 'itemsBeforeCollapse'
 	| 'itemsAfterCollapse'
+	| 'onExpand'
 	| 'children'
 	| 'label'
 	| 'ellipsisLabel'

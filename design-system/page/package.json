@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/page",
-	"version": "14.0.4",
+	"version": "14.1.0",
 	"description": "A page layout organizes sections on a page using a grid and grid columns.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,11 +50,15 @@
 		}
 	},
 	"exports": {
-		"./types": "./src/types.tsx",
 		".": "./src/index.tsx",
-		"./Grid": "./src/grid-wrapper.tsx",
-		"./GridColumn": "./src/grid-column.tsx",
-		"./Page": "./src/page.tsx"
+		"./constants": "./src/entry-points/constants.tsx",
+		"./grid-column": "./src/entry-points/grid-column.tsx",
+		"./grid": "./src/entry-points/grid.tsx",
+		"./Grid": "./src/entry-points/grid.tsx",
+		"./GridColumn": "./src/entry-points/grid-column.tsx",
+		"./page": "./src/entry-points/page.tsx",
+		"./Page": "./src/entry-points/page.tsx",
+		"./types": "./src/entry-points/types.tsx"
 	},
 	"dependencies": {
 		"@babel/runtime": "root:*",

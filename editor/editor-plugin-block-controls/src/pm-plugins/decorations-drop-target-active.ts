@@ -82,34 +82,29 @@ export const canMoveNodeOrSliceToPos = (
 	const handleInsideSelection =
 		activeNodePos !== undefined && activeNodePos >= selectionFrom && activeNodePos <= selectionTo;
 
-	if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
-		const selectionSlice = state.doc.slice(selectionFrom, selectionTo, false);
-		const selectionSliceChildCount = selectionSlice.content.childCount;
-		let canDropSingleNode: boolean = true;
-		let canDropMultipleNodes: boolean = true;
+	const selectionSlice = state.doc.slice(selectionFrom, selectionTo, false);
+	const selectionSliceChildCount = selectionSlice.content.childCount;
+	let canDropSingleNode: boolean = true;
+	let canDropMultipleNodes: boolean = true;
 
-		// when there is only one node in the slice, use the same logic as when multi select is not on
-		if (selectionSliceChildCount > 1 && handleInsideSelection) {
-			canDropMultipleNodes = canMoveSliceToIndex(
-				selectionSlice,
-				selectionFrom,
-				selectionTo,
-				parent,
-				index,
-				$toPos,
-			);
-		} else {
-			canDropSingleNode = !!(
-				activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $toPos, node)
-			);
-		}
-
-		if (!canDropMultipleNodes || !canDropSingleNode) {
-			return false;
-		}
+	// when there is only one node in the slice, use the same logic as when multi select is not on
+	if (selectionSliceChildCount > 1 && handleInsideSelection) {
+		canDropMultipleNodes = canMoveSliceToIndex(
+			selectionSlice,
+			selectionFrom,
+			selectionTo,
+			parent,
+			index,
+			$toPos,
+		);
 	} else {
-		const canDrop = activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $toPos, node);
-		return canDrop;
+		canDropSingleNode = !!(
+			activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $toPos, node)
+		);
+	}
+
+	if (!canDropMultipleNodes || !canDropSingleNode) {
+		return false;
 	}
 
 	return true;
@@ -418,9 +413,9 @@ export const getActiveDropTargetDecorations = (
 	defaultActiveAnchorTracker.emit(
 		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 			? api.core.actions.getAnchorIdForNode(
-					anchorEmitNodeWithPos.node,
-					anchorEmitNodeWithPos.pos,
-				) || ''
+				anchorEmitNodeWithPos.node,
+				anchorEmitNodeWithPos.pos,
+			) || ''
 			: getNodeAnchor(anchorEmitNodeWithPos.node),
 	);
 

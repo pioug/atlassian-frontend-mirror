@@ -11,14 +11,40 @@ import {
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconImages } from '@atlaskit/editor-common/quick-insert';
 
-import type { MediaInsertPlugin } from './mediaInsertPluginType';
+import type { MediaInsertPlugin, RegisterInsertTab } from './mediaInsertPluginType';
 import { closeMediaInsertPicker, showMediaInsertPopup } from './pm-plugins/actions';
 import { createPlugin } from './pm-plugins/main';
 import { pluginKey } from './pm-plugins/plugin-key';
 import type { InsertExternalMediaSingle, InsertFile, InsertMediaSingle } from './types';
 import { MediaInsertPicker } from './ui/MediaInsertPicker';
 
+/**
+ * Per-editor-instance registry of insert tabs registered via
+ * `actions.registerInsertTab(...)`. Idempotent on `key` so that re-registering
+ * the same tab (e.g. on plugin re-init in dev / StrictMode) replaces rather
+ * than duplicates.
+ */
+const createInsertTabRegistry = (): {
+	register: (tab: RegisterInsertTab) => void;
+	getAll: () => RegisterInsertTab[];
+} => {
+	const tabs: RegisterInsertTab[] = [];
+	return {
+		register: (tab) => {
+			const existingIndex = tabs.findIndex((t) => t.key === tab.key);
+			if (existingIndex >= 0) {
+				tabs[existingIndex] = tab;
+			} else {
+				tabs.push(tab);
+			}
+		},
+		getAll: () => tabs,
+	};
+};
+
 export const mediaInsertPlugin: MediaInsertPlugin = ({ api, config }) => {
+	const insertTabRegistry = createInsertTabRegistry();
+
 	return {
 		name: 'mediaInsert',
 
@@ -49,6 +75,11 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api, config }) => {
 				(mountInfo) =>
 				({ tr }) =>
 					showMediaInsertPopup(tr, mountInfo),
+		},
+
+		actions: {
+			registerInsertTab: (tab) => insertTabRegistry.register(tab),
+			getInsertTabs: () => insertTabRegistry.getAll(),
 		},
 
 		contentComponent: ({

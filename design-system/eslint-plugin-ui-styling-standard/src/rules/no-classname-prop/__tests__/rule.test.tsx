@@ -1,6 +1,6 @@
 import outdent from 'outdent';
 
-import { typescriptEslintTester } from '../../__tests__/utils/_tester';
+import { typescriptEslintTester } from '../../__tests__/utils/_ts-tester';
 import rule from '../index';
 
 // @ts-expect-error -- `rule` doesn't work with `typescriptEslintTester`

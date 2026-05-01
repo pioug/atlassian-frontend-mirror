@@ -155,55 +155,43 @@ const destroyFn = (
 				}
 
 				api.core?.actions.execute(({ tr }) => {
-					const isMultiSelect = editorExperiment(
-						'platform_editor_element_drag_and_drop_multiselect',
-						true,
-					);
+					const { multiSelectDnD } = api.blockControls?.sharedState.currentState() || {};
+					// Restore the users initial Editor selection when the drop completes
+					if (multiSelectDnD) {
+						// If the TextSelection between the drag start and end has changed, the document has changed, and we should not reapply the last selection
+						const expandedSelectionUnchanged =
+							multiSelectDnD.textAnchor === tr.selection.anchor &&
+							multiSelectDnD.textHead === tr.selection.head;
 
-					if (isMultiSelect) {
-						const { multiSelectDnD } = api.blockControls?.sharedState.currentState() || {};
-						// Restore the users initial Editor selection when the drop completes
-						if (multiSelectDnD) {
-							// If the TextSelection between the drag start and end has changed, the document has changed, and we should not reapply the last selection
-							const expandedSelectionUnchanged =
-								multiSelectDnD.textAnchor === tr.selection.anchor &&
-								multiSelectDnD.textHead === tr.selection.head;
+						if (expandedSelectionUnchanged) {
+							const $anchor = tr.doc.resolve(multiSelectDnD.userAnchor);
+							const $head = tr.doc.resolve(multiSelectDnD.userHead);
 
-							if (expandedSelectionUnchanged) {
-								const $anchor = tr.doc.resolve(multiSelectDnD.userAnchor);
-								const $head = tr.doc.resolve(multiSelectDnD.userHead);
-
-								if ($head.node() === $anchor.node()) {
-									const $from = $anchor.min($head);
-									selectNode(tr, $from.pos, $from.node().type.name, api);
-								} else {
-									tr.setSelection(
-										TextSelection.create(
-											tr.doc,
-											multiSelectDnD.userAnchor,
-											multiSelectDnD.userHead,
-										),
-									);
-								}
+							if ($head.node() === $anchor.node()) {
+								const $from = $anchor.min($head);
+								selectNode(tr, $from.pos, $from.node().type.name, api);
+							} else {
+								tr.setSelection(
+									TextSelection.create(
+										tr.doc,
+										multiSelectDnD.userAnchor,
+										multiSelectDnD.userHead,
+									),
+								);
 							}
 						}
-						api.selection?.commands.clearManualSelection()({ tr });
 					}
+					api.selection?.commands.clearManualSelection()({ tr });
 
 					const { start } = source.data as ElementDragSource;
 					// if no drop targets are rendered, assume that drop is invalid
 					const lastDragCancelled = location.current.dropTargets.length === 0;
 					if (lastDragCancelled) {
-						let nodeTypes, hasSelectedMultipleNodes;
-						if (isMultiSelect) {
-							const position = getSelectedSlicePosition(start, tr, api);
-							const attributes = getMultiSelectAnalyticsAttributes(tr, position.from, position.to);
-							nodeTypes = attributes.nodeTypes;
-							hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
-						}
+						const position = getSelectedSlicePosition(start, tr, api);
+						const attributes = getMultiSelectAnalyticsAttributes(tr, position.from, position.to);
+						const { nodeTypes, hasSelectedMultipleNodes } = attributes;
 
 						const resolvedMovingNode = tr.doc.resolve(start);
-						const maybeNode = resolvedMovingNode.nodeAfter;
 						api.analytics?.actions.attachAnalyticsEvent({
 							eventType: EVENT_TYPE.UI,
 							action: ACTION.CANCELLED,
@@ -211,8 +199,8 @@ const destroyFn = (
 							actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
 							attributes: {
 								nodeDepth: resolvedMovingNode.depth,
-								nodeType: maybeNode?.type.name || '',
-								...(isMultiSelect && { nodeTypes, hasSelectedMultipleNodes }),
+								nodeTypes: nodeTypes || '',
+								hasSelectedMultipleNodes,
 							},
 						})(tr);
 					}
@@ -277,7 +265,6 @@ const initialState: PluginState = {
 };
 
 export interface FlagType {
-	isMultiSelectEnabled: boolean;
 	toolbarFlagsEnabled: boolean;
 }
 
@@ -319,45 +306,45 @@ export const apply = (
 ):
 	| PluginState
 	| {
-			activeDropTargetNode: ActiveDropTargetNode | undefined;
+		activeDropTargetNode: ActiveDropTargetNode | undefined;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		activeNode: any;
+		blockMenuOptions:
+		| {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			activeNode: any;
-			blockMenuOptions:
-				| {
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						canMoveDown: any;
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						canMoveUp: any;
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						openedViaKeyboard: any;
-				  }
-				| undefined;
-			decorations: DecorationSet;
+			canMoveDown: any;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			editorHeight: any;
+			canMoveUp: any;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			editorWidthLeft: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			editorWidthRight: any;
-			isDocSizeLimitEnabled: boolean | null;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			isDragging: any;
-			isMenuOpen: boolean | undefined;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			isPMDragging: any;
-			isResizerResizing: boolean;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			isSelectedViaDragHandle: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			isShiftDown: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			lastDragCancelled: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			menuTriggerBy: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			menuTriggerByNode: any;
-			multiSelectDnD: MultiSelectDnD | undefined;
-	  } => {
+			openedViaKeyboard: any;
+		}
+		| undefined;
+		decorations: DecorationSet;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		editorHeight: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		editorWidthLeft: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		editorWidthRight: any;
+		isDocSizeLimitEnabled: boolean | null;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		isDragging: any;
+		isMenuOpen: boolean | undefined;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		isPMDragging: any;
+		isResizerResizing: boolean;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		isSelectedViaDragHandle: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		isShiftDown: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		lastDragCancelled: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		menuTriggerBy: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		menuTriggerByNode: any;
+		multiSelectDnD: MultiSelectDnD | undefined;
+	} => {
 	let { activeNode, decorations, isResizerResizing, multiSelectDnD } = currentState;
 	const {
 		editorHeight,
@@ -446,7 +433,7 @@ export const apply = (
 			}
 		}
 
-		if (multiSelectDnD && flags.isMultiSelectEnabled) {
+		if (multiSelectDnD) {
 			multiSelectDnD.anchor = tr.mapping.map(multiSelectDnD.anchor);
 			multiSelectDnD.head = tr.mapping.map(multiSelectDnD.head);
 		}
@@ -458,7 +445,7 @@ export const apply = (
 
 	multiSelectDnD = meta?.multiSelectDnD ?? multiSelectDnD;
 
-	if (multiSelectDnD && flags.isMultiSelectEnabled) {
+	if (multiSelectDnD) {
 		if (
 			(meta?.isDragging ?? isDragging) &&
 			expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true)
@@ -886,8 +873,8 @@ export const apply = (
 	} else {
 		newActiveNode =
 			isEmptyDoc ||
-			(!meta?.activeNode &&
-				findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length === 0)
+				(!meta?.activeNode &&
+					findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length === 0)
 				? null
 				: latestActiveNode;
 	}
@@ -935,19 +922,19 @@ export const apply = (
 			: undefined,
 		blockMenuOptions: editorExperiment('platform_editor_block_menu', true)
 			? {
-					canMoveUp:
-						meta?.toggleMenu?.moveUp !== undefined
-							? meta?.toggleMenu?.moveUp
-							: blockMenuOptions?.canMoveUp,
-					canMoveDown:
-						meta?.toggleMenu?.moveDown !== undefined
-							? meta?.toggleMenu?.moveDown
-							: blockMenuOptions?.canMoveDown,
-					openedViaKeyboard:
-						meta?.toggleMenu?.openedViaKeyboard !== undefined
-							? meta?.toggleMenu?.openedViaKeyboard
-							: blockMenuOptions?.openedViaKeyboard,
-				}
+				canMoveUp:
+					meta?.toggleMenu?.moveUp !== undefined
+						? meta?.toggleMenu?.moveUp
+						: blockMenuOptions?.canMoveUp,
+				canMoveDown:
+					meta?.toggleMenu?.moveDown !== undefined
+						? meta?.toggleMenu?.moveDown
+						: blockMenuOptions?.canMoveDown,
+				openedViaKeyboard:
+					meta?.toggleMenu?.openedViaKeyboard !== undefined
+						? meta?.toggleMenu?.openedViaKeyboard
+						: blockMenuOptions?.openedViaKeyboard,
+			}
 			: undefined,
 		editorHeight: meta?.editorHeight ?? editorHeight,
 		editorWidthLeft: meta?.editorWidthLeft ?? editorWidthLeft,
@@ -972,56 +959,50 @@ export const createPlugin = (
 ): SafePlugin<
 	| PluginState
 	| {
-			activeDropTargetNode: ActiveDropTargetNode | undefined;
+		activeDropTargetNode: ActiveDropTargetNode | undefined;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		activeNode: any;
+		blockMenuOptions:
+		| {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			activeNode: any;
-			blockMenuOptions:
-				| {
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						canMoveDown: any;
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						canMoveUp: any;
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						openedViaKeyboard: any;
-				  }
-				| undefined;
-			decorations: DecorationSet;
+			canMoveDown: any;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			editorHeight: any;
+			canMoveUp: any;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			editorWidthLeft: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			editorWidthRight: any;
-			isDocSizeLimitEnabled: boolean | null;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			isDragging: any;
-			isMenuOpen: boolean | undefined;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			isPMDragging: any;
-			isResizerResizing: boolean;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			isSelectedViaDragHandle: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			isShiftDown: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			lastDragCancelled: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			menuTriggerBy: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			menuTriggerByNode: any;
-			multiSelectDnD: MultiSelectDnD | undefined;
-	  }
+			openedViaKeyboard: any;
+		}
+		| undefined;
+		decorations: DecorationSet;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		editorHeight: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		editorWidthLeft: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		editorWidthRight: any;
+		isDocSizeLimitEnabled: boolean | null;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		isDragging: any;
+		isMenuOpen: boolean | undefined;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		isPMDragging: any;
+		isResizerResizing: boolean;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		isSelectedViaDragHandle: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		isShiftDown: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		lastDragCancelled: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		menuTriggerBy: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		menuTriggerByNode: any;
+		multiSelectDnD: MultiSelectDnD | undefined;
+	}
 > => {
 	const { formatMessage } = getIntl();
 	const isAdvancedLayoutEnabled = editorExperiment('advanced_layouts', true, { exposure: true });
-	const isMultiSelectEnabled = editorExperiment(
-		'platform_editor_element_drag_and_drop_multiselect',
-		true,
-		{ exposure: true },
-	);
 	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 	const flags: FlagType = {
-		isMultiSelectEnabled,
 		toolbarFlagsEnabled,
 	};
 
@@ -1103,7 +1084,7 @@ export const createPlugin = (
 					const tr = state.tr;
 					let pluginState = key.getState(state);
 					const dndDragCancelled = pluginState?.lastDragCancelled;
-					if (pluginState?.isPMDragging || (dndDragCancelled && isMultiSelectEnabled)) {
+					if (pluginState?.isPMDragging || dndDragCancelled) {
 						if (fg('platform_editor_ease_of_use_metrics')) {
 							api?.metrics?.commands.startActiveSessionTimer()({ tr });
 						}
@@ -1126,7 +1107,7 @@ export const createPlugin = (
 					// so we only need to check first child
 					const draggable = dragging?.slice.content.firstChild;
 					if (
-						(dndDragCancelled && isMultiSelectEnabled) ||
+						dndDragCancelled ||
 						draggable?.type.name === 'layoutColumn'
 					) {
 						// we prevent native DnD for layoutColumn to prevent single column layout.
@@ -1282,111 +1263,63 @@ export const createPlugin = (
 						return;
 					}
 
-					if (isMultiSelectEnabled) {
-						if (event.shiftKey && event.ctrlKey) {
-							//prevent holding down key combo from firing repeatedly
-							if (!event.repeat && boundKeydownHandler(api, formatMessage)(view, event)) {
-								event.preventDefault();
-								return true;
-							}
-						}
-
-						if (
-							(event.key === 'Enter' || event.key === ' ') &&
-							event.target instanceof HTMLElement &&
-							editorExperiment('platform_editor_controls', 'variant1')
-						) {
-							const isDragHandle =
-								event.target.closest(
-									editorExperiment('platform_editor_block_menu', true)
-										? DRAG_HANDLE_SELECTOR
-										: '[data-editor-block-ctrl-drag-handle="true"]',
-								) !== null;
-							api?.core.actions.execute(
-								api?.blockControls.commands.setSelectedViaDragHandle(isDragHandle),
-							);
-						}
-
-						if (
-							(event.key === 'ArrowLeft' ||
-								event.key === 'ArrowRight' ||
-								event.key === 'ArrowDown' ||
-								event.key === 'ArrowUp') &&
-							editorExperiment('platform_editor_controls', 'variant1')
-						) {
-							const isBlockMenuOpen =
-								api?.blockControls.sharedState.currentState()?.isMenuOpen &&
-								editorExperiment('platform_editor_block_menu', true);
-							// when block menu is just open, and we press arrow keys, we want to use the arrow keys to navigate the block menu
-							// in this scenario, isSelectedViaDragHandle should not be set to false
-							if (
-								api?.blockControls.sharedState.currentState()?.isSelectedViaDragHandle &&
-								!isBlockMenuOpen
-							) {
-								api?.core.actions.execute(
-									api?.blockControls.commands.setSelectedViaDragHandle(false),
-								);
-							}
-						}
-
-						if (
-							!event.repeat &&
-							event.shiftKey &&
-							fg('platform_editor_elements_dnd_shift_click_select')
-						) {
-							view.dispatch(
-								view.state.tr.setMeta(key, { ...view.state.tr.getMeta(key), isShiftDown: true }),
-							);
-						}
-
-						return false;
-					} else {
-						if (event.shiftKey && event.ctrlKey) {
-							//prevent holding down key combo from firing repeatedly
-							if (!event.repeat && boundKeydownHandler(api, formatMessage)(view, event)) {
-								event.preventDefault();
-								return true;
-							}
-						}
-
-						if (
-							(event.key === 'Enter' || event.key === ' ') &&
-							event.target instanceof HTMLElement &&
-							editorExperiment('platform_editor_controls', 'variant1')
-						) {
-							const isDragHandle =
-								event.target.closest(
-									editorExperiment('platform_editor_block_menu', true)
-										? DRAG_HANDLE_SELECTOR
-										: '[data-editor-block-ctrl-drag-handle="true"]',
-								) !== null;
-							api?.core.actions.execute(
-								api?.blockControls.commands.setSelectedViaDragHandle(isDragHandle),
-							);
-						}
-
-						if (
-							(event.key === 'ArrowLeft' ||
-								event.key === 'ArrowRight' ||
-								event.key === 'ArrowDown' ||
-								event.key === 'ArrowUp') &&
-							editorExperiment('platform_editor_controls', 'variant1')
-						) {
-							const isBlockMenuOpen =
-								api?.blockControls.sharedState.currentState()?.isMenuOpen &&
-								editorExperiment('platform_editor_block_menu', true);
-							// when block menu is just open, and we press arrow keys, we want to use the arrow keys to navigate the block menu
-							// in this scenario, isSelectedViaDragHandle should not be set to false
-							if (
-								api?.blockControls.sharedState.currentState()?.isSelectedViaDragHandle &&
-								!isBlockMenuOpen
-							) {
-								api?.core.actions.execute(
-									api?.blockControls.commands.setSelectedViaDragHandle(false),
-								);
-							}
+					if (event.shiftKey && event.ctrlKey) {
+						//prevent holding down key combo from firing repeatedly
+						if (!event.repeat && boundKeydownHandler(api, formatMessage)(view, event)) {
+							event.preventDefault();
+							return true;
 						}
 					}
+
+					if (
+						(event.key === 'Enter' || event.key === ' ') &&
+						event.target instanceof HTMLElement &&
+						editorExperiment('platform_editor_controls', 'variant1')
+					) {
+						const isDragHandle =
+							event.target.closest(
+								editorExperiment('platform_editor_block_menu', true)
+									? DRAG_HANDLE_SELECTOR
+									: '[data-editor-block-ctrl-drag-handle="true"]',
+							) !== null;
+						api?.core.actions.execute(
+							api?.blockControls.commands.setSelectedViaDragHandle(isDragHandle),
+						);
+					}
+
+					if (
+						(event.key === 'ArrowLeft' ||
+							event.key === 'ArrowRight' ||
+							event.key === 'ArrowDown' ||
+							event.key === 'ArrowUp') &&
+						editorExperiment('platform_editor_controls', 'variant1')
+					) {
+						const isBlockMenuOpen =
+							api?.blockControls.sharedState.currentState()?.isMenuOpen &&
+							editorExperiment('platform_editor_block_menu', true);
+						// when block menu is just open, and we press arrow keys, we want to use the arrow keys to navigate the block menu
+						// in this scenario, isSelectedViaDragHandle should not be set to false
+						if (
+							api?.blockControls.sharedState.currentState()?.isSelectedViaDragHandle &&
+							!isBlockMenuOpen
+						) {
+							api?.core.actions.execute(
+								api?.blockControls.commands.setSelectedViaDragHandle(false),
+							);
+						}
+					}
+
+					if (
+						!event.repeat &&
+						event.shiftKey &&
+						fg('platform_editor_elements_dnd_shift_click_select')
+					) {
+						view.dispatch(
+							view.state.tr.setMeta(key, { ...view.state.tr.getMeta(key), isShiftDown: true }),
+						);
+					}
+
+					return false;
 				},
 				keyup(view: EditorView, event: KeyboardEvent) {
 					if (api?.limitedMode?.sharedState.currentState()?.enabled) {

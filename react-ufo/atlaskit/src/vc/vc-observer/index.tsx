@@ -119,11 +119,10 @@ export class VCObserver implements VCObserverInterface {
 
 		// Selector-config resolution is centralised in `getSelectorConfig()`
 		// (`../../config`). It enforces FedRAMP-override > caller-override >
-		// centrally configured > caller default, gated by
-		// `platform_ufo_fedramp_overrides`. When the gate is OFF the helper
-		// returns `options.selectorConfig ?? config?.vc?.selectorConfig`, and
-		// we fall back to the legacy hard-coded default — byte-for-byte
-		// unchanged from pre-FedRAMP behaviour.
+		// centrally configured > caller default. When `getSelectorConfig()`
+		// returns `undefined` we fall back to the legacy hard-coded default
+		// to preserve pre-existing behaviour for callers that don't pass an
+		// explicit `selectorConfig`.
 		const LEGACY_DEFAULT_SELECTOR_CONFIG = {
 			id: false,
 			testId: false,

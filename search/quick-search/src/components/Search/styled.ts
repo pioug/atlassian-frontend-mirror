@@ -1,7 +1,19 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled, { css, type InterpolationValue, type StyledComponentClass } from 'styled-components';
+import styled, { type StyledComponentClass } from 'styled-components';
 import { token } from '@atlaskit/tokens';
 import type { DetailedHTMLProps, HTMLAttributes, InputHTMLAttributes } from 'react';
+
+import { getPlaceholderStyle } from './get-placeholder-style';
+import { getPlaceholderColor } from './get-placeholder-color';
+import { SearchInputControlsContainer } from './search-input-controls-container';
+// eslint-disable-next-line no-barrel-files/no-barrel-files
+export { SearchInner } from './search-inner';
+// eslint-disable-next-line no-barrel-files/no-barrel-files
+export { getPlaceholderStyle } from './get-placeholder-style';
+// eslint-disable-next-line no-barrel-files/no-barrel-files
+export { getPlaceholderColor } from './get-placeholder-color';
+// eslint-disable-next-line no-barrel-files/no-barrel-files
+export { SearchInputControlsContainer } from './search-input-controls-container';
 
 // Copied from `@atlaskit/theme` to allow removal of that package
 const B200 = '#2684FF';
@@ -55,44 +67,6 @@ export const SearchFieldBaseInner: StyledComponentClass<
 	flexGrow: 1,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const SearchInner: StyledComponentClass<
-	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-	any,
-	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-> = styled.div({
-	paddingRight: token('space.300'),
-});
-
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-export const getPlaceholderStyle = (style: any): InterpolationValue[] => css`
-	&::-webkit-input-placeholder {
-		${style};
-	}
-	&::-moz-placeholder {
-		/* Mozilla Firefox 19+ */
-		${style} opacity: 1;
-	}
-	&::-ms-input-placeholder {
-		/* Microsoft Edge */
-		${style};
-	}
-	&:-moz-placeholder {
-		/* Mozilla Firefox 4 to 18 */
-		${style} opacity: 1;
-	}
-	&:-ms-input-placeholder {
-		/* Internet Explorer 10-11 */
-		${style};
-	}
-`;
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const getPlaceholderColor: InterpolationValue[] = css({
-	color: token('color.text.subtlest'),
-});
-
 // eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const SearchInput: StyledComponentClass<
 	DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
@@ -124,13 +98,4 @@ export const SearchInputTypeAhead: StyledComponentClass<
 	zIndex: -1,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const SearchInputControlsContainer: StyledComponentClass<
-	DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
-	any,
-	DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-> = styled.span({
-	paddingLeft: token('space.300'),
-});
 SearchInputControlsContainer.displayName = 'SearchInputControlsContainer'; // required for testing

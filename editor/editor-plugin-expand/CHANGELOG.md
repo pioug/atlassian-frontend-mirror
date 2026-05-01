@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-expand
 
+## 11.1.0
+
+### Minor Changes
+
+- [`9c750ab0192db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c750ab0192db) -
+  Add role=group and aria-label to expand content div so screen readers announce the body of an
+  expand node
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.12
 
 ### Patch Changes

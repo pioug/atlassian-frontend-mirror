@@ -1,3 +1,3 @@
-export { default } from './tile';
-export { type TileProps } from './types';
-export { default as TileSkeleton, type TileSkeletonProps } from './entry-point/skeleton';
+export { default } from './entry-points/tile';
+export { type TileProps } from './entry-points/types';
+export { default as TileSkeleton, type TileSkeletonProps } from './entry-points/skeleton';

@@ -1,7 +1,6 @@
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { akEditorBreakoutPadding, breakoutWideScaleRatio } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { MEDIA_SINGLE_GUTTER_SIZE } from '../../media-single/constants';
 import type { EditorContainerWidth } from '../../types';
@@ -95,10 +94,7 @@ export const calcMediaPxWidth = (opts: {
 				}
 				return calculatedPctWidth;
 			}
-			if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
-				return calculatedPctWidth;
-			}
-			return Math.min(calculatedPctWidth, origWidth);
+			return calculatedPctWidth;
 		}
 		if (calculatedResizedPctWidth) {
 			return calculatedResizedPctWidth;
@@ -112,11 +108,7 @@ export const calcMediaPxWidth = (opts: {
 	} else if (layout && wrappedLayouts.indexOf(layout) !== -1) {
 		// when layout is wrap-left, wrap-right, align-start, align-end
 		// but no pctWidth is defined
-		if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
-			return Math.min(calcPxFromPct(0.5, lineLength || width), origWidth);
-		}
-		const halfLineLength = Math.ceil((lineLength || width) / 2);
-		return origWidth <= halfLineLength ? origWidth : halfLineLength;
+		return Math.min(calcPxFromPct(0.5, lineLength || width), origWidth);
 	}
 
 	return origWidth;

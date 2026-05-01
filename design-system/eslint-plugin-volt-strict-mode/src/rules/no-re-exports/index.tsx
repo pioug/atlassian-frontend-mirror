@@ -20,7 +20,7 @@ function unwrapToIdentifier(expression: TSESTree.Expression): TSESTree.Identifie
 	return null;
 }
 
-export const rule: import('eslint').Rule.RuleModule = createLintRule({
+const rule: import('eslint').Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-re-exports',
 		docs: {

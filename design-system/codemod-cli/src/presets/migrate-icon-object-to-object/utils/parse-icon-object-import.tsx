@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
 
-import { AVAILABLE_ICON_NAMES } from './constants';
+import { AVAILABLE_ICON_NAMES } from './available-icon-names';
 
 export function parseIconObjectImport(importPath: string): {
 	iconName: string;

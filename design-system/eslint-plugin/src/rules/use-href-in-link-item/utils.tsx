@@ -1,9 +1,8 @@
 import type { Scope } from 'eslint';
-import { type ImportDeclaration, isNodeOfType, type JSXAttribute } from 'eslint-codemod-utils';
+import { isNodeOfType, type JSXAttribute } from 'eslint-codemod-utils';
 
 import { findIdentifierInParentScope } from '../utils/find-in-parent';
 
-import { hasImportOfName } from './has-import-of-name';
 const invalidHrefValues = ['', '#', null, undefined];
 
 export const hrefHasInvalidValue: (
@@ -63,36 +62,4 @@ export const hrefHasInvalidValue: (
 	}
 
 	return false;
-};
-
-export const getUniqueButtonItemName: (
-	menuNode: ImportDeclaration | null,
-	importDeclarations: ImportDeclaration[],
-) => string = (
-	menuNode: ImportDeclaration | null,
-	importDeclarations: ImportDeclaration[],
-): string => {
-	// Remove menu import node from array
-	const allImportDeclarationsButMenu = importDeclarations.filter((i) => i !== menuNode);
-
-	let currentButtonItemNameExistsOtherThanMenu: boolean = allImportDeclarationsButMenu.reduce(
-		(acc, importNode) => acc || hasImportOfName(importNode, 'ButtonItem'),
-		false,
-	);
-
-	if (currentButtonItemNameExistsOtherThanMenu) {
-		let suffix = 1;
-
-		while (currentButtonItemNameExistsOtherThanMenu) {
-			suffix += 1;
-			currentButtonItemNameExistsOtherThanMenu = allImportDeclarationsButMenu.reduce(
-				(acc, importNode) => acc || hasImportOfName(importNode, `ButtonItem${suffix}`),
-				false,
-			);
-		}
-
-		return `ButtonItem${suffix}`;
-	} else {
-		return 'ButtonItem';
-	}
 };

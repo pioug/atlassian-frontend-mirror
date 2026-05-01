@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 11.2.11
+
+### Patch Changes
+
+- [`ab837b5646256`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab837b5646256) -
+  [ux] EDITOR-6274 Clean up platform_editor_element_drag_and_drop_multiselect
+- Updated dependencies
+
 ## 11.2.10
 
 ### Patch Changes

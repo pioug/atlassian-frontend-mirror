@@ -48,9 +48,6 @@
 			"path": "../../../media/icon-file-type/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/icon-object/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../helpers/intl-messages-provider/afm-products/tsconfig.json"
 		},
 		{
@@ -61,6 +58,9 @@
 		},
 		{
 			"path": "../../../design-system/modal-dialog/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/object/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"

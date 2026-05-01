@@ -1,11 +1,11 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-import Story16Icon from '@atlaskit/icon-object/glyph/story/16';
 import ComponentIcon from '@atlaskit/icon/core/component';
 import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
 import FeedbackIcon from '@atlaskit/icon/core/feedback';
 import Lozenge from '@atlaskit/lozenge';
+import StoryObject from '@atlaskit/object/story';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 
 export default function Example(): React.JSX.Element {
@@ -14,7 +14,7 @@ export default function Example(): React.JSX.Element {
 			<Stack space="space.150">
 				<Stack space="space.050">
 					<Inline alignBlock="center" space="space.100">
-						<Story16Icon label="" />
+						<StoryObject label="" />
 						<Heading size="small">What we learned reviewing Atlas end to end</Heading>
 					</Inline>
 					<Inline separator="•" space="space.100">

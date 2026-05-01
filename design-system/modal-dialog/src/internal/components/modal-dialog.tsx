@@ -19,11 +19,12 @@ import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
 import type { ModalDialogProps, WidthNames } from '../../types';
-import { ModalContext, ScrollContext } from '../context';
+import { ModalContext } from '../context';
 import useOnMotionFinish from '../hooks/use-on-motion-finish';
 import { disableDraggingToCrossOriginIFramesForElement } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/element';
 import { disableDraggingToCrossOriginIFramesForExternal } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/external';
 import { disableDraggingToCrossOriginIFramesForTextSelection } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/text-selection';
+import { ScrollContext } from '../scroll-context';
 import type { InternalModalDialogProps } from '../types';
 import { width } from '../width';
 

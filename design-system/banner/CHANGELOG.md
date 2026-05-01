@@ -1,5 +1,12 @@
 # @atlaskit/banner
 
+## 14.1.0
+
+### Minor Changes
+
+- [`31b1ede297136`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31b1ede297136) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 14.0.30
 
 ### Patch Changes

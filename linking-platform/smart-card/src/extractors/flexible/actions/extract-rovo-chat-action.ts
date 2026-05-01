@@ -48,7 +48,7 @@ const extractRovoChatAction = ({
 		return;
 	}
 
-	const isRovoChatEnabled = getIsRovoChatEnabled(rovoConfig);
+	const isRovoChatEnabled = getIsRovoChatEnabled(rovoConfig?.rovoOptions);
 	if (!isRovoChatEnabled) {
 		return;
 	}

@@ -2,7 +2,6 @@ import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import Archive24Icon from '@atlaskit/icon-file-type/glyph/archive/24';
-import Blog24Icon from '@atlaskit/icon-object/glyph/blog/24';
 import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
 import TrashIcon from '@atlaskit/icon/core/delete';
 import EditFilledIcon from '@atlaskit/icon/core/edit';
@@ -19,6 +18,7 @@ import {
 	SkeletonHeadingItem,
 	SkeletonItem,
 } from '@atlaskit/menu';
+import BlogObjectTile from '@atlaskit/object/tile/blog';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -167,38 +167,41 @@ export default (): React.JSX.Element => {
 						</LinkItem>
 					</Section>
 					<Section title="Favourite articles" hasSeparator isScrollable>
-						<ButtonItem iconBefore={<Blog24Icon label="" />}>Untitled</ButtonItem>
-						<ButtonItem iconBefore={<Blog24Icon label="" />} description="It's short and sweet.">
+						<ButtonItem iconBefore={<BlogObjectTile size="small" label="" />}>Untitled</ButtonItem>
+						<ButtonItem
+							iconBefore={<BlogObjectTile size="small" label="" />}
+							description="It's short and sweet."
+						>
 							Short stories of Albany
 						</ButtonItem>
 						<ButtonItem
-							iconBefore={<Blog24Icon label="" />}
+							iconBefore={<BlogObjectTile size="small" label="" />}
 							description="Success often comes with a shadow side and hidden costs. In this article, we examine the shadow side of Pablo Picasso's genius."
 						>
 							The Shadow Side of Greatness
 						</ButtonItem>
 						<ButtonItem
-							iconBefore={<Blog24Icon label="" />}
+							iconBefore={<BlogObjectTile size="small" label="" />}
 							description="Self-awareness is critical for success in all fields. Read this article to learn how biologist Louis Agassiz taught self-awareness through observation."
 						>
 							Famous Biologist Louis Agassiz on the Usefulness of Learning Through Observation
 						</ButtonItem>
 						<ButtonItem
-							iconBefore={<Blog24Icon label="" />}
+							iconBefore={<BlogObjectTile size="small" label="" />}
 							description="Famous poet Joseph Brodsky was exiled from his home in Russia and forced to leave the love of his life behind, never to be seen again. In 1988, Brodsky shared a beautiful strategy and method for dealing with the critics, detractors, and negative influences in your life."
 						>
 							Joseph Brodsky Explains Perfectly How to Deal With Critics and Detractors in Your
 							Life:
 						</ButtonItem>
 						<ButtonItem
-							iconBefore={<Blog24Icon label="" />}
+							iconBefore={<BlogObjectTile size="small" label="" />}
 							description="Martha Graham, perhaps the most influential dance choreographer of the 20th century, explains why it is not your job to judge your own work"
 						>
 							Martha Graham on the Hidden Danger of Comparing Yourself to Others
 						</ButtonItem>
 						<ButtonItem
 							testId="favourite-articles-button-item"
-							iconBefore={<Blog24Icon label="" />}
+							iconBefore={<BlogObjectTile size="small" label="" />}
 							description="Actress Nichelle Nichols helped shape the Civil Rights Movement without realizing it. Read this article to learn how you can live a meaningful life."
 						>
 							Lessons on Living a Meaningful Life from Nichelle Nichols
@@ -229,7 +232,7 @@ export default (): React.JSX.Element => {
 						<Section title="Scrollable Starred">
 							<ButtonItem
 								description="Software Project"
-								iconBefore={<Blog24Icon label="" />}
+								iconBefore={<BlogObjectTile size="small" label="" />}
 								iconAfter={
 									<Flex xcss={iconSpacingStyles.space050}>
 										<StarFilledIcon label="" color={token('color.icon.warning')} />
@@ -240,7 +243,7 @@ export default (): React.JSX.Element => {
 							</ButtonItem>
 							<ButtonItem
 								description="Software Project"
-								iconBefore={<Blog24Icon label="" />}
+								iconBefore={<BlogObjectTile size="small" label="" />}
 								iconAfter={
 									<Flex xcss={iconSpacingStyles.space050}>
 										<StarFilledIcon label="" color={token('color.icon.warning')} />
@@ -251,34 +254,52 @@ export default (): React.JSX.Element => {
 							</ButtonItem>
 						</Section>
 						<Section title="Recent">
-							<ButtonItem iconBefore={<Blog24Icon label="" />} description="Software Project">
+							<ButtonItem
+								iconBefore={<BlogObjectTile size="small" label="" />}
+								description="Software Project"
+							>
 								Emanada (EM)
 							</ButtonItem>
-							<ButtonItem iconBefore={<Blog24Icon label="" />} description="Software Project">
+							<ButtonItem
+								iconBefore={<BlogObjectTile size="small" label="" />}
+								description="Software Project"
+							>
 								Jira Frontend Performance Initiative (PEAR)
 							</ButtonItem>
-							<ButtonItem iconBefore={<Blog24Icon label="" />} description="Software Project">
+							<ButtonItem
+								iconBefore={<BlogObjectTile size="small" label="" />}
+								description="Software Project"
+							>
 								Fabric Editor
 							</ButtonItem>
 							<ButtonItem
-								iconBefore={<Blog24Icon label="" />}
+								iconBefore={<BlogObjectTile size="small" label="" />}
 								description="Next-gen software project"
 							>
 								Content Services
 							</ButtonItem>
 							<ButtonItem
-								iconBefore={<Blog24Icon label="" />}
+								iconBefore={<BlogObjectTile size="small" label="" />}
 								description="Classic business project"
 							>
 								Trinity Mobile
 							</ButtonItem>
-							<ButtonItem iconBefore={<Blog24Icon label="" />} description="Classic service desk">
+							<ButtonItem
+								iconBefore={<BlogObjectTile size="small" label="" />}
+								description="Classic service desk"
+							>
 								SPA Performance (SPAPERF)
 							</ButtonItem>
-							<ButtonItem iconBefore={<Blog24Icon label="" />} description="Software Project">
+							<ButtonItem
+								iconBefore={<BlogObjectTile size="small" label="" />}
+								description="Software Project"
+							>
 								Moneyball Design (EXM)
 							</ButtonItem>
-							<ButtonItem iconBefore={<Blog24Icon label="" />} description="Software Project">
+							<ButtonItem
+								iconBefore={<BlogObjectTile size="small" label="" />}
+								description="Software Project"
+							>
 								3Sia (CZAM)
 							</ButtonItem>
 						</Section>

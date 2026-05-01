@@ -12,15 +12,18 @@ import {
 import { addCommentBefore } from '@atlaskit/codemod-utils';
 
 import { spreadPropsComment } from '../utils/comments';
-import {
-	LINK_ENTRY_POINT,
-	LINK_EXPORT_NAME,
-	PRINT_SETTINGS,
-	UNSUPPORTED_STYLE_PROPS,
-} from '../utils/constants';
 import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
 import { genericUnsupportedMigrationComment } from '../utils/generic-unsupported-migration-comment';
 import { stylePropComment } from '../utils/style-prop-comment';
+
+const PRINT_SETTINGS = {
+	quote: 'single' as const,
+};
+
+const LINK_ENTRY_POINT = '@atlaskit/link';
+const LINK_EXPORT_NAME = 'Link';
+
+const UNSUPPORTED_STYLE_PROPS: string[] = ['css', 'style', 'className'];
 
 type UnsupportedMigration = { name: string; reason: 'spreadProps' | 'styleProp' };
 

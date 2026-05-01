@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 23.2.0
+
+### Minor Changes
+
+- [`09301dc1b0c55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09301dc1b0c55) -
+  [ux] Switches the order of the image generation tab in the media insert picker to the first
+  position and renames the tab to Create. All changes behind an experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.1.0
+
+### Minor Changes
+
+- [`1b208e1f7d8f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b208e1f7d8f7) -
+  [ux] Adds the entry point for ai image generation to the media insert picker plugin as a new tab.
+  This feature is fully behind an experiment gate.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.0.0
 
 ### Major Changes

@@ -1,6 +1,7 @@
 import React, { type ComponentType } from 'react';
 
 import { IconTile, type IconTileProps } from '@atlaskit/icon';
+import type { ObjectProps, ObjectTileProps } from '@atlaskit/object/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkSize } from '../../../constants';
@@ -33,21 +34,19 @@ export const transformSmartLinkSizeToIconTileSize = (
 	}
 };
 
-type IconProps = {
-	label: string;
-	testId?: string;
-};
-
+/**
+ * For large/xlarge smart-link icon size, renders an `@atlaskit/object/tile/*` component; otherwise a standard `@atlaskit/object` glyph.
+ */
 export const renderIconPerSize = (
-	IconSmall: ComponentType<IconProps>,
-	IconLarge: ComponentType<IconProps>,
-): React.FC<IconProps & { size?: SmartLinkSize }> => {
+	ObjectIcon: ComponentType<ObjectProps>,
+	ObjectTileIcon: ComponentType<ObjectTileProps>,
+): React.FC<Omit<ObjectProps, 'size'> & { size?: SmartLinkSize }> => {
 	return ({ size, ...props }) => {
 		if (isIconSizeLarge(size)) {
-			return <IconLarge {...props} />;
+			return <ObjectTileIcon {...props} size="small" />;
 		}
 
-		return <IconSmall {...props} />;
+		return <ObjectIcon {...props} />;
 	};
 };
 

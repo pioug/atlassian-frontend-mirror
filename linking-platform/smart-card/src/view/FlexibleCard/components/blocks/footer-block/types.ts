@@ -18,6 +18,10 @@ export type FooterBlockProps = {
 	 */
 	hideProvider?: boolean;
 	/**
+	 * Used with RovoActions to determine if the preview block is visible or not
+	 */
+	isPreviewBlockErrored?: boolean;
+	/**
 	 * Function to be called when footer action dropdown open state is changed.
 	 */
 	onActionMenuOpenChange?: (options: OnActionMenuOpenChangeOptions) => void;

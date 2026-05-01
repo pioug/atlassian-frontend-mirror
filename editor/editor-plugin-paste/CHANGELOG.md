@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 11.1.3
+
+### Patch Changes
+
+- [`ab837b5646256`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab837b5646256) -
+  [ux] EDITOR-6274 Clean up platform_editor_element_drag_and_drop_multiselect
+- Updated dependencies
+
 ## 11.1.2
 
 ### Patch Changes

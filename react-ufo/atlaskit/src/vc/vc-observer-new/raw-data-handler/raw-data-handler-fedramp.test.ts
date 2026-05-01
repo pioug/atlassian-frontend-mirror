@@ -1,5 +1,4 @@
 import { isFedrampModerate } from '@atlaskit/atlassian-context';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { __resetFedrampOverrideCacheForTests } from '../../../config';
 import getViewportHeight from '../metric-calculator/utils/get-viewport-height';
@@ -11,12 +10,10 @@ import RawDataHandler from './index';
 jest.mock('../metric-calculator/utils/get-viewport-width');
 jest.mock('../metric-calculator/utils/get-viewport-height');
 jest.mock('../../../hidden-timing');
-jest.mock('@atlaskit/platform-feature-flags');
 jest.mock('@atlaskit/atlassian-context', () => ({
 	isFedrampModerate: jest.fn(),
 }));
 
-const mockedFg = fg as jest.Mock;
 const mockedIsFedrampModerate = isFedrampModerate as jest.Mock;
 const mockGetViewportWidth = getViewportWidth as jest.MockedFunction<typeof getViewportWidth>;
 const mockGetViewportHeight = getViewportHeight as jest.MockedFunction<typeof getViewportHeight>;
@@ -54,9 +51,7 @@ describe('RawDataHandler — FedRAMP scrubbing', () => {
 		handler = new RawDataHandler();
 		mockGetViewportWidth.mockReturnValue(1920);
 		mockGetViewportHeight.mockReturnValue(1080);
-		mockedFg.mockReset();
 		mockedIsFedrampModerate.mockReset();
-		mockedFg.mockReturnValue(false);
 		mockedIsFedrampModerate.mockReturnValue(false);
 		// `isFedrampOverrideActive()` (in `../../../config`) memoises the
 		// `isFedrampModerate()` result. Reset that cache between tests so
@@ -77,7 +72,7 @@ describe('RawDataHandler — FedRAMP scrubbing', () => {
 		}),
 	];
 
-	describe('control: gate off and FedRAMP false', () => {
+	describe('control: FedRAMP false', () => {
 		it('keeps att, obs[].att and lbl in the payload', async () => {
 			const result = await handler.getRawData({
 				entries: baseEntries(),
@@ -94,45 +89,9 @@ describe('RawDataHandler — FedRAMP scrubbing', () => {
 		});
 	});
 
-	describe('FedRAMP true but gate off', () => {
-		it('does NOT scrub (gate gates the rollout)', async () => {
-			mockedIsFedrampModerate.mockReturnValue(true);
-			mockedFg.mockReturnValue(false);
-
-			const result = await handler.getRawData({
-				entries: baseEntries(),
-				startTime,
-				stopTime,
-				isPageVisible: true,
-			});
-
-			expect(result?.rawData?.att).toEqual({ 1: 'data-user-id', 2: 'aria-label' });
-			expect(result?.rawData?.lbl).toBeDefined();
-		});
-	});
-
-	describe('Gate on but FedRAMP false', () => {
-		it('does NOT scrub (commercial tenants are unaffected)', async () => {
-			mockedIsFedrampModerate.mockReturnValue(false);
-			mockedFg.mockImplementation((name: string) => name === 'platform_ufo_fedramp_overrides');
-
-			const result = await handler.getRawData({
-				entries: baseEntries(),
-				startTime,
-				stopTime,
-				isPageVisible: true,
-			});
-
-			expect(result?.rawData?.att).toEqual({ 1: 'data-user-id', 2: 'aria-label' });
-			expect(result?.rawData?.lbl).toBeDefined();
-			expect(result?.rawData?.lblMode).toBe('sentinel-v1');
-		});
-	});
-
-	describe('Gate on AND FedRAMP true', () => {
+	describe('FedRAMP true', () => {
 		beforeEach(() => {
 			mockedIsFedrampModerate.mockReturnValue(true);
-			mockedFg.mockImplementation((name: string) => name === 'platform_ufo_fedramp_overrides');
 		});
 
 		it('drops the rawData.att map', async () => {
@@ -189,7 +148,6 @@ describe('RawDataHandler — FedRAMP scrubbing', () => {
 
 	describe('Defensive behaviour', () => {
 		it('falls back to NOT scrubbing when isFedrampModerate throws', async () => {
-			mockedFg.mockImplementation((name: string) => name === 'platform_ufo_fedramp_overrides');
 			mockedIsFedrampModerate.mockImplementation(() => {
 				throw new Error('boom');
 			});

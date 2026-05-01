@@ -335,6 +335,11 @@ export type InsertPromptPayload = PayloadCore<
 		agentName?: string;
 		agentIdentityAccountId?: string;
 		avatarUrl?: string;
+		/**
+		 * Optional files to attach to the chat input alongside the prompt.
+		 * Gated by the enable_rovo_static_prompt_file_uploads experiment.
+		 */
+		files?: UploadedFile[];
 	} & PlaceholderParam
 >;
 
@@ -559,10 +564,6 @@ export type SpaceSelectedPayload = PayloadCore<
 
 export type SpaceDeselectedPayload = PayloadCore<'space-deselected'>;
 
-export type RecommendedSpacesSelectedPayload = PayloadCore<'recommended-spaces-selected'>;
-
-export type RecommendedSpacesDeselectedPayload = PayloadCore<'recommended-spaces-deselected'>;
-
 /** Published after a new conversation is linked to a Rovo Space (e.g. space landing chat). */
 export type SpaceConversationCreatedPayload = PayloadCore<
 	'space-conversation-created',
@@ -620,8 +621,6 @@ export type Payload =
 	| SmartLinksContextPayload
 	| SpaceSelectedPayload
 	| SpaceDeselectedPayload
-	| RecommendedSpacesSelectedPayload
-	| RecommendedSpacesDeselectedPayload
 	| SpaceConversationCreatedPayload
 	| TaskPlanConfirmedPayload
 	| TaskAskQuestionRenderedPayload

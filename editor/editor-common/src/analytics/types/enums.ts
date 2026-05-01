@@ -300,6 +300,7 @@ export enum ACTION_SUBJECT {
 	EMBEDS = 'embeds',
 	EXPAND = 'expand',
 	EXTENSION = 'extension',
+	EXTENSION_AS_INLINE = 'extensionAsInline',
 	FEATURE = 'feature',
 	FEEDBACK_DIALOG = 'feedbackDialog',
 	FIND_REPLACE_DIALOG = 'findReplaceDialog',

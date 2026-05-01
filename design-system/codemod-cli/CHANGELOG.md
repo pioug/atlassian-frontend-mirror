@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 1.0.4
+
+### Patch Changes
+
+- [`1b322a30271e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b322a30271e1) -
+  Fixed badge-appearance-semantic-migration codemod incorrectly flagging already-migrated semantic
+  values as unknown.
+
 ## 1.0.3
 
 ### Patch Changes

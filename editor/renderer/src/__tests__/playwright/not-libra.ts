@@ -1,11 +1,16 @@
-import { test as base, expect as baseExpect } from '@af/integration-testing';
+import {
+	expect as baseExpect,
+	test as base,
+	type Expect,
+	type Locator,
+	type Page,
+} from '@af/integration-testing';
+import type { PlaywrightCoverageOptions } from '@af/integration-testing/fixtures';
 import type { DocNode } from '@atlaskit/adf-schema';
 
 import type { EditorExperimentOverrides } from '@atlaskit/tmp-editor-statsig/setup';
-import type { Expect, Page, Locator } from '@af/integration-testing';
 import type { RendererProps } from '@atlaskit/renderer';
 import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
-import type { PlaywrightCoverageOptions } from '@af/integration-testing/fixtures';
 import type {
 	TestType,
 	PlaywrightTestArgs,

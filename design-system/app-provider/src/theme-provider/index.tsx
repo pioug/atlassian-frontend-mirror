@@ -16,12 +16,9 @@ import {
 
 import { useIsAppProviderThemingEnabled, useIsInsideAppProvider } from '../context';
 
-import {
-	ColorModeContext,
-	type ReconciledColorMode,
-	SetColorModeContext,
-} from './context/color-mode';
+import { ColorModeContext, type ReconciledColorMode } from './context/color-mode';
 import { InsideThemeProviderContext } from './context/inside-theme-provider';
+import { SetColorModeContext } from './context/set-color-mode-context';
 import { SetThemeContext, type Theme, ThemeContext } from './context/theme';
 import { useIsInsideThemeProvider } from './hooks/use-is-inside-theme-provider';
 import { loadAndMountThemes } from './utils/load-and-mount-themes';

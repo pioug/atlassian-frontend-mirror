@@ -1,17 +1,6 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React from 'react';
-/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
-import { jsx, css } from '@emotion/react';
-import TipIcon from '@atlaskit/icon/core/lightbulb';
+
 import { PanelType } from '@atlaskit/adf-schema';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
-import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
-import EmojiIcon from '@atlaskit/icon/core/emoji';
-import EmojiItem from './emoji';
 import {
 	PanelInfoIcon,
 	PanelSuccessIcon,
@@ -19,214 +8,16 @@ import {
 	PanelWarningIcon,
 	PanelErrorIcon,
 } from '@atlaskit/editor-common/icons';
-import { token } from '@atlaskit/tokens';
-import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
-import { fg } from '@atlaskit/platform-feature-flags';
-interface PanelStyledProps {
-	backgroundColor?: string;
-	'data-panel-type': PanelType;
-	hasIcon?: boolean;
-}
+import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import EmojiIcon from '@atlaskit/icon/core/emoji';
+import TipIcon from '@atlaskit/icon/core/lightbulb';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-// New custom icons are a little smaller than predefined icons.
-// To fix alignment issues with custom icons, vertical alignment is updated.
-const panelEmojiSpriteVerticalAlignment = -(8 * 3 - akEditorCustomIconSize) / 2;
-const panelEmojiImageVerticalAlignment = panelEmojiSpriteVerticalAlignment - 1;
-
-const blockNodesVerticalMargin = '0.75rem';
-const akEditorTableCellMinWidth = 48;
-
-const panelBaseStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'&.ak-editor-panel': {
-		borderRadius: token('radius.small', '3px'),
-		margin: `${blockNodesVerticalMargin} 0 0`,
-		paddingTop: token('space.100'),
-		paddingRight: token('space.200'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
-		minWidth: `${akEditorTableCellMinWidth}px`,
-		display: 'flex',
-		position: 'relative',
-		alignItems: 'normal',
-		wordBreak: 'break-word',
-		backgroundColor: token('color.background.accent.blue.subtlest'),
-		color: 'inherit',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ak-editor-panel__icon': {
-			flexShrink: 0,
-			height: token('space.300'),
-			width: token('space.300'),
-			boxSizing: 'content-box',
-			paddingRight: token('space.100'),
-			textAlign: 'center',
-			userSelect: 'none',
-			MozUserSelect: 'none',
-			WebkitUserSelect: 'none',
-			MsUserSelect: 'none',
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			marginTop: '0.1em',
-
-			color: token('color.icon.information'),
-
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'> span': {
-				verticalAlign: 'middle',
-				display: 'inline-flex',
-			},
-
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.emoji-common-emoji-sprite': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				verticalAlign: `${panelEmojiSpriteVerticalAlignment}px`,
-			},
-
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.emoji-common-emoji-image': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				verticalAlign: `${panelEmojiImageVerticalAlignment}px`,
-
-				// Vertical align only works for inline-block elements in Firefox
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'@-moz-document url-prefix()': {
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-					img: {
-						display: 'inline-block',
-					},
-				},
-			},
-		},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ak-editor-panel__content': {
-			margin: `${token('space.025')} 0 ${token('space.025')}`,
-			flex: '1 0 0',
-			/*
-		https://ishadeed.com/article/min-max-css/#setting-min-width-to-zero-with-flexbox
-		The default value for min-width is auto, which is computed to zero. When an element is a flex item, the value of min-width doesn’t compute to zero. The minimum size of a flex item is equal to the size of its contents.
-		*/
-			minWidth: 0,
-		},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'&[data-panel-type="note"]': {
-			backgroundColor: token('color.background.accent.purple.subtlest'),
-
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.ak-editor-panel__icon': {
-				color: token('color.icon.discovery'),
-			},
-		},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		'&[data-panel-type="tip"]': {
-			backgroundColor: token('color.background.accent.green.subtlest'),
-
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.ak-editor-panel__icon': {
-				color: token('color.icon.success'),
-			},
-		},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		'&[data-panel-type="warning"]': {
-			backgroundColor: token('color.background.accent.yellow.subtlest'),
-
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.ak-editor-panel__icon': {
-				color: token('color.icon.warning'),
-			},
-		},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		'&[data-panel-type="error"]': {
-			backgroundColor: token('color.background.accent.red.subtlest'),
-
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.ak-editor-panel__icon': {
-				color: token('color.icon.danger'),
-			},
-		},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		'&[data-panel-type="success"]': {
-			backgroundColor: token('color.background.accent.green.subtlest'),
-
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.ak-editor-panel__icon': {
-				color: token('color.icon.success'),
-			},
-		},
-	},
-});
-
-const panelHasNoIconStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-	'&.ak-editor-panel': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'&[data-panel-type="custom"]': {
-			paddingLeft: token('space.150'),
-			paddingRight: token('space.150'),
-		},
-	},
-});
-
-const panelNestedIconStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'&.ak-editor-panel__no-icon': {
-		paddingLeft: token('space.150'),
-		paddingRight: token('space.150'),
-	},
-});
-
-const nestedPanelStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.ak-editor-panel__content .ak-editor-panel': {
-		border: `${token('border.width')} solid ${token('color.border')}`,
-	},
-});
-
-const panelCustomBackground = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-	'&.ak-editor-panel': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'&[data-panel-type="custom"]': {
-			backgroundColor: 'var(--ak-renderer-panel-custom-bg-color)',
-		},
-	},
-});
-
-const PanelStyled = ({
-	backgroundColor,
-	hasIcon,
-	...props
-}: React.PropsWithChildren<PanelStyledProps & React.HTMLAttributes<HTMLDivElement>>) => {
-	const customBackgroundColor = backgroundColor
-		? hexToEditorBackgroundPaletteColor(backgroundColor) || backgroundColor
-		: undefined;
-	return (
-		<div
-			style={
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				{ '--ak-renderer-panel-custom-bg-color': customBackgroundColor } as React.CSSProperties
-			}
-			css={[
-				panelBaseStyles,
-				!hasIcon && panelHasNoIconStyles,
-				props['data-panel-type'] === PanelType.CUSTOM && backgroundColor && panelCustomBackground,
-				fg('platform_editor_nested_dnd_styles_changes') && panelNestedIconStyles,
-				nestedPanelStyles,
-			]}
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			{...props}
-		>
-			{props.children}
-		</div>
-	);
-};
-
-PanelStyled.displayName = 'PanelStyled';
+import EmojiItem from './emoji';
+import { PanelStyledCompiled } from './panel-compiled';
+import { PanelStyledEmotion } from './panel-emotion';
 
 export interface Props {
 	allowCustomPanels?: boolean;
@@ -252,7 +43,13 @@ const panelIcons: {
 	custom: EmojiIcon,
 };
 
-const Panel = (props: Props): jsx.JSX.Element => {
+const PanelStyledMigration = componentWithCondition(
+	() => expValEquals('platform_editor_renderer_static_css', 'isEnabled', true),
+	PanelStyledCompiled,
+	PanelStyledEmotion,
+);
+
+const Panel = (props: Props): React.JSX.Element => {
 	const {
 		allowCustomPanels,
 		panelType: type,
@@ -298,7 +95,7 @@ const Panel = (props: Props): jsx.JSX.Element => {
 	};
 
 	return (
-		<PanelStyled
+		<PanelStyledMigration
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={PanelSharedCssClassName.prefix}
 			data-local-id={localId}
@@ -313,7 +110,7 @@ const Panel = (props: Props): jsx.JSX.Element => {
 			{renderIcon()}
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
 			<div className={PanelSharedCssClassName.content}>{children}</div>
-		</PanelStyled>
+		</PanelStyledMigration>
 	);
 };
 

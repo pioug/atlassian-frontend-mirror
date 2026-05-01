@@ -4,7 +4,10 @@
  * and run "yarn workspace @atlaskit/adf-schema build:schema:all" to regenerate this file.
  */
 
-import { createPMMarkSpecFactory } from '../../schema/createPMSpecFactory';
+import {
+  createPMMarkSpecFactory,
+  type PMMarkSpecFactoryInstance,
+} from '../../schema/createPMSpecFactory';
 
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 
@@ -21,11 +24,12 @@ export interface AlignmentMark extends Mark {
   attrs: AlignmentMarkAttributes;
 }
 
-export const alignment = createPMMarkSpecFactory<AlignmentMark>({
-  attrs: { align: {} },
-  excludes: 'alignment indentation',
-  group: 'alignment',
-});
+export const alignment: PMMarkSpecFactoryInstance<AlignmentMark> =
+  createPMMarkSpecFactory<AlignmentMark>({
+    attrs: { align: {} },
+    excludes: 'alignment indentation',
+    group: 'alignment',
+  });
 
 export interface AnnotationMarkAttributes {
   id: string;
@@ -41,12 +45,16 @@ export interface AnnotationMark extends Mark {
   attrs: AnnotationMarkAttributes;
 }
 
-export const annotation = createPMMarkSpecFactory<AnnotationMark>({
-  attrs: { id: { default: '' }, annotationType: { default: 'inlineComment' } },
-  inclusive: true,
-  excludes: '',
-  group: 'annotation',
-});
+export const annotation: PMMarkSpecFactoryInstance<AnnotationMark> =
+  createPMMarkSpecFactory<AnnotationMark>({
+    attrs: {
+      id: { default: '' },
+      annotationType: { default: 'inlineComment' },
+    },
+    inclusive: true,
+    excludes: '',
+    group: 'annotation',
+  });
 
 export interface BackgroundColorMarkAttributes {
   color: string;
@@ -61,12 +69,13 @@ export interface BackgroundColorMark extends Mark {
   attrs: BackgroundColorMarkAttributes;
 }
 
-export const backgroundColor = createPMMarkSpecFactory<BackgroundColorMark>({
-  attrs: { color: {} },
-  inclusive: true,
-  excludes: 'color',
-  group: 'color',
-});
+export const backgroundColor: PMMarkSpecFactoryInstance<BackgroundColorMark> =
+  createPMMarkSpecFactory<BackgroundColorMark>({
+    attrs: { color: {} },
+    inclusive: true,
+    excludes: 'color',
+    group: 'color',
+  });
 
 export interface BorderMarkAttributes {
   size: number;
@@ -82,10 +91,11 @@ export interface BorderMark extends Mark {
   attrs: BorderMarkAttributes;
 }
 
-export const border = createPMMarkSpecFactory<BorderMark>({
-  attrs: { size: {}, color: {} },
-  inclusive: false,
-});
+export const border: PMMarkSpecFactoryInstance<BorderMark> =
+  createPMMarkSpecFactory<BorderMark>({
+    attrs: { size: {}, color: {} },
+    inclusive: false,
+  });
 
 export interface BreakoutMarkAttributes {
   mode: 'wide' | 'full-width';
@@ -101,11 +111,12 @@ export interface BreakoutMark extends Mark {
   attrs: BreakoutMarkAttributes;
 }
 
-export const breakout = createPMMarkSpecFactory<BreakoutMark>({
-  attrs: { mode: { default: 'wide' }, width: { default: null } },
-  inclusive: false,
-  spanning: false,
-});
+export const breakout: PMMarkSpecFactoryInstance<BreakoutMark> =
+  createPMMarkSpecFactory<BreakoutMark>({
+    attrs: { mode: { default: 'wide' }, width: { default: null } },
+    inclusive: false,
+    spanning: false,
+  });
 
 export interface CodeDefinition {
   type: 'code';
@@ -113,7 +124,7 @@ export interface CodeDefinition {
 
 export type CodeMark = Mark;
 
-export const code = createPMMarkSpecFactory({
+export const code: PMMarkSpecFactoryInstance<Mark> = createPMMarkSpecFactory({
   inclusive: true,
   excludes: 'fontStyle link searchQuery color',
 });
@@ -131,7 +142,7 @@ export interface ConfluenceInlineCommentMark extends Mark {
   attrs: ConfluenceInlineCommentMarkAttributes;
 }
 
-export const confluenceInlineComment =
+export const confluenceInlineComment: PMMarkSpecFactoryInstance<ConfluenceInlineCommentMark> =
   createPMMarkSpecFactory<ConfluenceInlineCommentMark>({
     attrs: { reference: { default: '' } },
     inclusive: false,
@@ -151,9 +162,10 @@ export interface DataConsumerMark extends Mark {
   attrs: DataConsumerMarkAttributes;
 }
 
-export const dataConsumer = createPMMarkSpecFactory<DataConsumerMark>({
-  attrs: { sources: { default: [] } },
-});
+export const dataConsumer: PMMarkSpecFactoryInstance<DataConsumerMark> =
+  createPMMarkSpecFactory<DataConsumerMark>({
+    attrs: { sources: { default: [] } },
+  });
 
 export interface EmDefinition {
   type: 'em';
@@ -161,7 +173,7 @@ export interface EmDefinition {
 
 export type EmMark = Mark;
 
-export const em = createPMMarkSpecFactory({
+export const em: PMMarkSpecFactoryInstance<Mark> = createPMMarkSpecFactory({
   inclusive: true,
   group: 'fontStyle',
 });
@@ -179,9 +191,8 @@ export interface FontSizeMark extends Mark {
   attrs: FontSizeMarkAttributes;
 }
 
-export const fontSize = createPMMarkSpecFactory<FontSizeMark>({
-  attrs: { fontSize: {} },
-});
+export const fontSize: PMMarkSpecFactoryInstance<FontSizeMark> =
+  createPMMarkSpecFactory<FontSizeMark>({ attrs: { fontSize: {} } });
 
 export interface FragmentMarkAttributes {
   localId: string;
@@ -197,11 +208,12 @@ export interface FragmentMark extends Mark {
   attrs: FragmentMarkAttributes;
 }
 
-export const fragment = createPMMarkSpecFactory<FragmentMark>({
-  attrs: { localId: { default: '' }, name: { default: null } },
-  inclusive: false,
-  excludes: '',
-});
+export const fragment: PMMarkSpecFactoryInstance<FragmentMark> =
+  createPMMarkSpecFactory<FragmentMark>({
+    attrs: { localId: { default: '' }, name: { default: null } },
+    inclusive: false,
+    excludes: '',
+  });
 
 export interface IndentationMarkAttributes {
   level: number;
@@ -216,11 +228,12 @@ export interface IndentationMark extends Mark {
   attrs: IndentationMarkAttributes;
 }
 
-export const indentation = createPMMarkSpecFactory<IndentationMark>({
-  attrs: { level: {} },
-  excludes: 'indentation alignment',
-  group: 'indentation',
-});
+export const indentation: PMMarkSpecFactoryInstance<IndentationMark> =
+  createPMMarkSpecFactory<IndentationMark>({
+    attrs: { level: {} },
+    excludes: 'indentation alignment',
+    group: 'indentation',
+  });
 
 export interface LinkMarkAttributes {
   href: string;
@@ -240,12 +253,13 @@ export interface LinkMark extends Mark {
   attrs: LinkMarkAttributes;
 }
 
-export const link = createPMMarkSpecFactory<LinkMark>({
-  attrs: { href: {}, __confluenceMetadata: { default: null } },
-  inclusive: false,
-  excludes: 'link',
-  group: 'link',
-});
+export const link: PMMarkSpecFactoryInstance<LinkMark> =
+  createPMMarkSpecFactory<LinkMark>({
+    attrs: { href: {}, __confluenceMetadata: { default: null } },
+    inclusive: false,
+    excludes: 'link',
+    group: 'link',
+  });
 
 export interface StrikeDefinition {
   type: 'strike';
@@ -253,7 +267,7 @@ export interface StrikeDefinition {
 
 export type StrikeMark = Mark;
 
-export const strike = createPMMarkSpecFactory({
+export const strike: PMMarkSpecFactoryInstance<Mark> = createPMMarkSpecFactory({
   inclusive: true,
   group: 'fontStyle',
 });
@@ -264,7 +278,7 @@ export interface StrongDefinition {
 
 export type StrongMark = Mark;
 
-export const strong = createPMMarkSpecFactory({
+export const strong: PMMarkSpecFactoryInstance<Mark> = createPMMarkSpecFactory({
   inclusive: true,
   group: 'fontStyle',
 });
@@ -282,11 +296,12 @@ export interface SubsupMark extends Mark {
   attrs: SubsupMarkAttributes;
 }
 
-export const subsup = createPMMarkSpecFactory<SubsupMark>({
-  attrs: { type: { default: 'sub' } },
-  inclusive: true,
-  group: 'fontStyle',
-});
+export const subsup: PMMarkSpecFactoryInstance<SubsupMark> =
+  createPMMarkSpecFactory<SubsupMark>({
+    attrs: { type: { default: 'sub' } },
+    inclusive: true,
+    group: 'fontStyle',
+  });
 
 export interface TextColorMarkAttributes {
   color: string;
@@ -301,11 +316,12 @@ export interface TextColorMark extends Mark {
   attrs: TextColorMarkAttributes;
 }
 
-export const textColor = createPMMarkSpecFactory<TextColorMark>({
-  attrs: { color: {} },
-  inclusive: true,
-  group: 'color',
-});
+export const textColor: PMMarkSpecFactoryInstance<TextColorMark> =
+  createPMMarkSpecFactory<TextColorMark>({
+    attrs: { color: {} },
+    inclusive: true,
+    group: 'color',
+  });
 
 export interface TypeAheadQueryMarkAttributes {
   trigger: string;
@@ -320,11 +336,12 @@ export interface TypeAheadQueryMark extends Mark {
   attrs: TypeAheadQueryMarkAttributes;
 }
 
-export const typeAheadQuery = createPMMarkSpecFactory<TypeAheadQueryMark>({
-  attrs: { trigger: { default: '' } },
-  inclusive: true,
-  group: 'searchQuery',
-});
+export const typeAheadQuery: PMMarkSpecFactoryInstance<TypeAheadQueryMark> =
+  createPMMarkSpecFactory<TypeAheadQueryMark>({
+    attrs: { trigger: { default: '' } },
+    inclusive: true,
+    group: 'searchQuery',
+  });
 
 export interface UnderlineDefinition {
   type: 'underline';
@@ -332,10 +349,8 @@ export interface UnderlineDefinition {
 
 export type UnderlineMark = Mark;
 
-export const underline = createPMMarkSpecFactory({
-  inclusive: true,
-  group: 'fontStyle',
-});
+export const underline: PMMarkSpecFactoryInstance<Mark> =
+  createPMMarkSpecFactory({ inclusive: true, group: 'fontStyle' });
 
 export interface UnsupportedMarkMarkAttributes {
   originalValue: Record<string, unknown>;
@@ -350,10 +365,11 @@ export interface UnsupportedMarkMark extends Mark {
   attrs: UnsupportedMarkMarkAttributes;
 }
 
-export const unsupportedMark = createPMMarkSpecFactory<UnsupportedMarkMark>({
-  attrs: { originalValue: {} },
-  excludes: '',
-});
+export const unsupportedMark: PMMarkSpecFactoryInstance<UnsupportedMarkMark> =
+  createPMMarkSpecFactory<UnsupportedMarkMark>({
+    attrs: { originalValue: {} },
+    excludes: '',
+  });
 
 export interface UnsupportedNodeAttributeMarkAttributes {
   unsupported: Record<string, unknown>;
@@ -369,7 +385,7 @@ export interface UnsupportedNodeAttributeMark extends Mark {
   attrs: UnsupportedNodeAttributeMarkAttributes;
 }
 
-export const unsupportedNodeAttribute =
+export const unsupportedNodeAttribute: PMMarkSpecFactoryInstance<UnsupportedNodeAttributeMark> =
   createPMMarkSpecFactory<UnsupportedNodeAttributeMark>({
     attrs: { unsupported: {}, type: {} },
   });

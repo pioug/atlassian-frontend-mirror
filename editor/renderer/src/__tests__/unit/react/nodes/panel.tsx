@@ -9,10 +9,6 @@ describe('Renderer - React/Nodes/Panel', () => {
 	describe('info', () => {
 		const infoPanel = shallow(<Panel panelType={PanelType.INFO}>This is a info panel</Panel>);
 
-		it('should wrap content with <div>-tag', () => {
-			expect(infoPanel.name()).toEqual('PanelStyled');
-		});
-
 		it('should have two children', () => {
 			expect(infoPanel.children()).toHaveLength(2);
 		});
@@ -21,10 +17,6 @@ describe('Renderer - React/Nodes/Panel', () => {
 	describe('note', () => {
 		const notePanel = shallow(<Panel panelType={PanelType.NOTE}>This is a note panel</Panel>);
 
-		it('should wrap content with <div>-tag', () => {
-			expect(notePanel.name()).toEqual('PanelStyled');
-		});
-
 		it('should have two children', () => {
 			expect(notePanel.children()).toHaveLength(2);
 		});
@@ -32,10 +24,6 @@ describe('Renderer - React/Nodes/Panel', () => {
 
 	describe('tip', () => {
 		const tipPanel = shallow(<Panel panelType={PanelType.TIP}>This is a tip panel</Panel>);
-
-		it('should wrap content with <div>-tag', () => {
-			expect(tipPanel.name()).toEqual('PanelStyled');
-		});
 
 		it('should have two children', () => {
 			expect(tipPanel.children()).toHaveLength(2);
@@ -46,11 +34,6 @@ describe('Renderer - React/Nodes/Panel', () => {
 		const warningPanel = shallow(
 			<Panel panelType={PanelType.WARNING}>This is a warning panel</Panel>,
 		);
-
-		it('should wrap content with <div>-tag', () => {
-			expect(warningPanel.name()).toEqual('PanelStyled');
-		});
-
 		it('should have two children', () => {
 			expect(warningPanel.children()).toHaveLength(2);
 		});
@@ -71,7 +54,6 @@ describe('Renderer - React/Nodes/Panel', () => {
 					This is a custom panel with custom emoji and background
 				</Panel>,
 			);
-			expect(customPanel.name()).toEqual('PanelStyled');
 			expect(customPanel.props().backgroundColor).toEqual('#b5f71ca14');
 			expect(customPanel.find(EmojiItem).props().shortName).toEqual(':smiley:');
 		});

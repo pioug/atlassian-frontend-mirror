@@ -22,6 +22,7 @@ import { BlockCardConfluence } from '../../../examples/vr-block-card/vr-block-ca
 import { BlockCardEntities } from '../../../examples/vr-block-card/vr-block-card-resolved-entities';
 import BlockCardResolvedIconVariations from '../../../examples/vr-block-card/vr-block-card-resolved-icon-variations';
 import { BlockCardJira } from '../../../examples/vr-block-card/vr-block-card-resolved-jira';
+import VRBlockCardResolvedRovoActions from '../../../examples/vr-block-card/vr-block-card-resolved-rovo-actions';
 import { BlockCardTrello } from '../../../examples/vr-block-card/vr-block-card-resolved-trello-image-preview';
 import { BlockCardUnauthorisedView } from '../../../examples/vr-block-card/vr-block-card-unauthorised';
 import { BlockCardUnauthorisedMultipleProviders } from '../../../examples/vr-block-card/vr-block-card-unauthorised-multiple-providers';
@@ -112,7 +113,6 @@ snapshot(BlockCardResolvedIconVariations, {
 	description:
 		'block card resolved icon variations (ResolvedClient iconTestUrls — flexible extractSmartLinkIcon path)',
 	featureFlags: {
-		platform_sl_3p_unauth_paste_as_block_card: 'card_by_default_and_new_design',
 		platform_sl_3p_preauth_better_hovercard_killswitch: true,
 		platform_sl_3p_preauth_better_hovercard: true,
 	},
@@ -207,4 +207,11 @@ snapshot(VRBlockProfileCard, {
 
 snapshot(FlexibleUiErroredTitleBlockCompetitorPrompt, {
 	description: 'block-card-errored-title-block-competitor-prompt',
+});
+
+snapshot(VRBlockCardResolvedRovoActions, {
+	featureFlags: {
+		platform_sl_3p_auth_rovo_block_card_kill_switch: true,
+	},
+	waitForReactLazy: true,
 });

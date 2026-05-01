@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { FC } from 'react';
+
 import { cssMap, jsx } from '@atlaskit/css';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 
@@ -41,13 +43,15 @@ const PriorityCriticalIconLegacy: {
 
 PriorityCriticalIconLegacy.displayName = 'PriorityCriticalIcon';
 
-export default componentWithFG(
-	'platform_sl_icons_refactor',
-	createPriorityIcon('PriorityCriticalIcon', [
-		{
-			d: 'M4.671 7.165l6.643-3.946a1.372 1.372 0 011.403.002l6.614 3.944c.415.247.669.695.669 1.178v11.253a1.372 1.372 0 01-2.074 1.179l-5.91-3.52-5.944 3.526A1.372 1.372 0 014 19.6V8.345c0-.484.255-.933.671-1.18z',
-			fill: '#FF5630',
-		},
-	]),
-	PriorityCriticalIconLegacy,
-);
+const _default_1: FC<Omit<PriorityIconProps, 'ref'> & Omit<PriorityIconProps, 'ref'>> =
+	componentWithFG(
+		'platform_sl_icons_refactor',
+		createPriorityIcon('PriorityCriticalIcon', [
+			{
+				d: 'M4.671 7.165l6.643-3.946a1.372 1.372 0 011.403.002l6.614 3.944c.415.247.669.695.669 1.178v11.253a1.372 1.372 0 01-2.074 1.179l-5.91-3.52-5.944 3.526A1.372 1.372 0 014 19.6V8.345c0-.484.255-.933.671-1.18z',
+				fill: '#FF5630',
+			},
+		]),
+		PriorityCriticalIconLegacy,
+	);
+export default _default_1;

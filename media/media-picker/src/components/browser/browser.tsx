@@ -1,8 +1,11 @@
 import React from 'react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { withMediaAnalyticsContext, type MediaFeatureFlags } from '@atlaskit/media-common';
-import isValidId from 'uuid-validate';
+import {
+	withMediaAnalyticsContext,
+	type MediaFeatureFlags,
+} from '@atlaskit/media-common';
+import { isValidUuid } from '@atlaskit/media-common/isValidUuid';
 import {
 	type BrowserConfig,
 	type UploadEndEventPayload,
@@ -51,7 +54,7 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
 		const { config, onError } = props;
 
 		const { replaceFileId } = config;
-		if (replaceFileId && !isValidId(replaceFileId)) {
+		if (replaceFileId && !isValidUuid(replaceFileId)) {
 			this.createAndFireAnalyticsEvent({
 				eventType: 'operational',
 				action: 'failed',

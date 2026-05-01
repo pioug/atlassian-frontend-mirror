@@ -1,5 +1,26 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.18.0
+
+### Minor Changes
+
+- [`a5bfa05e68f13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5bfa05e68f13) -
+  Exempt Pragmatic Drag and Drop registration attributes (e.g. `draggable`,
+  `data-drop-target-for-*`, `data-auto-scrollable`, and `data-rbd-*`) from VC measurement. These
+  attributes are added in an effect after first paint as part of pdnd's standard registration
+  pattern and do not affect layout or paint. Behind feature gate
+  `platform_ufo_exclude_pdnd_attributes_from_vc`.
+
+## 5.17.1
+
+### Patch Changes
+
+- [`9f4cfdc6477b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f4cfdc6477b7) -
+  Cleanup `platform_ufo_fedramp_overrides` feature gate. The gate is now assumed to always evaluate
+  to `true`, so the FedRAMP override behaviour is now permanently driven solely by
+  `isFedrampModerate()` perimeter detection. Removed unused references, gate guards, and updated
+  tests accordingly.
+
 ## 5.17.0
 
 ### Minor Changes
@@ -28,9 +49,8 @@
 ### Patch Changes
 
 - [`14515ef2d51e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14515ef2d51e7) -
-  FedRAMP-Moderate hardening for `@atlaskit/react-ufo`, all gated behind the
-  `platform_ufo_fedramp_overrides` feature flag and `isFedrampModerate()` perimeter detection from
-  `@atlaskit/atlassian-context`:
+  FedRAMP-Moderate hardening for `@atlaskit/react-ufo`, all gated behind the `isFedrampModerate()`
+  perimeter detection from `@atlaskit/atlassian-context`:
   - `selectorConfig` is forced to all-false in both the new (`VCObserverNew`) and legacy
     (`VCObserver`) viewport observer pipelines. Both now consult `getSelectorConfig()` when no
     caller-provided `selectorConfig` is passed, so element-name selectors collapse to tag-name

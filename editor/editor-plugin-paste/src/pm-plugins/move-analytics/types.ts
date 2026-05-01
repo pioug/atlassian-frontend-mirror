@@ -11,8 +11,6 @@ export type ContentMoved = {
 	currentActions: Array<ActionType>;
 	hasSelectedMultipleNodes?: boolean;
 	nodeDepth?: number;
-	// TODO: ED-26959 - when clean up `platform_editor_element_drag_and_drop_multiselect`, consider removing nodeName since `nodeTypes` will cover both single/multiple nodes
-	nodeName?: NodeName;
 	nodeTypes?: string;
 	size?: number;
 };
@@ -23,7 +21,6 @@ export type MoveAnalyticsPluginState = {
 
 export const defaultState = {
 	contentMoved: {
-		nodeName: undefined,
 		size: undefined,
 		nodeDepth: undefined,
 		currentActions: [],

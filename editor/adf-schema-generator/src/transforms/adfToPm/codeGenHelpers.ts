@@ -40,11 +40,11 @@ export const buildADFAttributesTypes = (attrs: ADFAttributes): string[] => {
 	);
 };
 
-export const _interface = (name: string, body: string) => {
+export const _interface = (name: string, body: string): string => {
 	return `export interface ${name} {${body}}`;
 };
 
-export const _type = (name: string, body: string) => {
+export const _type = (name: string, body: string): string => {
 	return `export type ${name} = ${body}`;
 };
 
@@ -52,15 +52,19 @@ export const _functionCallToVariable = (
 	variableName: string,
 	functionName: string,
 	args: string[],
-) => {
+	typeAnnotation?: string,
+): string => {
+	if (typeAnnotation) {
+		return `export const ${variableName}: ${typeAnnotation} = ${functionName}(${args.join(',')})`;
+	}
 	return `export const ${variableName} = ${functionName}(${args.join(',')})`;
 };
 
-export const _namedImport = (pkg: string, ...names: string[]) => {
+export const _namedImport = (pkg: string, ...names: string[]): string => {
 	return `import { ${names.join(', ')} } from '${pkg}'`;
 };
 
-export const _namedTypeImport = (pkg: string, ...names: string[]) => {
+export const _namedTypeImport = (pkg: string, ...names: string[]): string => {
 	return `import type { ${names.join(', ')} } from '${pkg}'`;
 };
 

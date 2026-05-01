@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::6b271484f56c37f6170c6468edcab44c>>
+ * @codegen <<SignedSource::6e96d8def9547f2a0cd3dfc9cc5efc83>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type ComponentMetaDataType = {
@@ -18,8 +18,8 @@ export type AnalyticsContextAttributesType = {
 
 export type DatasourceModalDialogViewedAttributesType = {};
 export type ModalReadyDatasourceAttributesType = {
-	instancesCount: number | null;
-	schemasCount: number | null;
+	instancesCount?: number | null;
+	schemasCount?: number | null;
 };
 export type JqlEditorSearchedAttributesType = {
 	isQueryComplex: boolean;
@@ -30,21 +30,21 @@ export type ErrorShownAttributesType = {
 	reason: 'network' | 'access';
 };
 export type ButtonClickedSyncAttributesType = {
-	extensionKey: string | null;
+	extensionKey?: string | null;
 	destinationObjectTypes: unknown[];
 };
 export type ButtonClickedInsertAttributesType = {
 	searchCount: number;
 	totalItemCount: number;
-	displayedColumnCount: number | null;
+	displayedColumnCount?: number | null;
 	display: 'datasource_inline' | 'datasource_table' | 'inline';
 	destinationObjectTypes: unknown[];
-	searchMethod:
+	searchMethod?:
 		| 'datasource_search_query'
 		| 'datasource_basic_filter'
 		| 'datasource_saved_filter'
 		| null;
-	extensionKey: string | null;
+	extensionKey?: string | null;
 	actions: unknown[];
 	isQueryComplex: boolean;
 	projectBasicFilterSelectionCount: number;
@@ -55,25 +55,25 @@ export type ButtonClickedInsertAttributesType = {
 export type ButtonClickedCancelAttributesType = {
 	searchCount: number;
 	destinationObjectTypes: unknown[];
-	extensionKey: string | null;
+	extensionKey?: string | null;
 	actions: unknown[];
 };
 export type ButtonClickedWrapAttributesType = {};
 export type ButtonClickedUnwrapAttributesType = {};
 export type LinkClickedSingleItemAttributesType = {
-	extensionKey: string | null;
+	extensionKey?: string | null;
 	destinationObjectTypes: unknown[];
 };
 export type DatasourceRenderSuccessAttributesType = {
 	totalItemCount: number;
 	destinationObjectTypes: unknown[];
-	displayedColumnCount: number | null;
-	extensionKey: string | null;
+	displayedColumnCount?: number | null;
+	extensionKey?: string | null;
 	display: 'table';
 };
 export type DatasourceRenderFailureAttributesType = {};
 export type DatasourceOperationFailedAttributesType = {
-	errorLocation:
+	errorLocation?:
 		| 'ProviderOnAuthRequest'
 		| 'loadDatasourceDetails'
 		| 'onNextPage'
@@ -81,18 +81,18 @@ export type DatasourceOperationFailedAttributesType = {
 		| 'actionExecution'
 		| 'fetchActionExecution'
 		| null;
-	traceId: string | null;
-	status: number | null;
-	reason: 'response' | 'network' | 'internal' | 'unknown' | null;
+	traceId?: string | null;
+	status?: number | null;
+	reason?: 'response' | 'network' | 'internal' | 'unknown' | null;
 };
 export type ProviderAuthSuccessAttributesType = {
-	extensionKey: string | null;
+	extensionKey?: string | null;
 	experience: 'datasource';
 };
 export type ProviderAuthFailureAttributesType = {
-	extensionKey: string | null;
+	extensionKey?: string | null;
 	experience: 'datasource';
-	reason:
+	reason?:
 		| 'auth_window_closed'
 		| 'invalid_request'
 		| 'unauthorized_client'
@@ -106,38 +106,38 @@ export type ProviderAuthFailureAttributesType = {
 };
 export type NextItemLoadedAttributesType = {
 	destinationObjectTypes: unknown[];
-	extensionKey: string | null;
+	extensionKey?: string | null;
 	loadedItemCount: number;
 };
 export type TableViewedDatasourceConfigModalAttributesType = {
 	destinationObjectTypes: unknown[];
 	totalItemCount: number;
-	displayedColumnCount: number | null;
-	searchMethod:
+	displayedColumnCount?: number | null;
+	searchMethod?:
 		| 'datasource_search_query'
 		| 'datasource_basic_filter'
 		| 'datasource_saved_filter'
 		| null;
-	extensionKey: string | null;
+	extensionKey?: string | null;
 };
 export type LinkViewedSingleItemAttributesType = {
 	destinationObjectTypes: unknown[];
-	searchMethod:
+	searchMethod?:
 		| 'datasource_search_query'
 		| 'datasource_basic_filter'
 		| 'datasource_saved_filter'
 		| null;
-	extensionKey: string | null;
+	extensionKey?: string | null;
 };
 export type LinkViewedCountAttributesType = {
 	destinationObjectTypes: unknown[];
-	searchMethod:
+	searchMethod?:
 		| 'datasource_search_query'
 		| 'datasource_basic_filter'
 		| 'datasource_saved_filter'
 		| null;
 	totalItemCount: number;
-	extensionKey: string | null;
+	extensionKey?: string | null;
 };
 export type EmptyResultShownBasicSearchDropdownAttributesType = {
 	filterName: string;
@@ -187,8 +187,8 @@ export type FetchActionExecutionSuccessAttributesType = {
 export type ActionDiscoverySuccessAttributesType = {
 	experience: 'datasource';
 	entityType: string;
-	integrationKey: string | null;
-	datasourceId: string | null;
+	integrationKey?: string | null;
+	datasourceId?: string | null;
 };
 export type FormSubmittedInlineEditAttributesType = {};
 export type InlineEditClickedDatasourceAttributesType = {

@@ -32,6 +32,11 @@ export type PMDiffParams = {
 	isInverted?: boolean;
 	originalDoc: Node;
 	/**
+	 * When true, the editor will scroll to bring the first diff decoration into view
+	 * after the diff is shown.
+	 */
+	scrollIntoView?: boolean;
+	/**
 	 * Prosemirror steps. This is used to calculate and show the diff in the editor
 	 */
 	steps: Step[];

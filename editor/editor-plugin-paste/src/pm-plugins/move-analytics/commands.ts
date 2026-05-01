@@ -17,7 +17,6 @@ export const updateContentMoved = (
 			const data = {
 				currentActions: [...contentMoved.currentActions, nextAction],
 				size: nextState?.size || contentMoved.size,
-				nodeName: nextState?.nodeName,
 				nodeDepth: nextState?.nodeDepth,
 				nodeTypes: nextState?.nodeTypes,
 				hasSelectedMultipleNodes: nextState?.hasSelectedMultipleNodes,

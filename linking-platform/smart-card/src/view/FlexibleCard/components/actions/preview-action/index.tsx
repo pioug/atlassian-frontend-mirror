@@ -43,7 +43,10 @@ const PreviewAction = ({
 					color="currentColor"
 					spacing="spacious"
 					label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'Open preview panel'}
-					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { size: props.iconSize } : {})}
+					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+					fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
+						? { size: props.iconSize }
+						: {})}
 				/>
 			);
 		}
@@ -52,7 +55,10 @@ const PreviewAction = ({
 				color="currentColor"
 				spacing="spacious"
 				label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'Open preview'}
-				{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { size: props.iconSize } : {})}
+				{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+				fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
+					? { size: props.iconSize }
+					: {})}
 			/>
 		);
 	}, [hasPreviewPanel, props.iconSize]);

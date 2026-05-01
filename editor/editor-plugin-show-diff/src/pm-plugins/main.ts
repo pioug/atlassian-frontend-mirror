@@ -21,7 +21,7 @@ import { calculateDiffDecorations } from './calculateDiff/calculateDiffDecoratio
 import { enforceCustomStepRegisters } from './enforceCustomStepRegisters';
 import { getScrollableDecorations } from './getScrollableDecorations';
 import { NodeViewSerializer } from './NodeViewSerializer';
-import { scrollToActiveDecoration } from './scrollToActiveDecoration';
+import { scrollToActiveDecoration, scrollToFirstDecoration } from './scrollToDiff';
 
 export const showDiffPluginKey: PluginKey<ShowDiffPluginState> = new PluginKey<ShowDiffPluginState>(
 	'showDiffPlugin',
@@ -36,6 +36,11 @@ export type ShowDiffPluginState = {
 	isDisplayingChanges: boolean;
 	isInverted?: boolean;
 	originalDoc: PMNode | undefined;
+	/**
+	 * When true, the view update handler should scroll to the first decoration
+	 * and then reset this flag.
+	 */
+	scrollIntoView?: boolean;
 	steps: ProseMirrorStep[];
 };
 
@@ -70,7 +75,7 @@ export const createPlugin = (
 								isInverted: false,
 								diffType: 'inline',
 								hideDeletedDiffs: false,
-							}
+						  }
 						: {}),
 				};
 			},
@@ -108,7 +113,7 @@ export const createPlugin = (
 										isInverted: newPluginState?.isInverted,
 										diffType: newPluginState?.diffType,
 										hideDeletedDiffs: newPluginState?.hideDeletedDiffs,
-									}
+								  }
 								: {}),
 						});
 						// Update the decorations
@@ -175,7 +180,7 @@ export const createPlugin = (
 											isInverted: newPluginState.isInverted,
 											diffType: newPluginState.diffType,
 											hideDeletedDiffs: newPluginState.hideDeletedDiffs,
-										}
+									  }
 									: {}),
 							});
 							newPluginState.decorations = updatedDecorations;
@@ -213,9 +218,27 @@ export const createPlugin = (
 						);
 					}
 
+					const pluginState = showDiffPluginKey.getState(view.state);
+
+					// Scroll to the first decoration when scrollIntoView was requested
+					if (
+						pluginState?.scrollIntoView &&
+						expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+					) {
+						cancelPendingScrollToDecoration?.();
+						const allDecorations = pluginState.decorations?.find() || [];
+						cancelPendingScrollToDecoration = scrollToFirstDecoration(view, allDecorations);
+
+						// Reset the flag so we don't scroll again on subsequent updates
+						view.dispatch(
+							view.state.tr.setMeta(showDiffPluginKey, {
+								scrollIntoView: false,
+							}),
+						);
+					}
+
 					// Check for any potential scroll side-effects
 					if (fg('platform_editor_show_diff_scroll_navigation')) {
-						const pluginState = showDiffPluginKey.getState(view.state);
 						const activeIndexChanged =
 							pluginState?.activeIndex !== undefined &&
 							pluginState.activeIndex !== previousActiveIndex;

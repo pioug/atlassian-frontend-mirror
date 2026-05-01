@@ -2,7 +2,6 @@ import { mediaSingleSpec } from '@atlaskit/adf-schema';
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema/schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { getAttrsFromNodeMediaSingle } from './toDOMAttrs';
@@ -73,17 +72,9 @@ export const mediaWidthCSSCalc = ({
 	} else if (shouldHardCodePixelWidth) {
 		cssCalc = `min(${mediaSingleDimensionWidth}px, ${fullContainerWidth})`;
 	} else if (shouldUseBreakoutWideLogic) {
-		if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
-			cssCalc = `max(var(--ak-editor--line-length), min(var(--ak-editor--breakout-wide-layout-width), var(--ak-editor-max-container-width)))`;
-		} else {
-			cssCalc = `max(var(--ak-editor--line-length), min(var(--ak-editor--breakout-wide-layout-width), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
-		}
+		cssCalc = `max(var(--ak-editor--line-length), min(var(--ak-editor--breakout-wide-layout-width), var(--ak-editor-max-container-width)))`;
 	} else if (shouldUseBreakoutFullWidthLogic) {
-		if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
-			cssCalc = `max(var(--ak-editor--line-length), min(var(--ak-editor--full-width-layout-width), var(--ak-editor-max-container-width)))`;
-		} else {
-			cssCalc = `max(var(--ak-editor--line-length), min(var(--ak-editor--full-width-layout-width), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
-		}
+		cssCalc = `max(var(--ak-editor--line-length), min(var(--ak-editor--full-width-layout-width), var(--ak-editor-max-container-width)))`;
 	} else {
 		cssCalc = `max(min(${baseWidth}px, min(100cqw, 100%)), ${GUTTER_SIZE})`;
 	}

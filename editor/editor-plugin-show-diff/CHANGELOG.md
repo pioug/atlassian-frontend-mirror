@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 8.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.0
+
+### Minor Changes
+
+- [`1b208e1f7d8f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b208e1f7d8f7) -
+  [ux] Adds the entry point for ai image generation to the media insert picker plugin as a new tab.
+  This feature is fully behind an experiment gate.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.0
+
+### Minor Changes
+
+- [`439f373a73aa2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/439f373a73aa2) -
+  EDITOR-6620: Add an option to scroll the diff into view.
+
 ## 8.1.13
 
 ### Patch Changes

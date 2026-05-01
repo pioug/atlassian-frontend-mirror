@@ -1,5 +1,16 @@
 # @atlaskit/forge-react-types
 
+## 1.2.0
+
+### Minor Changes
+
+- [`9a694209edbb9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a694209edbb9) -
+  Add Bleed UI Kit component from @atlaskit/primitives/compiled
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.0
 
 ### Minor Changes

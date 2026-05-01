@@ -1,5 +1,5 @@
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import type { ResolvedPos, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -8,20 +8,9 @@ import { isFragmentOfType } from './check-fragment';
 import { MIN_LAYOUT_COLUMN } from './consts';
 import { updateColumnWidths } from './update-column-widths';
 
-export const removeFromSource = (tr: Transaction, $from: ResolvedPos, to?: number): Transaction => {
-	let sourceContent: PMNode | Fragment | null = $from.nodeAfter;
-	let isLayoutColumn = sourceContent?.type.name === 'layoutColumn';
-	let sourceNodeEndPos = $from.pos + (sourceContent?.nodeSize || 1);
-
-	if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
-		sourceContent = tr.doc.slice($from.pos, to).content;
-		isLayoutColumn = isFragmentOfType(sourceContent, 'layoutColumn');
-		sourceNodeEndPos = to === undefined ? $from.pos + sourceContent.size : to;
-	}
-
-	if (!sourceContent) {
-		return tr;
-	}
+export const removeFromSource = (tr: Transaction, $from: ResolvedPos, to: number): Transaction => {
+	const sourceContent: Fragment = tr.doc.slice($from.pos, to).content;
+	const isLayoutColumn = isFragmentOfType(sourceContent, 'layoutColumn');
 
 	/**
 	 * This logic is used to handle the case when a user tries to delete a layout column
@@ -35,7 +24,7 @@ export const removeFromSource = (tr: Transaction, $from: ResolvedPos, to?: numbe
 			// Only delete the layout content, but keep the layout column itself
 			// This logic should be remove when we clean up the code for single column layouts.
 			// since this step has no effect on the layout column, because the parent node is removed in the later step.
-			tr.delete($from.pos + 1, sourceNodeEndPos - 1);
+			tr.delete($from.pos + 1, to - 1);
 
 			// This check should be remove when clean up the code for single column layouts.
 			// since it has been checked in the previous step.
@@ -67,6 +56,6 @@ export const removeFromSource = (tr: Transaction, $from: ResolvedPos, to?: numbe
 		}
 	}
 
-	tr.delete($from.pos, sourceNodeEndPos);
+	tr.delete($from.pos, to);
 	return tr;
 };

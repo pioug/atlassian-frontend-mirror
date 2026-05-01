@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-media
 
+## 12.4.0
+
+### Minor Changes
+
+- [`a759f33417d9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a759f33417d9b) -
+  [PIRA-1311](https://opsj.atlassian.net/browse/PIRA-1311) - clean up platform_editor_media_vc_fixes
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.0
+
+### Minor Changes
+
+- [`e8a04d9738c5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8a04d9738c5a) -
+  Add a rainbow `AIGeneratingOverlay` shown over media nodes during AI inline edits, gated by
+  `fg('cc-maui-phase-2-loading')` layered on top of the existing MAUI gates and killswitch.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.5
 
 ### Patch Changes

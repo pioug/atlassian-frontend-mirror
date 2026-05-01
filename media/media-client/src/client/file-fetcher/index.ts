@@ -6,6 +6,8 @@ import uuid from 'uuid/v4';
 import type Dataloader from 'dataloader';
 import { type AuthProvider, authToOwner } from '@atlaskit/media-core';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { type MediaTraceContext } from '@atlaskit/media-common';
+import { isValidUuid } from '@atlaskit/media-common/isValidUuid';
 import { downloadUrl } from '@atlaskit/media-common/downloadUrl';
 import { type MediaFileArtifacts } from '@atlaskit/media-state';
 
@@ -35,7 +37,6 @@ import { type UploadController } from '../../upload-controller';
 import { getFileStreamsCache } from '../../file-streams-cache';
 import { globalMediaEventEmitter } from '../../globalMediaEventEmitter';
 import { RECENTS_COLLECTION } from '../../constants';
-import isValidId from 'uuid-validate';
 import {
 	createFileDataloader,
 	type DataloaderKey,
@@ -51,7 +52,6 @@ import { getMediaTypeFromMimeType } from '@atlaskit/media-common/mediaTypeUtils'
 import { shouldFetchRemoteFileStates } from '../../utils/shouldFetchRemoteFileStates';
 import { PollingFunction } from '../../utils/polling';
 import { isEmptyFile } from '../../utils/detectEmptyFile';
-import { type MediaTraceContext } from '@atlaskit/media-common';
 import {
 	type ErrorFileState,
 	type UploadingFileState,
@@ -212,7 +212,7 @@ export class FileFetcherImpl implements FileFetcher {
 
 	public getFileState(id: string, options: GetFileOptions = {}): MediaSubscribable {
 		const { collectionName, occurrenceKey, includeHashForDuplicateFiles, forceRefresh } = options;
-		if (!isValidId(id)) {
+		if (!isValidUuid(id)) {
 			const subject = createMediaSubject<FileState>();
 			const err = new FileFetcherError('invalidFileId', { id, collectionName, occurrenceKey });
 

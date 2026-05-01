@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "6.1.1",
+	"version": "6.2.0",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,18 +25,21 @@
 	],
 	"exports": {
 		".": "./src/index.tsx",
-		"./types": "./src/entry-points/types.tsx",
+		"./accessibility": "./src/entry-points/accessibility.tsx",
+		"./animate-in": "./src/entry-points/animate-in.tsx",
 		"./curves": "./src/entry-points/curves.tsx",
 		"./durations": "./src/entry-points/durations.tsx",
-		"./accessibility": "./src/entry-points/accessibility.tsx",
+		"./entering/types": "./src/entry-points/entering-types.tsx",
 		"./exiting-persistence": "./src/entry-points/exiting-persistence.tsx",
 		"./fade-in": "./src/entry-points/fade-in.tsx",
-		"./animate-in": "./src/entry-points/animate-in.tsx",
-		"./slide-in": "./src/entry-points/slide-in.tsx",
-		"./zoom-in": "./src/entry-points/zoom-in.tsx",
+		"./height": "./src/entry-points/height.tsx",
+		"./motion": "./src/entry-points/motion.tsx",
+		"./resizing": "./src/entry-points/resizing.tsx",
 		"./shrink-out": "./src/entry-points/shrink-out.tsx",
+		"./slide-in": "./src/entry-points/slide-in.tsx",
 		"./staggered-entrance": "./src/entry-points/staggered-entrance.tsx",
-		"./resizing": "./src/entry-points/resizing.tsx"
+		"./types": "./src/entry-points/types.tsx",
+		"./zoom-in": "./src/entry-points/zoom-in.tsx"
 	},
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {

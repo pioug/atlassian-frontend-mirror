@@ -180,6 +180,76 @@ export default function App() {
 		});
 	});
 
+	describe('already migrated values', () => {
+		check({
+			it: 'should not modify already-migrated semantic values',
+			original: `
+import Badge from '@atlaskit/badge';
+
+export default function App() {
+	return (
+		<div>
+			<Badge appearance="neutral">Neutral</Badge>
+			<Badge appearance="information">Information</Badge>
+			<Badge appearance="inverse">Inverse</Badge>
+			<Badge appearance="danger">Danger</Badge>
+			<Badge appearance="success">Success</Badge>
+		</div>
+	);
+}
+`,
+			expected: `
+import Badge from '@atlaskit/badge';
+
+export default function App() {
+	return (
+		<div>
+			<Badge appearance="neutral">Neutral</Badge>
+			<Badge appearance="information">Information</Badge>
+			<Badge appearance="inverse">Inverse</Badge>
+			<Badge appearance="danger">Danger</Badge>
+			<Badge appearance="success">Success</Badge>
+		</div>
+	);
+}
+`,
+		});
+
+		check({
+			it: 'should be idempotent when run on output of a previous migration',
+			original: `
+import Badge from '@atlaskit/badge';
+
+export default function App() {
+	return (
+		<div>
+			<Badge appearance="success">Added</Badge>
+			<Badge appearance="danger">Removed</Badge>
+			<Badge appearance="neutral">Default</Badge>
+			<Badge appearance="information">Primary</Badge>
+			<Badge appearance="inverse">Primary Inverted</Badge>
+		</div>
+	);
+}
+`,
+			expected: `
+import Badge from '@atlaskit/badge';
+
+export default function App() {
+	return (
+		<div>
+			<Badge appearance="success">Added</Badge>
+			<Badge appearance="danger">Removed</Badge>
+			<Badge appearance="neutral">Default</Badge>
+			<Badge appearance="information">Primary</Badge>
+			<Badge appearance="inverse">Primary Inverted</Badge>
+		</div>
+	);
+}
+`,
+		});
+	});
+
 	describe('edge cases', () => {
 		check({
 			it: 'should not transform non-Badge components',

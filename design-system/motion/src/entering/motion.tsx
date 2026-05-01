@@ -19,7 +19,9 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { type Motion as MotionToken } from '@atlaskit/tokens/css-type-schema';
 
 import { isReducedMotion } from '../utils/accessibility';
-import { convertToMs, getDurationMs, resolveMotionToken } from '../utils/animation';
+import { convertToMs } from '../utils/convert-to-ms';
+import { getDurationMs } from '../utils/get-duration-ms';
+import { resolveMotionToken } from '../utils/resolve-motion-token';
 
 import { useExitingPersistence } from './exiting-persistence';
 import { useStaggeredEntrance } from './staggered-entrance';

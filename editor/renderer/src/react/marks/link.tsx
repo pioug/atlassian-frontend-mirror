@@ -1,31 +1,24 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React, { Fragment } from 'react';
-/* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
-import { jsx, css } from '@emotion/react';
 import type { LinkAttributes } from '@atlaskit/adf-schema';
+
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 
 import { getEventHandler } from '../../utils';
 import { PLATFORM, MODE } from '../../analytics/events';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { MarkProps } from '../types';
 
-import { token } from '@atlaskit/tokens';
-import LinkUrl from '@atlaskit/smart-card/link-url';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 
-const anchorStyles = css({
-	color: token('color.link'),
-	'&:hover': {
-		color: token('color.link'),
-		textDecoration: 'underline',
-	},
-	'&:active': {
-		color: token('color.link.pressed'),
-	},
-});
+import { LinkUrlCompiled } from './link-compiled';
+import { LinkUrlEmotion } from './link-emotion';
+
+const LinkUrlMigration = componentWithCondition(
+	() => expValEquals('platform_editor_renderer_static_css', 'isEnabled', true),
+	LinkUrlCompiled,
+	LinkUrlEmotion,
+);
 
 interface LinkProps extends LinkAttributes {
 	isMediaLink?: boolean;
@@ -33,7 +26,10 @@ interface LinkProps extends LinkAttributes {
 	target?: string;
 }
 
-export default function Link(props: MarkProps<LinkProps>): jsx.JSX.Element {
+/**
+ * Render an ADF link mark in renderer.
+ */
+export default function Link(props: MarkProps<LinkProps>): React.JSX.Element {
 	const {
 		href,
 		target,
@@ -81,8 +77,7 @@ export default function Link(props: MarkProps<LinkProps>): jsx.JSX.Element {
 
 	return (
 		<AnalyticsContext data={analyticsData}>
-			<LinkUrl
-				css={anchorStyles}
+			<LinkUrlMigration
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onClick={(e) => {
 					if (fireAnalyticsEvent) {
@@ -111,7 +106,7 @@ export default function Link(props: MarkProps<LinkProps>): jsx.JSX.Element {
 				enableResolve={true}
 			>
 				{props.children}
-			</LinkUrl>
+			</LinkUrlMigration>
 		</AnalyticsContext>
 	);
 }

@@ -6,8 +6,14 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@emotion/react';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import type { RendererContext, ExtensionViewportSize } from '../types';
 import type { ExtensionLayout } from '@atlaskit/adf-schema';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
@@ -30,6 +36,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { calcBreakoutWidthCss } from '../utils/breakout';
 import { fg } from '@atlaskit/platform-feature-flags';
 import type { RendererAppearance } from '../../ui/Renderer/types';
+import type { AnalyticsEventPayload } from '../../analytics/events';
 
 interface Props {
 	extensionHandlers?: ExtensionHandlers;
@@ -55,6 +62,7 @@ interface Props {
 type AllOrNone<T> = T | { [K in keyof T]?: never };
 
 type RenderExtensionOptions = {
+	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
 	isTopLevel?: boolean;
 	rendererAppearance?: RendererAppearance;
 } & AllOrNone<OverflowShadowProps>;
@@ -96,6 +104,35 @@ const containerStyle = css({
 	containerType: 'inline-size',
 });
 
+type FireExtensionAsInlineAnalyticsProps = {
+	fireAnalyticsEvent: NonNullable<RenderExtensionOptions['fireAnalyticsEvent']>;
+	node: ExtensionParams<Parameters>;
+};
+
+/**
+ * Fires an analytics event once on mount when a bodied extension is rendered as an inline element.
+ * The node is stored in a ref to avoid re-firing if the node reference changes.
+ */
+const FireExtensionAsInlineAnalytics = ({
+	fireAnalyticsEvent,
+	node,
+}: FireExtensionAsInlineAnalyticsProps) => {
+	const nodeRef = useRef(node);
+	useEffect(() => {
+		fireAnalyticsEvent({
+			action: ACTION.RENDERED,
+			actionSubject: ACTION_SUBJECT.EXTENSION_AS_INLINE,
+			actionSubjectId: ACTION_SUBJECT_ID.EXTENSION_BODIED,
+			attributes: {
+				extensionKey: nodeRef.current.extensionKey,
+				extensionType: nodeRef.current.extensionType,
+			},
+			eventType: EVENT_TYPE.OPERATIONAL,
+		});
+	}, [fireAnalyticsEvent]);
+	return null;
+};
+
 export const renderExtension = (
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -116,7 +153,7 @@ export const renderExtension = (
 		: '';
 
 	// by default, we assume the extension is at top level, (direct child of doc node)
-	const { isTopLevel = true, rendererAppearance } = options || {};
+	const { isTopLevel = true, rendererAppearance, fireAnalyticsEvent } = options || {};
 	// we should only use custom layout for full-page appearance
 	const canUseCustomLayout = expValEquals(
 		'platform_editor_remove_important_in_render_ext',
@@ -140,6 +177,14 @@ export const renderExtension = (
 		shouldDisplayExtensionAsInline?.(node) &&
 		expValEquals('platform_editor_render_bodied_extension_as_inline', 'isEnabled', true);
 	const inlineClassName = isInline ? RendererCssClassName.EXTENSION_AS_INLINE : '';
+
+	const asInlineAnalytics =
+		isInline &&
+		fireAnalyticsEvent &&
+		node &&
+		fg('platform_editor_render_inline_extension_analytics') ? (
+			<FireExtensionAsInlineAnalytics fireAnalyticsEvent={fireAnalyticsEvent} node={node} />
+		) : null;
 
 	if (expValEquals('platform_editor_renderer_extension_width_fix', 'isEnabled', true)) {
 		const extensionDiv = (
@@ -178,6 +223,7 @@ export const renderExtension = (
 							containerStyle,
 					]}
 				>
+					{asInlineAnalytics}
 					{content}
 				</div>
 			</div>
@@ -245,6 +291,7 @@ export const renderExtension = (
 									containerStyle,
 							]}
 						>
+							{asInlineAnalytics}
 							{content}
 						</div>
 					</div>

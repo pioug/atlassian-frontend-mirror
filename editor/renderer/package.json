@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "130.2.17",
+	"version": "130.3.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -71,6 +71,7 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
 		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
 		"@emotion/react": "root:*",
 		"lodash": "root:*",
 		"memoize-one": "root:*",
@@ -133,11 +134,15 @@
 			],
 			"deprecation": "no-deprecated-imports",
 			"styling": [
+				"compiled",
 				"emotion"
 			]
 		}
 	},
 	"platform-feature-flags": {
+		"platform_editor_render_inline_extension_analytics": {
+			"type": "boolean"
+		},
 		"confluence_frontend_fix_date_hydration_error": {
 			"type": "boolean"
 		},

@@ -470,13 +470,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-01-13
-	platform_editor_element_drag_and_drop_multiselect: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-06-16
 	platform_editor_enable_single_player_step_merging: {
 		defaultValue: boolean;
@@ -603,13 +596,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-10-13
 	platform_editor_media_error_analytics: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-11-12
-	platform_editor_media_vc_fixes: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1628,6 +1614,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-28
+	platform_editor_expand_content_a11y: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-07
 	platform_editor_lovability_select_all_shortcut: {
 		defaultValue: boolean;
@@ -1644,6 +1637,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-10
 	platform_editor_static_css: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-04-30
+	platform_editor_renderer_static_css: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1750,6 +1750,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-24
 	platform_editor_ai_fix_error_discard_screen: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-04-30
+	platform_editor_insert_menu_ai: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1918,15 +1925,6 @@ export const editorExperimentsConfig: {
 	platform_editor_renderer_extension_width_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_renderer_extension_width_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-
-	// Added 2025-11-12
-	platform_editor_media_vc_fixes: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_media_vc_fixes',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2115,14 +2113,6 @@ export const editorExperimentsConfig: {
 	platform_editor_blockquote_in_text_formatting_menu: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_blockquote_in_text_formatting_menu',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-01-13
-	platform_editor_element_drag_and_drop_multiselect: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_element_drag_and_drop_multiselect',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3604,6 +3594,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-04-28
+	platform_editor_expand_content_a11y: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_expand_content_a11y',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-04-15
 	platform_editor_ai_no_stream_skip_pacer: createBooleanExperiment({
 		productKeys: {
@@ -3705,8 +3703,15 @@ export const editorExperimentsConfig: {
 	// Added 2026-04-10
 	platform_editor_static_css: createBooleanExperiment({
 		productKeys: {
-			confluence: 'platform_editor_static_css',
-			jira: 'platform_editor_static_css',
+			confluence: 'platform_editor_renderer_static_css',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-30
+	platform_editor_renderer_static_css: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_renderer_static_css',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3779,6 +3784,15 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_fix_error_discard_screen: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_fix_error_discard_screen',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-30
+	platform_editor_insert_menu_ai: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_insert_menu_ai',
+			jira: 'platform_editor_insert_menu_ai',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -23,7 +23,7 @@ const EMPTY_STATE: ActiveCellHighlightState = {
 	decorationSet: DecorationSet.empty,
 };
 
-export const activeCellHighlightPluginKey = new PluginKey<ActiveCellHighlightState>(
+export const activeCellHighlightPluginKey: PluginKey<ActiveCellHighlightState> = new PluginKey<ActiveCellHighlightState>(
 	'tableActiveCellHighlight',
 );
 
@@ -68,7 +68,7 @@ const buildState = (cellPos: number, state: EditorState): ActiveCellHighlightSta
 	}
 };
 
-export const createPlugin = () => {
+export const createPlugin = (): SafePlugin<ActiveCellHighlightState> => {
 	return new SafePlugin<ActiveCellHighlightState>({
 		key: activeCellHighlightPluginKey,
 		state: {

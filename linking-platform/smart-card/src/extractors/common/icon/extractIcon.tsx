@@ -1,10 +1,5 @@
 import React from 'react';
 
-import BranchIcon from '@atlaskit/icon-object/glyph/branch/16';
-import RepoIcon from '@atlaskit/icon-object/glyph/code/16';
-import CommitIcon from '@atlaskit/icon-object/glyph/commit/16';
-import PullRequestIcon from '@atlaskit/icon-object/glyph/pull-request/16';
-import TaskIcon from '@atlaskit/icon-object/glyph/task/16';
 import PeopleGroupIcon from '@atlaskit/icon/core/people-group';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import {
@@ -13,6 +8,11 @@ import {
 	extractUrlFromIconJsonLd,
 	type LinkProvider,
 } from '@atlaskit/link-extractors';
+import BranchObject from '@atlaskit/object/branch';
+import CodeObject from '@atlaskit/object/code';
+import CommitObject from '@atlaskit/object/commit';
+import PullRequestObject from '@atlaskit/object/pull-request';
+import TaskObject from '@atlaskit/object/task';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getIconForFileType } from '../../../utils';
@@ -68,19 +68,19 @@ function typeToIcon(
 
 	switch (type) {
 		case 'atlassian:SourceCodeCommit':
-			return <CommitIcon label={getLabel('commit')} testId="commit-icon" />;
+			return <CommitObject label={getLabel('commit')} testId="commit-icon" />;
 		case 'atlassian:Project':
 			return (
 				<PeopleGroupIcon label={getLabel('project')} testId="project-icon" color="currentColor" />
 			);
 		case 'atlassian:SourceCodePullRequest':
-			return <PullRequestIcon label={getLabel('pull request')} testId="pull-request-icon" />;
+			return <PullRequestObject label={getLabel('pull request')} testId="pull-request-icon" />;
 		case 'atlassian:SourceCodeReference':
-			return <BranchIcon label={getLabel('reference')} testId="branch-icon" />;
+			return <BranchObject label={getLabel('reference')} testId="branch-icon" />;
 		case 'atlassian:SourceCodeRepository':
-			return <RepoIcon label={getLabel('repository')} testId="repo-icon" />;
+			return <CodeObject label={getLabel('repository')} testId="repo-icon" />;
 		case 'atlassian:Goal':
-			return <TaskIcon label={getLabel('goal')} testId="task-icon" />;
+			return <TaskObject label={getLabel('goal')} testId="task-icon" />;
 		case 'atlassian:Task':
 			return extractIconFromTask(opts);
 		default:

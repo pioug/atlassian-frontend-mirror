@@ -1,5 +1,24 @@
 # @atlaskit/renderer
 
+## 130.3.0
+
+### Minor Changes
+
+- [`800992939bc88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/800992939bc88) -
+  EDITOR-6751 - Inline bodied extension: fire analytics event when rendering
+
+### Patch Changes
+
+- Updated dependencies
+
+## 130.2.18
+
+### Patch Changes
+
+- [`1c1f0af056fcb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c1f0af056fcb) -
+  migrate react components from emotion to compiled for link, panel and layoutColumn
+- Updated dependencies
+
 ## 130.2.17
 
 ### Patch Changes

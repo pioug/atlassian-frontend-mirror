@@ -161,12 +161,10 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 			domRef.contentEditable = 'true';
 		}
 
-		if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
-			this.resizeListenerBinding = bind(domRef, {
-				type: 'resized',
-				listener: this.hasResizedListener,
-			});
-		}
+		this.resizeListenerBinding = bind(domRef, {
+			type: 'resized',
+			listener: this.hasResizedListener,
+		});
 		return domRef;
 	}
 
@@ -242,42 +240,38 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 	} => {
 		const flexibleDimensions = { width: '100%', height: '100%' };
 
-		if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
-			const pos = (this.getPos as getPosHandlerNode)();
-			if (typeof pos !== 'number') {
-				return flexibleDimensions;
-			}
-
-			if (this.hasBeenResized) {
-				return flexibleDimensions;
-			}
-
-			const mediaSingleNodeParent = this.getMediaSingleNode(this.getPos as getPosHandlerNode);
-
-			// If media parent not found, return default
-			if (!mediaSingleNodeParent) {
-				return flexibleDimensions;
-			}
-
-			if (expValEquals('platform_editor_media_vc_fixes_patch1', 'isEnabled', true)) {
-				if (this.hasPxWidthType(mediaSingleNodeParent)) {
-					return {
-						width: `${mediaSingleNodeParent.attrs.width}px`,
-						height: '100%',
-					};
-				}
-				return flexibleDimensions;
-			}
-
-			// Compute normal dimensions
-			const maxWidth = this.getMaxWidthFromMediaSingleNode(mediaSingleNodeParent);
-			return {
-				width: `${maxWidth}px`,
-				height: '100%',
-			};
+		const pos = (this.getPos as getPosHandlerNode)();
+		if (typeof pos !== 'number') {
+			return flexibleDimensions;
 		}
 
-		return flexibleDimensions;
+		if (this.hasBeenResized) {
+			return flexibleDimensions;
+		}
+
+		const mediaSingleNodeParent = this.getMediaSingleNode(this.getPos as getPosHandlerNode);
+
+		// If media parent not found, return default
+		if (!mediaSingleNodeParent) {
+			return flexibleDimensions;
+		}
+
+		if (expValEquals('platform_editor_media_vc_fixes_patch1', 'isEnabled', true)) {
+			if (this.hasPxWidthType(mediaSingleNodeParent)) {
+				return {
+					width: `${mediaSingleNodeParent.attrs.width}px`,
+					height: '100%',
+				};
+			}
+			return flexibleDimensions;
+		}
+
+		// Compute normal dimensions
+		const maxWidth = this.getMaxWidthFromMediaSingleNode(mediaSingleNodeParent);
+		return {
+			width: `${maxWidth}px`,
+			height: '100%',
+		};
 	};
 
 	getMediaProviderToUse = (
@@ -288,13 +282,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 			return mediaProvider;
 		}
 
-		if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
-			return mediaOptions.provider;
-		}
-
-		return mediaOptions.syncProvider
-			? Promise.resolve(mediaOptions.syncProvider)
-			: mediaOptions.provider;
+		return mediaOptions.provider;
 	};
 
 	renderMediaNodeWithState = (contextIdentifierProvider?: Promise<ContextIdentifierProvider>) => {

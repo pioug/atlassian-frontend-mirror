@@ -279,12 +279,9 @@ export const HoverCardComponent = ({
 	const trigger = useCallback(
 		({ 'aria-haspopup': _ariaHasPopup, 'aria-expanded': _ariaExpanded, ...triggerProps }: any) => (
 			<span ref={parentSpan}>
-				{/* eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlaskit/design-system/no-html-button, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions*/}
 				<span
 					{...triggerProps}
-					// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 					onMouseOver={initShowCard}
-					// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 					onMouseLeave={initHideCard}
 					onMouseMove={setMousePosition}
 					onKeyDown={fg('fix_hover_card_on_focus_a11y') ? handleKeyDown : undefined}
@@ -294,10 +291,9 @@ export const HoverCardComponent = ({
 					{...(editorExperiment('platform_editor_preview_panel_linking_exp', true)
 						? { className: HOVER_CARD_TRIGGER_WRAPPER }
 						: {})}
-					// Keyboard navigation is handled on onKeyDown
-					{...(fg('platform_sl_a11y_enghealth_46829')
-						? { onFocus: noop, onBlur: noop, role: 'none' }
-						: undefined)}
+					onFocus={noop}
+					onBlur={noop}
+					role="none"
 				>
 					{children}
 				</span>

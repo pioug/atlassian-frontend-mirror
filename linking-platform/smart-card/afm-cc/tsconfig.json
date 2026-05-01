@@ -7,10 +7,7 @@
 		"composite": true,
 		"noCheck": true
 	},
-	"include": [
-		"../src/**/*.ts",
-		"../src/**/*.tsx"
-	],
+	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
@@ -81,9 +78,6 @@
 			"path": "../../../design-system/icon-lab/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/icon-object/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/image/afm-cc/tsconfig.json"
 		},
 		{
@@ -121,6 +115,12 @@
 		},
 		{
 			"path": "../../../design-system/modal-dialog/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/motion/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/object/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../teamwork-ecosystem/outbound-auth-flow-client/afm-cc/tsconfig.json"
@@ -178,6 +178,9 @@
 		},
 		{
 			"path": "../../../data/ufo-external/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/width-detector/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../link-provider/afm-cc/tsconfig.json"

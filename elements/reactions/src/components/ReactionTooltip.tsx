@@ -75,6 +75,10 @@ const footerButtonStyle = css({
 	textOverflow: 'ellipsis',
 });
 
+const footerButtonColorStyle = css({
+	color: token('color.text.inverse'),
+});
+
 /**
  * Test id for wrapper ReactionTooltip div
  */
@@ -146,7 +150,11 @@ export const ReactionTooltip = ({
 							(allowUserDialog && handleOpenReactionsDialog ? (
 								<button
 									type="button"
-									css={[footerButtonStyle, underlineStyle]}
+									css={[
+										footerButtonStyle,
+										fg('platform_reactions_view_more_styling_fix') && footerButtonColorStyle,
+										underlineStyle,
+									]}
 									onClick={handleClick}
 									onMouseDown={(e) => e.preventDefault()}
 								>

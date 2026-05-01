@@ -1,21 +1,7 @@
 import type { Rule } from 'eslint';
-import {
-	type CallExpression,
-	type Expression,
-	isNodeOfType,
-	type Property,
-} from 'eslint-codemod-utils';
+import { type CallExpression, type Expression } from 'eslint-codemod-utils';
 
 import { isCssInJsTemplateNode } from './is-css-in-js-template-node';
-import { isDecendantOfType } from './is-decendant-of-type';
-export const isPropertyKey = (node: Rule.Node): boolean => {
-	if (isNodeOfType(node, 'Identifier') && isDecendantOfType(node, 'Property')) {
-		const parent = node.parent as Property;
-		return node === parent.key || parent.shorthand;
-	}
-	return false;
-};
-
 const cssInJsCallees = ['css', 'styled', 'styled2'];
 
 export const isCssInJsCallNode = (node?: Expression | null): node is CallExpression =>
@@ -80,3 +66,5 @@ export const isDecendantOfStyleBlock = (node: Rule.Node): boolean => {
 
 	return false;
 };
+
+export { isPropertyKey } from './is-property-key';

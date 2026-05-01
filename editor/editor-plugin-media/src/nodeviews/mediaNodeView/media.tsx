@@ -85,7 +85,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		this.mediaPluginState = mediaStateKey.getState(view.state);
 
 		// Initialize state from syncProvider (available on both server and client for SSR)
-		if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true) && syncProvider) {
+		if (syncProvider) {
 			this.state = {
 				viewMediaClientConfig: syncProvider.viewMediaClientConfig,
 				viewAndUploadMediaClientConfig: syncProvider.viewAndUploadMediaClientConfig,
@@ -110,8 +110,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			this.props.contextIdentifierProvider !== nextProps.contextIdentifierProvider ||
 			this.props.isLoading !== nextProps.isLoading ||
 			this.props.mediaProvider !== nextProps.mediaProvider ||
-			(expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true) &&
-				this.props.syncProvider !== nextProps.syncProvider) ||
+			this.props.syncProvider !== nextProps.syncProvider ||
 			hasNewViewMediaClientConfig ||
 			hasNewViewAndUploadMediaClientConfig
 		) {
@@ -201,19 +200,12 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		if (mediaProvider) {
 			const viewMediaClientConfig = mediaProvider.viewMediaClientConfig;
 			const viewAndUploadMediaClientConfig = mediaProvider.viewAndUploadMediaClientConfig;
-			if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
-				// Only update state if new configs are available and different from current state
-				if (
-					(viewMediaClientConfig && this.state.viewMediaClientConfig !== viewMediaClientConfig) ||
-					(viewAndUploadMediaClientConfig &&
-						this.state.viewAndUploadMediaClientConfig !== viewAndUploadMediaClientConfig)
-				) {
-					this.setState({
-						viewMediaClientConfig,
-						viewAndUploadMediaClientConfig,
-					});
-				}
-			} else {
+			// Only update state if new configs are available and different from current state
+			if (
+				(viewMediaClientConfig && this.state.viewMediaClientConfig !== viewMediaClientConfig) ||
+				(viewAndUploadMediaClientConfig &&
+					this.state.viewAndUploadMediaClientConfig !== viewAndUploadMediaClientConfig)
+			) {
 				this.setState({
 					viewMediaClientConfig,
 					viewAndUploadMediaClientConfig,
@@ -326,19 +318,12 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			(fg('platform_media_video_captions') ? !viewAndUploadMediaClientConfig : true);
 
 		if (isLoading || (type !== 'external' && hasNoMediaClientConfig)) {
-			if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
-				return (
-					<MediaCardWrapper
-						dimensions={originalDimensions}
-						borderWidth={borderMark?.attrs.size}
-						selected={selected}
-					>
-						<CardLoading interactionName="editor-media-card-loading" />
-					</MediaCardWrapper>
-				);
-			}
 			return (
-				<MediaCardWrapper dimensions={originalDimensions}>
+				<MediaCardWrapper
+					dimensions={originalDimensions}
+					borderWidth={borderMark?.attrs.size}
+					selected={selected}
+				>
 					<CardLoading interactionName="editor-media-card-loading" />
 				</MediaCardWrapper>
 			);

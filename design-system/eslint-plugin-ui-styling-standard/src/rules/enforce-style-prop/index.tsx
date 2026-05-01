@@ -226,7 +226,7 @@ function isFirstParameter(identifier: IdentifierWithParent): boolean {
 	return identifier.parent.params[0] === identifier;
 }
 
-export const rule: Rule.RuleModule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'enforce-style-prop',
 		docs: {

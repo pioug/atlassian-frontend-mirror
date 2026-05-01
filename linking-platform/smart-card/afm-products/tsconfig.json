@@ -81,9 +81,6 @@
 			"path": "../../../design-system/icon-lab/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/icon-object/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/image/afm-products/tsconfig.json"
 		},
 		{
@@ -121,6 +118,12 @@
 		},
 		{
 			"path": "../../../design-system/modal-dialog/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/motion/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/object/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../teamwork-ecosystem/outbound-auth-flow-client/afm-products/tsconfig.json"
@@ -178,6 +181,9 @@
 		},
 		{
 			"path": "../../../data/ufo-external/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/width-detector/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../link-provider/afm-products/tsconfig.json"

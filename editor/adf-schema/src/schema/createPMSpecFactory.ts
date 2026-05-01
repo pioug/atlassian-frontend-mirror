@@ -22,6 +22,16 @@ export type MarkSpecOptions<M extends Mark> = {
 
 export type MarkSpecFactory = typeof createPMMarkSpecFactory;
 
+/** Result of calling {@link createPMMarkSpecFactory} with a concrete mark spec (for isolated declarations). */
+export type PMMarkSpecFactoryInstance<M extends Omit<Mark, 'toDOM' | 'parseDOM'> = Mark> = (
+	options: MarkSpecOptions<M>,
+) => MarkSpec;
+
+/** Result of calling {@link createPMNodeSpecFactory} with a concrete node spec (for isolated declarations). */
+export type PMNodeSpecFactoryInstance<N extends Omit<PMNode, 'toDOM' | 'parseDOM'> = PMNode> = (
+	options: NodeSpecOptions<N>,
+) => NodeSpec;
+
 /**
  * Factory method to attach custom parseDOM and/or toDOM for nodeSpec
  *

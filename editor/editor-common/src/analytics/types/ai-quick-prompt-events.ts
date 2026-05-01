@@ -1,5 +1,5 @@
 import type { ACTION, ACTION_SUBJECT } from './enums';
-import type { UIAEP } from './utils';
+import type { OperationalAEP, UIAEP } from './utils';
 
 type AIQuickPromptDisplayedAEP = UIAEP<
 	ACTION.DISPLAYED,
@@ -30,7 +30,19 @@ type AIQuickPromptTriggeredAEP = UIAEP<
 	}
 >;
 
+type AIQuickPromptApiErrorAEP = OperationalAEP<
+	ACTION.API_ERROR,
+	ACTION_SUBJECT.AI_QUICK_PROMPT,
+	undefined,
+	{
+		errorMessage?: string;
+		experienceName: string;
+		statusCode?: number;
+	}
+>;
+
 export type AIQuickPromptEventPayload =
 	| AIQuickPromptDisplayedAEP
 	| AIQuickPromptDismissedAEP
-	| AIQuickPromptTriggeredAEP;
+	| AIQuickPromptTriggeredAEP
+	| AIQuickPromptApiErrorAEP;

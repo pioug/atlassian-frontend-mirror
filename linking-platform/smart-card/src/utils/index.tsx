@@ -161,16 +161,16 @@ export const getLazyIcons = (): Partial<
 			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphSketch" */ '@atlaskit/icon-file-type/glyph/sketch/24'),
 		},
 
-		// @atlaskit/icon-object/glyph/* (object icons with 16/24 size variants)
+		// @atlaskit/object/* (object icons with 16/24 size variants)
 		...(fg('platform_sl_icons_refactor')
 			? {
 					[IconType.Blog]: {
-						default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBlog" */ '@atlaskit/icon-object/glyph/blog/16'),
-						large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBlog" */ '@atlaskit/icon-object/glyph/blog/24'),
+						default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBlog" */ '@atlaskit/object/blog'),
+						large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBlog" */ '@atlaskit/object/tile/blog').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),
 					},
 					[IconType.LiveDocument]: {
-						default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPageLiveDoc" */ '@atlaskit/icon-object/glyph/page-live-doc/16'),
-						large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPageLiveDoc" */ '@atlaskit/icon-object/glyph/page-live-doc/24'),
+						default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPageLiveDoc" */ '@atlaskit/object/page-live-doc'),
+						large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPageLiveDoc" */ '@atlaskit/object/tile/page-live-doc').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),
 					},
 				}
 			: {
@@ -182,62 +182,60 @@ export const getLazyIcons = (): Partial<
 					},
 				}),
 		[IconType.Branch]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBranch" */ '@atlaskit/icon-object/glyph/branch/16'),
-			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBranch" */ '@atlaskit/icon-object/glyph/branch/24'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBranch" */ '@atlaskit/object/branch'),
+			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBranch" */ '@atlaskit/object/tile/branch').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),
 		},
 		[IconType.Commit]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphCommit" */ '@atlaskit/icon-object/glyph/commit/16'),
-			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphCommit" */ '@atlaskit/icon-object/glyph/commit/24'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphCommit" */ '@atlaskit/object/commit'),
+			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphCommit" */ '@atlaskit/object/tile/commit').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),
 		},
 		[IconType.PullRequest]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPullRequest" */ '@atlaskit/icon-object/glyph/pull-request/16'),
-			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPullRequest" */ '@atlaskit/icon-object/glyph/pull-request/24'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPullRequest" */ '@atlaskit/object/pull-request'),
+			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPullRequest" */ '@atlaskit/object/tile/pull-request').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),
 		},
 		[IconType.Repo]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphRepo" */ '@atlaskit/icon-object/glyph/code/16'),
-			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphRepo" */ '@atlaskit/icon-object/glyph/code/24'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphRepo" */ '@atlaskit/object/code'),
+			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphRepo" */ '@atlaskit/object/tile/code').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),
 		},
 		[IconType.Bug]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBug" */ '@atlaskit/icon-object/glyph/bug/16'),
-			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBug" */ '@atlaskit/icon-object/glyph/bug/24'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBug" */ '@atlaskit/object/bug'),
+			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBug" */ '@atlaskit/object/tile/bug').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),
 		},
 		[IconType.Change]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphChange" */ '@atlaskit/icon-object/glyph/changes/16'),
-			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphChange" */ '@atlaskit/icon-object/glyph/changes/24'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphChange" */ '@atlaskit/object/changes'),
+			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphChange" */ '@atlaskit/object/tile/changes').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),
 		},
 		[IconType.Epic]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphEpic" */ '@atlaskit/icon-object/glyph/epic/16'),
-			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphEpic" */ '@atlaskit/icon-object/glyph/epic/24'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphEpic" */ '@atlaskit/object/epic'),
+			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphEpic" */ '@atlaskit/object/tile/epic').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),
 		},
 		[IconType.Incident]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphIncident" */ '@atlaskit/icon-object/glyph/incident/16'),
-			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphIncident" */ '@atlaskit/icon-object/glyph/incident/24'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphIncident" */ '@atlaskit/object/incident'),
+			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphIncident" */ '@atlaskit/object/tile/incident').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),
 		},
 		[IconType.Problem]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphProblem" */ '@atlaskit/icon-object/glyph/problem/16'),
-			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphProblem" */ '@atlaskit/icon-object/glyph/problem/24'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphProblem" */ '@atlaskit/object/problem'),
+			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphProblem" */ '@atlaskit/object/tile/problem').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),
 		},
 		[IconType.ServiceRequest]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphServiceRequest" */ '@atlaskit/icon-object/glyph/issue/16'),
-			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphServiceRequest" */ '@atlaskit/icon-object/glyph/issue/24'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphServiceRequest" */ '@atlaskit/object/work-item'),
+			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphServiceRequest" */ '@atlaskit/object/tile/work-item').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),
 		},
 		[IconType.Story]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphStory" */ '@atlaskit/icon-object/glyph/story/16'),
-			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphStory" */ '@atlaskit/icon-object/glyph/story/24'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphStory" */ '@atlaskit/object/story'),
+			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphStory" */ '@atlaskit/object/tile/story').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),
 		},
 		[IconType.SubTask]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphSubTask" */ '@atlaskit/icon-object/glyph/subtask/16'),
-			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphSubTask" */ '@atlaskit/icon-object/glyph/subtask/24'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphSubTask" */ '@atlaskit/object/subtask'),
+			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphSubTask" */ '@atlaskit/object/tile/subtask').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),
 		},
 		[IconType.Task]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphTask" */ '@atlaskit/icon-object/glyph/task/16'),
-			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphTask" */ '@atlaskit/icon-object/glyph/task/24'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphTask" */ '@atlaskit/object/task'),
+			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphTask" */ '@atlaskit/object/tile/task').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),
 		},
-
 		// @atlaskit/logo/* (product logos)
 		[IconType.Confluence]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphConfluence" */ '@atlaskit/logo/confluence-icon').then(({ ConfluenceIcon }) => ({default: ConfluenceIcon}))},
 		[IconType.Jira]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphJira" */ '@atlaskit/logo/jira-icon').then(({ JiraIcon }) => ({default: JiraIcon}))},
-
 		// Local priority icons (custom SVG components)
 		[IconType.PriorityBlocker]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphBlocker" */ '../common/ui/icons/priority-blocker-icon')},
 		[IconType.PriorityCritical]: { default: () =>  import(/* webpackChunkName: "@atlaskit-internal_glyphCritical" */ '../common/ui/icons/priority-critical-icon')},

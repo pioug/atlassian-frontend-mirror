@@ -3,7 +3,8 @@ import keycode from 'keycode';
 import { withAnalytics } from '@atlaskit/analytics';
 import { type ResultData, type SelectedResultId, type ResultId } from './Results/types';
 import AkSearch from './Search/Search';
-import { ResultContext, SelectedResultIdContext, type ResultContextType } from './context';
+import { ResultContext, type ResultContextType } from './context';
+import { SelectedResultIdContext } from './selected-result-id-context';
 
 import decorateWithAnalyticsData from './decorateWithAnalyticsData';
 import {

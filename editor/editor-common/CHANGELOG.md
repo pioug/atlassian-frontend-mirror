@@ -1,5 +1,87 @@
 # @atlaskit/editor-common
 
+## 114.18.0
+
+### Minor Changes
+
+- [`a759f33417d9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a759f33417d9b) -
+  [PIRA-1311](https://opsj.atlassian.net/browse/PIRA-1311) - clean up platform_editor_media_vc_fixes
+
+### Patch Changes
+
+- [`7043ace1c45f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7043ace1c45f2) -
+  [ux] reduces slipperiness and improves clarity of inline invites for editor mentions
+- Updated dependencies
+
+## 114.17.0
+
+### Minor Changes
+
+- [`9c750ab0192db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c750ab0192db) -
+  Add role=group and aria-label to expand content div so screen readers announce the body of an
+  expand node
+- [`09301dc1b0c55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09301dc1b0c55) -
+  [ux] Switches the order of the image generation tab in the media insert picker to the first
+  position and renames the tab to Create. All changes behind an experiment.
+
+### Patch Changes
+
+- [`42fa4f485424b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42fa4f485424b) -
+  [ux] Fix Table of Contents extension becoming invisible after drag-and-drop or layout resize when
+  the platform_editor_hydration_skip_react_portal experiment is enabled (EDITOR-6613). The SSR
+  DOM-reuse optimization is now restricted to the very first ExtensionNode init for each
+  (extensionKey, localId) identity within an EditorView. Subsequent ExtensionNodes for the same
+  identity (e.g. those created when ProseMirror constructs the new node view before destroying the
+  old one during drag-and-drop or layout resize) take the normal React render path instead of
+  mistakenly reusing the previous instance's still-mounted React-rendered domRef as if it were SSR
+  output. Per-identity scoping preserves the optimization for pages with multiple TOC extensions.
+- Updated dependencies
+
+## 114.16.0
+
+### Minor Changes
+
+- [`2145a251392fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2145a251392fe) -
+  EDITOR-6750 - Tab to improve writing: Add analytics for api error
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.15.0
+
+### Minor Changes
+
+- [`8946d017490c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8946d017490c6) -
+  Add new actions in AI suggestions plugin to be used in product.
+- [`ab837b5646256`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab837b5646256) -
+  [ux] EDITOR-6274 Clean up platform_editor_element_drag_and_drop_multiselect
+
+### Patch Changes
+
+- [`d4f2db5ce63e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4f2db5ce63e2) -
+  [ux] EDITOR-5011 Adding paste warning flag when sync block pasted in atlas editors
+- Updated dependencies
+
+## 114.14.0
+
+### Minor Changes
+
+- [`1b208e1f7d8f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b208e1f7d8f7) -
+  [ux] Adds the entry point for ai image generation to the media insert picker plugin as a new tab.
+  This feature is fully behind an experiment gate.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.13.3
+
+### Patch Changes
+
+- [`69400efcd04d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69400efcd04d5) -
+  Copy snippet media before insertion
+
 ## 114.13.2
 
 ### Patch Changes

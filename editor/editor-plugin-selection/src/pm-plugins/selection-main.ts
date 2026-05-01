@@ -44,10 +44,6 @@ export const createPlugin = (
 			let hideCursorChanged = false;
 			let blockSelectionChanged = false;
 
-			const needsManualSelection = editorExperiment(
-				'platform_editor_element_drag_and_drop_multiselect',
-				true,
-			);
 			const needsBlockSelection = editorExperiment('platform_editor_block_menu', true, {
 				exposure: true,
 			});
@@ -63,7 +59,7 @@ export const createPlugin = (
 					}
 				}
 
-				if (needsManualSelection && meta?.manualSelection && !manualSelection) {
+				if (meta?.manualSelection && !manualSelection) {
 					manualSelection = meta.manualSelection;
 				}
 

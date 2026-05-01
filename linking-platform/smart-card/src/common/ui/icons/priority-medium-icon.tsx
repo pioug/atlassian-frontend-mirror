@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { FC } from 'react';
+
 import { cssMap, jsx } from '@atlaskit/css';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 
@@ -41,13 +43,15 @@ const PriorityMediumIconLegacy: {
 
 PriorityMediumIconLegacy.displayName = 'PriorityMediumIcon';
 
-export default componentWithFG(
-	'platform_sl_icons_refactor',
-	createPriorityIcon('PriorityMediumIcon', [
-		{
-			d: 'M5 8h14a1 1 0 010 2H5a1 1 0 110-2zm0 6h14a1 1 0 010 2H5a1 1 0 010-2z',
-			fill: '#FFAB00',
-		},
-	]),
-	PriorityMediumIconLegacy,
-);
+const _default_1: FC<Omit<PriorityIconProps, 'ref'> & Omit<PriorityIconProps, 'ref'>> =
+	componentWithFG(
+		'platform_sl_icons_refactor',
+		createPriorityIcon('PriorityMediumIcon', [
+			{
+				d: 'M5 8h14a1 1 0 010 2H5a1 1 0 110-2zm0 6h14a1 1 0 010 2H5a1 1 0 010-2z',
+				fill: '#FFAB00',
+			},
+		]),
+		PriorityMediumIconLegacy,
+	);
+export default _default_1;

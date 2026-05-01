@@ -40,7 +40,9 @@ export type RovoChatActionMessageKey =
 	| 'rovo_prompt_button_identify_key_points'
 	| 'rovo_prompt_message_identify_key_points'
 	| 'rovo_prompt_button_find_open_questions'
-	| 'rovo_prompt_message_find_open_questions';
+	| 'rovo_prompt_message_find_open_questions'
+	| 'rovo_prompt_button_key_highlights'
+	| 'rovo_prompt_message_key_highlights';
 export type MessageKey =
 	| 'assigned_to'
 	| 'ai_summarize'
@@ -208,6 +210,10 @@ export type MessageKey =
 	| 'rovo_unauthorised_feature_go_deeper_smart_suggestions'
 	| 'rovo_unauthorised_connect_account'
 	| 'rovo_unauthorised_not_now'
+	| 'rovo_chat_action_section_header'
+	| 'rovo_prompt_button_summarize_this'
+	| 'rovo_prompt_button_ask_a_specific_question'
+	| 'rovo_prompt_button_show_me_whats_relevant'
 	| RovoChatActionMessageKey;
 
 type Messages = {
@@ -1302,5 +1308,42 @@ export const messages: Messages = defineMessages({
 			'<p>Look at this <a>{url}</a> and list any open questions, unresolved decisions, or asks that still need follow‑up. Group them by owner if possible and keep it concise.</p>',
 		description:
 			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
+	},
+	rovo_prompt_button_key_highlights: {
+		id: 'fabric.linking.rovo_prompt_button_find_open_questions.non-final',
+		defaultMessage: `Key highlights`,
+		description:
+			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
+	},
+	rovo_prompt_message_key_highlights: {
+		id: 'fabric.linking.rovo_prompt_message_find_open_questions.non-final',
+		defaultMessage:
+			'<p>Based on this <a>{url}</a> and the page or ticket I’m currently viewing, highlight the parts of the linked content that are most relevant to this work. Explain briefly why each part is relevant.</p>',
+		description:
+			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
+	},
+	rovo_chat_action_section_header: {
+		id: 'fabric.linking.rovo_chat_action_section_header.non-final',
+		defaultMessage: 'Ask Rovo',
+		description:
+			'Heading shown above the Rovo prompt action buttons in the smart link hover card, alongside the Rovo logo, to introduce the AI prompt suggestions.',
+	},
+	rovo_prompt_button_summarize_this: {
+		id: 'fabric.linking.rovo_prompt_button_summarize_this.non-final',
+		defaultMessage: 'Summarize this for me',
+		description:
+			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
+	},
+	rovo_prompt_button_ask_a_specific_question: {
+		id: 'fabric.linking.rovo_prompt_button_ask_a_specific_question.non-final',
+		defaultMessage: 'Ask a specific question',
+		description:
+			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
+	},
+	rovo_prompt_button_show_me_whats_relevant: {
+		id: 'fabric.linking.rovo_prompt_button_show_me_whats_relevant.non-final',
+		defaultMessage: `Show me what's relevant`,
+		description:
+			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
 	},
 });

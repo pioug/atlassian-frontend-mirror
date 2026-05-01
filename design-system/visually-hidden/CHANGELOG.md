@@ -1,5 +1,12 @@
 # @atlaskit/visually-hidden
 
+## 3.1.0
+
+### Minor Changes
+
+- [`aef119573f01b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aef119573f01b) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 3.0.5
 
 ### Patch Changes

@@ -4,12 +4,12 @@ import { injectIntl } from 'react-intl';
 import type { WrappedComponentProps } from 'react-intl';
 import Rusha from 'rusha';
 
-import Blog16Icon from '@atlaskit/icon-object/glyph/blog/16';
-import Bug16Icon from '@atlaskit/icon-object/glyph/bug/16';
-import Issue16Icon from '@atlaskit/icon-object/glyph/issue/16';
-import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
-import Story16Icon from '@atlaskit/icon-object/glyph/story/16';
-import Task16Icon from '@atlaskit/icon-object/glyph/task/16';
+import BlogObject from '@atlaskit/object/blog';
+import BugObject from '@atlaskit/object/bug';
+import PageObject from '@atlaskit/object/page';
+import StoryObject from '@atlaskit/object/story';
+import TaskObject from '@atlaskit/object/task';
+import WorkItemObject from '@atlaskit/object/work-item';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { LinkContentType } from '../../../provider-factory';
@@ -32,7 +32,7 @@ export function filterUniqueItems<T>(
 const Issue16 = (props: WrappedComponentProps) => {
 	const { intl } = props;
 	return (
-		<Issue16Icon
+		<WorkItemObject
 			label={intl.formatMessage(
 				fg('confluence-issue-terminology-refresh')
 					? utilMessages.hyperlinkIconIssueLabelIssueTermRefresh
@@ -44,27 +44,27 @@ const Issue16 = (props: WrappedComponentProps) => {
 
 const Bug16 = (props: WrappedComponentProps) => {
 	const { intl } = props;
-	return <Bug16Icon label={intl.formatMessage(utilMessages.hyperlinkIconBugLabel)} />;
+	return <BugObject label={intl.formatMessage(utilMessages.hyperlinkIconBugLabel)} />;
 };
 
 const Story16 = (props: WrappedComponentProps) => {
 	const { intl } = props;
-	return <Story16Icon label={intl.formatMessage(utilMessages.hyperlinkIconStoryLabel)} />;
+	return <StoryObject label={intl.formatMessage(utilMessages.hyperlinkIconStoryLabel)} />;
 };
 
 const Task16 = (props: WrappedComponentProps) => {
 	const { intl } = props;
-	return <Task16Icon label={intl.formatMessage(utilMessages.hyperlinkIconTaskLabel)} />;
+	return <TaskObject label={intl.formatMessage(utilMessages.hyperlinkIconTaskLabel)} />;
 };
 
 const Page16 = (props: WrappedComponentProps) => {
 	const { intl } = props;
-	return <Page16Icon label={intl.formatMessage(utilMessages.hyperlinkIconPageLabel)} />;
+	return <PageObject label={intl.formatMessage(utilMessages.hyperlinkIconPageLabel)} />;
 };
 
 const Blog16 = (props: WrappedComponentProps) => {
 	const { intl } = props;
-	return <Blog16Icon label={intl.formatMessage(utilMessages.hyperlinkIconBlogLabel)} />;
+	return <BlogObject label={intl.formatMessage(utilMessages.hyperlinkIconBlogLabel)} />;
 };
 
 const IntlIssue16Icon = injectIntl(Issue16);

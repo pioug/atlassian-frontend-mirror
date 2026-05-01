@@ -1,5 +1,23 @@
 # @atlaskit/rovo-triggers
 
+## 6.0.0
+
+### Major Changes
+
+- [`0a4ed3ff7be20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a4ed3ff7be20) -
+  [ux] fix recommended spaces navigation away
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.47.0
+
+### Minor Changes
+
+- [`3193417caa4b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3193417caa4b9) -
+  Update solitions architect to integrate to Versioning agent
+
 ## 5.46.0
 
 ### Minor Changes

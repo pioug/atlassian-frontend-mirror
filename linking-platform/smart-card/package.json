@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "44.3.20",
+	"version": "44.4.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -55,7 +55,6 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/icon-file-type": "workspace:^",
 		"@atlaskit/icon-lab": "workspace:^",
-		"@atlaskit/icon-object": "workspace:^",
 		"@atlaskit/image": "workspace:^",
 		"@atlaskit/json-ld-types": "workspace:^",
 		"@atlaskit/link": "workspace:^",
@@ -69,6 +68,8 @@
 		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/menu": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
+		"@atlaskit/motion": "workspace:^",
+		"@atlaskit/object": "workspace:^",
 		"@atlaskit/outbound-auth-flow-client": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
@@ -88,6 +89,7 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
+		"@atlaskit/width-detector": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@formatjs/intl-utils": "root:*",
@@ -237,9 +239,6 @@
 		"fix_hover_card_on_focus_a11y": {
 			"type": "boolean"
 		},
-		"platform_sl_a11y_enghealth_46829": {
-			"type": "boolean"
-		},
 		"platform_sl_3p_preauth_better_hovercard_killswitch": {
 			"type": "boolean"
 		},
@@ -259,6 +258,9 @@
 			"type": "boolean"
 		},
 		"platform_sl_icons_refactor": {
+			"type": "boolean"
+		},
+		"platform_sl_3p_auth_rovo_block_jira_kill_switch": {
 			"type": "boolean"
 		}
 	},

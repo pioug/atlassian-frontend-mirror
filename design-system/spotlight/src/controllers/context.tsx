@@ -113,5 +113,3 @@ export const SpotlightContextProvider = ({ children }: { children: ReactNode }):
 		</SpotlightContext.Provider>
 	);
 };
-
-export { SpotlightContext } from './spotlight-context';

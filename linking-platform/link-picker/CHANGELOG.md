@@ -1,5 +1,19 @@
 # @atlaskit/link-picker
 
+## 5.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.1.2
+
+### Patch Changes
+
+- [`4b2ced38a9cf3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b2ced38a9cf3) -
+  FG Cleanup navx-4548-migrate-to-atlaskit-spotlight
+- Updated dependencies
+
 ## 5.1.1
 
 ### Patch Changes

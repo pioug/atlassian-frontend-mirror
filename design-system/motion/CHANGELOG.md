@@ -1,5 +1,12 @@
 # @atlaskit/motion
 
+## 6.2.0
+
+### Minor Changes
+
+- [`aef119573f01b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aef119573f01b) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 6.1.1
 
 ### Patch Changes

@@ -20,7 +20,7 @@ describe('extractRovoChatAction', () => {
 			resourceType: 'r1',
 		},
 	};
-	const rovoConfig = { isRovoEnabled: true, isRovoLLMEnabled: true };
+	const rovoConfig = { rovoOptions: { isRovoEnabled: true, isRovoLLMEnabled: true }};
 	const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
 
 	ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', 'returns Rovo Chat action', () => {

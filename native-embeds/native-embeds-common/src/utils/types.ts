@@ -37,6 +37,11 @@ export type NativeEmbedParameterKey = keyof NonNullable<NativeEmbedParameters['m
 
 export type EditorToolbarHandlerContext = {
 	editorApi?: PublicPluginAPI<[]>;
+	/**
+	 * `localId` of the selected native-embed at toolbar click time. Set by
+	 * the toolbar handler factory; manifest handlers use it to wire per-embed state.
+	 */
+	selectedNodeLocalId?: string;
 };
 
 // Editor toolbar action types

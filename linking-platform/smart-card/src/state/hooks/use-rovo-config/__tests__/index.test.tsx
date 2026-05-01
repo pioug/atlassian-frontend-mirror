@@ -15,7 +15,7 @@ describe('useRovoConfig', () => {
 			),
 		});
 
-		expect(result.current).toEqual({ isRovoEnabled: true, isRovoLLMEnabled: true });
+		expect(result.current).toEqual({ rovoOptions: { isRovoEnabled: true, isRovoLLMEnabled: true }, product: undefined });
 	});
 
 	it('returns undefined when Rovo config is not set on SmartCardProvider', () => {
@@ -23,6 +23,6 @@ describe('useRovoConfig', () => {
 			wrapper: ({ children }) => <SmartCardProvider>{children}</SmartCardProvider>,
 		});
 
-		expect(result.current).toBeUndefined();
+		expect(result.current.rovoOptions).toBeUndefined();
 	});
 });

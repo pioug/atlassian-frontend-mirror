@@ -1,18 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 /* eslint-disable compat/compat */
-import { test as base, expect as baseExpect } from '@af/integration-testing';
-import type { Expect, Page } from '@af/integration-testing';
-import { EditorPerformanceMetrics } from '@atlaskit/editor-performance-metrics/metrics';
-import type { TTVCTargets } from '@atlaskit/editor-performance-metrics/react';
-import { createTimelineFromEvents } from '@atlaskit/editor-performance-metrics/timeline';
-import type { Timeline, TimelineEvent } from '@atlaskit/editor-performance-metrics/timeline';
-
-// eslint-disable-next-line import/order
-import type { WindowWithEditorPerformanceGlobals } from './window-type';
-// eslint-disable-next-line import/order
-import type { PlaywrightCoverageOptions } from '@af/integration-testing/fixtures';
-// eslint-disable-next-line import/order
 import type {
 	TestType,
 	PlaywrightTestArgs,
@@ -20,6 +8,20 @@ import type {
 	PlaywrightWorkerArgs,
 	PlaywrightWorkerOptions,
 } from 'playwright/test';
+
+import {
+	expect as baseExpect,
+	test as base,
+	type Expect,
+	type Page,
+} from '@af/integration-testing';
+import type { PlaywrightCoverageOptions } from '@af/integration-testing/fixtures';
+import { EditorPerformanceMetrics } from '@atlaskit/editor-performance-metrics/metrics';
+import type { TTVCTargets } from '@atlaskit/editor-performance-metrics/react';
+import { createTimelineFromEvents } from '@atlaskit/editor-performance-metrics/timeline';
+import type { Timeline, TimelineEvent } from '@atlaskit/editor-performance-metrics/timeline';
+
+import type { WindowWithEditorPerformanceGlobals } from './window-type';
 
 type TimelineEvents = Array<TimelineEvent>;
 const prepareParams = (params?: { [key: string]: string | boolean }) => {

@@ -15,35 +15,40 @@ import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 export const messages: {
-	loading: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	collapseNode: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	expandDefaultTitle: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	expandNode: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	expandPlaceholderText: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	expandArialabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	expandBodyAriaLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	expandDefaultTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	expandNode: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	expandPlaceholderText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	loading: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	loading: {
@@ -77,6 +82,12 @@ export const messages: {
 		id: 'fabric.editor.expandAriaLabel',
 		defaultMessage: 'Give this expand a title',
 		description: 'aria label for an expand node title input field',
+	},
+	expandBodyAriaLabel: {
+		id: 'fabric.editor.expandBodyAriaLabel',
+		defaultMessage: 'Expand body content',
+		description:
+			'Aria label for the body content of an expand node',
 	},
 });
 

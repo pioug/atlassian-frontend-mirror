@@ -20,7 +20,7 @@ import AiChapterIcon from '../../../assets/ai-chapter-icon';
 import AIEditIcon from '../../../assets/ai-edit-icon';
 import AISearchIcon from '../../../assets/ai-search-icon';
 import Action from '../action';
-import type { ActionProps } from "../action/types";
+import type { ActionProps } from '../action/types';
 import { type LinkActionProps } from '../types';
 
 import htmlToAdf from './html-to-adf';
@@ -180,7 +180,9 @@ const getPromptAction = (
 				},
 			};
 		case RovoChatPromptKey.SUMMARIZE_THIS_FOR_ME:
-			const label_summarize_this_for_me = intl.formatMessage(messages.rovo_prompt_button_summarize_this);
+			const label_summarize_this_for_me = intl.formatMessage(
+				messages.rovo_prompt_button_summarize_this,
+			);
 			const html_summarize_this_for_me = intl.formatMessage(
 				messages.rovo_prompt_message_summarize,
 				{ url },
@@ -247,7 +249,7 @@ const getPromptAction = (
 					placeholderType: 'generic',
 				},
 			};
-case RovoChatPromptKey.ASK_A_SPECIFIC_QUESTION:
+		case RovoChatPromptKey.ASK_A_SPECIFIC_QUESTION:
 			const label_ask_a_specific_question = intl.formatMessage(
 				messages.rovo_prompt_button_ask_a_specific_question,
 			);
@@ -269,9 +271,7 @@ case RovoChatPromptKey.ASK_A_SPECIFIC_QUESTION:
 			};
 
 		case RovoChatPromptKey.KEY_HIGHLIGHTS:
-			const label_key_highlights = intl.formatMessage(
-				messages.rovo_prompt_button_key_highlights,
-			);
+			const label_key_highlights = intl.formatMessage(messages.rovo_prompt_button_key_highlights);
 			const html_key_highlights = intl.formatMessage(
 				messages.rovo_prompt_message_key_highlights,
 				{ context: contextLong, url },
@@ -365,7 +365,6 @@ case RovoChatPromptKey.ASK_A_SPECIFIC_QUESTION:
 			};
 	}
 };
-
 
 type RovoChatActionProps = LinkActionProps & {
 	prompts?: RovoChatPromptKey[];

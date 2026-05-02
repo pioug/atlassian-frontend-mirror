@@ -81,7 +81,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'CreateFormLoader',
-		description: 'Loader wrapper for CreateForm that shows a loading state until form data or context is ready.',
+		description:
+			'Loader wrapper for CreateForm that shows a loading state until form data or context is ready.',
 		status: 'general-availability',
 		import: {
 			name: 'CreateFormLoader',
@@ -101,7 +102,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'FormSpy',
-		description: 'Component that subscribes to form state (values, errors, submitting) from react-final-form. Used to build custom UI that reacts to form state.',
+		description:
+			'Component that subscribes to form state (values, errors, submitting) from react-final-form. Used to build custom UI that reacts to form state.',
 		status: 'general-availability',
 		import: {
 			name: 'FormSpy',
@@ -121,7 +123,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'AsyncSelect',
-		description: 'Async-capable select component used in link-create forms for fields that load options from an API (e.g. project, type).',
+		description:
+			'Async-capable select component used in link-create forms for fields that load options from an API (e.g. project, type).',
 		status: 'general-availability',
 		import: {
 			name: 'AsyncSelect',
@@ -134,7 +137,9 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Use inside a create form when the dropdown options are loaded asynchronously (e.g. Jira projects, issue types).',
 		],
 		contentGuidelines: [],
-		accessibilityGuidelines: ['Ensure the select has a label and that options are announced to screen readers.'],
+		accessibilityGuidelines: [
+			'Ensure the select has a label and that options are announced to screen readers.',
+		],
 		keywords: ['link-create', 'select', 'async', 'form'],
 		categories: ['linking', 'forms'],
 		examples: [],
@@ -150,7 +155,9 @@ const documentation: ComponentStructuredContentSource[] = [
 			packagePath,
 			packageJson,
 		},
-		usageGuidelines: ['Use inside a create form for dropdowns with static or synchronously available options.'],
+		usageGuidelines: [
+			'Use inside a create form for dropdowns with static or synchronously available options.',
+		],
 		contentGuidelines: [],
 		accessibilityGuidelines: ['Ensure the select has an accessible label.'],
 		keywords: ['link-create', 'select', 'form'],
@@ -159,7 +166,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'SiteSelect',
-		description: 'Site/product picker used in link-create forms when the user must choose a site or product (e.g. Jira site, Confluence space) before other fields.',
+		description:
+			'Site/product picker used in link-create forms when the user must choose a site or product (e.g. Jira site, Confluence space) before other fields.',
 		status: 'general-availability',
 		import: {
 			name: 'SiteSelect',
@@ -172,7 +180,9 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Use when the create flow requires picking a site or product first; follow with form fields that depend on that selection.',
 		],
 		contentGuidelines: [],
-		accessibilityGuidelines: ['Ensure the site picker has an accessible name and that selected site is announced.'],
+		accessibilityGuidelines: [
+			'Ensure the site picker has an accessible name and that selected site is announced.',
+		],
 		keywords: ['link-create', 'site', 'select', 'picker', 'form'],
 		categories: ['linking', 'forms'],
 		examples: [],
@@ -188,16 +198,21 @@ const documentation: ComponentStructuredContentSource[] = [
 			packagePath,
 			packageJson,
 		},
-		usageGuidelines: ['Use inside a create form for single-line text fields (e.g. title, summary).'],
+		usageGuidelines: [
+			'Use inside a create form for single-line text fields (e.g. title, summary).',
+		],
 		contentGuidelines: [],
-		accessibilityGuidelines: ['Ensure each field has a visible or aria-label and that validation errors are announced.'],
+		accessibilityGuidelines: [
+			'Ensure each field has a visible or aria-label and that validation errors are announced.',
+		],
 		keywords: ['link-create', 'textfield', 'input', 'form'],
 		categories: ['linking', 'forms'],
 		examples: [],
 	},
 	{
 		name: 'UserPicker',
-		description: 'User picker component for link-create forms. Used for assignee, reporter, or other user fields.',
+		description:
+			'User picker component for link-create forms. Used for assignee, reporter, or other user fields.',
 		status: 'general-availability',
 		import: {
 			name: 'UserPicker',
@@ -206,16 +221,21 @@ const documentation: ComponentStructuredContentSource[] = [
 			packagePath,
 			packageJson,
 		},
-		usageGuidelines: ['Use inside a create form when the user must select a person (e.g. assignee, creator).'],
+		usageGuidelines: [
+			'Use inside a create form when the user must select a person (e.g. assignee, creator).',
+		],
 		contentGuidelines: [],
-		accessibilityGuidelines: ['Ensure the picker has an accessible name and that the selected user is announced.'],
+		accessibilityGuidelines: [
+			'Ensure the picker has an accessible name and that the selected user is announced.',
+		],
 		keywords: ['link-create', 'user', 'picker', 'form'],
 		categories: ['linking', 'forms'],
 		examples: [],
 	},
 	{
 		name: 'LinkCreateCallbackProvider',
-		description: 'Context provider that supplies a callback (e.g. on success) to link-create. Used so plugins or parents can react to create completion.',
+		description:
+			'Context provider that supplies a callback (e.g. on success) to link-create. Used so plugins or parents can react to create completion.',
 		status: 'general-availability',
 		import: {
 			name: 'LinkCreateCallbackProvider',
@@ -235,7 +255,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'useLinkCreateCallback',
-		description: 'Hook that returns the link-create callback from LinkCreateCallbackProvider. Use to trigger or react to create success from child components.',
+		description:
+			'Hook that returns the link-create callback from LinkCreateCallbackProvider. Use to trigger or react to create success from child components.',
 		status: 'general-availability',
 		import: {
 			name: 'useLinkCreateCallback',
@@ -255,7 +276,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'LinkCreateExitWarningProvider',
-		description: 'Provider that enables an exit-confirmation when the user tries to leave the create flow with unsaved changes. Uses ExitWarningModalProvider internally.',
+		description:
+			'Provider that enables an exit-confirmation when the user tries to leave the create flow with unsaved changes. Uses ExitWarningModalProvider internally.',
 		status: 'general-availability',
 		import: {
 			name: 'LinkCreateExitWarningProvider',
@@ -268,14 +290,17 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Wrap the create flow when you want to warn users before closing or navigating away with unsaved form data.',
 		],
 		contentGuidelines: [],
-		accessibilityGuidelines: ['Ensure the exit warning modal is focusable and has an accessible title and actions.'],
+		accessibilityGuidelines: [
+			'Ensure the exit warning modal is focusable and has an accessible title and actions.',
+		],
 		keywords: ['link-create', 'exit', 'warning', 'provider', 'unsaved'],
 		categories: ['linking', 'forms', 'interaction'],
 		examples: [],
 	},
 	{
 		name: 'useWithExitWarning',
-		description: 'Hook that wires the current form or flow into the exit-warning behavior. Use when building custom create UI that should trigger the exit warning.',
+		description:
+			'Hook that wires the current form or flow into the exit-warning behavior. Use when building custom create UI that should trigger the exit warning.',
 		status: 'general-availability',
 		import: {
 			name: 'useWithExitWarning',
@@ -295,7 +320,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'CreateField',
-		description: 'Controller component that connects a form field to the create form state (name, validation, value). Use to build custom fields that participate in CreateForm.',
+		description:
+			'Controller component that connects a form field to the create form state (name, validation, value). Use to build custom fields that participate in CreateForm.',
 		status: 'general-availability',
 		import: {
 			name: 'CreateField',
@@ -308,7 +334,9 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Use when building a custom form field (e.g. custom select, date picker) that must be part of the create form validation and submit payload.',
 		],
 		contentGuidelines: [],
-		accessibilityGuidelines: ['Ensure the rendered control has an accessible name and that validation errors are associated (e.g. aria-describedby).'],
+		accessibilityGuidelines: [
+			'Ensure the rendered control has an accessible name and that validation errors are associated (e.g. aria-describedby).',
+		],
 		keywords: ['link-create', 'form', 'field', 'CreateField'],
 		categories: ['linking', 'forms'],
 		examples: [],

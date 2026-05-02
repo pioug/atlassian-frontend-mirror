@@ -81,10 +81,7 @@ const isSSRHydrationEligible = (node: PmNode): boolean => {
  */
 const consumedHydrationIdentitiesByEditor = new WeakMap<EditorView, Set<string>>();
 
-const getHydrationIdentityKey = (
-	extensionKey: unknown,
-	localId: unknown,
-): string | null => {
+const getHydrationIdentityKey = (extensionKey: unknown, localId: unknown): string | null => {
 	if (typeof extensionKey !== 'string' || typeof localId !== 'string') {
 		return null;
 	}
@@ -94,18 +91,12 @@ const getHydrationIdentityKey = (
 	return `${extensionKey}::${localId}`;
 };
 
-const hasHydrationIdentityBeenConsumed = (
-	view: EditorView,
-	identityKey: string,
-): boolean => {
+const hasHydrationIdentityBeenConsumed = (view: EditorView, identityKey: string): boolean => {
 	const consumed = consumedHydrationIdentitiesByEditor.get(view);
 	return consumed ? consumed.has(identityKey) : false;
 };
 
-const markHydrationIdentityAsConsumed = (
-	view: EditorView,
-	identityKey: string,
-): void => {
+const markHydrationIdentityAsConsumed = (view: EditorView, identityKey: string): void => {
 	let consumed = consumedHydrationIdentitiesByEditor.get(view);
 	if (!consumed) {
 		consumed = new Set<string>();
@@ -138,10 +129,7 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 
 	/** See {@link consumedHydrationIdentitiesByEditor}. Null when attrs are missing → SSR reuse skipped. */
 	private getHydrationIdentityKey(): string | null {
-		return getHydrationIdentityKey(
-			this.node.attrs?.extensionKey,
-			this.node.attrs?.localId,
-		);
+		return getHydrationIdentityKey(this.node.attrs?.extensionKey, this.node.attrs?.localId);
 	}
 
 	/** True only for the first ExtensionNode of this identity in this editor. See {@link consumedHydrationIdentitiesByEditor}. */

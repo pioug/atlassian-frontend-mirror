@@ -60,7 +60,9 @@ export function pmMarksCodeGen(markResMap: Record<string, MarkSpecResMap>): stri
 						functionName,
 						`createPMMarkSpecFactory${markAttrs ? `<${markName}>` : ''}`,
 						[stringifyWithUndefined(pmMarkSpec)],
-						markAttrs ? `PMMarkSpecFactoryInstance<${markName}>` : 'PMMarkSpecFactoryInstance<Mark>',
+						markAttrs
+							? `PMMarkSpecFactoryInstance<${markName}>`
+							: 'PMMarkSpecFactoryInstance<Mark>',
 					),
 				);
 			})

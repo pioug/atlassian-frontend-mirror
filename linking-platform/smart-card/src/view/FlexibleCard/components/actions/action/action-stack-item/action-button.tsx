@@ -41,21 +41,20 @@ const styles = cssMap({
 	},
 	/**
 	 * Pill button variant used when the rovogrowth-640-inline-action-nudge-exp
-	 * experiment is enabled. 
+	 * experiment is enabled.
 	 */
 	pillButton: {
 		position: 'relative',
 		backgroundColor: token('color.background.neutral.subtle'),
 		paddingRight: token('space.100'),
 		paddingLeft: token('space.025'),
-		width: 'fit-content',
+		width: '100%',
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border'),
 		borderRadius: token('radius.medium'),
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.subtle.hovered'),
-			borderColor: token('color.border.focused'),
 		},
 		'&:active': {
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
@@ -168,11 +167,7 @@ const ActionButton = ({
 				grow={isInlineActionNudgeExperiment ? 'hug' : 'fill'}
 				space={isInlineActionNudgeExperiment ? 'space.050' : space}
 			>
-				{isInlineActionNudgeExperiment ? (
-					<span css={pillIconWrapperStyles}>{icon}</span>
-				) : (
-					icon
-				)}
+				{isInlineActionNudgeExperiment ? <span css={pillIconWrapperStyles}>{icon}</span> : icon}
 				<Box xcss={cx(isInlineActionNudgeExperiment ? styles.pillContent : styles.content)}>
 					{content}
 				</Box>

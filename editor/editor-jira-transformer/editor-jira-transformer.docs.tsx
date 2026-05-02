@@ -5,7 +5,6 @@
 
 import path from 'path';
 
-
 import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
 
 import packageJson from './package.json';
@@ -15,7 +14,7 @@ const packagePath = path.resolve(__dirname);
 const documentation: ComponentStructuredContentSource[] = [
 	{
 		name: 'Editor Jira Transformer',
-		description: 'Editor JIRA transformer\'s',
+		description: "Editor JIRA transformer's",
 		status: 'general-availability',
 		import: {
 			name: 'Editor Jira Transformer',
@@ -30,8 +29,16 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['editor', 'editor-jira-transformer', 'atlaskit'],
 		categories: ['editor'],
 		examples: [
-			{ name: 'Jira transformer', description: 'Basic Jira transformer usage.', source: path.resolve(packagePath, './examples/0-jira-transformer.tsx') },
-			{ name: 'Jira HTML to ADF', description: 'Transform Jira HTML to ADF.', source: path.resolve(packagePath, './examples/3-jira-html-to-adf.tsx') },
+			{
+				name: 'Jira transformer',
+				description: 'Basic Jira transformer usage.',
+				source: path.resolve(packagePath, './examples/0-jira-transformer.tsx'),
+			},
+			{
+				name: 'Jira HTML to ADF',
+				description: 'Transform Jira HTML to ADF.',
+				source: path.resolve(packagePath, './examples/3-jira-html-to-adf.tsx'),
+			},
 		],
 	},
 ];

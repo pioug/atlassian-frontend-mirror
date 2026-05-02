@@ -5,7 +5,6 @@
 
 import path from 'path';
 
-
 import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
 
 import packageJson from './package.json';
@@ -34,11 +33,34 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['editor', 'editor-core', 'atlaskit'],
 		categories: ['editor'],
 		examples: [
-			{ name: 'Basic composable editor', description: 'Minimal ComposableEditor with preset.', source: path.resolve(packagePath, './examples/1-basic-composable-editor.tsx') },
-			{ name: 'Comment editor', description: 'Comment appearance composable editor.', source: path.resolve(packagePath, './examples/1-comment-editor-component-composable.tsx') },
-			{ name: 'Full page editor', description: 'Full-page appearance composable editor.', source: path.resolve(packagePath, './examples/1-full-page-editor-composable.tsx') },
-			{ name: 'Chromeless editor', description: 'Chromeless appearance with custom UI.', source: path.resolve(packagePath, './examples/1-chromeless-editor-component-composable.tsx') },
-			{ name: 'Collapsed editor', description: 'Async collapsed editor (labs).', source: path.resolve(packagePath, './examples/1-labs-async-collapsed-editor.tsx') },
+			{
+				name: 'Basic composable editor',
+				description: 'Minimal ComposableEditor with preset.',
+				source: path.resolve(packagePath, './examples/1-basic-composable-editor.tsx'),
+			},
+			{
+				name: 'Comment editor',
+				description: 'Comment appearance composable editor.',
+				source: path.resolve(packagePath, './examples/1-comment-editor-component-composable.tsx'),
+			},
+			{
+				name: 'Full page editor',
+				description: 'Full-page appearance composable editor.',
+				source: path.resolve(packagePath, './examples/1-full-page-editor-composable.tsx'),
+			},
+			{
+				name: 'Chromeless editor',
+				description: 'Chromeless appearance with custom UI.',
+				source: path.resolve(
+					packagePath,
+					'./examples/1-chromeless-editor-component-composable.tsx',
+				),
+			},
+			{
+				name: 'Collapsed editor',
+				description: 'Async collapsed editor (labs).',
+				source: path.resolve(packagePath, './examples/1-labs-async-collapsed-editor.tsx'),
+			},
 		],
 	},
 ];

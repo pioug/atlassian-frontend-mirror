@@ -5,7 +5,6 @@
 
 import path from 'path';
 
-
 import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
 
 import packageJson from './package.json';
@@ -35,11 +34,31 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['editor', 'renderer', 'atlaskit'],
 		categories: ['editor'],
 		examples: [
-			{ name: 'Basic', description: 'Basic ReactRenderer with ADF document.', source: path.resolve(packagePath, './examples/0-basic.tsx') },
-			{ name: 'Full page', description: 'Full-page renderer with full ADF.', source: path.resolve(packagePath, './examples/0-full-page.tsx') },
-			{ name: 'With providers', description: 'Renderer with media and other providers.', source: path.resolve(packagePath, './examples/1-with-providers.tsx') },
-			{ name: 'Full page with media caption', description: 'Renderer with media and captions.', source: path.resolve(packagePath, './examples/0-full-page-with-media-caption.tsx') },
-			{ name: 'Column layout', description: 'Renderer with column layout.', source: path.resolve(packagePath, './examples/10-column-layout.tsx') },
+			{
+				name: 'Basic',
+				description: 'Basic ReactRenderer with ADF document.',
+				source: path.resolve(packagePath, './examples/0-basic.tsx'),
+			},
+			{
+				name: 'Full page',
+				description: 'Full-page renderer with full ADF.',
+				source: path.resolve(packagePath, './examples/0-full-page.tsx'),
+			},
+			{
+				name: 'With providers',
+				description: 'Renderer with media and other providers.',
+				source: path.resolve(packagePath, './examples/1-with-providers.tsx'),
+			},
+			{
+				name: 'Full page with media caption',
+				description: 'Renderer with media and captions.',
+				source: path.resolve(packagePath, './examples/0-full-page-with-media-caption.tsx'),
+			},
+			{
+				name: 'Column layout',
+				description: 'Renderer with column layout.',
+				source: path.resolve(packagePath, './examples/10-column-layout.tsx'),
+			},
 		],
 	},
 ];

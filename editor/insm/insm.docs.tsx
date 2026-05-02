@@ -5,7 +5,6 @@
 
 import path from 'path';
 
-
 import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
 
 import packageJson from './package.json';

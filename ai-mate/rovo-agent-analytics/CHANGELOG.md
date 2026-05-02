@@ -1,5 +1,45 @@
 # @atlaskit/rovo-agent-analytics
 
+## 1.4.0
+
+### Minor Changes
+
+- [`04fe400264167`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04fe400264167) -
+  RAGE-3507: Add versioned-agent analytics foundation
+
+  ### `@atlaskit/rovo-agent-analytics`
+  - Added `VersionedAgentAttributes` type (`agentIsPublished`, `agentVersionNumber`)
+  - Added new `createFlow` event payloads:
+    - `createAgentRecord` — fires when BE `agentStudio_createAgent` mutation succeeds
+      (post-versioning, replaces `createFlowActivate`); minimal payload (registry/101157)
+    - `published` — fires on every agent version publish; carries rich agent attrs + versioning
+      envelope (registry/101158)
+    - `createLandInAgentLandingWithSA` — fires when user lands on agents landing with SA modal
+      auto-opened; v2/SA only (registry/99780)
+  - Extended `editing.ts` `updated` event to carry `agentIsPublished` from mutation response
+  - Updated `createFlow` JSDoc funnel table to v1 / v1+versioning / v2 / v2+versioning columns
+
+  ### `@atlassian/agent-studio`
+  - Three dedicated analytics helpers in `services/create-agent/utils.tsx`:
+    - `getAgentLegacyCreateActivateAnalytics` — rich write-input shape for legacy
+      `createFlowActivate` (deletion path RAGE-3459)
+    - `getAgentCreateAnalytics` — minimal payload for `createAgentRecord` (`agentId`, `source`,
+      `agentType`, `agentIsPublished`)
+    - `getAgentPublishAnalytics` — fragment-read shape for `published`; computes `agentToolCount`,
+      `agentMcpServerCount`, `agentToolsList` from agent-level tools and per-scenario `toolCount`,
+      `toolsList`, `mcpServerCount`, `mcpToolCount`
+  - `useCreateAgent`: new required `hasVersionCapability` param gates either-or between
+    `createAgentRecord` and `createFlowActivate`
+  - Publish-button: fires `published` event with rich attrs; fragment extended with `definitionId` +
+    `definitionSource` on all tool fields
+  - `update-agent-details` mutation: fires `updated` event with `agentIsPublished` from response
+    (gated on `rovo_agent_versioning_enabled` FG via `@include`)
+  - Landing: fires `createLandInAgentLandingWithSA` when SA modal auto-opens
+
+  ### `@atlassian/studio-solution-architect-ui-components`
+  - SA Manual Create Agent button: fires `createAgentRecord` analytics on successful create (gated
+    on `rovo-agents-universal-analytics` FG)
+
 ## 1.3.0
 
 ### Minor Changes

@@ -38,7 +38,8 @@ const useRovoChat = (): {
 					openChatMode:
 						product &&
 						jiraProducts.includes(product) &&
-							(fg('platform_sl_3p_auth_rovo_block_jira_kill_switch') || fg('rovogrowth-640-inline-action-nudge-fg'))
+						(fg('platform_sl_3p_auth_rovo_block_jira_kill_switch') ||
+							fg('rovogrowth-640-inline-action-nudge-fg'))
 							? 'mini-modal'
 							: 'sidebar',
 				},

@@ -62,7 +62,8 @@ export const initialStateViewMessages: {
 	},
 	beta: {
 		id: 'linkDataSource.modal-initial-state.beta',
-		description: 'Beta lozenge',
+		description:
+			'Text shown in a lozenge badge on the datasource modal to indicate the feature is in beta',
 		defaultMessage: 'Beta',
 	},
 	// everything below is a duplication from the work around EDM-9407

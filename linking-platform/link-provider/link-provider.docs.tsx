@@ -58,7 +58,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'useSmartCardContext',
-		description: 'Hook to access the Smart Link context (store, client, config, extractors) from within the SmartCardProvider tree.',
+		description:
+			'Hook to access the Smart Link context (store, client, config, extractors) from within the SmartCardProvider tree.',
 		status: 'general-availability',
 		import: {
 			name: 'useSmartCardContext',
@@ -78,7 +79,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'useSmartLinkContext',
-		description: 'Alias for useSmartCardContext. Hook to access the Smart Link context from within the SmartCardProvider tree.',
+		description:
+			'Alias for useSmartCardContext. Hook to access the Smart Link context from within the SmartCardProvider tree.',
 		status: 'general-availability',
 		import: {
 			name: 'useSmartLinkContext',
@@ -98,7 +100,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'SmartCardContext',
-		description: 'React context object for Smart Links. Prefer useSmartCardContext or useSmartLinkContext; use SmartCardContext.Consumer only when hooks are not available.',
+		description:
+			'React context object for Smart Links. Prefer useSmartCardContext or useSmartLinkContext; use SmartCardContext.Consumer only when hooks are not available.',
 		status: 'general-availability',
 		import: {
 			name: 'SmartCardContext',
@@ -118,7 +121,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'EditorSmartCardProvider',
-		description: 'Smart Card provider variant for editor environments, with value guard for type-safe access to editor-specific context.',
+		description:
+			'Smart Card provider variant for editor environments, with value guard for type-safe access to editor-specific context.',
 		status: 'general-availability',
 		import: {
 			name: 'EditorSmartCardProvider',

@@ -15,7 +15,7 @@ import size from './size';
 const POSSIBLE_MODIFIER_KEYS = ['ctrl', 'shift', 'alt', 'meta'];
 
 class AP extends PostMessage {
-	constructor(options, initCheck = true) {
+	constructor(options: any, initCheck = true) {
 		super();
 		ConfigurationOptions.set(options);
 		this._data = this._parseInitData();
@@ -92,7 +92,7 @@ class AP extends PostMessage {
 		});
 	}
 
-	_getHostFrame(offset) {
+	_getHostFrame(offset: any): any {
 		// Climb up the iframe tree to find the real host
 		if (offset && typeof offset === 'number') {
 			var hostFrame = window;
@@ -105,7 +105,7 @@ class AP extends PostMessage {
 		}
 	}
 
-	_isEmbeddedConfluenceUsage() {
+	_isEmbeddedConfluenceUsage(): any {
 		try {
 			const uniqueKey = new URL(window.location.href).searchParams.get('uniqueKey');
 			return uniqueKey !== null && uniqueKey.includes('embedded-confluence-iframe');
@@ -114,7 +114,7 @@ class AP extends PostMessage {
 		}
 	}
 
-	_verifyHostFrameOffset() {
+	_verifyHostFrameOffset(): any {
 		// Asynchronously verify the host frame option with this._top
 		var callback = (e) => {
 			if (e.source === this._top && e.data && typeof e.data.hostFrameOffset === 'number') {
@@ -144,7 +144,7 @@ class AP extends PostMessage {
 		);
 	}
 
-	_handleApiTamper(event) {
+	_handleApiTamper(event: any): any {
 		if (event.data.tampered !== false) {
 			this._host = undefined;
 			this._apiTampered = true;
@@ -158,7 +158,7 @@ class AP extends PostMessage {
 		this._onConfirmedFns = [];
 	}
 
-	_registerOnUnload() {
+	_registerOnUnload(): any {
 		$.bind(
 			window,
 			'unload',
@@ -171,7 +171,7 @@ class AP extends PostMessage {
 		);
 	}
 
-	_sendUnload(frame, origin) {
+	_sendUnload(frame: any, origin: any): any {
 		frame.postMessage(
 			{
 				eid: this._data.extension_id,
@@ -181,14 +181,14 @@ class AP extends PostMessage {
 		);
 	}
 
-	_bindKeyDown() {
+	_bindKeyDown(): any {
 		if (!this._isKeyDownBound) {
 			$.bind(window, 'keydown', Util._bind(this, this._handleKeyDownDomEvent));
 			this._isKeyDownBound = true;
 		}
 	}
 
-	_autoResizer() {
+	_autoResizer(): any {
 		this._enableAutoResize = Boolean(ConfigurationOptions.get('autoresize'));
 		if (ConsumerOptions.get('resize') === false || ConsumerOptions.get('sizeToParent') === true) {
 			this._enableAutoResize = false;
@@ -214,7 +214,7 @@ class AP extends PostMessage {
 	 *   }
 	 * }
 	 **/
-	_parseInitData(data) {
+	_parseInitData(data: any): any {
 		try {
 			return JSON.parse(data || window.name);
 		} catch (e) {
@@ -222,7 +222,7 @@ class AP extends PostMessage {
 		}
 	}
 
-	_findTarget(moduleName, methodName) {
+	_findTarget(moduleName: any, methodName: any): any {
 		return this._data.options &&
 			this._data.options.targets &&
 			this._data.options.targets[moduleName] &&
@@ -231,7 +231,7 @@ class AP extends PostMessage {
 			: 'top';
 	}
 
-	_createModule(moduleName, api) {
+	_createModule(moduleName: any, api: any): any {
 		return Object.getOwnPropertyNames(api).reduce((accumulator, memberName) => {
 			const member = api[memberName];
 			if (member.hasOwnProperty('constructor')) {
@@ -247,7 +247,7 @@ class AP extends PostMessage {
 		}, {});
 	}
 
-	_setupAPI(api) {
+	_setupAPI(api: any): any {
 		this._hostModules = Object.getOwnPropertyNames(api).reduce((accumulator, moduleName) => {
 			accumulator[moduleName] = this._createModule(
 				moduleName,
@@ -262,7 +262,7 @@ class AP extends PostMessage {
 		});
 	}
 
-	_setupAPIWithoutRequire(api) {
+	_setupAPIWithoutRequire(api: any): any {
 		Object.getOwnPropertyNames(api).forEach((moduleName) => {
 			if (typeof this[moduleName] !== 'undefined') {
 				throw new Error('XDM module: ' + moduleName + ' will collide with existing variable');
@@ -271,7 +271,7 @@ class AP extends PostMessage {
 		}, this);
 	}
 
-	_pendingCallback(mid, fn, metaData) {
+	_pendingCallback(mid: any, fn: any, metaData: any): any {
 		if (metaData) {
 			Object.getOwnPropertyNames(metaData).forEach((metaDataName) => {
 				fn[metaDataName] = metaData[metaDataName];
@@ -280,7 +280,7 @@ class AP extends PostMessage {
 		this._pendingCallbacks[mid] = fn;
 	}
 
-	_createProxy(moduleName, api, className) {
+	_createProxy(moduleName: any, api: any, className: any): any {
 		const module = this._createModule(moduleName, api);
 		function Cls(args) {
 			if (!(this instanceof Cls)) {
@@ -299,10 +299,10 @@ class AP extends PostMessage {
 		return Cls;
 	}
 
-	_createMethodHandler(methodData) {
+	_createMethodHandler(methodData: any) {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		let that = this;
-		return function () {
+		return function (): any {
 			const args = Util.argumentsToArray(arguments);
 			const data = {
 				eid: that._data.extension_id,
@@ -373,7 +373,7 @@ class AP extends PostMessage {
 		};
 	}
 
-	_handleResponse(event) {
+	_handleResponse(event: any): any {
 		var data = event.data;
 
 		if (!data.forPlugin) {
@@ -395,7 +395,7 @@ class AP extends PostMessage {
 		}
 	}
 
-	_handleEvent(event) {
+	_handleEvent(event: any): any {
 		var sendResponse = function () {
 			var args = Util.argumentsToArray(arguments);
 			event.source.postMessage(
@@ -436,7 +436,7 @@ class AP extends PostMessage {
 		}
 	}
 
-	_handleKeyDownDomEvent(event) {
+	_handleKeyDownDomEvent(event: any): any {
 		var modifiers = [];
 		POSSIBLE_MODIFIER_KEYS.forEach((modifierKey) => {
 			if (event[modifierKey + 'Key']) {
@@ -458,7 +458,7 @@ class AP extends PostMessage {
 		}
 	}
 
-	_keyListenerId(keycode, modifiers) {
+	_keyListenerId(keycode: any, modifiers: any): any {
 		var keyListenerId = keycode;
 		if (modifiers) {
 			if (typeof modifiers === 'string') {
@@ -472,7 +472,7 @@ class AP extends PostMessage {
 		return keyListenerId;
 	}
 
-	_handleKeyListen(postMessageEvent) {
+	_handleKeyListen(postMessageEvent: any): any {
 		var keyListenerId = this._keyListenerId(
 			postMessageEvent.data.keycode,
 			postMessageEvent.data.modifiers,
@@ -487,7 +487,7 @@ class AP extends PostMessage {
 		}
 	}
 
-	_checkOrigin(event) {
+	_checkOrigin(event: any): any {
 		let no_source_types = ['api_tamper'];
 		if (event.data && no_source_types.indexOf(event.data.type) > -1) {
 			return true;
@@ -500,11 +500,11 @@ class AP extends PostMessage {
 		return event.origin === this._data.origin && event.source === this._host;
 	}
 
-	_handleInitReceived() {
+	_handleInitReceived(): any {
 		this._initReceived = true;
 	}
 
-	_sendInit(frame, origin) {
+	_sendInit(frame: any, origin: any): any {
 		var targets;
 		if (frame === this._topHost && this._topHost !== window.parent) {
 			targets = ConfigurationOptions.get('targets');
@@ -528,7 +528,7 @@ class AP extends PostMessage {
 			}, this._initTimeout);
 	}
 
-	broadcast(event, evnt) {
+	broadcast(event: any, evnt: any): any {
 		if (!Util.isString(event)) {
 			throw new Error('Event type must be string');
 		}
@@ -544,7 +544,7 @@ class AP extends PostMessage {
 		);
 	}
 
-	require(modules, callback) {
+	require(modules: any, callback: any): any {
 		let requiredModules = Array.isArray(modules) ? modules : [modules],
 			args = requiredModules.map((module) => {
 				return this._hostModules[module] || this._hostModules._globals[module];
@@ -552,7 +552,7 @@ class AP extends PostMessage {
 		callback.apply(window, args);
 	}
 
-	register(handlers) {
+	register(handlers: any): any {
 		if (typeof handlers === 'object') {
 			this._eventHandlers = { ...this._eventHandlers, ...handlers } || {};
 			this._host.postMessage(
@@ -565,11 +565,11 @@ class AP extends PostMessage {
 			);
 		}
 	}
-	registerAny(handlers) {
+	registerAny(handlers: any): any {
 		this.register({ _any: handlers });
 	}
 
-	_initResize() {
+	_initResize(): any {
 		requestAnimationFrame(() => this.resize());
 		var autoresize = new autoResizeAction(this.resize);
 		resizeListener.add(Util._bind(autoresize, autoresize.triggered));

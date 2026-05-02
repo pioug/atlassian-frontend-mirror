@@ -1,12 +1,12 @@
 // @ts-nocheck
 import Util from './util';
 class PostMessage {
-	constructor(data) {
+	constructor(data: any) {
 		let d = data || {};
 		this._registerListener(d.listenOn);
 	}
 
-	_registerListener(listenOn) {
+	_registerListener(listenOn: any): any {
 		if (!listenOn || !listenOn.addEventListener) {
 			listenOn = window;
 		}
@@ -14,7 +14,7 @@ class PostMessage {
 		listenOn.addEventListener('message', Util._bind(this, this._receiveMessage), false);
 	}
 
-	_receiveMessage(event) {
+	_receiveMessage(event: any) {
 		let handler = this._messageHandlers[event.data.type],
 			extensionId = event.data.eid,
 			reg;

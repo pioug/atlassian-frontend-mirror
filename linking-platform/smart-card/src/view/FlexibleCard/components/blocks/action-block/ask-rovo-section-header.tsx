@@ -14,7 +14,7 @@ const sectionHeaderStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
 	gap: token('space.150'),
-	marginBottom: token('space.100'),
+	marginBottom: token('space.150'),
 	marginLeft: token('space.025'),
 	width: '100%',
 	alignSelf: 'stretch',
@@ -54,10 +54,7 @@ const AskRovoSectionHeader = ({ testId }: RovoSectionHeaderProps): JSX.Element =
 	const intl = useIntl();
 
 	return (
-		<div
-			css={sectionHeaderStyles}
-			data-testid={testId}
-		>
+		<div css={sectionHeaderStyles} data-testid={testId}>
 			<div css={sectionHeaderDividerStyles} role="separator" aria-orientation="horizontal" />
 			<div css={sectionHeaderRowStyles}>
 				<RovoHexLogo />

@@ -39,7 +39,8 @@ export const footerMessages: {
 	},
 	refreshLabel: {
 		id: 'linkDataSource.table-footer.refresh',
-		description: 'Label for refresh icon',
+		description:
+			'Label for the refresh button in the datasource table footer, which reloads the table data',
 		defaultMessage: 'Refresh',
 	},
 	powerByJSM: {

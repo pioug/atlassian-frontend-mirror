@@ -107,9 +107,7 @@ const ResolvedView = ({
 
 	const prompts = useMemo(() => {
 		if (fg('platform_sl_3p_auth_rovo_block_card_kill_switch')) {
-			const defaultPrompts = [
-				RovoChatPromptKey.KEY_HIGHLIGHTS
-			];
+			const defaultPrompts = [RovoChatPromptKey.KEY_HIGHLIGHTS];
 
 			const linkType = cardState.details?.data?.['@type'];
 

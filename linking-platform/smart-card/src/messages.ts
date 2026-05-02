@@ -337,7 +337,8 @@ export const messages: Messages = defineMessages({
 	beta: {
 		id: 'fabric.linking.beta',
 		defaultMessage: 'Beta',
-		description: 'Indicates a beta phase of the feature.',
+		description:
+			'Text shown in a lozenge badge on a smart link or card to indicate the feature is currently in beta.',
 	},
 	cannot_connect: {
 		id: 'fabric.linking.cannot_connect',
@@ -363,12 +364,14 @@ export const messages: Messages = defineMessages({
 	close: {
 		id: 'fabric.linking.close',
 		defaultMessage: 'Close',
-		description: 'Close the current screen or modal.',
+		description:
+			'Label for a button or icon that closes the currently open modal dialog or overlay screen.',
 	},
 	check_this_link: {
 		id: 'fabric.linking.check_this_link',
 		defaultMessage: 'Check this link',
-		description: 'Link safety warning modal header',
+		description:
+			'Heading shown at the top of the link safety warning modal, prompting the user to verify a potentially unsafe link before proceeding.',
 	},
 	compass_applied_components_count: {
 		id: 'compass.applied_components_count.non-final',
@@ -431,7 +434,8 @@ export const messages: Messages = defineMessages({
 	continue: {
 		id: 'fabric.linking.continue',
 		defaultMessage: 'Continue',
-		description: 'Continue to the next step.',
+		description:
+			'Label for a button that advances the user to the next step, e.g. in the link safety warning modal flow.',
 	},
 	copy_url_to_clipboard: {
 		id: 'fabric.linking.copy_url_to_clipboard',
@@ -441,7 +445,8 @@ export const messages: Messages = defineMessages({
 	copied_url_to_clipboard: {
 		id: 'fabric.linking.copied_url_to_clipboard',
 		defaultMessage: 'Copied!',
-		description: 'Url has been copied to the clipboard',
+		description:
+			'Confirmation text shown briefly after the user copies a URL to the clipboard using the copy link action.',
 	},
 	could_not_load_link: {
 		id: 'fabric.linking.couldnt_load_link',
@@ -466,27 +471,32 @@ export const messages: Messages = defineMessages({
 	delete: {
 		id: 'fabric.linking.delete',
 		defaultMessage: 'Delete',
-		description: 'Allow a user to delete a link',
+		description:
+			'Label for the delete action in a smart link or card action menu, allowing the user to remove the linked item.',
 	},
 	download: {
 		id: 'fabric.linking.download',
 		defaultMessage: 'Download',
-		description: 'Action to download the resource.',
+		description:
+			'Label for the download action in a smart link or card action menu, initiating a file download.',
 	},
 	download_description: {
 		id: 'fabric.linking.download_description',
 		defaultMessage: 'Download this file into your local storage',
-		description: 'Description on what Download does',
+		description:
+			"Tooltip or description text for the download action, explaining it saves the file to the user's local storage.",
 	},
 	download_file: {
 		id: 'fabric.linking.download_file',
 		defaultMessage: 'Download file',
-		description: 'Allow a user to download a file',
+		description:
+			'Label for the download file action in a smart link or card action menu, allowing the user to save the linked file locally.',
 	},
 	ai_summary_action: {
 		id: 'fabric.linking.ai_summary_action',
 		defaultMessage: 'Summarize with AI',
-		description: 'Allow a user to summarize a link',
+		description:
+			'Label for the AI summarize action in a smart link or hover card action menu, allowing the user to generate an AI summary of the linked content.',
 	},
 	ai_summary_action_description: {
 		id: 'fabric.linking.ai_summary_action_description',
@@ -511,22 +521,26 @@ export const messages: Messages = defineMessages({
 	edit: {
 		id: 'fabric.linking.edit',
 		defaultMessage: 'Edit',
-		description: 'Allow a user to edit a link',
+		description:
+			'Label for the edit action in a smart link or card action menu, allowing the user to modify the linked item.',
 	},
 	follow: {
 		id: 'fabric.linking.follow',
 		defaultMessage: 'Follow',
-		description: 'Click to follow a project.',
+		description:
+			'Label for the follow button on a smart link card, allowing the user to subscribe to updates for the linked project or resource.',
 	},
 	follow_project_description: {
 		id: 'fabric.linking.follow_project_description',
 		defaultMessage: 'Follow to get notifications on this project',
-		description: 'Description on what Follow does',
+		description:
+			'Tooltip or description text for the follow project button, explaining that clicking it enables notifications for the project.',
 	},
 	follow_project: {
 		id: 'fabric.linking.follow_project',
 		defaultMessage: 'Follow project',
-		description: 'Click to follow a project.',
+		description:
+			'Label for the follow project button on a smart link card, allowing the user to subscribe to updates for the linked Atlassian project.',
 	},
 	follow_project_error: {
 		id: 'fabric.linking.follow_project_error',
@@ -537,12 +551,14 @@ export const messages: Messages = defineMessages({
 	follow_goal_description: {
 		id: 'fabric.linking.follow_goal_description',
 		defaultMessage: 'Follow this goal to get notifications on updates',
-		description: 'Description on what Follow does',
+		description:
+			'Tooltip or description text for the follow goal button, explaining that clicking it enables notifications for updates to the goal.',
 	},
 	follow_goal: {
 		id: 'fabric.linking.follow_goal',
 		defaultMessage: 'Follow goal',
-		description: 'Click to follow a project.',
+		description:
+			'Label for the follow goal button on a smart link card, allowing the user to subscribe to updates for the linked Atlas goal.',
 	},
 	follow_goal_error: {
 		id: 'fabric.linking.follow_goal_error',
@@ -553,7 +569,8 @@ export const messages: Messages = defineMessages({
 	go_back: {
 		id: 'fabric.linking.go_back',
 		defaultMessage: 'Go back',
-		description: 'go back',
+		description:
+			'Label for a navigation button that returns the user to the previous step or screen in a modal flow.',
 	},
 	invalid_permissions: {
 		id: 'fabric.linking.invalid_permissions',
@@ -611,12 +628,14 @@ export const messages: Messages = defineMessages({
 	open_issue_in_jira: {
 		id: 'fabric.linking.open_issue_in_jira',
 		defaultMessage: 'Open issue in Jira',
-		description: 'Click to open link in Jira',
+		description:
+			'Label for the action button on a smart link card that opens the linked Jira issue in Jira.',
 	},
 	open_link_in_a_new_tab: {
 		id: 'fabric.linking.open_link_in_a_new_tab',
 		defaultMessage: 'Open link in a new tab',
-		description: 'Click to open link in a new tab',
+		description:
+			'Label for the action button on a smart link card that opens the linked resource in a new browser tab.',
 	},
 	owned_by: {
 		id: 'fabric.linking.owned_by',
@@ -631,7 +650,8 @@ export const messages: Messages = defineMessages({
 	preview_description: {
 		id: 'fabric.linking.preview_description',
 		defaultMessage: 'Open a full screen preview of this link',
-		description: 'Description on what Preview does',
+		description:
+			'Tooltip or description text for the preview action on a smart link card, explaining it opens a full-screen embed preview of the linked content.',
 	},
 	preview_improved: {
 		id: 'fabric.linking.preview_improved',
@@ -653,7 +673,8 @@ export const messages: Messages = defineMessages({
 	preview_close: {
 		id: 'fabric.linking.preview_close',
 		defaultMessage: 'Close preview',
-		description: 'Click to close embed preview modal.',
+		description:
+			'Label for the button that closes the embed preview modal dialog on a smart link card.',
 	},
 	preview_max_size: {
 		id: 'fabric.linking.preview_max_size',
@@ -668,57 +689,68 @@ export const messages: Messages = defineMessages({
 	priority_blocker: {
 		id: 'fabric.linking.priority_blocker',
 		defaultMessage: 'Blocker',
-		description: 'Indicated priority as blocker',
+		description:
+			'Label for a priority badge on a Jira issue smart link card indicating the issue has Blocker priority.',
 	},
 	priority_critical: {
 		id: 'fabric.linking.priority_critical',
 		defaultMessage: 'Critical',
-		description: 'Indicated priority as critical',
+		description:
+			'Label for a priority badge on a Jira issue smart link card indicating the issue has Critical priority.',
 	},
 	priority_high: {
 		id: 'fabric.linking.priority_high',
 		defaultMessage: 'High',
-		description: 'Indicated priority as high',
+		description:
+			'Label for a priority badge on a Jira issue smart link card indicating the issue has High priority.',
 	},
 	priority_highest: {
 		id: 'fabric.linking.priority_highest',
 		defaultMessage: 'Highest',
-		description: 'Indicated priority as highest',
+		description:
+			'Label for a priority badge on a Jira issue smart link card indicating the issue has Highest priority.',
 	},
 	priority_low: {
 		id: 'fabric.linking.priority_low',
 		defaultMessage: 'Low',
-		description: 'Indicated priority as low',
+		description:
+			'Label for a priority badge on a Jira issue smart link card indicating the issue has Low priority.',
 	},
 	priority_lowest: {
 		id: 'fabric.linking.priority_lowest',
 		defaultMessage: 'Lowest',
-		description: 'Indicated priority as lowest',
+		description:
+			'Label for a priority badge on a Jira issue smart link card indicating the issue has Lowest priority.',
 	},
 	priority_major: {
 		id: 'fabric.linking.priority_major',
 		defaultMessage: 'Major',
-		description: 'Indicated priority as major',
+		description:
+			'Label for a priority badge on a Jira issue smart link card indicating the issue has Major priority.',
 	},
 	priority_medium: {
 		id: 'fabric.linking.priority_medium',
 		defaultMessage: 'Medium',
-		description: 'Indicated priority as medium',
+		description:
+			'Label for a priority badge on a Jira issue smart link card indicating the issue has Medium priority.',
 	},
 	priority_minor: {
 		id: 'fabric.linking.priority_minor',
 		defaultMessage: 'Minor',
-		description: 'Indicated priority as minor',
+		description:
+			'Label for a priority badge on a Jira issue smart link card indicating the issue has Minor priority.',
 	},
 	priority_trivial: {
 		id: 'fabric.linking.priority_trivial',
 		defaultMessage: 'Trivial',
-		description: 'Indicated priority as trivial',
+		description:
+			'Label for a priority badge on a Jira issue smart link card indicating the issue has Trivial priority.',
 	},
 	priority_undefined: {
 		id: 'fabric.linking.priority_undefined',
 		defaultMessage: 'Undefined',
-		description: 'Indicated priority as unknown',
+		description:
+			'Label for a priority badge on a Jira issue smart link card when the priority level is not defined or unknown.',
 	},
 	forbidden_access: {
 		id: 'fabric.linking.forbidden_access',
@@ -733,7 +765,8 @@ export const messages: Messages = defineMessages({
 	read_time: {
 		id: 'fabric.linking.read_time',
 		defaultMessage: '{context} min read',
-		description: 'Estimated time to read this resource',
+		description:
+			'Text shown on a smart link card displaying the estimated reading time. The placeholder {context} is substituted with the number of minutes.',
 	},
 	restricted_link: {
 		id: 'fabric.linking.restricted_link',
@@ -753,12 +786,14 @@ export const messages: Messages = defineMessages({
 	retry: {
 		id: 'fabric.linking.retry',
 		defaultMessage: 'Retry',
-		description: 'Allows user to perform an action again',
+		description:
+			'Label for a retry button shown on a smart link card after an error, allowing the user to attempt the failed action again.',
 	},
 	save: {
 		id: 'fabric.linking.save',
 		defaultMessage: 'Save',
-		description: 'Just the "save" word',
+		description:
+			"Label for a save button on a smart link card or action, confirming and persisting the user's changes.",
 	},
 	sent_on_relative: {
 		id: 'fabric.linking.sent_on_relative',
@@ -788,7 +823,8 @@ export const messages: Messages = defineMessages({
 	try_again: {
 		id: 'fabric.linking.try_again',
 		defaultMessage: 'Try again',
-		description: 'Allow the user to try an action again',
+		description:
+			'Label for a button shown on a smart link error state, prompting the user to retry the failed load or action.',
 	},
 	try_another_account: {
 		id: 'fabric.linking.try_another_account',
@@ -799,7 +835,8 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.linking.link_safety_warning_message',
 		defaultMessage:
 			'The link {unsafeLinkText} is taking you to a different site, <a>actual link here</a>',
-		description: 'Link safety check warning message',
+		description:
+			'Warning message shown in the link safety modal. The placeholder {unsafeLinkText} is substituted with the suspicious link text, and <a> wraps the actual destination URL.',
 	},
 	unauthorised_account_description: {
 		id: 'fabric.linking.unauthorised_account_description',
@@ -837,17 +874,20 @@ export const messages: Messages = defineMessages({
 	unfollow: {
 		id: 'fabric.linking.unfollow',
 		defaultMessage: 'Unfollow',
-		description: 'Click to unfollow a project.',
+		description:
+			'Label for the unfollow button on a smart link card, allowing the user to stop receiving updates for the linked project or resource.',
 	},
 	unfollow_project_description: {
 		id: 'fabric.linking.unfollow_project_description',
 		defaultMessage: 'Unfollow to stop receiving project notifications',
-		description: 'Description on what Unfollow does',
+		description:
+			'Tooltip or description for the unfollow project button, explaining that clicking it stops project update notifications.',
 	},
 	unfollow_project: {
 		id: 'fabric.linking.unfollow_project',
 		defaultMessage: 'Unfollow project',
-		description: 'Click to unfollow a project.',
+		description:
+			'Label for the unfollow project button on a smart link card, allowing the user to stop following the linked Atlassian project.',
 	},
 	unfollow_project_error: {
 		id: 'fabric.linking.unfollow_project_error',
@@ -858,12 +898,14 @@ export const messages: Messages = defineMessages({
 	unfollow_goal_description: {
 		id: 'fabric.linking.unfollow_goal_description',
 		defaultMessage: 'Unfollow to stop receiving notifications for this goal',
-		description: 'Description on what Unfollow does',
+		description:
+			'Tooltip or description for the unfollow goal button, explaining that clicking it stops notifications for the linked Atlas goal.',
 	},
 	unfollow_goal: {
 		id: 'fabric.linking.unfollow_goal',
 		defaultMessage: 'Unfollow goal',
-		description: 'Click to unfollow a project.',
+		description:
+			'Label for the unfollow goal button on a smart link card, allowing the user to stop following the linked Atlas goal.',
 	},
 	unfollow_goal_error: {
 		id: 'fabric.linking.unfollow_goal_error',
@@ -984,7 +1026,8 @@ export const messages: Messages = defineMessages({
 	generic_error_message: {
 		id: 'fabric.linking.generic_error_message',
 		defaultMessage: 'An error occurred',
-		description: 'A generic error message to the user',
+		description:
+			'Generic error message shown on a smart link card when an unspecified error occurs and no more specific message is available.',
 	},
 	related_links_modal_title: {
 		id: 'fabric.linking.related_links_modal_title',
@@ -1019,12 +1062,14 @@ export const messages: Messages = defineMessages({
 	related_links_modal_error_title: {
 		id: 'fabric.linking.related_links_modal_error_title',
 		defaultMessage: `We're having trouble loading related links`,
-		description: 'Title for related links error',
+		description:
+			'Heading shown in the related links modal when related links fail to load due to a network or server error.',
 	},
 	related_links_modal_unavailable_title: {
 		id: 'fabric.linking.related_links_modal_unavailable_title',
 		defaultMessage: `We couldn't find any related links`,
-		description: 'Title for related links error',
+		description:
+			'Heading shown in the related links modal when no related links are available for the current resource.',
 	},
 	related_links_modal_error_description: {
 		id: 'fabric.linking.related_links_modal_error_description',
@@ -1045,7 +1090,8 @@ export const messages: Messages = defineMessages({
 	open_issue_in_jiraIssueTermRefresh: {
 		id: 'fabric.linking.open_issue_in_jira-issue-term-refresh',
 		defaultMessage: 'Open work item in Jira',
-		description: 'Click to open link in Jira',
+		description:
+			'Label for the action button on a smart link card that opens the linked Jira work item in Jira (issue term refresh variant).',
 	},
 	request_access_to_viewIssueTermRefresh: {
 		id: 'fabric.linking.request_access_to_view-issue-term-refresh',
@@ -1060,7 +1106,8 @@ export const messages: Messages = defineMessages({
 	team_members_count: {
 		id: 'fabric.linking.team_members_count',
 		defaultMessage: '{context} members',
-		description: 'Indicates the count of team member',
+		description:
+			'Text shown on a smart link card displaying the number of members in a team. The placeholder {context} is substituted with the member count.',
 	},
 	user_attributes: {
 		id: 'fabric.linking.user_attributes',
@@ -1071,7 +1118,8 @@ export const messages: Messages = defineMessages({
 	follow_project_descriptionGalaxia: {
 		id: 'fabric.linking.follow_project_description-galaxia',
 		defaultMessage: 'Follow to get notifications on this space',
-		description: 'Description on what Follow does',
+		description:
+			'Tooltip or description for the follow space button (Galaxia variant), explaining that clicking it enables notifications for the Confluence space.',
 	},
 	follow_project_errorGalaxia: {
 		id: 'fabric.linking.follow_project_error-galaxia',
@@ -1082,7 +1130,8 @@ export const messages: Messages = defineMessages({
 	unfollow_project_descriptionGalaxia: {
 		id: 'fabric.linking.unfollow_project_description-galaxia',
 		defaultMessage: 'Unfollow to stop receiving space notifications',
-		description: 'Description on what Unfollow does',
+		description:
+			'Tooltip or description for the unfollow space button (Galaxia variant), explaining that clicking it stops notifications for the Confluence space.',
 	},
 	unfollow_project_errorGalaxia: {
 		id: 'fabric.linking.unfollow_project_error-galaxia',

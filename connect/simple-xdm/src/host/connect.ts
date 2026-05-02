@@ -61,7 +61,7 @@ class Connect {
 		return this.getExtensions(targetSpec);
 	}
 
-	_createId(extension) {
+	_createId(extension: any): any {
 		if (!extension.addon_key || !extension.key) {
 			throw Error('Extensions require addon_key and key');
 		}
@@ -129,15 +129,15 @@ class Connect {
 		this._xdm.registerKeyListener(extension_id, key, modifiers, callback);
 	}
 
-	unregisterKeyListener(extension_id, key, modifiers, callback) {
+	unregisterKeyListener(extension_id: any, key: any, modifiers: any, callback: any): any {
 		this._xdm.unregisterKeyListener(extension_id, key, modifiers, callback);
 	}
 
-	registerClickHandler(callback) {
+	registerClickHandler(callback: any): any {
 		this._xdm.registerClickHandler(callback);
 	}
 
-	unregisterClickHandler() {
+	unregisterClickHandler(): any {
 		this._xdm.unregisterClickHandler();
 	}
 
@@ -145,7 +145,7 @@ class Connect {
 		this._xdm.defineAPIModule(module, moduleName, options);
 	}
 
-	isModuleDefined(moduleName) {
+	isModuleDefined(moduleName: any): any {
 		return this._xdm.isAPIModuleDefined(moduleName);
 	}
 
@@ -165,11 +165,11 @@ class Connect {
 		wrappedMethod.returnsPromise = true;
 	}
 
-	setFeatureFlagGetter(getBooleanFeatureFlag) {
+	setFeatureFlagGetter(getBooleanFeatureFlag: any): any {
 		this._xdm.setFeatureFlagGetter(getBooleanFeatureFlag);
 	}
 
-	registerExistingExtension(extension_id, data) {
+	registerExistingExtension(extension_id: any, data: any): any {
 		return this._xdm.registerExtension(extension_id, data);
 	}
 }

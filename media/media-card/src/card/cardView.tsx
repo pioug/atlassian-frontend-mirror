@@ -138,7 +138,6 @@ export interface RenderConfigByStatus {
 	traceTooltipVariant?: TraceTooltipVariant;
 }
 
-
 export const CardViewBase = ({
 	identifier,
 	innerRef = null,

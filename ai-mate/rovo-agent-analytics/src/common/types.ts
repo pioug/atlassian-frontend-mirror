@@ -12,6 +12,27 @@ export type BaseAgentAnalyticsAttributes = {
 	agentId?: string;
 };
 
+/**
+ * Common attributes for events scoped to a single versioned agent.
+ *
+ * Extends `BaseAgentAnalyticsAttributes` with versioning state so DS can
+ * distinguish first-publish vs republish, edits-on-draft vs edits-after-publish,
+ * etc. without needing a separate event per state.
+ *
+ * - `agentIsPublished` — sourced from the BE `AgentStudioAssistant.isPublished`
+ *   field. Whether the agent has at least one published version.
+ * - `agentVersionNumber` — the version number the event relates to (e.g. the
+ *   version being edited or published). Sourced from the BE
+ *   `AgentStudioAssistant.version.versionNumber` field.
+ *
+ * Apply to every event scoped to a single agent (CRUD, publish, AND usage events).
+ * Pre-mutation create-flow events stay attribute-free — no `agentId` exists yet.
+ */
+export type VersionedAgentAttributes = BaseAgentAnalyticsAttributes & {
+	agentIsPublished?: boolean | null;
+	agentVersionNumber?: number | null;
+};
+
 /** Common library attribute injected into all events */
 export const LIBRARY_ATTRIBUTE = 'agents-analytics' as const;
 

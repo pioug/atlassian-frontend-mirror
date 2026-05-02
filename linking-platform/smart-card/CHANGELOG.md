@@ -1,5 +1,31 @@
 # @atlaskit/smart-card
 
+## 44.5.1
+
+### Patch Changes
+
+- [`9bf56e51dae31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9bf56e51dae31) -
+  Scope block card Rovo Chat action to eligible providers (Google, OneDrive, Slack, Teams, GitHub,
+  GitLab, Salesforce) using an allowlist instead of relying on the supportsRovoActions backend flag.
+- Updated dependencies
+
+## 44.5.0
+
+### Minor Changes
+
+- [`71a9831f934b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71a9831f934b6) -
+  [ux] Design tweaks for the inline post auth action experiment hovercard
+
+### Patch Changes
+
+- [`975109ee06673`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/975109ee06673) -
+  Add gated chat component preloading on hover intent. Introduces `preloadChatOnIntent()` in
+  `@atlassian/conversation-assistant` (subpath `./preload-chat-on-intent`), invoked from the
+  Confluence top-nav and the AI smart button hover handlers. Aligns auto-suggest's live `lazy()`
+  boundary with a shared `importAutoSuggest()` factory and exposes `preloadLazyCardWithUrlContent()`
+  on `@atlaskit/smart-card`. Behaviour is gated by `chat_preload_components`, runs at most once per
+  page load, and is fully non-blocking.
+
 ## 44.4.0
 
 ### Minor Changes

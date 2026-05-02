@@ -13,8 +13,10 @@ const invertedDirection: Record<Direction, Direction> = {
 /**
  * Props for controlling the behavior of the FadeIn animation
  */
-export interface FadeKeyframesMotionProps
-	extends Omit<KeyframesMotionProps, 'animationTimingFunction' | 'animationTimingFunctionExiting'> {
+export interface FadeKeyframesMotionProps extends Omit<
+	KeyframesMotionProps,
+	'animationTimingFunction' | 'animationTimingFunctionExiting'
+> {
 	/**
 	 * The direction the element will enter from using a slide animation. If undefined, no slide will be applied.
 	 */

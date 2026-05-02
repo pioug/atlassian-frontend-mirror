@@ -169,10 +169,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			{
 				name: 'Resizing height',
 				description: 'Animates the container height as items are added or removed vertically.',
-				source: path.resolve(
-					__dirname,
-					'./examples/constellation/motion-resizing-height-new.tsx',
-				),
+				source: path.resolve(__dirname, './examples/constellation/motion-resizing-height-new.tsx'),
 			},
 			{
 				name: 'Resizing both',

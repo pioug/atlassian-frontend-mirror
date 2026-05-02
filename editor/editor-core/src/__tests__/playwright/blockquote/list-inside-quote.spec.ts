@@ -91,11 +91,7 @@ test.describe('List inside a blockquote', () => {
 				const toolbar = EditorMainToolbarModel.from(editor);
 				await toolbar.clickAt('Action item');
 				await expect(editor).toMatchDocument(
-					doc(
-						blockquote(
-							ul(li(p('item 1')), li(taskList({})(taskItem({ state: 'TODO' })('')))),
-						),
-					),
+					doc(blockquote(ul(li(p('item 1')), li(taskList({})(taskItem({ state: 'TODO' })('')))))),
 				);
 			});
 		});

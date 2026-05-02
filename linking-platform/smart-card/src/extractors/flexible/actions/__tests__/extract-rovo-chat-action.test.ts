@@ -20,7 +20,7 @@ describe('extractRovoChatAction', () => {
 			resourceType: 'r1',
 		},
 	};
-	const rovoConfig = { rovoOptions: { isRovoEnabled: true, isRovoLLMEnabled: true }};
+	const rovoConfig = { rovoOptions: { isRovoEnabled: true, isRovoLLMEnabled: true } };
 	const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
 
 	ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', 'returns Rovo Chat action', () => {
@@ -313,6 +313,127 @@ describe('extractRovoChatAction', () => {
 						expect(action).toBeUndefined();
 					});
 				});
+		},
+	);
+
+	// Block card experiment (NAVX-4814): uses ELIGIBLE_EXTENSION_KEYS allowlist instead of supportsRovoActions
+	ffTest.on(
+		'platform_sl_3p_auth_rovo_block_card_kill_switch',
+		'returns Rovo Chat action for eligible providers on block card',
+		() => {
+			it('returns Rovo Chat action for eligible provider without requiring supportsRovoActions', () => {
+				const slackResponse: JsonLd.Response = {
+					data: TEST_DOCUMENT,
+					meta: {
+						...TEST_RESOLVED_META_DATA,
+						definitionId: 'd1',
+						key: 'slack-object-provider',
+						resourceType: 'r1',
+						// Note: no supportedFeature: ['RovoActions'] - allowlist is used instead
+					},
+				};
+
+				const action = extractRovoChatAction({
+					actionOptions,
+					appearance: 'block',
+					product: 'JSM',
+					id: 'uid',
+					response: slackResponse,
+					rovoConfig,
+				});
+
+				expect(action).toEqual({
+					invokeAction: {
+						actionSubjectId: 'rovoChatPrompt',
+						actionType: 'RovoChatAction',
+						definitionId: 'd1',
+						display: 'block',
+						extensionKey: 'slack-object-provider',
+						id: 'uid',
+						resourceType: 'r1',
+					},
+					product: 'JSM',
+					url: 'https://my.url.com',
+				});
+			});
+
+			it('returns Rovo Chat action for google provider on block card', () => {
+				const action = extractRovoChatAction({
+					actionOptions,
+					appearance: 'block',
+					product: 'JSM',
+					id: 'uid',
+					response, // google-object-provider
+					rovoConfig,
+				});
+
+				expect(action).toEqual({
+					invokeAction: {
+						actionSubjectId: 'rovoChatPrompt',
+						actionType: 'RovoChatAction',
+						definitionId: 'd1',
+						display: 'block',
+						extensionKey: 'google-object-provider',
+						id: 'uid',
+						resourceType: 'r1',
+					},
+					product: 'JSM',
+					url: 'https://my.url.com',
+				});
+			});
+
+			it('does not return Rovo Chat action for ineligible provider on block card', () => {
+				const ineligibleResponse: JsonLd.Response = {
+					data: TEST_DOCUMENT,
+					meta: {
+						...TEST_RESOLVED_META_DATA,
+						definitionId: 'd1',
+						key: 'confluence-object-provider',
+						resourceType: 'r1',
+						supportedFeature: ['RovoActions'],
+					},
+				};
+
+				const action = extractRovoChatAction({
+					actionOptions,
+					appearance: 'block',
+					product: 'JSM',
+					id: 'uid',
+					response: ineligibleResponse,
+					rovoConfig,
+				});
+
+				expect(action).toBeUndefined();
+			});
+		},
+	);
+
+	ffTest.off(
+		'platform_sl_3p_auth_rovo_block_card_kill_switch',
+		'does not return Rovo Chat action for block card when kill switch is off',
+		() => {
+			it('does not return Rovo Chat action for eligible provider when block card kill switch is off', () => {
+				const slackResponse: JsonLd.Response = {
+					data: TEST_DOCUMENT,
+					meta: {
+						...TEST_RESOLVED_META_DATA,
+						definitionId: 'd1',
+						key: 'slack-object-provider',
+						resourceType: 'r1',
+					},
+				};
+
+				const action = extractRovoChatAction({
+					actionOptions,
+					appearance: 'block',
+					product: 'JSM',
+					id: 'uid',
+					response: slackResponse,
+					rovoConfig,
+				});
+
+				expect(action).toBeUndefined();
+			});
 		},
 	);
 

@@ -9,13 +9,13 @@
  * 2. If this action doesn't fit editing/mutation events, create a new group file instead
  *    (see other files in this directory for the template)
  */
-import type { BaseAgentAnalyticsAttributes } from '../../common/types';
+import type { VersionedAgentAttributes } from '../../common/types';
 
 export type EditingEventPayload = {
 	// https://data-portal.internal.atlassian.com/analytics/registry/97122
 	actionSubject: 'rovoAgent';
 	action: 'updated';
-	attributes: BaseAgentAnalyticsAttributes & {
+	attributes: VersionedAgentAttributes & {
 		agentType: string;
 		field: string;
 	};

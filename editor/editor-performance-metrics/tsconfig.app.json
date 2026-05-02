@@ -29,7 +29,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-performance-metrics/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-performance-metrics/app",
+		"isolatedDeclarations": true
 	},
 	"references": [],
 	"files": []

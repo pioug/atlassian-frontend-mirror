@@ -75,7 +75,7 @@ export const createPlugin = (
 								isInverted: false,
 								diffType: 'inline',
 								hideDeletedDiffs: false,
-						  }
+							}
 						: {}),
 				};
 			},
@@ -113,7 +113,7 @@ export const createPlugin = (
 										isInverted: newPluginState?.isInverted,
 										diffType: newPluginState?.diffType,
 										hideDeletedDiffs: newPluginState?.hideDeletedDiffs,
-								  }
+									}
 								: {}),
 						});
 						// Update the decorations
@@ -180,7 +180,7 @@ export const createPlugin = (
 											isInverted: newPluginState.isInverted,
 											diffType: newPluginState.diffType,
 											hideDeletedDiffs: newPluginState.hideDeletedDiffs,
-									  }
+										}
 									: {}),
 							});
 							newPluginState.decorations = updatedDecorations;

@@ -127,8 +127,9 @@ export function InlineCardResolvedViewFunctionalWithRovoActions({
 	);
 }
 
-export const InlineCardResolvedViewFunctional: React.FC<InlineCardResolvedViewFunctionalProps> = componentWithFG(
-	'rovogrowth-640-inline-action-nudge-fg',
-	InlineCardResolvedViewFunctionalWithRovoActions,
-	InlineCardResolvedViewBase,
-);
+export const InlineCardResolvedViewFunctional: React.FC<InlineCardResolvedViewFunctionalProps> =
+	componentWithFG(
+		'rovogrowth-640-inline-action-nudge-fg',
+		InlineCardResolvedViewFunctionalWithRovoActions,
+		InlineCardResolvedViewBase,
+	);

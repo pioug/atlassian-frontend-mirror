@@ -4,6 +4,7 @@ import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type { EditorInjectionAPI } from '@atlaskit/editor-common/types';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { EditorContext } from '@atlaskit/editor-core/editor-context';
 import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
@@ -145,7 +146,10 @@ const CollabEditor = ({ userId, collabProps, setIsReady }: CollabEditorProps) =>
 		};
 	}, []);
 
-	const { collabEditState } = useSharedPluginState(editorApi, ['collabEdit']);
+	const { collabEditState } = useSharedPluginState(
+		editorApi as EditorInjectionAPI<any, any> | null | undefined,
+		['collabEdit'],
+	);
 
 	useEffect(() => {
 		if (!collabEditState?.initialised?.collabInitialisedAt) {

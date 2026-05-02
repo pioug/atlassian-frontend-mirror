@@ -172,7 +172,8 @@ export default function createUniversalPresetInternal({
 	initialPluginConfiguration?: InitialPluginConfiguration;
 	prevAppearance?: EditorAppearance;
 	props: UniversalPresetProps;
-}) {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Required for --isolatedDeclarations; preset builder return type is too complex to spell out here.
+}): any {
 	const isComment = appearance === 'comment';
 	const isChromeless = appearance === 'chromeless';
 	const isFullPage = fullPageCheck(appearance);

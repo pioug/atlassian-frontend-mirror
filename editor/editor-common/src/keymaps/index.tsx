@@ -16,6 +16,7 @@ import type { EditorCommand } from '../types/editor-command';
 import { getBrowserInfo } from '../utils/browser';
 
 export const addAltText: Keymap = makeKeyMapWithCommon('Add Alt Text', 'Mod-Alt-y');
+export const toggleMarkdownView: Keymap = makeKeyMapWithCommon('Toggle markdown view', 'Mod-e');
 export const toggleViewChanges: Keymap = makeKeyMapWithCommon('View changes', 'Mod-Alt-z');
 export const navToEditorToolbar: Keymap = makeKeyMapWithCommon(
 	'Navigate to editor toolbar',

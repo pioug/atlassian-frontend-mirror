@@ -15,7 +15,8 @@ export function createUniversalPreset({
 	initialPluginConfiguration?: InitialPluginConfiguration;
 	prevProps?: EditorProps;
 	props: EditorProps;
-}) {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Required for --isolatedDeclarations; preset builder return type is too complex to spell out here.
+}): any {
 	return createUniversalPresetInternal({
 		appearance: props.appearance,
 		props: getDefaultPresetOptionsFromEditorProps(props),

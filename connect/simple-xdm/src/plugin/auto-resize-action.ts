@@ -4,7 +4,7 @@ import Util from '../common/util';
 import size from './size';
 
 class AutoResizeAction {
-	constructor(callback) {
+	constructor(callback: any) {
 		this.resizeError = Util.throttle(function (msg) {
 			// eslint-disable-next-line no-console
 			console.info(msg);
@@ -17,7 +17,7 @@ class AutoResizeAction {
 		this.callback = callback;
 	}
 
-	_setVal(val, type, time) {
+	_setVal(val: any, type: any, time: any): any {
 		this.dimensionStores[type] = this.dimensionStores[type].filter(function (entry) {
 			return time - entry.setAt < 400;
 		});
@@ -27,11 +27,11 @@ class AutoResizeAction {
 		});
 	}
 
-	_isFlicker(val, type) {
+	_isFlicker(val: any, type: any): any {
 		return this.dimensionStores[type].length >= 5;
 	}
 
-	triggered(dimensions) {
+	triggered(dimensions: any): any {
 		dimensions = dimensions || size();
 		let now = Date.now();
 		this._setVal(dimensions.w, 'width', now);

@@ -38,9 +38,7 @@ export function normalizeSelection(
 		}
 	} else if (sel instanceof TextSelection && isCellBoundarySelection(sel)) {
 		normalize = TextSelection.create(doc, sel.from);
-	} else if (
-		sel instanceof TextSelection && isTextSelectionAcrossSameTableCells(sel)
-	) {
+	} else if (sel instanceof TextSelection && isTextSelectionAcrossSameTableCells(sel)) {
 		normalize = TextSelection.create(doc, sel.$from.start(), sel.$from.end());
 	}
 	if (normalize) {

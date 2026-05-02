@@ -37,7 +37,10 @@ const documentation: ComponentStructuredContentSource[] = [
 			{
 				name: 'Confluence search config modal',
 				description: 'ConfluenceSearchConfigModal for configuring a Confluence search datasource.',
-				source: path.resolve(packagePath, './docs/examples/basic-confluence-search-config-modal.tsx'),
+				source: path.resolve(
+					packagePath,
+					'./docs/examples/basic-confluence-search-config-modal.tsx',
+				),
 			},
 		],
 	},
@@ -135,7 +138,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'buildDatasourceAdf',
-		description: 'Utility that builds datasource ADF (ADF node for list of links) from datasource parameters. Used to persist or pass datasource config into the editor or table view.',
+		description:
+			'Utility that builds datasource ADF (ADF node for list of links) from datasource parameters. Used to persist or pass datasource config into the editor or table view.',
 		status: 'general-availability',
 		import: {
 			name: 'buildDatasourceAdf',

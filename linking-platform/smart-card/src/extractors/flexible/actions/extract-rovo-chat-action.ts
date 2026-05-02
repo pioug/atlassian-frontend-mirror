@@ -25,7 +25,7 @@ type ExtractInvokeRovoChatActionParam = {
 	rovoConfig?: RovoConfig;
 };
 
-// For rovogrowth-640 post auth inline experiment
+// For rovogrowth-640 post auth inline experiment and block card experiment (NAVX-4814)
 const ELIGIBLE_EXTENSION_KEYS = new Set([
 	'slack-object-provider',
 	'google-object-provider',
@@ -53,7 +53,6 @@ const extractRovoChatAction = ({
 		return;
 	}
 
-	const supportsRovoActions = response?.meta?.supportedFeature?.includes('RovoActions');
 	const extensionKey = getExtensionKey(response);
 	const isGoogleProvider = extensionKey === 'google-object-provider';
 	const is3PAuthRovoActionEnabled =
@@ -64,7 +63,9 @@ const extractRovoChatAction = ({
 		fg('rovogrowth-640-inline-action-nudge-fg') &&
 		expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true);
 	const is3PBlockPostAuthActionsEnabled =
-		supportsRovoActions && fg('platform_sl_3p_auth_rovo_block_card_kill_switch');
+		extensionKey !== undefined &&
+		ELIGIBLE_EXTENSION_KEYS.has(extensionKey) &&
+		fg('platform_sl_3p_auth_rovo_block_card_kill_switch');
 
 	const isSupportedFeature =
 		is3PInlinePostAuthActionsEnabled ||

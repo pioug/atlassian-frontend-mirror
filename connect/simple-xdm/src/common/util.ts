@@ -2,7 +2,7 @@
 const LOG_PREFIX = '[Simple-XDM] ';
 const nativeBind = Function.prototype.bind;
 const util = {
-	locationOrigin() {
+	locationOrigin(): any {
 		if (!window.location.origin) {
 			return (
 				window.location.protocol +
@@ -15,19 +15,19 @@ const util = {
 		}
 	},
 
-	randomString() {
+	randomString(): any {
 		return Math.floor(Math.random() * 1000000000).toString(16);
 	},
 
-	isString(str) {
+	isString(str: any): any {
 		return typeof str === 'string' || str instanceof String;
 	},
 
-	argumentsToArray(arrayLike) {
+	argumentsToArray(arrayLike: any): any {
 		return Array.prototype.slice.call(arrayLike);
 	},
 
-	argumentNames(fn) {
+	argumentNames(fn: any): any {
 		return (
 			fn
 				.toString()
@@ -37,12 +37,12 @@ const util = {
 		);
 	},
 
-	hasCallback(args) {
+	hasCallback(args: any): any {
 		var length = args.length;
 		return length > 0 && typeof args[length - 1] === 'function';
 	},
 
-	error(msg) {
+	error(msg: any): any {
 		if (window.console && window.console.error) {
 			var outputError = [];
 
@@ -57,19 +57,19 @@ const util = {
 		}
 	},
 
-	warn(msg) {
+	warn(msg: any): any {
 		if (window.console) {
 			// eslint-disable-next-line no-console
 			console.warn(LOG_PREFIX + msg);
 		}
 	},
-	log(msg) {
+	log(msg: any): any {
 		if (window.console) {
 			window.console.log(LOG_PREFIX + msg);
 		}
 	},
 
-	_bind(thisp, fn) {
+	_bind(thisp: any, fn: any): any {
 		if (nativeBind && fn.bind === nativeBind) {
 			return fn.bind(thisp);
 		}
@@ -78,9 +78,9 @@ const util = {
 		};
 	},
 
-	throttle(func, wait, context) {
+	throttle(func: any, wait: any, context: any) {
 		var previous = 0;
-		return function () {
+		return function (): any {
 			var now = Date.now();
 			if (now - previous > wait) {
 				previous = now;
@@ -89,7 +89,7 @@ const util = {
 		};
 	},
 
-	each(list, iteratee) {
+	each(list: any, iteratee: any): any {
 		var length;
 		var key;
 		if (list) {
@@ -114,7 +114,7 @@ const util = {
 		}
 	},
 
-	extend(dest) {
+	extend(dest: any): any {
 		var args = arguments;
 		var srcs = [].slice.call(args, 1, args.length);
 		srcs.forEach(function (source) {
@@ -127,7 +127,7 @@ const util = {
 		return dest;
 	},
 
-	sanitizeStructuredClone(object) {
+	sanitizeStructuredClone(object: any): any {
 		const whiteList = [Boolean, String, Date, RegExp, Blob, File, FileList, ArrayBuffer];
 		const blackList = [Error, Node];
 		const warn = util.warn;
@@ -187,7 +187,7 @@ const util = {
 		return _clone(object);
 	},
 
-	getOrigin(url, base) {
+	getOrigin(url: any, base: any): any {
 		// everything except IE11
 		if (typeof URL === 'function') {
 			try {

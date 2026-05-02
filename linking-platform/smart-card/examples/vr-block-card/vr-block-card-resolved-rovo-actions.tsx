@@ -38,7 +38,11 @@ const VRBlockCardResolvedRovoActions: {
 				client={new ProviderClient()}
 				rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}
 			>
-				<Card appearance="block" url={SlackMessage.data.url} actionOptions={{ hide: false, rovoChatAction: { optIn: true}}} />
+				<Card
+					appearance="block"
+					url={SlackMessage.data.url}
+					actionOptions={{ hide: false, rovoChatAction: { optIn: true } }}
+				/>
 			</SmartCardProvider>
 		</ExampleContainer>
 	);

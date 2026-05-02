@@ -844,8 +844,7 @@ export const syncBlockMessages: {
 	},
 	cannotPasteSyncedBlockUnsupportedDescription: {
 		id: 'fabric.editor.cannotPasteSyncedBlockUnsupportedDescription',
-		defaultMessage:
-			`Sync blocks aren't supported here yet. `,
+		defaultMessage: `Sync blocks aren't supported here yet. `,
 		description: 'Description in flag which appears when a synced block cannot be pasted',
 	},
 	cannotPasteSyncedBlockAction: {

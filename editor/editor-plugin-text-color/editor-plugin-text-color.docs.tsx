@@ -5,7 +5,6 @@
 
 import path from 'path';
 
-
 import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
 
 import packageJson from './package.json';
@@ -30,7 +29,11 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['editor', 'editor-plugin-text-color', 'atlaskit'],
 		categories: ['editor'],
 		examples: [
-			{ name: 'Composable editor with text color', description: 'Text color plugin in composable editor.', source: path.resolve(packagePath, './examples/1-composable-editor-with-text-color.tsx') },
+			{
+				name: 'Composable editor with text color',
+				description: 'Text color plugin in composable editor.',
+				source: path.resolve(packagePath, './examples/1-composable-editor-with-text-color.tsx'),
+			},
 		],
 	},
 ];

@@ -13,7 +13,11 @@ interface PresetProps {
 	props: EditorProps;
 }
 
-export default function useUniversalPreset({ props, initialPluginConfiguration }: PresetProps) {
+export default function useUniversalPreset({
+	props,
+	initialPluginConfiguration,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Required for --isolatedDeclarations; preset builder return type is too complex to spell out here.
+}: PresetProps): any {
 	const previousEditorProps = usePreviousState(props);
 	const [preset, setPreset] = useState(() =>
 		createUniversalPreset({ props, prevProps: previousEditorProps, initialPluginConfiguration }),

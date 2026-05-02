@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 14.1.0
+
+### Minor Changes
+
+- [`06a50a4e30a01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06a50a4e30a01) -
+  Add rule to discourage usage of disabled and readonly inputs.
+
 ## 14.0.0
 
 ### Major Changes

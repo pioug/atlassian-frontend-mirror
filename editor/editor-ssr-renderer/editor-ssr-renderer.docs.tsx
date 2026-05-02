@@ -5,7 +5,6 @@
 
 import path from 'path';
 
-
 import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
 
 import packageJson from './package.json';
@@ -30,9 +29,21 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['editor', 'editor-ssr-renderer', 'atlaskit'],
 		categories: ['editor'],
 		examples: [
-			{ name: 'All nodes', description: 'SSR renderer with all ADF node types.', source: path.resolve(packagePath, './examples/0-all-nodes.tsx') },
-			{ name: 'Code blocks', description: 'SSR renderer code block example.', source: path.resolve(packagePath, './examples/10-code-blocks.tsx') },
-			{ name: 'Text', description: 'SSR renderer text nodes.', source: path.resolve(packagePath, './examples/10-text.tsx') },
+			{
+				name: 'All nodes',
+				description: 'SSR renderer with all ADF node types.',
+				source: path.resolve(packagePath, './examples/0-all-nodes.tsx'),
+			},
+			{
+				name: 'Code blocks',
+				description: 'SSR renderer code block example.',
+				source: path.resolve(packagePath, './examples/10-code-blocks.tsx'),
+			},
+			{
+				name: 'Text',
+				description: 'SSR renderer text nodes.',
+				source: path.resolve(packagePath, './examples/10-text.tsx'),
+			},
 		],
 	},
 ];

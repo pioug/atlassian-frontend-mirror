@@ -59,7 +59,11 @@ export const createPlugin = (
 				const { content } = slice;
 				const nodeName = content.firstChild?.type.name;
 
-				if (!nodeName || !contentMoved?.nodeTypes || !isCursorSelectionAtTopLevel(state.selection)) {
+				if (
+					!nodeName ||
+					!contentMoved?.nodeTypes ||
+					!isCursorSelectionAtTopLevel(state.selection)
+				) {
 					return;
 				}
 

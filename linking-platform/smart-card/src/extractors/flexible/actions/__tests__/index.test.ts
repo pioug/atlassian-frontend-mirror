@@ -359,7 +359,7 @@ describe('extractFlexibleCardActions', () => {
 				key: 'google-object-provider',
 			},
 		};
-		const rovoConfig = { rovoOptions: { isRovoEnabled: true, isRovoLLMEnabled: true }};
+		const rovoConfig = { rovoOptions: { isRovoEnabled: true, isRovoLLMEnabled: true } };
 		const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
 
 		ffTest(

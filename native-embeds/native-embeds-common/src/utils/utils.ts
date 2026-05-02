@@ -91,7 +91,11 @@ const deserializeParameterValue = <TKey extends NativeEmbedParameterKey>(
 	key: TKey,
 	value: unknown,
 ): NativeEmbedParameterValues[TKey] | undefined => {
-	const parsedValue = parseFromDefault(NATIVE_EMBED_PARAMETER_DEFAULTS[key], value, PARAMETER_TYPES[key]);
+	const parsedValue = parseFromDefault(
+		NATIVE_EMBED_PARAMETER_DEFAULTS[key],
+		value,
+		PARAMETER_TYPES[key],
+	);
 	const validator = PARAMETER_VALIDATORS[key];
 
 	if (parsedValue === undefined) {

@@ -436,7 +436,9 @@ describe('@atlaskit/editor-core', () => {
 			);
 
 			// Expect document changed with mention text attr empty
-			const apiPromise = new Promise((resolve) => preset.apiResolver.on((api) => resolve(api)));
+			const apiPromise = new Promise((resolve) =>
+				preset.apiResolver.on((api: PublicPluginAPI<[AnalyticsPlugin]>) => resolve(api)),
+			);
 			const editorAPI = (await apiPromise) as PublicPluginAPI<[AnalyticsPlugin]>;
 			const { resolver, requestPromise } = getPromiseResolver();
 
@@ -488,7 +490,9 @@ describe('@atlaskit/editor-core', () => {
 				/>,
 			);
 
-			const apiPromise = new Promise((resolve) => preset.apiResolver.on((api) => resolve(api)));
+			const apiPromise = new Promise((resolve) =>
+				preset.apiResolver.on((api: PublicPluginAPI<[AnalyticsPlugin]>) => resolve(api)),
+			);
 			const editorAPI = (await apiPromise) as PublicPluginAPI<[AnalyticsPlugin]>;
 			const { resolver, requestPromise } = getPromiseResolver();
 
@@ -539,7 +543,9 @@ describe('@atlaskit/editor-core', () => {
 				/>,
 			);
 
-			const apiPromise = new Promise((resolve) => preset.apiResolver.on((api) => resolve(api)));
+			const apiPromise = new Promise((resolve) =>
+				preset.apiResolver.on((api: PublicPluginAPI<[AnalyticsPlugin]>) => resolve(api)),
+			);
 			const editorAPI = (await apiPromise) as PublicPluginAPI<[AnalyticsPlugin]>;
 			const { resolver, requestPromise } = getPromiseResolver();
 
@@ -809,7 +815,9 @@ describe('@atlaskit/editor-core', () => {
 					}}
 				/>,
 			);
-			const apiPromise = new Promise((resolve) => preset.apiResolver.on((api) => resolve(api)));
+			const apiPromise = new Promise((resolve) =>
+				preset.apiResolver.on((api: PublicPluginAPI<[AnalyticsPlugin]>) => resolve(api)),
+			);
 			const editorAPI = (await apiPromise) as PublicPluginAPI<[AnalyticsPlugin]>;
 			const { resolver, requestPromise } = getPromiseResolver();
 
@@ -842,7 +850,9 @@ describe('@atlaskit/editor-core', () => {
 					}}
 				/>,
 			);
-			const apiPromise = new Promise((resolve) => preset.apiResolver.on((api) => resolve(api)));
+			const apiPromise = new Promise((resolve) =>
+				preset.apiResolver.on((api: PublicPluginAPI<[AnalyticsPlugin]>) => resolve(api)),
+			);
 			const editorAPI = (await apiPromise) as PublicPluginAPI<[AnalyticsPlugin]>;
 
 			const schema = editorAPI?.core.actions.createTransformer(
@@ -1270,13 +1280,7 @@ describe('@atlaskit/editor-core', () => {
 
 		const captureRenderProp = () => {
 			const calls: Array<EditorConfig['contentComponents']> = [];
-			const renderProp = ({
-				editor,
-				config,
-			}: {
-				config: EditorConfig;
-				editor: JSX.Element;
-			}) => {
+			const renderProp = ({ editor, config }: { config: EditorConfig; editor: JSX.Element }) => {
 				// `config` is a useRef value mutated in place by `reconfigureState`,
 				// so snapshot the array now.
 				calls.push([...config.contentComponents]);
@@ -1293,21 +1297,11 @@ describe('@atlaskit/editor-core', () => {
 				const presetWithMarker = createUniversalPreset({ props: {} }).add(markerPlugin);
 
 				const { rerender } = renderWithIntl(
-					<ReactEditorView
-						{...baseProps}
-						preset={presetWithoutMarker}
-						render={renderProp}
-					/>,
+					<ReactEditorView {...baseProps} preset={presetWithoutMarker} render={renderProp} />,
 				);
 				expect(calls.at(-1)).not.toContain(markerContentComponent);
 
-				rerender(
-					<ReactEditorView
-						{...baseProps}
-						preset={presetWithMarker}
-						render={renderProp}
-					/>,
-				);
+				rerender(<ReactEditorView {...baseProps} preset={presetWithMarker} render={renderProp} />);
 
 				// With the gate ON, `bumpConfigVersion` schedules a follow-up
 				// render so the render prop is re-invoked with the post-mutation
@@ -1323,20 +1317,10 @@ describe('@atlaskit/editor-core', () => {
 				const presetWithMarker = createUniversalPreset({ props: {} }).add(markerPlugin);
 
 				const { rerender } = renderWithIntl(
-					<ReactEditorView
-						{...baseProps}
-						preset={presetWithoutMarker}
-						render={renderProp}
-					/>,
+					<ReactEditorView {...baseProps} preset={presetWithoutMarker} render={renderProp} />,
 				);
 
-				rerender(
-					<ReactEditorView
-						{...baseProps}
-						preset={presetWithMarker}
-						render={renderProp}
-					/>,
-				);
+				rerender(<ReactEditorView {...baseProps} preset={presetWithMarker} render={renderProp} />);
 
 				// Gate OFF: the layout effect mutates `config.current` in place
 				// without scheduling a re-render. Flush any pending React work so

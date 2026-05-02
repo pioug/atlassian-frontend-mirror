@@ -116,6 +116,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-01
+	platform_editor_ai_normalized_telemetry: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-09
 	platform_editor_react19_migration: {
 		defaultValue: boolean;
@@ -1193,6 +1200,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-17
+	cc_page_experiences_premium_macros_img_generation: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-23
 	'cc-maui-experiment': {
 		defaultValue: boolean;
@@ -1712,7 +1726,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-
+	// Added 2026-04-22
+	platform_editor_ai_screen_layout_refactor: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-23
 	platform_editor_emojis_in_renderer_smart_links: {
 		defaultValue: boolean;
@@ -3080,6 +3100,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-04-17
+	cc_page_experiences_premium_macros_img_generation: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_page_experiences_premium_macros_img_generation',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-02-23
 	'cc-maui-experiment': createBooleanExperiment({
 		productKeys: {
@@ -3451,7 +3479,14 @@ export const editorExperimentsConfig: {
 	platform_editor_chromeless_expand_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_chromeless_expand_fix',
-			jira: 'platform_editor_chromeless_expand_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-01
+	platform_editor_ai_normalized_telemetry: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_normalized_telemetry',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3744,6 +3779,14 @@ export const editorExperimentsConfig: {
 	cc_dnd_smart_link_changeboard_platform_css: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_dnd_smart_link_changeboard_platform_css',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-22
+	platform_editor_ai_screen_layout_refactor: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_screen_layout_refactor',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

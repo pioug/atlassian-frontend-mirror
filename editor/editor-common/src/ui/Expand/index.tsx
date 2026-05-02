@@ -86,8 +86,7 @@ export const messages: {
 	expandBodyAriaLabel: {
 		id: 'fabric.editor.expandBodyAriaLabel',
 		defaultMessage: 'Expand body content',
-		description:
-			'Aria label for the body content of an expand node',
+		description: 'Aria label for the body content of an expand node',
 	},
 });
 

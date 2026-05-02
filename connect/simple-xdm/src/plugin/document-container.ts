@@ -1,7 +1,7 @@
 // @ts-nocheck
 import $ from './dollar';
 
-function getContainer() {
+function getContainer(): any {
 	// Look for these two selectors first... you need these to allow for the auto-shrink to work
 	// Otherwise, it'll default to document.body which can't auto-grow or auto-shrink
 	var container = $('.ac-content, #content');

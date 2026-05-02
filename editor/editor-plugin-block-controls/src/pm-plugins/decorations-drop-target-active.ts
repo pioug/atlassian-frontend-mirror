@@ -413,9 +413,9 @@ export const getActiveDropTargetDecorations = (
 	defaultActiveAnchorTracker.emit(
 		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 			? api.core.actions.getAnchorIdForNode(
-				anchorEmitNodeWithPos.node,
-				anchorEmitNodeWithPos.pos,
-			) || ''
+					anchorEmitNodeWithPos.node,
+					anchorEmitNodeWithPos.pos,
+				) || ''
 			: getNodeAnchor(anchorEmitNodeWithPos.node),
 	);
 

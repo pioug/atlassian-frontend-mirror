@@ -489,4 +489,4 @@ export class ShareDialogContainerInternal extends React.Component<
  * ⚠️ DO NOT USE — This component has been replaced by @atlassian/jira-share-dialog.
  * It will be removed once the switch-over is complete.
  */
-export const ShareDialogContainer = withAnalyticsEvents()(ShareDialogContainerInternal);
+export const ShareDialogContainer: any = withAnalyticsEvents()(ShareDialogContainerInternal);

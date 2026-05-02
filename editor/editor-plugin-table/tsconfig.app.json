@@ -30,7 +30,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-table/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-table/app",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

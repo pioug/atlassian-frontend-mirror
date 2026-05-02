@@ -358,4 +358,4 @@ const customMatchers = {
 	},
 };
 
-export const expect = baseExpect.extend(customMatchers);
+export const expect: any = baseExpect.extend(customMatchers);

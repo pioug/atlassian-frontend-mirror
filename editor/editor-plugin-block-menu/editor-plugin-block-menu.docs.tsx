@@ -5,7 +5,6 @@
 
 import path from 'path';
 
-
 import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
 
 import packageJson from './package.json';
@@ -30,7 +29,11 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['editor', 'editor-plugin-block-menu', 'atlaskit'],
 		categories: ['editor'],
 		examples: [
-			{ name: 'Basic', description: 'Block menu plugin usage.', source: path.resolve(packagePath, './examples/basic.tsx') },
+			{
+				name: 'Basic',
+				description: 'Block menu plugin usage.',
+				source: path.resolve(packagePath, './examples/basic.tsx'),
+			},
 		],
 	},
 ];

@@ -5,7 +5,6 @@
 
 import path from 'path';
 
-
 import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
 
 import packageJson from './package.json';
@@ -30,7 +29,11 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['editor', 'extension-dropbox', 'atlaskit'],
 		categories: ['editor'],
 		examples: [
-			{ name: 'Test modal', description: 'Dropbox extension test modal example.', source: path.resolve(packagePath, './examples/bad-example-test-modal.tsx') },
+			{
+				name: 'Test modal',
+				description: 'Dropbox extension test modal example.',
+				source: path.resolve(packagePath, './examples/bad-example-test-modal.tsx'),
+			},
 		],
 	},
 ];

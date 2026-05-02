@@ -60,6 +60,7 @@ export const messages: {
 	help_panel_new_chat_button: {
 		id: 'helpPanel.header.new.chat.button',
 		defaultMessage: 'New',
-		description: 'Start a new chat with CSM agent',
+		description:
+			'Label for the button in the help panel header that starts a new chat session with the CSM agent.',
 	},
 });

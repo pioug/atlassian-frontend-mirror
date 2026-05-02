@@ -5,7 +5,6 @@
 
 import path from 'path';
 
-
 import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
 
 import packageJson from './package.json';
@@ -30,7 +29,11 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['editor', 'editor-plugin-tasks-and-decisions', 'atlaskit'],
 		categories: ['editor'],
 		examples: [
-			{ name: 'Composable editor tasks and decisions', description: 'Tasks and decisions plugin in composable editor.', source: path.resolve(packagePath, './examples/1-composable-editor-tasks-and-decisions.tsx') },
+			{
+				name: 'Composable editor tasks and decisions',
+				description: 'Tasks and decisions plugin in composable editor.',
+				source: path.resolve(packagePath, './examples/1-composable-editor-tasks-and-decisions.tsx'),
+			},
 		],
 	},
 ];

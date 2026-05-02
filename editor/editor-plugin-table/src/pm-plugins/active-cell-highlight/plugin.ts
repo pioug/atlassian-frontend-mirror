@@ -23,9 +23,8 @@ const EMPTY_STATE: ActiveCellHighlightState = {
 	decorationSet: DecorationSet.empty,
 };
 
-export const activeCellHighlightPluginKey: PluginKey<ActiveCellHighlightState> = new PluginKey<ActiveCellHighlightState>(
-	'tableActiveCellHighlight',
-);
+export const activeCellHighlightPluginKey: PluginKey<ActiveCellHighlightState> =
+	new PluginKey<ActiveCellHighlightState>('tableActiveCellHighlight');
 
 /**
  * Returns the position of the cell containing the cursor, or -1 if the cursor

@@ -40,7 +40,8 @@
 			"@atlaskit/editor-performance-metrics/src/*": [
 				"packages/editor/editor-performance-metrics/src/*"
 			]
-		}
+		},
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

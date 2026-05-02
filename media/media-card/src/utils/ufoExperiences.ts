@@ -7,10 +7,7 @@ import {
 	type CustomData,
 } from '@atlaskit/ufo';
 import { type CardStatus } from '../types';
-import {
-	type FileAttributes,
-	getFeatureFlagKeysAllProducts,
-} from '@atlaskit/media-common';
+import { type FileAttributes, getFeatureFlagKeysAllProducts } from '@atlaskit/media-common';
 import { isValidUuid } from '@atlaskit/media-common/isValidUuid';
 import { UFOExperienceState } from '@atlaskit/ufo';
 import {

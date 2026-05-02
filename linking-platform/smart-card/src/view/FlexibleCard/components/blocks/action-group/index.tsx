@@ -20,7 +20,10 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { ActionName, CardDisplay, SmartLinkSize } from '../../../../../constants';
 import { messages } from '../../../../../messages';
-import { useFlexibleUiContext, useFlexibleUiOptionContext } from '../../../../../state/flexible-ui-context';
+import {
+	useFlexibleUiContext,
+	useFlexibleUiOptionContext,
+} from '../../../../../state/flexible-ui-context';
 import { RovoChatPromptKey } from '../../actions/rovo-chat-action';
 import { sizeToButtonSpacing } from '../../utils';
 import type { ActionItem } from '../types';
@@ -39,7 +42,7 @@ const styles = css({
 	},
 });
 
-const FULL_ACTIONS_SIZE = 450
+const FULL_ACTIONS_SIZE = 450;
 const REDUCED_ACTIONS_SIZE = 360;
 
 const renderActionItems = (
@@ -136,7 +139,7 @@ const ActionGroup = ({
 		renderableActionItems,
 		size,
 		visibleButtonsNum,
-		containerWidth
+		containerWidth,
 	]);
 
 	const moreActionDropdown = useMemo(() => {
@@ -198,7 +201,7 @@ const ActionGroup = ({
 		size,
 		ui?.zIndex,
 		visibleButtonsNum,
-		containerWidth
+		containerWidth,
 	]);
 
 	return renderableActionItems.length > 0 ? (

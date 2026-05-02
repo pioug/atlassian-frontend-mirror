@@ -20,6 +20,8 @@ import { selectionExtensionPlugin } from '@atlaskit/editor-plugin-selection-exte
 import type {
 	ExtensionConfiguration,
 	ExtensionMenuItemConfiguration,
+	SelectionExtensionCallbackOptions,
+	SelectionExtensionComponentProps,
 } from '@atlaskit/editor-plugin-selection-extension';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
 import type { SyncedBlockPluginOptions } from '@atlaskit/editor-plugin-synced-block';
@@ -329,13 +331,13 @@ function ComposableEditorPage() {
 						firstParty: [
 							{
 								name: 'Create Jira Issue',
-								onClick: (params) => {
+								onClick: (params: SelectionExtensionCallbackOptions) => {
 									console.log(JSON.stringify(params));
 								},
 							},
 							{
 								name: 'Component Example',
-								component: ({ closeExtension, selection }) => {
+								component: ({ closeExtension, selection }: SelectionExtensionComponentProps) => {
 									return <ExampleForgeApp closeExtension={closeExtension} selection={selection} />;
 								},
 							},
@@ -344,14 +346,14 @@ function ComposableEditorPage() {
 							{
 								name: 'App 1',
 								icon: AppIcon,
-								onClick: (params) => {
+								onClick: (params: SelectionExtensionCallbackOptions) => {
 									console.log(JSON.stringify(params));
 								},
 							},
 							{
 								name: 'App 2',
 								icon: AppIcon,
-								component: ({ closeExtension, selection }) => {
+								component: ({ closeExtension, selection }: SelectionExtensionComponentProps) => {
 									return <ExampleForgeApp closeExtension={closeExtension} selection={selection} />;
 								},
 							},
@@ -380,7 +382,7 @@ function ComposableEditorPage() {
 
 	const existingComponents = editorApi?.blockMenu?.actions.getBlockMenuComponents();
 	const alreadyRegistered = existingComponents?.some(
-		(component) => component.key === 'deeply-nested-menu-1',
+		(component: { key: string }) => component.key === 'deeply-nested-menu-1',
 	);
 	if (!alreadyRegistered) {
 		editorApi?.blockMenu?.actions.registerBlockMenuComponents([
@@ -393,7 +395,7 @@ function ComposableEditorPage() {
 					key: BLOCK_ACTIONS_MENU_SECTION.key,
 					rank: 100,
 				},
-				component: ({ children }) => (
+				component: ({ children }: React.PropsWithChildren) => (
 					<ToolbarNestedDropdownMenu
 						text="First Level Menu"
 						elemBefore={<AddIcon label="" />}
@@ -414,7 +416,7 @@ function ComposableEditorPage() {
 					key: 'deeply-nested-menu-1',
 					rank: 0,
 				},
-				component: ({ children }) => (
+				component: ({ children }: React.PropsWithChildren) => (
 					<ToolbarDropdownItemSection title="First Section">{children}</ToolbarDropdownItemSection>
 				),
 			},
@@ -427,7 +429,7 @@ function ComposableEditorPage() {
 					key: 'deeply-nested-section-1',
 					rank: 0,
 				},
-				component: ({ children }) => (
+				component: ({ children }: React.PropsWithChildren) => (
 					<ToolbarNestedDropdownMenu
 						text="Second Level Menu"
 						elemBefore={<AppIcon label="" />}
@@ -446,7 +448,7 @@ function ComposableEditorPage() {
 					key: 'deeply-nested-menu-2',
 					rank: 0,
 				},
-				component: ({ children }) => (
+				component: ({ children }: React.PropsWithChildren) => (
 					<ToolbarDropdownItemSection title="Second Section" hasSeparator>
 						{children}
 					</ToolbarDropdownItemSection>
@@ -462,7 +464,7 @@ function ComposableEditorPage() {
 					key: 'deeply-nested-menu-2',
 					rank: 0,
 				},
-				component: ({ children }) => (
+				component: ({ children }: React.PropsWithChildren) => (
 					<ToolbarDropdownItemSection title="Third Section" hasSeparator>
 						{children}
 					</ToolbarDropdownItemSection>
@@ -511,16 +513,17 @@ function ComposableEditorPage() {
 					}
 				}}
 				onViewMode={() => {
-					editorApi?.core?.actions.execute(
-						editorApi?.editorViewMode?.commands.updateViewMode(
-							editorApi?.editorViewMode.sharedState.currentState()?.mode === 'edit'
-								? 'view'
-								: 'edit',
-						),
+					const cmd = editorApi?.editorViewMode?.commands.updateViewMode(
+						editorApi?.editorViewMode?.sharedState?.currentState()?.mode === 'edit'
+							? 'view'
+							: 'edit',
 					);
+					if (cmd) {
+						editorApi?.core?.actions.execute(cmd);
+					}
 				}}
 			/>
-			<StateMonitor getState={editorApi?.editorViewMode.sharedState.currentState} />
+			<StateMonitor getState={editorApi?.editorViewMode?.sharedState?.currentState} />
 			<IntlProvider locale={'en'} messages={enMessages}>
 				<ComposableEditor
 					appearance={appearance}
@@ -563,7 +566,7 @@ function ComposableEditorPage() {
 								});
 							}
 
-							const result = editorApi?.selectionExtension.actions.replaceWithAdf(modifiedNodeAdf);
+							const result = editorApi?.selectionExtension?.actions.replaceWithAdf(modifiedNodeAdf);
 							if (result?.status === 'document-changed') {
 								const fallbackADF = {
 									type: 'panel',
@@ -595,7 +598,7 @@ function ComposableEditorPage() {
 										},
 									],
 								};
-								editorApi?.selectionExtension.actions.insertAdfAtEndOfDoc(fallbackADF);
+								editorApi?.selectionExtension?.actions.insertAdfAtEndOfDoc(fallbackADF);
 							}
 							showCreateButton(null);
 						}}

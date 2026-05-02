@@ -45,11 +45,11 @@ import Utils from '../common/util';
 let VALID_EVENT_TIME_MS = 30000; //30 seconds
 
 class XDMRPC extends PostMessage {
-	_padUndefinedArguments(array, length) {
+	_padUndefinedArguments(array: any, length: any): any {
 		return array.length >= length ? array : array.concat(new Array(length - array.length));
 	}
 
-	constructor(config) {
+	constructor(config: any) {
 		config = config || {};
 		super(config);
 		this._registeredExtensions = config.extensions || {};
@@ -72,7 +72,7 @@ class XDMRPC extends PostMessage {
 		};
 	}
 
-	_verifyAPI(event, reg) {
+	_verifyAPI(event: any, reg: any): any {
 		var untrustedTargets = event.data.targets;
 		if (!untrustedTargets) {
 			return;
@@ -107,7 +107,7 @@ class XDMRPC extends PostMessage {
 		}
 	}
 
-	_handleInit(event, reg) {
+	_handleInit(event: any, reg: any): any {
 		if (event.source && event.source.postMessage) {
 			// only post a message if the source of the event still exists
 			event.source.postMessage({ type: 'init_received' }, reg.extension.url);
@@ -125,7 +125,7 @@ class XDMRPC extends PostMessage {
 		}
 	}
 
-	_getHostOffset(event, _window) {
+	_getHostOffset(event: any, _window: any): any {
 		var hostWindow = event.source;
 		var hostFrameOffset = null;
 		var windowReference = _window || window; // For testing
@@ -161,7 +161,7 @@ class XDMRPC extends PostMessage {
 		}
 	}
 
-	_hasSameOrigin(window) {
+	_hasSameOrigin(window: any): any {
 		if (window === window.top) {
 			return true;
 		}
@@ -180,7 +180,7 @@ class XDMRPC extends PostMessage {
 		return false;
 	}
 
-	_handleResponse(event) {
+	_handleResponse(event: any): any {
 		var data = event.data;
 		var pendingCallback = this._pendingCallbacks[data.mid];
 		if (pendingCallback) {
@@ -189,11 +189,11 @@ class XDMRPC extends PostMessage {
 		}
 	}
 
-	registerRequestNotifier(cb) {
+	registerRequestNotifier(cb: any): any {
 		this._registeredRequestNotifier = cb;
 	}
 
-	_handleRequest(event, reg) {
+	_handleRequest(event: any, reg: any): any {
 		function sendResponse() {
 			var args = Utils.sanitizeStructuredClone(Utils.argumentsToArray(arguments));
 			if (event.source && event.source.postMessage) {
@@ -287,14 +287,14 @@ class XDMRPC extends PostMessage {
 		}
 	}
 
-	_handleBroadcast(event, reg) {
+	_handleBroadcast(event: any, reg: any): any {
 		var event_data = event.data;
 		var targetSpec = (r) =>
 			r.extension.addon_key === reg.extension.addon_key && r.extension_id !== reg.extension_id;
 		this.dispatch(event_data.etyp, targetSpec, event_data.evnt, null, null);
 	}
 
-	_handleKeyTriggered(event, reg) {
+	_handleKeyTriggered(event: any, reg: any): any {
 		var eventData = event.data;
 		var keycodeEntry = this._keycodeKey(eventData.keycode, eventData.modifiers, reg.extension_id);
 		var listeners = this._keycodeCallbacks[keycodeEntry];
@@ -311,7 +311,7 @@ class XDMRPC extends PostMessage {
 		}
 	}
 
-	defineAPIModule(module, moduleName) {
+	defineAPIModule(module: any, moduleName: any): any {
 		moduleName = moduleName || '_globals';
 		this._registeredAPIModules[moduleName] = Utils.extend(
 			{},
@@ -321,11 +321,11 @@ class XDMRPC extends PostMessage {
 		return this._registeredAPIModules;
 	}
 
-	isAPIModuleDefined(moduleName) {
+	isAPIModuleDefined(moduleName: any): any {
 		return typeof this._registeredAPIModules[moduleName] !== 'undefined';
 	}
 
-	_pendingEventKey(targetSpec, time) {
+	_pendingEventKey(targetSpec: any, time: any): any {
 		var key = targetSpec.addon_key || 'global';
 		if (targetSpec.key) {
 			key = `${key}@@${targetSpec.key}`;
@@ -336,7 +336,7 @@ class XDMRPC extends PostMessage {
 		return key;
 	}
 
-	queueEvent(type, targetSpec, event, callback) {
+	queueEvent(type: any, targetSpec: any, event: any, callback: any): any {
 		var loaded_frame,
 			targets = this._findRegistrations(targetSpec);
 
@@ -360,7 +360,7 @@ class XDMRPC extends PostMessage {
 		}
 	}
 
-	_cleanupInvalidEvents() {
+	_cleanupInvalidEvents(): any {
 		let now = new Date().getTime();
 		let keys = Object.keys(this._pendingEvents);
 		keys.forEach((index) => {
@@ -372,7 +372,7 @@ class XDMRPC extends PostMessage {
 		});
 	}
 
-	_handleEventQuery(message, extension) {
+	_handleEventQuery(message: any, extension: any): any {
 		let executed = {};
 		let now = new Date().getTime();
 		let keys = Object.keys(this._pendingEvents);
@@ -408,7 +408,7 @@ class XDMRPC extends PostMessage {
 		return executed;
 	}
 
-	_handleUnload(event, reg) {
+	_handleUnload(event: any, reg: any): any {
 		if (!reg) {
 			return;
 		}
@@ -422,7 +422,7 @@ class XDMRPC extends PostMessage {
 		}
 	}
 
-	dispatch(type, targetSpec, event, callback, source) {
+	dispatch(type: any, targetSpec: any, event: any, callback: any, source: any): any {
 		function sendEvent(reg, evnt) {
 			if (reg.source && reg.source.postMessage) {
 				var mid;
@@ -455,7 +455,7 @@ class XDMRPC extends PostMessage {
 		}, this);
 	}
 
-	_findRegistrations(targetSpec) {
+	_findRegistrations(targetSpec: any): any {
 		if (this._registeredExtensions.length === 0) {
 			Utils.error('no registered extensions', this._registeredExtensions);
 			return [];
@@ -476,13 +476,13 @@ class XDMRPC extends PostMessage {
 		}
 	}
 
-	registerExtension(extension_id, data) {
+	registerExtension(extension_id: any, data: any): any {
 		data._proxies = {};
 		data.extension_id = extension_id;
 		this._registeredExtensions[extension_id] = data;
 	}
 
-	_keycodeKey(key, modifiers, extension_id) {
+	_keycodeKey(key: any, modifiers: any, extension_id: any): any {
 		var code = key;
 
 		if (modifiers) {
@@ -498,7 +498,7 @@ class XDMRPC extends PostMessage {
 		return code + '__' + extension_id;
 	}
 
-	registerKeyListener(extension_id, key, modifiers, callback) {
+	registerKeyListener(extension_id: any, key: any, modifiers: any, callback: any): any {
 		if (typeof modifiers === 'string') {
 			modifiers = [modifiers];
 		}
@@ -519,7 +519,7 @@ class XDMRPC extends PostMessage {
 		this._keycodeCallbacks[keycodeEntry].push(callback);
 	}
 
-	unregisterKeyListener(extension_id, key, modifiers, callback) {
+	unregisterKeyListener(extension_id: any, key: any, modifiers: any, callback: any): any {
 		var keycodeEntry = this._keycodeKey(key, modifiers, extension_id);
 		var potentialCallbacks = this._keycodeCallbacks[keycodeEntry];
 		var reg = this._registeredExtensions[extension_id];
@@ -545,14 +545,14 @@ class XDMRPC extends PostMessage {
 		}
 	}
 
-	registerClickHandler(callback) {
+	registerClickHandler(callback: any): any {
 		if (typeof callback !== 'function') {
 			throw new Error('callback must be a function');
 		}
 		this._clickHandlers.push(callback);
 	}
 
-	_handleAddonClick(event, reg) {
+	_handleAddonClick(event: any, reg: any): any {
 		for (var i = 0; i < this._clickHandlers.length; i++) {
 			if (typeof this._clickHandlers[i] === 'function') {
 				this._clickHandlers[i]({
@@ -564,11 +564,11 @@ class XDMRPC extends PostMessage {
 		}
 	}
 
-	unregisterClickHandler() {
+	unregisterClickHandler(): any {
 		this._clickHandlers = [];
 	}
 
-	getApiSpec(addonKey) {
+	getApiSpec(addonKey: any): any {
 		function getModuleDefinition(mod) {
 			return Object.getOwnPropertyNames(mod).reduce((accumulator, memberName) => {
 				const member = mod[memberName];
@@ -601,7 +601,7 @@ class XDMRPC extends PostMessage {
 		);
 	}
 
-	_originEqual(url, origin) {
+	_originEqual(url: any, origin: any): any {
 		function strCheck(str) {
 			return typeof str === 'string' && str.length > 0;
 		}
@@ -615,7 +615,7 @@ class XDMRPC extends PostMessage {
 	}
 
 	// validate origin of postMessage
-	_checkOrigin(event, reg) {
+	_checkOrigin(event: any, reg: any): any {
 		let no_source_types = ['init'];
 		let isNoSourceType = reg && no_source_types.includes(event.data.type);
 		let sourceTypeMatches = reg && event.source === reg.source;
@@ -635,14 +635,14 @@ class XDMRPC extends PostMessage {
 		return isValidOrigin;
 	}
 
-	getRegisteredExtensions(filter) {
+	getRegisteredExtensions(filter: any): any {
 		if (filter) {
 			return this._findRegistrations(filter);
 		}
 		return this._registeredExtensions;
 	}
 
-	unregisterExtension(filter) {
+	unregisterExtension(filter: any): any {
 		let registrations = this._findRegistrations(filter);
 		if (registrations.length !== 0) {
 			registrations.forEach(function (registration) {
@@ -664,7 +664,7 @@ class XDMRPC extends PostMessage {
 		}
 	}
 
-	setFeatureFlagGetter(getBooleanFeatureFlag) {
+	setFeatureFlagGetter(getBooleanFeatureFlag: any): any {
 		this._getBooleanFeatureFlag = getBooleanFeatureFlag;
 	}
 }

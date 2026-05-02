@@ -7,7 +7,7 @@ import { EditorMainToolbarModel } from '@af/editor-libra/page-models';
 // to avoid pixel-perfect comparison, which is a source of flake
 test.describe('Toolbar with long width and short height', () => {
 	test.use({
-		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 		editorProps: {
 			appearance: 'full-page',
 		},
@@ -15,7 +15,7 @@ test.describe('Toolbar with long width and short height', () => {
 	});
 
 	test.use({
-		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 		editorProps: {
 			primaryToolbarComponents: <div></div>,
 		},
@@ -31,14 +31,14 @@ test.describe('Toolbar with long width and short height', () => {
 
 test.describe('Toolbar with mid width and short height', () => {
 	test.use({
-		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 		editorProps: {
 			appearance: 'full-page',
 		},
 		viewport: { width: 870, height: 300 },
 	});
 	test.use({
-		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 		editorProps: {
 			primaryToolbarComponents: <div></div>,
 		},
@@ -54,14 +54,14 @@ test.describe('Toolbar with mid width and short height', () => {
 
 test.describe('Toolbar with short width and short height', () => {
 	test.use({
-		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 		editorProps: {
 			appearance: 'full-page',
 		},
 		viewport: { width: 400, height: 300 },
 	});
 	test.use({
-		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx') ,
+		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 		editorProps: {
 			primaryToolbarComponents: <div></div>,
 		},

@@ -36,7 +36,8 @@ export const messages: {
 	saveButton: {
 		id: 'fabric.linkPicker.button.save',
 		defaultMessage: 'Save',
-		description: 'Button to save edited link',
+		description:
+			'Label for the submit button in the link picker form footer when editing an existing link, saves the updated link',
 	},
 	insertButton: {
 		id: 'fabric.linkPicker.button.insert',

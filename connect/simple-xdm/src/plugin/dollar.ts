@@ -4,7 +4,7 @@ import Util from '../common/util';
 var each = Util.each,
 	document = window.document;
 
-function $(sel, context) {
+function $(sel: any, context: any): any {
 	context = context || document;
 	var els = [];
 	if (sel) {

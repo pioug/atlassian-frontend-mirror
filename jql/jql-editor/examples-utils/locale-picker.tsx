@@ -4,7 +4,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type Locale } from './locales';
@@ -24,11 +23,7 @@ export interface Props {
 
 export const LocalePicker = ({ currentLocale, locales, onChange }: Props): React.JSX.Element => (
 	<DropdownContainer>
-		<DropdownMenu
-			trigger={currentLocale}
-			placement="bottom-start"
-			shouldRenderToParent={fg('should-render-to-parent-should-be-true-jira-platfo')}
-		>
+		<DropdownMenu trigger={currentLocale} placement="bottom-start" shouldRenderToParent>
 			<DropdownItemGroup>
 				{locales.map((l) => (
 					<DropdownItem key={l} onClick={() => onChange(l)}>

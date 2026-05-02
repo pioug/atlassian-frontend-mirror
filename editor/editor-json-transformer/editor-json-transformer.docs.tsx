@@ -5,7 +5,6 @@
 
 import path from 'path';
 
-
 import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
 
 import packageJson from './package.json';
@@ -30,8 +29,16 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['editor', 'editor-json-transformer', 'atlaskit'],
 		categories: ['editor'],
 		examples: [
-			{ name: 'JSON transformer', description: 'Transform between JSON and ADF.', source: path.resolve(packagePath, './examples/0-json-transformer.tsx') },
-			{ name: 'Layouts', description: 'JSON transformer with layout nodes.', source: path.resolve(packagePath, './examples/1-layouts.tsx') },
+			{
+				name: 'JSON transformer',
+				description: 'Transform between JSON and ADF.',
+				source: path.resolve(packagePath, './examples/0-json-transformer.tsx'),
+			},
+			{
+				name: 'Layouts',
+				description: 'JSON transformer with layout nodes.',
+				source: path.resolve(packagePath, './examples/1-layouts.tsx'),
+			},
 		],
 	},
 ];

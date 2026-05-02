@@ -15,8 +15,7 @@ describe(`${packageName}/schema taskList node`, () => {
 					default: '',
 				},
 			},
-			content:
-				'(taskItem | taskList | unsupportedBlock | blockTaskItem)+',
+			content: '(taskItem | taskList | unsupportedBlock | blockTaskItem)+',
 			defining: true,
 			group: 'block',
 			marks: 'unsupportedMark unsupportedNodeAttribute',

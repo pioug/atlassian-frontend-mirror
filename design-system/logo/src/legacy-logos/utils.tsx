@@ -1,4 +1,3 @@
-
 import { getColorsFromAppearance } from './get-colors-from-appearance';
 export const getColorsForLoom = (
 	appearance?: string,

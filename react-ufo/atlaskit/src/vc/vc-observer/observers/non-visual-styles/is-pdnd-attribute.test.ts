@@ -69,8 +69,8 @@ describe('isPdndAttribute', () => {
 		// Other product attributes that look similar but are unrelated.
 		expect(isPdndAttribute({ target: element, attributeName: 'data-vc-nvs' })).toBe(false);
 		expect(isPdndAttribute({ target: element, attributeName: 'data-rbd' })).toBe(false);
-		expect(
-			isPdndAttribute({ target: element, attributeName: 'data-rbd-something-new' }),
-		).toBe(false);
+		expect(isPdndAttribute({ target: element, attributeName: 'data-rbd-something-new' })).toBe(
+			false,
+		);
 	});
 });

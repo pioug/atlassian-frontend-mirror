@@ -445,7 +445,7 @@ describe('smart-card: card states, inline', () => {
 			meta: {
 				...mocks.success.meta,
 				supportedFeature: ['RovoActions'],
-				key: 'google-object-provider'
+				key: 'google-object-provider',
 			},
 		};
 

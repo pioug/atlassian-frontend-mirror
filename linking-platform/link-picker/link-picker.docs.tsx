@@ -36,7 +36,8 @@ const documentation: ComponentStructuredContentSource[] = [
 		examples: [
 			{
 				name: 'Link Picker (basic)',
-				description: 'Basic LinkPicker with URL input and submit. Requires plugins for search results.',
+				description:
+					'Basic LinkPicker with URL input and submit. Requires plugins for search results.',
 				source: path.resolve(packagePath, './examples/00-basic.tsx'),
 			},
 			{

@@ -150,7 +150,9 @@ class InlineCardResolvedViewClass extends React.Component<InlineCardResolvedView
 	}
 }
 
-export const InlineCardResolvedView: React.FC<InlineCardResolvedViewFunctionalProps & InlineCardResolvedViewProps> = componentWithFG(
+export const InlineCardResolvedView: React.FC<
+	InlineCardResolvedViewFunctionalProps & InlineCardResolvedViewProps
+> = componentWithFG(
 	'smart-card-inline-resolved-view-refactor',
 	InlineCardResolvedViewFunctional,
 	InlineCardResolvedViewClass,

@@ -43,12 +43,10 @@ const inlineActionNudgePillWrapperStyles = css({
 });
 
 const inlineActionNudgeColumnStyles = css({
-	display: 'flex',
-	flexDirection: 'column',
-	alignItems: 'flex-start',
-	gap: token('space.075'),
+	display: 'grid',
+	gridTemplateColumns: 'max-content',
+	gap: token('space.100'),
 });
-
 
 const DEFAULT_SORT_ORDER = ['PreviewAction', 'CopyLinkAction', 'AISummaryAction'];
 
@@ -175,7 +173,11 @@ const ActionBlock = ({
 					onLoadingChange={onLoadingChange}
 					size={size || ui?.size}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					style={!(isInlineActionNudgeExperiment && isRovoChatActionAvailable) && padding ? { paddingInline: padding } : undefined}
+					style={
+						!(isInlineActionNudgeExperiment && isRovoChatActionAvailable) && padding
+							? { paddingInline: padding }
+							: undefined
+					}
 					hideTooltip={isLoading}
 				/>
 			);
@@ -204,15 +206,9 @@ const ActionBlock = ({
 
 	if (isInlineActionNudgeExperiment && isRovoChatActionAvailable) {
 		return (
-			<div
-				css={inlineActionNudgePillWrapperStyles}
-				ref={blockRef}
-				data-testid={testId}
-			>
+			<div css={inlineActionNudgePillWrapperStyles} ref={blockRef} data-testid={testId}>
 				{showRovoSectionHeader && (
-					<AskRovoSectionHeader
-						testId={testId ? `${testId}-rovo-section-header` : undefined}
-					/>
+					<AskRovoSectionHeader testId={testId ? `${testId}-rovo-section-header` : undefined} />
 				)}
 				<div css={inlineActionNudgeColumnStyles}>{actions}</div>
 				<ActionFooter message={message} testId={testId} />

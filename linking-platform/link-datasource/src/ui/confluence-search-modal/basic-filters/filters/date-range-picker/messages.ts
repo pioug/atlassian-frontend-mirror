@@ -180,12 +180,14 @@ export const dateRangeMessages: {
 	dateRangeBeforeLabel: {
 		id: 'linkDataSource.confluence-search.configmodal.date.range.before.label',
 		defaultMessage: 'before {date}',
-		description: '`before date` for date picker dropdown',
+		description:
+			'Drop-down item label in the date range picker. The placeholder {date} is substituted with the selected date value.',
 	},
 	dateRangeAfterLabel: {
 		id: 'linkDataSource.confluence-search.configmodal.date.range.after.label',
 		defaultMessage: 'after {date}',
-		description: '`after date` for date picker dropdown',
+		description:
+			'Drop-down item label in the date range picker. The placeholder {date} is substituted with the selected date value.',
 	},
 	dateRangeError: {
 		id: 'linkDataSource.confluence-search.configmodal.date.range.error',

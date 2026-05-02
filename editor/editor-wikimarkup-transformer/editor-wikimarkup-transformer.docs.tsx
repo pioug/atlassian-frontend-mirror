@@ -5,7 +5,6 @@
 
 import path from 'path';
 
-
 import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
 
 import packageJson from './package.json';
@@ -30,9 +29,21 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['editor', 'editor-wikimarkup-transformer', 'atlaskit'],
 		categories: ['editor'],
 		examples: [
-			{ name: 'ADF to wikimarkup', description: 'Transform ADF to wikimarkup.', source: path.resolve(packagePath, './examples/0-adf-to-wikimarkup.tsx') },
-			{ name: 'Wikimarkup to ADF', description: 'Transform wikimarkup to ADF.', source: path.resolve(packagePath, './examples/1-wikimarkup-to-adf.tsx') },
-			{ name: 'Wikimarkup editor', description: 'Editor with wikimarkup transformer.', source: path.resolve(packagePath, './examples/2-wikimarkup-editor.tsx') },
+			{
+				name: 'ADF to wikimarkup',
+				description: 'Transform ADF to wikimarkup.',
+				source: path.resolve(packagePath, './examples/0-adf-to-wikimarkup.tsx'),
+			},
+			{
+				name: 'Wikimarkup to ADF',
+				description: 'Transform wikimarkup to ADF.',
+				source: path.resolve(packagePath, './examples/1-wikimarkup-to-adf.tsx'),
+			},
+			{
+				name: 'Wikimarkup editor',
+				description: 'Editor with wikimarkup transformer.',
+				source: path.resolve(packagePath, './examples/2-wikimarkup-editor.tsx'),
+			},
 		],
 	},
 ];

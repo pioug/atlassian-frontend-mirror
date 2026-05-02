@@ -436,7 +436,7 @@ export default function Example(): jsx.JSX.Element {
 									isBrowseUsersDisabled={state.isBrowseUsersDisabled}
 									isExtendedShareDialogEnabled
 									additionalUserFields={<AdditionalUserFields />}
-									onSubmit={(formValues) => {
+									onSubmit={(formValues: Record<string, unknown>) => {
 										console.log('formValues', formValues);
 									}}
 								/>

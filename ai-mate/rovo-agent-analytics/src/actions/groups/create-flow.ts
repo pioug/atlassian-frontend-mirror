@@ -1,17 +1,33 @@
 /**
  * Action Group: createFlow
  *
- * Create agent funnel steps — from clicking "Create agent" through to activation or discard.
+ * Create agent funnel steps — from clicking "Create agent" through to activation /
+ * publish.
+ *
+ * See LDR for the full reasoning behind the post-versioning funnel:
+ * https://hello.atlassian.net/wiki/spaces/778dcad2d8a34a91b8ebe71c18678e0c/pages/6851055849
  *
  * ## Funnel overview
  *
- * | Step                  | v1 (NL flow) event     | v2 (SA flow) event     | CSID behavior                    |
- * |-----------------------|------------------------|------------------------|----------------------------------|
- * | Intent to create      | createFlowStart        | saDraft                | Uses existing CSID                                        |
- * | Land in NL page       | createLandInStudio     | (skipped)              | Uses existing CSID               |
- * | NL interaction        | REVIEW_NL / SKIP_NL    | (skipped)              | Uses existing CSID               |
- * | Land in configure     | createLandInConfigure  | createLandInConfigure  | Uses existing CSID               |
- * | Activate agent        | createFlowActivate     | createFlowActivate     | Uses existing CSID               |
+ * | Step                                | v1 / NL (today)         | v1 / NL + versioning            | v2 / SA (today)         | v2 / SA + versioning            |
+ * |-------------------------------------|-------------------------|---------------------------------|-------------------------|---------------------------------|
+ * | Intent to create                    | createFlowStart         | createFlowStart                 | saDraft                 | saDraft                         |
+ * | Land in NL page                     | createLandInStudio      | createLandInStudio              | —                       | —                               |
+ * | NL interaction                      | createFlowReviewNL /    | createFlowReviewNL /            | —                       | —                               |
+ * |                                     | createFlowSkipNL        | createFlowSkipNL                |                         |                                 |
+ * | Land on landing w/ SA modal         | —                       | —                               | createLandIn-           | createLandIn-                   |
+ * |                                     |                         |                                 | AgentLandingWithSA      | AgentLandingWithSA              |
+ * | Land in configure screen            | createLandInConfigure   | dropped (no FE draft anymore;   | createLandInConfigure   | createLandInConfigure           |
+ * |                                     |                         | createAgentRecord replaces it)  |                         |                                 |
+ * | Discard                             | createDiscard           | dropped (no FE draft)           | —                       | —                               |
+ * | Agent record created (BE mutation)  | createFlowActivate      | createAgentRecord (NEW) +       | createFlowActivate      | createFlowActivate              |
+ * |                                     |                         | createFlowActivate (kept until  |                         | (SA still on FE drafts pre-     |
+ * |                                     |                         | rollout — RAGE-3459)            |                         | migration)                      |
+ * | Published                           | —                       | published (NEW)                 | —                       | ❓ owned by SA team              |
+ * | Generic error                       | createFlowError         | createFlowError                 | createFlowError         | createFlowError                 |
+ *
+ * Funnel completion (first publish) is derived from `published` events with
+ * `agentIsPublished === false` in the attributes (i.e. the pre-mutation state).
  *
  * ## CSID (Create Session ID)
  *
@@ -19,11 +35,18 @@
  * - `trackCreateSessionStart()` fires `createFlowStart` with the current CSID
  * - `trackCreateSession()` uses the existing CSID (for all other steps including `saDraft`)
  *
+ * With versioning the user can leave and come back days later to keep editing,
+ * so the in-memory linear "session" assumption breaks. Post-mutation events
+ * carry `agentId` (via `VersionedAgentAttributes`) which can be used as the
+ * stable correlation key across sessions. See LDR for the full discussion.
+ *
  * ## Adding a new action
  * 1. Add a new variant to the `CreateFlowEventPayload` union type below with a data-portal link
  * 2. If this action doesn't fit this group, consider creating a new group file instead
  *    (see other files in this directory for the template)
  */
+
+import type { VersionedAgentAttributes } from '../../common/types';
 
 /**
  * Discriminated union payload type for create flow events.
@@ -100,4 +123,34 @@ export type CreateFlowEventPayload =
 			actionSubject: 'rovoAgent';
 			action: 'createSubpathRedirect';
 			attributes: {};
+	  }
+	| {
+			// https://data-portal.internal.atlassian.com/analytics/registry/99780
+			//
+			// Fired when a user lands on the agents landing page with the SA
+			// modal auto-opened (e.g. "Create agent" clicked in Confluence/Jira
+			// with the `?openCreateAgentModal=...` query param). v2/SA only.
+			actionSubject: 'rovoAgent';
+			action: 'createLandInAgentLandingWithSA';
+			attributes: {};
+	  }
+	| {
+			// https://data-portal.internal.atlassian.com/analytics/registry/101157
+			//
+			// Fires when the BE `agentStudio_createAgent` mutation succeeds.
+			// Mutually exclusive with `createFlowActivate` per call.
+			actionSubject: 'rovoAgent';
+			action: 'createAgentRecord';
+			attributes: VersionedAgentAttributes & Record<string, unknown>;
+	  }
+	| {
+			// https://data-portal.internal.atlassian.com/analytics/registry/101158
+			//
+			// Fires every time an agent version is successfully published.
+			// `agentIsPublished` carries the PRE-mutation value so first-publish
+			// is derivable as `agentIsPublished === false`.
+			// `agentVersionNumber` is the version that was just published.
+			actionSubject: 'rovoAgent';
+			action: 'published';
+			attributes: VersionedAgentAttributes & Record<string, unknown>;
 	  };

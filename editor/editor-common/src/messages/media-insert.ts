@@ -25,7 +25,7 @@ export const mediaInsertMessages: {
 		defaultMessage: string;
 		description: string;
 		id: string;
-	},
+	};
 	insert: {
 		defaultMessage: string;
 		description: string;

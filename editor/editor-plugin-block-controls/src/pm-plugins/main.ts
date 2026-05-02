@@ -172,11 +172,7 @@ const destroyFn = (
 								selectNode(tr, $from.pos, $from.node().type.name, api);
 							} else {
 								tr.setSelection(
-									TextSelection.create(
-										tr.doc,
-										multiSelectDnD.userAnchor,
-										multiSelectDnD.userHead,
-									),
+									TextSelection.create(tr.doc, multiSelectDnD.userAnchor, multiSelectDnD.userHead),
 								);
 							}
 						}
@@ -306,45 +302,45 @@ export const apply = (
 ):
 	| PluginState
 	| {
-		activeDropTargetNode: ActiveDropTargetNode | undefined;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		activeNode: any;
-		blockMenuOptions:
-		| {
+			activeDropTargetNode: ActiveDropTargetNode | undefined;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			canMoveDown: any;
+			activeNode: any;
+			blockMenuOptions:
+				| {
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
+						canMoveDown: any;
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
+						canMoveUp: any;
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
+						openedViaKeyboard: any;
+				  }
+				| undefined;
+			decorations: DecorationSet;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			canMoveUp: any;
+			editorHeight: any;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			openedViaKeyboard: any;
-		}
-		| undefined;
-		decorations: DecorationSet;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		editorHeight: any;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		editorWidthLeft: any;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		editorWidthRight: any;
-		isDocSizeLimitEnabled: boolean | null;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		isDragging: any;
-		isMenuOpen: boolean | undefined;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		isPMDragging: any;
-		isResizerResizing: boolean;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		isSelectedViaDragHandle: any;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		isShiftDown: any;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		lastDragCancelled: any;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		menuTriggerBy: any;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		menuTriggerByNode: any;
-		multiSelectDnD: MultiSelectDnD | undefined;
-	} => {
+			editorWidthLeft: any;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			editorWidthRight: any;
+			isDocSizeLimitEnabled: boolean | null;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			isDragging: any;
+			isMenuOpen: boolean | undefined;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			isPMDragging: any;
+			isResizerResizing: boolean;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			isSelectedViaDragHandle: any;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			isShiftDown: any;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			lastDragCancelled: any;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			menuTriggerBy: any;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			menuTriggerByNode: any;
+			multiSelectDnD: MultiSelectDnD | undefined;
+	  } => {
 	let { activeNode, decorations, isResizerResizing, multiSelectDnD } = currentState;
 	const {
 		editorHeight,
@@ -873,8 +869,8 @@ export const apply = (
 	} else {
 		newActiveNode =
 			isEmptyDoc ||
-				(!meta?.activeNode &&
-					findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length === 0)
+			(!meta?.activeNode &&
+				findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length === 0)
 				? null
 				: latestActiveNode;
 	}
@@ -922,19 +918,19 @@ export const apply = (
 			: undefined,
 		blockMenuOptions: editorExperiment('platform_editor_block_menu', true)
 			? {
-				canMoveUp:
-					meta?.toggleMenu?.moveUp !== undefined
-						? meta?.toggleMenu?.moveUp
-						: blockMenuOptions?.canMoveUp,
-				canMoveDown:
-					meta?.toggleMenu?.moveDown !== undefined
-						? meta?.toggleMenu?.moveDown
-						: blockMenuOptions?.canMoveDown,
-				openedViaKeyboard:
-					meta?.toggleMenu?.openedViaKeyboard !== undefined
-						? meta?.toggleMenu?.openedViaKeyboard
-						: blockMenuOptions?.openedViaKeyboard,
-			}
+					canMoveUp:
+						meta?.toggleMenu?.moveUp !== undefined
+							? meta?.toggleMenu?.moveUp
+							: blockMenuOptions?.canMoveUp,
+					canMoveDown:
+						meta?.toggleMenu?.moveDown !== undefined
+							? meta?.toggleMenu?.moveDown
+							: blockMenuOptions?.canMoveDown,
+					openedViaKeyboard:
+						meta?.toggleMenu?.openedViaKeyboard !== undefined
+							? meta?.toggleMenu?.openedViaKeyboard
+							: blockMenuOptions?.openedViaKeyboard,
+				}
 			: undefined,
 		editorHeight: meta?.editorHeight ?? editorHeight,
 		editorWidthLeft: meta?.editorWidthLeft ?? editorWidthLeft,
@@ -959,45 +955,45 @@ export const createPlugin = (
 ): SafePlugin<
 	| PluginState
 	| {
-		activeDropTargetNode: ActiveDropTargetNode | undefined;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		activeNode: any;
-		blockMenuOptions:
-		| {
+			activeDropTargetNode: ActiveDropTargetNode | undefined;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			canMoveDown: any;
+			activeNode: any;
+			blockMenuOptions:
+				| {
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
+						canMoveDown: any;
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
+						canMoveUp: any;
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
+						openedViaKeyboard: any;
+				  }
+				| undefined;
+			decorations: DecorationSet;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			canMoveUp: any;
+			editorHeight: any;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			openedViaKeyboard: any;
-		}
-		| undefined;
-		decorations: DecorationSet;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		editorHeight: any;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		editorWidthLeft: any;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		editorWidthRight: any;
-		isDocSizeLimitEnabled: boolean | null;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		isDragging: any;
-		isMenuOpen: boolean | undefined;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		isPMDragging: any;
-		isResizerResizing: boolean;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		isSelectedViaDragHandle: any;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		isShiftDown: any;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		lastDragCancelled: any;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		menuTriggerBy: any;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		menuTriggerByNode: any;
-		multiSelectDnD: MultiSelectDnD | undefined;
-	}
+			editorWidthLeft: any;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			editorWidthRight: any;
+			isDocSizeLimitEnabled: boolean | null;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			isDragging: any;
+			isMenuOpen: boolean | undefined;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			isPMDragging: any;
+			isResizerResizing: boolean;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			isSelectedViaDragHandle: any;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			isShiftDown: any;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			lastDragCancelled: any;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			menuTriggerBy: any;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			menuTriggerByNode: any;
+			multiSelectDnD: MultiSelectDnD | undefined;
+	  }
 > => {
 	const { formatMessage } = getIntl();
 	const isAdvancedLayoutEnabled = editorExperiment('advanced_layouts', true, { exposure: true });
@@ -1106,10 +1102,7 @@ export const createPlugin = (
 					// Currently we can only drag one node at a time
 					// so we only need to check first child
 					const draggable = dragging?.slice.content.firstChild;
-					if (
-						dndDragCancelled ||
-						draggable?.type.name === 'layoutColumn'
-					) {
+					if (dndDragCancelled || draggable?.type.name === 'layoutColumn') {
 						// we prevent native DnD for layoutColumn to prevent single column layout.
 						event.preventDefault();
 						return false;

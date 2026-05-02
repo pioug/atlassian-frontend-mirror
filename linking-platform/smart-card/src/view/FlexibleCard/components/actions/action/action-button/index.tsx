@@ -21,7 +21,10 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { ActionName, SmartLinkSize } from '../../../../../../constants';
-import { useFlexibleUiContext, useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context';
+import {
+	useFlexibleUiContext,
+	useFlexibleUiOptionContext,
+} from '../../../../../../state/flexible-ui-context';
 import { withOverrideCss } from '../../../common/with-override-css';
 import { sizeToButtonSpacing } from '../../../utils';
 
@@ -46,7 +49,7 @@ const SizeSmall = css({
 const styles = cssMap({
 	textSmall: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'button': {
+		button: {
 			font: token('font.body.small'),
 			fontWeight: token('font.weight.medium'),
 			flexWrap: 'wrap',
@@ -119,7 +122,9 @@ const ActionButtonRefresh = forwardRef(
 		const iconOnly = !content;
 
 		const context = useFlexibleUiContext();
-		const isRovoSupported = !!context?.actions?.[ActionName.RovoChatAction] && fg('platform_sl_3p_auth_rovo_block_card_kill_switch');
+		const isRovoSupported =
+			!!context?.actions?.[ActionName.RovoChatAction] &&
+			fg('platform_sl_3p_auth_rovo_block_card_kill_switch');
 
 		const onButtonClick = useCallback(
 			(handler: Function) => (e: React.BaseSyntheticEvent) => {
@@ -228,7 +233,11 @@ const ActionButtonRefresh = forwardRef(
 		]);
 
 		return (
-			<Box testId={`${testId}-button-wrapper`} ref={ref} xcss={cx(isRovoSupported && size === SmartLinkSize.Small && styles.textSmall)}>
+			<Box
+				testId={`${testId}-button-wrapper`}
+				ref={ref}
+				xcss={cx(isRovoSupported && size === SmartLinkSize.Small && styles.textSmall)}
+			>
 				{button}
 			</Box>
 		);

@@ -115,7 +115,6 @@ function converter(props: EditorProps) {
 	});
 	const plugins = preset.build({});
 
-	// @ts-expect-error
 	const basePlugins: AllEditorPresetPluginTypes[] = preset.data.reverse().filter(Boolean);
 
 	const optimisedPresetAdds = basePlugins

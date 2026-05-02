@@ -38,6 +38,7 @@ import noJestMockBarrelFiles from './rules/import/no-jest-mock-barrel-files';
 import noRelativeBarrelFileImports from './rules/import/no-relative-barrel-file-imports';
 import noConversationAssistantBarrelImports from './rules/import/no-conversation-assistant-barrel-imports';
 import visitExampleTypeImportRequired from './rules/visit-example-type-import-required';
+import editorExampleTypeImportRequired from './rules/editor-example-type-import-required';
 import ensureUseSyncExternalStoreServerSnapshot from './rules/ensure-use-sync-external-store-server-snapshot';
 import noXcssInCx from './rules/no-xcss-in-cx';
 import { join, normalize } from 'node:path';
@@ -108,6 +109,7 @@ const rules: {
 	'no-conversation-assistant-barrel-imports': Rule.RuleModule;
 	'visit-example-type-import-required': Rule.RuleModule;
 	'no-xcss-in-cx': Rule.RuleModule;
+	'editor-example-type-import-required': Rule.RuleModule;
 	'ensure-use-sync-external-store-server-snapshot': Rule.RuleModule;
 } = {
 	'ensure-feature-flag-registration': ensureFeatureFlagRegistration,
@@ -148,6 +150,7 @@ const rules: {
 	'no-conversation-assistant-barrel-imports': noConversationAssistantBarrelImports,
 	'visit-example-type-import-required': visitExampleTypeImportRequired,
 	'no-xcss-in-cx': noXcssInCx,
+	'editor-example-type-import-required': editorExampleTypeImportRequired,
 	'ensure-use-sync-external-store-server-snapshot': ensureUseSyncExternalStoreServerSnapshot,
 };
 
@@ -246,6 +249,7 @@ const plugin: {
 		'no-relative-barrel-file-imports': Rule.RuleModule;
 		'no-conversation-assistant-barrel-imports': Rule.RuleModule;
 		'visit-example-type-import-required': Rule.RuleModule;
+		'editor-example-type-import-required': Rule.RuleModule;
 		'ensure-use-sync-external-store-server-snapshot': Rule.RuleModule;
 	};
 	configs: {

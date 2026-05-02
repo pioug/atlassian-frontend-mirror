@@ -31,7 +31,13 @@ const documentation: ComponentStructuredContentSource[] = [
 		accessibilityGuidelines: [
 			'Ensure analytics firing does not change focus, interrupt screen readers, or alter semantics.',
 		],
-		keywords: ['link-analytics', 'analytics', 'lifecycle', 'hooks', 'useSmartLinkLifecycleAnalytics'],
+		keywords: [
+			'link-analytics',
+			'analytics',
+			'lifecycle',
+			'hooks',
+			'useSmartLinkLifecycleAnalytics',
+		],
 		categories: ['linking', 'analytics'],
 		examples: [],
 	},
@@ -51,10 +57,15 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Use when you need to track when datasources (e.g. Jira issues list, Confluence search list) are created, updated, or deleted. Must be used inside SmartCardProvider.',
 		],
 		contentGuidelines: [],
-		accessibilityGuidelines: [
-			'Ensure analytics firing does not change focus or alter semantics.',
+		accessibilityGuidelines: ['Ensure analytics firing does not change focus or alter semantics.'],
+		keywords: [
+			'link-analytics',
+			'analytics',
+			'datasource',
+			'lifecycle',
+			'hooks',
+			'useDatasourceLifecycleAnalytics',
 		],
-		keywords: ['link-analytics', 'analytics', 'datasource', 'lifecycle', 'hooks', 'useDatasourceLifecycleAnalytics'],
 		categories: ['linking', 'analytics'],
 		examples: [],
 	},

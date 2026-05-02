@@ -1,10 +1,7 @@
 import React from 'react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import {
-	withMediaAnalyticsContext,
-	type MediaFeatureFlags,
-} from '@atlaskit/media-common';
+import { withMediaAnalyticsContext, type MediaFeatureFlags } from '@atlaskit/media-common';
 import { isValidUuid } from '@atlaskit/media-common/isValidUuid';
 import {
 	type BrowserConfig,

@@ -2,7 +2,9 @@
 import { styled, type StyledProps } from '@compiled/react';
 import type { ComponentType, ClassAttributes, ButtonHTMLAttributes } from 'react';
 
-export const TriggerButton: ComponentType<ClassAttributes<HTMLButtonElement> & ButtonHTMLAttributes<HTMLButtonElement> & StyledProps> = styled.button({
+export const TriggerButton: ComponentType<
+	ClassAttributes<HTMLButtonElement> & ButtonHTMLAttributes<HTMLButtonElement> & StyledProps
+> = styled.button({
 	background: 'none',
 	border: 'none',
 	padding: 0,

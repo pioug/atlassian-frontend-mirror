@@ -153,9 +153,6 @@
 		"add_nin_press_interactions": {
 			"type": "boolean"
 		},
-		"should-render-to-parent-should-be-true-jira-platfo": {
-			"type": "boolean"
-		},
 		"jql_editor_autocomplete_use_popper": {
 			"type": "boolean"
 		},

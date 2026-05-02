@@ -349,8 +349,10 @@ const TeamWebLinksStore = createStore<TeamWebLinksState, typeof actions>({
 
 const useTeamWebLinksHook = createHook(TeamWebLinksStore);
 
-export const useTeamWebLinks = (teamId: string): [TeamWebLinksStateType, typeof actions] => {
-	const [state, actions] = useTeamWebLinksHook();
+export const useTeamWebLinks = (
+	teamId: string,
+): [TeamWebLinksStateType, BoundActions<TeamWebLinksState, typeof actions>] => {
+	const [state, boundActions] = useTeamWebLinksHook();
 	const teamState = state.teams[teamId] || getInitialTeamState();
 
 	return [
@@ -358,7 +360,7 @@ export const useTeamWebLinks = (teamId: string): [TeamWebLinksStateType, typeof 
 			teamId,
 			...teamState,
 		},
-		actions,
+		boundActions,
 	];
 };
 

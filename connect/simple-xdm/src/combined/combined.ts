@@ -3,7 +3,7 @@ import Utils from '../common/util';
 import Host from '../host/connect';
 import Plugin from '../plugin/ap';
 class Combined extends Host {
-	constructor(initCheck) {
+	constructor(initCheck: any) {
 		super();
 		this.parentTargets = { _globals: {} };
 		var plugin = new Plugin(undefined, initCheck);

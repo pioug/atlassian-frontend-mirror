@@ -5,7 +5,6 @@
 
 import path from 'path';
 
-
 import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
 
 import packageJson from './package.json';
@@ -30,8 +29,16 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['editor', 'editor-plugin-extension', 'atlaskit'],
 		categories: ['editor'],
 		examples: [
-			{ name: 'Config panel extensions', description: 'Extension with config panel.', source: path.resolve(packagePath, './examples/1-config-panel-extensions.tsx') },
-			{ name: 'Config panel with parameters', description: 'Extension config panel with parameters.', source: path.resolve(packagePath, './examples/1-config-panel-with-parameters.tsx') },
+			{
+				name: 'Config panel extensions',
+				description: 'Extension with config panel.',
+				source: path.resolve(packagePath, './examples/1-config-panel-extensions.tsx'),
+			},
+			{
+				name: 'Config panel with parameters',
+				description: 'Extension config panel with parameters.',
+				source: path.resolve(packagePath, './examples/1-config-panel-with-parameters.tsx'),
+			},
 		],
 	},
 ];

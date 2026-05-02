@@ -38,22 +38,26 @@ const documentation: ComponentStructuredContentSource[] = [
 		examples: [
 			{
 				name: 'Card (basic)',
-				description: 'Inline, block, and embed appearances shown side by side. Requires staging login to resolve links.',
+				description:
+					'Inline, block, and embed appearances shown side by side. Requires staging login to resolve links.',
 				source: path.resolve(packagePath, './examples/content/card.tsx'),
 			},
 			{
 				name: 'Card (appearance: block)',
-				description: 'Block appearance — card-style preview with detailed view of the linked material. In the editor this is referred to as the "Card".',
+				description:
+					'Block appearance — card-style preview with detailed view of the linked material. In the editor this is referred to as the "Card".',
 				source: path.resolve(packagePath, './examples/content/block-card.tsx'),
 			},
 			{
 				name: 'Card (appearance: inline)',
-				description: 'Inline appearance — link in text like a hyperlink. Use showHoverPreview for hover preview on inline Smart Links.',
+				description:
+					'Inline appearance — link in text like a hyperlink. Use showHoverPreview for hover preview on inline Smart Links.',
 				source: path.resolve(packagePath, './examples/content/inline-card.tsx'),
 			},
 			{
 				name: 'Card (appearance: embed)',
-				description: 'Embed appearance — linked content rendered in place. Requires a resolvable embed URL; not all links support embed.',
+				description:
+					'Embed appearance — linked content rendered in place. Requires a resolvable embed URL; not all links support embed.',
 				source: path.resolve(packagePath, './examples/content/embed-card.tsx'),
 			},
 		],
@@ -84,7 +88,8 @@ const documentation: ComponentStructuredContentSource[] = [
 		examples: [
 			{
 				name: 'Hover card',
-				description: 'HoverCard wrapping a trigger element; shows Smart Link preview on hover. Requires staging login to resolve.',
+				description:
+					'HoverCard wrapping a trigger element; shows Smart Link preview on hover. Requires staging login to resolve.',
 				source: path.resolve(packagePath, './examples/content/hover-card.tsx'),
 			},
 		],
@@ -114,7 +119,8 @@ const documentation: ComponentStructuredContentSource[] = [
 		examples: [
 			{
 				name: 'Link URL',
-				description: 'Link safety: when link text looks like a URL but destination differs (warning) vs when text matches or is plain (no warning).',
+				description:
+					'Link safety: when link text looks like a URL but destination differs (warning) vs when text matches or is plain (no warning).',
 				source: path.resolve(packagePath, './examples/content/link-url.tsx'),
 			},
 		],
@@ -139,12 +145,21 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Use a logical structure (e.g. heading hierarchy) so the card is navigable by assistive tech.',
 			'Ensure all interactive elements inside blocks (links, buttons, actions) are focusable and have accessible names.',
 		],
-		keywords: ['smart-card', 'flexible', 'flexible card', 'flexible ui', 'blocks', 'elements', 'composable'],
+		keywords: [
+			'smart-card',
+			'flexible',
+			'flexible card',
+			'flexible ui',
+			'blocks',
+			'elements',
+			'composable',
+		],
 		categories: ['linking', 'data-display'],
 		examples: [
 			{
 				name: 'Flexible UI card',
-				description: 'Custom block layout with TitleBlock, PreviewBlock, MetadataBlock, SnippetBlock, and FooterBlock composed inside Card.',
+				description:
+					'Custom block layout with TitleBlock, PreviewBlock, MetadataBlock, SnippetBlock, and FooterBlock composed inside Card.',
 				source: path.resolve(packagePath, './examples/content/flexible-ui-card.tsx'),
 			},
 		],
@@ -174,7 +189,8 @@ const documentation: ComponentStructuredContentSource[] = [
 		examples: [
 			{
 				name: 'Title block default',
-				description: 'TitleBlock with default props; title and icon come from the resolved link data.',
+				description:
+					'TitleBlock with default props; title and icon come from the resolved link data.',
 				source: path.resolve(packagePath, './examples/content/title-block-default.tsx'),
 			},
 		],
@@ -204,7 +220,8 @@ const documentation: ComponentStructuredContentSource[] = [
 		examples: [
 			{
 				name: 'Metadata block primary',
-				description: 'MetadataBlock with a primary row showing CollaboratorGroup and ModifiedOn elements.',
+				description:
+					'MetadataBlock with a primary row showing CollaboratorGroup and ModifiedOn elements.',
 				source: path.resolve(packagePath, './examples/content/metadata-block-primary.tsx'),
 			},
 		],
@@ -240,7 +257,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'FooterBlock',
-		description: 'A block component for the Smart Link footer, typically showing actions (e.g. copy, open, follow).',
+		description:
+			'A block component for the Smart Link footer, typically showing actions (e.g. copy, open, follow).',
 		status: 'general-availability',
 		import: {
 			name: 'FooterBlock',
@@ -262,7 +280,8 @@ const documentation: ComponentStructuredContentSource[] = [
 		examples: [
 			{
 				name: 'Footer block default',
-				description: 'FooterBlock with default actions (e.g. copy, open, follow) at the bottom of the card.',
+				description:
+					'FooterBlock with default actions (e.g. copy, open, follow) at the bottom of the card.',
 				source: path.resolve(packagePath, './examples/content/footer-block-default.tsx'),
 			},
 		],
@@ -291,7 +310,8 @@ const documentation: ComponentStructuredContentSource[] = [
 		examples: [
 			{
 				name: 'Analytics',
-				description: 'Card with AnalyticsListener capturing and displaying Smart Link analytics events (e.g. on click).',
+				description:
+					'Card with AnalyticsListener capturing and displaying Smart Link analytics events (e.g. on click).',
 				source: path.resolve(packagePath, './examples/content/analytics.tsx'),
 			},
 		],
@@ -320,12 +340,12 @@ const documentation: ComponentStructuredContentSource[] = [
 		examples: [
 			{
 				name: 'useSmartLinkActions',
-				description: 'useSmartLinkActions used to get actions for a URL and invoke one (e.g. Preview) from a custom button.',
+				description:
+					'useSmartLinkActions used to get actions for a URL and invoke one (e.g. Preview) from a custom button.',
 				source: path.resolve(packagePath, './examples/content/useSmartLinkActions.tsx'),
 			},
 		],
 	},
 ];
-
 
 export default documentation;

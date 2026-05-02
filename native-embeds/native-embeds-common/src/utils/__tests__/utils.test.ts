@@ -79,10 +79,7 @@ describe('setParameters with aspectRatio', () => {
 	});
 
 	it('should allow aspectRatio alongside other parameters', () => {
-		const params = setParameters(
-			{},
-			{ url: 'https://example.com', width: 1200, aspectRatio: 6 },
-		);
+		const params = setParameters({}, { url: 'https://example.com', width: 1200, aspectRatio: 6 });
 		expect(getParameter(params, 'url')).toBe('https://example.com');
 		expect(getParameter(params, 'width')).toBe(1200);
 		expect(getParameter(params, 'aspectRatio')).toBe(6);
@@ -110,7 +107,10 @@ describe('aspectRatio presence detection (for effectiveHeight logic)', () => {
 		// Simulates what card-transform does: store aspectRatio = originalWidth / originalHeight
 		const originalWidth = 1200;
 		const originalHeight = 200;
-		const params = setParameters({}, { width: originalWidth, aspectRatio: originalWidth / originalHeight });
+		const params = setParameters(
+			{},
+			{ width: originalWidth, aspectRatio: originalWidth / originalHeight },
+		);
 		const macroParams = (params as { macroParams?: Record<string, unknown> }).macroParams;
 		expect('aspectRatio' in (macroParams ?? {})).toBe(true);
 		expect(getParameter(params, 'aspectRatio')).toBe(6);

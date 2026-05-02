@@ -1,5 +1,29 @@
 # @atlaskit/editor-statsig-tmp
 
+## 74.4.0
+
+### Minor Changes
+
+- [`3d7541ec5f1e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d7541ec5f1e8) -
+  [ux] [EDITOR-5936] centralise AI screen alignment and fix error screen width and centering in
+  FloatingContainer behind platform_editor_ai_screen_layout_refactor
+
+## 74.3.0
+
+### Minor Changes
+
+- [`266e293748871`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/266e293748871) -
+  [ux] Adds AI image generation to premium macros Carousel, Cards, & Spotlight behind an experiment
+  gate.
+
+## 74.2.0
+
+### Minor Changes
+
+- [`e2a0403647315`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2a0403647315) -
+  [CCI-15883] Define normalized telemetry event contract and fire authoritative sessionOutcome
+  analytics event once per Editor AI streaming session
+
 ## 74.1.0
 
 ### Minor Changes

@@ -3,7 +3,9 @@ import { styled, type StyledProps } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import type { ComponentType, ClassAttributes, HTMLAttributes } from 'react';
 
-export const FooterOuter: ComponentType<ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyledProps> = styled.div({
+export const FooterOuter: ComponentType<
+	ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyledProps
+> = styled.div({
 	display: 'flex',
 	width: '100%',
 	maxWidth: '640px',

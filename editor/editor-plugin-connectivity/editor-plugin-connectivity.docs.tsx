@@ -5,7 +5,6 @@
 
 import path from 'path';
 
-
 import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
 
 import packageJson from './package.json';
@@ -30,7 +29,11 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['editor', 'editor-plugin-connectivity', 'atlaskit'],
 		categories: ['editor'],
 		examples: [
-			{ name: 'Offline mode', description: 'Connectivity plugin showing offline/online state.', source: path.resolve(packagePath, './examples/1-offline-mode.tsx') },
+			{
+				name: 'Offline mode',
+				description: 'Connectivity plugin showing offline/online state.',
+				source: path.resolve(packagePath, './examples/1-offline-mode.tsx'),
+			},
 		],
 	},
 ];

@@ -546,12 +546,14 @@ export const messages: {
 	help_show_more_button_label_more: {
 		id: 'help.show_more_button.label_more',
 		defaultMessage: 'Show {numberOfItemsLeft} more {itemsType}',
-		description: '"Show more" text',
+		description:
+			'Label for the show more button in the help panel. The placeholder {numberOfItemsLeft} is the count of remaining hidden items, and {itemsType} is the type of items (e.g. articles, results).',
 	},
 	help_show_more_button_label_less: {
 		id: 'help.show_more_button.label_less',
 		defaultMessage: 'Show less',
-		description: '"Show less" text',
+		description:
+			'Label for the collapse button in the help panel that hides extra items previously revealed by the show more button.',
 	},
 	help_panel_search_back: {
 		id: 'helpPanel.search.back',
@@ -561,12 +563,14 @@ export const messages: {
 	help_search_tab: {
 		id: 'help.search_tab.search',
 		defaultMessage: 'Search',
-		description: 'Search tab text',
+		description:
+			'Label for the Search tab in the help panel navigation that lets users search for help articles.',
 	},
 	help_ai_tab: {
 		id: 'help.search_tab.ai',
 		defaultMessage: 'Ask AI',
-		description: 'Ask AI tab text',
+		description:
+			'Label for the Ask AI tab in the help panel navigation that allows users to get AI-assisted answers.',
 	},
 	help_need_more_help_label: {
 		id: 'help.need_more_help.ai',
@@ -576,7 +580,8 @@ export const messages: {
 	help_need_more_help_text: {
 		id: 'help.need_more_help.text',
 		defaultMessage: 'Need more help?',
-		description: 'Need more help text',
+		description:
+			'Prompt text shown in the help panel footer encouraging users to seek additional assistance beyond the current results.',
 	},
 	help_whats_new_filter_select_label: {
 		id: 'help.whats_new.filter_select_label',

@@ -174,11 +174,22 @@ const panelCustomBackground = css({
 	},
 });
 
-export const PanelStyledEmotion: { ({ backgroundColor, hasIcon, ...props }: React.PropsWithChildren<PanelStyledProps & React.HTMLAttributes<HTMLDivElement>>): jsx.JSX.Element; displayName: string; } = ({
+export const PanelStyledEmotion: {
+	({
+		backgroundColor,
+		hasIcon,
+		...props
+	}: React.PropsWithChildren<
+		PanelStyledProps & React.HTMLAttributes<HTMLDivElement>
+	>): jsx.JSX.Element;
+	displayName: string;
+} = ({
 	backgroundColor,
 	hasIcon,
 	...props
-}: React.PropsWithChildren<PanelStyledProps & React.HTMLAttributes<HTMLDivElement>>): jsx.JSX.Element => {
+}: React.PropsWithChildren<
+	PanelStyledProps & React.HTMLAttributes<HTMLDivElement>
+>): jsx.JSX.Element => {
 	const customBackgroundColor = backgroundColor
 		? hexToEditorBackgroundPaletteColor(backgroundColor) || backgroundColor
 		: undefined;

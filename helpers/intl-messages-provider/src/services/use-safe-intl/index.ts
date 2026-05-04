@@ -2,9 +2,7 @@ import { useContext } from 'react';
 
 import { createIntl, createIntlCache, IntlContext, type IntlShape } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import { DEFAULT_LOCALE_STATE, NEW_DEFAULT_LOCALE_STATE } from '../../common/constants';
+import { DEFAULT_LOCALE_STATE } from '../../common/constants';
 
 // Prevents memory leaks
 const cache = createIntlCache();
@@ -17,10 +15,7 @@ const cache = createIntlCache();
 export const useSafeIntl = (): IntlShape => {
 	const context = useContext(IntlContext);
 	if (!context) {
-		const defaultState = fg('navx-4615-fix-async-intl-for-gsn')
-			? NEW_DEFAULT_LOCALE_STATE
-			: DEFAULT_LOCALE_STATE;
-		return createIntl(defaultState, cache);
+		return createIntl(DEFAULT_LOCALE_STATE, cache);
 	}
 	return context;
 };

@@ -46,7 +46,12 @@ interface Props {
 	targetCellPosition?: number;
 }
 
-const FloatingDragMenu = ({
+interface FloatingDragMenuFunction {
+	(props: Props): React.JSX.Element | null;
+	displayName: string;
+}
+
+const FloatingDragMenu: FloatingDragMenuFunction = ({
 	mountPoint,
 	boundariesElement,
 	scrollableElement,
@@ -66,7 +71,7 @@ const FloatingDragMenu = ({
 	api,
 	isCommentEditor,
 	tableWrapper,
-}: Props): React.JSX.Element | null => {
+}) => {
 	if (!isOpen || !targetCellPosition || editorView.state.doc.nodeSize <= targetCellPosition) {
 		return null;
 	}

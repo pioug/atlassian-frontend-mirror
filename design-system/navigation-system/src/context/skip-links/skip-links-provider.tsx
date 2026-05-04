@@ -38,10 +38,12 @@ const getByDomOrderSortFunction = () => {
 export function SkipLinksProvider({
 	children,
 	label,
+	triggerLabel,
 	testId,
 }: {
 	children: ReactNode;
 	label: string;
+	triggerLabel: string;
 	testId?: string;
 }): React.JSX.Element {
 	const [links, setLinks] = useState<Array<SkipLinkData>>([]);
@@ -80,7 +82,7 @@ This error will not be shown in production, and the duplicate skip link will be 
 
 	return (
 		<SkipLinksContext.Provider value={contextValue}>
-			<SkipLinksContainer label={label} testId={testId} links={links} />
+			<SkipLinksContainer label={label} triggerLabel={triggerLabel} testId={testId} links={links} />
 			{children}
 		</SkipLinksContext.Provider>
 	);

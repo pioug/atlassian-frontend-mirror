@@ -73,7 +73,8 @@ export function Root({
 	children,
 	xcss,
 	UNSAFE_dangerouslyHoistSlotSizes = false,
-	skipLinksLabel,
+	skipLinksLabel = fg('platform_dst_nav4_skip_link_a11y_1') ? 'Skip to' : 'Skip to:',
+	skipLinksTriggerLabel = 'Skip to',
 	testId,
 	defaultSideNavCollapsed,
 	isSideNavShortcutEnabled = false,
@@ -99,6 +100,10 @@ export function Root({
 	 * The header text for the skip links container element.
 	 */
 	skipLinksLabel?: string;
+	/**
+	 * The label for the skip links button that opens the skip links popup.
+	 */
+	skipLinksTriggerLabel?: string;
 	/**
 	 * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
 	 */
@@ -134,9 +139,6 @@ export function Root({
 	 */
 	isSideNavShortcutEnabled?: boolean;
 }): JSX.Element {
-	const resolvedSkipLinksLabel =
-		skipLinksLabel ?? (fg('platform_dst_nav4_skip_link_a11y_1') ? 'Skip to' : 'Skip to:');
-
 	const ref = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -178,7 +180,11 @@ This message will not be displayed in production.
 						<TopNavStartProvider>
 							<OpenLayerObserver>
 								<DangerouslyHoistSlotSizes.Provider value={UNSAFE_dangerouslyHoistSlotSizes}>
-									<SkipLinksProvider label={resolvedSkipLinksLabel} testId={testId}>
+									<SkipLinksProvider
+										label={skipLinksLabel}
+										triggerLabel={skipLinksTriggerLabel}
+										testId={testId}
+									>
 										<div
 											ref={ref}
 											css={styles.root}

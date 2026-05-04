@@ -67,6 +67,7 @@ export type { PopupProps, TPopup } from './PopupProps.codegen';
 export type { AdfRendererProps, TAdfRenderer } from './AdfRendererProps.codegen';
 export type { BannerProps, TBanner } from './BannerProps.codegen';
 export type { BlanketProps, TBlanket } from './BlanketProps.codegen';
+export type { BleedProps, TBleed } from './BleedProps.codegen';
 export type { BreadcrumbsProps, TBreadcrumbs } from './BreadcrumbsProps.codegen';
 export type { BreadcrumbsItemProps, TBreadcrumbsItem } from './BreadcrumbsItemProps.codegen';
 export type { PaginationProps, TPagination } from './PaginationProps.codegen';

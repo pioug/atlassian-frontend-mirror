@@ -1,7 +1,6 @@
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 /* eslint-disable compat/compat */
 /* eslint-disable no-unused-vars */
-import type { PlaywrightCoverageOptions } from 'build/test-tooling/integration-testing/src/fixtures';
 import type {
 	Page as PlaywrightCorePage,
 	PlaywrightTestArgs,
@@ -13,6 +12,7 @@ import type {
 } from 'playwright/test';
 
 import { test as base, expect as baseExpect, type Expect } from '@af/integration-testing';
+import type { PlaywrightCoverageOptions } from '@af/integration-testing/fixtures';
 
 // Extend the Page interface to include visitExample for TypeScript
 declare module '@af/integration-testing' {

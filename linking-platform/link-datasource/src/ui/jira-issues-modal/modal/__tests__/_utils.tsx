@@ -9,18 +9,15 @@ import type {
 	SelectorMatcherOptions,
 	waitForOptions,
 } from '@testing-library/react';
-import type {
-	DisplayViewModes,
-	Site,
-} from 'packages/linking-platform/link-datasource/src/common/types';
-import type {
-	DatasourceTableState,
-	DatasourceTableStateProps,
-} from 'packages/linking-platform/link-datasource/src/hooks/useDatasourceTableState';
 
 import { JQLEditor, type JQLEditorProps } from '@atlaskit/jql-editor';
 
 import { setupFactory } from '../../../../common/__tests__/_utils';
+import type { DisplayViewModes, Site } from '../../../../common/types';
+import type {
+	DatasourceTableState,
+	DatasourceTableStateProps,
+} from '../../../../hooks/useDatasourceTableState';
 import type { ConfluenceSearchConfigModalProps } from '../../../confluence-search-modal/types';
 import type { ColumnSizesMap, IssueLikeDataTableViewProps } from '../../../issue-like-table/types';
 import { type JiraIssueDatasourceParameters, type JiraIssuesDatasourceAdf } from '../../types';

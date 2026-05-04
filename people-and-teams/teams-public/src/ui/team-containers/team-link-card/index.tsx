@@ -75,12 +75,6 @@ const styles = cssMap({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 	},
-	iconWrapper: {
-		width: '32px',
-		height: '32px',
-		minWidth: '32px',
-		minHeight: '32px',
-	},
 	crossIconWrapper: {
 		display: 'flex',
 		alignItems: 'center',
@@ -116,8 +110,6 @@ export interface TeamLinkCardProps {
 		subType?: ContainerSubTypes;
 		name?: string;
 	};
-	iconsLoading?: boolean;
-	iconHasLoaded?: boolean;
 	openInNewTab?: boolean;
 	isReadOnly?: boolean;
 	hideSubTextIcon?: boolean;
@@ -153,8 +145,6 @@ export const TeamLinkCard = ({
 	containerTypeProperties,
 	onDisconnectButtonClick,
 	onEditLinkClick,
-	iconsLoading,
-	iconHasLoaded,
 	openInNewTab,
 	isReadOnly,
 	hideSubTextIcon,
@@ -255,8 +245,6 @@ export const TeamLinkCard = ({
 					title={title}
 					containerIcon={containerIcon}
 					size="medium"
-					iconsLoading={iconsLoading}
-					iconHasLoaded={iconHasLoaded}
 				/>
 				{fg('fix_team_link_card_a11y') ? (
 					<>

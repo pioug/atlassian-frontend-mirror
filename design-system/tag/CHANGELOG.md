@@ -1,5 +1,12 @@
 # @atlaskit/tag
 
+## 14.13.1
+
+### Patch Changes
+
+- [`237f0d148a18e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/237f0d148a18e) -
+  update prop from data-testid to testId
+
 ## 14.13.0
 
 ### Minor Changes

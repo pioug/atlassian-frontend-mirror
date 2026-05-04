@@ -15,7 +15,12 @@ const style = cssMap({
 	},
 });
 
-const AiEditIcon = (props: React.SVGProps<SVGSVGElement>): React.JSX.Element => (
+interface AiEditIconFunction {
+	(props: React.SVGProps<SVGSVGElement>): React.JSX.Element;
+	displayName: string;
+}
+
+const AiEditIcon: AiEditIconFunction = (props) => (
 	<svg
 		width="24"
 		height="24"

@@ -15,7 +15,12 @@ const style = cssMap({
 	},
 });
 
-const AiSearchIcon = (props: React.SVGProps<SVGSVGElement>): React.JSX.Element => (
+interface AiSearchIconFunction {
+	(props: React.SVGProps<SVGSVGElement>): React.JSX.Element;
+	displayName: string;
+}
+
+const AiSearchIcon: AiSearchIconFunction = (props) => (
 	<svg
 		width="24"
 		height="24"

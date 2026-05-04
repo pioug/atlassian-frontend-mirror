@@ -60,14 +60,10 @@ export const TeamContainers = ({
 	hideSubTextIcon,
 }: TeamContainerProps): React.JSX.Element => {
 	const { unlinkError } = useTeamContainers(teamId);
-	const {
-		teamLinks,
-		removeTeamLink,
-		iconsLoading,
-		iconHasLoaded,
-		hasError,
-		isLoading: linksLoading,
-	} = useTeamLinksAndContainers(teamId, true);
+	const { teamLinks, removeTeamLink, hasError, isLoading: linksLoading } = useTeamLinksAndContainers(
+		teamId,
+		true,
+	);
 	const [_, actions] = useTeamContainersHook();
 	const [showMore, setShowMore] = useState(false);
 	const [isDisconnectDialogOpen, setIsDisconnectDialogOpen] = useState(false);
@@ -332,8 +328,6 @@ export const TeamContainers = ({
 										containerIcon={container.icon || undefined}
 										link={container.link || undefined}
 										containerId={container.id}
-										iconsLoading={iconsLoading}
-										iconHasLoaded={iconHasLoaded}
 										isReadOnly={isReadOnly}
 										hideSubTextIcon={hideSubTextIcon}
 										onDisconnectButtonClick={() =>
@@ -366,8 +360,6 @@ export const TeamContainers = ({
 											containerId={container.id}
 											containerIcon={container.icon || undefined}
 											link={container.link || undefined}
-											iconsLoading={iconsLoading}
-											iconHasLoaded={iconHasLoaded}
 											isReadOnly={isReadOnly}
 											hideSubTextIcon={hideSubTextIcon}
 											onDisconnectButtonClick={() =>

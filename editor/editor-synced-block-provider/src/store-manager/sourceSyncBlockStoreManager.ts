@@ -170,6 +170,7 @@ export class SourceSyncBlockStoreManager {
 					...syncBlockData,
 					isDirty: isDirty, // if the change is from remote, it's not dirty
 					contentFragment: syncBlockNode.content,
+					...(fg('platform_synced_block_patch_10') && { status: cachedBlock?.status }),
 				});
 			} else {
 				const syncBlockData = convertSyncBlockPMNodeToSyncBlockData(syncBlockNode);
@@ -181,6 +182,7 @@ export class SourceSyncBlockStoreManager {
 				this.syncBlockCache.set(resourceId, {
 					...syncBlockData,
 					isDirty: true,
+					...(fg('platform_synced_block_patch_10') && { status: cachedBlock?.status }),
 				});
 			}
 
@@ -266,6 +268,13 @@ export class SourceSyncBlockStoreManager {
 				this.saveExperience?.success();
 				writeResults.forEach((result) => {
 					if (result.resourceId && !result.error) {
+						// Update cache with the status returned from the backend
+						if (fg('platform_synced_block_patch_10')) {
+							const cachedData = this.syncBlockCache.get(result.resourceId);
+							if (cachedData && result.status) {
+								cachedData.status = result.status;
+							}
+						}
 						this.fireAnalyticsEvent?.(updateSuccessPayload(result.resourceId, false));
 					}
 				});
@@ -402,6 +411,14 @@ export class SourceSyncBlockStoreManager {
 			if (fg('platform_synced_block_update_refactor')) {
 				// add the node to the cache
 				this.updateSyncBlockData(node, false);
+
+				// Mark the block as unpublished in the cache so it can be cleaned up on cancel
+				if (fg('platform_synced_block_patch_10')) {
+					const cached = this.syncBlockCache.get(resourceId);
+					if (cached) {
+						cached.status = 'unpublished';
+					}
+				}
 			}
 
 			this.creationCompletionCallbacks.set(resourceId, onCompletion);
@@ -556,6 +573,91 @@ export class SourceSyncBlockStoreManager {
 	}
 
 	/**
+	 * Fetches the current status of all source sync blocks in the cache from the backend
+	 * and updates the cache entries with the fetched status.
+	 * This is called on editor init so we know which blocks are 'unpublished' vs 'active'.
+	 */
+	public async fetchAndCacheStatuses(): Promise<void> {
+		if (
+			!fg('platform_synced_block_patch_10') ||
+			!this.dataProvider ||
+			this.syncBlockCache.size === 0
+		) {
+			return;
+		}
+
+		// Source blocks have plain UUID resourceIds, but fetchNodesData internally uses
+		// generateBlockAriFromReference which expects reference-format resourceIds
+		// (e.g. "confluence-page/pageId/uuid"). We convert source resourceIds to reference
+		// format before fetching, and maintain a mapping back to original resourceIds
+		// so we can update the correct cache entries.
+		const sourceToReferenceMap = new Map<string, string>();
+		const syncBlockNodes: SyncBlockNode[] = Array.from(this.syncBlockCache.entries()).map(
+			([resourceId, data]) => {
+				const referenceResourceId =
+					this.dataProvider?.generateResourceIdForReference(resourceId) ?? resourceId;
+				sourceToReferenceMap.set(referenceResourceId, resourceId);
+				return {
+					type: 'bodiedSyncBlock' as const,
+					attrs: {
+						localId: data.blockInstanceId,
+						resourceId: referenceResourceId,
+					},
+				};
+			},
+		);
+
+		try {
+			const results = await this.dataProvider.fetchNodesData(syncBlockNodes);
+			for (const result of results) {
+				// Map the reference resourceId back to the source resourceId
+				const sourceResourceId =
+					sourceToReferenceMap.get(result.resourceId) ?? result.resourceId;
+				const cached = this.syncBlockCache.get(sourceResourceId);
+				if (cached && result.data?.status) {
+					cached.status = result.data.status;
+				}
+			}
+		} catch {
+			// If the fetch fails, statuses remain undefined.
+			// This is acceptable — on cancel, blocks without a known status
+			// will not be deleted (safe default).
+		}
+	}
+
+	/**
+	 * Deletes all source sync blocks that have 'unpublished' status.
+	 * Used to clean up orphaned blocks when a user cancels editing without saving.
+	 * Blocks that were already saved (status 'active') are not affected.
+	 *
+	 * @returns true if all deletions succeeded, false otherwise
+	 */
+	public discardUnpublishedBlocks(): Promise<boolean> {
+		if (!fg('platform_synced_block_patch_10')) {
+			return Promise.resolve(true);
+		}
+
+		const unpublishedBlockIds: SyncBlockAttrs[] = Array.from(this.syncBlockCache.entries())
+			.filter(([_, data]) => data.status === 'unpublished' && !data.pendingDeletion)
+			.map(([resourceId, data]) => ({
+				resourceId,
+				localId: data.blockInstanceId,
+			}));
+
+		if (unpublishedBlockIds.length === 0) {
+			return Promise.resolve(true);
+		}
+
+		return this.delete(
+			unpublishedBlockIds,
+			() => {}, // onDelete: no-op, document is being discarded
+			() => {}, // onDeleteCompleted: no-op
+			'source-block-unpublished',
+		);
+	}
+
+	/**
+	 * Deletes sync blocks with confirmation from the backend
 	 *
 	 * @param syncBlockIds - The sync block ids to delete
 	 * @param onDelete - The callback to delete sync block node from document

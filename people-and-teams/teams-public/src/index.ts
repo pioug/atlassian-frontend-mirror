@@ -1,6 +1,6 @@
 export { TeamContainers } from './ui/team-containers';
 export { TeamLinkCard } from './ui/team-containers/team-link-card';
-export type { LinkedContainerCardProps } from './ui/team-containers';
+export type { TeamLinkCardProps } from './ui/team-containers';
 export type { TeamContainersSkeletonProps } from './ui/team-containers';
 export type { TeamContainerProps } from './ui/team-containers/types';
 export { ContainerIcon } from './common/ui/container-icon';

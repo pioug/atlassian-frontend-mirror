@@ -1,23 +1,10 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { cssMap, jsx } from '@atlaskit/css';
+import { cssMap } from '@atlaskit/css';
 import { ExitingPersistence, Motion } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
 
-import { Block, Centered, RetryContainer } from '../utils';
-
 const styles = cssMap({
-	container: {
-		textAlign: 'center',
-	},
-	centered: {
-		height: '182px',
-	},
 	entering: {
 		animationDuration: token('motion.duration.xlong'),
 		animationTimingFunction: token('motion.easing.out.practical'),
@@ -30,26 +17,18 @@ const styles = cssMap({
 	},
 });
 
-const MotionPrimitiveCustomExample = (): JSX.Element => {
-	const [isIn, setIsIn] = useState(true);
-
+export default function MotionExample(): JSX.Element {
+	const [isVisible, setIsVisible] = useState(true);
 	return (
-		<RetryContainer>
-			<div css={styles.container}>
-				<Button onClick={() => setIsIn((prev) => !prev)}>{isIn ? 'Exit' : 'Enter'}</Button>
-
-				<Centered css={styles.centered}>
-					<ExitingPersistence appear>
-						{isIn && (
-							<Motion enteringAnimationXcss={styles.entering} exitingAnimationXcss={styles.exiting}>
-								<Block />
-							</Motion>
-						)}
-					</ExitingPersistence>
-				</Centered>
-			</div>
-		</RetryContainer>
+		<>
+			<button type="button" onClick={() => setIsVisible((v) => !v)}>Toggle</button>
+			<ExitingPersistence appear>
+				{isVisible && (
+					<Motion key="item" enteringAnimationXcss={styles.entering} exitingAnimationXcss={styles.exiting}>
+						<div>Content</div>
+					</Motion>
+				)}
+			</ExitingPersistence>
+		</>
 	);
-};
-
-export default MotionPrimitiveCustomExample;
+}

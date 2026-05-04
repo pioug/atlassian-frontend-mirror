@@ -273,6 +273,7 @@
 		"./surface-provider": "./src/entry-points/surface-provider.tsx",
 		"./text": "./src/entry-points/text.tsx",
 		"./types": "./src/entry-points/types.tsx",
-		"./xcss": "./src/entry-points/xcss.tsx"
+		"./xcss": "./src/entry-points/xcss.tsx",
+		"./components/flex": "./src/components/flex.tsx"
 	}
 }

@@ -1,10 +1,11 @@
 import React from 'react';
 
-const RovoHexLogo = ({
-	width = 16,
-	height = 16,
-	...props
-}: React.SVGProps<SVGSVGElement>): React.JSX.Element => (
+interface RovoHexLogoFunction {
+	(props: React.SVGProps<SVGSVGElement>): React.JSX.Element;
+	displayName: string;
+}
+
+const RovoHexLogo: RovoHexLogoFunction = ({ width = 16, height = 16, ...props }) => (
 	<svg
 		width={width}
 		height={height}

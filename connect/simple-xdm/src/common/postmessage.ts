@@ -14,7 +14,7 @@ class PostMessage {
 		listenOn.addEventListener('message', Util._bind(this, this._receiveMessage), false);
 	}
 
-	_receiveMessage(event: any) {
+	_receiveMessage(event: any): any {
 		let handler = this._messageHandlers[event.data.type],
 			extensionId = event.data.eid,
 			reg;

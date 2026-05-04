@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 1.3.0
+
+### Minor Changes
+
+- [`a463262abf609`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a463262abf609) -
+  Add prop types for Banner, Blanket, Bleed, Breadcrumbs, BreadcrumbsItem, and Pagination components
+
 ## 1.2.0
 
 ### Minor Changes

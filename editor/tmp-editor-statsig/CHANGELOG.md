@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 74.5.0
+
+### Minor Changes
+
+- [`d5eb28ba8a0f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5eb28ba8a0f8) -
+  EDITOR-6724: Fix object assignment issue in attrs comparison util to avoid attrs being dropped in
+  ProseMirror when they're being compared.
+
 ## 74.4.0
 
 ### Minor Changes

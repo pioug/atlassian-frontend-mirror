@@ -6,7 +6,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { flushBodiedSyncBlocks, flushSyncBlocks } from './editor-actions';
+import { flushBodiedSyncBlocks, flushSyncBlocks, discardUnpublishedSyncBlocks } from './editor-actions';
 import {
 	copySyncedBlockReferenceToClipboardEditorCommand,
 	createSyncedBlock,
@@ -110,6 +110,9 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 			},
 			flushSyncedBlocks: () => {
 				return flushSyncBlocks(syncBlockStore);
+			},
+			discardUnpublishedSyncBlocks: () => {
+				return discardUnpublishedSyncBlocks(syncBlockStore);
 			},
 		},
 

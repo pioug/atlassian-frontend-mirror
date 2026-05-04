@@ -81,6 +81,14 @@ export type SyncedBlockPlugin = NextEditorPlugin<
 	{
 		actions: {
 			/**
+			 * Delete all source sync blocks with 'unpublished' status.
+			 * Used to clean up orphaned blocks when a user cancels editing
+			 * without saving.
+			 *
+			 * @returns true if all deletions succeeded, false otherwise
+			 */
+			discardUnpublishedSyncBlocks: () => Promise<boolean>;
+			/**
 			 * Save content of bodiedSyncBlock nodes in local cache to backend.
 			 * This action allows bodiedSyncBlock to be saved in sync with product saving experience
 			 * as per {@link https://hello.atlassian.net/wiki/spaces/egcuc/pages/5932393240/Synced+Blocks+Save+refresh+principles}

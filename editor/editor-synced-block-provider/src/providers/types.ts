@@ -10,6 +10,7 @@ import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 import type {
 	SyncBlockData,
+	SyncBlockStatus,
 	ResourceId,
 	SyncBlockError,
 	SyncBlockNode,
@@ -71,6 +72,7 @@ export type SyncBlockParentInfo = {
 export type WriteSyncBlockResult = {
 	error?: string;
 	resourceId?: ResourceId;
+	status?: SyncBlockStatus;
 };
 
 export type SourceInfoFetchData = {

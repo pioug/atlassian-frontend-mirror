@@ -4,7 +4,7 @@ import Util from '../common/util';
 var each = Util.each,
 	document = window.document;
 
-function $(sel: any, context: any): any {
+const $: any = function (sel: any, context: any): any {
 	context = context || document;
 	var els = [];
 	if (sel) {
@@ -72,7 +72,7 @@ function $(sel: any, context: any): any {
 	});
 
 	return els;
-}
+};
 
 function binder(std, odd) {
 	std += 'EventListener';

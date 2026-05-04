@@ -357,6 +357,11 @@ export const createPlugin = (
 							syncBlockStore.sourceManager.updateSyncBlockData(node, false);
 						}
 					});
+
+					// Fetch statuses from the backend so we can identify unpublished blocks on cancel
+					if (fg('platform_synced_block_patch_10')) {
+						syncBlockStore.sourceManager.fetchAndCacheStatuses();
+					}
 				}
 
 				return {
@@ -441,13 +446,13 @@ export const createPlugin = (
 							pmPluginFactoryParams,
 							api,
 							syncBlockStore,
-						})
+					  })
 					: bodiedSyncBlockNodeViewOld({
 							pluginOptions: options,
 							pmPluginFactoryParams,
 							api,
 							syncBlockStore,
-						}),
+					  }),
 			},
 			decorations: (state) => {
 				const currentPluginState = syncedBlockPluginKey.getState(state);
@@ -628,6 +633,12 @@ export const createPlugin = (
 						}
 					});
 
+					// Fetch statuses for remotely-added source sync blocks
+					// so we can identify unpublished blocks on cancel
+					if (sourceSyncBlockNodes.length > 0 && fg('platform_synced_block_patch_10')) {
+						syncBlockStore.sourceManager.fetchAndCacheStatuses();
+					}
+
 					const syncBlockNodes = referenceSyncBlockNodes
 						.map((nodeInfo) => nodeInfo.node)
 						.filter((node) => node !== undefined);
@@ -660,7 +671,7 @@ export const createPlugin = (
 						isConfirmedSyncBlockDeletion,
 						bodiedSyncBlockRemoved,
 						bodiedSyncBlockAdded,
-					})
+				  })
 				: filterTransactionOnline({
 						tr,
 						state,
@@ -670,7 +681,7 @@ export const createPlugin = (
 						bodiedSyncBlockRemoved,
 						bodiedSyncBlockAdded,
 						extensionFlagShown,
-					});
+				  });
 		},
 		appendTransaction: (trs, oldState, newState) => {
 			const viewMode = api?.editorViewMode?.sharedState.currentState()?.mode;

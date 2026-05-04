@@ -1,5 +1,13 @@
 # @atlaskit/embedded-confluence
 
+## 5.0.1
+
+### Patch Changes
+
+- [`7113d5c8d2703`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7113d5c8d2703) -
+  Enrol confluence platform packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform
+
 ## 5.0.0
 
 ### Major Changes

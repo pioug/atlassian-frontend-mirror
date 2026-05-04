@@ -1,5 +1,40 @@
 # @atlaskit/top-layer
 
+## 0.4.0
+
+### Minor Changes
+
+- [`58c9d421e96b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58c9d421e96b1) -
+  Improves the jsdom test polyfill (`testing/polyfill`) to better match WHATWG popover spec
+  semantics:
+  - Adds the `el.popover` IDL getter/setter so feature-detection (`supportsPopoverHint()` etc) works
+    in jsdom and `popover="hint"` is exercised in tests rather than silently falling back to
+    `popover="auto"`.
+  - Implements a separate hint stack so opening a `hint` does not close open `auto` popovers;
+    opening an `auto` closes all hints; light-dismiss and Escape walk both stacks per spec.
+  - Implements proper "topmost popover ancestor" lookup that walks both DOM ancestry and the invoker
+    chain (via `popovertarget`), so opening a popover from a button inside another popover does not
+    close the parent.
+  - Light-dismiss now uses pointerdown + pointerup (with `mousedown` + `mouseup` fallback) and a
+    same-target check so drag-out and drag-in gestures do not dismiss popovers.
+  - `togglePopover()` now returns the actual resulting open state.
+  - Per-method patching (`showPopover` / `hidePopover` / `togglePopover`) so partial native support
+    in future jsdom versions still patches the missing methods.
+  - Disconnected popovers are pruned from the open stacks (defends against test-pollution).
+  - Clears any inline `opacity: 0` set by callers (such as `use-anchor-positioning`'s
+    "hide-until-measured" guard) once the open toggle fires, since jsdom does not deliver
+    `ResizeObserver` callbacks.
+  - Treats `popover=""` (empty value) as `auto` per spec.
+
+## 0.3.0
+
+### Minor Changes
+
+- [`60e2bb08cd411`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60e2bb08cd411) -
+  Expose Popover API and HTMLDialogElement jsdom polyfill (and toBeVisible patch) via new
+  testing/polyfill and testing/to-be-visible subpath exports. Adopters can now opt in to the
+  polyfill in their jest setup with a single import.
+
 ## 0.2.0
 
 ### Minor Changes

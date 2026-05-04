@@ -26,8 +26,6 @@ export interface ContainerIconProps {
 	containerIcon?: string;
 	size?: 'small' | 'medium';
 	testId?: string;
-	iconsLoading?: boolean;
-	iconHasLoaded?: boolean;
 }
 
 export const ContainerIcon = ({

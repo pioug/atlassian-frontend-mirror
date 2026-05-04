@@ -12,6 +12,7 @@ snapshot(CompositionVR, {
 	],
 	states: [{ state: 'focused', selector: { byRole: 'link', options: { name: 'Sidebar' } } }],
 	featureFlags: {
-		platform_dst_nav4_skip_link_a11y_1: [false, true],
+		// When enabled, the skip links are rendered in a popup dialog
+		platform_dst_nav4_skip_link_a11y_1: false,
 	},
 });

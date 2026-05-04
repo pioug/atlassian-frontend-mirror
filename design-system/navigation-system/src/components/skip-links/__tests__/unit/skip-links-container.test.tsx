@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import noop from '@atlaskit/ds-lib/noop';
@@ -349,42 +349,6 @@ describe('page layout slots', () => {
 	});
 });
 
-ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvements', () => {
-	let resetConsoleErrorSpyFn: ResetConsoleErrorFn;
-	beforeAll(() => {
-		// Rendering the `SideNav` causes `parseCss` errors in JSDOM
-		resetConsoleErrorSpyFn = filterFromConsoleErrorOutput(parseCssErrorRegex);
-		resetMatchMedia();
-	});
-
-	afterAll(() => {
-		resetConsoleErrorSpyFn();
-	});
-
-	it('should only render skip links for the SideNav and Main slots', () => {
-		render(
-			<Root testId="root">
-				<Banner height={32}>banner</Banner>
-				<TopNav height={48}>top nav</TopNav>
-				<SideNav defaultWidth={320}>side nav</SideNav>
-				<Main>main</Main>
-				<Aside defaultWidth={200}>aside</Aside>
-				<Panel defaultWidth={200}>panel</Panel>
-			</Root>,
-		);
-
-		const skipLinksContainer = within(screen.getByTestId('root--skip-links-container'));
-
-		expect(skipLinksContainer.getAllByRole('link')).toHaveLength(2);
-		expect(skipLinksContainer.getByRole('link', { name: 'Sidebar' })).toBeInTheDocument();
-		expect(skipLinksContainer.getByRole('link', { name: 'Main content' })).toBeInTheDocument();
-		expect(skipLinksContainer.queryByRole('link', { name: 'Banner' })).not.toBeInTheDocument();
-		expect(skipLinksContainer.queryByRole('link', { name: 'Top Bar' })).not.toBeInTheDocument();
-		expect(skipLinksContainer.queryByRole('link', { name: 'Aside' })).not.toBeInTheDocument();
-		expect(skipLinksContainer.queryByRole('link', { name: 'Panel' })).not.toBeInTheDocument();
-	});
-});
-
 it('should manage focus for the targeted element', async () => {
 	render(
 		<Root>
@@ -410,4 +374,194 @@ it('should manage focus for the targeted element', async () => {
 	// The main slot no longer has focus or the tab index
 	expect(main).not.toHaveFocus();
 	expect(main).not.toHaveAttribute('tabindex');
+});
+
+ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvements', () => {
+	let resetConsoleErrorSpyFn: ResetConsoleErrorFn;
+	beforeAll(() => {
+		// Rendering the `SideNav` causes `parseCss` errors in JSDOM
+		resetConsoleErrorSpyFn = filterFromConsoleErrorOutput(parseCssErrorRegex);
+		resetMatchMedia();
+	});
+
+	afterAll(() => {
+		resetConsoleErrorSpyFn();
+	});
+
+	it('should only render skip links for the SideNav and Main slots', async () => {
+		const user = userEvent.setup();
+		render(
+			<Root testId="root">
+				<Banner height={32}>banner</Banner>
+				<TopNav height={48}>top nav</TopNav>
+				<SideNav defaultWidth={320}>side nav</SideNav>
+				<Main>main</Main>
+				<Aside defaultWidth={200}>aside</Aside>
+				<Panel defaultWidth={200}>panel</Panel>
+			</Root>,
+		);
+
+		// The skip links live inside a popup dialog that needs to be opened first
+		await user.click(screen.getByTestId('root--skip-links-trigger'));
+
+		const skipLinksContainer = within(screen.getByTestId('root--skip-links-container'));
+
+		expect(skipLinksContainer.getAllByRole('link')).toHaveLength(2);
+		expect(skipLinksContainer.getByRole('link', { name: 'Sidebar' })).toBeInTheDocument();
+		expect(skipLinksContainer.getByRole('link', { name: 'Main content' })).toBeInTheDocument();
+	});
+
+	it('renders a skip-to button and does not expose skip links until the dialog is open', () => {
+		render(
+			<Root testId="root">
+				<Main>Hello world</Main>
+			</Root>,
+		);
+
+		expect(screen.getByRole('button', { name: 'Skip to' })).toBeInTheDocument();
+		expect(screen.queryByRole('link', { name: 'Main content' })).not.toBeInTheDocument();
+	});
+
+	it('focuses the skip-to trigger when it is the first tab stop', async () => {
+		const user = userEvent.setup();
+		render(
+			<Root testId="root">
+				<Main>Hello world</Main>
+			</Root>,
+		);
+
+		const trigger = screen.getByTestId('root--skip-links-trigger');
+		expect(trigger).not.toHaveFocus();
+
+		await user.tab();
+
+		expect(trigger).toHaveFocus();
+	});
+
+	it('uses the provided `skipLinksTriggerLabel` for the trigger button', () => {
+		render(
+			<Root testId="root" skipLinksTriggerLabel="Jump to a section">
+				<Main>Hello world</Main>
+			</Root>,
+		);
+
+		expect(screen.getByRole('button', { name: 'Jump to a section' })).toBeInTheDocument();
+	});
+
+	it('opens a dialog with skip links when the trigger is activated', async () => {
+		const user = userEvent.setup();
+		render(
+			<Root testId="root">
+				<Main>Hello world</Main>
+			</Root>,
+		);
+
+		await user.click(screen.getByRole('button', { name: 'Skip to' }));
+
+		const dialog = screen.getByRole('dialog', { name: 'Skip to' });
+		expect(dialog).toBeInTheDocument();
+		expect(within(dialog).getByRole('link', { name: 'Main content' })).toBeInTheDocument();
+	});
+
+	it('uses the provided `skipLinksLabel` as the dialog accessible name and visible heading', async () => {
+		const user = userEvent.setup();
+		render(
+			<Root testId="root" skipLinksLabel="Jump to a section">
+				<Main>Hello world</Main>
+			</Root>,
+		);
+
+		await user.click(screen.getByRole('button', { name: 'Skip to' }));
+
+		expect(screen.getByRole('dialog', { name: 'Jump to a section' })).toBeInTheDocument();
+		expect(screen.getByTestId('root--skip-links-container--label')).toHaveTextContent(
+			'Jump to a section',
+		);
+	});
+
+	it('renders all registered skip links inside the dialog', async () => {
+		const user = userEvent.setup();
+		render(
+			<Root testId="root">
+				<SideNav>side nav</SideNav>
+				<Main>main</Main>
+			</Root>,
+		);
+
+		await user.click(screen.getByRole('button', { name: 'Skip to' }));
+
+		const dialog = screen.getByRole('dialog', { name: 'Skip to' });
+		const linksInDialog = within(dialog).getAllByRole('link');
+		expect(linksInDialog).toHaveLength(2);
+		expect(within(dialog).getByRole('link', { name: 'Sidebar' })).toBeInTheDocument();
+		expect(within(dialog).getByRole('link', { name: 'Main content' })).toBeInTheDocument();
+	});
+
+	it('moves focus to the target when a skip link in the dialog is activated', async () => {
+		const user = userEvent.setup();
+		render(
+			<Root testId="root">
+				<Main testId="main">Hello world</Main>
+			</Root>,
+		);
+
+		await user.click(screen.getByRole('button', { name: 'Skip to' }));
+		await user.click(
+			within(screen.getByRole('dialog', { name: 'Skip to' })).getByRole('link', {
+				name: 'Main content',
+			}),
+		);
+
+		const main = screen.getByTestId('main');
+		expect(main).toHaveAttribute('tabindex', '-1');
+		expect(main).toHaveFocus();
+	});
+
+	it('closes the dialog and restores focus to the trigger when Escape is pressed', async () => {
+		const user = userEvent.setup();
+		render(
+			<Root testId="root">
+				<Main>Hello world</Main>
+			</Root>,
+		);
+
+		const trigger = screen.getByTestId('root--skip-links-trigger');
+		await user.click(trigger);
+		expect(screen.getByRole('dialog', { name: 'Skip to' })).toBeInTheDocument();
+
+		await user.keyboard('{Escape}');
+
+		expect(screen.queryByRole('dialog', { name: 'Skip to' })).not.toBeInTheDocument();
+		await waitFor(() => {
+			expect(trigger).toHaveFocus();
+		});
+	});
+
+	it('does not render skip links UI when there are no registered skip links', () => {
+		render(
+			<Root testId="root">
+				<Banner height={0}>{null}</Banner>
+			</Root>,
+		);
+
+		expect(screen.queryByTestId('root--skip-links-container')).not.toBeInTheDocument();
+		expect(screen.queryByTestId('root--skip-links-trigger')).not.toBeInTheDocument();
+	});
+
+	it('should pass an aXe accessibility audit when the popup is open', async () => {
+		const user = userEvent.setup();
+		render(
+			<Root testId="root">
+				<SideNav>side nav</SideNav>
+				<Main>main</Main>
+			</Root>,
+		);
+
+		await user.click(screen.getByRole('button', { name: 'Skip to' }));
+
+		// Sanity check the dialog is open before auditing
+		expect(screen.getByRole('dialog', { name: 'Skip to' })).toBeInTheDocument();
+
+		await expect(screen.getByRole('dialog', { name: 'Skip to' })).toBeAccessible();
+	});
 });

@@ -44,7 +44,10 @@ export const checkForModal = (target: HTMLElement | null): boolean => {
 	return true;
 };
 
-const clickAreaClickHandler = (view: EditorView, event: React.MouseEvent<HTMLElement>) => {
+const clickAreaClickHandler = (
+	view: EditorView,
+	event: React.MouseEvent<HTMLElement>,
+): boolean | void => {
 	const isEditorFocused = !!view?.hasFocus?.();
 
 	if (!(event.target instanceof HTMLElement)) {

@@ -293,12 +293,12 @@ export const aiSuggestionsMessages: {
 	},
 	cardSourcesHideButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.card.sourcesHideButtonLabel.non-final',
-		defaultMessage: 'Hide sources',
+		defaultMessage: 'Hide reasoning',
 		description: 'Label for the sources toggle button when sources are expanded',
 	},
 	cardSourcesShowButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.card.sourcesShowButtonLabel.non-final',
-		defaultMessage: 'Show sources',
+		defaultMessage: 'Show reasoning',
 		description: 'Label for the sources toggle button when sources are collapsed',
 	},
 	cardAcceptButtonLabel: {

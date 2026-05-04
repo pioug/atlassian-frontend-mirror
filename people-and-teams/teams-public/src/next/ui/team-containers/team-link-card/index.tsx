@@ -47,21 +47,6 @@ const styles = cssMap({
 			color: token('color.text'),
 		},
 	},
-	crossIconWrapper: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'flex-end',
-		marginLeft: 'auto',
-	},
-	showMoreIconWrapper: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'flex-end',
-		marginLeft: 'auto',
-	},
-	linkableContent: {
-		flex: '1',
-	},
 });
 
 export interface TeamLinkCardProps {
@@ -76,8 +61,6 @@ export interface TeamLinkCardProps {
 		subType?: ContainerSubTypes;
 		name?: string;
 	};
-	iconsLoading?: boolean;
-	iconHasLoaded?: boolean;
 	openInNewTab?: boolean;
 	isReadOnly?: boolean;
 }
@@ -91,8 +74,6 @@ export const TeamLinkCard = ({
 	containerTypeProperties,
 	onDisconnectButtonClick,
 	onEditLinkClick,
-	iconsLoading,
-	iconHasLoaded,
 	openInNewTab,
 	isReadOnly,
 }: TeamLinkCardProps): React.JSX.Element => {
@@ -166,8 +147,6 @@ export const TeamLinkCard = ({
 					title={title}
 					containerIcon={containerIcon}
 					size="small"
-					iconsLoading={iconsLoading}
-					iconHasLoaded={iconHasLoaded}
 				/>
 				{fg('ptc-links-migrate-atlaskit-anchor-to-teams-anchor') ? (
 					<TeamsAnchor

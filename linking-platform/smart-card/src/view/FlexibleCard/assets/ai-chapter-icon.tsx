@@ -15,7 +15,12 @@ const style = cssMap({
 	},
 });
 
-const AiChapterIcon = (props: React.SVGProps<SVGSVGElement>): React.JSX.Element => (
+interface AiChapterIconFunction {
+	(props: React.SVGProps<SVGSVGElement>): React.JSX.Element;
+	displayName: string;
+}
+
+const AiChapterIcon: AiChapterIconFunction = (props) => (
 	<svg
 		width="24"
 		height="24"

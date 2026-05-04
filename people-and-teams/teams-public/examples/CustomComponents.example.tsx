@@ -5,7 +5,7 @@ import { Box, Text } from '@atlaskit/primitives/compiled';
 import { Playground } from '@atlassian/teams-app-internal-playground/playground';
 
 import { TeamContainers } from '../src';
-import type { LinkedContainerCardProps } from '../src';
+import type { TeamLinkCardProps } from '../src';
 
 const jiraProject = {
 	node: {
@@ -59,7 +59,7 @@ const styles = cssMap({
 	},
 });
 
-const CustomContainerCard = ({ containerType, title }: LinkedContainerCardProps) => (
+const CustomContainerCard = ({ containerType, title }: TeamLinkCardProps) => (
 	<Box backgroundColor="elevation.surface.sunken">
 		<Text maxLines={1} weight="medium" color="color.text">
 			{title}

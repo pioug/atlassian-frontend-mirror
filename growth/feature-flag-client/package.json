@@ -4,6 +4,7 @@
 	"description": "A client to take care of feature flag evaluation and tracking of exposure events",
 	"exports": {
 		".": "./src/index.ts",
+		"./client": "./src/client.ts",
 		"./types": "./src/types.ts"
 	},
 	"publishConfig": {

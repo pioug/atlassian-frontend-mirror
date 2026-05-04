@@ -266,7 +266,13 @@ export function areNodesEqualIgnoreAttrs(
 	}
 
 	// Build attrs to compare by excluding ignored attributes
-	const attrsToCompare: Record<string, unknown> = node2.attrs;
+	const attrsToCompare: Record<string, unknown> = expValEquals(
+		'platform_editor_show_diff_fix_missing_attrs',
+		'isEnabled',
+		true,
+	)
+		? { ...node2.attrs }
+		: node2.attrs;
 	const ignoreSet = new Set(attributesToIgnore);
 	for (const key in node2.attrs) {
 		if (ignoreSet.has(key)) {

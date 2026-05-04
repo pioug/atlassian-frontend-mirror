@@ -40,8 +40,7 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__smart-card/dev",
-		"isolatedDeclarations": true
+		"outDir": "../../../tsDist/@atlaskit__smart-card/dev"
 	},
 	"references": [
 		{
@@ -94,6 +93,9 @@
 		},
 		{
 			"path": "../../design-system/form/tsconfig.app.json"
+		},
+		{
+			"path": "../../helpers/frontend-utilities/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/heading/tsconfig.app.json"

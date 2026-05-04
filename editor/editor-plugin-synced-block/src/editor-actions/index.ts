@@ -7,3 +7,9 @@ export const flushBodiedSyncBlocks = (syncBlockStore: SyncBlockStoreManager): Pr
 export const flushSyncBlocks = (syncBlockStore: SyncBlockStoreManager): Promise<boolean> => {
 	return syncBlockStore.referenceManager.flush();
 };
+
+export const discardUnpublishedSyncBlocks = (
+	syncBlockStore: SyncBlockStoreManager,
+): Promise<boolean> => {
+	return syncBlockStore.sourceManager.discardUnpublishedBlocks();
+};

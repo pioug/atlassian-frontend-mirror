@@ -1782,6 +1782,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-04
+	platform_editor_show_diff_fix_missing_attrs: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -3836,6 +3843,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_insert_menu_ai',
 			jira: 'platform_editor_insert_menu_ai',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-04
+	platform_editor_show_diff_fix_missing_attrs: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_show_diff_fix_missing_attrs',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

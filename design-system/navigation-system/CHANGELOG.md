@@ -1,5 +1,18 @@
 # @atlassian/navigation-system
 
+## 9.1.0
+
+### Minor Changes
+
+- [`c47d9797de1d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c47d9797de1d4) -
+  Skip links are now rendered inside of a popup. This change is behind the
+  `platform_dst_nav4_skip_link_a11y_1` feature gate.
+
+### Patch Changes
+
+- [`36a98dddcf5af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36a98dddcf5af) -
+  Cleanup of feature gate navx-4418-fix-effect-state-updates-in-gsn (true)
+
 ## 9.0.0
 
 ### Major Changes

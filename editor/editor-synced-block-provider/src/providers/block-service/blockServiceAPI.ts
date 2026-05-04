@@ -78,7 +78,7 @@ const mapErrorResponseCode = (errorCode: string): SyncBlockError => {
 		case 'NOT_FOUND':
 			return SyncBlockError.NotFound;
 		case 'EntityNotFound':
-			return fg('platform_synced_block_patch_9')
+			return fg('platform_synced_block_patch_10')
 				? SyncBlockError.EntityNotFound
 				: SyncBlockError.Errored;
 		case 'INVALID_REQUEST':
@@ -902,13 +902,20 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 
 			// Process successful updates
 			if (response.success) {
-				const successResourceIds = new Set(
-					response.success.map((block) => blockAriToResourceIdMap.get(block.blockAri)),
+				const successBlocks = new Map(
+					response.success.map((block) => [
+						blockAriToResourceIdMap.get(block.blockAri),
+						block,
+					]),
 				);
 
 				for (const block of data) {
-					if (successResourceIds.has(block.resourceId)) {
-						results.push({ resourceId: block.resourceId });
+					const successBlock = successBlocks.get(block.resourceId);
+					if (successBlock) {
+						results.push({
+							resourceId: block.resourceId,
+							...(fg('platform_synced_block_patch_10') && { status: successBlock.status }),
+						});
 					}
 				}
 			}

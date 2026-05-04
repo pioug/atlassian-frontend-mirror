@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/top-layer",
-	"version": "0.2.0",
+	"version": "0.4.0",
 	"description": "Low-level layering primitives based on popover and dialog",
 	"homepage": "https://atlassian.design/components/top-layer",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
@@ -47,7 +47,9 @@
 		"./focus": "./src/entry-points/focus.tsx",
 		"./use-anchor-position": "./src/entry-points/use-anchor-position.tsx",
 		"./use-arrow-navigation": "./src/entry-points/use-arrow-navigation.tsx",
-		"./use-simple-light-dismiss": "./src/entry-points/use-simple-light-dismiss.tsx"
+		"./use-simple-light-dismiss": "./src/entry-points/use-simple-light-dismiss.tsx",
+		"./testing/polyfill": "./src/testing/polyfill.tsx",
+		"./testing/to-be-visible": "./src/testing/to-be-visible.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/browser-apis": "workspace:^",
@@ -75,6 +77,7 @@
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",
 		"@types/raf-schd": "root:*",
 		"tiny-invariant": "root:*"

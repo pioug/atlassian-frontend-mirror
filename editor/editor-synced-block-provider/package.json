@@ -87,7 +87,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "6.3.2",
+	"version": "6.4.0",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -102,6 +102,9 @@
 			"type": "boolean"
 		},
 		"platform_synced_block_patch_9": {
+			"type": "boolean"
+		},
+		"platform_synced_block_patch_10": {
 			"type": "boolean"
 		},
 		"platform_synced_block_add_info_web_socket_error": {

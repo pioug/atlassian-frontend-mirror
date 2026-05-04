@@ -1,5 +1,20 @@
 # @atlaskit/ads-mcp
 
+## 0.20.2
+
+### Patch Changes
+
+- [`69c45287fc0bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69c45287fc0bb) -
+  Simplify motion component examples for ADS skill codegen
+
+  Reduce Motion, ExitingPersistence, StaggeredEntrance, and Resizing from multiple constellation
+  examples to a single focused example each, keeping generated skill reference docs concise for AI
+  consumers.
+
+  Also fix `componentToSlug` and `componentsToSkillIndex` not being exported from
+  `@atlassian/structured-docs/transforms/component-to-skill-reference`, which caused `codegen:skill`
+  to fail with a TypeError.
+
 ## 0.20.1
 
 ### Patch Changes

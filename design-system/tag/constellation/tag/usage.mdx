@@ -34,7 +34,7 @@ import tagDont5Dark from './images/tag-dont-5-dark.png';
 Use tags to classify, organize, and categorize information. Tags work best for lower priority
 metadata such as categories, attributes, or topics that support scanning and filtering. They can be
 rendered as non-interactive, or as interactive elements to support linking and removal with a close
-button. If you need to represent a status or state, for example "In progress", use a
+button. If you need to represent a status, for example "In progress", use a
 [lozenge](/components/lozenge/lozenge) instead.
 
 Tags are designed to be displayed within a [tag group](/components/tag-group). Use a tag group to
@@ -55,8 +55,7 @@ control the layout and alignment for a collection of tags.
    and are looking to use this prop, please reach out via
    [Slack](https://go.atlassian.com/labelling-channel-slack).
 3. **Leading element (optional):** Additional meaning can be added with an icon or another element
-   by using the `elemBefore` property. If using an icon, make sure it has a clear and
-   well-established meaning that relates to the tag label.
+   by using the `elemBefore` property.
 4. **Close button (optional):** Enable the `isRemovable` property to allow customers to remove a tag
    by clicking the trailing close button.
 
@@ -73,7 +72,7 @@ Tags are reserved for object related content. For people, team, project or space
 		image={{
 			url: tagDo1Light,
 			urlDarkMode: tagDo1Dark,
-			alt: 'Tags showing object-oriented labels: Spike, Minor fix, Project, Updated, and guidance',
+			alt: 'Tags showing object-oriented labels: Spike, Minor fix, Project, Guidance, and Blog',
 		}}
 	>
 		Use tags for object-oriented elements.
@@ -83,17 +82,16 @@ Tags are reserved for object related content. For people, team, project or space
 		image={{
 			url: tagDont1Light,
 			urlDarkMode: tagDont1Dark,
-			alt: 'Tags with person names and avatars: Crystal Wu, John Au, and Loki Ali',
+			alt: 'Tags with person names and avatars: Crystal Wu, Jolin Xu, Laila Ali, Eva Lien, and Grace Harris',
 		}}
 	>
 		Don't use tags for people.
 	</DoDont>
 </DoDontGrid>
 
-### Don't use tags to communicate status or state
+### Don’t use tags to communicate status
 
-Tags should not be used to classify, organize, and highlight information. Tags provide less visual
-prominence than lozenges to create visual hierarchy. To communicate status or state use
+Tags should only be used to classify, organize, or categorize information. Tags provide less visual prominence than lozenges to create visual hierarchy. To communicate status use
 [lozenge](/components/lozenge/lozenge) instead.
 
 <DoDontGrid>
@@ -112,18 +110,16 @@ prominence than lozenges to create visual hierarchy. To communicate status or st
 		image={{
 			url: tagDont2Light,
 			urlDarkMode: tagDont2Dark,
-			alt: 'Tags showing status labels: Off track, In progress, Completed, In review, and strikethrough with color',
+			alt: 'Tags showing status labels: Off track, In progress, Completed, In review, and paused',
 		}}
 	>
 		Don't use tags to communicate the status of an item.
 	</DoDont>
 </DoDontGrid>
 
-### Use color with intention
+### Use the hashtag icon when referring to the concept of Tags
 
-Use tag color to thematically organize related content. If the same color represents multiple
-categories, its meaning becomes ambiguous. Apply color intentionally and avoid overlap to maintain
-clarity.
+When using the tag component to represent a tagging or labelling feature, use the term 'Tags' to represent this concept and the hashtag icon for consistency across apps. This aids recognition and speeds up user comprehension by providing familiar visual cues.
 
 <DoDontGrid>
 	<DoDont
@@ -131,27 +127,26 @@ clarity.
 		image={{
 			url: tagDo3Light,
 			urlDarkMode: tagDo3Dark,
-			alt: 'Use color intentionally to organize content',
+			alt: 'Tags next to a label saying Tags',
 		}}
 	>
-		Use color intentionally to organize content.
+		Use the term ‘Tags’ and the hashtag icon.
 	</DoDont>
 	<DoDont
 		type="dont"
 		image={{
 			url: tagDont3Light,
 			urlDarkMode: tagDont3Dark,
-			alt: 'Don’t use color without intention',
+			alt: 'Tags next to a label saying Labels',
 		}}
 	>
-		Don’t use color without intention.
+		Don't use different terminology or iconography for the same concept.
 	</DoDont>
 </DoDontGrid>
 
-### Don’t use tags within user-generated text
+### Don't use tags inline with body text
 
-Tags are reserved for labelling and should not be used in place of content in user-generated
-long-form text or prompts, such as in editor.
+Tags are designed for labelling and categorization, not for use inline with long form text like paragraphs or editor content.
 
 <DoDontGrid>
 	<DoDont
@@ -159,7 +154,7 @@ long-form text or prompts, such as in editor.
 		image={{
 			url: tagDo4Light,
 			urlDarkMode: tagDo4Dark,
-			alt: 'Use tag to label and categorize items.',
+			alt: 'Side navigation with an item called Dashboards with a tag next to it saying New',
 		}}
 	>
 		Use tag to label and categorize items.
@@ -169,7 +164,7 @@ long-form text or prompts, such as in editor.
 		image={{
 			url: tagDont4Light,
 			urlDarkMode: tagDont4Dark,
-			alt: 'Don’t use tags in line with user generated text.',
+			alt: 'A text field showing tags in line with text',
 		}}
 	>
 		Don’t use tags in line with user generated text.
@@ -186,7 +181,7 @@ The `swatchBefore` property is only used when the tag uses color as a wayfinding
 		image={{
 			url: tagDo5Light,
 			urlDarkMode: tagDo5Dark,
-			alt: 'Use swatchBefore when the color has meaning and is used for wayfinding such as for Jira epics or parents.',
+			alt: 'A jira work item card showing an epic label.',
 		}}
 	>
 		Use swatchBefore when the color has meaning and is used for wayfinding such as for Jira epics or
@@ -197,7 +192,7 @@ The `swatchBefore` property is only used when the tag uses color as a wayfinding
 		image={{
 			url: tagDont5Light,
 			urlDarkMode: tagDont5Dark,
-			alt: 'Don’t use swatchBefore to increase prominence unless the color has meaning.',
+			alt: 'A large number of tags using the swatchBefore prop',
 		}}
 	>
 		Don’t use swatchBefore to increase prominence unless the color has meaning.

@@ -1,5 +1,16 @@
 # @atlaskit/profilecard
 
+## 25.2.0
+
+### Minor Changes
+
+- [`0a345bc4f4b1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a345bc4f4b1e) -
+  Removed unused linked container card
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.1.16
 
 ### Patch Changes

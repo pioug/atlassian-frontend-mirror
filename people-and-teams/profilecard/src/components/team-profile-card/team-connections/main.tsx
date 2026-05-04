@@ -7,7 +7,7 @@ import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 import {
 	ContainerIcon,
 	getContainerProperties,
-	type LinkedContainerCardProps,
+	type TeamLinkCardProps,
 } from '@atlaskit/teams-public';
 
 const styles = cssMap({
@@ -23,7 +23,7 @@ export const TeamConnections = ({
 	title,
 	containerIcon,
 	link,
-}: LinkedContainerCardProps): React.JSX.Element => {
+}: TeamLinkCardProps): React.JSX.Element => {
 	const { description, icon, containerTypeText } = getContainerProperties({
 		containerType,
 		iconSize: 'medium',

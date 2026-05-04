@@ -78,64 +78,6 @@ describe('ContainerIcon', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	it('should render link icon when iconsLoading is true (WebLink with no containerIcon)', () => {
-		render(
-			<ContainerIcon
-				{...defaultProps}
-				containerType="WebLink"
-				title="Web Link"
-				iconsLoading={true}
-				iconHasLoaded={false}
-			/>,
-		);
-
-		expect(screen.getByTestId('linked-container-WebLink-new-icon')).toBeVisible();
-	});
-
-	it('should render different icon for link when experiment is enabled', () => {
-		render(
-			<ContainerIcon
-				{...defaultProps}
-				containerType="WebLink"
-				title="Web Link"
-				iconsLoading={true}
-				iconHasLoaded={false}
-			/>,
-		);
-
-		expect(screen.getByTestId('linked-container-WebLink-new-icon')).toBeVisible();
-	});
-
-	it('should render LinkIcon when icons have loaded and no containerIcon for WebLink', () => {
-		render(
-			<ContainerIcon
-				{...defaultProps}
-				containerType="WebLink"
-				title="Web Link"
-				iconsLoading={false}
-				iconHasLoaded={true}
-			/>,
-		);
-
-		expect(screen.getByTestId('linked-container-WebLink-new-icon')).toBeVisible();
-		expect(screen.queryByTestId('container-icon-skeleton')).not.toBeInTheDocument();
-	});
-
-	it('should rendernew LinkIcon when icons have loaded and no containerIcon for WebLink when experiment is enabled', () => {
-		render(
-			<ContainerIcon
-				{...defaultProps}
-				containerType="WebLink"
-				title="Web Link"
-				iconsLoading={false}
-				iconHasLoaded={true}
-			/>,
-		);
-
-		expect(screen.getByTestId('linked-container-WebLink-new-icon')).toBeVisible();
-		expect(screen.queryByTestId('container-icon-skeleton')).not.toBeInTheDocument();
-	});
-
 	it('should render containerIcon when icons have loaded and containerIcon is provided for WebLink', () => {
 		render(
 			<ContainerIcon

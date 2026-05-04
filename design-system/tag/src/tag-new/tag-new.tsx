@@ -487,7 +487,7 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 				maxWidth: maxWidth !== undefined ? maxWidth : undefined,
 			}}
 			{...(isLoading && { 'aria-busy': true, 'aria-disabled': true, isDisabled: true })}
-			data-testid={testId}
+			testId={testId}
 			{...other}
 		>
 			<span css={[dropdownStyles.content, isLoading && dropdownStyles.loadingContent]}>

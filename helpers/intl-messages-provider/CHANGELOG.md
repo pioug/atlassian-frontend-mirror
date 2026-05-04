@@ -1,5 +1,12 @@
 # @atlaskit/intl-messages-provider
 
+## 3.1.1
+
+### Patch Changes
+
+- [`ba1f755aa8863`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba1f755aa8863) -
+  Cleanup navx-4615-fix-async-intl-for-gsn feature gate (enabled)
+
 ## 3.1.0
 
 ### Minor Changes

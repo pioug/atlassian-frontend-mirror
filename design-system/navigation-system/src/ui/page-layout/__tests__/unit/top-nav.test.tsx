@@ -18,26 +18,13 @@ ffTest.off('navx-full-height-sidebar', 'without full height sidebar', () => {
 });
 
 ffTest.on('navx-full-height-sidebar', 'without full height sidebar', () => {
-	// Default height is 48px when gate is disabled
-	ffTest.off('platform_dst_nav4_top_nav_increase_height', 'without height increase', () => {
-		it('should set the top bar height to the default value if height is not provided', () => {
-			render(<TopNav>topbar</TopNav>);
+	// Default height is 56px when FHS is enabled
+	it('should set the top bar height to the default value if height is not provided', () => {
+		render(<TopNav>topbar</TopNav>);
 
-			expect(screen.getByText('topbar')).toHaveTextContent(
-				'#unsafe-design-system-page-layout-root { --n_tNvM: 48px }',
-			);
-		});
-	});
-
-	// Default height is 56px only when FHS + gate are enabled
-	ffTest.on('platform_dst_nav4_top_nav_increase_height', 'with height increase', () => {
-		it('should set the top bar height to the default value if height is not provided', () => {
-			render(<TopNav>topbar</TopNav>);
-
-			expect(screen.getByText('topbar')).toHaveTextContent(
-				'#unsafe-design-system-page-layout-root { --n_tNvM: 56px }',
-			);
-		});
+		expect(screen.getByText('topbar')).toHaveTextContent(
+			'#unsafe-design-system-page-layout-root { --n_tNvM: 56px }',
+		);
 	});
 });
 

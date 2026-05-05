@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-card
 
+## 16.5.0
+
+### Minor Changes
+
+- [`c939283d6f41a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c939283d6f41a) -
+  [EDITOR-6181](https://hello.jira.atlassian.cloud/browse/EDITOR-6181) - fix inline smart cards in
+  SSR streaming
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.4.5
 
 ### Patch Changes

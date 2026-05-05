@@ -26,7 +26,6 @@ import {
 	OpenLayerObserverNamespaceProvider,
 	useOpenLayerObserver,
 } from '@atlaskit/layering/experimental/open-layer-observer';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { media } from '@atlaskit/primitives/responsive';
 import { token } from '@atlaskit/tokens';
@@ -706,23 +705,14 @@ function SideNavInternal({
 
 		// Sync the visibility in context (provided in `<Root>`) with the local `defaultCollapsed` prop provided to `SideNav`
 		// after SSR hydration. This should only run once, after the initial render on the client.
-		if (fg('navx-4418-fix-effect-state-updates-in-gsn')) {
-			startTransition(() => {
-				setSideNavState({
-					desktop: initialDefaultCollapsed ? 'collapsed' : 'expanded',
-					mobile: 'collapsed',
-					flyout: 'closed',
-					lastTrigger: null,
-				});
-			});
-		} else {
+		startTransition(() => {
 			setSideNavState({
 				desktop: initialDefaultCollapsed ? 'collapsed' : 'expanded',
 				mobile: 'collapsed',
 				flyout: 'closed',
 				lastTrigger: null,
 			});
-		}
+		});
 	}, [initialDefaultCollapsed, setSideNavState, sideNavState]);
 
 	const handleExpand = useCallback<VisibilityCallback>(

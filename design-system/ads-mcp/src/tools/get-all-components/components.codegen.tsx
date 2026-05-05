@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::fc752f16c4f1b2afc7681c52c16d7042>>
+ * @codegen <<SignedSource::cea2b2082d579e80351ba3a02a7d253b>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:structured-docs-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -5496,7 +5496,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['motion', 'animation', 'exit', 'persistence', 'unmount', 'transition', 'fade'],
 		category: 'animation',
 		examples: [
-			"import { useState } from 'react';\nimport { cssMap } from '@atlaskit/css';\nimport { ExitingPersistence, Motion } from '@atlaskit/motion';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tentering: {\n\t\tanimationName: token('motion.keyframe.fade.in'),\n\t\tanimationDuration: token('motion.duration.medium'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t},\n\texiting: {\n\t\tanimationName: token('motion.keyframe.fade.out'),\n\t\tanimationDuration: token('motion.duration.medium'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t},\n});\nexport default function ExitingPersistenceExample() {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button onClick={() => setIsVisible((v) => !v)}>Toggle</button>\n\t\t\t<ExitingPersistence appear>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<Motion key=\"item\" enteringAnimationXcss={styles.entering} exitingAnimationXcss={styles.exiting}>\n\t\t\t\t\t\t<div>Content</div>\n\t\t\t\t\t</Motion>\n\t\t\t\t)}\n\t\t\t</ExitingPersistence>\n\t\t</>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { cssMap } from '@atlaskit/css';\nimport { ExitingPersistence, Motion } from '@atlaskit/motion';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tentering: {\n\t\tanimationName: token('motion.keyframe.fade.in'),\n\t\tanimationDuration: token('motion.duration.medium'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t},\n\texiting: {\n\t\tanimationName: token('motion.keyframe.fade.out'),\n\t\tanimationDuration: token('motion.duration.medium'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t},\n});\nexport default function ExitingPersistenceExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<ExitingPersistence appear>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<Motion\n\t\t\t\t\t\tkey=\"item\"\n\t\t\t\t\t\tenteringAnimationXcss={styles.entering}\n\t\t\t\t\t\texitingAnimationXcss={styles.exiting}\n\t\t\t\t\t>\n\t\t\t\t\t\t<div>Content</div>\n\t\t\t\t\t</Motion>\n\t\t\t\t)}\n\t\t\t</ExitingPersistence>\n\t\t</>\n\t);\n}",
 		],
 		props: [
 			{
@@ -5540,7 +5540,9 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['motion', 'animation', 'enter', 'exit', 'transition', 'primitive', 'fade', 'css'],
 		category: 'animation',
 		examples: [
-			"import { useState } from 'react';\nimport { cssMap } from '@atlaskit/css';\nimport { ExitingPersistence, Motion } from '@atlaskit/motion';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.long'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nexport default function MotionExample() {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button onClick={() => setIsVisible((v) => !v)}>Toggle</button>\n\t\t\t<ExitingPersistence appear>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<Motion key=\"item\" enteringAnimationXcss={styles.entering} exitingAnimationXcss={styles.exiting}>\n\t\t\t\t\t\t<div>Content</div>\n\t\t\t\t\t</Motion>\n\t\t\t\t)}\n\t\t\t</ExitingPersistence>\n\t\t</>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { ExitingPersistence, Motion } from '@atlaskit/motion';\nimport { token } from '@atlaskit/tokens';\nexport default function MotionPrimitiveExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<ExitingPersistence appear>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<Motion\n\t\t\t\t\t\tkey=\"item\"\n\t\t\t\t\t\tenteringAnimation={token('motion.modal.enter')}\n\t\t\t\t\t\texitingAnimation={token('motion.modal.exit')}\n\t\t\t\t\t>\n\t\t\t\t\t\t<div>Content</div>\n\t\t\t\t\t</Motion>\n\t\t\t\t)}\n\t\t\t</ExitingPersistence>\n\t\t</>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { cssMap } from '@atlaskit/css';\nimport { ExitingPersistence, Motion } from '@atlaskit/motion';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.long'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nexport default function MotionPrimitiveCustomExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<ExitingPersistence appear>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<Motion\n\t\t\t\t\t\tkey=\"item\"\n\t\t\t\t\t\tenteringAnimationXcss={styles.entering}\n\t\t\t\t\t\texitingAnimationXcss={styles.exiting}\n\t\t\t\t\t>\n\t\t\t\t\t\t<div>Content</div>\n\t\t\t\t\t</Motion>\n\t\t\t\t)}\n\t\t\t</ExitingPersistence>\n\t\t</>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { cssMap } from '@atlaskit/css';\nimport { ExitingPersistence, Motion } from '@atlaskit/motion';\nimport { token } from '@atlaskit/tokens';\nimport { keyframes } from '@compiled/react';\nconst slideIn = keyframes({\n\t'0%': { transform: 'translateX(-24px)' },\n\t'100%': { transform: 'translateX(0)' },\n});\nconst slideOut = keyframes({\n\t'0%': { transform: 'translateX(0)' },\n\t'100%': { transform: 'translateX(-24px)' },\n});\nconst styles = cssMap({\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xxlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${slideIn}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.xxlong'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${slideOut}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nexport default function MotionPrimitiveCustomKeyframeExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<ExitingPersistence appear>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<Motion\n\t\t\t\t\t\tkey=\"item\"\n\t\t\t\t\t\tenteringAnimationXcss={styles.entering}\n\t\t\t\t\t\texitingAnimationXcss={styles.exiting}\n\t\t\t\t\t>\n\t\t\t\t\t\t<div>Content</div>\n\t\t\t\t\t</Motion>\n\t\t\t\t)}\n\t\t\t</ExitingPersistence>\n\t\t</>\n\t);\n}",
 		],
 		props: [
 			{
@@ -5599,7 +5601,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['motion', 'animation', 'stagger', 'entrance', 'list', 'grid', 'cascade', 'delay'],
 		category: 'animation',
 		examples: [
-			"import { cssMap } from '@atlaskit/css';\nimport { Motion, StaggeredEntrance } from '@atlaskit/motion';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tentering: {\n\t\tanimationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,\n\t\tanimationDuration: token('motion.duration.xlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t},\n});\nconst items = ['Item A', 'Item B', 'Item C'];\nexport default function StaggeredEntranceExample() {\n\treturn (\n\t\t<StaggeredEntrance columns={1}>\n\t\t\t{items.map((item) => (\n\t\t\t\t<Motion key={item} enteringAnimationXcss={styles.entering}>\n\t\t\t\t\t<div>{item}</div>\n\t\t\t\t</Motion>\n\t\t\t))}\n\t\t</StaggeredEntrance>\n\t);\n}",
+			"import { cssMap } from '@atlaskit/css';\nimport { Motion, StaggeredEntrance } from '@atlaskit/motion';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tentering: {\n\t\tanimationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,\n\t\tanimationDuration: token('motion.duration.xlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t},\n});\nconst items = ['Item A', 'Item B', 'Item C'];\nexport default function StaggeredEntranceExample(): JSX.Element {\n\treturn (\n\t\t<StaggeredEntrance columns={1}>\n\t\t\t{items.map((item) => (\n\t\t\t\t<Motion key={item} enteringAnimationXcss={styles.entering}>\n\t\t\t\t\t<div>{item}</div>\n\t\t\t\t</Motion>\n\t\t\t))}\n\t\t</StaggeredEntrance>\n\t);\n}",
 		],
 		props: [
 			{
@@ -5628,55 +5630,6 @@ export const components: ComponentMcpPayload[] = [
 				description:
 					'Delay in ms.\nHow long each element group will be staggered.\nThis will be multipled by the column and row of the element.\nDefaults to `50`.',
 				defaultValue: '50',
-			},
-		],
-	},
-	{
-		name: 'Resizing',
-		package: '@atlaskit/motion',
-		description:
-			'Animates width, height, or both dimensions of an element as its content changes. Use with caution — animating dimensions is notoriously unperformant. Test on low-powered devices.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use to animate width, height, or both dimensions as content changes',
-			'Pass the returned ref to the element you want to animate',
-			'Use the dimension prop to specify "width", "height", or "both"',
-			'Pass a motion duration token to the duration prop (e.g. token("motion.duration.medium"))',
-			'Pass a motion easing token to the easing prop (e.g. token("motion.easing.inout.bold"))',
-			'Wrap in React.memo or use PureComponent to limit unnecessary re-renders and avoid performance issues',
-			'Test on low-powered devices — animating dimensions can cause jank and impact FPS',
-		],
-		keywords: ['motion', 'animation', 'resize', 'width', 'height', 'dimension', 'transition'],
-		category: 'animation',
-		examples: [
-			"import { useState } from 'react';\nimport { cssMap } from '@atlaskit/css';\nimport { Motion } from '@atlaskit/motion';\nimport { useResizing } from '@atlaskit/motion/resizing';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tentering: {\n\t\tanimationName: token('motion.keyframe.fade.in'),\n\t\tanimationDuration: token('motion.duration.medium'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t},\n});\nexport default function ResizingExample() {\n\tconst [items, setItems] = useState(['Item A', 'Item B']);\n\tconst resizingProps = useResizing({\n\t\tdimension: 'height',\n\t\tduration: token('motion.duration.medium'),\n\t\teasing: token('motion.easing.inout.bold'),\n\t});\n\treturn (\n\t\t<div {...resizingProps}>\n\t\t\t{items.map((item) => (\n\t\t\t\t<Motion key={item} enteringAnimationXcss={styles.entering}>\n\t\t\t\t\t<div>{item}</div>\n\t\t\t\t</Motion>\n\t\t\t))}\n\t\t\t<button onClick={() => setItems((prev) => [...prev, `Item ${String.fromCharCode(65 + prev.length)}`])}>\n\t\t\t\tAdd item\n\t\t\t</button>\n\t\t</div>\n\t);\n}",
-		],
-		props: [
-			{
-				name: 'dimension',
-				type: '"width" | "height" | "both"',
-				description: "Which dimension(s) to animate. One of `'width'`, `'height'`, or `'both'`.",
-				isRequired: true,
-			},
-			{
-				name: 'duration',
-				type: '"var(--ds-duration-instant)" | "var(--ds-duration-long)" | "var(--ds-duration-medium)" | "var(--ds-duration-short)" | "var(--ds-duration-xlong)" | "var(--ds-duration-xshort)" | "var(--ds-duration-xxlong)" | "var(--ds-duration-xxshort)"',
-				description:
-					"Duration of the resize transition as a design token CSS variable.\n\nAccepts a `MotionDuration` token value, e.g. `token('motion.duration.medium')`.",
-				isRequired: true,
-			},
-			{
-				name: 'easing',
-				type: '"var(--ds-easing-in-practical)" | "var(--ds-easing-inout-bold)" | "var(--ds-easing-out-practical)" | "var(--ds-easing-out-bold)" | "var(--ds-easing-spring)"',
-				description:
-					"Easing of the resize transition as a design token CSS variable.\n\nAccepts a `MotionEasing` token value, e.g. `token('motion.easing.inout.bold')`.",
-				isRequired: true,
-			},
-			{
-				name: 'onFinishMotion',
-				type: '() => void',
-				description:
-					'Callback fired once the resize animation has completed,\nor immediately if the dimension(s) did not change (no animation was needed).',
 			},
 		],
 	},

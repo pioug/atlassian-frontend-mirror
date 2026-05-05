@@ -319,9 +319,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			allowColumnResizing,
 			allowTableResizing,
 			eventDispatcher,
-			isDragAndDropEnabled,
 			view,
 			isInDanger,
+			isDragAndDropEnabled,
 		} = this.props;
 		const browser = getBrowserInfo();
 		const isIE11 = browser.ie_version === 11;
@@ -824,7 +824,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				tableWrapperHeight={this.state.tableWrapperHeight}
 				api={pluginInjectionApi}
 				isChromelessEditor={options?.isChromelessEditor}
-				isDragAndDropEnabled={isDragAndDropEnabled}
 			/>
 		) : null;
 

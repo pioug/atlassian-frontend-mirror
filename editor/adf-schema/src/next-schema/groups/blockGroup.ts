@@ -25,6 +25,7 @@ export const blockGroup: ADFNodeGroup = adfNodeGroup(
 	[
 		blockCard,
 		codeBlock,
+		codeBlock.use('with_extended_attributes'),
 		mediaSingle,
 		mediaSingle.use('caption'),
 		mediaSingle.use('full'),
@@ -32,8 +33,6 @@ export const blockGroup: ADFNodeGroup = adfNodeGroup(
 		paragraph,
 		paragraph.use('with_alignment'),
 		paragraph.use('with_indentation'),
-		paragraph.use('with_font_size_and_alignment'),
-		paragraph.use('with_font_size_and_indentation'),
 		paragraph.use('with_no_marks'),
 		taskList,
 		orderedList,

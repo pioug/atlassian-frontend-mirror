@@ -222,6 +222,7 @@ function FullPageDiffEditor(): React.JSX.Element {
 						linkPicker: undefined,
 						onClickCallback: undefined,
 						CompetitorPrompt: undefined,
+						smartCardContext: undefined,
 					},
 					insertBlock: {
 						editorAppearance: 'full-page',

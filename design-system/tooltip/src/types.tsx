@@ -22,19 +22,6 @@ export interface TriggerProps {
 	'aria-describedby'?: string | undefined;
 }
 
-export interface FakeMouseElement {
-	getBoundingClientRect: () => {
-		top: number;
-		left: number;
-		bottom: number;
-		right: number;
-		width: number;
-		height: number;
-	};
-	clientWidth: number;
-	clientHeight: number;
-}
-
 export interface TooltipProps {
 	/**
 	 * The content of the tooltip. It can be either a:
@@ -195,11 +182,11 @@ export interface TooltipProps {
 	 * and never use the show-immediate behavior, even when another tooltip
 	 * is already visible.
 	 */
-	UNSAFE_shouldAlwaysFadeIn?: boolean;
+	shouldAlwaysFadeIn?: boolean;
 	/**
 	 * When enabled, the tooltip will be rendered as a sibling to the trigger element instead of being portaled to the document body.
 	 *
 	 * This is an experimental prop and may be removed at any time. It is not yet intended for public use.
 	 */
-	UNSAFE_shouldRenderToParent?: boolean;
+	shouldRenderToParent?: boolean;
 }

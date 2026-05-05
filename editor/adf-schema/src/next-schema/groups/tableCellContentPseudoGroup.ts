@@ -21,7 +21,6 @@ import { unsupportedBlock } from '../nodes/unsupportedBlock';
 export const tableCellContentNodes: Array<ADFNode<any, any>> = [
 	paragraph.use('with_no_marks'),
 	paragraph.use('with_alignment'),
-	paragraph.use('with_font_size_and_alignment'),
 	panel,
 	blockquote,
 	orderedList,
@@ -31,6 +30,7 @@ export const tableCellContentNodes: Array<ADFNode<any, any>> = [
 	heading.use('with_alignment'),
 	heading.use('with_indentation'),
 	codeBlock,
+	codeBlock.use('with_extended_attributes'),
 	mediaSingle.use('caption'),
 	mediaSingle.use('full'),
 	mediaGroup,

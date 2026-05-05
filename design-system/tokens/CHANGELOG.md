@@ -1,5 +1,16 @@
 # @atlaskit/tokens
 
+## 13.0.3
+
+### Patch Changes
+
+- [`f63b64df22780`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f63b64df22780) -
+  Allow `0` and `'0'` as valid values for the `SizeIntrinsic` type. This means `width`, `height`,
+  `minWidth`, `minHeight`, `maxWidth`, `maxHeight`, and related block/inline size properties now
+  accept bare `0` without requiring `'0px'`. This is consistent with how CSS works (bare `0` is
+  valid without a unit) and matches the existing behaviour of `Space`, `BorderWidth`,
+  `BorderRadius`, and `Opacity` types.
+
 ## 13.0.2
 
 ### Patch Changes

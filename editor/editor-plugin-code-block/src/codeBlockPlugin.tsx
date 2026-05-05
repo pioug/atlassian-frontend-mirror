@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { codeBlock, codeBlockWithLocalId } from '@atlaskit/adf-schema';
+import { codeBlock, codeBlockWithExtendedAttributes, codeBlockWithLocalId } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -17,6 +17,7 @@ import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import { IconCode } from '@atlaskit/editor-common/quick-insert';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CodeBlockPlugin } from './codeBlockPluginType';
@@ -63,7 +64,11 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 			return [
 				{
 					name: 'codeBlock',
-					node: fg('platform_editor_adf_with_localid') ? codeBlockWithLocalId : codeBlock,
+					node: expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)
+						? codeBlockWithExtendedAttributes
+						: fg('platform_editor_adf_with_localid')
+							? codeBlockWithLocalId
+							: codeBlock,
 				},
 			];
 		},

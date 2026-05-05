@@ -95,6 +95,7 @@
 	"description": "A shared package for native embeds to be used across experiences and plugin",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
+	"i18n": true,
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	}

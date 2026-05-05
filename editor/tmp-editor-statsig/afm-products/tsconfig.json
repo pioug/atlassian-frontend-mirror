@@ -27,6 +27,9 @@
 			"path": "../../../measurement/feature-gate-js-client/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../react-ufo/atlaskit/afm-products/tsconfig.json"
 		}
 	]

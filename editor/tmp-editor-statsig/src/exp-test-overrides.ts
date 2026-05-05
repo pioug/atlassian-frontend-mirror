@@ -31,6 +31,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	platform_editor_table_sticky_header_improvements: 'test_with_overflow',
 	cc_fd_db_top_editor_toolbar: 'control',
 	cc_fd_cwr_quick_insert: 'control',
+	platform_editor_paste_actions_menu_v2: 'control',
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
@@ -72,4 +73,5 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_table_fit_to_content_on_demand: false,
 	platform_editor_table_fit_to_content_auto_convert: false,
 	platform_editor_table_q4_loveability: false,
+	platform_editor_core_static_css: false,
 };

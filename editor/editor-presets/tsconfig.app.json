@@ -325,6 +325,9 @@
 			"path": "../../elements/emoji/tsconfig.app.json"
 		},
 		{
+			"path": "../../linking-platform/link-provider/tsconfig.app.json"
+		},
+		{
 			"path": "../../elements/mention/tsconfig.app.json"
 		},
 		{

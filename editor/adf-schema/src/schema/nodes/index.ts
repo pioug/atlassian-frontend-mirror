@@ -14,7 +14,12 @@ export { blockquote, extendedBlockquote, extendedBlockquoteWithLocalId } from '.
 export type { BlockQuoteDefinition } from './blockquote';
 export { bulletList, bulletListSelector, bulletListWithLocalId } from './bullet-list';
 export type { BulletListDefinition } from './types/list';
-export { codeBlock, codeBlockWithLocalId, toJSON as codeBlockToJSON } from './code-block';
+export {
+	codeBlock,
+	codeBlockWithLocalId,
+	codeBlockWithExtendedAttributes,
+	toJSON as codeBlockToJSON,
+} from './code-block';
 export type {
 	CodeBlockDefinition,
 	CodeBlockAttrs,

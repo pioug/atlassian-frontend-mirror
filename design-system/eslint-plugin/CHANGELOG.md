@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 14.2.0
+
+### Minor Changes
+
+- [`ec906640e3e00`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec906640e3e00) -
+  Add new components to the `use-should-render-to-parent` rule.
+
 ## 14.1.0
 
 ### Minor Changes

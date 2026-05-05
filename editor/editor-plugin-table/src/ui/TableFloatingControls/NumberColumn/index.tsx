@@ -3,12 +3,10 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isRowSelected } from '@atlaskit/editor-tables/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { clearHoverSelection } from '../../../pm-plugins/commands';
 import { getRowHeights } from '../../../pm-plugins/utils/row-controls';
 import { TableCssClassName as ClassName } from '../../../types';
 import { tableBorderColor } from '../../consts';
@@ -71,110 +69,29 @@ export default class NumberColumn extends Component<Props, any> {
 				}}
 				contentEditable={false}
 			>
-				{rowHeights.map((rowHeight, index) =>
-					isDragAndDropEnabled ? (
-						<div
-							// Ignored via go/ees005
-							// eslint-disable-next-line react/no-array-index-key
-							key={`wrapper-${index}`}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={this.getClassNames(index, true)}
-							data-index={index}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							style={this.getCellStyles(index, rowHeight)}
-							onFocus={
-								expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
-									? () => updateCellHoverLocation(index)
-									: undefined
-							}
-							onMouseOver={() => updateCellHoverLocation(index)}
-						>
-							{hasHeaderRow ? (index > 0 ? index : null) : index + 1}
-						</div>
-					) : (
-						<div
-							// Ignored via go/ees005
-							role={
-								expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
-									? 'button'
-									: undefined
-							}
-							// eslint-disable-next-line react/no-array-index-key
-							key={`wrapper-${index}`}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={this.getClassNames(index)}
-							data-index={index}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							style={this.getCellStyles(index, rowHeight)}
-							onClick={(event) => this.selectRow(index, event)}
-							onFocus={
-								expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
-									? () => this.hoverRows(index)
-									: undefined
-							}
-							onMouseOver={() => this.hoverRows(index)}
-							tabIndex={
-								expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
-									? 0
-									: undefined
-							}
-							onKeyDown={
-								expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
-									? (event) => {
-											if (event.key === 'Enter' || event.key === ' ') {
-												event.preventDefault();
-												this.selectRow(
-													index,
-													event as unknown as React.MouseEvent<HTMLDivElement, MouseEvent>,
-												);
-											}
-										}
-									: undefined
-							}
-							onMouseOut={this.clearHoverSelection}
-							onBlur={
-								expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
-									? this.clearHoverSelection
-									: undefined
-							}
-						>
-							{hasHeaderRow ? (index > 0 ? index : null) : index + 1}
-						</div>
-					),
-				)}
+				{rowHeights.map((rowHeight, index) => (
+					<div
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/no-array-index-key
+						key={`wrapper-${index}`}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+						className={this.getClassNames(index, true)}
+						data-index={index}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						style={this.getCellStyles(index, rowHeight)}
+						onFocus={
+							expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+								? () => updateCellHoverLocation(index)
+								: undefined
+						}
+						onMouseOver={() => updateCellHoverLocation(index)}
+					>
+						{hasHeaderRow ? (index > 0 ? index : null) : index + 1}
+					</div>
+				))}
 			</div>
 		);
 	}
-
-	private hoverRows = (index: number) => {
-		return this.props.tableActive ? this.props.hoverRows([index]) : null;
-	};
-	private selectRow = (index: number, event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-		const { tableActive, editorView, selectRow } = this.props;
-		// If selection is outside the table then first reset the selection inside table
-		if (!tableActive && event.target && event.target instanceof Node) {
-			const { doc, selection, tr } = editorView.state;
-			const pos = editorView.posAtDOM(event.target, 1);
-			const $pos = doc.resolve(pos);
-			const newPos =
-				selection.head > pos
-					? // Selection is after table
-						// nodeSize - 3 will move the position inside last table cell
-						Selection.near(doc.resolve(pos + ($pos.parent.nodeSize - 3)), -1)
-					: // Selection is before table
-						Selection.near($pos);
-			editorView.dispatch(tr.setSelection(newPos));
-		}
-		selectRow(index, event.shiftKey);
-	};
-
-	private clearHoverSelection = () => {
-		const { tableActive, editorView } = this.props;
-		if (tableActive) {
-			const { state, dispatch } = editorView;
-			clearHoverSelection()(state, dispatch);
-		}
-	};
 
 	private getCellStyles = (index: number, rowHeight: number) => {
 		const { stickyTop, hasHeaderRow } = this.props;

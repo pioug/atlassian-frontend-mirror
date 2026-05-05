@@ -1,5 +1,37 @@
 # @atlaskit/editor-core
 
+## 219.2.3
+
+### Patch Changes
+
+- [`ff6c4af9ad231`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff6c4af9ad231) -
+  migrate compiled css for placeholderStyles, dateStyles, selectionStyles
+- Updated dependencies
+
+## 219.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 219.2.1
+
+### Patch Changes
+
+- [`fbd4e856632eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fbd4e856632eb) -
+  migrate few styles in EditorContentContainer from emotion to compiled
+- [`932054e82aa7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/932054e82aa7b) -
+  Fix Cmd/Ctrl+E shortcut so it cycles markdown view mode (rich-text ⇄ source) regardless of where
+  focus is on the page. Previously the shortcut only fired when the ProseMirror editor itself was
+  focused, so it failed in source (CodeMirror) mode and after clicking the toolbar toggle button.
+  The shortcut now also fires when focus is on `<body>` or any element outside an editor container,
+  while still skipping when focus is inside a different editor instance on the same page.
+
+  Also adds an explicit `false | undefined` return type to `clickAreaClickHandler` to satisfy
+  `--isolatedDeclarations` (no behavior change).
+
+- Updated dependencies
+
 ## 219.2.0
 
 ### Minor Changes

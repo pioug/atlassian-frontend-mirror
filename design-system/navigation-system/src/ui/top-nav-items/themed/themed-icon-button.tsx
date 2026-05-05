@@ -7,7 +7,6 @@ import React, { forwardRef } from 'react';
 import { jsx } from '@compiled/react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { PressableProps } from '@atlaskit/primitives/compiled';
 import Tooltip from '@atlaskit/tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -18,7 +17,9 @@ import { ThemedPressable } from './themed-pressable';
 import type { CommonProps, IconButtonCommonProps, OverriddenPrimitiveProps } from './types';
 
 export interface ThemedIconButtonProps
-	extends CommonProps, Omit<PressableProps, OverriddenPrimitiveProps>, IconButtonCommonProps {}
+	extends CommonProps,
+		Omit<PressableProps, OverriddenPrimitiveProps>,
+		IconButtonCommonProps {}
 
 export const ThemedIconButton: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<ThemedIconButtonProps> & React.RefAttributes<HTMLButtonElement>
@@ -68,11 +69,7 @@ export const ThemedIconButton: React.ForwardRefExoticComponent<
 						props.onBlur?.(e);
 					}}
 				>
-					{fg('platform_themed_button_use_icon_renderer') ? (
-						<IconRenderer icon={Icon} />
-					) : (
-						<Icon label="" color="currentColor" />
-					)}
+					<IconRenderer icon={Icon} />
 					<VisuallyHidden>{label}</VisuallyHidden>
 				</ThemedPressable>
 			)}

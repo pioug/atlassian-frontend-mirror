@@ -14,7 +14,8 @@ import type { BaseAgentAnalyticsAttributes } from '../../common/types';
 type ToolsExecutionAttributesBase = BaseAgentAnalyticsAttributes & {
 	tools: {
 		toolId: string;
-		toolSource: string;
+		toolKey?: string;
+		toolDefinitionSource: string | null;
 		resolutionType: string;
 	}[];
 	singleInstrumentationId: string | undefined;

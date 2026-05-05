@@ -407,6 +407,7 @@ export interface AgentActionsType {
 }
 export interface AgentProfileCardTriggerProps extends AgentActionsType {
 	agentId: string;
+	agentIdType?: 'agent' | 'identity';
 	cloudId?: string;
 	autoFocus?: boolean;
 	resourceClient: ProfileClient;

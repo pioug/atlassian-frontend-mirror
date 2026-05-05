@@ -257,6 +257,7 @@ export type InlineCardNodeViewProps = Pick<
 	| 'isPageSSRed'
 	| 'CompetitorPrompt'
 	| 'provider'
+	| 'smartCardContext'
 >;
 
 const selectorWithCard = (
@@ -304,6 +305,7 @@ export function InlineCardNodeView(
 		isPageSSRed,
 		provider,
 		CompetitorPrompt,
+		smartCardContext,
 	} = props;
 
 	const { mode, resolvedInlineSmartLinks } = useSharedPluginStateWithSelector(
@@ -355,6 +357,11 @@ export function InlineCardNodeView(
 				isPageSSRed={isPageSSRed}
 				provider={provider}
 				appearance="inline"
+				smartCardContext={
+					expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+						? smartCardContext
+						: undefined
+				}
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...(enableInlineUpgradeFeatures &&

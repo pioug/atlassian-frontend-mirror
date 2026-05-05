@@ -41,6 +41,14 @@ consistently.
 3. **Badge (optional)**: The `trailingMetric` prop can be utilised on semantic colored lozenges to
    add a score to the status.
 
+## Accessibility
+
+- Don't use color alone to signify an important state or status. Instead, use clear labels and, if
+  relevant, a supporting icon. For example: for a critical status, use descriptors like “Off track”.
+- Don't use long labels in lozenge. They have a max width of 200 pixels (or a
+  custom `maxWidth` value) causing labels to truncate. Lozenges can’t be focused, so truncated text
+  will not be visible.
+
 ## Best practices
 
 ### Only use lozenge to communicate status or state
@@ -184,14 +192,6 @@ information.
 		Don’t use title case capitalization or all caps.
 	</DoDont>
 </DoDontGrid>
-
-## Accessibility
-
-- Don't use color alone to signify an important state or status. Instead, use clear labels and, if
-  relevant, a supporting icon. For example: for a critical status, use descriptors like “Off track”.
-- Don't use long labels in lozenge. They have a max width of 200 pixels (or a
-  custom `maxWidth` value) causing labels to truncate. Lozenges can’t be focused, so truncated text
-  will not be visible.
 
 ## Data Center products
 

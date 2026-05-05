@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "9.1.0",
+	"version": "9.2.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -182,17 +182,11 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_dst_nav4_top_nav_increase_height": {
-			"type": "boolean"
-		},
 		"platform-component-visual-refresh": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
 		"navx-full-height-sidebar": {
-			"type": "boolean"
-		},
-		"platform_themed_button_use_icon_renderer": {
 			"type": "boolean"
 		},
 		"platform_dst_button_chevron_sizing": {
@@ -202,9 +196,6 @@
 			"type": "boolean"
 		},
 		"platform_dst_nav4_flyout_menu_slots_close_button": {
-			"type": "boolean"
-		},
-		"navx-4418-fix-effect-state-updates-in-gsn": {
 			"type": "boolean"
 		},
 		"platform_dst_nav4_custom_theming_fhs_1": {

@@ -80,8 +80,8 @@ function Tooltip({
 	ignoreTooltipPointerEvents = false,
 	isScreenReaderAnnouncementDisabled = false,
 	shortcut,
-	UNSAFE_shouldAlwaysFadeIn: shouldAlwaysFadeIn = false,
-	UNSAFE_shouldRenderToParent = false,
+	shouldAlwaysFadeIn = false,
+	shouldRenderToParent = false,
 }: TooltipProps): React.JSX.Element {
 	// Not using a gate for this check. When the gate is disabled `mouse-y` and `mouse-x` are treated as `mouse`.
 	const isMousePosition = position === 'mouse' || position === 'mouse-y' || position === 'mouse-x';
@@ -504,7 +504,7 @@ function Tooltip({
 		</span>
 	) : null;
 
-	const PopperWrapper = UNSAFE_shouldRenderToParent ? Fragment : TooltipPortal;
+	const PopperWrapper = shouldRenderToParent ? Fragment : TooltipPortal;
 
 	return (
 		<>

@@ -28,29 +28,29 @@ export const nativeEmbedToolbarMessages: {
 	};
 } = defineMessages({
 	alwaysShowTitle: {
-		id: 'fabric.editor.alwaysShowTitle.non-final',
+		id: 'fabric.editor.nativeEmbeds.alwaysShowTitle',
 		defaultMessage: 'Show embed title',
 		description:
 			'Label for the toggle to enable or disable the behaviour of always showing the title of the embed.',
 	},
+	expandPreview: {
+		id: 'fabric.editor.nativeEmbeds.expandPreview',
+		defaultMessage: 'Expand',
+		description: 'Label for the button to expand the embed to fullscreen.',
+	},
 	refresh: {
-		id: 'fabric.editor.refresh.non-final',
+		id: 'fabric.editor.nativeEmbeds.refresh',
 		defaultMessage: 'Refresh',
 		description: 'Label for the button to refresh the embedded link.',
+	},
+	setEmbedType: {
+		id: 'fabric.editor.nativeEmbeds.setEmbedType',
+		defaultMessage: 'Set embed type',
+		description: 'Label for the button to set the type of embed.',
 	},
 	summarise: {
 		id: 'fabric.editor.nativeEmbeds.summarise',
 		defaultMessage: 'Summarize',
 		description: 'Label for the button to summarize the content of the embedded link using AI.',
-	},
-	setEmbedType: {
-		id: 'fabric.editor.setEmbedType.non-final',
-		defaultMessage: 'Set embed type',
-		description: 'Label for the button to set the type of embed.',
-	},
-	expandPreview: {
-		id: 'fabric.editor.nativeEmbeds.expandPreview',
-		defaultMessage: 'Expand preview',
-		description: 'Label for the button to open the embed in a fullscreen preview.',
 	},
 });

@@ -1,5 +1,18 @@
 # @atlaskit/tooltip
 
+## 22.0.0
+
+### Major Changes
+
+- [`4659a23161b03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4659a23161b03) - -
+  Removes the `FakeMouseElement` exported type
+  - Renames `UNSAFE_shouldRenderToParent` to `shouldRenderToParent`
+  - Renames `UNSAFE_shouldAlwaysFadeIn` to `shouldAlwaysFadeIn`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.2.1
 
 ### Patch Changes

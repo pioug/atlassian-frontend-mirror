@@ -1,5 +1,23 @@
 # @atlaskit/adf-schema
 
+## 52.9.0
+
+### Minor Changes
+
+- [`d0c2a171a3796`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0c2a171a3796) -
+  Promote fontSize mark to full-schema
+
+## 52.8.0
+
+### Minor Changes
+
+- [`2fb1c8a74a856`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fb1c8a74a856) -
+  ADF Change 101: Add wrap and hideLineNumbers attributes to codeBlock stage-0 variants
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.7.1
 
 ### Patch Changes

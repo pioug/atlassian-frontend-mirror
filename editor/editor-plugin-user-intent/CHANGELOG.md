@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-user-intent
 
+## 8.1.0
+
+### Minor Changes
+
+- [`cf959b6a91d75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf959b6a91d75) -
+  Add `overlayOpen` user intent for hiding floating toolbar in some surfaces when a conflicting
+  overlay is open
+
 ## 8.0.0
 
 ### Patch Changes

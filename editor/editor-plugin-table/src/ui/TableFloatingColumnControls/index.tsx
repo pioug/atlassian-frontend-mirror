@@ -30,7 +30,6 @@ interface Props {
 	hoveredCell?: CellHoverMeta;
 	hoveredRows?: number[];
 	isChromelessEditor?: boolean;
-	isDragAndDropEnabled?: boolean;
 	isInDanger?: boolean;
 	isNumberColumnEnabled?: boolean;
 	isResizing?: boolean;
@@ -62,7 +61,6 @@ const TableFloatingColumnControls = ({
 	tableWrapperHeight,
 	api,
 	isChromelessEditor,
-	isDragAndDropEnabled,
 }: Props): React.JSX.Element | null => {
 	const [isDragging, setIsDragging] = useState(false);
 	const containerRef = useRef<HTMLDivElement>(null);

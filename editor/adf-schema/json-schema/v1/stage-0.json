@@ -82,12 +82,6 @@
           "$ref": "#/definitions/paragraph_with_indentation_node"
         },
         {
-          "$ref": "#/definitions/paragraph_with_font_size_and_alignment_node"
-        },
-        {
-          "$ref": "#/definitions/paragraph_with_font_size_and_indentation_node"
-        },
-        {
           "$ref": "#/definitions/mediaSingle_caption_node"
         },
         {
@@ -95,6 +89,9 @@
         },
         {
           "$ref": "#/definitions/codeBlock_node"
+        },
+        {
+          "$ref": "#/definitions/codeBlock_with_extended_attributes_node"
         },
         {
           "$ref": "#/definitions/taskList_node"
@@ -454,12 +451,6 @@
                 "$ref": "#/definitions/paragraph_with_indentation_node"
               },
               {
-                "$ref": "#/definitions/paragraph_with_font_size_and_alignment_node"
-              },
-              {
-                "$ref": "#/definitions/paragraph_with_font_size_and_indentation_node"
-              },
-              {
                 "$ref": "#/definitions/paragraph_with_no_marks_node"
               },
               {
@@ -778,6 +769,90 @@
       "additionalProperties": false,
       "required": ["type"]
     },
+    "codeBlock_root_only_with_extended_attributes_node": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": ["codeBlock"]
+        },
+        "marks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/breakout_mark"
+          }
+        },
+        "attrs": {
+          "type": "object",
+          "properties": {
+            "language": {
+              "type": "string"
+            },
+            "uniqueId": {
+              "type": "string"
+            },
+            "localId": {
+              "type": "string"
+            },
+            "wrap": {
+              "type": "boolean"
+            },
+            "hideLineNumbers": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/text_with_no_marks_node"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": ["type"]
+    },
+    "codeBlock_with_extended_attributes_node": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": ["codeBlock"]
+        },
+        "marks": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "attrs": {
+          "type": "object",
+          "properties": {
+            "language": {
+              "type": "string"
+            },
+            "uniqueId": {
+              "type": "string"
+            },
+            "localId": {
+              "type": "string"
+            },
+            "wrap": {
+              "type": "boolean"
+            },
+            "hideLineNumbers": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/text_with_no_marks_node"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": ["type"]
+    },
     "dataConsumer_mark": {
       "type": "object",
       "properties": {
@@ -905,6 +980,9 @@
                 "$ref": "#/definitions/codeBlock_node"
               },
               {
+                "$ref": "#/definitions/codeBlock_with_extended_attributes_node"
+              },
+              {
                 "$ref": "#/definitions/mediaSingle_caption_node"
               },
               {
@@ -915,12 +993,6 @@
               },
               {
                 "$ref": "#/definitions/paragraph_with_indentation_node"
-              },
-              {
-                "$ref": "#/definitions/paragraph_with_font_size_and_alignment_node"
-              },
-              {
-                "$ref": "#/definitions/paragraph_with_font_size_and_indentation_node"
               },
               {
                 "$ref": "#/definitions/paragraph_with_no_marks_node"
@@ -975,6 +1047,9 @@
               },
               {
                 "$ref": "#/definitions/codeBlock_root_only_node"
+              },
+              {
+                "$ref": "#/definitions/codeBlock_root_only_with_extended_attributes_node"
               },
               {
                 "$ref": "#/definitions/layoutSection_with_single_column_node"
@@ -2415,6 +2490,9 @@
           "$ref": "#/definitions/codeBlock_node"
         },
         {
+          "$ref": "#/definitions/codeBlock_with_extended_attributes_node"
+        },
+        {
           "$ref": "#/definitions/mediaGroup_node"
         },
         {
@@ -2605,57 +2683,12 @@
             "marks": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/alignment_mark"
-              }
-            }
-          },
-          "additionalProperties": true
-        }
-      ]
-    },
-    "paragraph_with_font_size_and_alignment_node": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/paragraph_node"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "marks": {
-              "type": "array",
-              "items": {
                 "anyOf": [
                   {
                     "$ref": "#/definitions/fontSize_mark"
                   },
                   {
                     "$ref": "#/definitions/alignment_mark"
-                  }
-                ]
-              }
-            }
-          },
-          "additionalProperties": true
-        }
-      ]
-    },
-    "paragraph_with_font_size_and_indentation_node": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/paragraph_node"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "marks": {
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "$ref": "#/definitions/fontSize_mark"
-                  },
-                  {
-                    "$ref": "#/definitions/indentation_mark"
                   }
                 ]
               }
@@ -2695,7 +2728,14 @@
             "marks": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/indentation_mark"
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/fontSize_mark"
+                  },
+                  {
+                    "$ref": "#/definitions/indentation_mark"
+                  }
+                ]
               }
             }
           },
@@ -2878,9 +2918,6 @@
             "$ref": "#/definitions/paragraph_with_alignment_node"
           },
           {
-            "$ref": "#/definitions/paragraph_with_font_size_and_alignment_node"
-          },
-          {
             "$ref": "#/definitions/panel_node"
           },
           {
@@ -2906,6 +2943,9 @@
           },
           {
             "$ref": "#/definitions/codeBlock_node"
+          },
+          {
+            "$ref": "#/definitions/codeBlock_with_extended_attributes_node"
           },
           {
             "$ref": "#/definitions/mediaSingle_caption_node"

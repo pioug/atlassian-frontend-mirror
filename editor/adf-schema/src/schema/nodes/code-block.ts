@@ -1,9 +1,15 @@
-import type { NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type {
+	NodeSpec,
+	Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { TextDefinition as Text } from './text';
 import type { BreakoutMarkDefinition } from '../marks/breakout';
 import type { MarksObject, NoMark } from './types/mark';
-import { codeBlock as codeBlockFactory } from '../../next-schema/generated/nodeTypes';
+import {
+	codeBlock as codeBlockFactory,
+	codeBlockWithExtendedAttributesStage0 as codeBlockWithExtendedAttributesStage0Factory,
+} from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils';
 
 export type CodeBlockBaseDefinition = {
@@ -19,9 +25,11 @@ export type CodeBlockBaseDefinition = {
 };
 
 export type CodeBlockAttrs = {
+	hideLineNumbers?: boolean;
 	language?: string;
 	localId?: string;
 	uniqueId?: string;
+	wrap?: boolean;
 };
 
 /**
@@ -41,7 +49,9 @@ const getLanguageFromEditorStyle = (dom: HTMLElement): string | undefined => {
 
 // example of BB style:
 // <div class="codehilite language-javascript"><pre><span>hello world</span><span>\n</span></pre></div>
-const getLanguageFromBitbucketStyle = (dom: HTMLElement): string | undefined => {
+const getLanguageFromBitbucketStyle = (
+	dom: HTMLElement,
+): string | undefined => {
 	if (dom && dom.classList.contains('codehilite')) {
 		// code block html from Bitbucket always contains an extra new line
 		return extractLanguageFromClass(dom.className);
@@ -83,7 +93,10 @@ function parseCodeFromHtml(node: Node) {
 		if (child.nodeType === Node.TEXT_NODE) {
 			// append text
 			code += child.nodeValue;
-		} else if (child.nodeType === Node.ELEMENT_NODE && child instanceof Element) {
+		} else if (
+			child.nodeType === Node.ELEMENT_NODE &&
+			child instanceof Element
+		) {
 			const tagName = child.tagName.toLowerCase();
 			if (tagName === 'div' || tagName === 'p') {
 				// add a newline before its content, unless it's the first child to avoid leading newlines
@@ -131,7 +144,8 @@ export const codeBlock: NodeSpec = codeBlockFactory({
 				const dom = domNode as HTMLElement;
 				if (
 					dom.style.whiteSpace === 'pre' ||
-					(dom.style.fontFamily && dom.style.fontFamily.toLowerCase().indexOf('monospace') > -1)
+					(dom.style.fontFamily &&
+						dom.style.fontFamily.toLowerCase().indexOf('monospace') > -1)
 				) {
 					return {};
 				}
@@ -162,7 +176,9 @@ export const codeBlock: NodeSpec = codeBlockFactory({
 				const dom = domNode as HTMLElement;
 				// TODO: ED-5604 - Fix it inside `react-syntax-highlighter`
 				// Remove line numbers
-				const lineNumber = dom.querySelectorAll('.react-syntax-highlighter-line-number');
+				const lineNumber = dom.querySelectorAll(
+					'.react-syntax-highlighter-line-number',
+				);
 
 				if (lineNumber.length > 0) {
 					// It's possible to copy without the line numbers too hence this
@@ -194,10 +210,124 @@ export const toJSON = (
 			return memo;
 		}
 
+		if (key === 'wrap' && !node.attrs.wrap) {
+			return memo;
+		}
+
+		if (key === 'hideLineNumbers' && !node.attrs.hideLineNumbers) {
+			return memo;
+		}
+
 		memo[key] = node.attrs[key];
 		return memo;
 	}, {}),
 });
+
+/**
+ * @name codeBlock_with_extended_attributes
+ * @description stage-0 codeBlock variant with wrap and hideLineNumbers attributes (ADF Change 101)
+ *
+ * Stage-0 variant: adds wrap and hideLineNumbers attributes (ADF Change 101).
+ * The DSL variant includes all attrs (base + new), so the generated factory provides the full set.
+ */
+export const codeBlockWithExtendedAttributes: NodeSpec = {
+	...codeBlockWithExtendedAttributesStage0Factory({
+		parseDOM: [
+			{
+				tag: 'pre',
+				preserveWhitespace: 'full',
+				getAttrs: (domNode) => {
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
+					let dom = domNode as HTMLElement;
+					const language =
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						getLanguageFromBitbucketStyle(dom.parentElement!) ||
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						getLanguageFromEditorStyle(dom.parentElement!) ||
+						getLanguageFromCode(dom) ||
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						dom.getAttribute('data-language')!;
+					dom = removeLastNewLine(dom);
+					const wrap = dom.getAttribute('data-wrap') === 'true';
+					const hideLineNumbers =
+						dom.getAttribute('data-hide-line-numbers') === 'true';
+					return { language, wrap, hideLineNumbers, localId: uuid.generate() };
+				},
+			},
+			// Handle VSCode, Android Studio paste
+			// Checking `white-space: pre-wrap` is too aggressive @see ED-2627
+			{
+				tag: 'div[style]',
+				preserveWhitespace: 'full',
+				getAttrs: (domNode) => {
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
+					const dom = domNode as HTMLElement;
+					if (
+						dom.style.whiteSpace === 'pre' ||
+						(dom.style.fontFamily &&
+							dom.style.fontFamily.toLowerCase().indexOf('monospace') > -1)
+					) {
+						return {};
+					}
+					return false;
+				},
+				getContent: (domNode, schema) => {
+					const code = parseCodeFromHtml(domNode);
+					return code ? Fragment.from(schema.text(code)) : Fragment.empty;
+				},
+			},
+			// Handle GitHub/Gist paste
+			{
+				tag: 'table[style]',
+				preserveWhitespace: 'full',
+				getAttrs: (dom) => {
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
+					if ((dom as HTMLElement).querySelector('td[class*="blob-code"]')) {
+						return {};
+					}
+					return false;
+				},
+			},
+			{
+				tag: 'div.code-block',
+				preserveWhitespace: 'full',
+				getAttrs: (domNode) => {
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
+					const dom = domNode as HTMLElement;
+					// TODO: ED-5604 - Fix it inside `react-syntax-highlighter`
+					// Remove line numbers
+					const lineNumber = dom.querySelectorAll(
+						'.react-syntax-highlighter-line-number',
+					);
+
+					if (lineNumber.length > 0) {
+						// It's possible to copy without the line numbers too hence this
+						// `react-syntax-highlighter-line-number` check, so that we don't remove real code
+						lineNumber.forEach((line) => line.remove());
+					}
+					return {};
+				},
+			},
+		],
+		toDOM(node) {
+			const attrs: Record<string, string> = {};
+			if (node?.attrs?.localId !== undefined) {
+				attrs['data-local-id'] = node.attrs.localId;
+			}
+			if (node.attrs.wrap) {
+				attrs['data-wrap'] = 'true';
+			}
+			if (node.attrs.hideLineNumbers) {
+				attrs['data-hide-line-numbers'] = 'true';
+			}
+			return [
+				'pre',
+				attrs,
+				['code', { 'data-language': node.attrs.language }, 0],
+			];
+		},
+	}),
+};
 
 export const codeBlockWithLocalId: NodeSpec = codeBlockFactory({
 	parseDOM: [
@@ -229,7 +359,8 @@ export const codeBlockWithLocalId: NodeSpec = codeBlockFactory({
 				const dom = domNode as HTMLElement;
 				if (
 					dom.style.whiteSpace === 'pre' ||
-					(dom.style.fontFamily && dom.style.fontFamily.toLowerCase().indexOf('monospace') > -1)
+					(dom.style.fontFamily &&
+						dom.style.fontFamily.toLowerCase().indexOf('monospace') > -1)
 				) {
 					return {};
 				}
@@ -260,7 +391,9 @@ export const codeBlockWithLocalId: NodeSpec = codeBlockFactory({
 				const dom = domNode as HTMLElement;
 				// TODO: ED-5604 - Fix it inside `react-syntax-highlighter`
 				// Remove line numbers
-				const lineNumber = dom.querySelectorAll('.react-syntax-highlighter-line-number');
+				const lineNumber = dom.querySelectorAll(
+					'.react-syntax-highlighter-line-number',
+				);
 
 				if (lineNumber.length > 0) {
 					// It's possible to copy without the line numbers too hence this
@@ -276,6 +409,10 @@ export const codeBlockWithLocalId: NodeSpec = codeBlockFactory({
 		if (node?.attrs?.localId !== undefined) {
 			attrs['data-local-id'] = node.attrs.localId;
 		}
-		return ['pre', attrs, ['code', { 'data-language': node.attrs.language }, 0]];
+		return [
+			'pre',
+			attrs,
+			['code', { 'data-language': node.attrs.language }, 0],
+		];
 	},
 });

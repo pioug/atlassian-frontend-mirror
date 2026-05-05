@@ -1,7 +1,1 @@
-export type {
-	FakeMouseElement,
-	PositionType,
-	PositionTypeBase,
-	TooltipProps,
-	TriggerProps,
-} from '../types';
+export type { PositionType, PositionTypeBase, TooltipProps, TriggerProps } from '../types';

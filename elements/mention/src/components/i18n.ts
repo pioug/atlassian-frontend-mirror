@@ -75,7 +75,8 @@ export const messages: {
 	noAccessLabel: {
 		id: 'fabric.mention.noAccess.label',
 		defaultMessage: 'No access',
-		description: 'Label for no access icon',
+		description:
+			'Accessible label shown next to the no-access icon on a mention, indicating the mentioned user does not have access to the current content.',
 	},
 	defaultHeadline: {
 		id: 'fabric.mention.error.defaultHeadline',

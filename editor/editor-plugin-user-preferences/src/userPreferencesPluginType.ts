@@ -26,6 +26,7 @@ export type UserPreferencesPluginOptions = {
 export type PrefKey = keyof UserPreferences;
 export type ResolvedPrefKey = keyof ResolvedUserPreferences;
 export type UserPreferencesSharedState = {
+	overrides: Partial<ResolvedUserPreferences>;
 	preferences: ResolvedUserPreferences;
 };
 
@@ -37,6 +38,13 @@ export type UserPreferencesPlugin = NextEditorPlugin<
 			updateUserPreference: (
 				key: PrefKey,
 				value: ResolvedUserPreferences[PrefKey],
+			) => EditorCommand;
+		};
+		commands: {
+			clearOverrideUserPreference: (key: ResolvedPrefKey) => EditorCommand;
+			overrideUserPreference: (
+				key: ResolvedPrefKey,
+				value: ResolvedUserPreferences[ResolvedPrefKey],
 			) => EditorCommand;
 		};
 		dependencies: [OptionalPlugin<AnalyticsPlugin>];

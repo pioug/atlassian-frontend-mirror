@@ -9,6 +9,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
 import ChangesIcon from '@atlaskit/icon/core/changes';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
@@ -46,6 +47,7 @@ export const FormatMenuComponent = ({
 			enableMaxHeight={true}
 			onClick={handleClick}
 			dropdownTestId="editor-turn-into-menu"
+			testId={fg('cc_blocks_changeboarding') ? 'turn-into-block-menu-btn' : undefined}
 			shouldFitContainer
 		>
 			{children}

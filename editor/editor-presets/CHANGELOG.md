@@ -1,5 +1,17 @@
 # @atlaskit/editor-presets
 
+## 2.1.0
+
+### Minor Changes
+
+- [`c939283d6f41a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c939283d6f41a) -
+  [EDITOR-6181](https://hello.jira.atlassian.cloud/browse/EDITOR-6181) - fix inline smart cards in
+  SSR streaming
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.13
 
 ### Patch Changes

@@ -37,7 +37,15 @@ export type SelectionToolbarPlugin = NextEditorPlugin<
 	'selectionToolbar',
 	{
 		actions?: {
+			/**
+			 * Clears the toolbar docking override and reverts to the current preference/state value.
+			 */
+			clearToolbarDockingOverride?: () => boolean;
 			forceToolbarDockingWithoutAnalytics?: (toolbarDocking: ToolbarDocking) => boolean;
+			/**
+			 * Temporarily overrides the toolbar docking position without persisting to user preferences.
+			 */
+			overrideToolbarDocking?: (toolbarDocking: ToolbarDocking) => boolean;
 			/**
 			 * @private
 			 * @deprecated not in use

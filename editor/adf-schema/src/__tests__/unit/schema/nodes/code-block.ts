@@ -1,6 +1,12 @@
 import { createSchema } from '../../../../schema/create-schema';
-import { codeBlock } from '../../../../schema/nodes/code-block';
-import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+import {
+	codeBlock,
+	codeBlockWithExtendedAttributes,
+} from '../../../../schema/nodes/code-block';
+import {
+	fromHTML,
+	toHTML,
+} from '@af/adf-test-helpers/src/adf-schema/html-helpers';
 
 const packageName = process.env.npm_package_name as string;
 
@@ -64,13 +70,19 @@ describe(`${packageName}/schema codeBlock node`, () => {
 		describe('parse from editor encoded HTML', () => {
 			describe('when language is not set', () => {
 				it('converts to block code node', () => {
-					const doc = fromHTML('<pre><span>window.alert("hello");<span></pre>', schema);
+					const doc = fromHTML(
+						'<pre><span>window.alert("hello");<span></pre>',
+						schema,
+					);
 
 					expect(doc.firstChild!.type.name).toEqual('codeBlock');
 				});
 
 				it('has language attribute as null', () => {
-					const doc = fromHTML('<pre><span>window.alert("hello");<span></pre>', schema);
+					const doc = fromHTML(
+						'<pre><span>window.alert("hello");<span></pre>',
+						schema,
+					);
 
 					expect(doc.firstChild!.attrs['language']).toEqual(null);
 				});
@@ -97,7 +109,10 @@ describe(`${packageName}/schema codeBlock node`, () => {
 			});
 
 			it('preserves all newlines and whitespace', () => {
-				const doc = fromHTML('<pre><span></span>    bar\n       baz\n</pre>', schema);
+				const doc = fromHTML(
+					'<pre><span></span>    bar\n       baz\n</pre>',
+					schema,
+				);
 
 				expect(doc.firstChild!.textContent).toEqual('    bar\n       baz\n');
 			});
@@ -282,8 +297,101 @@ describe(`${packageName}/schema codeBlock node`, () => {
 				const codeBlock = schema.nodes.codeBlock.create({
 					language: 'javascript',
 				});
-				expect(toHTML(codeBlock, schema)).toContain('data-language="javascript"');
+				expect(toHTML(codeBlock, schema)).toContain(
+					'data-language="javascript"',
+				);
 			});
+		});
+	});
+});
+
+// eslint-disable-next-line jest/no-identical-title
+describe(`${packageName}/schema: codeBlock_with_extended_attributes node (stage-0)`, () => {
+	const stage0Schema = makeStage0Schema();
+
+	it('base codeBlock node definition is unchanged (backward compat)', () => {
+		// The base codeBlock spec should not include wrap or hideLineNumbers
+		expect(codeBlock.attrs).not.toHaveProperty('wrap');
+		expect(codeBlock.attrs).not.toHaveProperty('hideLineNumbers');
+	});
+
+	it('variant node spec has wrap and hideLineNumbers attrs with correct defaults', () => {
+		expect(codeBlockWithExtendedAttributes.attrs).toMatchObject({
+			wrap: { default: false },
+			hideLineNumbers: { default: false },
+		});
+	});
+
+	it('variant node spec includes language attr (full attr set)', () => {
+		expect(codeBlockWithExtendedAttributes.attrs).toMatchObject({
+			language: { default: null },
+		});
+	});
+
+	describe('stage-0: convert to HTML', () => {
+		it('does not add data-wrap when wrap is false (default)', () => {
+			const node = stage0Schema.nodes.codeBlock.create({ wrap: false });
+			expect(toHTML(node, stage0Schema)).not.toContain('data-wrap');
+		});
+
+		it('adds data-wrap="true" when wrap is true', () => {
+			const node = stage0Schema.nodes.codeBlock.create({ wrap: true });
+			expect(toHTML(node, stage0Schema)).toContain('data-wrap="true"');
+		});
+
+		it('does not add data-hide-line-numbers when hideLineNumbers is false (default)', () => {
+			const node = stage0Schema.nodes.codeBlock.create({
+				hideLineNumbers: false,
+			});
+			expect(toHTML(node, stage0Schema)).not.toContain(
+				'data-hide-line-numbers',
+			);
+		});
+
+		it('adds data-hide-line-numbers="true" when hideLineNumbers is true', () => {
+			const node = stage0Schema.nodes.codeBlock.create({
+				hideLineNumbers: true,
+			});
+			expect(toHTML(node, stage0Schema)).toContain(
+				'data-hide-line-numbers="true"',
+			);
+		});
+
+		it('sets data-language when language is set', () => {
+			const node = stage0Schema.nodes.codeBlock.create({
+				language: 'typescript',
+			});
+			expect(toHTML(node, stage0Schema)).toContain(
+				'data-language="typescript"',
+			);
+		});
+	});
+
+	describe('stage-0: parse from HTML', () => {
+		it('parses wrap=true from data-wrap attribute', () => {
+			const doc = fromHTML(
+				'<pre data-language="javascript" data-wrap="true"><code>hello</code></pre>',
+				stage0Schema,
+			);
+			expect(doc.firstChild!.attrs.wrap).toBe(true);
+		});
+
+		it('parses wrap=false when data-wrap is absent (default behaviour preserved)', () => {
+			const doc = fromHTML('<pre><code>hello</code></pre>', stage0Schema);
+			expect(doc.firstChild!.attrs.wrap).toBe(false);
+		});
+
+		it('parses hideLineNumbers=true from data-hide-line-numbers="true"', () => {
+			const doc = fromHTML(
+				'<pre data-hide-line-numbers="true"><code>hello</code></pre>',
+				stage0Schema,
+			);
+			expect(doc.firstChild!.attrs.hideLineNumbers).toBe(true);
+		});
+
+		it('parses hideLineNumbers=false when data-hide-line-numbers is absent (default behaviour preserved)', () => {
+			const doc = fromHTML('<pre><code>hello</code></pre>', stage0Schema);
+			expect(doc.firstChild!.attrs.hideLineNumbers).toBe(false);
 		});
 	});
 });
@@ -292,5 +400,15 @@ function makeSchema() {
 	return createSchema({
 		nodes: ['doc', 'paragraph', 'text', 'codeBlock', 'unsupportedInline'],
 		marks: ['unsupportedMark', 'unsupportedNodeAttribute'],
+	});
+}
+
+function makeStage0Schema() {
+	return createSchema({
+		nodes: ['doc', 'paragraph', 'text', 'codeBlock', 'unsupportedInline'],
+		marks: ['unsupportedMark', 'unsupportedNodeAttribute'],
+		customNodeSpecs: {
+			codeBlock: codeBlockWithExtendedAttributes,
+		},
 	});
 }

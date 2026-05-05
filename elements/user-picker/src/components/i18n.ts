@@ -240,7 +240,8 @@ export const messages: {
 	teamByline: {
 		id: 'fabric.elements.user-picker.team.byline',
 		defaultMessage: 'Team',
-		description: 'Byline for team',
+		description:
+			'Secondary text shown below a team name in the user picker drop-down list to indicate the option is a team.',
 	},
 	officialTeamByline: {
 		id: 'fabric.elements.user-picker.team.byline.official',
@@ -298,12 +299,14 @@ export const messages: {
 	addEmail: {
 		id: 'fabric.elements.user-picker.email.add',
 		defaultMessage: 'Add user',
-		description: 'Byline for valid email option.',
+		description:
+			'Label for the add-user option shown in the user picker when the user has typed a valid email address.',
 	},
 	selectToAddEmail: {
 		id: 'fabric.elements.user-picker.email.select.to.add',
 		defaultMessage: 'Select an email address',
-		description: 'Byline for valid email option.',
+		description:
+			'Instruction text shown in the user picker prompting the user to select a typed email address to add it.',
 	},
 	continueToAddEmail: {
 		id: 'fabric.elements.user-picker.email.add.potential',
@@ -318,12 +321,14 @@ export const messages: {
 	groupByline: {
 		id: 'fabric.elements.user-picker.group.byline',
 		defaultMessage: 'Admin-managed group',
-		description: 'Byline for admin-managed groups',
+		description:
+			'Secondary text shown below a group name in the user picker drop-down list to indicate the option is an admin-managed group.',
 	},
 	externalUserSourcesHeading: {
 		id: 'fabric.elements.user-picker.external.sourced.from',
 		defaultMessage: 'Found in:',
-		description: 'From where the external user is coming',
+		description:
+			'Label shown in the user picker beside the list of sources where an external user was found (e.g. Jira, Confluence).',
 	},
 	externalUserSourcesError: {
 		id: 'fabric.elements.user-picker.external.sourced.error',
@@ -353,7 +358,8 @@ export const messages: {
 	jiraSource: {
 		id: 'fabric.elements.user-picker.source.jira',
 		defaultMessage: 'Jira',
-		description: 'This external user is sourced from Jira',
+		description:
+			'Source label shown in the user picker to indicate that an external user was found via Jira.',
 	},
 	confluenceSource: {
 		id: 'fabric.elements.user-picker.source.confluence',
@@ -401,36 +407,43 @@ export const messages: {
 	userTypeLabel: {
 		id: 'fabric.elements.user-picker.user.type.label',
 		defaultMessage: 'People',
-		description: 'Label for user type',
+		description:
+			'Tab or section heading label in the user picker that groups results of type People (individual users).',
 	},
 	teamTypeLabel: {
 		id: 'fabric.elements.user-picker.team.type.label',
 		defaultMessage: 'Teams',
-		description: 'Label for team type',
+		description:
+			'Tab or section heading label in the user picker that groups results of type Teams.',
 	},
 	emailTypeLabel: {
 		id: 'fabric.elements.user-picker.email.type.label',
 		defaultMessage: 'Emails',
-		description: 'Label for email type',
+		description:
+			'Tab or section heading label in the user picker that groups results of type Emails.',
 	},
 	groupTypeLabel: {
 		id: 'fabric.elements.user-picker.group.type.label',
 		defaultMessage: 'Groups',
-		description: 'Label for group type',
+		description:
+			'Tab or section heading label in the user picker that groups results of type Groups.',
 	},
 	externalUserTypeLabel: {
 		id: 'fabric.elements.user-picker.external.user.type.label',
 		defaultMessage: 'External Users',
-		description: 'Label for external user type',
+		description:
+			'Tab or section heading label in the user picker that groups results of type External Users.',
 	},
 	customTypeLabel: {
 		id: 'fabric.elements.user-picker.custom.type.label',
 		defaultMessage: 'Customs',
-		description: 'Label for custom type',
+		description:
+			'Tab or section heading label in the user picker that groups results of a custom type defined by the host application.',
 	},
 	otherTypeLabel: {
 		id: 'fabric.elements.user-picker.other.type.label',
 		defaultMessage: 'Others',
-		description: 'Label for other type',
+		description:
+			'Tab or section heading label in the user picker that groups results that do not fit any standard type category.',
 	},
 });

@@ -20,7 +20,7 @@ import { AgentProfileCardLazy } from './lazyAgentProfileCard';
 export const AgentProfileCardTrigger: React.ForwardRefExoticComponent<
 	AgentProfileCardTriggerProps & React.RefAttributes<ProfileCardHandle>
 > = forwardRef<ProfileCardHandle, AgentProfileCardTriggerProps>(({ ...props }, ref) => {
-	const { resourceClient, agentId: userId, cloudId } = props;
+	const { resourceClient, agentId: userId, cloudId, agentIdType = 'agent' } = props;
 
 	const { fireEvent } = useAnalyticsEvents();
 
@@ -98,7 +98,7 @@ export const AgentProfileCardTrigger: React.ForwardRefExoticComponent<
 
 	const fetchAgentProfile = async (): Promise<RovoAgentProfileCardInfo> => {
 		const agentProfileResult = await resourceClient.getRovoAgentProfile(
-			{ type: 'agent', value: userId },
+			{ type: agentIdType, value: userId },
 			fireEvent,
 		);
 

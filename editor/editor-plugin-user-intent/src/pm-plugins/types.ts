@@ -5,6 +5,9 @@ import type { PopupUserIntent } from '@atlaskit/editor-common/user-intent';
  * popupOpen: when a popup (e.g. table drag menu, hyperlink picker) is open
  *
  * commenting: when commenting on text
+ *
+ * overlayOpen: when a modal or overlay (e.g. the remix ephemeral preview) is open over the editor,
+ * hiding the floating toolbar so it does not appear above the overlay.
  */
 export type UserIntent =
 	| 'default'
@@ -14,4 +17,5 @@ export type UserIntent =
 	| 'commenting'
 	| 'aiStreaming'
 	| 'dragHandleSelected'
+	| 'overlayOpen'
 	| PopupUserIntent;

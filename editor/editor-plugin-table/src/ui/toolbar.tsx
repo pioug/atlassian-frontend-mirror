@@ -175,28 +175,16 @@ export const getToolbarMenuConfig = (
 	const tableOptionsDropdownWidth = isTableScalingWithFixedColumnWidthsOptionShown
 		? 192
 		: undefined;
-	if (state.isDragAndDropEnabled) {
-		return {
-			id: 'editor.table.tableOptions',
-			type: 'dropdown',
-			testId: 'table_options',
-			iconBefore: CustomizeIcon,
-			title: formatMessage(messages.tableOptions),
-			hidden: options.every((option) => option.hidden),
-			options,
-			dropdownWidth: tableOptionsDropdownWidth,
-		};
-	} else {
-		return {
-			id: 'editor.table.tableOptions',
-			type: 'dropdown',
-			testId: 'table_options',
-			title: formatMessage(messages.tableOptions),
-			hidden: options.every((option) => option.hidden),
-			options,
-			dropdownWidth: tableOptionsDropdownWidth,
-		};
-	}
+	return {
+		id: 'editor.table.tableOptions',
+		type: 'dropdown',
+		testId: 'table_options',
+		iconBefore: CustomizeIcon,
+		title: formatMessage(messages.tableOptions),
+		hidden: options.every((option) => option.hidden),
+		options,
+		dropdownWidth: tableOptionsDropdownWidth,
+	};
 };
 
 // Added these options for mobile. Mobile bridge translates this menu and
@@ -648,36 +636,18 @@ export const getToolbarConfig =
 
 			const isLimitedModeEnabled = api?.limitedMode?.sharedState.currentState()?.enabled ?? false;
 
-			const cellItems = pluginState.isDragAndDropEnabled
-				? []
-				: getCellItems(
-						state,
-						editorView,
-						intl,
-						getEditorContainerWidth,
-						api,
-						editorAnalyticsAPI,
-						isTableScalingEnabled,
-						isTableFixedColumnWidthsOptionEnabled,
-						shouldUseIncreasedScalingPercent,
-						options?.isCommentEditor,
-						isLimitedModeEnabled,
-					);
-
-			const columnSettingsItems = pluginState.isDragAndDropEnabled
-				? getColumnSettingItems(
-						state,
-						editorView,
-						intl,
-						getEditorContainerWidth,
-						api,
-						editorAnalyticsAPI,
-						isTableScalingEnabled,
-						isTableFixedColumnWidthsOptionEnabled,
-						options?.isCommentEditor,
-						isLimitedModeEnabled,
-					)
-				: [];
+			const columnSettingsItems = getColumnSettingItems(
+				state,
+				editorView,
+				intl,
+				getEditorContainerWidth,
+				api,
+				editorAnalyticsAPI,
+				isTableScalingEnabled,
+				isTableFixedColumnWidthsOptionEnabled,
+				options?.isCommentEditor,
+				isLimitedModeEnabled,
+			);
 
 			const colorPicker = !areAnyNewToolbarFlagsEnabled
 				? getColorPicker(state, menu, intl, editorAnalyticsAPI, getEditorView)
@@ -789,7 +759,6 @@ export const getToolbarConfig =
 					...(!areAnyNewToolbarFlagsEnabled ? [separator(menu.hidden)] : []),
 					...alignmentMenu,
 					...(!areAnyNewToolbarFlagsEnabled ? [separator(alignmentMenu.length === 0)] : []),
-					...cellItems,
 					...columnSettingsItems,
 					...fitToContentButton,
 					...colorPicker,
@@ -891,42 +860,6 @@ const separator = (hidden?: boolean): FloatingToolbarItem<Command> => {
 	};
 };
 
-const getCellItems = (
-	state: EditorState,
-	view: EditorView | null,
-	{ formatMessage }: ToolbarMenuContext,
-	getEditorContainerWidth: GetEditorContainerWidth,
-	api: PluginInjectionAPI | undefined | null,
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-	isTableScalingEnabled = false,
-	isTableFixedColumnWidthsOptionEnabled = false,
-	shouldUseIncreasedScalingPercent = false,
-	isCommentEditor = false,
-	isLimitedModeEnabled = false,
-): Array<FloatingToolbarItem<Command>> => {
-	const initialSelectionRect = getClosestSelectionRect(state);
-	if (initialSelectionRect) {
-		const cellOptions = getToolbarCellOptionsConfig(
-			state,
-			view,
-			initialSelectionRect,
-			{ formatMessage },
-			getEditorContainerWidth,
-			api,
-			editorAnalyticsAPI,
-			isTableScalingEnabled,
-			isTableFixedColumnWidthsOptionEnabled,
-			shouldUseIncreasedScalingPercent,
-			isCommentEditor,
-			isLimitedModeEnabled,
-		);
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		return [cellOptions, separator(cellOptions.hidden!)];
-	}
-	return [];
-};
-
 const getDistributeConfig =
 	(
 		getEditorContainerWidth: GetEditorContainerWidth,
@@ -1007,7 +940,7 @@ const getColumnSettingItems = (
 		}
 	}
 
-	if (pluginState?.pluginConfig?.allowDistributeColumns && pluginState.isDragAndDropEnabled) {
+	if (pluginState?.pluginConfig?.allowDistributeColumns) {
 		items.push({
 			id: 'editor.table.distributeColumns',
 			type: 'button',

@@ -57,6 +57,7 @@ import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
 import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
+import UploadIcon from '@atlaskit/icon/core/upload';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
 import { messages } from '@atlaskit/media-ui';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -1151,6 +1152,12 @@ export const floatingToolbar = (
 	) {
 		updateToFullHeightSeparator(items);
 
+		const showReplaceOption =
+			!isViewOnly &&
+			mediaPluginState.allowsUploads &&
+			expValEquals('platform_editor_inline_media_replacement', 'isEnabled', true) &&
+			selectedNodeType === mediaSingle;
+
 		const customOptions: FloatingToolbarOverflowDropdownOptions<Command> = [
 			...getLinkingDropdownOptions(
 				state,
@@ -1187,6 +1194,19 @@ export const floatingToolbar = (
 			testId: overflowDropdwonBtnTriggerTestId,
 			options: [
 				...customOptions,
+				...(showReplaceOption
+					? [
+							{
+								title: intl.formatMessage(mediaAndEmbedToolbarMessages.replaceMedia),
+								onClick: () => {
+									mediaPluginState.showMediaPickerForReplace();
+									return true;
+								},
+								icon: <UploadIcon label="" />,
+								testId: 'media-replace-toolbar-button',
+							} satisfies FloatingToolbarOverflowDropdownOptions<Command>[number],
+						]
+					: []),
 				{
 					title: intl?.formatMessage(commonMessages.copyToClipboard),
 					onClick: () => {

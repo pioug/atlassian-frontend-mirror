@@ -7,6 +7,16 @@ order: 2
 Use an avatar group when you want to display a collection of avatars. You can also use them for easy
 collapse states for a set number of avatars, and with a dropdown to show hidden avatars.
 
+## Accessibility
+
+- As the avatar is a visual representation of a person or entity, make sure there’s an alt text
+  equivalent included for screen readers for users, projects, spaces, groups, and repositories.
+- Use the `label` prop to describe the list's entity type, for example: if the label is
+  `team members` for a group of five avatars, the screen reader announcement would be "list team
+  members, five items".
+- When there is more than one avatar group on the page, make sure to differentiate each group with a
+  unique label.
+
 ## Behavior
 
 ### Stack
@@ -34,16 +44,6 @@ collapse states for a set number of avatars, and with a dropdown to show hidden 
    a tooltip on hover.
 4. **List menu:** All of the avatars are displayed in a list when a person selects the truncated
    avatar.
-
-## Accessibility
-
-- As the avatar is a visual representation of a person or entity, make sure there’s an alt text
-  equivalent included for screen readers for users, projects, spaces, groups, and repositories.
-- Use the `label` prop to describe the list's entity type, for example: if the label is
-  `team members` for a group of five avatars, the screen reader announcement would be "list team
-  members, five items".
-- When there is more than one avatar group on the page, make sure to differentiate each group with a
-  unique label.
 
 ## Related
 

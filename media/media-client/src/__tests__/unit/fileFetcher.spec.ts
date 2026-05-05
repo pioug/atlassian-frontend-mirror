@@ -1442,7 +1442,7 @@ describe('FileFetcher', () => {
 				it('should use a UUID as the file name instead of extracting from the URL', async () => {
 					const { fileFetcher } = setup();
 
-					fileFetcher.uploadExternal('domain.com/path/file_name.mov');
+					fileFetcher.uploadExternal('domain.com/path/file_name.mov', undefined, undefined, true);
 
 					const fileObservable = getFileStreamsCache().get('upfront-id');
 					if (!fileObservable) {

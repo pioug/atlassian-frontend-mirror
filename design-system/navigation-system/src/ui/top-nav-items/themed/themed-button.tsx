@@ -6,7 +6,6 @@ import React, { forwardRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { PressableProps } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -26,7 +25,9 @@ const textButtonStyles = cssMap({
 });
 
 export interface ThemedButtonProps
-	extends CommonProps, Omit<PressableProps, OverriddenPrimitiveProps>, TextButtonCommonProps {}
+	extends CommonProps,
+		Omit<PressableProps, OverriddenPrimitiveProps>,
+		TextButtonCommonProps {}
 
 export const ThemedButton: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<ThemedButtonProps> & React.RefAttributes<HTMLButtonElement>
@@ -38,11 +39,7 @@ export const ThemedButton: React.ForwardRefExoticComponent<
 		<ThemedPressable {...props} ref={ref}>
 			{IconBefore && (
 				<span css={textButtonStyles.iconBefore}>
-					{fg('platform_themed_button_use_icon_renderer') ? (
-						<IconRenderer icon={IconBefore} />
-					) : (
-						<IconBefore label="" color="currentColor" />
-					)}
+					<IconRenderer icon={IconBefore} />
 				</span>
 			)}
 			<span css={textButtonStyles.text}>{children}</span>

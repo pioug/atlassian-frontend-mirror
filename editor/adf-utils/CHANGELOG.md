@@ -1,5 +1,16 @@
 # @atlaskit/adf-utils
 
+## 19.29.0
+
+### Minor Changes
+
+- [`2fb1c8a74a856`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fb1c8a74a856) -
+  ADF Change 101: Add wrap and hideLineNumbers attributes to codeBlock stage-0 variants
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.28.0
 
 ### Minor Changes

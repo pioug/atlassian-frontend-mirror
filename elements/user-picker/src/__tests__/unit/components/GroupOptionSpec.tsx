@@ -61,7 +61,7 @@ describe('GroupOption', () => {
 			<FormattedMessage
 				id="fabric.elements.user-picker.group.byline"
 				defaultMessage="Admin-managed group"
-				description="Byline for admin-managed groups"
+				description="Secondary text shown below a group name in the user picker drop-down list to indicate the option is an admin-managed group."
 			/>,
 		);
 	});
@@ -81,7 +81,7 @@ describe('GroupOption', () => {
 			<FormattedMessage
 				id="fabric.elements.user-picker.group.byline"
 				defaultMessage="Admin-managed group"
-				description="Byline for admin-managed groups"
+				description="Secondary text shown below a group name in the user picker drop-down list to indicate the option is an admin-managed group."
 			/>,
 		);
 	});

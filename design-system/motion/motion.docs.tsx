@@ -30,10 +30,22 @@ const documentation: ComponentStructuredContentSource[] = [
 		],
 		examples: [
 			{
+				name: 'Motion with tokens',
+				description:
+					'The simplest way to use the Motion primitive is with pre-defined motion tokens. Pass a motion token to enteringAnimation and exitingAnimation to apply a paired entering and exiting animation.',
+				source: path.resolve(__dirname, './examples/ai/motion-primitive.tsx'),
+			},
+			{
 				name: 'Motion with custom animation tokens',
 				description:
 					'For more control, use enteringAnimationXcss and exitingAnimationXcss with cssMap styles that set animationName, animationDuration, and animationTimingFunction using motion tokens.',
-				source: path.resolve(__dirname, './examples/constellation/motion-primitive-custom.tsx'),
+				source: path.resolve(__dirname, './examples/ai/motion-primitive-custom.tsx'),
+			},
+			{
+				name: 'Motion with custom CSS keyframes',
+				description:
+					'For animations not covered by the built-in keyframe tokens, define your own CSS keyframes using keyframes() from @compiled/react and reference them directly in the animationName property of a cssMap style.',
+				source: path.resolve(__dirname, './examples/ai/motion-primitive-custom-keyframe.tsx'),
 			},
 		],
 		keywords: ['motion', 'animation', 'enter', 'exit', 'transition', 'primitive', 'fade', 'css'],
@@ -63,10 +75,7 @@ const documentation: ComponentStructuredContentSource[] = [
 				name: 'Single element',
 				description:
 					'ExitingPersistence keeps a single element mounted while its exit animation plays before it is removed from the DOM.',
-				source: path.resolve(
-					__dirname,
-					'./examples/constellation/motion-fade-between-elements.tsx',
-				),
+				source: path.resolve(__dirname, './examples/ai/exiting-persistence.tsx'),
 			},
 		],
 		keywords: ['motion', 'animation', 'exit', 'persistence', 'unmount', 'transition', 'fade'],
@@ -97,44 +106,10 @@ const documentation: ComponentStructuredContentSource[] = [
 				name: 'List of elements',
 				description:
 					'StaggeredEntrance staggers the entering animation of a list of elements in sequence.',
-				source: path.resolve(
-					__dirname,
-					'./examples/constellation/motion-fade-in-list-of-elements.tsx',
-				),
+				source: path.resolve(__dirname, './examples/ai/staggered-entrance-list.tsx'),
 			},
 		],
 		keywords: ['motion', 'animation', 'stagger', 'entrance', 'list', 'grid', 'cascade', 'delay'],
-		categories: ['animation'],
-	},
-	{
-		name: 'Resizing',
-		description:
-			'Animates width, height, or both dimensions of an element as its content changes. Use with caution — animating dimensions is notoriously unperformant. Test on low-powered devices.',
-		status: 'general-availability',
-		import: {
-			name: 'useResizing',
-			package: '@atlaskit/motion/resizing',
-			type: 'named',
-			packagePath: path.resolve(__dirname),
-			packageJson: require('./package.json'),
-		},
-		usageGuidelines: [
-			'Use to animate width, height, or both dimensions as content changes',
-			'Pass the returned ref to the element you want to animate',
-			'Use the dimension prop to specify "width", "height", or "both"',
-			'Pass a motion duration token to the duration prop (e.g. token("motion.duration.medium"))',
-			'Pass a motion easing token to the easing prop (e.g. token("motion.easing.inout.bold"))',
-			'Wrap in React.memo or use PureComponent to limit unnecessary re-renders and avoid performance issues',
-			'Test on low-powered devices — animating dimensions can cause jank and impact FPS',
-		],
-		examples: [
-			{
-				name: 'Resizing height',
-				description: 'Animates the container height as items are added or removed vertically.',
-				source: path.resolve(__dirname, './examples/constellation/motion-resizing-height-new.tsx'),
-			},
-		],
-		keywords: ['motion', 'animation', 'resize', 'width', 'height', 'dimension', 'transition'],
 		categories: ['animation'],
 	},
 ];

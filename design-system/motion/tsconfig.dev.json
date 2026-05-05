@@ -68,6 +68,9 @@
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{
+			"path": "../radio/tsconfig.app.json"
+		},
+		{
 			"path": "../section-message/tsconfig.app.json"
 		},
 		{

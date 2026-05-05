@@ -36,12 +36,12 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
-	cannotPasteSyncedBlockUnsupportedDescription: {
+	cannotPasteSyncedBlockTitle: {
 		defaultMessage: string;
 		description: string;
 		id: string;
 	};
-	cannotPasteSyncedBlockTitle: {
+	cannotPasteSyncedBlockUnsupportedDescription: {
 		defaultMessage: string;
 		description: string;
 		id: string;

@@ -10,6 +10,7 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { cardPlugin } from '../index';
@@ -67,6 +68,7 @@ export const createPlugin =
 			onClickCallback,
 			isPageSSRed,
 			provider,
+			smartCardContext,
 			CompetitorPrompt,
 			embedCardTransformers,
 		} = options;
@@ -86,6 +88,9 @@ export const createPlugin =
 				onClickCallback,
 				isPageSSRed,
 				provider,
+				smartCardContext: expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+					? smartCardContext
+					: undefined,
 				CompetitorPrompt,
 			},
 		});

@@ -19,7 +19,7 @@ const emojiButton = css({
 	position: 'relative',
 	display: 'inline-block',
 
-	/* Firefox */
+	// Firefox
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&::-moz-focus-inner': {
 		borderWidth: 0,

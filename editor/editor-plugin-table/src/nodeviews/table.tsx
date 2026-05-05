@@ -444,7 +444,6 @@ export const createTableView = (
 ): NodeView => {
 	const {
 		pluginConfig,
-		isDragAndDropEnabled,
 		isTableScalingEnabled, // same as options.isTableScalingEnabled
 	} = getPluginState(view.state);
 
@@ -475,7 +474,6 @@ export const createTableView = (
 		options: {
 			isFullWidthModeEnabled: tableState?.isFullWidthModeEnabled,
 			wasFullWidthModeEnabled: tableState?.wasFullWidthModeEnabled,
-			isDragAndDropEnabled,
 			isTableScalingEnabled, // same as options.isTableScalingEnabled
 			isCommentEditor,
 			isChromelessEditor,

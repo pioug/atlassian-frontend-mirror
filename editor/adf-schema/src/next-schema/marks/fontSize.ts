@@ -19,5 +19,4 @@ export const fontSize: ADFMark<ADFMarkSpec> = adfMark('fontSize').define({
 	attrs: {
 		fontSize: { type: 'enum', values: ['small'] },
 	},
-	stage0: true,
 });

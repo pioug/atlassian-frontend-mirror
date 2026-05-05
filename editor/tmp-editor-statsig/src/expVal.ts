@@ -1,7 +1,8 @@
 import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { addFeatureFlagAccessed } from '@atlaskit/react-ufo/feature-flags-accessed';
 
-import { editorExperimentsConfig } from './experiments-config';
+import { disallowsProductKeys, editorExperimentsConfig } from './experiments-config';
 import type { EditorExperimentsConfig } from './experiments-config';
 import { _overrides, _paramOverrides, _product } from './setup';
 
@@ -63,9 +64,15 @@ function expValInternal<
 		return defaultValue;
 	}
 
+	const resolvedExperimentKey =
+		!disallowsProductKeys.includes(experimentName) &&
+		fg('platform_editor_experiments_use_product_keys')
+			? experimentKey
+			: experimentName;
+
 	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
 	const experimentValue = FeatureGates.getExperimentValue(
-		experimentName,
+		resolvedExperimentKey,
 		experimentParam,
 		defaultValue,
 		{
@@ -82,7 +89,7 @@ function expValInternal<
 		)
 	) {
 		// Duplicated from /confluence/next/packages/feature-experiments/src/index.ts
-		addFeatureFlagAccessed(`${experimentName}:${experimentParam}`, experimentValue as never);
+		addFeatureFlagAccessed(`${resolvedExperimentKey}:${experimentParam}`, experimentValue as never);
 	}
 
 	return experimentValue;

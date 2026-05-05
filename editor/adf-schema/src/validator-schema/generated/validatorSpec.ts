@@ -57,11 +57,10 @@ export const block_content = [
   'paragraph_with_no_marks',
   'paragraph_with_alignment',
   'paragraph_with_indentation',
-  'paragraph_with_font_size_and_alignment',
-  'paragraph_with_font_size_and_indentation',
   'mediaSingle_caption',
   'mediaSingle_full',
   'codeBlock',
+  'codeBlock_with_extended_attributes',
   'taskList',
   'bulletList',
   'orderedList',
@@ -328,8 +327,6 @@ export const bodiedSyncBlock = {
           'paragraph',
           'paragraph_with_alignment',
           'paragraph_with_indentation',
-          'paragraph_with_font_size_and_alignment',
-          'paragraph_with_font_size_and_indentation',
           'paragraph_with_no_marks',
           'blockCard',
           'blockquote',
@@ -528,6 +525,77 @@ export const codeBlock_root_only = [
   },
 ];
 
+export const codeBlock_root_only_with_extended_attributes = [
+  'codeBlock',
+  {
+    props: {
+      attrs: {
+        optional: true,
+        props: {
+          hideLineNumbers: {
+            optional: true,
+            type: 'boolean',
+          },
+          language: {
+            optional: true,
+            type: 'string',
+          },
+          localId: {
+            optional: true,
+            type: 'string',
+          },
+          uniqueId: {
+            optional: true,
+            type: 'string',
+          },
+          wrap: {
+            optional: true,
+            type: 'boolean',
+          },
+        },
+      },
+      marks: {
+        items: ['breakout'],
+        optional: true,
+        type: 'array',
+      },
+    },
+  },
+];
+
+export const codeBlock_with_extended_attributes = [
+  'codeBlock',
+  {
+    props: {
+      attrs: {
+        optional: true,
+        props: {
+          hideLineNumbers: {
+            optional: true,
+            type: 'boolean',
+          },
+          language: {
+            optional: true,
+            type: 'string',
+          },
+          localId: {
+            optional: true,
+            type: 'string',
+          },
+          uniqueId: {
+            optional: true,
+            type: 'string',
+          },
+          wrap: {
+            optional: true,
+            type: 'boolean',
+          },
+        },
+      },
+    },
+  },
+];
+
 export const confluenceInlineComment = {
   props: {
     attrs: {
@@ -649,11 +717,10 @@ export const doc = {
           'paragraph_with_no_marks',
           'paragraph_with_alignment',
           'paragraph_with_indentation',
-          'paragraph_with_font_size_and_alignment',
-          'paragraph_with_font_size_and_indentation',
           'mediaSingle_caption',
           'mediaSingle_full',
           'codeBlock',
+          'codeBlock_with_extended_attributes',
           'taskList',
           'bulletList',
           'orderedList',
@@ -671,6 +738,7 @@ export const doc = {
           'expand',
           'bodiedExtension_with_marks',
           'codeBlock_root_only',
+          'codeBlock_root_only_with_extended_attributes',
           'layoutSection_with_single_column',
           'layoutSection_full',
           'multiBodiedExtension',
@@ -809,6 +877,7 @@ export const expand = {
           'rule',
           'heading_with_no_marks',
           'codeBlock',
+          'codeBlock_with_extended_attributes',
           'mediaGroup',
           'mediaSingle_caption',
           'mediaSingle_full',
@@ -1814,6 +1883,7 @@ export const non_nestable_block_content = [
   'rule',
   'heading_with_no_marks',
   'codeBlock',
+  'codeBlock_with_extended_attributes',
   'mediaGroup',
   'mediaSingle_caption',
   'mediaSingle_full',
@@ -1955,7 +2025,7 @@ export const paragraph_with_alignment = [
   {
     props: {
       marks: {
-        items: ['alignment'],
+        items: [['fontSize', 'alignment']],
         optional: true,
         type: 'array',
       },
@@ -1976,38 +2046,12 @@ export const paragraph_with_font_size = [
   },
 ];
 
-export const paragraph_with_font_size_and_alignment = [
-  'paragraph',
-  {
-    props: {
-      marks: {
-        items: [['fontSize', 'alignment']],
-        optional: true,
-        type: 'array',
-      },
-    },
-  },
-];
-
-export const paragraph_with_font_size_and_indentation = [
-  'paragraph',
-  {
-    props: {
-      marks: {
-        items: [['fontSize', 'indentation']],
-        optional: true,
-        type: 'array',
-      },
-    },
-  },
-];
-
 export const paragraph_with_indentation = [
   'paragraph',
   {
     props: {
       marks: {
-        items: ['indentation'],
+        items: [['fontSize', 'indentation']],
         optional: true,
         type: 'array',
       },
@@ -2252,7 +2296,6 @@ export const tableCell = {
         [
           'paragraph_with_no_marks',
           'paragraph_with_alignment',
-          'paragraph_with_font_size_and_alignment',
           'panel',
           'blockquote',
           'orderedList',
@@ -2262,6 +2305,7 @@ export const tableCell = {
           'heading_with_alignment',
           'heading_with_indentation',
           'codeBlock',
+          'codeBlock_with_extended_attributes',
           'mediaSingle_caption',
           'mediaSingle_full',
           'mediaGroup',
@@ -2321,7 +2365,6 @@ export const tableHeader = {
         [
           'paragraph_with_no_marks',
           'paragraph_with_alignment',
-          'paragraph_with_font_size_and_alignment',
           'panel',
           'blockquote',
           'orderedList',
@@ -2331,6 +2374,7 @@ export const tableHeader = {
           'heading_with_alignment',
           'heading_with_indentation',
           'codeBlock',
+          'codeBlock_with_extended_attributes',
           'mediaSingle_caption',
           'mediaSingle_full',
           'mediaGroup',

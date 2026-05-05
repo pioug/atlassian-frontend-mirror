@@ -1,5 +1,49 @@
 # @atlaskit/editor-statsig-tmp
 
+## 74.10.0
+
+### Minor Changes
+
+- [`76dff28130c6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76dff28130c6a) -
+  Add replace-media button to media plugin
+
+## 74.9.0
+
+### Minor Changes
+
+- [`29bea960652a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29bea960652a0) -
+  Allow product keys for cc-maui-exp
+- [`902c2a2a06799`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/902c2a2a06799) -
+  [ux] Fix confusing tooltip on Comment toolbar when offline
+
+## 74.8.0
+
+### Minor Changes
+
+- [`429ab0e83dda1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/429ab0e83dda1) -
+  [NO-ISSUE] Add platform_editor_paste_actions_menu_v2 as experiment
+- [`20c2faf5c3ca8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20c2faf5c3ca8) -
+  CONFCLOUD-84107 add override for user preference
+
+## 74.7.0
+
+### Minor Changes
+
+- [`fbd4e856632eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fbd4e856632eb) -
+  migrate few styles in EditorContentContainer from emotion to compiled
+- [`2fb1c8a74a856`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fb1c8a74a856) -
+  ADF Change 101: Add wrap and hideLineNumbers attributes to codeBlock stage-0 variants
+
+## 74.6.0
+
+### Minor Changes
+
+- [`2bc197b19a9da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bc197b19a9da) -
+  [ux] Auto-finalize only when the default space supports the content type being created. When space
+  does not support said content type, defaultSpaceOption will be { label: undefined, value:
+  undefined }, so we explicitly check for its value before determining whether auto finalize should
+  be allowed
+
 ## 74.5.0
 
 ### Minor Changes

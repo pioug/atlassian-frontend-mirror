@@ -1338,7 +1338,9 @@ describe(name, () => {
 							attrs: {
 								language: 'none',
 								localId: null,
+								hideLineNumbers: false,
 								uniqueId: null,
+								wrap: false,
 							},
 							content: [
 								{
@@ -2779,8 +2781,10 @@ describe(name, () => {
 									type: 'codeBlock',
 									attrs: {
 										language: 'javascript',
-										uniqueId: null,
 										localId: null,
+										hideLineNumbers: false,
+										uniqueId: null,
+										wrap: false,
 									},
 									marks: [
 										{
@@ -2838,8 +2842,10 @@ describe(name, () => {
 									type: 'codeBlock',
 									attrs: {
 										language: 'javascript',
-										uniqueId: null,
 										localId: null,
+										hideLineNumbers: false,
+										uniqueId: null,
+										wrap: false,
 									},
 									marks: [
 										{
@@ -2902,8 +2908,10 @@ describe(name, () => {
 									type: 'codeBlock',
 									attrs: {
 										language: null,
-										uniqueId: null,
 										localId: null,
+										hideLineNumbers: false,
+										uniqueId: null,
+										wrap: false,
 									},
 									marks: [
 										{
@@ -2960,8 +2968,10 @@ describe(name, () => {
 									type: 'codeBlock',
 									attrs: {
 										language: null,
-										uniqueId: null,
 										localId: null,
+										hideLineNumbers: false,
+										uniqueId: null,
+										wrap: false,
 									},
 									marks: [
 										{

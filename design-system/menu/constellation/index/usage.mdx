@@ -69,6 +69,21 @@ the user agent to navigate to that resource”.
 
 Use menus with Link items if sending users to another page, e.g. Team Spaces.
 
+## Accessibility
+
+- Compose your menu with the correct semantic elements using sections, heading items, button items,
+  and link items.
+- **Use sections.** Always compose your menu using sections, even if there’s only one section.
+  Sections support better navigation for assistive technology.
+- **Use correct heading levels.** Using headingLevel prop to change the level of the heading. The
+  default heading level is h2. Make sure that headings are in the correct order relative to the
+  pages the menu is on, and don’t skip levels.
+- **Don’t disable menu items.** Leave the menu item enabled, and use visual affordance and error
+  messaging to let people know why the menu item is unavailable.
+- **Be consistent.** If your menu appears in more than one place, make sure that the order and
+  availability of menu items is consistent throughout your app.
+- **Avoid icons.** If icons must be included, make sure any meaningful imagery has alternative text.
+
 ## Best practices
 
 <DoDontGrid>
@@ -140,21 +155,6 @@ Use menus with Link items if sending users to another page, e.g. Team Spaces.
   Research Hub for further guidance on testing.
 - **Be mindful of menu length.** Putting more items in a menu doesn’t necessarily translate to more
   exposure or usage.
-
-## Accessibility
-
-- Compose your menu with the correct semantic elements using sections, heading items, button items,
-  and link items.
-- **Use sections.** Always compose your menu using sections, even if there’s only one section.
-  Sections support better navigation for assistive technology.
-- **Use correct heading levels.** Using headingLevel prop to change the level of the heading. The
-  default heading level is h2. Make sure that headings are in the correct order relative to the
-  pages the menu is on, and don’t skip levels.
-- **Don’t disable menu items.** Leave the menu item enabled, and use visual affordance and error
-  messaging to let people know why the menu item is unavailable.
-- **Be consistent.** If your menu appears in more than one place, make sure that the order and
-  availability of menu items is consistent throughout your app.
-- **Avoid icons.** If icons must be included, make sure any meaningful imagery has alternative text.
 
 ## Related
 

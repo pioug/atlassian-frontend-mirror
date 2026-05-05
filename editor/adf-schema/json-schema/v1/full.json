@@ -310,6 +310,9 @@
                   "$ref": "#/definitions/paragraph_with_no_marks_node"
                 },
                 {
+                  "$ref": "#/definitions/paragraph_with_font_size_node"
+                },
+                {
                   "$ref": "#/definitions/extension_with_marks_node"
                 }
               ]
@@ -318,6 +321,9 @@
               "anyOf": [
                 {
                   "$ref": "#/definitions/paragraph_with_no_marks_node"
+                },
+                {
+                  "$ref": "#/definitions/paragraph_with_font_size_node"
                 },
                 {
                   "$ref": "#/definitions/extension_with_marks_node"
@@ -1196,6 +1202,26 @@
         }
       ]
     },
+    "fontSize_mark": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": ["fontSize"]
+        },
+        "attrs": {
+          "type": "object",
+          "properties": {
+            "fontSize": {
+              "enum": ["small"]
+            }
+          },
+          "required": ["fontSize"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["type", "attrs"],
+      "additionalProperties": false
+    },
     "formatted_text_inline_node": {
       "allOf": [
         {
@@ -1680,6 +1706,9 @@
           "items": {
             "anyOf": [
               {
+                "$ref": "#/definitions/paragraph_with_font_size_node"
+              },
+              {
                 "$ref": "#/definitions/paragraph_with_no_marks_node"
               },
               {
@@ -2048,6 +2077,9 @@
             "$ref": "#/definitions/paragraph_with_no_marks_node"
           },
           {
+            "$ref": "#/definitions/paragraph_with_font_size_node"
+          },
+          {
             "$ref": "#/definitions/heading_with_no_marks_node"
           },
           {
@@ -2136,6 +2168,9 @@
       "anyOf": [
         {
           "$ref": "#/definitions/paragraph_with_no_marks_node"
+        },
+        {
+          "$ref": "#/definitions/paragraph_with_font_size_node"
         },
         {
           "$ref": "#/definitions/panel_node"
@@ -2264,6 +2299,9 @@
                 "$ref": "#/definitions/paragraph_with_no_marks_node"
               },
               {
+                "$ref": "#/definitions/paragraph_with_font_size_node"
+              },
+              {
                 "$ref": "#/definitions/heading_with_no_marks_node"
               },
               {
@@ -2346,7 +2384,33 @@
             "marks": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/alignment_mark"
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/fontSize_mark"
+                  },
+                  {
+                    "$ref": "#/definitions/alignment_mark"
+                  }
+                ]
+              }
+            }
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "paragraph_with_font_size_node": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/paragraph_node"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "marks": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/fontSize_mark"
               }
             }
           },
@@ -2365,7 +2429,14 @@
             "marks": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/indentation_mark"
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/fontSize_mark"
+                  },
+                  {
+                    "$ref": "#/definitions/indentation_mark"
+                  }
+                ]
               }
             }
           },

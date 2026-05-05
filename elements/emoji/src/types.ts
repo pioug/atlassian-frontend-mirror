@@ -107,6 +107,18 @@ export interface EmojiProvider extends Provider<
 	getOptimisticImageURL(emojiId: EmojiId): string | undefined;
 
 	/**
+	 * Synchronously reads the emoji type (e.g. 'STANDARD', 'SITE', 'ATLASSIAN') from the
+	 * local cache for the given emojiId, without making any network requests.
+	 *
+	 * Returns `undefined` when the emoji is not yet in the cache or no repository has been
+	 * initialised. This is an optional method — callers must fall back gracefully when it is
+	 * absent (e.g. in mock or legacy providers).
+	 *
+	 * Optional.
+	 */
+	getCachedEmojiType?(emojiId: EmojiId): string | undefined;
+
+	/**
 	 * Used by the picker and typeahead to obtain a skin tone preference
 	 * if the user has previously selected one via the Tone Selector
 	 */

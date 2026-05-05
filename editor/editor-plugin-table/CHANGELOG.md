@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 22.2.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.2.15
+
+### Patch Changes
+
+- [`d3badff484206`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3badff484206) -
+  Remove isDragAndDropEnabled dead code from nodeviews and floating controls UI (EDITOR-6296)
+- Updated dependencies
+
 ## 22.2.14
 
 ### Patch Changes

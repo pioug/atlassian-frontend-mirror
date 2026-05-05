@@ -8,6 +8,7 @@ import { RawIntlProvider } from 'react-intl';
 import uuid from 'uuid';
 
 import type { MediaADFAttrs, RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { InputMethodInsertMedia, InsertMediaVia } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -59,6 +60,7 @@ import type { UploadParams } from '@atlaskit/media-picker/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
+import { createMediaNodeUpdater } from '../nodeviews/mediaNodeUpdater';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
 import * as helpers from '../pm-plugins/commands/helpers';
@@ -163,6 +165,17 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 	private openMediaPickerBrowser?: () => void;
 	private onPopupToggleCallback: (isOpen: boolean) => void = () => {};
+
+	// When non-null, holds the file ID of the media node being replaced. Used both as a
+	// flag (non-null = replace mode) and as a cross-check to ensure the correct node is
+	// updated if the selection moves between the picker opening and the file being picked.
+	replaceMediaFileId: string | null = null;
+
+	// The display height (in pixels) of the mediaSingle being replaced, computed at replace time
+	// from its display width and the old media node's intrinsic aspect ratio.
+	// Used by the nodeview to recompute display width from the new file's aspect ratio after
+	// dimensions are fetched, preserving visual height rather than visual width.
+	replaceMediaTargetDisplayHeight: number | null = null;
 
 	private identifierCount = new Map<string, { count: number; identifier: Identifier }>();
 
@@ -458,6 +471,21 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 			return;
 		}
 
+		// If replace mode was set but the selection has moved away from a mediaSingle
+		// (e.g. the user cancelled the replace picker and then inserted media elsewhere),
+		// clear replace state so this insertion proceeds as a normal insert.
+		if (this.replaceMediaFileId !== null) {
+			const { mediaSingle } = state.schema.nodes;
+			const isStillOnTargetMedia =
+				state.selection instanceof NodeSelection &&
+				state.selection.node.type === mediaSingle &&
+				state.selection.node.firstChild?.attrs.id === this.replaceMediaFileId;
+			if (!isStillOnTargetMedia) {
+				this.replaceMediaFileId = null;
+				this.replaceMediaTargetDisplayHeight = null;
+			}
+		}
+
 		// We need to dispatch the change to event dispatcher only for successful files
 		if (mediaState.status !== 'error') {
 			this.updateAndDispatch({
@@ -471,6 +499,126 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		) {
 			this.uploadInProgressSubscriptions.forEach((fn) => fn(true));
 			this.uploadInProgressSubscriptionsNotified = true;
+		}
+
+		// Replace mode: if a media node is being replaced, update its attrs in-place
+		// rather than inserting a new node. This preserves layout, width, and caption.
+		if (this.replaceMediaFileId !== null) {
+			// Clear replace mode immediately so subsequent insertions behave normally
+			this.replaceMediaFileId = null;
+
+			const { state: currentState } = this.view;
+			const mediaSinglePos = currentState.selection.from;
+			const mediaPos = mediaSinglePos + 1;
+			const mediaNode = currentState.doc.nodeAt(mediaPos);
+
+			if (!mediaNode || mediaNode.type.name !== 'media') {
+				return;
+			}
+
+			// Build a single transaction that:
+			// 1. Updates the media child node attrs (new file identity + cleared dimensions)
+			// 2. Re-creates the NodeSelection so the toolbar picks up the fresh node
+			const tr = currentState.tr;
+			tr.step(
+				new SetAttrsStep(mediaPos, {
+					id: mediaState.id,
+					collection,
+					type: 'file',
+					__fileMimeType: mediaState.fileMimeType ?? null,
+					__fileName: mediaState.fileName ?? null,
+					__fileSize: mediaState.fileSize ?? null,
+					__mediaTraceId: null,
+					// Clear intrinsic dimensions — they'll be fetched once the file
+					// is processed and applied via updateDimensions in a single tx
+					// with the height-preserving mediaSingle width adjustment.
+					width: null,
+					height: null,
+				}),
+			);
+			// Re-create the selection so the floating toolbar picks up
+			// the updated node and renders the full set of controls.
+			tr.setSelection(NodeSelection.create(tr.doc, mediaSinglePos));
+			tr.setMeta('scrollIntoView', false);
+			this.view.dispatch(tr);
+
+			// Still register the state-change listener so upload completion is tracked
+			onMediaStateChanged(this.handleMediaState);
+
+			const isEndState = (state: MediaState) =>
+				state.status && MEDIA_RESOLVED_STATES.includes(state.status);
+
+			// After the file finishes uploading/processing, trigger a dimension fetch.
+			// getRemoteDimensions may fail if called too early (isImageRepresentationReady
+			// returns false while processing), so we wait for the ready state first.
+			const triggerDimensionFetch = () => {
+				// Find the media node in the doc by id and create a temporary
+				// MediaNodeUpdater to fetch and apply dimensions
+				const { state: editorState } = this.view;
+				const { mediaSingle: mediaSingleType } = editorState.schema.nodes;
+				let mediaChildNode: typeof editorState.doc.firstChild | null = null;
+
+				editorState.doc.descendants((node) => {
+					if (mediaChildNode) {
+						return false;
+					}
+					if (node.type === mediaSingleType) {
+						const child = node.firstChild;
+						if (child && child.attrs.id === mediaState.id) {
+							mediaChildNode = child;
+						}
+					}
+					return true;
+				});
+
+				if (mediaChildNode) {
+					const updater = createMediaNodeUpdater({
+						view: this.view,
+						mediaProvider: this.mediaProvider
+							? Promise.resolve(this.mediaProvider)
+							: undefined,
+						contextIdentifierProvider: this.contextIdentifierProvider
+							? Promise.resolve(this.contextIdentifierProvider)
+							: undefined,
+						node: mediaChildNode,
+						isMediaSingle: true,
+						lineLength:
+							this.pluginInjectionApi?.width?.sharedState.currentState()?.lineLength,
+					});
+					updater.getRemoteDimensions().then((dims) => {
+						if (dims) {
+							updater.updateDimensions(dims);
+						}
+					}).catch(() => {
+						// Silently ignore — if dimensions can't be fetched (e.g. network error),
+						// the image will render at its current size without the height-preserving
+						// width adjustment. This is an acceptable degraded experience.
+					});
+				}
+			};
+
+			if (!isEndState(mediaStateWithContext)) {
+				const uploadingPromise = new Promise<MediaState | null>((resolve) => {
+					onMediaStateChanged((newState) => {
+						if (isEndState(newState)) {
+							resolve(newState);
+						}
+					});
+				});
+				this.taskManager.addPendingTask(uploadingPromise, mediaStateWithContext.id).then(() => {
+					this.updateAndDispatch({ allUploadsFinished: true });
+					triggerDimensionFetch();
+				});
+			} else {
+				// File is already in a resolved state — fetch dimensions immediately
+				triggerDimensionFetch();
+			}
+
+			const { view } = this;
+			if (!view.hasFocus()) {
+				view.focus();
+			}
+			return;
 		}
 
 		switch (
@@ -625,6 +773,67 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 			return this.openMediaPickerBrowser();
 		}
 		this.onPopupToggleCallback(true);
+	};
+
+	/**
+	 * Opens the media picker in "replace" mode. The next file selected/uploaded
+	 * will replace the currently selected mediaSingle node's media child in-place,
+	 * preserving layout, width, and caption.
+	 *
+	 * The display height is computed and stored so that after the new file's intrinsic
+	 * dimensions are fetched, the mediaSingle display width can be adjusted to maintain
+	 * visual height stability rather than width stability.
+	 */
+	showMediaPickerForReplace = (): void => {
+		const { state } = this.view;
+		const { mediaSingle } = state.schema.nodes;
+		const { selection } = state;
+
+		// Only activate replace mode when a mediaSingle is selected
+		if (!(selection instanceof NodeSelection) || selection.node.type !== mediaSingle) {
+			return;
+		}
+
+		const mediaSingleNode = selection.node;
+		const mediaNode = mediaSingleNode.firstChild;
+		if (!mediaNode) {
+			return;
+		}
+
+		// Store the current media node's id so insertFile can identify and replace it
+		this.replaceMediaFileId = mediaNode.attrs.id as string;
+
+		// Compute and store the current display height so we can preserve it after
+		// the new file's intrinsic dimensions are known.
+		// displayHeight = displayWidth * (intrinsicHeight / intrinsicWidth)
+		const widthAttr = mediaSingleNode.attrs.width as number | null;
+		const widthType = mediaSingleNode.attrs.widthType as string | undefined;
+		const intrinsicWidth = mediaNode.attrs.width as number | null;
+		const intrinsicHeight = mediaNode.attrs.height as number | null;
+
+		// Resolve actual pixel display width from mediaSingle attrs.
+		const lineLength =
+			this.pluginInjectionApi?.width?.sharedState.currentState()?.lineLength ?? 760;
+		let displayWidth: number | null = null;
+		if (widthAttr && widthType === 'pixel') {
+			displayWidth = widthAttr;
+		} else if (widthAttr) {
+			// Default widthType is 'percentage' — convert to pixels
+			displayWidth = (widthAttr / 100) * lineLength;
+		} else if (intrinsicWidth) {
+			// No width set at all (never resized) — fall back to intrinsic width
+			displayWidth = intrinsicWidth;
+		}
+
+		if (displayWidth && intrinsicWidth && intrinsicHeight && intrinsicWidth > 0) {
+			this.replaceMediaTargetDisplayHeight = displayWidth * (intrinsicHeight / intrinsicWidth);
+		} else {
+			// Can't compute display height — fall back to preserving width
+			this.replaceMediaTargetDisplayHeight = null;
+		}
+
+		// Finally, show the media picker
+		this.showMediaPicker();
 	};
 
 	setBrowseFn = (browseFn: () => void): void => {

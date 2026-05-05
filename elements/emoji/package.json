@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "70.2.8",
+	"version": "70.3.1",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -117,7 +117,8 @@
 		"./resource": "./src/resource.ts",
 		"./typeahead": "./src/typeahead.ts",
 		"./types": "./src/types.ts",
-		"./utils": "./src/utils.ts"
+		"./utils": "./src/utils.ts",
+		"./emoji-id-to-emoji": "./src/util/emojiIdToEmoji.ts"
 	},
 	"techstack": {
 		"@repo/internal": {
@@ -130,6 +131,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform_twemoji_removal_unicode_emojis": {
+			"type": "boolean"
+		},
 		"platform_index_emoji_just_in_time": {
 			"type": "boolean"
 		},

@@ -175,8 +175,7 @@ function TopNavOld({
 		isHidden: fg('platform_dst_nav4_skip_link_a11y_1'),
 	});
 
-	const hasIncreasedDefaultHeight = isFhsEnabled && fg('platform_dst_nav4_top_nav_increase_height');
-	const height = heightProp ?? (hasIncreasedDefaultHeight ? 56 : 48);
+	const height = heightProp ?? (isFhsEnabled ? 56 : 48);
 
 	const customTheme = useCustomTheme(customThemeConfig);
 
@@ -232,8 +231,7 @@ function TopNavNew({
 		isHidden: fg('platform_dst_nav4_skip_link_a11y_1'),
 	});
 
-	const hasIncreasedDefaultHeight = isFhsEnabled && fg('platform_dst_nav4_top_nav_increase_height');
-	const height = heightProp ?? (hasIncreasedDefaultHeight ? 56 : 48);
+	const height = heightProp ?? (isFhsEnabled ? 56 : 48);
 
 	const customTheme = useCustomThemeNew(customThemeConfig);
 	const hasDefaultBackground = customTheme.isEnabled ? customTheme.hasDefaultBackground : true;

@@ -22,7 +22,6 @@ import type { TableSharedStateInternal } from '../types';
 
 import FloatingContextualButton from './FloatingContextualButton';
 import FloatingContextualMenu from './FloatingContextualMenu';
-import FloatingDeleteButton from './FloatingDeleteButton';
 import FloatingDragMenu from './FloatingDragMenu';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
@@ -64,7 +63,6 @@ const selector = (
 	insertRowButtonIndex: states.tableState?.insertRowButtonIndex,
 	isHeaderColumnEnabled: states.tableState?.isHeaderColumnEnabled,
 	isHeaderRowEnabled: states.tableState?.isHeaderRowEnabled,
-	isDragAndDropEnabled: states.tableState?.isDragAndDropEnabled,
 	tableWrapperTarget: states.tableState?.tableWrapperTarget,
 	isCellMenuOpenByKeyboard: states.tableState?.isCellMenuOpenByKeyboard,
 	stickyHeader: states.tableState?.stickyHeader,
@@ -110,7 +108,6 @@ const ContentComponentInternal = ({
 		insertRowButtonIndex,
 		isHeaderColumnEnabled,
 		isHeaderRowEnabled,
-		isDragAndDropEnabled,
 		tableWrapperTarget,
 		isCellMenuOpenByKeyboard,
 		stickyHeader,
@@ -146,7 +143,6 @@ const ContentComponentInternal = ({
 						stickyHeader={stickyHeader}
 						tableWrapper={tableWrapperTarget}
 						isCellMenuOpenByKeyboard={isCellMenuOpenByKeyboard}
-						isDragAndDropEnabled={isDragAndDropEnabled}
 					/>
 				)}
 			{allowControls && (
@@ -157,7 +153,6 @@ const ContentComponentInternal = ({
 					insertRowButtonIndex={insertRowButtonIndex}
 					isHeaderColumnEnabled={isHeaderColumnEnabled}
 					isHeaderRowEnabled={isHeaderRowEnabled}
-					isDragAndDropEnabled={isDragAndDropEnabled}
 					isTableScalingEnabled={options?.isTableScalingEnabled}
 					editorView={editorView}
 					mountPoint={popupsMountPoint}
@@ -190,7 +185,6 @@ const ContentComponentInternal = ({
 					isDragMenuOpen={isDragMenuOpen}
 				/>
 			)}
-			{isDragAndDropEnabled && (
 				<FloatingDragMenu
 					editorView={editorView}
 					mountPoint={popupsMountPoint}
@@ -212,21 +206,6 @@ const ContentComponentInternal = ({
 					isCommentEditor={options?.isCommentEditor}
 					tableWrapper={tableWrapperTarget}
 				/>
-			)}
-			{allowControls && !isDragAndDropEnabled && !isResizing && (
-				<FloatingDeleteButton
-					editorView={editorView}
-					selection={editorView.state.selection}
-					tableRef={tableRef as HTMLTableElement}
-					mountPoint={popupsMountPoint}
-					boundariesElement={popupsBoundariesElement}
-					scrollableElement={popupsScrollableElement}
-					stickyHeaders={stickyHeader}
-					isNumberColumnEnabled={tableNode && tableNode.attrs.isNumberColumnEnabled}
-					editorAnalyticsAPI={editorAnalyticsAPI}
-					api={api}
-				/>
-			)}
 			{(options?.isTableScalingEnabled ||
 				(options?.tableOptions.allowTableResizing && options.isCommentEditor)) &&
 				isTableResizing &&

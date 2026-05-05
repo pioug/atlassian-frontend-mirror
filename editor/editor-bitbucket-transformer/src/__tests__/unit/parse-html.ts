@@ -724,7 +724,7 @@ describe('BitbucketTransformer: parser', () => {
 			);
 		});
 		it('should support codeblock inside a list within a blockquote', () => {
-			const js = code_block({ language: 'javascript' });
+			const js = code_block({ language: 'javascript', localId: STATIC_LOCAL_ID });
 			expect(
 				parse(
 					'<blockquote><ol start="9"><li><p>item 1</p></li><li><div class="codehilite language-javascript"><pre><span></span>    foo\n       bar</pre></div></li></ol></blockquote>',
@@ -1138,7 +1138,7 @@ describe('BitbucketTransformer: parser', () => {
 
 	describe('code block', () => {
 		it('parses block with specified language', () => {
-			const js = code_block({ language: 'javascript' });
+			const js = code_block({ language: 'javascript', localId: STATIC_LOCAL_ID });
 
 			expect(
 				parse(
@@ -1355,7 +1355,7 @@ describe('BitbucketTransformer: parser', () => {
 						'<pre><span></span><code>this is a suggestion</code></pre>' +
 						'</div>',
 				),
-			).toEqualDocument(doc(code_block({ language: 'suggestion' })('this is a suggestion')));
+			).toEqualDocument(doc(code_block({ language: 'suggestion', localId: STATIC_LOCAL_ID })('this is a suggestion')));
 		});
 	});
 

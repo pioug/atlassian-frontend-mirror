@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-analytics
 
+## 1.5.0
+
+### Minor Changes
+
+- [`d1b7d4ba4fd6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1b7d4ba4fd6f) -
+  Implement
+  https://hello.atlassian.net/wiki/spaces/~598965687/pages/6881328891/Tools+attributes+analytics+spec
+
 ## 1.4.0
 
 ### Minor Changes

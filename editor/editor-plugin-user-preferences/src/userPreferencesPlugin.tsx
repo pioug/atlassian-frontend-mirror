@@ -1,12 +1,17 @@
 import { useResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences';
 import type { ResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { updateUserPreference } from './pm-plugins/commands';
+import {
+	clearOverrideUserPreference,
+	overrideUserPreference,
+	updateUserPreference,
+} from './pm-plugins/commands';
 import { createPlugin, userPreferencesPluginKey } from './pm-plugins/main';
 import { useDocumentVisibilityWatcher } from './ui/useDocumentVisibilityWatcher';
 import { useUserPreferencesInitListener } from './ui/useUserPreferencesInitListener';
 import { useUserPreferencesUpdateListener } from './ui/useUserPreferencesUpdateListener';
-import type { PrefKey, UserPreferencesPlugin } from './userPreferencesPluginType';
+import type { PrefKey, ResolvedPrefKey, UserPreferencesPlugin } from './userPreferencesPluginType';
 
 export const userPreferencesPlugin: UserPreferencesPlugin = ({ config, api }) => {
 	const userPreferencesProvider = config.userPreferencesProvider;
@@ -39,10 +44,38 @@ export const userPreferencesPlugin: UserPreferencesPlugin = ({ config, api }) =>
 				return userPreferencesProvider.getPreferences();
 			},
 		},
+		commands: {
+			overrideUserPreference: (key: PrefKey, value: ResolvedUserPreferences[ResolvedPrefKey]) => {
+				return overrideUserPreference({ key, value });
+			},
+			clearOverrideUserPreference: (key: PrefKey) => {
+				return clearOverrideUserPreference({ key });
+			},
+		},
 		getSharedState(editorState) {
 			if (!editorState) {
 				return null;
 			}
+
+			if (expValEquals('platform_editor_user_preference_override', 'isEnabled', true)) {
+				const state = userPreferencesPluginKey.getState(editorState);
+
+				// state can return undefined if the plugin hasn't been registered
+				if (!state) {
+					return null;
+				} else if (!state.overrides || Object.keys(state.overrides).length === 0) {
+					return state;
+				}
+
+				return {
+					...state,
+					preferences: {
+						...state.preferences,
+						...state.overrides,
+					},
+				};
+			}
+
 			return userPreferencesPluginKey.getState(editorState);
 		},
 		usePluginHook({ editorView }) {

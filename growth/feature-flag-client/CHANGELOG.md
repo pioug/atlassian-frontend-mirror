@@ -1,5 +1,12 @@
 # @atlaskit/feature-flag-client
 
+## 5.7.0
+
+### Minor Changes
+
+- [`c56476b969862`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c56476b969862) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 5.6.1
 
 ### Patch Changes
@@ -313,7 +320,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
 
 ## 3.1.7
@@ -348,7 +354,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -377,44 +382,37 @@
 ## 3.1.1
 
 - [patch][2e25dad67e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2e25dad67e):
-
   - Change process.env check to process.env.NODE_ENV check
 
 ## 3.1.0
 
 - [minor][5a49043dac](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5a49043dac):
-
   - Enable strictPropertyInitialization in tsconfig.base
 
 ## 3.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 2.1.2
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 2.1.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 2.1.0
 
 - [minor][a89f1bf6cd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a89f1bf6cd):
-
   - Enable noImplicitAny for growth/feature-flag-client
 
 ## 2.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 1.1.2

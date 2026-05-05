@@ -7,7 +7,10 @@ import { expand } from './nodes/expand';
 import { codeBlock } from './nodes/codeBlock';
 import { syncBlock } from './nodes/syncBlock';
 import { bodiedSyncBlock } from './nodes/bodiedSyncBlock';
-import type { ADFNode, ADFCommonNodeSpec } from '@atlaskit/adf-schema-generator';
+import type {
+	ADFNode,
+	ADFCommonNodeSpec,
+} from '@atlaskit/adf-schema-generator';
 
 const doc: ADFNode<[string], ADFCommonNodeSpec> = adfNode('doc').define({
 	root: true,
@@ -18,6 +21,7 @@ const doc: ADFNode<[string], ADFCommonNodeSpec> = adfNode('doc').define({
 				blockGroup,
 				blockContentGroup,
 				codeBlock.use('root_only'),
+				codeBlock.use('root_only_with_extended_attributes'),
 				layoutSection,
 				layoutSection.use('with_single_column'),
 				layoutSection.use('full'),

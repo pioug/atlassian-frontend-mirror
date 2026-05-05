@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.20.3
+
+### Patch Changes
+
+- [`8c59900bcec05`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c59900bcec05) -
+  Added AI specific motion examples for ADS MCP
+
 ## 0.20.2
 
 ### Patch Changes

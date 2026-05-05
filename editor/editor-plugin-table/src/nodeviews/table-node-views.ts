@@ -48,7 +48,6 @@ export const tableView = (options: TableViewOptions) => {
 
 type TableCellViewOptions = {
 	eventDispatcher: EventDispatcher;
-	isDragAndDropEnabled?: boolean;
 	pluginInjectionApi?: PluginInjectionAPI;
 };
 export const tableCellView = (options: TableCellViewOptions) => {

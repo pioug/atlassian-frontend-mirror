@@ -1,5 +1,18 @@
 # @atlaskit/media-ui
 
+## 29.2.0
+
+### Minor Changes
+
+- [`59e4e1f797346`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59e4e1f797346) -
+  Updating copy for the full screen expand toolbar on media and native embeds
+
+## 29.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.1.0
 
 ### Minor Changes

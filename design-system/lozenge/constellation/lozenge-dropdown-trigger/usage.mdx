@@ -36,6 +36,14 @@ switching. They differ from lozenges in that they contain interactivity and can 
 4. **Dropdown icon**: Indicates that this lozenge has interactivity and can be selected to open a
    menu.
 
+## Accessibility
+
+- Don't use color alone to signify an important state or status. Instead, use clear labels and, if
+  relevant, a supporting icon. For example: for a critical status, use descriptors like “Off track”.
+- Don't use long labels in lozenges. They have a max width of 200 pixels (or a
+  custom `maxWidth` value) causing labels to truncate. Lozenges can’t be focused, so truncated text
+  will not be visible.
+
 ## Best practices
 
 ### Use lozenge dropdown trigger for status switching
@@ -91,14 +99,6 @@ elements, such as when it appears alongside other buttons.
 		Don’t use a default lozenge dropdown trigger alongside other buttons.
 	</DoDont>
 </DoDontGrid>
-
-## Accessibility
-
-- Don't use color alone to signify an important state or status. Instead, use clear labels and, if
-  relevant, a supporting icon. For example: for a critical status, use descriptors like “Off track”.
-- Don't use long labels in lozenges. They have a max width of 200 pixels (or a
-  custom `maxWidth` value) causing labels to truncate. Lozenges can’t be focused, so truncated text
-  will not be visible.
 
 ## Data Center products
 

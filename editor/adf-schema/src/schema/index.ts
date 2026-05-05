@@ -14,6 +14,7 @@ export {
 	captionWithLocalId,
 	codeBlock,
 	codeBlockWithLocalId,
+	codeBlockWithExtendedAttributes,
 	codeBlockToJSON,
 	confluenceJiraIssue,
 	confluenceUnsupportedBlock,

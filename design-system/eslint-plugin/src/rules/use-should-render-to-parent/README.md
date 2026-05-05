@@ -9,6 +9,11 @@ This rule will indicate user with a recommendation to use the `shouldRenderToPar
 ### Incorrect
 
 ```tsx
+import Popup from '@atlaskit/popup';
+import { DropdownMenu } from '@atlaskit/dropdown-menu';
+import { DropdownTrigger } from '@atlassian/entry-points/dropdown-trigger';
+import { PopupTrigger } from '@atlassian/entry-points/popup-trigger';
+
 <Popup>
  ^^^^^ The default value of `shouldRenderToParent` is `false`. Setting the `shouldRenderToParent` prop to anything other than `true` causes accessibility issues. Only set to `false` as a last resort.
   Popup content
@@ -19,6 +24,16 @@ This rule will indicate user with a recommendation to use the `shouldRenderToPar
   Dropdown content
 </DropdownMenu>
 
+<DropdownTrigger>
+ ^^^^^^^^^^^^^^^ The default value of `shouldRenderToParent` is `false`. Setting the `shouldRenderToParent` prop to anything other than `true` causes accessibility issues. Only set to `false` as a last resort.
+  Dropdown content
+</DropdownTrigger>
+
+<PopupTrigger>
+ ^^^^^^^^^^^^^^^ The default value of `shouldRenderToParent` is `false`. Setting the `shouldRenderToParent` prop to anything other than `true` causes accessibility issues. Only set to `false` as a last resort.
+  Popup content
+</PopupTrigger>
+
 <Popup shouldRenderToParent={false}>
        ^^^^^^^^^^^^^^^^^^^^ Setting the `shouldRenderToParent` prop to anything other than `true` causes accessibility issues. Only set to `false` as a last resort.
   Popup content
@@ -28,6 +43,11 @@ This rule will indicate user with a recommendation to use the `shouldRenderToPar
 ### Correct
 
 ```tsx
+import Popup from '@atlaskit/popup';
+import { DropdownMenu } from '@atlaskit/dropdown-menu';
+import { DropdownTrigger } from '@atlassian/entry-points/dropdown-trigger';
+import { PopupTrigger } from '@atlassian/entry-points/popup-trigger';
+
 <Popup shouldRenderToParent>
   Popup content
 </Popup>
@@ -35,4 +55,12 @@ This rule will indicate user with a recommendation to use the `shouldRenderToPar
 <DropdownMenu shouldRenderToParent>
   Dropdown content
 </DropdownMenu>
+
+<DropdownTrigger shouldRenderToParent>
+  Dropdown content
+</DropdownTrigger>
+
+<PopupTrigger shouldRenderToParent>
+  Popup content
+</PopupTrigger>
 ```

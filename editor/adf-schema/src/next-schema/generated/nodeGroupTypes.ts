@@ -12,6 +12,7 @@ import type {
   BodiedExtensionWithMarksDefinition,
   BulletListDefinition,
   CodeBlockDefinition,
+  CodeBlockWithExtendedAttributesStage0Definition,
   ConfluenceJiraIssueDefinition,
   ConfluenceUnsupportedBlockDefinition,
   ConfluenceUnsupportedInlineDefinition,
@@ -47,9 +48,7 @@ import type {
   PanelDefinition,
   ParagraphDefinition,
   ParagraphWithAlignmentDefinition,
-  ParagraphWithFontSizeAndAlignmentStage0Definition,
-  ParagraphWithFontSizeAndIndentationStage0Definition,
-  ParagraphWithFontSizeStage0Definition,
+  ParagraphWithFontSizeDefinition,
   ParagraphWithIndentationDefinition,
   ParagraphWithNoMarksDefinition,
   PlaceholderDefinition,
@@ -69,6 +68,7 @@ import type {
 export type BlockDefinition = Array<
   | BlockCardDefinition
   | CodeBlockDefinition
+  | CodeBlockWithExtendedAttributesStage0Definition
   | MediaSingleDefinition
   | MediaSingleCaptionDefinition
   | MediaSingleFullDefinition
@@ -76,8 +76,6 @@ export type BlockDefinition = Array<
   | ParagraphDefinition
   | ParagraphWithAlignmentDefinition
   | ParagraphWithIndentationDefinition
-  | ParagraphWithFontSizeAndAlignmentStage0Definition
-  | ParagraphWithFontSizeAndIndentationStage0Definition
   | ParagraphWithNoMarksDefinition
   | TaskListDefinition
   | OrderedListDefinition
@@ -134,7 +132,7 @@ export type InlineDefinition = Array<
 
 export type NonNestableBlockContentDefinition = Array<
   | ParagraphWithNoMarksDefinition
-  | ParagraphWithFontSizeStage0Definition
+  | ParagraphWithFontSizeDefinition
   | PanelDefinition
   | BlockquoteDefinition
   | OrderedListDefinition
@@ -142,6 +140,7 @@ export type NonNestableBlockContentDefinition = Array<
   | RuleDefinition
   | HeadingWithNoMarksDefinition
   | CodeBlockDefinition
+  | CodeBlockWithExtendedAttributesStage0Definition
   | MediaGroupDefinition
   | MediaSingleCaptionDefinition
   | MediaSingleFullDefinition

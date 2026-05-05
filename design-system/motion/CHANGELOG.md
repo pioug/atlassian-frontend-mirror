@@ -1,5 +1,12 @@
 # @atlaskit/motion
 
+## 6.2.2
+
+### Patch Changes
+
+- [`8c59900bcec05`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c59900bcec05) -
+  Added AI specific motion examples for ADS MCP
+
 ## 6.2.1
 
 ### Patch Changes

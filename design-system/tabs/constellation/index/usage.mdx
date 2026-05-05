@@ -30,18 +30,15 @@ can view the content without having to navigate away from that page.
 2. **Unselected:** The other available tabs have text that is lighter.
 3. **Divider:** A light visual line separates the tab navigation and content.
 
-## Behavior
+## Accessibility
 
-Tab behavior during default, focus, hover, and active states are important because it lets people
-know where they are in the experience.
-
-![A series of examples of tab visual states. The states are explained below.](./images/tabs-behavior.png)
-
-1. **Default:** The standard view.
-2. **Focus:** Keyboard focus on a tab.
-3. **Hover:** Hovering over a tab.
-4. **Press:** Pressing a tab.
-5. **Selected:** Indicates the tab that the user is viewing.
+- Keyboard users can navigate between tabs using the left and right arrow keys. The tab key is used
+  to navigate to the tab content, not to the next tab. This is so that people who use screen readers
+  don't have to tab through all of the tabs to read the content.
+- Surface important information outside of tabs, and keep the number of tabs low wherever possible
+  in order to increase the visibility of content.
+- Avoid complex nesting of interactive controls such as dropdowns and buttons in order to increase
+  information visibility and ease navigation.
 
 ## Best practices
 
@@ -204,15 +201,18 @@ For example, in a series of instructions about setting up a mobile app, you coul
 	</DoDont>
 </DoDontGrid>
 
-## Accessibility
+## Behavior
 
-- Keyboard users can navigate between tabs using the left and right arrow keys. The tab key is used
-  to navigate to the tab content, not to the next tab. This is so that people who use screen readers
-  don't have to tab through all of the tabs to read the content.
-- Surface important information outside of tabs, and keep the number of tabs low wherever possible
-  in order to increase the visibility of content.
-- Avoid complex nesting of interactive controls such as dropdowns and buttons in order to increase
-  information visibility and ease navigation.
+Tab behavior during default, focus, hover, and active states are important because it lets people
+know where they are in the experience.
+
+![A series of examples of tab visual states. The states are explained below.](./images/tabs-behavior.png)
+
+1. **Default:** The standard view.
+2. **Focus:** Keyboard focus on a tab.
+3. **Hover:** Hovering over a tab.
+4. **Press:** Pressing a tab.
+5. **Selected:** Indicates the tab that the user is viewing.
 
 ## Data Center apps
 

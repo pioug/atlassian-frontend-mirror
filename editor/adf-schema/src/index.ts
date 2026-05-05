@@ -21,6 +21,7 @@ export {
 	code,
 	codeBlock,
 	codeBlockWithLocalId,
+	codeBlockWithExtendedAttributes,
 	codeBlockToJSON,
 	colorPalette,
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required

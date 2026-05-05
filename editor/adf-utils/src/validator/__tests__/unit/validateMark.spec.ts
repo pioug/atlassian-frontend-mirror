@@ -985,7 +985,7 @@ describe('validate Mark', () => {
 			};
 
 			validate(initialEntity, errorCallbackMock);
-			expect(errorCallbackMock).toHaveBeenCalledTimes(5);
+			expect(errorCallbackMock).toHaveBeenCalledTimes(3);
 			const expectedMeta = { attrs: { mode: 'wide' }, type: 'breakout' };
 			expect(errorCallbackMock).toHaveBeenNthCalledWith(
 				1,
@@ -1030,7 +1030,7 @@ describe('validate Mark', () => {
 				}),
 			);
 			expect(errorCallbackMock).toHaveBeenNthCalledWith(
-				4,
+				3,
 				expect.anything(),
 				expect.objectContaining({
 					code: 'INVALID_TYPE',
@@ -1044,7 +1044,7 @@ describe('validate Mark', () => {
 				}),
 			);
 			expect(errorCallbackMock).toHaveBeenNthCalledWith(
-				5,
+				3,
 				expect.anything(),
 				expect.objectContaining({
 					code: 'INVALID_TYPE',
@@ -1084,7 +1084,7 @@ describe('validate Mark', () => {
 		};
 
 		validate(initialEntity, errorCallbackMock);
-		expect(errorCallbackMock).toHaveBeenCalledTimes(5);
+		expect(errorCallbackMock).toHaveBeenCalledTimes(3);
 		const expectedMeta = { type: 'unknownMark' };
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
 			1,
@@ -1129,7 +1129,7 @@ describe('validate Mark', () => {
 			}),
 		);
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
-			4,
+			3,
 			expect.anything(),
 			expect.objectContaining({
 				code: 'INVALID_CONTENT',
@@ -1143,7 +1143,7 @@ describe('validate Mark', () => {
 			}),
 		);
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
-			5,
+			3,
 			expect.anything(),
 			expect.objectContaining({
 				code: 'INVALID_CONTENT',
@@ -1329,7 +1329,7 @@ describe('validate Mark', () => {
 			],
 		};
 		validate(initialEntity, errorCallbackMock);
-		expect(errorCallbackMock).toHaveBeenCalledTimes(10);
+		expect(errorCallbackMock).toHaveBeenCalledTimes(6);
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
 			1,
 			expect.anything(),
@@ -1415,7 +1415,7 @@ describe('validate Mark', () => {
 			}),
 		);
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
-			7,
+			5,
 			expect.anything(),
 			expect.objectContaining({
 				code: 'INVALID_TYPE',
@@ -1429,7 +1429,7 @@ describe('validate Mark', () => {
 			}),
 		);
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
-			8,
+			6,
 			expect.anything(),
 			expect.objectContaining({
 				code: 'INVALID_TYPE',
@@ -1443,7 +1443,7 @@ describe('validate Mark', () => {
 			}),
 		);
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
-			9,
+			5,
 			expect.anything(),
 			expect.objectContaining({
 				code: 'INVALID_TYPE',
@@ -1457,7 +1457,7 @@ describe('validate Mark', () => {
 			}),
 		);
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
-			10,
+			6,
 			expect.anything(),
 			expect.objectContaining({
 				code: 'INVALID_TYPE',
@@ -1499,7 +1499,7 @@ describe('validate Mark', () => {
 		};
 
 		validate(initialEntity, errorCallbackMock);
-		expect(errorCallbackMock).toHaveBeenCalledTimes(10);
+		expect(errorCallbackMock).toHaveBeenCalledTimes(6);
 		const expectedMeta1 = { type: 'strong' };
 		const expectedMeta2 = { type: 'unknownMark' };
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
@@ -1587,7 +1587,7 @@ describe('validate Mark', () => {
 			}),
 		);
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
-			7,
+			5,
 			expect.anything(),
 			expect.objectContaining({
 				code: 'INVALID_TYPE',
@@ -1601,7 +1601,7 @@ describe('validate Mark', () => {
 			}),
 		);
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
-			8,
+			6,
 			expect.anything(),
 			expect.objectContaining({
 				code: 'INVALID_CONTENT',
@@ -1615,7 +1615,7 @@ describe('validate Mark', () => {
 			}),
 		);
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
-			9,
+			5,
 			expect.anything(),
 			expect.objectContaining({
 				code: 'INVALID_TYPE',
@@ -1629,7 +1629,7 @@ describe('validate Mark', () => {
 			}),
 		);
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
-			10,
+			6,
 			expect.anything(),
 			expect.objectContaining({
 				code: 'INVALID_CONTENT',

@@ -136,6 +136,7 @@ export interface FileFetcher {
 		url: string,
 		collection?: string,
 		traceContext?: MediaTraceContext,
+		anonymizeFilename?: boolean,
 	): Promise<ExternalUploadPayload>;
 	downloadBinary(
 		id: string,
@@ -375,6 +376,7 @@ export class FileFetcherImpl implements FileFetcher {
 		url: string,
 		collection?: string,
 		traceContext?: MediaTraceContext,
+		anonymizeFilename?: boolean,
 	): Promise<ExternalUploadPayload> {
 		const uploadableFileUpfrontIds = this.generateUploadableFileUpfrontIds(
 			collection,
@@ -394,7 +396,7 @@ export class FileFetcherImpl implements FileFetcher {
 
 			resolve({ value: blob as Blob, origin: 'remote' });
 		});
-		const name = fg('platform_media_upload_external_anonymize_filename')
+		const name = anonymizeFilename && fg('platform_media_upload_external_anonymize_filename')
 			? crypto.randomUUID()
 			: url.split('/').pop() || '';
 		// we create a initial fileState with the minimum info that we have at this point

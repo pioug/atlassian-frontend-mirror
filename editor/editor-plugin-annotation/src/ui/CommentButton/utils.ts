@@ -25,13 +25,21 @@ export const isButtonDisabled = ({
 	api?: ExtractInjectionAPI<AnnotationPlugin>;
 	canAddComments: boolean;
 	state: EditorState | null | undefined;
-}): boolean => {
+}): {
+	canAddComments: boolean;
+	isAnnotationSelectionInvalid: boolean;
+	isDisabled: boolean;
+	isOffline: boolean;
+} => {
 	const annotationSelectionType = state ? isSelectionValid(state) : AnnotationSelectionType.INVALID;
-	return (
-		!canAddComments ||
-		annotationSelectionType === AnnotationSelectionType.DISABLED ||
-		isOfflineMode(api?.connectivity?.sharedState?.currentState()?.mode)
-	);
+	const isAnnotationSelectionInvalid = annotationSelectionType === AnnotationSelectionType.DISABLED;
+	const isOffline = isOfflineMode(api?.connectivity?.sharedState?.currentState()?.mode);
+	return {
+		isAnnotationSelectionInvalid,
+		isOffline,
+		canAddComments,
+		isDisabled: !canAddComments || isAnnotationSelectionInvalid || isOffline,
+	};
 };
 
 export const shouldShowCommentButton = ({

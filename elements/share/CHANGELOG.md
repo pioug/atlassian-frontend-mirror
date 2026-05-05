@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 7.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.0
 
 ### Major Changes

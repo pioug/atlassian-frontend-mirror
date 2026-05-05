@@ -1,5 +1,12 @@
 # @atlaskit/media-client
 
+## 36.1.1
+
+### Patch Changes
+
+- [`71ee114498663`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71ee114498663) -
+  Parameterized anonymize media file names on upload
+
 ## 36.1.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 11.1.0
+
+### Minor Changes
+
+- [`20c2faf5c3ca8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20c2faf5c3ca8) -
+  CONFCLOUD-84107 add override for user preference
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.12
 
 ### Patch Changes

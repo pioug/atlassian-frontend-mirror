@@ -68,6 +68,9 @@ const SUPPRESS_TOOLBAR_USER_INTENTS = [
 	'resizing',
 	'blockMenuOpen',
 	'statusPickerOpen',
+	// Suppress when a modal/overlay is open over the editor (e.g. the Jira remix ephemeral preview),
+	// so the floating toolbar does not bleed through on top of the overlay.
+	'overlayOpen',
 ];
 
 // TODO: AFP-2532 - Fix automatic suppressions below

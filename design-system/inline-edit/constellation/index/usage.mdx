@@ -51,16 +51,6 @@ appearance of the inline edit will vary depending on which components it is used
   as editable, especially if you are using custom font sizing.
 - Only use `placeholder` prop to show default values. Don't use it to act as a label for the field.
 
-## Behavior
-
-Inline edit wraps around any standard text field. Any styling of the text field component is handled
-outside of this component. If you are placing a custom inline edit on a component like a header,
-check that the font and box size line up properly.
-
-Since inline edit is used for entering content, it's optimized for use with keyboard inputs (use
-return to save and esc to cancel). When using a mouse, controls should always display at the end of
-the field. For example, at the bottom right in a left-to-right reading order.
-
 ## Best practices
 
 - Use inline edit for an editable field that is not part of a [form](/components/form). Don't use
@@ -90,3 +80,13 @@ the field. For example, at the bottom right in a left-to-right reading order.
 		Pass in read view and edit view components that have different styling.
 	</DoDont>
 </DoDontGrid>
+
+## Behavior
+
+Inline edit wraps around any standard text field. Any styling of the text field component is handled
+outside of this component. If you are placing a custom inline edit on a component like a header,
+check that the font and box size line up properly.
+
+Since inline edit is used for entering content, it's optimized for use with keyboard inputs (use
+return to save and esc to cancel). When using a mouse, controls should always display at the end of
+the field. For example, at the bottom right in a left-to-right reading order.

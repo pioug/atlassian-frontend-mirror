@@ -444,7 +444,8 @@ export const messages: {
 	copyLinkButtonText: {
 		id: 'fabric.elements.share.copylink.button.text',
 		defaultMessage: 'Copy link',
-		description: 'Default text for the Copy Link button',
+		description:
+			'Label for the Copy Link button in the share dialog that copies the page URL to the clipboard.',
 	},
 	copyPublicLinkButtonText: {
 		id: 'fabric.elements.share.copypubliclink.button.text',
@@ -533,7 +534,7 @@ export const messages: {
 	shareMainTabTextJira: {
 		id: 'fabric.elements.share.main.tab.text.jira',
 		defaultMessage: 'Share issue',
-		description: 'Text for the main share tab for jira',
+		description: 'Label for the main share tab heading in the Jira share dialog.',
 	},
 	shareMainTabTextConfluence: {
 		id: 'fabric.elements.share.main.tab.text.confluence',
@@ -558,11 +559,13 @@ export const messages: {
 	slackMenuItemText: {
 		id: 'fabric.elements.share.menu.slack.label',
 		defaultMessage: 'Slack',
-		description: 'Text for the slack menu in share',
+		description:
+			'Label for the Slack option in the share menu drop-down, allowing users to share content via Slack.',
 	},
 	emailMenuItemText: {
 		id: 'fabric.elements.share.menu.email.label',
 		defaultMessage: 'Email',
-		description: 'Text for the email menu in share',
+		description:
+			'Label for the Email option in the share menu drop-down, allowing users to share content via email.',
 	},
 });

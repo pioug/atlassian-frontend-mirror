@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-annotation
 
+## 10.2.0
+
+### Minor Changes
+
+- [`902c2a2a06799`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/902c2a2a06799) -
+  [ux] Fix confusing tooltip on Comment toolbar when offline
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.9
 
 ### Patch Changes

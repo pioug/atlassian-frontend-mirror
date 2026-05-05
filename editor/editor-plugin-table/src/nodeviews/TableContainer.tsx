@@ -24,7 +24,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
-import { getPluginState } from '../pm-plugins/plugin-factory';
 import {
 	TABLE_MAX_WIDTH,
 	TABLE_FULL_WIDTH,
@@ -621,7 +620,6 @@ export const TableContainer = ({
 		);
 	}
 
-	const { isDragAndDropEnabled } = getPluginState(editorView.state);
 	const isFullPageAppearance = !isCommentEditor && !isChromelessEditor;
 
 	const resizableTableWidth = isFullPageAppearance
@@ -635,7 +633,7 @@ export const TableContainer = ({
 				'less-padding':
 					editorWidth < akEditorMobileBreakoutPoint &&
 					!isNested &&
-					!(isChromelessEditor && isDragAndDropEnabled),
+					!isChromelessEditor,
 			})}
 			style={
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)

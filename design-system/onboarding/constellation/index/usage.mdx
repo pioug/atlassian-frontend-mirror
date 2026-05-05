@@ -24,12 +24,17 @@ Spotlights can also guide people through tasks that require multiple steps to co
 1. **Blanket:** A translucent overlay that covers the rest of the screen that is not being spotlit.
 <!-- This is only necessary for multi-step spotlight tours. -->
 
-## Behavior
+## Accessibility
 
-### Pulse
-
-The spotlight target can have a pulse animation to draw attention to the focused area. As they can
-be very distracting and increase cognitive load, limit the number of pulses per spotlight.
+- When there's a heading, its value is referenced as the accessible name of the spotlight dialog. If
+  you need to add/reference another accessible name, consider either
+  [label](/components/onboarding/code#Spotlight-label) or
+  [titleId](/components/onboarding/code#Spotlight-titleId) prop. Avoid using both of these props at
+  the same time.
+- The pulse animation can be very disruptive for some users. Like with the spotlight itself, limit
+  the pulse animation to one spotlight at a time and limit the number of pulses.
+- If the spotlight opens upon page entry, avoid a pulse animation as the attention is already on the
+  spotlight.
 
 ## Best practices
 
@@ -43,18 +48,6 @@ be very distracting and increase cognitive load, limit the number of pulses per 
 - Make sure your spotlight isn’t competing with other onboarding messages from other teams. Not
   every change requires changeboarding, so ask yourself if this message is really necessary or
   helpful.
-
-## Accessibility
-
-- When there's a heading, its value is referenced as the accessible name of the spotlight dialog. If
-  you need to add/reference another accessible name, consider either
-  [label](/components/onboarding/code#Spotlight-label) or
-  [titleId](/components/onboarding/code#Spotlight-titleId) prop. Avoid using both of these props at
-  the same time.
-- The pulse animation can be very disruptive for some users. Like with the spotlight itself, limit
-  the pulse animation to one spotlight at a time and limit the number of pulses.
-- If the spotlight opens upon page entry, avoid a pulse animation as the attention is already on the
-  spotlight.
 
 ## Content guidelines
 
@@ -86,6 +79,13 @@ be very distracting and increase cognitive load, limit the number of pulses per 
 - Spotlight components clone HTML elements they encompass. However, if there are internal components
   such as HTMLCanvasElement, these will not be cloned automatically. You'll need to find the canvas
   element in the DOM and clone it manually.
+
+## Behavior
+
+### Pulse
+
+The spotlight target can have a pulse animation to draw attention to the focused area. As they can
+be very distracting and increase cognitive load, limit the number of pulses per spotlight.
 
 ## First impressions
 

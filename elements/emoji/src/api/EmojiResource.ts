@@ -557,6 +557,31 @@ export class EmojiResource
 		return this.retryIfLoading(() => this.findById(id), undefined);
 	}
 
+	/**
+	 * Synchronously reads the emoji type from the local cache for the given emojiId.
+	 * Returns `undefined` when the emoji is not in the cache or no repository is initialised.
+	 * This is a pure cache read — no network requests are made.
+	 */
+	getCachedEmojiType(emojiId: EmojiId): string | undefined {
+		if (!this.isRepositoryAvailable<EmojiRepository>(this.emojiRepository)) {
+			return undefined;
+		}
+		const { id, shortName } = emojiId;
+		if (id) {
+			const emoji = this.emojiRepository!.findById(id);
+			if (emoji) {
+				return emoji.type;
+			}
+		}
+		if (shortName) {
+			const result = this.emojiRepository!.findByShortName(shortName);
+			if (result && !('then' in result)) {
+				return result.type;
+			}
+		}
+		return undefined;
+	}
+
 	findInCategory(categoryId: CategoryId): Promise<EmojiDescription[]> {
 		if (this.isLoaded() && this.isRepositoryAvailable<EmojiRepository>(this.emojiRepository)) {
 			return Promise.resolve(this.emojiRepository.findInCategory(categoryId));

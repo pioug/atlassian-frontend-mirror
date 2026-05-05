@@ -26,6 +26,7 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -104,6 +105,37 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 		name: 'selectionToolbar',
 
 		actions: {
+			/**
+			 * Overrides the user's toolbar docking position preference programmatically,
+			 * bypassing the normal user-driven preference update flow.
+			 */
+			overrideToolbarDocking: (toolbarDocking) => {
+				if (!expValEquals('platform_editor_user_preference_override', 'isEnabled', true)) {
+					return false;
+				}
+				const command = api?.userPreferences?.commands.overrideUserPreference(
+					'toolbarDockingPosition',
+					toolbarDocking,
+				);
+				if (!command) {
+					return false;
+				}
+				return api?.core.actions.execute(command) ?? false;
+			},
+			/**
+			 * Clears the toolbar docking override and reverts to the current preference/state value.
+			 */
+			clearToolbarDockingOverride: () => {
+				if (!expValEquals('platform_editor_user_preference_override', 'isEnabled', true)) {
+					return false;
+				}
+				const command =
+					api?.userPreferences?.commands.clearOverrideUserPreference('toolbarDockingPosition');
+				if (!command) {
+					return false;
+				}
+				return api?.core.actions.execute(command) ?? false;
+			},
 			suppressToolbar: () => {
 				return api?.core.actions.execute(toggleToolbar({ hide: true })) ?? false;
 			},

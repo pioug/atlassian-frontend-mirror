@@ -21,7 +21,7 @@ describe(`${packageName}/schema bodiedSyncBlock node`, () => {
 			content:
 				'(paragraph | blockCard | blockquote | bulletList | codeBlock | confluenceUnsupportedBlock | decisionList | embedCard | expand | heading | layoutSection | mediaGroup | mediaSingle | orderedList | panel | rule | table | taskList | unsupportedBlock)+',
 			marks:
-				'unsupportedMark unsupportedNodeAttribute alignment indentation fontSize breakout link fragment',
+				'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation breakout link fragment',
 			parseDOM: [
 				{
 					getAttrs: expect.anything(),

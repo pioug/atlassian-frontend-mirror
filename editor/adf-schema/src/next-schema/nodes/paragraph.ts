@@ -15,8 +15,6 @@ export const paragraph: ADFNode<
 		'with_marks',
 		'with_no_marks',
 		'with_font_size',
-		'with_font_size_and_alignment',
-		'with_font_size_and_indentation',
 	],
 	ADFCommonNodeSpec & {
 		content: never[];
@@ -43,19 +41,6 @@ export const paragraph: ADFNode<
 		ignore: never[];
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		marks: any[];
-		stage0: true;
-	} & {
-		content: never[];
-		ignore: never[];
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		marks: any[];
-		stage0: true;
-	} & {
-		content: never[];
-		ignore: never[];
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		marks: any[];
-		stage0: true;
 	}
 > = adfNode('paragraph')
 	.define({
@@ -68,12 +53,12 @@ export const paragraph: ADFNode<
 		content: [$zeroPlus($or(inlineGroup, inlineContentGroup))],
 	})
 	.variant('with_alignment', {
-		marks: [alignment, unsupportedMark, unsupportedNodeAttribute],
+		marks: [fontSize, alignment, unsupportedMark, unsupportedNodeAttribute],
 		content: [],
 		ignore: [],
 	})
 	.variant('with_indentation', {
-		marks: [indentation, unsupportedMark, unsupportedNodeAttribute],
+		marks: [fontSize, indentation, unsupportedMark, unsupportedNodeAttribute],
 		content: [],
 		ignore: [],
 	})
@@ -92,17 +77,4 @@ export const paragraph: ADFNode<
 		marks: [fontSize, unsupportedMark, unsupportedNodeAttribute],
 		content: [],
 		ignore: [],
-		stage0: true,
-	})
-	.variant('with_font_size_and_alignment', {
-		marks: [fontSize, alignment, unsupportedMark, unsupportedNodeAttribute],
-		content: [],
-		ignore: [],
-		stage0: true,
-	})
-	.variant('with_font_size_and_indentation', {
-		marks: [fontSize, indentation, unsupportedMark, unsupportedNodeAttribute],
-		content: [],
-		ignore: [],
-		stage0: true,
 	});

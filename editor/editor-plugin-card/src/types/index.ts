@@ -14,6 +14,7 @@ import type {
 	LinkPickerOptions,
 } from '@atlaskit/editor-common/types';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
+import type { CardContext } from '@atlaskit/link-provider';
 import type { DatasourceAdf, DatasourceAdfView } from '@atlaskit/linking-common';
 import type { SmartLinkEvents } from '@atlaskit/smart-card';
 
@@ -139,6 +140,7 @@ export type CardPluginOptions = CardOptions & {
 	linkPicker?: LinkPickerOptions;
 	lpLinkPicker?: boolean;
 	onClickCallback?: OnClickCallback;
+	smartCardContext?: CardContext;
 };
 
 // actions

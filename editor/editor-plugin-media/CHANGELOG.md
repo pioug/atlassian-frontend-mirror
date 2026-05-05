@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-media
 
+## 12.5.0
+
+### Minor Changes
+
+- [`76dff28130c6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76dff28130c6a) -
+  Add replace-media button to media plugin
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.4.0
 
 ### Minor Changes

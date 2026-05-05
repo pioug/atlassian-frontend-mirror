@@ -1,5 +1,28 @@
 # @atlaskit/emoji
 
+## 70.3.1
+
+### Patch Changes
+
+- [`79ba3fc378726`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79ba3fc378726) -
+  A11y fixes
+- Updated dependencies
+
+## 70.3.0
+
+### Minor Changes
+
+- [`77a59d5fe3db0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77a59d5fe3db0) -
+  Add `getCachedEmojiType` optional method to `EmojiProvider` interface and implement it in
+  `EmojiResource` as a synchronous cache read (no network requests). Add `emojiIdToEmoji` shared
+  utility for converting hyphen-separated hex emoji IDs to Unicode strings (handles ZWJ sequences,
+  skin tone modifiers, flag sequences, keycap sequences, and variation selectors). Register
+  `platform_twemoji_removal_unicode_emojis` feature flag.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 70.2.8
 
 ### Patch Changes

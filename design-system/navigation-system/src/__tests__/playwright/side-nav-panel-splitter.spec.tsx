@@ -185,7 +185,7 @@ test.describe('side nav panel splitter', () => {
 			invariant(boundingBox);
 
 			expect(boundingBox.x).toBe(330); // Constant distance from resizer
-			expect(boundingBox.y).toBe(56); // Top-most allowed position -> 8px below top nav
+			expect(boundingBox.y).toBe(64); // Top-most allowed position -> 8px below top nav
 		});
 
 		test('should be positioned alongside cursor when hovering within main content area', async ({

@@ -12,7 +12,12 @@ const message = `Setting the \`${PROP_NAME}\` prop to anything other than \`true
 export const addProp: 'Add `shouldRenderToParent` prop.' = `Add \`${PROP_NAME}\` prop.`;
 export const setPropToTrue: 'Set `shouldRenderToParent` prop to `true`.' = `Set \`${PROP_NAME}\` prop to \`true\`.`;
 
-const components = ['@atlaskit/popup', '@atlaskit/dropdown-menu'];
+const components: Record<string, Record<string, any>> = {
+	'@atlaskit/popup': { default: true, named: 'Popup' },
+	'@atlaskit/dropdown-menu': { default: true },
+	'@atlassian/entry-points/dropdown-trigger': { default: false, named: 'DropdownTrigger' },
+	'@atlassian/entry-points/popup-trigger': { default: false, named: 'PopupTrigger' },
+};
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {
@@ -41,7 +46,7 @@ const rule: Rule.RuleModule = createLintRule({
 					return;
 				}
 
-				if (!components.includes(source)) {
+				if (!(source in components)) {
 					return;
 				}
 
@@ -52,20 +57,26 @@ const rule: Rule.RuleModule = createLintRule({
 				const defaultImport = node.specifiers.filter(
 					(spec) => spec.type === 'ImportDefaultSpecifier',
 				);
-				const namedImport = node.specifiers.filter((spec) => spec.type === 'ImportSpecifier');
+				const namedImports = node.specifiers.filter((spec) => spec.type === 'ImportSpecifier');
 
-				// If popup or dropdown menu and using a default import
-				if (defaultImport.length && defaultImport[0].local) {
+				if (defaultImport.length && defaultImport[0].local && components[source]?.default) {
 					componentLocalName = defaultImport[0].local.name;
-					// or if popup and using a named import
-				} else if (
-					namedImport.length &&
-					namedImport[0].type === 'ImportSpecifier' &&
-					'name' in namedImport[0].imported &&
-					namedImport[0].imported.name === 'Popup'
-				) {
-					componentLocalName = namedImport[0].local.name;
 				}
+
+				if (!namedImports.length) {
+					return;
+				}
+
+				// Iterate through all of them, only one should ever be found
+				namedImports.forEach((namedImport) => {
+					if (
+						namedImport.type === 'ImportSpecifier' &&
+						'name' in namedImport.imported &&
+						namedImport.imported.name === components[source]?.named
+					) {
+						componentLocalName = namedImport.local.name;
+					}
+				});
 			},
 
 			JSXElement(node: Rule.Node) {

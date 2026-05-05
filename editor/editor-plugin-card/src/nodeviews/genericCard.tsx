@@ -19,6 +19,7 @@ import Link from '@atlaskit/link';
 import type { CardContext } from '@atlaskit/link-provider';
 import type { APIError } from '@atlaskit/linking-common';
 import type { CardProps as BaseCardProps } from '@atlaskit/smart-card';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { CardPlugin } from '../cardPluginType';
 import type { cardPlugin } from '../index';
@@ -50,6 +51,7 @@ export interface CardProps extends CardNodeViewProps {
 	onClickCallback?: OnClickCallback;
 	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
 	showHoverPreview?: BaseCardProps['showHoverPreview'];
+	smartCardContext?: CardContext;
 	useAlternativePreloader?: boolean;
 	view: EditorView;
 }
@@ -140,7 +142,7 @@ export function Card(
 		};
 
 		render() {
-			const { pluginInjectionApi, onClickCallback } = this.props;
+			const { pluginInjectionApi, onClickCallback, smartCardContext } = this.props;
 
 			const { url } = titleUrlPairFromNode(this.props.node);
 			if (url && !isSafeUrl(url)) {
@@ -183,7 +185,13 @@ export function Card(
 						url={url}
 					>
 						{({ onClick }) => (
-							<WithCardContext>
+							<WithCardContext
+								value={
+									expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+										? smartCardContext
+										: undefined
+								}
+							>
 								{(cardContext) => (
 									<SmartCardComponent
 										key={url}

@@ -10,7 +10,6 @@ import type { PluginInjectionAPI } from '../types';
 export type TableOptions = {
 	isChromelessEditor?: boolean;
 	isCommentEditor?: boolean;
-	isDragAndDropEnabled?: boolean;
 	isFullWidthModeEnabled?: boolean;
 	isTableScalingEnabled?: boolean;
 	shouldUseIncreasedScalingPercent?: boolean;

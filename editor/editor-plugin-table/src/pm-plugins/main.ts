@@ -156,7 +156,6 @@ export const createPlugin = (
 			tableRow: tableRowView({
 				eventDispatcher,
 				pluginInjectionApi,
-				isDragAndDropEnabled: true,
 			}),
 			tableCell: tableCellView({ eventDispatcher, pluginInjectionApi }),
 			tableHeader: tableHeaderView({ eventDispatcher, pluginInjectionApi }),

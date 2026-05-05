@@ -136,7 +136,7 @@ const tooltipStyles = cssMap({
 		// The panel splitter is 17px wide, but the visual representation is 3px wide, so there's an extra 7px of space between the tooltip and the splitter.
 		// We use a negative margin to offset this extra space, resulting in only an extra 1px of space between the tooltip and the splitter.
 		marginInlineStart: token('space.negative.075'),
-		// With UNSAFE_shouldRenderToParent, the tooltip is rendered alongside the panel splitter in the DOM.
+		// With shouldRenderToParent, the tooltip is rendered alongside the panel splitter in the DOM.
 		// The side nav's panel splitter is rendered outside of the side nav element.
 		// The side nav panel splitter's container (portal target) uses `transform` for positioning, which makes it the containing block
 		// (https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Display/Containing_block) for the tooltip.
@@ -216,8 +216,8 @@ const MaybeTooltip = ({ tooltipContent, shortcut, children, testId }: MaybeToolt
 				mousePosition="right"
 				isScreenReaderAnnouncementDisabled
 				component={PanelSplitterTooltip}
-				UNSAFE_shouldAlwaysFadeIn
-				UNSAFE_shouldRenderToParent
+				shouldAlwaysFadeIn
+				shouldRenderToParent
 			>
 				{children}
 			</Tooltip>

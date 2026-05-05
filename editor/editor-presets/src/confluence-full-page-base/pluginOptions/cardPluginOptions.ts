@@ -3,6 +3,7 @@ import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { LinkPickerOptions } from '@atlaskit/editor-common/types';
 import type { CardPluginOptions } from '@atlaskit/editor-plugin-card';
+import type { CardContext } from '@atlaskit/link-provider';
 
 import type { FullPageEditorAppearance } from '../types';
 
@@ -22,6 +23,7 @@ interface Props {
 		editorAppearance: FullPageEditorAppearance;
 		linkPicker: LinkPickerOptions | undefined;
 		onClickCallback: OnClickCallback | undefined;
+		smartCardContext: CardContext | undefined;
 	};
 	providers: {
 		cardProvider: Promise<CardProvider> | undefined;
@@ -43,6 +45,7 @@ declare global {
  */
 export function cardPluginOptions({ options, providers }: Props): CardPluginOptions {
 	return {
+		smartCardContext: options.smartCardContext,
 		// From confluence/next/packages/full-page-editor/src/FullPageEditorComponent.tsx `CARD_OPTIONS =`
 		allowDatasource: true,
 		// END SECTION

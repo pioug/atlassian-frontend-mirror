@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 114.19.1
+
+### Patch Changes
+
+- [`76dff28130c6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76dff28130c6a) -
+  Add replace-media button to media plugin
+- Updated dependencies
+
+## 114.19.0
+
+### Minor Changes
+
+- [`59e4e1f797346`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59e4e1f797346) -
+  Updating copy for the full screen expand toolbar on media and native embeds
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.18.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.18.2
 
 ### Patch Changes

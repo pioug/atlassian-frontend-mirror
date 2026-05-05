@@ -182,6 +182,7 @@ type UseMediaAsyncOperationsProps = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	addPendingTask: (promise: Promise<any>) => void;
 	getPos: () => number | undefined;
+	mediaChildNodeId: string | undefined;
 	mediaNode: PMNode;
 	mediaNodeUpdater: MediaNodeUpdater | null;
 };
@@ -190,6 +191,7 @@ const useMediaAsyncOperations = ({
 	mediaNodeUpdater,
 	addPendingTask,
 	getPos,
+	mediaChildNodeId,
 }: UseMediaAsyncOperationsProps) => {
 	React.useEffect(() => {
 		if (!mediaNodeUpdater) {
@@ -208,7 +210,11 @@ const useMediaAsyncOperations = ({
 			mediaNode,
 			addPendingTask,
 		});
-	}, [mediaNode, addPendingTask, mediaNodeUpdater, getPos]);
+		// mediaChildNodeId is included so this effect re-runs when the media source
+		// is replaced (id changes), ensuring getRemoteDimensions fires for the new file
+		// with up-to-date updater props after setProps has been called.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [mediaNode, addPendingTask, mediaNodeUpdater, getPos, mediaChildNodeId]);
 };
 
 const noop = () => {};
@@ -424,6 +430,7 @@ export const MediaSingleNodeNext = (
 		getPos,
 		mediaNode,
 		addPendingTask: addPendingTask || noop,
+		mediaChildNodeId: mediaNode.firstChild?.attrs.id as string | undefined,
 	});
 
 	React.useLayoutEffect(() => {

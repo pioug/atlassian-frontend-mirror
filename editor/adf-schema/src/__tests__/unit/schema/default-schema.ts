@@ -96,6 +96,7 @@ describe('Get Schema Based On Stage', () => {
 				'__fontStyleGroupDeclaration',
 				'__searchQueryGroupDeclaration',
 				'__linkGroupDeclaration',
+				'fontSize',
 				'breakout',
 				'dataConsumer',
 				'fragment',

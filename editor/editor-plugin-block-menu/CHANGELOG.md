@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 9.0.13
+
+### Patch Changes
+
+- [`07b2a518560d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07b2a518560d1) -
+  Adds test-id to the "Turn into" button.
+- Updated dependencies
+
 ## 9.0.12
 
 ### Patch Changes

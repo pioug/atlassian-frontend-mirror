@@ -10,11 +10,11 @@ import {
 	tableRowWithNestedTable,
 	tableCellWithNestedTable,
 	tableHeaderWithNestedTable,
+	codeBlockWithExtendedAttributes,
 } from './nodes';
 import type { SchemaConfig } from './create-schema';
 import { createSchema } from './create-schema';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { fontSize } from './marks/font-size';
 
 type DefaultSchemaNodes =
 	| 'doc'
@@ -160,6 +160,7 @@ const getDefaultSchemaConfig = (): SchemaConfig<DefaultSchemaNodes, DefaultSchem
 			'alignment',
 			'indentation',
 			'annotation',
+			'fontSize',
 			'dataConsumer',
 			'border',
 			'unsupportedMark',
@@ -192,9 +193,7 @@ export const getSchemaBasedOnStage: MemoizedFn<
 				tableRow: tableRowWithNestedTable,
 				tableCell: tableCellWithNestedTable,
 				tableHeader: tableHeaderWithNestedTable,
-			};
-			defaultSchemaConfig.customMarkSpecs = {
-				fontSize: fontSize,
+				codeBlock: codeBlockWithExtendedAttributes,
 			};
 		}
 

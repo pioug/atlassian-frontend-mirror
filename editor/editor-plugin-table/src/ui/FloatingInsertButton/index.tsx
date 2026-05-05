@@ -36,7 +36,7 @@ import { TableCssClassName as ClassName } from '../../types';
 import type { PluginInjectionAPI } from '../../types';
 
 import getPopupOptions from './getPopupOptions';
-import InsertButton, { DragAndDropInsertButton } from './InsertButton';
+import { DragAndDropInsertButton } from './InsertButton';
 
 export interface Props {
 	api: PluginInjectionAPI | undefined | null;
@@ -51,7 +51,6 @@ export interface Props {
 	insertRowButtonIndex?: number;
 	isChromelessEditor?: boolean;
 	isCommentEditor?: boolean;
-	isDragAndDropEnabled?: boolean;
 	isHeaderColumnEnabled?: boolean;
 	isHeaderRowEnabled?: boolean;
 	isTableScalingEnabled?: boolean;
@@ -83,13 +82,11 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 			boundariesElement,
 			isHeaderColumnEnabled,
 			isHeaderRowEnabled,
-			isDragAndDropEnabled,
 			dispatchAnalyticsEvent,
 			isChromelessEditor,
 		} = this.props;
-
 		// TODO: ED-26961 - temporarily disable insert button for first column and row https://atlassian.slack.com/archives/C05U8HRQM50/p1698363744682219?thread_ts=1698209039.104909&cid=C05U8HRQM50
-		if (isDragAndDropEnabled && (insertColumnButtonIndex === 0 || insertRowButtonIndex === 0)) {
+		if (insertColumnButtonIndex === 0 || insertRowButtonIndex === 0) {
 			return null;
 		}
 
@@ -186,7 +183,7 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 		// Fixed the 'add column button' not visible issue when sticky header is enabled
 		// By setting the Popup z-index higher than the sticky header z-index ( common-styles.ts tr.sticky)
 		// Only when inserting a column, otherwise set to undefined
-		// Need to set z-index in the Popup, set z-index in the <InsertButton /> will not work
+		// Need to set z-index in the Popup, set z-index in the <DragAndDropInsertButton /> will not work
 		const zIndex: number | undefined =
 			expValEquals(
 				'platform_editor_table_sticky_header_improvements',
@@ -208,31 +205,16 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 				allowOutOfBounds
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
-				{...getPopupOptions(
-					type,
-					index,
-					hasNumberedColumns,
-					!!isDragAndDropEnabled,
-					tableContainerWrapper,
-				)}
+				{...getPopupOptions(type, index, hasNumberedColumns, true, tableContainerWrapper)}
 				zIndex={zIndex}
 			>
-				{isDragAndDropEnabled ? (
-					<DragAndDropInsertButton
-						type={type}
-						tableRef={tableRef}
-						onMouseDown={type === 'column' ? this.insertColumn : this.insertRow}
-						hasStickyHeaders={this.props.hasStickyHeaders || false}
-						isChromelessEditor={isChromelessEditor}
-					/>
-				) : (
-					<InsertButton
-						type={type}
-						tableRef={tableRef}
-						onMouseDown={type === 'column' ? this.insertColumn : this.insertRow}
-						hasStickyHeaders={this.props.hasStickyHeaders || false}
-					/>
-				)}
+				<DragAndDropInsertButton
+					type={type}
+					tableRef={tableRef}
+					onMouseDown={type === 'column' ? this.insertColumn : this.insertRow}
+					hasStickyHeaders={this.props.hasStickyHeaders || false}
+					isChromelessEditor={isChromelessEditor}
+				/>
 			</Popup>
 		);
 	}

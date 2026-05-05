@@ -1,5 +1,27 @@
 # @atlassian/navigation-system
 
+## 9.2.0
+
+### Minor Changes
+
+- [`b46825ac6c66c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b46825ac6c66c) -
+  Cleans up the `platform_dst_nav4_top_nav_increase_height` feature gate. The top nav height is now
+  always 56px when the full-height sidebar is enabled.
+
+## 9.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.1
+
+### Patch Changes
+
+- [`0d8519bedea15`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d8519bedea15) -
+  Cleanup feature gate `platform_themed_button_use_icon_renderer`. Icon renderer is now always used
+  for themed button icons.
+
 ## 9.1.0
 
 ### Minor Changes

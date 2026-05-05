@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block
 
+## 12.0.13
+
+### Patch Changes
+
+- [`2fb1c8a74a856`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fb1c8a74a856) -
+  ADF Change 101: Add wrap and hideLineNumbers attributes to codeBlock stage-0 variants
+- Updated dependencies
+
 ## 12.0.12
 
 ### Patch Changes

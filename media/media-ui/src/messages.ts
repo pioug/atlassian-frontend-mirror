@@ -137,6 +137,7 @@ export type MessageKey =
 	| 'volumeMuteButtonAria'
 	| 'volumeLevelControlAria'
 	| 'playbackDefaultSpeed'
+	| 'expand'
 	| 'preview'
 	| 'preview_unavailable'
 	| 'creating_preview'
@@ -968,6 +969,11 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.media.playback_default_speed',
 		defaultMessage: 'Default',
 		description: 'In the context of a video player, it is a value of a default playback speed',
+	},
+	expand: {
+		id: 'fabric.editor.expand',
+		defaultMessage: 'Expand',
+		description: 'Click to view a richer view of your content, without needing to navigate to it.',
 	},
 	preview: {
 		id: 'fabric.media.preview',

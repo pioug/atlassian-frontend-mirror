@@ -67,6 +67,8 @@ export interface MediaPluginState {
 	pickerPromises: Array<Promise<PickerFacade>>;
 	pickers: PickerFacade[];
 	removeSelectedMediaContainer: () => boolean;
+	replaceMediaFileId: string | null;
+	replaceMediaTargetDisplayHeight: number | null;
 	resizingWidth: number;
 	selectedMediaContainerNode: () => PMNode | undefined;
 	setBrowseFn: (browseFn: () => void) => void;
@@ -77,6 +79,7 @@ export interface MediaPluginState {
 	showDropzone: boolean;
 	showEditingDialog?: boolean;
 	showMediaPicker: () => void;
+	showMediaPickerForReplace: () => void;
 
 	splitMediaGroup: () => boolean;
 	subscribeToUploadInProgressState: (fn: (isUploading: boolean) => void) => void;

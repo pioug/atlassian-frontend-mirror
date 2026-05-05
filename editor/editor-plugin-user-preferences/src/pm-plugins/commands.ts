@@ -15,6 +15,30 @@ import type {
 
 import { userPreferencesPluginKey } from './main';
 
+export const overrideUserPreference =
+	({
+		key,
+		value,
+	}: {
+		key: keyof ResolvedUserPreferences;
+		value: ResolvedUserPreferences[typeof key];
+	}): EditorCommand =>
+	({ tr }) => {
+		tr.setMeta(userPreferencesPluginKey, {
+			override: { key, value },
+		});
+		return tr;
+	};
+
+export const clearOverrideUserPreference =
+	({ key }: { key: keyof ResolvedUserPreferences }): EditorCommand =>
+	({ tr }) => {
+		tr.setMeta(userPreferencesPluginKey, {
+			override: { key, value: null },
+		});
+		return tr;
+	};
+
 export const updateUserPreference =
 	({
 		key,

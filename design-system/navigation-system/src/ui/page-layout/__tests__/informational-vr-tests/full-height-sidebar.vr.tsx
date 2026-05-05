@@ -58,7 +58,6 @@ snapshotInformational(CompanyHubMockExample, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	async prepare(page) {
 		await page.setViewportSize({ width: 1024, height: 768 });
@@ -81,7 +80,6 @@ snapshotInformational(CompanyHubMockExample, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	async prepare(page) {
 		await page.setViewportSize({ width: 1920, height: 768 });
@@ -104,7 +102,6 @@ snapshotInformational(CompositionVR, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	async prepare(page) {
 		await page.setViewportSize({ width: 1024, height: 768 });
@@ -127,7 +124,6 @@ snapshotInformational(CompositionVR, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	async prepare(page) {
 		await page.setViewportSize({ width: 1024, height: 768 });
@@ -154,7 +150,6 @@ snapshotInformational(CompositionVR, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	async prepare(page) {
 		await page.setViewportSize({ width: 1024, height: 768 });
@@ -190,7 +185,6 @@ snapshotInformational(CompositionExample, {
 	variants: [variants.mobile],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	async prepare(page) {
 		// Scrolls down to the aside content, which is below the main content
@@ -211,7 +205,6 @@ snapshotInformational(CompositionVR, {
 	variants: [variants.mobile],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	async prepare(page) {
 		await page.getByRole('button', { name: 'Expand sidebar' }).click();
@@ -240,7 +233,6 @@ snapshotInformational(TopNavigationThemingWithPickerExample, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_top_nav_increase_height: true,
 	},
 });
 
@@ -253,7 +245,6 @@ snapshotInformational(NavigationShellExample, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_top_nav_increase_height: true,
 	},
 });
 
@@ -266,7 +257,6 @@ snapshotInformational(NavigationShellWithToggleButtonOnboarding, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_top_nav_increase_height: true,
 	},
 });
 
@@ -289,7 +279,6 @@ snapshotInformational(NavigationShellExample, {
 	variants: [variants.desktopXL],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_top_nav_increase_height: true,
 	},
 });
 
@@ -305,7 +294,6 @@ snapshotInformational(NavigationShellWithWideSideNav, {
 	variants: [variants.desktopXL],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_top_nav_increase_height: true,
 	},
 });
 
@@ -315,7 +303,6 @@ snapshotInformational(TopNavigationCustomLogoImageWithSideNavExample, {
 	variants: [variants.desktop, variants.mobile],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_top_nav_increase_height: true,
 	},
 });
 
@@ -377,7 +364,6 @@ snapshotInformational(SideNavLayering, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_top_nav_increase_height: true,
 		platform_dst_nav4_flyout_menu_slots_close_button: true,
 	},
 	prepare: async (page) => {
@@ -391,7 +377,6 @@ snapshotInformational(CompositionVR, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	prepare: async (page) => {
 		// Open app switcher in the top nav
@@ -403,7 +388,6 @@ snapshotInformational(CompositionVR, {
 	description: 'top nav layer above side nav - resize to mobile',
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	prepare: async (page) => {
 		// In this test, we want both the mobile side nav and app switcher to be open.

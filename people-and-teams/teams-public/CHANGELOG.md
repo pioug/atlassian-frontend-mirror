@@ -1,5 +1,18 @@
 # @atlaskit/teams-public
 
+## 1.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.3.0
+
+### Minor Changes
+
+- [`70f6974f09ee3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70f6974f09ee3) -
+  Cleaned up legacy analytics
+
 ## 1.2.0
 
 ### Minor Changes

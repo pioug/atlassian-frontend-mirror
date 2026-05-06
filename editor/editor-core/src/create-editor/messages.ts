@@ -19,6 +19,7 @@ export const editorMessages: {
 	fullPageEditorAssistiveLabel: {
 		id: 'fabric.editor.fullPageEditorAssistiveLabel',
 		defaultMessage: 'Page editing area, start typing to enter text.',
-		description: 'The aria-label for the full page editor',
+		description:
+			'The aria-label assigned to the full page editor content area, read by screen readers when a user focuses the editing region.',
 	},
 });

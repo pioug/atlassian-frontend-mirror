@@ -70,6 +70,7 @@ const AgentProfileCard = ({
 	agent,
 	isLoading,
 	cloudId,
+	email,
 	onChatClick,
 	hasError,
 	errorType,
@@ -90,6 +91,7 @@ const AgentProfileCard = ({
 		onViewFullProfile,
 	} = useAgentUrlActions({
 		cloudId: cloudId || '',
+		email,
 		source: 'agentProfileCard',
 	});
 

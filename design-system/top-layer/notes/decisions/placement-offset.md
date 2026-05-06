@@ -422,7 +422,7 @@ to ensure they explicitly reset arrow geometry not relevant to that fallback.
     `getPlacement()` defaults.
   - `packages/design-system/top-layer/src/internal/resolve-css-length.tsx` — `toCssLengthString`
     helper that normalizes number offsets to `${n}px` strings at the API boundary.
-  - `packages/design-system/top-layer/src/internal/use-anchor-positioning.tsx` — custom property
+  - `packages/design-system/top-layer/src/internal/use-anchor-position.tsx` — custom property
     writes; JS fallback offset resolution.
   - `packages/design-system/top-layer/src/internal/anchor-positioning-fallback.tsx` — JS fallback
     math; takes pre-resolved pixel `gap` and `crossAxisShift`.

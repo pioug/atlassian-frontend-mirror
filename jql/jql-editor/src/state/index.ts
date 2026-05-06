@@ -106,8 +106,6 @@ const defaultAutocompleteOptions: AutocompleteOptionGroup = {
 	functions: [],
 };
 
-type Actions = typeof actions;
-
 export const initialState: State = {
 	controlledQuery: '',
 	query: '',
@@ -149,7 +147,51 @@ export const initialState: State = {
  */
 const isLineNumbersVisible = (editorState: EditorState) => editorState.doc.childCount > 1;
 
-export const actions = {
+// Explicit type declaration for actions is required for IsoDec compliance
+type Actions = {
+	appendOptionsForObservable: (
+		key: OptionsKey,
+		observable: Observable<AutocompleteOptions>,
+		rule: JQLRuleSuggestion,
+		type: AutocompleteOptionType,
+	) => Action<State, void, Observable<AutocompleteOptions>>;
+	callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
+	cancelSubscription: () => Action<State>;
+	closeAutocomplete: () => Action<State>;
+	configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
+	createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
+	externalErrorMessageViewed: () => Action<State, Props>;
+	getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
+	getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
+	initialiseEditorState: () => Action<State, Props>;
+	initialiseEditorView: (
+		editorViewNode: HTMLElement,
+		attributes: { [key: string]: string },
+		portalActions: PortalActions,
+	) => Action<State, Props>;
+	onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
+	onEditorViewBlur: () => Action<State>;
+	onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
+	onSearch: () => Action<State>;
+	onSearchCommand: (
+		pmState: EditorState,
+		pmDispatch: ((tr: Transaction) => void) | undefined,
+		pmView: EditorView | undefined,
+		keyboardShortcut: boolean,
+	) => Action<State, Props, boolean>;
+	openAutocompleteOnNextUpdate: () => Action<State>;
+	resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
+	setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
+	setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
+	setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
+	setEditorViewContainerScroll: (scroll: number) => Action<State>;
+	setLoading: (loading: boolean) => Action<State>;
+	setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
+	updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
+	updateValidationState: () => Action<State>;
+};
+
+export const actions: Actions = {
 	onEditorViewBlur:
 		(): Action<State> =>
 		({ setState, dispatch }) => {
@@ -811,105 +853,17 @@ const Store = createStore<State, Actions>({
 	actions,
 });
 
-export const useStoreActions: HookFunction<
-	null,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
-	void
-> = createHook<State, Actions, null>(Store, {
+export const useStoreActions: HookFunction<null, BoundActions<State, Actions>, void> = createHook<
+	State,
+	Actions,
+	null
+>(Store, {
 	selector: null,
 });
 
 export const useEditorState: HookFunction<
 	EditorState,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, EditorState>(Store, {
 	selector: (state) => state.editorState,
@@ -917,51 +871,7 @@ export const useEditorState: HookFunction<
 
 export const useEditorView: HookFunction<
 	EditorView | undefined,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, EditorView | undefined>(Store, {
 	selector: (state) => state.editorView,
@@ -969,155 +879,23 @@ export const useEditorView: HookFunction<
 
 export const useIsSearching: HookFunction<
 	boolean | undefined,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, boolean | undefined>(Store, {
 	selector: (state) => state.isSearching,
 });
 
-export const useIntl: HookFunction<
-	IntlShape,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
-	void
-> = createHook<State, Actions, IntlShape>(Store, {
+export const useIntl: HookFunction<IntlShape, BoundActions<State, Actions>, void> = createHook<
+	State,
+	Actions,
+	IntlShape
+>(Store, {
 	selector: (state) => state.intlRef.current,
 });
 
 export const useAutocompleteProvider: HookFunction<
 	AutocompleteProvider,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, AutocompleteProvider>(Store, {
 	selector: (state) => state.autocompleteProvider,
@@ -1125,157 +903,26 @@ export const useAutocompleteProvider: HookFunction<
 
 const getScopedId = (state: State, idSuffix: string): string => `${state.idPrefix}_${idSuffix}`;
 
-export const useScopedId: HookFunction<
+export const useScopedId: HookFunction<string, BoundActions<State, Actions>, string> = createHook<
+	State,
+	Actions,
 	string,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
 	string
-> = createHook<State, Actions, string, string>(Store, {
+>(Store, {
 	selector: getScopedId,
 });
 
-export const useIdPrefix: HookFunction<
-	string,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
-	void
-> = createHook<State, Actions, string>(Store, {
+export const useIdPrefix: HookFunction<string, BoundActions<State, Actions>, void> = createHook<
+	State,
+	Actions,
+	string
+>(Store, {
 	selector: (state) => state.idPrefix,
 });
 
 export const useEditorViewHasFocus: HookFunction<
 	boolean,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, boolean>(Store, {
 	selector: ({ editorViewHasFocus }) => editorViewHasFocus,
@@ -1283,51 +930,7 @@ export const useEditorViewHasFocus: HookFunction<
 
 export const useLineNumbersVisible: HookFunction<
 	boolean,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, boolean>(Store, {
 	selector: ({ lineNumbersVisible }) => lineNumbersVisible,
@@ -1337,51 +940,7 @@ const getAutocomplete = (state: State): AutocompleteState => state.autocomplete;
 
 export const useAutocomplete: HookFunction<
 	AutocompleteState,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, AutocompleteState>(Store, {
 	selector: getAutocomplete,
@@ -1392,51 +951,7 @@ export const useAutocomplete: HookFunction<
  */
 export const useJqlError: HookFunction<
 	JQLParseError | null,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, JQLParseError | null>(Store, {
 	selector: (state) => state.jqlError,
@@ -1447,51 +962,7 @@ export const useJqlError: HookFunction<
  */
 export const useEditorStateHasJqlError: HookFunction<
 	boolean,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, boolean>(Store, {
 	selector: (state) => getJastFromState(state.editorState).errors.length > 0,
@@ -1517,51 +988,7 @@ const memoizedExternalMessagesSelector = createSelector<
 
 export const useExternalMessages: HookFunction<
 	ExternalMessagesNormalized,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, ExternalMessagesNormalized>(Store, {
 	selector: memoizedExternalMessagesSelector,
@@ -1569,51 +996,7 @@ export const useExternalMessages: HookFunction<
 
 export const useCustomErrorComponent: HookFunction<
 	CustomErrorComponent | undefined,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, CustomErrorComponent | undefined>(Store, {
 	selector: (state) => {
@@ -1647,51 +1030,7 @@ const memoizedAutocompleteOptionsSelector = createSelector<
 
 export const useAutocompleteOptions: HookFunction<
 	SelectableAutocompleteOption[],
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, SelectableAutocompleteOption[]>(Store, {
 	selector: memoizedAutocompleteOptionsSelector,
@@ -1701,51 +1040,7 @@ const autocompleteIsLoadingSelector = (state: State): boolean => state.autocompl
 
 export const useAutocompleteLoading: HookFunction<
 	boolean,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, boolean>(Store, {
 	selector: autocompleteIsLoadingSelector,
@@ -1770,51 +1065,7 @@ const memoizedAutocompleteIsOpenSelector = createSelector<
 
 export const useAutocompleteIsOpen: HookFunction<
 	boolean,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, boolean>(Store, {
 	selector: memoizedAutocompleteIsOpenSelector,
@@ -1822,51 +1073,7 @@ export const useAutocompleteIsOpen: HookFunction<
 
 export const useAutocompletePosition: HookFunction<
 	AutocompletePosition,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, AutocompletePosition>(Store, {
 	selector: (state) => {
@@ -1925,51 +1132,7 @@ export const useAutocompletePosition: HookFunction<
 // See normaliseHydrationKey in ./hydration/util.ts for details.
 export const useHydratedValue: HookFunction<
 	HydratedValue | undefined,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	{
 		fieldName: string;
 		id: string;
@@ -1988,51 +1151,7 @@ export const useHydratedValue: HookFunction<
 
 export const useHydratedUser: HookFunction<
 	HydratedUser | undefined,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	{
 		fieldName: string;
 		id: string;
@@ -2048,51 +1167,7 @@ export const useHydratedUser: HookFunction<
 
 export const useHydratedTeam: HookFunction<
 	HydratedTeam | undefined,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	{
 		fieldName: string;
 		id: string;
@@ -2108,51 +1183,7 @@ export const useHydratedTeam: HookFunction<
 
 export const useHydratedProject: HookFunction<
 	HydratedProject | undefined,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	{
 		fieldName: string;
 		id: string;
@@ -2171,51 +1202,7 @@ export const useHydratedProject: HookFunction<
 
 export const useHydratedGoal: HookFunction<
 	HydratedGoal | undefined,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	{
 		fieldName: string;
 		id: string;
@@ -2231,51 +1218,7 @@ export const useHydratedGoal: HookFunction<
 
 export const useHydratedDeprecations: HookFunction<
 	HydratedDeprecatedField[],
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, HydratedDeprecatedField[]>(Store, {
 	selector: (state) => {
@@ -2299,51 +1242,7 @@ export const useHydratedDeprecations: HookFunction<
 
 export const useRichInlineNodesEnabled: HookFunction<
 	boolean,
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, boolean>(Store, {
 	selector: (state) => state.enableRichInlineNodes,
@@ -2351,51 +1250,7 @@ export const useRichInlineNodesEnabled: HookFunction<
 
 export const useOnSyntaxHelp: HookFunction<
 	void | ((e: MouseEvent<HTMLElement>) => boolean),
-	BoundActions<
-		State,
-		{
-			appendOptionsForObservable: (
-				key: OptionsKey,
-				observable: Observable<AutocompleteOptions>,
-				rule: JQLRuleSuggestion,
-				type: AutocompleteOptionType,
-			) => Action<State, void, Observable<AutocompleteOptions>>;
-			callAutocompleteProviders: ({ rules, tokens }: ContextAwareJQLSuggestions) => Action<State>;
-			cancelSubscription: () => Action<State>;
-			closeAutocomplete: () => Action<State>;
-			configurePlugins: (portalActions: PortalActions | void) => Action<State, Props>;
-			createAndFireAnalyticsEvent: (payload: JqlEditorAnalyticsEvent) => Action<State, Props>;
-			externalErrorMessageViewed: () => Action<State, Props>;
-			getAutocompleteOptions: (suggestions: ContextAwareJQLSuggestions) => Action<State>;
-			getAutocompleteSuggestions: (editorState: EditorState) => Action<State>;
-			initialiseEditorState: () => Action<State, Props>;
-			initialiseEditorView: (
-				editorViewNode: HTMLElement,
-				attributes: { [key: string]: string },
-				portalActions: PortalActions,
-			) => Action<State, Props>;
-			onApplyEditorTransaction: (transaction: Transaction) => Action<State, Props>;
-			onEditorViewBlur: () => Action<State>;
-			onEditorViewFocus: (event: FocusEvent<HTMLElement>) => Action<State, Props>;
-			onSearch: () => Action<State>;
-			onSearchCommand: (
-				pmState: EditorState,
-				pmDispatch: ((tr: Transaction) => void) | undefined,
-				pmView: EditorView | undefined,
-				keyboardShortcut: boolean,
-			) => Action<State, Props, boolean>;
-			openAutocompleteOnNextUpdate: () => Action<State>;
-			resetEditorState: (query: string, addToHistory?: boolean) => Action<State>;
-			setAutocompleteContainer: (container: HTMLElement | null) => Action<State>;
-			setAutocompleteOptions: (options: AutocompleteOptionGroup) => Action<State>;
-			setEditorViewContainer: (editorViewContainer: HTMLElement) => Action<State>;
-			setEditorViewContainerScroll: (scroll: number) => Action<State>;
-			setLoading: (loading: boolean) => Action<State>;
-			setSelectedAutocompleteOptionId: (selectedOptionId: string | undefined) => Action<State>;
-			updateEditorView: (attributes: { [key: string]: string }) => Action<State, Props>;
-			updateValidationState: () => Action<State>;
-		}
-	>,
+	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, ((e: MouseEvent<HTMLElement>) => boolean) | void>(Store, {
 	selector: (state) => state.onSyntaxHelp,

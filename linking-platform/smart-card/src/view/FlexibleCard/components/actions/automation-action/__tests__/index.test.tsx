@@ -3,6 +3,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import '@atlaskit/link-test-helpers/jest';
@@ -24,13 +25,15 @@ describe('AutomationAction', () => {
 		const onEvent = jest.fn();
 
 		return render(
-			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
-				<IntlProvider locale="en">
-					<SmartLinkModalProvider>
-						<AutomationAction {...props} as="button" />
-					</SmartLinkModalProvider>
-				</IntlProvider>
-			</AnalyticsListener>,
+			<SmartCardProvider>
+				<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
+					<IntlProvider locale="en">
+						<SmartLinkModalProvider>
+							<AutomationAction {...props} as="button" />
+						</SmartLinkModalProvider>
+					</IntlProvider>
+				</AnalyticsListener>
+			</SmartCardProvider>,
 		);
 	};
 

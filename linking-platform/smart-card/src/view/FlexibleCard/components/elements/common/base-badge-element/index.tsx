@@ -8,13 +8,15 @@ import React, { forwardRef } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 import { type MessageDescriptor } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { IconType } from '../../../../../../constants';
 import { messages } from '../../../../../../messages';
 import { useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context';
+import {
+	useBlockCardRovoActionExperimentNoExposure,
+} from '../../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import AtlaskitIcon from '../../../common/atlaskit-icon';
 import ImageIcon from '../../../common/image-icon';
 import { withOverrideCss } from '../../../common/with-override-css';
@@ -162,6 +164,7 @@ const BaseBadgeRefreshNew = forwardRef(
 		ref: React.Ref<HTMLElement>,
 	) => {
 		const ui = useFlexibleUiOptionContext();
+		const isRovoBlockCardExperimentEnabled = useBlockCardRovoActionExperimentNoExposure();
 
 		const formattedMessageOrLabel = getFormattedMessageFromIcon(icon) || label;
 		const badgeIcon =
@@ -170,7 +173,7 @@ const BaseBadgeRefreshNew = forwardRef(
 			return null;
 		}
 
-		const shouldHideLabel = hideLabel && fg('platform_sl_3p_auth_rovo_block_card_kill_switch');
+		const shouldHideLabel = hideLabel && isRovoBlockCardExperimentEnabled;
 
 		return (
 			<span

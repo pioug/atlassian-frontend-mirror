@@ -1,5 +1,24 @@
 # @atlaskit/top-layer
 
+## 0.5.1
+
+### Patch Changes
+
+- [`693551fc3e8c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/693551fc3e8c4) -
+  useAnchorPosition no longer re-runs its positioning effect when a fresh placement object reference
+  with the same resolved shape is passed (eg an inline literal on every render). The hook
+  structurally compares the resolved placement and reuses the previous reference when the shape is
+  unchanged.
+
+## 0.5.0
+
+### Minor Changes
+
+- [`6e656fce5ceee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e656fce5ceee) -
+  Fix anchor positioning so multiple popovers can share the same trigger element. Previously the
+  second `useAnchorPosition` call on the same trigger would overwrite the first call's `anchor-name`
+  style, leaving the first popover unpositioned.
+
 ## 0.4.0
 
 ### Minor Changes

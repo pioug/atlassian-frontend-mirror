@@ -5,6 +5,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, screen, waitForElementToBeRemoved, userEvent } from '@atlassian/testing-library';
 
@@ -26,11 +27,13 @@ describe('CopyLinkAction', () => {
 		const onEvent = jest.fn();
 
 		return render(
-			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
-				<IntlProvider locale="en">
-					<CopyLinkAction {...props} as="stack-item" />
-				</IntlProvider>
-			</AnalyticsListener>,
+			<SmartCardProvider>
+				<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
+					<IntlProvider locale="en">
+						<CopyLinkAction {...props} as="stack-item" />
+					</IntlProvider>
+				</AnalyticsListener>
+			</SmartCardProvider>,
 		);
 	};
 

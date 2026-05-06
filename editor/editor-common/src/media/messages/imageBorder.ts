@@ -55,7 +55,8 @@ export const imageBorderMessages: {
 	borderColor: {
 		id: 'fabric.editor.imageBorderColor',
 		defaultMessage: 'Color',
-		description: 'Change the border color of an image.',
+		description:
+			'Label shown as a toolbar section heading in the image border options panel for selecting the border color of the selected image.',
 	},
 	borderColorDropdownAriaLabel: {
 		id: 'fabric.editor.imageBorderColor.dropdownAriaLabel',
@@ -65,7 +66,8 @@ export const imageBorderMessages: {
 	borderSize: {
 		id: 'fabric.editor.imageBorderSize',
 		defaultMessage: 'Size',
-		description: 'Change the border size of an image.',
+		description:
+			'Label shown as a toolbar section heading in the image border options panel for selecting the border thickness of the selected image.',
 	},
 	borderSizeDropdownAriaLabel: {
 		id: 'fabric.editor.imageBorderSize.dropdownAriaLabel',

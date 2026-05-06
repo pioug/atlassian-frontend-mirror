@@ -14,7 +14,7 @@
  *  - Auto popovers: maintain an open stack, perform light-dismiss on document mousedown
  *    outside the open chain, and dismiss the topmost on Escape.
  *  - On open, removes any inline `opacity: 0` from the popover element so callers that
- *    rely on a `ResizeObserver` reveal callback (e.g. `use-anchor-positioning`) become
+ *    rely on a `ResizeObserver` reveal callback (e.g. `use-anchor-position`) become
  *    visible in jsdom, where layout-driven RO callbacks never fire.
  *
  * Companion `toBeVisible` patch lives at `./to-be-visible`.
@@ -240,7 +240,7 @@ function stackForMode({ mode }: { mode: TPopoverMode | null }): HTMLElement[] | 
 
 // Polyfill-only. Real browsers reveal the popover once `ResizeObserver`
 // callbacks fire after the first layout pass. jsdom has no layout, so we clear
-// any inline `opacity: 0` (set by callers like `use-anchor-positioning`) once
+// any inline `opacity: 0` (set by callers like `use-anchor-position`) once
 // the open toggle has fired.
 function clearOpacityOnOpenToggle({ element }: { element: HTMLElement }) {
 	const unbind = bind(element, {

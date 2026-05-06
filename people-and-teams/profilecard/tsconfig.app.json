@@ -130,6 +130,9 @@
 		},
 		{
 			"path": "../../helpers/storybook/tsconfig.app.json"
+		},
+		{
+			"path": "../../studio-foundations/studio-entry-link/tsconfig.app.json"
 		}
 	]
 }

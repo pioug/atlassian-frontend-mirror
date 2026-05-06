@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _customTheme = require("./custom-theme");
 var _themeConfig = require("./theme-config");
-var _colorUtils = require("./utils/color-utils");
 var _customThemeLoadingUtils = require("./utils/custom-theme-loading-utils");
+var _isValidBrandHex = require("./utils/is-valid-brand-hex");
 /**
  * Synchronously generates and applies custom theme styles to the page.
  *
@@ -29,7 +29,7 @@ var UNSAFE_loadCustomThemeStyles = function UNSAFE_loadCustomThemeStyles() {
     _ref$UNSAFE_themeOpti = _ref.UNSAFE_themeOptions,
     UNSAFE_themeOptions = _ref$UNSAFE_themeOpti === void 0 ? _themeConfig.themeStateDefaults['UNSAFE_themeOptions'] : _ref$UNSAFE_themeOpti;
   // Load custom theme styles
-  if (UNSAFE_themeOptions && (0, _colorUtils.isValidBrandHex)(UNSAFE_themeOptions === null || UNSAFE_themeOptions === void 0 ? void 0 : UNSAFE_themeOptions.brandColor)) {
+  if (UNSAFE_themeOptions && (0, _isValidBrandHex.isValidBrandHex)(UNSAFE_themeOptions === null || UNSAFE_themeOptions === void 0 ? void 0 : UNSAFE_themeOptions.brandColor)) {
     var attrOfMissingCustomStyles = (0, _customThemeLoadingUtils.findMissingCustomStyleElements)(UNSAFE_themeOptions, colorMode);
     if (attrOfMissingCustomStyles.length !== 0) {
       (0, _customTheme.loadAndAppendCustomThemeCss)({

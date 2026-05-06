@@ -211,14 +211,12 @@ export const FullPageToolbarNext = ({
 		[editorView],
 	);
 
-	if (expValEquals('platform_editor_primary_toolbar_early_exit', 'isEnabled', true)) {
-		// Remove entire primary toolbar region if:
-		// - primary toolbar isn't registered
-		// - no custom primary toolbar components to render
-		// note: primary toolbar must render if toolbar docking preference is set to "controlled" to avoid SSR conflicts
-		if (!shouldShowToolbarContainer(toolbar, customPrimaryToolbarComponents)) {
-			return <ToolbarPortal>{null}</ToolbarPortal>;
-		}
+	// Remove entire primary toolbar region if:
+	// - primary toolbar isn't registered
+	// - no custom primary toolbar components to render
+	// note: primary toolbar must render if toolbar docking preference is set to "controlled" to avoid SSR conflicts
+	if (!shouldShowToolbarContainer(toolbar, customPrimaryToolbarComponents)) {
+		return <ToolbarPortal>{null}</ToolbarPortal>;
 	}
 
 	if (expValEquals('platform_editor_toolbar_two_stage_hydration', 'isEnabled', true)) {

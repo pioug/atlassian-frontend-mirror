@@ -1,6 +1,8 @@
 import { taskWithDateAdf } from '../__fixtures__/task-with-date';
 import { rendererTestCase as test, expect } from './not-libra';
 
+test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
+
 test.describe('task', () => {
 	test.use({
 		adf: taskWithDateAdf,

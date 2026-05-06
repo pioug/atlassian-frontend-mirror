@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import AiIcon from '@atlaskit/icon/core/atlassian-intelligence';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../../messages';
@@ -12,6 +13,9 @@ import type {
 	AISummaryState,
 	AISummaryStatus,
 } from '../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
+import {
+	useBlockCardRovoActionExperimentNoExposure
+} from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import Action from '../action';
 
 import type { AISummaryActionProps } from './types';
@@ -30,6 +34,7 @@ export function AISummariseAction({
 		summariseUrl: () => Promise<AISummaryState> | undefined;
 	}): React.JSX.Element {
 	const { fireEvent } = useAnalyticsEvents();
+	const isRovoBlockCardExperimentEnabled = useBlockCardRovoActionExperimentNoExposure();
 
 	const onCompleted = useCallback(
 		(state: AISummaryState) => {
@@ -63,7 +68,8 @@ export function AISummariseAction({
 					color="currentColor"
 					label="Summarise with AI"
 					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-					fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
+					isRovoBlockCardExperimentEnabled ||
+						expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
 						? { size: props.iconSize }
 						: {})}
 				/>

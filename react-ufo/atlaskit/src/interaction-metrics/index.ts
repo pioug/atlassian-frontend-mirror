@@ -744,6 +744,47 @@ function pushToQueue(id: string, data: InteractionMetrics) {
 
 let handleInteraction = pushToQueue;
 
+function ensureMetricWindows(interaction: InteractionMetrics): void {
+	if (!fg('platform_ufo_metric_variants')) {
+		return;
+	}
+
+	if (interaction.end === 0) {
+		return;
+	}
+
+	interaction.metricWindows = {
+		...interaction.metricWindows,
+		standard: {
+			start: interaction.start,
+			end: interaction.end,
+			includeCategories: [],
+			excludeCategories: ['third-party'],
+		},
+	};
+
+	if (interaction.end3p !== undefined) {
+		interaction.metricWindows['include-third-party'] = {
+			start: interaction.start,
+			end: interaction.end3p,
+			includeCategories: ['third-party'],
+			excludeCategories: [],
+		};
+	}
+}
+
+function addLifecycleObservation(
+	interaction: InteractionMetrics,
+	observation: NonNullable<InteractionMetrics['lifecycleObservations']>[number],
+): void {
+	if (!fg('platform_ufo_metric_variants')) {
+		return;
+	}
+
+	interaction.lifecycleObservations = interaction.lifecycleObservations ?? [];
+	interaction.lifecycleObservations.push(observation);
+}
+
 function callCleanUpCallbacks(interaction: InteractionMetrics) {
 	interaction.cleanupCallbacks.reverse().forEach((cleanUpCallback) => {
 		cleanUpCallback();
@@ -756,6 +797,7 @@ function finishInteraction(
 	endTime: number = performance.now(),
 ) {
 	data.end = endTime;
+	ensureMetricWindows(data);
 	try {
 		// for Firefox 102 and older
 		performance.measure(`🛸 [${data.type}] ${data.ufoName} [ttai]`, {
@@ -951,6 +993,7 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 				if (endTime !== undefined && interaction.end === 0) {
 					interaction.end = endTime;
 				}
+				ensureMetricWindows(interaction);
 				// Wait for 3p holds to clear before finishing
 				return;
 			}
@@ -962,6 +1005,7 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 					const currentTime = endTime ?? performance.now();
 					interaction.end3p =
 						interaction.end !== 0 && currentTime < interaction.end ? interaction.end : currentTime;
+					ensureMetricWindows(interaction);
 					finishInteraction(
 						interactionId,
 						interaction,
@@ -1063,6 +1107,12 @@ export function abort(interactionId: string, abortReason: AbortReasonType): void
 		if (shouldUseRawDataThirdParty && noMoreActiveHolds && has3pHoldsActive) {
 			const endTime = interaction.end !== 0 ? interaction.end : performance.now();
 			interaction.end3p = performance.now();
+			addLifecycleObservation(interaction, {
+				type: abortReason === 'timeout' ? 'timeout_expired' : 'page_unloaded',
+				timestamp: interaction.end3p,
+				activeHoldCount: interaction.hold3pActive?.size ?? 0,
+			});
+			ensureMetricWindows(interaction);
 			finishInteraction(interactionId, interaction, endTime);
 			postInteractionLog.reset();
 			postInteractionLog.stopVCObserver();
@@ -1081,6 +1131,11 @@ export function abort(interactionId: string, abortReason: AbortReasonType): void
 
 		callCancelCallbacks(interaction);
 		interaction.abortReason = abortReason;
+		addLifecycleObservation(interaction, {
+			type: abortReason === 'timeout' ? 'timeout_expired' : 'page_unloaded',
+			timestamp: performance.now(),
+			activeHoldCount: interaction.holdActive.size + (interaction.hold3pActive?.size ?? 0),
+		});
 		finishInteraction(interactionId, interaction);
 		postInteractionLog.reset();
 		postInteractionLog.stopVCObserver();
@@ -1112,6 +1167,12 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 			const endTime = interaction.end !== 0 ? interaction.end : performance.now();
 			// Set end3p to current time, but ensure it's at least interaction.end
 			interaction.end3p = performance.now();
+			addLifecycleObservation(interaction, {
+				type: 'new_interaction_started',
+				timestamp: interaction.end3p,
+				triggerName: interactionName,
+			});
+			ensureMetricWindows(interaction);
 			finishInteraction(interactionId, interaction, endTime);
 			postInteractionLog.reset();
 			postInteractionLog.stopVCObserver();
@@ -1131,6 +1192,11 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 		callCancelCallbacks(interaction);
 		interaction.abortReason = 'new_interaction';
 		interaction.abortedByInteractionName = interactionName;
+		addLifecycleObservation(interaction, {
+			type: 'new_interaction_started',
+			timestamp: performance.now(),
+			triggerName: interactionName,
+		});
 		finishInteraction(interactionId, interaction);
 		postInteractionLog.reset();
 		postInteractionLog.stopVCObserver();
@@ -1180,6 +1246,12 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 		if (shouldUseRawDataThirdParty && noMoreActiveHolds && has3pHoldsActive) {
 			const endTime = interaction.end !== 0 ? interaction.end : performance.now();
 			interaction.end3p = performance.now();
+			addLifecycleObservation(interaction, {
+				type: abortReason === 'transition' ? 'transition_started' : 'new_interaction_started',
+				timestamp: interaction.end3p,
+				triggerName: abortedByInteractionName,
+			});
+			ensureMetricWindows(interaction);
 			finishInteraction(interactionId, interaction, endTime);
 			postInteractionLog.reset();
 			postInteractionLog.stopVCObserver();
@@ -1202,6 +1274,11 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 			if (abortedByInteractionName != null) {
 				interaction.abortedByInteractionName = abortedByInteractionName;
 			}
+			addLifecycleObservation(interaction, {
+				type: abortReason === 'transition' ? 'transition_started' : 'new_interaction_started',
+				timestamp: performance.now(),
+				triggerName: abortedByInteractionName,
+			});
 		}
 
 		finishInteraction(interactionId, interaction);
@@ -1326,7 +1403,7 @@ export function addNewInteraction(
 			? {
 					prior: priorAccessedFg,
 					during: {},
-				}
+			  }
 			: undefined,
 		knownSegments: [],
 		cleanupCallbacks: [],

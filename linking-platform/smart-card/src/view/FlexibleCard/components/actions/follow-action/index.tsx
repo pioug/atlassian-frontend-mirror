@@ -4,6 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
@@ -91,7 +92,8 @@ const FollowAction = (props: FollowActionProps): React.JSX.Element | null => {
 	return (
 		<ServerAction
 			content={<FormattedMessage {...label} />}
-			{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
+			{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+			expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
 				? { ariaLabel: intl.formatMessage(label) }
 				: {})}
 			icon={followIcon}

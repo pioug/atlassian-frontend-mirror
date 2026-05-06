@@ -11,9 +11,10 @@ var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
 var _themeConfig = require("./theme-config");
-var _colorUtils = require("./utils/color-utils");
+var _getThemeOverridePreferences = require("./utils/get-theme-override-preferences");
 var _getThemePreferences = require("./utils/get-theme-preferences");
-var _themeLoading = require("./utils/theme-loading");
+var _isValidBrandHex = require("./utils/is-valid-brand-hex");
+var _loadThemeCss = require("./utils/load-theme-css");
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function _interopRequireWildcard(e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != _typeof(e) && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (var _t in e) "default" !== _t && {}.hasOwnProperty.call(e, _t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, _t)) && (i.get || i.set) ? o(f, _t, i) : f[_t] = e[_t]); return f; })(e, t); }
 /**
  * Takes an object containing theme preferences, and returns an array of objects for use in applying styles to the document head.
@@ -60,7 +61,7 @@ var getThemeStyles = /*#__PURE__*/function () {
               typography: (preferences === null || preferences === void 0 ? void 0 : preferences.typography) || _themeConfig.themeStateDefaults['typography']
             };
             themePreferences = (0, _getThemePreferences.getThemePreferences)(themeState);
-            themeOverridePreferences = (0, _getThemePreferences.getThemeOverridePreferences)(themeState);
+            themeOverridePreferences = (0, _getThemeOverridePreferences.getThemeOverridePreferences)(themeState);
           }
           _context3.next = 4;
           return Promise.all([].concat((0, _toConsumableArray2.default)([].concat((0, _toConsumableArray2.default)(themePreferences), (0, _toConsumableArray2.default)(themeOverridePreferences)).map( /*#__PURE__*/function () {
@@ -71,7 +72,7 @@ var getThemeStyles = /*#__PURE__*/function () {
                   case 0:
                     _context.prev = 0;
                     _context.next = 3;
-                    return (0, _themeLoading.loadThemeCss)(themeId);
+                    return (0, _loadThemeCss.loadThemeCss)(themeId);
                   case 3:
                     css = _context.sent;
                     return _context.abrupt("return", {
@@ -102,7 +103,7 @@ var getThemeStyles = /*#__PURE__*/function () {
             return _regenerator.default.wrap(function _callee2$(_context2) {
               while (1) switch (_context2.prev = _context2.next) {
                 case 0:
-                  if (!(preferences !== 'all' && preferences !== null && preferences !== void 0 && preferences.UNSAFE_themeOptions && (0, _colorUtils.isValidBrandHex)(preferences === null || preferences === void 0 || (_preferences$UNSAFE_t = preferences.UNSAFE_themeOptions) === null || _preferences$UNSAFE_t === void 0 ? void 0 : _preferences$UNSAFE_t.brandColor))) {
+                  if (!(preferences !== 'all' && preferences !== null && preferences !== void 0 && preferences.UNSAFE_themeOptions && (0, _isValidBrandHex.isValidBrandHex)(preferences === null || preferences === void 0 || (_preferences$UNSAFE_t = preferences.UNSAFE_themeOptions) === null || _preferences$UNSAFE_t === void 0 ? void 0 : _preferences$UNSAFE_t.brandColor))) {
                     _context2.next = 15;
                     break;
                   }

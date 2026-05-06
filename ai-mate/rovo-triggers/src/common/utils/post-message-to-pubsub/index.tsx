@@ -22,7 +22,13 @@ type PostMessageAckEventType = {
 };
 
 // allow subdomains of these domains
-const allowedSubdomains = ['.jira-dev.com', '.atlassian.com', '.atlassian.net', '.atl-paas.net'];
+const allowedSubdomains = [
+	'.jira-dev.com',
+	'.jira.atlassian.cloud',
+	'.atlassian.com',
+	'.atlassian.net',
+	'.atl-paas.net',
+];
 const allowedOrigins = ['bitbucket.org', 'trello.com'];
 
 export const isAllowedOrigin = (origin: string | undefined): boolean => {

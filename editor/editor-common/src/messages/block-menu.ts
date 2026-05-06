@@ -130,12 +130,14 @@ export const messages: {
 	copyLink: {
 		id: 'fabric.editor.block.menu.copy.link',
 		defaultMessage: 'Copy link',
-		description: 'Copy link to the selected content',
+		description:
+			'Label for a menu item in the block controls menu that copies a direct link to the selected content block to the clipboard.',
 	},
 	copyLinkToSelection: {
 		id: 'fabric.editor.block.menu.copy.link.to.selection',
 		defaultMessage: 'Copy link to selection',
-		description: 'Copy link to the selected content',
+		description:
+			'Label for a menu item in the block controls menu that copies a link pointing to the current text selection to the clipboard.',
 	},
 	linkCopiedToClipboard: {
 		id: 'fabric.editor.block.menu.link.copied.to.clipboard',

@@ -79,7 +79,8 @@ export const toDOM = (
 			contenteditable:
 				contentEditable !== undefined ? (contentEditable ? 'true' : 'false') : undefined,
 			...(expValEquals('platform_editor_expand_content_a11y', 'isEnabled', true) && {
-				role: 'group',
+				role: 'textbox',
+				'aria-multiline': 'true',
 				'aria-label':
 					(intl && intl.formatMessage(expandMessages.expandBodyAriaLabel)) ||
 					expandMessages.expandBodyAriaLabel.defaultMessage,

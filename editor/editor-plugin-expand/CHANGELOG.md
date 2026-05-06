@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-expand
 
+## 11.1.2
+
+### Patch Changes
+
+- [`0f48d9316bffc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f48d9316bffc) -
+  Changed role of expand from group to textbox and added aria-multiline for editable clarity for
+  screen users
+- Updated dependencies
+
 ## 11.1.1
 
 ### Patch Changes

@@ -2,7 +2,7 @@ import type { Format } from 'style-dictionary';
 
 import { createSignedArtifact } from '@atlassian/codegen';
 
-import { getTokenId } from '../../../src/utils/token-ids';
+import { getTokenId } from '../../../src/utils/get-token-id';
 import sortTokens from '../sort-tokens';
 
 const toTokenValueString = (

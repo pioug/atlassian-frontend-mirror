@@ -55,7 +55,8 @@ export const messages: {
 	wideWidthLabel: {
 		id: 'fabric.editor.breakoutWideWidthLabel',
 		defaultMessage: 'Wide',
-		description: 'Resize current element to wide mode',
+		description:
+			'Label for a toolbar button that resizes the current editor element (e.g. a table, image, or code block) to wide display mode, extending it beyond the default content width.',
 	},
 	resizeHandle: {
 		id: 'fabric.editor.resizeHandle',

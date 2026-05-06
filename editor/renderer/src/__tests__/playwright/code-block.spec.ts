@@ -1,6 +1,8 @@
 import { rendererTestCase as test, expect } from './not-libra';
 import * as adfCodeBlockOutsideViewport from '../__fixtures__/code-block-outside-viewport.adf.json';
 
+test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
+
 test.describe('code block', () => {
 	test.use({
 		adf: adfCodeBlockOutsideViewport,

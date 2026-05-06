@@ -10,8 +10,10 @@ import {
 } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
 
 const styles = cssMap({
 	button: {
@@ -27,6 +29,33 @@ const styles = cssMap({
 		paddingBottom: token('space.025'),
 		paddingRight: token('space.075'),
 		textAlign: 'initial',
+		whiteSpace: 'break-spaces',
+		wordBreak: 'break-all',
+	},
+	innerContainerSocialProofConnect: {
+		color: token('color.text.inverse'),
+		cursor: 'pointer',
+		backgroundColor: token('color.background.selected.bold'),
+		'&:hover': {
+			backgroundColor: token('color.background.selected.bold.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.selected.bold.pressed'),
+		},
+		borderRadius: token('radius.small'),
+		marginRight: token('space.025'),
+		display: 'inline',
+		alignItems: 'center',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		fontSize: '0.8em' as any,
+		backgroundClip: 'padding-box',
+		boxDecorationBreak: 'clone',
+		paddingLeft: token('space.075'),
+		paddingTop: token('space.025'),
+		paddingBottom: token('space.025'),
+		paddingRight: token('space.075'),
+		textAlign: 'initial',
+		verticalAlign: '1px',
 		whiteSpace: 'break-spaces',
 		wordBreak: 'break-all',
 	},
@@ -69,31 +98,17 @@ const styles = cssMap({
 		marginRight: '1px' as any,
 		fontWeight: token('font.weight.regular'),
 	},
-	action: {
-		color: token('color.text.inverse'),
-		cursor: 'pointer',
-		backgroundColor: token('color.background.selected.bold'),
-		'&:hover': {
-			backgroundColor: token('color.background.selected.bold.hovered'),
-			borderColor: token('color.border.selected'),
-		},
-		'&:active': {
-			backgroundColor: token('color.background.selected.bold.pressed'),
-		},
-		borderTopRightRadius: token('radius.xsmall'),
-		borderBottomRightRadius: token('radius.xsmall'),
-		borderTopLeftRadius: '0',
-		borderBottomLeftRadius: '0',
-		borderTop: `${token('border.width')} solid ${token('color.border')}`,
-		borderRight: `${token('border.width')} solid ${token('color.border')}`,
-		borderBottom: `${token('border.width')} solid ${token('color.border')}`,
-		marginRight: token('space.025'),
-		fontWeight: token('font.weight.regular'),
-		whiteSpace: 'nowrap',
-	},
 });
 
+/* eslint-enable @compiled/shorthand-property-sorting */
 type ActionButtonProps = ComponentPropsWithRef<typeof Pressable> & {
+	/**
+	 * When `true` together with `viewType="unauthorised"`, applies the inline social proof CTA
+	 * connect-button layout (compact type, radius, spacing, flex alignment). Only honored when
+	 * `platform_sl_3p_preauth_soc_proof_inline_killswitch` is on; when that gate is off, the legacy
+	 * implementation runs and this prop is ignored.
+	 */
+	isSocialProofInlineUnauthorisedConnect?: boolean;
 	viewType?: 'default' | 'unauthorised' | 'action';
 };
 
@@ -104,9 +119,35 @@ export const ActionButton: ForwardRefExoticComponent<
 	Omit<ActionButtonProps, 'ref'> & RefAttributes<HTMLButtonElement>
 > = forwardRef(
 	(
-		{ children, isDisabled, viewType = 'default', ...props }: ActionButtonProps,
+		{
+			children,
+			isDisabled,
+			viewType = 'default',
+			isSocialProofInlineUnauthorisedConnect = false,
+			...props
+		}: ActionButtonProps,
 		ref: ActionButtonProps['ref'],
 	) => {
+		const shouldUseSocialProofConnect =
+			isSocialProofInlineUnauthorisedConnect &&
+			viewType === 'unauthorised' &&
+			fg('platform_sl_3p_preauth_soc_proof_inline_killswitch');
+
+		if (shouldUseSocialProofConnect && !isDisabled) {
+			return (
+				<Pressable
+					{...props}
+					ref={ref}
+					style={{ font: `inherit` }}
+					xcss={styles.button}
+				>
+					<span css={styles.innerContainerSocialProofConnect}>
+						{children}
+					</span>
+				</Pressable>
+			);
+		}
+
 		return (
 			<Pressable
 				{...props}

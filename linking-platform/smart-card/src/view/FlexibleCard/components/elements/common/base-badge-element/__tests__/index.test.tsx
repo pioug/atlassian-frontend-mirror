@@ -2,9 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
+
 import { css, jsx } from '@compiled/react';
 import { IntlProvider, type MessageFormatElement } from 'react-intl';
 
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { render, screen } from '@atlassian/testing-library';
 
 import { IconType } from '../../../../../../../constants';
@@ -25,14 +28,18 @@ jest.mock('react-render-image', () => ({ src, loading, loaded, errored }: any) =
 });
 
 describe('Element: Badge', () => {
+	const wrapper = ({ children }: { children: React.ReactNode }) => (
+		<SmartCardProvider>{children}</SmartCardProvider>
+	);
+
 	it('should capture and report a11y violations', async () => {
-		const { container } = render(<Badge icon={IconType.Comment} label="99" />);
+		const { container } = render(<Badge icon={IconType.Comment} label="99" />, { wrapper });
 
 		await expect(container).toBeAccessible();
 	});
 
 	it('renders element', async () => {
-		render(<Badge icon={IconType.Comment} label="99" />);
+		render(<Badge icon={IconType.Comment} label="99" />, { wrapper });
 
 		const element = await screen.findByTestId('smart-element-badge');
 
@@ -46,6 +53,7 @@ describe('Element: Badge', () => {
 			<IntlProvider locale="en">
 				<Badge label="desc" url="src-loaded" />
 			</IntlProvider>,
+			{ wrapper },
 		);
 
 		const element = await screen.findByTestId('smart-element-badge-image');
@@ -54,7 +62,7 @@ describe('Element: Badge', () => {
 	});
 
 	it('does not render image as badge icon if hideBadgeIcon is true', async () => {
-		render(<Badge label="desc" url="src-loaded" hideIcon={true} />);
+		render(<Badge label="desc" url="src-loaded" hideIcon={true} />, { wrapper });
 
 		const element = screen.queryByTestId('smart-element-badge-image');
 
@@ -63,7 +71,7 @@ describe('Element: Badge', () => {
 
 	describe('size', () => {
 		it('renders text at .75rem', async () => {
-			render(<Badge icon={IconType.Comment} label="99" />);
+			render(<Badge icon={IconType.Comment} label="99" />, { wrapper });
 
 			const text = await screen.findByTestId('smart-element-badge-label');
 
@@ -94,6 +102,7 @@ describe('Element: Badge', () => {
 					<IntlProvider locale="en">
 						<Badge icon={icon} />
 					</IntlProvider>,
+					{ wrapper }
 				);
 
 				const element = await screen.findByTestId('smart-element-badge');
@@ -104,13 +113,13 @@ describe('Element: Badge', () => {
 	});
 
 	it('does not render if there is no icon nor content', async () => {
-		const { container } = render(<Badge />);
+		const { container } = render(<Badge />, { wrapper });
 
 		expect(container.children.length).toEqual(0);
 	});
 
 	it('does not render if content is not provided and no formatted message available', async () => {
-		const { container } = render(<Badge icon={IconType.Comment} />);
+		const { container } = render(<Badge icon={IconType.Comment} />, { wrapper });
 
 		expect(container.children.length).toEqual(0);
 	});
@@ -119,7 +128,7 @@ describe('Element: Badge', () => {
 		const overrideCss = css({
 			backgroundColor: 'blue',
 		});
-		render(<Badge icon={IconType.Comment} label="99" css={overrideCss} />);
+		render(<Badge icon={IconType.Comment} label="99" css={overrideCss} />, { wrapper });
 
 		const element = await screen.findByTestId('smart-element-badge');
 

@@ -3,7 +3,7 @@ import type { Format, TransformedToken } from 'style-dictionary';
 import format from '@af/formatting/sync';
 import { createSignedArtifact } from '@atlassian/codegen';
 
-import { getCSSCustomProperty } from '../../../src/utils/token-ids';
+import { getCSSCustomProperty } from '../../../src/utils/get-css-custom-property';
 
 function mapToCssVar(tokens: TransformedToken[]) {
 	return tokens.map((token) => `'var(${getCSSCustomProperty(token.path)})'`).join(' | ');

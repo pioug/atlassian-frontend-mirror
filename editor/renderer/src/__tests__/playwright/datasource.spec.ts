@@ -1,6 +1,8 @@
 import { skipAutoA11y } from '@atlassian/a11y-playwright-testing';
 import { adf } from './datasource.spec.ts-fixtures';
 import { rendererTestCase as test, expect } from './not-libra';
+
+test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
 const DATASOURCE_TABLE_VIEW = '[data-testid=\"datasource-table-view\"]';
 
 test.describe('datasource', () => {

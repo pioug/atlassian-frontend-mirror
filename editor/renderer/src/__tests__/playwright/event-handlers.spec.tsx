@@ -1,5 +1,7 @@
 import { rendererTestCase as test, expect } from './not-libra';
 
+test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
+
 const editorPlaceholderSelector = '.editor-vr-test-placeholder';
 
 const multipleParaADF = {

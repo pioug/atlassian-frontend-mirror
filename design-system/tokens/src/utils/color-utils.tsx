@@ -1,20 +1,7 @@
-// valid hex color with 6 digits
-export const isValidBrandHex = (hex: string): boolean => /^#[0-9A-F]{6}$/i.test(hex);
-
+import { getAlpha } from './get-alpha';
+import { relativeLuminanceW3C } from './relative-luminance-w3-c';
 // valid hex color with 4, 6 or 8 digits
 const isValidHex = (hex: string): boolean => /^#([A-Fa-f0-9]{3,4}){1,2}$/.test(hex);
-
-export function rgbToHex(r: number, g: number, b: number): string {
-	return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-}
-
-export function getAlpha(hex: string): number {
-	if (hex.length === 9) {
-		const int = parseInt(hex.slice(7, 9), 16) / 255;
-		return Number(parseFloat(int.toString()).toFixed(2));
-	}
-	return 1;
-}
 
 export function hexToRgbA(hex: string): [number, number, number, number] {
 	if (!isValidHex(hex)) {
@@ -94,30 +81,6 @@ export function hexToHSL(hex: string): [number, number, number] {
 	return [h, s, l];
 }
 
-export function HSLToRGB(h: number, s: number, l: number): [number, number, number] {
-	s /= 100;
-	l /= 100;
-	const k = (n: number) => (n + h / 30) % 12;
-	const a = s * Math.min(l, 1 - l);
-	const f = (n: number) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-	return [255 * f(0), 255 * f(8), 255 * f(4)];
-}
-
-export function relativeLuminanceW3C(r: number, g: number, b: number): number {
-	const RsRGB = r / 255;
-	const GsRGB = g / 255;
-	const BsRGB = b / 255;
-
-	const R = RsRGB <= 0.03928 ? RsRGB / 12.92 : Math.pow((RsRGB + 0.055) / 1.055, 2.4);
-	const G = GsRGB <= 0.03928 ? GsRGB / 12.92 : Math.pow((GsRGB + 0.055) / 1.055, 2.4);
-	const B = BsRGB <= 0.03928 ? BsRGB / 12.92 : Math.pow((BsRGB + 0.055) / 1.055, 2.4);
-
-	// For the sRGB colorspace, the relative luminance of a color is defined as:
-	const L = 0.2126 * R + 0.7152 * G + 0.0722 * B;
-
-	return L;
-}
-
 export function getContrastRatio(foreground: string, background: string): number {
 	if (!isValidHex(foreground) || !isValidHex(background)) {
 		throw new Error('Invalid HEX');
@@ -179,3 +142,9 @@ function rgbToLab(rgb: number[]): [number, number, number] {
 	z = z > 0.008856 ? Math.pow(z, 1 / 3) : 7.787 * z + 16 / 116;
 	return [116 * y - 16, 500 * (x - y), 200 * (y - z)];
 }
+
+export { isValidBrandHex } from './is-valid-brand-hex';
+export { rgbToHex } from './rgb-to-hex';
+export { getAlpha } from './get-alpha';
+export { HSLToRGB } from './hsl-to-rgb';
+export { relativeLuminanceW3C } from './relative-luminance-w3-c';

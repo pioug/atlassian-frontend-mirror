@@ -5,13 +5,20 @@ var _typeof = require("@babel/runtime/helpers/typeof");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ViewingConditions = exports.Hct = void 0;
+exports.Hct = void 0;
+Object.defineProperty(exports, "ViewingConditions", {
+  enumerable: true,
+  get: function get() {
+    return _viewingConditions.ViewingConditions;
+  }
+});
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 var utils = _interopRequireWildcard(require("./color-utils"));
 var math = _interopRequireWildcard(require("./math-utils"));
-var _ViewingConditions;
+var _viewingConditions = require("./viewing-conditions");
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function _interopRequireWildcard(e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != _typeof(e) && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (var _t in e) "default" !== _t && {}.hasOwnProperty.call(e, _t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, _t)) && (i.get || i.set) ? o(f, _t, i) : f[_t] = e[_t]); return f; })(e, t); }
 /**
  * Below lines are copied from @material/material-color-utilities.
  * Do not modify it.
@@ -32,7 +39,6 @@ var _ViewingConditions;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function _interopRequireWildcard(e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != _typeof(e) && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (var _t in e) "default" !== _t && {}.hasOwnProperty.call(e, _t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, _t)) && (i.get || i.set) ? o(f, _t, i) : f[_t] = e[_t]); return f; })(e, t); }
 /**
  * A color system built using CAM16 hue and chroma, and L* from
  * L*a*b*.
@@ -61,7 +67,6 @@ var Hct = exports.Hct = /*#__PURE__*/function () {
     this.internalHue = cam.hue;
     this.internalChroma = cam.chroma;
     this.internalTone = utils.lstarFromArgb(argb);
-    this.argb = argb;
   }
   return (0, _createClass2.default)(Hct, [{
     key: "toInt",
@@ -151,7 +156,7 @@ var Hct = exports.Hct = /*#__PURE__*/function () {
       var viewedInVc = cam.xyzInViewingConditions(vc);
 
       // 2. Create CAM16 of those XYZ coordinates in default VC.
-      var recastInVc = Cam16.fromXyzInViewingConditions(viewedInVc[0], viewedInVc[1], viewedInVc[2], ViewingConditions.make());
+      var recastInVc = Cam16.fromXyzInViewingConditions(viewedInVc[0], viewedInVc[1], viewedInVc[2], _viewingConditions.ViewingConditions.make());
 
       // 3. Create HCT from:
       // - CAM16 using default VC with XYZ coordinates in specified VC.
@@ -224,6 +229,7 @@ var Cam16 = /*#__PURE__*/function () {
    * @param astar CAM16-UCS a coordinate
    * @param bstar CAM16-UCS b coordinate
    */
+
   function Cam16(hue, chroma, j, q, m, s, jstar, astar, bstar) {
     (0, _classCallCheck2.default)(this, Cam16);
     this.hue = hue;
@@ -267,7 +273,7 @@ var Cam16 = /*#__PURE__*/function () {
      *     viewing conditions for sRGB.
      */
     function toInt() {
-      return this.viewed(ViewingConditions.DEFAULT);
+      return this.viewed(_viewingConditions.ViewingConditions.DEFAULT);
     }
 
     /**
@@ -348,7 +354,7 @@ var Cam16 = /*#__PURE__*/function () {
   }], [{
     key: "fromInt",
     value: function fromInt(argb) {
-      return Cam16.fromIntInViewingConditions(argb, ViewingConditions.DEFAULT);
+      return Cam16.fromIntInViewingConditions(argb, _viewingConditions.ViewingConditions.DEFAULT);
     }
 
     /**
@@ -415,7 +421,7 @@ var Cam16 = /*#__PURE__*/function () {
   }, {
     key: "fromJch",
     value: function fromJch(j, c, h) {
-      return Cam16.fromJchInViewingConditions(j, c, h, ViewingConditions.DEFAULT);
+      return Cam16.fromJchInViewingConditions(j, c, h, _viewingConditions.ViewingConditions.DEFAULT);
     }
 
     /**
@@ -450,7 +456,7 @@ var Cam16 = /*#__PURE__*/function () {
   }, {
     key: "fromUcs",
     value: function fromUcs(jstar, astar, bstar) {
-      return Cam16.fromUcsInViewingConditions(jstar, astar, bstar, ViewingConditions.DEFAULT);
+      return Cam16.fromUcsInViewingConditions(jstar, astar, bstar, _viewingConditions.ViewingConditions.DEFAULT);
     }
 
     /**
@@ -728,8 +734,8 @@ var HctSolver = /*#__PURE__*/function () {
       var rightHue = 0.0;
       var initialized = false;
       var uncut = true;
-      for (var _n = 0; _n < 12; _n++) {
-        var mid = HctSolver.nthVertex(y, _n);
+      for (var n = 0; n < 12; n++) {
+        var mid = HctSolver.nthVertex(y, n);
         if (mid[0] < 0) {
           continue;
         }
@@ -844,7 +850,7 @@ var HctSolver = /*#__PURE__*/function () {
       // ===========================================================
       // Operations inlined from Cam16 to avoid repeated calculation
       // ===========================================================
-      var viewingConditions = ViewingConditions.DEFAULT;
+      var viewingConditions = _viewingConditions.ViewingConditions.DEFAULT;
       var tInnerCoeff = 1 / Math.pow(1.64 - Math.pow(0.29, viewingConditions.n), 0.73);
       var eHue = 0.25 * (Math.cos(hueRadians + 2.0) + 3.8);
       var p1 = eHue * (50000.0 / 13.0) * viewingConditions.nc * viewingConditions.ncb;
@@ -947,85 +953,3 @@ var HctSolver = /*#__PURE__*/function () {
 (0, _defineProperty2.default)(HctSolver, "LINRGB_FROM_SCALED_DISCOUNT", [[1373.2198709594231, -1100.4251190754821, -7.278681089101213], [-271.815969077903, 559.6580465940733, -32.46047482791194], [1.9622899599665666, -57.173814538844006, 308.7233197812385]]);
 (0, _defineProperty2.default)(HctSolver, "Y_FROM_LINRGB", [0.2126, 0.7152, 0.0722]);
 (0, _defineProperty2.default)(HctSolver, "CRITICAL_PLANES", [0.015176349177441876, 0.045529047532325624, 0.07588174588720938, 0.10623444424209313, 0.13658714259697685, 0.16693984095186062, 0.19729253930674434, 0.2276452376616281, 0.2579979360165119, 0.28835063437139563, 0.3188300904430532, 0.350925934958123, 0.3848314933096426, 0.42057480301049466, 0.458183274052838, 0.4976837250274023, 0.5391024159806381, 0.5824650784040898, 0.6277969426914107, 0.6751227633498623, 0.7244668422128921, 0.775853049866786, 0.829304845476233, 0.8848452951698498, 0.942497089126609, 1.0022825574869039, 1.0642236851973577, 1.1283421258858297, 1.1946592148522128, 1.2631959812511864, 1.3339731595349034, 1.407011200216447, 1.4823302800086415, 1.5599503113873272, 1.6398909516233677, 1.7221716113234105, 1.8068114625156377, 1.8938294463134073, 1.9832442801866852, 2.075074464868551, 2.1693382909216234, 2.2660538449872063, 2.36523901573795, 2.4669114995532007, 2.5710888059345764, 2.6777882626779785, 2.7870270208169257, 2.898822059350997, 3.0131901897720907, 3.1301480604002863, 3.2497121605402226, 3.3718988244681087, 3.4967242352587946, 3.624204428461639, 3.754355295633311, 3.887192587735158, 4.022731918402185, 4.160988767090289, 4.301978482107941, 4.445716283538092, 4.592217266055746, 4.741496401646282, 4.893568542229298, 5.048448422192488, 5.20615066083972, 5.3666897647573375, 5.5300801301023865, 5.696336044816294, 5.865471690767354, 6.037501145825082, 6.212438385869475, 6.390297286737924, 6.571091626112461, 6.7548350853498045, 6.941541251256611, 7.131223617812143, 7.323895587840543, 7.5195704746346665, 7.7182615035334345, 7.919981813454504, 8.124744458384042, 8.332562408825165, 8.543448553206703, 8.757415699253682, 8.974476575321063, 9.194643831691977, 9.417930041841839, 9.644347703669503, 9.873909240696694, 10.106627003236781, 10.342513269534024, 10.58158024687427, 10.8238400726681, 11.069304815507364, 11.317986476196008, 11.569896988756009, 11.825048221409341, 12.083451977536606, 12.345119996613247, 12.610063955123938, 12.878295467455942, 13.149826086772048, 13.42466730586372, 13.702830557985108, 13.984327217668513, 14.269168601521828, 14.55736596900856, 14.848930523210871, 15.143873411576273, 15.44220572664832, 15.743938506781891, 16.04908273684337, 16.35764934889634, 16.66964922287304, 16.985093187232053, 17.30399201960269, 17.62635644741625, 17.95219714852476, 18.281524751807332, 18.614349837764564, 18.95068293910138, 19.290534541298456, 19.633915083172692, 19.98083495742689, 20.331304511189067, 20.685334046541502, 21.042933821039977, 21.404114048223256, 21.76888489811322, 22.137256497705877, 22.50923893145328, 22.884842241736916, 23.264076429332462, 23.6469514538663, 24.033477234264016, 24.42366364919083, 24.817520537484558, 25.21505769858089, 25.61628489293138, 26.021211842414342, 26.429848230738664, 26.842203703840827, 27.258287870275353, 27.678110301598522, 28.10168053274597, 28.529008062403893, 28.96010235337422, 29.39497283293396, 29.83362889318845, 30.276079891419332, 30.722335150426627, 31.172403958865512, 31.62629557157785, 32.08401920991837, 32.54558406207592, 33.010999283389665, 33.4802739966603, 33.953417292456834, 34.430438229418264, 34.911345834551085, 35.39614910352207, 35.88485700094671, 36.37747846067349, 36.87402238606382, 37.37449765026789, 37.87891309649659, 38.38727753828926, 38.89959975977785, 39.41588851594697, 39.93615253289054, 40.460400508064545, 40.98864111053629, 41.520882981230194, 42.05713473317016, 42.597404951718396, 43.141702194811224, 43.6900349931913, 44.24241185063697, 44.798841244188324, 45.35933162437017, 45.92389141541209, 46.49252901546552, 47.065252796817916, 47.64207110610409, 48.22299226451468, 48.808024568002054, 49.3971762874833, 49.9904556690408, 50.587870934119984, 51.189430279724725, 51.79514187861014, 52.40501387947288, 53.0190544071392, 53.637271562750364, 54.259673423945976, 54.88626804504493, 55.517063457223934, 56.15206766869424, 56.79128866487574, 57.43473440856916, 58.08241284012621, 58.734331877617365, 59.39049941699807, 60.05092333227251, 60.715611475655585, 61.38457167773311, 62.057811747619894, 62.7353394731159, 63.417162620860914, 64.10328893648692, 64.79372614476921, 65.48848194977529, 66.18756403501224, 66.89098006357258, 67.59873767827808, 68.31084450182222, 69.02730813691093, 69.74813616640164, 70.47333615344107, 71.20291564160104, 71.93688215501312, 72.67524319850172, 73.41800625771542, 74.16517879925733, 74.9167682708136, 75.67278210128072, 76.43322770089146, 77.1981124613393, 77.96744375590167, 78.74122893956174, 79.51947534912904, 80.30219030335869, 81.08938110306934, 81.88105503125999, 82.67721935322541, 83.4778813166706, 84.28304815182372, 85.09272707154808, 85.90692527145302, 86.72564993000343, 87.54890820862819, 88.3767072518277, 89.2090541872801, 90.04595612594655, 90.88742016217518, 91.73345337380438, 92.58406282226491, 93.43925555268066, 94.29903859396902, 95.16341895893969, 96.03240364439274, 96.9059996312159, 97.78421388448044, 98.6670533535366, 99.55452497210776]);
-var ViewingConditions = exports.ViewingConditions = /*#__PURE__*/function () {
-  /**
-   * Parameters are intermediate values of the CAM16 conversion process. Their
-   * names are shorthand for technical color science terminology, this class
-   * would not benefit from documenting them individually. A brief overview
-   * is available in the CAM16 specification, and a complete overview requires
-   * a color science textbook, such as Fairchild's Color Appearance Models.
-   */
-  function ViewingConditions(n, aw, nbb, ncb, c, nc, rgbD, fl, fLRoot, z) {
-    (0, _classCallCheck2.default)(this, ViewingConditions);
-    this.n = n;
-    this.aw = aw;
-    this.nbb = nbb;
-    this.ncb = ncb;
-    this.c = c;
-    this.nc = nc;
-    this.rgbD = rgbD;
-    this.fl = fl;
-    this.fLRoot = fLRoot;
-    this.z = z;
-  }
-  return (0, _createClass2.default)(ViewingConditions, null, [{
-    key: "make",
-    value:
-    /**
-     * Create ViewingConditions from a simple, physically relevant, set of
-     * parameters.
-     *
-     * @param whitePoint White point, measured in the XYZ color space.
-     *     default = D65, or sunny day afternoon
-     * @param adaptingLuminance The luminance of the adapting field. Informally,
-     *     how bright it is in the room where the color is viewed. Can be
-     *     calculated from lux by multiplying lux by 0.0586. default = 11.72,
-     *     or 200 lux.
-     * @param backgroundLstar The lightness of the area surrounding the color.
-     *     measured by L* in L*a*b*. default = 50.0
-     * @param surround A general description of the lighting surrounding the
-     *     color. 0 is pitch dark, like watching a movie in a theater. 1.0 is a
-     *     dimly light room, like watching TV at home at night. 2.0 means there
-     *     is no difference between the lighting on the color and around it.
-     *     default = 2.0
-     * @param discountingIlluminant Whether the eye accounts for the tint of the
-     *     ambient lighting, such as knowing an apple is still red in green light.
-     *     default = false, the eye does not perform this process on
-     *       self-luminous objects like displays.
-     */
-    function make() {
-      var whitePoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : utils.whitePointD65();
-      var adaptingLuminance = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 200.0 / Math.PI * utils.yFromLstar(50.0) / 100.0;
-      var backgroundLstar = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 50.0;
-      var surround = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 2.0;
-      var discountingIlluminant = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
-      var xyz = whitePoint;
-      var rW = xyz[0] * 0.401288 + xyz[1] * 0.650173 + xyz[2] * -0.051461;
-      var gW = xyz[0] * -0.250268 + xyz[1] * 1.204414 + xyz[2] * 0.045854;
-      var bW = xyz[0] * -0.002079 + xyz[1] * 0.048952 + xyz[2] * 0.953127;
-      var f = 0.8 + surround / 10.0;
-      var c = f >= 0.9 ? math.lerp(0.59, 0.69, (f - 0.9) * 10.0) : math.lerp(0.525, 0.59, (f - 0.8) * 10.0);
-      var d = discountingIlluminant ? 1.0 : f * (1.0 - 1.0 / 3.6 * Math.exp((-adaptingLuminance - 42.0) / 92.0));
-      d = d > 1.0 ? 1.0 : d < 0.0 ? 0.0 : d;
-      var nc = f;
-      var rgbD = [d * (100.0 / rW) + 1.0 - d, d * (100.0 / gW) + 1.0 - d, d * (100.0 / bW) + 1.0 - d];
-      var k = 1.0 / (5.0 * adaptingLuminance + 1.0);
-      var k4 = k * k * k * k;
-      var k4F = 1.0 - k4;
-      var fl = k4 * adaptingLuminance + 0.1 * k4F * k4F * Math.cbrt(5.0 * adaptingLuminance);
-      var n = utils.yFromLstar(backgroundLstar) / whitePoint[1];
-      var z = 1.48 + Math.sqrt(n);
-      var nbb = 0.725 / Math.pow(n, 0.2);
-      var ncb = nbb;
-      var rgbAFactors = [Math.pow(fl * rgbD[0] * rW / 100.0, 0.42), Math.pow(fl * rgbD[1] * gW / 100.0, 0.42), Math.pow(fl * rgbD[2] * bW / 100.0, 0.42)];
-      var rgbA = [400.0 * rgbAFactors[0] / (rgbAFactors[0] + 27.13), 400.0 * rgbAFactors[1] / (rgbAFactors[1] + 27.13), 400.0 * rgbAFactors[2] / (rgbAFactors[2] + 27.13)];
-      var aw = (2.0 * rgbA[0] + rgbA[1] + 0.05 * rgbA[2]) * nbb;
-      return new ViewingConditions(n, aw, nbb, ncb, c, nc, rgbD, fl, Math.pow(fl, 0.25), z);
-    }
-  }]);
-}();
-_ViewingConditions = ViewingConditions;
-/**
- * sRGB-like viewing conditions.
- */
-(0, _defineProperty2.default)(ViewingConditions, "DEFAULT", _ViewingConditions.make());

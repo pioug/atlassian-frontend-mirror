@@ -172,6 +172,7 @@ export type SlidesContextPayloadData =
 			url: string;
 			selectedSlideIndex: number;
 			selectedElementIds: string[];
+			isViewMode?: boolean;
 	  }
 	| undefined;
 
@@ -182,6 +183,7 @@ export type DatabaseContextPayloadData =
 			title: string;
 			url: string;
 			selectedElementIds?: string[];
+			isViewMode?: boolean;
 	  }
 	| undefined;
 

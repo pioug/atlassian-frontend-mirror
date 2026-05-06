@@ -11,7 +11,7 @@ import type {
 	SpacingToken,
 	TypographyToken,
 } from '../../../src/types';
-import { getTokenId } from '../../../src/utils/token-ids';
+import { getTokenId } from '../../../src/utils/get-token-id';
 
 function isHex(hex: string) {
 	return /[0-9A-Fa-f]{6}/g.test(hex);

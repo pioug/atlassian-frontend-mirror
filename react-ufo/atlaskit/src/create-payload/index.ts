@@ -176,7 +176,7 @@ function getPPSMetrics(interaction: InteractionMetrics) {
 			? getLighthouseMetrics({
 					start,
 					stop: interaction.end,
-				})
+			  })
 			: null;
 
 	if (fg('platform_ufo_remove_deprecated_config_fields')) {
@@ -208,12 +208,12 @@ function getSSRProperties(type: InteractionType) {
 		...(ssrPhases?.earlyFlush != null
 			? {
 					'ssr:earlyflush:success': ssrPhases.earlyFlush,
-				}
+			  }
 			: null),
 		...(ssrPhases?.prefetch != null
 			? {
 					'ssr:prefetch:success': ssrPhases.prefetch,
-				}
+			  }
 			: null),
 	};
 }
@@ -347,17 +347,14 @@ function optimizeRedirects(redirects: InteractionMetrics['redirects'], interacti
 }
 
 function objectToArray(obj: Record<string, any> = {}) {
-	return Object.keys(obj).reduce(
-		(result, key) => {
-			result.push({
-				label: key,
-				data: obj[key],
-			});
+	return Object.keys(obj).reduce((result, key) => {
+		result.push({
+			label: key,
+			data: obj[key],
+		});
 
-			return result;
-		},
-		[] as { label: string; data: any }[],
-	);
+		return result;
+	}, [] as { label: string; data: any }[]);
 }
 
 function getBM3SubmetricsTimings(submetrics?: BM3Event[]) {
@@ -539,7 +536,7 @@ async function createInteractionMetricsPayload(
 					reactUFOVersion,
 					registry,
 				),
-			}
+		  }
 		: {};
 	// Page Load
 	const getInitialPageLoadSSRMetrics: () => PageLoadInitialSSRMetrics = () => {
@@ -591,7 +588,35 @@ async function createInteractionMetricsPayload(
 
 		const shouldInclude3pHolds = shouldUseRawDataThirdPartyBehavior(ufoName, type);
 
+		const metricVariantPayload = interaction.metricWindows
+			? fg('platform_ufo_metric_variants')
+				? {
+						metricWindows: Object.fromEntries(
+							Object.entries(interaction.metricWindows).map(([name, window]) => [
+								name,
+								window
+									? {
+											...window,
+											start: Math.round(window.start),
+											end: Math.round(window.end),
+									  }
+									: window,
+							]),
+						),
+						...(interaction.lifecycleObservations
+							? {
+									lifecycleObservations: interaction.lifecycleObservations.map((observation) => ({
+										...observation,
+										timestamp: Math.round(observation.timestamp),
+									})),
+							  }
+							: {}),
+				  }
+				: {}
+			: {};
+
 		const basePayload = {
+			...metricVariantPayload,
 			errors: interaction.errors.map(({ labelStack, ...others }) => ({
 				...others,
 				labelStack:
@@ -711,7 +736,7 @@ async function createInteractionMetricsPayload(
 					? {
 							'ufo:multipayload': true,
 							'ufo:criticalPayloadCount': criticalPayloadCount,
-						}
+					  }
 					: {}),
 
 				'ufo:pageVisibilityHiddenTimestamp': getEarliestHiddenTiming(
@@ -730,7 +755,7 @@ async function createInteractionMetricsPayload(
 				...(fg('ufo_detect_aborting_interaction_during_ssr')
 					? {
 							'ufo:hasAbortingInteractionDuringSSR': getHasAbortingEventDuringSSR(),
-						}
+					  }
 					: {}),
 
 				// root

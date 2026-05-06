@@ -117,12 +117,14 @@ export const typeAheadListMessages: {
 	quickInsertInputLabel: {
 		id: 'fabric.editor.typeAhead.quickInsertInputLabel',
 		defaultMessage: 'Begin typing to search or filter shortcut options',
-		description: 'assisitve text for typeahed input field',
+		description:
+			'ARIA label for the quick insert typeahead input field, read by screen readers to inform users they can type to search or filter available editor shortcuts.',
 	},
 	quickInsertInputPlaceholderLabel: {
 		id: 'fabric.editor.typeAhead.quickInsertInputPlaceholderLabel',
 		defaultMessage: 'Search',
-		description: 'placeholder for typeahed input field',
+		description:
+			'Placeholder text displayed inside the quick insert typeahead input field when it is empty, prompting users to type a search term.',
 	},
 	emojiPopupLabel: {
 		id: 'fabric.editor.typeahead.emojiPopupLabel',
@@ -132,7 +134,8 @@ export const typeAheadListMessages: {
 	emojiInputLabel: {
 		id: 'fabric.editor.typeahead.emojiInputLabel',
 		defaultMessage: 'Begin typing to search or filter emoji options',
-		description: 'assisitve text for typeahed input field',
+		description:
+			'ARIA label for the emoji typeahead input field, read by screen readers to inform users they can type to search or filter available emoji options.',
 	},
 	mentionPopupLabel: {
 		id: 'fabric.editor.typeahead.mentionPopupLabel',
@@ -142,7 +145,8 @@ export const typeAheadListMessages: {
 	mentionInputLabel: {
 		id: 'fabric.editor.typeahead.mentionInputLabel',
 		defaultMessage: 'Begin typing to search for users to tag',
-		description: 'assisitve text for typeahed input field',
+		description:
+			'ARIA label for the mention typeahead input field, read by screen readers to inform users they can type to search for people to tag in the document.',
 	},
 	metionListItemLabel: {
 		id: 'fabric.editor.typeahead.metionListItemLabel',

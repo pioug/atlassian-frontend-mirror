@@ -1,9 +1,6 @@
 import type tokens from '../../artifacts/token-names';
-import {
-	generateColors,
-	generateTokenMap,
-	getClosestColorIndex,
-} from '../../utils/generate-custom-color-ramp';
+import { generateColors, generateTokenMap } from '../../utils/generate-custom-color-ramp';
+import { getClosestColorIndex } from '../../utils/get-closest-color-index';
 
 type Token = keyof typeof tokens;
 

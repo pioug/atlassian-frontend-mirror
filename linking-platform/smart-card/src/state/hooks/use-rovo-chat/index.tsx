@@ -8,6 +8,8 @@ import type { ChatNewPayload } from '@atlaskit/rovo-triggers/types';
 import { getIsRovoChatEnabled } from '../../../utils/rovo';
 import useRovoConfig from '../use-rovo-config';
 
+import { JIRA_PRODUCTS } from './constants';
+
 const SMART_LINK_TO_ROVO_SOURCE = 'smart-link';
 
 export type SendPromptMessageData = Partial<ChatNewPayload['data']>;
@@ -23,7 +25,6 @@ const useRovoChat = (): {
 
 	const sendPromptMessage = useCallback(
 		(data: SendPromptMessageData) => {
-			const jiraProducts: ProductType[] = ['JSM', 'JWM', 'JSW', 'JPD'];
 			publishWithPostMessage({
 				targetWindow: window.parent ?? window,
 				payload: {
@@ -36,10 +37,10 @@ const useRovoChat = (): {
 					},
 					openChat: true,
 					openChatMode:
-						product &&
-						jiraProducts.includes(product) &&
-						(fg('platform_sl_3p_auth_rovo_block_jira_kill_switch') ||
-							fg('rovogrowth-640-inline-action-nudge-fg'))
+						(product &&
+							JIRA_PRODUCTS.includes(product) &&
+						(fg('platform_sl_3p_auth_rovo_block_jira_kill_switch')) ||
+						fg('rovogrowth-640-inline-action-nudge-fg'))
 							? 'mini-modal'
 							: 'sidebar',
 				},

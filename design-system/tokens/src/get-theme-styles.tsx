@@ -6,9 +6,10 @@ import {
 	type ThemeState,
 	themeStateDefaults,
 } from './theme-config';
-import { isValidBrandHex } from './utils/color-utils';
-import { getThemeOverridePreferences, getThemePreferences } from './utils/get-theme-preferences';
-import { loadThemeCss } from './utils/theme-loading';
+import { getThemeOverridePreferences } from './utils/get-theme-override-preferences';
+import { getThemePreferences } from './utils/get-theme-preferences';
+import { isValidBrandHex } from './utils/is-valid-brand-hex';
+import { loadThemeCss } from './utils/load-theme-css';
 
 export interface ThemeStyles {
 	id: ThemeIdsWithOverrides;

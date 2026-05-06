@@ -1,7 +1,7 @@
 import { loadAndAppendCustomThemeCss } from './custom-theme';
 import { type ThemeState, themeStateDefaults } from './theme-config';
-import { isValidBrandHex } from './utils/color-utils';
 import { findMissingCustomStyleElements } from './utils/custom-theme-loading-utils';
+import { isValidBrandHex } from './utils/is-valid-brand-hex';
 
 /**
  * Synchronously generates and applies custom theme styles to the page.

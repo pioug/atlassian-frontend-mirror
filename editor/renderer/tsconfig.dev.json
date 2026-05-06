@@ -39,7 +39,7 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__renderer/dev",
 		"paths": {
-			"@atlaskit/editor-common/src/*": ["packages/editor/editor-common/src/*"]
+			"@atlaskit/editor-common/src/*": ["../editor-common/src/*"]
 		}
 	},
 	"references": [

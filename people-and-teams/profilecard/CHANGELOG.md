@@ -1,5 +1,16 @@
 # @atlaskit/profilecard
 
+## 25.3.0
+
+### Minor Changes
+
+- [`13c923792e279`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13c923792e279) -
+  [ux] added studio session sync url
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.2.1
 
 ### Patch Changes

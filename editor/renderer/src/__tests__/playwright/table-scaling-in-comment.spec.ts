@@ -6,6 +6,8 @@ import {
 	tableWithWidthColumnNotResizedAdf,
 	tableWithWidthColumnResizedAdf,
 } from './table-scaling-in-comment.spec.ts-fixtures';
+
+test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
 // the next line and associated import. For more information, see go/afm-a11y-tooling:playwright

@@ -628,7 +628,7 @@ describe('UFO Configuration Module', () => {
 			expect(shouldUseRawDataThirdPartyBehavior('test-event', 'page_load')).toBe(false);
 		});
 
-		it('should return correct value based on feature flag and rate', () => {
+		it('should return true when raw data rate is greater than 0', () => {
 			const config = {
 				product: 'testProduct',
 				region: 'testRegion',
@@ -638,9 +638,7 @@ describe('UFO Configuration Module', () => {
 				},
 			};
 			setUFOConfig(config);
-			// The result depends on the feature flag value in the test environment
-			const result = shouldUseRawDataThirdPartyBehavior('test-event', 'page_load');
-			expect(typeof result).toBe('boolean');
+			expect(shouldUseRawDataThirdPartyBehavior('test-event', 'page_load')).toBe(true);
 		});
 	});
 });

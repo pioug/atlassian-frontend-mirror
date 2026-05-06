@@ -9,7 +9,7 @@ import { jsx } from '@compiled/react';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 
 import { roleToAriaHasPopup } from '../internal/role-types';
-import { useAnchorPosition } from '../internal/use-anchor-positioning';
+import { useAnchorPosition } from '../internal/use-anchor-position';
 import { usePresetStyles } from '../internal/use-preset-styles';
 import { Popover } from '../popover/popover';
 import { type TPopoverInternalProps } from '../popover/types';

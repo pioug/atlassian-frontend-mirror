@@ -38,7 +38,8 @@ export const headingAnchorLinkMessages: {
 	copyHeadingLinkToClipboard: {
 		id: 'fabric.editor.headingLink.copyAnchorLink',
 		defaultMessage: 'Copy link to heading',
-		description: 'Copy heading link to clipboard',
+		description:
+			'Tooltip and aria-label for the button that copies an anchor link to a heading in the rendered document to the clipboard.',
 	},
 	copyLinkToClipboard: {
 		id: 'fabric.editor.headingLink.copyAnchorLinkTo',
@@ -55,7 +56,8 @@ export const headingAnchorLinkMessages: {
 	copiedHeadingLinkToClipboard: {
 		id: 'fabric.editor.headingLink.copied',
 		defaultMessage: 'Copied!',
-		description: 'Copied heading link to clipboard',
+		description:
+			'Confirmation text shown briefly on the copy button after the heading anchor link has been successfully copied to the clipboard.',
 	},
 	failedToCopyHeadingLink: {
 		id: 'fabric.editor.headingLink.failedToCopy',
@@ -90,7 +92,8 @@ export const tableCellMessages: {
 	noneSortingLabel: {
 		id: 'fabric.editor.headingLink.noneSortingLabel',
 		defaultMessage: 'none',
-		description: 'this table column is not sorted',
+		description:
+			'Accessible label for a table column sort indicator when no sorting is applied to that column.',
 	},
 	ascSortingLabel: {
 		id: 'fabric.editor.headingLink.ascSortingLabel',

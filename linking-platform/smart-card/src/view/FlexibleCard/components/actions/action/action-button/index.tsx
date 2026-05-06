@@ -15,7 +15,6 @@ import Button, {
 	LinkButton,
 	LinkIconButton,
 } from '@atlaskit/button/new';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -25,6 +24,9 @@ import {
 	useFlexibleUiContext,
 	useFlexibleUiOptionContext,
 } from '../../../../../../state/flexible-ui-context';
+import {
+	useBlockCardRovoActionExperimentNoExposure
+} from '../../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import { withOverrideCss } from '../../../common/with-override-css';
 import { sizeToButtonSpacing } from '../../../utils';
 
@@ -122,9 +124,9 @@ const ActionButtonRefresh = forwardRef(
 		const iconOnly = !content;
 
 		const context = useFlexibleUiContext();
+		const isRovoBlockCardExperimentEnabled = useBlockCardRovoActionExperimentNoExposure();
 		const isRovoSupported =
-			!!context?.actions?.[ActionName.RovoChatAction] &&
-			fg('platform_sl_3p_auth_rovo_block_card_kill_switch');
+			!!context?.actions?.[ActionName.RovoChatAction] && isRovoBlockCardExperimentEnabled;
 
 		const onButtonClick = useCallback(
 			(handler: Function) => (e: React.BaseSyntheticEvent) => {

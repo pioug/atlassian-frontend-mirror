@@ -1,4 +1,4 @@
-import { getPlacement } from '../internal/use-anchor-positioning';
+import { getPlacement } from '../internal/use-anchor-position';
 import { type TPlacementOptions } from '../popup/types';
 
 import { type TAnimationPreset } from './types';

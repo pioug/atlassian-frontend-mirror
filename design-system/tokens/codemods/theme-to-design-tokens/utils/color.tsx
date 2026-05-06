@@ -1,11 +1,4 @@
-import { legacyColorMixins, legacyColors } from './legacy-colors';
 import { namedColors } from './named-colors';
-
-export const isLegacyColor: (value: string) => boolean = (value: string) =>
-	legacyColors.includes(value);
-
-export const isLegacyNamedColor: (value: string) => boolean = (value: string) =>
-	legacyColorMixins.includes(value);
 
 const colorRegexp =
 	/#(?:[a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8})\b|(?:rgb|rgba|hsl|hsla|lch|lab|color)\([^\)]*\)/;
@@ -40,7 +33,6 @@ export const isHardCodedColor: (raw: string) => boolean = (raw: string) => {
 	return false;
 };
 
-export function isBoldColor(color: string): boolean {
-	const number = parseInt(color.replace(/^./, ''), 10);
-	return number > 300;
-}
+export { isLegacyColor } from './is-legacy-color';
+export { isLegacyNamedColor } from './is-legacy-named-color';
+export { isBoldColor } from './is-bold-color';

@@ -13,8 +13,8 @@ import {
 	themeStateDefaults,
 } from './theme-config';
 import { themeObjectToString } from './theme-state-transformer';
-import { isValidBrandHex } from './utils/color-utils';
 import { hash } from './utils/hash';
+import { isValidBrandHex } from './utils/is-valid-brand-hex';
 
 const defaultColorMode: DataColorModes = 'light';
 const defaultContrastMode: DataContrastModes = 'no-preference';

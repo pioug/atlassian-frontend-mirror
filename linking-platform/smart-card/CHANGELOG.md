@@ -1,5 +1,44 @@
 # @atlaskit/smart-card
 
+## 44.7.0
+
+### Minor Changes
+
+- [`5e3e8cbdce9a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e3e8cbdce9a2) -
+  Adding hook to determine which experiment to render for confluence vs jira block card rovo actions
+
+### Patch Changes
+
+- [`1eef1c4aebf12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1eef1c4aebf12) -
+  Fix dynamic styling mutation
+- Updated dependencies
+
+## 44.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.6.0
+
+### Minor Changes
+
+- [`7ff5ab02ad66b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ff5ab02ad66b) -
+  Add an unauthorised inline smart link CTA that can show team usage context and a short Connect
+  button. Also fix copy in unauthorised hover card content.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.5.4
+
+### Patch Changes
+
+- [`11098f502031c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11098f502031c) -
+  Add 640 fg to other action items, and dont render CTA if extensionKey not resolved yet
+- Updated dependencies
+
 ## 44.5.3
 
 ### Patch Changes

@@ -5,7 +5,6 @@ import {
 	BLOCK_ACTIONS_COPY_MENU_SECTION_RANK,
 	BLOCK_ACTIONS_COPY_LINK_TO_BLOCK_MENU_ITEM,
 	BLOCK_ACTIONS_MENU_SECTION,
-	BLOCK_ACTIONS_MENU_SECTION_RANK,
 	DELETE_MENU_SECTION,
 	DELETE_MENU_SECTION_RANK,
 	DELETE_MENU_ITEM,
@@ -28,7 +27,6 @@ import {
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type {
 	BlockMenuPlugin,
@@ -131,9 +129,7 @@ const getTurnIntoMenuComponents = (
 			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
 				return <FormatMenuComponent api={api}>{children}</FormatMenuComponent>;
 			},
-			isHidden: fg('platform_editor_block_menu_divider_patch')
-				? () => checkIsFormatMenuHidden(api)
-				: undefined,
+			isHidden: () => checkIsFormatMenuHidden(api),
 		},
 		{
 			type: 'block-menu-section' as const,
@@ -265,48 +261,31 @@ export const getBlockMenuComponents = ({
 				BLOCK_ACTIONS_MENU_SECTION.key
 			],
 			component: ({ children }: { children: React.ReactNode }) => (
-				<CopySection api={api}>{children}</CopySection>
+				<CopySection>{children}</CopySection>
 			),
 		},
-		...(fg('platform_editor_block_menu_copy_section')
-			? [
-					{
-						type: 'block-menu-section' as const,
-						key: BLOCK_ACTIONS_COPY_MENU_SECTION.key,
-						rank: (MAIN_BLOCK_MENU_SECTION_RANK as Record<string, number>)[
-							BLOCK_ACTIONS_COPY_MENU_SECTION.key
-						],
-						component: ({ children }: { children: React.ReactNode }) => (
-							<ToolbarDropdownItemSection hasSeparator>{children}</ToolbarDropdownItemSection>
-						),
-					},
-					{
-						type: 'block-menu-item' as const,
-						key: BLOCK_ACTIONS_COPY_LINK_TO_BLOCK_MENU_ITEM.key,
-						parent: {
-							type: 'block-menu-section' as const,
-							key: BLOCK_ACTIONS_COPY_MENU_SECTION.key,
-							rank: (BLOCK_ACTIONS_COPY_MENU_SECTION_RANK as Record<string, number>)[
-								BLOCK_ACTIONS_COPY_LINK_TO_BLOCK_MENU_ITEM.key
-							],
-						},
-						component: () => <CopyLinkDropdownItem api={api} config={config} />,
-					},
-				]
-			: [
-					{
-						type: 'block-menu-item' as const,
-						key: BLOCK_ACTIONS_COPY_LINK_TO_BLOCK_MENU_ITEM.key,
-						parent: {
-							type: 'block-menu-section' as const,
-							key: BLOCK_ACTIONS_MENU_SECTION.key,
-							rank: (BLOCK_ACTIONS_MENU_SECTION_RANK as Record<string, number>)[
-								BLOCK_ACTIONS_COPY_LINK_TO_BLOCK_MENU_ITEM.key
-							],
-						},
-						component: () => <CopyLinkDropdownItem api={api} config={config} />,
-					},
-				]),
+		{
+			type: 'block-menu-section' as const,
+			key: BLOCK_ACTIONS_COPY_MENU_SECTION.key,
+			rank: (MAIN_BLOCK_MENU_SECTION_RANK as Record<string, number>)[
+				BLOCK_ACTIONS_COPY_MENU_SECTION.key
+			],
+			component: ({ children }: { children: React.ReactNode }) => (
+				<ToolbarDropdownItemSection hasSeparator>{children}</ToolbarDropdownItemSection>
+			),
+		},
+		{
+			type: 'block-menu-item' as const,
+			key: BLOCK_ACTIONS_COPY_LINK_TO_BLOCK_MENU_ITEM.key,
+			parent: {
+				type: 'block-menu-section' as const,
+				key: BLOCK_ACTIONS_COPY_MENU_SECTION.key,
+				rank: (BLOCK_ACTIONS_COPY_MENU_SECTION_RANK as Record<string, number>)[
+					BLOCK_ACTIONS_COPY_LINK_TO_BLOCK_MENU_ITEM.key
+				],
+			},
+			component: () => <CopyLinkDropdownItem api={api} config={config} />,
+		},
 		{
 			type: 'block-menu-section' as const,
 			key: POSITION_MENU_SECTION.key,

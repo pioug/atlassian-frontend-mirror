@@ -103,7 +103,8 @@ export const pixelEntryMessages: {
 	fullWidthLabel: {
 		id: 'fabric.editor.image.fullWidthLabel',
 		defaultMessage: 'Full-width',
-		description: 'The media has reached its maximum width',
+		description:
+			'Label shown in the media pixel entry toolbar when the image is at its maximum width, indicating the image is in full-width display mode.',
 	},
 	migrationButtonText: {
 		id: 'fabric.editor.media.pixelEntry.migrationButtonText',

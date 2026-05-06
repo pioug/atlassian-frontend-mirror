@@ -6,6 +6,7 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 
 import { IconType, SmartLinkSize } from '../../src/constants';
@@ -52,45 +53,47 @@ const context = getContext({
 export default (): JSX.Element => {
 	return (
 		<VRTestWrapper>
-			<FlexibleCardContext.Provider value={{ data: context }}>
-				{Object.values(SmartLinkSize).map((size, idx) => (
-					<React.Fragment key={idx}>
-						<h5>Size: {size}</h5>
-						<HorizontalWrapper>
-							<CommentCount size={size} testId="vr-test-badge-comment" />
-							<ViewCount size={size} testId="vr-test-badge-view" />
-							<ReactCount size={size} testId="vr-test-badge-react" />
-							<VoteCount size={size} testId="vr-test-badge-vote" />
-							<SubscriberCount size={size} testId="vr-test-badge-subscriber-count" />
-							<ProgrammingLanguage size={size} testId="vr-test-badge-programming-language" />
-							<Priority icon={IconType.PriorityBlocker} />
-							<Priority icon={IconType.PriorityCritical} />
-							<Priority icon={IconType.PriorityHigh} />
-							<Priority icon={IconType.PriorityHighest} />
-							<Priority icon={IconType.PriorityLow} />
-							<Priority icon={IconType.PriorityLowest} />
-							<Priority icon={IconType.PriorityMajor} />
-							<Priority icon={IconType.PriorityMedium} />
-							<Priority icon={IconType.PriorityMinor} />
-							<Priority icon={IconType.PriorityTrivial} />
-							<Priority icon={IconType.PriorityUndefined} />
-							<Provider />
-							<Provider label="Provider" />
-							<LatestCommit size={size} testId="vr-test-badge-latest-commit" />
-							<SubTasksProgress testId="vr-test-badge-subtasks-progress" />
-						</HorizontalWrapper>
-					</React.Fragment>
-				))}
-				<h5>Appearance: Subtle</h5>
-				<HorizontalWrapper>
-					<Provider appearance="subtle" />
-					<CommentCount appearance="subtle" />
-				</HorizontalWrapper>
-				<h5>Override CSS</h5>
-				<HorizontalWrapper>
-					<ProgrammingLanguage css={overrideCss} />
-				</HorizontalWrapper>
-			</FlexibleCardContext.Provider>
+			<SmartCardProvider>
+				<FlexibleCardContext.Provider value={{ data: context }}>
+					{Object.values(SmartLinkSize).map((size, idx) => (
+						<React.Fragment key={idx}>
+							<h5>Size: {size}</h5>
+							<HorizontalWrapper>
+								<CommentCount size={size} testId="vr-test-badge-comment" />
+								<ViewCount size={size} testId="vr-test-badge-view" />
+								<ReactCount size={size} testId="vr-test-badge-react" />
+								<VoteCount size={size} testId="vr-test-badge-vote" />
+								<SubscriberCount size={size} testId="vr-test-badge-subscriber-count" />
+								<ProgrammingLanguage size={size} testId="vr-test-badge-programming-language" />
+								<Priority icon={IconType.PriorityBlocker} />
+								<Priority icon={IconType.PriorityCritical} />
+								<Priority icon={IconType.PriorityHigh} />
+								<Priority icon={IconType.PriorityHighest} />
+								<Priority icon={IconType.PriorityLow} />
+								<Priority icon={IconType.PriorityLowest} />
+								<Priority icon={IconType.PriorityMajor} />
+								<Priority icon={IconType.PriorityMedium} />
+								<Priority icon={IconType.PriorityMinor} />
+								<Priority icon={IconType.PriorityTrivial} />
+								<Priority icon={IconType.PriorityUndefined} />
+								<Provider />
+								<Provider label="Provider" />
+								<LatestCommit size={size} testId="vr-test-badge-latest-commit" />
+								<SubTasksProgress testId="vr-test-badge-subtasks-progress" />
+							</HorizontalWrapper>
+						</React.Fragment>
+					))}
+					<h5>Appearance: Subtle</h5>
+					<HorizontalWrapper>
+						<Provider appearance="subtle" />
+						<CommentCount appearance="subtle" />
+					</HorizontalWrapper>
+					<h5>Override CSS</h5>
+					<HorizontalWrapper>
+						<ProgrammingLanguage css={overrideCss} />
+					</HorizontalWrapper>
+				</FlexibleCardContext.Provider>
+			</SmartCardProvider>
 		</VRTestWrapper>
 	);
 };

@@ -145,6 +145,31 @@ export type Segment3pTimingEntry = {
 	data: Record<string, unknown>;
 };
 
+export type MetricVariantCategory = 'third-party' | 'gen-ai';
+export type MetricVariantName = string;
+
+export type MetricWindow = {
+	start: number;
+	end: number;
+	includeCategories: MetricVariantCategory[];
+	excludeCategories: MetricVariantCategory[];
+};
+
+export type MetricWindows = Partial<Record<MetricVariantName, MetricWindow>>;
+
+export type LifecycleObservationType =
+	| 'new_interaction_started'
+	| 'transition_started'
+	| 'timeout_expired'
+	| 'page_unloaded';
+
+export type LifecycleObservation = {
+	type: LifecycleObservationType;
+	timestamp: number;
+	triggerName?: string;
+	activeHoldCount?: number;
+};
+
 export interface InteractionMetrics {
 	id: string;
 	start: number;
@@ -224,6 +249,8 @@ export interface InteractionMetrics {
 	 * shape as resourceTimings; emitted on the payload as `segment3pTimings`.
 	 */
 	segment3pTimings?: Record<string, Segment3pTimingEntry[]>;
+	metricWindows?: MetricWindows;
+	lifecycleObservations?: LifecycleObservation[];
 }
 
 export type LoadProfilerEventInfo = {
@@ -241,7 +268,9 @@ export interface LazyLoadProfilerContext {
 }
 
 export interface EnhancedUFOInteractionContextType
-	extends UFOInteractionContextType, RelayMetricsRecorder, LazyLoadProfilerContext {
+	extends UFOInteractionContextType,
+		RelayMetricsRecorder,
+		LazyLoadProfilerContext {
 	// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 	_internalHold(labelStack: LabelStack, name: string, experimental?: boolean): void | (() => void);
 

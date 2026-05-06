@@ -7,7 +7,6 @@ import { useCallback, useMemo, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { browser } from '@atlaskit/linking-common/user-agent';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { WidthObserver } from '@atlaskit/width-detector';
 
@@ -19,6 +18,9 @@ import {
 	SmartLinkWidth,
 } from '../../../../../../constants';
 import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
+import {
+	isBlockCardRovoActionExperimentEnabled
+} from '../../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import { Provider } from '../../../elements';
 import ActionGroup from '../../action-group';
 import Block from '../../block';
@@ -52,10 +54,12 @@ const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 		isPreviewBlockErrored,
 	} = props;
 	const context = useFlexibleUiContext();
-	const isRovoSupportedFeature =
-		!!context?.actions?.[ActionName.RovoChatAction] &&
-		fg('platform_sl_3p_auth_rovo_block_card_kill_switch');
-	const hasPreview = isRovoSupportedFeature && !!context?.preview && !isPreviewBlockErrored;
+	const rovoChatAction =
+		context?.actions?.[ActionName.RovoChatAction]
+	const is3PBlockExperimentEnabled = isBlockCardRovoActionExperimentEnabled(
+		rovoChatAction?.product,
+	);
+	const hasPreview = !!rovoChatAction && is3PBlockExperimentEnabled && !!context?.preview && !isPreviewBlockErrored;
 
 	const hasActions = useMemo(
 		() => filterActionItems(actions, context)?.length > 0,
@@ -84,7 +88,7 @@ const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 					appearance="subtle"
 					testId={`${testId}-provider`}
 					hideLabel={hasPreview}
-					css={[isRovoSupportedFeature && providerStyles]}
+					css={[!!rovoChatAction && is3PBlockExperimentEnabled && providerStyles]}
 				/>
 			)}
 			{actions && hasActions ? (
@@ -95,19 +99,19 @@ const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 					css={[
 						size === SmartLinkSize.XLarge && actionGroupStyles,
 						safari && safariStyles,
-						isRovoSupportedFeature && rovoActionStyles,
+						!!rovoChatAction && is3PBlockExperimentEnabled && rovoActionStyles,
 					]}
 					width={SmartLinkWidth.Flexible}
 				>
-					{isRovoSupportedFeature && (
+					{!!rovoChatAction && is3PBlockExperimentEnabled && (
 						<WidthObserver setWidth={setContainerWidth} offscreen={true} />
 					)}
 					<ActionGroup
 						onDropdownOpenChange={onDropdownOpenChange}
 						items={actions}
-						appearance={isRovoSupportedFeature ? 'subtle' : 'default'}
-						size={isRovoSupportedFeature ? SmartLinkSize.Small : size}
-						containerWidth={isRovoSupportedFeature ? containerWidth : undefined}
+						appearance={!!rovoChatAction && is3PBlockExperimentEnabled ? 'subtle' : 'default'}
+						size={!!rovoChatAction && is3PBlockExperimentEnabled ? SmartLinkSize.Small : size}
+						containerWidth={!!rovoChatAction && is3PBlockExperimentEnabled ? containerWidth : undefined}
 					/>
 				</ElementGroup>
 			) : null}

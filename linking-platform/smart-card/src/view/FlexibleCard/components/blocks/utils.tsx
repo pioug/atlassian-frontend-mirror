@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { ProductType } from '@atlaskit/linking-common';
 
 import { ActionName, ElementName, SmartLinkSize } from '../../../../constants';
 import type { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
+import { isBlockCardRovoActionExperimentEnabled } from '../../../../state/hooks/use-block-card-rovo-action-experiment';
 import { isFlexibleUiElement } from '../../../../utils/flexible';
 import * as Elements from '../elements';
 
@@ -90,7 +91,9 @@ const isElementOrElementGroup = (node: React.ReactNode) =>
 export const filterActionItems = (
 	items: ActionItem[] = [],
 	context?: FlexibleUiDataContext,
+	product?: ProductType,
 ): ActionItem[] => {
+	const isBlockCard3PExperimentEnabled = isBlockCardRovoActionExperimentEnabled(product);
 	return items.filter((item) => {
 		switch (item.name) {
 			case ActionName.DeleteAction:
@@ -99,7 +102,7 @@ export const filterActionItems = (
 				// Named and custom actions that user defines.
 				return Boolean(ActionName[item.name]);
 			case ActionName.RovoChatAction:
-				if (fg('platform_sl_3p_auth_rovo_block_card_kill_switch')) {
+				if (isBlockCard3PExperimentEnabled) {
 					return Boolean(ActionName[item.name]);
 				}
 				// same as default case below

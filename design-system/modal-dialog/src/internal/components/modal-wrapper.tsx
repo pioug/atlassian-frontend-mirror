@@ -175,7 +175,7 @@ const InternalModalWrapper = (props: InternalModalWrapperProps): JSX.Element => 
 	return (
 		<Layering isDisabled={false}>
 			<Portal zIndex={layers.modal()}>
-				{!UNSAFE_shouldDisableMotionUplift && fg('platform-dst-motion-uplift') ? (
+				{!UNSAFE_shouldDisableMotionUplift && fg('platform-dst-motion-uplift-modal') ? (
 					<Motion
 						enteringAnimation={token('motion.blanket.enter')}
 						exitingAnimation={token('motion.blanket.exit')}

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { DiProvider, injectable } from 'react-magnetic-di';
+
 import {
 	ErroredClient,
 	ForbiddenClient,
@@ -24,9 +26,24 @@ import {
 import { type Card, ElementName, SmartLinkSize, TitleBlock } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 
+import { getCachedProviderPctMapAndRefresh } from '../../src/state/services/personalization';
 import type { MultiCardViewProps } from '../utils/card-view-props';
 
 import CardViewSection from './card-view-section';
+
+/** Figma file URL — `UnAuthClient` maps this to `figma-object-provider` for social proof. */
+const unauthorisedSocialProofExampleUrl = 'https://www.figma.com/file/aK9mJ2pLqrX5vW';
+
+const mockGetProviderPctMapSyncLoaded = injectable(getCachedProviderPctMapAndRefresh, () => ({
+	'figma-object-provider': 52,
+}));
+
+const mockGetProviderPctMapSyncLowExplore = injectable(getCachedProviderPctMapAndRefresh, () => ({
+	'figma-object-provider': 15,
+}));
+
+/** No persisted percentage (or unknown provider) → UI hides the pill. */
+const mockGetProviderPctMapSyncNoPct = injectable(getCachedProviderPctMapAndRefresh, () => null);
 
 const CardViewExample = ({
 	url,
@@ -121,6 +138,31 @@ const CardViewExample = ({
 			client={new UnAuthClientWithNoIcon()}
 			title="[Unauthorized] Default Icon"
 		/>
+		<DiProvider use={[mockGetProviderPctMapSyncLoaded]}>
+			<CardViewSection
+				{...props}
+				client={new UnAuthClient()}
+				title="[Unauthorized] Social proof inline CTA — loaded"
+				url={unauthorisedSocialProofExampleUrl}
+			/>
+		</DiProvider>
+		<DiProvider use={[mockGetProviderPctMapSyncLowExplore]}>
+			<CardViewSection
+				{...props}
+				client={new UnAuthClient()}
+				title="[Unauthorized] Social proof inline CTA — low share (previewing copy)"
+				url={unauthorisedSocialProofExampleUrl}
+			/>
+		</DiProvider>
+		<DiProvider use={[mockGetProviderPctMapSyncNoPct]}>
+			<CardViewSection
+				{...props}
+				client={new UnAuthClient()}
+				title="[Unauthorized] Social proof inline CTA — no persisted %"
+				url={unauthorisedSocialProofExampleUrl}
+			/>
+		</DiProvider>
+
 		<CardViewSection {...props} client={new ErroredClient()} title="[Error]" />
 	</React.Fragment>
 );

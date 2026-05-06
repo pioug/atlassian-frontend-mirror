@@ -1,6 +1,8 @@
 import { codeBlockInBlockquoteADF } from '../__fixtures__/code-block-inside-blockquote.adf';
 import { rendererTestCase as test, expect } from './not-libra';
 
+test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
+
 test.describe('codeblock in blockquote', () => {
 	test.use({
 		adf: codeBlockInBlockquoteADF(),

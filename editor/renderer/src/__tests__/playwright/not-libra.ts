@@ -117,7 +117,6 @@ type RendererPropsOptional = Omit<
 >;
 type MountRendererOptions = {
 	enableClickToEdit?: boolean;
-	exampleType?: string;
 	mockInlineComments?: boolean;
 	showSidebar?: boolean;
 	withRendererActions?: boolean;
@@ -192,9 +191,11 @@ class RendererPageModel implements RendererPageInterface {
 		adf,
 		platformFeatureFlags,
 		editorExperiments,
+		exampleName,
 	}: {
 		adf: DocNode | string | Record<string, unknown> | undefined;
 		editorExperiments?: EditorExperimentOverrides;
+		exampleName: string;
 		platformFeatureFlags?: Record<string, boolean>;
 		rendererMountOptions: MountRendererOptions;
 		rendererProps: RendererPropsOptional;
@@ -232,8 +233,8 @@ class RendererPageModel implements RendererPageInterface {
 			);
 		};
 
-		// Passing exampleType will render a custom example for the test instead of the default 'testing' example
-		if (!rendererMountOptions.exampleType) {
+		// Passing exampleName will render a custom example for the test instead of the default 'testing' example
+		if (exampleName === 'testing') {
 			const x: RendererMountEvaluateProps = {
 				_props: rendererProps,
 				_mountOptions: rendererMountOptions,
@@ -277,11 +278,13 @@ export const rendererTestCase: TestType<
 		} & PlaywrightCoverageOptions & {
 			adf: DocNode | string | Record<string, unknown> | undefined;
 			/**
-			 * Note: This is not available when used with the `exampleType` option.
+			 * Note: This is not available when used with a custom exampleName (i.e. anything other than 'testing').
 			 * This is because custom examples will have their application loaded
 			 * prior to the experiment overrides being applied.
 			 */
 			editorExperiments?: EditorExperimentOverrides;
+			/** Name of the renderer example to load. Required — all test files must specify this via test.use({ exampleName: '...' }). */
+			exampleName: string;
 			platformFeatureFlags?: Record<string, boolean>;
 			renderer: RendererPageInterface;
 			rendererMountOptions: MountRendererOptions;
@@ -291,11 +294,13 @@ export const rendererTestCase: TestType<
 > = base.extend<{
 	adf: DocNode | string | Record<string, unknown> | undefined;
 	/**
-	 * Note: This is not available when used with the `exampleType` option.
+	 * Note: This is not available when used with a custom exampleName (i.e. anything other than 'testing').
 	 * This is because custom examples will have their application loaded
 	 * prior to the experiment overrides being applied.
 	 */
 	editorExperiments?: EditorExperimentOverrides;
+	/** Name of the renderer example to load. Required — all test files must specify this via test.use({ exampleName: '...' }). */
+	exampleName: string;
 	platformFeatureFlags?: Record<string, boolean>;
 	renderer: RendererPageInterface;
 	rendererMountOptions: MountRendererOptions;
@@ -306,24 +311,35 @@ export const rendererTestCase: TestType<
 	adf: undefined,
 	platformFeatureFlags: {},
 	editorExperiments: {},
+	// No default — all spec files must set this via test.use({ exampleName: '...' })
+	exampleName: [
+		async ({}, use, testInfo) => {
+			throw new Error(
+				`[not-libra] No exampleName fixture set in ${testInfo.file}. ` +
+					`Add test.use({ exampleName: 'my-example' }) at the top of the file.`,
+			);
+			await use('');
+		},
+		{ option: true },
+	],
 
 	renderer: async (
-		{ page, adf, rendererProps, rendererMountOptions, platformFeatureFlags, editorExperiments },
+		{ page, adf, rendererProps, rendererMountOptions, platformFeatureFlags, editorExperiments, exampleName },
 		use,
 	) => {
 		if (
 			editorExperiments &&
 			Object.keys(editorExperiments).length &&
-			rendererMountOptions.exampleType
+			exampleName !== 'testing'
 		) {
 			throw new Error(
-				`Cannot use 'editorExperiments' with 'exampleType', received exampleType: ${rendererMountOptions.exampleType}, editorExperiments: ${JSON.stringify(editorExperiments)} `,
+				`Cannot use 'editorExperiments' with a custom exampleName, received exampleName: ${exampleName}, editorExperiments: ${JSON.stringify(editorExperiments)} `,
 			);
 		}
 		// Mock the date for testing purposes
 		await mockDate(page, { year: 2017, month: 8, day: 16 });
 
-		await page.visitExample('editor', 'renderer', rendererMountOptions.exampleType ?? 'testing');
+		await page.visitExample('editor', 'renderer', exampleName);
 
 		const rendererInstance = RendererPageModel.from(page);
 
@@ -333,6 +349,7 @@ export const rendererTestCase: TestType<
 			rendererMountOptions,
 			platformFeatureFlags,
 			editorExperiments,
+			exampleName,
 		});
 
 		await use(rendererInstance);
@@ -344,9 +361,9 @@ const customMatchers = {
 		this: ReturnType<Expect['getState']>,
 		doc: Record<string, unknown>,
 	): Promise<{
-		pass: boolean;
 		// Playwright upgrade: `message` required in type MatcherReturnType
 		message: () => string;
+		pass: boolean;
 	}> {
 		baseExpect(JSON.stringify(doc, null, 2)).toMatchSnapshot();
 

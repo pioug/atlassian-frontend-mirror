@@ -189,9 +189,10 @@ describe('getCurrentSiteCloudId', () => {
 		await expect(getCurrentSiteCloudId()).resolves.toBe('first-fetch');
 
 		currentSiteCloudIdService.clearCache();
+		expect(window.localStorage.getItem(CURRENT_SITE_CLOUD_ID_LOCAL_STORAGE_KEY)).toBeNull();
 		requestSpy.mockResolvedValueOnce({ cloudId: 'second-fetch' });
 
-		await expect(getCurrentSiteCloudId()).resolves.toBe('first-fetch');
+		await expect(getCurrentSiteCloudId()).resolves.toBe('second-fetch');
 
 		await flushMicrotasks();
 

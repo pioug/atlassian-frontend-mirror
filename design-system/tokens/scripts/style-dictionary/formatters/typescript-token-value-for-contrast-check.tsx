@@ -4,7 +4,7 @@ import format from '@af/formatting/sync';
 import { createSignedArtifact } from '@atlassian/codegen';
 
 import { additionalChecks } from '../../../src/utils/custom-theme-token-contrast-check';
-import { getTokenId } from '../../../src/utils/token-ids';
+import { getTokenId } from '../../../src/utils/get-token-id';
 
 export const formatter: Format['formatter'] = ({ dictionary }) => {
 	const tokens: Record<string, string> = {};

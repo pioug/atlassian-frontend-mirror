@@ -1,1 +1,1 @@
-export { useAnchorPosition } from '../internal/use-anchor-positioning';
+export { useAnchorPosition } from '../internal/use-anchor-position';

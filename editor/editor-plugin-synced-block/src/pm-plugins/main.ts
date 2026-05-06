@@ -25,6 +25,7 @@ import {
 } from '@atlaskit/editor-synced-block-provider';
 import type { SyncBlockStoreManager, DeletionReason } from '@atlaskit/editor-synced-block-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -44,9 +45,11 @@ import type {
 import { handleBodiedSyncBlockCreation } from './utils/handle-bodied-sync-block-creation';
 import { handleBodiedSyncBlockRemoval } from './utils/handle-bodied-sync-block-removal';
 import type { TransactionRef } from './utils/handle-bodied-sync-block-removal';
+import { hasSyncedBlocks } from './utils/has-synced-blocks';
 import { shouldIgnoreDomEvent } from './utils/ignore-dom-event';
 import { calculateDecorations } from './utils/selection-decorations';
 import { hasEditInSyncBlock, trackSyncBlocks } from './utils/track-sync-blocks';
+import { transactionInsertsSyncedBlock } from './utils/transaction-inserts-synced-block';
 import {
 	deferDispatch,
 	wasExtensionInsertedInBodiedSyncBlock,
@@ -58,6 +61,17 @@ export const syncedBlockPluginKey: PluginKey = new PluginKey('syncedBlockPlugin'
 type SyncedBlockPluginState = {
 	activeFlag: ActiveFlag;
 	bodiedSyncBlockDeletionStatus?: BodiedSyncBlockDeletionStatus;
+	/**
+	 * When `editor_synced_block_perf` is ON, this flag tracks whether the
+	 * document currently contains any synced block (source or reference). When
+	 * `false`, downstream work in `appendTransaction`, `decorations`, and the
+	 * `contentComponent` short-circuits to avoid the per-transition feature tax
+	 * on the ~99.97% of pages that have no synced blocks (see EDITOR-6586).
+	 *
+	 * When the gate is OFF this is always `true` so existing behavior is
+	 * preserved.
+	 */
+	hasSyncedBlocks: boolean;
 	hasUnsavedBodiedSyncBlockChanges?: boolean;
 	retryCreationPosMap: RetryCreationPosMap;
 	selectionDecorationSet: DecorationSet;
@@ -342,25 +356,35 @@ export const createPlugin = (
 		key: syncedBlockPluginKey,
 		state: {
 			init(_, instance: EditorState): SyncedBlockPluginState {
-				const syncBlockNodes = instance.doc.children.filter(
-					syncBlockStore.referenceManager.isReferenceBlock,
-				);
-				syncBlockStore.referenceManager.fetchSyncBlocksData(
-					convertPMNodesToSyncBlockNodes(syncBlockNodes),
-				);
+				// When `editor_synced_block_perf` is ON and the document has no
+				// synced blocks, we skip the eager fetch + cache walks. They will be
+				// re-run lazily by `apply` the first time a synced block enters the
+				// document (paste, collab insert, or programmatic insert).
+				const docHasSyncedBlocks = expValEquals('editor_synced_block_perf', 'isEnabled', true)
+					? hasSyncedBlocks(instance.doc)
+					: true;
 
-				// Populate source sync block cache from initial document
-				// When fg is ON, this replaces the constructor call in the nodeview
-				if (fg('platform_synced_block_update_refactor')) {
-					instance.doc.forEach((node) => {
-						if (syncBlockStore.sourceManager.isSourceBlock(node)) {
-							syncBlockStore.sourceManager.updateSyncBlockData(node, false);
+				if (docHasSyncedBlocks) {
+					const syncBlockNodes = instance.doc.children.filter(
+						syncBlockStore.referenceManager.isReferenceBlock,
+					);
+					syncBlockStore.referenceManager.fetchSyncBlocksData(
+						convertPMNodesToSyncBlockNodes(syncBlockNodes),
+					);
+
+					// Populate source sync block cache from initial document
+					// When fg is ON, this replaces the constructor call in the nodeview
+					if (fg('platform_synced_block_update_refactor')) {
+						instance.doc.forEach((node) => {
+							if (syncBlockStore.sourceManager.isSourceBlock(node)) {
+								syncBlockStore.sourceManager.updateSyncBlockData(node, false);
+							}
+						});
+
+						// Fetch statuses from the backend so we can identify unpublished blocks on cancel
+						if (fg('platform_synced_block_patch_10')) {
+							syncBlockStore.sourceManager.fetchAndCacheStatuses();
 						}
-					});
-
-					// Fetch statuses from the backend so we can identify unpublished blocks on cancel
-					if (fg('platform_synced_block_patch_10')) {
-						syncBlockStore.sourceManager.fetchAndCacheStatuses();
 					}
 				}
 
@@ -373,6 +397,7 @@ export const createPlugin = (
 					activeFlag: false,
 					syncBlockStore: syncBlockStore,
 					retryCreationPosMap: new Map(),
+					hasSyncedBlocks: docHasSyncedBlocks,
 					hasUnsavedBodiedSyncBlockChanges: syncBlockStore.sourceManager.hasUnsavedChanges(),
 				};
 			},
@@ -384,7 +409,21 @@ export const createPlugin = (
 					selectionDecorationSet,
 					bodiedSyncBlockDeletionStatus,
 					retryCreationPosMap,
+					hasSyncedBlocks: prevHasSyncedBlocks,
 				} = currentPluginState;
+
+				// Lazy-init bookkeeping: once a synced block enters the document we
+				// flip `hasSyncedBlocks` to `true` for the lifetime of this editor
+				let nextHasSyncedBlocks = prevHasSyncedBlocks;
+				if (
+					!prevHasSyncedBlocks &&
+					tr.docChanged &&
+					expValEquals('editor_synced_block_perf', 'isEnabled', true)
+				) {
+					if (transactionInsertsSyncedBlock(tr)) {
+						nextHasSyncedBlocks = true;
+					}
+				}
 
 				let newDecorationSet = tr.docChanged
 					? selectionDecorationSet.map(tr.mapping, tr.doc) // only map if document changed
@@ -415,6 +454,7 @@ export const createPlugin = (
 					selectionDecorationSet: newDecorationSet,
 					syncBlockStore: syncBlockStore,
 					retryCreationPosMap: newRetryCreationPosMap,
+					hasSyncedBlocks: nextHasSyncedBlocks,
 					bodiedSyncBlockDeletionStatus:
 						meta?.bodiedSyncBlockDeletionStatus ?? bodiedSyncBlockDeletionStatus,
 					hasUnsavedBodiedSyncBlockChanges: syncBlockStore.sourceManager.hasUnsavedChanges(),
@@ -446,13 +486,13 @@ export const createPlugin = (
 							pmPluginFactoryParams,
 							api,
 							syncBlockStore,
-					  })
+						})
 					: bodiedSyncBlockNodeViewOld({
 							pluginOptions: options,
 							pmPluginFactoryParams,
 							api,
 							syncBlockStore,
-					  }),
+						}),
 			},
 			decorations: (state) => {
 				const currentPluginState = syncedBlockPluginKey.getState(state);
@@ -460,6 +500,18 @@ export const createPlugin = (
 					currentPluginState?.selectionDecorationSet ?? DecorationSet.empty;
 				const syncBlockStore: SyncBlockStoreManager = currentPluginState?.syncBlockStore;
 				const { doc } = state;
+
+				// Lazy-init: when no synced block exists in the doc, skip the
+				// `descendants` walk and the 4 shared-state reads below. The
+				// selection decoration set is the only thing that can be
+				// non-empty in this state.
+				if (
+					currentPluginState &&
+					!currentPluginState.hasSyncedBlocks &&
+					expValEquals('editor_synced_block_perf', 'isEnabled', true)
+				) {
+					return selectionDecorationSet;
+				}
 
 				const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
 				const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
@@ -587,6 +639,17 @@ export const createPlugin = (
 			},
 		},
 		filterTransaction: (tr, state) => {
+			// Lazy-init: when no synced block currently exists in the doc and the
+			// transaction does not insert one, all downstream filter logic is a
+			// no-op. Avoid both the shared-state reads and the `trackSyncBlocks`
+			// walks for the ~99.97% of pages that have no synced blocks.
+			if (expValEquals('editor_synced_block_perf', 'isEnabled', true)) {
+				const pluginState = syncedBlockPluginKey.getState(state);
+				if (pluginState && !pluginState.hasSyncedBlocks && !transactionInsertsSyncedBlock(tr)) {
+					return true;
+				}
+			}
+
 			const viewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
 			if (viewMode === 'view' && fg('platform_synced_block_patch_8')) {
 				return true;
@@ -671,7 +734,7 @@ export const createPlugin = (
 						isConfirmedSyncBlockDeletion,
 						bodiedSyncBlockRemoved,
 						bodiedSyncBlockAdded,
-				  })
+					})
 				: filterTransactionOnline({
 						tr,
 						state,
@@ -681,9 +744,23 @@ export const createPlugin = (
 						bodiedSyncBlockRemoved,
 						bodiedSyncBlockAdded,
 						extensionFlagShown,
-				  });
+					});
 		},
 		appendTransaction: (trs, oldState, newState) => {
+			// Lazy-init: when neither the previous nor the new state contains a
+			// synced block (and none of the dispatched transactions inserts one),
+			// skip all downstream work. This is the hot path on the ~99.97% of
+			// pages that don't use synced blocks (see EDITOR-6586).
+			if (expValEquals('editor_synced_block_perf', 'isEnabled', true)) {
+				const oldPluginState = syncedBlockPluginKey.getState(oldState);
+				const newPluginState = syncedBlockPluginKey.getState(newState);
+				const hadOrHasSyncedBlocks =
+					!!oldPluginState?.hasSyncedBlocks || !!newPluginState?.hasSyncedBlocks;
+				if (!hadOrHasSyncedBlocks) {
+					return null;
+				}
+			}
+
 			const viewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
 			if (viewMode === 'view' && fg('platform_synced_block_patch_8')) {
 				return null;

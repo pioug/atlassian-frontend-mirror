@@ -267,12 +267,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	ccpi_fix_broken_uploaded_img: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-02-05
 	'editor-a11y-fy26-keyboard-move-row-column': {
 		defaultValue: boolean;
@@ -598,12 +592,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	platform_editor_primary_toolbar_early_exit: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-11-19
 	platform_editor_lovability_navigation_fixes: {
 		defaultValue: boolean;
@@ -876,6 +864,27 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-29 — Social proof inline CTA for unauthorised 3P inline smart links (boolean: isEnabled)
+	platform_sl_3p_preauth_social_proof_inline_cta: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-05-01 — Block card rovo action  experiment for resolved block card smart links in jira (boolean: isEnabled)
+	platform_sl_3p_auth_rovo_block_card_jira: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-05-01 — Block card rovo action  experiment for resolved block card smart links in confluence (boolean: isEnabled)
+	platform_sl_3p_auth_rovo_block_card_confluence: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-08-10
 	platform_synced_block: {
 		defaultValue: boolean;
@@ -892,6 +901,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-05
 	platform_synced_block_patch_6: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-05-05
+	editor_synced_block_perf: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1813,6 +1829,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-30
+	platform_editor_use_html_plus_parser: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-22
 	platform_editor_korean_characters_split: {
 		defaultValue: boolean;
@@ -2582,14 +2605,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-12
-	ccpi_fix_broken_uploaded_img: createBooleanExperiment({
-		productKeys: {
-			confluence: 'ccpi_fix_broken_uploaded_img',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-02-05
 	'editor-a11y-fy26-keyboard-move-row-column': createBooleanExperiment({
 		productKeys: {
@@ -2789,15 +2804,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-28-01
-	platform_editor_primary_toolbar_early_exit: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_primary_toolbar_early_exit',
-			jira: 'platform_editor_primary_toolbar_early_exit',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-11-05
 	platform_editor_lovability_emoji_scaling: createBooleanExperiment({
 		productKeys: {
@@ -2855,6 +2861,31 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'rovogrowth-640-inline-action-nudge-exp',
 			jira: 'rovogrowth-640-inline-action-nudge-exp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-29 — Social proof inline CTA for unauthorised 3P inline smart links
+	platform_sl_3p_preauth_social_proof_inline_cta: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_sl_3p_preauth_social_proof_inline_cta',
+			jira: 'platform_sl_3p_preauth_social_proof_inline_cta',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-01 — Block card rovo action on resolved block card smart links in confluence
+	platform_sl_3p_auth_rovo_block_card_confluence: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_sl_3p_auth_rovo_block_card_confluence',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-01 — Block card rovo action on resolved block card smart links in jira
+	platform_sl_3p_auth_rovo_block_card_jira: createBooleanExperiment({
+		productKeys: {
+			jira: 'platform_sl_3p_auth_rovo_block_card_jira',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3848,6 +3879,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-04-30
+	platform_editor_use_html_plus_parser: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_use_html_plus_parser',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-04-10
 	platform_editor_static_css: createBooleanExperiment({
 		productKeys: {
@@ -3956,6 +3995,14 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_fix_error_discard_screen: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_fix_error_discard_screen',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-05
+	editor_synced_block_perf: createBooleanExperiment({
+		productKeys: {
+			confluence: 'editor_synced_block_perf',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

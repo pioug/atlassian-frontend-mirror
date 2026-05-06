@@ -3,17 +3,14 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.hexToRGBAValues = exports.getBoxShadow = void 0;
-var hexToRGBAValues = exports.hexToRGBAValues = function hexToRGBAValues(hex) {
-  var hexColor = hex.replace('#', '');
-  return {
-    r: parseInt(hexColor.slice(0, 2), 16),
-    g: parseInt(hexColor.slice(2, 4), 16),
-    b: parseInt(hexColor.slice(4, 6), 16),
-    a: parseFloat((parseInt(hexColor.slice(6, 8), 16) / 255).toFixed(2))
-  };
-};
-
+exports.getBoxShadow = void 0;
+Object.defineProperty(exports, "hexToRGBAValues", {
+  enumerable: true,
+  get: function get() {
+    return _hexToRgbaValues.hexToRGBAValues;
+  }
+});
+var _hexToRgbaValues = require("./hex-to-rgba-values");
 /**
  * Returns a box shadow formatted for CSS from a ShadowToken raw value.
  *
@@ -25,7 +22,7 @@ var getBoxShadow = exports.getBoxShadow = function getBoxShadow(rawShadow) {
       offset = _ref.offset,
       color = _ref.color,
       opacity = _ref.opacity;
-    var _hexToRGBAValues = hexToRGBAValues(color),
+    var _hexToRGBAValues = (0, _hexToRgbaValues.hexToRGBAValues)(color),
       r = _hexToRGBAValues.r,
       g = _hexToRGBAValues.g,
       b = _hexToRGBAValues.b;

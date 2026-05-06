@@ -1,6 +1,6 @@
 import type { Declaration, Node, Rule } from 'postcss';
 
-import { uniqueWordsFromTokens } from '../../utils/tokens';
+import { uniqueWordsFromTokens } from '../../utils/unique-words-from-tokens';
 
 import { extractCssVarName } from './declaration';
 import { knownNamedColors, knownRawColors, knownVariables } from './legacy-colors';

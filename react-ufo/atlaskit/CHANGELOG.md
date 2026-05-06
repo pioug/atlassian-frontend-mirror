@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.19.0
+
+### Minor Changes
+
+- [`1541e3b95393e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1541e3b95393e) -
+  Add generic metric windows and lifecycle observations to custom.interaction-metrics behind
+  platform_ufo_metric_variants.
+
 ## 5.18.0
 
 ### Minor Changes

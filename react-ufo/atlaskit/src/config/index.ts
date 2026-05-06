@@ -542,9 +542,6 @@ export function shouldUseRawDataThirdPartyBehavior(
 	name: string,
 	interactionType: InteractionType,
 ): boolean {
-	if (!fg('platform_ufo_raw_data_thirdparty')) {
-		return false;
-	}
 	return getVCRawDataInteractionRate(name, interactionType) > 0;
 }
 

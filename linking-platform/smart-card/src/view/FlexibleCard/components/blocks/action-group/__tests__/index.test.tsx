@@ -5,6 +5,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import PremiumIcon from '@atlaskit/icon/core/premium';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 import { fireEvent, render, screen, waitFor, userEvent } from '@atlassian/testing-library';
 
@@ -30,11 +31,13 @@ describe('ActionGroup', () => {
 		const items = Array(itemsCount).fill(null).map(makeActionItem);
 
 		return render(
-			<IntlProvider locale="en">
-				<div onClick={containerOnClick}>
-					<ActionGroup items={items} visibleButtonsNum={visibleButtonsNum} />
-				</div>
-			</IntlProvider>,
+			<SmartCardProvider>
+				<IntlProvider locale="en">
+					<div onClick={containerOnClick}>
+						<ActionGroup items={items} visibleButtonsNum={visibleButtonsNum} />
+					</div>
+				</IntlProvider>
+			</SmartCardProvider>,
 		);
 	};
 

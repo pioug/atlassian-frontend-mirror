@@ -3,6 +3,8 @@ import type { Page } from '@af/integration-testing';
 import { expect, rendererTestCase as test } from './not-libra';
 import { adf } from './select.spec.ts-fixtures';
 
+test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
+
 const RENDERER_CONTAINER = '.ak-renderer-document';
 
 const addSentinels = async (page: Page) => {

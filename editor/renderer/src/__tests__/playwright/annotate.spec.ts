@@ -9,6 +9,8 @@ import {
 	helloMateEmojiAdf,
 } from './annotate.spec.ts-fixtures';
 
+test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
+
 const CHAR_WIDTH = 6;
 const rendererMountOptions = { withRendererActions: true };
 
@@ -249,7 +251,8 @@ test.describe('annotations: nested', () => {
 
 	test.describe('bodied extensions', () => {
 		test.use({
-			rendererMountOptions: { exampleType: 'annotations-new-playwright' },
+			exampleName:
+				'annotations-new-playwright' as keyof typeof import('../../../examples/21-annotations-new-playwright.tsx'),
 		});
 
 		test('Can create an annotation on a bodied extension', async ({ renderer }) => {

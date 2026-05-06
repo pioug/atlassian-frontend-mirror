@@ -6,6 +6,11 @@ import type {
 	VariableDeclaration,
 } from 'jscodeshift';
 
+// ImportSpecifier with importKind property (exists at runtime but not in type definitions)
+type ImportSpecifierWithKind = ImportSpecifier & {
+	importKind?: 'type' | 'value' | undefined;
+};
+
 const ANCHOR_PRESSABLE_XCSS_PROPS = [
 	'backgroundColor',
 	'padding',
@@ -92,10 +97,21 @@ function transform(file: FileInfo, { jscodeshift: j }: API): string {
 					path.node.specifiers?.filter(
 						(specifier) => j.ImportSpecifier.check(specifier) && specifier.imported.name === 'xcss',
 					) ?? [];
-				const otherSpecifiers =
-					path.node.specifiers?.filter(
-						(specifier) => j.ImportSpecifier.check(specifier) && specifier.imported.name !== 'xcss',
-					) ?? [];
+
+				// Separate type and value specifiers
+				const typeSpecifiers: ImportSpecifier[] = [];
+				const valueSpecifiers: ImportSpecifier[] = [];
+
+				path.node.specifiers?.forEach((specifier) => {
+					if (j.ImportSpecifier.check(specifier) && specifier.imported.name !== 'xcss') {
+						const specifierWithKind = specifier as ImportSpecifierWithKind;
+						if (specifierWithKind.importKind === 'type') {
+							typeSpecifiers.push(specifier);
+						} else {
+							valueSpecifiers.push(specifier);
+						}
+					}
+				});
 
 				// Find components that use xcss
 				const componentsUsingXcss = new Set<string>();
@@ -118,25 +134,40 @@ function transform(file: FileInfo, { jscodeshift: j }: API): string {
 					}
 				});
 
-				// Split specifiers based on xcss usage
-				const specifiersToKeep = otherSpecifiers.filter(
+				// Split value specifiers based on xcss usage
+				const valueSpecifiersToKeep = valueSpecifiers.filter(
 					(specifier) =>
 						j.ImportSpecifier.check(specifier) && componentsUsingXcss.has(specifier.imported.name),
 				);
-				const specifiersToMove = otherSpecifiers.filter(
+				const valueSpecifiersToMove = valueSpecifiers.filter(
 					(specifier) =>
 						j.ImportSpecifier.check(specifier) && !componentsUsingXcss.has(specifier.imported.name),
 				);
 
-				if (specifiersToMove.length > 0) {
-					// Add new import for components that don't use xcss
-					path.insertAfter(
-						j.importDeclaration(specifiersToMove, j.literal('@atlaskit/primitives/compiled')),
-					);
+				if (valueSpecifiersToMove.length > 0) {
+					// Check if there's an existing compiled import to merge into
+					const existingCompiledImports = root.find(j.ImportDeclaration, {
+						source: { value: '@atlaskit/primitives/compiled' },
+					});
+
+					if (existingCompiledImports.length > 0) {
+						// Merge into first existing compiled import
+						const firstCompiledImport = existingCompiledImports.get(0);
+						const existingSpecifiers = firstCompiledImport.node.specifiers || [];
+						firstCompiledImport.node.specifiers = [...existingSpecifiers, ...valueSpecifiersToMove];
+					} else {
+						// Create new import for components that don't use xcss
+						path.insertAfter(
+							j.importDeclaration(
+								valueSpecifiersToMove,
+								j.literal('@atlaskit/primitives/compiled'),
+							),
+						);
+					}
 				}
 
-				// Update original import to include xcss and components that use it
-				path.node.specifiers = [...xcssSpecifiers, ...specifiersToKeep];
+				// Update original import to include xcss, value specifiers, then type specifiers
+				path.node.specifiers = [...xcssSpecifiers, ...valueSpecifiersToKeep, ...typeSpecifiers];
 			});
 
 		return root.toSource({ quote: 'single' });
@@ -230,13 +261,143 @@ function transform(file: FileInfo, { jscodeshift: j }: API): string {
 	}
 
 	// Find all import declarations from '@atlaskit/primitives'
-	root.find(j.ImportDeclaration, { source: { value: '@atlaskit/primitives' } }).forEach((path) => {
-		// Skip type imports
+	const primitivesImports = root.find(j.ImportDeclaration, {
+		source: { value: '@atlaskit/primitives' },
+	});
+
+	// Collect all value specifiers to move to compiled
+	const valueSpecifiersToMove: ImportSpecifier[] = [];
+	const typeSpecifiersToKeep: ImportSpecifier[] = [];
+	const importsToRemove: Parameters<Parameters<typeof primitivesImports.forEach>[0]>[0][] = [];
+
+	primitivesImports.forEach((path) => {
+		// Handle type-only imports - keep them in @atlaskit/primitives
 		if (path.node.importKind === 'type') {
 			return;
 		}
-		path.node.source = j.literal('@atlaskit/primitives/compiled');
+
+		// Separate type and value specifiers
+		const typeSpecs: ImportSpecifier[] = [];
+		const valueSpecs: ImportSpecifier[] = [];
+
+		path.node.specifiers?.forEach((specifier) => {
+			if (j.ImportSpecifier.check(specifier)) {
+				// Check if this is a type import specifier
+				const specifierWithKind = specifier as ImportSpecifierWithKind;
+				const isTypeSpec = specifierWithKind.importKind === 'type';
+				if (isTypeSpec) {
+					typeSpecs.push(specifier);
+				} else {
+					valueSpecs.push(specifier);
+				}
+			}
+		});
+
+		// If there are type specifiers, keep them in a separate type import
+		if (typeSpecs.length > 0) {
+			typeSpecifiersToKeep.push(...typeSpecs);
+		}
+
+		// Collect value specifiers to move
+		if (valueSpecs.length > 0) {
+			valueSpecifiersToMove.push(...valueSpecs);
+		}
+
+		// Mark this import for removal if it had value specifiers
+		if (valueSpecs.length > 0) {
+			importsToRemove.push(path);
+		}
 	});
+
+	// Remove imports that had value specifiers (type-only imports stay)
+	importsToRemove.forEach((path) => {
+		j(path).remove();
+	});
+
+	// If we have type specifiers to keep, create/update a type import
+	if (typeSpecifiersToKeep.length > 0) {
+		// Check for existing imports from @atlaskit/primitives (not type-only, as we want inline type syntax)
+		const existingPrimitivesImports = root
+			.find(j.ImportDeclaration, {
+				source: { value: '@atlaskit/primitives' },
+			})
+			.filter((path) => path.node.importKind !== 'type');
+
+		if (existingPrimitivesImports.length > 0) {
+			// Merge type specifiers into first existing import (will use inline type syntax)
+			const firstImport = existingPrimitivesImports.get(0);
+			const existingSpecifiers = firstImport.node.specifiers || [];
+			firstImport.node.specifiers = [...existingSpecifiers, ...typeSpecifiersToKeep];
+		} else {
+			// Create new import with inline type syntax (regular import, not type-only)
+			// The specifiers already have importKind: 'type' which will produce inline type syntax
+			const allImports = root.find(j.ImportDeclaration);
+			if (allImports.length > 0) {
+				allImports
+					.at(0)
+					.insertBefore(
+						j.importDeclaration(typeSpecifiersToKeep, j.literal('@atlaskit/primitives')),
+					);
+			} else {
+				root
+					.get()
+					.node.program.body.unshift(
+						j.importDeclaration(typeSpecifiersToKeep, j.literal('@atlaskit/primitives')),
+					);
+			}
+		}
+	}
+
+	// Merge value specifiers into existing compiled import or create new one
+	if (valueSpecifiersToMove.length > 0) {
+		// Find compiled imports again after removals
+		const currentCompiledImports = root.find(j.ImportDeclaration, {
+			source: { value: '@atlaskit/primitives/compiled' },
+		});
+
+		if (currentCompiledImports.length > 0) {
+			// Collect all specifiers from all existing compiled imports
+			const allExistingSpecifiers: ImportSpecifier[] = [];
+			currentCompiledImports.forEach((path) => {
+				const specifiers = path.node.specifiers || [];
+				specifiers.forEach((spec) => {
+					if (j.ImportSpecifier.check(spec)) {
+						allExistingSpecifiers.push(spec);
+					}
+				});
+			});
+
+			// Merge all specifiers into first existing compiled import
+			const firstCompiledImport = currentCompiledImports.get(0);
+			firstCompiledImport.node.specifiers = [...allExistingSpecifiers, ...valueSpecifiersToMove];
+
+			// Remove the other compiled imports (keep only the first one)
+			if (currentCompiledImports.length > 1) {
+				currentCompiledImports.forEach((path, index) => {
+					if (index > 0) {
+						j(path).remove();
+					}
+				});
+			}
+		} else {
+			// Create new compiled import after the last import
+			const allImports = root.find(j.ImportDeclaration);
+			if (allImports.length > 0) {
+				allImports
+					.at(-1)
+					.insertAfter(
+						j.importDeclaration(valueSpecifiersToMove, j.literal('@atlaskit/primitives/compiled')),
+					);
+			} else {
+				// No imports at all, add at the beginning
+				root
+					.get()
+					.node.program.body.unshift(
+						j.importDeclaration(valueSpecifiersToMove, j.literal('@atlaskit/primitives/compiled')),
+					);
+			}
+		}
+	}
 
 	// Find existing cssMap import or alias
 	let cssMapName = 'cssMap';

@@ -1,6 +1,6 @@
 import type { Format } from 'style-dictionary';
 
-import { getTokenId } from '../../../src/utils/token-ids';
+import { getTokenId } from '../../../src/utils/get-token-id';
 import sortTokens from '../sort-tokens';
 
 const formatter: Format['formatter'] = ({ dictionary }) => {

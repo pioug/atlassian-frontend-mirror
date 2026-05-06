@@ -1,10 +1,27 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.themeStateDefaults = exports.themeIdsWithOverrides = exports.themeIds = exports.themeColorModes = exports.default = void 0;
+exports.default = void 0;
+Object.defineProperty(exports, "themeColorModes", {
+  enumerable: true,
+  get: function get() {
+    return _themeColorModes.themeColorModes;
+  }
+});
+Object.defineProperty(exports, "themeIds", {
+  enumerable: true,
+  get: function get() {
+    return _themeIds.themeIds;
+  }
+});
+exports.themeStateDefaults = exports.themeIdsWithOverrides = void 0;
+var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
 var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
+var _themeIds = require("./theme-ids");
+var _themeColorModes = require("./theme-color-modes");
 /**
  * This file contains the source of truth for themes and all associated meta data.
  */
@@ -29,29 +46,15 @@ var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
  */
 
 /**
- * Theme modes: The general purpose of a theme.
- * This attr is used to apply the appropriate system-preference option
- * It may also be used as a selector for mode-specific overrides such as light/dark images.
- * The idea is there may exist many color themes, but every theme must either fit into light or dark.
- */
-var themeColorModes = exports.themeColorModes = ['light', 'dark', 'auto'];
-/**
  * Contrast preferences: The system contrast preference
  */
 var themeContrastModes = ['more', 'no-preference', 'auto'];
-/**
- * Theme ids: The value that will be mounted to the DOM as a data attr
- * For example: `data-theme="light:light dark:dark spacing:spacing"
- *
- * These ids must be kebab case
- */
-var themeIds = exports.themeIds = ['light-increased-contrast', 'light', 'light-future', 'dark', 'dark-future', 'dark-increased-contrast', 'spacing', 'shape', 'typography', 'motion'];
 /**
  * Theme override ids: the equivalent of themeIds for theme overrides.
  * Theme overrides are temporary and there may not be any defined at times.
  */
 var themeOverrideIds = [];
-var themeIdsWithOverrides = exports.themeIdsWithOverrides = [].concat(themeIds, themeOverrideIds);
+var themeIdsWithOverrides = exports.themeIdsWithOverrides = [].concat((0, _toConsumableArray2.default)(_themeIds.themeIds), themeOverrideIds);
 
 /**
  * Theme to use a base. This will create the theme as

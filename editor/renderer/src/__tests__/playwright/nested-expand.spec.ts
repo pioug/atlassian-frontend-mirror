@@ -1,6 +1,8 @@
 import { nestedExpandInExpandADF } from '../__fixtures__/nested-expand-adf';
 import { rendererTestCase as test, expect } from './not-libra';
 
+test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
+
 test.describe('expand', () => {
 	test.describe('default mode', () => {
 		test.use({

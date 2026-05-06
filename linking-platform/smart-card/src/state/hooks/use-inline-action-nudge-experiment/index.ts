@@ -60,7 +60,7 @@ const useInlineActionNudgeExperiment = (
 			return NOT_ENABLED_RESULT;
 		}
 
-		if (extensionKey && !ELIGIBLE_EXTENSION_KEYS.has(extensionKey)) {
+		if (!extensionKey || !ELIGIBLE_EXTENSION_KEYS.has(extensionKey)) {
 			return NOT_ENABLED_RESULT;
 		}
 

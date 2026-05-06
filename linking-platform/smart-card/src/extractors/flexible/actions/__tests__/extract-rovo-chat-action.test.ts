@@ -318,7 +318,7 @@ describe('extractRovoChatAction', () => {
 
 	// Block card experiment (NAVX-4814): uses ELIGIBLE_EXTENSION_KEYS allowlist instead of supportsRovoActions
 	ffTest.on(
-		'platform_sl_3p_auth_rovo_block_card_kill_switch',
+		'platform_sl_3p_auth_rovo_block_jira_kill_switch',
 		'returns Rovo Chat action for eligible providers on block card',
 		() => {
 			it('returns Rovo Chat action for eligible provider without requiring supportsRovoActions', () => {
@@ -409,7 +409,7 @@ describe('extractRovoChatAction', () => {
 	);
 
 	ffTest.off(
-		'platform_sl_3p_auth_rovo_block_card_kill_switch',
+		'platform_sl_3p_auth_rovo_block_jira_kill_switch',
 		'does not return Rovo Chat action for block card when kill switch is off',
 		() => {
 			it('does not return Rovo Chat action for eligible provider when block card kill switch is off', () => {

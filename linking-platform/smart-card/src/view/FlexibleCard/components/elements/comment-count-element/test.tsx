@@ -2,6 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { render, screen } from '@atlassian/testing-library';
 
 import CommentCountElement from './index';
@@ -17,9 +18,11 @@ jest.mock('../../../../../state/flexible-ui-context', () => ({
 
 const renderOwnedByElement = (onRender?: (hasData: boolean) => void) => {
 	return render(
-		<IntlProvider locale="en">
-			<CommentCountElement onRender={onRender} />
-		</IntlProvider>,
+		<SmartCardProvider>
+			<IntlProvider locale="en">
+				<CommentCountElement onRender={onRender} />
+			</IntlProvider>
+		</SmartCardProvider>,
 	);
 };
 

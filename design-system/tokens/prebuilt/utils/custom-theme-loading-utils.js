@@ -5,13 +5,18 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.findMissingCustomStyleElements = findMissingCustomStyleElements;
-exports.limitSizeOfCustomStyleElements = limitSizeOfCustomStyleElements;
+Object.defineProperty(exports, "limitSizeOfCustomStyleElements", {
+  enumerable: true,
+  get: function get() {
+    return _limitSizeOfCustomStyleElements.limitSizeOfCustomStyleElements;
+  }
+});
 exports.reduceTokenMap = reduceTokenMap;
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
 var _tokenNames = _interopRequireDefault(require("../artifacts/token-names"));
 var _constants = require("../constants");
 var _hash = require("./hash");
+var _limitSizeOfCustomStyleElements = require("./limit-size-of-custom-style-elements");
 function findMissingCustomStyleElements(UNSAFE_themeOptions, mode) {
   var optionString = JSON.stringify(UNSAFE_themeOptions);
   var uniqueId = (0, _hash.hash)(optionString);
@@ -26,15 +31,6 @@ function findMissingCustomStyleElements(UNSAFE_themeOptions, mode) {
     }
   });
   return attrOfMissingCustomStyles;
-}
-function limitSizeOfCustomStyleElements(sizeThreshold) {
-  var styleTags = (0, _toConsumableArray2.default)(Array.from(document.head.querySelectorAll("style[".concat(_constants.CUSTOM_THEME_ATTRIBUTE, "][").concat(_constants.THEME_DATA_ATTRIBUTE, "]"))));
-  if (styleTags.length < sizeThreshold) {
-    return;
-  }
-  styleTags.slice(0, styleTags.length - (sizeThreshold - 1)).forEach(function (element) {
-    return element.remove();
-  });
 }
 function reduceTokenMap(tokenMap, themeRamp) {
   return Object.entries(tokenMap).reduce(function (acc, _ref) {

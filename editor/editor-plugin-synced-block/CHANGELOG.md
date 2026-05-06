@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 8.2.4
+
+### Patch Changes
+
+- [`ca8aefc573cc5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca8aefc573cc5) -
+  Clean up feature gates `platform_editor_block_menu_divider_patch` and
+  `platform_editor_block_menu_copy_section` (both rolled out as true).
+- [`826bc966b7b64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/826bc966b7b64) -
+  ED-6586: Lazy init sync block
+- Updated dependencies
+
+## 8.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.2
 
 ### Patch Changes

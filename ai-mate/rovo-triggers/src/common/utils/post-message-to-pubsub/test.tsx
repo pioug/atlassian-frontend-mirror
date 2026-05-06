@@ -26,6 +26,11 @@ describe('isAllowedOrigin', () => {
 		{ url: 'http://pug.jira-dev.com', expected: false },
 		{ url: 'https://jira-dev.com', expected: false },
 
+		{ url: 'https://hello.jira.atlassian.cloud', expected: true },
+		{ url: 'http://hello.jira.atlassian.cloud', expected: false },
+		{ url: 'https://jira.atlassian.cloud', expected: false },
+		{ url: 'https://hello.confluence.atlassian.cloud', expected: false },
+
 		{ url: 'https://home.stg.atlassian.com', expected: true },
 		{ url: 'https://home.atlassian.com', expected: true },
 

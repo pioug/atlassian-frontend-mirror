@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 6.2.3
+
+### Patch Changes
+
+- [`ef04a3969cfd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef04a3969cfd2) -
+  Fixes a bug where it was not possible to focus the JQL Editor using the `tab` key when it was
+  contained by certain components, such as the Atlaskit Popup component.
+
 ## 6.2.2
 
 ### Patch Changes

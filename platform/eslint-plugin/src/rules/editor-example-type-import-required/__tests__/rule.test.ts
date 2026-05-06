@@ -25,7 +25,7 @@ const tester = new RuleTester({
 
 tester.run('editor-example-type-import-required', rule, {
 	valid: [
-		// File not importing from @af/editor-libra — rule doesn't apply
+		// File not importing from @af/editor-libra or ./not-libra — rule doesn't apply
 		{
 			code: `
 				import { test } from '@playwright/test';
@@ -78,6 +78,16 @@ tester.run('editor-example-type-import-required', rule, {
 				});
 			`,
 			filename: '/workspace/packages/editor/editor-core/src/__tests__/playwright/test.spec.ts',
+		},
+		// not-libra: valid — exampleName present with typeof import assertion
+		{
+			code: `
+				import { rendererTestCase as test } from './not-libra';
+				test.use({
+					exampleName: 'testing' as keyof typeof import('../../../examples/testing.tsx') ,
+				});
+			`,
+			filename: '/workspace/packages/editor/renderer/src/__tests__/playwright/test.spec.ts',
 		},
 	],
 	invalid: [
@@ -154,6 +164,24 @@ tester.run('editor-example-type-import-required', rule, {
 				`});`,
 			].join('\n'),
 			filename: '/workspace/packages/editor/editor-core/src/__tests__/playwright/test.spec.ts',
+			errors: [{ messageId: 'missingExampleName' }],
+		},
+		// not-libra: missing exampleName — rule applies and autofix adds it
+		{
+			code: [
+				`import { rendererTestCase as test } from './not-libra';`,
+				`test.use({`,
+				`\tadf: undefined,`,
+				`});`,
+			].join('\n'),
+			output: [
+				`import { rendererTestCase as test } from './not-libra';`,
+				`test.use({`,
+				`\texampleName: 'testing' as keyof typeof import('../../../examples/testing.tsx') ,`,
+				`\tadf: undefined,`,
+				`});`,
+			].join('\n'),
+			filename: '/workspace/packages/editor/renderer/src/__tests__/playwright/test.spec.ts',
 			errors: [{ messageId: 'missingExampleName' }],
 		},
 	],

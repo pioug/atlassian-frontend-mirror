@@ -25,12 +25,14 @@ export const mediaResizeAnnouncerMessMessages: {
 	MediaWidthIsMax: {
 		id: 'fabric.editor.media.pixelEntry.MediaWidthIsMax',
 		defaultMessage: 'Media increased to the maximum size',
-		description: 'The media has the maximum allowed width',
+		description:
+			'Assistive announcement text read by screen readers when the user resizes a media item and it reaches the maximum allowed size.',
 	},
 	MediaWidthIsMin: {
 		id: 'fabric.editor.media.MediaWidthIsMin',
 		defaultMessage: 'Media decreased to the minimum size',
-		description: 'The media has the minimum allowed width',
+		description:
+			'Assistive announcement text read by screen readers when the user resizes a media item and it reaches the minimum allowed size.',
 	},
 	DefaultMediaWidthIncreased: {
 		id: 'fabric.editor.media.DefaultMediaWidthIncreased',

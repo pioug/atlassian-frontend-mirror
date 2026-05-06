@@ -3,7 +3,7 @@ import type { Format } from 'style-dictionary';
 import format from '@af/formatting/sync';
 import { createSignedArtifact } from '@atlassian/codegen';
 
-import { getFullyQualifiedTokenId } from '../../../src/utils/token-ids';
+import { getFullyQualifiedTokenId } from '../../../src/utils/get-fully-qualified-token-id';
 import sortTokens from '../sort-tokens';
 
 export const typescriptFormatter: Format['formatter'] = ({ dictionary }) => {

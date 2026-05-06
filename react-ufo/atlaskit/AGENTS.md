@@ -255,11 +255,10 @@ sequenceDiagram
 The package uses platform feature flags for gradual rollouts. Key flags are defined in
 [`package.json`](./package.json):
 
-| Flag                                    | Purpose                       |
-| --------------------------------------- | ----------------------------- |
-| `platform_ufo_segment_critical_metrics` | Segment-level metrics         |
-| `platform_ufo_enable_terminal_errors`   | Terminal error tracking       |
-| `platform_ufo_raw_data_thirdparty`      | Third-party raw data behavior |
+| Flag                                    | Purpose                 |
+| --------------------------------------- | ----------------------- |
+| `platform_ufo_segment_critical_metrics` | Segment-level metrics   |
+| `platform_ufo_enable_terminal_errors`   | Terminal error tracking |
 
 ## Testing
 
@@ -356,10 +355,10 @@ Segments are tracked hierarchically for nested measurement:
 ```typescript
 // Parent segment
 <UFOSegment name="page">
-  // Child segment
-  <UFOSegment name="sidebar">
-    <Content />
-  </UFOSegment>
+	// Child segment
+	<UFOSegment name="sidebar">
+		<Content />
+	</UFOSegment>
 </UFOSegment>
 ```
 
@@ -371,8 +370,8 @@ For external/plugin content:
 import { UFOThirdPartySegment } from '@atlaskit/react-ufo/segment';
 
 <UFOThirdPartySegment name="external-widget">
-  <ExternalWidget />
-</UFOThirdPartySegment>
+	<ExternalWidget />
+</UFOThirdPartySegment>;
 ```
 
 ## Debugging

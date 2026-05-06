@@ -40,12 +40,14 @@ export const codeBlockButtonMessages: {
 	wrapCode: {
 		id: 'fabric.editor.codeBlockWrapButton.wrapCodeBlock',
 		defaultMessage: 'Turn on wrap',
-		description: 'Wrap the content of the code block',
+		description:
+			'Label for a toolbar button in the code block that enables line wrapping so long lines of code wrap to the next line instead of overflowing.',
 	},
 	unwrapCode: {
 		id: 'fabric.editor.codeBlockWrapButton.unwrapCodeBlock',
 		defaultMessage: 'Turn off wrap',
-		description: 'Wrap the content of the code block',
+		description:
+			'Label for a toolbar button in the code block that disables line wrapping so long lines of code extend horizontally without breaking.',
 	},
 	selectLanguage: {
 		id: 'fabric.editor.selectLanguage',

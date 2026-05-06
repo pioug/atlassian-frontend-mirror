@@ -1,0 +1,11 @@
+/**
+ * Transforms a style dictionary token path to a fully qualified token id
+ * These Ids are intended to be used internal to this package by style-dictionary
+ *
+ * [default] key words will NOT be omitted from the path
+ *
+ * @example <caption>Passing a path as a string</caption>
+ * // Returns color.background.bold.[default]
+ * getFullyQualifiedTokenId(['color', 'background', 'bold', '[default]'])
+ */
+export const getFullyQualifiedTokenId = (path: string[]): string => path.join('.');

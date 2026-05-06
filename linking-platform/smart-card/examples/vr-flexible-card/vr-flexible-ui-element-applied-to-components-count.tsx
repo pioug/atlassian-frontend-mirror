@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { SmartCardProvider } from '@atlaskit/link-provider';
+
 import { SmartLinkSize } from '../../src/constants';
 import { FlexibleCardContext } from '../../src/state/flexible-ui-context';
 import { AppliedToComponentsCount } from '../../src/view/FlexibleCard/components/elements';
@@ -14,15 +16,17 @@ const context = getContext({
 export default (): React.JSX.Element => {
 	return (
 		<VRTestWrapper>
-			<FlexibleCardContext.Provider value={{ data: context }}>
-				{Object.values(SmartLinkSize).map((_, idx) => (
-					<React.Fragment key={idx}>
-						<HorizontalWrapper>
-							<AppliedToComponentsCount />
-						</HorizontalWrapper>
-					</React.Fragment>
-				))}
-			</FlexibleCardContext.Provider>
+			<SmartCardProvider>
+				<FlexibleCardContext.Provider value={{ data: context }}>
+					{Object.values(SmartLinkSize).map((_, idx) => (
+						<React.Fragment key={idx}>
+							<HorizontalWrapper>
+								<AppliedToComponentsCount />
+							</HorizontalWrapper>
+						</React.Fragment>
+					))}
+				</FlexibleCardContext.Provider>
+			</SmartCardProvider>
 		</VRTestWrapper>
 	);
 };

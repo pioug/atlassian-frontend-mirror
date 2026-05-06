@@ -1,5 +1,5 @@
 import Search from '../../theme-to-design-tokens/utils/fuzzy-search';
-import { activeTokens } from '../../utils/tokens';
+import { activeTokens } from '../../utils/active-tokens';
 
 import { cleanMeta } from './meta';
 

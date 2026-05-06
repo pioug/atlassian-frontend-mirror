@@ -52,7 +52,7 @@ unmounts, `hidePopover()` is called in the layout effect cleanup.
 
 VR testing revealed that centered tooltips (the default alignment) near a viewport edge were clipped
 in the top-layer path, whereas the legacy Popper.js path would shift them to stay in view. The root
-cause was that `placementToTryFallbacks()` in `use-anchor-positioning.tsx` only generated a simple
+cause was that `placementToTryFallbacks()` in `use-anchor-position.tsx` only generated a simple
 primary-axis flip keyword (e.g. `flip-block`) for centered placements, providing no cross-axis shift
 fallbacks.
 
@@ -294,7 +294,7 @@ top-layer migration. They exist in both the legacy and top-layer paths:
 
 | File                                      | Change                                                                                                 |
 | ----------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `src/internal/use-anchor-positioning.tsx` | `placementToTryFallbacks()` expanded with cross-axis `position-area` fallbacks for centered placements |
+| `src/internal/use-anchor-position.tsx` | `placementToTryFallbacks()` expanded with cross-axis `position-area` fallbacks for centered placements |
 
 ---
 

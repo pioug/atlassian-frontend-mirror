@@ -136,7 +136,7 @@ function applyAlignment({
  * Applies the cross-axis shift offset.
  *
  * The sign mirrors the CSS path (see `crossAxisShiftMargin` in
- * `use-anchor-positioning.tsx`):
+ * `use-anchor-position.tsx`):
  *   - `align: 'start' | 'center'` + `forwards`  → push toward end (positive)
  *   - `align: 'end'`              + `forwards`  → push toward start (negative)
  *   - `backwards` flips the sign in both cases.

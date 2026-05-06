@@ -3,6 +3,8 @@ import { rendererTestCase as test, expect } from './not-libra';
 import { selectors } from '../__helpers/page-objects/_renderer';
 import { stickyHeadersAllTables } from '../__fixtures__/sticky-header-adf';
 
+test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
+
 async function scrollToPos(page: Page, pos: number) {
 	return page.evaluate((pos: number) => {
 		if (!window) {

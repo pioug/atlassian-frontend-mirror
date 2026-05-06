@@ -8,12 +8,12 @@ import { useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { browser } from '@atlaskit/linking-common/user-agent';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { ActionName, CardDisplay, ElementName, SmartLinkPosition } from '../../../constants';
 import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
 import { getExtensionKey } from '../../../state/helpers';
+import useBlockCardRovoActionExperiment from '../../../state/hooks/use-block-card-rovo-action-experiment';
 import useRovoConfig from '../../../state/hooks/use-rovo-config';
 import FlexibleCard from '../../FlexibleCard';
 import { RovoChatPromptKey } from '../../FlexibleCard/components/actions/rovo-chat-action';
@@ -74,12 +74,14 @@ const ResolvedView = ({
 }: FlexibleBlockCardProps) => {
 	const [isPreviewBlockErrored, setIsPreviewBlockErrored] = useState<boolean>(false);
 	const extensionKey = getExtensionKey(cardState.details);
-	const rovoConfig = fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
+	const { isEnabled: is3PRovoBlockExperimentEnabled } = useBlockCardRovoActionExperiment(url, actionOptions);
+
+	const rovoConfig = is3PRovoBlockExperimentEnabled
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
 			useRovoConfig()
 		: undefined;
 
-	const showRovoResolvedView = fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
+	const showRovoResolvedView = is3PRovoBlockExperimentEnabled
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
 			useMemo(
 				() =>
@@ -106,7 +108,7 @@ const ResolvedView = ({
 	);
 
 	const prompts = useMemo(() => {
-		if (fg('platform_sl_3p_auth_rovo_block_card_kill_switch')) {
+		if (is3PRovoBlockExperimentEnabled) {
 			const defaultPrompts = [RovoChatPromptKey.KEY_HIGHLIGHTS];
 
 			const linkType = cardState.details?.data?.['@type'];
@@ -130,28 +132,28 @@ const ResolvedView = ({
 			return [RovoChatPromptKey.SUMMARIZE_LINK, ...defaultPrompts];
 		}
 		return [];
-	}, [cardState?.details?.data, extensionKey]);
+	}, [cardState?.details?.data, extensionKey, is3PRovoBlockExperimentEnabled]);
 
-	const footerActions: ActionItem[] = useMemo(() => {
-		if (showRovoResolvedView && fg('platform_sl_3p_auth_rovo_block_card_kill_switch')) {
-			return [
-				{
-					name: ActionName.RovoChatAction,
-					prompts: prompts,
-					iconSize: 'small',
-					cardAppearance: CardDisplay.Block,
-				},
-				{ name: ActionName.FollowAction, iconSize: 'small' },
-				{ name: ActionName.DownloadAction, iconSize: 'small' },
-			];
-		}
-
-		return [
-			{ name: ActionName.FollowAction, hideIcon: true },
-			{ name: ActionName.PreviewAction, hideIcon: true },
-			{ name: ActionName.DownloadAction, hideIcon: true },
-		];
-	}, [showRovoResolvedView, prompts]);
+	const footerActions: ActionItem[] = useMemo(
+		() =>
+			showRovoResolvedView && is3PRovoBlockExperimentEnabled
+				? [
+					{
+						name: ActionName.RovoChatAction,
+						prompts: prompts,
+						iconSize: 'small',
+						cardAppearance: CardDisplay.Block,
+					},
+					{ name: ActionName.FollowAction, iconSize: 'small' },
+					{ name: ActionName.DownloadAction, iconSize: 'small' },
+					]
+				: [
+						{ name: ActionName.FollowAction, hideIcon: true },
+						{ name: ActionName.PreviewAction, hideIcon: true },
+						{ name: ActionName.DownloadAction, hideIcon: true },
+					],
+		[showRovoResolvedView, prompts, is3PRovoBlockExperimentEnabled],
+	);
 
 	const uiOptions = FlexibleCardUiOptions;
 	uiOptions.enableSnippetRenderer = true;

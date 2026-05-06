@@ -1,6 +1,9 @@
 import { useCallback, useMemo } from 'react';
 
 import { request } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { getCurrentSiteCloudId } from '../use-current-site-cloud-id';
 
 import { queryIncomingOutgoingLinks as queryIncomingOutgoingAris } from './query';
 
@@ -80,9 +83,9 @@ const useIncomingOutgoingAri = (
 				return match[2]; // Return the cloud_id (siteId)
 			}
 
-			return await getCurrentSiteId();
+			return fg('platform_sl_3p_preauth_soc_proof_inline_killswitch') ? await getCurrentSiteCloudId(baseUriWithNoTrailingSlash) : await getCurrentSiteId();
 		},
-		[getCurrentSiteId],
+		[getCurrentSiteId, baseUriWithNoTrailingSlash],
 	);
 
 	const getIncomingOutgoingAris = useCallback(

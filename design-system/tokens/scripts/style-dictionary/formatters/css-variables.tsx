@@ -10,11 +10,12 @@ import {
 	THEME_DATA_ATTRIBUTE,
 } from '../../../src/constants';
 import themeConfig, { type Themes } from '../../../src/theme-config';
+import { getCSSCustomProperty } from '../../../src/utils/get-css-custom-property';
 import getIncreasedContrastTheme from '../../../src/utils/get-increased-contrast-theme';
-import { getCSSCustomProperty } from '../../../src/utils/token-ids';
+import { getValue } from '../get-value';
 import sortTokens from '../sort-tokens';
+import { themeNameToId } from '../theme-name-to-id';
 import { fontTokenToCSS } from '../transformers/web-font';
-import { getValue, themeNameToId } from '../utilities';
 
 export const cssVariableFormatter: Format['formatter'] = ({ dictionary, options }) => {
 	if (!options.themeName) {

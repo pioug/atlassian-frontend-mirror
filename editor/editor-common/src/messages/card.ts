@@ -201,12 +201,14 @@ export const messages: {
 	inline: {
 		id: 'fabric.editor.displayInline',
 		defaultMessage: 'Display inline',
-		description: 'Display link with the title only.',
+		description:
+			'Label for a toolbar option that changes a smart link to display inline, showing only the link title as a compact inline element within the text.',
 	},
 	embed: {
 		id: 'fabric.editor.displayEmbed',
 		defaultMessage: 'Display embed',
-		description: 'Display link as an embedded object',
+		description:
+			'Label for a toolbar option that changes a smart link to display as an embedded object, showing a rich preview of the linked content.',
 	},
 	link: {
 		id: 'fabric.editor.displayLink',
@@ -295,7 +297,8 @@ export const messages: {
 	editDropdownExpandIconLabel: {
 		id: 'fabric.editor.editDropdownExpandIconLabel',
 		defaultMessage: 'Expand dropdown menu',
-		description: 'Text of an icon to expand the dropdown',
+		description:
+			'Accessible label for an icon button in the smart link toolbar that expands a dropdown menu containing additional editing options for the link.',
 	},
 	editDropdownTriggerTitle: {
 		id: 'fabric.editor.editDropdownTriggerTitle',
@@ -305,7 +308,8 @@ export const messages: {
 	editDropdownEditLinkTitle: {
 		id: 'fabric.editor.editDropdownEditLinkTitle',
 		defaultMessage: 'Edit link',
-		description: 'Edit dropdown edit link button text',
+		description:
+			'Label for a button inside the smart link edit dropdown menu that opens the link editing interface to modify the URL or display text.',
 	},
 	editDropdownEditDatasourceTitle: {
 		id: 'fabric.editor.editDropdownEditDatasourceTitle',
@@ -325,13 +329,15 @@ export const messages: {
 	datasourceJiraIssue: {
 		id: 'fabric.editor.datasource.jiraIssue',
 		defaultMessage: 'Jira Issues',
-		description: 'Insert a jira datasource table',
+		description:
+			'Title shown as a quick insert option for adding a Jira Issues datasource table that displays live Jira issue data in the editor.',
 	},
 	datasourceJiraIssueDescription: {
 		id: 'fabric.editor.datasource.jiraIssue.description',
 		defaultMessage:
 			'Insert Jira issues from Jira Cloud with enhanced search, filtering, and configuration.',
-		description: 'Insert a jira datasource table',
+		description:
+			'Description text shown beneath the Jira Issues option in the quick insert menu, explaining what data the datasource will display when inserted.',
 	},
 	datasourceAssetsObjectsGeneralAvailability: {
 		id: 'fabric.editor.datasource.assetsObjectsGeneralAvailability',

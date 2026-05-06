@@ -43,6 +43,13 @@ export type SyncedBlockSharedState = {
 	 */
 	bodiedSyncBlockDeletionStatus?: BodiedSyncBlockDeletionStatus;
 	/**
+	 * Whether the document currently contains any synced block (source or
+	 * reference). Sticky once flipped to `true` for the lifetime of the
+	 * editor session. When `editor_synced_block_perf` is OFF this is
+	 * always `true`.
+	 */
+	hasSyncedBlocks: boolean;
+	/**
 	 * Whether there are unsaved bodiedSyncBlock changes in the cache
 	 */
 	hasUnsavedBodiedSyncBlockChanges: boolean;

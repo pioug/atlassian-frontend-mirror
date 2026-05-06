@@ -29,7 +29,8 @@ export const alignmentMessages: {
 	alignLeft: {
 		id: 'fabric.editor.alignLeft',
 		defaultMessage: 'Align left',
-		description: 'label stating that text is aligned left',
+		description:
+			'Label for a toolbar button that aligns the selected text to the left margin of the editor.',
 	},
 	alignCenter: {
 		id: 'fabric.editor.alignCenter',

@@ -1,10 +1,10 @@
-/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
+// TODO: EDITOR-6833 - Expected across this entire file, future violations are expected. Will try to remove them later after fully migration
+/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/platform/expand-border-shorthand, @atlaskit/platform/expand-background-shorthand */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  * Compiled migration: platform_editor_core_static_css
  */
-// eslint-disable-file @atlaskit/ui-styling-standard/no-nested-selectors
 import React from 'react';
 
 import { css, cssMap, jsx, keyframes } from '@compiled/react';
@@ -63,20 +63,157 @@ const hideNativeBrowserTextSelectionStyles = css({
 	'&::selection,*::selection': {
 		backgroundColor: 'transparent',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&::-moz-selection,*::-moz-selection': {
 		backgroundColor: 'transparent',
 	},
 });
 
 const boxShadowSelectionStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
 	boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
 	borderColor: 'transparent',
 });
 
+// TODO: EDITOR-6932 - inline them at the end of migration
 const dangerBorderStyles = css({
 	boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+});
+
+// TODO: EDITOR-6932 - inline them at the end of migration
+const backgroundSelectionStyles = css({
+	backgroundColor: token('color.background.selected'),
+});
+
+// TODO: EDITOR-6932 - inline them at the end of migration
+const dangerBackgroundStyles = css({
+	backgroundColor: token('color.background.danger'),
+});
+
+// TODO: EDITOR-6932 - inline them at the end of migration
+const mentionsSelectedColor = css({
+	color: token('color.text.subtle'),
+});
+
+const fixVerticalAlignmentSelector = `
+	&:first-of-type + ul,
+	&:first-of-type + span + ul,
+	&:first-of-type + ol,
+	&:first-of-type + span + ol,
+	&:first-of-type + pre,
+	&:first-of-type + span + pre,
+	&:first-of-type + blockquote,
+	&:first-of-type + span + blockquote
+`;
+
+const gapCursorTwoImagesSideBySideFixSelector = `
+  .ProseMirror-gapcursor[layout="wrap-left"] + span + [layout="wrap-left"],
+  .ProseMirror-gapcursor[layout="wrap-right"] + span + [layout="wrap-right"],
+  .ProseMirror-gapcursor + [layout="wrap-left"] + [layout="wrap-right"],
+  .ProseMirror-gapcursor + [layout="wrap-left"] + span + [layout="wrap-right"],
+  .ProseMirror-gapcursor + [layout="wrap-right"] + [layout="wrap-left"],
+  .ProseMirror-gapcursor + [layout="wrap-right"] + span + [layout="wrap-left"],
+  [layout="wrap-left"] + .ProseMirror-gapcursor + [layout="wrap-right"],
+  [layout="wrap-left"] + .ProseMirror-gapcursor + span [layout="wrap-right"],
+  [layout="wrap-right"] + .ProseMirror-gapcursor + [layout="wrap-left"],
+  [layout="wrap-right"] + .ProseMirror-gapcursor + span + [layout="wrap-left"],
+  [layout="wrap-left"] + .ProseMirror-gapcursor`;
+
+const gapCursorMarginFixSelector = `
+  [layout="wrap-left"] + .ProseMirror-gapcursor + [layout="wrap-right"] > div,
+  [layout="wrap-left"] + .ProseMirror-gapcursor + span + [layout="wrap-right"] > div,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + [layout="wrap-left"] > div,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + span + [layout="wrap-left"] > div,
+  .ProseMirror-gapcursor + [layout="wrap-right"] + [layout="wrap-left"] > div,
+  .ProseMirror-gapcursor + [layout="wrap-right"] + span + [layout="wrap-left"] > div,
+  .ProseMirror-gapcursor + [layout="wrap-left"] + [layout="wrap-right"] > div,
+  .ProseMirror-gapcursor + [layout="wrap-left"] + span + [layout="wrap-right"] > div`;
+
+const gapCursorFloatLeftFixSelector = `
+  [layout="wrap-left"] + .ProseMirror-gapcursor,
+  [layout="wrap-right"] + .ProseMirror-gapcursor`;
+
+const gapCursorAfterPseudoSelector = `
+  .ProseMirror-gapcursor + [layout="wrap-left"] + span + [layout="wrap-right"]::after,
+  .ProseMirror-gapcursor + [layout="wrap-right"] + span + [layout="wrap-left"]::after,
+  [layout="wrap-left"] + .ProseMirror-gapcursor + [layout="wrap-right"]::after,
+  [layout="wrap-left"] + .ProseMirror-gapcursor + span + [layout="wrap-right"]::after,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + [layout="wrap-left"]::after,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + span + [layout="wrap-left"]::after`;
+
+const gapCursorMarginDeepChildrenFixSelector = `
+  [layout="wrap-left"] + .ProseMirror-gapcursor + [layout="wrap-right"] + *,
+  [layout="wrap-left"] + .ProseMirror-gapcursor + [layout="wrap-right"] + span + *,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + [layout="wrap-left"] + *,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + [layout="wrap-left"] + span + *,
+  [layout="wrap-left"] + .ProseMirror-gapcursor + span + [layout="wrap-right"] + *,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + span + [layout="wrap-left"] + *,
+  .ProseMirror-gapcursor + [layout="wrap-left"] + span + [layout="wrap-right"] + *,
+  .ProseMirror-gapcursor + [layout="wrap-right"] + span + [layout="wrap-left"] + *,
+  [layout="wrap-left"] + .ProseMirror-gapcursor + [layout="wrap-right"] + * > *,
+  [layout="wrap-left"] + .ProseMirror-gapcursor + [layout="wrap-right"] + span + * > *,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + [layout="wrap-left"] + * > *,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + [layout="wrap-left"] + span + * > *,
+  [layout="wrap-left"] + .ProseMirror-gapcursor + span + [layout="wrap-right"] + * > *,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + span + [layout="wrap-left"] + * > *,
+  .ProseMirror-gapcursor + [layout="wrap-left"] + span + [layout="wrap-right"] + * > *,
+  .ProseMirror-gapcursor + [layout="wrap-right"] + span + [layout="wrap-left"] + * > *,
+  .ProseMirror-widget:not([data-blocks-decoration-container="true"]):not([data-blocks-drag-handle-container="true"]):not([data-blocks-quick-insert-container="true"]) + .ProseMirror-gapcursor + *,
+  .ProseMirror-widget:not([data-blocks-decoration-container="true"]):not([data-blocks-drag-handle-container="true"]):not([data-blocks-quick-insert-container="true"]) + .ProseMirror-gapcursor + span + *`;
+
+const gapCursorBlink = keyframes({
+	'from, to': {
+		opacity: 0,
+	},
+	'50%': {
+		opacity: 1,
+	},
+});
+
+const pulseIn = keyframes({
+	'0%, 100%': {
+		transform: 'scaleX(0)',
+		opacity: 0,
+	},
+	'10%': {
+		transform: 'scaleX(1.4)',
+		opacity: 1,
+	},
+	'15%, 85%': {
+		transform: 'scaleX(1)',
+		opacity: 1,
+	},
+});
+
+const pulseOut = keyframes({
+	'0%, 90%, 100%': {
+		transform: 'scaleX(1)',
+		opacity: 1,
+	},
+	'10%, 80%': {
+		transform: 'scaleX(0)',
+		opacity: 0,
+	},
+});
+
+const pulseInDuringTr = keyframes({
+	'0%, 95%': {
+		transform: 'scaleX(1)',
+		opacity: 1,
+	},
+	'100%': {
+		transform: 'scaleX(0)',
+		opacity: 0,
+	},
+});
+
+const pulseOutDuringTr = keyframes({
+	'100%': {
+		transform: 'scaleX(1)',
+		opacity: 1,
+	},
+	'0%, 90%': {
+		transform: 'scaleX(0)',
+		opacity: 0,
+	},
 });
 
 /**
@@ -384,8 +521,110 @@ const editorContentStyles = cssMap({
 		flexDirection: 'column',
 		scrollBehavior: 'smooth',
 	},
-	gapCursorStyles: {},
-	gapCursorStylesVisibilityFix: {},
+	gapCursorStyles: {
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			'&.ProseMirror-hide-gapcursor': {
+				// Clean this up with platform_synced_block
+				caretColor: 'transparent',
+			},
+
+			'.ProseMirror-gapcursor': {
+				display: 'none',
+				pointerEvents: 'none',
+				position: 'relative',
+
+				'& span': {
+					caretColor: 'transparent',
+					position: 'absolute',
+					height: '100%',
+					width: '100%',
+					display: 'block',
+				},
+
+				'& span::after': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					animationName: gapCursorBlink,
+					animationDuration: `1s`,
+					animationTimingFunction: `step-start`,
+					animationIterationCount: `infinite`,
+					borderLeft: '1px solid',
+					content: "''",
+					display: 'block',
+					position: 'absolute',
+					top: 0,
+					height: '100%',
+				},
+				'&.-left span::after': {
+					left: token('space.negative.050'),
+				},
+				'&.-right span::after': {
+					right: token('space.negative.050'),
+				},
+				'& span[layout="full-width"], & span[layout="wide"], & span[layout="fixed-width"]': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginLeft: '50%',
+					transform: 'translateX(-50%)',
+				},
+				'&[layout="wrap-right"]': {
+					float: 'right',
+				},
+
+				/* fix vertical alignment of gap cursor */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				[fixVerticalAlignmentSelector]: {
+					marginTop: 0,
+				},
+			},
+			'&.ProseMirror-focused .ProseMirror-gapcursor': {
+				display: 'block',
+				borderColor: 'transparent',
+			},
+		},
+
+		/* This hack below is for two images aligned side by side */
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		[gapCursorTwoImagesSideBySideFixSelector]: {
+			clear: 'none',
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		[gapCursorMarginFixSelector]: {
+			marginRight: 0,
+			marginLeft: 0,
+			marginBottom: 0,
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		[gapCursorFloatLeftFixSelector]: {
+			float: 'left',
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		[gapCursorAfterPseudoSelector]: {
+			visibility: 'hidden',
+			display: 'block',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: 0,
+			content: "' '",
+			clear: 'both',
+			height: 0,
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		[gapCursorMarginDeepChildrenFixSelector]: {
+			marginTop: 0,
+		},
+	},
+	gapCursorStylesVisibilityFix: {
+		// Hide native caret when gap cursor widget is present (no class toggle = no VC90 mutation)
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:has(.ProseMirror-gapcursor)': {
+				caretColor: 'transparent',
+			},
+		},
+	},
 	gridStyles: {},
 	hideCursorWhenHideSelectionStyles: {
 		// Hide cursor when hide selection styles are applied
@@ -454,11 +693,162 @@ const editorContentStyles = cssMap({
 	mediaDangerStyles: {},
 	mediaGroupStyles: {},
 	mediaStyles: {},
-	mentionDangerStyles: {},
-	mentionNodeStyles: {},
-	mentionsSelectionStyles: {},
-	mentionsSelectionStylesWithSearchMatch: {},
-	mentionsStyles: {},
+	mentionDangerStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ak-editor-selected-node:not(.search-match-block).danger': {
+			'> .editor-mention-primitive, > .editor-mention-primitive.mention-self, > .editor-mention-primitive.mention-restricted':
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...dangerBorderStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...dangerBackgroundStyles,
+				},
+		},
+	},
+	mentionNodeStyles: {
+		'.editor-mention-primitive': {
+			display: 'inline',
+			borderRadius: token('radius.full'),
+			cursor: 'pointer',
+			padding: '1px 0.3em 1px 0.23em',
+			// To match `packages/elements/mention/src/components/Mention/PrimitiveMention.tsx` implementation
+			// we match the line height exactly
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			lineHeight: '1.714',
+			fontWeight: token('font.weight.regular'),
+			wordBreak: 'break-word',
+			background: token('color.background.neutral'),
+			border: '1px solid transparent',
+			color: token('color.text.subtle'),
+
+			'&:hover': {
+				background: token('color.background.neutral.hovered'),
+			},
+			'&:active': {
+				background: token('color.background.neutral.pressed'),
+			},
+		},
+
+		'.editor-mention-primitive.mention-restricted': {
+			background: 'transparent',
+			border: `1px solid ${token('color.border.bold')}`,
+			color: token('color.text'),
+
+			'&:hover': {
+				background: 'transparent',
+			},
+			'&:active': {
+				background: 'transparent',
+			},
+		},
+
+		'.editor-mention-primitive.mention-self': {
+			background: token('color.background.brand.bold'),
+			border: '1px solid transparent',
+			color: token('color.text.inverse'),
+
+			'&:hover': {
+				background: token('color.background.brand.bold.hovered'),
+			},
+			'&:active': {
+				background: token('color.background.brand.bold.pressed'),
+			},
+		},
+	},
+	mentionsSelectionStyles: {
+		'.danger': {
+			'.editor-mention-primitive': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				backgroundColor: token('color.background.danger'),
+			},
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ak-editor-selected-node': {
+			'> .editor-mention-primitive, > .editor-mention-primitive.mention-self, > .editor-mention-primitive.mention-restricted':
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...backgroundSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...mentionsSelectedColor,
+					// Explicitly override hover/active states to prevent mentionNodeStyles hover
+					// from winning over the selection background in Compiled's atomic CSS (source order issue)
+					'&:hover, &:active': {
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+						...backgroundSelectionStyles,
+					},
+				},
+		},
+	},
+	mentionsSelectionStylesWithSearchMatch: {
+		'.danger': {
+			'.editor-mention-primitive': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				backgroundColor: token('color.background.danger'),
+			},
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ak-editor-selected-node': {
+			'> .editor-mention-primitive, > .editor-mention-primitive.mention-self, > .editor-mention-primitive.mention-restricted':
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...backgroundSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...mentionsSelectedColor,
+					// Explicitly override hover/active states to prevent mentionNodeStyles hover
+					// from winning over the selection background in Compiled's atomic CSS (source order issue)
+					'&:hover, &:active': {
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+						...backgroundSelectionStyles,
+					},
+				},
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ak-editor-selected-node:not(.search-match-block)': {
+			'> .editor-mention-primitive, > .editor-mention-primitive.mention-self, > .editor-mention-primitive.mention-restricted':
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+				},
+		},
+	},
+	mentionsStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.mentionView-content-wrap': {
+			// TODO: ED-28075 - refactor selection styles to unblock Compiled CSS migration
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			'&.ak-editor-selected-node [data-mention-id] > span': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...backgroundSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...mentionsSelectedColor,
+			},
+		},
+		'.danger': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			'.mentionView-content-wrap.ak-editor-selected-node': {
+				'> span > span > span': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					backgroundColor: token('color.background.danger'),
+				},
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			'.mentionView-content-wrap > span > span > span': {
+				backgroundColor: token('color.background.neutral'),
+				color: token('color.text.subtle'),
+			},
+		},
+	},
 	nestedPanelBorderStylesMixin: {},
 	nestedPanelDangerStyles: {},
 	panelStyles: {},
@@ -539,7 +929,10 @@ const editorContentStyles = cssMap({
 			},
 		},
 		'.ProseMirror .placeholder-decoration-fade-in': {
-			animation: `${placeholderFadeInKeyframes} 300ms ease-out forwards`,
+			animationName: placeholderFadeInKeyframes,
+			animationDuration: `300ms`,
+			animationTimingFunction: `ease-out`,
+			animationFillMode: `forwards`,
 		},
 	},
 	placeholderTextStyles: {
@@ -556,9 +949,8 @@ const editorContentStyles = cssMap({
 			color: token('color.text.subtlest'),
 		},
 		'.ProseMirror span.pm-placeholder.ak-editor-selected-node': {
-			// ...backgroundSelectionStyles
-			backgroundColor: token('color.background.selected'),
-			// ...backgroundSelectionStyles -> hideNativeBrowserTextSelectionStyles
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+			...backgroundSelectionStyles,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 			...hideNativeBrowserTextSelectionStyles,
 		},
@@ -691,8 +1083,176 @@ const editorContentStyles = cssMap({
 	taskItemStyles: {},
 	taskItemStylesWithBlockTaskItem: {},
 	tasksAndDecisionsStyles: {},
-	telepointerColorAndCommonStyle: {},
-	telepointerStyle: {},
+	telepointerColorAndCommonStyle: {
+		'.ProseMirror .telepointer': {
+			position: 'relative',
+			transition: 'opacity 200ms',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&.telepointer-selection:not(.inlineNodeView)': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: 1.2,
+				pointerEvents: 'none',
+				userSelect: 'none',
+			},
+			'&.telepointer-dim': {
+				opacity: 0.2,
+			},
+			'&.color-0': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.red.bolder'),
+			},
+			'&.color-1': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.blue.bolder'),
+			},
+			'&.color-2': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.green.bolder'),
+			},
+			'&.color-3': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.yellow.bolder'),
+			},
+			'&.color-4': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.purple.bolder'),
+			},
+			'&.color-5': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.magenta.bolder'),
+			},
+			'&.color-6': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.teal.bolder'),
+			},
+			'&.color-7': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.orange.bolder'),
+			},
+			'&.color-8': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.lime.bolder'),
+			},
+			'&.color-9': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.gray.bolder'),
+			},
+			'&.color-10': {
+				'--telepointer-participant-text-color': token('color.text.accent.gray.bolder'),
+				'--telepointer-participant-bg-color': token('color.background.accent.blue.subtle'),
+			},
+			'&.color-11': {
+				'--telepointer-participant-text-color': token('color.text.accent.gray.bolder'),
+				'--telepointer-participant-bg-color': token('color.background.accent.red.subtle'),
+			},
+			'&.color-12': {
+				'--telepointer-participant-text-color': token('color.text.accent.gray.bolder'),
+				'--telepointer-participant-bg-color': token('color.background.accent.orange.subtle'),
+			},
+			'&.color-13': {
+				'--telepointer-participant-text-color': token('color.text.accent.gray.bolder'),
+				'--telepointer-participant-bg-color': token('color.background.accent.yellow.subtle'),
+			},
+			'&.color-14': {
+				'--telepointer-participant-text-color': token('color.text.accent.gray.bolder'),
+				'--telepointer-participant-bg-color': token('color.background.accent.green.subtle'),
+			},
+			'&.color-15': {
+				'--telepointer-participant-text-color': token('color.text.accent.gray.bolder'),
+				'--telepointer-participant-bg-color': token('color.background.accent.teal.subtle'),
+			},
+			'&.color-16': {
+				'--telepointer-participant-text-color': token('color.text.accent.gray.bolder'),
+				'--telepointer-participant-bg-color': token('color.background.accent.purple.subtle'),
+			},
+			'&.color-17': {
+				'--telepointer-participant-text-color': token('color.text.accent.gray.bolder'),
+				'--telepointer-participant-bg-color': token('color.background.accent.magenta.subtle'),
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'html:not([data-color-mode=dark]) &': {
+				'--telepointer-participant-background-first-stop': '-850000%',
+				'--telepointer-participant-background-second-stop': '150000%',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'html[data-color-mode=dark] &': {
+				'--telepointer-participant-background-first-stop': '-800000%',
+				'--telepointer-participant-background-second-stop': '200000%',
+			},
+			'&[class*="color-"]': {
+				background:
+					'linear-gradient(to bottom, var(--telepointer-participant-bg-color) var(--telepointer-participant-background-first-stop), transparent var(--telepointer-participant-background-second-stop))',
+				'&::after': {
+					backgroundColor: 'var(--telepointer-participant-bg-color)',
+					color: 'var(--telepointer-participant-text-color)',
+					borderColor: 'var(--telepointer-participant-bg-color)',
+				},
+			},
+		},
+	},
+	telepointerStyle: {
+		'.ProseMirror .telepointer': {
+			'&.telepointer-selection-badge': {
+				'.telepointer-initial, .telepointer-fullname': {
+					position: 'absolute',
+					display: 'block',
+					userSelect: 'none',
+					whiteSpace: 'pre',
+					top: -14,
+					left: 0,
+					font: token('font.body.small'),
+					paddingLeft: token('space.050'),
+					paddingRight: token('space.050'),
+					borderRadius: `0 ${token('radius.xsmall')} ${token('radius.xsmall')} 0`,
+				},
+				'.telepointer-initial': {
+					opacity: 1,
+					transition: 'opacity 0.15s ease-out',
+				},
+				'.telepointer-fullname': {
+					opacity: 0,
+					transform: 'scaleX(0)',
+					transformOrigin: 'top left',
+					transition: 'transform 0.15s ease-out, opacity 0.15s ease-out',
+				},
+			},
+			'&.telepointer-pulse-animate': {
+				'.telepointer-initial': {
+					animationName: pulseOut,
+					animationDuration: `2.5s`,
+					animationTimingFunction: `ease-in-out`,
+				},
+				'.telepointer-fullname': {
+					animationName: pulseIn,
+					animationDuration: `2.5s`,
+					animationTimingFunction: `ease-in-out`,
+				},
+			},
+			'&.telepointer-pulse-during-tr': {
+				'.telepointer-initial': {
+					animationName: pulseOutDuringTr,
+					animationDuration: `7500ms`,
+					animationTimingFunction: `ease-in-out`,
+				},
+				'.telepointer-fullname': {
+					animationName: pulseInDuringTr,
+					animationDuration: `7500ms`,
+					animationTimingFunction: `ease-in-out`,
+				},
+			},
+			'&:hover': {
+				'.telepointer-initial': {
+					opacity: 0,
+					transitionDelay: '150ms',
+				},
+				'.telepointer-fullname': {
+					transform: 'scaleX(1)',
+					opacity: 1,
+					zIndex: 1,
+				},
+			},
+		},
+	},
 	textColorStyles: {},
 	textDangerStyles: {},
 	textHighlightPaddingStyles: {},

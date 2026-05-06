@@ -2,7 +2,7 @@ import upperFirst from 'lodash/upperFirst';
 import type { Format } from 'style-dictionary';
 
 import themeConfig, { type Themes } from '../../../src/theme-config';
-import { getTokenId } from '../../../src/utils/token-ids';
+import { getTokenId } from '../../../src/utils/get-token-id';
 import sortTokens from '../sort-tokens';
 
 const formatTokenPath = (path: string[], themeName: string) => `${themeName}/${getTokenId(path)}`;

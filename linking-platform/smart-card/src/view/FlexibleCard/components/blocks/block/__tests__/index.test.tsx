@@ -3,6 +3,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
@@ -16,6 +17,10 @@ import Block from '../index';
 const testId = 'smart-block';
 
 describe('Block', () => {
+	const wrapper = ({ children }: { children: React.ReactNode }) => (
+		<SmartCardProvider>{children}</SmartCardProvider>
+	);
+
 	it('should capture and report a11y violations', async () => {
 		const { container } = render(<Block>I am a block.</Block>);
 
@@ -164,7 +169,7 @@ describe('Block', () => {
 						<Block size={SmartLinkSize.Small} testId={testId}>
 							<ActionGroup items={[{ name: ActionName.DeleteAction, onClick: () => {} }]} />
 						</Block>
-					</IntlProvider>,
+					</IntlProvider>, { wrapper }
 				);
 
 				await expect(container).toBeAccessible();

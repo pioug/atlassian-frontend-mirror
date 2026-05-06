@@ -2,39 +2,18 @@ import rawTokensDark from '../artifacts/atlassian-dark-token-value-for-contrast-
 import type tokens from '../artifacts/token-names';
 import { type CSSColor, type ThemeColorModes } from '../theme-config';
 
-import {
-	deltaE,
-	getContrastRatio,
-	hexToHSL,
-	hexToRgb,
-	hexToRgbA,
-	HSLToRGB,
-	relativeLuminanceW3C,
-	rgbToHex,
-} from './color-utils';
+import { getContrastRatio, hexToHSL, hexToRgbA } from './color-utils';
 import { additionalContrastChecker } from './custom-theme-token-contrast-check';
+import { getClosestColorIndex } from './get-closest-color-index';
 import { argbFromRgba, Contrast, Hct, rgbaFromArgb } from './hct-color-utils';
-
+import { HSLToRGB } from './hsl-to-rgb';
+import { relativeLuminanceW3C } from './relative-luminance-w3-c';
+import { rgbToHex } from './rgb-to-hex';
 const lowLuminanceContrastRatios = [1.12, 1.33, 2.03, 2.73, 3.33, 4.27, 5.2, 6.62, 12.46, 14.25];
 const highLuminanceContrastRatios = [1.08, 1.24, 1.55, 1.99, 2.45, 3.34, 4.64, 6.1, 10.19, 12.6];
 type Token = keyof typeof tokens;
 type TokenMap = { [key in Token]?: number | string };
 type Mode = 'light' | 'dark';
-
-export const getClosestColorIndex = (themeRamp: CSSColor[], brandColor: CSSColor): number => {
-	// Iterate over themeRamp and find whichever color is closest to brandColor
-	let closestColorIndex = 0;
-	let closestColorDistance: number | null = null;
-
-	themeRamp.forEach((value: CSSColor, index: number) => {
-		const distance = deltaE(hexToRgb(value), hexToRgb(brandColor));
-		if (closestColorDistance === null || distance < (closestColorDistance as number)) {
-			closestColorIndex = index;
-			closestColorDistance = distance;
-		}
-	});
-	return closestColorIndex;
-};
 
 export const generateColors = (
 	brandColor: CSSColor,
@@ -262,3 +241,5 @@ export const generateTokenMapWithContrastCheck = (
 	});
 	return result;
 };
+
+export { getClosestColorIndex } from './get-closest-color-index';

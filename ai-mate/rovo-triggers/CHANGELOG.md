@@ -1,5 +1,23 @@
 # @atlaskit/rovo-triggers
 
+## 6.0.2
+
+### Patch Changes
+
+- [`7c271eb122a53`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c271eb122a53) -
+  Pass isViewMode property through for slides and database contexts. Previously isViewMode was only
+  passed through for editor and whiteboard contexts. Now it flows end-to-end from the read content
+  command result through fetchContent, payload data types, and service API types to the backend.
+  Also updates getPageContext to return slides-view/slides-edit and database-view/database-edit
+  based on isViewMode.
+
+## 6.0.1
+
+### Patch Changes
+
+- [`736a48a613fb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/736a48a613fb6) -
+  Allow Rovo postMessage events from Jira's atlassian.cloud host.
+
 ## 6.0.0
 
 ### Major Changes

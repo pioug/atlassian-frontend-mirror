@@ -4,10 +4,17 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getThemePreferences = exports.getThemeOverridePreferences = void 0;
+Object.defineProperty(exports, "getThemeOverridePreferences", {
+  enumerable: true,
+  get: function get() {
+    return _getThemeOverridePreferences.getThemeOverridePreferences;
+  }
+});
+exports.getThemePreferences = void 0;
 var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
 var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
 var _getIncreasedContrastTheme = _interopRequireDefault(require("./get-increased-contrast-theme"));
+var _getThemeOverridePreferences = require("./get-theme-override-preferences");
 var getThemePreferences = exports.getThemePreferences = function getThemePreferences(themeState) {
   var colorMode = themeState.colorMode,
     contrastMode = themeState.contrastMode,
@@ -44,8 +51,4 @@ var getThemePreferences = exports.getThemePreferences = function getThemePrefere
     }
   });
   return (0, _toConsumableArray2.default)(new Set(themePreferences));
-};
-var getThemeOverridePreferences = exports.getThemeOverridePreferences = function getThemeOverridePreferences(_themeState) {
-  var themeOverridePreferences = [];
-  return (0, _toConsumableArray2.default)(new Set(themeOverridePreferences));
 };

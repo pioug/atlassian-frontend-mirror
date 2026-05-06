@@ -3,6 +3,7 @@ import React, { lazy, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../../messages';
@@ -43,12 +44,12 @@ const ViewRelatedLinksAction = ({
 	return actionData ? (
 		<Action
 			content={<FormattedMessage {...messages.related_links_view_related_links} />}
-			{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
+			{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') || expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
 				? { tooltipMessage: <FormattedMessage {...messages.related_links_view_related_links} /> }
 				: {})}
 			icon={
 				<RelatedLinksActionIcon
-					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
+					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') || expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
 						? { iconSize: props.iconSize }
 						: {})}
 				/>

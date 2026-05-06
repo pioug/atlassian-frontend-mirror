@@ -5,6 +5,8 @@ import {
 	paragraphWithoutInlineNodes,
 } from './validate-range.spec.ts-fixtures';
 
+test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
+
 const CHAR_WIDTH = 6;
 const PARAGRAPH = 'p';
 

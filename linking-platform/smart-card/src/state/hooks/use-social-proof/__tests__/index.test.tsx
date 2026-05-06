@@ -8,7 +8,7 @@ import { getProviderPctMap } from '../../../services/personalization';
 import useSocialProof from '../index';
 
 const mockGetProviderPctMap = getProviderPctMap as jest.MockedFunction<typeof getProviderPctMap>;
-const SOCIAL_PROOF_TRAIT_NAME = 'sl_3p_connected_providers_users_pct';
+const SOCIAL_PROOF_TRAIT_NAME = 'sl_3p_connected_providers_site_pct';
 
 describe('useSocialProof', () => {
 	beforeEach(() => {
@@ -43,7 +43,7 @@ describe('useSocialProof', () => {
 
 			expect(hookResult.current.isEnabled).toBe(true);
 			expect(hookResult.current.connectedPct).toBe(52);
-			expect(mockGetProviderPctMap).toHaveBeenCalledWith('sl_3p_connected_providers_users_pct');
+			expect(mockGetProviderPctMap).toHaveBeenCalledWith('sl_3p_connected_providers_site_pct');
 		});
 
 		it('returns connectedPct as undefined when extensionKey is not in the map', async () => {
@@ -107,7 +107,7 @@ describe('useSocialProof', () => {
 
 			expect(hookResult.current.isEnabled).toBe(true);
 			expect(hookResult.current.isLoading).toBe(true);
-			expect(mockGetProviderPctMap).toHaveBeenCalledWith('sl_3p_connected_providers_users_pct');
+			expect(mockGetProviderPctMap).toHaveBeenCalledWith('sl_3p_connected_providers_site_pct');
 		});
 	});
 });

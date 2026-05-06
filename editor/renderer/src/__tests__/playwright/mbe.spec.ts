@@ -1,6 +1,9 @@
 import { rendererTestCase as test, expect } from './not-libra';
 
-test.use({ rendererMountOptions: { exampleType: 'multi-bodied-extension' } });
+test.use({
+	exampleName:
+		'multi-bodied-extension' as keyof typeof import('../../../examples/0-multi-bodied-extension.tsx'),
+});
 
 test.describe('MBE Renderer', () => {
 	test(`Load an MBE Node in renderer and only first frame should be visible`, async ({

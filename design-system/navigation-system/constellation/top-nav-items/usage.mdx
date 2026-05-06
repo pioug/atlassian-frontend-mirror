@@ -40,6 +40,17 @@ The current navigation has specific menu items that are similar across apps. Mak
 navigation follows Atlassian patterns consistently. For all the guidelines, see
 [navigation resources (Atlassians only)](https://hello.atlassian.net/wiki/spaces/navx/pages/5104144812).
 
+## Accessibility
+
+- Always provide a meaningful `label` for every top nav item. The label becomes the accessible name
+  and the visible tooltip.
+- When a top nav item triggers a popup, menu, or dialog, pass the relevant `aria-controls`,
+  `aria-expanded`, and `aria-haspopup` props from that component to the top nav item.
+- Use the `shortcut` prop to surface a keyboard shortcut in the tooltip when one exists. This makes
+  the shortcut discoverable for keyboard users.
+- Use `isSelected` to indicate when a corresponding popup or panel is open. This exposes the state
+  to assistive technology.
+
 ## Best practices
 
 ### Use the top nav items provided

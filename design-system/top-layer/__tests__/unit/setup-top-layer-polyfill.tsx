@@ -1155,7 +1155,7 @@ describe('popover="auto" stack and light-dismiss', () => {
 
 // ─── popover opacity-clear on open ──────────────────────────────────────────
 // In jsdom there is no real layout, so any caller that uses a
-// `ResizeObserver`-driven reveal pattern (e.g. `use-anchor-positioning`) would
+// `ResizeObserver`-driven reveal pattern (e.g. `use-anchor-position`) would
 // otherwise leave the popover at `opacity: 0`. The polyfill clears any inline
 // `opacity` set before its own toggle listener runs.
 

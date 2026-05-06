@@ -6,10 +6,11 @@ import type { Rule } from 'eslint';
 export const RULE_NAME = 'editor-example-type-import-required';
 
 const EDITOR_LIBRA_IMPORT = '@af/editor-libra';
+const NOT_LIBRA_IMPORT = './not-libra';
 
 const messages = {
 	missingExampleName:
-		'Spec files importing from @af/editor-libra must include exampleName with a ' +
+		'Spec files importing from @af/editor-libra or ./not-libra must include exampleName with a ' +
 		'typeof import type assertion in test.use(). ' +
 		"Add: exampleName: 'testing' as keyof typeof import('../../../examples/testing.tsx') ",
 	missingTypeAssertion:
@@ -27,7 +28,8 @@ function isTargetFile(filename: string): boolean {
 function hasEditorLibraImport(ast: TSESTree.Program): boolean {
 	return ast.body.some(
 		(node) =>
-			node.type === AST_NODE_TYPES.ImportDeclaration && node.source.value === EDITOR_LIBRA_IMPORT,
+			node.type === AST_NODE_TYPES.ImportDeclaration &&
+			(node.source.value === EDITOR_LIBRA_IMPORT || node.source.value === NOT_LIBRA_IMPORT),
 	);
 }
 

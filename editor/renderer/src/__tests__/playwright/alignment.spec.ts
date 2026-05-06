@@ -10,6 +10,8 @@ import {
 	mixAlignmentParagraph,
 } from './alignment.spec.ts-fixtures';
 
+test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
+
 test.describe('when the paragraphs are in the first level of the document', () => {
 	test.describe('and when it is the first paragraph', () => {
 		test.describe('and when it has not an alignment mark', () => {

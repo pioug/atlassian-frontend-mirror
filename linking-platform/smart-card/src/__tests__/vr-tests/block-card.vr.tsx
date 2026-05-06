@@ -212,6 +212,7 @@ snapshot(FlexibleUiErroredTitleBlockCompetitorPrompt, {
 snapshot(VRBlockCardResolvedRovoActions, {
 	featureFlags: {
 		platform_sl_3p_auth_rovo_block_card_kill_switch: true,
+		platform_sl_3p_auth_rovo_block_card_confluence: true,
 	},
 	waitForReactLazy: true,
 });

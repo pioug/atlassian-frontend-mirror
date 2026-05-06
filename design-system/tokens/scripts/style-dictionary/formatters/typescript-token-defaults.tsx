@@ -3,9 +3,9 @@ import type { Format } from 'style-dictionary';
 import format from '@af/formatting/sync';
 import { createSignedArtifact } from '@atlassian/codegen';
 
-import { getTokenId } from '../../../src/utils/token-ids';
+import { getTokenId } from '../../../src/utils/get-token-id';
+import { getValue } from '../get-value';
 import sortTokens from '../sort-tokens';
-import { getValue } from '../utilities';
 
 const formatter: Format['formatter'] = ({ dictionary }) => {
 	const tokensDefaultKeyValues = sortTokens(

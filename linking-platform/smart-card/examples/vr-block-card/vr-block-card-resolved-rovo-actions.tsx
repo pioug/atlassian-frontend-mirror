@@ -37,6 +37,7 @@ const VRBlockCardResolvedRovoActions: {
 			<SmartCardProvider
 				client={new ProviderClient()}
 				rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}
+				product={'CONFLUENCE'}
 			>
 				<Card
 					appearance="block"

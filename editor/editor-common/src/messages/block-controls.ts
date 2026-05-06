@@ -60,7 +60,8 @@ export const messages: {
 	dragToMove: {
 		id: 'fabric.editor.blockControlDragHandleMove',
 		defaultMessage: 'Drag to move',
-		description: 'Use drag handle to move content',
+		description:
+			'Tooltip shown on the drag handle of a content block in the editor, indicating the user can drag this handle to reposition the block.',
 	},
 	dragToMoveClickToOpen: {
 		id: 'fabric.editor.blockControlDragHandleMoveOrOpen',
@@ -70,7 +71,8 @@ export const messages: {
 	dragToRearrange: {
 		id: 'fabric.editor.blockControlDragHandleRearrange',
 		defaultMessage: 'Drag to rearrange',
-		description: 'Use drag handle to rearrange columns',
+		description:
+			'Tooltip shown on the drag handle of a layout column in the editor, indicating the user can drag this handle to reorder columns.',
 	},
 	insert: {
 		id: 'fabric.editor.blockControlInsert',
@@ -92,12 +94,14 @@ export const messages: {
 	movedup: {
 		id: 'fabric.editor.blockControlMovedUp',
 		defaultMessage: 'Content has been moved up',
-		description: 'Selected content has been moved down',
+		description:
+			'Assistive announcement read by screen readers to confirm the selected content block has been successfully moved up in the editor.',
 	},
 	movedDown: {
 		id: 'fabric.editor.blockControlMovedDown',
 		defaultMessage: 'Content has been moved down',
-		description: 'Selected content has been moved down',
+		description:
+			'Assistive announcement read by screen readers to confirm the selected content block has been successfully moved down in the editor.',
 	},
 
 	moveLeft: {

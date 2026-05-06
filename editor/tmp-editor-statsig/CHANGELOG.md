@@ -1,5 +1,44 @@
 # @atlaskit/editor-statsig-tmp
 
+## 75.2.0
+
+### Minor Changes
+
+- [`5e3e8cbdce9a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e3e8cbdce9a2) -
+  NAVX-4609 Adding platform_sl_3p_auth_rovo_block_card_jira and
+  platform_sl_3p_auth_rovo_block_card_confluence to experiment config
+- [`826bc966b7b64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/826bc966b7b64) -
+  ED-6586: Lazy init sync block
+
+## 75.1.0
+
+### Minor Changes
+
+- [`6d1f823ad030b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d1f823ad030b) -
+  Introduce HTML+ to ADF conversion in HtmlChunkStrategy
+
+## 75.0.0
+
+### Major Changes
+
+- [`54ae29f5b3a2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54ae29f5b3a2c) -
+  Clean up feature gate platform_editor_primary_toolbar_early_exit - promote early exit behaviour
+  for empty primary toolbar as default
+
+## 74.12.0
+
+### Minor Changes
+
+- [`7ff5ab02ad66b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ff5ab02ad66b) -
+  Add platform_sl_3p_preauth_social_proof_inline_cta experiment
+
+## 74.11.0
+
+### Minor Changes
+
+- [`976ecba9e36d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/976ecba9e36d7) -
+  ff cleanup: ccpi_fix_broken_uploaded_img
+
 ## 74.10.0
 
 ### Minor Changes

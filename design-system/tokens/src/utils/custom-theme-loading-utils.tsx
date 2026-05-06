@@ -30,20 +30,6 @@ export function findMissingCustomStyleElements(
 	return attrOfMissingCustomStyles;
 }
 
-export function limitSizeOfCustomStyleElements(sizeThreshold: number): void {
-	const styleTags = [
-		...Array.from(
-			document.head.querySelectorAll(`style[${CUSTOM_THEME_ATTRIBUTE}][${THEME_DATA_ATTRIBUTE}]`),
-		),
-	];
-
-	if (styleTags.length < sizeThreshold) {
-		return;
-	}
-
-	styleTags.slice(0, styleTags.length - (sizeThreshold - 1)).forEach((element) => element.remove());
-}
-
 export function reduceTokenMap(
 	tokenMap: { [key in Token]?: number | string },
 	themeRamp: string[],
@@ -55,3 +41,5 @@ export function reduceTokenMap(
 			: acc;
 	}, '');
 }
+
+export { limitSizeOfCustomStyleElements } from './limit-size-of-custom-style-elements';

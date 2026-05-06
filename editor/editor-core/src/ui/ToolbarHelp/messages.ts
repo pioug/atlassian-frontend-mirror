@@ -10,6 +10,7 @@ export const messages: {
 	toolbarHelpTitle: {
 		id: 'fabric.editor.headingLink.toolbarHelpTitle',
 		defaultMessage: 'Open help dialog',
-		description: 'a label for a button that provides help',
+		description:
+			'Label for the toolbar help button in the editor. When clicked, this button opens the help dialog.',
 	},
 });

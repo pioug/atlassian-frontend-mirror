@@ -1,7 +1,7 @@
-import themeImportMap from '../artifacts/theme-import-map';
 import { CUSTOM_THEME_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from '../constants';
 import { type ThemeIdsWithOverrides } from '../theme-config';
 
+import { loadThemeCss } from './load-theme-css';
 export const loadAndAppendThemeCss = async (themeId: ThemeIdsWithOverrides): Promise<void> => {
 	if (
 		document.head.querySelector(
@@ -25,11 +25,7 @@ export const loadAndAppendThemeCss = async (themeId: ThemeIdsWithOverrides): Pro
 	document.head.appendChild(style);
 };
 
-export const loadThemeCss = async (themeId: ThemeIdsWithOverrides): Promise<string> => {
-	const { default: themeCss } = await themeImportMap[themeId]();
-
-	return themeCss;
-};
-
 export const darkModeMediaQuery = '(prefers-color-scheme: dark)';
 export const moreContrastMediaQuery = '(prefers-contrast: more)';
+
+export { loadThemeCss } from './load-theme-css';

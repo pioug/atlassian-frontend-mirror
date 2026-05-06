@@ -10,6 +10,7 @@ export const nodeViewsMessages: {
 	mediaGroupDeleteLabel: {
 		id: 'fabric.editor.mediaGroupDeleteLabel',
 		defaultMessage: 'delete',
-		description: 'a label for an icon that deletes media',
+		description:
+			'Accessible label for the delete icon button shown on a media group item in the editor, used to remove the media file from the document.',
 	},
 });

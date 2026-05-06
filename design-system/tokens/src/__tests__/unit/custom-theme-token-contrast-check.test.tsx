@@ -1,7 +1,7 @@
 import { customThemeContrastChecker } from '../../../examples/utils/custom-theme-contrast-checker';
 import type tokens from '../../artifacts/token-names';
 import { type CSSColor } from '../../theme-config';
-import { hexToRgbA, rgbToHex } from '../../utils/color-utils';
+import { hexToRgbA } from '../../utils/color-utils';
 import { additionalContrastChecker } from '../../utils/custom-theme-token-contrast-check';
 import {
 	generateColors,
@@ -9,6 +9,7 @@ import {
 	generateTokenMapWithContrastCheck,
 } from '../../utils/generate-custom-color-ramp';
 import { argbFromRgba, Contrast, Hct, rgbaFromArgb } from '../../utils/hct-color-utils';
+import { rgbToHex } from '../../utils/rgb-to-hex';
 
 type Token = keyof typeof tokens;
 type ContrastCheckResult = {

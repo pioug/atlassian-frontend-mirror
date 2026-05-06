@@ -1,5 +1,14 @@
 # @atlaskit/modal-dialog
 
+## 14.18.3
+
+### Patch Changes
+
+- [`5a711f8d38b68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a711f8d38b68) -
+  Changed the motion uplift feature gate from `platform-dst-motion-uplift` to
+  `platform-dst-motion-uplift-modal`
+- Updated dependencies
+
 ## 14.18.2
 
 ### Patch Changes

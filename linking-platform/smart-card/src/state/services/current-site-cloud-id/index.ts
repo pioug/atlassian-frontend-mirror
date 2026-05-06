@@ -103,10 +103,10 @@ export class CurrentSiteCloudIdService {
 
 		return this.tenantInfoInflightPromise as Promise<string | undefined>;
 	}
-
-	/** Clears the session pin so the next {@link get} may run `tenant_info` again (e.g. tests). */
+	/** Clears session pin and persisted storage so the next {@link get} is a fresh tenant_info fetch. */
 	clearCache(): void {
 		this.tenantInfoInflightPromise = null;
+		smartCardStorage.removeItem(CURRENT_SITE_CLOUD_ID_STORAGE_ITEM_KEY);
 	}
 }
 

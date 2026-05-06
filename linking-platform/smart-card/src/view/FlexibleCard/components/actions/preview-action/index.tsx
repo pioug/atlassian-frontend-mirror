@@ -6,10 +6,14 @@ import MediaServicesActualSizeIcon from '@atlaskit/icon/core/grow-diagonal';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import {
+	useBlockCardRovoActionExperimentNoExposure,
+} from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
 import Action from '../action';
 
@@ -24,6 +28,8 @@ const PreviewAction = ({
 
 	const data = context?.actions?.[ActionName.PreviewAction];
 	const hasPreviewPanel = data?.hasPreviewPanel;
+
+	const isRovoBlockCardExperimentEnabled = useBlockCardRovoActionExperimentNoExposure();
 
 	const onClick = useCallback(() => {
 		if (data?.invokeAction) {
@@ -44,7 +50,8 @@ const PreviewAction = ({
 					spacing="spacious"
 					label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'Open preview panel'}
 					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-					fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
+					isRovoBlockCardExperimentEnabled ||
+					expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
 						? { size: props.iconSize }
 						: {})}
 				/>
@@ -56,12 +63,13 @@ const PreviewAction = ({
 				spacing="spacious"
 				label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'Open preview'}
 				{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-				fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
+				isRovoBlockCardExperimentEnabled ||
+				expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
 					? { size: props.iconSize }
 					: {})}
 			/>
 		);
-	}, [hasPreviewPanel, props.iconSize]);
+	}, [hasPreviewPanel, props.iconSize, isRovoBlockCardExperimentEnabled]);
 
 	const actionLabel = useCallback(() => {
 		// Only use panel message if experiment is enabled and hasPreviewPanel is true

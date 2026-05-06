@@ -20,6 +20,7 @@ export const contextPanelMessages: {
 	panelContentLabel: {
 		id: 'fabric.editor.contextPanel.panelContentLabel',
 		defaultMessage: 'Scrollable context panel content',
-		description: 'Label for the context panel content',
+		description:
+			'Accessible label for the scrollable content region inside the editor context panel, used by screen readers to identify this scrollable area.',
 	},
 });

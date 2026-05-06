@@ -26,23 +26,27 @@ export const sortingIconMessages: {
 	noOrderLabel: {
 		id: 'fabric.editor.headingLink.noOrderLabel',
 		defaultMessage: 'Sort column A to Z',
-		description: 'Sort the column in ascending order',
+		description:
+			'Label shown on a table column header sort button to sort the column alphabetically from A to Z (ascending order).',
 	},
 	ascOrderLabel: {
 		id: 'fabric.editor.headingLink.ascOrderLabel',
 		defaultMessage: 'Sort column Z to A',
-		description: 'Sort the column in descending order',
+		description:
+			'Label shown on a table column header sort button to sort the column alphabetically from Z to A (descending order).',
 	},
 	descOrderLabel: {
 		id: 'fabric.editor.headingLink.descOrderLabel',
 		defaultMessage: 'Clear sorting',
-		description: 'clear the sorting from this column',
+		description:
+			'Label shown on a table column header sort button to remove any active sorting and restore the default column order.',
 	},
 	invalidLabel: {
 		id: 'fabric.editor.headingLink.invalidLabel',
 		// eslint-disable-next-line @atlassian/i18n/no-multiple-whitespaces
 		defaultMessage: `⚠️  You can't sort a table with merged cells`,
-		description: 'this sort is invalid for merged cells',
+		description:
+			'Warning message shown in a table column header when sorting cannot be applied because the table contains merged cells.',
 	},
 });
 

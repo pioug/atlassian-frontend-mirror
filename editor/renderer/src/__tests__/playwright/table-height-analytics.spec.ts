@@ -7,6 +7,8 @@ import {
 	nestedTablesInHeaderAndCellAdf,
 } from './table-width-analytics.spec.ts-fixtures';
 
+test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
+
 test.describe('table height information analytics', () => {
 	const waitForTableHeightInformationEvent = async (
 		renderer: RendererPageInterface,

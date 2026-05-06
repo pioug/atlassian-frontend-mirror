@@ -30,6 +30,9 @@ import InlineCardTextWrap from '../../../examples/vr-inline-card/vr-inline-card-
 import InlineCardUnauthorised from '../../../examples/vr-inline-card/vr-inline-card-unauthorised';
 import InlineCardUnauthorisedDefaultIcon from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-default-icon';
 import InlineCardUnauthorisedNoAuth from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-no-auth';
+import InlineCardUnauthorisedSocialProofLoaded from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-loaded';
+import InlineCardUnauthorisedSocialProofLowExplore from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-low-explore';
+import InlineCardUnauthorisedSocialProofNoContext from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-no-context';
 import InlineCardUnauthorisedTruncate from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-truncate';
 import {
 	InlineCardWordWrapForbidden,
@@ -41,6 +44,17 @@ import {
 	InlineCardWordWrapUnAuth,
 } from '../../../examples/vr-inline-card/vr-inline-card-word-wrap';
 import { VRInlineProfileCard } from '../../../examples/vr-inline-card/vr-inline-profile-card';
+
+/**
+ * `useCurrentSiteCloudId` GETs `/_edge/tenant_info` in the browser;
+ */
+const mockEdgeTenantInfoRequests = [
+	{
+		urlPattern: /\/_edge\/tenant_info/,
+		body: JSON.stringify({ cloudId: 'vr-mock-tenant-cloud-id' }),
+		contentType: 'application/json',
+	},
+] as const;
 
 snapshot(InlineCardDefault, {
 	description: 'inline card with default icon',
@@ -242,6 +256,36 @@ snapshot(InlineCardUnauthorised, {
 });
 snapshot(InlineCardUnauthorisedNoAuth, {
 	description: 'inline card unauthorised view with no auth',
+});
+
+snapshot(InlineCardUnauthorisedSocialProofLowExplore, {
+	description:
+		'inline card unauthorised social proof: exploratory low-share previewing headline and short Connect label',
+	featureFlags: {
+		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
+		platform_sl_3p_preauth_social_proof_inline_cta: true,
+	},
+	mockRequests: [...mockEdgeTenantInfoRequests],
+});
+
+snapshot(InlineCardUnauthorisedSocialProofLoaded, {
+	description:
+		'inline card unauthorised social proof: persisted percentage previews headline (30%+) and short Connect label',
+	featureFlags: {
+		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
+		platform_sl_3p_preauth_social_proof_inline_cta: true,
+	},
+	mockRequests: [...mockEdgeTenantInfoRequests],
+});
+
+snapshot(InlineCardUnauthorisedSocialProofNoContext, {
+	description:
+		'inline card unauthorised social proof: no-context percentage headline with short Connect label',
+	featureFlags: {
+		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
+		platform_sl_3p_preauth_social_proof_inline_cta: true,
+	},
+	mockRequests: [...mockEdgeTenantInfoRequests],
 });
 
 snapshot(InlineCardFontSizeDefault, {

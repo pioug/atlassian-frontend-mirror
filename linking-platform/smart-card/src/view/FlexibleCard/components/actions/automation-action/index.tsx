@@ -5,12 +5,16 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import AutomationIcon from '@atlaskit/icon/core/automation';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import { type AutomationActionData } from '../../../../../state/flexible-ui-context/types';
+import {
+	useBlockCardRovoActionExperimentNoExposure,
+} from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import { useSmartLinkModal } from '../../../../../state/modal';
 import Action from '../action';
 import { type LinkActionProps } from '../types';
@@ -32,6 +36,8 @@ const AutomationAction = (props: LinkActionProps): React.JSX.Element | null => {
 	const context = useFlexibleUiContext();
 	const { fireEvent } = useAnalyticsEvents();
 	const automationActionData = context?.actions?.[ActionName.AutomationAction];
+
+	const isRovoBlockCardExperimentEnabled = useBlockCardRovoActionExperimentNoExposure();
 
 	const automationActionOnClick = useCallback(
 		(automationActionData: AutomationActionData) => {
@@ -97,7 +103,8 @@ const AutomationAction = (props: LinkActionProps): React.JSX.Element | null => {
 						color="currentColor"
 						label={automationActionIconLabel}
 						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-						fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
+						isRovoBlockCardExperimentEnabled ||
+						expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
 							? { size: props.iconSize }
 							: {})}
 					/>

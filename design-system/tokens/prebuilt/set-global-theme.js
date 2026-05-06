@@ -12,10 +12,11 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
 var _getGlobalTheme = _interopRequireDefault(require("./get-global-theme"));
 var _themeConfig = require("./theme-config");
-var _colorUtils = require("./utils/color-utils");
 var _configurePage = _interopRequireDefault(require("./utils/configure-page"));
 var _customThemeLoadingUtils = require("./utils/custom-theme-loading-utils");
+var _getThemeOverridePreferences = require("./utils/get-theme-override-preferences");
 var _getThemePreferences = require("./utils/get-theme-preferences");
+var _isValidBrandHex = require("./utils/is-valid-brand-hex");
 var _themeLoading = require("./utils/theme-loading");
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -131,7 +132,7 @@ var setGlobalTheme = /*#__PURE__*/function () {
               return _ref3.apply(this, arguments);
             };
           }()); // Load custom themes if needed
-          if (!themeLoader && UNSAFE_themeOptions && (0, _colorUtils.isValidBrandHex)(UNSAFE_themeOptions === null || UNSAFE_themeOptions === void 0 ? void 0 : UNSAFE_themeOptions.brandColor)) {
+          if (!themeLoader && UNSAFE_themeOptions && (0, _isValidBrandHex.isValidBrandHex)(UNSAFE_themeOptions === null || UNSAFE_themeOptions === void 0 ? void 0 : UNSAFE_themeOptions.brandColor)) {
             mode = colorMode || _themeConfig.themeStateDefaults['colorMode'];
             attrOfMissingCustomStyles = (0, _customThemeLoadingUtils.findMissingCustomStyleElements)(UNSAFE_themeOptions, mode);
             if (attrOfMissingCustomStyles.length > 0) {
@@ -167,7 +168,7 @@ var setGlobalTheme = /*#__PURE__*/function () {
           return Promise.all(loadingTasks);
         case 11:
           // Load override themes after standard themes
-          themeOverridePreferences = (0, _getThemePreferences.getThemeOverridePreferences)(themeState);
+          themeOverridePreferences = (0, _getThemeOverridePreferences.getThemeOverridePreferences)(themeState);
           _iterator = _createForOfIteratorHelper(themeOverridePreferences);
           _context3.prev = 13;
           _iterator.s();

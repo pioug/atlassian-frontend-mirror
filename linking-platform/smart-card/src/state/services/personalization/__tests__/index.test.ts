@@ -91,14 +91,14 @@ describe('PersonalizationService', () => {
 			mockFetchResponse({
 				attributes: [
 					{
-						name: 'sl_3p_connected_providers_users_pct',
+						name: 'sl_3p_connected_providers_site_pct',
 						value: '{"google-object-provider": 42}',
 					},
 				],
 			}),
 		);
 
-		await expect(service.getProviderPctMap('sl_3p_connected_providers_users_pct')).resolves.toEqual({
+		await expect(service.getProviderPctMap('sl_3p_connected_providers_site_pct')).resolves.toEqual({
 			'google-object-provider': 42,
 		});
 	});

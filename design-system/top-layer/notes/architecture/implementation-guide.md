@@ -150,7 +150,7 @@ src/
 │   ├── resolve-placement.tsx          # TPlacement type, getPlacement()
 │   ├── role-types.tsx                 # ARIA role types with compile-time enforcement
 │   ├── set-style.tsx                  # setStyle() — apply inline styles, return cleanup
-│   ├── use-anchor-positioning.tsx     # useAnchorPosition() hook
+│   ├── use-anchor-position.tsx        # useAnchorPosition() hook
 │   ├── use-animated-visibility.tsx    # useAnimatedVisibility() hook
 │   ├── use-animation-preset.tsx       # useAnimationPreset() hook (unused/legacy)
 │   ├── (deleted: use-focus-restore.tsx — now native browser behavior)

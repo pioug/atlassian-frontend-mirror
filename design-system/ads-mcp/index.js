@@ -10,8 +10,6 @@ if (!__dirname.includes('node_modules')) {
 		// NOTE: This was copied from an internal dev tooling package, this may not be needed.
 		// But this should only take 25–100ms when necessary.
 		require('esbuild-register/dist/node').register();
-		const paths = require('tsconfig-paths');
-		paths.register(paths.loadConfig(__dirname));
 	}
 }
 

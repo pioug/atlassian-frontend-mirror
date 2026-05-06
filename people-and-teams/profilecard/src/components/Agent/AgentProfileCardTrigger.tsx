@@ -126,6 +126,7 @@ export const AgentProfileCardTrigger: React.ForwardRefExoticComponent<
 					agent={profileData}
 					hasError={!!error}
 					cloudId={props.cloudId}
+					email={props.email}
 					errorType={error}
 					onChatClick={props.onChatClick}
 					onConversationStartersClick={props.onConversationStartersClick}

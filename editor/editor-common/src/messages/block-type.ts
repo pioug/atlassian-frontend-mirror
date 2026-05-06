@@ -180,7 +180,8 @@ export const messages: {
 	normal: {
 		id: 'fabric.editor.normal',
 		defaultMessage: 'Normal text',
-		description: 'This is the default text style',
+		description:
+			'Label for a drop-down item in the text style selector that applies the default paragraph style, removing any heading or special formatting.',
 	},
 	smallText: {
 		id: 'fabric.editor.smallText',

@@ -42,8 +42,4 @@ export const getThemePreferences = (themeState: ThemeState): ThemeIdsWithOverrid
 	return [...new Set(themePreferences)];
 };
 
-export const getThemeOverridePreferences = (_themeState: ThemeState): ThemeIdsWithOverrides[] => {
-	const themeOverridePreferences: ThemeIdsWithOverrides[] = [];
-
-	return [...new Set(themeOverridePreferences)];
-};
+export { getThemeOverridePreferences } from './get-theme-override-preferences';

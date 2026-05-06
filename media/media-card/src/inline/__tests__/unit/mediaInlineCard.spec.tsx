@@ -13,6 +13,7 @@ import * as analyticsModule from '../../../utils/analytics/analytics';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 import userEvent from '@testing-library/user-event';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 
@@ -218,6 +219,97 @@ describe('<MediaInlineCard />', () => {
 
 		expect(erroredView).toBeTruthy();
 	});
+
+	eeTest
+		.describe(
+			'platform_editor_media_name_fallback',
+			'fallback media name when media service name is undefined',
+		)
+		.variant(true, () => {
+			it('should show loading view while fallbackMediaNameFetcher is in-flight', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingImgWithNoName();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				const fallbackMediaNameFetcher = jest.fn(() => new Promise<string>(() => {}));
+
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<MediaInlineCard
+							identifier={identifier}
+							mediaClientConfig={dummyMediaClientConfig}
+							fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				const loadingView = await screen.findByTestId('media-inline-card-loading-view');
+				expect(loadingView).toBeTruthy();
+			});
+
+			it('should show loaded view with fallback name after fallbackMediaNameFetcher resolves', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingImgWithNoName();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+				const fetchedName = 'fetched-fallback-name.jpg';
+				const fallbackMediaNameFetcher = jest.fn().mockResolvedValue(fetchedName);
+
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<MediaInlineCard
+							identifier={identifier}
+							mediaClientConfig={dummyMediaClientConfig}
+							fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				const loadedView = await screen.findByTestId('media-inline-card-loaded-view');
+				expect(loadedView).toBeTruthy();
+				const title = await screen.findByText(fetchedName);
+				expect(title).toBeTruthy();
+			});
+
+			it('should show errored view when fallbackMediaNameFetcher rejects', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingImgWithNoName();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+				const fallbackMediaNameFetcher = jest.fn().mockRejectedValue(new Error('fetch failed'));
+
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<MediaInlineCard
+							identifier={identifier}
+							mediaClientConfig={dummyMediaClientConfig}
+							fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				const erroredView = await screen.findByTestId('media-inline-card-errored-view');
+				expect(erroredView).toBeTruthy();
+			});
+
+			it('should prefer file state name over fallbackMediaNameFetcher when name is present', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+				const fallbackMediaNameFetcher = jest.fn().mockResolvedValue('should-not-be-used.pdf');
+
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<MediaInlineCard
+							identifier={identifier}
+							mediaClientConfig={dummyMediaClientConfig}
+							fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				const loadedView = await screen.findByTestId('media-inline-card-loaded-view');
+				expect(loadedView).toBeTruthy();
+
+				const title = await screen.findByText(fileItem.details.name);
+				expect(title).toBeTruthy();
+				expect(fallbackMediaNameFetcher).not.toHaveBeenCalled();
+			});
+		});
 
 	ffTest.on('platform_media_cross_client_copy', 'Copy', () => {
 		it('should call copy intent', async () => {

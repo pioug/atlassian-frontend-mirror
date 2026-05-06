@@ -73,6 +73,10 @@ export type MessageKey =
 	| 'connect_link_account_card_name'
 	| 'connect_link_account_card_description'
 	| 'connect_unauthorised_account_action'
+	| 'connect_inline_social_proof'
+	| 'social_proof_inline_cta_tag_high_with_context'
+	| 'social_proof_inline_cta_tag_high_no_context'
+	| 'social_proof_inline_cta_tag_low_with_context'
 	| 'connect_unauthorised_account_description'
 	| 'connect_unauthorised_account_description_no_provider'
 	| 'continue'
@@ -417,6 +421,30 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.linking.connect_unauthorised_account_action',
 		defaultMessage: 'Connect to {context}',
 		description: 'Shown on a button to connect user external account to their Atlassian account.',
+	},
+	connect_inline_social_proof: {
+		id: 'fabric.linking.connect_inline_social_proof',
+		defaultMessage: 'Connect',
+		description:
+			'Shown on a button for unauthorised inline smart links when the social proof inline CTA experiment is active. Replaces the longer "Connect your {context} account" label.',
+	},
+	social_proof_inline_cta_tag_high_with_context: {
+		id: 'fabric.linking.social_proof_inline_cta_tag_high_with_context',
+		defaultMessage: '<b>{connectedPct}%</b> of your team previews {context}',
+		description:
+			'Social-proof tag pill beside the shortcut "Connect" on an unauthorised inline smart link when adoption is not in the exploratory range. {connectedPct} is the approximate share previewing/using the integration; {context} is the provider display name.',
+	},
+	social_proof_inline_cta_tag_high_no_context: {
+		id: 'fabric.linking.social_proof_inline_cta_tag_high_no_context',
+		defaultMessage: '<b>{connectedPct}%</b> of your team previews this',
+		description:
+			'Social-proof tag pill when adoption is above the exploratory threshold and no provider display name is available; {connectedPct} is the approximate share previewing the integration.',
+	},
+	social_proof_inline_cta_tag_low_with_context: {
+		id: 'fabric.linking.social_proof_inline_cta_tag_low_with_context',
+		defaultMessage: 'Your team is previewing {context}',
+		description:
+			'Social-proof tag pill when share is below the percentage headline threshold; shown only when a provider display name is available. Omit the pill entirely when personalization is unavailable or the provider name is unknown.',
 	},
 	connect_unauthorised_account_description: {
 		id: 'fabric.linking.connect_unauthorised_account_description',

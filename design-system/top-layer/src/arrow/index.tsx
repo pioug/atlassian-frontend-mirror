@@ -1,6 +1,6 @@
 import once from '@atlaskit/ds-lib/once';
 
-import { getPlacement, placementToPositionArea } from '../internal/use-anchor-positioning';
+import { getPlacement, placementToPositionArea } from '../internal/use-anchor-position';
 import { type TPlacementOptions } from '../popup/types';
 
 import { type TArrowPreset } from './types';

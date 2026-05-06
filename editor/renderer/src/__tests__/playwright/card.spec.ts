@@ -1,6 +1,8 @@
 import { skipAutoA11y } from '@atlassian/a11y-playwright-testing';
 import { adf } from './card.spec.ts-fixtures';
 import { rendererTestCase as test, expect } from './not-libra';
+
+test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
 test.describe('smart card', () => {
 	test.use({
 		adf,

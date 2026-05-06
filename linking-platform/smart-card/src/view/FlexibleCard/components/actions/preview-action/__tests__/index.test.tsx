@@ -5,6 +5,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
@@ -33,11 +34,13 @@ describe('PreviewAction', () => {
 		const onEvent = jest.fn();
 
 		return render(
-			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
-				<IntlProvider locale="en">
-					<PreviewAction {...props} />
-				</IntlProvider>
-			</AnalyticsListener>,
+			<SmartCardProvider>
+				<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
+					<IntlProvider locale="en">
+						<PreviewAction {...props} />
+					</IntlProvider>
+				</AnalyticsListener>
+			</SmartCardProvider>,
 		);
 	};
 

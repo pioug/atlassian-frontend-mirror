@@ -51,6 +51,7 @@ describe('ShareDialogContainer', () => {
 	const mockShareContentType = 'issue';
 	const mockShareLink = 'https://share-link';
 	const mockShareTitle = 'Share Title';
+	const mockWorkspaceAri = 'workspace-ari';
 	const mockTriggerButtonStyle = 'icon-with-text' as const;
 	const mockTriggerButtonAppearance = 'subtle';
 	const mockShouldCloseOnEscapePress = true;
@@ -95,7 +96,7 @@ describe('ShareDialogContainer', () => {
 	beforeEach(() => {
 		mockOriginTracing = {
 			id: 'id',
-			addToUrl: jest.fn(),
+			addToUrl: jest.fn((link) => link + '&someOrigin'),
 			toAnalyticsAttributes: jest.fn(),
 		};
 		mockOriginTracingFactory = jest.fn<{}, []>().mockReturnValue(mockOriginTracing);
@@ -155,6 +156,7 @@ describe('ShareDialogContainer', () => {
 			shareContentType: mockShareContentType,
 			shareLink: mockShareLink,
 			shareTitle: mockShareTitle,
+			workspaceAri: mockWorkspaceAri,
 			showFlags: mockShowFlags,
 			formatCopyLink: mockFormatCopyLink,
 			shouldCloseOnEscapePress: mockShouldCloseOnEscapePress,
@@ -485,9 +487,10 @@ describe('ShareDialogContainer', () => {
 			expect(mockShare).toHaveBeenCalledWith(
 				{
 					ari: mockShareAri,
-					link: mockShareLink,
+					link: mockShareLink + '&someOrigin',
 					title: mockShareTitle,
 					type: mockShareContentType,
+					workspaceAri: mockWorkspaceAri,
 				},
 				[
 					{ type: 'user', id: 'id1' },
@@ -532,9 +535,10 @@ describe('ShareDialogContainer', () => {
 			expect(mockShare).toHaveBeenCalledWith(
 				{
 					ari: mockShareAri,
-					link: mockShareLink,
+					link: mockShareLink + '&someOrigin',
 					title: mockShareTitle,
 					type: mockShareContentType,
+					workspaceAri: mockWorkspaceAri,
 				},
 				[
 					{ type: 'user', id: 'id1' },

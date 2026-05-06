@@ -6,16 +6,34 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.argbFromLinrgb = argbFromLinrgb;
 exports.argbFromLstar = argbFromLstar;
-exports.argbFromRgb = argbFromRgb;
+Object.defineProperty(exports, "argbFromRgb", {
+  enumerable: true,
+  get: function get() {
+    return _argbFromRgb.argbFromRgb;
+  }
+});
 exports.argbFromRgba = argbFromRgba;
 exports.argbFromXyz = argbFromXyz;
-exports.delinearized = delinearized;
-exports.linearized = linearized;
+Object.defineProperty(exports, "delinearized", {
+  enumerable: true,
+  get: function get() {
+    return _delinearized.delinearized;
+  }
+});
+Object.defineProperty(exports, "linearized", {
+  enumerable: true,
+  get: function get() {
+    return _linearized.linearized;
+  }
+});
 exports.lstarFromArgb = lstarFromArgb;
 exports.lstarFromY = lstarFromY;
 exports.rgbaFromArgb = rgbaFromArgb;
 exports.whitePointD65 = whitePointD65;
 exports.yFromLstar = yFromLstar;
+var _argbFromRgb = require("./argb-from-rgb");
+var _delinearized = require("./delinearized");
+var _linearized = require("./linearized");
 var mathUtils = _interopRequireWildcard(require("./math-utils"));
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function _interopRequireWildcard(e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != _typeof(e) && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (var _t in e) "default" !== _t && {}.hasOwnProperty.call(e, _t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, _t)) && (i.get || i.set) ? o(f, _t, i) : f[_t] = e[_t]); return f; })(e, t); }
 /**
@@ -54,20 +72,13 @@ var XYZ_TO_SRGB = [[3.2413774792388685, -1.5376652402851851, -0.4988536684626805
 var WHITE_POINT_D65 = [95.047, 100.0, 108.883];
 
 /**
- * Converts a color from RGB components to ARGB format.
- */
-function argbFromRgb(red, green, blue) {
-  return (255 << 24 | (red & 255) << 16 | (green & 255) << 8 | blue & 255) >>> 0;
-}
-
-/**
  * Converts a color from linear RGB components to ARGB format.
  */
 function argbFromLinrgb(linrgb) {
-  var r = delinearized(linrgb[0]);
-  var g = delinearized(linrgb[1]);
-  var b = delinearized(linrgb[2]);
-  return argbFromRgb(r, g, b);
+  var r = (0, _delinearized.delinearized)(linrgb[0]);
+  var g = (0, _delinearized.delinearized)(linrgb[1]);
+  var b = (0, _delinearized.delinearized)(linrgb[2]);
+  return (0, _argbFromRgb.argbFromRgb)(r, g, b);
 }
 
 /**
@@ -106,19 +117,19 @@ function argbFromXyz(x, y, z) {
   var linearR = matrix[0][0] * x + matrix[0][1] * y + matrix[0][2] * z;
   var linearG = matrix[1][0] * x + matrix[1][1] * y + matrix[1][2] * z;
   var linearB = matrix[2][0] * x + matrix[2][1] * y + matrix[2][2] * z;
-  var r = delinearized(linearR);
-  var g = delinearized(linearG);
-  var b = delinearized(linearB);
-  return argbFromRgb(r, g, b);
+  var r = (0, _delinearized.delinearized)(linearR);
+  var g = (0, _delinearized.delinearized)(linearG);
+  var b = (0, _delinearized.delinearized)(linearB);
+  return (0, _argbFromRgb.argbFromRgb)(r, g, b);
 }
 
 /**
  * Converts a color from XYZ to ARGB.
  */
 function xyzFromArgb(argb) {
-  var r = linearized(redFromArgb(argb));
-  var g = linearized(greenFromArgb(argb));
-  var b = linearized(blueFromArgb(argb));
+  var r = (0, _linearized.linearized)(redFromArgb(argb));
+  var g = (0, _linearized.linearized)(greenFromArgb(argb));
+  var b = (0, _linearized.linearized)(blueFromArgb(argb));
   return mathUtils.matrixMultiply([r, g, b], SRGB_TO_XYZ);
 }
 
@@ -131,8 +142,8 @@ function xyzFromArgb(argb) {
  */
 function argbFromLstar(lstar) {
   var y = yFromLstar(lstar);
-  var component = delinearized(y);
-  return argbFromRgb(component, component, component);
+  var component = (0, _delinearized.delinearized)(y);
+  return (0, _argbFromRgb.argbFromRgb)(component, component, component);
 }
 
 /**
@@ -174,42 +185,6 @@ function yFromLstar(lstar) {
  */
 function lstarFromY(y) {
   return labF(y / 100.0) * 116.0 - 16.0;
-}
-
-/**
- * Linearizes an RGB component.
- *
- * @param rgbComponent 0 <= rgb_component <= 255, represents R/G/B
- * channel
- * @return 0.0 <= output <= 100.0, color channel converted to
- * linear RGB space
- */
-function linearized(rgbComponent) {
-  var normalized = rgbComponent / 255.0;
-  if (normalized <= 0.040449936) {
-    return normalized / 12.92 * 100.0;
-  } else {
-    return Math.pow((normalized + 0.055) / 1.055, 2.4) * 100.0;
-  }
-}
-
-/**
- * Delinearizes an RGB component.
- *
- * @param rgbComponent 0.0 <= rgb_component <= 100.0, represents
- * linear R/G/B channel
- * @return 0 <= output <= 255, color channel converted to regular
- * RGB space
- */
-function delinearized(rgbComponent) {
-  var normalized = rgbComponent / 100.0;
-  var delinearized = 0.0;
-  if (normalized <= 0.0031308) {
-    delinearized = normalized * 12.92;
-  } else {
-    delinearized = 1.055 * Math.pow(normalized, 1.0 / 2.4) - 0.055;
-  }
-  return mathUtils.clampInt(0, 255, Math.round(delinearized * 255.0));
 }
 
 /**

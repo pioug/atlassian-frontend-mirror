@@ -1,6 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { setUFOConfig, shouldUseRawDataThirdPartyBehavior } from '../../config';
+import { setUFOConfig } from '../../config';
 import { DefaultInteractionID } from '../../interaction-id-context';
 import { interactions } from '../common/constants';
 import {
@@ -52,18 +52,73 @@ describe('Raw Data Third Party Behavior', () => {
 		});
 
 		// Mock feature flags
-		mockFg.mockImplementation((flag: string) => {
-			if (flag === 'platform_ufo_raw_data_thirdparty') {
-				return true;
-			}
-			return false;
-		});
+		mockFg.mockImplementation(() => false);
 	});
 
 	afterEach(() => {
 		interactions.clear();
 		DefaultInteractionID.current = null;
 		interactionExtraMetrics.reset();
+	});
+
+	it('should populate metric windows and lifecycle observations when new interaction happens after standard TTAI', () => {
+		mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_metric_variants');
+
+		const interactionId = 'metric-variant-interaction';
+		const startTime = 1000;
+		mockPerformanceNow.mockReturnValue(startTime);
+
+		addNewInteraction(interactionId, 'test-ufo-name', 'page_load', startTime, 1, null, null, null);
+
+		const interaction = interactions.get(interactionId);
+		expect(interaction).toBeDefined();
+
+		const remove3pHold = addHold(
+			interactionId,
+			[{ name: 'segment1', type: 'third-party' as const }],
+			'3p-hold',
+			false,
+		);
+		const removeHold = addHold(interactionId, [{ name: 'segment1' }], 'regular-hold', false);
+
+		mockPerformanceNow.mockReturnValue(2000);
+		removeHold();
+		tryComplete(interactionId, 2000);
+
+		expect(interaction!.end).toBe(2000);
+		expect(interaction!.metricWindows?.standard).toEqual({
+			start: 1000,
+			end: 2000,
+			includeCategories: [],
+			excludeCategories: ['third-party'],
+		});
+		expect(interaction!.metricWindows?.['include-third-party']).toBeUndefined();
+
+		mockPerformanceNow.mockReturnValue(2500);
+		abortByNewInteraction(interactionId, 'next-interaction');
+
+		expect(interaction!.abortReason).toBeUndefined();
+		expect(interaction!.lifecycleObservations).toEqual([
+			{
+				type: 'new_interaction_started',
+				timestamp: 2500,
+				triggerName: 'next-interaction',
+			},
+		]);
+		expect(interaction!.metricWindows?.standard).toEqual({
+			start: 1000,
+			end: 2000,
+			includeCategories: [],
+			excludeCategories: ['third-party'],
+		});
+		expect(interaction!.metricWindows?.['include-third-party']).toEqual({
+			start: 1000,
+			end: 2500,
+			includeCategories: ['third-party'],
+			excludeCategories: [],
+		});
+
+		remove3pHold();
 	});
 
 	describe('tryComplete with third-party holds', () => {
@@ -153,48 +208,6 @@ describe('Raw Data Third Party Behavior', () => {
 
 			// Interaction should be finished
 			expect(interaction!.end).toBe(endTime);
-		});
-
-		it('should not wait for 3p holds when feature flag is disabled', () => {
-			mockFg.mockImplementation((flag: string) => {
-				if (flag === 'platform_ufo_raw_data_thirdparty') {
-					return false;
-				}
-				return false;
-			});
-
-			const interactionId = 'test-interaction-3';
-			const startTime = 1000;
-			mockPerformanceNow.mockReturnValue(startTime);
-
-			addNewInteraction(
-				interactionId,
-				'test-ufo-name',
-				'page_load',
-				startTime,
-				1,
-				null,
-				null,
-				null,
-			);
-
-			const interaction = interactions.get(interactionId);
-			expect(interaction).toBeDefined();
-
-			// Add a third-party hold
-			const labelStack3p = [{ name: 'segment1', type: 'third-party' as const }];
-			const remove3pHold = addHold(interactionId, labelStack3p, '3p-hold', false);
-
-			// Remove regular holds
-			const labelStack = [{ name: 'segment1' }];
-			const removeHold = addHold(interactionId, labelStack, 'regular-hold', false);
-			removeHold();
-
-			// Should not wait for 3p holds when feature flag is disabled
-			expect(shouldUseRawDataThirdPartyBehavior('test-ufo-name', 'page_load')).toBe(false);
-
-			// Clean up
-			remove3pHold();
 		});
 	});
 
@@ -408,14 +421,7 @@ describe('Raw Data Third Party Behavior', () => {
 			startVCObserverSpy.mockRestore();
 		});
 
-		it('should start interactionExtraMetrics when feature flag is disabled', () => {
-			mockFg.mockImplementation((flag: string) => {
-				if (flag === 'platform_ufo_raw_data_thirdparty') {
-					return false;
-				}
-				return false;
-			});
-
+		it('should start interactionExtraMetrics when raw data 3P behavior is enabled by rate config', () => {
 			const interactionId = 'test-interaction-9';
 			const startTime = 1000;
 
@@ -445,7 +451,7 @@ describe('Raw Data Third Party Behavior', () => {
 				null,
 			);
 
-			// Should start interactionExtraMetrics when feature flag is disabled
+			// Should start interactionExtraMetrics when raw data 3P behavior is enabled by rate config
 			expect(startVCObserverSpy).toHaveBeenCalledWith({ startTime }, interactionId);
 
 			startVCObserverSpy.mockRestore();

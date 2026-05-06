@@ -192,23 +192,14 @@ const MyComponent = () => (
 );`);
 	});
 
-	it('should NOT transform  the file when XCSS type is imported', async () => {
-		const input = `import { XCSS } from '@atlaskit/primitives';
-export interface Props { yo: XCSS; }`;
-
-		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import { XCSS } from '@atlaskit/primitives/compiled';
-export interface Props { yo: XCSS; }`);
-	});
-
 	it('should NOT transform other imports', async () => {
 		const input = `
 import { Box, Stack } from '@atlaskit/primitives';
 import { something } from '@atlaskit/other-package';
 		`;
 		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import { Box, Stack } from '@atlaskit/primitives/compiled';
-import { something } from '@atlaskit/other-package';`);
+		expect(output).toEqual(`import { something } from '@atlaskit/other-package';
+import { Box, Stack } from '@atlaskit/primitives/compiled';`);
 	});
 
 	it('should NOT transform Box primitives with spread props', async () => {
@@ -326,7 +317,113 @@ const MyComponent = () => (
 		const output = await applyTransform(transform, input);
 		expect(output).toEqual(input);
 	});
+
+	it('should combine multiple @atlaskit/primitives/compiled imports into one', async () => {
+		const input = `
+import { Box } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled';
+
+const MyComponent = () => (
+	<Box>
+		<Inline>
+			<Stack>Content</Stack>
+		</Inline>
+	</Box>
+);`;
+		const output = await applyTransform(transform, input);
+		expect(output).toEqual(`import { Stack, Inline, Box } from '@atlaskit/primitives/compiled';
+
+const MyComponent = () => (
+	<Box>
+		<Inline>
+			<Stack>Content</Stack>
+		</Inline>
+	</Box>
+);`);
+	});
+
+	it('should combine multiple @atlaskit/primitives/compiled imports into one - another example', async () => {
+		const input = `import { Text } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Grid, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
+
+export const MyComponent = () => {
+	return (
+		<Flex xcss={siteWideUsageStyles} direction="column" gap="space.200">
+			<Flex direction="column" gap="space.100">
+				<Text size="large" weight="bold">
+					{formatMessage(siteWideUsageSectionHeadingNonFinal)}
+				</Text>
+				<Text as="p">{formatMessage(siteWideUsageSectionDescriptionNonFinal)}</Text>
+			</Flex>
+			<Box>
+				<Grid>some stuff</Grid>
+			</Box>
+		</Flex>
+	);
+};
+const siteWideUsageStyles = xcss({
+	marginTop: 'space.300',
+});`;
+		const output = await applyTransform(transform, input);
+		expect(output).toEqual(`import { Text, Box, Grid } from '@atlaskit/primitives/compiled';
+import { xcss, Flex } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
+
+export const MyComponent = () => {
+	return (
+		<Flex xcss={siteWideUsageStyles} direction="column" gap="space.200">
+			<Flex direction="column" gap="space.100">
+				<Text size="large" weight="bold">
+					{formatMessage(siteWideUsageSectionHeadingNonFinal)}
+				</Text>
+				<Text as="p">{formatMessage(siteWideUsageSectionDescriptionNonFinal)}</Text>
+			</Flex>
+			<Box>
+				<Grid>some stuff</Grid>
+			</Box>
+		</Flex>
+	);
+};
+const siteWideUsageStyles = xcss({
+	marginTop: 'space.300',
+});`);
+	});
+
+	it('should NOT move type XCSS from @atlaskit/primitives to @atlaskit/primitives/compiled', async () => {
+		const input = `import { Box, type XCSS, xcss } from '@atlaskit/primitives';
+
+const iconWrapper = xcss({
+	padding: 'space.050',
+	borderRadius: 'radius.small',
+	display: 'flex',
 });
+
+const MyComponent = (props: { styles: XCSS }) => (
+	<Box xcss={iconWrapper}>
+		Hello
+	</Box>
+);`;
+		const output = await applyTransform(transform, input);
+		expect(output).toEqual(`import { xcss, Box, type XCSS } from '@atlaskit/primitives';
+
+const iconWrapper = xcss({
+	padding: 'space.050',
+	borderRadius: 'radius.small',
+	display: 'flex',
+});
+
+const MyComponent = (props: { styles: XCSS }) => (
+	<Box xcss={iconWrapper}>
+		Hello
+	</Box>
+);`);
+	});
+
+	
+});
+
 
 describe('prop to xcss transformation', () => {
 	it('should transform Grid props to xcss', async () => {
@@ -425,8 +522,9 @@ const MyComponent = () => (
 );
 `;
 		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import { Grid } from '@atlaskit/primitives/compiled';
-import { cssMap } from '@atlaskit/css';
+		expect(output).toEqual(`import { cssMap } from '@atlaskit/css';
+
+import { Grid } from '@atlaskit/primitives/compiled';
 
 const gridStyles = cssMap({
     root: {
@@ -449,8 +547,9 @@ const MyComponent = () => (
 );
 `;
 		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import { Grid } from '@atlaskit/primitives/compiled';
-import { cssMap as compiledCssMap } from '@atlaskit/css';
+		expect(output).toEqual(`import { cssMap as compiledCssMap } from '@atlaskit/css';
+
+import { Grid } from '@atlaskit/primitives/compiled';
 
 const gridStyles = compiledCssMap({
     root: {
@@ -688,6 +787,30 @@ const MyComponent = () => (
 			Content
 		</Inline>
 	</Box>
+);`);
+	});
+
+	
+	it('should handle mixed imports with type XCSS and keep type XCSS in @atlaskit/primitives', async () => {
+		const input = `import { Box, type XCSS } from '@atlaskit/primitives';
+
+const MyComponent = (props: { styles: XCSS }) => (
+	<Box backgroundColor="color.background.neutral" />
+);`;
+		const output = await applyTransform(transform, input);
+		expect(output).toEqual(`import { token } from '@atlaskit/tokens';
+import { cssMap } from '@atlaskit/css';
+import { type XCSS } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+
+const boxStyles = cssMap({
+    root: {
+        backgroundColor: token("color.background.neutral")
+    }
+});
+
+const MyComponent = (props: { styles: XCSS }) => (
+	<Box xcss={boxStyles.root} />
 );`);
 	});
 });

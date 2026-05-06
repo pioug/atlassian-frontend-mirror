@@ -10,6 +10,7 @@ export const elementInsertSidePanel: {
 	title: {
 		id: 'fabric.editor.elementInsertSidePanel.title',
 		defaultMessage: 'Insert',
-		description: 'Title of a panel that opens on the side',
+		description:
+			'Heading text displayed at the top of the element insert side panel that slides open in the editor, allowing users to browse and insert content elements.',
 	},
 });

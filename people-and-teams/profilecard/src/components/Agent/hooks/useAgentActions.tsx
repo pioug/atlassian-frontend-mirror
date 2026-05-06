@@ -37,9 +37,11 @@ const createRovoParams = (params: {
 
 export const useAgentUrlActions = ({
 	cloudId,
+	email,
 	source,
 }: {
 	cloudId: string;
+	email?: string;
 	source: string;
 }): {
 	onEditAgent: (agentId: string) => void;
@@ -54,7 +56,7 @@ export const useAgentUrlActions = ({
 
 	const onEditAgent = useCallback(
 		(agentId: string): void => {
-			const url = getAtlassianStudioAgentEditUrl(cloudId, agentId);
+			const url = getAtlassianStudioAgentEditUrl(cloudId, agentId, email);
 
 			window.open(url, '_blank', 'noopener, noreferrer');
 
@@ -63,7 +65,7 @@ export const useAgentUrlActions = ({
 				source,
 			});
 		},
-		[cloudId, fireEvent, source],
+		[cloudId, email, fireEvent, source],
 	);
 
 	const onCopyAgent = (agentId: string): void => {
@@ -86,7 +88,7 @@ export const useAgentUrlActions = ({
 				source,
 			});
 
-			const legacyDuplicateUrl = getAtlassianStudioAgentDuplicateUrl(cloudId, agentId);
+			const legacyDuplicateUrl = getAtlassianStudioAgentDuplicateUrl(cloudId, agentId, email);
 
 			// When versioning FG is off, use legacy duplicate flow
 			if (!fg('rovo_agent_versioning_enabled')) {
@@ -127,7 +129,7 @@ export const useAgentUrlActions = ({
 				window.location.assign(legacyDuplicateUrl);
 			}
 		},
-		[cloudId, fireEvent, source],
+		[cloudId, email, fireEvent, source],
 	);
 
 	const onConversationStarter = ({

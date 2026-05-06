@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 9.0.15
+
+### Patch Changes
+
+- [`ca8aefc573cc5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca8aefc573cc5) -
+  Clean up feature gates `platform_editor_block_menu_divider_patch` and
+  `platform_editor_block_menu_copy_section` (both rolled out as true).
+- Updated dependencies
+
+## 9.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.13
 
 ### Patch Changes

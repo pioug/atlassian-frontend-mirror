@@ -1,5 +1,12 @@
 # @atlaskit/primitives
 
+## 19.0.1
+
+### Patch Changes
+
+- [`79f04a5184ece`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79f04a5184ece) -
+  Apply a couple of minor fixes to the stage 1 codemod transform
+
 ## 19.0.0
 
 ### Major Changes

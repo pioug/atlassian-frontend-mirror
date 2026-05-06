@@ -4,10 +4,14 @@ import { FormattedMessage } from 'react-intl';
 
 import LinkIcon from '@atlaskit/icon/core/link';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import {
+	useBlockCardRovoActionExperimentNoExposure,
+} from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
 import Action from '../action';
 
@@ -22,6 +26,8 @@ const CopyLinkAction = ({
 
 	const data = context?.actions?.[ActionName.CopyLinkAction];
 	const [tooltipMessage, setTooltipMessage] = useState(messages.copy_url_to_clipboard);
+
+	const isRovoBlockCardExperimentEnabled = useBlockCardRovoActionExperimentNoExposure();
 
 	const onClick = useCallback(() => {
 		if (data?.invokeAction) {
@@ -45,7 +51,8 @@ const CopyLinkAction = ({
 					label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'copy url'}
 					spacing="spacious"
 					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-					fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
+					isRovoBlockCardExperimentEnabled ||
+					expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
 						? { size: props.iconSize }
 						: {})}
 				/>

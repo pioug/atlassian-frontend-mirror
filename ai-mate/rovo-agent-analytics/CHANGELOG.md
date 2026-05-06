@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-analytics
 
+## 1.6.0
+
+### Minor Changes
+
+- [`1382e455b2661`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1382e455b2661) -
+  Add subagent analytics tracking events for create, delete, edit tools and tool configuration
+  actions
+
 ## 1.5.0
 
 ### Minor Changes

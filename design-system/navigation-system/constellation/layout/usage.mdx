@@ -104,6 +104,17 @@ The main difference between aside, panel and modal dialog is their behaviours:
   decision or completing an action, before they can return to their primary task.
 - Don’t use aside for new experiences. It is planned for deprecation.
 
+## Accessibility
+
+- Always place slots in this order as direct children of the root: banner, top nav, side nav, main,
+  aside, panel. This determines the keyboard tab order, screen reader reading order, and skip link
+  order.
+- Provide a unique, meaningful `label` for side nav, aside, panel, and top nav end. The label is
+  exposed as the landmark's accessible name. Don't repeat the landmark's role in the label.
+- Slots provide landmark roles automatically. Don't add or duplicate landmark roles inside them.
+- Use custom skip links sparingly. Too many skip links makes the skip links menu noisy. Consider the
+  utility of each one before adding it.
+
 ## Best practices
 
 ### Design using grid in the main area

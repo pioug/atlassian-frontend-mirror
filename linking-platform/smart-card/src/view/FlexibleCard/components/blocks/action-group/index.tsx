@@ -14,7 +14,6 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -24,6 +23,10 @@ import {
 	useFlexibleUiContext,
 	useFlexibleUiOptionContext,
 } from '../../../../../state/flexible-ui-context';
+import {
+	isBlockCardRovoActionExperimentEnabled
+} from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
+import useRovoConfig from '../../../../../state/hooks/use-rovo-config';
 import { RovoChatPromptKey } from '../../actions/rovo-chat-action';
 import { sizeToButtonSpacing } from '../../utils';
 import type { ActionItem } from '../types';
@@ -82,14 +85,20 @@ const ActionGroup = ({
 
 	const context = useFlexibleUiContext();
 	const ui = useFlexibleUiOptionContext();
+	const { product } = useRovoConfig();
 
 	const [isOpen, setIsOpen] = useState(false);
 
-	const renderableActionItems = useMemo(() => filterActionItems(items, context), [context, items]);
+	const renderableActionItems = useMemo(
+		() => filterActionItems(items, context, product),
+		[context, items, product],
+	);
 	const isMoreThenTwoItems = renderableActionItems.length > visibleButtonsNum;
-	const isRovoActionsEnabled =
-		!!context?.actions?.[ActionName.RovoChatAction] &&
-		fg('platform_sl_3p_auth_rovo_block_card_kill_switch');
+	const rovoChatAction =
+		context?.actions?.[ActionName.RovoChatAction];
+	const is3PBlockExperimentEnabled = isBlockCardRovoActionExperimentEnabled(
+		rovoChatAction?.product,
+	);
 
 	const onOpenChange = useCallback(
 		(attrs: { isOpen: boolean }) => {
@@ -108,7 +117,7 @@ const ActionGroup = ({
 	}, [isOpen, onOpenChange]);
 
 	const actionButtons = useMemo(() => {
-		if (isRovoActionsEnabled) {
+		if (!!rovoChatAction && is3PBlockExperimentEnabled) {
 			const rovoActions = [
 				...(containerWidth >= REDUCED_ACTIONS_SIZE
 					? renderableActionItems.slice(0, visibleButtonsNum - 1)
@@ -134,17 +143,18 @@ const ActionGroup = ({
 	}, [
 		appearance,
 		isMoreThenTwoItems,
-		isRovoActionsEnabled,
 		onActionItemClick,
 		renderableActionItems,
 		size,
 		visibleButtonsNum,
+		rovoChatAction,
+		is3PBlockExperimentEnabled,
 		containerWidth,
 	]);
 
 	const moreActionDropdown = useMemo(() => {
 		let actionItems: ActionItem[];
-		if (isRovoActionsEnabled && containerWidth < REDUCED_ACTIONS_SIZE) {
+		if ((!!rovoChatAction && is3PBlockExperimentEnabled) && containerWidth < REDUCED_ACTIONS_SIZE) {
 			actionItems = renderableActionItems;
 		} else {
 			actionItems = isMoreThenTwoItems ? renderableActionItems.slice(visibleButtonsNum - 1) : [];
@@ -169,7 +179,7 @@ const ActionGroup = ({
 							<Button
 								{...props}
 								spacing={
-									isRovoActionsEnabled && fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
+									!!rovoChatAction && is3PBlockExperimentEnabled
 										? size === SmartLinkSize.XLarge
 											? 'default'
 											: 'compact'
@@ -178,7 +188,7 @@ const ActionGroup = ({
 								testId="action-group-more-button"
 								iconBefore={moreIcon}
 								ref={triggerRef}
-								{...(fg('platform_sl_3p_auth_rovo_block_card_kill_switch') ? { appearance } : {})}
+								{...(is3PBlockExperimentEnabled ? { appearance } : {})}
 							/>
 						</Tooltip>
 					)}
@@ -194,13 +204,14 @@ const ActionGroup = ({
 		appearance,
 		isMoreThenTwoItems,
 		isOpen,
-		isRovoActionsEnabled,
 		onActionItemClick,
 		onOpenChange,
 		renderableActionItems,
 		size,
 		ui?.zIndex,
 		visibleButtonsNum,
+		rovoChatAction,
+		is3PBlockExperimentEnabled,
 		containerWidth,
 	]);
 

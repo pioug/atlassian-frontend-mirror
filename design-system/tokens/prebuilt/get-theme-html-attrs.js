@@ -10,8 +10,8 @@ var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
 var _constants = require("./constants");
 var _themeConfig = require("./theme-config");
 var _themeStateTransformer = require("./theme-state-transformer");
-var _colorUtils = require("./utils/color-utils");
 var _hash = require("./utils/hash");
+var _isValidBrandHex = require("./utils/is-valid-brand-hex");
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0, _defineProperty2.default)(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 var defaultColorMode = 'light';
@@ -64,7 +64,7 @@ var getThemeHtmlAttrs = function getThemeHtmlAttrs() {
   if ((0, _platformFeatureFlags.fg)('platform_increased-contrast-themes')) {
     result = _objectSpread(_objectSpread({}, result), {}, (0, _defineProperty2.default)({}, _constants.CONTRAST_MODE_ATTRIBUTE, contrastMode === 'auto' ? defaultContrastMode : contrastMode));
   }
-  if (UNSAFE_themeOptions && (0, _colorUtils.isValidBrandHex)(UNSAFE_themeOptions.brandColor)) {
+  if (UNSAFE_themeOptions && (0, _isValidBrandHex.isValidBrandHex)(UNSAFE_themeOptions.brandColor)) {
     var optionString = JSON.stringify(UNSAFE_themeOptions);
     var uniqueId = (0, _hash.hash)(optionString);
     result[_constants.CUSTOM_THEME_ATTRIBUTE] = uniqueId;

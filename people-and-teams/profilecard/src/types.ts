@@ -409,6 +409,7 @@ export interface AgentProfileCardTriggerProps extends AgentActionsType {
 	agentId: string;
 	agentIdType?: 'agent' | 'identity';
 	cloudId?: string;
+	email?: string;
 	autoFocus?: boolean;
 	resourceClient: ProfileClient;
 	actions?: ProfileCardAction[];
@@ -434,6 +435,7 @@ export type AgentProfileCardProps = {
 	isLoading?: boolean;
 	hasError?: boolean;
 	cloudId?: string;
+	email?: string;
 	errorType?: ProfileCardErrorType;
 	addFlag?: (flag: Flag) => void;
 	onDeleteAgent?: (agentId: string) => { restore: () => void };
@@ -652,10 +654,8 @@ export type TeamProfileCardErrorType = {
 	reason: 'default' | 'NotFound' | 'TEAMS_FORBIDDEN';
 } | null;
 
-export interface ProfileClientOptions extends Omit<
-	TeamCentralCardClientOptions,
-	'gatewayGraphqlUrl'
-> {
+export interface ProfileClientOptions
+	extends Omit<TeamCentralCardClientOptions, 'gatewayGraphqlUrl'> {
 	gatewayGraphqlUrl?: string;
 	url?: string;
 	cacheSize?: number;

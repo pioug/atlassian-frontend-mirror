@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-synced-block",
-	"version": "8.2.2",
+	"version": "8.2.4",
 	"description": "SyncedBlock plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -116,9 +116,6 @@
 			"type": "boolean"
 		},
 		"platform_synced_block_fix_experience_tracking": {
-			"type": "boolean"
-		},
-		"platform_editor_block_menu_divider_patch": {
 			"type": "boolean"
 		},
 		"platform_synced_block_update_refactor": {

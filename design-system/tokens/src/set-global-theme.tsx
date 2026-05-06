@@ -4,10 +4,11 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import getGlobalTheme from './get-global-theme';
 import { type ThemeIdsWithOverrides, type ThemeState, themeStateDefaults } from './theme-config';
-import { isValidBrandHex } from './utils/color-utils';
 import configurePage from './utils/configure-page';
 import { findMissingCustomStyleElements } from './utils/custom-theme-loading-utils';
-import { getThemeOverridePreferences, getThemePreferences } from './utils/get-theme-preferences';
+import { getThemeOverridePreferences } from './utils/get-theme-override-preferences';
+import { getThemePreferences } from './utils/get-theme-preferences';
+import { isValidBrandHex } from './utils/is-valid-brand-hex';
 import { loadAndAppendThemeCss } from './utils/theme-loading';
 
 /**

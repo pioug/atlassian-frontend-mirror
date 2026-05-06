@@ -1,5 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { type themeColorModes } from './theme-color-modes';
+import { themeIds } from './theme-ids';
 /**
  * This file contains the source of truth for themes and all associated meta data.
  */
@@ -37,13 +39,6 @@ export type ThemeOverrides = Themes;
  */
 type ThemeKinds = 'color' | 'spacing' | 'typography' | 'shape' | 'motion';
 
-/**
- * Theme modes: The general purpose of a theme.
- * This attr is used to apply the appropriate system-preference option
- * It may also be used as a selector for mode-specific overrides such as light/dark images.
- * The idea is there may exist many color themes, but every theme must either fit into light or dark.
- */
-export const themeColorModes = ['light', 'dark', 'auto'] as const;
 export type ThemeColorModes = (typeof themeColorModes)[number];
 export type DataColorModes = Exclude<ThemeColorModes, 'auto'>;
 
@@ -53,25 +48,6 @@ export type DataColorModes = Exclude<ThemeColorModes, 'auto'>;
 const themeContrastModes = ['more', 'no-preference', 'auto'] as const;
 export type ThemeContrastModes = (typeof themeContrastModes)[number];
 export type DataContrastModes = 'more' | 'no-preference' | 'auto';
-
-/**
- * Theme ids: The value that will be mounted to the DOM as a data attr
- * For example: `data-theme="light:light dark:dark spacing:spacing"
- *
- * These ids must be kebab case
- */
-export const themeIds = [
-	'light-increased-contrast',
-	'light',
-	'light-future',
-	'dark',
-	'dark-future',
-	'dark-increased-contrast',
-	'spacing',
-	'shape',
-	'typography',
-	'motion',
-] as const;
 
 export type ThemeIds = (typeof themeIds)[number];
 
@@ -345,3 +321,6 @@ export interface ActiveThemeState extends ThemeState {
 }
 
 export default themeConfig;
+
+export { themeColorModes } from './theme-color-modes';
+export { themeIds } from './theme-ids';

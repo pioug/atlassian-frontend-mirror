@@ -127,7 +127,7 @@ visible. The Playwright spec `__tests__/playwright/form-in-popup.spec.tsx` exerc
 
 ## Files
 
-- `src/internal/use-anchor-positioning.tsx` — main hook; dispatches between CSS path and JS
+- `src/internal/use-anchor-position.tsx` — main hook; dispatches between CSS path and JS
   fallback.
 - `src/internal/anchor-positioning-fallback.tsx` — pure functions for JS fallback math; takes
   pre-resolved pixel `gap` and `crossAxisShift`.

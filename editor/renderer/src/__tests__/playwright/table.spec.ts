@@ -5,6 +5,8 @@ import { selectors as statusSelectors } from '../__helpers/page-objects/_status'
 import { expect, rendererTestCase as test } from './not-libra';
 import adf from '../__fixtures__/table-complex-selections.adf.json';
 
+test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
+
 test.describe('table.ts: triple click selection', () => {
 	test.use({
 		adf,

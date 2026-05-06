@@ -54,7 +54,8 @@ export const messages: {
 	loading: {
 		id: 'fabric.editor.expand.loading',
 		defaultMessage: 'Loading...',
-		description: 'Loading text for an expand node',
+		description:
+			'Text shown inside an expand node while its content is being loaded, indicating to the user that data is still being fetched.',
 	},
 	collapseNode: {
 		id: 'fabric.editor.collapseNode',
@@ -65,7 +66,8 @@ export const messages: {
 	expandDefaultTitle: {
 		id: 'fabric.editor.expandDefaultTitle',
 		defaultMessage: 'Click here to expand...',
-		description: 'Placeholder text for an expand node',
+		description:
+			'Placeholder text shown in the title field of an expand node when no title has been entered, prompting the user to click and expand the content.',
 	},
 	expandNode: {
 		id: 'fabric.editor.expandNode',

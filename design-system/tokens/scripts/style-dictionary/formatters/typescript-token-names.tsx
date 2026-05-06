@@ -3,7 +3,8 @@ import type { Format } from 'style-dictionary';
 import format from '@af/formatting/sync';
 import { createSignedArtifact } from '@atlassian/codegen';
 
-import { getCSSCustomProperty, getTokenId } from '../../../src/utils/token-ids';
+import { getCSSCustomProperty } from '../../../src/utils/get-css-custom-property';
+import { getTokenId } from '../../../src/utils/get-token-id';
 import sortTokens from '../sort-tokens';
 
 export const typescriptTokenFormatter: Format['formatter'] = ({ dictionary }) => {

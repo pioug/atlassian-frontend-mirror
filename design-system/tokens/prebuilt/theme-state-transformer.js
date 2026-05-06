@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.themeStringToObject = exports.themeObjectToString = void 0;
 var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-var _themeConfig = require("./theme-config");
+var _themeIds = require("./theme-ids");
 var themeKinds = ['light', 'dark', 'spacing', 'typography', 'shape', 'motion'];
 var customThemeOptions = 'UNSAFE_themeOptions';
 var isThemeKind = function isThemeKind(themeKind) {
@@ -16,7 +16,7 @@ var isThemeKind = function isThemeKind(themeKind) {
   }) !== undefined;
 };
 var isThemeIds = function isThemeIds(themeId) {
-  return _themeConfig.themeIds.find(function (id) {
+  return _themeIds.themeIds.find(function (id) {
     return id === themeId;
   }) !== undefined;
 };

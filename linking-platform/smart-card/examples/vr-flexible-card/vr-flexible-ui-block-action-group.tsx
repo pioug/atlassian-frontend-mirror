@@ -4,6 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 
 import ActionGroup from '../../src/view/FlexibleCard/components/blocks/action-group';
@@ -28,25 +29,27 @@ const containerStyles = css({
 
 export default (): JSX.Element => {
 	return (
-		<VRTestWrapper>
-			<div css={containerStyles}>
-				<h5>Item group</h5>
-				<ActionGroup
-					visibleButtonsNum={1}
-					items={[makeCustomActionItem(), makeDeleteActionItem(), makeEditActionItem()]}
-				/>
-
-				<h5>Single action item</h5>
-				<ActionGroup visibleButtonsNum={1} items={[makeCustomActionItem()]} />
-
-				<h5>Item group (open)</h5>
-				<VrExpandDropdownMenuWrapper>
+		<SmartCardProvider>
+			<VRTestWrapper>
+				<div css={containerStyles}>
+					<h5>Item group</h5>
 					<ActionGroup
 						visibleButtonsNum={1}
 						items={[makeCustomActionItem(), makeDeleteActionItem(), makeEditActionItem()]}
 					/>
-				</VrExpandDropdownMenuWrapper>
-			</div>
-		</VRTestWrapper>
+
+					<h5>Single action item</h5>
+					<ActionGroup visibleButtonsNum={1} items={[makeCustomActionItem()]} />
+
+					<h5>Item group (open)</h5>
+					<VrExpandDropdownMenuWrapper>
+						<ActionGroup
+							visibleButtonsNum={1}
+							items={[makeCustomActionItem(), makeDeleteActionItem(), makeEditActionItem()]}
+						/>
+					</VrExpandDropdownMenuWrapper>
+				</div>
+			</VRTestWrapper>
+		</SmartCardProvider>
 	);
 };

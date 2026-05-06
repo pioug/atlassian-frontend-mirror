@@ -1,5 +1,7 @@
 import { CSS_PREFIX } from '../../constants';
-import { getCSSCustomProperty, getFullyQualifiedTokenId, getTokenId } from '../../utils/token-ids';
+import { getCSSCustomProperty } from '../../utils/get-css-custom-property';
+import { getFullyQualifiedTokenId } from '../../utils/get-fully-qualified-token-id';
+import { getTokenId } from '../../utils/get-token-id';
 
 describe('getCSSCustomProperty', () => {
 	it('should parse path as a string', () => {

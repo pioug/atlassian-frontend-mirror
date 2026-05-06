@@ -1,7 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { InteractionMetrics } from '../../common';
-import { setUFOConfig, shouldUseRawDataThirdPartyBehavior } from '../../config';
+import { setUFOConfig } from '../../config';
 import { createPayloads } from '../index';
 
 jest.mock('@atlaskit/platform-feature-flags');
@@ -77,12 +77,7 @@ describe('Payload Creation with Third-Party Holds', () => {
 		});
 
 		// Mock feature flags
-		mockFg.mockImplementation((flag: string) => {
-			if (flag === 'platform_ufo_raw_data_thirdparty') {
-				return true;
-			}
-			return false;
-		});
+		mockFg.mockImplementation(() => false);
 	});
 
 	afterEach(() => {
@@ -172,27 +167,20 @@ describe('Payload Creation with Third-Party Holds', () => {
 
 		// Verify that hold3pActive and hold3pInfo are included in the payload
 		const interactionMetrics = (mainPayload?.attributes?.properties as any)?.interactionMetrics;
-		if (shouldUseRawDataThirdPartyBehavior('test-ufo-name', 'page_load')) {
-			expect(interactionMetrics?.hold3pActive).toBeDefined();
-			expect(Array.isArray(interactionMetrics?.hold3pActive)).toBe(true);
-			expect(interactionMetrics?.hold3pInfo).toBeDefined();
-		}
-
+		expect(interactionMetrics?.hold3pActive).toBeDefined();
+		expect(Array.isArray(interactionMetrics?.hold3pActive)).toBe(true);
+		expect(interactionMetrics?.hold3pInfo).toBeDefined();
 		expect(Array.isArray(interactionMetrics?.hold3pInfo)).toBe(true);
 	});
 
-	it('should not include hold3pActive and hold3pInfo when feature flag is disabled', async () => {
-		mockFg.mockImplementation((flag: string) => {
-			if (flag === 'platform_ufo_raw_data_thirdparty') {
-				return false;
-			}
-			return false;
-		});
+	it('should include generic metricWindows and lifecycleObservations when metric variants are enabled', async () => {
+		mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_metric_variants');
 
 		const interaction: InteractionMetrics = {
 			id: 'test-interaction',
 			start: 1000,
 			end: 2000,
+			end3p: 3000,
 			ufoName: 'test-ufo-name',
 			type: 'page_load',
 			marks: [],
@@ -206,22 +194,34 @@ describe('Payload Creation with Third-Party Holds', () => {
 			holdExpInfo: [],
 			holdActive: new Map(),
 			holdExpActive: new Map(),
-			hold3pActive: new Map([
-				[
-					'hold-id-1',
-					{
-						labelStack: [{ name: 'segment1', type: 'third-party' as const }],
-						name: '3p-hold',
-						start: 1500,
-					},
-				],
-			]),
+			hold3pActive: new Map(),
 			hold3pInfo: [
 				{
 					labelStack: [{ name: 'segment1', type: 'third-party' as const }],
 					name: '3p-hold-completed',
 					start: 1200,
-					end: 1800,
+					end: 3000,
+				},
+			],
+			metricWindows: {
+				standard: {
+					start: 1000,
+					end: 2000,
+					includeCategories: [],
+					excludeCategories: ['third-party'],
+				},
+				'include-third-party': {
+					start: 1000,
+					end: 3000,
+					includeCategories: ['third-party'],
+					excludeCategories: [],
+				},
+			},
+			lifecycleObservations: [
+				{
+					type: 'new_interaction_started',
+					timestamp: 2500.4,
+					triggerName: 'next-interaction',
 				},
 			],
 			measureStart: 1000,
@@ -245,7 +245,6 @@ describe('Payload Creation with Third-Party Holds', () => {
 			minorInteractions: [],
 		};
 
-		// Mock page visibility to ensure detailed payload is created
 		Object.defineProperty(document, 'visibilityState', {
 			value: 'visible',
 			writable: true,
@@ -256,20 +255,34 @@ describe('Payload Creation with Third-Party Holds', () => {
 		});
 
 		const payloads = await createPayloads('test-interaction', interaction);
-
-		// Find the main interaction metrics payload
 		const mainPayload = payloads.find(
 			(payload: any) =>
 				payload.actionSubject === 'experience' &&
 				payload.action === 'measured' &&
 				payload.attributes?.properties?.interactionMetrics,
 		);
-
-		expect(mainPayload).toBeDefined();
-
-		// When feature flag is disabled, hold3pActive and hold3pInfo should not be in the detailed metrics
 		const interactionMetrics = (mainPayload?.attributes?.properties as any)?.interactionMetrics;
-		expect(interactionMetrics?.hold3pActive).toBeUndefined();
-		expect(interactionMetrics?.hold3pInfo).toBeUndefined();
+
+		expect(interactionMetrics.metricWindows).toEqual({
+			standard: {
+				start: 1000,
+				end: 2000,
+				includeCategories: [],
+				excludeCategories: ['third-party'],
+			},
+			'include-third-party': {
+				start: 1000,
+				end: 3000,
+				includeCategories: ['third-party'],
+				excludeCategories: [],
+			},
+		});
+		expect(interactionMetrics.lifecycleObservations).toEqual([
+			{
+				type: 'new_interaction_started',
+				timestamp: 2500,
+				triggerName: 'next-interaction',
+			},
+		]);
 	});
 });

@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 219.3.1
+
+### Patch Changes
+
+- [`3849d83fa4a08`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3849d83fa4a08) -
+  migrate gapCursorStyles, mentions, and telepointerStyles
+
+## 219.3.0
+
+### Minor Changes
+
+- [`54ae29f5b3a2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54ae29f5b3a2c) -
+  Clean up feature gate platform_editor_primary_toolbar_early_exit - promote early exit behaviour
+  for empty primary toolbar as default
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 219.2.3
 
 ### Patch Changes

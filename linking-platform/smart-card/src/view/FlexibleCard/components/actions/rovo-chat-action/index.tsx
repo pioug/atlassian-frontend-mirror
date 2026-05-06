@@ -8,12 +8,14 @@ import AiGenerativeTextSummaryIcon from '@atlaskit/icon/core/ai-generative-text-
 import RovoChatIcon from '@atlaskit/icon/core/rovo-chat';
 import type { ProductType } from '@atlaskit/linking-common';
 import { RovoIcon } from '@atlaskit/logo';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { ActionName, CardDisplay } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import {
+	isBlockCardRovoActionExperimentEnabled
+} from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
 import useRovoChat, { type SendPromptMessageData } from '../../../../../state/hooks/use-rovo-chat';
 import AiChapterIcon from '../../../assets/ai-chapter-icon';
@@ -94,6 +96,8 @@ const getPromptAction = (
 		contextShort: intl.formatMessage(messages.rovo_prompt_context_generic),
 	};
 
+	const isBlockCard3PExperimentEnabled = isBlockCardRovoActionExperimentEnabled(product);
+
 	switch (promptKey) {
 		case RovoChatPromptKey.RECOMMEND_OTHER_SOURCES:
 			const label_recommend = intl.formatMessage(
@@ -162,8 +166,7 @@ const getPromptAction = (
 			);
 			return {
 				icon:
-					cardAppearance === CardDisplay.Block &&
-					fg('platform_sl_3p_auth_rovo_block_card_kill_switch') ? (
+					cardAppearance === CardDisplay.Block && isBlockCard3PExperimentEnabled ? (
 						<AiChatIcon label={label_summarize} size={iconSize} />
 					) : (
 						<AIEditIcon />
@@ -233,8 +236,7 @@ const getPromptAction = (
 			);
 			return {
 				icon:
-					cardAppearance === CardDisplay.Block &&
-					fg('platform_sl_3p_auth_rovo_block_card_kill_switch') ? (
+					cardAppearance === CardDisplay.Block && isBlockCard3PExperimentEnabled ? (
 						<RovoIcon label={label_ask_rovo_anything} size={'xxsmall'} shouldUseHexLogo />
 					) : (
 						<AISearchIcon />

@@ -595,7 +595,7 @@ const styles = cssMap({
 
 ### Anchor positioning inline styles
 
-`use-anchor-positioning.tsx` uses `el.style.setProperty()` for properties like `anchor-name`,
+`use-anchor-position.tsx` uses `el.style.setProperty()` for properties like `anchor-name`,
 `position-anchor`, `position-area`, and `position-try-fallbacks`. These are:
 
 - **Dynamic:** values depend on runtime props (`placement`, `anchorName`, `offset`)

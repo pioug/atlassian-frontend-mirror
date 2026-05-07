@@ -25,14 +25,6 @@ const tester = new RuleTester({
 
 tester.run('editor-example-type-import-required', rule, {
 	valid: [
-		// File not importing from @af/editor-libra or ./not-libra — rule doesn't apply
-		{
-			code: `
-				import { test } from '@playwright/test';
-				test.use({ editorProps: {} });
-			`,
-			filename: '/workspace/packages/editor/editor-core/src/__tests__/playwright/test.spec.ts',
-		},
 		// Non-spec file — rule doesn't apply
 		{
 			code: `
@@ -40,6 +32,15 @@ tester.run('editor-example-type-import-required', rule, {
 				test.use({ editorProps: {} });
 			`,
 			filename: '/workspace/packages/editor/editor-core/src/utils.ts',
+		},
+		// Excluded file — rule doesn't apply even though it's a spec file
+		{
+			code: `
+				import { test } from '@playwright/test';
+				test.use({ editorProps: {} });
+			`,
+			filename:
+				'/workspace/packages/navigation/atlassian-switcher/src/__tests__/playwright/navigate-link-item.spec.ts',
 		},
 		// Valid: exampleName present anywhere in the file (with typeof import assertion)
 		{
@@ -89,8 +90,54 @@ tester.run('editor-example-type-import-required', rule, {
 			`,
 			filename: '/workspace/packages/editor/renderer/src/__tests__/playwright/test.spec.ts',
 		},
+		// Valid: inline visitExample<typeof import(...)>(...) call — file-level typeof
+		// import check satisfies the rule even though no test.use({ exampleName }) exists.
+		{
+			code: `
+				import { test } from '@playwright/test';
+				test('renders', async ({ page }) => {
+					await page.visitExample<typeof import('../../../examples/01-basic.tsx')>(
+						'group',
+						'pkg',
+						'basic',
+					);
+				});
+			`,
+			filename: '/workspace/packages/editor/editor-core/src/__tests__/playwright/test.spec.ts',
+		},
+		// Valid: typeof import(...) anywhere in the file (e.g. a typed helper variable)
+		// also satisfies the rule.
+		{
+			code: `
+				import { test } from '@playwright/test';
+				type ExampleModule = typeof import('../../../examples/01-basic.tsx');
+				const exampleModule: ExampleModule | undefined = undefined;
+				test('renders', async () => {
+					expect(exampleModule).toBeUndefined();
+				});
+			`,
+			filename: '/workspace/packages/editor/editor-core/src/__tests__/playwright/test.spec.ts',
+		},
 	],
 	invalid: [
+		// Any spec file (regardless of imports) — rule now applies to all playwright specs
+		{
+			code: [
+				`import { test } from '@playwright/test';`,
+				`test.use({`,
+				`\teditorProps: {},`,
+				`});`,
+			].join('\n'),
+			output: [
+				`import { test } from '@playwright/test';`,
+				`test.use({`,
+				`\texampleName: 'testing' as keyof typeof import('../../../examples/testing.tsx') ,`,
+				`\teditorProps: {},`,
+				`});`,
+			].join('\n'),
+			filename: '/workspace/packages/editor/editor-core/src/__tests__/playwright/test.spec.ts',
+			errors: [{ messageId: 'missingExampleName' }],
+		},
 		// exampleName present but missing typeof import assertion — invalid, autofix adds assertion
 		{
 			code: [

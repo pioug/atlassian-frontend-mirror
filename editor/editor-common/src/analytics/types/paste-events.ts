@@ -23,6 +23,7 @@ export const PasteSources: { [type: string]: PasteSource } = {
 
 export type PasteSource =
 	| 'fabric-editor'
+	| 'fabric-renderer'
 	| 'apple-pages'
 	| 'google-spreadsheets'
 	| 'google-docs'

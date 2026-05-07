@@ -42,6 +42,20 @@ export type SolutionArchitectAgentActivationPayload = PayloadCore<
 	}
 >;
 
+export type SolutionArchitectAgentActivationFlowStartedPayload = PayloadCore<
+	'solution-architect-agent-activation-flow-started',
+	{
+		draftBuildId: string;
+	}
+>;
+
+export type SolutionArchitectAgentActivationFlowStoppedPayload = PayloadCore<
+	'solution-architect-agent-activation-flow-stopped',
+	{
+		draftBuildId: string;
+	}
+>;
+
 export type StudioAutomationBuildUpdatePayload = PayloadCore<
 	'studio-automation-build-updated',
 	{ buildId: string }

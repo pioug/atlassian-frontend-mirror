@@ -1,0 +1,29 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::b6dab62c0a3d26293126c8267ba34a37>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireDefault(require("react"));
+var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+/**
+ * Icon: "Lasso".
+ * Category: multi-purpose
+ * Location: @atlaskit/icon-lab
+ * Usage guidance: Making a selection
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
+ */
+const LassoIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "LassoIcon",
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M13.48 7.479c.205-2.36-1.934-4.687-5.088-4.963S2.727 4.161 2.521 6.52c-.077.881.163 1.742.662 2.5a2.25 2.25 0 0 1 3.299 2.264q.54.145 1.126.198c3.153.276 5.665-1.644 5.871-4.003m-9.23 2.77a.75.75 0 1 0-.002 1.499.75.75 0 0 0 .002-1.499m10.723-2.64c-.299 3.418-3.772 5.693-7.496 5.368a8 8 0 0 1-1.695-.332 2 2 0 0 1-.239.194c.106.508.395.898.714 1.19a3.3 3.3 0 0 0 .737.507l.042.02.005.002s-.002 0-.291.69l-.29.693-.002-.001-.003-.001-.01-.004-.026-.012-.084-.04a4.8 4.8 0 0 1-1.092-.748c-.46-.421-.945-1.047-1.147-1.894a2.248 2.248 0 0 1-1.937-3.07C1.347 9.093.905 7.78 1.027 6.388 1.326 2.971 4.799.696 8.523 1.022s6.75 3.17 6.45 6.587"/>`
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+}, props));
+LassoIcon.displayName = 'LassoIcon';
+var _default = exports.default = LassoIcon;

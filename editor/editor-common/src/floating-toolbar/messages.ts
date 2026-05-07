@@ -77,7 +77,8 @@ const _default_1: {
 	floatingToolbarAriaLabel: {
 		id: 'fabric.editor.floatingToolbar.floatingToolbarAriaLabel',
 		defaultMessage: 'Floating Toolbar',
-		description: "a floating toolbar's aria label",
+		description:
+			"The text is used as the ARIA label for the floating toolbar element that appears above selected content in the editor, helping screen reader users identify the toolbar's purpose.",
 	},
 	floatingToolbarAnnouncer: {
 		id: 'fabric.editor.floatingToolbar.floatingToolbarAnnouncer',

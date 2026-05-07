@@ -50,11 +50,6 @@
 		"./tools/analyze-a11y": "./src/tools/analyze-a11y/index.tsx",
 		"./package.json": "./package.json"
 	},
-	"platform-feature-flags": {
-		"design_system_mcp_structured_content": {
-			"type": "boolean"
-		}
-	},
 	"dependencies": {
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/icon-lab": "workspace:^",

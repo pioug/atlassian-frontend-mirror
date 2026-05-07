@@ -1,5 +1,24 @@
 # @atlaskit/collab-provider
 
+## 18.2.0
+
+### Minor Changes
+
+- [`efed9a7ddd2cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/efed9a7ddd2cd) -
+  Use websocket transport only for socket connections on GCP tenants
+
+## 18.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.1.4
 
 ### Patch Changes

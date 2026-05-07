@@ -131,6 +131,7 @@ export const findReplaceMessages: {
 	replaceSuccess: {
 		id: 'fabric.editor.replaceSuccess',
 		defaultMessage: '{numberOfMatches, plural, one {# match replaced} other {# matches replaced}}',
-		description: 'Text when replacement succesfully done',
+		description:
+			'Status message shown after a find-and-replace operation completes. The placeholder {numberOfMatches} is the count of replaced matches and controls the plural form (one vs. other).',
 	},
 });

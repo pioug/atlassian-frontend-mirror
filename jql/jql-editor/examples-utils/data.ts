@@ -89,16 +89,19 @@ export const mockTeamAvatarUrl =
 
 export const goals: {
 	displayName: string;
+	iconKey: string;
 	status: string;
 	value: string;
 }[] = [
 	{
 		displayName: 'Q1 2025 Product Goals',
+		iconKey: 'OBJECTIVE',
 		value: 'PROJE2-4',
 		status: 'ON_TRACK',
 	},
 	{
 		displayName: 'Customer Success Initiative',
+		iconKey: 'KEY_RESULT',
 		value: 'PROJE2-5',
 		status: 'PENDING',
 	},
@@ -107,6 +110,7 @@ export const goals: {
 			'Goal with super long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long  long long long long long long long long long long long long long long long long long long long long long long long name',
 		value: 'PROJE2-6',
 		status: 'AT_RISK',
+		iconKey: 'GOAL',
 	},
 ];
 

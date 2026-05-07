@@ -12,6 +12,7 @@ import { coreIconMetadata as allIcons } from '@atlaskit/icon/metadata';
 import { tokens as allTokens } from '@atlaskit/tokens/token-metadata';
 
 import { components as allComponents } from '../../src/tools/get-all-components/components.codegen';
+import { atlaskitComponents } from '../../src/tools/get-atlaskit-components/atlaskit-components.codegen';
 import { testData } from '../__fixtures__/data';
 
 describe('ADS MCP Server E2E', () => {
@@ -60,10 +61,19 @@ describe('ADS MCP Server E2E', () => {
 		);
 	});
 
-	it('lists the ads_get_lint_rules tool with feature flags enabled', async () => {
+	it('lists the ads_get_lint_rules tool', async () => {
 		const listedTools = (await client.listTools()).tools;
 		expect(listedTools).toEqual(
 			expect.arrayContaining([expect.objectContaining({ name: 'ads_get_lint_rules' })]),
+		);
+	});
+
+	it('lists the atlaskit_get_components tool', async () => {
+		const listedTools = (await client.listTools()).tools;
+		expect(listedTools).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({ name: 'atlaskit_get_components' }),
+			]),
 		);
 	});
 
@@ -87,6 +97,17 @@ describe('ADS MCP Server E2E', () => {
 			text: string;
 		}[];
 		const listedComponentsData = listedComponents.map((data) => JSON.parse(data.text));
+		expect(listedComponentsData).toEqual(expect.arrayContaining(expectedComponentNames));
+	});
+
+	it('Gets all the atlaskit components', async () => {
+		const expectedComponentNames = atlaskitComponents.map(({ name }) =>
+			expect.objectContaining({ name }),
+		);
+		const listedComponents = (
+			await client.callTool({ name: 'atlaskit_get_components' })
+		).content as { text: string }[];
+		const listedComponentsData = JSON.parse(listedComponents[0].text);
 		expect(listedComponentsData).toEqual(expect.arrayContaining(expectedComponentNames));
 	});
 
@@ -116,7 +137,7 @@ describe('ADS MCP Server E2E', () => {
 		},
 	);
 
-	it('Returns markdown content for ads_get_lint_rules tool with feature flags enabled', async () => {
+	it('Returns markdown content for ads_get_lint_rules tool', async () => {
 		const result = (
 			await client.callTool({
 				name: 'ads_get_lint_rules',
@@ -131,7 +152,7 @@ describe('ADS MCP Server E2E', () => {
 		expect(result).toHaveLength(1);
 		const text = result[0].text;
 
-		// With feature flags enabled, returns JSON (single rule: may be double-stringified)
+		// Returns JSON (single rule: may be double-stringified)
 		const parsed = JSON.parse(text);
 		const rule = typeof parsed === 'string' ? JSON.parse(parsed) : parsed;
 		expect(rule).toHaveProperty('ruleName', 'icon-label');
@@ -143,7 +164,7 @@ describe('ADS MCP Server E2E', () => {
 		expect(rule.content.length).toBeGreaterThan(50);
 	});
 
-	it('Returns all lint rules as JSON array when no search terms provided for ads_get_lint_rules tool with feature flags enabled', async () => {
+	it('Returns all lint rules as JSON array when no search terms provided for ads_get_lint_rules tool', async () => {
 		const result = (
 			await client.callTool({
 				name: 'ads_get_lint_rules',
@@ -154,7 +175,7 @@ describe('ADS MCP Server E2E', () => {
 		expect(result).toHaveLength(1);
 		const text = result[0].text;
 
-		// With feature flags enabled, returns JSON array (elements may be JSON strings)
+		// Returns JSON array (elements may be JSON strings)
 		const parsed = JSON.parse(text);
 		expect(Array.isArray(parsed)).toBe(true);
 		expect(parsed.length).toBeGreaterThan(0);

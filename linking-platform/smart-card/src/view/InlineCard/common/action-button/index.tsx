@@ -123,17 +123,15 @@ export const ActionButton: ForwardRefExoticComponent<
 			children,
 			isDisabled,
 			viewType = 'default',
-			isSocialProofInlineUnauthorisedConnect = false,
 			...props
 		}: ActionButtonProps,
 		ref: ActionButtonProps['ref'],
 	) => {
-		const shouldUseSocialProofConnect =
-			isSocialProofInlineUnauthorisedConnect &&
+		const shouldUseUnauthorisedSlimStyle =
 			viewType === 'unauthorised' &&
 			fg('platform_sl_3p_preauth_soc_proof_inline_killswitch');
 
-		if (shouldUseSocialProofConnect && !isDisabled) {
+		if (shouldUseUnauthorisedSlimStyle && !isDisabled) {
 			return (
 				<Pressable
 					{...props}

@@ -73,8 +73,25 @@ type SyncedBlockPluginState = {
 	 */
 	hasSyncedBlocks: boolean;
 	hasUnsavedBodiedSyncBlockChanges?: boolean;
+	/**
+	 * Cached previous values for shared-state signals. Used inside `apply()` to
+	 * detect when a status change requires a full rebuild of `statusDecorationSet`
+	 * instead of a cheap `map()` call. Only meaningful when
+	 * `editor_synced_block_perf` is ON.
+	 */
+	prevIsDragging: boolean;
+	prevIsOffline: boolean;
+	prevIsViewMode: boolean;
 	retryCreationPosMap: RetryCreationPosMap;
 	selectionDecorationSet: DecorationSet;
+	/**
+	 * Cached decoration set for sync-block status decorations (offline overlay,
+	 * view-mode class, creation-loading spinner, drag border). When the perf
+	 * gate is ON this is computed in `apply()` and mapped through edits so the
+	 * `decorations` prop becomes an O(1) lookup instead of a full
+	 * `doc.descendants()` walk every transaction (see EDITOR-6930).
+	 */
+	statusDecorationSet: DecorationSet;
 	syncBlockStore: SyncBlockStoreManager;
 };
 
@@ -140,9 +157,7 @@ const showExtensionInSyncBlockWarningIfNeeded = (
 			api?.core.actions.execute(({ tr }) =>
 				tr.setMeta(syncedBlockPluginKey, {
 					activeFlag: {
-						id: editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
-							? FLAG_ID.EXTENSION_IN_SYNC_BLOCK
-							: FLAG_ID.INLINE_EXTENSION_IN_SYNC_BLOCK,
+						id: FLAG_ID.EXTENSION_IN_SYNC_BLOCK,
 					},
 				}),
 			);
@@ -290,6 +305,81 @@ const filterTransactionOffline = ({
 };
 
 /**
+ * Build the status decoration set for sync-block nodes. This performs a full
+ * `doc.descendants()` walk so it must only be called when a status signal
+ * actually changes (offline, view-mode, dragging, pending-creation). Between
+ * status changes the caller should use `decorationSet.map(tr.mapping, tr.doc)`
+ * instead (see EDITOR-6930).
+ */
+const buildStatusDecorations = (
+	doc: Node,
+	syncBlockStore: SyncBlockStoreManager,
+	isOffline: boolean,
+	isViewMode: boolean,
+	isDragging: boolean,
+): DecorationSet => {
+	// Fast path: when all status flags are off and no creations are in flight,
+	// no node can produce a decoration — skip the full doc traversal.
+	if (
+		!isOffline &&
+		!isViewMode &&
+		!isDragging &&
+		!syncBlockStore.sourceManager.hasPendingCreations()
+	) {
+		return DecorationSet.empty;
+	}
+
+	const offlineDecorations: Decoration[] = [];
+	const viewModeDecorations: Decoration[] = [];
+	const loadingDecorations: Decoration[] = [];
+	const dragDecorations: Decoration[] = [];
+
+	doc.descendants((node, pos) => {
+		if (node.type.name === 'bodiedSyncBlock' && isOffline) {
+			offlineDecorations.push(
+				Decoration.node(pos, pos + node.nodeSize, {
+					class: SyncBlockStateCssClassName.disabledClassName,
+				}),
+			);
+		}
+
+		if (syncBlockStore.isSyncBlock(node) && isViewMode) {
+			viewModeDecorations.push(
+				Decoration.node(pos, pos + node.nodeSize, {
+					class: SyncBlockStateCssClassName.viewModeClassName,
+				}),
+			);
+		}
+
+		if (
+			node.type.name === 'bodiedSyncBlock' &&
+			syncBlockStore.sourceManager.isPendingCreation(node.attrs.resourceId)
+		) {
+			loadingDecorations.push(
+				Decoration.node(pos, pos + node.nodeSize, {
+					class: SyncBlockStateCssClassName.creationLoadingClassName,
+				}),
+			);
+		}
+
+		if (isDragging && syncBlockStore.isSyncBlock(node)) {
+			dragDecorations.push(
+				Decoration.node(pos, pos + node.nodeSize, {
+					class: SyncBlockStateCssClassName.draggingClassName,
+				}),
+			);
+		}
+	});
+
+	return DecorationSet.create(doc, [
+		...offlineDecorations,
+		...viewModeDecorations,
+		...loadingDecorations,
+		...dragDecorations,
+	]);
+};
+
+/**
  * Encapsulates mutable state that persists across transactions in the
  * synced block plugin. Replaces module-level closure variables so state
  * is explicitly scoped to a single plugin instance.
@@ -388,6 +478,27 @@ export const createPlugin = (
 					}
 				}
 
+				// Read initial shared-state signals for status decorations
+				const initIsOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
+				const initIsViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+				const initIsDragging =
+					api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'dragging';
+
+				// Build initial status decoration set (EDITOR-6930).
+				// When the perf gate is ON and the doc has synced blocks we do a
+				// single traversal here; afterwards `apply()` will map or rebuild
+				// only when a status signal changes.
+				const initStatusDecorationSet =
+					expValEquals('editor_synced_block_perf', 'isEnabled', true) && docHasSyncedBlocks
+						? buildStatusDecorations(
+								instance.doc,
+								syncBlockStore,
+								initIsOffline,
+								initIsViewMode,
+								initIsDragging,
+							)
+						: DecorationSet.empty;
+
 				return {
 					selectionDecorationSet: calculateDecorations(
 						instance.doc,
@@ -399,6 +510,10 @@ export const createPlugin = (
 					retryCreationPosMap: new Map(),
 					hasSyncedBlocks: docHasSyncedBlocks,
 					hasUnsavedBodiedSyncBlockChanges: syncBlockStore.sourceManager.hasUnsavedChanges(),
+					statusDecorationSet: initStatusDecorationSet,
+					prevIsOffline: initIsOffline,
+					prevIsViewMode: initIsViewMode,
+					prevIsDragging: initIsDragging,
 				};
 			},
 			apply: (tr, currentPluginState, oldEditorState) => {
@@ -410,6 +525,10 @@ export const createPlugin = (
 					bodiedSyncBlockDeletionStatus,
 					retryCreationPosMap,
 					hasSyncedBlocks: prevHasSyncedBlocks,
+					statusDecorationSet: prevStatusDecorationSet,
+					prevIsOffline: prevOffline,
+					prevIsViewMode: prevViewMode,
+					prevIsDragging: prevDragging,
 				} = currentPluginState;
 
 				// Lazy-init bookkeeping: once a synced block enters the document we
@@ -443,6 +562,52 @@ export const createPlugin = (
 					}
 				}
 
+				// --- Status decoration set (EDITOR-6930) ---
+				// When the perf gate is ON we maintain `statusDecorationSet` in
+				// plugin state so the `decorations` prop becomes an O(1) lookup.
+				let nextStatusDecorationSet = prevStatusDecorationSet;
+				let nextIsOffline = prevOffline;
+				let nextIsViewMode = prevViewMode;
+				let nextIsDragging = prevDragging;
+
+				if (expValEquals('editor_synced_block_perf', 'isEnabled', true)) {
+					if (!nextHasSyncedBlocks) {
+						// No synced blocks → keep empty status decorations
+						nextStatusDecorationSet = DecorationSet.empty;
+					} else {
+						// Read current shared-state signals
+						nextIsOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
+						nextIsViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+						nextIsDragging =
+							api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'dragging';
+
+						// Determine whether we need a full rebuild or a cheap map
+						const hasSyncedBlocksJustFlipped = nextHasSyncedBlocks && !prevHasSyncedBlocks;
+						const statusSignalChanged =
+							nextIsOffline !== prevOffline ||
+							nextIsViewMode !== prevViewMode ||
+							nextIsDragging !== prevDragging;
+						// Meta-driven status changes (e.g. pending creation
+						// completed, retry creation pos updated)
+						const hasMetaStatusChange = !!meta?.retryCreationPos || !!meta?.activeFlag;
+
+						if (hasSyncedBlocksJustFlipped || statusSignalChanged || hasMetaStatusChange) {
+							// Full rebuild — a status signal changed
+							nextStatusDecorationSet = buildStatusDecorations(
+								tr.doc,
+								syncBlockStore,
+								nextIsOffline,
+								nextIsViewMode,
+								nextIsDragging,
+							);
+						} else if (tr.docChanged) {
+							// Cheap map — positions shifted but status unchanged
+							nextStatusDecorationSet = prevStatusDecorationSet.map(tr.mapping, tr.doc);
+						}
+						// else: nothing changed, keep same reference
+					}
+				}
+
 				const newPosEntry = meta?.retryCreationPos;
 				const newRetryCreationPosMap = mapRetryCreationPosMap(
 					retryCreationPosMap,
@@ -458,6 +623,10 @@ export const createPlugin = (
 					bodiedSyncBlockDeletionStatus:
 						meta?.bodiedSyncBlockDeletionStatus ?? bodiedSyncBlockDeletionStatus,
 					hasUnsavedBodiedSyncBlockChanges: syncBlockStore.sourceManager.hasUnsavedChanges(),
+					statusDecorationSet: nextStatusDecorationSet,
+					prevIsOffline: nextIsOffline,
+					prevIsViewMode: nextIsViewMode,
+					prevIsDragging: nextIsDragging,
 				};
 			},
 		},
@@ -496,87 +665,110 @@ export const createPlugin = (
 			},
 			decorations: (state) => {
 				const currentPluginState = syncedBlockPluginKey.getState(state);
-				const selectionDecorationSet: DecorationSet =
-					currentPluginState?.selectionDecorationSet ?? DecorationSet.empty;
-				const syncBlockStore: SyncBlockStoreManager = currentPluginState?.syncBlockStore;
-				const { doc } = state;
-
-				// Lazy-init: when no synced block exists in the doc, skip the
-				// `descendants` walk and the 4 shared-state reads below. The
-				// selection decoration set is the only thing that can be
-				// non-empty in this state.
-				if (
-					currentPluginState &&
-					!currentPluginState.hasSyncedBlocks &&
-					expValEquals('editor_synced_block_perf', 'isEnabled', true)
-				) {
-					return selectionDecorationSet;
+				if (!currentPluginState) {
+					return DecorationSet.empty;
 				}
 
-				const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
-				const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
-				const isDragging =
-					api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'dragging';
+				const {
+					selectionDecorationSet,
+					statusDecorationSet,
+					hasSyncedBlocks: docHasSyncedBlocks,
+				} = currentPluginState;
 
-				const offlineDecorations: Decoration[] = [];
-				const viewModeDecorations: Decoration[] = [];
-				const loadingDecorations: Decoration[] = [];
-				const dragDecorations: Decoration[] = [];
-
-				state.doc.descendants((node, pos) => {
-					if (node.type.name === 'bodiedSyncBlock' && isOffline) {
-						offlineDecorations.push(
-							Decoration.node(pos, pos + node.nodeSize, {
-								class: SyncBlockStateCssClassName.disabledClassName,
-							}),
-						);
+				// When the perf gate is ON, both `selectionDecorationSet` and
+				// `statusDecorationSet` are maintained in plugin state by
+				// `apply()`. The `decorations` prop is now an O(1) merge of
+				// the two cached sets — no `doc.descendants()` walk, no
+				// shared-state reads.
+				if (expValEquals('editor_synced_block_perf', 'isEnabled', true)) {
+					if (!docHasSyncedBlocks) {
+						return selectionDecorationSet;
 					}
 
-					if (syncBlockStore.isSyncBlock(node) && isViewMode) {
-						viewModeDecorations.push(
-							Decoration.node(pos, pos + node.nodeSize, {
-								class: SyncBlockStateCssClassName.viewModeClassName,
-							}),
-						);
-					}
+					// Focus state is read live here (single cheap read) because
+					// it only gates whether selection decorations are included —
+					// it does not affect the status decoration set and can change
+					// within the same transaction cycle.
+					const hasFocus = api?.focus?.sharedState?.currentState()?.hasFocus ?? true;
 
-					if (
-						node.type.name === 'bodiedSyncBlock' &&
-						syncBlockStore.sourceManager.isPendingCreation(node.attrs.resourceId)
-					) {
-						loadingDecorations.push(
-							Decoration.node(pos, pos + node.nodeSize, {
-								class: SyncBlockStateCssClassName.creationLoadingClassName,
-							}),
-						);
+					// Merge selection + status decorations.
+					// When the editor is unfocused,
+					// omit selection decorations (matches old behaviour).
+					const statusDecorations = statusDecorationSet.find();
+					if (statusDecorations.length === 0) {
+						return hasFocus ? selectionDecorationSet : DecorationSet.empty;
+					} else {
+						return hasFocus
+							? selectionDecorationSet.add(state.doc, statusDecorations)
+							: statusDecorationSet;
 					}
-
-					// Show sync block border while the user is dragging
-					if (isDragging && syncBlockStore.isSyncBlock(node)) {
-						dragDecorations.push(
-							Decoration.node(pos, pos + node.nodeSize, {
-								class: SyncBlockStateCssClassName.draggingClassName,
-							}),
-						);
-					}
-				});
-
-				if (
-					api?.focus?.sharedState?.currentState()?.hasFocus ||
-					!editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
-				) {
-					// Don't show decorations if the editor is not focused
-					return selectionDecorationSet
-						.add(doc, offlineDecorations)
-						.add(doc, viewModeDecorations)
-						.add(doc, loadingDecorations)
-						.add(doc, dragDecorations);
 				} else {
-					return DecorationSet.empty
-						.add(doc, offlineDecorations)
-						.add(doc, viewModeDecorations)
-						.add(doc, loadingDecorations)
-						.add(doc, dragDecorations);
+					// --- Legacy path (perf gate OFF) ---
+					// Full `doc.descendants()` walk every transaction. Preserved
+					// for safe rollback.
+					const syncBlockStore: SyncBlockStoreManager = currentPluginState.syncBlockStore;
+					const { doc } = state;
+
+					const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
+					const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+					const isDragging =
+						api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'dragging';
+
+					const offlineDecorations: Decoration[] = [];
+					const viewModeDecorations: Decoration[] = [];
+					const loadingDecorations: Decoration[] = [];
+					const dragDecorations: Decoration[] = [];
+
+					state.doc.descendants((node, pos) => {
+						if (node.type.name === 'bodiedSyncBlock' && isOffline) {
+							offlineDecorations.push(
+								Decoration.node(pos, pos + node.nodeSize, {
+									class: SyncBlockStateCssClassName.disabledClassName,
+								}),
+							);
+						}
+
+						if (syncBlockStore.isSyncBlock(node) && isViewMode) {
+							viewModeDecorations.push(
+								Decoration.node(pos, pos + node.nodeSize, {
+									class: SyncBlockStateCssClassName.viewModeClassName,
+								}),
+							);
+						}
+
+						if (
+							node.type.name === 'bodiedSyncBlock' &&
+							syncBlockStore.sourceManager.isPendingCreation(node.attrs.resourceId)
+						) {
+							loadingDecorations.push(
+								Decoration.node(pos, pos + node.nodeSize, {
+									class: SyncBlockStateCssClassName.creationLoadingClassName,
+								}),
+							);
+						}
+
+						if (isDragging && syncBlockStore.isSyncBlock(node)) {
+							dragDecorations.push(
+								Decoration.node(pos, pos + node.nodeSize, {
+									class: SyncBlockStateCssClassName.draggingClassName,
+								}),
+							);
+						}
+					});
+
+					if (api?.focus?.sharedState?.currentState()?.hasFocus) {
+						return selectionDecorationSet
+							.add(doc, offlineDecorations)
+							.add(doc, viewModeDecorations)
+							.add(doc, loadingDecorations)
+							.add(doc, dragDecorations);
+					} else {
+						return DecorationSet.empty
+							.add(doc, offlineDecorations)
+							.add(doc, viewModeDecorations)
+							.add(doc, loadingDecorations)
+							.add(doc, dragDecorations);
+					}
 				}
 			},
 			handleClickOn: createSelectionClickHandler(

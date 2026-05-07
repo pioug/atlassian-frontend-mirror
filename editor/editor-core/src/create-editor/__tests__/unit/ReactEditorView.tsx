@@ -1340,26 +1340,13 @@ describe('@atlaskit/editor-core', () => {
 			...requiredProps(editorProps),
 		};
 
-		ffTest.on('platform_editor_a11y_9262', '', () => {
-			it('should use default assistive label for the full page editor - page content area', () => {
-				renderWithIntl(<ReactEditorView {...props} />);
+		it('should use default assistive label for the full page editor - page content area', () => {
+			renderWithIntl(<ReactEditorView {...props} />);
 
-				const editor = screen.getByRole('textbox');
-				expect(editor.getAttribute('aria-label')).toBe(
-					'Page editing area, start typing to enter text.',
-				);
-			});
-		});
-
-		ffTest.off('platform_editor_a11y_9262', '', () => {
-			it('should use default assistive label for the full page editor - main content area', () => {
-				renderWithIntl(<ReactEditorView {...props} />);
-
-				const editor = screen.getByRole('textbox');
-				expect(editor.getAttribute('aria-label')).toBe(
-					'Main content area, start typing to enter text.',
-				);
-			});
+			const editor = screen.getByRole('textbox');
+			expect(editor.getAttribute('aria-label')).toBe(
+				'Page editing area, start typing to enter text.',
+			);
 		});
 	});
 });

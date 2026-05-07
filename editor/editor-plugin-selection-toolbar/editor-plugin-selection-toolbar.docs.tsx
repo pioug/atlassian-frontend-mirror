@@ -17,9 +17,9 @@ const documentation: ComponentStructuredContentSource[] = [
 		description: '@atlaskit/editor-plugin-selection-toolbar for @atlaskit/editor-core',
 		status: 'general-availability',
 		import: {
-			name: 'Editor Plugin Selection Toolbar',
+			name: 'selectionToolbarPlugin',
 			package: '@atlaskit/editor-plugin-selection-toolbar',
-			type: 'default',
+			type: 'named',
 			packagePath,
 			packageJson,
 		},

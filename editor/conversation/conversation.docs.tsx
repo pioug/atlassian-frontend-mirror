@@ -19,7 +19,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		import: {
 			name: 'Conversation',
 			package: '@atlaskit/conversation',
-			type: 'default',
+			type: 'named',
 			packagePath,
 			packageJson,
 		},

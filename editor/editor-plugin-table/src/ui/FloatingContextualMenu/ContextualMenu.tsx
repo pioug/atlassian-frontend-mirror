@@ -85,11 +85,7 @@ import { getSelectedColumnIndexes, getSelectedRowIndexes } from '../../pm-plugin
 import { getMergedCellsPositions } from '../../pm-plugins/utils/table';
 import { TableCssClassName as ClassName } from '../../types';
 import type { PluginInjectionAPI } from '../../types';
-import {
-	colorPalletteColumns,
-	contextualMenuDropdownWidth,
-	contextualMenuDropdownWidthDnD,
-} from '../consts';
+import { colorPalletteColumns, contextualMenuDropdownWidthDnD } from '../consts';
 
 import { cellColourPreviewStyles } from './styles';
 
@@ -122,6 +118,8 @@ const arrowsList = new Set(
 		? ['ArrowRight', 'ArrowLeft']
 		: ['ArrowRight'],
 );
+
+const dropdownMenuSection = { hasSeparator: true };
 
 const elementBeforeIconStyles = xcss({
 	marginRight: 'space.negative.075',
@@ -156,22 +154,16 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 	}
 
 	componentDidUpdate(): void {
-		const { isDragAndDropEnabled, isContextualMenuOpen } = getPluginState(
-			this.props.editorView.state,
-		);
+		const { isContextualMenuOpen } = getPluginState(this.props.editorView.state);
 
-		if (isDragAndDropEnabled && this.props.isDragMenuOpen && isContextualMenuOpen) {
+		if (this.props.isDragMenuOpen && isContextualMenuOpen) {
 			toggleContextualMenu()(this.props.editorView.state, this.props.editorView.dispatch);
 		}
 	}
 
 	render(): jsx.JSX.Element {
-		const { isOpen, offset, boundariesElement, editorView, isCellMenuOpenByKeyboard, api } =
-			this.props;
-		const { isDragAndDropEnabled } = getPluginState(editorView.state);
-		const items = isDragAndDropEnabled
-			? this.createNewContextMenuItems()
-			: this.createOriginalContextMenuItems();
+		const { isOpen, offset, boundariesElement, isCellMenuOpenByKeyboard, api } = this.props;
+		const items = this.createContextMenuItems();
 		let isOpenAllowed = false;
 
 		isOpenAllowed = isCellMenuOpenByKeyboard ? this.state.isOpenAllowed : isOpen;
@@ -202,16 +194,14 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 						onMouseEnter={this.handleItemMouseEnter}
 						onMouseLeave={this.handleItemMouseLeave}
 						fitHeight={188}
-						fitWidth={
-							isDragAndDropEnabled ? contextualMenuDropdownWidthDnD : contextualMenuDropdownWidth
-						}
+						fitWidth={contextualMenuDropdownWidthDnD}
 						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						shouldFocusFirstItem={() => {
 							return Boolean(isCellMenuOpenByKeyboard);
 						}}
 						boundariesElement={boundariesElement}
 						offset={offset}
-						section={isDragAndDropEnabled ? { hasSeparator: true } : undefined}
+						section={dropdownMenuSection}
 						allowEnterDefaultBehavior={this.state.isSubmenuOpen}
 					/>
 				</div>
@@ -271,7 +261,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			isCellMenuOpenByKeyboard,
 		} = this.props;
 		const { isSubmenuOpen } = this.state;
-		const { targetCellPosition, isDragAndDropEnabled } = getPluginState(editorView.state);
+		const { targetCellPosition } = getPluginState(editorView.state);
 
 		if (allowBackgroundColor) {
 			const node = isOpen && targetCellPosition ? state.doc.nodeAt(targetCellPosition) : null;
@@ -287,11 +277,9 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			const selectedRowIndex = selectedRowAndColumnFromPalette.selectedRowIndex;
 			const selectedColumnIndex = selectedRowAndColumnFromPalette.selectedColumnIndex;
 			return {
-				content: isDragAndDropEnabled
-					? formatMessage(messages.backgroundColor)
-					: formatMessage(messages.cellBackground),
+				content: formatMessage(messages.backgroundColor),
 				value: { name: 'background' },
-				elemBefore: isDragAndDropEnabled ? (
+				elemBefore: (
 					<Box xcss={elementBeforeIconStyles}>
 						<PaintBucketIcon
 							color="currentColor"
@@ -299,7 +287,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 							label={formatMessage(messages.backgroundColor)}
 						/>
 					</Box>
-				) : undefined,
+				),
 				elemAfter: (
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					<div className={DropdownMenuSharedCssClassName.SUBMENU}>
@@ -307,11 +295,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							css={cellColourPreviewStyles(background)}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={
-								isDragAndDropEnabled
-									? ClassName.CONTEXTUAL_MENU_ICON_SMALL
-									: ClassName.CONTEXTUAL_MENU_ICON
-							}
+							className={ClassName.CONTEXTUAL_MENU_ICON_SMALL}
 						/>
 						{isSubmenuOpen && (
 							<div
@@ -384,9 +368,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			allowMergeCells,
 			editorView: { state },
 			intl: { formatMessage },
-			editorView,
 		} = this.props;
-		const { isDragAndDropEnabled } = getPluginState(editorView.state);
 
 		if (allowMergeCells) {
 			return [
@@ -394,7 +376,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					content: formatMessage(messages.mergeCells),
 					value: { name: 'merge' },
 					isDisabled: !canMergeCells(state.tr),
-					elemBefore: isDragAndDropEnabled ? (
+					elemBefore: (
 						<Box xcss={elementBeforeIconStyles}>
 							<TableCellMergeIcon
 								color="currentColor"
@@ -402,13 +384,13 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 								label={formatMessage(messages.mergeCells)}
 							/>
 						</Box>
-					) : undefined,
+					),
 				},
 				{
 					content: formatMessage(messages.splitCell),
 					value: { name: 'split' },
 					isDisabled: !splitCell(state),
-					elemBefore: isDragAndDropEnabled ? (
+					elemBefore: (
 						<Box xcss={elementBeforeIconStyles}>
 							<TableCellSplitIcon
 								color="currentColor"
@@ -416,7 +398,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 								label={formatMessage(messages.splitCell)}
 							/>
 						</Box>
-					) : undefined,
+					),
 				},
 			] as MenuItem[];
 		}
@@ -426,19 +408,15 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 	private createInsertColumnItem = () => {
 		const {
 			intl: { formatMessage },
-			editorView,
 		} = this.props;
-		const { isDragAndDropEnabled } = getPluginState(editorView.state);
-		const content = formatMessage(
-			isDragAndDropEnabled ? messages.addColumnRight : messages.insertColumn,
-		);
+		const content = formatMessage(messages.addColumnRight);
 
 		return {
 			content,
 			value: { name: 'insert_column' },
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			elemAfter: <div css={shortcutStyle}>{tooltip(addColumnAfter)}</div>,
-			elemBefore: isDragAndDropEnabled ? (
+			elemBefore: (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				<Box xcss={elementBeforeIconStyles}>
 					<TableColumnAddRightIcon
@@ -447,7 +425,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 						label={formatMessage(messages.addColumnRight)}
 					/>
 				</Box>
-			) : undefined,
+			),
 			'aria-label': tooltip(addColumnAfter, String(content)),
 		} as MenuItem;
 	};
@@ -455,17 +433,15 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 	private createInsertRowItem = () => {
 		const {
 			intl: { formatMessage },
-			editorView,
 		} = this.props;
-		const { isDragAndDropEnabled } = getPluginState(editorView.state);
-		const content = formatMessage(isDragAndDropEnabled ? messages.addRowBelow : messages.insertRow);
+		const content = formatMessage(messages.addRowBelow);
 
 		return {
 			content,
 			value: { name: 'insert_row' },
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			elemAfter: <div css={shortcutStyle}>{tooltip(addRowAfter)}</div>,
-			elemBefore: isDragAndDropEnabled ? (
+			elemBefore: (
 				<Box xcss={elementBeforeIconStyles}>
 					<TableRowAddBelowIcon
 						color="currentColor"
@@ -473,7 +449,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 						label={formatMessage(messages.addRowBelow)}
 					/>
 				</Box>
-			) : undefined,
+			),
 			'aria-label': tooltip(addRowAfter, String(content)),
 		} as MenuItem;
 	};
@@ -482,9 +458,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		const {
 			selectionRect,
 			intl: { formatMessage },
-			editorView,
 		} = this.props;
-		const { isDragAndDropEnabled } = getPluginState(editorView.state);
 		const { top, bottom, right, left } = selectionRect;
 		const noOfColumns = right - left;
 		const noOfRows = bottom - top;
@@ -498,7 +472,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			value: { name: 'clear' },
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			elemAfter: <div css={shortcutStyle}>{tooltip(backspace)}</div>,
-			elemBefore: isDragAndDropEnabled ? (
+			elemBefore: (
 				<Box xcss={elementBeforeIconStyles}>
 					<TableCellClearIcon
 						color="currentColor"
@@ -508,7 +482,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 						})}
 					/>
 				</Box>
-			) : undefined,
+			),
 			'aria-label': tooltip(backspace, String(content)),
 		} as MenuItem;
 	};
@@ -517,9 +491,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		const {
 			selectionRect,
 			intl: { formatMessage },
-			editorView,
 		} = this.props;
-		const { isDragAndDropEnabled } = getPluginState(editorView.state);
 
 		const { right, left } = selectionRect;
 		const noOfColumns = right - left;
@@ -529,7 +501,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 				0: noOfColumns,
 			}),
 			value: { name: 'delete_column' },
-			elemBefore: isDragAndDropEnabled ? (
+			elemBefore: (
 				<Box xcss={elementBeforeIconStyles}>
 					<TableColumnDeleteIcon
 						color="currentColor"
@@ -539,7 +511,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 						})}
 					/>
 				</Box>
-			) : undefined,
+			),
 		} as MenuItem;
 	};
 
@@ -547,9 +519,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		const {
 			selectionRect,
 			intl: { formatMessage },
-			editorView,
 		} = this.props;
-		const { isDragAndDropEnabled } = getPluginState(editorView.state);
 
 		const { bottom, top } = selectionRect;
 		const noOfRows = bottom - top;
@@ -559,7 +529,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 				0: noOfRows,
 			}),
 			value: { name: 'delete_row' },
-			elemBefore: isDragAndDropEnabled ? (
+			elemBefore: (
 				<Box xcss={elementBeforeIconStyles}>
 					<TableRowDeleteIcon
 						color="currentColor"
@@ -569,7 +539,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 						})}
 					/>
 				</Box>
-			) : undefined,
+			),
 		} as MenuItem;
 	};
 
@@ -606,80 +576,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		} as MenuItem;
 	};
 
-	private createDistributeColumnsItem = () => {
-		const { editorView } = this.props;
-		const {
-			isDragAndDropEnabled,
-			pluginConfig: { allowDistributeColumns },
-		} = getPluginState(editorView.state);
-		if (allowDistributeColumns && !isDragAndDropEnabled) {
-			return this.createDistributeColumnsItemInternal();
-		}
-		return null;
-	};
-
-	private createSortColumnItems = () => {
-		const {
-			intl: { formatMessage },
-			editorView,
-			allowColumnSorting,
-		} = this.props;
-		const { isDragAndDropEnabled } = getPluginState(editorView.state);
-
-		if (allowColumnSorting && !isDragAndDropEnabled) {
-			const hasMergedCellsInTable = getMergedCellsPositions(editorView.state.tr).length > 0;
-			const warning = hasMergedCellsInTable
-				? {
-						tooltipDescription: formatMessage(messages.canNotSortTable),
-						isDisabled: true,
-					}
-				: {};
-
-			return [
-				{
-					content: formatMessage(messages.sortColumnASC),
-					value: { name: 'sort_column_asc' },
-					...warning,
-				},
-				{
-					content: formatMessage(messages.sortColumnDESC),
-					value: { name: 'sort_column_desc' },
-					...warning,
-				},
-			] as MenuItem[];
-		}
-
-		return null;
-	};
-
-	private createOriginalContextMenuItems = () => {
-		const items: MenuItem[] = [];
-		const sortColumnItems = this.createSortColumnItems();
-		const backgroundColorItem = this.createBackgroundColorItem();
-		const distributeColumnsItem = this.createDistributeColumnsItem();
-
-		sortColumnItems && items.push(...sortColumnItems);
-
-		backgroundColorItem && items.push(backgroundColorItem);
-
-		items.push(this.createInsertColumnItem());
-
-		items.push(this.createInsertRowItem());
-
-		items.push(this.createDeleteColumnItem());
-
-		items.push(this.createDeleteRowItem());
-
-		items.push(...this.createMergeSplitCellItems());
-
-		distributeColumnsItem && items.push(distributeColumnsItem);
-
-		items.push(this.createClearCellsItem());
-
-		return [{ items }];
-	};
-
-	private createNewContextMenuItems = () => {
+	private createContextMenuItems = () => {
 		const backgroundColorItem = this.createBackgroundColorItem();
 		const mergeSplitCellItems = this.createMergeSplitCellItems();
 		const insertColumnItem = this.createInsertColumnItem();

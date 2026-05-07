@@ -17,9 +17,9 @@ const documentation: ComponentStructuredContentSource[] = [
 		description: 'Renderer component',
 		status: 'general-availability',
 		import: {
-			name: 'Renderer',
+			name: 'ReactRenderer',
 			package: '@atlaskit/renderer',
-			type: 'default',
+			type: 'named',
 			packagePath,
 			packageJson,
 		},

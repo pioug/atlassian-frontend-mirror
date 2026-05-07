@@ -23,6 +23,8 @@ export {
 	isMimeTypeSupportedByBrowser,
 } from './isMimeTypeSupportedByBrowser';
 
+export { isExcelFile } from './isExcelFile';
+
 export {
 	isImageMimeTypeSupportedByServer,
 	isDocumentMimeTypeSupportedByServer,

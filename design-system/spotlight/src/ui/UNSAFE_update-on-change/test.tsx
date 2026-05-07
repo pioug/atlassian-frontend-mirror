@@ -2,8 +2,9 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import type { SpotlightContextType } from '../../controllers/context';
-import { SpotlightContext } from '../../controllers/spotlight-context';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
+import { SpotlightContext, type SpotlightContextType } from '../../controllers/context';
 
 import { UNSAFE_UpdateOnChange } from './index';
 
@@ -208,4 +209,17 @@ describe('UNSAFE_UpdateOnChange', () => {
 		// Verify observer was disconnected
 		expect(mockObserver.disconnect).toHaveBeenCalled();
 	});
+
+	ffTest.on(
+		'platform-dst-top-layer',
+		'with top-layer positioning enabled',
+		() => {
+			it('does not observe mutations or call update', () => {
+				renderWithContext({ selectors: ['body'] });
+
+				expect(mockMutationObserver).not.toHaveBeenCalled();
+				expect(mockUpdate).not.toHaveBeenCalled();
+			});
+		},
+	);
 });

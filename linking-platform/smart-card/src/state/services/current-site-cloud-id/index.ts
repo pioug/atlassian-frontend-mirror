@@ -1,30 +1,36 @@
 import { StorageClient } from '@atlaskit/frontend-utilities/storage-client';
 import { request } from '@atlaskit/linking-common';
 
-/**
- * Logical key shape matches smart-card storage conventions (see personalization-service). {@link StorageClient}
- * stores rows as `<clientKey>_<itemKey>` with `clientKey === '@atlaskit/smart-card'` and
- * `itemKey === 'site-cloud-id:v1'` (no further scope segments; unlike `pct-map:v1:`, this is a single fixed row).
- */
-const SMART_CARD_STORAGE_SCOPE = '@atlaskit/smart-card';
+const SMART_CARD_STORAGE_SCOPE = 'smart-card-social-proof';
 
-export const CURRENT_SITE_CLOUD_ID_STORAGE_ITEM_KEY: string = 'site-cloud-id:v1';
+export const CURRENT_SITE_CLOUD_ID_STORAGE_ITEM_KEY_PREFIX = 'site-cloud-id:v1:';
+export const CURRENT_SITE_CLOUD_ID_TTL_MS = 24 * 60 * 60 * 1000;
 
 const smartCardStorage = new StorageClient(SMART_CARD_STORAGE_SCOPE);
 
+function normalizeBaseUri(baseUriWithNoTrailingSlash = ''): string {
+	return baseUriWithNoTrailingSlash.replace(/\/$/, '');
+}
+
+function cloudIdStorageItemKey(baseUriWithNoTrailingSlash = ''): string {
+	return `${CURRENT_SITE_CLOUD_ID_STORAGE_ITEM_KEY_PREFIX}${encodeURIComponent(
+		normalizeBaseUri(baseUriWithNoTrailingSlash),
+	)}`;
+}
+
 /** Keys written by this service in localStorage when using {@link smartCardStorage}. */
-export const CURRENT_SITE_CLOUD_ID_LOCAL_STORAGE_KEY: string = `${SMART_CARD_STORAGE_SCOPE}_${CURRENT_SITE_CLOUD_ID_STORAGE_ITEM_KEY}`;
+export const getCurrentSiteCloudIdLocalStorageKey = (baseUriWithNoTrailingSlash = ''): string =>
+	`${SMART_CARD_STORAGE_SCOPE}_${cloudIdStorageItemKey(baseUriWithNoTrailingSlash)}`;
+
+/** Backwards-compatible default-scope key for existing tests and external assertions. */
+export const CURRENT_SITE_CLOUD_ID_LOCAL_STORAGE_KEY = getCurrentSiteCloudIdLocalStorageKey();
 
 export class CurrentSiteCloudIdService {
-	/**
-	 * Holds the shared tenant_info work: one in-flight fetch, then (on success) a settled promise for the session cloud
-	 * id so later callers never trigger another `tenant_info` in the same page lifetime (until {@link clearCache}).
-	 */
-	private tenantInfoInflightPromise: Promise<string | undefined> | null = null;
+	private tenantInfoInflightPromises = new Map<string, Promise<string | undefined>>();
 
-	private readStoredCloudId(): string | undefined {
+	private readStoredCloudId(baseUriWithNoTrailingSlash = ''): string | undefined {
 		try {
-			const cloudId = smartCardStorage.getItem(CURRENT_SITE_CLOUD_ID_STORAGE_ITEM_KEY);
+			const cloudId = smartCardStorage.getItem(cloudIdStorageItemKey(baseUriWithNoTrailingSlash));
 			if (typeof cloudId !== 'string' || !cloudId || cloudId === 'undefined') {
 				return undefined;
 			}
@@ -34,101 +40,78 @@ export class CurrentSiteCloudIdService {
 		}
 	}
 
-	private writeStoredCloudId(cloudId: string): void {
+	private writeStoredCloudId(baseUriWithNoTrailingSlash: string, cloudId: string): void {
 		if (!cloudId) {
 			return;
 		}
 		try {
-			smartCardStorage.setItemWithExpiry(CURRENT_SITE_CLOUD_ID_STORAGE_ITEM_KEY, cloudId);
+			smartCardStorage.setItemWithExpiry(
+				cloudIdStorageItemKey(baseUriWithNoTrailingSlash),
+				cloudId,
+				CURRENT_SITE_CLOUD_ID_TTL_MS,
+			);
 		} catch {
 			// Quota, private-mode, SSR, etc. — same intent as personalization-service.
 		}
 	}
 
-	private ensureTenantInfoInflightStarted(baseUriWithNoTrailingSlash: string): void {
-		if (this.tenantInfoInflightPromise !== null) {
-			return;
+	private ensureTenantInfoInflightStarted(baseUriWithNoTrailingSlash: string): Promise<string | undefined> {
+		const baseUri = normalizeBaseUri(baseUriWithNoTrailingSlash);
+		const existing = this.tenantInfoInflightPromises.get(baseUri);
+		if (existing) {
+			return existing;
 		}
 
-		this.tenantInfoInflightPromise = (async (): Promise<string | undefined> => {
+		const promise = (async (): Promise<string | undefined> => {
 			try {
-				const response = await request<{ cloudId: string }>(
-					'get',
-					baseUriWithNoTrailingSlash + '/_edge/tenant_info',
-				);
+				const response = await request<{ cloudId: string }>('get', `${baseUri}/_edge/tenant_info`);
 				const cloudId = response?.cloudId;
 
 				if (cloudId) {
-					this.writeStoredCloudId(cloudId);
+					this.writeStoredCloudId(baseUri, cloudId);
 				}
 
-				return cloudId ? cloudId : this.readStoredCloudId();
+				return cloudId ? cloudId : this.readStoredCloudId(baseUri);
 			} catch {
-				this.tenantInfoInflightPromise = null;
-				return this.readStoredCloudId();
+				return this.readStoredCloudId(baseUri);
+			} finally {
+				this.tenantInfoInflightPromises.delete(baseUri);
 			}
 		})();
+
+		this.tenantInfoInflightPromises.set(baseUri, promise);
+		return promise;
 	}
 
-	/**
-	 * Returns the currently cached cloud id synchronously and starts a background refresh.
-	 * The refresh result is persisted for future calls but is not awaited by this call.
-	 */
-	getCachedCloudIdAndRefresh(): string | undefined {
-		this.ensureTenantInfoInflightStarted('');
-		return this.readStoredCloudId();
+	/** Pure synchronous read scoped to the given base URI. */
+	getStoredCloudId(baseUriWithNoTrailingSlash = ''): string | undefined {
+		return this.readStoredCloudId(baseUriWithNoTrailingSlash);
 	}
 
 	/** Writes tenant cloud id for tests or callers that intentionally warm storage before edge resolves. */
-	persistStoredCloudId(cloudId: string): void {
-		this.writeStoredCloudId(cloudId);
+	persistStoredCloudId(cloudId: string, baseUriWithNoTrailingSlash = ''): void {
+		this.writeStoredCloudId(baseUriWithNoTrailingSlash, cloudId);
 	}
 
-	/**
-	 * When local storage already has a tenant cloud id, it is returned immediately; a background tenant_info refresh
-	 * is still kicked off unless one is already in flight.
-	 *
-	 * Without storage, this awaits the deduped in-flight tenant_info (first concurrent caller chooses the URL;
-	 * all share one promise regardless of subsequent `baseUriWithNoTrailingSlash`).
-	 *
-	 * On network success with no cloud id, or on failure: falls back via {@link readStoredCloudId}.
-	 */
 	async get(baseUriWithNoTrailingSlash = ''): Promise<string | undefined> {
-		const fromStorage = this.readStoredCloudId();
-		this.ensureTenantInfoInflightStarted(baseUriWithNoTrailingSlash);
-
+		const fromStorage = this.readStoredCloudId(baseUriWithNoTrailingSlash);
 		if (fromStorage) {
 			return fromStorage;
 		}
 
-		return this.tenantInfoInflightPromise as Promise<string | undefined>;
+		return this.ensureTenantInfoInflightStarted(baseUriWithNoTrailingSlash);
 	}
 	/** Clears session pin and persisted storage so the next {@link get} is a fresh tenant_info fetch. */
 	clearCache(): void {
-		this.tenantInfoInflightPromise = null;
-		smartCardStorage.removeItem(CURRENT_SITE_CLOUD_ID_STORAGE_ITEM_KEY);
+		this.tenantInfoInflightPromises.clear();
 	}
 }
 
-export const currentSiteCloudIdService: CurrentSiteCloudIdService = new CurrentSiteCloudIdService();
+export const currentSiteCloudIdService = new CurrentSiteCloudIdService();
 
-/**
- * Resolves the current site cloud id through the module-level {@link currentSiteCloudIdService}.
- * Returns a stored cloud id immediately when one exists; otherwise waits for the shared
- * `tenant_info` request and persists the result for subsequent cached reads.
- */
-export const getCurrentSiteCloudId: (
-	baseUriWithNoTrailingSlash?: string,
-) => Promise<string | undefined> = (
-	baseUriWithNoTrailingSlash = '',
-): Promise<string | undefined> => currentSiteCloudIdService.get(baseUriWithNoTrailingSlash);
-
-/**
- * Reads the current site cloud id from browser storage (the `site-cloud-id:v1` row) via the
- * module-level {@link currentSiteCloudIdService} singleton, without awaiting network work.
- * Calling this also starts the shared `tenant_info` refresh in the background when one is not
- * already running, so a later call can observe a refreshed value when available.
- */
-export function getCachedCurrentSiteCloudIdAndRefresh(): string | undefined {
-	return currentSiteCloudIdService.getCachedCloudIdAndRefresh();
+export function getCurrentSiteCloudIdSync(baseUriWithNoTrailingSlash = ''): string | undefined {
+	return currentSiteCloudIdService.getStoredCloudId(baseUriWithNoTrailingSlash);
 }
+
+export const getCurrentSiteCloudId = (baseUriWithNoTrailingSlash = ''): Promise<string | undefined> =>
+	currentSiteCloudIdService.get(baseUriWithNoTrailingSlash);

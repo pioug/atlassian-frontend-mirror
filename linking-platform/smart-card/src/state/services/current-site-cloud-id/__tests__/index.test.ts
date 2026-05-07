@@ -2,20 +2,15 @@ import * as linkingCommon from '@atlaskit/linking-common';
 
 import {
 	CURRENT_SITE_CLOUD_ID_LOCAL_STORAGE_KEY,
+	CURRENT_SITE_CLOUD_ID_TTL_MS,
+	getCurrentSiteCloudIdLocalStorageKey,
 	currentSiteCloudIdService,
 	getCurrentSiteCloudId,
-	getCachedCurrentSiteCloudIdAndRefresh,
+	getCurrentSiteCloudIdSync,
 } from '../index';
 
 const requestSpy = jest.spyOn(linkingCommon, 'request');
 
-/** Advances microtasks enough for deferred tenant_info work to persist to storage after fire-and-forget refresh. */
-async function flushMicrotasks(iterations = 40): Promise<void> {
-	for (let index = 0; index < iterations; index++) {
-		// eslint-disable-next-line no-await-in-loop -- intentional sequential flush
-		await Promise.resolve();
-	}
-}
 
 describe('getCurrentSiteCloudId', () => {
 	beforeEach(() => {
@@ -57,16 +52,14 @@ describe('getCurrentSiteCloudId', () => {
 		expect(requestSpy).toHaveBeenCalledTimes(1);
 	});
 
-	it('falls back to stored cloud id when tenant_info fails (stored resolves immediately)', async () => {
+	it('returns stored cloud id without calling tenant_info', async () => {
 		currentSiteCloudIdService.persistStoredCloudId('cached-tenant');
 		requestSpy.mockRejectedValueOnce(new Error('network'));
 
 		await expect(getCurrentSiteCloudId()).resolves.toBe('cached-tenant');
 
-		await flushMicrotasks();
-
-		expect(requestSpy).toHaveBeenCalledTimes(1);
-		expect(getCachedCurrentSiteCloudIdAndRefresh()).toBe('cached-tenant');
+		expect(requestSpy).not.toHaveBeenCalled();
+		expect(getCurrentSiteCloudIdSync()).toBe('cached-tenant');
 	});
 
 	it('dedupes concurrent callers onto one in-flight tenant_info for the same base', async () => {
@@ -82,33 +75,32 @@ describe('getCurrentSiteCloudId', () => {
 		expect(requestSpy).toHaveBeenCalledWith('get', '/_edge/tenant_info');
 	});
 
-	it('dedupes concurrent getCurrentSiteCloudId regardless of base URI (first caller selects URL)', async () => {
-		requestSpy.mockResolvedValueOnce({ cloudId: 'deduped' });
+	it('uses separate in-flight tenant_info requests for different base URIs', async () => {
+		requestSpy
+			.mockResolvedValueOnce({ cloudId: 'cloud-a' })
+			.mockResolvedValueOnce({ cloudId: 'cloud-b' });
 
-		const first = Promise.resolve().then(() => getCurrentSiteCloudId('https://a.example'));
-		const second = Promise.resolve().then(() => getCurrentSiteCloudId('https://b.example'));
+		const [first, second] = await Promise.all([
+			getCurrentSiteCloudId('https://a.example'),
+			getCurrentSiteCloudId('https://b.example'),
+		]);
 
-		await expect(Promise.all([first, second])).resolves.toEqual(['deduped', 'deduped']);
-
-		expect(requestSpy).toHaveBeenCalledTimes(1);
-		const tenantInfoUrl = requestSpy.mock.calls[0][1] as string;
-		expect([
-			'https://a.example/_edge/tenant_info',
-			'https://b.example/_edge/tenant_info',
-		]).toContain(tenantInfoUrl);
+		expect([first, second]).toEqual(['cloud-a', 'cloud-b']);
+		expect(requestSpy).toHaveBeenCalledTimes(2);
+		expect(requestSpy).toHaveBeenNthCalledWith(1, 'get', 'https://a.example/_edge/tenant_info');
+		expect(requestSpy).toHaveBeenNthCalledWith(2, 'get', 'https://b.example/_edge/tenant_info');
 	});
 
-	it('resolves stored cloud id immediately while tenant_info refresh still persists in the background', async () => {
-		currentSiteCloudIdService.persistStoredCloudId('warm-start');
-		requestSpy.mockResolvedValueOnce({ cloudId: 'refreshed' });
+	it('scopes stored cloud id reads by base URI', async () => {
+		currentSiteCloudIdService.persistStoredCloudId('warm-start', 'https://edge.example');
+		requestSpy.mockResolvedValueOnce({ cloudId: 'other-site' });
 
 		await expect(getCurrentSiteCloudId('https://edge.example')).resolves.toBe('warm-start');
+		await expect(getCurrentSiteCloudId('https://other.example')).resolves.toBe('other-site');
 
 		expect(requestSpy).toHaveBeenCalledTimes(1);
-
-		await flushMicrotasks();
-
-		expect(getCachedCurrentSiteCloudIdAndRefresh()).toBe('refreshed');
+		expect(getCurrentSiteCloudIdSync('https://edge.example')).toBe('warm-start');
+		expect(getCurrentSiteCloudIdSync('https://other.example')).toBe('other-site');
 	});
 
 	it('persists successful cloud id via smart-card StorageClient row', async () => {
@@ -116,8 +108,12 @@ describe('getCurrentSiteCloudId', () => {
 
 		await expect(getCurrentSiteCloudId('https://x.example')).resolves.toBe('persisted-cloud');
 
-		expect(getCachedCurrentSiteCloudIdAndRefresh()).toBe('persisted-cloud');
-		expect(window.localStorage.getItem(CURRENT_SITE_CLOUD_ID_LOCAL_STORAGE_KEY)).not.toBeNull();
+		expect(getCurrentSiteCloudIdSync('https://x.example')).toBe('persisted-cloud');
+		const row = window.localStorage.getItem(getCurrentSiteCloudIdLocalStorageKey('https://x.example'));
+		expect(row).not.toBeNull();
+		expect(JSON.parse(row ?? '{}').expires).toBeGreaterThanOrEqual(
+			Date.now() + CURRENT_SITE_CLOUD_ID_TTL_MS,
+		);
 	});
 
 	it('does not persist tenant_info failures', async () => {
@@ -128,28 +124,28 @@ describe('getCurrentSiteCloudId', () => {
 		expect(window.localStorage.getItem(CURRENT_SITE_CLOUD_ID_LOCAL_STORAGE_KEY)).toBeNull();
 	});
 
-	it('falls back to stored cloud id when tenant_info response omits cloudId', async () => {
-		currentSiteCloudIdService.persistStoredCloudId('stored-fallback');
-		requestSpy.mockResolvedValueOnce({});
+	it('falls back to stored cloud id when tenant_info response omits cloudId and storage was populated during request', async () => {
+		requestSpy.mockImplementation(async () => {
+			currentSiteCloudIdService.persistStoredCloudId('stored-fallback');
+			return {};
+		});
 
 		await expect(getCurrentSiteCloudId()).resolves.toBe('stored-fallback');
 
 		expect(requestSpy).toHaveBeenCalledTimes(1);
-
-		await flushMicrotasks();
-		expect(getCachedCurrentSiteCloudIdAndRefresh()).toBe('stored-fallback');
+		expect(getCurrentSiteCloudIdSync()).toBe('stored-fallback');
 	});
 
-	it('falls back to stored cloud id when tenant_info returns empty string cloudId', async () => {
-		currentSiteCloudIdService.persistStoredCloudId('stored-fallback');
-		requestSpy.mockResolvedValueOnce({ cloudId: '' });
+	it('falls back to stored cloud id when tenant_info returns empty string cloudId and storage was populated during request', async () => {
+		requestSpy.mockImplementation(async () => {
+			currentSiteCloudIdService.persistStoredCloudId('stored-fallback');
+			return { cloudId: '' };
+		});
 
 		await expect(getCurrentSiteCloudId()).resolves.toBe('stored-fallback');
 
 		expect(requestSpy).toHaveBeenCalledTimes(1);
-
-		await flushMicrotasks();
-		expect(getCachedCurrentSiteCloudIdAndRefresh()).toBe('stored-fallback');
+		expect(getCurrentSiteCloudIdSync()).toBe('stored-fallback');
 	});
 
 	it('returns undefined when tenant_info omits cloudId and storage is empty', async () => {
@@ -168,40 +164,32 @@ describe('getCurrentSiteCloudId', () => {
 		expect(requestSpy).toHaveBeenCalledTimes(1);
 	});
 
-	it('does not call tenant_info again after first successful resolution (session pin)', async () => {
+	it('does not call tenant_info again when stored cloud id exists after first successful resolution', async () => {
 		requestSpy.mockResolvedValueOnce({ cloudId: 'wave-one' });
 
 		await expect(getCurrentSiteCloudId()).resolves.toBe('wave-one');
-
-		requestSpy.mockResolvedValueOnce({ cloudId: 'wave-two-would-not-fetch' });
-
 		await expect(getCurrentSiteCloudId()).resolves.toBe('wave-one');
 
-		await flushMicrotasks();
-
 		expect(requestSpy).toHaveBeenCalledTimes(1);
-		expect(getCachedCurrentSiteCloudIdAndRefresh()).toBe('wave-one');
+		expect(getCurrentSiteCloudIdSync()).toBe('wave-one');
 	});
 
-	it('runs tenant_info again after clearCache()', async () => {
+	it('clearCache only clears in-flight dedupe, not stored cloud id', async () => {
 		requestSpy.mockResolvedValueOnce({ cloudId: 'first-fetch' });
 
 		await expect(getCurrentSiteCloudId()).resolves.toBe('first-fetch');
 
 		currentSiteCloudIdService.clearCache();
-		expect(window.localStorage.getItem(CURRENT_SITE_CLOUD_ID_LOCAL_STORAGE_KEY)).toBeNull();
-		requestSpy.mockResolvedValueOnce({ cloudId: 'second-fetch' });
+		requestSpy.mockResolvedValueOnce({ cloudId: 'second-fetch-would-not-fetch' });
 
-		await expect(getCurrentSiteCloudId()).resolves.toBe('second-fetch');
+		await expect(getCurrentSiteCloudId()).resolves.toBe('first-fetch');
 
-		await flushMicrotasks();
-
-		expect(requestSpy).toHaveBeenCalledTimes(2);
-		expect(getCachedCurrentSiteCloudIdAndRefresh()).toBe('second-fetch');
+		expect(requestSpy).toHaveBeenCalledTimes(1);
+		expect(getCurrentSiteCloudIdSync()).toBe('first-fetch');
 	});
 });
 
-describe('getCachedCurrentSiteCloudIdAndRefresh', () => {
+describe('getCurrentSiteCloudIdSync', () => {
 	beforeEach(() => {
 		currentSiteCloudIdService.clearCache();
 		window.localStorage?.clear?.();
@@ -210,81 +198,73 @@ describe('getCachedCurrentSiteCloudIdAndRefresh', () => {
 	});
 
 	it('returns undefined when the storage key is missing', () => {
-		expect(getCachedCurrentSiteCloudIdAndRefresh()).toBeUndefined();
+		expect(getCurrentSiteCloudIdSync()).toBeUndefined();
 	});
 
 	it('returns stored cloud id from smart-card scoped storage', () => {
 		currentSiteCloudIdService.persistStoredCloudId('from-storage');
 
-		expect(getCachedCurrentSiteCloudIdAndRefresh()).toBe('from-storage');
-		expect(requestSpy).toHaveBeenCalled();
+		expect(getCurrentSiteCloudIdSync()).toBe('from-storage');
+		expect(requestSpy).not.toHaveBeenCalled();
 	});
 
-	it('starts tenant_info on cached read and refresh when nothing was in flight yet (cached read returns undefined until edge fills storage)', async () => {
-		requestSpy.mockResolvedValueOnce({ cloudId: 'cached-read-kicks-edge' });
+	it('does not start tenant_info on sync read when nothing was cached', () => {
+		requestSpy.mockResolvedValueOnce({ cloudId: 'sync-would-not-fetch' });
 
-		expect(getCachedCurrentSiteCloudIdAndRefresh()).toBeUndefined();
-
-		expect(requestSpy).toHaveBeenCalledTimes(1);
-		expect(requestSpy).toHaveBeenCalledWith('get', '/_edge/tenant_info');
-
-		await flushMicrotasks();
-
-		expect(getCachedCurrentSiteCloudIdAndRefresh()).toBe('cached-read-kicks-edge');
+		expect(getCurrentSiteCloudIdSync()).toBeUndefined();
+		expect(requestSpy).not.toHaveBeenCalled();
 	});
 
-	it('starts tenant_info on cached read and refresh when storage already has an id (background refresh)', async () => {
+	it('does not start tenant_info on sync read when storage already has an id', () => {
 		currentSiteCloudIdService.persistStoredCloudId('ls-cache');
 		requestSpy.mockResolvedValueOnce({ cloudId: 'refreshed-edge' });
 
-		expect(getCachedCurrentSiteCloudIdAndRefresh()).toBe('ls-cache');
-
-		expect(requestSpy).toHaveBeenCalledTimes(1);
-
-		await flushMicrotasks();
-
-		expect(getCachedCurrentSiteCloudIdAndRefresh()).toBe('refreshed-edge');
+		expect(getCurrentSiteCloudIdSync()).toBe('ls-cache');
+		expect(requestSpy).not.toHaveBeenCalled();
 	});
 
-	it('does not call tenant_info again when cached read and refresh runs while the same refresh is still pending', () => {
-		requestSpy.mockImplementation(
-			() =>
-				new Promise<{ cloudId: string }>(() => {
-					/* deliberately unresolved */
-				}),
-		);
+	it('returns base-URI scoped stored cloud id synchronously', () => {
+		currentSiteCloudIdService.persistStoredCloudId('cloud-a', 'https://a.example/');
+		currentSiteCloudIdService.persistStoredCloudId('cloud-b', 'https://b.example');
 
-		expect(getCachedCurrentSiteCloudIdAndRefresh()).toBeUndefined();
-		expect(requestSpy).toHaveBeenCalledTimes(1);
-
-		currentSiteCloudIdService.persistStoredCloudId('written-while-pending');
-
-		expect(getCachedCurrentSiteCloudIdAndRefresh()).toBe('written-while-pending');
-		expect(requestSpy).toHaveBeenCalledTimes(1);
+		expect(getCurrentSiteCloudIdSync('https://a.example')).toBe('cloud-a');
+		expect(getCurrentSiteCloudIdSync('https://b.example')).toBe('cloud-b');
+		expect(requestSpy).not.toHaveBeenCalled();
 	});
 
 	it('returns undefined when the stored value is the legacy undefined string sentinel', () => {
 		currentSiteCloudIdService.persistStoredCloudId('undefined');
 
-		expect(getCachedCurrentSiteCloudIdAndRefresh()).toBeUndefined();
+		expect(getCurrentSiteCloudIdSync()).toBeUndefined();
 	});
 
-	it('returns undefined via getCachedCloudIdAndRefresh when persisted value normalizes as empty string', () => {
+	it('returns undefined when the stored cloud id is expired', () => {
+		jest.useFakeTimers().setSystemTime(new Date('2026-01-01T00:00:00.000Z'));
+		currentSiteCloudIdService.persistStoredCloudId('expired-cloud', 'https://expired.example');
+
+		jest.setSystemTime(new Date('2026-01-02T00:00:00.001Z'));
+
+		expect(getCurrentSiteCloudIdSync('https://expired.example')).toBeUndefined();
+		expect(requestSpy).not.toHaveBeenCalled();
+		jest.useRealTimers();
+	});
+
+	it('returns undefined via getStoredCloudId when persisted value normalizes as empty string', () => {
 		window.localStorage.setItem(
 			CURRENT_SITE_CLOUD_ID_LOCAL_STORAGE_KEY,
 			JSON.stringify({ value: '' }),
 		);
 
-		expect(currentSiteCloudIdService.getCachedCloudIdAndRefresh()).toBeUndefined();
+		expect(currentSiteCloudIdService.getStoredCloudId()).toBeUndefined();
 	});
 
-	it('returns undefined via getCachedCloudIdAndRefresh when stored parsed value is not a string', () => {
+	it('returns undefined via getStoredCloudId when stored parsed value is not a string', () => {
 		window.localStorage.setItem(
 			CURRENT_SITE_CLOUD_ID_LOCAL_STORAGE_KEY,
 			JSON.stringify({ value: 404 }),
 		);
 
-		expect(currentSiteCloudIdService.getCachedCloudIdAndRefresh()).toBeUndefined();
+		expect(currentSiteCloudIdService.getStoredCloudId()).toBeUndefined();
 	});
 });
 
@@ -305,7 +285,7 @@ describe('persistStoredCloudId', () => {
 	it('writes tenant cloud id when called', () => {
 		currentSiteCloudIdService.persistStoredCloudId('via-service');
 
-		expect(getCachedCurrentSiteCloudIdAndRefresh()).toBe('via-service');
+		expect(getCurrentSiteCloudIdSync()).toBe('via-service');
 	});
 });
 

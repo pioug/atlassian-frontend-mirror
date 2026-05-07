@@ -24,7 +24,8 @@ src/
 ├── store-manager/
 │   ├── syncBlockStoreManager.ts      # Parent coordinator for source + reference managers
 │   ├── referenceSyncBlockStoreManager.ts # Reference block lifecycle, cache, subscriptions, flush
-│   └── sourceSyncBlockStoreManager.ts    # Source block create, update, delete, flush
+│   └── sourceSyncBlockStoreManager.ts    # Source block create, update, delete, flush,
+│                                           hasPendingCreations(), discardUnpublishedBlocks()
 ├── clients/
 │   ├── block-service/
 │   │   ├── blockService.ts           # Block service API client (fetch, batch, CRUD)
@@ -37,7 +38,23 @@ src/
 ├── providers/
 │   └── block-service/
 │       └── blockServiceAPI.ts        # Provider factory and API helpers
-└── types/                            # Shared types
+├── hooks/
+│   ├── useFetchSyncBlockData.ts      # React hook: fetch + subscribe to a block instance
+│   ├── useFetchSyncBlockTitle.ts     # React hook: fetch source title/url metadata
+│   └── useHandleContentChanges.ts    # Wires editor content changes into source manager
+├── common/
+│   ├── consts.ts                     # Shared constants (debounce timings, etc.)
+│   ├── rebase-transaction.ts         # Shared transaction rebase helpers
+│   └── types.ts                      # Cross-module types
+├── utils/
+│   ├── errorHandling.ts              # Error normalisation
+│   ├── experienceTracking.ts         # Experience analytics dispatch
+│   ├── resolveSyncBlockInstance.ts   # ADF/instance resolution
+│   ├── resourceId.ts                 # Resource ID parsing/validation
+│   ├── retry.ts                      # Backoff/retry helpers
+│   ├── utils.ts                      # Misc helpers
+│   └── validValue.ts                 # Value validation
+└── types/                            # Public types re-exported from index
 ```
 
 ---
@@ -53,6 +70,8 @@ SyncBlockStoreManager (parent coordinator)
 │   ├── updateSyncBlockData(node) → marks isDirty, caches content
 │   ├── flush() → persist all dirty changes to backend
 │   ├── hasUnsavedChanges() → checks isDirty + hasReceivedContentChange
+│   ├── hasPendingCreations() → O(1) pending-creation check (EDITOR-6930)
+│   ├── discardUnpublishedBlocks() → delete unpublished blocks (EDITOR-6473)
 │   └── delete(resourceId) → soft delete with confirmation
 └── ReferenceSyncBlockStoreManager
     ├── fetchSyncBlocksData(nodes) → batch fetch with deduplication

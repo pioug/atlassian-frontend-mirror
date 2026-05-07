@@ -17,9 +17,9 @@ const documentation: ComponentStructuredContentSource[] = [
 		description: 'A package contains Atlassian editor core functionality',
 		status: 'general-availability',
 		import: {
-			name: 'Editor Core',
+			name: 'Editor',
 			package: '@atlaskit/editor-core',
-			type: 'default',
+			type: 'named',
 			packagePath,
 			packageJson,
 		},

@@ -7,7 +7,7 @@ import { forwardRef, useContext } from 'react';
 import { cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
-import { SpotlightContext } from '../../../controllers/spotlight-context';
+import { SpotlightContext } from '../../../controllers/context';
 import type { Placement } from '../../../types';
 
 const styles = cssMap({

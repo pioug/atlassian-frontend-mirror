@@ -1,5 +1,14 @@
 # @atlaskit/top-layer
 
+## 0.6.0
+
+### Minor Changes
+
+- [`a75acf807a927`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a75acf807a927) -
+  The public APIs for the Open Layer Observer from @atlaskit/layering have been re-exported from the
+  @atlaskit/top-layer package. The long term vision is for all layering concerns to come from the
+  top-layer package.
+
 ## 0.5.1
 
 ### Patch Changes

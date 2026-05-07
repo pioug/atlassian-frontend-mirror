@@ -23,7 +23,6 @@ import {
 import { getPluginState } from '../../pm-plugins/plugin-factory';
 import type { PluginConfig, PluginInjectionAPI } from '../../types';
 import {
-	contextualMenuDropdownWidth,
 	contextualMenuDropdownWidthDnD,
 	contextualMenuTriggerSize,
 	tablePopupMenuFitHeight,
@@ -88,7 +87,7 @@ const FloatingContextualMenu: {
 	}
 
 	// TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
-	const { targetCellPosition, isDragAndDropEnabled } = getPluginState(editorView.state);
+	const { targetCellPosition } = getPluginState(editorView.state);
 	if (!isOpen || !targetCellPosition || editorView.state.doc.nodeSize <= targetCellPosition) {
 		return null;
 	}
@@ -123,7 +122,7 @@ const FloatingContextualMenu: {
 			boundariesElement={boundariesElement}
 			scrollableElement={scrollableElement}
 			fitHeight={tablePopupMenuFitHeight}
-			fitWidth={isDragAndDropEnabled ? contextualMenuDropdownWidthDnD : contextualMenuDropdownWidth}
+			fitWidth={contextualMenuDropdownWidthDnD}
 			// z-index value below is to ensure that this menu is above other floating menu
 			// in table, but below floating dialogs like typeaheads, pickers, etc.
 			zIndex={parentSticky ? akEditorFloatingDialogZIndex : akEditorFloatingOverlapPanelZIndex}
@@ -133,7 +132,7 @@ const FloatingContextualMenu: {
 			stick={true}
 		>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			<div css={tablePopupStyles(isDragAndDropEnabled)}>
+			<div css={tablePopupStyles()}>
 				<ContextualMenu
 					editorView={editorView}
 					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)

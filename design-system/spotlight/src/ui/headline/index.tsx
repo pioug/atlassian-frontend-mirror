@@ -7,7 +7,7 @@ import { forwardRef, type ReactNode, useContext } from 'react';
 import { jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 
-import { SpotlightContext } from '../../controllers/spotlight-context';
+import { SpotlightContext } from '../../controllers/context';
 
 export interface SpotlightHeadlineProps {
 	/**

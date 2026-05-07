@@ -17,9 +17,9 @@ const documentation: ComponentStructuredContentSource[] = [
 		description: 'ShowDiff plugin for @atlaskit/editor-core',
 		status: 'general-availability',
 		import: {
-			name: 'Editor Plugin Track Changes',
+			name: 'trackChangesPlugin',
 			package: '@atlaskit/editor-plugin-track-changes',
-			type: 'default',
+			type: 'named',
 			packagePath,
 			packageJson,
 		},

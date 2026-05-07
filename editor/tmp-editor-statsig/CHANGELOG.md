@@ -1,5 +1,38 @@
 # @atlaskit/editor-statsig-tmp
 
+## 77.1.0
+
+### Minor Changes
+
+- [`ba2fcee7745c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba2fcee7745c4) -
+  [ux] Added a new configurable empty state hero config item for the jira editor-plugin-ai, which
+  renders a 'Suggest a comment' AI hero button when the editor is empty. When the editor has
+  content, it switches back to the default hero button. The changes are for the
+  jira-smart-replies-v2 experiment.
+
+## 77.0.0
+
+### Major Changes
+
+- [`7bfc7106b79c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7bfc7106b79c7) -
+  Clean up platform_editor_toolbar_aifc_use_editor_typography experiment.
+
+## 76.0.0
+
+### Major Changes
+
+- [`bb725117587b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb725117587b6) -
+  Clean up platform_editor_toolbar_delay_render_fix experiment.
+
+### Minor Changes
+
+- [`f8aee5a0e76d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f8aee5a0e76d3) -
+  NAVX-4523 NAVX-4519 Adds social proof experiment hook, TAP personalization service,
+  SocialProofMessage component, and componentWithFG wiring for unauth 3P block cards. Registers
+  social_proof_3p_unauth_block_exp in tmp-editor-statsig. Uses cache-first behavior for social proof
+  data, the canonical site-level TAP trait, and avoids experiment exposure before cached provider
+  data is available.
+
 ## 75.2.0
 
 ### Minor Changes

@@ -1,7 +1,6 @@
 {
 	"extends": "../tsconfig",
 	"compilerOptions": {
-		"paths": {},
 		"resolveJsonModule": true
 	},
 	"include": ["../src/**/*.ts", "../src/**/*.tsx"],

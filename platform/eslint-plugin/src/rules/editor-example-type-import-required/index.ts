@@ -5,12 +5,119 @@ import type { Rule } from 'eslint';
 
 export const RULE_NAME = 'editor-example-type-import-required';
 
-const EDITOR_LIBRA_IMPORT = '@af/editor-libra';
-const NOT_LIBRA_IMPORT = './not-libra';
+/**
+ * Spec files that are excluded from this rule because they don't use visitExample
+ * or have their own test harness that doesn't follow the exampleName fixture pattern.
+ *
+ * Paths are matched as suffixes of the file path (platform-relative).
+ */
+const EXCLUDED_SPEC_FILES: string[] = [
+	// Meta-tests for the testing infrastructure itself
+	'build/test-tooling/integration-testing/src/examples/__tests__/playwright/example.spec.ts',
+	'build/test-tooling/integration-testing/src/matchers/__tests__/playwright/to-have-height.spec.ts',
+	'build/test-tooling/integration-testing/src/matchers/__tests__/playwright/to-have-width.spec.ts',
+	// Tests the a11y decorator itself, no visitExample
+	'packages/accessibility/axe-integration/a11y-playwright-testing/src/auto-a11y-setup/__tests__/playwright/skip-decorator.spec.ts',
+	// Stub test (expect(true).toBe(true)), no visitExample
+	'packages/ai-mate/rovo-content-bridge-api/__tests__/playwright/index.spec.tsx',
+	// Page-object's visitExample call carries the typeof import(...) generic,
+	// so the typed example reference lives in _helpers/page-object.ts rather
+	// than in test.use({ exampleName }) in the spec itself.
+	'packages/navigation/atlassian-switcher/src/__tests__/playwright/navigate-child-item.spec.ts',
+	'packages/navigation/atlassian-switcher/src/__tests__/playwright/navigate-link-item.spec.ts',
+	'packages/navigation/atlassian-switcher/src/__tests__/playwright/navigate-product-item.spec.ts',
+	// Spec runs through a page-object (pages/generic-form-renderer.ts) whose
+	// visitExample call already carries the typeof import(...) generic. The
+	// typed reference therefore lives in the colocated page-object, not in
+	// test.use({ exampleName }) in the spec.
+	'packages/proforma/proforma-common-core/__tests__/playwright/json-test-cases.spec.ts',
+	'packages/proforma/proforma-form-renderer/__tests__/playwright/json-test-cases.spec.ts',
+	// Spec runs through a page-object that still uses raw page.goto() against
+	// /examples.html. Migrating these requires reworking the page-object to
+	// route through visitExample<typeof import(...)>(...).
+	'packages/proforma/proforma-form-list/__tests__/playwright/form-list.spec.ts',
+	'packages/proforma/proforma-form-renderer/__tests__/playwright/form-renderer.spec.ts',
+	'packages/proforma/proforma-translations-editor/__tests__/playwright/translations-editor-with-form.spec.ts',
+	// Tests the website itself, not examples
+	'website/src/__tests__/playwright/examples.spec.ts',
+	'website/src/__tests__/playwright/home.spec.ts',
+
+	// react-ufo: uses an `examplePage: string` fixture where the name (e.g. 'basic') is
+	// resolved to the example file internally by visitExample — the name does not match
+	// the file name (e.g. '01-basic.tsx'), so a typeof import assertion is not possible
+	// without refactoring the fixture to use keyof typeof import directly. Specs that
+	// happen to also use the inline `visitExample<typeof import(...)>` pattern alongside
+	// the fixture pass via the file-level typeof import check above and don't appear here.
+	'packages/react-ufo/atlaskit/__tests__/playwright/apply-segments-threshold.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/bad-replacement-node.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/base-10-sections.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/base-100-sections.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/base-3-sections-ssr-timings.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/base-3-sections-unmount.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/css-display-contents.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/custom-cohort-data.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/custom-data.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/data-vc-ignore-if-no-layout-shift.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/full-pixel-horizontal.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/full-pixel.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/fy25_02.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/hold.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/interactions-responsiveness.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/interactions-unknown-element.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/interactions-vc.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/is-opened-in-background.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/is-tab-throttled.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/metric-variants.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/minor-interactions.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/non-visual-style.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/page-visibility-hidden-timestamp.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/payload-integrity.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/post-interaction-late-holds.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/post-interaction-log-always-send.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/replacement-node.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/revisions.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/same-attribute-value-mutation.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/speed-index.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/ssr-placeholder-v3.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/terminal-error.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/third-party-segment-extra-metrics.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/third-party-segment-iframe.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/third-party-segment-timings.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/third-party-segment.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/transition-vc.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/ttai.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/ufo-blindspot-watchdog.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/ufo-errors.spec.ts',
+	'packages/react-ufo/atlaskit/__tests__/playwright/vc-dirty.spec.ts',
+
+	// editor-performance-metrics: same pattern as react-ufo — uses an `examplePage: string` fixture
+	// where the name resolves internally and does not match the example file name.
+	'packages/editor/editor-performance-metrics/__tests__/playwright/basic-editor-ttai.spec.ts',
+	'packages/editor/editor-performance-metrics/__tests__/playwright/basic-react-app.spec.ts',
+	'packages/editor/editor-performance-metrics/__tests__/playwright/latency-track.spec.ts',
+	'packages/editor/editor-performance-metrics/__tests__/playwright/ttai-timers.spec.ts',
+	'packages/editor/editor-performance-metrics/__tests__/playwright/vc-next-attribute-change.spec.ts',
+	'packages/editor/editor-performance-metrics/__tests__/playwright/vc-next-element-moving.spec.ts',
+	'packages/editor/editor-performance-metrics/__tests__/playwright/vc-next-moving-node.spec.ts',
+	'packages/editor/editor-performance-metrics/__tests__/playwright/vc-next-placeholder.spec.ts',
+	'packages/editor/editor-performance-metrics/__tests__/playwright/vc-next-react-remounting.spec.ts',
+	'packages/editor/editor-performance-metrics/__tests__/playwright/vc-next-track-user-events.spec.ts',
+	'packages/editor/editor-performance-metrics/__tests__/playwright/vc-next.spec.ts',
+
+	// generative-ai-modal: the example name is passed dynamically at examplePage.goto({ example: '...' })
+	// time rather than via test.use(), so a static typeof import assertion in the spec is not possible.
+	'packages/editor/generative-ai-modal/src/ui/screens/Preview/__tests__/playwright/tab-navigation.spec.ts',
+
+];
+
+function isExcluded(filename: string): boolean {
+	const normalised = filename.replace(/\\/g, '/');
+	return EXCLUDED_SPEC_FILES.some((excluded) => normalised.endsWith(excluded));
+}
 
 const messages = {
 	missingExampleName:
-		'Spec files importing from @af/editor-libra or ./not-libra must include exampleName with a ' +
+		'Playwright spec files must include exampleName with a ' +
 		'typeof import type assertion in test.use(). ' +
 		"Add: exampleName: 'testing' as keyof typeof import('../../../examples/testing.tsx') ",
 	missingTypeAssertion:
@@ -22,14 +129,8 @@ const messages = {
 } satisfies Record<string, string>;
 
 function isTargetFile(filename: string): boolean {
-	return filename.endsWith('.spec.tsx') || filename.endsWith('.spec.ts');
-}
-
-function hasEditorLibraImport(ast: TSESTree.Program): boolean {
-	return ast.body.some(
-		(node) =>
-			node.type === AST_NODE_TYPES.ImportDeclaration &&
-			(node.source.value === EDITOR_LIBRA_IMPORT || node.source.value === NOT_LIBRA_IMPORT),
+	return (
+		(filename.endsWith('.spec.tsx') || filename.endsWith('.spec.ts')) && !isExcluded(filename)
 	);
 }
 
@@ -164,17 +265,16 @@ const rule: Rule.RuleModule = {
 			return {};
 		}
 
-		const ast = context.sourceCode.ast as TSESTree.Program;
-		if (!hasEditorLibraImport(ast)) {
-			return {};
-		}
-
 		return {
 			'Program:exit'(estreeNode) {
 				const program = estreeNode as unknown as TSESTree.Program;
 
-				// Collect all test.use() calls in the file in document order using a queue
+				// Single AST walk: collect all test.use() calls AND detect whether the
+				// file contains any `typeof import('...')` reference at all (a TSImportType
+				// node). Either signal is sufficient evidence that the spec ties at least
+				// one example file into its TypeScript import graph.
 				const testUseCalls: TSESTree.CallExpression[] = [];
+				let hasAnyTypeofImport = false;
 				const visited = new Set<TSESTree.Node>();
 				const queue: TSESTree.Node[] = [program];
 				while (queue.length > 0) {
@@ -193,6 +293,9 @@ const rule: Rule.RuleModule = {
 					) {
 						testUseCalls.push(node);
 					}
+					if (node.type === AST_NODE_TYPES.TSImportType) {
+						hasAnyTypeofImport = true;
+					}
 					for (const key of Object.keys(node)) {
 						if (key === 'parent') {
 							continue;
@@ -208,6 +311,17 @@ const rule: Rule.RuleModule = {
 							queue.push(child);
 						}
 					}
+				}
+
+				// Any `typeof import('...')` anywhere in the spec — including the
+				// `page.visitExample<typeof import('...')>(...)` and
+				// `page.visitMockedExample<typeof import('...')>(...)` patterns used
+				// outside of test.use() — satisfies the same goal as the canonical
+				// `test.use({ exampleName: '...' as keyof typeof import('...') })`
+				// pattern: the example file is referenced from the spec's TypeScript
+				// import graph.
+				if (hasAnyTypeofImport) {
+					return;
 				}
 
 				// Check if any test.use() call anywhere in the file has exampleName with a typeof import assertion

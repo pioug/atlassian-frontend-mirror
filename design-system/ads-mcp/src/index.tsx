@@ -29,6 +29,10 @@ import { getAllComponentsTool, listGetAllComponentsTool } from './tools/get-all-
 import { getAllIconsTool, listGetAllIconsTool } from './tools/get-all-icons';
 import { getAllTokensTool, listGetAllTokensTool } from './tools/get-all-tokens';
 import {
+	getAtlaskitComponentsTool,
+	listGetAtlaskitComponentsTool,
+} from './tools/get-atlaskit-components';
+import {
 	getGuidelinesInputSchema,
 	getGuidelinesTool,
 	listGetGuidelinesTool,
@@ -50,6 +54,11 @@ import {
 } from './tools/migration-guides';
 import { listPlanTool, planInputSchema, planTool } from './tools/plan';
 import {
+	listSearchAtlaskitComponentsTool,
+	searchAtlaskitComponentsInputSchema,
+	searchAtlaskitComponentsTool,
+} from './tools/search-atlaskit-components';
+import {
 	listSearchComponentsTool,
 	searchComponentsInputSchema,
 	searchComponentsTool,
@@ -65,6 +74,7 @@ import {
 	suggestA11yFixesInputSchema,
 	suggestA11yFixesTool,
 } from './tools/suggest-a11y-fixes';
+
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- this uses require because not all node versions this package supports use the same import assertions/attributes
 const pkgJson = require('@atlaskit/ads-mcp/package.json');
@@ -109,83 +119,104 @@ export const getToolRegistry = (): Record<
 		inputSchema: z.AnyZodObject | null;
 		tool: Tool;
 	}
-> => ({
-	[listAnalyzeA11yTool.name]: {
-		handler: analyzeA11yTool,
-		inputSchema: analyzeA11yInputSchema,
-		tool: listAnalyzeA11yTool,
-	},
-	[listAnalyzeLocalhostA11yTool.name]: {
-		handler: analyzeLocalhostA11yTool,
-		inputSchema: analyzeA11yLocalhostInputSchema,
-		tool: listAnalyzeLocalhostA11yTool,
-	},
-	[listGetA11yGuidelinesTool.name]: {
-		handler: getA11yGuidelinesTool,
-		inputSchema: getA11yGuidelinesInputSchema,
-		tool: listGetA11yGuidelinesTool,
-	},
-	[listGetAllComponentsTool.name]: {
-		handler: getAllComponentsTool,
-		inputSchema: null,
-		tool: listGetAllComponentsTool,
-	},
-	[listPlanTool.name]: {
-		handler: planTool,
-		inputSchema: planInputSchema,
-		tool: listPlanTool,
-	},
-	[listSearchComponentsTool.name]: {
-		handler: searchComponentsTool,
-		inputSchema: searchComponentsInputSchema,
-		tool: listSearchComponentsTool,
-	},
-	[listSearchIconsTool.name]: {
-		handler: searchIconsTool,
-		inputSchema: searchIconsInputSchema,
-		tool: listSearchIconsTool,
-	},
-	[listSearchTokensTool.name]: {
-		handler: searchTokensTool,
-		inputSchema: searchTokensInputSchema,
-		tool: listSearchTokensTool,
-	},
-	[listSuggestA11yFixesTool.name]: {
-		handler: suggestA11yFixesTool,
-		inputSchema: suggestA11yFixesInputSchema,
-		tool: listSuggestA11yFixesTool,
-	},
-	[listMigrationGuidesTool.name]: {
-		handler: migrationGuidesTool,
-		inputSchema: migrationGuidesInputSchema,
-		tool: listMigrationGuidesTool,
-	},
-	[listI18nConversionTool.name]: {
-		handler: i18nConversionTool,
-		inputSchema: i18nConversionInputSchema,
-		tool: listI18nConversionTool,
-	},
-	[listGetGuidelinesTool.name]: {
-		handler: getGuidelinesTool,
-		inputSchema: getGuidelinesInputSchema,
-		tool: listGetGuidelinesTool,
-	},
-	[listGetAllTokensTool.name]: {
-		handler: getAllTokensTool,
-		inputSchema: null,
-		tool: listGetAllTokensTool,
-	},
-	[listGetAllIconsTool.name]: {
-		handler: getAllIconsTool,
-		inputSchema: null,
-		tool: listGetAllIconsTool,
-	},
-	[listGetLintRulesTool.name]: {
-		handler: getLintRulesTool,
-		inputSchema: getLintRulesInputSchema,
-		tool: listGetLintRulesTool,
-	},
-});
+> => {
+	const registry: Record<
+		string,
+		{
+			handler: (params: any) => Promise<any>;
+			inputSchema: z.AnyZodObject | null;
+			tool: Tool;
+		}
+	> = {
+		[listAnalyzeA11yTool.name]: {
+			handler: analyzeA11yTool,
+			inputSchema: analyzeA11yInputSchema,
+			tool: listAnalyzeA11yTool,
+		},
+		[listAnalyzeLocalhostA11yTool.name]: {
+			handler: analyzeLocalhostA11yTool,
+			inputSchema: analyzeA11yLocalhostInputSchema,
+			tool: listAnalyzeLocalhostA11yTool,
+		},
+		[listGetA11yGuidelinesTool.name]: {
+			handler: getA11yGuidelinesTool,
+			inputSchema: getA11yGuidelinesInputSchema,
+			tool: listGetA11yGuidelinesTool,
+		},
+		[listGetAllComponentsTool.name]: {
+			handler: getAllComponentsTool,
+			inputSchema: null,
+			tool: listGetAllComponentsTool,
+		},
+		[listPlanTool.name]: {
+			handler: planTool,
+			inputSchema: planInputSchema,
+			tool: listPlanTool,
+		},
+		[listSearchComponentsTool.name]: {
+			handler: searchComponentsTool,
+			inputSchema: searchComponentsInputSchema,
+			tool: listSearchComponentsTool,
+		},
+		[listSearchIconsTool.name]: {
+			handler: searchIconsTool,
+			inputSchema: searchIconsInputSchema,
+			tool: listSearchIconsTool,
+		},
+		[listSearchTokensTool.name]: {
+			handler: searchTokensTool,
+			inputSchema: searchTokensInputSchema,
+			tool: listSearchTokensTool,
+		},
+		[listSuggestA11yFixesTool.name]: {
+			handler: suggestA11yFixesTool,
+			inputSchema: suggestA11yFixesInputSchema,
+			tool: listSuggestA11yFixesTool,
+		},
+		[listMigrationGuidesTool.name]: {
+			handler: migrationGuidesTool,
+			inputSchema: migrationGuidesInputSchema,
+			tool: listMigrationGuidesTool,
+		},
+		[listI18nConversionTool.name]: {
+			handler: i18nConversionTool,
+			inputSchema: i18nConversionInputSchema,
+			tool: listI18nConversionTool,
+		},
+		[listGetGuidelinesTool.name]: {
+			handler: getGuidelinesTool,
+			inputSchema: getGuidelinesInputSchema,
+			tool: listGetGuidelinesTool,
+		},
+		[listGetAllTokensTool.name]: {
+			handler: getAllTokensTool,
+			inputSchema: null,
+			tool: listGetAllTokensTool,
+		},
+		[listGetAllIconsTool.name]: {
+			handler: getAllIconsTool,
+			inputSchema: null,
+			tool: listGetAllIconsTool,
+		},
+		[listGetLintRulesTool.name]: {
+			handler: getLintRulesTool,
+			inputSchema: getLintRulesInputSchema,
+			tool: listGetLintRulesTool,
+		},
+		[listGetAtlaskitComponentsTool.name]: {
+			handler: getAtlaskitComponentsTool,
+			inputSchema: null,
+			tool: listGetAtlaskitComponentsTool,
+		},
+		[listSearchAtlaskitComponentsTool.name]: {
+			handler: searchAtlaskitComponentsTool,
+			inputSchema: searchAtlaskitComponentsInputSchema,
+			tool: listSearchAtlaskitComponentsTool,
+		},
+	};
+
+	return registry;
+};
 
 server.setRequestHandler(ListToolsRequestSchema, async (request, extra) => {
 	const toolRegistry = getToolRegistry();

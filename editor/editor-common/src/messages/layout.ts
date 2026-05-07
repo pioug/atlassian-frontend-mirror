@@ -101,17 +101,20 @@ export const toolbarMessages: {
 	twoColumns: {
 		id: 'fabric.editor.twoColumns',
 		defaultMessage: 'Two columns layout',
-		description: 'Layout with two columns of equal width',
+		description:
+			'Label for the toolbar button that applies a two equal-width columns layout to the selected content.',
 	},
 	singleColumnAdvancedLayout: {
 		id: 'fabric.editor.singleColumns',
 		defaultMessage: '1 Column layout',
-		description: 'Layout with one column of equal width',
+		description:
+			'Label for the toolbar button that applies a single-column layout to the selected content in the advanced layout options.',
 	},
 	twoColumnsAdvancedLayout: {
 		id: 'fabric.editor.twoColumns',
 		defaultMessage: '2 Column layout',
-		description: 'Layout with two columns of equal width',
+		description:
+			'Label for the advanced layout toolbar button that applies a two equal-width columns layout.',
 	},
 	threeColumns: {
 		id: 'fabric.editor.threeColumns',
@@ -126,12 +129,14 @@ export const toolbarMessages: {
 	fourColumns: {
 		id: 'fabric.editor.fourColumns',
 		defaultMessage: '4 Column layout',
-		description: 'Layout with four columns of equal width',
+		description:
+			'Label for the advanced layout toolbar button that applies a four equal-width columns layout.',
 	},
 	fiveColumns: {
 		id: 'fabric.editor.fiveColumns',
 		defaultMessage: '5 Column layout',
-		description: 'Layout with five columns of equal width',
+		description:
+			'Label for the advanced layout toolbar button that applies a five equal-width columns layout.',
 	},
 	rightSidebar: {
 		id: 'fabric.editor.rightSidebar',
@@ -166,12 +171,14 @@ export const toolbarMessages: {
 	layoutPlaceholder: {
 		id: 'fabric.editor.layout.placeholder',
 		defaultMessage: 'Add content',
-		description: 'Add placeholder text for empty layout',
+		description:
+			'Placeholder text shown inside an empty layout column, prompting the user to add content.',
 	},
 	controlslayoutPlaceholder: {
 		id: 'fabric.editor.layout.controls.placeholder',
 		defaultMessage: '/ to insert',
-		description: 'Add placeholder text for empty layout',
+		description:
+			'Placeholder text shown inside an empty layout column when controls are active, instructing the user to type / to open the insert menu.',
 	},
 	columnOption: {
 		id: 'fabric.editor.layout.columnOption',

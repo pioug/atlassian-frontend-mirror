@@ -1,5 +1,51 @@
 # @atlaskit/editor-core
 
+## 219.3.6
+
+### Patch Changes
+
+- [`d08da2b6eb53a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d08da2b6eb53a) -
+  Migrate textHighlightStyles, floatingToolbarStyles, textColorStyles, cursorStyles,
+  selectionToolbarStyles to Compiled CSS
+- Updated dependencies
+
+## 219.3.5
+
+### Patch Changes
+
+- [`7f64ed4de3f24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f64ed4de3f24) -
+  migrate blockMarkStyles, firstBlockNodeStyles, commentEditorStyles
+- Updated dependencies
+
+## 219.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 219.3.3
+
+### Patch Changes
+
+- [`2b21145716783`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b21145716783) -
+  compiled migration for aiPanel
+- Updated dependencies
+
+## 219.3.2
+
+### Patch Changes
+
+- [`daabc24d3814e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daabc24d3814e) -
+  Clean up platform_editor_a11y_9262 feature gate.
+  - Remove fg() gating from aria-label in ReactEditorView (both editor and SSR renderer)
+  - The full-page editor now always uses 'Page editing area' assistive label when in page appearance
+  - Remove ffTest.on/off blocks from ReactEditorView tests, keep enabled-path test
+  - Remove gate entry from package.json platform-feature-flags
+
+- [`bb725117587b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb725117587b6) -
+  Clean up platform_editor_toolbar_delay_render_fix experiment.
+- Updated dependencies
+
 ## 219.3.1
 
 ### Patch Changes

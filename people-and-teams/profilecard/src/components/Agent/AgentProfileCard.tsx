@@ -81,6 +81,7 @@ const AgentProfileCard = ({
 	hideMoreActions,
 	hideAiDisclaimer = false,
 	hideConversationStarters = false,
+	hideAgentActions = false,
 }: AgentProfileCardProps): React.JSX.Element => {
 	const {
 		onEditAgent,
@@ -187,6 +188,9 @@ const AgentProfileCard = ({
 	const shouldShowConversationStarters =
 		!isRovoDev &&
 		!(fg('jira_ai_hide_conversation_starters_profilecard') && hideConversationStarters);
+
+	const shouldShowAgentActions =
+		!isRovoDev && !(hideAgentActions && fg('issue_view_agent_discovery_fast_follows'));
 
 	return (
 		<AgentProfileCardWrapper>
@@ -305,7 +309,7 @@ const AgentProfileCard = ({
 						</Box>
 					)}
 				</Stack>
-				{!isRovoDev && (
+				{shouldShowAgentActions && (
 					<AgentActions
 						agent={agent}
 						onEditAgent={() => onEditAgent(agent.id)}

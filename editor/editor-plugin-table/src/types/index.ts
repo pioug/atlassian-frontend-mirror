@@ -387,7 +387,6 @@ export const TableCssClassName: {
 	CONTEXTUAL_MENU_BUTTON: string;
 	CONTEXTUAL_MENU_BUTTON_FIXED: string;
 	CONTEXTUAL_MENU_BUTTON_WRAP: string;
-	CONTEXTUAL_MENU_ICON: string;
 	CONTEXTUAL_MENU_ICON_SMALL: string;
 	CONTEXTUAL_SUBMENU: string;
 	CONTROLS_BUTTON: string;
@@ -614,7 +613,6 @@ export const TableCssClassName: {
 	CONTEXTUAL_MENU_BUTTON_WRAP: `${tablePrefixSelector}-contextual-menu-button-wrap`,
 	CONTEXTUAL_MENU_BUTTON: `${tablePrefixSelector}-contextual-menu-button`,
 	CONTEXTUAL_MENU_BUTTON_FIXED: `${tablePrefixSelector}-contextual-menu-button-fixed`,
-	CONTEXTUAL_MENU_ICON: `${tablePrefixSelector}-contextual-submenu-icon`,
 	CONTEXTUAL_MENU_ICON_SMALL: `${tablePrefixSelector}-contextual-submenu-icon-small`,
 
 	// come from prosemirror-table

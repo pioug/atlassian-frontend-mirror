@@ -136,27 +136,28 @@ const documentation: ComponentStructuredContentSource[] = [
 			},
 		],
 	},
-	{
-		name: 'buildDatasourceAdf',
-		description:
-			'Utility that builds datasource ADF (ADF node for list of links) from datasource parameters. Used to persist or pass datasource config into the editor or table view.',
-		status: 'general-availability',
-		import: {
-			name: 'buildDatasourceAdf',
-			package: '@atlaskit/link-datasource',
-			type: 'named',
-			packagePath,
-			packageJson,
-		},
-		usageGuidelines: [
-			'Use when you have datasource parameters (e.g. from a config modal) and need to produce the corresponding ADF node for the editor or for DatasourceTableView.',
-		],
-		contentGuidelines: [],
-		accessibilityGuidelines: [],
-		keywords: ['link-datasource', 'adf', 'datasource', 'build', 'utility'],
-		categories: ['linking', 'data-display'],
-		examples: [],
-	},
+	// Needs examples
+	// {
+	// 	name: 'buildDatasourceAdf',
+	// 	description:
+	// 		'Utility that builds datasource ADF (ADF node for list of links) from datasource parameters. Used to persist or pass datasource config into the editor or table view.',
+	// 	status: 'general-availability',
+	// 	import: {
+	// 		name: 'buildDatasourceAdf',
+	// 		package: '@atlaskit/link-datasource',
+	// 		type: 'named',
+	// 		packagePath,
+	// 		packageJson,
+	// 	},
+	// 	usageGuidelines: [
+	// 		'Use when you have datasource parameters (e.g. from a config modal) and need to produce the corresponding ADF node for the editor or for DatasourceTableView.',
+	// 	],
+	// 	contentGuidelines: [],
+	// 	accessibilityGuidelines: [],
+	// 	keywords: ['link-datasource', 'adf', 'datasource', 'build', 'utility'],
+	// 	categories: ['linking', 'data-display'],
+	// 	examples: [],
+	// },
 ];
 
 export default documentation;

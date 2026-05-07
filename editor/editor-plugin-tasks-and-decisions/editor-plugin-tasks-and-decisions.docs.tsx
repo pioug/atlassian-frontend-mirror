@@ -17,9 +17,9 @@ const documentation: ComponentStructuredContentSource[] = [
 		description: 'Tasks and decisions plugin for @atlaskit/editor-core',
 		status: 'general-availability',
 		import: {
-			name: 'Editor Plugin Tasks And Decisions',
+			name: 'tasksAndDecisionsPlugin',
 			package: '@atlaskit/editor-plugin-tasks-and-decisions',
-			type: 'default',
+			type: 'named',
 			packagePath,
 			packageJson,
 		},

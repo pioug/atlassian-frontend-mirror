@@ -17,7 +17,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		description: 'A an atlassian editor extension to add a native dropbox picker',
 		status: 'general-availability',
 		import: {
-			name: 'Editor Core',
+			name: 'dropboxExtension',
 			package: '@atlaskit/editor-extension-dropbox',
 			type: 'default',
 			packagePath,

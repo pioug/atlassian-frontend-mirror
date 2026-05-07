@@ -1,6 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { getProviderPctMap } from '../../services/personalization';
+import { getCurrentSiteCloudId, getCurrentSiteCloudIdSync } from '../../services/current-site-cloud-id';
+import {
+	getProviderPctMap,
+	getProviderPctMapSync,
+	SOCIAL_PROOF_TRAIT_NAME,
+} from '../../services/personalization';
 import type { ProviderPctMap } from '../../services/personalization/types';
 
 export interface SocialProof {
@@ -17,38 +22,55 @@ const NOT_ENABLED_RESULT: SocialProof = {
 };
 
 /**
- * Fetches provider usage percentage from the TAP Delivery personalization service when the
- * killswitch allows it. Callers decide separately (e.g. via Statsig experiment) whether to
- * surface that data in the UI.
+ * Cache-first social proof hook.
+ *
+ * On mount:
+ * 1. Reads localStorage synchronously via `getProviderPctMapSync`.
+ *    - If data exists (warm cache): sets `providerPctMap` immediately, `isLoading = false`.
+ *    - If no data (cold cache): leaves `providerPctMap` undefined, `isLoading = false`.
+ * 2. Always kicks off an async fetch (fire-and-forget) via `getProviderPctMap` to populate
+ *    localStorage for next page load. Does NOT update state with the async result.
+ *
+ * This means:
+ * - First page visit (cold): no social proof rendered, no experiment exposure fired.
+ *   Background fetch populates localStorage for next time.
+ * - Second page visit (warm): social proof renders immediately from localStorage.
+ *   Background refresh keeps localStorage fresh.
+ *
+ * Callers decide separately (e.g. via Statsig experiment) whether to surface the data.
  */
 const useSocialProof = (
-	traitName: string,
 	extensionKey?: string,
 	isKillswitchOn = false,
+	baseUriWithNoTrailingSlash = '',
 ): SocialProof => {
 	const isEnabled = isKillswitchOn;
-	const [providerPctMap, setProviderPctMap] = useState<ProviderPctMap | undefined>(undefined);
-	const [isPersonalizationLoading, setIsPersonalizationLoading] = useState(false);
 
+	const [snapshot] = useState<{
+		cloudId: string | undefined;
+		providerPctMap: ProviderPctMap | null;
+	}>(() => {
+		if (!isEnabled) {
+			return { cloudId: undefined, providerPctMap: null };
+		}
+
+		const cloudId = getCurrentSiteCloudIdSync(baseUriWithNoTrailingSlash);
+		return {
+			cloudId,
+			providerPctMap: getProviderPctMapSync(cloudId, SOCIAL_PROOF_TRAIT_NAME),
+		};
+	});
+
+	// Fire-and-forget: warm caches for future mounts only. Never update this mount's treatment UI.
 	useEffect(() => {
 		if (!isEnabled) {
 			return;
 		}
 
-		let cancelled = false;
-		setIsPersonalizationLoading(true);
-
-		getProviderPctMap(traitName).then((pctMap) => {
-			if (!cancelled) {
-				setProviderPctMap(pctMap);
-				setIsPersonalizationLoading(false);
-			}
+		void getCurrentSiteCloudId(baseUriWithNoTrailingSlash).then((cloudId) => {
+			void getProviderPctMap(cloudId, SOCIAL_PROOF_TRAIT_NAME);
 		});
-
-		return () => {
-			cancelled = true;
-		};
-	}, [isEnabled, traitName]);
+	}, [baseUriWithNoTrailingSlash, isEnabled]);
 
 	return useMemo(() => {
 		if (!isEnabled) {
@@ -56,11 +78,14 @@ const useSocialProof = (
 		}
 
 		return {
-			connectedPct: extensionKey && providerPctMap ? providerPctMap[extensionKey] : undefined,
-			isEnabled,
-			isLoading: isPersonalizationLoading,
+			connectedPct:
+				extensionKey && snapshot.providerPctMap
+					? snapshot.providerPctMap[extensionKey]
+					: undefined,
+			isEnabled: Boolean(snapshot.cloudId && snapshot.providerPctMap),
+			isLoading: false, // sync read is instant; never in "loading" state
 		};
-	}, [extensionKey, isEnabled, isPersonalizationLoading, providerPctMap]);
+	}, [extensionKey, isEnabled, snapshot]);
 };
 
 export default useSocialProof;

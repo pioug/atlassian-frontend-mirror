@@ -2,12 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useMemo } from 'react';
+import { type ReactNode, useCallback, useMemo } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
+import { di } from 'react-magnetic-di';
 
+import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
+import { useSmartLinkContext } from '@atlaskit/link-provider';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -16,6 +20,7 @@ import { ElementName, SmartLinkDirection, SmartLinkSize, SmartLinkWidth } from '
 import { messages } from '../../../messages';
 import { useFlexibleCardContext } from '../../../state/flexible-ui-context';
 import { hasAuthScopeOverrides } from '../../../state/helpers';
+import useSocialProofExperiment from '../../../state/hooks/use-social-proof-experiment';
 import UnauthorisedViewContent from '../../common/UnauthorisedViewContent';
 import FlexibleCard from '../../FlexibleCard';
 import ActionGroup from '../../FlexibleCard/components/blocks/action-group';
@@ -27,10 +32,17 @@ import { LinkIcon, Title } from '../../FlexibleCard/components/elements';
 import { AuthorizeAction } from '../actions/AuthorizeAction';
 
 import unauthIllustrationGeneral from './assets/general@2x.png';
+import SocialProofMessage from './SocialProofMessage';
 import { type FlexibleBlockCardProps } from './types';
 import { type UnresolvedViewProps } from './unresolved-view/types';
 import { FlexibleCardUiOptions, titleBlockOptions } from './utils';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
+
+interface UnauthorisedViewFrameProps extends FlexibleBlockCardProps {
+	content: ReactNode;
+	providerName?: string;
+	testId: string;
+}
 
 const contentStyles = css({
 	color: token('color.text'),
@@ -253,14 +265,13 @@ const UnauthorisedBlock = ({
  * @see SmartLinkStatus
  * @see FlexibleCardProps
  */
-const UnauthorisedView = ({
-	testId = 'smart-block-unauthorized-view',
+const UnauthorisedViewFrame = ({
+	content,
+	providerName,
+	testId,
 	...props
-}: FlexibleBlockCardProps) => {
-	const { cardState, onAuthorize } = props;
-	const providerName = extractSmartLinkProvider(cardState.details)?.text;
-
-	const isProductIntegrationSupported = hasAuthScopeOverrides(cardState.details);
+}: UnauthorisedViewFrameProps) => {
+	const { onAuthorize } = props;
 	const { fireEvent } = useAnalyticsEvents();
 
 	const handleAuthorize = useCallback(() => {
@@ -269,27 +280,6 @@ const UnauthorisedView = ({
 			onAuthorize();
 		}
 	}, [onAuthorize, fireEvent]);
-
-	const content = useMemo(
-		() =>
-			onAuthorize ? (
-				<UnauthorisedViewContent
-					providerName={providerName}
-					isProductIntegrationSupported={isProductIntegrationSupported}
-					testId={testId}
-				/>
-			) : (
-				<FormattedMessage
-					{...messages[
-						providerName
-							? 'unauthorised_account_description'
-							: 'unauthorised_account_description_no_provider'
-					]}
-					values={{ context: providerName }}
-				/>
-			),
-		[isProductIntegrationSupported, onAuthorize, providerName, testId],
-	);
 
 	const actions = useMemo<ActionItem[]>(
 		() => (onAuthorize ? [AuthorizeAction(handleAuthorize, providerName)] : []),
@@ -322,6 +312,94 @@ const UnauthorisedView = ({
 		</FlexibleCard>
 	);
 };
+
+const UnauthorisedViewBase = ({
+	testId = 'smart-block-unauthorized-view',
+	...props
+}: FlexibleBlockCardProps) => {
+	const { cardState, onAuthorize } = props;
+	const providerName = extractSmartLinkProvider(cardState.details)?.text;
+	const isProductIntegrationSupported = hasAuthScopeOverrides(cardState.details);
+
+	const content = useMemo(
+		() =>
+			onAuthorize ? (
+				<UnauthorisedViewContent
+					providerName={providerName}
+					isProductIntegrationSupported={isProductIntegrationSupported}
+					testId={testId}
+				/>
+			) : (
+				<FormattedMessage
+					{...messages[
+						providerName
+							? 'unauthorised_account_description'
+							: 'unauthorised_account_description_no_provider'
+					]}
+					values={{ context: providerName }}
+				/>
+			),
+		[isProductIntegrationSupported, onAuthorize, providerName, testId],
+	);
+
+	return (
+		<UnauthorisedViewFrame
+			{...props}
+			content={content}
+			providerName={providerName}
+			testId={testId}
+		/>
+	);
+};
+
+/**
+ * Experiment wrapper: fires social proof exposure and renders social proof UI when FG is on.
+ * TODO: remove when social-proof-3p-unauth-block-fg is cleaned up
+ */
+const UnauthorisedViewWithExperiment = ({
+	testId = 'smart-block-unauthorized-view',
+	...props
+}: FlexibleBlockCardProps): JSX.Element => {
+	const extensionKey = props.cardState?.details?.meta?.key;
+	di(useSocialProofExperiment);
+	const providerName = extractSmartLinkProvider(props.cardState.details)?.text;
+	const { connections } = useSmartLinkContext();
+	const { isTreatment, tier, connectedPct } = useSocialProofExperiment(
+		providerName ? extensionKey : undefined,
+		connections.client.baseUrlOverride,
+	);
+
+	if (!isTreatment || !providerName) {
+		return <UnauthorisedViewBase {...props} testId={testId} />;
+	}
+
+	return (
+		<AnalyticsContext data={{ attributes: { experiment: 'social_proof_3p_unauth_block_exp', cohort: 'treatment', tier } }}>
+			<UnauthorisedViewFrame
+				{...props}
+				content={
+					<SocialProofMessage
+						tier={tier}
+						connectedPct={connectedPct}
+						providerName={providerName}
+					/>
+				}
+				providerName={providerName}
+				testId={testId}
+			/>
+		</AnalyticsContext>
+	);
+};
+
+const UnauthorisedViewWithoutExperiment = (props: FlexibleBlockCardProps): JSX.Element => {
+	return <UnauthorisedViewBase {...props} />;
+};
+
+const UnauthorisedView = componentWithFG(
+	'social-proof-3p-unauth-block-fg',
+	UnauthorisedViewWithExperiment,
+	UnauthorisedViewWithoutExperiment,
+);
 
 const _default_1: (props: FlexibleBlockCardProps) => JSX.Element =
 	withFlexibleUIBlockCardStyle(UnauthorisedView);

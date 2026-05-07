@@ -1,7 +1,6 @@
 {
 	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
-		"target": "es5",
 		"outDir": "../../../../../confluence/tsDist/@atlaskit__top-layer",
 		"rootDir": "../",
 		"composite": true,
@@ -29,7 +28,7 @@
 			"path": "../../ds-lib/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../primitives/afm-cc/tsconfig.json"
+			"path": "../../layering/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../tokens/afm-cc/tsconfig.json"

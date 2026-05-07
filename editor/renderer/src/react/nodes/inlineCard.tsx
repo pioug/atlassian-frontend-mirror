@@ -4,7 +4,7 @@
  */
 /* eslint-disable jsdoc/check-tag-names */
 import { Fragment, useState, useMemo, useEffect } from 'react';
-import type { Context, ErrorInfo, JSX, ReactInstance } from 'react';
+import type { ComponentClass, ComponentProps } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
@@ -48,7 +48,7 @@ import type { AnalyticsEventPayload } from '../../analytics/events';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
 import type { Diff } from '@atlaskit/editor-common/utils';
 
-type HoverLinkOverlayProps = React.ComponentProps<typeof HoverLinkOverlay>;
+type HoverLinkOverlayProps = ComponentProps<typeof HoverLinkOverlay>;
 export interface InlineCardProps extends MarkDataAttributes {
 	data?: object;
 	eventHandlers?: EventHandlers;
@@ -496,213 +496,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 	);
 };
 
-const _default_1: {
-	new (props: Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>): {
-		componentDidCatch?: (error: Error, errorInfo: ErrorInfo) => void;
-		componentDidMount?: () => void;
-		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
-		componentDidUpdate?: (
-			prevProps: Readonly<
-				Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-			>,
-			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-			prevState: Readonly<{}>,
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			snapshot?: any,
-		) => void;
-		componentWillMount?: () => void;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		componentWillReceiveProps?: (
-			nextProps: Readonly<
-				Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-			>,
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			nextContext: any,
-		) => void;
-		componentWillUnmount?: () => void;
-		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
-		componentWillUpdate?: (
-			nextProps: Readonly<
-				Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-			>,
-			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-			nextState: Readonly<{}>,
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			nextContext: any,
-		) => void;
-		context: unknown;
-		forceUpdate: (callback?: (() => void) | undefined) => void;
-		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
-		getSnapshotBeforeUpdate?: (
-			prevProps: Readonly<
-				Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-			>,
-			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-			prevState: Readonly<{}>,
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		) => any;
-		readonly props: Readonly<
-			Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-		>;
-		refs: {
-			[key: string]: ReactInstance;
-		};
-		render: () => JSX.Element;
-		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-		setState: <K extends never>(
-			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-				| {}
-				| ((
-						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-						prevState: Readonly<{}>,
-						props: Readonly<
-							Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-						>,
-						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-				  ) => {} | Pick<{}, K> | null)
-				// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-				| Pick<{}, K>
-				| null,
-			callback?: (() => void) | undefined,
-		) => void;
-		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
-		shouldComponentUpdate?: (
-			nextProps: Readonly<
-				Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-			>,
-			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-			nextState: Readonly<{}>,
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			nextContext: any,
-		) => boolean;
-		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-		state: Readonly<{}>;
-		UNSAFE_componentWillMount?: () => void;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		UNSAFE_componentWillReceiveProps?: (
-			nextProps: Readonly<
-				Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-			>,
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			nextContext: any,
-		) => void;
-		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
-		UNSAFE_componentWillUpdate?: (
-			nextProps: Readonly<
-				Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-			>,
-			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-			nextState: Readonly<{}>,
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			nextContext: any,
-		) => void;
-	};
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	new (
-		props: Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>,
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		context: any,
-	): {
-		componentDidCatch?: (error: Error, errorInfo: ErrorInfo) => void;
-		componentDidMount?: () => void;
-		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
-		componentDidUpdate?: (
-			prevProps: Readonly<
-				Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-			>,
-			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-			prevState: Readonly<{}>,
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			snapshot?: any,
-		) => void;
-		componentWillMount?: () => void;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		componentWillReceiveProps?: (
-			nextProps: Readonly<
-				Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-			>,
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			nextContext: any,
-		) => void;
-		componentWillUnmount?: () => void;
-		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
-		componentWillUpdate?: (
-			nextProps: Readonly<
-				Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-			>,
-			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-			nextState: Readonly<{}>,
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			nextContext: any,
-		) => void;
-		context: unknown;
-		forceUpdate: (callback?: (() => void) | undefined) => void;
-		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
-		getSnapshotBeforeUpdate?: (
-			prevProps: Readonly<
-				Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-			>,
-			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-			prevState: Readonly<{}>,
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		) => any;
-		readonly props: Readonly<
-			Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-		>;
-		refs: {
-			[key: string]: ReactInstance;
-		};
-		render: () => JSX.Element;
-		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-		setState: <K extends never>(
-			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-				| {}
-				| ((
-						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-						prevState: Readonly<{}>,
-						props: Readonly<
-							Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-						>,
-						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-				  ) => {} | Pick<{}, K> | null)
-				// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-				| Pick<{}, K>
-				| null,
-			callback?: (() => void) | undefined,
-		) => void;
-		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
-		shouldComponentUpdate?: (
-			nextProps: Readonly<
-				Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-			>,
-			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-			nextState: Readonly<{}>,
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			nextContext: any,
-		) => boolean;
-		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-		state: Readonly<{}>;
-		UNSAFE_componentWillMount?: () => void;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		UNSAFE_componentWillReceiveProps?: (
-			nextProps: Readonly<
-				Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-			>,
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			nextContext: any,
-		) => void;
-		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
-		UNSAFE_componentWillUpdate?: (
-			nextProps: Readonly<
-				Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
-			>,
-			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-			nextState: Readonly<{}>,
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			nextContext: any,
-		) => void;
-	};
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	contextType?: Context<any> | undefined;
-} = withSmartCardStorage(InlineCard);
+const _default_1: ComponentClass<
+	Diff<InlineCardProps & WithSmartCardStorageProps, WithSmartCardStorageProps>
+> = withSmartCardStorage(InlineCard);
 export default _default_1;

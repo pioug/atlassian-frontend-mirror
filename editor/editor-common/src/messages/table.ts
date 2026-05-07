@@ -460,17 +460,20 @@ export const messages: {
 	addRowAbove: {
 		id: 'fabric.editor.addRowAbove',
 		defaultMessage: 'Add row above',
-		description: 'Adds a new row above the selected row.',
+		description:
+			'Label for the table context menu item that inserts a new empty row directly above the currently selected row.',
 	},
 	addRowBelow: {
 		id: 'fabric.editor.addRowBelow',
 		defaultMessage: 'Add row below',
-		description: 'Adds a new row below the selected row.',
+		description:
+			'Label for the table context menu item that inserts a new empty row directly below the currently selected row.',
 	},
 	moveColumnLeft: {
 		id: 'fabric.editor.moveColumnLeft',
 		defaultMessage: 'Move {0, plural, one {column} other {columns}} left',
-		description: 'Moves a column or columns to the left.',
+		description:
+			'Label for the table menu item that moves the selected column(s) one position to the left. The placeholder {0} is the number of columns being moved and controls the plural form.',
 	},
 	moveColumnLeftHelpDialogLabel: {
 		id: 'fabric.editor.moveColumnLeftHelpDialogLabel',
@@ -481,7 +484,8 @@ export const messages: {
 	moveColumnRight: {
 		id: 'fabric.editor.moveColumnRight',
 		defaultMessage: 'Move {0, plural, one {column} other {columns}} right',
-		description: 'Moves a column or columns to the right.',
+		description:
+			'Label for the table menu item that moves the selected column(s) one position to the right. The placeholder {0} is the number of columns being moved and controls the plural form.',
 	},
 	moveColumnRightHelpDialogLabel: {
 		id: 'fabric.editor.moveColumnRightHelpDialogLabel',
@@ -492,7 +496,8 @@ export const messages: {
 	moveRowUp: {
 		id: 'fabric.editor.moveRowUp',
 		defaultMessage: 'Move {0, plural, one {row} other {rows}} up',
-		description: 'Moves a row or selected rows up.',
+		description:
+			'Label for the table menu item that moves the selected row(s) one position upward. The placeholder {0} is the number of rows being moved and controls the plural form.',
 	},
 	moveRowUpHelpDialogLabel: {
 		id: 'fabric.editor.moveRowUpHelpDialogLabel',
@@ -503,7 +508,8 @@ export const messages: {
 	moveRowDown: {
 		id: 'fabric.editor.moveDownDown',
 		defaultMessage: 'Move {0, plural, one {row} other {rows}} down',
-		description: 'Moves a row or selected rows down.',
+		description:
+			'Label for the table menu item that moves the selected row(s) one position downward. The placeholder {0} is the number of rows being moved and controls the plural form.',
 	},
 	moveRowDownHelpDialogLabel: {
 		id: 'fabric.editor.moveRowDownHelpDialogLabel',
@@ -606,7 +612,8 @@ export const messages: {
 	confirmDeleteLinkedModalMessagePrefix: {
 		id: 'fabric.editor.extension.confirmDeleteLinkedModalMessagePrefix',
 		defaultMessage: 'Deleting',
-		description: 'prefix for confirmation dialog text',
+		description:
+			'Text prefix shown at the start of a confirmation dialog message when the user is about to delete a linked element in the editor.',
 	},
 	confirmModalCheckboxLabel: {
 		id: 'fabric.editor.floatingToolbar.confirmModalCheckboxLabel',
@@ -667,22 +674,26 @@ export const messages: {
 	sortColumnASC: {
 		id: 'fabric.editor.sortColumnASC',
 		defaultMessage: 'Sort column A → Z',
-		description: 'Sort column in ascending order',
+		description:
+			'Label for the table column menu item that sorts the column alphabetically in ascending (A to Z) order.',
 	},
 	sortColumnDESC: {
 		id: 'fabric.editor.sortColumnDESC',
 		defaultMessage: 'Sort column Z → A',
-		description: 'Sort column in descending order',
+		description:
+			'Label for the table column menu item that sorts the column alphabetically in descending (Z to A) order.',
 	},
 	sortColumnIncreasing: {
 		id: 'fabric.editor.sortColumnIncreasing',
 		defaultMessage: 'Sort increasing',
-		description: 'Sort column in ascending order',
+		description:
+			'Label for the table column menu item that sorts numerical or date column values in increasing order.',
 	},
 	sortColumnDecreasing: {
 		id: 'fabric.editor.sortColumnDecreasing',
 		defaultMessage: 'Sort decreasing',
-		description: 'Sort column in descending order',
+		description:
+			'Label for the table column menu item that sorts numerical or date column values in decreasing order.',
 	},
 	canNotSortTable: {
 		id: 'fabric.editor.canNotSortTable',
@@ -731,7 +742,8 @@ export const messages: {
 	fullWidthLabel: {
 		id: 'fabric.editor.tableFullWidthLabel',
 		defaultMessage: 'Full-width',
-		description: 'Trigger table width to full-width mode',
+		description:
+			'Label for the button in the table toolbar that switches the table to full-width display mode, expanding it to fill the page width.',
 	},
 	startedColumnResize: {
 		id: 'fabric.editor.tables.startedColumnResize',

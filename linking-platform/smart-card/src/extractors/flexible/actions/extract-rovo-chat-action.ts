@@ -56,7 +56,9 @@ const extractRovoChatAction = ({
 
 	const extensionKey = getExtensionKey(response);
 	const isGoogleProvider = extensionKey === 'google-object-provider';
-	const is3PBlockExperimentEnabled = isBlockCardRovoActionExperimentEnabled(product);
+	const is3PBlockExperimentEnabled = isBlockCardRovoActionExperimentEnabled(
+		rovoConfig?.product ?? product,
+	);
 
 	const is3PAuthRovoActionEnabled =
 		isGoogleProvider && fg('platform_sl_3p_auth_rovo_action_kill_switch');

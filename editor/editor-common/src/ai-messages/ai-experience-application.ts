@@ -270,12 +270,14 @@ export const aiExperienceApplicationMessages: {
 	agentsFooterRightText: {
 		id: 'fabric.editor.ai.experience.footerRightText.agents',
 		defaultMessage: 'Powered by Rovo',
-		description: 'Label text for Rovo footer icon',
+		description:
+			'The text is shown as a label in the footer of the AI experience panel, displayed alongside the Rovo icon to indicate that the feature is powered by Rovo.',
 	},
 	agentsBrowseMore: {
 		id: 'fabric.editor.ai.experience.browseMore.agents',
 		defaultMessage: 'Browse Agents',
-		description: 'Link text to browse more agents',
+		description:
+			'The text is shown as a link in the AI experience panel footer, allowing the user to navigate to a page listing all available Rovo agents.',
 	},
 	showMoreButton: {
 		id: 'fabric.editor.ai.experience.showMoreButton',
@@ -290,6 +292,7 @@ export const aiExperienceApplicationMessages: {
 	engagementBannerLinksText: {
 		id: 'fabric.editor.ai.experience.engagementBannerLinksText',
 		defaultMessage: '🚀 You can now paste links 🔗 to Jira and Confluence content in your prompts.',
-		description: 'Text for the engagement banner',
+		description:
+			'The text is shown in an engagement banner within the AI prompt experience, informing users that they can paste Jira or Confluence links directly into their prompts.',
 	},
 });

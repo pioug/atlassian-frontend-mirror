@@ -1,5 +1,12 @@
 # @atlassian/smart-user-picker
 
+## 10.0.3
+
+### Patch Changes
+
+- [`c8f8aee4be6f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8f8aee4be6f5) -
+  [PTC-16442]: add userbaseId as an optional prop
+
 ## 10.0.2
 
 ### Patch Changes

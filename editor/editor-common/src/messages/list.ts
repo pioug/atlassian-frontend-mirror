@@ -57,7 +57,8 @@ export const messages: {
 	orderedList: {
 		id: 'fabric.editor.orderedList',
 		defaultMessage: 'Numbered list',
-		description: 'A list with ordered items 1… 2… 3…',
+		description:
+			'The text is shown as the label for the numbered list option in the editor toolbar or menu, allowing the user to insert a sequentially numbered list into their document.',
 	},
 	orderedListDescription: {
 		id: 'fabric.editor.orderedList.description',

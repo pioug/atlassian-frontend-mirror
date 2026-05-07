@@ -13,13 +13,13 @@ const packagePath = path.resolve(__dirname);
 
 const documentation: ComponentStructuredContentSource[] = [
 	{
-		name: 'EditorPluginHighlight',
+		name: 'Editor Plugin Highlight',
 		description: 'Highlight plugin for @atlaskit/editor-core',
 		status: 'general-availability',
 		import: {
-			name: 'EditorPluginHighlight',
+			name: 'highlightPlugin',
 			package: '@atlaskit/editor-plugin-highlight',
-			type: 'default',
+			type: 'named',
 			packagePath,
 			packageJson,
 		},

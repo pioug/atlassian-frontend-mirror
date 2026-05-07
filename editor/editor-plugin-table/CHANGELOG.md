@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 22.2.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.2.18
+
+### Patch Changes
+
+- [`34d7b445ae298`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34d7b445ae298) -
+  [ux] EDITOR-6294 Removing tableDragAndDrop from plugin presets and cleaning up unused table code
+  for menus
+- Updated dependencies
+
 ## 22.2.17
 
 ### Patch Changes

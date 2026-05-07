@@ -352,7 +352,8 @@ export const toolbarInsertBlockMessages: {
 	emoji: {
 		id: 'fabric.editor.emoji',
 		defaultMessage: 'Emoji',
-		description: 'Insert an emoticon or smiley :-)',
+		description:
+			'Label for the emoji option in the editor insert menu, allowing users to insert an emoji character into the document.',
 	},
 	emojiDescription: {
 		id: 'fabric.editor.emoji.description',

@@ -1,5 +1,10 @@
 import { snapshot } from '@af/visual-regression';
 
+import {
+	SocialProofBlockCardLoading,
+	SocialProofBlockCardLowTier,
+	SocialProofBlockCardNotLowTier,
+} from '../../../examples/vr-block-card-social-proof';
 import { BlockCardErrorView } from '../../../examples/vr-block-card/vr-block-card-error';
 import { BlockCardForbiddenView } from '../../../examples/vr-block-card/vr-block-card-forbidden';
 import {
@@ -197,6 +202,30 @@ snapshot(BlockCardLazyIconsFileType4, {
 snapshot(BlockCardEntities, {
 	description: `block card with entity support`,
 	featureFlags: {},
+	waitForReactLazy: true,
+});
+
+snapshot(SocialProofBlockCardNotLowTier, {
+	description: 'block card: social proof message not-low tier',
+	featureFlags: {
+		'social-proof-3p-unauth-block-fg': true,
+	},
+	waitForReactLazy: true,
+});
+
+snapshot(SocialProofBlockCardLowTier, {
+	description: 'block card: social proof message low tier',
+	featureFlags: {
+		'social-proof-3p-unauth-block-fg': true,
+	},
+	waitForReactLazy: true,
+});
+
+snapshot(SocialProofBlockCardLoading, {
+	description: 'block card: social proof cold cache',
+	featureFlags: {
+		'social-proof-3p-unauth-block-fg': true,
+	},
 	waitForReactLazy: true,
 });
 

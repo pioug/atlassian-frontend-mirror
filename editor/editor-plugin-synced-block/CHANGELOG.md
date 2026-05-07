@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 8.2.8
+
+### Patch Changes
+
+- [`27f53bba7e425`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27f53bba7e425) -
+  EDITOR-6930: Refactor decorations prop to map status decorations in apply() instead of rebuilding
+  via doc.descendants() every transaction. Behind editor_synced_block_perf experiment.
+- Updated dependencies
+
+## 8.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.4
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # @atlaskit/editor-presets
 
+## 3.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.0
+
+### Major Changes
+
+- [`34d7b445ae298`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34d7b445ae298) -
+  [ux] EDITOR-6294 Removing tableDragAndDrop from plugin presets and cleaning up unused table code
+  for menus
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.1
 
 ### Patch Changes

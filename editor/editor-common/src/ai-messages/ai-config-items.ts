@@ -411,6 +411,17 @@ export const aiConfigItemMessages: {
 		description: string;
 		id: string;
 	};
+	// Suggest a comment messages
+	suggestCommentDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	suggestCommentTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	suggestTitleDescription: {
 		defaultMessage: string;
 		description: string;
@@ -889,6 +900,20 @@ export const aiConfigItemMessages: {
 		id: 'fabric.editor.ai.config.item.rephrase.description',
 		defaultMessage: 'Creates a suggestion for rewriting your sentences',
 		description: 'Description for the the Atlassian Intelligence "Rephrase".',
+	},
+
+	// Suggest a comment messages
+	suggestCommentTitle: {
+		id: 'fabric.editor.ai.config.item.suggestComment.title',
+		defaultMessage: 'Suggest a comment',
+		description:
+			'Label for the AI-powered "Suggest a comment" hero button shown in the editor toolbar when the comment editor is empty.',
+	},
+	suggestCommentDescription: {
+		id: 'fabric.editor.ai.config.item.suggestComment.description',
+		defaultMessage: 'Get an AI-suggested comment based on this work item',
+		description:
+			'Description for the "Suggest a comment" Atlassian Intelligence feature shown in the editor toolbar.',
 	},
 
 	// Suggest title messages

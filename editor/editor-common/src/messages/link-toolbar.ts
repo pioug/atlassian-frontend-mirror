@@ -108,7 +108,8 @@ export const linkToolbarMessages: {
 	editLink: {
 		id: 'fabric.editor.editLink',
 		defaultMessage: 'Edit link',
-		description: 'Edit the link, update display text',
+		description:
+			'Label for the button in the link floating toolbar that opens the link editing panel where users can update the URL or display text.',
 	},
 	placeholder: {
 		id: 'fabric.editor.hyperlinkToolbarPlaceholder',
@@ -119,7 +120,8 @@ export const linkToolbarMessages: {
 	linkPlaceholder: {
 		id: 'fabric.editor.linkPlaceholder',
 		defaultMessage: 'Paste link',
-		description: 'Create a new link by pasting a URL.',
+		description:
+			'Placeholder text shown in the link input field prompting users to paste a URL to create a new link.',
 	},
 	linkAddress: {
 		id: 'fabric.editor.linkAddress',
@@ -154,11 +156,13 @@ export const linkToolbarMessages: {
 	editDatasource: {
 		id: 'fabric.editor.edit.datasource',
 		defaultMessage: 'Edit search query',
-		description: 'Datasource toolbar edit button',
+		description:
+			'Label for the edit button in the datasource floating toolbar that opens the datasource configuration modal to update the search query.',
 	},
 	searchInput: {
 		id: 'fabric.editor.edit.searchInput',
 		defaultMessage: 'Add a link',
-		description: 'Label for the search media input',
+		description:
+			'Accessible label for the link search input field in the datasource toolbar where users type to search for or add a link.',
 	},
 });

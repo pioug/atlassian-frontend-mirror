@@ -6,7 +6,7 @@ import React, { type PropsWithChildren } from 'react';
 
 import { css, jsx } from '@compiled/react';
 import { IntlProvider } from 'react-intl';
-import { DiProvider, injectable } from 'react-magnetic-di';
+import { DiProvider, injectable, type Injectable } from 'react-magnetic-di';
 
 import { IFrame } from '../../src/view/EmbedCard/components/IFrame';
 import HoverCardControl from '../../src/view/FlexibleCard/components/container/hover-card-control';
@@ -42,6 +42,11 @@ const dependencies = [MockIFrame, mockHoverCardControl, mockHoverCardComponent];
 
 export type VRTestWrapperProps = PropsWithChildren<{
 	/**
+	 * Additional react-magnetic-di overrides for focused VR scenarios.
+	 */
+	dependencyOverrides?: Injectable[];
+
+	/**
 	 * Add / override additional CSS styles
 	 */
 	style?: React.CSSProperties;
@@ -61,9 +66,13 @@ const globalStyles = css({
 	},
 });
 
-const VRTestWrapper = ({ children, style }: VRTestWrapperProps): JSX.Element => {
+const VRTestWrapper = ({
+	children,
+	style,
+	dependencyOverrides = [] as Injectable[],
+}: VRTestWrapperProps): JSX.Element => {
 	return (
-		<DiProvider use={dependencies}>
+		<DiProvider use={[...dependencies, ...dependencyOverrides]}>
 			<IntlProvider locale="en">
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/enforce-style-prop */}
 				<div className="vr-test-wrapper" style={{ ...defaultStyle, ...style }} css={globalStyles}>

@@ -1,5 +1,24 @@
 # @atlaskit/emoji
 
+## 70.4.0
+
+### Minor Changes
+
+- [`f715c95dbc725`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f715c95dbc725) -
+  Update the emoji category picker for new styling
+
+## 70.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 70.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 70.3.2
 
 ### Patch Changes

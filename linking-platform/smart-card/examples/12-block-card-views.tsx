@@ -10,7 +10,6 @@ import { token } from '@atlaskit/tokens';
 
 import CardViewExample from './card-view';
 import ExampleContainer from './utils/example-container';
-
 const STORAGE_KEY = 'atlaskit-examples-lp-block-card-views-width-percentage';
 
 const styles = cssMap({

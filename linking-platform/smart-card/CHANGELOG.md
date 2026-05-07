@@ -1,5 +1,37 @@
 # @atlaskit/smart-card
 
+## 44.7.4
+
+### Patch Changes
+
+- [`a0e812381979b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0e812381979b) -
+  Changes to social proof unauth inline card experiment
+
+## 44.7.3
+
+### Patch Changes
+
+- [`242d7b2bff4a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/242d7b2bff4a8) -
+  NAVX-4609 passing product from extract rovo chat action to fg logic
+
+## 44.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.7.1
+
+### Patch Changes
+
+- [`f8aee5a0e76d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f8aee5a0e76d3) -
+  NAVX-4523 NAVX-4519 Adds social proof experiment hook, TAP personalization service,
+  SocialProofMessage component, and componentWithFG wiring for unauth 3P block cards. Registers
+  social_proof_3p_unauth_block_exp in tmp-editor-statsig. Uses cache-first behavior for social proof
+  data, the canonical site-level TAP trait, and avoids experiment exposure before cached provider
+  data is available.
+- Updated dependencies
+
 ## 44.7.0
 
 ### Minor Changes

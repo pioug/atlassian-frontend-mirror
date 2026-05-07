@@ -5,6 +5,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 import { cssMap, cx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { useIntl } from 'react-intl';
 import { Pressable } from '@atlaskit/primitives/compiled';
@@ -32,6 +33,19 @@ const styles = cssMap({
 		transition: 'color 0.2s ease',
 	},
 
+	commonCategoryNew: {
+		backgroundColor: token('color.background.neutral.subtle'),
+		borderWidth: 0,
+		paddingTop: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.075'),
+		paddingRight: token('space.075'),
+		transition: 'color 0.2s ease',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+
 	defaultCategory: {
 		color: token('color.text.subtlest'),
 
@@ -40,11 +54,35 @@ const styles = cssMap({
 		},
 	},
 
+	defaultCategoryNew: {
+		color: token('color.text.subtlest'),
+		borderBottomWidth: token('border.width.selected'),
+		borderBottomStyle: 'solid',
+		borderBottomColor: 'transparent',
+
+		'&:hover': {
+			color: token('color.text.subtlest'),
+			borderBottomColor: token('color.border.bold'),
+		},
+	},
+
 	activeCategory: {
 		color: token('color.text.selected'),
 
 		'&:hover': {
 			color: token('color.text.selected'),
+		},
+	},
+
+	activeCategoryNew: {
+		color: token('color.text.selected'),
+		borderBottomWidth: token('border.width.selected'),
+		borderBottomStyle: 'solid',
+		borderBottomColor: token('color.border.brand'),
+
+		'&:hover': {
+			color: token('color.text.selected'),
+			borderBottomColor: token('color.border.brand'),
 		},
 	},
 
@@ -63,6 +101,21 @@ const categorySelector = css({
 	},
 });
 
+const categorySelectorNew = css({
+	flex: '0 0 auto',
+	backgroundColor: token('elevation.surface'),
+	paddingTop: token('space.0'),
+	paddingBottom: token('space.0'),
+	borderBottomWidth: token('border.width'),
+	borderBottomStyle: 'solid',
+	borderBottomColor: token('color.border'),
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	button: {
+		display: 'flex',
+	},
+});
+
 const categorySelectorTablist = css({
 	paddingTop: token('space.075'),
 	paddingBottom: token('space.075'),
@@ -73,6 +126,18 @@ const categorySelectorTablist = css({
 	justifyContent: 'space-around',
 	alignItems: 'center',
 });
+
+const categorySelectorTablistNew = css({
+	paddingTop: token('space.0'),
+	paddingBottom: token('space.0'),
+	paddingLeft: token('space.100'),
+	paddingRight: token('space.100'),
+	display: 'flex',
+	flexDirection: 'row',
+	justifyContent: 'space-around',
+	alignItems: 'stretch',
+});
+
 export interface Props {
 	activeCategoryId?: CategoryId | null;
 	disableCategories?: boolean;
@@ -174,7 +239,47 @@ const CategorySelector = (props: Props): JSX.Element => {
 
 	let categoriesSection;
 	if (categories) {
-		categoriesSection = (
+		categoriesSection = fg('platform_emoji_picker_refresh') ? (
+			<div
+				role="tablist"
+				aria-label={formatMessage(messages.categoriesSelectorLabel)}
+				data-testid={categorySelectorComponentTestId}
+				ref={categoryRef}
+				css={categorySelectorTablistNew}
+			>
+				{categories.map((categoryId: CategoryId, index: number) => {
+					const category = CategoryDescriptionMap[categoryId];
+
+					const Icon = category.icon;
+					const categoryName = formatMessage(messages[category.name]);
+					return (
+						<Tooltip content={categoryName} position="bottom" key={category.id}>
+							<Pressable
+								id={`category-selector-${category.id}`}
+								data-focus-index={index}
+								aria-label={categoryName}
+								aria-controls={currentFocus === index ? RENDER_EMOJI_PICKER_LIST_TESTID : undefined}
+								aria-selected={categoryId === activeCategoryId}
+								xcss={cx(
+									styles.commonCategoryNew,
+									styles.defaultCategoryNew,
+									categoryId === activeCategoryId && styles.activeCategoryNew,
+									disableCategories && styles.disabledCategory,
+								)}
+								isDisabled={disableCategories}
+								onClick={handleClick(categoryId, index)}
+								testId={categorySelectorCategoryTestId(categoryId)}
+								tabIndex={currentFocus === index ? 0 : -1}
+								onKeyDown={handleKeyDown}
+								role="tab"
+							>
+								<Icon label={categoryName} />
+							</Pressable>
+						</Tooltip>
+					);
+				})}
+			</div>
+		) : (
 			<div
 				role="tablist"
 				aria-label={formatMessage(messages.categoriesSelectorLabel)}
@@ -216,7 +321,11 @@ const CategorySelector = (props: Props): JSX.Element => {
 			</div>
 		);
 	}
-	return <div css={categorySelector}>{categoriesSection}</div>;
+	return fg('platform_emoji_picker_refresh') ? (
+		<div css={categorySelectorNew}>{categoriesSection}</div>
+	) : (
+		<div css={categorySelector}>{categoriesSection}</div>
+	);
 };
 
 export default CategorySelector;

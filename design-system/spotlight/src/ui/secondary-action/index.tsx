@@ -8,7 +8,7 @@ import { cssMap, jsx } from '@atlaskit/css';
 import { Pressable, type PressableProps, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { SpotlightContext } from '../../controllers/spotlight-context';
+import { SpotlightContext } from '../../controllers/context';
 
 const styles = cssMap({
 	root: {

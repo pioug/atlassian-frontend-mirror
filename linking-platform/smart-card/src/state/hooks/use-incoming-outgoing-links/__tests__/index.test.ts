@@ -3,7 +3,7 @@ import 'jest-extended';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { renderHook } from '@atlassian/testing-library';
 
-import { currentSiteCloudIdService } from '../../use-current-site-cloud-id';
+import { currentSiteCloudIdService } from '../../../services/current-site-cloud-id';
 import useIncomingOutgoingAri from '../index';
 import { queryIncomingOutgoingLinks } from '../query';
 
@@ -21,8 +21,12 @@ describe('useIncomingOutgoingLinks', () => {
 		fetchMock.mockOnceIf('/_edge/tenant_info', JSON.stringify({ cloudId: FALLBACK_CLOUD_ID }));
 	};
 
-	afterEach(() => {
+	beforeEach(() => {
 		currentSiteCloudIdService.clearCache();
+		window.localStorage?.clear?.();
+	});
+
+	afterEach(() => {
 		jest.clearAllMocks();
 	});
 
@@ -230,43 +234,47 @@ describe('useIncomingOutgoingLinks', () => {
 			['third-party ARI', THIRD_PARTY_ARI],
 			['cloud ARI without siteId', CLOUD_ARI_WITHOUT_SITE_ID],
 		])('with %s', (_, ari) => {
-			ffTest.both('platform_sl_3p_preauth_soc_proof_inline_killswitch', '/_edge/tenant_info calls', () => {
-				it(`should call /_edge/tenant_info`, async () => {
-					const { getIncomingOutgoingAris } = setup();
-					mockTenantInfo();
-					fetchMock.mockOnce('{}');
+			ffTest.both(
+				'platform_sl_incoming_outgoing_tenant_info_killswitch',
+				'tenant_info killswitch',
+				() => {
+					it(`should call /_edge/tenant_info`, async () => {
+						const { getIncomingOutgoingAris } = setup();
+						mockTenantInfo();
+						fetchMock.mockOnce('{}');
 
-					await getIncomingOutgoingAris(ari);
+						await getIncomingOutgoingAris(ari);
 
-					expect(fetchMock).toHaveBeenCalledTimes(2);
-					expect(fetchMock).toHaveBeenNthCalledWith(1, '/_edge/tenant_info', expect.any(Object));
-					expect(fetchMock).toHaveBeenNthCalledWith(
-						2,
-						'/gateway/api/graphql',
-						expect.objectContaining({
-							headers: expect.objectContaining({
-								'X-Query-Context': `ari:cloud:platform::site/${FALLBACK_CLOUD_ID}`,
+						expect(fetchMock).toHaveBeenCalledTimes(2);
+						expect(fetchMock).toHaveBeenNthCalledWith(1, '/_edge/tenant_info', expect.any(Object));
+						expect(fetchMock).toHaveBeenNthCalledWith(
+							2,
+							'/gateway/api/graphql',
+							expect.objectContaining({
+								headers: expect.objectContaining({
+									'X-Query-Context': `ari:cloud:platform::site/${FALLBACK_CLOUD_ID}`,
+								}),
 							}),
-						}),
-					);
-				});
+						);
+					});
 
-				it(`should return empty arrays when tenant_info fails`, async () => {
-					const { getIncomingOutgoingAris } = setup();
+					it(`should return empty arrays when tenant_info fails`, async () => {
+						const { getIncomingOutgoingAris } = setup();
 
-					// Call to /_edge/tenant_info fails
-					fetchMock.mockRejectOnce(new Error('Failed to fetch tenant info'));
+						// Call to /_edge/tenant_info fails
+						fetchMock.mockRejectOnce(new Error('Failed to fetch tenant info'));
 
-					const result = await getIncomingOutgoingAris(ari);
+						const result = await getIncomingOutgoingAris(ari);
 
-					// Verify it returns empty arrays without making the graphql call
-					expect(result).toEqual({ incomingAris: [], outgoingAris: [] });
+						// Verify it returns empty arrays without making the graphql call
+						expect(result).toEqual({ incomingAris: [], outgoingAris: [] });
 
-					// Verify only the tenant_info endpoint was called (no graphql call)
-					expect(fetchMock).toHaveBeenCalledTimes(1);
-					expect(fetchMock).toHaveBeenCalledWith('/_edge/tenant_info', expect.any(Object));
-				});
-			});
+						// Verify only the tenant_info endpoint was called (no graphql call)
+						expect(fetchMock).toHaveBeenCalledTimes(1);
+						expect(fetchMock).toHaveBeenCalledWith('/_edge/tenant_info', expect.any(Object));
+					});
+				},
+			);
 		});
 	});
 });

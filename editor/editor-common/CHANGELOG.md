@@ -1,5 +1,36 @@
 # @atlaskit/editor-common
 
+## 114.21.0
+
+### Minor Changes
+
+- [`ba2fcee7745c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba2fcee7745c4) -
+  [ux] Added a new configurable empty state hero config item for the jira editor-plugin-ai, which
+  renders a 'Suggest a comment' AI hero button when the editor is empty. When the editor has
+  content, it switches back to the default hero button. The changes are for the
+  jira-smart-replies-v2 experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.20.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.20.0
+
+### Minor Changes
+
+- [`54c0e17fe643b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54c0e17fe643b) -
+  Add fabric-renderer as a recognised PasteSource value for the document pasted analytics event
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.19.2
 
 ### Patch Changes

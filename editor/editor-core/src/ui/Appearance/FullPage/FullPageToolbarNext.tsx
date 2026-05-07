@@ -246,13 +246,8 @@ export const FullPageToolbarNext = ({
 											{primaryToolbarDockingConfigEnabled &&
 												components &&
 												isToolbar(toolbar) &&
-												(isSSR() || editorView) &&
-												(!expValEquals(
-													'platform_editor_toolbar_delay_render_fix',
-													'isEnabled',
-													true,
-												) ||
-													!isSSR()) && (
+												editorView &&
+												!isSSR() && (
 													<ToolbarNext
 														toolbar={toolbar}
 														components={components}
@@ -317,13 +312,8 @@ export const FullPageToolbarNext = ({
 										{primaryToolbarDockingConfigEnabled &&
 											components &&
 											isToolbar(toolbar) &&
-											(isSSR() || editorView) &&
-											(!expValEquals(
-												'platform_editor_toolbar_delay_render_fix',
-												'isEnabled',
-												true,
-											) ||
-												!isSSR()) && (
+											editorView &&
+											!isSSR() && (
 												<ToolbarNext
 													toolbar={toolbar}
 													components={components}

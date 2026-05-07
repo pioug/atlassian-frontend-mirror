@@ -1,5 +1,23 @@
 # @atlaskit/profilecard
 
+## 25.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.4.0
+
+### Minor Changes
+
+- [`7fffcd1adae61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fffcd1adae61) -
+  [ux] This change gives the option to hide agent actions such as chat and extra options via a new
+  optional prop on agent profile cards.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.3.0
 
 ### Minor Changes

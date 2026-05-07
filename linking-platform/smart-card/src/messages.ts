@@ -218,7 +218,9 @@ export type MessageKey =
 	| 'rovo_prompt_button_summarize_this'
 	| 'rovo_prompt_button_ask_a_specific_question'
 	| 'rovo_prompt_button_show_me_whats_relevant'
-	| RovoChatActionMessageKey;
+	| RovoChatActionMessageKey
+	| 'pre_auth_block_social_proof_not_low'
+	| 'pre_auth_block_social_proof_low';
 
 type Messages = {
 	[K in MessageKey]: MessageDescriptor;
@@ -1343,7 +1345,7 @@ export const messages: Messages = defineMessages({
 	rovo_prompt_message_highlight_relevant_content: {
 		id: 'fabric.linking.rovo_prompt_message_highlight_relevant_content.non-final',
 		defaultMessage:
-			'<p>Based on this linked item (<a>{url}</a>) and the {context} I’m currently viewing, highlight the parts of the linked content that are most relevant to this work. Explain briefly why each part is relevant.</p>',
+			"<p>Based on this linked item (<a>{url}</a>) and the {context} I'm currently viewing, highlight the parts of the linked content that are most relevant to this work. Explain briefly why each part is relevant.</p>",
 		description:
 			'The prompt message to send to Rovo Chat. {context} refers to the content the user triggered from, e.g. Confluence page or Jira work item. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
 	},
@@ -1422,5 +1424,19 @@ export const messages: Messages = defineMessages({
 		defaultMessage: `Show me what's relevant`,
 		description:
 			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
+	},
+	// TODO: remove when social-proof-3p-unauth-block-fg is cleaned up
+	pre_auth_block_social_proof_not_low: {
+		id: 'fabric.linking.pre_auth_block_social_proof_not_low',
+		defaultMessage:
+			'<b>{percentage}%</b> of your team is previewing <b>{provider}</b>.',
+		description:
+			'Social proof message shown on unauthorized 3P block cards when 30% or more of the tenant has connected the provider. {percentage} is a number, {provider} is the 3P app name (e.g. OneDrive).',
+	},
+	pre_auth_block_social_proof_low: {
+		id: 'fabric.linking.pre_auth_block_social_proof_low',
+		defaultMessage: 'Your team is previewing <b>{provider}</b>.',
+		description:
+			'Social proof message shown on unauthorized 3P block cards when less than 30% of the tenant has connected the provider. {provider} is the 3P app name (e.g. OneDrive).',
 	},
 });

@@ -55,32 +55,38 @@ export const pasteOptionsToolbarMessages: {
 	plainText: {
 		id: 'fabric.editor.plainText',
 		defaultMessage: 'Use plain text',
-		description: 'Converts pasted text into plain text',
+		description:
+			'Label for the paste option button that strips all formatting and pastes content as plain text.',
 	},
 	markdown: {
 		id: 'fabric.editor.useMarkdown',
 		defaultMessage: 'Use Markdown',
-		description: 'Converts pasted text into Markdown',
+		description:
+			'Label for the paste option button that pastes content with Markdown formatting preserved.',
 	},
 	richText: {
 		id: 'fabric.editor.richText',
 		defaultMessage: 'Use rich text',
-		description: 'Converts pasted text into Rich text',
+		description:
+			'Label for the paste option button that pastes content preserving rich text formatting (e.g. bold, links, headings).',
 	},
 	plainTextAction: {
 		id: 'fabric.editor.plainTextAction',
 		defaultMessage: 'Plain text',
-		description: 'Converts pasted text into plain text',
+		description:
+			'Drop-down menu item label for the action that pastes the clipboard content as plain text, stripping all formatting.',
 	},
 	markdownAction: {
 		id: 'fabric.editor.useMarkdownAction',
 		defaultMessage: 'Markdown',
-		description: 'Converts pasted text into Markdown',
+		description:
+			'Drop-down menu item label for the action that pastes the clipboard content with Markdown formatting applied.',
 	},
 	richTextAction: {
 		id: 'fabric.editor.richTextAction',
 		defaultMessage: 'Rich text',
-		description: 'Converts pasted text into Rich text',
+		description:
+			'Drop-down menu item label for the action that pastes the clipboard content preserving rich text formatting.',
 	},
 	pasteMenuActionsTitle: {
 		id: 'fabric.editor.pasteMenuActionsTitle',

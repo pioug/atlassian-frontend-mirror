@@ -1,8 +1,5 @@
 {
   "extends": "../tsconfig",
-  "compilerOptions": {
-    "paths": {}
-  },
   "include": [
     "../src/**/*.tsx"
   ],

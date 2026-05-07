@@ -28,10 +28,8 @@ const styles = cssMap({
 	},
 	content: {
 		display: 'grid',
-		height: '50vh',
-		width: '50vw',
 		gridTemplateColumns: '1fr 1fr 1fr',
-		gap: token('space.1000'),
+		gap: token('space.500'),
 	},
 	target: {
 		width: '100%',

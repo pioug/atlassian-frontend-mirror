@@ -493,12 +493,14 @@ export const aiMessages: {
 	actionItemsPageTitle: {
 		id: 'fabric.editor.ai.ai-panels.actionItemsPageTitle',
 		defaultMessage: `Action items panel (Beta)`,
-		description: 'Title for AI action items panel',
+		description:
+			'The text is shown as the heading of the AI action items panel (Beta) in the editor, displayed when the user opens the panel to view automatically identified action items.',
 	},
 	actionItemsPageDescription: {
 		id: 'fabric.editor.ai.ai-panels.actionItemsPageDescription',
 		defaultMessage: `Use Atlassian Intelligence to find action items and display in a panel`,
-		description: 'Description for AI action items panel',
+		description:
+			'The text is shown as the descriptive subtitle of the AI action items panel in the editor, explaining that Atlassian Intelligence will identify and display action items from the page.',
 	},
 
 	// AI Panel Summarise page messages
@@ -511,7 +513,8 @@ export const aiMessages: {
 	summarisePageDescription: {
 		id: 'fabric.editor.ai.ai-panels.summarizePageDescription',
 		defaultMessage: `Use Atlassian Intelligence to summarize this page and display in a panel`,
-		description: 'Description for AI summary panel',
+		description:
+			'The text is shown as the descriptive subtitle of the AI page summary panel in the editor, explaining that Atlassian Intelligence will summarize the page and display the result in a panel.',
 	},
 
 	// Agent messages
@@ -547,7 +550,8 @@ export const aiMessages: {
 	promptbuilderAriaLabel: {
 		id: 'fabric.editor.ai.commandPalette.promptBuilderForm.generateContent.ariaLabel',
 		defaultMessage: 'Ask Atlassian Intelligence',
-		description: 'Aria label for prompt builder form',
+		description:
+			'The text is used as the ARIA label for the prompt builder form in the command palette, helping screen reader users identify the input area where they can type a request for Atlassian Intelligence.',
 	},
 	promptBuilderFromButton: {
 		id: 'fabric.editor.ai.commandPalette.promptBuilderForm.buttons.submit',

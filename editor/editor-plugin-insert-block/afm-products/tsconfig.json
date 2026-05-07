@@ -1,7 +1,6 @@
 {
 	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
-		"target": "es5",
 		"outDir": "../../../../../tsDist/@atlaskit__editor-plugin-insert-block/app",
 		"rootDir": "../",
 		"composite": true,

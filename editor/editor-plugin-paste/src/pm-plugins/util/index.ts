@@ -15,6 +15,7 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { getSelectedTableInfo, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { isMediaBlobUrl } from '@atlaskit/media-client';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export function isPastedFromWord(html?: string): boolean {
 	return !!html && html.indexOf('urn:schemas-microsoft-com:office:word') >= 0;
@@ -50,6 +51,10 @@ function isPastedFromFabricEditor(html?: string): boolean {
 	return !!html && html.indexOf('data-pm-slice="') >= 0;
 }
 
+function isPastedFromFabricRenderer(html?: string): boolean {
+	return !!html && html.indexOf('data-renderer-start-pos="') >= 0 && fg('platform_editor_paste_renderer_analytics');
+}
+
 export const isSingleLine = (text: string): boolean => {
 	return !!text && text.trim().split('\n').length === 1;
 };
@@ -79,6 +84,8 @@ export function getPasteSource(event: ClipboardEvent): PasteSource {
 		return 'apple-pages';
 	} else if (isPastedFromFabricEditor(html)) {
 		return 'fabric-editor';
+	} else if (isPastedFromFabricRenderer(html)) {
+		return 'fabric-renderer';
 	}
 
 	return 'uncategorized';

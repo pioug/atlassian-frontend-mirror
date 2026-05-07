@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-common",
-	"version": "13.2.0",
+	"version": "13.3.0",
 	"description": "Includes common utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,6 +36,7 @@
 		"./helpers": "./src/utils/helpers.ts",
 		"./isMimeTypeSupportedByBrowser": "./src/mediaTypeUtils/isMimeTypeSupportedByBrowser.ts",
 		"./isMimeTypeSupportedByServer": "./src/mediaTypeUtils/isMimeTypeSupportedByServer.ts",
+		"./isExcelFile": "./src/mediaTypeUtils/isExcelFile.ts",
 		"./isValidUuid": "./src/utils/isValidUuid.ts",
 		"./jestHelpers": "./src/test-helpers/jestHelpers.ts",
 		"./media-use-only": "./src/docs/media-use-only.tsx",

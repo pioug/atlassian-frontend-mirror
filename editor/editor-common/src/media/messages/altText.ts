@@ -45,17 +45,20 @@ export const altTextMessages: {
 	altText: {
 		id: 'fabric.editor.addAltText',
 		defaultMessage: 'Alt text',
-		description: 'Add an alt text for this image',
+		description:
+			'The text is shown as the label for the alt text button in the image floating toolbar, allowing the user to open the alt text editor for the selected image.',
 	},
 	addAltText: {
 		id: 'fabric.editor.addUpdatedAltText',
 		defaultMessage: 'Add alt text',
-		description: 'Add an alt text for this image',
+		description:
+			'The text is shown on a button in the image floating toolbar that opens the alt text editor for adding descriptive text to the selected image.',
 	},
 	editAltText: {
 		id: 'fabric.editor.editAltText',
 		defaultMessage: 'Edit alt text',
-		description: 'Edit an alt text for this image',
+		description:
+			'The text is shown on a button in the image floating toolbar that opens the alt text editor for updating the existing descriptive text of the selected image.',
 	},
 	back: {
 		id: 'fabric.editor.closeAltTextEdit',

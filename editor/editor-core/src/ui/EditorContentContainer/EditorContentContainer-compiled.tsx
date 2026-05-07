@@ -15,7 +15,14 @@ import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 // eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // TODO: add back tableSharedStyle when migrate table styles
 // import { richMediaClassName, tableSharedStyle } from '@atlaskit/editor-common/styles';
-import { AnnotationSharedClassNames, richMediaClassName } from '@atlaskit/editor-common/styles';
+import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
+import {
+	AnnotationSharedClassNames,
+	richMediaClassName,
+	expandClassNames,
+	SmartCardSharedCssClassName,
+	CodeBlockSharedCssClassName,
+} from '@atlaskit/editor-common/styles';
 import type {
 	EditorAppearance,
 	EditorContentMode,
@@ -44,6 +51,10 @@ const akEditorGutterPaddingReduced = 24;
 const akEditorFullPageNarrowBreakout = 600;
 const akEditorUltraWideLayoutWidth = 4000;
 
+// Originally copied from packages/editor/editor-core/src/ui/Appearance/Comment/Comment.tsx
+const CommentEditorMargin = 14;
+const GRID_GUTTER = 12;
+
 const blockNodesVerticalMargin = '0.75rem';
 const scaledBlockNodesVerticalMargin = '0.75em';
 
@@ -56,6 +67,17 @@ const placeholderFadeInKeyframes = keyframes({
 	},
 	to: {
 		opacity: 1,
+	},
+});
+
+const fadeIn = keyframes({
+	from: {
+		opacity: 0,
+		transform: 'translateY(16px)',
+	},
+	to: {
+		opacity: 1,
+		transform: 'translateY(0)',
 	},
 });
 
@@ -217,16 +239,170 @@ const pulseOutDuringTr = keyframes({
 });
 
 /**
+ * aiPanelStyles
+ * was imported from packages/editor/editor-core/src/ui/ContentStyles/ai-panels.ts
+ */
+const rotationAnimation = keyframes({
+	'0%': {
+		'--panel-gradient-angle': '0deg',
+	},
+	'100%': {
+		'--panel-gradient-angle': '360deg',
+	},
+});
+
+const rotationAnimationFirefox = keyframes({
+	'0%': {
+		'--panel-gradient-angle': '0deg',
+		backgroundPosition: '100%',
+	},
+	'100%': {
+		'--panel-gradient-angle': '360deg',
+		backgroundPosition: '-100%',
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+const prismBorderBaseBackgroundFirefox = `linear-gradient(90deg, #0065FF 0%, #0469FF 12%, #BF63F3 24%, #FFA900 48%, #BF63F3 64%, #0469FF 80%, #0065FF 100%)`;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+const prismBorderBaseBackground = `conic-gradient(from var(--panel-gradient-angle, 270deg), #0065FF 0%, #0469FF 20%, #BF63F3 50%, #FFA900 56%, #0065FF 100%)`;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+const prismBorderDarkBackgroundFirefox = `linear-gradient(90deg, #0065FF80 0%, #0469FF80 12%, #BF63F380 24%, #FFA90080 48%, #BF63F380 64%, #0469FF80 80%, #0065FF80 100%)`;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+const prismBorderDarkBackground = `conic-gradient(from var(--panel-gradient-angle, 270deg), #0065FF80 0%, #0469FF80 20%, #BF63F380 50%, #FFA90080 56%, #0065FF80 100%)`;
+
+/**
  * editorContentStyles is WIP to migrate styles from EditorContentContainer/styles
  *
  * The value {} is placeholder, fill in styles when migrating each style file
  * Add/Delete/Re-order keys are discouraged during incremental migration due to potential merge conflicts.
  */
 const editorContentStyles = cssMap({
-	aiPanelBaseFirefoxStyles: {},
-	aiPanelBaseStyles: {},
-	aiPanelDarkFirefoxStyles: {},
-	aiPanelDarkStyles: {},
+	aiPanelBaseFirefoxStyles: {
+		'div[extensionType="com.atlassian.ai-blocks"]': {
+			'&::before, &::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				background: prismBorderBaseBackgroundFirefox,
+				backgroundSize: '200%',
+			},
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'div[extensionType="com.atlassian.ai-blocks"]:has(.streaming)': {
+			'.extension-container': {
+				'&::before, &::after': {
+					animationName: rotationAnimationFirefox,
+					animationDuration: '1s',
+					animationDirection: 'normal',
+				},
+			},
+		},
+	},
+	aiPanelBaseStyles: {
+		'@property --panel-gradient-angle': {
+			syntax: "'<angle>'",
+			initialValue: '270deg',
+			inherits: 'false',
+		},
+		'div[extensionType="com.atlassian.ai-blocks"]': {
+			/* This hides the label for the extension */
+			'.extension-label': {
+				display: 'none',
+			},
+			/* This styles the ai panel correctly when its just sitting on the page and there
+			is no user interaction */
+			'.extension-container': {
+				position: 'relative',
+				boxShadow: 'none',
+				overflow: 'unset',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				backgroundColor: `${token('elevation.surface')} !important`,
+				// prismBorderBaseStyles
+				'&::before, &::after': {
+					content: "''",
+					position: 'absolute',
+					zIndex: -1,
+					width: `calc(100% + 2px)`,
+					height: `calc(100% + 2px)`,
+					top: `-1px`,
+					left: `-1px`,
+					borderRadius: `calc(${token('radius.small', '3px')} + 1px)`,
+					transform: 'translate3d(0, 0, 0)',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					background: prismBorderBaseBackground,
+				},
+				'&.with-hover-border': {
+					'&::before, &::after': {
+						//prismBorderHoverStyles
+						// eslint-disable-next-line @atlaskit/platform/expand-background-shorthand
+						background: token('color.border.input'),
+					},
+				},
+				'& .with-margin-styles': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+					backgroundColor: `${token('elevation.surface')} !important`,
+					borderRadius: token('radius.small', '3px'),
+				},
+			},
+		},
+
+		/* This styles the ai panel correctly when its streaming */
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'div[extensionType="com.atlassian.ai-blocks"]:has(.streaming)': {
+			'.extension-container': {
+				'&::before, &::after': {
+					// prismBorderAnimationStyles
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					animationName: rotationAnimation,
+					animationDuration: '2s',
+					animationTimingFunction: 'linear',
+					animationIterationCount: 'infinite',
+					'@media (prefers-reduced-motion)': {
+						animation: 'none',
+					},
+				},
+			},
+		},
+
+		/* This styles the ai panel correctly when a user is hovering over the delete button in the floating panel */
+		'div[extensionType="com.atlassian.ai-blocks"].danger': {
+			'.extension-container': {
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+			},
+		},
+
+		/* This removes the margin from the action list when inside an ai panel */
+		'div[extensiontype="com.atlassian.ai-blocks"][extensionkey="ai-action-items-block:aiActionItemsBodiedExtension"]':
+			{
+				'div[data-node-type="actionList"]': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+					margin: '0 !important',
+				},
+			},
+	},
+	aiPanelDarkFirefoxStyles: {
+		'div[extensionType="com.atlassian.ai-blocks"]': {
+			'.extension-container': {
+				'&::before, &::after': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					background: prismBorderDarkBackgroundFirefox,
+					backgroundSize: '200%',
+				},
+			},
+		},
+	},
+	aiPanelDarkStyles: {
+		'div[extensionType="com.atlassian.ai-blocks"]': {
+			'.extension-container': {
+				'&::before, &::after': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					background: prismBorderDarkBackground,
+				},
+			},
+		},
+	},
 	alignMultipleWrappedImageInLayoutStyles: {
 		'.ProseMirror [data-layout-section] [data-layout-column] > div': {
 			// apply marginTop to wrapped mediaSingle that has preceding wrapped mediaSingle (even when there's gap cursor in between them)
@@ -350,7 +526,28 @@ const editorContentStyles = cssMap({
 			'--ak-editor-max-container-width': 'calc(100cqw - var(--ak-editor--large-gutter-padding)*2)',
 		},
 	},
-	blockMarksStyles: {},
+	blockMarksStyles: {
+		// We need to remove margin-top from first item
+		// inside doc, tableCell, tableHeader, blockquote, etc.
+		//
+		// - For nested block marks apart from those with indentation mark.
+		// - Do not remove the margin top for nodes inside indentation marks.
+		// - Do not remove the margin top for nodes inside alignment marks.
+		// - Do not remove the margin top for nodes inside font size marks.
+		//- If first element inside a block node has alignment or font size mark, then remove the margin-top.
+		//- If first document element has indentation mark remove margin-top.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors
+		'*:not(.fabric-editor-block-mark) >, *:not(.fabric-editor-block-mark) > div.fabric-editor-block-mark:first-of-type:not(.fabric-editor-indentation-mark):not(.fabric-editor-alignment):not(.fabric-editor-font-size), .fabric-editor-alignment:first-of-type:first-child, .fabric-editor-font-size:first-of-type:first-child, .ProseMirror .fabric-editor-indentation-mark:first-of-type:first-child':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'p, h1, h2, h3, h4, h5, h6, .heading-wrapper': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors
+					'&:first-child:not(style), style:first-child + *': {
+						marginTop: 0,
+					},
+				},
+			},
+	},
 	blockquoteDangerStyles: {},
 	blockquoteSelectedNodeStyles: {},
 	blocktypeStyles: {},
@@ -361,8 +558,44 @@ const editorContentStyles = cssMap({
 	codeBlockStylesWithEmUnits: {},
 	codeMarkStyles: {},
 	codeMarkStylesA11yFix: {},
-	commentEditorStyles: {},
-	cursorStyles: {},
+	commentEditorStyles: {
+		flexGrow: 1,
+		overflowX: 'clip',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		lineHeight: '24px',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'.ProseMirror': {
+			marginTop: token('space.150'),
+			marginRight: token('space.150'),
+			marginBottom: token('space.150'),
+			marginLeft: token('space.150'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'.gridParent': {
+			marginLeft: token('space.025'),
+			marginRight: token('space.025'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			width: `calc(100% + ${CommentEditorMargin - GRID_GUTTER}px)`,
+		},
+		paddingTop: token('space.250'),
+		paddingRight: token('space.250'),
+		paddingBottom: token('space.250'),
+		paddingLeft: token('space.250'),
+	},
+	cursorStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror.ProseMirror-focused:has(.ProseMirror-mark-boundary-cursor)': {
+			caretColor: 'transparent',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror:not(.ProseMirror-focused) .ProseMirror-mark-boundary-cursor': {
+			display: 'none',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror:has(.ProseMirror-hide-cursor)': {
+			caretColor: 'transparent',
+		},
+	},
 	dangerDateStyles: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		'.dateView-content-wrap.ak-editor-selected-node.danger .date-lozenger-container > span': {
@@ -493,10 +726,32 @@ const editorContentStyles = cssMap({
 	findReplaceStylesNewWithA11Y: {},
 	findReplaceStylesNewWithCodeblockColorContrastFix: {},
 	findReplaceStylesWithCodeblockColorContrastFix: {},
-	firstBlockNodeStyles: {},
+	firstBlockNodeStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+			[`> .${PanelSharedCssClassName.prefix}, > .${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}, > .${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}, > div[data-task-list-local-id], > div[data-layout-section], > .${expandClassNames.prefix}`]:
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+					'&:first-child': {
+						marginTop: 0,
+					},
+				},
+
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors
+			'> hr:first-child, > .ProseMirror-widget:first-child + hr': {
+				marginTop: 0,
+			},
+		},
+	},
 	firstCodeBlockWithNoMargin: {},
 	firstCodeBlockWithNoMarginOld: {},
-	firstFloatingToolbarButtonStyles: {},
+	firstFloatingToolbarButtonStyles: {
+		'button.first-floating-toolbar-button:focus': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			outline: `2px solid ${token('color.border.focused')}`,
+		},
+	},
 	firstWrappedMediaStyles: {
 		'.ProseMirror': {
 			// Remove gap between first wrapped mediaSingle and its fellow wrapped mediaSingle
@@ -1052,7 +1307,13 @@ const editorContentStyles = cssMap({
 			outline: `2px solid ${token('color.border.focused')}`,
 		},
 	},
-	selectionToolbarAnimationStyles: {},
+	selectionToolbarAnimationStyles: {
+		"[aria-label='Selection toolbar']": {
+			animationName: fadeIn,
+			animationDuration: `0.2s`,
+			animationTimingFunction: `cubic-bezier(0.6, 0, 0, 1)`,
+		},
+	},
 	shadowStyles: {},
 	showDiffDeletedNodeStyles: {},
 	showDiffDeletedNodeStylesNew: {},
@@ -1253,10 +1514,23 @@ const editorContentStyles = cssMap({
 			},
 		},
 	},
-	textColorStyles: {},
+	textColorStyles: {
+		'.fabric-text-color-mark': {
+			color: 'var(--custom-palette-color, inherit)',
+		},
+
+		'a .fabric-text-color-mark': {
+			color: 'unset',
+		},
+	},
 	textDangerStyles: {},
 	textHighlightPaddingStyles: {},
-	textHighlightStyle: {},
+	textHighlightStyle: {
+		'.text-highlight': {
+			backgroundColor: token('color.background.accent.blue.subtlest'),
+			borderBottom: `2px solid ${token('color.background.accent.blue.subtler')}`,
+		},
+	},
 	textSelectedNodeStyles: {},
 	unsupportedStyles: {},
 	whitespaceStyles: {

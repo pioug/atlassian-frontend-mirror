@@ -31,7 +31,6 @@ import {
 } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolbar-model';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -175,9 +174,7 @@ export const SelectionToolbar = ({
 			target={getDomRefFromSelection(editorView)}
 			onPositionCalculated={onPositionCalculated}
 			mountTo={mountPoint}
-			zIndex={
-				fg('platform_editor_sel_toolbar_stacking_fix') ? akEditorFloatingDialogZIndex : undefined
-			}
+			zIndex={akEditorFloatingDialogZIndex}
 		>
 			<EditorToolbarProvider
 				editorView={editorView}

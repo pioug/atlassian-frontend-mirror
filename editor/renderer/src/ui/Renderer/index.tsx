@@ -863,8 +863,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 								(mutation.addedNodes[0] as Element)?.id === TELEPOINTER_ID) ||
 							(mutation.removedNodes.length === 1 &&
 								(mutation.removedNodes[0] as Element)?.id === TELEPOINTER_ID)
-						) &&
-						fg('platform_editor_ai_adf_prompts_in_all_products')
+						)
 					) {
 						const lastChild = renderer.lastChild;
 						if (lastChild) {

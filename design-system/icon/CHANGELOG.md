@@ -1,5 +1,23 @@
 # @atlaskit/icon
 
+## 34.4.0
+
+### Minor Changes
+
+- [`0e2b29db61e0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e2b29db61e0a) -
+  This release adds icons in `@atlaskit/icon`.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+  - `bezier-curve`
+  - `figma-community`
+  - `figma-component-instance-swap`
+  - `figma-component-instance`
+  - `figma-component`
+  - `figma-slot`
+  - `figma`
+
 ## 34.3.0
 
 ### Minor Changes

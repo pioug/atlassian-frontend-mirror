@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { ExitingPersistence } from '@atlaskit/motion';
 
-import { SpotlightContext } from '../../../controllers/spotlight-context';
+import { SpotlightContext } from '../../../controllers/context';
 
 /**
  * __Conditional exiting persistence__

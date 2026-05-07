@@ -326,6 +326,16 @@ export class SourceSyncBlockStoreManager {
 	}
 
 	/**
+	 * Returns `true` when at least one sync block is waiting for its backend
+	 * creation call to complete. Used as a cheap pre-check in the decoration
+	 * rebuild path to avoid a full `doc.descendants()` walk when no creations
+	 * are in flight (see EDITOR-6930).
+	 */
+	public hasPendingCreations(): boolean {
+		return this.creationCompletionCallbacks.size > 0;
+	}
+
+	/**
 	 *  Fires callback to insert node (if creation is successful) and clears pending creation data
 	 * @param success
 	 */
@@ -611,8 +621,7 @@ export class SourceSyncBlockStoreManager {
 			const results = await this.dataProvider.fetchNodesData(syncBlockNodes);
 			for (const result of results) {
 				// Map the reference resourceId back to the source resourceId
-				const sourceResourceId =
-					sourceToReferenceMap.get(result.resourceId) ?? result.resourceId;
+				const sourceResourceId = sourceToReferenceMap.get(result.resourceId) ?? result.resourceId;
 				const cached = this.syncBlockCache.get(sourceResourceId);
 				if (cached && result.data?.status) {
 					cached.status = result.data.status;

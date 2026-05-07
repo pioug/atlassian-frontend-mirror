@@ -20,7 +20,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		import: {
 			name: 'Card',
 			package: '@atlaskit/smart-card',
-			type: 'default',
+			type: 'named',
 			packagePath,
 			packageJson,
 		},
@@ -70,7 +70,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		import: {
 			name: 'HoverCard',
 			package: '@atlaskit/smart-card/hover-card',
-			type: 'default',
+			type: 'named',
 			packagePath,
 			packageJson,
 		},

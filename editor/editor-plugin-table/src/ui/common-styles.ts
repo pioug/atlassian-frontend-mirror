@@ -668,7 +668,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	}
 
 	${sentinelStyles}
-	${OverflowShadow(props.featureFlags?.tableDragAndDrop)}
+	${OverflowShadow()}
     ${stickyScrollbarStyles}
 
     .${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {

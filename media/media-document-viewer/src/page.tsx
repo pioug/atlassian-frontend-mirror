@@ -112,8 +112,15 @@ type PageProps = {
 	pageIndex: number;
 	zoom: number;
 	defaultDimensions?: { width: number; height: number };
-	onVisible: () => void;
+	onVisible: (pageIndex: number) => void;
 	onLoad?: () => void;
+	/**
+	 * Called when a local `#page-N` anchor inside this page is clicked.
+	 * Fast-forwards the lazy page count so the target page exists in the DOM
+	 * before the browser performs the native anchor scroll.
+	 * Only provided when `enableLazyPageRendering` is true.
+	 */
+	appendUpTo?: (n: number) => void;
 };
 
 type PageViewProps = {
@@ -124,12 +131,14 @@ type PageViewProps = {
 	pageIndex: number;
 	zoom: number;
 	onImageLoad: (event: React.SyntheticEvent<HTMLImageElement>) => void;
+	/** @see PageProps.appendUpTo */
+	appendUpTo?: (n: number) => void;
 };
 
 const a4Dimensions = { height: 595, width: 842 };
 
 const PageView = forwardRef<HTMLDivElement, PageViewProps>(
-	({ dimensions, imageSrc, content, fonts, pageIndex, zoom, onImageLoad }, ref) => {
+	({ dimensions, imageSrc, content, fonts, pageIndex, zoom, onImageLoad, appendUpTo }, ref) => {
 		const style: Record<string, string> = {};
 		if (dimensions) {
 			// contents endpoint has loaded so dimensions are available
@@ -186,7 +195,7 @@ const PageView = forwardRef<HTMLDivElement, PageViewProps>(
 							/>
 						))}
 						{content.annotations && <Annotations annotations={content.annotations} />}
-						{content.links && <DocumentLinks links={content.links} />}
+						{content.links && <DocumentLinks links={content.links} appendUpTo={appendUpTo} />}
 					</svg>
 				)}
 			</div>
@@ -203,6 +212,7 @@ export const Page = ({
 	defaultDimensions,
 	onVisible,
 	onLoad,
+	appendUpTo,
 }: PageProps): JSX.Element => {
 	const [imageSrc, setImageSrc] = useState<string | undefined>();
 	const { observedRef, isVisibleRef } = useIntersectionObserver(
@@ -214,7 +224,7 @@ export const Page = ({
 			threshold: 0.1,
 		},
 		() => {
-			onVisible();
+			onVisible(pageIndex);
 			getPageSrc(pageIndex, zoom).then(setImageSrc);
 		},
 	);
@@ -250,6 +260,7 @@ export const Page = ({
 			pageIndex={pageIndex}
 			zoom={zoom}
 			onImageLoad={onImageLoad}
+			appendUpTo={appendUpTo}
 		/>
 	);
 };

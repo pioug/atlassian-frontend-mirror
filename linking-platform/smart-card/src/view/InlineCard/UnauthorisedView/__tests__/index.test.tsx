@@ -281,7 +281,7 @@ describe('Unauthorised View', () => {
 					const testUrl = 'http://unauthorised-test/';
 					const { container } = renderWithSocialProofDi(
 						<InlineCardUnauthorizedView context="Figma" url={testUrl} onAuthorise={jest.fn()} />,
-						mockGetProviderPctMapSyncUnexpected,
+						mockGetProviderPctMapSyncLoaded,
 					);
 					expect(container).toHaveTextContent('Connect your Figma account');
 					expect(container).not.toHaveTextContent('52%');

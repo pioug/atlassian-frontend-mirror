@@ -5,7 +5,7 @@ import { tableBackgroundBorderColor } from '@atlaskit/adf-schema';
 import { token } from '@atlaskit/tokens';
 
 import { TableCssClassName as ClassName } from '../../types';
-import { contextualMenuDropdownWidth, contextualMenuDropdownWidthDnD } from '../consts';
+import { contextualMenuDropdownWidthDnD } from '../consts';
 
 export const cellColourPreviewStyles = (selectedColor: string): SerializedStyles =>
 	css({
@@ -16,7 +16,6 @@ export const cellColourPreviewStyles = (selectedColor: string): SerializedStyles
 	});
 
 export const tablePopupStyles = (
-	isDragAndDropEnabled: boolean | undefined,
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 ): SerializedStyles => css`
 	.${ClassName.CONTEXTUAL_SUBMENU} {
@@ -26,31 +25,11 @@ export const tablePopupStyles = (
 		display: block;
 		position: absolute;
 		top: 0;
-		left: ${isDragAndDropEnabled ? contextualMenuDropdownWidthDnD : contextualMenuDropdownWidth}px;
+		left: ${contextualMenuDropdownWidthDnD}px;
 		padding: ${token('space.100')};
 
 		> div {
 			padding: 0;
-		}
-	}
-
-	.${ClassName.CONTEXTUAL_MENU_ICON} {
-		display: flex;
-
-		&::before {
-			content: '';
-			display: block;
-			border: 1px solid ${tableBackgroundBorderColor};
-			border-radius: ${token('radius.small', '3px')};
-			width: 20px;
-			height: 20px;
-		}
-
-		&::after {
-			content: '›';
-			margin-left: ${token('space.050')};
-			line-height: 20px;
-			color: ${token('color.icon')};
 		}
 	}
 

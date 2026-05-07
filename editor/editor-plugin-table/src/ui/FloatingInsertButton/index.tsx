@@ -85,7 +85,8 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 			dispatchAnalyticsEvent,
 			isChromelessEditor,
 		} = this.props;
-		// TODO: ED-26961 - temporarily disable insert button for first column and row https://atlassian.slack.com/archives/C05U8HRQM50/p1698363744682219?thread_ts=1698209039.104909&cid=C05U8HRQM50
+
+		// ED-26961 - disable insert button for first column and row
 		if (insertColumnButtonIndex === 0 || insertRowButtonIndex === 0) {
 			return null;
 		}
@@ -205,7 +206,12 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 				allowOutOfBounds
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
-				{...getPopupOptions(type, index, hasNumberedColumns, true, tableContainerWrapper)}
+				{...getPopupOptions(
+					type,
+					index,
+					hasNumberedColumns,
+					tableContainerWrapper,
+				)}
 				zIndex={zIndex}
 			>
 				<DragAndDropInsertButton

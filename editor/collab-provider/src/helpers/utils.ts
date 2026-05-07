@@ -152,8 +152,8 @@ const stepWithSlice = (stepJson: StepJson): stepJson is ReplaceAroundStepPM | Re
 export const getStepTypes = (
 	stepJson: StepJson,
 ): {
-	type: string;
 	contentTypes: string | null;
+	type: string;
 } => {
 	let contentTypes: string | null = null;
 
@@ -206,11 +206,11 @@ export const getDocAdfWithObfuscationFromJSON = (docJson: JSONDocNode): ADFEntit
 export const getStepPositions = (
 	stepJson: StepJson,
 ): {
-	pos?: number | undefined;
-	insert?: number | undefined;
+	from?: number | undefined;
 	gapFrom?: number | undefined;
 	gapTo?: number | undefined;
-	from?: number | undefined;
+	insert?: number | undefined;
+	pos?: number | undefined;
 	to?: number | undefined;
 } => {
 	return {
@@ -233,19 +233,7 @@ export const getObfuscatedSteps = (
 	steps: StepJson[],
 	endIndex: number | undefined = undefined,
 ): {
-	stepType: {
-		type: string;
-		contentTypes: string | null;
-	};
 	stepContent: ADFEntity[] | null;
-	stepPositions: {
-		pos?: number | undefined;
-		insert?: number | undefined;
-		gapFrom?: number | undefined;
-		gapTo?: number | undefined;
-		from?: number | undefined;
-		to?: number | undefined;
-	};
 	stepMetadata:
 		| {
 				createdOffline?: boolean;
@@ -259,6 +247,18 @@ export const getObfuscatedSteps = (
 				unconfirmedStepAfterRecovery?: boolean;
 		  }
 		| undefined;
+	stepPositions: {
+		from?: number | undefined;
+		gapFrom?: number | undefined;
+		gapTo?: number | undefined;
+		insert?: number | undefined;
+		pos?: number | undefined;
+		to?: number | undefined;
+	};
+	stepType: {
+		contentTypes: string | null;
+		type: string;
+	};
 }[] => {
 	return steps.slice(0, endIndex).map((step) => {
 		return {
@@ -321,8 +321,8 @@ export async function logObfuscatedSteps(
 ): Promise<
 	| CustomError
 	| {
-			stepsFromOldState: string;
 			stepsFromNewState: string;
+			stepsFromOldState: string;
 	  }
 > {
 	try {
@@ -354,4 +354,20 @@ export async function logObfuscatedSteps(
 export async function toObfuscatedSteps(steps: readonly ProseMirrorStep[]): Promise<string> {
 	const _steps = await Promise.resolve(steps.slice().map<StepJson>((s) => s.toJSON()));
 	return JSON.stringify(getObfuscatedSteps(_steps));
+}
+
+/**
+ * Copied from confluence/next/packages/graphql/src/utils/gcpDomainUtils.ts
+ * Checks if the current domain is a GCP tenant matching the pattern: .*-cdp-{cdp-id}\.jira-dev\.com
+ * @param {string | undefined} hostname optional hostname to evaluate
+ * @returns {boolean} true if the domain matches the GCP tenant pattern
+ */
+export function isGCPtenant(hostname?: string): boolean {
+	if (!hostname) {
+		return false;
+	}
+
+	// eslint-disable-next-line require-unicode-regexp
+	const gcpTenantPattern = /^.*-cdp-\w+\.jira-dev\.com$/;
+	return gcpTenantPattern.test(hostname);
 }

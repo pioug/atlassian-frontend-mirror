@@ -110,12 +110,9 @@ const UnauthorisedConnectWithSocialProof = ({
 	testId: string;
 }): JSX.Element => {
 	di(getCachedProviderPctMapAndRefresh);
-	// TODO We need to decide what should we do with FedRAMP. It will not work there (_edge/tenant_info is not available) but so maybe
-	// we can just leave it like that and whole feature won't trigger befcause of that.
 	const providerPctMap = getCachedProviderPctMapAndRefresh(SOCIAL_PROOF_TRAIT_NAME);
 	const connectedPct =
 		extensionKey && providerPctMap ? providerPctMap[extensionKey] : undefined;
-	const isEnabled = true;
 
 	const trimmedProviderDisplayName = context?.trim() ?? '';
 	const hasProviderDisplayName = trimmedProviderDisplayName.length > 0;
@@ -128,9 +125,13 @@ const UnauthorisedConnectWithSocialProof = ({
 	 * a provider display name; otherwise omit the pill and use the legacy long connect treatment.
 	 */
 	const showSocialProofPill =
-		isEnabled &&
 		connectedPct !== undefined &&
-		(isSocialProofUsageHighEnough || hasProviderDisplayName);
+		(isSocialProofUsageHighEnough || hasProviderDisplayName) && 
+		expValEquals(
+			'platform_sl_3p_preauth_social_proof_inline_cta',
+			'isEnabled',
+			true,
+		);
 
 	const bold = (chunks: React.ReactNode) => (
 		<Box as="strong" xcss={socialProofPillStyles.strong}>
@@ -172,7 +173,6 @@ const UnauthorisedConnectWithSocialProof = ({
 				onClick={onConnectClick}
 				viewType="unauthorised"
 				testId="button-connect-account"
-				isSocialProofInlineUnauthorisedConnect={showSocialProofPill}
 			>
 				{showSocialProofPill ? (
 					<FormattedMessage {...messages.connect_inline_social_proof} />
@@ -199,15 +199,6 @@ export const InlineCardUnauthorizedView = ({
 }: InlineCardUnauthorizedViewProps): JSX.Element => {
 	const frameRef = React.useRef<HTMLSpanElement & null>(null);
 	const { fireEvent } = useAnalyticsEvents();
-
-	const isSocialProofInlineCtaEnabled =
-		onAuthorise &&
-		fg('platform_sl_3p_preauth_soc_proof_inline_killswitch') &&
-		expValEquals(
-			'platform_sl_3p_preauth_social_proof_inline_cta',
-			'isEnabled',
-			true,
-		);
 
 	const handleConnectAccount = React.useCallback(
 		(event: React.MouseEvent<HTMLElement>) => {
@@ -249,7 +240,7 @@ export const InlineCardUnauthorizedView = ({
 				titleColor={token('color.text.subtle')}
 			/>
 			{onAuthorise &&
-				(isSocialProofInlineCtaEnabled ? (
+				(fg('platform_sl_3p_preauth_soc_proof_inline_killswitch') ? (
 					<UnauthorisedConnectWithSocialProof
 						context={context}
 						extensionKey={extensionKey}

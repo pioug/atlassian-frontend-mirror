@@ -127,6 +127,7 @@ export const testData: TestDataCase[] = [
 				tokens: ['spacing', 'color'],
 				icons: ['add', 'close'],
 				components: ['button', 'input'],
+				atlaskitComponents: ['button', 'input'],
 				limit: 1,
 			},
 			expectedLength: 1,
@@ -156,11 +157,20 @@ export const testData: TestDataCase[] = [
 							}),
 						]),
 					}),
+					atlaskitComponents: expect.objectContaining({
+						content: expect.arrayContaining([
+							expect.objectContaining({
+								type: 'text',
+								text: expect.any(String),
+							}),
+						]),
+					}),
 				}),
 				summary: expect.objectContaining({
 					tokensFound: expect.any(Number),
 					iconsFound: expect.any(Number),
 					componentsFound: expect.any(Number),
+					atlaskitComponentsFound: expect.any(Number),
 				}),
 			},
 		},

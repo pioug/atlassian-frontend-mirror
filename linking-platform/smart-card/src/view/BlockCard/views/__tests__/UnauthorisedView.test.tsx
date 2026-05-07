@@ -12,6 +12,15 @@ import {
 import { mocks } from '../../../../utils/mocks';
 import UnauthorisedView from '../UnauthorisedView';
 
+jest.mock('@atlaskit/feature-gate-js-client', () => ({
+	__esModule: true,
+	default: {
+		checkGate: jest.fn().mockReturnValue(false),
+		getExperimentValue: jest.fn().mockReturnValue('not-enrolled'),
+		initializeCompleted: jest.fn().mockReturnValue(true),
+	},
+}));
+
 describe('UnauthorisedView', () => {
 	const url = 'https://some.url';
 	const titleTestId = 'smart-element-link';
@@ -197,4 +206,5 @@ describe('UnauthorisedView', () => {
 		);
 		await expect(container).toBeAccessible();
 	});
+
 });

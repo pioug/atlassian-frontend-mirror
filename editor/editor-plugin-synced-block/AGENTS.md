@@ -26,20 +26,31 @@ src/
 ├── index.ts                    # Re-exports plugin + type
 ├── syncedBlockPlugin.tsx       # Top-level: registers nodes, commands, UI, pm-plugins
 ├── syncedBlockPluginType.ts    # TypeScript interfaces for options, shared state, dependencies
+├── editor-actions/
+│   └── index.ts                # flushBodiedSyncBlocks, flushSyncBlocks,
+│                                 discardUnpublishedSyncBlocks (EDITOR-6473)
 ├── editor-commands/
 │   └── index.ts                # createSyncedBlock, copySyncedBlockReferenceToClipboardEditorCommand,
 │                                 removeSyncedBlockAtPos, unsyncSyncBlock
 ├── nodeviews/
 │   ├── syncedBlock.tsx         # NodeView for reference (syncBlock) — read-only, fetches from BE
+│   ├── lazySyncedBlock.tsx     # Lazy-loaded wrapper for syncedBlock (EDITOR-6928)
 │   ├── bodiedSyncedBlock.tsx   # NodeView for source (bodiedSyncBlock) — nested editor with content
 │   └── bodiedSyncBlockNodeWithToDOMFixed.ts # DOM serialization fix variant (experiment-gated)
 ├── pm-plugins/
-│   ├── main.ts                 # Core state machine: sync block lifecycle, creation, deletion, cache
+│   ├── main.ts                 # Core state machine: lifecycle, creation, deletion, cache,
+│   │                             status decoration apply path (gated by editor_synced_block_perf)
 │   ├── menu-and-toolbar-experiences.ts # Experience tracking for menu/toolbar interactions
 │   └── utils/
-│       ├── track-sync-blocks.ts              # Tracks mutations, updates shared state
-│       ├── handle-bodied-sync-block-creation.ts # Creation flow, local cache, retry logic
-│       └── handle-bodied-sync-block-removal.ts  # Deletion flow, BE synchronization
+│       ├── track-sync-blocks.ts                    # Tracks mutations, updates shared state
+│       ├── handle-bodied-sync-block-creation.ts    # Creation flow, local cache, retry logic
+│       ├── handle-bodied-sync-block-removal.ts     # Deletion flow, BE synchronization
+│       ├── has-synced-blocks.ts                    # O(childCount) presence check (EDITOR-6928 lazy init)
+│       ├── transaction-inserts-synced-block.ts     # Detect tr inserts a synced block (lazy init)
+│       ├── selection-decorations.ts                # Selection decoration helpers
+│       ├── rebase-transaction.ts                   # Rebase helpers used by main.ts
+│       ├── ignore-dom-event.ts                     # DOM event guard
+│       └── utils.ts                                # Misc shared helpers
 ├── ui/
 │   ├── toolbar-components.tsx    # Primary toolbar button ("Create Synced Block")
 │   ├── floating-toolbar.tsx      # Node-level actions: delete, unsync, copy link, view locations
@@ -51,6 +62,27 @@ src/
 └── types/
     └── index.ts                # FLAG_ID, SyncedBlockSharedState, BodiedSyncBlockDeletionStatus
 ```
+
+### Editor Actions
+
+This package exposes top-level **editor actions** (in `editor-actions/index.ts`)
+that products call from outside the plugin lifecycle:
+
+- `flushBodiedSyncBlocks(store)` — flush all dirty source blocks
+- `flushSyncBlocks(store)` — flush reference manager (e.g. on save)
+- `discardUnpublishedSyncBlocks(store)` — delete unpublished blocks on cancel
+  (added in EDITOR-6473; used by Confluence's editor cancel flow)
+
+### Lazy Init & Perf (EDITOR-6928 / EDITOR-6930)
+
+Behind the `editor_synced_block_perf` experiment, `main.ts`:
+- Skips creating synced-block plugin state and node-views for documents
+  with no synced blocks (`hasSyncedBlocks(doc)`).
+- Computes `statusDecorationSet` inside `apply()` and stores it on plugin
+  state, then exposes it via an O(1) `decorations` prop instead of an
+  O(n) `doc.descendants()` walk on every transaction.
+- Uses `sourceSyncBlockStoreManager.hasPendingCreations()` for an O(1)
+  pending-creation early return in `buildStatusDecorations()`.
 
 ### Key Code Patterns
 

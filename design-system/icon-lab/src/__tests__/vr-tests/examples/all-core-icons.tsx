@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::435a6e99744b3e43836493a0d726b4a5>>
+ * @codegen <<SignedSource::4737f289ff1cc7fc2c013125b97a771b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -61,6 +61,8 @@ import AssetsSchemaIcon from '../../../../core/assets-schema';
 import AtomIcon from '../../../../core/atom';
 import AudioWaveformIcon from '../../../../core/audio-waveform';
 import BeachUmbrellaIcon from '../../../../core/beach-umbrella';
+import BedIcon from '../../../../core/bed';
+import BirdIcon from '../../../../core/bird';
 import BlastRadiusIcon from '../../../../core/blast-radius';
 import BlockSyncedIcon from '../../../../core/block-synced';
 import BluetoothIcon from '../../../../core/bluetooth';
@@ -78,6 +80,7 @@ import ChartBulletIcon from '../../../../core/chart-bullet';
 import ChartExtrapolateIcon from '../../../../core/chart-extrapolate';
 import ChartFunnelIcon from '../../../../core/chart-funnel';
 import ChartScatterPlotIcon from '../../../../core/chart-scatter-plot';
+import ClockAlarmIcon from '../../../../core/clock-alarm';
 import CloudIcon from '../../../../core/cloud';
 import CloudOfflineIcon from '../../../../core/cloud-offline';
 import CloudSavedIcon from '../../../../core/cloud-saved';
@@ -253,7 +256,10 @@ import FieldSelectIcon from '../../../../core/field-select';
 import FieldTextIcon from '../../../../core/field-text';
 import FileMarkdownIcon from '../../../../core/file-markdown';
 import FileTextIcon from '../../../../core/file-text';
+import FireIcon from '../../../../core/fire';
+import FireAlarmIcon from '../../../../core/fire-alarm';
 import FlowerIcon from '../../../../core/flower';
+import FolderAddIcon from '../../../../core/folder-add';
 import FolderSharedIcon from '../../../../core/folder-shared';
 import GenerativeDateIcon from '../../../../core/generative-date';
 import GenerativeIndicatorIcon from '../../../../core/generative-indicator';
@@ -292,6 +298,8 @@ import JiraUploadIcon from '../../../../core/jira-upload';
 import JourneysIcon from '../../../../core/journeys';
 import KanbanIcon from '../../../../core/kanban';
 import KeyIcon from '../../../../core/key';
+import KeyboardIcon from '../../../../core/keyboard';
+import LassoIcon from '../../../../core/lasso';
 import LayoutFiveColumnsIcon from '../../../../core/layout-five-columns';
 import LayoutFourColumnsIcon from '../../../../core/layout-four-columns';
 import LayoutThreeColumnsSidebarsLeftIcon from '../../../../core/layout-three-columns-sidebars-left';
@@ -341,6 +349,7 @@ import RepeatIcon from '../../../../core/repeat';
 import ReplyLeftIcon from '../../../../core/reply-left';
 import ReplyRightIcon from '../../../../core/reply-right';
 import ReturnIcon from '../../../../core/return';
+import RiskIcon from '../../../../core/risk';
 import RoadmapsPlanIcon from '../../../../core/roadmaps-plan';
 import RoadmapsServiceIcon from '../../../../core/roadmaps-service';
 import RovoIcon from '../../../../core/rovo';
@@ -365,7 +374,11 @@ import SkipUnskipIcon from '../../../../core/skip-unskip';
 import SortOptionsIcon from '../../../../core/sort-options';
 import SpacesIcon from '../../../../core/spaces';
 import SpeedometerLeftIcon from '../../../../core/speedometer-left';
+import SpeedometerLeftDownIcon from '../../../../core/speedometer-left-down';
+import SpeedometerLeftUpIcon from '../../../../core/speedometer-left-up';
 import SpeedometerRightIcon from '../../../../core/speedometer-right';
+import SpeedometerRightDownIcon from '../../../../core/speedometer-right-down';
+import SpeedometerRightUpIcon from '../../../../core/speedometer-right-up';
 import SpeedometerUpIcon from '../../../../core/speedometer-up';
 import SplitParallelIcon from '../../../../core/split-parallel';
 import StampIcon from '../../../../core/stamp';
@@ -949,6 +962,19 @@ const Icons = [
 	FileTextIcon,
 	HierarchyIcon,
 	ViewSplitIcon,
+	BedIcon,
+	BirdIcon,
+	ClockAlarmIcon,
+	FireIcon,
+	FireAlarmIcon,
+	FolderAddIcon,
+	KeyboardIcon,
+	LassoIcon,
+	RiskIcon,
+	SpeedometerLeftDownIcon,
+	SpeedometerLeftUpIcon,
+	SpeedometerRightDownIcon,
+	SpeedometerRightUpIcon,
 ];
 
 const groupSize = 50;

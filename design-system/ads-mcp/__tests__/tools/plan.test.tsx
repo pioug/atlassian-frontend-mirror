@@ -1,7 +1,21 @@
 import { planTool } from '../../src/tools/plan';
+import { searchAtlaskitComponentsTool } from '../../src/tools/search-atlaskit-components';
 import { searchComponentsTool } from '../../src/tools/search-components';
 import { searchIconsTool } from '../../src/tools/search-icons';
 import { searchTokensTool } from '../../src/tools/search-tokens';
+
+jest.mock('../../src/tools/search-atlaskit-components', () => ({
+	searchAtlaskitComponentsTool: jest.fn(() =>
+		Promise.resolve({
+			content: [
+				{
+					type: 'text',
+					text: JSON.stringify(['example-atlaskit-component']),
+				},
+			],
+		}),
+	),
+}));
 
 jest.mock('../../src/tools/search-components', () => ({
 	searchComponentsTool: jest.fn(() =>
@@ -52,13 +66,14 @@ describe('ads_plan tool', () => {
 			tokens: [],
 			icons: [],
 			components: [],
+			atlaskitComponents: [],
 		});
 		expect(result).toEqual({
 			isError: true,
 			content: [
 				{
 					type: 'text',
-					text: 'Error: At least one search type (tokens_search, icons_search, or components_search) must be provided with search terms',
+					text: 'Error: At least one search type (tokens_search, icons_search, components_search, or atlaskit_components_search) must be provided with search terms',
 				},
 			],
 		});
@@ -68,11 +83,13 @@ describe('ads_plan tool', () => {
 		['search_components', searchComponentsTool, 'components'],
 		['search_icons', searchIconsTool, 'icons'],
 		['search_tokens', searchTokensTool, 'tokens'],
+		['search_atlaskit_components', searchAtlaskitComponentsTool, 'atlaskitComponents'],
 	])('Skips calling the %s tool if no terms are provided', async (_, tool, argumentKey) => {
 		const defaultToolCallParameters = {
 			tokens: [''],
 			icons: [''],
 			components: [''],
+			atlaskitComponents: [''],
 		};
 		const toolCallParameters = { ...defaultToolCallParameters, [argumentKey]: [] };
 		await planTool(toolCallParameters);
@@ -83,6 +100,7 @@ describe('ads_plan tool', () => {
 		['search_components', searchComponentsTool, 'componentsFound'],
 		['search_icons', searchIconsTool, 'iconsFound'],
 		['search_tokens', searchTokensTool, 'tokensFound'],
+		['search_atlaskit_components', searchAtlaskitComponentsTool, 'atlaskitComponentsFound'],
 	])(
 		'Sets the count to zero if there is an error from the %s tool',
 		async (_, tool, resultCountIndex) => {
@@ -93,6 +111,7 @@ describe('ads_plan tool', () => {
 				tokens: [''],
 				icons: [''],
 				components: [''],
+				atlaskitComponents: [''],
 			});
 			expect(JSON.parse(result.content[0].text).summary[resultCountIndex]).toEqual(0);
 		},
@@ -102,6 +121,7 @@ describe('ads_plan tool', () => {
 		['search_components', searchComponentsTool, 'componentsFound'],
 		['search_icons', searchIconsTool, 'iconsFound'],
 		['search_tokens', searchTokensTool, 'tokensFound'],
+		['search_atlaskit_components', searchAtlaskitComponentsTool, 'atlaskitComponentsFound'],
 	])(
 		'Sets the count to zero if the content type from %s is not "text"',
 		async (_, tool, resultCountIndex) => {
@@ -112,6 +132,7 @@ describe('ads_plan tool', () => {
 				tokens: [''],
 				icons: [''],
 				components: [''],
+				atlaskitComponents: [''],
 			});
 			expect(JSON.parse(result.content[0].text).summary[resultCountIndex]).toEqual(0);
 		},
@@ -121,6 +142,7 @@ describe('ads_plan tool', () => {
 		['search_components', searchComponentsTool, 'componentsFound'],
 		['search_icons', searchIconsTool, 'iconsFound'],
 		['search_tokens', searchTokensTool, 'tokensFound'],
+		['search_atlaskit_components', searchAtlaskitComponentsTool, 'atlaskitComponentsFound'],
 	])(
 		'Sets the count to zero if the content from %s is not valid JSON',
 		async (_, tool, resultCountIndex) => {
@@ -131,6 +153,7 @@ describe('ads_plan tool', () => {
 				tokens: [''],
 				icons: [''],
 				components: [''],
+				atlaskitComponents: [''],
 			});
 			expect(JSON.parse(result.content[0].text).summary[resultCountIndex]).toEqual(0);
 		},
@@ -141,6 +164,7 @@ describe('ads_plan tool', () => {
 			tokens: [''],
 			icons: [''],
 			components: [''],
+			atlaskitComponents: [''],
 		});
 		expect(result).toEqual({
 			content: [
@@ -173,11 +197,20 @@ describe('ads_plan tool', () => {
 										},
 									],
 								},
+								atlaskitComponents: {
+									content: [
+										{
+											type: 'text',
+											text: JSON.stringify(['example-atlaskit-component']),
+										},
+									],
+								},
 							},
 							summary: {
 								tokensFound: 1,
 								iconsFound: 1,
 								componentsFound: 1,
+								atlaskitComponentsFound: 1,
 							},
 						},
 						null,

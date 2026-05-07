@@ -52,12 +52,14 @@ describe('ProfileCardTrigger', () => {
 		hideMoreActions = false,
 		hideAiDisclaimer = false,
 		hideConversationStarters = false,
+		hideAgentActions = false,
 	}: {
 		isLoading?: boolean;
 		hasError?: boolean;
 		hideMoreActions?: boolean;
 		hideAiDisclaimer?: boolean;
 		hideConversationStarters?: boolean;
+		hideAgentActions?: boolean;
 	}) => {
 		return renderWithAnalyticsListener(
 			<IntlProvider locale="en">
@@ -69,6 +71,7 @@ describe('ProfileCardTrigger', () => {
 					hideMoreActions={hideMoreActions}
 					hideAiDisclaimer={hideAiDisclaimer}
 					hideConversationStarters={hideConversationStarters}
+					hideAgentActions={hideAgentActions}
 				/>
 			</IntlProvider>,
 		);
@@ -233,6 +236,36 @@ describe('ProfileCardTrigger', () => {
 			it('should show conversation starters even when hideConversationStarters is true', () => {
 				renderWithIntl({ hideConversationStarters: true });
 				expect(screen.getByText(conversationStarterText)).toBeInTheDocument();
+			});
+		});
+	});
+
+	describe('hideAgentActions', () => {
+		ffTest.on('issue_view_agent_discovery_fast_follows', 'feature gate enabled', () => {
+			it('should hide agent actions when hideAgentActions is true', () => {
+				renderWithIntl({ hideAgentActions: true });
+				expect(screen.queryByTestId('agent-dropdown-menu--trigger')).not.toBeInTheDocument();
+				expect(screen.queryByRole('button', { name: /chat with agent/i })).not.toBeInTheDocument();
+			});
+
+			it('should show agent actions when hideAgentActions is false', () => {
+				renderWithIntl({ hideAgentActions: false });
+				expect(screen.getByTestId('agent-dropdown-menu--trigger')).toBeInTheDocument();
+				expect(screen.getByRole('button', { name: /chat with agent/i })).toBeInTheDocument();
+			});
+
+			it('should show agent actions by default', () => {
+				renderWithIntl({});
+				expect(screen.getByTestId('agent-dropdown-menu--trigger')).toBeInTheDocument();
+				expect(screen.getByRole('button', { name: /chat with agent/i })).toBeInTheDocument();
+			});
+		});
+
+		ffTest.off('issue_view_agent_discovery_fast_follows', 'feature gate disabled', () => {
+			it('should render agent actions even when hideAgentActions is true', () => {
+				renderWithIntl({ hideAgentActions: true });
+				expect(screen.getByTestId('agent-dropdown-menu--trigger')).toBeInTheDocument();
+				expect(screen.getByRole('button', { name: /chat with agent/i })).toBeInTheDocument();
 			});
 		});
 	});

@@ -260,30 +260,59 @@ snapshot(InlineCardUnauthorisedNoAuth, {
 
 snapshot(InlineCardUnauthorisedSocialProofLowExplore, {
 	description:
-		'inline card unauthorised social proof: exploratory low-share previewing headline and short Connect label',
+		'inline card unauthorised with social proof but low percentage',
 	featureFlags: {
 		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
-		platform_sl_3p_preauth_social_proof_inline_cta: true,
+		platform_sl_3p_preauth_social_proof_inline_cta: [true, false],
+	},
+	mockRequests: [...mockEdgeTenantInfoRequests],
+});
+
+snapshot(InlineCardUnauthorisedSocialProofLowExplore, {
+	description:
+		'inline card unauthorised with social proof but low percentage - disabled FGs',
+	featureFlags: {
+		platform_sl_3p_preauth_soc_proof_inline_killswitch: false,
+		platform_sl_3p_preauth_social_proof_inline_cta: false,
 	},
 	mockRequests: [...mockEdgeTenantInfoRequests],
 });
 
 snapshot(InlineCardUnauthorisedSocialProofLoaded, {
 	description:
-		'inline card unauthorised social proof: persisted percentage previews headline (30%+) and short Connect label',
+		'inline card unauthorised with social proof',
 	featureFlags: {
 		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
-		platform_sl_3p_preauth_social_proof_inline_cta: true,
+		platform_sl_3p_preauth_social_proof_inline_cta: [true, false],
+	},
+	mockRequests: [...mockEdgeTenantInfoRequests],
+});
+
+snapshot(InlineCardUnauthorisedSocialProofLoaded, {
+	description:
+		'inline card unauthorised with social proof - disabled FGs',
+	featureFlags: {
+		platform_sl_3p_preauth_soc_proof_inline_killswitch: false,
+		platform_sl_3p_preauth_social_proof_inline_cta: false,
 	},
 	mockRequests: [...mockEdgeTenantInfoRequests],
 });
 
 snapshot(InlineCardUnauthorisedSocialProofNoContext, {
 	description:
-		'inline card unauthorised social proof: no-context percentage headline with short Connect label',
+		'inline card unauthorised social proof but no context available',
 	featureFlags: {
 		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
-		platform_sl_3p_preauth_social_proof_inline_cta: true,
+		platform_sl_3p_preauth_social_proof_inline_cta: [true, false],
+	},
+	mockRequests: [...mockEdgeTenantInfoRequests],
+});
+
+snapshot(InlineCardUnauthorisedSocialProofNoContext, {
+	description: 'inline card unauthorised social proof but no context available - disabled FGs',
+	featureFlags: {
+		platform_sl_3p_preauth_soc_proof_inline_killswitch: false,
+		platform_sl_3p_preauth_social_proof_inline_cta: false,
 	},
 	mockRequests: [...mockEdgeTenantInfoRequests],
 });

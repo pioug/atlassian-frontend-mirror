@@ -190,6 +190,7 @@ const EmojiPickerComponent = ({
 	const openTime = useRef(0);
 	const isMounting = useRef(true);
 	const previousEmojiProvider = useRef(emojiProvider);
+	const isProgrammaticScroll = useRef(false);
 	const currentUser = useMemo(() => {
 		return emojiProvider.getCurrentUser();
 	}, [emojiProvider]);
@@ -215,6 +216,12 @@ const EmojiPickerComponent = ({
 
 	const onCategoryActivated = useCallback(
 		(category: CategoryId | null) => {
+			// Ignore scroll-driven category changes while a programmatic reveal()
+			// scroll is in progress — they would flicker the indicator through
+			// intermediate categories before landing on the correct one.
+			if (isProgrammaticScroll.current && fg('platform_emoji_picker_refresh')) {
+				return;
+			}
 			if (activeCategory !== category) {
 				setActiveCategory(category);
 			}
@@ -429,7 +436,16 @@ const EmojiPickerComponent = ({
 					}
 
 					if (emojiPickerList.current) {
+						if (fg('platform_emoji_picker_refresh')) {
+							isProgrammaticScroll.current = true;
+						}
 						emojiPickerList.current.reveal(categoryId);
+						if (fg('platform_emoji_picker_refresh')) {
+							// Clear the flag after the scroll animation has settled.
+							setTimeout(() => {
+								isProgrammaticScroll.current = false;
+							}, 300);
+						}
 					}
 
 					batchedUpdates(() => {

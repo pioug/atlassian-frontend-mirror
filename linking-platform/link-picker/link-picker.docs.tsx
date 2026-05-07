@@ -20,7 +20,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		import: {
 			name: 'LinkPicker',
 			package: '@atlaskit/link-picker',
-			type: 'default',
+			type: 'named',
 			packagePath,
 			packageJson,
 		},
@@ -47,28 +47,29 @@ const documentation: ComponentStructuredContentSource[] = [
 			},
 		],
 	},
-	{
-		name: 'LoaderFallback',
-		description: 'Fallback UI shown while the LinkPicker (or its lazy-loaded parts) are loading.',
-		status: 'general-availability',
-		import: {
-			name: 'LoaderFallback',
-			package: '@atlaskit/link-picker',
-			type: 'named',
-			packagePath,
-			packageJson,
-		},
-		usageGuidelines: [
-			'Use when rendering LinkPicker lazily (e.g. via react-loosely-lazy) to show a consistent loading state until the picker is ready.',
-		],
-		contentGuidelines: [],
-		accessibilityGuidelines: [
-			'Ensure the fallback is announced as loading (e.g. aria-busy or live region) so screen reader users know content is pending.',
-		],
-		keywords: ['link-picker', 'loader', 'fallback', 'lazy'],
-		categories: ['linking', 'interaction'],
-		examples: [],
-	},
+	// Needs examples
+	// {
+	// 	name: 'LoaderFallback',
+	// 	description: 'Fallback UI shown while the LinkPicker (or its lazy-loaded parts) are loading.',
+	// 	status: 'general-availability',
+	// 	import: {
+	// 		name: 'LoaderFallback',
+	// 		package: '@atlaskit/link-picker',
+	// 		type: 'named',
+	// 		packagePath,
+	// 		packageJson,
+	// 	},
+	// 	usageGuidelines: [
+	// 		'Use when rendering LinkPicker lazily (e.g. via react-loosely-lazy) to show a consistent loading state until the picker is ready.',
+	// 	],
+	// 	contentGuidelines: [],
+	// 	accessibilityGuidelines: [
+	// 		'Ensure the fallback is announced as loading (e.g. aria-busy or live region) so screen reader users know content is pending.',
+	// 	],
+	// 	keywords: ['link-picker', 'loader', 'fallback', 'lazy'],
+	// 	categories: ['linking', 'interaction'],
+	// 	examples: [],
+	// },
 ];
 
 export default documentation;

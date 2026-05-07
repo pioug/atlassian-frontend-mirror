@@ -5,28 +5,19 @@ import type { TableDirection } from '../../types';
 import {
 	tableInsertColumnButtonOffset,
 	tableInsertColumnButtonSize,
-	tableToolbarSize,
 } from '../consts';
 
 const HORIZONTAL_ALIGN_COLUMN_BUTTON = -(tableInsertColumnButtonSize / 2);
 const HORIZONTAL_ALIGN_NUMBERED_COLUMN_BUTTON =
 	HORIZONTAL_ALIGN_COLUMN_BUTTON + akEditorTableNumberColumnWidth;
 
-const VERTICAL_ALIGN_COLUMN_BUTTON = tableToolbarSize + tableInsertColumnButtonOffset;
-
 const VERTICAL_ALIGN_COLUMN_BUTTON_DRAG = tableInsertColumnButtonOffset;
-
-const HORIZONTAL_ALIGN_ROW_BUTTON = -(
-	tableToolbarSize +
-	tableInsertColumnButtonOffset +
-	tableInsertColumnButtonSize
-);
 
 const HORIZONTAL_ALIGN_ROW_BUTTON_DRAG = -18;
 
 const VERTICAL_ALIGN_ROW_BUTTON = tableInsertColumnButtonSize / 2;
 
-function getRowOptions(index: number, isDragAndDropEnabled: boolean): Partial<PopupProps> {
+function getRowOptions(index: number): Partial<PopupProps> {
 	let defaultOptions = {
 		alignX: 'left',
 		alignY: 'bottom',
@@ -48,7 +39,7 @@ function getRowOptions(index: number, isDragAndDropEnabled: boolean): Partial<Po
 			return {
 				...position,
 				// Left position should be always the offset (To place in the correct position even if the table has overflow).
-				left: isDragAndDropEnabled ? HORIZONTAL_ALIGN_ROW_BUTTON_DRAG : HORIZONTAL_ALIGN_ROW_BUTTON,
+				left: HORIZONTAL_ALIGN_ROW_BUTTON_DRAG,
 			};
 		},
 	};
@@ -58,14 +49,13 @@ function getColumnOptions(
 	index: number,
 	tableContainer: HTMLElement | null,
 	hasNumberedColumns: boolean,
-	isDragAndDropEnabled: boolean,
 ): Partial<PopupProps> {
 	const options: Partial<PopupProps> = {
 		alignX: 'end',
 		alignY: 'top',
 		offset: [
 			HORIZONTAL_ALIGN_COLUMN_BUTTON,
-			isDragAndDropEnabled ? VERTICAL_ALIGN_COLUMN_BUTTON_DRAG : VERTICAL_ALIGN_COLUMN_BUTTON,
+			VERTICAL_ALIGN_COLUMN_BUTTON_DRAG,
 		],
 		// :: (position: PopupPosition) -> PopupPosition
 		// Limit the InsertButton position to the table container
@@ -115,14 +105,13 @@ function getPopupOptions(
 	direction: TableDirection,
 	index: number,
 	hasNumberedColumns: boolean,
-	isDragAndDropEnabled: boolean,
 	tableContainer: HTMLElement | null,
 ): Partial<PopupProps> {
 	switch (direction) {
 		case 'column':
-			return getColumnOptions(index, tableContainer, hasNumberedColumns, isDragAndDropEnabled);
+			return getColumnOptions(index, tableContainer, hasNumberedColumns);
 		case 'row':
-			return getRowOptions(index, isDragAndDropEnabled);
+			return getRowOptions(index);
 		default:
 			return {};
 	}

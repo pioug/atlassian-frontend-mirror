@@ -17,9 +17,9 @@ const documentation: ComponentStructuredContentSource[] = [
 		description: 'BlockMenu plugin for @atlaskit/editor-core',
 		status: 'general-availability',
 		import: {
-			name: 'Editor Plugin Block Menu',
+			name: 'blockMenuPlugin',
 			package: '@atlaskit/editor-plugin-block-menu',
-			type: 'default',
+			type: 'named',
 			packagePath,
 			packageJson,
 		},

@@ -1,25 +1,24 @@
 import { StorageClient } from '@atlaskit/frontend-utilities/storage-client';
 
-import { getCurrentSiteCloudId, getCachedCurrentSiteCloudIdAndRefresh } from '../current-site-cloud-id';
+import { getCurrentSiteCloudId, getCurrentSiteCloudIdSync } from '../current-site-cloud-id';
 
 import type { PersonalizationTrait, ProviderPctMap } from './types';
 
 const BASE_URL = '/gateway/api/tap-delivery/api/v3/personalization';
 
-/**
- * Logical key shape: `@atlaskit/smart-card:<feature>:<schema-version>:<scope>` (see smart-card
- * storage conventions). {@link StorageClient} narrows the localStorage key to
- * `<clientKey>_<itemKey>` with `clientKey === '@atlaskit/smart-card'` and
- * `itemKey === 'pct-map:v1:<cloudId>:<traitName>'` (scope segments URI-encoded).
- */
-export const PERSONALIZATION_STORAGE_SCOPE: string = '@atlaskit/smart-card';
-
-export const PERSONALIZATION_STORAGE_ITEM_KEY_PREFIX: string = 'pct-map:v1:';
+export const PERSONALIZATION_STORAGE_SCOPE = 'smart-card-social-proof';
+export const PERSONALIZATION_STORAGE_ITEM_KEY_PREFIX = 'pct-map:v1:';
+export const PERSONALIZATION_PROVIDER_PCT_TTL_MS = 24 * 60 * 60 * 1000;
+export const SOCIAL_PROOF_TRAIT_NAME = 'sl_3p_connected_providers_site_pct';
 
 const smartCardStorage = new StorageClient(PERSONALIZATION_STORAGE_SCOPE);
 
 /** Keys written by this service in localStorage when using {@link smartCardStorage}. */
 const LOCAL_STORAGE_ROW_KEY_PREFIX = `${PERSONALIZATION_STORAGE_SCOPE}_${PERSONALIZATION_STORAGE_ITEM_KEY_PREFIX}`;
+
+function scopedCacheKey(cloudId: string, traitName: string): string {
+	return `${cloudId}:${traitName}`;
+}
 
 function pctMapStorageItemKey(cloudId: string, traitName: string): string {
 	return `${PERSONALIZATION_STORAGE_ITEM_KEY_PREFIX}${encodeURIComponent(cloudId)}:${encodeURIComponent(
@@ -50,29 +49,30 @@ async function fetchSiteTraits(cloudId: string): Promise<PersonalizationTrait[]>
 export class PersonalizationService {
 	private cache = new Map<string, Promise<ProviderPctMap | undefined>>();
 
-	/**
-	 * Returns the currently cached provider percentage map synchronously and starts a background refresh.
-	 * The refresh result is persisted for future calls but is not awaited by this call.
-	 */
-	getCachedProviderPctMapAndRefresh(traitName: string): ProviderPctMap | null {
-		const cloudId = getCachedCurrentSiteCloudIdAndRefresh();
-		const fromStorage = (cloudId && this.readStoredProviderPctMap(cloudId, traitName)) || null;
-		void this.getProviderPctMap(traitName);
-		return fromStorage;
+	/** Pure synchronous read for an explicit cloud id / trait pair. */
+	getProviderPctMapSync(cloudId: string | undefined, traitName: string): ProviderPctMap | null {
+		if (!cloudId) {
+			return null;
+		}
+		return this.readStoredProviderPctMap(cloudId, traitName);
 	}
 
-	async getProviderPctMap(traitName: string): Promise<ProviderPctMap | undefined> {
-		const cachedPromise = this.cache.get(traitName);
+	async getProviderPctMap(
+		cloudId: string | undefined,
+		traitName: string,
+	): Promise<ProviderPctMap | undefined> {
+		if (!cloudId) {
+			return undefined;
+		}
+
+		const cacheKey = scopedCacheKey(cloudId, traitName);
+		const cachedPromise = this.cache.get(cacheKey);
 		if (cachedPromise) {
 			return cachedPromise;
 		}
 
 		const promise = (async (): Promise<ProviderPctMap | undefined> => {
 			try {
-				const cloudId = await getCurrentSiteCloudId();
-				if (!cloudId) {
-					return undefined;
-				}
 				const traits = await fetchSiteTraits(cloudId);
 				const trait = traits.find((t) => t.name === traitName);
 				const mapped = this.parseTraitValue(trait?.value);
@@ -85,8 +85,12 @@ export class PersonalizationService {
 			}
 		})();
 
-		this.cache.set(traitName, promise);
-		return promise;
+		const retryablePromise = promise.finally(() => {
+			this.cache.delete(cacheKey);
+		});
+
+		this.cache.set(cacheKey, retryablePromise);
+		return retryablePromise;
 	}
 
 	private readStoredProviderPctMap(cloudId: string, traitName: string): ProviderPctMap | null {
@@ -103,7 +107,11 @@ export class PersonalizationService {
 
 	private writeStoredProviderPctMap(cloudId: string, traitName: string, map: ProviderPctMap): void {
 		try {
-			smartCardStorage.setItemWithExpiry(pctMapStorageItemKey(cloudId, traitName), map);
+			smartCardStorage.setItemWithExpiry(
+				pctMapStorageItemKey(cloudId, traitName),
+				map,
+				PERSONALIZATION_PROVIDER_PCT_TTL_MS,
+			);
 		} catch {
 			// Quota, private-mode, etc.
 		}
@@ -174,23 +182,34 @@ export class PersonalizationService {
 	}
 }
 
-export const personalizationService: PersonalizationService = new PersonalizationService();
+export const personalizationService = new PersonalizationService();
 
-/**
- * Resolves the provider percentage map for a TAP Delivery trait through the module-level
- * {@link personalizationService}. Work is deduped per trait name for the page lifetime, and a
- * successful response is persisted by cloud id and trait name for later cached reads.
- */
-export const getProviderPctMap: (traitName: string) => Promise<ProviderPctMap | undefined> = (
+export const getProviderPctMap = (
+	cloudId: string | undefined,
 	traitName: string,
-): Promise<ProviderPctMap | undefined> => personalizationService.getProviderPctMap(traitName);
+): Promise<ProviderPctMap | undefined> => personalizationService.getProviderPctMap(cloudId, traitName);
+
+export function getProviderPctMapSync(
+	cloudId: string | undefined,
+	traitName: string,
+): ProviderPctMap | null {
+	return personalizationService.getProviderPctMapSync(cloudId, traitName);
+}
 
 /**
- * Reads the provider percentage map for a trait from browser storage via the module-level
- * {@link personalizationService} singleton, without awaiting network work.
- * Calling this also starts the trait-scoped shared refresh in the background, so a later call can
- * use a refreshed value when it becomes available.
+ * Backwards-compatible cache-first helper for inline-card social proof callers.
+ *
+ * Reads the persisted provider percentage map synchronously using the current site cloud id, then
+ * starts a background refresh for subsequent mounts. The async result intentionally does not affect
+ * the current call site, matching the warm-cache-only rendering contract.
  */
 export function getCachedProviderPctMapAndRefresh(traitName: string): ProviderPctMap | null {
-	return personalizationService.getCachedProviderPctMapAndRefresh(traitName);
+	const cloudId = getCurrentSiteCloudIdSync();
+	const providerPctMap = getProviderPctMapSync(cloudId, traitName);
+
+	void getCurrentSiteCloudId().then((resolvedCloudId) => {
+		void getProviderPctMap(resolvedCloudId, traitName);
+	});
+
+	return providerPctMap;
 }

@@ -1007,7 +1007,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 						ref={handleEditorViewRef}
 						aria-label={
 							assistiveLabel ||
-							(isPageAppearance && fg('platform_editor_a11y_9262')
+							(isPageAppearance
 								? props.intl.formatMessage(editorMessages.fullPageEditorAssistiveLabel)
 								: props.intl.formatMessage(editorMessages.editorAssistiveLabel))
 						}
@@ -1204,7 +1204,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				key="ProseMirror"
 				aria-label={
 					assistiveLabel ||
-					(isPageAppearance && fg('platform_editor_a11y_9262')
+					(isPageAppearance
 						? props.intl.formatMessage(editorMessages.fullPageEditorAssistiveLabel)
 						: props.intl.formatMessage(editorMessages.editorAssistiveLabel))
 				}

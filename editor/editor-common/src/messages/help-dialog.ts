@@ -229,7 +229,8 @@ export const helpDialogMessages: {
 	openCellOptions: {
 		id: 'fabric.editor.openCellOptions',
 		defaultMessage: 'Open cell options',
-		description: 'Keyboard shortcut to open cell options.',
+		description:
+			'Label for a keyboard shortcut listed in the editor help dialog that opens the cell options menu for the currently focused table cell.',
 	},
 	focusTableResizeHandle: {
 		id: 'fabric.editor.focusTableResizeHandle',

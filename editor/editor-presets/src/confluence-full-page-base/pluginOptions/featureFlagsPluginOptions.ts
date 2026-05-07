@@ -20,7 +20,6 @@ export function featureFlagsPluginOptions({}: Props): FeatureFlagsPluginOptions 
 		 * but cannot yet be cleaned up from editor component as pending rollout in other products first
 		 */
 		lpLinkPicker: true,
-		tableDragAndDrop: true,
 		tableWithFixedColumnWidthsOption: true,
 		// END SECTION
 

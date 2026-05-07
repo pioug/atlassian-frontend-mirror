@@ -1,5 +1,25 @@
 # @atlaskit/renderer
 
+## 130.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 130.3.4
+
+### Patch Changes
+
+- [`a8072810efd38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8072810efd38) -
+  Cleanup platform_editor_ai_adf_prompts_in_all_products feature gate
+- Updated dependencies
+
+## 130.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 130.3.2
 
 ### Patch Changes

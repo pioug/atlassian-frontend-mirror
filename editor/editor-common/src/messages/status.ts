@@ -30,7 +30,8 @@ export const messages: {
 	statusEditorLabel: {
 		id: 'fabric.editor.statusEditorLabel',
 		defaultMessage: 'Status editor',
-		description: 'Label for the status element editor',
+		description:
+			'Accessible label for the status element editor panel that appears when a user clicks on a status badge in the editor to modify it.',
 	},
 	placeholder: {
 		id: 'fabric.editor.statusPlaceholder',

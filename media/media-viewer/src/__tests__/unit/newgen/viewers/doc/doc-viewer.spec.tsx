@@ -8,7 +8,9 @@ import {
 	createServerUnauthorizedError,
 } from '@atlaskit/media-client/test-helpers';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
+import type { FileState } from '@atlaskit/media-client';
 import { RequestError } from '@atlaskit/media-client';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { DocViewer } from '../../../../../viewers/doc/doc-viewer';
 
 const traceContext = { traceId: 'some-trace-id' };
@@ -25,7 +27,7 @@ const createPasswordRequiredError = () =>
 // but make sure it calls the content callback to trigger password flow
 jest.mock('@atlaskit/media-document-viewer', () => ({
 	__esModule: true,
-	DocumentViewer: ({ getContent, zoom, onSuccess }: any) => {
+	DocumentViewer: jest.fn(({ getContent, zoom, onSuccess, enableLazyPageRendering }: any) => {
 		// Call getContent to test error handling paths and trigger password flow
 		React.useEffect(() => {
 			getContent(0, 1)
@@ -39,11 +41,15 @@ jest.mock('@atlaskit/media-document-viewer', () => ({
 		}, [getContent, onSuccess]);
 
 		return (
-			<div data-testid="media-document-viewer" data-zoom={zoom}>
+			<div
+				data-testid="media-document-viewer"
+				data-zoom={zoom}
+				data-enable-lazy-page-rendering={enableLazyPageRendering}
+			>
 				<div data-testid="document-content">Document Content</div>
 			</div>
 		);
-	},
+	}),
 	DOCUMENT_SCROLL_ROOT_ID: 'document-scroll-root',
 }));
 
@@ -512,6 +518,271 @@ describe('<DocViewer />', () => {
 						password: '',
 					},
 					traceContext,
+				);
+			});
+		});
+	});
+
+	describe('T5.8 — platform_media_excel_lazy_load gate wiring', () => {
+		ffTest.on('platform_media_excel_lazy_load', 'when gate is ON', () => {
+			it('should pass enableLazyPageRendering=true for xlsx mime type', async () => {
+				const [fileItem] = generateSampleFileItem.workingPdfWithRemotePreview();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				jest.spyOn(mediaApi, 'getDocumentContent').mockResolvedValue(mockDocumentContent);
+				jest.spyOn(mediaApi, 'getDocumentPageImage').mockResolvedValue(new Blob());
+
+				const fileState = {
+					...fileItem,
+					status: 'processed' as const,
+					name: 'test.xlsx',
+					size: 1000,
+					mediaType: 'document',
+					mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+					artifacts: {},
+				} as unknown as FileState;
+
+				render(
+					<IntlProvider locale="en">
+						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+							<DocViewer
+								mediaClient={{ mediaStore: mediaApi } as any}
+								fileState={fileState}
+								collectionName="test-collection"
+								onError={mockOnError}
+								onSuccess={mockOnSuccess}
+								traceContext={traceContext}
+							/>
+						</MockedMediaClientProvider>
+					</IntlProvider>,
+				);
+
+				await screen.findByTestId('media-document-viewer');
+
+				// Verify DocumentViewer was called with enableLazyPageRendering={true}
+				const mockDocumentViewer = require('@atlaskit/media-document-viewer').DocumentViewer;
+				expect(mockDocumentViewer).toHaveBeenCalledWith(
+					expect.objectContaining({
+						enableLazyPageRendering: true,
+					}),
+					expect.anything(),
+				);
+			});
+
+			it('should pass enableLazyPageRendering=true for xls mime type', async () => {
+				const [fileItem] = generateSampleFileItem.workingPdfWithRemotePreview();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				jest.spyOn(mediaApi, 'getDocumentContent').mockResolvedValue(mockDocumentContent);
+				jest.spyOn(mediaApi, 'getDocumentPageImage').mockResolvedValue(new Blob());
+
+				const fileState = {
+					...fileItem,
+					status: 'processed' as const,
+					name: 'test.xls',
+					size: 1000,
+					mediaType: 'document',
+					mimeType: 'application/vnd.ms-excel',
+					artifacts: {},
+				} as unknown as FileState;
+
+				render(
+					<IntlProvider locale="en">
+						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+							<DocViewer
+								mediaClient={{ mediaStore: mediaApi } as any}
+								fileState={fileState}
+								collectionName="test-collection"
+								onError={mockOnError}
+								onSuccess={mockOnSuccess}
+								traceContext={traceContext}
+							/>
+						</MockedMediaClientProvider>
+					</IntlProvider>,
+				);
+
+				await screen.findByTestId('media-document-viewer');
+
+				const mockDocumentViewer = require('@atlaskit/media-document-viewer').DocumentViewer;
+				expect(mockDocumentViewer).toHaveBeenCalledWith(
+					expect.objectContaining({
+						enableLazyPageRendering: true,
+					}),
+					expect.anything(),
+				);
+			});
+
+			it('should pass enableLazyPageRendering=true for xlsb mime type', async () => {
+				const [fileItem] = generateSampleFileItem.workingPdfWithRemotePreview();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				jest.spyOn(mediaApi, 'getDocumentContent').mockResolvedValue(mockDocumentContent);
+				jest.spyOn(mediaApi, 'getDocumentPageImage').mockResolvedValue(new Blob());
+
+				const fileState = {
+					...fileItem,
+					status: 'processed' as const,
+					name: 'test.xlsb',
+					size: 1000,
+					mediaType: 'document',
+					mimeType: 'application/vnd.ms-excel.sheet.binary.macroEnabled.12',
+					artifacts: {},
+				} as unknown as FileState;
+
+				render(
+					<IntlProvider locale="en">
+						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+							<DocViewer
+								mediaClient={{ mediaStore: mediaApi } as any}
+								fileState={fileState}
+								collectionName="test-collection"
+								onError={mockOnError}
+								onSuccess={mockOnSuccess}
+								traceContext={traceContext}
+							/>
+						</MockedMediaClientProvider>
+					</IntlProvider>,
+				);
+
+				await screen.findByTestId('media-document-viewer');
+
+				const mockDocumentViewer = require('@atlaskit/media-document-viewer').DocumentViewer;
+				expect(mockDocumentViewer).toHaveBeenCalledWith(
+					expect.objectContaining({
+						enableLazyPageRendering: true,
+					}),
+					expect.anything(),
+				);
+			});
+
+			it('should pass enableLazyPageRendering=true for xlsm mime type', async () => {
+				const [fileItem] = generateSampleFileItem.workingPdfWithRemotePreview();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				jest.spyOn(mediaApi, 'getDocumentContent').mockResolvedValue(mockDocumentContent);
+				jest.spyOn(mediaApi, 'getDocumentPageImage').mockResolvedValue(new Blob());
+
+				const fileState = {
+					...fileItem,
+					status: 'processed' as const,
+					name: 'test.xlsm',
+					size: 1000,
+					mediaType: 'document',
+					mimeType: 'application/vnd.ms-excel.sheet.macroEnabled.12',
+					artifacts: {},
+				} as unknown as FileState;
+
+				render(
+					<IntlProvider locale="en">
+						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+							<DocViewer
+								mediaClient={{ mediaStore: mediaApi } as any}
+								fileState={fileState}
+								collectionName="test-collection"
+								onError={mockOnError}
+								onSuccess={mockOnSuccess}
+								traceContext={traceContext}
+							/>
+						</MockedMediaClientProvider>
+					</IntlProvider>,
+				);
+
+				await screen.findByTestId('media-document-viewer');
+
+				const mockDocumentViewer = require('@atlaskit/media-document-viewer').DocumentViewer;
+				expect(mockDocumentViewer).toHaveBeenCalledWith(
+					expect.objectContaining({
+						enableLazyPageRendering: true,
+					}),
+					expect.anything(),
+				);
+			});
+		});
+
+		it('should pass enableLazyPageRendering=false for pdf mime type regardless of gate state', async () => {
+			const [fileItem] = generateSampleFileItem.workingPdfWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			jest.spyOn(mediaApi, 'getDocumentContent').mockResolvedValue(mockDocumentContent);
+			jest.spyOn(mediaApi, 'getDocumentPageImage').mockResolvedValue(new Blob());
+
+			const fileState = {
+				...fileItem,
+				status: 'processed' as const,
+				name: 'test.pdf',
+				size: 1000,
+				mediaType: 'document',
+				mimeType: 'application/pdf',
+				artifacts: {},
+			} as unknown as FileState;
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<DocViewer
+							mediaClient={{ mediaStore: mediaApi } as any}
+							fileState={fileState}
+							collectionName="test-collection"
+							onError={mockOnError}
+							onSuccess={mockOnSuccess}
+							traceContext={traceContext}
+						/>
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+
+			await screen.findByTestId('media-document-viewer');
+
+			const mockDocumentViewer = require('@atlaskit/media-document-viewer').DocumentViewer;
+			expect(mockDocumentViewer).toHaveBeenCalledWith(
+				expect.objectContaining({
+					enableLazyPageRendering: false,
+				}),
+				expect.anything(),
+			);
+		});
+
+		ffTest.off('platform_media_excel_lazy_load', 'when gate is OFF', () => {
+			it('should pass enableLazyPageRendering=false for xlsx even when Excel mimetype', async () => {
+				const [fileItem] = generateSampleFileItem.workingPdfWithRemotePreview();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				jest.spyOn(mediaApi, 'getDocumentContent').mockResolvedValue(mockDocumentContent);
+				jest.spyOn(mediaApi, 'getDocumentPageImage').mockResolvedValue(new Blob());
+
+				const fileState = {
+					...fileItem,
+					status: 'processed' as const,
+					name: 'test.xlsx',
+					size: 1000,
+					mediaType: 'document',
+					mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+					artifacts: {},
+				} as unknown as FileState;
+
+				render(
+					<IntlProvider locale="en">
+						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+							<DocViewer
+								mediaClient={{ mediaStore: mediaApi } as any}
+								fileState={fileState}
+								collectionName="test-collection"
+								onError={mockOnError}
+								onSuccess={mockOnSuccess}
+								traceContext={traceContext}
+							/>
+						</MockedMediaClientProvider>
+					</IntlProvider>,
+				);
+
+				await screen.findByTestId('media-document-viewer');
+
+				const mockDocumentViewer = require('@atlaskit/media-document-viewer').DocumentViewer;
+				expect(mockDocumentViewer).toHaveBeenCalledWith(
+					expect.objectContaining({
+						enableLazyPageRendering: false,
+					}),
+					expect.anything(),
 				);
 			});
 		});

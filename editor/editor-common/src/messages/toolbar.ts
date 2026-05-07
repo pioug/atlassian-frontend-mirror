@@ -218,7 +218,8 @@ export const toolbarMessages: {
 	navigateToEditorToolbar: {
 		id: 'fabric.editor.navigate.toolbar.editor',
 		defaultMessage: 'Navigate to editor toolbar',
-		description: 'Navigate to the main editor toolbar.',
+		description:
+			'Label for the keyboard shortcut action that moves focus to the main editor toolbar, allowing keyboard users to access toolbar buttons.',
 	},
 	navigateToFloatingToolbar: {
 		id: 'fabric.editor.navigate.toolbar.floating',

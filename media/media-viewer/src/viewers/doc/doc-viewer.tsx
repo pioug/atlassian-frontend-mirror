@@ -9,11 +9,14 @@ import { type MediaClient, type FileState, isCommonMediaClientError } from '@atl
 import { DOCUMENT_SCROLL_ROOT_ID, DocumentViewer } from '@atlaskit/media-document-viewer';
 import { type MediaTraceContext } from '@atlaskit/media-common';
 import { useStaticCallback } from '@atlaskit/media-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { MediaViewerError } from '../../errors';
 import { ZoomControls } from '../../zoomControls';
 import { ZoomLevel } from '../../domain/zoomLevel';
 import { PasswordInput } from './passwordInput';
 import Spinner from '@atlaskit/spinner';
+
+import { isExcelFile } from '@atlaskit/media-common/mediaTypeUtils';
 
 type Props = {
 	mediaClient: MediaClient;
@@ -122,6 +125,13 @@ export const DocViewer = ({
 	traceContext,
 }: Props): JSX.Element => {
 	const [state, dispatch] = useReducer(reducer, initialState);
+
+	// Compute enableLazyPageRendering based on Excel file detection and feature gate
+	// Excel files are found to have 60K pages, because excel can have thousand of empty rows, JST-1296681
+	const isExcel =
+		fileState.status !== 'error' && isExcelFile(fileState.mimeType ?? '');
+	const enableLazyPageRendering = isExcel && fg('platform_media_excel_lazy_load');
+
 	const getContent = useStaticCallback(async (pageStart: number, pageEnd: number) => {
 		try {
 			return await mediaClient.mediaStore.getDocumentContent(
@@ -225,6 +235,7 @@ export const DocViewer = ({
 					getPageImageUrl={getPageImageUrl}
 					zoom={state.zoomLevel.value}
 					onSuccess={onSuccessHandler}
+					enableLazyPageRendering={enableLazyPageRendering}
 				/>
 				<ZoomControls onChange={onZoomChange} zoomLevel={state.zoomLevel} />
 			</div>

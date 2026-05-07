@@ -439,12 +439,14 @@ export type AgentProfileCardProps = {
 	errorType?: ProfileCardErrorType;
 	addFlag?: (flag: Flag) => void;
 	onDeleteAgent?: (agentId: string) => { restore: () => void };
-	/** Hide the Agent more actions dropdown when true */
+	/** Hide the Agent more actions dropdown when true, is also hidden when hideAgentActions is true */
 	hideMoreActions?: boolean;
 	/** Hide the AI disclaimer. Defaults to false (disclaimer is shown by default). */
 	hideAiDisclaimer?: boolean;
 	/** Hide the conversation starters. Defaults to false (conversation starters are shown by default). */
 	hideConversationStarters?: boolean;
+	/** Hide the agent actions (chat button and dropdown menu). Defaults to false (agent actions are shown by default). */
+	hideAgentActions?: boolean;
 } & AgentActionsType;
 
 export type StatusType = 'active' | 'inactive' | 'closed';

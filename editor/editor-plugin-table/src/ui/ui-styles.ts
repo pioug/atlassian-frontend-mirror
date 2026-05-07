@@ -5,7 +5,6 @@ import { css, type SerializedStyles } from '@emotion/react';
 import {
 	tableCellBorderWidth,
 	tableMarginTop,
-	tableMarginTopWithControl,
 } from '@atlaskit/editor-common/styles';
 import {
 	akEditorShadowZIndex,
@@ -332,7 +331,7 @@ export const DeleteButton = (): SerializedStyles => css`
 	}
 `;
 
-export const OverflowShadow = (isDragAndDropEnabled: boolean | undefined): SerializedStyles => css`
+export const OverflowShadow = (): SerializedStyles => css`
 	.${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {
 		display: block;
 		height: calc(100% - ${tableMarginTop}px);
@@ -362,23 +361,11 @@ export const OverflowShadow = (isDragAndDropEnabled: boolean | undefined): Seria
 		left: calc(100% - ${tableOverflowShadowWidthWide}px);
 	}
 	.${ClassName.WITH_CONTROLS} {
-		${overflowShadowWidhoutDnD(isDragAndDropEnabled)}
 		.${ClassName.TABLE_LEFT_SHADOW} {
 			border-left: 1px solid ${tableBorderColor};
 		}
 	}
 `;
-
-const overflowShadowWidhoutDnD = (isDragAndDropEnabled: boolean | undefined) => {
-	if (!isDragAndDropEnabled) {
-		return css`
-			.${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {
-				height: calc(100% - ${tableMarginTopWithControl}px);
-				top: ${tableMarginTopWithControl}px;
-			}
-		`;
-	}
-};
 
 export const OverflowShadowLessPadding = (
 	tableOverflowShadowWidth: number,

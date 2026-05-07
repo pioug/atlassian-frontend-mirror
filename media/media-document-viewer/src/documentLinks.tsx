@@ -15,7 +15,21 @@ const anchorStyles = {
 	height: '100%',
 };
 
-const DocumentLink = ({ link, dataTestId }: { link: Link; dataTestId?: string }) => {
+const DocumentLink = ({
+	link,
+	dataTestId,
+	appendUpTo,
+}: {
+	link: Link;
+	dataTestId?: string;
+	/**
+	 * Called when a local `#page-N` anchor is clicked inside the document.
+	 * Fast-forwards the lazy page count so `id="page-N"` exists in the DOM
+	 * before the browser performs the native anchor scroll.
+	 * Only provided when `enableLazyPageRendering` is true.
+	 */
+	appendUpTo?: (n: number) => void;
+}) => {
 	return (
 		<foreignObject x={link.x} y={-link.y} width={link.w} height={link.h} data-testid={dataTestId}>
 			{link.type === 'uri' ? (
@@ -27,17 +41,33 @@ const DocumentLink = ({ link, dataTestId }: { link: Link; dataTestId?: string })
 					style={anchorStyles}
 				/>
 			) : (
-				<Anchor {...foreignObjectProps} href={`#page-${link.p_num + 1}`} style={anchorStyles} />
+				<Anchor
+					{...foreignObjectProps}
+					href={`#page-${link.p_num + 1}`}
+					style={anchorStyles}
+					onClick={appendUpTo ? () => appendUpTo(link.p_num + 1) : undefined}
+				/>
 			)}
 		</foreignObject>
 	);
 };
 
-export const DocumentLinks = ({ links }: { links: readonly Link[] }): React.JSX.Element => {
+export const DocumentLinks = ({
+	links,
+	appendUpTo,
+}: {
+	links: readonly Link[];
+	appendUpTo?: (n: number) => void;
+}): React.JSX.Element => {
 	return (
 		<>
 			{links.map((link, i) => (
-				<DocumentLink link={link} dataTestId={`document-link-${i}`} key={i} />
+				<DocumentLink
+					link={link}
+					dataTestId={`document-link-${i}`}
+					appendUpTo={appendUpTo}
+					key={i}
+				/>
 			))}
 		</>
 	);

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::3ee81a49c496b666b13e3bf9ad90dfce>>
+ * @codegen <<SignedSource::04fd5a589800e3adb7c8a1bf7ea8025f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -53,6 +53,7 @@ import AudioIcon from '../../../../../core/audio';
 import AutomationIcon from '../../../../../core/automation';
 import BacklogIcon from '../../../../../core/backlog';
 import BasketballIcon from '../../../../../core/basketball';
+import BezierCurveIcon from '../../../../../core/bezier-curve';
 import BoardIcon from '../../../../../core/board';
 import BoardsIcon from '../../../../../core/boards';
 import BookWithBookmarkIcon from '../../../../../core/book-with-bookmark';
@@ -147,6 +148,12 @@ import FieldAlertIcon from '../../../../../core/field-alert';
 import FieldCheckboxGroupIcon from '../../../../../core/field-checkbox-group';
 import FieldDropdownIcon from '../../../../../core/field-dropdown';
 import FieldRadioGroupIcon from '../../../../../core/field-radio-group';
+import FigmaIcon from '../../../../../core/figma';
+import FigmaCommunityIcon from '../../../../../core/figma-community';
+import FigmaComponentIcon from '../../../../../core/figma-component';
+import FigmaComponentInstanceIcon from '../../../../../core/figma-component-instance';
+import FigmaComponentInstanceSwapIcon from '../../../../../core/figma-component-instance-swap';
+import FigmaSlotIcon from '../../../../../core/figma-slot';
 import FileIcon from '../../../../../core/file';
 import FilesIcon from '../../../../../core/files';
 import FilterIcon from '../../../../../core/filter';
@@ -760,6 +767,13 @@ const Icons = [
 	CheckCircleUncheckedIcon,
 	AiSparkleIcon,
 	QuotationBlockIcon,
+	BezierCurveIcon,
+	FigmaIcon,
+	FigmaCommunityIcon,
+	FigmaComponentIcon,
+	FigmaComponentInstanceIcon,
+	FigmaComponentInstanceSwapIcon,
+	FigmaSlotIcon,
 ];
 
 const groupSize = 50;

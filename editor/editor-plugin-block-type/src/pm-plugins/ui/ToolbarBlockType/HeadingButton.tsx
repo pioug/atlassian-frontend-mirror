@@ -7,7 +7,7 @@
 import { css } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import { jsx, cssMap } from '@atlaskit/css';
+import { jsx } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	formatShortcut,
@@ -27,9 +27,7 @@ import { editorUGCToken } from '@atlaskit/editor-common/ugc-tokens';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ToolbarDropdownItem, ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar';
-import { Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { token } from '@atlaskit/tokens';
 
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
 import type { TextBlockTypes } from '../../block-types';
@@ -100,33 +98,6 @@ const HeadingText = ({ children, headingType }: HeadingTextProps): React.JSX.Ele
 	}
 };
 
-const headingSizeStylesMap = cssMap({
-	normal: {
-		font: token('font.body'),
-	},
-	smallText: {
-		font: token('font.body'),
-	},
-	heading1: {
-		font: token('font.heading.xlarge'),
-	},
-	heading2: {
-		font: token('font.heading.large'),
-	},
-	heading3: {
-		font: token('font.heading.medium'),
-	},
-	heading4: {
-		font: token('font.heading.small'),
-	},
-	heading5: {
-		font: token('font.heading.xsmall'),
-	},
-	heading6: {
-		font: token('font.heading.xxsmall'),
-	},
-});
-
 const shortcuts: Record<TextBlockTypes, Keymap> = {
 	normal: setNormalText,
 	smallText: toggleSmallText,
@@ -196,15 +167,9 @@ export const HeadingButton = ({ blockType, api }: HeadingButtonProps): React.JSX
 			isDisabled={isDisabled}
 			ariaKeyshortcuts={shortcut}
 		>
-			{expValEquals('platform_editor_toolbar_aifc_use_editor_typography', 'isEnabled', true) ? (
-				<HeadingText headingType={blockType.name as TextBlockTypes}>
-					{formatMessage(blockType.title)}
-				</HeadingText>
-			) : (
-				<Box xcss={headingSizeStylesMap[blockType.name as TextBlockTypes]}>
-					{formatMessage(blockType.title)}
-				</Box>
-			)}
+			<HeadingText headingType={blockType.name as TextBlockTypes}>
+			{formatMessage(blockType.title)}
+		</HeadingText>
 		</ToolbarDropdownItem>
 	);
 };

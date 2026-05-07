@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-alignment",
-	"version": "11.0.13",
+	"version": "11.0.15",
 	"description": "Alignment plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

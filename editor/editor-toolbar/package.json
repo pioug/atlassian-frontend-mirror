@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "1.0.16",
+	"version": "1.0.18",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"react-compiler": {

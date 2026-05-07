@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-type
 
+## 14.0.15
+
+### Patch Changes
+
+- [`7bfc7106b79c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7bfc7106b79c7) -
+  Clean up platform_editor_toolbar_aifc_use_editor_typography experiment.
+- Updated dependencies
+
+## 14.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.13
 
 ### Patch Changes

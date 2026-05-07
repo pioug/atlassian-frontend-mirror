@@ -41,7 +41,8 @@ const messages = defineMessages({
 	defaultAltText: {
 		id: 'fabric.editor.defaultAltText',
 		defaultMessage: 'Document',
-		description: 'Default alt text for ListItem image',
+		description:
+			'The text is used as the default alternative text for an image in a link search list item when no specific alt text is available, representing a generic document result.',
 	},
 });
 

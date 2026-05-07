@@ -148,12 +148,14 @@ export const messages: {
 	clearText: {
 		id: 'fabric.editor.clearLinkText',
 		defaultMessage: 'Clear text',
-		description: 'Clears text on the link toolbar',
+		description:
+			'The text is shown on a button in the hyperlink toolbar that clears the display text field, removing any custom link text the user has entered.',
 	},
 	clearLink: {
 		id: 'fabric.editor.clearLink',
 		defaultMessage: 'Clear link',
-		description: 'Clears link in the link toolbar',
+		description:
+			'The text is shown on a button in the hyperlink toolbar that clears the URL field, removing any link address the user has entered.',
 	},
 	hyperlinkAriaLabel: {
 		id: 'fabric.editor.hyperlink.ariaLabel',

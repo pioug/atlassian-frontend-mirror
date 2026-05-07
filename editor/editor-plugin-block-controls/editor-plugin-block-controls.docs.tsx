@@ -17,9 +17,9 @@ const documentation: ComponentStructuredContentSource[] = [
 		description: 'Block controls plugin for @atlaskit/editor-core',
 		status: 'general-availability',
 		import: {
-			name: 'Editor Plugin Block Controls',
+			name: 'blockControlsPlugin',
 			package: '@atlaskit/editor-plugin-block-controls',
-			type: 'default',
+			type: 'named',
 			packagePath,
 			packageJson,
 		},

@@ -66,6 +66,7 @@ const onHydrate = (jql: string): Promise<HydratedValues> =>
 						id: goal.value,
 						name: goal.displayName,
 						status: goal.status,
+						iconKey: goal.iconKey,
 					}),
 				);
 

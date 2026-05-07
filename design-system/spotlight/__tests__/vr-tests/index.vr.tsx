@@ -6,13 +6,16 @@ import AllPlacements from '../../examples/all-placements';
 import Card from '../../examples/card';
 import FullWidthTarget from '../../examples/full-width-target';
 import Offset from '../../examples/offset';
+import OnModal from '../../examples/on-modal';
 import OverlayingUI from '../../examples/overlaying-ui';
+import Reflow from '../../examples/reflow';
 import StepVariants from '../../examples/step-variants';
 import NoMedia from '../../examples/without-image';
 
 snapshot(Card, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform-dst-top-layer': true,
 		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [
@@ -34,6 +37,7 @@ snapshot(Card, {
 snapshot(StepVariants, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform-dst-top-layer': true,
 		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [
@@ -49,6 +53,7 @@ snapshot(StepVariants, {
 snapshot(NoMedia, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform-dst-top-layer': true,
 		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [
@@ -64,6 +69,7 @@ snapshot(NoMedia, {
 snapshot(AllPlacements, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform-dst-top-layer': true,
 		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [
@@ -79,6 +85,7 @@ snapshot(AllPlacements, {
 snapshot(OverlayingUI, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform-dst-top-layer': true,
 		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [
@@ -94,6 +101,7 @@ snapshot(OverlayingUI, {
 snapshot(FullWidthTarget, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform-dst-top-layer': true,
 		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [
@@ -108,6 +116,7 @@ snapshot(FullWidthTarget, {
 snapshot(Offset, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform-dst-top-layer': true,
 		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [
@@ -122,6 +131,37 @@ snapshot(Offset, {
 snapshot(Links, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform-dst-top-layer': true,
+		platform_spotlight_card_fit_content_anchor: true,
+	},
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(OnModal, {
+	featureFlags: {
+		'platform-component-visual-refresh': true,
+		'platform-dst-top-layer': true,
+		platform_spotlight_card_fit_content_anchor: true,
+	},
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(Reflow, {
+	featureFlags: {
+		'platform-component-visual-refresh': true,
+		'platform-dst-top-layer': true,
 		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [

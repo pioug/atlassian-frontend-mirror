@@ -56,7 +56,8 @@ export const mentionMessages: {
 	mentionsIconLabel: {
 		id: 'fabric.editor.mentionsIconLabel',
 		defaultMessage: 'Mention',
-		description: 'icon label to describe the mention icon',
+		description:
+			'Accessible label for the mention icon displayed in the editor toolbar, indicating that clicking it inserts a mention.',
 	},
 	mentionsNodeLabel: {
 		id: 'fabric.editor.mentionNode.label',
@@ -67,7 +68,8 @@ export const mentionMessages: {
 	unknownLabel: {
 		id: 'fabric.editor.unknown.label',
 		defaultMessage: 'Unknown',
-		description: 'Label to indicate unknown mention node',
+		description:
+			'Accessible label for a mention node when the referenced user cannot be identified or resolved.',
 	},
 	inviteTeammateInvalidEmail: {
 		id: 'fabric.editor.inviteItem.invalidEmail',

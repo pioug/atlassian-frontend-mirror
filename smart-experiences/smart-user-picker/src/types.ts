@@ -271,6 +271,10 @@ export interface SmartProps {
 	 */
 	orgId?: string;
 	/**
+	 * Identifier for the userbase scope.
+	 */
+	userbaseId?: string;
+	/**
 	 * Optional callback to customize the options shown to the user.
 	 * Called after options are loaded.
 	 */

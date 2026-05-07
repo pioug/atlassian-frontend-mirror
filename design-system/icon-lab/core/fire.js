@@ -1,0 +1,28 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::3446c4b9f016ffc18d694d0a3b47048c>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireDefault(require("react"));
+var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+/**
+ * Icon: "Fire".
+ * Category: multi-purpose
+ * Location: @atlaskit/icon-lab
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
+ */
+const FireIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  name: "FireIcon",
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M2.86 8.216a.75.75 0 0 1 .748.485 1.74 1.74 0 0 0 1.63 1.124c.5 0 .844-.171 1.068-.414.23-.25.391-.642.391-1.174 0-.473-.243-.99-.614-1.747-.331-.677-.768-1.557-.768-2.515 0-.973.475-1.928.872-2.573A9.5 9.5 0 0 1 6.944.346L7 .28l.017-.02.007-.007c.003.002.037.031.416.368L7.024.253A.75.75 0 0 1 8.32.599V.6l.005.02.022.09a8 8 0 0 0 .527 1.474c.416.89 1.043 1.797 1.927 2.247C13.35 5.73 14 8.245 14 9.75 14 13.332 11.364 16 8 16c-3.313 0-6-2.617-6-5.7q.002-.78.177-1.509l.037-.116a.75.75 0 0 1 .645-.46m3.955-4.241c0 .553.256 1.122.616 1.856.32.654.766 1.513.766 2.406 0 .835-.257 1.613-.788 2.19-.538.584-1.299.898-2.172.898a3.23 3.23 0 0 1-1.696-.478C3.832 12.817 5.669 14.5 8 14.5c2.492 0 4.5-1.953 4.5-4.75 0-1.173-.51-3.03-2.38-3.981-1.326-.675-2.136-1.945-2.605-2.949a10 10 0 0 1-.181-.413c-.3.53-.518 1.094-.519 1.568"/>`
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+}, props));
+FireIcon.displayName = 'FireIcon';
+var _default = exports.default = FireIcon;

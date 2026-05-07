@@ -29,7 +29,6 @@ interface ButtonProps {
 const getInsertLineHeight = (
 	tableRef: HTMLElement,
 	hasStickyHeaders: boolean,
-	isDragAndDropEnabled?: boolean,
 ) => {
 	// The line gets height 100% from the table,
 	// but since we have an overflow on the left,
@@ -38,26 +37,16 @@ const getInsertLineHeight = (
 
 	const ADDITIONAL_HEIGHT = hasStickyHeaders
 		? tableRef.getBoundingClientRect().top -
-			tableMarginTop * (isDragAndDropEnabled ? 3 : 4) -
+			tableMarginTop * 3 -
 			LINE_OFFSET
 		: tableToolbarSize + LINE_OFFSET;
 	return tableRef.offsetHeight + ADDITIONAL_HEIGHT;
 };
 
-const getToolbarSize = (tableRef: HTMLElement): number => {
+
+const getNumberColumnWidth = (tableRef: HTMLElement): number => {
 	const parent = closestElement(tableRef, `.${ClassName.TABLE_CONTAINER}`);
 	if (parent) {
-		return parent.querySelector(`.${ClassName.NUMBERED_COLUMN}`)
-			? tableToolbarSize + akEditorTableNumberColumnWidth - 1
-			: tableToolbarSize;
-	}
-
-	return tableToolbarSize;
-};
-
-const getNumberColumnWidth = (tableRef: HTMLElement, isDragAndDropEnabled?: boolean): number => {
-	const parent = closestElement(tableRef, `.${ClassName.TABLE_CONTAINER}`);
-	if (parent && isDragAndDropEnabled) {
 		return parent.querySelector(`.${ClassName.NUMBERED_COLUMN}`)
 			? akEditorTableNumberColumnWidth - 1
 			: 0;
@@ -67,13 +56,11 @@ const getNumberColumnWidth = (tableRef: HTMLElement, isDragAndDropEnabled?: bool
 
 const getInsertLineWidth = (
 	tableRef: HTMLElement,
-	isDragAndDropEnabled?: boolean,
 	isChromelessEditor?: boolean,
 ) => {
 	// The line gets width 100% from the table,
 	// but since we have an overflow on the left,
 	// we should add an offset to make up for it.
-	const LINE_OFFSET = 4;
 	const DRAG_LINE_OFFSET = isChromelessEditor ? 14 : 6;
 	const { parentElement, offsetWidth } = tableRef;
 	// Ignored via go/ees005
@@ -83,16 +70,14 @@ const getInsertLineWidth = (
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const { scrollLeft } = parentElement!;
 	const diff = offsetWidth - parentOffsetWidth;
-	const toolbarSize = isDragAndDropEnabled ? 0 : getToolbarSize(tableRef);
-	const lineOffset = isDragAndDropEnabled ? DRAG_LINE_OFFSET : LINE_OFFSET;
 
 	return (
 		Math.min(
-			offsetWidth + toolbarSize,
-			parentOffsetWidth + toolbarSize - Math.max(scrollLeft - diff, 0),
+			offsetWidth,
+			parentOffsetWidth - Math.max(scrollLeft - diff, 0),
 		) +
-		lineOffset +
-		getNumberColumnWidth(tableRef, isDragAndDropEnabled)
+		DRAG_LINE_OFFSET +
+		getNumberColumnWidth(tableRef)
 	);
 };
 
@@ -159,11 +144,11 @@ const InsertButtonForDragAndDrop = ({
 					style={
 						type === 'row'
 							? {
-									width: getInsertLineWidth(tableRef, true, isChromelessEditor),
+									width: getInsertLineWidth(tableRef, isChromelessEditor),
 									left: token('space.150'),
 								}
 							: {
-									height: getInsertLineHeight(tableRef, hasStickyHeaders, true) - 8,
+									height: getInsertLineHeight(tableRef, hasStickyHeaders) - 8,
 									// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 									top: '-3px',
 								}

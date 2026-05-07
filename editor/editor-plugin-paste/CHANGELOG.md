@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-paste
 
+## 11.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.5
+
+### Patch Changes
+
+- [`54c0e17fe643b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54c0e17fe643b) -
+  Add fabric-renderer as a recognised PasteSource value for the document pasted analytics event
+- Updated dependencies
+
 ## 11.1.4
 
 ### Patch Changes

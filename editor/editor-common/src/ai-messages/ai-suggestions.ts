@@ -201,7 +201,8 @@ export const aiSuggestionsMessages: {
 	reviewNote: {
 		id: 'fabric.editor.ai.suggestions.stagingArea.reviewNote.non-final',
 		defaultMessage: 'Review • Only visible to you',
-		description: 'A note displayed within the title',
+		description:
+			'The text is shown as a note within the staging area title bar during an AI suggestion review, indicating that the AI-generated content is only visible to the current user and has not been published.',
 	},
 	applyChangesButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.stagingArea.applyChangesButtonLabel.non-final',

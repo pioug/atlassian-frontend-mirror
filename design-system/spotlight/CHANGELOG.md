@@ -1,5 +1,18 @@
 # @atlaskit/spotlight
 
+## 0.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.14.0
+
+### Minor Changes
+
+- [`651ab3c79c1b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/651ab3c79c1b4) -
+  [ux] Add a feature-gated top-layer positioning path for Spotlight.
+
 ## 0.13.0
 
 ### Minor Changes

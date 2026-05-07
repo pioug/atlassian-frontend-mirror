@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 7.0.16
+
+### Patch Changes
+
+- [`0a5c224eafc8f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a5c224eafc8f) -
+  Clean up platform_editor_sel_toolbar_stacking_fix feature gate.
+
+## 7.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.13
 
 ### Patch Changes

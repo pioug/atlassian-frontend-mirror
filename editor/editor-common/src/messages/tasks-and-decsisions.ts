@@ -102,12 +102,14 @@ export const tasksAndDecisionsMessages: {
 	taskList: {
 		id: 'fabric.editor.taskList',
 		defaultMessage: 'Task list',
-		description: 'Label for the task list in the editor',
+		description:
+			'Accessible label for the task list container element in the editor, used by screen readers to identify a list of action items.',
 	},
 	decisionAriaLabel: {
 		id: 'fabric.editor.decisionAriaLabel',
 		defaultMessage: 'Decision',
-		description: 'Descriptive text for a decision element',
+		description:
+			'Accessible ARIA label for a decision element in the editor, announced by screen readers to identify the element as a decision.',
 	},
 	undefinedDecisionAriaLabel: {
 		id: 'fabric.editor.undefinedDecisionAriaLabel',

@@ -885,6 +885,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-01 — Social proof experiment for unauthorized 3P block cards (boolean: isEnabled)
+	social_proof_3p_unauth_block_exp: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-08-10
 	platform_synced_block: {
 		defaultValue: boolean;
@@ -964,20 +971,8 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	platform_editor_toolbar_delay_render_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-02-02
 	platform_editor_ai_disable_bridge_without_ai: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	platform_editor_toolbar_aifc_use_editor_typography: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1880,6 +1875,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-30
 	platform_editor_paste_actions_menu_v2_boolean: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-05-06
+	'jira-smart-replies-v2': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2898,14 +2900,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-12-12
-	platform_editor_toolbar_delay_render_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_delay_render_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-04-16
 	platform_editor_inline_media_replacement: createBooleanExperiment({
 		productKeys: {
@@ -2918,14 +2912,6 @@ export const editorExperimentsConfig: {
 	platform_editor_add_image_editing: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_add_image_editing',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	platform_editor_toolbar_aifc_use_editor_typography: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_aifc_use_editor_typography',
-			jira: 'platform_editor_toolbar_aifc_use_editor_typography',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -4037,6 +4023,23 @@ export const editorExperimentsConfig: {
 	platform_editor_show_diff_fix_missing_attrs: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_show_diff_fix_missing_attrs',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-01 — Social proof experiment for unauthorized 3P block cards
+	social_proof_3p_unauth_block_exp: createBooleanExperiment({
+		productKeys: {
+			confluence: 'social_proof_3p_unauth_block_exp',
+			jira: 'social_proof_3p_unauth_block_exp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-06
+	'jira-smart-replies-v2': createBooleanExperiment({
+		productKeys: {
+			jira: 'jira-smart-replies-v2',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

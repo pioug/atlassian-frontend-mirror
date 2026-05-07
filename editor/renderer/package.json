@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "130.3.2",
+	"version": "130.3.5",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -225,9 +225,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_table_height_analytics_event": {
-			"type": "boolean"
-		},
-		"platform_editor_ai_adf_prompts_in_all_products": {
 			"type": "boolean"
 		},
 		"jfp-magma-ssr-iv-editor-codeblock": {

@@ -17,9 +17,9 @@ const documentation: ComponentStructuredContentSource[] = [
 		description: 'editor-plugin-extension plugin for @atlaskit/editor-core',
 		status: 'general-availability',
 		import: {
-			name: 'Editor Plugin Extension',
+			name: 'extensionPlugin',
 			package: '@atlaskit/editor-plugin-extension',
-			type: 'default',
+			type: 'named',
 			packagePath,
 			packageJson,
 		},

@@ -29,6 +29,7 @@ export type HydratedProject = {
 };
 
 export type HydratedGoal = {
+	iconKey?: string | null | undefined;
 	id: string;
 	name: string;
 	status?: string | null | undefined;

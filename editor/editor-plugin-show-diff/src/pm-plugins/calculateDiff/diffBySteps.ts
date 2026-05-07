@@ -22,7 +22,7 @@ const createSpans = (length: number) =>
 					length,
 					data: null,
 				},
-			]
+		  ]
 		: [];
 
 const mergeOverlappingByNewDocRange = (changes: Change[]): Change[] => {
@@ -75,11 +75,12 @@ const isReplaceStepForTextBlockNode = (
 
 	return Boolean(
 		replacedSlice.openStart === 0 &&
-		replacedSlice.openEnd === 0 &&
-		replacedSlice.content.childCount === 1 &&
-		replacingSlice.content.childCount === 1 &&
-		replacedSlice.content.firstChild?.type.name === replacingSlice.content.firstChild?.type.name &&
-		replacedSlice.content.firstChild?.type.isTextblock,
+			replacedSlice.openEnd === 0 &&
+			replacedSlice.content.childCount === 1 &&
+			replacingSlice.content.childCount === 1 &&
+			replacedSlice.content.firstChild?.type.name ===
+				replacingSlice.content.firstChild?.type.name &&
+			replacedSlice.content.firstChild?.type.isTextblock,
 	);
 };
 
@@ -152,8 +153,13 @@ export const diffBySteps = (originalDoc: PMNode, steps: Step[]): Change[] => {
 				null,
 			);
 
+			// `simplifyChanges` reads text using `Change.fromB`/`toB`, which are
+			// positions in the post-step doc (the "B" doc). Passing the pre-step
+			// doc (`startDoc`) misreads characters and produces mid-word cuts
+			// (e.g. "deep-s|ea") because word-boundary detection runs against the
+			// wrong text/positions. Use the post-step doc here.
 			const optimizedGranularStepChanges = optimizeChanges(
-				simplifyChanges(granularStepChanges.changes, granularStepChanges.startDoc),
+				simplifyChanges(granularStepChanges.changes, rangedStep.doc),
 			);
 			for (const granularChange of optimizedGranularStepChanges) {
 				const granularFromA = mapPosition(beforeStepToOriginal, granularChange.fromA);

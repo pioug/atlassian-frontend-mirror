@@ -17,9 +17,9 @@ const documentation: ComponentStructuredContentSource[] = [
 		description: 'UserPreferences plugin for @atlaskit/editor-core',
 		status: 'general-availability',
 		import: {
-			name: 'Editor Plugin User Preferences',
+			name: 'userPreferencesPlugin',
 			package: '@atlaskit/editor-plugin-user-preferences',
-			type: 'default',
+			type: 'named',
 			packagePath,
 			packageJson,
 		},

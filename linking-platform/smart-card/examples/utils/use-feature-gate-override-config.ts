@@ -18,6 +18,9 @@ const experimentConfig: Record<string, FeatureGateConfig> = {
 	'platform_sl_3p_preauth_social_proof_inline_cta': {
 		isEnabled: true,
 	},
+	social_proof_3p_unauth_block_exp: {
+		isEnabled: true,
+	},
 };
 
 const enabledGates = [
@@ -27,6 +30,7 @@ const enabledGates = [
 	'smart-card-inline-resolved-view-refactor',
 	'platform_sl_3p_preauth_soc_proof_inline_killswitch',
 	'platform_sl_3p_auth_rovo_block_card_kill_switch',
+	'social-proof-3p-unauth-block-fg',
 ];
 
 const emptyConfig = {};

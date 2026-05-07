@@ -245,7 +245,8 @@ export const configPanelMessages: {
 	required: {
 		id: 'fabric.editor.configPanel.required',
 		defaultMessage: 'Required field',
-		description: 'Validation message for required field',
+		description:
+			'The text is shown as a validation message below a form field in the extension configuration panel when the user attempts to submit the form without filling in a required field.',
 	},
 	invalid: {
 		id: 'fabric.editor.configPanel.invalid',
@@ -271,12 +272,14 @@ export const configPanelMessages: {
 	createOption: {
 		id: 'fabric.editor.configPanel.customSelect.createOption',
 		defaultMessage: 'Create',
-		description: 'Create a new option for a select field',
+		description:
+			'The text is shown on a button in the extension configuration panel that allows the user to create a new custom option in a select (drop-down) field.',
 	},
 	documentation: {
 		id: 'fabric.editor.configPanel.documentation',
 		defaultMessage: 'Documentation',
-		description: 'Label for the documentation link',
+		description:
+			'The text is shown as the label of a link in the extension configuration panel that navigates the user to external documentation for the extension.',
 	},
 	help: {
 		id: 'fabric.editor.configPanel.help',
@@ -303,21 +306,25 @@ export const configPanelMessages: {
 	expand: {
 		id: 'fabric.editor.configPanel.dateRange.grouping.expand',
 		defaultMessage: 'Expand',
-		description: 'Label for expanding a group of fields',
+		description:
+			'The text is shown on a button in the extension configuration panel date range section that expands a collapsed group of related input fields.',
 	},
 	collapse: {
 		id: 'fabric.editor.configPanel.dateRange.grouping.collapse',
 		defaultMessage: 'Collapse',
-		description: 'Label for collapsing a group of fields',
+		description:
+			'The text is shown on a button in the extension configuration panel date range section that collapses an expanded group of related input fields.',
 	},
 	errorBoundaryTitle: {
 		id: 'fabric.editor.configPanel.errorBoundary.title',
 		defaultMessage: 'Something went wrong.',
-		description: 'Title for uncaught config panel error',
+		description:
+			'The text is shown as the heading in an error boundary fallback within the extension configuration panel when an unexpected error occurs and the panel cannot be rendered.',
 	},
 	errorBoundaryNote: {
 		id: 'fabric.editor.configPanel.errorBoundary.note',
 		defaultMessage: `We've let the team know. You can still edit and publish this page, or check the error console for more information.`,
-		description: 'Note for uncaught config panel error',
+		description:
+			'The text is shown as an explanatory note in the error boundary fallback within the extension configuration panel, advising the user that the error has been reported and suggesting they continue editing or check the error console.',
 	},
 });

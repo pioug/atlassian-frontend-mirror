@@ -31,6 +31,16 @@ describe('GoalNode', () => {
 			</IntlProvider>,
 		);
 
+	beforeEach(() => {
+		useHydratedGoalMock.mockReturnValue([{
+			id: 'goal-1',
+			name: 'Test Goal',
+			status: 'ON_TRACK',
+			iconKey: 'OBJECTIVE',
+			type: 'goal',
+		}, undefined]);
+	});
+
 	it('is accessible', async () => {
 		const { getByText } = renderGoalNode({});
 		await expect(getByText('Goal Name')).toBeAccessible();

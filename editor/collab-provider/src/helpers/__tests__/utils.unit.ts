@@ -5,7 +5,7 @@ import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
-import { getStepUGCFreeDetails, isAIProviderID, logObfuscatedSteps } from '../utils';
+import { getStepUGCFreeDetails, isAIProviderID, isGCPtenant, logObfuscatedSteps } from '../utils';
 
 import { collab as collabPlugin, sendableSteps } from '@atlaskit/prosemirror-collab';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -65,4 +65,33 @@ describe('Utils unit tests', () => {
 		}
 	`);
 	});
+
+	it('isGCPtenant returns true for tenant with GCP naming convention', () => {
+		const hostname = 'test-tenant-cdp-bb0.jira-dev.com';
+		const result = isGCPtenant(hostname);
+
+		expect(result).toBe(true);
+	})
+
+	it('isGCPtenant returns false for tenant without GCP naming convention', () => {
+		const hostname = 'test-tenant-gcp.jira-dev.com';
+		const result = isGCPtenant(hostname);
+
+		expect(result).toBe(false);
+	})
+
+	it('isGCPtenant returns false for empty hostname', () => {
+		const hostname = '';
+		const result = isGCPtenant(hostname);
+
+		expect(result).toBe(false);
+	})
+
+	it('isGCPtenant returns false for undefined hostname', () => {
+		const hostname = undefined;
+		const result = isGCPtenant(hostname);
+
+		expect(result).toBe(false);
+	})
+
 });

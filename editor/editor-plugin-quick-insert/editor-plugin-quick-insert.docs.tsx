@@ -17,9 +17,9 @@ const documentation: ComponentStructuredContentSource[] = [
 		description: 'Quick insert plugin for @atlaskit/editor-core',
 		status: 'general-availability',
 		import: {
-			name: 'Editor Plugin Quick Insert',
+			name: 'quickInsertPlugin',
 			package: '@atlaskit/editor-plugin-quick-insert',
-			type: 'default',
+			type: 'named',
 			packagePath,
 			packageJson,
 		},

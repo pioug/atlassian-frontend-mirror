@@ -291,12 +291,14 @@ const _default_1: {
 	saveButton: {
 		id: 'fabric.editor.saveButton',
 		defaultMessage: 'Save',
-		description: 'Submit and save a comment or document',
+		description:
+			'Label for the primary action button that submits and saves the current comment or document in the editor.',
 	},
 	cancelButton: {
 		id: 'fabric.editor.cancelButton',
 		defaultMessage: 'Cancel',
-		description: 'Discard the current comment or document',
+		description:
+			'Label for the button that discards unsaved changes and cancels editing of the current comment or document.',
 	},
 	taskList: {
 		id: 'fabric.editor.tooltip.taskList',
@@ -377,7 +379,8 @@ const _default_1: {
 	imageEdit: {
 		id: 'fabric.editor.imageEdit',
 		defaultMessage: 'Edit image',
-		description: 'Crop, flip or rotate the image',
+		description:
+			'Label for the button in the image floating toolbar that opens the image editing panel where users can crop, flip, or rotate the selected image.',
 	},
 	error: {
 		id: 'fabric.editor.error.message.label',
@@ -388,7 +391,8 @@ const _default_1: {
 	success: {
 		id: 'fabric.editor.success.message.label',
 		defaultMessage: 'Success',
-		description: 'Label for success message icon',
+		description:
+			'Accessible label for the success message icon shown in the editor when an operation completes successfully.',
 	},
 });
 export default _default_1;

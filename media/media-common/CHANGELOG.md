@@ -1,5 +1,15 @@
 # @atlaskit/media-common
 
+## 13.3.0
+
+### Minor Changes
+
+- [`34c40eb233aa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34c40eb233aa4) -
+  isUxChange: true
+
+  Lazy-append document pages for MS Excel previews behind platform_media_excel_lazy_load gate to fix
+  initial-render freeze on very large documents
+
 ## 13.2.0
 
 ### Minor Changes

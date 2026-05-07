@@ -20,12 +20,27 @@ SSR for performance-critical page loads.
 
 ```
 src/
-├── index.ts                              # Barrel exports
-├── useSyncedBlockNodeComponent.tsx        # Core hooks for node management and memoization
-├── ui/
-│   ├── renderSyncedBlockContent.tsx       # Shared render branching logic (loading → error → success)
-│   └── SyncedBlockNodeComponentRenderer.tsx # Renderer component with store manager + media SSR
-└── types.ts                              # SyncedBlockRendererOptions type
+├── index.ts                                # Barrel exports
+├── useSyncedBlockNodeComponent.tsx         # Core hooks for node management and memoization
+├── getSyncedBlockRenderer.tsx              # Factory for editor-mode synced block renderer
+├── types.ts                                # SyncedBlockRendererOptions type
+└── ui/
+    ├── __generated__/                      # Generated GraphQL types
+    ├── assets/                             # Static assets (icons, illustrations)
+    ├── renderSyncedBlockContent.tsx        # Shared render branching logic (loading → error → success)
+    ├── SyncedBlockNodeComponentRenderer.tsx # Renderer component with store manager + media SSR
+    ├── SyncedBlockRenderer.tsx             # View-mode reference block renderer
+    ├── AKRendererWrapper.tsx               # Wraps content in AKRenderer with required providers
+    ├── SyncedBlockLoadingState.tsx         # Loading skeleton UI
+    ├── SyncedBlockErrorComponent.tsx       # Generic error component
+    ├── SyncedBlockErrorStateCard.tsx       # Error state card scaffold
+    ├── SyncedBlockGenericError.tsx         # Generic error variant
+    ├── SyncedBlockLoadError.tsx            # Load failure variant
+    ├── SyncedBlockNotFoundError.tsx        # Block not found variant
+    ├── SyncedBlockEntityNotFoundError.tsx  # Source entity (page/issue) not found variant
+    ├── SyncedBlockOfflineError.tsx         # Offline error variant
+    ├── SyncedBlockPermissionDenied.tsx     # 403 / no-access variant
+    └── SyncedBlockUnpublishedError.tsx     # Source not yet published variant
 ```
 
 ---
@@ -35,8 +50,11 @@ src/
 ```typescript
 getSyncBlockNodesFromDoc; // Extract SyncBlockNode[] from a DocNode
 useMemoizedSyncedBlockNodeComponent; // Returns memoized component for rendering reference blocks
+type GetSyncedBlockNodeComponentProps; // Props for the memoized component
 getSyncedBlockRenderer; // Factory for editor-mode synced block renderer
 renderSyncedBlockContent; // Shared render branching logic
+type RenderSyncedBlockContentParams;
+type SyncedBlockNodeProps; // From SyncedBlockNodeComponentRenderer
 ```
 
 ---

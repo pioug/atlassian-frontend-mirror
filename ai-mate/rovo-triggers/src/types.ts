@@ -3,7 +3,9 @@ import type { DocNode } from '@atlaskit/adf-schema';
 import type { SolutionDraftAgentUpdatePayload } from './common/types/agent';
 import type { JsmJourneyBuilderActionsPayload } from './common/types/jsm-journey-builder';
 import type {
+	SolutionArchitectAgentActivationFlowStoppedPayload,
 	SolutionArchitectAgentActivationPayload,
+	SolutionArchitectAgentActivationFlowStartedPayload,
 	SolutionArchitectHandoffPayload,
 	SolutionPlanStateUpdatePayload,
 	StudioAutomationBuildUpdatePayload,
@@ -617,6 +619,8 @@ export type Payload =
 	| SolutionPlanStateUpdatePayload
 	| SolutionDraftAgentUpdatePayload
 	| SolutionArchitectAgentActivationPayload
+	| SolutionArchitectAgentActivationFlowStartedPayload
+	| SolutionArchitectAgentActivationFlowStoppedPayload
 	| UpdateAgentConfigurationPayload
 	| StudioLandingPageRedirectPayload
 	| UploadAndInsertMediaPayload

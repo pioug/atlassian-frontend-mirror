@@ -5,7 +5,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { Provider } from './provider';
 import type { Config, ProductInformation, InitAndAuthData, AuthCallback } from './types';
-import { getProduct, getSubProduct } from './helpers/utils';
+import { getProduct, getSubProduct, isGCPtenant } from './helpers/utils';
 import { SOCKET_IO_OPTIONS, SOCKET_IO_OPTIONS_WITH_HIGH_JITTER } from './config';
 import type AnalyticsHelper from './analytics/analytics-helper';
 
@@ -18,7 +18,7 @@ export function createSocketIOSocket(
 	path?: string,
 	documentAri?: string,
 ): Socket {
-	const { pathname } = new URL(url);
+	const { pathname, hostname } = new URL(url);
 	let socketIOOptions = SOCKET_IO_OPTIONS;
 	// Polling first
 	let transports = ['polling', 'websocket'];
@@ -39,6 +39,12 @@ export function createSocketIOSocket(
 			expValEquals('platform_editor_to_use_pmr_for_collab_edit_none_ic', 'isEnabled', true, false)
 		) {
 			usePMR = true;
+		}
+		
+		if (
+			isGCPtenant(hostname) && fg('collab_edit_via_websocket_only_for_gcp')
+		) {
+			transports = ['websocket'];
 		}
 	}
 

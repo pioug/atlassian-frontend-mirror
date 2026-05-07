@@ -35,7 +35,8 @@ export const selectionToolbarMessages: {
 	toolbarAppears: {
 		id: 'fabric.editor.toolbarAppears',
 		defaultMessage: 'Toolbar appears',
-		description: 'Label for toolbar position options',
+		description:
+			'Label for the group of radio options that control where the selection toolbar appears relative to selected text (e.g. inline or fixed at top).',
 	},
 	toolbarPositionInline: {
 		id: 'fabric.editor.toolbarPositionInline',

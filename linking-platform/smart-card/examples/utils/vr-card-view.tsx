@@ -9,9 +9,9 @@ import '../../src/view/CardWithUrl/component-lazy';
 
 export type VRCardViewProps = CardViewLayoutProps & VRTestWrapperProps;
 
-const VRCardView = ({ style, ...props }: VRCardViewProps): React.JSX.Element => (
+const VRCardView = ({ dependencyOverrides, style, ...props }: VRCardViewProps): React.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-	<VRTestWrapper style={style}>
+	<VRTestWrapper dependencyOverrides={dependencyOverrides} style={style}>
 		<CardView {...props} />
 	</VRTestWrapper>
 );

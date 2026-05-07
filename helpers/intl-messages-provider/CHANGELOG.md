@@ -1,5 +1,15 @@
 # @atlaskit/intl-messages-provider
 
+## 3.2.0
+
+### Minor Changes
+
+- [`686c1cdc2b177`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/686c1cdc2b177) -
+  Introduce `createAsyncIntlProvider` factory in `@atlaskit/intl-messages-provider/async` and adopt
+  it in the `global-*` navigation packages to remove duplicated async i18n loader boilerplate. Also
+  fixes `GlobalMoreMenu` which previously had translated messages but no `IntlMessagesProvider`
+  wrapping them, so its localized strings were not loading.
+
 ## 3.1.1
 
 ### Patch Changes

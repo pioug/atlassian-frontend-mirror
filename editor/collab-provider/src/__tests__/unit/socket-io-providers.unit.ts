@@ -16,9 +16,15 @@ const expValEqualsMock = expValEquals as jest.Mock;
 
 describe('Socket io provider', () => {
 	const url = 'http://localhost:8080/ccollab/sessionId/123';
+	const gcpUrl = 'http://test-gcp-cdp-bb0.jira-dev.com/ccollab/sessionId/123';
 	const presenceUrl = 'http://localhost:8080/collab-presence-confluence/sessionId/123';
 	const presencePath = '/ncs-presence/mock-cloud-id/mock-activation-id/confluence';
 	const editPath = '/ncs/mock-cloud-id/mock-activation-id/confluence';
+
+	afterEach(() => {
+		fgMock.mockReset();
+		expValEqualsMock.mockReset();
+	})
 
 	describe('Socket io client path', () => {
 		it('return io with correct path for ccollab', () => {
@@ -26,6 +32,56 @@ describe('Socket io provider', () => {
 
 			expect((socket as any).io.engine.opts.path).toEqual('/ccollab/socket.io/');
 		});
+
+		describe('Transports', () => {
+			it('use polling and websocket transports when collab editing', () => {
+				const socket = createSocketIOSocket(url);
+
+				expect((socket as any).io.opts.transports).toEqual(['polling', 'websocket']);
+			})
+
+			it('use only websocket transport for presence and FG on', () => {
+				fgMock.mockImplementation(
+					(flag: string) => flag === 'platform-editor-presence-websocket-only',
+				);;
+				const socket = createSocketIOSocket(url, undefined, undefined, true);
+
+				expect((socket as any).io.opts.transports).toEqual(['websocket']);
+			})
+
+
+			it('use polling and websocket transports for presence and FG off', () => {
+				fgMock.mockReturnValue(false);
+				const socket = createSocketIOSocket(url, undefined, undefined, true);
+
+				expect((socket as any).io.opts.transports).toEqual(['polling', 'websocket']);
+			})
+
+			it('use only websocket transport for collab editing on GCP and FG on', () => {
+				fgMock.mockImplementation(
+					(flag: string) => flag === 'collab_edit_via_websocket_only_for_gcp',
+				);;
+				const socket = createSocketIOSocket(gcpUrl);
+
+				expect((socket as any).io.opts.transports).toEqual(['websocket']);
+			})
+
+			it('use polling and websocket transports for collab editing on GCP and FG off', () => {
+				fgMock.mockReturnValue(false);
+				const socket = createSocketIOSocket(gcpUrl);
+
+				expect((socket as any).io.opts.transports).toEqual(['polling', 'websocket']);
+			})
+
+			it('use polling and websocket transports for collab editing not on GCP and FG on', () => {
+				fgMock.mockImplementation(
+					(flag: string) => flag === 'collab_edit_via_websocket_only_for_gcp',
+				);;
+				const socket = createSocketIOSocket(url);
+
+				expect((socket as any).io.opts.transports).toEqual(['polling', 'websocket']);
+			})
+		})
 
 		it('return io with correct pmr path for presence', () => {
 			const socket = createSocketIOSocket(
@@ -194,7 +250,6 @@ describe('Socket io provider', () => {
 		});
 
 		it('should set high jitter reconnection options if presence client', () => {
-			fgMock.mockReturnValue(true);
 			const socket = createSocketIOSocket(url, undefined, undefined, true);
 
 			expect(socket?.io?.opts.reconnectionDelayMax).toEqual(

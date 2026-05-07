@@ -79,7 +79,6 @@ export const resizeHandlerAreaWidth: number = RESIZE_HANDLE_AREA_DECORATION_GAP 
 export const resizeLineWidth = 2;
 export const resizeHandlerZIndex: number = columnControlsZIndex + akRichMediaResizeZIndex;
 export const contextualMenuTriggerSize = 16;
-export const contextualMenuDropdownWidth = 180;
 export const contextualMenuDropdownWidthDnD = 250;
 export const stickyRowZIndex: number = resizeHandlerZIndex + 2;
 export const stickyRowOffsetTop = 8;

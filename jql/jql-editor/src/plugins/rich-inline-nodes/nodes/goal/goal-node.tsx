@@ -40,7 +40,7 @@ export const GoalNode = (props: NodeViewProps<Props>): React.JSX.Element => {
 		<NodeBase
 			iconBefore={
 				<Box xcss={styles.iconWrapper}>
-					<GoalIcon size="16" status={goal?.status ?? 'DEFAULT'} iconKey={toGoalIconKey('GOAL')} />
+					<GoalIcon size="16" status={goal?.status ?? 'DEFAULT'} iconKey={toGoalIconKey(goal?.iconKey)} />
 				</Box>
 			}
 			text={name}

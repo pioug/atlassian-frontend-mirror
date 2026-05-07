@@ -1,5 +1,33 @@
 # @atlaskit/icon-lab
 
+## 6.7.0
+
+### Minor Changes
+
+- [`0e2b29db61e0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e2b29db61e0a) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `bed`
+  - `bird`
+  - `clock-alarm`
+  - `fire-alarm`
+  - `fire`
+  - `folder-add`
+  - `keyboard`
+  - `lasso`
+  - `risk`
+  - `speedometer-left-down`
+  - `speedometer-left-up`
+  - `speedometer-right-down`
+  - `speedometer-right-up`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.6.0
 
 ### Minor Changes

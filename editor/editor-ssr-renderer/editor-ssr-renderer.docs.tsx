@@ -17,9 +17,9 @@ const documentation: ComponentStructuredContentSource[] = [
 		description: 'SSR Renderer based on Editor',
 		status: 'general-availability',
 		import: {
-			name: 'Editor Ssr Renderer',
+			name: 'EditorSSRRenderer',
 			package: '@atlaskit/editor-ssr-renderer',
-			type: 'default',
+			type: 'named',
 			packagePath,
 			packageJson,
 		},

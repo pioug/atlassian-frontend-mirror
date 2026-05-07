@@ -1,71 +1,22 @@
-import { useContext, useEffect } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-import { getDocument } from '@atlaskit/browser-apis';
-
-import { SpotlightContext } from '../../controllers/spotlight-context';
-
-interface UpdateOnChangeProps {
-	selectors?: string[];
-	options?: MutationObserverInit;
-}
-
-const defaultOptions = {
-	childList: true,
-	subtree: true,
-};
+import {
+	UNSAFE_UpdateOnChange as Legacy,
+	type UpdateOnChangeProps,
+} from './legacy';
+import { UNSAFE_UpdateOnChange as TopLayer } from './top-layer';
 
 export const UNSAFE_UpdateOnChange = ({
-	selectors = ['body'],
-	options = defaultOptions,
-}: UpdateOnChangeProps) => {
-	const { popoverContent } = useContext(SpotlightContext);
-	const { update } = popoverContent;
-
-	useEffect(() => {
-		if (!update || selectors.length === 0) {
-			return;
-		}
-
-		const doc = getDocument();
-		if (!doc) {
-			return;
-		}
-
-		const elements: Set<Element> = new Set<Element>();
-
-		selectors.forEach((selector) => {
-			const element: Element | null = doc.querySelector(selector);
-
-			if (!element) {
-				return;
-			}
-
-			elements.add(element);
-		});
-
-		if (elements.size === 0) {
-			return;
-		}
-
-		const observers: MutationObserver[] = [];
-
-		elements.forEach((element) => {
-			const observer = new MutationObserver((mutations) => {
-				if (mutations.length === 0) {
-					return;
-				}
-
-				update();
-			});
-
-			observer.observe(element, options);
-			observers.push(observer);
-		});
-
-		return () => {
-			observers.forEach((observer) => observer.disconnect());
-		};
-	}, [selectors, options, update]);
-
-	return null;
-};
+	selectors,
+	options,
+}: UpdateOnChangeProps): JSX.Element | null =>
+	fg('platform-dst-top-layer') ? (
+		<TopLayer selectors={selectors} options={options} />
+	) : (
+		<Legacy selectors={selectors} options={options} />
+	);

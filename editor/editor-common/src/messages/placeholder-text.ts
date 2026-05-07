@@ -56,7 +56,8 @@ export const placeholderTextMessages: {
 	shortEmptyNodePlaceholderText: {
 		id: 'fabric.editor.shortEmptyNodePlaceholderText',
 		defaultMessage: '/ to insert',
-		description: 'Short placeholder text for empty nodes',
+		description:
+			'Short placeholder text shown inside empty editor nodes, instructing users to type / to open the quick-insert menu.',
 	},
 	shortEmptyNodePlaceholderADFSlashShortcut: {
 		id: 'fabric.editor.shortEmptyNodePlaceholderSlash',
@@ -71,7 +72,8 @@ export const placeholderTextMessages: {
 	longEmptyNodePlaceholderText: {
 		id: 'fabric.editor.longEmptyNodePlaceholderText',
 		defaultMessage: 'Type / to insert elements',
-		description: 'Long placeholder text for empty nodes',
+		description:
+			'Longer placeholder text shown inside empty editor nodes, instructing users to type / to open the quick-insert menu and add elements.',
 	},
 	longEmptyNodePlaceholderADFPrefix: {
 		id: 'fabric.editor.longEmptyNodePlaceholderPrefix',
@@ -92,6 +94,7 @@ export const placeholderTextMessages: {
 		id: 'fabric.editor.sourceSyncBlockPlaceholderText',
 		defaultMessage:
 			'Add content you want to reuse. Copy and paste this block to sync in other locations.',
-		description: 'Placeholder text for source sync block',
+		description:
+			'Placeholder text shown inside an empty source sync block, prompting users to add reusable content that can be synced across multiple locations.',
 	},
 });

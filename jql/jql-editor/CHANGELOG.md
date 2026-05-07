@@ -1,5 +1,16 @@
 # @atlaskit/jql-editor
 
+## 6.3.0
+
+### Minor Changes
+
+- [`9b70306018878`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b70306018878) -
+  [ux] Include icon key in Goal node
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.3
 
 ### Patch Changes

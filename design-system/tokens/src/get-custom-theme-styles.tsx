@@ -2,7 +2,10 @@ import { COLOR_MODE_ATTRIBUTE, CUSTOM_THEME_ATTRIBUTE } from './constants';
 import { type ThemeStyles } from './get-theme-styles';
 import { type ThemeOptionsSchema, type ThemeState, themeStateDefaults } from './theme-config';
 import { reduceTokenMap } from './utils/custom-theme-loading-utils';
-import { generateColors, generateTokenMapWithContrastCheck } from './utils/generate-custom-color-ramp';
+import {
+	generateColors,
+	generateTokenMapWithContrastCheck,
+} from './utils/generate-custom-color-ramp';
 import { hash } from './utils/hash';
 
 /**

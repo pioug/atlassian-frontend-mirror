@@ -71,27 +71,26 @@ describe('Utils unit tests', () => {
 		const result = isGCPtenant(hostname);
 
 		expect(result).toBe(true);
-	})
+	});
 
 	it('isGCPtenant returns false for tenant without GCP naming convention', () => {
 		const hostname = 'test-tenant-gcp.jira-dev.com';
 		const result = isGCPtenant(hostname);
 
 		expect(result).toBe(false);
-	})
+	});
 
 	it('isGCPtenant returns false for empty hostname', () => {
 		const hostname = '';
 		const result = isGCPtenant(hostname);
 
 		expect(result).toBe(false);
-	})
+	});
 
 	it('isGCPtenant returns false for undefined hostname', () => {
 		const hostname = undefined;
 		const result = isGCPtenant(hostname);
 
 		expect(result).toBe(false);
-	})
-
+	});
 });

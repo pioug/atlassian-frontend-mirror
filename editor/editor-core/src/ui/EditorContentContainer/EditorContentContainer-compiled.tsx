@@ -1,5 +1,5 @@
 // TODO: EDITOR-6833 - Expected across this entire file, future violations are expected. Will try to remove them later after fully migration
-/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/platform/expand-border-shorthand, @atlaskit/platform/expand-background-shorthand */
+/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/platform/expand-spacing-shorthand, @atlaskit/platform/expand-border-shorthand, @atlaskit/platform/expand-background-shorthand */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -28,7 +28,12 @@ import type {
 	EditorContentMode,
 	FeatureFlags,
 } from '@atlaskit/editor-common/types';
-import { akEditorGutterPaddingDynamic, editorFontSize } from '@atlaskit/editor-shared-styles';
+import {
+	akEditorFullPageDefaultFontSize,
+	akEditorFullPageDenseFontSize,
+	akEditorGutterPaddingDynamic,
+	editorFontSize,
+} from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -57,6 +62,12 @@ const GRID_GUTTER = 12;
 
 const blockNodesVerticalMargin = '0.75rem';
 const scaledBlockNodesVerticalMargin = '0.75em';
+// copied from packages/editor/editor-shared-styles/src/consts/consts.ts
+const akEditorLineHeight = 1.714;
+const listsStylesSafariFixMultiSelector = `
+	.ProseMirror:not(.blockCardView-content-wrap) > li > p:first-child,
+	.ProseMirror:not(.blockCardView-content-wrap) > li > .code-block:first-child,
+	.ProseMirror:not(.blockCardView-content-wrap) > li > .ProseMirror-gapcursor:first-child + .code-block`;
 
 const editorAreaNonSmallDeviceContainerQuery = `@container editor-area (width >= ${akEditorBreakpointForSmallDevice})`;
 const editorAreaNarrowPageContainerQuery = `@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`;
@@ -475,7 +486,27 @@ const editorContentStyles = cssMap({
 			},
 		},
 	},
-	backgroundColorStyles: {},
+	backgroundColorStyles: {
+		'.fabric-background-color-mark': {
+			backgroundColor: 'var(--custom-palette-color, inherit)',
+			borderRadius: token('radius.xsmall'),
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			paddingTop: 1,
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			paddingBottom: 2,
+			boxDecorationBreak: 'clone',
+		},
+
+		// Don't show text highlight styling when there is a hyperlink
+		'a .fabric-background-color-mark': {
+			backgroundColor: 'unset',
+		},
+
+		// Don't show text highlight styling when there is an inline comment
+		'.fabric-background-color-mark .ak-editor-annotation': {
+			backgroundColor: 'unset',
+		},
+	},
 	baseStyles: {
 		'--ak-editor--default-gutter-padding': `${akEditorGutterPadding}px`,
 		'--ak-editor--default-layout-width': `${akEditorDefaultLayoutWidth}px`,
@@ -556,8 +587,31 @@ const editorContentStyles = cssMap({
 	blocktypeStyles_without_fg_platform_editor_typography_ugc: {},
 	codeBlockStyles: {},
 	codeBlockStylesWithEmUnits: {},
-	codeMarkStyles: {},
-	codeMarkStylesA11yFix: {},
+	codeMarkStyles: {
+		'.code': {
+			'--ds--code--bg-color': token('color.background.neutral'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+			display: 'inline',
+			padding: '2px 0.5ch',
+			backgroundColor: `var(--ds--code--bg-color,${token('color.background.neutral')})`,
+			borderRadius: token('radius.small', '3px'),
+			borderStyle: 'none',
+			boxDecorationBreak: 'clone',
+			color: token('color.text'),
+			fontFamily: token('font.family.code'),
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: '0.875em',
+			fontWeight: token('font.weight.regular'),
+			overflow: 'auto',
+			overflowWrap: 'break-word',
+			whiteSpace: 'pre-wrap',
+		},
+	},
+	codeMarkStylesA11yFix: {
+		'.code': {
+			overflow: 'unset',
+		},
+	},
 	commentEditorStyles: {
 		flexGrow: 1,
 		overflowX: 'clip',
@@ -673,7 +727,13 @@ const editorContentStyles = cssMap({
 	decisionDangerStyles: {},
 	decisionIconWithVisualRefresh: {},
 	decisionStyles: {},
-	diffListStyles: {},
+	diffListStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'li[data-testid="show-diff-changed-decoration-node"]::marker': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			color: 'var(--diff-decoration-marker-color)',
+		},
+	},
 	editorControlsSmartCardStyles: {},
 	editorLargeGutterPuddingBaseStyles: {
 		'--ak-editor--large-gutter-padding': '52px',
@@ -722,10 +782,277 @@ const editorContentStyles = cssMap({
 	expandStylesMixin_fg_platform_visual_refresh_icons: {},
 	expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes: {},
 	extensionDiffStyles: {},
-	findReplaceStyles: {},
-	findReplaceStylesNewWithA11Y: {},
-	findReplaceStylesNewWithCodeblockColorContrastFix: {},
-	findReplaceStylesWithCodeblockColorContrastFix: {},
+	findReplaceStyles: {
+		'.search-match': {
+			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+			borderRadius: token('radius.small', '3px'),
+			backgroundColor: token('color.background.accent.teal.subtlest'),
+			boxShadow: `${token('elevation.shadow.raised')}, inset 0 0 0 1px ${token('color.border.input')}`,
+		},
+		'.selected-search-match': {
+			backgroundColor: token('color.background.accent.teal.subtle'),
+		},
+	},
+	// TODO: ED-28370 - during platform_editor_find_and_replace_improvements clean up, rename this css object to findReplaceStyles
+	findReplaceStylesNewWithA11Y: {
+		// text - inactive match - light mode
+		'.search-match-text': {
+			borderRadius: token('space.050'),
+			boxShadow: `
+			inset 0 0 0 1px ${token('color.border.accent.magenta')},
+			inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}
+			`,
+			// we need to use !important here as we need to override inline selection styles
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			backgroundColor: `${token('color.background.accent.magenta.subtler')} !important`,
+			color: token('color.text'),
+		},
+
+		// text - active match - light mode
+		'.search-match-text.selected-search-match': {
+			boxShadow: `
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')},
+			inset 0 0 0 5px ${token('color.background.accent.magenta.subtlest.pressed')}
+			`,
+			// we need to use !important here as we need to override inline selection styles
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			backgroundColor: `${token('color.background.accent.magenta.subtlest.pressed')} !important`,
+		},
+
+		// text - inactive match - dark mode
+		'.search-match-text.search-match-dark': {
+			boxShadow: `
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+			inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}
+			`,
+			// we need to use !important here as we need to override inline selection styles
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			backgroundColor: `${token('color.background.accent.magenta.bolder.pressed')} !important`,
+			color: token('color.text.inverse'),
+		},
+
+		// text - active match - dark mode
+		'.search-match-text.selected-search-match.search-match-dark': {
+			boxShadow: `
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+			inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.hovered')}
+			`,
+			// we need to use !important here as we need to override inline selection styles
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			backgroundColor: `${token('color.background.accent.magenta.bolder.hovered')} !important`,
+		},
+
+		// block node - inactive match - light mode - without node selection
+		'.search-match-block': {
+			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
+				boxShadow: `
+				inset 0 0 0 1px ${token('color.border.accent.magenta')},
+				inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}
+				`,
+			},
+			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+				{
+					boxShadow: `
+				0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')},
+				0px 0px 0px 5px ${token('color.border.accent.magenta')}
+				`,
+				},
+		},
+
+		// block node - active match - light mode - without node selection
+		'.search-match-block.search-match-block-selected': {
+			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
+				boxShadow: `
+				inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')},
+				inset 0 0 0 4px ${token('color.background.accent.magenta.subtlest.pressed')}
+				`,
+			},
+			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+				{
+					boxShadow: `
+				0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')},
+				0px 0px 0px 5px ${token('color.background.accent.magenta.bolder.hovered')}
+				`,
+				},
+		},
+
+		// block node - inactive match - light mode - with node selection
+		'.search-match-block.ak-editor-selected-node': {
+			'.loader-wrapper>div::after': {
+				boxShadow: `
+				inset 0 0 0 1px ${token('color.border.accent.magenta')},
+				inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')},
+				0 0 0 1px ${token('color.border.selected')}
+				`,
+			},
+			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+				{
+					boxShadow: `
+				0 0 0 1px ${token('color.border.selected')},
+				0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')},
+				0px 0px 0px 5px ${token('color.border.accent.magenta')}
+				`,
+				},
+		},
+
+		// block node - active match - light mode - with node selection
+		'.search-match-block.search-match-block-selected.ak-editor-selected-node': {
+			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
+				boxShadow: `
+				inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')},
+				inset 0 0 0 4px ${token('color.background.accent.magenta.subtlest.pressed')},
+				0 0 0 1px ${token('color.border.selected')}
+				`,
+			},
+			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+				{
+					boxShadow: `
+				0 0 0 1px ${token('color.border.selected')},
+				0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')},
+				0px 0px 0px 5px ${token('color.background.accent.magenta.bolder.hovered')}
+				`,
+				},
+		},
+
+		// block node - inactive match - dark mode - without node selection
+		'.search-match-block.search-match-dark': {
+			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
+				boxShadow: `
+				inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+				inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}
+				`,
+			},
+			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+				{
+					boxShadow: `
+				0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')},
+				0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}
+				`,
+				},
+		},
+
+		// block node - active match - dark mode - without node selection
+		'.search-match-block.search-match-block-selected.search-match-dark': {
+			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
+				boxShadow: `
+				inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+				inset 0 0 0 4px ${token('color.background.accent.magenta.bolder.hovered')}
+				`,
+			},
+			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+				{
+					boxShadow: `
+				0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')},
+				0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}
+				`,
+				},
+		},
+
+		// block node - inactive match - dark mode - with node selection
+		'.search-match-block.search-match-dark.ak-editor-selected-node': {
+			'.loader-wrapper>div::after': {
+				boxShadow: `
+				inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+				inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')},
+				0 0 0 1px ${token('color.border.selected')}
+				`,
+			},
+			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+				{
+					boxShadow: `
+				0 0 0 1px ${token('color.border.selected')},
+				0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')},
+				0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}
+				`,
+				},
+		},
+
+		// block node - active match - dark mode - with node selection
+		'.search-match-block.search-match-block-selected.search-match-dark.ak-editor-selected-node': {
+			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
+				boxShadow: `
+				inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+				inset 0 0 0 4px ${token('color.background.accent.magenta.bolder.hovered')},
+				0 0 0 1px ${token('color.border.selected')}
+				`,
+			},
+			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+				{
+					boxShadow: `
+				0 0 0 1px ${token('color.border.selected')},
+				0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')},
+				0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}
+				`,
+				},
+		},
+
+		// expand title - inactive match - light mode
+		'.search-match-expand-title > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
+			{
+				borderRadius: token('space.050'),
+				boxShadow: `
+			inset 0 0 0 1px ${token('color.border.accent.magenta')},
+			inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}
+			`,
+				backgroundColor: token('color.background.accent.magenta.subtler'),
+				'.ak-editor-expand__title-input': {
+					color: token('color.text'),
+				},
+			},
+
+		// expand title - active match - light mode
+		'.search-match-expand-title.selected-search-match > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
+			{
+				boxShadow: `
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')},
+			inset 0 0 0 5px ${token('color.background.accent.magenta.subtlest.pressed')}
+			`,
+				backgroundColor: token('color.background.accent.magenta.subtlest.pressed'),
+			},
+
+		// expand title - inactive match - dark mode
+		'.search-match-expand-title.search-match-dark > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
+			{
+				boxShadow: `
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+			inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}
+			`,
+				backgroundColor: token('color.background.accent.magenta.bolder.pressed'),
+				'.ak-editor-expand__title-input': {
+					color: token('color.text.inverse'),
+				},
+			},
+
+		// expand title - active match - dark mode
+		'.search-match-expand-title.selected-search-match.search-match-dark > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
+			{
+				boxShadow: `
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+			inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.hovered')}
+			`,
+				backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
+			},
+	},
+	findReplaceStylesNewWithCodeblockColorContrastFix: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		'.code-block .search-match-text.selected-search-match': {
+			span: {
+				// we need to use !important here as we need to override inline selection styles
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				color: `${token('color.text')} !important`,
+			},
+		},
+	},
+	findReplaceStylesWithCodeblockColorContrastFix: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		'.code-block .search-match.selected-search-match': {
+			span: {
+				// we need to use !important here as we need to override inline selection styles
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				color: `${token('color.text')} !important`,
+			},
+		},
+	},
 	firstBlockNodeStyles: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.ProseMirror': {
@@ -766,7 +1093,40 @@ const editorContentStyles = cssMap({
 				},
 		},
 	},
-	fontSizeStyles: {},
+	fontSizeStyles: {
+		'.ProseMirror': {
+			'.fabric-editor-font-size': {
+				"&[data-font-size='small']": {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					font: 'var(--editor-font-ugc-token-body-small)',
+				},
+			},
+
+			// Apply font-size to the ::marker pseudo-element of list items that have a font-size mark.
+			// Targeting ::marker directly avoids setting font on the <li> itself, which would cascade
+			// into nested lists and compound the sizing at each nesting level.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			"li:has(> .fabric-editor-font-size[data-font-size='small'])::marker": {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				font: 'var(--editor-font-ugc-token-body-small)',
+			},
+
+			// For blockTaskItem nodes: propagate font-size to the task container so the
+			// checkbox and layout align with the content size. Reset on the inner mark to avoid
+			// double-applying.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			"[data-prosemirror-node-name='blockTaskItem']:has(.fabric-editor-font-size[data-font-size='small'])":
+				{
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					font: 'var(--editor-font-ugc-token-body-small)',
+
+					// Reset the inner block mark so the font value is not applied twice
+					'.fabric-editor-font-size': {
+						font: 'inherit',
+					},
+				},
+		},
+	},
 	fullPageEditorStyles: {
 		flexGrow: 1,
 		height: '100%',
@@ -880,7 +1240,37 @@ const editorContentStyles = cssMap({
 			},
 		},
 	},
-	gridStyles: {},
+	gridStyles: {
+		'.gridParent': {
+			width: `calc(100% + 24px)`,
+			marginLeft: token('space.negative.150'),
+			marginRight: token('space.negative.150'),
+			transform: 'scale(1)',
+			zIndex: 2,
+		},
+
+		'.gridContainer': {
+			position: 'fixed',
+			height: '100vh',
+			width: '100%',
+			pointerEvents: 'none',
+		},
+
+		'.gridLine': {
+			borderLeft: `${token('border.width')} solid ${token('color.border')}`,
+			display: 'inline-block',
+			boxSizing: 'border-box',
+			height: '100%',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			marginLeft: '-1px',
+			transition: 'border-color 0.15s linear',
+			zIndex: 0,
+		},
+
+		'.highlight': {
+			borderLeft: `1px solid ${token('color.border.focused')}`,
+		},
+	},
 	hideCursorWhenHideSelectionStyles: {
 		// Hide cursor when hide selection styles are applied
 		// https://github.com/ProseMirror/prosemirror-view/blob/f37ebb29befdbde3cd194fe13fe17b78e743d2f2/style/prosemirror.css#L24
@@ -900,9 +1290,44 @@ const editorContentStyles = cssMap({
 			},
 		},
 	},
-	hyperLinkFloatingToolbarStyles: {},
+	hyperLinkFloatingToolbarStyles: {
+		'.hyperlink-floating-toolbar': {
+			padding: 0,
+		},
+	},
 	indentationStyles: {},
-	InlineNodeViewSharedStyles: {},
+	InlineNodeViewSharedStyles: {
+		'.ProseMirror': {
+			'.inlineNodeView': {
+				display: 'inline',
+				userSelect: 'all',
+				whiteSpace: 'nowrap',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'& > *:not(.zeroWidthSpaceContainer)': {
+					whiteSpace: 'pre-wrap',
+				},
+				'& > .assistive': {
+					userSelect: 'none',
+				},
+			},
+			'&.ua-safari': {
+				'.inlineNodeView': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+					'&::selection, *::selection': {
+						background: 'transparent',
+					},
+				},
+			},
+			'&.ua-chrome .inlineNodeView > span': {
+				userSelect: 'none',
+			},
+			'.inlineNodeViewAddZeroWidthSpace': {
+				'&::after': {
+					content: "'\u200b'", // ZERO_WIDTH_SPACE
+				},
+			},
+		},
+	},
 	layoutBaseStyles: {},
 	layoutBaseStylesAdvanced: {},
 	layoutBaseStylesFixesUnderNestedDnDFG: {},
@@ -927,13 +1352,205 @@ const editorContentStyles = cssMap({
 	layoutSelectedStylesNotAdvanced: {},
 	layoutStylesForView: {},
 	linkingVisualRefreshV1Styles: {},
-	linkStyles: {},
+	linkStyles: {
+		'.ProseMirror a.blockLink': {
+			display: 'block',
+		},
+		'.ProseMirror a[data-prosemirror-mark-name="link"]': {
+			textDecoration: 'underline',
+		},
+		'.ProseMirror a[data-prosemirror-mark-name="link"]:hover': {
+			textDecoration: 'none',
+		},
+	},
 	listDangerStyles: {},
-	listItemHiddenMarkerStyles: {},
+	listItemHiddenMarkerStyles: {
+		'.ProseMirror': {
+			// Hide markers and remove spacing for wrapper list items (items containing only nested lists)
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'li:has(> ul:only-child), li:has(> ol:only-child)': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				listStyleType: 'none !important',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				marginTop: '0 !important',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				marginBottom: '0 !important',
+			},
+			// Remove margin from nested lists inside wrapper list items to avoid double spacing
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'li:has(> ul:only-child) > ul, li:has(> ol:only-child) > ol': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				marginTop: '0 !important',
+			},
+			// Remove top margin from nested taskLists not preceded by a sibling taskItem.
+			// The base rule (tasksAndDecisionsStyles) sets margin-top on all nested taskLists,
+			// but with flexible indentation a taskList can be the first child with no taskItem above.
+			'div[data-task-list-local-id] > div[data-task-list-local-id]': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				marginTop: '0 !important',
+			},
+			// Restore margin when a nested taskList follows a taskItem
+			'div[data-task-local-id] + div[data-task-list-local-id]': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				marginTop: `${token('space.050')} !important`,
+			},
+		},
+	},
 	listSelectedNodeStyles: {},
-	listsStyles: {},
-	listsStylesMarginLayoutShiftFix: {},
-	listsStylesSafariFix: {},
+	listsStyles: {
+		'.ProseMirror': {
+			/* =============== INDENTATION SPACING ========= */
+
+			'ul, ol': {
+				boxSizing: 'border-box',
+				paddingLeft: `var(--ed--list--item-counter--padding, 24px)`,
+			},
+
+			// Firefox does not handle empty block element inside li tag.
+			// If there is not block element inside li tag,	then firefox sets inherited height to li
+			// However, if there is any block element and if it's empty	(or has empty inline element) then
+			// firefox sets li tag height to zero.
+			//
+			// More details at
+			// https://product-fabric.atlassian.net/wiki/spaces/~455502413/pages/3149365890/ED-14110+Investigation
+			'&.ua-firefox': {
+				'ul, ol': {
+					'li p:empty, li p > span:empty': {
+						display: 'inline-block',
+					},
+				},
+			},
+
+			'.ak-ol, .ak-ul': {
+				// Ensures list item content adheres to the list's margin instead
+				// of filling the entire block row. This is important to allow
+				// clicking interactive elements which are floated next to a list.
+				//
+				// For some history and context on this block, see PRs related to tickets.:
+				// @see ED-6551 - original issue.
+				// @see ED-7015 - follow up issue.
+				// @see ED-7447 - flow-root change.
+				//
+				// @see https://css-tricks.com/display-flow-root/
+				//
+				// For older browsers the do not support flow-root. */
+				// stylelint-disable declaration-block-no-duplicate-properties */
+				display: 'flow-root',
+				/* stylelint-enable declaration-block-no-duplicate-properties */
+			},
+
+			/* =============== INDENTATION AESTHETICS ========= */
+
+			// We support nested lists up to six levels deep.
+
+			/*  ======== LEGACY LISTS ======== */
+			'ul, ul ul ul ul': {
+				listStyleType: 'disc',
+			},
+			'ul ul, ul ul ul ul ul': {
+				listStyleType: 'circle',
+			},
+			'ul ul ul, ul ul ul ul ul ul': {
+				listStyleType: 'square',
+			},
+			'ol, ol ol ol ol': {
+				listStyleType: 'decimal',
+			},
+			'ol ol, ol ol ol ol ol': {
+				listStyleType: 'lower-alpha',
+			},
+			'ol ol ol, ol ol ol ol ol ol': {
+				listStyleType: 'lower-roman',
+			},
+
+			/* ======== PREDICTABLE LISTS ======== */
+			"ol[data-indent-level='1'], ol[data-indent-level='4']": {
+				listStyleType: 'decimal',
+			},
+			"ol[data-indent-level='2'], ol[data-indent-level='5']": {
+				listStyleType: 'lower-alpha',
+			},
+			"ol[data-indent-level='3'], ol[data-indent-level='6']": {
+				listStyleType: 'lower-roman',
+			},
+			"ul[data-indent-level='1'], ul[data-indent-level='4']": {
+				listStyleType: 'disc',
+			},
+			"ul[data-indent-level='2'], ul[data-indent-level='5']": {
+				listStyleType: 'circle',
+			},
+			"ul[data-indent-level='3'], ul[data-indent-level='6']": {
+				listStyleType: 'square',
+			},
+
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+			li: {
+				position: 'relative',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'& > p:not(:first-child)': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					margin: `${token('space.050')} 0 0 0`,
+				},
+				/* In SSR the above rule will apply to all p tags because first-child would be a style tag.
+					The following rule resets the first p tag back to its original margin
+					defined in packages/editor/editor-common/src/styles/shared/paragraph.ts */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'& > style:first-child + p': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					marginTop: blockNodesVerticalMargin,
+				},
+			},
+		},
+	},
+	listsStylesMarginLayoutShiftFix: {
+		// These styles are to fix a layout shift issue that occurs when aui-reset.less CSS is applied post-hydration.
+		// It overrides the design system bundle.css list margins, which in turn causes the lists to shift vertically.
+		'.ProseMirror': {
+			// Root lists: 12px top margin (design system value), except first content child. Uses :not(:nth-child(1 of ...)) to exclude first content lists.
+			// A more complex selector is used here to ensure this style is not applied to block quotes and panels, as they do not have a margin-top property already, and this will incorrectly add a margin-top to them.
+			// This is unlike tables and expands, which do have a margin-top property already, and this style would not change their top margin, even without the :not(:nth-child(1 of ...)) selector.
+			// This targeted approach reduces the blast radius of the fix. Instead of modifying numerous existing styles, we add this single selector until the issue with bundle.css & aui-reset.less is fixed.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+			'ul:not(li > ul):not(:nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))), ol:not(li > ol):not(:nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span)))':
+				{
+					marginTop: `var(--ds-space-150, 12px)`,
+				},
+
+			// Nested lists: 4px top margin (design system value)
+			// Applies to both OL and UL nested inside list items
+			'li > ol, li > ul': {
+				marginTop: `var(--ds-space-050, 4px)`,
+			},
+		},
+	},
+	listsStylesSafariFix: {
+		/* This prevents https://product-fabric.atlassian.net/browse/ED-20924 */
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		'.ProseMirror:not(.blockCardView-content-wrap) > li::before': {
+			content: '" "',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			lineHeight: akEditorLineHeight,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[listsStylesSafariFixMultiSelector]: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			marginTop: `-${akEditorLineHeight}em !important`,
+		},
+	},
+	listsDenseStyles: {
+		'.ProseMirror': {
+			// Adjacent list items
+			'li + li': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				marginTop: `max(0px, calc((var(--ak-editor-base-font-size, ${akEditorFullPageDefaultFontSize}px) - ${akEditorFullPageDenseFontSize}px) * (4 / 3)))`,
+			},
+			// Nested lists directly under an li (unordered and ordered)
+			'li > ul, li > ol, .ak-ul li > ul, .ak-ul li > ol, .ak-ol li > ul, .ak-ol li > ol': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				marginTop: `max(0px, calc((var(--ak-editor-base-font-size, ${akEditorFullPageDefaultFontSize}px) - ${akEditorFullPageDenseFontSize}px) * (4 / 3)))`,
+			},
+		},
+	},
 	maxModeReizeFixStyles: {
 		'.fabric-editor--max-width-mode': {
 			'--ak-editor--line-length':
@@ -1524,7 +2141,18 @@ const editorContentStyles = cssMap({
 		},
 	},
 	textDangerStyles: {},
-	textHighlightPaddingStyles: {},
+	textHighlightPaddingStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.fabric-background-color-mark:has(.background-color-padding-left)': {
+			paddingLeft: token('space.025'),
+			marginLeft: token('space.negative.025'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.fabric-background-color-mark:has(.background-color-padding-right)': {
+			paddingRight: token('space.025'),
+			marginRight: token('space.negative.025'),
+		},
+	},
 	textHighlightStyle: {
 		'.text-highlight': {
 			backgroundColor: token('color.background.accent.blue.subtlest'),
@@ -1590,6 +2218,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 	const isChromeless = appearance === 'chromeless';
 
 	const baseFontSize = getBaseFontSize(appearance, contentMode);
+	const isDense = !!baseFontSize && baseFontSize !== akEditorFullPageDefaultFontSize;
 
 	const style = editorExperiment('platform_editor_preview_panel_responsiveness', true, {
 		exposure: true,
@@ -1673,16 +2302,14 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				expValEqualsNoExposure('platform_editor_flexible_list_schema', 'isEnabled', true) &&
 					editorContentStyles.listItemHiddenMarkerStyles,
 				editorContentStyles.diffListStyles,
-				// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-				// TODO: uncomment and remove dynamic styles from getDenseListStyles
-				// migrate this when migrate packages/editor/editor-core/src/ui/EditorContentContainer/styles/list.ts
 				// Condense vertical spacing between list items when content mode dense is active
-				// contentMode === 'compact' &&
-				// 	(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-				// 		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-				// 		(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-				// 			fg('platform_editor_content_mode_button_mvp'))) &&
-				// 	getDenseListStyles(baseFontSize),
+				contentMode === 'compact' &&
+					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+							fg('platform_editor_content_mode_button_mvp'))) &&
+					isDense &&
+					editorContentStyles.listsDenseStyles,
 				expValEquals('cc_editor_ttvc_release_bundle_one', 'listLayoutShiftFix', true) &&
 					isFullPage &&
 					editorContentStyles.listsStylesMarginLayoutShiftFix,

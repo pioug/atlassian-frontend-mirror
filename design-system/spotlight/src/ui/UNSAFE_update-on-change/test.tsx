@@ -210,16 +210,12 @@ describe('UNSAFE_UpdateOnChange', () => {
 		expect(mockObserver.disconnect).toHaveBeenCalled();
 	});
 
-	ffTest.on(
-		'platform-dst-top-layer',
-		'with top-layer positioning enabled',
-		() => {
-			it('does not observe mutations or call update', () => {
-				renderWithContext({ selectors: ['body'] });
+	ffTest.on('platform-dst-top-layer', 'with top-layer positioning enabled', () => {
+		it('does not observe mutations or call update', () => {
+			renderWithContext({ selectors: ['body'] });
 
-				expect(mockMutationObserver).not.toHaveBeenCalled();
-				expect(mockUpdate).not.toHaveBeenCalled();
-			});
-		},
-	);
+			expect(mockMutationObserver).not.toHaveBeenCalled();
+			expect(mockUpdate).not.toHaveBeenCalled();
+		});
+	});
 });

@@ -18,24 +18,20 @@ const TargetRefProbe = ({ onRef }: { onRef: (element: HTMLDivElement | null) => 
 };
 
 describe('PopoverTarget', () => {
-	ffTest.on(
-		'platform-dst-top-layer',
-		'with top-layer positioning enabled',
-		() => {
-			it('stores the target wrapper ref in spotlight context', async () => {
-				const onRef = jest.fn();
+	ffTest.on('platform-dst-top-layer', 'with top-layer positioning enabled', () => {
+		it('stores the target wrapper ref in spotlight context', async () => {
+			const onRef = jest.fn();
 
-				render(
-					<PopoverProvider>
-						<PopoverTarget>Target</PopoverTarget>
-						<TargetRefProbe onRef={onRef} />
-					</PopoverProvider>,
-				);
+			render(
+				<PopoverProvider>
+					<PopoverTarget>Target</PopoverTarget>
+					<TargetRefProbe onRef={onRef} />
+				</PopoverProvider>,
+			);
 
-				await waitFor(() => {
-					expect(onRef).toHaveBeenLastCalledWith(expect.any(HTMLDivElement));
-				});
+			await waitFor(() => {
+				expect(onRef).toHaveBeenLastCalledWith(expect.any(HTMLDivElement));
 			});
-		},
-	);
+		});
+	});
 });

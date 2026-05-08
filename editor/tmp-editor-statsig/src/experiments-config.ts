@@ -69,6 +69,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-05
+	'databases-native-embeds-v2': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-21
 	cwr_page_tree_auto_finalize: {
 		defaultValue: boolean;
@@ -1871,7 +1878,7 @@ export const editorExperimentsConfig: {
 		param: string;
 		productKeys?: ProductKeys;
 		typeGuard: (value: unknown) => value is 'control' | 'hasSpellingAndGrammar' | 'hasAltAiActions';
-		values: ('control' |  'hasSpellingAndGrammar'| 'hasAltAiActions')[];
+		values: ('control' | 'hasSpellingAndGrammar' | 'hasAltAiActions')[];
 	};
 	// Added 2026-04-30
 	platform_editor_paste_actions_menu_v2_boolean: {
@@ -2016,6 +2023,14 @@ export const editorExperimentsConfig: {
 	cwr_blank_object_experiment: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cwr_blank_object_experiment',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-05
+	'databases-native-embeds-v2': createBooleanExperiment({
+		productKeys: {
+			confluence: 'databases-native-embeds-v2',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -5,6 +5,7 @@ import type { CardPlugin } from '@atlaskit/editor-plugin-card';
 import type { ExpandPlugin } from '@atlaskit/editor-plugin-expand';
 import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
+import type { SyncedBlockPlugin } from '@atlaskit/editor-plugin-synced-block';
 
 import type { FindReplacePluginState, FindReplaceToolbarButtonActionProps } from './types';
 
@@ -19,6 +20,7 @@ export type FindReplacePluginDependencies = [
 	OptionalPlugin<MentionsPlugin>,
 	OptionalPlugin<CardPlugin>,
 	OptionalPlugin<ExpandPlugin>,
+	OptionalPlugin<SyncedBlockPlugin>,
 ];
 
 export type FindReplacePlugin = NextEditorPlugin<

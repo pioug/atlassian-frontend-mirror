@@ -202,6 +202,16 @@ const buildSlowLaneText = (docText: string, context?: AutocompleteContext): stri
 	return lines.join('\n');
 };
 
+const getTypedLengthForPrediction = (textBefore: string): number => {
+	if (isWordBoundary(textBefore)) {
+		return 0;
+	}
+
+	// eslint-disable-next-line require-unicode-regexp
+	const trailingToken = textBefore.match(/([^\s.,;:!?]*)$/)?.[1] ?? '';
+	return trailingToken.length;
+};
+
 export const createAutocompletePlugin = (
 	options?: AutocompletePluginOptions,
 	api?: ExtractInjectionAPI<AutocompletePlugin>,
@@ -222,6 +232,25 @@ export const createAutocompletePlugin = (
 	 * re-showing the same suggestion. Resets to null as soon as the text changes.
 	 */
 	let dismissedContext: string | null = null;
+	let lastSuggestionTypedLength = 0;
+	let lastSuggestionLength = 0;
+
+	const fireSuggestionInsertedAnalytics = (ghostText: string): void => {
+		const typedLength = lastSuggestionTypedLength;
+		const suggestionLength = lastSuggestionLength || typedLength + ghostText.length;
+		const kssDelta = suggestionLength - typedLength;
+
+		api?.analytics?.actions.fireAnalyticsEvent({
+			action: ACTION.SUGGESTION_INSERTED,
+			actionSubject: ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
+			eventType: EVENT_TYPE.TRACK,
+			attributes: {
+				suggestionLength,
+				typedLength,
+				kssDelta,
+			},
+		});
+	};
 
 	const slowLaneClient = createSlowLaneClient({
 		baseUrl: '',
@@ -266,6 +295,10 @@ export const createAutocompletePlugin = (
 			const prediction = predict(textBefore);
 
 			if (prediction && prediction.length > 0) {
+				const typedLength = getTypedLengthForPrediction(textBefore);
+				lastSuggestionTypedLength = typedLength;
+				lastSuggestionLength = typedLength + prediction.length;
+
 				showGhostText(view, prediction, selection.from);
 				if (prediction !== lastShownGhostText) {
 					lastShownGhostText = prediction;
@@ -362,28 +395,28 @@ export const createAutocompletePlugin = (
 
 			handleKeyDown: keydownHandler({
 				Tab: (state: EditorState, dispatch?: (tr: Transaction) => void) => {
+					const pluginState = autocompletePluginKey.getState(state) as
+						| AutocompletePluginState
+						| undefined;
+					const ghostText = pluginState?.ghostText ?? '';
 					const accepted = acceptGhostText(state, dispatch);
 					if (accepted) {
 						justAccepted = true;
 						lastShownGhostText = '';
-						api?.analytics?.actions.fireAnalyticsEvent({
-							action: ACTION.SUGGESTION_INSERTED,
-							actionSubject: ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
-							eventType: EVENT_TYPE.TRACK,
-						});
+						fireSuggestionInsertedAnalytics(ghostText);
 					}
 					return accepted;
 				},
 				ArrowRight: (state: EditorState, dispatch?: (tr: Transaction) => void) => {
+					const pluginState = autocompletePluginKey.getState(state) as
+						| AutocompletePluginState
+						| undefined;
+					const ghostText = pluginState?.ghostText ?? '';
 					const accepted = acceptGhostText(state, dispatch);
 					if (accepted) {
 						justAccepted = true;
 						lastShownGhostText = '';
-						api?.analytics?.actions.fireAnalyticsEvent({
-							action: ACTION.SUGGESTION_INSERTED,
-							actionSubject: ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
-							eventType: EVENT_TYPE.TRACK,
-						});
+						fireSuggestionInsertedAnalytics(ghostText);
 					}
 					return accepted;
 				},

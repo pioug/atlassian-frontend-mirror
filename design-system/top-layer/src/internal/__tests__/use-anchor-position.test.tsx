@@ -459,10 +459,7 @@ describe('useAnchorPosition', () => {
 			const setPropertySpy = jest.spyOn(popover.style, 'setProperty');
 
 			rerender(
-				<Probe
-					placement={{ axis: 'block', edge: 'end', align: 'center' }}
-					onRender={onRender}
-				/>,
+				<Probe placement={{ axis: 'block', edge: 'end', align: 'center' }} onRender={onRender} />,
 			);
 
 			expect(setPropertySpy).not.toHaveBeenCalled();

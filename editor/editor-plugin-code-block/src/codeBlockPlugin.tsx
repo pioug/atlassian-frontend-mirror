@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { codeBlock, codeBlockWithExtendedAttributes, codeBlockWithLocalId } from '@atlaskit/adf-schema';
+import {
+	codeBlock,
+	codeBlockWithExtendedAttributes,
+	codeBlockWithLocalId,
+} from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,

@@ -67,7 +67,7 @@ const allowlistElements = (element: HTMLElement, callback?: (element: HTMLElemen
  */
 const InternalModalWrapper = (props: InternalModalWrapperProps): JSX.Element => {
 	const {
-		autoFocus = true,
+		autoFocus,
 		focusLockAllowlist,
 		shouldCloseOnEscapePress = true,
 		shouldCloseOnOverlayClick = true,
@@ -92,10 +92,8 @@ const InternalModalWrapper = (props: InternalModalWrapperProps): JSX.Element => 
 	const stackIndex = stackIndexOverride || calculatedStackIndex;
 	const isForeground = stackIndex === 0;
 
-	// When a user supplies a ref to focus we skip auto focus via react-focus-lock
-	// When flag is true and a ref is not supplied, autofocus is true. See https://product-fabric.atlassian.net/browse/DSP-24307
-	// When we remove boolean `autoFocus`, we won't have to worry about this
-	const autoFocusLock = typeof autoFocus === 'boolean';
+	// If no ref is provided, autofocus on first element
+	const autoFocusLock = !(typeof autoFocus === 'object');
 
 	const onCloseHandler = usePlatformLeafEventHandler({
 		fn: providedOnClose || noop,

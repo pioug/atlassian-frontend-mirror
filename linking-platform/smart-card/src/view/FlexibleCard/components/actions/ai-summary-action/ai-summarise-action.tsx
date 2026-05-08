@@ -13,9 +13,7 @@ import type {
 	AISummaryState,
 	AISummaryStatus,
 } from '../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
-import {
-	useBlockCardRovoActionExperimentNoExposure
-} from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
+import { useBlockCardRovoActionExperimentNoExposure } from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import Action from '../action';
 
 import type { AISummaryActionProps } from './types';
@@ -69,7 +67,7 @@ export function AISummariseAction({
 					label="Summarise with AI"
 					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
 					isRovoBlockCardExperimentEnabled ||
-						expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
+					expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
 						? { size: props.iconSize }
 						: {})}
 				/>

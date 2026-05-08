@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { getCurrentSiteCloudId, getCurrentSiteCloudIdSync } from '../../services/current-site-cloud-id';
+import {
+	getCurrentSiteCloudId,
+	getCurrentSiteCloudIdSync,
+} from '../../services/current-site-cloud-id';
 import {
 	getProviderPctMap,
 	getProviderPctMapSync,
@@ -79,9 +82,7 @@ const useSocialProof = (
 
 		return {
 			connectedPct:
-				extensionKey && snapshot.providerPctMap
-					? snapshot.providerPctMap[extensionKey]
-					: undefined,
+				extensionKey && snapshot.providerPctMap ? snapshot.providerPctMap[extensionKey] : undefined,
 			isEnabled: Boolean(snapshot.cloudId && snapshot.providerPctMap),
 			isLoading: false, // sync read is instant; never in "loading" state
 		};

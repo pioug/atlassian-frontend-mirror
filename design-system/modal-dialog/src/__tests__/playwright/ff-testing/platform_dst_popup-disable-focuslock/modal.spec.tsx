@@ -187,7 +187,7 @@ test('Empty modals (no focusable children) should still lock focus', async ({ pa
 });
 
 test.describe('Autofocus', () => {
-	test('should focus first focusable item when true', async ({ page }) => {
+	test('should focus first focusable item when no ref provided', async ({ page }) => {
 		const open = page.getByTestId('boolean-trigger');
 		const modal = page.getByTestId(modalDialog);
 
@@ -207,7 +207,7 @@ test.describe('Autofocus', () => {
 		await expect(page.getByTestId(closeModalBtn)).toBeFocused();
 	});
 
-	test('should focus item specified by ref', async ({ page }) => {
+	test('should focus item specified by autofocus ref', async ({ page }) => {
 		const open = page.getByTestId('autofocus-trigger');
 		const modal = page.getByTestId(modalDialog);
 
@@ -217,6 +217,7 @@ test.describe('Autofocus', () => {
 			'autofocus',
 			{
 				featureFlag: 'platform_dst_popup-disable-focuslock',
+				'react-18-mode': 'legacy',
 			},
 		);
 

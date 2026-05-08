@@ -715,6 +715,73 @@ describe('MediaStore', () => {
 				});
 			});
 
+			ffTest(
+				'platform_media_upload_expected_size_header',
+				async () => {
+					const uploadId = '29c49470-adac-4b16-82ec-301340c7b16a';
+					const body = {
+						chunks: [
+							'0675a983536736a69f835438bcf8629e044f190d-4096',
+							'e6295a0966535d295582670afeeb14059969d359-209',
+						],
+						hash: 'sha1:b0edf951dd0c86f80d989e20b9dc3060c53d66a6',
+						offset: 0,
+					};
+
+					fetchMock.once('', {
+						status: 200,
+						statusText: 'Ok',
+					});
+
+					await mediaStore.appendChunksToUpload(uploadId, body, undefined, undefined, {
+						expectedFileSize: 12345,
+					});
+
+					expect(fetchMock).toHaveBeenCalledWith(`${baseUrl}/upload/${uploadId}/chunks`, {
+						method: 'PUT',
+						headers: {
+							'X-Client-Id': clientId,
+							Authorization: `Bearer ${token}`,
+							Accept: 'application/json',
+							'Content-Type': 'application/json',
+							'x-expected-size': '12345',
+						},
+						body: JSON.stringify(body),
+					});
+				},
+				async () => {
+					const uploadId = '29c49470-adac-4b16-82ec-301340c7b16a';
+					const body = {
+						chunks: [
+							'0675a983536736a69f835438bcf8629e044f190d-4096',
+							'e6295a0966535d295582670afeeb14059969d359-209',
+						],
+						hash: 'sha1:b0edf951dd0c86f80d989e20b9dc3060c53d66a6',
+						offset: 0,
+					};
+
+					fetchMock.once('', {
+						status: 200,
+						statusText: 'Ok',
+					});
+
+					await mediaStore.appendChunksToUpload(uploadId, body, undefined, undefined, {
+						expectedFileSize: 12345,
+					});
+
+					expect(fetchMock).toHaveBeenCalledWith(`${baseUrl}/upload/${uploadId}/chunks`, {
+						method: 'PUT',
+						headers: {
+							'X-Client-Id': clientId,
+							Authorization: `Bearer ${token}`,
+							Accept: 'application/json',
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(body),
+					});
+				},
+			);
+
 			it('calls request with traceContext', async () => {
 				const uploadId = '29c49470-adac-4b16-82ec-301340c7b16a';
 				const body = {

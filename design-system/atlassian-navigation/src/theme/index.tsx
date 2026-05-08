@@ -15,4 +15,4 @@ export type {
 	GenerateThemeArgs,
 } from './types';
 export { useTheme } from './use-theme';
-export { hexToRGBA } from './theme-helpers';
+export { hexToRGBA } from './hex-to-rgba';

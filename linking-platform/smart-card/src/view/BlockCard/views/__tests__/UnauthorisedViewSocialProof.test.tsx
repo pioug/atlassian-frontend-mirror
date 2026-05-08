@@ -77,9 +77,7 @@ describe('UnauthorisedView social proof experiment', () => {
 			renderComponent();
 
 			const description = await screen.findByTestId(descriptionTestId);
-			expect(description).toHaveTextContent(
-				/Turn your URLs into rich, interactive previews\./i,
-			);
+			expect(description).toHaveTextContent(/Turn your URLs into rich, interactive previews\./i);
 			expect(screen.queryByTestId('smart-block-social-proof-message')).not.toBeInTheDocument();
 			expect(mockUseSocialProofExperiment).not.toHaveBeenCalled();
 		});
@@ -111,9 +109,7 @@ describe('UnauthorisedView social proof experiment', () => {
 			renderComponent();
 
 			const description = await screen.findByTestId(descriptionTestId);
-			expect(description).toHaveTextContent(
-				/Turn your URLs into rich, interactive previews\./i,
-			);
+			expect(description).toHaveTextContent(/Turn your URLs into rich, interactive previews\./i);
 			expect(screen.queryByTestId('smart-block-social-proof-message')).not.toBeInTheDocument();
 		});
 
@@ -128,9 +124,7 @@ describe('UnauthorisedView social proof experiment', () => {
 			renderComponent();
 
 			const description = await screen.findByTestId(descriptionTestId);
-			expect(description).toHaveTextContent(
-				/Turn your URLs into rich, interactive previews\./i,
-			);
+			expect(description).toHaveTextContent(/Turn your URLs into rich, interactive previews\./i);
 			expect(screen.queryByTestId('smart-block-social-proof-message')).not.toBeInTheDocument();
 		});
 	});

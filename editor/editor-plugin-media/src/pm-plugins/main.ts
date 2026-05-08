@@ -574,26 +574,26 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 				if (mediaChildNode) {
 					const updater = createMediaNodeUpdater({
 						view: this.view,
-						mediaProvider: this.mediaProvider
-							? Promise.resolve(this.mediaProvider)
-							: undefined,
+						mediaProvider: this.mediaProvider ? Promise.resolve(this.mediaProvider) : undefined,
 						contextIdentifierProvider: this.contextIdentifierProvider
 							? Promise.resolve(this.contextIdentifierProvider)
 							: undefined,
 						node: mediaChildNode,
 						isMediaSingle: true,
-						lineLength:
-							this.pluginInjectionApi?.width?.sharedState.currentState()?.lineLength,
+						lineLength: this.pluginInjectionApi?.width?.sharedState.currentState()?.lineLength,
 					});
-					updater.getRemoteDimensions().then((dims) => {
-						if (dims) {
-							updater.updateDimensions(dims);
-						}
-					}).catch(() => {
-						// Silently ignore — if dimensions can't be fetched (e.g. network error),
-						// the image will render at its current size without the height-preserving
-						// width adjustment. This is an acceptable degraded experience.
-					});
+					updater
+						.getRemoteDimensions()
+						.then((dims) => {
+							if (dims) {
+								updater.updateDimensions(dims);
+							}
+						})
+						.catch(() => {
+							// Silently ignore — if dimensions can't be fetched (e.g. network error),
+							// the image will render at its current size without the height-preserving
+							// width adjustment. This is an acceptable degraded experience.
+						});
 				}
 			};
 

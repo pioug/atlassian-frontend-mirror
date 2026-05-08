@@ -324,14 +324,18 @@ export const rendererTestCase: TestType<
 	],
 
 	renderer: async (
-		{ page, adf, rendererProps, rendererMountOptions, platformFeatureFlags, editorExperiments, exampleName },
+		{
+			page,
+			adf,
+			rendererProps,
+			rendererMountOptions,
+			platformFeatureFlags,
+			editorExperiments,
+			exampleName,
+		},
 		use,
 	) => {
-		if (
-			editorExperiments &&
-			Object.keys(editorExperiments).length &&
-			exampleName !== 'testing'
-		) {
+		if (editorExperiments && Object.keys(editorExperiments).length && exampleName !== 'testing') {
 			throw new Error(
 				`Cannot use 'editorExperiments' with a custom exampleName, received exampleName: ${exampleName}, editorExperiments: ${JSON.stringify(editorExperiments)} `,
 			);

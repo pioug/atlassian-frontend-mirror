@@ -4,7 +4,7 @@ import { request } from '@atlaskit/linking-common';
 const SMART_CARD_STORAGE_SCOPE = 'smart-card-social-proof';
 
 export const CURRENT_SITE_CLOUD_ID_STORAGE_ITEM_KEY_PREFIX = 'site-cloud-id:v1:';
-export const CURRENT_SITE_CLOUD_ID_TTL_MS = 24 * 60 * 60 * 1000;
+export const CURRENT_SITE_CLOUD_ID_TTL_MS: number = 24 * 60 * 60 * 1000;
 
 const smartCardStorage = new StorageClient(SMART_CARD_STORAGE_SCOPE);
 
@@ -23,7 +23,8 @@ export const getCurrentSiteCloudIdLocalStorageKey = (baseUriWithNoTrailingSlash 
 	`${SMART_CARD_STORAGE_SCOPE}_${cloudIdStorageItemKey(baseUriWithNoTrailingSlash)}`;
 
 /** Backwards-compatible default-scope key for existing tests and external assertions. */
-export const CURRENT_SITE_CLOUD_ID_LOCAL_STORAGE_KEY = getCurrentSiteCloudIdLocalStorageKey();
+export const CURRENT_SITE_CLOUD_ID_LOCAL_STORAGE_KEY: string =
+	getCurrentSiteCloudIdLocalStorageKey();
 
 export class CurrentSiteCloudIdService {
 	private tenantInfoInflightPromises = new Map<string, Promise<string | undefined>>();
@@ -55,7 +56,9 @@ export class CurrentSiteCloudIdService {
 		}
 	}
 
-	private ensureTenantInfoInflightStarted(baseUriWithNoTrailingSlash: string): Promise<string | undefined> {
+	private ensureTenantInfoInflightStarted(
+		baseUriWithNoTrailingSlash: string,
+	): Promise<string | undefined> {
 		const baseUri = normalizeBaseUri(baseUriWithNoTrailingSlash);
 		const existing = this.tenantInfoInflightPromises.get(baseUri);
 		if (existing) {
@@ -107,11 +110,12 @@ export class CurrentSiteCloudIdService {
 	}
 }
 
-export const currentSiteCloudIdService = new CurrentSiteCloudIdService();
+export const currentSiteCloudIdService: CurrentSiteCloudIdService = new CurrentSiteCloudIdService();
 
 export function getCurrentSiteCloudIdSync(baseUriWithNoTrailingSlash = ''): string | undefined {
 	return currentSiteCloudIdService.getStoredCloudId(baseUriWithNoTrailingSlash);
 }
 
-export const getCurrentSiteCloudId = (baseUriWithNoTrailingSlash = ''): Promise<string | undefined> =>
-	currentSiteCloudIdService.get(baseUriWithNoTrailingSlash);
+export const getCurrentSiteCloudId = (
+	baseUriWithNoTrailingSlash = '',
+): Promise<string | undefined> => currentSiteCloudIdService.get(baseUriWithNoTrailingSlash);

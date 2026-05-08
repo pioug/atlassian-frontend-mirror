@@ -331,9 +331,7 @@ describe('FullPageToolbarNext', () => {
 
 				// Should not early exit when custom components with before/after exist
 				expect(screen.getByTestId('ak-editor-main-toolbar')).toBeInTheDocument();
-				expect(
-					screen.getByTestId('before-primary-toolbar-components-plugin'),
-				).toBeInTheDocument();
+				expect(screen.getByTestId('before-primary-toolbar-components-plugin')).toBeInTheDocument();
 				expect(screen.getByTestId('before-component')).toBeInTheDocument();
 				expect(screen.getByTestId('after-component')).toBeInTheDocument();
 				expect(screen.queryByTestId('primary-toolbar')).not.toBeInTheDocument();

@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 36.2.0
+
+### Minor Changes
+
+- [`21abd28a7966a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21abd28a7966a) -
+  Adds x-expected-size header to multipart chunk uploads to prevent corrupted file entries in the
+  object store.
+
 ## 36.1.1
 
 ### Patch Changes

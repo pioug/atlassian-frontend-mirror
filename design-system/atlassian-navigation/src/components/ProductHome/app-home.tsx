@@ -1,0 +1,202 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import React, { Fragment, type MouseEvent } from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx } from '@emotion/react';
+
+import { Inline, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+import { PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
+import { useTheme } from '../../theme';
+import { stripEmptyProperties } from '../../utils';
+
+import { type AppHomeProps } from './types';
+import { getTag } from './utils';
+
+const VAR_PRODUCT_HOME_COLOR_ACTIVE = '--product-home-color-active';
+const VAR_PRODUCT_HOME_BACKGROUND_COLOR_ACTIVE = '--product-home-bg-color-active';
+const VAR_PRODUCT_HOME_BOX_SHADOW_ACTIVE = '--product-home-box-shadow-active';
+const VAR_PRODUCT_HOME_COLOR_FOCUS = '--product-home-color-focus';
+const VAR_PRODUCT_HOME_BACKGROUND_COLOR_FOCUS = '--product-home-bg-color-focus';
+const VAR_PRODUCT_HOME_BOX_SHADOW_FOCUS = '--product-home-box-shadow-focus';
+const VAR_PRODUCT_HOME_COLOR_HOVER = '--product-home-color-hover';
+const VAR_PRODUCT_HOME_BACKGROUND_COLOR_HOVER = '--product-home-bg-color-hover';
+const VAR_PRODUCT_HOME_BOX_SHADOW_HOVER = '--product-home-box-shadow-hover';
+
+const productHomeButtonStyles = css({
+	display: 'flex',
+	padding: token('space.050'),
+	alignItems: 'center',
+	background: 'none',
+	border: 0,
+	borderRadius: token('radius.small', '3px'),
+	color: 'inherit',
+	cursor: 'pointer',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'&::-moz-focus-inner': {
+		border: 0,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'&:first-of-type': {
+		marginInlineStart: 0,
+	},
+	'&:hover': {
+		backgroundColor: `var(${VAR_PRODUCT_HOME_BACKGROUND_COLOR_HOVER})`,
+		boxShadow: `var(${VAR_PRODUCT_HOME_BOX_SHADOW_HOVER})`,
+		color: `var(${VAR_PRODUCT_HOME_COLOR_HOVER})`,
+	},
+	'&:active': {
+		backgroundColor: `var(${VAR_PRODUCT_HOME_BACKGROUND_COLOR_ACTIVE})`,
+		boxShadow: `var(${VAR_PRODUCT_HOME_BOX_SHADOW_ACTIVE})`,
+		color: `var(${VAR_PRODUCT_HOME_COLOR_ACTIVE})`,
+	},
+	'&:focus-visible': {
+		backgroundColor: `var(${VAR_PRODUCT_HOME_BACKGROUND_COLOR_FOCUS})`,
+		color: `var(${VAR_PRODUCT_HOME_COLOR_FOCUS})`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
+	},
+
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'div&': {
+		pointerEvents: 'none',
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+	[`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
+		margin: `0 ${token('space.100')}`,
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+	[`@media (min-width: ${PRODUCT_HOME_BREAKPOINT}px)`]: {
+		margin: `0 ${token('space.200')}`,
+	},
+});
+
+const appHomeIconStyles = css({
+	borderRadius: '10px',
+});
+const appIconStyles = css({
+	display: 'flex',
+	maxWidth: 24,
+});
+const appLogoTextStyles = css({
+	// Logo text should never wrap or overflow
+	width: 'max-content',
+	paddingInlineEnd: token('space.025'),
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+	[`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
+		display: 'none',
+	},
+});
+const siteTitleStyles = css({
+	display: 'flex',
+	alignItems: 'center',
+	marginInlineEnd: token('space.050'),
+	marginInlineStart: token('space.050'),
+	paddingInlineEnd: token('space.200'),
+});
+
+/**
+ * __App home__
+ *
+ * A variant of the ProductHome component designed for use with the updated app logos.
+ *
+ * Takes an icon, displayed at all viewport sizes, and a product name, which is
+ * displayed only at larger viewport sizes.
+ *
+ * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#app-product-home)
+ * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ */
+export const AppHome = ({
+	'aria-label': ariaLabel,
+	href,
+	name,
+	icon: Icon,
+	onClick,
+	onMouseDown,
+	siteTitle,
+	testId,
+	...rest
+}: AppHomeProps): React.JSX.Element => {
+	const theme = useTheme();
+	const primaryButton = theme.mode.primaryButton;
+	// After the brand refresh, iconColor and textColor should be set to 'undefined' to allow the original
+	// multi-color logo tile colors to be visible, rather than a hardcoded blue.
+	let { iconColor = undefined, textColor = undefined } = theme.mode.productHome;
+
+	// The default theme is set at module scope and immediately used in context.
+	// To allow the feature flag to switch the logo color at runtime, we also detect the original hardcoded
+	// values and override them to undefined.
+	if (iconColor === '#357DE8' && textColor === token('color.text')) {
+		iconColor = undefined;
+		textColor = undefined;
+	}
+
+	const Tag = getTag(onClick, href);
+
+	const preventFocusRing = (e: MouseEvent<HTMLElement>) => {
+		e.preventDefault();
+		onMouseDown && onMouseDown(e);
+	};
+
+	const productHomeButtonDynamicStyles = stripEmptyProperties({
+		[VAR_PRODUCT_HOME_COLOR_ACTIVE]: primaryButton.active.color,
+		[VAR_PRODUCT_HOME_BACKGROUND_COLOR_ACTIVE]: primaryButton.active.backgroundColor,
+		[VAR_PRODUCT_HOME_BOX_SHADOW_ACTIVE]: primaryButton.active.boxShadow,
+		[VAR_PRODUCT_HOME_COLOR_FOCUS]: primaryButton.focus.color,
+		[VAR_PRODUCT_HOME_BACKGROUND_COLOR_FOCUS]: primaryButton.focus.backgroundColor,
+		[VAR_PRODUCT_HOME_BOX_SHADOW_FOCUS]: primaryButton.focus.boxShadow,
+		[VAR_PRODUCT_HOME_COLOR_HOVER]: primaryButton.hover.color,
+		[VAR_PRODUCT_HOME_BACKGROUND_COLOR_HOVER]: primaryButton.hover.backgroundColor,
+		[VAR_PRODUCT_HOME_BOX_SHADOW_HOVER]: primaryButton.hover.boxShadow,
+	});
+
+	return (
+		<Fragment>
+			<Tag
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				style={productHomeButtonDynamicStyles as React.CSSProperties}
+				css={[productHomeButtonStyles, appHomeIconStyles]}
+				href={href}
+				onClick={onClick}
+				onMouseDown={preventFocusRing}
+				data-testid={testId && `${testId}-container`}
+				aria-label={ariaLabel}
+				// Made all props explicit, leaving just in case
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+				{...rest}
+			>
+				<Inline space="space.075" alignBlock="center">
+					<div css={[appIconStyles]} data-testid={testId && `${testId}-icon`}>
+						<Icon
+							iconColor={iconColor}
+							shouldUseNewLogoDesign={true}
+							size="small"
+							appearance="brand"
+						/>
+					</div>
+					<span css={appLogoTextStyles}>
+						<Text aria-hidden={true} color="inherit" weight="semibold">
+							{name}
+						</Text>
+					</span>
+				</Inline>
+			</Tag>
+			{siteTitle && (
+				<div
+					style={
+						{
+							borderRight: theme.mode.productHome.borderRight,
+						} as React.CSSProperties
+					}
+					css={siteTitleStyles}
+					data-testid={testId && `${testId}-site-title`}
+				>
+					{siteTitle}
+				</div>
+			)}
+		</Fragment>
+	);
+};

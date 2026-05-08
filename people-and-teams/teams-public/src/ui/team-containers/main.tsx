@@ -60,10 +60,12 @@ export const TeamContainers = ({
 	hideSubTextIcon,
 }: TeamContainerProps): React.JSX.Element => {
 	const { unlinkError } = useTeamContainers(teamId);
-	const { teamLinks, removeTeamLink, hasError, isLoading: linksLoading } = useTeamLinksAndContainers(
-		teamId,
-		true,
-	);
+	const {
+		teamLinks,
+		removeTeamLink,
+		hasError,
+		isLoading: linksLoading,
+	} = useTeamLinksAndContainers(teamId, true);
 	const [_, actions] = useTeamContainersHook();
 	const [showMore, setShowMore] = useState(false);
 	const [isDisconnectDialogOpen, setIsDisconnectDialogOpen] = useState(false);

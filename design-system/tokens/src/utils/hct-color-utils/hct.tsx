@@ -220,7 +220,17 @@ class Cam16 {
 	readonly astar: number;
 	readonly bstar: number;
 
-	constructor(hue: number, chroma: number, j: number, q: number, m: number, s: number, jstar: number, astar: number, bstar: number) {
+	constructor(
+		hue: number,
+		chroma: number,
+		j: number,
+		q: number,
+		m: number,
+		s: number,
+		jstar: number,
+		astar: number,
+		bstar: number,
+	) {
 		this.hue = hue;
 		this.chroma = chroma;
 		this.j = j;

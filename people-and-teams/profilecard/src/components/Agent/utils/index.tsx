@@ -27,13 +27,21 @@ export const getStudioPath = (path: string, email?: string): string => {
 	return `${getStudioHost()}${path}`;
 };
 
-export const getAtlassianStudioAgentEditUrl = (siteId: string, agentId: string, email?: string): string =>
+export const getAtlassianStudioAgentEditUrl = (
+	siteId: string,
+	agentId: string,
+	email?: string,
+): string =>
 	getStudioPath(
 		`/s/${siteId}/agents/enrich/rovo/agents/${agentId}?redirect=${encodeURIComponent('/:agentId/overview')}`,
 		email,
 	);
 
-export const getAtlassianStudioAgentDuplicateUrl = (siteId: string, agentId: string, email?: string): string =>
+export const getAtlassianStudioAgentDuplicateUrl = (
+	siteId: string,
+	agentId: string,
+	email?: string,
+): string =>
 	getStudioPath(
 		`/s/${siteId}/agents/enrich/rovo/agents/${agentId}?redirect=${encodeURIComponent('/create')}`,
 		email,

@@ -36,10 +36,14 @@ export const CommentButton = ({
 	api,
 	annotationProviders,
 }: CommentButtonProps): React.JSX.Element | null => {
-	const { isVisible, bookmark } = useSharedPluginStateWithSelector(api, ['annotation'], (states) => ({
-		isVisible: states.annotationState?.isVisible,
-		bookmark: states.annotationState?.bookmark,
-	}));
+	const { isVisible, bookmark } = useSharedPluginStateWithSelector(
+		api,
+		['annotation'],
+		(states) => ({
+			isVisible: states.annotationState?.isVisible,
+			bookmark: states.annotationState?.bookmark,
+		}),
+	);
 	const { editorView } = useEditorToolbar();
 
 	const annotationSelectionType = editorView?.state
@@ -104,7 +108,9 @@ export const CommentButton = ({
 			return commentDisabledMessage;
 		} else {
 			// i.e. isOffline. No tooltip message needed.
-			return expValEquals('confluence_fe_disable_comment_if_offline_fix', 'isEnabled', true) ? undefined : commentDisabledMessage;
+			return expValEquals('confluence_fe_disable_comment_if_offline_fix', 'isEnabled', true)
+				? undefined
+				: commentDisabledMessage;
 		}
 	};
 

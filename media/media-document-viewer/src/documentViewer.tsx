@@ -227,11 +227,7 @@ const LazyAppendPages = ({
 						pageIndex={i}
 						zoom={zoom}
 						defaultDimensions={documentMetadata.defaultDimensions}
-						onVisible={
-							i === lazyPageCount - 1
-								? handleAppendAndLoadPageContent
-								: loadPageContent
-						}
+						onVisible={i === lazyPageCount - 1 ? handleAppendAndLoadPageContent : loadPageContent}
 						onLoad={i === 0 ? onSuccess : undefined}
 						fonts={fonts}
 						content={page}

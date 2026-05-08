@@ -169,7 +169,8 @@ describe('Block', () => {
 						<Block size={SmartLinkSize.Small} testId={testId}>
 							<ActionGroup items={[{ name: ActionName.DeleteAction, onClick: () => {} }]} />
 						</Block>
-					</IntlProvider>, { wrapper }
+					</IntlProvider>,
+					{ wrapper },
 				);
 
 				await expect(container).toBeAccessible();

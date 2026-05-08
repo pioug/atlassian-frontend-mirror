@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 114.23.0
+
+### Minor Changes
+
+- [`ec2b181d84b9e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec2b181d84b9e) -
+  EDITOR-4648 fix native anchor in SSR
+
+## 114.22.1
+
+### Patch Changes
+
+- [`51a4f923f5d1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51a4f923f5d1f) -
+  Removed Suggested Edits quick insert
+- Updated dependencies
+
+## 114.22.0
+
+### Minor Changes
+
+- [`975a31aae73f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/975a31aae73f4) -
+  Add KSS attributes to contextual typeahead acceptance analytics
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.21.0
 
 ### Minor Changes

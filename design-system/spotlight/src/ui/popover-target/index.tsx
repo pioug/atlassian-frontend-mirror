@@ -14,8 +14,4 @@ import { PopoverTarget as TopLayer } from './top-layer';
  * A target is the element that the popover content will be positioned in relation to.
  */
 export const PopoverTarget: typeof Legacy = ({ children }) =>
-	fg('platform-dst-top-layer') ? (
-		<TopLayer>{children}</TopLayer>
-	) : (
-		<Legacy>{children}</Legacy>
-	);
+	fg('platform-dst-top-layer') ? <TopLayer>{children}</TopLayer> : <Legacy>{children}</Legacy>;

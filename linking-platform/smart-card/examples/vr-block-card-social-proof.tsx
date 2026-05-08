@@ -88,9 +88,18 @@ const createSocialProofBlockCard = (
 	return Component;
 };
 
-export const SocialProofBlockCardLoading = createSocialProofBlockCard('cold-cache', mockColdCache);
-export const SocialProofBlockCardLowTier = createSocialProofBlockCard('low', mockLow);
-export const SocialProofBlockCardNotLowTier = createSocialProofBlockCard('not-low', mockNotLow);
+export const SocialProofBlockCardLoading: {
+	(): React.JSX.Element;
+	displayName: string;
+} = createSocialProofBlockCard('cold-cache', mockColdCache);
+export const SocialProofBlockCardLowTier: {
+	(): React.JSX.Element;
+	displayName: string;
+} = createSocialProofBlockCard('low', mockLow);
+export const SocialProofBlockCardNotLowTier: {
+	(): React.JSX.Element;
+	displayName: string;
+} = createSocialProofBlockCard('not-low', mockNotLow);
 
 type ScenarioConfig = {
 	label: string;

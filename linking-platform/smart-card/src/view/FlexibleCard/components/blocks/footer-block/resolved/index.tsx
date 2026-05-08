@@ -18,9 +18,7 @@ import {
 	SmartLinkWidth,
 } from '../../../../../../constants';
 import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
-import {
-	isBlockCardRovoActionExperimentEnabled
-} from '../../../../../../state/hooks/use-block-card-rovo-action-experiment';
+import { isBlockCardRovoActionExperimentEnabled } from '../../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import { Provider } from '../../../elements';
 import ActionGroup from '../../action-group';
 import Block from '../../block';
@@ -54,12 +52,12 @@ const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 		isPreviewBlockErrored,
 	} = props;
 	const context = useFlexibleUiContext();
-	const rovoChatAction =
-		context?.actions?.[ActionName.RovoChatAction]
+	const rovoChatAction = context?.actions?.[ActionName.RovoChatAction];
 	const is3PBlockExperimentEnabled = isBlockCardRovoActionExperimentEnabled(
 		rovoChatAction?.product,
 	);
-	const hasPreview = !!rovoChatAction && is3PBlockExperimentEnabled && !!context?.preview && !isPreviewBlockErrored;
+	const hasPreview =
+		!!rovoChatAction && is3PBlockExperimentEnabled && !!context?.preview && !isPreviewBlockErrored;
 
 	const hasActions = useMemo(
 		() => filterActionItems(actions, context)?.length > 0,
@@ -111,7 +109,9 @@ const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 						items={actions}
 						appearance={!!rovoChatAction && is3PBlockExperimentEnabled ? 'subtle' : 'default'}
 						size={!!rovoChatAction && is3PBlockExperimentEnabled ? SmartLinkSize.Small : size}
-						containerWidth={!!rovoChatAction && is3PBlockExperimentEnabled ? containerWidth : undefined}
+						containerWidth={
+							!!rovoChatAction && is3PBlockExperimentEnabled ? containerWidth : undefined
+						}
 					/>
 				</ElementGroup>
 			) : null}

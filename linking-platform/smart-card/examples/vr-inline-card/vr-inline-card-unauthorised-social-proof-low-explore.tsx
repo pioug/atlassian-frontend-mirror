@@ -12,7 +12,5 @@ import { InlineCardUnauthorisedSocialProofExample } from './vr-inline-card-unaut
  * Killswitch on + experiment enabled; persisted share below 30% → "Your team is previewing {provider}" pill.
  */
 export default (): React.JSX.Element => (
-	<InlineCardUnauthorisedSocialProofExample
-		providerPercentage={15}
-	/>
+	<InlineCardUnauthorisedSocialProofExample providerPercentage={15} />
 );

@@ -7,7 +7,6 @@ import { Fragment, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 
-import { NavigationSkeleton as TopNavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';
 import Button, { IconButton } from '@atlaskit/button/new';
 import ChevronDown from '@atlaskit/icon/core/chevron-down';
 import WatchFilledIcon from '@atlaskit/icon/core/eye-open-filled';
@@ -15,7 +14,10 @@ import FeedbackIcon from '@atlaskit/icon/core/feedback';
 import ShareIcon from '@atlaskit/icon/core/share';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import LikeIcon from '@atlaskit/icon/core/thumbs-up';
-import { RightSidebar, TopNavigation } from '@atlaskit/page-layout';
+import { Main } from '@atlaskit/navigation-system/layout/main';
+import { Panel } from '@atlaskit/navigation-system/layout/panel';
+import { Root } from '@atlaskit/navigation-system/layout/root';
+import { TopNav } from '@atlaskit/navigation-system/layout/top-nav';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -26,14 +28,6 @@ import EditorContext from '../src/ui/EditorContext';
 const rightSideContainer = css({
 	overflow: 'hidden auto',
 	height: 'calc(100vh - 50px)',
-});
-
-const contentSection = css({
-	paddingTop: token('space.150'),
-	gridArea: 'content',
-	display: 'flex',
-	height: '100%',
-	position: 'relative',
 });
 
 const portalContainer = css({
@@ -87,17 +81,6 @@ const detialsContentContainer = css({
 	borderTop: '0px',
 });
 
-const main = css({
-	outline: 'currentColor none medium',
-	display: 'grid',
-	height: '100%',
-	gridTemplateColumns: 'var(--leftPanelWidth, 0px) minmax(0, 1fr) var( --rightPanelWidth, 0px )',
-	gridTemplateRows: 'var(--bannerHeight, 0px) var(--topNavigationHeight, 0px) auto',
-	gridTemplateAreas:
-		"'left-panel banner right-panel' 'left-panel top-navigation right-panel' 'left-panel content right-panel'",
-	overflow: 'hidden',
-});
-
 export default function CommentWithJiraCardsExample(): jsx.JSX.Element {
 	const [portalElement, setPortalElement] = useState<HTMLDivElement>();
 	const [isOpen, setIsOpen] = useState(true);
@@ -111,68 +94,65 @@ export default function CommentWithJiraCardsExample(): jsx.JSX.Element {
 	};
 	return (
 		<Fragment>
-			<main css={main}>
-				<TopNavigation isFixed height={50} id="ak-jira-navigation">
-					<TopNavigationSkeleton />
-				</TopNavigation>
-				<section css={contentSection}>
+			<Root>
+				<TopNav>Jira</TopNav>
+				<Main>Main content</Main>
+				<Panel defaultWidth={600}>
 					<div css={rightSideContainer}>
-						<RightSidebar width={600}>
-							<Box xcss={rightSidebarContainer}>
-								<div id="jira-issue-header-actions" css={headerActionContainer}>
-									<IconButton appearance="subtle" icon={FeedbackIcon} label="feedback" />
-									<IconButton appearance="subtle" icon={WatchFilledIcon} label="watch" />
-									<IconButton appearance="subtle" icon={LikeIcon} label="like" />
-									<IconButton appearance="subtle" icon={ShareIcon} label="share" />
-									<IconButton appearance="subtle" icon={MoreIcon} label="more" />
-								</div>
-								<div css={statusContainer}>
-									<Button iconAfter={(iconProps) => <ChevronDown {...iconProps} size="small" />}>
-										To Do
-									</Button>
-									<Button iconAfter={(iconProps) => <ChevronDown {...iconProps} size="small" />}>
-										Action
-									</Button>
-								</div>
+						<Box xcss={rightSidebarContainer}>
+							<div id="jira-issue-header-actions" css={headerActionContainer}>
+								<IconButton appearance="subtle" icon={FeedbackIcon} label="feedback" />
+								<IconButton appearance="subtle" icon={WatchFilledIcon} label="watch" />
+								<IconButton appearance="subtle" icon={LikeIcon} label="like" />
+								<IconButton appearance="subtle" icon={ShareIcon} label="share" />
+								<IconButton appearance="subtle" icon={MoreIcon} label="more" />
+							</div>
+							<div css={statusContainer}>
+								<Button iconAfter={(iconProps) => <ChevronDown {...iconProps} size="small" />}>
+									To Do
+								</Button>
+								<Button iconAfter={(iconProps) => <ChevronDown {...iconProps} size="small" />}>
+									Action
+								</Button>
+							</div>
 
-								<button
-									type="button"
-									css={detailsHeaderContainer}
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									style={isOpen ? {} : { borderRadius: 4 }}
-									onClick={handleClick}
-								>
-									<strong>Details</strong>
-									<ChevronDown label="" size="small" />
-								</button>
-								{isOpen && (
-									<div css={detialsContentContainer}>
-										<EditorContext>
-											<h5>Description</h5>
-											<Editor
-												appearance="comment"
-												assistiveLabel="Description field: Main content area, start typing to enter text."
-												placeholder="What do you want to say?"
-												shouldFocus={true}
-												quickInsert={true}
-												allowTextColor={true}
-												allowRule={true}
-												allowTables={true}
-												allowHelpDialog={true}
-												allowPanel
-												allowStatus
-												popupsMountPoint={portalElement}
-												useStickyToolbar={{ offsetTop: 80 }}
-												defaultValue={exampleDocument}
-											/>
-										</EditorContext>
-									</div>
-								)}
-							</Box>
-						</RightSidebar>
+							<button
+								type="button"
+								css={detailsHeaderContainer}
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								style={isOpen ? {} : { borderRadius: 4 }}
+								onClick={handleClick}
+							>
+								<strong>Details</strong>
+								<ChevronDown label="" size="small" />
+							</button>
+							{isOpen && (
+								<div css={detialsContentContainer}>
+									<EditorContext>
+										<h5>Description</h5>
+										<Editor
+											appearance="comment"
+											assistiveLabel="Description field: Main content area, start typing to enter text."
+											placeholder="What do you want to say?"
+											shouldFocus={true}
+											quickInsert={true}
+											allowTextColor={true}
+											allowRule={true}
+											allowTables={true}
+											allowHelpDialog={true}
+											allowPanel
+											allowStatus
+											popupsMountPoint={portalElement}
+											useStickyToolbar={{ offsetTop: 80 }}
+											defaultValue={exampleDocument}
+										/>
+									</EditorContext>
+								</div>
+							)}
+						</Box>
 					</div>
-				</section>
-			</main>
+				</Panel>
+			</Root>
 			<div css={portalContainer}>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<div ref={handlePortalRef} style={{ zIndex: 511 }} />

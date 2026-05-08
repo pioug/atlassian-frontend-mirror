@@ -23,9 +23,7 @@ import {
 	useFlexibleUiContext,
 	useFlexibleUiOptionContext,
 } from '../../../../../state/flexible-ui-context';
-import {
-	isBlockCardRovoActionExperimentEnabled
-} from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
+import { isBlockCardRovoActionExperimentEnabled } from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import useRovoConfig from '../../../../../state/hooks/use-rovo-config';
 import { RovoChatPromptKey } from '../../actions/rovo-chat-action';
 import { sizeToButtonSpacing } from '../../utils';
@@ -94,8 +92,7 @@ const ActionGroup = ({
 		[context, items, product],
 	);
 	const isMoreThenTwoItems = renderableActionItems.length > visibleButtonsNum;
-	const rovoChatAction =
-		context?.actions?.[ActionName.RovoChatAction];
+	const rovoChatAction = context?.actions?.[ActionName.RovoChatAction];
 	const is3PBlockExperimentEnabled = isBlockCardRovoActionExperimentEnabled(
 		rovoChatAction?.product,
 	);
@@ -154,7 +151,7 @@ const ActionGroup = ({
 
 	const moreActionDropdown = useMemo(() => {
 		let actionItems: ActionItem[];
-		if ((!!rovoChatAction && is3PBlockExperimentEnabled) && containerWidth < REDUCED_ACTIONS_SIZE) {
+		if (!!rovoChatAction && is3PBlockExperimentEnabled && containerWidth < REDUCED_ACTIONS_SIZE) {
 			actionItems = renderableActionItems;
 		} else {
 			actionItems = isMoreThenTwoItems ? renderableActionItems.slice(visibleButtonsNum - 1) : [];

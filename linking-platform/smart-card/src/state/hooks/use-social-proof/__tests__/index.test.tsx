@@ -11,11 +11,16 @@ jest.mock('../../../services/personalization', () => ({
 	SOCIAL_PROOF_TRAIT_NAME: 'sl_3p_connected_providers_site_pct',
 }));
 
-import { getCurrentSiteCloudId, getCurrentSiteCloudIdSync } from '../../../services/current-site-cloud-id';
+import {
+	getCurrentSiteCloudId,
+	getCurrentSiteCloudIdSync,
+} from '../../../services/current-site-cloud-id';
 import { getProviderPctMap, getProviderPctMapSync } from '../../../services/personalization';
 import useSocialProof from '../index';
 
-const mockGetCurrentSiteCloudId = getCurrentSiteCloudId as jest.MockedFunction<typeof getCurrentSiteCloudId>;
+const mockGetCurrentSiteCloudId = getCurrentSiteCloudId as jest.MockedFunction<
+	typeof getCurrentSiteCloudId
+>;
 const mockGetCurrentSiteCloudIdSync = getCurrentSiteCloudIdSync as jest.MockedFunction<
 	typeof getCurrentSiteCloudIdSync
 >;
@@ -35,9 +40,7 @@ describe('useSocialProof', () => {
 
 	describe('when killswitch is off', () => {
 		it('returns not-enabled result without fetching any data', () => {
-			const hookResult = renderHook(() =>
-				useSocialProof('google-object-provider', false),
-			);
+			const hookResult = renderHook(() => useSocialProof('google-object-provider', false));
 
 			expect(hookResult.current.isEnabled).toBe(false);
 			expect(hookResult.current.isLoading).toBe(false);
@@ -54,9 +57,7 @@ describe('useSocialProof', () => {
 			it('returns undefined connectedPct when localStorage has no data', () => {
 				mockGetProviderPctMapSync.mockReturnValue(null);
 
-				const hookResult = renderHook(() =>
-					useSocialProof('google-object-provider', true),
-				);
+				const hookResult = renderHook(() => useSocialProof('google-object-provider', true));
 
 				expect(hookResult.current.isEnabled).toBe(false);
 				expect(hookResult.current.isLoading).toBe(false);
@@ -84,9 +85,7 @@ describe('useSocialProof', () => {
 					'google-object-provider': 52,
 				});
 
-				const hookResult = renderHook(() =>
-					useSocialProof('google-object-provider', true),
-				);
+				const hookResult = renderHook(() => useSocialProof('google-object-provider', true));
 
 				expect(hookResult.current.isEnabled).toBe(true);
 				expect(hookResult.current.isLoading).toBe(false);
@@ -116,9 +115,7 @@ describe('useSocialProof', () => {
 					'dropbox-object-provider': 30,
 				});
 
-				const hookResult = renderHook(() =>
-					useSocialProof('google-object-provider', true),
-				);
+				const hookResult = renderHook(() => useSocialProof('google-object-provider', true));
 
 				expect(hookResult.current.connectedPct).toBeUndefined();
 			});
@@ -133,7 +130,6 @@ describe('useSocialProof', () => {
 				expect(hookResult.current.connectedPct).toBeUndefined();
 			});
 		});
-
 
 		it('warms personalization after async cloudId resolves for future mounts only', async () => {
 			mockGetProviderPctMapSync.mockReturnValue(null);
@@ -183,9 +179,7 @@ describe('useSocialProof', () => {
 		it('isLoading is always false (sync read)', () => {
 			mockGetProviderPctMapSync.mockReturnValue(null);
 
-			const hookResult = renderHook(() =>
-				useSocialProof('google-object-provider', true),
-			);
+			const hookResult = renderHook(() => useSocialProof('google-object-provider', true));
 
 			expect(hookResult.current.isLoading).toBe(false);
 		});

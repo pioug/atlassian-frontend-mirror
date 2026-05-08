@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 11.0.17
+
+### Patch Changes
+
+- [`aa02fe7d81d17`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa02fe7d81d17) -
+  Add V2 experiment exposure function for paste_actions_menu_v2_multivariate, wired into
+  usePluginHook behind platform_editor_paste_actions_menu_v2_gate
+- Updated dependencies
+
 ## 11.0.16
 
 ### Patch Changes

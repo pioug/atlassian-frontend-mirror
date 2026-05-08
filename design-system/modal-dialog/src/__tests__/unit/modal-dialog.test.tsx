@@ -543,12 +543,10 @@ describe('autoFocus', () => {
 	const refElementTestId = 'ref-element';
 
 	// add way to add in element to render
-	const Jsx = ({ autoFocus }: { autoFocus: ModalDialogProps['autoFocus'] | 'ref' }) => {
+	const Jsx = ({ autoFocus }: { autoFocus?: 'ref' }) => {
 		const [isOpen, setIsOpen] = useState(false);
 		const open = () => setIsOpen(true);
 		const ref = useRef(null);
-
-		const modalAutoFocus = autoFocus === 'ref' ? ref : autoFocus;
 
 		return (
 			<div data-testid="container">
@@ -557,7 +555,12 @@ describe('autoFocus', () => {
 				</Button>
 
 				{isOpen && (
-					<ModalDialog onClose={close} testId="modal" autoFocus={modalAutoFocus} label="Layered">
+					<ModalDialog
+						onClose={close}
+						testId="modal"
+						autoFocus={autoFocus === 'ref' ? ref : undefined}
+						label="Layered"
+					>
 						<ModalBody>
 							<button data-testid={innerButtonTestId} type="button">
 								Click Me
@@ -574,22 +577,12 @@ describe('autoFocus', () => {
 		);
 	};
 
-	it('should focus on the first interactive element when `autoFocus` is true', async () => {
+	it('should focus on the first interactive element when `autoFocus` is true (default)', async () => {
 		const user = userEvent.setup();
-		render(<Jsx autoFocus={true} />);
+		render(<Jsx />);
 
 		expect(screen.queryByTestId(innerButtonTestId)).not.toBeInTheDocument();
 		await user.click(screen.getByTestId(openModalButtonTestId));
-		expect(screen.getByTestId(innerButtonTestId)).toHaveFocus();
-	});
-
-	it('should focus on first element when `autoFocus` is false', async () => {
-		const user = userEvent.setup();
-		render(<Jsx autoFocus={false} />);
-
-		expect(screen.queryByTestId(innerButtonTestId)).not.toBeInTheDocument();
-		await user.click(screen.getByTestId(openModalButtonTestId));
-		// Focus should have moved
 		expect(screen.getByTestId(innerButtonTestId)).toHaveFocus();
 	});
 

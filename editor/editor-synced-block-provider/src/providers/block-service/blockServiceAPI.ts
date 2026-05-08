@@ -903,10 +903,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			// Process successful updates
 			if (response.success) {
 				const successBlocks = new Map(
-					response.success.map((block) => [
-						blockAriToResourceIdMap.get(block.blockAri),
-						block,
-					]),
+					response.success.map((block) => [blockAriToResourceIdMap.get(block.blockAri), block]),
 				);
 
 				for (const block of data) {

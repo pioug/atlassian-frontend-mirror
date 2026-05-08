@@ -1205,9 +1205,12 @@ describe('DocumentViewer', () => {
 					total_pages: 200,
 					start_index: startIndex,
 					end_index: Math.min(endIndex, 200),
-					pages: Array.from({ length: Math.min(endIndex - startIndex, 200 - startIndex) }, (_, i) => ({
-						...mockPageContent,
-					})),
+					pages: Array.from(
+						{ length: Math.min(endIndex - startIndex, 200 - startIndex) },
+						(_, i) => ({
+							...mockPageContent,
+						}),
+					),
 				});
 			});
 

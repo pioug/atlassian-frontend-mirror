@@ -1,12 +1,6 @@
 import { createSchema } from '../../../../schema/create-schema';
-import {
-	codeBlock,
-	codeBlockWithExtendedAttributes,
-} from '../../../../schema/nodes/code-block';
-import {
-	fromHTML,
-	toHTML,
-} from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+import { codeBlock, codeBlockWithExtendedAttributes } from '../../../../schema/nodes/code-block';
+import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
 
 const packageName = process.env.npm_package_name as string;
 
@@ -70,19 +64,13 @@ describe(`${packageName}/schema codeBlock node`, () => {
 		describe('parse from editor encoded HTML', () => {
 			describe('when language is not set', () => {
 				it('converts to block code node', () => {
-					const doc = fromHTML(
-						'<pre><span>window.alert("hello");<span></pre>',
-						schema,
-					);
+					const doc = fromHTML('<pre><span>window.alert("hello");<span></pre>', schema);
 
 					expect(doc.firstChild!.type.name).toEqual('codeBlock');
 				});
 
 				it('has language attribute as null', () => {
-					const doc = fromHTML(
-						'<pre><span>window.alert("hello");<span></pre>',
-						schema,
-					);
+					const doc = fromHTML('<pre><span>window.alert("hello");<span></pre>', schema);
 
 					expect(doc.firstChild!.attrs['language']).toEqual(null);
 				});
@@ -109,10 +97,7 @@ describe(`${packageName}/schema codeBlock node`, () => {
 			});
 
 			it('preserves all newlines and whitespace', () => {
-				const doc = fromHTML(
-					'<pre><span></span>    bar\n       baz\n</pre>',
-					schema,
-				);
+				const doc = fromHTML('<pre><span></span>    bar\n       baz\n</pre>', schema);
 
 				expect(doc.firstChild!.textContent).toEqual('    bar\n       baz\n');
 			});
@@ -297,9 +282,7 @@ describe(`${packageName}/schema codeBlock node`, () => {
 				const codeBlock = schema.nodes.codeBlock.create({
 					language: 'javascript',
 				});
-				expect(toHTML(codeBlock, schema)).toContain(
-					'data-language="javascript"',
-				);
+				expect(toHTML(codeBlock, schema)).toContain('data-language="javascript"');
 			});
 		});
 	});
@@ -343,27 +326,21 @@ describe(`${packageName}/schema: codeBlock_with_extended_attributes node (stage-
 			const node = stage0Schema.nodes.codeBlock.create({
 				hideLineNumbers: false,
 			});
-			expect(toHTML(node, stage0Schema)).not.toContain(
-				'data-hide-line-numbers',
-			);
+			expect(toHTML(node, stage0Schema)).not.toContain('data-hide-line-numbers');
 		});
 
 		it('adds data-hide-line-numbers="true" when hideLineNumbers is true', () => {
 			const node = stage0Schema.nodes.codeBlock.create({
 				hideLineNumbers: true,
 			});
-			expect(toHTML(node, stage0Schema)).toContain(
-				'data-hide-line-numbers="true"',
-			);
+			expect(toHTML(node, stage0Schema)).toContain('data-hide-line-numbers="true"');
 		});
 
 		it('sets data-language when language is set', () => {
 			const node = stage0Schema.nodes.codeBlock.create({
 				language: 'typescript',
 			});
-			expect(toHTML(node, stage0Schema)).toContain(
-				'data-language="typescript"',
-			);
+			expect(toHTML(node, stage0Schema)).toContain('data-language="typescript"');
 		});
 	});
 

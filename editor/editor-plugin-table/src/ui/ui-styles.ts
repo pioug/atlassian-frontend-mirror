@@ -2,10 +2,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
 
-import {
-	tableCellBorderWidth,
-	tableMarginTop,
-} from '@atlaskit/editor-common/styles';
+import { tableCellBorderWidth, tableMarginTop } from '@atlaskit/editor-common/styles';
 import {
 	akEditorShadowZIndex,
 	akEditorTableNumberColumnWidth,

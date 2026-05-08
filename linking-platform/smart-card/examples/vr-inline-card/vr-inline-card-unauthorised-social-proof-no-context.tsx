@@ -12,8 +12,5 @@ import { InlineCardUnauthorisedSocialProofExample } from './vr-inline-card-unaut
  * Killswitch on + experiment enabled; context missing and 30%+ adoption → no-context percentage pill and short Connect.
  */
 export default (): React.JSX.Element => (
-	<InlineCardUnauthorisedSocialProofExample
-		providerPercentage={52}
-		includeContext={false}
-	/>
+	<InlineCardUnauthorisedSocialProofExample providerPercentage={52} includeContext={false} />
 );

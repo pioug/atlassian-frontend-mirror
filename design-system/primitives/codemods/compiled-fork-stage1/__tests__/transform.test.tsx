@@ -420,10 +420,7 @@ const MyComponent = (props: { styles: XCSS }) => (
 	</Box>
 );`);
 	});
-
-	
 });
-
 
 describe('prop to xcss transformation', () => {
 	it('should transform Grid props to xcss', async () => {
@@ -790,7 +787,6 @@ const MyComponent = () => (
 );`);
 	});
 
-	
 	it('should handle mixed imports with type XCSS and keep type XCSS in @atlaskit/primitives', async () => {
 		const input = `import { Box, type XCSS } from '@atlaskit/primitives';
 

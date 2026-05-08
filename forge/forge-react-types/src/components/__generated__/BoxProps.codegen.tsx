@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::653f98d927e1ec1646db39eca8e994fb>>
+ * @codegen <<SignedSource::b0236570381bf537459825eaf07885ab>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/index.tsx <<SignedSource::8875ae64ad6c03e0827dd8f8a893ac04>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/index.tsx <<SignedSource::6b93e6d932cf03314cad0e426df1eff4>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
@@ -33,7 +33,7 @@ type SafeCSSObject<SupportedPropKeys extends keyof CSSProperties = keyof CSSProp
     [Pseudo in CSS.Pseudos]?: Omit<SafeCSSObject<SupportedPropKeys, RawCSSPropKeys, RestrictedPropsSpec>, CSS.Pseudos | AllMedia>;
 } & Pick<TokenizedProps, Exclude<Extract<SupportedPropKeys, TokensMapPropKey>, RawCSSPropKeys | keyof RestrictedProps>> & Pick<StandardCSSProps, Exclude<Extract<SupportedPropKeys, keyof StandardCSSProps>, RawCSSPropKeys | keyof RestrictedProps>> & // force standard css prop values for allowCSS: true
 Pick<CSSProperties, Extract<RawCSSPropKeys, keyof CSSProperties>> & RestrictedProps;
-type XCSSValidatorParam = {
+export type XCSSValidatorParam = {
     [key in keyof CSSProperties]: true | {
         supportedValues: Array<RestrictedPropsSpec[key]>;
     } | {
@@ -56,13 +56,13 @@ declare const makeXCSSValidator: <U extends XCSSValidatorParam>(supportedXCSSPro
     supportedValues: RestrictedPropsSpec[K_1][];
 } ? K_1 : never; }[Extract<keyof U, keyof CSSProperties>], Extract<keyof U, keyof CSSProperties>>]?: (U[K_2] extends {
     supportedValues: infer V;
-} ? Exclude<V[keyof V], number | ((...args: any[]) => any)> : never) | undefined; }>) => SafeCSSObject<Extract<keyof U, keyof CSSProperties>, Extract<{ [K in Extract<keyof U, keyof CSSProperties>]: U[K] extends {
+} ? V extends readonly (infer E)[] ? E : Exclude<V[keyof V], number | ((...args: any[]) => any)> : never) | undefined; }>) => SafeCSSObject<Extract<keyof U, keyof CSSProperties>, Extract<{ [K in Extract<keyof U, keyof CSSProperties>]: U[K] extends {
     allowCSS: true;
 } ? K : never; }[Extract<keyof U, keyof CSSProperties>], Extract<keyof U, keyof CSSProperties>>, { [K_2 in Extract<{ [K_1 in Extract<keyof U, keyof CSSProperties>]: U[K_1] extends {
     supportedValues: RestrictedPropsSpec[K_1][];
 } ? K_1 : never; }[Extract<keyof U, keyof CSSProperties>], Extract<keyof U, keyof CSSProperties>>]?: (U[K_2] extends {
     supportedValues: infer V;
-} ? Exclude<V[keyof V], number | ((...args: any[]) => any)> : never) | undefined; }>;
+} ? V extends readonly (infer E)[] ? E : Exclude<V[keyof V], number | ((...args: any[]) => any)> : never) | undefined; }>;
 export { makeXCSSValidator };
 export type { SafeCSSObject };
 /**
@@ -84,134 +84,135 @@ const borderRadiusTokens: BorderRadius[] = [
 	'radius.full',
 	'radius.tile',
 ];
-const borderRadiusSupportedValues = [
+const borderRadiusSupportedValues: (BorderRadius | 'border.radius')[] = [
 	...borderRadiusTokens,
 	'border.radius',
-] as unknown as Array<BorderRadius>;
-const xcssValidator = makeXCSSValidator({
-	// text related props
-	textAlign: {
-		allowCSS: true,
-	},
+];
+const xcssValidator: ReturnType<typeof makeXCSSValidator<XCSSValidatorParam>> =
+	makeXCSSValidator({
+		// text related props
+		textAlign: {
+			allowCSS: true,
+		},
 
-	// color related props
-	color: true,
-	boxShadow: true,
-	opacity: true,
-	backgroundColor: true,
-	borderColor: true,
-	borderBlockColor: true,
-	borderBlockEndColor: true,
-	borderBlockStartColor: true,
-	borderBottomColor: true,
-	borderInlineColor: true,
-	borderInlineEndColor: true,
-	borderInlineStartColor: true,
-	borderLeftColor: true,
-	borderRightColor: true,
-	borderTopColor: true,
+		// color related props
+		color: true,
+		boxShadow: true,
+		opacity: true,
+		backgroundColor: true,
+		borderColor: true,
+		borderBlockColor: true,
+		borderBlockEndColor: true,
+		borderBlockStartColor: true,
+		borderBottomColor: true,
+		borderInlineColor: true,
+		borderInlineEndColor: true,
+		borderInlineStartColor: true,
+		borderLeftColor: true,
+		borderRightColor: true,
+		borderTopColor: true,
 
-	overflow: {
-		supportedValues: ['hidden', 'visible', 'scroll', 'auto'],
-	},
+		overflow: {
+			supportedValues: ['hidden', 'visible', 'scroll', 'auto'],
+		},
 
-	overflowX: {
-		supportedValues: ['hidden', 'visible', 'scroll', 'auto'],
-	},
-	overflowY: {
-		supportedValues: ['hidden', 'visible', 'scroll', 'auto'],
-	},
+		overflowX: {
+			supportedValues: ['hidden', 'visible', 'scroll', 'auto'],
+		},
+		overflowY: {
+			supportedValues: ['hidden', 'visible', 'scroll', 'auto'],
+		},
 
-	// layout and space related props
-	display: {
-		supportedValues: ['block', 'inline-block', 'inline', 'none'],
-	},
-	flexGrow: {
-		allowCSS: true,
-	},
-	width: {
-		allowCSS: true,
-	},
-	height: {
-		allowCSS: true,
-	},
-	minWidth: {
-		allowCSS: true,
-	},
-	maxWidth: {
-		allowCSS: true,
-	},
-	minHeight: {
-		allowCSS: true,
-	},
-	maxHeight: {
-		allowCSS: true,
-	},
-	margin: true,
-	marginBlock: true,
-	marginBlockEnd: true,
-	marginBlockStart: true,
-	marginBottom: true,
-	marginInline: true,
-	marginInlineEnd: true,
-	marginInlineStart: true,
-	marginLeft: true,
-	marginRight: true,
-	marginTop: true,
-	padding: true,
-	paddingBlock: true,
-	paddingBlockEnd: true,
-	paddingBlockStart: true,
-	paddingBottom: true,
-	paddingInline: true,
-	paddingInlineEnd: true,
-	paddingInlineStart: true,
-	paddingLeft: true,
-	paddingRight: true,
-	paddingTop: true,
+		// layout and space related props
+		display: {
+			supportedValues: ['block', 'inline-block', 'inline', 'none'],
+		},
+		flexGrow: {
+			allowCSS: true,
+		},
+		width: {
+			allowCSS: true,
+		},
+		height: {
+			allowCSS: true,
+		},
+		minWidth: {
+			allowCSS: true,
+		},
+		maxWidth: {
+			allowCSS: true,
+		},
+		minHeight: {
+			allowCSS: true,
+		},
+		maxHeight: {
+			allowCSS: true,
+		},
+		margin: true,
+		marginBlock: true,
+		marginBlockEnd: true,
+		marginBlockStart: true,
+		marginBottom: true,
+		marginInline: true,
+		marginInlineEnd: true,
+		marginInlineStart: true,
+		marginLeft: true,
+		marginRight: true,
+		marginTop: true,
+		padding: true,
+		paddingBlock: true,
+		paddingBlockEnd: true,
+		paddingBlockStart: true,
+		paddingBottom: true,
+		paddingInline: true,
+		paddingInlineEnd: true,
+		paddingInlineStart: true,
+		paddingLeft: true,
+		paddingRight: true,
+		paddingTop: true,
 
-	// other box related props
-	borderRadius: { supportedValues: borderRadiusSupportedValues },
-	borderBottomLeftRadius: { supportedValues: borderRadiusSupportedValues },
-	borderBottomRightRadius: { supportedValues: borderRadiusSupportedValues },
-	borderTopLeftRadius: { supportedValues: borderRadiusSupportedValues },
-	borderTopRightRadius: { supportedValues: borderRadiusSupportedValues },
-	borderEndEndRadius: { supportedValues: borderRadiusSupportedValues },
-	borderEndStartRadius: { supportedValues: borderRadiusSupportedValues },
-	borderStartEndRadius: { supportedValues: borderRadiusSupportedValues },
-	borderStartStartRadius: { supportedValues: borderRadiusSupportedValues },
-	borderWidth: true,
-	borderBlockWidth: true,
-	borderBlockEndWidth: true,
-	borderBlockStartWidth: true,
-	borderBottomWidth: true,
-	borderInlineWidth: true,
-	borderInlineEndWidth: true,
-	borderInlineStartWidth: true,
-	borderLeftWidth: true,
-	borderRightWidth: true,
-	borderTopWidth: true,
+		// other box related props
+		borderRadius: { supportedValues: borderRadiusSupportedValues },
+		borderBottomLeftRadius: { supportedValues: borderRadiusSupportedValues },
+		borderBottomRightRadius: { supportedValues: borderRadiusSupportedValues },
+		borderTopLeftRadius: { supportedValues: borderRadiusSupportedValues },
+		borderTopRightRadius: { supportedValues: borderRadiusSupportedValues },
+		borderEndEndRadius: { supportedValues: borderRadiusSupportedValues },
+		borderEndStartRadius: { supportedValues: borderRadiusSupportedValues },
+		borderStartEndRadius: { supportedValues: borderRadiusSupportedValues },
+		borderStartStartRadius: { supportedValues: borderRadiusSupportedValues },
+		borderWidth: true,
+		borderBlockWidth: true,
+		borderBlockEndWidth: true,
+		borderBlockStartWidth: true,
+		borderBottomWidth: true,
+		borderInlineWidth: true,
+		borderInlineEndWidth: true,
+		borderInlineStartWidth: true,
+		borderLeftWidth: true,
+		borderRightWidth: true,
+		borderTopWidth: true,
 
-	// other props not in tokens based props
-	borderTopStyle: {
-		supportedValues: ['dotted', 'dashed', 'solid', 'none', 'hidden'],
-	},
-	borderBottomStyle: {
-		supportedValues: ['dotted', 'dashed', 'solid', 'none', 'hidden'],
-	},
-	borderRightStyle: {
-		supportedValues: ['dotted', 'dashed', 'solid', 'none', 'hidden'],
-	},
-	borderLeftStyle: {
-		supportedValues: ['dotted', 'dashed', 'solid', 'none', 'hidden'],
-	},
-	borderStyle: {
-		supportedValues: ['dotted', 'dashed', 'solid', 'none', 'hidden'],
-	},
-	position: {
-		supportedValues: ['relative', 'static'],
-	},
-});
+		// other props not in tokens based props
+		borderTopStyle: {
+			supportedValues: ['dotted', 'dashed', 'solid', 'none', 'hidden'],
+		},
+		borderBottomStyle: {
+			supportedValues: ['dotted', 'dashed', 'solid', 'none', 'hidden'],
+		},
+		borderRightStyle: {
+			supportedValues: ['dotted', 'dashed', 'solid', 'none', 'hidden'],
+		},
+		borderLeftStyle: {
+			supportedValues: ['dotted', 'dashed', 'solid', 'none', 'hidden'],
+		},
+		borderStyle: {
+			supportedValues: ['dotted', 'dashed', 'solid', 'none', 'hidden'],
+		},
+		position: {
+			supportedValues: ['relative', 'static'],
+		},
+	});
 type XCSSProp = ReturnType<typeof xcssValidator>;
 
 export type BoxProps = {

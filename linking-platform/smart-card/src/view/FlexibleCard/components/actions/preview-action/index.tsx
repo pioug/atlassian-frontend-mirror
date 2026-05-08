@@ -11,9 +11,7 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import {
-	useBlockCardRovoActionExperimentNoExposure,
-} from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
+import { useBlockCardRovoActionExperimentNoExposure } from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
 import Action from '../action';
 

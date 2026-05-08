@@ -185,27 +185,27 @@ const ContentComponentInternal = ({
 					isDragMenuOpen={isDragMenuOpen}
 				/>
 			)}
-				<FloatingDragMenu
-					editorView={editorView}
-					mountPoint={popupsMountPoint}
-					boundariesElement={popupsBoundariesElement}
-					tableRef={tableRef as HTMLTableElement}
-					tableNode={tableNode}
-					targetCellPosition={targetCellPosition}
-					direction={dragMenuDirection}
-					index={dragMenuIndex}
-					isOpen={!!isDragMenuOpen && !isResizing}
-					getEditorContainerWidth={defaultGetEditorContainerWidth}
-					editorAnalyticsAPI={editorAnalyticsAPI}
-					stickyHeaders={stickyHeader}
-					pluginConfig={pluginConfig}
-					isTableScalingEnabled={options?.isTableScalingEnabled}
-					getEditorFeatureFlags={options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags}
-					ariaNotifyPlugin={ariaNotifyPlugin}
-					api={api}
-					isCommentEditor={options?.isCommentEditor}
-					tableWrapper={tableWrapperTarget}
-				/>
+			<FloatingDragMenu
+				editorView={editorView}
+				mountPoint={popupsMountPoint}
+				boundariesElement={popupsBoundariesElement}
+				tableRef={tableRef as HTMLTableElement}
+				tableNode={tableNode}
+				targetCellPosition={targetCellPosition}
+				direction={dragMenuDirection}
+				index={dragMenuIndex}
+				isOpen={!!isDragMenuOpen && !isResizing}
+				getEditorContainerWidth={defaultGetEditorContainerWidth}
+				editorAnalyticsAPI={editorAnalyticsAPI}
+				stickyHeaders={stickyHeader}
+				pluginConfig={pluginConfig}
+				isTableScalingEnabled={options?.isTableScalingEnabled}
+				getEditorFeatureFlags={options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags}
+				ariaNotifyPlugin={ariaNotifyPlugin}
+				api={api}
+				isCommentEditor={options?.isCommentEditor}
+				tableWrapper={tableWrapperTarget}
+			/>
 			{(options?.isTableScalingEnabled ||
 				(options?.tableOptions.allowTableResizing && options.isCommentEditor)) &&
 				isTableResizing &&

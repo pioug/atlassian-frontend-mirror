@@ -8,7 +8,7 @@ const BASE_URL = '/gateway/api/tap-delivery/api/v3/personalization';
 
 export const PERSONALIZATION_STORAGE_SCOPE = 'smart-card-social-proof';
 export const PERSONALIZATION_STORAGE_ITEM_KEY_PREFIX = 'pct-map:v1:';
-export const PERSONALIZATION_PROVIDER_PCT_TTL_MS = 24 * 60 * 60 * 1000;
+export const PERSONALIZATION_PROVIDER_PCT_TTL_MS: number = 24 * 60 * 60 * 1000;
 export const SOCIAL_PROOF_TRAIT_NAME = 'sl_3p_connected_providers_site_pct';
 
 const smartCardStorage = new StorageClient(PERSONALIZATION_STORAGE_SCOPE);
@@ -154,19 +154,12 @@ export class PersonalizationService {
 	}
 
 	private clearStoredProviderPctMaps(): void {
-		if (
-			typeof globalThis.localStorage === 'undefined' ||
-			globalThis.localStorage === null
-		) {
+		if (typeof globalThis.localStorage === 'undefined' || globalThis.localStorage === null) {
 			return;
 		}
 
 		const keysToRemove: string[] = [];
-		for (
-			let index = 0;
-			index < globalThis.localStorage.length;
-			index += 1
-		) {
+		for (let index = 0; index < globalThis.localStorage.length; index += 1) {
 			const key = globalThis.localStorage.key(index);
 			if (key !== null && key.startsWith(LOCAL_STORAGE_ROW_KEY_PREFIX)) {
 				keysToRemove.push(key);
@@ -182,12 +175,13 @@ export class PersonalizationService {
 	}
 }
 
-export const personalizationService = new PersonalizationService();
+export const personalizationService: PersonalizationService = new PersonalizationService();
 
 export const getProviderPctMap = (
 	cloudId: string | undefined,
 	traitName: string,
-): Promise<ProviderPctMap | undefined> => personalizationService.getProviderPctMap(cloudId, traitName);
+): Promise<ProviderPctMap | undefined> =>
+	personalizationService.getProviderPctMap(cloudId, traitName);
 
 export function getProviderPctMapSync(
 	cloudId: string | undefined,

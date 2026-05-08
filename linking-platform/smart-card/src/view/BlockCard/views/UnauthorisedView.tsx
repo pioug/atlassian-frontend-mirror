@@ -374,15 +374,15 @@ const UnauthorisedViewWithExperiment = ({
 	}
 
 	return (
-		<AnalyticsContext data={{ attributes: { experiment: 'social_proof_3p_unauth_block_exp', cohort: 'treatment', tier } }}>
+		<AnalyticsContext
+			data={{
+				attributes: { experiment: 'social_proof_3p_unauth_block_exp', cohort: 'treatment', tier },
+			}}
+		>
 			<UnauthorisedViewFrame
 				{...props}
 				content={
-					<SocialProofMessage
-						tier={tier}
-						connectedPct={connectedPct}
-						providerName={providerName}
-					/>
+					<SocialProofMessage tier={tier} connectedPct={connectedPct} providerName={providerName} />
 				}
 				providerName={providerName}
 				testId={testId}

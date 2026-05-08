@@ -396,9 +396,10 @@ export class FileFetcherImpl implements FileFetcher {
 
 			resolve({ value: blob as Blob, origin: 'remote' });
 		});
-		const name = anonymizeFilename && fg('platform_media_upload_external_anonymize_filename')
-			? crypto.randomUUID()
-			: url.split('/').pop() || '';
+		const name =
+			anonymizeFilename && fg('platform_media_upload_external_anonymize_filename')
+				? crypto.randomUUID()
+				: url.split('/').pop() || '';
 		// we create a initial fileState with the minimum info that we have at this point
 		const fileState: ProcessingFileState = {
 			status: 'processing',

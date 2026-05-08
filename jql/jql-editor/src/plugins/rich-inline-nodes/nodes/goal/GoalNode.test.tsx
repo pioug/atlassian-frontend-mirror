@@ -32,13 +32,16 @@ describe('GoalNode', () => {
 		);
 
 	beforeEach(() => {
-		useHydratedGoalMock.mockReturnValue([{
-			id: 'goal-1',
-			name: 'Test Goal',
-			status: 'ON_TRACK',
-			iconKey: 'OBJECTIVE',
-			type: 'goal',
-		}, undefined]);
+		useHydratedGoalMock.mockReturnValue([
+			{
+				id: 'goal-1',
+				name: 'Test Goal',
+				status: 'ON_TRACK',
+				iconKey: 'OBJECTIVE',
+				type: 'goal',
+			},
+			undefined,
+		]);
 	});
 
 	it('is accessible', async () => {

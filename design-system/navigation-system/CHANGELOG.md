@@ -1,5 +1,12 @@
 # @atlassian/navigation-system
 
+## 9.2.1
+
+### Patch Changes
+
+- [`ca5f7e8e2a556`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca5f7e8e2a556) -
+  Dev-only dependencies have been added.
+
 ## 9.2.0
 
 ### Minor Changes

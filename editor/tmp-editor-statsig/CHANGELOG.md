@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 77.2.0
+
+### Minor Changes
+
+- [`c8e93040b12a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8e93040b12a0) -
+  Infrastructure for snap-to-row in database native embeds
+
 ## 77.1.0
 
 ### Minor Changes

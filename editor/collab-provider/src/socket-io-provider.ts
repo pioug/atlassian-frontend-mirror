@@ -40,10 +40,8 @@ export function createSocketIOSocket(
 		) {
 			usePMR = true;
 		}
-		
-		if (
-			isGCPtenant(hostname) && fg('collab_edit_via_websocket_only_for_gcp')
-		) {
+
+		if (isGCPtenant(hostname) && fg('collab_edit_via_websocket_only_for_gcp')) {
 			transports = ['websocket'];
 		}
 	}

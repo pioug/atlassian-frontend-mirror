@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor
 
+## 6.3.1
+
+### Patch Changes
+
+- [`5f131a57d7576`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f131a57d7576) -
+  [ux] Correct lozenge height
+
 ## 6.3.0
 
 ### Minor Changes

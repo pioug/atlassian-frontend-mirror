@@ -1,12 +1,7 @@
 import { placementMap } from './placement-map';
 
 describe('placementMap', () => {
-	const blockAxisPlacements = [
-		'top-start',
-		'top-end',
-		'bottom-start',
-		'bottom-end',
-	] as const;
+	const blockAxisPlacements = ['top-start', 'top-end', 'bottom-start', 'bottom-end'] as const;
 	const inlineAxisPlacements = ['left-start', 'left-end', 'right-start', 'right-end'] as const;
 
 	it('uses anchor-size(width) dynamic cross-axis shift for block-axis start/end placements', () => {

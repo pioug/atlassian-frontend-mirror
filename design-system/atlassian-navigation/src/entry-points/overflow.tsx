@@ -1,1 +1,1 @@
-export { useOverflowStatus } from '../controllers/overflow/index';
+export { useOverflowStatus } from '../controllers/overflow/use-overflow-status';

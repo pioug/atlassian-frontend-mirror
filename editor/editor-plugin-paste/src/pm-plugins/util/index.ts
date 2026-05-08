@@ -52,7 +52,11 @@ function isPastedFromFabricEditor(html?: string): boolean {
 }
 
 function isPastedFromFabricRenderer(html?: string): boolean {
-	return !!html && html.indexOf('data-renderer-start-pos="') >= 0 && fg('platform_editor_paste_renderer_analytics');
+	return (
+		!!html &&
+		html.indexOf('data-renderer-start-pos="') >= 0 &&
+		fg('platform_editor_paste_renderer_analytics')
+	);
 }
 
 export const isSingleLine = (text: string): boolean => {

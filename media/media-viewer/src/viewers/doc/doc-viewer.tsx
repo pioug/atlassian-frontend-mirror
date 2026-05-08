@@ -128,8 +128,7 @@ export const DocViewer = ({
 
 	// Compute enableLazyPageRendering based on Excel file detection and feature gate
 	// Excel files are found to have 60K pages, because excel can have thousand of empty rows, JST-1296681
-	const isExcel =
-		fileState.status !== 'error' && isExcelFile(fileState.mimeType ?? '');
+	const isExcel = fileState.status !== 'error' && isExcelFile(fileState.mimeType ?? '');
 	const enableLazyPageRendering = isExcel && fg('platform_media_excel_lazy_load');
 
 	const getContent = useStaticCallback(async (pageStart: number, pageEnd: number) => {

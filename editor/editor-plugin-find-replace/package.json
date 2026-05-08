@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-find-replace",
-	"version": "10.0.17",
+	"version": "10.1.0",
 	"description": "find replace plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,6 +38,7 @@
 		"@atlaskit/editor-plugin-expand": "workspace:^",
 		"@atlaskit/editor-plugin-mentions": "workspace:^",
 		"@atlaskit/editor-plugin-primary-toolbar": "workspace:^",
+		"@atlaskit/editor-plugin-synced-block": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/form": "workspace:^",
@@ -114,6 +115,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_toolbar_responsive_fixes": {
+			"type": "boolean"
+		},
+		"platform_synced_block_patch_11": {
 			"type": "boolean"
 		}
 	}

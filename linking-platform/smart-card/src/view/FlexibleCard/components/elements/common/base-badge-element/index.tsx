@@ -14,9 +14,7 @@ import { token } from '@atlaskit/tokens';
 import { IconType } from '../../../../../../constants';
 import { messages } from '../../../../../../messages';
 import { useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context';
-import {
-	useBlockCardRovoActionExperimentNoExposure,
-} from '../../../../../../state/hooks/use-block-card-rovo-action-experiment';
+import { useBlockCardRovoActionExperimentNoExposure } from '../../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import AtlaskitIcon from '../../../common/atlaskit-icon';
 import ImageIcon from '../../../common/image-icon';
 import { withOverrideCss } from '../../../common/with-override-css';

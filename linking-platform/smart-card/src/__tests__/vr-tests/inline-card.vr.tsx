@@ -259,8 +259,7 @@ snapshot(InlineCardUnauthorisedNoAuth, {
 });
 
 snapshot(InlineCardUnauthorisedSocialProofLowExplore, {
-	description:
-		'inline card unauthorised with social proof but low percentage',
+	description: 'inline card unauthorised with social proof but low percentage',
 	featureFlags: {
 		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
 		platform_sl_3p_preauth_social_proof_inline_cta: [true, false],
@@ -269,8 +268,7 @@ snapshot(InlineCardUnauthorisedSocialProofLowExplore, {
 });
 
 snapshot(InlineCardUnauthorisedSocialProofLowExplore, {
-	description:
-		'inline card unauthorised with social proof but low percentage - disabled FGs',
+	description: 'inline card unauthorised with social proof but low percentage - disabled FGs',
 	featureFlags: {
 		platform_sl_3p_preauth_soc_proof_inline_killswitch: false,
 		platform_sl_3p_preauth_social_proof_inline_cta: false,
@@ -279,8 +277,7 @@ snapshot(InlineCardUnauthorisedSocialProofLowExplore, {
 });
 
 snapshot(InlineCardUnauthorisedSocialProofLoaded, {
-	description:
-		'inline card unauthorised with social proof',
+	description: 'inline card unauthorised with social proof',
 	featureFlags: {
 		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
 		platform_sl_3p_preauth_social_proof_inline_cta: [true, false],
@@ -289,8 +286,7 @@ snapshot(InlineCardUnauthorisedSocialProofLoaded, {
 });
 
 snapshot(InlineCardUnauthorisedSocialProofLoaded, {
-	description:
-		'inline card unauthorised with social proof - disabled FGs',
+	description: 'inline card unauthorised with social proof - disabled FGs',
 	featureFlags: {
 		platform_sl_3p_preauth_soc_proof_inline_killswitch: false,
 		platform_sl_3p_preauth_social_proof_inline_cta: false,
@@ -299,8 +295,7 @@ snapshot(InlineCardUnauthorisedSocialProofLoaded, {
 });
 
 snapshot(InlineCardUnauthorisedSocialProofNoContext, {
-	description:
-		'inline card unauthorised social proof but no context available',
+	description: 'inline card unauthorised social proof but no context available',
 	featureFlags: {
 		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
 		platform_sl_3p_preauth_social_proof_inline_cta: [true, false],

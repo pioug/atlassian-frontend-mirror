@@ -29,7 +29,8 @@ export const AISummaryActionComponent = (
 	}, [onLoadingChange, status]);
 
 	return status === 'done' ? (
-		fg('platform_sl_3p_auth_rovo_action_kill_switch') || expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true) ? (
+		fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+		expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true) ? (
 			<CopySummaryActionNew {...props} summary={content} testId={testId} />
 		) : (
 			<CopySummaryAction {...props} testId={testId} content={content} />

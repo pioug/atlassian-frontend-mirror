@@ -24,9 +24,7 @@ import {
 	useFlexibleUiContext,
 	useFlexibleUiOptionContext,
 } from '../../../../../../state/flexible-ui-context';
-import {
-	useBlockCardRovoActionExperimentNoExposure
-} from '../../../../../../state/hooks/use-block-card-rovo-action-experiment';
+import { useBlockCardRovoActionExperimentNoExposure } from '../../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import { withOverrideCss } from '../../../common/with-override-css';
 import { sizeToButtonSpacing } from '../../../utils';
 

@@ -76,9 +76,6 @@
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/atlassian-navigation/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/breadcrumbs/tsconfig.app.json"
 		},
 		{
@@ -295,7 +292,7 @@
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/page-layout/tsconfig.app.json"
+			"path": "../../design-system/navigation-system/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

@@ -91,6 +91,7 @@ import {
 	findReplaceStylesNewWithA11Y,
 	findReplaceStylesNewWithCodeblockColorContrastFix,
 	findReplaceStylesWithCodeblockColorContrastFix,
+	findReplaceStylesWithRefSyncBlock,
 } from './styles/findReplaceStyles';
 import { firstBlockNodeStyles } from './styles/firstBlockNodeStyles';
 import { firstFloatingToolbarButtonStyles } from './styles/floatingToolbarStyles';
@@ -552,6 +553,10 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 						findReplaceStylesNewWithA11Y
 					: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						findReplaceStyles,
+				editorExperiment('platform_synced_block', true) &&
+					fg('platform_synced_block_patch_11') &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					findReplaceStylesWithRefSyncBlock,
 				expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					findReplaceStylesNewWithCodeblockColorContrastFix,

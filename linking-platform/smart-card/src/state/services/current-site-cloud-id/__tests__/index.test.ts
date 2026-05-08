@@ -11,7 +11,6 @@ import {
 
 const requestSpy = jest.spyOn(linkingCommon, 'request');
 
-
 describe('getCurrentSiteCloudId', () => {
 	beforeEach(() => {
 		currentSiteCloudIdService.clearCache();
@@ -25,10 +24,7 @@ describe('getCurrentSiteCloudId', () => {
 		await expect(getCurrentSiteCloudId('https://site.example')).resolves.toBe('cloud-a');
 
 		expect(requestSpy).toHaveBeenCalledTimes(1);
-		expect(requestSpy).toHaveBeenCalledWith(
-			'get',
-			'https://site.example/_edge/tenant_info',
-		);
+		expect(requestSpy).toHaveBeenCalledWith('get', 'https://site.example/_edge/tenant_info');
 	});
 
 	it('returns undefined on failure and allows a subsequent call to request again', async () => {
@@ -65,10 +61,7 @@ describe('getCurrentSiteCloudId', () => {
 	it('dedupes concurrent callers onto one in-flight tenant_info for the same base', async () => {
 		requestSpy.mockResolvedValueOnce({ cloudId: 'shared' });
 
-		const results = await Promise.all([
-			getCurrentSiteCloudId(''),
-			getCurrentSiteCloudId(''),
-		]);
+		const results = await Promise.all([getCurrentSiteCloudId(''), getCurrentSiteCloudId('')]);
 
 		expect(results).toEqual(['shared', 'shared']);
 		expect(requestSpy).toHaveBeenCalledTimes(1);
@@ -109,7 +102,9 @@ describe('getCurrentSiteCloudId', () => {
 		await expect(getCurrentSiteCloudId('https://x.example')).resolves.toBe('persisted-cloud');
 
 		expect(getCurrentSiteCloudIdSync('https://x.example')).toBe('persisted-cloud');
-		const row = window.localStorage.getItem(getCurrentSiteCloudIdLocalStorageKey('https://x.example'));
+		const row = window.localStorage.getItem(
+			getCurrentSiteCloudIdLocalStorageKey('https://x.example'),
+		);
 		expect(row).not.toBeNull();
 		expect(JSON.parse(row ?? '{}').expires).toBeGreaterThanOrEqual(
 			Date.now() + CURRENT_SITE_CLOUD_ID_TTL_MS,

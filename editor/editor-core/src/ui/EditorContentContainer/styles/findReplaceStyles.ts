@@ -322,3 +322,84 @@ export const findReplaceStylesNewWithA11Y: SerializedStyles = css({
 			backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
 		},
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const findReplaceStylesWithRefSyncBlock: SerializedStyles = css({
+	// sync block (reference) - inactive match - light mode - without node selection
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.search-match-block.ak-editor-sync-block': {
+		borderRadius: token('space.050'),
+		boxShadow: `
+		inset 0 0 0 1px ${token('color.border.accent.magenta')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}
+		`,
+		backgroundColor: token('color.background.accent.magenta.subtler'),
+	},
+
+	// sync block (reference) - active match - light mode - without node selection
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.search-match-block.search-match-block-selected.ak-editor-sync-block': {
+		boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.subtlest.pressed')}
+		`,
+		backgroundColor: token('color.background.accent.magenta.subtlest.pressed'),
+	},
+
+	// sync block (reference) - inactive match - light mode - with node selection
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.search-match-block.ak-editor-sync-block.ak-editor-selected-node': {
+		boxShadow: `
+		inset 0 0 0 1px ${token('color.border.accent.magenta')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')},
+		0 0 0 1px ${token('color.border.selected')}
+		`,
+		backgroundColor: token('color.background.accent.magenta.subtler'),
+	},
+
+	// sync block (reference) - active match - light mode - with node selection
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.search-match-block.search-match-block-selected.ak-editor-sync-block.ak-editor-selected-node': {
+		boxShadow: `0 0 0 1px ${token('color.border.focused')}`,
+		backgroundColor: token('color.background.accent.magenta.subtlest.pressed'),
+	},
+
+	// sync block (reference) - inactive match - dark mode - without node selection
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.search-match-block.search-match-dark.ak-editor-sync-block': {
+		boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}
+		`,
+		backgroundColor: token('color.background.accent.magenta.bolder.pressed'),
+	},
+
+	// sync block (reference) - active match - dark mode - without node selection
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.search-match-block.search-match-block-selected.search-match-dark.ak-editor-sync-block': {
+		boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+		inset 0 0 0 4px ${token('color.background.accent.magenta.bolder.hovered')}
+		`,
+		backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
+	},
+
+	// sync block (reference) - inactive match - dark mode - with node selection
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.search-match-block.search-match-dark.ak-editor-sync-block.ak-editor-selected-node': {
+		boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')},
+		0 0 0 1px ${token('color.border.selected')}
+		`,
+		backgroundColor: token('color.background.accent.magenta.bolder.pressed'),
+	},
+
+	// sync block (reference) - active match - dark mode - with node selection
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.search-match-block.search-match-block-selected.search-match-dark.ak-editor-sync-block.ak-editor-selected-node':
+		{
+			boxShadow: `0 0 0 1px ${token('color.border.focused')}`,
+			backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
+		},
+});

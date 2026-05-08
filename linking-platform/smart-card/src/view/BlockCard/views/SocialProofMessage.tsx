@@ -24,7 +24,7 @@ const SocialProofMessage = ({
 	connectedPct,
 	providerName,
 	testId = 'smart-block-social-proof-message',
-}: SocialProofMessageProps) => {
+}: SocialProofMessageProps): React.JSX.Element => {
 	const message =
 		tier === 'not-low'
 			? messages.pre_auth_block_social_proof_not_low

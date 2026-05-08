@@ -1,4 +1,5 @@
-import { convertHexShorthand, generateTextColor } from '../../../theme/theme-helpers';
+import { convertHexShorthand } from '../../../theme/convert-hex-shorthand';
+import { generateTextColor } from '../../../theme/generate-text-color';
 
 describe('theme helpers', () => {
 	describe('generateTextColor', () => {

@@ -13,9 +13,7 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 import { ActionName, CardDisplay } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import {
-	isBlockCardRovoActionExperimentEnabled
-} from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
+import { isBlockCardRovoActionExperimentEnabled } from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
 import useRovoChat, { type SendPromptMessageData } from '../../../../../state/hooks/use-rovo-chat';
 import AiChapterIcon from '../../../assets/ai-chapter-icon';

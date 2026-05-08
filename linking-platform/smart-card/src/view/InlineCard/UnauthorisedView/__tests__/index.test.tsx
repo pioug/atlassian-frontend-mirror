@@ -15,19 +15,28 @@ const mockGetProviderPctMapSyncLoaded = injectable(getCachedProviderPctMapAndRef
 	'figma-object-provider': 52,
 }));
 
-const mockGetProviderPctMapSyncExploratoryShare = injectable(getCachedProviderPctMapAndRefresh, () => ({
-	'figma-object-provider': 15,
-}));
+const mockGetProviderPctMapSyncExploratoryShare = injectable(
+	getCachedProviderPctMapAndRefresh,
+	() => ({
+		'figma-object-provider': 15,
+	}),
+);
 
 const mockGetProviderPctMapSyncThirtyPct = injectable(getCachedProviderPctMapAndRefresh, () => ({
 	'figma-object-provider': 30,
 }));
 
-const mockGetProviderPctMapSyncTwentyNinePct = injectable(getCachedProviderPctMapAndRefresh, () => ({
-	'figma-object-provider': 29,
-}));
+const mockGetProviderPctMapSyncTwentyNinePct = injectable(
+	getCachedProviderPctMapAndRefresh,
+	() => ({
+		'figma-object-provider': 29,
+	}),
+);
 
-const mockGetProviderPctMapSyncNoPercentage = injectable(getCachedProviderPctMapAndRefresh, () => null);
+const mockGetProviderPctMapSyncNoPercentage = injectable(
+	getCachedProviderPctMapAndRefresh,
+	() => null,
+);
 
 const mockGetProviderPctMapSyncUnexpected = injectable(getCachedProviderPctMapAndRefresh, () => {
 	throw new Error('getCachedProviderPctMapAndRefresh should not be called');
@@ -103,10 +112,7 @@ describe('Unauthorised View', () => {
 
 	ffTest.on('platform_sl_3p_preauth_soc_proof_inline_killswitch', 'killswitch on', () => {
 		eeTest
-			.describe(
-				'platform_sl_3p_preauth_social_proof_inline_cta',
-				'social proof CTA experiment on',
-			)
+			.describe('platform_sl_3p_preauth_social_proof_inline_cta', 'social proof CTA experiment on')
 			.variant(true, () => {
 				it('should show "Connect" (short label) instead of "Connect your X account" when social proof is shown', () => {
 					const testUrl = 'http://unauthorised-test/';
@@ -135,9 +141,7 @@ describe('Unauthorised View', () => {
 						/>,
 						mockGetProviderPctMapSyncLoaded,
 					);
-					expect(
-						getByTestId('inline-card-unauthorized-view-social-proof-tag'),
-					).toBeInTheDocument();
+					expect(getByTestId('inline-card-unauthorized-view-social-proof-tag')).toBeInTheDocument();
 					expect(container).toHaveTextContent('52% of your team previews Figma');
 				});
 
@@ -153,9 +157,7 @@ describe('Unauthorised View', () => {
 						/>,
 						mockGetProviderPctMapSyncExploratoryShare,
 					);
-					expect(
-						getByTestId('inline-card-unauthorized-view-social-proof-tag'),
-					).toBeInTheDocument();
+					expect(getByTestId('inline-card-unauthorized-view-social-proof-tag')).toBeInTheDocument();
 					expect(container).toHaveTextContent('Your team is previewing Figma');
 				});
 
@@ -268,14 +270,13 @@ describe('Unauthorised View', () => {
 				/>,
 				mockGetProviderPctMapSyncUnexpected,
 			);
-			expect(queryByTestId('inline-card-unauthorized-view-social-proof-tag')).not.toBeInTheDocument();
+			expect(
+				queryByTestId('inline-card-unauthorized-view-social-proof-tag'),
+			).not.toBeInTheDocument();
 		});
 
 		eeTest
-			.describe(
-				'platform_sl_3p_preauth_social_proof_inline_cta',
-				'social proof CTA experiment off',
-			)
+			.describe('platform_sl_3p_preauth_social_proof_inline_cta', 'social proof CTA experiment off')
 			.variant(false, () => {
 				it('shows original "Connect your X account" label when experiment is off', () => {
 					const testUrl = 'http://unauthorised-test/';

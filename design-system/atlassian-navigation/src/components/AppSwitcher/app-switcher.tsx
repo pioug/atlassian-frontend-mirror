@@ -1,0 +1,82 @@
+import React, { forwardRef, type Ref } from 'react';
+
+import { cssMap } from '@atlaskit/css';
+import AppSwitcherIcon from '@atlaskit/icon/core/app-switcher';
+import { Flex } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+import { IconButton } from '../IconButton';
+
+import { type AppSwitcherProps } from './types';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
+
+/**
+ * _App switcher__
+ *
+ * An AppSwitcher button that can be passed into `AtlassianNavigation`'s
+ * `renderAppSwitcher` prop.
+ *
+ * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#app-switcher)
+ * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ */
+export const AppSwitcher: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<AppSwitcherProps> & React.RefAttributes<any>
+> = forwardRef((props: AppSwitcherProps, ref: Ref<any>) => {
+	const {
+		component,
+		href,
+		id,
+		isDisabled,
+		isSelected,
+		label,
+		onBlur,
+		onClick,
+		onFocus,
+		onMouseDown,
+		onMouseEnter,
+		onMouseLeave,
+		onMouseUp,
+		target,
+		testId,
+		tooltip,
+		...rest
+	} = props;
+
+	return (
+		<IconButton
+			component={component}
+			href={href}
+			icon={
+				<Flex xcss={iconSpacingStyles.space050}>
+					<AppSwitcherIcon
+						color="currentColor"
+						label={typeof tooltip === 'string' ? tooltip : 'Switch apps'}
+					/>
+				</Flex>
+			}
+			id={id}
+			isDisabled={isDisabled}
+			isSelected={isSelected}
+			label={label}
+			onBlur={onBlur}
+			onClick={onClick}
+			onFocus={onFocus}
+			onMouseDown={onMouseDown}
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
+			onMouseUp={onMouseUp}
+			ref={ref}
+			target={target}
+			testId={testId}
+			tooltip={tooltip}
+			// These are all explicit, leaving it in just in case
+			{...rest}
+		/>
+	);
+});

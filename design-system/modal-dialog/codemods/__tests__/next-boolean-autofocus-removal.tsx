@@ -1,6 +1,6 @@
 jest.autoMockOff();
 
-import transformer from '../not-yet-boolean-autofocus-removal';
+import transformer from '../15.0.0-boolean-autofocus-removal';
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 

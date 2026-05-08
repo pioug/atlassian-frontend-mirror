@@ -631,9 +631,7 @@ export const TableContainer = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={classNames(className, {
 				'less-padding':
-					editorWidth < akEditorMobileBreakoutPoint &&
-					!isNested &&
-					!isChromelessEditor,
+					editorWidth < akEditorMobileBreakoutPoint && !isNested && !isChromelessEditor,
 			})}
 			style={
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)

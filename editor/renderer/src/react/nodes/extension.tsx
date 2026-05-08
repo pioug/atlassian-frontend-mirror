@@ -387,10 +387,8 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 	);
 };
 
-const _default_1: React.ComponentClass<Props & OverflowShadowProps, OverflowShadowState> = overflowShadow(
-	Extension,
-	{
+const _default_1: React.ComponentClass<Props & OverflowShadowProps, OverflowShadowState> =
+	overflowShadow(Extension, {
 		overflowSelector: `.${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER}`,
-	},
-);
+	});
 export default _default_1;

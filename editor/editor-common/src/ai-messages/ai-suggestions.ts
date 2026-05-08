@@ -81,16 +81,6 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
-	fetchGenerateFromAdf: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
-	fetchGenerateFromDocument: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
 	fetchSuggestionsButtonLabel: {
 		defaultMessage: string;
 		description: string;
@@ -224,17 +214,6 @@ export const aiSuggestionsMessages: {
 		defaultMessage: '{count} suggestions',
 		description:
 			'Tooltip text for the suggestion icon button when there are multiple AI suggestions',
-	},
-	fetchGenerateFromDocument: {
-		id: 'fabric.editor.ai.suggestions.quickInsert.generateFromDocument.non-final',
-		defaultMessage: 'Suggested edits (generate)',
-		description: 'Quick insert: fetch AI suggestions by generating from the current document (ADF)',
-	},
-	fetchGenerateFromAdf: {
-		id: 'fabric.editor.ai.suggestions.quickInsert.generateFromAdf.non-final',
-		defaultMessage: 'Suggested edits (generate from ADF)',
-		description:
-			'Quick insert: fetch AI suggestions by generating from document, same as page toolbar action',
 	},
 	originalViewLabel: {
 		id: 'fabric.editor.ai.suggestions.stagingArea.originalViewLabel.non-final',

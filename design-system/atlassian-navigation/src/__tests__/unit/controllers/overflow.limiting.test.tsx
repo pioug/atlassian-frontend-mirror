@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, renderHook } from '@testing-library/react';
 
-import { useOverflowController } from '../../../controllers/overflow';
+import { useOverflowController } from '../../../controllers/overflow/use-overflow-controller';
 
 /**
  * The real `throttle` stops working when we use fake timers,

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 10.1.0
+
+### Minor Changes
+
+- [`55ad279a5e823`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55ad279a5e823) -
+  [ux] Support reference sync blocks by find and replace.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.17
 
 ### Patch Changes

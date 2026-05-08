@@ -1,3 +1,5 @@
+// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
+// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
 export const CodeBlockSharedCssClassName = {
 	CODEBLOCK_CONTAINER: 'code-block',
 	CODEBLOCK_START: 'code-block--start',

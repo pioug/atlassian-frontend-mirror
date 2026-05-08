@@ -1355,7 +1355,11 @@ describe('BitbucketTransformer: parser', () => {
 						'<pre><span></span><code>this is a suggestion</code></pre>' +
 						'</div>',
 				),
-			).toEqualDocument(doc(code_block({ language: 'suggestion', localId: STATIC_LOCAL_ID })('this is a suggestion')));
+			).toEqualDocument(
+				doc(
+					code_block({ language: 'suggestion', localId: STATIC_LOCAL_ID })('this is a suggestion'),
+				),
+			);
 		});
 	});
 

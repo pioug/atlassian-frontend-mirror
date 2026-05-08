@@ -2,10 +2,7 @@ import type { PopupProps } from '@atlaskit/editor-common/ui';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 
 import type { TableDirection } from '../../types';
-import {
-	tableInsertColumnButtonOffset,
-	tableInsertColumnButtonSize,
-} from '../consts';
+import { tableInsertColumnButtonOffset, tableInsertColumnButtonSize } from '../consts';
 
 const HORIZONTAL_ALIGN_COLUMN_BUTTON = -(tableInsertColumnButtonSize / 2);
 const HORIZONTAL_ALIGN_NUMBERED_COLUMN_BUTTON =
@@ -53,10 +50,7 @@ function getColumnOptions(
 	const options: Partial<PopupProps> = {
 		alignX: 'end',
 		alignY: 'top',
-		offset: [
-			HORIZONTAL_ALIGN_COLUMN_BUTTON,
-			VERTICAL_ALIGN_COLUMN_BUTTON_DRAG,
-		],
+		offset: [HORIZONTAL_ALIGN_COLUMN_BUTTON, VERTICAL_ALIGN_COLUMN_BUTTON_DRAG],
 		// :: (position: PopupPosition) -> PopupPosition
 		// Limit the InsertButton position to the table container
 		// if the left position starts before it

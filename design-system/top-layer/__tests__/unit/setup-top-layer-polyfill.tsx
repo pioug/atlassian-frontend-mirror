@@ -1027,7 +1027,6 @@ describe('dialog.returnValue', () => {
 	});
 });
 
-
 // ─── auto popover stack & dismissal ─────────────────────────────────────────
 // https://html.spec.whatwg.org/multipage/popover.html#popover-light-dismiss
 
@@ -1170,7 +1169,7 @@ describe('popover opacity guard cleanup', () => {
 		popover.showPopover();
 		flushTasks();
 
-		expect(popover).toHaveStyle({opacity:''});
+		expect(popover).toHaveStyle({ opacity: '' });
 
 		cleanup();
 	});
@@ -1193,7 +1192,7 @@ describe('popover opacity guard cleanup', () => {
 		popover.showPopover();
 		flushTasks();
 
-		expect(popover).toHaveStyle({opacity:''});
+		expect(popover).toHaveStyle({ opacity: '' });
 
 		cleanup();
 	});
@@ -1210,12 +1209,11 @@ describe('popover opacity guard cleanup', () => {
 		popover.hidePopover();
 		flushTasks();
 
-		expect(popover).toHaveStyle({opacity:'0.5'});
+		expect(popover).toHaveStyle({ opacity: '0.5' });
 
 		cleanup();
 	});
 });
-
 
 // ─── togglePopover() return value after cancel ──────────────────────────────
 
@@ -1367,7 +1365,7 @@ describe('opacity-clear listener is one-shot', () => {
 		// removed itself. Setting opacity now must persist.
 		popover.style.setProperty('opacity', '0');
 
-		expect(popover).toHaveStyle({opacity:'0'});
+		expect(popover).toHaveStyle({ opacity: '0' });
 
 		cleanup();
 	});

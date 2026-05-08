@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 44.8.0
+
+### Minor Changes
+
+- [`95d6924c302aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95d6924c302aa) -
+  [ux] Add extra whitespace between metadata/description and footer in block cards behind
+  platform_navx_block_card_footer_spacing feature gate.
+
+## 44.7.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.7.4
 
 ### Patch Changes

@@ -26,23 +26,17 @@ interface ButtonProps {
 	type: TableDirection;
 }
 
-const getInsertLineHeight = (
-	tableRef: HTMLElement,
-	hasStickyHeaders: boolean,
-) => {
+const getInsertLineHeight = (tableRef: HTMLElement, hasStickyHeaders: boolean) => {
 	// The line gets height 100% from the table,
 	// but since we have an overflow on the left,
 	// we should add an offset to make up for it.
 	const LINE_OFFSET = 3;
 
 	const ADDITIONAL_HEIGHT = hasStickyHeaders
-		? tableRef.getBoundingClientRect().top -
-			tableMarginTop * 3 -
-			LINE_OFFSET
+		? tableRef.getBoundingClientRect().top - tableMarginTop * 3 - LINE_OFFSET
 		: tableToolbarSize + LINE_OFFSET;
 	return tableRef.offsetHeight + ADDITIONAL_HEIGHT;
 };
-
 
 const getNumberColumnWidth = (tableRef: HTMLElement): number => {
 	const parent = closestElement(tableRef, `.${ClassName.TABLE_CONTAINER}`);
@@ -54,10 +48,7 @@ const getNumberColumnWidth = (tableRef: HTMLElement): number => {
 	return 0;
 };
 
-const getInsertLineWidth = (
-	tableRef: HTMLElement,
-	isChromelessEditor?: boolean,
-) => {
+const getInsertLineWidth = (tableRef: HTMLElement, isChromelessEditor?: boolean) => {
 	// The line gets width 100% from the table,
 	// but since we have an overflow on the left,
 	// we should add an offset to make up for it.
@@ -72,10 +63,7 @@ const getInsertLineWidth = (
 	const diff = offsetWidth - parentOffsetWidth;
 
 	return (
-		Math.min(
-			offsetWidth,
-			parentOffsetWidth - Math.max(scrollLeft - diff, 0),
-		) +
+		Math.min(offsetWidth, parentOffsetWidth - Math.max(scrollLeft - diff, 0)) +
 		DRAG_LINE_OFFSET +
 		getNumberColumnWidth(tableRef)
 	);

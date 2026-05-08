@@ -85,7 +85,10 @@ describe('useBlockCardRovoActionExperiment', () => {
 	});
 
 	eeTest
-		.describe('platform_sl_3p_auth_rovo_block_card_jira', 'block card rovo action experiment jira on')
+		.describe(
+			'platform_sl_3p_auth_rovo_block_card_jira',
+			'block card rovo action experiment jira on',
+		)
 		.variant(true, () => {
 			ffTest.on('platform_sl_3p_auth_rovo_block_jira_kill_switch', '', () => {
 				it('returns isEnabled=true when rovo is enabled, product is Jira and experiment is on', () => {
@@ -157,7 +160,12 @@ describe('useBlockCardRovoActionExperiment', () => {
 						const result = renderHook(
 							() => useBlockCardRovoActionExperiment(mockUrl, optedInActionOptions),
 							{
-								wrapper: wrapper(enabledRovoOptions, 'slack-object-provider', undefined, 'CONFLUENCE'),
+								wrapper: wrapper(
+									enabledRovoOptions,
+									'slack-object-provider',
+									undefined,
+									'CONFLUENCE',
+								),
 							},
 						);
 						expect(result.current.isEnabled).toBe(false);
@@ -166,7 +174,10 @@ describe('useBlockCardRovoActionExperiment', () => {
 		});
 
 	eeTest
-		.describe('platform_sl_3p_auth_rovo_block_card_jira', 'block card rovo action experiment jira off')
+		.describe(
+			'platform_sl_3p_auth_rovo_block_card_jira',
+			'block card rovo action experiment jira off',
+		)
 		.variant(false, () => {
 			it('returns isEnabled=false when experiment is off', () => {
 				const result = renderHook(
@@ -180,7 +191,10 @@ describe('useBlockCardRovoActionExperiment', () => {
 		});
 
 	eeTest
-		.describe('platform_sl_3p_auth_rovo_block_card_confluence', 'block card rovo action experiment confluence on')
+		.describe(
+			'platform_sl_3p_auth_rovo_block_card_confluence',
+			'block card rovo action experiment confluence on',
+		)
 		.variant(true, () => {
 			ffTest.on('platform_sl_3p_auth_rovo_block_card_kill_switch', '', () => {
 				it('returns isEnabled=true when rovo is enabled and experiment is on', () => {

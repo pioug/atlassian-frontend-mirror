@@ -91,7 +91,6 @@ export const SpotlightContext: Context<SpotlightContextType> = createContext<Spo
 	},
 });
 
-
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SpotlightContextProvider = ({ children }: { children: ReactNode }): JSX.Element => {
 	const id = useId();
@@ -104,8 +103,7 @@ export const SpotlightContextProvider = ({ children }: { children: ReactNode }):
 		MutableRefObject<HTMLDivElement | null> | undefined
 	>();
 	const [cardRef, setCardRef] = useState<MutableRefObject<HTMLDivElement | null> | null>(null);
-	const [targetRef, setTargetRef] =
-		useState<RefObject<HTMLDivElement | null>>(defaultTargetRef);
+	const [targetRef, setTargetRef] = useState<RefObject<HTMLDivElement | null>>(defaultTargetRef);
 
 	const dismissRef = useRef<(_event: DismissEvent) => void>(() => undefined);
 	const setDismiss = (dismissFn: (_event: DismissEvent) => void) => {

@@ -2,7 +2,7 @@ import React, { type ReactElement } from 'react';
 
 import { act, renderHook } from '@testing-library/react';
 
-import { useOverflowController } from '../../../controllers/overflow';
+import { useOverflowController } from '../../../controllers/overflow/use-overflow-controller';
 
 describe('useOverflowController', () => {
 	it('should show all items as visible', () => {

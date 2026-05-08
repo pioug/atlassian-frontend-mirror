@@ -102,7 +102,7 @@ describe('Element: Badge', () => {
 					<IntlProvider locale="en">
 						<Badge icon={icon} />
 					</IntlProvider>,
-					{ wrapper }
+					{ wrapper },
 				);
 
 				const element = await screen.findByTestId('smart-element-badge');

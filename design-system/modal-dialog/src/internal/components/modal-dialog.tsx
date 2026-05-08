@@ -184,7 +184,7 @@ const ModalDialog = (props: InternalModalDialogProps): JSX.Element => {
 		width = 'medium',
 		shouldScrollInViewport = false,
 		shouldCloseOnEscapePress,
-		autoFocus: providedAutoFocus,
+		autoFocus,
 		stackIndex,
 		onClose,
 		onCloseComplete,
@@ -201,10 +201,6 @@ const ModalDialog = (props: InternalModalDialogProps): JSX.Element => {
 	const id = useId();
 	const titleId = `modal-dialog-title-${id}`;
 	const defaultTestId = testId || 'modal-dialog';
-	// https://product-fabric.atlassian.net/browse/DSP-24307
-	// If flag and falsy, use true instead.
-	// When we remove boolean `autoFocus`, we won't have to worry about this
-	const autoFocus = !providedAutoFocus ? true : providedAutoFocus;
 
 	useEffect(() => {
 		// Modal dialogs can appear on top of iframe elements that are on another domain.
@@ -223,7 +219,7 @@ const ModalDialog = (props: InternalModalDialogProps): JSX.Element => {
 	}, []);
 
 	useAutoFocus(
-		typeof autoFocus === 'object' ? autoFocus : undefined,
+		autoFocus,
 		// When a user supplies  a ref to focus we enable this hook
 		typeof autoFocus === 'object',
 	);

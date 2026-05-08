@@ -509,6 +509,7 @@ export const ReactionPicker: React.MemoExoticComponent<
 								reactionPickerTriggerIcon={reactionPickerTriggerIcon}
 								reactionPickerTriggerText={reactionPickerTriggerText}
 								isListItem={isListItem}
+								emojiPickerSize={emojiPickerSize}
 							/>
 						</Box>
 					)}

@@ -3,13 +3,15 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Plugin } from '@atlaskit/editor-prosemirror/state';
 import type { PluginSpec, SafePluginSpec } from '@atlaskit/editor-prosemirror/state';
 import type {
+	EditorView,
 	Decoration,
 	DecorationSource,
-	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
+import { isSSR } from '../core-utils/is-ssr';
 import type { NodeAnchorProvider } from '../node-anchor/node-anchor-provider';
 import { getNodeIdProvider } from '../node-anchor/node-anchor-provider';
 import { createProseMirrorMetadata } from '../prosemirror-dom-metadata';
@@ -72,6 +74,16 @@ export const attachGenericProseMirrorMetadata = ({
 	});
 };
 
+/** Type guard to check if a Node is an HTMLElement in a safe way. */
+const isHTMLElement = (element: Node | null | undefined): element is HTMLElement => {
+	if (element === null || element === undefined) {
+		return false;
+	}
+
+	// In SSR `HTMLElement` is not defined, so we need to use duck typing here
+	return 'innerHTML' in element && 'style' in element && 'classList' in element;
+};
+
 // Wraper to avoid any exception during the get pos operation
 // See this https://hello.atlassian.net/wiki/spaces/EDITOR/pages/2849713193/ED-19672+Extensions+Regression
 // And this https://discuss.prosemirror.net/t/possible-bug-on-viewdesc-posbeforechild/5783
@@ -109,7 +121,11 @@ const wrapGetPosExceptions = <T extends SafePluginSpec>(spec: T): T => {
 
 					const result = Reflect.apply(target, thisArg, [node, view, safeGetPos, ...more]);
 
-					if (result?.dom instanceof HTMLElement) {
+					if (
+						result?.dom instanceof HTMLElement ||
+						// SSR result?.dom is not an instance of HTMLElement, but we still want to attach metadata to it
+						(isSSR() && isHTMLElement(result?.dom) && fg('platform_editor_native_anchor_patch_3'))
+					) {
 						// we only attach metadata to the dom if its position is known
 						const pos = safeGetPos();
 						const options =

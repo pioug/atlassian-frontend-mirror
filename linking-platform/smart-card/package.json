@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "44.7.4",
+	"version": "44.8.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -274,6 +274,9 @@
 			"type": "boolean"
 		},
 		"platform_sl_incoming_outgoing_tenant_info_killswitch": {
+			"type": "boolean"
+		},
+		"platform_navx_block_card_footer_spacing": {
 			"type": "boolean"
 		}
 	},

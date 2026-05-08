@@ -1,5 +1,3 @@
-
-
 export { signum } from './signum';
 export { lerp } from './lerp';
 export { clampInt } from './clamp-int';

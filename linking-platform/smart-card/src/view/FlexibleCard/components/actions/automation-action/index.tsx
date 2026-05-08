@@ -12,9 +12,7 @@ import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import { type AutomationActionData } from '../../../../../state/flexible-ui-context/types';
-import {
-	useBlockCardRovoActionExperimentNoExposure,
-} from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
+import { useBlockCardRovoActionExperimentNoExposure } from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import { useSmartLinkModal } from '../../../../../state/modal';
 import Action from '../action';
 import { type LinkActionProps } from '../types';

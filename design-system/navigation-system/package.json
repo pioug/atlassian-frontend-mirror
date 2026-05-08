@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "9.2.0",
+	"version": "9.2.1",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -135,8 +135,10 @@
 		"@atlaskit/banner": "workspace:^",
 		"@atlaskit/breadcrumbs": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
+		"@atlaskit/flag": "workspace:^",
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
+		"@atlaskit/inline-dialog": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/menu": "workspace:^",
@@ -148,7 +150,9 @@
 		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/skeleton": "workspace:^",
+		"@atlaskit/spotlight": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
+		"@atlaskit/top-layer": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/gemini": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
@@ -182,6 +186,10 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform-dst-top-layer": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform-component-visual-refresh": {
 			"type": "boolean",
 			"referenceOnly": true

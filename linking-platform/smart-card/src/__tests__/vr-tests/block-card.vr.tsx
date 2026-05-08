@@ -96,12 +96,14 @@ snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 snapshot(BlockCardJira, {
 	featureFlags: {
 		'navx-1895-new-logo-design': [true, false],
+		platform_navx_block_card_footer_spacing: [true, false],
 	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardConfluence, {
 	featureFlags: {
 		'navx-1895-new-logo-design': [true, false],
+		platform_navx_block_card_footer_spacing: [true, false],
 	},
 	waitForReactLazy: true,
 });

@@ -11,7 +11,9 @@ import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 import { isPromise, MentionNameStatus } from '@atlaskit/mention/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { getGlobalTheme } from '@atlaskit/tokens';
 
 import type { FindReplacePlugin } from '../../findReplacePluginType';
@@ -25,6 +27,37 @@ import {
 	searchMatchExpandTitleClass,
 	searchMatchTextClass,
 } from '../../ui/styles';
+
+/**
+ * Recursively extracts all text content from an ADF entity tree.
+ * Used to search inside reference sync blocks whose content lives outside the PM document.
+ */
+type SimpleADFNode = {
+	type?: string;
+	attrs?: { title?: string };
+	content?: SimpleADFNode[];
+	text?: string;
+};
+
+export function extractTextFromADFContent(nodes: SimpleADFNode[]): string {
+	let result = '';
+	for (const node of nodes) {
+		if ((node.type === 'expand' || node.type === 'nestedExpand') && node.attrs?.title) {
+			result += node.attrs.title;
+		}
+		if (node.text != null) {
+			// Inline text node — concatenate directly (text already carries its own whitespace)
+			result += node.text;
+		} else if (node.content) {
+			// Block-level node — add a space separator to prevent false matches across block boundaries
+			if (result.length > 0) {
+				result += ' ';
+			}
+			result += extractTextFromADFContent(node.content);
+		}
+	}
+	return result;
+}
 
 export function getSelectedText(selection: TextSelection): string {
 	let text = '';
@@ -41,7 +74,11 @@ export const createDecorations = (selectedIndex: number, matches: Match[]): Deco
 	);
 
 const isElement = (nodeType?: string) =>
-	['blockCard', 'embedCard', 'inlineCard', 'status', 'mention', 'date'].includes(nodeType || '');
+	['blockCard', 'embedCard', 'inlineCard', 'status', 'mention', 'date'].includes(nodeType || '') ||
+	(nodeType === 'syncBlock' &&
+		editorExperiment('platform_synced_block', true) &&
+		fg('platform_synced_block_patch_11'));
+
 const isExpandTitle = (match: Match) =>
 	['expand', 'nestedExpand'].includes(match.nodeType || '') && !match.canReplace;
 
@@ -265,6 +302,25 @@ export function findMatches({
 						case 'embedCard':
 							collectCardTitleMatch(node, pos);
 							break;
+						case 'syncBlock': {
+							if (
+								editorExperiment('platform_synced_block', true) &&
+								fg('platform_synced_block_patch_11')
+							) {
+								const syncBlockStore = api?.syncedBlock?.sharedState.currentState()?.syncBlockStore;
+								const instance = syncBlockStore?.referenceManager.getFromCache(
+									node.attrs.resourceId as string,
+								);
+								const adfContent = instance?.data?.content;
+								if (adfContent && adfContent.length > 0) {
+									const text = extractTextFromADFContent(adfContent as SimpleADFNode[]);
+									if (text) {
+										collectNodeMatch({ text, pos }, node);
+									}
+								}
+							}
+							break;
+						}
 						default:
 							break;
 					}
@@ -326,6 +382,8 @@ export const nextIndex = (currentIndex: number, total: number): number =>
 export const prevIndex = (currentIndex: number, total: number): number =>
 	(currentIndex - 1 + total) % total;
 
+const isSyncBlock = (match: Match) => match.nodeType === 'syncBlock';
+
 export const getSelectionForMatch = (
 	selection: Selection,
 	doc: PmNode,
@@ -334,7 +392,7 @@ export const getSelectionForMatch = (
 	offset = 0,
 ): Selection => {
 	if (matches[index]) {
-		if (isExpandTitle(matches[index])) {
+		if (isExpandTitle(matches[index]) || isSyncBlock(matches[index])) {
 			return NodeSelection.create(doc, matches[index].start);
 		}
 		return TextSelection.create(doc, matches[index].start + offset);

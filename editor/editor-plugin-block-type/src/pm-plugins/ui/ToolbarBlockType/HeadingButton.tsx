@@ -168,8 +168,8 @@ export const HeadingButton = ({ blockType, api }: HeadingButtonProps): React.JSX
 			ariaKeyshortcuts={shortcut}
 		>
 			<HeadingText headingType={blockType.name as TextBlockTypes}>
-			{formatMessage(blockType.title)}
-		</HeadingText>
+				{formatMessage(blockType.title)}
+			</HeadingText>
 		</ToolbarDropdownItem>
 	);
 };

@@ -44,5 +44,4 @@ describe('useCurrentSiteCloudId', () => {
 		expect(hookResult.current.cloudId).toBeUndefined();
 		expect(mockGetCurrentSiteCloudId).toHaveBeenCalledTimes(1);
 	});
-
 });

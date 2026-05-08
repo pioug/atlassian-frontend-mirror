@@ -72,7 +72,10 @@ declare const expect: {
 expect.extend({
 	toBeVisible(this: unknown, element: Element) {
 		const originalResult = (
-			originalToBeVisible as unknown as (this: unknown, element: Element) => {
+			originalToBeVisible as unknown as (
+				this: unknown,
+				element: Element,
+			) => {
 				pass: boolean;
 				message: () => string;
 			}

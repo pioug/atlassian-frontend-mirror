@@ -5,6 +5,7 @@
 import { type AriaAttributes } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { type AnalyticsEvent, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type PickerSize } from '@atlaskit/emoji/types';
 import Tooltip from '@atlaskit/tooltip';
 import { token } from '@atlaskit/tokens';
 import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
@@ -119,6 +120,13 @@ export interface TriggerProps {
 	 * Enable/Disable the button to be clickable (defaults to false)
 	 */
 	disabled?: boolean;
+	/**
+	 * Optional emoji picker size; when supplied, the default trigger icon is rendered at the
+	 * matching size ('small' = 12px, 'medium' = 16px). Mirrors the size used by the emoji
+	 * picker popup so the trigger stays visually consistent. `'large'` is excluded because
+	 * the underlying icon family does not provide a large variant.
+	 */
+	emojiPickerSize?: PickerSize;
 	/*
 	 * Optional prop for controlling if the selector tray reaction picker trigger should be full width
 	 */
@@ -213,6 +221,7 @@ export const Trigger: React.ForwardRefExoticComponent<
 		fullWidthSummaryViewReactionPickerTrigger = false,
 		isListItem = false,
 		fullWidthSelectorTrayReactionPickerTrigger = false,
+		emojiPickerSize,
 	} = props;
 
 	const handleMouseDown = (e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
@@ -257,6 +266,7 @@ export const Trigger: React.ForwardRefExoticComponent<
 					testId="emoji-add-icon"
 					color={disabled ? token('color.icon.disabled') : token('color.icon')}
 					label="Add reaction"
+					size={emojiPickerSize === 'small' ? 'small' : 'medium'}
 				/>
 			)}
 			{showAddReactionText && (

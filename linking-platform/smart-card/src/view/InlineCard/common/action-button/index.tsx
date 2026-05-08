@@ -14,7 +14,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-
 const styles = cssMap({
 	button: {
 		display: 'contents',
@@ -119,29 +118,16 @@ export const ActionButton: ForwardRefExoticComponent<
 	Omit<ActionButtonProps, 'ref'> & RefAttributes<HTMLButtonElement>
 > = forwardRef(
 	(
-		{
-			children,
-			isDisabled,
-			viewType = 'default',
-			...props
-		}: ActionButtonProps,
+		{ children, isDisabled, viewType = 'default', ...props }: ActionButtonProps,
 		ref: ActionButtonProps['ref'],
 	) => {
 		const shouldUseUnauthorisedSlimStyle =
-			viewType === 'unauthorised' &&
-			fg('platform_sl_3p_preauth_soc_proof_inline_killswitch');
+			viewType === 'unauthorised' && fg('platform_sl_3p_preauth_soc_proof_inline_killswitch');
 
 		if (shouldUseUnauthorisedSlimStyle && !isDisabled) {
 			return (
-				<Pressable
-					{...props}
-					ref={ref}
-					style={{ font: `inherit` }}
-					xcss={styles.button}
-				>
-					<span css={styles.innerContainerSocialProofConnect}>
-						{children}
-					</span>
+				<Pressable {...props} ref={ref} style={{ font: `inherit` }} xcss={styles.button}>
+					<span css={styles.innerContainerSocialProofConnect}>{children}</span>
 				</Pressable>
 			);
 		}

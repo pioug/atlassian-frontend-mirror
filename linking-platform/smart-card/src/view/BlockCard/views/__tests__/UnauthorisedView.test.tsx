@@ -206,5 +206,4 @@ describe('UnauthorisedView', () => {
 		);
 		await expect(container).toBeAccessible();
 	});
-
 });

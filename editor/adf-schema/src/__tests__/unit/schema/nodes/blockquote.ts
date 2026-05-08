@@ -110,9 +110,7 @@ describe(`${packageName}/schema blockquote node`, () => {
 			schema,
 		);
 		expect(docFromHTML.toJSON()).toEqual(
-			doc(
-				blockquote(code_block({ localId: LIST_LOCAL_ID })('window.alert("hello");')),
-			).toJSON(),
+			doc(blockquote(code_block({ localId: LIST_LOCAL_ID })('window.alert("hello");'))).toJSON(),
 		);
 	});
 

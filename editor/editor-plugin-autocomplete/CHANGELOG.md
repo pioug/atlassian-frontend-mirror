@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 2.3.0
+
+### Minor Changes
+
+- [`975a31aae73f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/975a31aae73f4) -
+  Add KSS attributes to contextual typeahead acceptance analytics
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.0
 
 ### Minor Changes

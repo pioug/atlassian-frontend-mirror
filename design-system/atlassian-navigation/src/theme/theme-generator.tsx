@@ -1,8 +1,11 @@
 import { token } from '@atlaskit/tokens';
 
-import { DEFAULT_THEME_NAME, defaultThemeBrandRefresh } from './default-theme';
+import { DEFAULT_THEME_NAME } from './default-theme';
+import { defaultThemeBrandRefresh } from './default-theme-brand-refresh';
+import { generateTextColor } from './generate-text-color';
 import { getBoxShadow } from './get-box-shadow';
-import { generateTextColor, getContrastColor, hexToRGBA } from './theme-helpers';
+import { getContrastColor } from './get-contrast-color';
+import { hexToRGBA } from './hex-to-rgba';
 import { type ButtonCSSContext, type GenerateThemeArgs, type NavigationTheme } from './types';
 
 type Colors = {

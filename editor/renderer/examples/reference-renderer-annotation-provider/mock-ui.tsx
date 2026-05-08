@@ -20,16 +20,19 @@ const menuStyles = css({
 	border: '1px solid grey',
 });
 
-ExampleHighlightMenu.Item = function BarMenuItem({ children }: { children: React.ReactNode }) {
-	return <div css={menuItemStyles}>{children}</div>;
-};
 const menuItemStyles = css({});
 
-export function ExampleHighlightMenu({ children }: { children: React.ReactNode }): jsx.JSX.Element {
+type HighlightMenuItem = ({ children }: { children: React.ReactNode }) => jsx.JSX.Element;
+type HighlightMenu = (({ children }: { children: React.ReactNode }) => jsx.JSX.Element) & {
+	Item: HighlightMenuItem;
+};
+
+const exampleHighlightMenu = ({ children }: { children: React.ReactNode }): jsx.JSX.Element => {
 	return <ExampleBarMenu>{children}</ExampleBarMenu>;
-}
-// eslint-disable-next-line @typescript-eslint/no-namespace
-export declare namespace ExampleHighlightMenu {
-	// eslint-disable-next-line no-var
-	export var Item: ({ children }: { children: React.ReactNode }) => jsx.JSX.Element;
-}
+};
+
+export const ExampleHighlightMenu: HighlightMenu = Object.assign(exampleHighlightMenu, {
+	Item: function BarMenuItem({ children }: { children: React.ReactNode }): jsx.JSX.Element {
+		return <div css={menuItemStyles}>{children}</div>;
+	},
+});

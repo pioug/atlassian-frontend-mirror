@@ -1428,8 +1428,7 @@ export const messages: Messages = defineMessages({
 	// TODO: remove when social-proof-3p-unauth-block-fg is cleaned up
 	pre_auth_block_social_proof_not_low: {
 		id: 'fabric.linking.pre_auth_block_social_proof_not_low',
-		defaultMessage:
-			'<b>{percentage}%</b> of your team is previewing <b>{provider}</b>.',
+		defaultMessage: '<b>{percentage}%</b> of your team is previewing <b>{provider}</b>.',
 		description:
 			'Social proof message shown on unauthorized 3P block cards when 30% or more of the tenant has connected the provider. {percentage} is a number, {provider} is the 3P app name (e.g. OneDrive).',
 	},

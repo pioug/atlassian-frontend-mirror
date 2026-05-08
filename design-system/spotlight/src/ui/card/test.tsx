@@ -73,26 +73,22 @@ describe('SpotlightCard', () => {
 		expect(ref.current?.textContent).toEqual('Hello, world!');
 	});
 
-	ffTest.on(
-		'platform-dst-top-layer',
-		'with top-layer card layout enabled',
-		() => {
-			it.each<Placement>([
-				'top-start',
-				'top-center',
-				'top-end',
-				'bottom-start',
-				'bottom-center',
-				'bottom-end',
-				'right-start',
-				'right-end',
-				'left-start',
-				'left-end',
-			])('renders the existing caret visual for %s', (placement) => {
-				renderWithPlacement(placement);
+	ffTest.on('platform-dst-top-layer', 'with top-layer card layout enabled', () => {
+		it.each<Placement>([
+			'top-start',
+			'top-center',
+			'top-end',
+			'bottom-start',
+			'bottom-center',
+			'bottom-end',
+			'right-start',
+			'right-end',
+			'left-start',
+			'left-end',
+		])('renders the existing caret visual for %s', (placement) => {
+			renderWithPlacement(placement);
 
-				expect(screen.getByTestId(testId)).toHaveTextContent('Hello, world!');
-			});
-		},
-	);
+			expect(screen.getByTestId(testId)).toHaveTextContent('Hello, world!');
+		});
+	});
 });

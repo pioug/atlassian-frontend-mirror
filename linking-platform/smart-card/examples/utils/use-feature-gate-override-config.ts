@@ -15,7 +15,7 @@ const experimentConfig: Record<string, FeatureGateConfig> = {
 	'rovogrowth-640-inline-action-nudge-exp': {
 		isEnabled: true,
 	},
-	'platform_sl_3p_preauth_social_proof_inline_cta': {
+	platform_sl_3p_preauth_social_proof_inline_cta: {
 		isEnabled: true,
 	},
 	social_proof_3p_unauth_block_exp: {

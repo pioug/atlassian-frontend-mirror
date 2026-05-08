@@ -12,7 +12,8 @@ import { type TriggerProps } from '@atlaskit/popup/types';
 import { token } from '@atlaskit/tokens';
 import { WidthObserver } from '@atlaskit/width-detector';
 
-import { OverflowProvider, useOverflowController } from '../../controllers/overflow';
+import { OverflowProvider } from '../../controllers/overflow/overflow-provider';
+import { useOverflowController } from '../../controllers/overflow/use-overflow-controller';
 import { type NavigationTheme } from '../../theme';
 import { PrimaryDropdownButton } from '../PrimaryDropdownButton';
 

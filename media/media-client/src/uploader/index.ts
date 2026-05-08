@@ -62,6 +62,7 @@ const createProcessingFunction = (
 	deferredUploadId: Promise<string>,
 	collection?: string,
 	traceContext?: MediaTraceContext,
+	size?: number,
 ) => {
 	let offset = 0;
 	return async (chunks: Chunk[]) => {
@@ -73,6 +74,7 @@ const createProcessingFunction = (
 			},
 			collection,
 			traceContext,
+			{ expectedFileSize: size },
 		);
 		offset += chunks.length;
 	};
@@ -149,6 +151,7 @@ export const uploadFile = (
 				deferredUploadId,
 				collection,
 				traceContext,
+				file.size,
 			),
 		},
 		{

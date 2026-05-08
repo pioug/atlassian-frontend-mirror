@@ -711,21 +711,33 @@ export class MediaStore implements MediaApi {
 		body: AppendChunksToUploadRequestBody,
 		collectionName?: string,
 		traceContext?: MediaTraceContext,
+		options?: { expectedFileSize?: number },
 	): Promise<void> {
 		const metadata: RequestMetadata = {
 			method: 'PUT',
 			endpoint: '/upload/{uploadId}/chunks',
 		};
 
-		const options: MediaStoreRequestOptions = {
+		const headers: RequestHeaders = {
+			...jsonHeaders,
+		};
+
+		if (
+			options?.expectedFileSize !== undefined &&
+			fg('platform_media_upload_expected_size_header')
+		) {
+			headers['x-expected-size'] = options.expectedFileSize.toString();
+		}
+
+		const requestOptions: MediaStoreRequestOptions = {
 			...metadata,
 			authContext: { collectionName },
-			headers: jsonHeaders,
+			headers,
 			body: JSON.stringify(body),
 			traceContext,
 		};
 
-		await this.request(`/upload/${uploadId}/chunks`, options);
+		await this.request(`/upload/${uploadId}/chunks`, requestOptions);
 	}
 
 	copyFileWithToken(

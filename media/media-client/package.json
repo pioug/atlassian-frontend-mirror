@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client",
-	"version": "36.1.1",
+	"version": "36.2.0",
 	"description": "Media API Web Client Library",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -99,6 +99,9 @@
 			"type": "boolean"
 		},
 		"confluence_watermark_admin_ui": {
+			"type": "boolean"
+		},
+		"platform_media_upload_expected_size_header": {
 			"type": "boolean"
 		}
 	}

@@ -71,9 +71,7 @@ describe('ADS MCP Server E2E', () => {
 	it('lists the atlaskit_get_components tool', async () => {
 		const listedTools = (await client.listTools()).tools;
 		expect(listedTools).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({ name: 'atlaskit_get_components' }),
-			]),
+			expect.arrayContaining([expect.objectContaining({ name: 'atlaskit_get_components' })]),
 		);
 	});
 
@@ -104,9 +102,8 @@ describe('ADS MCP Server E2E', () => {
 		const expectedComponentNames = atlaskitComponents.map(({ name }) =>
 			expect.objectContaining({ name }),
 		);
-		const listedComponents = (
-			await client.callTool({ name: 'atlaskit_get_components' })
-		).content as { text: string }[];
+		const listedComponents = (await client.callTool({ name: 'atlaskit_get_components' }))
+			.content as { text: string }[];
 		const listedComponentsData = JSON.parse(listedComponents[0].text);
 		expect(listedComponentsData).toEqual(expect.arrayContaining(expectedComponentNames));
 	});

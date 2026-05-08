@@ -2,8 +2,8 @@ import { CUSTOM_THEME_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from '../constants';
 
 export function limitSizeOfCustomStyleElements(sizeThreshold: number): void {
 	const styleTags = Array.from(
-			document.head.querySelectorAll(`style[${CUSTOM_THEME_ATTRIBUTE}][${THEME_DATA_ATTRIBUTE}]`),
-		);
+		document.head.querySelectorAll(`style[${CUSTOM_THEME_ATTRIBUTE}][${THEME_DATA_ATTRIBUTE}]`),
+	);
 
 	if (styleTags.length < sizeThreshold) {
 		return;

@@ -15,6 +15,7 @@ import { createPlugin } from './pm-plugins/main';
 import type { PasteOptionsPluginState } from './types/types';
 import { pasteOptionsPluginKey, ToolbarDropdownOption } from './types/types';
 import { firePasteActionsMenuExperimentExposure } from './ui/on-paste-actions-menu/exposure';
+import { firePasteActionsMenuV2ExperimentExposure } from './ui/on-paste-actions-menu/exposure-v2';
 import { PasteActionsMenu } from './ui/on-paste-actions-menu/PasteActionsMenu';
 import { getPasteMenuComponents } from './ui/on-paste-actions-menu/PasteMenuComponents';
 import { buildToolbar, isToolbarVisible } from './ui/toolbar';
@@ -128,6 +129,21 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 					fg('platform_editor_paste_actions_menu_exposure')
 				) {
 					firePasteActionsMenuExperimentExposure(
+						lastContentPasted?.text?.length ?? 0,
+						editorView.state,
+						lastContentPasted?.pasteStartPos,
+						lastContentPasted?.pasteEndPos,
+						lastContentPasted?.text,
+						lastContentPasted?.pastedSlice,
+					);
+				}
+
+				// These two need to be seperate to prevent them being dependant on each other
+				if (
+					config?.usePopupBasedPasteActionsMenu &&
+					fg('platform_editor_paste_actions_menu_v2_exposure')
+				) {
+					firePasteActionsMenuV2ExperimentExposure(
 						lastContentPasted?.text?.length ?? 0,
 						editorView.state,
 						lastContentPasted?.pasteStartPos,

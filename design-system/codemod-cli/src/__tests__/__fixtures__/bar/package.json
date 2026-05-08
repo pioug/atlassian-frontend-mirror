@@ -1,4 +1,5 @@
 {
+	"name": "design-system-codemod-cli-fixture-bar",
 	"dependencies": {
 		"@atlaskit/dep2": "foo",
 		"@atlaskit/dep3": "foo"

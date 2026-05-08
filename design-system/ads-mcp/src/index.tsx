@@ -75,7 +75,6 @@ import {
 	suggestA11yFixesTool,
 } from './tools/suggest-a11y-fixes';
 
-
 // eslint-disable-next-line import/no-extraneous-dependencies -- this uses require because not all node versions this package supports use the same import assertions/attributes
 const pkgJson = require('@atlaskit/ads-mcp/package.json');
 

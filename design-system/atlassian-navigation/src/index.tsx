@@ -1,7 +1,8 @@
 export { AtlassianNavigation } from './components/AtlassianNavigation';
 export type { AtlassianNavigationProps } from './components/AtlassianNavigation/types';
 
-export { AppSwitcher, AppSwitcherNav4 } from './components/AppSwitcher';
+export { AppSwitcher } from './components/AppSwitcher/app-switcher';
+export { AppSwitcherNav4 } from './components/AppSwitcher/app-switcher-nav4';
 export type { AppSwitcherProps } from './components/AppSwitcher/types';
 
 export { Create } from './components/Create';
@@ -29,7 +30,7 @@ export type {
 	AppHomeProps,
 } from './components/ProductHome/types';
 
-export { Profile } from './components/Profile';
+export { Profile } from './components/Profile/profile';
 export type { ProfileProps } from './components/Profile/types';
 
 export { Search } from './components/Search';
@@ -41,7 +42,7 @@ export type { SettingsProps } from './components/Settings/types';
 export { SignIn } from './components/SignIn';
 export type { SignInProps } from './components/SignIn/types';
 
-export { useOverflowStatus } from './controllers/overflow';
+export { useOverflowStatus } from './controllers/overflow/use-overflow-status';
 
 export { HORIZONTAL_GLOBAL_NAV_HEIGHT } from './common/constants';
 

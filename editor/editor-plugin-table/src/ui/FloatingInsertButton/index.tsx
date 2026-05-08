@@ -206,12 +206,7 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 				allowOutOfBounds
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
-				{...getPopupOptions(
-					type,
-					index,
-					hasNumberedColumns,
-					tableContainerWrapper,
-				)}
+				{...getPopupOptions(type, index, hasNumberedColumns, tableContainerWrapper)}
 				zIndex={zIndex}
 			>
 				<DragAndDropInsertButton

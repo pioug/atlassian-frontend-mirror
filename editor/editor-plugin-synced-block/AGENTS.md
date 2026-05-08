@@ -65,24 +65,24 @@ src/
 
 ### Editor Actions
 
-This package exposes top-level **editor actions** (in `editor-actions/index.ts`)
-that products call from outside the plugin lifecycle:
+This package exposes top-level **editor actions** (in `editor-actions/index.ts`) that products call
+from outside the plugin lifecycle:
 
 - `flushBodiedSyncBlocks(store)` — flush all dirty source blocks
 - `flushSyncBlocks(store)` — flush reference manager (e.g. on save)
-- `discardUnpublishedSyncBlocks(store)` — delete unpublished blocks on cancel
-  (added in EDITOR-6473; used by Confluence's editor cancel flow)
+- `discardUnpublishedSyncBlocks(store)` — delete unpublished blocks on cancel (added in EDITOR-6473;
+  used by Confluence's editor cancel flow)
 
 ### Lazy Init & Perf (EDITOR-6928 / EDITOR-6930)
 
 Behind the `editor_synced_block_perf` experiment, `main.ts`:
-- Skips creating synced-block plugin state and node-views for documents
-  with no synced blocks (`hasSyncedBlocks(doc)`).
-- Computes `statusDecorationSet` inside `apply()` and stores it on plugin
-  state, then exposes it via an O(1) `decorations` prop instead of an
-  O(n) `doc.descendants()` walk on every transaction.
-- Uses `sourceSyncBlockStoreManager.hasPendingCreations()` for an O(1)
-  pending-creation early return in `buildStatusDecorations()`.
+
+- Skips creating synced-block plugin state and node-views for documents with no synced blocks
+  (`hasSyncedBlocks(doc)`).
+- Computes `statusDecorationSet` inside `apply()` and stores it on plugin state, then exposes it via
+  an O(1) `decorations` prop instead of an O(n) `doc.descendants()` walk on every transaction.
+- Uses `sourceSyncBlockStoreManager.hasPendingCreations()` for an O(1) pending-creation early return
+  in `buildStatusDecorations()`.
 
 ### Key Code Patterns
 

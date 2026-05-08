@@ -144,7 +144,7 @@ describe('Uploader', () => {
 
 		await new Promise<void>((resolve, reject) => {
 			uploadFile(
-				{ content: '' },
+				{ content: '', size: 123 },
 				mediaStore as MediaStore,
 				uploadableFileUpfrontIds,
 				{
@@ -163,6 +163,9 @@ describe('Uploader', () => {
 			traceId: 'some-trace-id',
 			spanId: 'some-span-id',
 		});
+		expect(appendChunksToUpload.mock.calls[0][4]).toEqual({
+			expectedFileSize: 123,
+		});
 
 		expect(appendChunksToUpload.mock.calls[1][0]).toEqual('some-upload-id');
 		expect(appendChunksToUpload.mock.calls[1][1].chunks).toEqual(['4', '5', '6']);
@@ -170,6 +173,9 @@ describe('Uploader', () => {
 		expect(appendChunksToUpload.mock.calls[1][3]).toEqual({
 			traceId: 'some-trace-id',
 			spanId: 'some-span-id',
+		});
+		expect(appendChunksToUpload.mock.calls[1][4]).toEqual({
+			expectedFileSize: 123,
 		});
 	});
 

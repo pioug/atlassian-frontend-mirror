@@ -6,10 +6,14 @@ import { renderHook } from '@atlassian/testing-library';
 import type { SocialProof } from '../../use-social-proof';
 import useSocialProofExperiment from '../index';
 
-const mockUseSocialProof = jest.fn<SocialProof, [string | undefined, boolean, string | undefined]>();
+const mockUseSocialProof = jest.fn<
+	SocialProof,
+	[string | undefined, boolean, string | undefined]
+>();
 jest.mock('../../use-social-proof', () => ({
 	__esModule: true,
-	default: (...args: [string | undefined, boolean, string | undefined]) => mockUseSocialProof(...args),
+	default: (...args: [string | undefined, boolean, string | undefined]) =>
+		mockUseSocialProof(...args),
 }));
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
@@ -32,8 +36,14 @@ describe('useSocialProofExperiment', () => {
 	});
 
 	it('delegates to useSocialProof with extensionKey, isKillswitchOn=true, and base URI', () => {
-		renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY, 'https://site.example'), { wrapper });
-		expect(mockUseSocialProof).toHaveBeenCalledWith(MOCK_EXTENSION_KEY, true, 'https://site.example');
+		renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY, 'https://site.example'), {
+			wrapper,
+		});
+		expect(mockUseSocialProof).toHaveBeenCalledWith(
+			MOCK_EXTENSION_KEY,
+			true,
+			'https://site.example',
+		);
 	});
 
 	it('returns isTreatment=false when useSocialProof is still loading', () => {
@@ -69,56 +79,50 @@ describe('useSocialProofExperiment', () => {
 		expect(result.current.tier).toBe('low');
 	});
 
-	eeTest
-		.describe('social_proof_3p_unauth_block_exp', 'experiment enabled')
-		.variant(true, () => {
-			it('returns isTreatment=true when loaded with social proof data', () => {
-				mockUseSocialProof.mockReturnValue(socialProofResult({ connectedPct: 45 }));
+	eeTest.describe('social_proof_3p_unauth_block_exp', 'experiment enabled').variant(true, () => {
+		it('returns isTreatment=true when loaded with social proof data', () => {
+			mockUseSocialProof.mockReturnValue(socialProofResult({ connectedPct: 45 }));
 
-				const result = renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
+			const result = renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
 
-				expect(result.current.isTreatment).toBe(true);
-				expect(result.current.connectedPct).toBe(45);
-				expect(result.current.tier).toBe('not-low');
-			});
+			expect(result.current.isTreatment).toBe(true);
+			expect(result.current.connectedPct).toBe(45);
+			expect(result.current.tier).toBe('not-low');
 		});
+	});
 
-	eeTest
-		.describe('social_proof_3p_unauth_block_exp', 'experiment disabled')
-		.variant(false, () => {
-			it('returns isTreatment=false when experiment is off', () => {
-				mockUseSocialProof.mockReturnValue(socialProofResult({ connectedPct: 45 }));
+	eeTest.describe('social_proof_3p_unauth_block_exp', 'experiment disabled').variant(false, () => {
+		it('returns isTreatment=false when experiment is off', () => {
+			mockUseSocialProof.mockReturnValue(socialProofResult({ connectedPct: 45 }));
 
-				const result = renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
+			const result = renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
 
-				expect(result.current.isTreatment).toBe(false);
-			});
+			expect(result.current.isTreatment).toBe(false);
 		});
+	});
 
 	describe('tier calculation', () => {
-		eeTest
-			.describe('social_proof_3p_unauth_block_exp', 'tier with treatment')
-			.variant(true, () => {
-				it('returns not-low tier when adoption >= 30%', () => {
-					mockUseSocialProof.mockReturnValue(socialProofResult({ connectedPct: 45 }));
+		eeTest.describe('social_proof_3p_unauth_block_exp', 'tier with treatment').variant(true, () => {
+			it('returns not-low tier when adoption >= 30%', () => {
+				mockUseSocialProof.mockReturnValue(socialProofResult({ connectedPct: 45 }));
 
-					const result = renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
-					expect(result.current.tier).toBe('not-low');
-				});
-
-				it('returns not-low tier when adoption is exactly 30%', () => {
-					mockUseSocialProof.mockReturnValue(socialProofResult({ connectedPct: 30 }));
-
-					const result = renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
-					expect(result.current.tier).toBe('not-low');
-				});
-
-				it('returns low tier when adoption < 30%', () => {
-					mockUseSocialProof.mockReturnValue(socialProofResult({ connectedPct: 15 }));
-
-					const result = renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
-					expect(result.current.tier).toBe('low');
-				});
+				const result = renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
+				expect(result.current.tier).toBe('not-low');
 			});
+
+			it('returns not-low tier when adoption is exactly 30%', () => {
+				mockUseSocialProof.mockReturnValue(socialProofResult({ connectedPct: 30 }));
+
+				const result = renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
+				expect(result.current.tier).toBe('not-low');
+			});
+
+			it('returns low tier when adoption < 30%', () => {
+				mockUseSocialProof.mockReturnValue(socialProofResult({ connectedPct: 15 }));
+
+				const result = renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
+				expect(result.current.tier).toBe('low');
+			});
+		});
 	});
 });

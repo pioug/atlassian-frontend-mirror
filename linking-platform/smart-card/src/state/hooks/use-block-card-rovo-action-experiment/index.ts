@@ -83,9 +83,7 @@ const useBlockCardRovoActionExperiment = (
 	}, [isRovoChatEnabled, extensionKey, url, isRovoChatActionOptedIn, product]);
 };
 
-export const isBlockCardRovoActionExperimentEnabled = (
-	product?: ProductType,
-): boolean => {
+export const isBlockCardRovoActionExperimentEnabled = (product?: ProductType): boolean => {
 	const isJiraEnabled =
 		!!product &&
 		JIRA_PRODUCTS.includes(product) &&
@@ -93,7 +91,8 @@ export const isBlockCardRovoActionExperimentEnabled = (
 		expValEqualsNoExposure('platform_sl_3p_auth_rovo_block_card_jira', 'isEnabled', true);
 
 	const isConfluenceEnabled =
-		!!product && product === 'CONFLUENCE' &&
+		!!product &&
+		product === 'CONFLUENCE' &&
 		fg('platform_sl_3p_auth_rovo_block_card_kill_switch') &&
 		expValEqualsNoExposure('platform_sl_3p_auth_rovo_block_card_confluence', 'isEnabled', true);
 
@@ -103,6 +102,6 @@ export const isBlockCardRovoActionExperimentEnabled = (
 export const useBlockCardRovoActionExperimentNoExposure = (): boolean => {
 	const { product } = useRovoConfig();
 	return isBlockCardRovoActionExperimentEnabled(product);
-}
+};
 
 export default useBlockCardRovoActionExperiment;

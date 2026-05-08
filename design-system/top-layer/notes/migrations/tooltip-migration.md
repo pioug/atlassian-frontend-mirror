@@ -292,8 +292,8 @@ top-layer migration. They exist in both the legacy and top-layer paths:
 
 ### `@atlaskit/top-layer`
 
-| File                                      | Change                                                                                                 |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| File                                   | Change                                                                                                 |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | `src/internal/use-anchor-position.tsx` | `placementToTryFallbacks()` expanded with cross-axis `position-area` fallbacks for centered placements |
 
 ---

@@ -7,9 +7,9 @@ hook calls on the same trigger reuse the existing value.
 
 ## Why no cleanup
 
-Multiple popovers can anchor to the same trigger. The hook and the popover often live in
-different components (compound popovers, portals into the top layer), so React's cleanup
-ordering does not help us coordinate across them.
+Multiple popovers can anchor to the same trigger. The hook and the popover often live in different
+components (compound popovers, portals into the top layer), so React's cleanup ordering does not
+help us coordinate across them.
 
 A reference-counted cleanup was prototyped and rejected. It survives the simple cases but breaks
 under Strict Mode double-invoke, suspended subtrees, third-party writes to `anchor-name`, and
@@ -28,14 +28,15 @@ Setting once and leaving it has no state to drift.
 
 ## Trade-off accepted
 
-A trigger that hosted a popover keeps an `anchor-name` declaration on its inline style for the
-rest of its life. Visible to anyone serialising `outerHTML`, invisible to layout.
+A trigger that hosted a popover keeps an `anchor-name` declaration on its inline style for the rest
+of its life. Visible to anyone serialising `outerHTML`, invisible to layout.
 
 ## Tests
 
-`use-anchor-position.test.tsx` &gt; `multiple popovers on same anchor` &gt; `cleanup behaviour
-when popovers unmount`. Pins the policy across every relevant unmount order, including reuse of
-the lingering anchor name when a fresh popover mounts on a previously-anchored trigger.
+`use-anchor-position.test.tsx` &gt; `multiple popovers on same anchor` &gt;
+`cleanup behaviour when popovers unmount`. Pins the policy across every relevant unmount order,
+including reuse of the lingering anchor name when a fresh popover mounts on a previously-anchored
+trigger.
 
 ## Related
 

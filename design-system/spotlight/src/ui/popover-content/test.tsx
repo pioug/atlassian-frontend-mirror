@@ -107,159 +107,155 @@ describe('PopoverContent', () => {
 		expect(screen.getByTestId('spotlight-popover-content')).toHaveAccessibleName('Headline');
 	});
 
-	ffTest.on(
-		'platform-dst-top-layer',
-		'with top-layer positioning enabled',
-		() => {
-			it('renders a manual top-layer popover with dialog role', () => {
-				// Visual placement wiring (target ↔ popover positioning) is
-				// covered by the `AllPlacements` and `Offset` visual-regression
-				// snapshots in `__tests__/vr-tests/index.vr.tsx` (with
-				// `platform-dst-top-layer: true`). The placement map itself is
-				// unit-tested in `placement-map.test.tsx`. Here we only assert
-				// the configuration that VR cannot observe — `mode='manual'`
-				// (top-layer stack semantics) and `role='dialog'` (a11y).
-				render(
-					<PopoverProvider>
-						<PopoverTarget>
-							<div data-testid="target">Target</div>
-						</PopoverTarget>
-						<PopoverContent
-							dismiss={() => undefined}
-							testId="spotlight-popover-content"
-							placement="bottom-end"
-						>
-							<SpotlightCard testId="spotlight-card">
-								<SpotlightHeader>
-									<SpotlightHeadline>Headline</SpotlightHeadline>
-								</SpotlightHeader>
-								<SpotlightBody>
-									<Text>Content</Text>
-								</SpotlightBody>
-							</SpotlightCard>
-						</PopoverContent>
-					</PopoverProvider>,
-				);
+	ffTest.on('platform-dst-top-layer', 'with top-layer positioning enabled', () => {
+		it('renders a manual top-layer popover with dialog role', () => {
+			// Visual placement wiring (target ↔ popover positioning) is
+			// covered by the `AllPlacements` and `Offset` visual-regression
+			// snapshots in `__tests__/vr-tests/index.vr.tsx` (with
+			// `platform-dst-top-layer: true`). The placement map itself is
+			// unit-tested in `placement-map.test.tsx`. Here we only assert
+			// the configuration that VR cannot observe — `mode='manual'`
+			// (top-layer stack semantics) and `role='dialog'` (a11y).
+			render(
+				<PopoverProvider>
+					<PopoverTarget>
+						<div data-testid="target">Target</div>
+					</PopoverTarget>
+					<PopoverContent
+						dismiss={() => undefined}
+						testId="spotlight-popover-content"
+						placement="bottom-end"
+					>
+						<SpotlightCard testId="spotlight-card">
+							<SpotlightHeader>
+								<SpotlightHeadline>Headline</SpotlightHeadline>
+							</SpotlightHeader>
+							<SpotlightBody>
+								<Text>Content</Text>
+							</SpotlightBody>
+						</SpotlightCard>
+					</PopoverContent>
+				</PopoverProvider>,
+			);
 
-				expect(screen.getByTestId('spotlight-popover-content')).toHaveAttribute(
-					'data-popover-mode',
-					'manual',
-				);
-				expect(screen.getByTestId('spotlight-popover-content')).toHaveAttribute(
-					'data-popover-open',
-					'true',
-				);
-				expect(mockPopoverProps).toHaveBeenLastCalledWith(
-					expect.objectContaining({
-						mode: 'manual',
-						onClose: undefined,
-						role: 'dialog',
-					}),
-				);
-			});
+			expect(screen.getByTestId('spotlight-popover-content')).toHaveAttribute(
+				'data-popover-mode',
+				'manual',
+			);
+			expect(screen.getByTestId('spotlight-popover-content')).toHaveAttribute(
+				'data-popover-open',
+				'true',
+			);
+			expect(mockPopoverProps).toHaveBeenLastCalledWith(
+				expect.objectContaining({
+					mode: 'manual',
+					onClose: undefined,
+					role: 'dialog',
+				}),
+			);
+		});
 
-			it('dismisses on Escape with a synthetic keyboard event', () => {
-				const mockDismiss = jest.fn();
+		it('dismisses on Escape with a synthetic keyboard event', () => {
+			const mockDismiss = jest.fn();
 
-				render(
-					<PopoverProvider>
-						<PopoverTarget>Target</PopoverTarget>
-						<PopoverContent
-							dismiss={mockDismiss}
-							testId="spotlight-popover-content"
-							placement="bottom-center"
-						>
-							<SpotlightCard>
-								<SpotlightHeader>
-									<SpotlightHeadline>Headline</SpotlightHeadline>
-								</SpotlightHeader>
-							</SpotlightCard>
-						</PopoverContent>
-					</PopoverProvider>,
-				);
+			render(
+				<PopoverProvider>
+					<PopoverTarget>Target</PopoverTarget>
+					<PopoverContent
+						dismiss={mockDismiss}
+						testId="spotlight-popover-content"
+						placement="bottom-center"
+					>
+						<SpotlightCard>
+							<SpotlightHeader>
+								<SpotlightHeadline>Headline</SpotlightHeadline>
+							</SpotlightHeader>
+						</SpotlightCard>
+					</PopoverContent>
+				</PopoverProvider>,
+			);
 
-				fireEvent.keyDown(document, { key: 'Escape' });
+			fireEvent.keyDown(document, { key: 'Escape' });
 
-				expect(mockDismiss).toHaveBeenCalledWith(
-					expect.objectContaining({
-						key: 'Escape',
-						type: 'keydown',
-					}),
-				);
-			});
+			expect(mockDismiss).toHaveBeenCalledWith(
+				expect.objectContaining({
+					key: 'Escape',
+					type: 'keydown',
+				}),
+			);
+		});
 
-			it('dismisses on outside click and respects shouldDismissOnClickOutside', () => {
-				const mockDismiss = jest.fn();
-				const { rerender } = render(
-					<PopoverProvider>
-						<PopoverTarget>Target</PopoverTarget>
-						<PopoverContent
-							dismiss={mockDismiss}
-							testId="spotlight-popover-content"
-							placement="bottom-center"
-						>
-							<SpotlightCard>
-								<SpotlightHeader>
-									<SpotlightHeadline>Headline</SpotlightHeadline>
-								</SpotlightHeader>
-							</SpotlightCard>
-						</PopoverContent>
-					</PopoverProvider>,
-				);
+		it('dismisses on outside click and respects shouldDismissOnClickOutside', () => {
+			const mockDismiss = jest.fn();
+			const { rerender } = render(
+				<PopoverProvider>
+					<PopoverTarget>Target</PopoverTarget>
+					<PopoverContent
+						dismiss={mockDismiss}
+						testId="spotlight-popover-content"
+						placement="bottom-center"
+					>
+						<SpotlightCard>
+							<SpotlightHeader>
+								<SpotlightHeadline>Headline</SpotlightHeadline>
+							</SpotlightHeader>
+						</SpotlightCard>
+					</PopoverContent>
+				</PopoverProvider>,
+			);
 
-				fireEvent.click(document.body);
-				expect(mockDismiss).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }));
+			fireEvent.click(document.body);
+			expect(mockDismiss).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }));
 
-				mockDismiss.mockClear();
+			mockDismiss.mockClear();
 
-				rerender(
-					<PopoverProvider>
-						<PopoverTarget>Target</PopoverTarget>
-						<PopoverContent
-							dismiss={mockDismiss}
-							testId="spotlight-popover-content"
-							placement="bottom-center"
-							shouldDismissOnClickOutside={false}
-						>
-							<SpotlightCard>
-								<SpotlightHeader>
-									<SpotlightHeadline>Headline</SpotlightHeadline>
-								</SpotlightHeader>
-							</SpotlightCard>
-						</PopoverContent>
-					</PopoverProvider>,
-				);
+			rerender(
+				<PopoverProvider>
+					<PopoverTarget>Target</PopoverTarget>
+					<PopoverContent
+						dismiss={mockDismiss}
+						testId="spotlight-popover-content"
+						placement="bottom-center"
+						shouldDismissOnClickOutside={false}
+					>
+						<SpotlightCard>
+							<SpotlightHeader>
+								<SpotlightHeadline>Headline</SpotlightHeadline>
+							</SpotlightHeader>
+						</SpotlightCard>
+					</PopoverContent>
+				</PopoverProvider>,
+			);
 
-				fireEvent.click(document.body);
-				expect(mockDismiss).not.toHaveBeenCalled();
-			});
+			fireEvent.click(document.body);
+			expect(mockDismiss).not.toHaveBeenCalled();
+		});
 
-			it('does not dismiss when clicking inside the top-layer popover', () => {
-				const mockDismiss = jest.fn();
+		it('does not dismiss when clicking inside the top-layer popover', () => {
+			const mockDismiss = jest.fn();
 
-				render(
-					<PopoverProvider>
-						<PopoverTarget>Target</PopoverTarget>
-						<PopoverContent
-							dismiss={mockDismiss}
-							testId="spotlight-popover-content"
-							placement="bottom-center"
-						>
-							<SpotlightCard>
-								<SpotlightHeader>
-									<SpotlightHeadline>Headline</SpotlightHeadline>
-								</SpotlightHeader>
-							</SpotlightCard>
-						</PopoverContent>
-					</PopoverProvider>,
-				);
+			render(
+				<PopoverProvider>
+					<PopoverTarget>Target</PopoverTarget>
+					<PopoverContent
+						dismiss={mockDismiss}
+						testId="spotlight-popover-content"
+						placement="bottom-center"
+					>
+						<SpotlightCard>
+							<SpotlightHeader>
+								<SpotlightHeadline>Headline</SpotlightHeadline>
+							</SpotlightHeader>
+						</SpotlightCard>
+					</PopoverContent>
+				</PopoverProvider>,
+			);
 
-				fireEvent.click(screen.getByTestId('spotlight-popover-content'));
+			fireEvent.click(screen.getByTestId('spotlight-popover-content'));
 
-				expect(mockDismiss).not.toHaveBeenCalled();
-			});
-		},
-	);
+			expect(mockDismiss).not.toHaveBeenCalled();
+		});
+	});
 
 	describe('shouldDismissOnClickOutside', () => {
 		beforeEach(() => {
@@ -329,7 +325,7 @@ describe('PopoverContent', () => {
 						dismiss={mockDismiss}
 						testId="spotlight-popover-content"
 						placement="bottom-center"
-					// shouldDismissOnClickOutside not specified - should default to true
+						// shouldDismissOnClickOutside not specified - should default to true
 					>
 						<SpotlightCard testId="spotlight-card">
 							<SpotlightHeader>

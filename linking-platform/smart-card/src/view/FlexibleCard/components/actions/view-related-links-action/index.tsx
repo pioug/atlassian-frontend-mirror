@@ -44,12 +44,14 @@ const ViewRelatedLinksAction = ({
 	return actionData ? (
 		<Action
 			content={<FormattedMessage {...messages.related_links_view_related_links} />}
-			{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') || expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
+			{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+			expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
 				? { tooltipMessage: <FormattedMessage {...messages.related_links_view_related_links} /> }
 				: {})}
 			icon={
 				<RelatedLinksActionIcon
-					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') || expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
+					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+					expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
 						? { iconSize: props.iconSize }
 						: {})}
 				/>

@@ -12,7 +12,5 @@ import { InlineCardUnauthorisedSocialProofExample } from './vr-inline-card-unaut
  * Killswitch on + experiment enabled; 52% adoption → Tag pill previews headline, button reads "Connect".
  */
 export default (): React.JSX.Element => (
-	<InlineCardUnauthorisedSocialProofExample
-		providerPercentage={52}
-	/>
+	<InlineCardUnauthorisedSocialProofExample providerPercentage={52} />
 );

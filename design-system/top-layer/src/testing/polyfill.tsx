@@ -51,7 +51,9 @@ type TToggleEventInit = {
 function createToggleEvent({ type, oldState, newState, cancelable }: TToggleEventInit): Event {
 	if (typeof (globalThis as { ToggleEvent?: unknown }).ToggleEvent === 'function') {
 		// ToggleEvent is not in lib.dom.d.ts at the time of writing; cast to any for construction.
-		const ToggleEventCtor = (globalThis as { ToggleEvent: new (type: string, init: object) => Event }).ToggleEvent;
+		const ToggleEventCtor = (
+			globalThis as { ToggleEvent: new (type: string, init: object) => Event }
+		).ToggleEvent;
 		return new ToggleEventCtor(type, { oldState, newState, cancelable, bubbles: false });
 	}
 
@@ -191,7 +193,10 @@ function getPopoverMode({ element }: { element: HTMLElement }): TPopoverMode | n
 // writes verbatim; getter canonicalises (unknown -> "manual", empty -> "auto").
 // Spec: https://html.spec.whatwg.org/multipage/popover.html#dom-popover
 type TPopoverProp = TPopoverMode | null;
-if (typeof HTMLElement !== 'undefined' && !Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'popover')) {
+if (
+	typeof HTMLElement !== 'undefined' &&
+	!Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'popover')
+) {
 	Object.defineProperty(HTMLElement.prototype, 'popover', {
 		configurable: true,
 		enumerable: true,
@@ -274,7 +279,13 @@ function findInvokerForPopover({ popover }: { popover: HTMLElement }): HTMLEleme
 
 // True if `candidate` is reachable from `start` via DOM ancestry plus invoker
 // hops. Spec: https://html.spec.whatwg.org/multipage/popover.html#topmost-popover-ancestor
-function reachesViaAncestryOrInvoker({ start, candidate }: { start: Node; candidate: HTMLElement }): boolean {
+function reachesViaAncestryOrInvoker({
+	start,
+	candidate,
+}: {
+	start: Node;
+	candidate: HTMLElement;
+}): boolean {
 	const found = walkAncestorChain<true>({
 		start,
 		visitor: ({ node }) => {
@@ -301,7 +312,13 @@ function reachesViaAncestryOrInvoker({ start, candidate }: { start: Node; candid
 
 // Is `candidate` an ancestor of `target` via DOM nesting OR invoker chain?
 // Spec: https://html.spec.whatwg.org/multipage/popover.html#topmost-popover-ancestor
-function isInChainTo({ candidate, target }: { candidate: HTMLElement; target: Node | null }): boolean {
+function isInChainTo({
+	candidate,
+	target,
+}: {
+	candidate: HTMLElement;
+	target: Node | null;
+}): boolean {
 	if (!(target instanceof Node)) {
 		return false;
 	}
@@ -322,7 +339,13 @@ function isInChainTo({ candidate, target }: { candidate: HTMLElement; target: No
 // Hide every popover in `stack` that is not an ancestor of `target`. With a
 // null target, closes the entire stack.
 // Spec: https://html.spec.whatwg.org/multipage/popover.html#hide-all-popovers-until
-function hidePopoversInStackNotInChainTo({ stack, target }: { stack: HTMLElement[]; target: Node | null }) {
+function hidePopoversInStackNotInChainTo({
+	stack,
+	target,
+}: {
+	stack: HTMLElement[];
+	target: Node | null;
+}) {
 	const snapshot = stack.slice();
 	for (let i = snapshot.length - 1; i >= 0; i -= 1) {
 		const popover = snapshot[i];
@@ -585,10 +608,8 @@ if (typeof HTMLElement !== 'undefined') {
 		(document as TLightDismissDoc).__atTopLayerLightDismiss = true;
 
 		// capture phase so application handlers cannot stop propagation before us
-		const pointerdownAdapter = (event: Event) =>
-			handleDocumentPointerdown(event as PointerEvent);
-		const pointerupAdapter = (event: Event) =>
-			handleDocumentPointerup(event as PointerEvent);
+		const pointerdownAdapter = (event: Event) => handleDocumentPointerdown(event as PointerEvent);
+		const pointerupAdapter = (event: Event) => handleDocumentPointerup(event as PointerEvent);
 
 		bind(document, {
 			type: 'pointerdown',

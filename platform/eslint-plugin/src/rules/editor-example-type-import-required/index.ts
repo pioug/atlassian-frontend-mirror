@@ -107,7 +107,6 @@ const EXCLUDED_SPEC_FILES: string[] = [
 	// generative-ai-modal: the example name is passed dynamically at examplePage.goto({ example: '...' })
 	// time rather than via test.use(), so a static typeof import assertion in the spec is not possible.
 	'packages/editor/generative-ai-modal/src/ui/screens/Preview/__tests__/playwright/tab-navigation.spec.ts',
-
 ];
 
 function isExcluded(filename: string): boolean {
@@ -129,9 +128,7 @@ const messages = {
 } satisfies Record<string, string>;
 
 function isTargetFile(filename: string): boolean {
-	return (
-		(filename.endsWith('.spec.tsx') || filename.endsWith('.spec.ts')) && !isExcluded(filename)
-	);
+	return (filename.endsWith('.spec.tsx') || filename.endsWith('.spec.ts')) && !isExcluded(filename);
 }
 
 /**

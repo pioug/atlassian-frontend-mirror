@@ -16,9 +16,14 @@ const styles = cssMap({
 		verticalAlign: 'text-top',
 		alignItems: 'center',
 		alignSelf: 'baseline',
-		border: `${token('border.width')} solid transparent`,
-		borderRadius: token('radius.small'),
 		backgroundColor: token('color.background.neutral'),
+		borderLeftColor: 'transparent',
+		borderLeftWidth: token('border.width'),
+		borderLeftStyle: 'solid',
+		borderRightColor: 'transparent',
+		borderRightWidth: token('border.width'),
+		borderRightStyle: 'solid',
+		borderRadius: token('radius.small'),
 		paddingBlock: '0',
 		paddingInlineStart: token('space.025'),
 		paddingInlineEnd: token('space.050'),
@@ -29,11 +34,20 @@ const styles = cssMap({
 	},
 	nodeWrapperWithHeight: {
 		height: '20px',
+		borderTopColor: 'transparent',
+		borderTopWidth: token('border.width'),
+		borderTopStyle: 'solid',
+		borderBottomColor: 'transparent',
+		borderBottomWidth: token('border.width'),
+		borderBottomStyle: 'solid',
 	},
 
 	nodeWrapperSelected: {
 		backgroundColor: token('color.background.selected'),
-		borderColor: token('color.border.selected'),
+		borderTopColor: token('color.border.selected'),
+		borderBottomColor: token('color.border.selected'),
+		borderLeftColor: token('color.border.selected'),
+		borderRightColor: token('color.border.selected'),
 
 		'&:hover': {
 			backgroundColor: token('color.background.selected.hovered'),

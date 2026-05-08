@@ -114,8 +114,8 @@ exports[`generateTheme atlassian theme should match theme object for "productHom
   "backgroundColor": "var(--ds-text-brand)",
   "borderRight": "var(--ds-border-width) solid var(--ds-border)",
   "color": "var(--ds-text)",
-  "iconColor": undefined,
-  "textColor": undefined,
+  "iconColor": "#357DE8",
+  "textColor": "var(--ds-text)",
 }
 `;
 

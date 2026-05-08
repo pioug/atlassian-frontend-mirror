@@ -8,5 +8,4 @@ const EXCEL_MIME_TYPES = new Set([
 	'application/vnd.ms-excel.sheet.macroEnabled.12',
 ]);
 
-export const isExcelFile = (mimeType: string): boolean =>
-	EXCEL_MIME_TYPES.has(mimeType);
+export const isExcelFile = (mimeType: string): boolean => EXCEL_MIME_TYPES.has(mimeType);

@@ -8,14 +8,7 @@ import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 
 export const paragraph: ADFNode<
-	[
-		string,
-		'with_alignment',
-		'with_indentation',
-		'with_marks',
-		'with_no_marks',
-		'with_font_size',
-	],
+	[string, 'with_alignment', 'with_indentation', 'with_marks', 'with_no_marks', 'with_font_size'],
 	ADFCommonNodeSpec & {
 		content: never[];
 		ignore: never[];

@@ -9,11 +9,17 @@ type ContextualTypeaheadViewedAEP = TrackAEP<
 	undefined
 >;
 
+type ContextualTypeaheadAcceptedAttributes = {
+	kssDelta: number;
+	suggestionLength: number;
+	typedLength: number;
+};
+
 type ContextualTypeaheadAcceptedAEP = TrackAEP<
 	ACTION.SUGGESTION_INSERTED,
 	ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
 	undefined,
-	undefined,
+	ContextualTypeaheadAcceptedAttributes,
 	undefined
 >;
 

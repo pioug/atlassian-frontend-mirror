@@ -1,4 +1,8 @@
-import { codeBlock, codeBlockWithExtendedAttributes, codeBlockWithLocalId } from '@atlaskit/adf-schema';
+import {
+	codeBlock,
+	codeBlockWithExtendedAttributes,
+	codeBlockWithLocalId,
+} from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { NodeSpec, DOMOutputSpec, Node } from '@atlaskit/editor-prosemirror/model';

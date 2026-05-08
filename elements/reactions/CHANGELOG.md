@@ -1,5 +1,18 @@
 # @atlaskit/reactions
 
+## 34.1.0
+
+### Minor Changes
+
+- [`954d295f45814`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/954d295f45814) -
+  [ux] Ensuring add emoji button takes emojiPickerSize as size
+
+## 34.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.0.6
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 219.3.8
+
+### Patch Changes
+
+- [`eb4be1c0f981b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb4be1c0f981b) -
+  Migrate codeMarkStyles, gridStyles, fontSizeStyles, link, inlineNodeViewSharedStyles, and
+  backgroundColorStyles to Compiled CSS
+
+## 219.3.7
+
+### Patch Changes
+
+- [`55ad279a5e823`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55ad279a5e823) -
+  [ux] Support reference sync blocks by find and replace.
+- [`813bbe2e7ab98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/813bbe2e7ab98) -
+  migrated list style from emotion to compiled css
+- Updated dependencies
+
 ## 219.3.6
 
 ### Patch Changes

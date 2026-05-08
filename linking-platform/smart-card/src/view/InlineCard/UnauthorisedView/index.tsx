@@ -82,12 +82,12 @@ const socialProofPillStyles = cssMap({
 		paddingBottom: token('space.025'),
 		paddingRight: token('space.075'),
 		paddingLeft: token('space.075'),
-		marginRight: token('space.050')
+		marginRight: token('space.050'),
 	},
 	label: {
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
-		whiteSpace: 'nowrap'
+		whiteSpace: 'nowrap',
 	},
 });
 
@@ -111,8 +111,7 @@ const UnauthorisedConnectWithSocialProof = ({
 }): JSX.Element => {
 	di(getCachedProviderPctMapAndRefresh);
 	const providerPctMap = getCachedProviderPctMapAndRefresh(SOCIAL_PROOF_TRAIT_NAME);
-	const connectedPct =
-		extensionKey && providerPctMap ? providerPctMap[extensionKey] : undefined;
+	const connectedPct = extensionKey && providerPctMap ? providerPctMap[extensionKey] : undefined;
 
 	const trimmedProviderDisplayName = context?.trim() ?? '';
 	const hasProviderDisplayName = trimmedProviderDisplayName.length > 0;
@@ -126,12 +125,8 @@ const UnauthorisedConnectWithSocialProof = ({
 	 */
 	const showSocialProofPill =
 		connectedPct !== undefined &&
-		(isSocialProofUsageHighEnough || hasProviderDisplayName) && 
-		expValEquals(
-			'platform_sl_3p_preauth_social_proof_inline_cta',
-			'isEnabled',
-			true,
-		);
+		(isSocialProofUsageHighEnough || hasProviderDisplayName) &&
+		expValEquals('platform_sl_3p_preauth_social_proof_inline_cta', 'isEnabled', true);
 
 	const bold = (chunks: React.ReactNode) => (
 		<Box as="strong" xcss={socialProofPillStyles.strong}>
@@ -139,26 +134,24 @@ const UnauthorisedConnectWithSocialProof = ({
 		</Box>
 	);
 
-	const socialProofPillContent = isSocialProofUsageHighEnough
-		? hasProviderDisplayName
-			? (
-					<FormattedMessage
-						{...messages.social_proof_inline_cta_tag_high_with_context}
-						values={{ connectedPct, context: trimmedProviderDisplayName, b: bold }}
-					/>
-				)
-			: (
-					<FormattedMessage
-						{...messages.social_proof_inline_cta_tag_high_no_context}
-						values={{ connectedPct, b: bold }}
-					/>
-				)
-		: (
-				<FormattedMessage
-					{...messages.social_proof_inline_cta_tag_low_with_context}
-					values={{ context: trimmedProviderDisplayName }}
-				/>
-			);
+	const socialProofPillContent = isSocialProofUsageHighEnough ? (
+		hasProviderDisplayName ? (
+			<FormattedMessage
+				{...messages.social_proof_inline_cta_tag_high_with_context}
+				values={{ connectedPct, context: trimmedProviderDisplayName, b: bold }}
+			/>
+		) : (
+			<FormattedMessage
+				{...messages.social_proof_inline_cta_tag_high_no_context}
+				values={{ connectedPct, b: bold }}
+			/>
+		)
+	) : (
+		<FormattedMessage
+			{...messages.social_proof_inline_cta_tag_low_with_context}
+			values={{ context: trimmedProviderDisplayName }}
+		/>
+	);
 
 	return (
 		<React.Fragment>

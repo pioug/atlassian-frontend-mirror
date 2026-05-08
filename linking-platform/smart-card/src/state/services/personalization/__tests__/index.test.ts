@@ -50,13 +50,16 @@ describe('PersonalizationService', () => {
 		await service.getProviderPctMap('cloud-abc', 'my_trait');
 
 		expect(fetchSpy).toHaveBeenCalledTimes(1);
-		expect(fetchSpy).toHaveBeenCalledWith('/gateway/api/tap-delivery/api/v3/personalization/site/cloud-abc', {
-			method: 'GET',
-			credentials: 'include',
-			headers: {
-				'Content-Type': 'application/json',
+		expect(fetchSpy).toHaveBeenCalledWith(
+			'/gateway/api/tap-delivery/api/v3/personalization/site/cloud-abc',
+			{
+				method: 'GET',
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json',
+				},
 			},
-		});
+		);
 	});
 
 	it('returns the parsed object when the trait value is a JSON object string', async () => {
@@ -71,7 +74,9 @@ describe('PersonalizationService', () => {
 			}),
 		);
 
-		await expect(service.getProviderPctMap('site-1', 'sl_3p_connected_providers_site_pct')).resolves.toEqual({
+		await expect(
+			service.getProviderPctMap('site-1', 'sl_3p_connected_providers_site_pct'),
+		).resolves.toEqual({
 			'google-object-provider': 42,
 		});
 	});
@@ -84,7 +89,9 @@ describe('PersonalizationService', () => {
 	});
 
 	it('returns undefined when the trait is missing', async () => {
-		fetchSpy.mockResolvedValueOnce(mockFetchResponse({ attributes: [{ name: 'other', value: '{}' }] }));
+		fetchSpy.mockResolvedValueOnce(
+			mockFetchResponse({ attributes: [{ name: 'other', value: '{}' }] }),
+		);
 
 		await expect(service.getProviderPctMap('cloud-abc', 'wanted')).resolves.toBeUndefined();
 	});
@@ -177,7 +184,9 @@ describe('PersonalizationService', () => {
 	it('returns undefined when fetch rejects and retries on the next call', async () => {
 		fetchSpy
 			.mockRejectedValueOnce(new Error('network'))
-			.mockResolvedValueOnce(mockFetchResponse({ attributes: [{ name: 't', value: '{\"ok\": 1}' }] }));
+			.mockResolvedValueOnce(
+				mockFetchResponse({ attributes: [{ name: 't', value: '{\"ok\": 1}' }] }),
+			);
 
 		await expect(service.getProviderPctMap('cloud-abc', 't')).resolves.toBeUndefined();
 		await expect(service.getProviderPctMap('cloud-abc', 't')).resolves.toEqual({ ok: 1 });
@@ -187,12 +196,8 @@ describe('PersonalizationService', () => {
 
 	it('clearCache allows a new fetch after the map was cleared', async () => {
 		fetchSpy
-			.mockResolvedValueOnce(
-				mockFetchResponse({ attributes: [{ name: 't', value: '{"n": 1}' }] }),
-			)
-			.mockResolvedValueOnce(
-				mockFetchResponse({ attributes: [{ name: 't', value: '{"n": 2}' }] }),
-			);
+			.mockResolvedValueOnce(mockFetchResponse({ attributes: [{ name: 't', value: '{"n": 1}' }] }))
+			.mockResolvedValueOnce(mockFetchResponse({ attributes: [{ name: 't', value: '{"n": 2}' }] }));
 
 		await expect(service.getProviderPctMap('cloud-abc', 't')).resolves.toEqual({ n: 1 });
 		service.clearCache();
@@ -212,9 +217,10 @@ describe('PersonalizationService', () => {
 		expect(smartCardStorage.getItem(pctMapStorageItemKey('cloud-x', 'trait-y'))).toEqual({
 			a: 10,
 		});
-		expect(JSON.parse(localStorage.getItem(pctMapLocalStorageRowKey('cloud-x', 'trait-y')) ?? '{}').expires).toBeGreaterThanOrEqual(
-			Date.now() + 24 * 60 * 60 * 1000,
-		);
+		expect(
+			JSON.parse(localStorage.getItem(pctMapLocalStorageRowKey('cloud-x', 'trait-y')) ?? '{}')
+				.expires,
+		).toBeGreaterThanOrEqual(Date.now() + 24 * 60 * 60 * 1000);
 	});
 
 	it('clearCache clears persisted localStorage maps for this prefix', async () => {
@@ -229,7 +235,9 @@ describe('PersonalizationService', () => {
 			n: 1,
 		});
 		service.clearCache();
-		expect(smartCardStorage.getItem(pctMapStorageItemKey('c-storage', 't-storage'))).toBeUndefined();
+		expect(
+			smartCardStorage.getItem(pctMapStorageItemKey('c-storage', 't-storage')),
+		).toBeUndefined();
 	});
 
 	it('getProviderPctMapSync returns null when localStorage has no entry without fetching', () => {
@@ -257,8 +265,12 @@ describe('PersonalizationService', () => {
 
 	it('uses separate in-flight work for the same trait on different cloud ids', async () => {
 		fetchSpy
-			.mockResolvedValueOnce(mockFetchResponse({ attributes: [{ name: 'trait-x', value: '{\"a\": 1}' }] }))
-			.mockResolvedValueOnce(mockFetchResponse({ attributes: [{ name: 'trait-x', value: '{\"b\": 2}' }] }));
+			.mockResolvedValueOnce(
+				mockFetchResponse({ attributes: [{ name: 'trait-x', value: '{\"a\": 1}' }] }),
+			)
+			.mockResolvedValueOnce(
+				mockFetchResponse({ attributes: [{ name: 'trait-x', value: '{\"b\": 2}' }] }),
+			);
 
 		const [a, b] = await Promise.all([
 			service.getProviderPctMap('cloud-a', 'trait-x'),
@@ -272,8 +284,12 @@ describe('PersonalizationService', () => {
 
 	it('stores and reads maps by cloudId plus traitName', async () => {
 		fetchSpy
-			.mockResolvedValueOnce(mockFetchResponse({ attributes: [{ name: 'same-trait', value: '{\"a\": 1}' }] }))
-			.mockResolvedValueOnce(mockFetchResponse({ attributes: [{ name: 'same-trait', value: '{\"b\": 2}' }] }));
+			.mockResolvedValueOnce(
+				mockFetchResponse({ attributes: [{ name: 'same-trait', value: '{\"a\": 1}' }] }),
+			)
+			.mockResolvedValueOnce(
+				mockFetchResponse({ attributes: [{ name: 'same-trait', value: '{\"b\": 2}' }] }),
+			);
 
 		await expect(service.getProviderPctMap('cloud-a', 'same-trait')).resolves.toEqual({ a: 1 });
 		await expect(service.getProviderPctMap('cloud-b', 'same-trait')).resolves.toEqual({ b: 2 });
@@ -286,7 +302,11 @@ describe('PersonalizationService', () => {
 
 	it('returns null when stored provider map is expired', () => {
 		jest.useFakeTimers().setSystemTime(new Date('2026-01-01T00:00:00.000Z'));
-		smartCardStorage.setItemWithExpiry(pctMapStorageItemKey('cloud-abc', 'expired'), { a: 1 }, 1000);
+		smartCardStorage.setItemWithExpiry(
+			pctMapStorageItemKey('cloud-abc', 'expired'),
+			{ a: 1 },
+			1000,
+		);
 
 		jest.setSystemTime(new Date('2026-01-01T00:00:01.001Z'));
 

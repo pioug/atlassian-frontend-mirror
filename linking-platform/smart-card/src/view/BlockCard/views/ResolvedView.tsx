@@ -8,6 +8,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { browser } from '@atlaskit/linking-common/user-agent';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { ActionName, CardDisplay, ElementName, SmartLinkPosition } from '../../../constants';
@@ -52,6 +53,10 @@ const footerBlockCss = css({
 	alignSelf: 'stretch',
 });
 
+const footerExtraSpacingCss = css({
+	marginTop: token('space.100'),
+});
+
 const footerBlockSafariStyles = css({
 	height: '100%',
 });
@@ -74,7 +79,10 @@ const ResolvedView = ({
 }: FlexibleBlockCardProps) => {
 	const [isPreviewBlockErrored, setIsPreviewBlockErrored] = useState<boolean>(false);
 	const extensionKey = getExtensionKey(cardState.details);
-	const { isEnabled: is3PRovoBlockExperimentEnabled } = useBlockCardRovoActionExperiment(url, actionOptions);
+	const { isEnabled: is3PRovoBlockExperimentEnabled } = useBlockCardRovoActionExperiment(
+		url,
+		actionOptions,
+	);
 
 	const rovoConfig = is3PRovoBlockExperimentEnabled
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -138,14 +146,14 @@ const ResolvedView = ({
 		() =>
 			showRovoResolvedView && is3PRovoBlockExperimentEnabled
 				? [
-					{
-						name: ActionName.RovoChatAction,
-						prompts: prompts,
-						iconSize: 'small',
-						cardAppearance: CardDisplay.Block,
-					},
-					{ name: ActionName.FollowAction, iconSize: 'small' },
-					{ name: ActionName.DownloadAction, iconSize: 'small' },
+						{
+							name: ActionName.RovoChatAction,
+							prompts: prompts,
+							iconSize: 'small',
+							cardAppearance: CardDisplay.Block,
+						},
+						{ name: ActionName.FollowAction, iconSize: 'small' },
+						{ name: ActionName.DownloadAction, iconSize: 'small' },
 					]
 				: [
 						{ name: ActionName.FollowAction, hideIcon: true },
@@ -194,7 +202,11 @@ const ResolvedView = ({
 				/>
 			) : null}
 			<FooterBlock
-				css={[footerBlockCss, safari && footerBlockSafariStyles]}
+				css={[
+					footerBlockCss,
+					safari && footerBlockSafariStyles,
+					fg('platform_navx_block_card_footer_spacing') && footerExtraSpacingCss,
+				]}
 				actions={footerActions}
 				isPreviewBlockErrored={isPreviewBlockErrored}
 			/>

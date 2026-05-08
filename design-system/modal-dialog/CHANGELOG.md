@@ -1,5 +1,20 @@
 # @atlaskit/modal-dialog
 
+## 15.0.0
+
+### Major Changes
+
+- [`babe23b40c154`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/babe23b40c154) -
+  Removes the `boolean` type for the `autoFocus` prop in the modal dialog. This improves the
+  accessibility of the modal dialog by ensuring focus always moves to the first interactive element,
+  as per the WCAG accessibility guidelines for modal dialogs.
+
+  You can run the included codemod to remove all boolean instances of `autoFocus`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.18.3
 
 ### Patch Changes

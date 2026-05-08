@@ -93,7 +93,18 @@ export class ViewingConditions {
 	public fLRoot: number;
 	public z: number;
 
-	private constructor(n: number, aw: number, nbb: number, ncb: number, c: number, nc: number, rgbD: number[], fl: number, fLRoot: number, z: number) {
+	private constructor(
+		n: number,
+		aw: number,
+		nbb: number,
+		ncb: number,
+		c: number,
+		nc: number,
+		rgbD: number[],
+		fl: number,
+		fLRoot: number,
+		z: number,
+	) {
 		this.n = n;
 		this.aw = aw;
 		this.nbb = nbb;

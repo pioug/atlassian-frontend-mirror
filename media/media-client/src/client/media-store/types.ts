@@ -335,6 +335,7 @@ export interface MediaApi {
 		body: AppendChunksToUploadRequestBody,
 		collectionName?: string,
 		traceContext?: MediaTraceContext,
+		options?: { expectedFileSize?: number },
 	) => Promise<void>;
 
 	copyFileWithToken: (

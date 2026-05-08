@@ -2,14 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 
-import { NavigationSkeleton as TopNavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
-import { LeftSidebar, TopNavigation } from '@atlaskit/page-layout';
+import { Main } from '@atlaskit/navigation-system/layout/main';
+import { Root } from '@atlaskit/navigation-system/layout/root';
+import { SideNav, SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
+import { TopNav } from '@atlaskit/navigation-system/layout/top-nav';
 import { token } from '@atlaskit/tokens';
 
 import { Editor } from '../src';
@@ -37,54 +39,31 @@ const editorSide = css({
 	height: 'calc(100vh - 100px)',
 });
 
-const contentSection = css({
-	paddingTop: token('space.150'),
-	gridArea: 'content',
-	display: 'flex',
-	height: '100%',
-	position: 'relative',
-});
 const portalContainer = css({
 	display: 'flex',
-});
-
-const main = css({
-	outline: 'currentColor none medium',
-	display: 'grid',
-	height: '100%',
-	gridTemplateColumns: 'var(--leftPanelWidth, 0px) minmax(0, 1fr) var( --rightPanelWidth, 0px )',
-	gridTemplateRows: 'var(--bannerHeight, 0px) var(--topNavigationHeight, 0px) auto',
-	gridTemplateAreas:
-		"'left-panel banner right-panel' 'left-panel top-navigation right-panel' 'left-panel content right-panel'",
-	overflow: 'hidden',
 });
 
 export default function CommentWithJiraCardsExample(): jsx.JSX.Element {
 	const jiraToolbarRef = useRef(null);
 	const [portalElement, setPortalElement] = useState<HTMLDivElement>();
 
-	useEffect(() => {
-		document.documentElement.style.setProperty('--leftSidebarWidth', '240px');
-	}, []);
-
 	const handlePortalRef = (portal: HTMLDivElement) => {
 		setPortalElement(portal);
 	};
 	return (
 		<Fragment>
-			<main css={main}>
-				<TopNavigation isFixed height={50} id="ak-jira-navigation">
-					<TopNavigationSkeleton />
-				</TopNavigation>
-				<section css={contentSection}>
-					<LeftSidebar isFixed width={100} collapsedState={'expanded'} id="ak-side-navigation">
-						<br />
+			<Root>
+				<TopNav>Jira</TopNav>
+				<SideNav>
+					<SideNavBody>
 						<ul>
 							<li>Menu item</li>
 							<li>Menu item</li>
 							<li>Menu item</li>
 						</ul>
-					</LeftSidebar>
+					</SideNavBody>
+				</SideNav>
+				<Main>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 					<div css={editorSide} className="the-editor-side">
 						<h2>Some content</h2>
@@ -123,8 +102,8 @@ export default function CommentWithJiraCardsExample(): jsx.JSX.Element {
 							/>
 						</EditorContext>
 					</div>
-				</section>
-			</main>
+				</Main>
+			</Root>
 			<div css={portalContainer}>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<div ref={handlePortalRef} style={{ zIndex: 511 }} />

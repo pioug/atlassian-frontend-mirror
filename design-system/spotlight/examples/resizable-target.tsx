@@ -188,8 +188,8 @@ export default function ResizableTargetExample(): JSX.Element {
 							<SpotlightBody>
 								<Stack space="space.100">
 									<Text>
-										Resize the textarea to validate whether the placement offset should stay
-										static or respond to the anchor dimensions.
+										Resize the textarea to validate whether the placement offset should stay static
+										or respond to the anchor dimensions.
 									</Text>
 									<Text size="small">
 										The dashed guides mark the target midpoint for checking center placements.

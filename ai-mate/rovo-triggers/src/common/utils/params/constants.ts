@@ -10,4 +10,5 @@ export const ROVO_VALID_PARAMS: ValidParam[] = [
 	'triggerOpen',
 	'insertPrompt',
 	'promptLibraryOpen',
+	'openChatMode',
 ];

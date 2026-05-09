@@ -1,5 +1,7 @@
 export type RovoChatPathway = 'chat' | 'agents-browse' | 'agents-create' | 'pulse';
 
+export type RovoChatOpenMode = 'sidebar' | 'mini-modal';
+
 export interface BaseRovoChatParams {
 	pathway: RovoChatPathway;
 	agentId: string;
@@ -12,6 +14,7 @@ export interface BaseRovoChatParams {
 	stagingAreaOpen: boolean;
 	messageIdSelectedForPreview: string;
 	promptLibraryOpen: boolean;
+	openChatMode: RovoChatOpenMode;
 }
 
 export type ValidPrefix = 'rovoChat';

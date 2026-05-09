@@ -29,7 +29,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__renderer/app"
+		"outDir": "../../../tsDist/@atlaskit__renderer/app",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

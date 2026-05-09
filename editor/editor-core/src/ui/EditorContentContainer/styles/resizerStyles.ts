@@ -249,6 +249,69 @@ export const resizerStyles: SerializedStyles = css({
 		},
 });
 
+/**
+ * Bottom-handle styles for the vertical-resize feature shipped under the
+ * `databases-native-embeds-v2` experiment
+ */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const resizerBottomHandleStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+	[`.${resizerHandleClassName}.bottom`]: {
+		flexDirection: 'row',
+		alignItems: 'flex-end',
+		width: '100%',
+		height: 7,
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+		[`& .${resizerHandleThumbClassName}`]: {
+			width: 64,
+			height: 3,
+			minWidth: 24,
+			minHeight: 0,
+			margin: `${token('space.025')} 0`,
+
+			'&:hover': {
+				cursor: 'row-resize',
+			},
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+		[`& .${resizerHandleTrackClassName}`]: {
+			width: 'calc(100% - 40px)',
+			height: 7,
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+		[`& .${resizerHandleTrackClassName}.full-height`]: {
+			width: '100%',
+			height: 7,
+			minWidth: 36,
+			minHeight: 0,
+		},
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+	[`.${resizerHandleClassName}.small.bottom .${resizerHandleThumbClassName}`]: {
+		width: 43,
+		height: 3,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+	[`.${resizerHandleClassName}.medium.bottom .${resizerHandleThumbClassName}`]: {
+		width: 64,
+		height: 3,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+	[`.${resizerHandleClassName}.large.bottom .${resizerHandleThumbClassName}`]: {
+		width: 96,
+		height: 3,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+	[`.${resizerHandleClassName}.clamped.bottom .${resizerHandleThumbClassName}`]: {
+		width: 'clamp(43px, calc(100% - 32px), 96px)',
+		height: 3,
+	},
+});
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const pragmaticResizerStylesForTooltip: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

@@ -104,6 +104,7 @@ describe('Rovo Query', () => {
 				'rovoChatTriggerOpen',
 				'rovoChatInsertPrompt',
 				'rovoChatPromptLibraryOpen',
+				'rovoChatOpenChatMode',
 			]);
 		});
 
@@ -118,6 +119,7 @@ describe('Rovo Query', () => {
 				'rovoChatTriggerOpen!=false',
 				'rovoChatInsertPrompt!=false',
 				'rovoChatPromptLibraryOpen!=false',
+				'rovoChatOpenChatMode!=false',
 			]);
 		});
 	});

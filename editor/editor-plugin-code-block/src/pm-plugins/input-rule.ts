@@ -6,6 +6,7 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { getDefaultCodeBlockAttrs } from '@atlaskit/editor-common/code-block';
 import { insertBlock } from '@atlaskit/editor-common/commands';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { InputRuleWrapper } from '@atlaskit/editor-common/types';
@@ -13,6 +14,7 @@ import { createRule, inputRuleWithAnalytics } from '@atlaskit/editor-common/util
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
+
 
 import { isConvertableToCodeBlock, transformToCodeBlockAction } from './transform-to-code-block';
 
@@ -57,12 +59,7 @@ function getCodeBlockRules(
 			return null;
 		}
 
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const attributes: any = {};
-		if (match[4]) {
-			attributes.language = match[4];
-		}
+		const attributes = getDefaultCodeBlockAttrs(match[4] ? { language: match[4] } : {});
 
 		if (isConvertableToCodeBlock(state)) {
 			return transformToCodeBlockAction(state, start, attributes);
@@ -70,7 +67,7 @@ function getCodeBlockRules(
 
 		const tr = state.tr;
 		tr.delete(start, end);
-		const codeBlock = tr.doc.type.schema.nodes.codeBlock.createChecked();
+		const codeBlock = tr.doc.type.schema.nodes.codeBlock.createChecked(attributes);
 		safeInsert(codeBlock)(tr);
 
 		return tr;
@@ -85,12 +82,7 @@ function getCodeBlockRules(
 				return null;
 			}
 
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const attributes: any = {};
-			if (match[4]) {
-				attributes.language = match[4];
-			}
+			const attributes = getDefaultCodeBlockAttrs(match[4] ? { language: match[4] } : {});
 			const inlineStart = Math.max(match.index + state.selection.$from.start(), 1);
 			return insertBlock(state, schema.nodes.codeBlock, inlineStart, end, attributes);
 		},

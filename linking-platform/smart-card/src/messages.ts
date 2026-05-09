@@ -72,6 +72,9 @@ export type MessageKey =
 	| 'connect_link_account_card'
 	| 'connect_link_account_card_name'
 	| 'connect_link_account_card_description'
+	| 'connect_link_account_success_flag_description'
+	| 'connect_link_account_success_flag_title'
+	| 'connect_link_account_success_flag_title_default'
 	| 'connect_unauthorised_account_action'
 	| 'connect_inline_social_proof'
 	| 'social_proof_inline_cta_tag_high_with_context'
@@ -418,6 +421,24 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'To show a preview of this link, connect your {context} account.',
 		description:
 			'Shown when a user does not have access to a link, but can connect their external account to view the link on card view. Displayed in byline.',
+	},
+	connect_link_account_success_flag_description: {
+		id: 'fabric.linking.connect_link_account_success_flag_description.non-final',
+		defaultMessage: 'Shared links now display rich previews.',
+		description:
+			'Shown in a flag after user successfully connect 3P account and Smart Link reload with metadata',
+	},
+	connect_link_account_success_flag_title: {
+		id: 'fabric.linking.connect_link_account_success_flag_title.non-final',
+		defaultMessage: '{context} is connected',
+		description:
+			'Shown in a flag after user successfully connect 3P account. {context} is the name of link provider, e.g. Google, Figma, etc.',
+	},
+	connect_link_account_success_flag_title_default: {
+		id: 'fabric.linking.connect_link_account_success_flag_title_default.non-final',
+		defaultMessage: 'Smart Link',
+		description:
+			'Default context for connect_link_account_success_flag_title when link provider name (Google, Figma, etc.) is not provided',
 	},
 	connect_unauthorised_account_action: {
 		id: 'fabric.linking.connect_unauthorised_account_action',

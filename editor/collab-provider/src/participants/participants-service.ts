@@ -52,6 +52,10 @@ export class ParticipantsService {
 	private presenceFetchTimeout: number | undefined;
 	private currentlyPollingFetchUsers: boolean = true;
 	private hasBatchFetchError: boolean = false;
+	// Initialized in the constructor body; declared here so the parameter
+	// can be optional without requiring the type to include `undefined`
+	// (avoids TS9025 under `--isolatedDeclarations`).
+	private participantsState: ParticipantsState;
 
 	/**
 	 * constructor
@@ -71,7 +75,7 @@ export class ParticipantsService {
 	 */
 	constructor(
 		private analyticsHelper: AnalyticsHelper | undefined,
-		private participantsState: ParticipantsState = new ParticipantsState(),
+		participantsState: ParticipantsState | undefined,
 		private emit: (
 			evt: 'presence' | 'telepointer' | 'disconnected' | 'presence:changed',
 			data:
@@ -92,7 +96,9 @@ export class ParticipantsService {
 		private setUserId: (id: string) => void,
 		private getAIProviderActiveIds?: () => string[],
 		private fetchAnonymousAsset?: FetchAnonymousAsset | undefined,
-	) {}
+	) {
+		this.participantsState = participantsState ?? new ParticipantsState();
+	}
 
 	sendPresenceActivityChanged = (): void => {
 		this.sendPresence();
@@ -123,7 +129,7 @@ export class ParticipantsService {
 		}
 	};
 
-	private buildAIProviderPresencePayload = (providerId: string) => {
+	private buildAIProviderPresencePayload = (providerId: string): PresencePayload => {
 		const defaultPresenceData = this.getPresenceData();
 		const presencePayload: PresencePayload = {
 			sessionId: `${providerId}::${defaultPresenceData.sessionId}`,
@@ -136,16 +142,16 @@ export class ParticipantsService {
 		return presencePayload;
 	};
 
-	private sendAIProviderParticipantUpdated = (payload: PresencePayload) => {
+	private sendAIProviderParticipantUpdated = (payload: PresencePayload): void => {
 		this.channelBroadcast('participant:updated', payload);
 	};
 
-	private sendAIProviderParticipantLeft = (payload: PresencePayload) => {
+	private sendAIProviderParticipantLeft = (payload: PresencePayload): void => {
 		this.channelBroadcast('participant:left', payload);
 	};
 
 	// Refresh current AI providers
-	private sendAIProvidersPresence = () => {
+	private sendAIProvidersPresence = (): void => {
 		if (this.getAIProviderActiveIds) {
 			this.getAIProviderActiveIds().forEach((aiProviderId) => {
 				const presenceData = this.buildAIProviderPresencePayload(aiProviderId);
@@ -157,11 +163,11 @@ export class ParticipantsService {
 	private hasPresenceActivityChanged = (
 		previous: ProviderParticipant,
 		current: ProviderParticipant,
-	) => {
+	): boolean => {
 		return previous.presenceActivity !== current.presenceActivity;
 	};
 
-	private handleAnonymousUser = async (payload: PresencePayload) => {
+	private handleAnonymousUser = async (payload: PresencePayload): Promise<void> => {
 		const { sessionId } = payload;
 
 		const previousParticipant = this.participantsState.getBySessionId(sessionId);
@@ -196,7 +202,7 @@ export class ParticipantsService {
 	 * @param payload Payload from incoming socket event
 	 * @example
 	 */
-	private updateParticipantEager = async (payload: PresencePayload) => {
+	private updateParticipantEager = async (payload: PresencePayload): Promise<void> => {
 		const { userId } = payload;
 
 		if (!userId || userId === UNIDENTIFIED) {
@@ -253,7 +259,7 @@ export class ParticipantsService {
 	 * @param payload Payload from incoming socket event
 	 * @example
 	 */
-	private updateParticipantLazy = async (payload: PresencePayload) => {
+	private updateParticipantLazy = async (payload: PresencePayload): Promise<void> => {
 		const { userId, sessionId } = payload;
 
 		// anonymous users always skip hydration but are marked as hydrated since we don't want to attempt to fetch data
@@ -616,7 +622,7 @@ export class ParticipantsService {
 		clearTimeout(this.presenceFetchTimeout);
 	};
 
-	private sendPresence = () => {
+	private sendPresence = (): void => {
 		try {
 			clearTimeout(this.presenceUpdateTimeout);
 

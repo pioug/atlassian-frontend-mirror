@@ -18,6 +18,8 @@ export const FORGE_EXTENSION_TYPE = 'com.atlassian.ecosystem';
 export const NATIVE_EMBED_EXTENSION_TYPE = 'com.atlassian.confluence.macro.core';
 export const NATIVE_EMBED_EXTENSION_KEY = 'native-embed';
 
+export const AGENT_MANAGED_EXTENSION_KEY = 'agent-managed-block';
+
 export const getExtensionKeyAndNodeKey = (
 	extensionKey: ExtensionKey,
 	extensionType: ExtensionType,

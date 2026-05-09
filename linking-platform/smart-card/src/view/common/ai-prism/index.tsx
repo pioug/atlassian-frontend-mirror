@@ -4,6 +4,7 @@
  */
 import { css, cssMap, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import AIGlowingBorder from './ai-glowing-border';
@@ -32,6 +33,15 @@ const animatedSvgContainerStyles = cssMap({
 	},
 });
 
+const borderRadiusStyles = cssMap({
+	large: {
+		borderRadius: token('radius.large', '8px'),
+	},
+	small: {
+		borderRadius: token('radius.small', '4px'),
+	},
+});
+
 const popupContainerStyles = css({
 	borderRadius: token('radius.large', '8px'),
 	backgroundColor: token('elevation.surface.overlay'),
@@ -39,6 +49,7 @@ const popupContainerStyles = css({
 });
 
 const AIPrism = ({
+	borderRadius = 'large',
 	children,
 	isGlowing = true,
 	isMoving = true,
@@ -49,7 +60,10 @@ const AIPrism = ({
 
 	return (
 		<AIGlowingBorder
-			css={[animatedSvgContainerStyles[isVisible ? 'true' : 'false']]}
+			css={[
+				animatedSvgContainerStyles[isVisible ? 'true' : 'false'],
+				fg('platform_sl_connect_account_flag') && borderRadiusStyles[borderRadius],
+			]}
 			palette={AI_BORDER_PALETTE[colorMode] ?? AI_BORDER_PALETTE.light}
 			isGlowing={isGlowing}
 			isMoving={isMoving}

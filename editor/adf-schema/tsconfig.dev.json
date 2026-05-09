@@ -36,7 +36,8 @@
   "exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
   "compilerOptions": {
     "composite": true,
-    "outDir": "../../../tsDist/@atlaskit__adf-schema/dev"
+    "outDir": "../../../tsDist/@atlaskit__adf-schema/dev",
+    "isolatedDeclarations": true
   },
   "references": [
     {

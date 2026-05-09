@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 18.2.1
+
+### Patch Changes
+
+- [`967cff1c14097`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/967cff1c14097) -
+  Add isolatedDeclarations: true to tsconfig.app.json and tsconfig.dev.json
+- Updated dependencies
+
 ## 18.2.0
 
 ### Minor Changes

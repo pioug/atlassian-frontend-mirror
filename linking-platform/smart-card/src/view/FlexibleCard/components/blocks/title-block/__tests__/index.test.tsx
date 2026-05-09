@@ -26,8 +26,8 @@ import {
 } from '../../../../../../constants';
 import { messages } from '../../../../../../messages';
 import type { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
+import * as LoadingSkeletonBundle from '../../../../../common/loading-skeleton';
 import type { InternalFlexibleUiOptions } from '../../../../types';
-import * as LoadingSkeletonBundle from '../../../common/loading-skeleton';
 import { type NamedActionItem } from '../../types';
 import TitleBlock from '../index';
 import { type TitleBlockProps } from '../types';

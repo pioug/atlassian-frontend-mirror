@@ -1,3 +1,4 @@
+import { getDefaultCodeBlockAttrs } from '@atlaskit/editor-common/code-block';
 import { breakoutResizableNodes } from '@atlaskit/editor-common/utils';
 import type { Mark, Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
@@ -37,7 +38,8 @@ const createTextContentContainer = (
 ): PMNode | null => {
 	const textContent = textContentArray.join('\n');
 	const textNode = textContent ? schema.text(textContent) : null;
-	return targetNodeType.createAndFill({}, textNode);
+	const attrs = targetNodeType.name === 'codeBlock' ? getDefaultCodeBlockAttrs() : {};
+	return targetNodeType.createAndFill(attrs, textNode);
 };
 
 /**

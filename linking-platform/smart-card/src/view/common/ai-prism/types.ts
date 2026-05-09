@@ -4,6 +4,7 @@ import { type AIGlowingBorderProps } from './ai-glowing-border/types';
 
 export type AIPrismProps = PropsWithChildren<
 	Pick<AIGlowingBorderProps, 'isMoving' | 'isGlowing' | 'testId'> & {
+		borderRadius?: 'small' | 'large';
 		isVisible?: boolean;
 	}
 >;

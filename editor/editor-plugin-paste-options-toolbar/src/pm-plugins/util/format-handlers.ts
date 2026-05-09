@@ -1,3 +1,4 @@
+import { defaultWrapForMarkdownCodeBlocksInSlice } from '@atlaskit/editor-common/code-block';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { md } from '@atlaskit/editor-common/paste';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
@@ -243,7 +244,10 @@ export function getMarkdownSlice(
 		const openStart = canMergeOpenStart ? $start.depth : 0;
 		const openEnd = canMergeOpenEnd ? $end.depth : 0;
 
-		return new Slice(doc.content, openStart, openEnd);
+		return defaultWrapForMarkdownCodeBlocksInSlice(
+			new Slice(doc.content, openStart, openEnd),
+			schema,
+		);
 	} catch (error) {
 		logException(error as Error, {
 			location: 'editor-plugin-paste-options-toolbar/util',

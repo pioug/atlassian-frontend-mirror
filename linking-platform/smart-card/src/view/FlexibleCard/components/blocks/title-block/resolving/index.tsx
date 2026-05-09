@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { SmartLinkSize } from '../../../../../../constants';
-import { LoadingSkeleton } from '../../../common/loading-skeleton';
+import { LoadingSkeleton } from '../../../../../common/loading-skeleton';
 import { LinkIcon } from '../../../elements';
 import { getIconWidth } from '../../../utils';
 import Block from '../../block';

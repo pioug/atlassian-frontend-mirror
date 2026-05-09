@@ -22,6 +22,7 @@ export { default as DefaultExtensionProvider } from './extensions/default-extens
 export { default as combineExtensionProviders } from './extensions/combine-extension-providers';
 
 export {
+	AGENT_MANAGED_EXTENSION_KEY,
 	getExtensionKeyAndNodeKey,
 	NATIVE_EMBED_EXTENSION_TYPE,
 	NATIVE_EMBED_EXTENSION_KEY,

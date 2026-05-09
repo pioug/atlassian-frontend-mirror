@@ -1,5 +1,14 @@
 # @atlaskit/link-provider
 
+## 4.4.0
+
+### Minor Changes
+
+- [`552c49929b2e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/552c49929b2e4) -
+  Add an event listener behind experiment gate synchronized-post-office-and-smartcard-auth-exp to
+  allow smart card provider to refresh unauthorized smartlinks after a user has connected the
+  smartlink through an external source (such as post office)
+
 ## 4.3.2
 
 ### Patch Changes

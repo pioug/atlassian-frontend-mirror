@@ -8,9 +8,9 @@ import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
+import { LoadingSkeleton } from '../../../../common/loading-skeleton';
 import { CustomBlock } from '../../../../FlexibleCard/components/blocks';
 import ActionGroup from '../../../../FlexibleCard/components/blocks/action-group';
-import { LoadingSkeleton } from '../../../../FlexibleCard/components/common/loading-skeleton';
 import { BaseIconElement } from '../../../../FlexibleCard/components/elements/common';
 import { CARD_WIDTH_REM } from '../../../styled';
 

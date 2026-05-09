@@ -177,6 +177,7 @@ import {
 	pragmaticResizerStylesSyncedBlock,
 	pragmaticResizerStylesWithReducedEditorGutter,
 	pragmaticStylesLayoutFirstNodeResizeHandleFix,
+	resizerBottomHandleStyles,
 	resizerStyles,
 } from './styles/resizerStyles';
 import { dangerRuleStyles, ruleStyles } from './styles/rule';
@@ -624,6 +625,9 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				unsupportedStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				resizerStyles,
+				expValEquals('databases-native-embeds-v2', 'isEnabled', true) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					resizerBottomHandleStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				layoutBaseStyles,
 				expValEquals('platform_editor_table_excerpts_fix', 'isEnabled', true) &&

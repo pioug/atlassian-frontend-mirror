@@ -13,6 +13,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import {
 	messages,
+	AGENT_MANAGED_EXTENSION_KEY,
 	NATIVE_EMBED_EXTENSION_KEY,
 	NATIVE_EMBED_EXTENSION_TYPE,
 	type ExtensionParams,
@@ -100,6 +101,13 @@ const isLayoutSupported = (state: EditorState, selectedExtNode: { node: PMNode; 
 	if (!selectedExtNode) {
 		return false;
 	}
+
+	// Skip agent-managed-block extension until it supports the layout controls in its custom node
+	const extensionKey = selectedExtNode.node.attrs.extensionKey as string | undefined;
+	if (AGENT_MANAGED_EXTENSION_KEY === extensionKey) {
+		return false;
+	}
+
 	const isMultiBodiedExtension = selectedExtNode.node.type === multiBodiedExtension;
 	const isNonEmbeddedBodiedExtension =
 		selectedExtNode.node.type === bodiedExtension &&

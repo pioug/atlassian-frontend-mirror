@@ -315,6 +315,7 @@ function FullPageDiffEditor(): React.JSX.Element {
 					userPreferencesProvider: undefined,
 				},
 				enabledOptionalPlugins: {
+					agentManagedExtension: false,
 					limitedMode: false,
 					findReplace: true,
 					referentiality: false,

@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 219.4.1
+
+### Patch Changes
+
+- [`967cff1c14097`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/967cff1c14097) -
+  Add isolatedDeclarations: true to tsconfig.app.json and tsconfig.dev.json
+- Updated dependencies
+
+## 219.4.0
+
+### Minor Changes
+
+- [`a9b1b25b3ec98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9b1b25b3ec98) -
+  [ux] CTD-6569 add vertical resize for database native embed in pages
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 219.3.8
 
 ### Patch Changes

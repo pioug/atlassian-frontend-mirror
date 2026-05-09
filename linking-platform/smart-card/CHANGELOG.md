@@ -1,5 +1,30 @@
 # @atlaskit/smart-card
 
+## 44.9.1
+
+### Patch Changes
+
+- [`967cff1c14097`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/967cff1c14097) -
+  Add isolatedDeclarations: true to tsconfig.app.json and tsconfig.dev.json
+
+## 44.9.0
+
+### Minor Changes
+
+- [`09940dd5873b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09940dd5873b2) -
+  [ux] Add success flag after 3P auth, behind fg platform_sl_connect_account_flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.8.1
+
+### Patch Changes
+
+- [`5c97270618be1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c97270618be1) -
+  [ux] NO-ISSUE Adding support for small width block cards with minimal room for rovo actions
+
 ## 44.8.0
 
 ### Minor Changes

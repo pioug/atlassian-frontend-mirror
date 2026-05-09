@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
+import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
 	ACTION_RESOLVING,
@@ -9,13 +10,17 @@ import {
 	type MetadataStatus,
 } from '@atlaskit/linking-common';
 import { auth, type AuthError } from '@atlaskit/outbound-auth-flow-client';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { functionWithFG } from '@atlaskit/platform-feature-flags-react';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { SmartLinkStatus } from '../../constants';
 import { type InvokeClientOpts, type InvokeServerOpts } from '../../model/invoke-opts';
+import { noop } from '../../utils';
 import { type CardInnerAppearance } from '../../view/Card/types';
 import { startUfoExperience } from '../analytics';
 import { getByDefinitionId, getDefinitionId, getExtensionKey, getServices } from '../helpers';
+import useActionFlags from '../hooks/use-action-flags';
 import useInvokeClientAction from '../hooks/use-invoke-client-action';
 import useResolve from '../hooks/use-resolve';
 
@@ -23,18 +28,25 @@ export const useSmartCardActions = (
 	id: string,
 	url: string,
 ): {
-	register: () => Promise<void>;
-	reload: () => void;
 	authorize: (appearance: CardInnerAppearance) => void;
 	invoke: (
 		opts: InvokeClientOpts | InvokeServerOpts,
 		appearance: CardInnerAppearance,
 	) => Promise<JsonLd.Response | void>;
 	loadMetadata: () => Promise<void> | undefined;
+	register: () => Promise<void>;
+	reload: () => void;
 } => {
 	const resolveUrl = useResolve();
 	const invokeClientAction = useInvokeClientAction({});
 	const { fireEvent } = useAnalyticsEvents();
+
+	const useActionFlagsGated = functionWithFG<typeof useActionFlags | typeof noop>(
+		'platform_sl_connect_account_flag',
+		useActionFlags,
+		noop,
+	);
+	const flags = useActionFlagsGated();
 
 	const { store } = useSmartLinkContext();
 	const { getState, dispatch } = store;
@@ -126,6 +138,14 @@ export const useSmartCardActions = (
 							definitionId: definitionId ?? null,
 						});
 
+						if (status === 'unauthorized' && fg('platform_sl_connect_account_flag')) {
+							const provider = extractSmartLinkProvider(details);
+							flags?.showConnectFlag({
+								id: `smart-link-connect-success-${extensionKey}`,
+								provider,
+							});
+						}
+
 						reload();
 					},
 					(err: AuthError) => {
@@ -148,7 +168,7 @@ export const useSmartCardActions = (
 				);
 			}
 		},
-		[getSmartLinkState, id, reload, fireEvent],
+		[getSmartLinkState, id, reload, fireEvent, flags],
 	);
 
 	const invoke = useCallback(

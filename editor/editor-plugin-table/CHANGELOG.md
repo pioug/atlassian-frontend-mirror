@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 22.2.21
+
+### Patch Changes
+
+- [`967cff1c14097`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/967cff1c14097) -
+  Add isolatedDeclarations: true to tsconfig.app.json and tsconfig.dev.json
+- Updated dependencies
+
+## 22.2.20
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.2.19
 
 ### Patch Changes

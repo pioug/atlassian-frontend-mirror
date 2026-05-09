@@ -16,6 +16,7 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	changeLanguage,
@@ -190,6 +191,18 @@ export const getToolbarConfig =
 			copyAndDeleteButtonMenuItems = [separator, ...copyToClipboardItems, deleteButton];
 		}
 
+		const codeBlockWrapButtonTitle = expValEquals(
+			'platform_editor_code_block_q4_lovability',
+			'isEnabled',
+			true,
+		)
+			? formatMessage(
+					isWrapped
+						? codeBlockButtonMessages.unwrapCodeLabel
+						: codeBlockButtonMessages.wrapCodeLabel,
+				)
+			: formatMessage(codeBlockButtonMessages.wrapCode);
+
 		const codeBlockWrapButton: FloatingToolbarButton<Command> = {
 			id: 'editor.codeBlock.wrap',
 			type: 'button',
@@ -197,7 +210,7 @@ export const getToolbarConfig =
 			icon: TextWrapIcon,
 			iconFallback: WrapIcon,
 			onClick: toggleWordWrapStateForCodeBlockNode(editorAnalyticsAPI),
-			title: formatMessage(codeBlockButtonMessages.wrapCode),
+			title: codeBlockWrapButtonTitle,
 			tabIndex: null,
 			selected: isWrapped,
 		};

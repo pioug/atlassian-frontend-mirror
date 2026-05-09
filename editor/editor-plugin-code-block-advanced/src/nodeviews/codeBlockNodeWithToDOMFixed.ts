@@ -55,6 +55,9 @@ const toDOM = (node: Node, formattedAriaLabel: string, config: Config): DOMOutpu
 			class: codeBlockClassNames.container,
 			style: `--lineNumberGutterWidth:${maxDigits}ch;`,
 			'data-language': node.attrs.language || '',
+			...(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) && {
+				'data-wrap': node.attrs.wrap ? 'true' : 'false',
+			}),
 		},
 		['div', { class: codeBlockClassNames.start, contenteditable: 'false' }],
 		[

@@ -16,11 +16,11 @@ import { IconType, SmartLinkSize } from '../../../../../../../constants';
 import IconElement from '../index';
 
 const mockAppearanceTestId = 'mock-appearance-test-id';
-jest.mock('../../../../common/image-icon', () => ({
-	...jest.requireActual('../../../../common/image-icon'),
+jest.mock('../../../../../../common/image-icon', () => ({
+	...jest.requireActual('../../../../../../common/image-icon'),
 	__esModule: true,
 	default: jest.fn((props) => {
-		const Component = jest.requireActual('../../../../common/image-icon').default;
+		const Component = jest.requireActual('../../../../../../common/image-icon').default;
 
 		return (
 			<div>

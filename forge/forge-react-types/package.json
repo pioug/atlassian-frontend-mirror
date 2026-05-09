@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/forge-react-types",
-	"version": "1.3.2",
+	"version": "1.4.0",
 	"description": "Component types for Forge UI Kit React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -92,9 +92,5 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"platform-feature-flags": {
-		"should-render-to-parent-should-be-true-forge-ui": {
-			"type": "boolean"
-		}
-	}
+	"platform-feature-flags": {}
 }

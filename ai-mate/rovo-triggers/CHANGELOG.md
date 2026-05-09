@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 6.1.0
+
+### Minor Changes
+
+- [`3f7b6b35d7be8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f7b6b35d7be8) -
+  [ux] add openChatMode as a query param for rovo chat
+
 ## 6.0.2
 
 ### Patch Changes

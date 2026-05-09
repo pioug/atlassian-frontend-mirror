@@ -6,6 +6,7 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { ACTION, INPUT_METHOD, PasteTypes } from '@atlaskit/editor-common/analytics';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
+import { defaultWrapForMarkdownCodeBlocksInSlice } from '@atlaskit/editor-common/code-block';
 import { insideTable } from '@atlaskit/editor-common/core-utils';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type {
@@ -184,7 +185,10 @@ export function createPlugin(
 
 		const doc = atlassianMarkDownParser.parse(escapedTextInput);
 		if (doc && doc.content) {
-			return new Slice(doc.content, openStart, openEnd);
+			return defaultWrapForMarkdownCodeBlocksInSlice(
+				new Slice(doc.content, openStart, openEnd),
+				schema,
+			);
 		}
 		return;
 	}

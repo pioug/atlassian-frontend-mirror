@@ -40,7 +40,8 @@
 		"outDir": "../../../tsDist/@atlaskit__renderer/dev",
 		"paths": {
 			"@atlaskit/editor-common/src/*": ["../editor-common/src/*"]
-		}
+		},
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

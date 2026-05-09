@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 1.4.0
+
+### Minor Changes
+
+- [`aa7db57d6921d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa7db57d6921d) -
+  Clean up flag to render layers to parent instead of portals.
+
 ## 1.3.2
 
 ### Patch Changes

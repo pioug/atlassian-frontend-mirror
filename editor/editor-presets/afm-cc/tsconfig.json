@@ -307,6 +307,9 @@
 			"path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../confluence/editor-plugin-agent-managed-extension/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-cc/tsconfig.json"
 		}
 	]

@@ -3,12 +3,15 @@ import * as testMocks from './index.test.mock';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
+import { flushPromises } from '@atlaskit/link-test-helpers';
 import { ACTION_RESOLVING, APIError, type APIErrorKind } from '@atlaskit/linking-common';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { auth } from '@atlaskit/outbound-auth-flow-client';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { renderHook } from '@atlassian/testing-library';
 
 import { mocks } from '../../../utils/mocks';
+import * as useActionFlags from '../../hooks/use-action-flags';
 import { type CardState } from '../../types';
 import { useSmartCardActions } from '../index';
 
@@ -41,6 +44,7 @@ describe('Smart Card: Actions', () => {
 		mockContext = testMocks.mockGetContext();
 		asMockFunction(useSmartLinkContext).mockImplementation(() => mockContext);
 		asMockFunction(auth).mockResolvedValue();
+
 		url = 'https://some/url';
 		id = 'my-id';
 	});
@@ -428,6 +432,59 @@ describe('Smart Card: Actions', () => {
 				url: url,
 				error: undefined,
 				metadataStatus: 'errored',
+			});
+		});
+	});
+
+	describe('authorize()', () => {
+		const setup = async (state: CardState) => {
+			const mockShowConnectFlag = jest.fn();
+			jest.spyOn(useActionFlags, 'default').mockImplementation(() => ({
+				showConnectFlag: mockShowConnectFlag,
+			}));
+			mockState(state);
+			mockFetchData(Promise.resolve(mocks.success));
+			const result = renderHook(() => useSmartCardActions(id, url));
+
+			result.current.authorize('inline');
+			await flushPromises();
+
+			return { mockShowConnectFlag };
+		};
+
+		ffTest.on('platform_sl_connect_account_flag', '', () => {
+			it('trigger the connect account flag on unauthorized status', async () => {
+				const { mockShowConnectFlag } = await setup({
+					status: 'unauthorized',
+					details: mocks.unauthorized,
+				});
+
+				expect(auth).toHaveBeenCalledWith('https://outbound-auth/flow');
+				expect(mockShowConnectFlag).toHaveBeenCalledTimes(1);
+			});
+		});
+
+		ffTest.off('platform_sl_connect_account_flag', '', () => {
+			it('does not trigger the connect account flag on unauthorized status', async () => {
+				const { mockShowConnectFlag } = await setup({
+					status: 'unauthorized',
+					details: mocks.unauthorized,
+				});
+
+				expect(auth).toHaveBeenCalledWith('https://outbound-auth/flow');
+				expect(mockShowConnectFlag).not.toHaveBeenCalledTimes(1);
+			});
+		});
+
+		ffTest.both('platform_sl_connect_account_flag', '', () => {
+			it('does not trigger the connect account flag on forbidden status', async () => {
+				const { mockShowConnectFlag } = await setup({
+					status: 'forbidden',
+					details: mocks.forbidden,
+				});
+
+				expect(auth).toHaveBeenCalledWith('https://outbound-auth/flow');
+				expect(mockShowConnectFlag).not.toHaveBeenCalled();
 			});
 		});
 	});

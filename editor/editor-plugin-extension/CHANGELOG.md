@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-extension
 
+## 13.2.0
+
+### Minor Changes
+
+- [`136d15a32935f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/136d15a32935f) -
+  [ux] Adding initial scaffolding (non-functional) for agent-managed blocks as an editor
+  extension/plugin and use in Confluence
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.1.12
 
 ### Patch Changes

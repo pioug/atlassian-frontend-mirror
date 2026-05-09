@@ -1,30 +1,40 @@
 import { defineMessages } from 'react-intl';
 
 export const codeBlockButtonMessages: {
-	copyCodeToClipboard: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	copiedCodeToClipboard: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	wrapCode: {
-		id: string;
+	copyCodeToClipboard: {
 		defaultMessage: string;
 		description: string;
-	};
-	unwrapCode: {
 		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	selectLanguage: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	unwrapCode: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	unwrapCodeLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	wrapCode: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	wrapCodeLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	copyCodeToClipboard: {
@@ -37,6 +47,8 @@ export const codeBlockButtonMessages: {
 		defaultMessage: 'Copied!',
 		description: 'Copied the content of the code block as text to clipboard',
 	},
+	// Remove wrapCode/unwrapCode and use wrapCodeLabel/unwrapCodeLabel
+	// when cleaning up platform_editor_code_block_q4_lovability.
 	wrapCode: {
 		id: 'fabric.editor.codeBlockWrapButton.wrapCodeBlock',
 		defaultMessage: 'Turn on wrap',
@@ -48,6 +60,18 @@ export const codeBlockButtonMessages: {
 		defaultMessage: 'Turn off wrap',
 		description:
 			'Label for a toolbar button in the code block that disables line wrapping so long lines of code extend horizontally without breaking.',
+	},
+	wrapCodeLabel: {
+		id: 'fabric.editor.codeBlockWrapButton.wrapCode',
+		defaultMessage: 'Wrap code',
+		description:
+			'Tooltip for a code block toolbar button that turns on line wrapping. This is shown when code is not wrapped.',
+	},
+	unwrapCodeLabel: {
+		id: 'fabric.editor.codeBlockWrapButton.unwrapCode',
+		defaultMessage: 'Unwrap code',
+		description:
+			'Tooltip for a code block toolbar button that turns off line wrapping. This is shown when code is wrapped.',
 	},
 	selectLanguage: {
 		id: 'fabric.editor.selectLanguage',

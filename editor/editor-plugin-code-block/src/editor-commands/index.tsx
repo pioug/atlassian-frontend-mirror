@@ -12,6 +12,7 @@ import { copyToClipboard, getAnalyticsPayload } from '@atlaskit/editor-common/cl
 import {
 	codeBlockWrappedStates,
 	isCodeBlockWordWrapEnabled,
+	getDefaultCodeBlockAttrs,
 } from '@atlaskit/editor-common/code-block';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import {
@@ -31,6 +32,7 @@ import {
 	removeSelectedNode,
 	safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ACTIONS } from '../pm-plugins/actions';
 import { copySelectionPluginKey } from '../pm-plugins/codeBlockCopySelectionPlugin';
@@ -78,8 +80,9 @@ export const changeLanguage =
 			return false;
 		}
 
+		const node = state.doc.nodeAt(pos);
 		const tr = state.tr
-			.setNodeMarkup(pos, codeBlock, { language })
+			.setNodeMarkup(pos, codeBlock, { ...node?.attrs, language })
 			.setMeta('scrollIntoView', false);
 
 		const selection = isNodeSelection(state.selection)
@@ -238,6 +241,7 @@ export function createInsertCodeBlockTransaction({ state }: { state: EditorState
 	let { tr } = state;
 	const { from } = state.selection;
 	const { codeBlock } = state.schema.nodes;
+	const codeBlockAttrs = getDefaultCodeBlockAttrs();
 	const grandParentNode = state.selection.$from.node(-1);
 	const grandParentNodeType = grandParentNode?.type;
 	const parentNodeType = state.selection.$from.parent.type;
@@ -255,9 +259,9 @@ export function createInsertCodeBlockTransaction({ state }: { state: EditorState
 		}) && contentAllowedInCodeBlock(state);
 
 	if (canInsertCodeBlock) {
-		tr = transformToCodeBlockAction(state, from, undefined);
+		tr = transformToCodeBlockAction(state, from, codeBlockAttrs);
 	} else {
-		safeInsert(codeBlock.createAndFill() as PMNode)(tr).scrollIntoView();
+		safeInsert(codeBlock.createAndFill(codeBlockAttrs) as PMNode)(tr).scrollIntoView();
 	}
 
 	return tr;
@@ -288,7 +292,8 @@ export function insertCodeBlockWithAnalytics(
 export const toggleWordWrapStateForCodeBlockNode =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
 	(state, dispatch) => {
-		const codeBlockNode = findCodeBlock(state)?.node;
+		const codeBlock = findCodeBlock(state);
+		const codeBlockNode = codeBlock?.node;
 		const { tr } = state;
 
 		if (!codeBlockWrappedStates || !codeBlockNode) {
@@ -297,7 +302,14 @@ export const toggleWordWrapStateForCodeBlockNode =
 
 		const updatedToggleState = !isCodeBlockWordWrapEnabled(codeBlockNode);
 
-		codeBlockWrappedStates.set(codeBlockNode, updatedToggleState);
+		if (expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
+			tr.setNodeMarkup(codeBlock.pos, undefined, {
+				...codeBlockNode.attrs,
+				wrap: updatedToggleState,
+			});
+		} else {
+			codeBlockWrappedStates.set(codeBlockNode, updatedToggleState);
+		}
 
 		tr.setMeta(pluginKey, {
 			type: ACTIONS.SET_IS_WRAPPED,

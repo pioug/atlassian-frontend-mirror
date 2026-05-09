@@ -110,7 +110,9 @@ import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { EmojiProvider } from '@atlaskit/emoji';
 import type { MentionProvider } from '@atlaskit/mention/types';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
+import type { AgentManagedExtensionPlugin } from '@atlassian/editor-plugin-agent-managed-extension';
 
+import type { agentManagedExtensionPluginOptions } from './pluginOptions/agentManagedExtensionPluginOptions';
 import type { analyticsPluginOptions } from './pluginOptions/analyticsPluginOptions';
 import type { annotationPluginOptions } from './pluginOptions/annotationPluginOptions';
 import type { avatarGroupPluginOptions } from './pluginOptions/avatarGroupPluginOptions';
@@ -263,6 +265,7 @@ export type ConfluenceFullPageBasePluginsReversed = [
 	LayoutPlugin,
 	PlaceholderTextPlugin,
 	DatePlugin,
+	AgentManagedExtensionPlugin | undefined,
 	ExtensionPlugin,
 	ContextPanelPlugin,
 	PanelPlugin,
@@ -340,6 +343,7 @@ export type ConfluenceFullPageBasePresetBuilder = EditorPresetBuilder<
  */
 export interface AllPublicPluginOptions {
 	accessibilityUtils: never;
+	agentManagedExtension: OptionsFromPluginOptionsBuilder<typeof agentManagedExtensionPluginOptions>;
 	alignment: never;
 	analytics: OptionsFromPluginOptionsBuilder<typeof analyticsPluginOptions>;
 	annotation: OptionsFromPluginOptionsBuilder<typeof annotationPluginOptions>;

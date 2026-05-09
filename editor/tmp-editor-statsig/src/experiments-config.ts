@@ -83,6 +83,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-28
+	'agent-managed_blocks_mvp': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-09-01
 	cc_editor_ai_content_mode: {
 		defaultValue: 'control' | 'test';
@@ -2023,6 +2030,14 @@ export const editorExperimentsConfig: {
 	cwr_blank_object_experiment: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cwr_blank_object_experiment',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-28
+	'agent-managed_blocks_mvp': createBooleanExperiment({
+		productKeys: {
+			confluence: 'agent-managed_blocks_mvp',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

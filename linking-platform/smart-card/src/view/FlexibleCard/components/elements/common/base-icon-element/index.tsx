@@ -27,9 +27,9 @@ import {
 	type PreviewActionData,
 } from '../../../../../../state/flexible-ui-context/types';
 import { isProfileType } from '../../../../../../utils';
+import ImageIcon from '../../../../../common/image-icon';
+import { type ImageIconProps } from '../../../../../common/image-icon/types';
 import AtlaskitIcon from '../../../common/atlaskit-icon';
-import ImageIcon from '../../../common/image-icon';
-import { type ImageIconProps } from '../../../common/image-icon/types';
 import { getIconWidth } from '../../../utils';
 import type { ElementProps } from '../../index';
 

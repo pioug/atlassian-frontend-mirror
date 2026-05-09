@@ -45,6 +45,8 @@ const styles = css({
 
 const FULL_ACTIONS_SIZE = 450;
 const REDUCED_ACTIONS_SIZE = 360;
+const ICON_ONLY_ACTIONS_SIZE = 200;
+const OVERFLOW_ONLY_ACTIONS_SIZE = 100;
 
 const renderActionItems = (
 	items: ActionItem[] = [],
@@ -119,15 +121,30 @@ const ActionGroup = ({
 				...(containerWidth >= REDUCED_ACTIONS_SIZE
 					? renderableActionItems.slice(0, visibleButtonsNum - 1)
 					: []),
-				{
-					name: ActionName.RovoChatAction,
-					prompts: [RovoChatPromptKey.ASK_ROVO_ANYTHING],
-					iconSize: 'small',
-					cardAppearance: CardDisplay.Block,
-					hideContent: containerWidth < FULL_ACTIONS_SIZE && containerWidth >= REDUCED_ACTIONS_SIZE,
-				} as ActionItem,
-				{ name: ActionName.CopyLinkAction, hideContent: true, iconSize: 'small' } as ActionItem,
-				{ name: ActionName.PreviewAction, hideContent: true, iconSize: 'small' } as ActionItem,
+				...(containerWidth >= OVERFLOW_ONLY_ACTIONS_SIZE
+					? [
+						{
+							name: ActionName.RovoChatAction,
+							prompts: [RovoChatPromptKey.ASK_ROVO_ANYTHING],
+							iconSize: 'small',
+							cardAppearance: CardDisplay.Block,
+							hideContent:
+								(containerWidth < FULL_ACTIONS_SIZE && containerWidth >= REDUCED_ACTIONS_SIZE) ||
+								(containerWidth < ICON_ONLY_ACTIONS_SIZE &&
+									containerWidth >= OVERFLOW_ONLY_ACTIONS_SIZE),
+						} as ActionItem,
+						{
+							name: ActionName.CopyLinkAction,
+							hideContent: true,
+							iconSize: 'small',
+						} as ActionItem,
+						{
+							name: ActionName.PreviewAction,
+							hideContent: true,
+							iconSize: 'small',
+						} as ActionItem,
+					]
+				: []),
 			];
 			return renderActionItems(rovoActions, size, appearance, false, onActionItemClick);
 		}
@@ -151,7 +168,19 @@ const ActionGroup = ({
 
 	const moreActionDropdown = useMemo(() => {
 		let actionItems: ActionItem[];
-		if (!!rovoChatAction && is3PBlockExperimentEnabled && containerWidth < REDUCED_ACTIONS_SIZE) {
+		if (!!rovoChatAction && is3PBlockExperimentEnabled && containerWidth < OVERFLOW_ONLY_ACTIONS_SIZE) {
+			actionItems = [
+				...renderableActionItems,
+				{
+					name: ActionName.RovoChatAction,
+					prompts: [RovoChatPromptKey.ASK_ROVO_ANYTHING],
+					iconSize: 'small',
+					cardAppearance: CardDisplay.Block,
+				} as ActionItem,
+				{ name: ActionName.CopyLinkAction, iconSize: 'small' },
+				{ name: ActionName.PreviewAction, iconSize: 'small' },
+			];
+		} else if (!!rovoChatAction && is3PBlockExperimentEnabled && containerWidth < REDUCED_ACTIONS_SIZE) {
 			actionItems = renderableActionItems;
 		} else {
 			actionItems = isMoreThenTwoItems ? renderableActionItems.slice(visibleButtonsNum - 1) : [];

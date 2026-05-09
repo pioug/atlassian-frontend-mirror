@@ -1,3 +1,4 @@
+import { getDefaultCodeBlockAttrs } from '@atlaskit/editor-common/code-block';
 import { breakoutResizableNodes } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
@@ -32,7 +33,13 @@ export const wrapStep: TransformStep = (nodes, context) => {
 	const targetNodeType = schema.nodes[targetNodeTypeName];
 
 	const isExpandType = targetNodeTypeName === 'expand' || targetNodeTypeName === 'nestedExpand';
-	const nodeAttrs = isExpandType ? { localId: crypto.randomUUID() } : {};
+	const isCodeBlock = targetNodeTypeName === 'codeBlock';
+
+	const nodeAttrs = isExpandType
+		? { localId: crypto.randomUUID() }
+		: isCodeBlock
+			? getDefaultCodeBlockAttrs()
+			: {};
 
 	const sourceSupportsBreakout = breakoutResizableNodes.includes(fromNode.type.name);
 	const targetSupportsBreakout = breakoutResizableNodes.includes(targetNodeType.name);

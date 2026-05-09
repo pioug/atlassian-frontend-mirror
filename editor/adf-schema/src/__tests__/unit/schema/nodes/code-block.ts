@@ -312,9 +312,9 @@ describe(`${packageName}/schema: codeBlock_with_extended_attributes node (stage-
 	});
 
 	describe('stage-0: convert to HTML', () => {
-		it('does not add data-wrap when wrap is false (default)', () => {
+		it('adds data-wrap="false" when wrap is false', () => {
 			const node = stage0Schema.nodes.codeBlock.create({ wrap: false });
-			expect(toHTML(node, stage0Schema)).not.toContain('data-wrap');
+			expect(toHTML(node, stage0Schema)).toContain('data-wrap="false"');
 		});
 
 		it('adds data-wrap="true" when wrap is true', () => {
@@ -353,9 +353,46 @@ describe(`${packageName}/schema: codeBlock_with_extended_attributes node (stage-
 			expect(doc.firstChild!.attrs.wrap).toBe(true);
 		});
 
-		it('parses wrap=false when data-wrap is absent (default behaviour preserved)', () => {
+		it('parses wrap=true when data-wrap is absent (defaults to wrapped for external HTML paste)', () => {
 			const doc = fromHTML('<pre><code>hello</code></pre>', stage0Schema);
+			expect(doc.firstChild!.attrs.wrap).toBe(true);
+		});
+
+		it('parses wrap=false when data-wrap is absent from Fabric editor paste', () => {
+			const doc = fromHTML(
+				'<pre data-pm-slice="0 0 []"><code>hello</code></pre>',
+				stage0Schema,
+			);
 			expect(doc.firstChild!.attrs.wrap).toBe(false);
+		});
+
+		it('parses wrap=false when data-wrap="false" is explicit (preserves intentional unwrap)', () => {
+			const doc = fromHTML(
+				'<pre data-wrap="false"><code>hello</code></pre>',
+				stage0Schema,
+			);
+			expect(doc.firstChild!.attrs.wrap).toBe(false);
+		});
+
+		it('parses wrap=true from VS Code/Android Studio style div code blocks', () => {
+			const doc = fromHTML(
+				'<div style="font-family: Menlo, Monaco, monospace;">hello</div>',
+				stage0Schema,
+			);
+			expect(doc.firstChild!.attrs.wrap).toBe(true);
+		});
+
+		it('parses wrap=true from GitHub/Gist code tables', () => {
+			const doc = fromHTML(
+				'<table style="border-collapse: collapse;"><tbody><tr><td class="blob-code">hello</td></tr></tbody></table>',
+				stage0Schema,
+			);
+			expect(doc.firstChild!.attrs.wrap).toBe(true);
+		});
+
+		it('parses wrap=true from react-syntax-highlighter code blocks', () => {
+			const doc = fromHTML('<div class="code-block">hello</div>', stage0Schema);
+			expect(doc.firstChild!.attrs.wrap).toBe(true);
 		});
 
 		it('parses hideLineNumbers=true from data-hide-line-numbers="true"', () => {

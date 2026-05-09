@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-undo-redo
 
+## 10.0.16
+
+### Patch Changes
+
+- [`967cff1c14097`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/967cff1c14097) -
+  Add isolatedDeclarations: true to tsconfig.app.json and tsconfig.dev.json
+- Updated dependencies
+
 ## 10.0.15
 
 ### Patch Changes

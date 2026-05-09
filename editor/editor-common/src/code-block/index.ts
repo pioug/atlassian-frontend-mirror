@@ -1,11 +1,52 @@
-import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { CodeBlockAttrs } from '@atlaskit/adf-schema';
+import type { Node as PmNode, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
+import { mapSlice } from '../utils/slice';
+
 export const defaultWordWrapState = false;
 
+// Remove the wrap WeakMap fallback when cleaning up platform_editor_code_block_q4_lovability
 export const codeBlockWrappedStates: WeakMap<PmNode, boolean | undefined> = new WeakMap();
+
+type OptionalCodeBlockAttrs = CodeBlockAttrs | undefined;
+
+export const getDefaultCodeBlockAttrs = (
+	attrs?: CodeBlockAttrs,
+): OptionalCodeBlockAttrs => {
+	if (!expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
+		return attrs;
+	}
+
+	// attrs.wrap is already set (either true or false) — respect the caller's intent.
+	if (attrs?.wrap !== undefined) {
+		return attrs;
+	}
+
+	return {
+		...attrs,
+		wrap: true,
+	};
+};
+
+export const defaultWrapForMarkdownCodeBlocksInSlice = (slice: Slice, schema: Schema): Slice => {
+	if (!expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
+		return slice;
+	}
+
+	return mapSlice(slice, (node) => {
+		if (node.type !== schema.nodes.codeBlock || node.attrs.wrap === true) {
+			return node;
+		}
+
+		// Markdown conversion uses MarkdownParser token mappings and creates code block nodes
+		// with the schema-default wrap:false. Since Markdown has no wrap syntax, treat that
+		// default as missing user intent and change it to wrap:true.
+		return node.type.create({ ...node.attrs, wrap: true }, node.content, node.marks);
+	});
+};
 
 // Code folding state management - similar to word wrapping
 export interface FoldRange {
@@ -16,6 +57,10 @@ export interface FoldRange {
 const codeBlockFoldStates: WeakMap<PmNode, FoldRange[] | undefined> = new WeakMap();
 
 export const isCodeBlockWordWrapEnabled = (codeBlockNode: PmNode): boolean => {
+	if (expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
+		return Boolean(codeBlockNode.attrs.wrap);
+	}
+
 	const currentNodeWordWrapState = codeBlockWrappedStates.get(codeBlockNode);
 
 	return currentNodeWordWrapState !== undefined ? currentNodeWordWrapState : defaultWordWrapState;

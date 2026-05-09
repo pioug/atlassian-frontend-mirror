@@ -1,5 +1,41 @@
 # @atlaskit/editor-common
 
+## 114.25.2
+
+### Patch Changes
+
+- [`967cff1c14097`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/967cff1c14097) -
+  Add isolatedDeclarations: true to tsconfig.app.json and tsconfig.dev.json
+- Updated dependencies
+
+## 114.25.1
+
+### Patch Changes
+
+- [`ded95ac7efcc4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ded95ac7efcc4) -
+  Persist code block wrap state in ADF, default code blocks created across editor runtime paths to
+  wrapped, and update the wrap toolbar tooltip behind platform_editor_code_block_q4_lovability.
+- Updated dependencies
+
+## 114.25.0
+
+### Minor Changes
+
+- [`136d15a32935f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/136d15a32935f) -
+  [ux] Adding initial scaffolding (non-functional) for agent-managed blocks as an editor
+  extension/plugin and use in Confluence
+
+## 114.24.0
+
+### Minor Changes
+
+- [`a9b1b25b3ec98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9b1b25b3ec98) -
+  [ux] CTD-6569 add vertical resize for database native embed in pages
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.23.0
 
 ### Minor Changes

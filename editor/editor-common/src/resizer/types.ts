@@ -1,4 +1,6 @@
-export type EnabledHandles = { left?: boolean; right?: boolean };
+import type { ResizeDirection } from 're-resizable';
+
+export type EnabledHandles = { bottom?: boolean; left?: boolean; right?: boolean; };
 
 export type Dimensions = {
 	height: number;
@@ -14,11 +16,16 @@ export type Snap = {
 	y?: Array<number>;
 };
 
-export type HandleResize = (newWidth: Position & Dimensions, delta: Dimensions) => void;
+export type HandleResize = (
+	newWidth: Position & Dimensions,
+	delta: Dimensions,
+	direction?: ResizeDirection,
+) => void;
 
 export type HandleResizeStart = () => void;
 
 export type HandleStyles = {
+	bottom?: React.CSSProperties;
 	left?: React.CSSProperties;
 	right?: React.CSSProperties;
 };

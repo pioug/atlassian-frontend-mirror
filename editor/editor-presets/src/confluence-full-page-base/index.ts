@@ -96,7 +96,9 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { agentManagedExtensionPlugin } from '@atlassian/editor-plugin-agent-managed-extension';
 
+import { agentManagedExtensionPluginOptions } from './pluginOptions/agentManagedExtensionPluginOptions';
 import { analyticsPluginOptions } from './pluginOptions/analyticsPluginOptions';
 import { annotationPluginOptions } from './pluginOptions/annotationPluginOptions';
 import { avatarGroupPluginOptions } from './pluginOptions/avatarGroupPluginOptions';
@@ -293,6 +295,13 @@ export function confluenceFullPageBasePreset(
 		.add([panelPlugin, panelPluginOptions({ options: pluginOptions.panel })])
 		.add([contextPanelPlugin, contextPanelPluginOptions({ options: pluginOptions.contextPanel })])
 		.add([extensionPlugin, extensionPluginOptions({ options: pluginOptions.extension })])
+		.maybeAdd(
+			[
+				agentManagedExtensionPlugin,
+				agentManagedExtensionPluginOptions({ options: pluginOptions.agentManagedExtension }),
+			],
+			expValEqualsNoExposure('agent-managed_blocks_mvp', 'isEnabled', true),
+		)
 		.add([datePlugin, datePluginOptions({ options: pluginOptions.date })])
 		.add([
 			placeholderTextPlugin,

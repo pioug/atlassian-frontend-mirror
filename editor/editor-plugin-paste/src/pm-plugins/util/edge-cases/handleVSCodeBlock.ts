@@ -1,4 +1,5 @@
 import { SUPPORTED_LANGUAGES } from '@atlaskit/code/constants';
+import { getDefaultCodeBlockAttrs } from '@atlaskit/editor-common/code-block';
 import { mapSlice } from '@atlaskit/editor-common/utils';
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -24,7 +25,10 @@ export function handleVSCodeBlock({ state, slice, text, event }: VSCodeBlockPara
 		const { schema } = state;
 		slice = mapSlice(slice, (node) => {
 			if (node.type.name === schema.nodes.codeBlock?.name) {
-				return schema.nodes.codeBlock.createChecked({ language }, schema.text(text));
+				return schema.nodes.codeBlock.createChecked(
+					getDefaultCodeBlockAttrs({ language }),
+					schema.text(text),
+				);
 			}
 			return node;
 		});

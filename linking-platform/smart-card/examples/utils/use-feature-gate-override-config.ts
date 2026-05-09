@@ -21,6 +21,9 @@ const experimentConfig: Record<string, FeatureGateConfig> = {
 	social_proof_3p_unauth_block_exp: {
 		isEnabled: true,
 	},
+	platform_sl_3p_auth_rovo_block_card_confluence: {
+		isEnabled: true,
+	},
 };
 
 const enabledGates = [

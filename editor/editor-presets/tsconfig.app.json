@@ -338,6 +338,9 @@
 		},
 		{
 			"path": "../tmp-editor-statsig/tsconfig.app.json"
+		},
+		{
+			"path": "../../confluence/editor-plugin-agent-managed-extension/tsconfig.app.json"
 		}
 	]
 }

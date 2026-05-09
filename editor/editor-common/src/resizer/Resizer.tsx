@@ -111,6 +111,8 @@ export type ResizerProps = {
 	 * This is used to override the style of resize handles wrapper.
 	 */
 	handleWrapperStyle?: CSSProperties;
+	// initial height for vertical resizing - defaults to 'auto' if not provided
+	height?: number | string;
 	// control visibility of resize handle, by default handle is only visible on hover of element resizing
 	isHandleVisible?: boolean;
 	/**
@@ -118,12 +120,15 @@ export type ResizerProps = {
 	 * useful for displaying a label such as size or layout
 	 */
 	labelComponent?: React.ReactNode;
+	maxHeight?: number | string;
 	maxWidth?: number | string;
+	minHeight?: number | string;
 	minWidth?: number | string;
 	/**
 	 * control if extended resize zone is needed, by default we apply it to the resizer
 	 */
 	needExtendedResizeZone?: boolean;
+
 	// Ratio that will scale the delta by
 	resizeRatio?: number;
 
@@ -139,7 +144,6 @@ export type ResizerProps = {
 	 * Additional styles to be applied to the resizer component
 	 */
 	style?: CSSProperties;
-
 	// initial width for now as Resizer is using defaultSize - defaults to 'auto' if not provided
 	width?: number;
 };
@@ -148,7 +152,8 @@ type forwardRefType = {
 	getResizerThumbEl: () => HTMLButtonElement | null;
 };
 
-const SUPPORTED_HANDLES: ['left', 'right'] = ['left', 'right'];
+const SUPPORTED_HANDLES: Array<keyof EnabledHandles> = ['left', 'right'];
+const SUPPORTED_HANDLES_FOR_VERTICAL_RESIZE: Array<keyof EnabledHandles> = ['left', 'right', 'bottom'];
 
 const inheritedCSS: CSSProperties = {
 	position: 'inherit',
@@ -178,6 +183,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 
 	const {
 		width,
+		height,
 		children,
 		handleClassName,
 		className,
@@ -201,6 +207,10 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 		...otherProps
 	} = props;
 
+	const supportedHandles = expValEquals('databases-native-embeds-v2', 'isEnabled', true)
+		? SUPPORTED_HANDLES_FOR_VERTICAL_RESIZE
+		: SUPPORTED_HANDLES;
+
 	const onResizeStart = useCallback(
 		(event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
 			// prevent creating a drag event on Firefox
@@ -215,7 +225,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 	const onResize = useCallback(
 		(
 			_event: MouseEvent | TouchEvent,
-			_direction: ResizeDirection,
+			direction: ResizeDirection,
 			_elementRef: HTMLDivElement,
 			delta: Dimensions,
 		) => {
@@ -233,7 +243,11 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 				width: resizableCurrent.state.original.width,
 				height: resizableCurrent.state.original.height,
 			};
-			handleResize(originalState, delta);
+			if (expValEquals('databases-native-embeds-v2', 'isEnabled', true)) {
+				handleResize(originalState, delta, direction);
+			} else {
+				handleResize(originalState, delta);
+			}
 		},
 		[handleResize],
 	);
@@ -241,7 +255,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 	const onResizeStop = useCallback(
 		(
 			_event: MouseEvent | TouchEvent,
-			_direction: ResizeDirection,
+			direction: ResizeDirection,
 			_elementRef: HTMLElement,
 			delta: Dimensions,
 		) => {
@@ -258,39 +272,63 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 			};
 
 			setIsResizing(false);
-			handleResizeStop(originalState, delta);
+			if (expValEquals('databases-native-embeds-v2', 'isEnabled', true)) {
+				handleResizeStop(originalState, delta, direction);
+			} else {
+				handleResizeStop(originalState, delta);
+			}
 		},
 		[handleResizeStop],
 	);
 
-	const handles = {
-		left: classnames(
-			handleClassName ?? resizerHandleClassName,
-			'left',
-			handleSize,
-			handleAlignmentMethod,
-		),
-		right: classnames(
-			handleClassName ?? resizerHandleClassName,
-			'right',
-			handleSize,
-			handleAlignmentMethod,
-		),
-	};
+	const handles = useMemo(
+		() =>
+			supportedHandles.reduce<Record<keyof EnabledHandles, string>>(
+				(result, position) => ({
+					...result,
+					[position]: classnames(
+						handleClassName ?? resizerHandleClassName,
+						position,
+						handleSize,
+						position === 'bottom' &&
+							expValEquals('databases-native-embeds-v2', 'isEnabled', true)
+							? undefined
+							: handleAlignmentMethod,
+					),
+				}),
+				{} as Record<keyof EnabledHandles, string>,
+			),
+		[handleClassName, handleSize, handleAlignmentMethod, supportedHandles],
+	);
 
 	const handleWidth = handlePositioning === 'adjacent' ? token('space.100') : token('space.300');
-	const baseHandleStyles: CSSProperties = {
+	const baseHorizontalHandleStyles: CSSProperties = {
 		width: handleWidth,
 		zIndex: resizerHandleZIndex,
 		pointerEvents: 'auto',
 		alignItems: handlePositioning === 'adjacent' ? 'center' : undefined,
 	};
-	const memoizedBaseHandleStyles = useMemo(
+	const baseBottomHandleStyles: CSSProperties = {
+		height: handleWidth,
+		zIndex: resizerHandleZIndex,
+		pointerEvents: 'auto',
+		justifyContent: handlePositioning === 'adjacent' ? 'center' : undefined,
+	};
+	const memoizedBaseHorizontalHandleStyles = useMemo(
 		() => ({
 			width: handleWidth,
 			zIndex: resizerHandleZIndex,
 			pointerEvents: 'auto',
 			alignItems: handlePositioning === 'adjacent' ? 'center' : undefined,
+		}),
+		[handleWidth, handlePositioning],
+	);
+	const memoizedBaseBottomHandleStyles = useMemo(
+		() => ({
+			height: handleWidth,
+			zIndex: resizerHandleZIndex,
+			pointerEvents: 'auto',
+			justifyContent: handlePositioning === 'adjacent' ? 'center' : undefined,
 		}),
 		[handleWidth, handlePositioning],
 	);
@@ -300,27 +338,35 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 
 	const memoizedNextHandleStyles = useMemo(
 		() =>
-			SUPPORTED_HANDLES.reduce<HandleStyles>(
+			supportedHandles.reduce<HandleStyles>(
 				(result, position) => ({
 					...result,
 					[position]: {
-						...memoizedBaseHandleStyles,
+						...(position === 'bottom'
+							? memoizedBaseBottomHandleStyles
+							: memoizedBaseHorizontalHandleStyles),
 						[position]: offset,
 						...handleStyles?.[position],
 					},
 				}),
 				{},
 			),
-		[memoizedBaseHandleStyles, offset, handleStyles],
+		[
+			memoizedBaseBottomHandleStyles,
+			memoizedBaseHorizontalHandleStyles,
+			offset,
+			handleStyles,
+			supportedHandles,
+		],
 	);
 	const nextHandleStyles = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
 		? memoizedNextHandleStyles
 		: // eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- intentional fallback for experiment off path
-			SUPPORTED_HANDLES.reduce<HandleStyles>(
+			supportedHandles.reduce<HandleStyles>(
 				(result, position) => ({
 					...result,
 					[position]: {
-						...baseHandleStyles,
+						...(position === 'bottom' ? baseBottomHandleStyles : baseHorizontalHandleStyles),
 						[position]: offset,
 						...handleStyles?.[position],
 					},
@@ -340,7 +386,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 
 	const { formatMessage } = useIntl();
 	const handleComponent = useMemo(() => {
-		return SUPPORTED_HANDLES.reduce<HandleComponent>((result, position) => {
+		return supportedHandles.reduce<HandleComponent>((result, position) => {
 			const thumb = (
 				<button
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -403,7 +449,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 				),
 			};
 		}, {});
-	}, [handleHighlight, handleTooltipContent, formatMessage]);
+	}, [handleHighlight, handleTooltipContent, formatMessage, supportedHandles]);
 
 	// snapGap is usually a constant, if snap.x?.length is 0 and snapGap has a value resizer cannot be resized
 	const snapGapActual = useMemo(() => {
@@ -413,11 +459,17 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 		return snapGap;
 	}, [snap, snapGap]);
 
-	const resizerAutoSize = useMemo(() => ({ width: width ?? 'auto', height: 'auto' }), [width]);
+	const resolvedHeight = expValEquals('databases-native-embeds-v2', 'isEnabled', true)
+		? (height ?? 'auto')
+		: 'auto';
+	const resizerAutoSize = useMemo(
+		() => ({ width: width ?? 'auto', height: resolvedHeight }),
+		[resolvedHeight, width],
+	);
 	const resizerSize = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
 		? resizerAutoSize
 		: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
-			{ width: width ?? 'auto', height: 'auto' };
+			{ width: width ?? 'auto', height: resolvedHeight };
 
 	return (
 		<Resizable

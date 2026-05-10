@@ -377,7 +377,7 @@ export default function ConfluenceMockExample(): JSX.Element {
 					</Inline>
 					<Stack xcss={panelStyles.body} space="space.250">
 						<Inline space="space.150">
-							<IconTile icon={PremiumIcon} label="" appearance="orange" size="32" />
+							<IconTile icon={PremiumIcon} label="" appearance="orange" size="medium" />
 							<Heading size="medium" as="div">
 								Automated Meeting Notes MVP with Loom {'<>'} Confluence
 							</Heading>

@@ -129,7 +129,7 @@ const IconAllExample = (): JSX.Element => {
 					}
 				/>
 				<Inline alignBlock="center" space="space.100">
-					<IconTile size="24" appearance="green" label="" icon={FlaskIcon} />
+					<IconTile size="small" appearance="green" label="" icon={FlaskIcon} />
 					<Heading size="small">
 						Icon Lab (exported from <Code>@atlaskit/icon-lab/core/*</Code>)
 					</Heading>

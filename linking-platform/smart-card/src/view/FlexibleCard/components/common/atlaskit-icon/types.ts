@@ -5,4 +5,5 @@ export type AtlaskitIconProps = {
 	label?: string;
 	size?: SmartLinkSize;
 	testId?: string;
+	isTiledIcon?: boolean;
 };

@@ -62,6 +62,6 @@ const AiSearchIcon: AiSearchIconFunction = (props) => (
 	</svg>
 );
 
-AiSearchIcon.displayName = 'AiChapterIcon';
+AiSearchIcon.displayName = 'AiSearchIcon';
 
 export default AiSearchIcon;

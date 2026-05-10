@@ -3,6 +3,7 @@ import React, { type ComponentProps } from 'react';
 import { IconTile } from '@atlaskit/icon';
 import KeyResultIcon from '@atlaskit/icon/core/key-result';
 import ObjectiveIcon from '@atlaskit/icon/core/objective';
+import { token } from '@atlaskit/tokens';
 
 const goalAppearances = ['DEFAULT', 'ON_TRACK', 'AT_RISK', 'OFF_TRACK', 'MENU'] as const;
 
@@ -32,6 +33,14 @@ const appearanceToColorMap = {
 	ON_TRACK: 'green',
 } as const;
 
+const appearanceToNewColorMap = {
+	MENU: token('color.icon'),
+	DEFAULT: token('color.icon.accent.gray'),
+	OFF_TRACK: token('color.icon.danger'),
+	AT_RISK: token('color.icon.warning'),
+	ON_TRACK: token('color.icon.success'),
+} as const;
+
 const keyToIconMap = {
 	GOAL: ObjectiveIcon,
 	OBJECTIVE: ObjectiveIcon,
@@ -41,6 +50,11 @@ const keyToIconMap = {
 export const GoalIcon = ({ status, size, iconKey = 'GOAL' }: GoalIconProps): React.JSX.Element => {
 	const Icon = keyToIconMap[iconKey as keyof typeof keyToIconMap] ?? keyToIconMap.GOAL;
 	const appearance = isGoalAppearance(status) ? status : 'DEFAULT';
+
+	// Icon tile no longer supports a 16px size
+	if (size === 'xsmall') {
+		return <Icon label="" size="medium" color={appearanceToNewColorMap[appearance]} />;
+	}
 
 	return (
 		<IconTile

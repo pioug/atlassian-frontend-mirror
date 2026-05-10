@@ -22,6 +22,7 @@ const styles = cssMap({
 		flexGrow: 0,
 		minWidth: 0,
 		minHeight: 0,
+		verticalAlign: 'middle',
 	},
 	border: {
 		borderWidth: token('border.width'),

@@ -184,6 +184,7 @@ const renderAtlaskitIcon = (
 	testId?: string,
 	size: SmartLinkSize = SmartLinkSize.Medium,
 	label?: string,
+	isTiledIcon?: boolean,
 ): React.ReactNode | undefined => {
 	if (icon) {
 		return (
@@ -197,6 +198,7 @@ const renderAtlaskitIcon = (
 							label: '',
 						})}
 				size={size}
+				isTiledIcon={isTiledIcon}
 			/>
 		);
 	}
@@ -328,6 +330,7 @@ const IconElement = ({
 				testId,
 				size,
 				fg('platform_navx_smart_link_icon_label_a11y') ? label : undefined,
+				isTiledIcon,
 			) ||
 			defaultIcon
 		);

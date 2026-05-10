@@ -41,7 +41,7 @@ export const GoalNode = (props: NodeViewProps<Props>): React.JSX.Element => {
 			iconBefore={
 				<Box xcss={styles.iconWrapper}>
 					<GoalIcon
-						size="16"
+						size="xsmall"
 						status={goal?.status ?? 'DEFAULT'}
 						iconKey={toGoalIconKey(goal?.iconKey)}
 					/>

@@ -78,13 +78,13 @@ const AtlaskitIcon = ({
 	const ImportedIcon = importIcon(importFn);
 
 	if (isCoreIcon(icon) && fg('platform_sl_icons_refactor')) {
+		let color;
+		if (icon === IconType.Error || icon === IconType.Forbidden) {
+			color = token('color.icon.danger');
+		}
 		switch (size) {
 			case SmartLinkSize.Small:
 			case SmartLinkSize.Medium:
-				let color;
-				if (icon === IconType.Error || icon === IconType.Forbidden) {
-					color = token('color.icon.danger');
-				}
 				return <ImportedIcon label={label} testId={testId} color={color} />;
 			case SmartLinkSize.Large:
 			case SmartLinkSize.XLarge:
@@ -94,14 +94,19 @@ const AtlaskitIcon = ({
 				} else {
 					appearance = 'grayBold';
 				}
-				return (
-					<IconTile
-						appearance={appearance}
-						icon={ImportedIcon}
-						size={transformSmartLinkSizeToIconTileSize(size)}
-						label={label ?? ''}
-					/>
-				);
+				const iconTileSize = transformSmartLinkSizeToIconTileSize(size);
+				if (iconTileSize) {
+					return (
+						<IconTile
+							appearance={appearance}
+							icon={ImportedIcon}
+							size={iconTileSize}
+							label={label ?? ''}
+						/>
+					);
+				} else {
+					return <ImportedIcon label={label} testId={testId} color={color} />;
+				}
 		}
 	}
 

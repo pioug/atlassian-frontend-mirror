@@ -1,8 +1,5 @@
-import type { AST, Rule } from 'eslint';
 import type * as ESTree from 'eslint-codemod-utils';
 import { type Node as SelectorNode } from 'postcss-selector-parser';
-
-import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 type Range = [number, number];
 
@@ -42,15 +39,4 @@ export function getRangeFromNode({
 	const end = start + node.value.length;
 
 	return [start, end];
-}
-
-export function getSourceLocationFromRange(
-	context: Rule.RuleContext,
-	[start, end]: Range,
-): AST.SourceLocation {
-	const sourceCode = getSourceCode(context);
-	return {
-		start: sourceCode.getLocFromIndex(start),
-		end: sourceCode.getLocFromIndex(end),
-	};
 }

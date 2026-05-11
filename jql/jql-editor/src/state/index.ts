@@ -21,6 +21,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import {
 	computeJqlInsights,
 	isListOperator,
@@ -28,7 +29,6 @@ import {
 	normaliseJqlString,
 } from '@atlaskit/jql-ast';
 import { JQLAutocomplete, type JQLRuleSuggestion } from '@atlaskit/jql-autocomplete';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	ActionSubject,
@@ -1141,7 +1141,7 @@ export const useHydratedValue: HookFunction<
 	Store,
 	{
 		selector: (state, { id, fieldName }) => {
-			if (fg('projects_in_jira_eap_drop2')) {
+			if (FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1) {
 				return state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(normaliseJqlString(id));
 			}
 			return state.hydratedValues[fieldName]?.get(id);
@@ -1158,7 +1158,7 @@ export const useHydratedUser: HookFunction<
 	}
 > = createHook<State, Actions, HydratedUser | undefined, { fieldName: string; id: string }>(Store, {
 	selector: (state, { id, fieldName }) => {
-		const user = fg('projects_in_jira_eap_drop2')
+		const user = FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1
 			? state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(normaliseJqlString(id))
 			: state.hydratedValues[fieldName]?.get(id);
 		return user && user.type === 'user' ? user : undefined;
@@ -1174,7 +1174,7 @@ export const useHydratedTeam: HookFunction<
 	}
 > = createHook<State, Actions, HydratedTeam | undefined, { fieldName: string; id: string }>(Store, {
 	selector: (state, { id, fieldName }) => {
-		const team = fg('projects_in_jira_eap_drop2')
+		const team = FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1
 			? state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(normaliseJqlString(id))
 			: state.hydratedValues[fieldName]?.get(id);
 		return team && team.type === 'team' ? team : undefined;
@@ -1192,7 +1192,7 @@ export const useHydratedProject: HookFunction<
 	Store,
 	{
 		selector: (state, { id, fieldName }) => {
-			const project = fg('projects_in_jira_eap_drop2')
+			const project = FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1
 				? state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(normaliseJqlString(id))
 				: state.hydratedValues[normaliseJqlString(fieldName)]?.get(normaliseJqlString(id));
 			return project && project.type === 'project' ? project : undefined;

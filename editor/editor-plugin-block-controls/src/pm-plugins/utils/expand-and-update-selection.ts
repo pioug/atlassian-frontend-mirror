@@ -1,4 +1,6 @@
+import { selectNodeAtPos } from '@atlaskit/editor-common/node-selection';
 import { expandToBlockRange, isMultiBlockRange } from '@atlaskit/editor-common/selection';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { NodeRange, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import {
@@ -7,6 +9,8 @@ import {
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 
@@ -96,6 +100,15 @@ export const expandAndUpdateSelection = ({
 				Math.max(selection.to, expandedRange.$to.pos),
 			),
 		);
+	} else if (
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		fg('platform_editor_maui_jira_updates') &&
+		(areToolbarFlagsEnabled(Boolean(api?.toolbar)) ||
+			editorExperiment('platform_editor_block_menu', true))
+	) {
+		// Under the gate (and when on the simplified newGetSelection path), use
+		// the platform-level composer — same path as open-remix-modal, no drift.
+		selectNodeAtPos(tr, startPos, nodeType);
 	} else if (nodeType === 'table') {
 		selectTableClosestToPos(tr, tr.doc.resolve(startPos + 1));
 	} else {

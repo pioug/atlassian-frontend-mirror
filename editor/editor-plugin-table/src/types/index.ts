@@ -68,7 +68,6 @@ export type TableSharedStateInternal = Pick<
 	| 'pluginConfig'
 	| 'insertColumnButtonIndex'
 	| 'insertRowButtonIndex'
-	| 'isDragAndDropEnabled'
 	| 'tableWrapperTarget'
 	| 'isCellMenuOpenByKeyboard'
 > & {
@@ -179,7 +178,6 @@ export interface TablePluginState {
 	isChromelessEditor?: boolean;
 	isCommentEditor?: boolean;
 	isContextualMenuOpen?: boolean;
-	isDragAndDropEnabled?: boolean;
 	isFullWidthModeEnabled?: boolean;
 	isHeaderColumnEnabled: boolean;
 	isHeaderRowEnabled: boolean;
@@ -664,7 +662,6 @@ export interface ToolbarMenuConfig {
 
 export interface ToolbarMenuState {
 	canCollapseTable?: boolean;
-	isDragAndDropEnabled?: boolean;
 	isHeaderColumnEnabled?: boolean;
 	isHeaderRowEnabled?: boolean;
 	isNumberColumnEnabled?: boolean;

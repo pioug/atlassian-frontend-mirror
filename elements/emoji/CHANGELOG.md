@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 70.4.1
+
+### Patch Changes
+
+- [`c4804f9e7bdaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4804f9e7bdaf) -
+  Update add emoji icon to use add emoji icon
+- Updated dependencies
+
 ## 70.4.0
 
 ### Minor Changes

@@ -2,10 +2,13 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
+import type { RowCellType } from '../../../types';
 import { RankableTableCell } from '../../rankable/rankable-table-cell';
 
-import { cellWithKey as cell } from './_data';
+import { rowsWithKeys } from './_data';
 import { headMock1 } from './_head-mock';
+
+const cell: RowCellType = rowsWithKeys[0].cells[0];
 
 const testId = 'dynamic--table--test--id';
 const createProps = () => ({

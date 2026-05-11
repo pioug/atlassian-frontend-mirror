@@ -14,7 +14,6 @@ import {
 	type AutocompleteOptions,
 	type AutocompleteValueType,
 } from '@atlaskit/jql-editor-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type JqlEditorAutocompleteAnalyticsEvent } from '../../analytics';
 import { type GetAutocompleteSuggestions, type JQLFieldResponse } from '../../common/types';
@@ -40,7 +39,7 @@ const getValueType = (field: JQLFieldResponse): AutocompleteValueType | void => 
 	if (field.types.includes(TEAM_FIELD_TYPE)) {
 		return 'team';
 	}
-	if (field.types.includes(PROJECT_FIELD_TYPE) && fg('projects_in_jira_eap_drop2')) {
+	if (field.types.includes(PROJECT_FIELD_TYPE) && FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1) {
 		return 'project';
 	}
 	if (
@@ -139,7 +138,7 @@ const useOnValues = (
 												'isEnabled',
 												false,
 											)) ||
-										(valueType === 'project' && fg('projects_in_jira_eap_drop2'))
+										(valueType === 'project' && FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1)
 									) {
 										values.forEach((value: AutocompleteOption) => {
 											value.valueType = valueType;

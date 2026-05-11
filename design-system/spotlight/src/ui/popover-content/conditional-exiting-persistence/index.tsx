@@ -22,5 +22,3 @@ export const ConditionalExitingPersistence = ({
 
 	return children;
 };
-
-export default ConditionalExitingPersistence;

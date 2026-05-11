@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "114.25.2",
+	"version": "114.26.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,6 +36,7 @@
 		"singleton": true
 	},
 	"exports": {
+		"./table-cell-background-for-compiled": "./src/styles/shared/table-cell-background-for-compiled.ts",
 		"./compiled-migration": "./src/compiled-migration/withCompiledMigration.tsx",
 		"./prosemirror-dom-metadata": "./src/prosemirror-dom-metadata/index.ts",
 		"./whitespace": "./src/whitespace/index.ts",
@@ -79,6 +80,7 @@
 		"./ui-color": "./src/ui-color/index.ts",
 		"./transforms": "./src/transforms/index.ts",
 		"./core-utils": "./src/core-utils/index.ts",
+		"./node-selection": "./src/node-selection/index.ts",
 		"./selection": "./src/selection/index.ts",
 		"./preset": "./src/preset/index.ts",
 		"./hooks": "./src/hooks/index.ts",

@@ -1,5 +1,13 @@
 # @atlaskit/app-provider
 
+## 4.3.2
+
+### Patch Changes
+
+- [`5df00e0f09845`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5df00e0f09845) -
+  Export new `useIsInsideThemeProvider` hook, which returns a boolean indicating whether the
+  component is rendered inside a `ThemeProvider`.
+
 ## 4.3.1
 
 ### Patch Changes

@@ -9,7 +9,8 @@ import Spinner from '@atlaskit/spinner';
 import DynamicTable, { DynamicTableStateless } from '../../../index';
 import { type RowCellType, type RowType } from '../../../types';
 
-import { rows, rowsWithKeys } from './_data';
+import { rowsWithKeys } from './_data';
+import rows from './_data-json.json';
 import rowsNumeric from './_data-numeric-json.json';
 import { headMock1 } from './_head-mock';
 

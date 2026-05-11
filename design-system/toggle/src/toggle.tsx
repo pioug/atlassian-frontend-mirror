@@ -277,6 +277,27 @@ const atomicDisabledStyles = css({
 	},
 });
 
+/**
+ * Removes the unnecessary zIndex from the disabled toggle handle (legacy path)
+ * that caused it to render above overlapping elements like select menus.
+ */
+const basicDisabledZIndexFixStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'&[data-disabled]::before': {
+		zIndex: 'unset',
+	},
+});
+
+/**
+ * Removes the unnecessary zIndex from the disabled toggle handle (atomic path)
+ * that caused it to render above overlapping elements like select menus.
+ */
+const atomicDisabledZIndexFixStyles = css({
+	'&::before': {
+		zIndex: 'unset',
+	},
+});
+
 const atomicInputStyles = css({
 	margin: 0,
 	padding: 0,
@@ -396,6 +417,9 @@ const Toggle: React.MemoExoticComponent<
 						atomicUncheckedHoveredStyles,
 					// Disabled state: overrides all other styles
 					isDisabled && fg('platform-toggle-atomic-styles') && atomicDisabledStyles,
+					// zIndex disabled state fixes
+					fg('platform-toggle-fix-disabled-zindex') && basicDisabledZIndexFixStyles,
+					isDisabled && fg('platform-toggle-fix-disabled-zindex') && atomicDisabledZIndexFixStyles,
 				]}
 			>
 				{label ? (

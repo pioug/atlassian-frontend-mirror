@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 22.2.22
+
+### Patch Changes
+
+- [`dac35f970c524`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dac35f970c524) -
+  EDITOR-6293: Remove isDragAndDropEnabled from table plugin state and shared state types
+- Updated dependencies
+
 ## 22.2.21
 
 ### Patch Changes

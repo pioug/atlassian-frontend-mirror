@@ -44,9 +44,6 @@ const wrapperStyles = cssMap({
 	rootT26Shape: {
 		borderRadius: token('radius.large'),
 	},
-	rootLayer: {
-		zIndex: 400,
-	},
 	fullWidth: {
 		width: '100%',
 	},
@@ -183,7 +180,7 @@ const DefaultPopupComponent: React.ForwardRefExoticComponent<
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
 			{...htmlAttributes}
-			ref={!fg('platform-dst-motion-uplift') ? ref : undefined}
+			ref={!fg('platform-dst-motion-uplift-popup') ? ref : undefined}
 		>
 			{children}
 		</div>
@@ -219,6 +216,7 @@ function PopperWrapper({
 	modifiers,
 	shouldFitViewport,
 	appearance = 'default',
+	zIndex,
 }: PopperWrapperProps): JSX.Element {
 	const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
 	const [initialFocusRef, setInitialFocusRef] = useState<HTMLElement | null>(null);
@@ -294,7 +292,7 @@ function PopperWrapper({
 						aria-label={label}
 						aria-labelledby={titleId}
 						ref={
-							!fg('platform-dst-motion-uplift')
+							!fg('platform-dst-motion-uplift-popup')
 								? (node: HTMLDivElement) => {
 										if (node) {
 											if (typeof ref === 'function') {
@@ -309,7 +307,7 @@ function PopperWrapper({
 						}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						style={
-							fg('platform-dst-motion-uplift') || appearance === 'UNSAFE_modal-below-sm'
+							fg('platform-dst-motion-uplift-popup') || appearance === 'UNSAFE_modal-below-sm'
 								? {}
 								: style
 						}
@@ -334,8 +332,8 @@ function PopperWrapper({
 				const container = (
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={style}
-						css={[wrapperStyles.rootLayer, shouldFitContainer && wrapperStyles.fullWidth]}
+						style={{ ...style, zIndex }}
+						css={[shouldFitContainer && wrapperStyles.fullWidth]}
 						// using tabIndex={-1} would cause a bug where Safari focuses
 						// first on the browser address bar when using keyboard
 						ref={(node: HTMLDivElement) => {
@@ -366,7 +364,7 @@ function PopperWrapper({
 
 				return (
 					<Fragment>
-						{fg('platform-dst-motion-uplift') ? container : popupContainer}
+						{fg('platform-dst-motion-uplift-popup') ? container : popupContainer}
 						{appearance === 'UNSAFE_modal-below-sm' && <div css={blanketStyles} />}
 					</Fragment>
 				);

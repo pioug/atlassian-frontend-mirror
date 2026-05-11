@@ -10,12 +10,14 @@ import { useIntl } from 'react-intl';
 import { cssMap, jsx } from '@atlaskit/css';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/context-panel';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { shouldShowPrimaryToolbar, TOOLBARS } from '@atlaskit/editor-common/toolbar';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -181,7 +183,17 @@ export const FullPageToolbarNext = ({
 	disabled,
 }: FullPageToolbarNextProps): JSX.Element => {
 	const components = editorAPI?.toolbar?.actions.getComponents();
-	const contextualFormattingEnabled = editorAPI?.toolbar?.actions.contextualFormattingMode();
+	const runtimeOverride = useSharedPluginStateWithSelector(
+		editorAPI,
+		['toolbar'],
+		(states) => states.toolbarState?.contextualFormattingModeOverride,
+	);
+	const effectiveRuntimeOverride =
+		runtimeOverride !== undefined && fg('platform_editor_toolbar_mode_override')
+			? runtimeOverride
+			: undefined;
+	const contextualFormattingEnabled =
+		effectiveRuntimeOverride ?? editorAPI?.toolbar?.actions.contextualFormattingMode();
 	const intl = useIntl();
 	const toolbar = components?.find((component) => component.key === TOOLBARS.PRIMARY_TOOLBAR);
 	const primaryToolbarDockingConfigEnabled = shouldShowPrimaryToolbar(

@@ -27,6 +27,8 @@ import validGateName from './rules/feature-gating/valid-gate-name';
 import expandBackgroundShorthand from './rules/compiled/expand-background-shorthand';
 import expandSpacingShorthand from './rules/compiled/expand-spacing-shorthand';
 import noCssPropInObjectSpread from './rules/compiled/no-css-prop-in-object-spread';
+import useMotionTokenValues from './rules/compiled/use-motion-token-values';
+import expandMotionShorthand from './rules/compiled/expand-motion-shorthand';
 import noSparseCheckout from './rules/no-sparse-checkout';
 import noDirectDocumentUsage from './rules/no-direct-document-usage';
 import noSetImmediate from './rules/no-set-immediate';
@@ -111,6 +113,8 @@ const rules: {
 	'no-xcss-in-cx': Rule.RuleModule;
 	'editor-example-type-import-required': Rule.RuleModule;
 	'ensure-use-sync-external-store-server-snapshot': Rule.RuleModule;
+	'use-motion-token-values': Rule.RuleModule;
+	'expand-motion-shorthand': Rule.RuleModule;
 } = {
 	'ensure-feature-flag-registration': ensureFeatureFlagRegistration,
 	'ensure-test-runner-arguments': ensureTestRunnerArguments,
@@ -152,6 +156,8 @@ const rules: {
 	'no-xcss-in-cx': noXcssInCx,
 	'editor-example-type-import-required': editorExampleTypeImportRequired,
 	'ensure-use-sync-external-store-server-snapshot': ensureUseSyncExternalStoreServerSnapshot,
+	'use-motion-token-values': useMotionTokenValues,
+	'expand-motion-shorthand': expandMotionShorthand,
 };
 
 const commonConfig = {
@@ -170,6 +176,8 @@ const commonConfig = {
 	'@atlaskit/platform/expand-background-shorthand': 'error',
 	'@atlaskit/platform/expand-spacing-shorthand': 'error',
 	'@atlaskit/platform/no-css-prop-in-object-spread': 'error',
+	'@atlaskit/platform/use-motion-token-values': 'warn',
+	'@atlaskit/platform/expand-motion-shorthand': 'warn',
 	'@compiled/jsx-pragma': [
 		'error',
 		{

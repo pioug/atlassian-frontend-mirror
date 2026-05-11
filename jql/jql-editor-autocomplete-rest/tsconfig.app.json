@@ -38,9 +38,6 @@
 		},
 		{
 			"path": "../jql-editor-common/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
 		}
 	]
 }

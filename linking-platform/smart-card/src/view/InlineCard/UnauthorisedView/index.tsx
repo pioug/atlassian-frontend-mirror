@@ -111,7 +111,14 @@ const UnauthorisedConnectWithSocialProof = ({
 }): JSX.Element => {
 	di(getCachedProviderPctMapAndRefresh);
 	const providerPctMap = getCachedProviderPctMapAndRefresh(SOCIAL_PROOF_TRAIT_NAME);
-	const connectedPct = extensionKey && providerPctMap ? providerPctMap[extensionKey] : undefined;
+	
+	// Will be false if this is the first render, when we fetch traits and store to local storage,
+	// or if there wasn't our trait for it.
+	const isProviderPctMapLoaded = providerPctMap !== null;
+	
+	// Percent of current user team (same tenant users) who are connected to this extension.
+	const connectedPct =
+		extensionKey && isProviderPctMapLoaded ? providerPctMap[extensionKey] : undefined;
 
 	const trimmedProviderDisplayName = context?.trim() ?? '';
 	const hasProviderDisplayName = trimmedProviderDisplayName.length > 0;
@@ -120,13 +127,15 @@ const UnauthorisedConnectWithSocialProof = ({
 		connectedPct !== undefined && connectedPct >= SOCIAL_PROOF_TEAM_PREVIEW_THRESHOLD;
 
 	/**
-	 * Persisted personalization is required. Below {@link SOCIAL_PROOF_TEAM_PREVIEW_THRESHOLD} adoption we also require
-	 * a provider display name; otherwise omit the pill and use the legacy long connect treatment.
+	 * As long as trait is loaded we show the pill/lozange.
 	 */
 	const showSocialProofPill =
-		connectedPct !== undefined &&
-		(isSocialProofUsageHighEnough || hasProviderDisplayName) &&
-		expValEquals('platform_sl_3p_preauth_social_proof_inline_cta', 'isEnabled', true);
+		providerPctMap !== null &&
+		expValEquals(
+			'platform_sl_3p_preauth_social_proof_inline_cta',
+			'isEnabled',
+			true,
+		);
 
 	const bold = (chunks: React.ReactNode) => (
 		<Box as="strong" xcss={socialProofPillStyles.strong}>
@@ -134,6 +143,11 @@ const UnauthorisedConnectWithSocialProof = ({
 		</Box>
 	);
 
+	// As long as pill is shown it will be one of four messages depending on percent and provider presence:
+	// - 45% of your team previews Figma
+	// - 45% of your team previews this
+	// - Your team is previewing Figma
+	// - Your team is previewing this
 	const socialProofPillContent = isSocialProofUsageHighEnough ? (
 		hasProviderDisplayName ? (
 			<FormattedMessage
@@ -146,11 +160,14 @@ const UnauthorisedConnectWithSocialProof = ({
 				values={{ connectedPct, b: bold }}
 			/>
 		)
-	) : (
+	) : hasProviderDisplayName ? (
 		<FormattedMessage
 			{...messages.social_proof_inline_cta_tag_low_with_context}
 			values={{ context: trimmedProviderDisplayName }}
 		/>
+	) : (
+		// Unlikely case, but possible from TS standpoint.
+		<FormattedMessage {...messages.social_proof_inline_cta_tag_low_no_context} />
 	);
 
 	return (
@@ -166,6 +183,7 @@ const UnauthorisedConnectWithSocialProof = ({
 				onClick={onConnectClick}
 				viewType="unauthorised"
 				testId="button-connect-account"
+				isSlimDesign={showSocialProofPill}
 			>
 				{showSocialProofPill ? (
 					<FormattedMessage {...messages.connect_inline_social_proof} />

@@ -32,8 +32,10 @@ chevron and supports a selected state when the dropdown is open.
 <Example
 	Component={LozengeDropdownTriggerWithDropdown}
 	packageName="@atlaskit/lozenge"
-	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
-	featureFlagSwitchers={['motion']}
+	featureFlagDefaults={{
+		'platform-dst-lozenge-tag-badge-visual-uplifts': true,
+		'platform-dst-motion-uplift-popup': true,
+	}}
 />
 
 ## Selected state

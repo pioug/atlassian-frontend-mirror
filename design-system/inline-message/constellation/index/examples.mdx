@@ -15,7 +15,7 @@ import InlineMessageConnectivity from '../../examples/constellation/inline-messa
 
 <SectionMessage title="Motion in Early Access" appearance="warning">
 	The motion added into Inline message is in Early Access. The motion updates are currently behind
-	the feature flag: platform-dst-motion-uplift.
+	the feature flag: platform-dst-motion-uplift-popup.
 </SectionMessage>
 
 ## Default
@@ -26,7 +26,7 @@ By default, inline messages contain an icon. Adding a `title` is recommended. Yo
 <Example
 	Component={InlineMessageDefault}
 	packageName="@atlaskit/inline-message"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## Title
@@ -36,7 +36,7 @@ This is the text to display first. It's bolded for emphasis.
 <Example
 	Component={InlineMessageTitle}
 	packageName="@atlaskit/inline-message"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## Secondary text
@@ -47,7 +47,7 @@ appears after the title.
 <Example
 	Component={InlineMessageSecondaryText}
 	packageName="@atlaskit/inline-message"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## Placement
@@ -58,7 +58,7 @@ dialog from a different place in relation to the text.
 <Example
 	Component={InlineMessagePlacement}
 	packageName="@atlaskit/inline-message"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## Appearance
@@ -71,7 +71,7 @@ significant change. Warnings should also be used for authentication issues.
 <Example
 	Component={InlineMessageWarning}
 	packageName="@atlaskit/inline-message"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ### Error
@@ -82,7 +82,7 @@ You can also use them to advise people of connectivity issues.
 <Example
 	Component={InlineMessageError}
 	packageName="@atlaskit/inline-message"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ### Confirmation
@@ -92,7 +92,7 @@ Confirmation messages let people know that they have completed an action.
 <Example
 	Component={InlineMessageConfirmation}
 	packageName="@atlaskit/inline-message"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ### Info
@@ -102,7 +102,7 @@ Info messages give people additional information without requiring an action.
 <Example
 	Component={InlineMessageInfo}
 	packageName="@atlaskit/inline-message"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ### Connectivity
@@ -113,5 +113,5 @@ use this when warning and error are not appropriate.
 <Example
 	Component={InlineMessageConnectivity}
 	packageName="@atlaskit/inline-message"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />

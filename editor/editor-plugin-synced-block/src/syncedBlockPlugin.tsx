@@ -1,9 +1,15 @@
 import React from 'react';
 
 import { syncBlock, bodiedSyncBlock } from '@atlaskit/adf-schema';
-import type { EditorCommand, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import type {
+	EditorCommand,
+	ExtractInjectionAPI,
+	PMPluginFactoryParams,
+} from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -28,6 +34,40 @@ import { getQuickInsertConfig } from './ui/quick-insert';
 import { SyncBlockRefresher } from './ui/SyncBlockRefresher';
 import { getToolbarComponents } from './ui/toolbar-components';
 
+/**
+ * EDITOR-6929 / PR-G: Guard contentComponent rendering.
+ * When `hasSyncedBlocks` is false return null
+ * to avoid mounting SyncBlockRefresher, DeleteConfirmationModal, and Flag —
+ * their hooks (useSharedPluginStateWithSelector) would execute selectors on
+ * every transaction for no benefit on the ~99.98% of pages with zero synced
+ * blocks.
+ */
+const LazySyncedBlockUI = ({
+	syncBlockStore: syncBlockStoreManager,
+	api,
+}: {
+	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
+	syncBlockStore: SyncBlockStoreManager;
+}): React.JSX.Element | null => {
+	const hasSyncBlocks = useSharedPluginStateWithSelector(
+		api,
+		['syncedBlock'],
+		(states) => states.syncedBlockState?.hasSyncedBlocks,
+	);
+
+	if (!hasSyncBlocks && expValEquals('editor_synced_block_perf', 'isEnabled', true)) {
+		return null;
+	}
+
+	return (
+		<>
+			<SyncBlockRefresher syncBlockStoreManager={syncBlockStoreManager} api={api} />
+			<DeleteConfirmationModal syncBlockStoreManager={syncBlockStoreManager} api={api} />
+			<Flag api={api} />
+		</>
+	);
+};
+
 export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 	const refs: {
 		containerElement?: HTMLElement;
@@ -41,7 +81,15 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 		viewMode,
 		config?.__livePage,
 	);
+	const isPerfExperimentOn = expValEquals('editor_synced_block_perf', 'isEnabled', true);
 	syncBlockStore.setFireAnalyticsEvent(api?.analytics?.actions?.fireAnalyticsEvent);
+
+	// --- Memoized getSharedState (EDITOR-6929 / PR-F) ---
+	// Cache the last returned shared state object. On each call, perform a
+	// shallow comparison of all fields against the cached value. If nothing
+	// changed, return the cached reference so SharedStateAPI subscribers
+	// (React components) skip re-rendering.
+	let cachedSharedState: SyncedBlockSharedState | undefined;
 
 	api?.blockMenu?.actions.registerBlockMenuComponents(
 		getBlockMenuComponents(api, config?.enableSourceCreation ?? false),
@@ -122,7 +170,18 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 
 		pluginsOptions: {
 			quickInsert: getQuickInsertConfig(config, api, syncBlockStore),
-			floatingToolbar: (state, intl) => getToolbarConfig(state, intl, api, syncBlockStore),
+			floatingToolbar: (state, intl) => {
+				// When the experiment is ON and the document has no synced blocks,
+				// skip the toolbar config entirely to avoid the per-selection-change
+				// cost of findSyncBlockOrBodiedSyncBlock (EDITOR-6931).
+				// Save the expValEquals('editor_synced_block_perf', 'isEnabled', true) in a const
+				// because floatingToolbar is called on every selection change.
+				// computing it once at plugin initialisation is more efficient.
+				if (!syncedBlockPluginKey.getState(state)?.hasSyncedBlocks && isPerfExperimentOn) {
+					return undefined;
+				}
+				return getToolbarConfig(state, intl, api, syncBlockStore);
+			},
 		},
 
 		contentComponent: ({ containerElement, wrapperElement, popupsMountPoint }) => {
@@ -130,19 +189,14 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 			refs.popupsMountPoint = popupsMountPoint || undefined;
 			refs.wrapperElement = wrapperElement || undefined;
 
-			return (
-				<>
-					<SyncBlockRefresher syncBlockStoreManager={syncBlockStore} api={api} />
-					<DeleteConfirmationModal syncBlockStoreManager={syncBlockStore} api={api} />
-					<Flag api={api} />
-				</>
-			);
+			return <LazySyncedBlockUI syncBlockStore={syncBlockStore} api={api} />;
 		},
 
 		getSharedState: (editorState?: EditorState): SyncedBlockSharedState | undefined => {
 			if (!editorState) {
 				return;
 			}
+			const pluginState = syncedBlockPluginKey.getState(editorState);
 			const {
 				activeFlag,
 				syncBlockStore: currentSyncBlockStore,
@@ -150,8 +204,24 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				retryCreationPosMap,
 				hasSyncedBlocks,
 				hasUnsavedBodiedSyncBlockChanges,
-			} = syncedBlockPluginKey.getState(editorState);
-			return {
+			} = pluginState;
+
+			// --- EDITOR-6929 / PR-F: return a stable reference when all
+			// fields are unchanged to prevent unnecessary React re-renders. ---
+			if (
+				cachedSharedState !== undefined &&
+				cachedSharedState.activeFlag === activeFlag &&
+				cachedSharedState.syncBlockStore === currentSyncBlockStore &&
+				cachedSharedState.bodiedSyncBlockDeletionStatus === bodiedSyncBlockDeletionStatus &&
+				cachedSharedState.retryCreationPosMap === retryCreationPosMap &&
+				cachedSharedState.hasSyncedBlocks === hasSyncedBlocks &&
+				cachedSharedState.hasUnsavedBodiedSyncBlockChanges === hasUnsavedBodiedSyncBlockChanges &&
+				expValEquals('editor_synced_block_perf', 'isEnabled', true)
+			) {
+				return cachedSharedState;
+			}
+
+			const nextSharedState: SyncedBlockSharedState = {
 				activeFlag,
 				syncBlockStore: currentSyncBlockStore,
 				bodiedSyncBlockDeletionStatus,
@@ -159,6 +229,8 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				hasSyncedBlocks,
 				hasUnsavedBodiedSyncBlockChanges,
 			};
+			cachedSharedState = nextSharedState;
+			return nextSharedState;
 		},
 	};
 };

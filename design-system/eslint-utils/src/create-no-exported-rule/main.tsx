@@ -68,5 +68,3 @@ export const createNoExportedRule =
 			},
 		};
 	};
-
-export default createNoExportedRule;

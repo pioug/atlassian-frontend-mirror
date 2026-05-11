@@ -184,7 +184,6 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 				pluginConfig: tablePluginState.pluginConfig,
 				insertColumnButtonIndex: tablePluginState.insertColumnButtonIndex,
 				insertRowButtonIndex: tablePluginState.insertRowButtonIndex,
-				isDragAndDropEnabled: tablePluginState.isDragAndDropEnabled,
 				tableWrapperTarget: tablePluginState.tableWrapperTarget,
 				isCellMenuOpenByKeyboard: tablePluginState.isCellMenuOpenByKeyboard,
 				stickyHeader,

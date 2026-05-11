@@ -1,5 +1,14 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 8.2.2
+
+### Patch Changes
+
+- [`267b2bb06c564`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/267b2bb06c564) -
+  Internal dependency change: switch from pinned Relay v17 aliases to root:\* and upgraded root to
+  Relay v20.1.1. No public API changes.
+- Updated dependencies
+
 ## 8.2.1
 
 ### Patch Changes

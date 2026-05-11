@@ -101,13 +101,7 @@ const styles = cssMap({
 
 /* eslint-enable @compiled/shorthand-property-sorting */
 type ActionButtonProps = ComponentPropsWithRef<typeof Pressable> & {
-	/**
-	 * When `true` together with `viewType="unauthorised"`, applies the inline social proof CTA
-	 * connect-button layout (compact type, radius, spacing, flex alignment). Only honored when
-	 * `platform_sl_3p_preauth_soc_proof_inline_killswitch` is on; when that gate is off, the legacy
-	 * implementation runs and this prop is ignored.
-	 */
-	isSocialProofInlineUnauthorisedConnect?: boolean;
+	isSlimDesign?: boolean;
 	viewType?: 'default' | 'unauthorised' | 'action';
 };
 
@@ -118,11 +112,19 @@ export const ActionButton: ForwardRefExoticComponent<
 	Omit<ActionButtonProps, 'ref'> & RefAttributes<HTMLButtonElement>
 > = forwardRef(
 	(
-		{ children, isDisabled, viewType = 'default', ...props }: ActionButtonProps,
+		{
+			children,
+			isDisabled,
+			viewType = 'default',
+			isSlimDesign = false,
+			...props
+		}: ActionButtonProps,
 		ref: ActionButtonProps['ref'],
 	) => {
 		const shouldUseUnauthorisedSlimStyle =
-			viewType === 'unauthorised' && fg('platform_sl_3p_preauth_soc_proof_inline_killswitch');
+			viewType === 'unauthorised' &&
+			isSlimDesign &&
+			fg('platform_sl_3p_preauth_soc_proof_inline_killswitch');
 
 		if (shouldUseUnauthorisedSlimStyle && !isDisabled) {
 			return (

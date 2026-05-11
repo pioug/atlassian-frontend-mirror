@@ -25,6 +25,9 @@
 	"references": [
 		{
 			"path": "../../../design-system/eslint-utils/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
 		}
 	]
 }

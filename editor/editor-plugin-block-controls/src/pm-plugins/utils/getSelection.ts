@@ -1,3 +1,4 @@
+import { getNodeSelectionForPos, selectNodeAtPos } from '@atlaskit/editor-common/node-selection';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -6,6 +7,7 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
@@ -110,6 +112,19 @@ export const newGetSelection = (
 	selectionEmpty: boolean,
 	start: number,
 ): false | TextSelection | NodeSelection => {
+	// Under the gate, delegate to getNodeSelectionForPos only when
+	// platform_editor_block_menu is on — getNodeSelectionForPos matches that
+	// simplified path (NodeSelection for all nodes). When block_menu is off,
+	// fall through to the oldGetSelection branch which handles expand/taskList/
+	// inline nodes correctly with TextSelection.
+	if (
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		fg('platform_editor_maui_jira_updates') &&
+		editorExperiment('platform_editor_block_menu', true)
+	) {
+		return getNodeSelectionForPos(doc, start) || false;
+	}
+
 	const node = doc.nodeAt(start);
 	const isNodeSelection = node && NodeSelection.isSelectable(node);
 	const nodeSize = node ? node.nodeSize : 1;
@@ -182,7 +197,18 @@ export const selectNode = (
 	nodeType: string,
 	api?: ExtractInjectionAPI<BlockControlsPlugin>,
 ): Transaction => {
-	// For table, we need to do cell selection instead of node selection
+	// Only use the platform path when already on the simplified newGetSelection
+	// branch — i.e. when platform_editor_block_menu is on or toolbar flags are
+	// enabled. This preserves oldGetSelection behaviour (e.g. taskList →
+	// TextSelection) in legacy contexts where those flags are off.
+	if (
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		fg('platform_editor_maui_jira_updates') &&
+		editorExperiment('platform_editor_block_menu', true)
+	) {
+		return selectNodeAtPos(tr, start, nodeType);
+	}
+
 	if (nodeType === 'table') {
 		tr = selectTableClosestToPos(tr, tr.doc.resolve(start + 1));
 		return tr;

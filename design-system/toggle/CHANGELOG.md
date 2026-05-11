@@ -1,5 +1,13 @@
 # @atlaskit/toggle
 
+## 15.6.1
+
+### Patch Changes
+
+- [`65ac96a771383`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65ac96a771383) -
+  Fix disabled toggle handle zIndex rendering above overlapping elements like select menus, behind
+  feature flag platform-toggle-fix-disabled-zindex
+
 ## 15.6.0
 
 ### Minor Changes

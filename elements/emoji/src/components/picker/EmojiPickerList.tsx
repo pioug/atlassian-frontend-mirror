@@ -7,6 +7,7 @@ import React, {
 	useState,
 } from 'react';
 import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	customCategory,
 	defaultEmojiPickerSize,
@@ -27,7 +28,12 @@ import type {
 	ToneSelection,
 	User,
 } from '../../types';
-import { CategoryDescriptionMap, type CategoryGroupKey, type CategoryId } from './categories';
+import {
+	CategoryDescriptionMap,
+	CategoryDescriptionMapNew,
+	type CategoryGroupKey,
+	type CategoryId,
+} from './categories';
 import CategoryTracker from './CategoryTracker';
 import { sizes } from './EmojiPickerSizes';
 import type * as Items from './EmojiPickerVirtualItems';
@@ -237,7 +243,9 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 		category: CategoryGroupKey,
 	) => {
 		if (!categoryToGroupMap[category]) {
-			const categoryDefinition = CategoryDescriptionMap[category];
+			const categoryDefinition = fg('platform_emoji_picker_refresh')
+				? CategoryDescriptionMapNew[category]
+				: CategoryDescriptionMap[category];
 			categoryToGroupMap[category] = {
 				emojis: [],
 				title: categoryDefinition.name,

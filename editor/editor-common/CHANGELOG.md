@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 114.26.0
+
+### Minor Changes
+
+- [`38fb4916b9085`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38fb4916b9085) -
+  Add `@atlaskit/editor-common/node-selection` entry-point with platform-level node selection
+  utilities. Under `platform_editor_maui_jira_updates`, `open-remix-modal` and
+  `editor-plugin-block-controls` delegate to these utilities, fixing remix selection in environments
+  where `blockControls` is not present.
+
 ## 114.25.2
 
 ### Patch Changes

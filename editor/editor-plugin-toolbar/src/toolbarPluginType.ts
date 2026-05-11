@@ -1,5 +1,5 @@
 import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar';
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { EditorCommand, NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
@@ -13,6 +13,18 @@ import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 import type { RegisterComponentsAction, ToolbarPluginOptions } from './types';
 
 export type EditorToolbarPluginState = {
+	/**
+	 * Runtime override for the contextual-formatting mode. When set, callers
+	 * should treat it as taking precedence over `contextualFormattingMode()`.
+	 * Lives in PM state so React subscribers re-render on flip. Updated via
+	 * the `setContextualFormattingModeOverride` command; consumers must read
+	 * it via `useSharedPluginStateWithSelector(api, ['toolbar'], ...)` and
+	 * merge it themselves — see SelectionToolbar / Section / FullPageToolbarNext
+	 * for the merge pattern. Used by Markdown Mode to pin the primary toolbar
+	 * while source / preview view is active (no PM selection to anchor a
+	 * floating toolbar to).
+	 */
+	contextualFormattingModeOverride?: ContextualFormattingEnabledOptions;
 	selectedNode?: {
 		marks: string[];
 		node: PMNode;
@@ -50,6 +62,18 @@ export type ToolbarPlugin = NextEditorPlugin<
 			getBreakpointPreset: () => BreakpointPreset | undefined;
 			getComponents: () => Array<RegisterComponent>;
 			registerComponents: RegisterComponentsAction;
+		};
+		commands: {
+			/**
+			 * Sets (or clears) the runtime override for `contextualFormattingMode`.
+			 * Pass `undefined` to clear and fall back to config / user preference.
+			 * Used by Markdown Mode to pin the toolbar while the source / preview
+			 * view is active. Exposed as a command (not an action) so callers can
+			 * compose the meta onto an existing transaction and dispatch once.
+			 */
+			setContextualFormattingModeOverride: (
+				mode: ContextualFormattingEnabledOptions | undefined,
+			) => EditorCommand;
 		};
 		dependencies: [
 			OptionalPlugin<UserIntentPlugin>,

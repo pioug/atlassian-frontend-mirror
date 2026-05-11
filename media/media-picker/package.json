@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-picker",
-	"version": "71.2.0",
+	"version": "71.2.1",
 	"description": "Library for handling file uploads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -33,6 +33,13 @@
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Media Exif",
 		"website": {
 			"name": "Media Picker"
@@ -68,6 +75,7 @@
 		"@atlaskit/media-core": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ufo": "workspace:^",
 		"@babel/plugin-proposal-numeric-separator": "root:*",
 		"@emotion/react": "root:*",

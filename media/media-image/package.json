@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-image",
-	"version": "20.2.0",
+	"version": "20.2.1",
 	"description": "Media image element - provides single display of image",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,6 +30,13 @@
 		"./media-image-error-boundary": "./src/mediaImageErrorBoundary.tsx"
 	},
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Media Exif",
 		"website": {
 			"name": "Media Image"
@@ -63,6 +70,7 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@emotion/react": "root:*",
 		"@testing-library/react": "root:*",
 		"enzyme": "root:*"

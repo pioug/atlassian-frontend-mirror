@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 13.0.4
+
+### Patch Changes
+
+- [`591568c487e99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/591568c487e99) -
+  Moved "motion.easing.spring" token into experimental state
+
 ## 13.0.3
 
 ### Patch Changes

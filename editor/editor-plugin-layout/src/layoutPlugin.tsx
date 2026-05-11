@@ -2,8 +2,8 @@ import React from 'react';
 
 import {
 	layoutColumn,
-	layoutSection,
 	layoutColumnWithLocalId,
+	layoutSection,
 	layoutSectionWithLocalId,
 } from '@atlaskit/adf-schema';
 import {
@@ -38,19 +38,19 @@ import {
 	IconTwoColumnLayout,
 } from '@atlaskit/editor-common/quick-insert';
 import type { FloatingToolbarConfig, PMPlugin } from '@atlaskit/editor-common/types';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-
-const LAYOUT_SECTION_NODE_NAME = 'layoutSection';
 
 import type { LayoutPlugin } from './layoutPluginType';
 import {
 	createDefaultLayoutSection,
 	createMultiColumnLayoutSection,
 	insertLayoutColumnsWithAnalytics,
+	toggleLayoutColumnMenu,
 } from './pm-plugins/actions';
 import { default as createLayoutPlugin } from './pm-plugins/main';
 import { pluginKey } from './pm-plugins/plugin-key';
@@ -58,7 +58,10 @@ import { default as createLayoutResizingPlugin } from './pm-plugins/resizing';
 import type { LayoutState } from './pm-plugins/types';
 import { GlobalStylesWrapper } from './ui/global-styles';
 import { createLayoutBlockMenuItem } from './ui/LayoutBlockMenuItem';
+import { LayoutColumnMenu } from './ui/LayoutColumnMenu';
 import { buildToolbar } from './ui/toolbar';
+
+const LAYOUT_SECTION_NODE_NAME = 'layoutSection';
 
 /**
  * This function is used to set the selection into
@@ -343,7 +346,23 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 			},
 		},
 		contentComponent() {
-			return editorExperiment('advanced_layouts', true) ? <GlobalStylesWrapper /> : null;
+			return (
+				<>
+					{editorExperiment('advanced_layouts', true) ? <GlobalStylesWrapper /> : null}
+					{expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true) ? (
+						<LayoutColumnMenu api={api} />
+					) : null}
+				</>
+			);
+		},
+		getSharedState(editorState) {
+			if (!editorState) {
+				return undefined;
+			}
+			return pluginKey.getState(editorState);
+		},
+		commands: {
+			toggleLayoutColumnMenu,
 		},
 	};
 };

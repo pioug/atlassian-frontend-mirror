@@ -4,11 +4,11 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-	LAYOUT_TYPE,
 	INPUT_METHOD,
+	LAYOUT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import type { Command, TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
+import type { Command, EditorCommand, TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
 import { flatmap, getStepRange, isEmptyDocument, mapChildren } from '@atlaskit/editor-common/utils';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
@@ -664,3 +664,12 @@ const formatLayoutName = (layout: PresetLayout): LAYOUT_TYPE | undefined => {
 			return LAYOUT_TYPE.THREE_WITH_SIDEBARS;
 	}
 };
+
+export const toggleLayoutColumnMenu =
+	({ isOpen }: { isOpen?: boolean }): EditorCommand =>
+	({ tr }) => {
+		tr.setMeta('toggleLayoutColumnMenu', { isOpen });
+		tr.setMeta('scrollIntoView', false);
+
+		return tr;
+	};

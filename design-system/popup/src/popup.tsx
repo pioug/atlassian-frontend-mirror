@@ -107,6 +107,7 @@ export const Popup: FC<PopupProps> = memo(
 					shouldDisableFocusLock={shouldDisableFocusLock}
 					shouldReturnFocus={shouldReturnFocus}
 					triggerRef={triggerRef}
+					zIndex={zIndex}
 					strategy={shouldFitContainer ? 'absolute' : strategy}
 					role={role}
 					label={label}
@@ -132,14 +133,14 @@ export const Popup: FC<PopupProps> = memo(
 						});
 					}}
 				</Reference>
-				{!fg('platform-dst-motion-uplift') &&
+				{!fg('platform-dst-motion-uplift-popup') &&
 					isOpen &&
 					(shouldRenderToParent || shouldFitContainer ? (
 						renderPopperWrapper
 					) : (
 						<Portal zIndex={zIndex}>{renderPopperWrapper}</Portal>
 					))}
-				{fg('platform-dst-motion-uplift') && (
+				{fg('platform-dst-motion-uplift-popup') && (
 					<ExitingPersistence>
 						{isOpen &&
 							(shouldRenderToParent || shouldFitContainer ? (

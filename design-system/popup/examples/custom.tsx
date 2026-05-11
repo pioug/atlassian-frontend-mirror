@@ -59,6 +59,7 @@ export default (): JSX.Element => {
 					icon={MoreIcon}
 				/>
 			)}
+			zIndex={510}
 		/>
 	);
 };

@@ -3705,13 +3705,13 @@ const metadata: IconMetadata = {
 		createdAt: '2026-05-06T13:34:53.068Z',
 	},
 	'speedometer-up': {
-		keywords: ['speed', 'performance', 'dial'],
+		keywords: ['speed', 'performance', 'dial', 'risk likelihood', 'medium risk'],
 		categorization: 'multi-purpose',
 		location: '@atlaskit/icon-lab',
 		team: 'Loom',
 		status: 'published',
 		id: '42096:70665',
-		usage: 'Known uses: video is set a normal playback speed',
+		usage: 'Known uses: video is set a normal playback speed; medium risk likelihood',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'split-parallel': {

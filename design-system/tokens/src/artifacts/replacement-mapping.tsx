@@ -12,7 +12,7 @@
  * These changes will then be picked up by our tooling which will attempt to
  * migrate as many of these renames as possible.
  *
- * @codegen <<SignedSource::c779b40628532228cae2ec34977f1f8e>>
+ * @codegen <<SignedSource::047b57f2d22a7675431a9f6acb147bf6>>
  * @codegenCommand yarn build tokens
  */
 import type tokens from './token-names';
@@ -24,6 +24,11 @@ type RenameMap = {
   replacement?: Token;
 }
 
-const replacementMapper: RenameMap[] = [];
+const replacementMapper: RenameMap[] = [
+  {
+    "path": "motion.easing.spring",
+    "state": "experimental"
+  }
+];
 
 export default replacementMapper;

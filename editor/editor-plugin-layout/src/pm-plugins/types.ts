@@ -6,6 +6,7 @@ export type LayoutState = {
 	addSidebarLayouts: boolean;
 	allowBreakout: boolean;
 	allowSingleColumnLayout: boolean;
+	isLayoutColumnMenuOpen: boolean;
 	isResizing: boolean;
 	pos: number | null;
 	selectedLayout: PresetLayout | undefined;

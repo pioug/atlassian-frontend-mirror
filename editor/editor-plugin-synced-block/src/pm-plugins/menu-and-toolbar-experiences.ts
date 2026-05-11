@@ -16,8 +16,11 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { SYNCED_BLOCK_BUTTON_TEST_ID } from '../types';
+
+import { syncedBlockPluginKey } from './main';
 
 const TIMEOUT_DURATION = 30000;
 
@@ -138,77 +141,120 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 		],
 	});
 
-	const unbindClickListener = bind(document, {
-		type: 'click',
-		listener: (event: MouseEvent) => {
-			const target = event.target as Element | null;
-			if (!target) {
-				return;
-			}
-
-			const button = target.closest('button[data-testid]');
-			if (!button || !(button instanceof HTMLButtonElement)) {
-				return;
-			}
-
-			const testId = button.dataset.testid;
-			if (!isSyncedBlockButtonId(testId)) {
-				return;
-			}
-
-			if (button.disabled) {
-				return;
-			}
-
-			handleButtonClick({
-				testId,
-				button,
-				createSourcePrimaryToolbarExperience,
-				createSourceBlockMenuExperience,
-				createSourceQuickInsertMenuExperience,
-				deleteReferenceSyncedBlockExperience,
-				unsyncReferenceSyncedBlockExperience,
-				unsyncSourceSyncedBlockExperience,
-				deleteSourceSyncedBlockExperience,
-				syncedLocationsExperience,
-			});
-		},
-		options: { capture: true },
-	});
-
-	const unbindKeydownListener = bind(document, {
-		type: 'keydown',
-		listener: (event: KeyboardEvent) => {
-			if (isEnterKey(event.key)) {
-				const typeaheadPopup = popupWithNestedElement(
-					getPopupsTarget(),
-					'.fabric-editor-typeahead',
-				);
-				if (!typeaheadPopup || !(typeaheadPopup instanceof HTMLElement)) {
+	const bindListeners = () => {
+		const unbindClickListener = bind(document, {
+			type: 'click',
+			listener: (event: MouseEvent) => {
+				const target = event.target as Element | null;
+				if (!target) {
 					return;
 				}
 
-				const targetElement = fg('platform_synced_block_fix_experience_tracking')
-					? typeaheadPopup.querySelector('[role="option"][aria-selected="true"]')
-					: typeaheadPopup.querySelector('[role="option"]');
-				if (!targetElement || !(targetElement instanceof HTMLElement)) {
+				const button = target.closest('button[data-testid]');
+				if (!button || !(button instanceof HTMLButtonElement)) {
 					return;
 				}
 
-				const testId = targetElement.dataset.testid;
-				if (testId === SYNCED_BLOCK_BUTTON_TEST_ID.quickInsertCreate) {
-					createSourceQuickInsertMenuExperience.start();
+				const testId = button.dataset.testid;
+				if (!isSyncedBlockButtonId(testId)) {
+					return;
 				}
-			}
-		},
-		options: { capture: true },
-	});
+
+				if (button.disabled) {
+					return;
+				}
+
+				handleButtonClick({
+					testId,
+					button,
+					createSourcePrimaryToolbarExperience,
+					createSourceBlockMenuExperience,
+					createSourceQuickInsertMenuExperience,
+					deleteReferenceSyncedBlockExperience,
+					unsyncReferenceSyncedBlockExperience,
+					unsyncSourceSyncedBlockExperience,
+					deleteSourceSyncedBlockExperience,
+					syncedLocationsExperience,
+				});
+			},
+			options: { capture: true },
+		});
+
+		const unbindKeydownListener = bind(document, {
+			type: 'keydown',
+			listener: (event: KeyboardEvent) => {
+				if (isEnterKey(event.key)) {
+					const typeaheadPopup = popupWithNestedElement(
+						getPopupsTarget(),
+						'.fabric-editor-typeahead',
+					);
+					if (!typeaheadPopup || !(typeaheadPopup instanceof HTMLElement)) {
+						return;
+					}
+
+					const targetElement = fg('platform_synced_block_fix_experience_tracking')
+						? typeaheadPopup.querySelector('[role="option"][aria-selected="true"]')
+						: typeaheadPopup.querySelector('[role="option"]');
+					if (!targetElement || !(targetElement instanceof HTMLElement)) {
+						return;
+					}
+
+					const testId = targetElement.dataset.testid;
+					if (testId === SYNCED_BLOCK_BUTTON_TEST_ID.quickInsertCreate) {
+						createSourceQuickInsertMenuExperience.start();
+					}
+				}
+			},
+			options: { capture: true },
+		});
+
+		return { unbindClickListener, unbindKeydownListener };
+	};
 
 	return new SafePlugin({
 		key: pluginKey,
 		view: (view) => {
 			editorViewRef.current = view;
+
+			// Track whether listeners have been bound. When the experiment is
+			// ON and the document initially has no synced blocks, we defer
+			// binding until `update()` detects that `hasSyncedBlocks` has
+			// flipped to `true` (e.g. via paste or collab insert). This avoids
+			// the ~2-5 ms TBT cost of capture-phase click/keydown handlers on
+			// the ~99.97 % of pages that never use synced blocks (EDITOR-6931).
+			let listenersBound = false;
+			let unbindClickListener: (() => void) | undefined;
+			let unbindKeydownListener: (() => void) | undefined;
+
+			const ensureListenersBound = () => {
+				if (listenersBound) {
+					return;
+				}
+				listenersBound = true;
+				const unbinders = bindListeners();
+				unbindClickListener = unbinders.unbindClickListener;
+				unbindKeydownListener = unbinders.unbindKeydownListener;
+			};
+
+			if (
+				syncedBlockPluginKey.getState(view.state)?.hasSyncedBlocks ||
+				!expValEquals('editor_synced_block_perf', 'isEnabled', true)
+			) {
+				ensureListenersBound();
+			}
+
 			return {
+				update: (view, prevState) => {
+					if (
+						!listenersBound &&
+						view.state.doc !== prevState.doc &&
+						syncedBlockPluginKey.getState(view.state)?.hasSyncedBlocks &&
+						expValEquals('editor_synced_block_perf', 'isEnabled', true)
+					) {
+						// Bind listeners now that synced blocks are present.
+						ensureListenersBound();
+					}
+				},
 				destroy: () => {
 					createSourcePrimaryToolbarExperience.abort({ reason: 'editorDestroyed' });
 					createSourceBlockMenuExperience.abort({ reason: 'editorDestroyed' });
@@ -218,8 +264,8 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 					unsyncReferenceSyncedBlockExperience?.abort({ reason: 'editorDestroyed' });
 					unsyncSourceSyncedBlockExperience?.abort({ reason: 'editorDestroyed' });
 					syncedLocationsExperience?.abort({ reason: 'editorDestroyed' });
-					unbindClickListener();
-					unbindKeydownListener();
+					unbindClickListener?.();
+					unbindKeydownListener?.();
 				},
 			};
 		},

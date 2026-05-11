@@ -221,7 +221,6 @@ export const Trigger: React.ForwardRefExoticComponent<
 		fullWidthSummaryViewReactionPickerTrigger = false,
 		isListItem = false,
 		fullWidthSelectorTrayReactionPickerTrigger = false,
-		emojiPickerSize,
 	} = props;
 
 	const handleMouseDown = (e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
@@ -266,7 +265,7 @@ export const Trigger: React.ForwardRefExoticComponent<
 					testId="emoji-add-icon"
 					color={disabled ? token('color.icon.disabled') : token('color.icon')}
 					label="Add reaction"
-					size={emojiPickerSize === 'small' ? 'small' : 'medium'}
+					size="medium"
 				/>
 			)}
 			{showAddReactionText && (

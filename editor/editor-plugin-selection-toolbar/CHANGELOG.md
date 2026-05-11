@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 11.2.0
+
+### Minor Changes
+
+- [`5184c3aa86e89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5184c3aa86e89) -
+  Pin the primary toolbar to the top while in Markdown Mode source or preview view, where the
+  floating toolbar would be useless (no PM selection to anchor to). Behind the new
+  `platform_editor_toolbar_mode_override` feature gate.
+  - `editor-plugin-toolbar`: adds `commands.setContextualFormattingModeOverride` and a
+    `contextualFormattingModeOverride` field on shared state. Any plugin can compose the command
+    onto its own transaction to push a runtime override.
+  - `editor-plugin-markdown-mode`: pushes the override on `setView` and on initial mount; uses the
+    current view to short-circuit `useIsToolbarDockedToTop` so the in-toolbar toggle renders in the
+    correct slot.
+  - `editor-plugin-selection-toolbar`: `PinButton` hides when the override forces `'always-pinned'`
+    (the toggle is meaningless in that state).
+  - `editor-core` (`FullPage.tsx`, `FullPageToolbarNext.tsx`): the primary-toolbar mount gate
+    consults the runtime override so the toolbar still mounts when the override is
+    `'always-pinned'`, even if the user's docking preference is `'none'`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.3
 
 ### Patch Changes

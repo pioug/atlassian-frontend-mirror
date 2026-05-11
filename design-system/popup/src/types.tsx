@@ -363,6 +363,7 @@ type ShouldFitContainerPopupProps = InternalPopupProps & {
 export type PopupProps = StandardPopupProps | ShouldFitContainerPopupProps;
 
 export interface PopperWrapperProps extends BaseProps {
+	zIndex?: number;
 	triggerRef: TriggerRef;
 }
 

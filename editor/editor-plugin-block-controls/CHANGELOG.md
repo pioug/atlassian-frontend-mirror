@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 11.2.17
+
+### Patch Changes
+
+- [`2023cac0fd36f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2023cac0fd36f) -
+  Add column drag handle context menu placeholder, gated behind the
+  platform_editor_layout_column_menu experiment flag.
+- Updated dependencies
+
+## 11.2.16
+
+### Patch Changes
+
+- [`38fb4916b9085`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38fb4916b9085) -
+  Add `@atlaskit/editor-common/node-selection` entry-point with platform-level node selection
+  utilities. Under `platform_editor_maui_jira_updates`, `open-remix-modal` and
+  `editor-plugin-block-controls` delegate to these utilities, fixing remix selection in environments
+  where `blockControls` is not present.
+- Updated dependencies
+
 ## 11.2.15
 
 ### Patch Changes

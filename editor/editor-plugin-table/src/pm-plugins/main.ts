@@ -117,7 +117,6 @@ export const createPlugin = (
 		wasFullWidthModeEnabled: previousFullWidthModeEnabled,
 		isHeaderRowEnabled: !!pluginConfig.allowHeaderRow,
 		isHeaderColumnEnabled: false,
-		isDragAndDropEnabled: true,
 		isTableScalingEnabled: isTableScalingEnabled,
 		...defaultHoveredCell,
 		...defaultTableSelection,

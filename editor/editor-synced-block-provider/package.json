@@ -27,7 +27,12 @@
 		".": "./src/index.ts",
 		"./fetchJiraMediaToken": "./src/clients/jira/fetchMediaToken.ts",
 		"./requestJiraIssueAccess": "./src/clients/jira/requestJiraIssueAccess.ts",
-		"./tokenRouting": "./src/clients/tokenRouting.ts"
+		"./tokenRouting": "./src/clients/tokenRouting.ts",
+		"./providers/block-service/blockServiceAPI": "./src/providers/block-service/blockServiceAPI.ts",
+		"./providers/types": "./src/providers/types.ts",
+		"./clients/confluence/ari": "./src/clients/confluence/ari.ts",
+		"./utils/resourceId": "./src/utils/resourceId.ts",
+		"./common/types": "./src/common/types.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-utils": "workspace:^",
@@ -87,7 +92,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "6.4.3",
+	"version": "6.5.0",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

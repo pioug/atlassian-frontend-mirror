@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f86ddd91a5d48fe256274c50f5d73493>>
+ * @codegen <<SignedSource::33ce7f44e704e6b32332ffdfac5776e4>>
  * @codegenCommand yarn build tokens
  */
 
@@ -582,7 +582,7 @@ const tokens: Token[] = [
   {
     "attributes": {
       "group": "motionEasing",
-      "state": "active",
+      "state": "experimental",
       "introduced": "11.5.0",
       "description": "A spring curve that overshoots slightly before settling. Use for playful, tactile feedback on small branded elements such as avatar hover, where the slight overshoot reinforces a sense of life."
     },
@@ -592,7 +592,7 @@ const tokens: Token[] = [
     "original": {
       "attributes": {
         "group": "motionEasing",
-        "state": "active",
+        "state": "experimental",
         "introduced": "11.5.0",
         "description": "A spring curve that overshoots slightly before settling. Use for playful, tactile feedback on small branded elements such as avatar hover, where the slight overshoot reinforces a sense of life."
       },

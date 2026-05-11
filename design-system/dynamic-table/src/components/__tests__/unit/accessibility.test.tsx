@@ -7,12 +7,15 @@ import Button from '@atlaskit/button/new';
 import Link from '@atlaskit/link';
 
 import DynamicTable, { DynamicTableStateless as StatelessDynamicTable } from '../../../index';
-import { type StatelessProps } from '../../../types';
+import { type RowCellType, type StatelessProps } from '../../../types';
 import LoadingContainer from '../../loading-container';
 import { RankableTableCell } from '../../rankable/rankable-table-cell';
 
-import { cellWithKey as cell, rows, rowsWithKeys } from './_data';
+import { rowsWithKeys } from './_data';
+import rows from './_data-json.json';
 import { headMock1 } from './_head-mock';
+
+const cell: RowCellType = rowsWithKeys[0].cells[0];
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Dynamic Table Accessibility', () => {

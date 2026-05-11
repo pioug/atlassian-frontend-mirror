@@ -1228,6 +1228,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-07
+	platform_editor_layout_column_menu: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-26
 	platform_editor_perf_lint_cleanup: {
 		defaultValue: boolean;
@@ -3809,6 +3816,14 @@ export const editorExperimentsConfig: {
 	platform_editor_layout_column_resize_handle: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_layout_column_resize_handle',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-07
+	platform_editor_layout_column_menu: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_layout_column_menu',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

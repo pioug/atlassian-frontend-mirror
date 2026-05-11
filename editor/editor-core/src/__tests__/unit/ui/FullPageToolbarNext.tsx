@@ -25,6 +25,15 @@ const primaryToolbarComponent = {
 	),
 };
 
+// Stub for the `sharedState` half of the toolbar plugin's injection API
+// surface that `useSharedPluginStateWithSelector` reads from.
+const noopSharedState = {
+	currentState: () => undefined,
+	onChange: () => () => {},
+};
+
+// Tests only exercise actions / sharedState; cast via `unknown` to bypass
+// shape-overlap checks for the rest of the toolbar plugin's injection API.
 const getMockEditorAPIWithToolbar = () =>
 	({
 		toolbar: {
@@ -32,8 +41,9 @@ const getMockEditorAPIWithToolbar = () =>
 				getComponents: () => [primaryToolbarComponent],
 				contextualFormattingMode: () => 'controlled',
 			},
+			sharedState: noopSharedState,
 		},
-	}) as PublicPluginAPI<ToolbarPlugin>;
+	}) as unknown as PublicPluginAPI<ToolbarPlugin>;
 
 const getMockEditorAPIEmptyToolbar = () =>
 	({
@@ -42,8 +52,9 @@ const getMockEditorAPIEmptyToolbar = () =>
 				getComponents: () => [{}],
 				contextualFormattingMode: () => 'controlled',
 			},
+			sharedState: noopSharedState,
 		},
-	}) as PublicPluginAPI<ToolbarPlugin>;
+	}) as unknown as PublicPluginAPI<ToolbarPlugin>;
 
 describe('FullPageToolbarNext', () => {
 	let editorView: EditorView;

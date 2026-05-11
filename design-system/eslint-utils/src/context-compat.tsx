@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 import type { TSESLint, TSESTree } from '@typescript-eslint/utils';
 import type { Rule, Scope, SourceCode } from 'eslint';
 import type { Comment, Node } from 'estree-jsx';

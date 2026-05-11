@@ -489,7 +489,7 @@ export const createPlugin = (
 				// single traversal here; afterwards `apply()` will map or rebuild
 				// only when a status signal changes.
 				const initStatusDecorationSet =
-					expValEquals('editor_synced_block_perf', 'isEnabled', true) && docHasSyncedBlocks
+					docHasSyncedBlocks && expValEquals('editor_synced_block_perf', 'isEnabled', true)
 						? buildStatusDecorations(
 								instance.doc,
 								syncBlockStore,
@@ -518,6 +518,7 @@ export const createPlugin = (
 			},
 			apply: (tr, currentPluginState, oldEditorState) => {
 				const meta = tr.getMeta(syncedBlockPluginKey);
+				const isPerfExperimentOn = expValEquals('editor_synced_block_perf', 'isEnabled', true);
 
 				const {
 					activeFlag,
@@ -534,14 +535,24 @@ export const createPlugin = (
 				// Lazy-init bookkeeping: once a synced block enters the document we
 				// flip `hasSyncedBlocks` to `true` for the lifetime of this editor
 				let nextHasSyncedBlocks = prevHasSyncedBlocks;
-				if (
-					!prevHasSyncedBlocks &&
-					tr.docChanged &&
-					expValEquals('editor_synced_block_perf', 'isEnabled', true)
-				) {
+				if (!prevHasSyncedBlocks && tr.docChanged && isPerfExperimentOn) {
 					if (transactionInsertsSyncedBlock(tr)) {
 						nextHasSyncedBlocks = true;
 					}
+				}
+
+				// --- Fast path (EDITOR-6929): when `hasSyncedBlocks` is false,
+				// no meta is set, and the selection/doc haven't changed in a way
+				// that affects our state, return the SAME object reference so
+				// SharedStateAPI skips notifying subscribers. ---
+				if (
+					!nextHasSyncedBlocks &&
+					!meta &&
+					!tr.docChanged &&
+					tr.selection.eq(oldEditorState.selection) &&
+					isPerfExperimentOn
+				) {
+					return currentPluginState;
 				}
 
 				let newDecorationSet = tr.docChanged
@@ -570,7 +581,7 @@ export const createPlugin = (
 				let nextIsViewMode = prevViewMode;
 				let nextIsDragging = prevDragging;
 
-				if (expValEquals('editor_synced_block_perf', 'isEnabled', true)) {
+				if (isPerfExperimentOn) {
 					if (!nextHasSyncedBlocks) {
 						// No synced blocks → keep empty status decorations
 						nextStatusDecorationSet = DecorationSet.empty;
@@ -614,15 +625,41 @@ export const createPlugin = (
 					newPosEntry,
 					tr.mapping.map.bind(tr.mapping),
 				);
+
+				const nextActiveFlag = meta?.activeFlag ?? activeFlag;
+				const nextBodiedSyncBlockDeletionStatus =
+					meta?.bodiedSyncBlockDeletionStatus ?? bodiedSyncBlockDeletionStatus;
+				const nextHasUnsavedBodiedSyncBlockChanges =
+					syncBlockStore.sourceManager.hasUnsavedChanges();
+
+				// --- Reference equality (EDITOR-6929): return the same object
+				// when ALL fields are reference-equal to avoid SharedStateAPI
+				// notifying subscribers and triggering React re-renders. ---
+				if (
+					nextActiveFlag === activeFlag &&
+					newDecorationSet === selectionDecorationSet &&
+					newRetryCreationPosMap === retryCreationPosMap &&
+					nextHasSyncedBlocks === prevHasSyncedBlocks &&
+					nextBodiedSyncBlockDeletionStatus === bodiedSyncBlockDeletionStatus &&
+					nextHasUnsavedBodiedSyncBlockChanges ===
+						currentPluginState.hasUnsavedBodiedSyncBlockChanges &&
+					nextStatusDecorationSet === prevStatusDecorationSet &&
+					nextIsOffline === prevOffline &&
+					nextIsViewMode === prevViewMode &&
+					nextIsDragging === prevDragging &&
+					isPerfExperimentOn
+				) {
+					return currentPluginState;
+				}
+
 				return {
-					activeFlag: meta?.activeFlag ?? activeFlag,
+					activeFlag: nextActiveFlag,
 					selectionDecorationSet: newDecorationSet,
 					syncBlockStore: syncBlockStore,
 					retryCreationPosMap: newRetryCreationPosMap,
 					hasSyncedBlocks: nextHasSyncedBlocks,
-					bodiedSyncBlockDeletionStatus:
-						meta?.bodiedSyncBlockDeletionStatus ?? bodiedSyncBlockDeletionStatus,
-					hasUnsavedBodiedSyncBlockChanges: syncBlockStore.sourceManager.hasUnsavedChanges(),
+					bodiedSyncBlockDeletionStatus: nextBodiedSyncBlockDeletionStatus,
+					hasUnsavedBodiedSyncBlockChanges: nextHasUnsavedBodiedSyncBlockChanges,
 					statusDecorationSet: nextStatusDecorationSet,
 					prevIsOffline: nextIsOffline,
 					prevIsViewMode: nextIsViewMode,

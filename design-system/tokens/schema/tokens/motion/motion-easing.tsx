@@ -49,7 +49,7 @@ const font: AttributeSchema<MotionEasingTokenSchema<BaseEasingToken>> = {
 			spring: {
 				attributes: {
 					group: 'motionEasing',
-					state: 'active',
+					state: 'experimental',
 					introduced: '11.5.0',
 					description:
 						'A spring curve that overshoots slightly before settling. Use for playful, tactile feedback on small branded elements such as avatar hover, where the slight overshoot reinforces a sense of life.',

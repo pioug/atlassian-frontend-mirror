@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 77.3.0
+
+### Minor Changes
+
+- [`2023cac0fd36f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2023cac0fd36f) -
+  Add column drag handle context menu placeholder, gated behind the
+  platform_editor_layout_column_menu experiment flag.
+
 ## 77.2.0
 
 ### Minor Changes

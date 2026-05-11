@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.9.3
+
+### Patch Changes
+
+- [`a1196120ab924`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a1196120ab924) -
+  Add `use-motion-token-values` and `expand-motion-shorthand` lint rules to enforce motion token
+  usage.
+
 ## 2.9.2
 
 ### Patch Changes

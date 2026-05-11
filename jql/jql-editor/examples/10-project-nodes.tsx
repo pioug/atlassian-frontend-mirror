@@ -23,6 +23,21 @@ FeatureGates.checkGate = ((gateName: string, options?: unknown) => {
 	return originalCheckGate(gateName, options as any) as any;
 }) as any;
 
+const originalGetExperimentValue = FeatureGates.getExperimentValue.bind(FeatureGates);
+FeatureGates.getExperimentValue = ((
+	experimentName: string,
+	paramName: string,
+	defaultValue: unknown,
+) => {
+	if (
+		experimentName === 'atlassian_projects_-_native_integration' &&
+		paramName === 'releaseVersion'
+	) {
+		return 1;
+	}
+	return originalGetExperimentValue(experimentName, paramName, defaultValue as any) as any;
+}) as any;
+
 // Unmatched routes will fall back to the network
 fetchMock.config.fallbackToNetwork = true;
 

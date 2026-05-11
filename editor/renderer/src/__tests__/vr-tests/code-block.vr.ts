@@ -9,6 +9,7 @@ import {
 	CodeBlockWithReactLooselyLazy,
 	CodeBlockRendererWithBreakout,
 	CodeBlockRendererWithBreakoutFullWidth,
+	CodeBlockRendererWithWrapEnabled,
 } from './code-block.fixture';
 
 snapshot(CodeBlockRendererCopy, {
@@ -27,6 +28,16 @@ snapshot(CodeBlockRendererTrailingNewline, {
 
 snapshot(CodeBlockRendererWrap, {
 	description: 'should render wrap button on hover if enabled',
+	states: [{ state: 'hovered', selector: { byTestId: 'renderer-code-block' } }],
+});
+
+snapshot(CodeBlockRendererWithWrapEnabled, {
+	description:
+		'should initialise wrap from ADF wrap attribute and render wrap button as selected on hover',
+	featureFlags: {
+		platform_editor_renderer_rm_usespecbasedvalidator: true,
+	},
+	variants: [{ name: 'light', environment: { colorScheme: 'light' } }],
 	states: [{ state: 'hovered', selector: { byTestId: 'renderer-code-block' } }],
 });
 

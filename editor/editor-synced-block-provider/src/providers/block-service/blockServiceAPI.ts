@@ -25,7 +25,6 @@ import type {
 	BlockContentResponse,
 	BatchUpdateSyncedBlockRequest,
 } from '../../clients/block-service/blockService';
-import { subscribeToBlockUpdates as subscribeToBlockUpdatesWS } from '../../clients/block-service/blockSubscription';
 import { SyncBlockError } from '../../common/types';
 import type {
 	ReferenceSyncBlockData,
@@ -612,28 +611,53 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 	): () => void {
 		const blockAri = generateBlockAriFromReference({ cloudId: this.cloudId, resourceId });
 
-		return subscribeToBlockUpdatesWS(
-			blockAri,
-			(parsedData) => {
-				// Convert ParsedBlockSubscriptionData to SyncBlockInstance
-				const syncBlockInstance: SyncBlockInstance = {
-					data: {
-						content: parsedData.content,
-						resourceId: parsedData.blockAri,
-						blockInstanceId: parsedData.blockInstanceId,
-						sourceAri: parsedData.sourceAri,
-						product: parsedData.product,
-						createdAt: parsedData.createdAt,
-						contentUpdatedAt: parsedData.contentUpdatedAt,
-						createdBy: parsedData.createdBy,
-						status: parsedData.status as SyncBlockStatus,
+		// Track the real unsubscribe fn once the dynamic import resolves
+		let unsubscribe: (() => void) | undefined;
+		let cancelled = false;
+
+		// Dynamically import blockSubscription so that graphql-ws is NOT pulled
+		// into the SSR/preload bundle that imports this subpath.
+		void import('../../clients/block-service/blockSubscription')
+			.then(({ subscribeToBlockUpdates: subscribeToBlockUpdatesWS }) => {
+				if (cancelled) {
+					return;
+				}
+
+				unsubscribe = subscribeToBlockUpdatesWS(
+					blockAri,
+					(parsedData) => {
+						// Convert ParsedBlockSubscriptionData to SyncBlockInstance
+						const syncBlockInstance: SyncBlockInstance = {
+							data: {
+								content: parsedData.content,
+								resourceId: parsedData.blockAri,
+								blockInstanceId: parsedData.blockInstanceId,
+								sourceAri: parsedData.sourceAri,
+								product: parsedData.product,
+								createdAt: parsedData.createdAt,
+								contentUpdatedAt: parsedData.contentUpdatedAt,
+								createdBy: parsedData.createdBy,
+								status: parsedData.status as SyncBlockStatus,
+							},
+							resourceId: parsedData.resourceId,
+						};
+						onUpdate(syncBlockInstance);
 					},
-					resourceId: parsedData.resourceId,
-				};
-				onUpdate(syncBlockInstance);
-			},
-			onError,
-		);
+					onError,
+				);
+			})
+			.catch((err: unknown) => {
+				if (cancelled) {
+					return;
+				}
+				onError?.(err instanceof Error ? err : new Error('Failed to load subscription module'));
+			});
+
+		// Return an unsubscribe fn that works whether the import has resolved or not
+		return () => {
+			cancelled = true;
+			unsubscribe?.();
+		};
 	}
 }
 

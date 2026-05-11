@@ -15,7 +15,7 @@ import DropdownItemCustomComponent from '../../examples/constellation/dropdown-i
 
 <SectionMessage title="Motion in Early Access" appearance="warning">
 	The motion added into Dropdown menu is in Early Access. The motion updates are currently behind
-	the feature flag: platform-dst-motion-uplift.
+	the feature flag: platform-dst-motion-uplift-popup.
 </SectionMessage>
 
 ## Description
@@ -25,7 +25,7 @@ Use `description` to add supplementary text under the main action.
 <Example
 	Component={DropdownItemDescription}
 	packageName="@atlaskit/dropdown-menu"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## Multiline
@@ -37,7 +37,7 @@ accessible.
 <Example
 	Component={DropdownItemMultiline}
 	packageName="@atlaskit/dropdown-menu"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 Use `shouldDescriptionWrap` to let the description wrap over multiple lines. Defaults to `true`. We
@@ -46,7 +46,7 @@ recommend content wrapping over truncation, because truncation isn't usable or a
 <Example
 	Component={DropdownItemDescriptionMultiline}
 	packageName="@atlaskit/dropdown-menu"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## States
@@ -59,7 +59,7 @@ from people who use assistive technology, so use this state with caution.
 <Example
 	Component={DropdownItemDisabled}
 	packageName="@atlaskit/dropdown-menu"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## With elements
@@ -72,7 +72,7 @@ Use `elemBefore` to show an element before the dropdown item text. Generally thi
 <Example
 	Component={DropdownItemElementBefore}
 	packageName="@atlaskit/dropdown-menu"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ### Elem after
@@ -83,7 +83,7 @@ Use `elemAfter` to show an element after the dropdown item text. Generally this 
 <Example
 	Component={DropdownItemElementAfter}
 	packageName="@atlaskit/dropdown-menu"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## Custom component
@@ -93,5 +93,5 @@ Use `component` to pass the custom component.
 <Example
 	Component={DropdownItemCustomComponent}
 	packageName="@atlaskit/dropdown-menu"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::9a4a30379bf0048f978d7a1f2fe88382>>
+ * @codegen <<SignedSource::ef4a0f5905987f55e6f56a47531792f9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -5889,11 +5889,13 @@ const metadata: Record<string, metadata> = {
 			'speed',
 			'performance',
 			'dial',
+			'risk likelihood',
+			'medium risk',
 		],
 		componentName: 'SpeedometerUpIcon',
 		package: '@atlaskit/icon-lab/core/speedometer-up',
 		categorization: 'multi-purpose',
-		usage: 'Known uses: video is set a normal playback speed',
+		usage: 'Known uses: video is set a normal playback speed; medium risk likelihood',
 		team: 'Loom',
 		status: 'published',
 	},

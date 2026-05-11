@@ -9,9 +9,16 @@ import { walkStyleProperties } from '@atlaskit/eslint-utils/walk-style-propertie
 
 import { createLintRuleWithTypedConfig } from '../utils/create-rule-with-typed-config';
 
-import { ignoredAtRules } from './constants';
 import { lintSelector } from './lint-selector';
 import { walkCssMap } from './walk-css-map';
+
+const ignoredAtRules: Set<string> = new Set([
+	'@container', // ignored because it's covered by `no-container-queries`
+	'@media', // ignored because it's covered by `no-nested-styles`
+	'@supports',
+	'@property',
+	'@starting-style',
+]);
 
 const cssSelectorProcessor = cssSelectorParser();
 

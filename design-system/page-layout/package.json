@@ -54,8 +54,8 @@
 			"name": "Page layout",
 			"category": "Layout and structure",
 			"status": {
-				"type": "intent-to-deprecate",
-				"description": "We are planning on deprecating Page layout. We recommend using Navigation system instead. [View Navigation system documentation](/components/navigation-system)"
+				"type": "deprecated",
+				"description": "This package is deprecated. Use our new [navigation system](/components/navigation-system)."
 			}
 		}
 	},

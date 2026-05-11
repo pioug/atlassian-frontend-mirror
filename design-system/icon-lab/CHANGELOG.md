@@ -1,5 +1,22 @@
 # @atlaskit/icon-lab
 
+## 6.8.0
+
+### Minor Changes
+
+- [`2839666e3fb27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2839666e3fb27) -
+  This release updates icons in `@atlaskit/icon-lab`.
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+  - `hierarchy`
+  - `speedometer-up`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.7.0
 
 ### Minor Changes

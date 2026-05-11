@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-provider
 
+## 6.5.0
+
+### Minor Changes
+
+- [`6905b24d57293`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6905b24d57293) -
+  Add deep import subpath exports for SSR preload tree-shaking (providers/types,
+  providers/block-service/blockServiceAPI, clients/confluence/ari, utils/resourceId, common/types)
+
 ## 6.4.3
 
 ### Patch Changes

@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 8.2.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.11
+
+### Patch Changes
+
+- [`a160344820ea5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a160344820ea5) -
+  EDITOR-6929: Fix React re-render cascade by (1) returning same plugin state reference from apply()
+  when nothing changed, (2) memoizing getSharedState to return a stable reference, and (3) guarding
+  contentComponent to skip rendering when hasSyncedBlocks is false. All gated behind
+  editor_synced_block_perf experiment.
+- Updated dependencies
+
+## 8.2.10
+
+### Patch Changes
+
+- [`0a702a2b251d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a702a2b251d1) -
+  Guard menuAndToolbarExperiencesPlugin DOM listeners and floatingToolbar config behind
+  hasSyncedBlocks to avoid unnecessary work on pages without synced blocks
+- Updated dependencies
+
 ## 8.2.9
 
 ### Patch Changes

@@ -18,7 +18,7 @@ import PopupFullWidth from '../../examples/constellation/popup-full-width';
 
 <SectionMessage title="Motion in Early Access" appearance="warning">
 	The motion added into Popup is in Early Access. The motion updates are currently behind the
-	feature flag: platform-dst-motion-uplift.
+	feature flag: platform-dst-motion-uplift-popup.
 </SectionMessage>
 
 ## Default
@@ -28,7 +28,7 @@ This is the simplest form of a popup. The popup opens from a trigger element.
 <Example
 	Component={PopupDefaultExample}
 	packageName="@atlaskit/popup"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## Placement
@@ -41,7 +41,7 @@ Using the `auto` placement will place the popup on the side with the most space 
 <Example
 	Component={PopupPlacementExample}
 	packageName="@atlaskit/popup"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## Multiple
@@ -51,7 +51,7 @@ You can use popups multiple times on the same page.
 <Example
 	Component={PopupMultipleExample}
 	packageName="@atlaskit/popup"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## Nested
@@ -66,7 +66,7 @@ popup.
 <Example
 	Component={PopupNestedExample}
 	packageName="@atlaskit/popup"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## Content updates
@@ -79,7 +79,7 @@ animation frame.
 <Example
 	Component={PopupContentUpdateExample}
 	packageName="@atlaskit/popup"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## Customization
@@ -93,7 +93,7 @@ positioning of the popup won't work correctly.
 <Example
 	Component={PopupCustomExample}
 	packageName="@atlaskit/popup"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## Focus
@@ -112,7 +112,7 @@ will need to manually set focus on the content once it is rendered.
 <Example
 	Component={PopupFocusExample}
 	packageName="@atlaskit/popup"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ### Disable autofocus
@@ -123,7 +123,7 @@ the popup is opened.
 <Example
 	Component={PopupDisableAutofocusExample}
 	packageName="@atlaskit/popup"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## Surface detection
@@ -135,7 +135,7 @@ style children with the current surface color.
 <Example
 	Component={PopupSurfaceDetectionExample}
 	packageName="@atlaskit/popup"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## Content wrapping
@@ -146,7 +146,7 @@ render the content directly after the trigger element.
 <Example
 	Component={PopupContentWithoutPortalExample}
 	packageName="@atlaskit/popup"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## Role
@@ -158,7 +158,7 @@ passed, one of the following properties must also be added: `label` or `titleId`
 <Example
 	Component={PopupWithRoleExample}
 	packageName="@atlaskit/popup"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />
 
 ## Full width
@@ -170,5 +170,5 @@ rendered as a sibling to the trigger element, and will be full width.
 <Example
 	Component={PopupFullWidth}
 	packageName="@atlaskit/popup"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionPopup']}
 />

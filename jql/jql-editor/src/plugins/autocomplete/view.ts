@@ -5,7 +5,6 @@ import { type EditorState, TextSelection } from '@atlaskit/editor-prosemirror/st
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { isListOperator } from '@atlaskit/jql-ast';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type PortalActions } from '../../ui/jql-editor-portal-provider/types';
 import getDocumentPosition from '../common/get-document-position';
@@ -88,7 +87,7 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 						'isEnabled',
 						false,
 					)) ||
-				(option.valueType === 'project' && fg('projects_in_jira_eap_drop2')))
+				(option.valueType === 'project' && FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1))
 		) {
 			transaction.setMeta('hydrate', true);
 		}
@@ -142,7 +141,7 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 					break;
 				}
 				case 'project': {
-					if (fg('projects_in_jira_eap_drop2')) {
+					if (FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1) {
 						const attributes = {
 							type: 'project',
 							id: value,

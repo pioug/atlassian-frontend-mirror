@@ -11,7 +11,7 @@ import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 // it is not possible to use tokens there without polluting ADF.
 // As table cell backgrounds are set inline, this should not break mobile as
 // hexToEditorBackgroundPaletteColor() outputs a css variable with fallback hex.
-const mapBackgroundColors = () => {
+export const mapBackgroundColors = (): string => {
 	let cssString = '';
 	tableBackgroundColorNames.forEach((value, key) => {
 		const paletteColorValue = hexToEditorBackgroundPaletteColor(value);

@@ -16,7 +16,7 @@ import VRTestWrapper from '../utils/vr-test-wrapper';
 
 type InlineCardUnauthorisedSocialProofExampleProps = {
 	includeContext?: boolean;
-	providerPercentage: number;
+	providerPercentage?: number;
 };
 
 const bodyFontTokens = [token('font.body'), token('font.body.large')];
@@ -25,9 +25,9 @@ export const InlineCardUnauthorisedSocialProofExample = ({
 	providerPercentage,
 	includeContext = true,
 }: InlineCardUnauthorisedSocialProofExampleProps): React.JSX.Element => {
-	const mockGetProviderPctMapSync = injectable(getCachedProviderPctMapAndRefresh, () => ({
-		'figma-object-provider': providerPercentage,
-	}));
+	const mockGetProviderPctMapSync = injectable(getCachedProviderPctMapAndRefresh, () =>
+		providerPercentage === undefined ? {} : { 'figma-object-provider': providerPercentage },
+	);
 
 	const socialProofDi = [mockGetProviderPctMapSync];
 

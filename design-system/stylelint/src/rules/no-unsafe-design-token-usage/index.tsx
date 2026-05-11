@@ -168,4 +168,5 @@ const rule: Rule<any, any> = Object.assign(ruleBase, {
 
 const plugin: stylelint.Plugin = stylelint.createPlugin(ruleName, rule);
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default plugin;

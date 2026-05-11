@@ -17,7 +17,12 @@ import {
 } from '../../util/constants';
 import type { CategoryDescription, OnCategory } from '../../types';
 import { messages } from '../i18n';
-import { CategoryDescriptionMap, type CategoryGroupKey, type CategoryId } from './categories';
+import {
+	CategoryDescriptionMap,
+	CategoryDescriptionMapNew,
+	type CategoryGroupKey,
+	type CategoryId,
+} from './categories';
 import { usePrevious } from '../../hooks/usePrevious';
 import { RENDER_EMOJI_PICKER_LIST_TESTID } from './EmojiPickerList';
 
@@ -160,7 +165,14 @@ const addNewCategories = (
 		return oldCategories;
 	}
 	return oldCategories
-		.concat(newCategories.filter((category) => !!CategoryDescriptionMap[category]))
+		.concat(
+			newCategories.filter(
+				(category) =>
+					!!(
+						fg('platform_emoji_picker_refresh') ? CategoryDescriptionMapNew : CategoryDescriptionMap
+					)[category],
+			),
+		)
 		.sort(sortCategories);
 };
 
@@ -288,7 +300,9 @@ const CategorySelector = (props: Props): JSX.Element => {
 				css={categorySelectorTablist}
 			>
 				{categories.map((categoryId: CategoryId, index: number) => {
-					const category = CategoryDescriptionMap[categoryId];
+					const category = fg('platform_emoji_picker_refresh')
+						? CategoryDescriptionMapNew[categoryId]
+						: CategoryDescriptionMap[categoryId];
 
 					const Icon = category.icon;
 					const categoryName = formatMessage(messages[category.name]);

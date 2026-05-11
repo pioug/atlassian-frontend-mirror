@@ -11,7 +11,8 @@ import { createLintRule } from '../utils/create-rule';
 import { isImportDefaultSpecifier } from './is-import-default-specifier';
 import { isImportNamespaceSpecifier } from './is-import-namespace-specifier';
 import { isImportSpecifier } from './is-import-specifier';
-import { isSafeStyled, isSafeUsage } from './is-safe';
+import { isSafeStyled } from './is-safe-styled';
+import { isSafeUsage } from './is-safe-usage';
 import { getFirstImportFromSource } from './utils';
 
 const SUPPORTED_EMOTION_IMPORTS = new Set(['css', 'keyframes', 'ClassNames', 'jsx']);

@@ -22,7 +22,10 @@ import {
 	expandClassNames,
 	SmartCardSharedCssClassName,
 	CodeBlockSharedCssClassName,
+	tableCellBorderWidth,
+	tableCellMinWidth,
 } from '@atlaskit/editor-common/styles';
+import { tableCellBackgroundStyleOverrideForCompiled } from '@atlaskit/editor-common/table-cell-background-for-compiled';
 import type {
 	EditorAppearance,
 	EditorContentMode,
@@ -32,8 +35,10 @@ import {
 	akEditorFullPageDefaultFontSize,
 	akEditorFullPageDenseFontSize,
 	akEditorGutterPaddingDynamic,
+	akEditorTableNumberColumnWidth,
 	editorFontSize,
 } from '@atlaskit/editor-shared-styles';
+import { overflowShadowForCompiled } from '@atlaskit/editor-shared-styles/overflow-shadow-for-compiled';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -579,14 +584,30 @@ const editorContentStyles = cssMap({
 				},
 			},
 	},
-	blockquoteDangerStyles: {},
-	blockquoteSelectedNodeStyles: {},
-	blocktypeStyles: {},
-	blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes: {},
-	blocktypeStyles_fg_platform_editor_typography_ugc: {},
-	blocktypeStyles_without_fg_platform_editor_typography_ugc: {},
-	codeBlockStyles: {},
-	codeBlockStylesWithEmUnits: {},
+	blockquoteDangerStyles: {
+		// placeholder for migration
+	},
+	blockquoteSelectedNodeStyles: {
+		// placeholder for migration
+	},
+	blocktypeStyles: {
+		// placeholder for migration
+	},
+	blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes: {
+		// placeholder for migration
+	},
+	blocktypeStyles_fg_platform_editor_typography_ugc: {
+		// placeholder for migration
+	},
+	blocktypeStyles_without_fg_platform_editor_typography_ugc: {
+		// placeholder for migration
+	},
+	codeBlockStyles: {
+		// placeholder for migration
+	},
+	codeBlockStylesWithEmUnits: {
+		// placeholder for migration
+	},
 	codeMarkStyles: {
 		'.code': {
 			'--ds--code--bg-color': token('color.background.neutral'),
@@ -724,9 +745,15 @@ const editorContentStyles = cssMap({
 			backgroundColor: token('color.background.accent.red.subtler'),
 		},
 	},
-	decisionDangerStyles: {},
-	decisionIconWithVisualRefresh: {},
-	decisionStyles: {},
+	decisionDangerStyles: {
+		// placeholder for migration
+	},
+	decisionIconWithVisualRefresh: {
+		// placeholder for migration
+	},
+	decisionStyles: {
+		// placeholder for migration
+	},
 	diffListStyles: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		'li[data-testid="show-diff-changed-decoration-node"]::marker': {
@@ -734,7 +761,9 @@ const editorContentStyles = cssMap({
 			color: 'var(--diff-decoration-marker-color)',
 		},
 	},
-	editorControlsSmartCardStyles: {},
+	editorControlsSmartCardStyles: {
+		// placeholder for migration
+	},
 	editorLargeGutterPuddingBaseStyles: {
 		'--ak-editor--large-gutter-padding': '52px',
 	},
@@ -747,9 +776,15 @@ const editorContentStyles = cssMap({
 			'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingReduced}px`,
 		},
 	},
-	editorUGCSmallText: {},
-	editorUGCTokensDefault: {},
-	editorUGCTokensRefreshed: {},
+	editorUGCSmallText: {
+		// placeholder for migration
+	},
+	editorUGCTokensDefault: {
+		// placeholder for migration
+	},
+	editorUGCTokensRefreshed: {
+		// placeholder for migration
+	},
 	embedCardStyles: {
 		'.ProseMirror': {
 			".embedCardView-content-wrap[layout^='wrap-']": {
@@ -773,15 +808,33 @@ const editorContentStyles = cssMap({
 				},
 		},
 	},
-	emojiDangerStyles: {},
-	emojiStyles: {},
-	expandStyles: {},
-	expandStylesBase: {},
-	expandStylesMixin_experiment_platform_editor_chromeless_expand_fix: {},
-	expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes: {},
-	expandStylesMixin_fg_platform_visual_refresh_icons: {},
-	expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes: {},
-	extensionDiffStyles: {},
+	emojiDangerStyles: {
+		// placeholder for migration
+	},
+	emojiStyles: {
+		// placeholder for migration
+	},
+	expandStyles: {
+		// placeholder for migration
+	},
+	expandStylesBase: {
+		// placeholder for migration
+	},
+	expandStylesMixin_experiment_platform_editor_chromeless_expand_fix: {
+		// placeholder for migration
+	},
+	expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes: {
+		// placeholder for migration
+	},
+	expandStylesMixin_fg_platform_visual_refresh_icons: {
+		// placeholder for migration
+	},
+	expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes: {
+		// placeholder for migration
+	},
+	extensionDiffStyles: {
+		// placeholder for migration
+	},
 	findReplaceStyles: {
 		'.search-match': {
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
@@ -1071,8 +1124,12 @@ const editorContentStyles = cssMap({
 			},
 		},
 	},
-	firstCodeBlockWithNoMargin: {},
-	firstCodeBlockWithNoMarginOld: {},
+	firstCodeBlockWithNoMargin: {
+		// placeholder for migration
+	},
+	firstCodeBlockWithNoMarginOld: {
+		// placeholder for migration
+	},
 	firstFloatingToolbarButtonStyles: {
 		'button.first-floating-toolbar-button:focus': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
@@ -1295,7 +1352,9 @@ const editorContentStyles = cssMap({
 			padding: 0,
 		},
 	},
-	indentationStyles: {},
+	indentationStyles: {
+		// placeholder for migration
+	},
 	InlineNodeViewSharedStyles: {
 		'.ProseMirror': {
 			'.inlineNodeView': {
@@ -1328,30 +1387,78 @@ const editorContentStyles = cssMap({
 			},
 		},
 	},
-	layoutBaseStyles: {},
-	layoutBaseStylesAdvanced: {},
-	layoutBaseStylesFixesUnderNestedDnDFG: {},
-	layoutBaseStylesFixesUnderNestedDnDFGExcludingBodiedSync: {},
-	layoutBaseStylesWithTableExcerptsFix: {},
-	layoutColumnDividerStyles: {},
-	layoutColumnDividerStylesNestedDnD: {},
-	layoutColumnMartinTopFixesNew: {},
-	layoutColumnMartinTopFixesOld: {},
-	layoutColumnResizeStyles: {},
-	layoutColumnResponsiveStyles: {},
-	layoutColumnStylesAdvanced: {},
-	layoutColumnStylesNotAdvanced: {},
-	layoutResponsiveBaseStyles: {},
-	layoutResponsiveStylesForView: {},
-	layoutSectionStylesAdvanced: {},
-	layoutSectionStylesNotAdvanced: {},
-	layoutSelectedStylesAdvanced: {},
-	layoutSelectedStylesAdvancedFix: {},
-	layoutSelectedStylesForViewAdvanced: {},
-	layoutSelectedStylesForViewNotAdvanced: {},
-	layoutSelectedStylesNotAdvanced: {},
-	layoutStylesForView: {},
-	linkingVisualRefreshV1Styles: {},
+	layoutBaseStyles: {
+		// placeholder for migration
+	},
+	layoutBaseStylesAdvanced: {
+		// placeholder for migration
+	},
+	layoutBaseStylesFixesUnderNestedDnDFG: {
+		// placeholder for migration
+	},
+	layoutBaseStylesFixesUnderNestedDnDFGExcludingBodiedSync: {
+		// placeholder for migration
+	},
+	layoutBaseStylesWithTableExcerptsFix: {
+		// placeholder for migration
+	},
+	layoutColumnDividerStyles: {
+		// placeholder for migration
+	},
+	layoutColumnDividerStylesNestedDnD: {
+		// placeholder for migration
+	},
+	layoutColumnMartinTopFixesNew: {
+		// placeholder for migration
+	},
+	layoutColumnMartinTopFixesOld: {
+		// placeholder for migration
+	},
+	layoutColumnResizeStyles: {
+		// placeholder for migration
+	},
+	layoutColumnResponsiveStyles: {
+		// placeholder for migration
+	},
+	layoutColumnStylesAdvanced: {
+		// placeholder for migration
+	},
+	layoutColumnStylesNotAdvanced: {
+		// placeholder for migration
+	},
+	layoutResponsiveBaseStyles: {
+		// placeholder for migration
+	},
+	layoutResponsiveStylesForView: {
+		// placeholder for migration
+	},
+	layoutSectionStylesAdvanced: {
+		// placeholder for migration
+	},
+	layoutSectionStylesNotAdvanced: {
+		// placeholder for migration
+	},
+	layoutSelectedStylesAdvanced: {
+		// placeholder for migration
+	},
+	layoutSelectedStylesAdvancedFix: {
+		// placeholder for migration
+	},
+	layoutSelectedStylesForViewAdvanced: {
+		// placeholder for migration
+	},
+	layoutSelectedStylesForViewNotAdvanced: {
+		// placeholder for migration
+	},
+	layoutSelectedStylesNotAdvanced: {
+		// placeholder for migration
+	},
+	layoutStylesForView: {
+		// placeholder for migration
+	},
+	linkingVisualRefreshV1Styles: {
+		// placeholder for migration
+	},
 	linkStyles: {
 		'.ProseMirror a.blockLink': {
 			display: 'block',
@@ -1363,7 +1470,9 @@ const editorContentStyles = cssMap({
 			textDecoration: 'none',
 		},
 	},
-	listDangerStyles: {},
+	listDangerStyles: {
+		// placeholder for migration
+	},
 	listItemHiddenMarkerStyles: {
 		'.ProseMirror': {
 			// Hide markers and remove spacing for wrapper list items (items containing only nested lists)
@@ -1396,7 +1505,9 @@ const editorContentStyles = cssMap({
 			},
 		},
 	},
-	listSelectedNodeStyles: {},
+	listSelectedNodeStyles: {
+		// placeholder for migration
+	},
 	listsStyles: {
 		'.ProseMirror': {
 			/* =============== INDENTATION SPACING ========= */
@@ -1560,11 +1671,21 @@ const editorContentStyles = cssMap({
 			'--ak-editor--breakout-min-width': '0px',
 		},
 	},
-	mediaAlignmentStyles: {},
-	mediaCaptionStyles: {},
-	mediaDangerStyles: {},
-	mediaGroupStyles: {},
-	mediaStyles: {},
+	mediaAlignmentStyles: {
+		// placeholder for migration
+	},
+	mediaCaptionStyles: {
+		// placeholder for migration
+	},
+	mediaDangerStyles: {
+		// placeholder for migration
+	},
+	mediaGroupStyles: {
+		// placeholder for migration
+	},
+	mediaStyles: {
+		// placeholder for migration
+	},
 	mentionDangerStyles: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		'.ak-editor-selected-node:not(.search-match-block).danger': {
@@ -1721,12 +1842,24 @@ const editorContentStyles = cssMap({
 			},
 		},
 	},
-	nestedPanelBorderStylesMixin: {},
-	nestedPanelDangerStyles: {},
-	panelStyles: {},
-	panelStylesMixin: {},
-	panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes: {},
-	panelViewStyles: {},
+	nestedPanelBorderStylesMixin: {
+		// placeholder for migration
+	},
+	nestedPanelDangerStyles: {
+		// placeholder for migration
+	},
+	panelStyles: {
+		// placeholder for migration
+	},
+	panelStylesMixin: {
+		// placeholder for migration
+	},
+	panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes: {
+		// placeholder for migration
+	},
+	panelViewStyles: {
+		// placeholder for migration
+	},
 	paragraphStylesOld: {
 		'.ProseMirror p': {
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -1865,14 +1998,30 @@ const editorContentStyles = cssMap({
 			whiteSpace: 'nowrap',
 		},
 	},
-	pragmaticResizerStyles: {},
-	pragmaticResizerStylesCodeBlockLegacy: {},
-	pragmaticResizerStylesCodeBlockSyncedBlockPatch: {},
-	pragmaticResizerStylesForTooltip: {},
-	pragmaticResizerStylesSyncedBlock: {},
-	pragmaticResizerStylesWithReducedEditorGutter: {},
-	pragmaticStylesLayoutFirstNodeResizeHandleFix: {},
-	resizerStyles: {},
+	pragmaticResizerStyles: {
+		// placeholder for migration
+	},
+	pragmaticResizerStylesCodeBlockLegacy: {
+		// placeholder for migration
+	},
+	pragmaticResizerStylesCodeBlockSyncedBlockPatch: {
+		// placeholder for migration
+	},
+	pragmaticResizerStylesForTooltip: {
+		// placeholder for migration
+	},
+	pragmaticResizerStylesSyncedBlock: {
+		// placeholder for migration
+	},
+	pragmaticResizerStylesWithReducedEditorGutter: {
+		// placeholder for migration
+	},
+	pragmaticStylesLayoutFirstNodeResizeHandleFix: {
+		// placeholder for migration
+	},
+	resizerStyles: {
+		// placeholder for migration
+	},
 	ruleStyles: {
 		'.ProseMirror hr': {
 			border: 'none',
@@ -1893,7 +2042,9 @@ const editorContentStyles = cssMap({
 			backgroundColor: token('color.border.selected'),
 		},
 	},
-	scaledEmojiStyles: {},
+	scaledEmojiStyles: {
+		// placeholder for migration
+	},
 	scrollbarStyles: {
 		msOverflowStyle: '-ms-autohiding-scrollbar',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -1931,36 +2082,350 @@ const editorContentStyles = cssMap({
 			animationTimingFunction: `cubic-bezier(0.6, 0, 0, 1)`,
 		},
 	},
-	shadowStyles: {},
-	showDiffDeletedNodeStyles: {},
-	showDiffDeletedNodeStylesNew: {},
-	smartCardDiffStyles: {},
-	smartCardStyles: {},
-	smartCardStylesWithSearchMatch: {},
-	smartCardStylesWithSearchMatchAndBlockMenuDangerStyles: {},
-	smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness: {},
-	smartLinksInLivePagesStyles: {},
-	statusDangerStyles: {},
-	statusStyles: {},
-	statusStylesMixin_fg_platform_component_visual_refresh: {},
-	statusStylesMixin_fg_platform_component_visual_refresh_with_search_match: {},
-	statusStylesMixin_without_fg_platform_component_visual_refresh: {},
-	statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match: {},
-	statusStylesTeam26: {},
-	syncBlockFirstNodeStyles: {},
-	syncBlockOverflowStyles: {},
-	syncBlockStyles: {},
-	syncBlockStylesBase: {},
-	tableCommentEditorStyles: {},
-	tableContainerStyles: {},
-	tableContentModeStyles: {},
-	tableEmptyRowStyles: {},
-	tableLayoutFixes: {},
-	tableLayoutFixesWithFontSize: {},
-	taskItemCheckboxStyles: {},
-	taskItemStyles: {},
-	taskItemStylesWithBlockTaskItem: {},
-	tasksAndDecisionsStyles: {},
+	shadowStyles: {
+		// placeholder for migration
+	},
+	showDiffDeletedNodeStyles: {
+		// placeholder for migration
+	},
+	showDiffDeletedNodeStylesNew: {
+		// placeholder for migration
+	},
+	smartCardDiffStyles: {
+		// placeholder for migration
+	},
+	smartCardStyles: {
+		// placeholder for migration
+	},
+	smartCardStylesWithSearchMatch: {
+		// placeholder for migration
+	},
+	smartCardStylesWithSearchMatchAndBlockMenuDangerStyles: {
+		// placeholder for migration
+	},
+	smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness: {
+		// placeholder for migration
+	},
+	smartLinksInLivePagesStyles: {
+		// placeholder for migration
+	},
+	statusDangerStyles: {
+		// placeholder for migration
+	},
+	statusStyles: {
+		// placeholder for migration
+	},
+	statusStylesMixin_fg_platform_component_visual_refresh: {
+		// placeholder for migration
+	},
+	statusStylesMixin_fg_platform_component_visual_refresh_with_search_match: {
+		// placeholder for migration
+	},
+	statusStylesMixin_without_fg_platform_component_visual_refresh: {
+		// placeholder for migration
+	},
+	statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match: {
+		// placeholder for migration
+	},
+	statusStylesTeam26: {
+		// placeholder for migration
+	},
+	syncBlockFirstNodeStyles: {
+		// placeholder for migration
+	},
+	syncBlockOverflowStyles: {
+		// placeholder for migration
+	},
+	syncBlockStyles: {
+		// placeholder for migration
+	},
+	syncBlockStylesBase: {
+		// placeholder for migration
+	},
+	tableCommentEditorStyles: {
+		'.ProseMirror .pm-table-wrapper > table': {
+			marginLeft: 0,
+			marginRight: 0,
+			// scrollbarStyles
+			msOverflowStyle: '-ms-autohiding-scrollbar',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&::-webkit-scrollbar-corner': {
+				display: 'none',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&::-webkit-scrollbar-thumb': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				backgroundColor: token('color.background.neutral.subtle'),
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:hover::-webkit-scrollbar-thumb': {
+				backgroundColor: token('color.background.neutral.bold'),
+				borderRadius: token('radius.large'),
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&::-webkit-scrollbar-thumb:hover': {
+				backgroundColor: token('color.background.neutral.bold.hovered'),
+			},
+		},
+	},
+	tableContainerStyles: {
+		/* Fix for HOT-119925: Ensure table containers have proper width constraints and overflow handling */
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror .pm-table-wrapper': {
+			maxWidth: '100%',
+			overflowX: 'auto',
+			// Ensure the wrapper doesn't grow beyond its container
+			width: '100%',
+			boxSizing: 'border-box',
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror .pm-table-wrapper.pm-table-wrapper-no-overflow': {
+			overflowX: 'visible',
+		},
+
+		/* Fix for HOT-119925: Ensure table elements are responsive and don't overflow */
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror .pm-table-wrapper table': {
+			maxWidth: '100%',
+			width: '100%',
+			tableLayout: 'fixed',
+			// Ensure tables can be scrolled horizontally if needed
+			minWidth: 'auto',
+		},
+	},
+	tableContentModeStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.pm-table-resizer-container:has(table[data-initial-width-mode="content"])': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			width: 'max-content !important',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			'--ak-editor-table-width': 'max-content',
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.resizer-item:has(table[data-initial-width-mode="content"])': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			width: 'max-content !important',
+		},
+
+		// Reset the extended hover zone padding for content-mode tables so it doesn't
+		// inflate the max-content width of parent elements (resizer-container, wrapper).
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.resizer-item:has(table[data-initial-width-mode="content"]) > .resizer-hover-zone.resizer-is-extended':
+			{
+				padding: 'unset',
+				left: 'unset',
+			},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror .pm-table-wrapper table[data-initial-width-mode="content"]': {
+			tableLayout: 'auto',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			width: 'max-content !important',
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror .pm-table-wrapper table[data-initial-width-mode="content"] > colgroup > col': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			width: 'unset !important',
+		},
+	},
+	tableEmptyRowStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror .pm-table-wrapper': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.pm-table-cell-content-wrap, .pm-table-header-content-wrap': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'p:empty': {
+					/* add a minimum height to empty table rows in SSR */
+					minHeight: '1.714em',
+				},
+			},
+		},
+	},
+	tableLayoutFixes: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.pm-table-header-content-wrap :not(.fabric-editor-alignment), .pm-table-header-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark, .pm-table-cell-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'p:first-of-type': {
+					marginTop: 0,
+				},
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.pm-table-cell-content-wrap .mediaGroupView-content-wrap': {
+			clear: 'both',
+		},
+	},
+	tableLayoutFixesWithFontSize: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.pm-table-header-content-wrap :not(.fabric-editor-alignment, .fabric-editor-font-size), .pm-table-header-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark, .pm-table-cell-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'p:first-of-type': {
+					marginTop: 0,
+				},
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.pm-table-cell-content-wrap .mediaGroupView-content-wrap': {
+			clear: 'both',
+		},
+	},
+	// It was from "import { tableSharedStyle } from '@atlaskit/editor-common/styles';"
+	tableSharedStyle: {
+		'.pm-table-container': {
+			position: 'relative',
+			margin: `0 auto ${token('space.200')}`,
+			boxSizing: 'border-box',
+			/**
+			 * Fix block top alignment inside table cells.
+			 */
+			'.decisionItemView-content-wrap:first-of-type > div': {
+				marginTop: 0,
+			},
+			'.pm-table-right-border, .pm-table-left-border': {
+				display: 'block',
+				width: '1px',
+				height: `calc(100% - ${token('space.300')})`,
+				background: token('color.background.accent.gray.subtler'),
+				position: 'absolute',
+				top: token('space.300'),
+			},
+			'.pm-table-right-border': {
+				right: 0,
+			},
+			'.pm-table-left-border': {
+				left: 0,
+			},
+			'.pm-table-left-border[data-with-numbered-table="true"]': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+				left: `${akEditorTableNumberColumnWidth - 1}px`,
+			},
+		},
+		'.pm-table-container[data-number-column="true"]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			paddingLeft: `${akEditorTableNumberColumnWidth - 1}px`,
+			clear: 'both',
+		},
+		'.pm-table-resizer-container': {
+			willChange: 'width, margin-left',
+		},
+		'.pm-table-resizer-container table': {
+			willChange: 'width',
+		},
+		'.pm-table-wrapper > table': {
+			margin: `${token('space.300')} 0 0 0`,
+		},
+		'.pm-table-container > table, .pm-table-sticky-wrapper > table': {
+			margin: `${token('space.300')} ${token('space.100')} 0 0`,
+		},
+		/* support panel nested in table */
+		// platform_editor_bordered_panel_nested_in_table fg is in tidying phase, so didn't consider styles when it's off
+		'.pm-table-wrapper .ak-editor-panel': {
+			border: `${token('border.width')} solid ${token('color.border')}`,
+		},
+		/* avoid applying styles to nested tables (possible via extensions) */
+		'.pm-table-container > table, .pm-table-wrapper > table, .pm-table-sticky-wrapper > table': {
+			borderCollapse: 'collapse',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			border: `${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')}`,
+			borderLeftColor: 'transparent',
+			borderRightColor: 'transparent',
+			tableLayout: 'fixed',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: '1em',
+			width: '100%',
+
+			'&[data-autosize="true"]': {
+				tableLayout: 'auto',
+			},
+
+			'& *': {
+				boxSizing: 'border-box',
+			},
+			'& hr': {
+				boxSizing: 'content-box',
+			},
+			'& tbody': {
+				borderBottom: 'none',
+			},
+			'& th td': {
+				backgroundColor: `${token('color.background.neutral.subtle')}`,
+			},
+			'& > tbody > tr > th, & > tbody > tr > td': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				minWidth: `${tableCellMinWidth}px`,
+				fontWeight: token('font.weight.regular'),
+				verticalAlign: 'top',
+				border: `1px solid ${token('color.background.accent.gray.subtler')}`,
+				borderRightWidth: 0,
+				borderBottomWidth: 0,
+				padding: token('space.100'),
+				// it was from firstNodeWithNotMarginTop, and because platform_editor_nested_dnd_styles_changes is already in tidying phase, so didn't consider when it's off
+				'> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))': {
+					marginTop: 0,
+				},
+				'th p:not(:first-of-type), td p:not(:first-of-type)': {
+					marginTop: token('space.150'),
+				},
+			},
+			/* Ensures nested tables are compatible with parent table background color - uses specificity to ensure tables nested by extensions are not affected */
+			'& > tbody > tr > td': {
+				backgroundColor: token('elevation.surface'),
+			},
+			'& th': {
+				backgroundColor: token('color.background.accent.gray.subtlest'),
+				textAlign: 'left',
+				/* only apply this styling to codeblocks in default background headercells */
+				/* TODO this needs to be overhauled as it relies on unsafe selectors */
+				// platform_editor_native_anchor_with_dnd experiment is in tidying phase, so didn't consider the styles when it's off
+				'&:not(.danger)': {
+					'.code-block:not(.danger)': {
+						backgroundColor: token('elevation.surface.raised'),
+						':not(.ak-editor-selected-node)': {
+							boxShadow: `0px 0px 0px 1px ${token('color.border')}`,
+						},
+						'.code-block-content-wrapper': {
+							backgroundImage: 'var(--ak-editor--table-overflow-shadow)',
+							backgroundColor: token('color.background.neutral'),
+						},
+						'.line-number-gutter': {
+							backgroundColor: token('color.background.neutral'),
+						},
+						/* this is only relevant to the element taken care of by renderer */
+						'> [data-ds--code--code-block]': {
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+							backgroundImage: 'var(--ak-editor--table-overflow-shadow) !important',
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+							backgroundColor: `${token('color.background.neutral')}!important`,
+							/* selector lives inside @atlaskit/code */
+							'--ds--code--line-number-bg-color': token('color.background.neutral'),
+						},
+					},
+				},
+			},
+		},
+	},
+	tableSharedStyleBackgroundClipFix: {
+		'.pm-table-container > table, .pm-table-wrapper > table, .pm-table-sticky-wrapper > table': {
+			'& > tbody > tr > th, & > tbody > tr > td': {
+				backgroundClip: 'padding-box',
+			},
+		},
+	},
+	taskItemCheckboxStyles: {
+		// placeholder for migration
+	},
+	taskItemStyles: {
+		// placeholder for migration
+	},
+	taskItemStylesWithBlockTaskItem: {
+		// placeholder for migration
+	},
+	tasksAndDecisionsStyles: {
+		// placeholder for migration
+	},
 	telepointerColorAndCommonStyle: {
 		'.ProseMirror .telepointer': {
 			position: 'relative',
@@ -2140,7 +2605,9 @@ const editorContentStyles = cssMap({
 			color: 'unset',
 		},
 	},
-	textDangerStyles: {},
+	textDangerStyles: {
+		// placeholder for migration
+	},
 	textHighlightPaddingStyles: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'.fabric-background-color-mark:has(.background-color-padding-left)': {
@@ -2159,8 +2626,12 @@ const editorContentStyles = cssMap({
 			borderBottom: `2px solid ${token('color.background.accent.blue.subtler')}`,
 		},
 	},
-	textSelectedNodeStyles: {},
-	unsupportedStyles: {},
+	textSelectedNodeStyles: {
+		// placeholder for migration
+	},
+	unsupportedStyles: {
+		// placeholder for migration
+	},
 	whitespaceStyles: {
 		'.ProseMirror': {
 			wordWrap: 'break-word',
@@ -2220,16 +2691,21 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 	const baseFontSize = getBaseFontSize(appearance, contentMode);
 	const isDense = !!baseFontSize && baseFontSize !== akEditorFullPageDefaultFontSize;
 
+	const tableOverflowShadow = overflowShadowForCompiled({
+		leftCoverWidth: token('space.300'),
+	});
+
 	const style = editorExperiment('platform_editor_preview_panel_responsiveness', true, {
 		exposure: true,
 	})
 		? {
 				'--ak-editor-base-font-size': `${editorFontSize({ theme: { baseFontSize } })}px`,
+				'--ak-editor--table-overflow-shadow': tableOverflowShadow,
 			}
 		: {
 				'--ak-editor-base-font-size': `${editorFontSize({ theme: { baseFontSize } })}px`,
-
 				'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingDynamic()}px`,
+				'--ak-editor--table-overflow-shadow': tableOverflowShadow,
 			};
 
 	const browser = getBrowserInfo();
@@ -2566,9 +3042,10 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					? editorContentStyles.tableLayoutFixesWithFontSize
 					: editorContentStyles.tableLayoutFixes,
 				editorContentStyles.tableContainerStyles,
-				// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-				// TODO: it was from "import { tableSharedStyle } from '@atlaskit/editor-common/styles';"
-				// tableSharedStyle(),
+				editorContentStyles.tableSharedStyle,
+				/* https://stackoverflow.com/questions/7517127/borders-not-shown-in-firefox-with-border-collapse-on-table-position-relative-o */
+				(browser.gecko || browser.ie || (browser.mac && browser.chrome)) &&
+					editorContentStyles.tableSharedStyleBackgroundClipFix,
 				editorContentStyles.tableEmptyRowStyles,
 				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
 					editorContentStyles.tableContentModeStyles,
@@ -2595,6 +3072,8 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 			tabIndex={isScrollable ? 0 : undefined}
 			role={isScrollable ? 'region' : undefined}
 		>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Required for custom styles for table */}
+			<style>{tableCellBackgroundStyleOverrideForCompiled}</style>
 			{children}
 		</div>
 	);

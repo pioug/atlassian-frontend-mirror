@@ -1,5 +1,14 @@
 # @atlaskit/media-ui
 
+## 29.2.2
+
+### Patch Changes
+
+- [`2fe9a9909d2ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fe9a9909d2ac) -
+  Enrol media packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform
+- Updated dependencies
+
 ## 29.2.1
 
 ### Patch Changes

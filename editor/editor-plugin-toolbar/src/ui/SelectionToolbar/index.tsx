@@ -31,6 +31,7 @@ import {
 } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -63,6 +64,7 @@ const usePluginState = (api?: ExtractInjectionAPI<ToolbarPlugin>) => {
 					state.userPreferencesState?.preferences?.toolbarDockingPosition,
 				shouldShowToolbar: state.toolbarState?.shouldShowToolbar,
 				selectedNode: state.toolbarState?.selectedNode,
+				contextualFormattingModeOverride: state.toolbarState?.contextualFormattingModeOverride,
 				selection: state.selectionState?.selection,
 				currentUserIntent: state.userIntentState?.currentUserIntent,
 				editorViewMode: state.editorViewModeState?.mode,
@@ -113,10 +115,18 @@ export const SelectionToolbar = ({
 		currentUserIntent,
 		shouldShowToolbar,
 		editorViewMode,
+		contextualFormattingModeOverride,
 	} = usePluginState(api);
 
+	const effectiveRuntimeOverride =
+		contextualFormattingModeOverride !== undefined &&
+		fg('platform_editor_toolbar_mode_override')
+			? contextualFormattingModeOverride
+			: undefined;
 	const contextualFormattingEnabled =
-		api?.toolbar?.actions.contextualFormattingMode() ?? 'always-pinned';
+		effectiveRuntimeOverride ??
+		api?.toolbar?.actions.contextualFormattingMode() ??
+		'always-pinned';
 	const selectionToolbarConfigEnabled = shouldShowSelectionToolbar(
 		contextualFormattingEnabled,
 		editorToolbarDockingPreference,

@@ -1,5 +1,14 @@
 # @atlaskit/lozenge
 
+## 13.8.1
+
+### Patch Changes
+
+- [`1f9114700d351`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f9114700d351) -
+  Moved new motion changes from `platform-dst-motion-uplift` feature gate to
+  `platform-dst-motion-uplift-popup`
+- Updated dependencies
+
 ## 13.8.0
 
 ### Minor Changes

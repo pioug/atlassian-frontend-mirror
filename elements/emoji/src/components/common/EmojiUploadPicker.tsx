@@ -37,6 +37,7 @@ import EmojiErrorMessage from './EmojiErrorMessage';
 import EmojiUploadPreview from './EmojiUploadPreview';
 import FileChooser from './FileChooser';
 import { UploadStatus } from './internal-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const closeEmojiUploadButton = css({
 	display: 'flex',
@@ -192,7 +193,11 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 		<div css={emojiUpload} data-testid={uploadEmojiComponentTestId}>
 			<div css={emojiUploadTop}>
 				<label css={[uploadChooseFileMessage, labelStyles]} htmlFor="new-emoji-name-input">
-					<FormattedMessage {...messages.addCustomEmojiLabel} />
+					<FormattedMessage
+						{...(fg('platform_emoji_picker_refresh')
+							? messages.addEmojiLabel
+							: messages.addCustomEmojiLabel)}
+					/>
 				</label>
 				<div css={closeEmojiUploadButton}>
 					<AkButton

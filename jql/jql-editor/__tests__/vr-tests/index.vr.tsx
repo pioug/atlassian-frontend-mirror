@@ -20,11 +20,7 @@ snapshot(MembersOfTeamNodesExample, {
 
 snapshot(TeamNodesExample);
 
-snapshot(ProjectNodesExample, {
-	featureFlags: {
-		projects_in_jira_eap_drop2: true,
-	},
-});
+snapshot(ProjectNodesExample);
 
 snapshot(GoalNodesExample, {
 	featureFlags: {

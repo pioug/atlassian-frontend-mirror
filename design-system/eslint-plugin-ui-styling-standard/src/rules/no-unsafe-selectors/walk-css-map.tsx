@@ -9,7 +9,53 @@ import type * as ESTree from 'eslint-codemod-utils';
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import { allowedGroupedAtRules } from './constants';
+/**
+ * At-rules that are allowed to be used in "grouped" form within cssMap.
+ *
+ * "Grouped" refers to the legacy Compiled syntax where an at-rule key with no parameters
+ * (matching `/^@[A-z-]+$/`) contains nested variant keys, like:
+ *
+ * ```typescript
+ * // ❌ GROUPED (not allowed for @media):
+ * cssMap({
+ *   variant: {
+ *     '@media': {                    // at-rule key with no parameters
+ *       '(min-width: 900px)': {},    // nested variants
+ *       '(min-width: 1200px)': {},
+ *     }
+ *   }
+ * })
+ *
+ * // ✅ FLAT (preferred for @media):
+ * cssMap({
+ *   variant: {
+ *     '@media (min-width: 900px)': {},   // at-rule with parameters
+ *     '@media (min-width: 1200px)': {},
+ *   }
+ * })
+ * ```
+ *
+ * However, some at-rules like `@starting-style` have no parameters and can only be
+ * written in the "grouped" form at the variant level:
+ *
+ * ```typescript
+ * // ✅ ALLOWED (only valid syntax for @starting-style):
+ * cssMap({
+ *   fade: {
+ *     '@starting-style': {    // at-rule with no parameters
+ *       opacity: 0,           // styles to apply
+ *     }
+ *   }
+ * })
+ * ```
+ *
+ * Note: This only applies to at-rules at the variant level. Nested at-rules inside
+ * other rulesets (e.g., `@starting-style` inside `@media (...)`) are handled by
+ * `walkStyleRuleset` and are not considered "grouped".
+ */
+const allowedGroupedAtRules: Set<string> = new Set([
+	'@starting-style', // Has no parameters, can only be written in grouped form
+]);
 
 type CssMapVisitorArgs =
 	| {

@@ -109,13 +109,21 @@ export const FullPageEditor = (props: ComponentProps): jsx.JSX.Element => {
 
 	const state = useSharedPluginStateWithSelector(
 		editorAPI,
-		['primaryToolbar', 'interaction', 'editorViewMode'],
+		['primaryToolbar', 'interaction', 'editorViewMode', 'toolbar'],
 		(states) => ({
 			primaryToolbarComponents: states.primaryToolbarState?.components,
 			interactionState: states.interactionState?.interactionState,
 			editorViewMode: states.editorViewModeState?.mode,
+			contextualFormattingModeOverride: states.toolbarState?.contextualFormattingModeOverride,
 		}),
 	);
+	// Markdown Mode forces `'always-pinned'` while in source / preview view
+	// (no PM selection to anchor a floating toolbar to). The user's docking
+	// pref alone is not enough to decide whether to mount the primary toolbar
+	// in that case — the override has to short-circuit the hide gate below.
+	const forcePrimaryToolbarPinned =
+		state.contextualFormattingModeOverride === 'always-pinned' &&
+		fg('platform_editor_toolbar_mode_override');
 
 	const interactionState = state.interactionState;
 
@@ -170,7 +178,7 @@ export const FullPageEditor = (props: ComponentProps): jsx.JSX.Element => {
 	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
 		if (fg('platform_editor_use_preferences_plugin')) {
 			// need to check if the toolbarDockingPosition is set to 'none' or 'top'
-			if (toolbarDockingPosition === 'none') {
+			if (toolbarDockingPosition === 'none' && !forcePrimaryToolbarPinned) {
 				primaryToolbarComponents = [];
 
 				if (!hasCustomComponents(customPrimaryToolbarComponents)) {
@@ -178,7 +186,7 @@ export const FullPageEditor = (props: ComponentProps): jsx.JSX.Element => {
 				}
 			}
 		} else {
-			if (toolbarDocking === 'none') {
+			if (toolbarDocking === 'none' && !forcePrimaryToolbarPinned) {
 				primaryToolbarComponents = [];
 
 				if (!hasCustomComponents(customPrimaryToolbarComponents)) {

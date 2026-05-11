@@ -24,6 +24,7 @@ export interface Props {
 	language: SupportedLanguages;
 	localId?: string;
 	text: string;
+	wrap?: boolean;
 }
 
 function CodeBlock(props: Props & WrappedComponentProps) {
@@ -34,13 +35,16 @@ function CodeBlock(props: Props & WrappedComponentProps) {
 		allowWrapCodeBlock = false,
 		codeBidiWarningTooltipEnabled,
 		localId,
+		wrap,
 	} = props;
 
 	const codeBidiWarningLabel = props.intl.formatMessage(codeBidiWarningMessages.label);
 
 	const className = [CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER, props.className].join(' ');
 
-	const [wrapLongLines, setWrapLongLines] = useState<boolean>(false);
+	const [wrapLongLines, setWrapLongLines] = useState<boolean>(
+		() => expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) && Boolean(wrap),
+	);
 
 	return (
 		<CodeBlockContainer

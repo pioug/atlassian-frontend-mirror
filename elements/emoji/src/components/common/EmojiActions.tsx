@@ -20,6 +20,7 @@ import {
 	injectIntl,
 	type WithIntlProps,
 	type WrappedComponentProps,
+	useIntl,
 } from 'react-intl';
 import type {
 	EmojiDescription,
@@ -38,6 +39,7 @@ import { EmojiPickerListSearch } from '../picker/EmojiPickerListSearch';
 import { messages } from '../i18n';
 import AkButton from '@atlaskit/button/standard-button';
 import AddIcon from '@atlaskit/icon/core/add';
+import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
 import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
 import { emojiPickerAddEmoji } from './styles';
 import { DEFAULT_TONE } from '../../util/constants';
@@ -108,18 +110,29 @@ type PropsWithWrappedComponentPropsType = Props & WrappedComponentProps;
 type AddOwnEmojiProps = PropsWithWrappedComponentPropsType;
 const AddOwnEmoji = (props: AddOwnEmojiProps) => {
 	const { onOpenUpload, uploadEnabled } = props;
-
+	const { formatMessage } = useIntl();
 	return (
 		<Fragment>
 			{uploadEnabled && (
 				<div css={addCustomEmoji} data-testid={uploadEmojiTestId}>
-					<FormattedMessage {...messages.addCustomEmojiLabel}>
+					<FormattedMessage
+						{...(fg('platform_emoji_picker_refresh')
+							? messages.addEmojiLabel
+							: messages.addCustomEmojiLabel)}
+					>
 						{(label) => (
 							<AkButton
 								onClick={onOpenUpload}
 								iconBefore={
 									<Box xcss={styles.icon}>
-										<AddIcon color="currentColor" label="" />
+										{fg('platform_emoji_picker_refresh') ? (
+											<EmojiAddIcon
+												color="currentColor"
+												label={formatMessage(messages.addCustomEmojiLabel)}
+											/>
+										) : (
+											<AddIcon color="currentColor" label="" />
+										)}
 									</Box>
 								}
 								appearance="subtle"

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { TOOLBARS, useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI, UserPreferences } from '@atlaskit/editor-common/types';
@@ -69,9 +70,18 @@ export const Section = ({
 	isSharedSection = true,
 }: SectionProps): React.JSX.Element | null => {
 	const { editorViewMode, editorToolbarDockingPreference, editorAppearance } = usePluginState(api);
+	const runtimeOverride = useSharedPluginStateWithSelector(
+		api,
+		['toolbar'],
+		(states) => states.toolbarState?.contextualFormattingModeOverride,
+	);
 	const toolbar = parents.find((parent) => parent.type === 'toolbar');
+	const effectiveRuntimeOverride =
+		runtimeOverride !== undefined && fg('platform_editor_toolbar_mode_override')
+			? runtimeOverride
+			: undefined;
 	const contextualFormattingEnabled =
-		api?.toolbar?.actions.contextualFormattingMode() ?? 'always-pinned';
+		effectiveRuntimeOverride ?? api?.toolbar?.actions.contextualFormattingMode() ?? 'always-pinned';
 
 	if (
 		isSharedSection &&

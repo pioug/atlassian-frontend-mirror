@@ -3,16 +3,16 @@ import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import type { Command } from '@atlaskit/editor-common/types';
 import { filterCommand as filter } from '@atlaskit/editor-common/utils';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
-import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import {
 	findParentNodeClosestToPos,
 	findParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
-import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPluginOptions } from '../types';
@@ -84,6 +84,7 @@ const getInitialPluginState = (options: LayoutPluginOptions, state: EditorState)
 		selectedLayout,
 		allowSingleColumnLayout,
 		isResizing: false,
+		isLayoutColumnMenuOpen: false,
 	};
 };
 
@@ -152,6 +153,14 @@ export default (options: LayoutPluginOptions): SafePlugin<LayoutState> => {
 			init: (_, state): LayoutState => getInitialPluginState(options, state),
 
 			apply: (tr, pluginState, oldState, newState) => {
+				const columnMenuMeta = tr.getMeta('toggleLayoutColumnMenu');
+				const nextPluginState = columnMenuMeta
+					? {
+							...pluginState,
+							isLayoutColumnMenuOpen: columnMenuMeta.isOpen ?? !pluginState.isLayoutColumnMenuOpen,
+						}
+					: pluginState;
+
 				const isResizing = editorExperiment('single_column_layouts', true)
 					? (tr.getMeta('is-resizer-resizing') ?? pluginKey.getState(oldState)?.isResizing)
 					: false;
@@ -159,7 +168,7 @@ export default (options: LayoutPluginOptions): SafePlugin<LayoutState> => {
 					const maybeLayoutSection = getMaybeLayoutSection(newState);
 
 					const newPluginState = {
-						...pluginState,
+						...nextPluginState,
 						pos: maybeLayoutSection ? maybeLayoutSection.pos : null,
 						isResizing,
 						selectedLayout: getSelectedLayout(
@@ -172,7 +181,7 @@ export default (options: LayoutPluginOptions): SafePlugin<LayoutState> => {
 					return newPluginState;
 				}
 				return {
-					...pluginState,
+					...nextPluginState,
 					isResizing,
 				};
 			},

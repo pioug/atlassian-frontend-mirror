@@ -10,12 +10,32 @@ import { MockIntersectionObserver } from '@atlaskit/editor-test-helpers/mock-int
 import { act } from 'react-dom/test-utils';
 import WindowedCodeBlock from '../../../../react/nodes/codeBlock/windowedCodeBlock';
 import { selectors } from '../../../__helpers/page-objects/_codeblock';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+
+jest.mock('@atlaskit/code/block', () => {
+	const React = jest.requireActual('react');
+
+	return {
+		__esModule: true,
+		default: ({ shouldWrapLongLines, text }: { shouldWrapLongLines?: boolean; text: string }) =>
+			React.createElement(
+				'div',
+				{
+					'data-testid': 'windowed-ak-code-block',
+					'data-should-wrap-long-lines': String(Boolean(shouldWrapLongLines)),
+				},
+				text,
+			),
+	};
+});
 
 const textSample = 'const fn = () => {}';
 
 const getLightWeightCodeBlock = () => document.querySelector(selectors.lightWeightCodeBlock);
 
 const getAkCodeBlock = () => document.querySelector(selectors.designSystemCodeBlock);
+
+const getMockAkCodeBlock = () => document.querySelector('[data-testid="windowed-ak-code-block"]');
 
 const render = async (overrides = {}) => {
 	const container = document.createElement('div');
@@ -61,6 +81,14 @@ const render = async (overrides = {}) => {
 };
 
 describe('Renderer - React/Nodes/WindowedCodeBlock', () => {
+	beforeEach(() => {
+		setupEditorExperiments('test');
+	});
+
+	afterEach(() => {
+		setupEditorExperiments('test', {}, {}, { disableTestOverrides: true });
+	});
+
 	// IntersectionObserver is an implementation detail of how WindowedCodeBlock
 	// observes whether it is in the viewport or not. We mock it out here in jsdom
 	// to control whether WindowedCodeBlock believes it's in the viewport for tests.
@@ -120,6 +148,67 @@ describe('Renderer - React/Nodes/WindowedCodeBlock', () => {
 			expect(akCodeBlock).toBeTruthy();
 			const akGutterLineNumber = 1;
 			expect(akCodeBlock?.textContent).toBe(`${akGutterLineNumber}${textSample}`);
+
+			cleanup();
+		});
+
+		it('should initialise wrapped lines from the ADF wrap attribute when wrapping is allowed', async () => {
+			const { cleanup } = await render({ allowWrapCodeBlock: true, wrap: true });
+
+			act(() => {
+				mockObserver.triggerIntersect({ isIntersecting: true });
+			});
+			await act(async () => {
+				await flushLazyModuleFetching();
+			});
+
+			expect(getMockAkCodeBlock()?.getAttribute('data-should-wrap-long-lines')).toBe('true');
+
+			cleanup();
+		});
+
+		it('should not initialise wrapped lines when the ADF wrap attribute is false', async () => {
+			const { cleanup } = await render({ allowWrapCodeBlock: true, wrap: false });
+
+			act(() => {
+				mockObserver.triggerIntersect({ isIntersecting: true });
+			});
+			await act(async () => {
+				await flushLazyModuleFetching();
+			});
+
+			expect(getMockAkCodeBlock()?.getAttribute('data-should-wrap-long-lines')).toBe('false');
+
+			cleanup();
+		});
+
+		it('should not initialise wrapped lines when the ADF wrap attribute is not provided', async () => {
+			const { cleanup } = await render({ allowWrapCodeBlock: true });
+
+			act(() => {
+				mockObserver.triggerIntersect({ isIntersecting: true });
+			});
+			await act(async () => {
+				await flushLazyModuleFetching();
+			});
+
+			expect(getMockAkCodeBlock()?.getAttribute('data-should-wrap-long-lines')).toBe('false');
+
+			cleanup();
+		});
+
+		it('should not initialise wrapped lines from the ADF wrap attribute when experiment is disabled', async () => {
+			setupEditorExperiments('test', {}, {}, { disableTestOverrides: true });
+			const { cleanup } = await render({ allowWrapCodeBlock: true });
+
+			act(() => {
+				mockObserver.triggerIntersect({ isIntersecting: true });
+			});
+			await act(async () => {
+				await flushLazyModuleFetching();
+			});
+
+			expect(getMockAkCodeBlock()?.getAttribute('data-should-wrap-long-lines')).toBe('false');
 
 			cleanup();
 		});

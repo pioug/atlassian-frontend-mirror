@@ -95,7 +95,7 @@ import {
 	topPositionAdjustment,
 } from './consts';
 import { DragHandleNestedIcon } from './drag-handle-nested-icon';
-import { type DragPreviewContent, dragPreview } from './drag-preview';
+import { dragPreview, type DragPreviewContent } from './drag-preview';
 import { refreshAnchorName } from './utils/anchor-name';
 import { getAnchorAttrName } from './utils/dom-attr-name';
 import { VisibilityContainer } from './visibility-container';
@@ -571,6 +571,13 @@ export const DragHandle = ({
 					return tr;
 				}
 
+				if (
+					nodeType === 'layoutColumn' &&
+					expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
+				) {
+					tr.setMeta('toggleLayoutColumnMenu', {});
+				}
+
 				const resolvedStartPos = tr.doc.resolve(startPos);
 
 				const selection =
@@ -622,6 +629,14 @@ export const DragHandle = ({
 				if (startPos === undefined) {
 					return tr;
 				}
+
+				if (
+					nodeType === 'layoutColumn' &&
+					expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
+				) {
+					tr.setMeta('toggleLayoutColumnMenu', {});
+				}
+
 				const mSelect = api?.blockControls.sharedState.currentState()?.multiSelectDnD;
 				const $anchor =
 					mSelect?.anchor !== undefined ? tr.doc.resolve(mSelect?.anchor) : tr.selection.$anchor;

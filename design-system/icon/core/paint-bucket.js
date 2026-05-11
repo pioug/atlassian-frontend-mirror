@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a3d1cf3fe76b67397293294a09a2816b>>
+ * @codegen <<SignedSource::ffcd82f5e72dee881cb164e31ad1b731>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -22,7 +22,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const PaintBucketIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
   name: "PaintBucketIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M5.655.095 13.78 8.22a.75.75 0 0 1 0 1.06l-5.616 5.616a2 2 0 0 1-2.828 0L.604 10.164a2 2 0 0 1 0-2.828L5.689 2.25 4.595 1.155zM6.75 3.31 2.06 8h9.38zm4.69 6.19H2.06l4.336 4.336a.5.5 0 0 0 .708 0z" clip-rule="evenodd"/><path fill="currentcolor" d="M14.5 12a.75.75 0 0 0-.654.383v.002l-.003.003-.007.013-.026.046a17 17 0 0 0-.36.695c-.098.202-.202.43-.283.641-.068.177-.167.458-.167.717a1.5 1.5 0 0 0 3 0c0-.259-.1-.54-.167-.717a8 8 0 0 0-.284-.641 16 16 0 0 0-.36-.695l-.025-.046-.007-.013-.002-.004-.001-.001A.75.75 0 0 0 14.5 12"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M5.5 1.94 6.78.66A1.38 1.38 0 0 1 8.62.57l.11.09 5.62 5.62a1.38 1.38 0 0 1 0 1.95l-5.73 5.73a2.63 2.63 0 0 1-3.71 0l-3.85-3.85a2.63 2.63 0 0 1 0-3.71L4.44 3 2.6 1.15 3.66.09zM1.81 8.5c.05.2.14.39.3.55l3.85 3.85c.44.44 1.15.44 1.59 0l4.39-4.39zM6.57 3l1.22 1.22-1.06 1.06L5.5 4.06 2.56 7h10.38L7.75 1.81zm7.68 8.25c.27 0 .52.14.65.38v.01l.01.02.03.06.12.21c.1.18.23.42.36.68s.27.55.37.82c.09.23.21.56.21.86 0 .97-.8 1.73-1.75 1.73s-1.75-.75-1.75-1.72c0-.29.12-.63.21-.86.11-.27.24-.56.37-.82s.26-.5.36-.68l.12-.21.03-.06.01-.02v-.01a.75.75 0 0 1 .65-.38"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PaintBucketIcon.displayName = 'PaintBucketIcon';

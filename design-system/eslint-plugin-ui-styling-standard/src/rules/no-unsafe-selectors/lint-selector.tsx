@@ -2,8 +2,9 @@ import type { Rule } from 'eslint';
 import type * as ESTree from 'eslint-codemod-utils';
 import { isNesting, type Selector } from 'postcss-selector-parser';
 
-import { allowedPseudos, legacyPseudoElements } from './constants';
-import { getRangeFromNode, getSourceLocationFromRange } from './source-position-utils';
+import { allowedPseudos } from './constants';
+import { getSourceLocationFromRange } from './get-source-location-from-range';
+import { getRangeFromNode } from './source-position-utils';
 
 type CheckArgs = {
 	context: Rule.RuleContext;
@@ -19,6 +20,13 @@ export function lintSelector(args: CheckArgs): void {
 	checkNoLegacyPseudoElementSyntax(args);
 	checkNoIncreasedSpecificity(args);
 }
+
+const legacyPseudoElements: Set<string> = new Set([
+	':after',
+	':before',
+	':first-letter',
+	':first-line',
+]);
 
 /**
  * Ensures the use of a nesting selector `&` with pseudo-selectors.

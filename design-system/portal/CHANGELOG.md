@@ -1,5 +1,15 @@
 # @atlaskit/portal
 
+## 5.5.2
+
+### Patch Changes
+
+- [`5df00e0f09845`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5df00e0f09845) -
+  Fix portal wrapping portalled content with ThemeProvider when outside a ThemeProvider. Previously,
+  components like modal-dialog would always inject theme CSS variables into the DOM via a
+  portal-owned ThemeProvider, even when no ThemeProvider was present in the tree.
+- Updated dependencies
+
 ## 5.5.1
 
 ### Patch Changes

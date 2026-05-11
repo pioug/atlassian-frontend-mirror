@@ -9,7 +9,11 @@ import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
-import type { insertLayoutColumnsWithAnalytics } from './pm-plugins/actions';
+import type {
+	insertLayoutColumnsWithAnalytics,
+	toggleLayoutColumnMenu,
+} from './pm-plugins/actions';
+import type { LayoutState } from './pm-plugins/types';
 import type { LayoutPluginOptions } from './types';
 
 export type LayoutPluginDependencies = [
@@ -30,7 +34,11 @@ export type LayoutPlugin = NextEditorPlugin<
 		actions: {
 			insertLayoutColumns: ReturnType<typeof insertLayoutColumnsWithAnalytics>;
 		};
+		commands: {
+			toggleLayoutColumnMenu: typeof toggleLayoutColumnMenu;
+		};
 		dependencies: LayoutPluginDependencies;
 		pluginConfiguration: LayoutPluginOptions | undefined;
+		sharedState: LayoutState | undefined;
 	}
 >;

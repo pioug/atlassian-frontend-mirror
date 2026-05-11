@@ -33,9 +33,10 @@ const mockGetProviderPctMapSyncTwentyNinePct = injectable(
 	}),
 );
 
-const mockGetProviderPctMapSyncNoPercentage = injectable(
+const mockGetProviderPctMapSyncNoPercentage = injectable(getCachedProviderPctMapAndRefresh, () => null);
+const mockGetProviderPctMapSyncLoadedNoPercentage = injectable(
 	getCachedProviderPctMapAndRefresh,
-	() => null,
+	() => ({}),
 );
 
 const mockGetProviderPctMapSyncUnexpected = injectable(getCachedProviderPctMapAndRefresh, () => {
@@ -161,9 +162,9 @@ describe('Unauthorised View', () => {
 					expect(container).toHaveTextContent('Your team is previewing Figma');
 				});
 
-				it('omits pill and uses legacy connect when exploratory share has no provider display name', () => {
+				it('uses no-context exploratory copy when exploratory share has no provider display name', () => {
 					const testUrl = 'http://unauthorised-test/';
-					const { queryByTestId, container } = renderWithSocialProofDi(
+					const { getByTestId, container } = renderWithSocialProofDi(
 						<InlineCardUnauthorizedView
 							extensionKey="figma-object-provider"
 							url={testUrl}
@@ -173,10 +174,10 @@ describe('Unauthorised View', () => {
 						mockGetProviderPctMapSyncExploratoryShare,
 					);
 					expect(
-						queryByTestId('inline-card-unauthorized-view-social-proof-tag'),
-					).not.toBeInTheDocument();
-					expect(container).not.toHaveTextContent('Your team is previewing');
-					expect(container).not.toHaveTextContent('% of your team previews');
+						getByTestId('inline-card-unauthorized-view-social-proof-tag'),
+					).toBeInTheDocument();
+					expect(container).toHaveTextContent('Your team is previewing this');
+					expect(container).toHaveTextContent('Connect');
 				});
 
 				it('starts percentage headline messaging at exactly 30% adoption', () => {
@@ -223,7 +224,7 @@ describe('Unauthorised View', () => {
 					expect(container).toHaveTextContent('52% of your team previews this');
 				});
 
-				it('omits the pill when context and personalization share are both absent', () => {
+				it('omits the pill when context and personalization are both unavailable before traits load', () => {
 					const testUrl = 'http://unauthorised-test/';
 					const { queryByTestId, container } = renderWithSocialProofDi(
 						<InlineCardUnauthorizedView
@@ -240,9 +241,27 @@ describe('Unauthorised View', () => {
 					expect(container).not.toHaveTextContent('% of your team');
 				});
 
-				it('uses the long connect label and omits the pill when no persisted percentage is available', () => {
+				it('shows no-context low-share copy when traits are loaded but provider percentage is missing', () => {
 					const testUrl = 'http://unauthorised-test/';
-					const { queryByTestId, container } = renderWithSocialProofDi(
+					const { getByTestId, container } = renderWithSocialProofDi(
+						<InlineCardUnauthorizedView
+							extensionKey="figma-object-provider"
+							url={testUrl}
+							onAuthorise={jest.fn()}
+							testId="inline-card-unauthorized-view"
+						/>,
+						mockGetProviderPctMapSyncLoadedNoPercentage,
+					);
+					expect(
+						getByTestId('inline-card-unauthorized-view-social-proof-tag'),
+					).toBeInTheDocument();
+					expect(container).toHaveTextContent('Your team is previewing this');
+					expect(container).toHaveTextContent('Connect');
+				});
+
+				it('shows exploratory context copy when traits are loaded but provider percentage is missing', () => {
+					const testUrl = 'http://unauthorised-test/';
+					const { getByTestId, container } = renderWithSocialProofDi(
 						<InlineCardUnauthorizedView
 							context="Figma"
 							extensionKey="figma-object-provider"
@@ -250,12 +269,13 @@ describe('Unauthorised View', () => {
 							onAuthorise={jest.fn()}
 							testId="inline-card-unauthorized-view"
 						/>,
-						mockGetProviderPctMapSyncNoPercentage,
+						mockGetProviderPctMapSyncLoadedNoPercentage,
 					);
 					expect(
-						queryByTestId('inline-card-unauthorized-view-social-proof-tag'),
-					).not.toBeInTheDocument();
-					expect(container).toHaveTextContent('Connect your Figma account');
+						getByTestId('inline-card-unauthorized-view-social-proof-tag'),
+					).toBeInTheDocument();
+					expect(container).toHaveTextContent('Your team is previewing Figma');
+					expect(container).toHaveTextContent('Connect');
 				});
 			});
 

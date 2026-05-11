@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-test-helpers",
-	"version": "41.0.1",
+	"version": "41.0.2",
 	"description": "Collection of test helpers used in media component stories and specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -22,6 +22,13 @@
 	},
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Media Exif"
 	},
 	"dependencies": {
@@ -60,6 +67,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/media-core": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@types/exenv": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*"

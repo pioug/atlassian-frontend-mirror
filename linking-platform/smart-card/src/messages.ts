@@ -80,6 +80,7 @@ export type MessageKey =
 	| 'social_proof_inline_cta_tag_high_with_context'
 	| 'social_proof_inline_cta_tag_high_no_context'
 	| 'social_proof_inline_cta_tag_low_with_context'
+	| 'social_proof_inline_cta_tag_low_no_context'
 	| 'connect_unauthorised_account_description'
 	| 'connect_unauthorised_account_description_no_provider'
 	| 'continue'
@@ -468,6 +469,12 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Your team is previewing {context}',
 		description:
 			'Social-proof tag pill when share is below the percentage headline threshold; shown only when a provider display name is available. Omit the pill entirely when personalization is unavailable or the provider name is unknown.',
+	},
+	social_proof_inline_cta_tag_low_no_context: {
+		id: 'fabric.linking.social_proof_inline_cta_tag_low_no_context',
+		defaultMessage: 'Your team is previewing this',
+		description:
+			'Social-proof tag pill for the case when neither percentage nor provider display name are available.',
 	},
 	connect_unauthorised_account_description: {
 		id: 'fabric.linking.connect_unauthorised_account_description',

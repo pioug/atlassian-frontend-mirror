@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1731ad3bc89f53241a25e2ade1273f8b>>
+ * @codegen <<SignedSource::88de0df7f24a3c9f0e66913c16ee7cd7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -22,7 +22,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const HierarchyIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
   name: "HierarchyIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M3 15a2 2 0 0 1-2-2V1h1.5v12a.5.5 0 0 0 .5.5h3V15z"/><path fill="currentcolor" d="M3 10a2 2 0 0 1-2-2V1h1.5v7a.5.5 0 0 0 .5.5h3V10zm12-6.5V5H5V3.5zm0 5V10H9V8.5zm0 5V15H9v-1.5z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M8 2.5V4H0V2.5zm4 4.75v1.5H4v-1.5zM16 12v1.5H8V12z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 HierarchyIcon.displayName = 'HierarchyIcon';

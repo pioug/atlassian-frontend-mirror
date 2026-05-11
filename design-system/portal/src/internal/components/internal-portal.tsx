@@ -3,6 +3,7 @@ import React, { type ReactPortal, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 
 import { ThemeProvider, useColorMode } from '@atlaskit/app-provider';
+import { useIsInsideThemeProvider } from '@atlaskit/app-provider/use-is-inside-theme-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { appendPortalContainerIfNotAppended } from '../utils/append-portal-container-if-not-appended';
@@ -20,6 +21,7 @@ export default function InternalPortal(props: InternalPortalProps): ReactPortal 
 	const container = useMemo(() => createContainer(zIndex), [zIndex]);
 
 	const colorMode = useColorMode();
+	const isInsideThemeProvider = useIsInsideThemeProvider();
 
 	// This is in the render method instead of useEffect so that
 	// the portal will be added to the DOM before the children render.
@@ -42,7 +44,7 @@ export default function InternalPortal(props: InternalPortalProps): ReactPortal 
 	}, [container]);
 
 	return createPortal(
-		colorMode ? <ThemeProvider defaultColorMode={colorMode}>{children}</ThemeProvider> : children,
+		(fg('platform-dst-portal-conditial-theme-provider') ? isInsideThemeProvider : colorMode) ? <ThemeProvider defaultColorMode={colorMode}>{children}</ThemeProvider> : children,
 		container,
 	);
 }

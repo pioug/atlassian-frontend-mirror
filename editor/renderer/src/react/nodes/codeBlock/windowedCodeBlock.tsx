@@ -36,6 +36,7 @@ const WindowedCodeBlock = ({
 	allowWrapCodeBlock = false,
 	codeBidiWarningTooltipEnabled,
 	className: rootClassName,
+	wrap,
 }: CodeBlockProps): jsx.JSX.Element => {
 	const { warningLabel } = useBidiWarnings({
 		enableWarningTooltip: codeBidiWarningTooltipEnabled,
@@ -53,7 +54,9 @@ const WindowedCodeBlock = ({
 		/>
 	);
 
-	const [wrapLongLines, setWrapLongLines] = useState<boolean>(false);
+	const [wrapLongLines, setWrapLongLines] = useState<boolean>(
+		() => expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) && Boolean(wrap),
+	);
 
 	return isInViewport ? (
 		<Fragment>

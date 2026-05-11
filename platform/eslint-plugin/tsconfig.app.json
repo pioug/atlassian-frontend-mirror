@@ -35,6 +35,9 @@
 	"references": [
 		{
 			"path": "../../design-system/eslint-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
 		}
 	],
 	"files": []

@@ -869,6 +869,23 @@ export const overflowCodeblock: DocNode = {
 	],
 };
 
+export const overflowCodeblockWithWrapEnabled: DocNode = {
+	type: 'doc',
+	version: 1,
+	content: [
+		{
+			type: 'codeBlock',
+			attrs: { wrap: true },
+			content: [
+				{
+					type: 'text',
+					text: "class Table extends React.Component<TableProps, TableState> {\n  wrapper: HTMLElement;\n  table: HTMLElement;\n\n  state = {\n    showLeftShadow: false,\n    showRightShadow: false,\n  };\n\n  componentWillUnmount() {\n    if (this.wrapper && !isIE11) {\n      this.wrapper.removeEventListener('scroll', this.handleScrollDebounced) && let veryImportantAndLongVariable = 0;\n    }\n\n    this.handleScrollDebounced.cancel();\n  }\n}",
+				},
+			],
+		},
+	],
+};
+
 export const overflowLayout: DocNode = {
 	type: 'doc',
 	version: 1,

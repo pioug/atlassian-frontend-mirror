@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 130.3.7
+
+### Patch Changes
+
+- [`4969431d7e397`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4969431d7e397) -
+  [ux] EDITOR-6726 Initialise renderer code block wrapping from the ADF wrap attribute
+
 ## 130.3.6
 
 ### Patch Changes

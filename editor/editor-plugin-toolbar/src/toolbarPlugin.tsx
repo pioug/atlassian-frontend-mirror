@@ -122,21 +122,33 @@ export const toolbarPlugin: ToolbarPlugin = ({
 			},
 
 			contextualFormattingMode: () => {
-				// EDITOR-6558: `contextualFormattingModeOverride` lets a
-				// consumer (Markdown Mode in source/preview view) force the
-				// toolbar to a specific docking position regardless of the
-				// user's saved preference. Used to lock the toolbar to
-				// `always-pinned` while the floating toolbar would be useless
-				// (i.e. when there's no ProseMirror selection to anchor to).
-				const override = config?.contextualFormattingModeOverride?.();
-				if (override) {
-					return override;
-				}
-				return contextualFormattingEnabled ?? 'always-pinned';
+				// Returns the config-time mode only. The runtime override
+				// (`EditorToolbarPluginState.contextualFormattingModeOverride`)
+				// lives in PM state and must be merged in by the React render
+				// site — see SelectionToolbar / Section / FullPageToolbarNext for
+				// the `runtimeOverride ?? action() ?? 'always-pinned'` pattern.
+				// Doing the merge here would require closure-capturing `editorView`,
+				// which races with StrictMode double-mount.
+				return (
+					config?.contextualFormattingModeOverride?.() ??
+					contextualFormattingEnabled ??
+					'always-pinned'
+				);
 			},
 
 			getBreakpointPreset: () => {
 				return breakpointPreset;
+			},
+		},
+
+		commands: {
+			setContextualFormattingModeOverride: (mode) => {
+				return ({ tr }) => {
+					tr.setMeta(editorToolbarPluginKey, {
+						contextualFormattingModeOverride: mode,
+					});
+					return tr;
+				};
 			},
 		},
 
@@ -162,6 +174,7 @@ export const toolbarPlugin: ToolbarPlugin = ({
 									return {
 										shouldShowToolbar: false,
 										selectedNode: getSelectedNode(editorState),
+										contextualFormattingModeOverride: undefined,
 									};
 								},
 								apply(tr, pluginState: EditorToolbarPluginState, _, newState) {
@@ -187,9 +200,19 @@ export const toolbarPlugin: ToolbarPlugin = ({
 									}
 
 									if (meta) {
+										const { contextualFormattingModeOverride, ...rest } = meta;
+										// Only forward the override when the meta actually carries
+										// the key — unrelated metas (mouseup / focus / mousedown
+										// from the view() listeners) destructure it as `undefined`
+										// and would otherwise wipe a previously-set override on
+										// every interaction.
 										newPluginState = {
 											...newPluginState,
-											...meta,
+											...rest,
+											...('contextualFormattingModeOverride' in meta &&
+											fg('platform_editor_toolbar_mode_override')
+												? { contextualFormattingModeOverride }
+												: {}),
 										};
 									}
 

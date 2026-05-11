@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 44.9.2
+
+### Patch Changes
+
+- [`61854c9acde7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61854c9acde7d) -
+  Another correction around platform_sl_3p_preauth_social_proof_inline_cta experiment
+- Updated dependencies
+
 ## 44.9.1
 
 ### Patch Changes

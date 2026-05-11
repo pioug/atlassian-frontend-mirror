@@ -165,9 +165,6 @@
 		"jira_ai_agent_avatar_with_apptype_for_jql": {
 			"type": "boolean"
 		},
-		"projects_in_jira_eap_drop2": {
-			"type": "boolean"
-		},
 		"empanda_jql-editor_fix_tab_select_in_popup": {
 			"type": "boolean"
 		}

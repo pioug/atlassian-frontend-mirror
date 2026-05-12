@@ -1,12 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@atlassian/testing-library';
 import MediaCardAnalyticsErrorBoundary from '../../media-card-analytics-error-boundary';
 import * as analyticsModule from '../../../utils/analytics/analytics';
-import { UnhandledErrorCard } from '../../ui/unhandledErrorCard';
 
 const fireOperationalEvent = jest.spyOn(analyticsModule, 'fireMediaCardEvent');
 
-class MockComponent extends React.Component<{ callFn?: Function }> {
+class MockComponent extends React.Component<{ callFn?: () => void }> {
 	componentDidMount() {
 		this.props?.callFn && this.props.callFn();
 	}
@@ -23,29 +22,40 @@ describe('MediaCardAnalyticsErrorBoundary', () => {
 		jest.clearAllMocks();
 	});
 
-	it(`should render child component with card layout`, () => {
-		const component = mount(
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
 			<MediaCardAnalyticsErrorBoundary>
 				<MockComponent />
 			</MediaCardAnalyticsErrorBoundary>,
 		);
-		expect(component.find(MockComponent).exists()).toBe(true);
+		await expect(container).toBeAccessible();
+	});
 
-		expect(component.find(UnhandledErrorCard).exists()).toBe(false);
+	it(`should render child component with card layout`, () => {
+		render(
+			<MediaCardAnalyticsErrorBoundary>
+				<MockComponent />
+			</MediaCardAnalyticsErrorBoundary>,
+		);
+		expect(screen.getByText('Mock Component')).toBeInTheDocument();
+		expect(screen.queryByTestId('unhandled-error-card')).not.toBeInTheDocument();
 	});
 
 	it(`should render UnhandledErrorCard when error thrown`, () => {
-		const component = mount(
+		const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+		render(
 			<MediaCardAnalyticsErrorBoundary>
 				<MockComponent callFn={rejectWithError} />
 			</MediaCardAnalyticsErrorBoundary>,
 		);
 
-		expect(component.find(UnhandledErrorCard).exists()).toBe(true);
+		expect(screen.getByTestId('unhandled-error-card')).toBeInTheDocument();
+		consoleSpy.mockRestore();
 	});
 
 	it(`should fire operational event on rendering`, () => {
-		mount(
+		const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+		render(
 			<MediaCardAnalyticsErrorBoundary>
 				<MockComponent callFn={rejectWithError} />
 			</MediaCardAnalyticsErrorBoundary>,
@@ -67,5 +77,6 @@ describe('MediaCardAnalyticsErrorBoundary', () => {
 			},
 			expect.any(Function),
 		);
+		consoleSpy.mockRestore();
 	});
 });

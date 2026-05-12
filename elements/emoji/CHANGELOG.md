@@ -1,5 +1,18 @@
 # @atlaskit/emoji
 
+## 70.5.0
+
+### Minor Changes
+
+- [`148bfe97e9f62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/148bfe97e9f62) -
+  Teamoji emoji picker design refresh (final)
+
+## 70.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 70.4.1
 
 ### Patch Changes

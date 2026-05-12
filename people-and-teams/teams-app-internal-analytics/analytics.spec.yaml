@@ -570,6 +570,58 @@ events:
         touchpoint:
           type: ['teamProfileSpaceLinking', 'spaceNavTeamLinking']
           description: identifies the UI touchpoint that triggered the invite
+  - inviteToProject updated:
+      type: track
+      description: fired when a per-project invite request completes successfully via the team profile add people to project flow
+      attributes:
+        <<: *PackageMetaDataContext
+        spaceId:
+          type: number
+          description: the numeric space or project ID the invite was sent to
+        touchpoint:
+          type: string
+          description: identifies the UI touchpoint that triggered the invite
+        numberOfUsersInvitedByEmail:
+          type: number
+          description: number of users invited by email (including pending invite exists)
+        numberOfUsersRequestedAccess:
+          type: number
+          description: number of users who requested access
+        numberOfExistingUsersAdded:
+          type: number
+          description: number of existing users added to the project
+        numberOfInvitesFailed:
+          type: number
+          description: number of invite attempts that failed
+        totalRequests:
+          type: number
+          description: total number of invite requests for this project
+  - inviteToProject failed:
+      type: track
+      description: fired when a per-project invite request has failures via the team profile add people to project flow
+      attributes:
+        <<: *PackageMetaDataContext
+        spaceId:
+          type: number
+          description: the numeric space or project ID the invite was attempted for
+        touchpoint:
+          type: string
+          description: identifies the UI touchpoint that triggered the invite
+        numberOfUsersInvitedByEmail:
+          type: number
+          description: number of users invited by email (including pending invite exists)
+        numberOfUsersRequestedAccess:
+          type: number
+          description: number of users who requested access
+        numberOfExistingUsersAdded:
+          type: number
+          description: number of existing users added to the project
+        numberOfInvitesFailed:
+          type: number
+          description: number of invite attempts that failed
+        totalRequests:
+          type: number
+          description: total number of invite requests for this project
   - user invited:
       type: track
       description:
@@ -624,7 +676,7 @@ events:
         touchpoint:
           type: string
           description: identifies the UI touchpoint that triggered the invite
-    - sendSpaceTeamInvites cancelled:
+  - sendSpaceTeamInvites cancelled:
       type: track
       description: fired when a pending space invite is cancelled before it was sent
       attributes:
@@ -3775,3 +3827,67 @@ events:
         action:
           type: string
           description: the action that was performed
+  - userProfilePreview succeeded (request):
+      type: operational
+      description: fired when the user profile preview data request succeeds
+  - userProfilePreview failed (request):
+      type: operational
+      description: fired when the user profile preview data request fails
+  - userProfilePreview clicked (thirdPartyMessage):
+      type: ui
+      description:
+        fired when the third-party messaging integration button is clicked on the user profile
+        preview
+      attributes:
+        integration:
+          type: string
+          description:
+            the integration id of the third-party messaging integration that was clicked (e.g.
+            slack, microsoft)
+  - userProfilePreview clicked (reportingLines):
+      type: ui
+      description:
+        fired when the org chart (reporting lines) button is clicked on the compact user profile
+        preview
+  - userProfilePreview clicked (viewProfile):
+      type: ui
+      description: fired when the View Profile button is clicked on the user profile preview
+  - userProfilePreview clicked (tab):
+      type: ui
+      description: fired when a tab is clicked on the full user profile preview
+      attributes:
+        tab:
+          type: string
+          description: the tab that was clicked (recentWork, reportingLine, or collaborators)
+  - userProfilePreview clicked (recentWorkSection):
+      type: ui
+      description:
+        fired when the Recent Work section is expanded on the compact user profile preview
+  - userProfilePreview clicked (collaboratorsSection):
+      type: ui
+      description:
+        fired when the Collaborators section is expanded on the compact user profile preview
+  - userInlinePreview succeeded (request):
+      type: operational
+      description: fired when the user inline preview list data request succeeds
+  - userInlinePreview failed (request):
+      type: operational
+      description: fired when the user inline preview list data request fails
+  - userInlinePreview clicked (thirdPartyMessage):
+      type: ui
+      description:
+        fired when the third-party messaging integration button is clicked on the user inline
+        preview
+      attributes:
+        integration:
+          type: string
+          description:
+            the integration id of the third-party messaging integration that was clicked (e.g.
+            slack, microsoft)
+  - userInlinePreview clicked (reportingLines):
+      type: ui
+      description:
+        fired when the org chart (reporting lines) button is clicked on the user inline preview
+  - userInlinePreview clicked (viewProfile):
+      type: ui
+      description: fired when the View Profile button is clicked on the user inline preview

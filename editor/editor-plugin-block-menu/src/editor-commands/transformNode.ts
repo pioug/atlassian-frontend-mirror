@@ -22,8 +22,8 @@ import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { isNestedNode } from '../ui/utils/isNestedNode';
 
 import { convertNodesToTargetType } from './transform-node-utils/transform';
-import type { TransformNodeMetadata } from './transforms/types';
-import { isListNode } from './transforms/utils';
+import { isListNode } from './transform-node-utils/utils';
+import type { TransformNodeMetadata } from './types';
 
 export const transformNode: (
 	api?: ExtractInjectionAPI<BlockMenuPlugin>,

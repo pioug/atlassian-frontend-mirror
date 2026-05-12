@@ -1,5 +1,18 @@
 # @atlaskit/profilecard
 
+## 25.4.4
+
+### Patch Changes
+
+- [`4cba7c4a7121d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cba7c4a7121d) -
+  Clean up teams-app_profilecard_add-onblur feature gate
+
+## 25.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.4.2
 
 ### Patch Changes

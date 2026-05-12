@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-annotation
 
+## 10.3.0
+
+### Minor Changes
+
+- [`6fc4feadf6433`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fc4feadf6433) -
+  Add optional onCreateError() to InlineCommentCreateComponentProps type
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.2.3
 
 ### Patch Changes

@@ -1,5 +1,6 @@
+import { mergeGridStateIntoStorage } from '../common/merge-grid-state-into-storage';
+import { removeFromGridStateInStorage } from '../common/remove-from-grid-state-in-storage';
 import type { Dimensions } from '../common/types';
-import { mergeGridStateIntoStorage, removeFromGridStateInStorage } from '../common/utils';
 
 const publishGridState = (gridState: Dimensions): void => {
 	Object.entries(gridState).forEach(([slotName, value]) => {

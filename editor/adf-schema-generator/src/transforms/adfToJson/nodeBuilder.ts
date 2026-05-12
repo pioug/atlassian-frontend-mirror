@@ -35,7 +35,7 @@ export const buildNode = (
 		hasEmptyMarks: !!nodeSpec.hasEmptyMarks,
 		marksMaxItems: nodeSpec.marksMaxItems,
 	});
-	const attrs = buildAttrs(node.getSpec().attrs);
+	const attrs = buildAttrs(nodeSpec.attrs);
 
 	const version = nodeSpec.version;
 	const jsonVersion = version ? { version: { enum: [version] } } : {};

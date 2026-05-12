@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 44.9.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.9.3
+
+### Patch Changes
+
+- [`423f07c48beae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/423f07c48beae) -
+  Wrap 640 feature gate inside the jira chat mode opening logic
+
 ## 44.9.2
 
 ### Patch Changes

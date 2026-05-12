@@ -2,6 +2,7 @@ import React, { createContext, type ReactNode, useContext, useMemo } from 'react
 
 import type { EnhancedUFOInteractionContextType, ReactProfilerTiming } from '../common';
 import { getConfig } from '../config';
+import { sanitizeLabelStackName } from '../create-payload/common/utils';
 import { getActiveInteraction } from '../interaction-metrics';
 
 type SpanState = { span: Span; latestEndTime?: number };
@@ -82,14 +83,17 @@ export const SsrRenderProfilerInner = ({
 	labelStack: ReactProfilerTiming['labelStack'];
 	onRender: EnhancedUFOInteractionContextType['onRender'];
 }): React.JSX.Element => {
-	const reactProfilerId = useMemo(() => labelStack.map((l) => l.name).join('/'), [labelStack]);
+	const reactProfilerId = useMemo(
+		() => labelStack.map((l) => sanitizeLabelStackName(l.name)).join('/'),
+		[labelStack],
+	);
 
 	checkActiveInteractionAndResetStartMarksIfSet();
 
 	const parentSpan = useContext(ParentSpanContext);
 	const currentSpanState = onStartRender(
 		reactProfilerId,
-		labelStack[labelStack.length - 1].name,
+		sanitizeLabelStackName(labelStack[labelStack.length - 1].name),
 		parentSpan,
 	);
 

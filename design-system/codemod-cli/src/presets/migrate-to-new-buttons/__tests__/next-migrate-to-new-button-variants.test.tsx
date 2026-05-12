@@ -4,7 +4,6 @@ import {
 	buttonPropsNoLongerSupportedComment,
 	customThemeButtonComment,
 	linkButtonMissingHrefComment,
-	loadingButtonComment,
 	migrateButtonToSubtleLinkButton,
 	migrateFitContainerButtonToDefaultButtonComment,
 	migrateFitContainerButtonToIconButtonComment,
@@ -12,6 +11,7 @@ import {
 	noSpacinglinkButtonMissingHrefComment,
 	overlayPropComment,
 } from '../utils/constants';
+import { loadingButtonComment } from '../utils/loading-button-comment';
 
 const check = createCheck(transformer);
 

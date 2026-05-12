@@ -1177,10 +1177,38 @@ export const layoutColumn: PMNodeSpecFactoryInstance<LayoutColumnNode> =
     isolating: true,
   });
 
+export interface LayoutColumnStage0Definition {
+  type: 'layoutColumn';
+  content: Array<BlockDefinition | UnsupportedBlockDefinition>;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    width: number;
+    localId?: string;
+    valign?: 'top' | 'middle' | 'bottom';
+  };
+}
+
+export type LayoutColumnStage0Node = PMNode & LayoutColumnStage0Definition;
+
+export const layoutColumnStage0: PMNodeSpecFactoryInstance<LayoutColumnStage0Node> =
+  createPMNodeSpecFactory<LayoutColumnStage0Node>({
+    content: '(block | unsupportedBlock)+',
+    marks:
+      'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation dataConsumer fragment',
+    attrs: {
+      width: { default: undefined },
+      localId: { default: null },
+      valign: { default: null },
+    },
+    selectable: false,
+    isolating: true,
+  });
+
 export interface LayoutSectionDefinition {
   type: 'layoutSection';
   content: Array<
     | LayoutColumnDefinition
+    | LayoutColumnStage0Definition
     | UnsupportedBlockDefinition
     | UnsupportedBlockDefinition
   >;
@@ -1202,7 +1230,11 @@ export const layoutSection: PMNodeSpecFactoryInstance<LayoutSectionNode> =
 
 export interface LayoutSectionFullDefinition {
   type: 'layoutSection';
-  content: Array<LayoutColumnDefinition | UnsupportedBlockDefinition>;
+  content: Array<
+    | LayoutColumnDefinition
+    | LayoutColumnStage0Definition
+    | UnsupportedBlockDefinition
+  >;
   marks: Array<
     BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
   >;
@@ -1223,6 +1255,7 @@ export interface LayoutSectionWithSingleColumnStage0Definition {
   type: 'layoutSection';
   content: Array<
     | LayoutColumnDefinition
+    | LayoutColumnStage0Definition
     | UnsupportedBlockDefinition
     | UnsupportedBlockDefinition
   >;
@@ -2181,6 +2214,64 @@ export const tableCell: PMNodeSpecFactoryInstance<TableCellNode> =
     tableRole: 'cell',
   });
 
+export interface TableCellStage0Definition {
+  type: 'tableCell';
+  content: Array<
+    | BlockCardDefinition
+    | BlockquoteDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | CodeBlockWithExtendedAttributesStage0Definition
+    | DecisionListDefinition
+    | EmbedCardDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithAlignmentDefinition
+    | HeadingWithIndentationDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | NestedExpandWithNoMarksDefinition
+    | OrderedListDefinition
+    | PanelDefinition
+    | ParagraphWithAlignmentDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    colspan?: number;
+    rowspan?: number;
+    colwidth?: Array<number>;
+    background?: string;
+    localId?: string;
+    valign?: 'top' | 'middle' | 'bottom';
+  };
+}
+
+export type TableCellStage0Node = PMNode & TableCellStage0Definition;
+
+export const tableCellStage0: PMNodeSpecFactoryInstance<TableCellStage0Node> =
+  createPMNodeSpecFactory<TableCellStage0Node>({
+    content:
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
+    marks:
+      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    attrs: {
+      colspan: { default: 1 },
+      rowspan: { default: 1 },
+      colwidth: { default: null },
+      background: { default: null },
+      localId: { default: null },
+      valign: { default: null },
+    },
+    selectable: false,
+    isolating: true,
+    tableRole: 'cell',
+  });
+
 export interface TableCellWithNestedTableDefinition {
   type: 'tableCell';
   content: Array<
@@ -2239,6 +2330,66 @@ export const tableCellWithNestedTable: PMNodeSpecFactoryInstance<TableCellWithNe
     tableRole: 'cell',
   });
 
+export interface TableCellWithNestedTableStage0Definition {
+  type: 'tableCell';
+  content: Array<
+    | BlockCardDefinition
+    | BlockquoteDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | CodeBlockWithExtendedAttributesStage0Definition
+    | DecisionListDefinition
+    | EmbedCardDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithAlignmentDefinition
+    | HeadingWithIndentationDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | NestedExpandWithNoMarksDefinition
+    | OrderedListDefinition
+    | PanelDefinition
+    | ParagraphWithAlignmentDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TableDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    colspan?: number;
+    rowspan?: number;
+    colwidth?: Array<number>;
+    background?: string;
+    localId?: string;
+    valign?: 'top' | 'middle' | 'bottom';
+  };
+}
+
+export type TableCellWithNestedTableStage0Node = PMNode &
+  TableCellWithNestedTableStage0Definition;
+
+export const tableCellWithNestedTableStage0: PMNodeSpecFactoryInstance<TableCellWithNestedTableStage0Node> =
+  createPMNodeSpecFactory<TableCellWithNestedTableStage0Node>({
+    content:
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock | table)+',
+    marks:
+      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    attrs: {
+      colspan: { default: 1 },
+      rowspan: { default: 1 },
+      colwidth: { default: null },
+      background: { default: null },
+      localId: { default: null },
+      valign: { default: null },
+    },
+    selectable: false,
+    isolating: true,
+    tableRole: 'cell',
+  });
+
 export interface TableHeaderDefinition {
   type: 'tableHeader';
   content: Array<
@@ -2289,6 +2440,64 @@ export const tableHeader: PMNodeSpecFactoryInstance<TableHeaderNode> =
       colwidth: { default: null },
       background: { default: null },
       localId: { default: null },
+    },
+    selectable: false,
+    isolating: true,
+    tableRole: 'header_cell',
+  });
+
+export interface TableHeaderStage0Definition {
+  type: 'tableHeader';
+  content: Array<
+    | BlockCardDefinition
+    | BlockquoteDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | CodeBlockWithExtendedAttributesStage0Definition
+    | DecisionListDefinition
+    | EmbedCardDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithAlignmentDefinition
+    | HeadingWithIndentationDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | NestedExpandDefinition
+    | NestedExpandWithNoMarksDefinition
+    | OrderedListDefinition
+    | PanelDefinition
+    | ParagraphWithAlignmentDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TaskListDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    colspan?: number;
+    rowspan?: number;
+    colwidth?: Array<number>;
+    background?: string;
+    localId?: string;
+    valign?: 'top' | 'middle' | 'bottom';
+  };
+}
+
+export type TableHeaderStage0Node = PMNode & TableHeaderStage0Definition;
+
+export const tableHeaderStage0: PMNodeSpecFactoryInstance<TableHeaderStage0Node> =
+  createPMNodeSpecFactory<TableHeaderStage0Node>({
+    content:
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand)+',
+    marks:
+      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    attrs: {
+      colspan: { default: 1 },
+      rowspan: { default: 1 },
+      colwidth: { default: null },
+      background: { default: null },
+      localId: { default: null },
+      valign: { default: null },
     },
     selectable: false,
     isolating: true,
@@ -2353,9 +2562,74 @@ export const tableHeaderWithNestedTable: PMNodeSpecFactoryInstance<TableHeaderWi
     tableRole: 'header_cell',
   });
 
+export interface TableHeaderWithNestedTableStage0Definition {
+  type: 'tableHeader';
+  content: Array<
+    | BlockCardDefinition
+    | BlockquoteDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | CodeBlockWithExtendedAttributesStage0Definition
+    | DecisionListDefinition
+    | EmbedCardDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithAlignmentDefinition
+    | HeadingWithIndentationDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | NestedExpandDefinition
+    | NestedExpandWithNoMarksDefinition
+    | OrderedListDefinition
+    | PanelDefinition
+    | ParagraphWithAlignmentDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TableDefinition
+    | TaskListDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    colspan?: number;
+    rowspan?: number;
+    colwidth?: Array<number>;
+    background?: string;
+    localId?: string;
+    valign?: 'top' | 'middle' | 'bottom';
+  };
+}
+
+export type TableHeaderWithNestedTableStage0Node = PMNode &
+  TableHeaderWithNestedTableStage0Definition;
+
+export const tableHeaderWithNestedTableStage0: PMNodeSpecFactoryInstance<TableHeaderWithNestedTableStage0Node> =
+  createPMNodeSpecFactory<TableHeaderWithNestedTableStage0Node>({
+    content:
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | table)+',
+    marks:
+      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    attrs: {
+      colspan: { default: 1 },
+      rowspan: { default: 1 },
+      colwidth: { default: null },
+      background: { default: null },
+      localId: { default: null },
+      valign: { default: null },
+    },
+    selectable: false,
+    isolating: true,
+    tableRole: 'header_cell',
+  });
+
 export interface TableRowDefinition {
   type: 'tableRow';
-  content: Array<TableCellDefinition | TableHeaderDefinition>;
+  content: Array<
+    | TableCellDefinition
+    | TableCellStage0Definition
+    | TableHeaderDefinition
+    | TableHeaderStage0Definition
+  >;
   marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
   attrs: { localId?: string };
 }
@@ -2374,7 +2648,10 @@ export const tableRow: PMNodeSpecFactoryInstance<TableRowNode> =
 export interface TableRowWithNestedTableDefinition {
   type: 'tableRow';
   content: Array<
-    TableCellWithNestedTableDefinition | TableHeaderWithNestedTableDefinition
+    | TableCellWithNestedTableDefinition
+    | TableCellWithNestedTableStage0Definition
+    | TableHeaderWithNestedTableDefinition
+    | TableHeaderWithNestedTableStage0Definition
   >;
   marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
   attrs: { localId?: string };

@@ -119,7 +119,23 @@ describe(`${packageName}/schema nestedExpand node`, () => {
 			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const dom = toDOM(tableWrapper, schema).firstChild as HTMLElement;
 			const parsedNode = fromHTML(dom.outerHTML, schema).firstChild!;
-			expect(parsedNode).toEqual(tableWrapper);
+			expect(parsedNode.toJSON()).toEqual({
+				...tableWrapper.toJSON(),
+				content: [
+					{
+						...tableWrapper.child(0).toJSON(),
+						content: [
+							{
+								...cell.toJSON(),
+								attrs: {
+									...cell.attrs,
+									localId: expect.any(String),
+								},
+							},
+						],
+					},
+				],
+			});
 		});
 	});
 

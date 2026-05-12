@@ -1,6 +1,6 @@
 import type { ResizeDirection } from 're-resizable';
 
-export type EnabledHandles = { bottom?: boolean; left?: boolean; right?: boolean; };
+export type EnabledHandles = { bottom?: boolean; left?: boolean; right?: boolean };
 
 export type Dimensions = {
 	height: number;

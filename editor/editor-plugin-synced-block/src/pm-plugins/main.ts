@@ -101,6 +101,18 @@ const mapRetryCreationPosMap = (
 	mapPos: (pos: number) => number,
 ): RetryCreationPosMap => {
 	const resourceId = newRetryCreationPos?.resourceId;
+
+	// Fast path: no new entry and nothing to remap — return the same reference.
+	// This is critical for PR-E (EDITOR-6929) which relies on reference equality
+	// to short-circuit SharedStateAPI deep-equality checks.
+	if (
+		expValEquals('editor_synced_block_perf', 'isEnabled', true) &&
+		!resourceId &&
+		oldMap.size === 0
+	) {
+		return oldMap;
+	}
+
 	const newMap = new Map(oldMap);
 	if (resourceId) {
 		const { pos } = newRetryCreationPos;
@@ -369,6 +381,9 @@ const buildStatusDecorations = (
 				}),
 			);
 		}
+
+		// only traverse the top-level node of the document, as syncBlock and bodiedSyncBlock are top-level nodes
+		return false;
 	});
 
 	return DecorationSet.create(doc, [

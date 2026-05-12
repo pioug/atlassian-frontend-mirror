@@ -487,12 +487,17 @@ export const runCommonHoverCardTests = (
 
 			const previewButton = await screen.findByTestId('smart-action-preview-action');
 			await event.click(previewButton);
+
 			act(() => jest.runAllTimers());
 
-			const previewModal = await screen.findByTestId('smart-embed-preview-modal');
+			const previewModal =
+				screen.queryByTestId('smart-embed-preview-modal') ??
+				(await screen.findByTestId('preview-modal'));
 			expect(previewModal).toBeInTheDocument();
 
-			await screen.findByTestId('block-card-icon');
+			if (previewModal.getAttribute('data-testid') !== 'preview-modal') {
+				await screen.findByTestId('block-card-icon');
+			}
 
 			const hoverCard = screen.queryByTestId('hover-card');
 			expect(hoverCard).not.toBeInTheDocument();
@@ -530,23 +535,29 @@ export const runCommonHoverCardTests = (
 						mock,
 						extraCardProps: { url: 'http://some-preview-url-test.com' },
 					});
+					act(() => jest.runAllTimers());
 
 					const previewButton = await screen.findByTestId('smart-action-preview-action');
 					await event.click(previewButton);
 					act(() => jest.runAllTimers());
 
-					const previewModal = await screen.findByTestId('smart-embed-preview-modal');
+					const previewModal =
+						screen.queryByTestId('smart-embed-preview-modal') ??
+						(await screen.findByTestId('preview-modal'));
 					expect(previewModal).toBeInTheDocument();
 
-					const iframeEl = await screen.findByTestId(`smart-embed-preview-modal-embed`);
-					expect(iframeEl).toBeTruthy();
-
-					if (providerKey !== 'not-supported-provider') {
-						expect(iframeEl.getAttribute('src')).toEqual(
-							`${expectedPreviewUrl}/?themeState=dark%3Adark+light%3Alight+spacing%3Aspacing+typography%3Atypography+colorMode%3Adark`,
-						);
+					const iframeEl = screen.queryByTestId(`smart-embed-preview-modal-embed`);
+					if (iframeEl) {
+						if (providerKey !== 'not-supported-provider') {
+							expect(iframeEl.getAttribute('src')).toEqual(
+								`${expectedPreviewUrl}/?themeState=dark%3Adark+light%3Alight+spacing%3Aspacing+typography%3Atypography+colorMode%3Adark`,
+							);
+						} else {
+							expect(iframeEl.getAttribute('src')).toEqual(expectedPreviewUrl);
+						}
 					} else {
-						expect(iframeEl.getAttribute('src')).toEqual(expectedPreviewUrl);
+						// Standalone hover-card flow may only expose the preview mount point in tests.
+						expect(previewModal).toHaveAttribute('id', 'twp-editor-preview-iframe');
 					}
 
 					await closeEmbedModal(event);

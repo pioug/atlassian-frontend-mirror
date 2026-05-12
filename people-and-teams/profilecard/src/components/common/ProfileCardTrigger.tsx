@@ -7,7 +7,6 @@ import React, {
 	useState,
 } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 
@@ -127,7 +126,7 @@ function ProfileCardTriggerInner<T>(
 					onMouseEnter={onMouseEnter}
 					onMouseLeave={hideProfilecard}
 					onFocus={showProfilecard}
-					onBlur={fg('teams-app_profilecard_add-onblur') ? hideProfilecard : undefined}
+					onBlur={hideProfilecard}
 					data-testid="profile-card--trigger-content"
 				>
 					{isLoading ? (

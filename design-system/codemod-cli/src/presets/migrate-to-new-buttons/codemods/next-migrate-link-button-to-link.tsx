@@ -5,10 +5,10 @@ import { type API, type ASTPath, type FileInfo, type ImportDeclaration } from 'j
 import { addCommentBefore } from '@atlaskit/codemod-utils';
 
 import {
-	migrateButtonToSubtleLinkButton,
-	migrateSubtleButtonToSubtleLinkButton,
 	NEW_BUTTON_ENTRY_POINT,
 	NEW_BUTTON_VARIANTS,
+	migrateButtonToSubtleLinkButton,
+	migrateSubtleButtonToSubtleLinkButton,
 } from '../utils/constants';
 import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
 import { modifyLinkAttributes } from '../utils/modify-link-attributes';

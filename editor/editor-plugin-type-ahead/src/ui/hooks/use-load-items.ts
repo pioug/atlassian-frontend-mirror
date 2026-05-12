@@ -6,6 +6,7 @@ import type {
 	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { clearListError } from '../../pm-plugins/commands/clear-list-error';
@@ -48,7 +49,15 @@ export const useLoadItems = (
 
 		getItems(options)
 			.then((result) => {
-				const list = result.length > 0 ? result : EMPTY_LIST_ITEM;
+				// Inject empty list item here so it flows through the normal list rendering and keyboard
+				// navigation paths
+				const emptyItem =
+					result.length === 0 && expValEquals('platform_editor_insert_menu_ai', 'isEnabled', true)
+						? triggerHandler.getEmptyItem?.({ editorState: editorView.state })
+						: undefined;
+
+				const list = result.length > 0 ? result : emptyItem ? [emptyItem] : EMPTY_LIST_ITEM;
+
 				if (componentIsMounted.current) {
 					setItems(list);
 				}

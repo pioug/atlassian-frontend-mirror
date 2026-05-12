@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@atlassian/testing-library';
 import { ViewportDetector } from '../../viewportDetector';
 
 const observeMock = jest.fn();
@@ -22,19 +22,28 @@ const IntersectionObserverMock = jest.fn((intersectionCallback) => {
 (global as any).IntersectionObserver = IntersectionObserverMock;
 
 const setup = () => {
-	const Child = () => <>Hi!</>;
 	const callBack = jest.fn();
 	const cardEl = document.createElement('div');
-	const component = mount(
+	render(
 		<ViewportDetector onVisible={callBack} cardEl={cardEl}>
-			<Child />
+			<span>Hi!</span>
 		</ViewportDetector>,
 	);
-	return { component, Child, callBack, cardEl };
+	return { callBack, cardEl };
 };
 
 describe('ViewportDetector logic:', () => {
 	beforeEach(() => jest.clearAllMocks());
+
+	it('should capture and report a11y violations', async () => {
+		const cardEl = document.createElement('div');
+		const { container } = render(
+			<ViewportDetector onVisible={jest.fn()} cardEl={cardEl}>
+				<span>Hi!</span>
+			</ViewportDetector>,
+		);
+		await expect(container).toBeAccessible();
+	});
 
 	describe('ViewportDetector', () => {
 		it('should observe cardEl', () => {
@@ -45,9 +54,9 @@ describe('ViewportDetector logic:', () => {
 		});
 
 		it('should call callback & disconnect when observe node(s) in viewport', () => {
-			const { component, Child, callBack } = setup();
-			expect(component.find(Child)).toHaveLength(1);
-			expect(observeMock).toBeCalledTimes(1);
+			const { callBack } = setup();
+			expect(screen.getByText('Hi!')).toBeInTheDocument();
+			expect(observeMock).toHaveBeenCalledTimes(1);
 
 			intersectionTrigger();
 

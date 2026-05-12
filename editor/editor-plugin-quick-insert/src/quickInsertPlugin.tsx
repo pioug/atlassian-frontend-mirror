@@ -61,6 +61,27 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 				),
 			);
 		},
+
+		getEmptyItem({ editorState }) {
+			if (!expValEquals('platform_editor_insert_menu_ai', 'isEnabled', true)) {
+				return undefined;
+			}
+
+			const quickInsertState = pluginKey.getState(editorState);
+
+			const matches = getQuickInsertSuggestions(
+				{
+					query: '',
+					disableDefaultItems: options?.disableDefaultItems,
+					prioritySortingFn: options?.prioritySortingFn,
+					itemFilter: (item) => item.categories?.includes('AI') ?? false,
+				},
+				quickInsertState?.lazyDefaultItems,
+				quickInsertState?.providedItems,
+			);
+
+			return matches[0];
+		},
 		selectItem: (state, item, insert) => {
 			const quickInsertItem = item as QuickInsertItem;
 			const result = quickInsertItem.action(insert, state);

@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { InteractionType, SegmentInfo } from '../../../common';
 import { getConfig } from '../../../config';
 import type { LabelStack, SegmentLabel } from '../../../interaction-context';
@@ -20,6 +22,14 @@ export function sanitizeUfoName(name: string): string {
 	return name.replace(/_/g, '-');
 }
 
+export function sanitizeLabelStackName(name: string): string {
+	if (name.startsWith('/') && fg('platform_ufo_trim_labelstack_slashes')) {
+		return name.replace(/^\/+/, '');
+	}
+
+	return name;
+}
+
 export function isSegmentLabel(obj: any): obj is SegmentLabel {
 	return obj && typeof obj.name === 'string' && typeof obj.segmentId === 'string';
 }
@@ -36,7 +46,7 @@ export function buildSegmentTree(labelStacks: LabelStack[]): SegmentTree {
 
 		for (const label of labelStack) {
 			const isSegment = isSegmentLabel(label);
-			const name = label.name;
+			const name = sanitizeLabelStackName(label.name);
 			if (isSegment && segmentThreshold && segmentThreshold[name]) {
 				const threshold = segmentThreshold[name];
 				const count = addSegmentsMap.get(stringifiedLabelStack) || 0;
@@ -69,10 +79,11 @@ export function buildSegmentTree(labelStacks: LabelStack[]): SegmentTree {
 export function stringifyLabelStackFully(labelStack: LabelStack): string {
 	return labelStack
 		.map((l) => {
+			const name = sanitizeLabelStackName(l.name);
 			if (isSegmentLabel(l)) {
-				return `${l.name}:${l.segmentId}`;
+				return `${name}:${l.segmentId}`;
 			}
-			return l.name;
+			return name;
 		})
 		.join('/');
 }
@@ -80,16 +91,19 @@ export function stringifyLabelStackFully(labelStack: LabelStack): string {
 export function stringifyLabelStackWithoutId(labelStack: LabelStack): string {
 	return labelStack
 		.map((l) => {
+			const name = sanitizeLabelStackName(l.name);
 			if (isSegmentLabel(l)) {
-				return `${l.name}:segment`;
+				return `${name}:segment`;
 			}
-			return l.name;
+			return name;
 		})
 		.join('/');
 }
 
 function getLabelStackReference(labelStack: LabelStack): string {
-	return labelStack.map((l) => (isSegmentLabel(l) ? l.segmentId : l.name)).join('/');
+	return labelStack
+		.map((l) => (isSegmentLabel(l) ? l.segmentId : sanitizeLabelStackName(l.name)))
+		.join('/');
 }
 
 export function labelStackStartWith(labelStack: LabelStack, startWith: LabelStack): boolean {
@@ -109,7 +123,7 @@ export function optimizeLabelStack(
 	return reactUFOVersion === '2.0.0'
 		? getLabelStackReference(labelStack)
 		: labelStack.map((ls) => ({
-				n: ls.name,
+				n: sanitizeLabelStackName(ls.name),
 				...((ls as SegmentLabel).segmentId ? { s: (ls as SegmentLabel).segmentId } : {}),
 				...((ls as SegmentLabel).type ? { t: (ls as SegmentLabel).type } : {}),
 			}));
@@ -164,8 +178,9 @@ export function getOldSegmentsLabelStack(
 		const segmentsInfo: any[] = [];
 		for (const ls of labelStack) {
 			const isSegment = isSegmentLabel(ls);
-			if (isSegment && segmentThreshold && segmentThreshold[ls.name]) {
-				const threshold = segmentThreshold[ls.name];
+			const name = sanitizeLabelStackName(ls.name);
+			if (isSegment && segmentThreshold && segmentThreshold[name]) {
+				const threshold = segmentThreshold[name];
 				const count = addSegmentsMap.get(stringifiedLabelStack) || 0;
 				if (count < threshold) {
 					addSegmentsMap.set(stringifiedLabelStack, count + 1);
@@ -174,7 +189,7 @@ export function getOldSegmentsLabelStack(
 				}
 			}
 			segmentsInfo.push({
-				n: ls.name,
+				n: name,
 				...((ls as SegmentLabel).segmentId ? { s: (ls as SegmentLabel).segmentId } : {}),
 				...((ls as SegmentLabel).type ? { t: (ls as SegmentLabel).type } : {}),
 			});

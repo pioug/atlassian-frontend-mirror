@@ -10,6 +10,7 @@ import {
 	type RefAttributes,
 } from 'react';
 import { css, jsx } from '@compiled/react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import type { EmojiDescription } from '../../types';
 import Emoji from './Emoji';
@@ -67,6 +68,10 @@ const hidden = css({
 	display: 'none',
 });
 
+const emojiButtonOutline = css({
+	border: `${token('border.width')} solid ${token('color.border')}`,
+});
+
 export interface Props {
 	ariaExpanded?: boolean;
 	ariaLabelText?: string;
@@ -81,7 +86,27 @@ export const TonePreviewButton: ForwardRefExoticComponent<
 > = forwardRef<HTMLButtonElement, Props>((props: Props, ref) => {
 	const { emoji, selectOnHover, ariaLabelText, ariaExpanded, onSelected, isVisible = true } = props;
 
-	return (
+	return fg('platform_emoji_picker_refresh') ? (
+		<button
+			ref={ref}
+			css={[emojiButton, !isVisible && hidden, emojiButtonOutline]}
+			onClick={onSelected}
+			aria-label={ariaLabelText}
+			aria-expanded={ariaExpanded}
+			aria-controls="emoji-picker-tone-selector"
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={{ overflow: 'hidden' }}
+			data-testid={tonePreviewTestId}
+			type="button"
+		>
+			<Emoji
+				emoji={emoji}
+				selectOnHover={selectOnHover}
+				shouldBeInteractive={false}
+				aria-hidden={true}
+			/>
+		</button>
+	) : (
 		<button
 			ref={ref}
 			css={[emojiButton, !isVisible && hidden]}

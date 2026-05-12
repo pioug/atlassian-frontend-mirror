@@ -1,5 +1,12 @@
 # @atlaskit/drawer
 
+## 12.1.1
+
+### Patch Changes
+
+- [`cfe3aecafd8ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfe3aecafd8ba) -
+  [ux] React 19 migration - RefObject no longer makes current nullable by default
+
 ## 12.1.0
 
 ### Minor Changes

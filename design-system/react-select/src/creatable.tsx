@@ -39,6 +39,5 @@ const CreatableSelect = forwardRef(
 	},
 ) as CreatableSelect;
 
-export { useCreatable };
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default CreatableSelect;

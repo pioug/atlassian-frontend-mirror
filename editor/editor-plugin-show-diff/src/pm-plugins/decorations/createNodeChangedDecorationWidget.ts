@@ -17,6 +17,7 @@ import {
 	deletedContentStyleActive,
 	deletedContentStyleNew,
 	deletedContentStyleUnbounded,
+	deletedInlineContentBackground,
 } from './colorSchemes/standard';
 import {
 	traditionalInsertStyle,
@@ -57,6 +58,13 @@ const getDeletedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = f
 	if (colorScheme === 'traditional') {
 		return getDeletedTraditionalInlineStyle(isActive);
 	}
+	// Merge into existing styles when cleaning up
+	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		if (isActive) {
+			return deletedContentStyleActive + deletedInlineContentBackground;
+		}
+		return deletedContentStyleNew + deletedInlineContentBackground;
+	}
 	if (isActive) {
 		return deletedContentStyleActive;
 	}
@@ -70,7 +78,15 @@ const getDeletedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = f
  */
 const createDeletedStyleWrapperWithoutOpacity = (colorScheme?: ColorScheme, isActive?: boolean) => {
 	const wrapper = document.createElement('span');
-	wrapper.setAttribute('style', getDeletedContentStyle(colorScheme, isActive));
+	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		wrapper.setAttribute(
+			'style',
+			// Merge into existing styles when cleaning up
+			getDeletedContentStyle(colorScheme, isActive) + deletedInlineContentBackground,
+		);
+	} else {
+		wrapper.setAttribute('style', getDeletedContentStyle(colorScheme, isActive));
+	}
 	return wrapper;
 };
 

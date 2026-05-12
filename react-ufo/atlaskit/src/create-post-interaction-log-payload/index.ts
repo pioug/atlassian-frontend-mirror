@@ -12,6 +12,7 @@ import {
 } from '../config';
 import {
 	isSegmentLabel,
+	sanitizeLabelStackName,
 	sanitizeUfoName,
 	stringifyLabelStackFully,
 } from '../create-payload/common/utils';
@@ -99,7 +100,7 @@ function transformReactProfilerTimings(
 	const reactProfilerTimingsMap = filtered.reduce(
 		(result, { labelStack, startTime, commitTime, actualDuration, type }) => {
 			if (labelStack && type !== 'nested-update') {
-				const label = labelStack.map((ls) => ls.name).join('/');
+				const label = labelStack.map((ls) => sanitizeLabelStackName(ls.name)).join('/');
 				const start = Math.round(startTime);
 				const end = Math.round(commitTime);
 				const cacheKey = stringifyLabelStackFully(labelStack);
@@ -344,7 +345,9 @@ function createPostInteractionLogPayload({
 					reactProfilerTimings: transformReactProfilerTimings(reactProfilerTimings),
 					postInteractionHoldInfo: postInteractionHoldInfo?.map((hold) => ({
 						...hold,
-						labelStack: hold.labelStack.map((label) => label.name).join('/'),
+						labelStack: hold.labelStack
+							.map((label) => sanitizeLabelStackName(label.name))
+							.join('/'),
 					})),
 				},
 			},

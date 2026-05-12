@@ -6,8 +6,9 @@ import { useContext } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { defaultLayout, spacingMapping } from './constants';
+import { defaultLayout } from './constants';
 import { GridContext } from './grid-context';
+import { spacingMapping } from './spacing-mapping';
 import type { GridProps } from './types';
 
 const defaultGridColumnWidth = 80;

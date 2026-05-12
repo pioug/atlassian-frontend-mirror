@@ -7,6 +7,7 @@ import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 import type {
@@ -26,6 +27,7 @@ export type LayoutPluginDependencies = [
 	OptionalPlugin<InteractionPlugin>,
 	OptionalPlugin<BlockMenuPlugin>,
 	OptionalPlugin<ToolbarPlugin>,
+	OptionalPlugin<UiControlRegistryPlugin>,
 ];
 
 export type LayoutPlugin = NextEditorPlugin<

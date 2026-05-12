@@ -18,6 +18,7 @@ export interface Context {
 	productKey: string;
 	siteId: string;
 	organizationId?: string;
+	userbaseId?: string;
 	productAttributes?: ProductAttributes;
 }
 
@@ -272,6 +273,8 @@ export interface SmartProps {
 	orgId?: string;
 	/**
 	 * Identifier for the userbase scope.
+	 * Currently, this is supported for team fetching only.
+	 * When provided, team search uses this scope. Otherwise team search falls back to `orgId` and `siteId`.
 	 */
 	userbaseId?: string;
 	/**

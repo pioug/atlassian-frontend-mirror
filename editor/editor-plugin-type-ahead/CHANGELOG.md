@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 10.0.17
+
+### Patch Changes
+
+- [`858c695a0a315`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/858c695a0a315) -
+  [EDITOR-6718] Show "Ask Rovo" action in the type-ahead empty search state
+- Updated dependencies
+
+## 10.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.15
 
 ### Patch Changes

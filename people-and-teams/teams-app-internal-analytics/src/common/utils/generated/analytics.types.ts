@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::2317f0bdf5554824b2cfc647cb3497bb>>
+ * @codegen <<SignedSource::658e5a5100a589b8d9001298d17b39d3>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -51,19 +51,19 @@ export type TeamCreateDialogSucceededAttributesType = {
 	teamId: string;
 	numberOfMembers: number;
 	numberOfSuggestedMembers: number;
-	defaultTeamType: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL' | 'ORG_ADMIN_MANAGED' | null;
+	defaultTeamType?: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL' | 'ORG_ADMIN_MANAGED' | null;
 	chosenTeamType: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL' | 'ORG_ADMIN_MANAGED';
-	teamTypeChoiceEnabled: boolean | null;
+	teamTypeChoiceEnabled?: boolean | null;
 };
 export type TeamCreateDialogFailedAttributesType = {
 	numberOfMembers: number;
 	errorMessage: string;
-	errorStack: string | null;
+	errorStack?: string | null;
 	errorStatus: number;
-	traceId: string | null;
+	traceId?: string | null;
 };
 export type TeamTypePickerClickedAttributesType = {
-	defaultType: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL' | 'ORG_ADMIN_MANAGED' | null;
+	defaultType?: 'OPEN' | 'MEMBER_INVITE' | 'EXTERNAL' | 'ORG_ADMIN_MANAGED' | null;
 	chosenType: 'OPEN' | 'MEMBER_INVITE';
 };
 export type TeamCreateDialogClosedAttributesType = {};
@@ -73,16 +73,16 @@ export type InviteCapabilitiesServiceFailedAttributesType = {
 };
 export type AddToTeamServiceFailedAttributesType = {
 	integration: string;
-	message: string | null;
-	errorsCount: number | null;
-	errors: unknown[] | null;
+	message?: string | null;
+	errorsCount?: number | null;
+	errors?: unknown[] | null;
 };
 export type TeamSuggestionsRecommendedUsersSucceededAttributesType = {
 	recommendedUsers: number;
 };
 export type TeamSuggestionsRecommendedUsersFailedAttributesType = {
 	recommendedUsers: number;
-	errors: unknown[] | null;
+	errors?: unknown[] | null;
 };
 export type InvitedTeamMembersAddedAttributesType = {
 	numberOfMembers: number;
@@ -91,10 +91,10 @@ export type InvitedTeamMembersAddedAttributesType = {
 };
 export type InviteToProductServiceFailedAttributesType = {
 	integration: string;
-	message: string | null;
-	errorsCount: number | null;
-	errors: unknown[] | null;
-	result: unknown[] | null;
+	message?: string | null;
+	errorsCount?: number | null;
+	errors?: unknown[] | null;
+	result?: unknown[] | null;
 };
 export type InviteToSoftwareAndBusinessProjectsSucceededAttributesType = {
 	touchpoint: string;
@@ -118,47 +118,6 @@ export type InviteToSoftwareAndBusinessProjectsFailedAttributesType = {
 	spacesCount: number;
 	newUsersCount: number;
 	existingUsersCount: number;
-	usersInvitedCount?: number | null;
-	usersRequestedAccessCount?: number | null;
-	usersAlreadyExistsCount?: number | null;
-	usersPendingInviteCount?: number | null;
-	invitesFailedCount?: number | null;
-	totalRequests?: number | null;
-	projectAccessGrantedCount?: number | null;
-	projectAccessPendingCount?: number | null;
-	projectAccessExistingCount?: number | null;
-	projectAccessNotGrantedCount?: number | null;
-};
-export type InviteToProjectUpdatedAttributesType = {
-	spaceId: number;
-	touchpoint: string;
-	numberOfUsersInvitedByEmail: number;
-	numberOfUsersRequestedAccess: number;
-	numberOfInvitesFailed: number;
-	totalRequests: number;
-};
-export type InviteToProjectUpdateFailedAttributesType = {
-	spaceId: number;
-	touchpoint: string;
-	numberOfUsersInvitedByEmail: number;
-	numberOfUsersRequestedAccess: number;
-	numberOfInvitesFailed: number;
-	totalRequests: number;
-};
-export type UserInvitedAttributesType = {
-	userId: string | null;
-	inviteStatus: string;
-	projectAccessStatus?: string | null;
-	projectId: number;
-	touchpoint: string;
-};
-export type ProductAccessRequestedAttributesType = {
-	requestedForUserId: string | null;
-	inviteStatus: string;
-	projectAccessStatus?: string | null;
-	projectId: number;
-	exists: boolean;
-	touchpoint: string;
 };
 export type SendSpaceTeamInvitesScheduledAttributesType = {
 	spaceId: string;
@@ -181,17 +140,50 @@ export type ProjectUpdatedAttributesType = {
 	touchpoint: 'teamProfileSpaceLinking' | 'spaceNavTeamLinking';
 };
 export type ProjectUpdateFailedAttributesType = {
-	message: string | null;
+	message?: string | null;
 	spaceId: string;
-	teamId: string | null;
-	teamInviteStatus: 'SUCCESS' | 'PARTIAL_SUCCESS' | 'FAILED' | 'SKIPPED' | null;
-	totalTeamCount: number | null;
-	totalMemberCount: number | null;
-	failedTeamCount: number | null;
-	successTeamCount: number | null;
-	failedInviteCount: number | null;
-	successInviteCount: number | null;
+	teamId?: string | null;
+	teamInviteStatus?: 'SUCCESS' | 'PARTIAL_SUCCESS' | 'FAILED' | 'SKIPPED' | null;
+	totalTeamCount?: number | null;
+	totalMemberCount?: number | null;
+	failedTeamCount?: number | null;
+	successTeamCount?: number | null;
+	failedInviteCount?: number | null;
+	successInviteCount?: number | null;
 	touchpoint: 'teamProfileSpaceLinking' | 'spaceNavTeamLinking';
+};
+export type InviteToProjectUpdatedAttributesType = {
+	spaceId: number;
+	touchpoint: string;
+	numberOfUsersInvitedByEmail: number;
+	numberOfUsersRequestedAccess: number;
+	numberOfExistingUsersAdded: number;
+	numberOfInvitesFailed: number;
+	totalRequests: number;
+};
+export type InviteToProjectFailedAttributesType = {
+	spaceId: number;
+	touchpoint: string;
+	numberOfUsersInvitedByEmail: number;
+	numberOfUsersRequestedAccess: number;
+	numberOfExistingUsersAdded: number;
+	numberOfInvitesFailed: number;
+	totalRequests: number;
+};
+export type UserInvitedAttributesType = {
+	userId?: string | null;
+	inviteStatus: string;
+	projectAccessStatus?: string | null;
+	projectId: number;
+	touchpoint: string;
+};
+export type ProductAccessRequestedAttributesType = {
+	requestedForUserId?: string | null;
+	inviteStatus: string;
+	projectAccessStatus?: string | null;
+	projectId: number;
+	exists: boolean;
+	touchpoint: string;
 };
 export type SendSpaceTeamInvitesCancelledAttributesType = {
 	spaceId: string;
@@ -206,16 +198,16 @@ export type TeamWorkedOnRenderedAttributesType = {
 	state: 'error' | 'empty' | 'data' | 'unknown';
 };
 export type TeamWorkedOnFailedAttributesType = {
-	error: string | null;
-	traceId: string | null;
-	status: number | null;
-	statusText: string | null;
+	error?: string | null;
+	traceId?: string | null;
+	status?: number | null;
+	statusText?: string | null;
 };
 export type TeamWorkedOnSucceededAttributesType = {
-	error: string | null;
-	traceId: string | null;
-	status: number | null;
-	statusText: string | null;
+	error?: string | null;
+	traceId?: string | null;
+	status?: number | null;
+	statusText?: string | null;
 };
 export type ViewAllIssuesClickedAttributesType = {
 	isOpenNewTab: boolean;
@@ -264,12 +256,12 @@ export type FetchingUsersTeamsDataMeasuredAttributesType = {
 };
 export type PeopleMenuLinkSucceededAttributesType = {};
 export type PeopleMenuLinkFailedAttributesType = {
-	status: number | null;
+	status?: number | null;
 	error: string;
 };
 export type TeamMenuLinkSucceededAttributesType = {};
 export type TeamMenuLinkFailedAttributesType = {
-	status: number | null;
+	status?: number | null;
 	error: string;
 };
 export type TeamProfileBreadcrumbsItemClickedAttributesType = {
@@ -320,20 +312,20 @@ export type RefetchTeamContainersFailedAttributesType = {
 };
 export type FetchNumberOfConnectedTeamsSucceededAttributesType = {
 	containerId: string;
-	numberOfTeams: number | null;
+	numberOfTeams?: number | null;
 };
 export type FetchNumberOfConnectedTeamsFailedAttributesType = {
 	containerId: string;
-	numberOfTeams: number | null;
+	numberOfTeams?: number | null;
 	error: Record<string, unknown>;
 };
 export type FetchConnectedTeamsSucceededAttributesType = {
 	containerId: string;
-	numberOfTeams: number | null;
+	numberOfTeams?: number | null;
 };
 export type FetchConnectedTeamsFailedAttributesType = {
 	containerId: string;
-	numberOfTeams: number | null;
+	numberOfTeams?: number | null;
 	error: Record<string, unknown>;
 };
 export type ContainerClickedTeamContainerAttributesType = {
@@ -348,7 +340,7 @@ export type TeamContainerUnlinkedSucceededAttributesType = {
 	containerRemoved: Record<string, unknown>;
 };
 export type ButtonClickedContainerUnlinkButtonAttributesType = {
-	containerSelected: Record<string, unknown> | null;
+	containerSelected?: Record<string, unknown> | null;
 };
 export type ButtonClickedContainerEditLinkButtonAttributesType = {
 	containerSelected: Record<string, unknown>;
@@ -446,7 +438,7 @@ export type JoinRequestCancelFailedAttributesType = {
 export type TeamInvitationSentAttributesType = {
 	teamId: string;
 	numberOfMembers: number;
-	memberIds: unknown[] | null;
+	memberIds?: unknown[] | null;
 };
 export type JoinRequestAcceptFailedAttributesType = {
 	status: number;
@@ -747,7 +739,7 @@ export type ProjectsAndGoalsTaskStartAttributesType = {
 	latencySlo: number;
 	isStandalone: boolean;
 	hasBrowsUsersPermission: boolean;
-	tab: string | null;
+	tab?: string | null;
 };
 export type ProjectsAndGoalsTaskSuccessAttributesType = {
 	sloSatisifed: boolean;
@@ -755,7 +747,7 @@ export type ProjectsAndGoalsTaskSuccessAttributesType = {
 	latencySlo: number;
 	isStandalone: boolean;
 	hasBrowsUsersPermission: boolean;
-	tab: string | null;
+	tab?: string | null;
 };
 export type TeamsPermissionsRequestFailedAttributesType = {
 	message: string;
@@ -934,8 +926,8 @@ export type TeamProfileCardRenderedContentAttributesType = {
 	firedAt: number;
 	duration: number;
 	numActions: number;
-	memberCount: number | null;
-	includingYou: boolean | null;
+	memberCount?: number | null;
+	includingYou?: boolean | null;
 	descriptionLength: number;
 	titleLength: number;
 };
@@ -978,12 +970,12 @@ export type ProfilecardFailedRequestAttributesType = {
 	firedAt: number;
 	duration: number;
 	errorMessage: string;
-	errorStatusCode: number | null;
-	traceId: string | null;
-	errorCategory: string | null;
-	errorType: string | null;
-	errorPath: string | null;
-	errorNumber: number | null;
+	errorStatusCode?: number | null;
+	traceId?: string | null;
+	errorCategory?: string | null;
+	errorType?: string | null;
+	errorPath?: string | null;
+	errorNumber?: number | null;
 	isSLOFailure: boolean;
 };
 export type TeamProfileCardSucceededRequestAttributesType = {
@@ -998,15 +990,15 @@ export type TeamProfileCardFailedRequestAttributesType = {
 	firedAt: number;
 	duration: number;
 	errorMessage: string;
-	errorStatusCode: number | null;
-	traceId: string | null;
-	errorCategory: string | null;
-	errorType: string | null;
-	errorPath: string | null;
-	errorNumber: number | null;
+	errorStatusCode?: number | null;
+	traceId?: string | null;
+	errorCategory?: string | null;
+	errorType?: string | null;
+	errorPath?: string | null;
+	errorNumber?: number | null;
 	isSLOFailure: boolean;
 	gateway: boolean;
-	errorStack: string | null;
+	errorStack?: string | null;
 };
 export type RovoAgentProfilecardSucceededRequestAttributesType = {
 	firedAt: number;
@@ -1020,12 +1012,12 @@ export type RovoAgentProfilecardFailedRequestAttributesType = {
 	firedAt: number;
 	duration: number;
 	errorMessage: string;
-	errorStatusCode: number | null;
-	traceId: string | null;
-	errorCategory: string | null;
-	errorType: string | null;
-	errorPath: string | null;
-	errorNumber: number | null;
+	errorStatusCode?: number | null;
+	traceId?: string | null;
+	errorCategory?: string | null;
+	errorType?: string | null;
+	errorPath?: string | null;
+	errorNumber?: number | null;
 	isSLOFailure: boolean;
 	gateway: boolean;
 };
@@ -1038,12 +1030,12 @@ export type RovoAgentProfilecardFailedDeleteAgentAttributesType = {
 	firedAt: number;
 	duration: number;
 	errorMessage: string;
-	errorStatusCode: number | null;
-	traceId: string | null;
-	errorCategory: string | null;
-	errorType: string | null;
-	errorPath: string | null;
-	errorNumber: number | null;
+	errorStatusCode?: number | null;
+	traceId?: string | null;
+	errorCategory?: string | null;
+	errorType?: string | null;
+	errorPath?: string | null;
+	errorNumber?: number | null;
 	isSLOFailure: boolean;
 	gateway: boolean;
 };
@@ -1059,12 +1051,12 @@ export type RovoAgentProfilecardFailedFavouriteAttributesType = {
 	firedAt: number;
 	duration: number;
 	errorMessage: string;
-	errorStatusCode: number | null;
-	traceId: string | null;
-	errorCategory: string | null;
-	errorType: string | null;
-	errorPath: string | null;
-	errorNumber: number | null;
+	errorStatusCode?: number | null;
+	traceId?: string | null;
+	errorCategory?: string | null;
+	errorType?: string | null;
+	errorPath?: string | null;
+	errorNumber?: number | null;
 	isSLOFailure: boolean;
 	gateway: boolean;
 };
@@ -1080,12 +1072,12 @@ export type RovoAgentProfilecardFailedUnfavouriteAttributesType = {
 	firedAt: number;
 	duration: number;
 	errorMessage: string;
-	errorStatusCode: number | null;
-	traceId: string | null;
-	errorCategory: string | null;
-	errorType: string | null;
-	errorPath: string | null;
-	errorNumber: number | null;
+	errorStatusCode?: number | null;
+	traceId?: string | null;
+	errorCategory?: string | null;
+	errorType?: string | null;
+	errorPath?: string | null;
+	errorNumber?: number | null;
 	isSLOFailure: boolean;
 	gateway: boolean;
 };
@@ -1098,12 +1090,12 @@ export type RovoAgentProfilecardFailedGetAgentPermissionsAttributesType = {
 	firedAt: number;
 	duration: number;
 	errorMessage: string;
-	errorStatusCode: number | null;
-	traceId: string | null;
-	errorCategory: string | null;
-	errorType: string | null;
-	errorPath: string | null;
-	errorNumber: number | null;
+	errorStatusCode?: number | null;
+	traceId?: string | null;
+	errorCategory?: string | null;
+	errorType?: string | null;
+	errorPath?: string | null;
+	errorNumber?: number | null;
 	isSLOFailure: boolean;
 	gateway: boolean;
 };
@@ -1145,19 +1137,19 @@ export type ProfileProjectsAndGoalsViewedAttributesType = {
 	hasGoals: boolean;
 	hasProjects: boolean;
 	product: string;
-	workspaceUuid: string | null;
-	isNewUserProfile: boolean | null;
-	tab: string | null;
+	workspaceUuid?: string | null;
+	isNewUserProfile?: boolean | null;
+	tab?: string | null;
 };
 export type ProfileProjectsLinkClickedAttributesType = {
 	entryIndex: number;
-	isNewUserProfile: boolean | null;
-	tab: string | null;
+	isNewUserProfile?: boolean | null;
+	tab?: string | null;
 };
 export type ProfileGoalsLinkClickedAttributesType = {
 	entryIndex: number;
-	isNewUserProfile: boolean | null;
-	tab: string | null;
+	isNewUserProfile?: boolean | null;
+	tab?: string | null;
 };
 export type ButtonClickedFollowTeamProjectsGoalsButtonAttributesType = undefined;
 export type ButtonClickedUnfollowTeamProjectsGoalsButtonAttributesType = undefined;
@@ -1168,8 +1160,8 @@ export type ErrorBoundaryTriggeredAttributesType = {
 };
 export type ProfileKudosViewedAttributesType = {
 	isEmpty: boolean;
-	isNewUserProfile: boolean | null;
-	tab: string | null;
+	isNewUserProfile?: boolean | null;
+	tab?: string | null;
 };
 export type ProfileKudosTabClickedAttributesType = {
 	tabName: 'given' | 'received';
@@ -1180,29 +1172,29 @@ export type ProfileKudosClickedAttributesType = {
 };
 export type ReportingLinesChartCollapsedAttributesType = {
 	product: string;
-	workspaceUuid: string | null;
+	workspaceUuid?: string | null;
 };
 export type ReportingLinesChartExpandedAttributesType = {
 	product: string;
-	workspaceUuid: string | null;
+	workspaceUuid?: string | null;
 };
 export type ReportingLinesChartViewedAttributesType = {
 	product: string;
-	workspaceUuid: string | null;
-	isNewUserProfile: boolean | null;
-	tab: string | null;
+	workspaceUuid?: string | null;
+	isNewUserProfile?: boolean | null;
+	tab?: string | null;
 };
 export type UiViewedAttributesType = {
 	product: string;
-	workspaceUuid: string | null;
+	workspaceUuid?: string | null;
 };
 export type ReportingLinesUserCardClickedAttributesType = {
 	product: string;
-	workspaceUuid: string | null;
+	workspaceUuid?: string | null;
 };
 export type ReportingLinesEmptyStateViewedAttributesType = {
 	product: string;
-	workspaceUuid: string | null;
+	workspaceUuid?: string | null;
 	isAdmin: boolean;
 };
 export type ButtonClickedAddPeopleButtonAttributesType = {
@@ -1225,22 +1217,22 @@ export type HeaderImageStartedTeamHeaderImageAttributesType = {
 	actionType: 'removeHeaderImage' | 'uploadHeaderImage';
 	memberOfTeam: boolean;
 	orgAdminTriggered: boolean;
-	isVerified: boolean | null;
+	isVerified?: boolean | null;
 };
 export type HeaderImageFailedTeamHeaderImageAttributesType = {
 	actionType: 'removeHeaderImage' | 'uploadHeaderImage';
 	memberOfTeam: boolean;
 	orgAdminTriggered: boolean;
-	isVerified: boolean | null;
+	isVerified?: boolean | null;
 };
 export type HeaderImageSucceededTeamHeaderImageAttributesType = {
 	actionType: 'removeHeaderImage' | 'uploadHeaderImage';
 	memberOfTeam: boolean;
 	orgAdminTriggered: boolean;
-	isVerified: boolean | null;
+	isVerified?: boolean | null;
 };
 export type ButtonClickedProfileHeaderMediaPickerUploadAttributesType = {
-	isNewUserProfile: boolean | null;
+	isNewUserProfile?: boolean | null;
 };
 export type ButtonClickedProfileHeaderRemoveAttributesType = undefined;
 export type SendFeedbackClickedAttributesType = undefined;
@@ -1252,17 +1244,17 @@ export type AvatarPickerClosedAttributesType = {
 };
 export type AvatarPickerOpenedAttributesType = {
 	hasUploadedAvatar: boolean;
-	isNewUserProfile: boolean | null;
+	isNewUserProfile?: boolean | null;
 };
 export type ButtonClickedChangeProfilePhotoAttributesType = {
-	isNewUserProfile: boolean | null;
+	isNewUserProfile?: boolean | null;
 };
 export type ButtonClickedCreateInitialsAvatarAttributesType = {
-	isNewUserProfile: boolean | null;
+	isNewUserProfile?: boolean | null;
 };
 export type AvatarInitialsPickerOpenedAttributesType = {
 	hasUploadedAvatar: boolean;
-	isNewUserProfile: boolean | null;
+	isNewUserProfile?: boolean | null;
 };
 export type UploadAvatarFailedAttributesType = {
 	avatarType: 'image' | 'initials';
@@ -1288,66 +1280,66 @@ export type ProfileAboutItemEditedAttributesType = {
 };
 export type UserProfileScreenAboutPanelViewedAttributesType = {
 	nonEmptyFields: string;
-	isNewUserProfile: boolean | null;
+	isNewUserProfile?: boolean | null;
 };
 export type PrivacyPolicyLinkClickedAttributesType = undefined;
 export type TeamProfileItemClickedAttributesType = {
 	position: number;
-	isPoweredByTWG: boolean | null;
-	isNewUserProfile: boolean | null;
+	isPoweredByTWG?: boolean | null;
+	isNewUserProfile?: boolean | null;
 };
 export type ShowMoreClickedAttributesType = {
-	selectedUser: boolean | null;
-	withSearchQuery: boolean | null;
-	isNewUserProfile: boolean | null;
+	selectedUser?: boolean | null;
+	withSearchQuery?: boolean | null;
+	isNewUserProfile?: boolean | null;
 };
 export type TeamCreateDialogTriggerButtonClickedAttributesType = {
 	trigger: string;
-	isNewUserProfile: boolean | null;
+	isNewUserProfile?: boolean | null;
 };
 export type ButtonClickedManageAccountButtonAttributesType = {
-	isNewUserProfile: boolean | null;
+	isNewUserProfile?: boolean | null;
 };
 export type ButtonClickedManageAccessButtonAttributesType = undefined;
 export type UserProfileScreenLoadFailedAttributesType = {
-	isNewUserProfile: boolean | null;
+	isNewUserProfile?: boolean | null;
 };
 export type UserProfileScreenViewedAttributesType = {
 	isCurrentUser: boolean;
-	isNewUserProfile: boolean | null;
-	tab: string | null;
+	isNewUserProfile?: boolean | null;
+	tab?: string | null;
 };
 export type ViewAllWorkClickedAttributesType = {
 	location: string;
-	isNewUserProfile: boolean | null;
+	isNewUserProfile?: boolean | null;
 };
 export type MoreWorkClickedAttributesType = {
 	numItemsDisplayed: number;
-	isNewUserProfile: boolean | null;
+	isNewUserProfile?: boolean | null;
 };
 export type ActivityEntryClickedAttributesType = {
 	provider: string;
 	entryIndex: number;
-	isNewUserProfile: boolean | null;
+	isNewUserProfile?: boolean | null;
 };
 export type PlacesLinkClickedAttributesType = {
 	type: string;
-	isNewUserProfile: boolean | null;
+	isNewUserProfile?: boolean | null;
 };
 export type ViewedTeamProfileFromRequestToJoinNotificationViewedAttributesType = {
-	status: number | null;
-	errorType: string | null;
+	status?: number | null;
+	errorType?: string | null;
 	isVerified: boolean;
 };
 export type TeamProfileScreenViewedAttributesType = {
 	teamId: string;
-	membershipState: string | null;
+	membershipState?: string | null;
 	isViewerMember: boolean;
 	isVerified: boolean;
 	isSiteAdmin: boolean;
 	isArchived: boolean;
 	isOrgAdmin: boolean;
-	orgId: string | null;
+	orgId?: string | null;
 	hasContainersConnect: boolean;
 	numberOfContainersConnected: number;
 	numberOfWebLinksConnected: number;
@@ -1355,35 +1347,35 @@ export type TeamProfileScreenViewedAttributesType = {
 	containersCurrentlyConnected: unknown[];
 };
 export type TeamArchivedSucceededAttributesType = {
-	teamId: string | null;
-	isOrgAdmin: boolean | null;
-	isMember: boolean | null;
-	isVerified: boolean | null;
+	teamId?: string | null;
+	isOrgAdmin?: boolean | null;
+	isMember?: boolean | null;
+	isVerified?: boolean | null;
 };
 export type TeamArchivedFailedAttributesType = {
-	teamId: string | null;
-	isOrgAdmin: boolean | null;
-	isMember: boolean | null;
-	isVerified: boolean | null;
-	error: string | null;
+	teamId?: string | null;
+	isOrgAdmin?: boolean | null;
+	isMember?: boolean | null;
+	isVerified?: boolean | null;
+	error?: string | null;
 };
 export type TeamUnarchivedSucceededAttributesType = {
-	teamId: string | null;
-	isOrgAdmin: boolean | null;
-	isMember: boolean | null;
+	teamId?: string | null;
+	isOrgAdmin?: boolean | null;
+	isMember?: boolean | null;
 };
 export type TeamUnarchivedFailedAttributesType = {
-	teamId: string | null;
-	isOrgAdmin: boolean | null;
-	isMember: boolean | null;
-	error: string | null;
+	teamId?: string | null;
+	isOrgAdmin?: boolean | null;
+	isMember?: boolean | null;
+	error?: string | null;
 };
 export type GetTeamProfileSucceededAttributesType = {
 	status: number;
 	isVerified: boolean;
 };
 export type GetTeamProfileFailedAttributesType = {
-	status: number | null;
+	status?: number | null;
 };
 export type AddWebLinkDialogOpenedAttributesType = {
 	teamId: string;
@@ -1395,10 +1387,10 @@ export type LinkClickedHelpLinkAttributesType = {
 	uiScreen: string;
 	descriptionLength: number;
 	titleLength: number;
-	type: string | null;
-	teamId: string | null;
-	totalTags: number | null;
-	numTagsMatchingSearch: number | null;
+	type?: string | null;
+	teamId?: string | null;
+	totalTags?: number | null;
+	numTagsMatchingSearch?: number | null;
 };
 export type TeamsProfileHelpPointersViewedAttributesType = {
 	isEmpty: boolean;
@@ -1415,10 +1407,10 @@ export type DialogOpenedCreateHelpPointerDialogAttributesType = {
 };
 export type HelpPointerCreatedAttributesType = {
 	screen: string;
-	type: string | null;
+	type?: string | null;
 	totalTags: number;
 	descriptionLength: number;
-	teamId: string | null;
+	teamId?: string | null;
 	emptyProfilePage: boolean;
 };
 export type TagCreatedAttributesType = {
@@ -1433,17 +1425,17 @@ export type DialogOpenedDeleteHelpPointerDialogAttributesType = {
 };
 export type HelpPointerDeletedAttributesType = {
 	screen: string;
-	type: string | null;
+	type?: string | null;
 	totalTags: number;
 	descriptionLength: number;
-	teamId: string | null;
+	teamId?: string | null;
 };
 export type HelpPointerEditedAttributesType = {
 	screen: string;
-	type: string | null;
+	type?: string | null;
 	totalTags: number;
 	descriptionLength: number;
-	teamId: string | null;
+	teamId?: string | null;
 	createdNewTeam: boolean;
 };
 export type TeamLinkLinkedAttributesType = {
@@ -1454,7 +1446,7 @@ export type TeamLinkLinkedAttributesType = {
 	isMemberOfTeam: boolean;
 	memberOfTeam: boolean;
 	orgAdminTriggered: boolean;
-	isVerified: boolean | null;
+	isVerified?: boolean | null;
 };
 export type TeamLinkTypedAttributesType = {
 	length: number;
@@ -1476,7 +1468,7 @@ export type ButtonClickedReactivateTeamAttributesType = {
 };
 export type TeamRestoreSucceededAttributesType = undefined;
 export type TeamRestoreFailedAttributesType = {
-	status: number | null;
+	status?: number | null;
 };
 export type GetSettingsSucceededAttributesType = undefined;
 export type GetSettingsFailedAttributesType = undefined;
@@ -1488,7 +1480,7 @@ export type TeamLinkEditedAttributesType = {
 	isLinkPartOfTeamContainers: boolean;
 	memberOfTeam: boolean;
 	orgAdminTriggered: boolean;
-	isVerified: boolean | null;
+	isVerified?: boolean | null;
 };
 export type PeopleHomeViewedAttributesType = undefined;
 export type UserFilterSelectedAttributesType = {
@@ -1505,7 +1497,7 @@ export type SuggestedCollaboratorsClickedAttributesType = {
 export type ViewDirectoryFiltersInAtlasClickedAttributesType = {
 	isAdmin: boolean;
 	product: string;
-	workspaceUuid: string | null;
+	workspaceUuid?: string | null;
 };
 export type YourTeamsClickedAttributesType = {
 	entryIndex: number;
@@ -1532,7 +1524,7 @@ export type AgentProfileAboutTeamsViewedAttributesType = {
 };
 export type UserProfileAboutTeamsViewedAttributesType = {
 	teamsCount: number;
-	isNewUserProfile: boolean | null;
+	isNewUserProfile?: boolean | null;
 };
 export type UserProfileWorkingWithMeViewedAttributesType = undefined;
 export type UserProfileWorkingWithMeEmptyStateViewedAttributesType = undefined;
@@ -1622,8 +1614,8 @@ export type StarredFailedTeamAttributesType = {
 export type StarTeamFailedAttributesType = {
 	error: string;
 	errorMessage: string;
-	errorType: string | null;
-	classification: string | null;
+	errorType?: string | null;
+	classification?: string | null;
 };
 export type TeamProfileHierarchyTabViewedAttributesType = {
 	teamId: string;
@@ -1660,7 +1652,7 @@ export type ParentTeamPickerClosedAttributesType = {
 export type TeamPickerFailedAttributesType = {
 	error: string;
 	errorMessage: string;
-	errorType: string | null;
+	errorType?: string | null;
 };
 export type SubTeamPickerOpenedAttributesType = {};
 export type SubTeamPickerClosedAttributesType = {
@@ -1670,6 +1662,25 @@ export type SubTeamPickerUpdatedAttributesType = {
 	subTeamId: string;
 	action: string;
 };
+export type UserProfilePreviewSucceededRequestAttributesType = undefined;
+export type UserProfilePreviewFailedRequestAttributesType = undefined;
+export type UserProfilePreviewClickedThirdPartyMessageAttributesType = {
+	integration: string;
+};
+export type UserProfilePreviewClickedReportingLinesAttributesType = undefined;
+export type UserProfilePreviewClickedViewProfileAttributesType = undefined;
+export type UserProfilePreviewClickedTabAttributesType = {
+	tab: string;
+};
+export type UserProfilePreviewClickedRecentWorkSectionAttributesType = undefined;
+export type UserProfilePreviewClickedCollaboratorsSectionAttributesType = undefined;
+export type UserInlinePreviewSucceededRequestAttributesType = undefined;
+export type UserInlinePreviewFailedRequestAttributesType = undefined;
+export type UserInlinePreviewClickedThirdPartyMessageAttributesType = {
+	integration: string;
+};
+export type UserInlinePreviewClickedReportingLinesAttributesType = undefined;
+export type UserInlinePreviewClickedViewProfileAttributesType = undefined;
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -1761,13 +1772,21 @@ export type AnalyticsEventAttributes = {
 	'track.sendSpaceTeamInvites.sending': SendSpaceTeamInvitesSendingAttributesType;
 	/**
 	 * fired when a space invite request completes successfully and the project membership is updated */
-	'track.project.updated': ProjectUpdatedAttributesType | InviteToProjectUpdatedAttributesType;
+	'track.project.updated': ProjectUpdatedAttributesType;
 	/**
 	 * fired when a space invite for team members failed */
-	'track.projectUpdate.failed':
-		| ProjectUpdateFailedAttributesType
-		| InviteToProjectUpdateFailedAttributesType;
+	'track.projectUpdate.failed': ProjectUpdateFailedAttributesType;
+	/**
+	 * fired when a per-project invite request completes successfully via the team profile add people to project flow */
+	'track.inviteToProject.updated': InviteToProjectUpdatedAttributesType;
+	/**
+	 * fired when a per-project invite request has failures via the team profile add people to project flow */
+	'track.inviteToProject.failed': InviteToProjectFailedAttributesType;
+	/**
+	 * fired when a user is successfully invited to a project via the team profile add people to project flow (INVITED or USER_EXISTS status) */
 	'track.user.invited': UserInvitedAttributesType;
+	/**
+	 * fired when a product access request is submitted for a user via the team profile add people to project flow (INVITED_PENDING_APPROVAL or PENDING_INVITE_EXISTS status) */
 	'track.productAccess.requested': ProductAccessRequestedAttributesType;
 	/**
 	 * fired when a pending space invite is cancelled before it was sent */
@@ -2801,6 +2820,45 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the sub team picker is updated */
 	'ui.subTeamPicker.updated': SubTeamPickerUpdatedAttributesType;
+	/**
+	 * fired when the user profile preview data request succeeds */
+	'operational.userProfilePreview.succeeded.request': UserProfilePreviewSucceededRequestAttributesType;
+	/**
+	 * fired when the user profile preview data request fails */
+	'operational.userProfilePreview.failed.request': UserProfilePreviewFailedRequestAttributesType;
+	/**
+	 * fired when the third-party messaging integration button is clicked on the user profile preview */
+	'ui.userProfilePreview.clicked.thirdPartyMessage': UserProfilePreviewClickedThirdPartyMessageAttributesType;
+	/**
+	 * fired when the org chart (reporting lines) button is clicked on the compact user profile preview */
+	'ui.userProfilePreview.clicked.reportingLines': UserProfilePreviewClickedReportingLinesAttributesType;
+	/**
+	 * fired when the View Profile button is clicked on the user profile preview */
+	'ui.userProfilePreview.clicked.viewProfile': UserProfilePreviewClickedViewProfileAttributesType;
+	/**
+	 * fired when a tab is clicked on the full user profile preview */
+	'ui.userProfilePreview.clicked.tab': UserProfilePreviewClickedTabAttributesType;
+	/**
+	 * fired when the Recent Work section is expanded on the compact user profile preview */
+	'ui.userProfilePreview.clicked.recentWorkSection': UserProfilePreviewClickedRecentWorkSectionAttributesType;
+	/**
+	 * fired when the Collaborators section is expanded on the compact user profile preview */
+	'ui.userProfilePreview.clicked.collaboratorsSection': UserProfilePreviewClickedCollaboratorsSectionAttributesType;
+	/**
+	 * fired when the user inline preview list data request succeeds */
+	'operational.userInlinePreview.succeeded.request': UserInlinePreviewSucceededRequestAttributesType;
+	/**
+	 * fired when the user inline preview list data request fails */
+	'operational.userInlinePreview.failed.request': UserInlinePreviewFailedRequestAttributesType;
+	/**
+	 * fired when the third-party messaging integration button is clicked on the user inline preview */
+	'ui.userInlinePreview.clicked.thirdPartyMessage': UserInlinePreviewClickedThirdPartyMessageAttributesType;
+	/**
+	 * fired when the org chart (reporting lines) button is clicked on the user inline preview */
+	'ui.userInlinePreview.clicked.reportingLines': UserInlinePreviewClickedReportingLinesAttributesType;
+	/**
+	 * fired when the View Profile button is clicked on the user inline preview */
+	'ui.userInlinePreview.clicked.viewProfile': UserInlinePreviewClickedViewProfileAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

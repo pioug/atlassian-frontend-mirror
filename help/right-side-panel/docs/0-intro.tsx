@@ -70,9 +70,9 @@ const intro: React.ReactElement = md`
   }
   `}
 
-  ${
-		(
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+  ${(
+		<>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<div style={{ paddingTop: token('space.200') }}>
 				<Button
 					onClick={() => window.open('/examples/help/right-side-panel/0-Right-Side-Panel', '_self')}
@@ -80,8 +80,8 @@ const intro: React.ReactElement = md`
 					Open Example
 				</Button>
 			</div>
-		)
-	}
+		</>
+	)}
 
   ${(
 		<Props props={require('!!extract-react-types-loader!../src/components/RightSidePanel/index')} />

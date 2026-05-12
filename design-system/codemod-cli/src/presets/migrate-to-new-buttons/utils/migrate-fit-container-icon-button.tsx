@@ -3,9 +3,9 @@ import type { API, ASTPath, JSXElement } from 'jscodeshift';
 import { addCommentBefore } from '@atlaskit/codemod-utils';
 
 import {
+	NEW_BUTTON_VARIANTS,
 	migrateFitContainerButtonToDefaultButtonComment,
 	migrateFitContainerButtonToIconButtonComment,
-	NEW_BUTTON_VARIANTS,
 } from './constants';
 import { getIconAttributes } from './get-icon-attributes';
 import { getIconElement } from './get-icon-element';

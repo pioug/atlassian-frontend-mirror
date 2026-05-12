@@ -2,8 +2,6 @@ import React, { type ReactNode } from 'react';
 
 import { renderHook } from '@testing-library/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { getActiveTrace } from '../../experience-trace-id-context';
 import UFOInteractionContext, { type UFOInteractionContextType } from '../../interaction-context';
 import * as interactionMetricsModule from '../../interaction-metrics';
@@ -14,9 +12,6 @@ import {
 	type TerminalErrorAdditionalAttributes,
 	useReportTerminalError,
 } from '../index';
-
-jest.mock('@atlaskit/platform-feature-flags');
-const mockFg = fg as jest.Mock;
 
 jest.mock('../../interaction-metrics', () => ({
 	getActiveInteraction: jest.fn(),
@@ -80,7 +75,6 @@ describe('terminal-error', () => {
 		mockPerformanceNow.mockReturnValue(1000);
 		sinkTerminalErrorHandler(mockSink);
 		mockGetActiveInteraction.mockReturnValue(undefined);
-		mockFg.mockReturnValue(false);
 		mockGetActiveTrace.mockReturnValue(undefined);
 
 		// Reset PreviousInteractionLog
@@ -131,7 +125,6 @@ describe('terminal-error', () => {
 				packageName: 'test-package',
 				errorBoundaryId: 'boundary-123',
 				errorHash: 'abc123',
-				traceId: 'trace-456',
 				fallbackType: 'page',
 				statusCode: 500,
 			});
@@ -142,7 +135,6 @@ describe('terminal-error', () => {
 					packageName: 'test-package',
 					errorBoundaryId: 'boundary-123',
 					errorHash: 'abc123',
-					traceId: 'trace-456',
 					fallbackType: 'page',
 					statusCode: 500,
 				}),
@@ -272,127 +264,119 @@ describe('terminal-error', () => {
 			);
 		});
 
-		describe('when platform_ufo_terminal_errors_fix_missing_data is enabled', () => {
-			beforeEach(() => {
-				mockFg.mockImplementation(
-					(flag: string) => flag === 'platform_ufo_terminal_errors_fix_missing_data',
-				);
+		it('should use statusCode from additionalAttributes when provided', () => {
+			const relayError = Object.assign(new Error('Relay error'), {
+				name: 'RelayNetwork',
+				type: 'network',
+				source: {
+					errors: [{ extensions: { statusCode: 503 } }],
+				},
 			});
 
-			it('should use statusCode from additionalAttributes when provided', () => {
-				const relayError = Object.assign(new Error('Relay error'), {
-					name: 'RelayNetwork',
-					type: 'network',
-					source: {
-						errors: [{ extensions: { statusCode: 503 } }],
-					},
-				});
+			setTerminalError(relayError, { statusCode: 200 });
 
-				setTerminalError(relayError, { statusCode: 200 });
+			expect(mockSink.mock.calls[0][0]).toEqual(
+				expect.objectContaining({
+					statusCode: 200,
+				}),
+			);
+		});
 
-				expect(mockSink.mock.calls[0][0]).toEqual(
-					expect.objectContaining({
-						statusCode: 200,
-					}),
-				);
+		it('should extract statusCode from a Relay network error', () => {
+			const relayError = Object.assign(new Error('Relay error'), {
+				name: 'RelayNetwork',
+				type: 'network',
+				source: {
+					errors: [{ extensions: { statusCode: 503 } }],
+				},
 			});
 
-			it('should extract statusCode from a Relay network error', () => {
-				const relayError = Object.assign(new Error('Relay error'), {
-					name: 'RelayNetwork',
-					type: 'network',
-					source: {
-						errors: [{ extensions: { statusCode: 503 } }],
-					},
-				});
+			setTerminalError(relayError);
 
-				setTerminalError(relayError);
+			expect(mockSink.mock.calls[0][0]).toEqual(
+				expect.objectContaining({
+					statusCode: 503,
+				}),
+			);
+		});
 
-				expect(mockSink.mock.calls[0][0]).toEqual(
-					expect.objectContaining({
-						statusCode: 503,
-					}),
-				);
+		it('should extract statusCode from an error with a statusCode property', () => {
+			const errorWithStatusCode = Object.assign(new Error('Not found'), {
+				statusCode: 404,
 			});
 
-			it('should extract statusCode from an error with a statusCode property', () => {
-				const errorWithStatusCode = Object.assign(new Error('Not found'), {
+			setTerminalError(errorWithStatusCode);
+
+			expect(mockSink.mock.calls[0][0]).toEqual(
+				expect.objectContaining({
 					statusCode: 404,
-				});
+				}),
+			);
+		});
 
-				setTerminalError(errorWithStatusCode);
+		it('should set statusCode to undefined for a regular error without statusCode', () => {
+			setTerminalError(mockError);
 
-				expect(mockSink.mock.calls[0][0]).toEqual(
-					expect.objectContaining({
-						statusCode: 404,
-					}),
-				);
+			expect(mockSink.mock.calls[0][0].statusCode).toBeUndefined();
+		});
+
+		it('should use traceId from getActiveTrace()', () => {
+			mockGetActiveTrace.mockReturnValue({
+				traceId: 'active-trace-123',
+				spanId: 'span-456',
+				type: 'page_load',
 			});
 
-			it('should set statusCode to undefined for a regular error without statusCode', () => {
-				setTerminalError(mockError);
+			setTerminalError(mockError);
 
-				expect(mockSink.mock.calls[0][0].statusCode).toBeUndefined();
-			});
-
-			it('should use traceId from getActiveTrace()', () => {
-				mockGetActiveTrace.mockReturnValue({
+			expect(mockSink.mock.calls[0][0]).toEqual(
+				expect.objectContaining({
 					traceId: 'active-trace-123',
-					spanId: 'span-456',
-					type: 'page_load',
-				});
+				}),
+			);
+		});
 
-				setTerminalError(mockError);
-
-				expect(mockSink.mock.calls[0][0]).toEqual(
-					expect.objectContaining({
-						traceId: 'active-trace-123',
-					}),
-				);
+		it('should fall back to traceId from the error object when getActiveTrace() returns undefined', () => {
+			mockGetActiveTrace.mockReturnValue(undefined);
+			const errorWithTraceId = Object.assign(new Error('Fetch error'), {
+				traceId: 'error-trace-789',
 			});
 
-			it('should fall back to traceId from the error object when getActiveTrace() returns undefined', () => {
-				mockGetActiveTrace.mockReturnValue(undefined);
-				const errorWithTraceId = Object.assign(new Error('Fetch error'), {
+			setTerminalError(errorWithTraceId);
+
+			expect(mockSink.mock.calls[0][0]).toEqual(
+				expect.objectContaining({
 					traceId: 'error-trace-789',
-				});
+				}),
+			);
+		});
 
-				setTerminalError(errorWithTraceId);
+		it('should set traceId to undefined when neither getActiveTrace nor error.traceId is available', () => {
+			mockGetActiveTrace.mockReturnValue(undefined);
 
-				expect(mockSink.mock.calls[0][0]).toEqual(
-					expect.objectContaining({
-						traceId: 'error-trace-789',
-					}),
-				);
+			setTerminalError(mockError);
+
+			expect(mockSink.mock.calls[0][0].traceId).toBeUndefined();
+		});
+
+		it('should include teamName, packageName, errorBoundaryId, errorHash, and fallbackType from additionalAttributes', () => {
+			setTerminalError(mockError, {
+				teamName: 'platform-team',
+				packageName: 'my-package',
+				errorBoundaryId: 'boundary-99',
+				errorHash: 'hash-abc',
+				fallbackType: 'flag',
 			});
 
-			it('should set traceId to undefined when neither getActiveTrace nor error.traceId is available', () => {
-				mockGetActiveTrace.mockReturnValue(undefined);
-
-				setTerminalError(mockError);
-
-				expect(mockSink.mock.calls[0][0].traceId).toBeUndefined();
-			});
-
-			it('should include teamName, packageName, errorBoundaryId, errorHash, and fallbackType from additionalAttributes', () => {
-				setTerminalError(mockError, {
+			expect(mockSink.mock.calls[0][0]).toEqual(
+				expect.objectContaining({
 					teamName: 'platform-team',
 					packageName: 'my-package',
 					errorBoundaryId: 'boundary-99',
 					errorHash: 'hash-abc',
 					fallbackType: 'flag',
-				});
-
-				expect(mockSink.mock.calls[0][0]).toEqual(
-					expect.objectContaining({
-						teamName: 'platform-team',
-						packageName: 'my-package',
-						errorBoundaryId: 'boundary-99',
-						errorHash: 'hash-abc',
-						fallbackType: 'flag',
-					}),
-				);
-			});
+				}),
+			);
 		});
 	});
 

@@ -63,13 +63,3 @@ export function createCheck(transformer: Transformer) {
 		});
 	};
 }
-
-export async function withMockedConsoleWarn(fn: any): Promise<void> {
-	const originalWarn = console.warn;
-	const warn = jest.fn();
-	console.warn = warn;
-
-	await fn(warn);
-
-	console.warn = originalWarn;
-}

@@ -1,5 +1,37 @@
 # @atlaskit/editor-common
 
+## 114.28.0
+
+### Minor Changes
+
+- [`4091c5936145d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4091c5936145d) -
+  EDITOR-6737-sticky-situation
+
+## 114.27.0
+
+### Minor Changes
+
+- [`80e6f41ddfce4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80e6f41ddfce4) -
+  Reconcile editor plugin set on reconfigureState across preset switches: drop plugins whose schema
+  nodes/marks aren't in the current schema, and evict plugins from the injection API that aren't
+  part of the new preset. Behind feature gate `platform_editor_reconfigure_filter_plugins`.
+
+  Adds the `NamedReactHookFactory` type to `@atlaskit/editor-common/types` and annotates each
+  plugin's `usePluginHook` with its plugin name in `processPluginsList` so `MountPluginHooks` can
+  key React fibers stably per plugin. The shape of `EditorConfig.pluginHooks` is unchanged
+  (`ReactHookFactory[]`); the annotation is a non-breaking additive property on the function value
+  that falls back to the array index when absent.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.26.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.26.0
 
 ### Minor Changes

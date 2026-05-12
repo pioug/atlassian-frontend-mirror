@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection",
-	"version": "10.0.15",
+	"version": "10.0.16",
 	"description": "Selection plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -76,11 +76,6 @@
 	"stricter": {
 		"no-unused-dependencies": {
 			"checkDevDependencies": true
-		}
-	},
-	"platform-feature-flags": {
-		"platform_editor_renderer_selection_context": {
-			"type": "boolean"
 		}
 	}
 }

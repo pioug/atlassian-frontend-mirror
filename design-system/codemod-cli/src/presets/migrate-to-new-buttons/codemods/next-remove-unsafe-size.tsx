@@ -1,7 +1,13 @@
 import { getImportDeclaration, hasJSXAttributes } from '@hypermod/utils';
 import { type API, type FileInfo } from 'jscodeshift';
 
-import { NEW_BUTTON_ENTRY_POINT, UNSAFE_SIZE_PROPS_MAP } from '../utils/constants';
+import { NEW_BUTTON_ENTRY_POINT } from '../utils/constants';
+
+const UNSAFE_SIZE_PROPS_MAP: Record<string, string> = {
+	UNSAFE_size: 'icon',
+	UNSAFE_iconAfter_size: 'iconAfter',
+	UNSAFE_iconBefore_size: 'iconBefore',
+};
 
 function transformer(file: FileInfo, api: API): string {
 	const j = api.jscodeshift;

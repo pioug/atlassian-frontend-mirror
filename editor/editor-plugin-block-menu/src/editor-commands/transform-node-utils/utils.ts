@@ -17,6 +17,10 @@ export const isTextNode = (node: PMNode): boolean => {
 	return category === 'text';
 };
 
+export const isListNode = (node: PMNode): boolean => {
+	return ['bulletList', 'orderedList', 'taskList'].includes(node.type.name);
+};
+
 export const getSelectedNode = (selection: Selection): ContentNodeWithPos | undefined => {
 	if (selection instanceof NodeSelection) {
 		return {

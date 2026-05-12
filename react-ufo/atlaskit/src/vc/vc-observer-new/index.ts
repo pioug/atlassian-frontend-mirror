@@ -2,6 +2,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type RevisionPayloadEntry } from '../../common/vc/types';
 import { getSelectorConfig, isVCRevisionEnabled } from '../../config';
+import { sanitizeLabelStackName } from '../../create-payload/common/utils';
 import { getActiveInteraction } from '../../interaction-metrics';
 import type { SearchPageConfig } from '../types';
 import { SSRPlaceholderHandlers } from '../vc-observer/observers/ssr-placeholders';
@@ -456,7 +457,7 @@ function labelStackFromFiber(fiber: ReactFiberType): { name: string; segmentId?:
 }
 
 function labelStackToString(labelStack: { name: string; segmentId?: string }[]): string {
-	return labelStack.map((label) => label.name).join('/');
+	return labelStack.map((label) => sanitizeLabelStackName(label.name)).join('/');
 }
 
 function labelStackToSegment(labelStack: { name: string; segmentId?: string }[]): string {
@@ -469,7 +470,7 @@ function labelStackToSegment(labelStack: { name: string; segmentId?: string }[])
 	}
 	return labelStack
 		.slice(0, segmentIndex + 1)
-		.map((label) => label.name)
+		.map((label) => sanitizeLabelStackName(label.name))
 		.join('/');
 }
 

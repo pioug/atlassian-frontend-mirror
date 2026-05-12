@@ -16,9 +16,9 @@ import {
 	TRANSITION_DURATION,
 	VAR_LEFT_SIDEBAR_FLYOUT,
 } from '../../common/constants';
+import { getPageLayoutSlotSelector } from '../../common/get-page-layout-slot-selector';
 import { useIsSidebarDragging } from '../../common/hooks';
 import type { SlotWidthProps } from '../../common/types';
-import { getPageLayoutSlotSelector } from '../../common/utils';
 import { SidebarResizeContext, useSkipLink } from '../../controllers';
 
 import SlotFocusRing from './internal/slot-focus-ring';

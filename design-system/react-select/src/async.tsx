@@ -42,7 +42,5 @@ const AsyncSelect = forwardRef(
 	},
 ) as AsyncSelect;
 
-export { useAsync };
-
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default AsyncSelect;

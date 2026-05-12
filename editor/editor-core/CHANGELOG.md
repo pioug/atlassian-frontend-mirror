@@ -1,5 +1,43 @@
 # @atlaskit/editor-core
 
+## 219.6.1
+
+### Patch Changes
+
+- [`48be4becb4ca3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48be4becb4ca3) -
+  Migrate indentationStyles, overflowShadowStyles, unsupportedStyles, shadowStyles, and
+  editorUGCTokenStyles to Compiled CSS
+- [`2a6fb91f8b4a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a6fb91f8b4a1) -
+  migrate expand styles from emotion to compiled css
+- Updated dependencies
+
+## 219.6.0
+
+### Minor Changes
+
+- [`80e6f41ddfce4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80e6f41ddfce4) -
+  Reconcile editor plugin set on reconfigureState across preset switches: drop plugins whose schema
+  nodes/marks aren't in the current schema, and evict plugins from the injection API that aren't
+  part of the new preset. Behind feature gate `platform_editor_reconfigure_filter_plugins`.
+
+  Adds the `NamedReactHookFactory` type to `@atlaskit/editor-common/types` and annotates each
+  plugin's `usePluginHook` with its plugin name in `processPluginsList` so `MountPluginHooks` can
+  key React fibers stably per plugin. The shape of `EditorConfig.pluginHooks` is unchanged
+  (`ReactHookFactory[]`); the annotation is a non-breaking additive property on the function value
+  that falls back to the array index when absent.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 219.5.1
+
+### Patch Changes
+
+- [`8db6f0336d199`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8db6f0336d199) -
+  Cleans up experiment platform_editor_toolbar_two_stage_hydration
+- Updated dependencies
+
 ## 219.5.0
 
 ### Minor Changes

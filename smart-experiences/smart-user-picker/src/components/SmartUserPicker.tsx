@@ -58,6 +58,7 @@ const ufoEndStateConfig = (fieldId: string): EndStateConfig => {
 const hasContextChanged = (oldContext: SmartProps, newContext: SmartProps): boolean =>
 	oldContext.siteId !== newContext.siteId ||
 	oldContext.orgId !== newContext.orgId ||
+	oldContext.userbaseId !== newContext.userbaseId ||
 	oldContext.productKey !== newContext.productKey ||
 	oldContext.principalId !== newContext.principalId ||
 	oldContext.containerId !== newContext.containerId ||
@@ -257,6 +258,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			displayEmailInByline,
 			verifiedTeams,
 			orgId,
+			userbaseId,
 			principalId,
 			productAttributes,
 			productKey,
@@ -285,6 +287,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 				productKey,
 				siteId,
 				organizationId: orgId,
+				userbaseId,
 				childObjectId,
 				sessionId,
 				productAttributes,

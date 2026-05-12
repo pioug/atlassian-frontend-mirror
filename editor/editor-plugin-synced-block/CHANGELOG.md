@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 8.2.14
+
+### Patch Changes
+
+- [`f3286bd234240`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3286bd234240) -
+  Only iterate top-level nodes in buildStatusDecorations for improved performance
+- [`4b21ea1a7170f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b21ea1a7170f) -
+  Performance improvements behind an experiment.
+- Updated dependencies
+
+## 8.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.12
 
 ### Patch Changes

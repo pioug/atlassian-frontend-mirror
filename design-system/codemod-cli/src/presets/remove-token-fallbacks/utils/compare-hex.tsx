@@ -1,4 +1,4 @@
-import { diff, rgb_to_lab, type RGBColor } from 'color-diff';
+import { type RGBColor, diff, rgb_to_lab } from 'color-diff';
 
 function hexToRgbA(hex: string): RGBColor {
 	// Remove the leading '#' if present

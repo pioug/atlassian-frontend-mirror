@@ -80,30 +80,30 @@ describe('placementToTryFallbacks()', () => {
 		);
 	});
 
-	describe('aligned placements include same-edge centered fallback and flip', () => {
+	describe('aligned placements include same-edge shifts, then primary flip, then diagonal flip, then opposite edge', () => {
 		it.each([
 			[
 				{ axis: 'block', edge: 'start', align: 'start' },
-				'block-start span-inline-end, block-start, block-start span-inline-start, flip-block, block-end span-inline-end, block-end, block-end span-inline-start',
+				'block-start span-inline-end, block-start, block-start span-inline-start, flip-block, flip-block flip-inline, block-end span-inline-end, block-end, block-end span-inline-start',
 			],
 			[
 				{ axis: 'block', edge: 'end', align: 'start' },
-				'block-end span-inline-end, block-end, block-end span-inline-start, flip-block, block-start span-inline-end, block-start, block-start span-inline-start',
+				'block-end span-inline-end, block-end, block-end span-inline-start, flip-block, flip-block flip-inline, block-start span-inline-end, block-start, block-start span-inline-start',
 			],
 			[
 				{ axis: 'block', edge: 'end', align: 'end' },
-				'block-end span-inline-start, block-end, block-end span-inline-end, flip-block, block-start span-inline-start, block-start, block-start span-inline-end',
+				'block-end span-inline-start, block-end, block-end span-inline-end, flip-block, flip-block flip-inline, block-start span-inline-start, block-start, block-start span-inline-end',
 			],
 			[
 				{ axis: 'inline', edge: 'start', align: 'end' },
-				'inline-start span-block-start, inline-start, inline-start span-block-end, flip-inline, inline-end span-block-start, inline-end, inline-end span-block-end',
+				'inline-start span-block-start, inline-start, inline-start span-block-end, flip-inline, flip-inline flip-block, inline-end span-block-start, inline-end, inline-end span-block-end',
 			],
 			[
 				{ axis: 'inline', edge: 'end', align: 'start' },
-				'inline-end span-block-end, inline-end, inline-end span-block-start, flip-inline, inline-start span-block-end, inline-start, inline-start span-block-start',
+				'inline-end span-block-end, inline-end, inline-end span-block-start, flip-inline, flip-inline flip-block, inline-start span-block-end, inline-start, inline-start span-block-start',
 			],
 		] as [TPlacementOptions, string][])(
-			'returns position-area fallbacks including center for %o',
+			'returns position-area fallbacks with same-edge shifts, primary flip, diagonal flip, then opposite edge for %o',
 			(placement, expected) => {
 				expect(placementToTryFallbacks({ placement })).toBe(expected);
 			},

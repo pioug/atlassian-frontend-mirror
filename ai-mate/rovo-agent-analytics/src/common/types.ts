@@ -3,6 +3,7 @@ import type { DebugEventPayload } from '../actions/groups/debug';
 import type { EditingEventPayload } from '../actions/groups/editing';
 import type { EvaluationEventPayload } from '../actions/groups/evaluation';
 import type { InsightsEventPayload } from '../actions/groups/insights';
+import type { KnowledgeFiltersEventPayload } from '../actions/groups/knowledge-filters';
 import type { SubagentInteractionsEventPayload } from '../actions/groups/subagent-interactions';
 import type { ToolsEventPayload } from '../actions/groups/tools';
 
@@ -62,4 +63,5 @@ export type EventPayload =
 	| ToolsEventPayload
 	| EvaluationEventPayload
 	| InsightsEventPayload
-	| ErrorEventPayload;
+	| ErrorEventPayload
+	| KnowledgeFiltersEventPayload;

@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 8.3.8
+
+### Patch Changes
+
+- [`932b1625cbf60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/932b1625cbf60) -
+  EDITOR-6621: Add a grey background on deleted text in standard diff theme.
+- Updated dependencies
+
+## 8.3.7
+
+### Patch Changes
+
+- [`c07f198dda226`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c07f198dda226) -
+  NO-ISSUE: Always scroll diff into view even if it's in viewport already
+- Updated dependencies
+
+## 8.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.3.5
 
 ### Patch Changes

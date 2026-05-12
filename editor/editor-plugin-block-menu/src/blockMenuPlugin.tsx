@@ -7,7 +7,7 @@ import type { BlockMenuPlugin, RegisterBlockMenuComponent } from './blockMenuPlu
 import { createBlockMenuRegistry } from './editor-actions';
 import { isTransformToTargetDisabled } from './editor-actions/isTransformToTargetDisabled';
 import { transformNode } from './editor-commands/transformNode';
-import type { TransformNodeMetadata } from './editor-commands/transforms/types';
+import type { TransformNodeMetadata } from './editor-commands/types';
 import { getBlockMenuExperiencesPlugin } from './pm-plugins/experiences/block-menu-experiences';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { blockMenuPluginKey, createPlugin } from './pm-plugins/main';

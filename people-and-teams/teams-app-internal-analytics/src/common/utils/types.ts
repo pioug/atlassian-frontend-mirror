@@ -20,4 +20,6 @@ export type AnalyticsEventSource =
 	| 'teamsPage'
 	| 'directoryScreen'
 	| 'teamProfileCard'
-	| 'teamProfileCardTrigger';
+	| 'teamProfileCardTrigger'
+	| 'userProfilePreview'
+	| 'userInlinePreview';

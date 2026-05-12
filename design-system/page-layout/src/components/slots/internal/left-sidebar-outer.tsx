@@ -27,8 +27,8 @@ import {
 	MOBILE_COLLAPSED_LEFT_SIDEBAR_WIDTH,
 	TRANSITION_DURATION,
 } from '../../../common/constants';
+import { getPageLayoutSlotSelector } from '../../../common/get-page-layout-slot-selector';
 import { useIsSidebarDragging } from '../../../common/hooks';
-import { getPageLayoutSlotSelector } from '../../../common/utils';
 import { SidebarResizeContext } from '../../../controllers';
 
 import SlotFocusRing from './slot-focus-ring';

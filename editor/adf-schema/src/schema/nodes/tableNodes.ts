@@ -63,8 +63,12 @@ import {
 	tableRowWithNestedTable as tableRowWithNestedTableFactory,
 	tableHeader as tableHeaderFactory,
 	tableHeaderWithNestedTable as tableHeaderWithNestedTableFactory,
+	tableHeaderWithNestedTableStage0 as tableHeaderWithNestedTableStage0Factory,
+	tableHeaderStage0 as tableHeaderStage0Factory,
 	tableCell as tableCellFactory,
 	tableCellWithNestedTable as tableCellWithNestedTableFactory,
+	tableCellWithNestedTableStage0 as tableCellWithNestedTableStage0Factory,
+	tableCellStage0 as tableCellStage0Factory,
 } from '../../next-schema/generated/nodeTypes';
 
 import type {
@@ -74,11 +78,17 @@ import type {
 	TableRowWithNestedTableNode,
 	TableHeaderNode,
 	TableHeaderWithNestedTableNode,
+	TableHeaderWithNestedTableStage0Node,
+	TableHeaderStage0Node,
 	TableCellNode,
 	TableCellWithNestedTableNode,
+	TableCellWithNestedTableStage0Node,
+	TableCellStage0Node,
 } from '../../next-schema/generated/nodeTypes';
 
 import type { NodeSpecOptions } from '../createPMSpecFactory';
+import { parseValign } from './types/valign';
+import type { Valign } from './types/valign';
 
 export interface CellAttributes {
 	background?: string;
@@ -86,6 +96,10 @@ export interface CellAttributes {
 	colwidth?: number[];
 	localId?: string;
 	rowspan?: number;
+	/**
+	 * @stage 0
+	 */
+	valign?: Valign;
 }
 
 export const tablePrefixSelector = 'pm-table';
@@ -161,6 +175,7 @@ export type CellDomAttrs = {
 	'data-cell-background'?: string;
 	'data-colwidth'?: string;
 	'data-local-id'?: string;
+	'data-valign'?: Valign;
 	rowspan?: string;
 	style?: string;
 };
@@ -299,6 +314,34 @@ export const getCellDomAttrs = (node: PmNode): CellDomAttrs => {
 		attrs['data-local-id'] = node.attrs.localId;
 	}
 
+	return attrs;
+};
+
+const getCellAttrsWithValign = (
+	dom: HTMLElement,
+	defaultValues?: CellAttributes,
+): {
+	background: string | null;
+	colspan: number;
+	colwidth: number[] | null;
+	localId?: string;
+	rowspan: number;
+	valign?: Valign;
+} => {
+	const base = getCellAttrs(dom, defaultValues);
+	const valign = parseValign(dom.getAttribute('data-valign'));
+	return valign ? { ...base, valign } : base;
+};
+
+/**
+ * @stage 0
+ * Valign-aware variant of getCellDomAttrs — emits the `valign` HTML attribute when set to a non-default value.
+ */
+const getCellDomAttrsWithValign = (node: PmNode): CellDomAttrs => {
+	const attrs = getCellDomAttrs(node);
+	if (node.attrs.valign) {
+		attrs['data-valign'] = node.attrs.valign;
+	}
 	return attrs;
 };
 
@@ -529,6 +572,7 @@ const cellAttrs = {
 	colwidth: { default: null },
 	background: { default: null },
 	localId: { default: null, optional: true },
+	valign: { default: null, optional: true },
 };
 
 const tableCellNodeSpecOptions: NodeSpecOptions<TableCellNode | TableCellWithNestedTableNode> = {
@@ -600,6 +644,58 @@ export const tableCellWithNestedTable: NodeSpec =
 export const tableHeaderWithNestedTable: NodeSpec = tableHeaderWithNestedTableFactory(
 	tableHeaderNodeSpecOptions,
 );
+
+// stage-0 table cell nodes with vertical alignment and localId support
+const tableCellNodeStage0SpecOptions: NodeSpecOptions<
+	TableCellStage0Node | TableCellWithNestedTableStage0Node
+> = {
+	parseDOM: [
+		// Ignore number cell copied from renderer
+		{
+			tag: '.ak-renderer-table-number-column',
+			ignore: true,
+		},
+		{
+			tag: 'td',
+			getAttrs: (dom: string | Node) =>
+				getCellAttrsWithValign(
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
+					dom as HTMLElement,
+					{ localId: uuid.generate() },
+				),
+		},
+	],
+	toDOM: (node) => ['td', getCellDomAttrsWithValign(node), 0],
+};
+
+const tableHeaderNodeStage0SpecOptions: NodeSpecOptions<
+	TableHeaderStage0Node | TableHeaderWithNestedTableStage0Node
+> = {
+	parseDOM: [
+		{
+			tag: 'th',
+			getAttrs: (dom: string | Node) =>
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				getCellAttrsWithValign(dom as HTMLElement, {
+					background: DEFAULT_TABLE_HEADER_CELL_BACKGROUND,
+					localId: uuid.generate(),
+				}),
+		},
+	],
+	toDOM: (node) => ['th', getCellDomAttrsWithValign(node), 0],
+};
+
+export const tableCellStage0: NodeSpec = tableCellStage0Factory(tableCellNodeStage0SpecOptions);
+export const tableHeaderStage0: NodeSpec = tableHeaderStage0Factory(
+	tableHeaderNodeStage0SpecOptions,
+);
+export const tableCellWithNestedTableStage0: NodeSpec = tableCellWithNestedTableStage0Factory(
+	tableCellNodeStage0SpecOptions,
+);
+export const tableHeaderWithNestedTableStage0: NodeSpec = tableHeaderWithNestedTableStage0Factory(
+	tableHeaderNodeStage0SpecOptions,
+);
+
 // table nodes with localId support
 const tableRowNodeSpecOptionsWithLocalId: NodeSpecOptions<
 	TableRowNode | TableRowWithNestedTableNode

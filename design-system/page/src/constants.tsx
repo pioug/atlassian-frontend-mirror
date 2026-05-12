@@ -1,18 +1,10 @@
+import type { spacingMapping } from './spacing-mapping';
+
 const defaultGridSize = 8;
 
 export const defaultGridColumns = 12;
 
 export const defaultGridColumnWidth: number = defaultGridSize * 10;
-
-export const spacingMapping: {
-	readonly comfortable: number;
-	readonly cosy: number;
-	readonly compact: number;
-} = {
-	comfortable: defaultGridSize * 5,
-	cosy: defaultGridSize * 2,
-	compact: defaultGridSize * 0.5,
-} as const;
 
 export type GridSpacing = keyof typeof spacingMapping;
 

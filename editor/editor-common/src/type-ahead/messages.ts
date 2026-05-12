@@ -1,105 +1,110 @@
 import { defineMessages } from 'react-intl';
 
 export const typeAheadListMessages: {
-	typeAheadPopupLabel: {
-		id: string;
+	descriptionLabel: {
 		defaultMessage: string;
 		description: string;
-	};
-	quickInsertPopupLabel: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	quickInsertInputLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	quickInsertInputPlaceholderLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	emojiPopupLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	emojiInputLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	mentionPopupLabel: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	mentionInputLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	metionListItemLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	emojiListItemLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	inputQueryAssistiveLabel: {
-		id: string;
+	emojiPopupLabel: {
 		defaultMessage: string;
 		description: string;
-	};
-	searchResultsLabel: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	noSearchResultsLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	descriptionLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	shortcutLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	typeAheadErrorFallbackHeading: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	typeAheadErrorFallbackDesc: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	viewAllInserts: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	emptySearchResults: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	emptySearchResultsSuggestion: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	emptySearchResultsSuggestionNew: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	inputQueryAssistiveLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	mentionInputLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	mentionPopupLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	metionListItemLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	noSearchResultsLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	quickInsertInputLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	quickInsertInputPlaceholderLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	quickInsertPopupLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	searchResultsLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	shortcutLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	typeAheadErrorFallbackDesc: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	typeAheadErrorFallbackHeading: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	typeAheadPopupLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	viewAllInserts: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	typeAheadPopupLabel: {
@@ -214,5 +219,11 @@ export const typeAheadListMessages: {
 		defaultMessage: 'Select {buttonName} to browse inserts.',
 		description:
 			'a prompt to suggest user to click a button to browse inserts when there are no search results',
+	},
+	emptySearchResultsSuggestionNew: {
+		id: 'fabric.editor.emptySearchResultsSuggestionNew',
+		defaultMessage: 'Select {askRovoName} for help, or {buttonName} to browse inserts.',
+		description:
+			'a prompt to suggest user to click a button to browse inserts or ask Rovo for help when there are no search results',
 	},
 });

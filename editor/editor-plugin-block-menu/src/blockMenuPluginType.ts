@@ -10,7 +10,7 @@ import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 
-import type { TransformNodeMetadata } from './editor-commands/transforms/types';
+import type { TransformNodeMetadata } from './editor-commands/types';
 
 export enum FLAG_ID {
 	LINK_COPIED_TO_CLIPBOARD = 'link-copied-to-clipboard',

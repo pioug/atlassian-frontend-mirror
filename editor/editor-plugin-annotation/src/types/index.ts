@@ -57,6 +57,10 @@ export type InlineCommentCreateComponentProps = AnnotationComponentProps & {
 	 * Creates an annotation mark in the document with the given id.
 	 */
 	onCreate: (id: string) => void;
+	/**
+	 * Deletes an annotation mark in the document with the given id.
+	 */
+	onCreateError?: (id: string) => void;
 };
 
 export type InlineCommentViewComponentProps = AnnotationComponentProps & {

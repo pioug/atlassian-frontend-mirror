@@ -184,6 +184,7 @@ export function confluenceFullPageBasePreset(
 	// we need to return them back.
 	const pluginOptions = props.pluginOptions as AllPublicPluginOptions;
 
+	// @ts-ignore - Preset builder cannot infer mutually exclusive registry insertion points.
 	return new EditorPresetBuilder()
 		.maybeAdd(
 			[limitedModePlugin, limitedModePluginOptions({ options: pluginOptions.limitedMode })],
@@ -307,6 +308,10 @@ export function confluenceFullPageBasePreset(
 			placeholderTextPlugin,
 			placeholderTextPluginOptions({ options: pluginOptions.placeholderText }),
 		])
+		.maybeAdd(
+			uiControlRegistryPlugin,
+			expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true),
+		)
 		.add([layoutPlugin, layoutPluginOptions({ options: pluginOptions.layout })])
 		.add([cardPlugin, cardPluginOptions({ options: pluginOptions.card, providers })])
 		.add([
@@ -339,8 +344,10 @@ export function confluenceFullPageBasePreset(
 			},
 		])
 		.maybeAdd(
+			// @ts-expect-error - Preserve paste registry order; mutually exclusive with layout insertion.
 			uiControlRegistryPlugin,
-			expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true),
+			expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true) &&
+				!expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true),
 		)
 		.maybeAdd(
 			[

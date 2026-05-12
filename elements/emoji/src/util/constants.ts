@@ -43,6 +43,7 @@ export const defaultEmojiPickerSize = 'medium';
 export const emojiPickerMinHeight = 260;
 export const emojiPickerHeight = 295;
 export const emojiPickerListHeight: number = emojiPickerHeight - 58; // picker height - actions height
+export const emojiPickerListHeightNew: number = emojiPickerHeight - 102; // picker height - actions height - preview height
 
 export const emojiPickerPreviewHeight = 54;
 export const emojiPickerHeightWithPreview: number = emojiPickerHeight + emojiPickerPreviewHeight;

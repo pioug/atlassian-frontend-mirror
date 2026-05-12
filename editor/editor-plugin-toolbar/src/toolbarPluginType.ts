@@ -1,5 +1,9 @@
 import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar';
-import type { EditorCommand, NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type {
+	EditorCommand,
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';

@@ -1,5 +1,33 @@
 # @atlaskit/editor-statsig-tmp
 
+## 78.0.0
+
+### Major Changes
+
+- [`8db6f0336d199`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8db6f0336d199) -
+  Cleans up experiment platform_editor_toolbar_two_stage_hydration
+
+## 77.4.0
+
+### Minor Changes
+
+- [`b9a063b24f6ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9a063b24f6ff) -
+  feat(aifc-editor): add replaceDoc streaming tool call gated on platform_editor_ai_replace_doc
+  experiment [CCI-15904]
+
+  fix(aifc-editor): empty replaceDoc value now correctly clears the editor document instead of being
+  silently discarded. Root cause: PartialStreamParser emits no StreamAction for empty "value"
+  strings (valueEnd.partial.length is 0), so ToolCallProcessor.finish() was calling finishAction
+  without any prior streamValue call, leaving the orchestrator with no ADF to apply. Fix: (1)
+  ToolCallProcessor.finish() now calls streamValue('') before finishAction for replaceDoc with no
+  accumulated content; (2) StreamCommandQueue.hasChangedDocument() bypasses the latestDoc.doc guard
+  for replaceDoc; (3) both stream and finalStream paths supply an empty-paragraph ADF fallback when
+  adfStreamer returns undefined [CCI-15904]
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 77.3.0
 
 ### Minor Changes

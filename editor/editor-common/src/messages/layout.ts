@@ -1,95 +1,100 @@
 import { defineMessages } from 'react-intl';
 
 export const toolbarMessages: {
-	singleColumn: {
-		id: string;
+	columnOption: {
 		defaultMessage: string;
 		description: string;
-	};
-	twoColumns: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	singleColumnAdvancedLayout: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	twoColumnsAdvancedLayout: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	threeColumns: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	threeColumnsAdvancedLayout: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	fourColumns: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	fiveColumns: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	rightSidebar: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	leftSidebar: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	threeColumnsWithSidebars: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	threeColumnsWithLeftSidebars: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	threeColumnsWithRightSidebars: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	floatingToolbarRadioGroupAriaLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	layoutPlaceholder: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	controlslayoutPlaceholder: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	columnOption: {
-		id: string;
+	distributeColumns: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	fiveColumns: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	floatingToolbarRadioGroupAriaLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	fourColumns: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	layoutPlaceholder: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	leftSidebar: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	resizeLayout: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	rightSidebar: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	singleColumn: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	singleColumnAdvancedLayout: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	threeColumns: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	threeColumnsAdvancedLayout: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	threeColumnsWithLeftSidebars: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	threeColumnsWithRightSidebars: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	threeColumnsWithSidebars: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	twoColumns: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	twoColumnsAdvancedLayout: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	singleColumn: {
@@ -191,5 +196,11 @@ export const toolbarMessages: {
 		defaultMessage: 'Resize layout',
 		description:
 			'The text is shown as a label on a button or handle when the user can resize the layout columns in the editor.',
+	},
+	distributeColumns: {
+		id: 'fabric.editor.layout.distributeColumns',
+		defaultMessage: 'Distribute columns',
+		description:
+			'The text is shown as a label for an option that distributes layout columns evenly.',
 	},
 });

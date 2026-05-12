@@ -19,6 +19,12 @@ const backgroundStyles = css({
 });
 
 export const PlayButtonBackground = (): JSX.Element => {
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-	return <div css={backgroundStyles} className={bkgClassName} />;
+	return (
+		<div
+			css={backgroundStyles}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={bkgClassName}
+			data-testid="media-card-play-button-background"
+		/>
+	);
 };

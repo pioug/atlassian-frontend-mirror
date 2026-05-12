@@ -15,8 +15,9 @@ import {
 	RIGHT_PANEL_WIDTH,
 	VAR_BANNER_HEIGHT,
 } from '../../common/constants';
+import { getPageLayoutSlotSelector } from '../../common/get-page-layout-slot-selector';
+import { resolveDimension } from '../../common/resolve-dimension';
 import type { SlotHeightProps } from '../../common/types';
-import { getPageLayoutSlotSelector, resolveDimension } from '../../common/utils';
 import { publishGridState, useSkipLink } from '../../controllers';
 
 import SlotFocusRing from './internal/slot-focus-ring';

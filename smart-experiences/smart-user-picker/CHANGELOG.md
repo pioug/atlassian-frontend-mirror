@@ -1,5 +1,12 @@
 # @atlassian/smart-user-picker
 
+## 10.0.4
+
+### Patch Changes
+
+- [`022735aed6e40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/022735aed6e40) -
+  [PTC-16466]: pass userbaseId to URS
+
 ## 10.0.3
 
 ### Patch Changes

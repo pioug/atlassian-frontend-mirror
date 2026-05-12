@@ -1,10 +1,9 @@
-/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::4737f289ff1cc7fc2c013125b97a771b>>
+ * @codegen <<SignedSource::bd3ea9cdac22231baf74f78d02254d52>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -19,6 +18,7 @@ import { cssMap, jsx } from '@compiled/react';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives';
 
+import AiAgentAddIcon from '../../../../core/ai-agent-add';
 import AiBotIcon from '../../../../core/ai-bot';
 import AiComputeIcon from '../../../../core/ai-compute';
 import AiGenerativeAudioBriefingIcon from '../../../../core/ai-generative-audio-briefing';
@@ -251,6 +251,7 @@ import DrawIcon from '../../../../core/draw';
 import DropShadowIcon from '../../../../core/drop-shadow';
 import DuplicateIcon from '../../../../core/duplicate';
 import EditionsIcon from '../../../../core/editions';
+import EmojiSadIcon from '../../../../core/emoji-sad';
 import ExpandElementIcon from '../../../../core/expand-element';
 import EyedropperIcon from '../../../../core/eyedropper';
 import FieldSelectIcon from '../../../../core/field-select';
@@ -976,6 +977,8 @@ const Icons = [
 	SpeedometerLeftUpIcon,
 	SpeedometerRightDownIcon,
 	SpeedometerRightUpIcon,
+	AiAgentAddIcon,
+	EmojiSadIcon,
 ];
 
 const groupSize = 50;
@@ -1008,44 +1011,44 @@ for (let i = 0; i < Icons.length; i += groupSize) {
 	allSmallExamples.push(createIconGroupComponent(IconGroup, { size: 'small' }));
 }
 
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const MediumIconGroup0: () => React.JSX.Element = allMediumExamples[0];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const MediumIconGroup1: () => React.JSX.Element = allMediumExamples[1];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const MediumIconGroup2: () => React.JSX.Element = allMediumExamples[2];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const MediumIconGroup3: () => React.JSX.Element = allMediumExamples[3];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const MediumIconGroup4: () => React.JSX.Element = allMediumExamples[4];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const MediumIconGroup5: () => React.JSX.Element = allMediumExamples[5];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const MediumIconGroup6: () => React.JSX.Element = allMediumExamples[6];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const MediumIconGroup7: () => React.JSX.Element = allMediumExamples[7];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const MediumIconGroup8: () => React.JSX.Element = allMediumExamples[8];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const MediumIconGroup9: () => React.JSX.Element = allMediumExamples[9];
 
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const SmallIconGroup0: () => React.JSX.Element = allSmallExamples[0];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const SmallIconGroup1: () => React.JSX.Element = allSmallExamples[1];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const SmallIconGroup2: () => React.JSX.Element = allSmallExamples[2];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const SmallIconGroup3: () => React.JSX.Element = allSmallExamples[3];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const SmallIconGroup4: () => React.JSX.Element = allSmallExamples[4];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const SmallIconGroup5: () => React.JSX.Element = allSmallExamples[5];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const SmallIconGroup6: () => React.JSX.Element = allSmallExamples[6];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const SmallIconGroup7: () => React.JSX.Element = allSmallExamples[7];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const SmallIconGroup8: () => React.JSX.Element = allSmallExamples[8];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const SmallIconGroup9: () => React.JSX.Element = allSmallExamples[9];

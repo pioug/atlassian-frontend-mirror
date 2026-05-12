@@ -21,6 +21,7 @@ import { AssistiveText } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MenuGroup } from '@atlaskit/menu';
 import { Text, Box } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { InputMethodType } from '../pm-plugins/analytics';
@@ -47,6 +48,7 @@ type TypeAheadListProps = {
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
 	decorationElement: HTMLElement;
 	editorView: EditorView;
+	emptyItem?: TypeAheadItem;
 	fitHeight: number;
 	items: Array<TypeAheadItem>;
 	moreElementsInQuickInsertViewEnabled?: boolean;
@@ -76,6 +78,7 @@ const TypeaheadAssistiveTextPureComponent = React.memo(
 const TypeAheadListComponent = React.memo(
 	({
 		items,
+		emptyItem,
 		selectedIndex,
 		editorView,
 		onItemClick,
@@ -101,6 +104,12 @@ const TypeAheadListComponent = React.memo(
 
 		// Exclude view more item from the count
 		const itemsLength = showMoreOptionsButton ? Math.max(items.length - 1, 0) : items.length;
+
+		const isEmptyStateActive =
+			expValEquals('platform_editor_insert_menu_ai', 'isEnabled', true) &&
+			!!emptyItem &&
+			itemsLength === 1 &&
+			items[0] === emptyItem;
 
 		const estimatedHeight = itemsLength * LIST_ITEM_ESTIMATED_HEIGHT;
 
@@ -421,9 +430,15 @@ const TypeAheadListComponent = React.memo(
 					{intl.formatMessage(typeAheadListMessages.emptySearchResults)}
 				</Text>
 				<Text align="center" as="p">
-					{intl.formatMessage(typeAheadListMessages.emptySearchResultsSuggestion, {
-						buttonName: <Text weight="medium">{intl.formatMessage(messages.viewMore)}</Text>,
-					})}
+					{intl.formatMessage(
+						expValEquals('platform_editor_insert_menu_ai', 'isEnabled', true)
+							? typeAheadListMessages.emptySearchResultsSuggestionNew
+							: typeAheadListMessages.emptySearchResultsSuggestion,
+						{
+							askRovoName: <Text weight="medium">{intl.formatMessage(messages.askRovo)}</Text>,
+							buttonName: <Text weight="medium">{intl.formatMessage(messages.viewMore)}</Text>,
+						},
+					)}
 				</Text>
 			</Box>
 		);
@@ -464,7 +479,12 @@ const TypeAheadListComponent = React.memo(
 		return (
 			<MenuGroup aria-label={popupAriaLabel} aria-relevant="additions removals">
 				<div id={menuGroupId} ref={listContainerRef}>
-					{!showMoreOptionsButton || itemsLength ? ListContent : EmptyResultView}
+					{isEmptyStateActive && EmptyResultView}
+					{isEmptyStateActive
+						? ListContent
+						: !showMoreOptionsButton || itemsLength
+							? ListContent
+							: EmptyResultView}
 					{showMoreOptionsButton && config && (
 						<MoreOptions
 							title={config.title}
@@ -489,6 +509,7 @@ export const TypeAheadList: React.FC<
 			api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
 			decorationElement: HTMLElement;
 			editorView: EditorView;
+			emptyItem?: TypeAheadItem;
 			fitHeight: number;
 			items: Array<TypeAheadItem>;
 			moreElementsInQuickInsertViewEnabled?: boolean;
@@ -505,6 +526,7 @@ export const TypeAheadList: React.FC<
 			api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
 			decorationElement: HTMLElement;
 			editorView: EditorView;
+			emptyItem?: TypeAheadItem;
 			fitHeight: number;
 			items: Array<TypeAheadItem>;
 			moreElementsInQuickInsertViewEnabled?: boolean;

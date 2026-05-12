@@ -27,6 +27,7 @@ import {
 	getMinorInteractions,
 	isUFOEnabled,
 } from '../config';
+import { sanitizeLabelStackName } from '../create-payload/common/utils';
 import { getActiveTrace, setInteractionActiveTrace } from '../experience-trace-id-context';
 import UFOInteractionContext, { type LabelStack } from '../interaction-context';
 import UFOInteractionIDContext from '../interaction-id-context';
@@ -415,7 +416,10 @@ const UFOSegment: {
 		};
 	}, [interactionId, parentContext, interactionContext, labelStack]);
 
-	const reactProfilerId = useMemo(() => labelStack.map((l) => l.name).join('/'), [labelStack]);
+	const reactProfilerId = useMemo(
+		() => labelStack.map((l) => sanitizeLabelStackName(l.name)).join('/'),
+		[labelStack],
+	);
 
 	// If UFO is disabled, just render children without tracking overhead
 	if (!ufoEnabled) {

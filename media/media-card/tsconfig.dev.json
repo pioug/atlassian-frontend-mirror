@@ -32,11 +32,7 @@
 		"**/stories/**/*.ts",
 		"**/stories/**/*.tsx"
 	],
-	"exclude": [
-		"./dist/**/*",
-		"./build/**/*",
-		"./node_modules/**/*"
-	],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__media-card/dev",
@@ -107,9 +103,6 @@
 			"path": "../media-test-helpers/tsconfig.app.json"
 		},
 		{
-			"path": "../media-ui/tsconfig.app.json"
-		},
-		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
@@ -129,9 +122,6 @@
 		},
 		{
 			"path": "../../design-system/select/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/spinner/tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"

@@ -87,7 +87,12 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 						'isEnabled',
 						false,
 					)) ||
-				(option.valueType === 'project' && FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1))
+				(option.valueType === 'project' &&
+					FeatureGates.getExperimentValue(
+						'atlassian_projects_-_native_integration',
+						'releaseVersion',
+						-1,
+					) >= 1))
 		) {
 			transaction.setMeta('hydrate', true);
 		}
@@ -141,7 +146,13 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 					break;
 				}
 				case 'project': {
-					if (FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1) {
+					if (
+						FeatureGates.getExperimentValue(
+							'atlassian_projects_-_native_integration',
+							'releaseVersion',
+							-1,
+						) >= 1
+					) {
 						const attributes = {
 							type: 'project',
 							id: value,

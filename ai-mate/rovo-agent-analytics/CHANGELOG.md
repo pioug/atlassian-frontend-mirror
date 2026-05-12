@@ -1,5 +1,14 @@
 # @atlaskit/rovo-agent-analytics
 
+## 1.7.0
+
+### Minor Changes
+
+- [`b72d0152846b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b72d0152846b8) -
+  Fire knowledgeFilters analytics events: 'saved' on successful update and 'closed' on cancel from
+  ConnectorFilters; 'updated' from SelectFilter when the selection changes (filterOrControlId as
+  filter id, comma-joined option values).
+
 ## 1.6.0
 
 ### Minor Changes

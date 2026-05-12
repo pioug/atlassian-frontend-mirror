@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "13.1.29",
+	"version": "13.1.33",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -97,6 +97,7 @@
 		"./loom": "./src/loom/index.ts",
 		"./max-content-size": "./src/max-content-size/index.ts",
 		"./media/types": "./src/media/types/index.ts",
+		"./media/nodeviewHelpers": "./src/media/nodeviews/nodeviewHelpers.ts",
 		"./media": "./src/media/index.ts",
 		"./media-editing": "./src/media-editing/index.ts",
 		"./media-insert": "./src/media-insert/index.ts",

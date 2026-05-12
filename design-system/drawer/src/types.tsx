@@ -159,7 +159,7 @@ export interface FocusLockSettings {
 	 * If true, focus returns to the trigger element . If false, focus remains where it was when the FocusLock was deactivated.
 	 * If ref is passed, focus returns to that specific ref element.
 	 */
-	shouldReturnFocus?: boolean | RefObject<HTMLElement>;
+	shouldReturnFocus?: boolean | RefObject<HTMLElement | null>;
 }
 
 export interface FocusLockProps extends FocusLockSettings {

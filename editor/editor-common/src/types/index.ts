@@ -103,6 +103,7 @@ export type {
 	UiComponentFactoryParams,
 	UIComponentFactory,
 	ReactHookFactory,
+	NamedReactHookFactory,
 } from './ui-components';
 
 export type { EditorReactContext } from './editor-react-context';

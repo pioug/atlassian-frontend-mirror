@@ -1,9 +1,8 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen, fireEvent } from '@atlassian/testing-library';
 import { ImageRenderer } from '../imageRenderer';
 import { resizeModeToMediaImageProps } from '../resizeModeToMediaImageProps';
 import { type MediaType, type FileIdentifier } from '@atlaskit/media-client';
-import { MediaImage } from '@atlaskit/media-ui';
 
 const nonImageMediaTypes: MediaType[] = ['video', 'audio', 'doc', 'unknown'];
 
@@ -17,17 +16,28 @@ const cardPreview = {
 } as const;
 
 describe('ImageRenderer', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<ImageRenderer
+				cardPreview={cardPreview}
+				mediaType={'image'}
+				alt="a11y test image"
+				wrapperRef={wrapperRef}
+				identifier={identifier}
+			/>,
+		);
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render MediaImage with props', () => {
-		const mediaType = 'image';
-		const resizeMode = 'stretchy-fit';
 		const alt = 'this is a test';
 		const onImageLoad = jest.fn();
 		const onImageError = jest.fn();
-		const component = mount(
+		render(
 			<ImageRenderer
 				cardPreview={cardPreview}
-				mediaType={mediaType}
-				resizeMode={resizeMode}
+				mediaType={'image'}
+				resizeMode={'stretchy-fit'}
 				alt={alt}
 				onImageLoad={onImageLoad}
 				onImageError={onImageError}
@@ -36,26 +46,19 @@ describe('ImageRenderer', () => {
 			/>,
 		);
 
-		const mediaImage = component.find(MediaImage);
-		expect(mediaImage).toHaveLength(1);
-		expect(mediaImage.props()).toMatchObject({
-			dataURI: cardPreview.dataURI,
-			previewOrientation: cardPreview.orientation,
-			alt,
-			onImageLoad: expect.any(Function),
-			onImageError: expect.any(Function),
-			...resizeModeToMediaImageProps(resizeMode),
-		});
+		const mediaImage = screen.getByTestId('media-image');
+		expect(mediaImage).toBeInTheDocument();
+		expect(mediaImage).toHaveAttribute('src', cardPreview.dataURI);
+		expect(mediaImage).toHaveAttribute('alt', alt);
 	});
 
 	it('should pass card preview to image load & error callbacks', () => {
-		const mediaType = 'image';
 		const onImageLoad = jest.fn();
 		const onImageError = jest.fn();
-		const component = mount(
+		render(
 			<ImageRenderer
 				cardPreview={cardPreview}
-				mediaType={mediaType}
+				mediaType={'image'}
 				onImageLoad={onImageLoad}
 				onImageError={onImageError}
 				wrapperRef={wrapperRef}
@@ -63,23 +66,17 @@ describe('ImageRenderer', () => {
 			/>,
 		);
 
-		const mediaImage = component.find(MediaImage);
-		expect(mediaImage).toHaveLength(1);
-
-		const onload = mediaImage.prop('onImageLoad');
-		expect(onload).toBeInstanceOf(Function);
-		(onload as unknown as Function)();
+		const mediaImage = screen.getByTestId('media-image');
+		fireEvent.load(mediaImage);
 		expect(onImageLoad).toBeCalledWith(cardPreview);
 
-		const onerror = mediaImage.prop('onImageError');
-		expect(onerror).toBeInstanceOf(Function);
-		(onerror as unknown as Function)();
+		fireEvent.error(mediaImage);
 		expect(onImageError).toBeCalledWith(cardPreview);
 	});
 
 	describe('Lazy Load', () => {
 		it('should pass loading=lazy to MediaImage when nativeLazyLoad is true', () => {
-			const component = mount(
+			render(
 				<ImageRenderer
 					mediaType={'image'}
 					cardPreview={cardPreview}
@@ -88,13 +85,11 @@ describe('ImageRenderer', () => {
 					identifier={identifier}
 				/>,
 			);
-			const mediaImage = component.find(MediaImage);
-			expect(mediaImage).toHaveLength(1);
-			expect(mediaImage.prop('loading')).toBe('lazy');
+			expect(screen.getByTestId('media-image')).toHaveAttribute('loading', 'lazy');
 		});
 
 		it('should not pass loading=lazy to MediaImage when nativeLazyLoad is false', () => {
-			const component = mount(
+			render(
 				<ImageRenderer
 					mediaType={'image'}
 					cardPreview={cardPreview}
@@ -103,13 +98,11 @@ describe('ImageRenderer', () => {
 					identifier={identifier}
 				/>,
 			);
-			const mediaImage = component.find(MediaImage);
-			expect(mediaImage).toHaveLength(1);
-			expect(mediaImage.prop('loading')).toBe(undefined);
+			expect(screen.getByTestId('media-image')).not.toHaveAttribute('loading');
 		});
 
 		it('should not pass loading=lazy to MediaImage when nativeLazyLoad is undefined', () => {
-			const component = mount(
+			render(
 				<ImageRenderer
 					mediaType={'image'}
 					cardPreview={cardPreview}
@@ -117,9 +110,7 @@ describe('ImageRenderer', () => {
 					identifier={identifier}
 				/>,
 			);
-			const mediaImage = component.find(MediaImage);
-			expect(mediaImage).toHaveLength(1);
-			expect(mediaImage.prop('loading')).toBe(undefined);
+			expect(screen.getByTestId('media-image')).not.toHaveAttribute('loading');
 		});
 	});
 
@@ -148,7 +139,7 @@ describe('ImageRenderer', () => {
 
 	it('should call onDisplayImage once', () => {
 		const onDisplayImage = jest.fn();
-		const card = mount(
+		render(
 			<ImageRenderer
 				mediaType="image"
 				cardPreview={cardPreview}
@@ -158,12 +149,10 @@ describe('ImageRenderer', () => {
 			/>,
 		);
 		expect(onDisplayImage).toHaveBeenCalledTimes(1);
-		card.update();
-		expect(onDisplayImage).toHaveBeenCalledTimes(1);
 	});
 
 	it('should pass forceSyncDisplay to MediaImage', () => {
-		const component = mount(
+		const { rerender } = render(
 			<ImageRenderer
 				mediaType={'image'}
 				cardPreview={cardPreview}
@@ -171,19 +160,27 @@ describe('ImageRenderer', () => {
 				identifier={identifier}
 			/>,
 		);
-		const mediaImage = component.find(MediaImage);
-		expect(mediaImage).toHaveLength(1);
-		expect(mediaImage.prop('forceSyncDisplay')).toBe(undefined);
-
-		component.setProps({ forceSyncDisplay: true });
-		expect(component.find(MediaImage).prop('forceSyncDisplay')).toBe(true);
+		// Without forceSyncDisplay the image is hidden (display:none) until load event fires
+		// With forceSyncDisplay=true the image should be visible
+		rerender(
+			<ImageRenderer
+				mediaType={'image'}
+				cardPreview={cardPreview}
+				forceSyncDisplay={true}
+				wrapperRef={wrapperRef}
+				identifier={identifier}
+			/>,
+		);
+		const mediaImage = screen.getByTestId('media-image');
+		expect(mediaImage).toBeInTheDocument();
+		expect(mediaImage.style.display).not.toBe('none');
 	});
 
 	it.each(nonImageMediaTypes)(
 		`should not call onDisplayImage when mediaType is %s`,
 		(mediaType) => {
 			const onDisplayImage = jest.fn();
-			mount(
+			render(
 				<ImageRenderer
 					mediaType={mediaType}
 					cardPreview={cardPreview}

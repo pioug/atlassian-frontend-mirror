@@ -151,7 +151,7 @@ export const SpotlightCard: React.ForwardRefExoticComponent<
 			</div>
 		);
 
-		if (fg('platform-dst-motion-uplift')) {
+		if (fg('platform-dst-motion-uplift-spotlight')) {
 			const Motion = card.motion;
 			if (Motion) {
 				return <Motion>{content}</Motion>;

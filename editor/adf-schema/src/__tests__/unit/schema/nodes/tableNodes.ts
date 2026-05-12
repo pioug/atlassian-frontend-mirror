@@ -10,6 +10,8 @@ import {
 	tableCellWithNestedTable,
 	tableHeaderWithNestedTable,
 	tableRowWithNestedTable,
+	tableCellWithNestedTableStage0,
+	tableHeaderWithNestedTableStage0,
 	setGlobalTheme,
 } from '../../../../schema/nodes/tableNodes';
 import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
@@ -66,8 +68,10 @@ const makeSchema = () =>
 		customNodeSpecs: {
 			table: tableWithNestedTable,
 			tableRow: tableRowWithNestedTable,
-			tableCell: tableCellWithNestedTable,
-			tableHeader: tableHeaderWithNestedTable,
+			// This schema intentionally uses stage-0 cell specs so assertions can cover
+			// valign parsing while retaining the localId behaviour required by editor APIs.
+			tableCell: tableCellWithNestedTableStage0,
+			tableHeader: tableHeaderWithNestedTableStage0,
 		},
 	});
 
@@ -85,8 +89,10 @@ const makeSchemaWithFontSize = () =>
 		customNodeSpecs: {
 			table: tableWithNestedTable,
 			tableRow: tableRowWithNestedTable,
-			tableCell: tableCellWithNestedTable,
-			tableHeader: tableHeaderWithNestedTable,
+			// This schema intentionally uses stage-0 cell specs so assertions can cover
+			// valign parsing while retaining the localId behaviour required by editor APIs.
+			tableCell: tableCellWithNestedTableStage0,
+			tableHeader: tableHeaderWithNestedTableStage0,
 		},
 	});
 
@@ -1107,6 +1113,16 @@ describe(`${packageName}/schema table node`, () => {
 		});
 
 		describe('cell node', () => {
+			it('generates localId in stage-0 schema', () => {
+				const doc = fromHTML(
+					'<table><tbody><tr><td data-valign="middle"></td></tr></tbody></table>',
+					schema,
+				);
+				const cell = doc.firstChild!.firstChild!.firstChild!;
+				expect(cell.attrs.valign).toBe('middle');
+				expect(cell.attrs.localId).toEqual(TABLE_LOCAL_ID);
+			});
+
 			it('should convert default cell', () => {
 				const cell = schema.nodes.tableCell.create();
 				expect(toHTML(cell, schema)).toEqual('<td class="pm-table-cell-content-wrap"></td>');
@@ -1199,9 +1215,27 @@ describe(`${packageName}/schema table node`, () => {
 					);
 				});
 			});
+
+			it('should convert cell with valign attribute', () => {
+				const attrs = { valign: 'middle' } as CellAttributes;
+				const cell = schema.nodes.tableCell.create(attrs);
+				expect(toHTML(cell, schema)).toEqual(
+					'<td class="pm-table-cell-content-wrap" data-valign="middle"></td>',
+				);
+			});
 		});
 
 		describe('header node', () => {
+			it('generates localId in stage-0 schema', () => {
+				const doc = fromHTML(
+					'<table><tbody><tr><th data-valign="bottom"></th></tr></tbody></table>',
+					schema,
+				);
+				const header = doc.firstChild!.firstChild!.firstChild!;
+				expect(header.attrs.valign).toBe('bottom');
+				expect(header.attrs.localId).toEqual(TABLE_LOCAL_ID);
+			});
+
 			it('should convert default header', () => {
 				const header = schema.nodes.tableHeader.create();
 				expect(toHTML(header, schema)).toEqual('<th class="pm-table-header-content-wrap"></th>');
@@ -1252,6 +1286,14 @@ describe(`${packageName}/schema table node`, () => {
 				const cell = schema.nodes.tableHeader.create(attrs);
 				expect(toHTML(cell, schema)).toEqual(
 					'<th style="" class="pm-table-header-content-wrap"></th>',
+				);
+			});
+
+			it('should convert header with valign attribute', () => {
+				const attrs = { valign: 'bottom' } as CellAttributes;
+				const header = schema.nodes.tableHeader.create(attrs);
+				expect(toHTML(header, schema)).toEqual(
+					'<th class="pm-table-header-content-wrap" data-valign="bottom"></th>',
 				);
 			});
 		});

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/spotlight",
-	"version": "0.14.2",
+	"version": "0.14.3",
 	"description": "A spotlight introduces users to points of interest, from focused messages to multi-step tours.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -108,7 +108,7 @@
 		"platform_spotlight_card_fit_content_anchor": {
 			"type": "boolean"
 		},
-		"platform-dst-motion-uplift": {
+		"platform-dst-motion-uplift-spotlight": {
 			"type": "boolean"
 		},
 		"platform-dst-top-layer": {

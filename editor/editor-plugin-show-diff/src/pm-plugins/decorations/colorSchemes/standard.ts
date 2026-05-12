@@ -46,6 +46,13 @@ export const deletedContentStyleNew: string = convertToInlineCss({
 	opacity: 0.8,
 });
 
+/**
+ * Merge into existing styles when cleaning up
+ */
+export const deletedInlineContentBackground: string = convertToInlineCss({
+	backgroundColor: token('color.background.accent.gray.subtlest'),
+});
+
 export const deletedContentStyleUnbounded: string = convertToInlineCss({
 	position: 'absolute',
 	top: '50%',

@@ -41,8 +41,8 @@ const styles = cssMap({
 	commonCategoryNew: {
 		backgroundColor: token('color.background.neutral.subtle'),
 		borderWidth: 0,
-		paddingTop: token('space.200'),
-		paddingBottom: token('space.200'),
+		paddingTop: token('space.100'),
+		paddingBottom: token('space.100'),
 		paddingLeft: token('space.075'),
 		paddingRight: token('space.075'),
 		transition: 'color 0.2s ease',
@@ -157,6 +157,9 @@ export type CategoryMap = {
 export const sortCategories = (c1: CategoryGroupKey, c2: CategoryGroupKey): number =>
 	CategoryDescriptionMap[c1].order - CategoryDescriptionMap[c2].order;
 
+export const sortCategoriesNew = (c1: CategoryGroupKey, c2: CategoryGroupKey): number =>
+	CategoryDescriptionMapNew[c1].order - CategoryDescriptionMapNew[c2].order;
+
 const addNewCategories = (
 	oldCategories: CategoryId[],
 	newCategories?: CategoryId[],
@@ -173,7 +176,7 @@ const addNewCategories = (
 					)[category],
 			),
 		)
-		.sort(sortCategories);
+		.sort(fg('platform_emoji_picker_refresh') ? sortCategoriesNew : sortCategories);
 };
 
 export const categorySelectorComponentTestId = 'category-selector-component';

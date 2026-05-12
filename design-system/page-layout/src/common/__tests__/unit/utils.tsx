@@ -1,11 +1,9 @@
-import {
-	getGridStateFromStorage,
-	getLeftSidebarPercentage,
-	getPageLayoutSlotCSSSelector,
-	getPageLayoutSlotSelector,
-	mergeGridStateIntoStorage,
-	removeFromGridStateInStorage,
-} from '../../utils';
+import { getGridStateFromStorage } from '../../get-grid-state-from-storage';
+import { getLeftSidebarPercentage } from '../../get-left-sidebar-percentage';
+import { getPageLayoutSlotCSSSelector } from '../../get-page-layout-slot-css-selector';
+import { getPageLayoutSlotSelector } from '../../get-page-layout-slot-selector';
+import { mergeGridStateIntoStorage } from '../../merge-grid-state-into-storage';
+import { removeFromGridStateInStorage } from '../../remove-from-grid-state-in-storage';
 
 describe('mergeGridStateIntoStorage', () => {
 	afterEach(() => {

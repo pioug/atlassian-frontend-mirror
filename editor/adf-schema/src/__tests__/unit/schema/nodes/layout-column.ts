@@ -1,10 +1,11 @@
 import { createSchema } from '../../../../schema/create-schema';
 import { fromHTML, toHTML, toContext } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
 import { layoutSection, layoutColumn, doc, p } from '@af/adf-test-helpers/src/doc-builder';
-import { layoutColumn as layoutColumnNodeSpec } from '../../../..';
+import { layoutColumn as layoutColumnNodeSpec, layoutColumnStage0 } from '../../../..';
 import { normalizeNodeSpec } from '../../_utils';
 
 const schema = makeSchema();
+const stage0Schema = makeStage0Schema();
 const packageName = process.env.npm_package_name as string;
 
 describe(`${packageName}/schema layout-column node`, () => {
@@ -53,6 +54,42 @@ describe(`${packageName}/schema layout-column node`, () => {
 		const doc = fromHTML('<div data-layout-section="true"><div data-layout-column/></div>', schema);
 		const node = doc.firstChild!.firstChild!;
 		expect(node.type.name).toEqual('layoutColumn');
+	});
+
+	it('serializes valign in stage-0 schema', () => {
+		const html = toHTML(stage0Schema.nodes.layoutColumn.create({ valign: 'middle' }), stage0Schema);
+		expect(html).toContain('data-valign="middle"');
+	});
+
+	it('matches data-valign and generates localId in stage-0 schema', () => {
+		const doc = fromHTML(
+			'<div data-layout-section="true"><div data-layout-column data-valign="bottom" /></div>',
+			stage0Schema,
+		);
+		const node = doc.firstChild!.firstChild!;
+		expect(node.attrs.valign).toEqual('bottom');
+		expect(node.attrs.localId).toEqual(expect.any(String));
+	});
+
+	it('omits valign when data-valign is absent in stage-0 schema', () => {
+		const doc = fromHTML(
+			'<div data-layout-section="true"><div data-layout-column /></div>',
+			stage0Schema,
+		);
+		const node = doc.firstChild!.firstChild!;
+		expect(node.attrs.valign).toBeNull();
+		expect(node.attrs).not.toHaveProperty('valign', undefined);
+	});
+
+	it('serializes localId in stage-0 schema', () => {
+		const doc = fromHTML(
+			'<div data-layout-section="true"><div data-layout-column data-valign="bottom" /></div>',
+			stage0Schema,
+		);
+		const node = doc.firstChild!.firstChild!;
+		const html = toHTML(node, stage0Schema);
+		expect(html).toContain('data-valign="bottom"');
+		expect(html).toContain('data-local-id=');
 	});
 
 	it('should not match <div data-layout-column /> when pasted inside layoutSection/layoutColumn', () => {
@@ -127,5 +164,15 @@ function makeSchemaWithFontSize() {
 	return createSchema({
 		nodes: ['doc', 'layoutSection', 'layoutColumn', 'paragraph', 'text'],
 		marks: ['fontSize', 'alignment', 'indentation'],
+	});
+}
+
+function makeStage0Schema() {
+	return createSchema({
+		nodes: ['doc', 'layoutSection', 'layoutColumn', 'paragraph', 'text'],
+		customNodeSpecs: {
+			// Stage-0 layout columns intentionally include both valign and localId behaviour.
+			layoutColumn: layoutColumnStage0,
+		},
 	});
 }

@@ -1,7 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { getActiveTrace } from '../experience-trace-id-context';
 import { type LabelStack, useInteractionContext } from '../interaction-context';
 import { getActiveInteraction, PreviousInteractionLog } from '../interaction-metrics';
@@ -15,14 +13,13 @@ export interface TerminalErrorAdditionalAttributes {
 	fallbackType?: 'page' | 'flag' | 'custom';
 	isClientNetworkError?: boolean;
 	statusCode?: number;
-	// TODO: Remove when cleaning up platform_ufo_terminal_errors_fix_missing_data
-	traceId?: string;
 }
 
 export interface TerminalErrorData extends TerminalErrorAdditionalAttributes {
 	errorType: string;
 	errorMessage: string;
 	timestamp: number;
+	traceId?: string;
 }
 
 export interface TerminalErrorContext {
@@ -106,22 +103,17 @@ export function setTerminalError(
 		errorMessage: error.message?.slice(0, 100) || 'Unknown error',
 		timestamp: currentTime,
 	};
-	const errorData: TerminalErrorData = fg('platform_ufo_terminal_errors_fix_missing_data')
-		? {
-				...baseErrorData,
-				statusCode: additionalAttributes?.statusCode ?? getErrorStatusCode(error),
-				// Fallback to traceId from error object if it exists (e.g. FetchError)
-				traceId: getActiveTrace()?.traceId ?? getErrorTraceId(error),
-				teamName: additionalAttributes?.teamName,
-				packageName: additionalAttributes?.packageName,
-				errorBoundaryId: additionalAttributes?.errorBoundaryId,
-				errorHash: additionalAttributes?.errorHash,
-				fallbackType: additionalAttributes?.fallbackType,
-			}
-		: {
-				...baseErrorData,
-				...additionalAttributes,
-			};
+	const errorData: TerminalErrorData = {
+		...baseErrorData,
+		statusCode: additionalAttributes?.statusCode ?? getErrorStatusCode(error),
+		// Fallback to traceId from error object if it exists (e.g. FetchError)
+		traceId: getActiveTrace()?.traceId ?? getErrorTraceId(error),
+		teamName: additionalAttributes?.teamName,
+		packageName: additionalAttributes?.packageName,
+		errorBoundaryId: additionalAttributes?.errorBoundaryId,
+		errorHash: additionalAttributes?.errorHash,
+		fallbackType: additionalAttributes?.fallbackType,
+	};
 
 	// Calculate time since previous interaction
 	const timeSincePreviousInteraction =

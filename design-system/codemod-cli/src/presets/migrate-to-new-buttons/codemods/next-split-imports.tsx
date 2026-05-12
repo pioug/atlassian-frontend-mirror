@@ -1,8 +1,22 @@
 import { getDefaultImportSpecifierName } from '@hypermod/utils';
 import type { API, FileInfo } from 'jscodeshift';
 
-import { BUTTON_TYPES, entryPointsMapping, NEW_BUTTON_ENTRY_POINT } from '../utils/constants';
+import { NEW_BUTTON_ENTRY_POINT } from '../utils/constants';
+import { entryPointsMapping } from '../utils/entry-points-mapping';
 import renameElements from '../utils/rename-elements';
+
+const BUTTON_TYPES: string[] = [
+	'BaseOwnProps',
+	'BaseProps',
+	'ButtonProps',
+	'LoadingButtonProps',
+	'LoadingButtonOwnProps',
+	'ThemeTokens',
+	'ThemeProps',
+	'InteractionState',
+	'CustomThemeButtonProps',
+	'CustomThemeButtonOwnProps',
+];
 
 const PRINT_SETTINGS = { quote: 'single' as const };
 

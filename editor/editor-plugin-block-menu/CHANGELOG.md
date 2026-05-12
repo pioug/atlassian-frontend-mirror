@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 9.1.0
+
+### Minor Changes
+
+- [`c7397edc6d9f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7397edc6d9f1) -
+  Remove unused block menu transform logic
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.19
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.18
 
 ### Patch Changes

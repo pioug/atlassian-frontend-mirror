@@ -61,6 +61,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	cardScrollBackToSuggestionLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	cardShowSidebarButtonLabel: {
 		defaultMessage: string;
 		description: string;
@@ -305,5 +310,10 @@ export const aiSuggestionsMessages: {
 		id: 'fabric.editor.ai.suggestions.card.compareWithOriginalOptionLabel.non-final',
 		defaultMessage: 'Compare with original',
 		description: 'Label for the dropdown action to compare suggestion with original content',
+	},
+	cardScrollBackToSuggestionLabel: {
+		id: 'fabric.editor.ai.suggestions.card.scrollBackToSuggestionLabel.non-final',
+		defaultMessage: 'Back to suggestion',
+		description: 'Label for the scroll back to suggestion button on the AI suggestions card',
 	},
 });

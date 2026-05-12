@@ -12,14 +12,14 @@ ${createEditorUseOnlyNotice('Editor Plugin Content Format', [
 ])}
 
 
-  ${
-		(
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+  ${(
+		<>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<div style={{ marginTop: token('space.100') }}>
 				<AtlassianInternalWarning />
 			</div>
-		)
-	}
+		</>
+	)}
 
   A shared state management plugin for the Atlassian Editor that tracks the content mode/format of the editor. This plugin enables other editor plugins and products to be aware of the current editor content format state and update it as needed.
 

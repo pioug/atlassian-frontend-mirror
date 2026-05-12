@@ -30,12 +30,10 @@ import {
 	VAR_LEFT_SIDEBAR_FLYOUT,
 	VAR_LEFT_SIDEBAR_WIDTH,
 } from '../../common/constants';
+import { getGridStateFromStorage } from '../../common/get-grid-state-from-storage';
+import { mergeGridStateIntoStorage } from '../../common/merge-grid-state-into-storage';
+import { resolveDimension } from '../../common/resolve-dimension';
 import type { LeftSidebarProps } from '../../common/types';
-import {
-	getGridStateFromStorage,
-	mergeGridStateIntoStorage,
-	resolveDimension,
-} from '../../common/utils';
 import { publishGridState, SidebarResizeContext, useSkipLink } from '../../controllers';
 import ResizeControl from '../resize-control';
 

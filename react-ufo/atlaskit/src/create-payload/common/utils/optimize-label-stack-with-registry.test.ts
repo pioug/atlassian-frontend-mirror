@@ -1,6 +1,13 @@
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { LabelStackRegistry } from './label-stack-registry';
 
-import { optimizeLabelStack, optimizeLabelStackWithRegistry } from './index';
+import {
+	optimizeLabelStack,
+	optimizeLabelStackWithRegistry,
+	stringifyLabelStackFully,
+	stringifyLabelStackWithoutId,
+} from './index';
 
 describe('optimizeLabelStackWithRegistry', () => {
 	describe('with registry and v2.0.0', () => {
@@ -94,5 +101,71 @@ describe('optimizeLabelStackWithRegistry', () => {
 			// Registry should remain empty since v1.0.1 doesn't use it
 			expect(registry.size).toBe(0);
 		});
+	});
+
+	describe('platform_ufo_trim_labelstack_slashes', () => {
+		const labelStack = [
+			{ name: 'network' },
+			{ name: '/rest/api/3/myself' },
+			{ name: '///gateway/api/jsm/ops/web/<uuid>/v1/alerts' },
+		];
+
+		ffTest(
+			'platform_ufo_trim_labelstack_slashes',
+			() => {
+				expect(stringifyLabelStackFully(labelStack)).toBe(
+					'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+				);
+				expect(stringifyLabelStackWithoutId(labelStack)).toBe(
+					'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+				);
+				expect(optimizeLabelStack(labelStack, '2.0.0')).toBe(
+					'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+				);
+				expect(optimizeLabelStack(labelStack, '1.0.1')).toEqual([
+					{ n: 'network' },
+					{ n: 'rest/api/3/myself' },
+					{ n: 'gateway/api/jsm/ops/web/<uuid>/v1/alerts' },
+				]);
+			},
+			() => {
+				expect(stringifyLabelStackFully(labelStack)).toBe(
+					'network//rest/api/3/myself////gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+				);
+				expect(stringifyLabelStackWithoutId(labelStack)).toBe(
+					'network//rest/api/3/myself////gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+				);
+				expect(optimizeLabelStack(labelStack, '2.0.0')).toBe(
+					'network//rest/api/3/myself////gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+				);
+				expect(optimizeLabelStack(labelStack, '1.0.1')).toEqual([
+					{ n: 'network' },
+					{ n: '/rest/api/3/myself' },
+					{ n: '///gateway/api/jsm/ops/web/<uuid>/v1/alerts' },
+				]);
+			},
+		);
+
+		ffTest(
+			'platform_ufo_trim_labelstack_slashes',
+			() => {
+				const registry = new LabelStackRegistry();
+				const result = optimizeLabelStackWithRegistry(labelStack, '2.0.0', registry);
+
+				expect(result).toBe(0);
+				expect(registry.getLookupTable()).toEqual({
+					'0': 'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+				});
+			},
+			() => {
+				const registry = new LabelStackRegistry();
+				const result = optimizeLabelStackWithRegistry(labelStack, '2.0.0', registry);
+
+				expect(result).toBe(0);
+				expect(registry.getLookupTable()).toEqual({
+					'0': 'network//rest/api/3/myself////gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+				});
+			},
+		);
 	});
 });

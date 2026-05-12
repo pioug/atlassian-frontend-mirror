@@ -8,8 +8,9 @@ import {
 	expandWithNestedExpand,
 	tableWithNestedTable,
 	tableRowWithNestedTable,
-	tableCellWithNestedTable,
-	tableHeaderWithNestedTable,
+	tableCellWithNestedTableStage0,
+	tableHeaderWithNestedTableStage0,
+	layoutColumnStage0,
 	codeBlockWithExtendedAttributes,
 } from './nodes';
 import type { SchemaConfig } from './create-schema';
@@ -186,13 +187,14 @@ export const getSchemaBasedOnStage: MemoizedFn<
 		if (stage === 'stage0') {
 			defaultSchemaConfig.customNodeSpecs = {
 				layoutSection: layoutSectionWithSingleColumn,
+				layoutColumn: layoutColumnStage0,
 				multiBodiedExtension: multiBodiedExtension,
 				extensionFrame: extensionFrame,
 				expand: expandWithNestedExpand,
 				table: tableWithNestedTable,
 				tableRow: tableRowWithNestedTable,
-				tableCell: tableCellWithNestedTable,
-				tableHeader: tableHeaderWithNestedTable,
+				tableCell: tableCellWithNestedTableStage0,
+				tableHeader: tableHeaderWithNestedTableStage0,
 				codeBlock: codeBlockWithExtendedAttributes,
 			};
 		}

@@ -29,7 +29,7 @@ tester.run('expand-transition-shorthand', expandTransitionShorthand, {
 			`,
 		},
 		{
-			name: "transition: token() call — skip",
+			name: 'transition: token() call — skip',
 			code: outdent`
 			const styles = css({
 				transition: token('motion.duration.medium', '200ms'),

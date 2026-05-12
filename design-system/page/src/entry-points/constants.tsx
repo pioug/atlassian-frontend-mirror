@@ -5,9 +5,9 @@ export {
 	defaultLayout,
 	defaultMedium,
 	defaultSpacing,
-	spacingMapping,
 	varColumnSpan,
 	varColumnsNum,
 	varGridSpacing,
 } from '../constants';
+export { spacingMapping } from '../spacing-mapping';
 export type { GridSpacing } from '../constants';

@@ -1,15 +1,20 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render, screen } from '@atlassian/testing-library';
+import { tickBoxClassName } from '../styles';
 import { TickBox } from '../tickBox';
-import TickIcon from '@atlaskit/icon/core/check-mark';
-import { TickBoxWrapper } from '../tickBoxWrapper';
 
 describe('TickBox', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<TickBox selected />);
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render TickBox properly', () => {
-		const tickBox = shallow(<TickBox selected />);
-		const wrapper = tickBox.find(TickBoxWrapper);
-		expect(wrapper).toHaveLength(1);
-		expect(wrapper.prop('selected')).toBe(true);
-		expect(tickBox.find(TickIcon)).toHaveLength(1);
+		render(<TickBox selected />);
+		const tickBox = screen.getByTestId('media-card-tickbox');
+		expect(tickBox).toBeInTheDocument();
+		// className kept for parent hover styles defined in card/ui/styles.ts
+		expect(tickBox).toHaveClass(tickBoxClassName);
+		expect(screen.getByLabelText('tick')).toBeInTheDocument();
 	});
 });

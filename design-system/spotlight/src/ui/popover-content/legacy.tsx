@@ -267,13 +267,13 @@ export const PopoverContent = (props: PopoverContentProps): JSX.Element => {
 	return (
 		<Popper offset={offset} strategy={strategy} placement={popperPlacementMap[placement]}>
 			{({ ref: localRef, style, update }) => {
-				if (!isVisible && !fg('platform-dst-motion-uplift')) {
+				if (!isVisible && !fg('platform-dst-motion-uplift-spotlight')) {
 					return;
 				}
 
 				updateRef.current = update;
 
-				return fg('platform-dst-motion-uplift') ? (
+				return fg('platform-dst-motion-uplift-spotlight') ? (
 					<ConditionalExitingPersistence>
 						{isVisible && (
 							<div

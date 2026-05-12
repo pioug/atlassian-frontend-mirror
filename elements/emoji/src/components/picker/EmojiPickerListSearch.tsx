@@ -6,6 +6,7 @@ import SearchIcon from '@atlaskit/icon/core/search';
 import TextField from '@atlaskit/textfield';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 import { css, jsx } from '@compiled/react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
@@ -36,6 +37,36 @@ const input = css({
 	},
 });
 
+const inputNew = css({
+	boxSizing: 'border-box',
+	color: 'inherit',
+	cursor: 'inherit',
+	font: token('font.body'),
+	outline: 'none',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingBlockStart: '2px',
+	paddingInlineEnd: token('space.0'),
+	paddingBlockEnd: token('space.025'),
+	paddingInlineStart: token('space.075'),
+	width: '100%',
+
+	'&:invalid': {
+		boxShadow: 'none',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'&::-ms-clear': {
+		display: 'none',
+	},
+});
+
+const textFieldWrapperNew = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-ds--text-field--container]': {
+		borderColor: token('color.border'),
+		paddingTop: token('space.050'),
+	},
+});
+
 const pickerSearch = css({
 	boxSizing: 'border-box',
 	paddingTop: token('space.150'),
@@ -48,6 +79,12 @@ const pickerSearch = css({
 const searchIcon = css({
 	opacity: 0.5,
 	marginLeft: token('space.negative.025'),
+});
+
+const searchIconNew = css({
+	opacity: 0.5,
+	marginLeft: token('space.negative.025'),
+	marginBottom: token('space.negative.025'),
 });
 
 const hidden = css({
@@ -107,24 +144,47 @@ export const EmojiPickerListSearch = (props: Props): JSX.Element => {
 							})
 					: null}
 			</VisuallyHidden>
-			<TextField
-				role="searchbox"
-				aria-label={formatMessage(messages.searchLabel)}
-				css={input}
-				autoComplete="off"
-				name="search"
-				placeholder={`${formatMessage(messages.searchPlaceholder)}...`}
-				defaultValue={query || ''}
-				onChange={handleOnChange}
-				elemBeforeInput={
-					<span css={searchIcon}>
-						<SearchIcon color="currentColor" spacing="spacious" label="" />
-					</span>
-				}
-				testId={emojiPickerSearchTestId}
-				ref={textRef}
-				isCompact
-			/>
+			{fg('platform_emoji_picker_refresh') ? (
+				<div css={textFieldWrapperNew}>
+					<TextField
+						role="searchbox"
+						aria-label={formatMessage(messages.searchLabel)}
+						css={inputNew}
+						autoComplete="off"
+						name="search"
+						placeholder={`${formatMessage(messages.searchPlaceholder)}...`}
+						defaultValue={query || ''}
+						onChange={handleOnChange}
+						elemBeforeInput={
+							<span css={searchIconNew}>
+								<SearchIcon color="currentColor" spacing="spacious" label="" />
+							</span>
+						}
+						testId={emojiPickerSearchTestId}
+						ref={textRef}
+						isCompact
+					/>
+				</div>
+			) : (
+				<TextField
+					role="searchbox"
+					aria-label={formatMessage(messages.searchLabel)}
+					css={input}
+					autoComplete="off"
+					name="search"
+					placeholder={`${formatMessage(messages.searchPlaceholder)}...`}
+					defaultValue={query || ''}
+					onChange={handleOnChange}
+					elemBeforeInput={
+						<span css={searchIcon}>
+							<SearchIcon color="currentColor" spacing="spacious" label="" />
+						</span>
+					}
+					testId={emojiPickerSearchTestId}
+					ref={textRef}
+					isCompact
+				/>
+			)}
 		</div>
 	);
 };

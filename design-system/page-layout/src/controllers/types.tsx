@@ -18,3 +18,14 @@ export type SkipLinkData = {
 	 */
 	listIndex?: number;
 };
+
+export type LeftSidebarState = {
+	isFlyoutOpen: boolean;
+	isResizing: boolean;
+	isLeftSidebarCollapsed: boolean;
+	leftSidebarWidth: number;
+	lastLeftSidebarWidth: number;
+	flyoutLockCount: number;
+	isFixed: boolean;
+	hasInit: boolean;
+};

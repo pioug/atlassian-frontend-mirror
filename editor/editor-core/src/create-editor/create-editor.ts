@@ -2,7 +2,11 @@ import type { ErrorReportingHandler } from '@atlaskit/editor-common/error-report
 import { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
 import { sortByOrder } from '@atlaskit/editor-common/legacy-rank-plugins';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorPlugin, PluginsOptions } from '@atlaskit/editor-common/types';
+import type {
+	EditorPlugin,
+	NamedReactHookFactory,
+	PluginsOptions,
+} from '@atlaskit/editor-common/types';
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -77,7 +81,12 @@ export function processPluginsList(plugins: EditorPlugin[]): EditorConfig {
 			}
 
 			if (plugin.usePluginHook) {
-				acc.pluginHooks.push(plugin.usePluginHook);
+				// Wrap with .bind(null) so we can annotate the function with the
+				// plugin name without mutating the plugin's original hook reference.
+				// MountPluginHooks reads `pluginName` to derive a stable React key.
+				const named: NamedReactHookFactory = plugin.usePluginHook.bind(null);
+				named.pluginName = plugin.name;
+				acc.pluginHooks.push(named);
 			}
 
 			if (plugin.primaryToolbarComponent) {

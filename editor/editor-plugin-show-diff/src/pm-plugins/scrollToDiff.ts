@@ -12,16 +12,6 @@ import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
 const SCROLL_TOP_MARGIN_PX = 100;
 
 /**
- * Checks if element is not visible in the viewport, accounting
- * for the scroll margin offset used during scrolling.
- */
-function shouldScrollIntoView(element: HTMLElement): boolean {
-	const rect = element.getBoundingClientRect();
-	const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-	return !(rect.top >= SCROLL_TOP_MARGIN_PX && rect.bottom <= viewportHeight);
-}
-
-/**
  * Returns the resolved HTMLElement for a given DOM node, walking up to the
  * parent element if the node itself is not an Element (e.g. a text node).
  */
@@ -68,14 +58,14 @@ export const scrollToFirstDecoration = (
 		if (decoration.spec?.key?.startsWith('diff-widget') && decoration?.type?.toDOM) {
 			// @ts-expect-error - decoration.type is not typed public API
 			const widgetDom = decoration.type.toDOM;
-			if (shouldScrollIntoView(widgetDom)) {
-				scrollToSelection(widgetDom);
-			}
+			// Always scroll to the top of this decoration even if it's in view already
+			scrollToSelection(widgetDom);
 		} else {
 			const targetNode = view.nodeDOM(decoration?.from);
 			const node =
 				targetNode instanceof Element ? targetNode : view.domAtPos(decoration?.from)?.node;
-			if (node instanceof HTMLElement && shouldScrollIntoView(node)) {
+			if (node instanceof HTMLElement) {
+				// Always scroll to the top of this decoration even if it's in view already
 				scrollToSelection(node);
 			}
 		}

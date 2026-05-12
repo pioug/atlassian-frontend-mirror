@@ -185,6 +185,15 @@ export function InlineCommentView({
 						}
 					}}
 					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+					onCreateError={(id) =>
+						// This is called when optimistic create inline comment encounters an error,
+						// in which case the optimistically added annotation must be removed.
+						removeInlineCommentNearSelection(id, inlineCommentProvider.supportedBlockNodes)(
+							editorView.state,
+							editorView.dispatch,
+						)
+					}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onClose={() => {
 						if (!isAnnotationManagerEnabled) {
 							setInlineCommentDraftState(editorAnalyticsAPI, undefined, editorAPI)(false)(

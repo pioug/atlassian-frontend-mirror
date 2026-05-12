@@ -18,11 +18,8 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, Decoration, DecorationSource } from '@atlaskit/editor-prosemirror/view';
-import {
-	useFetchSyncBlockData,
-	useFetchSyncBlockTitle,
-} from '@atlaskit/editor-synced-block-provider';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { removeSyncedBlockAtPos } from '../editor-commands';
@@ -59,6 +56,27 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		this.api = props.api;
 		this.syncBlockStore = props.syncBlockStore;
 	}
+
+	// Stable callback references — defined as arrow properties so they keep a
+	// fixed identity across render() calls, avoiding defeats of React.memo.
+	// The experiment gate lives in render(); these are always available.
+
+	private removeSyncBlockStable = () => {
+		const pos = (this.getPos as getPosHandlerNode)();
+		if (pos !== undefined) {
+			removeSyncedBlockAtPos(this.api, pos);
+		}
+	};
+
+	private fetchSyncBlockSourceInfoStable = (sourceAri: string) => {
+		// store is guaranteed non-null: render() guards on syncBlockStore
+		// before these callbacks can be invoked.
+		const store =
+			this.api?.syncedBlock?.sharedState.currentState()?.syncBlockStore ?? this.syncBlockStore;
+		return store
+			? store.referenceManager.fetchSyncBlockSourceInfoBySourceAri(sourceAri)
+			: Promise.resolve(undefined);
+	};
 
 	unsubscribe: (() => void) | undefined;
 
@@ -110,6 +128,8 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 			return null;
 		}
 
+		const isPerfEnabled = expValEquals('editor_synced_block_perf', 'isEnabled', true);
+
 		// get document node from data provider
 		return (
 			<ErrorBoundary
@@ -119,31 +139,30 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 			>
 				<SyncBlockActionsProvider
 					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					removeSyncBlock={() => {
-						const pos = getPos();
-						if (pos !== undefined) {
-							removeSyncedBlockAtPos(this.api, pos);
-						}
-					}}
+					removeSyncBlock={
+						isPerfEnabled
+							? this.removeSyncBlockStable
+							: () => {
+									const pos = getPos();
+									if (pos !== undefined) {
+										removeSyncedBlockAtPos(this.api, pos);
+									}
+								}
+					}
 					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					fetchSyncBlockSourceInfo={(sourceAri: string) =>
-						syncBlockStore.referenceManager.fetchSyncBlockSourceInfoBySourceAri(sourceAri)
+					fetchSyncBlockSourceInfo={
+						isPerfEnabled
+							? this.fetchSyncBlockSourceInfoStable
+							: (sourceAri: string) =>
+									syncBlockStore.referenceManager.fetchSyncBlockSourceInfoBySourceAri(sourceAri)
 					}
 				>
 					<SyncBlockRendererWrapper
-						localId={this.node.attrs.localId}
+						localId={localId}
+						resourceId={resourceId}
+						node={this.node}
+						syncBlockStore={syncBlockStore}
 						syncedBlockRenderer={this.options?.syncedBlockRenderer}
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						useFetchSyncBlockTitle={() => useFetchSyncBlockTitle(syncBlockStore, this.node)}
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						useFetchSyncBlockData={() =>
-							useFetchSyncBlockData(
-								syncBlockStore,
-								resourceId,
-								localId,
-								this.api?.analytics?.actions?.fireAnalyticsEvent,
-							)
-						}
 						api={this.api}
 					/>
 				</SyncBlockActionsProvider>

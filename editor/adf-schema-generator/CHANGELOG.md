@@ -1,5 +1,15 @@
 # @atlaskit/adf-schema-generator
 
+## 2.2.1
+
+### Patch Changes
+
+- [`cd228df49c18b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd228df49c18b) -
+  Add stage-0 `valign` support for table cells and layout columns, with shared valign utilities and
+  standardised `data-valign` HTML attribute.
+
+  Allow stage0 schema generation using `node.stage0` attribute.
+
 ## 2.2.0
 
 ### Minor Changes

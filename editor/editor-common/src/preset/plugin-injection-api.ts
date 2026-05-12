@@ -256,6 +256,15 @@ export class SharedStateAPI {
 		(this.listeners.get(pluginName) || new Set()).delete(sub);
 	}
 
+	// Drop every listener and pending update for a plugin that is no longer
+	// registered. Without this, callbacks (and their captured closures) for
+	// evicted plugins would linger in `listeners` until destroy(), and every
+	// transaction would still walk their keys via filterPluginsWithListeners.
+	removePluginListeners(pluginName: string): void {
+		this.listeners.delete(pluginName);
+		this.updatesToNotifyQueue.delete(pluginName);
+	}
+
 	private updatesToNotifyQueue: PluginUpdatesToNotify = new Map();
 	notifyListeners({
 		newEditorState,
@@ -418,6 +427,32 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 	onEditorPluginInitialized = (plugin: NextEditorPluginInitializedType): void => {
 		this.addPlugin(plugin);
 	};
+
+	// Internal cleanup helper used by ReactEditorView's reconfigureState to
+	// reconcile the registered plugin set with the current preset. Removes
+	// every registered plugin not in `keptPluginNames`; `core` is always
+	// preserved. Returns the names that were removed. Intentionally not on
+	// PluginInjectionAPIDefinition: this is an editor-internal control, not
+	// part of the injection-API contract that plugins or external consumers
+	// depend on.
+	retainPlugins = (keptPluginNames: ReadonlySet<string>): string[] => {
+		const evicted: string[] = [];
+		for (const name of this.plugins.keys()) {
+			if (name !== 'core' && !keptPluginNames.has(name)) {
+				evicted.push(name);
+			}
+		}
+		for (const name of evicted) {
+			this.plugins.delete(name);
+			this.sharedStateAPI.removePluginListeners(name);
+		}
+		return evicted;
+	};
+
+	// Internal: snapshot the names of currently-registered plugins. Used by
+	// reconfigureState to capture the previous plugin set before the new
+	// preset registers its own plugins via onEditorPluginInitialized.
+	getRegisteredPluginNames = (): string[] => Array.from(this.plugins.keys());
 
 	private addPlugin = (plugin: NextEditorPluginInitializedType) => {
 		// Plugins other than `core` are checked by the preset itself

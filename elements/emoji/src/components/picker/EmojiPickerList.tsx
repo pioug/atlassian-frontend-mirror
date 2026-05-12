@@ -79,6 +79,7 @@ export interface Props {
 	onDeleteEmoji: OnDeleteEmoji;
 	onEmojiActive?: OnEmojiEvent;
 	onEmojiDelete?: OnEmojiEvent;
+	onEmojiLeave?: () => void;
 	onEmojiSelected?: OnEmojiEvent;
 	onFileChooserClicked?: () => void;
 	onOpenUpload: () => void;
@@ -131,6 +132,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 		currentUser,
 		onEmojiSelected = () => {},
 		onEmojiActive = () => {},
+		onEmojiLeave,
 		onEmojiDelete = () => {},
 		onCategoryActivated = () => {},
 		onSearch = () => {},
@@ -284,13 +286,14 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 						onDelete: onEmojiDelete,
 						onMouseMove: onEmojiActive,
 						onFocus: onEmojiActive,
+						onMouseLeave: fg('platform_emoji_picker_refresh') ? onEmojiLeave : undefined,
 					}),
 				);
 			}
 
 			return items;
 		},
-		[onEmojiSelected, onEmojiDelete, onEmojiActive],
+		[onEmojiSelected, onEmojiDelete, onEmojiActive, onEmojiLeave],
 	);
 
 	const buildVirtualItems = useCallback(() => {
@@ -451,7 +454,11 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [virtualItems, categoriesChanged]);
 
-	const virtualListHeight = useMemo(() => sizes.listHeight + emojiPickerHeightOffset(size), [size]);
+	const virtualListHeight = useMemo(() => {
+		return fg('platform_emoji_picker_refresh')
+			? sizes.listHeightNew + emojiPickerHeightOffset(size)
+			: sizes.listHeight + emojiPickerHeightOffset(size);
+	}, [size]);
 
 	return (
 		<EmojiPickerTabPanel showSearchResults={!!query}>

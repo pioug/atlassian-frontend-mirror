@@ -1,5 +1,17 @@
 # @atlaskit/top-layer
 
+## 0.6.2
+
+### Patch Changes
+
+- [`9d77f6602f870`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d77f6602f870) -
+  Fix two CSS anchor positioning bugs for aligned placements (align-start/align-end):
+  1. Popups at viewport corners now correctly fall back to the diagonally opposite corner when their
+     preferred placement has no space, rather than remaining partially off-screen.
+
+  2. Popups near a single viewport edge now correctly trigger position fallbacks when their content
+     is wider than the available space, rather than wrapping content into a narrow column.
+
 ## 0.6.1
 
 ### Patch Changes

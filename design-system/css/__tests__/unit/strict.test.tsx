@@ -6,6 +6,7 @@
 import { jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { css } from '@atlaskit/css';
 
 const stylesStyles = css({ color: 'var(--ds-link)' });

@@ -92,6 +92,12 @@ export type TypeAheadHandler = {
 	/** Handler returns typeahead item based on query. Used to find which item to insert. */
 	forceSelect?: TypeAheadForceSelect;
 
+	/**
+	 * Optional handler that returns an item (Ask Rovo) to display in the typeahead's
+	 * empty-results state.
+	 */
+	getEmptyItem?: (props: { editorState: EditorState }) => TypeAheadItem | undefined;
+
 	getHighlight?: (state: EditorState) => JSX.Element | null;
 
 	/** Handler returns an array of TypeAheadItem based on query to be displayed in the TypeAhead */

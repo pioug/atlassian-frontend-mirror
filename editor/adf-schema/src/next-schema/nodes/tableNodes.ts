@@ -16,25 +16,40 @@ import { unsupportedBlock } from './unsupportedBlock';
 // Declare early to allow for circular references within the file
 const table: ADFNode<[string], ADFCommonNodeSpec> = adfNode('table');
 
+const valign = {
+	type: 'enum' as const,
+	values: ['top', 'middle', 'bottom'],
+	default: null,
+	optional: true,
+};
+
+const cellAttributes = {
+	colspan: { type: 'number' as const, default: 1, optional: true },
+	rowspan: { type: 'number' as const, default: 1, optional: true },
+	colwidth: {
+		type: 'array' as const,
+		items: { type: 'number' as const },
+		default: null,
+		optional: true,
+	},
+	background: { type: 'string' as const, default: null, optional: true },
+	localId: { type: 'string' as const, default: null, optional: true },
+};
+
 const tableCell = adfNode('tableCell')
 	.define({
 		isolating: true,
 		selectable: false,
 		tableRole: 'cell',
 		marks: [unsupportedMark, unsupportedNodeAttribute],
-		attrs: {
-			colspan: { type: 'number', default: 1, optional: true },
-			rowspan: { type: 'number', default: 1, optional: true },
-			colwidth: {
-				type: 'array',
-				items: { type: 'number' },
-				default: null,
-				optional: true,
-			},
-			background: { type: 'string', default: null, optional: true },
-			localId: { type: 'string', default: null, optional: true },
-		},
+		attrs: cellAttributes,
 		content: [tableCellContentPseudoGroup],
+		stage0: {
+			attrs: {
+				...cellAttributes,
+				valign,
+			},
+		},
 		DANGEROUS_MANUAL_OVERRIDE: {
 			'validator-spec': {
 				required: {
@@ -47,6 +62,12 @@ const tableCell = adfNode('tableCell')
 	.variant('with_nested_table', {
 		content: [$onePlus($or(...tableCellContentNodes, unsupportedBlock, table))],
 		ignore: ['json-schema', 'validator-spec'],
+		stage0: {
+			attrs: {
+				...cellAttributes,
+				valign,
+			},
+		},
 	});
 
 const tableHeader = adfNode('tableHeader')
@@ -55,19 +76,14 @@ const tableHeader = adfNode('tableHeader')
 		selectable: false,
 		tableRole: 'header_cell',
 		marks: [unsupportedMark, unsupportedNodeAttribute],
-		attrs: {
-			colspan: { type: 'number', default: 1, optional: true },
-			rowspan: { type: 'number', default: 1, optional: true },
-			colwidth: {
-				type: 'array',
-				items: { type: 'number' },
-				default: null,
-				optional: true,
-			},
-			background: { type: 'string', default: null, optional: true },
-			localId: { type: 'string', default: null, optional: true },
-		},
+		attrs: cellAttributes,
 		content: [tableHeaderContentPseudoGroup],
+		stage0: {
+			attrs: {
+				...cellAttributes,
+				valign,
+			},
+		},
 		DANGEROUS_MANUAL_OVERRIDE: {
 			'validator-spec': {
 				required: {
@@ -80,6 +96,12 @@ const tableHeader = adfNode('tableHeader')
 	.variant('with_nested_table', {
 		content: [$onePlus($or(...tableCellContentNodes, nestedExpand, table))],
 		ignore: ['json-schema', 'validator-spec'],
+		stage0: {
+			attrs: {
+				...cellAttributes,
+				valign,
+			},
+		},
 	});
 
 const tableRow = adfNode('tableRow')

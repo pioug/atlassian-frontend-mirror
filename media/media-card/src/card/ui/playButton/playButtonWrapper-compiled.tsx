@@ -26,8 +26,12 @@ const playButtonWrapperStyles = css({
 
 export const PlayButtonWrapper = (props: any): JSX.Element => {
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-		<div css={playButtonWrapperStyles} className={playButtonClassName}>
+		<div
+			css={playButtonWrapperStyles}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={playButtonClassName}
+			data-testid="media-card-play-button-wrapper"
+		>
 			{props.children}
 		</div>
 	);

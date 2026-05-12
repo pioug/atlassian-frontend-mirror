@@ -3,7 +3,7 @@ import {
 	hasImportDeclaration,
 	insertImportSpecifier,
 } from '@codeshift/utils';
-import type { API, Collection, default as core, FileInfo } from 'jscodeshift';
+import type { API, Collection, FileInfo, default as core } from 'jscodeshift';
 
 import { colorReplacements } from './utils/replacements';
 

@@ -102,6 +102,10 @@ export {
 	tableRowWithNestedTable,
 	tableCellWithNestedTable,
 	tableHeaderWithNestedTable,
+	tableCellStage0,
+	tableHeaderStage0,
+	tableCellWithNestedTableStage0,
+	tableHeaderWithNestedTableStage0,
 	tableRowWithLocalId,
 	tableCellWithLocalId,
 	tableHeaderWithLocalId,
@@ -166,7 +170,7 @@ export type {
 	LayoutSectionFullDefinition,
 	LayoutSectionWithSingleColumnDefinition,
 } from './layout-section';
-export { layoutColumn, layoutColumnWithLocalId } from './layout-column';
+export { layoutColumn, layoutColumnStage0, layoutColumnWithLocalId } from './layout-column';
 export type { LayoutColumnDefinition } from './layout-column';
 export { inlineCard, inlineCardWithLocalId } from './inline-card';
 export type { InlineCardDefinition } from './inline-card';

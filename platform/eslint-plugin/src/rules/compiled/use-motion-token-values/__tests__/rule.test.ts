@@ -240,7 +240,6 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 			errors: [{ messageId: 'useMotionDurationToken' }],
 		},
 
-
 		{
 			name: 'ease → motion.easing.out.practical',
 			code: outdent`

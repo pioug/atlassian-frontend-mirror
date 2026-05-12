@@ -6,15 +6,28 @@ import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 import { unsupportedBlock } from '../nodes/unsupportedBlock';
 
+const layoutColumnAttributes = {
+	width: { type: 'number' as const, minimum: 0, maximum: 100, default: undefined },
+	localId: { type: 'string' as const, default: null, optional: true },
+};
+
 export const layoutColumn: ADFNode<[string], ADFCommonNodeSpec> = adfNode('layoutColumn').define({
 	isolating: true,
 	selectable: false,
 
 	marks: [unsupportedMark, unsupportedNodeAttribute],
 
-	attrs: {
-		width: { type: 'number', minimum: 0, maximum: 100, default: undefined },
-		localId: { type: 'string', default: null, optional: true },
-	},
+	attrs: layoutColumnAttributes,
 	content: [$onePlus($or(blockGroup, blockContentGroup, unsupportedBlock))],
+	stage0: {
+		attrs: {
+			...layoutColumnAttributes,
+			valign: {
+				type: 'enum',
+				values: ['top', 'middle', 'bottom'],
+				default: null,
+				optional: true,
+			},
+		},
+	},
 });

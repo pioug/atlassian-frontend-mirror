@@ -47,39 +47,39 @@ snapshot(EmbedCardForbiddenFixBlurring);
 snapshot(EmbedCardForbiddenDefault);
 snapshot(EmbedCardForbiddenObjectRequestAccess, {
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 });
 snapshot(EmbedCardForbiddenSiteDeniedAccess, {
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 });
 snapshot(EmbedCardForbiddenSiteDirectAccess, {
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 });
 snapshot(EmbedCardForbiddenSiteForbiddenAccess, {
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 });
 snapshot(EmbedCardForbiddenSitePendingAccess, {
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 });
 snapshot(EmbedCardForbiddenSiteRequestAccess, {
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 });
 snapshot(EmbedCardNotFoundView);
 snapshot(EmbedCardNotFoundDefault);
 snapshot(EmbedCardNotFoundSiteAccessExists, {
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 });
 snapshot(EmbedCardResolvedSmall);

@@ -1,20 +1,20 @@
-import { flattenStep } from './flattenStep';
 import { applyTargetTextTypeStep } from './steps/applyTargetTextTypeStep';
 import { convertEachNodeStep } from './steps/convertEachNodeStep';
 import { decisionListToListStep } from './steps/decisionListToListStep';
 import { flattenListStep } from './steps/flattenListStep';
+import { flattenStep } from './steps/flattenStep';
 import { listToDecisionListStep } from './steps/listToDecisionListStep';
 import { listToListStep } from './steps/listToListStep';
 import { mergeNeighbourListsStep } from './steps/mergeNeighbourListsStep';
+import { unwrapExpandStep } from './steps/unwrapExpandStep';
 import { unwrapLayoutStep } from './steps/unwrapLayoutStep';
 import { unwrapListStep } from './steps/unwrapListStep';
+import { unwrapStep } from './steps/unwrapStep';
 import { wrapBlockquoteToDecisionListStep } from './steps/wrapBlockquoteToDecisionListStep';
+import { wrapIntoListStep } from './steps/wrapIntoListStep';
 import { wrapMixedContentStep } from './steps/wrapMixedContentStep';
+import { wrapStep } from './steps/wrapStep';
 import type { NodeTypeName, TransformStep } from './types';
-import { unwrapExpandStep } from './unwrapExpandStep';
-import { unwrapStep } from './unwrapStep';
-import { wrapIntoListStep } from './wrapIntoListStep';
-import { wrapStep } from './wrapStep';
 
 // Transform steps for all node type pairs.
 // If a transformation is not defined (undefined), it is not available.

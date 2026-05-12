@@ -13,19 +13,16 @@ import { addCommentForCustomThemeButtons } from '../utils/add-comment-for-custom
 import { addCommentForOverlayProp } from '../utils/add-comment-for-overlay-prop';
 import { checkIfVariantAlreadyImported } from '../utils/check-if-variant-already-imported';
 import {
-	buttonPropsNoLongerSupportedComment,
-	entryPointsMapping,
-	linkButtonMissingHrefComment,
-	loadingButtonComment,
-	migrateButtonToSubtleLinkButton,
-	migrateSubtleButtonToSubtleLinkButton,
 	NEW_BUTTON_ENTRY_POINT,
 	NEW_BUTTON_VARIANTS,
-	noSpacinglinkButtonMissingHrefComment,
 	OLD_BUTTON_ENTRY_POINT,
-	OLD_BUTTON_VARIANTS,
-	unsupportedProps,
+	buttonPropsNoLongerSupportedComment,
+	linkButtonMissingHrefComment,
+	migrateButtonToSubtleLinkButton,
+	migrateSubtleButtonToSubtleLinkButton,
+	noSpacinglinkButtonMissingHrefComment,
 } from '../utils/constants';
+import { entryPointsMapping } from '../utils/entry-points-mapping';
 import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
 import { generateLinkComponent } from '../utils/generate-link-component';
 import { generateNewElement } from '../utils/generate-new-element';
@@ -34,9 +31,17 @@ import getSpecifierNames from '../utils/get-specifier-names';
 import { handleIconAttributes } from '../utils/handle-icon-attributes';
 import { ifHasUnsupportedProps } from '../utils/has-unsupported-props';
 import { importTypesFromNewEntryPoint } from '../utils/import-types-from-new-entry-point';
+import { loadingButtonComment } from '../utils/loading-button-comment';
 import { migrateFitContainerIconButton } from '../utils/migrate-fit-container-icon-button';
 import { modifyButtonAttributes } from '../utils/modify-button-attributes';
 import { renameDefaultButtonToLegacyButtonImport } from '../utils/rename-default-button-to-legacy-button';
+import { unsupportedProps } from '../utils/unsupported-props';
+
+const OLD_BUTTON_VARIANTS: {
+	[key: string]: string;
+} = {
+	loading: 'LoadingButton',
+};
 
 const transformer = (file: FileInfo, api: API): string => {
 	const j = api.jscodeshift;

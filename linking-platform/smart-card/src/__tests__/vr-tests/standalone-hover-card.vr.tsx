@@ -21,7 +21,7 @@ snapshot(HoverCard, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 	waitForReactLazy: true,
 });
@@ -60,7 +60,7 @@ snapshot(HoverCardConfluence, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 	waitForReactLazy: true,
 });
@@ -70,7 +70,7 @@ snapshot(HoverCardAssignedJiraIssue, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 	waitForReactLazy: true,
 });
@@ -80,7 +80,7 @@ snapshot(HoverCardUnassignedJiraIssue, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 	waitForReactLazy: true,
 });
@@ -90,7 +90,7 @@ snapshot(HoverCardJiraProject, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 	waitForReactLazy: true,
 });

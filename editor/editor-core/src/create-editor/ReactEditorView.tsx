@@ -87,6 +87,7 @@ import {
 import { createErrorReporter, createPMPlugins, processPluginsList } from './create-editor';
 import createPluginsList from './create-plugins-list';
 import { createSchema } from './create-schema';
+import { filterPluginsForReconfigure } from './filter-plugins-for-reconfigure';
 import { editorMessages } from './messages';
 import { focusEditorElement } from './ReactEditorView/focusEditorElement';
 import { getUAPrefix } from './ReactEditorView/getUAPrefix';
@@ -508,6 +509,10 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 	// components from the rebuilt preset).
 	const [, bumpConfigVersion] = useState(0);
 
+	// Preset reference last processed by the schema/API reconciliation below.
+	// Used to skip that work when reconfigure is called with the same preset.
+	const lastFilteredPresetRef = useRef<unknown>(null);
+
 	const reconfigureState = useCallback(
 		(props: EditorViewProps) => {
 			if (!viewRef.current) {
@@ -519,11 +524,56 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			// nodes that haven't been re-rendered to the document yet.
 			blur();
 
-			const editorPlugins = createPluginsList(
+			// Snapshot plugin names registered before createPluginsList runs, so
+			// we can tell which plugins are newly added by the new preset vs.
+			// which ones already coexisted with the current schema.
+			const previousPluginNames = new Set(pluginInjectionAPI.current.getRegisteredPluginNames());
+
+			let editorPlugins = createPluginsList(
 				props.preset,
 				'allowBlockType' in props.editorProps ? props.editorProps : {},
 				pluginInjectionAPI.current,
 			);
+
+			// `state.reconfigure` keeps the original schema, so switching presets
+			// can leave the editor inconsistent in two ways:
+			//   1. The new preset may add plugins that reference schema nodes or
+			//      marks the original schema doesn't have.
+			//   2. Plugins registered by a previous preset can linger in the
+			//      injection API even when the new preset doesn't re-register
+			//      them, so listeners still fire against a state that no longer
+			//      has their pmPlugin.
+			if (
+				lastFilteredPresetRef.current !== props.preset &&
+				fg('platform_editor_reconfigure_filter_plugins')
+			) {
+				const { kept, dropped } = filterPluginsForReconfigure(
+					editorPlugins,
+					viewRef.current.state.schema,
+					previousPluginNames,
+				);
+				editorPlugins = kept;
+
+				// Reconcile the injection API with the post-filter plugin set.
+				// This evicts both the plugins we just dropped above (re-registered
+				// by createPluginsList but no longer in editorPlugins) AND any
+				// plugin from a previous preset that the new preset doesn't
+				// re-register.
+				const keptPluginNames = new Set(
+					editorPlugins.map((p) => p?.name).filter((n): n is string => Boolean(n)),
+				);
+				const evictedFromApi = pluginInjectionAPI.current.retainPlugins(keptPluginNames);
+
+				if (dropped.length > 0 || evictedFromApi.length > 0) {
+					// eslint-disable-next-line no-console
+					console.warn('[reconfigureState] Cleanup summary:', {
+						dropped,
+						evictedFromApi,
+					});
+				}
+
+				lastFilteredPresetRef.current = props.preset;
+			}
 
 			config.current = processPluginsList(editorPlugins);
 			if (expValEquals('platform_editor_appearance_shared_state', 'isEnabled', true)) {

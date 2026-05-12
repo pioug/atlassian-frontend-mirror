@@ -13,9 +13,7 @@ export const codeBlockWrappedStates: WeakMap<PmNode, boolean | undefined> = new 
 
 type OptionalCodeBlockAttrs = CodeBlockAttrs | undefined;
 
-export const getDefaultCodeBlockAttrs = (
-	attrs?: CodeBlockAttrs,
-): OptionalCodeBlockAttrs => {
+export const getDefaultCodeBlockAttrs = (attrs?: CodeBlockAttrs): OptionalCodeBlockAttrs => {
 	if (!expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
 		return attrs;
 	}

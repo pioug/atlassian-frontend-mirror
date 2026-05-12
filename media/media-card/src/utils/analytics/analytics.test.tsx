@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 import {
 	AnalyticsListener,
 	withAnalyticsEvents,
@@ -63,7 +63,16 @@ describe('Media Analytics', () => {
 		jest.clearAllMocks();
 	});
 
-	it('Should provide an analytics event creator for Media Card', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<AnalyticsListener channel={FabricChannel.media} onEvent={jest.fn()}>
+				<div>Hi!</div>
+			</AnalyticsListener>,
+		);
+		await expect(container).toBeAccessible();
+	});
+
+	it('Should provide an analytics event creator for Media Card', async () => {
 		// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 		const SomeComponent = ({ onClick }: any) => <span onClick={onClick}>Hi!</span>;
 		const SomeWrappedComponent = withAnalyticsEvents({
@@ -71,12 +80,13 @@ describe('Media Analytics', () => {
 		})(SomeComponent);
 
 		const analyticsEventHandler = jest.fn();
-		const listener = mount(
+		render(
 			<AnalyticsListener channel={FabricChannel.media} onEvent={analyticsEventHandler}>
 				<SomeWrappedComponent />
 			</AnalyticsListener>,
 		);
-		listener.find(SomeComponent).simulate('click');
+
+		await userEvent.click(screen.getByText('Hi!'));
 
 		expect(analyticsEventHandler).toHaveBeenCalledTimes(1);
 		const actualEvent: Partial<UIAnalyticsEvent> = analyticsEventHandler.mock.calls[0][0];
@@ -98,7 +108,7 @@ describe('Media Analytics', () => {
 		const SomeWrappedComponent = withAnalyticsEvents()(SomeComponent);
 
 		const analyticsEventHandler = jest.fn();
-		mount(
+		render(
 			<AnalyticsListener channel={FabricChannel.media} onEvent={analyticsEventHandler}>
 				<SomeWrappedComponent />
 			</AnalyticsListener>,

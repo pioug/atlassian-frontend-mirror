@@ -119,7 +119,7 @@ describe(`${packageName}/schema expand node`, () => {
 						table({
 							localId: '0a61df83-1f2b-4004-8b41-877b96e4dab1',
 							width: 760,
-						})(tr(td({})(nestedExpand({ title: '' })(p(''))))),
+						})(tr(td({ localId: expect.any(String) })(nestedExpand({ title: '' })(p(''))))),
 					).toJSON(),
 				);
 			});

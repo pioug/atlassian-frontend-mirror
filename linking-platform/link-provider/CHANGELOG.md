@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 4.4.1
+
+### Patch Changes
+
+- [`ab1028c3f2948`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab1028c3f2948) -
+  Switch synchronized-post-office-and-smartcard-auth-exp gate out for
+  navx-smartcard-auth-event-listener-killswitch-fg
+
 ## 4.4.0
 
 ### Minor Changes

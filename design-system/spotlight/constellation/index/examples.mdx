@@ -13,7 +13,7 @@ import ActionsExample from '../../examples/constellation/actions';
 
 <SectionMessage title="Motion in Early Access" appearance="warning">
 	The motion added into Spotlight is in Early Access. The motion updates are currently behind the
-	feature flag: platform-dst-motion-uplift.
+	feature flag: platform-dst-motion-uplift-spotlight.
 </SectionMessage>
 
 ## Single step
@@ -31,7 +31,7 @@ To show/hide the `SpotlightCard`, simply use a `useState` to control the `isVisi
 <Example
 	Component={SingleStepExample}
 	packageName="@atlaskit/spotlight"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionSpotlight']}
 />
 
 ## Multi-step tour
@@ -44,7 +44,7 @@ re-render every time a new spotlight step is shown.
 <Example
 	Component={MultipleStepsExample}
 	packageName="@atlaskit/spotlight"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionSpotlight']}
 />
 
 ## Placements
@@ -56,7 +56,7 @@ displayed in full.
 <Example
 	Component={PlacementsExample}
 	packageName="@atlaskit/spotlight"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionSpotlight']}
 />
 
 ## Media
@@ -69,7 +69,7 @@ Media can be an image, gif, or video that helps communicate spotlight intent.
 <Example
 	Component={MediaExample}
 	packageName="@atlaskit/spotlight"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionSpotlight']}
 />
 
 ## Controls
@@ -95,5 +95,5 @@ When the primary or secondary control should navigate to a URL instead of perfor
 <Example
 	Component={ActionsExample}
 	packageName="@atlaskit/spotlight"
-	featureFlagSwitchers={['motion']}
+	featureFlagSwitchers={['motionSpotlight']}
 />

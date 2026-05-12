@@ -2266,6 +2266,11 @@ export const layoutColumn: {
           optional: boolean;
           type: string;
         };
+        valign: {
+          optional: boolean;
+          type: string;
+          values: string[];
+        };
         width: {
           maximum: number;
           minimum: number;
@@ -2291,6 +2296,11 @@ export const layoutColumn: {
         localId: {
           optional: true,
           type: 'string',
+        },
+        valign: {
+          optional: true,
+          type: 'enum',
+          values: ['top', 'middle', 'bottom'],
         },
         width: {
           maximum: 100,
@@ -4105,6 +4115,11 @@ export const tableCell: {
           optional: boolean;
           type: string;
         };
+        valign: {
+          optional: boolean;
+          type: string;
+          values: string[];
+        };
       };
     };
     content: {
@@ -4148,6 +4163,11 @@ export const tableCell: {
         rowspan: {
           optional: true,
           type: 'number',
+        },
+        valign: {
+          optional: true,
+          type: 'enum',
+          values: ['top', 'middle', 'bottom'],
         },
       },
     },
@@ -4217,6 +4237,11 @@ export const tableHeader: {
           optional: boolean;
           type: string;
         };
+        valign: {
+          optional: boolean;
+          type: string;
+          values: string[];
+        };
       };
     };
     content: {
@@ -4259,6 +4284,11 @@ export const tableHeader: {
         rowspan: {
           optional: true,
           type: 'number',
+        },
+        valign: {
+          optional: true,
+          type: 'enum',
+          values: ['top', 'middle', 'bottom'],
         },
       },
     },

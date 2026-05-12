@@ -9,7 +9,4 @@ export type {
 	BlockMenuPluginOptions,
 	BlockMenuSharedState,
 } from './blockMenuPluginType';
-export type {
-	TransformNodeMetadata,
-	TransfromNodeTargetType,
-} from './editor-commands/transforms/types';
+export type { TransformNodeMetadata, TransfromNodeTargetType } from './editor-commands/types';

@@ -157,14 +157,6 @@ const SecondChildWrapper = ({ children }: { children: React.ReactNode }) => {
 	);
 };
 
-/**
- * Placeholder component that reserves the toolbar's space during hydration
- * to prevent layout shift when the actual toolbar renders.
- */
-const ToolbarPlaceholder = () => {
-	return <div css={styles.toolbarPlaceholder} data-testid="ak-editor-main-toolbar-placeholder" />;
-};
-
 const shouldShowToolbarContainer = (
 	toolbar?: RegisterComponent,
 	customPrimaryToolbarComponents?: PrimaryToolbarComponents,
@@ -231,96 +223,29 @@ export const FullPageToolbarNext = ({
 		return <ToolbarPortal>{null}</ToolbarPortal>;
 	}
 
-	if (expValEquals('platform_editor_toolbar_two_stage_hydration', 'isEnabled', true)) {
-		return (
-			<ContextPanelConsumer>
-				{({ width: ContextPanelWidth }) => (
-					<ToolbarArrowKeyNavigationProvider
-						editorView={editorView}
-						childComponentSelector="[data-testid='ak-editor-main-toolbar']"
-						isShortcutToFocusToolbar={isShortcutToFocusToolbar}
-						handleEscape={handleEscape}
-						intl={intl}
-					>
-						<ToolbarPortal>
-							<MainToolbarWrapper
-								testId="ak-editor-main-toolbar"
-								showKeyline={showKeyline || ContextPanelWidth > 0}
-							>
-								{beforeIcon && (
-									<div css={[styles.mainToolbarIconBefore, styles.mainToolbarIconBeforeNew]}>
-										{beforeIcon}
-									</div>
-								)}
-								<>
-									<FirstChildWrapper>
-										<ExcludeFromHydration>
-											{primaryToolbarDockingConfigEnabled &&
-												components &&
-												isToolbar(toolbar) &&
-												editorView &&
-												!isSSR() && (
-													<ToolbarNext
-														toolbar={toolbar}
-														components={components}
-														editorView={editorView}
-														editorAPI={editorAPI}
-														popupsMountPoint={mountPoint}
-														editorAppearance="full-page"
-														isDisabled={disabled}
-													/>
-												)}
-										</ExcludeFromHydration>
-									</FirstChildWrapper>
-									<SecondChildWrapper>
-										<div css={styles.customToolbarWrapperStyle}>
-											{!!customPrimaryToolbarComponents &&
-												'before' in customPrimaryToolbarComponents && (
-													<div
-														css={[styles.beforePrimaryToolbarComponents]}
-														data-testid={'before-primary-toolbar-components-plugin'}
-													>
-														{customPrimaryToolbarComponents.before}
-													</div>
-												)}
-											{!!customPrimaryToolbarComponents && 'after' in customPrimaryToolbarComponents
-												? customPrimaryToolbarComponents.after
-												: customPrimaryToolbarComponents}
-										</div>
-									</SecondChildWrapper>
-									<ToolbarPortalMountPoint />
-								</>
-							</MainToolbarWrapper>
-						</ToolbarPortal>
-					</ToolbarArrowKeyNavigationProvider>
-				)}
-			</ContextPanelConsumer>
-		);
-	}
-
 	return (
 		<ContextPanelConsumer>
 			{({ width: ContextPanelWidth }) => (
-				<ExcludeFromHydration fallback={<ToolbarPlaceholder />}>
-					<ToolbarArrowKeyNavigationProvider
-						editorView={editorView}
-						childComponentSelector="[data-testid='ak-editor-main-toolbar']"
-						isShortcutToFocusToolbar={isShortcutToFocusToolbar}
-						handleEscape={handleEscape}
-						intl={intl}
-					>
-						<ToolbarPortal>
-							<MainToolbarWrapper
-								testId="ak-editor-main-toolbar"
-								showKeyline={showKeyline || ContextPanelWidth > 0}
-							>
-								{beforeIcon && (
-									<div css={[styles.mainToolbarIconBefore, styles.mainToolbarIconBeforeNew]}>
-										{beforeIcon}
-									</div>
-								)}
-								<>
-									<FirstChildWrapper>
+				<ToolbarArrowKeyNavigationProvider
+					editorView={editorView}
+					childComponentSelector="[data-testid='ak-editor-main-toolbar']"
+					isShortcutToFocusToolbar={isShortcutToFocusToolbar}
+					handleEscape={handleEscape}
+					intl={intl}
+				>
+					<ToolbarPortal>
+						<MainToolbarWrapper
+							testId="ak-editor-main-toolbar"
+							showKeyline={showKeyline || ContextPanelWidth > 0}
+						>
+							{beforeIcon && (
+								<div css={[styles.mainToolbarIconBefore, styles.mainToolbarIconBeforeNew]}>
+									{beforeIcon}
+								</div>
+							)}
+							<>
+								<FirstChildWrapper>
+									<ExcludeFromHydration>
 										{primaryToolbarDockingConfigEnabled &&
 											components &&
 											isToolbar(toolbar) &&
@@ -336,29 +261,29 @@ export const FullPageToolbarNext = ({
 													isDisabled={disabled}
 												/>
 											)}
-									</FirstChildWrapper>
-									<SecondChildWrapper>
-										<div css={styles.customToolbarWrapperStyle}>
-											{!!customPrimaryToolbarComponents &&
-												'before' in customPrimaryToolbarComponents && (
-													<div
-														css={[styles.beforePrimaryToolbarComponents]}
-														data-testid={'before-primary-toolbar-components-plugin'}
-													>
-														{customPrimaryToolbarComponents.before}
-													</div>
-												)}
-											{!!customPrimaryToolbarComponents && 'after' in customPrimaryToolbarComponents
-												? customPrimaryToolbarComponents.after
-												: customPrimaryToolbarComponents}
-										</div>
-									</SecondChildWrapper>
-									<ToolbarPortalMountPoint />
-								</>
-							</MainToolbarWrapper>
-						</ToolbarPortal>
-					</ToolbarArrowKeyNavigationProvider>
-				</ExcludeFromHydration>
+									</ExcludeFromHydration>
+								</FirstChildWrapper>
+								<SecondChildWrapper>
+									<div css={styles.customToolbarWrapperStyle}>
+										{!!customPrimaryToolbarComponents &&
+											'before' in customPrimaryToolbarComponents && (
+												<div
+													css={[styles.beforePrimaryToolbarComponents]}
+													data-testid={'before-primary-toolbar-components-plugin'}
+												>
+													{customPrimaryToolbarComponents.before}
+												</div>
+											)}
+										{!!customPrimaryToolbarComponents && 'after' in customPrimaryToolbarComponents
+											? customPrimaryToolbarComponents.after
+											: customPrimaryToolbarComponents}
+									</div>
+								</SecondChildWrapper>
+								<ToolbarPortalMountPoint />
+							</>
+						</MainToolbarWrapper>
+					</ToolbarPortal>
+				</ToolbarArrowKeyNavigationProvider>
 			)}
 		</ContextPanelConsumer>
 	);

@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.20.1
+
+### Patch Changes
+
+- [`43cf23ba73745`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43cf23ba73745) -
+  Clean up platform_ufo_terminal_errors_fix_missing_data
+
+## 5.20.0
+
+### Minor Changes
+
+- [`7454df4d43465`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7454df4d43465) -
+  Trim leading slashes from UFO label stack names
+
 ## 5.19.0
 
 ### Minor Changes

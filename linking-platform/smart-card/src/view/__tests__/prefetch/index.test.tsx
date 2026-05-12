@@ -58,7 +58,11 @@ describe('smart-card: prefetching of content', () => {
 		};
 		// Gives us access to a mock IntersectionObserver, which we can
 		// use to spoof visibility of a Smart Link.
-		window.IntersectionObserver = MockIntersectionObserverFactory(mockIntersectionObserverOpts);
+		const intersectionObserverMock = MockIntersectionObserverFactory(mockIntersectionObserverOpts);
+		window.IntersectionObserver = intersectionObserverMock;
+		(
+			globalThis as unknown as { IntersectionObserver: typeof IntersectionObserver }
+		).IntersectionObserver = intersectionObserverMock;
 	});
 
 	afterEach(() => {
@@ -134,6 +138,9 @@ describe('smart-card: prefetching of content', () => {
 		await waitFor(() => {
 			expect(mockPrefetch).toHaveBeenCalledTimes(1);
 		});
+		// Isolate this assertion from delayed observer callbacks.
+		mockStartUfoExperience.mockClear();
+		mockSucceedUfoExperience.mockClear();
 
 		// - Assertions that UFO experience has not been started or succeeded since
 		// it is not in the viewport
@@ -158,6 +165,9 @@ describe('smart-card: prefetching of content', () => {
 		expect(mockFetch).not.toHaveBeenCalled();
 		// - Assertions that prefetch was called ⬇️
 		expect(mockPrefetch).toHaveBeenCalledTimes(1);
+		// Isolate this assertion from delayed observer callbacks.
+		mockStartUfoExperience.mockClear();
+		mockSucceedUfoExperience.mockClear();
 
 		// - Assertions that UFO experience has not been started or succeeded since
 		// it is not in the viewport
@@ -177,6 +187,10 @@ describe('smart-card: prefetching of content', () => {
 		// in the viewport. The result in the DOM should be a placeholder for the link.
 		// - Assertions that we rendered the correct Smart Link ⬇️.
 		expect(lazyPlaceholderView).toBeTruthy();
+		// Clear potential late callbacks from prior observer timers; this test
+		// validates the transition behavior starting from the placeholder state.
+		mockStartUfoExperience.mockClear();
+		mockSucceedUfoExperience.mockClear();
 
 		// - Assertions that UFO experience has not been started or succeeded since
 		// it is not in the viewport

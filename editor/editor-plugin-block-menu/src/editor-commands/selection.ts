@@ -1,7 +1,7 @@
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import type { TransfromNodeTargetType } from './transforms/types';
+import type { TransfromNodeTargetType } from './types';
 
 /**
  * Sets the appropriate selection after transforming a node to a target type

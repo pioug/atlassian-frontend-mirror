@@ -79,6 +79,20 @@ export function placementToPositionArea({ placement }: { placement: TPlacementOp
  * For aligned placements (start/end), includes the same-edge centered
  * position as fallbacks so the browser can try centering when the aligned
  * position would overflow, before flipping to the opposite edge.
+ *
+ * **Why `flip-inline flip-block` (or `flip-block flip-inline`) is included:**
+ *
+ * When a popup is in a viewport corner (e.g. inline-end align-end at the
+ * top-right), flipping only the primary axis (`flip-inline`) moves the popup
+ * to the left but keeps the same cross-axis span direction (e.g. upward),
+ * which is still off-screen. The combined keyword `flip-inline flip-block`
+ * mirrors the popup diagonally — it flips BOTH the position-area AND both
+ * inline and block margins simultaneously, placing the popup at the
+ * diagonally opposite corner where there is always space.
+ *
+ * Named `position-area` entries (e.g. `inline-start span-block-end`) in
+ * `position-try-fallbacks` do NOT update margins, so only the `flip-*`
+ * tactic keywords correctly flip the gap margin along with the position.
  */
 export function placementToTryFallbacks({ placement }: { placement: TPlacementOptions }): string {
 	const { axis, edge, align } = getPlacement({ placement });
@@ -89,13 +103,15 @@ export function placementToTryFallbacks({ placement }: { placement: TPlacementOp
 		const sameEdge = `${axis}-${edge}`;
 		const oppositeEdge = `${axis}-${flippedEdge}`;
 		const flipKeyword = axis === 'block' ? 'flip-block' : 'flip-inline';
+		const flipCrossKeyword = axis === 'block' ? 'flip-inline' : 'flip-block';
+		// Try same-edge shifts first; two flip entries cover single-edge then corner overflow.
 		// Legacy Popper fallbacks for e.g. bottom-start: [bottom, bottom-end, top-start, top, top-end, auto].
-		// Include same-edge centered so the browser can try center when start/end would overflow.
 		return [
 			`${sameEdge} span-${crossAxis}-${align === 'start' ? 'end' : 'start'}`,
 			sameEdge,
 			`${sameEdge} span-${crossAxis}-${align === 'start' ? 'start' : 'end'}`,
 			flipKeyword,
+			`${flipKeyword} ${flipCrossKeyword}`,
 			`${oppositeEdge} span-${crossAxis}-${align === 'start' ? 'end' : 'start'}`,
 			oppositeEdge,
 			`${oppositeEdge} span-${crossAxis}-${align === 'start' ? 'start' : 'end'}`,
@@ -359,6 +375,9 @@ export function useAnchorPosition({
 				// with anchor positioning (UA: `inset: 0; margin: auto;`)
 				{ property: 'margin', value: '0' },
 				{ property: 'inset', value: 'auto' },
+				// Ensures the popup's margin box overflows the viewport when its span region is too
+				// narrow, triggering position-try-fallbacks correctly rather than wrapping content.
+				{ property: 'min-inline-size', value: 'max-content' },
 				// Main-axis gap between the popover and its trigger
 				{ property: gap.property, value: gap.value },
 				// Cross-axis shift

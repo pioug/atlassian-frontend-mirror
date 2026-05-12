@@ -1,5 +1,16 @@
 # @atlaskit/conversation
 
+## 25.2.0
+
+### Minor Changes
+
+- [`97eb246201d1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97eb246201d1f) -
+  Extend react and react-dom version range to include 19
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.1.0
 
 ### Minor Changes

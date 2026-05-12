@@ -59,6 +59,7 @@ import type { LayoutState } from './pm-plugins/types';
 import { GlobalStylesWrapper } from './ui/global-styles';
 import { createLayoutBlockMenuItem } from './ui/LayoutBlockMenuItem';
 import { LayoutColumnMenu } from './ui/LayoutColumnMenu';
+import { getLayoutColumnMenuComponents } from './ui/LayoutColumnMenu/components';
 import { buildToolbar } from './ui/toolbar';
 
 const LAYOUT_SECTION_NODE_NAME = 'layoutSection';
@@ -115,6 +116,10 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 					Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(LAYOUT_SECTION_NODE_NAME)),
 			},
 		]);
+	}
+
+	if (expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
+		api?.uiControlRegistry?.actions.register(getLayoutColumnMenuComponents({ api }));
 	}
 
 	return {

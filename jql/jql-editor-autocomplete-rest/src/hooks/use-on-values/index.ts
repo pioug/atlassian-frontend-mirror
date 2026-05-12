@@ -39,7 +39,14 @@ const getValueType = (field: JQLFieldResponse): AutocompleteValueType | void => 
 	if (field.types.includes(TEAM_FIELD_TYPE)) {
 		return 'team';
 	}
-	if (field.types.includes(PROJECT_FIELD_TYPE) && FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1) {
+	if (
+		field.types.includes(PROJECT_FIELD_TYPE) &&
+		FeatureGates.getExperimentValue(
+			'atlassian_projects_-_native_integration',
+			'releaseVersion',
+			-1,
+		) >= 1
+	) {
 		return 'project';
 	}
 	if (
@@ -138,7 +145,12 @@ const useOnValues = (
 												'isEnabled',
 												false,
 											)) ||
-										(valueType === 'project' && FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1)
+										(valueType === 'project' &&
+											FeatureGates.getExperimentValue(
+												'atlassian_projects_-_native_integration',
+												'releaseVersion',
+												-1,
+											) >= 1)
 									) {
 										values.forEach((value: AutocompleteOption) => {
 											value.valueType = valueType;

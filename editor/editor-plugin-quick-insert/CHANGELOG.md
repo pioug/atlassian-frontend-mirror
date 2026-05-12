@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 10.2.10
+
+### Patch Changes
+
+- [`858c695a0a315`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/858c695a0a315) -
+  [EDITOR-6718] Show "Ask Rovo" action in the type-ahead empty search state
+- Updated dependencies
+
+## 10.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.2.8
 
 ### Patch Changes

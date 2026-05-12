@@ -1,6 +1,6 @@
 import type { API, Collection, ImportDeclaration, JSXElement } from 'jscodeshift';
 
-import { entryPointsMapping } from '../utils/constants';
+import { entryPointsMapping } from './entry-points-mapping';
 
 export const renameDefaultButtonToLegacyButtonImport: (
 	oldButtonImport: Collection<ImportDeclaration>,

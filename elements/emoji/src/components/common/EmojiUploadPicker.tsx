@@ -207,6 +207,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 						spacing="none"
 						shouldFitContainer={true}
 						testId={cancelEmojiUploadPickerTestId}
+						name={messages.addCustomEmojiLabel.defaultMessage}
 					>
 						<CrossIcon color="currentColor" label={cancelLabel} />
 					</AkButton>

@@ -29,7 +29,7 @@ snapshot(HoverCard, {
 		},
 	],
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 	waitForReactLazy: true,
 });
@@ -64,7 +64,7 @@ snapshot(HoverCardActions, {
 	],
 	variants: [{ name: 'light mode', environment: { colorScheme: 'light' } }],
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 	waitForReactLazy: true,
 });
@@ -79,7 +79,7 @@ snapshot(HoverCardActions, {
 		},
 	],
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 	waitForReactLazy: true,
 });
@@ -164,7 +164,7 @@ snapshot(HoverCardPositioning, {
 		},
 	],
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 	waitForReactLazy: true,
 });
@@ -191,7 +191,7 @@ snapshot(HoverCardPositioning, {
 		},
 	],
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 	waitForReactLazy: true,
 });

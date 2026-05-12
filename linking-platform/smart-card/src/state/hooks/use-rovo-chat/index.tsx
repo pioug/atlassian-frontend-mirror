@@ -22,6 +22,7 @@ const useRovoChat = (): {
 	const { publishWithPostMessage } = useRovoPostMessageToPubsub();
 
 	const isRovoChatEnabled = getIsRovoChatEnabled(config);
+	const isJiraProduct = product && JIRA_PRODUCTS.includes(product);
 
 	const sendPromptMessage = useCallback(
 		(data: SendPromptMessageData) => {
@@ -37,10 +38,9 @@ const useRovoChat = (): {
 					},
 					openChat: true,
 					openChatMode:
-						(product &&
-							JIRA_PRODUCTS.includes(product) &&
-							fg('platform_sl_3p_auth_rovo_block_jira_kill_switch')) ||
-						fg('rovogrowth-640-inline-action-nudge-fg')
+						isJiraProduct &&
+						(fg('platform_sl_3p_auth_rovo_block_jira_kill_switch') ||
+							fg('rovogrowth-640-inline-action-nudge-fg'))
 							? 'mini-modal'
 							: 'sidebar',
 				},
@@ -49,7 +49,7 @@ const useRovoChat = (): {
 				},
 			});
 		},
-		[publishWithPostMessage, product],
+		[publishWithPostMessage, isJiraProduct],
 	);
 
 	return useMemo(

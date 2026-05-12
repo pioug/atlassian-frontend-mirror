@@ -59,14 +59,17 @@ const ErrorBoundaryComponent: React.FC<ErrorBoundaryProps> = ({ message, isSelec
 		color: token('color.text'),
 		backgroundColor: token('color.background.neutral'),
 		userSelect: 'text',
-		transition: 'all 0.1s ease-in-out 0s',
+		transitionProperty: 'all',
+		transitionDuration: token('motion.duration.xshort', '0.1s'),
+		transitionTimingFunction: token('motion.easing.inout.bold', 'ease-in-out'),
+		transitionDelay: '0s',
 		cursor: 'pointer',
 		...(isSelected ? { ...selectedStyle } : { userSelect: 'text' }),
 	};
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<span style={style}>
+		<span data-testid="media-inline-error-boundary" style={style}>
 			<WarningIcon label="error" color={token('color.icon.danger')} size="small" />
 			{message}
 		</span>

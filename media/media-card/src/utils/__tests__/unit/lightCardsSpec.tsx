@@ -1,17 +1,19 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import SpinnerIcon from '@atlaskit/spinner';
+import { render, screen } from '@atlassian/testing-library';
 
 import { CardLoading } from '../../lightCards/cardLoading';
 import { CardError } from '../../lightCards/cardError';
 import { getDimensionsWithDefault } from '../../lightCards/getDimensionsWithDefault';
-import { ErrorIcon } from '../../lightCards/errorIcon';
 
 describe('<CardLoading />', () => {
-	it('should render spinner', () => {
-		const fileLoading = shallow(<CardLoading />);
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<CardLoading />);
+		await expect(container).toBeAccessible();
+	});
 
-		expect(fileLoading.find(SpinnerIcon)).toHaveLength(1);
+	it('should render spinner', () => {
+		render(<CardLoading />);
+		expect(screen.getByTestId('media-card-loading')).toBeInTheDocument();
 	});
 
 	describe('getDimensionsWithDefault()', () => {
@@ -32,10 +34,14 @@ describe('<CardLoading />', () => {
 });
 
 describe('<CardError />', () => {
-	it('should render the right icon based on the itemType', () => {
-		const fileError = shallow(<CardError />);
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<CardError />);
+		await expect(container).toBeAccessible();
+	});
 
-		expect(fileError.find(ErrorIcon)).toHaveLength(1);
+	it('should render the right icon based on the itemType', () => {
+		render(<CardError />);
+		expect(screen.getByLabelText('Error')).toBeInTheDocument();
 	});
 
 	describe('getDimensionsWithDefault()', () => {

@@ -77,6 +77,7 @@ export interface Props {
 	emojis: EmojiDescription[];
 	onDelete?: OnEmojiEvent;
 	onFocus?: OnEmojiEvent;
+	onMouseLeave?: () => void;
 	onMouseMove?: OnEmojiEvent;
 	onSelected?: OnEmojiEvent;
 	showDelete: boolean;
@@ -88,6 +89,7 @@ const EmojiPickerEmojiRow = ({
 	emojis,
 	onSelected,
 	onMouseMove,
+	onMouseLeave,
 	onFocus,
 	title,
 	showDelete,
@@ -118,6 +120,9 @@ const EmojiPickerEmojiRow = ({
 						key={key}
 						role="gridcell"
 						aria-colindex={index + 1} // aria-colindex is 1 based
+						onMouseLeave={onMouseLeave}
+						onBlur={onMouseLeave}
+						tabIndex={0}
 					>
 						<CachingEmoji
 							emoji={emoji}
@@ -145,6 +150,7 @@ const _default_1: MemoExoticComponent<
 		emojis,
 		onSelected,
 		onMouseMove,
+		onMouseLeave,
 		onFocus,
 		title,
 		showDelete,

@@ -1,5 +1,18 @@
 # @atlaskit/icon-lab
 
+## 6.9.0
+
+### Minor Changes
+
+- [`3324f4e01c411`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3324f4e01c411) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `ai-agent-add`
+  - `emoji-sad`
+
 ## 6.8.0
 
 ### Minor Changes

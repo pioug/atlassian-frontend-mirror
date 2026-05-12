@@ -1,6 +1,19 @@
-import { buildSegmentTree } from './index';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
+import { type Config, setUFOConfig } from '../../../config';
+
+import { buildSegmentTree, getOldSegmentsLabelStack } from './index';
+
+const setSlashySegmentThreshold = () => {
+	setUFOConfig({ segmentsThreshold: { slashy: 1 } } as unknown as Config);
+};
 
 describe('buildSegmentTree', () => {
+	beforeEach(() => {
+		// @ts-expect-error - intentionally reset to undefined for tests
+		setUFOConfig(undefined);
+	});
+
 	it('should correctly build a segment tree from the mock data', () => {
 		// Convert mock data to the format expected by buildSegmentTree
 		const mockData = [
@@ -192,4 +205,124 @@ describe('buildSegmentTree', () => {
 			},
 		});
 	});
+
+	ffTest(
+		'platform_ufo_trim_labelstack_slashes',
+		() => {
+			setSlashySegmentThreshold();
+
+			const result = buildSegmentTree([
+				[
+					{ name: '/slashy', segmentId: 'first' },
+					{ name: 'child', segmentId: 'child-first' },
+				],
+				[
+					{ name: '/slashy', segmentId: 'second' },
+					{ name: 'child', segmentId: 'child-second' },
+				],
+			]);
+
+			expect(result).toEqual({
+				r: {
+					n: 'segment-tree-root',
+					c: {
+						first: {
+							n: 'slashy',
+							c: {
+								'child-first': { n: 'child' },
+							},
+						},
+					},
+				},
+			});
+		},
+		() => {
+			setSlashySegmentThreshold();
+
+			const result = buildSegmentTree([
+				[
+					{ name: '/slashy', segmentId: 'first' },
+					{ name: 'child', segmentId: 'child-first' },
+				],
+				[
+					{ name: '/slashy', segmentId: 'second' },
+					{ name: 'child', segmentId: 'child-second' },
+				],
+			]);
+
+			expect(result.r.c).toHaveProperty('first');
+			expect(result.r.c).toHaveProperty('second');
+		},
+	);
+
+	ffTest(
+		'platform_ufo_trim_labelstack_slashes',
+		() => {
+			setSlashySegmentThreshold();
+
+			const result = getOldSegmentsLabelStack(
+				[
+					{
+						labelStack: [
+							{ name: '/slashy', segmentId: 'first' },
+							{ name: 'child', segmentId: 'child-first' },
+						],
+					},
+					{
+						labelStack: [
+							{ name: '/slashy', segmentId: 'second' },
+							{ name: 'child', segmentId: 'child-second' },
+						],
+					},
+				],
+				'transition',
+			);
+
+			expect(result).toEqual([
+				{
+					labelStack: [
+						{ n: 'slashy', s: 'first' },
+						{ n: 'child', s: 'child-first' },
+					],
+				},
+				{ labelStack: [] },
+			]);
+		},
+		() => {
+			setSlashySegmentThreshold();
+
+			const result = getOldSegmentsLabelStack(
+				[
+					{
+						labelStack: [
+							{ name: '/slashy', segmentId: 'first' },
+							{ name: 'child', segmentId: 'child-first' },
+						],
+					},
+					{
+						labelStack: [
+							{ name: '/slashy', segmentId: 'second' },
+							{ name: 'child', segmentId: 'child-second' },
+						],
+					},
+				],
+				'transition',
+			);
+
+			expect(result).toEqual([
+				{
+					labelStack: [
+						{ n: '/slashy', s: 'first' },
+						{ n: 'child', s: 'child-first' },
+					],
+				},
+				{
+					labelStack: [
+						{ n: '/slashy', s: 'second' },
+						{ n: 'child', s: 'child-second' },
+					],
+				},
+			]);
+		},
+	);
 });

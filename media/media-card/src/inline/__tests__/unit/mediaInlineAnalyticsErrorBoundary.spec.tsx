@@ -1,11 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@atlassian/testing-library';
 import * as analyticsModule from '../../../utils/analytics/analytics';
 import MediaInlineAnalyticsErrorBoundary from '../../mediaInlineAnalyticsErrorBoundary';
 
 const fireOperationalEvent = jest.spyOn(analyticsModule, 'fireMediaCardEvent');
 
-class MockComponent extends React.Component<{ callFn?: Function }> {
+class MockComponent extends React.Component<{ callFn?: () => void }> {
 	componentDidMount() {
 		this.props?.callFn && this.props.callFn();
 	}
@@ -17,34 +17,63 @@ const rejectWithError = () => {
 	throw new Error('whatever');
 };
 
-// Skipping as tests timing out due to open handles (#hot-112198)
-describe.skip('MediaInlineAnalyticsErrorBoundary', () => {
+describe('MediaInlineAnalyticsErrorBoundary a11y', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<MediaInlineAnalyticsErrorBoundary>
+				<MockComponent />
+			</MediaInlineAnalyticsErrorBoundary>,
+		);
+		await expect(container).toBeAccessible();
+	});
+});
+
+/*
+ * Re-enabled in the Enzyme → RTL migration.
+ *
+ * Originally skipped on 2024-10-10 (PR #150687, ref #hot-112198) because the
+ * Enzyme `mount`-based assertions left open handles and timed out CI:
+ *   - the `withAnalyticsEvents` HOC subscription was not torn down between tests
+ *   - `componentDidCatch` → `setState({ hasError: true })` left pending React
+ *     work scheduled after the test body returned
+ *
+ * Migrating to RTL `render` resolves both: `@testing-library/react` registers
+ * an automatic `cleanup()` in `afterEach`, which unmounts the tree (tearing
+ * down the analytics subscription) and flushes the trailing `setState` before
+ * the next test starts. Verified locally with `afm test unit ... --run-in-band`:
+ * all 3 tests pass with no open-handle warnings.
+ */
+describe('MediaInlineAnalyticsErrorBoundary', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 	});
 
 	it(`should render inline child component`, () => {
-		const component = mount(
+		render(
 			<MediaInlineAnalyticsErrorBoundary>
 				<MockComponent />
 			</MediaInlineAnalyticsErrorBoundary>,
 		);
-		expect(component.find(MockComponent).exists()).toBe(true);
+		expect(screen.getByText('Mock Component')).toBeInTheDocument();
 	});
 
 	it(`should render error boundary component when error thrown with the correct message`, () => {
-		const component = mount(
+		// React logs caught errors via console.error; silence to keep test output clean.
+		const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+		render(
 			<MediaInlineAnalyticsErrorBoundary>
 				<MockComponent callFn={rejectWithError} />
 			</MediaInlineAnalyticsErrorBoundary>,
 		);
-		const inlineCardErrorView = component.find('ErrorBoundaryComponent');
-		expect(inlineCardErrorView.exists()).toBe(true);
-		expect(inlineCardErrorView.prop('message')).toBe("We couldn't load this content");
+		const errorBoundary = screen.getByTestId('media-inline-error-boundary');
+		expect(errorBoundary).toBeInTheDocument();
+		expect(errorBoundary).toHaveTextContent("We couldn't load this content");
+		consoleSpy.mockRestore();
 	});
 
 	it(`should fire operational event on rendering`, () => {
-		mount(
+		const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+		render(
 			<MediaInlineAnalyticsErrorBoundary>
 				<MockComponent callFn={rejectWithError} />
 			</MediaInlineAnalyticsErrorBoundary>,
@@ -66,5 +95,6 @@ describe.skip('MediaInlineAnalyticsErrorBoundary', () => {
 			},
 			expect.any(Function),
 		);
+		consoleSpy.mockRestore();
 	});
 });

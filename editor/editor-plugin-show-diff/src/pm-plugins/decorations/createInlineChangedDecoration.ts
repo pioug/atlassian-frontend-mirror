@@ -9,6 +9,7 @@ import {
 	editingStyleActive,
 	deletedContentStyle,
 	deletedContentStyleActive,
+	deletedInlineContentBackground,
 } from './colorSchemes/standard';
 import {
 	traditionalInsertStyle,
@@ -62,6 +63,12 @@ export const createInlineChangedDecoration = ({
 				style = getDeletedTraditionalInlineStyle(false);
 			} else {
 				style = isActive ? deletedContentStyleActive : deletedContentStyle;
+				/**
+				 * Merge into existing styles when cleaning up
+				 */
+				if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+					style += deletedInlineContentBackground;
+				}
 			}
 		}
 	} else {

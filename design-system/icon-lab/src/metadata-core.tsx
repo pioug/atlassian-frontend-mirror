@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::ef4a0f5905987f55e6f56a47531792f9>>
+ * @codegen <<SignedSource::17d0edaac6a62386d80c2170e2f17807>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -64,6 +64,25 @@ interface metadata {
 }
 
 const metadata: Record<string, metadata> = {
+	'ai-agent-add': {
+		keywords: [
+			'ai-agent-add',
+			'aiagentadd',
+			'icon',
+			'icon-lab',
+			'agent',
+			'ai agent',
+			'add',
+			'plus',
+			'ai',
+		],
+		componentName: 'AiAgentAddIcon',
+		package: '@atlaskit/icon-lab/core/ai-agent-add',
+		categorization: 'single-purpose',
+		usage: 'Reserved for adding AI agents in Atlassian apps',
+		team: 'Jira frontier',
+		status: 'published',
+	},
 	'ai-bot': {
 		keywords: ['ai-bot', 'aibot', 'icon', 'icon-lab', 'AI', 'chat bot'],
 		componentName: 'AiBotIcon',
@@ -3964,6 +3983,26 @@ const metadata: Record<string, metadata> = {
 			'Reserved for representing premium features in upsell experiences. The Editions gem icon has officially replaced the sparkle icon.',
 		team: 'Design System Team',
 		status: 'published',
+	},
+	'emoji-sad': {
+		keywords: [
+			'emoji-sad',
+			'emojisad',
+			'icon',
+			'icon-lab',
+			'emoji-sad',
+			'emojisad',
+			'sad-emoji',
+			'sad',
+			'negative',
+		],
+		componentName: 'EmojiSadIcon',
+		package: '@atlaskit/icon-lab/core/emoji-sad',
+		categorization: 'single-purpose',
+		usage: 'Reserved for presenting a sad tone or negative sentiment.',
+		team: 'Jira Service Management',
+		status: 'published',
+		slackChannel: '#jsm-phoenix',
 	},
 	'expand-element': {
 		keywords: ['expand-element', 'expandelement', 'icon', 'icon-lab', 'expand', 'editor object'],

@@ -1,15 +1,17 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render, screen } from '@atlassian/testing-library';
 import { PlayButton } from '../playButton';
-import VidPlayIcon from '@atlaskit/icon/core/video-play-overlay';
-import { PlayButtonWrapper } from '../playButtonWrapper';
-import { PlayButtonBackground } from '../playButtonBackground';
 
 describe('PlayButton', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<PlayButton />);
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render PlayButton properly', () => {
-		const playButton = shallow(<PlayButton />);
-		expect(playButton.find(PlayButtonWrapper)).toHaveLength(1);
-		expect(playButton.find(PlayButtonBackground)).toHaveLength(1);
-		expect(playButton.find(VidPlayIcon)).toHaveLength(1);
+		render(<PlayButton />);
+		expect(screen.getByTestId('media-card-play-button-wrapper')).toBeInTheDocument();
+		expect(screen.getByTestId('media-card-play-button-background')).toBeInTheDocument();
+		expect(screen.getByLabelText('play')).toBeInTheDocument();
 	});
 });

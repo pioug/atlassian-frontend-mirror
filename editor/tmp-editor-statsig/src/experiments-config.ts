@@ -1607,13 +1607,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-03-19
-	platform_editor_toolbar_two_stage_hydration: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-04-09
 	platform_editor_fix_selection_wrapped_media_embed: {
 		defaultValue: boolean;
@@ -1903,6 +1896,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-05-06
 	'jira-smart-replies-v2': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-05-01
+	platform_editor_ai_replace_doc: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -3668,14 +3668,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-19
-	platform_editor_toolbar_two_stage_hydration: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_two_stage_hydration',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-15
 	platform_editor_stricter_panelcolor_typecheck: createBooleanExperiment({
 		productKeys: {
@@ -4085,6 +4077,15 @@ export const editorExperimentsConfig: {
 	'jira-smart-replies-v2': createBooleanExperiment({
 		productKeys: {
 			jira: 'jira-smart-replies-v2',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-01
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_ai_replace_doc/setup
+	platform_editor_ai_replace_doc: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_replace_doc',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

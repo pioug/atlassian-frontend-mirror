@@ -1,7 +1,7 @@
 import type { ElementType, ReactElement, ReactNode } from 'react';
 
 import type { ResizeButtonProps } from '../components/resize-control/types';
-import type { LeftSidebarState } from '../controllers/sidebar-resize-context';
+import type { LeftSidebarState } from '../controllers/types';
 
 interface SlotProps {
 	/**
@@ -139,5 +139,3 @@ export interface PageLayoutProps extends SidebarResizeControllerProps {
 	 */
 	testId?: string;
 }
-
-export type { LeftSidebarState } from '../controllers/sidebar-resize-context';

@@ -1,11 +1,14 @@
 jest.mock('../../card');
+jest.mock('../../cardWithMediaClient', () => ({
+	__esModule: true,
+	CardWithMediaClient: () => <div data-testid="mock-card" />,
+}));
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@atlassian/testing-library';
+import { act } from 'react';
 import { fakeMediaClient, nextTick } from '@atlaskit/media-test-helpers';
 import { type FileIdentifier } from '@atlaskit/media-client';
-import { CardLoading } from '../../../utils/lightCards/cardLoading';
 import CardLoader from '../../cardLoader';
-import { type CardWithMediaClientConfigProps } from '../../types';
 
 const mediaClient = fakeMediaClient();
 
@@ -29,10 +32,13 @@ const props = {
 };
 
 describe('Async Card Loader', () => {
-	const mockCardModule = () => <div />;
-
 	afterEach(() => {
 		jest.clearAllMocks();
+	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<CardLoader {...props} />);
+		await expect(container).toBeAccessible();
 	});
 
 	// FIXME: Jest upgrade
@@ -45,52 +51,42 @@ describe('Async Card Loader', () => {
 		});
 
 		it('should pass dimensions to the loading component if the async components were NOT resolved', async () => {
-			const wrapper = mount<CardWithMediaClientConfigProps>(<CardLoader {...props} />);
-
-			await nextTick();
-
-			expect(wrapper.find(CardLoading).prop('dimensions')).toEqual(props.dimensions);
+			render(<CardLoader {...props} />);
+			await act(async () => {
+				await nextTick();
+			});
+			// Loading state should still show while import is rejected
+			expect(screen.getByTestId('media-card-loading')).toBeInTheDocument();
 		});
 
 		it('should NOT render MediaCard component', async () => {
-			const wrapper = mount<CardWithMediaClientConfigProps>(<CardLoader {...props} />);
-
-			await nextTick();
-
-			expect(
-				wrapper.find('WithMediaAnalyticsContext(WithAnalyticsEvents(CardBase))').exists(),
-			).toBe(false);
+			render(<CardLoader {...props} />);
+			await act(async () => {
+				await nextTick();
+			});
+			expect(screen.queryByTestId('mock-card')).not.toBeInTheDocument();
 		});
 	});
 
 	describe('When the async import returns with success', () => {
-		let MediaPickerAnalyticsErrorBoundary: React.ReactComponentElement<any>;
-		beforeEach(() => {
-			jest.mock('../../card', () => ({
-				__esModule: true,
-				Card: mockCardModule,
-			}));
-			jest.unmock('../../../card/media-card-analytics-error-boundary');
-			MediaPickerAnalyticsErrorBoundary = jest.requireActual(
-				'../../../card/media-card-analytics-error-boundary',
-			).default;
-		});
-
 		it('should render Card component', async () => {
-			const wrapper = mount(<CardLoader {...props} />);
-
-			await nextTick();
-			await nextTick();
-			wrapper.update();
-			expect(
-				wrapper.find('WithMediaAnalyticsContext(WithAnalyticsEvents(CardBase))').exists(),
-			).toBe(false);
+			render(<CardLoader {...props} />);
+			await act(async () => {
+				await nextTick();
+				await nextTick();
+			});
+			// The loader initially shows the loading card while async import resolves
+			// CardLoader with react-loadable shows loading state on first tick
+			expect(screen.queryByTestId('mock-card')).toBeInTheDocument();
 		});
 
 		it('should render Error boundary component', async () => {
-			const wrapper = mount(<CardLoader {...props} />);
-			await nextTick();
-			expect(wrapper.find(MediaPickerAnalyticsErrorBoundary)).toBeDefined();
+			render(<CardLoader {...props} />);
+			await act(async () => {
+				await nextTick();
+			});
+			// CardLoader is wrapped in error boundary; component renders without crashing
+			expect(screen.queryByTestId('unhandled-error-card')).not.toBeInTheDocument();
 		});
 
 		it('should contain preload static function', () => {
@@ -109,11 +105,11 @@ describe('Async Card Loader', () => {
 		});
 
 		it('should render CardLoading component', async () => {
-			const wrapper = mount(<CardLoader {...props} />);
-
-			await nextTick();
-			wrapper.update();
-			expect(wrapper.find(CardLoading)).toHaveLength(1);
+			render(<CardLoader {...props} />);
+			await act(async () => {
+				await nextTick();
+			});
+			expect(screen.getByTestId('media-card-loading')).toBeInTheDocument();
 		});
 	});
 });

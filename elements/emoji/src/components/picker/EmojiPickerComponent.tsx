@@ -214,6 +214,12 @@ const EmojiPickerComponent = ({
 		[selectedEmoji],
 	);
 
+	const onEmojiLeave = useCallback(() => {
+		if (fg('platform_emoji_picker_refresh')) {
+			setSelectedEmoji(undefined);
+		}
+	}, []);
+
 	const onCategoryActivated = useCallback(
 		(category: CategoryId | null) => {
 			// Ignore scroll-driven category changes while a programmatic reveal()
@@ -669,7 +675,9 @@ const EmojiPickerComponent = ({
 		};
 	}, [emojiProvider, onProviderChange]);
 
-	const showPreview = selectedEmoji && !uploading;
+	const showPreview = fg('platform_emoji_picker_refresh')
+		? !uploading
+		: selectedEmoji && !uploading;
 
 	if (fg('platform_no_noninteractive_emojis_reactions')) {
 		return (
@@ -703,6 +711,7 @@ const EmojiPickerComponent = ({
 						currentUser={currentUser}
 						onEmojiSelected={recordUsageOnSelection}
 						onEmojiActive={onEmojiActive}
+						onEmojiLeave={onEmojiLeave}
 						onEmojiDelete={onTriggerDelete}
 						onCategoryActivated={onCategoryActivated}
 						onSearch={onSearch}
@@ -727,7 +736,13 @@ const EmojiPickerComponent = ({
 						size={size}
 						activeCategoryId={activeCategory}
 					/>
-					{showPreview && <EmojiPickerFooter selectedEmoji={selectedEmoji} />}
+					{showPreview && (
+						<EmojiPickerFooter
+							selectedEmoji={selectedEmoji}
+							uploadEnabled={isUploadSupported && !uploading}
+							onOpenUpload={onOpenUpload}
+						/>
+					)}
 				</div>
 			</div>
 		);
@@ -761,6 +776,7 @@ const EmojiPickerComponent = ({
 				currentUser={currentUser}
 				onEmojiSelected={recordUsageOnSelection}
 				onEmojiActive={onEmojiActive}
+				onEmojiLeave={onEmojiLeave}
 				onEmojiDelete={onTriggerDelete}
 				onCategoryActivated={onCategoryActivated}
 				onSearch={onSearch}
@@ -785,7 +801,13 @@ const EmojiPickerComponent = ({
 				size={size}
 				activeCategoryId={activeCategory}
 			/>
-			{showPreview && <EmojiPickerFooter selectedEmoji={selectedEmoji} />}
+			{showPreview && (
+				<EmojiPickerFooter
+					selectedEmoji={selectedEmoji}
+					uploadEnabled={isUploadSupported && !uploading}
+					onOpenUpload={onOpenUpload}
+				/>
+			)}
 		</div>
 	);
 };

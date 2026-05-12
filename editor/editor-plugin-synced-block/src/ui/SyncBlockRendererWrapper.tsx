@@ -2,8 +2,13 @@ import React from 'react';
 
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { SyncBlockError } from '@atlaskit/editor-synced-block-provider';
-import type { UseFetchSyncBlockDataResult } from '@atlaskit/editor-synced-block-provider';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import {
+	SyncBlockError,
+	useFetchSyncBlockData,
+	useFetchSyncBlockTitle,
+} from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockPlugin, SyncedBlockRendererProps } from '../syncedBlockPluginType';
 
@@ -12,22 +17,29 @@ import { SyncBlockLabel } from './SyncBlockLabel';
 type Props = {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 	localId: string;
+	node: PMNode;
+	resourceId: string;
+	syncBlockStore: SyncBlockStoreManager;
 	syncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;
-	useFetchSyncBlockData: () => UseFetchSyncBlockDataResult;
-	useFetchSyncBlockTitle: () => string | undefined;
 };
 
 const SyncBlockRendererWrapperDataId = 'sync-block-plugin-renderer-wrapper';
 
 const SyncBlockRendererWrapperComponent = ({
 	syncedBlockRenderer,
-	useFetchSyncBlockData,
-	useFetchSyncBlockTitle,
+	syncBlockStore,
+	node,
+	resourceId,
 	localId,
 	api,
 }: Props): React.JSX.Element => {
-	const syncBlockFetchResult = useFetchSyncBlockData();
-	const title = useFetchSyncBlockTitle?.();
+	const syncBlockFetchResult = useFetchSyncBlockData(
+		syncBlockStore,
+		resourceId,
+		localId,
+		api?.analytics?.actions?.fireAnalyticsEvent,
+	);
+	const title = useFetchSyncBlockTitle(syncBlockStore, node);
 
 	const contentUpdatedAt = syncBlockFetchResult?.syncBlockInstance?.data?.contentUpdatedAt;
 	const isUnpublishedBlock = syncBlockFetchResult.syncBlockInstance?.data?.status === 'unpublished';
@@ -61,8 +73,9 @@ const SyncBlockRendererWrapperComponent = ({
 export const SyncBlockRendererWrapper: React.MemoExoticComponent<
 	({
 		syncedBlockRenderer,
-		useFetchSyncBlockData,
-		useFetchSyncBlockTitle,
+		syncBlockStore,
+		node,
+		resourceId,
 		localId,
 		api,
 	}: Props) => React.JSX.Element

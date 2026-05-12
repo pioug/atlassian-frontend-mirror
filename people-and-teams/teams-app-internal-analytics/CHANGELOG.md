@@ -1,5 +1,14 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.28.0
+
+### Minor Changes
+
+- [`bb72314e9cb09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb72314e9cb09) -
+  Add native GASv3 analytics events for UserProfilePreview and UserInlinePreview UIs (click-based UI
+  events). Operational succeeded/failed events are exposed for consuming contexts to fire when
+  wiring Relay loading and error states.
+
 ## 1.27.5
 
 ### Patch Changes

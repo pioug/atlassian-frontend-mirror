@@ -41,6 +41,11 @@ export const toolbarInsertBlockMessages: {
 		description: string;
 		id: string;
 	};
+	askRovo: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	closeInsertRightRail: {
 		defaultMessage: string;
 		description: string;
@@ -503,6 +508,12 @@ export const toolbarInsertBlockMessages: {
 		defaultMessage: 'Add a custom status label',
 		description:
 			'Menu description shown in the quick insert menu. Explains that users can add custom status labels.',
+	},
+	askRovo: {
+		id: 'fabric.editor.askRovo',
+		defaultMessage: 'Ask Rovo',
+		description:
+			'Button label shown in the quick insert empty results state. Allows users to ask Rovo AI for help.',
 	},
 	viewMore: {
 		id: 'fabric.editor.viewMore',

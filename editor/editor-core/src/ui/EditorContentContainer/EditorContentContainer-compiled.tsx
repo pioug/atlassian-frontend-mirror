@@ -1,5 +1,5 @@
 // TODO: EDITOR-6833 - Expected across this entire file, future violations are expected. Will try to remove them later after fully migration
-/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/platform/expand-spacing-shorthand, @atlaskit/platform/expand-border-shorthand, @atlaskit/platform/expand-background-shorthand */
+/* eslint-disable @atlaskit/platform/use-motion-token-values, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/platform/expand-spacing-shorthand, @atlaskit/platform/expand-border-shorthand, @atlaskit/platform/expand-background-shorthand */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -35,6 +35,7 @@ import {
 	akEditorFullPageDefaultFontSize,
 	akEditorFullPageDenseFontSize,
 	akEditorGutterPaddingDynamic,
+	akEditorSwoopCubicBezier,
 	akEditorTableNumberColumnWidth,
 	editorFontSize,
 } from '@atlaskit/editor-shared-styles';
@@ -289,6 +290,73 @@ const prismBorderDarkBackgroundFirefox = `linear-gradient(90deg, #0065FF80 0%, #
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 const prismBorderDarkBackground = `conic-gradient(from var(--panel-gradient-angle, 270deg), #0065FF80 0%, #0469FF80 20%, #BF63F380 50%, #FFA90080 56%, #0065FF80 100%)`;
+
+// TODO: EDITOR-6932 - inline them at the end of migration
+const borderSelectionStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+	border: `1px solid ${token('color.border.selected')}`,
+
+	// Fixes ED-15246: Trello card is visible through a border of a table border
+	'&::after': {
+		height: '100%',
+		content: "'\\00a0'",
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		background: token('color.border.selected'),
+		position: 'absolute',
+		right: -1,
+		top: 0,
+		bottom: 0,
+		width: 1,
+		border: 'none',
+		display: 'inline-block',
+	},
+});
+
+// @ts-expect-error -- Temporary dead code, will be used when migrating styles/codeBlockStyles.ts EDITOR-6686
+const overflowShadowStyles = css({
+	backgroundImage: `
+		linear-gradient(
+			to right,
+			${token('color.background.neutral')} ${token('space.300')},
+			transparent ${token('space.300')}
+		),
+		linear-gradient(
+			to right,
+			${token('elevation.surface.raised')} ${token('space.300')},
+			transparent ${token('space.300')}
+		),
+		linear-gradient(
+			to left,
+			${token('color.background.neutral')} ${token('space.100')},
+			transparent ${token('space.100')}
+		),
+		linear-gradient(
+			to left,
+			${token('elevation.surface.raised')} ${token('space.100')},
+			transparent ${token('space.100')}
+		),
+		linear-gradient(
+			to left,
+			${token('elevation.shadow.overflow.spread')} 0,
+			${token('utility.UNSAFE.transparent')}  ${token('space.100')}
+		),
+		linear-gradient(
+			to left,
+			${token('elevation.shadow.overflow.perimeter')} 0,
+			${token('utility.UNSAFE.transparent')}  ${token('space.100')}
+		),
+		linear-gradient(
+			to right,
+			${token('elevation.shadow.overflow.spread')} 0,
+			${token('utility.UNSAFE.transparent')}  ${token('space.100')}
+		),
+		linear-gradient(
+			to right,
+			${token('elevation.shadow.overflow.perimeter')} 0,
+			${token('utility.UNSAFE.transparent')}  ${token('space.100')}
+		)
+	`,
+});
 
 /**
  * editorContentStyles is WIP to migrate styles from EditorContentContainer/styles
@@ -727,7 +795,8 @@ const editorContentStyles = cssMap({
 			paddingLeft: token('space.050'),
 			margin: '0 1px',
 			position: 'relative',
-			transition: 'background 0.3s',
+			transitionProperty: 'background',
+			transitionDuration: '0.3s',
 			whiteSpace: 'nowrap',
 			cursor: 'unset',
 		},
@@ -776,14 +845,50 @@ const editorContentStyles = cssMap({
 			'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingReduced}px`,
 		},
 	},
-	editorUGCSmallText: {
-		// placeholder for migration
-	},
+	/**
+	 * Use when fg('platform_editor_typography_ugc') is disabled.
+	 */
 	editorUGCTokensDefault: {
-		// placeholder for migration
+		'--editor-font-ugc-token-heading-h1':
+			'normal 500 1.71429em/1.16667 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-heading-h2':
+			'normal 500 1.42857em/1.2 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-heading-h3':
+			'normal 600 1.14286em/1.25 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-heading-h4':
+			'normal 600 1em/1.14286 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-heading-h5':
+			'normal 600 0.857143em/1.33333 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-heading-h6':
+			'normal 700 0.785714em/1.45455 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-body':
+			'normal 400 1em/1.714 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-weight-heading-bold': '700',
 	},
+	/**
+	 * Use when fg('platform_editor_typography_ugc') is enabled and the following is enabled:
+	 * - fg('atlas_editor_typography_refreshed')
+	 */
 	editorUGCTokensRefreshed: {
-		// placeholder for migration
+		'--editor-font-ugc-token-heading-h1':
+			'normal 600 1.71429em/1.16667 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-heading-h2':
+			'normal 600 1.42857em/1.2 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-heading-h3':
+			'normal 600 1.14286em/1.25 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-heading-h4':
+			'normal 600 1em/1.14286 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-heading-h5':
+			'normal 600 0.857143em/1.33333 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-heading-h6':
+			'normal 600 0.785714em/1.45455 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-body':
+			'normal 400 1em/1.714 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-weight-heading-bold': '700',
+	},
+	editorUGCSmallText: {
+		'--editor-font-ugc-token-body-small':
+			'normal 400 0.875em/1.714 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	},
 	embedCardStyles: {
 		'.ProseMirror': {
@@ -815,22 +920,305 @@ const editorContentStyles = cssMap({
 		// placeholder for migration
 	},
 	expandStyles: {
-		// placeholder for migration
+		'.ProseMirror > .ak-editor-expand__type-expand, .fabric-editor-breakout-mark-dom > .ak-editor-expand__type-expand':
+			{
+				marginLeft: token('space.negative.150'),
+				marginRight: token('space.negative.150'),
+			},
 	},
+	/**
+	 * Base expand styles, always applied.
+	 */
 	expandStylesBase: {
-		// placeholder for migration
+		'.ak-editor-expand__icon > div': {
+			display: 'flex',
+		},
+		'.ak-editor-expand': {
+			// sharedExpandStyles.containerStyles({ expanded: false, focused: false })(),
+			borderWidth: token('border.width'),
+			borderStyle: 'solid',
+			borderColor: 'transparent',
+			borderRadius: token('radius.small', '4px'),
+			minHeight: '25px',
+			background: token('color.background.neutral.subtle'),
+			margin: `${token('space.050')} 0 0`,
+			transitionProperty: 'background, border-color',
+			transitionDuration: '0.3s, 0.3s',
+			transitionTimingFunction: 'cubic-bezier(0.15, 1, 0.3, 1), cubic-bezier(0.15, 1, 0.3, 1)',
+			padding: token('space.100'),
+			'td > :not(style):first-child, td > style:first-child + *': {
+				marginTop: 0,
+			},
+
+			cursor: 'pointer',
+			boxSizing: 'border-box',
+
+			'td > &': {
+				marginTop: 0,
+			},
+
+			'.ak-editor-expand__icon-container svg': {
+				color: token('color.icon.subtle'),
+				transform: 'rotate(90deg)',
+			},
+
+			'&.ak-editor-selected-node:not(.danger)': {
+				// SelectionStyle.Blanket
+				position: 'relative',
+				// Fixes ED-9263, where emoji or inline card in panel makes selection go outside the panel
+				// in Safari. Looks like it's caused by user-select: all in the emoji element
+				WebkitUserSelect: 'text',
+				'&::before': {
+					position: 'absolute',
+					content: "''",
+					left: 0,
+					right: 0,
+					top: 0,
+					bottom: 0,
+					width: '100%',
+					pointerEvents: 'none',
+					zIndex: 12, // akEditorStickyheaderZIndex (11) + 1
+					backgroundColor: token('color.blanket.selected'),
+				},
+
+				// SelectionStyle.Border (common case)
+				border: `${token('border.width')} solid ${token('color.border.selected')}`,
+				// If fg('platform_editor_nested_dnd_styles_changes') is true,
+				// then we'll also need the rest of the selection styles for blanket
+
+				// hideNativeBrowserTextSelectionStyles
+				'&::selection, *::selection': {
+					backgroundColor: 'transparent',
+				},
+				'&::-moz-selection, *::-moz-selection': {
+					backgroundColor: 'transparent',
+				},
+			},
+
+			'&.danger': {
+				background: token('color.background.danger'),
+				borderColor: token('color.border.danger'),
+			},
+		},
+
+		'.ak-editor-expand__content': {
+			// sharedExpandStyles.contentStyles({ expanded: false, focused: false })(),
+			paddingTop: token('space.0', '0px'),
+			paddingRight: token('space.100', '8px'),
+			paddingLeft: token('space.300', '24px'),
+			marginLeft: token('space.050', '4px'),
+			display: 'flow-root',
+			/* The follow rules inside @supports block are added as a part of ED-8893
+				The fix is targeting mobile bridge on iOS 12 or below,
+				We should consider remove this fix when we no longer support iOS 12 */
+			'@supports not (display: flow-root)': {
+				width: '100%',
+				boxSizing: 'border-box',
+			},
+			'.expand-content-wrapper, .nestedExpand-content-wrapper': {
+				/* We visually hide the content here to preserve the content during copy+paste */
+				/* Do not add text nowrap here because inline comment navigation depends on the location of the text */
+				width: '100%',
+				display: 'block',
+				height: 0,
+				overflow: 'hidden',
+				clip: 'rect(1px, 1px, 1px, 1px)',
+				userSelect: 'none',
+			},
+
+			cursor: 'text',
+
+			'&.ak-editor-expand__content--collapsed': {
+				display: 'none',
+			},
+		},
+
+		'.ak-editor-expand__title-input': {
+			// sharedExpandStyles.titleInputStyles(),
+			outline: 'none',
+			border: 'none',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: 'calc(14rem / 16)', // relativeFontSizeToBase16(14),
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			lineHeight: 1.714,
+			fontWeight: token('font.weight.regular'),
+			color: token('color.text.subtlest'),
+			background: 'transparent',
+			display: 'flex',
+			flex: 1,
+			padding: `0 0 0 ${token('space.050', '4px')}`,
+			width: '100%',
+			'&::placeholder': {
+				opacity: 1,
+				color: token('color.text.subtlest'),
+			},
+		},
+
+		'.ak-editor-expand__title-container': {
+			// sharedExpandStyles.titleContainerStyles(),
+			padding: 0,
+			display: 'flex',
+			// Omitting alignItems: 'flex-start' as it would be overridden
+			background: 'none',
+			border: 'none',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: 'calc(14rem / 16)', // relativeFontSizeToBase16(14),
+			width: '100%',
+			color: token('color.text.subtle'),
+			// Omitting overflow: 'hidden' as it would be overridden
+			cursor: 'pointer',
+			'&:focus': {
+				outline: 0,
+			},
+
+			alignItems: 'center',
+			overflow: 'visible',
+		},
+
+		'.ak-editor-expand__icon-button': {
+			appearance: 'none',
+			width: token('space.300', '24px'),
+			height: token('space.300', '24px'),
+			border: 'none',
+			borderRadius: token('radius.small', '4px'),
+			background: token('color.background.neutral.subtle'),
+			padding: 0,
+			margin: 0,
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+			cursor: 'pointer',
+
+			'&:disabled': {
+				cursor: 'not-allowed',
+			},
+
+			'&:focus-visible': {
+				outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
+				outlineOffset: token('space.025', '2px'),
+			},
+
+			'&:hover:not(:disabled)': {
+				background: token('color.background.neutral.subtle.hovered'),
+			},
+
+			'.ak-editor-expand__icon-svg': {
+				color: token('color.icon.subtle'),
+				transform: 'rotate(0deg)',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+				transition: `transform 0.2s ${akEditorSwoopCubicBezier};`,
+			},
+		},
+
+		'.ak-editor-expand__expanded': {
+			background: token('color.background.neutral.subtle'),
+			borderColor: token('color.border'),
+
+			'.ak-editor-expand__content': {
+				paddingTop: token('space.100', '8px'),
+				// If fg('platform_editor_nested_dnd_styles_changes') then this needs to be extended
+			},
+
+			'.ak-editor-expand__icon-button': {
+				'.ak-editor-expand__icon-svg': {
+					transform: 'rotate(90deg)',
+				},
+			},
+		},
+
+		'.ak-editor-expand__input-container': {
+			width: '100%',
+		},
+
+		'.ak-editor-expand:not(.ak-editor-expand__expanded)': {
+			'.ak-editor-expand__content': {
+				position: 'absolute',
+				height: '1px',
+				width: '1px',
+				overflow: 'hidden',
+				clip: 'rect(1px, 1px, 1px, 1px)',
+				whiteSpace: 'nowrap',
+			},
+
+			'.ak-editor-expand__icon-container svg': {
+				color: token('color.icon.subtle'),
+				transform: 'rotate(0deg)',
+			},
+
+			'&:not(.ak-editor-selected-node):not(.danger)': {
+				background: 'transparent',
+				borderColor: 'transparent',
+
+				'&:hover': {
+					borderColor: token('color.border'),
+					background: token('color.background.neutral.subtle'),
+				},
+			},
+		},
 	},
 	expandStylesMixin_experiment_platform_editor_chromeless_expand_fix: {
-		// placeholder for migration
+		'.ProseMirror > .ak-editor-expand': {
+			marginLeft: 0,
+			marginRight: 0,
+		},
 	},
 	expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes: {
-		// placeholder for migration
+		'.ak-editor-content-area.appearance-full-page .ProseMirror > .ak-editor-expand__type-expand, .fabric-editor-breakout-mark-dom > .ak-editor-expand__type-expand':
+			{
+				marginLeft: token('space.negative.250'),
+				marginRight: token('space.negative.250'),
+			},
+
+		'.ak-editor-expand__expanded': {
+			'.ak-editor-expand__content': {
+				// firstNodeWithNotMarginTop
+				'> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))': {
+					marginTop: 0,
+				},
+				'> div.ak-editor-expand[data-node-type="nestedExpand"]': {
+					marginTop: token('space.050'),
+				},
+			},
+		},
 	},
 	expandStylesMixin_fg_platform_visual_refresh_icons: {
-		// placeholder for migration
+		'.ak-editor-expand__title-input': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			lineHeight: 1,
+			fontFamily: token('font.family.body'),
+		},
 	},
 	expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes: {
-		// placeholder for migration
+		'.ak-editor-expand': {
+			'&.ak-editor-selected-node:not(.danger)': {
+				// SelectionStyle.Border (with fg('platform_editor_nested_dnd_styles_changes'))
+				// Fixes ED-15246: Trello card is visible through a border of a table border
+				'&::after': {
+					height: '100%',
+					content: "'\\00a0'",
+					background: token('color.border.selected'),
+					position: 'absolute',
+					right: '-1px',
+					top: 0,
+					bottom: 0,
+					width: '1px',
+					border: 'none',
+					display: 'inline-block',
+				},
+			},
+		},
+	},
+	expandDenseStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ak-editor-expand__title-input': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography, @atlaskit/ui-styling-standard/no-unsafe-values
+			fontSize: 'var(--ak-editor-base-font-size)',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ak-editor-expand__title-container': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography, @atlaskit/ui-styling-standard/no-unsafe-values
+			fontSize: 'var(--ak-editor-base-font-size)',
+		},
 	},
 	extensionDiffStyles: {
 		// placeholder for migration
@@ -840,7 +1228,9 @@ const editorContentStyles = cssMap({
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			borderRadius: token('radius.small', '3px'),
 			backgroundColor: token('color.background.accent.teal.subtlest'),
-			boxShadow: `${token('elevation.shadow.raised')}, inset 0 0 0 1px ${token('color.border.input')}`,
+			boxShadow: `${token('elevation.shadow.raised')}, inset 0 0 0 1px ${token(
+				'color.border.input',
+			)}`,
 		},
 		'.selected-search-match': {
 			backgroundColor: token('color.background.accent.teal.subtle'),
@@ -1320,7 +1710,9 @@ const editorContentStyles = cssMap({
 			height: '100%',
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 			marginLeft: '-1px',
-			transition: 'border-color 0.15s linear',
+			transitionProperty: 'border-color',
+			transitionDuration: '0.15s',
+			transitionTimingFunction: 'linear',
 			zIndex: 0,
 		},
 
@@ -1353,7 +1745,39 @@ const editorContentStyles = cssMap({
 		},
 	},
 	indentationStyles: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'.fabric-editor-indentation-mark': {
+				"&[data-level='1']": {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginLeft: 30,
+				},
+
+				"&[data-level='2']": {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginLeft: 60,
+				},
+
+				"&[data-level='3']": {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginLeft: 90,
+				},
+
+				"&[data-level='4']": {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginLeft: 120,
+				},
+
+				"&[data-level='5']": {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginLeft: 150,
+				},
+
+				"&[data-level='6']": {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginLeft: 180,
+				},
+			},
+		},
 	},
 	InlineNodeViewSharedStyles: {
 		'.ProseMirror': {
@@ -2083,7 +2507,55 @@ const editorContentStyles = cssMap({
 		},
 	},
 	shadowStyles: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'& .right-shadow::before, .right-shadow::after, .left-shadow::before, .left-shadow::after': {
+				display: 'none',
+				position: 'absolute',
+				pointerEvents: 'none',
+				zIndex: 2,
+				width: 8,
+				content: "''",
+				height: 'calc(100%)',
+			},
+
+			'& .right-shadow, .left-shadow': {
+				position: 'relative',
+			},
+
+			'& .left-shadow::before': {
+				background: `linear-gradient(to left, transparent 0, ${token(
+					'elevation.shadow.overflow.spread',
+				)} 140% ), linear-gradient( to right, ${token(
+					'elevation.shadow.overflow.perimeter',
+				)} 0px, transparent 1px)`,
+				top: 0,
+				left: 0,
+				display: 'block',
+			},
+
+			'& .right-shadow::after': {
+				background: `linear-gradient(to right, transparent 0, ${token(
+					'elevation.shadow.overflow.spread',
+				)} 140% ), linear-gradient( to left, ${token(
+					'elevation.shadow.overflow.perimeter',
+				)} 0px, transparent 1px)`,
+				right: 0,
+				top: 0,
+				display: 'block',
+			},
+
+			'& .sentinel-left': {
+				height: '100%',
+				width: 0,
+				minWidth: 0,
+			},
+
+			'& .sentinel-right': {
+				height: '100%',
+				width: 0,
+				minWidth: 0,
+			},
+		},
 	},
 	showDiffDeletedNodeStyles: {
 		// placeholder for migration
@@ -2429,7 +2901,8 @@ const editorContentStyles = cssMap({
 	telepointerColorAndCommonStyle: {
 		'.ProseMirror .telepointer': {
 			position: 'relative',
-			transition: 'opacity 200ms',
+			transitionProperty: 'opacity',
+			transitionDuration: '200ms',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&.telepointer-selection:not(.inlineNodeView)': {
 				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -2550,13 +3023,17 @@ const editorContentStyles = cssMap({
 				},
 				'.telepointer-initial': {
 					opacity: 1,
-					transition: 'opacity 0.15s ease-out',
+					transitionProperty: 'opacity',
+					transitionDuration: '0.15s',
+					transitionTimingFunction: 'ease-out',
 				},
 				'.telepointer-fullname': {
 					opacity: 0,
 					transform: 'scaleX(0)',
 					transformOrigin: 'top left',
-					transition: 'transform 0.15s ease-out, opacity 0.15s ease-out',
+					transitionProperty: 'transform, opacity',
+					transitionDuration: '0.15s, 0.15s',
+					transitionTimingFunction: 'ease-out, ease-out',
 				},
 			},
 			'&.telepointer-pulse-animate': {
@@ -2630,7 +3107,32 @@ const editorContentStyles = cssMap({
 		// placeholder for migration
 	},
 	unsupportedStyles: {
-		// placeholder for migration
+		'.unsupportedBlockView-content-wrap > div, .unsupportedInlineView-content-wrap > span:nth-of-type(2)':
+			{
+				cursor: 'pointer',
+			},
+
+		'.ak-editor-selected-node': {
+			'&.unsupportedBlockView-content-wrap > div, &.unsupportedInlineView-content-wrap > span:nth-of-type(2)':
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...backgroundSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...borderSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+				},
+		},
+
+		'.danger': {
+			'.ak-editor-selected-node': {
+				'&.unsupportedBlockView-content-wrap > div, &.unsupportedInlineView-content-wrap > span:nth-of-type(2)':
+					{
+						border: `1px solid ${token('color.border.danger')}`,
+						backgroundColor: token('color.blanket.danger'),
+					},
+			},
+		},
 	},
 	whitespaceStyles: {
 		'.ProseMirror': {
@@ -2841,14 +3343,12 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				// Apply expand delta styles conditionally based on useStandardNodeWidth (negative margins or not)
 				!useStandardNodeWidth && editorContentStyles.expandStyles,
 				contentMode === 'compact' &&
-				(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-					// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-					(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-						fg('platform_editor_content_mode_button_mvp'))) &&
-				// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-				// TODO: uncomment and remove dynamic styles from getDenseExpandTitleStyles
-				// migrate this with packages/editor/editor-core/src/ui/EditorContentContainer/styles/expandStyles.ts
-				// getDenseExpandTitleStyles(baseFontSize),
+					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+							fg('platform_editor_content_mode_button_mvp'))) &&
+					isDense &&
+					editorContentStyles.expandDenseStyles,
 				fg('platform_editor_nested_dnd_styles_changes')
 					? editorContentStyles.expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes
 					: editorContentStyles.expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,

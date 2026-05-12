@@ -20,7 +20,6 @@ import {
 	injectIntl,
 	type WithIntlProps,
 	type WrappedComponentProps,
-	useIntl,
 } from 'react-intl';
 import type {
 	EmojiDescription,
@@ -39,7 +38,6 @@ import { EmojiPickerListSearch } from '../picker/EmojiPickerListSearch';
 import { messages } from '../i18n';
 import AkButton from '@atlaskit/button/standard-button';
 import AddIcon from '@atlaskit/icon/core/add';
-import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
 import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
 import { emojiPickerAddEmoji } from './styles';
 import { DEFAULT_TONE } from '../../util/constants';
@@ -80,6 +78,10 @@ const previewFooter = css({
 	boxShadow: `0px 1px 1px 0px ${token('color.border')}`,
 });
 
+const previewFooterNew = css({
+	flex: '0 0 auto',
+});
+
 export interface Props {
 	emojiToDelete?: EmojiDescription;
 	initialUploadName?: string;
@@ -108,31 +110,20 @@ export const uploadEmojiTestId = 'upload-emoji';
 type PropsWithWrappedComponentPropsType = Props & WrappedComponentProps;
 
 type AddOwnEmojiProps = PropsWithWrappedComponentPropsType;
-const AddOwnEmoji = (props: AddOwnEmojiProps) => {
+export const AddOwnEmoji = (props: AddOwnEmojiProps): JSX.Element => {
 	const { onOpenUpload, uploadEnabled } = props;
-	const { formatMessage } = useIntl();
+
 	return (
 		<Fragment>
 			{uploadEnabled && (
 				<div css={addCustomEmoji} data-testid={uploadEmojiTestId}>
-					<FormattedMessage
-						{...(fg('platform_emoji_picker_refresh')
-							? messages.addEmojiLabel
-							: messages.addCustomEmojiLabel)}
-					>
+					<FormattedMessage {...messages.addCustomEmojiLabel}>
 						{(label) => (
 							<AkButton
 								onClick={onOpenUpload}
 								iconBefore={
 									<Box xcss={styles.icon}>
-										{fg('platform_emoji_picker_refresh') ? (
-											<EmojiAddIcon
-												color="currentColor"
-												label={formatMessage(messages.addCustomEmojiLabel)}
-											/>
-										) : (
-											<AddIcon color="currentColor" label="" />
-										)}
+										<AddIcon color="currentColor" label="" />
 									</Box>
 								}
 								appearance="subtle"
@@ -223,6 +214,7 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 };
 
 type EmojiActionsProps = PropsWithWrappedComponentPropsType;
+// TODO: remove this on cleanup of platform_emoji_picker_refresh
 export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	const {
 		onToneSelected,
@@ -264,7 +256,17 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	}, [showToneSelector, onToneSelectorCancelled]);
 
 	if (uploading) {
-		return (
+		return fg('platform_emoji_picker_refresh') ? (
+			<div css={previewFooterNew}>
+				<EmojiUploadPicker
+					onUploadCancelled={onUploadCancelled}
+					onUploadEmoji={onUploadEmoji}
+					onFileChooserClicked={onFileChooserClicked}
+					errorMessage={uploadErrorMessage}
+					initialUploadName={initialUploadName}
+				/>
+			</div>
+		) : (
 			<div css={previewFooter}>
 				<EmojiUploadPicker
 					onUploadCancelled={onUploadCancelled}
@@ -278,7 +280,15 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	}
 
 	if (emojiToDelete) {
-		return (
+		return fg('platform_emoji_picker_refresh') ? (
+			<div css={previewFooterNew}>
+				<EmojiDeletePreview
+					emoji={emojiToDelete}
+					onDeleteEmoji={onDeleteEmoji}
+					onCloseDelete={onCloseDelete}
+				/>
+			</div>
+		) : (
 			<div css={previewFooter}>
 				<EmojiDeletePreview
 					emoji={emojiToDelete}
@@ -289,7 +299,30 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 		);
 	}
 
-	return (
+	return fg('platform_emoji_picker_refresh') ? (
+		<div
+			data-testid={emojiActionsTestId}
+			css={previewFooterNew}
+			onMouseLeave={onMouseLeaveHandler}
+			onBlur={fg('platform_suppression_removal_fix_reactions') ? onMouseLeaveHandler : undefined}
+		>
+			<div css={emojiActionsWrapper}>
+				<EmojiPickerListSearch
+					onChange={onChange}
+					query={query}
+					resultsCount={resultsCount}
+					isVisible={!showToneSelector}
+				/>
+				<TonesWrapper
+					{...props}
+					onToneOpen={onToneOpenHandler}
+					onToneClose={onToneCloseHandler}
+					onToneSelected={onToneSelectedHandler}
+					showToneSelector={showToneSelector}
+				/>
+			</div>
+		</div>
+	) : (
 		<div
 			data-testid={emojiActionsTestId}
 			css={previewFooter}

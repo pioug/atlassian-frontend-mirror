@@ -6,6 +6,7 @@ import type { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type {
 	MarkConfig,
+	NamedReactHookFactory,
 	NodeConfig,
 	ReactHookFactory,
 	UIComponentFactory,
@@ -80,7 +81,9 @@ function lightProcessPluginsList(editorPlugins: LightEditorPlugin[]): LightEdito
 				acc.contentComponents.push(editorPlugin.contentComponent);
 			}
 			if (editorPlugin.usePluginHook) {
-				acc.pluginHooks.push(editorPlugin.usePluginHook);
+				const named: NamedReactHookFactory = editorPlugin.usePluginHook.bind(null);
+				named.pluginName = editorPlugin.name;
+				acc.pluginHooks.push(named);
 			}
 			if (editorPlugin.onEditorViewStateUpdated) {
 				acc.onEditorViewStateUpdatedCallbacks.push(editorPlugin.onEditorViewStateUpdated);

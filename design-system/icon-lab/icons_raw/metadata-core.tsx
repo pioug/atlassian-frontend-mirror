@@ -1,6 +1,16 @@
 import { type IconMetadata } from '@af/icon-build-process';
 
 const metadata: IconMetadata = {
+	'ai-agent-add': {
+		keywords: ['agent', 'ai agent', 'add', 'plus', 'ai'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Jira frontier',
+		status: 'published',
+		id: '67894:18331',
+		usage: 'Reserved for adding AI agents in Atlassian apps',
+		createdAt: '2026-05-12T00:14:35.155Z',
+	},
 	'ai-bot': {
 		keywords: ['AI', 'chat bot'],
 		categorization: 'single-purpose',
@@ -2358,6 +2368,17 @@ const metadata: IconMetadata = {
 		usage:
 			'Reserved for representing premium features in upsell experiences. The Editions gem icon has officially replaced the sparkle icon.',
 		createdAt: '2025-07-31T03:28:03.217Z',
+	},
+	'emoji-sad': {
+		keywords: ['emoji-sad', 'emojisad', 'sad-emoji', 'sad', 'negative'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Jira Service Management',
+		status: 'published',
+		id: '67575:18429',
+		usage: 'Reserved for presenting a sad tone or negative sentiment.',
+		slackChannel: '#jsm-phoenix',
+		createdAt: '2026-05-12T00:14:35.155Z',
 	},
 	'expand-element': {
 		keywords: ['expand', 'editor object'],

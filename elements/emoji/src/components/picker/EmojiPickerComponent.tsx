@@ -51,6 +51,7 @@ import { createRecordSelectionDefault } from '../common/RecordSelectionDefault';
 import type { CategoryId } from './categories';
 import CategorySelector from './CategorySelector';
 import EmojiPickerFooter from './EmojiPickerFooter';
+import EmojiUploadPicker from '../common/EmojiUploadPicker';
 import {
 	EmojiPickerVirtualListInternal as EmojiPickerList,
 	type PickerListRef,
@@ -96,6 +97,19 @@ const emojiPicker = css({
 	width: `${emojiPickerWidth}px`,
 	minWidth: `${emojiPickerWidth}px`,
 	maxHeight: 'calc(80vh - 86px)', // ensure showing full picker in small device: mobile header is 40px (Jira) - 56px(Confluence and Atlas), reaction picker height is 24px with margin 6px,
+	position: 'relative',
+});
+
+const uploadOverlay = css({
+	position: 'absolute',
+	top: 0,
+	left: 0,
+	right: 0,
+	bottom: 0,
+	backgroundColor: token('elevation.surface.overlay'),
+	borderRadius: token('radius.small', '3px'),
+	zIndex: 1,
+	overflowY: 'auto',
 });
 
 const emojiPickerWrapper = css({
@@ -753,8 +767,9 @@ const EmojiPickerComponent = ({
 		<div
 			css={[
 				emojiPicker,
-				showPreview && withPreviewHeight[size],
-				!showPreview && withoutPreviewHeight[size],
+				showPreview || (uploading && fg('platform_emoji_picker_refresh'))
+					? withPreviewHeight[size]
+					: withoutPreviewHeight[size],
 			]}
 			ref={onPickerRef}
 			data-emoji-picker-container
@@ -807,6 +822,17 @@ const EmojiPickerComponent = ({
 					uploadEnabled={isUploadSupported && !uploading}
 					onOpenUpload={onOpenUpload}
 				/>
+			)}
+			{uploading && fg('platform_emoji_picker_refresh') && (
+				<div css={uploadOverlay}>
+					<EmojiUploadPicker
+						onUploadEmoji={onUploadEmoji}
+						onUploadCancelled={onUploadCancelled}
+						onFileChooserClicked={onFileChooserClicked}
+						errorMessage={formattedErrorMessage}
+						initialUploadName={query}
+					/>
+				</div>
 			)}
 		</div>
 	);

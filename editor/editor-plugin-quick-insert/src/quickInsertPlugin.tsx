@@ -121,19 +121,15 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 							options?.emptyStateHandler,
 						),
 				},
-				...(expValEquals('platform_editor_experience_tracking', 'isEnabled', true)
-					? [
-							{
-								name: 'quickInsertOpenExperience',
-								plugin: () =>
-									getQuickInsertOpenExperiencePlugin({
-										refs,
-										dispatchAnalyticsEvent: (payload) =>
-											api?.analytics?.actions?.fireAnalyticsEvent(payload),
-									}),
-							},
-						]
-					: []),
+				{
+					name: 'quickInsertOpenExperience',
+					plugin: () =>
+						getQuickInsertOpenExperiencePlugin({
+							refs,
+							dispatchAnalyticsEvent: (payload) =>
+								api?.analytics?.actions?.fireAnalyticsEvent(payload),
+						}),
+				},
 			];
 		},
 

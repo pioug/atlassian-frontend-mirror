@@ -34,10 +34,12 @@ const ShouldFitContainerExample = ({ isOpenInitial }: ExampleProps) => {
 				shouldRenderToParent
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
+				testId="popup"
 				content={() => <p>Hello</p>}
 				trigger={(triggerProps) => (
 					<Button
 						id="popup-trigger"
+						testId="popup-trigger"
 						{...triggerProps}
 						onClick={() => setIsOpen(!isOpen)}
 						shouldFitContainer

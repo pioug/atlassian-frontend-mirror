@@ -112,6 +112,23 @@ it('payload can be updated with a function', () => {
 	});
 });
 
+it('isolates handler errors so a throwing handler does not prevent subsequent handlers from firing', () => {
+	const throwingHandler = jest.fn().mockImplementation(() => {
+		throw new Error('handler error');
+	});
+	const subsequentHandler = jest.fn();
+	const analyticsEvent = new UIAnalyticsEvent({
+		...standardEventArgs,
+		handlers: [throwingHandler, subsequentHandler],
+	});
+
+	// Should not throw despite a bad handler
+	expect(() => analyticsEvent.fire()).not.toThrow();
+	expect(throwingHandler).toHaveBeenCalledTimes(1);
+	// Subsequent handlers still fire after the bad one
+	expect(subsequentHandler).toHaveBeenCalledTimes(1);
+});
+
 it('executes all event handlers when fired without a channel', () => {
 	const handler1 = jest.fn();
 	const handler2 = jest.fn();

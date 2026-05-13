@@ -46,6 +46,7 @@ export interface WithShowControlMethodProp {
 
 export interface ContextViewModel {
 	icon?: ReactNode;
+	iconLabel?: string;
 	image?: string;
 	text: string;
 }

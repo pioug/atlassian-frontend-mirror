@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/avatar-group",
-	"version": "12.8.0",
+	"version": "12.10.0",
 	"description": "An avatar group displays a number of avatars grouped together in a stack or grid.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,6 +40,7 @@
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
+		"@atlaskit/top-layer": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"bind-event-listener": "root:*"
@@ -61,9 +62,11 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"lodash": "root:*",
@@ -112,6 +115,9 @@
 		"platform-avatar-group-spacing-fix": {
 			"type": "boolean"
 		},
+		"platform-dst-top-layer": {
+			"type": "boolean"
+		},
 		"jira-ai-agent-stack": {
 			"type": "boolean"
 		},
@@ -119,6 +125,9 @@
 			"type": "boolean"
 		},
 		"remove_scaling_from_avatar_stack": {
+			"type": "boolean"
+		},
+		"platform-avatar-group-pass-avatar-to-item": {
 			"type": "boolean"
 		}
 	}

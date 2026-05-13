@@ -10,6 +10,8 @@ interface State {
 const content = (
 	<div>
 		<p>Hello!</p>
+		<Button testId="inline-dialog-inner-first">First action</Button>
+		<Button testId="inline-dialog-inner-second">Second action</Button>
 	</div>
 );
 
@@ -41,6 +43,7 @@ export default class InlineDialogTestingExample extends Component<{}, State> {
 						Click me!
 					</Button>
 				</InlineDialog>
+				<Button testId="after-inline-dialog-button">Focus after dialog</Button>
 			</div>
 		);
 	}

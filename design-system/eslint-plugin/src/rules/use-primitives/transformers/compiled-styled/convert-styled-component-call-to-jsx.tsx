@@ -1,7 +1,7 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, type VariableDeclarator } from 'eslint-codemod-utils';
 
-import { styledObjectToXcssTokens } from '../css-to-xcss';
+import { styledObjectToXcssTokens } from '../styled-object-to-xcss-tokens';
 
 /**
  * Transforms a variable like:

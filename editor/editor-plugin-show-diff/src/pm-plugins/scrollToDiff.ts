@@ -20,8 +20,8 @@ function scrollToSelection(node: Node | null | undefined): void {
 		node instanceof Element
 			? node
 			: node?.parentElement instanceof Element
-				? node.parentElement
-				: null;
+			? node.parentElement
+			: null;
 	if (!(element instanceof HTMLElement)) {
 		return;
 	}

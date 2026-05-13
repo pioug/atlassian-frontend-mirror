@@ -145,16 +145,16 @@ export const Popover: React.ForwardRefExoticComponent<
 
 	const handleToggle = useCallback(
 		(event: ToggleEvent) => {
-			const el = ownRef.current;
+			const element = ownRef.current;
 			if (event.newState === 'open') {
-				if (el) {
-					onOpenChange?.({ isOpen: true, element: el });
+				if (element) {
+					onOpenChange?.({ isOpen: true, element: element });
 				}
 				return;
 			}
 			if (event.newState === 'closed') {
-				if (el) {
-					onOpenChange?.({ isOpen: false, element: el });
+				if (element) {
+					onOpenChange?.({ isOpen: false, element: element });
 				}
 
 				// Programmatic close (unmount or isOpen→false). Consumer already knows.
@@ -172,13 +172,13 @@ export const Popover: React.ForwardRefExoticComponent<
 	);
 
 	useEffect(() => {
-		const el = ownRef.current;
-		if (!el) {
+		const element = ownRef.current;
+		if (!element) {
 			return;
 		}
 
 		// Capture-phase: tag Escape before the browser processes light dismiss.
-		const unbindEscape = bind(el, {
+		const unbindEscape = bind(element, {
 			type: 'keydown',
 			listener: (event: KeyboardEvent) => {
 				if (event.key === 'Escape') {
@@ -187,7 +187,7 @@ export const Popover: React.ForwardRefExoticComponent<
 			},
 			options: { capture: true },
 		});
-		const unbindToggle = bind(el, { type: 'toggle', listener: handleToggle });
+		const unbindToggle = bind(element, { type: 'toggle', listener: handleToggle });
 
 		return () => {
 			unbindEscape();

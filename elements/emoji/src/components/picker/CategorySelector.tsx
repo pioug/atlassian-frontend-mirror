@@ -263,7 +263,9 @@ const CategorySelector = (props: Props): JSX.Element => {
 				css={categorySelectorTablistNew}
 			>
 				{categories.map((categoryId: CategoryId, index: number) => {
-					const category = CategoryDescriptionMap[categoryId];
+					const category = fg('platform_emoji_picker_refresh')
+						? CategoryDescriptionMapNew[categoryId]
+						: CategoryDescriptionMap[categoryId];
 
 					const Icon = category.icon;
 					const categoryName = formatMessage(messages[category.name]);

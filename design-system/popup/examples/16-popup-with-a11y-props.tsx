@@ -62,7 +62,12 @@ const PopupExampleWithLabel = () => {
 			onClose={() => setIsOpen(false)}
 			content={() => <PopupContent />}
 			trigger={(triggerProps) => (
-				<Button id="popup-trigger-1" {...triggerProps} onClick={() => setIsOpen(!isOpen)}>
+				<Button
+					id="popup-trigger-1"
+					testId="popup-trigger"
+					{...triggerProps}
+					onClick={() => setIsOpen(!isOpen)}
+				>
 					{isOpen ? 'Close' : 'Open'} Popup
 				</Button>
 			)}
@@ -83,7 +88,12 @@ const PopupExampleWithTitleId = () => {
 			onClose={() => setIsOpen(false)}
 			content={() => <PopupContent hasTitle />}
 			trigger={(triggerProps) => (
-				<Button id="popup-trigger-2" {...triggerProps} onClick={() => setIsOpen(!isOpen)}>
+				<Button
+					id="popup-trigger-2"
+					testId="popup-trigger-with-title"
+					{...triggerProps}
+					onClick={() => setIsOpen(!isOpen)}
+				>
 					{isOpen ? 'Close' : 'Open'} Popup
 				</Button>
 			)}

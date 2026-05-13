@@ -1,4 +1,5 @@
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { ConversationEntity } from '@atlaskit/linking-types/entity-types';
 
 export default {
 	meta: {
@@ -63,7 +64,7 @@ export default {
 		description: ':taylor_swift:',
 		lastUpdatedAt: '2025-06-07T11:15:08.398Z',
 		memberCount: 111,
-	},
+	} satisfies ConversationEntity,
 	debugInfo: {
 		logs: [],
 	},

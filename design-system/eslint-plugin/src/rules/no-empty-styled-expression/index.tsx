@@ -4,7 +4,7 @@ import type { CallExpression } from 'estree';
 import { getScope } from '@atlaskit/eslint-utils/context-compat';
 import { getImportSources, isStyled } from '@atlaskit/eslint-utils/is-supported-import';
 
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
 
 type RuleModule = Rule.RuleModule;
 

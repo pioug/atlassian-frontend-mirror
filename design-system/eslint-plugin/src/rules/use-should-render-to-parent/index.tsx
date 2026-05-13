@@ -2,15 +2,15 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
+
+import { addProp } from './add-prop';
+import { setPropToTrue } from './set-prop-to-true';
 
 export const RULE_NAME = 'use-should-render-to-parent';
 const PROP_NAME = 'shouldRenderToParent';
 
 const message = `Setting the \`${PROP_NAME}\` prop to anything other than \`true\` causes accessibility issues. Only set to \`false\` as a last resort.`;
-
-export const addProp: 'Add `shouldRenderToParent` prop.' = `Add \`${PROP_NAME}\` prop.`;
-export const setPropToTrue: 'Set `shouldRenderToParent` prop to `true`.' = `Set \`${PROP_NAME}\` prop to \`true\`.`;
 
 const components: Record<string, Record<string, any>> = {
 	'@atlaskit/popup': { default: true, named: 'Popup' },
@@ -145,3 +145,5 @@ const rule: Rule.RuleModule = createLintRule({
 });
 
 export default rule;
+export { addProp } from './add-prop';
+export { setPropToTrue } from './set-prop-to-true';

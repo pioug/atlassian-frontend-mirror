@@ -1,5 +1,7 @@
 import { tester } from '../../__tests__/utils/_tester';
-import rule, { AFFECTED_ATLASKIT_PACKAGES, AFFECTED_HTML_ELEMENTS } from '../index';
+import { AFFECTED_ATLASKIT_PACKAGES } from '../affected-atlaskit-packages';
+import { AFFECTED_HTML_ELEMENTS } from '../affected-html-elements';
+import rule from '../index';
 
 tester.run('no-placeholder', rule, {
 	valid: [

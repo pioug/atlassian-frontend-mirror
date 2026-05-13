@@ -1,7 +1,7 @@
 import type { Rule } from 'eslint';
 import { type Identifier, isNodeOfType } from 'eslint-codemod-utils';
 
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
 
 const FORM_PACKAGE = '@atlaskit/form';
 const MESSAGE_COMPONENTS = ['ErrorMessage', 'HelperMessage', 'ValidMessage'];

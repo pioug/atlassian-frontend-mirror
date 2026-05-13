@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Breakout', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the breakout plugin used by \`@atlaskit/editor-core\`.
 

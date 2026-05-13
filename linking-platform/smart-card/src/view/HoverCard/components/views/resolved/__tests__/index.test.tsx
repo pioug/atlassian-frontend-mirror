@@ -334,10 +334,10 @@ describe('HoverCardResolvedView', () => {
 					mockResponse: {
 						...mockAtlasProjectWithAiSummary,
 						data: {
-							...mockAtlasProjectWithAiSummary.data,
+							...(mockAtlasProjectWithAiSummary.data as unknown as JsonLd.Data.BaseData),
 							url: 'http://data-link-url.com',
-						},
-					},
+						} as unknown as JsonLd.Data.BaseData,
+					} as JsonLd.Response,
 					isAISummaryEnabled: true,
 				});
 

@@ -27,7 +27,10 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./contentInsertionPlugin": "./src/entry-points/contentInsertionPlugin.tsx",
+		"./contentInsertionPluginType": "./src/entry-points/contentInsertionPluginType.ts",
+		"./types": "./src/entry-points/types.ts"
 	},
 	"dependencies": {
 		"@atlaskit/editor-plugin-analytics": "workspace:^",

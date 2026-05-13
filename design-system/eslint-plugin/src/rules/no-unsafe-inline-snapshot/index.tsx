@@ -3,7 +3,7 @@ import { type Expression, isNodeOfType, type SpreadElement } from 'eslint-codemo
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
 
 export const name = 'no-unsafe-inline-snapshot';
 

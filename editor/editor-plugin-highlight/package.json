@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-highlight",
-	"version": "10.0.16",
+	"version": "10.0.18",
 	"description": "Highlight plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,7 +32,10 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./highlightPlugin": "./src/entry-points/highlightPlugin.tsx",
+		"./highlightPluginType": "./src/entry-points/highlightPluginType.ts",
+		"./main": "./src/entry-points/main.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",

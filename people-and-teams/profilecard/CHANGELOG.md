@@ -1,5 +1,22 @@
 # @atlaskit/profilecard
 
+## 25.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.5.0
+
+### Minor Changes
+
+- [`3d5981e7ee8a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d5981e7ee8a5) -
+  Remove versioning FG
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.4.4
 
 ### Patch Changes

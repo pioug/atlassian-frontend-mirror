@@ -35,6 +35,7 @@ export const createSpacingStylesFromTemplate = (): string => {
 		.join(' | ');
 
 	const output = [
+		`/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */`,
 		`export const positiveSpaceMap: {
 			${typeAndValuePositive}
 		} = {\n${typeAndValuePositive}}`,

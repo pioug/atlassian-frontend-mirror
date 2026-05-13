@@ -21,6 +21,8 @@ import { token } from '@atlaskit/tokens';
 import Tooltip, { type PositionType } from '@atlaskit/tooltip';
 
 import AvatarGroupItem from './avatar-group-item';
+import { MoreDropdownTopLayer } from './avatar-group-top-layer';
+import { getOverrides } from './get-overrides';
 import Grid from './grid';
 import FocusManager from './internal/components/focus-manager';
 import PopupAvatarGroup from './internal/components/popup-avatar-group';
@@ -30,7 +32,6 @@ import {
 	type AvatarGroupOverrides,
 	type AvatarGroupSize,
 	type AvatarProps,
-	type DeepRequired,
 	type onAvatarClickHandler,
 } from './types';
 import { composeUniqueKey } from './utils';
@@ -174,28 +175,6 @@ export interface AvatarGroupProps {
 	moreIndicatorLabel?: string;
 }
 
-function getOverrides(overrides?: AvatarGroupOverrides): DeepRequired<AvatarGroupOverrides> {
-	return {
-		AvatarGroupItem: {
-			render: (Component, props, index) => (
-				<Component {...props} key={composeUniqueKey(props.avatar, index)} />
-			),
-			...(overrides && overrides.AvatarGroupItem),
-		},
-		Avatar: {
-			render: (Component, props, index) => (
-				//@ts-ignore - TS2604/TS2786: Component type union causing issues for help-center local consumption with TS 5.9.2
-				<Component {...props} key={composeUniqueKey(props, index)} />
-			),
-			...(overrides && overrides.Avatar),
-		},
-		MoreIndicator: {
-			render: (Component, props) => <Component {...props} />,
-			...(overrides && overrides.MoreIndicator),
-		},
-	};
-}
-
 /**
  * __Avatar group__
  *
@@ -240,12 +219,26 @@ const AvatarGroup = ({
 
 	const { isFocused, bindFocus } = useFocus();
 
+	const {
+		AvatarGroupItem: avatarGroupItemOverrides,
+		Avatar: avatarOverrides,
+		MoreIndicator: moreIndicatorOverrides,
+	} = getOverrides(overrides);
+
 	// When a trigger is focused, we want to open the popup
-	// the user presses the DownArrow
+	// the user presses the DownArrow.
+	// Skipped when top-layer is enabled — DropdownMenu/top-layer handles
+	// ArrowDown-to-open and arrow key navigation internally.
 	useEffect(() => {
 		// Set initial value if popup is closed
 		if (!isOpen) {
 			setTriggeredUsingKeyboard(false);
+		}
+
+		// Top-layer path: ArrowDown-to-open is handled by the menu's
+		// own focus management, so skip the parent's ArrowDown handler.
+		if (fg('platform-dst-top-layer')) {
+			return noop;
 		}
 
 		// Only need to listen for keydown when focused
@@ -300,10 +293,10 @@ const AvatarGroup = ({
 		}: {
 			'aria-controls'?: string;
 			'aria-expanded'?: boolean;
-			'aria-haspopup'?: boolean | 'dialog';
+			'aria-haspopup'?: boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';
 			onClick: MouseEventHandler;
 		}) =>
-			getOverrides(overrides).MoreIndicator.render(MoreIndicator, {
+			moreIndicatorOverrides.render(MoreIndicator, {
 				buttonProps: showMoreButtonProps,
 				borderColor: borderColor,
 				count: total - max,
@@ -326,6 +319,26 @@ const AvatarGroup = ({
 			});
 		}
 
+		if (fg('platform-dst-top-layer')) {
+			return (
+				<MoreDropdownTopLayer
+					isOpen={isOpen}
+					onClose={onClose}
+					isTriggeredUsingKeyboard={isTriggeredUsingKeyboard}
+					data={data}
+					max={max}
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+					overrides={overrides}
+					onAvatarClick={onAvatarClick}
+					testId={testId}
+					labelId={labelId}
+					renderMoreButton={renderMoreButton}
+					handleTriggerClicked={handleTriggerClicked}
+					bindFocus={bindFocus}
+				/>
+			);
+		}
+
 		// split boundariesElement into `boundary` and `rootBoundary` props for Popup
 		const boundary = boundariesElement === 'scrollParent' ? 'clippingParents' : undefined;
 		const rootBoundary = (() => {
@@ -334,6 +347,9 @@ const AvatarGroup = ({
 			}
 			return boundariesElement === 'window' ? 'document' : 'viewport';
 		})();
+
+		const avatarComponent =
+			avatar && fg('platform-avatar-group-pass-avatar-to-item') ? avatar : undefined;
 
 		return (
 			<Popup
@@ -354,12 +370,14 @@ const AvatarGroup = ({
 							setInitialFocusRef={isTriggeredUsingKeyboard ? setInitialFocusRef : undefined}
 						>
 							<Section titleId={labelId} testId={`${testId}--section`}>
-								{data.slice(max).map((avatar, index) =>
-									getOverrides(overrides).AvatarGroupItem.render(
+								{data.slice(max).map((avatarData, index) =>
+									avatarGroupItemOverrides.render(
 										AvatarGroupItem,
 										{
-											avatar,
+											avatar: avatarData,
+											avatarComponent,
 											onAvatarClick,
+											avatarOverrides,
 											testId: testId && `${testId}--avatar-group-item-${index + max}`,
 											index: index + max,
 										},
@@ -406,7 +424,7 @@ const AvatarGroup = ({
 		<Stack id={groupId} testId={testId && `${testId}--avatar-group`} aria-label={label} size={size}>
 			{data.slice(0, maxAvatar).map((avatarData, idx) => {
 				const callback = avatarData.onClick || onAvatarClick;
-				const finalAvatar = getOverrides(overrides).Avatar.render(
+				const finalAvatar = avatarOverrides.render(
 					avatar,
 					{
 						...avatarData,
@@ -464,7 +482,7 @@ const AvatarGroup = ({
 		<Grid id={groupId} testId={testId && `${testId}--avatar-group`} aria-label={label}>
 			{data.slice(0, maxAvatar).map((avatarData, idx) => {
 				const callback = avatarData.onClick || onAvatarClick;
-				const finalAvatar = getOverrides(overrides).Avatar.render(
+				const finalAvatar = avatarOverrides.render(
 					avatar,
 					{
 						...avatarData,

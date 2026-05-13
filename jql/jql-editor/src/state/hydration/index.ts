@@ -2,6 +2,7 @@ import { type Action } from 'react-sweet-state';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 
+
 import { getJastFromState } from '../../plugins/jql-ast';
 import { replaceRichInlineNodes } from '../../plugins/rich-inline-nodes/util/replace-nodes-transaction';
 import { actions } from '../index';
@@ -48,14 +49,9 @@ export const hydrateQuery =
 			// the same key format. See normaliseHydrationKey in ./util.ts.
 			const hydratedValuesMap: HydratedValuesMap = Object.entries(newHydratedValues).reduce(
 				(map, [fieldName, values]) => {
-					const fieldNameToUse =
-						FeatureGates.getExperimentValue(
-							'atlassian_projects_-_native_integration',
-							'releaseVersion',
-							-1,
-						) >= 1
-							? normaliseHydrationKey(fieldName)
-							: fieldName;
+					const fieldNameToUse = FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1
+						? normaliseHydrationKey(fieldName)
+						: fieldName;
 					const valueMap = new Map(oldHydratedValues[fieldNameToUse]);
 					values.forEach((value) => {
 						valueMap.set(value.id, value);

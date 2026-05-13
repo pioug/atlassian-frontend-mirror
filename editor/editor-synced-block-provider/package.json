@@ -32,7 +32,9 @@
 		"./providers/types": "./src/providers/types.ts",
 		"./clients/confluence/ari": "./src/clients/confluence/ari.ts",
 		"./utils/resourceId": "./src/utils/resourceId.ts",
-		"./common/types": "./src/common/types.ts"
+		"./common/types": "./src/common/types.ts",
+		"./types": "./src/providers/types.ts",
+		"./utils": "./src/utils/utils.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-utils": "workspace:^",
@@ -92,7 +94,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "6.5.1",
+	"version": "6.5.3",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -110,6 +112,9 @@
 			"type": "boolean"
 		},
 		"platform_synced_block_patch_10": {
+			"type": "boolean"
+		},
+		"platform_synced_block_patch_11": {
 			"type": "boolean"
 		},
 		"platform_synced_block_add_info_web_socket_error": {

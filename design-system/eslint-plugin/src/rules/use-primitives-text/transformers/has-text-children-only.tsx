@@ -1,7 +1,7 @@
 import { isNodeOfType, type JSXElement } from 'eslint-codemod-utils';
 
 import { FunctionCall } from '../../../ast-nodes/function-call';
-import { JSXElement as JSXElementHelper } from '../../../ast-nodes/jsx-element';
+import { JSXElementHelper } from '../../../ast-nodes/jsx-element-helper';
 
 // The use of `<FormattedMessage ... />` component and `{formatMessage(...)}` are allowed as these are used for i18n
 export function hasTextChildrenOnly(node: JSXElement): boolean {

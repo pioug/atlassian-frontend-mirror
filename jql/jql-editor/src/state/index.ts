@@ -1141,13 +1141,7 @@ export const useHydratedValue: HookFunction<
 	Store,
 	{
 		selector: (state, { id, fieldName }) => {
-			if (
-				FeatureGates.getExperimentValue(
-					'atlassian_projects_-_native_integration',
-					'releaseVersion',
-					-1,
-				) >= 1
-			) {
+			if (FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1) {
 				return state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(normaliseJqlString(id));
 			}
 			return state.hydratedValues[fieldName]?.get(id);
@@ -1164,14 +1158,9 @@ export const useHydratedUser: HookFunction<
 	}
 > = createHook<State, Actions, HydratedUser | undefined, { fieldName: string; id: string }>(Store, {
 	selector: (state, { id, fieldName }) => {
-		const user =
-			FeatureGates.getExperimentValue(
-				'atlassian_projects_-_native_integration',
-				'releaseVersion',
-				-1,
-			) >= 1
-				? state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(normaliseJqlString(id))
-				: state.hydratedValues[fieldName]?.get(id);
+		const user = FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1
+			? state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(normaliseJqlString(id))
+			: state.hydratedValues[fieldName]?.get(id);
 		return user && user.type === 'user' ? user : undefined;
 	},
 });
@@ -1185,14 +1174,9 @@ export const useHydratedTeam: HookFunction<
 	}
 > = createHook<State, Actions, HydratedTeam | undefined, { fieldName: string; id: string }>(Store, {
 	selector: (state, { id, fieldName }) => {
-		const team =
-			FeatureGates.getExperimentValue(
-				'atlassian_projects_-_native_integration',
-				'releaseVersion',
-				-1,
-			) >= 1
-				? state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(normaliseJqlString(id))
-				: state.hydratedValues[fieldName]?.get(id);
+		const team = FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1
+			? state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(normaliseJqlString(id))
+			: state.hydratedValues[fieldName]?.get(id);
 		return team && team.type === 'team' ? team : undefined;
 	},
 });
@@ -1208,14 +1192,9 @@ export const useHydratedProject: HookFunction<
 	Store,
 	{
 		selector: (state, { id, fieldName }) => {
-			const project =
-				FeatureGates.getExperimentValue(
-					'atlassian_projects_-_native_integration',
-					'releaseVersion',
-					-1,
-				) >= 1
-					? state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(normaliseJqlString(id))
-					: state.hydratedValues[normaliseJqlString(fieldName)]?.get(normaliseJqlString(id));
+			const project = FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1
+				? state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(normaliseJqlString(id))
+				: state.hydratedValues[normaliseJqlString(fieldName)]?.get(normaliseJqlString(id));
 			return project && project.type === 'project' ? project : undefined;
 		},
 	},

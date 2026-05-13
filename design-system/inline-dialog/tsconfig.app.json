@@ -41,10 +41,16 @@
 			"path": "../layering/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../popper/tsconfig.app.json"
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../top-layer/tsconfig.app.json"
 		},
 		{
 			"path": "../structured-docs-types/tsconfig.app.json"

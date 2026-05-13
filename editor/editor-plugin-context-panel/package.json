@@ -19,7 +19,11 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./contextPanelPlugin": "./src/entry-points/contextPanelPlugin.tsx",
+		"./contextPanelPluginType": "./src/entry-points/contextPanelPluginType.ts",
+		"./object-siderbar-types": "./src/entry-points/object-siderbar-types.ts",
+		"./types": "./src/entry-points/types.ts"
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",

@@ -1,7 +1,11 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 
-import type { SyncBlockInstance, SyncBlockSourceInfo } from '../providers/types';
+import type {
+	SyncBlockInstance,
+	SyncBlockJiraIssueType,
+	SyncBlockSourceInfo,
+} from '../providers/types';
 
 import type { SYNC_BLOCK_PRODUCTS } from './consts';
 
@@ -45,6 +49,7 @@ export interface SyncBlockData {
 	createdAt?: string;
 	createdBy?: string;
 	deletionReason?: DeletionReason;
+	issueType?: SyncBlockJiraIssueType;
 	isSynced?: boolean;
 	/**
 	 * Whether the block is on the same page as the source block

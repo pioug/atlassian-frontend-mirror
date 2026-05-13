@@ -1,10 +1,8 @@
 import { isKeyframes } from '@atlaskit/eslint-utils/is-supported-import';
 
-import {
-	createNoTaggedTemplateExpressionRule,
-	noTaggedTemplateExpressionRuleSchema,
-} from '../utils/create-no-tagged-template-expression-rule';
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
+import { createNoTaggedTemplateExpressionRule } from '../utils/create-no-tagged-template-expression-rule/create-no-tagged-template-expression-rule';
+import { noTaggedTemplateExpressionRuleSchema } from '../utils/create-no-tagged-template-expression-rule/no-tagged-template-expression-rule-schema';
 
 const rule: import('eslint').Rule.RuleModule = createLintRule({
 	meta: {

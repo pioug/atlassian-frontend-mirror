@@ -5,9 +5,9 @@ import { isNodeOfType, type Property } from 'eslint-codemod-utils';
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import { getNodeSource } from '../../utils/get-node-source';
+import { isDecendantOfStyleBlock } from '../../utils/is-decendant-of-style-block';
 import { isDecendantOfType } from '../../utils/is-decendant-of-type';
-import { isDecendantOfStyleBlock } from '../../utils/is-node';
-import type { RuleConfig } from '../config';
+import type { RuleConfig } from '../config/types';
 
 interface MetaData {
 	context: Rule.RuleContext;

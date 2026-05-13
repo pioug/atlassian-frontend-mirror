@@ -1,6 +1,13 @@
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
+
 import mockAtlasProject from './atlas-project';
 
-const mockAtlasProjectWithAISummary: any = JSON.parse(JSON.stringify(mockAtlasProject));
-mockAtlasProjectWithAISummary.meta.supportedFeature = ['AISummary'];
+const mockAtlasProjectWithAISummary = {
+	...mockAtlasProject,
+	meta: {
+		...mockAtlasProject.meta,
+		supportedFeature: ['AISummary'],
+	},
+} as SmartLinkResponse;
 
 export default mockAtlasProjectWithAISummary;

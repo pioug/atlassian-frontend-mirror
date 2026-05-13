@@ -26,7 +26,7 @@ import {
 } from '../../../components/ShareDialogWithTrigger';
 import { ShareForm } from '../../../components/ShareForm';
 import SplitButton from '../../../components/SplitButton';
-import { messages } from '../../../i18n';
+import { messages } from '../../../i18n-messages';
 import {
 	type DialogPlacement,
 	OBJECT_SHARED,

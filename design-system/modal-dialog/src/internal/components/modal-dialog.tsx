@@ -30,7 +30,7 @@ import { width } from '../width';
 
 import Positioner from './positioner';
 
-const dialogWidth = (input?: ModalDialogProps['width']): string => {
+export const dialogWidth = (input?: ModalDialogProps['width']): string => {
 	if (!input) {
 		return 'auto';
 	}
@@ -45,7 +45,7 @@ const dialogWidth = (input?: ModalDialogProps['width']): string => {
 	return typeof input === 'number' ? `${input}px` : input;
 };
 
-const dialogHeight = (input?: ModalDialogProps['height']): string => {
+export const dialogHeight = (input?: ModalDialogProps['height']): string => {
 	if (!input) {
 		return 'auto';
 	}

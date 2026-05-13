@@ -10,10 +10,12 @@ import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import ExpandIcon from '@atlaskit/icon/core/chevron-down';
 import { useLayering } from '@atlaskit/layering';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { layers } from '@atlaskit/theme/constants';
 
+import DropdownMenuTopLayer from './dropdown-menu-top-layer';
 import FocusManager from './internal/components/focus-manager';
 import MenuWrapper from './internal/components/menu-wrapper';
 import SelectionStore from './internal/context/selection-store';
@@ -78,15 +80,9 @@ function isKeyboardEvent(
 }
 
 /**
- * __Dropdown menu__
- *
- * A dropdown menu displays a list of actions or options to a user.
- *
- * - [Examples](https://atlassian.design/components/dropdown-menu/examples)
- * - [Code](https://atlassian.design/components/dropdown-menu/code)
- * - [Usage](https://atlassian.design/components/dropdown-menu/usage)
+ * Legacy Popper/Popup implementation (hooks run unconditionally when this component mounts).
  */
-const DropdownMenu = <T extends HTMLElement = any>({
+function DropdownMenuLegacy<T extends HTMLElement = any>({
 	autoFocus = false,
 	children,
 	defaultOpen = false,
@@ -108,7 +104,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 	strategy,
 	menuLabel,
 	shouldPreventEscapePropagation = false,
-}: DropdownMenuProps<T>): React.JSX.Element => {
+}: DropdownMenuProps<T>): React.JSX.Element {
 	const [isLocalOpen, setLocalIsOpen] = useControlledState(isOpen, () => defaultOpen);
 	const triggerRef = useRef<HTMLElement | null>(null);
 	const [isTriggeredUsingKeyboard, setTriggeredUsingKeyboard] = useState(false);
@@ -373,6 +369,63 @@ const DropdownMenu = <T extends HTMLElement = any>({
 			/>
 		</SelectionStore>
 	);
+}
+
+/**
+ * __Dropdown menu__
+ *
+ * A dropdown menu displays a list of actions or options to a user.
+ *
+ * - [Examples](https://atlassian.design/components/dropdown-menu/examples)
+ * - [Code](https://atlassian.design/components/dropdown-menu/code)
+ * - [Usage](https://atlassian.design/components/dropdown-menu/usage)
+ */
+const DropdownMenu = <T extends HTMLElement = any>(props: DropdownMenuProps<T>): React.JSX.Element => {
+	const {
+		autoFocus = false,
+		children,
+		defaultOpen = false,
+		isLoading = false,
+		isOpen,
+		onOpenChange = noop,
+		placement = 'bottom-start',
+		shouldFitContainer = false,
+		returnFocusRef,
+		spacing,
+		statusLabel,
+		testId,
+		trigger,
+		label,
+		interactionName,
+		menuLabel,
+	} = props;
+
+	if (fg('platform-dst-top-layer')) {
+		return (
+			<DropdownMenuTopLayer
+				autoFocus={autoFocus}
+				children={children}
+				defaultOpen={defaultOpen}
+				isLoading={isLoading}
+				isOpen={isOpen}
+				onOpenChange={onOpenChange}
+				placement={placement}
+				shouldFitContainer={shouldFitContainer}
+				returnFocusRef={returnFocusRef}
+				spacing={spacing}
+				statusLabel={statusLabel}
+				testId={testId}
+				trigger={trigger}
+				label={label}
+				interactionName={interactionName}
+				menuLabel={menuLabel}
+			/>
+		);
+	}
+
+	// Forward full public props to the legacy Popper/Popup implementation unchanged.
+	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props -- wrapper delegates entire DropdownMenuProps API
+	return <DropdownMenuLegacy {...props} />;
 };
 
 export default DropdownMenu;

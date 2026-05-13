@@ -135,7 +135,8 @@ export const markdownModeMessages: {
 	},
 	confirmDialogToMarkdownLossyRichContent: {
 		id: 'fabric.editor.markdownMode.confirmDialog.toMarkdownLossy.richContent',
-		defaultMessage: 'Your content has rich text formatting that may be unsupported in markdown.',
+		defaultMessage:
+			'Your content has rich text formatting that may be unsupported in markdown.',
 		description:
 			'Body row in the lossy convert-to-markdown warning dialog; explains that rich-text formatting may not survive the conversion.',
 	},

@@ -1,6 +1,13 @@
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { CardPluginActions } from '@atlaskit/editor-common/card';
-import type { NextEditorPlugin, OptionalPlugin, Command } from '@atlaskit/editor-common/types';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { CardPluginActions, CardReplacementInputMethod } from '@atlaskit/editor-common/card';
+import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
+import type {
+	Command,
+	EditorCommand,
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { InlineCommentPluginState } from '@atlaskit/editor-plugin-annotation';
 import type { BasePlugin } from '@atlaskit/editor-plugin-base';
@@ -50,6 +57,18 @@ export type CardPlugin = NextEditorPlugin<
 	'card',
 	{
 		actions: CardPluginActions;
+		commands: {
+			/** EditorCommand form of `queueCardsFromRange`. Prefer over the action. */
+			queueCardsFromRange: (
+				from: number,
+				to: number,
+				source: CardReplacementInputMethod,
+				analyticsAction?: ACTION,
+				normalizeLinkText?: boolean,
+				sourceEvent?: UIAnalyticsEvent | null,
+				appearance?: CardAppearance,
+			) => EditorCommand;
+		};
 		dependencies: CardPluginDependencies;
 		pluginConfiguration: CardPluginOptions | undefined;
 		sharedState: CardPluginState | null;

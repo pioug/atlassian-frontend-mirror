@@ -1,5 +1,7 @@
 import React from 'react';
 
+import type { IntlShape } from 'react-intl';
+
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type {
@@ -36,6 +38,7 @@ interface ExtensionNodeViewOptions {
 interface ReactExtensionNodeProps {
 	extensionHandlers: ExtensionHandlers;
 	extensionNodeViewOptions?: ExtensionNodeViewOptions;
+	intl?: IntlShape;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
 	providerFactory: ProviderFactory;
@@ -329,6 +332,7 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 			extensionHandlers: ExtensionHandlers;
 			// referentiality plugin won't utilise appearance just yet
 			extensionNodeViewOptions?: ExtensionNodeViewOptions;
+			intl?: IntlShape;
 			macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 			pluginInjectionApi: ExtensionsPluginInjectionAPI;
 			providerFactory: ProviderFactory;
@@ -345,6 +349,7 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 
 		return (
 			<ExtensionNodeWrapper
+				intl={props.intl}
 				nodeType={this.node.type.name}
 				macroInteractionDesignFeatureFlags={props.macroInteractionDesignFeatureFlags}
 			>
@@ -385,6 +390,7 @@ export default function ExtensionNodeView(
 	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean,
 	showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean,
 	rendererExtensionHandlers?: ExtensionHandlers,
+	intl?: IntlShape,
 ) {
 	return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView => {
 		return new ExtensionNode(node, view, getPos, portalProviderAPI, eventDispatcher, {
@@ -396,6 +402,7 @@ export default function ExtensionNodeView(
 			showLivePagesBodiedMacrosRendererView,
 			showUpdatedLivePages1PBodiedExtensionUI,
 			rendererExtensionHandlers,
+			intl,
 		}).init();
 	};
 }

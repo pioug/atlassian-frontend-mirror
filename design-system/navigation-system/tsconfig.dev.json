@@ -122,9 +122,6 @@
 			"path": "../page-header/tsconfig.app.json"
 		},
 		{
-			"path": "../page-layout/tsconfig.app.json"
-		},
-		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{

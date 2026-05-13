@@ -1,10 +1,9 @@
 import { tester } from '../../__tests__/utils/_tester';
-import rule, {
-	AFFECTED_ATLASKIT_PACKAGES,
-	AFFECTED_HTML_ELEMENTS,
-	UNWANTED_ATLASKIT_ATTRIBUTES,
-	UNWANTED_HTML_ATTRIBUTES,
-} from '../index';
+import { AFFECTED_ATLASKIT_PACKAGES } from '../affected-atlaskit-packages';
+import { AFFECTED_HTML_ELEMENTS } from '../affected-html-elements';
+import rule from '../index';
+import { UNWANTED_ATLASKIT_ATTRIBUTES } from '../unwanted-atlaskit-attributes';
+import { UNWANTED_HTML_ATTRIBUTES } from '../unwanted-html-attributes';
 
 tester.run('no-readonly-or-disabled-inputs', rule, {
 	valid: [

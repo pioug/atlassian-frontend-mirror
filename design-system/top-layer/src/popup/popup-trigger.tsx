@@ -22,18 +22,18 @@ import { type TPopupTriggerProps } from './types';
  * from opening.
  *
  * If you need Compiled `css` on the trigger, use `Popup.TriggerFunction`
- * instead — it hands you raw props via a render-prop and avoids
+ * instead - it hands you raw props via a render-prop and avoids
  * `cloneElement` entirely.
  */
 export function PopupTrigger({ children }: TPopupTriggerProps): ReactNode {
 	const { triggerRef, popoverRef, popoverId, isOpen, ariaHasPopup } = usePopupContext();
 
-	const childOnClick = isValidElement<{ onClick?: (e: React.MouseEvent) => void }>(children)
+	const childOnClick = isValidElement<{ onClick?: (event: React.MouseEvent) => void }>(children)
 		? children.props.onClick
 		: undefined;
 
 	// Use a ref to track the latest isOpen value so the click handler
-	// doesn't need isOpen in its dependency array (which would recreate
+	// does not need isOpen in its dependency array (which would recreate
 	// the handler on every open/close, breaking cloneElement identity).
 	const isOpenRef = React.useRef(isOpen);
 	isOpenRef.current = isOpen;

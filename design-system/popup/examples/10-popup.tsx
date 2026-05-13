@@ -120,7 +120,7 @@ const PopupPlacementExample = (): JSX.Element => {
 				<Popup
 					shouldRenderToParent
 					isOpen={isOpen}
-					testId="popup-content-wrapper"
+					testId="popup"
 					onClose={() => setIsOpen(false)}
 					content={() => <PopupContent setPosition={setPlacement} placement={placement} />}
 					trigger={(triggerProps) => (

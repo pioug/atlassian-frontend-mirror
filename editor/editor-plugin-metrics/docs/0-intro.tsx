@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Analytics', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the metrics plugin used by \`@atlaskit/editor-core\`.
 

@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { messages } from '../../i18n';
+import { messages } from '../../i18n-messages';
 import { type ShareDialogWithTriggerProps } from '../../types';
 import { type IntegrationMode } from '../../types/ShareEntities';
 import { ShareHeader } from '../ShareHeader';

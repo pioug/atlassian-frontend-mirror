@@ -90,7 +90,7 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 			return [
 				{
 					name: 'extension',
-					plugin: ({ dispatch, providerFactory, portalProviderAPI, eventDispatcher }) => {
+					plugin: ({ dispatch, providerFactory, portalProviderAPI, eventDispatcher, getIntl }) => {
 						const extensionHandlers = options.extensionHandlers || {};
 
 						return createPlugin(
@@ -107,6 +107,7 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 							},
 							featureFlags,
 							options?.__rendererExtensionOptions,
+							getIntl(),
 						);
 					},
 				},

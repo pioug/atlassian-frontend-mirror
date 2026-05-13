@@ -29,6 +29,7 @@ export const typescriptEslintTester: TSESLint.RuleTester = new TSESLint.RuleTest
 	},
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const tester: RuleTester = new RuleTester({
 	parser: require.resolve('@babel/eslint-parser'),
 	parserOptions: {

@@ -12,6 +12,7 @@ export const defaultLogoParams: Partial<LogoProps> = {
 	textColor: 'currentColor',
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const legacyDefaultLogoParams = {
 	iconGradientStart: 'inherit',
 	iconGradientStop: 'inherit',

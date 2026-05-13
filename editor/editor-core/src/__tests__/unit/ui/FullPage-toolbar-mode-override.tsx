@@ -59,12 +59,14 @@ jest.mock('@atlaskit/editor-common/hooks', () => {
 });
 
 jest.mock('@atlaskit/editor-common/use-shared-plugin-state-selector', () => ({
-	useSharedPluginStateSelector: jest.fn().mockImplementation((_api: unknown, selector: string) => {
-		if (selector === 'userPreferences.preferences') {
-			return { toolbarDockingPosition: 'none' };
-		}
-		return undefined;
-	}),
+	useSharedPluginStateSelector: jest
+		.fn()
+		.mockImplementation((_api: unknown, selector: string) => {
+			if (selector === 'userPreferences.preferences') {
+				return { toolbarDockingPosition: 'none' };
+			}
+			return undefined;
+		}),
 }));
 
 import { FullPageEditor as FullPage } from '../../../ui/Appearance/FullPage/FullPage';

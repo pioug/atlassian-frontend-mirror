@@ -1,4 +1,4 @@
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
 
 const primitiveDocsUrl = 'https://go.atlassian.com/dst-prefer-primitives';
 

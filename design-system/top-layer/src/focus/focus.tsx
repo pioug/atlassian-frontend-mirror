@@ -58,8 +58,8 @@ function getFocusables({
 	filter?: TFocusableFilter;
 }): HTMLElement[] {
 	return Array.from(container.querySelectorAll(selectors.focusable))
-		.filter((el): el is HTMLElement => el instanceof HTMLElement)
-		.filter((el) => !filter || filter(el, container));
+		.filter((element): element is HTMLElement => element instanceof HTMLElement)
+		.filter((element) => !filter || filter(element, container));
 }
 
 /**

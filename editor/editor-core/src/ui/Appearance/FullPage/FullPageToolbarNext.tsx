@@ -96,15 +96,6 @@ const styles = cssMap({
 	backgroundColor: {
 		backgroundColor: token('elevation.surface'),
 	},
-	// Placeholder styles to reserve toolbar space during hydration and prevent layout shift
-	toolbarPlaceholder: {
-		borderBottom: `${token('border.width')} solid ${token('color.border')}`,
-		backgroundColor: token('elevation.surface'),
-		boxSizing: 'border-box',
-		// @ts-expect-error - the type here expects an explicit height value, but CSS variables seem to work and are well-supported in compiled for whenever that migration occurs.
-		height: 'var(--ak-editor-fullpage-toolbar-height)',
-		minHeight: '45px',
-	},
 });
 
 const MainToolbarWrapper = ({

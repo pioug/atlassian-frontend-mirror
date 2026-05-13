@@ -1,4 +1,5 @@
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { MessageEntity } from '@atlaskit/linking-types/entity-types';
 
 export default {
 	meta: {
@@ -133,5 +134,5 @@ export default {
 				total: 13,
 			},
 		],
-	},
+	} satisfies MessageEntity,
 } as SmartLinkResponse;

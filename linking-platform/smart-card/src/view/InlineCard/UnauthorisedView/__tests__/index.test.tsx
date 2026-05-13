@@ -33,10 +33,7 @@ const mockGetProviderPctMapSyncTwentyNinePct = injectable(
 	}),
 );
 
-const mockGetProviderPctMapSyncNoPercentage = injectable(
-	getCachedProviderPctMapAndRefresh,
-	() => null,
-);
+const mockGetProviderPctMapSyncNoPercentage = injectable(getCachedProviderPctMapAndRefresh, () => null);
 const mockGetProviderPctMapSyncLoadedNoPercentage = injectable(
 	getCachedProviderPctMapAndRefresh,
 	() => ({}),
@@ -176,7 +173,9 @@ describe('Unauthorised View', () => {
 						/>,
 						mockGetProviderPctMapSyncExploratoryShare,
 					);
-					expect(getByTestId('inline-card-unauthorized-view-social-proof-tag')).toBeInTheDocument();
+					expect(
+						getByTestId('inline-card-unauthorized-view-social-proof-tag'),
+					).toBeInTheDocument();
 					expect(container).toHaveTextContent('Your team is previewing this');
 					expect(container).toHaveTextContent('Connect');
 				});
@@ -253,7 +252,9 @@ describe('Unauthorised View', () => {
 						/>,
 						mockGetProviderPctMapSyncLoadedNoPercentage,
 					);
-					expect(getByTestId('inline-card-unauthorized-view-social-proof-tag')).toBeInTheDocument();
+					expect(
+						getByTestId('inline-card-unauthorized-view-social-proof-tag'),
+					).toBeInTheDocument();
 					expect(container).toHaveTextContent('Your team is previewing this');
 					expect(container).toHaveTextContent('Connect');
 				});
@@ -270,7 +271,9 @@ describe('Unauthorised View', () => {
 						/>,
 						mockGetProviderPctMapSyncLoadedNoPercentage,
 					);
-					expect(getByTestId('inline-card-unauthorized-view-social-proof-tag')).toBeInTheDocument();
+					expect(
+						getByTestId('inline-card-unauthorized-view-social-proof-tag'),
+					).toBeInTheDocument();
 					expect(container).toHaveTextContent('Your team is previewing Figma');
 					expect(container).toHaveTextContent('Connect');
 				});

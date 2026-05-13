@@ -5,12 +5,12 @@ import replaceRaf from 'raf-stub';
 import { token } from '@atlaskit/tokens';
 import { render, screen } from '@atlassian/testing-library';
 
-import { useResizing } from '../../../resizing/resizing';
-import { isReducedMotion } from '../../../utils/accessibility';
+import { useResizing } from '../../../resizing/use-resizing';
+import { isReducedMotion } from '../../../utils/is-reduced-motion';
 
 type ResizingDimension = 'width' | 'height' | 'both';
 
-jest.mock('../../../utils/accessibility');
+jest.mock('../../../utils/is-reduced-motion');
 
 replaceRaf();
 const raf = window.requestAnimationFrame as any;

@@ -20,6 +20,7 @@
     "92-with-hidden-blanket.tsx",
     "93-multi-column.tsx",
     "95-custom-child.tsx",
+    "97-modal-a11y-background-inert.tsx",
     "96-with-current-surface.tsx"
   ],
   "exampleDependencies": [

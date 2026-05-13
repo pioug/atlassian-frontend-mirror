@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 7.2.0
+
+### Minor Changes
+
+- [`2f70251ed8022`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f70251ed8022) -
+  Clean up experiment platform_editor_experience_tracking
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.1
 
 ### Patch Changes

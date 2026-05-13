@@ -10,11 +10,8 @@ import {
 } from 'eslint-codemod-utils';
 
 import { getConfig } from '../utils/get-deprecated-config';
-import {
-	type DeprecatedImportConfig,
-	type DeprecatedJSXAttributeConfig,
-	isDeprecatedImportConfig,
-} from '../utils/types';
+import { isDeprecatedImportConfig } from '../utils/is-deprecated-import-config';
+import type { DeprecatedImportConfig, DeprecatedJSXAttributeConfig } from '../utils/types';
 
 import { importNameWithCustomMessageId, pathWithCustomMessageId } from './constants';
 import { getDeprecationIconHandler } from './handlers/icon';

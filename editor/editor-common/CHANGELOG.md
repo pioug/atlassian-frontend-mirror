@@ -1,5 +1,46 @@
 # @atlaskit/editor-common
 
+## 114.30.2
+
+### Patch Changes
+
+- [`d9e788d6a5ee1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9e788d6a5ee1) -
+  Add No Diff Found analytics event
+- Updated dependencies
+
+## 114.30.1
+
+### Patch Changes
+
+- [`9784984097a8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9784984097a8a) -
+  [ux] Improves synced block support for Jira work items, including product-specific copy,
+  issue-type icons, and enhanced analytics.
+- Updated dependencies
+
+## 114.30.0
+
+### Minor Changes
+
+- [`edd5d6d4c23ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edd5d6d4c23ec) -
+  Add SSR streaming supporting to Editor starmt cards and extensions
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.29.0
+
+### Minor Changes
+
+- [`14b617e1204ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14b617e1204ad) -
+  Cleanup confluence_frontend_fix_date_hydration_error experiment
+- [`a94026f1bcd86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a94026f1bcd86) -
+  [ux] fix: scope card queue to inserted range when inserting MAUI embed via Add to Doc
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.28.0
 
 ### Minor Changes

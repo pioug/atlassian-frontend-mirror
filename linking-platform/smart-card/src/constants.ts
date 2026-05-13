@@ -6,6 +6,8 @@ export const CONTENT_URL_3P_ACCOUNT_AUTH =
 
 export const CONTENT_URL_AI = 'https://www.atlassian.com/trust/atlassian-intelligence';
 
+export const CONTENT_URL_ROVO = 'https://www.atlassian.com/trust/ai';
+
 export const CONTENT_URL_AI_TROUBLESHOOTING = 'https://status.atlassian.com/';
 
 export const CONTENT_URL_ACCEPTABLE_USE_POLICY =

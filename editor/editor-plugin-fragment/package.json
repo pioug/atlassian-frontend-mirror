@@ -27,7 +27,9 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./fragmentPlugin": "./src/entry-points/fragmentPlugin.tsx",
+		"./fragmentPluginType": "./src/entry-points/fragmentPluginType.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",

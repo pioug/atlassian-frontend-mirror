@@ -60,9 +60,8 @@ describe('smart-card: prefetching of content', () => {
 		// use to spoof visibility of a Smart Link.
 		const intersectionObserverMock = MockIntersectionObserverFactory(mockIntersectionObserverOpts);
 		window.IntersectionObserver = intersectionObserverMock;
-		(
-			globalThis as unknown as { IntersectionObserver: typeof IntersectionObserver }
-		).IntersectionObserver = intersectionObserverMock;
+		(globalThis as unknown as { IntersectionObserver: typeof IntersectionObserver }).IntersectionObserver =
+			intersectionObserverMock;
 	});
 
 	afterEach(() => {

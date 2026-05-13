@@ -537,12 +537,7 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	}; // Added 2025-10-10
-	platform_editor_experience_tracking: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
+
 	// Added 2026-03-05 - gates DOM mutation observer for experience tracking (toolbar + block menu)
 	platform_editor_experience_tracking_observer: {
 		defaultValue: boolean;
@@ -1249,13 +1244,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-02-17
-	confluence_frontend_fix_date_hydration_error: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-02-18
 	platform_editor_fix_advanced_codeblocks_crlf_patch: {
 		defaultValue: boolean;
@@ -1789,6 +1777,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-11
+	platform_editor_table_menu_updates: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-14
 	platform_editor_ai_rename_add_polish: {
 		defaultValue: boolean;
@@ -2200,14 +2195,6 @@ export const editorExperimentsConfig: {
 	'company_hub_carousel_thumbnails-refactor': createBooleanExperiment({
 		productKeys: {
 			confluence: 'company_hub_carousel_thumbnails-refactor',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-10-10
-	platform_editor_experience_tracking: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_experience_tracking',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3235,14 +3222,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-02-17
-	confluence_frontend_fix_date_hydration_error: createBooleanExperiment({
-		productKeys: {
-			confluence: 'confluence_frontend_fix_date_hydration_error',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	platform_editor_fix_advanced_codeblocks_crlf_patch: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_fix_advanced_codeblocks_crlf_patch',
@@ -3946,6 +3925,15 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_table_q4_loveability',
 			jira: 'platform_editor_table_q4_loveability',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-11
+	platform_editor_table_menu_updates: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_menu_updates',
+			jira: 'platform_editor_table_menu_updates',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

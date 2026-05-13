@@ -20,7 +20,7 @@ import { type TPopupContentProps } from './types';
 /**
  * Thin context wrapper that composes `Popover` + `useAnchorPosition`.
  *
- * Used inside the `<Popup>` compound — reads triggerRef, placement, isOpen,
+ * Used inside the `<Popup>` compound - reads triggerRef, placement, isOpen,
  * and onClose from context. For standalone usage (tooltip, spotlight, flag),
  * use `Popover` + `useAnchorPosition` directly.
  */
@@ -99,7 +99,7 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 			// ── Nested popover focus restoration fallback ──
 			// The browser only captures `previouslyFocusedElement` for the
 			// outermost popover="auto" in the stack. Inner (nested) popovers
-			// have shouldRestoreFocus=false, so the browser won't restore
+			// have shouldRestoreFocus=false, so the browser will not restore
 			// focus when they close.
 			//
 			// We detect this case by checking if focus is still inside the

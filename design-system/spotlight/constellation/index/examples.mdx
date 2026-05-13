@@ -9,6 +9,7 @@ import MultipleStepsExample from '../../examples/constellation/multiple-steps';
 import MediaExample from '../../examples/constellation/media';
 import ControlsExample from '../../examples/constellation/controls';
 import MotionExample from '../../examples/constellation/motion';
+import ActionsAppearanceExample from '../../examples/constellation/actions-appearance';
 import ActionsExample from '../../examples/constellation/actions';
 
 <SectionMessage title="Motion in Early Access" appearance="warning">
@@ -84,6 +85,15 @@ focusable element on the `SpotlightCard` card to provide an accessible experienc
 When the primary or secondary control should perform an in-app action (e.g. dismiss, advance to the
 next step, or complete a flow), use `SpotlightPrimaryAction` and `SpotlightSecondaryAction`. They
 accept an `onClick` handler and render as buttons.
+
+`SpotlightPrimaryAction` and `SpotlightPrimaryLink` also accept an `appearance` prop, which allow
+for brand styling.
+
+<Example
+	Component={ActionsAppearanceExample}
+	packageName="@atlaskit/spotlight"
+	featureFlagSwitchers={['motion']}
+/>
 
 ### Links
 

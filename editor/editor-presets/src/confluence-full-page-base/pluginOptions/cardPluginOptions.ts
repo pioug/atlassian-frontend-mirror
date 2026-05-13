@@ -14,6 +14,7 @@ import type { FullPageEditorAppearance } from '../types';
  */
 const SMART_LINKS_BEFORE_MACROS =
 	'jira,jiraroadmap,google-drive-sheets,google-drive-docs,OneDrive,google-drive-slides'.split(',');
+
 // END SECTION
 
 interface Props {

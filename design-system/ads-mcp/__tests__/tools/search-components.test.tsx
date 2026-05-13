@@ -1,4 +1,4 @@
-import { searchComponentsTool } from '../../src/tools/search-components';
+import { searchComponentsTool } from '../../src/tools/search-components/search-components-tool';
 
 /**
  * Expected names for `searchComponentsTool({ terms, limit: 2 })` (matches tool default).

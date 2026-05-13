@@ -143,8 +143,8 @@ export function useAnimatedVisibility({
 			return;
 		}
 
-		const el = elementRef.current;
-		if (!el) {
+		const element = elementRef.current;
+		if (!element) {
 			return;
 		}
 
@@ -158,7 +158,7 @@ export function useAnimatedVisibility({
 		const fallbackId = setTimeout(finish, (preset?.exitDurationMs ?? 0) + 50);
 
 		// Primary: listen for the CSS transition to complete
-		const unbind = bind(el, {
+		const unbind = bind(element, {
 			type: 'transitionend',
 			listener: finish,
 			options: { once: true },

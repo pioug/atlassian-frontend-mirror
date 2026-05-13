@@ -3,12 +3,12 @@ import React, { forwardRef } from 'react';
 import { render, screen } from '@testing-library/react';
 import replaceRaf from 'raf-stub';
 
-import { useResizingHeight } from '../../../resizing/height';
-import { isReducedMotion } from '../../../utils/accessibility';
+import { useResizingHeight } from '../../../resizing/use-resizing-height';
 import { easeInOut } from '../../../utils/curves';
 import { durations } from '../../../utils/durations';
+import { isReducedMotion } from '../../../utils/is-reduced-motion';
 
-jest.mock('../../../utils/accessibility');
+jest.mock('../../../utils/is-reduced-motion');
 
 replaceRaf();
 const raf = window.requestAnimationFrame as any;

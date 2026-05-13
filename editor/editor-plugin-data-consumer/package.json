@@ -27,7 +27,9 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./dataConsumerPlugin": "./src/entry-points/dataConsumerPlugin.tsx",
+		"./dataConsumerPluginType": "./src/entry-points/dataConsumerPluginType.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",

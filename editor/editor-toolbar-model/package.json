@@ -81,7 +81,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-toolbar-model",
-	"version": "0.4.52",
+	"version": "0.4.54",
 	"description": "register and render toolbar component",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

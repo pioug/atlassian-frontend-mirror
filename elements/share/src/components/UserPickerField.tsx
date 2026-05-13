@@ -17,7 +17,7 @@ import SmartUserPicker, {
 } from '@atlaskit/smart-user-picker';
 import UserPicker, { type ExternalUser, type Team, type User } from '@atlaskit/user-picker';
 
-import { messages } from '../i18n';
+import { messages } from '../i18n-messages';
 import {
 	type ConfigResponse,
 	type MessageDescriptor,

@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 import { Field, useFormState } from '@atlaskit/form';
 import TextArea from '@atlaskit/textarea';
 
-import { messages } from '../i18n';
+import { messages } from '../i18n-messages';
 import { type Comment, type ShareData } from '../types';
 
 export type Props = {

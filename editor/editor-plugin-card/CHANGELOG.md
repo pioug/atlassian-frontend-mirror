@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-card
 
+## 16.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.7.0
+
+### Minor Changes
+
+- [`edd5d6d4c23ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edd5d6d4c23ec) -
+  Add SSR streaming supporting to Editor starmt cards and extensions
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.6.0
+
+### Minor Changes
+
+- [`a94026f1bcd86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a94026f1bcd86) -
+  [ux] fix: scope card queue to inserted range when inserting MAUI embed via Add to Doc
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.5.4
 
 ### Patch Changes

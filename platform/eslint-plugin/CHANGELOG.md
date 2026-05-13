@@ -1,5 +1,22 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.10.1
+
+### Patch Changes
+
+- [`503354c8d7fd7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/503354c8d7fd7) -
+  add `use-motion-token-values` and `expand-motion-shorthand` eslint rules to the plugin without
+  enabling them in the recommended config. the `use-motion-token-values` rule is suggestion-only (no
+  autofix) — values with an exact token match offer an IDE quick-fix suggestion, and values with no
+  exact match warn without any fix.
+
+## 2.10.0
+
+### Minor Changes
+
+- [`ed426d1a0955c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed426d1a0955c) -
+  Add `one-value-export-per-file` ESLint rule for reporting files with multiple local value exports.
+
 ## 2.9.3
 
 ### Patch Changes

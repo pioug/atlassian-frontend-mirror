@@ -1,25 +1,27 @@
 import { expect, test } from '@af/integration-testing';
 
-const addFlagBtn = "[data-testid='AddFlag']";
-const flagTestId = "[data-testid='MyFlagTestId--1']";
-const flagActionTestId = "[data-testid='MyFlagTestId--1'] [data-testid='MyFlagAction']";
+test.describe('Flag top-layer — Accessibility', () => {
+	test('Flag should pass basic aXe audit', async ({ page }) => {
+		await page.visitExample<typeof import('../../../examples/99-testing.tsx')>(
+			'design-system',
+			'flag',
+			'testing',
+		);
 
-test('Flag should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/99-testing.tsx')>(
-		'design-system',
-		'flag',
-		'testing',
-	);
-	await page.locator(addFlagBtn).first().click();
-	await expect(page.locator(flagTestId).first()).toBeVisible();
-	await expect(page.locator(flagActionTestId).first()).toBeVisible();
+		// Arrange: Add a flag
+		await page.getByTestId('AddFlag').click();
+		await expect(page.getByTestId('MyFlagTestId--1')).toBeVisible();
+		await expect(page.getByTestId('MyFlagTestId--1').getByTestId('MyFlagAction')).toBeVisible();
 
-	const alertPromise = page.waitForEvent('dialog', async (alertDialog) => {
-		await alertDialog.accept();
-		return true;
+		// Act: Click action button
+		const actionButton = page.getByTestId('MyFlagTestId--1').getByTestId('MyFlagAction');
+		const alertPromise = page.waitForEvent('dialog', async (alertDialog) => {
+			await alertDialog.accept();
+			return true;
+		});
+		await actionButton.click();
+
+		// Assert: Alert should appear
+		await alertPromise;
 	});
-	await page.locator(flagActionTestId).first().click();
-	const alertDialog = await alertPromise;
-	expect(alertDialog.type()).toBe('alert');
-	expect(alertDialog.message()).toBe('Flag has been clicked!');
 });

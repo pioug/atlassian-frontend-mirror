@@ -2,6 +2,7 @@ import React, { useCallback, useContext } from 'react';
 
 import { Layering } from '@atlaskit/layering';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 
 import PopperWrapper from '../popper-wrapper';
@@ -10,6 +11,7 @@ import { usePopupAppearance } from '../use-appearance';
 
 import { IdContext } from './id-context';
 import { IsOpenContext } from './is-open-context';
+import { PopupContentTopLayer } from './popup-content-top-layer';
 import { TriggerRefContext } from './trigger-ref-context';
 import { useEnsureIsInsidePopup } from './use-ensure-is-inside-popup';
 
@@ -44,6 +46,7 @@ type CommonContentPopupProps = Pick<
 	| 'zIndex'
 	| 'shouldFitViewport'
 	| 'role'
+	| 'label'
 	| 'titleId'
 > & {
 	// This type has been kept the same as the Popup `content` prop for now.
@@ -107,6 +110,7 @@ export const PopupContent = ({
 	shouldFitViewport,
 	shouldDisableGpuAcceleration = false,
 	role,
+	label,
 	titleId,
 }: PopupContentProps): React.JSX.Element | null => {
 	useEnsureIsInsidePopup();
@@ -127,6 +131,43 @@ export const PopupContent = ({
 		onClose: handleOpenLayerObserverCloseSignal,
 		type: 'popup',
 	});
+
+	// Top-layer rendering path: native Popover API via @atlaskit/top-layer.
+	// Mirrors the FF branch in the legacy `Popup` component (popup.tsx).
+	if (fg('platform-dst-top-layer')) {
+		return (
+			<PopupContentTopLayer
+				xcss={xcss}
+				appearance={inAppearance}
+				offset={offset}
+				onClose={onClose}
+				testId={testId}
+				placement={placement}
+				fallbackPlacements={fallbackPlacements}
+				popupComponent={popupComponent}
+				autoFocus={autoFocus}
+				shouldFitContainer={shouldFitContainer}
+				shouldFitViewport={shouldFitViewport}
+				role={role}
+				label={label}
+				titleId={titleId}
+				zIndex={zIndex}
+				shouldRenderToParent={inShouldRenderToParent}
+				strategy={strategy}
+				boundary={boundary}
+				rootBoundary={rootBoundary}
+				shouldUseCaptureOnOutsideClick={shouldUseCaptureOnOutsideClick}
+				shouldDisableFocusLock={shouldDisableFocusLock}
+				shouldFlip={shouldFlip}
+				shouldDisableGpuAcceleration={shouldDisableGpuAcceleration}
+				isOpen={isOpen}
+				id={id}
+				triggerRef={triggerRef}
+			>
+				{children}
+			</PopupContentTopLayer>
+		);
+	}
 
 	if (!isOpen) {
 		return null;

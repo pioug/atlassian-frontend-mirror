@@ -111,11 +111,11 @@ const UnauthorisedConnectWithSocialProof = ({
 }): JSX.Element => {
 	di(getCachedProviderPctMapAndRefresh);
 	const providerPctMap = getCachedProviderPctMapAndRefresh(SOCIAL_PROOF_TRAIT_NAME);
-
+	
 	// Will be false if this is the first render, when we fetch traits and store to local storage,
 	// or if there wasn't our trait for it.
 	const isProviderPctMapLoaded = providerPctMap !== null;
-
+	
 	// Percent of current user team (same tenant users) who are connected to this extension.
 	const connectedPct =
 		extensionKey && isProviderPctMapLoaded ? providerPctMap[extensionKey] : undefined;
@@ -131,7 +131,11 @@ const UnauthorisedConnectWithSocialProof = ({
 	 */
 	const showSocialProofPill =
 		providerPctMap !== null &&
-		expValEquals('platform_sl_3p_preauth_social_proof_inline_cta', 'isEnabled', true);
+		expValEquals(
+			'platform_sl_3p_preauth_social_proof_inline_cta',
+			'isEnabled',
+			true,
+		);
 
 	const bold = (chunks: React.ReactNode) => (
 		<Box as="strong" xcss={socialProofPillStyles.strong}>

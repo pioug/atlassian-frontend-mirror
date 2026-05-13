@@ -13,6 +13,7 @@ import { format, isValid } from 'date-fns';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
 import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Select, {
 	type ActionMeta,
 	CreatableSelect,
@@ -26,6 +27,7 @@ import Select, {
 import { defaultTimes } from '../internal/default-times';
 import { EmptyComponent } from '../internal/empty-component';
 import { FixedLayerMenu } from '../internal/fixed-layer-menu';
+import { FixedLayerMenuTopLayer } from '../internal/fixed-layer-menu-top-layer';
 import parseTime from '../internal/parse-time';
 import { convertTokens } from '../internal/parse-tokens';
 import { placeholderDatetime } from '../internal/placeholder-date-time';
@@ -284,7 +286,7 @@ const TimePicker: React.ForwardRefExoticComponent<
 
 		const selectComponents: SelectComponentsConfig<OptionType> = {
 			DropdownIndicator: EmptyComponent,
-			Menu: FixedLayerMenu,
+			Menu: fg('platform-dst-top-layer') ? FixedLayerMenuTopLayer : FixedLayerMenu,
 			SingleValue,
 			...(hideIcon && { ClearIndicator: EmptyComponent }),
 		};

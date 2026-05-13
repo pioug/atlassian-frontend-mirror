@@ -36,7 +36,7 @@ import {
 	getSaveSourceExperience,
 	getFetchSourceInfoExperience,
 } from '../utils/experienceTracking';
-import { convertSyncBlockPMNodeToSyncBlockData } from '../utils/utils';
+import { convertSyncBlockPMNodeToSyncBlockData, productAttrIfGateOn } from '../utils/utils';
 
 export type ConfirmationCallback = (
 	syncBlockIds: SyncBlockAttrs[],
@@ -191,7 +191,15 @@ export class SourceSyncBlockStoreManager {
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
 			});
-			this.fireAnalyticsEvent?.(updateCacheErrorPayload((error as Error).message));
+			// We can derive the product from `syncBlockNode.attrs.resourceId` even though
+			// the variable wasn't destructured (the destructuring step itself may have thrown).
+			this.fireAnalyticsEvent?.(
+				updateCacheErrorPayload(
+					(error as Error).message,
+					syncBlockNode?.attrs?.resourceId,
+					productAttrIfGateOn(syncBlockNode?.attrs?.resourceId),
+				),
+			);
 			return false;
 		}
 	}
@@ -275,7 +283,9 @@ export class SourceSyncBlockStoreManager {
 								cachedData.status = result.status;
 							}
 						}
-						this.fireAnalyticsEvent?.(updateSuccessPayload(result.resourceId, false));
+						this.fireAnalyticsEvent?.(
+							updateSuccessPayload(result.resourceId, false, productAttrIfGateOn(result.resourceId)),
+						);
 					}
 				});
 				return true;
@@ -285,7 +295,11 @@ export class SourceSyncBlockStoreManager {
 					.filter((result) => !result.resourceId || result.error)
 					.forEach((result) => {
 						this.fireAnalyticsEvent?.(
-							updateErrorPayload(result.error || 'Failed to write data', result.resourceId),
+							updateErrorPayload(
+								result.error || 'Failed to write data',
+								result.resourceId,
+								productAttrIfGateOn(result.resourceId),
+							),
 						);
 					});
 
@@ -295,6 +309,7 @@ export class SourceSyncBlockStoreManager {
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
 			});
+			// Top-level flush failure is not tied to a single resourceId.
 			this.fireAnalyticsEvent?.(updateErrorPayload((error as Error).message));
 
 			return false;
@@ -360,16 +375,28 @@ export class SourceSyncBlockStoreManager {
 			}
 		} else {
 			this.fireAnalyticsEvent?.(
-				createErrorPayload('creation complete callback missing', resourceId),
+				createErrorPayload(
+					'creation complete callback missing',
+					resourceId,
+					productAttrIfGateOn(resourceId),
+				),
 			);
 		}
 
 		if (success) {
-			this.fireAnalyticsEvent?.(createSuccessPayload(resourceId || ''));
+			this.fireAnalyticsEvent?.(
+				createSuccessPayload(resourceId || '', productAttrIfGateOn(resourceId)),
+			);
 		} else {
 			// Delete the node from cache if fail to create so it's not flushed to BE
 			this.syncBlockCache.delete(resourceId || '');
-			this.fireAnalyticsEvent?.(createErrorPayload('Fail to create bodied sync block', resourceId));
+			this.fireAnalyticsEvent?.(
+				createErrorPayload(
+					'Fail to create bodied sync block',
+					resourceId,
+					productAttrIfGateOn(resourceId),
+				),
+			);
 		}
 	}
 
@@ -451,7 +478,11 @@ export class SourceSyncBlockStoreManager {
 							reason: result.error || 'Failed to create bodied sync block',
 						});
 						this.fireAnalyticsEvent?.(
-							createErrorPayload(result.error || 'Failed to create bodied sync block', resourceId),
+							createErrorPayload(
+								result.error || 'Failed to create bodied sync block',
+								resourceId,
+								productAttrIfGateOn(resourceId),
+							),
 						);
 					}
 				})
@@ -461,7 +492,9 @@ export class SourceSyncBlockStoreManager {
 						location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
 					});
 					this.createExperience?.failure({ reason: (error as Error).message });
-					this.fireAnalyticsEvent?.(createErrorPayload((error as Error).message, resourceId));
+					this.fireAnalyticsEvent?.(
+						createErrorPayload((error as Error).message, resourceId, productAttrIfGateOn(resourceId)),
+					);
 				});
 		} catch (error) {
 			if (this.isPendingCreation(resourceId)) {
@@ -470,7 +503,9 @@ export class SourceSyncBlockStoreManager {
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
 			});
-			this.fireAnalyticsEvent?.(createErrorPayload((error as Error).message));
+			this.fireAnalyticsEvent?.(
+				createErrorPayload((error as Error).message, resourceId, productAttrIfGateOn(resourceId)),
+			);
 		}
 	}
 
@@ -521,7 +556,9 @@ export class SourceSyncBlockStoreManager {
 				this.clearPendingDeletion();
 				this.deleteExperience?.success();
 				results.forEach((result) => {
-					this.fireAnalyticsEvent?.(deleteSuccessPayload(result.resourceId));
+					this.fireAnalyticsEvent?.(
+						deleteSuccessPayload(result.resourceId, productAttrIfGateOn(result.resourceId)),
+					);
 				});
 			} else {
 				callback = (Ids: SyncBlockAttrs) => {
@@ -531,12 +568,15 @@ export class SourceSyncBlockStoreManager {
 				this.deleteExperience?.failure();
 				results.forEach((result) => {
 					if (result.success) {
-						this.fireAnalyticsEvent?.(deleteSuccessPayload(result.resourceId));
+						this.fireAnalyticsEvent?.(
+							deleteSuccessPayload(result.resourceId, productAttrIfGateOn(result.resourceId)),
+						);
 					} else {
 						this.fireAnalyticsEvent?.(
 							deleteErrorPayload(
 								result.error || 'Failed to delete synced block',
 								result.resourceId,
+								productAttrIfGateOn(result.resourceId),
 							),
 						);
 					}
@@ -548,7 +588,9 @@ export class SourceSyncBlockStoreManager {
 		} catch (error) {
 			syncBlockIds.forEach((Ids) => {
 				this.setPendingDeletion(Ids, false);
-				this.fireAnalyticsEvent?.(deleteErrorPayload((error as Error).message, Ids.resourceId));
+				this.fireAnalyticsEvent?.(
+					deleteErrorPayload((error as Error).message, Ids.resourceId, productAttrIfGateOn(Ids.resourceId)),
+				);
 			});
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
@@ -751,7 +793,9 @@ export class SourceSyncBlockStoreManager {
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
 			});
-			this.fireAnalyticsEvent?.(fetchReferencesErrorPayload((error as Error).message));
+			this.fireAnalyticsEvent?.(
+				fetchReferencesErrorPayload((error as Error).message, resourceId, productAttrIfGateOn(resourceId)),
+			);
 
 			return Promise.resolve({ error: SyncBlockError.Errored });
 		}

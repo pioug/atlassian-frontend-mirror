@@ -1,5 +1,6 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import {
+	extractEntityIcon,
 	extractEntityProvider,
 	extractProvider,
 	extractSmartLinkTitle,
@@ -9,6 +10,7 @@ import {
 } from '@atlaskit/link-extractors';
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getEmptyJsonLd } from '../../utils/jsonld';
 import { type InlineCardResolvedViewProps } from '../../view/InlineCard/ResolvedView';
@@ -33,15 +35,16 @@ const extractInlineIcon = (jsonLd: JsonLd.Data.BaseData, showIconLabel = true) =
  */
 const extractSmartLinkInlineIcon = (response?: SmartLinkResponse, showLabel = true) => {
 	if (isEntityPresent(response)) {
+		if (fg('platform_lp_use_entity_icon_url_for_icon')) {
+			const entityIcon = extractEntityIcon(response);
+			if (entityIcon) {
+				return [entityIcon.url, entityIcon.label];
+			}
+		}
 		const provider = extractEntityProvider(response);
 		if (provider) {
 			return provider.icon;
 		}
-		// We don't need this for design entities,
-		// but we can add it back when we support more entities
-		// it requires extractInlineIcon to be moved to the smart link extractor package.
-		// see: https://product-fabric.atlassian.net/browse/EDM-12375
-		// return extractSmartLinkIcon(response);
 	}
 
 	return extractInlineIcon((response?.data as JsonLd.Data.BaseData) || getEmptyJsonLd(), showLabel);

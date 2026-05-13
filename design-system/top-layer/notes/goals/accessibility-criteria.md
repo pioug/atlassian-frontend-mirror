@@ -567,13 +567,24 @@ modals, dialogs, and custom menus should close on Escape.
 **The problem:** `shouldCloseOnEscapePress` allows consumers to disable Escape dismissal, creating
 keyboard traps. Gerard explicitly calls this out — it should not exist.
 
+**Legacy compatibility exception (modal dialog):** `@atlaskit/modal-dialog` may still **gate**
+whether Escape results in an application `onClose` when `shouldCloseOnEscapePress={false}`, to match
+long-standing product contracts. Native `<dialog>` still receives the `cancel` event on Escape; the
+top-layer primitive always reports the close reason. Only whether the **consumer’s** `onClose` runs
+is gated — this is intentional parity with the pre-migration path until the prop is fully deprecated
+and removed. **No other layered primitives** should offer a way to block Escape dismissal for
+`popover="auto"` layers.
+
 **Non-negotiable outcome:**
 
-- ✅ Escape **always** dismisses any popup, dialog, dropdown, or modal — no exceptions
+- ✅ Escape **always** dismisses popovers, dropdowns, inline dialogs, and other `popover="auto"`
+  layers (browser light dismiss is not JS-cancelable)
+- ✅ Modal: Escape is always recognized by the platform; **closing the app modal** may still be
+  suppressed when `shouldCloseOnEscapePress={false}` (legacy)
 - ✅ `shouldCloseOnEscapePress` prop is deprecated and eventually removed
 - ✅ Light dismiss (click outside) works for non-modal layers
-- ✅ For modals: Escape fires `cancel` event which triggers `onClose` — consumers cannot prevent the
-  Escape key from being recognized
+- ✅ For modals: Escape fires the `cancel` event (platform); `onClose` may be gated by
+  `shouldCloseOnEscapePress` for legacy parity (see exception above)
 
 **How the migration solves it:**
 

@@ -2,6 +2,7 @@ import React from 'react';
 import type { ComponentProps } from 'react';
 
 import rafSchedule from 'raf-schd';
+import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
@@ -42,16 +43,19 @@ import {
 	SMART_LINK_DRAG_TYPES,
 	SMART_LINK_APPEARANCE,
 } from '@atlaskit/editor-smart-link-draggable';
+import type { CardContext } from '@atlaskit/link-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { EmbedResizeMessageListener, Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { cardPlugin } from '../index';
 import { registerCard, removeCard } from '../pm-plugins/actions';
 import ResizableEmbedCard from '../ui/ResizableEmbedCard';
+import { SmartCardSSRReactContextsProvider } from '../ui/SmartCardSSRReactContextsProvider';
 
 import { BlockCardComponent } from './blockCard';
 import type { SmartCardProps } from './genericCard';
@@ -610,6 +614,8 @@ export type EmbedCardNodeViewProps = Pick<
 	| 'isPageSSRed'
 	| 'provider'
 	| 'CompetitorPrompt'
+	| 'intl'
+	| 'smartCardContext'
 >;
 
 export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
@@ -659,24 +665,28 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 			CompetitorPrompt,
 			isPageSSRed,
 			provider,
+			intl,
+			smartCardContext,
 		} = this.reactComponentProps;
 
 		return (
-			<WrappedEmbedCard
-				node={this.node}
-				view={this.view}
-				eventDispatcher={eventDispatcher}
-				getPos={this.getPos}
-				allowResizing={allowResizing}
-				fullWidthMode={fullWidthMode}
-				dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-				pluginInjectionApi={pluginInjectionApi}
-				onClickCallback={onClickCallback}
-				id={this.id}
-				CompetitorPrompt={CompetitorPrompt}
-				isPageSSRed={isPageSSRed}
-				provider={provider}
-			/>
+			<SmartCardSSRReactContextsProvider intl={intl} smartCardContext={smartCardContext}>
+				<WrappedEmbedCard
+					node={this.node}
+					view={this.view}
+					eventDispatcher={eventDispatcher}
+					getPos={this.getPos}
+					allowResizing={allowResizing}
+					fullWidthMode={fullWidthMode}
+					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+					pluginInjectionApi={pluginInjectionApi}
+					onClickCallback={onClickCallback}
+					id={this.id}
+					CompetitorPrompt={CompetitorPrompt}
+					isPageSSRed={isPageSSRed}
+					provider={provider}
+				/>
+			</SmartCardSSRReactContextsProvider>
 		);
 	}
 
@@ -710,11 +720,13 @@ export interface EmbedCardNodeViewProperties {
 	allowResizing: EmbedCardNodeViewProps['allowResizing'];
 	CompetitorPrompt?: EmbedCardNodeViewProps['CompetitorPrompt'];
 	fullWidthMode: EmbedCardNodeViewProps['fullWidthMode'];
+	intl?: IntlShape;
 	isPageSSRed: EmbedCardNodeViewProps['isPageSSRed'];
 	onClickCallback: EmbedCardNodeViewProps['onClickCallback'];
 	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
 	pmPluginFactoryParams: PMPluginFactoryParams;
 	provider: EmbedCardNodeViewProps['provider'];
+	smartCardContext?: CardContext;
 }
 
 export const embedCardNodeView =
@@ -728,6 +740,8 @@ export const embedCardNodeView =
 		CompetitorPrompt,
 		isPageSSRed,
 		provider,
+		intl,
+		smartCardContext,
 	}: EmbedCardNodeViewProperties) =>
 	(node: PMNode, view: EditorView, getPos: () => number | undefined): EmbedCard => {
 		const { portalProviderAPI, eventDispatcher, dispatchAnalyticsEvent } = pmPluginFactoryParams;
@@ -742,6 +756,12 @@ export const embedCardNodeView =
 			CompetitorPrompt,
 			isPageSSRed,
 			provider,
+			intl: expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+				? intl
+				: undefined,
+			smartCardContext: expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+				? smartCardContext
+				: undefined,
 		};
 
 		return new EmbedCard(

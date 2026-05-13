@@ -12,11 +12,18 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
 import type { PluginConfig, PluginInjectionAPI, TableDirection } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
-import { dragMenuDropdownWidth, tablePopupMenuFitHeight } from '../consts';
+import {
+	dragMenuDropdownWidth,
+	dragTableInsertColumnButtonSize,
+	tablePopupMenuFitHeight,
+} from '../consts';
+import { RowMenu } from '../TableMenu/row/RowMenu';
+import { newMenuWidth } from '../TableMenu/shared/consts';
 
 import DragMenu from './DragMenu';
 
@@ -50,6 +57,8 @@ interface FloatingDragMenuFunction {
 	(props: Props): React.JSX.Element | null;
 	displayName: string;
 }
+
+const rowMenuOffset = dragTableInsertColumnButtonSize + 4;
 
 const FloatingDragMenu: FloatingDragMenuFunction = ({
 	mountPoint,
@@ -85,8 +94,6 @@ const FloatingDragMenu: FloatingDragMenuFunction = ({
 			? document.querySelector('#drag-handle-button-row')
 			: document.querySelector('#drag-handle-button-column');
 
-	const offset = direction === 'row' ? [-9, 0] : [0, -7];
-
 	if (!targetHandleRef || !(editorView.state.selection instanceof CellSelection)) {
 		return null;
 	}
@@ -106,39 +113,43 @@ const FloatingDragMenu: FloatingDragMenuFunction = ({
 			mountTo={mountPoint}
 			boundariesElement={boundariesElement}
 			scrollableElement={scrollableElement}
-			fitWidth={dragMenuDropdownWidth}
+			fitWidth={expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) ? newMenuWidth : dragMenuDropdownWidth}
 			fitHeight={tablePopupMenuFitHeight}
 			// z-index value below is to ensure that this menu is above other floating menu
 			// in table, but below floating dialogs like typeaheads, pickers, etc.
 			// In sticky mode, we want to show the menu above the sticky header
 			zIndex={inStickyMode ? akEditorFloatingDialogZIndex : akEditorFloatingOverlapPanelZIndex}
 			forcePlacement={true}
-			offset={offset}
+			offset={expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) ? [rowMenuOffset, 0] : direction === 'row' ? [-9, 0] : [0, -7]}
 			stick={true}
 		>
-			<DragMenu
-				editorView={editorView}
-				isOpen={isOpen}
-				tableNode={tableNode}
-				direction={direction}
-				index={index}
-				target={targetHandleRef || undefined}
-				targetCellPosition={targetCellPosition}
-				getEditorContainerWidth={getEditorContainerWidth}
-				editorAnalyticsAPI={editorAnalyticsAPI}
-				pluginConfig={pluginConfig}
-				fitWidth={dragMenuDropdownWidth}
-				fitHeight={tablePopupMenuFitHeight}
-				mountPoint={mountPoint}
-				boundariesElement={boundariesElement}
-				scrollableElement={scrollableElement}
-				isTableScalingEnabled={isTableScalingEnabled}
-				shouldUseIncreasedScalingPercent={shouldUseIncreasedScalingPercent}
-				isTableFixedColumnWidthsOptionEnabled={tableWithFixedColumnWidthsOption}
-				ariaNotifyPlugin={ariaNotifyPlugin}
-				api={api}
-				isCommentEditor={isCommentEditor || false}
-			/>
+			{expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) ? (
+				<RowMenu api={api} />
+			) : (
+				<DragMenu
+					editorView={editorView}
+					isOpen={isOpen}
+					tableNode={tableNode}
+					direction={direction}
+					index={index}
+					target={targetHandleRef || undefined}
+					targetCellPosition={targetCellPosition}
+					getEditorContainerWidth={getEditorContainerWidth}
+					editorAnalyticsAPI={editorAnalyticsAPI}
+					pluginConfig={pluginConfig}
+					fitWidth={dragMenuDropdownWidth}
+					fitHeight={tablePopupMenuFitHeight}
+					mountPoint={mountPoint}
+					boundariesElement={boundariesElement}
+					scrollableElement={scrollableElement}
+					isTableScalingEnabled={isTableScalingEnabled}
+					shouldUseIncreasedScalingPercent={shouldUseIncreasedScalingPercent}
+					isTableFixedColumnWidthsOptionEnabled={tableWithFixedColumnWidthsOption}
+					ariaNotifyPlugin={ariaNotifyPlugin}
+					api={api}
+					isCommentEditor={isCommentEditor || false}
+				/>
+			)}
 		</Popup>
 	);
 };

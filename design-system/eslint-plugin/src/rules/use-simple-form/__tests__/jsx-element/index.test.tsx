@@ -2,7 +2,8 @@
 import { ruleTester } from '@atlassian/eslint-utils';
 
 import { linesOnly } from '../../../__tests__/utils/_strings';
-import rule, { convertForm, topLevelAttributeNames } from '../../index';
+import rule, { convertForm } from '../../index';
+import { topLevelAttributeNames } from '../../top-level-attribute-names';
 
 ruleTester.run('use-simple-form', rule, {
 	valid: [

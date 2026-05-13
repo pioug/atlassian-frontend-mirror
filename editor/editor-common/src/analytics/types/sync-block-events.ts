@@ -6,16 +6,25 @@ import type { OperationalAEP } from './utils';
 type SyncedBlockErrorAttributes = {
 	error: string;
 	resourceId?: string;
+	/**
+	 * The product the source block lives in, derived from `resourceId` when present.
+	 * Always optional because batch / subscription init paths fire without a `resourceId`.
+	 */
+	sourceProduct?: string;
 };
 
 type SyncedBlockSuccessAttributes = {
 	blockInstanceId?: string;
 	resourceId: string;
-};
-
-type FetchSyncedBlockSuccessAttributes = SyncedBlockSuccessAttributes & {
+	/**
+	 * The product the source block lives in, derived from `resourceId`.
+	 * Optional during the rollout of `platform_synced_block_patch_11`; once the gate is
+	 * fully on this can be marked required.
+	 */
 	sourceProduct?: string;
 };
+
+type FetchSyncedBlockSuccessAttributes = SyncedBlockSuccessAttributes;
 
 type SyncedBlockCopySuccessAttributes = SyncedBlockSuccessAttributes & {
 	inputMethod: INPUT_METHOD;

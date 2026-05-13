@@ -11,6 +11,7 @@ import ImageLoader from 'react-render-image';
 
 import { cssMap } from '@atlaskit/css';
 import LinkIcon from '@atlaskit/icon/core/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -114,13 +115,23 @@ export const IconAndTitleLayout = ({
 	const [hasImageErrored, setHasImageErrored] = useState(false);
 
 	const renderAtlaskitIcon = React.useCallback(() => {
-		if (emoji) {
-			return emoji;
+		if (fg('platform_lp_use_entity_icon_url_for_icon')) {
+			if (emoji) {
+				return emoji;
+			}
+			if (!icon || typeof icon === 'string' || Array.isArray(icon)) {
+				return null;
+			}
+			return icon;
+		} else {
+			if (emoji) {
+				return emoji;
+			}
+			if (!icon || typeof icon === 'string') {
+				return null;
+			}
+			return icon;
 		}
-		if (!icon || typeof icon === 'string') {
-			return null;
-		}
-		return icon;
 	}, [emoji, icon]);
 
 	const profileType = isProfileType(type);
@@ -128,41 +139,97 @@ export const IconAndTitleLayout = ({
 	const renderImageIcon = React.useCallback(
 		(errored: React.ReactNode, testId: string) => {
 			di(ImageLoader);
-			if (!icon || typeof icon !== 'string') {
-				return null;
-			}
 
-			if (hideIconLoadingSkeleton) {
-				if (hasImageErrored) {
-					return errored;
+			if (fg('platform_lp_use_entity_icon_url_for_icon')) {
+				if (!icon) {
+					return null;
+				}
+
+				let iconUrl: string;
+				let iconLabel = '';
+
+				if (Array.isArray(icon)) {
+					const [tupleIconUrl, tupleIconLabel] = icon as [unknown, unknown];
+					if (typeof tupleIconUrl !== 'string') {
+						return null;
+					}
+
+					iconUrl = tupleIconUrl;
+					iconLabel = typeof tupleIconLabel === 'string' ? tupleIconLabel : '';
+				} else if (typeof icon === 'string') {
+					iconUrl = icon;
+				} else {
+					return null;
+				}
+
+				if (hideIconLoadingSkeleton) {
+					if (hasImageErrored) {
+						return errored;
+					}
+
+					return (
+						<img
+							css={[iconImageStyle, profileType && styles.roundImageStyle]}
+							src={iconUrl}
+							data-testid={`${testId}-image`}
+							alt={iconLabel}
+							onError={() => setHasImageErrored(true)}
+						/>
+					);
 				}
 
 				return (
-					<img
-						css={[iconImageStyle, profileType && styles.roundImageStyle]}
-						src={icon}
-						data-testid={`${testId}-image`}
-						alt=""
-						onError={() => setHasImageErrored(true)}
+					<ImageLoader
+						src={iconUrl}
+						loaded={
+							<img
+								css={[iconImageStyle, profileType && styles.roundImageStyle]}
+								src={iconUrl}
+								data-testid={`${testId}-image`}
+								alt={iconLabel}
+							/>
+						}
+						errored={errored}
+						loading={<Shimmer testId={`${testId}-loading`} />}
 					/>
 				);
-			}
+			} else {
+				if (!icon || typeof icon !== 'string') {
+					return null;
+				}
 
-			return (
-				<ImageLoader
-					src={icon}
-					loaded={
+				if (hideIconLoadingSkeleton) {
+					if (hasImageErrored) {
+						return errored;
+					}
+
+					return (
 						<img
 							css={[iconImageStyle, profileType && styles.roundImageStyle]}
 							src={icon}
 							data-testid={`${testId}-image`}
 							alt=""
+							onError={() => setHasImageErrored(true)}
 						/>
-					}
-					errored={errored}
-					loading={<Shimmer testId={`${testId}-loading`} />}
-				/>
-			);
+					);
+				}
+
+				return (
+					<ImageLoader
+						src={icon}
+						loaded={
+							<img
+								css={[iconImageStyle, profileType && styles.roundImageStyle]}
+								src={icon}
+								data-testid={`${testId}-image`}
+								alt=""
+							/>
+						}
+						errored={errored}
+						loading={<Shimmer testId={`${testId}-loading`} />}
+					/>
+				);
+			}
 		},
 		[icon, profileType, hideIconLoadingSkeleton, hasImageErrored],
 	);

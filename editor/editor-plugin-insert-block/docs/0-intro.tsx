@@ -21,7 +21,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Insert Block', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the insert block plugin used by \`@atlaskit/editor-core\`.
 

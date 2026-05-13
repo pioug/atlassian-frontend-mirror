@@ -1,5 +1,19 @@
 # @atlaskit/linking-types
 
+## 14.3.0
+
+### Minor Changes
+
+- [`00d5363469512`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00d5363469512) -
+  Add runtime entity type guards to `@atlaskit/linking-types/entity-types` for narrowing unknown
+  values to supported entity shapes.
+
+  Public API change:
+  - The `@atlaskit/linking-types/entity-types` subpath now exports guard helpers (`isBaseEntity`,
+    `isDesignEntity`, `isRemoteLinkEntity`, `isProjectEntity`, `isWorkItemEntity`,
+    `isDocumentEntity`, `isMessageEntity`, `isConversationEntity`, `isUnsupportedEntity`,
+    `isEntityType`).
+
 ## 14.2.1
 
 ### Patch Changes

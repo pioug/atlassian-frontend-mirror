@@ -16,7 +16,7 @@ import UserPicker, { type ExternalUser, type Team, type User } from '@atlaskit/u
 
 import { type Props, REQUIRED, UserPickerField } from '../../../components/UserPickerField';
 import { getMenuPortalTargetCurrentHTML } from '../../../components/utils';
-import { messages } from '../../../i18n';
+import { messages } from '../../../i18n-messages';
 import { type ConfigResponse, type UserPickerOptions } from '../../../types';
 import { type ProductName } from '../../../types/Products';
 import { renderProp } from '../_testUtils';

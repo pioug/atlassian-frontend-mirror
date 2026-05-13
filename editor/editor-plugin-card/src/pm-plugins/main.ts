@@ -1,5 +1,6 @@
 import rafSchedule from 'raf-schd';
 
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { DATASOURCE_INNER_CONTAINER_CLASSNAME } from '@atlaskit/editor-common/styles';
@@ -68,10 +69,12 @@ export const createPlugin =
 			onClickCallback,
 			isPageSSRed,
 			provider,
-			smartCardContext,
 			CompetitorPrompt,
+			smartCardContext,
 			embedCardTransformers,
 		} = options;
+
+		const intl = pmPluginFactoryParams.getIntl();
 
 		const enableInlineUpgradeFeatures = !!showUpgradeDiscoverability;
 
@@ -88,10 +91,16 @@ export const createPlugin =
 				onClickCallback,
 				isPageSSRed,
 				provider,
+				CompetitorPrompt:
+					isSSR() && expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+						? undefined
+						: CompetitorPrompt,
+				intl: expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+					? intl
+					: undefined,
 				smartCardContext: expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
 					? smartCardContext
 					: undefined,
-				CompetitorPrompt,
 			},
 		});
 
@@ -339,7 +348,20 @@ export const createPlugin =
 						inlineCardViewProducer,
 						isPageSSRed,
 						provider,
-						CompetitorPrompt: options.CompetitorPrompt,
+						CompetitorPrompt:
+							isSSR() && expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+								? undefined
+								: options.CompetitorPrompt,
+						intl: expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+							? intl
+							: undefined,
+						smartCardContext: expValEquals(
+							'platform_editor_editor_ssr_streaming',
+							'isEnabled',
+							true,
+						)
+							? smartCardContext
+							: undefined,
 					}),
 					embedCard: lazyEmbedCardView({
 						allowResizing,
@@ -350,7 +372,20 @@ export const createPlugin =
 						onClickCallback: options.onClickCallback,
 						isPageSSRed,
 						provider,
-						CompetitorPrompt: options.CompetitorPrompt,
+						CompetitorPrompt:
+							isSSR() && expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+								? undefined
+								: options.CompetitorPrompt,
+						intl: expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+							? intl
+							: undefined,
+						smartCardContext: expValEquals(
+							'platform_editor_editor_ssr_streaming',
+							'isEnabled',
+							true,
+						)
+							? smartCardContext
+							: undefined,
 					}),
 				},
 				...(enableInlineUpgradeFeatures && {

@@ -6,7 +6,7 @@ import Heading from '@atlaskit/heading';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
-import { messages } from '../i18n';
+import { messages } from '../i18n-messages';
 
 export type Props = {
 	isExtendedShareDialogEnabled?: boolean;

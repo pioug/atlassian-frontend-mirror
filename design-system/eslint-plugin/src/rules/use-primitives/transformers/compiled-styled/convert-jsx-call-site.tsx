@@ -1,7 +1,7 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, type JSXElement } from 'eslint-codemod-utils';
 
-import { JSXElement as JSXElementHelper } from '../../../../ast-nodes/jsx-element';
+import { JSXElementHelper } from '../../../../ast-nodes/jsx-element-helper';
 
 /**
  * Transforms a JSXElement from:

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import rafSchedule from 'raf-schd';
+import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
@@ -23,13 +24,16 @@ import {
 	SMART_LINK_DRAG_TYPES,
 	SMART_LINK_APPEARANCE,
 } from '@atlaskit/editor-smart-link-draggable';
+import type { CardContext } from '@atlaskit/link-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { Datasource } from '../nodeviews/datasource';
 import { registerCard, removeCard } from '../pm-plugins/actions';
 import { isDatasourceNode } from '../pm-plugins/utils';
+import { SmartCardSSRReactContextsProvider } from '../ui/SmartCardSSRReactContextsProvider';
 
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
@@ -179,6 +183,8 @@ export type BlockCardNodeViewProps = Pick<
 	| 'isPageSSRed'
 	| 'provider'
 	| 'CompetitorPrompt'
+	| 'intl'
+	| 'smartCardContext'
 >;
 
 export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
@@ -237,21 +243,25 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 			CompetitorPrompt,
 			isPageSSRed,
 			provider,
+			intl,
+			smartCardContext,
 		} = this.reactComponentProps;
 
 		return (
-			<WrappedBlockCard
-				node={this.node}
-				view={this.view}
-				getPos={this.getPos}
-				actionOptions={actionOptions}
-				pluginInjectionApi={pluginInjectionApi}
-				onClickCallback={onClickCallback}
-				id={this.id}
-				CompetitorPrompt={CompetitorPrompt}
-				isPageSSRed={isPageSSRed}
-				provider={provider}
-			/>
+			<SmartCardSSRReactContextsProvider intl={intl} smartCardContext={smartCardContext}>
+				<WrappedBlockCard
+					node={this.node}
+					view={this.view}
+					getPos={this.getPos}
+					actionOptions={actionOptions}
+					pluginInjectionApi={pluginInjectionApi}
+					onClickCallback={onClickCallback}
+					id={this.id}
+					CompetitorPrompt={CompetitorPrompt}
+					isPageSSRed={isPageSSRed}
+					provider={provider}
+				/>
+			</SmartCardSSRReactContextsProvider>
 		);
 	}
 
@@ -285,11 +295,13 @@ export interface BlockCardNodeViewProperties {
 	allowDatasource: boolean | undefined;
 	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string }>;
 	inlineCardViewProducer: ReturnType<typeof getInlineNodeViewProducer>;
+	intl?: IntlShape;
 	isPageSSRed: BlockCardNodeViewProps['isPageSSRed'];
 	onClickCallback: BlockCardNodeViewProps['onClickCallback'];
 	pluginInjectionApi: BlockCardNodeViewProps['pluginInjectionApi'];
 	pmPluginFactoryParams: PMPluginFactoryParams;
 	provider: BlockCardNodeViewProps['provider'];
+	smartCardContext?: CardContext;
 }
 
 export const blockCardNodeView =
@@ -303,6 +315,8 @@ export const blockCardNodeView =
 		CompetitorPrompt,
 		isPageSSRed,
 		provider,
+		intl,
+		smartCardContext,
 	}: BlockCardNodeViewProperties) =>
 	(
 		node: Node,
@@ -318,6 +332,12 @@ export const blockCardNodeView =
 			CompetitorPrompt,
 			isPageSSRed,
 			provider,
+			intl: expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+				? intl
+				: undefined,
+			smartCardContext: expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+				? smartCardContext
+				: undefined,
 		};
 		const isDatasource = isDatasourceNode(node);
 

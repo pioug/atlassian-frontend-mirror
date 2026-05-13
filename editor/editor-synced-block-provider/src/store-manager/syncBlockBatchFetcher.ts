@@ -6,7 +6,7 @@ import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ResourceId, BlockInstanceId, SyncBlockNode } from '../common/types';
 import type { SubscriptionCallback } from '../providers/types';
 import { fetchErrorPayload } from '../utils/errorHandling';
-import { createSyncBlockNode } from '../utils/utils';
+import { createSyncBlockNode, productAttrIfGateOn } from '../utils/utils';
 
 export interface SyncBlockBatchFetcherDeps {
 	fetchSyncBlocksData: (nodes: SyncBlockNode[]) => Promise<void>;
@@ -44,7 +44,9 @@ export class SyncBlockBatchFetcher {
 					location: 'editor-synced-block-provider/syncBlockBatchFetcher/batchedFetchSyncBlocks',
 				});
 				resourceIds.forEach((resId) => {
-					this.deps.getFireAnalyticsEvent()?.(fetchErrorPayload(error.message, resId));
+					this.deps.getFireAnalyticsEvent()?.(
+						fetchErrorPayload(error.message, resId, productAttrIfGateOn(resId)),
+					);
 				});
 			});
 		});

@@ -31,7 +31,6 @@ import {
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import { TopNav, TopNavEnd, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
-import { Help } from '@atlaskit/navigation-system/top-nav-items';
 import {
 	BANNER_HEIGHT,
 	LEFT_PANEL_WIDTH,
@@ -39,7 +38,8 @@ import {
 	RIGHT_PANEL_WIDTH,
 	RIGHT_SIDEBAR_WIDTH,
 	TOP_NAVIGATION_HEIGHT,
-} from '@atlaskit/page-layout';
+} from '@atlaskit/navigation-system/legacy/css-variables';
+import { Help } from '@atlaskit/navigation-system/top-nav-items';
 import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 import { Hide } from '@atlaskit/primitives/responsive';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';

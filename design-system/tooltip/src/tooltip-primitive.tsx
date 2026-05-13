@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, forwardRef, type ReactNode } from 'react';
+import { type CSSProperties, type ReactNode, forwardRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
@@ -22,6 +22,7 @@ export interface TooltipPrimitiveProps {
 	onMouseOut?: (e: React.MouseEvent<HTMLDivElement>) => void;
 	id?: string;
 	shortcut?: string[];
+	role?: React.AriaRole;
 }
 
 const primitiveStyles = css({
@@ -34,14 +35,25 @@ const primitiveStyles = css({
 const TooltipPrimitive: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<TooltipPrimitiveProps> & React.RefAttributes<HTMLDivElement>
 > = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(function TooltipPrimitive(
-	{ style, className, children, placement, testId, onMouseOut, onMouseOver, id, shortcut },
+	{
+		style,
+		className,
+		children,
+		placement,
+		testId,
+		onMouseOut,
+		onMouseOver,
+		id,
+		shortcut,
+		role = 'tooltip',
+	},
 	ref,
 ) {
 	return (
 		<div ref={ref} style={style} data-testid={testId ? `${testId}--wrapper` : undefined}>
 			{/* Re: non-interactive element interactions: Because we are creating a tooltip, we *need* these mouse handlers. */}
 			<div
-				role="tooltip"
+				role={role}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={className}
 				// Because the tooltip should not be focusable, there is no reason to have key events.

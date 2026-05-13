@@ -23,6 +23,7 @@ import type { Fragment, Node, Schema, Slice } from '@atlaskit/editor-prosemirror
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PastePlugin } from '../index';
 
@@ -72,6 +73,12 @@ type PastePayloadAttributes = {
 	 */
 	mentionIds: string[];
 	mentionLocalIds: string[];
+	/**
+	 * Sorted, deduplicated, comma-joined string of node types present in the paste fragment.
+	 * e.g. "heading,image,text" or "codeBlock,table,text"
+	 * Only populated when platform_editor_paste_renderer_analytics is enabled.
+	 */
+	pastedNodeTypes?: string;
 	pasteSize: number;
 	/** Did this paste action split a list in half? */
 	pasteSplitList?: boolean;
@@ -334,6 +341,10 @@ function createPasteAnalyticsPayloadBySelection(
 			pluginInjectionApi?.mention?.actions?.announceMentionsInsertion(mentionsInserted);
 		}
 
+		const pastedNodeTypes = fg('platform_editor_paste_renderer_analytics')
+			? [...getContentNodeTypes(slice.content)].sort().join(',')
+			: undefined;
+
 		if (pasteContext.type === PasteTypes.plain) {
 			return createPastePayload(actionSubjectId, {
 				pasteSize: text.length,
@@ -345,6 +356,7 @@ function createPasteAnalyticsPayloadBySelection(
 				mentionIds,
 				mentionLocalIds,
 				pasteSplitList: pasteContext.pasteSplitList,
+				pastedNodeTypes,
 			});
 		}
 
@@ -362,6 +374,7 @@ function createPasteAnalyticsPayloadBySelection(
 				mentionIds,
 				mentionLocalIds,
 				pasteSplitList: pasteContext.pasteSplitList,
+				pastedNodeTypes,
 			},
 			linkDomains,
 		);

@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Ui Control Registry', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the ui control registry plugin used by \`@atlaskit/editor-core\`.
 

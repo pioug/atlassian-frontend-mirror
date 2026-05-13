@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Card', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the card plugin used by \`@atlaskit/editor-core\`.
 

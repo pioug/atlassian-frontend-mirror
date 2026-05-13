@@ -18,6 +18,7 @@ import type { AIInlineSuggestionPayload } from './ai-inline-suggestion-events';
 import type { AIProactiveEventPayload } from './ai-proactive-events';
 import type { AIQuickPromptEventPayload } from './ai-quick-prompt-events';
 import type { AIStreamingEventPayload } from './ai-streaming';
+import type { AiSuggestionsEventPayload } from './ai-suggestions-events';
 import type { AIUnifiedEventPayload } from './ai-unified-events';
 import type { AlignmentEventPayload } from './alignment-events';
 import type { AvatarEventPayload } from './avatar';
@@ -148,6 +149,7 @@ export type AnalyticsEventPayload<T = void> =
 	| AIStreamingEventPayload
 	| AIProactiveEventPayload
 	| AiAutocompleteEventPayload
+	| AiSuggestionsEventPayload
 	| ContextualTypeaheadEventPayload
 	| AIQuickPromptEventPayload
 	| AIUnifiedEventPayload

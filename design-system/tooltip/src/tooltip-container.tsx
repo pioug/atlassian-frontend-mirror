@@ -55,6 +55,7 @@ const TooltipContainer: React.ForwardRefExoticComponent<
 		onMouseOver,
 		id,
 		shortcut,
+		role,
 	},
 	ref,
 ) {
@@ -70,6 +71,7 @@ const TooltipContainer: React.ForwardRefExoticComponent<
 			onMouseOut={onMouseOut}
 			onMouseOver={onMouseOver}
 			shortcut={shortcut}
+			role={role}
 			css={[styles.base, truncate && styles.truncate]}
 		>
 			{children}

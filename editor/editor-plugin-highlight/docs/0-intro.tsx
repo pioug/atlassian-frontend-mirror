@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Highlight', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the highlight plugin used by \`@atlaskit/editor-core\`.
 

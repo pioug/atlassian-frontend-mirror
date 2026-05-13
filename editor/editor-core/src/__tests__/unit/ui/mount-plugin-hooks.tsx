@@ -14,10 +14,7 @@ const containerElement = document.createElement('div');
  * via a per-plugin mount counter. A bumped counter on rerender means the
  * fiber for that plugin was re-created (i.e. lost its key).
  */
-const makeCountingHook = (
-	counters: Record<string, number>,
-	name: string,
-): NamedReactHookFactory => {
+const makeCountingHook = (counters: Record<string, number>, name: string): NamedReactHookFactory => {
 	counters[name] = 0;
 	const useCountingHook: NamedReactHookFactory = () => {
 		useEffect(() => {

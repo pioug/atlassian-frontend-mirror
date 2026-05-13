@@ -1,0 +1,28 @@
+const legacyColorMixins = new Set([
+	'background',
+	'backgroundActive',
+	'backgroundHover',
+	'backgroundOnLayer',
+	'text',
+	'textHover',
+	'textActive',
+	'subtleText',
+	'placeholderText',
+	'heading',
+	'subtleHeading',
+	'codeBlock',
+	'link',
+	'linkHover',
+	'linkActive',
+	'linkOutline',
+	'primary',
+	'blue',
+	'teal',
+	'purple',
+	'red',
+	'yellow',
+	'green',
+	'skeleton',
+]);
+
+export const isLegacyNamedColor = (value: string): boolean => legacyColorMixins.has(value);

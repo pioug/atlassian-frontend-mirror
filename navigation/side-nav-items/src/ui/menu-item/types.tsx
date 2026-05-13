@@ -2,6 +2,9 @@ import type React from 'react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
+/** `aria-haspopup` values used by popup triggers and menu item buttons (see ARIA spec). */
+export type MenuItemAriaHasPopup = boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';
+
 import { type COLLAPSE_ELEM_BEFORE_TYPE } from './menu-item-signals';
 
 export type MenuItemOnClick<T extends HTMLAnchorElement | HTMLButtonElement> = (

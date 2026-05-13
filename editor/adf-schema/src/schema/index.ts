@@ -301,4 +301,7 @@ export { sanitizeNodes } from './sanitizeNodes';
 
 // ADF createPMSpecFactory
 export type { NodeSpecOptions, MarkSpecOptions } from './createPMSpecFactory';
-export { createPMNodeSpecFactory, createPMMarkSpecFactory } from './createPMSpecFactory';
+export {
+	createPMNodeSpecFactory,
+	createPMMarkSpecFactory,
+} from './createPMSpecFactory';

@@ -24,7 +24,10 @@ const setColumnAttributes = (
 	const { width, valign, localId } = node.attrs;
 	if (width) {
 		const baseStyle = `flex-basis: ${width}%`;
-		const columnWidthVar = editorExperiment('platform_editor_layout_column_resize_handle', true)
+		const columnWidthVar = editorExperiment(
+			'platform_editor_layout_column_resize_handle',
+			true,
+		)
 			? `; --column-width: ${width}%`
 			: '';
 		attrs['style'] = baseStyle + columnWidthVar;

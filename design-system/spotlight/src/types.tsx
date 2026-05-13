@@ -10,6 +10,19 @@ export type Placement =
 	| 'left-start'
 	| 'left-end';
 
+
+export type PositionArea =
+	| 'start span-start'
+	| 'block-start'
+	| 'start span-end'
+	| 'span-start start'
+	| 'span-start end'
+	| 'span-end start'
+	| 'span-end end'
+	| 'end span-start'
+	| 'block-end'
+	| 'end span-end'
+
 /**
  * Spotlights can be dismissed by:
  * 1. Clicking the `SpotlightDismissControl`

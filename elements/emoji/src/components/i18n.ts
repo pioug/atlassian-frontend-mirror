@@ -41,6 +41,11 @@ export const messages: {
 		defaultMessage: string;
 		description: string;
 	};
+	emojiNameLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 	emojiChooseFileTitle: {
 		id: string;
 		defaultMessage: string;
@@ -280,6 +285,11 @@ export const messages: {
 		id: 'fabric.emoji.name.ariaLabel',
 		defaultMessage: 'Enter a name for the new emoji',
 		description: 'Explains to enter a name for a new emoji',
+	},
+	emojiNameLabel: {
+		id: 'fabric.emoji.name.label',
+		defaultMessage: 'Emoji name',
+		description: 'Label for the emoji name input field in the custom emoji upload panel',
 	},
 	emojiChooseFileTitle: {
 		id: 'fabric.emoji.choose.file.title',

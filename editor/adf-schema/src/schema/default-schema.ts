@@ -92,8 +92,14 @@ type DefaultSchemaMarks =
 	| 'dataConsumer'
 	| 'fragment';
 
-const getDefaultSchemaConfig = (): SchemaConfig<DefaultSchemaNodes, DefaultSchemaMarks> => {
-	const defaultSchemaConfig: SchemaConfig<DefaultSchemaNodes, DefaultSchemaMarks> = {
+const getDefaultSchemaConfig = (): SchemaConfig<
+	DefaultSchemaNodes,
+	DefaultSchemaMarks
+> => {
+	const defaultSchemaConfig: SchemaConfig<
+		DefaultSchemaNodes,
+		DefaultSchemaMarks
+	> = {
 		nodes: [
 			'doc',
 			'paragraph',
@@ -173,8 +179,10 @@ const getDefaultSchemaConfig = (): SchemaConfig<DefaultSchemaNodes, DefaultSchem
 	return defaultSchemaConfig;
 };
 
-export const defaultSchemaConfig: SchemaConfig<DefaultSchemaNodes, DefaultSchemaMarks> =
-	getDefaultSchemaConfig();
+export const defaultSchemaConfig: SchemaConfig<
+	DefaultSchemaNodes,
+	DefaultSchemaMarks
+> = getDefaultSchemaConfig();
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getSchemaBasedOnStage: MemoizedFn<

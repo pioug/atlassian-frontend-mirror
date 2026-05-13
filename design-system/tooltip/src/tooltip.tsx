@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import type { VirtualElement } from '@popperjs/core';
 import { bind } from 'bind-event-listener';
@@ -9,9 +9,14 @@ import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { type Direction, ExitingPersistence, FadeIn, type Transition } from '@atlaskit/motion';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type Placement, Popper } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
+import { slideAndFade } from '@atlaskit/top-layer/animations';
+import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map';
+import { Popover } from '@atlaskit/top-layer/popover';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 
 import { register } from './internal/drag-manager';
 import { getVirtualElementFromMousePos } from './internal/get-virtual-element-from-mouse-pos';
@@ -52,7 +57,11 @@ type State =
 	// This occurs immediately before 'fade-out' so the ExitPersistence can render FadeIn
 	// with the updated duration before removal. This ensures 'show-immediate' durations of 0
 	// do not affect normal exit transitions.
-	| 'before-fade-out';
+	| 'before-fade-out'
+	// Top-layer exit: keeps the popover mounted in the DOM while the CSS exit
+	// transition plays. Same pattern as modal-dialog's ExitingPersistence glue.
+	// See top-layer/notes/guides/entry-exit-animations.md.
+	| 'top-layer-exit';
 
 /**
  * __Tooltip__
@@ -246,6 +255,13 @@ function Tooltip({
 				hide: ({ isImmediate }) => {
 					if (isImmediate) {
 						setState('hide');
+					} else if (fg('platform-dst-top-layer')) {
+						// Top-layer path: set state to 'top-layer-exit'. The component
+						// stays mounted and Popover's isOpen prop transitions to
+						// false, triggering the CSS exit animation internally.
+						// finishHideAnimation is called after a brief delay matching
+						// the CSS exit animation duration.
+						setState('top-layer-exit');
 					} else {
 						setState('before-fade-out');
 					}
@@ -272,10 +288,25 @@ function Tooltip({
 		apiRef.current?.requestHide({ isImmediate: true });
 	}, [apiRef]);
 
+	// When using top-layer, popover="auto" handles Escape natively
 	useCloseOnEscapePress({
 		onClose: hideTooltipOnEsc,
-		isDisabled: state === 'hide' || state === 'fade-out',
+		isDisabled:
+			state === 'hide' ||
+			state === 'fade-out' ||
+			state === 'top-layer-exit' ||
+			fg('platform-dst-top-layer'),
 	});
+
+	// ── Top-layer exit animation lifecycle ──
+	// When state is 'top-layer-exit', Popover's isOpen transitions to false and
+	// the CSS exit animation plays. The Popover's built-in `transitionend`
+	// detection (with timeout fallback) calls `onExitFinish` when the exit
+	// animation completes, which triggers the tooltip-manager lifecycle
+	// (finishHideAnimation → done → onHide, setState('hide'), cleanup).
+	const handleExitFinish = useCallback(() => {
+		apiRef.current?.finishHideAnimation();
+	}, []);
 
 	useEffect(() => {
 		if (state === 'hide') {
@@ -424,7 +455,8 @@ function Tooltip({
 	const shouldRenderHiddenContent: boolean =
 		!isScreenReaderAnnouncementDisabled && shouldRenderTooltipPopup;
 
-	const shouldRenderTooltipChildren: boolean = state !== 'hide' && state !== 'fade-out';
+	const shouldRenderTooltipChildren: boolean =
+		state !== 'hide' && state !== 'fade-out' && state !== 'top-layer-exit';
 
 	const handleOpenLayerObserverCloseSignal = useCallback(() => {
 		apiRef.current?.requestHide({ isImmediate: true });
@@ -457,7 +489,7 @@ function Tooltip({
 
 	const tooltipIdForHiddenContent = useUniqueId('tooltip', shouldRenderHiddenContent);
 
-	const tooltipTriggerProps: Omit<TriggerProps, 'ref'> = {
+	const tooltipTriggerProps: Omit<TriggerProps, 'ref' | 'aria-describedby' | 'testId'> = {
 		onMouseOver,
 		onMouseOut,
 		onMouseMove,
@@ -466,12 +498,6 @@ function Tooltip({
 		onFocus,
 		onBlur,
 	};
-
-	// Don't set `data-testid` unless it's defined, as it's not in the interface.
-	if (testId) {
-		// Adding `data-testid` to the TriggerProps interface breaks Buttons, so we use type assertion
-		(tooltipTriggerProps as any)['data-testid'] = `${testId}--container`;
-	}
 
 	// This useEffect is purely for managing the aria attribute when using the
 	// wrapped children approach.
@@ -506,40 +532,74 @@ function Tooltip({
 
 	const PopperWrapper = shouldRenderToParent ? Fragment : TooltipPortal;
 
+	const trigger =
+		typeof children === 'function' ? (
+			// once we deprecate the wrapped approach, we can put the aria
+			// attribute back into the tooltipTriggerProps and make it required
+			// instead of optional in `types`
+			<>
+				{children({
+					...tooltipTriggerProps,
+					// `testId` propagates to the trigger element so `data-testid` lands in the
+					// rendered DOM. Required because `@atlaskit/button/new` (and other Pressable-
+					// backed primitives) overwrite `data-testid` from spread; passing a typed
+					// `testId` lets their own destructure pick it up directly.
+					...(testId ? { testId: `${testId}--container` } : {}),
+					'aria-describedby': tooltipIdForHiddenContent,
+					ref: setDirectRef,
+				})}
+				{hiddenContent}
+			</>
+		) : (
+			// @ts-ignore
+			<CastTargetContainer
+				{...tooltipTriggerProps}
+				{...(testId ? { 'data-testid': `${testId}--container` } : undefined)}
+				ref={setImplicitRefFromChildren}
+				/**
+				 * TODO: Why is role="presentation" added?
+				 * - Is it only to "remove" the `Container` from screen readers?
+				 * - Why is it added only to the `Container` but not to `tooltipTriggerProps`?
+				 * - Should `role="presentation"` only be used if `shouldRenderHiddenContent == false`?
+				 */
+				role="presentation"
+			>
+				{children}
+				{hiddenContent}
+			</CastTargetContainer>
+		);
+
+	if (fg('platform-dst-top-layer')) {
+		return (
+			<>
+				{trigger}
+				{shouldRenderTooltipPopup ? (
+					<TopLayerTooltipPopup
+						targetRef={targetRef}
+						tooltipPosition={tooltipPosition}
+						isMousePosition={isMousePosition}
+						mousePos={apiRef.current?.mousePos ?? undefined}
+						position={position}
+						onMouseOut={onMouseOut}
+						onMouseOverTooltip={onMouseOverTooltip}
+						ignoreTooltipPointerEvents={ignoreTooltipPointerEvents}
+						truncate={truncate}
+						testId={testId}
+						shortcut={shortcut}
+						content={content}
+						Container={Container}
+						onClose={() => apiRef.current?.requestHide({ isImmediate: true })}
+						onExitFinish={handleExitFinish}
+						isOpen={state !== 'hide' && state !== 'top-layer-exit'}
+					/>
+				) : null}
+			</>
+		);
+	}
+
 	return (
 		<>
-			{typeof children === 'function' ? (
-				// once we deprecate the wrapped approach, we can put the aria
-				// attribute back into the tooltipTriggerProps and make it required
-				// instead of optional in `types`
-				<>
-					{children({
-						...tooltipTriggerProps,
-						'aria-describedby': tooltipIdForHiddenContent,
-						ref: setDirectRef,
-					})}
-					{/* render a hidden tooltip content for screen readers to announce */}
-					{hiddenContent}
-				</>
-			) : (
-				// @ts-ignore
-				<CastTargetContainer
-					{...tooltipTriggerProps}
-					ref={setImplicitRefFromChildren}
-					/**
-					 * TODO: Why is role="presentation" added?
-					 * - Is it only to "remove" the `Container` from screen readers?
-					 * - Why is it added only to the `Container` but not to `tooltipTriggerProps`?
-					 * - Should `role="presentation"` only be used if `shouldRenderHiddenContent == false`?
-					 */
-					role="presentation"
-				>
-					{children}
-					{/* render a hidden tooltip content for screen readers to announce */}
-					{hiddenContent}
-				</CastTargetContainer>
-			)}
-
+			{trigger}
 			{shouldRenderTooltipPopup ? (
 				<PopperWrapper>
 					<Popper
@@ -548,9 +608,6 @@ function Tooltip({
 						strategy={strategy}
 					>
 						{({ ref, style, update, placement }) => {
-							// Invert the entrance and exit directions.
-							// E.g. a tooltip's position is on the 'right', it should enter from and exit to the 'left'
-							// This gives the effect the tooltip is appearing from the target
 							const direction = isMousePosition
 								? undefined
 								: invertedDirection[getDirectionFromPlacement(placement)];
@@ -611,3 +668,162 @@ export default Tooltip;
 const TooltipPortal = ({ children }: { children: React.ReactNode }) => {
 	return <Portal zIndex={tooltipZIndex}>{children}</Portal>;
 };
+
+// Module-level preset instance, stable reference, no re-allocation per render.
+const tooltipAnimation = slideAndFade();
+
+/**
+ * Computes the clamped viewport position for a mouse-tracking tooltip.
+ *
+ * For `mouse-x`: positions to the right of the cursor, vertically centered.
+ * For `mouse-y` and `mouse`: positions below the cursor.
+ */
+function computeMouseTooltipPosition({
+	mousePos,
+	position,
+	popoverRect,
+	viewport,
+}: {
+	mousePos: { clientX: number; clientY: number };
+	position: string;
+	popoverRect: { height: number; width: number };
+	viewport: { width: number; height: number };
+}): { top: number; left: number } {
+	if (position === 'mouse-x') {
+		return {
+			top: Math.max(
+				0,
+				Math.min(mousePos.clientY - popoverRect.height / 2, viewport.height - popoverRect.height),
+			),
+			left: Math.max(0, Math.min(mousePos.clientX + 16, viewport.width - popoverRect.width)),
+		};
+	}
+
+	// Default: mouse-y and mouse. Position below cursor.
+	return {
+		top: Math.max(0, Math.min(mousePos.clientY + 16, viewport.height - popoverRect.height)),
+		left: Math.max(0, Math.min(mousePos.clientX, viewport.width - popoverRect.width)),
+	};
+}
+
+/**
+ * Top-layer tooltip popup component.
+ *
+ * Composes `Popover` (top-layer visibility + animation) with
+ * `useAnchorPosition` (CSS anchor positioning with JS fallback).
+ *
+ * For mouse-tracking positions, uses `position: fixed` with JS positioning
+ * since there is no stable anchor element — `useAnchorPosition` is skipped.
+ *
+ * Exit animation is handled by `Popover`'s `isOpen` prop. When `isOpen`
+ * transitions to `false`, the primitive calls `hidePopover()` internally and
+ * the CSS exit animation plays via `allow-discrete`. No glue code needed.
+ */
+function TopLayerTooltipPopup({
+	targetRef,
+	tooltipPosition,
+	isMousePosition,
+	mousePos,
+	position,
+	onMouseOut,
+	onMouseOverTooltip,
+	ignoreTooltipPointerEvents,
+	truncate,
+	testId,
+	shortcut,
+	content,
+	Container,
+	onClose,
+	onExitFinish,
+	isOpen,
+}: {
+	targetRef: React.RefObject<HTMLElement | null>;
+	tooltipPosition: Placement;
+	isMousePosition: boolean;
+	mousePos: { clientX: number; clientY: number } | undefined;
+	position: string;
+	onMouseOut: React.MouseEventHandler;
+	onMouseOverTooltip: React.MouseEventHandler;
+	ignoreTooltipPointerEvents: boolean;
+	truncate: boolean;
+	testId?: string;
+	shortcut?: React.ReactNode;
+	content: React.ReactNode | ((args: { update: () => void }) => React.ReactNode);
+	Container: React.ElementType;
+	onClose: () => void;
+	onExitFinish?: () => void;
+	isOpen: boolean;
+}) {
+	const popoverRef = useRef<HTMLDivElement>(null);
+
+	// Anchor positioning: only for non-mouse positions.
+	// Mouse positions use JS-based fixed positioning below.
+	useAnchorPosition({
+		anchorRef: isMousePosition ? { current: null } : targetRef,
+		popoverRef,
+		// Tooltips sit 4px away from the trigger; the legacy popper tuple is
+		// `[along, away]`, so a 4px gap is `[0, 4]`.
+		placement: fromLegacyPlacement({ legacy: tooltipPosition, offset: [0, 4] }),
+	});
+
+	// Mouse position: JS positioning only (no anchor).
+	useLayoutEffect(() => {
+		const popover = popoverRef.current;
+
+		if (!popover || !isMousePosition || !mousePos) {
+			return;
+		}
+
+		// Override directional slide: mouse positions should fade only
+		popover.style.setProperty('--ds-popover-tx', '0');
+		popover.style.setProperty('--ds-popover-ty', '0');
+
+		// The popover is already in the top layer via popover="auto",
+		// so it does not need position:fixed. Reset UA margin only.
+		popover.style.margin = '0';
+
+		const popoverRect = popover.getBoundingClientRect();
+		const { top, left } = computeMouseTooltipPosition({
+			mousePos,
+			position,
+			popoverRect,
+			viewport: { width: window.innerWidth, height: window.innerHeight },
+		});
+
+		popover.style.top = `${top}px`;
+		popover.style.left = `${left}px`;
+	}, [isMousePosition, mousePos, position]);
+
+	const updateNoop = useCallback(noop, []);
+
+	return (
+		<Popover
+			ref={popoverRef}
+			role="tooltip"
+			mode="hint"
+			isOpen={isOpen}
+			onClose={onClose}
+			onExitFinish={onExitFinish}
+			testId={testId ? `${testId}--popover` : undefined}
+			animate={tooltipAnimation}
+			placement={fromLegacyPlacement({ legacy: tooltipPosition })}
+		>
+			{/* Popover already has role="tooltip", so the inner container uses "presentation" to avoid duplicate roles */}
+			<Container
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- top-layer spike
+				className="Tooltip"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- top-layer spike
+				style={ignoreTooltipPointerEvents ? { pointerEvents: 'none' as const } : undefined}
+				truncate={truncate}
+				placement={tooltipPosition}
+				testId={testId}
+				onMouseOut={onMouseOut}
+				onMouseOver={onMouseOverTooltip}
+				shortcut={shortcut}
+				role="presentation"
+			>
+				{typeof content === 'function' ? content({ update: updateNoop }) : content}
+			</Container>
+		</Popover>
+	);
+}

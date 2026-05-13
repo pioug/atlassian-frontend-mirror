@@ -6,9 +6,10 @@ import ExitingPersistence from '../../../entering/exiting-persistence';
 import KeyframesMotion from '../../../entering/keyframes-motion';
 import StaggeredEntrance from '../../../entering/staggered-entrance';
 import { easeIn, easeOut, isReducedMotion } from '../../../index';
-import { durations, exitingDurations } from '../../../utils/durations';
+import { durations } from '../../../utils/durations';
+import { exitingDurations } from '../../../utils/exiting-durations';
 
-jest.mock('../../../utils/accessibility');
+jest.mock('../../../utils/is-reduced-motion');
 
 const duration = 'large';
 

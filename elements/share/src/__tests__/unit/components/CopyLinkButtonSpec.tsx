@@ -19,7 +19,7 @@ import {
 	type State,
 } from '../../../components/CopyLinkButton';
 import Button from '../../../components/styles';
-import { messages } from '../../../i18n';
+import { messages } from '../../../i18n-messages';
 
 const mockLink = 'link';
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;

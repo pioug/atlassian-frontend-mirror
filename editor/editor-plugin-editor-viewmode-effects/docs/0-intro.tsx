@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Editor Viewmode Effects', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the editor viewmode effects plugin used by \`@atlaskit/editor-core\`.
 

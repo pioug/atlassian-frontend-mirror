@@ -1,5 +1,32 @@
 # @atlaskit/emoji
 
+## 70.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 70.6.0
+
+### Minor Changes
+
+- [`0ed6bb96033a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ed6bb96033a5) -
+  Updated emoji upload experience - add dropzone for upload, full screen, updated user flow
+
+## 70.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 70.5.1
+
+### Patch Changes
+
+- [`26c5d3ffcad6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26c5d3ffcad6a) -
+  Update copy on Add Emoji button + icon
+- Updated dependencies
+
 ## 70.5.0
 
 ### Minor Changes

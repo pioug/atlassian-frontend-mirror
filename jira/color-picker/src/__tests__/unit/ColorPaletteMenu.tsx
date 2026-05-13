@@ -26,7 +26,7 @@ describe('ColorPaletteMenu', () => {
 
 	describe('All FFs enabled', () => {
 		beforeEach(() => {
-			mockGetBooleanFG.mockReturnValue(true);
+			mockGetBooleanFG.mockImplementation((flag: string) => flag !== 'platform-dst-top-layer');
 		});
 
 		test('should capture and report a11y violations', async () => {

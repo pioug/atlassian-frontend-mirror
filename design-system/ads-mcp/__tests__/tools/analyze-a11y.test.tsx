@@ -1,6 +1,7 @@
 import axe from 'axe-core';
 
-import { analyzeA11yTool, analyzeLocalhostA11yTool } from '../../src/tools/analyze-a11y';
+import { analyzeA11yTool } from '../../src/tools/analyze-a11y/analyze-a11y-tool';
+import { analyzeLocalhostA11yTool } from '../../src/tools/analyze-a11y/analyze-localhost-a11y-tool';
 
 jest.mock('axe-core', () => ({
 	run: jest.fn(() => ({

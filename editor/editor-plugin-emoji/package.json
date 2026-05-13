@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-emoji",
-	"version": "11.0.16",
+	"version": "11.0.18",
 	"description": "Emoji plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -99,7 +99,10 @@
 		}
 	},
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./EmojiNodeDataProvider": "./src/entry-points/EmojiNodeDataProvider.ts",
+		"./emojiPlugin": "./src/entry-points/emojiPlugin.tsx",
+		"./emojiPluginType": "./src/entry-points/emojiPluginType.ts"
 	},
 	"platform-feature-flags": {
 		"platform_editor_ease_of_use_metrics": {

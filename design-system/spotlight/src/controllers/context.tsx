@@ -17,7 +17,7 @@ import {
 
 import { jsx } from '@atlaskit/css';
 
-import type { BackEvent, DismissEvent, DoneEvent, Placement } from '../types';
+import type { BackEvent, DismissEvent, DoneEvent, Placement, PositionArea } from '../types';
 
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export interface SpotlightContextType {
@@ -36,6 +36,8 @@ export interface SpotlightContextType {
 	popoverContent: {
 		ref: MutableRefObject<HTMLDivElement | null> | undefined;
 		setRef: Dispatch<SetStateAction<MutableRefObject<HTMLDivElement | null> | undefined>>;
+		positionArea: PositionArea | 'none' | undefined;
+		setPositionArea: Dispatch<SetStateAction<PositionArea | 'none' | undefined>>;
 		update: () => Promise<any>;
 		setUpdate: Dispatch<SetStateAction<() => Promise<any>>>;
 		dismiss: MutableRefObject<(_event: DismissEvent) => void>;
@@ -72,6 +74,8 @@ export const SpotlightContext: Context<SpotlightContextType> = createContext<Spo
 	popoverContent: {
 		ref: undefined,
 		setRef: () => undefined,
+		positionArea: undefined,
+		setPositionArea: () => undefined,
 		update: () => new Promise(() => null),
 		setUpdate: () => new Promise(() => null),
 		dismiss: { current: () => undefined },
@@ -102,6 +106,7 @@ export const SpotlightContextProvider = ({ children }: { children: ReactNode }):
 	const [popoverRef, setPopoverRef] = useState<
 		MutableRefObject<HTMLDivElement | null> | undefined
 	>();
+	const [positionArea, setPositionArea] = useState<PositionArea | 'none' | undefined>();
 	const [cardRef, setCardRef] = useState<MutableRefObject<HTMLDivElement | null> | null>(null);
 	const [targetRef, setTargetRef] = useState<RefObject<HTMLDivElement | null>>(defaultTargetRef);
 
@@ -138,6 +143,8 @@ export const SpotlightContextProvider = ({ children }: { children: ReactNode }):
 				popoverContent: {
 					ref: popoverRef,
 					setRef: setPopoverRef,
+					positionArea,
+					setPositionArea,
 					update,
 					setUpdate,
 					dismiss: dismissRef,

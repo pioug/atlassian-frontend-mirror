@@ -30,7 +30,9 @@
 		"@babel/runtime": "root:*"
 	},
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./featureFlagsPlugin": "./src/entry-points/featureFlagsPlugin.tsx",
+		"./featureFlagsPluginType": "./src/entry-points/featureFlagsPluginType.ts"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

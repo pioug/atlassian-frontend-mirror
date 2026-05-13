@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Find Replace', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the find replace plugin used by \`@atlaskit/editor-core\`.
 

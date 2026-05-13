@@ -18,7 +18,6 @@ import type {
 	UIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type EditorActions from '../../actions';
 import type {} from '../../types';
@@ -77,11 +76,7 @@ const PluginSlot = ({
 			/>
 			<div
 				css={pluginsComponentsWrapper}
-				data-testid={
-					expVal('platform_editor_experience_tracking', 'isEnabled', false)
-						? 'plugins-components-wrapper'
-						: undefined
-				}
+				data-testid="plugins-components-wrapper"
 			>
 				{/**
 				 * Why don't we do this as:

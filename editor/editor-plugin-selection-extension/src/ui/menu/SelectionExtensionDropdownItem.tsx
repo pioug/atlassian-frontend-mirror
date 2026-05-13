@@ -93,11 +93,7 @@ export const SelectionExtensionDropdownItem = ({
 				nodePos,
 			});
 
-			if (fg('platform_editor_block_menu_v2_patch_1')) {
-				if (extensionLocation === 'block-menu') {
-					api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
-				}
-			} else {
+			if (extensionLocation === 'block-menu') {
 				api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
 			}
 
@@ -143,63 +139,39 @@ export const SelectionExtensionDropdownItem = ({
 			iconElement
 		);
 
-	if (fg('platform_editor_block_menu_v2_patch_2')) {
-		return (
-			<ToolbarTooltip content={isTruncated ? dropdownItem.label : null} position="top">
-				<ToolbarDropdownItem
-					elemBefore={elemBeforeIcon}
-					onClick={handleClick}
-					isDisabled={dropdownItem.isDisabled}
-					testId={EXTENSION_MENU_ITEM_TEST_ID}
-				>
-					<Box
-						as="span"
-						xcss={
-							fg('platform_editor_block_menu_v2_patch_5')
-								? styles.contentWrapperWithJustifyContent
-								: styles.contentWrapper
-						}
-						onMouseOver={handleMouseEnter}
-					>
-						<Box as="span" xcss={styles.label} ref={labelRef}>
-							{dropdownItem.label}
-						</Box>
-						{dropdownItem.lozenge ? (
-							<Box as="span" xcss={styles.lozenge}>
-								<Lozenge
-									appearance={
-										fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'
-									}
-								>
-									{dropdownItem.lozenge.label}
-								</Lozenge>
-							</Box>
-						) : undefined}
-					</Box>
-				</ToolbarDropdownItem>
-			</ToolbarTooltip>
-		);
-	}
-
 	return (
-		<ToolbarDropdownItem
-			elemBefore={elemBeforeIcon}
-			testId={EXTENSION_MENU_ITEM_TEST_ID}
-			onClick={handleClick}
-			isDisabled={dropdownItem.isDisabled}
-		>
-			{dropdownItem.label}
-			{dropdownItem.lozenge ? (
-				<Box as="span" xcss={styles.lozenge}>
-					<Lozenge
-						appearance={
-							fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'
-						}
-					>
-						{dropdownItem.lozenge.label}
-					</Lozenge>
+		<ToolbarTooltip content={isTruncated ? dropdownItem.label : null} position="top">
+			<ToolbarDropdownItem
+				elemBefore={elemBeforeIcon}
+				onClick={handleClick}
+				isDisabled={dropdownItem.isDisabled}
+				testId={EXTENSION_MENU_ITEM_TEST_ID}
+			>
+				<Box
+					as="span"
+					xcss={
+						fg('platform_editor_block_menu_v2_patch_5')
+							? styles.contentWrapperWithJustifyContent
+							: styles.contentWrapper
+					}
+					onMouseOver={handleMouseEnter}
+				>
+					<Box as="span" xcss={styles.label} ref={labelRef}>
+						{dropdownItem.label}
+					</Box>
+					{dropdownItem.lozenge ? (
+						<Box as="span" xcss={styles.lozenge}>
+							<Lozenge
+								appearance={
+									fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'
+								}
+							>
+								{dropdownItem.lozenge.label}
+							</Lozenge>
+						</Box>
+					) : undefined}
 				</Box>
-			) : undefined}
-		</ToolbarDropdownItem>
+			</ToolbarDropdownItem>
+		</ToolbarTooltip>
 	);
 };

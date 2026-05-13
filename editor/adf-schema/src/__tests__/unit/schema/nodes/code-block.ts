@@ -359,12 +359,18 @@ describe(`${packageName}/schema: codeBlock_with_extended_attributes node (stage-
 		});
 
 		it('parses wrap=false when data-wrap is absent from Fabric editor paste', () => {
-			const doc = fromHTML('<pre data-pm-slice="0 0 []"><code>hello</code></pre>', stage0Schema);
+			const doc = fromHTML(
+				'<pre data-pm-slice="0 0 []"><code>hello</code></pre>',
+				stage0Schema,
+			);
 			expect(doc.firstChild!.attrs.wrap).toBe(false);
 		});
 
 		it('parses wrap=false when data-wrap="false" is explicit (preserves intentional unwrap)', () => {
-			const doc = fromHTML('<pre data-wrap="false"><code>hello</code></pre>', stage0Schema);
+			const doc = fromHTML(
+				'<pre data-wrap="false"><code>hello</code></pre>',
+				stage0Schema,
+			);
 			expect(doc.firstChild!.attrs.wrap).toBe(false);
 		});
 

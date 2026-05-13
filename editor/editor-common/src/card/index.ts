@@ -15,6 +15,7 @@ export type {
 	OptionConfig,
 	CardPluginActions,
 	QueueCardsFromTransactionAction,
+	QueueCardsFromRangeAction,
 	HideLinkToolbarAction,
 	ChangeSelectedCardToLink,
 	SetSelectedCardAppearance,

@@ -2,8 +2,8 @@ import type { Rule } from 'eslint';
 
 import { isCss } from '@atlaskit/eslint-utils/is-supported-import';
 
+import { createLintRule } from '../utils/create-lint-rule';
 import { createNoExportedRule } from '../utils/create-no-exported-rule/main';
-import { createLintRule } from '../utils/create-rule';
 
 const noExportedCssRule: Rule.RuleModule = createLintRule({
 	meta: {

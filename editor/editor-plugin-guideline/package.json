@@ -21,7 +21,9 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./guidelinePlugin": "./src/entry-points/guidelinePlugin.tsx",
+		"./guidelinePluginType": "./src/entry-points/guidelinePluginType.ts"
 	},
 	"dependencies": {
 		"@atlaskit/editor-plugin-width": "workspace:^",

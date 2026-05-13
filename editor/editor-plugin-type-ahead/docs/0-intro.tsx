@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Type Ahead', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the type ahead plugin used by \`@atlaskit/editor-core\`.
 

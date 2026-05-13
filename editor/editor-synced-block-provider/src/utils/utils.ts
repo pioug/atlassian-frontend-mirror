@@ -2,6 +2,7 @@
 
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type {
 	SyncBlockData,
@@ -77,8 +78,8 @@ export const convertPMNodesToSyncBlockNodes = (nodes: PMNode[]): SyncBlockNode[]
 export const getContentIdAndProductFromResourceId = (
 	resourceId: string,
 ): {
-	sourceProduct: SyncBlockProduct;
 	sourceContentId: string;
+	sourceProduct: SyncBlockProduct;
 } => {
 	const match = resourceId.match(/^(confluence-page|jira-work-item)\/([^/]+)/);
 	if (match?.[2]) {
@@ -89,6 +90,36 @@ export const getContentIdAndProductFromResourceId = (
 	}
 	throw new Error(`Invalid resourceId: ${resourceId}`);
 };
+
+/*
+ * Safe variant of `getContentIdAndProductFromResourceId` for analytics call-sites.
+ * Returns `undefined` instead of throwing when the resourceId is missing or malformed,
+ * so a bad value can never break the analytics pipeline.
+ */
+export const getSourceProductFromResourceIdSafe = (
+	resourceId?: string,
+): SyncBlockProduct | undefined => {
+	if (!resourceId) {
+		return undefined;
+	}
+	try {
+		return getContentIdAndProductFromResourceId(resourceId).sourceProduct;
+	} catch {
+		return undefined;
+	}
+};
+
+/*
+ * Convenience wrapper around `getSourceProductFromResourceIdSafe` that returns
+ * `undefined` whenever the `platform_synced_block_patch_11` rollout flag is off.
+ * Centralised so that the flag name lives in exactly one place — when the flag is
+ * cleaned up, this function should be deleted in its entirety and call-sites should
+ * fall back to calling `getSourceProductFromResourceIdSafe` directly.
+ */
+export const productAttrIfGateOn = (resourceId?: string): SyncBlockProduct | undefined =>
+	fg('platform_synced_block_patch_11')
+		? getSourceProductFromResourceIdSafe(resourceId)
+		: undefined;
 
 export const convertContentUpdatedAt = (
 	contentUpdatedAt: number | undefined,

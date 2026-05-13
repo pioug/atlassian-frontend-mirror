@@ -1,6 +1,6 @@
 import type { Rule } from 'eslint';
 
-import { JSXElement as JSXElementHelper } from '../../../../ast-nodes/jsx-element';
+import { JSXElementHelper } from '../../../../ast-nodes/jsx-element-helper';
 import { isSupportedForLint } from '../supported';
 
 interface MetaData {

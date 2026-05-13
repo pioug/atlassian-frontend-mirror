@@ -6,8 +6,6 @@ import ExitingPersistence from '../../../entering/exiting-persistence';
 import ZoomIn from '../../../entering/zoom-in';
 import { easeInOut } from '../../../utils/curves';
 
-jest.mock('../../../utils/accessibility');
-
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<ZoomIn />', () => {
 	it('should default to medium duration', () => {

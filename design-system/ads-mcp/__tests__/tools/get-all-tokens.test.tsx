@@ -1,4 +1,4 @@
-import { getAllTokensTool } from '../../src/tools/get-all-tokens';
+import { getAllTokensTool } from '../../src/tools/get-all-tokens/get-all-tokens-tool';
 
 jest.mock('@atlaskit/tokens/token-metadata', () => ({
 	tokens: [

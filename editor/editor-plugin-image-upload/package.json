@@ -27,7 +27,9 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./imageUploadPlugin": "./src/entry-points/imageUploadPlugin.tsx",
+		"./imageUploadPluginType": "./src/entry-points/imageUploadPluginType.ts"
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",

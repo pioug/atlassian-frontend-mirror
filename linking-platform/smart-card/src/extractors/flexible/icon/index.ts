@@ -2,6 +2,7 @@ import { type JsonLd } from '@atlaskit/json-ld-types';
 import { extractEntityIcon, isEntityPresent } from '@atlaskit/link-extractors';
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { IconType, SmartLinkStatus } from '../../../constants';
 
@@ -13,9 +14,9 @@ export const extractLinkIcon = (
 	response: JsonLd.Response,
 	renderers?: CardProviderRenderers,
 ): {
-	render: (() => React.ReactNode) | undefined;
 	icon?: IconType;
 	label?: string;
+	render: (() => React.ReactNode) | undefined;
 	url?: string;
 } => {
 	const data = response.data as JsonLd.Data.BaseData;
@@ -68,22 +69,31 @@ export const extractSmartLinkIcon = (
 	renderers?: CardProviderRenderers,
 ):
 	| {
-			render: (() => React.ReactNode) | undefined;
 			icon?: IconType;
 			label?: string;
+			render: (() => React.ReactNode) | undefined;
 			url?: string;
 	  }
 	| {
-			url: string | undefined;
 			label: string | undefined;
+			url: string | undefined;
 	  }
 	| undefined => {
 	if (!response || !response?.data) {
 		return undefined;
 	}
 
-	if (isEntityPresent(response)) {
-		return extractEntityIcon(response);
+	if(fg('platform_lp_use_entity_icon_url_for_icon')){
+		if (isEntityPresent(response)) {
+			const entityIcon = extractEntityIcon(response);
+			if (entityIcon) {
+				return entityIcon;
+			}
+		}	
+	}else{
+		if (isEntityPresent(response)) {
+			return extractEntityIcon(response);
+		}
 	}
 
 	return extractLinkIcon(response, renderers);

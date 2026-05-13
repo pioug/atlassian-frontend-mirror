@@ -1,4 +1,4 @@
-import { getAllComponentsTool } from '../../src/tools/get-all-components';
+import { getAllComponentsTool } from '../../src/tools/get-all-components/get-all-components-tool';
 
 jest.mock('../../src/tools/get-all-components/components.codegen', () => {
 	/**

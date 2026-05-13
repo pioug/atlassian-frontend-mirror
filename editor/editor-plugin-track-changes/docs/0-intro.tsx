@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Track Changes', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the track changes plugin used by \`@atlaskit/editor-core\`.
 

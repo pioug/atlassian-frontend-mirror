@@ -1,6 +1,6 @@
 import { type EslintNode, isNodeOfType } from 'eslint-codemod-utils';
 
-import { JSXElement } from '../../../ast-nodes/jsx-element';
+import { JSXElementHelper as JSXElement } from '../../../ast-nodes/jsx-element-helper';
 
 type SupportedElements = Array<{
 	name: string;

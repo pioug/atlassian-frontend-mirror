@@ -1,5 +1,5 @@
-import { getAtlaskitComponentsTool } from '../../src/tools/get-atlaskit-components';
 import { atlaskitComponents } from '../../src/tools/get-atlaskit-components/atlaskit-components.codegen';
+import { getAtlaskitComponentsTool } from '../../src/tools/get-atlaskit-components/get-atlaskit-components-tool';
 
 describe('ads_get_atlaskit_components tool', () => {
 	it('returns all components with only names and packages', async () => {

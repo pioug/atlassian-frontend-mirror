@@ -14,7 +14,7 @@ import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import { messages } from '../i18n';
+import { messages } from '../i18n-messages';
 import {
 	type FormChildrenArgs,
 	type MenuType,

@@ -16,6 +16,7 @@ import {
 	getFetchReferencesExperience,
 	getFetchSourceInfoExperience,
 } from '../utils/experienceTracking';
+import { productAttrIfGateOn } from '../utils/utils';
 
 import { ReferenceSyncBlockStoreManager } from './referenceSyncBlockStoreManager';
 import { SourceSyncBlockStoreManager } from './sourceSyncBlockStoreManager';
@@ -140,7 +141,13 @@ export class SyncBlockStoreManager {
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/syncBlockStoreManager',
 			});
-			this.fireAnalyticsEvent?.(fetchReferencesErrorPayload((error as Error).message));
+			this.fireAnalyticsEvent?.(
+				fetchReferencesErrorPayload(
+					(error as Error).message,
+					resourceId,
+					productAttrIfGateOn(resourceId),
+				),
+			);
 
 			return { error: SyncBlockError.Errored };
 		}

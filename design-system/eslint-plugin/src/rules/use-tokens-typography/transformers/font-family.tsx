@@ -6,9 +6,9 @@ import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import { Root } from '../../../ast-nodes/root';
 import { getNodeSource } from '../../utils/get-node-source';
+import { isDecendantOfStyleBlock } from '../../utils/is-decendant-of-style-block';
 import { isDecendantOfType } from '../../utils/is-decendant-of-type';
-import { isDecendantOfStyleBlock } from '../../utils/is-node';
-import type { RuleConfig } from '../config';
+import type { RuleConfig } from '../config/types';
 import { findFontFamilyTokenForValue } from '../find-font-family-token-for-value';
 import { insertTokensImport } from '../insert-tokens-import';
 

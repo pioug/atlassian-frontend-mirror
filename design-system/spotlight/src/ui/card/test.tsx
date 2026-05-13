@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
-
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { render, screen } from '@atlassian/testing-library';
+
 
 import { SpotlightContext } from '../../controllers/context';
 import type { Placement } from '../../types';
@@ -30,6 +30,8 @@ const renderWithPlacement = (placement: Placement) =>
 				popoverContent: {
 					ref: undefined,
 					setRef: () => undefined,
+					positionArea: undefined,
+					setPositionArea: () => undefined,
 					update: () => Promise.resolve(),
 					setUpdate: () => undefined,
 					dismiss: { current: () => undefined },

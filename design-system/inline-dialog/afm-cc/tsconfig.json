@@ -32,10 +32,16 @@
 			"path": "../../layering/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../popper/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../tokens/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../top-layer/afm-cc/tsconfig.json"
 		}
 	]
 }

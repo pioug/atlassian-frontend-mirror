@@ -2,7 +2,8 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { useRequestAnimationFrame, useSetTimeout } from '../../../utils/timer-hooks';
+import { useRequestAnimationFrame } from '../../../utils/use-request-animation-frame';
+import { useSetTimeout } from '../../../utils/use-set-timeout';
 import * as raf from '../../__utils__/raf';
 
 raf.replace();

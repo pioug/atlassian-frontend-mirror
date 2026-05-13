@@ -8,12 +8,14 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 import classnames from 'classnames';
+import type { IntlShape } from 'react-intl';
 
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { ZERO_WIDTH_SPACE } from '../whitespace';
 
+import { ExtensionSSRReactContextsProvider } from './ExtensionSSRReactContextsProvider';
 import type { MacroInteractionDesignFeatureFlags } from './types';
 
 const styles = css({
@@ -70,6 +72,7 @@ const hoverStyles = css({
 
 type Props = {
 	children: React.ReactNode;
+	intl: IntlShape | undefined;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 	nodeType: string;
 };
@@ -86,6 +89,7 @@ export const ExtensionNodeWrapper = ({
 	children,
 	nodeType,
 	macroInteractionDesignFeatureFlags,
+	intl,
 }: Props): jsx.JSX.Element => {
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
 
@@ -95,18 +99,20 @@ export const ExtensionNodeWrapper = ({
 	});
 
 	return (
-		<span
-			data-testid="extension-node-wrapper"
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-			className={wrapperClassNames}
-			css={[
-				styles,
-				expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true) &&
-					hoverStyles,
-			]}
-		>
-			{children}
-			{nodeType === 'inlineExtension' && ZERO_WIDTH_SPACE}
-		</span>
+		<ExtensionSSRReactContextsProvider intl={intl}>
+			<span
+				data-testid="extension-node-wrapper"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				className={wrapperClassNames}
+				css={[
+					styles,
+					expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true) &&
+						hoverStyles,
+				]}
+			>
+				{children}
+				{nodeType === 'inlineExtension' && ZERO_WIDTH_SPACE}
+			</span>
+		</ExtensionSSRReactContextsProvider>
 	);
 };

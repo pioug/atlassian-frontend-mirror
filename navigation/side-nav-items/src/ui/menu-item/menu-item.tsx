@@ -26,7 +26,11 @@ import {
 	useSetFlyoutMenuOpen,
 } from './flyout-menu-item/flyout-menu-item-context';
 import { COLLAPSE_ELEM_BEFORE } from './menu-item-signals';
-import type { MenuItemLinkOrButtonCommonProps, MenuItemOnClick } from './types';
+import type {
+	MenuItemAriaHasPopup,
+	MenuItemLinkOrButtonCommonProps,
+	MenuItemOnClick,
+} from './types';
 
 function isTextClamped(element: HTMLElement): boolean {
 	// Checking for vertical height rather than horizontal height.
@@ -545,7 +549,7 @@ type MenuItemBaseProps<T extends HTMLAnchorElement | HTMLButtonElement> =
 		// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention, @repo/internal/react/consistent-props-definitions
 		ariaExpanded?: boolean;
 		// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-		ariaHasPopup?: boolean | 'dialog';
+		ariaHasPopup?: MenuItemAriaHasPopup;
 		href?: string | Record<string, any>;
 		/**
 		 * ID attribute, passed to the interactive element (anchor/button). This is not publicly exposed, and is currently only

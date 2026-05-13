@@ -12,7 +12,7 @@
  * ```
  */
 export function combine(...cleanupFns: ((() => void) | undefined)[]): () => void {
-	return function cleanup(): void {
-		cleanupFns.forEach((fn) => fn?.());
+	return function cleanup() {
+		cleanupFns.forEach((callback) => callback?.());
 	};
 }

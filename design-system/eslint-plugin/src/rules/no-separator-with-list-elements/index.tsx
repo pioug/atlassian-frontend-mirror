@@ -1,7 +1,7 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, type JSXAttribute } from 'eslint-codemod-utils';
 
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
 
 const separatorAsCombinationNotAllowed =
 	'The combination of `separator` with `as="li"`, `as="ol"`, or `as="dl"` is not allowed.';

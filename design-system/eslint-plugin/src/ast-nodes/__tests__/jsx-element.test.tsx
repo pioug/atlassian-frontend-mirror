@@ -5,7 +5,7 @@ import j from 'jscodeshift';
 // @ts-ignore
 import { ruleTester } from '@atlassian/eslint-utils';
 
-import { JSXElement as JSXElementHelper } from '../jsx-element';
+import { JSXElementHelper } from '../jsx-element-helper';
 
 describe('JSXElement', () => {
 	describe('getName', () => {
@@ -19,7 +19,7 @@ describe('JSXElement', () => {
 	});
 
 	describe('containsSpreadAttributes', () => {
-		it('returns true when JSXElement contains spread attributes ', () => {
+		it('returns true when JSXElement contains spread attributes', () => {
 			const root = j(`<div {...props}></div>`);
 			const node = root.find(j.JSXElement).get().value;
 
@@ -28,7 +28,7 @@ describe('JSXElement', () => {
 			expect(result).toBe(true);
 		});
 
-		it("returns false when JSXElement doesn't contain spread attributes ", () => {
+		it("returns false when JSXElement doesn't contain spread attributes", () => {
 			const root = j(`<div></div>`);
 			const node = root.find(j.JSXElement).get().value;
 
@@ -48,7 +48,7 @@ describe('JSXElement', () => {
 			expect(result).toBeTruthy();
 		});
 
-		it("returns undefined if attribute doesn't exist ", () => {
+		it("returns undefined if attribute doesn't exist", () => {
 			const root = j(`<div></div>`);
 			const node = root.find(j.JSXElement).get().value;
 

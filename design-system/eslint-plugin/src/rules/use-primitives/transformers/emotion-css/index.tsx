@@ -11,14 +11,14 @@ import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import { FunctionCall } from '../../../../ast-nodes/function-call';
 import { JSXAttribute as JSXAttributeHelper } from '../../../../ast-nodes/jsx-attribute';
-import { JSXElement as JSXElementHelper } from '../../../../ast-nodes/jsx-element';
+import { JSXElementHelper } from '../../../../ast-nodes/jsx-element-helper';
 import { Root } from '../../../../ast-nodes/root';
-import type { RuleConfig } from '../../config';
+import type { RuleConfig } from '../../config/types';
 import { getVariableDefinitionValue } from '../../utils/get-variable-definition-value';
 import { getVariableUsagesCount } from '../../utils/get-variable-usage-count';
 import { isValidCssPropertiesToTransform } from '../../utils/is-valid-css-properties-to-transform';
 import { validateStyles } from '../../utils/validate-styles';
-import { cssToXcssTransformer } from '../css-to-xcss';
+import { cssToXcssTransformer } from '../css-to-xcss-transformer';
 
 import { attributes } from './attributes';
 import { elements } from './elements';

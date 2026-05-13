@@ -320,7 +320,7 @@ export function useAnchorPosition({
 	 * the preset's named `@position-try` rules (which update both
 	 * `position-area` and `margin` on flip) and sets `--ds-arrow-size`.
 	 *
-	 * Pass `null` to disable. Has no effect in the JS fallback path —
+	 * Pass `null` to disable. Has no effect in the JS fallback path -
 	 * arrows are CSS-only.
 	 */
 	arrow?: TArrowPreset | null;
@@ -524,7 +524,20 @@ export function useAnchorPosition({
 		// ResizeObserver fires once the browser has real dimensions.
 		// Self-disconnects after one valid measurement; ongoing
 		// scroll/resize is handled by the window listeners below.
-		const resizeObserver = new ResizeObserver(() => {
+		// `ResizeObserver` is missing in some non-DOM jest environments
+		// (e.g. post-office's `node` environment). Fall back to a no-op
+		// observer there — the scroll/resize listeners below still keep
+		// the popover positioned in the rare case the consumer also
+		// polyfilled `showPopover` but not `ResizeObserver`. Real
+		// browsers always have it.
+		const NoopResizeObserver = class {
+			observe() {}
+			unobserve() {}
+			disconnect() {}
+		};
+		const ResizeObserverImpl =
+			typeof ResizeObserver !== 'undefined' ? ResizeObserver : NoopResizeObserver;
+		const resizeObserver = new ResizeObserverImpl(() => {
 			if (popover.offsetWidth > 0 && popover.offsetHeight > 0) {
 				update();
 				resizeObserver.disconnect();

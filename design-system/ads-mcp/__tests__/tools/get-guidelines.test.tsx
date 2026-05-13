@@ -1,4 +1,4 @@
-import { getGuidelinesTool } from '../../src/tools/get-guidelines';
+import { getGuidelinesTool } from '../../src/tools/get-guidelines/get-guidelines-tool';
 
 jest.mock('../../src/tools/get-guidelines/guidelines-structured-content.codegen', () => ({
 	guidelinesStructuredContent: [

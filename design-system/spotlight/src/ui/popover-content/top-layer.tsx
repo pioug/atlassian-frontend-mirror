@@ -14,6 +14,7 @@ import { useSimpleLightDismiss } from '@atlaskit/top-layer/use-simple-light-dism
 
 import { SpotlightContext } from '../../controllers/context';
 import type { DismissEvent } from '../../types';
+import { usePositionArea } from '../../utils/use-position-area';
 
 import type { PopoverContentProps } from './legacy';
 import { placementMap } from './placement-map';
@@ -91,6 +92,12 @@ export const PopoverContent = (props: PopoverContentProps): JSX.Element => {
 		popoverContent.setRef(popoverRef);
 		popoverContent.setUpdate(() => noopUpdate);
 	}, [popoverContent]);
+
+
+	const positionArea = usePositionArea(popoverRef);
+	useEffect(() => {
+		popoverContent.setPositionArea(positionArea);
+	}, [popoverContent, positionArea]);
 
 	useEffect(() => {
 		if (!done && !next) {

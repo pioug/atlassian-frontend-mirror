@@ -18,9 +18,9 @@ import { cssMap, cx, jsx, type XCSSAllProperties, type XCSSAllPseudos } from '@a
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { type Motion as MotionToken } from '@atlaskit/tokens/css-type-schema';
 
-import { isReducedMotion } from '../utils/accessibility';
 import { convertToMs } from '../utils/convert-to-ms';
 import { getDurationMs } from '../utils/get-duration-ms';
+import { isReducedMotion } from '../utils/is-reduced-motion';
 import { resolveMotionToken } from '../utils/resolve-motion-token';
 
 import { useExitingPersistence } from './exiting-persistence';

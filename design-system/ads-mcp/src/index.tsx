@@ -9,71 +9,56 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 import type { z } from 'zod';
 
-import { sendOperationalEvent } from './helpers/analytics';
+import { sendOperationalEvent } from './helpers/send-operational-event';
 import { validateToolArguments } from './helpers/validation';
 import { instructions } from './instructions';
-import {
-	analyzeA11yInputSchema,
-	analyzeA11yLocalhostInputSchema,
-	analyzeA11yTool,
-	analyzeLocalhostA11yTool,
-	listAnalyzeA11yTool,
-	listAnalyzeLocalhostA11yTool,
-} from './tools/analyze-a11y';
-import {
-	getA11yGuidelinesInputSchema,
-	getA11yGuidelinesTool,
-	listGetA11yGuidelinesTool,
-} from './tools/get-a11y-guidelines';
-import { getAllComponentsTool, listGetAllComponentsTool } from './tools/get-all-components';
-import { getAllIconsTool, listGetAllIconsTool } from './tools/get-all-icons';
-import { getAllTokensTool, listGetAllTokensTool } from './tools/get-all-tokens';
-import {
-	getAtlaskitComponentsTool,
-	listGetAtlaskitComponentsTool,
-} from './tools/get-atlaskit-components';
-import {
-	getGuidelinesInputSchema,
-	getGuidelinesTool,
-	listGetGuidelinesTool,
-} from './tools/get-guidelines';
-import {
-	getLintRulesInputSchema,
-	getLintRulesTool,
-	listGetLintRulesTool,
-} from './tools/get-lint-rules';
-import {
-	i18nConversionInputSchema,
-	i18nConversionTool,
-	listI18nConversionTool,
-} from './tools/i18n-conversion';
-import {
-	listMigrationGuidesTool,
-	migrationGuidesInputSchema,
-	migrationGuidesTool,
-} from './tools/migration-guides';
-import { listPlanTool, planInputSchema, planTool } from './tools/plan';
-import {
-	listSearchAtlaskitComponentsTool,
-	searchAtlaskitComponentsInputSchema,
-	searchAtlaskitComponentsTool,
-} from './tools/search-atlaskit-components';
-import {
-	listSearchComponentsTool,
-	searchComponentsInputSchema,
-	searchComponentsTool,
-} from './tools/search-components';
-import { listSearchIconsTool, searchIconsInputSchema, searchIconsTool } from './tools/search-icons';
-import {
-	listSearchTokensTool,
-	searchTokensInputSchema,
-	searchTokensTool,
-} from './tools/search-tokens';
-import {
-	listSuggestA11yFixesTool,
-	suggestA11yFixesInputSchema,
-	suggestA11yFixesTool,
-} from './tools/suggest-a11y-fixes';
+import { analyzeA11yInputSchema } from './tools/analyze-a11y/analyze-a11y-input-schema';
+import { analyzeA11yLocalhostInputSchema } from './tools/analyze-a11y/analyze-a11y-localhost-input-schema';
+import { analyzeA11yTool } from './tools/analyze-a11y/analyze-a11y-tool';
+import { analyzeLocalhostA11yTool } from './tools/analyze-a11y/analyze-localhost-a11y-tool';
+import { listAnalyzeA11yTool } from './tools/analyze-a11y/list-analyze-a11y-tool';
+import { listAnalyzeLocalhostA11yTool } from './tools/analyze-a11y/list-analyze-localhost-a11y-tool';
+import { getA11yGuidelinesInputSchema } from './tools/get-a11y-guidelines/get-a11y-guidelines-input-schema';
+import { getA11yGuidelinesTool } from './tools/get-a11y-guidelines/get-a11y-guidelines-tool';
+import { listGetA11yGuidelinesTool } from './tools/get-a11y-guidelines/list-get-a11y-guidelines-tool';
+import { getAllComponentsTool } from './tools/get-all-components/get-all-components-tool';
+import { listGetAllComponentsTool } from './tools/get-all-components/list-get-all-components-tool';
+import { getAllIconsTool } from './tools/get-all-icons/get-all-icons-tool';
+import { listGetAllIconsTool } from './tools/get-all-icons/list-get-all-icons-tool';
+import { getAllTokensTool } from './tools/get-all-tokens/get-all-tokens-tool';
+import { listGetAllTokensTool } from './tools/get-all-tokens/list-get-all-tokens-tool';
+import { getAtlaskitComponentsTool } from './tools/get-atlaskit-components/get-atlaskit-components-tool';
+import { listGetAtlaskitComponentsTool } from './tools/get-atlaskit-components/list-get-atlaskit-components-tool';
+import { getGuidelinesInputSchema } from './tools/get-guidelines/get-guidelines-input-schema';
+import { getGuidelinesTool } from './tools/get-guidelines/get-guidelines-tool';
+import { listGetGuidelinesTool } from './tools/get-guidelines/list-get-guidelines-tool';
+import { getLintRulesInputSchema } from './tools/get-lint-rules/get-lint-rules-input-schema';
+import { getLintRulesTool } from './tools/get-lint-rules/get-lint-rules-tool';
+import { listGetLintRulesTool } from './tools/get-lint-rules/list-get-lint-rules-tool';
+import { i18nConversionInputSchema } from './tools/i18n-conversion/i18n-conversion-input-schema';
+import { i18nConversionTool } from './tools/i18n-conversion/i18n-conversion-tool';
+import { listI18nConversionTool } from './tools/i18n-conversion/list-i18n-conversion-tool';
+import { listMigrationGuidesTool } from './tools/migration-guides/list-migration-guides-tool';
+import { migrationGuidesInputSchema } from './tools/migration-guides/migration-guides-input-schema';
+import { migrationGuidesTool } from './tools/migration-guides/migration-guides-tool';
+import { listPlanTool } from './tools/plan/list-plan-tool';
+import { planInputSchema } from './tools/plan/plan-input-schema';
+import { planTool } from './tools/plan/plan-tool';
+import { listSearchAtlaskitComponentsTool } from './tools/search-atlaskit-components/list-search-atlaskit-components-tool';
+import { searchAtlaskitComponentsInputSchema } from './tools/search-atlaskit-components/search-atlaskit-components-input-schema';
+import { searchAtlaskitComponentsTool } from './tools/search-atlaskit-components/search-atlaskit-components-tool';
+import { listSearchComponentsTool } from './tools/search-components/list-search-components-tool';
+import { searchComponentsInputSchema } from './tools/search-components/search-components-input-schema';
+import { searchComponentsTool } from './tools/search-components/search-components-tool';
+import { listSearchIconsTool } from './tools/search-icons/list-search-icons-tool';
+import { searchIconsInputSchema } from './tools/search-icons/search-icons-input-schema';
+import { searchIconsTool } from './tools/search-icons/search-icons-tool';
+import { listSearchTokensTool } from './tools/search-tokens/list-search-tokens-tool';
+import { searchTokensInputSchema } from './tools/search-tokens/search-tokens-input-schema';
+import { searchTokensTool } from './tools/search-tokens/search-tokens-tool';
+import { listSuggestA11yFixesTool } from './tools/suggest-a11y-fixes/list-suggest-a11y-fixes-tool';
+import { suggestA11yFixesInputSchema } from './tools/suggest-a11y-fixes/suggest-a11y-fixes-input-schema';
+import { suggestA11yFixesTool } from './tools/suggest-a11y-fixes/suggest-a11y-fixes-tool';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- this uses require because not all node versions this package supports use the same import assertions/attributes
 const pkgJson = require('@atlaskit/ads-mcp/package.json');

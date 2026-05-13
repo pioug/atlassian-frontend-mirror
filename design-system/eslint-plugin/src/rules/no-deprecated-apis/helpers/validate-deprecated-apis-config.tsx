@@ -1,6 +1,6 @@
 import Ajv from 'ajv';
 
-import type { DeprecatedJSXAttributeConfig } from '../../../../src/rules/utils/types';
+import type { DeprecatedJSXAttributeConfig } from '../../utils/types';
 
 const deprecatedSchema = {
 	type: 'object',

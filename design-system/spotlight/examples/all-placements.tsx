@@ -47,6 +47,29 @@ const styles = cssMap({
 		borderWidth: token('border.width'),
 		borderColor: token('color.border.bold'),
 	},
+	targetContent: {
+		position: 'relative',
+	},
+	inlineGuide: {
+		position: 'absolute',
+		insetBlockStart: '50%',
+		insetInlineStart: 0,
+		width: '100%',
+		borderBlockStartStyle: 'dashed',
+		borderBlockStartWidth: token('border.width'),
+		borderBlockStartColor: token('color.border.discovery'),
+		pointerEvents: 'none',
+	},
+	blockGuide: {
+		position: 'absolute',
+		insetBlockStart: 0,
+		insetInlineStart: '50%',
+		height: '100%',
+		borderInlineStartStyle: 'dashed',
+		borderInlineStartWidth: token('border.width'),
+		borderInlineStartColor: token('color.border.discovery'),
+		pointerEvents: 'none',
+	},
 });
 
 export default (): JSX.Element => {
@@ -108,7 +131,13 @@ const Spotlight = ({ placement, children }: { placement: Placement; children: Re
 
 	return (
 		<PopoverProvider>
-			<PopoverTarget>{children}</PopoverTarget>
+			<PopoverTarget>
+				<div css={styles.targetContent}>
+					{children}
+					<div css={styles.inlineGuide} aria-hidden />
+					<div css={styles.blockGuide} aria-hidden />
+				</div>
+			</PopoverTarget>
 			<PopoverContent dismiss={dismiss} isVisible={isVisible} placement={placement}>
 				<SpotlightCard testId="spotlight">
 					<SpotlightHeader>

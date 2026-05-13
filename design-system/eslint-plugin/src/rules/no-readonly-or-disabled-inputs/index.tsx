@@ -4,22 +4,19 @@ import {
 	type JSXElement as JSXElementType,
 } from 'eslint-codemod-utils';
 
-import { JSXElement } from '../../ast-nodes/jsx-element';
-import { createLintRule } from '../utils/create-rule';
+import { JSXElementHelper as JSXElement } from '../../ast-nodes/jsx-element-helper';
+import { createLintRule } from '../utils/create-lint-rule';
 
-export const AFFECTED_HTML_ELEMENTS: string[] = ['input', 'textarea'];
-export const AFFECTED_ATLASKIT_PACKAGES: Record<string, string[]> = {
-	'@atlaskit/textarea': ['default'],
-	'@atlaskit/textfield': ['default'],
-};
+import { AFFECTED_ATLASKIT_PACKAGES } from './affected-atlaskit-packages';
+import { AFFECTED_HTML_ELEMENTS } from './affected-html-elements';
+import { UNWANTED_ATLASKIT_ATTRIBUTES } from './unwanted-atlaskit-attributes';
+import { UNWANTED_HTML_ATTRIBUTES } from './unwanted-html-attributes';
 
-export const UNWANTED_HTML_ATTRIBUTES = ['disabled', 'readonly'] as const;
 const isUnwantedHTMLAtrribute = (s: string): s is 'disabled' | 'readonly' => {
 	const attrs: readonly string[] = UNWANTED_HTML_ATTRIBUTES;
 	return attrs.includes(s);
 };
 
-export const UNWANTED_ATLASKIT_ATTRIBUTES = ['isDisabled', 'isReadOnly'] as const;
 const isUnwantedAtlaskitAtrribute = (s: string): s is 'isDisabled' | 'isReadOnly' => {
 	const attrs: readonly string[] = UNWANTED_ATLASKIT_ATTRIBUTES;
 	return attrs.includes(s);

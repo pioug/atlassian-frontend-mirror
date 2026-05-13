@@ -58,7 +58,9 @@ describe('ColorPicker', () => {
 
 	describe('FFs enabled', () => {
 		beforeEach(() => {
-			mockGetBooleanFG.mockReturnValue(true);
+			// Exclude platform-dst-top-layer: when ON, @atlaskit/popup uses the native Popover API
+			// which JSDOM does not implement — causing duplicate element rendering issues in tests.
+			mockGetBooleanFG.mockImplementation((flag: string) => flag !== 'platform-dst-top-layer');
 		});
 
 		test('should capture and report a11y violations', async () => {

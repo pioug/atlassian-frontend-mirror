@@ -27,7 +27,9 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./feedbackDialogPlugin": "./src/entry-points/feedbackDialogPlugin.tsx",
+		"./feedbackDialogPluginType": "./src/entry-points/feedbackDialogPluginType.ts"
 	},
 	"dependencies": {
 		"@atlaskit/editor-plugin-analytics": "workspace:^",

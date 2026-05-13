@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Primary Toolbar', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the Primary Toolbar plugin used by \`@atlaskit/editor-core\`.
 

@@ -3,7 +3,7 @@ import type { Rule } from 'eslint';
 import renameMapping from '@atlaskit/tokens/rename-mapping';
 import { getTokenId } from '@atlaskit/tokens/token-ids';
 
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {

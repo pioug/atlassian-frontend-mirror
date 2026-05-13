@@ -1,5 +1,5 @@
 // TODO: EDITOR-6833 - Expected across this entire file, future violations are expected. Will try to remove them later after fully migration
-/* eslint-disable @atlaskit/platform/use-motion-token-values, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/platform/expand-spacing-shorthand, @atlaskit/platform/expand-border-shorthand, @atlaskit/platform/expand-background-shorthand */
+/* eslint-disable @atlaskit/platform/use-motion-token-values, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/platform/expand-spacing-shorthand, @atlaskit/platform/expand-border-shorthand, @atlaskit/platform/expand-background-shorthand */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -67,6 +67,40 @@ const CommentEditorMargin = 14;
 const GRID_GUTTER = 12;
 
 const blockNodesVerticalMargin = '0.75rem';
+const fontSize14px = `${14 / 16}rem`;
+
+const blanketSelectionStyles = css({
+	position: 'relative',
+	// Fixes ED-9263, where emoji or inline card in panel makes selection go outside the panel
+	// in Safari. Looks like it's caused by user-select: all in the emoji element
+	WebkitUserSelect: 'text',
+
+	'&::before': {
+		position: 'absolute',
+		content: "''",
+		left: 0,
+		right: 0,
+		top: 0,
+		bottom: 0,
+		width: '100%',
+		pointerEvents: 'none',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+		zIndex: 12,
+		backgroundColor: token('color.blanket.selected'),
+	},
+});
+
+const gutterDangerOverlay = css({
+	'&::after': {
+		height: '100%',
+		content: "''",
+		position: 'absolute',
+		left: 0,
+		top: 0,
+		width: '24px',
+		backgroundColor: token('color.blanket.danger'),
+	},
+});
 const scaledBlockNodesVerticalMargin = '0.75em';
 // copied from packages/editor/editor-shared-styles/src/consts/consts.ts
 const akEditorLineHeight = 1.714;
@@ -312,7 +346,6 @@ const borderSelectionStyles = css({
 	},
 });
 
-// @ts-expect-error -- Temporary dead code, will be used when migrating styles/codeBlockStyles.ts EDITOR-6686
 const overflowShadowStyles = css({
 	backgroundImage: `
 		linear-gradient(
@@ -671,10 +704,216 @@ const editorContentStyles = cssMap({
 		// placeholder for migration
 	},
 	codeBlockStyles: {
-		// placeholder for migration
+		'.ProseMirror': {
+			[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPED} > .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} > .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]:
+				{
+					marginRight: token('space.100'),
+
+					code: {
+						display: 'block',
+						wordBreak: 'break-word',
+						whiteSpace: 'pre-wrap',
+					},
+				},
+
+			[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} > .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]:
+				{
+					display: 'flex',
+					flex: 1,
+
+					code: {
+						flexGrow: 1,
+						whiteSpace: 'pre',
+					},
+				},
+
+			[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
+				position: 'relative',
+				backgroundColor: token('elevation.surface.raised'),
+				borderRadius: token('radius.small', '3px'),
+				margin: `${blockNodesVerticalMargin} 0 0 0`,
+				fontFamily: token('font.family.code'),
+				minWidth: 48,
+				cursor: 'pointer',
+				clear: 'both',
+				// This is necessary to allow for arrow key navigation in/out of code blocks in Firefox.
+				whiteSpace: 'normal',
+
+				'.code-block-gutter-pseudo-element::before': {
+					content: 'attr(data-label)',
+				},
+
+				[`.${CodeBlockSharedCssClassName.CODEBLOCK_START}`]: {
+					position: 'absolute',
+					visibility: 'hidden',
+					height: '1.5rem',
+					top: 0,
+					left: 0,
+				},
+
+				[`.${CodeBlockSharedCssClassName.CODEBLOCK_END}`]: {
+					position: 'absolute',
+					visibility: 'hidden',
+					height: '1.5rem',
+					bottom: 0,
+					right: 0,
+				},
+
+				[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER}`]: {
+					...overflowShadowStyles,
+					position: 'relative',
+					backgroundColor: token('color.background.neutral'),
+					display: 'flex',
+					borderRadius: token('radius.small', '3px'),
+					width: '100%',
+					counterReset: 'line',
+					overflowX: 'auto',
+					backgroundRepeat: 'no-repeat',
+					backgroundAttachment: 'local, local, local, local, scroll, scroll, scroll, scroll',
+					backgroundSize: `${token('space.300')} 100%,
+	                         ${token('space.300')} 100%,
+	                         ${token('space.100')} 100%,
+	                         ${token('space.100')} 100%,
+	                         ${token('space.100')} 100%,
+	                         1px 100%,
+	                         ${token('space.100')} 100%,
+	                         1px 100%`,
+					backgroundPosition: `0 0,
+	                             0 0,
+                               100% 0,
+                               100% 0,
+                               100% 0,
+                               100% 0,
+	                             0 0,
+	                             0 0`,
+					// Be careful if refactoring this; it is needed to keep arrow key navigation in Firefox consistent with other browsers.
+					overflowY: 'hidden',
+				},
+
+				[`.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}`]: {
+					backgroundColor: token('color.background.neutral'),
+					position: 'relative',
+					width: 'var(--lineNumberGutterWidth, 2rem)',
+					padding: token('space.100'),
+					flexShrink: 0,
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontSize: fontSize14px,
+					boxSizing: 'content-box',
+				},
+
+				// This is a fix of marker of list item with code block.
+				// The list item marker in Chrome is aligned by the baseline of the text,
+				// that's why we need to add a text (content: "1") to the line number gutter to align
+				// the list item marker with the text.
+				// Without it, the list item marker will be aligned by the bottom of the code block. */
+				[`.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}::before`]: {
+					content: "'1'",
+					visibility: 'hidden',
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontSize: fontSize14px,
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					lineHeight: '1.5rem',
+				},
+
+				[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
+					code: {
+						tabSize: 4,
+						cursor: 'text',
+						color: token('color.text'),
+						borderRadius: token('radius.small', '3px'),
+						margin: token('space.100'),
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						fontSize: fontSize14px,
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						lineHeight: '1.5rem',
+					},
+				},
+
+				[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER_LINE_NUMBER_WIDGET}`]: {
+					pointerEvents: 'none',
+					userSelect: 'none',
+					width: 'var(--lineNumberGutterWidth, 2rem)',
+					left: 0,
+					position: 'absolute',
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontSize: fontSize14px,
+					padding: `0px ${token('space.100')}`,
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					lineHeight: '1.5rem',
+					textAlign: 'right',
+					color: token('color.text.subtlest'),
+					boxSizing: 'content-box',
+				},
+			},
+
+			li: {
+				// if same list item has multiple code blocks we need top margin for all but first
+				'> .code-block': {
+					margin: `${blockNodesVerticalMargin} 0 0 0`,
+				},
+				'> .code-block:first-child, > .ProseMirror-gapcursor:first-child + .code-block': {
+					marginTop: 0,
+				},
+
+				'> div:last-of-type.code-block, > pre:last-of-type.code-block': {
+					marginBottom: blockNodesVerticalMargin,
+				},
+			},
+
+			'.code-block.ak-editor-selected-node:not(.danger)': {
+				...boxShadowSelectionStyles,
+				...blanketSelectionStyles,
+				...hideNativeBrowserTextSelectionStyles,
+			},
+
+			// Danger when top level node
+			'.danger.code-block': {
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+
+				[`.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}`]: {
+					backgroundColor: token('color.background.danger'),
+					color: token('color.text.danger'),
+					...gutterDangerOverlay,
+				},
+
+				[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
+					backgroundColor: token('color.blanket.danger'),
+				},
+			},
+
+			// Danger when nested node
+			'.danger .code-block': {
+				[`.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}`]: {
+					backgroundColor: token('color.background.danger'),
+					color: token('color.text.danger'),
+					...gutterDangerOverlay,
+				},
+
+				[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
+					backgroundColor: token('color.blanket.danger'),
+				},
+			},
+		},
 	},
 	codeBlockStylesWithEmUnits: {
-		// placeholder for migration
+		'.ProseMirror': {
+			[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
+				'.code-block-gutter-pseudo-element::before': {
+					display: 'flow',
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					lineHeight: '1.5em',
+				},
+
+				[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
+					code: {
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						fontSize: '0.875em',
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						lineHeight: '1.5em',
+					},
+				},
+			},
+		},
 	},
 	codeMarkStyles: {
 		'.code': {
@@ -742,7 +981,6 @@ const editorContentStyles = cssMap({
 	dangerDateStyles: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		'.dateView-content-wrap.ak-editor-selected-node.danger .date-lozenger-container > span': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 			...dangerBorderStyles,
 		},
 	},
@@ -769,9 +1007,7 @@ const editorContentStyles = cssMap({
 
 			'&.ak-editor-selected-node': {
 				'.date-lozenger-container > span': {
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 					...boxShadowSelectionStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 					...hideNativeBrowserTextSelectionStyles,
 				},
 			},
@@ -1515,10 +1751,25 @@ const editorContentStyles = cssMap({
 		},
 	},
 	firstCodeBlockWithNoMargin: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'.ak-editor-panel__content': {
+				'> .code-block:first-child, > .ProseMirror-widget:first-child + .code-block, > .ProseMirror-widget:first-child + .ProseMirror-widget + .code-block':
+					{
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-space,@atlaskit/ui-styling-standard/no-important-styles
+						margin: '0!important',
+					},
+			},
+		},
 	},
 	firstCodeBlockWithNoMarginOld: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'.ak-editor-panel__content': {
+				'> .code-block:first-child': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space,@atlaskit/ui-styling-standard/no-important-styles
+					margin: '0!important',
+				},
+			},
+		},
 	},
 	firstFloatingToolbarButtonStyles: {
 		'button.first-floating-toolbar-button:focus': {
@@ -2115,9 +2366,7 @@ const editorContentStyles = cssMap({
 		'.ak-editor-selected-node:not(.search-match-block).danger': {
 			'> .editor-mention-primitive, > .editor-mention-primitive.mention-self, > .editor-mention-primitive.mention-restricted':
 				{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 					...dangerBorderStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 					...dangerBackgroundStyles,
 				},
 		},
@@ -2184,18 +2433,13 @@ const editorContentStyles = cssMap({
 		'.ak-editor-selected-node': {
 			'> .editor-mention-primitive, > .editor-mention-primitive.mention-self, > .editor-mention-primitive.mention-restricted':
 				{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 					...boxShadowSelectionStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 					...backgroundSelectionStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 					...hideNativeBrowserTextSelectionStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 					...mentionsSelectedColor,
 					// Explicitly override hover/active states to prevent mentionNodeStyles hover
 					// from winning over the selection background in Compiled's atomic CSS (source order issue)
 					'&:hover, &:active': {
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 						...backgroundSelectionStyles,
 					},
 				},
@@ -2213,16 +2457,12 @@ const editorContentStyles = cssMap({
 		'.ak-editor-selected-node': {
 			'> .editor-mention-primitive, > .editor-mention-primitive.mention-self, > .editor-mention-primitive.mention-restricted':
 				{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 					...backgroundSelectionStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 					...hideNativeBrowserTextSelectionStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 					...mentionsSelectedColor,
 					// Explicitly override hover/active states to prevent mentionNodeStyles hover
 					// from winning over the selection background in Compiled's atomic CSS (source order issue)
 					'&:hover, &:active': {
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 						...backgroundSelectionStyles,
 					},
 				},
@@ -2231,7 +2471,6 @@ const editorContentStyles = cssMap({
 		'.ak-editor-selected-node:not(.search-match-block)': {
 			'> .editor-mention-primitive, > .editor-mention-primitive.mention-self, > .editor-mention-primitive.mention-restricted':
 				{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 					...boxShadowSelectionStyles,
 				},
 		},
@@ -2242,11 +2481,8 @@ const editorContentStyles = cssMap({
 			// TODO: ED-28075 - refactor selection styles to unblock Compiled CSS migration
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 			'&.ak-editor-selected-node [data-mention-id] > span': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 				...boxShadowSelectionStyles,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 				...backgroundSelectionStyles,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 				...mentionsSelectedColor,
 			},
 		},
@@ -2378,9 +2614,7 @@ const editorContentStyles = cssMap({
 			color: token('color.text.subtlest'),
 		},
 		'.ProseMirror span.pm-placeholder.ak-editor-selected-node': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 			...backgroundSelectionStyles,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 			...hideNativeBrowserTextSelectionStyles,
 		},
 		'.ProseMirror span.pm-placeholder__text[data-placeholder]::after': {
@@ -3115,11 +3349,8 @@ const editorContentStyles = cssMap({
 		'.ak-editor-selected-node': {
 			'&.unsupportedBlockView-content-wrap > div, &.unsupportedInlineView-content-wrap > span:nth-of-type(2)':
 				{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 					...backgroundSelectionStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 					...borderSelectionStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 					...hideNativeBrowserTextSelectionStyles,
 				},
 		},

@@ -9,8 +9,6 @@ import { easeIn } from '../../../utils/curves';
 import { durations } from '../../../utils/durations';
 import { ComponentStub } from '../../__utils__/component-stub';
 
-jest.mock('../../../utils/accessibility');
-
 replaceRaf();
 const raf = window.requestAnimationFrame as any;
 

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/linking-types",
-	"version": "14.2.1",
+	"version": "14.3.0",
 	"description": "Schema and Types for frontend and backend parts of linking platform",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -30,6 +30,7 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
+		"./entity-types": "./src/entity-types.ts",
 		"./datasource": "./src/datasource-types.ts",
 		"./datasource-actions": "./src/datasource-action-types.ts",
 		"./smart-link-actions": "./src/smart-link-action-types.ts"

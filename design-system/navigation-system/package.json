@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "9.2.1",
+	"version": "9.3.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -49,7 +49,8 @@
 		"./theming/color-utils/parse-hsl": "./src/entry-points/theming/color-utils/parse-hsl.tsx",
 		"./theming/color-utils/parse-rgb": "./src/entry-points/theming/color-utils/parse-rgb.tsx",
 		"./theming/color-utils/parse-user-color": "./src/entry-points/theming/color-utils/parse-user-color.tsx",
-		"./experimental/ribbon": "./src/entry-points/experimental/ribbon.tsx"
+		"./experimental/ribbon": "./src/entry-points/experimental/ribbon.tsx",
+		"./legacy/css-variables": "./src/entry-points/legacy/css-variables.tsx"
 	},
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {

@@ -1,10 +1,11 @@
 import type React from 'react';
 
-import { isReducedMotion } from '../utils/accessibility';
 import { durations } from '../utils/durations';
-import { useRequestAnimationFrame, useSetTimeout } from '../utils/timer-hooks';
+import { isReducedMotion } from '../utils/is-reduced-motion';
 import { useElementRef } from '../utils/use-element-ref';
 import { useLayoutEffect } from '../utils/use-layout-effect';
+import { useRequestAnimationFrame } from '../utils/use-request-animation-frame';
+import { useSetTimeout } from '../utils/use-set-timeout';
 
 import { useExitingPersistence } from './exiting-persistence';
 import { type MotionProps } from './types';

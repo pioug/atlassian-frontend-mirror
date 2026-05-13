@@ -432,11 +432,17 @@ const TypeAheadListComponent = React.memo(
 				<Text align="center" as="p">
 					{intl.formatMessage(
 						expValEquals('platform_editor_insert_menu_ai', 'isEnabled', true)
-							? typeAheadListMessages.emptySearchResultsSuggestionNew
+							? showMoreOptionsButton
+								? typeAheadListMessages.emptySearchResultsSuggestionNew
+								: typeAheadListMessages.emptySearchResultsSuggestionAskRovoOnly
 							: typeAheadListMessages.emptySearchResultsSuggestion,
 						{
-							askRovoName: <Text weight="medium">{intl.formatMessage(messages.askRovo)}</Text>,
-							buttonName: <Text weight="medium">{intl.formatMessage(messages.viewMore)}</Text>,
+							askRovoName: (
+								<Text weight="medium">{intl.formatMessage(messages.askRovo)}</Text>
+							),
+							buttonName: (
+								<Text weight="medium">{intl.formatMessage(messages.viewMore)}</Text>
+							),
 						},
 					)}
 				</Text>

@@ -19,7 +19,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Loom', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the Loom plugin used by \`@atlaskit/editor-core\`.
 

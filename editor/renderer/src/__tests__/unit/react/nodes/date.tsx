@@ -8,10 +8,6 @@ import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { timestampToString, todayTimestampInUTC } from '@atlaskit/editor-common/utils';
 import { RendererContextProvider } from '../../../../renderer-context';
 
-jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
-	expValEquals: () => true,
-}));
-
 describe('Renderer - React/Nodes/Date', () => {
 	let timestamp: string;
 	let wrapper: ReactWrapper<any>;

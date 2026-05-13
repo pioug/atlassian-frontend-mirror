@@ -1,4 +1,5 @@
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { DocumentEntity } from '@atlaskit/linking-types/entity-types';
 
 export default {
 	meta: {
@@ -62,12 +63,6 @@ export default {
 			externalId: 'WELLJST6K',
 		},
 		lastUpdatedAt: '2022-06-22T00:44:14.956Z',
-		parentKey: {
-			type: 'atlassian:document',
-			value: {
-				entityId: 'another-document',
-			},
-		},
 		permissions: {
 			accessControls: [
 				{
@@ -88,14 +83,7 @@ export default {
 			text: 'Really large content here...',
 		},
 		byteSize: 456,
-		labels: ['label1', 'label2'],
-		reactions: [
-			{
-				type: 'LIKE',
-				total: 1,
-			},
-		],
-	},
+	} satisfies DocumentEntity,
 	containerKey: {
 		type: 'atlassian:space',
 		value: {

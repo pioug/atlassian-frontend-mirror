@@ -5,6 +5,7 @@
  */
 {
   "testExamples": [
+    "99-testing.tsx",
     "01-default.tsx",
     "07-popper-placements.tsx"
   ],

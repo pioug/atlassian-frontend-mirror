@@ -8,7 +8,7 @@ import { Box, Text } from '@atlaskit/primitives/compiled';
 import type { LoadOptions } from '@atlaskit/smart-user-picker';
 import { token } from '@atlaskit/tokens';
 
-import { messages } from '../../i18n';
+import { messages } from '../../i18n-messages';
 import type {
 	MenuType,
 	ShareData,

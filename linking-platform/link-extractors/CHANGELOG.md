@@ -1,5 +1,26 @@
 # @atlaskit/link-extractors
 
+## 2.5.0
+
+### Minor Changes
+
+- [`00d5363469512`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00d5363469512) -
+  Two changes:
+  1. When response has `entityData`, Smart Card icon extraction now tries entity-specific icon URL
+     for main icon rendering.
+  2. For image-icon cases, Smart Card passes an `alt` label for the icon image (entity
+     design/document icon labels and provider label paths).
+
+  Public API change:
+  - In `@atlaskit/link-extractors` (main entrypoint), exported `LinkProvider` type now includes
+    optional `iconLabel?: string`.
+
+  All changes behind feature gate: `platform_lp_use_entity_icon_url_for_icon`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.8
 
 ### Patch Changes

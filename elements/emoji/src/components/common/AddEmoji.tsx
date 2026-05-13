@@ -36,7 +36,7 @@ export const AddOwnEmoji = (props: AddOwnEmojiProps): JSX.Element => {
 		<Fragment>
 			{uploadEnabled && (
 				<div css={addCustomEmoji} data-testid={uploadEmojiTestId}>
-					<FormattedMessage {...messages.addCustomEmojiLabel}>
+					<FormattedMessage {...messages.addEmojiLabel}>
 						{(label) => (
 							<Button onClick={onOpenUpload} tabIndex={0} id="add-custom-emoji">
 								{label}

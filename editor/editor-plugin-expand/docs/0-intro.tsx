@@ -17,7 +17,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Expand', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
 
   This package includes the expand plugin used by @atlaskit/editor-core.

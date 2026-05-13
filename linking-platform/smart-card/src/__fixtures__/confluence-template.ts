@@ -1,35 +1,6 @@
-const _default_1: {
-	data: {
-		'@context': {
-			'@vocab': string;
-			atlassian: string;
-			schema: string;
-		};
-		'@type': string[];
-		generator: {
-			'@id': string;
-			'@type': string;
-			name: string;
-		};
-		icon: undefined;
-		name: string;
-		summary: string;
-		'atlassian:titlePrefix': {
-			'@type': string;
-			text: string;
-		};
-		url: string;
-	};
-	meta: {
-		access: string;
-		auth: never[];
-		definitionId: string;
-		objectId: string;
-		resourceType: string;
-		tenantId: string;
-		visibility: string;
-	};
-} = {
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
+
+export default {
 	data: {
 		'@context': {
 			'@vocab': 'https://www.w3.org/ns/activitystreams#',
@@ -60,5 +31,4 @@ const _default_1: {
 		tenantId: 'confluence-tenant',
 		visibility: 'restricted',
 	},
-};
-export default _default_1;
+} as SmartLinkResponse;

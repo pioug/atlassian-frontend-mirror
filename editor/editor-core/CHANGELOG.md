@@ -1,5 +1,38 @@
 # @atlaskit/editor-core
 
+## 219.7.0
+
+### Minor Changes
+
+- [`2f70251ed8022`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f70251ed8022) -
+  Clean up experiment platform_editor_experience_tracking
+
+### Patch Changes
+
+- Updated dependencies
+
+## 219.6.4
+
+### Patch Changes
+
+- [`842edc5475e2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/842edc5475e2b) -
+  migrate compiled css for code block styles
+- Updated dependencies
+
+## 219.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 219.6.2
+
+### Patch Changes
+
+- [`04ad20c0f716b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04ad20c0f716b) -
+  Remove unused toolbar style
+- Updated dependencies
+
 ## 219.6.1
 
 ### Patch Changes

@@ -9,7 +9,6 @@ import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-p
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 import { createComponentRegistry } from '@atlaskit/editor-toolbar-model';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getSelectionToolbarOpenExperiencePlugin } from './pm-plugins/experiences/selection-toolbar-open-experience';
 import { editorToolbarPluginKey } from './pm-plugins/plugin-key';
@@ -286,8 +285,7 @@ export const toolbarPlugin: ToolbarPlugin = ({
 						});
 					},
 				},
-				...(!disableSelectionToolbar &&
-				expValEquals('platform_editor_experience_tracking', 'isEnabled', true)
+				...(!disableSelectionToolbar
 					? [
 							{
 								name: 'selectionToolbarOpenExperience',

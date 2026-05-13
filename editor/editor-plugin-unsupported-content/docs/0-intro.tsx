@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Unsupported Content', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the unsupported content plugin used by \`@atlaskit/editor-core\`.
 

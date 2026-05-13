@@ -1,4 +1,5 @@
-import { i18nConversionInputSchema, i18nConversionTool } from '../../src/tools/i18n-conversion';
+import { i18nConversionInputSchema } from '../../src/tools/i18n-conversion/i18n-conversion-input-schema';
+import { i18nConversionTool } from '../../src/tools/i18n-conversion/i18n-conversion-tool';
 
 describe('ads_i18n_conversion_guide tool', () => {
 	describe('Input schema validation', () => {

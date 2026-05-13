@@ -35,7 +35,11 @@ import {
 	getSaveReferenceExperience,
 } from '../utils/experienceTracking';
 import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
-import { createSyncBlockNode } from '../utils/utils';
+import {
+	createSyncBlockNode,
+	getSourceProductFromResourceIdSafe,
+	productAttrIfGateOn,
+} from '../utils/utils';
 
 import { SyncBlockBatchFetcher } from './syncBlockBatchFetcher';
 import { syncBlockInMemorySessionCache } from './syncBlockInMemorySessionCache';
@@ -309,6 +313,7 @@ export class ReferenceSyncBlockStoreManager {
 				sourceTitle,
 				onSameDocument,
 				sourceSubType,
+				issueType,
 			} = existingSyncBlock.data || {};
 			// skip if source URL and title are already present
 			if (sourceURL && sourceTitle) {
@@ -319,12 +324,24 @@ export class ReferenceSyncBlockStoreManager {
 					sourceAri: sourceAri || '',
 					onSameDocument,
 					productType: product,
+					issueType,
 				});
 			}
 
+			// Derive once per call so we don't re-parse on every analytics event below.
+			// `product` from cached data is preferred when available; fall back to parsing
+			// the resourceId.
+			const sourceProduct = fg('platform_synced_block_patch_11')
+				? product ?? getSourceProductFromResourceIdSafe(resourceId)
+				: undefined;
+
 			if (!sourceAri || !product || !blockInstanceId) {
 				this.fireAnalyticsEvent?.(
-					getSourceInfoErrorPayload('SourceAri, product or blockInstanceId missing', resourceId),
+					getSourceInfoErrorPayload(
+						'SourceAri, product or blockInstanceId missing',
+						resourceId,
+						sourceProduct,
+					),
 				);
 				return Promise.resolve(undefined);
 			}
@@ -341,7 +358,7 @@ export class ReferenceSyncBlockStoreManager {
 					if (!sourceInfo) {
 						this.fetchSourceInfoExperience?.failure({ reason: 'No source info returned' });
 						this.fireAnalyticsEvent?.(
-							getSourceInfoErrorPayload('No source info returned', resourceId),
+							getSourceInfoErrorPayload('No source info returned', resourceId, sourceProduct),
 						);
 						return undefined;
 					}
@@ -356,7 +373,7 @@ export class ReferenceSyncBlockStoreManager {
 					} else {
 						this.fetchSourceInfoExperience?.failure({ reason: 'Missing title or url' });
 						this.fireAnalyticsEvent?.(
-							getSourceInfoErrorPayload('Missing title or url', resourceId),
+							getSourceInfoErrorPayload('Missing title or url', resourceId, sourceProduct),
 						);
 					}
 
@@ -364,7 +381,9 @@ export class ReferenceSyncBlockStoreManager {
 				})
 				.catch((error) => {
 					this.fetchSourceInfoExperience?.failure({ reason: error.message });
-					this.fireAnalyticsEvent?.(getSourceInfoErrorPayload(error.message, resourceId));
+					this.fireAnalyticsEvent?.(
+						getSourceInfoErrorPayload(error.message, resourceId, sourceProduct),
+					);
 
 					return undefined;
 				})
@@ -378,7 +397,13 @@ export class ReferenceSyncBlockStoreManager {
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/referenceSyncBlockStoreManager',
 			});
-			this.fireAnalyticsEvent?.(getSourceInfoErrorPayload((error as Error).message, resourceId));
+			this.fireAnalyticsEvent?.(
+				getSourceInfoErrorPayload(
+					(error as Error).message,
+					resourceId,
+					productAttrIfGateOn(resourceId),
+				),
+			);
 		}
 		return Promise.resolve(undefined);
 	}
@@ -500,6 +525,7 @@ export class ReferenceSyncBlockStoreManager {
 					syncBlockInstance.error?.reason ||
 					syncBlockInstance.error?.type ||
 					'Returned sync block instance does not have resource id';
+				// No resourceId means we cannot derive a sourceProduct here; intentionally omit.
 				this.fireAnalyticsEvent?.(fetchErrorPayload(payload));
 				return;
 			}
@@ -533,6 +559,10 @@ export class ReferenceSyncBlockStoreManager {
 					fetchErrorPayload(
 						syncBlockInstance.error.reason || syncBlockInstance.error.type,
 						syncBlockInstance.resourceId,
+						fg('platform_synced_block_patch_11')
+							? syncBlockInstance.data?.product ??
+									getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId)
+							: undefined,
 					),
 				);
 
@@ -555,7 +585,11 @@ export class ReferenceSyncBlockStoreManager {
 					fetchSuccessPayload(
 						syncBlockInstance.resourceId,
 						localId,
-						syncBlockInstance.data?.product,
+						// Prefer cached product when available; fall back to parsing the resourceId.
+						fg('platform_synced_block_patch_11')
+							? syncBlockInstance.data?.product ??
+									getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId)
+							: undefined,
 					),
 				);
 			});
@@ -576,6 +610,7 @@ export class ReferenceSyncBlockStoreManager {
 				sourceTitle: sourceInfo?.title,
 				onSameDocument: sourceInfo?.onSameDocument,
 				sourceSubType: sourceInfo?.subType,
+				issueType: sourceInfo?.issueType,
 			};
 			this.updateCache(existingSyncBlock);
 		}
@@ -768,6 +803,7 @@ export class ReferenceSyncBlockStoreManager {
 				location: 'editor-synced-block-provider/referenceSyncBlockStoreManager',
 			});
 			this.saveExperience?.failure({ reason: (error as Error).message });
+			// No `resourceId` available in this catch — sourceProduct is intentionally omitted.
 			this.fireAnalyticsEvent?.(updateReferenceErrorPayload((error as Error).message));
 		} finally {
 			if (!success) {

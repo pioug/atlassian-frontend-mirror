@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 10.3.0
+
+### Minor Changes
+
+- [`2f70251ed8022`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f70251ed8022) -
+  Clean up experiment platform_editor_experience_tracking
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.2.10
 
 ### Patch Changes

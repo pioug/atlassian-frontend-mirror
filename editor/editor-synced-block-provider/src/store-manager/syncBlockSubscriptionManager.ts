@@ -1,6 +1,7 @@
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ResourceId, BlockInstanceId } from '../common/types';
 import type {
@@ -13,6 +14,7 @@ import type {
 } from '../providers/types';
 import { fetchErrorPayload, fetchSuccessPayload } from '../utils/errorHandling';
 import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
+import { getSourceProductFromResourceIdSafe, productAttrIfGateOn } from '../utils/utils';
 
 export interface SyncBlockSubscriptionManagerDeps {
 	debouncedBatchedFetchSyncBlocks: (resourceId: string) => void;
@@ -267,7 +269,9 @@ export class SyncBlockSubscriptionManager {
 					location:
 						'editor-synced-block-provider/syncBlockSubscriptionManager/graphql-subscription',
 				});
-				this.deps.getFireAnalyticsEvent()?.(fetchErrorPayload(error.message));
+				this.deps.getFireAnalyticsEvent()?.(
+					fetchErrorPayload(error.message, resourceId, productAttrIfGateOn(resourceId)),
+				);
 			},
 		);
 
@@ -335,7 +339,11 @@ export class SyncBlockSubscriptionManager {
 					fetchSuccessPayload(
 						syncBlockInstance.resourceId,
 						localId,
-						syncBlockInstance.data?.product,
+						// Prefer cached product when available; fall back to parsing the resourceId.
+						fg('platform_synced_block_patch_11')
+							? (syncBlockInstance.data?.product ??
+									getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId))
+							: undefined,
 					),
 				);
 			});
@@ -344,7 +352,14 @@ export class SyncBlockSubscriptionManager {
 			const errorMessage = syncBlockInstance.error?.reason || syncBlockInstance.error?.type;
 
 			this.deps.getFireAnalyticsEvent()?.(
-				fetchErrorPayload(errorMessage, syncBlockInstance.resourceId),
+				fetchErrorPayload(
+					errorMessage,
+					syncBlockInstance.resourceId,
+					fg('platform_synced_block_patch_11')
+						? (syncBlockInstance.data?.product ??
+								getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId))
+						: undefined,
+				),
 			);
 		}
 	}

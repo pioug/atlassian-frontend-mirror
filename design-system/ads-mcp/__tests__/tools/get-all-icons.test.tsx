@@ -1,4 +1,4 @@
-import { getAllIconsTool } from '../../src/tools/get-all-icons';
+import { getAllIconsTool } from '../../src/tools/get-all-icons/get-all-icons-tool';
 
 jest.mock('@atlaskit/icon/metadata', () => ({
 	coreIconMetadata: {

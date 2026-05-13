@@ -1,4 +1,4 @@
-import { getLintRulesTool } from '../../src/tools/get-lint-rules';
+import { getLintRulesTool } from '../../src/tools/get-lint-rules/get-lint-rules-tool';
 
 jest.mock('../../src/tools/get-lint-rules/lint-rules-structured-content.codegen', () => ({
 	lintRulesMcpStructuredContent: [

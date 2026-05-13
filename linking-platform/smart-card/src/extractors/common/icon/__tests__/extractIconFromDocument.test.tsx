@@ -14,6 +14,60 @@ beforeEach(() => {
 
 afterEach(jest.clearAllMocks);
 
+describe('extractIconFromDocument module loading', () => {
+	it('does not eagerly load legacy icon wrapper modules when the extractor is imported', () => {
+		const mockBlogIconModuleLoaded = jest.fn();
+		const mockDocumentIconModuleLoaded = jest.fn();
+		const mockFileIconModuleLoaded = jest.fn();
+		const mockLiveDocumentIconModuleLoaded = jest.fn();
+		const mockPresentationIconModuleLoaded = jest.fn();
+		const mockSpreadsheetIconModuleLoaded = jest.fn();
+
+		jest.isolateModules(() => {
+			jest.doMock('../../../../common/ui/icons/blog-icon', () => {
+				mockBlogIconModuleLoaded();
+				return { __esModule: true, default: () => null };
+			});
+			jest.doMock('../../../../common/ui/icons/chart-bar-icon', () => {
+				mockPresentationIconModuleLoaded();
+				return { __esModule: true, default: () => null };
+			});
+			jest.doMock('../../../../common/ui/icons/file-icon', () => {
+				mockFileIconModuleLoaded();
+				return { __esModule: true, default: () => null };
+			});
+			jest.doMock('../../../../common/ui/icons/list-bullet-icon', () => {
+				mockSpreadsheetIconModuleLoaded();
+				return { __esModule: true, default: () => null };
+			});
+			jest.doMock('../../../../common/ui/icons/live-document-icon', () => {
+				mockLiveDocumentIconModuleLoaded();
+				return { __esModule: true, default: () => null };
+			});
+			jest.doMock('../../../../common/ui/icons/page-icon', () => {
+				mockDocumentIconModuleLoaded();
+				return { __esModule: true, default: () => null };
+			});
+
+			require('../extractIconFromDocument');
+		});
+
+		jest.dontMock('../../../../common/ui/icons/blog-icon');
+		jest.dontMock('../../../../common/ui/icons/chart-bar-icon');
+		jest.dontMock('../../../../common/ui/icons/file-icon');
+		jest.dontMock('../../../../common/ui/icons/list-bullet-icon');
+		jest.dontMock('../../../../common/ui/icons/live-document-icon');
+		jest.dontMock('../../../../common/ui/icons/page-icon');
+
+		expect(mockBlogIconModuleLoaded).not.toHaveBeenCalled();
+		expect(mockDocumentIconModuleLoaded).not.toHaveBeenCalled();
+		expect(mockFileIconModuleLoaded).not.toHaveBeenCalled();
+		expect(mockLiveDocumentIconModuleLoaded).not.toHaveBeenCalled();
+		expect(mockPresentationIconModuleLoaded).not.toHaveBeenCalled();
+		expect(mockSpreadsheetIconModuleLoaded).not.toHaveBeenCalled();
+	});
+});
+
 describe('extractors.icon.document', () => {
 	ffTest.both('platform_navx_smart_link_icon_label_a11y', 'document type icons', () => {
 		it('should capture and report a11y violations', async () => {

@@ -22,24 +22,6 @@ export type DeprecatedImportConfigEntry = {
 	unfixable?: boolean;
 };
 
-export const isDeprecatedImportConfig = (
-	config: DeprecatedImportConfig | DeprecatedJSXAttributeConfig,
-): config is DeprecatedImportConfig => {
-	return (
-		Object.values(config)[0].message !== undefined ||
-		Object.values(config)[0].importSpecifiers !== undefined
-	);
-};
-
-// Checks if the value of object is an array, will need to update this method if we add other deprecated types with array values
-export const isDeprecatedJSXAttributeConfig = (
-	config: DeprecatedImportConfig | DeprecatedJSXAttributeConfig,
-): config is DeprecatedJSXAttributeConfig => {
-	return Array.isArray(Object.values(config)[0]);
-};
-
-// From ESLint's repo at path `docs/src/extend/custom-processors.md`. Can't be
-// imported I guess
 export type Fix = {
 	range: [number, number];
 	text: string;

@@ -7,9 +7,11 @@ import { FormattedMessage } from 'react-intl';
 
 import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
 import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
+import { CONTENT_URL_ROVO } from '../../../../constants';
 import { messages } from '../../../../messages';
 
 const styles = cssMap({
@@ -23,7 +25,11 @@ const AIFooter = (): JSX.Element => (
 		<InformationCircleIcon label="" color={token('color.text.subtle')} size="small" />
 		<Text size="small">
 			<Link
-				href="https://www.atlassian.com/trust/atlassian-intelligence"
+				href={
+					fg('platform_sl_ai_summary_rebrand')
+						? CONTENT_URL_ROVO
+						: 'https://www.atlassian.com/trust/atlassian-intelligence'
+				}
 				appearance="subtle"
 				target="_blank"
 			>

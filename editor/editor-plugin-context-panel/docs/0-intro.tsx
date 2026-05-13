@@ -18,7 +18,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Context Panel', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the context panel plugin used by \`@atlaskit/editor-core\`.
 

@@ -2,7 +2,11 @@ import React, { forwardRef } from 'react';
 
 import { MenuItemBase } from './menu-item';
 import { MenuListItem } from './menu-list-item';
-import type { MenuItemLinkOrButtonCommonProps, MenuItemOnClick } from './types';
+import type {
+	MenuItemAriaHasPopup,
+	MenuItemLinkOrButtonCommonProps,
+	MenuItemOnClick,
+} from './types';
 
 export type ButtonMenuItemProps = MenuItemLinkOrButtonCommonProps & {
 	/**
@@ -20,7 +24,7 @@ export type ButtonMenuItemProps = MenuItemLinkOrButtonCommonProps & {
 	/**
 	 * Informs assistive technology that this element triggers a popup.
 	 */
-	'aria-haspopup'?: boolean | 'dialog';
+	'aria-haspopup'?: MenuItemAriaHasPopup;
 
 	/**
 	 * We are not using a discriminated union to enforce that the `actions` and `actionsOnHover`

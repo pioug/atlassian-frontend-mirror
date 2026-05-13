@@ -2,6 +2,10 @@ import React, { memo, useLayoutEffect, useMemo, useState } from 'react';
 
 import { createPortal } from 'react-dom';
 
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+import { isSSR } from '../core-utils/is-ssr';
+
 import { PortalBucket } from './PortalBucket';
 import type { PortalManager } from './PortalManager';
 
@@ -66,6 +70,15 @@ export const PortalRenderWrapperInner = ({
 const PortalRenderWrapper = memo(PortalRenderWrapperInner);
 PortalRenderWrapper.displayName = 'PortalRenderWrapper';
 
+// Tree-shakable renderToStaticMarkup that should work only in SSR
+function getRenderToStaticMarkup() {
+	if (process.env.REACT_SSR) {
+		return require('react-dom/server').renderToStaticMarkup;
+	}
+
+	return () => '';
+}
+
 /**
  * Creates a portal provider for managing multiple React portals. The provider
  * facilitates rendering, removing, and destroying portals managed by a given
@@ -88,19 +101,35 @@ export const getPortalProviderAPI = (portalManager: PortalManager): PortalProvid
 	const portalsMap = new Map();
 	return {
 		render: (children, container, key, onBeforeReactDomRender, immediate = false) => {
-			if (typeof onBeforeReactDomRender === 'function') {
-				const portal = createPortal(
-					<PortalRenderWrapper getChildren={children} onBeforeRender={onBeforeReactDomRender} />,
-					container,
-					key,
-				);
-				portalsMap.set(key, portalManager.registerPortal(key, portal, immediate));
+			if (isSSR() && expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)) {
+				let html = '';
+
+				try {
+					const renderToStaticMarkup = getRenderToStaticMarkup();
+					const Children = children;
+					html = renderToStaticMarkup(<Children />);
+				} catch {}
+
+				container.innerHTML = html;
 			} else {
-				const portal = createPortal(children(), container, key);
-				portalsMap.set(key, portalManager.registerPortal(key, portal, immediate));
+				if (typeof onBeforeReactDomRender === 'function') {
+					const portal = createPortal(
+						<PortalRenderWrapper getChildren={children} onBeforeRender={onBeforeReactDomRender} />,
+						container,
+						key,
+					);
+					portalsMap.set(key, portalManager.registerPortal(key, portal, immediate));
+				} else {
+					const portal = createPortal(children(), container, key);
+					portalsMap.set(key, portalManager.registerPortal(key, portal, immediate));
+				}
 			}
 		},
 		remove: (key) => {
+			if (isSSR() && expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)) {
+				return;
+			}
+
 			portalsMap.get(key)?.();
 			portalsMap.delete(key);
 		},

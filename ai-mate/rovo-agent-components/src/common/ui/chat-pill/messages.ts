@@ -9,7 +9,7 @@ const _default_1: {
 } = defineMessages({
 	browseAgentsPillLabel: {
 		id: 'ai-mate.rovo-agent-components.browse-agents-pill.label',
-		defaultMessage: 'Browse Agents',
+		defaultMessage: 'Browse agents',
 		description: 'The label displayed on the browse agents pill',
 	},
 });

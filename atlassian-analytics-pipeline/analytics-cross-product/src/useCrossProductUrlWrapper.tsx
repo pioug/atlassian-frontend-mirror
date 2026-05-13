@@ -9,6 +9,8 @@ import GlobalInteractionSessionTracking, {
 	type InteractionSessionTracking,
 } from './globalInteractionSessionTracking';
 
+// WARNING: This value is shared between @atlaskit/analytics-cross-product and
+// @atlassiansox/analytics-cross-product-interaction-client. Take care when updating.
 export const INTERACTION_SESSION_ID_UPDATED_EVENT = 'interactionSessionIdUpdated';
 
 /**
@@ -61,11 +63,6 @@ export default function useCrossProductUrlWrapper(
 					if (interactionSessionClient) {
 						const currentSessionId = interactionSessionClient.getCurrentInteractionSessionId();
 						currentSessionId && setInteractionSessionId(currentSessionId);
-					} else {
-						// eslint-disable-next-line no-console
-						console.error(
-							`INTERACTION_SESSION_ID_UPDATED_EVENT received but interactionSessionClient not present on window`,
-						);
 					}
 				},
 			});

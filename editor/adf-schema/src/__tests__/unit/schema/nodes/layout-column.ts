@@ -1,7 +1,19 @@
 import { createSchema } from '../../../../schema/create-schema';
-import { fromHTML, toHTML, toContext } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
-import { layoutSection, layoutColumn, doc, p } from '@af/adf-test-helpers/src/doc-builder';
-import { layoutColumn as layoutColumnNodeSpec, layoutColumnStage0 } from '../../../..';
+import {
+	fromHTML,
+	toHTML,
+	toContext,
+} from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+import {
+	layoutSection,
+	layoutColumn,
+	doc,
+	p,
+} from '@af/adf-test-helpers/src/doc-builder';
+import {
+	layoutColumn as layoutColumnNodeSpec,
+	layoutColumnStage0,
+} from '../../../..';
 import { normalizeNodeSpec } from '../../_utils';
 
 const schema = makeSchema();
@@ -51,13 +63,19 @@ describe(`${packageName}/schema layout-column node`, () => {
 	});
 
 	it('matches <div data-layout-column /> inside layoutSection', () => {
-		const doc = fromHTML('<div data-layout-section="true"><div data-layout-column/></div>', schema);
+		const doc = fromHTML(
+			'<div data-layout-section="true"><div data-layout-column/></div>',
+			schema,
+		);
 		const node = doc.firstChild!.firstChild!;
 		expect(node.type.name).toEqual('layoutColumn');
 	});
 
 	it('serializes valign in stage-0 schema', () => {
-		const html = toHTML(stage0Schema.nodes.layoutColumn.create({ valign: 'middle' }), stage0Schema);
+		const html = toHTML(
+			stage0Schema.nodes.layoutColumn.create({ valign: 'middle' }),
+			stage0Schema,
+		);
 		expect(html).toContain('data-valign="middle"');
 	});
 
@@ -94,10 +112,17 @@ describe(`${packageName}/schema layout-column node`, () => {
 
 	it('should not match <div data-layout-column /> when pasted inside layoutSection/layoutColumn', () => {
 		const document = doc(
-			layoutSection(layoutColumn({ width: 50 })(p('{<>}')), layoutColumn({ width: 50 })(p(''))),
+			layoutSection(
+				layoutColumn({ width: 50 })(p('{<>}')),
+				layoutColumn({ width: 50 })(p('')),
+			),
 		);
 		const context = toContext(document, schema);
-		const pmDoc = fromHTML('<div data-layout-column><p>Text</p></div>', schema, { context });
+		const pmDoc = fromHTML(
+			'<div data-layout-column><p>Text</p></div>',
+			schema,
+			{ context },
+		);
 		const node = pmDoc.firstChild!;
 		expect(node.type.name).toEqual('paragraph');
 	});
@@ -111,7 +136,9 @@ describe(`${packageName}/schema layout-column node`, () => {
 				schemaWithFontSize.text('Small text'),
 				[schemaWithFontSize.marks.fontSize.create({ fontSize: 'small' })],
 			);
-			const layoutCol = schemaWithFontSize.nodes.layoutColumn.create(null, [paragraph]);
+			const layoutCol = schemaWithFontSize.nodes.layoutColumn.create(null, [
+				paragraph,
+			]);
 
 			expect(layoutCol).toBeDefined();
 			expect(layoutCol.firstChild).toBe(paragraph);
@@ -145,7 +172,9 @@ describe(`${packageName}/schema layout-column node`, () => {
 				schemaWithFontSize.text('Small text'),
 				[schemaWithFontSize.marks.fontSize.create({ fontSize: 'small' })],
 			);
-			const layoutCol = schemaWithFontSize.nodes.layoutColumn.create(null, [paragraph]);
+			const layoutCol = schemaWithFontSize.nodes.layoutColumn.create(null, [
+				paragraph,
+			]);
 			const html = toHTML(layoutCol, schemaWithFontSize);
 
 			expect(html).toContain('data-layout-column');

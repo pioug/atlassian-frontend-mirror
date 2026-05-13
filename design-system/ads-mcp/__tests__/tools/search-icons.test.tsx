@@ -1,4 +1,4 @@
-import { searchIconsTool } from '../../src/tools/search-icons';
+import { searchIconsTool } from '../../src/tools/search-icons/search-icons-tool';
 
 /**
  * Expected componentNames for `searchIconsTool({ terms, limit: 2 })` (matches tool default).

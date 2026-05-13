@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Editor Disabled', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the editor disabled plugin used by \`@atlaskit/editor-core\`.
 

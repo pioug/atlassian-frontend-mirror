@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 130.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 130.4.0
+
+### Minor Changes
+
+- [`14b617e1204ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14b617e1204ad) -
+  Cleanup confluence_frontend_fix_date_hydration_error experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 130.3.8
 
 ### Patch Changes

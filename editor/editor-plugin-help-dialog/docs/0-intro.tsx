@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Help Dialog', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the help dialog plugin used by \`@atlaskit/editor-core\`.
 

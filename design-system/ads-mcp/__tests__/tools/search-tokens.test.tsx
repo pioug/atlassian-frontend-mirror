@@ -1,4 +1,4 @@
-import { searchTokensTool } from '../../src/tools/search-tokens';
+import { searchTokensTool } from '../../src/tools/search-tokens/search-tokens-tool';
 
 /**
  * Expected names for `searchTokensTool({ terms })`

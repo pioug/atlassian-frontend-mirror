@@ -31,6 +31,7 @@ import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import type { cardPlugin } from '../cardPlugin';
 import { registerCard, removeCard } from '../pm-plugins/actions';
 import { getAwarenessProps } from '../pm-plugins/utils';
+import { SmartCardSSRReactContextsProvider } from '../ui/SmartCardSSRReactContextsProvider';
 import { visitCardLinkAnalytics } from '../ui/toolbar';
 
 import type { SmartCardProps } from './genericCard';
@@ -257,6 +258,7 @@ export type InlineCardNodeViewProps = Pick<
 	| 'isPageSSRed'
 	| 'CompetitorPrompt'
 	| 'provider'
+	| 'intl'
 	| 'smartCardContext'
 >;
 
@@ -305,6 +307,7 @@ export function InlineCardNodeView(
 		isPageSSRed,
 		provider,
 		CompetitorPrompt,
+		intl,
 		smartCardContext,
 	} = props;
 
@@ -357,11 +360,6 @@ export function InlineCardNodeView(
 				isPageSSRed={isPageSSRed}
 				provider={provider}
 				appearance="inline"
-				smartCardContext={
-					expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
-						? smartCardContext
-						: undefined
-				}
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...(enableInlineUpgradeFeatures &&
@@ -372,14 +370,16 @@ export function InlineCardNodeView(
 	);
 
 	return (
-		<SmartLinkDraggable
-			url={url}
-			appearance={SMART_LINK_APPEARANCE.INLINE}
-			source={SMART_LINK_DRAG_TYPES.EDITOR}
-			isChangeboardTarget={isChangeboardTarget}
-		>
-			{inlineCardContent}
-		</SmartLinkDraggable>
+		<SmartCardSSRReactContextsProvider intl={intl} smartCardContext={smartCardContext}>
+			<SmartLinkDraggable
+				url={url}
+				appearance={SMART_LINK_APPEARANCE.INLINE}
+				source={SMART_LINK_DRAG_TYPES.EDITOR}
+				isChangeboardTarget={isChangeboardTarget}
+			>
+				{inlineCardContent}
+			</SmartLinkDraggable>
+		</SmartCardSSRReactContextsProvider>
 	);
 }
 

@@ -1,8 +1,8 @@
 import type { Rule } from 'eslint';
 import { type JSXElement } from 'eslint-codemod-utils';
 
-import { JSXElement as JSXElementHelper } from '../../../ast-nodes/jsx-element';
-import type { RuleConfig } from '../config';
+import { JSXElementHelper } from '../../../ast-nodes/jsx-element-helper';
+import type { RuleConfig } from '../config/types';
 
 // Add color="inherit" prop depending on config
 export function addColorInheritAttributeFix(

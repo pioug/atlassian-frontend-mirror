@@ -1,0 +1,329 @@
+---
+title: Migration guide
+description: How to migrate to navigation system from the old Atlassian navigation, side navigation, and page layout packages.
+order: 4
+---
+
+import SectionMessage from '@atlaskit/section-message';
+import Link from '@atlaskit/link';
+import { Code } from '@atlaskit/code';
+
+<SectionMessage title="Further guidance for Atlassians">
+	This page covers the Design System visual primitives. For guidance on the broader platform
+	components — such as the customisation modal, app switcher data, and user personalisation — see{' '}
+	<Link href="https://hello.atlassian.net/wiki/spaces/navx/pages/5104144812">
+		navigation resources (Atlassians only)
+	</Link>
+	.
+</SectionMessage>
+
+This guide covers migration from the old [page layout](/components/page-layout), [Atlassian navigation](/components/atlassian-navigation),
+and [side navigation](/components/side-navigation) to the new navigation system and [side nav items](https://atlaskit.atlassian.com/packages/navigation/side-nav-items).
+
+
+## Page layout
+
+### Slots
+
+<table>
+	<colgroup>
+		<col style={{width: '40%'}} />
+		<col style={{width: '60%'}} />
+	</colgroup>
+	<thead>
+		<tr>
+			<th>Old</th>
+			<th>New</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><Code>PageLayout</Code></td>
+			<td><Link href="/components/navigation-system/layout/code#root">Root</Link></td>
+		</tr>
+		<tr>
+			<td><Code>Banner</Code></td>
+			<td><Link href="/components/navigation-system/layout/code#banner">Banner</Link></td>
+		</tr>
+		<tr>
+			<td><Code>TopNavigation</Code></td>
+			<td><Link href="/components/navigation-system/layout/code#topnav">TopNav</Link></td>
+		</tr>
+		<tr>
+			<td><Code>LeftSidebar</Code>, <Code>LeftSidebarWithoutResize</Code></td>
+			<td><Link href="/components/navigation-system/layout/code#sidenav">SideNav</Link></td>
+		</tr>
+		<tr>
+			<td><Code>LeftPanel</Code></td>
+			<td>No equivalent. Use <Link href="/components/navigation-system/layout/code#sidenav">SideNav</Link> if it's navigation, or <Link href="/components/navigation-system/layout/code#panel">Panel</Link> if it's supplementary content.</td>
+		</tr>
+		<tr>
+			<td><Code>Content</Code>, <Code>Main</Code></td>
+			<td><Link href="/components/navigation-system/layout/code#main">Main</Link></td>
+		</tr>
+		<tr>
+			<td><Code>RightPanel</Code></td>
+			<td><Link href="/components/navigation-system/layout/code#panel">Panel</Link></td>
+		</tr>
+		<tr>
+			<td><Code>RightSidebar</Code></td>
+			<td>No equivalent. Use <Link href="/components/navigation-system/layout/examples#panel">Panel</Link>, or a custom two-column layout inside <Link href="/components/navigation-system/layout/examples#main">Main</Link>.</td>
+		</tr>
+	</tbody>
+</table>
+
+### Hooks
+
+<table>
+	<colgroup>
+		<col style={{width: '40%'}} />
+		<col style={{width: '60%'}} />
+	</colgroup>
+	<thead>
+		<tr>
+			<th>Old</th>
+			<th>New</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><Code>useCustomSkipLink</Code></td>
+			<td><Code>useSkipLink</Code> — see <Link href="/components/navigation-system/layout/examples#custom-skip-links">custom skip links</Link></td>
+		</tr>
+		<tr>
+			<td><Code>useLeftSidebarFlyoutLock</Code></td>
+			<td>No equivalent. Use <Code>useExpandSideNav()</Code> to force the side nav open.</td>
+		</tr>
+		<tr>
+			<td><Code>usePageLayoutResize</Code></td>
+			<td>No equivalent. Use <Code>useExpandSideNav()</Code> to expand the side nav, or the <Code>onExpand</Code> and <Code>onCollapse</Code> callbacks on <Code>&lt;SideNav&gt;</Code> to track its state.</td>
+		</tr>
+		<tr>
+			<td><Code>useGlobalTheme</Code></td>
+			<td>No equivalent. Theme is applied automatically.</td>
+		</tr>
+	</tbody>
+</table>
+
+### Constants
+
+The legacy CSS variables are unsafe and encourage rigidity in the layout system. They should be removed:
+
+- <Code>LEFT_SIDEBAR_WIDTH</Code>
+- <Code>RIGHT_SIDEBAR_WIDTH</Code>
+- <Code>LEFT_PANEL_WIDTH</Code>
+- <Code>RIGHT_PANEL_WIDTH</Code>
+- <Code>BANNER_HEIGHT</Code>
+- <Code>TOP_NAVIGATION_HEIGHT</Code>
+
+These will be temporarily available from the <Code>@atlaskit/navigation-system/legacy/css-variables</Code> entrypoint.
+
+
+## Atlassian navigation
+
+Top nav is for global, cross-app actions only. Items such as the app switcher, search, create,
+help, notifications, settings, and profile are consistent across every Atlassian product.
+
+### Layout
+
+`AtlassianNavigation` is replaced by [`TopNav`](/components/navigation-system/layout/code#topnav).
+The old render props (`renderProductHome`, `renderAppSwitcher`, `renderCreate`, etc.) are replaced by three layout slots:
+
+- [`TopNavStart`](/components/navigation-system/layout/code#topnavstart) — place the side nav toggle button, app logo, and app switcher here
+- [`TopNavMiddle`](/components/navigation-system/layout/code#topnavmiddle) — place search and create here
+- [`TopNavEnd`](/components/navigation-system/layout/code#topnavend) — place help, notifications, settings, profile, and sign in here
+
+`HORIZONTAL_GLOBAL_NAV_HEIGHT` has no equivalent. Any usage should be refactored out, or hardcoded if necessary.
+
+### Primary items
+
+`PrimaryButton` and `PrimaryDropdownButton` have no equivalent. Primary nav links are app-specific
+and belong in the [side nav](/components/navigation-system/layout/examples#side-nav). The product
+home and app switcher, previously also in this area, now live in `TopNavStart`.
+
+`useOverflowStatus` was used to manage overflow of primary items and is no longer applicable.
+
+<table>
+	<colgroup>
+		<col style={{width: '40%'}} />
+		<col style={{width: '60%'}} />
+	</colgroup>
+	<thead>
+		<tr>
+			<th>Old</th>
+			<th>New</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><Code>AppHome</Code>, <Code>CustomProductHome</Code>, <Code>ProductHome</Code></td>
+			<td><Link href="/components/navigation-system/top-nav-items/code#applogo">AppLogo</Link> or <Link href="/components/navigation-system/top-nav-items/code#customlogo">CustomLogo</Link> inside <Code>&lt;TopNavStart&gt;</Code></td>
+		</tr>
+		<tr>
+			<td><Code>AppSwitcher</Code>, <Code>AppSwitcherNav4</Code></td>
+			<td><Link href="/components/navigation-system/top-nav-items/code#appswitcher">AppSwitcher</Link> inside <Code>&lt;TopNavStart&gt;</Code></td>
+		</tr>
+	</tbody>
+</table>
+
+### Secondary items
+
+<table>
+	<colgroup>
+		<col style={{width: '40%'}} />
+		<col style={{width: '60%'}} />
+	</colgroup>
+	<thead>
+		<tr>
+			<th>Old</th>
+			<th>New</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><Code>Search</Code></td>
+			<td><Link href="/components/navigation-system/top-nav-items/code#search">Search</Link> inside <Code>&lt;TopNavMiddle&gt;</Code></td>
+		</tr>
+		<tr>
+			<td><Code>Create</Code></td>
+			<td><Link href="/components/navigation-system/top-nav-items/code#createbutton">CreateButton</Link> inside <Code>&lt;TopNavMiddle&gt;</Code></td>
+		</tr>
+		<tr>
+			<td><Code>Help</Code></td>
+			<td><Link href="/components/navigation-system/top-nav-items/code#help">Help</Link> inside <Code>&lt;TopNavEnd&gt;</Code></td>
+		</tr>
+		<tr>
+			<td><Code>Notifications</Code></td>
+			<td><Link href="/components/navigation-system/top-nav-items/code#notifications">Notifications</Link> inside <Code>&lt;TopNavEnd&gt;</Code></td>
+		</tr>
+		<tr>
+			<td><Code>Settings</Code></td>
+			<td><Link href="/components/navigation-system/top-nav-items/code#settings">Settings</Link> inside <Code>&lt;TopNavEnd&gt;</Code></td>
+		</tr>
+		<tr>
+			<td><Code>Profile</Code></td>
+			<td><Link href="/components/navigation-system/top-nav-items/code#profile">Profile</Link> inside <Code>&lt;TopNavEnd&gt;</Code></td>
+		</tr>
+		<tr>
+			<td><Code>IconButton</Code></td>
+			<td><Link href="/components/navigation-system/top-nav-items/code#enditem">EndItem</Link> inside <Code>&lt;TopNavEnd&gt;</Code></td>
+		</tr>
+		<tr>
+			<td><Code>SignIn</Code></td>
+			<td><Link href="/components/navigation-system/top-nav-items/code#login">LogIn</Link> inside <Code>&lt;TopNavEnd&gt;</Code></td>
+		</tr>
+	</tbody>
+</table>
+
+### Custom theming
+
+Legacy custom theming is supported with a new API. See [custom theming](/components/navigation-system/layout/custom-theming) for details.
+
+### Loading states
+
+The skeleton loading components (`NavigationSkeleton`, `SkeletonCreateButton`, `SkeletonIconButton`, `SkeletonPrimaryButton`, `SkeletonSwitcherButton`) have no equivalent in the new navigation system.
+
+
+## Side navigation
+
+Side nav is for app-specific navigation — use it to navigate within an app, between sections,
+projects, boards, spaces, and so on. The side nav is resizable, collapsible, and supports user
+customisation of menu items.
+
+Side nav items are in the separate [side nav items](https://atlaskit.atlassian.com/packages/navigation/side-nav-items) package.
+
+### Layout
+
+<table>
+	<colgroup>
+		<col style={{width: '40%'}} />
+		<col style={{width: '60%'}} />
+	</colgroup>
+	<thead>
+		<tr>
+			<th>Old</th>
+			<th>New</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><Code>SideNavigation</Code></td>
+			<td><Link href="/components/navigation-system/layout/code#sidenav">SideNav</Link></td>
+		</tr>
+		<tr>
+			<td><Code>NavigationContent</Code></td>
+			<td><Link href="/components/navigation-system/layout/code#sidenavbody">SideNavBody</Link></td>
+		</tr>
+		<tr>
+			<td><Code>NavigationHeader</Code></td>
+			<td><Link href="/components/navigation-system/layout/code#sidenavheader">SideNavHeader</Link></td>
+		</tr>
+		<tr>
+			<td><Code>Header</Code></td>
+			<td>No equivalent. There is no opinionated presentation component for the header slot — build your own content inside <Link href="/components/navigation-system/layout/code#sidenavheader">SideNavHeader</Link>.</td>
+		</tr>
+		<tr>
+			<td><Code>NavigationFooter</Code></td>
+			<td><Link href="/components/navigation-system/layout/code#sidenavfooter">SideNavFooter</Link></td>
+		</tr>
+		<tr>
+			<td><Code>Footer</Code></td>
+			<td>No equivalent. There is no opinionated presentation component for the footer slot — build your own content inside <Link href="/components/navigation-system/layout/code#sidenavfooter">SideNavFooter</Link>.</td>
+		</tr>
+	</tbody>
+</table>
+
+### Sections and items
+
+<table>
+	<colgroup>
+		<col style={{width: '40%'}} />
+		<col style={{width: '60%'}} />
+	</colgroup>
+	<thead>
+		<tr>
+			<th>Old</th>
+			<th>New</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><Code>LinkItem</Code></td>
+			<td><Link href="https://atlaskit.atlassian.com/packages/navigation/side-nav-items#link-menu-item">LinkMenuItem</Link></td>
+		</tr>
+		<tr>
+			<td><Code>ButtonItem</Code></td>
+			<td><Link href="https://atlaskit.atlassian.com/packages/navigation/side-nav-items#button-menu-item">ButtonMenuItem</Link></td>
+		</tr>
+		<tr>
+			<td><Code>CustomItem</Code></td>
+			<td>No equivalent. Use <Code>ButtonMenuItem</Code> or <Code>LinkMenuItem</Code> with custom content.</td>
+		</tr>
+		<tr>
+			<td><Code>Section</Code></td>
+			<td><Link href="https://atlaskit.atlassian.com/packages/navigation/side-nav-items#menu-section-and-menu-section-heading">MenuSection</Link></td>
+		</tr>
+		<tr>
+			<td><Code>HeadingItem</Code></td>
+			<td><Link href="https://atlaskit.atlassian.com/packages/navigation/side-nav-items#menu-section-and-menu-section-heading">MenuSectionHeading</Link></td>
+		</tr>
+		<tr>
+			<td><Code>SkeletonItem</Code>, <Code>SkeletonHeadingItem</Code>, <Code>LoadingItems</Code></td>
+			<td>See <Link href="https://atlaskit.atlassian.com/packages/navigation/side-nav-items#loading-states">loading states</Link></td>
+		</tr>
+	</tbody>
+</table>
+
+### Nesting
+
+The nested navigation pattern (`NestingItem`, `NestableNavigationContent`) has been replaced with
+[expandable menu items](https://atlaskit.atlassian.com/packages/navigation/side-nav-items#expandable-menu-item).
+`GoBackItem` and `useShouldNestedElementRender` have no equivalent.
+
+---
+
+## Related
+
+- [Layout](/components/navigation-system/layout)
+- [Top nav items](/components/navigation-system/top-nav-items)
+- [Side nav items](https://atlaskit.atlassian.com/packages/navigation/side-nav-items)

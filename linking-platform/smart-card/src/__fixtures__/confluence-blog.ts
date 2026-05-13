@@ -1,53 +1,6 @@
-const _default_1: {
-	meta: {
-		auth: never[];
-		definitionId: string;
-		visibility: string;
-		access: string;
-		resourceType: string;
-		key: string;
-		objectId: string;
-		tenantId: string;
-	};
-	data: {
-		'@context': {
-			'@vocab': string;
-			atlassian: string;
-			schema: string;
-		};
-		generator: {
-			'@type': string;
-			'@id': string;
-			name: string;
-		};
-		'@type': string[];
-		url: string;
-		name: string;
-		'atlassian:state': string;
-		summary: string;
-		'schema:commentCount': number;
-		'atlassian:subscriberCount': number;
-		'atlassian:titlePrefix': {
-			text: string;
-			'@type': string;
-		};
-		'atlassian:attributedTo': {
-			'@type': string;
-			name: string;
-			icon: string;
-		};
-		'atlassian:ownedBy': {
-			'@type': string;
-			name: string;
-			icon: string;
-		};
-		preview: {
-			'@type': string;
-			href: string;
-			'atlassian:supportedPlatforms': string[];
-		};
-	};
-} = {
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
+
+export default {
 	meta: {
 		auth: [],
 		definitionId: 'confluence-object-provider',
@@ -97,5 +50,4 @@ const _default_1: {
 			'atlassian:supportedPlatforms': ['web'],
 		},
 	},
-};
-export default _default_1;
+} as SmartLinkResponse;

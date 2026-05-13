@@ -184,7 +184,7 @@ export const CategoryDescriptionMapNew: CategoryDescriptionRecord = {
 	USER_CUSTOM: {
 		id: customCategory,
 		name: userCustomTitle,
-		icon: AddIcon,
+		icon: EmojiAddIcon,
 		order: 11,
 	},
 	CUSTOM: {

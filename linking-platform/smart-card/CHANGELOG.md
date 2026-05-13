@@ -1,5 +1,47 @@
 # @atlaskit/smart-card
 
+## 44.9.8
+
+### Patch Changes
+
+- [`00d5363469512`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00d5363469512) -
+  Two changes:
+  1. When response has `entityData`, Smart Card icon extraction now tries entity-specific icon URL
+     for main icon rendering.
+  2. For image-icon cases, Smart Card passes an `alt` label for the icon image (entity
+     design/document icon labels and provider label paths).
+
+  Public API change:
+  - In `@atlaskit/link-extractors` (main entrypoint), exported `LinkProvider` type now includes
+    optional `iconLabel?: string`.
+
+  All changes behind feature gate: `platform_lp_use_entity_icon_url_for_icon`.
+
+- Updated dependencies
+
+## 44.9.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.9.6
+
+### Patch Changes
+
+- [`465ab5e9db9f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/465ab5e9db9f6) -
+  [ux] Update AI Summary branding, behind fg platform_sl_ai_summary_rebrand
+- Updated dependencies
+
+## 44.9.5
+
+### Patch Changes
+
+- [`41ef59894f49a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41ef59894f49a) -
+  Avoid loading legacy smart-card icon fallback modules when the icon refactor feature flag is
+  enabled
+- Updated dependencies
+
 ## 44.9.4
 
 ### Patch Changes

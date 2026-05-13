@@ -19,7 +19,7 @@ import { type TArrowPreset } from './types';
  *
  * Constraints:
  * - `box-shadow` must be `none` (interferes with `clip-path: inset() margin-box`)
- * - `::before` and `::after` are consumed — consumers cannot use them
+ * - `::before` and `::after` are consumed - consumers cannot use them
  * - Arrow pseudo-elements use `background: inherit` from the popover element
  *
  * @see https://goulet.dev/posts/tooltip-with-popover-and-anchor-positioning/
@@ -187,7 +187,7 @@ function positionAreaToRuleName({ positionArea }: { positionArea: string }): str
  * that change both `position-area` and `margin` when flipping.
  *
  * This is required for the arrow technique because built-in keywords
- * (`flip-block`, `flip-inline`) only flip `position-area` — they do
+ * (`flip-block`, `flip-inline`) only flip `position-area` - they do
  * not update the margin direction needed to reveal the correct arrow.
  */
 function getTryFallbacks({ placement }: { placement: TPlacementOptions }): string {

@@ -95,11 +95,6 @@
 			"checkDevDependencies": true
 		}
 	},
-	"platform-feature-flags": {
-		"platform_ally_avatar_button_fix": {
-			"type": "boolean"
-		}
-	},
 	"devDependencies": {
 		"react-intl": "root:*"
 	}

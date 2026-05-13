@@ -10,6 +10,7 @@ import { extractUrlFromIconJsonLd, extractUrlFromLinkJsonLd } from '../url';
 
 export interface LinkProvider {
 	icon?: React.ReactNode;
+	iconLabel?: string;
 	id?: string;
 	image?: string;
 	text: string;
@@ -34,6 +35,9 @@ export const extractProvider = (jsonLd: JsonLd.Data.BaseData): LinkProvider | un
 				return {
 					text: generator.name,
 					icon: extractProviderIcon(generator.icon, id),
+					...(fg('platform_lp_use_entity_icon_url_for_icon')
+						? { iconLabel: generator.name }
+						: undefined),
 					id,
 					image: extractProviderImage(generator.image),
 				};

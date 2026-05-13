@@ -4,7 +4,7 @@ import { isNodeOfType, type JSXElement } from 'eslint-codemod-utils';
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import { JSXElement as JSXElementHelper } from '../../../ast-nodes/jsx-element';
+import { JSXElementHelper } from '../../../ast-nodes/jsx-element-helper';
 import { Root } from '../../../ast-nodes/root';
 
 import { addColorInheritAttributeFix } from './add-color-inherit-attribute-fix';

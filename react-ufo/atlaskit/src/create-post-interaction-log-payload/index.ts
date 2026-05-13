@@ -345,9 +345,7 @@ function createPostInteractionLogPayload({
 					reactProfilerTimings: transformReactProfilerTimings(reactProfilerTimings),
 					postInteractionHoldInfo: postInteractionHoldInfo?.map((hold) => ({
 						...hold,
-						labelStack: hold.labelStack
-							.map((label) => sanitizeLabelStackName(label.name))
-							.join('/'),
+						labelStack: hold.labelStack.map((label) => sanitizeLabelStackName(label.name)).join('/'),
 					})),
 				},
 			},

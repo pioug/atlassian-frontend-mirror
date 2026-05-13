@@ -27,7 +27,9 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./editorViewmodePlugin": "./src/entry-points/editorViewmodePlugin.tsx",
+		"./editorViewmodePluginType": "./src/entry-points/editorViewmodePluginType.ts"
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",

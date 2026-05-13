@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Indentation', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the indentation plugin used by \`@atlaskit/editor-core\`.
 

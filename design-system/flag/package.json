@@ -63,6 +63,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlaskit/top-layer": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
@@ -85,6 +86,7 @@
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"react-dom": "root:*"
@@ -123,6 +125,9 @@
 			"type": "boolean"
 		},
 		"platform-dst-motion-uplift": {
+			"type": "boolean"
+		},
+		"platform-dst-top-layer": {
 			"type": "boolean"
 		},
 		"platform_dst_flag_keyboard_dismiss": {

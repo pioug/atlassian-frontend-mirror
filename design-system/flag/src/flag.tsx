@@ -193,6 +193,9 @@ const Flag: FC<FlagProps> = (props) => {
 		</VisuallyHidden>
 	) : undefined;
 
+	// A11y improvement opportunity: all flags currently use role="alert" (assertive),
+	// but non-critical flags (e.g. info, success) should use role="status" (polite)
+	// to avoid interrupting screen reader users. See WCAG 4.1.3.
 	return (
 		<div role="alert" css={flagWrapperStyles} data-testid={testId} {...autoDismissProps}>
 			<Box

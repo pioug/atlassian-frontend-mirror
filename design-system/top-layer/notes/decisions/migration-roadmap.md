@@ -1,31 +1,89 @@
-# Design System Layering Packages Audit
+# Design System Layering Packages — Migration roadmap
 
-## Layering Components
+> **Last updated:** 2026-03-26 **Feature flag:** `platform-dst-top-layer` gates native top-layer
+> rendering in consuming packages.
 
-| Package             | Name                          | Category              | Description                                                                                                | Status                                     | Migrated to `@atlaskit/top-layer` (behind `platform-dst-top-layer` FF)? | Notes                                                                                           |
-| ------------------- | ----------------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `popup`             | `@atlaskit/popup`             | Overlays and layering | A popup displays brief content in an overlay.                                                              | ✅ Active                                  | ✅ Yes                                                                  |                                                                                                 |
-| `tooltip`           | `@atlaskit/tooltip`           | Overlays and layering | A tooltip briefly describes an interactive element on mouse hover or keyboard focus.                       | ✅ Active                                  | ✅ Yes                                                                  |                                                                                                 |
-| `modal-dialog`      | `@atlaskit/modal-dialog`      | Messaging             | A modal dialog displays content that requires user interaction, in a layer above the page.                 | ✅ Active                                  | ✅ Yes                                                                  |                                                                                                 |
-| `dropdown-menu`     | `@atlaskit/dropdown-menu`     | Forms and input       | A dropdown menu displays a list of actions or options to a user.                                           | ✅ Active                                  | ✅ Yes                                                                  |                                                                                                 |
-| `flag`              | `@atlaskit/flag`              | Messaging             | A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction.       | ✅ Active                                  | ✅ Yes                                                                  |                                                                                                 |
-| `spotlight`         | `@atlaskit/spotlight`         | Messaging             | A spotlight introduces users to points of interest, from focused messages to multi-step tours.             | ⚠️ Beta                                    | ✅ Yes                                                                  |                                                                                                 |
-| `blanket`           | `@atlaskit/blanket`           | Overlays and layering | A blanket covers the underlying UI for a layered component, such as a modal dialog or a tooltip.           | ✅ Active                                  | ❌ No                                                                   | Will not be needed in the new layering stack as we will be using ::backdrop. No need to migrate |
-| `drawer`            | `@atlaskit/drawer`            | Overlays and layering | A drawer is a panel that slides in from the left side of the screen.                                       | ⛔ Intent to deprecate — use Modal instead | ❌ No                                                                   | DO NOT MIGRATE. LEAVE AS IS                                                                     |
-| `inline-dialog`     | `@atlaskit/inline-dialog`     | Overlays and layering | An inline dialog is a pop-up container for small amounts of information.                                   | ⛔ Intent to deprecate — use Popup instead | ❌ No                                                                   | We will need to migrate.                                                                        |
-| `onboarding`        | `@atlaskit/onboarding`        | Messaging             | An onboarding spotlight introduces new features to users through focused messages or multi-step tours.     | ❌ Deprecated                              | ❌ No                                                                   | DO NOT MIGRATE. This is being replaced with Spotlight                                           |
-| `select`            | `@atlaskit/select`            | Forms and input       | Select allows users to make a single selection or multiple selections from a list of options.              | ✅ Active                                  | ❌ No                                                                   | Need to migrate. We will need to migrate all of it to the new stack (not just popup select)     |
-| `datetime-picker`   | `@atlaskit/datetime-picker`   | Forms and input       | A date time picker allows the user to select an associated date and time.                                  | ✅ Active                                  | ❌ No                                                                   | Migrate. Migrate it to use our new top-layer/popup                                              |
-| `banner`            | `@atlaskit/banner`            | Messaging             | A banner displays a prominent message at the top of the screen.                                            | ✅ Active                                  | ❌ No                                                                   | I am not sure if this is relevant as it is static content                                       |
-| `navigation-system` | `@atlaskit/navigation-system` | Navigation            | The latest navigation system for Atlassian apps. (Has layered flyout menus)                                | ⚠️ Beta                                    | ❌ No                                                                   | Can leave for now                                                                               |
-| `menu`              | `@atlaskit/menu`              | Navigation            | A list of options to help users navigate, or perform actions. (PopupMenuGroup sub-component is deprecated) | ✅ Active (PopupMenuGroup: ❌ Deprecated)  | ❌ No                                                                   | Migrate                                                                                         |
+This table tracks **whether a package ships a top-layer code path** (imports `@atlaskit/top-layer`
+and branches on the flag). It is not the same as “every example in the package uses top layer”: base
+`Select`, for instance, stays legacy; only `PopupSelect` migrates.
 
-## Infrastructure / Primitives
+## Layering components
 
-| Package        | Name                     | Category  | Description                                                                                     | Status                    | Notes                                                                                                                          |
-| -------------- | ------------------------ | --------- | ----------------------------------------------------------------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `portal`       | `@atlaskit/portal`       | Libraries | A wrapper for rendering components in React portals.                                            | ✅ Active                 | Underlying primitive used by many layering packages. ❌ The new layering stack won't use this                                  |
-| `layering`     | `@atlaskit/layering`     | Libraries | Layering provides consistent and accessible layered experience.                                 | ✅ Active                 | Coordinates layer stacking, z-index, and escape key handling❌ The new layering stack won't use this                           |
-| `popper`       | `@atlaskit/popper`       | Libraries | A wrapper for React Popper for bespoke popups where other ADS components are deemed unsuitable. | ✅ Active                 | Low-level positioning primitive❌ The new layering stack won't use this                                                        |
-| `top-layer`    | `@atlaskit/top-layer`    | Libraries | Low-level top-layer primitives using native Popover API and Dialog element.                     | ✅ Active                 | The new target primitive — uses browser-native top-layer                                                                       |
-| `react-select` | `@atlaskit/react-select` | Internal  | A forked version of react-select to only be used in `@atlaskit/select`.                         | ✅ Active (internal only) | Not intended for direct consumptionWe might need to migrate this if we cannot do all the migration we need just through select |
+| Package             | Name                          | Category   | Migrated (FF)? | Notes                                                                                                            |
+| ------------------- | ----------------------------- | ---------- | -------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `popup`             | `@atlaskit/popup`             | Overlays   | ✅ Yes         | `popup-top-layer.tsx`, compositional path                                                                        |
+| `tooltip`           | `@atlaskit/tooltip`           | Overlays   | ✅ Yes         | `Popover` + anchor positioning                                                                                   |
+| `modal-dialog`      | `@atlaskit/modal-dialog`      | Messaging  | ✅ Yes         | Native `<dialog>` via `Dialog`                                                                                   |
+| `dropdown-menu`     | `@atlaskit/dropdown-menu`     | Forms      | ✅ Yes         | `Popup` + menu keyboard via `useArrowNavigation`                                                                 |
+| `flag`              | `@atlaskit/flag`              | Messaging  | ✅ Yes         | `Popover` `manual` for stacking; motion unchanged                                                                |
+| `spotlight`         | `@atlaskit/spotlight`         | Messaging  | ✅ Yes         | `Popover` + `useAnchorPosition` + `useSimpleLightDismiss`                                                        |
+| `select`            | `@atlaskit/select`            | Forms      | ✅ Partial     | **`PopupSelect` only** — `popup-select-top-layer.tsx`                                                            |
+| `datetime-picker`   | `@atlaskit/datetime-picker`   | Forms      | ✅ Yes         | Calendar menu: `menu-top-layer.tsx`, `fixed-layer-menu-top-layer.tsx`                                            |
+| `inline-dialog`     | `@atlaskit/inline-dialog`     | Overlays   | ✅ Yes         | `inline-dialog-top-layer.tsx` — deprecate-in-favor-of-popup still applies to product direction                   |
+| `avatar-group`      | `@atlaskit/avatar-group`      | Display    | ✅ Yes         | Overflow dropdown: `avatar-group-top-layer.tsx`                                                                  |
+| `blanket`           | `@atlaskit/blanket`           | Overlays   | ❌ No          | Replaced by `::backdrop` where modals use native dialog                                                          |
+| `drawer`            | `@atlaskit/drawer`            | Overlays   | ❌ No          | Intent to deprecate — use modal; do not migrate                                                                  |
+| `onboarding`        | `@atlaskit/onboarding`        | Messaging  | ❌ No          | Deprecated — replaced by Spotlight                                                                               |
+| `banner`            | `@atlaskit/banner`            | Messaging  | ❌ No          | Static / in-flow; not a target for this stack                                                                    |
+| `navigation-system` | `@atlaskit/navigation-system` | Navigation | ❌ No          | Flyouts deferred                                                                                                 |
+| `menu`              | `@atlaskit/menu`              | Navigation | ❌ No\*        | \*No local top-layer adapter; **Playwright + VR** run with the FF to catch regressions when popups use top layer |
+
+## Coverage without a package-local adapter
+
+| Package          | Notes                                                                                                                  |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `inline-message` | **Tests only** — browser + VR suites use `platform-dst-top-layer`; no `@atlaskit/top-layer` import in component source |
+
+## Infrastructure / primitives
+
+| Package        | Role                                                                                |
+| -------------- | ----------------------------------------------------------------------------------- |
+| `portal`       | Legacy stacking; new stack avoids portals for top-layer surfaces                    |
+| `layering`     | Legacy coordination; browser handles nesting for native popovers / dialog           |
+| `popper`       | Legacy positioning; replaced by CSS Anchor Positioning (+ JS fallback in top-layer). Deprecation plan: [popper-migration.md](../migrations/popper-migration.md) |
+| `top-layer`    | **Target primitive** — Popover API, `<dialog>`, hooks, placement map, animations    |
+| `react-select` | Internal fork for `@atlaskit/select` — consumed via select migrations               |
+
+## Open API decisions deferred to a follow-up PR
+
+The initial top-layer adoption ships with **near-zero changes to adopter packages' public
+types**. The two ARIA-semantics widenings below were prepared and then deliberately reverted
+to keep the public API of `@atlaskit/popup` and `@atlaskit/dropdown-menu` byte-identical to
+master. The places where the FF-on path bridges the gap are tagged `FUDGE(top-layer-api)` in
+source so they are easy to grep for.
+
+When the top-layer public API is committed, a follow-up PR should:
+
+1. Widen the public types listed below to match what the top-layer API actually produces.
+2. Delete every `FUDGE(top-layer-api)` cast and its comment block.
+3. Bump the affected packages with a `minor` changeset.
+
+| Deferred change                                                                  | Current narrow public type            | Target wide type                                                          | FUDGE site(s)                                                                  |
+| -------------------------------------------------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `@atlaskit/popup` — widen `TriggerProps['aria-haspopup']`                        | `boolean \| 'dialog'`                 | `boolean \| 'dialog' \| 'menu' \| 'listbox' \| 'tree' \| 'grid'`          | `packages/design-system/popup/src/popup-top-layer.tsx`                         |
+| `@atlaskit/dropdown-menu` — widen `DropdownItemProps['aria-haspopup']`           | `boolean \| 'dialog'` (optional)      | `boolean \| 'dialog' \| 'menu' \| 'grid' \| 'listbox' \| 'tree'`          | `packages/design-system/dropdown-menu/src/dropdown-menu-top-layer.tsx` (cast on `ariaAttributes` spread; covers `CustomTriggerProps` which extends popup `TriggerProps`) |
+
+To find every fudge before the follow-up PR:
+
+```bash
+git grep -n "FUDGE(top-layer-api)" platform/packages/design-system
+```
+
+### Tooltip `TriggerProps.testId` (kept on the public surface — not deferred)
+
+`@atlaskit/tooltip` `TriggerProps` keeps the optional `testId?: string` field added on this
+branch. It is the only public-API addition that ships with the initial adoption. Reasoning:
+
+- It is not ARIA-semantics widening; it is a single optional `testId` plumbing field.
+- Without it, every consumer that wraps `Tooltip` around `@atlaskit/button/new` (or any other
+  `Pressable`-backed primitive) silently loses `data-testid` on the trigger element. Pressable
+  hard-overwrites `data-testid={testId}` after the spread, so the legacy
+  `(triggerProps as any)['data-testid']` workaround is absorbed. A typed `testId` field flows
+  through Button/Pressable's own `testId` destructure and reaches the rendered DOM.
+- The fix is consumer-visible (anything spreading `triggerProps` onto `Button`/`Pressable`
+  starts getting `data-testid` again), but additive: no existing prop changes shape.
+
+## Related docs
+
+- Per-package write-ups: [`notes/migrations/`](../migrations/) — full list in
+  [`notes/README.md`](../README.md)

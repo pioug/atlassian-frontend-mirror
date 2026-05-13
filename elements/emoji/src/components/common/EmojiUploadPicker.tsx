@@ -38,9 +38,19 @@ import EmojiUploadPreview from './EmojiUploadPreview';
 import FileChooser from './FileChooser';
 import { UploadStatus } from './internal-types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import Button from '@atlaskit/button/new';
 
 const closeEmojiUploadButton = css({
 	display: 'flex',
+});
+
+const uploadAddRowNew = css({
+	display: 'flex',
+	justifyContent: 'flex-end',
+	alignItems: 'center',
+	gap: token('space.100'),
+	paddingTop: token('space.200'),
+	paddingBottom: token('space.300'),
 });
 
 const emojiUpload = css({
@@ -48,6 +58,16 @@ const emojiUpload = css({
 	paddingRight: token('space.100'),
 	paddingBottom: token('space.100'),
 	paddingLeft: token('space.100'),
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'space-around',
+});
+
+const emojiUploadNew = css({
+	paddingTop: token('space.100'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.200'),
 	display: 'flex',
 	flexDirection: 'column',
 	justifyContent: 'space-around',
@@ -96,6 +116,13 @@ const uploadChooseFileRow = css({
 	justifyContent: 'space-between',
 	paddingBottom: token('space.100'),
 	columnGap: token('space.075'),
+});
+
+const uploadChooseFileRowNew = css({
+	display: 'flex',
+	flexDirection: 'column',
+	paddingBottom: token('space.100'),
+	gap: token('space.200'),
 });
 
 export interface OnUploadEmoji {
@@ -147,10 +174,13 @@ const toEmojiName = (uploadName: string): string => {
 interface ChooseEmojiFileProps {
 	errorMessage?: Message;
 	name?: string;
+	onAddEmoji?: () => void;
 	onChooseFile: ChangeEventHandler<any>;
 	onClick?: () => void;
 	onNameChange: ChangeEventHandler<any>;
 	onUploadCancelled: () => void;
+	previewImage?: string;
+	uploadStatus?: UploadStatus;
 }
 
 type ChooseEmojiFilePropsType = ChooseEmojiFileProps & WrappedComponentProps;
@@ -161,7 +191,10 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 		onClick,
 		onNameChange,
 		onUploadCancelled,
+		onAddEmoji,
 		errorMessage,
+		previewImage,
+		uploadStatus,
 		intl,
 	} = props;
 	const { formatMessage } = intl;
@@ -189,15 +222,83 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 	const emojiNameAriaLabel = formatMessage(messages.emojiNameAriaLabel);
 	const emojiChooseFileTitle = formatMessage(messages.emojiChooseFileTitle);
 
-	return (
+	const isUploading = uploadStatus === UploadStatus.Uploading;
+	const addEmojiDisabled = !previewImage || !name || isUploading;
+
+	return fg('platform_emoji_picker_refresh') ? (
+		<div css={emojiUploadNew} data-testid={uploadEmojiComponentTestId}>
+			<div css={emojiUploadTop}>
+				<label css={[uploadChooseFileMessage, labelStyles]} htmlFor="new-emoji-name-input">
+					{previewImage ? (
+						<FormattedMessage {...messages.emojiPreviewTitle} />
+					) : (
+						<FormattedMessage {...messages.addCustomEmojiLabel} />
+					)}
+				</label>
+			</div>
+			<div css={uploadChooseFileRowNew}>
+				<Text>
+					<FormattedMessage {...messages.emojiChooseFileScreenReaderDescription}>
+						{() => (
+							<FileChooser
+								label={emojiChooseFileTitle}
+								onChange={onChooseFile}
+								onClick={onClick}
+								accept="image/png,image/jpeg,image/gif"
+								ariaDescribedBy={fileChooserButtonDescriptionId}
+								previewImage={previewImage}
+								previewAlt={name}
+							/>
+						)}
+					</FormattedMessage>
+				</Text>
+				<div>
+					<label css={[uploadChooseFileMessage, labelStyles]} htmlFor="new-emoji-name-input">
+						<FormattedMessage {...messages.emojiNameLabel} />
+					</label>
+					<TextField
+						placeholder={emojiPlaceholder}
+						aria-label={emojiNameAriaLabel}
+						maxLength={maxNameLength}
+						onChange={onNameChange}
+						onKeyDown={onKeyDownHandler}
+						value={name}
+						isCompact
+						autoFocus
+						testId={uploadEmojiNameInputTestId}
+						ref={inputRef}
+						id="new-emoji-name-input"
+						aria-required={true}
+					/>
+				</div>
+			</div>
+			<div id={fileChooserButtonDescriptionId}>
+				{errorMessage && <EmojiErrorMessage errorStyle="chooseFile" message={errorMessage} />}
+			</div>
+			<div css={uploadAddRowNew}>
+				<Button
+					onClick={onUploadCancelled}
+					appearance="subtle"
+					isDisabled={isUploading}
+					testId={cancelEmojiUploadPickerTestId}
+				>
+					<FormattedMessage {...messages.cancelLabel} />
+				</Button>
+				<Button
+					onClick={onAddEmoji}
+					appearance="primary"
+					isDisabled={addEmojiDisabled}
+					isLoading={isUploading}
+				>
+					<FormattedMessage {...messages.addEmojiLabel} />
+				</Button>
+			</div>
+		</div>
+	) : (
 		<div css={emojiUpload} data-testid={uploadEmojiComponentTestId}>
 			<div css={emojiUploadTop}>
 				<label css={[uploadChooseFileMessage, labelStyles]} htmlFor="new-emoji-name-input">
-					<FormattedMessage
-						{...(fg('platform_emoji_picker_refresh')
-							? messages.addEmojiLabel
-							: messages.addCustomEmojiLabel)}
-					/>
+					<FormattedMessage {...messages.addCustomEmojiLabel} />
 				</label>
 				<div css={closeEmojiUploadButton}>
 					<AkButton
@@ -425,7 +526,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 	};
 
 	const content =
-		name && previewImage ? (
+		!fg('platform_emoji_picker_refresh') && name && previewImage ? (
 			<EmojiUploadPreview
 				errorMessage={errorMessage}
 				name={name}
@@ -441,6 +542,9 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 				onClick={onChooseFileClicked}
 				onNameChange={onNameChange}
 				onUploadCancelled={cancelUpload}
+				onAddEmoji={onAddEmoji}
+				previewImage={previewImage}
+				uploadStatus={uploadStatus}
 				errorMessage={chooseEmojiErrorMessage}
 				intl={intl}
 			/>

@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-table
 
+## 22.3.1
+
+### Patch Changes
+
+- [`6403e27aa3327`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6403e27aa3327) -
+  Add the experimental table row menu structure, keyboard shortcut hints, and shared table menu
+  items. Expose table row menu icons through editor-toolbar. Ensure the UI control registry is
+  available before table row menu items are registered.
+- Updated dependencies
+
+## 22.3.0
+
+### Minor Changes
+
+- [`edd5d6d4c23ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edd5d6d4c23ec) -
+  Add SSR streaming supporting to Editor starmt cards and extensions
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.2.24
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.2.23
 
 ### Patch Changes

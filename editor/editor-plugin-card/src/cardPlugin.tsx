@@ -19,7 +19,7 @@ import { blockCardSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/blockCard';
 import { embedCardSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/embedCard';
 import { inlineCardSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/inlineCard';
 import { hideLinkToolbar, setProvider, showDatasourceModal } from './pm-plugins/actions';
-import { queueCardsFromChangedTr } from './pm-plugins/doc';
+import { queueCardsFromChangedTr, queueCardsFromRange } from './pm-plugins/doc';
 import { cardKeymap } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
 import { pluginKey } from './pm-plugins/plugin-key';
@@ -150,6 +150,27 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 			);
 		},
 
+		commands: {
+			queueCardsFromRange:
+				(from, to, source, analyticsAction, normalizeLinkText, sourceEvent, appearance) =>
+				({ tr }) =>
+					queueCardsFromRange(
+						// Synthesise the minimal EditorState shape the impl actually reads.
+						{
+							schema: tr.doc.type.schema,
+							selection: tr.selection,
+						} as unknown as Parameters<typeof queueCardsFromRange>[0],
+						tr,
+						from,
+						to,
+						source,
+						analyticsAction,
+						normalizeLinkText,
+						sourceEvent,
+						appearance,
+					),
+		},
+
 		actions: {
 			setProvider: async (providerPromise) => {
 				const provider = await providerPromise;
@@ -162,6 +183,7 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 			},
 			hideLinkToolbar,
 			queueCardsFromChangedTr,
+			queueCardsFromRange,
 			registerEmbedCardTransformer: (transformers) => {
 				instanceEmbedCardTransformers = transformers;
 			},

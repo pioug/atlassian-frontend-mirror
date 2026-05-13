@@ -20,7 +20,7 @@ import { ShareForm } from '../../../components/ShareForm';
 import { ShareHeader } from '../../../components/ShareHeader';
 import { ShareMenuItem } from '../../../components/ShareMenuItem';
 import { UserPickerField } from '../../../components/UserPickerField';
-import { messages } from '../../../i18n';
+import { messages } from '../../../i18n-messages';
 import { type AdditionalTab, type DialogContentState, type ShareError } from '../../../types';
 import { renderProp } from '../_testUtils';
 

@@ -20,7 +20,7 @@ import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { messages } from '../i18n';
+import { messages } from '../i18n-messages';
 import { type DialogPlacement, type Integration } from '../types';
 
 import { shareIntegrationButtonEvent } from './analytics/analytics';

@@ -36,7 +36,7 @@ function roleRequiresFocusWrap(role: string | undefined): boolean {
  * elements within the container using wrapping navigation.
  *
  * Light dismiss (Escape, click outside) continues to work natively
- * via `popover="auto"` — this hook only intercepts Tab.
+ * via `popover="auto"` - this hook only intercepts Tab.
  *
  * Always call this hook unconditionally. The listener is only
  * attached when the role requires focus wrapping, and is cleaned
@@ -50,12 +50,12 @@ export function useFocusWrap({
 	role: string | undefined;
 }): void {
 	useEffect(() => {
-		const el = elementRef.current;
-		if (!el || !roleRequiresFocusWrap(role)) {
+		const element = elementRef.current;
+		if (!element || !roleRequiresFocusWrap(role)) {
 			return;
 		}
 
-		const unbind = bind(el, {
+		const unbind = bind(element, {
 			type: 'keydown',
 			listener: (event: KeyboardEvent) => {
 				if (event.key !== 'Tab') {
@@ -68,7 +68,7 @@ export function useFocusWrap({
 
 				// Try to move to the next/previous focusable element relative
 				// to the currently focused element within the container.
-				const next = getNextFocusable({ container: el, direction });
+				const next = getNextFocusable({ container: element, direction });
 
 				if (next) {
 					next.focus();
@@ -80,8 +80,8 @@ export function useFocusWrap({
 				// the first or last focusable element depending on direction.
 				const fallback =
 					direction === 'forwards'
-						? getFirstFocusable({ container: el })
-						: getLastFocusable({ container: el });
+						? getFirstFocusable({ container: element })
+						: getLastFocusable({ container: element });
 
 				if (fallback) {
 					fallback.focus();

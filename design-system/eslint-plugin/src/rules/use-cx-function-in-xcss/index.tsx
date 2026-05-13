@@ -5,7 +5,7 @@ import {
 	type JSXExpressionContainer,
 } from 'eslint-codemod-utils';
 
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {

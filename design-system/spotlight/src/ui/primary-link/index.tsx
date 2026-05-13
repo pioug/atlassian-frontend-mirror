@@ -4,7 +4,7 @@
  */
 import { forwardRef, type ReactNode } from 'react';
 
-import { cssMap, jsx } from '@atlaskit/css';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import { Anchor, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -15,6 +15,8 @@ const styles = cssMap({
 		alignItems: 'center',
 		color: token('color.text.inverse'),
 		borderRadius: token('radius.small'),
+	},
+	outline: {
 		backgroundColor: token('color.background.neutral.bold'),
 		borderStyle: 'solid',
 		borderWidth: token('border.width'),
@@ -30,6 +32,22 @@ const styles = cssMap({
 			textDecoration: 'none',
 		},
 	},
+	primary: {
+		backgroundColor: token('color.background.brand.bold'),
+		borderStyle: 'solid',
+		borderWidth: token('border.width'),
+		borderColor: token('color.border.brand'),
+		textDecoration: 'none',
+		paddingInline: token('space.075'),
+		'&:hover': {
+			backgroundColor: token('color.background.brand.bold.hovered'),
+			textDecoration: 'none',
+		},
+		'&:active': {
+			backgroundColor: token('color.background.brand.bold.pressed'),
+			textDecoration: 'none',
+		},
+	}
 });
 
 export interface SpotlightPrimaryLinkProps {
@@ -44,6 +62,11 @@ export interface SpotlightPrimaryLinkProps {
 	 * Text to be rendered inside the link.
 	 */
 	children: ReactNode;
+
+	/**
+	 * Visual style of the button. Defaults to `outline`.
+	 */
+	appearance?: 'outline' | 'primary';
 
 	/**
 	 * The destination URL. Accepts a URL string, or a router config object when using AppProvider's router link.
@@ -87,6 +110,7 @@ export const SpotlightPrimaryLink: React.ForwardRefExoticComponent<
 			onClick,
 			children,
 			testId,
+			appearance = 'outline',
 			href,
 			target,
 			rel,
@@ -97,7 +121,7 @@ export const SpotlightPrimaryLink: React.ForwardRefExoticComponent<
 			aria-label={ariaLabel}
 			ref={ref}
 			testId={testId}
-			xcss={styles.root}
+			xcss={cx(styles.root, styles[appearance])}
 			href={href}
 			target={target}
 			rel={rel}

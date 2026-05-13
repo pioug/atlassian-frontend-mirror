@@ -20,6 +20,15 @@ export interface TriggerProps {
 	ref: (node: HTMLElement | null) => void;
 	// We can make this required once the wrapped children approach is deprecated
 	'aria-describedby'?: string | undefined;
+	/**
+	 * Set when `Tooltip` is given `testId`. Spread this onto your trigger element so
+	 * `data-testid` reaches the rendered DOM. Required because `@atlaskit/button/new`
+	 * (and other `Pressable`-backed primitives) overwrite `data-testid` from spread,
+	 * so the legacy `(triggerProps as any)['data-testid']` workaround is silently
+	 * absorbed by those consumers. A typed `testId` field flows through their own
+	 * `testId` destructure instead.
+	 */
+	testId?: string;
 }
 
 export interface TooltipProps {

@@ -63,6 +63,9 @@
 		},
 		{
 			"path": "../../tokens/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../top-layer/afm-cc/tsconfig.json"
 		}
 	]
 }

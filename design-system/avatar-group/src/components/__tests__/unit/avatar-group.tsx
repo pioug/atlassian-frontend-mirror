@@ -5,8 +5,10 @@ import userEvent from '@testing-library/user-event';
 
 import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import __noop from '@atlaskit/ds-lib/noop';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import AvatarGroup from '../../avatar-group';
+import { type AvatarProps } from '../../types';
 
 const generateData = ({
 	avatarCount,
@@ -718,4 +720,68 @@ describe('Accessibility', () => {
 		const moreIndicator = screen.getByTestId('test--overflow-menu--trigger');
 		expect(moreIndicator).toHaveAttribute('aria-label', 'Priority label');
 	});
+});
+
+describe('Custom avatar component', () => {
+	ffTest.on(
+		'platform-avatar-group-pass-avatar-to-item',
+		'should use custom avatar component in overflow dropdown when feature flag is on',
+		() => {
+			it('should render custom avatar component in the overflow menu items', async () => {
+				const CustomAvatar = (props: AvatarProps) => (
+					<div data-testid={props.testId} data-custom-avatar="true">
+						Custom
+					</div>
+				);
+
+				const user = userEvent.setup();
+				render(
+					<AvatarGroup
+						testId="test"
+						avatar={CustomAvatar}
+						data={generateData({ avatarCount: 8 })}
+					/>,
+				);
+
+				// Open the overflow menu
+				const trigger = screen.getByTestId('test--overflow-menu--trigger');
+				await user.click(trigger);
+
+				// The avatar inside the overflow dropdown item should be rendered with the custom component
+				const overflowAvatar = screen.getByTestId('test--avatar-group-item-4--avatar');
+				expect(overflowAvatar).toHaveAttribute('data-custom-avatar', 'true');
+			});
+		},
+	);
+
+	ffTest.off(
+		'platform-avatar-group-pass-avatar-to-item',
+		'should use default Avatar component in overflow dropdown when feature flag is off',
+		() => {
+			it('should render default Avatar in the overflow menu items', async () => {
+				const CustomAvatar = (props: AvatarProps) => (
+					<div data-testid={props.testId} data-custom-avatar="true">
+						Custom
+					</div>
+				);
+
+				const user = userEvent.setup();
+				render(
+					<AvatarGroup
+						testId="test"
+						avatar={CustomAvatar}
+						data={generateData({ avatarCount: 8 })}
+					/>,
+				);
+
+				// Open the overflow menu
+				const trigger = screen.getByTestId('test--overflow-menu--trigger');
+				await user.click(trigger);
+
+				// The avatar inside the overflow dropdown item should NOT use the custom component
+				const overflowAvatar = screen.getByTestId('test--avatar-group-item-4--avatar');
+				expect(overflowAvatar).not.toHaveAttribute('data-custom-avatar');
+			});
+		},
+	);
 });

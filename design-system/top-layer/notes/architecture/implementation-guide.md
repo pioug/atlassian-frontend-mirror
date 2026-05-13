@@ -25,7 +25,7 @@
 14. [Scroll Lock](#14-scroll-lock)
 15. [Legacy Migration Utilities](#15-legacy-migration-utilities)
 16. [Internal Utilities](#16-internal-utilities)
-17. [Testing Infrastructure](#17-testing-infrastructure)
+17. [Testing Infrastructure](#17-testing-infrastructure) ([test IDs](./test-ids.md))
 18. [Browser Compatibility](#18-browser-compatibility)
 19. [What You Wouldn't Need Without Legacy Support](#19-what-you-wouldnt-need-without-legacy-support)
 
@@ -1332,6 +1332,10 @@ getPlacement({ placement: { align: 'start' } });
 ---
 
 ## 17. Testing Infrastructure
+
+For **`testId` / `data-testid`** on **`Popover`**, **`Dialog`**, composed **`Popup`**, and how
+**`@atlaskit/popup`** / **`@atlaskit/tooltip`** add suffixes for product tests, see
+**[test-ids.md](./test-ids.md)**.
 
 ### Unit Tests (JSDOM)
 

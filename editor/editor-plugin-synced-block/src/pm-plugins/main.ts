@@ -24,6 +24,7 @@ import {
 	rebaseTransaction,
 } from '@atlaskit/editor-synced-block-provider';
 import type { SyncBlockStoreManager, DeletionReason } from '@atlaskit/editor-synced-block-provider';
+import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -225,6 +226,12 @@ const filterTransactionOnline = ({
 		});
 	});
 
+	// Annotate every reference-block insertion with `sourceProduct`
+	// (derived from the resourceId) and `isPaste` (when the originating transaction was a
+	// paste). Together with the host product reported by the embedding product's pageview
+	// events this lets us triangulate cross-product paste behaviour without standing up a
+	// dedicated `cross_product_paste` event subject.
+	const isPaste = Boolean(tr.getMeta('paste') ?? tr.getMeta('uiEvent') === 'paste');
 	syncBlockAdded.forEach((syncBlock) => {
 		api?.analytics?.actions?.fireAnalyticsEvent({
 			action: ACTION.INSERTED,
@@ -233,6 +240,12 @@ const filterTransactionOnline = ({
 			attributes: {
 				resourceId: syncBlock.attrs.resourceId,
 				blockInstanceId: syncBlock.attrs.localId,
+				...(fg('platform_synced_block_patch_11')
+					? {
+							sourceProduct: getSourceProductFromResourceIdSafe(syncBlock.attrs.resourceId),
+							isPaste,
+						}
+					: {}),
 			},
 			eventType: EVENT_TYPE.TRACK,
 		});
@@ -447,10 +460,16 @@ export const createPlugin = (
 		// Only show the flag once per sync block
 		if (!unpublishedFlagShown.has(resourceId)) {
 			unpublishedFlagShown.add(resourceId);
+			// Surface the source product so the flag's copy can be tailored — Jira work
+			// items get "Pasted from unsaved item" / "...when the item's description is
+			// saved" rather than the Confluence page-flavoured default. Falls back to
+			// undefined when the resourceId can't be parsed (legacy shapes), in which
+			// case the Confluence default is used.
+			const sourceProduct = getSourceProductFromResourceIdSafe(resourceId);
 			deferDispatch(() => {
 				api?.core.actions.execute(({ tr }) =>
 					tr.setMeta(syncedBlockPluginKey, {
-						activeFlag: { id: FLAG_ID.UNPUBLISHED_SYNC_BLOCK_PASTED },
+						activeFlag: { id: FLAG_ID.UNPUBLISHED_SYNC_BLOCK_PASTED, sourceProduct },
 					}),
 				);
 			});

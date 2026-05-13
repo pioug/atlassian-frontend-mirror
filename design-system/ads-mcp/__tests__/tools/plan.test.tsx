@@ -1,10 +1,10 @@
-import { planTool } from '../../src/tools/plan';
-import { searchAtlaskitComponentsTool } from '../../src/tools/search-atlaskit-components';
-import { searchComponentsTool } from '../../src/tools/search-components';
-import { searchIconsTool } from '../../src/tools/search-icons';
-import { searchTokensTool } from '../../src/tools/search-tokens';
+import { planTool } from '../../src/tools/plan/plan-tool';
+import { searchAtlaskitComponentsTool } from '../../src/tools/search-atlaskit-components/search-atlaskit-components-tool';
+import { searchComponentsTool } from '../../src/tools/search-components/search-components-tool';
+import { searchIconsTool } from '../../src/tools/search-icons/search-icons-tool';
+import { searchTokensTool } from '../../src/tools/search-tokens/search-tokens-tool';
 
-jest.mock('../../src/tools/search-atlaskit-components', () => ({
+jest.mock('../../src/tools/search-atlaskit-components/search-atlaskit-components-tool', () => ({
 	searchAtlaskitComponentsTool: jest.fn(() =>
 		Promise.resolve({
 			content: [
@@ -17,7 +17,7 @@ jest.mock('../../src/tools/search-atlaskit-components', () => ({
 	),
 }));
 
-jest.mock('../../src/tools/search-components', () => ({
+jest.mock('../../src/tools/search-components/search-components-tool', () => ({
 	searchComponentsTool: jest.fn(() =>
 		Promise.resolve({
 			content: [
@@ -30,7 +30,7 @@ jest.mock('../../src/tools/search-components', () => ({
 	),
 }));
 
-jest.mock('../../src/tools/search-icons', () => ({
+jest.mock('../../src/tools/search-icons/search-icons-tool', () => ({
 	searchIconsTool: jest.fn(() =>
 		Promise.resolve({
 			content: [
@@ -43,7 +43,7 @@ jest.mock('../../src/tools/search-icons', () => ({
 	),
 }));
 
-jest.mock('../../src/tools/search-tokens', () => ({
+jest.mock('../../src/tools/search-tokens/search-tokens-tool', () => ({
 	searchTokensTool: jest.fn(() =>
 		Promise.resolve({
 			content: [

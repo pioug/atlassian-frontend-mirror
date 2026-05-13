@@ -316,6 +316,36 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	syncedLocationDropdownIssueTypeBug: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedLocationDropdownIssueTypeEpic: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedLocationDropdownIssueTypeGeneric: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedLocationDropdownIssueTypeStory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedLocationDropdownIssueTypeSubtask: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedLocationDropdownIssueTypeTask: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	syncedLocationDropdownLearnMoreLink: {
 		defaultMessage: string;
 		description: string;
@@ -376,12 +406,27 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	unpublishedErrorJiraWorkItem: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	unpublishedSyncBlockPastedDescription: {
 		defaultMessage: string;
 		description: string;
 		id: string;
 	};
+	unpublishedSyncBlockPastedDescriptionJiraWorkItem: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	unpublishedSyncBlockPastedTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	unpublishedSyncBlockPastedTitleJiraWorkItem: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -691,6 +736,13 @@ export const syncBlockMessages: {
 		description:
 			'Error message which is shown over sync block when the source page is unpublished.',
 	},
+	unpublishedErrorJiraWorkItem: {
+		id: 'fabric.editor.error.description.reference.unpublished.jiraWorkItem',
+		defaultMessage:
+			"Synced content will display <link>when the item's description is saved</link>",
+		description:
+			'Error message which is shown over sync block when the source Jira work item description has not yet been saved.',
+	},
 	syncBlockCopiedTitle: {
 		id: 'fabric.editor.syncBlockCopiedTitle',
 		defaultMessage: 'Synced block copied to clipboard',
@@ -780,17 +832,62 @@ export const syncBlockMessages: {
 		description:
 			'Placeholder title shown in the synced location dropdown when a page has no title yet',
 	},
+	// Accessible labels for the Jira issue-type icons rendered in the synced location
+	// dropdown. Used as the `IconTile` `label` prop so screen readers announce the type.
+	syncedLocationDropdownIssueTypeTask: {
+		id: 'fabric.editor.syncedLocationDropdownIssueTypeTask',
+		defaultMessage: 'Task',
+		description: 'Accessible label for the Jira Task issue-type icon in the location dropdown',
+	},
+	syncedLocationDropdownIssueTypeBug: {
+		id: 'fabric.editor.syncedLocationDropdownIssueTypeBug',
+		defaultMessage: 'Bug',
+		description: 'Accessible label for the Jira Bug issue-type icon in the location dropdown',
+	},
+	syncedLocationDropdownIssueTypeStory: {
+		id: 'fabric.editor.syncedLocationDropdownIssueTypeStory',
+		defaultMessage: 'Story',
+		description: 'Accessible label for the Jira Story issue-type icon in the location dropdown',
+	},
+	syncedLocationDropdownIssueTypeEpic: {
+		id: 'fabric.editor.syncedLocationDropdownIssueTypeEpic',
+		defaultMessage: 'Epic',
+		description: 'Accessible label for the Jira Epic issue-type icon in the location dropdown',
+	},
+	syncedLocationDropdownIssueTypeSubtask: {
+		id: 'fabric.editor.syncedLocationDropdownIssueTypeSubtask',
+		defaultMessage: 'Subtask',
+		description: 'Accessible label for the Jira Subtask issue-type icon in the location dropdown',
+	},
+	syncedLocationDropdownIssueTypeGeneric: {
+		id: 'fabric.editor.syncedLocationDropdownIssueTypeGeneric',
+		defaultMessage: 'Jira work item',
+		description:
+			'Accessible label for the generic Jira issue-type icon when the specific type is unknown',
+	},
 	unpublishedSyncBlockPastedTitle: {
 		id: 'fabric.editor.unpublishedSyncBlockPastedTitle',
 		defaultMessage: 'Pasted from unpublished page',
 		description:
 			'Title in flag which appears when a reference to an unpublished sync block is pasted',
 	},
+	unpublishedSyncBlockPastedTitleJiraWorkItem: {
+		id: 'fabric.editor.unpublishedSyncBlockPastedTitle.jiraWorkItem',
+		defaultMessage: 'Pasted from unsaved item',
+		description:
+			'Title in flag which appears when a reference to a sync block whose source is a Jira work item with an unsaved description is pasted',
+	},
 	unpublishedSyncBlockPastedDescription: {
 		id: 'fabric.editor.unpublishedSyncBlockPastedDescription',
 		defaultMessage: 'When the page is published, the content will be displayed.',
 		description:
 			'Description in flag which appears when a reference to an unpublished sync block is pasted',
+	},
+	unpublishedSyncBlockPastedDescriptionJiraWorkItem: {
+		id: 'fabric.editor.unpublishedSyncBlockPastedDescription.jiraWorkItem',
+		defaultMessage: "When the item's description is saved, the content will be displayed.",
+		description:
+			"Description in flag which appears when a reference to a sync block whose source is a Jira work item with an unsaved description is pasted",
 	},
 	unsyncButton: {
 		id: 'fabric.editor.syncedBlock.unsync',

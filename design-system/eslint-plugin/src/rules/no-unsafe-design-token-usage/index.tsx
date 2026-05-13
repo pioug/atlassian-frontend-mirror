@@ -6,9 +6,9 @@ import tokenDefaultValues from '@atlaskit/tokens/token-default-values';
 import { getTokenId } from '@atlaskit/tokens/token-ids';
 import tokens from '@atlaskit/tokens/token-names';
 
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
+import { isDecendantOfStyleBlock } from '../utils/is-decendant-of-style-block';
 import { isDecendantOfStyleJsxAttribute } from '../utils/is-decendant-of-style-jsx-attribute';
-import { isDecendantOfStyleBlock } from '../utils/is-node';
 import { isToken } from '../utils/is-token';
 
 type PluginConfig = {

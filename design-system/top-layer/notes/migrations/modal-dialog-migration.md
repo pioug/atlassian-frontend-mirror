@@ -193,7 +193,7 @@ closes), which modal-dialog uses to signal `ExitingPersistence` to unmount. The 
 | High     | ~~Full-screen modal does not fill viewport~~ | ~~Modal renders as narrow strip~~                                                                                                                                                                                                                                                       | **Fixed**  |
 | High     | ~~Mobile width overflows viewport~~          | ~~Modal retains desktop width on mobile~~                                                                                                                                                                                                                                               | **Fixed**  |
 | High     | `onClose` called without DOM event           | Consumers accessing `event.target`, `event.key` get `undefined`. Synthetic events bridge the gap.                                                                                                                                                                                       | Accepted   |
-| High     | Portal-based select dropdowns invisible      | Select with `menuPortalTarget: document.body` hidden behind `::backdrop`. Decision (2026-03-17 audit): Ignored — resolved by migrating select to top-layer.                                                                                                                             | Accepted   |
+| High     | Portal-based select dropdowns invisible      | Select with `menuPortalTarget: document.body` hidden behind `::backdrop` / inert when modal is top-layer. Mitigated when **`PopupSelect`** runs on the top-layer path (`platform-dst-top-layer`); legacy portalled menus remain at risk.                                                | Accepted   |
 | Medium   | ~~`isBlanketHidden` not wired~~              | ~~Backdrop always visible when hidden blanket requested~~                                                                                                                                                                                                                               | **Fixed**  |
 | Medium   | ~~Viewport scroll missing top margin~~       | ~~No `margin-block: 60px` gap when scrolling in viewport~~                                                                                                                                                                                                                              | **Fixed**  |
 | Medium   | `focusLockAllowlist` not supported           | External elements (AUI dialogs) become inert. Decision (2026-03-17 audit): Deprecate prop (`@private` `@deprecated`). Native `<dialog>` inertness is correct per WCAG. Investigate production usage.                                                                                    | Deprecated |
@@ -496,7 +496,8 @@ enabled:
 - WCAG 2.4.3: Focus moves into dialog on open
 - WCAG 2.4.3: Focus returns to trigger on dismiss
 - WCAG 2.4.3: Tab cycles within modal (focus trap)
-- WCAG 2.4.3: Background content is inert
+- WCAG 2.4.3: Background content is inert (`97-modal-a11y-background-inert.tsx` — programmatic
+  focus + Tab never reaches background)
 - WCAG 4.1.2: `<dialog>` element has correct role
 - WCAG 4.1.2: `aria-labelledby` references the title
 - WCAG 1.3.2: No portal rendering (element stays in DOM position)
@@ -516,7 +517,7 @@ enabled:
 | 3.2.1 On Focus               | ✓            | Covered by design — modal opens via user activation (click), not on focus. Focus return on close does not re-trigger the modal because the consumer controls open state via `isOpen` prop, not via focus events. |
 | 4.1.2 Name, Role, Value      | ✓            | `modal.spec.tsx` — role, aria-labelledby, aria-label, close button, trigger `aria-haspopup="dialog"`                                                                                                             |
 | 4.1.3 Status Messages        | ✓            | Native `<dialog>` + correct role (top-layer primitive)                                                                                                                                                           |
-| Background inertness         | ✓            | `modal.spec.tsx` — background content is inert via `showModal()`                                                                                                                                                 |
+| Background inertness         | ✓            | `modal.spec.tsx` — background control cannot hold focus; Tab cycles never reach it (`97-modal-a11y-background-inert.tsx`)                                                                                        |
 
 > **Note:** All modal-dialog browser tests run with `featureFlag: 'platform-dst-top-layer'`. See
 > `modal-dialog/src/__tests__/playwright/ff-testing/platform-dst-top-layer/modal.spec.tsx`.
@@ -583,7 +584,10 @@ entirely.
 
 ### Portalled select menus are invisible inside top-layer modals (Bug #9)
 
-**Decision: accepted for now — portal has not been migrated to top-layer.**
+**Decision: accepted** for legacy portalled menus and mixed stacks. **`PopupSelect`** has a
+top-layer adapter behind `platform-dst-top-layer` (see
+[select-migration.md](./select-migration.md)); the issue remains when the menu is portalled outside
+the dialog (e.g. `menuPortalTarget: document.body` on the legacy path).
 
 When a `<Select>` component uses `menuPortalTarget: document.body` inside a top-layer modal, the
 dropdown menu is invisible and non-interactive. This happens because `showModal()` marks all content
@@ -601,8 +605,9 @@ select menu inside the dialog's DOM tree:
 />
 ```
 
-**Long-term fix:** Once `@atlaskit/portal` is migrated to use the top-layer API, portalled content
-will render in the correct stacking context.
+**Long-term fix:** Prefer top-layer `PopupSelect` with the feature flag on, and avoid portalling the
+menu outside the dialog. Broader `@atlaskit/portal` migration to the top-layer stack remains out of
+scope for modal-dialog alone.
 
 ### Legacy tooltips misposition inside top-layer modals (Bug #12)
 
@@ -725,3 +730,60 @@ stable flag value). No behavioral changes to the legacy rendering pipeline.
 **Coverage:** Native dialog lifecycle, sub-component rendering, Escape/backdrop-click closing, exit
 animations, accessibility (WCAG), width/height variants, nested modals, form content, token
 propagation, and mixed-component scenarios.
+
+## Adoption findings — what was a real bug vs. wrong test
+
+When driving the FF-on Playwright suite from 33/5/2 to 41/0/0, **every
+"residual" failure and `test.fixme` turned out to be solvable in the
+modal-dialog adopter or the FF-on spec — nothing in `@atlaskit/top-layer`
+itself needed to change**. Documented here so future migrations of
+similar adopters can recognise the patterns:
+
+1. **`tabIndex={-1}` on the content wrapper stole initial focus.**
+   The legacy outline relied on a focusable wrapper, but
+   `<dialog>.showModal()`'s focus-delegate algorithm picks the first
+   _focusable_ descendant (which includes `tabindex=-1`), so it focused
+   the wrapper instead of the close button. Removed both the `tabIndex`
+   and the unused `:focus-visible` wrapper outline. Now `showModal()`
+   correctly focuses the close button. (Fixed 3 of the 5 failures.)
+2. **`shouldReturnFocus={ref}` was ignored.** Native `<dialog>.close()`
+   restores focus to the trigger that opened it; consumers can pass a
+   `ref` to redirect. Added an unmount-cleanup `useEffect` in the
+   top-layer branch that focuses the ref after `dialog.close()`.
+   Boolean `shouldReturnFocus={false}` is **not** honored on the FF-on
+   path — native return is unconditional, and emulating the opt-out
+   would require an `inert` / `tabindex=-1` shim. Documented as a
+   known gap.
+3. **`'should return focus to correct trigger in nested modals'` used
+   the wrong selector.** It used `page.locator('[role="dialog"]')` —
+   a CSS attribute selector that does **not** match the implicit role
+   of native `<dialog>`. Switched to `page.getByRole('dialog')` which
+   uses the accessibility tree.
+4. **`'should show focus indicator … via keyboard'` opened via mouse.**
+   Browsers track the last input modality; programmatic `.focus()`
+   after a mouse click does not match `:focus-visible`. Switched the
+   open path to `trigger.focus()` + `Enter`.
+5. **The two multi-modal `test.fixme`'d cases were not browser
+   limitations.** Native `<dialog>.showModal()` only fails with
+   `InvalidStateError` if you call it on an already-open dialog —
+   stacking _separate_ `<dialog>` instances works fine and they
+   correctly stack in the top layer.
+
+Side-cleanup: removed several `closeButton.focus()` workarounds added
+to compensate for #1, and replaced a `for (let i …) { … break }` Tab
+loop in the scrollable modal test with a deterministic single-Tab
+assertion (now permitted because initial focus is reliable).
+
+## Pre-existing legacy failures (fixme'd, not in scope)
+
+Two legacy modal-dialog tests are fixme'd as part of this migration:
+
+- `modal.spec.tsx` "Aui dialog's inner elements should be available
+  for focus interaction while opened from AK modal" — pre-existing
+  flake (passes in isolation, times out at 30s in batch). Legacy AUI
+  integration is being removed.
+- `modal.spec.tsx` "Modal should move focus based on reading order,
+  and be closed" — pre-existing axe `color-contrast` violation on the
+  primary button after a recent button-token change on master.
+  Equivalent reading-order coverage is provided by the green
+  `ff-testing/platform-dst-top-layer/modal.spec.tsx` suite.

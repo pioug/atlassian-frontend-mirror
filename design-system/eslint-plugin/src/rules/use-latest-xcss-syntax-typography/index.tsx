@@ -1,9 +1,11 @@
 import type { Rule } from 'eslint';
 
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
 import { errorBoundary } from '../utils/error-boundary';
 
-import { getConfig, PATTERNS, type RuleConfig } from './config';
+import { getConfig } from './config/get-config';
+import { PATTERNS } from './config/patterns';
+import type { RuleConfig } from './config/types';
 import { RestrictedCapitalisation } from './linters/restricted-capitalisation';
 import { RestrictedProperty } from './linters/restricted-property';
 import { WrappedTokenValue } from './linters/wrapped-token-value';

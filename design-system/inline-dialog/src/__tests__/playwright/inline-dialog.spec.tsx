@@ -21,7 +21,10 @@ test('InlineDialog should be able to be identified and clicked by data-testid', 
 	);
 	await page.locator(inlineDialogBtn).first().click();
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
-	await expect(page.locator(inlineDialogTestId).first()).toHaveText('Hello!');
+	// Use `toContainText` because the example was extended with two action
+	// buttons ("First action" / "Second action") inside the dialog content;
+	// the test still proves the dialog renders the original "Hello!" text.
+	await expect(page.locator(inlineDialogTestId).first()).toContainText('Hello!');
 
 	// Selected button text fails contrast when hovered
 	// https://product-fabric.atlassian.net/browse/DSP-19090

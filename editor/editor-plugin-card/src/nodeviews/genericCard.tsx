@@ -1,6 +1,8 @@
 import type { EventHandler, KeyboardEvent, MouseEvent } from 'react';
 import React, { useCallback } from 'react';
 
+import type { IntlShape } from 'react-intl';
+
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
@@ -19,7 +21,6 @@ import Link from '@atlaskit/link';
 import type { CardContext } from '@atlaskit/link-provider';
 import type { APIError } from '@atlaskit/linking-common';
 import type { CardProps as BaseCardProps } from '@atlaskit/smart-card';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { CardPlugin } from '../cardPluginType';
 import type { cardPlugin } from '../index';
@@ -51,7 +52,6 @@ export interface CardProps extends CardNodeViewProps {
 	onClickCallback?: OnClickCallback;
 	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
 	showHoverPreview?: BaseCardProps['showHoverPreview'];
-	smartCardContext?: CardContext;
 	useAlternativePreloader?: boolean;
 	view: EditorView;
 }
@@ -63,12 +63,14 @@ export interface SmartCardProps extends CardProps {
 	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string }>;
 	disablePreviewPanel?: BaseCardProps['disablePreviewPanel'];
 	enableInlineUpgradeFeatures?: boolean;
+	intl?: IntlShape;
 	isHovered?: boolean;
 	isPageSSRed?: boolean;
 	onClick?: EventHandler<MouseEvent | KeyboardEvent> | undefined;
 	onResolve?: (tr: Transaction, title?: string) => void;
 	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
 	provider?: Providers['cardProvider'];
+	smartCardContext?: CardContext;
 }
 
 const WithClickHandler = ({
@@ -142,7 +144,7 @@ export function Card(
 		};
 
 		render() {
-			const { pluginInjectionApi, onClickCallback, smartCardContext } = this.props;
+			const { pluginInjectionApi, onClickCallback } = this.props;
 
 			const { url } = titleUrlPairFromNode(this.props.node);
 			if (url && !isSafeUrl(url)) {
@@ -185,13 +187,7 @@ export function Card(
 						url={url}
 					>
 						{({ onClick }) => (
-							<WithCardContext
-								value={
-									expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
-										? smartCardContext
-										: undefined
-								}
-							>
+							<WithCardContext>
 								{(cardContext) => (
 									<SmartCardComponent
 										key={url}

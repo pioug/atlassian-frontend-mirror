@@ -6,14 +6,11 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { flushSync } from 'react-dom';
-import { createRoot } from 'react-dom/client';
 
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { AnalyticsEventPayload } from '../analytics';
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
@@ -106,45 +103,17 @@ function createNodeView<ExtraComponentProps>({
 	// to the passed dom element (domRef) which means it is automatically
 	// "cleaned up" when you do a "re render".
 	function renderComponent() {
-		if (isSSR() && expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)) {
-			let html = '';
-
-			// We don't use direct rendering to the domRef, as this can lead to unexpected behavior,
-			// when the domRef element might have handlers from ProseMirror that will start executing
-			// in JSDom. Therefore, we simply attempt to render the element synchronously, get its HTML, and set it to the domRef,
-			// to keep the domRef as clear as possible.
-			try {
-				const PortalComponent = getPortalChildren({
-					dispatchAnalyticsEvent,
-					currentNode,
-					nodeViewParams,
-					Component,
-					extraComponentProps,
-				});
-
-				const rootElement = document.createElement('span');
-				const ssrRoot = createRoot(rootElement);
-				flushSync(() => {
-					ssrRoot.render(<PortalComponent />);
-				});
-				html = rootElement.innerHTML;
-				ssrRoot.unmount();
-			} catch {}
-
-			domRef.innerHTML = html;
-		} else {
-			pmPluginFactoryParams.portalProviderAPI.render(
-				getPortalChildren({
-					dispatchAnalyticsEvent,
-					currentNode,
-					nodeViewParams,
-					Component,
-					extraComponentProps,
-				}),
-				domRef,
-				key,
-			);
-		}
+		pmPluginFactoryParams.portalProviderAPI.render(
+			getPortalChildren({
+				dispatchAnalyticsEvent,
+				currentNode,
+				nodeViewParams,
+				Component,
+				extraComponentProps,
+			}),
+			domRef,
+			key,
+		);
 	}
 
 	const { samplingRate, slowThreshold, trackingEnabled } = getPerformanceOptions(
@@ -205,12 +174,10 @@ function createNodeView<ExtraComponentProps>({
 			return true;
 		},
 		destroy() {
-			if (!isSSR() || !expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)) {
-				// When prosemirror destroys the node view, we need to clean up
-				// what we have previously rendered using the editor portal
-				// provider api.
-				pmPluginFactoryParams.portalProviderAPI.remove(key);
-			}
+			// When prosemirror destroys the node view, we need to clean up
+			// what we have previously rendered using the editor portal
+			// provider api.
+			pmPluginFactoryParams.portalProviderAPI.remove(key);
 			// @ts-expect-error Expect an error as domRef is expected to be
 			// of HTMLSpanElement type however once the node view has
 			// been destroyed no other consumers should still be using it.

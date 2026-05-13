@@ -9,8 +9,8 @@ import {
 } from 'eslint-codemod-utils';
 
 import { JSXAttribute } from '../../ast-nodes/jsx-attribute';
-import { JSXElementHelper } from '../../ast-nodes/jsx-element';
-import { createLintRule } from '../utils/create-rule';
+import { JSXElementHelper } from '../../ast-nodes/jsx-element-helper';
+import { createLintRule } from '../utils/create-lint-rule';
 
 const PROP_NAME = 'hasCloseButton';
 

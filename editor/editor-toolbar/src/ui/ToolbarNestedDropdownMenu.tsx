@@ -8,7 +8,6 @@ import type { ReactNode } from 'react';
 import { jsx, cssMap, cx } from '@compiled/react';
 
 import DropdownMenu from '@atlaskit/dropdown-menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { ToolbarDropdownItem } from './ToolbarDropdownItem';
@@ -74,15 +73,13 @@ export const ToolbarNestedDropdownMenu = ({
 						triggerRef={triggerProps.triggerRef}
 						hasNestedDropdownMenu={true}
 						isDisabled={isDisabled}
-						shouldTitleWrap={
-							fg('platform_editor_block_menu_v2_patch_2') ? shouldTitleWrap : undefined
-						}
+						shouldTitleWrap={shouldTitleWrap}
 					>
 						{text}
 					</ToolbarDropdownItem>
 				);
 
-				if (tooltipContent && fg('platform_editor_block_menu_v2_patch_2')) {
+				if (tooltipContent) {
 					return (
 						<ToolbarTooltip content={tooltipContent} position="top">
 							{item}

@@ -11,6 +11,7 @@ import type {
 } from '../providers/types';
 import { fetchErrorPayload } from '../utils/errorHandling';
 import { parseResourceId } from '../utils/resourceId';
+import { productAttrIfGateOn } from '../utils/utils';
 
 export interface SyncBlockProviderFactoryManagerDeps {
 	getDataProvider: () => SyncBlockDataProviderInterface | undefined;
@@ -34,7 +35,9 @@ export class SyncBlockProviderFactoryManager {
 			logException(error, {
 				location: 'editor-synced-block-provider/syncBlockProviderFactoryManager',
 			});
-			this.deps.getFireAnalyticsEvent()?.(fetchErrorPayload(error.message));
+			this.deps.getFireAnalyticsEvent()?.(
+				fetchErrorPayload(error.message, resourceId, productAttrIfGateOn(resourceId)),
+			);
 			return undefined;
 		}
 
@@ -75,7 +78,7 @@ export class SyncBlockProviderFactoryManager {
 					location: 'editor-synced-block-provider/syncBlockProviderFactoryManager',
 				});
 				this.deps.getFireAnalyticsEvent()?.(
-					fetchErrorPayload((error as Error).message, resourceId),
+					fetchErrorPayload((error as Error).message, resourceId, productAttrIfGateOn(resourceId)),
 				);
 			}
 		}
@@ -169,7 +172,12 @@ export class SyncBlockProviderFactoryManager {
 
 		if (!syncBlock.data.sourceAri || !syncBlock.data.product) {
 			this.deps.getFireAnalyticsEvent()?.(
-				fetchErrorPayload('Sync block source ari or product not found'),
+				fetchErrorPayload(
+					'Sync block source ari or product not found',
+					resourceId,
+					// Prefer cached product when available; fall back to parsing resourceId.
+					syncBlock.data.product ?? productAttrIfGateOn(resourceId),
+				),
 			);
 			return;
 		}

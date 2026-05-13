@@ -18,6 +18,7 @@ import Portal from '@atlaskit/portal';
 import { Box } from '@atlaskit/primitives/compiled';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
+import { Popover } from '@atlaskit/top-layer/popover';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { defaultFlagGroupContext } from './internal/default-flag-group-context';
@@ -137,6 +138,12 @@ const flagGroupContainerStyles = css({
 		insetBlockEnd: 0,
 		insetInlineStart: 0,
 	},
+});
+
+// When rendering in top layer, z-index is redundant (top layer stacks above everything).
+// Override to avoid leaving an explicit z-index on the container.
+const flagGroupContainerStylesTopLayer = css({
+	zIndex: 'initial',
 });
 
 /**
@@ -296,6 +303,8 @@ const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 			: false;
 	};
 
+	const useTopLayer = fg('platform-dst-top-layer');
+
 	const isKeyboardDismissEnabled = fg('platform_dst_flag_keyboard_dismiss');
 	// When the keyboard dismiss shortcut is available, surface it to assistive
 	// technology users via the existing visually-hidden landmark heading so they
@@ -303,7 +312,11 @@ const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 	const screenReaderLabel = isKeyboardDismissEnabled ? `${label}. Press Escape to dismiss.` : label;
 
 	const flags = (
-		<div id={id} css={flagGroupContainerStyles} data-vc-oob>
+		<div
+			id={id}
+			css={[flagGroupContainerStyles, useTopLayer && flagGroupContainerStylesTopLayer]}
+			data-vc-oob
+		>
 			{hasFlags ? (
 				<VisuallyHidden>
 					{/* @ts-ignore - TS2604/TS2786: LabelTag type union causing issues for help-center local consumption with TS 5.9.2 */}
@@ -314,6 +327,10 @@ const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 			<ExitingPersistence appear={false}>{renderChildren()}</ExitingPersistence>
 		</div>
 	);
+
+	if (useTopLayer) {
+		return <Popover mode="manual" isOpen={true}>{flags}</Popover>;
+	}
 
 	return shouldRenderToParent ? flags : <Portal zIndex={layers.flag()}>{flags}</Portal>;
 };

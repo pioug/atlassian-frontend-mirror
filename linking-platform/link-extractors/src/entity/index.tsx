@@ -5,6 +5,7 @@ import {
 	type ProviderGenerator,
 	type SmartLinkResponse,
 } from '@atlaskit/linking-types';
+import { isBaseEntity, isDesignEntity, isDocumentEntity } from '@atlaskit/linking-types/entity-types';
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -28,6 +29,19 @@ export const extractEntityEmbedUrl = (response?: SmartLinkResponse): string | un
 export const extractEntityProvider = (response?: SmartLinkResponse): LinkProvider | undefined => {
 	if (!response?.meta?.generator) {
 		return undefined;
+	}
+
+	if (fg('platform_lp_use_entity_icon_url_for_icon')) {
+		const entityIcon = extractEntityIcon(response);
+		if (entityIcon) {
+			return {
+				text: response.meta.generator.name,
+				icon: entityIcon.url,
+				id: response.meta.generator.id,
+				image: entityIcon.url,
+				iconLabel: entityIcon.label,
+			};
+		}
 	}
 
 	const { icon, id, image, name } = response.meta.generator as ProviderGenerator;
@@ -64,27 +78,57 @@ export const extractEntityProvider = (response?: SmartLinkResponse): LinkProvide
 		icon: providerIcon,
 		id,
 		image: image ? image : icon.url,
+		...(fg('platform_lp_use_entity_icon_url_for_icon') ? { iconLabel: name } : undefined),
 	};
 };
 
 export const extractEntityIcon = (
 	response?: SmartLinkResponse,
 ): {
-	url: string | undefined;
 	label: string | undefined;
-} => {
-	const entity = extractEntity(response);
+	url: string | undefined;
+} | undefined => {
+	if (fg('platform_lp_use_entity_icon_url_for_icon')) {
+		const entity = extractEntity(response);
+		if (!entity) {
+			return undefined;
+		}
 
-	let url: string | undefined;
-	if (entity) {
-		url =
-			'iconUrl' in entity && typeof entity?.iconUrl === 'string'
-				? entity.iconUrl
-				: response?.meta.generator?.icon?.url;
+		if (!isBaseEntity(entity)) {
+			return undefined;
+		}
+
+		if (isDesignEntity(entity) && entity.iconUrl) {
+			return {
+				url: entity.iconUrl,
+				label: entity.type,
+			};
+		}
+
+		if (isDocumentEntity(entity) && entity.type.iconUrl) {
+			return {
+				url: entity.type.iconUrl,
+				label: entity.type.category,
+			};
+		}
+
+		// When JSON-LD is deprecated, we can change this to returning entity provider icon.
+		// For now code upstream will return better result when this method returns undefined.
+		return undefined;
+	} else {
+		const entity = extractEntity(response);
+
+		let url: string | undefined;
+		if (entity) {
+			url =
+				'iconUrl' in entity && typeof entity?.iconUrl === 'string'
+					? entity.iconUrl
+					: response?.meta.generator?.icon?.url;
+		}
+
+		return {
+			url,
+			label: entity?.displayName,
+		};
 	}
-
-	return {
-		url,
-		label: entity?.displayName,
-	};
 };

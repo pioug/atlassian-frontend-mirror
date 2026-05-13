@@ -3,9 +3,10 @@ import React, { type Ref, useEffect, useState } from 'react';
 import { ClassNames, keyframes } from '@compiled/react';
 import { ax } from '@compiled/react/runtime';
 
-import { isReducedMotion } from '../utils/accessibility';
-import { type Durations, durations, exitingDurations } from '../utils/durations';
-import { useSetTimeout } from '../utils/timer-hooks';
+import { type Durations, durations } from '../utils/durations';
+import { exitingDurations } from '../utils/exiting-durations';
+import { isReducedMotion } from '../utils/is-reduced-motion';
+import { useSetTimeout } from '../utils/use-set-timeout';
 
 import { useExitingPersistence } from './exiting-persistence';
 import { useStaggeredEntrance } from './staggered-entrance';
@@ -175,11 +176,12 @@ export type Animations =
  * These are props that motions should use as their external props for consumers.
  * See [FadeIn](packages/helpers/motion/src/entering/fade-in.tsx) for an example usage.
  */
-export interface KeyframesMotionProps extends MotionProps<{
-	className: string;
-	style: Record<string, any>;
-	ref: Ref<any>;
-}> {
+export interface KeyframesMotionProps
+	extends MotionProps<{
+		className: string;
+		style: Record<string, any>;
+		ref: Ref<any>;
+	}> {
 	/**
 	 * Can be used to pause the animation before it has finished.
 	 */

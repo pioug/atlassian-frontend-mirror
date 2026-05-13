@@ -7,9 +7,6 @@ import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import BlogIcon from '../../../../../common/ui/icons/blog-icon';
-import LiveDocumentIcon from '../../../../../common/ui/icons/live-document-icon';
-import DocumentIcon from '../../../../../common/ui/icons/page-icon';
 import { transformSmartLinkSizeToIconTileSize } from '../../../../../common/ui/icons/utils';
 import { IconType, SmartLinkSize } from '../../../../../constants';
 import { getLazyIcons, isIconSizeLarge } from '../../../../../utils';
@@ -30,6 +27,10 @@ const importIcon = (importFn: () => Promise<any>): any => {
 		loading: () => null,
 	}) as any; // Because we're using dynamic loading here, TS will not be able to infer the type.
 };
+
+const getBlogIcon = () => require('../../../../../common/ui/icons/blog-icon').default;
+const getDocumentIcon = () => require('../../../../../common/ui/icons/page-icon').default;
+const getLiveDocumentIcon = () => require('../../../../../common/ui/icons/live-document-icon').default;
 
 const isCoreIcon = (icon: IconType): boolean => {
 	return [
@@ -59,14 +60,22 @@ const AtlaskitIcon = ({
 	size = SmartLinkSize.Medium,
 }: AtlaskitIconProps): React.JSX.Element | null => {
 	if (!fg('platform_sl_icons_refactor')) {
-		// Check for synchonously loaded icons first for SSR purposes
+		// Check for synchronously loaded icons first for SSR purposes.
+		// Require these icons only inside this branch to avoid evaluating legacy icon
+		// wrapper modules when the icon refactor is enabled.
 		switch (icon) {
-			case IconType.Document:
+			case IconType.Document: {
+				const DocumentIcon = getDocumentIcon();
 				return <DocumentIcon label={label ?? 'document'} testId={testId} size={size} />;
-			case IconType.Blog:
+			}
+			case IconType.Blog: {
+				const BlogIcon = getBlogIcon();
 				return <BlogIcon label={label ?? 'blog'} testId={testId} size={size} />;
-			case IconType.LiveDocument:
+			}
+			case IconType.LiveDocument: {
+				const LiveDocumentIcon = getLiveDocumentIcon();
 				return <LiveDocumentIcon label={label ?? 'live-doc'} testId={testId} size={size} />;
+			}
 		}
 	}
 

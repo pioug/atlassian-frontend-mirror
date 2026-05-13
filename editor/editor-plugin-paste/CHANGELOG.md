@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-paste
 
+## 11.1.11
+
+### Patch Changes
+
+- [`a27e4893b8fa2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a27e4893b8fa2) -
+  Add sorted comma seperated list of nodes to analytics
+
+## 11.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.8
 
 ### Patch Changes

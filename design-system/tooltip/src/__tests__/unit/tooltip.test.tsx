@@ -1403,7 +1403,7 @@ describe('Tooltip', () => {
 			});
 
 			expect(screen.getByTestId('tooltip--wrapper')).toHaveStyle(
-				'position: fixed; left: 0px; top: 0px;',
+				'left: 0px; top: 0px;',
 			);
 			unmount();
 		}

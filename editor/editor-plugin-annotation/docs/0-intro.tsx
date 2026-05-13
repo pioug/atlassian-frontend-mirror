@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Annotation', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the annotation plugin used by \`@atlaskit/editor-core\`.
 

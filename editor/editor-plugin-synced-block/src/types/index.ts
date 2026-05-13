@@ -1,6 +1,9 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import type {
+	SyncBlockProduct,
+	SyncBlockStoreManager,
+} from '@atlaskit/editor-synced-block-provider';
 
 export enum FLAG_ID {
 	CANNOT_DELETE_WHEN_OFFLINE = 'cannot-delete-when-offline',
@@ -21,6 +24,12 @@ type FlagConfig = {
 	onDismissed?: (tr: Transaction) => Transaction | void;
 	// Called when retry button in flag is clicked
 	onRetry?: () => void;
+	/**
+	 * Optional source product for the synced block triggering this flag. Currently used
+	 * by the UNPUBLISHED_SYNC_BLOCK_PASTED flag so the displayed copy can be tailored
+	 * for Jira work items vs Confluence pages.
+	 */
+	sourceProduct?: SyncBlockProduct;
 };
 
 export type BodiedSyncBlockDeletionStatus = 'none' | 'processing' | 'completed';

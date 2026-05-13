@@ -268,8 +268,10 @@ export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
 			case 'jira-work-item': {
 				// Note: `subType`, archived URL handling, and `isUnpublished` are intentionally
 				// omitted here — Jira work items have no equivalent page subtype or archived state.
-				// The `localId` param is not forwarded because deep-linking to a specific block
-				// within a Jira issue description is working as intended without it.
+				// The `localId` param is intentionally not forwarded: the current Jira issue view
+				// does not scroll to `#block-{localId}` anchors, so passing it would only pollute
+				// the URL. See the parity-notes JSDoc on `fetchJiraWorkItemInfo` for the full
+				// rationale and the conditions under which this should be revisited.
 				const sourceInfo: SyncBlockSourceInfo | undefined = await fetchJiraWorkItemInfo(
 					ari,
 					hasAccess,

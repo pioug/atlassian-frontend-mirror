@@ -15,6 +15,7 @@ import {
 	SyncBlockError,
 } from '@atlaskit/editor-synced-block-provider';
 import type { SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
+import { productAttrIfGateOn } from '@atlaskit/editor-synced-block-provider/utils';
 
 import { SyncedBlockEntityNotFoundError } from './SyncedBlockEntityNotFoundError';
 import { SyncedBlockGenericError } from './SyncedBlockGenericError';
@@ -91,8 +92,14 @@ export const SyncedBlockErrorComponent = ({
 				return getForbiddenErrorContent(resourceId, fireAnalyticsEvent, getAccountId);
 			case SyncBlockError.NotFound:
 				return <SyncedBlockNotFoundError reason={error.reason} sourceAri={error.sourceAri} />;
-			case SyncBlockError.Unpublished:
-				return <SyncedBlockUnpublishedError sourceURL={sourceURL} />;
+			case SyncBlockError.Unpublished: {
+				return (
+					<SyncedBlockUnpublishedError
+						sourceURL={sourceURL}
+						sourceProduct={productAttrIfGateOn(resourceId)}
+					/>
+				);
+			}
 			case SyncBlockError.Errored:
 			case SyncBlockError.RateLimited:
 			case SyncBlockError.ServerError:

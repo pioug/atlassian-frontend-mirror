@@ -1,39 +1,6 @@
-const _default_1: {
-	meta: {
-		auth: never[];
-		definitionId: string;
-		visibility: string;
-		access: string;
-		resourceType: string;
-		key: string;
-		objectId: string;
-		tenantId: string;
-	};
-	data: {
-		'@context': {
-			'@vocab': string;
-			atlassian: string;
-			schema: string;
-		};
-		generator: {
-			'@type': string;
-			'@id': string;
-			name: string;
-		};
-		'@type': string[];
-		url: string;
-		name: string;
-		summary: string;
-		icon: {
-			'@type': string;
-			url: string;
-		};
-		preview: {
-			href: string;
-			'atlassian:supportedPlatforms': string[];
-		};
-	};
-} = {
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
+
+export default {
 	meta: {
 		auth: [],
 		definitionId: 'jira-object-provider',
@@ -68,5 +35,4 @@ const _default_1: {
 			'atlassian:supportedPlatforms': ['web'],
 		},
 	},
-};
-export default _default_1;
+} as SmartLinkResponse;

@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Content Insertion', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the content insertion plugin used by \`@atlaskit/editor-core\`.
 

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 10.1.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.15
 
 ### Patch Changes

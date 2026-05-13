@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Text Color', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the text color plugin used by \`@atlaskit/editor-core\`.
 

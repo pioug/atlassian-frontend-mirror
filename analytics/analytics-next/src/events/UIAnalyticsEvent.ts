@@ -70,7 +70,19 @@ export default class UIAnalyticsEvent extends AnalyticsEvent {
 			return;
 		}
 
-		this.handlers.forEach((handler) => handler(this, channel));
+		this.handlers.forEach((handler) => {
+			try {
+				handler(this, channel);
+			} catch (e) {
+				// Analytics must never crash product UI. Swallow handler errors in
+				// production; surface them in development so misconfigured events are
+				// caught early.
+				if (process.env.NODE_ENV !== 'production') {
+					// eslint-disable-next-line no-console
+					console.error('[analytics-next] UIAnalyticsEvent handler threw an error:', e);
+				}
+			}
+		});
 		this.hasFired = true;
 	};
 

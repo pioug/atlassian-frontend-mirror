@@ -47,17 +47,18 @@ export type MessageKey =
 	| 'assigned_to'
 	| 'ai_summarize'
 	| 'change_status'
-	| 'ai_summarized'
 	| 'ai_summarized_abbreviation'
 	| 'ai_summarized_info'
 	| 'ai_summarized_info_short'
-	| 'ai_summarizing'
 	| 'ai_summary_error_generic'
+	| 'ai_summary_error_generic_rebrand'
 	| 'ai_summary_error_acceptable_use_violation'
 	| 'ai_summary_error_hipaa_content_detected'
 	| 'ai_summary_error_exceeding_context_length_error'
 	| 'ai_summary_action'
+	| 'ai_summary_action_rebrand'
 	| 'ai_summary_action_description'
+	| 'ai_summary_action_description_rebrand'
 	| 'automation_action_title'
 	| 'automation_action_tooltip'
 	| 'automation_action_icon_label'
@@ -245,11 +246,6 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Summarize',
 		description: 'Action to summarize link resource content with AI',
 	},
-	ai_summarized: {
-		id: 'fabric.linking.ai_summarized',
-		defaultMessage: 'Summarized by Atlassian Intelligence',
-		description: 'Shown with the content summarised by AI.',
-	},
 	ai_summarized_abbreviation: {
 		id: 'fabric.linking.ai_summarized_abbreviation',
 		defaultMessage: 'Summarized by AI',
@@ -266,15 +262,16 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Content quality may vary',
 		description: 'Additional info about the content summarised by AI.',
 	},
-	ai_summarizing: {
-		id: 'fabric.linking.ai_summarizing',
-		defaultMessage: 'Atlassian Intelligence is working...',
-		description: 'Shown when AI summary is summarising the link resource content.',
-	},
 	ai_summary_error_generic: {
 		id: 'fabric.linking.ai_summary_error_generic',
 		defaultMessage:
 			'Atlassian Intelligence (AI) isn’t responding. Try again later or <a>check the status of AI</a>.',
+		description:
+			'Shown when AI Summary encountered an unexpected error while summarizing the linked resource content.',
+	},
+	ai_summary_error_generic_rebrand: {
+		id: 'fabric.linking.ai_summary_error_generic_rebrand',
+		defaultMessage: 'Rovo isn’t responding. Try again later or <a>check the status of AI</a>.',
 		description:
 			'Shown when AI Summary encountered an unexpected error while summarizing the linked resource content.',
 	},
@@ -556,9 +553,20 @@ export const messages: Messages = defineMessages({
 		description:
 			'Label for the AI summarize action in a smart link or hover card action menu, allowing the user to generate an AI summary of the linked content.',
 	},
+	ai_summary_action_rebrand: {
+		id: 'fabric.linking.ai_summary_action_rebrand',
+		defaultMessage: 'Summarize with Rovo',
+		description:
+			'Label for the AI summarize action in a smart link or hover card action menu, allowing the user to generate an AI summary of the linked content.',
+	},
 	ai_summary_action_description: {
 		id: 'fabric.linking.ai_summary_action_description',
 		defaultMessage: 'Summarize the content of this link using Atlassian Intelligence.',
+		description: 'Description of what the summarize link with AI action does',
+	},
+	ai_summary_action_description_rebrand: {
+		id: 'fabric.linking.ai_summary_action_description_rebrand',
+		defaultMessage: 'Summarize the content of this link using Rovo.',
 		description: 'Description of what the summarize link with AI action does',
 	},
 	copy_summary_action: {

@@ -186,7 +186,7 @@ export interface MoreIndicatorProps {
 	count: number;
 	'aria-controls'?: string;
 	'aria-expanded'?: boolean;
-	'aria-haspopup'?: boolean | 'dialog';
+	'aria-haspopup'?: boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';
 	moreIndicatorLabel?: string;
 	buttonProps: Partial<React.HTMLAttributes<HTMLElement>>;
 	onClick: AvatarClickEventHandler;

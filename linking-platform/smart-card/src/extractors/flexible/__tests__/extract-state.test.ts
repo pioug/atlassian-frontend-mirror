@@ -26,9 +26,15 @@ describe('extractState', () => {
 
 	describe('server action', () => {
 		const id = 'link-id';
-		const url = jiraTask.data.url;
+		const jiraTaskData = jiraTask.data as JsonLd.Data.Task & {
+			'atlassian:serverAction': Array<{
+				resourceIdentifiers: Record<string, string>;
+			}>;
+			url: string;
+		};
+		const url = jiraTaskData.url;
 		const providerKey = jiraTask.meta.key;
-		const resourceIdentifiers = jiraTask.data['atlassian:serverAction'][0].resourceIdentifiers;
+		const resourceIdentifiers = jiraTaskData['atlassian:serverAction'][0].resourceIdentifiers;
 
 		const previewData = {
 			isSupportTheming: true,

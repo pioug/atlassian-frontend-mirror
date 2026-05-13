@@ -11,6 +11,7 @@ import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import AkFlag, { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { syncedBlockPluginKey } from '../pm-plugins/main';
@@ -98,8 +99,22 @@ export const Flag = ({ api }: Props): React.JSX.Element | undefined => {
 		return;
 	}
 
-	const { title, description, action, type } = flagMap[activeFlag.id];
+	const { title: defaultTitle, description: defaultDescription, action, type } = flagMap[activeFlag.id];
 	const { onRetry, onDismissed: onDismissedCallback } = activeFlag;
+
+	// For the unpublished-paste flag, swap to the Jira-flavoured copy when the source
+	// is a Jira work item. Other flags don't currently vary by product. Gated by
+	// `platform_synced_block_patch_11` so the new copy can be dialled off independently.
+	const isJiraUnpublishedPaste =
+		activeFlag.id === FLAG_ID.UNPUBLISHED_SYNC_BLOCK_PASTED &&
+		activeFlag.sourceProduct === 'jira-work-item' &&
+		fg('platform_synced_block_patch_11');
+	const title = isJiraUnpublishedPaste
+		? messages.unpublishedSyncBlockPastedTitleJiraWorkItem
+		: defaultTitle;
+	const description = isJiraUnpublishedPaste
+		? messages.unpublishedSyncBlockPastedDescriptionJiraWorkItem
+		: defaultDescription;
 
 	// Retry button often involves network request, hence we dismiss the flag in offline mode to avoid retry
 	if (isOfflineMode(mode) && !!onRetry) {

@@ -7,9 +7,10 @@ import {
 	isCssMap,
 } from '@atlaskit/eslint-utils/is-supported-import';
 
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
 
-import { getCssMapObject, UnusedCssMapChecker } from './utils';
+import { getCssMapObject } from './get-css-map-object';
+import { UnusedCssMapChecker } from './unused-css-map-checker';
 
 const IMPORT_SOURCES: ImportSource[] = [CSS_IN_JS_IMPORTS.compiled, CSS_IN_JS_IMPORTS.atlaskitCss];
 

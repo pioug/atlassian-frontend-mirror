@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { fireEvent, screen } from '@atlassian/testing-library';
 
 import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
@@ -50,6 +51,44 @@ describe('IconAndTitleLayout', () => {
 
 			expect(urlIcon).toBeDefined();
 		});
+
+		ffTest.off(
+			'platform_lp_use_entity_icon_url_for_icon',
+			'when feature gate is off',
+			() => {
+				it('does not treat tuple icons as image sources', () => {
+					renderWithIntl(
+						<IconAndTitleLayout
+							title="title"
+							icon={['src-loaded', 'document']}
+							testId="inline-card-icon"
+						/>,
+					);
+
+					expect(screen.queryByTestId('inline-card-icon-image')).not.toBeInTheDocument();
+				});
+			},
+		);
+
+		ffTest.on(
+			'platform_lp_use_entity_icon_url_for_icon',
+			'when feature gate is on',
+			() => {
+				it('renders tuple icon source and label', () => {
+					renderWithIntl(
+						<IconAndTitleLayout
+							title="title"
+							icon={['src-loaded', 'document']}
+							testId="inline-card-icon"
+						/>,
+					);
+
+					const urlIcon = screen.getByTestId('inline-card-icon-image');
+					expect(urlIcon).toHaveAttribute('src', 'src-loaded');
+					expect(urlIcon).toHaveAttribute('alt', 'document');
+				});
+			},
+		);
 
 		it('should render round image if profile type', () => {
 			renderWithIntl(

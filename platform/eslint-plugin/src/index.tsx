@@ -39,6 +39,7 @@ import noBarrelEntryJestMock from './rules/import/no-barrel-entry-jest-mock';
 import noJestMockBarrelFiles from './rules/import/no-jest-mock-barrel-files';
 import noRelativeBarrelFileImports from './rules/import/no-relative-barrel-file-imports';
 import noConversationAssistantBarrelImports from './rules/import/no-conversation-assistant-barrel-imports';
+import oneValueExportPerFile from './rules/import/one-value-export-per-file';
 import visitExampleTypeImportRequired from './rules/visit-example-type-import-required';
 import editorExampleTypeImportRequired from './rules/editor-example-type-import-required';
 import ensureUseSyncExternalStoreServerSnapshot from './rules/ensure-use-sync-external-store-server-snapshot';
@@ -109,6 +110,7 @@ const rules: {
 	'no-jest-mock-barrel-files': Rule.RuleModule;
 	'no-relative-barrel-file-imports': Rule.RuleModule;
 	'no-conversation-assistant-barrel-imports': Rule.RuleModule;
+	'one-value-export-per-file': Rule.RuleModule;
 	'visit-example-type-import-required': Rule.RuleModule;
 	'no-xcss-in-cx': Rule.RuleModule;
 	'editor-example-type-import-required': Rule.RuleModule;
@@ -152,6 +154,7 @@ const rules: {
 	'no-jest-mock-barrel-files': noJestMockBarrelFiles,
 	'no-relative-barrel-file-imports': noRelativeBarrelFileImports,
 	'no-conversation-assistant-barrel-imports': noConversationAssistantBarrelImports,
+	'one-value-export-per-file': oneValueExportPerFile,
 	'visit-example-type-import-required': visitExampleTypeImportRequired,
 	'no-xcss-in-cx': noXcssInCx,
 	'editor-example-type-import-required': editorExampleTypeImportRequired,
@@ -176,8 +179,6 @@ const commonConfig = {
 	'@atlaskit/platform/expand-background-shorthand': 'error',
 	'@atlaskit/platform/expand-spacing-shorthand': 'error',
 	'@atlaskit/platform/no-css-prop-in-object-spread': 'error',
-	'@atlaskit/platform/use-motion-token-values': 'warn',
-	'@atlaskit/platform/expand-motion-shorthand': 'warn',
 	'@compiled/jsx-pragma': [
 		'error',
 		{
@@ -256,9 +257,12 @@ const plugin: {
 		'no-jest-mock-barrel-files': Rule.RuleModule;
 		'no-relative-barrel-file-imports': Rule.RuleModule;
 		'no-conversation-assistant-barrel-imports': Rule.RuleModule;
+		'one-value-export-per-file': Rule.RuleModule;
 		'visit-example-type-import-required': Rule.RuleModule;
 		'editor-example-type-import-required': Rule.RuleModule;
 		'ensure-use-sync-external-store-server-snapshot': Rule.RuleModule;
+		'use-motion-token-values': Rule.RuleModule;
+		'expand-motion-shorthand': Rule.RuleModule;
 	};
 	configs: {
 		recommended: {

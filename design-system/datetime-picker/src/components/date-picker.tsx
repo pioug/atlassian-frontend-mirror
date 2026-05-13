@@ -23,6 +23,7 @@ import { cssMap, cx, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import CalendarIcon from '@atlaskit/icon/core/calendar';
 import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Select, {
 	type ActionMeta,
@@ -44,6 +45,7 @@ import { getShortISOString } from '../internal/get-short-iso-string';
 import { IndicatorsContainer } from '../internal/indicators-container';
 import { isDateDisabled } from '../internal/is-date-disabled';
 import { Menu } from '../internal/menu';
+import { MenuTopLayer } from '../internal/menu-top-layer';
 import { parseDate } from '../internal/parse-date';
 import { makeSingleValue } from '../internal/single-value';
 import {
@@ -191,8 +193,12 @@ const DatePicker: React.ForwardRefExoticComponent<
 		}
 		if (isOpen && wasOpenedFromCalendarButton) {
 			setIsKeyDown(false);
-			// Focus on the first button within the calendar
-			calendarRef?.current?.querySelector('button')?.focus();
+			// When using top-layer, Popup.Content with role='dialog' automatically
+			// focuses the first focusable element — no manual focus needed.
+			if (!fg('platform-dst-top-layer')) {
+				// Focus on the first button within the calendar
+				calendarRef?.current?.querySelector('button')?.focus();
+			}
 		}
 	}, [isKeyDown, calendarRef, isOpen, wasOpenedFromCalendarButton]);
 
@@ -211,18 +217,16 @@ const DatePicker: React.ForwardRefExoticComponent<
 		setWasOpenedFromCalendarButton(false);
 		onChangePropWithAnalytics(iso);
 
-		// Yes, this is not ideal. The alternative is to be able to place a ref
-		// on the inner input of Select itself, which would require a lot of
-		// extra stuff in the Select component for only this one thing. While
-		// this would be more "React-y", it doesn't seem to pose any other
-		// benefits. Performance-wise, we are only searching within the
-		// container, so it's quick.
-		if (wasOpenedFromCalendarButton) {
-			calendarButtonRef.current?.focus();
-		} else {
-			const innerCombobox: HTMLInputElement | undefined | null =
-				containerRef?.current?.querySelector('[role="combobox"]');
-			innerCombobox?.focus();
+		// When using top-layer, PopupContent handles focus restoration automatically
+		// on close based on the role. Only manually restore focus for the legacy path.
+		if (!fg('platform-dst-top-layer')) {
+			if (wasOpenedFromCalendarButton) {
+				calendarButtonRef.current?.focus();
+			} else {
+				const innerCombobox: HTMLInputElement | undefined | null =
+					containerRef?.current?.querySelector('[role="combobox"]');
+				innerCombobox?.focus();
+			}
 		}
 		setIsOpen(false);
 	};
@@ -314,12 +318,12 @@ const DatePicker: React.ForwardRefExoticComponent<
 
 		switch (keyPressed) {
 			case 'escape':
-				// Yes, this is not ideal. The alternative is to be able to place a ref
-				// on the inner input of Select itself, which would require a lot of
-				// extra stuff in the Select component for only this one thing. While
-				// this would be more "React-y", it doesn't seem to pose any other
-				// benefits. Performance-wise, we are only searching within the
-				// container, so it's quick.
+				// Restore focus on close. Both code paths handle this here:
+				// the legacy path because it has no built-in restoration, and
+				// the top-layer path because the menu uses `mode="manual"` to
+				// avoid the auto-popover light-dismiss closing the menu on the
+				// same click that opens it (see internal/menu-top-layer.tsx).
+				// `manual` mode disables the browser's native focus return.
 				if (wasOpenedFromCalendarButton) {
 					calendarButtonRef.current?.focus();
 				} else {
@@ -489,7 +493,7 @@ const DatePicker: React.ForwardRefExoticComponent<
 					),
 				}
 			: {}),
-		Menu,
+		Menu: fg('platform-dst-top-layer') ? MenuTopLayer : Menu,
 		SingleValue,
 		...(!showClearIndicator && { ClearIndicator: EmptyComponent }),
 	};

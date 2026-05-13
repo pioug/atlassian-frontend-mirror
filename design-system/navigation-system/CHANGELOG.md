@@ -1,5 +1,12 @@
 # @atlassian/navigation-system
 
+## 9.3.0
+
+### Minor Changes
+
+- [`a229f9efdb819`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a229f9efdb819) -
+  Add entrypoint for consuming Nav 3 CSS variables
+
 ## 9.2.1
 
 ### Patch Changes

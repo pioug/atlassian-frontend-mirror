@@ -6,12 +6,6 @@ import BlogIconObject from '@atlaskit/object/blog';
 import LiveDocumentIconObject from '@atlaskit/object/page-live-doc';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import BlogIconWrapped from '../../../common/ui/icons/blog-icon';
-import PresentationIcon from '../../../common/ui/icons/chart-bar-icon';
-import FileIcon from '../../../common/ui/icons/file-icon';
-import SpreadsheetIcon from '../../../common/ui/icons/list-bullet-icon';
-import LiveDocumentIconWrapped from '../../../common/ui/icons/live-document-icon';
-import DocumentIcon from '../../../common/ui/icons/page-icon';
 import { getIconForFileType } from '../../../utils';
 
 import { type IconOpts } from './extractIcon';
@@ -26,6 +20,13 @@ export type DocumentType =
 	| 'schema:SpreadsheetDigitalDocument'
 	| 'atlassian:Template'
 	| 'atlassian:UndefinedLink';
+
+const getBlogIconWrapped = () => require('../../../common/ui/icons/blog-icon').default;
+const getDocumentIcon = () => require('../../../common/ui/icons/page-icon').default;
+const getFileIcon = () => require('../../../common/ui/icons/file-icon').default;
+const getLiveDocumentIconWrapped = () => require('../../../common/ui/icons/live-document-icon').default;
+const getPresentationIcon = () => require('../../../common/ui/icons/chart-bar-icon').default;
+const getSpreadsheetIcon = () => require('../../../common/ui/icons/list-bullet-icon').default;
 
 /**
  * Extracts an icon for a document pbject
@@ -68,24 +69,27 @@ const documentLabel = (opts: IconOpts, label: string) => {
 
 const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode | undefined => {
 	switch (type) {
-		case 'schema:BlogPosting':
-			return fg('platform_sl_icons_refactor') ? (
-				<BlogIconObject label={documentLabel(opts, 'blog')} testId="blog-icon" />
-			) : (
-				<BlogIconWrapped label={documentLabel(opts, 'blog')} testId="blog-icon" />
-			);
+		case 'schema:BlogPosting': {
+			if (fg('platform_sl_icons_refactor')) {
+				return <BlogIconObject label={documentLabel(opts, 'blog')} testId="blog-icon" />;
+			}
+			const BlogIconWrapped = getBlogIconWrapped();
+			return <BlogIconWrapped label={documentLabel(opts, 'blog')} testId="blog-icon" />;
+		}
 		case 'schema:DigitalDocument':
 			return digitalDocumentToIcon(opts);
-		case 'schema:TextDigitalDocument':
+		case 'schema:TextDigitalDocument': {
+			const DocumentIcon = getDocumentIcon();
 			return <DocumentIcon label={documentLabel(opts, 'document')} testId="document-icon" />;
-		case 'schema:PresentationDigitalDocument':
-			return (
-				<PresentationIcon label={documentLabel(opts, 'presentation')} testId="presentation-icon" />
-			);
-		case 'schema:SpreadsheetDigitalDocument':
-			return (
-				<SpreadsheetIcon label={documentLabel(opts, 'spreadsheet')} testId="spreadsheet-icon" />
-			);
+		}
+		case 'schema:PresentationDigitalDocument': {
+			const PresentationIcon = getPresentationIcon();
+			return <PresentationIcon label={documentLabel(opts, 'presentation')} testId="presentation-icon" />;
+		}
+		case 'schema:SpreadsheetDigitalDocument': {
+			const SpreadsheetIcon = getSpreadsheetIcon();
+			return <SpreadsheetIcon label={documentLabel(opts, 'spreadsheet')} testId="spreadsheet-icon" />;
+		}
 		case 'atlassian:Template':
 			return (
 				<DocumentFilledIcon
@@ -94,8 +98,10 @@ const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode
 					testId="document-filled-icon"
 				/>
 			);
-		case 'atlassian:UndefinedLink':
+		case 'atlassian:UndefinedLink': {
+			const DocumentIcon = getDocumentIcon();
 			return <DocumentIcon label={documentLabel(opts, 'document')} testId="document-icon" />;
+		}
 	}
 };
 
@@ -109,15 +115,18 @@ const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode
  */
 const digitalDocumentToIcon = (opts: IconOpts): React.ReactNode => {
 	if (opts.provider?.id && isConfluenceGenerator(opts.provider.id)) {
-		return fg('platform_sl_icons_refactor') ? (
-			<LiveDocumentIconObject label={documentLabel(opts, 'live document')} testId="live-doc-icon" />
-		) : (
+		if (fg('platform_sl_icons_refactor')) {
+			return <LiveDocumentIconObject label={documentLabel(opts, 'live document')} testId="live-doc-icon" />;
+		}
+		const LiveDocumentIconWrapped = getLiveDocumentIconWrapped();
+		return (
 			<LiveDocumentIconWrapped
 				label={documentLabel(opts, 'live document')}
 				testId="live-doc-icon"
 			/>
 		);
 	} else {
+		const FileIcon = getFileIcon();
 		return <FileIcon label={documentLabel(opts, 'file')} testId="file-icon" />;
 	}
 };

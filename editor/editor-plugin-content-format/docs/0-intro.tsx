@@ -19,7 +19,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Content Format', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   A shared state management plugin for the Atlassian Editor that tracks the content mode/format of the editor. This plugin enables other editor plugins and products to be aware of the current editor content format state and update it as needed.
 

@@ -1,3 +1,5 @@
+// WARNING: This value is shared between @atlaskit/analytics-cross-product and
+// @atlassiansox/analytics-cross-product-interaction-client. Take care when updating.
 export const INTERNAL_CLIENT_WINDOW_KEY = 'analyticsInteractionSesssionTrackingClient';
 
 export interface InteractionSessionTracking {
@@ -15,11 +17,8 @@ export default class GlobalInteractionSessionTracking {
 					INTERNAL_CLIENT_WINDOW_KEY
 				] as InteractionSessionTracking;
 			}
-		} catch (error) {
-			// eslint-disable-next-line no-console
-			console.error(
-				`Error fetching InteractionSessionTracking from window - ${error instanceof Error ? error.message : String(error)}`,
-			);
+		} catch (err) {
+			// Silently swallow exception
 		}
 
 		return interactionSessionTracking;

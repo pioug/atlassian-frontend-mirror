@@ -2,8 +2,6 @@ import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import isBefore from 'date-fns/isBefore';
 import type { IntlShape } from 'react-intl';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 enum FORMATS {
 	ISO_FORMAT = 'YYYY-MM-DD',
 	LOCALIZED_FORMAT = 'LOCALIZED_FORMAT',
@@ -25,7 +23,7 @@ export const timestampToUTCDate = (timestamp: string | number): Date => {
 
 export const todayTimestampInUTC = (timeZone?: string): string => {
 	const today = new Date(Date.now());
-	if (timeZone && expValEquals('confluence_frontend_fix_date_hydration_error', 'isEnabled', true)) {
+	if (timeZone) {
 		const parts = new Intl.DateTimeFormat('en-US', {
 			timeZone,
 			year: 'numeric',

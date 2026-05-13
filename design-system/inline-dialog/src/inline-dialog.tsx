@@ -5,9 +5,11 @@ import { bind } from 'bind-event-listener';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 import { Layering, useCloseOnEscapePress, useLayering } from '@atlaskit/layering';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Manager, Popper, Reference } from '@atlaskit/popper';
 
 import { Container } from './inline-dialog-container';
+import InlineDialogTopLayer from './inline-dialog-top-layer';
 import type { InlineDialogProps } from './types';
 
 interface ReferenceChildrenProps {
@@ -55,7 +57,14 @@ const CloseManager = ({
 	return <span />;
 };
 
-const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function InlineDialog({
+const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function InlineDialog(props) {
+	if (fg('platform-dst-top-layer')) {
+		return <InlineDialogTopLayer {...props} />;
+	}
+	return <InlineDialogLegacy {...props} />;
+});
+
+function InlineDialogLegacy({
 	isOpen = false,
 	onContentBlur = noop,
 	onContentClick = noop,
@@ -67,7 +76,7 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 	content,
 	children,
 	fallbackPlacements,
-}) {
+}: InlineDialogProps) {
 	const containerRef = useRef<HTMLElement | null>(null);
 	const triggerRef = useRef<HTMLElement | null>(null);
 
@@ -212,7 +221,7 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 			)}
 		</Manager>
 	);
-});
+}
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default InlineDialog;

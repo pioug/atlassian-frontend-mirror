@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Engagement Platform', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the engagement platform plugin used by \`@atlaskit/editor-core\`.
 

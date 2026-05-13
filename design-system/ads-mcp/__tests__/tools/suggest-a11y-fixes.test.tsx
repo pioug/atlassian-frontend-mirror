@@ -1,4 +1,4 @@
-import { suggestA11yFixesTool } from '../../src/tools/suggest-a11y-fixes';
+import { suggestA11yFixesTool } from '../../src/tools/suggest-a11y-fixes/suggest-a11y-fixes-tool';
 
 describe('ads_suggest_a11y_fixes tool', () => {
 	it('Gives generic advice if there is not a specific match', async () => {

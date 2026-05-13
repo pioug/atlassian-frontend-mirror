@@ -1,5 +1,6 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import AtlasProject from '../../../__fixtures__/atlas-project';
 import BitbucketPullRequest from '../../../__fixtures__/bitbucket-pull-request';
@@ -857,7 +858,7 @@ describe('extractFlexibleUiContext', () => {
 		expect(data?.actions?.AISummaryAction?.url).toEqual('prop-url');
 	});
 
-	describe('with entity support', () => {
+	ffTest.on('platform_lp_use_entity_icon_url_for_icon', 'with entity support', () => {
 		it('returns flexible ui context for Figma document with entity support', () => {
 			const data = extractFlexibleUiContext({
 				status: SmartLinkStatus.Resolved,
@@ -893,7 +894,7 @@ describe('extractFlexibleUiContext', () => {
 						AISummaryAction: undefined,
 						ViewRelatedLinksAction: undefined,
 					},
-					linkIcon: { label: 'Flexible Links', url: 'https://icon-url' },
+					linkIcon: { label: 'FILE', url: 'https://icon-url' },
 					modifiedOn: '2025-01-08T22:26:52.501Z',
 					preview: { type: 'image', url: 'https://image-url' },
 					linkTitle: expect.objectContaining({ text: 'Flexible Links' }),
@@ -939,12 +940,12 @@ describe('extractFlexibleUiContext', () => {
 						},
 					},
 					linkIcon: {
-						label: 'Google Sheets: Public',
-						url: 'https://provider-icon.com/drive_icon.png',
+						label: 'document',
+						url: 'http://icon-url',
 					},
 					modifiedOn: '2022-06-22T00:44:14.956Z',
 					preview: { type: 'image', url: 'https://preview-image-url' },
-					linkTitle: expect.objectContaining({ text: 'Google Sheets: Public' }),
+					linkTitle: expect.objectContaining({ text: 'Google Sheets: Public', url: 'https://document.com' }),
 					url: 'https://document.com',
 					type: ['Document'],
 					meta: {
@@ -983,14 +984,14 @@ describe('extractFlexibleUiContext', () => {
 						ViewRelatedLinksAction: undefined,
 					},
 					linkIcon: {
-						label: 'Message from Mel Policicchio in #swifties',
+						label: 'Slack',
 						url: 'https://a.slack-edge.com/80588/marketing/img/meta/favicon-32.png',
 					},
 					createdOn: '2025-05-30T15:45:15.934Z',
-					linkTitle: {
+					linkTitle: expect.objectContaining({
 						text: 'Message from Mel Policicchio in #swifties',
 						url: 'https://atlassian.slack.com/archives/C02NKSU9XME/p1748619915934759',
-					},
+					}),
 					url: 'https://atlassian.slack.com/archives/C02NKSU9XME/p1748619915934759',
 					type: ['schema:Message'],
 					meta: {
@@ -1029,14 +1030,14 @@ describe('extractFlexibleUiContext', () => {
 						ViewRelatedLinksAction: undefined,
 					},
 					linkIcon: {
-						label: '#swifties',
+						label: 'Slack',
 						url: 'https://a.slack-edge.com/80588/marketing/img/meta/favicon-32.png',
 					},
 					modifiedOn: '2025-06-07T11:15:08.398Z',
-					linkTitle: {
+					linkTitle: expect.objectContaining({
 						text: '#swifties',
 						url: 'https://atlassian.enterprise.slack.com/archives/C02NKSU9XME',
-					},
+					}),
 					url: 'https://atlassian.enterprise.slack.com/archives/C02NKSU9XME',
 					type: ['Document'],
 					meta: {

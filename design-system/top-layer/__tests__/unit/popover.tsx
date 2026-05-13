@@ -4,30 +4,14 @@ import { act, render, screen } from '@atlassian/testing-library';
 
 import { Popup } from '../../src/entry-points/popup';
 
-// JSDOM does not implement the Popover API. Mock the relevant methods
-// on HTMLElement.prototype so our components can call them.
-const showPopoverMock = jest.fn();
-const hidePopoverMock = jest.fn();
-const togglePopoverMock = jest.fn();
-
-beforeAll(() => {
-	HTMLElement.prototype.showPopover = showPopoverMock;
-	HTMLElement.prototype.hidePopover = hidePopoverMock;
-	HTMLElement.prototype.togglePopover = togglePopoverMock;
-});
-
-afterAll(() => {
-	// @ts-expect-error -- cleanup mock
-	delete HTMLElement.prototype.showPopover;
-	// @ts-expect-error -- cleanup mock
-	delete HTMLElement.prototype.hidePopover;
-	// @ts-expect-error -- cleanup mock
-	delete HTMLElement.prototype.togglePopover;
-});
-
-afterEach(() => {
-	jest.clearAllMocks();
-});
+/**
+ * Helper to find the popover element in the rendered output.
+ * The polyfill sets `data-popover-open` when showPopover() is called.
+ * Tests must pass testId="popover" on Popup.Content for this to work.
+ */
+function getPopoverElement(): HTMLElement {
+	return screen.getByTestId('popover');
+}
 
 describe('Popup compound component', () => {
 	it('should be accessible', async () => {
@@ -36,7 +20,7 @@ describe('Popup compound component', () => {
 				<Popup.Trigger>
 					<button type="button">Trigger</button>
 				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Test popover">
+				<Popup.Content role="dialog" label="Test popover" testId="popover">
 					Content
 				</Popup.Content>
 			</Popup>,
@@ -50,7 +34,7 @@ describe('Popup compound component', () => {
 				<Popup.Trigger>
 					<button type="button">Trigger</button>
 				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Test popover" isOpen={true}>
+				<Popup.Content role="dialog" label="Test popover" isOpen={true} testId="popover">
 					Content
 				</Popup.Content>
 			</Popup>,
@@ -64,7 +48,7 @@ describe('Popup compound component', () => {
 				<Popup.Trigger>
 					<button type="button">Trigger</button>
 				</Popup.Trigger>
-				<Popup.Content role="menu" label="Menu">
+				<Popup.Content role="menu" label="Menu" testId="popover">
 					<button role="menuitem">Item</button>
 				</Popup.Content>
 			</Popup>,
@@ -80,7 +64,7 @@ describe('Popup compound component', () => {
 				<Popup.Trigger>
 					<button type="button">Trigger</button>
 				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Dialog">
+				<Popup.Content role="dialog" label="Dialog" testId="popover">
 					Content
 				</Popup.Content>
 			</Popup>,
@@ -96,7 +80,7 @@ describe('Popup compound component', () => {
 				<Popup.Trigger>
 					<button type="button">Trigger</button>
 				</Popup.Trigger>
-				<Popup.Content role="listbox" label="Listbox">
+				<Popup.Content role="listbox" label="Listbox" testId="popover">
 					<div role="option" aria-selected={false}>
 						Option 1
 					</div>
@@ -108,13 +92,13 @@ describe('Popup compound component', () => {
 		expect(trigger).toHaveAttribute('aria-haspopup', 'listbox');
 	});
 
-	it('does not call showPopover() on mount inside compound (browser manages via togglePopover)', () => {
+	it('does not open popover on mount inside compound (browser manages via togglePopover)', () => {
 		render(
 			<Popup placement={{ edge: 'end' }} onClose={() => {}}>
 				<Popup.Trigger>
 					<button type="button">Trigger</button>
 				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Test popover">
+				<Popup.Content role="dialog" label="Test popover" testId="popover">
 					Content
 				</Popup.Content>
 			</Popup>,
@@ -123,7 +107,8 @@ describe('Popup compound component', () => {
 		// Inside the compound, ctx.isOpen starts false. The browser manages
 		// visibility via togglePopover() from the trigger — PopupContent
 		// does not auto-show on mount.
-		expect(showPopoverMock).not.toHaveBeenCalled();
+		const popoverEl = getPopoverElement();
+		expect(popoverEl).not.toHaveAttribute('data-popover-open');
 	});
 
 	// Skipped: JSDOM does not support ToggleEvent (no newState property),
@@ -137,38 +122,43 @@ describe('Popup compound component', () => {
 				<Popup.Trigger>
 					<button type="button">Trigger</button>
 				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Test popover" isOpen={true}>
+				<Popup.Content role="dialog" label="Test popover" isOpen={true} testId="popover">
 					Content
 				</Popup.Content>
 			</Popup>,
 		);
 
-		hidePopoverMock.mockClear();
+		const popoverEl = getPopoverElement();
+		expect(popoverEl).toHaveAttribute('data-popover-open');
+
 		unmount();
 
-		expect(hidePopoverMock).toHaveBeenCalledTimes(1);
+		expect(popoverEl).not.toHaveAttribute('data-popover-open');
 	});
 });
 
 describe('Popup.Trigger', () => {
-	it('calls showPopover when trigger is clicked and popup is closed', () => {
+	it('opens popover when trigger is clicked and popup is closed', () => {
 		render(
 			<Popup placement={{ edge: 'end' }} onClose={() => {}}>
 				<Popup.Trigger>
 					<button type="button">Trigger</button>
 				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Test">
+				<Popup.Content role="dialog" label="Test" testId="popover">
 					Content
 				</Popup.Content>
 			</Popup>,
 		);
+
+		const popoverEl = getPopoverElement();
+		expect(popoverEl).not.toHaveAttribute('data-popover-open');
 
 		const button = screen.getByRole('button', { name: 'Trigger' });
 		act(() => {
 			button.click();
 		});
 
-		expect(showPopoverMock).toHaveBeenCalledTimes(1);
+		expect(popoverEl).toHaveAttribute('data-popover-open');
 	});
 
 	it('preserves original onClick handler on the child', () => {
@@ -181,7 +171,7 @@ describe('Popup.Trigger', () => {
 						Trigger
 					</button>
 				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Test">
+				<Popup.Content role="dialog" label="Test" testId="popover">
 					Content
 				</Popup.Content>
 			</Popup>,
@@ -197,89 +187,93 @@ describe('Popup.Trigger', () => {
 });
 
 describe('Popup.Content isOpen prop', () => {
-	it('calls showPopover when isOpen transitions to true', () => {
+	it('opens popover when isOpen transitions to true', () => {
 		const { rerender } = render(
 			<Popup placement={{ edge: 'end' }} onClose={() => {}}>
 				<Popup.Trigger>
 					<button type="button">Trigger</button>
 				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Test" isOpen={false}>
+				<Popup.Content role="dialog" label="Test" isOpen={false} testId="popover">
 					Content
 				</Popup.Content>
 			</Popup>,
 		);
 
-		showPopoverMock.mockClear();
+		const popoverEl = getPopoverElement();
+		expect(popoverEl).not.toHaveAttribute('data-popover-open');
 
 		rerender(
 			<Popup placement={{ edge: 'end' }} onClose={() => {}}>
 				<Popup.Trigger>
 					<button type="button">Trigger</button>
 				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Test" isOpen={true}>
+				<Popup.Content role="dialog" label="Test" isOpen={true} testId="popover">
 					Content
 				</Popup.Content>
 			</Popup>,
 		);
 
-		expect(showPopoverMock).toHaveBeenCalled();
+		expect(popoverEl).toHaveAttribute('data-popover-open');
 	});
 
-	it('calls hidePopover when isOpen transitions to false', () => {
+	it('closes popover when isOpen transitions to false', () => {
 		const { rerender } = render(
 			<Popup placement={{ edge: 'end' }} onClose={() => {}}>
 				<Popup.Trigger>
 					<button type="button">Trigger</button>
 				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Test" isOpen={true}>
+				<Popup.Content role="dialog" label="Test" isOpen={true} testId="popover">
 					Content
 				</Popup.Content>
 			</Popup>,
 		);
 
-		hidePopoverMock.mockClear();
+		const popoverEl = getPopoverElement();
+		expect(popoverEl).toHaveAttribute('data-popover-open');
 
 		rerender(
 			<Popup placement={{ edge: 'end' }} onClose={() => {}}>
 				<Popup.Trigger>
 					<button type="button">Trigger</button>
 				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Test" isOpen={false}>
+				<Popup.Content role="dialog" label="Test" isOpen={false} testId="popover">
 					Content
 				</Popup.Content>
 			</Popup>,
 		);
 
-		expect(hidePopoverMock).toHaveBeenCalled();
+		expect(popoverEl).not.toHaveAttribute('data-popover-open');
 	});
 
-	it('does not call showPopover on mount when isOpen is false', () => {
+	it('does not open popover on mount when isOpen is false', () => {
 		render(
 			<Popup placement={{ edge: 'end' }} onClose={() => {}}>
 				<Popup.Trigger>
 					<button type="button">Trigger</button>
 				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Test" isOpen={false}>
+				<Popup.Content role="dialog" label="Test" isOpen={false} testId="popover">
 					Content
 				</Popup.Content>
 			</Popup>,
 		);
 
-		expect(showPopoverMock).not.toHaveBeenCalled();
+		const popoverEl = getPopoverElement();
+		expect(popoverEl).not.toHaveAttribute('data-popover-open');
 	});
 
-	it('calls showPopover on mount when isOpen is true', () => {
+	it('opens popover on mount when isOpen is true', () => {
 		render(
 			<Popup placement={{ edge: 'end' }} onClose={() => {}}>
 				<Popup.Trigger>
 					<button type="button">Trigger</button>
 				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Test" isOpen={true}>
+				<Popup.Content role="dialog" label="Test" isOpen={true} testId="popover">
 					Content
 				</Popup.Content>
 			</Popup>,
 		);
 
-		expect(showPopoverMock).toHaveBeenCalled();
+		const popoverEl = getPopoverElement();
+		expect(popoverEl).toHaveAttribute('data-popover-open');
 	});
 });

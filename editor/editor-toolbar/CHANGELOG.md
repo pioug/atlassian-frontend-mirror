@@ -1,5 +1,31 @@
 # @atlaskit/editor-toolbar
 
+## 1.2.0
+
+### Minor Changes
+
+- [`6403e27aa3327`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6403e27aa3327) -
+  Add the experimental table row menu structure, keyboard shortcut hints, and shared table menu
+  items. Expose table row menu icons through editor-toolbar. Ensure the UI control registry is
+  available before table row menu items are registered.
+
+### Patch Changes
+
+- [`9b17a2bfdbc92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b17a2bfdbc92) -
+  Cleanup feature gates `platform_editor_block_menu_v2_patch_1` and
+  `platform_editor_block_menu_v2_patch_2`. The patch_1 behaviour (inline toolbar uses
+  `InlineToolbarMenuItemComponent` and block menu is only closed when
+  `extensionLocation === 'block-menu'`) and patch_2 behaviour (max-width styles on block menu,
+  tooltip/title-wrap on nested dropdown menus, truncation tooltip on dropdown items) are now
+  permanent.
+- Updated dependencies
+
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.0
 
 ### Minor Changes

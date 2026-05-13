@@ -21,7 +21,7 @@ import {
 	type ShareClient,
 	ShareServiceClient,
 } from '../clients/ShareServiceClient';
-import { messages } from '../i18n';
+import { messages } from '../i18n-messages';
 import type {
 	Content,
 	MetaData,

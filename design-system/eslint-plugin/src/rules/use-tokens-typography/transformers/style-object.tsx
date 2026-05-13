@@ -13,27 +13,24 @@ import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { Object as ASTObject } from '../../../ast-nodes/object';
 import { ObjectEntry } from '../../../ast-nodes/object-entry';
 import { Root } from '../../../ast-nodes/root';
+import { getValueForPropertyNode } from '../../ensure-design-token-usage/get-value-for-property-node';
 import { normaliseValue } from '../../ensure-design-token-usage/normalise-value';
-import { getValueForPropertyNode } from '../../ensure-design-token-usage/utils';
 import { isDecendantOfGlobalToken } from '../../utils/is-decendant-of-global-token';
+import { isDecendantOfStyleBlock } from '../../utils/is-decendant-of-style-block';
 import { isDecendantOfType } from '../../utils/is-decendant-of-type';
-import { isDecendantOfStyleBlock } from '../../utils/is-node';
-import type { RuleConfig } from '../config';
+import type { RuleConfig } from '../config/types';
 import { convertPropertyNodeToStringableNode } from '../convert-property-node-to-stringable-node';
+import { defaultFontWeight } from '../default-font-weight';
+import { findFontWeightTokenForValue } from '../find-font-weight-token-for-value';
+import { findTypographyTokenForValues } from '../find-typography-token-for-values';
+import { fontWeightMap } from '../font-weight-map';
 import { getLiteralProperty } from '../get-literal-property';
+import { getTokenProperty } from '../get-token-property';
 import { insertTokensImport } from '../insert-tokens-import';
 import { isValidPropertyNode } from '../is-valid-property-node';
 import { isValidTypographyToken } from '../is-valid-typography-token';
 import { notUndefined } from '../not-undefined';
-import {
-	defaultFontWeight,
-	findFontWeightTokenForValue,
-	findTypographyTokenForValues,
-	type FontWeightMap,
-	fontWeightMap,
-	getTokenProperty,
-	type TokenValueMap,
-} from '../utils';
+import type { FontWeightMap, TokenValueMap } from '../types';
 
 interface MetaData {
 	context: Rule.RuleContext;

@@ -1,7 +1,9 @@
 # Accessibility Audit Report — `@atlaskit/top-layer`
 
-> Audit date: 2026-02-28 Scope: `@atlaskit/top-layer` primitives and all adopters (`dropdown-menu`,
-> `popup`, `tooltip`, `modal-dialog`, `flag`, `spotlight`) Reference:
+> Audit date: 2026-02-28 **Last doc refresh:** 2026-03-26 (scope line only — findings unchanged)
+> Scope: `@atlaskit/top-layer` primitives and adopters audited in this pass (`dropdown-menu`,
+> `popup`, `tooltip`, `modal-dialog`, `flag`, `spotlight`). Additional feature-flagged adopters
+> landed afterward; see [migration-roadmap.md](./migration-roadmap.md). Reference:
 > [accessibility-criteria.md](../goals/accessibility-criteria.md)
 
 ---

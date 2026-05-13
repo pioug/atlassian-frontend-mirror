@@ -27,7 +27,6 @@ import {
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { redo, undo } from '@atlaskit/prosemirror-history';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -178,7 +177,7 @@ const BlockMenuContent = ({
 			ref={ref}
 			xcss={cx(
 				styles.base,
-				fg('platform_editor_block_menu_v2_patch_2') && styles.maxWidthStyles,
+				styles.maxWidthStyles,
 				editorExperiment('platform_synced_block', true) && styles.emptyMenuSectionStyles,
 			)}
 		>
@@ -356,7 +355,7 @@ const BlockMenu = ({
 				focusTrap={
 					openedViaKeyboard
 						? // Only enable focus trap when opened via keyboard to make sure the focus is on the first focusable menu item
-							{ initialFocus: undefined }
+						  { initialFocus: undefined }
 						: undefined
 				}
 			>

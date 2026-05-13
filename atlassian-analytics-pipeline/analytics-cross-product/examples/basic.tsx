@@ -39,7 +39,7 @@ const ExampleBridgeComponent = ({
 		subProduct: 'basicExample', // Optional - include if required
 	});
 
-	// 3. Wrap your URL with the function returned from the hook
+	// 2. Wrap your URL with the function returned from the hook
 	const wrappedHref = withInteractionSession(href);
 	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor -- This example intentionally uses a plain anchor to avoid restoring docs-only ADS link dependencies.
 	return <a href={wrappedHref}>{children}</a>;

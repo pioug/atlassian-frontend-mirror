@@ -2,7 +2,7 @@ import { isNodeOfType, type Node } from 'eslint-codemod-utils';
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
 import { getModuleOfIdentifier } from '../utils/get-module-of-identifier';
 import { getJSXElementName } from '../utils/jsx';
 

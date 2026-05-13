@@ -29,6 +29,7 @@ import {
 
 import { defaultComponents, DummyControl, MenuDialog } from './components';
 import { NotifyOpenLayerObserver } from './notify-open-layer-observer';
+import { PopupSelectTopLayer } from './popup-select-top-layer';
 
 type SelectComponents = typeof RSComponents;
 
@@ -627,6 +628,11 @@ export default class PopupSelect<
 	};
 
 	render(): React.JSX.Element {
+		// Top-layer rendering path: native Popover API via @atlaskit/top-layer
+		if (fg('platform-dst-top-layer')) {
+			return <PopupSelectTopLayer {...this.props} />;
+		}
+
 		const { target } = this.props;
 		const { isOpen } = this.state;
 

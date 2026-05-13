@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Submit Editor', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the submit editor plugin used by \`@atlaskit/editor-core\`.
 

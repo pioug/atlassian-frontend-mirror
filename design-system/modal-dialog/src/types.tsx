@@ -26,11 +26,9 @@ export type { ModalAttributes } from './internal/context';
 export interface ModalDialogProps {
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 	/**
-	 * Focus is moved to the first interactive element inside the modal dialog
-	 * when `true`. It is not recommended to set to `false` as this creates
-	 * accessibility regressions. Pass an element `ref` to focus on a specific element.
-	 *
-	 * Default value is `true`.
+	 * Pass an element `ref` to focus on a specific element on load.  Default
+	 * behavior is focus is moved to the first interactive element inside the
+	 * modal dialog.
 	 */
 	autoFocus?: RefObject<HTMLElement | null | undefined>;
 

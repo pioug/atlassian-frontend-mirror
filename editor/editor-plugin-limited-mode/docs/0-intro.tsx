@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Limited Mode', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the limited mode plugin used by \`@atlaskit/editor-core\`.
 

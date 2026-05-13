@@ -1,77 +1,6 @@
-const _default_1: {
-	meta: {
-		visibility: string;
-		access: string;
-		resourceType: string;
-		key: string;
-		objectId: string;
-		tenantId: string;
-	};
-	data: {
-		'@id': string;
-		'@context': {
-			'@vocab': string;
-			atlassian: string;
-			schema: string;
-		};
-		'@type': string[];
-		url: string;
-		attributedTo: {
-			'@type': string;
-			name: string;
-			icon: string;
-		};
-		'schema:dateCreated': string;
-		generator: {
-			'@type': string;
-			name: string;
-			icon: {
-				'@type': string;
-				url: string;
-			};
-		};
-		icon: {
-			'@type': string;
-			url: string;
-		};
-		name: string;
-		summary: string;
-		'atlassian:mergeSource': {
-			'@type': string;
-			href: string;
-			name: string;
-		};
-		'atlassian:mergeDestination': {
-			'@type': string;
-			href: string;
-			name: string;
-		};
-		updated: string;
-		'atlassian:internalId': string;
-		'atlassian:isMerged': boolean;
-		'atlassian:state': string;
-		'atlassian:reviewer': {
-			'@type': string;
-			name: string;
-			icon: string;
-		}[];
-		'atlassian:updatedBy': {
-			'@type': string;
-			name: string;
-			icon: string;
-		};
-		audience: {
-			'@type': string;
-			name: string;
-			icon: string;
-		}[];
-		context: {
-			'@type': string;
-			name: string;
-			url: string;
-		};
-	};
-} = {
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
+
+export default {
 	meta: {
 		visibility: 'restricted',
 		access: 'granted',
@@ -150,5 +79,4 @@ const _default_1: {
 			url: 'https://provider-url',
 		},
 	},
-};
-export default _default_1;
+} as SmartLinkResponse;

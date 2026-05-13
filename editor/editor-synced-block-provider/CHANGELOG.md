@@ -1,5 +1,20 @@
 # @atlaskit/editor-synced-block-provider
 
+## 6.5.3
+
+### Patch Changes
+
+- [`9784984097a8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9784984097a8a) -
+  [ux] Improves synced block support for Jira work items, including product-specific copy,
+  issue-type icons, and enhanced analytics.
+- Updated dependencies
+
+## 6.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.5.1
 
 ### Patch Changes

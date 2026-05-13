@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 34.1.1
+
+### Patch Changes
+
+- [`515f634cc8747`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/515f634cc8747) -
+  Reinstate emojiPickerSize as sizing for icon
+- Updated dependencies
+
 ## 34.1.0
 
 ### Minor Changes

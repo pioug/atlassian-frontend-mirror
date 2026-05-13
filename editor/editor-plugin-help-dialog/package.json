@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-help-dialog",
-	"version": "10.1.15",
+	"version": "10.1.17",
 	"description": "Help Dialog plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,7 +29,10 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./commands": "./src/entry-points/commands.ts",
+		"./helpDialogPlugin": "./src/entry-points/helpDialogPlugin.tsx",
+		"./helpDialogPluginType": "./src/entry-points/helpDialogPluginType.ts"
 	},
 	"dependencies": {
 		"@atlaskit/editor-plugin-analytics": "workspace:^",

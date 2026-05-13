@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen, within } from '@testing-library/react';
 
 import { CommentField } from '../../../components/CommentField';
-import { messages } from '../../../i18n';
+import { messages } from '../../../i18n-messages';
 import { type Comment } from '../../../types';
 
 const mockUseFormState = jest.fn().mockReturnValue({

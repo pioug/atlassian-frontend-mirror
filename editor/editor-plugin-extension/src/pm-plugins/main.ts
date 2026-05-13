@@ -1,3 +1,5 @@
+import type { IntlShape } from 'react-intl';
+
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
 import type {
@@ -29,6 +31,7 @@ import {
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { clearEditingContext, updateState } from '../editor-commands/commands';
 import type {
@@ -188,6 +191,7 @@ export const createPlugin = (
 	} = {},
 	featureFlags?: FeatureFlags,
 	__rendererExtensionOptions?: ExtensionPluginOptions['__rendererExtensionOptions'],
+	intl?: IntlShape,
 ): SafePlugin<ExtensionState> => {
 	const state = createPluginState(dispatch, {
 		showEditButton: false,
@@ -350,6 +354,12 @@ export const createPlugin = (
 					extensionNodeViewOptions,
 					pluginInjectionApi,
 					macroInteractionDesignFeatureFlags,
+					undefined,
+					undefined,
+					undefined,
+					expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+						? intl
+						: undefined,
 				),
 				// WARNING: referentiality-plugin also creates these nodeviews
 				bodiedExtension: lazyExtensionNodeView(
@@ -364,6 +374,9 @@ export const createPlugin = (
 					showLivePagesBodiedMacrosRendererView,
 					__rendererExtensionOptions?.showUpdated1PBodiedExtensionUI,
 					__rendererExtensionOptions?.rendererExtensionHandlers,
+					expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+						? intl
+						: undefined,
 				),
 				// WARNING: referentiality-plugin also creates these nodeviews
 				inlineExtension: lazyExtensionNodeView(
@@ -375,6 +388,12 @@ export const createPlugin = (
 					extensionNodeViewOptions,
 					pluginInjectionApi,
 					macroInteractionDesignFeatureFlags,
+					undefined,
+					undefined,
+					undefined,
+					expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+						? intl
+						: undefined,
 				),
 				multiBodiedExtension: lazyExtensionNodeView(
 					'multiBodiedExtension',
@@ -385,6 +404,10 @@ export const createPlugin = (
 					extensionNodeViewOptions,
 					pluginInjectionApi,
 					macroInteractionDesignFeatureFlags,
+					undefined,
+					undefined,
+					undefined,
+					intl,
 				),
 			},
 			createSelectionBetween: function (view, anchor, head) {

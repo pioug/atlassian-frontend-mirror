@@ -3,7 +3,7 @@ import { literal } from 'eslint-codemod-utils';
 import type * as ESTree from 'eslint-codemod-utils';
 import type { FromSchema, JSONSchema } from 'json-schema-to-ts';
 
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
 
 const schema = {
 	type: 'array',

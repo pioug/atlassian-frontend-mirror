@@ -29,9 +29,7 @@ const DURATION_TOKENS: Array<{ ms: number; token: string }> = DURATION_TOKEN_NAM
 	const rawValue = tokenDefaultValues[name as keyof typeof tokenDefaultValues] as string;
 	const ms = parseDurationMs(rawValue);
 	if (ms === null) {
-		throw new Error(
-			`use-motion-token-values: could not parse duration for token ${name}: ${rawValue}`,
-		);
+		throw new Error(`use-motion-token-values: could not parse duration for token ${name}: ${rawValue}`);
 	}
 	return { ms, token: name };
 }).sort((a, b) => a.ms - b.ms);
@@ -44,26 +42,21 @@ const EASING_TOKEN_NAMES = [
 ] as const;
 
 function parseCubicBezierParams(value: string): number[] | null {
-	const match = value.match(
-		/^cubic-bezier\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*\)$/,
-	);
+	const match = value.match(/^cubic-bezier\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*\)$/);
 	if (!match) {
 		return null;
 	}
 	return [parseFloat(match[1]), parseFloat(match[2]), parseFloat(match[3]), parseFloat(match[4])];
 }
 
-const EASING_TOKENS: Array<{ value: string; token: string; params: number[] }> =
-	EASING_TOKEN_NAMES.map((name) => {
-		const rawValue = tokenDefaultValues[name as keyof typeof tokenDefaultValues] as string;
-		const params = parseCubicBezierParams(rawValue);
-		if (!params) {
-			throw new Error(
-				`use-motion-token-values: could not parse cubic-bezier for token ${name}: ${rawValue}`,
-			);
-		}
-		return { value: rawValue, token: name, params };
-	});
+const EASING_TOKENS: Array<{ value: string; token: string; params: number[] }> = EASING_TOKEN_NAMES.map((name) => {
+	const rawValue = tokenDefaultValues[name as keyof typeof tokenDefaultValues] as string;
+	const params = parseCubicBezierParams(rawValue);
+	if (!params) {
+		throw new Error(`use-motion-token-values: could not parse cubic-bezier for token ${name}: ${rawValue}`);
+	}
+	return { value: rawValue, token: name, params };
+});
 
 // Splits on top-level commas (outside function parens) — preserves cubic-bezier(...) commas.
 function splitOnTopLevelCommas(value: string): string[] {
@@ -90,9 +83,15 @@ function splitOnTopLevelCommas(value: string): string[] {
 	return parts;
 }
 
-const DURATION_PROPERTIES = new Set(['transitionDuration', 'animationDuration']);
+const DURATION_PROPERTIES = new Set([
+	'transitionDuration',
+	'animationDuration',
+]);
 
-const EASING_PROPERTIES = new Set(['transitionTimingFunction', 'animationTimingFunction']);
+const EASING_PROPERTIES = new Set([
+	'transitionTimingFunction',
+	'animationTimingFunction',
+]);
 
 // Explicit semantic mappings for CSS keyword easings to motion tokens.
 // Pinned by design intent, confirmed with design system team (Alex + Akshay).
@@ -160,17 +159,21 @@ function findClosestDurationTokens(ms: number): Array<{ ms: number; token: strin
 export const useMotionTokenValues: Rule.RuleModule = {
 	meta: {
 		type: 'suggestion',
-		fixable: 'code',
+		hasSuggestions: true,
 		docs: {
 			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/compiled/use-motion-token-values/',
 		},
 		messages: {
 			useMotionDurationToken:
-				"Use a motion duration token instead of the hard-coded value '{{ value }}'. Replace with {{ suggestion }}.",
+				"Use a motion duration token instead of the hard-coded value '{{ value }}'.",
+			useMotionDurationTokenSuggest: 'Replace with {{ suggestion }}.',
 			useMotionDurationTokenNearest:
 				"No exact token match for '{{ value }}'. Nearest: {{ suggestion1 }} or {{ suggestion2 }}.",
+			useMotionDurationTokenSingleNearest:
+				"No exact token match for '{{ value }}'. Nearest: {{ suggestion }}.",
 			useMotionEasingToken:
-				"Use a motion easing token instead of the hard-coded value '{{ value }}'. Replace with {{ suggestion }}.",
+				"Use a motion easing token instead of the hard-coded value '{{ value }}'.",
+			useMotionEasingTokenSuggest: 'Replace with {{ suggestion }}.',
 			useMotionEasingTokenUnknown:
 				"Use a motion easing token from @atlaskit/tokens instead of the hard-coded value '{{ value }}'.",
 		},
@@ -190,13 +193,17 @@ export const useMotionTokenValues: Rule.RuleModule = {
 			}
 			if (tokensImportNode) {
 				// @atlaskit/tokens is imported but without `token` — add `token` to existing import
-				const lastSpecifier = tokensImportNode.specifiers[tokensImportNode.specifiers.length - 1];
+				const lastSpecifier =
+					tokensImportNode.specifiers[tokensImportNode.specifiers.length - 1];
 				if (lastSpecifier) {
 					return [fixer.insertTextAfter(lastSpecifier as any, ', token')];
 				}
 				// Empty import — replace the whole declaration
 				return [
-					fixer.replaceText(tokensImportNode as any, `import { token } from '@atlaskit/tokens';`),
+					fixer.replaceText(
+						tokensImportNode as any,
+						`import { token } from '@atlaskit/tokens';`,
+					),
 				];
 			}
 			const sourceCode = context.sourceCode ?? (context as any).getSourceCode();
@@ -204,9 +211,7 @@ export const useMotionTokenValues: Rule.RuleModule = {
 			// Insert after the last existing import, or at top if no imports exist
 			const lastImport = [...programBody].reverse().find((n) => n.type === 'ImportDeclaration');
 			if (lastImport) {
-				return [
-					fixer.insertTextAfter(lastImport as any, `\nimport { token } from '@atlaskit/tokens';`),
-				];
+				return [fixer.insertTextAfter(lastImport as any, `\nimport { token } from '@atlaskit/tokens';`)];
 			}
 			if (programBody.length > 0) {
 				return [
@@ -225,9 +230,9 @@ export const useMotionTokenValues: Rule.RuleModule = {
 			if (ms === null) {
 				return null;
 			}
-			const result = findClosestDurationTokens(ms);
-			if (result.length === 1) {
-				return buildTokenCall(result[0].token, value);
+			const exact = DURATION_TOKENS.find((t) => t.ms === ms);
+			if (exact) {
+				return buildTokenCall(exact.token, value);
 			}
 			return null;
 		}
@@ -235,53 +240,78 @@ export const useMotionTokenValues: Rule.RuleModule = {
 		function handleDurationProperty(node: Property, rawValue: string) {
 			const segments = splitOnTopLevelCommas(rawValue);
 
-			// Single value path keeps the existing equidistant message
 			if (segments.length === 1) {
 				const ms = parseDurationMs(rawValue);
 				if (ms === null) {
 					return;
 				}
-				const result = findClosestDurationTokens(ms);
-				if (result.length === 1) {
-					const suggestion = buildTokenCall(result[0].token, rawValue);
+				const exactMatch = DURATION_TOKENS.find((t) => t.ms === ms);
+				if (exactMatch) {
+					const suggestion = buildTokenCall(exactMatch.token, rawValue);
 					context.report({
 						node,
 						messageId: 'useMotionDurationToken',
-						data: { value: rawValue, suggestion },
-						fix(fixer) {
-							return [...getImportFix(fixer), fixer.replaceText(node.value, suggestion)];
-						},
+						data: { value: rawValue },
+						suggest: [
+							{
+								messageId: 'useMotionDurationTokenSuggest',
+								data: { suggestion },
+								fix(fixer) {
+									return [
+										...getImportFix(fixer),
+										fixer.replaceText(node.value, suggestion),
+									];
+								},
+							},
+						],
 					});
 				} else {
-					const suggestion1 = buildTokenCall(result[0].token, rawValue);
-					const suggestion2 = buildTokenCall(result[1].token, rawValue);
-					context.report({
-						node,
-						messageId: 'useMotionDurationTokenNearest',
-						data: {
-							value: rawValue,
-							suggestion1: `${suggestion1} (${result[0].ms}ms)`,
-							suggestion2: `${suggestion2} (${result[1].ms}ms)`,
-						},
-					});
+					const result = findClosestDurationTokens(ms);
+					if (result.length >= 2) {
+						const suggestion1 = buildTokenCall(result[0].token, rawValue);
+						const suggestion2 = buildTokenCall(result[1].token, rawValue);
+						context.report({
+							node,
+							messageId: 'useMotionDurationTokenNearest',
+							data: {
+								value: rawValue,
+								suggestion1: `${suggestion1} (${result[0].ms}ms)`,
+								suggestion2: `${suggestion2} (${result[1].ms}ms)`,
+							},
+						});
+					} else {
+						const suggestion = buildTokenCall(result[0].token, rawValue);
+						context.report({
+							node,
+							messageId: 'useMotionDurationTokenSingleNearest',
+							data: { value: rawValue, suggestion: `${suggestion} (${result[0].ms}ms)` },
+						});
+					}
 				}
 				return;
 			}
 
-			// Multi-value path: every segment must resolve to a single token for autofix
 			const resolved = segments.map(resolveDurationToken);
 			if (resolved.some((s) => s === null)) {
 				return;
 			}
-			// Build a template literal: `${token(...)}, ${token(...)}`
 			const templateLiteral = '`' + resolved.map((s) => `\${${s}}`).join(', ') + '`';
 			context.report({
 				node,
 				messageId: 'useMotionDurationToken',
-				data: { value: rawValue, suggestion: templateLiteral },
-				fix(fixer) {
-					return [...getImportFix(fixer), fixer.replaceText(node.value, templateLiteral)];
-				},
+				data: { value: rawValue },
+				suggest: [
+					{
+						messageId: 'useMotionDurationTokenSuggest',
+						data: { suggestion: templateLiteral },
+						fix(fixer) {
+							return [
+								...getImportFix(fixer),
+								fixer.replaceText(node.value, templateLiteral),
+							];
+						},
+					},
+				],
 			});
 		}
 
@@ -327,10 +357,19 @@ export const useMotionTokenValues: Rule.RuleModule = {
 				context.report({
 					node,
 					messageId: 'useMotionEasingToken',
-					data: { value: rawValue, suggestion: templateLiteral },
-					fix(fixer) {
-						return [...getImportFix(fixer), fixer.replaceText(node.value, templateLiteral)];
-					},
+					data: { value: rawValue },
+					suggest: [
+						{
+							messageId: 'useMotionEasingTokenSuggest',
+							data: { suggestion: templateLiteral },
+							fix(fixer) {
+								return [
+									...getImportFix(fixer),
+									fixer.replaceText(node.value, templateLiteral),
+								];
+							},
+						},
+					],
 				});
 				return;
 			}
@@ -347,10 +386,16 @@ export const useMotionTokenValues: Rule.RuleModule = {
 				context.report({
 					node,
 					messageId: 'useMotionEasingToken',
-					data: { value: trimmed, suggestion },
-					fix(fixer) {
-						return [...getImportFix(fixer), fixer.replaceText(node.value, suggestion)];
-					},
+					data: { value: trimmed },
+					suggest: [
+						{
+							messageId: 'useMotionEasingTokenSuggest',
+							data: { suggestion },
+							fix(fixer) {
+								return [...getImportFix(fixer), fixer.replaceText(node.value, suggestion)];
+							},
+						},
+					],
 				});
 				return;
 			}
@@ -384,10 +429,16 @@ export const useMotionTokenValues: Rule.RuleModule = {
 				context.report({
 					node,
 					messageId: 'useMotionEasingToken',
-					data: { value: rawValue, suggestion },
-					fix(fixer) {
-						return [...getImportFix(fixer), fixer.replaceText(node.value, suggestion)];
-					},
+					data: { value: rawValue },
+					suggest: [
+						{
+							messageId: 'useMotionEasingTokenSuggest',
+							data: { suggestion },
+							fix(fixer) {
+								return [...getImportFix(fixer), fixer.replaceText(node.value, suggestion)];
+							},
+						},
+					],
 				});
 				return;
 			}
@@ -398,10 +449,16 @@ export const useMotionTokenValues: Rule.RuleModule = {
 				context.report({
 					node,
 					messageId: 'useMotionEasingToken',
-					data: { value: rawValue, suggestion },
-					fix(fixer) {
-						return [...getImportFix(fixer), fixer.replaceText(node.value, suggestion)];
-					},
+					data: { value: rawValue },
+					suggest: [
+						{
+							messageId: 'useMotionEasingTokenSuggest',
+							data: { suggestion },
+							fix(fixer) {
+								return [...getImportFix(fixer), fixer.replaceText(node.value, suggestion)];
+							},
+						},
+					],
 				});
 			} else {
 				context.report({

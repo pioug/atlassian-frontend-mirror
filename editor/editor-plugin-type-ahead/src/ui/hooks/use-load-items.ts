@@ -52,11 +52,13 @@ export const useLoadItems = (
 				// Inject empty list item here so it flows through the normal list rendering and keyboard
 				// navigation paths
 				const emptyItem =
-					result.length === 0 && expValEquals('platform_editor_insert_menu_ai', 'isEnabled', true)
+					result.length === 0 &&
+					expValEquals('platform_editor_insert_menu_ai', 'isEnabled', true)
 						? triggerHandler.getEmptyItem?.({ editorState: editorView.state })
 						: undefined;
 
-				const list = result.length > 0 ? result : emptyItem ? [emptyItem] : EMPTY_LIST_ITEM;
+				const list =
+					result.length > 0 ? result : emptyItem ? [emptyItem] : EMPTY_LIST_ITEM;
 
 				if (componentIsMounted.current) {
 					setItems(list);

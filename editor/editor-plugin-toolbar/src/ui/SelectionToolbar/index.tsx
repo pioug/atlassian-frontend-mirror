@@ -119,11 +119,14 @@ export const SelectionToolbar = ({
 	} = usePluginState(api);
 
 	const effectiveRuntimeOverride =
-		contextualFormattingModeOverride !== undefined && fg('platform_editor_toolbar_mode_override')
+		contextualFormattingModeOverride !== undefined &&
+		fg('platform_editor_toolbar_mode_override')
 			? contextualFormattingModeOverride
 			: undefined;
 	const contextualFormattingEnabled =
-		effectiveRuntimeOverride ?? api?.toolbar?.actions.contextualFormattingMode() ?? 'always-pinned';
+		effectiveRuntimeOverride ??
+		api?.toolbar?.actions.contextualFormattingMode() ??
+		'always-pinned';
 	const selectionToolbarConfigEnabled = shouldShowSelectionToolbar(
 		contextualFormattingEnabled,
 		editorToolbarDockingPreference,

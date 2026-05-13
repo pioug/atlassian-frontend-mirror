@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { useIsReducedMotion } from '../../../utils/accessibility';
+import { useIsReducedMotion } from '../../../utils/use-is-reduced-motion';
 
 type MediaQueryListener = (event: MediaQueryListEvent) => void;
 

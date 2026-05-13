@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useState, useEffect } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 
 import { css, jsx, cssMap, keyframes, cx } from '@compiled/react';
 import type { IntlShape } from 'react-intl';
@@ -25,12 +25,18 @@ import type {
 	ReferencesSourceInfo,
 	SyncBlockProduct,
 } from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockJiraIssueType } from '@atlaskit/editor-synced-block-provider/types';
 import { IconTile } from '@atlaskit/icon';
 import PageLiveDocIcon from '@atlaskit/icon-lab/core/page-live-doc';
+import BugIcon from '@atlaskit/icon/core/bug';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import EpicIcon from '@atlaskit/icon/core/epic';
 import PageIcon from '@atlaskit/icon/core/page';
 import QuotationMarkIcon from '@atlaskit/icon/core/quotation-mark';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
+import StoryIcon from '@atlaskit/icon/core/story';
+import SubtaskIcon from '@atlaskit/icon/core/subtasks';
+import TaskIcon from '@atlaskit/icon/core/task';
 import { ConfluenceIcon, JiraIcon, AtlassianIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -227,8 +233,86 @@ const ProductIcon = ({ product }: { product?: SyncBlockProduct }) => {
 	);
 };
 
-const ItemIcon = ({ reference }: { reference: SyncBlockSourceInfo }) => {
-	const { hasAccess, subType, productType, sourceAri } = reference;
+// Map AGG issue-type names to ADS icons. The mapping is by the English `name` returned
+// from AGG because Jira's REST/GraphQL API does not localise it at this layer. Custom
+// (non-default) issue types fall through to the AGG `iconUrl`.
+//
+// Type the icons as the same shape as `TaskIcon` so we don't import `NewCoreIconProps`
+// from a private icon entrypoint.
+type IssueTypeIconComponent = typeof TaskIcon;
+const jiraIssueTypeIconMap: Record<
+	string,
+	{ icon: IssueTypeIconComponent; messageKey: keyof typeof messages }
+> = {
+	Task: { icon: TaskIcon, messageKey: 'syncedLocationDropdownIssueTypeTask' },
+	Bug: { icon: BugIcon, messageKey: 'syncedLocationDropdownIssueTypeBug' },
+	Story: { icon: StoryIcon, messageKey: 'syncedLocationDropdownIssueTypeStory' },
+	Epic: { icon: EpicIcon, messageKey: 'syncedLocationDropdownIssueTypeEpic' },
+	Subtask: { icon: SubtaskIcon, messageKey: 'syncedLocationDropdownIssueTypeSubtask' },
+	'Sub-task': { icon: SubtaskIcon, messageKey: 'syncedLocationDropdownIssueTypeSubtask' },
+};
+
+/**
+ * Creates an icon component from a custom Jira issue-type `iconUrl` that conforms to the
+ * ADS icon component contract expected by `IconTile`. This lets us reuse `IconTile` for
+ * custom issue types — ensuring consistent sizing, background, and border-radius with the
+ * standard ADS icons used for known issue types (Bug, Story, etc.).
+ *
+ * The returned component ignores ADS icon props (color, spacing, etc.) because the image
+ * is an external raster/SVG asset that doesn't respond to design tokens.
+ */
+const customIconCache = new Map<string, IssueTypeIconComponent>();
+
+const createCustomIssueTypeIcon = (iconUrl: string): IssueTypeIconComponent => {
+	const cached = customIconCache.get(iconUrl);
+	if (cached) {
+		return cached;
+	}
+	const CustomIssueTypeIcon = () => <img src={iconUrl} alt="" width="12" height="12" />;
+	CustomIssueTypeIcon.displayName = 'CustomIssueTypeIcon';
+	customIconCache.set(iconUrl, CustomIssueTypeIcon);
+	return CustomIssueTypeIcon;
+};
+
+/**
+ * Returns the icon to render for a Jira issue type, or `null` when neither an ADS icon
+ * mapping nor an AGG-provided `iconUrl` is available so the caller can fall back to a
+ * generic product icon.
+ *
+ * Implemented as a plain function (not a React component) so the `null` check actually
+ * narrows — a JSX expression always evaluates to a truthy `ReactElement` object,
+ * meaning callers cannot distinguish a "would render nothing" component from one that
+ * renders an icon.
+ */
+const renderJiraIssueTypeIcon = (
+	issueType: SyncBlockJiraIssueType,
+	intl: IntlShape,
+): ReactNode | null => {
+	const mapped = jiraIssueTypeIconMap[issueType.name];
+	if (mapped) {
+		const label = intl.formatMessage(messages[mapped.messageKey]);
+		return <IconTile icon={mapped.icon} label={label} appearance={'gray'} size="xsmall" />;
+	}
+
+	// Custom Jira issue types — render inside `IconTile` using a wrapper component so the
+	// icon gets the same tile background, border-radius, and sizing as known issue types.
+	if (issueType.iconUrl) {
+		const CustomIcon = createCustomIssueTypeIcon(issueType.iconUrl);
+		const label = intl.formatMessage(messages.syncedLocationDropdownIssueTypeGeneric);
+		return <IconTile icon={CustomIcon} label={label} appearance={'gray'} size="xsmall" />;
+	}
+
+	return null;
+};
+
+const ItemIcon = ({
+	reference,
+	intl,
+}: {
+	intl: IntlShape;
+	reference: SyncBlockSourceInfo;
+}) => {
+	const { hasAccess, subType, productType, sourceAri, issueType } = reference;
 
 	if (productType === 'confluence-page' && hasAccess) {
 		return (
@@ -241,10 +325,25 @@ const ItemIcon = ({ reference }: { reference: SyncBlockSourceInfo }) => {
 		);
 	}
 
-	// For `jira-work-item` (and any future product), we fall back to the generic product logo icon.
-	// Jira issues don't have an equivalent page/blog subtype concept, so no rich IconTile is shown.
-	// Future enhancement: if Jira issue type icons are needed, add an `issueType` field to
-	// `SyncBlockSourceInfo` and fetch it in `fetchJiraWorkItemInfo` via the GraphQL query.
+	// Render a Jira issue-type icon when we have one, gated by the shared rollout flag.
+	// Falls through to the generic product icon when:
+	//   - the gate is off,
+	//   - we don't have access (issueType is not surfaced for no-access references),
+	//   - AGG returned no `issueType` (partial index, deleted, etc.), or
+	//   - the issue type is unrecognised AND has no `iconUrl`.
+	if (
+		productType === 'jira-work-item' &&
+		hasAccess &&
+		issueType &&
+		fg('platform_synced_block_patch_11')
+	) {
+		const icon = renderJiraIssueTypeIcon(issueType, intl);
+		if (icon !== null) {
+			return icon;
+		}
+	}
+
+	// Generic product fallback for `jira-work-item` (and any future product).
 	return <ProductIcon product={productType} />;
 };
 
@@ -411,7 +510,7 @@ const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId, 
 										<div key={reference.title} css={dropdownItemStyles}>
 											<Tooltip content={title}>
 												<DropdownItem
-													elemBefore={<ItemIcon reference={reference} />}
+													elemBefore={<ItemIcon reference={reference} intl={intl} />}
 													href={reference.url}
 													target="_blank"
 													key={reference.title}

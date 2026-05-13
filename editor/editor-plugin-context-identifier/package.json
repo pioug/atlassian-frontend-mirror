@@ -27,7 +27,9 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./contextIdentifierPlugin": "./src/entry-points/contextIdentifierPlugin.tsx",
+		"./contextIdentifierPluginType": "./src/entry-points/contextIdentifierPluginType.ts"
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",

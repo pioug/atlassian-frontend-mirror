@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 let delayId: number | null = null;
 
 function clearScheduled(): void {
@@ -16,7 +18,15 @@ function scheduleTimeout(fn: () => void, delay: number): void {
 	}, delay);
 }
 
-// This file is a singleton for managing tooltips
+// This file is a singleton for managing tooltips.
+//
+// Once we roll out top-layer and remove the legacy path, this manager can be simplified:
+// - Singleton: Can be removed; the platform (popover="auto" or popover="hint") already enforces
+//   only one tooltip open at a time.
+// - Phase machine: Can be simplified; drop hide-animating and finishHideAnimation (legacy fade-out).
+//   Use e.g. pending-show | visible | pending-hide with immediate hide.
+// - API: Can drop or simplify mousePosition/mousePos if no longer needed; keep delay scheduling,
+//   keep(), requestHide, abort, and minimal lifecycle.
 
 export type Source =
 	| {
@@ -113,7 +123,13 @@ export function show(entry: Entry): API {
 		}
 
 		// already waiting to hide
+		// Bug in legacy path: isImmediate hide requests are ignored during waiting-to-hide,
+		// meaning Escape/scroll won't instantly dismiss a tooltip that's already fading out.
+		// Gated fix: only apply the immediate-hide behavior under the top-layer flag for now.
 		if (phase === 'waiting-to-hide') {
+			if (isImmediate && fg('platform-dst-top-layer')) {
+				immediatelyHideAndDone();
+			}
 			return;
 		}
 

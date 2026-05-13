@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Clipboard', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the clipboard plugin used by \`@atlaskit/editor-core\`.
 

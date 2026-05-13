@@ -30,7 +30,7 @@ export function setStyle({
 		el.style.setProperty(property, value);
 	});
 
-	return function cleanup(): void {
+	return function cleanup() {
 		styles.forEach(({ property }) => {
 			el.style.removeProperty(property);
 		});

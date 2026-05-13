@@ -1,6 +1,7 @@
 import React from 'react';
 
 import LinkGlyph from '@atlaskit/icon/core/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import { useThemeObserver } from '@atlaskit/tokens';
 
@@ -171,6 +172,7 @@ const EmbedCardResolvedViewUpdated = React.forwardRef<
 		embedIframeRef,
 	) => {
 		const iconFromContext = context?.icon;
+		const iconLabel = context?.iconLabel;
 		const src = typeof iconFromContext === 'string' ? iconFromContext : undefined;
 		const text = title || context?.text;
 		const linkGlyph = React.useMemo(
@@ -178,19 +180,21 @@ const EmbedCardResolvedViewUpdated = React.forwardRef<
 			[],
 		);
 
-		let icon = React.useMemo(() => {
+		const icon = React.useMemo(() => {
 			if (React.isValidElement(iconFromContext)) {
 				return iconFromContext;
 			}
+
 			return (
 				<ImageIcon
 					src={src}
+					{...(fg('platform_lp_use_entity_icon_url_for_icon') ? { alt: iconLabel } : undefined)}
 					default={linkGlyph}
 					appearance={isProfileType(type) ? 'round' : 'square'}
 					hideLoadingSkeleton={hideIconLoadingSkeleton}
 				/>
 			);
-		}, [iconFromContext, src, linkGlyph, type, hideIconLoadingSkeleton]);
+		}, [iconFromContext, src, linkGlyph, type, hideIconLoadingSkeleton, iconLabel]);
 
 		useEmbedResolvePostMessageListener({
 			url: link,

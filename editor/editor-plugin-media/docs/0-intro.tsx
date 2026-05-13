@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Media', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the Media plugin used by \`@atlaskit/editor-core\`.
 

@@ -162,6 +162,10 @@ export const Dialog: React.ForwardRefExoticComponent<
 		<dialog
 			ref={combinedRef}
 			id={dialogId}
+			// Modern browsers infer modal semantics from `.showModal()` but
+			// some assistive tech still keys off `aria-modal="true"`. Setting
+			// it explicitly is recommended by WAI-ARIA APG dialog pattern.
+			aria-modal="true"
 			aria-label={label}
 			aria-labelledby={label ? undefined : labelledBy}
 			css={styles.dialog}

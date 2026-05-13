@@ -17,7 +17,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Connectivity', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
 This package includes the connectivity plugin used by \`@atlaskit/editor-core\`.
 

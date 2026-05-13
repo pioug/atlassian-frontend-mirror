@@ -4,9 +4,7 @@ import { act, render, screen, waitFor, within } from '@testing-library/react';
 
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import KeyframesMotion from '../../../entering/keyframes-motion';
-import { isReducedMotion } from '../../../utils/accessibility';
-
-jest.mock('../../../utils/accessibility');
+import { isReducedMotion } from '../../../utils/is-reduced-motion';
 
 const Motion = ({ id, color, onRender }: { id: string; color?: string; onRender?: Function }) => {
 	useEffect(() => {
@@ -22,6 +20,8 @@ const Motion = ({ id, color, onRender }: { id: string; color?: string; onRender?
 		</KeyframesMotion>
 	);
 };
+
+jest.mock('../../../utils/is-reduced-motion');
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<ExitingPersistence />', () => {

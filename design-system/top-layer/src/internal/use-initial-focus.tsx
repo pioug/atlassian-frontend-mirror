@@ -14,7 +14,7 @@ import { getFirstFocusable } from '../focus/focus';
  * - no role / other roles: no focus movement
  *
  * Note: React 18's `autoFocus` JSX prop does NOT set the HTML `autofocus`
- * attribute — it only calls `.focus()` imperatively during commit, which
+ * attribute - it only calls `.focus()` imperatively during commit, which
  * has no effect on hidden popover content. Consumers must set the native
  * attribute via a ref callback (e.g. `node.setAttribute('autofocus', '')`).
  * React 19+ reflects the JSX prop as the HTML attribute automatically.

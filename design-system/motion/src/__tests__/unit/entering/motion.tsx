@@ -29,7 +29,7 @@ jest.mock('@atlaskit/tokens', () => ({
 	},
 }));
 
-jest.mock('../../../utils/accessibility');
+jest.mock('../../../utils/is-reduced-motion');
 
 const ENTERING_ANIMATION = token('motion.test.enter' as any);
 const EXITING_ANIMATION = token('motion.test.exit' as any);

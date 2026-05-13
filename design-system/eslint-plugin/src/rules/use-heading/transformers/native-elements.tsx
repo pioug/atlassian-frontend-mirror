@@ -7,7 +7,7 @@ import {
 	type JSXOpeningElement,
 } from 'eslint-codemod-utils';
 
-import { JSXElement as JSXElementHelper } from '../../../ast-nodes/jsx-element';
+import { JSXElementHelper } from '../../../ast-nodes/jsx-element-helper';
 import { Root } from '../../../ast-nodes/root';
 
 import { allowedAttrs } from './allowed-attrs';

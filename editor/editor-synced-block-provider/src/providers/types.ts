@@ -49,12 +49,30 @@ export type DeleteSyncBlockResult = {
 	success: boolean;
 };
 
+/**
+ * Lightweight metadata for a Jira issue's type, surfaced so consumers can render the
+ * correct ADS issue-type icon (Task / Bug / Story / Epic / Subtask) or fall back to the
+ * AGG-provided `iconUrl` for custom types. Optional throughout — Confluence references
+ * leave it `undefined`.
+ */
+export type SyncBlockJiraIssueType = {
+	/** AGG-served icon URL (from `avatar.xsmall`) — used as the fallback when no ADS icon matches `name`. */
+	iconUrl?: string;
+	/** Display name of the issue type, e.g. `"Task"`, `"Bug"`, `"Story"`. */
+	name: string;
+};
+
 export type SyncBlockSourceInfo = {
 	hasAccess?: boolean;
 	/**
 	 * Whether the source info is for a source synced block
 	 */
 	isSource?: boolean;
+	/**
+	 * Issue-type metadata for `productType === 'jira-work-item'` references. Always
+	 * `undefined` for Confluence references.
+	 */
+	issueType?: SyncBlockJiraIssueType;
 	onSameDocument?: boolean;
 	productType?: SyncBlockProduct;
 	sourceAri: string;

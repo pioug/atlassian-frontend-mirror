@@ -167,6 +167,10 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 	/**
 	 * Allows the dropdown menu to be placed on the opposite side of its trigger if it does not
 	 * fit in the viewport.
+	 *
+	 * @private
+	 * @deprecated No-op when `platform-dst-top-layer` is enabled — CSS Anchor Positioning
+	 * handles flipping natively via `position-try-fallbacks`.
 	 */
 	shouldFlip?: boolean;
 
@@ -175,6 +179,10 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 	 * `true` renders the dropdown menu in the DOM node closest to the trigger; focus is not trapped inside the element.
 	 * `false` renders the dropdown menu in React.Portal and focus is trapped inside the element.
 	 * Defaults to `false`.
+	 *
+	 * @private
+	 * @deprecated No-op when `platform-dst-top-layer` is enabled — content always
+	 * renders in the browser's top layer.
 	 */
 	shouldRenderToParent?: boolean;
 
@@ -222,6 +230,10 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 	 * Z-index that the popup should be displayed in.
 	 * This is passed to the portal component.
 	 * Defaults to `layers.modal()` from `@atlaskit/theme` which is 510.
+	 *
+	 * @private
+	 * @deprecated No-op when `platform-dst-top-layer` is enabled — the browser's
+	 * top layer manages stacking without z-index.
 	 */
 	zIndex?: number;
 	/**
@@ -241,6 +253,10 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 	/**
 	 * This controls the positioning strategy to use. Can vary between `absolute` and `fixed`.
 	 * The default is `fixed`.
+	 *
+	 * @private
+	 * @deprecated No-op when `platform-dst-top-layer` is enabled — CSS Anchor Positioning
+	 * replaces Popper's positioning strategy.
 	 */
 	strategy?: 'absolute' | 'fixed';
 
@@ -252,6 +268,10 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 	/**
 	 * When set to true, will call stopPropagation on the ESCAPE key event.
 	 * This prevents the ESCAPE event from bubbling up to parent elements.
+	 *
+	 * @private
+	 * @deprecated No-op when `platform-dst-top-layer` is enabled — the native
+	 * popover dismiss handles Escape propagation.
 	 */
 	shouldPreventEscapePropagation?: boolean;
 }

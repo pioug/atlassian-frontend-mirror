@@ -7,14 +7,12 @@ import {
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import type { ExtensionConfiguration, ExtensionMenuItemConfiguration } from '../../types';
 import { SelectionExtensionMenuItems } from '../menu/SelectionExtensionMenuItems';
 import { SelectionExtensionComponentContextProvider } from '../SelectionExtensionComponentContext';
 
-import { MenuItem } from './MenuItem';
 import { ToolbarButton } from './ToolbarButton';
 import { ToolbarMenu } from './ToolbarMenu';
 
@@ -146,11 +144,6 @@ export const registerInlineToolbar = ({
 			});
 		}
 
-		// Remove ExtensionMenuSectionConfiguration - only care about items
-		const menuItems = fg('platform_editor_block_menu_v2_patch_1')
-			? []
-			: getMenuItems().filter((item) => 'label' in item && 'icon' in item);
-
 		components.push({
 			type: 'menu-item',
 			key,
@@ -163,14 +156,12 @@ export const registerInlineToolbar = ({
 				},
 			],
 			component: () => {
-				return fg('platform_editor_block_menu_v2_patch_1') ? (
+				return (
 					<InlineToolbarMenuItemComponent
 						api={api}
 						extension={extension}
 						getMenuItems={getMenuItems}
 					/>
-				) : (
-					<MenuItem api={api} extensionMenuItems={menuItems} />
 				);
 			},
 		});

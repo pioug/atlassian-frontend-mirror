@@ -10,7 +10,8 @@
 > →
 > [We want your thoughts about layering](https://hello.atlassian.net/wiki/spaces/DST/pages/6408837085/We+want+your+thoughts+about+layering)
 
-> We plan on implementing this new stack soon
+> **Rollout:** `@atlaskit/top-layer` is integrated behind `platform-dst-top-layer` across core DS
+> packages; see [`notes/decisions/migration-roadmap.md`](../decisions/migration-roadmap.md).
 >
 > →
 > [Project poster: Holistic layering stack refresh](https://hello.atlassian.net/wiki/spaces/DST/pages/6395729303/Project+poster+Holistic+layering+stack+refresh)
@@ -422,19 +423,21 @@ from doing our own focus management, even if it's only for a transitional period
 
 ### Migration
 
-I will do this in a separate page as it warrants a detailed investigation. A big challenge to
-overcome is that you cannot interlace top layer and non-top layers. Anything in the Top layer, will
-be on top of everything else, including all layered components that are not in the Top layer.
+Detailed package-by-package status, feature-flag strategy, and known interlacing issues are tracked
+in [`notes/decisions/migration-roadmap.md`](../decisions/migration-roadmap.md) and
+[`notes/migrations/`](../migrations/). A big challenge remains: **you cannot interlace top layer and
+non-top layers** — anything in the top layer sits above legacy portalled UI until those surfaces
+migrate.
 
 See
 [Top layer algorithm](https://hello.atlassian.net/wiki/spaces/DST/pages/6383663933/Top+layer+algorithm)
 
-What we will likely either need to do _(behind feature flags)_:
+What we are doing _(behind feature flags)_:
 
-- Start from the top most visual layers and work inwards (eg start with tooltip and work inwards)
-- Change over all the existing layer packages at once to a new package (eg `@atlaskit/popover`)
+- Incremental adoption per package via `platform-dst-top-layer`
+- Shared primitive: `@atlaskit/top-layer` (Popover API, `<dialog>`, hooks)
 
-Some challenges _(much more to be explored)_:
+Some challenges _(ongoing)_:
 
 - Handling custom layer components that other teams have built (including direct usage of
   `@atlaskit/popper` and `@atlaskit/portal`)

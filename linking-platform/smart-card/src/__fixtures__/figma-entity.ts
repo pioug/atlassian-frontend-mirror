@@ -1,60 +1,7 @@
-const _default_1: {
-	meta: {
-		access: string;
-		visibility: string;
-		auth: {
-			key: string;
-			displayName: string;
-			url: string;
-		}[];
-		definitionId: string;
-		key: string;
-		objectId: string;
-		resourceType: string;
-		tenantId: string;
-		version: string;
-	};
-	data: {
-		url: string;
-		'@context': {
-			'@vocab': string;
-			atlassian: string;
-			schema: string;
-		};
-		'@type': string;
-		name: string;
-		updated: string;
-		image: {
-			'@type': string;
-			url: string;
-		};
-		generator: {
-			'@type': string;
-			name: string;
-			icon: {
-				'@type': string;
-				url: string;
-			};
-		};
-		preview: {
-			'@type': string;
-			href: string;
-		};
-	};
-	entityData: {
-		id: string;
-		displayName: string;
-		url: string;
-		lastUpdatedAt: string;
-		thumbnail: {
-			externalUrl: string;
-		};
-		liveEmbedUrl: string;
-		type: string;
-		inspectUrl: string;
-		iconUrl: string;
-	};
-} = {
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { DesignEntity } from '@atlaskit/linking-types/entity-types';
+
+export default {
 	meta: {
 		access: 'granted',
 		visibility: 'restricted',
@@ -108,9 +55,9 @@ const _default_1: {
 			externalUrl: 'https://image-url',
 		},
 		liveEmbedUrl: 'https://preview-url',
+		status: 'UNKNOWN',
 		type: 'FILE',
 		inspectUrl: 'https://preview-url',
 		iconUrl: 'https://icon-url',
-	},
-};
-export default _default_1;
+	} satisfies DesignEntity,
+} as SmartLinkResponse;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-editor-viewmode-effects",
-	"version": "10.0.16",
+	"version": "10.0.18",
 	"description": "Editor-Viewmode effects plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -27,7 +27,9 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./editorViewmodeEffectsPlugin": "./src/entry-points/editorViewmodeEffectsPlugin.tsx",
+		"./editorViewmodeEffectsPluginType": "./src/entry-points/editorViewmodeEffectsPluginType.ts"
 	},
 	"dependencies": {
 		"@atlaskit/editor-plugin-collab-edit": "workspace:^",

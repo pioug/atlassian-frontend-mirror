@@ -1,4 +1,4 @@
-import { type AvatarProps } from './types';
+import type { AvatarProps } from './types';
 
 export const composeUniqueKey: (props: AvatarProps, index: number) => string | number = (
 	props: AvatarProps,

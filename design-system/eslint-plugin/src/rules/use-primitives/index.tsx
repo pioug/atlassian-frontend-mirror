@@ -1,8 +1,10 @@
 import type { Rule } from 'eslint';
 
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
 
-import { getConfig, type RuleConfig, VALID_PATTERNS } from './config';
+import { getConfig } from './config/get-config';
+import type { RuleConfig } from './config/types';
+import { VALID_PATTERNS } from './config/valid-patterns';
 import { CompiledStyled } from './transformers/compiled-styled';
 import { EmotionCSS } from './transformers/emotion-css';
 

@@ -129,7 +129,7 @@ Browsers without `@starting-style` support will show/hide elements instantly —
 
 Browser tests in `__tests__/playwright/` verify the following WCAG 2.2 success criteria. See
 [`notes/goals/accessibility-criteria.md`](notes/goals/accessibility-criteria.md) and
-[`notes/audits/accessibility-audit-report.md`](notes/audits/accessibility-audit-report.md) for
+[`notes/decisions/accessibility-audit-report.md`](notes/decisions/accessibility-audit-report.md) for
 details.
 
 | A11y criterion                       | Browser test |
@@ -150,4 +150,6 @@ details.
 ## Documentation
 
 See [`notes/`](notes/) for project documentation, architecture decisions, migration records, and
-audit reports. The [`notes/README.md`](notes/README.md) provides a full index.
+audit reports. The [`notes/README.md`](notes/README.md) provides a full index, including **current
+migration status** and links to
+[`notes/decisions/migration-roadmap.md`](notes/decisions/migration-roadmap.md).

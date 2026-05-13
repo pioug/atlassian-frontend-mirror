@@ -2,7 +2,8 @@ import type { Rule } from 'eslint';
 import * as eslintCodemodUtils from 'eslint-codemod-utils';
 import j from 'jscodeshift';
 
-import { cssToXcssTransformer, styledObjectToXcssTokens } from '../../transformers/css-to-xcss';
+import { cssToXcssTransformer } from '../../transformers/css-to-xcss-transformer';
+import { styledObjectToXcssTokens } from '../../transformers/styled-object-to-xcss-tokens';
 import { getVariableDefinitionValue } from '../../utils/get-variable-definition-value';
 
 jest.mock('eslint-codemod-utils', () => ({

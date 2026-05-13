@@ -1,4 +1,8 @@
-import type { NodeSpec, Node as PmNode, Attrs } from '@atlaskit/editor-prosemirror/model';
+import type {
+	NodeSpec,
+	Node as PmNode,
+	Attrs,
+} from '@atlaskit/editor-prosemirror/model';
 import { hexToEditorBackgroundPaletteRawValue } from '../../utils/editor-palette';
 import {
 	B100,
@@ -139,7 +143,9 @@ export const getCellAttrs: (
 	 */
 	const dataCellBackground = dom.getAttribute('data-cell-background');
 	const dataCellBackgroundHexCode =
-		dataCellBackground && isHex(dataCellBackground) ? dataCellBackground : undefined;
+		dataCellBackground && isHex(dataCellBackground)
+			? dataCellBackground
+			: undefined;
 
 	// ignore setting background attr if ds neutral token is detected
 	if (backgroundColor.includes('--ds-background-neutral')) {
@@ -155,7 +161,9 @@ export const getCellAttrs: (
 
 	const backgroundHexCode =
 		dataCellBackgroundHexCode ||
-		(backgroundColor && backgroundColor !== defaultValues['background'] ? backgroundColor : null);
+		(backgroundColor && backgroundColor !== defaultValues['background']
+			? backgroundColor
+			: null);
 
 	const localId = defaultValues?.localId;
 
@@ -230,14 +238,20 @@ export const getCellDomAttrs = (node: PmNode): CellDomAttrs => {
 		// - it clears background color for <td> if its set to white
 		// - it clears background color for <th> if ds neutral token is detected
 		const ignored =
-			(nodeType === 'tableHeader' && background === tableBackgroundColorNames.get('light gray')) ||
-			(nodeType === 'tableCell' && background === tableBackgroundColorNames.get('white')) ||
-			(nodeType === 'tableHeader' && background.includes('--ds-background-neutral'));
+			(nodeType === 'tableHeader' &&
+				background === tableBackgroundColorNames.get('light gray')) ||
+			(nodeType === 'tableCell' &&
+				background === tableBackgroundColorNames.get('white')) ||
+			(nodeType === 'tableHeader' &&
+				background.includes('--ds-background-neutral'));
 
 		if (ignored) {
 			attrs.style = '';
 		} else {
-			const color = isRgb(background) && rgbToHex(background) ? rgbToHex(background) : background;
+			const color =
+				isRgb(background) && rgbToHex(background)
+					? rgbToHex(background)
+					: background;
 
 			/**
 			 * The Editor supports users pasting content from external sources with custom table cell backgrounds and having those
@@ -345,10 +359,16 @@ const getCellDomAttrsWithValign = (node: PmNode): CellDomAttrs => {
 	return attrs;
 };
 
-export const tableBackgroundColorPalette: Map<string, string> = new Map<string, string>();
+export const tableBackgroundColorPalette: Map<string, string> = new Map<
+	string,
+	string
+>();
 
 export const tableBackgroundBorderColor: string = hexToRgba(N800, 0.12) || N0;
-export const tableBackgroundColorNames: Map<string, string> = new Map<string, string>();
+export const tableBackgroundColorNames: Map<string, string> = new Map<
+	string,
+	string
+>();
 
 [
 	[N0, 'White'],
@@ -376,11 +396,20 @@ export const tableBackgroundColorNames: Map<string, string> = new Map<string, st
 	[P100, 'Dark purple'],
 ].forEach(([colorValue, colorName]) => {
 	tableBackgroundColorPalette.set(colorValue.toLowerCase(), colorName);
-	tableBackgroundColorNames.set(colorName.toLowerCase(), colorValue.toLowerCase());
+	tableBackgroundColorNames.set(
+		colorName.toLowerCase(),
+		colorValue.toLowerCase(),
+	);
 });
 
 export type DisplayMode = 'default' | 'fixed';
-export type Layout = 'default' | 'full-width' | 'wide' | 'center' | 'align-start' | 'align-end';
+export type Layout =
+	| 'default'
+	| 'full-width'
+	| 'wide'
+	| 'center'
+	| 'align-start'
+	| 'align-end';
 
 export interface TableAttributes {
 	__autoSize?: boolean;
@@ -492,7 +521,9 @@ export interface TableHeaderWithNestedTableDefinition {
 	type: 'tableHeader';
 }
 
-const tableNodeSpecOptions: NodeSpecOptions<TableNode | TableWithNestedTableNode> = {
+const tableNodeSpecOptions: NodeSpecOptions<
+	TableNode | TableWithNestedTableNode
+> = {
 	parseDOM: [
 		{
 			tag: 'table',
@@ -502,7 +533,8 @@ const tableNodeSpecOptions: NodeSpecOptions<TableNode | TableWithNestedTableNode
 				const breakoutWrapper = dom.parentElement?.parentElement;
 
 				return {
-					isNumberColumnEnabled: dom.getAttribute('data-number-column') === 'true',
+					isNumberColumnEnabled:
+						dom.getAttribute('data-number-column') === 'true',
 					layout:
 						// copying from editor
 						dom.getAttribute('data-layout') ||
@@ -558,7 +590,9 @@ export const tableToJSON = (
 		}, {}),
 });
 
-const tableRowNodeSpecOptions: NodeSpecOptions<TableRowNode | TableRowWithNestedTableNode> = {
+const tableRowNodeSpecOptions: NodeSpecOptions<
+	TableRowNode | TableRowWithNestedTableNode
+> = {
 	parseDOM: [{ tag: 'tr' }],
 	toDOM() {
 		return ['tr', 0];
@@ -575,7 +609,9 @@ const cellAttrs = {
 	valign: { default: null, optional: true },
 };
 
-const tableCellNodeSpecOptions: NodeSpecOptions<TableCellNode | TableCellWithNestedTableNode> = {
+const tableCellNodeSpecOptions: NodeSpecOptions<
+	TableCellNode | TableCellWithNestedTableNode
+> = {
 	parseDOM: [
 		// Ignore number cell copied from renderer
 		{
@@ -627,7 +663,9 @@ const tableHeaderNodeSpecOptions: NodeSpecOptions<
 
 	toDOM: (node) => ['th', getCellDomAttrs(node), 0],
 };
-export const tableHeader: NodeSpec = tableHeaderFactory(tableHeaderNodeSpecOptions);
+export const tableHeader: NodeSpec = tableHeaderFactory(
+	tableHeaderNodeSpecOptions,
+);
 
 export const toJSONTableHeader: (node: PmNode) => {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -635,15 +673,16 @@ export const toJSONTableHeader: (node: PmNode) => {
 } = toJSONTableCell;
 
 // table nodes with nested table support
-export const tableWithNestedTable: NodeSpec = tableWithNestedTableFactory(tableNodeSpecOptions);
+export const tableWithNestedTable: NodeSpec =
+	tableWithNestedTableFactory(tableNodeSpecOptions);
 
-export const tableRowWithNestedTable: NodeSpec =
-	tableRowWithNestedTableFactory(tableRowNodeSpecOptions);
+export const tableRowWithNestedTable: NodeSpec = tableRowWithNestedTableFactory(
+	tableRowNodeSpecOptions,
+);
 export const tableCellWithNestedTable: NodeSpec =
 	tableCellWithNestedTableFactory(tableCellNodeSpecOptions);
-export const tableHeaderWithNestedTable: NodeSpec = tableHeaderWithNestedTableFactory(
-	tableHeaderNodeSpecOptions,
-);
+export const tableHeaderWithNestedTable: NodeSpec =
+	tableHeaderWithNestedTableFactory(tableHeaderNodeSpecOptions);
 
 // stage-0 table cell nodes with vertical alignment and localId support
 const tableCellNodeStage0SpecOptions: NodeSpecOptions<
@@ -685,16 +724,16 @@ const tableHeaderNodeStage0SpecOptions: NodeSpecOptions<
 	toDOM: (node) => ['th', getCellDomAttrsWithValign(node), 0],
 };
 
-export const tableCellStage0: NodeSpec = tableCellStage0Factory(tableCellNodeStage0SpecOptions);
+export const tableCellStage0: NodeSpec = tableCellStage0Factory(
+	tableCellNodeStage0SpecOptions,
+);
 export const tableHeaderStage0: NodeSpec = tableHeaderStage0Factory(
 	tableHeaderNodeStage0SpecOptions,
 );
-export const tableCellWithNestedTableStage0: NodeSpec = tableCellWithNestedTableStage0Factory(
-	tableCellNodeStage0SpecOptions,
-);
-export const tableHeaderWithNestedTableStage0: NodeSpec = tableHeaderWithNestedTableStage0Factory(
-	tableHeaderNodeStage0SpecOptions,
-);
+export const tableCellWithNestedTableStage0: NodeSpec =
+	tableCellWithNestedTableStage0Factory(tableCellNodeStage0SpecOptions);
+export const tableHeaderWithNestedTableStage0: NodeSpec =
+	tableHeaderWithNestedTableStage0Factory(tableHeaderNodeStage0SpecOptions);
 
 // table nodes with localId support
 const tableRowNodeSpecOptionsWithLocalId: NodeSpecOptions<
@@ -706,7 +745,9 @@ const tableRowNodeSpecOptionsWithLocalId: NodeSpecOptions<
 	},
 };
 
-export const tableRowWithLocalId: NodeSpec = tableRowFactory(tableRowNodeSpecOptionsWithLocalId);
+export const tableRowWithLocalId: NodeSpec = tableRowFactory(
+	tableRowNodeSpecOptionsWithLocalId,
+);
 
 const tableCellNodeSpecOptionsWithLocalId: NodeSpecOptions<
 	TableCellNode | TableCellWithNestedTableNode
@@ -723,7 +764,9 @@ const tableCellNodeSpecOptionsWithLocalId: NodeSpecOptions<
 		return ['td', getCellDomAttrs(node), 0];
 	},
 };
-export const tableCellWithLocalId: NodeSpec = tableCellFactory(tableCellNodeSpecOptionsWithLocalId);
+export const tableCellWithLocalId: NodeSpec = tableCellFactory(
+	tableCellNodeSpecOptionsWithLocalId,
+);
 
 const tableHeaderNodeSpecOptionsWithLocalId: NodeSpecOptions<
 	TableHeaderNode | TableHeaderWithNestedTableNode
@@ -747,12 +790,9 @@ export const tableHeaderWithLocalId: NodeSpec = tableHeaderFactory(
 );
 
 // nested table nodes with localId support
-export const tableRowWithNestedTableWithLocalId: NodeSpec = tableRowWithNestedTableFactory(
-	tableRowNodeSpecOptionsWithLocalId,
-);
-export const tableCellWithNestedTableWithLocalId: NodeSpec = tableCellWithNestedTableFactory(
-	tableCellNodeSpecOptionsWithLocalId,
-);
-export const tableHeaderWithNestedTableWithLocalId: NodeSpec = tableHeaderWithNestedTableFactory(
-	tableHeaderNodeSpecOptionsWithLocalId,
-);
+export const tableRowWithNestedTableWithLocalId: NodeSpec =
+	tableRowWithNestedTableFactory(tableRowNodeSpecOptionsWithLocalId);
+export const tableCellWithNestedTableWithLocalId: NodeSpec =
+	tableCellWithNestedTableFactory(tableCellNodeSpecOptionsWithLocalId);
+export const tableHeaderWithNestedTableWithLocalId: NodeSpec =
+	tableHeaderWithNestedTableFactory(tableHeaderNodeSpecOptionsWithLocalId);

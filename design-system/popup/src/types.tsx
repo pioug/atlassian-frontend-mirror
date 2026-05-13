@@ -185,6 +185,11 @@ interface BaseProps {
 	 * The distance the popup should be offset from the reference in the format of [along, away] (units in px).
 	 * The default is `[0, 8]`, which means the popup will be `8px` away from the edge of the reference specified
 	 * by the `placement` prop.
+	 *
+	 * @private
+	 * Note: when `platform-dst-top-layer` is enabled, both the `along` and `away`
+	 * values are passed through to the top-layer placement (via `fromLegacyPlacement`),
+	 * matching the legacy popper-js behaviour.
 	 */
 	offset?: [number, number];
 
@@ -199,6 +204,10 @@ interface BaseProps {
 	 * When the preferred placement doesn't have enough space,
 	 * the modifier will test the ones provided in the list, and use the first suitable one.
 	 * If no fallback placements are suitable, it reverts back to the original placement.
+	 *
+	 * @private
+	 * @deprecated No-op when `platform-dst-top-layer` is enabled — CSS Anchor Positioning
+	 * generates fallbacks automatically via `position-try-fallbacks`.
 	 */
 	fallbackPlacements?: Placement[];
 
@@ -206,18 +215,30 @@ interface BaseProps {
 	 * The boundary element that the popup will check for overflow.
 	 * The default is `"clippingParents"` which are parent scroll containers,
 	 * but can be set to any element.
+	 *
+	 * @private
+	 * @deprecated No-op when `platform-dst-top-layer` is enabled — the viewport
+	 * is the natural boundary for top-layer elements.
 	 */
 	boundary?: 'clippingParents' | HTMLElement;
 
 	/**
 	 * The root boundary that the popup will check for overflow.
 	 * The default is `"viewport"` but it can be set to `"document"`.
+	 *
+	 * @private
+	 * @deprecated No-op when `platform-dst-top-layer` is enabled — the viewport
+	 * is the natural boundary for top-layer elements.
 	 */
 	rootBoundary?: 'viewport' | 'document';
 
 	/**
 	 * Allows the popup to be placed on the opposite side of its trigger if it doesn't fit in the viewport.
 	 * The default is `true`.
+	 *
+	 * @private
+	 * @deprecated No-op when `platform-dst-top-layer` is enabled — CSS Anchor Positioning
+	 * handles flipping natively via `position-try-fallbacks`.
 	 */
 	shouldFlip?: boolean;
 
@@ -273,6 +294,10 @@ interface BaseProps {
 	/**
 	 * The root element where the popup should be rendered.
 	 * Defaults to `false`.
+	 *
+	 * @private
+	 * @deprecated No-op when `platform-dst-top-layer` is enabled — content always
+	 * renders in the browser's top layer.
 	 */
 	shouldRenderToParent?: boolean;
 
@@ -287,6 +312,10 @@ interface BaseProps {
 	/**
 	 * This makes the popup close on Tab key press. It will only work when `shouldRenderToParent` is `true`.
 	 * The default is `false`.
+	 *
+	 * @private
+	 * @deprecated No-op when `platform-dst-top-layer` is enabled — focus trapping
+	 * is role-based in the top-layer path.
 	 */
 	shouldDisableFocusLock?: boolean;
 
@@ -299,6 +328,10 @@ interface BaseProps {
 	/**
 	 * This controls the positioning strategy to use. Can vary between `absolute` and `fixed`.
 	 * The default is `fixed`.
+	 *
+	 * @private
+	 * @deprecated No-op when `platform-dst-top-layer` is enabled — CSS Anchor Positioning
+	 * replaces Popper's positioning strategy.
 	 */
 	strategy?: 'absolute' | 'fixed';
 
@@ -346,6 +379,10 @@ interface InternalPopupProps extends BaseProps {
 	 * Z-index that the popup should be displayed in.
 	 * This is passed to the portal component.
 	 * The default is 400.
+	 *
+	 * @private
+	 * @deprecated No-op when `platform-dst-top-layer` is enabled — the browser's
+	 * top layer manages stacking without z-index.
 	 */
 	zIndex?: number;
 }

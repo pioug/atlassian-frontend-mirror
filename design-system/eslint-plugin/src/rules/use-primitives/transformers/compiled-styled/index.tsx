@@ -4,9 +4,9 @@ import { isNodeOfType, type JSXElement, type VariableDeclarator } from 'eslint-c
 
 import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import { JSXElement as JSXElementHelper } from '../../../../ast-nodes/jsx-element';
+import { JSXElementHelper } from '../../../../ast-nodes/jsx-element-helper';
 import { Root } from '../../../../ast-nodes/root';
-import type { RuleConfig } from '../../config';
+import type { RuleConfig } from '../../config/types';
 import { isValidCssPropertiesToTransform } from '../../utils/is-valid-css-properties-to-transform';
 import { validateStyles } from '../../utils/validate-styles';
 

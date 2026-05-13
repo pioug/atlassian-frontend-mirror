@@ -33,7 +33,14 @@ import {
 	nodesBetweenChanged,
 	processRawValue,
 } from '@atlaskit/editor-common/utils';
-import type { Attrs, Mark, Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import type {
+	Attrs,
+	Mark,
+	MarkType,
+	Node,
+	NodeType,
+	Schema,
+} from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -279,6 +286,60 @@ export const handleFallbackWithAnalytics =
 		return true;
 	};
 
+/**
+ * Shared options used by both `queueCardsFromChangedTr` and
+ * `queueCardsFromRange` to build smart-link resolution requests for text
+ * nodes carrying a `link` mark.
+ */
+type CollectLinkRequestsOptions = {
+	analyticsAction?: ACTION;
+	appearance: CardAppearance;
+	linkMarkType: MarkType;
+	normalizeLinkText: boolean;
+	source: CardReplacementInputMethod;
+	sourceEvent: UIAnalyticsEvent | null | undefined;
+};
+
+/**
+ * Per-node walker shared by `queueCardsFromChangedTr` and
+ * `queueCardsFromRange`. Pushes a smart-link resolution request for every
+ * text node carrying a qualifying `link` mark.
+ *
+ * Returning `true`/`false` follows the ProseMirror `nodesBetween`/
+ * `nodesBetweenChanged` walker contract: `true` to descend into children,
+ * `false` to skip subtree.
+ */
+const collectLinkRequest = (
+	requests: Request[],
+	node: Node,
+	pos: number,
+	options: CollectLinkRequestsOptions,
+): boolean => {
+	if (!node.isText) {
+		return true;
+	}
+
+	const linkMark = node.marks.find((mark) => mark.type === options.linkMarkType);
+
+	if (linkMark) {
+		if (!shouldReplaceLink(node, options.normalizeLinkText)) {
+			return false;
+		}
+
+		requests.push({
+			url: linkMark.attrs.href,
+			pos,
+			appearance: options.appearance,
+			compareLinkText: options.normalizeLinkText,
+			source: options.source,
+			analyticsAction: options.analyticsAction,
+			sourceEvent: options.sourceEvent,
+		});
+	}
+
+	return false;
+};
+
 export const queueCardsFromChangedTr = (
 	state: EditorState,
 	tr: Transaction,
@@ -292,32 +353,66 @@ export const queueCardsFromChangedTr = (
 	const { link } = schema.marks;
 
 	const requests: Request[] = [];
+	const options: CollectLinkRequestsOptions = {
+		analyticsAction,
+		appearance,
+		linkMarkType: link,
+		normalizeLinkText,
+		source,
+		sourceEvent,
+	};
 
-	nodesBetweenChanged(tr, (node, pos) => {
-		if (!node.isText) {
-			return true;
-		}
+	nodesBetweenChanged(tr, (node, pos) => collectLinkRequest(requests, node, pos, options));
 
-		const linkMark = node.marks.find((mark) => mark.type === link);
+	if (analyticsAction) {
+		addLinkMetadata(state.selection, tr, {
+			action: analyticsAction,
+		});
+	}
 
-		if (linkMark) {
-			if (!shouldReplaceLink(node, normalizeLinkText)) {
-				return false;
-			}
+	return queueCards(requests)(tr);
+};
 
-			requests.push({
-				url: linkMark.attrs.href,
-				pos,
-				appearance,
-				compareLinkText: normalizeLinkText,
-				source,
-				analyticsAction,
-				sourceEvent,
-			});
-		}
+/**
+ * Queue link-mark → smart-link resolution for text nodes within an explicit
+ * document range, rather than the entire step range of the transaction.
+ *
+ * Use this instead of `queueCardsFromChangedTr` when you know the exact range
+ * that was inserted/modified and want to avoid accidentally queuing pre-existing
+ * links that happen to fall within the broader step range.
+ */
+export const queueCardsFromRange = (
+	state: EditorState,
+	tr: Transaction,
+	from: number,
+	to: number,
+	source: CardReplacementInputMethod,
+	analyticsAction?: ACTION,
+	normalizeLinkText: boolean = true,
+	sourceEvent: UIAnalyticsEvent | null | undefined = undefined,
+	appearance: CardAppearance = 'inline',
+): Transaction => {
+	const { schema } = state;
+	const { link } = schema.marks;
 
-		return false;
-	});
+	const requests: Request[] = [];
+	const options: CollectLinkRequestsOptions = {
+		analyticsAction,
+		appearance,
+		linkMarkType: link,
+		normalizeLinkText,
+		source,
+		sourceEvent,
+	};
+
+	const clampedFrom = Math.max(0, from);
+	const clampedTo = Math.min(tr.doc.content.size, to);
+
+	if (clampedFrom < clampedTo) {
+		tr.doc.nodesBetween(clampedFrom, clampedTo, (node, pos) =>
+			collectLinkRequest(requests, node, pos, options),
+		);
+	}
 
 	if (analyticsAction) {
 		addLinkMetadata(state.selection, tr, {

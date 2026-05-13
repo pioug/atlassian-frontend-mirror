@@ -2,7 +2,7 @@ import type { Rule } from 'eslint';
 import { type JSXElement } from 'eslint-codemod-utils';
 
 import { JSXAttribute } from '../../../ast-nodes/jsx-attribute';
-import { JSXElement as JSXElementHelper } from '../../../ast-nodes/jsx-element';
+import { JSXElementHelper } from '../../../ast-nodes/jsx-element-helper';
 
 // Rename data-testid prop to testId if present
 export function updateTestIdAttributeFix(

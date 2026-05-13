@@ -1,4 +1,4 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
 
 export default {
 	meta: {
@@ -66,4 +66,4 @@ export default {
 			name: 'Dropbox',
 		},
 	},
-} as JsonLd.Response;
+} as SmartLinkResponse;

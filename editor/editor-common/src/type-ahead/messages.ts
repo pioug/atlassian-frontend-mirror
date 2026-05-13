@@ -31,6 +31,11 @@ export const typeAheadListMessages: {
 		description: string;
 		id: string;
 	};
+	emptySearchResultsSuggestionAskRovoOnly: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	emptySearchResultsSuggestionNew: {
 		defaultMessage: string;
 		description: string;
@@ -225,5 +230,11 @@ export const typeAheadListMessages: {
 		defaultMessage: 'Select {askRovoName} for help, or {buttonName} to browse inserts.',
 		description:
 			'a prompt to suggest user to click a button to browse inserts or ask Rovo for help when there are no search results',
+	},
+	emptySearchResultsSuggestionAskRovoOnly: {
+		id: 'fabric.editor.emptySearchResultsSuggestionAskRovoOnly',
+		defaultMessage: 'Select {askRovoName} for help.',
+		description:
+			'a prompt to suggest user to ask Rovo for help when there are no search results and no browse inserts button is available',
 	},
 });

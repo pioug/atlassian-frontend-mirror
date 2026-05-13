@@ -42,12 +42,7 @@ export const replaceRichInlineNodes = (
 						'isEnabled',
 						false,
 					)) ||
-				(value.type === 'project' &&
-					FeatureGates.getExperimentValue(
-						'atlassian_projects_-_native_integration',
-						'releaseVersion',
-						-1,
-					) >= 1)
+				(value.type === 'project' && FeatureGates.getExperimentValue('atlassian_projects_-_native_integration', 'releaseVersion', -1) >= 1)
 			) {
 				// First try to find as direct value operand (e.g., Team[Team] = uuid)
 				let astNodes: Array<ValueOperand | Argument> = getValueNodes(ast, fieldName, value.id);

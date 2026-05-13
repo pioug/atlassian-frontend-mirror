@@ -19,12 +19,12 @@ type TUseSimpleLightDismissOptions = {
 	/**
 	 * Called when a light-dismiss event occurs.
 	 *
-	 * - `reason: 'escape'` — the user pressed the Escape key.
-	 * - `reason: 'light-dismiss'` — the user clicked outside the popover.
+	 * - `reason: 'escape'` - the user pressed the Escape key.
+	 * - `reason: 'light-dismiss'` - the user clicked outside the popover.
 	 *
 	 * **Note:** This hook provides simple, standalone light dismiss that does not
 	 * participate in the browser's `popover="auto"` dismiss stack. Every active
-	 * instance will fire independently — if multiple popovers use this hook,
+	 * instance will fire independently - if multiple popovers use this hook,
 	 * they will all receive dismiss events.
 	 */
 	onClose: (args: { reason: TPopoverCloseReason }) => void;
@@ -51,7 +51,7 @@ export function useSimpleLightDismiss({
 	isOpen,
 	onClose,
 }: TUseSimpleLightDismissOptions): void {
-	// Keep a stable ref to onClose so the effect doesn't re-bind on every render.
+	// Keep a stable ref to onClose so the effect does not re-bind on every render.
 	const onCloseRef = useRef(onClose);
 	onCloseRef.current = onClose;
 

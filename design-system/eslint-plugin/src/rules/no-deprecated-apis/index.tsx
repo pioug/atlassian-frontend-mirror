@@ -11,9 +11,10 @@ import {
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
 import { getConfig } from '../utils/get-deprecated-config';
-import { type DeprecatedConfig, isDeprecatedJSXAttributeConfig } from '../utils/types';
+import { isDeprecatedJSXAttributeConfig } from '../utils/is-deprecated-jsx-attribute-config';
+import type { DeprecatedConfig } from '../utils/types';
 
 export const noDeprecatedJSXAttributeMessageId = 'noDeprecatedJSXAttributes';
 

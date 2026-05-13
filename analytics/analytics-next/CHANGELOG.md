@@ -1,5 +1,19 @@
 # @atlaskit/analytics-next
 
+## 11.2.1
+
+### Patch Changes
+
+- [`35a1309b51bea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35a1309b51bea) -
+  Isolate handler errors in `UIAnalyticsEvent.fire()` so a throwing analytics handler never
+  propagates out and crashes the calling product UI.
+
+  Each handler is now wrapped in a `try/catch`. In non-production environments the error is surfaced
+  via `console.error`; in production it is swallowed silently. This prevents analytics from being in
+  the critical path of product UI rendering.
+
+  PIR: PIR-300717 / HOT-301294 (CFIND-6243)
+
 ## 11.2.0
 
 ### Minor Changes

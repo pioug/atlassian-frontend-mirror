@@ -1,5 +1,7 @@
 import { tester } from '../../__tests__/utils/_tester';
-import rule, { addProp, RULE_NAME, setPropToTrue } from '../index';
+import { addProp } from '../add-prop';
+import rule, { RULE_NAME } from '../index';
+import { setPropToTrue } from '../set-prop-to-true';
 
 tester.run(RULE_NAME, rule, {
 	valid: [

@@ -1,13 +1,17 @@
 # Select → Top-Layer Migration Plan
 
+> **Status (2026-03):** Implemented behind `platform-dst-top-layer`. Source:
+> `select/src/popup-select/popup-select-top-layer.tsx`, wired from `popup-select.tsx`. The sections
+> below remain the plan and implementation reference; treat “create this file” steps as **done**
+> unless noted otherwise.
+
 ## Overview
 
-Migrate `@atlaskit/select`'s **`PopupSelect`** component to use `@atlaskit/top-layer` for rendering,
+`@atlaskit/select`'s **`PopupSelect`** uses `@atlaskit/top-layer` when the feature flag is on,
 replacing the legacy Popper.js + Portal + FocusLock pipeline with the native Popover API + CSS
 Anchor Positioning.
 
-The regular `Select` component does **not** use portals or layering — only `PopupSelect` needs
-migration.
+The regular `Select` component does **not** use portals or layering — only `PopupSelect` migrates.
 
 ### Current (legacy) path
 
@@ -150,8 +154,7 @@ Create `popup-select/__tests__/informational-vr-tests/popup-select-top-layer.vr.
 
 ### Step 8: Write migration documentation
 
-Create `top-layer/notes/migrations/select-migration.md` following the same format as existing
-migration docs.
+`top-layer/notes/migrations/select-migration.md` (this file).
 
 ---
 
@@ -200,3 +203,6 @@ migration docs.
 6. Write Playwright tests
 7. Write migration doc
 8. Run existing tests to verify no regressions on legacy path
+
+**As of 2026-03:** Steps 1–3 and test/doc artifacts are in place; unit-test depth for the top-layer
+path was still a known gap in the 2026-03-16 migration audit.

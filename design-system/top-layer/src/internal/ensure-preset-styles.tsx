@@ -17,7 +17,11 @@
  */
 const injectedPresets = new Set<string>();
 
-export function ensurePresetStyles({ preset }: { preset: { css: string; name: string } }): void {
+export function ensurePresetStyles({
+	preset,
+}: {
+	preset: { css: string; name: string };
+}): void {
 	if (injectedPresets.has(preset.name) || typeof document === 'undefined') {
 		return;
 	}

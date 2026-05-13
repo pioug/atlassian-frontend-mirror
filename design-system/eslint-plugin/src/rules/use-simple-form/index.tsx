@@ -1,22 +1,12 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, type JSXAttribute } from 'eslint-codemod-utils';
 
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
+
+import { topLevelAttributeNames } from './top-level-attribute-names';
 
 const FORM_PACKAGE = '@atlaskit/form';
 
-export const topLevelAttributeNames: string[] = [
-	'autocomplete',
-	'id',
-	'label',
-	'labelId',
-	'onKeyDown',
-	'onSubmit',
-	'name',
-	'noValidate',
-	'ref',
-	'xcss',
-];
 export const convertForm = 'Convert form to simple form';
 
 const rule: Rule.RuleModule = createLintRule({
@@ -197,3 +187,4 @@ const rule: Rule.RuleModule = createLintRule({
 });
 
 export default rule;
+export { topLevelAttributeNames } from './top-level-attribute-names';

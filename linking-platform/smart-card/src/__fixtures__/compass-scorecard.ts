@@ -1,48 +1,6 @@
-const _default_1: {
-	meta: {
-		access: string;
-		visibility: string;
-		product: string;
-		resourceType: string;
-		key: string;
-		objectId: string;
-		tenantId: string;
-	};
-	data: {
-		'@context': {
-			'@vocab': string;
-			atlassian: string;
-			schema: string;
-		};
-		'@type': string[];
-		url: string;
-		name: string;
-		icon: {
-			'@type': string;
-			url: string;
-		};
-		preview: {
-			'@type': string;
-			href: string;
-			'atlassian:supportedPlatforms': string[];
-		};
-		generator: {
-			'@type': string;
-			name: string;
-			icon: {
-				'@type': string;
-				url: string;
-			};
-		};
-		'atlassian:ownedBy': {
-			'@type': string;
-			name: string;
-			icon: string;
-		};
-		'atlassian:appliedToComponentsCount': number;
-		summary: string;
-	};
-} = {
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
+
+export default {
 	meta: {
 		access: 'granted',
 		visibility: 'restricted',
@@ -87,5 +45,4 @@ const _default_1: {
 		summary:
 			'Ensure component details are ready for development teams to reference in the catalog.',
 	},
-};
-export default _default_1;
+} as SmartLinkResponse;

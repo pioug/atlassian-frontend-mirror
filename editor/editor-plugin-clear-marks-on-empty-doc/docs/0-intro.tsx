@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Clear Marks On Empty Doc', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the clear marks on empty doc plugin used by \`@atlaskit/editor-core\`.
 

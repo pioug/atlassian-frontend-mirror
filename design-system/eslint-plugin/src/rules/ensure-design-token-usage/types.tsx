@@ -10,3 +10,5 @@ export type RuleConfig = {
 	exceptions?: string[];
 	failSilently?: boolean;
 };
+
+export type ProcessedCSSLines = [string, string][];

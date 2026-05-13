@@ -123,6 +123,10 @@
 		"./skeleton-item": "./src/entry-points/menu-item/skeleton-item.tsx",
 		"./types": "./src/entry-points/types.tsx"
 	},
-	"platform-feature-flags": {},
+	"platform-feature-flags": {
+		"platform-dst-top-layer": {
+			"type": "boolean"
+		}
+	},
 	"homepage": "https://atlassian.design/components/menu/"
 }

@@ -16,7 +16,7 @@ const mockGetBooleanFG = fg as jest.MockedFunction<typeof fg>;
 
 describe('ColorCard', () => {
 	beforeEach(() => {
-		mockGetBooleanFG.mockReturnValue(true);
+		mockGetBooleanFG.mockImplementation((flag: string) => flag !== 'platform-dst-top-layer');
 	});
 
 	it('should report a11y violations when inside menu in color palette', async () => {

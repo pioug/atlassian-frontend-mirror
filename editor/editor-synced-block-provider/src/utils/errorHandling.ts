@@ -18,15 +18,22 @@ export const stringifyError = (error: unknown): string | undefined => {
 	}
 };
 
+// `sourceProduct` is threaded through every helper so analytics
+// events can be attributed to the source product (`confluence-page` vs `jira-work-item`).
+// All helpers accept it as an optional trailing argument; the spread-only-when-truthy
+// pattern below ensures we never emit `sourceProduct: undefined` (which would dirty the
+// event schema with empty keys).
+
 export const getErrorPayload = <T extends ACTION_SUBJECT_ID>(
 	actionSubjectId: T,
 	error: string,
 	resourceId?: string,
+	sourceProduct?: string,
 ): OperationalAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.SYNCED_BLOCK,
 	T,
-	{ error: string; resourceId?: string }
+	{ error: string; resourceId?: string; sourceProduct?: string }
 > => ({
 	action: ACTION.ERROR,
 	actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
@@ -35,40 +42,73 @@ export const getErrorPayload = <T extends ACTION_SUBJECT_ID>(
 	attributes: {
 		error,
 		...(resourceId && { resourceId }),
+		...(sourceProduct && { sourceProduct }),
 	},
 });
 
 export const fetchErrorPayload = (
 	error: string,
 	resourceId?: string,
+	sourceProduct?: string,
 ): RendererSyncBlockEventPayload =>
-	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH, error, resourceId);
+	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH, error, resourceId, sourceProduct);
 export const getSourceInfoErrorPayload = (
 	error: string,
 	resourceId?: string,
+	sourceProduct?: string,
 ): RendererSyncBlockEventPayload =>
-	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_GET_SOURCE_INFO, error, resourceId);
-export const updateErrorPayload = (error: string, resourceId?: string): SyncBlockEventPayload =>
-	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_UPDATE, error, resourceId);
+	getErrorPayload(
+		ACTION_SUBJECT_ID.SYNCED_BLOCK_GET_SOURCE_INFO,
+		error,
+		resourceId,
+		sourceProduct,
+	);
+export const updateErrorPayload = (
+	error: string,
+	resourceId?: string,
+	sourceProduct?: string,
+): SyncBlockEventPayload =>
+	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_UPDATE, error, resourceId, sourceProduct);
 export const updateReferenceErrorPayload = (
 	error: string,
 	resourceId?: string,
+	sourceProduct?: string,
 ): RendererSyncBlockEventPayload =>
-	getErrorPayload(ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_UPDATE, error, resourceId);
-export const createErrorPayload = (error: string, resourceId?: string): SyncBlockEventPayload =>
-	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE, error, resourceId);
-export const deleteErrorPayload = (error: string, resourceId?: string): SyncBlockEventPayload =>
-	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_DELETE, error, resourceId);
+	getErrorPayload(
+		ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_UPDATE,
+		error,
+		resourceId,
+		sourceProduct,
+	);
+export const createErrorPayload = (
+	error: string,
+	resourceId?: string,
+	sourceProduct?: string,
+): SyncBlockEventPayload =>
+	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE, error, resourceId, sourceProduct);
+export const deleteErrorPayload = (
+	error: string,
+	resourceId?: string,
+	sourceProduct?: string,
+): SyncBlockEventPayload =>
+	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_DELETE, error, resourceId, sourceProduct);
 export const updateCacheErrorPayload = (
 	error: string,
 	resourceId?: string,
+	sourceProduct?: string,
 ): SyncBlockEventPayload =>
-	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_UPDATE_CACHE, error, resourceId);
+	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_UPDATE_CACHE, error, resourceId, sourceProduct);
 export const fetchReferencesErrorPayload = (
 	error: string,
 	resourceId?: string,
+	sourceProduct?: string,
 ): SyncBlockEventPayload =>
-	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH_REFERENCES, error, resourceId);
+	getErrorPayload(
+		ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH_REFERENCES,
+		error,
+		resourceId,
+		sourceProduct,
+	);
 
 // Success payloads
 export const fetchSuccessPayload = (
@@ -83,13 +123,16 @@ export const fetchSuccessPayload = (
 	attributes: { resourceId, blockInstanceId, ...(sourceProduct && { sourceProduct }) },
 });
 
-export const createSuccessPayload = (resourceId: string): SyncBlockEventPayload => {
+export const createSuccessPayload = (
+	resourceId: string,
+	sourceProduct?: string,
+): SyncBlockEventPayload => {
 	return {
 		action: ACTION.INSERTED,
 		actionSubject: ACTION_SUBJECT.DOCUMENT,
 		actionSubjectId: ACTION_SUBJECT_ID.BODIED_SYNCED_BLOCK,
 		eventType: EVENT_TYPE.TRACK,
-		attributes: { resourceId },
+		attributes: { resourceId, ...(sourceProduct && { sourceProduct }) },
 	};
 };
 
@@ -104,18 +147,26 @@ export const createSuccessPayloadNew = (resourceId: string): SyncBlockEventPaylo
 export const updateSuccessPayload = (
 	resourceId: string,
 	hasReference?: boolean,
+	sourceProduct?: string,
 ): SyncBlockEventPayload => ({
 	action: ACTION.UPDATED,
 	actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
 	actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_UPDATE,
 	eventType: EVENT_TYPE.OPERATIONAL,
-	attributes: { resourceId, ...(hasReference !== undefined && { hasReference }) },
+	attributes: {
+		resourceId,
+		...(hasReference !== undefined && { hasReference }),
+		...(sourceProduct && { sourceProduct }),
+	},
 });
 
-export const deleteSuccessPayload = (resourceId: string): SyncBlockEventPayload => ({
+export const deleteSuccessPayload = (
+	resourceId: string,
+	sourceProduct?: string,
+): SyncBlockEventPayload => ({
 	action: ACTION.DELETED,
 	actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
 	actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_DELETE,
 	eventType: EVENT_TYPE.OPERATIONAL,
-	attributes: { resourceId },
+	attributes: { resourceId, ...(sourceProduct && { sourceProduct }) },
 });

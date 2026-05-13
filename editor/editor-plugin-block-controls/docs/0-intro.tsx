@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Block Controls', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the block controls plugin used by \`@atlaskit/editor-core\`.
 

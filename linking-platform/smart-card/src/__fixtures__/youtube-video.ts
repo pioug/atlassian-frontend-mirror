@@ -1,48 +1,6 @@
-const _default_1: {
-	meta: {
-		access: string;
-		visibility: string;
-		auth: never[];
-		definitionId: string;
-		key: string;
-		objectId: string;
-		resourceType: string;
-		tenantId: string;
-	};
-	data: {
-		'@type': string;
-		'@context': {
-			'@vocab': string;
-			atlassian: string;
-			schema: string;
-		};
-		url: string;
-		name: string;
-		updated: string;
-		summary: string;
-		generator: {
-			'@type': string;
-			name: string;
-			icon: {
-				'@type': string;
-				url: string;
-			};
-		};
-		icon: {
-			'@type': string;
-			url: string;
-		};
-		image: {
-			'@type': string;
-			url: string;
-		};
-		preview: {
-			'@type': string;
-			href: string;
-			'atlassian:aspectRatio': number;
-		};
-	};
-} = {
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
+
+export default {
 	meta: {
 		access: 'granted',
 		visibility: 'public',
@@ -87,5 +45,4 @@ const _default_1: {
 			'atlassian:aspectRatio': 1.7778,
 		},
 	},
-};
-export default _default_1;
+} as SmartLinkResponse;

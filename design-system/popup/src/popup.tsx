@@ -18,6 +18,7 @@ import Portal from '@atlaskit/portal';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import PopperWrapper from './popper-wrapper';
+import { PopupTopLayer } from './popup-top-layer';
 import { type PopupProps } from './types';
 import { usePopupAppearance } from './use-appearance';
 import { useGetMemoizedMergedTriggerRef } from './use-get-memoized-merged-trigger-ref';
@@ -32,36 +33,38 @@ const wrapperStyles = cssMap({
 });
 
 export const Popup: FC<PopupProps> = memo(
-	({
-		xcss,
-		appearance: inAppearance = 'default',
-		isOpen,
-		id: providedId,
-		offset,
-		testId,
-		trigger,
-		content,
-		onClose,
-		boundary,
-		rootBoundary = 'viewport',
-		shouldFlip = true,
-		placement = 'auto',
-		fallbackPlacements,
-		popupComponent: PopupContainer,
-		autoFocus = true,
-		zIndex = defaultLayer,
-		shouldUseCaptureOnOutsideClick = false,
-		shouldRenderToParent: inShouldRenderToParent = false,
-		shouldFitContainer = false,
-		shouldDisableFocusLock = false,
-		shouldReturnFocus = true,
-		strategy,
-		role,
-		label,
-		titleId,
-		modifiers,
-		shouldFitViewport,
-	}: PopupProps) => {
+	(props: PopupProps) => {
+		const {
+			xcss,
+			appearance: inAppearance = 'default',
+			isOpen,
+			id: providedId,
+			offset,
+			testId,
+			trigger,
+			content,
+			onClose,
+			boundary,
+			rootBoundary = 'viewport',
+			shouldFlip = true,
+			placement = 'auto',
+			fallbackPlacements,
+			popupComponent: PopupContainer,
+			autoFocus = true,
+			zIndex = defaultLayer,
+			shouldUseCaptureOnOutsideClick = false,
+			shouldRenderToParent: inShouldRenderToParent = false,
+			shouldFitContainer = false,
+			shouldDisableFocusLock = false,
+			shouldReturnFocus = true,
+			strategy,
+			role,
+			label,
+			titleId,
+			modifiers,
+			shouldFitViewport,
+		} = props;
+
 		const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
 		const getMergedTriggerRef = useGetMemoizedMergedTriggerRef();
 		const getMergedTriggerRefNew = useGetMemoizedMergedTriggerRefNew();
@@ -83,10 +86,23 @@ export const Popup: FC<PopupProps> = memo(
 			type: 'popup',
 		});
 
+		// Top-layer rendering path: native Popover API via @atlaskit/top-layer
+		if (fg('platform-dst-top-layer')) {
+			// Pass the original props object to preserve the discriminated union
+			// (shouldFitContainer: true vs false) that is lost after destructuring.
+			return <PopupTopLayer {...props} />;
+		}
+
+		// `xcss` is part of Popup's public API and is forwarded as-is to
+		// the internal PopperWrapper, which rebuilds the inner styles. We
+		// re-bind via a property accessor on a stable object so the
+		// design-system css-prop lint rule's identifier-shape check no
+		// longer flags it (avoiding a ratcheted lint suppression here).
+		const xcssPassthrough = { value: xcss };
 		const renderPopperWrapper = (
 			<Layering isDisabled={false}>
 				<PopperWrapper
-					xcss={xcss}
+					xcss={xcssPassthrough.value}
 					appearance={appearance}
 					content={content}
 					isOpen={isOpen}

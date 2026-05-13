@@ -37,6 +37,24 @@ export type QueueCardsFromTransactionAction = (
 	sourceEvent?: UIAnalyticsEvent | null | undefined,
 	appearance?: CardAppearance,
 ) => Transaction;
+
+/**
+ * Like {@link QueueCardsFromTransactionAction} but scoped to an explicit
+ * document range (`from`..`to`) instead of the entire step range of the
+ * transaction. Use this when only newly-inserted content should be resolved.
+ */
+export type QueueCardsFromRangeAction = (
+	state: EditorState,
+	tr: Transaction,
+	from: number,
+	to: number,
+	source: CardReplacementInputMethod,
+	analyticsAction?: ACTION,
+	normalizeLinkText?: boolean,
+	sourceEvent?: UIAnalyticsEvent | null | undefined,
+	appearance?: CardAppearance,
+) => Transaction;
+
 export type HideLinkToolbarAction = (tr: Transaction) => Transaction;
 export type ChangeSelectedCardToLink = (
 	text?: string,
@@ -121,6 +139,21 @@ export interface EmbedCardTransformers {
 }
 
 export type CardPluginActions = {
+	getEndingToolbarItems: GetEndingToolbarItems;
+	getStartingToolbarItems: GetStartingToolbarItems;
+	hideLinkToolbar: HideLinkToolbarAction;
+	queueCardsFromChangedTr: QueueCardsFromTransactionAction;
+	/**
+	 * Like `queueCardsFromChangedTr` but scoped to an explicit document range.
+	 * Use when only newly-inserted content should be resolved, to avoid
+	 * accidentally converting pre-existing links in the surrounding document.
+	 *
+	 * Optional for backward compatibility — older versions of the card plugin
+	 * may not expose this action. Callers should fall back to
+	 * `queueCardsFromChangedTr` when unavailable.
+	 */
+	queueCardsFromRange?: QueueCardsFromRangeAction;
+	registerEmbedCardTransformer: (transformers: EmbedCardTransformers) => void;
 	/**
 	 * Resolves a URL via the Object Resolver Service and returns the canonical
 	 * expanded URL. Useful for expanding Confluence short-link URLs
@@ -130,10 +163,5 @@ export type CardPluginActions = {
 	 * usable URL in its response data.
 	 */
 	resolveShortLinkUrl: (url: string) => Promise<string | undefined>;
-	getEndingToolbarItems: GetEndingToolbarItems;
-	getStartingToolbarItems: GetStartingToolbarItems;
-	hideLinkToolbar: HideLinkToolbarAction;
-	queueCardsFromChangedTr: QueueCardsFromTransactionAction;
-	registerEmbedCardTransformer: (transformers: EmbedCardTransformers) => void;
 	setProvider: (provider: Promise<CardProvider>) => Promise<boolean>;
 };

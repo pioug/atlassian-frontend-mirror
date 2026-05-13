@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Hyperlink', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the hyperlink plugin used by \`@atlaskit/editor-core\`.
 

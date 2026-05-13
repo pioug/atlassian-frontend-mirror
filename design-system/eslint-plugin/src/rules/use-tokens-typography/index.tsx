@@ -1,9 +1,11 @@
 import type { Rule } from 'eslint';
 
-import { createLintRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-lint-rule';
 import { errorBoundary } from '../utils/error-boundary';
 
-import { getConfig, type RuleConfig, ruleSchema } from './config';
+import { getConfig } from './config/get-config';
+import { ruleSchema } from './config/rule-schema';
+import type { RuleConfig } from './config/types';
 import { BannedProperties } from './transformers/banned-properties';
 import { FontFamily } from './transformers/font-family';
 import { FontWeight } from './transformers/font-weight';

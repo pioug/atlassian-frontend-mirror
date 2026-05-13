@@ -1,83 +1,6 @@
-import { SmartLinkActionType } from '@atlaskit/linking-types';
+import { SmartLinkActionType, type SmartLinkResponse } from '@atlaskit/linking-types';
 
-const _default_1: {
-	meta: {
-		auth: never[];
-		definitionId: string;
-		visibility: string;
-		access: string;
-		resourceType: string;
-		key: string;
-		objectId: string;
-		tenantId: string;
-	};
-	data: {
-		'@context': {
-			'@vocab': string;
-			atlassian: string;
-			schema: string;
-		};
-		generator: {
-			'@type': string;
-			'@id': string;
-			name: string;
-		};
-		'@type': string[];
-		name: string;
-		'schema:dateCreated': string;
-		updated: string;
-		'schema:commentCount': number;
-		'atlassian:subscriberCount': number;
-		tag: {
-			'@type': string;
-			name: string;
-			appearance: string;
-		};
-		taskType: {
-			'@type': string[];
-			'@id': string;
-			name: string;
-			icon: {
-				'@type': string;
-				url: string;
-			};
-		};
-		icon: {
-			'@type': string;
-			url: string;
-		};
-		attributedTo: {
-			'@type': string;
-			name: string;
-		};
-		url: string;
-		'atlassian:priority': {
-			'@type': string;
-			name: string;
-			icon: {
-				'@type': string;
-				url: string;
-			};
-		};
-		'atlassian:serverAction': {
-			'@type': string;
-			name: string;
-			dataRetrievalAction: {
-				'@type': string;
-				name: SmartLinkActionType;
-			};
-			dataUpdateAction: {
-				'@type': string;
-				name: SmartLinkActionType;
-			};
-			refField: string;
-			resourceIdentifiers: {
-				issueKey: string;
-				hostname: string;
-			};
-		}[];
-	};
-} = {
+export default {
 	meta: {
 		auth: [],
 		definitionId: 'jira-object-provider',
@@ -153,5 +76,4 @@ const _default_1: {
 			},
 		],
 	},
-};
-export default _default_1;
+} as SmartLinkResponse;

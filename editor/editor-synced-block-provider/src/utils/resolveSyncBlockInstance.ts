@@ -41,6 +41,7 @@ export const resolveSyncBlockInstance = (
 			sourceTitle: newResult.data?.sourceTitle || oldResult.data?.sourceTitle || undefined,
 			sourceSubType: mergeSubType(oldResult, newResult),
 			onSameDocument: newResult.data?.onSameDocument || oldResult.data?.onSameDocument || undefined,
+			issueType: newResult.data?.issueType || oldResult.data?.issueType || undefined,
 		},
 	};
 };

@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Base', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-	)}
+  )}
 
   This package includes the base plugin used by \`@atlaskit/editor-core\`.
 

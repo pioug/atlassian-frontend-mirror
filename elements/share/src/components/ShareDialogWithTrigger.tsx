@@ -23,7 +23,7 @@ import { layers } from '@atlaskit/theme/constants';
 import Aktooltip from '@atlaskit/tooltip';
 import { type Value } from '@atlaskit/user-picker';
 
-import { messages } from '../i18n';
+import { messages } from '../i18n-messages';
 import {
 	type Flag,
 	type Integration,

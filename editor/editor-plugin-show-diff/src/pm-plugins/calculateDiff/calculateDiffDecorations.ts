@@ -279,17 +279,29 @@ const calculateDiffDecorationsInner = ({
 		);
 	});
 	getAttrChangeRanges(tr.doc, attrSteps).forEach((change) => {
-		decorations.push(
-			...calculateNodesForBlockDecoration({
-				doc: tr.doc,
-				from: change.fromB,
-				to: change.toB,
-				colorScheme,
-				isInserted: true,
-				activeIndexPos,
-				intl,
-			}),
-		);
+		if (
+			expValEquals('platform_editor_show_diff_improvements', 'isEnabled', true) &&
+			change.isInline
+		) {
+			// Inline nodes (e.g. date) need an inline decoration rather than a block decoration
+			const isActive =
+				activeIndexPos && change.fromB === activeIndexPos.from && change.toB === activeIndexPos.to;
+			decorations.push(
+				createInlineChangedDecoration({ change, colorScheme, isActive, isInserted: true }),
+			);
+		} else {
+			decorations.push(
+				...calculateNodesForBlockDecoration({
+					doc: tr.doc,
+					from: change.fromB,
+					to: change.toB,
+					colorScheme,
+					isInserted: true,
+					activeIndexPos,
+					intl,
+				}),
+			);
+		}
 	});
 
 	return DecorationSet.empty.add(tr.doc, decorations);

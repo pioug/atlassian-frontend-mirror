@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-annotation
 
+## 10.3.3
+
+### Patch Changes
+
+- [`834849ffe657a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/834849ffe657a) -
+  Move markdown mode to use mdast-util-from-pm and add annotation support
+
 ## 10.3.2
 
 ### Patch Changes

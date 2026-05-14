@@ -520,15 +520,15 @@ export const getToolbarConfig =
 		const { formatMessage, locale } = intl;
 		const extensionState = getPluginState(state);
 
+		if (!extensionState || extensionState.showContextPanel || !extensionState.element) {
+			return;
+		}
+
 		const { extensionProvider } = extensionState;
 
 		const hoverDecoration = extensionApi?.decorations?.actions.hoverDecoration;
 		const applyChangeToContextPanel = extensionApi?.contextPanel?.actions.applyChange;
 		const editorAnalyticsAPI = extensionApi?.analytics?.actions;
-
-		if (!extensionState || extensionState.showContextPanel || !extensionState.element) {
-			return;
-		}
 
 		const nodeType = [
 			state.schema.nodes.extension,

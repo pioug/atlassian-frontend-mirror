@@ -371,6 +371,7 @@ export enum ACTION_SUBJECT {
 	PASTE_ACTIONS_MENU = 'pasteActionsMenu',
 	SYNCED_BLOCK = 'syncedBlock',
 	NATIVE_EMBED = 'nativeEmbed',
+	NATIVE_EMBED_FALLBACK = 'nativeEmbedFallback',
 }
 
 export enum ACTION_SUBJECT_ID {

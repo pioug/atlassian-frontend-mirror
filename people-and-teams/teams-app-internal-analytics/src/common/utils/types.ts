@@ -22,4 +22,7 @@ export type AnalyticsEventSource =
 	| 'teamProfileCard'
 	| 'teamProfileCardTrigger'
 	| 'userProfilePreview'
-	| 'userInlinePreview';
+	| 'userInlinePreview'
+	| 'userProfileCard'
+	| 'hierarchyChart'
+	| 'interactiveHierarchyModal';

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-width
 
+## 11.1.0
+
+### Minor Changes
+
+- [`ebab8f80bfc40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebab8f80bfc40) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.0
 
 ### Patch Changes

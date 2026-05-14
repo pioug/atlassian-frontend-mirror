@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 130.5.0
+
+### Minor Changes
+
+- [`2feedbf316e9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2feedbf316e9d) -
+  adding new STAR email body to email message templates
+
+## 130.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 130.4.1
 
 ### Patch Changes

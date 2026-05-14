@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, type MutableRefObject } from 'react';
 
+import { isIntersectionObserverSupported } from '../../../utils';
+
 // This property enables the intersection observer to be run once the
 // HTML element being observed is within `X` px of the target container it is
 // being compared to. Since the default container is the `document`, we set this
@@ -35,7 +37,7 @@ const useIntersectionObserver = ({
 	}, []);
 
 	useEffect(() => {
-		if (!ref.current) {
+		if (!isIntersectionObserverSupported() || !ref.current) {
 			return;
 		}
 

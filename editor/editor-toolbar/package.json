@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "1.2.0",
+	"version": "1.3.0",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"react-compiler": {
@@ -28,7 +28,8 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./toolbar-menu-container": "./src/ui/ToolbarMenuContainer.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/badge": "workspace:^",

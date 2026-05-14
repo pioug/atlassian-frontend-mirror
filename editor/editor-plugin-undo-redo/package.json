@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-undo-redo",
-	"version": "10.0.19",
+	"version": "10.1.0",
 	"description": "Undo redo plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,7 +29,9 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./undo-redo-plugin": "./src/entry-points/undo-redo-plugin.tsx",
+		"./undo-redo-plugin-type": "./src/entry-points/undo-redo-plugin-type.ts"
 	},
 	"dependencies": {
 		"@atlaskit/editor-plugin-history": "workspace:^",

@@ -3,11 +3,9 @@ import React, { type ComponentType, useCallback } from 'react';
 import { withErrorBoundary as withReactErrorBoundary } from 'react-error-boundary';
 import { injectIntl } from 'react-intl';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
-import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { getFirstPartyIdentifier, getServices, getThirdPartyARI } from '../../../state/helpers';
+import { getFirstPartyIdentifier, getThirdPartyARI } from '../../../state/helpers';
 import useResolveHyperlink from '../../../state/hooks/use-resolve-hyperlink';
 import useResolveHyperlinkValidator from '../../../state/hooks/use-resolve-hyperlink/useResolveHyperlinkValidator';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
@@ -15,8 +13,6 @@ import withIntlProvider from '../../common/intl-provider';
 import { useFire3PWorkflowsClickEvent } from '../../SmartLinkEvents/useSmartLinkEvents';
 import Hyperlink from '../Hyperlink';
 import type { LinkUrlProps } from '../types';
-
-import HyperlinkUnauthorizedView from './unauthorize-view';
 
 const HyperlinkFallbackComponent = () => null;
 
@@ -37,9 +33,8 @@ const HyperlinkWithSmartLinkResolverInner = ({
 	onClick: onClickCallback,
 	...props
 }: LinkUrlProps) => {
-	const { actions, state } = useResolveHyperlink({ href: props.href || '' });
+	const { state } = useResolveHyperlink({ href: props.href || '' });
 
-	const services = getServices(state?.details);
 	const thirdPartyARI = getThirdPartyARI(state?.details);
 	const firstPartyIdentifier = getFirstPartyIdentifier();
 
@@ -65,54 +60,6 @@ const HyperlinkWithSmartLinkResolverInner = ({
 		},
 		[onClickCallback, fire3PClickEvent, state?.status],
 	);
-
-	const onAuthorize = useCallback(() => actions.authorize('url'), [actions]);
-
-	const shouldRenderConnectBtn = () => {
-		if (!props.children || !Array.isArray(props.children) || props.children.length === 0) {
-			return false;
-		}
-
-		const firstChild = props.children[0];
-
-		try {
-			// Check if first child has a string matching href
-			if (typeof firstChild === 'string') {
-				return props.href === firstChild;
-			}
-
-			// Check if first child has another child object containing matching href. This aligns with the behavior of the TextWrapper component used by editor to render link nodes
-			if (firstChild?.props?.children && typeof firstChild.props.children === 'string') {
-				return props.href === firstChild.props.children;
-			}
-		} catch (_) {
-			return false;
-		}
-	};
-
-	if (
-		state?.status === 'unauthorized' &&
-		shouldRenderConnectBtn() &&
-		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils -- Statsig migration pending for Bluelink connect experiments
-		(FeatureGates.getExperimentValue(
-			'platform_linking_bluelink_connect_confluence',
-			'isEnabled',
-			false,
-		) ||
-			// eslint-disable-next-line @atlaskit/platform/use-recommended-utils -- Statsig migration pending for Bluelink connect experiments
-			FeatureGates.getExperimentValue('platform_linking_bluelink_connect_jira', 'isEnabled', false))
-	) {
-		const provider = extractSmartLinkProvider(state?.details);
-		return (
-			<HyperlinkUnauthorizedView
-				{...props}
-				onAuthorize={services?.length ? onAuthorize : undefined}
-				onClick={onClick}
-				showConnectBtn={services?.length > 0}
-				provider={provider}
-			/>
-		);
-	}
 
 	return <Hyperlink {...props} onClick={onClick} />;
 };

@@ -14,6 +14,7 @@ import { AtlasProject, ResolvingClient } from '@atlaskit/link-test-helpers';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { Card } from '@atlaskit/smart-card';
+import { token } from '@atlaskit/tokens';
 
 import ImageIconWithColor from '../../src/common/ui/icons/image-icon';
 import { InlineCardErroredView } from '../../src/view/InlineCard/ErroredView';
@@ -149,7 +150,7 @@ const VRInlineCardAllExamplesInText: {
 				</p>
 				<p>
 					Error and fallback links used the CardLinkView{' '}
-					<CardLinkView link={'some-url'} placeholder="which is a normal link" onClick={() => {}} />
+					<CardLinkView link={'some-url'} placeholder="which is a normal link" onClick={() => {}} viewType={'errored'} />
 				</p>
 				<Box xcss={smallBoxForTruncatedStyle}>
 					Truncated card{' '}
@@ -185,7 +186,7 @@ const smallBoxForTruncatedStyle = xcss({
 const animationStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'svg, span': {
-		animationDuration: '0s',
+		animationDuration: token('motion.duration.instant', '0s'),
 		animationTimingFunction: 'step-end',
 	},
 });

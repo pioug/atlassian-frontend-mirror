@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help-article",
-	"version": "6.0.42",
+	"version": "6.1.0",
 	"description": "A cross-product help-article component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,7 +25,10 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./ArticleBody": "./src/entry-points/ArticleBody.tsx",
+		"./HelpArticle": "./src/entry-points/HelpArticle.tsx",
+		"./model/HelpArticle": "./src/entry-points/model-HelpArticle.ts"
 	},
 	"atlassian": {
 		"team": "Self-Help Experiences",

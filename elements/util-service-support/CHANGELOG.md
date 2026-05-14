@@ -1,5 +1,12 @@
 # @atlaskit/util-service-support
 
+## 6.4.0
+
+### Minor Changes
+
+- [`302503d41b736`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/302503d41b736) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 6.3.5
 
 ### Patch Changes

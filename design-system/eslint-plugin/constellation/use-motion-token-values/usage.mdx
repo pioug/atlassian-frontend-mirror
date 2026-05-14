@@ -1,0 +1,32 @@
+# use-motion-token-values
+
+## Examples
+
+This rule marks code as violations when a motion duration or easing token should be used. It will
+auto-fix values that can be mapped 1:1 with an ADS motion token. Values that can't be mapped to a
+token will still be reported, however no auto-fix will happen.
+
+### Incorrect
+
+```jsx
+const styles = css({
+  transitionDuration: '200ms',
+                      ^^^^^^^
+  transitionTimingFunction: 'cubic-bezier(0.4, 0, 0, 1)',
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+});
+```
+
+### Correct
+
+```jsx
+import { token } from '@atlaskit/tokens';
+
+const styles = css({
+  transitionDuration: token('motion.duration.medium', '200ms'),
+  transitionTimingFunction: token('motion.easing.inout.bold', 'cubic-bezier(0.4, 0, 0, 1)'),
+});
+```
+
+See the list of available motion tokens on the
+[ADS website](https://atlassian.design/foundations/motion).

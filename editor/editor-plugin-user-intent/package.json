@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-user-intent",
-	"version": "8.1.0",
+	"version": "8.2.0",
 	"description": "UserIntent plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -28,7 +28,10 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./types": "./src/entry-points/types.ts",
+		"./user-intent-plugin": "./src/entry-points/user-intent-plugin.tsx",
+		"./user-intent-plugin-type": "./src/entry-points/user-intent-plugin-type.ts"
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",

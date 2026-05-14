@@ -1,5 +1,16 @@
 # @atlaskit/task-decision
 
+## 20.1.0
+
+### Minor Changes
+
+- [`302503d41b736`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/302503d41b736) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.18
 
 ### Patch Changes

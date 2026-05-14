@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/share",
-	"version": "7.0.1",
+	"version": "7.1.0",
 	"description": "Fabric Share Element",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -117,10 +117,24 @@
 		".": "./src/index.ts",
 		"./clients": "./src/clients/index.ts",
 		"./copy-link-button": "./src/components/CopyLinkButton.tsx",
+		"./flag": "./src/types/Flag.ts",
+		"./form": "./src/types/form.ts",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
-		}
+		},
+		"./origin-tracing": "./src/types/OriginTracing.ts",
+		"./products": "./src/types/Products.ts",
+		"./share-button": "./src/types/ShareButton.ts",
+		"./share-content-state": "./src/types/ShareContentState.ts",
+		"./share-dialog-container": "./src/components/ShareDialogContainer.tsx",
+		"./share-dialog-container/types": "./src/types/ShareDialogContainer.ts",
+		"./share-dialog-with-trigger": "./src/types/ShareDialogWithTrigger.ts",
+		"./share-entities": "./src/types/ShareEntities.ts",
+		"./share-form": "./src/types/ShareForm.ts",
+		"./share-service-client": "./src/clients/ShareServiceClient.ts",
+		"./types": "./src/types/index.ts",
+		"./user": "./src/types/User.ts"
 	},
 	"platform-feature-flags": {
 		"jira-issue-terminology-refresh-m3": {

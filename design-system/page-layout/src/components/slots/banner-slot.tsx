@@ -47,6 +47,8 @@ const bannerFixedStyles = css({
  *
  * - [Examples](https://atlassian.design/components/page-layout/examples)
  * - [Code](https://atlassian.design/components/page-layout/code)
+ *
+ * @deprecated `@atlaskit/page-layout` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const Banner = (props: SlotHeightProps): jsx.JSX.Element => {
 	const {

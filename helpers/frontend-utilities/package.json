@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/frontend-utilities",
-	"version": "3.2.2",
+	"version": "3.3.0",
 	"description": "Collecton of small useful frontend utilities",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,7 +38,17 @@
 		"./retry-operation": "./src/network/retry-operation/index.ts",
 		"./local-storage": "./src/storage/local-storage/index.ts",
 		"./storage-client": "./src/storage/storage-client/index.ts",
-		"./simple-hash": "./src/utils/simple-hash/index.ts"
+		"./simple-hash": "./src/utils/simple-hash/index.ts",
+		"./convert-to-error/main": "./src/entry-points/convert-to-error-main.ts",
+		"./hooks/use-interval": "./src/entry-points/hooks-use-interval.ts",
+		"./hooks/use-local-storage": "./src/entry-points/hooks-use-local-storage.ts",
+		"./hooks/use-previous": "./src/entry-points/hooks-use-previous.ts",
+		"./hooks/use-why-did-update": "./src/entry-points/hooks-use-why-did-update.tsx",
+		"./local-storage/main": "./src/entry-points/local-storage-main.ts",
+		"./retry-operation/constants": "./src/entry-points/retry-operation-constants.ts",
+		"./retry-operation/FailedFetchError": "./src/entry-points/retry-operation-FailedFetchError.ts",
+		"./retry-operation/main": "./src/entry-points/retry-operation-main.ts",
+		"./storage-client/main": "./src/entry-points/storage-client-main.ts"
 	},
 	"scripts": {
 		"typecheck": "tsc --noEmit"

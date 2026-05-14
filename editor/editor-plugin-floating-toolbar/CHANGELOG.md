@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 12.1.0
+
+### Minor Changes
+
+- [`acbb2aa5cc917`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acbb2aa5cc917) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.20
 
 ### Patch Changes

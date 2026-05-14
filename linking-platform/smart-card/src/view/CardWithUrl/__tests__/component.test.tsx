@@ -52,58 +52,56 @@ describe('CardWithUrl', () => {
 		unmount();
 	});
 
-	ffTest.on('platform_sl_event_ui_seen', '', () => {
-		ffTest.both('rovo_chat_embed_card_dwell_and_hover_metrics', '', () => {
-			describe('when not intersecting', () => {
-				const observe = jest.fn();
-				const unobserve = jest.fn();
-				const disconnect = jest.fn();
+	ffTest.both('rovo_chat_embed_card_dwell_and_hover_metrics', '', () => {
+		describe('when not intersecting', () => {
+			const observe = jest.fn();
+			const unobserve = jest.fn();
+			const disconnect = jest.fn();
 
-				beforeAll(() => {
-					Object.defineProperty(window, 'IntersectionObserver', {
-						writable: true,
-						configurable: true,
-						value: jest.fn(() => ({
-							observe,
-							unobserve,
-							disconnect,
-						})),
-					});
+			beforeAll(() => {
+				Object.defineProperty(window, 'IntersectionObserver', {
+					writable: true,
+					configurable: true,
+					value: jest.fn(() => ({
+						observe,
+						unobserve,
+						disconnect,
+					})),
 				});
+			});
 
-				it('should disconnect intersection observer when unmounting if never intersected', async () => {
-					const { container, unmount } = setup();
+			it('should disconnect intersection observer when unmounting if never intersected', async () => {
+				const { container, unmount } = setup();
 
-					expect(observe).toHaveBeenCalledTimes(1);
-					expect(observe).toHaveBeenCalledWith(expect.any(HTMLSpanElement));
-					expect(disconnect).toHaveBeenCalledTimes(0);
+				expect(observe).toHaveBeenCalledTimes(1);
+				expect(observe).toHaveBeenCalledWith(expect.any(HTMLSpanElement));
+				expect(disconnect).toHaveBeenCalledTimes(0);
 
-					unmount();
+				unmount();
 
-					expect(disconnect).toHaveBeenCalledTimes(1);
+				expect(disconnect).toHaveBeenCalledTimes(1);
 
-					await expect(container).toBeAccessible();
-				});
+				await expect(container).toBeAccessible();
+			});
 
-				it('should not fire ui.smartLink.seen when card is resolved but not intersected', async () => {
-					const { onEvent } = setup();
+			it('should not fire ui.smartLink.seen when card is resolved but not intersected', async () => {
+				const { onEvent } = setup();
 
-					await waitFor(() => {
-						// renderSuccess should fire (card resolved)
-						expect(onEvent).toHaveBeenCalledWith(
-							expect.objectContaining({
-								payload: expect.objectContaining({ action: 'renderSuccess' }),
-							}),
-							ANALYTICS_CHANNEL,
-						);
-					});
-
-					// seen should NOT have fired
-					expect(onEvent).not.toHaveBeenCalledWith(
-						expect.objectContaining({ payload: expect.objectContaining({ action: 'seen' }) }),
+				await waitFor(() => {
+					// renderSuccess should fire (card resolved)
+					expect(onEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							payload: expect.objectContaining({ action: 'renderSuccess' }),
+						}),
 						ANALYTICS_CHANNEL,
 					);
 				});
+
+				// seen should NOT have fired
+				expect(onEvent).not.toHaveBeenCalledWith(
+					expect.objectContaining({ payload: expect.objectContaining({ action: 'seen' }) }),
+					ANALYTICS_CHANNEL,
+				);
 			});
 		});
 	});
@@ -141,72 +139,68 @@ describe('CardWithUrl', () => {
 			});
 		});
 
-		ffTest.on('platform_sl_event_ui_seen', '', () => {
-			ffTest.both('rovo_chat_embed_card_dwell_and_hover_metrics', '', () => {
-				it('should fire ui.smartLink.seen event on unauthorized status', async () => {
-					const { onEvent, unmount } = setup();
+		ffTest.both('rovo_chat_embed_card_dwell_and_hover_metrics', '', () => {
+			it('should fire ui.smartLink.seen event on unauthorized status', async () => {
+				const { onEvent, unmount } = setup();
 
-					await waitFor(() => {
-						expect(onEvent).toBeFiredWithAnalyticEventOnce({
-							payload: {
-								actionSubject: 'smartLink',
-								action: 'seen',
-								attributes: {
-									display: 'inline',
-								},
-								eventType: 'ui',
+				await waitFor(() => {
+					expect(onEvent).toBeFiredWithAnalyticEventOnce({
+						payload: {
+							actionSubject: 'smartLink',
+							action: 'seen',
+							attributes: {
+								display: 'inline',
 							},
-						});
+							eventType: 'ui',
+						},
 					});
-
-					unmount();
 				});
 
-				it.each([
-					['pending', ResolvingClient],
-					['resolved', ResolvedClient],
-					['forbidden', ForbiddenClient],
-					['errored', ErroredClient],
-					['not_found', NotFoundClient],
-				])(
-					'should not fire ui.smartLink.seen when intersected but card has %s status',
-					async (status, Client) => {
-						// Use a client that never resolves / hangs
-						const { onEvent } = setup(Client);
+				unmount();
+			});
 
-						// Give effects time to run
-						await act(async () => {
-							await flushPromises();
-						});
+			it.each([
+				['pending', ResolvingClient],
+				['resolved', ResolvedClient],
+				['forbidden', ForbiddenClient],
+				['errored', ErroredClient],
+				['not_found', NotFoundClient],
+			])(
+				'should not fire ui.smartLink.seen when intersected but card has %s status',
+				async (status, Client) => {
+					// Use a client that never resolves / hangs
+					const { onEvent } = setup(Client);
 
-						expect(onEvent).not.toHaveBeenCalledWith(
-							expect.objectContaining({ payload: expect.objectContaining({ action: 'seen' }) }),
-							ANALYTICS_CHANNEL,
-						);
-					},
-				);
-
-				it('should fire ui.smartLink.seen only once even on re-render', async () => {
-					const { card, onEvent, rerender } = setup();
-
-					await waitFor(() => {
-						expect(onEvent).toHaveBeenCalledWith(
-							expect.objectContaining({ payload: expect.objectContaining({ action: 'seen' }) }),
-							ANALYTICS_CHANNEL,
-						);
-					});
-
-					// Trigger a re-render
-					rerender(card);
+					// Give effects time to run
 					await act(async () => {
 						await flushPromises();
 					});
 
-					const seenCalls = onEvent.mock.calls.filter(
-						([event]) => event?.payload?.action === 'seen',
+					expect(onEvent).not.toHaveBeenCalledWith(
+						expect.objectContaining({ payload: expect.objectContaining({ action: 'seen' }) }),
+						ANALYTICS_CHANNEL,
 					);
-					expect(seenCalls).toHaveLength(1); // must be exactly once
+				},
+			);
+
+			it('should fire ui.smartLink.seen only once even on re-render', async () => {
+				const { card, onEvent, rerender } = setup();
+
+				await waitFor(() => {
+					expect(onEvent).toHaveBeenCalledWith(
+						expect.objectContaining({ payload: expect.objectContaining({ action: 'seen' }) }),
+						ANALYTICS_CHANNEL,
+					);
 				});
+
+				// Trigger a re-render
+				rerender(card);
+				await act(async () => {
+					await flushPromises();
+				});
+
+				const seenCalls = onEvent.mock.calls.filter(([event]) => event?.payload?.action === 'seen');
+				expect(seenCalls).toHaveLength(1); // must be exactly once
 			});
 		});
 	});

@@ -257,41 +257,29 @@ export const createPlugin = (
 					const { selection } = state;
 					const pluginState = getPluginState(state);
 					let tableRef: HTMLTableElement | undefined;
-					if (fg('platform_editor_enable_table_dnd')) {
-						const parent = findParentDomRefOfType(state.schema.nodes.table, domAtPos)(selection);
-						let shouldSetTableRef = fg('platform_editor_enable_table_dnd_patch_1')
-							? parent &&
-								pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode !== 'view'
-							: parent;
+					const parent = findParentDomRefOfType(state.schema.nodes.table, domAtPos)(selection);
+					let shouldSetTableRef =
+						parent &&
+						pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode !== 'view';
 
-						if (
-							expValEquals('platform_editor_table_update_table_ref', 'isEnabled', true) &&
-							fg('platform_editor_update_table_ref_fix')
-						) {
-							shouldSetTableRef =
-								parent &&
-								pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode !== 'view' &&
-								pluginInjectionApi?.interaction?.sharedState.currentState()?.interactionState !==
-									'hasNotHadInteraction';
-						}
+					if (
+						expValEquals('platform_editor_table_update_table_ref', 'isEnabled', true) &&
+						fg('platform_editor_update_table_ref_fix')
+					) {
+						shouldSetTableRef =
+							parent &&
+							pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode !== 'view' &&
+							pluginInjectionApi?.interaction?.sharedState.currentState()?.interactionState !==
+								'hasNotHadInteraction';
+					}
 
-						if (shouldSetTableRef) {
-							tableRef =
-								// Ignored via go/ees005
-								// eslint-disable-next-line @atlaskit/editor/no-as-casting
-								(parent as HTMLElement).querySelector<HTMLTableElement>('table') || undefined;
-						}
+					if (shouldSetTableRef) {
+						tableRef =
+							// Ignored via go/ees005
+							// eslint-disable-next-line @atlaskit/editor/no-as-casting
+							(parent as HTMLElement).querySelector<HTMLTableElement>('table') || undefined;
 					}
 					if (pluginState.editorHasFocus) {
-						if (!fg('platform_editor_enable_table_dnd')) {
-							const parent = findParentDomRefOfType(state.schema.nodes.table, domAtPos)(selection);
-							if (parent) {
-								tableRef =
-									// Ignored via go/ees005
-									// eslint-disable-next-line @atlaskit/editor/no-as-casting
-									(parent as HTMLElement).querySelector<HTMLTableElement>('table') || undefined;
-							}
-						}
 						const tableNode = findTable(state.selection);
 						// when keyboard cursor leaves the table we need to stop column resizing
 						const pluginPrevState = getPluginState(prevState);

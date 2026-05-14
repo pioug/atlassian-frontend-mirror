@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "25.5.1",
+	"version": "25.6.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,19 +35,36 @@
 		}
 	},
 	"exports": {
+		".": "./src/index.ts",
+		"./agent": "./src/components/Agent/index.ts",
+		"./agent-profile-card": "./src/components/Agent/AgentProfileCard.tsx",
+		"./agent-profile-card-resourced": "./src/components/Agent/AgentProfileCardResourced.tsx",
+		"./agent-profile-card-trigger": "./src/components/Agent/AgentProfileCardTrigger.tsx",
+		"./caching-client": "./src/client/CachingClient.ts",
 		"./client": "./src/client/index.ts",
-		"./messages": "./src/messages.ts",
+		"./config": "./src/util/config.ts",
 		"./i18n": "./src/i18n/index.ts",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
+		"./lazy-profile-card": "./src/components/User/lazyProfileCard.tsx",
+		"./messages": "./src/messages.ts",
+		"./mock-profile-client": "./src/mocks/mock-profile-client.ts",
+		"./mock-team-client": "./src/mocks/mock-team-client.ts",
+		"./mocks": "./src/mocks/index.ts",
+		"./profile-data": "./src/mocks/profile-data.ts",
+		"./profile-card": "./src/components/User/ProfileCard.tsx",
+		"./profile-card-trigger": "./src/components/User/ProfileCardTrigger.tsx",
+		"./simple-mock-clients": "./src/mocks/simple-mock-clients.ts",
 		"./team": "./src/components/Team/index.ts",
+		"./team-profile-card": "./src/components/Team/TeamProfileCard.tsx",
+		"./team-profile-card-client": "./src/client/TeamProfileCardClient.ts",
+		"./team-profile-card-trigger": "./src/components/Team/TeamProfileCardTrigger.tsx",
 		"./types": "./src/types.ts",
 		"./user": "./src/components/User/index.ts",
-		"./mocks": "./src/mocks/index.ts",
-		"./agent": "./src/components/Agent/index.ts",
-		".": "./src/index.ts"
+		"./user-profile-card-client": "./src/client/UserProfileCardClient.ts",
+		"./with-outer-listeners": "./src/util/withOuterListeners.tsx"
 	},
 	"scripts": {
 		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.svg",

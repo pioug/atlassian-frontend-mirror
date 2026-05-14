@@ -7,6 +7,7 @@ import { Fragment } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
+import warnOnce from '@atlaskit/ds-lib/warn-once';
 import { UNSAFE_media } from '@atlaskit/primitives/responsive';
 
 import {
@@ -73,6 +74,8 @@ const gridStylesMobileStyles = css({
  *
  * - [Examples](https://atlassian.design/components/page-layout/examples)
  * - [Code](https://atlassian.design/components/page-layout/code)
+ *
+ * @deprecated `@atlaskit/page-layout` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const PageLayout = ({
 	skipLinksLabel = DEFAULT_I18N_PROPS_SKIP_LINKS,
@@ -81,6 +84,14 @@ const PageLayout = ({
 	onLeftSidebarExpand,
 	onLeftSidebarCollapse,
 }: PageLayoutProps): jsx.JSX.Element => {
+	if (
+		typeof process !== 'undefined' &&
+		process.env.NODE_ENV !== 'production' &&
+		process.env.NODE_ENV !== 'CI'
+	) {
+		warnOnce('@atlaskit/page-layout is deprecated. Use @atlaskit/navigation-system instead.');
+	}
+
 	return (
 		<Fragment>
 			<SkipLinksController>

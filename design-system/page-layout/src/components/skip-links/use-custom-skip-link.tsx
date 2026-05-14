@@ -6,6 +6,11 @@ import { useEffect } from 'react';
 
 import { type SkipLinkData, useSkipLinks } from '../../controllers';
 
+/**
+ * __useCustomSkipLink__
+ *
+ * @deprecated `@atlaskit/page-layout` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export const useCustomSkipLink = (
 	id: SkipLinkData['id'],
 	skipLinkTitle: SkipLinkData['skipLinkTitle'],

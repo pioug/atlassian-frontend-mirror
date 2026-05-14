@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 10.2.0
+
+### Minor Changes
+
+- [`acbb2aa5cc917`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acbb2aa5cc917) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.3
 
 ### Patch Changes

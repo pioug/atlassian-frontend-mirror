@@ -30,7 +30,6 @@ export type CardWithUrlContentProps = {
 	inheritDimensions?: boolean;
 	inlinePreloaderStyle?: InlinePreloaderStyle;
 	isHovered?: boolean;
-	isIntersected?: boolean;
 	isSelected?: boolean;
 	onClick?: EventHandler<MouseEvent | KeyboardEvent>;
 	onError?: OnErrorCallback;

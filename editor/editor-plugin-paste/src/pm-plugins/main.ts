@@ -6,7 +6,6 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { ACTION, INPUT_METHOD, PasteTypes } from '@atlaskit/editor-common/analytics';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
-import { defaultWrapForMarkdownCodeBlocksInSlice } from '@atlaskit/editor-common/code-block';
 import { insideTable } from '@atlaskit/editor-common/core-utils';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type {
@@ -105,6 +104,7 @@ import {
 	handlePasteExpand,
 	handleTableContentPasteInBodiedExtension,
 } from './util/handlers';
+import { normalizePastedCodeBlockAttrs } from './util/normalize-pasted-code-block-attrs';
 import { handleSyncBlocksPaste } from './util/sync-block';
 import {
 	htmlHasIncompleteTable,
@@ -185,10 +185,7 @@ export function createPlugin(
 
 		const doc = atlassianMarkDownParser.parse(escapedTextInput);
 		if (doc && doc.content) {
-			return defaultWrapForMarkdownCodeBlocksInSlice(
-				new Slice(doc.content, openStart, openEnd),
-				schema,
-			);
+			return new Slice(doc.content, openStart, openEnd);
 		}
 		return;
 	}
@@ -416,6 +413,10 @@ export function createPlugin(
 						pluginInjectionApi?.betterTypeHistory
 					) {
 						tr = pluginInjectionApi?.betterTypeHistory?.actions.flagPasteEvent(tr);
+					}
+
+					if (expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
+						tr = normalizePastedCodeBlockAttrs(tr, schema.nodes.codeBlock);
 					}
 
 					const isDocChanged = tr.docChanged;

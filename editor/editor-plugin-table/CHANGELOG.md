@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-table
 
+## 22.4.1
+
+### Patch Changes
+
+- [`538b9b5a2201c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/538b9b5a2201c) -
+  Remove platform_editor_enable_table_dnd feature gate refs - fully rolled out (EDITOR-6295)
+- Updated dependencies
+
+## 22.4.0
+
+### Minor Changes
+
+- [`ebab8f80bfc40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebab8f80bfc40) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.3.1
 
 ### Patch Changes

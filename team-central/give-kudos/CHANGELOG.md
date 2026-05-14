@@ -1,5 +1,12 @@
 # @atlassian/give-kudos
 
+## 5.8.0
+
+### Minor Changes
+
+- [`0d3a3b820af40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d3a3b820af40) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 5.7.1
 
 ### Patch Changes

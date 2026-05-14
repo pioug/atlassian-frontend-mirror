@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics-namespaced-context",
-	"version": "7.2.0",
+	"version": "7.3.0",
 	"description": "Provides a namespace for AnalyticsContext data (@atlaskit/analytics-next)",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -22,6 +22,7 @@
 	},
 	"atlaskit:src": "src/index.ts",
 	"exports": {
+		".": "./src/index.ts",
 		"./MediaAnalyticsContext": "./src/MediaAnalyticsContext.tsx",
 		"./NavigationAnalyticsContext": "./src/NavigationAnalyticsContext.tsx",
 		"./PeopleTeamsAnalyticsContext": "./src/PeopleTeamsAnalyticsContext.tsx",
@@ -30,7 +31,14 @@
 		"./AtlasAnalyticsContext": "./src/AtlasAnalyticsContext.tsx",
 		"./LinkingPlatformAnalyticsContext": "./src/LinkingPlatformAnalyticsContext.tsx",
 		"./PostOfficeAnalyticsContext": "./src/PostOfficeAnalyticsContext.tsx",
-		".": "./src/index.ts"
+		"./AIMateAnalyticsContext": "./src/entry-points/AIMateAnalyticsContext.tsx",
+		"./AVPAnalyticsContext": "./src/entry-points/AVPAnalyticsContext.tsx",
+		"./FabricElementsAnalyticsContext": "./src/entry-points/FabricElementsAnalyticsContext.tsx",
+		"./GrowthAnalyticsContext": "./src/entry-points/GrowthAnalyticsContext.tsx",
+		"./NotificationsAnalyticsContext": "./src/entry-points/NotificationsAnalyticsContext.tsx",
+		"./OmniChannelAnalyticsContext": "./src/entry-points/OmniChannelAnalyticsContext.tsx",
+		"./RovoExtensionAnalyticsContext": "./src/entry-points/RovoExtensionAnalyticsContext.tsx",
+		"./TownsquareHomeAnalyticsContext": "./src/entry-points/TownsquareHomeAnalyticsContext.tsx"
 	},
 	"atlassian": {
 		"team": "UIP Frontend Observability"

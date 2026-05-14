@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feedback-collector",
-	"version": "15.1.1",
+	"version": "15.2.0",
 	"description": "A component that collects feedback across Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,7 +29,10 @@
 			"default": "./src/i18n/*.ts"
 		},
 		"./messages": "./src/messages.ts",
-		"./types": "./src/types.ts"
+		"./types": "./src/types.ts",
+		"./FeedbackButton": "./src/entry-points/FeedbackButton.tsx",
+		"./FeedbackFlag": "./src/entry-points/FeedbackFlag.tsx",
+		"./FeedbackForm": "./src/entry-points/FeedbackForm.tsx"
 	},
 	"atlassian": {
 		"team": "Belugas: Feedback Collector",

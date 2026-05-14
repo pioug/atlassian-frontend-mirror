@@ -2,6 +2,7 @@ import React from 'react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
+import { ToolbarMenuContainer } from '@atlaskit/editor-toolbar/toolbar-menu-container';
 import type { RegisterComponent, SurfaceFallbacks } from '@atlaskit/editor-ui-control-model';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
@@ -49,6 +50,7 @@ export const getLayoutColumnMenuComponents = ({
 	return [
 		{
 			...LAYOUT_COLUMN_MENU,
+			component: ToolbarMenuContainer,
 		},
 		{
 			...LAYOUT_COLUMN_MENU_SECTION,

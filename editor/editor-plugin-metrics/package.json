@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-metrics",
-	"version": "11.0.18",
+	"version": "11.1.0",
 	"description": "Metrics plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -28,7 +28,10 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./metrics-plugin-type": "./src/entry-points/metrics-plugin-type.ts",
+		"./metrics-plugin": "./src/entry-points/metrics-plugin.tsx",
+		"./metrics-state-type": "./src/entry-points/metrics-state-type.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",

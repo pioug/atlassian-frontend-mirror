@@ -35,6 +35,8 @@ const contentStyles = css({
  *
  * - [Examples](https://atlassian.design/components/page-layout/examples)
  * - [Code](https://atlassian.design/components/page-layout/code)
+ *
+ * @deprecated `@atlaskit/page-layout` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const Content = (props: ContentProps): jsx.JSX.Element => {
 	const { children, testId } = props;

@@ -210,7 +210,7 @@ export const toJSON = (
 			return memo;
 		}
 
-		if (key === 'wrap' && !node.attrs.wrap) {
+		if (key === 'wrap' && node.attrs.wrap === null) {
 			return memo;
 		}
 

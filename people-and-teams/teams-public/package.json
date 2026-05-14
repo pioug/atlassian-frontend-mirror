@@ -32,15 +32,36 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./team-containers": "./src/ui/team-containers/index.ts",
-		"./loom-avatar": "./src/common/ui/loom-avatar/index.ts",
+		"./assets": "./src/common/assets/index.ts",
+		"./container-icon": "./src/common/ui/container-icon/index.tsx",
 		"./i18n": "./src/i18n/index.ts",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
+		"./loom-avatar": "./src/common/ui/loom-avatar/index.ts",
+		"./loom-avatar/main": "./src/common/ui/loom-avatar/main.tsx",
+		"./main": "./src/ui/team-containers/main.tsx",
+		"./next/add-container-card": "./src/next/ui/team-containers/add-container-card/index.tsx",
+		"./next/team-container-skeleton": "./src/next/common/ui/team-container-skeleton/index.tsx",
+		"./next/team-link-card": "./src/next/ui/team-containers/team-link-card/index.tsx",
 		"./next": "./src/next/index.ts",
-		"./space-invite-scheduler": "./src/common/hooks/useSpaceInviteScheduler.ts"
+		"./separator": "./src/common/ui/separator/index.tsx",
+		"./space-invite-scheduler": "./src/common/hooks/useSpaceInviteScheduler.ts",
+		"./team-containers-skeleton": "./src/common/ui/team-containers-skeleton/index.tsx",
+		"./team-containers/types": "./src/ui/team-containers/types.tsx",
+		"./team-containers": "./src/ui/team-containers/index.ts",
+		"./team-link-card": "./src/ui/team-containers/team-link-card/index.tsx",
+		"./types": "./src/common/types.tsx",
+		"./use-create-containers": "./src/controllers/hooks/use-create-containers/index.tsx",
+		"./use-product-permission": "./src/controllers/hooks/use-product-permission/index.ts",
+		"./use-team-containers": "./src/controllers/hooks/use-team-containers/index.ts",
+		"./use-team-links-and-containers": "./src/controllers/hooks/use-team-links-and-containers/index.ts",
+		"./use-team-web-links": "./src/controllers/hooks/use-team-web-links/index.ts",
+		"./utils/get-container-properties": "./src/common/utils/get-container-properties.tsx",
+		"./utils/get-is-experiment-enabled": "./src/common/utils/get-is-experiment-enabled.ts",
+		"./utils/space-invite-scheduler": "./src/common/utils/spaceInviteScheduler.ts",
+		"./utils": "./src/controllers/product-permission/utils.ts"
 	},
 	"dependencies": {
 		"@atlaskit/afm-i18n-platform-people-and-teams-teams-public": "root:*",
@@ -130,7 +151,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "1.3.2",
+	"version": "1.4.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

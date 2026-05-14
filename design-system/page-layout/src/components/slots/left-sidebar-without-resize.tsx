@@ -23,6 +23,8 @@ import SlotDimensions from './slot-dimensions';
  *
  * - [Examples](https://atlassian.design/components/page-layout/examples)
  * - [Code](https://atlassian.design/components/page-layout/code)
+ *
+ * @deprecated `@atlaskit/page-layout` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const LeftSidebarWithoutResize = (props: SlotWidthProps): jsx.JSX.Element => {
 	const { children, id, width, isFixed, shouldPersistWidth, testId, skipLinkTitle } = props;

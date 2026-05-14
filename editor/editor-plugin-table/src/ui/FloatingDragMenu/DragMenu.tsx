@@ -52,7 +52,6 @@ import {
 	isSelectionType,
 } from '@atlaskit/editor-tables/utils';
 import PaintBucketIcon from '@atlaskit/icon/core/paint-bucket';
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
@@ -499,22 +498,6 @@ const DragMenu = React.memo(
 			</div>
 		);
 
-		const createHeaderRowColumnMenuItemOld = (direction: TableDirection) => {
-			return direction === 'column'
-				? ({
-						key: 'header_column',
-						content: formatMessage(messages.headerColumn),
-						value: { name: 'header_column' },
-						elemAfter: <HeaderColumnToggle />,
-					} as MenuItem)
-				: ({
-						key: 'header_row',
-						content: formatMessage(messages.headerRow),
-						value: { name: 'header_row' },
-						elemAfter: <HeaderRowToggle />,
-					} as MenuItem);
-		};
-
 		const createHeaderRowColumnMenuItem = (direction: TableDirection) => {
 			if (direction === 'column' && (pluginConfig?.advanced || pluginConfig?.allowHeaderColumn)) {
 				return {
@@ -678,13 +661,10 @@ const DragMenu = React.memo(
 		// If first row, add toggle for Header row, default is true
 		// If first column, add toggle for Header column, default is false
 		if (index === 0) {
-			if (!fg('platform_editor_enable_table_dnd')) {
-				menuItems.push({ items: [createHeaderRowColumnMenuItemOld(direction)] });
-			} else if (
-				(pluginConfig?.advanced ||
-					pluginConfig?.allowHeaderColumn ||
-					pluginConfig?.allowHeaderRow) &&
-				fg('platform_editor_enable_table_dnd')
+			if (
+				pluginConfig?.advanced ||
+				pluginConfig?.allowHeaderColumn ||
+				pluginConfig?.allowHeaderRow
 			) {
 				const headerRowColumnMenuItem = createHeaderRowColumnMenuItem(direction);
 				headerRowColumnMenuItem && menuItems.push({ items: [headerRowColumnMenuItem] });
@@ -694,9 +674,7 @@ const DragMenu = React.memo(
 		// All rows, add toggle for numbered rows, default is false
 		if (
 			direction === 'row' &&
-			(fg('platform_editor_enable_table_dnd')
-				? pluginConfig?.advanced || pluginConfig?.allowNumberColumn
-				: true)
+			(pluginConfig?.advanced || pluginConfig?.allowNumberColumn)
 		) {
 			index === 0
 				? menuItems[menuItems.length - 1].items.push(createRowNumbersMenuItem())

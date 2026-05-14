@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::84f21045f3136acc13a56a289840c82a>>
+ * @codegen <<SignedSource::8a97395137b2eee0fedb0ac95a7a2528>>
  * @codegenCommand yarn build tokens
  */
 
@@ -162,15 +162,6 @@ var tokens = exports.tokens = [{
   path: ['motion', 'easing', 'out', 'bold'],
   description: 'Elements arrive quickly and decelerate to a stop. The fast start grabs attention and the gentle landing feels controlled.',
   exampleValue: 'cubic-bezier(0, 0.4, 0, 1)',
-  usageGuidelines: {
-    usage: '',
-    cssProperties: []
-  }
-}, {
-  name: 'motion.easing.spring',
-  path: ['motion', 'easing', 'spring'],
-  description: 'A spring curve that overshoots slightly before settling. Use for playful, tactile feedback on small branded elements such as avatar hover, where the slight overshoot reinforces a sense of life.',
-  exampleValue: 'linear(0, 0.021, 0.058, 0.107, 0.164, 0.227, 0.292, 0.359, 0.425, 0.49, 0.552, 0.61, 0.664, 0.714, 0.759, 0.8, 0.837, 0.869, 0.898, 0.922, 0.943, 0.961, 0.976, 0.988, 0.998, 1.006, 1.013, 1.017, 1.02, 1.023, 1.024, 1.024, 1.024, 1.024, 1.023, 1.022, 1.02, 1.019, 1.017, 1.015, 1.014, 1.012, 1.011, 1.009, 1.008, 1.007, 1.006, 1.005, 1.004, 1.003, 1.002, 1.002, 1.001, 1.001, 1.001, 1, 1, 1, 1, 1, 0.999, 0.999, 0.999, 0.999, 1)',
   usageGuidelines: {
     usage: '',
     cssProperties: []

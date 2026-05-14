@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 11.3.0
+
+### Minor Changes
+
+- [`89a8af72aa2c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89a8af72aa2c9) -
+  Add reusable toolbar menu container and render the layout column menu in a popup
+
 ## 11.2.20
 
 ### Patch Changes

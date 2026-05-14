@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "44.9.8",
+	"version": "44.9.11",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -290,6 +290,9 @@
 			"type": "boolean"
 		},
 		"platform_navx_block_card_footer_spacing": {
+			"type": "boolean"
+		},
+		"navx-3611-inline-card-a11y-role-fix": {
 			"type": "boolean"
 		}
 	},

@@ -77,7 +77,9 @@ const getBlockNodeStyle = ({
 			'hardBreak',
 			'decisionList',
 			'taskList',
-			'taskItem',
+			...(expValEquals('platform_editor_show_diff_improvements', 'isEnabled', true)
+				? []
+				: ['taskItem']),
 			'bulletList',
 			'orderedList',
 			'layoutSection',

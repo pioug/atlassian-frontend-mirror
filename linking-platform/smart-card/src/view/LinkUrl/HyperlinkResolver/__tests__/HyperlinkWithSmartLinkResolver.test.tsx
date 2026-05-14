@@ -1,6 +1,5 @@
 import React from 'react';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { render, screen, userEvent as user } from '@atlassian/testing-library';
 
@@ -31,18 +30,10 @@ jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
 	expValEquals: jest.fn().mockReturnValue(false),
 }));
 
-// Mock the FeatureGates
-jest.mock('@atlaskit/feature-gate-js-client', () => ({
-	getExperimentValue: jest.fn(() => false),
-	initializeCompleted: jest.fn(() => true),
-}));
-
-describe('HyperlinkWithSmartLinkResolver - Connect Button Logic', () => {
+describe('HyperlinkWithSmartLinkResolver', () => {
 	const useResolveHyperlink = jest.requireMock(
 		'../../../../state/hooks/use-resolve-hyperlink',
 	).default;
-	const { getServices } = jest.requireMock('../../../../state/helpers');
-	const getExperimentValueMock = FeatureGates.getExperimentValue as jest.Mock;
 
 	const defaultProps: any = {
 		href: 'https://company.sharepoint.com/document.docx',
@@ -85,305 +76,72 @@ describe('HyperlinkWithSmartLinkResolver - Connect Button Logic', () => {
 			actions: mockActions,
 			state: mockState,
 		});
-		getServices.mockReturnValue([]);
-		// Reset FeatureGates mock to return false by default
-		getExperimentValueMock.mockReturnValue(false);
 	});
 
-	// Tests when the experiment is enabled (simulating the feature flag being on)
-	describe('Connect Button Logic - when experiments are enabled', () => {
-		beforeEach(() => {
-			// Enable the experiments for these tests
-			getExperimentValueMock.mockImplementation((experimentName: string) => {
-				if (
-					experimentName === 'platform_linking_bluelink_connect_confluence' ||
-					experimentName === 'platform_linking_bluelink_connect_jira'
-				) {
-					return true;
-				}
-				return false;
-			});
+	it('should render regular Hyperlink for unauthorized state', async () => {
+		useResolveHyperlink.mockReturnValue({
+			actions: mockActions,
+			state: { ...mockState, status: 'unauthorized' },
 		});
 
-		describe('when state is unauthorized', () => {
-			beforeEach(() => {
-				useResolveHyperlink.mockReturnValue({
-					actions: mockActions,
-					state: { ...mockState, status: 'unauthorized' },
-				});
-			});
+		render(
+			<SmartCardProvider client={new CardClient()}>
+				<HyperlinkWithSmartLinkResolver {...defaultProps} />
+			</SmartCardProvider>,
+		);
 
-			it('should capture and report a11y violations', async () => {
-				getServices.mockReturnValue([{ key: 'service1' }]);
-				const { container } = render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver {...defaultProps} />
-					</SmartCardProvider>,
-				);
-				await expect(container).toBeAccessible();
-			});
-
-			it('should render HyperlinkUnauthorizedView when services are available', () => {
-				getServices.mockReturnValue([{ key: 'service1' }]);
-
-				render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver {...defaultProps} />
-					</SmartCardProvider>,
-				);
-
-				// Should render the connect button when services are available
-				expect(screen.getByTestId('button-connect-account')).toBeInTheDocument();
-				// Should also render the hyperlink
-				expect(screen.getByRole('link')).toBeInTheDocument();
-			});
-
-			it('should not show connect button when no services are available', () => {
-				getServices.mockReturnValue([]);
-
-				render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver {...defaultProps} />
-					</SmartCardProvider>,
-				);
-
-				// Should render the hyperlink
-				expect(screen.getByRole('link')).toBeInTheDocument();
-				// Should NOT render the connect button when no services are available
-				expect(screen.queryByTestId('button-connect-account')).not.toBeInTheDocument();
-			});
-
-			it('should call actions.authorize with "hyperlink" when connect button is clicked', async () => {
-				const userEvent = user.setup();
-				getServices.mockReturnValue([{ key: 'service1' }]);
-
-				render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver {...defaultProps} />
-					</SmartCardProvider>,
-				);
-
-				const connectButton = screen.getByTestId('button-connect-account');
-				await userEvent.click(connectButton);
-
-				expect(mockActions.authorize).toHaveBeenCalledWith('url');
-			});
-
-			it('should pass onClick callback to HyperlinkUnauthorizedView', async () => {
-				const userEvent = user.setup();
-				const mockOnClick = jest.fn();
-				getServices.mockReturnValue([{ key: 'service1' }]);
-
-				render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver {...defaultProps} onClick={mockOnClick} />
-					</SmartCardProvider>,
-				);
-
-				const hyperlink = screen.getByRole('link');
-				await userEvent.click(hyperlink);
-
-				expect(mockOnClick).toHaveBeenCalled();
-			});
-
-			it('should not show button when the link is embedded in regular text', () => {
-				const embeddedInTextProps: any = {
-					href: 'https://company.sharepoint.com/document.docx',
-					children: ['Embedded in text'],
-				};
-
-				render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver {...embeddedInTextProps} />
-					</SmartCardProvider>,
-				);
-				expect(screen.queryByTestId('button-connect-account')).not.toBeInTheDocument();
-			});
-
-			it('should show button when the link is embedded in text that is wrapped by editor TextWrapper component', () => {
-				// Create a mock React element that mimics the editor TextWrapper component structure
-				getServices.mockReturnValue([{ key: 'service1' }]);
-				const MockTextWrapper = ({ children }: { children: string }) => <span>{children}</span>;
-				const wrappedElement = React.createElement(MockTextWrapper, {
-					key: 'text-wrapper',
-					children: 'https://company.sharepoint.com/document.docx',
-				});
-
-				const embeddedInTextProps: any = {
-					href: 'https://company.sharepoint.com/document.docx',
-					children: [wrappedElement],
-				};
-				render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver {...embeddedInTextProps} />
-					</SmartCardProvider>,
-				);
-				expect(screen.getByTestId('button-connect-account')).toBeInTheDocument();
-			});
-
-			it('should not show button when the link is embedded in text that is wrapped by editor TextWrapper component', () => {
-				// Create a mock React element that mimics the TextWrapper component structure
-				getServices.mockReturnValue([{ key: 'service1' }]);
-				const MockTextWrapper = ({ children }: { children: string[] }) => <span>{children}</span>;
-				const wrappedElement = React.createElement(MockTextWrapper, {
-					key: 'text-wrapper',
-					children: ['Embedded in text'],
-				});
-
-				const embeddedInTextProps: any = {
-					href: 'https://company.sharepoint.com/document.docx',
-					children: [wrappedElement],
-				};
-				render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver {...embeddedInTextProps} />
-					</SmartCardProvider>,
-				);
-				expect(screen.queryByTestId('button-connect-account')).not.toBeInTheDocument();
-			});
-		});
-
-		describe('when state is not unauthorized', () => {
-			it('should render regular Hyperlink for resolved state', () => {
-				useResolveHyperlink.mockReturnValue({
-					actions: mockActions,
-					state: { ...mockState, status: 'resolved' },
-				});
-
-				render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver {...defaultProps} />
-					</SmartCardProvider>,
-				);
-
-				expect(screen.getByRole('link')).toBeInTheDocument();
-				expect(screen.queryByTestId('button-connect-account')).not.toBeInTheDocument();
-			});
-
-			it('should render regular Hyperlink for pending state', () => {
-				useResolveHyperlink.mockReturnValue({
-					actions: mockActions,
-					state: { ...mockState, status: 'pending' },
-				});
-
-				render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver {...defaultProps} />
-					</SmartCardProvider>,
-				);
-
-				expect(screen.getByRole('link')).toBeInTheDocument();
-			});
-
-			it('should render regular Hyperlink for errored state', () => {
-				useResolveHyperlink.mockReturnValue({
-					actions: mockActions,
-					state: { ...mockState, status: 'errored' },
-				});
-
-				render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver {...defaultProps} />
-					</SmartCardProvider>,
-				);
-
-				expect(screen.getByRole('link')).toBeInTheDocument();
-			});
-		});
-
-		describe('services integration', () => {
-			beforeEach(() => {
-				useResolveHyperlink.mockReturnValue({
-					actions: mockActions,
-					state: { ...mockState, status: 'unauthorized' },
-				});
-			});
-
-			it('should handle empty services array', () => {
-				getServices.mockReturnValue([]);
-
-				render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver {...defaultProps} />
-					</SmartCardProvider>,
-				);
-
-				expect(screen.getByRole('link')).toBeInTheDocument();
-				expect(screen.queryByTestId('button-connect-account')).not.toBeInTheDocument();
-			});
-
-			it('should handle multiple services', () => {
-				getServices.mockReturnValue([
-					{ key: 'service1' },
-					{ key: 'service2' },
-					{ key: 'service3' },
-				]);
-
-				render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver {...defaultProps} />
-					</SmartCardProvider>,
-				);
-
-				expect(screen.getByRole('link')).toBeInTheDocument();
-				expect(screen.getByTestId('button-connect-account')).toBeInTheDocument();
-			});
-
-			it('should handle null/undefined services', () => {
-				getServices.mockReturnValue(null);
-
-				render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver {...defaultProps} />
-					</SmartCardProvider>,
-				);
-
-				expect(screen.getByRole('link')).toBeInTheDocument();
-				expect(screen.queryByTestId('button-connect-account')).not.toBeInTheDocument();
-			});
-		});
+		expect(screen.getByRole('link')).toBeInTheDocument();
+		expect(screen.queryByTestId('button-connect-account')).not.toBeInTheDocument();
+		await expect(document.body).toBeAccessible();
 	});
 
-	describe('Experiments disabled - Feature flag disabled', () => {
-		beforeEach(() => {
-			// Ensure experiments are disabled for these tests
-			getExperimentValueMock.mockReturnValue(false);
+	it('should render regular Hyperlink for resolved state', () => {
+		useResolveHyperlink.mockReturnValue({
+			actions: mockActions,
+			state: { ...mockState, status: 'resolved' },
 		});
 
-		it('should always render regular Hyperlink regardless of state', () => {
-			useResolveHyperlink.mockReturnValue({
-				actions: mockActions,
-				state: { ...mockState, status: 'unauthorized' },
-			});
-			getServices.mockReturnValue([{ key: 'service1' }]);
+		render(
+			<SmartCardProvider client={new CardClient()}>
+				<HyperlinkWithSmartLinkResolver {...defaultProps} />
+			</SmartCardProvider>,
+		);
 
-			render(
-				<SmartCardProvider client={new CardClient()}>
-					<HyperlinkWithSmartLinkResolver {...defaultProps} />
-				</SmartCardProvider>,
-			);
-
-			expect(screen.getByRole('link')).toBeInTheDocument();
-			expect(screen.queryByTestId('button-connect-account')).not.toBeInTheDocument();
-		});
-
-		it('should not call useCallback for onAuthorize when feature flag is disabled', () => {
-			useResolveHyperlink.mockReturnValue({
-				actions: mockActions,
-				state: { ...mockState, status: 'unauthorized' },
-			});
-
-			expect(() => {
-				render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver {...defaultProps} />
-					</SmartCardProvider>,
-				);
-			}).not.toThrow();
-		});
+		expect(screen.getByRole('link')).toBeInTheDocument();
+		expect(screen.queryByTestId('button-connect-account')).not.toBeInTheDocument();
 	});
 
-	describe('onClick callback behavior - both states', () => {
+	it('should render regular Hyperlink for pending state', () => {
+		useResolveHyperlink.mockReturnValue({
+			actions: mockActions,
+			state: { ...mockState, status: 'pending' },
+		});
+
+		render(
+			<SmartCardProvider client={new CardClient()}>
+				<HyperlinkWithSmartLinkResolver {...defaultProps} />
+			</SmartCardProvider>,
+		);
+
+		expect(screen.getByRole('link')).toBeInTheDocument();
+	});
+
+	it('should render regular Hyperlink for errored state', () => {
+		useResolveHyperlink.mockReturnValue({
+			actions: mockActions,
+			state: { ...mockState, status: 'errored' },
+		});
+
+		render(
+			<SmartCardProvider client={new CardClient()}>
+				<HyperlinkWithSmartLinkResolver {...defaultProps} />
+			</SmartCardProvider>,
+		);
+
+		expect(screen.getByRole('link')).toBeInTheDocument();
+	});
+
+	describe('onClick callback behavior', () => {
 		it('should call provided onClick callback when hyperlink is clicked', async () => {
 			const userEvent = user.setup();
 			const mockOnClick = jest.fn();

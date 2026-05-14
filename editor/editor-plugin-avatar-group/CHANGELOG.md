@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 11.0.1
+
+### Patch Changes
+
+- [`fce03fe77247e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fce03fe77247e) -
+  Cleanup feature gate `platform_ally_avatar_button_fix`
+- Updated dependencies
+
 ## 11.0.0
 
 ### Major Changes

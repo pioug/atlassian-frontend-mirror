@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-product-permissions
 
+## 1.4.0
+
+### Minor Changes
+
+- [`fb2784c333519`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb2784c333519) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 1.3.1
 
 ### Patch Changes

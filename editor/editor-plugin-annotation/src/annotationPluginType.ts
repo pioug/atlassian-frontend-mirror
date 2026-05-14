@@ -48,6 +48,18 @@ export type AnnotationPlugin = NextEditorPlugin<
 			hasAnyUnResolvedAnnotationInPage: (state: EditorState) => boolean;
 			setInlineCommentDraftState: SetInlineCommentDraftState;
 			/**
+			 * Sets a pending selected annotation, opening its comment popup or panel.
+			 * Equivalent to clicking the annotation mark in the WYSIWYG view.
+			 * Use when the annotation manager (comments panel) IS enabled.
+			 */
+			setPendingSelectedAnnotation: (annotationId: string) => Command;
+			/**
+			 * Selects the given annotation, opening its comment popup or panel.
+			 * Equivalent to clicking the annotation mark in the WYSIWYG view.
+			 * Use when the annotation manager (comments panel) is NOT enabled.
+			 */
+			setSelectedAnnotation: (annotationId: string) => Command;
+			/**
 			 * This function attempts to display the inline comment popup for a given node.
 			 * @returns A command function that returns true if the given node is supported and has resolved annotation mark(s);
 			 * otherwise, it will return false.

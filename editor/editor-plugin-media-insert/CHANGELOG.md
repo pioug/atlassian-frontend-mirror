@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 23.3.0
+
+### Minor Changes
+
+- [`a94a013546f69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a94a013546f69) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.2.0
 
 ### Minor Changes

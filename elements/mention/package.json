@@ -66,6 +66,9 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
+		"./analytics": "./src/util/analytics.ts",
+		"./constants": "./src/_constants.ts",
+		"./context-mention-resource": "./src/api/ContextMentionResource.ts",
 		"./element": "./src/element.ts",
 		"./i18n": "./src/i18n/index.ts",
 		"./i18n/*": {
@@ -73,9 +76,21 @@
 			"default": "./src/i18n/*.ts"
 		},
 		"./item": "./src/item.ts",
+		"./mention": "./src/components/Mention/index.tsx",
+		"./mention-item/styles": "./src/components/MentionItem/styles.ts",
+		"./mention-item": "./src/components/MentionItem/index.tsx",
+		"./mention-list": "./src/components/MentionList/index.tsx",
+		"./mention-name-client": "./src/api/MentionNameClient.ts",
+		"./mention-name-resolver": "./src/api/MentionNameResolver.ts",
+		"./mention-picker": "./src/components/MentionPicker/index.tsx",
+		"./mention-resource": "./src/api/MentionResource.ts",
+		"./presence-resource": "./src/api/PresenceResource.ts",
 		"./resource": "./src/resource.ts",
+		"./resourced-mention": "./src/components/Mention/ResourcedMention.tsx",
+		"./resourced-mention-list": "./src/components/ResourcedMentionList/index.tsx",
 		"./shared-styles": "./src/shared-styles.ts",
 		"./team-resource": "./src/team-resource.ts",
+		"./team-mention-resource": "./src/api/TeamMentionResource.ts",
 		"./typeahead": "./src/typeahead.ts",
 		"./types": "./src/types.ts"
 	},
@@ -128,5 +143,5 @@
 			]
 		}
 	},
-	"version": "25.0.2"
+	"version": "25.1.0"
 }

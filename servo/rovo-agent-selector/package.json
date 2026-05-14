@@ -24,7 +24,9 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./rovo-agent-selector": "./src/entry-points/rovo-agent-selector.tsx",
+		"./types": "./src/entry-points/types.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/css": "workspace:^",
@@ -92,7 +94,7 @@
 		}
 	},
 	"name": "@atlaskit/rovo-agent-selector",
-	"version": "2.0.1",
+	"version": "2.1.0",
 	"description": "rovo agent selector",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

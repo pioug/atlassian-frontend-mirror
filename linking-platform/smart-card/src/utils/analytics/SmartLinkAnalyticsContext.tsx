@@ -1,7 +1,6 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { getResolvedAttributes } from '@atlaskit/link-analytics/resolved-attributes';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
@@ -52,24 +51,15 @@ const getSmartLinkAnalyticsContext = ({
 	url,
 	error,
 }: GetSmartLinkAnalyticsContextParam) => {
-	const isHyperlinkConnectExperimentEnabled =
-		FeatureGates.getExperimentValue(
-			'platform_linking_bluelink_connect_confluence',
-			'isEnabled',
-			false,
-		) ||
-		FeatureGates.getExperimentValue('platform_linking_bluelink_connect_jira', 'isEnabled', false);
-	const resolvedAttributes = isHyperlinkConnectExperimentEnabled
-		? getExtendedResolvedAttributes(
-				{
-					url,
-					displayCategory: display === 'url' ? 'link' : 'smartLink',
-				},
-				response,
-				status,
-				error,
-			)
-		: getExtendedResolvedAttributes({ url }, response, status, error);
+	const resolvedAttributes = getExtendedResolvedAttributes(
+		{
+			url,
+			displayCategory: display === 'url' ? 'link' : 'smartLink',
+		},
+		response,
+		status,
+		error,
+	);
 
 	return {
 		source,
@@ -91,9 +81,42 @@ type SmartLinkAnalyticsContextType = {
 	source?: string;
 };
 
+type GetByUrlFn = (
+	url: string,
+	props: Omit<SmartLinkAnalyticsContextProps, 'children' | 'url'>,
+) => SmartLinkAnalyticsContextType;
+type UseSmartLinkAnalyticsUtilsReturn = {
+	getByUrl: GetByUrlFn;
+};
 /**
  * Provides an analytics context data to supply attributes to events based on a URL
  * and the link state in the store
+ */
+export const useSmartLinkAnalyticsUtils = (): UseSmartLinkAnalyticsUtilsReturn => {
+	const { store } = useSmartLinkContext();
+
+	const getByUrl: GetByUrlFn = useCallback(
+		(url, props) => {
+			const state = store ? getUrl(store, url) : undefined;
+			return getSmartLinkAnalyticsContext({
+				display: props?.display,
+				id: props?.id,
+				response: state?.details,
+				source: props?.source,
+				status: state?.status,
+				url,
+				error: state?.error,
+			});
+		},
+		[store],
+	);
+	return useMemo(() => ({ getByUrl }), [getByUrl]);
+};
+
+/**
+ * Provides an analytics context data to supply attributes to events based on a URL
+ * and the link state in the store
+ * @deprecated Use useSmartLinkAnalyticsUtils instead
  */
 export const useSmartLinkAnalyticsContext = ({
 	display,

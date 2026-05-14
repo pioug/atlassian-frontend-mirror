@@ -46,7 +46,6 @@ import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
 import TableRowMoveDownIcon from '@atlaskit/icon/core/table-row-move-down';
 import TableRowMoveUpIcon from '@atlaskit/icon/core/table-row-move-up';
 import type { NewIconProps, IconProps } from '@atlaskit/icon/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DraggableData, DraggableType, PluginInjectionAPI, TableDirection } from '../../types';
@@ -419,10 +418,7 @@ export const getDragMenuConfig = (
 
 	const allConfigs = [...restConfigs];
 
-	if (
-		(isColumnSortingEnabled && fg('platform_editor_enable_table_dnd')) ||
-		!fg('platform_editor_enable_table_dnd')
-	) {
+	if (isColumnSortingEnabled) {
 		allConfigs.unshift(...sortConfigs);
 	}
 

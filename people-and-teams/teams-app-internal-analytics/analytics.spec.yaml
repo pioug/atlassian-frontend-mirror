@@ -3891,3 +3891,112 @@ events:
   - userInlinePreview clicked (viewProfile):
       type: ui
       description: fired when the View Profile button is clicked on the user inline preview
+
+  - userProfileCard opened:
+      type: ui
+      description: fired when the user profile card popover becomes visible
+      attributes:
+        <<: *PackageMetaDataContext
+        triggerMethod:
+          type: string
+          description: how the card was opened ('click' or 'hover')
+  - userProfileCard closed:
+      type: ui
+      description: fired when the user profile card popover is dismissed
+      attributes:
+        <<: *PackageMetaDataContext
+  - userProfileCard succeeded (request):
+      type: operational
+      description: fired when the user profile card data request succeeds
+      attributes:
+        <<: *PackageMetaDataContext
+  - userProfileCard failed (request):
+      type: operational
+      description: fired when the user profile card data request fails
+      attributes:
+        <<: *PackageMetaDataContext
+  - userProfileCard clicked (thirdPartyMessage):
+      type: ui
+      description: fired when the third-party messaging integration button is clicked on the user profile card
+      attributes:
+        <<: *PackageMetaDataContext
+  - userProfileCard clicked (viewProfile):
+      type: ui
+      description: fired when the View Profile button is clicked on the user profile card
+      attributes:
+        <<: *PackageMetaDataContext
+  - userProfileCard triggered (request):
+      type: operational
+      description: fired when the user profile card data request begins (paired with succeeded/failed)
+      attributes:
+        <<: *PackageMetaDataContext
+  - userProfileCard rendered (spinner):
+      type: ui
+      description: fired when the user profile card spinner / skeleton loading state is rendered
+      attributes:
+        <<: *PackageMetaDataContext
+  - userProfileCard rendered (content):
+      type: ui
+      description: fired when the user profile card body (with profile data) is rendered
+      attributes:
+        <<: *PackageMetaDataContext
+  - userProfileCard rendered (error):
+      type: ui
+      description: fired when the user profile card error state is rendered (e.g. profile not found)
+      attributes:
+        <<: *PackageMetaDataContext
+        errorType:
+          type: string
+          description: classification of the error shown to the user (e.g. NotFound, default)
+  - userProfileCard rendered (errorBoundary):
+      type: ui
+      description: fired when an unexpected error in the user profile card subtree is caught by the error boundary
+      attributes:
+        <<: *PackageMetaDataContext
+
+  - hierarchyChart clicked (managerNode):
+      type: ui
+      description: fired when a manager node is clicked in the hierarchy chart
+      attributes:
+        <<: *PackageMetaDataContext
+  - hierarchyChart clicked (directReportNode):
+      type: ui
+      description: fired when a direct report node is clicked in the hierarchy chart
+      attributes:
+        <<: *PackageMetaDataContext
+  - hierarchyChart clicked (peerNode):
+      type: ui
+      description: fired when a peer node is clicked in the hierarchy chart
+      attributes:
+        <<: *PackageMetaDataContext
+  - hierarchyChart clicked (overflow):
+      type: ui
+      description: fired when the "See N more" overflow tile is clicked in the hierarchy chart
+      attributes:
+        <<: *PackageMetaDataContext
+  - hierarchyChart clicked (viewFullReportingLine):
+      type: ui
+      description: fired when the "Full reporting line" call-to-action button is clicked in the hierarchy chart preview
+      attributes:
+        <<: *PackageMetaDataContext
+
+  - interactiveHierarchyModal opened:
+      type: ui
+      description: fired when the interactive hierarchy modal is opened (mounted)
+      attributes:
+        <<: *PackageMetaDataContext
+  - interactiveHierarchyModal closed:
+      type: ui
+      description: fired when the interactive hierarchy modal is closed
+      attributes:
+        <<: *PackageMetaDataContext
+  - interactiveHierarchyModal succeeded (request):
+      type: operational
+      description: fired when the hierarchy data request inside the interactive hierarchy modal succeeds
+      attributes:
+        <<: *PackageMetaDataContext
+  - interactiveHierarchyModal failed (request):
+      type: operational
+      description: fired when the hierarchy data request inside the interactive hierarchy modal fails or returns an unusable payload
+      attributes:
+        <<: *PackageMetaDataContext

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-autocomplete",
-	"version": "2.0.3",
+	"version": "2.1.0",
 	"description": "JQL autocomplete engine",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -30,7 +30,12 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./base-autocomplete/types": "./src/entry-points/base-autocomplete-types.ts",
+		"./constants": "./src/entry-points/constants.ts",
+		"./jql-autocomplete/types": "./src/entry-points/jql-autocomplete-types.ts",
+		"./jql-autocomplete": "./src/entry-points/jql-autocomplete.ts",
+		"./types": "./src/entry-points/types.ts"
 	},
 	"dependencies": {
 		"@atlaskit/jql-parser": "workspace:^",

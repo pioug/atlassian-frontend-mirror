@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-expand
 
+## 11.2.0
+
+### Minor Changes
+
+- [`acbb2aa5cc917`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acbb2aa5cc917) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.7
 
 ### Patch Changes

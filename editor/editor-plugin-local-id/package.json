@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-local-id",
-	"version": "8.0.18",
+	"version": "8.1.0",
 	"description": "LocalId plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,7 +29,9 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./utils/generateShortUUID": "./src/pm-plugins/generateShortUUID.ts"
+		"./local-id-plugin": "./src/entry-points/local-id-plugin.tsx",
+		"./local-id-plugin-type": "./src/entry-points/local-id-plugin-type.ts",
+		"./utils/generateShortUUID": "./src/entry-points/generate-short-uuid.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",

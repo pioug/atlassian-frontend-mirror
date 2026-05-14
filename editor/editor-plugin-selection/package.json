@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection",
-	"version": "10.0.18",
+	"version": "10.1.0",
 	"description": "Selection plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -71,7 +71,9 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
-		"./types": "./src/types/index.ts"
+		"./selection-plugin": "./src/entry-points/selection-plugin.tsx",
+		"./selection-plugin-type": "./src/entry-points/selection-plugin-type.ts",
+		"./types": "./src/entry-points/types.ts"
 	},
 	"stricter": {
 		"no-unused-dependencies": {

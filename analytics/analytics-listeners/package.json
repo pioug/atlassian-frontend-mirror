@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics-listeners",
-	"version": "10.0.0",
+	"version": "10.1.0",
 	"description": "Fabric analytics listeners to be used by the products",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,6 +26,7 @@
 		"./FabricAnalyticsListeners": "./src/FabricAnalyticsListeners.tsx",
 		"./GenericAnalyticsListener": "./src/GenericAnalyticsListener.tsx",
 		"./analytics-web-client-wrapper": "./src/analytics-web-client-wrapper.ts",
+		"./logger": "./src/entry-points/logger.ts",
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {

@@ -21,7 +21,9 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./get-anonymous-asset": "./src/common/utils/get-anonymous-asset.ts",
+		"./types": "./src/types.ts"
 	},
 	"dependencies": {
 		"@atlaskit/afm-i18n-platform-elements-anonymous-assets": "root:*",
@@ -83,7 +85,7 @@
 		}
 	},
 	"name": "@atlaskit/anonymous-assets",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Assets for anonymous users",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {

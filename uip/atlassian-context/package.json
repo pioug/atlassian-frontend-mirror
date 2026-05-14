@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/atlassian-context",
-	"version": "0.8.0",
+	"version": "0.9.0",
 	"description": "Provides perimeter-specific URL resolution and helps identify which environment a product is running in.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,7 +32,12 @@
 	],
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./domain-lookup": "./src/entry-points/domain-lookup.tsx",
+		"./generalized-domain-lookup": "./src/entry-points/generalized-domain-lookup.tsx",
+		"./is-fedramp": "./src/entry-points/is-fedramp.tsx",
+		"./perimeter": "./src/entry-points/perimeter.tsx",
+		"./types": "./src/entry-points/types.tsx"
 	},
 	"dependencies": {
 		"@babel/runtime": "root:*"

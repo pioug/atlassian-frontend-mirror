@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::658e5a5100a589b8d9001298d17b39d3>>
+ * @codegen <<SignedSource::ee328dec5b7caea8da96bbecbd13deb9>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1681,6 +1681,30 @@ export type UserInlinePreviewClickedThirdPartyMessageAttributesType = {
 };
 export type UserInlinePreviewClickedReportingLinesAttributesType = undefined;
 export type UserInlinePreviewClickedViewProfileAttributesType = undefined;
+export type UserProfileCardOpenedAttributesType = {
+	triggerMethod: string;
+};
+export type UserProfileCardClosedAttributesType = {};
+export type UserProfileCardSucceededRequestAttributesType = {};
+export type UserProfileCardFailedRequestAttributesType = {};
+export type UserProfileCardClickedThirdPartyMessageAttributesType = {};
+export type UserProfileCardClickedViewProfileAttributesType = {};
+export type UserProfileCardTriggeredRequestAttributesType = {};
+export type UserProfileCardRenderedSpinnerAttributesType = {};
+export type UserProfileCardRenderedContentAttributesType = {};
+export type UserProfileCardRenderedErrorAttributesType = {
+	errorType: string;
+};
+export type UserProfileCardRenderedErrorBoundaryAttributesType = {};
+export type HierarchyChartClickedManagerNodeAttributesType = {};
+export type HierarchyChartClickedDirectReportNodeAttributesType = {};
+export type HierarchyChartClickedPeerNodeAttributesType = {};
+export type HierarchyChartClickedOverflowAttributesType = {};
+export type HierarchyChartClickedViewFullReportingLineAttributesType = {};
+export type InteractiveHierarchyModalOpenedAttributesType = {};
+export type InteractiveHierarchyModalClosedAttributesType = {};
+export type InteractiveHierarchyModalSucceededRequestAttributesType = {};
+export type InteractiveHierarchyModalFailedRequestAttributesType = {};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -2859,6 +2883,66 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the View Profile button is clicked on the user inline preview */
 	'ui.userInlinePreview.clicked.viewProfile': UserInlinePreviewClickedViewProfileAttributesType;
+	/**
+	 * fired when the user profile card popover becomes visible */
+	'ui.userProfileCard.opened': UserProfileCardOpenedAttributesType;
+	/**
+	 * fired when the user profile card popover is dismissed */
+	'ui.userProfileCard.closed': UserProfileCardClosedAttributesType;
+	/**
+	 * fired when the user profile card data request succeeds */
+	'operational.userProfileCard.succeeded.request': UserProfileCardSucceededRequestAttributesType;
+	/**
+	 * fired when the user profile card data request fails */
+	'operational.userProfileCard.failed.request': UserProfileCardFailedRequestAttributesType;
+	/**
+	 * fired when the third-party messaging integration button is clicked on the user profile card */
+	'ui.userProfileCard.clicked.thirdPartyMessage': UserProfileCardClickedThirdPartyMessageAttributesType;
+	/**
+	 * fired when the View Profile button is clicked on the user profile card */
+	'ui.userProfileCard.clicked.viewProfile': UserProfileCardClickedViewProfileAttributesType;
+	/**
+	 * fired when the user profile card data request begins (paired with succeeded/failed) */
+	'operational.userProfileCard.triggered.request': UserProfileCardTriggeredRequestAttributesType;
+	/**
+	 * fired when the user profile card spinner / skeleton loading state is rendered */
+	'ui.userProfileCard.rendered.spinner': UserProfileCardRenderedSpinnerAttributesType;
+	/**
+	 * fired when the user profile card body (with profile data) is rendered */
+	'ui.userProfileCard.rendered.content': UserProfileCardRenderedContentAttributesType;
+	/**
+	 * fired when the user profile card error state is rendered (e.g. profile not found) */
+	'ui.userProfileCard.rendered.error': UserProfileCardRenderedErrorAttributesType;
+	/**
+	 * fired when an unexpected error in the user profile card subtree is caught by the error boundary */
+	'ui.userProfileCard.rendered.errorBoundary': UserProfileCardRenderedErrorBoundaryAttributesType;
+	/**
+	 * fired when a manager node is clicked in the hierarchy chart */
+	'ui.hierarchyChart.clicked.managerNode': HierarchyChartClickedManagerNodeAttributesType;
+	/**
+	 * fired when a direct report node is clicked in the hierarchy chart */
+	'ui.hierarchyChart.clicked.directReportNode': HierarchyChartClickedDirectReportNodeAttributesType;
+	/**
+	 * fired when a peer node is clicked in the hierarchy chart */
+	'ui.hierarchyChart.clicked.peerNode': HierarchyChartClickedPeerNodeAttributesType;
+	/**
+	 * fired when the "See N more" overflow tile is clicked in the hierarchy chart */
+	'ui.hierarchyChart.clicked.overflow': HierarchyChartClickedOverflowAttributesType;
+	/**
+	 * fired when the "Full reporting line" call-to-action button is clicked in the hierarchy chart preview */
+	'ui.hierarchyChart.clicked.viewFullReportingLine': HierarchyChartClickedViewFullReportingLineAttributesType;
+	/**
+	 * fired when the interactive hierarchy modal is opened (mounted) */
+	'ui.interactiveHierarchyModal.opened': InteractiveHierarchyModalOpenedAttributesType;
+	/**
+	 * fired when the interactive hierarchy modal is closed */
+	'ui.interactiveHierarchyModal.closed': InteractiveHierarchyModalClosedAttributesType;
+	/**
+	 * fired when the hierarchy data request inside the interactive hierarchy modal succeeds */
+	'operational.interactiveHierarchyModal.succeeded.request': InteractiveHierarchyModalSucceededRequestAttributesType;
+	/**
+	 * fired when the hierarchy data request inside the interactive hierarchy modal fails or returns an unusable payload */
+	'operational.interactiveHierarchyModal.failed.request': InteractiveHierarchyModalFailedRequestAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

@@ -11,7 +11,12 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AnnotationPlugin } from './annotationPluginType';
-import { setInlineCommentDraftState, showInlineCommentForBlockNode } from './editor-commands';
+import {
+	setInlineCommentDraftState,
+	setSelectedAnnotation,
+	setPendingSelectedAnnotation,
+	showInlineCommentForBlockNode,
+} from './editor-commands';
 import { annotationWithToDOMFix } from './nodeviews/annotationMark';
 import { inlineCommentPlugin } from './pm-plugins/inline-comment';
 import { keymapPlugin } from './pm-plugins/keymap';
@@ -59,6 +64,8 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 			showCommentForBlockNode: showInlineCommentForBlockNode(
 				annotationProviders?.inlineComment.supportedBlockNodes,
 			),
+			setSelectedAnnotation,
+			setPendingSelectedAnnotation,
 		},
 
 		getSharedState(editorState) {

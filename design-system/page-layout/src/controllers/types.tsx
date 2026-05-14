@@ -19,6 +19,9 @@ export type SkipLinkData = {
 	listIndex?: number;
 };
 
+/**
+ * @deprecated `@atlaskit/page-layout` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export type LeftSidebarState = {
 	isFlyoutOpen: boolean;
 	isResizing: boolean;

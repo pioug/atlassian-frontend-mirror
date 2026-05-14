@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor",
-	"version": "6.3.1",
+	"version": "6.4.0",
 	"description": "This package allows consumers to render an advanced JQL editor component to enable autocomplete-assisted authoring and validation of JQL queries.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -44,7 +44,17 @@
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
-		}
+		},
+		"./analytics": "./src/entry-points/analytics.ts",
+		"./async": "./src/entry-points/async.tsx",
+		"./components/types": "./src/entry-points/components-types.ts",
+		"./jql-editor-analytics-listener": "./src/entry-points/jql-editor-analytics-listener.tsx",
+		"./jql-editor-layout": "./src/entry-points/jql-editor-layout.tsx",
+		"./src/types": "./src/entry-points/src-types.ts",
+		"./state/types": "./src/entry-points/state-types.ts",
+		"./types": "./src/entry-points/types.ts",
+		"./ui/types": "./src/entry-points/ui-types.ts",
+		"./ui": "./src/entry-points/ui.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/afm-i18n-platform-jql-jql-editor": "root:*",

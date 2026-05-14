@@ -120,7 +120,7 @@ describe('LazyIntersectionObserverCard', () => {
 		});
 
 		ffTest.on('platform_sl_event_ui_seen', '', () => {
-			it('should pass isIntersected=true to wrapped component after intersection', async () => {
+			it('should render the wrapped component after intersection', async () => {
 				const spy = jest
 					.spyOn(componentModule, 'CardWithUrlContent')
 					.mockImplementation(() => <div />);
@@ -128,7 +128,7 @@ describe('LazyIntersectionObserverCard', () => {
 				const { unmount } = setup();
 
 				expect(spy).toHaveBeenLastCalledWith(
-					expect.objectContaining({ isIntersected: true }),
+					expect.objectContaining({ appearance: 'block', url: 'http://example.com' }),
 					expect.anything(),
 				);
 

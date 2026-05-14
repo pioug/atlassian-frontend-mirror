@@ -1,5 +1,12 @@
 # @atlaskit/adf-schema
 
+## 52.11.3
+
+### Patch Changes
+
+- [`d93fb5f6f6ced`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d93fb5f6f6ced) -
+  [EDITOR-7014] Preserve explicit code block wrap values during paste and ADF serialization
+
 ## 52.11.2
 
 ### Patch Changes

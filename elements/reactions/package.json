@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "34.1.1",
+	"version": "34.2.0",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -92,11 +92,23 @@
 	],
 	"exports": {
 		".": "./src/index.ts",
+		"./ConnectedReactionPicker": "./src/containers/ConnectedReactionPicker/ConnectedReactionPicker.tsx",
+		"./ConnectedReactionsView": "./src/containers/ConnectedReactionsView/ConnectedReactionsView.tsx",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
-		"./MockReactionsClient": "./src/MockReactionsClient.ts"
+		"./MemoryReactionsStore": "./src/store/MemoryReactionsStore.ts",
+		"./MockReactionsClient": "./src/MockReactionsClient.ts",
+		"./reaction": "./src/types/reaction.ts",
+		"./Reaction": "./src/components/Reaction.tsx",
+		"./ReactionConsumer": "./src/store/ReactionConsumer.tsx",
+		"./ReactionPicker": "./src/components/ReactionPicker.tsx",
+		"./Reactions": "./src/components/Reactions.tsx",
+		"./ReactionServiceClient": "./src/client/ReactionServiceClient.ts",
+		"./store": "./src/types/store.ts",
+		"./types": "./src/types/index.ts",
+		"./useCloseManager": "./src/hooks/useCloseManager.ts"
 	},
 	"techstack": {
 		"@repo/internal": {

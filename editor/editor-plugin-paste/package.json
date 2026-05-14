@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste",
-	"version": "11.1.11",
+	"version": "11.2.1",
 	"description": "Paste plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -27,7 +27,9 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./paste-plugin": "./src/entry-points/paste-plugin.tsx",
+		"./paste-plugin-type": "./src/entry-points/paste-plugin-type.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",

@@ -1,5 +1,25 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.29.0
+
+### Minor Changes
+
+- [`ebab8f80bfc40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebab8f80bfc40) -
+  Register native GASv3 events for `userProfileCard`, `hierarchyChart`, and
+  `interactiveHierarchyModal` in `analytics.spec.yaml` and the generated `analytics.types.ts`. Also
+  adds `userProfileCard`, `hierarchyChart`, and `interactiveHierarchyModal` to the
+  `AnalyticsEventSource` union, and tightens `ui.userProfileCard.opened`'s `triggerMethod` attribute
+  to the literal union `'click' | 'hover'`.
+
+  The new event keys cover open/close, click, request lifecycle (`triggered` / `succeeded` /
+  `failed`), render lifecycle (`rendered.spinner` / `rendered.content` / `rendered.error` /
+  `rendered.errorBoundary`), and chart node interactions. See the per-package changesets for the
+  consumer-side wiring.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.28.0
 
 ### Minor Changes

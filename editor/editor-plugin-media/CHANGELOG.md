@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-media
 
+## 12.7.0
+
+### Minor Changes
+
+- [`64bd49d58dcd8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64bd49d58dcd8) -
+  Remove cc-maui-phase-2-loading fg references. Replace with cc-maui-phase-2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.6.1
+
+### Patch Changes
+
+- [`ebab8f80bfc40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebab8f80bfc40) -
+  Cleanup dynamic config maui_ai_border_killswitch (resolved as false). Removed FeatureGates import
+  and killswitch condition check.
+- Updated dependencies
+
+## 12.6.0
+
+### Minor Changes
+
+- [`a94a013546f69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a94a013546f69) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.5.6
 
 ### Patch Changes

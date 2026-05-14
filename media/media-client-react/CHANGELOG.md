@@ -1,5 +1,11 @@
 # @atlaskit/media-client-react
 
+## 5.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.1
 
 ### Patch Changes

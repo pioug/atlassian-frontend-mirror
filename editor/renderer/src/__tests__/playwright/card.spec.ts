@@ -9,6 +9,7 @@ test.describe('smart card', () => {
 	});
 
 	test('open preview from block card', async ({ renderer }) => {
+		await renderer.waitForRendererStable();
 		const previewButton = renderer.page.getByRole('button', {
 			name: 'Open Preview',
 		});
@@ -28,6 +29,7 @@ test.describe('smart card', () => {
 		// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
 		// the skipAutoA11y wrapper and associated import. For more information, see go/afm-a11y-tooling:playwright
 		skipAutoA11y();
+		await renderer.waitForRendererStable();
 		const previewButton = renderer.page.getByRole('button', {
 			name: 'Open Preview',
 		});

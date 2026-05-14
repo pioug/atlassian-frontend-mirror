@@ -1,5 +1,11 @@
 # @atlaskit/teams-client
 
+## 4.32.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.32.3
 
 ### Patch Changes

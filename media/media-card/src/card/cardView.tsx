@@ -335,11 +335,11 @@ export const CardViewBase = ({
 	} = getRenderConfigByStatus();
 
 	// AI border shown while generating; cleared by the decoration on upload completion.
-	/* eslint-disable @atlaskit/platform/no-preconditioning -- loading-specific gate (cc-maui-phase-2-loading) layered on the existing platform_editor_maui_edit gate + MAUI experiment cohort during phased rollout; preconditioning is intentional and will be removed when the existing gates are cleaned up */
+	/* eslint-disable @atlaskit/platform/no-preconditioning -- loading-specific gate (cc-maui-phase-2) layered on the existing platform_editor_maui_edit gate + MAUI experiment cohort during phased rollout; preconditioning is intentional and will be removed when the existing gates are cleaned up */
 	const renderAIBorderOverride =
 		!!isAIGenerating &&
 		fg('platform_editor_maui_edit') &&
-		fg('cc-maui-phase-2-loading') &&
+		fg('cc-maui-phase-2') &&
 		expValEquals('cc-maui-experiment', 'isEnabled', true);
 	/* eslint-enable @atlaskit/platform/no-preconditioning */
 	const shouldDisplayBackground =

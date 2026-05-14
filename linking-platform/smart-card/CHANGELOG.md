@@ -1,5 +1,30 @@
 # @atlaskit/smart-card
 
+## 44.9.11
+
+### Patch Changes
+
+- [`657813a2d7397`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/657813a2d7397) -
+  Use useRef to prevent CardSSR to re-render on intersecting into viewport
+
+## 44.9.10
+
+### Patch Changes
+
+- [`ebab8f80bfc40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebab8f80bfc40) -
+  Clean up the platform_linking_bluelink_connect_CONFLUENCE and
+  platform_linking_bluelink_connect_jira no ship code
+- [`ebab8f80bfc40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebab8f80bfc40) -
+  NAVX-3611 Fixing the role for inline card when it's an anchor
+- Updated dependencies
+
+## 44.9.9
+
+### Patch Changes
+
+- [`48c4567f7c052`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48c4567f7c052) -
+  Add no-exposure social proof experiment metadata to Smart Link render success analytics.
+
 ## 44.9.8
 
 ### Patch Changes

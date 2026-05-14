@@ -17,6 +17,7 @@ test.describe('datasource', () => {
 		// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
 		// the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
 		skipAutoA11y();
+		await renderer.waitForRendererStable();
 		const locator = renderer.page.locator(DATASOURCE_TABLE_VIEW);
 
 		await expect(locator).toBeVisible();
@@ -27,6 +28,7 @@ test.describe('datasource', () => {
 		// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
 		// the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
 		skipAutoA11y();
+		await renderer.waitForRendererStable();
 		const locator = renderer.page.locator(DATASOURCE_TABLE_VIEW);
 		await expect(locator).toBeVisible();
 

@@ -6,6 +6,13 @@ import { render, waitFor } from '@atlassian/testing-library';
 
 import withCardIntersectionObserver from '../index';
 
+jest.mock('../../../../state/hooks/use-smart-link-seen-event', () => ({
+	useSmartLinkSeenEvent: jest.fn(() => ({
+		onIntersecting: jest.fn(),
+		onStatusSettled: jest.fn(),
+	})),
+}));
+
 describe('withCardIntersectionObserver', () => {
 	const InnerTestComponent = jest.fn(() => <div />);
 	const TestComponent = withCardIntersectionObserver(InnerTestComponent);
@@ -59,11 +66,11 @@ describe('withCardIntersectionObserver', () => {
 			await expect(container).toBeAccessible();
 		});
 
-		it('should pass isIntersected=false to wrapped component before intersection', () => {
+		it('should render the wrapped component before intersection', () => {
 			setup();
 
 			expect(InnerTestComponent).toHaveBeenCalledWith(
-				expect.objectContaining({ isIntersected: false }),
+				expect.objectContaining({ appearance: 'inline' }),
 				expect.anything(),
 			);
 		});
@@ -121,12 +128,12 @@ describe('withCardIntersectionObserver', () => {
 			expect(disconnect).toHaveBeenCalledTimes(2);
 		});
 
-		it('should pass isIntersected=true to wrapped component after intersection', async () => {
+		it('should render the wrapped component after intersection', async () => {
 			setup();
 
 			await waitFor(() => {
 				expect(InnerTestComponent).toHaveBeenLastCalledWith(
-					expect.objectContaining({ isIntersected: true }),
+					expect.objectContaining({ appearance: 'inline' }),
 					expect.anything(),
 				);
 			});

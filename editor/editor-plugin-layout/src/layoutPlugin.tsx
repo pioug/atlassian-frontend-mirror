@@ -37,7 +37,11 @@ import {
 	IconThreeColumnLayout,
 	IconTwoColumnLayout,
 } from '@atlaskit/editor-common/quick-insert';
-import type { FloatingToolbarConfig, PMPlugin } from '@atlaskit/editor-common/types';
+import type {
+	FloatingToolbarConfig,
+	PMPlugin,
+	UiComponentFactoryParams,
+} from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
@@ -350,12 +354,24 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 				}
 			},
 		},
-		contentComponent() {
+		contentComponent({
+			editorView,
+			popupsMountPoint,
+			popupsBoundariesElement,
+			popupsScrollableElement,
+		}: UiComponentFactoryParams) {
 			return (
 				<>
 					{editorExperiment('advanced_layouts', true) ? <GlobalStylesWrapper /> : null}
-					{expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true) ? (
-						<LayoutColumnMenu api={api} />
+					{expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true) &&
+					editorView ? (
+						<LayoutColumnMenu
+							api={api}
+							editorView={editorView}
+							mountTo={popupsMountPoint}
+							boundariesElement={popupsBoundariesElement}
+							scrollableElement={popupsScrollableElement}
+						/>
 					) : null}
 				</>
 			);

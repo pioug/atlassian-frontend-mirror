@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/status",
-	"version": "4.0.18",
+	"version": "4.1.0",
 	"description": "Fabric Status React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -84,7 +84,9 @@
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
-		"./picker": "./src/picker.ts"
+		"./picker": "./src/picker.ts",
+		"./status": "./src/components/Status.tsx",
+		"./status-picker": "./src/components/StatusPicker.tsx"
 	},
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {

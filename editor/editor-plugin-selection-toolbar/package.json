@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-toolbar",
-	"version": "11.2.3",
+	"version": "11.3.0",
 	"description": "@atlaskit/editor-plugin-selection-toolbar for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,7 +29,10 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./selection-toolbar-plugin": "./src/entry-points/selection-toolbar-plugin.tsx",
+		"./selection-toolbar-plugin-type": "./src/entry-points/selection-toolbar-plugin-type.ts",
+		"./types": "./src/entry-points/types.ts"
 	},
 	"dependencies": {
 		"@atlaskit/css": "workspace:^",

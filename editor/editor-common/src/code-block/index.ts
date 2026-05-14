@@ -13,15 +13,13 @@ export const codeBlockWrappedStates: WeakMap<PmNode, boolean | undefined> = new 
 
 type OptionalCodeBlockAttrs = CodeBlockAttrs | undefined;
 
-export const getDefaultCodeBlockAttrs = (
-	attrs?: CodeBlockAttrs,
-): OptionalCodeBlockAttrs => {
+export const getDefaultCodeBlockAttrs = (attrs?: CodeBlockAttrs): OptionalCodeBlockAttrs => {
 	if (!expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
 		return attrs;
 	}
 
-	// attrs.wrap is already set (either true or false) — respect the caller's intent.
-	if (attrs?.wrap !== undefined) {
+	// Only boolean wrap values represent caller intent. null/undefined means unset.
+	if (attrs?.wrap === true || attrs?.wrap === false) {
 		return attrs;
 	}
 

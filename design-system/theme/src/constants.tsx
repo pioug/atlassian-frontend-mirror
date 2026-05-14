@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 import deprecationWarning from '@atlaskit/ds-lib/deprecation-warning';
 import { token } from '@atlaskit/tokens';
 

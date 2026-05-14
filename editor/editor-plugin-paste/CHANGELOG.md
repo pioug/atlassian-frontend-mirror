@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-paste
 
+## 11.2.1
+
+### Patch Changes
+
+- [`d93fb5f6f6ced`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d93fb5f6f6ced) -
+  [EDITOR-7014] Preserve explicit code block wrap values during paste and ADF serialization
+- Updated dependencies
+
+## 11.2.0
+
+### Minor Changes
+
+- [`a94a013546f69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a94a013546f69) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.11
 
 ### Patch Changes

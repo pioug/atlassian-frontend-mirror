@@ -759,9 +759,7 @@ describe('smart-card: error analytics', () => {
 			</FabricAnalyticsListeners>,
 		);
 		const resolvedView = await screen.findByTestId('erroredLink-resolved-view');
-		const resolvedCard = screen.getByRole('button');
 		expect(resolvedView).toBeTruthy();
-		expect(resolvedCard).toBeTruthy();
 		expect(onError).not.toHaveBeenCalled();
 		expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
 			expect.objectContaining({

@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-mentions
 
+## 12.2.0
+
+### Minor Changes
+
+- [`a94a013546f69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a94a013546f69) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 12.1.17
 
 ### Patch Changes

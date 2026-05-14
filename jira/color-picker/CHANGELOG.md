@@ -1,5 +1,12 @@
 # @atlaskit/color-picker
 
+## 6.1.0
+
+### Minor Changes
+
+- [`61003a8c4efa0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61003a8c4efa0) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 6.0.3
 
 ### Patch Changes

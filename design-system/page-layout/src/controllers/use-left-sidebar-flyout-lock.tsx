@@ -18,6 +18,8 @@ import { SidebarResizeContext } from './sidebar-resize-context';
  * The intended usage is to use this hook within the popup component
  * you are rendering. This way the left sidebar will be locked for
  * as long as the popup is open.
+ *
+ * @deprecated `@atlaskit/page-layout` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 export const useLeftSidebarFlyoutLock = (): void => {
 	const { setLeftSidebarState } = useContext(SidebarResizeContext);

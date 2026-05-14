@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/focused-task-close-account",
-	"version": "4.0.4",
+	"version": "4.1.0",
 	"description": "This package contains all of the UI components needed to assemble the focused tasks for deactivating and deleting users' accounts in accordance with the GDPR \"Right to be forgotten\".",
 	"deprecated": "⚠️ DEPRECATED: This package is marked for removal. Please avoid new usage.",
 	"publishConfig": {
@@ -24,6 +24,10 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
+		"./deactivate-user-overview-screen": "./src/components/DeactivateUserOverviewScreen/DeactivateUserOverviewScreen.tsx",
+		"./delete-user-content-preview-screen": "./src/components/DeleteUserContentPreviewScreen/DeleteUserContentPreviewScreen.tsx",
+		"./delete-user-overview-screen": "./src/components/DeleteUserOverviewScreen/DeleteUserOverviewScreen.tsx",
+		"./focused-task-close-account": "./src/components/FocusedTaskCloseAccount/FocusedTaskCloseAccount.tsx",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"

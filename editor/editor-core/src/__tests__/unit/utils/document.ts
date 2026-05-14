@@ -1340,7 +1340,7 @@ describe(name, () => {
 								localId: null,
 								hideLineNumbers: false,
 								uniqueId: null,
-								wrap: false,
+								wrap: null,
 							},
 							content: [
 								{
@@ -2784,7 +2784,7 @@ describe(name, () => {
 										localId: null,
 										hideLineNumbers: false,
 										uniqueId: null,
-										wrap: false,
+										wrap: null,
 									},
 									marks: [
 										{
@@ -2845,7 +2845,7 @@ describe(name, () => {
 										localId: null,
 										hideLineNumbers: false,
 										uniqueId: null,
-										wrap: false,
+										wrap: null,
 									},
 									marks: [
 										{
@@ -2911,7 +2911,7 @@ describe(name, () => {
 										localId: null,
 										hideLineNumbers: false,
 										uniqueId: null,
-										wrap: false,
+										wrap: null,
 									},
 									marks: [
 										{
@@ -2971,7 +2971,7 @@ describe(name, () => {
 										localId: null,
 										hideLineNumbers: false,
 										uniqueId: null,
-										wrap: false,
+										wrap: null,
 									},
 									marks: [
 										{

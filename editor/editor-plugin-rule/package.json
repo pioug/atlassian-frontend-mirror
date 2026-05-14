@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-rule",
-	"version": "10.0.0",
+	"version": "10.1.0",
 	"description": "Rule plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -27,7 +27,9 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./rule-plugin": "./src/entry-points/rule-plugin.tsx",
+		"./rule-plugin-type": "./src/entry-points/rule-plugin-type.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",

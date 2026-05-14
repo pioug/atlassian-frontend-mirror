@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ufo",
-	"version": "0.4.3",
+	"version": "0.5.0",
 	"description": "UFO external part",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,11 +29,19 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
+		".": "./src/index.ts",
 		"./global-stream-buffer": "./src/global-stream-buffer/index.ts",
 		"./logger": "./src/logger/index.ts",
 		"./platform-client": "./src/platform-client/index.ts",
 		"./types": "./src/types.ts",
-		".": "./src/index.ts"
+		"./buildVersion": "./src/entry-points/buildVersion.ts",
+		"./concurrent-experience": "./src/entry-points/concurrent-experience.ts",
+		"./experience": "./src/entry-points/experience.ts",
+		"./experience-state": "./src/entry-points/experience-state.ts",
+		"./experience-types": "./src/entry-points/experience-types.ts",
+		"./global-page-load-experience": "./src/entry-points/global-page-load-experience.ts",
+		"./until-helpers": "./src/entry-points/until-helpers.ts",
+		"./visibility-change-observer": "./src/entry-points/visibility-change-observer.ts"
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "workspace:^",

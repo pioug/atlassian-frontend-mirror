@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rating",
-	"version": "3.1.14",
+	"version": "3.2.0",
 	"description": "An accessible rating component that can be heavily customized.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -62,6 +62,9 @@
 	},
 	"homepage": "https://atlaskit.atlassian.com/packages/design-system/rating",
 	"exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./rating": "./src/entry-points/rating.tsx",
+		"./rating-group": "./src/entry-points/rating-group.tsx",
+		"./star": "./src/entry-points/star.tsx"
 	}
 }

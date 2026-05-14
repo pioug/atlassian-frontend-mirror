@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-scroll-into-view",
-	"version": "10.1.0",
+	"version": "10.2.0",
 	"description": "Scroll-into-view plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -27,7 +27,9 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./scroll-into-view-plugin": "./src/entry-points/scroll-into-view-plugin.tsx",
+		"./scroll-into-view-plugin-type": "./src/entry-points/scroll-into-view-plugin-type.ts"
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 10.4.0
+
+### Minor Changes
+
+- [`a94a013546f69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a94a013546f69) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.3.0
 
 ### Minor Changes

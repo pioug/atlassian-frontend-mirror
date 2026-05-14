@@ -1,32 +1,86 @@
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type Step as ProseMirrorStep, AttrStep } from '@atlaskit/editor-prosemirror/transform';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type StepRange = {
 	fromB: number;
+	/** Whether the changed node is inline (true) or block (false/undefined) */
+	isInline?: boolean;
 	toB: number;
 };
 
 const filterUndefined = (x: StepRange | undefined): x is StepRange => !!x;
 
-// Currently allow attributes that indicats a change in media image
-const allowedAttrs = ['id', 'collection', 'url'];
+// Attributes that indicate a change in media image
+const mediaAttrs = ['id', 'collection', 'url'];
+
+// Attribute that indicates a date change
+const dateAttrs = ['timestamp'];
+
+// Attribute that indicates a task item state change
+const taskItemAttrs = ['state'];
+
+// Attributes excluded from extension change detection (not meaningful content changes)
+const extensionExcludedAttrs = ['localId'];
+
+// Extension node type names
+const extensionNodeNames = ['extension', 'inlineExtension', 'bodiedExtension'];
+
+const getStepAttrs = (step: ProseMirrorStep): string[] => {
+	if (step instanceof AttrStep) {
+		return [step.attr];
+	}
+	if (step instanceof SetAttrsStep && step.attrs) {
+		return Object.keys(step.attrs);
+	}
+	return [];
+};
 
 export const getAttrChangeRanges = (doc: PMNode, steps: ProseMirrorStep[]): StepRange[] => {
 	return steps
 		.map((step) => {
-			if (
-				(step instanceof AttrStep && allowedAttrs.includes(step.attr)) ||
-				(step instanceof SetAttrsStep &&
-					step.attrs &&
-					[...Object.keys(step.attrs)].some((v) => allowedAttrs.includes(v)))
-			) {
-				const $pos = doc.resolve(step.pos);
-				if ($pos.parent.type === doc.type.schema.nodes.mediaSingle) {
-					const startPos = $pos.pos + $pos.parentOffset;
-					return { fromB: startPos, toB: startPos + $pos.parent.nodeSize - 1 };
+			if (!(step instanceof AttrStep) && !(step instanceof SetAttrsStep)) {
+				return undefined;
+			}
+			const stepAttrs = getStepAttrs(step);
+			const $pos = doc.resolve(step.pos);
+			const nodeAtPos = doc.nodeAt(step.pos);
+
+			if (expValEquals('platform_editor_show_diff_improvements', 'isEnabled', true)) {
+				// date node: timestamp attribute change — highlight the date node itself (inline)
+				if (stepAttrs.some((v) => dateAttrs.includes(v)) && nodeAtPos?.type.name === 'date') {
+					return { fromB: step.pos, toB: step.pos + nodeAtPos.nodeSize, isInline: true };
+				}
+
+				// taskItem node: state attribute change — highlight the taskItem node
+				if (
+					stepAttrs.some((v) => taskItemAttrs.includes(v)) &&
+					nodeAtPos?.type.name === 'taskItem'
+				) {
+					return { fromB: step.pos, toB: step.pos + nodeAtPos.nodeSize };
+				}
+
+				// extension nodes: any attribute change except localId — highlight the node
+				if (
+					nodeAtPos &&
+					extensionNodeNames.includes(nodeAtPos.type.name) &&
+					stepAttrs.some((v) => !extensionExcludedAttrs.includes(v))
+				) {
+					const isInline = nodeAtPos.type.name === 'inlineExtension';
+					return { fromB: step.pos, toB: step.pos + nodeAtPos.nodeSize, isInline };
 				}
 			}
+
+			// media node: id/collection/url attribute change — highlight the mediaSingle parent
+			if (
+				stepAttrs.some((v) => mediaAttrs.includes(v)) &&
+				$pos.parent.type === doc.type.schema.nodes.mediaSingle
+			) {
+				const startPos = $pos.pos + $pos.parentOffset;
+				return { fromB: startPos, toB: startPos + $pos.parent.nodeSize - 1 };
+			}
+
 			return undefined;
 		})
 		.filter(filterUndefined);

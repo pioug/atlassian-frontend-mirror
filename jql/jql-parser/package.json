@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-parser",
-	"version": "2.0.1",
+	"version": "2.1.0",
 	"description": "JQL lexer, parser, listener and visitor",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -30,7 +30,11 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./JQLLexer": "./src/entry-points/JQLLexer.ts",
+		"./JQLParser": "./src/entry-points/JQLParser.ts",
+		"./JQLParserListener": "./src/entry-points/JQLParserListener.ts",
+		"./JQLParserVisitor": "./src/entry-points/JQLParserVisitor.ts"
 	},
 	"dependencies": {
 		"@babel/runtime": "root:*",

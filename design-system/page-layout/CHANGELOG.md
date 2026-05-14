@@ -1,5 +1,12 @@
 # @atlaskit/page-layout
 
+## 4.3.2
+
+### Patch Changes
+
+- [`40a0c6a050287`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40a0c6a050287) -
+  Add deprecation notices to code exports
+
 ## 4.3.1
 
 ### Patch Changes

@@ -1875,6 +1875,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-13
+	platform_editor_show_diff_improvements: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	platform_editor_paste_actions_menu_v2: {
 		defaultValue: 'control' | 'hasSpellingAndGrammar' | 'hasAltAiActions';
 		param: string;
@@ -4074,6 +4081,14 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_replace_doc: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_replace_doc',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-13
+	platform_editor_show_diff_improvements: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_show_diff_improvements',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

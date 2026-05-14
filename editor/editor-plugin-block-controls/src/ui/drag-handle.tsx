@@ -573,9 +573,9 @@ export const DragHandle = ({
 
 				if (
 					nodeType === 'layoutColumn' &&
-					expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
+					expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)
 				) {
-					tr.setMeta('toggleLayoutColumnMenu', {});
+					tr.setMeta('toggleLayoutColumnMenu', { isOpen: true });
 				}
 
 				const resolvedStartPos = tr.doc.resolve(startPos);
@@ -632,9 +632,9 @@ export const DragHandle = ({
 
 				if (
 					nodeType === 'layoutColumn' &&
-					expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
+					expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)
 				) {
-					tr.setMeta('toggleLayoutColumnMenu', {});
+					tr.setMeta('toggleLayoutColumnMenu', { isOpen: true });
 				}
 
 				const mSelect = api?.blockControls.sharedState.currentState()?.multiSelectDnD;

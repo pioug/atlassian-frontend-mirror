@@ -748,6 +748,30 @@ describe('JSONTransformer:', () => {
 			});
 		});
 
+		it('should preserve wrap=false from stage-0 codeBlock node', () => {
+			const schema = AdfSchemaDefault.getSchemaBasedOnStage('stage0');
+			const pmDoc = schema.nodes.doc.createChecked(undefined, [
+				schema.nodes.codeBlock.createChecked({ wrap: false }, schema.text('var foo = 2;')),
+			]);
+
+			expect(toJSON(pmDoc)).toEqual({
+				version: 1,
+				type: 'doc',
+				content: [
+					{
+						type: 'codeBlock',
+						attrs: { wrap: false },
+						content: [
+							{
+								type: 'text',
+								text: 'var foo = 2;',
+							},
+						],
+					},
+				],
+			});
+		});
+
 		[
 			{ nodeName: 'tableCell', schemaBuilder: td },
 			{ nodeName: 'tableHeader', schemaBuilder: th },

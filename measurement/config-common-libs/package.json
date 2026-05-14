@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/config-common-libs",
-	"version": "0.2.1",
+	"version": "0.3.0",
 	"description": "Common library code that's shared between the Frontend Web Client and the Backend NodeJS client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,7 +32,9 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./collection": "./src/entry-points/collection.ts",
+		"./types": "./src/entry-points/types.ts"
 	},
 	"dependencies": {
 		"@babel/runtime": "root:*",

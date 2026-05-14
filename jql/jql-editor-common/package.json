@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor-common",
-	"version": "3.2.0",
+	"version": "3.3.0",
 	"description": "Common constants, types and utilities used by the JQL editor and its dependant packages.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,7 +37,12 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./autocomplete/types": "./src/entry-points/autocomplete-types.ts",
+		"./constants": "./src/entry-points/constants.ts",
+		"./analytics/types": "./src/entry-points/analytics-types.ts",
+		"./types": "./src/entry-points/types.ts",
+		"./util": "./src/entry-points/util.ts"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

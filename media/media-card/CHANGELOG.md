@@ -1,5 +1,18 @@
 # @atlaskit/media-card
 
+## 80.5.0
+
+### Minor Changes
+
+- [`64bd49d58dcd8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64bd49d58dcd8) -
+  Remove cc-maui-phase-2-loading fg references. Replace with cc-maui-phase-2
+
+## 80.4.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 80.4.10
 
 ### Patch Changes

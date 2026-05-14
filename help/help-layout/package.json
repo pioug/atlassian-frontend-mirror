@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help-layout",
-	"version": "7.0.1",
+	"version": "7.1.0",
 	"description": "Layout for the atlaskit/help component.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -79,6 +79,7 @@
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
-		"./messages": "./src/messages.ts"
+		"./messages": "./src/messages.ts",
+		"./HelpLayout": "./src/entry-points/HelpLayout.tsx"
 	}
 }

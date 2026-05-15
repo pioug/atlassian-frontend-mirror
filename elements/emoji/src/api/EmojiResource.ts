@@ -167,7 +167,33 @@ export class EmojiResource
 
 	constructor(config: EmojiResourceConfig) {
 		super();
-		this.emojiProviderConfig = config;
+		const rewriteEmojiGatewayPath = (url: string): string =>
+			url.replace('/gateway/api/emoji', '/gateway/api/elements/emoji');
+		const stargateEmojiPathEnabled = fg('use-elements-stargate-emoji-path');
+		const singleEmojiApi = config.singleEmojiApi;
+		const optimisticImageApi = config.optimisticImageApi;
+
+		this.emojiProviderConfig = stargateEmojiPathEnabled
+			? {
+				...config,
+				providers: config.providers.map((provider) => ({
+					...provider,
+					url: rewriteEmojiGatewayPath(provider.url),
+				})),
+				singleEmojiApi: singleEmojiApi
+					? {
+							...singleEmojiApi,
+							getUrl: (emojiId) => rewriteEmojiGatewayPath(singleEmojiApi.getUrl(emojiId)),
+						}
+					: undefined,
+				optimisticImageApi: optimisticImageApi
+					? {
+							...optimisticImageApi,
+							getUrl: (emojiId) => rewriteEmojiGatewayPath(optimisticImageApi.getUrl(emojiId)),
+						}
+					: undefined,
+				}
+			: config;
 		this.recordConfig = config.recordConfig;
 		this.currentUser = config.currentUser;
 

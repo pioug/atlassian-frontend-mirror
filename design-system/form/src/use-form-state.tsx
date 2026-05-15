@@ -2,7 +2,7 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 
 import { type FormState, type FormSubscription } from 'final-form';
 
-import { FormContext } from './form';
+import { FormContext } from './form-context';
 
 // Constantized to avoid a new object reference built every call
 const defaultSubscriptionConfig: FormSubscription = { values: true };

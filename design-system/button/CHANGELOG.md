@@ -1,5 +1,12 @@
 # @atlaskit/button
 
+## 23.11.5
+
+### Patch Changes
+
+- [`4c5585a34d950`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c5585a34d950) -
+  Fixed spacing compact styling overriding circle button styling
+
 ## 23.11.4
 
 ### Patch Changes

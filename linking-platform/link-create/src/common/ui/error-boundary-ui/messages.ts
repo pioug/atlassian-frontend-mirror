@@ -1,12 +1,8 @@
 import { defineMessages } from 'react-intl';
 
-const _default_1: {
-	description: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-} = defineMessages({
+type MessageKeys = 'description';
+
+const message: Record<MessageKeys, { id: string; defaultMessage: string; description?: string }> = defineMessages({
 	description: {
 		id: 'link-create.unknown-error.description',
 		defaultMessage:
@@ -14,4 +10,5 @@ const _default_1: {
 		description: 'Description when an unknown error occurs',
 	},
 });
-export default _default_1;
+
+export default message;

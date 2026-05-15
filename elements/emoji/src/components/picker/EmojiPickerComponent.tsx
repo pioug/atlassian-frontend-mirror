@@ -15,6 +15,7 @@ import {
 } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { getDocument } from '@atlaskit/browser-apis';
 import { token } from '@atlaskit/tokens';
 import { unstable_batchedUpdates as batchedUpdates } from 'react-dom';
 import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl';
@@ -263,6 +264,11 @@ const EmojiPickerComponent = ({
 			setUploadErrorMessage(undefined);
 		});
 		fireAnalytics(uploadCancelButton());
+		if (fg('platform_emoji_picker_refresh')) {
+			setTimeout(() => {
+				getDocument()?.getElementById('add-custom-emoji')?.focus();
+			}, 0);
+		}
 	}, [fireAnalytics]);
 
 	const getDynamicCategories = useCallback((): Promise<CategoryId[]> => {
@@ -545,7 +551,7 @@ const EmojiPickerComponent = ({
 	);
 
 	const onUploadEmoji = useCallback(
-		(upload: EmojiUpload, retry: boolean) => {
+		async (upload: EmojiUpload, retry: boolean) => {
 			fireAnalytics(uploadConfirmButton({ retry }));
 			const errorSetter = (message?: MessageDescriptor) => {
 				setUploadErrorMessage(message);
@@ -558,6 +564,16 @@ const EmojiPickerComponent = ({
 				});
 				scrollToUploadedEmoji(emojiDescription);
 			};
+
+			if (fg('platform_emoji_picker_refresh')) {
+				const uploadShortName = `:${upload.name.toLowerCase()}:`;
+				const existing = await emojiProvider.findByShortName(uploadShortName);
+				if (existing) {
+					errorSetter(messages.emojiDuplicateName);
+					return;
+				}
+			}
+
 			uploadEmoji(upload, emojiProvider, errorSetter, onSuccess, fireAnalytics, retry);
 		},
 		[emojiProvider, fireAnalytics, scrollToUploadedEmoji],

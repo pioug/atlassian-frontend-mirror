@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { logException } from '../sentry';
 import { type ClientContext, type ClientContextProps } from '../types';
 
@@ -31,15 +29,13 @@ export class BaseClient {
 	constructor(config: ClientConfig) {
 		this.config = config;
 		this.context = {
-			cloudId: fg('teams-app_client_fix-invalid-ari') ? '' : 'None',
+			cloudId: '',
 		};
 	}
 	setContext(context: ClientContextProps): void {
 		this.context = {
 			...context,
-			cloudId: fg('teams-app_client_fix-invalid-ari')
-				? context.cloudId || ''
-				: context.cloudId || 'None',
+			cloudId: context.cloudId || '',
 		};
 	}
 

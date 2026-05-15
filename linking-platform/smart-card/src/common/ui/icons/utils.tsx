@@ -93,7 +93,7 @@ export const renderIconTile = (
 	Icon: IconTileProps['icon'],
 	appearance: IconTileProps['appearance'],
 ): React.FC<AtlaskitIconTileProps> => {
-	return ({ size, ...props }: AtlaskitIconTileProps) => {
+	return ({ size, isTiledIcon, ...props }: AtlaskitIconTileProps) => {
 		const tileSize = transformSmartLinkSizeToIconTileSize(size);
 		if (tileSize === undefined) {
 			// size="16" has been removed — render the icon directly without a tile,
@@ -113,6 +113,17 @@ export const renderIconTile = (
 			);
 		}
 		const { shape: _shape, UNSAFE_circleReplacementComponent: _unsafe, ...tileProps } = props;
-		return <IconTile appearance={appearance} icon={Icon} size={tileSize} {...tileProps} />;
+		return (
+			<IconTile
+				appearance={appearance}
+				icon={
+					isTiledIcon
+						? (iconProps) => <Icon {...iconProps} spacing="spacious" />
+						: Icon
+				}
+				size={tileSize}
+				{...tileProps}
+			/>
+		);
 	};
 };

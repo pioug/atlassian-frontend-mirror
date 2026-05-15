@@ -13,13 +13,23 @@ export function useSmartLinkEvents(): SmartLinkEvents {
 	return events;
 }
 
+export type Fire3PWorkflowsClickEventOptions = {
+	/** True for middle-clicks (button === 1) captured via `onAuxClick`. */
+	isAuxClick?: boolean;
+	/** True for right-clicks captured via `onContextMenu`. */
+	isContextMenu?: boolean;
+};
+
 export function useFire3PWorkflowsClickEvent(
 	firstPartyIdentifier: string | undefined,
 	thirdPartyARI: string | undefined,
 ) {
 	const { createAnalyticsEvent } = useAnalyticsEventsNext();
 
-	return (): void => {
+	return ({
+		isAuxClick = false,
+		isContextMenu = false,
+	}: Fire3PWorkflowsClickEventOptions = {}): void => {
 		const smartlinkClickAnalyticsEvent = createAnalyticsEvent({
 			action: 'clicked',
 			actionSubject: 'smartLink',
@@ -28,6 +38,8 @@ export function useFire3PWorkflowsClickEvent(
 			attributes: {
 				eventName: 'smartLinkClickAnalyticsThirdPartyWorkflows',
 				firstPartyIdentifier: firstPartyIdentifier,
+				isAuxClick,
+				isContextMenu,
 			},
 			nonPrivacySafeAttributes: {
 				thirdPartyARI: thirdPartyARI,

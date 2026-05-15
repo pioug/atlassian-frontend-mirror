@@ -83,7 +83,7 @@ const styles = cssMap({
  * Icon renderer for lozenge components
  * Handles proper sizing and color theming for icons
  */
-export const IconRenderer: (props: IconRendererProps) => React.JSX.Element = ({
+const IconRenderer: (props: IconRendererProps) => React.JSX.Element = ({
 	icon: Icon,
 	color,
 	testId,

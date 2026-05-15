@@ -8,6 +8,7 @@ import {
 	akEditorTableNumberColumnWidth,
 	akEditorUnitZIndex,
 } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { TableCssClassName as ClassName } from '../types';
@@ -602,7 +603,9 @@ export const columnControlsDecoration = (): SerializedStyles => {
 export const hoveredDeleteButton = (): SerializedStyles => css`
 	.${ClassName.TABLE_CONTAINER}.${ClassName.HOVERED_DELETE_BUTTON} {
 		.${ClassName.SELECTED_CELL}, .${ClassName.COLUMN_SELECTED}, .${ClassName.HOVERED_CELL} {
-			border: 1px solid ${tableBorderDeleteColor};
+			${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+				? '' /* Cell borders handled by ::after overlay in rounded mode. */
+				: `border: 1px solid ${tableBorderDeleteColor};`}
 		}
 		.${ClassName.SELECTED_CELL}::after {
 			background: ${tableCellDeleteColor};
@@ -629,11 +632,15 @@ export const hoveredCell = (): SerializedStyles => css`
 		.${ClassName.TABLE_CONTAINER}:not(.${ClassName.HOVERED_DELETE_BUTTON}) {
 		.${ClassName.HOVERED_CELL} {
 			position: relative;
-			border: 1px solid ${tableBorderSelectedColor};
+			${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+				? '' /* Cell borders handled by ::after overlay in rounded mode. */
+				: `border: 1px solid ${tableBorderSelectedColor};`}
 		}
 		.${ClassName.HOVERED_CELL}.${ClassName.HOVERED_NO_HIGHLIGHT} {
 			position: relative;
-			border: 1px solid ${tableBorderColor};
+			${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+				? '' /* Cell borders handled by ::after overlay in rounded mode. */
+				: `border: 1px solid ${tableBorderColor};`}
 		}
 	}
 `;

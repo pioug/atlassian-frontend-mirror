@@ -19,6 +19,7 @@ import { firePasteActionsMenuV2ExperimentExposure } from './ui/on-paste-actions-
 import { PasteActionsMenu } from './ui/on-paste-actions-menu/PasteActionsMenu';
 import { getPasteMenuComponents } from './ui/on-paste-actions-menu/PasteMenuComponents';
 import { buildToolbar, isToolbarVisible } from './ui/toolbar';
+import { createPasteMenuRuleFactories } from './ui/utils/paste-menu-rules/rules';
 
 export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, api }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
@@ -32,6 +33,24 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 
 	return {
 		name: 'pasteOptionsToolbarPlugin',
+
+		actions: {
+			getPasteMenuRules: () => {
+				const getContext = () => {
+					const pasteOptsState = api?.pasteOptionsToolbarPlugin?.sharedState.currentState();
+					const pasteState = api?.paste?.sharedState.currentState();
+					return {
+						getPlaintextLength: () => pasteOptsState?.plaintextLength ?? 0,
+						getAncestorNodeNames: () => pasteOptsState?.pasteAncestorNodeNames ?? [],
+						getPastedText: () => pasteState?.lastContentPasted?.text ?? '',
+						getPastedSlice: () => pasteState?.lastContentPasted?.pastedSlice,
+						getNodeTypes: () => [],
+						getPasteSource: () => pasteState?.lastContentPasted?.pasteSource,
+					};
+				};
+				return createPasteMenuRuleFactories(getContext);
+			},
+		},
 		pmPlugins() {
 			return [
 				{

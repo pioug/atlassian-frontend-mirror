@@ -1,5 +1,25 @@
 # @atlaskit/renderer
 
+## 130.6.0
+
+### Minor Changes
+
+- [`7b2ab46c79d94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b2ab46c79d94) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 130.5.1
+
+### Patch Changes
+
+- [`3a69722c61c6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a69722c61c6a) -
+  Add rounded corners to table node in editor. This works by hiding the actual table border and
+  adding a pseudo element with rounded corners.
+- Updated dependencies
+
 ## 130.5.0
 
 ### Minor Changes

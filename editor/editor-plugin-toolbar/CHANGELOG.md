@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 7.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.1
+
+### Patch Changes
+
+- [`a4948eba59865`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4948eba59865) -
+  Editor-5610: Fix domMutationTargetNotFound failure going up, so "Toolbars reliably open" error
+  budget does not keep burning down
+- Updated dependencies
+
 ## 7.3.0
 
 ### Minor Changes

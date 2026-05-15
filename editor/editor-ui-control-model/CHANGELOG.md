@@ -1,5 +1,12 @@
 # @atlaskit/editor-ui-control-model
 
+## 1.2.0
+
+### Minor Changes
+
+- [`7b2ab46c79d94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b2ab46c79d94) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 1.1.1
 
 ### Patch Changes

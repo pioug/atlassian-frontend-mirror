@@ -74,6 +74,9 @@
 			"path": "../../../people-and-teams/profilecard/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../people-and-teams/teams-app-config/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/theme/afm-cc/tsconfig.json"
 		},
 		{

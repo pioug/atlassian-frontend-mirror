@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -9,11 +10,21 @@ import {
 import { EXTENSION_MENU_ITEM_TEST_ID } from '@atlaskit/editor-common/block-menu';
 import { ToolbarDropdownItemSection, ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import type { ExtensionNestedDropdownMenuConfiguration } from '../../types';
 import { useSelectionExtensionComponentContext } from '../SelectionExtensionComponentContext';
 
 import { SelectionExtensionDropdownItem } from './SelectionExtensionDropdownItem';
+
+const styles = cssMap({
+	lozenge: {
+		marginLeft: token('space.075'),
+	},
+});
 
 export type SelectionExtensionNestedDropdownMenuProps = {
 	nestedDropdownMenu: ExtensionNestedDropdownMenuConfiguration;
@@ -57,10 +68,23 @@ export const SelectionExtensionNestedDropdownMenu = ({
 		});
 	};
 
+	const lozengeLabel = nestedDropdownMenu.lozenge?.label;
+	const elemAfterText =
+		lozengeLabel && fg('platform_editor_block_menu_v2_patch_2') ? (
+			<Box as="span" xcss={styles.lozenge}>
+				<Lozenge
+					appearance={fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'}
+				>
+					{lozengeLabel}
+				</Lozenge>
+			</Box>
+		) : undefined;
+
 	return (
 		<ToolbarNestedDropdownMenu
 			testId={EXTENSION_MENU_ITEM_TEST_ID}
 			text={nestedDropdownMenu.label}
+			elemAfterText={elemAfterText}
 			elemBefore={IconComponent ? <IconComponent label="" size="small" /> : undefined}
 			elemAfter={<ChevronRightIcon label="" size="small" />}
 			onClick={handleClick}

@@ -192,11 +192,9 @@ export type IconTileAppearance =
 	| 'magentaBold'
 	| 'purpleBold';
 
-export type NewIconTileSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
-export type LegacyIconTileSize = '16' | '24' | '32' | '40' | '48';
-export type IconTileSize = NewIconTileSize | LegacyIconTileSize;
+export type IconTileSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 
-export interface IconTileProps {
+interface IconTileBaseProps {
 	/**
 	 * The icon to display
 	 */
@@ -210,41 +208,50 @@ export interface IconTileProps {
 	 */
 	appearance: IconTileAppearance;
 	/**
-	 * Size of the tile, in pixels. Defaults to `24`.
+	 * Size of the tile. Defaults to `medium`.
 	 *
-	 * Now supports both semantic t-shirt size names and pixel number values. Pixel number values are deprecated and will be removed in a future release, however they will both be available and backwards-compatible during a transition period.
-	 *
-	 * Size `16` will not have a replacement after deprecation, and should be replaced with direct icons without a tile or enlarging to the next available size `xsmall`.
-	 *
-	 * All available sizes:
-	 * - `16` (deprecated)
-	 * - `xsmall` (new)
-	 * - `small` or `24`
-	 * - `medium` or `32`
-	 * - `large` or `40`
-	 * - `xlarge` or `48`
+	 * Available sizes: `xsmall`, `small`, `medium`, `large`, `xlarge`.
 	 */
 	size?: IconTileSize;
-	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
-	/**
-	 * Shape of the tile background. Defaults to "square"
-	 * @deprecated Circle shape is deprecated and will be removed in a future version. Consider migrating to alternatives such as a square tile, or an `IconButton` for interactive elements.
-	 * If necessary, the only way to retain a circle appearance is to rebuild the component custom using ADS primitives. The prop `UNSAFE_circleReplacementComponent` can be used to
-	 * implement alternatives.
-	 */
-	shape?: 'square' | 'circle';
-	/**
-	 * A component to render in place of circle shaped icon tiles, swapped out with a feature flag.
-	 *
-	 * This prop is temporary, and will be used by ADS to safely rollout alternatives as circle shaped icon tiles are deprecated.
-	 */
-	UNSAFE_circleReplacementComponent?: ReactElement;
 	/**
 	 * A unique string that appears as a data attribute `data-testid` in the rendered code,
 	 * serving as a hook for automated tests.
 	 */
 	testId?: string;
 }
+
+interface IconTileSquareProps extends IconTileBaseProps {
+	/**
+	 * Shape of the tile background. Defaults to "square".
+	 */
+	shape?: 'square';
+	/**
+	 * A component to render in place of circle shaped icon tiles, swapped out with a feature flag.
+	 *
+	 * Only applicable when `shape="circle"`.
+	 */
+	UNSAFE_circleReplacementComponent?: never;
+}
+
+interface IconTileCircleProps extends IconTileBaseProps {
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
+	/**
+	 * Shape of the tile background.
+	 * @deprecated Circle shape is deprecated and will be removed in a future version. Consider migrating to alternatives such as a square tile, or an `IconButton` for interactive elements.
+	 * If necessary, the only way to retain a circle appearance is to rebuild the component custom using ADS primitives. The prop `UNSAFE_circleReplacementComponent` can be used to
+	 * implement alternatives.
+	 */
+	shape: 'circle';
+	/**
+	 * A component to render in place of circle shaped icon tiles, swapped out with a feature flag.
+	 *
+	 * Required when `shape="circle"`. This prop is temporary, and will be used by ADS to safely
+	 * rollout alternatives as circle shaped icon tiles are deprecated.
+	 */
+	UNSAFE_circleReplacementComponent: ReactElement;
+}
+
+export type IconTileProps = IconTileSquareProps | IconTileCircleProps;
 
 export interface SkeletonProps {
 	/*

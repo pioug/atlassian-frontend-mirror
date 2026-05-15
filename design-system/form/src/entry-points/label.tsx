@@ -1,2 +1,4 @@
-export { Label, Legend } from '../label';
-export type { LabelProps, LegendProps } from '../label';
+export { Label } from '../label';
+export { Legend } from '../legend';
+export type { LabelProps } from '../label';
+export type { LegendProps } from '../legend';

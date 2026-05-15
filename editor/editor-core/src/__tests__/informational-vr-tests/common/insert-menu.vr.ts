@@ -5,7 +5,8 @@ import { snapshotInformational } from '@af/visual-regression';
 
 import { EditorWithElementBrowser } from './element-browser.fixtures';
 
-snapshotInformational(EditorWithElementBrowser, {
+snapshotInformational.verySlow(EditorWithElementBrowser, {
+	slowBecause: 'JS size exceeded error threshold. Expected: <4.0MB , Got: 4.0MB',
 	description: 'Insert Menu with elementBrowser enabled',
 	mouseReset: true,
 	selector: {

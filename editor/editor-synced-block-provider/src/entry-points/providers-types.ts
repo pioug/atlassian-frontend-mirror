@@ -1,0 +1,21 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+export type {
+	ADFFetchProvider,
+	ADFWriteProvider,
+	BatchFetchConfig,
+	BlockNodeIdentifiers,
+	BlockSubscriptionErrorCallback,
+	BlockUpdateCallback,
+	SyncBlockDataProviderInterface,
+	SyncBlockInstance,
+	MediaEmojiProviderOptions,
+	SyncedBlockRendererProviderOptions,
+	SyncBlockRendererProviderCreator,
+	SyncedBlockRendererDataProviders,
+	Unsubscribe,
+	UpdateReferenceSyncBlockResult,
+	WriteSyncBlockResult,
+	SyncBlockParentInfo,
+	SyncBlockSourceInfo,
+	SyncBlockJiraIssueType,
+} from '../providers/types';

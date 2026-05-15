@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 9.2.0
+
+### Minor Changes
+
+- [`f1eebdf4ed96b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1eebdf4ed96b) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.2
 
 ### Patch Changes

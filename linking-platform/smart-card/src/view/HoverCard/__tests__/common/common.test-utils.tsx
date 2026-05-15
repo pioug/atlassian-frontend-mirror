@@ -188,6 +188,20 @@ export const unauthorizedViewTests = (
 				}),
 			);
 		});
+
+		it('does not render auth tooltip when the auth flow is not present in the response', async () => {
+			await setup({
+				extraCardProps: { showHoverPreview: true },
+				mock: {
+					...mockUnauthorisedResponse,
+					meta: {
+						...mockUnauthorisedResponse.meta,
+						auth: [],
+					},
+				},
+			});
+			expect(screen.queryByTestId('hover-card-unauthorised-view')).toBeNull();
+		});
 	});
 };
 
@@ -634,26 +648,6 @@ export const runCommonHoverCardTests = (
 	});
 
 	describe('errored links', () => {
-		// TODO: Move this test to unauthorizedViewTests on navx-2478-sl-fix-hover-card-unresolved-view cleanup
-		it('does not render auth tooltip when the auth flow is not present in the response', async () => {
-			const {
-				testIds: { unauthorizedTestId },
-			} = config;
-
-			await setup({
-				extraCardProps: { showHoverPreview: true },
-				mock: {
-					...mockUnauthorisedResponse,
-					meta: {
-						...mockUnauthorisedResponse.meta,
-						auth: [],
-					},
-				},
-				testId: unauthorizedTestId,
-			});
-			expect(screen.queryByTestId('hover-card-unauthorised-view')).toBeNull();
-		});
-
 		it('should not show a hover card for an errored link', async () => {
 			const {
 				testIds: { erroredTestId },

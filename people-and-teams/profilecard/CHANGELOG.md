@@ -1,5 +1,21 @@
 # @atlaskit/profilecard
 
+## 25.6.2
+
+### Patch Changes
+
+- [`22be117c632e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22be117c632e3) -
+  [ux] refactored profile hover card and added to owner fields
+- Updated dependencies
+
+## 25.6.1
+
+### Patch Changes
+
+- [`72f9cd3f2406e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72f9cd3f2406e) -
+  PTC-16536 Remove A11Y eslint suppression
+- Updated dependencies
+
 ## 25.6.0
 
 ### Minor Changes

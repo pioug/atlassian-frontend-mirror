@@ -1,17 +1,8 @@
 import { defineMessages } from 'react-intl';
 
-const _default_1: {
-	genericErrorMessage: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	requiredFieldInstruction: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-} = defineMessages({
+type MessageKeys = 'genericErrorMessage' | 'requiredFieldInstruction';
+
+const message: Record<MessageKeys, { id: string; defaultMessage: string; description?: string }> = defineMessages({
 	genericErrorMessage: {
 		id: 'link-create.unknown-error.heading',
 		defaultMessage: 'Something went wrong.',
@@ -23,4 +14,5 @@ const _default_1: {
 		description: 'Instruction for the required fields in the Link Create form',
 	},
 });
-export default _default_1;
+
+export default message;

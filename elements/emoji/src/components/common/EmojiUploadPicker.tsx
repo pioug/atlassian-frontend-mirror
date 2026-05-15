@@ -39,6 +39,8 @@ import FileChooser from './FileChooser';
 import { UploadStatus } from './internal-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Button from '@atlaskit/button/new';
+import { Box } from '@atlaskit/primitives/compiled';
+import { getDocument } from '@atlaskit/browser-apis';
 
 const closeEmojiUploadButton = css({
 	display: 'flex',
@@ -75,6 +77,14 @@ const emojiUploadNew = css({
 
 const emojiUploadTop = css({
 	paddingBottom: token('space.100'),
+	display: 'flex',
+	justifyContent: 'space-between',
+	alignItems: 'flex-end',
+	font: token('font.body.small'),
+});
+
+const emojiUploadTopNew = css({
+	paddingBottom: token('space.025'),
 	display: 'flex',
 	justifyContent: 'space-between',
 	alignItems: 'flex-end',
@@ -121,8 +131,8 @@ const uploadChooseFileRow = css({
 const uploadChooseFileRowNew = css({
 	display: 'flex',
 	flexDirection: 'column',
-	paddingBottom: token('space.100'),
-	gap: token('space.200'),
+	gap: token('space.075'),
+	minHeight: '250px',
 });
 
 export interface OnUploadEmoji {
@@ -174,6 +184,7 @@ const toEmojiName = (uploadName: string): string => {
 interface ChooseEmojiFileProps {
 	errorMessage?: Message;
 	name?: string;
+	nameErrorMessage?: Message;
 	onAddEmoji?: () => void;
 	onChooseFile: ChangeEventHandler<any>;
 	onClick?: () => void;
@@ -193,6 +204,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 		onUploadCancelled,
 		onAddEmoji,
 		errorMessage,
+		nameErrorMessage,
 		previewImage,
 		uploadStatus,
 		intl,
@@ -227,7 +239,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 
 	return fg('platform_emoji_picker_refresh') ? (
 		<div css={emojiUploadNew} data-testid={uploadEmojiComponentTestId}>
-			<div css={emojiUploadTop}>
+			<div css={emojiUploadTopNew}>
 				<label css={[uploadChooseFileMessage, labelStyles]} htmlFor="new-emoji-name-input">
 					{previewImage ? (
 						<FormattedMessage {...messages.emojiPreviewTitle} />
@@ -237,7 +249,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 				</label>
 			</div>
 			<div css={uploadChooseFileRowNew}>
-				<Text>
+				<Box>
 					<FormattedMessage {...messages.emojiChooseFileScreenReaderDescription}>
 						{() => (
 							<FileChooser
@@ -251,7 +263,10 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 							/>
 						)}
 					</FormattedMessage>
-				</Text>
+					<div id={fileChooserButtonDescriptionId}>
+						{errorMessage && <EmojiErrorMessage errorStyle="chooseFile" message={errorMessage} />}
+					</div>
+				</Box>
 				<div>
 					<label css={[uploadChooseFileMessage, labelStyles]} htmlFor="new-emoji-name-input">
 						<FormattedMessage {...messages.emojiNameLabel} />
@@ -265,15 +280,16 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 						value={name}
 						isCompact
 						autoFocus
+						isInvalid={!!nameErrorMessage}
 						testId={uploadEmojiNameInputTestId}
 						ref={inputRef}
 						id="new-emoji-name-input"
 						aria-required={true}
 					/>
+					{nameErrorMessage && (
+						<EmojiErrorMessage errorStyle="chooseFile" message={nameErrorMessage} />
+					)}
 				</div>
-			</div>
-			<div id={fileChooserButtonDescriptionId}>
-				{errorMessage && <EmojiErrorMessage errorStyle="chooseFile" message={errorMessage} />}
 			</div>
 			<div css={uploadAddRowNew}>
 				<Button
@@ -473,6 +489,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 					setFilename(file.name);
 					await ImageUtil.parseImage(f.target.result);
 					setPreviewImage(f.target.result);
+					setChooseEmojiErrorMessage(undefined);
 				} catch {
 					setChooseEmojiErrorMessage(<FormattedMessage {...messages.emojiInvalidImage} />);
 					cancelChooseFile();
@@ -513,7 +530,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 		setTimeout(
 			(lastFocus) => {
 				if (lastFocus) {
-					document.getElementById(lastFocus)?.focus();
+					getDocument()?.getElementById(lastFocus)?.focus();
 				}
 			},
 			0,
@@ -525,8 +542,11 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 		onFileChooserClicked && onFileChooserClicked();
 	};
 
+	const isDuplicateNameError =
+		errorMessage !== null && errorMessage !== undefined && fg('platform_emoji_picker_refresh');
+
 	const content =
-		!fg('platform_emoji_picker_refresh') && name && previewImage ? (
+		name && previewImage && !fg('platform_emoji_picker_refresh') ? (
 			<EmojiUploadPreview
 				errorMessage={errorMessage}
 				name={name}
@@ -546,11 +566,16 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 				previewImage={previewImage}
 				uploadStatus={uploadStatus}
 				errorMessage={chooseEmojiErrorMessage}
+				nameErrorMessage={isDuplicateNameError ? errorMessage : undefined}
 				intl={intl}
 			/>
 		);
 
-	return disableFocusLock ? content : <FocusLock noFocusGuards>{content}</FocusLock>;
+	return disableFocusLock || fg('platform_emoji_picker_refresh') ? (
+		content
+	) : (
+		<FocusLock noFocusGuards>{content}</FocusLock>
+	);
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-types

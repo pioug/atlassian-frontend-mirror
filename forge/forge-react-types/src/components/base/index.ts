@@ -191,6 +191,12 @@ export type TImage<T> = (props: ImageProps) => T;
 
 export type FrameProps = {
 	/**
+	 * A function to dispatch actions from the Frame to its parent in a global:ui module.
+	 * @param action - An optional action object to send to the parent app. 
+	 *
+	 */
+	dispatch?: (action?: unknown) => void;
+	/**
 	 * Sets the height of the Frame component. By default the Frame resizes
 	 * according to the size of its contents; setting this disables auto-resize.
 	 * Accepted units are `px` and `%`.

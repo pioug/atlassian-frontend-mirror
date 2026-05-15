@@ -4,13 +4,11 @@
  */
 import { useEffect, useRef, useState } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 export interface IframeDwellTrackerProps {
 	iframePercentVisible: number;
 	isIframeLoaded: boolean;
 	isMouseOver: boolean;
-	isWindowFocused: boolean;
+	isWindowFocused?: boolean;
 	onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
 }
 
@@ -23,7 +21,6 @@ const INTERVALS_TO_LOG = [5, 10, 15, 20, 25, 30, 45, 60, 90, 120, 180];
 export const IframeDwellTracker = ({
 	isIframeLoaded,
 	isMouseOver,
-	isWindowFocused,
 	iframePercentVisible,
 	onIframeDwell,
 }: IframeDwellTrackerProps) => {
@@ -53,38 +50,29 @@ export const IframeDwellTracker = ({
 			});
 		};
 
-		// Require: iframe loaded, mouse over, and >75% visible
-		const isDwellAndHoverMetricsEnabled = fg('rovo_chat_embed_card_dwell_and_hover_metrics');
-		if (isDwellAndHoverMetricsEnabled) {
-			// Note: Removed isWindowFocused requirement as it's unreliable and prevents tracking
-			// The mouse over check is sufficient to indicate user engagement
-			const shouldTrack = isIframeLoaded && isMouseOver && iframePercentVisible > 0.75;
+		// Require: iframe loaded, mouse over, and >75% visible.
+		// Note: isWindowFocused is intentionally not required - it's unreliable and
+		// prevents tracking. The mouse over check is sufficient to indicate user engagement.
+		const shouldTrack = isIframeLoaded && isMouseOver && iframePercentVisible > 0.75;
 
-			if (shouldTrack) {
-				if (dwellTimeoutId.current) {
-					clearInterval(dwellTimeoutId.current);
-				}
-				dwellTimeoutId.current = setInterval(incrementDwellTime, 1000);
-			} else {
-				if (dwellTimeoutId.current) {
-					clearInterval(dwellTimeoutId.current);
-					dwellTimeoutId.current = undefined;
-				}
+		if (shouldTrack) {
+			if (dwellTimeoutId.current) {
+				clearInterval(dwellTimeoutId.current);
 			}
+			dwellTimeoutId.current = setInterval(incrementDwellTime, 1000);
 		} else {
-			if (isIframeLoaded && isMouseOver && isWindowFocused && iframePercentVisible > 0.75) {
-				if (dwellTimeoutId.current) {
-					clearInterval(dwellTimeoutId.current);
-				}
-				dwellTimeoutId.current = setInterval(incrementDwellTime, 1000);
+			if (dwellTimeoutId.current) {
+				clearInterval(dwellTimeoutId.current);
+				dwellTimeoutId.current = undefined;
 			}
 		}
+
 		return () => {
 			if (dwellTimeoutId.current) {
 				clearInterval(dwellTimeoutId.current);
 			}
 		};
-	}, [setDwell, isMouseOver, isWindowFocused, isIframeLoaded, iframePercentVisible]);
+	}, [setDwell, isMouseOver, isIframeLoaded, iframePercentVisible]);
 
 	return null;
 };

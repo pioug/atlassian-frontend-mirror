@@ -1,5 +1,18 @@
 # @atlaskit/media-common
 
+## 13.3.2
+
+### Patch Changes
+
+- [`c0dbd7b223090`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0dbd7b223090) -
+  Add `isGCPtenant()` utility to `media-common` and guard CDN delivery in `media-client` for GCP
+  tenants.
+
+  CDN (CloudFront) is an AWS service that is not available on GCP tenants. Browser CDN GET requests
+  were failing with HTTP 500 on GCP environments because `isCDNEnabled()` had no guard for GCP. This
+  fix adds `!isGCPtenant()` to `isCDNEnabled()` and to the inner feature-flag check in
+  `mapToMediaCdnUrl()`, mirroring the existing `isIsolatedCloud()` pattern.
+
 ## 13.3.1
 
 ### Patch Changes

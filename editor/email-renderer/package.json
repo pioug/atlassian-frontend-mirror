@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/email-renderer",
-	"version": "9.11.11",
+	"version": "9.12.0",
 	"description": "Email renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -24,17 +24,18 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./apply-marks": "./src/apply-marks.ts",
-		"./create-tag": "./src/create-tag.ts",
-		"./date-helper": "./src/date-helper.ts",
-		"./escape-html-string": "./src/escape-html-string.ts",
-		"./interfaces": "./src/interfaces.ts",
-		"./mark-serializers": "./src/mark-serializers.ts",
-		"./media-util": "./src/media-util.ts",
-		"./node-serializers": "./src/node-serializers.ts",
-		"./serialize-style": "./src/serialize-style.ts",
-		"./serializer": "./src/serializer.ts",
-		"./table-util": "./src/table-util.ts"
+		"./apply-marks": "./src/entry-points/apply-marks.ts",
+		"./create-tag": "./src/entry-points/create-tag.ts",
+		"./date-helper": "./src/entry-points/date-helper.ts",
+		"./escape-html-string": "./src/entry-points/escape-html-string.ts",
+		"./interfaces": "./src/entry-points/interfaces.ts",
+		"./mark-serializers": "./src/entry-points/mark-serializers.ts",
+		"./media-util": "./src/entry-points/media-util.ts",
+		"./node-serializers": "./src/entry-points/node-serializers.ts",
+		"./serialize-style": "./src/entry-points/serialize-style.ts",
+		"./serializer": "./src/entry-points/serializer.ts",
+		"./table-util": "./src/entry-points/table-util.ts",
+		"./util": "./src/entry-points/util.ts"
 	},
 	"atlassian": {
 		"team": "Editor: Collaboration",

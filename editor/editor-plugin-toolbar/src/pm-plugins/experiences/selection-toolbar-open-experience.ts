@@ -95,6 +95,11 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 		}
 
 		const target = getTarget();
+
+		if (!target && fg('platform_editor_toolbar_open_experience_fix_2')) {
+			// when target is not found, skip the experience start
+			return true;
+		}
 		return (
 			isSelectionToolbarWithinNode(target) ||
 			(isBlockMenuWithinNode(target) && fg('platform_editor_toolbar_open_experience_fix'))
@@ -110,11 +115,14 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 					experience.abort({ reason: ABORT_REASON.SELECTION_CLEARED });
 				}
 
-				if (
-					shiftArrowKeyPressed &&
-					!newState.selection.eq(oldState.selection) &&
-					!isSelectionWithoutTextContent(newState.selection)
-				) {
+				const shouldStartExperience = fg('platform_editor_toolbar_open_experience_fix_2')
+					? shiftArrowKeyPressed &&
+						!newState.selection.eq(oldState.selection) &&
+						!shouldSkipExperienceStart(newState.selection)
+					: shiftArrowKeyPressed &&
+						!newState.selection.eq(oldState.selection) &&
+						!isSelectionWithoutTextContent(newState.selection);
+				if (shouldStartExperience) {
 					experience.start({ method: START_METHOD.KEY_DOWN });
 					shiftArrowKeyPressed = false;
 				}

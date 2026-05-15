@@ -132,12 +132,48 @@ export const SelectionExtensionDropdownItem = ({
 			? 'small'
 			: undefined;
 	const iconElement = IconComponent ? <IconComponent size={iconSize} label="" /> : undefined;
+	const lozengeLabel = dropdownItem.lozenge?.label;
+	const elemAfterText = lozengeLabel ? (
+		<Lozenge
+			appearance={fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'}
+		>
+			{lozengeLabel}
+		</Lozenge>
+	) : undefined;
 	const elemBeforeIcon =
 		iconElement && extensionLocation === 'block-menu' ? (
 			<span css={styles.svgOverflow}>{iconElement}</span>
 		) : (
 			iconElement
 		);
+
+	if (fg('platform_editor_block_menu_v2_patch_2')) {
+		return (
+			<ToolbarTooltip content={isTruncated ? dropdownItem.label : null} position="top">
+				<ToolbarDropdownItem
+					elemBefore={elemBeforeIcon}
+					elemAfterText={elemAfterText}
+					onClick={handleClick}
+					isDisabled={dropdownItem.isDisabled}
+					testId={EXTENSION_MENU_ITEM_TEST_ID}
+				>
+					<Box
+						as="span"
+						xcss={
+							!elemAfterText && fg('platform_editor_block_menu_v2_patch_5')
+								? styles.contentWrapperWithJustifyContent
+								: styles.contentWrapper
+						}
+						onMouseOver={handleMouseEnter}
+					>
+						<Box as="span" xcss={styles.label} ref={labelRef}>
+							{dropdownItem.label}
+						</Box>
+					</Box>
+				</ToolbarDropdownItem>
+			</ToolbarTooltip>
+		);
+	}
 
 	return (
 		<ToolbarTooltip content={isTruncated ? dropdownItem.label : null} position="top">

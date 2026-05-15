@@ -15,6 +15,14 @@ import { canBeConvertedToSyncBlock } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 import { SYNCED_BLOCK_BUTTON_TEST_ID } from '../types';
 
+const SyncedBlockNewLozenge = ({ label }: { label: string }) => (
+	<Lozenge
+		appearance={fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'}
+	>
+		{label}
+	</Lozenge>
+);
+
 const CreateSyncedBlockDropdownItem = ({
 	api,
 }: {
@@ -47,21 +55,16 @@ const CreateSyncedBlockDropdownItem = ({
 
 	const isOffline = isOfflineMode(mode);
 
+	const lozenge = <SyncedBlockNewLozenge label={formatMessage(blockMenuMessages.newLozenge)} />;
+
 	return (
 		<ToolbarDropdownItem
 			elemBefore={<SyncBlocksIcon label="" size="small" />}
 			onClick={onClick}
 			isDisabled={isOffline}
 			testId={SYNCED_BLOCK_BUTTON_TEST_ID.blockMenuCreate}
-			elemAfter={
-				<Lozenge
-					appearance={
-						fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'
-					}
-				>
-					{formatMessage(blockMenuMessages.newLozenge)}
-				</Lozenge>
-			}
+			elemAfter={fg('platform_synced_block_patch_12') ? undefined : lozenge}
+			elemAfterText={fg('platform_synced_block_patch_12') ? lozenge : undefined}
 		>
 			{formatMessage(blockMenuMessages.syncBlock)}
 		</ToolbarDropdownItem>
@@ -85,20 +88,15 @@ const CopySyncedBlockDropdownItem = ({
 		api?.core?.actions.execute(api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true }));
 	};
 
+	const lozenge = <SyncedBlockNewLozenge label={formatMessage(blockMenuMessages.newLozenge)} />;
+
 	return (
 		<ToolbarDropdownItem
 			elemBefore={<SyncBlocksIcon label="" size="small" />}
 			onClick={onClick}
 			isDisabled={isOfflineMode(mode)}
-			elemAfter={
-				<Lozenge
-					appearance={
-						fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'
-					}
-				>
-					{formatMessage(blockMenuMessages.newLozenge)}
-				</Lozenge>
-			}
+			elemAfter={fg('platform_synced_block_patch_12') ? undefined : lozenge}
+			elemAfterText={fg('platform_synced_block_patch_12') ? lozenge : undefined}
 		>
 			{formatMessage(blockMenuMessages.copySyncedBlock)}
 		</ToolbarDropdownItem>

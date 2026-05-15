@@ -18,6 +18,8 @@ export const deleteEmojiLabel = 'delete-emoji';
  */
 export const MAX_ORDINAL = 100000;
 
+// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
+// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
 export const scaledEmojiHeightH1 = 28;
 export const scaledEmojiHeightH2 = 26;
 export const scaledEmojiHeightH3 = 24;

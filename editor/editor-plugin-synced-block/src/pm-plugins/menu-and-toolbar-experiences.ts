@@ -48,6 +48,11 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 	refs,
 	dispatchAnalyticsEvent,
 }: ExperienceOptions): SafePlugin => {
+	// Cache the experiment value once at plugin creation time.
+	// This fires the exposure event exactly once (correct per Exposure Events 101)
+	// and avoids redundant Statsig SDK evaluations in the view() and update() hooks.
+	const isPerfExperimentOn = expValEquals('editor_synced_block_perf', 'isEnabled', true);
+
 	let popupsTargetEl: HTMLElement | undefined;
 	const editorViewRef: EditorViewRef = { current: undefined };
 
@@ -238,7 +243,7 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 
 			if (
 				syncedBlockPluginKey.getState(view.state)?.hasSyncedBlocks ||
-				!expValEquals('editor_synced_block_perf', 'isEnabled', true)
+				!isPerfExperimentOn
 			) {
 				ensureListenersBound();
 			}
@@ -249,7 +254,7 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 						!listenersBound &&
 						view.state.doc !== prevState.doc &&
 						syncedBlockPluginKey.getState(view.state)?.hasSyncedBlocks &&
-						expValEquals('editor_synced_block_perf', 'isEnabled', true)
+						isPerfExperimentOn
 					) {
 						// Bind listeners now that synced blocks are present.
 						ensureListenersBound();

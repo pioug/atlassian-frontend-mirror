@@ -5,10 +5,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://bitbucket.org/atlassian/adf-schema.git"
-	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
 		"team": "Editor: Lego"
 	},

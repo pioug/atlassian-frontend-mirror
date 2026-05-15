@@ -12,24 +12,8 @@ import { token } from '@atlaskit/tokens';
 import {
 	type IconTileAppearance,
 	type IconTileProps,
-	type IconTileSize,
-	type NewIconTileSize,
 } from '../../types';
 import { type InternalIconPropsNew } from '../icon-new';
-
-const sizeCrossCompatibleMap: Record<IconTileSize, NewIconTileSize> = {
-	// Size mapping from old pixel sizes to new t-shirt sizes
-	'16': 'xsmall', // Not used
-	'24': 'small',
-	'32': 'medium',
-	'40': 'large',
-	'48': 'xlarge',
-	xsmall: 'xsmall',
-	small: 'small',
-	medium: 'medium',
-	large: 'large',
-	xlarge: 'xlarge',
-};
 
 // Icon color mapping for Tile-based icons
 const iconColorMap = cssMap({
@@ -91,7 +75,7 @@ export default function IconTileNew(props: IconTileProps): JSX.Element {
 
 	return (
 		<Tile
-			size={sizeCrossCompatibleMap[size]}
+			size={size}
 			backgroundColor={backgroundColorMap[appearance]}
 			label={label}
 			testId={testId}

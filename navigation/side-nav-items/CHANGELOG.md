@@ -1,5 +1,13 @@
 # @atlaskit/side-nav-items
 
+## 1.13.7
+
+### Patch Changes
+
+- [`a28ad903422df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a28ad903422df) -
+  Cleanup of feature gate navx-4718-inline-drag-handle (true)
+- Updated dependencies
+
 ## 1.13.6
 
 ### Patch Changes

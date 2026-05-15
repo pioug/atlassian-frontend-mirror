@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 8.4.2
+
+### Patch Changes
+
+- [`5789b1638025b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5789b1638025b) -
+  EDITOR-6631: If only marks has changed, don't use granular diffing as that won't show any diffs.
+- Updated dependencies
+
+## 8.4.1
+
+### Patch Changes
+
+- [`8a9f26c6c71bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a9f26c6c71bc) -
+  [ux] Improve diff logic for some nodes and edge cases where marks are causing the diff to fail
+- Updated dependencies
+
 ## 8.4.0
 
 ### Minor Changes

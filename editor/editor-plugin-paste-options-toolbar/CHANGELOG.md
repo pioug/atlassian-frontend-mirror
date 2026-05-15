@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 11.2.0
+
+### Minor Changes
+
+- [`bbc429637a494`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbc429637a494) -
+  [EDITOR-6941] Add way to fetch rules for people to compose rules simply per button
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.0
 
 ### Minor Changes

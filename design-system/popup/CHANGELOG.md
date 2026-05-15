@@ -1,5 +1,12 @@
 # @atlaskit/popup
 
+## 4.19.1
+
+### Patch Changes
+
+- [`50154b7d33050`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50154b7d33050) -
+  Fixed styling related issues behind the new motion uplift
+
 ## 4.19.0
 
 ### Minor Changes

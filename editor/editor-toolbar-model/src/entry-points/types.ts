@@ -1,0 +1,20 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+export type {
+	ToolbarComponentType,
+	ToolbarComponentTypes,
+	CommonComponentProps,
+	ToolbarType,
+	ToolbarMenuComponent,
+	ToolbarButtonComponent,
+	ToolbarMenuItemComponent,
+	ToolbarGroupComponent,
+	RegisterToolbar,
+	RegisterToolbarSection,
+	RegisterToolbarGroup,
+	RegisterToolbarButton,
+	RegisterToolbarMenu,
+	RegisterToolbarNestedMenu,
+	RegisterToolbarMenuSection,
+	RegisterToolbarMenuItem,
+	RegisterComponent,
+} from '../types/index';

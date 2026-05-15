@@ -1,15 +1,22 @@
 import { mapToMediaCdnUrl, isCDNEnabled } from '../../utils/mediaCdn';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { isIsolatedCloud } from '@atlaskit/atlassian-context';
+import { isGCPtenant } from '@atlaskit/media-common/mediaEnvUtils';
 
 jest.mock('@atlaskit/atlassian-context', () => ({
 	...jest.requireActual('@atlaskit/atlassian-context'),
 	isIsolatedCloud: jest.fn(),
 }));
 
+jest.mock('@atlaskit/media-common/mediaEnvUtils', () => ({
+	...jest.requireActual('@atlaskit/media-common/mediaEnvUtils'),
+	isGCPtenant: jest.fn(),
+}));
+
 describe('mediaCdn', () => {
 	beforeEach(() => {
 		(isIsolatedCloud as jest.Mock).mockReturnValue(false);
+		(isGCPtenant as jest.Mock).mockReturnValue(false);
 
 		// Set up commercial environment for isCommercial() to return true
 		global.MICROS_PERIMETER = 'commercial';
@@ -131,6 +138,18 @@ describe('mediaCdn', () => {
 					it('should return true for isCDNEnabled when not isolated cloud', () => {
 						(isIsolatedCloud as jest.Mock).mockReturnValue(false);
 						expect(isCDNEnabled()).toBe(true);
+					});
+
+					it('should return false for isCDNEnabled when GCP tenant', () => {
+						(isGCPtenant as jest.Mock).mockReturnValue(true);
+						expect(isCDNEnabled()).toBe(false);
+					});
+
+					it('should not map to cdn url when GCP tenant', () => {
+						(isGCPtenant as jest.Mock).mockReturnValue(true);
+
+						const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+						expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
 					});
 				});
 

@@ -247,7 +247,10 @@ const headingAnchorStylesDuplicateAnchor = css({
 				'> button': {
 					opacity: 0,
 					transform: 'translate(-8px, 0px)',
-					transition: 'opacity 0.2s ease 0s, transform 0.2s ease 0s',
+					transitionProperty: 'opacity, transform',
+					transitionDuration: `${token('motion.duration.medium', '0.2s')}, ${token('motion.duration.medium', '0.2s')}`,
+					transitionTimingFunction: `${token('motion.easing.out.practical', 'ease')}, ${token('motion.easing.out.practical', 'ease')}`,
+					transitionDelay: '0s, 0s',
 				},
 			},
 
@@ -2121,6 +2124,63 @@ const tableSharedStyle = css({
 	},
 });
 
+const roundedTableOuterBorderOverlayStyles = css({
+	[`.${TableSharedCssClassName.TABLE_CONTAINER} > table,
+	.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,
+	.${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]: {
+		borderColor: 'transparent',
+		position: 'relative',
+
+		'&::after': {
+			content: "''",
+			position: 'absolute',
+			inset: 0,
+			border: `${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')}`,
+			borderRadius: token('radius.medium'),
+			pointerEvents: 'none',
+			zIndex: 1,
+		},
+
+		'> tbody > tr:first-of-type > th, > tbody > tr:first-of-type > td, > tbody > tr > th[data-reaches-top], > tbody > tr > td[data-reaches-top]':
+			{
+				borderTopColor: 'transparent',
+			},
+
+		'> tbody > tr > th:first-child, > tbody > tr > td:first-child, > tbody > tr > th[data-reaches-left], > tbody > tr > td[data-reaches-left]':
+			{
+				borderLeftColor: 'transparent',
+			},
+
+		'> tbody > tr > th[data-reaches-right], > tbody > tr > td[data-reaches-right]': {
+			borderRightColor: 'transparent',
+		},
+
+		'> tbody > tr > th[data-reaches-bottom], > tbody > tr > td[data-reaches-bottom]': {
+			borderBottomColor: 'transparent',
+		},
+
+		'> tbody > tr > th[data-reaches-top][data-reaches-left], > tbody > tr > td[data-reaches-top][data-reaches-left]':
+			{
+				borderTopLeftRadius: token('radius.medium'),
+			},
+
+		'> tbody > tr > th[data-reaches-top][data-reaches-right], > tbody > tr > td[data-reaches-top][data-reaches-right]':
+			{
+				borderTopRightRadius: token('radius.medium'),
+			},
+
+		'> tbody > tr > th[data-reaches-bottom][data-reaches-left], > tbody > tr > td[data-reaches-bottom][data-reaches-left]':
+			{
+				borderBottomLeftRadius: token('radius.medium'),
+			},
+
+		'> tbody > tr > th[data-reaches-bottom][data-reaches-right], > tbody > tr > td[data-reaches-bottom][data-reaches-right]':
+			{
+				borderBottomRightRadius: token('radius.medium'),
+			},
+	},
+});
+
 const tableContentModeStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}:has(table[data-initial-width-mode="content"])`]:
@@ -3032,6 +3092,15 @@ const tableFakeBorderStyles = css({
 	},
 });
 
+const roundedTableFakeBorderOverlayStyles = css({
+	[`.${TableSharedCssClassName.TABLE_CONTAINER}`]: {
+		[`.${TableSharedCssClassName.TABLE_RIGHT_BORDER},
+		.${TableSharedCssClassName.TABLE_LEFT_BORDER}`]: {
+			display: 'none',
+		},
+	},
+});
+
 const syncBlockStyles = css({
 	[`.${SyncBlockSharedCssClassName.renderer}, .${BodiedSyncBlockSharedCssClassName.renderer}, .${SyncBlockSharedCssClassName.error}, .${SyncBlockSharedCssClassName.loading}`]:
 		{
@@ -3239,6 +3308,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				// merge firstWrappedMediaStyles with mediaSingleSharedStyle when clean up platform_editor_fix_media_in_renderer
 				fg('platform_editor_fix_media_in_renderer') && firstWrappedMediaStyles,
 				tableSharedStyle,
+				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+					roundedTableOuterBorderOverlayStyles,
 				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
 					tableContentModeStyles,
 				tableRendererHeaderStylesForTableCellOnly,
@@ -3296,6 +3367,13 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					editorExperiment('platform_synced_block', true) &&
 					fg('platform_synced_block_patch_9') &&
 					tableFakeBorderStyles,
+				isInsideSyncBlock &&
+					editorExperiment('platform_synced_block', true) &&
+					fg('platform_synced_block_patch_9')
+					? expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+						? roundedTableFakeBorderOverlayStyles
+						: null
+					: null,
 				expValEquals('platform_editor_hide_extension_renderer_support', 'isEnabled', true) &&
 					hideExtensionStyles,
 			]}

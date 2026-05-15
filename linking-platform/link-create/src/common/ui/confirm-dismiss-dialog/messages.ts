@@ -1,27 +1,8 @@
 import { defineMessages } from 'react-intl';
 
-const _default_1: {
-	title: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	cancelButtonLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	confirmButtonLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	description: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-} = defineMessages({
+type MessageKeys = 'title' | 'cancelButtonLabel' | 'confirmButtonLabel' | 'description';
+
+const message: Record<MessageKeys, { id: string; defaultMessage: string; description?: string }> = defineMessages({
 	title: {
 		id: 'linkCreate.confirm-dismiss-dialog.modal.title',
 		defaultMessage: 'Your changes won’t be saved',
@@ -43,4 +24,5 @@ const _default_1: {
 		description: 'Description for confirm-dismiss modal popup',
 	},
 });
-export default _default_1;
+
+export default message;

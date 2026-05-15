@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "44.9.11",
+	"version": "44.11.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -211,9 +211,6 @@
 		"product-terminology-refresh": {
 			"type": "boolean"
 		},
-		"rovo_chat_embed_card_dwell_and_hover_metrics": {
-			"type": "boolean"
-		},
 		"platform_smartlink_3pclick_analytics": {
 			"type": "boolean"
 		},
@@ -227,9 +224,6 @@
 			"type": "boolean"
 		},
 		"townsquare-same-tab-alignment-gcko-849": {
-			"type": "boolean"
-		},
-		"navx-2478-sl-fix-hover-card-unresolved-view": {
 			"type": "boolean"
 		},
 		"platform_sl_3p_auth_rovo_action_kill_switch": {

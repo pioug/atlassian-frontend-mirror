@@ -2,8 +2,6 @@ import { createContext, useCallback, useContext, useMemo, useState, type Context
 
 import noop from 'lodash/noop';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 export type EditorTheme = {
 	/**
 	 * The maximum number of rows that are visible in the default editor view.
@@ -71,17 +69,13 @@ export const useEditorTheme = ({
 	return useMemo(
 		() => ({
 			defaultMaxRows:
-				defaultRows !== undefined &&
-				defaultRows > defaultMaxRows &&
-				fg('list_lovability_improving_filters')
-					? defaultRows
-					: defaultMaxRows,
+				defaultRows !== undefined && defaultRows > defaultMaxRows ? defaultRows : defaultMaxRows,
 			expanded,
 			expandedRows,
 			toggleExpanded,
 			isSearch,
 			isCompact,
-			...(fg('list_lovability_improving_filters') ? { defaultRows } : {}),
+			defaultRows,
 		}),
 		[expanded, toggleExpanded, isSearch, isCompact, defaultRows],
 	);

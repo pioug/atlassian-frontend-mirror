@@ -1,36 +1,14 @@
 import { defineMessages } from 'react-intl';
-const _default_1: {
-	assistiveTextDefault: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
-	assistiveTextResult: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
-	elementAfterInputMessage: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
-	placeHolderMessage: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
-	searchAriaLabel: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
-	searchAriaLabelNew: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
-} = defineMessages({
+
+type MessageKeys =
+	| 'assistiveTextDefault'
+	| 'assistiveTextResult'
+	| 'elementAfterInputMessage'
+	| 'placeHolderMessage'
+	| 'searchAriaLabel'
+	| 'searchAriaLabelNew';
+
+const message: Record<MessageKeys, { id: string; defaultMessage: string; description?: string }> = defineMessages({
 	elementAfterInputMessage: {
 		id: 'fabric.editor.elementbrowser.searchbar.elementAfterInput',
 		defaultMessage: 'Enter',
@@ -68,4 +46,5 @@ const _default_1: {
 		description: 'Assistive text to describe the list of suggestions filtered by typed user input',
 	},
 });
-export default _default_1;
+
+export default message;

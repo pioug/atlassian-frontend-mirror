@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "130.5.0",
+	"version": "130.6.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -260,26 +260,45 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
+		"./actions/main": "./src/entry-points/actions-main.ts",
+		"./actions/renderer-actions-context": "./src/entry-points/actions-renderer-actions-context.tsx",
+		"./actions/with-renderer-actions": "./src/entry-points/actions-with-renderer-actions.tsx",
 		"./actions": "./src/actions.ts",
-		"./consts": "./src/consts.ts",
+		"./annotations": "./src/entry-points/annotations.tsx",
+		"./consts": "./src/entry-points/consts.ts",
+		"./custom-nodes/loosely-lazy": "./src/entry-points/custom-nodes-loosely-lazy.ts",
+		"./custom-nodes": "./src/custom-nodes.ts",
+		"./events": "./src/entry-points/events.ts",
+		"./experimental-sync-custom-nodes/cards": "./src/entry-points/experimental-sync-custom-nodes/cards.ts",
+		"./experimental-sync-custom-nodes/media": "./src/entry-points/experimental-sync-custom-nodes/media.ts",
+		"./experimental-sync-custom-nodes/small-nodes": "./src/entry-points/experimental-sync-custom-nodes/small-nodes.ts",
+		"./extension-renderer": "./src/entry-points/extension-renderer.tsx",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
-		"./messages": "./src/messages.ts",
-		"./render-document": "./src/render-document.ts",
-		"./renderer-context": "./src/renderer-context.tsx",
-		"./serializer": "./src/serializer.ts",
-		"./text-serializer": "./src/text-serializer.ts",
-		"./use-feature-flags": "./src/use-feature-flags.ts",
-		"./utils": "./src/utils.ts",
-		"./custom-nodes": "./src/custom-nodes.ts",
-		"./experimental-sync-custom-nodes/cards": "./src/entry-points/experimental-sync-custom-nodes/cards.ts",
-		"./experimental-sync-custom-nodes/media": "./src/entry-points/experimental-sync-custom-nodes/media.ts",
-		"./experimental-sync-custom-nodes/small-nodes": "./src/entry-points/experimental-sync-custom-nodes/small-nodes.ts",
+		"./loosely-lazy": "./src/entry-points/loosely-lazy.ts",
+		"./media-options": "./src/entry-points/media-options.ts",
+		"./messages": "./src/entry-points/messages.ts",
+		"./nodes": "./src/entry-points/nodes.ts",
 		"./package.json": {
 			"publish": null,
 			"default": "./package.json"
-		}
+		},
+		"./react/types": "./src/entry-points/react-types.ts",
+		"./react": "./src/entry-points/react.tsx",
+		"./render-document": "./src/entry-points/render-document.ts",
+		"./renderer": "./src/entry-points/renderer.tsx",
+		"./renderer-context": "./src/entry-points/renderer-context.tsx",
+		"./renderer-props": "./src/entry-points/renderer-props.ts",
+		"./renderer-actions-context": "./src/entry-points/renderer-actions-context.tsx",
+		"./serializer": "./src/entry-points/serializer.ts",
+		"./text": "./src/entry-points/text.ts",
+		"./text-serializer/text": "./src/entry-points/text-serializer-text.ts",
+		"./text-serializer": "./src/text-serializer.ts",
+		"./types": "./src/entry-points/types.ts",
+		"./use-feature-flags": "./src/entry-points/use-feature-flags.ts",
+		"./utils": "./src/entry-points/utils.ts",
+		"./validation-context": "./src/entry-points/validation-context.tsx"
 	}
 }

@@ -9,8 +9,10 @@ import { cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 import CharacterCounter from './character-counter';
+import { ErrorMessage } from './error-message';
 import Field, { type FieldComponentProps, type FieldProps, type Meta } from './field';
-import { ErrorMessage, HelperMessage, MessageWrapper } from './messages';
+import { HelperMessage } from './helper-message';
+import { MessageWrapper } from './message-wrapper';
 
 type SupportedElements = HTMLInputElement | HTMLTextAreaElement;
 
@@ -39,9 +41,9 @@ export interface CharacterCounterFieldProps<
 	FieldValue = string,
 	Element extends SupportedElements = HTMLInputElement,
 > extends Omit<
-	FieldComponentProps<FieldValue, Element>,
-	'children' | 'component' | 'helperMessage' | 'errorMessage' | 'validMessage' | 'transform'
-> {
+		FieldComponentProps<FieldValue, Element>,
+		'children' | 'component' | 'helperMessage' | 'errorMessage' | 'validMessage' | 'transform'
+	> {
 	/**
 	 * The input component to render. Use a render function that receives `fieldProps`, `error`, `valid`, and `meta` state.
 	 * Spread `fieldProps` onto your input element (such as `TextField` or `TextArea`).

@@ -9,4 +9,5 @@ export type AtlaskitIconTileProps = Omit<
 	'appearance' | 'icon' | 'size'
 > & {
 	size?: SmartLinkSize;
+	isTiledIcon?: boolean;
 };

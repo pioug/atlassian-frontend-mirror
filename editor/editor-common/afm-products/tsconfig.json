@@ -167,6 +167,9 @@
 			"path": "../../../elements/task-decision/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../people-and-teams/teams-app-config/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/textfield/afm-products/tsconfig.json"
 		},
 		{

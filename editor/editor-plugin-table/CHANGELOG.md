@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 22.4.3
+
+### Patch Changes
+
+- [`3a69722c61c6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a69722c61c6a) -
+  Add rounded corners to table node in editor. This works by hiding the actual table border and
+  adding a pseudo element with rounded corners.
+- Updated dependencies
+
+## 22.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.4.1
 
 ### Patch Changes

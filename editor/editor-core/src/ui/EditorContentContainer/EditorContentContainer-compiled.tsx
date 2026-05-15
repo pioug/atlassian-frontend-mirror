@@ -24,6 +24,7 @@ import {
 	CodeBlockSharedCssClassName,
 	tableCellBorderWidth,
 	tableCellMinWidth,
+	TaskDecisionSharedCssClassName,
 } from '@atlaskit/editor-common/styles';
 import { tableCellBackgroundStyleOverrideForCompiled } from '@atlaskit/editor-common/table-cell-background-for-compiled';
 import type {
@@ -68,13 +69,43 @@ const GRID_GUTTER = 12;
 
 const blockNodesVerticalMargin = '0.75rem';
 const fontSize14px = `${14 / 16}rem`;
+const scaledBlockNodesVerticalMargin = '0.75em';
+
+// emoji constants — values inlined from packages/elements/emoji/src/util/constants.ts
+// If you need to update these values, please also update packages/elements/emoji/src/util/constants.ts
+const defaultEmojiHeight = 20;
+const defaultDenseEmojiHeight = 16.25;
+const scaledEmojiHeightH1 = 28;
+const scaledEmojiHeightH2 = 26;
+const scaledEmojiHeightH3 = 24;
+const scaledEmojiHeightH4 = 22;
+const denseEmojiHeightH1 = 24.25;
+const denseEmojiHeightH2 = 22.25;
+const denseEmojiHeightH3 = 20.25;
+const denseEmojiHeightH4 = 18.25;
+
+// TODO: EDITOR-6932 - inline them at the end of migration
+const emojiSelectionStyles = css({
+	borderRadius: token('radius.xsmall'),
+});
+
+const gutterDangerOverlay = css({
+	'&::after': {
+		height: '100%',
+		content: "''",
+		position: 'absolute',
+		left: 0,
+		top: 0,
+		width: '24px',
+		backgroundColor: token('color.blanket.danger'),
+	},
+});
 
 const blanketSelectionStyles = css({
 	position: 'relative',
 	// Fixes ED-9263, where emoji or inline card in panel makes selection go outside the panel
 	// in Safari. Looks like it's caused by user-select: all in the emoji element
 	WebkitUserSelect: 'text',
-
 	'&::before': {
 		position: 'absolute',
 		content: "''",
@@ -89,19 +120,6 @@ const blanketSelectionStyles = css({
 		backgroundColor: token('color.blanket.selected'),
 	},
 });
-
-const gutterDangerOverlay = css({
-	'&::after': {
-		height: '100%',
-		content: "''",
-		position: 'absolute',
-		left: 0,
-		top: 0,
-		width: '24px',
-		backgroundColor: token('color.blanket.danger'),
-	},
-});
-const scaledBlockNodesVerticalMargin = '0.75em';
 // copied from packages/editor/editor-shared-styles/src/consts/consts.ts
 const akEditorLineHeight = 1.714;
 const listsStylesSafariFixMultiSelector = `
@@ -1051,13 +1069,118 @@ const editorContentStyles = cssMap({
 		},
 	},
 	decisionDangerStyles: {
-		// placeholder for migration
+		".ak-editor-selected-node.danger > [data-decision-wrapper], ol[data-node-type='decisionList'].ak-editor-selected-node.danger":
+			{
+				...dangerBackgroundStyles,
+				...dangerBorderStyles,
+			},
 	},
 	decisionIconWithVisualRefresh: {
-		// placeholder for migration
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span >  svg[data-icon-source="legacy"]':
+			{
+				display: 'none',
+			},
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span':
+			{
+				boxSizing: 'border-box',
+				paddingInlineEnd: 'var(--ds--button--new-icon-padding-end, 0)',
+				paddingInlineStart: 'var(--ds--button--new-icon-padding-start, 0)',
+				'@media screen and (forced-colors: active)': {
+					color: 'canvastext',
+					filter: 'grayscale(1)',
+				},
+			},
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span > svg':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				width: token('space.300'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				height: token('space.300'),
+			},
 	},
 	decisionStyles: {
-		// placeholder for migration
+		".ak-editor-selected-node > [data-decision-wrapper], ol[data-node-type='decisionList'].ak-editor-selected-node":
+			{
+				borderRadius: token('radius.small'),
+				...boxShadowSelectionStyles,
+				...blanketSelectionStyles,
+				...hideNativeBrowserTextSelectionStyles,
+			},
+		'.danger': {
+			'.decisionItemView-content-wrap.ak-editor-selected-node > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				backgroundColor: token('color.blanket.danger'),
+				'&::after': {
+					content: 'none', // reset the Blanket selection style
+				},
+			},
+		},
+		'[data-prosemirror-node-name="decisionItem"]': {
+			listStyleType: 'none',
+		},
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper]': {
+			cursor: 'pointer',
+			display: 'flex',
+			flexDirection: 'row',
+			margin: `${token('space.100')} 0 0 0`,
+			padding: token('space.100'),
+			paddingLeft: token('space.150'),
+			borderRadius: token('radius.small'),
+			backgroundColor: token('color.background.neutral'),
+			position: 'relative',
+		},
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"]':
+			{
+				flex: '0 0 16px',
+				height: '16px',
+				width: '16px',
+				margin: `${token('space.050')} ${token('space.150')} 0 0`,
+				color: token('color.icon.subtle'),
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center',
+			},
+		'[data-prosemirror-node-name="decisionItem"]:not(:has([data-empty]):not(:has([data-type-ahead]))) > [data-decision-wrapper] > [data-component="icon"]':
+			{
+				color: token('color.icon.success'),
+			},
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span':
+			{
+				display: 'inline-block',
+				flexShrink: 0,
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography -- Mirroring icon styles
+				lineHeight: 1,
+			},
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span > svg':
+			{
+				overflow: 'hidden',
+				pointerEvents: 'none',
+				color: 'currentColor',
+				verticalAlign: 'bottom',
+			},
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="placeholder"]':
+			{
+				margin: `0 0 0 calc(${token('space.100')} * 3.5)`,
+				position: 'absolute',
+				color: token('color.text.subtlest'),
+				pointerEvents: 'none',
+				textOverflow: 'ellipsis',
+				overflow: 'hidden',
+				whiteSpace: 'nowrap',
+				maxWidth: 'calc(100% - 50px)',
+			},
+		'[data-prosemirror-node-name="decisionItem"]:not(:has([data-empty]):not(:has([data-type-ahead]))) > [data-decision-wrapper] > [data-component="placeholder"]':
+			{
+				display: 'none',
+			},
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="content"]':
+			{
+				margin: 0,
+				wordWrap: 'break-word',
+				minWidth: 0,
+				flex: '1 1 auto',
+			},
 	},
 	diffListStyles: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
@@ -1149,11 +1272,70 @@ const editorContentStyles = cssMap({
 				},
 		},
 	},
+	// Emoji node view styles
 	emojiDangerStyles: {
-		// placeholder for migration
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		'.ProseMirror .ak-editor-selected-node.danger': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			'.emoji-common-emoji-sprite, .emoji-common-emoji-image': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
+				...dangerBorderStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
+				...dangerBackgroundStyles,
+			},
+		},
 	},
+	// Emoji node view styles
 	emojiStyles: {
-		// placeholder for migration
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		'.ProseMirror .emojiView-content-wrap': {
+			display: 'inline-block',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		'.ProseMirror :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
+			background: 'no-repeat transparent',
+			display: 'inline-block',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			height: `${defaultEmojiHeight}px`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			maxHeight: `${defaultEmojiHeight}px`,
+			cursor: 'pointer',
+			verticalAlign: 'middle',
+			userSelect: 'all',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		'.ProseMirror .ak-editor-selected-node': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			'.emoji-common-emoji-sprite, .emoji-common-emoji-image': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...emojiSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
+				...blanketSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
+				...boxShadowSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
+				...hideNativeBrowserTextSelectionStyles,
+			},
+		},
+	},
+	emojiDenseStyles: {
+		'.ProseMirror :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
+			width: `${defaultDenseEmojiHeight}px`,
+			height: `${defaultDenseEmojiHeight}px`,
+			maxHeight: `${defaultDenseEmojiHeight}px`,
+			img: {
+				width: '100%',
+				height: '100%',
+				objectFit: 'contain',
+			},
+		},
+		// Scale panel icon in dense mode
+		'.ProseMirror .ak-editor-panel .ak-editor-panel__icon': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			height: token('space.250'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			width: token('space.250'),
+		},
 	},
 	expandStyles: {
 		'.ProseMirror > .ak-editor-expand__type-expand, .fabric-editor-breakout-mark-dom > .ak-editor-expand__type-expand':
@@ -2701,7 +2883,113 @@ const editorContentStyles = cssMap({
 		},
 	},
 	scaledEmojiStyles: {
-		// placeholder for migration
+		'.ProseMirror .emojiView-content-wrap': {
+			display: 'inline-block',
+		},
+		'.ProseMirror :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
+			background: 'no-repeat transparent',
+			display: 'inline-block',
+			height: `${defaultEmojiHeight}px`,
+			minHeight: `${defaultEmojiHeight}px`,
+			minWidth: `${defaultEmojiHeight}px`,
+			maxHeight: `${scaledEmojiHeightH1}px`,
+			maxWidth: `${scaledEmojiHeightH1}px`,
+			cursor: 'pointer',
+			verticalAlign: 'middle',
+			userSelect: 'all',
+		},
+		'.ProseMirror .ak-editor-selected-node': {
+			'.emoji-common-emoji-sprite, .emoji-common-emoji-image': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...emojiSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
+				...blanketSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
+				...boxShadowSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
+				...hideNativeBrowserTextSelectionStyles,
+			},
+		},
+		'.ProseMirror h1 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-placeholder)':
+			{
+				height: `${scaledEmojiHeightH1}px`,
+				width: `${scaledEmojiHeightH1}px`,
+			},
+		'.ProseMirror h2 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-placeholder)':
+			{
+				height: `${scaledEmojiHeightH2}px`,
+				width: `${scaledEmojiHeightH2}px`,
+			},
+		'.ProseMirror h3 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-placeholder)':
+			{
+				height: `${scaledEmojiHeightH3}px`,
+				width: `${scaledEmojiHeightH3}px`,
+			},
+		'.ProseMirror h4 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-placeholder)':
+			{
+				height: `${scaledEmojiHeightH4}px`,
+				width: `${scaledEmojiHeightH4}px`,
+			},
+		'.ProseMirror :is(h5, h6, p) .emoji-common-placeholder': {
+			height: `${defaultEmojiHeight}px`,
+			width: `${defaultEmojiHeight}px`,
+		},
+	},
+	scaledEmojiDenseStyles: {
+		'.ProseMirror :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
+			width: defaultDenseEmojiHeight,
+			height: defaultDenseEmojiHeight,
+			minHeight: defaultDenseEmojiHeight,
+			minWidth: defaultDenseEmojiHeight,
+			maxHeight: `${denseEmojiHeightH1}px`,
+			maxWidth: `${denseEmojiHeightH1}px`,
+			img: {
+				width: '100%',
+				height: '100%',
+				objectFit: 'contain',
+			},
+		},
+		// Scale panel icon in dense mode
+		'.ProseMirror .ak-editor-panel .ak-editor-panel__icon': {
+			height: token('space.250'),
+			width: token('space.250'),
+		},
+		'.ProseMirror h1 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
+			height: `${denseEmojiHeightH1}px`,
+			width: `${denseEmojiHeightH1}px`,
+		},
+		'.ProseMirror h2 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
+			height: `${denseEmojiHeightH2}px`,
+			width: `${denseEmojiHeightH2}px`,
+		},
+		'.ProseMirror h3 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
+			height: `${denseEmojiHeightH3}px`,
+			width: `${denseEmojiHeightH3}px`,
+		},
+		'.ProseMirror h4 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
+			height: `${denseEmojiHeightH4}px`,
+			width: `${denseEmojiHeightH4}px`,
+		},
+		'.ProseMirror h1 .emoji-common-placeholder': {
+			height: `${denseEmojiHeightH1}px`,
+			width: `${denseEmojiHeightH1}px`,
+		},
+		'.ProseMirror h2 .emoji-common-placeholder': {
+			height: `${denseEmojiHeightH2}px`,
+			width: `${denseEmojiHeightH2}px`,
+		},
+		'.ProseMirror h3 .emoji-common-placeholder': {
+			height: `${denseEmojiHeightH3}px`,
+			width: `${denseEmojiHeightH3}px`,
+		},
+		'.ProseMirror h4 .emoji-common-placeholder': {
+			height: `${denseEmojiHeightH4}px`,
+			width: `${denseEmojiHeightH4}px`,
+		},
+		'.ProseMirror :is(h5, h6, p) .emoji-common-placeholder': {
+			height: `${defaultDenseEmojiHeight}px`,
+			width: `${defaultDenseEmojiHeight}px`,
+		},
 	},
 	scrollbarStyles: {
 		msOverflowStyle: '-ms-autohiding-scrollbar',
@@ -3121,16 +3409,246 @@ const editorContentStyles = cssMap({
 		},
 	},
 	taskItemCheckboxStyles: {
-		// placeholder for migration
+		/**
+		 * Background
+		 */
+		'--local-background': token('color.background.input'),
+		'--local-background-active': token('color.background.input.pressed'),
+		'--local-background-checked': token('color.background.selected.bold'),
+		'--local-background-checked-hover': token('color.background.selected.bold.hovered'),
+		'--local-background-disabled': token('color.background.disabled'),
+		'--local-background-hover': token('color.background.input.hovered'),
+		/**
+		 * Border
+		 */
+		'--local-border': token('color.border.input'),
+		'--local-border-active': token('color.border'),
+		'--local-border-checked': token('color.background.selected.bold'),
+		'--local-border-checked-hover': token('color.background.selected.bold.hovered'),
+		'--local-border-checked-invalid': token('color.border.danger'),
+		'--local-border-disabled': token('color.background.disabled'),
+		'--local-border-focus': token('color.border.focused'),
+		'--local-border-hover': token('color.border.input'),
+		'--local-border-invalid': token('color.border.danger'),
+		/**
+		 * Tick
+		 */
+		'--local-tick-active': token('color.icon.inverse'),
+		'--local-tick-checked': token('color.icon.inverse'),
+		'--local-tick-disabled': token('color.icon.disabled'),
+		'--local-tick-rest': 'transparent',
+
+		'[data-prosemirror-node-name="taskItem"] .task-item-checkbox-wrap, [data-prosemirror-node-name="blockTaskItem"] .task-item-checkbox-wrap':
+			{
+				flex: '0 0 24px',
+				width: '24px',
+				height: '24px',
+				position: 'relative',
+				alignSelf: 'start',
+				"& > input[type='checkbox']": {
+					opacity: 0,
+					width: '100%',
+					height: '100%',
+					zIndex: 1,
+					cursor: 'pointer',
+					outline: 'none',
+					margin: 0,
+					position: 'absolute',
+					'&[disabled]': {
+						cursor: 'default',
+					},
+					'& + svg': {
+						'--checkbox-background-color': 'var(--local-background)',
+						'--checkbox-border-color': 'var(--local-border)',
+						'--checkbox-tick-color': 'var(--local-tick-rest)',
+						color: 'var(--checkbox-background-color)',
+						fill: 'var(--checkbox-tick-color)',
+						transition: 'color 0.2s ease-in-out, fill 0.2s ease-in-out',
+						boxSizing: 'border-box',
+						display: 'inline',
+						position: 'absolute',
+						top: '50%',
+						left: '50%',
+						transform: 'translate(-50%, -50%)',
+						'rect:first-of-type': {
+							stroke: 'var(--checkbox-border-color)',
+							strokeWidth: token('border.width'),
+							transition: 'stroke 0.2s ease-in-out',
+						},
+					},
+					'&:focus + svg, &:checked:focus + svg': {
+						borderRadius: token('radius.small', '0.25rem'),
+						outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
+						outlineOffset: token('space.negative.025'),
+					},
+					'&:hover + svg': {
+						'--checkbox-background-color': 'var(--local-background-hover)',
+						'--checkbox-border-color': 'var(--local-border-hover)',
+					},
+					'&:checked:hover + svg': {
+						'--checkbox-background-color': 'var(--local-background-checked-hover)',
+						'--checkbox-border-color': 'var(--local-border-checked-hover)',
+					},
+					'&:checked + svg': {
+						'--checkbox-background-color': 'var(--local-background-checked)',
+						'--checkbox-border-color': 'var(--local-border-checked)',
+						'--checkbox-tick-color': 'var(--local-tick-checked)',
+					},
+					'&:active + svg': {
+						'--checkbox-background-color': 'var(--local-background-active)',
+						'--checkbox-border-color': 'var(--local-border-active)',
+					},
+					'&:checked:active + svg': {
+						'--checkbox-background-color': 'var(--local-background-active)',
+						'--checkbox-border-color': 'var(--local-border-active)',
+						'--checkbox-tick-color': 'var(--local-tick-active)',
+					},
+					'&:disabled + svg, &:disabled:hover + svg, &:disabled:focus + svg, &:disabled:active + svg, &:disabled[data-invalid] + svg':
+						{
+							'--checkbox-background-color': 'var(--local-background-disabled)',
+							'--checkbox-border-color': 'var(--local-border-disabled)',
+							cursor: 'not-allowed',
+							pointerEvents: 'none',
+						},
+					'&:disabled:checked + svg': {
+						'--checkbox-tick-color': 'var(--local-tick-disabled)',
+					},
+				},
+			},
 	},
 	taskItemStyles: {
-		// placeholder for migration
+		'[data-prosemirror-node-name="taskItem"]': {
+			listStyle: 'none',
+		},
+		'[data-prosemirror-node-name="taskItem"] [data-component="task-item-main"]': {
+			display: 'flex',
+			flexDirection: 'row',
+			position: 'relative',
+		},
+		'[data-prosemirror-node-name="taskItem"] [data-component="placeholder"]': {
+			position: 'absolute',
+			color: token('color.text.subtlest'),
+			margin: `0 0 0 calc(${token('space.100')} * 3)`,
+			pointerEvents: 'none',
+			textOverflow: 'ellipsis',
+			overflow: 'hidden',
+			whiteSpace: 'nowrap',
+			maxWidth: 'calc(100% - 50px)',
+			display: 'none',
+		},
+		"[data-prosemirror-node-name='taskItem']:has([data-empty]):not(:has([data-type-ahead])) [data-component='placeholder']":
+			{
+				display: 'block',
+			},
+		'[data-prosemirror-node-name="taskItem"] [data-component="content"]': {
+			margin: 0,
+			wordWrap: 'break-word',
+			minWidth: 0,
+			flex: '1 1 auto',
+		},
 	},
 	taskItemStylesWithBlockTaskItem: {
-		// placeholder for migration
+		'[data-prosemirror-node-name="taskItem"], [data-prosemirror-node-name="blockTaskItem"]': {
+			listStyle: 'none',
+		},
+		'[data-prosemirror-node-name="taskItem"] [data-component="task-item-main"], [data-prosemirror-node-name="blockTaskItem"] [data-component="task-item-main"]':
+			{
+				display: 'flex',
+				flexDirection: 'row',
+				position: 'relative',
+			},
+		'[data-prosemirror-node-name="taskItem"] [data-component="placeholder"], [data-prosemirror-node-name="blockTaskItem"] [data-component="placeholder"]':
+			{
+				position: 'absolute',
+				color: token('color.text.subtlest'),
+				margin: `0 0 0 calc(${token('space.100')} * 3)`,
+				pointerEvents: 'none',
+				textOverflow: 'ellipsis',
+				overflow: 'hidden',
+				whiteSpace: 'nowrap',
+				maxWidth: 'calc(100% - 50px)',
+				display: 'none',
+			},
+		"[data-prosemirror-node-name='taskItem']:has([data-empty]):not(:has([data-type-ahead])) [data-component='placeholder'], [data-prosemirror-node-name='blockTaskItem']:has([data-empty]):not(:has([data-type-ahead])) [data-component='placeholder']":
+			{
+				display: 'block',
+			},
+		'[data-prosemirror-node-name="taskItem"] [data-component="content"], [data-prosemirror-node-name="blockTaskItem"] [data-component="content"]':
+			{
+				margin: 0,
+				wordWrap: 'break-word',
+				minWidth: 0,
+				flex: '1 1 auto',
+			},
 	},
 	tasksAndDecisionsStyles: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'.taskItemView-content-wrap, .decisionItemView-content-wrap': {
+				position: 'relative',
+				minWidth: 48,
+			},
+			'.decisionItemView-content-wrap': {
+				marginTop: 0,
+			},
+			'.taskItemView-content-wrap': {
+				"span[contenteditable='false']": {
+					height: `${akEditorLineHeight}em`,
+				},
+			},
+			'.task-item': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: akEditorLineHeight,
+			},
+		},
+		'div[data-task-local-id]': {
+			"span[contenteditable='false']": {
+				height: `${akEditorLineHeight}em`,
+			},
+			"span[contenteditable='false'] + div": {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: `${akEditorLineHeight}em`,
+			},
+		},
+		'div[data-task-list-local-id]': {
+			margin: `${token('space.150')} 0 0 0`,
+			// If task item is not first in the list then set margin top to 4px.
+			'div + div': {
+				marginTop: token('space.050'),
+			},
+		},
+		// If task list is not first in the document then set margin top to 4px.
+		'div[data-task-list-local-id] div[data-task-list-local-id]': {
+			marginTop: token('space.050'),
+			marginLeft: token('space.300'),
+		},
+		// When action list is inside panel
+		'.ak-editor-panel__content': {
+			'> div[data-task-list-local-id]:first-child': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				margin: '0 !important',
+			},
+		},
+	},
+	tasksAndDecisionsDenseStyles: {
+		'.ProseMirror': {
+			// Task lists
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			[TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER]: {
+				// Task lists: container top margin
+				marginTop: `max(0px, calc(10px + (var(--ak-editor-base-font-size, ${akEditorFullPageDefaultFontSize}px) - ${akEditorFullPageDenseFontSize}px) * (2 / 3)))`,
+			},
+
+			// Task lists: sibling items and nested lists
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			[`${TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER} > * + *`]: {
+				marginTop: `max(0px, calc((var(--ak-editor-base-font-size, ${akEditorFullPageDefaultFontSize}px) - ${akEditorFullPageDenseFontSize}px) * (4 / 3)))`,
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			[`${TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER} ${TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER}, .${TaskDecisionSharedCssClassName.TASK_CONTAINER} .${TaskDecisionSharedCssClassName.TASK_CONTAINER}`]:
+				{
+					marginTop: `max(0px, calc((var(--ak-editor-base-font-size, ${akEditorFullPageDefaultFontSize}px) - ${akEditorFullPageDenseFontSize}px) * (4 / 3)))`,
+				},
+		},
 	},
 	telepointerColorAndCommonStyle: {
 		'.ProseMirror .telepointer': {
@@ -3550,16 +4068,13 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.mentionsStyles,
 				editorContentStyles.tasksAndDecisionsStyles,
 				// condense vertical spacing between tasks/decisions items when content mode dense is active
-				// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-				// TODO: uncomment and remove dynamic styles from getDenseTasksAndDecisionsStyles
-				// migrate this with packages/editor/editor-core/src/ui/EditorContentContainer/styles/tasksAndDecisionsStyles.ts
-				// reference: https://atlassian.design/components/eslint-plugin-ui-styling-standard/no-dynamic-styles/usage
-				// contentMode === 'compact' &&
-				// 	(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-				// 		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-				// 		(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-				// 			fg('platform_editor_content_mode_button_mvp'))) &&
-				// 	getDenseTasksAndDecisionsStyles(baseFontSize),
+				contentMode === 'compact' &&
+					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+							fg('platform_editor_content_mode_button_mvp'))) &&
+					isDense &&
+					editorContentStyles.tasksAndDecisionsDenseStyles,
 				editorContentStyles.gridStyles,
 				editorContentStyles.blockMarksStyles,
 				editorContentStyles.dateStyles,
@@ -3751,21 +4266,20 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
 					? editorContentStyles.scaledEmojiStyles
 					: editorContentStyles.emojiStyles,
-				// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-				// TODO: uncomment and remove dynamic styles from getScaledDenseEmojiStyles and getDenseEmojiStyles
-				// when migrate with packages/editor/editor-core/src/ui/EditorContentContainer/styles/emoji.ts
-				// Dense emoji scaling based on base font size
-				// contentMode === 'compact' &&
-				// (expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-				// 	// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-				// 	(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-				// 		fg('platform_editor_content_mode_button_mvp')))
-				// 	? expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
-				// 		? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				// 			getScaledDenseEmojiStyles(baseFontSize)
-				// 		: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				// 			getDenseEmojiStyles(baseFontSize)
-				// 	: undefined,
+				contentMode === 'compact' &&
+					isDense &&
+					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+							fg('platform_editor_content_mode_button_mvp'))) &&
+					expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true) &&
+					editorContentStyles.scaledEmojiDenseStyles,
+				contentMode === 'compact' &&
+					isDense &&
+					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+							fg('platform_editor_content_mode_button_mvp'))) &&
+					!expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true) &&
+					editorContentStyles.emojiDenseStyles,
 				editorContentStyles.panelViewStyles,
 				editorContentStyles.mediaGroupStyles,
 				editorContentStyles.mediaAlignmentStyles,

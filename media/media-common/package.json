@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-common",
-	"version": "13.3.1",
+	"version": "13.3.2",
 	"description": "Includes common utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -58,7 +58,8 @@
 		"./vr-test-small-image": "./src/test-helpers/dataURIs/vr_test_small_image.ts",
 		"./wideImageURI": "./src/test-helpers/dataURIs/wideImageURI.ts",
 		"./wideTransparentImageURI": "./src/test-helpers/dataURIs/wideTransparentImageURI.ts",
-		"./withMediaAnalyticsContext": "./src/analytics/withMediaAnalyticsContext.tsx"
+		"./withMediaAnalyticsContext": "./src/analytics/withMediaAnalyticsContext.tsx",
+		"./mediaEnvUtils": "./src/utils/mediaEnvUtils.ts"
 	},
 	"atlassian": {
 		"react-compiler": {

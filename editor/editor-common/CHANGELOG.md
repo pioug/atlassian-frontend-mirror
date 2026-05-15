@@ -1,5 +1,45 @@
 # @atlaskit/editor-common
 
+## 114.30.6
+
+### Patch Changes
+
+- [`434b508cc2368`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/434b508cc2368) -
+  EDITOR-7104: Add `featured-section` placement to block menu selection extension API
+  - Add `featured-section` to `BlockMenuPlacement` type which registers a top-level section with a
+    separator
+  - Add `BLOCK_ACTIONS_TEMPLATE_SECTION` and `BLOCK_ACTIONS_FEATURED_EXTENSION_SECTION_KEYS`
+    constants to `editor-common`
+  - Render lozenge inline next to label text (not pushed to far right) for dropdown and nested
+    dropdown items
+  - Move "New" lozenge next to label for synced block dropdown items
+  - Block template/menu behaviour gated behind `platform_editor_block_menu_v2_patch_2`; synced-block
+    lozenge placement behaviour gated behind `platform_synced_block_patch_12`
+
+- [`5a9b171d2d780`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a9b171d2d780) -
+  Adds a feature-gated change to user mentions so clicking a user mention navigates to the user's
+  profile instead of showing the in-editor profile card. Consumers can optionally supply a custom
+  card renderer via `ProfilecardProvider.renderUserMentionCard` to inject their own profile card UI
+  in place of the default link, applied consistently when viewing or editing content.
+- Updated dependencies
+
+## 114.30.5
+
+### Patch Changes
+
+- [`2265b040edb79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2265b040edb79) -
+  fix invalid TASK_LIST_CONTAINER selector
+- Updated dependencies
+
+## 114.30.4
+
+### Patch Changes
+
+- [`3a69722c61c6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a69722c61c6a) -
+  Add rounded corners to table node in editor. This works by hiding the actual table border and
+  adding a pseudo element with rounded corners.
+- Updated dependencies
+
 ## 114.30.3
 
 ### Patch Changes

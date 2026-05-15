@@ -422,6 +422,17 @@ export const aiConfigItemMessages: {
 		description: string;
 		id: string;
 	};
+	// Suggest a reply messages
+	suggestReplyDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	suggestReplyTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	suggestTitleDescription: {
 		defaultMessage: string;
 		description: string;
@@ -914,6 +925,20 @@ export const aiConfigItemMessages: {
 		defaultMessage: 'Get an AI-suggested comment based on this work item',
 		description:
 			'Description for the "Suggest a comment" Atlassian Intelligence feature shown in the editor toolbar.',
+	},
+
+	// Suggest a reply messages
+	suggestReplyTitle: {
+		id: 'fabric.editor.ai.config.item.suggestReply.title',
+		defaultMessage: 'Suggest a reply',
+		description:
+			'Label for the AI-powered "Suggest a reply" hero button shown in the editor toolbar when the reply editor is open.',
+	},
+	suggestReplyDescription: {
+		id: 'fabric.editor.ai.config.item.suggestReply.description',
+		defaultMessage: 'Get an AI-suggested reply to this comment',
+		description:
+			'Description for the "Suggest a reply" Atlassian Intelligence feature shown in the editor toolbar.',
 	},
 
 	// Suggest title messages

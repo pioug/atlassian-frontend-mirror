@@ -119,7 +119,7 @@ const JQLEditorLayout = (props: Props): React.JSX.Element => {
 					onBlur={onEditorViewBlur}
 					onFocus={onEditorViewFocus}
 					onTransitionEnd={onEditorViewTransitionEnd}
-					{...(fg('list_lovability_improving_filters') ? { defaultRows } : {})}
+					defaultRows={defaultRows}
 				/>
 				<EditorControls
 					isSearch={isSearch}

@@ -1,62 +1,19 @@
 import { defineMessages } from 'react-intl';
 
-const _default_1: {
-	readonly chatToAgentButton: {
-		readonly id: 'rovo-chat.view-agent.chat-to-agent-button';
-		readonly defaultMessage: 'Chat to agent';
-		readonly description: 'Button to chat to agent';
-	};
-	readonly moreActionsLabel: {
-		readonly id: 'rovo-chat.view-agent.more-actions-label';
-		readonly defaultMessage: 'More actions';
-		readonly description: 'More actions dropdown menu label';
-	};
-	readonly moreActionsForLabel: {
-		readonly id: 'rovo-chat.view-agent.more-actions-for-label';
-		readonly defaultMessage: 'More actions for {agentName}';
-		readonly description: 'More actions dropdown menu label';
-	};
-	readonly duplicateAgent: {
-		readonly id: 'rovo-chat.view-agent.duplicate-agent';
-		readonly defaultMessage: 'Duplicate agent';
-		readonly description: 'Button to duplicate an agent';
-	};
-	readonly editAgent: {
-		readonly id: 'rovo-chat.view-agent.edit-agent';
-		readonly defaultMessage: 'Edit agent';
-		readonly description: 'Button to edit an agent';
-	};
-	readonly deleteAgent: {
-		readonly id: 'rovo-chat.view-agent.delete-agent';
-		readonly defaultMessage: 'Delete agent';
-		readonly description: 'Button to delete an agent';
-	};
-	readonly copyLinkToProfile: {
-		readonly id: 'rovo-chat.view-agent.copy-link-to-profile';
-		readonly defaultMessage: 'Copy link';
-		readonly description: 'Button to copy the link to the agent profile';
-	};
-	readonly linkedCopiedToProfile: {
-		readonly id: 'rovo-chat.view-agent.link-copied-to-profile';
-		readonly defaultMessage: 'Copied URL';
-		readonly description: 'Button confirming link to agent profile is copied';
-	};
-	readonly viewAgent: {
-		readonly id: 'rovo-chat.view-agents.view-agent';
-		readonly defaultMessage: 'View agent';
-		readonly description: 'Button to view an agent';
-	};
-	readonly viewAgentFullProfile: {
-		readonly id: 'rovo-chat.view-agents.view-agent-full-profile';
-		readonly defaultMessage: 'View full profile';
-		readonly description: 'Button to view an agent full profile';
-	};
-	readonly useTemplateButton: {
-		readonly id: 'rovo-chat.view-agents.use-template-button';
-		readonly defaultMessage: 'Use template';
-		readonly description: 'Button to copy and use a template';
-	};
-} = defineMessages({
+type MessageKeys =
+	| 'chatToAgentButton'
+	| 'moreActionsLabel'
+	| 'moreActionsForLabel'
+	| 'duplicateAgent'
+	| 'editAgent'
+	| 'deleteAgent'
+	| 'copyLinkToProfile'
+	| 'linkedCopiedToProfile'
+	| 'viewAgent'
+	| 'viewAgentFullProfile'
+	| 'useTemplateButton';
+
+const message: Record<MessageKeys, { id: string; defaultMessage: string; description?: string }> = defineMessages({
 	chatToAgentButton: {
 		id: 'rovo-chat.view-agent.chat-to-agent-button',
 		defaultMessage: 'Chat to agent',
@@ -112,5 +69,6 @@ const _default_1: {
 		defaultMessage: 'Use template',
 		description: 'Button to copy and use a template',
 	},
-} as const);
-export default _default_1;
+});
+
+export default message;

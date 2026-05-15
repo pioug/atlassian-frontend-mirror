@@ -28,7 +28,10 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./create-registry": "./src/entry-points/create-registry.ts",
+		"./toolbar-model-renderer": "./src/entry-points/toolbar-model-renderer.tsx",
+		"./types": "./src/entry-points/types.ts"
 	},
 	"dependencies": {
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
@@ -81,7 +84,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-toolbar-model",
-	"version": "0.4.54",
+	"version": "0.5.0",
 	"description": "register and render toolbar component",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

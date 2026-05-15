@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { DefaultError, GraphQLError } from '../../common/utils/error';
 import { BaseClient, type ClientConfig } from '../base-client';
 
@@ -40,27 +38,20 @@ export class BaseGraphQlClient extends BaseClient {
 
 	/**
 	 * Creates query context headers if cloudId is available and valid.
-	 * When the fix-invalid-ari flag is enabled, validates the cloudId before
-	 * constructing the ARI, preventing invalid ARIs like
-	 * `ari:cloud:platform::site/None` from being sent.
+	 * Validates the cloudId before constructing the ARI, preventing invalid
+	 * ARIs like `ari:cloud:platform::site/None` from being sent.
 	 */
 	private createQueryContextHeaders(cloudId?: string | null): Record<string, string> | undefined {
 		if (!cloudId) {
 			return undefined;
 		}
 
-		if (fg('teams-app_client_fix-invalid-ari')) {
-			try {
-				const ari = createPlatformSiteAri(cloudId);
-				return { 'X-Query-Context': ari };
-			} catch {
-				return undefined;
-			}
+		try {
+			const ari = createPlatformSiteAri(cloudId);
+			return { 'X-Query-Context': ari };
+		} catch {
+			return undefined;
 		}
-
-		return {
-			'X-Query-Context': `ari:cloud:platform::site/${cloudId}`,
-		};
 	}
 
 	async makeGraphQLRequest<Key extends string, Data = unknown, Variables = unknown>(

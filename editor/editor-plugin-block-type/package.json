@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-type",
-	"version": "14.0.18",
+	"version": "14.1.0",
 	"description": "BlockType plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -30,7 +30,15 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./consts": "./src/ui/consts.ts"
+		"./block-type": "./src/entry-points/block-type.ts",
+		"./block-types": "./src/entry-points/block-types.tsx",
+		"./blockTypePlugin": "./src/entry-points/blockTypePlugin.tsx",
+		"./blockTypePluginType": "./src/entry-points/blockTypePluginType.ts",
+		"./consts/block-types": "./src/entry-points/consts-block-types.tsx",
+		"./consts": "./src/ui/consts.ts",
+		"./main": "./src/entry-points/main.ts",
+		"./ToolbarBlockType": "./src/entry-points/ToolbarBlockType.tsx",
+		"./types": "./src/entry-points/types.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",

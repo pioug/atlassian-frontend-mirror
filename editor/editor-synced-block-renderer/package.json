@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-synced-block-renderer",
-	"version": "8.2.3",
+	"version": "8.3.0",
 	"description": "SyncedBlockRenderer for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,7 +35,11 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./get-synced-block-renderer": "./src/entry-points/get-synced-block-renderer.tsx",
+		"./render-synced-block-content": "./src/entry-points/render-synced-block-content.tsx",
+		"./synced-block-node-component-renderer": "./src/entry-points/synced-block-node-component-renderer.tsx",
+		"./use-synced-block-node-component": "./src/entry-points/use-synced-block-node-component.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",

@@ -648,11 +648,12 @@ const ButtonBase: React.ForwardRefExoticComponent<
 						appearance !== 'subtle' &&
 						styles.sharedDisabled,
 					isDisabled && appearance === 'default' && defaultStyles.disabled,
-					isCircle && !isSplitButton && styles.circle,
 					spacing === 'compact' && styles.spacingCompact,
 					spacing === 'compact' &&
 						fg('platform-dst-shape-theme-default') &&
 						styles.spacingCompactT26Shape,
+					// This must come after spacing compact styling as it overrides the border radius
+					isCircle && !isSplitButton && styles.circle,
 					shouldFitContainer && styles.fullWidth,
 					hasIconBefore && styles.buttonIconBefore,
 					hasIconAfter && styles.buttonIconAfter,

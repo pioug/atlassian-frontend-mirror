@@ -1,5 +1,16 @@
 # @atlaskit/editor-shared-styles
 
+## 3.11.0
+
+### Minor Changes
+
+- [`7b2ab46c79d94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b2ab46c79d94) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.10.74
 
 ### Patch Changes

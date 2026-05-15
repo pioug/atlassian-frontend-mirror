@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-before-primary-toolbar",
-	"version": "10.0.0",
+	"version": "10.1.0",
 	"description": "Before primary toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,7 +29,10 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./beforePrimaryToolbarPlugin": "./src/entry-points/beforePrimaryToolbarPlugin.tsx",
+		"./beforePrimaryToolbarPluginType": "./src/entry-points/beforePrimaryToolbarPluginType.ts",
+		"./ReactComponents": "./src/entry-points/ReactComponents.ts"
 	},
 	"dependencies": {
 		"@atlaskit/editor-plugin-primary-toolbar": "workspace:^",

@@ -83,6 +83,9 @@
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/code/tsconfig.app.json"
+		},
+		{
 			"path": "../collab-provider/tsconfig.app.json"
 		},
 		{
@@ -299,10 +302,19 @@
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/popper/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/popup/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/portal/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../../people-and-teams/profilecard/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/radio/tsconfig.app.json"
@@ -372,6 +384,9 @@
 		},
 		{
 			"path": "../../platform/testing-library/tsconfig.app.json"
+		},
+		{
+			"path": "../../people-and-teams/user-profile-card/tsconfig.app.json"
 		}
 	]
 }

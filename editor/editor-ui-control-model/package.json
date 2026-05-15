@@ -28,7 +28,12 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./create-registry": "./src/entry-points/create-registry.ts",
+		"./surface-renderer/types": "./src/entry-points/surface-renderer-types.ts",
+		"./surface-renderer": "./src/entry-points/surface-renderer.tsx",
+		"./types": "./src/entry-points/types.ts",
+		"./utils": "./src/entry-points/utils.ts"
 	},
 	"dependencies": {
 		"@babel/runtime": "root:*"
@@ -72,7 +77,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-ui-control-model",
-	"version": "1.1.1",
+	"version": "1.2.0",
 	"description": "Rendering logic and model-types for Editor controls registry ( editor-plugin-ui-control-registry)",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

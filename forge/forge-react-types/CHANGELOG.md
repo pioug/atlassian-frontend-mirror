@@ -1,5 +1,17 @@
 # @atlaskit/forge-react-types
 
+## 1.5.0
+
+### Minor Changes
+
+- [`afdaf26fd3c35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/afdaf26fd3c35) -
+  Add dispatch function prop to UI Kit Frame component. This function is intended for use in
+  global:ui modules
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.4.0
 
 ### Minor Changes

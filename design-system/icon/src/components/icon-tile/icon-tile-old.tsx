@@ -8,28 +8,18 @@ import { css, cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { type IconTileProps, type IconTileSize, type LegacyIconTileSize } from '../../types';
+import { type IconTileProps, type IconTileSize } from '../../types';
 import { type InternalIconPropsNew } from '../icon-new';
 
-const sizeCrossCompatibleMap: Record<IconTileSize, LegacyIconTileSize | '20'> = {
-	// Size mapping from new t-shirt sizes to old pixel sizes
+const sizeCrossCompatibleMap: Record<IconTileSize, '20' | '24' | '32' | '40' | '48'> = {
 	xsmall: '20',
 	small: '24',
 	medium: '32',
 	large: '40',
 	xlarge: '48',
-	'16': '16',
-	'24': '24',
-	'32': '32',
-	'40': '40',
-	'48': '48',
 };
 
 const sizeMap = cssMap({
-	'16': {
-		width: '16px',
-		height: '16px',
-	},
 	'20': {
 		width: '20px',
 		height: '20px',
@@ -159,7 +149,7 @@ const iconTileStyles = css({
  * An icon with background shape, color, and size properties determined by Tile.
  */
 export default function IconTile(props: IconTileProps): JSX.Element {
-	const { icon: Icon, label, appearance, size = '24', shape = 'square', testId } = props;
+	const { icon: Icon, label, appearance, size = 'medium', shape = 'square', testId } = props;
 
 	const ExpandedIcon = Icon as ComponentType<InternalIconPropsNew>;
 

@@ -1112,7 +1112,7 @@ export const DragHandle = ({
 		} else {
 			setDragHandleDisabled(false);
 		}
-	}, [api?.blockControls.sharedState, isShiftDown, isTopLevelNodeValue, view]);
+	}, [api?.blockControls?.sharedState, isShiftDown, isTopLevelNodeValue, view]);
 
 	const dragHandleMessage = editorExperiment('platform_editor_block_menu', true)
 		? formatMessage(blockControlsMessages.dragToMoveClickToOpen, { br: <br /> })

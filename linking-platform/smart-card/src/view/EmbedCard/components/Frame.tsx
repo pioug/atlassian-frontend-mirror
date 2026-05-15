@@ -26,18 +26,20 @@ import { IframeDwellTracker } from './IframeDwellTracker';
 
 export interface FrameProps {
 	extensionKey?: string;
+	/**
+	 * Optional override of the internal mouse-over state. When provided, the
+	 * iframe will use this value instead of its own local state. Falls back to
+	 * local state when undefined (backward compatibility).
+	 */
+	isMouseOver?: boolean;
 	isTrusted?: boolean;
 	onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
 	onIframeFocus?: () => void;
+	onIframeMouseEnter?: () => void;
+	onIframeMouseLeave?: () => void;
 	testId?: string;
 	title?: string;
 	url?: string;
-}
-
-export interface FrameUpdatedProps extends FrameProps {
-	isMouseOver?: boolean;
-	onIframeMouseEnter?: () => void;
-	onIframeMouseLeave?: () => void;
 }
 
 type Refs =
@@ -72,119 +74,6 @@ const iframeStyles = css({
 export const Frame: React.ForwardRefExoticComponent<
 	FrameProps & React.RefAttributes<HTMLIFrameElement>
 > = React.forwardRef<HTMLIFrameElement, FrameProps>(
-	(
-		{ url, isTrusted = false, testId, onIframeDwell, onIframeFocus, title, extensionKey },
-		iframeRef,
-	) => {
-		di(IFrame);
-		const doc = getDocument();
-		const [isIframeLoaded, setIframeLoaded] = useState(false);
-		const [isMouseOver, setMouseOver] = useState(false);
-		const [isWindowFocused, setWindowFocused] = useState(true);
-
-		const ref = useRef<HTMLIFrameElement>();
-		const mergedRef = mergeRefs([iframeRef, ref as RefObject<HTMLIFrameElement>]);
-
-		const [percentVisible, setPercentVisible] = useState(0);
-
-		/**
-		 * These are the 'percent visible' thresholds at which the intersectionObserver will
-		 * trigger a state change. Eg. when the user scrolls and moves from 74% to 76%, or
-		 * vice versa. It's in a state object so that its static for the useEffect
-		 */
-		const [threshold] = useState([0.75, 0.8, 0.85, 0.9, 0.95, 1]);
-		useEffect(() => {
-			if (!ref || !ref.current) {
-				return;
-			}
-
-			const observer = new IntersectionObserver(
-				(entries) => {
-					entries.forEach((entry) => {
-						setPercentVisible(entry?.intersectionRatio);
-					});
-				},
-				{ threshold },
-			);
-
-			observer.observe(ref.current);
-
-			return () => {
-				observer.disconnect();
-			};
-		}, [threshold, mergedRef]);
-
-		useEffect(() => {
-			const onBlur = () => {
-				setWindowFocused(false);
-				if (fg('jpx-1074-smart-links-iframe')) {
-					if (doc?.activeElement === ref.current) {
-						onIframeFocus && onIframeFocus();
-					}
-				} else {
-					// The below will be removed as part of FG cleanup
-					// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
-					if (document.activeElement === ref.current) {
-						onIframeFocus && onIframeFocus();
-					}
-				}
-			};
-
-			const onFocus = () => {
-				setWindowFocused(true);
-			};
-
-			window.addEventListener('blur', onBlur);
-			window.addEventListener('focus', onFocus);
-			return () => {
-				window.removeEventListener('blur', onBlur);
-				window.removeEventListener('focus', onFocus);
-			};
-		}, [ref, onIframeFocus, doc]);
-
-		if (!url) {
-			return null;
-		}
-
-		return (
-			<React.Fragment>
-				<IframeDwellTracker
-					isIframeLoaded={isIframeLoaded}
-					isMouseOver={isMouseOver}
-					isWindowFocused={isWindowFocused}
-					iframePercentVisible={percentVisible}
-					onIframeDwell={onIframeDwell}
-				/>
-				<IFrame
-					childRef={mergedRef}
-					src={url}
-					data-testid={`${testId}-frame`}
-					data-test-iframe-loaded={isIframeLoaded}
-					css={iframeStyles}
-					onMouseEnter={() => {
-						setMouseOver(true);
-					}}
-					onMouseLeave={() => {
-						setMouseOver(false);
-					}}
-					allowFullScreen
-					scrolling="yes"
-					allow="autoplay; encrypted-media; clipboard-write"
-					onLoad={() => {
-						setIframeLoaded(true);
-					}}
-					sandbox={getIframeSandboxAttribute(isTrusted)}
-					title={title}
-					extensionKey={extensionKey}
-				/>
-			</React.Fragment>
-		);
-	},
-);
-
-export const FrameUpdated: React.ForwardRefExoticComponent<
-	FrameUpdatedProps & React.RefAttributes<HTMLIFrameElement>
-> = React.forwardRef<HTMLIFrameElement, FrameUpdatedProps>(
 	(
 		{
 			url,

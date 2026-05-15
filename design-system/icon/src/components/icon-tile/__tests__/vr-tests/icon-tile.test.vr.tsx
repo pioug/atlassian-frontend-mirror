@@ -11,7 +11,4 @@ snapshot(Example, {
 			},
 		},
 	],
-	featureFlags: {
-		platform_dst_new_icon_tile: [true, false],
-	},
 });

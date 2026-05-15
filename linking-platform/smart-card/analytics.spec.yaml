@@ -906,3 +906,15 @@ events:
           required: true
           type: string
           description: The timestamp when the event was clicked
+        isAuxClick:
+          required: false
+          type: boolean
+          description:
+            True when the click was a middle-click (button === 1) captured via `onAuxClick`.
+            Behaviour is gated by the `linking_platform_track_non_primary_3p_clicks` Statsig experiment.
+        isContextMenu:
+          required: false
+          type: boolean
+          description:
+            True when the event was a right-click captured via `onContextMenu`. Behaviour is gated
+            by the `linking_platform_track_non_primary_3p_clicks` Statsig experiment.

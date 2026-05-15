@@ -1,5 +1,31 @@
 # @atlaskit/smart-card
 
+## 44.11.0
+
+### Minor Changes
+
+- [`38ea17de1355a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38ea17de1355a) -
+  Track middle- and right-clicks on third-party Smart Links rendered by `HyperlinkResolver`. Adds
+  optional `isAuxClick` / `isContextMenu` attributes to the `smartlinkClickAnalyticsWorkflows`
+  event, gated by the `linking_platform_track_non_primary_3p_clicks` experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.10.0
+
+### Minor Changes
+
+- [`4eb0565ea5912`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4eb0565ea5912) -
+  Remove rovo_chat_embed_card_dwell_and_hover_metrics feature gate
+
+### Patch Changes
+
+- [`b57a760070192`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b57a760070192) -
+  FG cleanup: navx-2478-sl-fix-hover-card-unresolved-view fixing standalone hover card not resolving
+- Updated dependencies
+
 ## 44.9.11
 
 ### Patch Changes

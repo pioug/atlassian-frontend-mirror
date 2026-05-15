@@ -24,6 +24,7 @@ type ToolbarNestedDropdownMenuProps = {
 	children?: ReactNode;
 	dropdownTestId?: string;
 	elemAfter: ReactNode;
+	elemAfterText?: ReactNode;
 	elemBefore: ReactNode;
 	/**
 	 * Enforeces a max height of 320px for menus - when menu is larger a scroll is introduced
@@ -41,6 +42,7 @@ type ToolbarNestedDropdownMenuProps = {
 export const ToolbarNestedDropdownMenu = ({
 	elemBefore,
 	text,
+	elemAfterText,
 	elemAfter,
 	children,
 	isDisabled,
@@ -76,6 +78,7 @@ export const ToolbarNestedDropdownMenu = ({
 						shouldTitleWrap={shouldTitleWrap}
 					>
 						{text}
+						{elemAfterText}
 					</ToolbarDropdownItem>
 				);
 

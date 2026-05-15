@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 219.7.2
+
+### Patch Changes
+
+- [`2265b040edb79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2265b040edb79) -
+  migrate task and decisions to compiled css
+- Updated dependencies
+
 ## 219.7.1
 
 ### Patch Changes

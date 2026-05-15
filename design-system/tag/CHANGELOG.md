@@ -1,5 +1,13 @@
 # @atlaskit/tag
 
+## 14.13.2
+
+### Patch Changes
+
+- [`19547c9a9aad5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19547c9a9aad5) -
+  [ux] In the deprecated Tag Dropdown Trigger, added the interactive background and focus ring
+  styles back which were accidentally removed in a previous commit.
+
 ## 14.13.1
 
 ### Patch Changes

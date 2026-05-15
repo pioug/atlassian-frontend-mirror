@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-shared-styles",
-	"version": "3.10.74",
+	"version": "3.11.0",
 	"description": "Style values used in the editor/renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,12 +36,19 @@
 		}
 	},
 	"exports": {
+		".": "./src/index.ts",
+		"./constants": "./src/entry-points/constants.ts",
+		"./constants/types": "./src/entry-points/constants-types.ts",
 		"./consts": "./src/consts/index.ts",
-		"./selection": "./src/selection/index.ts",
-		"./shortcut": "./src/shortcut/index.ts",
-		"./scrollbar": "./src/scrollbar-styles.ts",
 		"./overflow-shadow-for-compiled": "./src/overflow-shadow/overflow-shadow-for-compiled.ts",
-		".": "./src/index.ts"
+		"./overflow-shadow": "./src/entry-points/overflow-shadow.ts",
+		"./scrollbar": "./src/entry-points/scrollbar.ts",
+		"./selection": "./src/selection/index.ts",
+		"./selection/types": "./src/entry-points/selection-types.ts",
+		"./selection/utils": "./src/entry-points/selection-utils.ts",
+		"./shortcut": "./src/shortcut/index.ts",
+		"./shortcut/main": "./src/entry-points/shortcut-main.ts",
+		"./utils": "./src/entry-points/utils.ts"
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "workspace:^",

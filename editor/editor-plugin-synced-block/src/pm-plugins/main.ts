@@ -100,6 +100,7 @@ const mapRetryCreationPosMap = (
 	oldMap: RetryCreationPosMap,
 	newRetryCreationPos: RetryCreationPosEntry | undefined,
 	mapPos: (pos: number) => number,
+	isPerfExperimentOn?: boolean,
 ): RetryCreationPosMap => {
 	const resourceId = newRetryCreationPos?.resourceId;
 
@@ -107,7 +108,7 @@ const mapRetryCreationPosMap = (
 	// This is critical for PR-E (EDITOR-6929) which relies on reference equality
 	// to short-circuit SharedStateAPI deep-equality checks.
 	if (
-		expValEquals('editor_synced_block_perf', 'isEnabled', true) &&
+		isPerfExperimentOn &&
 		!resourceId &&
 		oldMap.size === 0
 	) {
@@ -441,6 +442,12 @@ export const createPlugin = (
 ): SafePlugin<SyncedBlockPluginState> => {
 	const { useLongPressSelection = false } = options || {};
 
+	// Cache the experiment value once at plugin creation time.
+	// This fires the exposure event exactly once (correct per Exposure Events 101)
+	// and avoids ~10 redundant Statsig SDK evaluations per keystroke in hot paths
+	// (apply, filterTransaction, appendTransaction, decorations).
+	const isPerfExperimentOn = expValEquals('editor_synced_block_perf', 'isEnabled', true);
+
 	const ctx = new SyncedBlockPluginContext();
 	const confirmationTransactionRef = ctx.confirmationTransactionRef;
 	const unpublishedFlagShown = ctx.unpublishedFlagShown;
@@ -484,7 +491,7 @@ export const createPlugin = (
 				// synced blocks, we skip the eager fetch + cache walks. They will be
 				// re-run lazily by `apply` the first time a synced block enters the
 				// document (paste, collab insert, or programmatic insert).
-				const docHasSyncedBlocks = expValEquals('editor_synced_block_perf', 'isEnabled', true)
+				const docHasSyncedBlocks = isPerfExperimentOn
 					? hasSyncedBlocks(instance.doc)
 					: true;
 
@@ -523,7 +530,7 @@ export const createPlugin = (
 				// single traversal here; afterwards `apply()` will map or rebuild
 				// only when a status signal changes.
 				const initStatusDecorationSet =
-					docHasSyncedBlocks && expValEquals('editor_synced_block_perf', 'isEnabled', true)
+					docHasSyncedBlocks && isPerfExperimentOn
 						? buildStatusDecorations(
 								instance.doc,
 								syncBlockStore,
@@ -552,7 +559,7 @@ export const createPlugin = (
 			},
 			apply: (tr, currentPluginState, oldEditorState) => {
 				const meta = tr.getMeta(syncedBlockPluginKey);
-				const isPerfExperimentOn = expValEquals('editor_synced_block_perf', 'isEnabled', true);
+				// isPerfExperimentOn is cached at createPlugin() level — see above
 
 				const {
 					activeFlag,
@@ -658,6 +665,7 @@ export const createPlugin = (
 					retryCreationPosMap,
 					newPosEntry,
 					tr.mapping.map.bind(tr.mapping),
+					isPerfExperimentOn,
 				);
 
 				const nextActiveFlag = meta?.activeFlag ?? activeFlag;
@@ -751,7 +759,7 @@ export const createPlugin = (
 				// `apply()`. The `decorations` prop is now an O(1) merge of
 				// the two cached sets — no `doc.descendants()` walk, no
 				// shared-state reads.
-				if (expValEquals('editor_synced_block_perf', 'isEnabled', true)) {
+				if (isPerfExperimentOn) {
 					if (!docHasSyncedBlocks) {
 						return selectionDecorationSet;
 					}
@@ -906,7 +914,7 @@ export const createPlugin = (
 			// transaction does not insert one, all downstream filter logic is a
 			// no-op. Avoid both the shared-state reads and the `trackSyncBlocks`
 			// walks for the ~99.97% of pages that have no synced blocks.
-			if (expValEquals('editor_synced_block_perf', 'isEnabled', true)) {
+			if (isPerfExperimentOn) {
 				const pluginState = syncedBlockPluginKey.getState(state);
 				if (pluginState && !pluginState.hasSyncedBlocks && !transactionInsertsSyncedBlock(tr)) {
 					return true;
@@ -1014,7 +1022,7 @@ export const createPlugin = (
 			// synced block (and none of the dispatched transactions inserts one),
 			// skip all downstream work. This is the hot path on the ~99.97% of
 			// pages that don't use synced blocks (see EDITOR-6586).
-			if (expValEquals('editor_synced_block_perf', 'isEnabled', true)) {
+			if (isPerfExperimentOn) {
 				const oldPluginState = syncedBlockPluginKey.getState(oldState);
 				const newPluginState = syncedBlockPluginKey.getState(newState);
 				const hadOrHasSyncedBlocks =

@@ -19,12 +19,15 @@ import { css, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import { token } from '@atlaskit/tokens';
 
+import { ErrorMessage } from './error-message';
 import { FieldId } from './field-id-context';
-import { FormContext } from './form';
+import { FormContext } from './form-context';
+import { HelperMessage } from './helper-message';
 import { IsDisabledContext } from './is-disabled-context';
 import { Label } from './label';
-import { ErrorMessage, HelperMessage, MessageWrapper, ValidMessage } from './messages';
+import { MessageWrapper } from './message-wrapper';
 import RequiredAsterisk from './required-asterisk';
+import { ValidMessage } from './valid-message';
 
 const fieldWrapperStyles = css({
 	marginBlockStart: token('space.100'),

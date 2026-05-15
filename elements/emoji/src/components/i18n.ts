@@ -1,245 +1,250 @@
 import { defineMessages } from 'react-intl';
 
 export const messages: {
-	deleteEmojiTooltip: {
-		id: string;
+	activityCategory: {
 		defaultMessage: string;
 		description: string;
-	};
-	deleteEmojiTooltipForScreenreader: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	deleteEmojiTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	deleteEmojiDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	deleteEmojiLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	addCustomEmojiLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	emojiPlaceholder: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	emojiNameAriaLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	emojiNameLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	emojiChooseFileTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	emojiChooseFileScreenReaderDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	emojiSelectSkinToneButtonAriaLabelText: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	emojiSelectSkinToneListAriaLabelText: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	emojiImageRequirements: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	emojiPreviewTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	emojiPreview: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	addEmojiLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	retryLabel: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	cancelLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	searchPlaceholder: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	searchLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	searchResultsStatus: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	searchResultsStatusSeeAll: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	categoriesSelectorLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	categoriesSearchResults: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	frequentCategory: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	peopleCategory: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	natureCategory: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	foodsCategory: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	activityCategory: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	placesCategory: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	objectsCategory: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	symbolsCategory: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	flagsCategory: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	productivityCategory: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	userUploadsCustomCategory: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	allUploadsCustomCategory: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	deleteEmojiFailed: {
-		id: string;
+	cancelLabel: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	emojiInvalidImage: {
-		id: string;
+	categoriesSearchResults: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	emojiUploadFailed: {
-		id: string;
+	categoriesSelectorLabel: {
 		defaultMessage: string;
 		description: string;
-	};
-	emojiUploadTimeout: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	emojiImageTooBig: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	emojiPickerTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	emojiPickerListPanel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	emojiPickerGrid: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	emojiButtonRoleDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	changeEmojiButtonLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	deleteEmojiDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deleteEmojiFailed: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deleteEmojiLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deleteEmojiTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deleteEmojiTooltip: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deleteEmojiTooltipForScreenreader: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiButtonRoleDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiChooseFileScreenReaderDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiChooseFileTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiDuplicateName: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiImageRequirements: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiImageTooBig: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiInvalidImage: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiNameAriaLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiNameLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiPickerGrid: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiPickerListPanel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiPickerTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiPlaceholder: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiPreview: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiPreviewTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiSelectSkinToneButtonAriaLabelText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiSelectSkinToneListAriaLabelText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiUploadFailed: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiUploadTimeout: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	error: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	flagsCategory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	foodsCategory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	frequentCategory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	natureCategory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	objectsCategory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	peopleCategory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	placesCategory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	productivityCategory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	retryLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	searchLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	searchPlaceholder: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	searchResultsStatus: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	searchResultsStatusSeeAll: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	symbolsCategory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	userUploadsCustomCategory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	deleteEmojiTooltip: {
@@ -480,6 +485,12 @@ export const messages: {
 		id: 'fabric.emoji.error.image.too.big',
 		defaultMessage: 'Selected image is more than 1 MB',
 		description: 'Error message for image too big, beyond the size limit',
+	},
+	emojiDuplicateName: {
+		id: 'fabric.emoji.error.duplicate.name',
+		defaultMessage: 'An emoji with this name exists already',
+		description:
+			'Error message shown when the user tries to upload an emoji with a name that already exists in the custom emoji set',
 	},
 	emojiPickerTitle: {
 		id: 'fabric.emoji.picker',

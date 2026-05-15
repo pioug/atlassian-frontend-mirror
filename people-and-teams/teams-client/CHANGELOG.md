@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.32.5
+
+### Patch Changes
+
+- [`759719a07dfd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/759719a07dfd0) -
+  Clean up teams-app_client_fix-invalid-ari feature gate
+
 ## 4.32.4
 
 ### Patch Changes

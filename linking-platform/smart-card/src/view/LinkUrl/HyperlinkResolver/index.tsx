@@ -1,18 +1,23 @@
-import React, { type ComponentType, useCallback } from 'react';
+import React, { type ComponentType, useCallback, useEffect } from 'react';
 
 import { withErrorBoundary as withReactErrorBoundary } from 'react-error-boundary';
 import { injectIntl } from 'react-intl';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { getFirstPartyIdentifier, getThirdPartyARI } from '../../../state/helpers';
 import useResolveHyperlink from '../../../state/hooks/use-resolve-hyperlink';
 import useResolveHyperlinkValidator from '../../../state/hooks/use-resolve-hyperlink/useResolveHyperlinkValidator';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
+import { isAuxClick } from '../../../utils/click-helpers';
 import withIntlProvider from '../../common/intl-provider';
 import { useFire3PWorkflowsClickEvent } from '../../SmartLinkEvents/useSmartLinkEvents';
 import Hyperlink from '../Hyperlink';
 import type { LinkUrlProps } from '../types';
+
+const TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT = 'linking_platform_track_non_primary_3p_clicks';
 
 const HyperlinkFallbackComponent = () => null;
 
@@ -43,25 +48,58 @@ const HyperlinkWithSmartLinkResolverInner = ({
 			useFire3PWorkflowsClickEvent(firstPartyIdentifier, thirdPartyARI)
 		: undefined;
 
+	// Shared scope guard for all 3P-click handlers.
+	const shouldFire3PClickEvent =
+		state?.status === 'resolved' &&
+		fire3PClickEvent &&
+		fg('platform_smartlink_3pclick_analytics');
+
 	const onClick = useCallback(
 		(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-			// Only fire the event if the feature flag is on and other conditions are met
-			if (
-				state?.status === 'resolved' &&
-				e?.button === 0 &&
-				fire3PClickEvent &&
-				fg('platform_smartlink_3pclick_analytics')
-			) {
-				// 0 taken from button state representation -
-				// https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
-				fire3PClickEvent();
+			// button === 0 is left-click, see
+			// https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
+			if (shouldFire3PClickEvent && e?.button === 0) {
+				fire3PClickEvent?.();
 			}
 			onClickCallback?.(e);
 		},
-		[onClickCallback, fire3PClickEvent, state?.status],
+		[onClickCallback, fire3PClickEvent, shouldFire3PClickEvent],
 	);
 
-	return <Hyperlink {...props} onClick={onClick} />;
+	// Fire experiment exposure once per surface mount, not on every re-render.
+	useEffect(() => {
+		if (shouldFire3PClickEvent) {
+			expValEquals(TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT, 'isEnabled', true);
+		}
+	}, [shouldFire3PClickEvent]);
+
+	const onAuxClick = useCallback(
+		(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+			// isAuxClick guards against Windows right-clicks firing onAuxClick with button === 2.
+			if (
+				isAuxClick(e) &&
+				shouldFire3PClickEvent &&
+				expValEqualsNoExposure(TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT, 'isEnabled', true)
+			) {
+				fire3PClickEvent?.({ isAuxClick: true });
+			}
+		},
+		[fire3PClickEvent, shouldFire3PClickEvent],
+	);
+
+	const onContextMenu = useCallback(
+		(_e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+			if (
+				shouldFire3PClickEvent &&
+				expValEqualsNoExposure(TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT, 'isEnabled', true)
+			) {
+				fire3PClickEvent?.({ isContextMenu: true });
+			}
+		},
+		[fire3PClickEvent, shouldFire3PClickEvent],
+	);
+
+	return <Hyperlink {...props} onClick={onClick} onAuxClick={onAuxClick} onContextMenu={onContextMenu} />;
 };
 
 export const HyperlinkWithSmartLinkResolver: React.ComponentType<LinkUrlProps> =

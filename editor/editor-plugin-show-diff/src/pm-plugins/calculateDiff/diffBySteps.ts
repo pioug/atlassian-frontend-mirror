@@ -1,12 +1,32 @@
 import { simplifyChanges, ChangeSet, type Change } from 'prosemirror-changeset';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { Mark } from '@atlaskit/editor-prosemirror/model';
 import { Mapping, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Step, StepMap } from '@atlaskit/editor-prosemirror/transform';
 
 import { optimizeChanges } from './optimizeChanges';
 
 const mapPosition = (mapping: Mapping, pos: number): number => mapping.map(pos);
+
+/**
+ * Compare marks between two nodes
+ * We have to check each child because adding a mark splits text into multiple nodes
+ */
+const hasSameChildMarks = (left: PMNode, right: PMNode): boolean => {
+	if (left.childCount !== right.childCount) {
+		return false;
+	}
+
+	for (let index = 0; index < left.childCount; index++) {
+		if (!Mark.sameSet(left.child(index).marks, right.child(index).marks)) {
+			return false;
+		}
+	}
+
+	return true;
+};
+
 const createMapping = (maps: StepMap[]): Mapping => {
 	const mapping = new Mapping();
 	for (const map of maps) {
@@ -57,7 +77,18 @@ const mergeOverlappingByNewDocRange = (changes: Change[]): Change[] => {
 	return merged;
 };
 
-const isReplaceStepForTextBlockNode = (
+/**
+ * This function checks whether to do granular diffing.
+ * We should do granular diffing if:
+ * - The step is a replace step
+ * - The step is not open
+ * - The replaced slice is not open
+ * - The replaced slice has only one child
+ * - The replacing slice has only one child
+ * - The replaced slice and replacing slice have the same text content
+ * - The replaced slice and replacing slice have the same child marks (if text content is equal)
+ */
+const shouldCheckGranularDiff = (
 	step: Step,
 	before: PMNode,
 	from: number,
@@ -73,13 +104,30 @@ const isReplaceStepForTextBlockNode = (
 	const replacedSlice = before.slice(from, to);
 	const replacingSlice = step.slice;
 
-	return Boolean(
-		replacedSlice.openStart === 0 &&
-		replacedSlice.openEnd === 0 &&
-		replacedSlice.content.childCount === 1 &&
-		replacingSlice.content.childCount === 1 &&
-		replacedSlice.content.firstChild?.type.name === replacingSlice.content.firstChild?.type.name &&
-		replacedSlice.content.firstChild?.type.isTextblock,
+	if (
+		replacedSlice.openStart !== 0 ||
+		replacedSlice.openEnd !== 0 ||
+		replacedSlice.content.childCount !== 1 ||
+		replacingSlice.content.childCount !== 1
+	) {
+		return false;
+	}
+
+	const replacedNode = replacedSlice.content.firstChild;
+	const replacingNode = replacingSlice.content.firstChild;
+
+	if (replacedNode?.type.name !== replacingNode?.type.name || !replacedNode?.type.isTextblock) {
+		return false;
+	}
+
+	if (!Mark.sameSet(replacedNode?.marks ?? [], replacingNode?.marks ?? [])) {
+		return false;
+	}
+
+	const isTextContentEqual = replacedNode?.textContent === replacingNode?.textContent;
+
+	return (
+		!isTextContentEqual || (isTextContentEqual && hasSameChildMarks(replacedNode, replacingNode))
 	);
 };
 
@@ -139,12 +187,7 @@ export const diffBySteps = (originalDoc: PMNode, steps: Step[]): Change[] => {
 		const toB = mapPosition(afterStepToFinal, toAfterStep);
 
 		if (
-			isReplaceStepForTextBlockNode(
-				rangedStep.step,
-				rangedStep.before,
-				rangedStep.from,
-				rangedStep.to,
-			)
+			shouldCheckGranularDiff(rangedStep.step, rangedStep.before, rangedStep.from, rangedStep.to)
 		) {
 			const granularStepChanges = ChangeSet.create(rangedStep.before).addSteps(
 				rangedStep.doc,

@@ -29,16 +29,13 @@ export type EmbedCardProps = {
 	onError?: OnErrorCallback;
 	onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
 	onIframeFocus?: () => void;
+	onIframeMouseEnter?: () => void;
+	onIframeMouseLeave?: () => void;
 	onResolve?: OnResolveCallback;
 	platform?: CardPlatform;
 	renderers?: CardProviderRenderers;
 	testId?: string;
 	url: string;
-};
-
-export type EmbedCardUpdatedProps = EmbedCardProps & {
-	onIframeMouseEnter?: () => void;
-	onIframeMouseLeave?: () => void;
 };
 export interface WithShowControlMethodProp {
 	showControls?: () => void;

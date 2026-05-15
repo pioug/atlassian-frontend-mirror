@@ -72,8 +72,8 @@ const useIsShowPreauthBetterHovercard = (
 	const { rovoOptions: rovoConfig } = useRovoConfig();
 	return Boolean(
 		useIsUnauthorisedView(props) &&
-		rovoConfig?.isRovoEnabled &&
-		expValEquals('platform_sl_3p_preauth_better_hovercard', 'isEnabled', true),
+			rovoConfig?.isRovoEnabled &&
+			expValEquals('platform_sl_3p_preauth_better_hovercard', 'isEnabled', true),
 	);
 };
 
@@ -228,15 +228,11 @@ const HoverCardContent = ({
 				return overrideView;
 			}
 
-			if (cardState.status === 'errored' && fg('navx-2478-sl-fix-hover-card-unresolved-view')) {
+			if (cardState.status === 'errored') {
 				return null;
 			}
 
-			if (
-				fg('navx-2478-sl-fix-hover-card-unresolved-view')
-					? cardState.status === 'resolving' || cardState.metadataStatus === 'pending'
-					: cardState.metadataStatus === 'pending'
-			) {
+			if (cardState.status === 'resolving' || cardState.metadataStatus === 'pending') {
 				return (
 					<HoverCardLoadingView
 						flexibleCardProps={flexibleCardProps}
@@ -313,15 +309,11 @@ const HoverCardContent = ({
 				return overrideView;
 			}
 
-			if (cardState.status === 'errored' && fg('navx-2478-sl-fix-hover-card-unresolved-view')) {
+			if (cardState.status === 'errored') {
 				return null;
 			}
 
-			if (
-				fg('navx-2478-sl-fix-hover-card-unresolved-view')
-					? cardState.status === 'resolving' || cardState.metadataStatus === 'pending'
-					: cardState.metadataStatus === 'pending'
-			) {
+			if (cardState.status === 'resolving' || cardState.metadataStatus === 'pending') {
 				return (
 					<HoverCardLoadingView
 						flexibleCardProps={flexibleCardProps}

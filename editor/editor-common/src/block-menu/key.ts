@@ -110,6 +110,14 @@ export const BLOCK_ACTIONS_FEATURED_EXTENSION_SLOT_MENU_ITEM = {
 	key: 'block-actions-featured-extension-slot-menu-item',
 };
 
+export const BLOCK_ACTIONS_TEMPLATE_SECTION = {
+	key: 'block-actions-template-section' as const,
+};
+
+export const BLOCK_ACTIONS_FEATURED_EXTENSION_SECTION_KEYS: readonly [
+	typeof BLOCK_ACTIONS_TEMPLATE_SECTION.key,
+] = ['block-actions-template-section'];
+
 export const BLOCK_ACTIONS_MENU_SECTION = {
 	key: 'block-actions-menu-section',
 };

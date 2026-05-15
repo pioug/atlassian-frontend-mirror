@@ -4,7 +4,7 @@ import type { ReactNode, Ref } from 'react';
 import { cssMap, cx } from '@atlaskit/css';
 import { DropdownItem } from '@atlaskit/dropdown-menu';
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
-import { Anchor, Pressable } from '@atlaskit/primitives/compiled';
+import { Anchor, Box, Pressable } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -70,6 +70,9 @@ const styles = cssMap({
 		'&:active': {
 			backgroundColor: token('color.background.selected.pressed'),
 		},
+	},
+	elemAfterText: {
+		marginLeft: token('space.075'),
 	},
 });
 
@@ -141,6 +144,7 @@ type ToolbarDropdownItemProps = {
 	ariaKeyshortcuts?: string;
 	children?: React.ReactNode;
 	elemAfter?: ReactNode;
+	elemAfterText?: ReactNode;
 	elemBefore?: ReactNode;
 	hasNestedDropdownMenu?: boolean;
 	href?: string;
@@ -231,6 +235,7 @@ export const ToolbarDropdownItem = ({
 	onClick,
 	elemBefore,
 	elemAfter,
+	elemAfterText,
 	isSelected,
 	children,
 	isDisabled,
@@ -301,6 +306,11 @@ export const ToolbarDropdownItem = ({
 				: {})}
 		>
 			{children}
+			{elemAfterText ? (
+				<Box as="span" xcss={styles.elemAfterText}>
+					{elemAfterText}
+				</Box>
+			) : null}
 		</DropdownItem>
 	);
 };

@@ -11,7 +11,7 @@ const IconTileCircleReplacementComponentExample = (): React.JSX.Element => {
 			label=""
 			appearance="greenBold"
 			shape="circle"
-			size="24"
+			size="small"
 			UNSAFE_circleReplacementComponent={<span>Circle replacement</span>}
 		/>
 	);

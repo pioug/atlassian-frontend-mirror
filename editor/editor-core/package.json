@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "219.7.1",
+	"version": "219.7.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -105,6 +105,7 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/adf-utils": "workspace:^",
 		"@atlaskit/analytics-listeners": "workspace:^",
+		"@atlaskit/code": "workspace:^",
 		"@atlaskit/collab-provider": "workspace:^",
 		"@atlaskit/editor-plugin-annotation": "workspace:^",
 		"@atlaskit/editor-plugin-card": "workspace:^",
@@ -118,6 +119,8 @@
 		"@atlaskit/media-integration-test-helpers": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
+		"@atlaskit/popper": "workspace:^",
+		"@atlaskit/portal": "workspace:^",
 		"@atlaskit/renderer": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/synchrony-test-helpers": "workspace:^",
@@ -132,6 +135,7 @@
 		"@atlassian/search-client": "workspace:^",
 		"@atlassian/search-provider": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/user-profile-card": "workspace:^",
 		"@emotion/jest": "root:*",
 		"@testing-library/react": "root:*",
 		"@types/diff": "root:*",
@@ -173,6 +177,10 @@
 		"linking_platform_datasource_assets_objects": {
 			"type": "boolean",
 			"referenceOnly": "true"
+		},
+		"people-teams_migrate-user-profile-card": {
+			"type": "boolean",
+			"referenceOnly": true
 		},
 		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean",

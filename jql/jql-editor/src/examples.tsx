@@ -3,7 +3,6 @@ import React from 'react';
 import { injectable } from 'react-magnetic-di';
 
 import { Text } from '@atlaskit/primitives/compiled';
-import { withPlatformFeatureGates } from '@atlassian/feature-flags-storybook-utils';
 
 import { Template } from '../examples-utils/template';
 import { TemplateReadOnly } from '../examples-utils/template-read-only';
@@ -46,13 +45,6 @@ export const SimpleEditorWithDefaultRows: () => React.JSX.Element = Template.bin
 		defaultRows: 5,
 	},
 );
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(SimpleEditorWithDefaultRows as any).decorators = [
-	withPlatformFeatureGates({
-		list_lovability_improving_filters: true,
-	}),
-];
 
 export const ComplexJQL: () => React.JSX.Element = Template.bind(
 	{},

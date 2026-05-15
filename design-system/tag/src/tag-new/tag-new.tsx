@@ -477,6 +477,8 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 				!hasMargin && styles.noMarginStyles,
 				colorStyles[resolvedColor as keyof typeof colorStyles],
 				borderIconFilterStyles.root,
+				dropdownStyles.interactive,
+				styles.focusRingStyles,
 				borderIconInteractiveFilterStyles.root,
 				isSelected && dropdownStyles.selected,
 			)}

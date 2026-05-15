@@ -12,14 +12,12 @@ import { AvatarContext, type AvatarContextProps } from '@atlaskit/avatar';
 import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import { Anchor, Pressable, Text, type TextColor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { expandableMenuItemIndentation } from './constants';
-import { DragHandleNew } from './drag-handle/drag-handle-new';
-import { LazyDragHandle } from './drag-handle/lazy-drag-handle';
+import { DragHandle } from './drag-handle/drag-handle';
 import { useLevel } from './expandable-menu-item/expandable-menu-item-context';
 import {
 	useFlyoutMenuOpen,
@@ -688,13 +686,7 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 			 * Both rely on `position:relative` on a parent for positioning.
 			 */}
 
-			{/**
-			 * Remove this comment when navx-4718-inline-drag-handle is cleaned up
-			 * `LazyDragHandle` internally defers rendering until after mount to avoid
-			 * hydration mismatches. It also wraps the lazy component in its own `Suspense`
-			 * boundary, so its loading won't block the rendering of the rest of the menu item.
-			 */}
-			{hasDragIndicator ? <TemporaryDragHandle /> : null}
+			{hasDragIndicator ? <DragHandle /> : null}
 
 			{dropIndicator}
 		</div>
@@ -878,13 +870,6 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 		</AvatarContext.Provider>
 	);
 };
-
-// Remove this when FG is cleaned up
-const TemporaryDragHandle = componentWithFG(
-	'navx-4718-inline-drag-handle',
-	DragHandleNew,
-	LazyDragHandle,
-);
 
 /**
  * __MenuItemBase__

@@ -1,5 +1,14 @@
 # @atlaskit/jql-editor
 
+## 6.4.1
+
+### Patch Changes
+
+- [`41cdac092bfaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41cdac092bfaa) -
+  Cleanup feature gate list_lovability_improving_filters. The defaultRows prop is now always applied
+  to the JQL editor, enabling configurable initial row height.
+- Updated dependencies
+
 ## 6.4.0
 
 ### Minor Changes

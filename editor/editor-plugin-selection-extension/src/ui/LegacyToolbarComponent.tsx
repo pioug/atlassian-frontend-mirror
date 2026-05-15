@@ -96,11 +96,13 @@ export const LegacyExtensionToolbarItem = ({
 			getMenuItems()
 				.map<MenuItem | undefined>((menuItem, i) => {
 					// Only process ExtensionMenuItemConfiguration, skip ExtensionMenuSectionConfiguration
-					if ('label' in menuItem && 'icon' in menuItem) {
+					if ('label' in menuItem) {
+						const Icon = menuItem.icon;
+
 						return {
 							key: `menu-item-${i}`,
 							content: menuItem.label,
-							elemBefore: <menuItem.icon label={menuItem.label} />,
+							elemBefore: Icon ? <Icon label={menuItem.label} /> : undefined,
 							onClick: () => {
 								menuItem.onClick?.();
 								// NEXT PR: here we need to set the active extension so the contentComponent can render

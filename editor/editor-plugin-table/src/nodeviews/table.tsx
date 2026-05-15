@@ -16,7 +16,7 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
-import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import type { Decoration, DecorationSource, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -81,10 +81,44 @@ const handleInlineTableWidth = (table: HTMLElement, width: number | undefined) =
 	table.style.setProperty('width', `${width}px`);
 };
 
+const setDataAttr = (cell: HTMLTableCellElement, attr: string, value: boolean): void => {
+	const hasAttr = cell.hasAttribute(attr);
+	if (value && !hasAttr) {
+		cell.setAttribute(attr, 'true');
+	} else if (!value && hasAttr) {
+		cell.removeAttribute(attr);
+	}
+};
+
+const refreshRoundedTableEdgeAttrs = (table: HTMLTableElement, tableNode: PmNode): void => {
+	try {
+		const tableMap = TableMap.get(tableNode);
+		const cells = Array.from(table.rows).flatMap((row) => Array.from(row.cells));
+		const cellOffsets = Array.from(new Set(tableMap.map));
+
+		cellOffsets.forEach((cellOffset, cellIndex) => {
+			const cell = cells[cellIndex];
+			if (!cell) {
+				return;
+			}
+
+			const cellRect = tableMap.findCell(cellOffset);
+			setDataAttr(cell, 'data-reaches-top', cellRect.top === 0);
+			setDataAttr(cell, 'data-reaches-bottom', cellRect.bottom >= tableMap.height);
+			setDataAttr(cell, 'data-reaches-left', cellRect.left === 0);
+			setDataAttr(cell, 'data-reaches-right', cellRect.right >= tableMap.width);
+		});
+	} catch {
+		// Table structure can be transient while ProseMirror normalises transactions.
+		// Keep existing edge attrs if the current shape cannot be mapped safely.
+	}
+};
+
 export default class TableView extends ReactNodeView<Props> {
 	private table: HTMLElement | undefined;
 	private renderedDOM?: HTMLElement;
 	private resizeObserver?: ResizeObserver;
+	private roundedTableEdgeRefreshHandle: number | undefined;
 	eventDispatcher?: EventDispatcher;
 	getPos: getPosHandlerNode;
 	options: TableOptions | undefined;
@@ -327,6 +361,53 @@ export default class TableView extends ReactNodeView<Props> {
 		return this.node;
 	};
 
+	// Each TableCell node view refreshes its own edge attrs when its cell attrs change.
+	// However, when the table's shape changes (e.g. a new row is inserted below the
+	// last row), ProseMirror may reuse the existing neighbouring cells as-is, so those
+	// cells never get a chance to update their edge attrs on their own.
+	//
+	// To cover those cases, we refresh edge attrs from the table node view here.
+	//
+	// The refresh runs on the next animation frame because ReactNodeView.update()
+	// schedules the table's React render via the portal provider. If we read
+	// `this.table.rows` synchronously, we'd still see the previous DOM.
+	private scheduleRoundedTableEdgeRefresh(node: PmNode): void {
+		if (this.roundedTableEdgeRefreshHandle !== undefined) {
+			cancelAnimationFrame(this.roundedTableEdgeRefreshHandle);
+		}
+
+		this.roundedTableEdgeRefreshHandle = requestAnimationFrame(() => {
+			this.roundedTableEdgeRefreshHandle = undefined;
+
+			if (this.table instanceof HTMLTableElement) {
+				refreshRoundedTableEdgeAttrs(this.table, node);
+			}
+		});
+	}
+
+	update(
+		node: PmNode,
+		decorations: ReadonlyArray<Decoration>,
+		innerDecorations?: DecorationSource,
+		validUpdate?: (currentNode: PmNode, newNode: PmNode) => boolean,
+	): boolean {
+		if (!expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)) {
+			return super.update(node, decorations, innerDecorations, validUpdate);
+		}
+
+		const currentTableMap = TableMap.get(this.node);
+		const nextTableMap = TableMap.get(node);
+		const tableGeometryChanged =
+			currentTableMap.width !== nextTableMap.width || currentTableMap.height !== nextTableMap.height;
+		const didUpdate = super.update(node, decorations, innerDecorations, validUpdate);
+
+		if (didUpdate && tableGeometryChanged) {
+			this.scheduleRoundedTableEdgeRefresh(node);
+		}
+
+		return didUpdate;
+	}
+
 	render(props: Props, forwardRef: ForwardRef): React.JSX.Element {
 		return (
 			<TableComponentWithSharedState
@@ -419,6 +500,11 @@ export default class TableView extends ReactNodeView<Props> {
 	}
 
 	destroy(): void {
+		if (this.roundedTableEdgeRefreshHandle !== undefined) {
+			cancelAnimationFrame(this.roundedTableEdgeRefreshHandle);
+			this.roundedTableEdgeRefreshHandle = undefined;
+		}
+
 		if (this.resizeObserver) {
 			this.resizeObserver.disconnect();
 		}

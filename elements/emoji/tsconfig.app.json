@@ -39,10 +39,16 @@
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
+			"path": "../../helpers/browser-apis/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/form/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/heading/tsconfig.app.json"

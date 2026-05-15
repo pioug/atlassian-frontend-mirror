@@ -3,37 +3,8 @@ import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
-const hasTableNode = (slice: Slice | undefined): boolean => {
-	if (!slice) {
-		return false;
-	}
-	let found = false;
-	slice.content.descendants((node) => {
-		if (node.type.name === 'table') {
-			found = true;
-			return false;
-		}
-		return true;
-	});
-	return found;
-};
-
-const isNotProse = (text: string): boolean => {
-	const trimmed = text.trim();
-	if (!trimmed) {
-		return false;
-	}
-	for (let i = 0; i < trimmed.length; i++) {
-		const code = trimmed.charCodeAt(i);
-		if (code === 0x20 || code === 0x09 || code === 0x0a || code === 0x0d) {
-			return false;
-		}
-		if (code > 0x7f) {
-			return false;
-		}
-	}
-	return true;
-};
+import { hasTableNode } from '../utils/paste-menu-rules/hasTableNode';
+import { isNotProse } from '../utils/paste-menu-rules/isNotProse';
 
 export const firePasteActionsMenuV2ExperimentExposure = (
 	contentLength: number,

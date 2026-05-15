@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "11.3.0",
+	"version": "11.4.0",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,7 +29,15 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./block-decoration-utils": "./src/ui/block-decoration-utils.ts"
+		"./block-decoration-utils/anchor-name": "./src/entry-points/block-decoration-utils-anchor-name.ts",
+		"./block-decoration-utils/consts": "./src/entry-points/block-decoration-utils-consts.ts",
+		"./block-decoration-utils/dom-attr-name": "./src/entry-points/block-decoration-utils-dom-attr-name.ts",
+		"./block-decoration-utils/drag-handle-positions": "./src/entry-points/block-decoration-utils-drag-handle-positions.ts",
+		"./block-decoration-utils/visibility-container": "./src/entry-points/block-decoration-utils-visibility-container.tsx",
+		"./block-decoration-utils/widget-positions": "./src/entry-points/block-decoration-utils-widget-positions.ts",
+		"./block-decoration-utils": "./src/ui/block-decoration-utils.ts",
+		"./blockControlsPlugin": "./src/entry-points/blockControlsPlugin.tsx",
+		"./blockControlsPluginType": "./src/entry-points/blockControlsPluginType.ts"
 	},
 	"dependencies": {
 		"@atlaskit/browser-apis": "workspace:^",

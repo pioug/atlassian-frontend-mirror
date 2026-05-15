@@ -6,7 +6,6 @@ import { css, keyframes, type Theme } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled, { type StyledComponent } from '@emotion/styled';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -243,13 +242,13 @@ export const EditorView: StyledComponent<
 			rowHeight * props.defaultMaxRows + getEditorInputVerticalPadding(props.isCompact) * 2}px;
 		line-height: ${rowHeight / 14};
 		${(props) =>
-			props.defaultRows && fg('list_lovability_improving_filters')
+			props.defaultRows
 				? 'height: ' +
 					(rowHeight * props.defaultRows + getEditorInputVerticalPadding(props.isCompact) * 2) +
 					'px;'
 				: ''}
 		${(props) =>
-			props.defaultRows && fg('list_lovability_improving_filters')
+			props.defaultRows
 				? 'min-height: ' +
 					(rowHeight * props.defaultRows + getEditorInputVerticalPadding(props.isCompact) * 2) +
 					'px;'

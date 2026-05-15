@@ -1,5 +1,28 @@
 # @atlaskit/editor-statsig-tmp
 
+## 80.3.0
+
+### Minor Changes
+
+- [`82ba5b494e83b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82ba5b494e83b) -
+  add experiment for compiled css migration of editor-core except EditorContentContainer
+
+## 80.2.0
+
+### Minor Changes
+
+- [`38ea17de1355a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38ea17de1355a) -
+  Track middle- and right-clicks on third-party Smart Links rendered by `HyperlinkResolver`. Adds
+  optional `isAuxClick` / `isContextMenu` attributes to the `smartlinkClickAnalyticsWorkflows`
+  event, gated by the `linking_platform_track_non_primary_3p_clicks` experiment.
+
+## 80.1.0
+
+### Minor Changes
+
+- [`8a9f26c6c71bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a9f26c6c71bc) -
+  [ux] Improve diff logic for some nodes and edge cases where marks are causing the diff to fail
+
 ## 80.0.0
 
 ### Major Changes

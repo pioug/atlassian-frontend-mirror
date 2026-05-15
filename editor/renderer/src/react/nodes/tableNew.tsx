@@ -26,6 +26,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { RendererAppearance, StickyHeaderConfig } from '../../ui/Renderer/types';
 import { TableHeader } from './tableCell';
+import type { TableCellEdgeProps } from './tableCell';
 import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
 
 import type { StickyMode } from './table/sticky';
@@ -325,6 +326,7 @@ export class TableContainer extends React.Component<
 	};
 
 	/**
+	 * Starts observing table dimensions and wires sticky header/scrollbar behavior after mount.
 	 *
 	 * @example
 	 */
@@ -353,6 +355,7 @@ export class TableContainer extends React.Component<
 	}
 
 	/**
+	 * Updates sticky header wiring and scroll synchronization after prop or state changes.
 	 *
 	 * @param prevProps
 	 * @param prevState
@@ -456,7 +459,7 @@ export class TableContainer extends React.Component<
 	};
 
 	/**
-	 *
+	 * Calculates the top offset used when the sticky header is pinned to the table bottom.
 	 */
 	get pinTop(): number | undefined {
 		if (!this.tableRef.current || !this.stickyHeaderRef.current) {
@@ -472,7 +475,7 @@ export class TableContainer extends React.Component<
 	}
 
 	/**
-	 *
+	 * Determines whether sticky header positioning should include the default scroll root offset.
 	 */
 	get shouldAddOverflowParentOffsetTop_DO_NOT_USE(): boolean | null | undefined {
 		// IF the StickyHeaderConfig specifies that the default scroll root offsetTop should be added
@@ -489,7 +492,7 @@ export class TableContainer extends React.Component<
 	}
 
 	/**
-	 *
+	 * Resolves the top position for the sticky header based on the current sticky mode.
 	 */
 	get stickyTop(): number | undefined {
 		switch (this.state.stickyMode) {
@@ -509,6 +512,7 @@ export class TableContainer extends React.Component<
 	}
 
 	/**
+	 * Renders the table container, sticky header, table content, sticky scrollbar, and synced block borders.
 	 *
 	 * @example
 	 */
@@ -588,8 +592,8 @@ export class TableContainer extends React.Component<
 		const lineLengthCSS = isFullWidthAppearance(rendererAppearance)
 			? fullWidthLineLengthCSS
 			: isMaxWidthAppearance(rendererAppearance) &&
-				  (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))
+				(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))
 				? maxWidthLineLengthCSS
 				: isCommentAppearanceAndTableAlignmentEnabled
 					? renderWidthCSS
@@ -826,14 +830,110 @@ type TableProcessorState = {
 	tableOrderStatus?: TableOrderStatus;
 };
 
+const getCellEdgePropsByCellOffset = (tableNode: PMNode): Map<number, TableCellEdgeProps> => {
+	const cellEdgePropsByCellOffset = new Map<number, TableCellEdgeProps>();
+	const cellRightByCellOffset = new Map<number, number>();
+	const occupiedGrid: boolean[][] = [];
+	let tableWidth = 0;
+	let cellOffset = 0;
+
+	tableNode.forEach((rowNode, _rowOffset, rowIndex) => {
+		occupiedGrid[rowIndex] = occupiedGrid[rowIndex] ?? [];
+		let columnIndex = 0;
+
+		cellOffset += 1;
+		rowNode.forEach((cellNode) => {
+			while (occupiedGrid[rowIndex][columnIndex]) {
+				columnIndex += 1;
+			}
+
+			const colspan = cellNode.attrs.colspan || 1;
+			const rowspan = cellNode.attrs.rowspan || 1;
+			const cellLeft = columnIndex;
+			const cellRight = cellLeft + colspan;
+			const cellTop = rowIndex;
+			const cellBottom = cellTop + rowspan;
+
+			for (let row = cellTop; row < cellBottom; row += 1) {
+				occupiedGrid[row] = occupiedGrid[row] ?? [];
+				for (let column = cellLeft; column < cellRight; column += 1) {
+					occupiedGrid[row][column] = true;
+				}
+			}
+
+			tableWidth = Math.max(tableWidth, cellRight);
+			cellRightByCellOffset.set(cellOffset, cellRight);
+			cellEdgePropsByCellOffset.set(cellOffset, {
+				reachesBottom: cellBottom >= tableNode.childCount,
+				reachesLeft: cellLeft === 0,
+				reachesRight: false,
+				reachesTop: cellTop === 0,
+			});
+
+			columnIndex = cellRight;
+			cellOffset += cellNode.nodeSize;
+		});
+		cellOffset += 1;
+	});
+
+	cellRightByCellOffset.forEach((cellRight, currentCellOffset) => {
+		const edgeProps = cellEdgePropsByCellOffset.get(currentCellOffset);
+		if (edgeProps) {
+			edgeProps.reachesRight = cellRight >= tableWidth;
+		}
+	});
+
+	return cellEdgePropsByCellOffset;
+};
+
+const addTableCellEdgeProps = (
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	rows: React.ReactElement<any>[],
+	tableNode?: PMNode,
+): React.ReactElement[] => {
+	try {
+		if (!tableNode) {
+			return rows;
+		}
+
+		const cellEdgePropsByCellOffset = getCellEdgePropsByCellOffset(tableNode);
+		let cellOffset = 0;
+
+		return React.Children.map(rows, (row, rowIndex) => {
+			const rowNode = tableNode.child(rowIndex);
+			cellOffset += 1;
+			let cellIndex = 0;
+
+			const rowChildren = React.Children.map(row.props.children, (child) => {
+				if (!React.isValidElement(child)) {
+					return child;
+				}
+
+				const cellNode = rowNode.child(cellIndex);
+				const edgeProps = cellEdgePropsByCellOffset.get(cellOffset);
+				cellIndex += 1;
+				cellOffset += cellNode.nodeSize;
+
+				return edgeProps ? React.cloneElement(child, edgeProps) : child;
+			});
+
+			cellOffset += 1;
+
+			return React.cloneElement(row, undefined, rowChildren);
+		});
+	} catch {
+		// Renderer can receive malformed historical ADF. If the table shape cannot
+		// be described safely, keep rendering without rounded edge metadata.
+		return rows;
+	}
+};
+
 /**
- *
+ * Processes table children before passing them to the styled table container.
  */
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
-/**
- *
- */
 export class TableProcessorWithContainerStyles extends React.Component<
 	TableProps & OverflowShadowProps & WithSmartCardStorageProps,
 	TableProcessorState
@@ -843,24 +943,78 @@ export class TableProcessorWithContainerStyles extends React.Component<
 	};
 
 	/**
+	 * Renders processed table children inside the table container.
 	 *
 	 * @example
 	 */
 	render(): React.JSX.Element | null {
-		const { children } = this.props;
+		const {
+			allowColumnSorting,
+			allowFixedColumnWidthOption,
+			allowTableAlignment,
+			allowTableResizing,
+			children,
+			columnWidths,
+			disableTableOverflowShadow,
+			handleRef,
+			isinsideMultiBodiedExtension,
+			isInsideOfBlockNode,
+			isInsideOfTable,
+			isNumberColumnEnabled,
+			isPresentational,
+			layout,
+			rendererAppearance,
+			renderWidth,
+			shadowClassNames,
+			smartCardStorage,
+			stickyHeaders,
+			tabIndex,
+			tableNode,
+		} = this.props;
+
 		if (!children) {
 			return null;
 		}
 		const childrenArray = React.Children.toArray(children);
+		const childrenWithTableEdgeProps = expValEquals(
+			'platform_editor_table_q4_loveability',
+			'isEnabled',
+			true,
+		)
+			? addTableCellEdgeProps(childrenArray as React.ReactElement[], tableNode)
+			: childrenArray;
 		const orderedChildren = compose(
 			this.addNumberColumnIndexes,
 			this.addSortableColumn,
 			// @ts-expect-error TS2345: Argument of type '(ReactChild | ReactFragment | ReactPortal)[]' is not assignable to parameter of type 'ReactElement<any, string | JSXElementConstructor<any>>[]'
-		)(childrenArray);
+		)(childrenWithTableEdgeProps);
 
-		// Ignored via go/ees005
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		return <TableContainer {...this.props}>{orderedChildren}</TableContainer>;
+		return (
+			<TableContainer
+				allowColumnSorting={allowColumnSorting}
+				allowFixedColumnWidthOption={allowFixedColumnWidthOption}
+				allowTableAlignment={allowTableAlignment}
+				allowTableResizing={allowTableResizing}
+				columnWidths={columnWidths}
+				disableTableOverflowShadow={disableTableOverflowShadow}
+				handleRef={handleRef}
+				isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
+				isInsideOfBlockNode={isInsideOfBlockNode}
+				isInsideOfTable={isInsideOfTable}
+				isNumberColumnEnabled={isNumberColumnEnabled}
+				isPresentational={isPresentational}
+				layout={layout}
+				rendererAppearance={rendererAppearance}
+				renderWidth={renderWidth}
+				shadowClassNames={shadowClassNames}
+				smartCardStorage={smartCardStorage}
+				stickyHeaders={stickyHeaders}
+				tabIndex={tabIndex}
+				tableNode={tableNode}
+			>
+				{orderedChildren}
+			</TableContainer>
+		);
 	}
 
 	// adds sortable + re-orders children

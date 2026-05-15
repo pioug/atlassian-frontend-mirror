@@ -145,15 +145,11 @@ export const HoverCardComponent = ({
 
 		if (!resolveTimeOutId.current && isLinkUnresolved) {
 			resolveTimeOutId.current = setTimeout(() => {
-				if (fg('navx-2478-sl-fix-hover-card-unresolved-view')) {
-					if (linkState.status === 'pending') {
-						// Link hasn't been registered yet. Register and resolve link.
-						register();
-					} else {
-						// Link has been already been partially resolved. Load metadata.
-						loadMetadata();
-					}
+				if (linkState.status === 'pending') {
+					// Link hasn't been registered yet. Register and resolve link.
+					register();
 				} else {
+					// Link has been already been partially resolved. Load metadata.
 					loadMetadata();
 				}
 			}, RESOLVE_DELAY);

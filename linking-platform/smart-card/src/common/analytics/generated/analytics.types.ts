@@ -398,6 +398,8 @@ export type SmartLinkClickedSmartlinkClickAnalyticsWorkflowsAttributesType = {
 	eventName: string;
 	firstPartyIdentifier?: string | null;
 	clickedAt: string;
+	isAuxClick?: boolean;
+	isContextMenu?: boolean;
 };
 
 export type AnalyticsEventAttributes = {

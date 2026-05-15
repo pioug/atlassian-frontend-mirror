@@ -966,6 +966,13 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'test';
 		values: ('control' | 'test')[];
 	};
+	// Added 2026-04-30 (QS-9895)
+	linking_platform_track_non_primary_3p_clicks: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-01-23
 	platform_editor_to_use_pmr_for_collab_edit_none_ic: {
 		defaultValue: boolean;
@@ -1716,6 +1723,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-05-01
 	platform_editor_core_static_css: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-05-15
+	platform_editor_core_non_ecc_static_css: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2555,6 +2569,15 @@ export const editorExperimentsConfig: {
 		param: 'cohort',
 		values: ['control', 'test'],
 		defaultValue: 'control',
+	}),
+	// Added 2026-04-30 (QS-9895)
+	linking_platform_track_non_primary_3p_clicks: createBooleanExperiment({
+		productKeys: {
+			confluence: 'linking_platform_track_non_primary_3p_clicks',
+			jira: 'linking_platform_track_non_primary_3p_clicks',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
 	}),
 	// Added 2025--8-05
 	platform_editor_block_menu: createBooleanExperiment({
@@ -3908,6 +3931,14 @@ export const editorExperimentsConfig: {
 	platform_editor_core_static_css: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_core_static_css',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-15
+	platform_editor_core_non_ecc_static_css: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_core_non_ecc_static_css',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

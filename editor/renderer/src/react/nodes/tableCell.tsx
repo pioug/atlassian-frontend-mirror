@@ -14,15 +14,24 @@ import { RendererCssClassName } from '../../consts';
 import { useIntl } from 'react-intl';
 import type { IntlShape } from 'react-intl';
 import { tableCellMessages } from '../../messages';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-type CellProps = CellAttributes & {
-	ariaSort?: string;
-	children?: React.ReactNode;
-	className?: string;
-	colGroupWidth?: string;
-	offsetTop?: number;
-	onClick?: () => void;
+export type TableCellEdgeProps = {
+	reachesBottom?: boolean;
+	reachesLeft?: boolean;
+	reachesRight?: boolean;
+	reachesTop?: boolean;
 };
+
+type CellProps = CellAttributes &
+	TableCellEdgeProps & {
+		ariaSort?: string;
+		children?: React.ReactNode;
+		className?: string;
+		colGroupWidth?: string;
+		offsetTop?: number;
+		onClick?: () => void;
+	};
 const IgnoreSorting = ['LABEL', 'INPUT'];
 
 export type CellWithSortingProps = CellProps & {
@@ -61,15 +70,40 @@ const getSortOrderLabel = (intl: IntlShape, currentSortOrder?: SortOrder): strin
 	}
 };
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getDataAttributes = (colwidth?: number[], background?: string): any => {
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const attrs: any = {};
+type DataAttributes = {
+	'data-cell-background'?: string;
+	'data-colwidth'?: string;
+	'data-reaches-bottom'?: boolean;
+	'data-reaches-left'?: boolean;
+	'data-reaches-right'?: boolean;
+	'data-reaches-top'?: boolean;
+};
+
+const getDataAttributes = (
+	colwidth?: number[],
+	background?: string,
+	cellEdgeProps?: TableCellEdgeProps,
+): DataAttributes => {
+	const attrs: DataAttributes = {};
 	if (colwidth) {
 		attrs['data-colwidth'] = colwidth.join(',');
 	}
+
+	if (expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)) {
+		if (cellEdgeProps?.reachesTop) {
+			attrs['data-reaches-top'] = true;
+		}
+		if (cellEdgeProps?.reachesBottom) {
+			attrs['data-reaches-bottom'] = true;
+		}
+		if (cellEdgeProps?.reachesLeft) {
+			attrs['data-reaches-left'] = true;
+		}
+		if (cellEdgeProps?.reachesRight) {
+			attrs['data-reaches-right'] = true;
+		}
+	}
+
 	/**
 	 * Storing hex code in data-cell-background because
 	 *  we want to have DST token (css variable) or
@@ -180,6 +214,10 @@ const getWithCellProps = (WrapperComponent: React.ElementType) => {
 			background,
 			offsetTop,
 			ariaSort,
+			reachesTop,
+			reachesBottom,
+			reachesLeft,
+			reachesRight,
 		} = props;
 
 		// This is used to set the background color of the cell
@@ -202,7 +240,12 @@ const getWithCellProps = (WrapperComponent: React.ElementType) => {
 				className={className}
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
-				{...getDataAttributes(colwidth, background)}
+				{...getDataAttributes(colwidth, background, {
+					reachesTop,
+					reachesBottom,
+					reachesLeft,
+					reachesRight,
+				})}
 				aria-sort={ariaSort}
 			>
 				{children}

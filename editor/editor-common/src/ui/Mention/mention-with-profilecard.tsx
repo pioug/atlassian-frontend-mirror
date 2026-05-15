@@ -2,7 +2,10 @@ import React, { useMemo } from 'react';
 
 import type { MentionProvider } from '@atlaskit/mention';
 import { ResourcedMention } from '@atlaskit/mention';
+import { fg } from '@atlaskit/platform-feature-flags';
+import Anchor from '@atlaskit/primitives/anchor';
 import ProfileCardTrigger from '@atlaskit/profilecard/user';
+import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
@@ -35,12 +38,51 @@ export default function MentionWithProfileCard({
 	localId,
 	ssrPlaceholderId,
 }: Props): React.JSX.Element {
-	const { cloudId, resourceClient } = profilecardProvider;
+	const { cloudId, renderUserMentionCard, resourceClient } = profilecardProvider;
 
 	const actions = useMemo(
 		() => profilecardProvider.getActions(id, text, accessLevel),
 		[accessLevel, id, profilecardProvider, text],
 	);
+
+	if (fg('people-teams_migrate-user-profile-card')) {
+		const mention = (
+			<ResourcedMention
+				id={id}
+				text={text}
+				accessLevel={accessLevel}
+				localId={localId}
+				mentionProvider={mentionProvider}
+				onClick={onClick}
+				onMouseEnter={onMouseEnter}
+				onMouseLeave={onMouseLeave}
+				ssrPlaceholderId={ssrPlaceholderId}
+			/>
+		);
+
+		if (renderUserMentionCard) {
+			return (
+				<>{renderUserMentionCard({ userId: id, cloudId, children: mention })}</>
+			);
+		}
+
+		const { href, target } = navigateToTeamsApp({
+			type: 'USER',
+			payload: { userId: id },
+			cloudId,
+		});
+
+		return (
+			<Anchor
+				href={href}
+				target={target}
+				rel="noopener noreferrer"
+				testId="mention-with-profilecard-link-fallback"
+			>
+				{mention}
+			</Anchor>
+		);
+	}
 
 	return (
 		<ProfileCardTrigger

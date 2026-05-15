@@ -9,7 +9,6 @@ import React from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { MediaPlacement, SmartLinkSize } from '../../../../constants';
@@ -273,11 +272,6 @@ const Container = ({
 	const context = useFlexibleUiContext();
 
 	const { previewOnLeft, previewOnRight } = getChildrenOptions(children, context);
-	const canShowHoverPreview =
-		showHoverPreview && (status === 'resolved' || hoverPreviewOptions?.render !== undefined);
-	// `retry` object contains action that can be performed on
-	// unresolved link (unauthorized, forbidden, not found, etc.)
-	const canShowAuthTooltip = showHoverPreview && status === 'unauthorized' && retry !== undefined;
 
 	const isResolved = status === 'resolved';
 	const isUnresolvedWithAuthFlow = status !== 'resolved' && retry !== undefined;
@@ -313,24 +307,11 @@ const Container = ({
 		</div>
 	);
 
-	if (
-		context?.url &&
-		(fg('navx-2478-sl-fix-hover-card-unresolved-view')
-			? canShowHoverCard
-			: canShowHoverPreview || canShowAuthTooltip)
-	) {
+	if (context?.url && canShowHoverCard) {
 		return (
 			<HoverCardControl
-				isHoverPreview={
-					fg('navx-2478-sl-fix-hover-card-unresolved-view')
-						? isResolved || hasHoverCardOverride
-						: canShowHoverPreview
-				}
-				isAuthTooltip={
-					fg('navx-2478-sl-fix-hover-card-unresolved-view')
-						? isUnresolvedWithAuthFlow
-						: canShowAuthTooltip
-				}
+				isHoverPreview={isResolved || hasHoverCardOverride}
+				isAuthTooltip={isUnresolvedWithAuthFlow}
 				actionOptions={actionOptions}
 				testId={testId}
 				url={context.url}

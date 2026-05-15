@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-block-advanced",
-	"version": "10.0.20",
+	"version": "10.1.0",
 	"description": "CodeBlockAdvanced plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -28,7 +28,9 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./codeBlockAdvancedPlugin": "./src/entry-points/codeBlockAdvancedPlugin.tsx",
+		"./codeBlockAdvancedPluginType": "./src/entry-points/codeBlockAdvancedPluginType.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",

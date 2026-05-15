@@ -10,6 +10,7 @@ import type {
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -55,7 +56,10 @@ const LazySyncedBlockUI = ({
 		(states) => states.syncedBlockState?.hasSyncedBlocks,
 	);
 
-	if (!hasSyncBlocks && expValEquals('editor_synced_block_perf', 'isEnabled', true)) {
+	// Use expValEqualsNoExposure here because the exposure is already fired
+	// once at plugin creation time (see syncedBlockPlugin below).
+	// This component re-renders on every transaction — avoid redundant SDK evaluations.
+	if (!hasSyncBlocks && expValEqualsNoExposure('editor_synced_block_perf', 'isEnabled', true)) {
 		return null;
 	}
 
@@ -216,7 +220,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				cachedSharedState.retryCreationPosMap === retryCreationPosMap &&
 				cachedSharedState.hasSyncedBlocks === hasSyncedBlocks &&
 				cachedSharedState.hasUnsavedBodiedSyncBlockChanges === hasUnsavedBodiedSyncBlockChanges &&
-				expValEquals('editor_synced_block_perf', 'isEnabled', true)
+				isPerfExperimentOn
 			) {
 				return cachedSharedState;
 			}

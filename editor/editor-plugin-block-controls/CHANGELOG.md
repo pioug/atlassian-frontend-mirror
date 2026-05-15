@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 11.4.0
+
+### Minor Changes
+
+- [`f1eebdf4ed96b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1eebdf4ed96b) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.3.1
+
+### Patch Changes
+
+- [`4c22fe79f104e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c22fe79f104e) -
+  Guard against undefined plugin state when reading shared state in floating-toolbar handler
+  (layout) and useEffect deps array (block-controls drag handle); fixes intermittent crash during
+  editor reconfigure / partial-preset transitions.
+
 ## 11.3.0
 
 ### Minor Changes

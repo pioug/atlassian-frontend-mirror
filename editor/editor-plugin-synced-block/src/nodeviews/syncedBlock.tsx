@@ -19,7 +19,7 @@ import type {
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, Decoration, DecorationSource } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { removeSyncedBlockAtPos } from '../editor-commands';
@@ -128,7 +128,9 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 			return null;
 		}
 
-		const isPerfEnabled = expValEquals('editor_synced_block_perf', 'isEnabled', true);
+		// Use expValEqualsNoExposure — the exposure is already fired once at plugin
+		// creation time in syncedBlockPlugin.tsx and main.ts createPlugin().
+		const isPerfEnabled = expValEqualsNoExposure('editor_synced_block_perf', 'isEnabled', true);
 
 		// get document node from data provider
 		return (

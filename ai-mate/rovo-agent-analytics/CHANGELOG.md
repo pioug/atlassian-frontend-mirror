@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-analytics
 
+## 1.8.0
+
+### Minor Changes
+
+- [`0cf21efc19163`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cf21efc19163) -
+  Added 'ModelPreferencesEventPayload' as a new event type
+
 ## 1.7.0
 
 ### Minor Changes

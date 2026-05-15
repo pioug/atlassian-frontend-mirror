@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-ssr-renderer",
-	"version": "5.1.15",
+	"version": "5.2.0",
 	"description": "SSR Renderer based on Editor",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
@@ -34,7 +34,8 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./editor-ssr-renderer": "./src/entry-points/editor-ssr-renderer.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",

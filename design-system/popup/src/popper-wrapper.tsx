@@ -47,6 +47,10 @@ const wrapperStyles = cssMap({
 	fullWidth: {
 		width: '100%',
 	},
+	motion: {
+		maxHeight: 'inherit',
+		display: 'flex',
+	},
 });
 
 const scrollableStyles = css({
@@ -355,6 +359,7 @@ function PopperWrapper({
 							<Motion
 								enteringAnimation={placementMap[placement].enter}
 								exitingAnimation={placementMap[placement].exit}
+								xcss={wrapperStyles.motion}
 							>
 								{popupContainer}
 							</Motion>

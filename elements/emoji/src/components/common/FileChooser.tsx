@@ -43,8 +43,8 @@ const dropzone = css({
 	backgroundColor: token('elevation.surface.sunken'),
 	cursor: 'pointer',
 	transitionProperty: 'background-color, border-color',
-	transitionDuration: '0.15s',
-	transitionTimingFunction: 'ease',
+	transitionDuration: token('motion.duration.short', '0.15s'),
+	transitionTimingFunction: token('motion.easing.out.practical', 'ease'),
 });
 
 const dropzoneActive = css({
@@ -53,7 +53,7 @@ const dropzoneActive = css({
 });
 
 const previewImageStyles = css({
-	maxHeight: '80px',
+	maxHeight: '130px',
 	maxWidth: '100%',
 	objectFit: 'contain',
 });

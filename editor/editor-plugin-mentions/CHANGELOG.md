@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-mentions
 
+## 12.2.1
+
+### Patch Changes
+
+- [`5a9b171d2d780`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a9b171d2d780) -
+  Adds a feature-gated change to user mentions so clicking a user mention navigates to the user's
+  profile instead of showing the in-editor profile card. Consumers can optionally supply a custom
+  card renderer via `ProfilecardProvider.renderUserMentionCard` to inject their own profile card UI
+  in place of the default link, applied consistently when viewing or editing content.
+- Updated dependencies
+
 ## 12.2.0
 
 ### Minor Changes

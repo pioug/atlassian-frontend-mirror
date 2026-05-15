@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "114.30.3",
+	"version": "114.30.6",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -196,6 +196,7 @@
 		"@atlaskit/smart-user-picker": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/task-decision": "workspace:^",
+		"@atlaskit/teams-app-config": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -383,6 +384,9 @@
 			"type": "boolean"
 		},
 		"platform_synced_block_patch_8": {
+			"type": "boolean"
+		},
+		"people-teams_migrate-user-profile-card": {
 			"type": "boolean"
 		}
 	}

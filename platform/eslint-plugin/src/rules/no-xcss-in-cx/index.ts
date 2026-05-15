@@ -1,5 +1,9 @@
 import type { Rule } from 'eslint';
 import type { Node } from 'estree';
+// Side-effect import: augments the `estree` Node/Expression unions with JSX
+// members (JSXAttribute, JSXIdentifier, JSXExpressionContainer, ...) so the
+// JSXAttribute visitor below can narrow `Rule.Node` correctly.
+import type {} from 'estree-jsx';
 
 import { getImportSources, isCxFunction, isXcss } from '@atlaskit/eslint-utils/is-supported-import';
 import { getScope } from '../util/context-compat';

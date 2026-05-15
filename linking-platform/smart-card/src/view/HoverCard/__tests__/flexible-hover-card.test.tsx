@@ -14,16 +14,12 @@ jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
 import '@atlaskit/link-test-helpers/jest';
 import React from 'react';
 
-import {
-	ActionName,
-	Card,
-	type CardAppearance,
-	ElementName,
-	TitleBlock,
-} from '@atlaskit/smart-card';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { act, fireEvent, screen } from '@atlassian/testing-library';
+
+import { ActionName, ElementName } from '../../../constants';
+import { Card, type CardAppearance } from '../../Card';
+import { TitleBlock } from '../../FlexibleCard/components/blocks';
 
 import { analyticsTests } from './common/analytics.test-utils';
 import {
@@ -237,24 +233,20 @@ describe('hover card over flexible smart links', () => {
 
 	describe('Common tests', () => {
 		runCommonHoverCardTests((setupProps?: SetUpParams) => setupComponent(setupProps), testConfig);
-		ffTest.on('navx-2478-sl-fix-hover-card-unresolved-view', '', () => {
-			forbiddenViewTests((setupProps?: SetUpParams) =>
-				setupComponent({
-					...setupProps,
-					extraCardProps: { showHoverPreview: true },
-					testId: 'smart-block-title-errored-view',
-				}),
-			);
-		});
-		ffTest.both('navx-2478-sl-fix-hover-card-unresolved-view', '', () => {
-			unauthorizedViewTests((setupProps?: SetUpParams) =>
-				setupComponent({
-					...setupProps,
-					extraCardProps: { showHoverPreview: true },
-					testId: 'smart-block-title-errored-view',
-				}),
-			);
-		});
+		forbiddenViewTests((setupProps?: SetUpParams) =>
+			setupComponent({
+				...setupProps,
+				extraCardProps: { showHoverPreview: true },
+				testId: 'smart-block-title-errored-view',
+			}),
+		);
+		unauthorizedViewTests((setupProps?: SetUpParams) =>
+			setupComponent({
+				...setupProps,
+				extraCardProps: { showHoverPreview: true },
+				testId: 'smart-block-title-errored-view',
+			}),
+		);
 		analyticsTests((setupProps?: SetUpParams) => setupComponent(setupProps), {
 			display: 'flexible',
 			isAnalyticsContextResolvedOnHover: true,

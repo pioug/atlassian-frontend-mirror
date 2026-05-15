@@ -1,42 +1,15 @@
 import { defineMessages } from 'react-intl';
 
-const _default_1: {
-	verifyAgentLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	unverifyAgentLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	verifySuccessTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	unverifySuccessTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	verifyErrorTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	unverifyErrorTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	errorDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-} = defineMessages({
+type MessageKeys =
+	| 'verifyAgentLabel'
+	| 'unverifyAgentLabel'
+	| 'verifySuccessTitle'
+	| 'unverifySuccessTitle'
+	| 'verifyErrorTitle'
+	| 'unverifyErrorTitle'
+	| 'errorDescription';
+
+const message: Record<MessageKeys, { id: string; defaultMessage: string; description?: string }> = defineMessages({
 	verifyAgentLabel: {
 		id: 'rovo-agent-components.agent-verification-dropdown-item.verify-agent',
 		defaultMessage: 'Verify agent',
@@ -73,4 +46,5 @@ const _default_1: {
 		description: 'Description for error flag showing the error message',
 	},
 });
-export default _default_1;
+
+export default message;

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-extension
 
+## 13.5.0
+
+### Minor Changes
+
+- [`a40f4590a6eb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a40f4590a6eb2) -
+  Fix crash in extension floating-toolbar handler when extension plugin state has not been
+  initialised. The destructure of `extensionProvider` now happens after the existing null-guard, so
+  floating toolbar shared-state notifications no longer throw "Cannot destructure property
+  'extensionProvider' of 'extensionState' as it is undefined."
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.4.0
 
 ### Minor Changes

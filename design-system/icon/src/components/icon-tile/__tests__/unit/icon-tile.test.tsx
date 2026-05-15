@@ -14,40 +14,6 @@ describe('IconTile', () => {
 		render(<IconTile icon={AddIcon} label="Add" appearance="blue" testId={testId} />);
 		expect(screen.getAllByTestId(testId)).toHaveLength(1);
 	});
-
-	describe('Renders 16px icon directly for new icon tiles', () => {
-		ffTest(
-			'platform_dst_new_icon_tile',
-			() => {
-				render(
-					<IconTile
-						icon={AddIcon}
-						label="Square tile"
-						appearance="blue"
-						testId={testId}
-						size="16"
-					/>,
-				);
-				// When size is 16, it renders the icon directly
-				const firstChild = screen.getByTestId(testId).firstChild;
-				expect(firstChild).not.toBeInstanceOf(SVGSVGElement);
-			},
-			() => {
-				render(
-					<IconTile
-						icon={AddIcon}
-						label="Square tile"
-						appearance="blue"
-						testId={testId}
-						size="16"
-					/>,
-				);
-				const firstChild = screen.getByTestId(testId).firstChild;
-				expect(firstChild).not.toBeInstanceOf(SVGSVGElement);
-			},
-		);
-	});
-
 	describe('Feature flag behavior', () => {
 		describe('Circle replacement component', () => {
 			describe('displays for circle shaped icon tiles', () => {
@@ -65,7 +31,7 @@ describe('IconTile', () => {
 								appearance="blue"
 								UNSAFE_circleReplacementComponent={circleReplacementComponent}
 								shape="circle"
-								size="24"
+								size="small"
 								testId={testId}
 							/>,
 						);
@@ -84,7 +50,7 @@ describe('IconTile', () => {
 								appearance="blue"
 								UNSAFE_circleReplacementComponent={circleReplacementComponent}
 								shape="circle"
-								size="24"
+								size="small"
 								testId={testId}
 							/>,
 						);
@@ -101,16 +67,19 @@ describe('IconTile', () => {
 			ffTest.on('platform_dst_icon_tile_circle_replacement', 'feature flag on', () => {
 				it('does not display for non-circle shaped icon tiles', () => {
 					render(
-						<IconTile
-							icon={AddIcon}
-							label="Test"
-							appearance="blue"
-							UNSAFE_circleReplacementComponent={
+						// `UNSAFE_circleReplacementComponent` is now disallowed by the type system
+						// for non-circle shapes (via the `IconTileProps` discriminated union).
+						// We cast here to verify the runtime guard still ignores the prop in this case.
+						React.createElement(IconTile, {
+							icon: AddIcon,
+							label: 'Test',
+							appearance: 'blue',
+							UNSAFE_circleReplacementComponent: (
 								<div data-testid="circle-replacement">Circle Replacement</div>
-							}
-							size="24"
-							testId={testId}
-						/>,
+							),
+							size: 'small',
+							testId,
+						} as React.ComponentProps<typeof IconTile>),
 					);
 
 					const circleReplacement = screen.queryByTestId('circle-replacement');

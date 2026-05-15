@@ -135,13 +135,20 @@ const tableSharedStyle = (): SerializedStyles => {
 			box-sizing: border-box;
 
 			/**
-     * Fix block top alignment inside table cells.
-     */
+			 * Fix block top alignment inside table cells.
+			 */
 			.decisionItemView-content-wrap:first-of-type > div {
 				margin-top: 0;
 			}
-			.${TableSharedCssClassName.TABLE_RIGHT_BORDER},
+			${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+				? `/* Fake side borders are not needed when the rounded overlay owns the outer border. */
+				.${TableSharedCssClassName.TABLE_RIGHT_BORDER},
 				.${TableSharedCssClassName.TABLE_LEFT_BORDER} {
+					display: none;
+				}
+					`
+				: `.${TableSharedCssClassName.TABLE_RIGHT_BORDER},
+			.${TableSharedCssClassName.TABLE_LEFT_BORDER} {
 				display: block;
 				width: 1px;
 				height: calc(100% - ${token('space.300')});
@@ -157,7 +164,7 @@ const tableSharedStyle = (): SerializedStyles => {
 			}
 			.${TableSharedCssClassName.TABLE_LEFT_BORDER}[data-with-numbered-table='true'] {
 				left: ${akEditorTableNumberColumnWidth - 1}px;
-			}
+			}`}
 		}
 		.${TableSharedCssClassName.TABLE_CONTAINER}[data-number-column='true'] {
 			padding-left: ${akEditorTableNumberColumnWidth - 1}px;
@@ -171,7 +178,6 @@ const tableSharedStyle = (): SerializedStyles => {
 		.${TableSharedCssClassName.TABLE_RESIZER_CONTAINER} table {
 			will-change: width;
 		}
-
 		.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table {
 			margin: ${token('space.300')} 0 0 0;
 		}
@@ -193,12 +199,30 @@ const tableSharedStyle = (): SerializedStyles => {
 	.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,
 	.${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table {
 			border-collapse: collapse;
-			border: ${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')};
+			${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+				? `/* Keep a transparent border so the collapsed border model reserves the same 1px slot
+			   on the table edge; the ::after overlay draws the visible rounded border instead. */
+			border: ${tableCellBorderWidth}px solid transparent;`
+				: `border: ${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')};
 			border-left-color: transparent;
-			border-right-color: transparent;
+			border-right-color: transparent;`}
 			table-layout: fixed;
 			font-size: 1em;
 			width: 100%;
+			${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+				? `position: relative;
+
+			/* Table-width outer-border owner for overflow-safe rounded corners. */
+			&::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				border: ${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')};
+				border-radius: ${token('radius.medium')};
+				pointer-events: none;
+				z-index: 1;
+			}`
+				: ''}
 
 			&[data-autosize='true'] {
 				table-layout: auto;
@@ -247,6 +271,28 @@ const tableSharedStyle = (): SerializedStyles => {
 					background-color: ${token('elevation.surface')};
 				}
 
+				${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+					? `/* Let the wrapper overlay own the outer table perimeter.
+				   data-reaches-* attributes are set by the TableCell node view. */
+				> tbody > tr > th[data-reaches-top],
+				> tbody > tr > td[data-reaches-top] {
+					border-top-color: transparent;
+				}
+
+				> tbody > tr > th[data-reaches-left],
+				> tbody > tr > td[data-reaches-left] {
+					border-left-color: transparent;
+				}
+
+				> tbody > tr > td[data-reaches-left]::after {
+					border-left-color: transparent;
+				}
+
+				> tbody > tr > td[data-reaches-bottom]::after,
+				> tbody > tr > th[data-reaches-bottom]::after {
+					border-bottom-color: transparent;
+				}`
+					: ''}
 				th {
 					background-color: ${token('color.background.accent.gray.subtlest')};
 					text-align: left;
@@ -291,6 +337,20 @@ const tableSharedStyle = (): SerializedStyles => {
 				}
 			}
 		}
+
+		${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+			? `/* When the number column is enabled, the left visual edge belongs to the number column.
+		   Remove the left border-radius and left border from the table's ::after overlay
+		   so it doesn't double-up or round where the number column already provides that edge. */
+		.${TableSharedCssClassName.TABLE_CONTAINER}[data-number-column='true'] {
+			> .${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table::after,
+			> .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table::after {
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+				border-left-color: transparent;
+			}
+		}`
+			: ''}
 	`;
 };
 

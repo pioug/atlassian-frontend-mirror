@@ -138,12 +138,6 @@
 		"./types": "./src/entry-points/types.tsx"
 	},
 	"platform-feature-flags": {
-		"platform_dst_new_icon_tile": {
-			"type": "boolean"
-		},
-		"platform_dst_new_icon_tile_stage2": {
-			"type": "boolean"
-		},
 		"platform_dst_icon_tile_circle_replacement": {
 			"type": "boolean"
 		},

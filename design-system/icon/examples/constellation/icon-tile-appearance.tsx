@@ -41,7 +41,6 @@ const IconSizeExample = (): React.JSX.Element => {
 							icon={GlobeIcon}
 							label=""
 							appearance={appearance}
-							shape="square"
 							size="medium"
 						/>
 					))}

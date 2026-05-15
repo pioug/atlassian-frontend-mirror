@@ -1,5 +1,16 @@
 # @atlaskit/editor-ssr-renderer
 
+## 5.2.0
+
+### Minor Changes
+
+- [`7b2ab46c79d94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b2ab46c79d94) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.15
 
 ### Patch Changes

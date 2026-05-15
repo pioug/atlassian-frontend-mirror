@@ -1,5 +1,26 @@
 # @atlaskit/emoji
 
+## 70.7.1
+
+### Patch Changes
+
+- [`bb3fe71598a5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb3fe71598a5f) -
+  migrate emoji styles from emotion to compiled
+- Updated dependencies
+
+## 70.7.0
+
+### Minor Changes
+
+- [`084c9f4eca75d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/084c9f4eca75d) -
+  Updated error states + new error state for adding duplicate emoji name
+
+### Patch Changes
+
+- [`8d79e063b3073`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d79e063b3073) -
+  update stargate routing for emoji routes
+- Updated dependencies
+
 ## 70.6.2
 
 ### Patch Changes

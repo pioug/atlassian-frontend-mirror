@@ -3,9 +3,11 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@compiled/react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
+import { ErrorMessage } from '@atlaskit/form';
 import type { Message } from '../../types';
 import { useIntl } from 'react-intl';
 
@@ -64,6 +66,10 @@ const EmojiErrorMessage = (props: Props): JSX.Element => {
 					testId={emojiErrorIconTestId}
 				/>
 			</Tooltip>
+		</div>
+	) : fg('platform_emoji_picker_refresh') ? (
+		<div data-testid={emojiErrorMessageTestId}>
+			<ErrorMessage>{message}</ErrorMessage>
 		</div>
 	) : (
 		<div css={errorMessageStyles[errorStyle]} data-testid={emojiErrorMessageTestId}>

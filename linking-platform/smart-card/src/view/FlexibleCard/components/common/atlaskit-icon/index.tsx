@@ -30,7 +30,8 @@ const importIcon = (importFn: () => Promise<any>): any => {
 
 const getBlogIcon = () => require('../../../../../common/ui/icons/blog-icon').default;
 const getDocumentIcon = () => require('../../../../../common/ui/icons/page-icon').default;
-const getLiveDocumentIcon = () => require('../../../../../common/ui/icons/live-document-icon').default;
+const getLiveDocumentIcon = () =>
+	require('../../../../../common/ui/icons/live-document-icon').default;
 
 const isCoreIcon = (icon: IconType): boolean => {
 	return [
@@ -58,6 +59,7 @@ const AtlaskitIcon = ({
 	label,
 	testId,
 	size = SmartLinkSize.Medium,
+	isTiledIcon,
 }: AtlaskitIconProps): React.JSX.Element | null => {
 	if (!fg('platform_sl_icons_refactor')) {
 		// Check for synchronously loaded icons first for SSR purposes.
@@ -66,15 +68,31 @@ const AtlaskitIcon = ({
 		switch (icon) {
 			case IconType.Document: {
 				const DocumentIcon = getDocumentIcon();
-				return <DocumentIcon label={label ?? 'document'} testId={testId} size={size} />;
+				return (
+					<DocumentIcon
+						label={label ?? 'document'}
+						testId={testId}
+						size={size}
+						isTiledIcon={isTiledIcon}
+					/>
+				);
 			}
 			case IconType.Blog: {
 				const BlogIcon = getBlogIcon();
-				return <BlogIcon label={label ?? 'blog'} testId={testId} size={size} />;
+				return (
+					<BlogIcon label={label ?? 'blog'} testId={testId} size={size} isTiledIcon={isTiledIcon} />
+				);
 			}
 			case IconType.LiveDocument: {
 				const LiveDocumentIcon = getLiveDocumentIcon();
-				return <LiveDocumentIcon label={label ?? 'live-doc'} testId={testId} size={size} />;
+				return (
+					<LiveDocumentIcon
+						label={label ?? 'live-doc'}
+						testId={testId}
+						size={size}
+						isTiledIcon={isTiledIcon}
+					/>
+				);
 			}
 		}
 	}
@@ -108,7 +126,11 @@ const AtlaskitIcon = ({
 					return (
 						<IconTile
 							appearance={appearance}
-							icon={ImportedIcon}
+							icon={
+								isTiledIcon
+									? (iconProps) => <ImportedIcon {...iconProps} spacing="spacious" />
+									: ImportedIcon
+							}
 							size={iconTileSize}
 							label={label ?? ''}
 						/>
@@ -141,11 +163,11 @@ const AtlaskitIcon = ({
 		case IconType.Error:
 		case IconType.Forbidden:
 			if (fg('platform_sl_icons_refactor')) {
-				return <ImportedIcon label={label} testId={testId} size={size} />;
+				return <ImportedIcon label={label} testId={testId} size={size} isTiledIcon={isTiledIcon} />;
 			}
 			return <ImportedIcon label={label} testId={testId} color={token('color.icon.danger')} />;
 		default:
-			return <ImportedIcon label={label} testId={testId} size={size} />;
+			return <ImportedIcon label={label} testId={testId} size={size} isTiledIcon={isTiledIcon} />;
 	}
 };
 

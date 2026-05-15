@@ -1,52 +1,17 @@
 import { defineMessages } from 'react-intl';
 
-const _default_1: {
-	confirmModalDefaultHeading: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	confirmModalOK: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	confirmModalCancel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	confirmModalListUnit: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	confirmDeleteLinkedModalMessage: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	floatingToolbarAriaLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	floatingToolbarAnnouncer: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	floatingToolbarScrollLeft: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	floatingToolbarScrollRight: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-} = defineMessages({
+type MessageKeys =
+	| 'confirmModalDefaultHeading'
+	| 'confirmModalOK'
+	| 'confirmModalCancel'
+	| 'confirmModalListUnit'
+	| 'confirmDeleteLinkedModalMessage'
+	| 'floatingToolbarAriaLabel'
+	| 'floatingToolbarAnnouncer'
+	| 'floatingToolbarScrollLeft'
+	| 'floatingToolbarScrollRight';
+
+const message: Record<MessageKeys, { id: string; defaultMessage: string; description?: string }> = defineMessages({
 	confirmModalDefaultHeading: {
 		id: 'fabric.editor.floatingToolbar.confirmModalHeading',
 		defaultMessage: 'Are you sure?',
@@ -97,4 +62,5 @@ const _default_1: {
 		description: 'Button to scroll right when the toolbar is in the overflow state',
 	},
 });
-export default _default_1;
+
+export default message;

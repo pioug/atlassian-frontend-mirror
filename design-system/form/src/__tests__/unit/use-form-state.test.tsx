@@ -5,7 +5,7 @@ import { type FormSubscription } from 'final-form';
 
 import __noop from '@atlaskit/ds-lib/noop';
 
-import { FormContext } from '../../form';
+import { FormContext } from '../../form-context';
 import { useFormState } from '../../use-form-state';
 
 const getCurrentValue = jest.fn(() => undefined);

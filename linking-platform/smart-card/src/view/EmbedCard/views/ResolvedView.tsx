@@ -2,21 +2,14 @@ import React from 'react';
 
 import LinkGlyph from '@atlaskit/icon/core/link';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { getPreviewUrlWithTheme, isProfileType } from '../../../utils';
 import { ExpandedFrame } from '../components/ExpandedFrame';
-import { Frame, FrameUpdated } from '../components/Frame';
+import { Frame } from '../components/Frame';
 import { ImageIcon } from '../components/ImageIcon';
 import { type ContextViewModel, type FrameStyle } from '../types';
 import { useEmbedResolvePostMessageListener } from '../useEmbedResolvePostMessageListener';
-
-const FrameComponent = componentWithFG(
-	'rovo_chat_embed_card_dwell_and_hover_metrics',
-	FrameUpdated,
-	Frame,
-);
 
 export interface EmbedCardResolvedViewProps {
 	/** Component to prompt for competitor link */
@@ -58,95 +51,9 @@ export interface EmbedCardResolvedViewProps {
 	type?: string[];
 }
 
-const EmbedCardResolvedViewOld = React.forwardRef<HTMLIFrameElement, EmbedCardResolvedViewProps>(
-	(
-		{
-			link,
-			context,
-			onClick,
-			isSelected,
-			frameStyle,
-			preview,
-			title,
-			isTrusted,
-			testId = 'embed-card-resolved-view',
-			inheritDimensions,
-			onIframeDwell,
-			onIframeFocus,
-			isSupportTheming,
-			type,
-			CompetitorPrompt,
-			hideIconLoadingSkeleton,
-			extensionKey,
-		},
-		embedIframeRef,
-	) => {
-		const iconFromContext = context?.icon;
-		const src = typeof iconFromContext === 'string' ? iconFromContext : undefined;
-		const text = title || context?.text;
-		const linkGlyph = React.useMemo(
-			() => <LinkGlyph label="icon" testId="embed-card-fallback-icon" color="currentColor" />,
-			[],
-		);
-
-		let icon = React.useMemo(() => {
-			if (React.isValidElement(iconFromContext)) {
-				return iconFromContext;
-			}
-			return (
-				<ImageIcon
-					src={src}
-					default={linkGlyph}
-					appearance={isProfileType(type) ? 'round' : 'square'}
-					hideLoadingSkeleton={hideIconLoadingSkeleton}
-				/>
-			);
-		}, [iconFromContext, src, linkGlyph, type, hideIconLoadingSkeleton]);
-
-		useEmbedResolvePostMessageListener({
-			url: link,
-			embedIframeRef,
-		});
-
-		const themeState = useThemeObserver();
-		let previewUrl = preview?.src;
-
-		if (previewUrl && isSupportTheming) {
-			previewUrl = getPreviewUrlWithTheme(previewUrl, themeState);
-		}
-
-		return (
-			<ExpandedFrame
-				isSelected={isSelected}
-				frameStyle={frameStyle}
-				href={link}
-				testId={testId}
-				icon={icon}
-				text={text}
-				onClick={onClick}
-				inheritDimensions={inheritDimensions}
-				setOverflow={false}
-				CompetitorPrompt={CompetitorPrompt}
-			>
-				<Frame
-					url={previewUrl}
-					isTrusted={isTrusted}
-					testId={testId}
-					ref={embedIframeRef}
-					onIframeDwell={onIframeDwell}
-					onIframeFocus={onIframeFocus}
-					title={text}
-					extensionKey={extensionKey}
-				/>
-			</ExpandedFrame>
-		);
-	},
-);
-
-const EmbedCardResolvedViewUpdated = React.forwardRef<
-	HTMLIFrameElement,
-	EmbedCardResolvedViewProps
->(
+export const EmbedCardResolvedView: React.ForwardRefExoticComponent<
+	EmbedCardResolvedViewProps & React.RefAttributes<HTMLIFrameElement>
+> = React.forwardRef<HTMLIFrameElement, EmbedCardResolvedViewProps>(
 	(
 		{
 			link,
@@ -231,7 +138,7 @@ const EmbedCardResolvedViewUpdated = React.forwardRef<
 					onIframeMouseLeave?.();
 				}}
 			>
-				<FrameComponent
+				<Frame
 					url={previewUrl}
 					isTrusted={isTrusted}
 					testId={testId}
@@ -249,13 +156,3 @@ const EmbedCardResolvedViewUpdated = React.forwardRef<
 	},
 );
 
-const EmbedCardResolvedViewWithFG: React.FC<
-	Omit<EmbedCardResolvedViewProps & React.RefAttributes<HTMLIFrameElement>, 'ref'> &
-		React.RefAttributes<HTMLIFrameElement>
-> = componentWithFG(
-	'rovo_chat_embed_card_dwell_and_hover_metrics',
-	EmbedCardResolvedViewUpdated,
-	EmbedCardResolvedViewOld,
-);
-
-export { EmbedCardResolvedViewWithFG as EmbedCardResolvedView };

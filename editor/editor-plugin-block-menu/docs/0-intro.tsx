@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Block Menu', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the block menu plugin used by \`@atlaskit/editor-core\`.
 

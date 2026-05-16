@@ -55,7 +55,8 @@ import {
 	getAnalyticsEventSeverity,
 } from '@atlaskit/editor-common/utils/analytics';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils/document';
-import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
@@ -145,6 +146,38 @@ interface CreateEditorStateOptions {
 	props: EditorViewProps;
 	resetting?: boolean;
 	selectionAtStart?: boolean;
+}
+
+// `markdown↔rich` toggles drop different node/mark sets, so the unique
+// name set is enough to detect when a destructive rebuild is needed.
+function sameNames(a: Iterable<string>, b: Iterable<string>): boolean {
+	const setA = new Set(a);
+	const setB = new Set(b);
+	if (setA.size !== setB.size) {
+		return false;
+	}
+	for (const name of setA) {
+		if (!setB.has(name)) {
+			return false;
+		}
+	}
+	return true;
+}
+
+function schemaShapeChanged(
+	current: Schema,
+	next: { marks: ReadonlyArray<{ name: string }>; nodes: ReadonlyArray<{ name: string }> },
+): boolean {
+	return (
+		!sameNames(
+			Object.keys(current.nodes),
+			next.nodes.map((n) => n.name),
+		) ||
+		!sameNames(
+			Object.keys(current.marks),
+			next.marks.map((m) => m.name),
+		)
+	);
 }
 
 export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
@@ -509,9 +542,10 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 	// components from the rebuilt preset).
 	const [, bumpConfigVersion] = useState(0);
 
-	// Preset reference last processed by the schema/API reconciliation below.
-	// Used to skip that work when reconfigure is called with the same preset.
-	const lastFilteredPresetRef = useRef<unknown>(null);
+	// Preset reference last processed by reconfigureState. Used to skip the
+	// destructive work (plugin filter, schema rebuild) when reconfigure is
+	// called with the same preset.
+	const lastProcessedPresetRef = useRef<unknown>(null);
 
 	const reconfigureState = useCallback(
 		(props: EditorViewProps) => {
@@ -535,6 +569,38 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				pluginInjectionAPI.current,
 			);
 
+			// Capture once, before either downstream block updates the ref —
+			// both the filter and the schema rebuild are destructive and only
+			// want to run when the preset has actually changed.
+			const presetChanged = lastProcessedPresetRef.current !== props.preset;
+
+			// Build a candidate config from the *unfiltered* plugin list so we can
+			// decide whether the schema rebuild path will run. Both the rebuild
+			// decision and the drop-filter decision below depend on this answer,
+			// so it has to be computed up-front.
+			const buildConfig = (plugins: typeof editorPlugins) => {
+				const c = processPluginsList(plugins);
+				if (expValEquals('platform_editor_appearance_shared_state', 'isEnabled', true)) {
+					c.pmPlugins.push(...pluginInjectionAPI.current.getInternalPMPlugins());
+				}
+				return c;
+			};
+
+			let nextConfig = buildConfig(editorPlugins);
+
+			// `state.reconfigure` preserves the original schema, so a preset
+			// toggle that should change schema (markdown↔rich) needs a fresh
+			// `EditorState`. Resets all plugin state including undo history.
+			//
+			// Compare schema *shape* (node + mark name sets) rather than preset
+			// identity: consumers commonly recreate the preset object on every
+			// parent re-render, and a destructive rebuild on a no-op identity
+			// change tears down all plugin state (e.g. unmounts the AI palette).
+			const shouldRebuildSchema =
+				presetChanged &&
+				schemaShapeChanged(viewRef.current.state.schema, nextConfig) &&
+				expValEqualsNoExposure('cc-markdown-mode', 'isEnabled', true);
+
 			// `state.reconfigure` keeps the original schema, so switching presets
 			// can leave the editor inconsistent in two ways:
 			//   1. The new preset may add plugins that reference schema nodes or
@@ -543,22 +609,31 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			//      injection API even when the new preset doesn't re-register
 			//      them, so listeners still fire against a state that no longer
 			//      has their pmPlugin.
-			if (
-				lastFilteredPresetRef.current !== props.preset &&
-				fg('platform_editor_reconfigure_filter_plugins')
-			) {
-				const { kept, dropped } = filterPluginsForReconfigure(
-					editorPlugins,
-					viewRef.current.state.schema,
-					previousPluginNames,
-				);
-				editorPlugins = kept;
+			//
+			// When the schema is being rebuilt below, the new schema is built
+			// from the *unfiltered* plugin list — so dropping plugins whose
+			// nodes/marks the OLD schema lacks would wrongly remove the very
+			// plugins the rebuild is meant to admit. Skip the drop step in that
+			// case (purpose 1) but always reconcile the injection API
+			// (purpose 2). When NOT rebuilding, run both — even under the
+			// `cc-markdown-mode` experiment, otherwise no-op preset identity
+			// changes would silently leave a broken plugin/schema mismatch.
+			if (presetChanged && fg('platform_editor_reconfigure_filter_plugins')) {
+				let dropped: ReturnType<typeof filterPluginsForReconfigure>['dropped'] = [];
+				if (!shouldRebuildSchema) {
+					const result = filterPluginsForReconfigure(
+						editorPlugins,
+						viewRef.current.state.schema,
+						previousPluginNames,
+					);
+					if (result.dropped.length > 0) {
+						editorPlugins = result.kept;
+						// Plugin list changed — rebuild candidate config to match.
+						nextConfig = buildConfig(editorPlugins);
+					}
+					dropped = result.dropped;
+				}
 
-				// Reconcile the injection API with the post-filter plugin set.
-				// This evicts both the plugins we just dropped above (re-registered
-				// by createPluginsList but no longer in editorPlugins) AND any
-				// plugin from a previous preset that the new preset doesn't
-				// re-register.
 				const keptPluginNames = new Set(
 					editorPlugins.map((p) => p?.name).filter((n): n is string => Boolean(n)),
 				);
@@ -571,33 +646,86 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 						evictedFromApi,
 					});
 				}
-
-				lastFilteredPresetRef.current = props.preset;
 			}
 
-			config.current = processPluginsList(editorPlugins);
-			if (expValEquals('platform_editor_appearance_shared_state', 'isEnabled', true)) {
-				config.current.pmPlugins.push(...pluginInjectionAPI.current.getInternalPMPlugins());
-			}
+			config.current = nextConfig;
 
 			const state = viewRef.current.state;
 
-			const plugins = createPMPlugins({
-				schema: state.schema,
-				dispatch: dispatch,
-				errorReporter: errorReporter,
-				editorConfig: config.current,
-				eventDispatcher: eventDispatcher,
-				providerFactory: props.providerFactory,
-				portalProviderAPI: props.portalProviderAPI,
-				nodeViewPortalProviderAPI: props.nodeViewPortalProviderAPI,
-				dispatchAnalyticsEvent: dispatchAnalyticsEvent,
-				featureFlags,
-				getIntl: () => props.intl,
-				onEditorStateUpdated: pluginInjectionAPI.current.onEditorViewUpdated,
-			});
+			let newState: EditorState;
 
-			const newState = state.reconfigure({ plugins: plugins as Plugin[] });
+			if (shouldRebuildSchema) {
+				const newSchema = createSchema(config.current);
+
+				let newDoc: PMNode;
+				try {
+					newDoc = PMNode.fromJSON(newSchema, state.doc.toJSON());
+				} catch (e) {
+					// eslint-disable-next-line no-console
+					console.error(
+						'[reconfigureState] Failed to migrate doc to new schema; resetting to empty doc',
+						e,
+					);
+					const empty = newSchema.topNodeType.createAndFill();
+					if (!empty) {
+						throw new Error(
+							'reconfigureState: doc migration failed and new schema cannot create an empty top node',
+						);
+					}
+					newDoc = empty;
+				}
+
+				let newSelection: Selection;
+				try {
+					newSelection = Selection.fromJSON(newDoc, state.selection.toJSON());
+				} catch {
+					// Old selection's positions / node types may not map onto the new schema.
+					newSelection = Selection.atStart(newDoc);
+				}
+
+				const plugins = createPMPlugins({
+					schema: newSchema,
+					dispatch: dispatch,
+					errorReporter: errorReporter,
+					editorConfig: config.current,
+					eventDispatcher: eventDispatcher,
+					providerFactory: props.providerFactory,
+					portalProviderAPI: props.portalProviderAPI,
+					nodeViewPortalProviderAPI: props.nodeViewPortalProviderAPI,
+					dispatchAnalyticsEvent: dispatchAnalyticsEvent,
+					featureFlags,
+					getIntl: () => props.intl,
+					onEditorStateUpdated: pluginInjectionAPI.current.onEditorViewUpdated,
+				});
+
+				newState = EditorState.create({
+					schema: newSchema,
+					doc: newDoc,
+					selection: newSelection,
+					plugins: plugins as Plugin[],
+				});
+			} else {
+				const plugins = createPMPlugins({
+					schema: state.schema,
+					dispatch: dispatch,
+					errorReporter: errorReporter,
+					editorConfig: config.current,
+					eventDispatcher: eventDispatcher,
+					providerFactory: props.providerFactory,
+					portalProviderAPI: props.portalProviderAPI,
+					nodeViewPortalProviderAPI: props.nodeViewPortalProviderAPI,
+					dispatchAnalyticsEvent: dispatchAnalyticsEvent,
+					featureFlags,
+					getIntl: () => props.intl,
+					onEditorStateUpdated: pluginInjectionAPI.current.onEditorViewUpdated,
+				});
+
+				newState = state.reconfigure({ plugins: plugins as Plugin[] });
+			}
+
+			if (presetChanged) {
+				lastProcessedPresetRef.current = props.preset;
+			}
 
 			// need to update the state first so when the view builds the nodeviews it is
 			// using the latest plugins
@@ -605,9 +733,36 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 
 			const result = viewRef.current.update({ ...viewRef.current.props, state: newState });
 
+			// The new collab-edit plugin instance starts with `isReady=false`.
+			// The rebind path in editor-plugin-collab-edit's initialize.ts is
+			// gated on `provider.getInitPayload`, which the Confluence NCS
+			// provider does not implement, so the placeholder spinner would
+			// never clear. Re-seeding here is safe: the prior state must have
+			// had `isReady=true` for the user to have triggered the toggle.
+			//
+			// Must run AFTER `view.update({ state: newState })`: that call resets
+			// the view's state to the captured `newState` reference, so a
+			// dispatch placed before it would advance `view.state` to a value
+			// that `update` then silently overwrites — discarding the meta and
+			// leaving `isReady=false`.
+			if (shouldRebuildSchema) {
+				// `state.collabEditPlugin$` is the property PM derives from the
+				// collab plugin's PluginKey; cast through `unknown` to read it.
+				const collabState = (
+					viewRef.current.state as unknown as {
+						collabEditPlugin$?: { isReady?: boolean };
+					}
+				).collabEditPlugin$;
+				if (collabState && collabState.isReady !== true) {
+					viewRef.current.dispatch(viewRef.current.state.tr.setMeta('collabInitialised', true));
+				}
+			}
+
 			// EDITOR-6702: gated until we have a broader gate; reconfigure is a
 			// low-level path so use NoExposure.
 			if (expValEqualsNoExposure('cc-markdown-mode', 'isEnabled', true)) {
+				// Force a render so PluginSlot picks up the new preset's content
+				// components against the new state.
 				bumpConfigVersion((v) => v + 1);
 			}
 

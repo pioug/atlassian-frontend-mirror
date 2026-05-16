@@ -394,12 +394,7 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldFitViewport', () => 
 
 	it('renders content without shouldFitViewport', () => {
 		render(
-			<Popup
-				isOpen={true}
-				content={defaultContent}
-				trigger={defaultTrigger}
-				testId={testId}
-			/>,
+			<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
 
 		expect(screen.getByTestId('popup-content')).toBeInTheDocument();

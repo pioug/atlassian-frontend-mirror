@@ -17,7 +17,7 @@ ${createEditorUseOnlyNotice('Editor Plugin History', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
 This package includes the history plugin used by \`@atlaskit/editor-core\`.
 

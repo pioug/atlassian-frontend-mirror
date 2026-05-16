@@ -66,14 +66,14 @@ export default (): JSX.Element => {
 					Use primary
 				</Button>
 			</Flex>
-			<Flex gap='space.200'>
+			<Flex gap="space.200">
 				<PopoverProvider>
 					<PopoverTarget>
 						<div css={styles.target}>
 							<Text>Target</Text>
 						</div>
 					</PopoverTarget>
-					<PopoverContent isVisible={true} placement="left-end" dismiss={() => { }}>
+					<PopoverContent isVisible={true} placement="left-end" dismiss={() => {}}>
 						<SpotlightCard>
 							<SpotlightHeader>
 								<SpotlightHeadline>Buttons</SpotlightHeadline>
@@ -83,16 +83,14 @@ export default (): JSX.Element => {
 							</SpotlightHeader>
 							<SpotlightBody>
 								<Text>
-									Toggle between `outline` and `primary` to preview how the call to action
-									changes emphasis.
+									Toggle between `outline` and `primary` to preview how the call to action changes
+									emphasis.
 								</Text>
 							</SpotlightBody>
 							<SpotlightFooter>
 								<SpotlightActions>
 									<SpotlightSecondaryAction>Back</SpotlightSecondaryAction>
-									<SpotlightPrimaryAction appearance={appearance}>
-										Done
-									</SpotlightPrimaryAction>
+									<SpotlightPrimaryAction appearance={appearance}>Done</SpotlightPrimaryAction>
 								</SpotlightActions>
 							</SpotlightFooter>
 						</SpotlightCard>
@@ -104,7 +102,7 @@ export default (): JSX.Element => {
 							<Text>Target</Text>
 						</div>
 					</PopoverTarget>
-					<PopoverContent isVisible={true} placement="right-end" dismiss={() => { }}>
+					<PopoverContent isVisible={true} placement="right-end" dismiss={() => {}}>
 						<SpotlightCard>
 							<SpotlightHeader>
 								<SpotlightHeadline>Links</SpotlightHeadline>
@@ -114,14 +112,14 @@ export default (): JSX.Element => {
 							</SpotlightHeader>
 							<SpotlightBody>
 								<Text>
-									Toggle between `outline` and `primary` to preview how the call to action
-									changes emphasis.
+									Toggle between `outline` and `primary` to preview how the call to action changes
+									emphasis.
 								</Text>
 							</SpotlightBody>
 							<SpotlightFooter>
 								<SpotlightActions>
-									<SpotlightSecondaryLink href='#'>Back</SpotlightSecondaryLink>
-									<SpotlightPrimaryLink href='#' appearance={appearance}>
+									<SpotlightSecondaryLink href="#">Back</SpotlightSecondaryLink>
+									<SpotlightPrimaryLink href="#" appearance={appearance}>
 										Done
 									</SpotlightPrimaryLink>
 								</SpotlightActions>

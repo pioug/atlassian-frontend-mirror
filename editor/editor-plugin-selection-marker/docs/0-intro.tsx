@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Selection Marker', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the selection marker plugin used by \`@atlaskit/editor-core\`.
 

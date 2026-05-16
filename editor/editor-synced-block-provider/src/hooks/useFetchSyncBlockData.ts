@@ -62,11 +62,7 @@ export const useFetchSyncBlockData = (
 				location: 'editor-synced-block-provider/useFetchSyncBlockData',
 			});
 			fireAnalyticsEvent?.(
-				fetchErrorPayload(
-					(error as Error).message,
-					resourceId,
-					productAttrIfGateOn(resourceId),
-				),
+				fetchErrorPayload((error as Error).message, resourceId, productAttrIfGateOn(resourceId)),
 			);
 
 			// Set error state if fetching fails

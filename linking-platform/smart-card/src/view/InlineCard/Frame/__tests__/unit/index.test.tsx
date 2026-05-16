@@ -27,7 +27,11 @@ describe('Frame', () => {
 
 	it('should call onClick when the card is clicked', () => {
 		const onClick = jest.fn();
-		render(<Frame onClick={onClick} testId="frame">Dummy link</Frame>);
+		render(
+			<Frame onClick={onClick} testId="frame">
+				Dummy link
+			</Frame>,
+		);
 		fireEvent.click(screen.getByTestId('frame'));
 		expect(onClick).toHaveBeenCalled();
 	});

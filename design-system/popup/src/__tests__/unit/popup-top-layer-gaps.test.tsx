@@ -48,12 +48,7 @@ const defaultContent = () => <div data-testid="popup-content">Popup content</div
 ffTest.on('platform-dst-top-layer', 'Popup top-layer gap: aria-controls linkage', () => {
 	it('aria-controls is set on the trigger when popup is open', () => {
 		render(
-			<Popup
-				isOpen={true}
-				content={defaultContent}
-				trigger={defaultTrigger}
-				testId={testId}
-			/>,
+			<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
 
 		const trigger = screen.getByRole('button', { name: 'Trigger' });
@@ -81,12 +76,7 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer gap: aria-controls linkage'
 
 	it('aria-controls is not set when popup is closed', () => {
 		render(
-			<Popup
-				isOpen={false}
-				content={defaultContent}
-				trigger={defaultTrigger}
-				testId={testId}
-			/>,
+			<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
 
 		const trigger = screen.getByRole('button', { name: 'Trigger' });
@@ -104,23 +94,13 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer gap: aria-controls linkage'
 ffTest.on('platform-dst-top-layer', 'Popup top-layer gap: content rendering on rerender', () => {
 	it('renders content when isOpen transitions from false to true', () => {
 		const { rerender } = render(
-			<Popup
-				isOpen={false}
-				content={defaultContent}
-				trigger={defaultTrigger}
-				testId={testId}
-			/>,
+			<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
 
 		expect(screen.queryByTestId('popup-content')).not.toBeInTheDocument();
 
 		rerender(
-			<Popup
-				isOpen={true}
-				content={defaultContent}
-				trigger={defaultTrigger}
-				testId={testId}
-			/>,
+			<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
 
 		expect(screen.getByTestId('popup-content')).toBeInTheDocument();
@@ -128,23 +108,13 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer gap: content rendering on r
 
 	it('hides content when isOpen transitions from true to false', () => {
 		const { rerender } = render(
-			<Popup
-				isOpen={true}
-				content={defaultContent}
-				trigger={defaultTrigger}
-				testId={testId}
-			/>,
+			<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
 
 		expect(screen.getByTestId('popup-content')).toBeInTheDocument();
 
 		rerender(
-			<Popup
-				isOpen={false}
-				content={defaultContent}
-				trigger={defaultTrigger}
-				testId={testId}
-			/>,
+			<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
 
 		// In the top-layer path, closed popover content may remain in the DOM
@@ -219,9 +189,7 @@ ffTest.on(
 
 			const content = () => <div>content</div>;
 
-			const { rerender } = render(
-				<Popup isOpen={false} content={content} trigger={trigger} />,
-			);
+			const { rerender } = render(<Popup isOpen={false} content={content} trigger={trigger} />);
 
 			const initialTriggerCount = triggerRender.mock.calls.length;
 
@@ -355,13 +323,7 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer gap: focus management', () 
 			</button>
 		));
 
-		render(
-			<Popup
-				isOpen={true}
-				content={contentFn}
-				trigger={defaultTrigger}
-			/>,
-		);
+		render(<Popup isOpen={true} content={contentFn} trigger={defaultTrigger} />);
 
 		expect(contentFn).toHaveBeenCalledWith(
 			expect.objectContaining({
@@ -383,13 +345,7 @@ ffTest.on(
 	'Popup top-layer gap: aria-haspopup values for different roles',
 	() => {
 		it('sets aria-haspopup="dialog" by default (no role specified)', () => {
-			render(
-				<Popup
-					isOpen={false}
-					content={defaultContent}
-					trigger={defaultTrigger}
-				/>,
-			);
+			render(<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} />);
 
 			const trigger = screen.getByRole('button', { name: 'Trigger' });
 			expect(trigger).toHaveAttribute('aria-haspopup', 'dialog');

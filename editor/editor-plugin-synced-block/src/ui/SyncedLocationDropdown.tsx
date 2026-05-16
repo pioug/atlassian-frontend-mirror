@@ -305,13 +305,7 @@ const renderJiraIssueTypeIcon = (
 	return null;
 };
 
-const ItemIcon = ({
-	reference,
-	intl,
-}: {
-	intl: IntlShape;
-	reference: SyncBlockSourceInfo;
-}) => {
+const ItemIcon = ({ reference, intl }: { intl: IntlShape; reference: SyncBlockSourceInfo }) => {
 	const { hasAccess, subType, productType, sourceAri, issueType } = reference;
 
 	if (productType === 'confluence-page' && hasAccess) {

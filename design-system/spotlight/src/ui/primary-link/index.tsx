@@ -47,7 +47,7 @@ const styles = cssMap({
 			backgroundColor: token('color.background.brand.bold.pressed'),
 			textDecoration: 'none',
 		},
-	}
+	},
 });
 
 export interface SpotlightPrimaryLinkProps {

@@ -286,4 +286,3 @@ export const ExpandedFrame = ({
 		</div>
 	);
 };
-

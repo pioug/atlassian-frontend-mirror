@@ -733,57 +733,46 @@ propagation, and mixed-component scenarios.
 
 ## Adoption findings — what was a real bug vs. wrong test
 
-When driving the FF-on Playwright suite from 33/5/2 to 41/0/0, **every
-"residual" failure and `test.fixme` turned out to be solvable in the
-modal-dialog adopter or the FF-on spec — nothing in `@atlaskit/top-layer`
-itself needed to change**. Documented here so future migrations of
-similar adopters can recognise the patterns:
+When driving the FF-on Playwright suite from 33/5/2 to 41/0/0, **every "residual" failure and
+`test.fixme` turned out to be solvable in the modal-dialog adopter or the FF-on spec — nothing in
+`@atlaskit/top-layer` itself needed to change**. Documented here so future migrations of similar
+adopters can recognise the patterns:
 
-1. **`tabIndex={-1}` on the content wrapper stole initial focus.**
-   The legacy outline relied on a focusable wrapper, but
-   `<dialog>.showModal()`'s focus-delegate algorithm picks the first
-   _focusable_ descendant (which includes `tabindex=-1`), so it focused
-   the wrapper instead of the close button. Removed both the `tabIndex`
-   and the unused `:focus-visible` wrapper outline. Now `showModal()`
-   correctly focuses the close button. (Fixed 3 of the 5 failures.)
-2. **`shouldReturnFocus={ref}` was ignored.** Native `<dialog>.close()`
-   restores focus to the trigger that opened it; consumers can pass a
-   `ref` to redirect. Added an unmount-cleanup `useEffect` in the
-   top-layer branch that focuses the ref after `dialog.close()`.
-   Boolean `shouldReturnFocus={false}` is **not** honored on the FF-on
-   path — native return is unconditional, and emulating the opt-out
-   would require an `inert` / `tabindex=-1` shim. Documented as a
-   known gap.
-3. **`'should return focus to correct trigger in nested modals'` used
-   the wrong selector.** It used `page.locator('[role="dialog"]')` —
-   a CSS attribute selector that does **not** match the implicit role
-   of native `<dialog>`. Switched to `page.getByRole('dialog')` which
-   uses the accessibility tree.
-4. **`'should show focus indicator … via keyboard'` opened via mouse.**
-   Browsers track the last input modality; programmatic `.focus()`
-   after a mouse click does not match `:focus-visible`. Switched the
-   open path to `trigger.focus()` + `Enter`.
-5. **The two multi-modal `test.fixme`'d cases were not browser
-   limitations.** Native `<dialog>.showModal()` only fails with
-   `InvalidStateError` if you call it on an already-open dialog —
-   stacking _separate_ `<dialog>` instances works fine and they
-   correctly stack in the top layer.
+1. **`tabIndex={-1}` on the content wrapper stole initial focus.** The legacy outline relied on a
+   focusable wrapper, but `<dialog>.showModal()`'s focus-delegate algorithm picks the first
+   _focusable_ descendant (which includes `tabindex=-1`), so it focused the wrapper instead of the
+   close button. Removed both the `tabIndex` and the unused `:focus-visible` wrapper outline. Now
+   `showModal()` correctly focuses the close button. (Fixed 3 of the 5 failures.)
+2. **`shouldReturnFocus={ref}` was ignored.** Native `<dialog>.close()` restores focus to the
+   trigger that opened it; consumers can pass a `ref` to redirect. Added an unmount-cleanup
+   `useEffect` in the top-layer branch that focuses the ref after `dialog.close()`. Boolean
+   `shouldReturnFocus={false}` is **not** honored on the FF-on path — native return is
+   unconditional, and emulating the opt-out would require an `inert` / `tabindex=-1` shim.
+   Documented as a known gap.
+3. **`'should return focus to correct trigger in nested modals'` used the wrong selector.** It used
+   `page.locator('[role="dialog"]')` — a CSS attribute selector that does **not** match the implicit
+   role of native `<dialog>`. Switched to `page.getByRole('dialog')` which uses the accessibility
+   tree.
+4. **`'should show focus indicator … via keyboard'` opened via mouse.** Browsers track the last
+   input modality; programmatic `.focus()` after a mouse click does not match `:focus-visible`.
+   Switched the open path to `trigger.focus()` + `Enter`.
+5. **The two multi-modal `test.fixme`'d cases were not browser limitations.** Native
+   `<dialog>.showModal()` only fails with `InvalidStateError` if you call it on an already-open
+   dialog — stacking _separate_ `<dialog>` instances works fine and they correctly stack in the top
+   layer.
 
-Side-cleanup: removed several `closeButton.focus()` workarounds added
-to compensate for #1, and replaced a `for (let i …) { … break }` Tab
-loop in the scrollable modal test with a deterministic single-Tab
-assertion (now permitted because initial focus is reliable).
+Side-cleanup: removed several `closeButton.focus()` workarounds added to compensate for #1, and
+replaced a `for (let i …) { … break }` Tab loop in the scrollable modal test with a deterministic
+single-Tab assertion (now permitted because initial focus is reliable).
 
 ## Pre-existing legacy failures (fixme'd, not in scope)
 
 Two legacy modal-dialog tests are fixme'd as part of this migration:
 
-- `modal.spec.tsx` "Aui dialog's inner elements should be available
-  for focus interaction while opened from AK modal" — pre-existing
-  flake (passes in isolation, times out at 30s in batch). Legacy AUI
-  integration is being removed.
-- `modal.spec.tsx` "Modal should move focus based on reading order,
-  and be closed" — pre-existing axe `color-contrast` violation on the
-  primary button after a recent button-token change on master.
+- `modal.spec.tsx` "Aui dialog's inner elements should be available for focus interaction while
+  opened from AK modal" — pre-existing flake (passes in isolation, times out at 30s in batch).
+  Legacy AUI integration is being removed.
+- `modal.spec.tsx` "Modal should move focus based on reading order, and be closed" — pre-existing
+  axe `color-contrast` violation on the primary button after a recent button-token change on master.
   Equivalent reading-order coverage is provided by the green
   `ff-testing/platform-dst-top-layer/modal.spec.tsx` suite.

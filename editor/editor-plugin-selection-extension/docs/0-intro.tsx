@@ -19,7 +19,7 @@ const _default_1: any = md`
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the selection extension plugin used by \`@atlaskit/editor-core\`.
 

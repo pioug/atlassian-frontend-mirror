@@ -153,7 +153,11 @@ type forwardRefType = {
 };
 
 const SUPPORTED_HANDLES: Array<keyof EnabledHandles> = ['left', 'right'];
-const SUPPORTED_HANDLES_FOR_VERTICAL_RESIZE: Array<keyof EnabledHandles> = ['left', 'right', 'bottom'];
+const SUPPORTED_HANDLES_FOR_VERTICAL_RESIZE: Array<keyof EnabledHandles> = [
+	'left',
+	'right',
+	'bottom',
+];
 
 const inheritedCSS: CSSProperties = {
 	position: 'inherit',
@@ -290,8 +294,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 						handleClassName ?? resizerHandleClassName,
 						position,
 						handleSize,
-						position === 'bottom' &&
-							expValEquals('databases-native-embeds-v2', 'isEnabled', true)
+						position === 'bottom' && expValEquals('databases-native-embeds-v2', 'isEnabled', true)
 							? undefined
 							: handleAlignmentMethod,
 					),

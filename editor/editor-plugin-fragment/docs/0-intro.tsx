@@ -17,7 +17,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Fragment', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the fragment plugin used by @atlaskit/editor-core.
 

@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 114.31.0
+
+### Minor Changes
+
+- [`a41380b1c3530`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a41380b1c3530) -
+  [ux] Extended the empty state hero prompt config to support a consumer overriding what 'empty'
+  means, via a boolean override flag, which a consumer can set through the API ref. For example, for
+  a comment reply editor which is opened with a user mentioned by default, this can be treated as
+  'empty' by the consumer.
+
 ## 114.30.6
 
 ### Patch Changes

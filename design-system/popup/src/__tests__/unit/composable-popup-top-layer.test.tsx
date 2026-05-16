@@ -330,9 +330,7 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: label prop', ()
 						</button>
 					)}
 				</PopupTrigger>
-				<PopupContent testId={testId}>
-					{() => <div>content</div>}
-				</PopupContent>
+				<PopupContent testId={testId}>{() => <div>content</div>}</PopupContent>
 			</Popup>,
 		);
 

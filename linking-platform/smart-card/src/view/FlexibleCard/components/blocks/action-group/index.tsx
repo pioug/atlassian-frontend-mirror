@@ -123,28 +123,28 @@ const ActionGroup = ({
 					: []),
 				...(containerWidth >= OVERFLOW_ONLY_ACTIONS_SIZE
 					? [
-						{
-							name: ActionName.RovoChatAction,
-							prompts: [RovoChatPromptKey.ASK_ROVO_ANYTHING],
-							iconSize: 'small',
-							cardAppearance: CardDisplay.Block,
-							hideContent:
-								(containerWidth < FULL_ACTIONS_SIZE && containerWidth >= REDUCED_ACTIONS_SIZE) ||
-								(containerWidth < ICON_ONLY_ACTIONS_SIZE &&
-									containerWidth >= OVERFLOW_ONLY_ACTIONS_SIZE),
-						} as ActionItem,
-						{
-							name: ActionName.CopyLinkAction,
-							hideContent: true,
-							iconSize: 'small',
-						} as ActionItem,
-						{
-							name: ActionName.PreviewAction,
-							hideContent: true,
-							iconSize: 'small',
-						} as ActionItem,
-					]
-				: []),
+							{
+								name: ActionName.RovoChatAction,
+								prompts: [RovoChatPromptKey.ASK_ROVO_ANYTHING],
+								iconSize: 'small',
+								cardAppearance: CardDisplay.Block,
+								hideContent:
+									(containerWidth < FULL_ACTIONS_SIZE && containerWidth >= REDUCED_ACTIONS_SIZE) ||
+									(containerWidth < ICON_ONLY_ACTIONS_SIZE &&
+										containerWidth >= OVERFLOW_ONLY_ACTIONS_SIZE),
+							} as ActionItem,
+							{
+								name: ActionName.CopyLinkAction,
+								hideContent: true,
+								iconSize: 'small',
+							} as ActionItem,
+							{
+								name: ActionName.PreviewAction,
+								hideContent: true,
+								iconSize: 'small',
+							} as ActionItem,
+						]
+					: []),
 			];
 			return renderActionItems(rovoActions, size, appearance, false, onActionItemClick);
 		}
@@ -168,7 +168,11 @@ const ActionGroup = ({
 
 	const moreActionDropdown = useMemo(() => {
 		let actionItems: ActionItem[];
-		if (!!rovoChatAction && is3PBlockExperimentEnabled && containerWidth < OVERFLOW_ONLY_ACTIONS_SIZE) {
+		if (
+			!!rovoChatAction &&
+			is3PBlockExperimentEnabled &&
+			containerWidth < OVERFLOW_ONLY_ACTIONS_SIZE
+		) {
 			actionItems = [
 				...renderableActionItems,
 				{
@@ -180,7 +184,11 @@ const ActionGroup = ({
 				{ name: ActionName.CopyLinkAction, iconSize: 'small' },
 				{ name: ActionName.PreviewAction, iconSize: 'small' },
 			];
-		} else if (!!rovoChatAction && is3PBlockExperimentEnabled && containerWidth < REDUCED_ACTIONS_SIZE) {
+		} else if (
+			!!rovoChatAction &&
+			is3PBlockExperimentEnabled &&
+			containerWidth < REDUCED_ACTIONS_SIZE
+		) {
 			actionItems = renderableActionItems;
 		} else {
 			actionItems = isMoreThenTwoItems ? renderableActionItems.slice(visibleButtonsNum - 1) : [];

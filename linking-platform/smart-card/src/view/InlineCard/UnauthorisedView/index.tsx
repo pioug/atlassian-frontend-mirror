@@ -10,7 +10,7 @@ import { di } from 'react-magnetic-di';
 import { cssMap, jsx } from '@atlaskit/css';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -83,11 +83,24 @@ const socialProofPillStyles = cssMap({
 		paddingRight: token('space.075'),
 		paddingLeft: token('space.075'),
 		marginRight: token('space.050'),
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.pressed'),
+		},
 	},
 	label: {
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
+	},
+	button: {
+		backgroundColor: 'transparent',
+		paddingRight: token('space.0'),
+		paddingLeft: token('space.0'),
+		paddingTop: token('space.0'),
+		paddingBottom: token('space.0'),
 	},
 });
 
@@ -111,11 +124,11 @@ const UnauthorisedConnectWithSocialProof = ({
 }): JSX.Element => {
 	di(getCachedProviderPctMapAndRefresh);
 	const providerPctMap = getCachedProviderPctMapAndRefresh(SOCIAL_PROOF_TRAIT_NAME);
-	
+
 	// Will be false if this is the first render, when we fetch traits and store to local storage,
 	// or if there wasn't our trait for it.
 	const isProviderPctMapLoaded = providerPctMap !== null;
-	
+
 	// Percent of current user team (same tenant users) who are connected to this extension.
 	const connectedPct =
 		extensionKey && isProviderPctMapLoaded ? providerPctMap[extensionKey] : undefined;
@@ -131,11 +144,7 @@ const UnauthorisedConnectWithSocialProof = ({
 	 */
 	const showSocialProofPill =
 		providerPctMap !== null &&
-		expValEquals(
-			'platform_sl_3p_preauth_social_proof_inline_cta',
-			'isEnabled',
-			true,
-		);
+		expValEquals('platform_sl_3p_preauth_social_proof_inline_cta', 'isEnabled', true);
 
 	const bold = (chunks: React.ReactNode) => (
 		<Box as="strong" xcss={socialProofPillStyles.strong}>
@@ -170,7 +179,7 @@ const UnauthorisedConnectWithSocialProof = ({
 		<FormattedMessage {...messages.social_proof_inline_cta_tag_low_no_context} />
 	);
 
-	return (
+	const buttonContent = (
 		<React.Fragment>
 			{showSocialProofPill ? (
 				<Box as="span" xcss={socialProofPillStyles.root} testId={`${testId}-social-proof-tag`}>
@@ -192,6 +201,18 @@ const UnauthorisedConnectWithSocialProof = ({
 				)}
 			</ActionButton>
 		</React.Fragment>
+	);
+
+	return showSocialProofPill ? (
+		<Pressable
+			onClick={onConnectClick}
+			style={{ font: `inherit` }}
+			xcss={socialProofPillStyles.button}
+		>
+			{buttonContent}
+		</Pressable>
+	) : (
+		buttonContent
 	);
 };
 

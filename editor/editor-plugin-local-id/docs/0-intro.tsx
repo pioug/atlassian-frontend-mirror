@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Local Id', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the local id plugin used by \`@atlaskit/editor-core\`.
 

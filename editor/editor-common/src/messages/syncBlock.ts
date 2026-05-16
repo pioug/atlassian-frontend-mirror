@@ -738,8 +738,7 @@ export const syncBlockMessages: {
 	},
 	unpublishedErrorJiraWorkItem: {
 		id: 'fabric.editor.error.description.reference.unpublished.jiraWorkItem',
-		defaultMessage:
-			"Synced content will display <link>when the item's description is saved</link>",
+		defaultMessage: "Synced content will display <link>when the item's description is saved</link>",
 		description:
 			'Error message which is shown over sync block when the source Jira work item description has not yet been saved.',
 	},
@@ -887,7 +886,7 @@ export const syncBlockMessages: {
 		id: 'fabric.editor.unpublishedSyncBlockPastedDescription.jiraWorkItem',
 		defaultMessage: "When the item's description is saved, the content will be displayed.",
 		description:
-			"Description in flag which appears when a reference to a sync block whose source is a Jira work item with an unsaved description is pasted",
+			'Description in flag which appears when a reference to a sync block whose source is a Jira work item with an unsaved description is pasted',
 	},
 	unsyncButton: {
 		id: 'fabric.editor.syncedBlock.unsync',

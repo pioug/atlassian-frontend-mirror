@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Show Diff', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the show diff plugin used by \`@atlaskit/editor-core\`.
 

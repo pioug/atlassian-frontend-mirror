@@ -190,9 +190,7 @@ export function MoreDropdownTopLayer({
 										{
 											avatar,
 											onAvatarClick,
-											testId: testId
-												? `${testId}--avatar-group-item-${index + max}`
-												: undefined,
+											testId: testId ? `${testId}--avatar-group-item-${index + max}` : undefined,
 											index: index + max,
 											role: 'menuitem',
 										},

@@ -132,14 +132,9 @@ test.describe('InlineDialog top-layer — Multiple Dialogs', () => {
 	test('opening one dialog closes the other via light-dismiss', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../../../../examples/08-multiple-inline-dialogs.tsx')
-		>(
-			'design-system',
-			'inline-dialog',
-			'multiple-inline-dialogs',
-			{
-				featureFlag,
-			},
-		);
+		>('design-system', 'inline-dialog', 'multiple-inline-dialogs', {
+			featureFlag,
+		});
 
 		const dialog1Trigger = page.getByRole('button', { name: 'Click for dialog 1' });
 		const dialog2Trigger = page.getByRole('button', { name: 'Click for dialog 2' });

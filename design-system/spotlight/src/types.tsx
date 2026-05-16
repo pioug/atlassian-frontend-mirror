@@ -10,7 +10,6 @@ export type Placement =
 	| 'left-start'
 	| 'left-end';
 
-
 export type PositionArea =
 	| 'start span-start'
 	| 'block-start'
@@ -21,7 +20,7 @@ export type PositionArea =
 	| 'span-end end'
 	| 'end span-start'
 	| 'block-end'
-	| 'end span-end'
+	| 'end span-end';
 
 /**
  * Spotlights can be dismissed by:

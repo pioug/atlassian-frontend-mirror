@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Better Type History', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the better-type-history plugin used by \`@atlaskit/editor-core\`.
 

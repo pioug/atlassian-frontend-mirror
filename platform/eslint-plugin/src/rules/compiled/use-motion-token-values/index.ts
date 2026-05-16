@@ -29,7 +29,9 @@ const DURATION_TOKENS: Array<{ ms: number; token: string }> = DURATION_TOKEN_NAM
 	const rawValue = tokenDefaultValues[name as keyof typeof tokenDefaultValues] as string;
 	const ms = parseDurationMs(rawValue);
 	if (ms === null) {
-		throw new Error(`use-motion-token-values: could not parse duration for token ${name}: ${rawValue}`);
+		throw new Error(
+			`use-motion-token-values: could not parse duration for token ${name}: ${rawValue}`,
+		);
 	}
 	return { ms, token: name };
 }).sort((a, b) => a.ms - b.ms);
@@ -42,21 +44,26 @@ const EASING_TOKEN_NAMES = [
 ] as const;
 
 function parseCubicBezierParams(value: string): number[] | null {
-	const match = value.match(/^cubic-bezier\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*\)$/);
+	const match = value.match(
+		/^cubic-bezier\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*\)$/,
+	);
 	if (!match) {
 		return null;
 	}
 	return [parseFloat(match[1]), parseFloat(match[2]), parseFloat(match[3]), parseFloat(match[4])];
 }
 
-const EASING_TOKENS: Array<{ value: string; token: string; params: number[] }> = EASING_TOKEN_NAMES.map((name) => {
-	const rawValue = tokenDefaultValues[name as keyof typeof tokenDefaultValues] as string;
-	const params = parseCubicBezierParams(rawValue);
-	if (!params) {
-		throw new Error(`use-motion-token-values: could not parse cubic-bezier for token ${name}: ${rawValue}`);
-	}
-	return { value: rawValue, token: name, params };
-});
+const EASING_TOKENS: Array<{ value: string; token: string; params: number[] }> =
+	EASING_TOKEN_NAMES.map((name) => {
+		const rawValue = tokenDefaultValues[name as keyof typeof tokenDefaultValues] as string;
+		const params = parseCubicBezierParams(rawValue);
+		if (!params) {
+			throw new Error(
+				`use-motion-token-values: could not parse cubic-bezier for token ${name}: ${rawValue}`,
+			);
+		}
+		return { value: rawValue, token: name, params };
+	});
 
 // Splits on top-level commas (outside function parens) — preserves cubic-bezier(...) commas.
 function splitOnTopLevelCommas(value: string): string[] {
@@ -83,15 +90,9 @@ function splitOnTopLevelCommas(value: string): string[] {
 	return parts;
 }
 
-const DURATION_PROPERTIES = new Set([
-	'transitionDuration',
-	'animationDuration',
-]);
+const DURATION_PROPERTIES = new Set(['transitionDuration', 'animationDuration']);
 
-const EASING_PROPERTIES = new Set([
-	'transitionTimingFunction',
-	'animationTimingFunction',
-]);
+const EASING_PROPERTIES = new Set(['transitionTimingFunction', 'animationTimingFunction']);
 
 // Explicit semantic mappings for CSS keyword easings to motion tokens.
 // Pinned by design intent, confirmed with design system team (Alex + Akshay).
@@ -193,17 +194,13 @@ export const useMotionTokenValues: Rule.RuleModule = {
 			}
 			if (tokensImportNode) {
 				// @atlaskit/tokens is imported but without `token` — add `token` to existing import
-				const lastSpecifier =
-					tokensImportNode.specifiers[tokensImportNode.specifiers.length - 1];
+				const lastSpecifier = tokensImportNode.specifiers[tokensImportNode.specifiers.length - 1];
 				if (lastSpecifier) {
 					return [fixer.insertTextAfter(lastSpecifier as any, ', token')];
 				}
 				// Empty import — replace the whole declaration
 				return [
-					fixer.replaceText(
-						tokensImportNode as any,
-						`import { token } from '@atlaskit/tokens';`,
-					),
+					fixer.replaceText(tokensImportNode as any, `import { token } from '@atlaskit/tokens';`),
 				];
 			}
 			const sourceCode = context.sourceCode ?? (context as any).getSourceCode();
@@ -211,7 +208,9 @@ export const useMotionTokenValues: Rule.RuleModule = {
 			// Insert after the last existing import, or at top if no imports exist
 			const lastImport = [...programBody].reverse().find((n) => n.type === 'ImportDeclaration');
 			if (lastImport) {
-				return [fixer.insertTextAfter(lastImport as any, `\nimport { token } from '@atlaskit/tokens';`)];
+				return [
+					fixer.insertTextAfter(lastImport as any, `\nimport { token } from '@atlaskit/tokens';`),
+				];
 			}
 			if (programBody.length > 0) {
 				return [
@@ -257,10 +256,7 @@ export const useMotionTokenValues: Rule.RuleModule = {
 								messageId: 'useMotionDurationTokenSuggest',
 								data: { suggestion },
 								fix(fixer) {
-									return [
-										...getImportFix(fixer),
-										fixer.replaceText(node.value, suggestion),
-									];
+									return [...getImportFix(fixer), fixer.replaceText(node.value, suggestion)];
 								},
 							},
 						],
@@ -305,10 +301,7 @@ export const useMotionTokenValues: Rule.RuleModule = {
 						messageId: 'useMotionDurationTokenSuggest',
 						data: { suggestion: templateLiteral },
 						fix(fixer) {
-							return [
-								...getImportFix(fixer),
-								fixer.replaceText(node.value, templateLiteral),
-							];
+							return [...getImportFix(fixer), fixer.replaceText(node.value, templateLiteral)];
 						},
 					},
 				],
@@ -363,10 +356,7 @@ export const useMotionTokenValues: Rule.RuleModule = {
 							messageId: 'useMotionEasingTokenSuggest',
 							data: { suggestion: templateLiteral },
 							fix(fixer) {
-								return [
-									...getImportFix(fixer),
-									fixer.replaceText(node.value, templateLiteral),
-								];
+								return [...getImportFix(fixer), fixer.replaceText(node.value, templateLiteral)];
 							},
 						},
 					],

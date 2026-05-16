@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Tasks and Decisions', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the tasks and decisions plugin used by \`@atlaskit/editor-core\`.
 

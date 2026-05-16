@@ -23,7 +23,9 @@ block you are in (e.g. "Act: doing thing"), just use this as a convention for ho
 spacing in tests. You can still use comments to explain things in tests, just do not explicitly call
 out "You are now in an arrange section" in your comments.
 
-**Stable selectors (`testId` / `data-testid`):** Primitives vs composed packages (e.g. `@atlaskit/popup` **`--content`**, Tooltip suffixes, render-prop footguns) — see **[../architecture/test-ids.md](../architecture/test-ids.md)**.
+**Stable selectors (`testId` / `data-testid`):** Primitives vs composed packages (e.g.
+`@atlaskit/popup` **`--content`**, Tooltip suffixes, render-prop footguns) — see
+**[../architecture/test-ids.md](../architecture/test-ids.md)**.
 
 ---
 

@@ -72,8 +72,8 @@ const useIsShowPreauthBetterHovercard = (
 	const { rovoOptions: rovoConfig } = useRovoConfig();
 	return Boolean(
 		useIsUnauthorisedView(props) &&
-			rovoConfig?.isRovoEnabled &&
-			expValEquals('platform_sl_3p_preauth_better_hovercard', 'isEnabled', true),
+		rovoConfig?.isRovoEnabled &&
+		expValEquals('platform_sl_3p_preauth_better_hovercard', 'isEnabled', true),
 	);
 };
 

@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Grid', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the grid plugin used by \`@atlaskit/editor-core\`.
 

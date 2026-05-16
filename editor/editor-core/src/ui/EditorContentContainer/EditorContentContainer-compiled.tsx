@@ -115,7 +115,6 @@ const blanketSelectionStyles = css({
 		bottom: 0,
 		width: '100%',
 		pointerEvents: 'none',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
 		zIndex: 12,
 		backgroundColor: token('color.blanket.selected'),
 	},
@@ -704,22 +703,270 @@ const editorContentStyles = cssMap({
 			},
 	},
 	blockquoteDangerStyles: {
-		// placeholder for migration
+		'.ProseMirror blockquote.danger': {
+			backgroundColor: token('color.background.danger'),
+			borderLeftColor: token('color.border.danger'),
+		},
 	},
 	blockquoteSelectedNodeStyles: {
-		// placeholder for migration
+		'.ProseMirror blockquote.ak-editor-selected-node': {
+			background: token('color.background.accent.blue.subtler'),
+			borderLeftColor: token('color.border.selected'),
+			WebkitUserSelect: 'text',
+
+			'&::selection, *::selection': {
+				backgroundColor: 'transparent',
+			},
+
+			'&::-moz-selection, *::-moz-selection': {
+				backgroundColor: 'transparent',
+			},
+		},
 	},
 	blocktypeStyles: {
-		// placeholder for migration
+		'.ProseMirror': {
+			// Block Quote Shared Styles
+			'& blockquote': {
+				boxSizing: 'border-box',
+				color: 'inherit',
+				width: '100%',
+				display: 'inline-block',
+
+				// These 2 styles are needed to avoid Confluence's batch.css overrides that expand blockquote with extra padding after SSR.
+				paddingTop: 0,
+				paddingBottom: 0,
+
+				paddingLeft: token('space.200'),
+				borderLeftWidth: token('border.width.selected'),
+				borderLeftStyle: 'solid',
+				borderLeftColor: token('color.border'),
+				margin: '0.75rem 0 0 0', // From https://docs.google.com/spreadsheets/d/1iYusRGCT4PoPfvxbJ8NrgjtfFgXLm5lpDWXzjua1W2E/edit#gid=93913128
+				marginRight: 0,
+				'[dir="rtl"] &': {
+					paddingLeft: 0,
+					paddingRight: token('space.200'),
+				},
+				'&:first-child': {
+					marginTop: 0,
+				},
+				'&::before': {
+					content: "''",
+				},
+				'&::after': {
+					content: 'none',
+				},
+				'& p': {
+					display: 'block',
+				},
+				'& table, & table:last-child': {
+					display: 'inline-table',
+				},
+				// Workaround for overriding the inline-block display on last child of a blockquote set in CSS reset.
+				'> .code-block:last-child, >.mediaSingleView-content-wrap:last-child, >.mediaGroupView-content-wrap:last-child':
+					{
+						display: 'block',
+					},
+				'> .extensionView-content-wrap:last-child': {
+					display: 'block',
+				},
+			},
+			// Headings Shared Styles -> Heading With Alignment Styles
+			// Override marginTop: 0 with default margin found in headingsSharedStyles for first heading in alignment block that is not the first child
+			'.fabric-editor-block-mark.fabric-editor-alignment:not(:first-child)': {
+				'> h1:first-child': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginTop: '1.667em',
+				},
+				'> h2:first-child': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginTop: '1.8em',
+				},
+				'> h3:first-child': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginTop: '2em',
+				},
+				'> h4:first-child': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginTop: '1.357em',
+				},
+				'> h5:first-child': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginTop: '1.667em',
+				},
+				'> h6:first-child': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginTop: '1.455em',
+				},
+			},
+			// Set marginTop: 0 if alignment block is next to a gap cursor or widget that is first child
+			'.ProseMirror-gapcursor:first-child + .fabric-editor-block-mark.fabric-editor-alignment, .ProseMirror-widget:first-child + .fabric-editor-block-mark.fabric-editor-alignment, .ProseMirror-widget:first-child + .ProseMirror-widget:nth-child(2) + .fabric-editor-block-mark.fabric-editor-alignment':
+				{
+					'> :is(h1, h2, h3, h4, h5, h6):first-child': {
+						marginTop: '0',
+					},
+				},
+		},
 	},
 	blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes: {
-		// placeholder for migration
+		'.ak-editor-content-area.appearance-full-page .ProseMirror blockquote': {
+			paddingLeft: token('space.250'),
+		},
+		// Don't want extra padding for inline editor (nested)
+		'.ak-editor-content-area .ak-editor-content-area .ProseMirror blockquote': {
+			paddingLeft: token('space.200'),
+		},
 	},
 	blocktypeStyles_fg_platform_editor_typography_ugc: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'& h1': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				font: 'var(--editor-font-ugc-token-heading-h1)',
+				marginBottom: 0,
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '1.45833em',
+				'& strong': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontWeight: 'var(--editor-font-ugc-token-weight-heading-bold)',
+				},
+			},
+			'& h2': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				font: 'var(--editor-font-ugc-token-heading-h2)',
+				marginBottom: 0,
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '1.4em',
+				'& strong': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontWeight: 'var(--editor-font-ugc-token-weight-heading-bold)',
+				},
+			},
+			'& h3': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				font: 'var(--editor-font-ugc-token-heading-h3)',
+				marginBottom: 0,
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '1.31249em',
+				'& strong': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontWeight: 'var(--editor-font-ugc-token-weight-heading-bold)',
+				},
+			},
+			'& h4': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				font: 'var(--editor-font-ugc-token-heading-h4)',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '1.25em',
+				'& strong': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontWeight: 'var(--editor-font-ugc-token-weight-heading-bold)',
+				},
+			},
+			'& h5': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				font: 'var(--editor-font-ugc-token-heading-h5)',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '1.45833em',
+				textTransform: 'none',
+				'& strong': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontWeight: 'var(--editor-font-ugc-token-weight-heading-bold)',
+				},
+			},
+			'& h6': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				font: 'var(--editor-font-ugc-token-heading-h6)',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '1.59091em',
+				textTransform: 'none',
+				'& strong': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontWeight: 'var(--editor-font-ugc-token-weight-heading-bold)',
+				},
+			},
+		},
 	},
 	blocktypeStyles_without_fg_platform_editor_typography_ugc: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'& h1': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				fontSize: 'calc(24em / 14)',
+				fontStyle: 'inherit',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: 'calc(28 / 24)',
+				color: token('color.text'),
+				fontWeight: token('font.weight.medium'),
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				letterSpacing: `-0.01em`,
+				marginBottom: 0,
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '1.667em',
+			},
+			'& h2': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				fontSize: 'calc(20em / 14)',
+				fontStyle: 'inherit',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: 'calc(24 / 20)',
+				color: token('color.text'),
+				fontWeight: token('font.weight.medium'),
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				letterSpacing: `-0.008em`,
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '1.8em',
+				marginBottom: 0,
+			},
+			'& h3': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				fontSize: 'calc(16em / 14)',
+				fontStyle: 'inherit',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: 'calc(20 / 16)',
+				color: token('color.text'),
+				fontWeight: token('font.weight.semibold'),
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				letterSpacing: `-0.006em`,
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '2em',
+				marginBottom: 0,
+			},
+			'& h4': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				fontSize: 'calc(14em / 14)',
+				fontStyle: 'inherit',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: 'calc(16 / 14)',
+				color: token('color.text'),
+				fontWeight: token('font.weight.semibold'),
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				letterSpacing: '-0.003em',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '1.357em',
+			},
+			'& h5': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				fontSize: 'calc(12em / 14)',
+				fontStyle: 'inherit',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: 'calc(16 / 12)',
+				color: token('color.text'),
+				fontWeight: token('font.weight.semibold'),
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '1.667em',
+				textTransform: 'none',
+			},
+			'& h6': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				fontSize: 'calc(11em / 14)',
+				fontStyle: 'inherit',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: 'calc(16 / 11)',
+				color: token('color.text.subtlest'),
+				fontWeight: token('font.weight.bold'),
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '1.455em',
+				textTransform: 'none',
+			},
+		},
 	},
 	codeBlockStyles: {
 		'.ProseMirror': {
@@ -1638,8 +1885,381 @@ const editorContentStyles = cssMap({
 			fontSize: 'var(--ak-editor-base-font-size)',
 		},
 	},
+	extensionStyles: {
+		'.multiBodiedExtensionView-content-wrap': {
+			'&.danger > span > .multiBodiedExtension--container': {
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				backgroundColor: token('color.background.danger'),
+			},
+
+			// ...extensionLabelStyles
+			'&.danger > span > div > .extension-label': {
+				backgroundColor: token('color.background.accent.red.subtler'),
+				color: token('color.text.danger'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label': {
+				backgroundColor: token('color.background.selected'),
+				color: token('color.text.selected'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			/* Targets the icon for bodied macro styling in button label */
+			'&.danger > span > div > .extension-label > span': {
+				display: 'inline',
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div .extension-label > span': {
+				display: 'inline',
+			},
+			/* Start of bodied extension edit toggle styles */
+			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container': {
+				opacity: 1,
+			},
+			'&:not(.danger).ak-editor-selected-node > span > .extension-edit-toggle-container': {
+				opacity: 1,
+			},
+			/* In view mode of the bodied macro, we never want to show the extension label */
+			'&.danger.ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+				opacity: 0,
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+				opacity: 0,
+			},
+			/* .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled */
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+				{
+					boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+				},
+			'&.danger.ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+				{
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				},
+			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container > .extension-edit-toggle':
+				{
+					backgroundColor: token('color.background.accent.red.subtler'),
+					color: token('color.text.danger'),
+					boxShadow: 'none',
+				},
+
+			'&.danger > span > .with-danger-overlay': {
+				backgroundColor: 'transparent',
+				'.multiBodiedExtension--overlay': {
+					// ...dangerOverlayStyles
+					opacity: 0.3,
+					backgroundColor: token('color.background.danger.hovered'),
+				},
+			},
+
+			'&:not(.danger).ak-editor-selected-node': {
+				'& > span > .multiBodiedExtension--container': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...blanketSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+				},
+			},
+
+			'.multiBodiedExtension--container': {
+				width: '100%',
+				maxWidth: '100%', // ensure width can't go over 100%
+			},
+		},
+
+		'.inlineExtensionView-content-wrap': {
+			'&.danger > span > .extension-container': {
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				backgroundColor: token('color.background.danger'),
+			},
+
+			'&.danger > span > .with-danger-overlay': {
+				/* If the macro turned used to red before, not setting the background to be transparent will cause the
+			danger state to have two layers of red which we don't want. */
+				backgroundColor: 'transparent',
+				'.extension-overlay': {
+					// ...dangerOverlayStyles
+					opacity: 0.3,
+					backgroundColor: token('color.background.danger.hovered'),
+				},
+			},
+
+			'&:not(.danger).ak-editor-selected-node': {
+				'& > span > .extension-container': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+				},
+			},
+
+			// ...extensionLabelStyles
+			'&.danger > span > div > .extension-label': {
+				backgroundColor: token('color.background.accent.red.subtler'),
+				color: token('color.text.danger'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label': {
+				backgroundColor: token('color.background.selected'),
+				color: token('color.text.selected'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			/* Targets the icon for bodied macro styling in button label */
+			'&.danger > span > div > .extension-label > span': {
+				display: 'inline',
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div .extension-label > span': {
+				display: 'inline',
+			},
+			/* Start of bodied extension edit toggle styles */
+			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container': {
+				opacity: 1,
+			},
+			'&:not(.danger).ak-editor-selected-node > span > .extension-edit-toggle-container': {
+				opacity: 1,
+			},
+			/* In view mode of the bodied macro, we never want to show the extension label */
+			'&.danger.ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+				opacity: 0,
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+				opacity: 0,
+			},
+			/* .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled */
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+				{
+					boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+				},
+			'&.danger.ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+				{
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				},
+			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container > .extension-edit-toggle':
+				{
+					backgroundColor: token('color.background.accent.red.subtler'),
+					color: token('color.text.danger'),
+					boxShadow: 'none',
+				},
+		},
+
+		/* This is referenced in the toDOM of a bodied extension and is used to put
+		label content into the bodied extension.
+		We do this so that we don't serialise the label (which causes the label to be
+		copied to the clipboard causing copy-paste issues). */
+		'.bodied-extension-to-dom-label::after': {
+			content: 'attr(data-bodied-extension-label)',
+		},
+
+		'.extensionView-content-wrap, .multiBodiedExtensionView-content-wrap, .bodiedExtensionView-content-wrap':
+			{
+				margin: `0.75rem 0`,
+
+				'&:first-of-type': {
+					marginTop: 0,
+				},
+
+				'&:last-of-type': {
+					marginBottom: 0,
+				},
+
+				'&:not(.danger).ak-editor-selected-node': {
+					'& > span > .extension-container': {
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+						...boxShadowSelectionStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+						...hideNativeBrowserTextSelectionStyles,
+					},
+				},
+
+				'&.danger > span > .extension-container': {
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					backgroundColor: token('color.background.danger'),
+				},
+
+				// ...extensionLabelStyles
+				'&.danger > span > div > .extension-label': {
+					backgroundColor: token('color.background.accent.red.subtler'),
+					color: token('color.text.danger'),
+					opacity: 1,
+					boxShadow: 'none',
+				},
+				'&:not(.danger).ak-editor-selected-node > span > div > .extension-label': {
+					backgroundColor: token('color.background.selected'),
+					color: token('color.text.selected'),
+					opacity: 1,
+					boxShadow: 'none',
+				},
+				/* Targets the icon for bodied macro styling in button label */
+				'&.danger > span > div > .extension-label > span': {
+					display: 'inline',
+				},
+				/** Targets legacy content header in LCM extension */
+				'&.danger > span > .legacy-content-header': {
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					backgroundColor: `${token('color.background.danger')}`,
+
+					'& .status-lozenge-span > span': {
+						backgroundColor: `${token('color.background.accent.red.subtle.hovered')}`,
+					},
+				},
+				'&:not(.danger).ak-editor-selected-node > span > div .extension-label > span': {
+					display: 'inline',
+				},
+				/* Start of bodied extension edit toggle styles */
+				'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container': {
+					opacity: 1,
+				},
+				'&:not(.danger).ak-editor-selected-node > span > .extension-edit-toggle-container': {
+					opacity: 1,
+				},
+				/* In view mode of the bodied macro, we never want to show the extension label */
+				'&.danger.ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+					opacity: 0,
+				},
+				'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.always-hide-label':
+					{
+						opacity: 0,
+					},
+				/* .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled */
+				'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+					{
+						boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+					},
+				'&.danger.ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+					{
+						boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					},
+				'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container > .extension-edit-toggle':
+					{
+						backgroundColor: token('color.background.accent.red.subtler'),
+						color: token('color.text.danger'),
+						boxShadow: 'none',
+					},
+
+				'&.danger > span > .with-danger-overlay': {
+					backgroundColor: 'transparent',
+					'.extension-overlay': {
+						// ...dangerOverlayStyles
+						opacity: 0.3,
+						backgroundColor: token('color.background.danger.hovered'),
+					},
+				},
+
+				'&.inline': {
+					// wordWrap: 'break-all' was previously used here, but break-all is not a valid CSS property of word-wrap.
+					// It was probably intended to be word-break: break-all, however I'm omitting it here for consistency with previous actual behavior.
+				},
+			},
+
+		'.extensionView-content-wrap .extension-container': {
+			overflow: 'hidden',
+
+			/* Don't hide overflow for editors inside extensions. */
+			'&:has(.extension-editable-area)': {
+				overflow: 'visible',
+			},
+		},
+
+		'.bodiedExtensionView-content-wrap .extensionView-content-wrap .extension-container': {
+			width: '100%',
+			maxWidth: '100%', // ensure width can't go over 100%
+		},
+
+		"[data-mark-type='fragment']": {
+			'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+				margin: '0.75rem 0',
+			},
+
+			"& > [data-mark-type='dataConsumer']": {
+				'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+					margin: '0.75rem 0',
+				},
+			},
+
+			'&:first-child': {
+				'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+					marginTop: 0,
+				},
+				"& > [data-mark-type='dataConsumer']": {
+					'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+						marginTop: 0,
+					},
+				},
+			},
+
+			'&:nth-last-of-type(-n + 2):not(:first-of-type)': {
+				'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+					marginBottom: 0,
+				},
+
+				"& > [data-mark-type='dataConsumer']": {
+					'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+						marginBottom: 0,
+					},
+				},
+			},
+		},
+	},
+	// Dense content mode extensions styling fix - addresses EDITOR-1992
+	// When cleaning up the experiment, move this logic into the base styles above
+	// Used when (contentMode === 'compact' && expValEquals('confluence_compact_text_format', 'isEnabled', true))
+	// OR (expValEquals('cc_editor_ai_content_mode', 'variant', 'test') && fg('platform_editor_content_mode_button_mvp'))
+	extensionStylesDense: {
+		// Table of Contents Macro
+		'.extension-container [data-macro-name="toc"] * :not(.status-lozenge-span *)': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: 'var(--ak-editor-base-font-size)',
+		},
+		// Excerpt Include Macro
+		'.extension-container .ak-excerpt-include :not([data-inline-card-lozenge] *, code, .status-lozenge-span *, .code-block *)':
+			{
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				fontSize: 'var(--ak-editor-base-font-size)',
+			},
+	},
+	// Used when contentMode === 'compact' && (expValEquals('confluence_compact_text_format', 'isEnabled', true) || expValEquals('cc_editor_ai_content_mode', 'variant', 'test')))
+	extensionStylesLegacyDense: {
+		'.extension-container a span': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			fontSize: `calc(${akEditorFullPageDenseFontSize}rem / 16)`,
+		},
+	},
 	extensionDiffStyles: {
-		// placeholder for migration
+		'.show-diff-changed-decoration-node > span .extension-container': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			boxShadow: `0 0 0 var(--diff-decoration-marker-ring-width, 1px) var(--diff-decoration-marker-color)`,
+		},
+	},
+	// Dense content mode extensions styling fix - addresses EDITOR-1992
+	// Used when (expValEquals('platform_editor_bodiedextension_layoutshift_fix', 'isEnabled', true))
+	bodiedExtensionLayoutShiftFix: {
+		'.bodiedExtensionView-content-wrap': {
+			'.bodiedExtension-content-outer-wrapper': {
+				margin: '23px -1px -1px -1px', // Reserve space for lozenge (24px) then subtract 1px to account for the border of the inner wrapper preventing layoutshift
+			},
+			'.bodiedExtension-content-inner-wrapper': {
+				margin: `0 ${token('space.negative.250')}`,
+				padding: `${token('space.200')} ${token('space.250')}`,
+				border: `${token('border.width')} solid ${token('color.border')}`,
+				borderRadius: token('radius.small', '3px'),
+			},
+			'.extension-container': {
+				// Remove styling when Prosemirror moves content inside
+
+				'.bodiedExtension-content-outer-wrapper': {
+					margin: '0',
+				},
+				'.bodiedExtension-content-inner-wrapper': {
+					margin: 0,
+					padding: 0,
+					border: 'none',
+					borderRadius: 0,
+				},
+			},
+		},
 	},
 	findReplaceStyles: {
 		'.search-match': {
@@ -2328,7 +2948,12 @@ const editorContentStyles = cssMap({
 		},
 	},
 	listDangerStyles: {
-		// placeholder for migration
+		// only apply danger styles to the outermost list to avoid nested danger styles for lists within lists
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		['.ProseMirror :is(ul, ol, div[data-node-type="actionList"]):not(:is(ul, ol, div[data-node-type="actionList"]) *).ak-editor-selected-node:not(.ak-editor-selected-node *).danger']:
+			{
+				background: token('color.background.danger'),
+			},
 	},
 	listItemHiddenMarkerStyles: {
 		'.ProseMirror': {
@@ -2363,7 +2988,21 @@ const editorContentStyles = cssMap({
 		},
 	},
 	listSelectedNodeStyles: {
-		// placeholder for migration
+		// only apply selected styles to the outermost list to avoid nested selection styles for lists within lists
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		['.ProseMirror :is(ul, ol, div[data-node-type="actionList"]):not(:is(ul, ol, div[data-node-type="actionList"]) *).ak-editor-selected-node:not(.ak-editor-selected-node *)']:
+			{
+				background: token('color.background.accent.blue.subtler'),
+				WebkitUserSelect: 'text',
+
+				'&::selection, *::selection': {
+					backgroundColor: 'transparent',
+				},
+
+				'&::-moz-selection, *::-moz-selection': {
+					backgroundColor: 'transparent',
+				},
+			},
 	},
 	listsStyles: {
 		'.ProseMirror': {
@@ -3835,7 +4474,15 @@ const editorContentStyles = cssMap({
 		},
 	},
 	textDangerStyles: {
-		// placeholder for migration
+		// Apply styles if isRootText && isOuterMostSelectedNode && .danger
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		['.ProseMirror :is(p, h1, h2, h3, h4, h5, h6):not(:is(ul, ol, div[data-node-type="actionList"]) :is(p, h1, h2, h3, h4, h5, h6)).ak-editor-selected-node:not(.ak-editor-selected-node *).danger']:
+			{
+				background: token('color.background.danger'),
+				boxShadow: `0 -4px 0 ${token('color.background.danger')}, 0 4px 0 ${token(
+					'color.background.danger',
+				)}`,
+			},
 	},
 	textHighlightPaddingStyles: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -3856,7 +4503,24 @@ const editorContentStyles = cssMap({
 		},
 	},
 	textSelectedNodeStyles: {
-		// placeholder for migration
+		// Apply styles if isRootText && isOuterMostSelectedNode
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		['.ProseMirror :is(p, h1, h2, h3, h4, h5, h6):not(:is(ul, ol, div[data-node-type="actionList"]) :is(p, h1, h2, h3, h4, h5, h6)).ak-editor-selected-node:not(.ak-editor-selected-node *)']:
+			{
+				background: token('color.background.accent.blue.subtler'),
+				WebkitUserSelect: 'text',
+				boxShadow: `0 -4px 0 ${token('color.background.accent.blue.subtler')}, 0 4px 0 ${token(
+					'color.background.accent.blue.subtler',
+				)}`,
+
+				'&::selection, *::selection': {
+					backgroundColor: 'transparent',
+				},
+
+				'&::-moz-selection, *::-moz-selection': {
+					backgroundColor: 'transparent',
+				},
+			},
 	},
 	unsupportedStyles: {
 		'.unsupportedBlockView-content-wrap > div, .unsupportedInlineView-content-wrap > span:nth-of-type(2)':
@@ -4078,12 +4742,19 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.gridStyles,
 				editorContentStyles.blockMarksStyles,
 				editorContentStyles.dateStyles,
-				// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-				// TODO: uncomment and remove dynamic styles from getExtensionStyles
-				// migrate this with packages/editor/editor-core/src/ui/EditorContentContainer/styles/extensionStyles.ts
-				// suggest creating a new cssMap for the variant use case from the guide below
-				// reference: https://atlassian.design/components/eslint-plugin-ui-styling-standard/no-dynamic-styles/usage
-				// getExtensionStyles(contentMode),
+				editorContentStyles.extensionStyles,
+				((contentMode === 'compact' &&
+					expValEquals('confluence_compact_text_format', 'isEnabled', true)) ||
+					(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+						fg('platform_editor_content_mode_button_mvp'))) &&
+					editorContentStyles.extensionStylesDense,
+				contentMode === 'compact' &&
+					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+					!expValEquals('confluence_compact_text_format', 'isEnabled', true) &&
+					!fg('platform_editor_content_mode_button_mvp') &&
+					editorContentStyles.extensionStylesLegacyDense,
+				expValEquals('platform_editor_bodiedextension_layoutshift_fix', 'isEnabled', true) &&
+					editorContentStyles.bodiedExtensionLayoutShiftFix,
 				editorContentStyles.extensionDiffStyles,
 				editorContentStyles.expandStylesBase,
 				// Apply expand delta styles conditionally based on useStandardNodeWidth (negative margins or not)

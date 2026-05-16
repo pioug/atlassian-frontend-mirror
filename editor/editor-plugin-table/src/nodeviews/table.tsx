@@ -16,7 +16,12 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
-import type { Decoration, DecorationSource, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import type {
+	Decoration,
+	DecorationSource,
+	EditorView,
+	NodeView,
+} from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -398,7 +403,8 @@ export default class TableView extends ReactNodeView<Props> {
 		const currentTableMap = TableMap.get(this.node);
 		const nextTableMap = TableMap.get(node);
 		const tableGeometryChanged =
-			currentTableMap.width !== nextTableMap.width || currentTableMap.height !== nextTableMap.height;
+			currentTableMap.width !== nextTableMap.width ||
+			currentTableMap.height !== nextTableMap.height;
 		const didUpdate = super.update(node, decorations, innerDecorations, validUpdate);
 
 		if (didUpdate && tableGeometryChanged) {

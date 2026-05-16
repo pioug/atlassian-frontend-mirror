@@ -94,7 +94,7 @@ export type TypeAheadHandler = {
 
 	/**
 	 * Optional handler that returns an item (Ask Rovo) to display in the typeahead's
-	 * empty-results state. 
+	 * empty-results state.
 	 */
 	getEmptyItem?: (props: { editorState: EditorState }) => TypeAheadItem | undefined;
 

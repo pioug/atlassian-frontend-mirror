@@ -99,11 +99,7 @@ export const MenuTopLayer: ({ selectProps, innerProps }: MenuProps<OptionType>) 
 				 * the menu, so it must stay in the layout box without becoming
 				 * a focusable / announced control.
 				 */}
-				<div
-					{...innerProps}
-					role="presentation"
-					onMouseDown={onMenuMouseDown}
-				>
+				<div {...innerProps} role="presentation" onMouseDown={onMenuMouseDown}>
 					<Wrapper>
 						<Calendar
 							day={day}

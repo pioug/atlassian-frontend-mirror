@@ -332,7 +332,7 @@ export class ReferenceSyncBlockStoreManager {
 			// `product` from cached data is preferred when available; fall back to parsing
 			// the resourceId.
 			const sourceProduct = fg('platform_synced_block_patch_11')
-				? product ?? getSourceProductFromResourceIdSafe(resourceId)
+				? (product ?? getSourceProductFromResourceIdSafe(resourceId))
 				: undefined;
 
 			if (!sourceAri || !product || !blockInstanceId) {
@@ -560,8 +560,8 @@ export class ReferenceSyncBlockStoreManager {
 						syncBlockInstance.error.reason || syncBlockInstance.error.type,
 						syncBlockInstance.resourceId,
 						fg('platform_synced_block_patch_11')
-							? syncBlockInstance.data?.product ??
-									getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId)
+							? (syncBlockInstance.data?.product ??
+									getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId))
 							: undefined,
 					),
 				);
@@ -587,8 +587,8 @@ export class ReferenceSyncBlockStoreManager {
 						localId,
 						// Prefer cached product when available; fall back to parsing the resourceId.
 						fg('platform_synced_block_patch_11')
-							? syncBlockInstance.data?.product ??
-									getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId)
+							? (syncBlockInstance.data?.product ??
+									getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId))
 							: undefined,
 					),
 				);

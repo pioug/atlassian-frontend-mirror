@@ -99,5 +99,5 @@ Per-component migration records (what changed, how, and why).
 - **[avatar-group-migration.md](./migrations/avatar-group-migration.md)** — overflow menu only
 - **[datetime-picker-migration.md](./migrations/datetime-picker-migration.md)** — calendar / time
   list surfaces
-- **[popper-migration.md](./migrations/popper-migration.md)** — deprecation plan for the
-  positioning primitive itself (no in-package code path)
+- **[popper-migration.md](./migrations/popper-migration.md)** — deprecation plan for the positioning
+  primitive itself (no in-package code path)

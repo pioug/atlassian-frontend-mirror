@@ -3,8 +3,8 @@
 > What changed when migrating `@atlaskit/tooltip` to use `@atlaskit/top-layer`, behind the
 > `platform-dst-top-layer` feature flag.
 
-**Test IDs:** Trigger vs popover vs primitive layers (`--container`, `--popover`, etc.) and render-prop
-usage — **[architecture/test-ids.md](../architecture/test-ids.md)**.
+**Test IDs:** Trigger vs popover vs primitive layers (`--container`, `--popover`, etc.) and
+render-prop usage — **[architecture/test-ids.md](../architecture/test-ids.md)**.
 
 ---
 

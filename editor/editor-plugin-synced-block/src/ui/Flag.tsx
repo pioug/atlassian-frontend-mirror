@@ -99,7 +99,12 @@ export const Flag = ({ api }: Props): React.JSX.Element | undefined => {
 		return;
 	}
 
-	const { title: defaultTitle, description: defaultDescription, action, type } = flagMap[activeFlag.id];
+	const {
+		title: defaultTitle,
+		description: defaultDescription,
+		action,
+		type,
+	} = flagMap[activeFlag.id];
 	const { onRetry, onDismissed: onDismissedCallback } = activeFlag;
 
 	// For the unpublished-paste flag, swap to the Jira-flavoured copy when the source

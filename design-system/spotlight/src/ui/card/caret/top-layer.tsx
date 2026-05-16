@@ -11,7 +11,6 @@ import { SpotlightContext } from '../../../controllers/context';
 import type { Placement } from '../../../types';
 import { getResolvedPositionArea } from '../../../utils/get-resolved-position-area';
 
-
 const styles = cssMap({
 	root: {
 		backgroundColor: token('color.background.neutral.bold'),
@@ -106,16 +105,16 @@ export const Caret: React.ForwardRefExoticComponent<
 > = forwardRef<HTMLDivElement, CaretProps>(({ placement, testId }: CaretProps, ref) => {
 	const { card, popoverContent } = useContext(SpotlightContext);
 
-	const positionArea = getResolvedPositionArea(placement || card.placement, popoverContent.positionArea)
+	const positionArea = getResolvedPositionArea(
+		placement || card.placement,
+		popoverContent.positionArea,
+	);
 
 	return (
 		<div
 			data-testid={testId}
 			ref={ref}
-			css={[
-				styles.root,
-				styles[positionArea],
-			]}
+			css={[styles.root, styles[positionArea]]}
 			// Growth Pattern Library designs dictate 1px radius. cssMap only allows tokens
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={{ borderEndStartRadius: '1px' }}

@@ -5,7 +5,11 @@ import {
 	type ProviderGenerator,
 	type SmartLinkResponse,
 } from '@atlaskit/linking-types';
-import { isBaseEntity, isDesignEntity, isDocumentEntity } from '@atlaskit/linking-types/entity-types';
+import {
+	isBaseEntity,
+	isDesignEntity,
+	isDocumentEntity,
+} from '@atlaskit/linking-types/entity-types';
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -84,10 +88,12 @@ export const extractEntityProvider = (response?: SmartLinkResponse): LinkProvide
 
 export const extractEntityIcon = (
 	response?: SmartLinkResponse,
-): {
-	label: string | undefined;
-	url: string | undefined;
-} | undefined => {
+):
+	| {
+			label: string | undefined;
+			url: string | undefined;
+	  }
+	| undefined => {
 	if (fg('platform_lp_use_entity_icon_url_for_icon')) {
 		const entity = extractEntity(response);
 		if (!entity) {

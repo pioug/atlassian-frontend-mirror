@@ -38,5 +38,5 @@ export const Caret: React.ForwardRefExoticComponent<
 		<TopLayer ref={ref} placement={placement} testId={testId} />
 	) : (
 		<Legacy ref={ref} placement={placement} testId={testId} />
-	)
+	);
 });

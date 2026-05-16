@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Toolbar Lists Indentation', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the toolbar lists and indentation plugin used by \`@atlaskit/editor-core\`.
 

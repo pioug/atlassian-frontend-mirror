@@ -77,15 +77,13 @@ export const profileCardRenderer = ({
 									dom,
 									key,
 								);
-								cleanupSelection = api?.selection?.sharedState.onChange(
-									({ nextSharedState }) => {
-										const selection = nextSharedState?.selection;
-										if (selection instanceof NodeSelection ? selection.node === node : false) {
-											return;
-										}
-										removeProfileCard?.();
-									},
-								);
+								cleanupSelection = api?.selection?.sharedState.onChange(({ nextSharedState }) => {
+									const selection = nextSharedState?.selection;
+									if (selection instanceof NodeSelection ? selection.node === node : false) {
+										return;
+									}
+									removeProfileCard?.();
+								});
 							}
 							return;
 						}

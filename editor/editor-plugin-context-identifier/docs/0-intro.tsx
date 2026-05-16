@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Context Identifier', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the context identifier plugin used by \`@atlaskit/editor-core\`.
 

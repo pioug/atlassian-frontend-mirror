@@ -1,9 +1,6 @@
 import { uuid } from '../../../../utils';
 import { createSchema } from '../../../../schema/create-schema';
-import type {
-	TableAttributes,
-	CellAttributes,
-} from '../../../../schema/nodes/tableNodes';
+import type { TableAttributes, CellAttributes } from '../../../../schema/nodes/tableNodes';
 import {
 	table,
 	tableCell,
@@ -17,10 +14,7 @@ import {
 	tableHeaderWithNestedTableStage0,
 	setGlobalTheme,
 } from '../../../../schema/nodes/tableNodes';
-import {
-	fromHTML,
-	toHTML,
-} from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
 
 import {
 	ATTRIBUTES_PARSE_DEFAULTS,
@@ -69,15 +63,7 @@ import { normalizeNodeSpec } from '../../_utils';
 
 const makeSchema = () =>
 	createSchema({
-		nodes: [
-			'doc',
-			'paragraph',
-			'text',
-			'table',
-			'tableRow',
-			'tableCell',
-			'tableHeader',
-		],
+		nodes: ['doc', 'paragraph', 'text', 'table', 'tableRow', 'tableCell', 'tableHeader'],
 		marks: ['fragment', 'unsupportedMark', 'unsupportedNodeAttribute'],
 		customNodeSpecs: {
 			table: tableWithNestedTable,
@@ -91,15 +77,7 @@ const makeSchema = () =>
 
 const makeSchemaWithFontSize = () =>
 	createSchema({
-		nodes: [
-			'doc',
-			'paragraph',
-			'text',
-			'table',
-			'tableRow',
-			'tableCell',
-			'tableHeader',
-		],
+		nodes: ['doc', 'paragraph', 'text', 'table', 'tableRow', 'tableCell', 'tableHeader'],
 		marks: [
 			'fontSize',
 			'alignment',
@@ -548,8 +526,7 @@ describe(`${packageName}/schema table node`, () => {
 		it('should parse with defaults if missing', () => {
 			const doc = fromHTML(ATTRIBUTES_PARSE_DEFAULTS_NESTED_TABLE, schema);
 
-			const parsedNestedTable =
-				doc.firstChild!.firstChild!.firstChild!.firstChild!;
+			const parsedNestedTable = doc.firstChild!.firstChild!.firstChild!.firstChild!;
 			expect(parsedNestedTable.type.spec).toEqual(table);
 			expect(parsedNestedTable.attrs).toEqual({
 				__autoSize: false,
@@ -562,13 +539,9 @@ describe(`${packageName}/schema table node`, () => {
 		});
 
 		it('should parse numbered columns', () => {
-			const doc = fromHTML(
-				ATTRIBUTES_PARSE_NUMBERED_COLUMNS_NESTED_TABLE,
-				schema,
-			);
+			const doc = fromHTML(ATTRIBUTES_PARSE_NUMBERED_COLUMNS_NESTED_TABLE, schema);
 
-			const parsedNestedTable =
-				doc.firstChild!.firstChild!.firstChild!.firstChild!;
+			const parsedNestedTable = doc.firstChild!.firstChild!.firstChild!.firstChild!;
 			expect(parsedNestedTable.type.spec).toEqual(table);
 			expect(parsedNestedTable.attrs).toEqual({
 				__autoSize: false,
@@ -583,8 +556,7 @@ describe(`${packageName}/schema table node`, () => {
 		it('should parse table with width', () => {
 			const doc = fromHTML(ATTRIBUTES_PARSE_WIDTH_NESTED_TABLE, schema);
 
-			const parsedNestedTable =
-				doc.firstChild!.firstChild!.firstChild!.firstChild!;
+			const parsedNestedTable = doc.firstChild!.firstChild!.firstChild!.firstChild!;
 			expect(parsedNestedTable.type.spec).toEqual(table);
 			expect(parsedNestedTable.attrs).toEqual({
 				__autoSize: false,
@@ -599,8 +571,7 @@ describe(`${packageName}/schema table node`, () => {
 		it('should parse wide layout', () => {
 			const doc = fromHTML(ATTRIBUTES_PARSE_WIDE_LAYOUT_NESTED_TABLE, schema);
 
-			const nestedParsedTable =
-				doc.firstChild!.firstChild!.firstChild!.firstChild!;
+			const nestedParsedTable = doc.firstChild!.firstChild!.firstChild!.firstChild!;
 			expect(nestedParsedTable.type.spec).toEqual(table);
 			expect(nestedParsedTable.attrs).toEqual({
 				__autoSize: false,
@@ -613,13 +584,9 @@ describe(`${packageName}/schema table node`, () => {
 		});
 
 		it('should parse full-width layout', () => {
-			const doc = fromHTML(
-				ATTRIBUTES_PARSE_FULLWIDTH_LAYOUT_NESTED_TABLE,
-				schema,
-			);
+			const doc = fromHTML(ATTRIBUTES_PARSE_FULLWIDTH_LAYOUT_NESTED_TABLE, schema);
 
-			const nestedParsedTable =
-				doc.firstChild!.firstChild!.firstChild!.firstChild!;
+			const nestedParsedTable = doc.firstChild!.firstChild!.firstChild!.firstChild!;
 			expect(nestedParsedTable.type.spec).toEqual(table);
 			expect(nestedParsedTable.attrs).toEqual({
 				__autoSize: false,
@@ -634,8 +601,7 @@ describe(`${packageName}/schema table node`, () => {
 		it('should parse center layout', () => {
 			const doc = fromHTML(ATTRIBUTES_PARSE_CENTER_LAYOUT_NESTED_TABLE, schema);
 
-			const nestedParsedTable =
-				doc.firstChild!.firstChild!.firstChild!.firstChild!;
+			const nestedParsedTable = doc.firstChild!.firstChild!.firstChild!.firstChild!;
 			expect(nestedParsedTable.type.spec).toEqual(table);
 			expect(nestedParsedTable.attrs).toEqual({
 				__autoSize: false,
@@ -648,13 +614,9 @@ describe(`${packageName}/schema table node`, () => {
 		});
 
 		it('should parse align-start layout', () => {
-			const doc = fromHTML(
-				ATTRIBUTES_PARSE_ALIGN_START_LAYOUT_NESTED_TABLE,
-				schema,
-			);
+			const doc = fromHTML(ATTRIBUTES_PARSE_ALIGN_START_LAYOUT_NESTED_TABLE, schema);
 
-			const nestedParsedTable =
-				doc.firstChild!.firstChild!.firstChild!.firstChild!;
+			const nestedParsedTable = doc.firstChild!.firstChild!.firstChild!.firstChild!;
 
 			expect(nestedParsedTable.type.spec).toEqual(table);
 			expect(nestedParsedTable.attrs).toEqual({
@@ -668,13 +630,9 @@ describe(`${packageName}/schema table node`, () => {
 		});
 
 		it('should parse align-end layout', () => {
-			const doc = fromHTML(
-				ATTRIBUTES_PARSE_ALIGN_END_LAYOUT_NESTED_TABLE,
-				schema,
-			);
+			const doc = fromHTML(ATTRIBUTES_PARSE_ALIGN_END_LAYOUT_NESTED_TABLE, schema);
 
-			const nestedParsedTable =
-				doc.firstChild!.firstChild!.firstChild!.firstChild!;
+			const nestedParsedTable = doc.firstChild!.firstChild!.firstChild!.firstChild!;
 
 			expect(nestedParsedTable.type.spec).toEqual(table);
 			expect(nestedParsedTable.attrs).toEqual({
@@ -762,10 +720,7 @@ describe(`${packageName}/schema table node`, () => {
 			});
 
 			it('should parse partial selection from 2x1 table cell selection', () => {
-				const doc = fromHTML(
-					HTML_PARSE_EDITOR_2x1_PARTIAL_CELL_SELECTION,
-					schema,
-				);
+				const doc = fromHTML(HTML_PARSE_EDITOR_2x1_PARTIAL_CELL_SELECTION, schema);
 
 				const parsedTable = doc.firstChild!;
 				expect(parsedTable.type.spec).toEqual(table);
@@ -817,8 +772,7 @@ describe(`${packageName}/schema table node`, () => {
 			it('should parse from 2x2 table selection', () => {
 				const doc = fromHTML(HTML_PARSE_EDITOR_2x2_NESTED_TABLE, schema);
 
-				const nestedParsedTable =
-					doc.firstChild!.firstChild!.firstChild!.firstChild!;
+				const nestedParsedTable = doc.firstChild!.firstChild!.firstChild!.firstChild!;
 				// type
 				expect(nestedParsedTable.type.spec).toEqual(table);
 				// structure
@@ -837,13 +791,9 @@ describe(`${packageName}/schema table node`, () => {
 			});
 
 			it('should parse from 2x2 table selection with header column', () => {
-				const doc = fromHTML(
-					HTML_PARSE_EDITOR_2x2_WITH_HEADER_COLUMN_NESTED_TABLE,
-					schema,
-				);
+				const doc = fromHTML(HTML_PARSE_EDITOR_2x2_WITH_HEADER_COLUMN_NESTED_TABLE, schema);
 
-				const nestedParsedTable =
-					doc.firstChild!.firstChild!.firstChild!.firstChild!;
+				const nestedParsedTable = doc.firstChild!.firstChild!.firstChild!.firstChild!;
 				expect(nestedParsedTable.type.spec).toEqual(table);
 				expect(nestedParsedTable.toString()).toEqual(
 					'table(tableRow(tableHeader(paragraph("A")), tableCell(paragraph("B"))), tableRow(tableHeader(paragraph("1")), tableCell(paragraph("2"))))',
@@ -851,13 +801,9 @@ describe(`${packageName}/schema table node`, () => {
 			});
 
 			it('should parse partial selection from 2x1 table header selection', () => {
-				const doc = fromHTML(
-					HTML_PARSE_EDITOR_2x1_ONLY_HEADERS_NESTED_TABLE,
-					schema,
-				);
+				const doc = fromHTML(HTML_PARSE_EDITOR_2x1_ONLY_HEADERS_NESTED_TABLE, schema);
 
-				const nestedParsedTable =
-					doc.firstChild!.firstChild!.firstChild!.firstChild!;
+				const nestedParsedTable = doc.firstChild!.firstChild!.firstChild!.firstChild!;
 				expect(nestedParsedTable.type.spec).toEqual(table);
 				expect(nestedParsedTable.toString()).toEqual(
 					'table(tableRow(tableHeader(paragraph("A")), tableHeader(paragraph("B"))))',
@@ -865,13 +811,9 @@ describe(`${packageName}/schema table node`, () => {
 			});
 
 			it('should parse partial selection from 2x1 table cell selection', () => {
-				const doc = fromHTML(
-					HTML_PARSE_EDITOR_2x1_PARTIAL_CELL_SELECTION_NESTED_TABLE,
-					schema,
-				);
+				const doc = fromHTML(HTML_PARSE_EDITOR_2x1_PARTIAL_CELL_SELECTION_NESTED_TABLE, schema);
 
-				const parsedNestedTable =
-					doc.firstChild!.firstChild!.firstChild!.firstChild!;
+				const parsedNestedTable = doc.firstChild!.firstChild!.firstChild!.firstChild!;
 				expect(parsedNestedTable.type.spec).toEqual(table);
 				expect(parsedNestedTable.toString()).toEqual(
 					'table(tableRow(tableCell(paragraph("1")), tableCell(paragraph("2"))))',
@@ -879,13 +821,9 @@ describe(`${packageName}/schema table node`, () => {
 			});
 
 			it('should parse partial selection from 1x2 table header/cell selection', () => {
-				const doc = fromHTML(
-					HTML_PARSE_EDITOR_1x2_PARTIAL_HEADER_CELL_NESTED_TABLE,
-					schema,
-				);
+				const doc = fromHTML(HTML_PARSE_EDITOR_1x2_PARTIAL_HEADER_CELL_NESTED_TABLE, schema);
 
-				const parsedNestedTable =
-					doc.firstChild!.firstChild!.firstChild!.firstChild!;
+				const parsedNestedTable = doc.firstChild!.firstChild!.firstChild!.firstChild!;
 				expect(parsedNestedTable.type.spec).toEqual(table);
 				expect(parsedNestedTable.toString()).toEqual(
 					'table(tableRow(tableHeader(paragraph("B"))), tableRow(tableCell(paragraph("2"))))',
@@ -893,13 +831,9 @@ describe(`${packageName}/schema table node`, () => {
 			});
 
 			it('should parse paragraph/table/paragraph from range selection', () => {
-				const doc = fromHTML(
-					HTML_PARSE_EDITOR_P_TABLE_P_RANGE_NESTED_TABLE,
-					schema,
-				);
+				const doc = fromHTML(HTML_PARSE_EDITOR_P_TABLE_P_RANGE_NESTED_TABLE, schema);
 
-				const parsedNestedTable =
-					doc.child(1).firstChild!.firstChild!.firstChild!;
+				const parsedNestedTable = doc.child(1).firstChild!.firstChild!.firstChild!;
 				expect(parsedNestedTable.type.spec).toEqual(table);
 				expect(parsedNestedTable.toString()).toEqual(
 					'table(tableRow(tableHeader(paragraph("A")), tableHeader(paragraph("B"))), tableRow(tableCell(paragraph("1")), tableCell(paragraph("2"))))',
@@ -907,13 +841,9 @@ describe(`${packageName}/schema table node`, () => {
 			});
 
 			it('should parse paragraph and partial table selection from range selection', () => {
-				const doc = fromHTML(
-					HTML_PARSE_EDITOR_P_PARTIAL_TABLE_NESTED_TABLE,
-					schema,
-				);
+				const doc = fromHTML(HTML_PARSE_EDITOR_P_PARTIAL_TABLE_NESTED_TABLE, schema);
 
-				const parsedNestedTable =
-					doc.child(1).firstChild!.firstChild!.firstChild!;
+				const parsedNestedTable = doc.child(1).firstChild!.firstChild!.firstChild!;
 				expect(parsedNestedTable.type.spec).toEqual(table);
 				expect(parsedNestedTable.toString()).toEqual(
 					'table(tableRow(tableHeader(paragraph("A")), tableHeader(paragraph("B"))), tableRow(tableCell(paragraph("1"))))',
@@ -942,10 +872,7 @@ describe(`${packageName}/schema table node`, () => {
 		 */
 		describe('parse from renderer encoded HTML', () => {
 			it('should parse a full 2x2 table selection (no headers)', () => {
-				const doc = fromHTML(
-					HTML_PARSE_RENDERER_FULL_TABLE_2x2_NO_HEADERS,
-					schema,
-				);
+				const doc = fromHTML(HTML_PARSE_RENDERER_FULL_TABLE_2x2_NO_HEADERS, schema);
 
 				const parsedTable = doc.firstChild!;
 				// type
@@ -966,10 +893,7 @@ describe(`${packageName}/schema table node`, () => {
 			});
 
 			it('should parse a full 2x2 table selection (with header column)', () => {
-				const doc = fromHTML(
-					HTML_PARSE_RENDERER_FULL_TABLE_2x2_HEADER_COLUMN,
-					schema,
-				);
+				const doc = fromHTML(HTML_PARSE_RENDERER_FULL_TABLE_2x2_HEADER_COLUMN, schema);
 
 				const parsedTable = doc.firstChild!;
 				// type
@@ -990,10 +914,7 @@ describe(`${packageName}/schema table node`, () => {
 			});
 
 			it('should parse a full 2x2 table selection (with header row)', () => {
-				const doc = fromHTML(
-					HTML_PARSE_RENDERER_FULL_TABLE_2x2_HEADER_ROW,
-					schema,
-				);
+				const doc = fromHTML(HTML_PARSE_RENDERER_FULL_TABLE_2x2_HEADER_ROW, schema);
 
 				const parsedTable = doc.firstChild!;
 				// type
@@ -1013,10 +934,7 @@ describe(`${packageName}/schema table node`, () => {
 				});
 			});
 			it('should parse a full 2x1 table selection (only headers)', () => {
-				const doc = fromHTML(
-					HTML_PARSE_RENDERER_FULL_2x1_TABLE_ONLY_HEADERS,
-					schema,
-				);
+				const doc = fromHTML(HTML_PARSE_RENDERER_FULL_2x1_TABLE_ONLY_HEADERS, schema);
 
 				const parsedTable = doc.firstChild!;
 				// type
@@ -1036,10 +954,7 @@ describe(`${packageName}/schema table node`, () => {
 				});
 			});
 			it('should parse a partial 2x1 cell selection', () => {
-				const doc = fromHTML(
-					HTML_PARSE_RENDERER_PARTIAL_TABLE_2x1_CELL_SELECTION,
-					schema,
-				);
+				const doc = fromHTML(HTML_PARSE_RENDERER_PARTIAL_TABLE_2x1_CELL_SELECTION, schema);
 
 				const parsedTable = doc.firstChild!;
 				// type
@@ -1059,10 +974,7 @@ describe(`${packageName}/schema table node`, () => {
 				});
 			});
 			it('should parse a partial 2x1 header/cell selection', () => {
-				const doc = fromHTML(
-					HTML_PARSE_RENDERER_PARTIAL_TABLE_2x1_HEADER_CELL_SELECTION,
-					schema,
-				);
+				const doc = fromHTML(HTML_PARSE_RENDERER_PARTIAL_TABLE_2x1_HEADER_CELL_SELECTION, schema);
 
 				const parsedTable = doc.firstChild!;
 				// type
@@ -1082,10 +994,7 @@ describe(`${packageName}/schema table node`, () => {
 				});
 			});
 			it('should parse a paragraph/full table/p selection range', () => {
-				const doc = fromHTML(
-					HTML_PARSE_RENDERER_P_TABLE_P_SELECTION_RANGE,
-					schema,
-				);
+				const doc = fromHTML(HTML_PARSE_RENDERER_P_TABLE_P_SELECTION_RANGE, schema);
 
 				const parsedTable = doc.child(1)!;
 				// type
@@ -1105,10 +1014,7 @@ describe(`${packageName}/schema table node`, () => {
 				});
 			});
 			it('should parse a paragraph/partial table selection range', () => {
-				const doc = fromHTML(
-					HTML_PARSE_RENDERER_P_PARTIAL_TABLE_SELECTION_RANGE,
-					schema,
-				);
+				const doc = fromHTML(HTML_PARSE_RENDERER_P_PARTIAL_TABLE_SELECTION_RANGE, schema);
 
 				const parsedTable = doc.child(1)!;
 				// type
@@ -1219,9 +1125,7 @@ describe(`${packageName}/schema table node`, () => {
 
 			it('should convert default cell', () => {
 				const cell = schema.nodes.tableCell.create();
-				expect(toHTML(cell, schema)).toEqual(
-					'<td class="pm-table-cell-content-wrap"></td>',
-				);
+				expect(toHTML(cell, schema)).toEqual('<td class="pm-table-cell-content-wrap"></td>');
 			});
 			it('should convert default cell with colspan attribute', () => {
 				const attrs = { colspan: 2 } as CellAttributes;
@@ -1334,9 +1238,7 @@ describe(`${packageName}/schema table node`, () => {
 
 			it('should convert default header', () => {
 				const header = schema.nodes.tableHeader.create();
-				expect(toHTML(header, schema)).toEqual(
-					'<th class="pm-table-header-content-wrap"></th>',
-				);
+				expect(toHTML(header, schema)).toEqual('<th class="pm-table-header-content-wrap"></th>');
 			});
 			it('should convert default header with colspan attribute', () => {
 				const attrs = { colspan: 2 } as CellAttributes;
@@ -1427,9 +1329,7 @@ describe(`${packageName}/schema table node`, () => {
 				schemaWithFontSize.text('Small header'),
 				[schemaWithFontSize.marks.fontSize.create({ fontSize: 'small' })],
 			);
-			const header = schemaWithFontSize.nodes.tableHeader.create(null, [
-				paragraph,
-			]);
+			const header = schemaWithFontSize.nodes.tableHeader.create(null, [paragraph]);
 
 			expect(header).toBeDefined();
 			expect(header.firstChild).toBe(paragraph);
@@ -1448,22 +1348,13 @@ describe(`${packageName}/schema table node`, () => {
 				schemaWithFontSize.text('Normal text'),
 			);
 
-			const cell1 = schemaWithFontSize.nodes.tableCell.create(null, [
-				paragraphWithFontSize,
-			]);
-			const cell2 = schemaWithFontSize.nodes.tableCell.create(null, [
-				paragraphNormal,
-			]);
-			const row = schemaWithFontSize.nodes.tableRow.create(null, [
-				cell1,
-				cell2,
-			]);
+			const cell1 = schemaWithFontSize.nodes.tableCell.create(null, [paragraphWithFontSize]);
+			const cell2 = schemaWithFontSize.nodes.tableCell.create(null, [paragraphNormal]);
+			const row = schemaWithFontSize.nodes.tableRow.create(null, [cell1, cell2]);
 			const table = schemaWithFontSize.nodes.table.create(null, [row]);
 
 			expect(table).toBeDefined();
-			expect(
-				table.firstChild?.firstChild?.firstChild?.marks[0]?.type.name,
-			).toBe('fontSize');
+			expect(table.firstChild?.firstChild?.firstChild?.marks[0]?.type.name).toBe('fontSize');
 			expect(table.firstChild?.lastChild?.firstChild?.marks.length).toBe(0);
 		});
 
@@ -1486,9 +1377,7 @@ describe(`${packageName}/schema table node`, () => {
 				schemaWithFontSize.text('Small header'),
 				[schemaWithFontSize.marks.fontSize.create({ fontSize: 'small' })],
 			);
-			const header = schemaWithFontSize.nodes.tableHeader.create(null, [
-				paragraph,
-			]);
+			const header = schemaWithFontSize.nodes.tableHeader.create(null, [paragraph]);
 			const html = toHTML(header, schemaWithFontSize);
 
 			expect(html).toContain('data-font-size="small"');

@@ -53,18 +53,17 @@ export const SpotlightCard: React.ForwardRefExoticComponent<
 	({ children, placement, testId }: SpotlightCardProps, ref) => {
 		const { card, popoverContent } = useContext(SpotlightContext);
 		const cardRef = useRef<HTMLDivElement>(null);
-		const positionArea = getResolvedPositionArea(placement || card.placement, popoverContent.positionArea)
+		const positionArea = getResolvedPositionArea(
+			placement || card.placement,
+			popoverContent.positionArea,
+		);
 
 		useEffect(() => {
 			card.setRef(cardRef);
 		}, [card]);
 
 		const content = (
-			<div
-				css={[styles.root, styles[positionArea]]}
-				data-testid={testId}
-				ref={ref}
-			>
+			<div css={[styles.root, styles[positionArea]]} data-testid={testId} ref={ref}>
 				<Caret placement={placement} />
 				<Box ref={cardRef} backgroundColor="color.background.neutral.bold" xcss={styles.card}>
 					{children}

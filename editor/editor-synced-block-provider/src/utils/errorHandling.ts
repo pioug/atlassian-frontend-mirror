@@ -57,12 +57,7 @@ export const getSourceInfoErrorPayload = (
 	resourceId?: string,
 	sourceProduct?: string,
 ): RendererSyncBlockEventPayload =>
-	getErrorPayload(
-		ACTION_SUBJECT_ID.SYNCED_BLOCK_GET_SOURCE_INFO,
-		error,
-		resourceId,
-		sourceProduct,
-	);
+	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_GET_SOURCE_INFO, error, resourceId, sourceProduct);
 export const updateErrorPayload = (
 	error: string,
 	resourceId?: string,

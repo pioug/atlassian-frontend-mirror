@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor View Mode Plugin', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the editor view mode plugin used by \`@atlaskit/editor-core\`.
 

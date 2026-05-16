@@ -437,12 +437,8 @@ const TypeAheadListComponent = React.memo(
 								: typeAheadListMessages.emptySearchResultsSuggestionAskRovoOnly
 							: typeAheadListMessages.emptySearchResultsSuggestion,
 						{
-							askRovoName: (
-								<Text weight="medium">{intl.formatMessage(messages.askRovo)}</Text>
-							),
-							buttonName: (
-								<Text weight="medium">{intl.formatMessage(messages.viewMore)}</Text>
-							),
+							askRovoName: <Text weight="medium">{intl.formatMessage(messages.askRovo)}</Text>,
+							buttonName: <Text weight="medium">{intl.formatMessage(messages.viewMore)}</Text>,
 						},
 					)}
 				</Text>

@@ -27,6 +27,16 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../actions';
 
+// Structural shape of the markdown-mode plugin's slice of the injection API.
+// Used to read `isMarkdownMode` without importing the `MarkdownModePlugin`
+// type — that would pull editor-plugin-markdown-mode into editor-core's
+// dependency graph and force every consuming product to rebuild.
+type MarkdownModeReader = {
+	markdownMode?: {
+		sharedState: { currentState: () => { isMarkdownMode?: boolean } | undefined };
+	};
+};
+
 /**
  * Utils to send analytics event when a extension is inserted using quickInsert
  */
@@ -88,6 +98,17 @@ export async function extensionProviderToQuickInsertProvider(
 
 	return {
 		getItems: () => {
+			// `extensionProvider` is supplied independently of the preset, so
+			// suppress its items in markdown mode where rich-only content cannot
+			// be inserted. See `MarkdownModeReader` above for why this is read
+			// via a structural cast rather than the typed plugin API.
+			const isMarkdownMode = (
+				apiRef.current as unknown as MarkdownModeReader | undefined
+			)?.markdownMode?.sharedState.currentState()?.isMarkdownMode;
+			if (isMarkdownMode) {
+				return Promise.resolve([]);
+			}
+
 			const quickInsertItems = getQuickInsertItemsFromModule<QuickInsertItem>(
 				extensions,
 				(item) => {

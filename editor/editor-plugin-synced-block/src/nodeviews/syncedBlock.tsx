@@ -145,11 +145,11 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 						isPerfEnabled
 							? this.removeSyncBlockStable
 							: () => {
-								const pos = getPos();
-								if (pos !== undefined) {
-									removeSyncedBlockAtPos(this.api, pos);
+									const pos = getPos();
+									if (pos !== undefined) {
+										removeSyncedBlockAtPos(this.api, pos);
+									}
 								}
-							}
 					}
 					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					fetchSyncBlockSourceInfo={

@@ -672,10 +672,7 @@ const DragMenu = React.memo(
 		}
 
 		// All rows, add toggle for numbered rows, default is false
-		if (
-			direction === 'row' &&
-			(pluginConfig?.advanced || pluginConfig?.allowNumberColumn)
-		) {
+		if (direction === 'row' && (pluginConfig?.advanced || pluginConfig?.allowNumberColumn)) {
 			index === 0
 				? menuItems[menuItems.length - 1].items.push(createRowNumbersMenuItem())
 				: menuItems.push({ items: [createRowNumbersMenuItem()] });

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
 
-import type { PositionArea } from "../../types";
+import type { PositionArea } from '../../types';
 
 /**
  * Future improvements to this might be to check if the target resizes with:
@@ -12,8 +12,10 @@ import type { PositionArea } from "../../types";
  * ```
  *
  * No need to do this for the PopoverContent, as it has static height/width.
-*/
-export const usePositionArea = (ref: React.RefObject<HTMLElement>): PositionArea | 'none' | undefined => {
+ */
+export const usePositionArea = (
+	ref: React.RefObject<HTMLElement>,
+): PositionArea | 'none' | undefined => {
 	const [positionArea, setPositionArea] = useState<PositionArea | 'none' | undefined>(undefined);
 
 	useEffect(() => {
@@ -32,10 +34,10 @@ export const usePositionArea = (ref: React.RefObject<HTMLElement>): PositionArea
 			}
 
 			// JSDOM does not implement CSS Typed OM APIs yet.
-			return window
-				.getComputedStyle(el)
-				.getPropertyValue('position-area')
-				.trim() as PositionArea | 'none' | undefined;
+			return window.getComputedStyle(el).getPropertyValue('position-area').trim() as
+				| PositionArea
+				| 'none'
+				| undefined;
 		};
 
 		const read = () => {

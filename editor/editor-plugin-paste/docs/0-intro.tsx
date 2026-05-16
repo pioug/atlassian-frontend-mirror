@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Paste', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the paste plugin used by \`@atlaskit/editor-core\`.
 

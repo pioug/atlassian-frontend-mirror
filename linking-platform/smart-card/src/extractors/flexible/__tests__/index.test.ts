@@ -945,7 +945,10 @@ describe('extractFlexibleUiContext', () => {
 					},
 					modifiedOn: '2022-06-22T00:44:14.956Z',
 					preview: { type: 'image', url: 'https://preview-image-url' },
-					linkTitle: expect.objectContaining({ text: 'Google Sheets: Public', url: 'https://document.com' }),
+					linkTitle: expect.objectContaining({
+						text: 'Google Sheets: Public',
+						url: 'https://document.com',
+					}),
 					url: 'https://document.com',
 					type: ['Document'],
 					meta: {

@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Undo Redo', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the undo redo plugin used by \`@atlaskit/editor-core\`.
 

@@ -145,6 +145,7 @@ export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = (
 
 export const akEditorFullPageToolbarHeight = 40;
 
+// Remember to update platform/packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx if this changes, as Compiled doesn't allow top-level variable selectors
 export const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 
 export const editorFontSize = ({

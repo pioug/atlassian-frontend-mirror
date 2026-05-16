@@ -1402,9 +1402,7 @@ describe('Tooltip', () => {
 				jest.runAllTimers();
 			});
 
-			expect(screen.getByTestId('tooltip--wrapper')).toHaveStyle(
-				'left: 0px; top: 0px;',
-			);
+			expect(screen.getByTestId('tooltip--wrapper')).toHaveStyle('left: 0px; top: 0px;');
 			unmount();
 		}
 	});

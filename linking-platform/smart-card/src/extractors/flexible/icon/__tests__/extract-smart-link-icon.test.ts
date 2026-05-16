@@ -38,28 +38,20 @@ const response: SmartLinkResponse = {
 };
 
 describe('extractSmartLinkIcon', () => {
-	ffTest.off(
-		'platform_lp_use_entity_icon_url_for_icon',
-		'when feature gate is off',
-		() => {
-			it('uses generator icon (since entity path is taken)', () => {
-				expect(extractSmartLinkIcon(response)).toMatchObject({
-					url: 'https://provider-icon.com/icon.png',
-				});
+	ffTest.off('platform_lp_use_entity_icon_url_for_icon', 'when feature gate is off', () => {
+		it('uses generator icon (since entity path is taken)', () => {
+			expect(extractSmartLinkIcon(response)).toMatchObject({
+				url: 'https://provider-icon.com/icon.png',
 			});
-		}
-	);
+		});
+	});
 
-	ffTest.on(
-		'platform_lp_use_entity_icon_url_for_icon',
-		'when feature gate is on',
-		() => {
-			it('uses entity icon extraction', () => {
-				expect(extractSmartLinkIcon(response)).toEqual({
-					url: 'https://entity-icon.com/icon.png',
-					label: 'document',
-				});
+	ffTest.on('platform_lp_use_entity_icon_url_for_icon', 'when feature gate is on', () => {
+		it('uses entity icon extraction', () => {
+			expect(extractSmartLinkIcon(response)).toEqual({
+				url: 'https://entity-icon.com/icon.png',
+				label: 'document',
 			});
-		}
-	);
+		});
+	});
 });

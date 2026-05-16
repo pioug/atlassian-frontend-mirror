@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Image Upload', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the image upload plugin used by \`@atlaskit/editor-core\`.
 

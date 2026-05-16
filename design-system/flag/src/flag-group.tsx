@@ -329,7 +329,11 @@ const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 	);
 
 	if (useTopLayer) {
-		return <Popover mode="manual" isOpen={true}>{flags}</Popover>;
+		return (
+			<Popover mode="manual" isOpen={true}>
+				{flags}
+			</Popover>
+		);
 	}
 
 	return shouldRenderToParent ? flags : <Portal zIndex={layers.flag()}>{flags}</Portal>;

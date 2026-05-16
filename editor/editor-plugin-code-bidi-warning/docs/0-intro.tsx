@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Code Bidi Warning', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the code bidi warning plugin used by \`@atlaskit/editor-core\`.
 

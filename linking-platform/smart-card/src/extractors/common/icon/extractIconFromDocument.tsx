@@ -24,7 +24,8 @@ export type DocumentType =
 const getBlogIconWrapped = () => require('../../../common/ui/icons/blog-icon').default;
 const getDocumentIcon = () => require('../../../common/ui/icons/page-icon').default;
 const getFileIcon = () => require('../../../common/ui/icons/file-icon').default;
-const getLiveDocumentIconWrapped = () => require('../../../common/ui/icons/live-document-icon').default;
+const getLiveDocumentIconWrapped = () =>
+	require('../../../common/ui/icons/live-document-icon').default;
 const getPresentationIcon = () => require('../../../common/ui/icons/chart-bar-icon').default;
 const getSpreadsheetIcon = () => require('../../../common/ui/icons/list-bullet-icon').default;
 
@@ -84,11 +85,15 @@ const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode
 		}
 		case 'schema:PresentationDigitalDocument': {
 			const PresentationIcon = getPresentationIcon();
-			return <PresentationIcon label={documentLabel(opts, 'presentation')} testId="presentation-icon" />;
+			return (
+				<PresentationIcon label={documentLabel(opts, 'presentation')} testId="presentation-icon" />
+			);
 		}
 		case 'schema:SpreadsheetDigitalDocument': {
 			const SpreadsheetIcon = getSpreadsheetIcon();
-			return <SpreadsheetIcon label={documentLabel(opts, 'spreadsheet')} testId="spreadsheet-icon" />;
+			return (
+				<SpreadsheetIcon label={documentLabel(opts, 'spreadsheet')} testId="spreadsheet-icon" />
+			);
 		}
 		case 'atlassian:Template':
 			return (
@@ -116,7 +121,12 @@ const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode
 const digitalDocumentToIcon = (opts: IconOpts): React.ReactNode => {
 	if (opts.provider?.id && isConfluenceGenerator(opts.provider.id)) {
 		if (fg('platform_sl_icons_refactor')) {
-			return <LiveDocumentIconObject label={documentLabel(opts, 'live document')} testId="live-doc-icon" />;
+			return (
+				<LiveDocumentIconObject
+					label={documentLabel(opts, 'live document')}
+					testId="live-doc-icon"
+				/>
+			);
 		}
 		const LiveDocumentIconWrapped = getLiveDocumentIconWrapped();
 		return (

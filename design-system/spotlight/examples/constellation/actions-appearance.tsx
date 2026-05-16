@@ -41,7 +41,7 @@ export default (): JSX.Element => (
 					<Text>Target</Text>
 				</div>
 			</PopoverTarget>
-			<PopoverContent isVisible={true} placement="right-end" dismiss={() => { }}>
+			<PopoverContent isVisible={true} placement="right-end" dismiss={() => {}}>
 				<SpotlightCard>
 					<SpotlightHeader>
 						<SpotlightHeadline>Try the new experience</SpotlightHeadline>
@@ -64,7 +64,7 @@ export default (): JSX.Element => (
 							>
 								Learn more
 							</SpotlightSecondaryLink>
-							<SpotlightPrimaryAction appearance='primary'>Done</SpotlightPrimaryAction>
+							<SpotlightPrimaryAction appearance="primary">Done</SpotlightPrimaryAction>
 						</SpotlightActions>
 					</SpotlightFooter>
 				</SpotlightCard>

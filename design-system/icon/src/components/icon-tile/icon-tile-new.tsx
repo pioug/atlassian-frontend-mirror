@@ -9,10 +9,7 @@ import { cssMap, jsx } from '@compiled/react';
 import Tile, { type TileProps } from '@atlaskit/tile';
 import { token } from '@atlaskit/tokens';
 
-import {
-	type IconTileAppearance,
-	type IconTileProps,
-} from '../../types';
+import { type IconTileAppearance, type IconTileProps } from '../../types';
 import { type InternalIconPropsNew } from '../icon-new';
 
 // Icon color mapping for Tile-based icons

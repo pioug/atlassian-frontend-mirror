@@ -61,9 +61,7 @@ export default function MentionWithProfileCard({
 		);
 
 		if (renderUserMentionCard) {
-			return (
-				<>{renderUserMentionCard({ userId: id, cloudId, children: mention })}</>
-			);
+			return <>{renderUserMentionCard({ userId: id, cloudId, children: mention })}</>;
 		}
 
 		const { href, target } = navigateToTeamsApp({

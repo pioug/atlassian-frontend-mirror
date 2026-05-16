@@ -35,12 +35,22 @@ const PopupWithListeners = withOuterListeners(Popup);
 /**
  * A custom TabPanel that is non-focusable.
  */
-const CustomTabPanel = ({ children }: { children: React.ReactNode }) => {
+const CustomTabPanel = ({
+	children,
+	disablePaddingBlockEnd = false,
+}: {
+	children: React.ReactNode;
+	disablePaddingBlockEnd?: boolean;
+}) => {
 	const tabPanelAttributes = useTabPanel();
 	return (
-		// Ignored via go/ees005
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<Box paddingBlockEnd="space.150" {...tabPanelAttributes} tabIndex={-1}>
+		<Box
+			paddingBlockEnd={disablePaddingBlockEnd ? 'space.0' : 'space.150'}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...tabPanelAttributes}
+			tabIndex={-1}
+		>
 			{children}
 		</Box>
 	);
@@ -156,7 +166,7 @@ export const MediaInsertPicker = ({
 								</TabList>
 							</Box>
 							{registeredTabs.map(({ key, component: TabComponent }) => (
-								<CustomTabPanel key={key}>
+								<CustomTabPanel key={key} disablePaddingBlockEnd>
 									<TabComponent
 										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										closeMediaInsertPicker={() => {

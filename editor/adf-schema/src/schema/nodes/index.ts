@@ -10,17 +10,9 @@ export { confluenceUnsupportedBlock } from './confluence-unsupported-block';
 export { confluenceUnsupportedInline } from './confluence-unsupported-inline';
 export { doc } from './doc';
 export type { DocNode } from './doc';
-export {
-	blockquote,
-	extendedBlockquote,
-	extendedBlockquoteWithLocalId,
-} from './blockquote';
+export { blockquote, extendedBlockquote, extendedBlockquoteWithLocalId } from './blockquote';
 export type { BlockQuoteDefinition } from './blockquote';
-export {
-	bulletList,
-	bulletListSelector,
-	bulletListWithLocalId,
-} from './bullet-list';
+export { bulletList, bulletListSelector, bulletListWithLocalId } from './bullet-list';
 export type { BulletListDefinition } from './types/list';
 export {
 	codeBlock,
@@ -66,11 +58,7 @@ export { emoji, emojiWithLocalId } from './emoji';
 export type { EmojiAttributes, EmojiDefinition } from './emoji';
 export { image } from './image';
 export { mention, toJSON as mentionToJSON } from './mention';
-export type {
-	MentionAttributes,
-	UserType as MentionUserType,
-	MentionDefinition,
-} from './mention';
+export type { MentionAttributes, UserType as MentionUserType, MentionDefinition } from './mention';
 export { listItem, listItemWithLocalId } from './list-item';
 export type { ListItemArray, ListItemDefinition } from './types/list';
 export { extendedPanel, extendedPanelWithLocalId, PanelType } from './panel';
@@ -96,10 +84,7 @@ export type {
 } from './media';
 export { mediaGroup } from './media-group';
 export { mediaInline } from './media-inline';
-export type {
-	MediaInlineAttributes,
-	MediaInlineDefinition,
-} from './media-inline';
+export type { MediaInlineAttributes, MediaInlineDefinition } from './media-inline';
 export type { MediaGroupDefinition } from './media-group';
 export {
 	mediaSingle,
@@ -185,11 +170,7 @@ export type {
 	LayoutSectionFullDefinition,
 	LayoutSectionWithSingleColumnDefinition,
 } from './layout-section';
-export {
-	layoutColumn,
-	layoutColumnStage0,
-	layoutColumnWithLocalId,
-} from './layout-column';
+export { layoutColumn, layoutColumnStage0, layoutColumnWithLocalId } from './layout-column';
 export type { LayoutColumnDefinition } from './layout-column';
 export { inlineCard, inlineCardWithLocalId } from './inline-card';
 export type { InlineCardDefinition } from './inline-card';

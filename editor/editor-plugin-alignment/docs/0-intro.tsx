@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Alignment', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the alignment plugin used by \`@atlaskit/editor-core\`.
 

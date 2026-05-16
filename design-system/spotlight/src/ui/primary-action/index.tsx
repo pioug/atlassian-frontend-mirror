@@ -38,7 +38,7 @@ const styles = cssMap({
 		'&:active': {
 			backgroundColor: token('color.background.brand.bold.pressed'),
 		},
-	}
+	},
 });
 
 export interface SpotlightPrimaryActionProps {
@@ -80,7 +80,16 @@ export interface SpotlightPrimaryActionProps {
 export const SpotlightPrimaryAction: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<SpotlightPrimaryActionProps> & React.RefAttributes<HTMLButtonElement>
 > = forwardRef<HTMLButtonElement, SpotlightPrimaryActionProps>(
-	({ 'aria-label': ariaLabel, onClick, children, appearance = 'outline', testId }: SpotlightPrimaryActionProps, ref) => {
+	(
+		{
+			'aria-label': ariaLabel,
+			onClick,
+			children,
+			appearance = 'outline',
+			testId,
+		}: SpotlightPrimaryActionProps,
+		ref,
+	) => {
 		const { primaryAction } = useContext(SpotlightContext);
 		const done: PressableProps['onClick'] = (event) => {
 			primaryAction.action.current(event);

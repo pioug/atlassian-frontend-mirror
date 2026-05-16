@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Table', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the table plugin used by \`@atlaskit/editor-core\`.
 

@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Code Block Advanced', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the code block advanced plugin used by \`@atlaskit/editor-core\`.
 

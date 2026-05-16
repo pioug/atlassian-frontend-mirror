@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Feature Flags', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the feature flags plugin used by \`@atlaskit/editor-core\`.
 

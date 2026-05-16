@@ -355,7 +355,7 @@ const BlockMenu = ({
 				focusTrap={
 					openedViaKeyboard
 						? // Only enable focus trap when opened via keyboard to make sure the focus is on the first focusable menu item
-						  { initialFocus: undefined }
+							{ initialFocus: undefined }
 						: undefined
 				}
 			>

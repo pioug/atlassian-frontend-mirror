@@ -377,230 +377,214 @@ ffTest.on('platform-dst-top-layer', 'WCAG 2.1.1 Keyboard — menu item click beh
 });
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
-ffTest.on(
-	'platform-dst-top-layer',
-	'Selection state — checkbox and radio persistence',
-	() => {
-		it('checkbox items toggle checked state on click', () => {
-			render(
-				<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
-					<DropdownItemCheckboxGroup id="actions">
-						<DropdownItemCheckbox id="bold">Bold</DropdownItemCheckbox>
-						<DropdownItemCheckbox id="italic">Italic</DropdownItemCheckbox>
-					</DropdownItemCheckboxGroup>
-				</DropdownMenu>,
-			);
+ffTest.on('platform-dst-top-layer', 'Selection state — checkbox and radio persistence', () => {
+	it('checkbox items toggle checked state on click', () => {
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
+				<DropdownItemCheckboxGroup id="actions">
+					<DropdownItemCheckbox id="bold">Bold</DropdownItemCheckbox>
+					<DropdownItemCheckbox id="italic">Italic</DropdownItemCheckbox>
+				</DropdownItemCheckboxGroup>
+			</DropdownMenu>,
+		);
 
-			const boldCheckbox = screen.getByRole('menuitemcheckbox', { name: 'Bold' });
-			expect(boldCheckbox).not.toBeChecked();
+		const boldCheckbox = screen.getByRole('menuitemcheckbox', { name: 'Bold' });
+		expect(boldCheckbox).not.toBeChecked();
 
-			fireEvent.click(boldCheckbox);
-			expect(boldCheckbox).toBeChecked();
+		fireEvent.click(boldCheckbox);
+		expect(boldCheckbox).toBeChecked();
 
-			// Click again to toggle off
-			fireEvent.click(boldCheckbox);
-			expect(boldCheckbox).not.toBeChecked();
-		});
+		// Click again to toggle off
+		fireEvent.click(boldCheckbox);
+		expect(boldCheckbox).not.toBeChecked();
+	});
 
-		it('radio items switch selection within group', () => {
-			render(
-				<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
-					<DropdownItemRadioGroup id="sort">
-						<DropdownItemRadio id="asc">Ascending</DropdownItemRadio>
-						<DropdownItemRadio id="desc">Descending</DropdownItemRadio>
-					</DropdownItemRadioGroup>
-				</DropdownMenu>,
-			);
+	it('radio items switch selection within group', () => {
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
+				<DropdownItemRadioGroup id="sort">
+					<DropdownItemRadio id="asc">Ascending</DropdownItemRadio>
+					<DropdownItemRadio id="desc">Descending</DropdownItemRadio>
+				</DropdownItemRadioGroup>
+			</DropdownMenu>,
+		);
 
-			const ascending = screen.getByRole('menuitemradio', { name: 'Ascending' });
-			const descending = screen.getByRole('menuitemradio', { name: 'Descending' });
+		const ascending = screen.getByRole('menuitemradio', { name: 'Ascending' });
+		const descending = screen.getByRole('menuitemradio', { name: 'Descending' });
 
-			expect(ascending).not.toBeChecked();
-			expect(descending).not.toBeChecked();
+		expect(ascending).not.toBeChecked();
+		expect(descending).not.toBeChecked();
 
-			fireEvent.click(ascending);
-			expect(ascending).toBeChecked();
-			expect(descending).not.toBeChecked();
+		fireEvent.click(ascending);
+		expect(ascending).toBeChecked();
+		expect(descending).not.toBeChecked();
 
-			fireEvent.click(descending);
-			expect(descending).toBeChecked();
-			expect(ascending).not.toBeChecked();
-		});
+		fireEvent.click(descending);
+		expect(descending).toBeChecked();
+		expect(ascending).not.toBeChecked();
+	});
 
-		it('checkbox defaultSelected items start checked', () => {
-			render(
-				<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
-					<DropdownItemCheckboxGroup id="options">
-						<DropdownItemCheckbox id="bold" defaultSelected>
-							Bold
-						</DropdownItemCheckbox>
-						<DropdownItemCheckbox id="italic">Italic</DropdownItemCheckbox>
-					</DropdownItemCheckboxGroup>
-				</DropdownMenu>,
-			);
+	it('checkbox defaultSelected items start checked', () => {
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
+				<DropdownItemCheckboxGroup id="options">
+					<DropdownItemCheckbox id="bold" defaultSelected>
+						Bold
+					</DropdownItemCheckbox>
+					<DropdownItemCheckbox id="italic">Italic</DropdownItemCheckbox>
+				</DropdownItemCheckboxGroup>
+			</DropdownMenu>,
+		);
 
-			expect(screen.getByRole('menuitemcheckbox', { name: 'Bold' })).toBeChecked();
-			expect(screen.getByRole('menuitemcheckbox', { name: 'Italic' })).not.toBeChecked();
-		});
+		expect(screen.getByRole('menuitemcheckbox', { name: 'Bold' })).toBeChecked();
+		expect(screen.getByRole('menuitemcheckbox', { name: 'Italic' })).not.toBeChecked();
+	});
 
-		it('radio defaultSelected items start checked', () => {
-			render(
-				<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
-					<DropdownItemRadioGroup id="sort">
-						<DropdownItemRadio id="asc" defaultSelected>
-							Ascending
-						</DropdownItemRadio>
-						<DropdownItemRadio id="desc">Descending</DropdownItemRadio>
-					</DropdownItemRadioGroup>
-				</DropdownMenu>,
-			);
+	it('radio defaultSelected items start checked', () => {
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
+				<DropdownItemRadioGroup id="sort">
+					<DropdownItemRadio id="asc" defaultSelected>
+						Ascending
+					</DropdownItemRadio>
+					<DropdownItemRadio id="desc">Descending</DropdownItemRadio>
+				</DropdownItemRadioGroup>
+			</DropdownMenu>,
+		);
 
-			expect(screen.getByRole('menuitemradio', { name: 'Ascending' })).toBeChecked();
-			expect(screen.getByRole('menuitemradio', { name: 'Descending' })).not.toBeChecked();
-		});
-	},
-);
+		expect(screen.getByRole('menuitemradio', { name: 'Ascending' })).toBeChecked();
+		expect(screen.getByRole('menuitemradio', { name: 'Descending' })).not.toBeChecked();
+	});
+});
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
-ffTest.on(
-	'platform-dst-top-layer',
-	'Loading state behavior',
-	() => {
-		it('renders loading indicator as a menuitem', () => {
-			render(
-				<DropdownMenu trigger={triggerText} testId={testId} isOpen={true} isLoading={true}>
-					<DropdownItemGroup>
-						<DropdownItem>Loaded action</DropdownItem>
-					</DropdownItemGroup>
-				</DropdownMenu>,
-			);
+ffTest.on('platform-dst-top-layer', 'Loading state behavior', () => {
+	it('renders loading indicator as a menuitem', () => {
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true} isLoading={true}>
+				<DropdownItemGroup>
+					<DropdownItem>Loaded action</DropdownItem>
+				</DropdownItemGroup>
+			</DropdownMenu>,
+		);
 
-			// Loading indicator should be a menuitem (matches legacy behavior)
-			expect(screen.queryAllByRole('menuitem')).toHaveLength(1);
-		});
+		// Loading indicator should be a menuitem (matches legacy behavior)
+		expect(screen.queryAllByRole('menuitem')).toHaveLength(1);
+	});
 
-		it('displays default loading label', () => {
-			render(
-				<DropdownMenu trigger={triggerText} testId={testId} isOpen={true} isLoading={true}>
-					<DropdownItemGroup>
-						<DropdownItem>Loaded action</DropdownItem>
-					</DropdownItemGroup>
-				</DropdownMenu>,
-			);
+	it('displays default loading label', () => {
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true} isLoading={true}>
+				<DropdownItemGroup>
+					<DropdownItem>Loaded action</DropdownItem>
+				</DropdownItemGroup>
+			</DropdownMenu>,
+		);
 
-			const loadingIndicator = screen.getByTestId(`${testId}--menu-wrapper--loading-indicator`);
-			expect(loadingIndicator).toHaveAccessibleName('Loading');
-		});
+		const loadingIndicator = screen.getByTestId(`${testId}--menu-wrapper--loading-indicator`);
+		expect(loadingIndicator).toHaveAccessibleName('Loading');
+	});
 
-		it('displays custom loading label via statusLabel', () => {
-			const statusLabel = 'Fetching items';
+	it('displays custom loading label via statusLabel', () => {
+		const statusLabel = 'Fetching items';
 
-			render(
-				<DropdownMenu
-					trigger={triggerText}
-					testId={testId}
-					isOpen={true}
-					isLoading={true}
-					statusLabel={statusLabel}
-				>
-					<DropdownItemGroup>
-						<DropdownItem>Loaded action</DropdownItem>
-					</DropdownItemGroup>
-				</DropdownMenu>,
-			);
+		render(
+			<DropdownMenu
+				trigger={triggerText}
+				testId={testId}
+				isOpen={true}
+				isLoading={true}
+				statusLabel={statusLabel}
+			>
+				<DropdownItemGroup>
+					<DropdownItem>Loaded action</DropdownItem>
+				</DropdownItemGroup>
+			</DropdownMenu>,
+		);
 
-			const loadingIndicator = screen.getByTestId(`${testId}--menu-wrapper--loading-indicator`);
-			expect(loadingIndicator).toHaveAccessibleName(statusLabel);
-		});
-	},
-);
+		const loadingIndicator = screen.getByTestId(`${testId}--menu-wrapper--loading-indicator`);
+		expect(loadingIndicator).toHaveAccessibleName(statusLabel);
+	});
+});
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
-ffTest.on(
-	'platform-dst-top-layer',
-	'onOpenChange callback — event parameter',
-	() => {
-		it('passes native event when trigger is clicked to open', () => {
-			const onOpenChange = jest.fn();
+ffTest.on('platform-dst-top-layer', 'onOpenChange callback — event parameter', () => {
+	it('passes native event when trigger is clicked to open', () => {
+		const onOpenChange = jest.fn();
 
-			render(
-				<DropdownMenu trigger={triggerText} testId={testId} onOpenChange={onOpenChange}>
-					<DropdownItemGroup>
-						<DropdownItem>Move</DropdownItem>
-					</DropdownItemGroup>
-				</DropdownMenu>,
-			);
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId} onOpenChange={onOpenChange}>
+				<DropdownItemGroup>
+					<DropdownItem>Move</DropdownItem>
+				</DropdownItemGroup>
+			</DropdownMenu>,
+		);
 
-			fireEvent.click(screen.getByTestId(`${testId}--trigger`));
+		fireEvent.click(screen.getByTestId(`${testId}--trigger`));
 
-			expect(onOpenChange).toHaveBeenCalledWith(
-				expect.objectContaining({ isOpen: true, event: expect.anything() }),
-			);
+		expect(onOpenChange).toHaveBeenCalledWith(
+			expect.objectContaining({ isOpen: true, event: expect.anything() }),
+		);
+	});
+
+	it('passes null event when closed via onClose (Popover dismiss)', () => {
+		const onOpenChange = jest.fn();
+
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true} onOpenChange={onOpenChange}>
+				<DropdownItemGroup>
+					<DropdownItem>Move</DropdownItem>
+				</DropdownItemGroup>
+			</DropdownMenu>,
+		);
+
+		const menuItems = screen.getAllByRole('menuitem');
+
+		act(() => {
+			menuItems[0].focus();
 		});
 
-		it('passes null event when closed via onClose (Popover dismiss)', () => {
-			const onOpenChange = jest.fn();
+		onOpenChange.mockClear();
 
-			render(
-				<DropdownMenu trigger={triggerText} testId={testId} isOpen={true} onOpenChange={onOpenChange}>
-					<DropdownItemGroup>
-						<DropdownItem>Move</DropdownItem>
-					</DropdownItemGroup>
-				</DropdownMenu>,
-			);
+		// Tab triggers close via useArrowNavigation → handleOnClose
+		fireEvent.keyDown(menuItems[0], { key: 'Tab', code: 'Tab' });
 
-			const menuItems = screen.getAllByRole('menuitem');
-
-			act(() => {
-				menuItems[0].focus();
-			});
-
-			onOpenChange.mockClear();
-
-			// Tab triggers close via useArrowNavigation → handleOnClose
-			fireEvent.keyDown(menuItems[0], { key: 'Tab', code: 'Tab' });
-
-			expect(onOpenChange).toHaveBeenCalledWith(
-				expect.objectContaining({ isOpen: false, event: null }),
-			);
-		});
-	},
-);
+		expect(onOpenChange).toHaveBeenCalledWith(
+			expect.objectContaining({ isOpen: false, event: null }),
+		);
+	});
+});
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
-ffTest.on(
-	'platform-dst-top-layer',
-	'Trigger aria-label via label prop',
-	() => {
-		it('renders aria-label on default trigger via label prop', () => {
-			render(
-				<DropdownMenu trigger={triggerText} testId={testId} label="more actions">
-					<DropdownItemGroup>
-						<DropdownItem>Move</DropdownItem>
-					</DropdownItemGroup>
-				</DropdownMenu>,
-			);
+ffTest.on('platform-dst-top-layer', 'Trigger aria-label via label prop', () => {
+	it('renders aria-label on default trigger via label prop', () => {
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId} label="more actions">
+				<DropdownItemGroup>
+					<DropdownItem>Move</DropdownItem>
+				</DropdownItemGroup>
+			</DropdownMenu>,
+		);
 
-			const trigger = screen.getByTestId(`${testId}--trigger`);
-			expect(trigger).toHaveAttribute('aria-label', 'more actions');
-		});
+		const trigger = screen.getByTestId(`${testId}--trigger`);
+		expect(trigger).toHaveAttribute('aria-label', 'more actions');
+	});
 
-		it('does not render aria-label if label prop is absent', () => {
-			render(
-				<DropdownMenu trigger={triggerText} testId={testId}>
-					<DropdownItemGroup>
-						<DropdownItem>Move</DropdownItem>
-					</DropdownItemGroup>
-				</DropdownMenu>,
-			);
+	it('does not render aria-label if label prop is absent', () => {
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId}>
+				<DropdownItemGroup>
+					<DropdownItem>Move</DropdownItem>
+				</DropdownItemGroup>
+			</DropdownMenu>,
+		);
 
-			const trigger = screen.getByTestId(`${testId}--trigger`);
-			// label prop not provided — aria-label should not be set
-			// (The trigger text "Options" is used as visible label, not aria-label)
-			expect(trigger).not.toHaveAttribute('aria-label');
-		});
-	},
-);
+		const trigger = screen.getByTestId(`${testId}--trigger`);
+		// label prop not provided — aria-label should not be set
+		// (The trigger text "Options" is used as visible label, not aria-label)
+		expect(trigger).not.toHaveAttribute('aria-label');
+	});
+});
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'WCAG 1.3.2 — DOM order (no portals)', () => {

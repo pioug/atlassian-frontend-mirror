@@ -18,7 +18,7 @@ import CardClient from './client';
  * This event is intended to be dispatched by code OUTSIDE the SmartCardProvider's React tree
  * (e.g. Post Office flags) when an external auth flow has completed and any matching unauthorized SmartLinks on the page should be refreshed.
  *
- * @example for usage from external source: 
+ * @example for usage from external source:
  *   window.dispatchEvent(new CustomEvent('atlaskit-smart-card:external-auth-completed', {
  *     detail: { extensionKeys: ['figma-object-provider'] },
  *   }));
@@ -59,16 +59,14 @@ export function SmartCardProvider({
 		return c;
 	}, [customClient, product]);
 
-	// Listen for external auth completion events and re-resolve any matching unauthorized cards in this store. 
+	// Listen for external auth completion events and re-resolve any matching unauthorized cards in this store.
 	// Used as guardrail killswitch for synchronized-post-office-and-smartcard-auth-exp in Post Office
 	useEffect(() => {
 		if (typeof window === 'undefined' || !fg('navx-smartcard-auth-event-listener-killswitch-fg')) {
 			return;
 		}
 		const handler = (event: Event) => {
-			const detail = (event as CustomEvent).detail as
-				| { extensionKeys?: string[] }
-				| undefined;
+			const detail = (event as CustomEvent).detail as { extensionKeys?: string[] } | undefined;
 			if (!detail?.extensionKeys?.length) {
 				return;
 			}

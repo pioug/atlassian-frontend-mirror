@@ -3,13 +3,7 @@
  * @jsx jsx
  */
 
-import {
-	type CSSProperties,
-	useCallback,
-	useEffect,
-	useMemo,
-	useRef,
-} from 'react';
+import { type CSSProperties, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 import FocusLock from 'react-focus-lock';
@@ -291,14 +285,10 @@ const InternalModalWrapper = (props: InternalModalWrapperProps): JSX.Element => 
 		const onDialogClose = useCallback(
 			({ reason }: { reason: TDialogCloseReason }) => {
 				if (reason === 'escape' && shouldCloseOnEscapePress) {
-					onCloseHandler(
-						createCloseEvent({ reason }) as unknown as KeyboardOrMouseEvent,
-					);
+					onCloseHandler(createCloseEvent({ reason }) as unknown as KeyboardOrMouseEvent);
 				}
 				if (reason === 'overlay-click' && shouldCloseOnOverlayClick) {
-					onCloseHandler(
-						createCloseEvent({ reason }) as unknown as KeyboardOrMouseEvent,
-					);
+					onCloseHandler(createCloseEvent({ reason }) as unknown as KeyboardOrMouseEvent);
 				}
 			},
 			[onCloseHandler, shouldCloseOnEscapePress, shouldCloseOnOverlayClick],
@@ -402,15 +392,13 @@ const InternalModalWrapper = (props: InternalModalWrapperProps): JSX.Element => 
 		// scrolled internally, so the modal section could fill (100vh - 60px top gutter).
 		// In the top layer the <dialog> sizes to content with height:auto, so we need
 		// an explicit min-height to ensure the dialog stretches to the same visible area.
-		const desktopDialogMinHeight = shouldScrollInViewport
-			? 'min-height:calc(100vh - 60px);'
-			: '';
+		const desktopDialogMinHeight = shouldScrollInViewport ? 'min-height:calc(100vh - 60px);' : '';
 		// Doubled-ID selector (#id#id > div) at specificity (2,0,1) beats
 		// Compiled atomic classes at (0,1,0) (increaseSpecificity is disabled).
 		const dialogPositionStyles = isFullScreen
 			? ''
-			// Mobile: edge-to-edge. Desktop (≥ 30rem): 60px gutters, max-width.
-			: `#${escapedDialogId}#${escapedDialogId}{margin:0;height:100vh}#${escapedDialogId}#${escapedDialogId}>div{height:100%}@media(min-width:30rem){#${escapedDialogId}#${escapedDialogId}{margin:${desktopMargin};height:auto;${desktopDialogMinHeight}max-width:calc(100vw - 120px)}#${escapedDialogId}#${escapedDialogId}>div{height:${desktopContentHeight};min-height:${desktopContentMinHeight}}}`;
+			: // Mobile: edge-to-edge. Desktop (≥ 30rem): 60px gutters, max-width.
+				`#${escapedDialogId}#${escapedDialogId}{margin:0;height:100vh}#${escapedDialogId}#${escapedDialogId}>div{height:100%}@media(min-width:30rem){#${escapedDialogId}#${escapedDialogId}{margin:${desktopMargin};height:auto;${desktopDialogMinHeight}max-width:calc(100vw - 120px)}#${escapedDialogId}#${escapedDialogId}>div{height:${desktopContentHeight};min-height:${desktopContentMinHeight}}}`;
 
 		return (
 			<Dialog

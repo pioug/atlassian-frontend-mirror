@@ -33,10 +33,7 @@ export const RowMenu = ({ api }: RowMenuProps): React.ReactNode => {
 
 	return (
 		<Box xcss={rowMenuContainerStyles.container} testId="row-handle-menu">
-			<SurfaceRenderer
-				surface={surface}
-				components={rowMenuComponents}
-			/>
+			<SurfaceRenderer surface={surface} components={rowMenuComponents} />
 		</Box>
 	);
 };

@@ -192,7 +192,7 @@ export type TImage<T> = (props: ImageProps) => T;
 export type FrameProps = {
 	/**
 	 * A function to dispatch actions from the Frame to its parent in a global:ui module.
-	 * @param action - An optional action object to send to the parent app. 
+	 * @param action - An optional action object to send to the parent app.
 	 *
 	 */
 	dispatch?: (action?: unknown) => void;

@@ -241,10 +241,7 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 				unbindKeydownListener = unbinders.unbindKeydownListener;
 			};
 
-			if (
-				syncedBlockPluginKey.getState(view.state)?.hasSyncedBlocks ||
-				!isPerfExperimentOn
-			) {
+			if (syncedBlockPluginKey.getState(view.state)?.hasSyncedBlocks || !isPerfExperimentOn) {
 				ensureListenersBound();
 			}
 

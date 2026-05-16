@@ -531,9 +531,7 @@ test.describe('Popup top-layer — Complex interactions', () => {
 	// `modal-dialog/src/__tests__/playwright/ff-testing/` (modal-over-popup
 	// flow). Legacy implementation will be removed in scope of the
 	// top-layer migration, so we do not invest in fixing this here.
-	test.fixme('Modal inside popup inside dropdown maintains focus management', async ({
-		page,
-	}) => {
+	test.fixme('Modal inside popup inside dropdown maintains focus management', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../../examples/testing-modal-inside-popup-inside-dropdown.tsx')
 		>('design-system', 'popup', 'testing-modal-inside-popup-inside-dropdown', {

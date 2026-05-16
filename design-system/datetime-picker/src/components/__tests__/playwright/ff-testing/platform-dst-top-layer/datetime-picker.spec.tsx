@@ -138,7 +138,9 @@ test.describe('DateTimePicker top-layer — WCAG 2.4.3 Focus Order', () => {
 		await expect(dateInput).toBeFocused();
 	});
 
-	test('time input remains focused when time menu is open (aria-activedescendant)', async ({ page }) => {
+	test('time input remains focused when time menu is open (aria-activedescendant)', async ({
+		page,
+	}) => {
 		await page.visitExample<typeof import('../../../../../../examples/00-basic.tsx')>(
 			'design-system',
 			'datetime-picker',

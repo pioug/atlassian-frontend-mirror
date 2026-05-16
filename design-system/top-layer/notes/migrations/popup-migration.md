@@ -335,41 +335,31 @@ When rolling out `platform-dst-top-layer=true`, expect these breaking changes:
 
 ## Adoption findings — what was a real bug vs. wrong test
 
-When driving the FF-on Playwright suite from 21/3/2 to 27/0/0, **every
-"residual" failure and `test.fixme` turned out to be solvable in the
-spec or example — nothing in `@atlaskit/top-layer` itself needed to
-change**. Documented here so future migrations of similar adopters can
-recognise the patterns:
+When driving the FF-on Playwright suite from 21/3/2 to 27/0/0, **every "residual" failure and
+`test.fixme` turned out to be solvable in the spec or example — nothing in `@atlaskit/top-layer`
+itself needed to change**. Documented here so future migrations of similar adopters can recognise
+the patterns:
 
-1. `'Tab can move focus out of popup (no focus trap for non-dialog)'`
-   asserted behaviour the example did not exercise. The
-   `21-popup-should-render-to-parent` example does not pass an explicit
-   `role`, so the FF-on `useRoleProps` bridge defaults it to
-   `role="dialog"` (Popup.Content's type union requires a role) and the
-   WAI-ARIA dialog pattern correctly wraps Tab. Reframed to assert the
-   WCAG 2.1.2 Escape escape-route that always exists.
-2. `'popup dialog role has accessible label'` could not find its
-   trigger because `16-popup-with-a11y-props` used `id` but no
-   `testId` on the trigger buttons. Added `testId`s.
-3. `'shouldFitContainer makes popup match trigger width'` had the same
-   missing-testId issue plus a loose 4×-trigger-width assertion.
-   Tightened to assert exact parity within sub-pixel rounding (the
-   FF-on path **does** plumb `width="trigger"` through to
-   Popup.Content).
-4. The two `test.fixme`'d nested-popover cases were not browser
-   limitations — they used the wrong selector
-   (`popup-trigger-0`, which never existed; the example uses
-   `nested-popup-trigger`). With the correct selector and `.first()`
-   (the example renders `NestedPopup` recursively), nested popovers
-   chain correctly via DOM ancestry through the top layer: opening a
-   child popover keeps the parent open, and Escape closes only the
-   topmost popover in the chain.
+1. `'Tab can move focus out of popup (no focus trap for non-dialog)'` asserted behaviour the example
+   did not exercise. The `21-popup-should-render-to-parent` example does not pass an explicit
+   `role`, so the FF-on `useRoleProps` bridge defaults it to `role="dialog"` (Popup.Content's type
+   union requires a role) and the WAI-ARIA dialog pattern correctly wraps Tab. Reframed to assert
+   the WCAG 2.1.2 Escape escape-route that always exists.
+2. `'popup dialog role has accessible label'` could not find its trigger because
+   `16-popup-with-a11y-props` used `id` but no `testId` on the trigger buttons. Added `testId`s.
+3. `'shouldFitContainer makes popup match trigger width'` had the same missing-testId issue plus a
+   loose 4×-trigger-width assertion. Tightened to assert exact parity within sub-pixel rounding (the
+   FF-on path **does** plumb `width="trigger"` through to Popup.Content).
+4. The two `test.fixme`'d nested-popover cases were not browser limitations — they used the wrong
+   selector (`popup-trigger-0`, which never existed; the example uses `nested-popup-trigger`). With
+   the correct selector and `.first()` (the example renders `NestedPopup` recursively), nested
+   popovers chain correctly via DOM ancestry through the top layer: opening a child popover keeps
+   the parent open, and Escape closes only the topmost popover in the chain.
 
 ## Pre-existing legacy failures (fixme'd, not in scope)
 
-The legacy `popup.spec.tsx` (under
-`platform_dst_popup-disable-focuslock`) has 5 tests fixme'd as part of
-this migration:
+The legacy `popup.spec.tsx` (under `platform_dst_popup-disable-focuslock`) has 5 tests fixme'd as
+part of this migration:
 
 - "Tab can exit non-dialog popup when focus lock disabled"
 - "Popup with accessible label and title"
@@ -378,9 +368,9 @@ this migration:
 - "Trigger tabindex managed correctly when closing with Tab"
 
 All five exercise the legacy popper.js / `react-focus-on` / interim
-`platform_dst_popup-disable-focuslock` FF code paths that the top-layer
-migration replaces. Equivalent FF-on coverage already exists. The
-legacy paths will be deleted along with the interim FF.
+`platform_dst_popup-disable-focuslock` FF code paths that the top-layer migration replaces.
+Equivalent FF-on coverage already exists. The legacy paths will be deleted along with the interim
+FF.
 
 ### Test confidence
 

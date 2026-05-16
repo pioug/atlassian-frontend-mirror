@@ -98,7 +98,9 @@ export const getRowMenuComponents = (): RegisterComponent[] => [
 			},
 		],
 		component: (props: Record<string, unknown>) => (
-			<ToolbarDropdownItemSection hasSeparator>{props.children as React.ReactNode}</ToolbarDropdownItemSection>
+			<ToolbarDropdownItemSection hasSeparator>
+				{props.children as React.ReactNode}
+			</ToolbarDropdownItemSection>
 		),
 	},
 	{
@@ -121,7 +123,9 @@ export const getRowMenuComponents = (): RegisterComponent[] => [
 			{ type: ROW_MENU.type, key: ROW_MENU.key, rank: ROW_SECTION_RANK[ROW_ADD_SECTION.key] },
 		],
 		component: (props: Record<string, unknown>) => (
-			<ToolbarDropdownItemSection hasSeparator>{props.children as React.ReactNode}</ToolbarDropdownItemSection>
+			<ToolbarDropdownItemSection hasSeparator>
+				{props.children as React.ReactNode}
+			</ToolbarDropdownItemSection>
 		),
 	},
 	{
@@ -180,7 +184,9 @@ export const getRowMenuComponents = (): RegisterComponent[] => [
 			{ type: ROW_MENU.type, key: ROW_MENU.key, rank: ROW_SECTION_RANK[ROW_DANGER_SECTION.key] },
 		],
 		component: (props: Record<string, unknown>) => (
-			<ToolbarDropdownItemSection hasSeparator>{props.children as React.ReactNode}</ToolbarDropdownItemSection>
+			<ToolbarDropdownItemSection hasSeparator>
+				{props.children as React.ReactNode}
+			</ToolbarDropdownItemSection>
 		),
 	},
 	{

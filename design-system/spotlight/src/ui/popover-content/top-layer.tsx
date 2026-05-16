@@ -93,7 +93,6 @@ export const PopoverContent = (props: PopoverContentProps): JSX.Element => {
 		popoverContent.setUpdate(() => noopUpdate);
 	}, [popoverContent]);
 
-
 	const positionArea = usePositionArea(popoverRef);
 	useEffect(() => {
 		popoverContent.setPositionArea(positionArea);

@@ -10,7 +10,9 @@ import AtlaskitIcon from './index';
 const mockDocumentIconModuleLoaded = jest.fn();
 const mockBlogIconModuleLoaded = jest.fn();
 const mockLiveDocumentIconModuleLoaded = jest.fn();
-const mockDocumentIcon = jest.fn(({ testId }: { testId?: string }) => <span data-testid={testId} />);
+const mockDocumentIcon = jest.fn(({ testId }: { testId?: string }) => (
+	<span data-testid={testId} />
+));
 const mockBlogIcon = jest.fn(({ testId }: { testId?: string }) => <span data-testid={testId} />);
 const mockLiveDocumentIcon = jest.fn(({ testId }: { testId?: string }) => (
 	<span data-testid={testId} />
@@ -55,7 +57,13 @@ describe('AtlaskitIcon', () => {
 
 	ffTest.on('platform_sl_icons_refactor', 'when icon refactor is enabled', () => {
 		it('does not load synchronous fallback icon modules', () => {
-			render(<AtlaskitIcon icon={IconType.Document} testId="document-icon" size={SmartLinkSize.Medium} />);
+			render(
+				<AtlaskitIcon
+					icon={IconType.Document}
+					testId="document-icon"
+					size={SmartLinkSize.Medium}
+				/>,
+			);
 			render(<AtlaskitIcon icon={IconType.Blog} testId="blog-icon" size={SmartLinkSize.Medium} />);
 			render(
 				<AtlaskitIcon
@@ -76,7 +84,13 @@ describe('AtlaskitIcon', () => {
 
 	ffTest.off('platform_sl_icons_refactor', 'when icon refactor is disabled', () => {
 		it('keeps synchronous fallback rendering', () => {
-			render(<AtlaskitIcon icon={IconType.Document} testId="document-icon" size={SmartLinkSize.Medium} />);
+			render(
+				<AtlaskitIcon
+					icon={IconType.Document}
+					testId="document-icon"
+					size={SmartLinkSize.Medium}
+				/>,
+			);
 			render(<AtlaskitIcon icon={IconType.Blog} testId="blog-icon" size={SmartLinkSize.Medium} />);
 			render(
 				<AtlaskitIcon

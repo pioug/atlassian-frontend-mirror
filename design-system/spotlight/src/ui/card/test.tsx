@@ -3,7 +3,6 @@ import React from 'react';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, screen } from '@atlassian/testing-library';
 
-
 import { SpotlightContext } from '../../controllers/context';
 import type { Placement } from '../../types';
 

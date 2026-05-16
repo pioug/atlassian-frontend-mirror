@@ -44,7 +44,11 @@ export default function InternalPortal(props: InternalPortalProps): ReactPortal 
 	}, [container]);
 
 	return createPortal(
-		(fg('platform-dst-portal-conditial-theme-provider') ? isInsideThemeProvider : colorMode) ? <ThemeProvider defaultColorMode={colorMode}>{children}</ThemeProvider> : children,
+		(fg('platform-dst-portal-conditial-theme-provider') ? isInsideThemeProvider : colorMode) ? (
+			<ThemeProvider defaultColorMode={colorMode}>{children}</ThemeProvider>
+		) : (
+			children
+		),
 		container,
 	);
 }

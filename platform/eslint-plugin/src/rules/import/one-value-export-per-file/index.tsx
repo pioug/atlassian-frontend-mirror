@@ -199,7 +199,10 @@ const rule: Rule.RuleModule = {
 		return {
 			ExportDefaultDeclaration(node: Rule.Node) {
 				const exportNode = node as TSESTree.ExportDefaultDeclaration;
-				valueExports.push({ name: getDefaultExportName(exportNode), loc: getDefaultExportLoc(exportNode) });
+				valueExports.push({
+					name: getDefaultExportName(exportNode),
+					loc: getDefaultExportLoc(exportNode),
+				});
 			},
 			ExportNamedDeclaration(node: Rule.Node) {
 				const exportNode = node as TSESTree.ExportNamedDeclaration;
@@ -209,7 +212,9 @@ const rule: Rule.RuleModule = {
 					return;
 				}
 
-				valueExports.push(...collectDeclarationExports(exportNode.declaration, allowPrimitiveExports));
+				valueExports.push(
+					...collectDeclarationExports(exportNode.declaration, allowPrimitiveExports),
+				);
 				valueExports.push(...collectNamedSpecifierExports(exportNode));
 			},
 			'Program:exit'(node) {

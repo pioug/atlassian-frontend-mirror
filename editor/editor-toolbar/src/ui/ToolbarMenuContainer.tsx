@@ -27,7 +27,9 @@ type ToolbarMenuContainerProps = {
  *
  * This intentionally does not provide a trigger or popup positioning; callers own those concerns.
  */
-export const ToolbarMenuContainer = ({ children }: ToolbarMenuContainerProps): React.JSX.Element => {
+export const ToolbarMenuContainer = ({
+	children,
+}: ToolbarMenuContainerProps): React.JSX.Element => {
 	return (
 		<Box xcss={styles.container} data-toolbar-component="menu">
 			{children}

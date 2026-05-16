@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin User Intent', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the editor plugin user intent plugin used by \`@atlaskit/editor-core\`.
 

@@ -289,7 +289,9 @@ test.describe('InlineMessage top-layer — WCAG 1.3.2 Meaningful Sequence (Conte
 
 		await expect(popup).toBeVisible();
 
-		const popupElement = await page.locator('[data-testid="the-inline-message--popup--content"]').elementHandle();
+		const popupElement = await page
+			.locator('[data-testid="the-inline-message--popup--content"]')
+			.elementHandle();
 		const isInDocument = await page.evaluate(
 			(element) => document.body.contains(element),
 			popupElement,

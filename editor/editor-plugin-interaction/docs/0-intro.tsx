@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Interaction', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the interaction plugin used by \`@atlaskit/editor-core\`.
 

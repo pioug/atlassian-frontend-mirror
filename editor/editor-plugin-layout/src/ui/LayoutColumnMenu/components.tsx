@@ -57,9 +57,7 @@ export const getLayoutColumnMenuComponents = ({
 			parents: [
 				{
 					...LAYOUT_COLUMN_MENU,
-					rank: (LAYOUT_COLUMN_MENU_RANK as Record<string, number>)[
-						LAYOUT_COLUMN_MENU_SECTION.key
-					],
+					rank: (LAYOUT_COLUMN_MENU_RANK as Record<string, number>)[LAYOUT_COLUMN_MENU_SECTION.key],
 				},
 			],
 		},

@@ -1,4 +1,4 @@
-import type { Placement, PositionArea } from "../../types"
+import type { Placement, PositionArea } from '../../types';
 
 const caretPositionMap: Record<Placement, PositionArea> = {
 	'top-start': 'start span-start',
@@ -11,12 +11,15 @@ const caretPositionMap: Record<Placement, PositionArea> = {
 	'bottom-start': 'end span-start',
 	'bottom-center': 'block-end',
 	'bottom-end': 'end span-end',
-}
+};
 
-export const getResolvedPositionArea = (placement: Placement, positionArea: PositionArea | 'none' | undefined): PositionArea => {
+export const getResolvedPositionArea = (
+	placement: Placement,
+	positionArea: PositionArea | 'none' | undefined,
+): PositionArea => {
 	if (!positionArea || positionArea === 'none') {
-		return caretPositionMap[placement]
+		return caretPositionMap[placement];
 	}
 
-	return positionArea
-}
+	return positionArea;
+};

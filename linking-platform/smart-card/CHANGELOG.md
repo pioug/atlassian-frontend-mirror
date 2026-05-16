@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 44.11.1
+
+### Patch Changes
+
+- [`a600b288d36ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a600b288d36ed) -
+  [ux] NAVX-4963 wrapping pre-auth social proof in `Pressable`
+
 ## 44.11.0
 
 ### Minor Changes

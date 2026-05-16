@@ -116,11 +116,7 @@ export const renderIconTile = (
 		return (
 			<IconTile
 				appearance={appearance}
-				icon={
-					isTiledIcon
-						? (iconProps) => <Icon {...iconProps} spacing="spacious" />
-						: Icon
-				}
+				icon={isTiledIcon ? (iconProps) => <Icon {...iconProps} spacing="spacious" /> : Icon}
 				size={tileSize}
 				{...tileProps}
 			/>

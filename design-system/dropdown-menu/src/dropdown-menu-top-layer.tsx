@@ -329,7 +329,7 @@ function DropdownMenuTopLayer({
 						);
 					}}
 				</Popup.TriggerFunction>
-			<Popup.Content
+				<Popup.Content
 					role="menu"
 					label={menuLabel ?? label ?? (typeof trigger === 'string' ? trigger : 'Menu')}
 					isOpen={isLocalOpen}

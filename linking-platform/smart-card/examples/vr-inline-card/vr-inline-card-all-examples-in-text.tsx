@@ -150,7 +150,12 @@ const VRInlineCardAllExamplesInText: {
 				</p>
 				<p>
 					Error and fallback links used the CardLinkView{' '}
-					<CardLinkView link={'some-url'} placeholder="which is a normal link" onClick={() => {}} viewType={'errored'} />
+					<CardLinkView
+						link={'some-url'}
+						placeholder="which is a normal link"
+						onClick={() => {}}
+						viewType={'errored'}
+					/>
 				</p>
 				<Box xcss={smallBoxForTruncatedStyle}>
 					Truncated card{' '}

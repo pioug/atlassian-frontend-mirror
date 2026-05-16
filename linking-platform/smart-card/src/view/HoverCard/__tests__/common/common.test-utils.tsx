@@ -498,7 +498,7 @@ export const runCommonHoverCardTests = (
 		it('should open preview modal after clicking preview button', async () => {
 			const { event } = await setup();
 			act(() => jest.runAllTimers());
- 
+
 			const previewButton = await screen.findByTestId('smart-action-preview-action');
 			await event.click(previewButton);
 

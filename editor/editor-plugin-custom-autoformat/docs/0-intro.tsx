@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Custom Autoformat', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the custom autoformat plugin used by \`@atlaskit/editor-core\`.
 

@@ -128,7 +128,9 @@ const defaultValue = {
 		{
 			type: 'paragraph',
 			content: [
-				text('Team mentions render as a team name plus member mentions, so each user inside is independently clickable: '),
+				text(
+					'Team mentions render as a team name plus member mentions, so each user inside is independently clickable: ',
+				),
 				{
 					type: 'text',
 					text: 'The Cool Cats',

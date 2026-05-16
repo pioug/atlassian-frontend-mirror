@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Guideline', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the guideline plugin used by \`@atlaskit/editor-core\`.
 

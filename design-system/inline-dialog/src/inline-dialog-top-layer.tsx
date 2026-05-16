@@ -84,8 +84,6 @@ function TriggerWrapper({
 	);
 }
 
-
-
 /**
  * Top-layer implementation of InlineDialog.
  *
@@ -148,11 +146,7 @@ const InlineDialogTopLayer: FC<InlineDialogProps> = memo(function InlineDialogTo
 		<Popup placement={topLayerPlacement} onClose={handleOnClose} testId={testId}>
 			<Popup.TriggerFunction>
 				{({ ref, ariaAttributes }) => (
-					<TriggerWrapper
-						triggerRef={triggerRef}
-						anchorRef={ref}
-						ariaAttributes={ariaAttributes}
-					>
+					<TriggerWrapper triggerRef={triggerRef} anchorRef={ref} ariaAttributes={ariaAttributes}>
 						{children}
 					</TriggerWrapper>
 				)}

@@ -73,7 +73,9 @@ export const SelectionExtensionNestedDropdownMenu = ({
 		lozengeLabel && fg('platform_editor_block_menu_v2_patch_2') ? (
 			<Box as="span" xcss={styles.lozenge}>
 				<Lozenge
-					appearance={fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'}
+					appearance={
+						fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'
+					}
 				>
 					{lozengeLabel}
 				</Lozenge>

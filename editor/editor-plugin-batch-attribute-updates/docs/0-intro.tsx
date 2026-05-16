@@ -19,7 +19,7 @@ ${createEditorUseOnlyNotice('Batch Attribute Updates Plugin', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the batch attribute updates plugin used by \`@atlaskit/editor-core\`.
 

@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 219.7.4
+
+### Patch Changes
+
+- [`ab1c30e0721ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab1c30e0721ef) -
+  Migrate extensionStyles.ts to Compiled CSS
+
+## 219.7.3
+
+### Patch Changes
+
+- [`911ea1f065d0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/911ea1f065d0f) -
+  [EDITOR-6965] Rebuild the schema in `ReactEditorView.reconfigureState` when toggling presets under
+  the `cc-markdown-mode` experiment, so each preset declares its honest schema (rather than sharing
+  the schema from first mount via `state.reconfigure`). Skips the existing plugin-availability
+  filter (which would evaluate against the OLD schema and drop e.g. `extensionPlugin` on a
+  markdown→rich toggle), and re-seeds `collabInitialised: true` on the new state because the
+  Confluence NCS provider does not implement `getInitPayload` (so the rebind path in
+  `editor-plugin-collab-edit/initialize.ts` is skipped). Also makes
+  `extensionProviderToQuickInsertProvider.getItems` schema-aware so the `/` menu does not surface
+  extension items when the live schema cannot accept them.
+
 ## 219.7.2
 
 ### Patch Changes

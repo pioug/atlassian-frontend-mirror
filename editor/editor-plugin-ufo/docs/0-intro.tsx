@@ -19,7 +19,7 @@ ${createEditorUseOnlyNotice('Editor Plugin UFO', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}\
+	)}\
 
   This package includes the UFO plugin used by \`@atlaskit/editor-core\`.
 

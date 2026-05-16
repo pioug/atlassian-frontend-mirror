@@ -83,14 +83,14 @@ export const extractSmartLinkIcon = (
 		return undefined;
 	}
 
-	if(fg('platform_lp_use_entity_icon_url_for_icon')){
+	if (fg('platform_lp_use_entity_icon_url_for_icon')) {
 		if (isEntityPresent(response)) {
 			const entityIcon = extractEntityIcon(response);
 			if (entityIcon) {
 				return entityIcon;
 			}
-		}	
-	}else{
+		}
+	} else {
 		if (isEntityPresent(response)) {
 			return extractEntityIcon(response);
 		}

@@ -1,4 +1,4 @@
-import type { Slice } from "@atlaskit/editor-prosemirror/model";
+import type { Slice } from '@atlaskit/editor-prosemirror/model';
 
 export const hasTableNode = (slice: Slice | undefined): boolean => {
 	if (!slice) {

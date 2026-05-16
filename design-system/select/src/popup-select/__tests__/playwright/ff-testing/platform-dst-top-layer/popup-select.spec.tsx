@@ -79,10 +79,16 @@ test.describe('PopupSelect top-layer — WCAG 2.1.1 Keyboard', () => {
 		const thirdOption = page.getByRole('option', { name: 'Melbourne' });
 
 		await page.keyboard.press('ArrowDown');
-		await expect(input).toHaveAttribute('aria-activedescendant', await secondOption.getAttribute('id') ?? '');
+		await expect(input).toHaveAttribute(
+			'aria-activedescendant',
+			(await secondOption.getAttribute('id')) ?? '',
+		);
 
 		await page.keyboard.press('ArrowDown');
-		await expect(input).toHaveAttribute('aria-activedescendant', await thirdOption.getAttribute('id') ?? '');
+		await expect(input).toHaveAttribute(
+			'aria-activedescendant',
+			(await thirdOption.getAttribute('id')) ?? '',
+		);
 
 		skipAxeCheck();
 	});
@@ -163,7 +169,10 @@ test.describe('PopupSelect top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 });
 
 test.describe('PopupSelect top-layer — WCAG 2.4.3 Focus Order', () => {
-	test('focus returns to trigger when menu is closed via Escape', async ({ page, skipAxeCheck }) => {
+	test('focus returns to trigger when menu is closed via Escape', async ({
+		page,
+		skipAxeCheck,
+	}) => {
 		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.tsx')>(
 			'design-system',
 			'select',
@@ -240,7 +249,10 @@ test.describe('PopupSelect top-layer — WCAG 2.4.7 Focus Visible', () => {
 		const secondOption = page.getByRole('option', { name: 'Brisbane' });
 
 		await page.keyboard.press('ArrowDown');
-		await expect(input).toHaveAttribute('aria-activedescendant', await secondOption.getAttribute('id') ?? '');
+		await expect(input).toHaveAttribute(
+			'aria-activedescendant',
+			(await secondOption.getAttribute('id')) ?? '',
+		);
 
 		skipAxeCheck();
 	});
@@ -360,7 +372,10 @@ test.describe('PopupSelect top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 });
 
 test.describe('PopupSelect top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
-	test('popup content is rendered in DOM order near trigger (sanity check)', async ({ page, skipAxeCheck }) => {
+	test('popup content is rendered in DOM order near trigger (sanity check)', async ({
+		page,
+		skipAxeCheck,
+	}) => {
 		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.tsx')>(
 			'design-system',
 			'select',
@@ -382,8 +397,7 @@ test.describe('PopupSelect top-layer — WCAG 1.3.2 Meaningful Sequence', () => 
 		expect(menuBox).not.toBeNull();
 		invariant(triggerBox !== null && menuBox !== null);
 
-		const menuIsNearTrigger =
-			Math.abs(menuBox.y - triggerBox.y - triggerBox.height) < 50;
+		const menuIsNearTrigger = Math.abs(menuBox.y - triggerBox.y - triggerBox.height) < 50;
 		expect(menuIsNearTrigger).toBe(true);
 
 		skipAxeCheck();

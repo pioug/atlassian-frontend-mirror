@@ -24,17 +24,20 @@ const richSchema = new Schema({
 	},
 });
 
-const plugin = (
-	name: string,
-	overrides: Partial<EditorPlugin> = {},
-): EditorPlugin =>
+const plugin = (name: string, overrides: Partial<EditorPlugin> = {}): EditorPlugin =>
 	({
 		name,
 		...overrides,
 	}) as unknown as EditorPlugin;
 
-const nodes = (...names: string[]) => () => names.map((name) => ({ name, node: {} as any }));
-const marks = (...names: string[]) => () => names.map((name) => ({ name, mark: {} as any }));
+const nodes =
+	(...names: string[]) =>
+	() =>
+		names.map((name) => ({ name, node: {} as any }));
+const marks =
+	(...names: string[]) =>
+	() =>
+		names.map((name) => ({ name, mark: {} as any }));
 
 describe('filterPluginsForReconfigure', () => {
 	it('keeps plugins whose nodes and marks are present in the schema', () => {
@@ -72,11 +75,7 @@ describe('filterPluginsForReconfigure', () => {
 		// so the schema check must NOT drop it.
 		const card = plugin('card', { nodes: nodes('inlineCard', 'blockCard') });
 
-		const { kept, dropped } = filterPluginsForReconfigure(
-			[card],
-			minimalSchema,
-			new Set(['card']),
-		);
+		const { kept, dropped } = filterPluginsForReconfigure([card], minimalSchema, new Set(['card']));
 
 		expect(kept.map((p) => p.name)).toEqual(['card']);
 		expect(dropped).toEqual([]);

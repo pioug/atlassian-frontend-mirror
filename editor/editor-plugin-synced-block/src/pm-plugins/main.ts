@@ -107,11 +107,7 @@ const mapRetryCreationPosMap = (
 	// Fast path: no new entry and nothing to remap — return the same reference.
 	// This is critical for PR-E (EDITOR-6929) which relies on reference equality
 	// to short-circuit SharedStateAPI deep-equality checks.
-	if (
-		isPerfExperimentOn &&
-		!resourceId &&
-		oldMap.size === 0
-	) {
+	if (isPerfExperimentOn && !resourceId && oldMap.size === 0) {
 		return oldMap;
 	}
 
@@ -491,9 +487,7 @@ export const createPlugin = (
 				// synced blocks, we skip the eager fetch + cache walks. They will be
 				// re-run lazily by `apply` the first time a synced block enters the
 				// document (paste, collab insert, or programmatic insert).
-				const docHasSyncedBlocks = isPerfExperimentOn
-					? hasSyncedBlocks(instance.doc)
-					: true;
+				const docHasSyncedBlocks = isPerfExperimentOn ? hasSyncedBlocks(instance.doc) : true;
 
 				if (docHasSyncedBlocks) {
 					const syncBlockNodes = instance.doc.children.filter(

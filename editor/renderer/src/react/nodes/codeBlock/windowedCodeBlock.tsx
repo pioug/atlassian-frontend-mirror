@@ -55,7 +55,8 @@ const WindowedCodeBlock = ({
 	);
 
 	const [wrapLongLines, setWrapLongLines] = useState<boolean>(
-		() => expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) && Boolean(wrap),
+		() =>
+			expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) && Boolean(wrap),
 	);
 
 	return isInViewport ? (

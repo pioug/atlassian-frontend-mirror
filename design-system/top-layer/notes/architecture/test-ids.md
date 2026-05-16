@@ -14,12 +14,12 @@ shell. See **[popup-migration.md](../migrations/popup-migration.md)**.
 
 **`@atlaskit/tooltip`** (top-layer path), when **`testId`** is set:
 
-| Surface | `data-testid` / prop |
-| ------- | -------------------- |
-| SR-only hidden label | `${testId}-hidden` |
-| Trigger | `${testId}--container` (render prop passes **`testId`**, not `data-testid`) |
-| Popover root | `${testId}--popover` |
-| Tooltip body (primitive) | `${testId}--wrapper` (outer), base `testId` on inner (or `--unresolved`) |
+| Surface                  | `data-testid` / prop                                                        |
+| ------------------------ | --------------------------------------------------------------------------- |
+| SR-only hidden label     | `${testId}-hidden`                                                          |
+| Trigger                  | `${testId}--container` (render prop passes **`testId`**, not `data-testid`) |
+| Popover root             | `${testId}--popover`                                                        |
+| Tooltip body (primitive) | `${testId}--wrapper` (outer), base `testId` on inner (or `--unresolved`)    |
 
 See **[tooltip-migration.md](../migrations/tooltip-migration.md)**. Prefer **role + name** in tests
 when practical.
@@ -29,8 +29,8 @@ when practical.
 - **Popup:** Tests or selectors that targeted the **popover shell** with the **base** `testId` will
   fail — the shell is **`${testId}--content`**. The **base** id remains on the **inner** container
   (when present); know which node your assertion cares about.
-- **Tooltip:** Wrappers that **`{...renderPropProps}`** onto **`<div>`** forward invalid **`testId`**
-  → React warnings; strict test runners may fail on **`console.error`**.
+- **Tooltip:** Wrappers that **`{...renderPropProps}`** onto **`<div>`** forward invalid
+  **`testId`** → React warnings; strict test runners may fail on **`console.error`**.
 - **Primitives vs composed DS:** **`Popover`** / **`Dialog`** use your string **verbatim** on the
   root. **`@atlaskit/popup`** and **`@atlaskit/tooltip`** add **suffixes** — do not assume one
   pattern everywhere.

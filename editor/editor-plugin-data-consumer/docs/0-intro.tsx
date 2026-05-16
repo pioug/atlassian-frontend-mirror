@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Data Consumer', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the data consumer plugin used by \`@atlaskit/editor-core\`.
 

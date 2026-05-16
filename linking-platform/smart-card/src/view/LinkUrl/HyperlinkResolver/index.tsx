@@ -50,9 +50,7 @@ const HyperlinkWithSmartLinkResolverInner = ({
 
 	// Shared scope guard for all 3P-click handlers.
 	const shouldFire3PClickEvent =
-		state?.status === 'resolved' &&
-		fire3PClickEvent &&
-		fg('platform_smartlink_3pclick_analytics');
+		state?.status === 'resolved' && fire3PClickEvent && fg('platform_smartlink_3pclick_analytics');
 
 	const onClick = useCallback(
 		(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -99,7 +97,9 @@ const HyperlinkWithSmartLinkResolverInner = ({
 		[fire3PClickEvent, shouldFire3PClickEvent],
 	);
 
-	return <Hyperlink {...props} onClick={onClick} onAuxClick={onAuxClick} onContextMenu={onContextMenu} />;
+	return (
+		<Hyperlink {...props} onClick={onClick} onAuxClick={onAuxClick} onContextMenu={onContextMenu} />
+	);
 };
 
 export const HyperlinkWithSmartLinkResolver: React.ComponentType<LinkUrlProps> =

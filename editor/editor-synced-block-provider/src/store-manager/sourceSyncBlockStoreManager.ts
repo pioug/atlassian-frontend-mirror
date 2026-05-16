@@ -284,7 +284,11 @@ export class SourceSyncBlockStoreManager {
 							}
 						}
 						this.fireAnalyticsEvent?.(
-							updateSuccessPayload(result.resourceId, false, productAttrIfGateOn(result.resourceId)),
+							updateSuccessPayload(
+								result.resourceId,
+								false,
+								productAttrIfGateOn(result.resourceId),
+							),
 						);
 					}
 				});
@@ -493,7 +497,11 @@ export class SourceSyncBlockStoreManager {
 					});
 					this.createExperience?.failure({ reason: (error as Error).message });
 					this.fireAnalyticsEvent?.(
-						createErrorPayload((error as Error).message, resourceId, productAttrIfGateOn(resourceId)),
+						createErrorPayload(
+							(error as Error).message,
+							resourceId,
+							productAttrIfGateOn(resourceId),
+						),
 					);
 				});
 		} catch (error) {
@@ -589,7 +597,11 @@ export class SourceSyncBlockStoreManager {
 			syncBlockIds.forEach((Ids) => {
 				this.setPendingDeletion(Ids, false);
 				this.fireAnalyticsEvent?.(
-					deleteErrorPayload((error as Error).message, Ids.resourceId, productAttrIfGateOn(Ids.resourceId)),
+					deleteErrorPayload(
+						(error as Error).message,
+						Ids.resourceId,
+						productAttrIfGateOn(Ids.resourceId),
+					),
 				);
 			});
 			logException(error as Error, {
@@ -794,7 +806,11 @@ export class SourceSyncBlockStoreManager {
 				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
 			});
 			this.fireAnalyticsEvent?.(
-				fetchReferencesErrorPayload((error as Error).message, resourceId, productAttrIfGateOn(resourceId)),
+				fetchReferencesErrorPayload(
+					(error as Error).message,
+					resourceId,
+					productAttrIfGateOn(resourceId),
+				),
 			);
 
 			return Promise.resolve({ error: SyncBlockError.Errored });

@@ -10,9 +10,14 @@ test.beforeEach(({ skipAxeCheck }) => {
 
 test.describe('TimePicker top-layer — WCAG 2.1.1 Keyboard', () => {
 	test('opens menu via click and displays time options', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>('design-system', 'datetime-picker', 'times', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'times',
+			{
+				featureFlag,
+			},
+		);
 
 		const timePicker = page.getByTestId('timePicker--container');
 		const menuOption = page.locator('[class*="option"]').first();
@@ -23,9 +28,14 @@ test.describe('TimePicker top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('enters time via keyboard and updates value', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>('design-system', 'datetime-picker', 'times', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'times',
+			{
+				featureFlag,
+			},
+		);
 
 		const timePicker = page.getByTestId('timePicker--container');
 		const timeInput = page.locator('input#react-select-timepicker-input');
@@ -45,9 +55,14 @@ test.describe('TimePicker top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('arrow keys navigate time options when menu is open', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>('design-system', 'datetime-picker', 'times', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'times',
+			{
+				featureFlag,
+			},
+		);
 
 		const timePicker = page.getByTestId('timePicker--container');
 		const timeInput = page.locator('input#react-select-timepicker-input');
@@ -62,9 +77,14 @@ test.describe('TimePicker top-layer — WCAG 2.1.1 Keyboard', () => {
 
 test.describe('TimePicker top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 	test('Escape closes time picker menu and returns focus to input', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>('design-system', 'datetime-picker', 'times', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'times',
+			{
+				featureFlag,
+			},
+		);
 
 		const timePicker = page.getByTestId('timePicker--container');
 		const timeInput = page.locator('input#react-select-timepicker-input');
@@ -78,9 +98,14 @@ test.describe('TimePicker top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 	});
 
 	test('Tab exits menu when at last focusable element', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>('design-system', 'datetime-picker', 'times', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'times',
+			{
+				featureFlag,
+			},
+		);
 
 		const timePicker = page.getByTestId('timePicker--container');
 		const timeInput = page.locator('input#react-select-timepicker-input');
@@ -101,9 +126,14 @@ test.describe('TimePicker top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 
 test.describe('TimePicker top-layer — WCAG 2.4.3 Focus Order', () => {
 	test('time input retains focus while menu is open (aria-activedescendant)', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>('design-system', 'datetime-picker', 'times', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'times',
+			{
+				featureFlag,
+			},
+		);
 
 		const timePicker = page.getByTestId('timePicker--container');
 		const timeInput = page.locator('input#react-select-timepicker-input');
@@ -115,9 +145,14 @@ test.describe('TimePicker top-layer — WCAG 2.4.3 Focus Order', () => {
 	});
 
 	test('focus moves into menu options on click', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>('design-system', 'datetime-picker', 'times', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'times',
+			{
+				featureFlag,
+			},
+		);
 
 		const timePicker = page.getByTestId('timePicker--container');
 		const timeInput = page.locator('input#react-select-timepicker-input');
@@ -130,9 +165,14 @@ test.describe('TimePicker top-layer — WCAG 2.4.3 Focus Order', () => {
 	});
 
 	test('focus returns to time input on menu close', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>('design-system', 'datetime-picker', 'times', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'times',
+			{
+				featureFlag,
+			},
+		);
 
 		const timePicker = page.getByTestId('timePicker--container');
 		const timeInput = page.locator('input#react-select-timepicker-input');
@@ -148,9 +188,14 @@ test.describe('TimePicker top-layer — WCAG 2.4.3 Focus Order', () => {
 
 test.describe('TimePicker top-layer — WCAG 2.4.7 Focus Visible', () => {
 	test('focused time option has visible focus indicator', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>('design-system', 'datetime-picker', 'times', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'times',
+			{
+				featureFlag,
+			},
+		);
 
 		const timePicker = page.getByTestId('timePicker--container');
 		const timeInput = page.locator('input#react-select-timepicker-input');
@@ -165,9 +210,14 @@ test.describe('TimePicker top-layer — WCAG 2.4.7 Focus Visible', () => {
 
 test.describe('TimePicker top-layer — WCAG 2.4.11 Focus Not Obscured', () => {
 	test('time menu options are fully visible on screen', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>('design-system', 'datetime-picker', 'times', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'times',
+			{
+				featureFlag,
+			},
+		);
 
 		const timePicker = page.getByTestId('timePicker--container');
 		const menuOption = page.locator('[class*="option"]').first();
@@ -179,9 +229,14 @@ test.describe('TimePicker top-layer — WCAG 2.4.11 Focus Not Obscured', () => {
 
 test.describe('TimePicker top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	test('time input has correct role and aria attributes', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>('design-system', 'datetime-picker', 'times', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'times',
+			{
+				featureFlag,
+			},
+		);
 
 		const timeInput = page.locator('input#react-select-timepicker-input');
 
@@ -189,9 +244,14 @@ test.describe('TimePicker top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	});
 
 	test('menu has correct listbox role', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>('design-system', 'datetime-picker', 'times', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'times',
+			{
+				featureFlag,
+			},
+		);
 
 		const timePicker = page.getByTestId('timePicker--container');
 		const menuListbox = page.locator('[role="listbox"]').first();
@@ -203,9 +263,14 @@ test.describe('TimePicker top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 
 test.describe('TimePicker top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 	test('time picker content appears near trigger in document order', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>('design-system', 'datetime-picker', 'times', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'times',
+			{
+				featureFlag,
+			},
+		);
 
 		const timePicker = page.getByTestId('timePicker--container');
 		const menuOption = page.locator('[class*="option"]').first();
@@ -217,9 +282,14 @@ test.describe('TimePicker top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 
 test.describe('TimePicker top-layer — Input Validation', () => {
 	test('invalid times are ignored and preserved previous value', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>('design-system', 'datetime-picker', 'times', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'times',
+			{
+				featureFlag,
+			},
+		);
 
 		const timePicker = page.getByTestId('timePicker--container');
 		// Use the stable react-select `--value-container` testId rather than
@@ -239,9 +309,14 @@ test.describe('TimePicker top-layer — Input Validation', () => {
 	});
 
 	test('selecting time option via click updates value', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>('design-system', 'datetime-picker', 'times', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'times',
+			{
+				featureFlag,
+			},
+		);
 
 		const timePicker = page.getByTestId('timePicker--container');
 		// Pick a non-default option (the second visible) so the click
@@ -266,9 +341,14 @@ test.describe('TimePicker top-layer — Input Validation', () => {
 	});
 
 	test('menu closes automatically after selection', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>('design-system', 'datetime-picker', 'times', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'times',
+			{
+				featureFlag,
+			},
+		);
 
 		const timePicker = page.getByTestId('timePicker--container');
 		const timeInput = page.locator('input#react-select-timepicker-input');

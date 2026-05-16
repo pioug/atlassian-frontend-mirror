@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Panel', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the panel plugin used by \`@atlaskit/editor-core\`.
 

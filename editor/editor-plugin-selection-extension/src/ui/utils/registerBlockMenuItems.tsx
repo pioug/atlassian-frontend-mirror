@@ -71,10 +71,7 @@ export function registerBlockMenuItems({
 			);
 		};
 
-		if (
-			blockMenu.placement === 'featured-section' &&
-			fg('platform_editor_block_menu_v2_patch_2')
-		) {
+		if (blockMenu.placement === 'featured-section' && fg('platform_editor_block_menu_v2_patch_2')) {
 			// Block menu sections do not support isHidden. Check menu items before registering
 			// the section to avoid rendering an orphan separator when there are no items.
 			if (blockMenu.getMenuItems().length === 0 || !blockMenu.sectionKey) {
@@ -147,7 +144,6 @@ export function registerBlockMenuItems({
 				component: makeItemComponent,
 			});
 		}
-
 	});
 
 	if (componentsToRegister.length > 0) {

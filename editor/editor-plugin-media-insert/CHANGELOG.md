@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 23.3.1
+
+### Patch Changes
+
+- [`e3e6720ffc5f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3e6720ffc5f9) -
+  Tighten spacing around the AI image generation tab in the media insert picker:
+  - Remove the `paddingBlockEnd` from registered tab panels in `MediaInsertPicker` (via a new
+    `disablePaddingBlockEnd` prop on `CustomTabPanel`) so plugin-injected tabs (e.g. the AI image
+    generation tab) no longer have a bottom padding.
+  - Apply a negative `marginTop` (-6px) and `marginBottom` (-12px) to the "uses AI" footer in
+    `image-from-ai-generation` to visually balance the panel after removing the surrounding padding.
+
 ## 23.3.0
 
 ### Minor Changes

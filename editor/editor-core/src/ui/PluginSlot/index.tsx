@@ -74,10 +74,7 @@ const PluginSlot = ({
 				pluginHooks={pluginHooks}
 				containerElement={containerElement}
 			/>
-			<div
-				css={pluginsComponentsWrapper}
-				data-testid="plugins-components-wrapper"
-			>
+			<div css={pluginsComponentsWrapper} data-testid="plugins-components-wrapper">
 				{/**
 				 * Why don't we do this as:
 				 * ```tsx

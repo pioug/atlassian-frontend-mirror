@@ -1,9 +1,9 @@
 import {
-    type FieldConfig,
-    type FieldSubscriber,
-    type FieldSubscription,
-    type FormApi as FinalFormAPI,
-    type Unsubscribe,
+	type FieldConfig,
+	type FieldSubscriber,
+	type FieldSubscription,
+	type FormApi as FinalFormAPI,
+	type Unsubscribe,
 } from 'final-form';
 
 export type Align = 'start' | 'end';

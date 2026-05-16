@@ -117,9 +117,7 @@ export const getSourceProductFromResourceIdSafe = (
  * fall back to calling `getSourceProductFromResourceIdSafe` directly.
  */
 export const productAttrIfGateOn = (resourceId?: string): SyncBlockProduct | undefined =>
-	fg('platform_synced_block_patch_11')
-		? getSourceProductFromResourceIdSafe(resourceId)
-		: undefined;
+	fg('platform_synced_block_patch_11') ? getSourceProductFromResourceIdSafe(resourceId) : undefined;
 
 export const convertContentUpdatedAt = (
 	contentUpdatedAt: number | undefined,

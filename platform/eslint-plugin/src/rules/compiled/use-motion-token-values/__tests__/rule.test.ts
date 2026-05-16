@@ -88,7 +88,6 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 				};
 			`,
 		},
-
 	],
 
 	invalid: [
@@ -99,12 +98,22 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 					transitionDuration: '200ms',
 				};
 			`,
-			errors: [{ messageId: 'useMotionDurationToken', suggestions: [{ messageId: 'useMotionDurationTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionDurationToken',
+					suggestions: [
+						{
+							messageId: 'useMotionDurationTokenSuggest',
+							output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = {
 					transitionDuration: token('motion.duration.medium', '200ms'),
 				};
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 
 		{
@@ -114,12 +123,22 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 					animationDuration: '0.1s',
 				};
 			`,
-			errors: [{ messageId: 'useMotionDurationToken', suggestions: [{ messageId: 'useMotionDurationTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionDurationToken',
+					suggestions: [
+						{
+							messageId: 'useMotionDurationTokenSuggest',
+							output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = {
 					animationDuration: token('motion.duration.xshort', '0.1s'),
 				};
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 
 		{
@@ -129,12 +148,22 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 					transitionTimingFunction: 'cubic-bezier(0.4, 0, 0, 1)',
 				};
 			`,
-			errors: [{ messageId: 'useMotionEasingToken', suggestions: [{ messageId: 'useMotionEasingTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionEasingToken',
+					suggestions: [
+						{
+							messageId: 'useMotionEasingTokenSuggest',
+							output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = {
 					transitionTimingFunction: token('motion.easing.inout.bold', 'cubic-bezier(0.4, 0, 0, 1)'),
 				};
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 
 		{
@@ -144,12 +173,22 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 					transitionDuration: '600ms',
 				};
 			`,
-			errors: [{ messageId: 'useMotionDurationToken', suggestions: [{ messageId: 'useMotionDurationTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionDurationToken',
+					suggestions: [
+						{
+							messageId: 'useMotionDurationTokenSuggest',
+							output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = {
 					transitionDuration: token('motion.duration.xxlong', '600ms'),
 				};
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 
 		{
@@ -159,12 +198,22 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 					transitionDuration: 0,
 				};
 			`,
-			errors: [{ messageId: 'useMotionDurationToken', suggestions: [{ messageId: 'useMotionDurationTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionDurationToken',
+					suggestions: [
+						{
+							messageId: 'useMotionDurationTokenSuggest',
+							output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = {
 					transitionDuration: token('motion.duration.instant', '0ms'),
 				};
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 
 		{
@@ -174,12 +223,22 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 					animationTimingFunction: 'cubic-bezier(0.5, 0.1, 0.9, 0.7)',
 				};
 			`,
-			errors: [{ messageId: 'useMotionEasingToken', suggestions: [{ messageId: 'useMotionEasingTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionEasingToken',
+					suggestions: [
+						{
+							messageId: 'useMotionEasingTokenSuggest',
+							output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = {
 					animationTimingFunction: token('motion.easing.in.practical', 'cubic-bezier(0.5, 0.1, 0.9, 0.7)'),
 				};
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 
 		{
@@ -210,12 +269,22 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 					transitionDuration: '200ms',
 				};
 			`,
-			errors: [{ messageId: 'useMotionDurationToken', suggestions: [{ messageId: 'useMotionDurationTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionDurationToken',
+					suggestions: [
+						{
+							messageId: 'useMotionDurationTokenSuggest',
+							output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = {
 					transitionDuration: token('motion.duration.medium', '200ms'),
 				};
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 
 		{
@@ -226,45 +295,84 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 					transitionDuration: '100ms',
 				});
 			`,
-			errors: [{ messageId: 'useMotionDurationToken', suggestions: [{ messageId: 'useMotionDurationTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionDurationToken',
+					suggestions: [
+						{
+							messageId: 'useMotionDurationTokenSuggest',
+							output: outdent`
 				import { css } from '@compiled/react';
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
 					transitionDuration: token('motion.duration.xshort', '100ms'),
 				});
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
-
 
 		{
 			name: 'ease → motion.easing.out.practical',
 			code: outdent`
 				const styles = { transitionTimingFunction: 'ease' };
 			`,
-			errors: [{ messageId: 'useMotionEasingToken', suggestions: [{ messageId: 'useMotionEasingTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionEasingToken',
+					suggestions: [
+						{
+							messageId: 'useMotionEasingTokenSuggest',
+							output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = { transitionTimingFunction: token('motion.easing.out.practical', 'ease') };
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 		{
 			name: 'ease-in → motion.easing.in.practical',
 			code: outdent`
 				const styles = { transitionTimingFunction: 'ease-in' };
 			`,
-			errors: [{ messageId: 'useMotionEasingToken', suggestions: [{ messageId: 'useMotionEasingTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionEasingToken',
+					suggestions: [
+						{
+							messageId: 'useMotionEasingTokenSuggest',
+							output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = { transitionTimingFunction: token('motion.easing.in.practical', 'ease-in') };
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 		{
 			name: 'ease-out → motion.easing.out.practical',
 			code: outdent`
 				const styles = { transitionTimingFunction: 'ease-out' };
 			`,
-			errors: [{ messageId: 'useMotionEasingToken', suggestions: [{ messageId: 'useMotionEasingTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionEasingToken',
+					suggestions: [
+						{
+							messageId: 'useMotionEasingTokenSuggest',
+							output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = { transitionTimingFunction: token('motion.easing.out.practical', 'ease-out') };
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 		{
 			name: 'linear keyword — warns with single nearest (no curve, no matching token)',
@@ -280,12 +388,22 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 					transitionTimingFunction: 'ease-in-out',
 				};
 			`,
-			errors: [{ messageId: 'useMotionEasingToken', suggestions: [{ messageId: 'useMotionEasingTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionEasingToken',
+					suggestions: [
+						{
+							messageId: 'useMotionEasingTokenSuggest',
+							output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = {
 					transitionTimingFunction: token('motion.easing.inout.bold', 'ease-in-out'),
 				};
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 
 		{
@@ -315,12 +433,22 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 					animationDuration: '0ms',
 				};
 			`,
-			errors: [{ messageId: 'useMotionDurationToken', suggestions: [{ messageId: 'useMotionDurationTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionDurationToken',
+					suggestions: [
+						{
+							messageId: 'useMotionDurationTokenSuggest',
+							output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = {
 					animationDuration: token('motion.duration.instant', '0ms'),
 				};
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 
 		{
@@ -331,13 +459,23 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 					transitionTimingFunction: 'cubic-bezier(0.4, 1, 0.6, 1)',
 				});
 			`,
-			errors: [{ messageId: 'useMotionEasingToken', suggestions: [{ messageId: 'useMotionEasingTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionEasingToken',
+					suggestions: [
+						{
+							messageId: 'useMotionEasingTokenSuggest',
+							output: outdent`
 				import { css } from '@compiled/react';
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
 					transitionTimingFunction: token('motion.easing.out.practical', 'cubic-bezier(0.4, 1, 0.6, 1)'),
 				});
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 
 		{
@@ -345,10 +483,20 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 			code: outdent`
 				const el = <div style={{ transitionDuration: '200ms' }} />;
 			`,
-			errors: [{ messageId: 'useMotionDurationToken', suggestions: [{ messageId: 'useMotionDurationTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionDurationToken',
+					suggestions: [
+						{
+							messageId: 'useMotionDurationTokenSuggest',
+							output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const el = <div style={{ transitionDuration: token('motion.duration.medium', '200ms') }} />;
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 
 		{
@@ -358,12 +506,22 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 					transitionDuration: \`200ms\`,
 				};
 			`,
-			errors: [{ messageId: 'useMotionDurationToken', suggestions: [{ messageId: 'useMotionDurationTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionDurationToken',
+					suggestions: [
+						{
+							messageId: 'useMotionDurationTokenSuggest',
+							output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = {
 					transitionDuration: token('motion.duration.medium', '200ms'),
 				};
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 		{
 			name: 'no-interpolation template literal easing — treated same as string literal',
@@ -372,12 +530,22 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 					transitionTimingFunction: \`cubic-bezier(0.4, 0, 0, 1)\`,
 				};
 			`,
-			errors: [{ messageId: 'useMotionEasingToken', suggestions: [{ messageId: 'useMotionEasingTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionEasingToken',
+					suggestions: [
+						{
+							messageId: 'useMotionEasingTokenSuggest',
+							output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = {
 					transitionTimingFunction: token('motion.easing.inout.bold', 'cubic-bezier(0.4, 0, 0, 1)'),
 				};
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 		{
 			name: 'transitionDuration out of range — 700ms has no exact token, warns with single nearest',
@@ -396,14 +564,23 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 					transitionDuration: '200ms, 200ms',
 				};
 			`,
-			errors: [{ messageId: 'useMotionDurationToken', suggestions: [{ messageId: 'useMotionDurationTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionDurationToken',
+					suggestions: [
+						{
+							messageId: 'useMotionDurationTokenSuggest',
+							output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = {
 					transitionDuration: \`\${token('motion.duration.medium', '200ms')}, \${token('motion.duration.medium', '200ms')}\`,
 				};
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
-
 
 		{
 			name: 'multi-value transitionTimingFunction — autofix each cubic-bezier to a token',
@@ -412,12 +589,22 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 					transitionTimingFunction: 'cubic-bezier(0.4, 0, 0, 1), cubic-bezier(0.4, 0, 0, 1)',
 				};
 			`,
-			errors: [{ messageId: 'useMotionEasingToken', suggestions: [{ messageId: 'useMotionEasingTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionEasingToken',
+					suggestions: [
+						{
+							messageId: 'useMotionEasingTokenSuggest',
+							output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = {
 					transitionTimingFunction: \`\${token('motion.easing.inout.bold', 'cubic-bezier(0.4, 0, 0, 1)')}, \${token('motion.easing.inout.bold', 'cubic-bezier(0.4, 0, 0, 1)')}\`,
 				};
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 
 		{
@@ -428,12 +615,22 @@ tester.run('use-motion-token-values', useMotionTokenValues, {
 					transitionDuration: '150ms',
 				};
 			`,
-			errors: [{ messageId: 'useMotionDurationToken', suggestions: [{ messageId: 'useMotionDurationTokenSuggest', output: outdent`
+			errors: [
+				{
+					messageId: 'useMotionDurationToken',
+					suggestions: [
+						{
+							messageId: 'useMotionDurationTokenSuggest',
+							output: outdent`
 				import { themed, token } from '@atlaskit/tokens';
 				const styles = {
 					transitionDuration: token('motion.duration.short', '150ms'),
 				};
-			` }] }],
+			`,
+						},
+					],
+				},
+			],
 		},
 	],
 });

@@ -17,7 +17,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Date', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
 This package includes the date plugin used by \`@atlaskit/editor-core\`.
 

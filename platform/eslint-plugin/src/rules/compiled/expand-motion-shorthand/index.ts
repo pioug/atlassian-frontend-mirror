@@ -1,7 +1,15 @@
 import type { Rule } from 'eslint';
 import type { Property } from 'estree';
 
-const EASING_KEYWORDS = ['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear', 'step-start', 'step-end'];
+const EASING_KEYWORDS = [
+	'ease',
+	'ease-in',
+	'ease-out',
+	'ease-in-out',
+	'linear',
+	'step-start',
+	'step-end',
+];
 const KEYWORD_VALUES = ['none', 'all', 'inherit', 'initial', 'unset'];
 
 const isDuration = (token: string): boolean => /^\d+(?:\.\d+)?m?s$/.test(token);
@@ -158,10 +166,7 @@ const combineSubPropertyValues = <T extends Record<string, string | undefined>>(
 	return segments.map((s) => s[subProperty] ?? defaultValue).join(', ');
 };
 
-const buildTransitionFix = (
-	segments: TransitionComponents[],
-	indent: string,
-): string => {
+const buildTransitionFix = (segments: TransitionComponents[], indent: string): string => {
 	const lines: string[] = [];
 	const property = combineSubPropertyValues(segments, 'transitionProperty', 'all');
 	const duration = combineSubPropertyValues(segments, 'transitionDuration', '0s');
@@ -174,10 +179,7 @@ const buildTransitionFix = (
 	return lines.join(`,\n${indent}`);
 };
 
-const buildAnimationFix = (
-	segments: AnimationComponents[],
-	indent: string,
-): string => {
+const buildAnimationFix = (segments: AnimationComponents[], indent: string): string => {
 	const lines: string[] = [];
 	const name = combineSubPropertyValues(segments, 'animationName', 'none');
 	const duration = combineSubPropertyValues(segments, 'animationDuration', '0s');

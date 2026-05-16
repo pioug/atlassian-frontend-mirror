@@ -11,7 +11,7 @@ import {
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -127,10 +127,11 @@ export const ActionButton: ForwardRefExoticComponent<
 			fg('platform_sl_3p_preauth_soc_proof_inline_killswitch');
 
 		if (shouldUseUnauthorisedSlimStyle && !isDisabled) {
+			const { onClick, ...boxProps } = props;
 			return (
-				<Pressable {...props} ref={ref} style={{ font: `inherit` }} xcss={styles.button}>
+				<Box {...boxProps} ref={ref} style={{ font: `inherit` }} xcss={styles.button}>
 					<span css={styles.innerContainerSocialProofConnect}>{children}</span>
-				</Pressable>
+				</Box>
 			);
 		}
 

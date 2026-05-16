@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Emoji', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the emoji plugin used by \`@atlaskit/editor-core\`.
 

@@ -3368,8 +3368,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					fg('platform_synced_block_patch_9') &&
 					tableFakeBorderStyles,
 				isInsideSyncBlock &&
-					editorExperiment('platform_synced_block', true) &&
-					fg('platform_synced_block_patch_9')
+				editorExperiment('platform_synced_block', true) &&
+				fg('platform_synced_block_patch_9')
 					? expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 						? roundedTableFakeBorderOverlayStyles
 						: null

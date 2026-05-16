@@ -20,7 +20,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Synced Block', [
 				<AtlassianInternalWarning />
 			</div>
 		</>
-  )}
+	)}
 
   This package includes the synced block plugin used by \`@atlaskit/editor-core\`.
 

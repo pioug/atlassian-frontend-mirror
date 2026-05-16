@@ -14,11 +14,7 @@ import {
 	nodeFactory,
 } from '@af/adf-test-helpers/src/adf-schema';
 
-import {
-	blockquote as blockquoteNodeSpec,
-	extendedBlockquote,
-	uuid,
-} from '../../../..';
+import { blockquote as blockquoteNodeSpec, extendedBlockquote, uuid } from '../../../..';
 
 const packageName = process.env.npm_package_name as string;
 const LIST_LOCAL_ID = 'test-list-local-id';
@@ -87,39 +83,25 @@ describe(`${packageName}/schema blockquote node`, () => {
 	});
 
 	it('should not be possible to have heading inside blockquote', () => {
-		const docFromHTML = fromHTML(
-			'<blockquote><h2>text</h2></blockquote>',
-			schema,
-		);
+		const docFromHTML = fromHTML('<blockquote><h2>text</h2></blockquote>', schema);
 		expect(docFromHTML.toJSON()).toEqual(doc(blockquote(p('text'))).toJSON());
 	});
 
 	it('should be possible to have paragraph inside blockquote', () => {
-		const docFromHTML = fromHTML(
-			'<blockquote><p>text</p></blockquote>',
-			schema,
-		);
+		const docFromHTML = fromHTML('<blockquote><p>text</p></blockquote>', schema);
 		expect(docFromHTML.toJSON()).toEqual(doc(blockquote(p('text'))).toJSON());
 	});
 
 	it('should be possible to have ordered list inside blockquote', () => {
-		const docFromHTML = fromHTML(
-			'<blockquote><ol><li>text</li></ol></blockquote>',
-			schema,
-		);
+		const docFromHTML = fromHTML('<blockquote><ol><li>text</li></ol></blockquote>', schema);
 		expect(docFromHTML.toJSON()).toEqual(
 			doc(blockquote(ol({ order: 1 })(liWithLocalId(p('text'))))).toJSON(),
 		);
 	});
 
 	it('should be possible to have bullet list inside blockquote', () => {
-		const docFromHTML = fromHTML(
-			'<blockquote><ul><li>text</li></ul></blockquote>',
-			schema,
-		);
-		expect(docFromHTML.toJSON()).toEqual(
-			doc(blockquote(ul(liWithLocalId(p('text'))))).toJSON(),
-		);
+		const docFromHTML = fromHTML('<blockquote><ul><li>text</li></ul></blockquote>', schema);
+		expect(docFromHTML.toJSON()).toEqual(doc(blockquote(ul(liWithLocalId(p('text'))))).toJSON());
 	});
 
 	it('should be possible to have codeblock inside blockquote', () => {
@@ -129,11 +111,7 @@ describe(`${packageName}/schema blockquote node`, () => {
 		);
 		expect(docFromHTML.toJSON()).toEqual(
 			doc(
-				blockquote(
-					code_block({ localId: LIST_LOCAL_ID, wrap: true })(
-						'window.alert("hello");',
-					),
-				),
+				blockquote(code_block({ localId: LIST_LOCAL_ID, wrap: true })('window.alert("hello");')),
 			).toJSON(),
 		);
 	});
@@ -144,11 +122,7 @@ describe(`${packageName}/schema blockquote node`, () => {
 			schema,
 		);
 		expect(docFromHTML.toJSON()).toEqual(
-			doc(
-				blockquote(
-					mediaSingle({})(media({ type: 'file', collection: '', id: '' })),
-				),
-			).toJSON(),
+			doc(blockquote(mediaSingle({})(media({ type: 'file', collection: '', id: '' })))).toJSON(),
 		);
 	});
 
@@ -158,9 +132,7 @@ describe(`${packageName}/schema blockquote node`, () => {
 			schema,
 		);
 		expect(docFromHTML.toJSON()).toEqual(
-			doc(
-				blockquote(mediaGroup(media({ type: 'file', collection: '', id: '' }))),
-			).toJSON(),
+			doc(blockquote(mediaGroup(media({ type: 'file', collection: '', id: '' })))).toJSON(),
 		);
 	});
 });

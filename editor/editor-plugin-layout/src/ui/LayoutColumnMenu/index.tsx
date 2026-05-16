@@ -19,7 +19,10 @@ const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
 
 const LAYOUT_COLUMN_MENU_POPUP_OFFSET: [number, number] = [0, 10];
 
-const getLayoutColumnMenuTarget = (editorView: EditorView, selectionAnchorPos: number | undefined) => {
+const getLayoutColumnMenuTarget = (
+	editorView: EditorView,
+	selectionAnchorPos: number | undefined,
+) => {
 	if (selectionAnchorPos === undefined) {
 		return null;
 	}
@@ -42,74 +45,74 @@ type LayoutColumnMenuProps = {
 
 export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps> = React.memo(
 	function LayoutColumnMenu({
-	api,
-	editorView,
-	mountTo,
-	boundariesElement,
-	scrollableElement,
-}: LayoutColumnMenuProps): React.JSX.Element | null {
-	const { isLayoutColumnMenuOpen, selection } = useSharedPluginStateWithSelector(
 		api,
-		['layout', 'selection'],
-		(states) => ({
-			isLayoutColumnMenuOpen: states.layoutState?.isLayoutColumnMenuOpen ?? false,
-			selection: states.selectionState?.selection,
-		}),
-	);
+		editorView,
+		mountTo,
+		boundariesElement,
+		scrollableElement,
+	}: LayoutColumnMenuProps): React.JSX.Element | null {
+		const { isLayoutColumnMenuOpen, selection } = useSharedPluginStateWithSelector(
+			api,
+			['layout', 'selection'],
+			(states) => ({
+				isLayoutColumnMenuOpen: states.layoutState?.isLayoutColumnMenuOpen ?? false,
+				selection: states.selectionState?.selection,
+			}),
+		);
 
-	const closeLayoutColumnMenu = useCallback(() => {
-		api?.core?.actions.execute(api?.layout?.commands.toggleLayoutColumnMenu({ isOpen: false }));
-	}, [api]);
+		const closeLayoutColumnMenu = useCallback(() => {
+			api?.core?.actions.execute(api?.layout?.commands.toggleLayoutColumnMenu({ isOpen: false }));
+		}, [api]);
 
-	const handleSetIsOpen = useCallback(
-		(isOpen: boolean) => {
-			if (!isOpen) {
+		const handleSetIsOpen = useCallback(
+			(isOpen: boolean) => {
+				if (!isOpen) {
+					closeLayoutColumnMenu();
+				}
+			},
+			[closeLayoutColumnMenu],
+		);
+
+		const components = api?.uiControlRegistry?.actions.getComponents(LAYOUT_COLUMN_MENU.key) ?? [];
+		const target = isLayoutColumnMenuOpen
+			? getLayoutColumnMenuTarget(editorView, selection?.from)
+			: null;
+		const hasValidTarget = target instanceof HTMLElement;
+
+		useEffect(() => {
+			if (isLayoutColumnMenuOpen && (!hasValidTarget || components.length === 0)) {
 				closeLayoutColumnMenu();
 			}
-		},
-		[closeLayoutColumnMenu],
-	);
+		}, [closeLayoutColumnMenu, components.length, hasValidTarget, isLayoutColumnMenuOpen]);
 
-	const components = api?.uiControlRegistry?.actions.getComponents(LAYOUT_COLUMN_MENU.key) ?? [];
-	const target = isLayoutColumnMenuOpen
-		? getLayoutColumnMenuTarget(editorView, selection?.from)
-		: null;
-	const hasValidTarget = target instanceof HTMLElement;
-
-	useEffect(() => {
-		if (isLayoutColumnMenuOpen && (!hasValidTarget || components.length === 0)) {
-			closeLayoutColumnMenu();
+		if (!isLayoutColumnMenuOpen || components.length === 0 || !hasValidTarget) {
+			return null;
 		}
-	}, [closeLayoutColumnMenu, components.length, hasValidTarget, isLayoutColumnMenuOpen]);
 
-	if (!isLayoutColumnMenuOpen || components.length === 0 || !hasValidTarget) {
-		return null;
-	}
-
-	return (
-		<PopupWithListeners
-			target={target}
-			mountTo={mountTo}
-			boundariesElement={boundariesElement}
-			scrollableElement={scrollableElement}
-			zIndex={akEditorFloatingPanelZIndex}
-			alignX="center"
-			alignY="top"
-			forcePlacement
-			offset={LAYOUT_COLUMN_MENU_POPUP_OFFSET}
-			handleClickOutside={closeLayoutColumnMenu}
-			handleEscapeKeydown={closeLayoutColumnMenu}
-		>
-			<EditorToolbarProvider editorView={editorView}>
-				<ToolbarDropdownMenuProvider isOpen={isLayoutColumnMenuOpen} setIsOpen={handleSetIsOpen}>
-					<SurfaceRenderer
-						components={components}
-						fallbacks={LAYOUT_COLUMN_MENU_FALLBACKS}
-						surface={LAYOUT_COLUMN_MENU}
-					/>
-				</ToolbarDropdownMenuProvider>
-			</EditorToolbarProvider>
-		</PopupWithListeners>
-	);
-},
+		return (
+			<PopupWithListeners
+				target={target}
+				mountTo={mountTo}
+				boundariesElement={boundariesElement}
+				scrollableElement={scrollableElement}
+				zIndex={akEditorFloatingPanelZIndex}
+				alignX="center"
+				alignY="top"
+				forcePlacement
+				offset={LAYOUT_COLUMN_MENU_POPUP_OFFSET}
+				handleClickOutside={closeLayoutColumnMenu}
+				handleEscapeKeydown={closeLayoutColumnMenu}
+			>
+				<EditorToolbarProvider editorView={editorView}>
+					<ToolbarDropdownMenuProvider isOpen={isLayoutColumnMenuOpen} setIsOpen={handleSetIsOpen}>
+						<SurfaceRenderer
+							components={components}
+							fallbacks={LAYOUT_COLUMN_MENU_FALLBACKS}
+							surface={LAYOUT_COLUMN_MENU}
+						/>
+					</ToolbarDropdownMenuProvider>
+				</EditorToolbarProvider>
+			</PopupWithListeners>
+		);
+	},
 );

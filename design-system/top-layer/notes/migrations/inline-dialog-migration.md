@@ -68,36 +68,28 @@ positioning replaces Popper).
 
 Two legacy inline-dialog tests were touched in scope of this migration:
 
-- `inline-dialog.spec.tsx` "InlineDialog should be able to be
-  identified and clicked by data-testid" — fixed by switching from
-  `toHaveText('Hello!')` to `toContainText('Hello!')`. The testing
-  example was extended with "First action" / "Second action" buttons
-  and the tighter assertion no longer matched.
-- `accessibility.spec.tsx` "InlineDialog should pass basic aXe audit"
-  — fixme'd. The legacy InlineDialog Selected button has insufficient
-  colour contrast (axe `color-contrast`). Not fixed because
-  `@atlaskit/inline-dialog` is being replaced by the
-  `@atlaskit/top-layer` Popup primitive and the FF-on path uses ADS
-  Button tokens that meet contrast thresholds.
+- `inline-dialog.spec.tsx` "InlineDialog should be able to be identified and clicked by data-testid"
+  — fixed by switching from `toHaveText('Hello!')` to `toContainText('Hello!')`. The testing example
+  was extended with "First action" / "Second action" buttons and the tighter assertion no longer
+  matched.
+- `accessibility.spec.tsx` "InlineDialog should pass basic aXe audit" — fixme'd. The legacy
+  InlineDialog Selected button has insufficient colour contrast (axe `color-contrast`). Not fixed
+  because `@atlaskit/inline-dialog` is being replaced by the `@atlaskit/top-layer` Popup primitive
+  and the FF-on path uses ADS Button tokens that meet contrast thresholds.
 
 ## A11y wrapper pattern: `role="presentation"` over eslint-disable
 
-The `inline-dialog-top-layer.tsx` content wrapper is a layout-only
-`<div>` whose only handlers are non-user (forwarding the consumer's
-`onContentBlur` / `onContentClick` / `onContentFocus` callbacks). The
-default a11y lint stack flagged it for
-`@atlassian/a11y/click-events-have-key-events`,
-`interactive-element-not-keyboard-focusable`, and
+The `inline-dialog-top-layer.tsx` content wrapper is a layout-only `<div>` whose only handlers are
+non-user (forwarding the consumer's `onContentBlur` / `onContentClick` / `onContentFocus`
+callbacks). The default a11y lint stack flagged it for
+`@atlassian/a11y/click-events-have-key-events`, `interactive-element-not-keyboard-focusable`, and
 `no-static-element-interactions`.
 
-Rather than reach for `eslint-disable`, the wrapper carries
-`role="presentation"` (a.k.a. `role="none"`). This is the ARIA-spec
-correct way to mark wrappers as opaque to assistive technology, which
-satisfies all three lint rules without a disable. The surrounding
-`Popup.Content` already owns the `role="dialog"` landmark, so no
-semantic information is lost.
+Rather than reach for `eslint-disable`, the wrapper carries `role="presentation"` (a.k.a.
+`role="none"`). This is the ARIA-spec correct way to mark wrappers as opaque to assistive
+technology, which satisfies all three lint rules without a disable. The surrounding `Popup.Content`
+already owns the `role="dialog"` landmark, so no semantic information is lost.
 
-The same pattern was applied to
-`datetime-picker/internal/menu-top-layer.tsx`, where the wrapper's
-only handler is an `onMouseDown` whose job is to swallow the bubbled
-click that would otherwise close the react-select menu.
+The same pattern was applied to `datetime-picker/internal/menu-top-layer.tsx`, where the wrapper's
+only handler is an `onMouseDown` whose job is to swallow the bubbled click that would otherwise
+close the react-select menu.

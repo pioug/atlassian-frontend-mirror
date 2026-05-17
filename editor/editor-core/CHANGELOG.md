@@ -1,5 +1,12 @@
 # @atlaskit/editor-core
 
+## 219.7.5
+
+### Patch Changes
+
+- [`64c357817f088`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64c357817f088) -
+  Migrate blockTypeStyles.ts to Compiled CSS
+
 ## 219.7.4
 
 ### Patch Changes

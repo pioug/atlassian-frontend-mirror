@@ -8,5 +8,4 @@ export {
 	convertContentUpdatedAt,
 	getContentIdAndProductFromResourceId,
 	getSourceProductFromResourceIdSafe,
-	productAttrIfGateOn,
 } from '../utils/utils';

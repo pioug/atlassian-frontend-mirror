@@ -39,7 +39,6 @@ import SubtaskIcon from '@atlaskit/icon/core/subtasks';
 import TaskIcon from '@atlaskit/icon/core/task';
 import { ConfluenceIcon, JiraIcon, AtlassianIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text, Inline, Anchor, Stack } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -328,8 +327,7 @@ const ItemIcon = ({ reference, intl }: { intl: IntlShape; reference: SyncBlockSo
 	if (
 		productType === 'jira-work-item' &&
 		hasAccess &&
-		issueType &&
-		fg('platform_synced_block_patch_11')
+		issueType
 	) {
 		const icon = renderJiraIssueTypeIcon(issueType, intl);
 		if (icon !== null) {
@@ -362,7 +360,7 @@ export const processReferenceData = (
 		if (references.length > 1) {
 			references.forEach(
 				(reference, index) =>
-					(reference.title = `${reference.title === '' && reference.hasAccess && fg('platform_synced_block_patch_8') ? formatMessage(messages.syncedLocationDropdownUntitledPage) : reference.title}: ${formatMessage(
+					(reference.title = `${reference.title === '' && reference.hasAccess ? formatMessage(messages.syncedLocationDropdownUntitledPage) : reference.title}: ${formatMessage(
 						messages.syncedLocationDropdownTitleBlockIndex,
 						{ index: index + 1 },
 					)}`),
@@ -495,8 +493,7 @@ const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId, 
 								{referenceData.map((reference) => {
 									const title =
 										reference.title === '' &&
-										reference.hasAccess &&
-										fg('platform_synced_block_patch_8')
+										reference.hasAccess
 											? formatMessage(messages.syncedLocationDropdownUntitledPage)
 											: reference.title || reference.url || '';
 

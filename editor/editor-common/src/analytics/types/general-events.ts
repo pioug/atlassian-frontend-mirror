@@ -484,6 +484,18 @@ type CodeBlockWordWrapToggleAEP = TrackAEP<
 	undefined
 >;
 
+type CodeBlockLineNumbersToggleAEP = TrackAEP<
+	ACTION.TOGGLE_CODE_BLOCK_LINE_NUMBERS,
+	ACTION_SUBJECT.CODE_BLOCK,
+	undefined,
+	{
+		codeBlockNodeSize: number;
+		lineNumbersHidden: boolean;
+		platform: PLATFORMS;
+	},
+	undefined
+>;
+
 export type RequestToEditAEP = UIAEP<
 	ACTION.REQUEST_TO_EDIT | ACTION.DISMISSED,
 	ACTION_SUBJECT.REQUEST_TO_EDIT_POP_UP,
@@ -600,6 +612,7 @@ export type GeneralEventPayload<T = void> =
 	| CollabOrganicChangesTrackerPayloadAEP
 	| BlocksDragInitAEP
 	| CodeBlockWordWrapToggleAEP
+	| CodeBlockLineNumbersToggleAEP
 	| RequestToEditAEP
 	| SingleColumLayoutDetectedAEP
 	| CopyLinkToAnchorButtonAEP

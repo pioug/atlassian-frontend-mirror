@@ -11,7 +11,6 @@ import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 import { isPromise, MentionNameStatus } from '@atlaskit/mention/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { getGlobalTheme } from '@atlaskit/tokens';
@@ -33,10 +32,10 @@ import {
  * Used to search inside reference sync blocks whose content lives outside the PM document.
  */
 type SimpleADFNode = {
-	type?: string;
 	attrs?: { title?: string };
 	content?: SimpleADFNode[];
 	text?: string;
+	type?: string;
 };
 
 export function extractTextFromADFContent(nodes: SimpleADFNode[]): string {
@@ -76,8 +75,7 @@ export const createDecorations = (selectedIndex: number, matches: Match[]): Deco
 const isElement = (nodeType?: string) =>
 	['blockCard', 'embedCard', 'inlineCard', 'status', 'mention', 'date'].includes(nodeType || '') ||
 	(nodeType === 'syncBlock' &&
-		editorExperiment('platform_synced_block', true) &&
-		fg('platform_synced_block_patch_11'));
+		editorExperiment('platform_synced_block', true));
 
 const isExpandTitle = (match: Match) =>
 	['expand', 'nestedExpand'].includes(match.nodeType || '') && !match.canReplace;
@@ -304,8 +302,7 @@ export function findMatches({
 							break;
 						case 'syncBlock': {
 							if (
-								editorExperiment('platform_synced_block', true) &&
-								fg('platform_synced_block_patch_11')
+								editorExperiment('platform_synced_block', true)
 							) {
 								const syncBlockStore = api?.syncedBlock?.sharedState.currentState()?.syncBlockStore;
 								const instance = syncBlockStore?.referenceManager.getFromCache(

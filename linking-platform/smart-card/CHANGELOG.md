@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 44.11.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.11.2
+
+### Patch Changes
+
+- [`cc55d170c2368`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc55d170c2368) -
+  Clean up fix_hover_card_on_focus_a11y
+
 ## 44.11.1
 
 ### Patch Changes

@@ -2,7 +2,6 @@
 
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type {
 	SyncBlockData,
@@ -109,15 +108,6 @@ export const getSourceProductFromResourceIdSafe = (
 	}
 };
 
-/*
- * Convenience wrapper around `getSourceProductFromResourceIdSafe` that returns
- * `undefined` whenever the `platform_synced_block_patch_11` rollout flag is off.
- * Centralised so that the flag name lives in exactly one place — when the flag is
- * cleaned up, this function should be deleted in its entirety and call-sites should
- * fall back to calling `getSourceProductFromResourceIdSafe` directly.
- */
-export const productAttrIfGateOn = (resourceId?: string): SyncBlockProduct | undefined =>
-	fg('platform_synced_block_patch_11') ? getSourceProductFromResourceIdSafe(resourceId) : undefined;
 
 export const convertContentUpdatedAt = (
 	contentUpdatedAt: number | undefined,

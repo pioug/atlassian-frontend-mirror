@@ -7,6 +7,7 @@ import ButtonIcon from '@atlaskit/icon/core/checkbox-indeterminate';
 import CustomIcon from '@atlaskit/icon/core/compass';
 import LinkIcon from '@atlaskit/icon/core/link';
 import { Flex } from '@atlaskit/primitives/compiled';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
 	ButtonItem,
 	HeadingItem,

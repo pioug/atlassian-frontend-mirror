@@ -2354,4 +2354,15 @@ describe('FeatureGate client', () => {
 			expect(mockStatsigClient.updateUserAsync).not.toHaveBeenCalled();
 		});
 	});
+
+	describe('getTargetApp', () => {
+		test('should return undefined before initialization', () => {
+			expect(FeatureGatesClass.getTargetApp()).toBeUndefined();
+		});
+
+		test('should return the targetApp value after initialization', async () => {
+			await mockAndInit();
+			expect(FeatureGatesClass.getTargetApp()).toBe(TARGET_APP);
+		});
+	});
 });

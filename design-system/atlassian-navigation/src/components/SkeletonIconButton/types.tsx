@@ -1,5 +1,8 @@
 import { type ReactNode } from 'react';
 
+/**
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export type SkeletonIconButtonProps = {
 	/**
 	 * Content to be placed inside the skeleton.

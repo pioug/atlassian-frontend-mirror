@@ -8,20 +8,22 @@ import { type SkipLinkData } from './types';
  *
  * `useSkipLink` is the public API wrapper of this.
  *
- * This private version exists for us to support `onBeforeNavigate` for the side nav use case,
- * where we might need to expand it before moving focus, without having to support `onBeforeNavigate` publicly.
+ * This private version exists for us to support `onBeforeNavigate` / `navigate` for the side nav use case,
+ * where we might need to expand it before moving focus, without having to support those publicly.
  */
 export const useSkipLinkInternal: ({
 	id,
 	label,
 	listIndex,
 	onBeforeNavigate,
+	navigate,
 	isHidden,
 }: SkipLinkData) => void = ({
 	id,
 	label,
 	listIndex,
 	onBeforeNavigate,
+	navigate,
 	isHidden,
 }: SkipLinkData): void => {
 	const { registerSkipLink, unregisterSkipLink } = useContext(SkipLinksContext);
@@ -34,9 +36,9 @@ export const useSkipLinkInternal: ({
 			return;
 		}
 
-		registerSkipLink({ id, label, listIndex, onBeforeNavigate, isHidden });
+		registerSkipLink({ id, label, listIndex, onBeforeNavigate, navigate, isHidden });
 		return () => {
 			unregisterSkipLink(id);
 		};
-	}, [id, isHidden, label, listIndex, onBeforeNavigate, registerSkipLink, unregisterSkipLink]);
+	}, [id, isHidden, label, listIndex, onBeforeNavigate, navigate, registerSkipLink, unregisterSkipLink]);
 };

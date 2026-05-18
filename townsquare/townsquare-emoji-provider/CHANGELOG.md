@@ -1,5 +1,14 @@
 # @atlaskit/townsquare-emoji-provider
 
+## 1.0.10
+
+### Patch Changes
+
+- [`4e3a4fec88b62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e3a4fec88b62) -
+  Enrol townsquare packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform
+- Updated dependencies
+
 ## 1.0.9
 
 ### Patch Changes

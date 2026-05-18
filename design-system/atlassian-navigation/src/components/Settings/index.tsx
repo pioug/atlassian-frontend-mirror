@@ -23,6 +23,8 @@ const iconSpacingStyles = cssMap({
  *
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#settings)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ *
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 export const Settings: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<SettingsProps> & React.RefAttributes<any>

@@ -9,7 +9,6 @@ import {
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 /**
  * Defers a callback to the next microtask (when gated) or next macrotask via setTimeout(0).
@@ -148,11 +147,7 @@ const fragmentContainsExtension = (fragment: Fragment): boolean => {
 		if (found) {
 			return;
 		}
-		if (
-			editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
-				? EXTENSION_NODES.has(node.type.name)
-				: node.type.name === 'inlineExtension'
-		) {
+		if (EXTENSION_NODES.has(node.type.name)) {
 			found = true;
 		} else if (node.content.size) {
 			if (fragmentContainsExtension(node.content)) {
@@ -216,22 +211,13 @@ export const wasExtensionInsertedInBodiedSyncBlock = (
 		if (resourceId !== undefined) {
 			return false;
 		}
-		if (
-			editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
-				? EXTENSION_NODES.has(node.type.name)
-				: node.type.name === 'inlineExtension'
-		) {
+		if (EXTENSION_NODES.has(node.type.name)) {
 			const $pos = tr.doc.resolve(pos);
 			const parent = findParentNodeOfTypeClosestToPos($pos, bodiedSyncBlock);
 			if (parent?.node.attrs.resourceId) {
 				const mappedPos = tr.mapping.invert().map(pos);
 				const nodeBefore = state.doc.nodeAt(mappedPos);
-				if (
-					!nodeBefore ||
-					(editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
-						? EXTENSION_NODES.has(nodeBefore.type.name)
-						: nodeBefore.type.name !== 'inlineExtension')
-				) {
+				if (!nodeBefore || EXTENSION_NODES.has(nodeBefore.type.name)) {
 					resourceId = parent.node.attrs.resourceId as string;
 					return false;
 				}

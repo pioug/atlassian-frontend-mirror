@@ -78,19 +78,6 @@ const nestedDropZoneStyle = css({
 	width: 'unset',
 });
 
-const enableDropZone = [
-	'paragraph',
-	'mediaSingle',
-	'heading',
-	'codeBlock',
-	'decisionList',
-	'bulletList',
-	'orderedList',
-	'taskList',
-	'extension',
-	'blockCard',
-];
-
 const enableDropZoneNext = [
 	'paragraph',
 	'mediaSingle',
@@ -106,15 +93,7 @@ const enableDropZoneNext = [
 ];
 
 const getEnableDropZone = () => {
-	if (
-		editorExperiment('platform_synced_block_patch_6', true, {
-			exposure: true,
-		})
-	) {
-		return enableDropZoneNext;
-	}
-
-	return enableDropZone;
+	return enableDropZoneNext;
 };
 
 // This z index is used in container like layout
@@ -181,8 +160,7 @@ const HoverZone = ({
 	const isInsideBodiedSyncBlock =
 		parent &&
 		parent.type.name === 'bodiedSyncBlock' &&
-		editorExperiment('platform_synced_block', true) &&
-		editorExperiment('platform_synced_block_patch_6', true, { exposure: true });
+		editorExperiment('platform_synced_block', true);
 
 	useEffect(() => {
 		if (ref.current) {

@@ -21,7 +21,6 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text, Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 
@@ -34,33 +33,6 @@ type ModalContent = {
 	descriptionSingle: MessageDescriptor;
 	titleMultiple: MessageDescriptor;
 	titleSingle: MessageDescriptor;
-};
-
-const modalContentMapOld: Record<
-	'source-block-deleted' | 'source-block-unsynced' | 'source-block-unpublished',
-	ModalContent
-> = {
-	'source-block-deleted': {
-		titleMultiple: messages.deleteConfirmationModalTitleMultiple,
-		titleSingle: messages.deletionConfirmationModalTitleSingle,
-		descriptionSingle: messages.deletionConfirmationModalDescriptionNoRef,
-		descriptionMultiple: messages.deletionConfirmationModalDescription,
-		confirmButtonLabel: messages.deleteConfirmationModalDeleteButton,
-	},
-	'source-block-unpublished': {
-		titleMultiple: messages.deleteConfirmationModalTitleMultiple,
-		titleSingle: messages.deletionConfirmationModalTitleSingle,
-		descriptionSingle: messages.deletionConfirmationModalDescriptionNoRef,
-		descriptionMultiple: messages.deletionConfirmationModalDescription,
-		confirmButtonLabel: messages.deleteConfirmationModalDeleteButton,
-	},
-	'source-block-unsynced': {
-		titleMultiple: messages.unsyncConfirmationModalTitle,
-		titleSingle: messages.unsyncConfirmationModalTitle,
-		descriptionSingle: messages.unsyncConfirmModalDescriptionSingle,
-		descriptionMultiple: messages.unsyncConfirmModalDescriptionMultiple,
-		confirmButtonLabel: messages.deleteConfirmationModalUnsyncButton,
-	},
 };
 
 const modalContentMap: Record<
@@ -124,10 +96,9 @@ export const DeleteConfirmationModal = ({
 		undefined,
 	);
 
-	// When platform_synced_block_patch_9 is on and a source block with no references is deleted,
-	// the modal is never shown but onDeleteCompleted still sets bodiedSyncBlockDeletionStatus to
-	// 'completed'. This ref signals the useEffect to silently reset the status without trying to
-	// close the modal (which was never open).
+	// When a source block with no references is deleted, the modal is never shown but
+	// onDeleteCompleted still sets bodiedSyncBlockDeletionStatus to 'completed'. This ref signals
+	// the useEffect to silently reset the status without trying to close the modal (which was never open).
 	const skipModalOnCompletedRef = React.useRef(false);
 
 	const handleClick = useCallback(
@@ -184,35 +155,33 @@ export const DeleteConfirmationModal = ({
 
 	const confirmationCallback = useCallback(
 		async (syncBlockIds: SyncBlockAttrs[], deleteReason: DeletionReason | undefined) => {
-			if (fg('platform_synced_block_patch_9')) {
-				// Fetch references before opening the modal. If none exist, skip the modal
-				// entirely and auto-confirm the deletion. On fetch error, default to showing
-				// the modal to avoid accidental data loss.
-				let count: number;
-				try {
-					count = await fetchReferenceCountRef.current(syncBlockIds);
-				} catch {
-					count = 1;
-				}
-
-				if (count === 0) {
-					// No references — auto-confirm without showing the modal.
-					// Clear activeFlag to avoid issues with subsequent deletion attempts.
-					// We do NOT reset bodiedSyncBlockDeletionStatus here because onDeleteCompleted
-					// will set it to 'completed' after the delete call returns. Instead we use a
-					// ref to signal that the next 'completed' status should be silently reset
-					// without trying to close the modal.
-					skipModalOnCompletedRef.current = true;
-					api?.core?.actions.execute(({ tr }) => {
-						return tr.setMeta(syncedBlockPluginKey, {
-							...(activeFlagRef.current ? { activeFlag: false } : {}),
-						});
-					});
-					return true;
-				}
-
-				setReferenceCount(count);
+			// Fetch references before opening the modal. If none exist, skip the modal
+			// entirely and auto-confirm the deletion. On fetch error, default to showing
+			// the modal to avoid accidental data loss.
+			let count: number;
+			try {
+				count = await fetchReferenceCountRef.current(syncBlockIds);
+			} catch {
+				count = 1;
 			}
+
+			if (count === 0) {
+				// No references — auto-confirm without showing the modal.
+				// Clear activeFlag to avoid issues with subsequent deletion attempts.
+				// We do NOT reset bodiedSyncBlockDeletionStatus here because onDeleteCompleted
+				// will set it to 'completed' after the delete call returns. Instead we use a
+				// ref to signal that the next 'completed' status should be silently reset
+				// without trying to close the modal.
+				skipModalOnCompletedRef.current = true;
+				api?.core?.actions.execute(({ tr }) => {
+					return tr.setMeta(syncedBlockPluginKey, {
+						...(activeFlagRef.current ? { activeFlag: false } : {}),
+					});
+				});
+				return true;
+			}
+
+			setReferenceCount(count);
 
 			setIsOpen(true);
 			setSyncBlockIds(syncBlockIds);
@@ -252,7 +221,7 @@ export const DeleteConfirmationModal = ({
 	}, [syncBlockStoreManager, confirmationCallback]);
 
 	useEffect(() => {
-		if (skipModalOnCompletedRef.current && fg('platform_synced_block_patch_9')) {
+		if (skipModalOnCompletedRef.current) {
 			if (bodiedSyncBlockDeletionStatus === 'completed') {
 				// Deletion was auto-confirmed without showing the modal (no references).
 				// Reset the status to 'none' — keep skipModalOnCompletedRef true until
@@ -285,24 +254,8 @@ export const DeleteConfirmationModal = ({
 		}
 	}, [api?.core?.actions, bodiedSyncBlockDeletionStatus, isOpen]);
 
-	useEffect(() => {
-		// When the flag is off, fetch references after the modal opens (original behaviour).
-		// When the flag is on, references are fetched and set before the modal opens in
-		// confirmationCallback, so this useEffect is skipped to avoid a duplicate fetch.
-		if (isOpen && syncBlockIds !== undefined && !fg('platform_synced_block_patch_9')) {
-			const fetchReferences = async () => {
-				try {
-					const totalCount = await fetchReferenceCountRef.current(syncBlockIds);
-					setReferenceCount(totalCount);
-				} catch {
-					setReferenceCount(0);
-				}
-			};
-
-			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
-			fetchReferences();
-		}
-	}, [isOpen, syncBlockIds]);
+	// References are fetched and set before the modal opens in
+	// confirmationCallback, so no additional fetch is needed here.
 
 	return (
 		<ModalTransition>
@@ -319,11 +272,7 @@ export const DeleteConfirmationModal = ({
 							</Box>
 						) : (
 							<ModalContent
-								content={
-									fg('platform_synced_block_patch_8')
-										? modalContentMap[deleteReason]
-										: modalContentMapOld[deleteReason]
-								}
+								content={modalContentMap[deleteReason]}
 								referenceCount={referenceCount}
 								handleClick={handleClick}
 								formatMessage={formatMessage}

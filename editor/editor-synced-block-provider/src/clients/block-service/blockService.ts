@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type {
 	ReferenceSyncBlockResponse,
 	SyncBlockProduct,
@@ -697,16 +695,14 @@ export const deleteSyncedBlock = async ({
 	const result: DeleteBlockGraphQLResponse = await response.json();
 
 	if (result.errors && result.errors.length > 0) {
-		if (fg('platform_synced_block_patch_8')) {
-			const allNotFound = result.errors.every(
-				(e) => e.extensions?.errorType === 'RESOURCE_NOT_FOUND',
-			);
-			if (allNotFound) {
-				// Throw BlockNotFoundError so the caller can create the block first then retry the delete.
-				// Block Service uses soft-deletes: the entry must exist before deletion so a deletion-reason
-				// is stored (used to display errors in reference blocks).
-				throw new BlockNotFoundError();
-			}
+		const allNotFound = result.errors.every(
+			(e) => e.extensions?.errorType === 'RESOURCE_NOT_FOUND',
+		);
+		if (allNotFound) {
+			// Throw BlockNotFoundError so the caller can create the block first then retry the delete.
+			// Block Service uses soft-deletes: the entry must exist before deletion so a deletion-reason
+			// is stored (used to display errors in reference blocks).
+			throw new BlockNotFoundError();
 		}
 		throw new Error(result.errors.map((e) => e.message).join(', '));
 	}

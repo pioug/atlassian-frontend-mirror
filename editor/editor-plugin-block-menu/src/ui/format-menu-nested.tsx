@@ -23,6 +23,9 @@ export const FormatMenuComponent = ({
 	children: React.ReactNode;
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
+	const formatMenuLabel = fg('platform_editor_block_menu_v2_patch_2')
+		? blockMenuMessages.changeFormat
+		: blockMenuMessages.turnInto;
 
 	const handleClick = useCallback(() => {
 		api?.core.actions.execute(({ tr }) => {
@@ -41,7 +44,7 @@ export const FormatMenuComponent = ({
 
 	return (
 		<ToolbarNestedDropdownMenu
-			text={formatMessage(blockMenuMessages.turnInto)}
+			text={formatMessage(formatMenuLabel)}
 			elemBefore={<ChangesIcon label="" size="small" />}
 			elemAfter={<ChevronRightIcon label="" size="small" />}
 			enableMaxHeight={true}

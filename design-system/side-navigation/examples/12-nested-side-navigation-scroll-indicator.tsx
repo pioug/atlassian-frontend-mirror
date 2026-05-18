@@ -10,6 +10,7 @@ import QueueIcon from '@atlaskit/icon/core/pages';
 import CustomerIcon from '@atlaskit/icon/core/person';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import { Flex } from '@atlaskit/primitives/compiled';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
 	ButtonItem,
 	LinkItem,

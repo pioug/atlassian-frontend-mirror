@@ -16,6 +16,7 @@ import { type IconButtonProps } from './types';
  * pass into `AtlassianNavigation`'s render props, but where possible you should
  * rely on the defaults.
  *
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 export const IconButton: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<IconButtonProps> & React.RefAttributes<HTMLElement>

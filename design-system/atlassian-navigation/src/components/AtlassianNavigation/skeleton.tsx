@@ -68,6 +68,8 @@ const rightStyles = css({
  *
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#skeleton-loader)
  * - [Code](https://atlassian.design/components/{packageName}/code)
+ *
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 export const NavigationSkeleton = ({
 	primaryItemsCount = 4,

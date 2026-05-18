@@ -86,6 +86,9 @@ export class LocalUploadComponentReact<
 			mediaClient,
 			tenantUploadParams,
 			shouldCopyFileToRecents,
+			undefined,
+			config.uploadBatchSize,
+			config.uploadBatchDelayMs,
 		);
 		this.uploadService.on('files-added', this.onFilesAdded);
 		this.uploadService.on('file-preview-update', this.onFilePreviewUpdate);

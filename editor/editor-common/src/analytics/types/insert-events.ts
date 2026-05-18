@@ -365,6 +365,8 @@ type InsertReferenceSyncedBlockPayload = InsertAEP<
 	{
 		blockInstanceId: string;
 		resourceId: string;
+		sourceProduct?: string;
+		isPaste: boolean;
 	},
 	undefined
 >;

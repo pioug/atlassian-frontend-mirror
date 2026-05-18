@@ -1,12 +1,8 @@
-import isEqual from 'lodash/isEqual';
-
 import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { SyncBlockError } from '../common/types';
 import type {
@@ -36,7 +32,7 @@ import {
 	getSaveSourceExperience,
 	getFetchSourceInfoExperience,
 } from '../utils/experienceTracking';
-import { convertSyncBlockPMNodeToSyncBlockData, productAttrIfGateOn } from '../utils/utils';
+import { convertSyncBlockPMNodeToSyncBlockData, getSourceProductFromResourceIdSafe } from '../utils/utils';
 
 export type ConfirmationCallback = (
 	syncBlockIds: SyncBlockAttrs[],
@@ -48,7 +44,7 @@ type DestroyCallback = () => void;
 type SyncBlockData = Data & {
 	/**
 	 * Cached PM Fragment reference for fast equality comparison via Fragment.eq()
-	 * Used when platform_synced_block_update_refactor fg is ON
+	 * Used for tracking content changes
 	 */
 	contentFragment?: Fragment;
 	/**
@@ -136,7 +132,7 @@ export class SourceSyncBlockStoreManager {
 	 */
 	public updateSyncBlockData(syncBlockNode: PMNode, isRemote: boolean): boolean {
 		try {
-			if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+			if (this.viewMode === 'view') {
 				return false;
 			}
 
@@ -152,39 +148,25 @@ export class SourceSyncBlockStoreManager {
 
 			const cachedBlock = this.syncBlockCache.get(resourceId);
 
-			if (fg('platform_synced_block_update_refactor')) {
-				// Fast path: if the PM content fragment hasn't changed, skip serialization entirely
-				// Fragment.eq() leverages ProseMirror's structural sharing for O(1) comparison
-				if (cachedBlock?.contentFragment?.eq(syncBlockNode.content)) {
-					return true;
-				}
-
-				const syncBlockData = convertSyncBlockPMNodeToSyncBlockData(syncBlockNode);
-
-				if (cachedBlock && !isRemote) {
-					this.hasReceivedContentChange = true;
-				}
-
-				const isDirty = !isRemote || !cachedBlock; // if the change is not remote, or the block is not in the cache yet, it's dirty
-				this.syncBlockCache.set(resourceId, {
-					...syncBlockData,
-					isDirty: isDirty, // if the change is from remote, it's not dirty
-					contentFragment: syncBlockNode.content,
-					...(fg('platform_synced_block_patch_10') && { status: cachedBlock?.status }),
-				});
-			} else {
-				const syncBlockData = convertSyncBlockPMNodeToSyncBlockData(syncBlockNode);
-
-				if (cachedBlock && !isEqual(syncBlockData.content, cachedBlock.content)) {
-					this.hasReceivedContentChange = true;
-				}
-
-				this.syncBlockCache.set(resourceId, {
-					...syncBlockData,
-					isDirty: true,
-					...(fg('platform_synced_block_patch_10') && { status: cachedBlock?.status }),
-				});
+			// Fast path: if the PM content fragment hasn't changed, skip serialization entirely
+			// Fragment.eq() leverages ProseMirror's structural sharing for O(1) comparison
+			if (cachedBlock?.contentFragment?.eq(syncBlockNode.content)) {
+				return true;
 			}
+
+			const syncBlockData = convertSyncBlockPMNodeToSyncBlockData(syncBlockNode);
+
+			if (cachedBlock && !isRemote) {
+				this.hasReceivedContentChange = true;
+			}
+
+			const isDirty = !isRemote || !cachedBlock; // if the change is not remote, or the block is not in the cache yet, it's dirty
+			this.syncBlockCache.set(resourceId, {
+				...syncBlockData,
+				isDirty: isDirty, // if the change is from remote, it's not dirty
+				contentFragment: syncBlockNode.content,
+				status: cachedBlock?.status,
+			});
 
 			return true;
 		} catch (error) {
@@ -197,7 +179,7 @@ export class SourceSyncBlockStoreManager {
 				updateCacheErrorPayload(
 					(error as Error).message,
 					syncBlockNode?.attrs?.resourceId,
-					productAttrIfGateOn(syncBlockNode?.attrs?.resourceId),
+					getSourceProductFromResourceIdSafe(syncBlockNode?.attrs?.resourceId),
 				),
 			);
 			return false;
@@ -211,7 +193,7 @@ export class SourceSyncBlockStoreManager {
 	 */
 	public async flush(): Promise<boolean> {
 		try {
-			if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+			if (this.viewMode === 'view') {
 				return true;
 			}
 
@@ -277,17 +259,15 @@ export class SourceSyncBlockStoreManager {
 				writeResults.forEach((result) => {
 					if (result.resourceId && !result.error) {
 						// Update cache with the status returned from the backend
-						if (fg('platform_synced_block_patch_10')) {
-							const cachedData = this.syncBlockCache.get(result.resourceId);
-							if (cachedData && result.status) {
-								cachedData.status = result.status;
-							}
+						const cachedData = this.syncBlockCache.get(result.resourceId);
+						if (cachedData && result.status) {
+							cachedData.status = result.status;
 						}
 						this.fireAnalyticsEvent?.(
 							updateSuccessPayload(
 								result.resourceId,
 								false,
-								productAttrIfGateOn(result.resourceId),
+								getSourceProductFromResourceIdSafe(result.resourceId),
 							),
 						);
 					}
@@ -302,7 +282,7 @@ export class SourceSyncBlockStoreManager {
 							updateErrorPayload(
 								result.error || 'Failed to write data',
 								result.resourceId,
-								productAttrIfGateOn(result.resourceId),
+								getSourceProductFromResourceIdSafe(result.resourceId),
 							),
 						);
 					});
@@ -323,7 +303,7 @@ export class SourceSyncBlockStoreManager {
 	}
 
 	public hasUnsavedChanges(): boolean {
-		if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+		if (this.viewMode === 'view') {
 			return false;
 		}
 
@@ -359,7 +339,7 @@ export class SourceSyncBlockStoreManager {
 	 * @param success
 	 */
 	public commitPendingCreation(success: boolean, resourceId: ResourceId): void {
-		if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+		if (this.viewMode === 'view') {
 			return;
 		}
 
@@ -367,12 +347,7 @@ export class SourceSyncBlockStoreManager {
 		if (onCompletion) {
 			this.creationCompletionCallbacks.delete(resourceId);
 			onCompletion(success);
-			if (
-				success &&
-				editorExperiment('platform_synced_block_patch_6', true, {
-					exposure: true,
-				})
-			) {
+			if (success) {
 				// If creation is successful, set hasReceivedContentChange to true
 				// to indicate that there are unsaved changes in the cache
 				this.hasReceivedContentChange = true;
@@ -382,14 +357,14 @@ export class SourceSyncBlockStoreManager {
 				createErrorPayload(
 					'creation complete callback missing',
 					resourceId,
-					productAttrIfGateOn(resourceId),
+					getSourceProductFromResourceIdSafe(resourceId),
 				),
 			);
 		}
 
 		if (success) {
 			this.fireAnalyticsEvent?.(
-				createSuccessPayload(resourceId || '', productAttrIfGateOn(resourceId)),
+				createSuccessPayload(resourceId || '', getSourceProductFromResourceIdSafe(resourceId)),
 			);
 		} else {
 			// Delete the node from cache if fail to create so it's not flushed to BE
@@ -398,7 +373,7 @@ export class SourceSyncBlockStoreManager {
 				createErrorPayload(
 					'Fail to create bodied sync block',
 					resourceId,
-					productAttrIfGateOn(resourceId),
+					getSourceProductFromResourceIdSafe(resourceId),
 				),
 			);
 		}
@@ -439,7 +414,7 @@ export class SourceSyncBlockStoreManager {
 		node: PMNode,
 		onCompletion: OnCompletion,
 	): void {
-		if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+		if (this.viewMode === 'view') {
 			return;
 		}
 
@@ -449,17 +424,13 @@ export class SourceSyncBlockStoreManager {
 				throw new Error('Data provider not set');
 			}
 
-			if (fg('platform_synced_block_update_refactor')) {
-				// add the node to the cache
-				this.updateSyncBlockData(node, false);
+			// add the node to the cache
+			this.updateSyncBlockData(node, false);
 
-				// Mark the block as unpublished in the cache so it can be cleaned up on cancel
-				if (fg('platform_synced_block_patch_10')) {
-					const cached = this.syncBlockCache.get(resourceId);
-					if (cached) {
-						cached.status = 'unpublished';
-					}
-				}
+			// Mark the block as unpublished in the cache so it can be cleaned up on cancel
+			const cached = this.syncBlockCache.get(resourceId);
+			if (cached) {
+				cached.status = 'unpublished';
 			}
 
 			this.creationCompletionCallbacks.set(resourceId, onCompletion);
@@ -485,7 +456,7 @@ export class SourceSyncBlockStoreManager {
 							createErrorPayload(
 								result.error || 'Failed to create bodied sync block',
 								resourceId,
-								productAttrIfGateOn(resourceId),
+								getSourceProductFromResourceIdSafe(resourceId),
 							),
 						);
 					}
@@ -500,7 +471,7 @@ export class SourceSyncBlockStoreManager {
 						createErrorPayload(
 							(error as Error).message,
 							resourceId,
-							productAttrIfGateOn(resourceId),
+							getSourceProductFromResourceIdSafe(resourceId),
 						),
 					);
 				});
@@ -512,13 +483,13 @@ export class SourceSyncBlockStoreManager {
 				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
 			});
 			this.fireAnalyticsEvent?.(
-				createErrorPayload((error as Error).message, resourceId, productAttrIfGateOn(resourceId)),
+				createErrorPayload((error as Error).message, resourceId, getSourceProductFromResourceIdSafe(resourceId)),
 			);
 		}
 	}
 
 	private setPendingDeletion = (Ids: SyncBlockAttrs, value: boolean) => {
-		if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+		if (this.viewMode === 'view') {
 			return;
 		}
 
@@ -535,7 +506,7 @@ export class SourceSyncBlockStoreManager {
 		reason: DeletionReason,
 	): Promise<boolean> {
 		try {
-			if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+			if (this.viewMode === 'view') {
 				return false;
 			}
 
@@ -565,7 +536,7 @@ export class SourceSyncBlockStoreManager {
 				this.deleteExperience?.success();
 				results.forEach((result) => {
 					this.fireAnalyticsEvent?.(
-						deleteSuccessPayload(result.resourceId, productAttrIfGateOn(result.resourceId)),
+						deleteSuccessPayload(result.resourceId, getSourceProductFromResourceIdSafe(result.resourceId)),
 					);
 				});
 			} else {
@@ -577,14 +548,14 @@ export class SourceSyncBlockStoreManager {
 				results.forEach((result) => {
 					if (result.success) {
 						this.fireAnalyticsEvent?.(
-							deleteSuccessPayload(result.resourceId, productAttrIfGateOn(result.resourceId)),
+							deleteSuccessPayload(result.resourceId, getSourceProductFromResourceIdSafe(result.resourceId)),
 						);
 					} else {
 						this.fireAnalyticsEvent?.(
 							deleteErrorPayload(
 								result.error || 'Failed to delete synced block',
 								result.resourceId,
-								productAttrIfGateOn(result.resourceId),
+								getSourceProductFromResourceIdSafe(result.resourceId),
 							),
 						);
 					}
@@ -600,7 +571,7 @@ export class SourceSyncBlockStoreManager {
 					deleteErrorPayload(
 						(error as Error).message,
 						Ids.resourceId,
-						productAttrIfGateOn(Ids.resourceId),
+						getSourceProductFromResourceIdSafe(Ids.resourceId),
 					),
 				);
 			});
@@ -617,7 +588,7 @@ export class SourceSyncBlockStoreManager {
 	}
 
 	public async retryDeletion(): Promise<void> {
-		if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+		if (this.viewMode === 'view') {
 			return Promise.resolve();
 		}
 
@@ -643,7 +614,6 @@ export class SourceSyncBlockStoreManager {
 	 */
 	public async fetchAndCacheStatuses(): Promise<void> {
 		if (
-			!fg('platform_synced_block_patch_10') ||
 			!this.dataProvider ||
 			this.syncBlockCache.size === 0
 		) {
@@ -696,10 +666,6 @@ export class SourceSyncBlockStoreManager {
 	 * @returns true if all deletions succeeded, false otherwise
 	 */
 	public discardUnpublishedBlocks(): Promise<boolean> {
-		if (!fg('platform_synced_block_patch_10')) {
-			return Promise.resolve(true);
-		}
-
 		const unpublishedBlockIds: SyncBlockAttrs[] = Array.from(this.syncBlockCache.entries())
 			.filter(([_, data]) => data.status === 'unpublished' && !data.pendingDeletion)
 			.map(([resourceId, data]) => ({
@@ -734,7 +700,7 @@ export class SourceSyncBlockStoreManager {
 		onDeleteCompleted: OnCompletion,
 		destroyCallback: DestroyCallback,
 	): Promise<void> {
-		if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+		if (this.viewMode === 'view') {
 			return Promise.resolve();
 		}
 
@@ -809,7 +775,7 @@ export class SourceSyncBlockStoreManager {
 				fetchReferencesErrorPayload(
 					(error as Error).message,
 					resourceId,
-					productAttrIfGateOn(resourceId),
+					getSourceProductFromResourceIdSafe(resourceId),
 				),
 			);
 

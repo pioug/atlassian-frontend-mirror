@@ -1,13 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 
 import { SetSideNavVisibilityState } from '../../side-nav/set-side-nav-visibility-state';
+import { SideNavRefContext } from '../../side-nav/side-nav-ref-context';
 import { SideNavVisibilityState } from '../../side-nav/side-nav-visibility-state';
 import type { SideNavState, SideNavTrigger } from '../../side-nav/types';
+import { useSideNavRef } from '../../side-nav/use-side-nav-ref';
 import { useToggleSideNav } from '../../side-nav/use-toggle-side-nav';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
@@ -69,6 +72,51 @@ describe('useToggleSideNav', () => {
 					{children}
 				</SetSideNavVisibilityState.Provider>
 			</SideNavVisibilityState.Provider>
+		);
+	}
+
+	/**
+	 * Renders the provider in the parent and the hook in a child, which matches real usage: `useSideNavRef` /
+	 * `useToggleSideNav` only see the custom ref if they run under the provider, not in the same component
+	 * that renders the provider.
+	 */
+	function TestComponentWithSideNavRef({
+		trigger = 'programmatic',
+	}: {
+		trigger?: SideNavTrigger;
+	} = {}) {
+		const sideNavRef = useRef<HTMLDivElement | null>(null);
+		return (
+			<SideNavRefContext.Provider value={sideNavRef}>
+				<TestSideNavToggleView trigger={trigger} />
+			</SideNavRefContext.Provider>
+		);
+	}
+
+	function TestSideNavToggleView({ trigger }: { trigger: SideNavTrigger }) {
+		const sideNavState = useContext(SideNavVisibilityState);
+		const sideNavRef = useSideNavRef();
+		const toggleSideNav = useToggleSideNav({ trigger });
+
+		return (
+			<div>
+				{sideNavState ? (
+					<>
+						<p>Mobile state: {sideNavState.mobile}</p>
+						<p>Desktop state: {sideNavState.desktop}</p>
+						<p>Flyout state: {sideNavState.flyout}</p>
+						<p>Last trigger: {sideNavState?.lastTrigger || 'null'}</p>
+					</>
+				) : (
+					<p>State not initialised</p>
+				)}
+				<button type="button" onClick={toggleSideNav}>
+					Toggle side nav
+				</button>
+				<div ref={sideNavRef} data-testid="side-nav-mock">
+					<a href="#first">First link</a>
+				</div>
+			</div>
 		);
 	}
 
@@ -336,5 +384,152 @@ describe('useToggleSideNav', () => {
 		// Verify the default trigger was set
 		expect(screen.getByText('Last trigger: programmatic')).toBeInTheDocument();
 		expect(screen.getByText('Desktop state: expanded')).toBeInTheDocument();
+	});
+
+	describe('focus on expand (toggle-button trigger and platform_dst_nav4_skip_link_a11y_1)', () => {
+		beforeAll(() => {
+			HTMLElement.prototype.checkVisibility = () => true;
+		});
+
+		ffTest.on(
+			'platform_dst_nav4_skip_link_a11y_1',
+			'with focus on expand feature flag enabled',
+			() => {
+				it('should move focus to the first visible link in the side nav when expanding on desktop', async () => {
+					setMediaQuery('(min-width: 64rem)', { initial: true });
+
+					render(
+						<MockProvider
+							initialState={{
+								mobile: 'collapsed',
+								desktop: 'collapsed',
+								flyout: 'closed',
+								lastTrigger: null,
+							}}
+						>
+							<TestComponentWithSideNavRef trigger="toggle-button" />
+						</MockProvider>,
+					);
+
+					const firstLink = screen.getByRole('link', { name: 'First link' });
+
+					const toggleButton = screen.getByRole('button', { name: 'Toggle side nav' });
+					fireEvent.click(toggleButton);
+
+					expect(firstLink).toHaveFocus();
+				});
+
+				it('should move focus to the first visible link in the side nav when expanding on mobile', async () => {
+					setMediaQuery('(min-width: 64rem)', { initial: false });
+
+					render(
+						<MockProvider
+							initialState={{
+								mobile: 'collapsed',
+								desktop: 'collapsed',
+								flyout: 'closed',
+								lastTrigger: null,
+							}}
+						>
+							<TestComponentWithSideNavRef trigger="toggle-button" />
+						</MockProvider>,
+					);
+
+					const firstLink = screen.getByRole('link', { name: 'First link' });
+
+					const toggleButton = screen.getByRole('button', { name: 'Toggle side nav' });
+					fireEvent.click(toggleButton);
+
+					expect(firstLink).toHaveFocus();
+				});
+
+				it('should not move focus when collapsing via the toggle (desktop)', async () => {
+					setMediaQuery('(min-width: 64rem)', { initial: true });
+					const user = userEvent.setup();
+
+					render(
+						<MockProvider
+							initialState={{
+								mobile: 'collapsed',
+								desktop: 'expanded',
+								flyout: 'closed',
+								lastTrigger: null,
+							}}
+						>
+							<TestComponentWithSideNavRef trigger="toggle-button" />
+						</MockProvider>,
+					);
+
+					const firstLink = screen.getByRole('link', { name: 'First link' });
+
+					const toggleButton = screen.getByRole('button', { name: 'Toggle side nav' });
+					toggleButton.focus();
+					await user.click(toggleButton);
+
+					expect(toggleButton).toHaveFocus();
+					expect(firstLink).not.toHaveFocus();
+				});
+
+				it('should not move focus when the trigger is not toggle-button', async () => {
+					setMediaQuery('(min-width: 64rem)', { initial: true });
+					const user = userEvent.setup();
+
+					render(
+						<MockProvider
+							initialState={{
+								mobile: 'collapsed',
+								desktop: 'collapsed',
+								flyout: 'closed',
+								lastTrigger: null,
+							}}
+						>
+							<TestComponentWithSideNavRef trigger="programmatic" />
+						</MockProvider>,
+					);
+
+					const firstLink = screen.getByRole('link', { name: 'First link' });
+
+					const toggleButton = screen.getByRole('button', { name: 'Toggle side nav' });
+					toggleButton.focus();
+					await user.click(toggleButton);
+
+					expect(toggleButton).toHaveFocus();
+					expect(firstLink).not.toHaveFocus();
+				});
+			},
+		);
+
+		ffTest.off(
+			'platform_dst_nav4_skip_link_a11y_1',
+			'with focus on expand feature flag disabled',
+			() => {
+				it('should not move focus to the first item when the feature flag is off', async () => {
+					setMediaQuery('(min-width: 64rem)', { initial: true });
+					const user = userEvent.setup();
+
+					render(
+						<MockProvider
+							initialState={{
+								mobile: 'collapsed',
+								desktop: 'collapsed',
+								flyout: 'closed',
+								lastTrigger: null,
+							}}
+						>
+							<TestComponentWithSideNavRef trigger="toggle-button" />
+						</MockProvider>,
+					);
+
+					const firstLink = screen.getByRole('link', { name: 'First link' });
+
+					const toggleButton = screen.getByRole('button', { name: 'Toggle side nav' });
+					toggleButton.focus();
+					await user.click(toggleButton);
+
+					expect(toggleButton).toHaveFocus();
+					expect(firstLink).not.toHaveFocus();
+				});
+			},
+		);
 	});
 });

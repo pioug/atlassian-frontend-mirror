@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Profile } from '@atlaskit/atlassian-navigation';
 import { ButtonItem, HeadingItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';

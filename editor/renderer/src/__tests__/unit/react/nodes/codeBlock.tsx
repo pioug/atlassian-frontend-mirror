@@ -39,6 +39,20 @@ describe('Renderer - React/Nodes/CodeBlock', () => {
 		node.unmount();
 	});
 
+	it('should show line numbers by default', () => {
+		const node = render();
+		const codeBlockWrapper = node.find(AkCodeBlock);
+		expect(codeBlockWrapper.at(0).prop('shouldShowLineNumbers')).toBe(true);
+		node.unmount();
+	});
+
+	it('should hide line numbers when hideLineNumbers is true', () => {
+		const node = render({ hideLineNumbers: true });
+		const codeBlockWrapper = node.find(AkCodeBlock);
+		expect(codeBlockWrapper.at(0).prop('shouldShowLineNumbers')).toBe(false);
+		node.unmount();
+	});
+
 	it('should render CopyButton component if allowCopyToClipboard is enabled', () => {
 		const node = render({ allowCopyToClipboard: true });
 		expect(node.find('CopyButton')).toHaveLength(1);

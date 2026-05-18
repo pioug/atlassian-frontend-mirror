@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Popper } from '@atlaskit/popper';
 import Spinner from '@atlaskit/spinner';
@@ -118,12 +117,6 @@ const AutocompleteDropdown = ({
 	const [autocompleteId] = useScopedId(JQL_EDITOR_AUTOCOMPLETE_ID);
 
 	const isPopperPositioningEnabled = fg('jql_editor_autocomplete_use_popper');
-
-	const isScrollUIFixEnabled = FeatureGates.getExperimentValue(
-		'anip-1289-scroll-issues-in-jql-autocomplete',
-		'isEnabled',
-		false,
-	);
 
 	// Create virtual reference element positioned at cursor location (for popper implementation)
 	const virtualReferenceElement = useMemo(() => {
@@ -375,17 +368,14 @@ const AutocompleteDropdown = ({
 							data-testid="jql-editor-autocomplete"
 							tabIndex={-1}
 							ref={ref}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Popper requires dynamic positioning via style prop
-							style={
-								isScrollUIFixEnabled
-									? {
-											...style,
-											// Popper's maxSize modifier can produce a maxWidth larger than our design cap on small
-											// viewports; clamp it here so the panel never overflows off-screen.
-											maxWidth: 'min(400px, calc(100vw - 16px))',
-										}
-									: style
-							}
+							style={{
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+								...style,
+								// Popper's maxSize modifier can produce a maxWidth larger than our design cap on small
+								// viewports; clamp it here so the panel never overflows off-screen.
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- inline style needed to override Popper shouldFitViewport
+								maxWidth: 'min(400px, calc(100vw - 16px))',
+							}}
 							isOpen={isAutocompleteOpen}
 							usePopper={true}
 							onBlur={onEditorViewBlur}

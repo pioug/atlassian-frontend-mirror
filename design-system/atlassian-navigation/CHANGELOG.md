@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-navigation
 
+## 5.7.3
+
+### Patch Changes
+
+- [`45ab8af062543`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45ab8af062543) -
+  Add deprecation notices to code exports
+
 ## 5.7.2
 
 ### Patch Changes

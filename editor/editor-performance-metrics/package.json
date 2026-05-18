@@ -32,12 +32,18 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./user-latency": "./src/internals/userLatency/index.ts",
-		"./timeline": "./src/timeline.ts",
+		"./editorPerformanceObserver": "./src/entry-points/editorPerformanceObserver.ts",
+		"./global": "./src/entry-points/global.ts",
+		"./inp": "./src/entry-points/inp.ts",
+		"./metrics/editorPerformanceMetrics": "./src/entry-points/metrics-editorPerformanceMetrics.ts",
 		"./metrics": "./src/metrics.ts",
-		"./react": "./src/react-api.tsx",
-		"./inp": "./src/inp.ts",
-		"./page-complexity-score": "./src/page-complexity-score/index.ts"
+		"./page-complexity-score": "./src/entry-points/page-complexity-score.ts",
+		"./react": "./src/entry-points/react.tsx",
+		"./timeline/timeline": "./src/entry-points/timeline-timeline.ts",
+		"./timeline/timelineInterfaces": "./src/entry-points/timeline-timelineInterfaces.ts",
+		"./timeline/timelineTypes": "./src/entry-points/timeline-timelineTypes.ts",
+		"./timeline": "./src/timeline.ts",
+		"./user-latency": "./src/entry-points/user-latency.ts"
 	},
 	"dependencies": {
 		"@babel/runtime": "root:*",
@@ -101,7 +107,7 @@
 		"build-and-copy-page-score": "npx esbuild ./src/page-complexity-score/index.ts --bundle --platform=neutral --target=es2022 --format=iife --global-name=pageTreeScore | pbcopy"
 	},
 	"name": "@atlaskit/editor-performance-metrics",
-	"version": "2.1.10",
+	"version": "2.2.0",
 	"description": "Experimental code to track Editor Full Page performance on some particular scenarios",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

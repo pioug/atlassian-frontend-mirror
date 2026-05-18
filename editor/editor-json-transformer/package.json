@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-json-transformer",
-	"version": "8.31.8",
+	"version": "8.32.0",
 	"description": "JSON transformer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,9 +30,11 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
-		"./markOverrideRules": "./src/markOverrideRules.ts",
+		"./markOverrideRules": "./src/entry-points/markOverrideRules.ts",
+		"./sanitize/remove-marks": "./src/entry-points/sanitize-remove-marks.ts",
+		"./sanitize/sanitize-node": "./src/entry-points/sanitize-sanitize-node.ts",
 		"./sanitize": "./src/sanitize.ts",
-		"./types": "./src/types.ts"
+		"./types": "./src/entry-points/types.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",

@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 9.2.2
+
+### Patch Changes
+
+- [`81682ab6c4a7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81682ab6c4a7f) -
+  EDITOR-7104: Update editor block menu copy behind feature gates.
+  - Update synced block quick insert and toolbar copy to "Sync block" behind
+    `platform_synced_block_patch_12`
+  - Update block menu "Turn into" copy to "Change format" behind
+    `platform_editor_block_menu_v2_patch_2`
+
+- Updated dependencies
+
+## 9.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.2.0
 
 ### Minor Changes

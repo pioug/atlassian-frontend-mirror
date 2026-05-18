@@ -121,15 +121,14 @@ const scaleColumnsToWidth = (columnWidths: number[], availableWidth: number): CS
 
 /**
  * Computes column widths for tables inside sync blocks, matching the editor's scaleTableTo() exactly.
- * Returns null if the flag is off or not inside a sync block.
+ * Returns null if not inside a sync block.
  *
- * For nested tables (isInsideOfTable=true, gated by platform_synced_block_patch_9), we use
- * getTableContainerWidth(tableNode) as the reference — the width the editor saved, which already
- * accounts for the parent cell's available space (colwidth minus tableCellPadding * 2).
- * This matches bodiedSyncBlock where isRendererNested=false, so renderScaleDownColgroup uses
- * getTableContainerWidth(tableNode). For syncBlock the nested renderer has isRendererNested=true,
- * which incorrectly overrides tableContainerWidth with renderWidth (the full container), causing
- * overflow by 2 * tableCellPadding (16px).
+ * For nested tables (isInsideOfTable=true), we use getTableContainerWidth(tableNode) as the
+ * reference — the width the editor saved, which already accounts for the parent cell's available
+ * space (colwidth minus tableCellPadding * 2). This matches bodiedSyncBlock where isRendererNested=false,
+ * so renderScaleDownColgroup uses getTableContainerWidth(tableNode). For syncBlock the nested
+ * renderer has isRendererNested=true, which incorrectly overrides tableContainerWidth with renderWidth
+ * (the full container), causing overflow by 2 * tableCellPadding (16px).
  */
 const renderSyncBlockColgroup = ({
 	isInsideOfSyncBlock,
@@ -148,7 +147,7 @@ const renderSyncBlockColgroup = ({
 	renderWidth: number;
 	tableNode?: SharedTableProps['tableNode'];
 }): CSSProperties[] | null => {
-	if (!isInsideOfSyncBlock || !fg('platform_synced_block_patch_9')) {
+	if (!isInsideOfSyncBlock) {
 		return null;
 	}
 
@@ -228,8 +227,7 @@ const renderScaleDownColgroup = (
 		isInsideOfSyncBlock,
 	} = props;
 
-	const skipMinWidth =
-		fg('platform_synced_block_patch_9') && !!(isInsideOfTable && isInsideOfSyncBlock);
+	const skipMinWidth = !!(isInsideOfTable && isInsideOfSyncBlock);
 	if (
 		!columnWidths ||
 		(columnWidths.every((width) => width === 0) && fg('platform_editor_numbered_column_in_include'))

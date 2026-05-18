@@ -22,8 +22,10 @@ import {
 	dragTableInsertColumnButtonSize,
 	tablePopupMenuFitHeight,
 } from '../consts';
-import { RowMenu } from '../TableMenu/row/RowMenu';
-import { newMenuWidth } from '../TableMenu/shared/consts';
+import { COLUMN_MENU } from '../TableMenu/column/keys';
+import { ROW_MENU } from '../TableMenu/row/keys';
+import { TABLE_MENU_WIDTH } from '../TableMenu/shared/consts';
+import { TableMenu } from '../TableMenu/shared/TableMenu';
 
 import DragMenu from './DragMenu';
 
@@ -58,7 +60,7 @@ interface FloatingDragMenuFunction {
 	displayName: string;
 }
 
-const rowMenuOffset = dragTableInsertColumnButtonSize + 4;
+const TABLE_MENU_OFFSET = dragTableInsertColumnButtonSize + 4;
 
 const FloatingDragMenu: FloatingDragMenuFunction = ({
 	mountPoint,
@@ -113,28 +115,18 @@ const FloatingDragMenu: FloatingDragMenuFunction = ({
 			mountTo={mountPoint}
 			boundariesElement={boundariesElement}
 			scrollableElement={scrollableElement}
-			fitWidth={
-				expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)
-					? newMenuWidth
-					: dragMenuDropdownWidth
-			}
+			fitWidth={expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) ? TABLE_MENU_WIDTH : dragMenuDropdownWidth}
 			fitHeight={tablePopupMenuFitHeight}
 			// z-index value below is to ensure that this menu is above other floating menu
 			// in table, but below floating dialogs like typeaheads, pickers, etc.
 			// In sticky mode, we want to show the menu above the sticky header
 			zIndex={inStickyMode ? akEditorFloatingDialogZIndex : akEditorFloatingOverlapPanelZIndex}
 			forcePlacement={true}
-			offset={
-				expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)
-					? [rowMenuOffset, 0]
-					: direction === 'row'
-						? [-9, 0]
-						: [0, -7]
-			}
+			offset={expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) ? [TABLE_MENU_OFFSET, 0] : direction === 'row' ? [-9, 0] : [0, -7]}
 			stick={true}
 		>
 			{expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) ? (
-				<RowMenu api={api} />
+				<TableMenu api={api} surface={direction === 'row' ? ROW_MENU : COLUMN_MENU} />
 			) : (
 				<DragMenu
 					editorView={editorView}

@@ -21,6 +21,7 @@ export interface Props {
 	allowWrapCodeBlock?: boolean;
 	className?: string;
 	codeBidiWarningTooltipEnabled: boolean;
+	hideLineNumbers?: boolean;
 	language: SupportedLanguages;
 	localId?: string;
 	text: string;
@@ -34,6 +35,7 @@ function CodeBlock(props: Props & WrappedComponentProps) {
 		allowCopyToClipboard = false,
 		allowWrapCodeBlock = false,
 		codeBidiWarningTooltipEnabled,
+		hideLineNumbers = false,
 		localId,
 		wrap,
 	} = props;
@@ -65,6 +67,12 @@ function CodeBlock(props: Props & WrappedComponentProps) {
 				codeBidiWarningLabel={codeBidiWarningLabel}
 				codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
 				shouldWrapLongLines={allowWrapCodeBlock && wrapLongLines}
+				shouldShowLineNumbers={
+					!(
+						expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
+						hideLineNumbers
+					)
+				}
 				hasBidiWarnings={
 					expValEquals('platform_editor_remove_bidi_char_warning', 'isEnabled', true)
 						? false

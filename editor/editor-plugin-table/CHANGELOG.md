@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 22.4.5
+
+### Patch Changes
+
+- [`593f5ee15ac0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/593f5ee15ac0d) -
+  Add experiment-gated column handle menu surface and expose column menu icons through
+  editor-toolbar.
+- Updated dependencies
+
+## 22.4.4
+
+### Patch Changes
+
+- [`4c459a2718b67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c459a2718b67) -
+  Clean up synced block feature gates
+- Updated dependencies
+
 ## 22.4.3
 
 ### Patch Changes

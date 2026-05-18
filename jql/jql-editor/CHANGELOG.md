@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 6.4.2
+
+### Patch Changes
+
+- [`4f13d0c596cb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f13d0c596cb7) -
+  Cleanup experiment gate `anip-1289-scroll-issues-in-jql-autocomplete`. The scroll fix (maxWidth
+  clamping on the autocomplete Popper panel) is now permanently enabled.
+
 ## 6.4.1
 
 ### Patch Changes

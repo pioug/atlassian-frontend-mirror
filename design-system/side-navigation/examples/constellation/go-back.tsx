@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { GoBackItem, Section } from '@atlaskit/side-navigation';
 
 const ButtonItemExample = (): React.JSX.Element => {

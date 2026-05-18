@@ -1,1 +1,3 @@
-export { default, SelectWithoutAnalytics } from '../select';
+export { default } from '../select';
+
+export { SelectWithoutAnalytics } from '../select-without-analytics';

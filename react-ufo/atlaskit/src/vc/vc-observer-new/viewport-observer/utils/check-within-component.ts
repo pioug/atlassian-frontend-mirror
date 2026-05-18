@@ -1,10 +1,15 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import coinflip from '../../../../coinflip';
 
 import checkFiberWithinComponent from './check-fiber-within-component';
 import findFiberWithCache from './find-fiber-with-cache';
 
-const DOM_WALK_MAX_LEVEL = 40;
-const FIBER_WALK_MAX_LEVEL = 40;
+const OLD_DOM_WALK_MAX_LEVEL = 40;
+const OLD_FIBER_WALK_MAX_LEVEL = 40;
+
+const NEW_DOM_WALK_MAX_LEVEL = 400;
+const NEW_FIBER_WALK_MAX_LEVEL = 400;
 
 // Cache cleanup
 let callCount = 0;
@@ -38,6 +43,15 @@ export default function checkWithinComponent(
 	}
 	let fiber: any = null;
 	let checkedNodes: HTMLElement[] = [];
+
+	const DOM_WALK_MAX_LEVEL = fg('ufo-bump-walk-levels')
+		? NEW_DOM_WALK_MAX_LEVEL
+		: OLD_DOM_WALK_MAX_LEVEL;
+
+	const FIBER_WALK_MAX_LEVEL = fg('ufo-bump-walk-levels')
+		? NEW_FIBER_WALK_MAX_LEVEL
+		: OLD_FIBER_WALK_MAX_LEVEL;
+
 	// Always use cached fiber strategy to handle non-React elements reliably
 	fiber = findFiberWithCache(node, DOM_WALK_MAX_LEVEL, checkedNodes);
 

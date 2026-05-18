@@ -5,7 +5,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { DomAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PluginInjectionAPI } from '../../../types';
 import { updateColumnWidths } from '../../transforms/column-width';
@@ -252,9 +251,9 @@ export const scaleTable =
 			// table's outer width to exceed the colgroup width by 1px. Subtract 1px from the
 			// parentWidth here so that the scaled colgroup fits within the sync-block
 			// container without overflowing.
-			const isNestedInBodiedSyncBlock =
-				!!tableRef.closest?.(`.${BodiedSyncBlockSharedCssClassName.content}`) &&
-				fg('platform_synced_block_patch_9');
+			const isNestedInBodiedSyncBlock = !!tableRef.closest?.(
+				`.${BodiedSyncBlockSharedCssClassName.content}`,
+			);
 			const BORDER_COLLAPSE_WIDTH_PX = 1;
 			const adjustedParentWidth = isNestedInBodiedSyncBlock
 				? parentWidth - BORDER_COLLAPSE_WIDTH_PX

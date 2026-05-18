@@ -63,10 +63,15 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 		},
 
 		nodes() {
-			const nodes = [
-				{ name: 'inlineCard', node: inlineCardSpecWithFixedToDOM() },
-				{ name: 'blockCard', node: blockCardSpecWithFixedToDOM() },
-			];
+			const nodes = [{ name: 'inlineCard', node: inlineCardSpecWithFixedToDOM() }];
+
+			// `onlyInlineCards` is a hard gate: when set, blockCard/embedCard
+			// stay out of the schema regardless of allowBlockCards/allowEmbeds.
+			if (options.onlyInlineCards) {
+				return nodes;
+			}
+
+			nodes.push({ name: 'blockCard', node: blockCardSpecWithFixedToDOM() });
 
 			if (options.allowEmbeds) {
 				nodes.push({
@@ -79,7 +84,10 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 		},
 
 		pmPlugins() {
-			const allowBlockCards = options.allowBlockCards ?? true;
+			// onlyInlineCards forces block/embed off regardless of caller-passed flags,
+			// keeping the schema gate (in nodes()) and the runtime gate in sync.
+			const allowBlockCards = options.onlyInlineCards ? false : (options.allowBlockCards ?? true);
+			const allowEmbeds = options.onlyInlineCards ? false : options.allowEmbeds;
 			const allowResizing = options.allowResizing ?? true;
 			const useAlternativePreloader = options.useAlternativePreloader ?? true;
 			const allowWrapping = options.allowWrapping ?? true;
@@ -94,6 +102,7 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 						{
 							...options,
 							allowBlockCards,
+							allowEmbeds,
 							allowResizing,
 							useAlternativePreloader,
 							allowWrapping,

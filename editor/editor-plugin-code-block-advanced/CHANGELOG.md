@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 10.1.3
+
+### Patch Changes
+
+- [`6b9ee34bdd875`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b9ee34bdd875) -
+  Fix wrapped code block first paint
+- Updated dependencies
+
+## 10.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.1
+
+### Patch Changes
+
+- [`7e8145e6a7ce6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e8145e6a7ce6) -
+  Add ADF-backed code block line number visibility
+- Updated dependencies
+
 ## 10.1.0
 
 ### Minor Changes

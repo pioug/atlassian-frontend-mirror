@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics-listeners",
-	"version": "10.1.0",
+	"version": "10.1.1",
 	"description": "Fabric analytics listeners to be used by the products",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,6 +30,13 @@
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "UIP Frontend Observability"
 	},
 	"config": {
@@ -47,6 +54,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/tokens": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"jest-in-case": "root:*"
 	},

@@ -1,5 +1,25 @@
 # @atlaskit/editor-toolbar
 
+## 1.5.1
+
+### Patch Changes
+
+- [`6aa28179246c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6aa28179246c9) -
+  Support data-extension-item-key to identify the selection extension menu items.
+- Updated dependencies
+
+## 1.5.0
+
+### Minor Changes
+
+- [`593f5ee15ac0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/593f5ee15ac0d) -
+  Add experiment-gated column handle menu surface and expose column menu icons through
+  editor-toolbar.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.4.1
 
 ### Patch Changes

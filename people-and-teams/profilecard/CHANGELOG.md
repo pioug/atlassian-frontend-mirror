@@ -1,5 +1,22 @@
 # @atlaskit/profilecard
 
+## 25.7.0
+
+### Minor Changes
+
+- [`cdaad47af854e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdaad47af854e) -
+  React 19 upgrade - replace findDOMNode
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.6.2
 
 ### Patch Changes

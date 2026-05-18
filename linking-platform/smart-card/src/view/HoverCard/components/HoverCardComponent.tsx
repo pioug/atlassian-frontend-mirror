@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -280,7 +279,7 @@ export const HoverCardComponent = ({
 					onMouseOver={initShowCard}
 					onMouseLeave={initHideCard}
 					onMouseMove={setMousePosition}
-					onKeyDown={fg('fix_hover_card_on_focus_a11y') ? handleKeyDown : undefined}
+					onKeyDown={handleKeyDown}
 					onClick={onChildClick}
 					onContextMenu={onContextMenuClick}
 					data-testid={HOVER_CARD_TRIGGER_WRAPPER}
@@ -317,7 +316,7 @@ export const HoverCardComponent = ({
 		<Popup
 			testId="hover-card"
 			isOpen={isOpen && canOpen}
-			onClose={fg('fix_hover_card_on_focus_a11y') ? initHideCard : hideCard}
+			onClose={initHideCard}
 			placement="bottom-start"
 			offset={popupOffset.current}
 			autoFocus={false}

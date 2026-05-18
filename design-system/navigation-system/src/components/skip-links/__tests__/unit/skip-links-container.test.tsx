@@ -8,6 +8,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { resetMatchMedia } from '@atlassian/test-utils';
 
 import { useSkipLink } from '../../../../context/skip-links/use-skip-link';
+import { useSkipLinkInternal } from '../../../../context/skip-links/use-skip-link-internal';
 import {
 	filterFromConsoleErrorOutput,
 	parseCssErrorRegex,
@@ -376,6 +377,30 @@ it('should manage focus for the targeted element', async () => {
 	expect(main).not.toHaveAttribute('tabindex');
 });
 
+function CustomSkipLinkWithHandlers({
+	id = 'custom-skip-target',
+	navigate,
+	onBeforeNavigate,
+}: {
+	id?: string;
+	navigate?: () => void;
+	onBeforeNavigate?: () => void;
+}) {
+	useSkipLinkInternal({
+		id,
+		label: 'Custom skip',
+		listIndex: 0,
+		navigate,
+		onBeforeNavigate,
+	});
+
+	return (
+		<div id={id} data-layout-slot>
+			custom target
+		</div>
+	);
+}
+
 ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvements', () => {
 	let resetConsoleErrorSpyFn: ResetConsoleErrorFn;
 	beforeAll(() => {
@@ -564,4 +589,197 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 
 		await expect(screen.getByRole('dialog', { name: 'Skip to' })).toBeAccessible();
 	});
+
+	describe('useSkipLinkInternal navigate replaces default focus', () => {
+		it('calls navigate instead of focusing the slot element', async () => {
+			const user = userEvent.setup();
+			const navigate = jest.fn();
+			render(
+				<Root testId="root">
+					<CustomSkipLinkWithHandlers navigate={navigate} />
+				</Root>,
+			);
+
+			const target = screen.getByText('custom target');
+
+			// The skip links live inside a popup dialog that needs to be opened first
+			await user.click(screen.getByRole('button', { name: 'Skip to' }));
+			await user.click(screen.getByRole('link', { name: 'Custom skip' }));
+
+			expect(navigate).toHaveBeenCalledTimes(1);
+			expect(target).not.toHaveAttribute('tabindex');
+		});
+
+		it('should manage focus for the targeted element when navigate is not provided', async () => {
+			const user = userEvent.setup();
+			render(
+				<Root testId="root">
+					<Main testId="main">Hello world</Main>
+				</Root>,
+			);
+
+			const main = screen.getByTestId('main');
+			expect(main).not.toHaveAttribute('tabindex');
+
+			// The skip links live inside a popup dialog that needs to be opened first
+			await user.click(screen.getByRole('button', { name: 'Skip to' }));
+			await user.click(screen.getByRole('link', { name: 'Main content' }));
+
+			expect(main).toHaveAttribute('tabindex', '-1');
+			expect(main).toHaveFocus();
+
+			await user.tab();
+
+			expect(main).not.toHaveFocus();
+			expect(main).not.toHaveAttribute('tabindex');
+		});
+
+		it('does NOT call onBeforeNavigate when the gate is on (legacy callback is disabled)', async () => {
+			const user = userEvent.setup();
+			const onBeforeNavigate = jest.fn();
+			render(
+				<Root testId="root">
+					<CustomSkipLinkWithHandlers onBeforeNavigate={onBeforeNavigate} />
+				</Root>,
+			);
+
+			// The skip links live inside a popup dialog that needs to be opened first
+			await user.click(screen.getByRole('button', { name: 'Skip to' }));
+			await user.click(screen.getByRole('link', { name: 'Custom skip' }));
+
+			expect(onBeforeNavigate).not.toHaveBeenCalled();
+		});
+
+		it('invokes navigate even when there is no DOM element matching the skip-link id', async () => {
+			const user = userEvent.setup();
+			const navigate = jest.fn();
+			// Render a custom skip link whose registered id has no matching DOM element.
+			function CustomSkipLinkNoTarget() {
+				useSkipLinkInternal({
+					id: 'no-such-target',
+					label: 'Custom skip',
+					listIndex: 0,
+					navigate,
+				});
+				return null;
+			}
+			render(
+				<Root testId="root">
+					<CustomSkipLinkNoTarget />
+				</Root>,
+			);
+
+			await user.click(screen.getByRole('button', { name: 'Skip to' }));
+			await user.click(screen.getByRole('link', { name: 'Custom skip' }));
+
+			// Under the gate, the navigate path does not consult the DOM at all.
+			expect(navigate).toHaveBeenCalledTimes(1);
+		});
+	});
+
+	describe('SkipLinksPopup close + navigate ordering', () => {
+		it('closes the popup BEFORE invoking the consumer navigate', async () => {
+			const user = userEvent.setup();
+			let dialogPresentWhenNavigateRan: boolean | undefined;
+			const navigate = jest.fn(() => {
+				dialogPresentWhenNavigateRan = !!screen.queryByRole('dialog', { name: 'Skip to' });
+			});
+
+			render(
+				<Root testId="root">
+					<CustomSkipLinkWithHandlers navigate={navigate} />
+				</Root>,
+			);
+
+			await user.click(screen.getByRole('button', { name: 'Skip to' }));
+			expect(screen.getByRole('dialog', { name: 'Skip to' })).toBeInTheDocument();
+
+			await user.click(screen.getByRole('link', { name: 'Custom skip' }));
+
+			expect(navigate).toHaveBeenCalledTimes(1);
+			// flushSync(closePopup) inside SkipLinksPopup means the dialog is gone
+			// by the time the consumer's `navigate` is called.
+			expect(dialogPresentWhenNavigateRan).toBe(false);
+			expect(screen.queryByRole('dialog', { name: 'Skip to' })).not.toBeInTheDocument();
+		});
+
+		it('closes the popup BEFORE the fallback focusElement runs (no consumer navigate)', async () => {
+			const user = userEvent.setup();
+			render(
+				<Root testId="root">
+					<Main testId="main">Hello world</Main>
+				</Root>,
+			);
+
+			await user.click(screen.getByRole('button', { name: 'Skip to' }));
+			expect(screen.getByRole('dialog', { name: 'Skip to' })).toBeInTheDocument();
+
+			await user.click(screen.getByRole('link', { name: 'Main content' }));
+
+			// Dialog has closed and focus has moved to the slot element.
+			expect(screen.queryByRole('dialog', { name: 'Skip to' })).not.toBeInTheDocument();
+			expect(screen.getByTestId('main')).toHaveFocus();
+		});
+
+		it('does NOT restore focus to the trigger after a skip link is activated', async () => {
+			const user = userEvent.setup();
+			render(
+				<Root testId="root">
+					<Main testId="main">Hello world</Main>
+				</Root>,
+			);
+
+			const trigger = screen.getByTestId('root--skip-links-trigger');
+			await user.click(trigger);
+			await user.click(screen.getByRole('link', { name: 'Main content' }));
+
+			// Focus should land on the slot element (which then gets tabindex="-1"), NOT on the trigger.
+			await waitFor(() => {
+				expect(trigger).not.toHaveFocus();
+			});
+			expect(screen.getByTestId('main')).toHaveFocus();
+		});
+
+		it('can be reopened after a skip link has been activated', async () => {
+			const user = userEvent.setup();
+			render(
+				<Root testId="root">
+					<Main testId="main">Hello world</Main>
+				</Root>,
+			);
+
+			// First open + click a skip link
+			await user.click(screen.getByRole('button', { name: 'Skip to' }));
+			await user.click(screen.getByRole('link', { name: 'Main content' }));
+			expect(screen.queryByRole('dialog', { name: 'Skip to' })).not.toBeInTheDocument();
+
+			// Reopen the popup and confirm the skip link list is rendered again
+			await user.click(screen.getByRole('button', { name: 'Skip to' }));
+			const dialog = screen.getByRole('dialog', { name: 'Skip to' });
+			expect(within(dialog).getByRole('link', { name: 'Main content' })).toBeInTheDocument();
+		});
+	});
 });
+
+ffTest.off(
+	'platform_dst_nav4_skip_link_a11y_1',
+	'useSkipLinkInternal onBeforeNavigate + focusElement',
+	() => {
+		it('calls onBeforeNavigate and focuses the slot element', () => {
+			const onBeforeNavigate = jest.fn();
+			render(
+				<Root testId="root">
+					<CustomSkipLinkWithHandlers onBeforeNavigate={onBeforeNavigate} />
+				</Root>,
+			);
+
+			const target = screen.getByText('custom target');
+
+			screen.getByRole('link', { name: 'Custom skip' }).click();
+
+			expect(onBeforeNavigate).toHaveBeenCalledTimes(1);
+			expect(target).toHaveAttribute('tabindex', '-1');
+			expect(target).toHaveFocus();
+		});
+	},
+);

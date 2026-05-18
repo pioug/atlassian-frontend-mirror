@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/custom-steps",
-	"version": "0.16.6",
+	"version": "0.17.0",
 	"description": "Editor Custom Steps",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,7 +27,11 @@
 		"singleton": true
 	},
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./add-column": "./src/entry-points/add-column.ts",
+		"./constants": "./src/entry-points/constants.ts",
+		"./sort-column": "./src/entry-points/sort-column.ts",
+		"./types": "./src/entry-points/types.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",

@@ -10,6 +10,7 @@ import { jsx } from '@emotion/react';
 import { IconButton } from '@atlaskit/button/new';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { ButtonItem, CustomItem, PopupMenuGroup, Section } from '@atlaskit/menu';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
 	Content,
 	LeftSidebar,
@@ -19,6 +20,7 @@ import {
 	useLeftSidebarFlyoutLock,
 } from '@atlaskit/page-layout';
 import Popup from '@atlaskit/popup';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
 	Header,
 	NavigationHeader,

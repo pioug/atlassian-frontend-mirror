@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { AppHome, AtlassianNavigation } from '@atlaskit/atlassian-navigation';
 import { JiraIcon } from '@atlaskit/logo';
 

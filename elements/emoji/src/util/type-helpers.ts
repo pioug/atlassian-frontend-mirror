@@ -14,6 +14,7 @@ import type {
 	OptionalEmojiDescription,
 	SpriteRepresentation,
 	SpriteServiceRepresentation,
+	UnicodeRepresentation,
 } from '../types';
 
 export const isSpriteServiceRepresentation = (
@@ -27,6 +28,8 @@ export const isImageRepresentation = (
 export const isMediaRepresentation = (
 	rep: EmojiRepresentation | EmojiImageRepresentation,
 ): rep is MediaApiRepresentation => !!(rep && (rep as MediaApiRepresentation).mediaPath);
+export const isUnicodeRepresentation = (rep: EmojiRepresentation): rep is UnicodeRepresentation =>
+	!!(rep && (rep as UnicodeRepresentation).unicodeEmoji);
 export const isPromise = <T>(p: any): p is Promise<T> => !!(p && (p as Promise<T>).then);
 export const isEmojiDescription = (
 	possibleEmojiDescription: any,

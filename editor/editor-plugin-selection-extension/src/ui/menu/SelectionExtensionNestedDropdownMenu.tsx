@@ -93,6 +93,7 @@ export const SelectionExtensionNestedDropdownMenu = ({
 			dropdownTestId="editor-selection-extension-menu"
 			shouldTitleWrap={false}
 			tooltipContent={nestedDropdownMenu.label}
+			data-extension-item-key={nestedDropdownMenu.key}
 		>
 			<ChildItems nestedDropdownMenu={nestedDropdownMenu} />
 		</ToolbarNestedDropdownMenu>

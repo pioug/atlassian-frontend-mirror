@@ -202,6 +202,7 @@ export enum ACTION {
 	UPLOAD_SUCCEEDED = 'uploadSucceeded',
 	UPLOAD_FAILED = 'uploadFailed',
 	TOGGLE_CODE_BLOCK_WRAP = 'toggleCodeBlockWrap',
+	TOGGLE_CODE_BLOCK_LINE_NUMBERS = 'toggleCodeBlockLineNumbers',
 	TRANSFORMED = 'transformed',
 	RESIZED = 'resized',
 	RESIZED_PERF_SAMPLING = 'resizedPerfSampling',

@@ -272,6 +272,15 @@
 		},
 		"@atlaskit/logo": {
 			"importSpecifiers": []
+		},
+		"@atlaskit/atlassian-navigation": {
+			"message": "Atlassian navigation (Nav 3) is deprecated. Please use `@atlaskit/navigation-system` instead."
+		},
+		"@atlaskit/page-layout": {
+			"message": "Page layout (Nav 3) is deprecated. Please use `@atlaskit/navigation-system` instead."
+		},
+		"@atlaskit/side-navigation": {
+			"message": "Side navigation (Nav 3) is deprecated. Please use `@atlaskit/navigation-system` instead."
 		}
 	}
 }

@@ -1,5 +1,18 @@
 # @atlaskit/emoji
 
+## 70.8.0
+
+### Minor Changes
+
+- [`7bcc8a1cb49b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7bcc8a1cb49b5) -
+  Add unicode + emoji utilities
+
+## 70.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 70.7.1
 
 ### Patch Changes

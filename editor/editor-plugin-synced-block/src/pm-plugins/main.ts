@@ -25,7 +25,6 @@ import {
 } from '@atlaskit/editor-synced-block-provider';
 import type { SyncBlockStoreManager, DeletionReason } from '@atlaskit/editor-synced-block-provider';
 import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -237,12 +236,8 @@ const filterTransactionOnline = ({
 			attributes: {
 				resourceId: syncBlock.attrs.resourceId,
 				blockInstanceId: syncBlock.attrs.localId,
-				...(fg('platform_synced_block_patch_11')
-					? {
-							sourceProduct: getSourceProductFromResourceIdSafe(syncBlock.attrs.resourceId),
-							isPaste,
-						}
-					: {}),
+				sourceProduct: getSourceProductFromResourceIdSafe(syncBlock.attrs.resourceId),
+				isPaste,
 			},
 			eventType: EVENT_TYPE.TRACK,
 		});
@@ -499,18 +494,14 @@ export const createPlugin = (
 
 					// Populate source sync block cache from initial document
 					// When fg is ON, this replaces the constructor call in the nodeview
-					if (fg('platform_synced_block_update_refactor')) {
-						instance.doc.forEach((node) => {
-							if (syncBlockStore.sourceManager.isSourceBlock(node)) {
-								syncBlockStore.sourceManager.updateSyncBlockData(node, false);
-							}
-						});
-
-						// Fetch statuses from the backend so we can identify unpublished blocks on cancel
-						if (fg('platform_synced_block_patch_10')) {
-							syncBlockStore.sourceManager.fetchAndCacheStatuses();
+					instance.doc.forEach((node) => {
+						if (syncBlockStore.sourceManager.isSourceBlock(node)) {
+							syncBlockStore.sourceManager.updateSyncBlockData(node, false);
 						}
-					}
+					});
+
+					// Fetch statuses from the backend so we can identify unpublished blocks on cancel
+					syncBlockStore.sourceManager.fetchAndCacheStatuses();
 				}
 
 				// Read initial shared-state signals for status decorations
@@ -916,7 +907,7 @@ export const createPlugin = (
 			}
 
 			const viewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
-			if (viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+			if (viewMode === 'view') {
 				return true;
 			}
 
@@ -937,43 +928,41 @@ export const createPlugin = (
 				});
 			}
 
-			if (fg('platform_synced_block_update_refactor')) {
-				// if doc changed and it's a remote transaction, check if any synced block were added,
-				// and if so, for source synced blocks, ensure we update the cache with them
-				// and for reference synced blocks, ensure we fetch the data from the server
-				if (tr.docChanged && tr.getMeta('isRemote')) {
-					const { added } = trackSyncBlocks((node) => syncBlockStore.isSyncBlock(node), tr, state);
-					const sourceSyncBlockNodes = added.filter(
-						(nodeInfo) =>
-							nodeInfo.node && syncBlockStore.sourceManager.isSourceBlock(nodeInfo.node),
-					);
-					const referenceSyncBlockNodes = added.filter(
-						(nodeInfo) =>
-							nodeInfo.node && syncBlockStore.referenceManager.isReferenceBlock(nodeInfo.node),
-					);
+			// if doc changed and it's a remote transaction, check if any synced block were added,
+			// and if so, for source synced blocks, ensure we update the cache with them
+			// and for reference synced blocks, ensure we fetch the data from the server
+			if (tr.docChanged && tr.getMeta('isRemote')) {
+				const { added } = trackSyncBlocks((node) => syncBlockStore.isSyncBlock(node), tr, state);
+				const sourceSyncBlockNodes = added.filter(
+					(nodeInfo) =>
+						nodeInfo.node && syncBlockStore.sourceManager.isSourceBlock(nodeInfo.node),
+				);
+				const referenceSyncBlockNodes = added.filter(
+					(nodeInfo) =>
+						nodeInfo.node && syncBlockStore.referenceManager.isReferenceBlock(nodeInfo.node),
+				);
 
-					sourceSyncBlockNodes.forEach((nodeInfo) => {
-						if (nodeInfo.attrs?.resourceId && nodeInfo.node) {
-							syncBlockStore.sourceManager.updateSyncBlockData(
-								nodeInfo.node,
-								tr.getMeta('isRemote'),
-							);
-						}
-					});
-
-					// Fetch statuses for remotely-added source sync blocks
-					// so we can identify unpublished blocks on cancel
-					if (sourceSyncBlockNodes.length > 0 && fg('platform_synced_block_patch_10')) {
-						syncBlockStore.sourceManager.fetchAndCacheStatuses();
+				sourceSyncBlockNodes.forEach((nodeInfo) => {
+					if (nodeInfo.attrs?.resourceId && nodeInfo.node) {
+						syncBlockStore.sourceManager.updateSyncBlockData(
+							nodeInfo.node,
+							tr.getMeta('isRemote'),
+						);
 					}
+				});
 
-					const syncBlockNodes = referenceSyncBlockNodes
-						.map((nodeInfo) => nodeInfo.node)
-						.filter((node) => node !== undefined);
-					syncBlockStore.referenceManager.fetchSyncBlocksData(
-						convertPMNodesToSyncBlockNodes(syncBlockNodes),
-					);
+				// Fetch statuses for remotely-added source sync blocks
+				// so we can identify unpublished blocks on cancel
+				if (sourceSyncBlockNodes.length > 0) {
+					syncBlockStore.sourceManager.fetchAndCacheStatuses();
 				}
+
+				const syncBlockNodes = referenceSyncBlockNodes
+					.map((nodeInfo) => nodeInfo.node)
+					.filter((node) => node !== undefined);
+				syncBlockStore.referenceManager.fetchSyncBlocksData(
+					convertPMNodesToSyncBlockNodes(syncBlockNodes),
+				);
 			}
 
 			if (
@@ -1027,27 +1016,26 @@ export const createPlugin = (
 			}
 
 			const viewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
-			if (viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+			if (viewMode === 'view') {
 				return null;
 			}
 
-			// Update source sync block cache for user-initiated changes only
-			// When fg is ON, cache updates are handled here instead of in the nodeview update()
-			if (fg('platform_synced_block_update_refactor')) {
-				const isUserChange = (tr: Transaction) =>
-					tr.docChanged && !isDirtyTransaction(tr) && !tr.getMeta('isRemote');
+			// Update source sync block cache for user-initiated changes only.
+			// Cache updates are handled here instead of in the nodeview update() so we
+			// can filter out non-user changes (remote collab, dirty programmatic txns).
+			const isUserChange = (tr: Transaction) =>
+				tr.docChanged && !isDirtyTransaction(tr) && !tr.getMeta('isRemote');
 
-				const hasSourceBlockEdit = trs.some(
-					(tr) => isUserChange(tr) && hasEditInSyncBlock(tr, oldState),
-				);
+			const hasSourceBlockEdit = trs.some(
+				(tr) => isUserChange(tr) && hasEditInSyncBlock(tr, oldState),
+			);
 
-				if (hasSourceBlockEdit) {
-					newState.doc.forEach((node) => {
-						if (syncBlockStore.sourceManager.isSourceBlock(node)) {
-							syncBlockStore.sourceManager.updateSyncBlockData(node, false);
-						}
-					});
-				}
+			if (hasSourceBlockEdit) {
+				newState.doc.forEach((node) => {
+					if (syncBlockStore.sourceManager.isSourceBlock(node)) {
+						syncBlockStore.sourceManager.updateSyncBlockData(node, false);
+					}
+				});
 			}
 
 			trs
@@ -1091,10 +1079,7 @@ export const createPlugin = (
 			// first occurrence and delete subsequent duplicates entirely (including their
 			// contents), since a document must not contain two source sync blocks with the
 			// same resourceId.
-			if (
-				trs.some((tr) => tr.docChanged && !tr.getMeta('isRemote')) &&
-				fg('platform_synced_block_patch_8')
-			) {
+			if (trs.some((tr) => tr.docChanged && !tr.getMeta('isRemote'))) {
 				// Quick check: only walk the full document when at least one
 				// transaction inserted a source synced block. This avoids an
 				// expensive descendants() traversal on every local edit.

@@ -13,11 +13,13 @@ import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { colorMapping } from './color-mapping';
-import { LinkWrapper, RemovableWrapper, useRemoveButton } from './shared';
+import { LinkWrapper } from './link-wrapper';
+import { RemovableWrapper } from './removable-wrapper';
 import SwatchBefore from './swatch-before';
 import { type TagDropdownTriggerProps, type TagNewProps } from './types';
 import { useButtonInteraction } from './use-button-interaction';
 import { useLink } from './use-link';
+import { useRemoveButton } from './use-remove-button';
 import { useTagRemoval } from './use-tag-removal';
 
 // CSS variable name for icon color - must be used as literal string in cssMap due to Compiled CSS static analysis
@@ -533,6 +535,7 @@ const TagNew: import('react').MemoExoticComponent<
 	>
 > = memo(TagNewComponent);
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default TagNew;
 
 export { colorMapping } from './color-mapping';

@@ -173,11 +173,7 @@ const canMoveToLayout = (
 
 	const $to = tr.doc.resolve(to);
 	const allowedParentTypes = [doc, layoutSection];
-	if (
-		bodiedSyncBlock &&
-		editorExperiment('platform_synced_block', true) &&
-		editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
-	) {
+	if (bodiedSyncBlock && editorExperiment('platform_synced_block', true)) {
 		allowedParentTypes.push(bodiedSyncBlock);
 	}
 

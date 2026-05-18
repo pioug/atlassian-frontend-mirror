@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/collab-provider",
-	"version": "18.2.5",
+	"version": "18.3.0",
 	"description": "A provider for collaborative editing.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,9 +27,10 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
-		"./socket-io-provider": "./src/socket-io-provider.ts",
-		"./types": "./src/types.ts",
-		"./version-wrapper": "./src/version-wrapper.ts"
+		"./provider": "./src/entry-points/provider.ts",
+		"./socket-io-provider": "./src/entry-points/socket-io-provider.ts",
+		"./types": "./src/entry-points/types.ts",
+		"./version-wrapper": "./src/entry-points/version-wrapper.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-utils": "workspace:^",

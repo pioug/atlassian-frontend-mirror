@@ -5,7 +5,9 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Content, LeftSidebar, Main, PageLayout } from '@atlaskit/page-layout';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Header, NavigationHeader, SideNavigation } from '@atlaskit/side-navigation';
 
 import { ExpandLeftSidebarKeyboardShortcut, SlotLabel } from '../common';

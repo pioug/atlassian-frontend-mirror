@@ -23,11 +23,7 @@ export const shouldAllowInlineDropTarget = (
 
 	if (editorExperiment('advanced_layouts', false) || isNested) {
 		// If nested inside bodiedSyncBlock, enable inline drop target so user can drop to create a layout inside it
-		if (
-			isInsideBodiedSyncBlock &&
-			editorExperiment('platform_synced_block', true) &&
-			editorExperiment('platform_synced_block_patch_6', true)
-		) {
+		if (isInsideBodiedSyncBlock && editorExperiment('platform_synced_block', true)) {
 			return true;
 		}
 		return false;

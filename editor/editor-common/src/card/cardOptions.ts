@@ -79,6 +79,16 @@ export interface CardOptions {
 	 */
 	onClickCallback?: OnClickCallback;
 	/**
+	 * Restrict the card plugin to inline cards only. When `true`, the plugin
+	 * contributes only the `inlineCard` node to the schema (no `blockCard`,
+	 * no `embedCard`) and forces `allowBlockCards` / `allowEmbeds` to `false`
+	 * at runtime regardless of their explicit values.
+	 * Default is false (back-compat).
+	 *
+	 * Component: inline
+	 */
+	onlyInlineCards?: boolean;
+	/**
 	 * A promise returning the instance of EditorCardProvider
 	 *
 	 * Example: Promise.resolve(new EditorCardProvider())

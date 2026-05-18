@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { AtlassianNavigation, ProductHome } from '@atlaskit/atlassian-navigation';
 import { SkeletonCreateButton, SkeletonIconButton } from '@atlaskit/atlassian-navigation/skeleton';
 import { SkeletonHelpButton } from '@atlaskit/atlassian-navigation/skeleton-help-button';

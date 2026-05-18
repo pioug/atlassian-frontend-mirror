@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext } from 'react';
 
 /**
  * Used to ensure Avatar sub-components are used within a Avatar component,
@@ -6,10 +6,3 @@ import { createContext, useContext } from 'react';
  */
 export const EnsureIsInsideAvatarContext: import('react').Context<boolean> =
 	createContext<boolean>(false);
-
-export const useEnsureIsInsideAvatar: () => void = (): void => {
-	const context = useContext(EnsureIsInsideAvatarContext);
-	if (!context) {
-		throw new Error('Avatar sub-components must be used within a Avatar component.');
-	}
-};

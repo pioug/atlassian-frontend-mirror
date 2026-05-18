@@ -2,16 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, type FC, forwardRef, type ReactNode } from 'react';
+import { type FC } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
 import SearchIcon from '@atlaskit/icon/core/search';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { components } from '@atlaskit/react-select';
-import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import {
 	type ClearIndicatorProps,
@@ -20,47 +17,6 @@ import {
 	type MultiValueRemoveProps,
 	type OptionType,
 } from '../types';
-
-// ==============================
-// Styled Components
-// ==============================
-interface MenuDialogProps {
-	style: CSSProperties;
-	children: ReactNode;
-	id: string;
-	testId?: string;
-}
-
-const menuDialogStyles = css({
-	zIndex: layers.modal(),
-	backgroundColor: token('elevation.surface.overlay'),
-	borderRadius: token('radius.small', '4px'),
-	boxShadow: token('elevation.shadow.overlay'),
-});
-
-const menuDialogStylesT26Shape = css({
-	borderRadius: token('radius.large', '8px'),
-});
-
-/**
- * __Menu dialog__
- * Wrapper for PopupSelect component.
- */
-export const MenuDialog: React.ForwardRefExoticComponent<
-	React.PropsWithoutRef<MenuDialogProps> & React.RefAttributes<HTMLDivElement>
-> = forwardRef<HTMLDivElement, MenuDialogProps>(({ children, id, style, testId }, ref) => {
-	return (
-		<div
-			ref={ref}
-			css={[menuDialogStyles, fg('platform-dst-shape-theme-default') && menuDialogStylesT26Shape]}
-			style={style}
-			id={id}
-			data-testid={testId && `${testId}--menu`}
-		>
-			{children}
-		</div>
-	);
-});
 
 // ==============================
 // Custom Components
@@ -93,17 +49,6 @@ const Control = <Option, IsMulti extends boolean>({
 	<div ref={innerRef} css={controlStyles}>
 		<components.Control {...(props as ControlProps<Option, IsMulti>)} innerProps={innerProps} />
 	</div>
-);
-
-/**
- * __Dummy control__
- * Overrides the default DummyControl component in Select.
- */
-export const DummyControl = (props: ControlProps<OptionType, boolean>): JSX.Element => (
-	<VisuallyHidden>
-		{/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
-		<components.Control {...(props as any)} />
-	</VisuallyHidden>
 );
 
 // NOTE `props` intentionally omitted from `Fragment`

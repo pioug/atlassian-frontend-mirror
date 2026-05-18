@@ -5,6 +5,7 @@ import {
 	AnalyticsListener,
 	useCallbackWithAnalytics,
 } from '@atlaskit/analytics-next';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
 	AppSwitcher,
 	AtlassianNavigation,

@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 4.5.0
+
+### Minor Changes
+
+- [`23c709ec00f33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23c709ec00f33) -
+  add jira work agent avatar icon
+
 ## 4.4.2
 
 ### Patch Changes

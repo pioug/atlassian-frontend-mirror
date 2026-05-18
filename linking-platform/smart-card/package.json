@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "44.11.1",
+	"version": "44.11.3",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -242,9 +242,6 @@
 			"type": "boolean"
 		},
 		"jpx-1074-smart-links-iframe": {
-			"type": "boolean"
-		},
-		"fix_hover_card_on_focus_a11y": {
 			"type": "boolean"
 		},
 		"platform_sl_3p_preauth_better_hovercard_killswitch": {

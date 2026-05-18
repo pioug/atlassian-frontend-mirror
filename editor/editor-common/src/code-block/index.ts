@@ -64,6 +64,17 @@ export const isCodeBlockWordWrapEnabled = (codeBlockNode: PmNode): boolean => {
 	return currentNodeWordWrapState !== undefined ? currentNodeWordWrapState : defaultWordWrapState;
 };
 
+export const areCodeBlockLineNumbersHidden = (codeBlockNode: PmNode): boolean => {
+	if (!expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
+		return false;
+	}
+
+	return Boolean(codeBlockNode.attrs.hideLineNumbers);
+};
+
+export const areCodeBlockLineNumbersVisible = (codeBlockNode: PmNode): boolean =>
+	!areCodeBlockLineNumbersHidden(codeBlockNode);
+
 export const getCodeBlockFoldState = (codeBlockNode: PmNode): FoldRange[] => {
 	const currentNodeFoldState = codeBlockFoldStates.get(codeBlockNode);
 

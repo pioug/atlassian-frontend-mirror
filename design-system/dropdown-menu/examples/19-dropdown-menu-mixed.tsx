@@ -1,5 +1,6 @@
 import React, { type KeyboardEvent, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { useOverflowStatus } from '@atlaskit/atlassian-navigation';
 import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/new';

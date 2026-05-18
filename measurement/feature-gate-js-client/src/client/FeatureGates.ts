@@ -224,6 +224,7 @@ class FeatureGates {
 		initializeValues?: Record<string, unknown>,
 	) => Promise<void> = this.client.updateUserWithValues.bind(this.client);
 	static getPackageVersion: () => string = this.client.getPackageVersion.bind(this.client);
+	static getTargetApp: () => string | undefined = this.client.getTargetApp.bind(this.client);
 	static getLayer: (layerName: string, options?: GetLayerOptions) => Layer =
 		this.client.getLayer.bind(this.client);
 	static getLayerValue: <T>(

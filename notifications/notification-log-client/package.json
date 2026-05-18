@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/notification-log-client",
-	"version": "8.0.0",
+	"version": "8.1.0",
 	"description": "Client APIs for notification-log service",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,7 +27,9 @@
 		}
 	},
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./notification-log-client": "./src/NotificationLogClient.ts",
+		"./types": "./src/types.ts"
 	},
 	"dependencies": {
 		"@atlaskit/util-service-support": "workspace:^",

@@ -35,8 +35,7 @@ src/
 ├── nodeviews/
 │   ├── syncedBlock.tsx         # NodeView for reference (syncBlock) — read-only, fetches from BE
 │   ├── lazySyncedBlock.tsx     # Lazy-loaded wrapper for syncedBlock (EDITOR-6928)
-│   ├── bodiedSyncedBlock.tsx   # NodeView for source (bodiedSyncBlock) — nested editor with content
-│   └── bodiedSyncBlockNodeWithToDOMFixed.ts # DOM serialization fix variant (experiment-gated)
+│   └── bodiedSyncedBlock.tsx   # NodeView for source (bodiedSyncBlock) — nested editor with content
 ├── pm-plugins/
 │   ├── main.ts                 # Core state machine: lifecycle, creation, deletion, cache,
 │   │                             status decoration apply path (gated by editor_synced_block_perf)

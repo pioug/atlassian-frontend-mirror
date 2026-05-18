@@ -1,4 +1,5 @@
 import React from 'react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { UploadPreview } from './upload-preview';
 import {
 	type UploadsStartEventPayload,
@@ -28,23 +29,42 @@ export class UploadPreviews extends React.Component<PreviewsDataProps, PreviewsD
 	};
 
 	onUploadsStart = (event: UploadsStartEventPayload): void => {
-		const { previewsData } = this.state;
 		const { files } = event;
-
 		const newPreviewData: PreviewData[] = files.map((file) => {
 			const { id } = file;
-
-			return {
-				fileId: id,
-			};
+			return { fileId: id };
 		});
 
+		if (fg('platform_media_picker_upload_batching')) {
+			this.setState((prevState) => ({
+				previewsData: [...prevState.previewsData, ...newPreviewData],
+			}));
+			return;
+		}
+
+		const { previewsData } = this.state;
 		this.setState({
 			previewsData: [...previewsData, ...newPreviewData],
 		});
 	};
 
 	onPreviewUpdate = (data: UploadPreviewUpdateEventPayload): void => {
+		if (fg('platform_media_picker_upload_batching')) {
+			this.setState((prevState) => {
+				const { previewsData } = prevState;
+				if (previewsData.length === 0) {
+					return prevState;
+				}
+				const updatedPreviews = [...previewsData];
+				updatedPreviews[updatedPreviews.length - 1] = {
+					...updatedPreviews[updatedPreviews.length - 1],
+					preview: data.preview,
+				};
+				return { previewsData: updatedPreviews };
+			});
+			return;
+		}
+
 		const { previewsData } = this.state;
 		const currentItem = previewsData[previewsData.length - 1];
 		currentItem.preview = data.preview;

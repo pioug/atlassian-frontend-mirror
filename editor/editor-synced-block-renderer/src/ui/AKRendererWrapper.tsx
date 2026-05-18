@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl';
 import type { DocNode } from '@atlaskit/adf-schema';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	ReactRenderer,
 	ValidationContextProvider,
@@ -151,7 +150,7 @@ export const AKRendererWrapper: React.MemoExoticComponent<
 								allowSelectAllTrap={allowSelectAllTrap}
 								allowUgcScrubber={allowUgcScrubber}
 								allowWrapCodeBlock={allowWrapCodeBlock}
-								disableTableOverflowShadow={fg('platform_synced_block_patch_8')}
+								disableTableOverflowShadow={true}
 								emojiResourceConfig={emojiResourceConfig}
 								eventHandlers={eventHandlers}
 								media={media}

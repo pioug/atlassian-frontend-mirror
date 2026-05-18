@@ -156,6 +156,7 @@ export const SelectionExtensionDropdownItem = ({
 					onClick={handleClick}
 					isDisabled={dropdownItem.isDisabled}
 					testId={EXTENSION_MENU_ITEM_TEST_ID}
+					data-extension-item-key={dropdownItem.key}
 				>
 					<Box
 						as="span"
@@ -182,6 +183,7 @@ export const SelectionExtensionDropdownItem = ({
 				onClick={handleClick}
 				isDisabled={dropdownItem.isDisabled}
 				testId={EXTENSION_MENU_ITEM_TEST_ID}
+				data-extension-item-key={dropdownItem.key}
 			>
 				<Box
 					as="span"

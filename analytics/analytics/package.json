@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics",
-	"version": "9.0.1",
+	"version": "9.0.2",
 	"description": "The Atlaskit Component Analytics Framework",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -13,6 +13,13 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.js",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "UIP Frontend Observability",
 		"website": {
 			"name": "Analytics",
@@ -28,6 +35,7 @@
 	},
 	"devDependencies": {
 		"@af/suppress-react-warnings": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/react-redux": "root:*",

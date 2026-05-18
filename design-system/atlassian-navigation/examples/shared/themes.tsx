@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { generateTheme, type NavigationTheme } from '@atlaskit/atlassian-navigation';
 
 export const theme: NavigationTheme[] = [

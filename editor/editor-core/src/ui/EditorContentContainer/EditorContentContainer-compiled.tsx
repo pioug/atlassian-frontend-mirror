@@ -26,6 +26,12 @@ import {
 	tableCellMinWidth,
 	TaskDecisionSharedCssClassName,
 } from '@atlaskit/editor-common/styles';
+import {
+	BodiedSyncBlockSharedCssClassName,
+	SyncBlockSharedCssClassName,
+	SyncBlockLabelSharedCssClassName,
+	SyncBlockStateCssClassName,
+} from '@atlaskit/editor-common/sync-block';
 import { tableCellBackgroundStyleOverrideForCompiled } from '@atlaskit/editor-common/table-cell-background-for-compiled';
 import type {
 	EditorAppearance,
@@ -62,6 +68,11 @@ const akEditorBreakpointForSmallDevice = `1266px`;
 const akEditorGutterPaddingReduced = 24;
 const akEditorFullPageNarrowBreakout = 600;
 const akEditorUltraWideLayoutWidth = 4000;
+// Layout responsiveness breakpoints — chosen to align editor layout responsiveness with the renderer.
+// Applied to the editor-area container query (max-width) for layout sections.
+const akEditorLayoutFullWidthBreakpoint = 724;
+const akEditorLayoutFixedWidthBreakpoint = 788;
+const akEditorLayoutResizedBreakpoint = 820;
 
 // Originally copied from packages/editor/editor-core/src/ui/Appearance/Comment/Comment.tsx
 const CommentEditorMargin = 14;
@@ -129,6 +140,9 @@ const listsStylesSafariFixMultiSelector = `
 
 const editorAreaNonSmallDeviceContainerQuery = `@container editor-area (width >= ${akEditorBreakpointForSmallDevice})`;
 const editorAreaNarrowPageContainerQuery = `@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`;
+const editorAreaLayoutFullWidthMaxWidthContainerQuery = `@container editor-area (max-width: ${akEditorLayoutFullWidthBreakpoint}px)`;
+const editorAreaLayoutFixedWidthMaxWidthContainerQuery = `@container editor-area (max-width: ${akEditorLayoutFixedWidthBreakpoint}px)`;
+const editorAreaLayoutResizedMaxWidthContainerQuery = `@container editor-area (max-width: ${akEditorLayoutResizedBreakpoint}px)`;
 
 const placeholderFadeInKeyframes = keyframes({
 	from: {
@@ -305,6 +319,11 @@ const pulseOutDuringTr = keyframes({
 		transform: 'scaleX(0)',
 		opacity: 0,
 	},
+});
+
+const syncBlockCreationLoadingKeyframes = keyframes({
+	from: { '--angle': '0deg' },
+	to: { '--angle': '360deg' },
 });
 
 /**
@@ -2492,74 +2511,679 @@ const editorContentStyles = cssMap({
 			},
 		},
 	},
+	/**
+	 * Base styles for layout
+	 */
 	layoutBaseStyles: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'[data-layout-section]': {
+				margin: `${token('space.100')} -12px 0`,
+				transition: 'border-color 0.3s cubic-bezier(0.15, 1, 0.3, 1)',
+				cursor: 'pointer',
+
+				// Inner cursor located 26px from left
+				'[data-layout-column]': {
+					flex: 1,
+					position: 'relative',
+					minWidth: 0,
+					/* disable 4 borders when in view mode and advanced layouts is on */
+					border: `${token('border.width')} solid ${token('color.border')}`,
+					borderRadius: token('radius.small'),
+					padding: token('space.150'),
+					boxSizing: 'border-box',
+					'> div': {
+						'> .embedCardView-content-wrap:first-of-type .rich-media-item': {
+							marginTop: 0,
+						},
+						'> .mediaSingleView-content-wrap:first-of-type .rich-media-item': {
+							marginTop: 0,
+						},
+						'> .ProseMirror-gapcursor.-right:first-child + .mediaSingleView-content-wrap .rich-media-item, > style:first-child + .ProseMirror-gapcursor.-right + .mediaSingleView-content-wrap .rich-media-item, > .ProseMirror-gapcursor.-right:first-of-type + .embedCardView-content-wrap .rich-media-item':
+							{
+								marginTop: 0,
+							},
+						'> .ProseMirror-gapcursor:first-child + span + .mediaSingleView-content-wrap .rich-media-item, > style:first-child + .ProseMirror-gapcursor + span + .mediaSingleView-content-wrap .rich-media-item':
+							{
+								marginTop: 0,
+							},
+						// Prevent first DecisionWrapper's margin-top: 8px from shifting decisions down and shrinking layout's node selectable area (leniency margin)
+						"> [data-node-type='decisionList']": {
+							'li:first-of-type [data-decision-wrapper]': {
+								marginTop: 0,
+							},
+						},
+					},
+
+					// Make the 'content' fill the entire height of the layout column to allow click handler of layout section nodeview to target only data-layout-column
+					'[data-layout-content]': {
+						height: '100%',
+						cursor: 'text',
+
+						'.mediaGroupView-content-wrap': {
+							clear: 'both',
+						},
+					},
+				},
+			},
+		},
+
+		// hide separator when element is dragging on top of a layout column
+		'[data-blocks-drop-target-container] ~ [data-layout-column] > [data-layout-content]::before': {
+			display: 'none',
+		},
+
+		'.fabric-editor--full-width-mode .ProseMirror': {
+			'[data-layout-section]': {
+				'.pm-table-container': {
+					margin: '0 2px',
+				},
+			},
+		},
 	},
+	/**
+	 * Base styles overrides for layout columns when advanced layouts experiment is on
+	 */
 	layoutBaseStylesAdvanced: {
-		// placeholder for migration
+		'.ProseMirror [data-layout-section] [data-layout-column]': {
+			border: 0,
+		},
 	},
+	/**
+	 * Spacing overrides when platform_editor_nested_dnd_styles_changes is on
+	 */
+	// TODO: EDF-123 - Migrate away from gridSize
+	// Recommendation: Replace directly with 7px
+	// Ignored via go/ees007
 	layoutBaseStylesFixesUnderNestedDnDFG: {
-		// placeholder for migration
+		'.ProseMirror [data-layout-section]': {
+			margin: `${token('space.100')} -20px 0`,
+		},
+
+		'.ProseMirror [data-layout-section] [data-layout-column]': {
+			padding: '12px 20px',
+		},
 	},
+	/**
+	 * Spacing overrides when platform_editor_nested_dnd_styles_changes is on,
+	 * excluding layouts inside bodied sync blocks
+	 */
 	layoutBaseStylesFixesUnderNestedDnDFGExcludingBodiedSync: {
-		// placeholder for migration
+		// Apply -20px margin to all sections
+		'.ProseMirror [data-layout-section]': {
+			margin: `${token('space.100')} -20px 0`,
+		},
+
+		// Reset to default margin when inside bodied sync block
+		'.ProseMirror [data-prosemirror-node-name="bodiedSyncBlock"] [data-layout-section]': {
+			margin: `${token('space.100')} -12px 0`,
+		},
+
+		'.ProseMirror [data-layout-section] [data-layout-column]': {
+			padding: '12px 20px',
+		},
 	},
+	// on exp 'platform_editor_table_excerpts_fix' cleanup, merge this style to the one above
 	layoutBaseStylesWithTableExcerptsFix: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'[data-layout-section]': {
+				'[data-layout-column]': {
+					'> div': {
+						'.pm-table-container': {
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+							width: '100% !important',
+						},
+					},
+				},
+			},
+		},
 	},
+	/**
+	 * Styles for the column resize divider widget DOM elements.
+	 * Mirrors the pm-breakout-resize-handle-* pattern from resizerStyles.ts.
+	 * Applied only when advanced_layouts experiment is on.
+	 */
 	layoutColumnDividerStyles: {
-		// placeholder for migration
+		'.layout-column-divider': {
+			// Negative margin removes the applied 'gap' from the parent's flex box
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			marginInline: '-15px 0px',
+			flexShrink: 0,
+			boxSizing: 'content-box',
+			cursor: 'col-resize',
+			position: 'relative',
+			zIndex: 2,
+			alignSelf: 'stretch',
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+
+			'&:hover .layout-column-divider-rail': {
+				background: token('color.background.selected'),
+			},
+
+			'&:hover .layout-column-divider-thumb': {
+				background: token('color.border.focused'),
+			},
+		},
+
+		// Rail and thumb styles intentionally mirror the breakout resize handle
+		// (see .pm-breakout-resize-handle-rail and .pm-breakout-resize-handle-thumb in resizerStyles.ts).
+		// If updating these styles, consider keeping both in sync.
+		'.layout-column-divider-rail': {
+			width: 7,
+			height: '100%',
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+			borderRadius: token('radius.small'),
+			transition: 'background-color 0.2s',
+			pointerEvents: 'none',
+		},
+
+		'.layout-column-divider-thumb': {
+			minWidth: 3,
+			height: 'clamp(27px, calc(100% - 32px), 96px)',
+			background: token('color.border'),
+			borderRadius: token('radius.medium'),
+			pointerEvents: 'none',
+			position: 'sticky',
+			top: token('space.150'),
+			bottom: token('space.150'),
+		},
 	},
+	/**
+	 * Override divider marginInline when platform_editor_nested_dnd_styles_changes is on,
+	 * since the layout section/column spacing changes.
+	 */
 	layoutColumnDividerStylesNestedDnD: {
-		// placeholder for migration
+		'.layout-column-divider': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			marginInline: '0 -7px',
+		},
 	},
+	/*
+	 * marginTop fixes when platform_editor_nested_dnd_styles_changes is on
+	 */
 	layoutColumnMartinTopFixesNew: {
-		// placeholder for migration
+		'.ProseMirror [data-layout-section] [data-layout-column] > div': {
+			'> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))': {
+				marginTop: 0,
+			},
+		},
 	},
+	/*
+	 * marginTop fixes when platform_editor_nested_dnd_styles_changes is off
+	 */
 	layoutColumnMartinTopFixesOld: {
-		// placeholder for migration
+		'.ProseMirror [data-layout-section] [data-layout-column] > div': {
+			'> :not(style):first-child, > style:first-child + *': {
+				marginTop: 0,
+			},
+
+			'> .ProseMirror-gapcursor:first-child + *, > style:first-child + .ProseMirror-gapcursor + *':
+				{
+					marginTop: 0,
+				},
+
+			'> .ProseMirror-gapcursor:first-child + span + *': {
+				marginTop: 0,
+			},
+		},
 	},
+	/**
+	 * Layout column resize styles for the platform_editor_layout_column_resize_handle experiment
+	 */
 	layoutColumnResizeStyles: {
-		// placeholder for migration
+		'.ProseMirror [data-layout-section]': {
+			'> [data-layout-column][style*="--column-width"]': {
+				// Also ensure flex-grow and flex-shrink are reset when using custom width
+				flex: 'var(--column-resize-flex, 1)',
+				// Support CSS custom property for smooth resizing during drag
+				// When --column-resize-width is set, use it; otherwise fall back to the original flex-basis
+				// Using attribute selector for higher specificity than inline styles
+				flexBasis: 'var(--column-resize-width, var(--column-width))',
+			},
+		},
 	},
+	/**
+	 * Responsive styles for layout columns when advanced layouts experiment is on
+	 */
 	layoutColumnResponsiveStyles: {
-		// placeholder for migration
+		'.ProseMirror [data-layout-section]': {
+			display: 'flex',
+			flexDirection: 'row',
+			gap: token('space.100'),
+
+			'& > *': {
+				flex: 1,
+				minWidth: 0,
+			},
+
+			'& > .unsupportedBlockView-content-wrap': {
+				minWidth: 'initial',
+			},
+		},
+
+		// Ignored via go/DSP-18766
+		'.layout-section-container': {
+			containerType: 'inline-size',
+			containerName: 'layout-area',
+		},
 	},
+	/**
+	 * Layout columns styles when advanced layouts experiment is on
+	 */
 	layoutColumnStylesAdvanced: {
-		// placeholder for migration
+		'.ProseMirror [data-layout-section]': {
+			'> [data-layout-column]': {
+				margin: '0 4px',
+			},
+
+			'> [data-layout-column]:first-of-type': {
+				marginLeft: 0,
+			},
+
+			'> [data-layout-column]:last-of-type': {
+				marginRight: 0,
+			},
+
+			'@media screen and (max-width: 1024px)': {
+				'[data-layout-column] + [data-layout-column]': {
+					margin: 0,
+				},
+			},
+
+			'> [data-layout-column].ak-editor-selected-node:not(.danger)': {
+				...blanketSelectionStyles,
+				...hideNativeBrowserTextSelectionStyles,
+				// layout column selection shorter after layout border has been removed
+				'::before': {
+					width: 'calc(100% - 8px)',
+					left: 4,
+					borderRadius: token('radius.small', '3px'),
+				},
+			},
+		},
 	},
+	/**
+	 * Layout columns styles when advanced layouts experiment is off
+	 */
 	layoutColumnStylesNotAdvanced: {
-		// placeholder for migration
+		'.ProseMirror [data-layout-section]': {
+			'[data-layout-column] + [data-layout-column]': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginLeft: 8,
+			},
+
+			'@media screen and (max-width: 1024px)': {
+				'[data-layout-column] + [data-layout-column]': {
+					marginLeft: 0,
+				},
+			},
+		},
 	},
+	/**
+	 * Base responsive styles for layout
+	 */
+	// jest warning: JSDOM version (22) doesn't support the new @container CSS rule
 	layoutResponsiveBaseStyles: {
-		// placeholder for migration
+		// chosen breakpoints in container queries are to make sure layout responsiveness in editor aligns with renderer
+		// not resized layout in full-width editor
+		'.fabric-editor--full-width-mode .ProseMirror > .layoutSectionView-content-wrap': {
+			'[data-layout-section]': {
+				[editorAreaLayoutFullWidthMaxWidthContainerQuery]: {
+					flexDirection: 'column',
+				},
+			},
+			'&.selected, &:hover, &.selected.danger, &.ak-editor-selected-node:not(.danger)': {
+				'[data-layout-column]:not(:first-of-type)': {
+					[editorAreaLayoutFullWidthMaxWidthContainerQuery]: {
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+						'[data-layout-content]::before': {
+							content: "''",
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+							borderTop: `1px solid ${token('color.border')}`,
+							position: 'absolute',
+							width: 'calc(100% - 32px)',
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+							marginTop: -13,
+							// clear styles for column separator
+							borderLeft: 'unset',
+							marginLeft: 'unset',
+							height: 'unset',
+						},
+					},
+				},
+			},
+		},
+		// not resized layout in fixed-width editor
+		'.ak-editor-content-area:not(.fabric-editor--full-width-mode) .ProseMirror > .layoutSectionView-content-wrap':
+			{
+				'[data-layout-section]': {
+					[editorAreaLayoutFixedWidthMaxWidthContainerQuery]: {
+						flexDirection: 'column',
+					},
+				},
+				'&.selected, &:hover, &.selected.danger, &.ak-editor-selected-node:not(.danger)': {
+					'[data-layout-column]:not(:first-of-type)': {
+						[editorAreaLayoutFixedWidthMaxWidthContainerQuery]: {
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+							'[data-layout-content]::before': {
+								content: "''",
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+								borderTop: `1px solid ${token('color.border')}`,
+								position: 'absolute',
+								width: 'calc(100% - 32px)',
+								// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+								marginTop: -13,
+								// clear styles for column separator
+								borderLeft: 'unset',
+								marginLeft: 'unset',
+								height: 'unset',
+							},
+						},
+					},
+				},
+			},
+		// resized layout in full/fixed-width editor
+		'.ProseMirror .fabric-editor-breakout-mark .layoutSectionView-content-wrap': {
+			'[data-layout-section]': {
+				[editorAreaLayoutResizedMaxWidthContainerQuery]: {
+					flexDirection: 'column',
+				},
+			},
+			'&.selected, &:hover, &.selected.danger, &.ak-editor-selected-node:not(.danger)': {
+				'[data-layout-column]:not(:first-of-type)': {
+					[editorAreaLayoutResizedMaxWidthContainerQuery]: {
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+						'[data-layout-content]::before': {
+							content: "''",
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+							borderTop: `1px solid ${token('color.border')}`,
+							position: 'absolute',
+							width: 'calc(100% - 32px)',
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+							marginTop: -13,
+							// clear styles for column separator
+							borderLeft: 'unset',
+							marginLeft: 'unset',
+							height: 'unset',
+						},
+					},
+				},
+			},
+		},
 	},
+	/**
+	 * Responsive styles for layout in view mode
+	 */
 	layoutResponsiveStylesForView: {
-		// placeholder for migration
+		// chosen breakpoints in container queries are to make sure layout responsiveness in editor aligns with renderer
+		// not resized layout in full-width editor
+		'.fabric-editor--full-width-mode .ProseMirror > .layoutSectionView-content-wrap': {
+			'&.selected, &:hover, &.selected.danger, &.ak-editor-selected-node:not(.danger)': {
+				'[data-layout-column]:not(:first-of-type)': {
+					[editorAreaLayoutFullWidthMaxWidthContainerQuery]: {
+						'[data-layout-content]::before': {
+							borderTop: 0,
+						},
+					},
+				},
+			},
+		},
+
+		// not resized layout in fixed-width editor
+		'.ak-editor-content-area:not(.fabric-editor--full-width-mode) .ProseMirror > .layoutSectionView-content-wrap':
+			{
+				'&.selected, &:hover, &.selected.danger, &.ak-editor-selected-node:not(.danger)': {
+					'[data-layout-column]:not(:first-of-type)': {
+						[editorAreaLayoutFixedWidthMaxWidthContainerQuery]: {
+							'[data-layout-content]::before': {
+								borderTop: 0,
+							},
+						},
+					},
+				},
+			},
+
+		// resized layout in full/fixed-width editor
+		'.ProseMirror .fabric-editor-breakout-mark .layoutSectionView-content-wrap': {
+			'&.selected, &:hover, &.selected.danger, &.ak-editor-selected-node:not(.danger)': {
+				'[data-layout-column]:not(:first-of-type)': {
+					[editorAreaLayoutResizedMaxWidthContainerQuery]: {
+						'[data-layout-content]::before': {
+							borderTop: 0,
+						},
+					},
+				},
+			},
+		},
 	},
+	/**
+	 * Layout section styles when advanced layouts experiment is on
+	 */
 	layoutSectionStylesAdvanced: {
-		// placeholder for migration
+		'.ProseMirror .layout-section-container [data-layout-section]': {
+			'> .ProseMirror-widget': {
+				flex: 'none',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				display: 'contents !important',
+
+				'&[data-blocks-drag-handle-container] div': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+					display: 'contents !important',
+				},
+
+				'&[data-blocks-drop-target-container]': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+					display: 'block !important',
+					margin: token('space.negative.050'),
+
+					'[data-drop-target-for-element]': {
+						position: 'absolute',
+					},
+				},
+
+				// Column resize divider: always in DOM, hidden via opacity by default
+				'&.layout-column-divider': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+					display: 'block !important',
+					flex: 'none',
+					opacity: 0,
+					transition: 'opacity 0.2s',
+				},
+
+				'& + [data-layout-column]': {
+					margin: 0,
+				},
+			},
+
+			'> [data-layout-column]': {
+				margin: 0,
+			},
+		},
+
+		// On hover: fade in drag divider and hide the 1px separator
+		'.ProseMirror .layoutSectionView-content-wrap:hover .layout-section-container [data-layout-section]':
+			{
+				'> .ProseMirror-widget.layout-column-divider': {
+					opacity: 1,
+				},
+				'> .ProseMirror-widget.layout-column-divider ~ [data-layout-column] [data-layout-content]::before':
+					{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+						display: 'none !important',
+					},
+			},
 	},
+	/**
+	 * Layout section styles when advanced layouts experiment is off
+	 */
 	layoutSectionStylesNotAdvanced: {
-		// placeholder for migration
+		// Ignored via go/DSP-18766
+		'.ProseMirror [data-layout-section]': {
+			position: 'relative',
+			display: 'flex',
+			flexDirection: 'row',
+
+			// Ignored via go/DSP-18766
+			'& > *': {
+				flex: 1,
+				minWidth: 0,
+			},
+
+			// Ignored via go/DSP-18766
+			'& > .unsupportedBlockView-content-wrap': {
+				minWidth: 'initial',
+			},
+
+			'& > .layout-column-divider': {
+				flex: 'none',
+			},
+
+			// Ignored via go/DSP-18766
+			'@media screen and (max-width: 1024px)': {
+				flexDirection: 'column',
+			},
+		},
 	},
+	/**
+	 * Selected styles for layout when advanced layouts experiment is on
+	 */
 	layoutSelectedStylesAdvanced: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'[data-layout-section], .layoutSectionView-content-wrap': {
+				"&.selected, [data-empty-layout='true'], &:hover, &.selected.danger [data-layout-section], &.ak-editor-selected-node:not(.danger) [data-layout-section]":
+					{
+						'[data-layout-column]:not(:first-of-type) [data-layout-content]::before': {
+							content: "''",
+							borderLeft: `1px solid ${token('color.border')}`,
+							position: 'absolute',
+							height: 'calc(100% - 24px)',
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+							marginLeft: -25,
+						},
+					},
+
+				'&.selected.danger [data-layout-section]': {
+					backgroundColor: token('color.background.danger'),
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					borderRadius: token('radius.small'),
+				},
+
+				'&.ak-editor-selected-node:not(.danger) [data-layout-section]': {
+					boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+					borderRadius: token('radius.small'),
+					backgroundColor: token('color.background.selected'),
+					'[data-layout-column]': {
+						...blanketSelectionStyles,
+						...hideNativeBrowserTextSelectionStyles,
+						border: 0,
+						'::before': {
+							backgroundColor: 'transparent',
+						},
+					},
+				},
+			},
+		},
 	},
+	// Fix for layoutSelectedStylesAdvanced that addresses an issue where the delete indicator
+	// sometimes doesn't appear when inside a synced block.
+	// Separated as a distinct style to allow feature-gating without affecting module-level styles.
+	// This prevents style inconsistencies before the feature flag is initialized.
 	layoutSelectedStylesAdvancedFix: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'[data-layout-section], .layoutSectionView-content-wrap': {
+				'&.selected.danger [data-layout-section]': {
+					boxShadow: `inset 0 0 0 1px ${token('color.border.danger')}`,
+				},
+
+				'&.ak-editor-selected-node:not(.danger) [data-layout-section]': {
+					boxShadow: `inset 0 0 0 1px ${token('color.border.selected')}`,
+				},
+			},
+		},
 	},
+	/**
+	 * Layout in view mode styles for selected state when advanced layouts experiment is on.
+	 */
 	layoutSelectedStylesForViewAdvanced: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'[data-layout-section], .layoutSectionView-content-wrap': {
+				"&.selected, [data-empty-layout='true'], &:hover, &.selected.danger [data-layout-section], &.ak-editor-selected-node:not(.danger) [data-layout-section]":
+					{
+						'[data-layout-column]:not(:first-of-type) [data-layout-content]::before': {
+							borderLeft: 0,
+						},
+					},
+
+				'&.selected.danger [data-layout-section]': {
+					boxShadow: `0 0 0 0 ${token('color.border.danger')}`,
+				},
+
+				'&.ak-editor-selected-node:not(.danger) [data-layout-section]': {
+					boxShadow: `0 0 0 0 ${token('color.border.selected')}`,
+				},
+			},
+		},
 	},
+	/**
+	 * Layout in view mode styles for selected state when advanced layouts experiment is off.
+	 */
 	layoutSelectedStylesForViewNotAdvanced: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'[data-layout-section], .layoutSectionView-content-wrap': {
+				'&.selected [data-layout-column], &:hover [data-layout-column]': {
+					border: 0,
+				},
+			},
+		},
 	},
+	/**
+	 * Selected styles for layout when advanced layouts experiment is off
+	 */
+	// TODO: DSP-4441 - Remove the border styles below once design tokens have been enabled and fallbacks are no longer triggered.
+	//       This is because the default state already uses the same token and, as such, the hover style won't change anything.
+	//       https://product-fabric.atlassian.net/browse/DSP-4441
 	layoutSelectedStylesNotAdvanced: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'[data-layout-section], .layoutSectionView-content-wrap': {
+				// Shows the border when cursor is inside a layout
+				'&.selected [data-layout-column], &:hover [data-layout-column]': {
+					border: `1px solid ${token('color.border')}`,
+				},
+
+				'&.selected.danger [data-layout-column]': {
+					backgroundColor: token('color.background.danger'),
+					borderColor: token('color.border.danger'),
+				},
+
+				'&.ak-editor-selected-node:not(.danger)': {
+					'[data-layout-column]': {
+						...borderSelectionStyles,
+						...blanketSelectionStyles,
+						...hideNativeBrowserTextSelectionStyles,
+						'::after': {
+							backgroundColor: 'transparent',
+						},
+					},
+				},
+			},
+		},
 	},
+	/*
+	 * Layout in view mode styles, overrides over layout base styles
+	 */
 	layoutStylesForView: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'[data-layout-section]': {
+				cursor: 'default',
+
+				'[data-layout-column]': {
+					border: 0,
+				},
+			},
+		},
 	},
 	linkingVisualRefreshV1Styles: {
 		// placeholder for migration
@@ -2796,19 +3420,350 @@ const editorContentStyles = cssMap({
 		},
 	},
 	mediaAlignmentStyles: {
-		// placeholder for migration
+		'.fabric-editor-block-mark[class^="fabric-editor-align"]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			clear: 'none',
+		},
+		'.fabric-editor-align-end': {
+			textAlign: 'right',
+		},
+		'.fabric-editor-align-start': {
+			textAlign: 'left',
+		},
+		'.fabric-editor-align-center': {
+			textAlign: 'center',
+		},
+		'.fabric-editor--full-width-mode': {
+			'.pm-table-container': {
+				'.code-block, .extension-container, .multiBodiedExtension--container': {
+					maxWidth: '100%',
+				},
+			},
+		},
 	},
 	mediaCaptionStyles: {
-		// placeholder for migration
+		'.mediaSingleView-content-wrap': {
+			'span#caption-placeholder': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				fontSize: 'var(--ak-editor-base-font-size)',
+			},
+		},
 	},
 	mediaDangerStyles: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'.mediaInlineView-content-wrap.ak-editor-selected-node.danger': {
+				' .media-inline-image-wrapper': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...dangerBorderStyles,
+				},
+				'>span> span[role="button"]': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...dangerBorderStyles,
+				},
+			},
+
+			'.mediaGroupView-content-wrap.danger #newFileExperienceWrapper': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...dangerBorderStyles,
+			},
+		},
 	},
 	mediaGroupStyles: {
-		// placeholder for migration
+		'.mediaGroupView-content-wrap ul': {
+			padding: 0,
+		},
 	},
 	mediaStyles: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'li .rich-media-item': {
+				margin: 0,
+			},
+
+			'&.ua-chrome li > .mediaSingleView-content-wrap::before': {
+				content: "''",
+				display: 'block',
+				height: 0,
+			},
+
+			'&.ua-firefox': {
+				'.mediaSingleView-content-wrap': {
+					userSelect: 'none',
+				},
+				'.captionView-content-wrap': {
+					userSelect: 'text',
+				},
+			},
+
+			".mediaSingleView-content-wrap[layout^='wrap-']": {
+				position: 'relative',
+				zIndex: 2,
+				maxWidth: '100%',
+				clear: 'inherit',
+			},
+
+			".mediaSingleView-content-wrap[layout='center']": {
+				clear: 'both',
+			},
+
+			'table .rich-media-item': {
+				marginTop: token('space.150'),
+				marginBottom: token('space.150'),
+				clear: 'both',
+
+				'&.image-wrap-left[data-layout], &.image-wrap-right[data-layout]': {
+					clear: 'none',
+
+					'&:first-child': {
+						marginTop: token('space.150'),
+					},
+				},
+			},
+
+			'.rich-media-item.image-wrap-right + .rich-media-item.image-wrap-left': {
+				clear: 'both',
+			},
+
+			'.rich-media-item.image-wrap-left + .rich-media-item.image-wrap-right, .rich-media-item.image-wrap-right + .rich-media-item.image-wrap-left, .rich-media-item.image-wrap-left + .rich-media-item.image-wrap-left, .rich-media-item.image-wrap-right + .rich-media-item.image-wrap-right':
+				{
+					marginRight: 0,
+					marginLeft: 0,
+				},
+
+			'@media all and (max-width: 410px)': {
+				"div.mediaSingleView-content-wrap[layout='wrap-left'], div.mediaSingleView-content-wrap[data-layout='wrap-left'], div.mediaSingleView-content-wrap[layout='wrap-right'], div.mediaSingleView-content-wrap[data-layout='wrap-right']":
+					{
+						float: 'none',
+						overflow: 'auto',
+						margin: `${token('space.150')} 0`,
+					},
+			},
+
+			"& [layout='full-width'] .rich-media-item, & [layout='wide'] .rich-media-item": {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginLeft: '50%',
+				transform: 'translateX(-50%)',
+			},
+
+			".media-extended-resize-experience[layout^='wrap-']": {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				overflow: 'visible !important',
+			},
+
+			"& [layout^='wrap-'] + [layout^='wrap-']": {
+				clear: 'none',
+
+				"& + p, & + div[class^='fabric-editor-align'], & + ul, & + ol, & + h1, & + h2, & + h3, & + h4, & + h5, & + h6":
+					{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+						clear: 'both !important' as 'both',
+					},
+
+				'& .rich-media-item': {
+					marginLeft: 0,
+					marginRight: 0,
+				},
+			},
+
+			'.media-inline-image-wrapper': {
+				height: 22,
+				transform: 'translateY(-2px)',
+			},
+
+			h1: {
+				'> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .media-inline-image-wrapper':
+					{
+						height: 36,
+						transform: 'translateY(-3px)',
+					},
+			},
+
+			h2: {
+				'> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .media-inline-image-wrapper':
+					{
+						height: 31,
+						transform: 'translateY(-3px)',
+					},
+			},
+
+			h3: {
+				'> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .media-inline-image-wrapper':
+					{
+						height: 25,
+						transform: 'translateY(-2px)',
+					},
+			},
+
+			h4: {
+				'> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .media-inline-image-wrapper':
+					{
+						height: 23,
+						transform: 'translateY(-2px)',
+					},
+			},
+
+			h5: {
+				'> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .media-inline-image-wrapper':
+					{
+						height: 20,
+						transform: 'translateY(-2px)',
+					},
+			},
+
+			h6: {
+				'> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .media-inline-image-wrapper':
+					{
+						height: 18,
+						transform: 'translateY(-2px)',
+					},
+			},
+
+			".mediaSingleView-content-wrap[layout='wrap-left']": {
+				float: 'left',
+			},
+
+			".mediaSingleView-content-wrap[layout='wrap-right']": {
+				float: 'right',
+			},
+
+			".mediaSingleView-content-wrap[layout='wrap-right'] + .mediaSingleView-content-wrap[layout='wrap-left']":
+				{
+					clear: 'both',
+				},
+
+			'& > .mediaSingleView-content-wrap': {
+				'.richMedia-resize-handle-right': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginRight: '-12px',
+				},
+				'.richMedia-resize-handle-left': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginLeft: '-12px',
+				},
+			},
+		},
+
+		'.pm-alt-text-alt-text-floating-toolbar': {
+			padding: 0,
+		},
+
+		'.richMedia-resize-handle-right, .richMedia-resize-handle-left': {
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'center',
+		},
+
+		'.richMedia-resize-handle-right': {
+			alignItems: 'flex-end',
+			paddingRight: token('space.150'),
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			marginRight: '-4px',
+		},
+
+		'.richMedia-resize-handle-left': {
+			alignItems: 'flex-start',
+			paddingLeft: token('space.150'),
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			marginLeft: '-4px',
+		},
+
+		'.richMedia-resize-handle-right::after, .richMedia-resize-handle-left::after': {
+			content: "' '",
+			display: 'flex',
+			width: 3,
+			height: 64,
+			borderRadius: token('radius.medium'),
+		},
+
+		'.rich-media-item:hover .richMedia-resize-handle-left::after, .rich-media-item:hover .richMedia-resize-handle-right::after':
+			{
+				background: token('color.border'),
+			},
+
+		'.ak-editor-selected-node .richMedia-resize-handle-right::after, .ak-editor-selected-node .richMedia-resize-handle-left::after, .rich-media-item .richMedia-resize-handle-right:hover::after, .rich-media-item .richMedia-resize-handle-left:hover::after, .rich-media-item.is-resizing .richMedia-resize-handle-right::after, .rich-media-item.is-resizing .richMedia-resize-handle-left::after':
+			{
+				background: token('color.border.focused'),
+			},
+
+		'.__resizable_base__': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			left: 'unset !important',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			width: 'auto !important',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			height: 'auto !important',
+		},
+
+		'.danger > div > div > .media-card-frame, .danger > span > a': {
+			backgroundColor: token('color.background.danger'),
+			boxShadow: `0px 0px 0px 2px, ${token('color.border.danger')}`,
+			transition: 'background-color 0s, box-shadow 0s',
+		},
+
+		'.danger': {
+			'.rich-media-item .media-file-card-view::after': {
+				border: `1px solid ${token('color.border.danger')}`,
+			},
+
+			'.rich-media-item .media-card-inline-player::after': {
+				border: `1px solid ${token('color.border.danger')}`,
+			},
+
+			'.rich-media-item .new-file-experience-wrapper': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				boxShadow: `0 0 0 1px ${token('color.border.danger')} !important`,
+			},
+
+			'.richMedia-resize-handle-right::after, .richMedia-resize-handle-left::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				background: `${token('color.icon.danger')} !important`,
+			},
+
+			'.resizer-handle-thumb': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				background: `${token('color.icon.danger')} !important`,
+			},
+
+			'div div .media-card-frame, .inlineCardView-content-wrap > span > a': {
+				backgroundColor: `${token('color.blanket.danger')}`,
+				transition: `background-color 0s`,
+			},
+
+			'div div .media-card-frame::after': {
+				boxShadow: 'none',
+			},
+		},
+
+		'.warning': {
+			'.rich-media-item .media-file-card-view::after': {
+				border: `1px solid ${token('color.border.warning')}`,
+			},
+
+			'.rich-media-item .media-card-inline-player::after': {
+				border: `1px solid ${token('color.border.warning')}`,
+			},
+
+			'.rich-media-item .new-file-experience-wrapper': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				boxShadow: `0 0 0 1px ${token('color.border.warning')} !important`,
+			},
+
+			'.resizer-handle-thumb': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				background: `${token('color.icon.warning')} !important`,
+			},
+		},
+
+		'.media-filmstrip-list-item': {
+			cursor: 'pointer',
+		},
+
+		'.mediaGroupView-content-wrap.ak-editor-selected-node #newFileExperienceWrapper': {
+			boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+		},
+
+		'.ak-editor-no-interaction #newFileExperienceWrapper': {
+			boxShadow: 'none',
+		},
 	},
 	mentionDangerStyles: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
@@ -2952,22 +3907,292 @@ const editorContentStyles = cssMap({
 		},
 	},
 	nestedPanelBorderStylesMixin: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'.ak-editor-panel': {
+				// Support nested panel
+				'.ak-editor-panel__content .ak-editor-panel': {
+					border: `1px solid ${token('color.border')}`,
+				},
+			},
+		},
 	},
 	nestedPanelDangerStyles: {
-		// placeholder for migration
+		'.ProseMirror': {
+			/* Danger when nested node */
+			'.danger .ak-editor-panel': {
+				'&[data-panel-type="info"]': {
+					backgroundColor: token('color.blanket.danger'),
+
+					'.ak-editor-panel__icon[data-panel-type="info"]': {
+						color: `${token('color.icon.danger')}`,
+					},
+				},
+				'&[data-panel-type="note"]': {
+					backgroundColor: token('color.blanket.danger'),
+
+					'.ak-editor-panel__icon[data-panel-type="note"]': {
+						color: `${token('color.icon.danger')}`,
+					},
+				},
+				'&[data-panel-type="success"]': {
+					backgroundColor: token('color.blanket.danger'),
+
+					'.ak-editor-panel__icon[data-panel-type="success"]': {
+						color: `${token('color.icon.danger')}`,
+					},
+				},
+				'&[data-panel-type="warning"]': {
+					backgroundColor: token('color.blanket.danger'),
+
+					'.ak-editor-panel__icon[data-panel-type="warning"]': {
+						color: `${token('color.icon.danger')}`,
+					},
+				},
+				'&[data-panel-type="error"]': {
+					backgroundColor: token('color.blanket.danger'),
+
+					'.ak-editor-panel__icon[data-panel-type="error"]': {
+						color: `${token('color.icon.danger')}`,
+					},
+				},
+			},
+		},
 	},
 	panelStyles: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'.ak-editor-panel': {
+				cursor: 'pointer',
+
+				/* Danger when top level node */
+				'&.danger': {
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+					backgroundColor: `${token('color.background.danger')} !important`,
+
+					'.ak-editor-panel__icon': {
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+						color: `${token('color.icon.danger')} !important`,
+					},
+				},
+
+				// panelSharedStyles()
+				// panelSharedStylesWithoutPrefix()
+				borderRadius: token('radius.small', '3px'),
+				margin: `${token('space.150')} 0 0`,
+				paddingTop: token('space.100'),
+				paddingRight: token('space.200'),
+				paddingBottom: token('space.100'),
+				paddingLeft: token('space.100'),
+				minWidth: '48px',
+				display: 'flex',
+				position: 'relative',
+				alignItems: 'normal',
+				wordBreak: 'break-word',
+
+				// mainDynamicStyles(PanelType.INFO)
+				// > getPanelTypeBackground(PanelType.INFO)
+				backgroundColor: token('color.background.accent.blue.subtlest'),
+				color: 'inherit',
+
+				'.ak-editor-panel__icon': {
+					flexShrink: 0,
+					height: token('space.300'),
+					width: token('space.300'),
+					boxSizing: 'content-box',
+					paddingRight: token('space.100'),
+					textAlign: 'center',
+					userSelect: 'none',
+					MozUserSelect: 'none',
+					WebkitUserSelect: 'none',
+					msUserSelect: 'none',
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginTop: '0.1em',
+
+					'> span': {
+						verticalAlign: 'middle',
+						display: 'inline-flex',
+					},
+
+					'.emoji-common-emoji-sprite': {
+						verticalAlign: '-2px', // -(8*3-20)/2 [px]
+					},
+
+					'.emoji-common-emoji-image': {
+						verticalAlign: '-3px', // panelEmojiSpriteVerticalAlignment - 1 [px]
+
+						/* Vertical align only works for inline-block elements in Firefox */
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+						'@-moz-document url-prefix()': {
+							img: {
+								display: 'inline-block',
+							},
+						},
+					},
+				},
+
+				'.ak-editor-panel__content': {
+					margin: `${token('space.025')} 0 ${token('space.025')}`,
+					flex: '1 0 0',
+					/*
+						https://ishadeed.com/article/min-max-css/#setting-min-width-to-zero-with-flexbox
+						The default value for min-width is auto, which is computed to zero.
+						When an element is a flex item, the value of min-width doesn’t compute to zero.
+						The minimum size of a flex item is equal to the size of its contents.
+					*/
+					minWidth: 0,
+				},
+
+				'&[data-panel-type="note"]': {
+					// mainDynamicStyles(PanelType.NOTE)
+					backgroundColor: token('color.background.accent.purple.subtlest'),
+					color: 'inherit',
+				},
+				'&[data-panel-type="tip"]': {
+					// mainDynamicStyles(PanelType.TIP)
+					backgroundColor: token('color.background.accent.green.subtlest'),
+					color: 'inherit',
+				},
+				'&[data-panel-type="warning"]': {
+					// mainDynamicStyles(PanelType.WARNING)
+					backgroundColor: token('color.background.accent.yellow.subtlest'),
+					color: 'inherit',
+				},
+				'&[data-panel-type="error"]': {
+					// mainDynamicStyles(PanelType.ERROR)
+					backgroundColor: token('color.background.accent.red.subtlest'),
+					color: 'inherit',
+				},
+				'&[data-panel-type="success"]': {
+					// mainDynamicStyles(PanelType.SUCCESS)
+					backgroundColor: token('color.background.accent.green.subtlest'),
+					color: 'inherit',
+				},
+			},
+
+			'.ak-editor-panel__content': {
+				cursor: 'text',
+			},
+
+			/* Danger when nested node */
+			'.danger .ak-editor-panel': {
+				'&[data-panel-type]': {
+					backgroundColor: token('color.blanket.danger'),
+
+					'.ak-editor-panel__icon': {
+						color: token('color.icon.danger'),
+					},
+				},
+			},
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ak-editor-panel.ak-editor-selected-node:not(.danger)': {
+			// getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Blanket]),
+			// SelectionStyle.BoxShadow
+			boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+			borderColor: 'transparent',
+			// SelectionStyle.Blanket
+			position: 'relative',
+			// Fixes ED-9263, where emoji or inline card in panel makes selection go outside the panel
+			// in Safari. Looks like it's caused by user-select: all in the emoji element
+			WebkitUserSelect: 'text',
+			'&::before': {
+				position: 'absolute',
+				content: '""',
+				left: 0,
+				right: 0,
+				top: 0,
+				bottom: 0,
+				width: '100%',
+				pointerEvents: 'none',
+				zIndex: 12, // akEditorSmallZIndex
+				backgroundColor: token('color.blanket.selected'),
+			},
+			// hideNativeSelectionStyles
+			'&::selection, *::selection': {
+				backgroundColor: 'transparent',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&::-moz-selection, *::-moz-selection': {
+				backgroundColor: 'transparent',
+			},
+		},
 	},
 	panelStylesMixin: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'.ak-editor-panel': {
+				'&[data-panel-type="info"]': {
+					// getIconStyles(PanelType.INFO),
+					'.ak-editor-panel__icon[data-panel-type="info"]': {
+						color: token('color.icon.information'),
+					},
+				},
+				'&[data-panel-type="note"]': {
+					// getIconStyles(PanelType.NOTE),
+					'.ak-editor-panel__icon[data-panel-type="note"]': {
+						color: token('color.icon.discovery'),
+					},
+				},
+				'&[data-panel-type="tip"]': {
+					// getIconStyles(PanelType.TIP),
+					'.ak-editor-panel__icon[data-panel-type="tip"]': {
+						color: token('color.icon.success'),
+					},
+				},
+				'&[data-panel-type="warning"]': {
+					// getIconStyles(PanelType.WARNING),
+					'.ak-editor-panel__icon[data-panel-type="warning"]': {
+						color: token('color.icon.warning'),
+					},
+				},
+				'&[data-panel-type="error"]': {
+					// getIconStyles(PanelType.ERROR),
+					'.ak-editor-panel__icon[data-panel-type="error"]': {
+						color: token('color.icon.danger'),
+					},
+				},
+				'&[data-panel-type="success"]': {
+					// getIconStyles(PanelType.SUCCESS),
+					'.ak-editor-panel__icon[data-panel-type="success"]': {
+						color: token('color.icon.success'),
+					},
+				},
+			},
+		},
 	},
 	panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes: {
-		// placeholder for migration
+		'.ProseMirror': {
+			'.ak-editor-panel': {
+				'&.ak-editor-panel__no-icon': {
+					paddingRight: token('space.150'),
+					paddingLeft: token('space.150'),
+				},
+			},
+		},
+		'.ak-editor-content-area.appearance-full-page .ProseMirror': {
+			'.ak-editor-panel .ak-editor-panel__icon': {
+				paddingRight: token('space.150'),
+			},
+			'.ak-editor-panel.ak-editor-panel__no-icon': {
+				paddingLeft: token('space.250'),
+				paddingRight: token('space.250'),
+			},
+		},
+		/* Don't want extra padding for inline editor (nested) */
+		'.ak-editor-content-area .ak-editor-content-area .ProseMirror': {
+			'.ak-editor-panel .ak-editor-panel__icon': {
+				paddingRight: token('space.100'),
+			},
+			'.ak-editor-panel.ak-editor-panel__no-icon': {
+				paddingRight: token('space.150'),
+				paddingLeft: token('space.150'),
+			},
+		},
 	},
 	panelViewStyles: {
-		// placeholder for migration
+		'.panelView-content-wrap': {
+			boxSizing: 'border-box',
+		},
 	},
 	paragraphStylesOld: {
 		'.ProseMirror p': {
@@ -3370,38 +4595,263 @@ const editorContentStyles = cssMap({
 	smartLinksInLivePagesStyles: {
 		// placeholder for migration
 	},
-	statusDangerStyles: {
-		// placeholder for migration
-	},
-	statusStyles: {
-		// placeholder for migration
-	},
-	statusStylesMixin_fg_platform_component_visual_refresh: {
-		// placeholder for migration
-	},
-	statusStylesMixin_fg_platform_component_visual_refresh_with_search_match: {
-		// placeholder for migration
-	},
-	statusStylesMixin_without_fg_platform_component_visual_refresh: {
-		// placeholder for migration
-	},
-	statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match: {
-		// placeholder for migration
-	},
-	statusStylesTeam26: {
-		// placeholder for migration
-	},
 	syncBlockFirstNodeStyles: {
-		// placeholder for migration
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ProseMirror > .fabric-editor-breakout-mark:first-child': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			[`.${SyncBlockSharedCssClassName.prefix}, .${BodiedSyncBlockSharedCssClassName.prefix}`]: {
+				marginTop: 0,
+			},
+		},
 	},
 	syncBlockOverflowStyles: {
-		// placeholder for migration
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`.${BodiedSyncBlockSharedCssClassName.content}`]: {
+				// Contain floated elements (wrap-left/wrap-right) within synced block borders
+				// Use display: flow-root to create a block formatting context without clipping other content e.g. telepointers
+				display: 'flow-root',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`.${SyncBlockSharedCssClassName.renderer}`]: {
+				// Contain floated elements (wrap-left/wrap-right) within synced block borders
+				// Use display: flow-root to create a block formatting context without clipping other content e.g. telepointers
+				display: 'flow-root',
+			},
+		},
 	},
 	syncBlockStyles: {
-		// placeholder for migration
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`.${SyncBlockSharedCssClassName.prefix}, .${BodiedSyncBlockSharedCssClassName.prefix}`]: {
+				marginRight: `-19px`,
+				marginLeft: `-19px`,
+			},
+		},
 	},
 	syncBlockStylesBase: {
-		// placeholder for migration
+		'@property --angle': {
+			syntax: '"<angle>"',
+			initialValue: '0deg',
+			inherits: 'false',
+		},
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`.${SyncBlockSharedCssClassName.prefix}, .${BodiedSyncBlockSharedCssClassName.prefix}`]: {
+				position: 'relative',
+				cursor: 'pointer',
+				borderRadius: token('radius.small', '3px'),
+				marginBottom: 0,
+				marginTop: token('space.075'),
+				paddingBlock: token('space.150'),
+				color: 'inherit',
+
+				/* Hover state */
+				'&:hover': {
+					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+					boxShadow: `0px 0px 0px 1px ${token('color.border')}`,
+					transition: 'box-shadow 200ms ease-in',
+
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+						opacity: 1,
+						visibility: 'visible',
+						transition: 'opacity 200ms ease-in, visibility 200ms ease-in',
+					},
+				},
+
+				/* Selection state when cursor inside sync block */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				[`&.${BodiedSyncBlockSharedCssClassName.selectionInside}`]: {
+					boxShadow: `0 0 0 1px ${token('color.border')}`,
+
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+						opacity: 1,
+						visibility: 'visible',
+					},
+				},
+
+				/* Node selection state */
+				'&.ak-editor-selected-node': {
+					boxShadow: `0 0 0 1px ${token('color.border.focused')}`,
+
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+						opacity: 1,
+						visibility: 'visible',
+						backgroundColor: token('color.background.selected'),
+						top: '-14px',
+						paddingBottom: token('space.050'),
+						paddingTop: token('space.050'),
+						'> span': {
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+							color: `${token('color.text.selected')} !important`,
+						},
+					},
+				},
+
+				/* Danger state */
+				'&.danger': {
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+
+					'.ak-editor-panel__icon': {
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+						color: `${token('color.icon.danger')} !important`,
+					},
+
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+						backgroundColor: token('color.background.danger'),
+						top: '-14px',
+						paddingBottom: token('space.050'),
+						paddingTop: token('space.050'),
+						'> span': {
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+							color: `${token('color.text.danger')} !important`,
+						},
+					},
+				},
+
+				/* Node disabled state */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				[`&.${SyncBlockStateCssClassName.disabledClassName}`]: {
+					backgroundColor: token('color.background.disabled'),
+					boxShadow: `0 0 0 1px ${token('color.border.disabled')}`,
+					userSelect: 'none',
+
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+						backgroundColor: token('elevation.surface'),
+
+						'&::before': {
+							border: 'none',
+						},
+					},
+				},
+
+				/* Creation loading state */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				[`&.${SyncBlockStateCssClassName.creationLoadingClassName}`]: {
+					animationName: syncBlockCreationLoadingKeyframes,
+					animationDuration: '2s',
+					animationTimingFunction: 'linear',
+					animationIterationCount: 'infinite',
+					border: '1px solid transparent',
+					background: `linear-gradient(${token('elevation.surface')}, ${token('elevation.surface')}) padding-box, conic-gradient(from var(--angle), #1868DB, ${token('color.background.accent.purple.subtlest.pressed')}, #3279E0, #1868DB) border-box`,
+					backgroundClip: 'padding-box, border-box',
+
+					boxShadow: 'none',
+					transition: 'box-shadow 200ms ease-in',
+
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+						display: 'none',
+					},
+				},
+
+				/* Error state */
+				/* In error state sync block should have disabled background colour */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				[`:has(.${SyncBlockSharedCssClassName.error})`]: {
+					backgroundColor: token('color.background.disabled'),
+				},
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				[`:has(.${SyncBlockSharedCssClassName.loading})`]: {
+					boxShadow: `0 0 0 1px ${token('color.border')}`,
+
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+						opacity: 0,
+						visibility: 'hidden',
+					},
+				},
+
+				/* Live doc view mode state */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				[`&.${SyncBlockStateCssClassName.viewModeClassName}`]: {
+					boxShadow: 'none',
+					backgroundColor: 'unset',
+
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+						opacity: 0,
+						visibility: 'hidden',
+					},
+				},
+
+				/* Dragging state */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				[`&.${SyncBlockStateCssClassName.draggingClassName}`]: {
+					boxShadow: `0 0 0 1px ${token('color.border')}`,
+
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+						opacity: 1,
+						visibility: 'visible',
+					},
+				},
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				[`.${BodiedSyncBlockSharedCssClassName.content}`]: {
+					paddingTop: 0,
+					paddingBottom: 0,
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					paddingLeft: '19px',
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					paddingRight: '18px',
+					cursor: 'text',
+				},
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				[`.${SyncBlockSharedCssClassName.renderer}`]: {
+					paddingTop: 0,
+					paddingBottom: 0,
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					paddingLeft: '19px',
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					paddingRight: '18px',
+				},
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`.${BodiedSyncBlockSharedCssClassName.content}`]: {
+				// First child node that has drag handle widget next to it is overridden with marginTop: 0, see globalStyles in editor-plugin-block-controls/src/ui/global-styles.tsx
+				// Hence we set marginTop: 0 when by default to avoid flickering when hovering on and off the first node
+				'> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))': {
+					marginTop: 0,
+				},
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`.${SyncBlockSharedCssClassName.renderer}`]: {
+				// First child node in bodiedSyncBlock is overridden with marginTop: 0, hence apply the same style to syncBlock for consistency
+				'.ak-renderer-document > :first-child': {
+					marginTop: 0,
+				},
+			},
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		'.ak-editor-sync-block__label': {
+			borderRadius: token('radius.small', '3px'),
+			position: 'absolute',
+			gap: token('space.050'),
+			justifyContent: 'center',
+			alignItems: 'center',
+			display: 'flex',
+			opacity: 0,
+			visibility: 'hidden',
+			boxShadow: 'none',
+			zIndex: 1,
+
+			paddingLeft: token('space.100'),
+			paddingRight: token('space.100'),
+
+			top: '-10px',
+			right: token('space.150'),
+			backgroundColor: token('elevation.surface'),
+			maxWidth: '140px',
+		},
 	},
 	tableCommentEditorStyles: {
 		'.ProseMirror .pm-table-wrapper > table': {
@@ -3914,6 +5364,378 @@ const editorContentStyles = cssMap({
 			[`${TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER} ${TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER}, .${TaskDecisionSharedCssClassName.TASK_CONTAINER} .${TaskDecisionSharedCssClassName.TASK_CONTAINER}`]:
 				{
 					marginTop: `max(0px, calc((var(--ak-editor-base-font-size, ${akEditorFullPageDefaultFontSize}px) - ${akEditorFullPageDenseFontSize}px) * (4 / 3)))`,
+				},
+		},
+	},
+	statusDangerStyles: {
+		'.statusView-content-wrap:not(.search-match-block)': {
+			'&.ak-editor-selected-node.danger .status-lozenge-span > span': {
+				boxShadow: `0 0 0 2px ${token('color.border.danger')}`,
+			},
+		},
+	},
+	statusStyles: {
+		'.pm-table-cell-content-wrap, .pm-table-header-content-wrap, [data-layout-section]': {
+			'.statusView-content-wrap': {
+				maxWidth: '100%',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: 0,
+
+				'& > span': {
+					width: '100%',
+				},
+			},
+		},
+		'.statusView-content-wrap': {
+			'& > span': {
+				cursor: 'pointer',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: 0, // Prevent responsive layouts increasing height of container.
+			},
+		},
+		'.danger': {
+			'.status-lozenge-span > span': {
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				backgroundColor: 'rgba(255, 189, 173, 0.5)', // akEditorDeleteBackgroundWithOpacity
+			},
+			'.statusView-content-wrap.ak-editor-selected-node': {
+				'.status-lozenge-span > span': {
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				},
+			},
+		},
+
+		'[data-prosemirror-node-name="status"] .lozenge-wrapper': {
+			backgroundColor: token('color.background.neutral'),
+			maxWidth: '100%',
+			paddingInline: token('space.050'),
+			display: 'inline-flex',
+			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+			borderRadius: token('radius.small', '3px'),
+			blockSize: 'min-content',
+			position: 'static',
+			overflow: 'hidden',
+			boxSizing: 'border-box',
+			appearance: 'none',
+			border: 'none',
+		},
+
+		'[data-prosemirror-node-name="status"] .lozenge-text': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: '11px',
+			fontStyle: 'normal',
+			fontFamily: token('font.family.body'),
+			fontWeight: token('font.weight.bold'),
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			lineHeight: '16px',
+			overflow: 'hidden',
+			textOverflow: 'ellipsis',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			textTransform: 'uppercase',
+			whiteSpace: 'nowrap',
+			maxWidth: `calc(200px - ${token('space.100')})`,
+		},
+	},
+	statusStylesMixin_fg_platform_component_visual_refresh: {
+		'.statusView-content-wrap': {
+			'&.ak-editor-selected-node .status-lozenge-span > span': {
+				boxShadow: `0 0 0 2px ${token('color.border.selected')}`,
+			},
+		},
+
+		'[data-prosemirror-node-name="status"] .lozenge-text': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			color: '#292A2E',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=neutral] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#DDDEE1',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#D8A0F7',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#8FB8F6',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#F9C84E',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#FD9891',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#B3DF72',
+		},
+	},
+	statusStylesMixin_fg_platform_component_visual_refresh_with_search_match: {
+		'.statusView-content-wrap:not(.search-match-block)': {
+			'&.ak-editor-selected-node .status-lozenge-span > span': {
+				boxShadow: `0 0 0 2px ${token('color.border.selected')}`,
+			},
+		},
+
+		'[data-prosemirror-node-name="status"] .lozenge-text': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			color: '#292A2E',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=neutral] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#DDDEE1',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#D8A0F7',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#8FB8F6',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#F9C84E',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#FD9891',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#B3DF72',
+		},
+	},
+	statusStylesMixin_without_fg_platform_component_visual_refresh: {
+		'.statusView-content-wrap': {
+			'&.ak-editor-selected-node .status-lozenge-span > span': {
+				// getSelectionStyles([SelectionStyle.BoxShadow]);
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+				borderColor: 'transparent',
+				// hideNativeBrowserTextSelectionStyles
+				'&::selection, & *::selection': {
+					backgroundColor: 'transparent',
+				},
+				'&::-moz-selection, & *::-moz-selection': {
+					backgroundColor: 'transparent',
+				},
+			},
+		},
+
+		'[data-prosemirror-node-name="status"] > [data-color=neutral] .lozenge-wrapper': {
+			backgroundColor: token('color.background.neutral'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=neutral] .lozenge-text': {
+			color: token('color.text.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-wrapper': {
+			backgroundColor: token('color.background.discovery'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-text': {
+			color: token('color.text.discovery'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-wrapper': {
+			backgroundColor: token('color.background.information'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-text': {
+			color: token('color.text.information'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-wrapper': {
+			backgroundColor: token('color.background.warning'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-text': {
+			color: token('color.text.warning'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-wrapper': {
+			backgroundColor: token('color.background.danger'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-text': {
+			color: token('color.text.danger'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-wrapper': {
+			backgroundColor: token('color.background.success'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-text': {
+			color: token('color.text.success'),
+		},
+	},
+	statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match: {
+		'.statusView-content-wrap:not(.search-match-block)': {
+			'&.ak-editor-selected-node .status-lozenge-span > span': {
+				// getSelectionStyles([SelectionStyle.BoxShadow]);
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+				borderColor: 'transparent',
+				// hideNativeBrowserTextSelectionStyles
+				'&::selection, & *::selection': {
+					backgroundColor: 'transparent',
+				},
+				'&::-moz-selection, & *::-moz-selection': {
+					backgroundColor: 'transparent',
+				},
+			},
+		},
+
+		'[data-prosemirror-node-name="status"] > [data-color=neutral] .lozenge-wrapper': {
+			backgroundColor: token('color.background.neutral'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=neutral] .lozenge-text': {
+			color: token('color.text.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-wrapper': {
+			backgroundColor: token('color.background.discovery'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-text': {
+			color: token('color.text.discovery'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-wrapper': {
+			backgroundColor: token('color.background.information'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-text': {
+			color: token('color.text.information'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-wrapper': {
+			backgroundColor: token('color.background.warning'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-text': {
+			color: token('color.text.warning'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-wrapper': {
+			backgroundColor: token('color.background.danger'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-text': {
+			color: token('color.text.danger'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-wrapper': {
+			backgroundColor: token('color.background.success'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-text': {
+			color: token('color.text.success'),
+		},
+	},
+	statusStylesTeam26: {
+		'[data-prosemirror-node-name="status"] .lozenge-wrapper': {
+			paddingBlockStart: token('space.025'),
+			paddingBlockEnd: token('space.025'),
+			paddingInlineStart: token('space.050'),
+			paddingInlineEnd: token('space.050'),
+			alignItems: 'center',
+			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+			borderRadius: token('radius.small', '4px'),
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			height: '1.25rem',
+			border: `solid ${token('border.width')} transparent`,
+		},
+
+		'[data-prosemirror-node-name="status"] .lozenge-text': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			textTransform: 'none',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			font: token('font.body.small'),
+		},
+
+		/* Border, background and text colors
+		 * These colors are copied from @atlaskit/lozenge
+		 * DST is currently using oklch with different light and dark lightness factors
+		 * and suggest using hex colors until the design tokens are added
+		 */
+		'[data-prosemirror-node-name="status"] > [data-color=neutral] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.neutral'),
+			'html:not([data-color-mode=dark]) &': {
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				borderColor: '#CACBCF',
+			},
+			'html[data-color-mode=dark] &': {
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				borderColor: '#63666B',
+			},
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=neutral] .lozenge-text': {
+			color: token('color.text'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.discovery.subtler'),
+			'html:not([data-color-mode=dark]) &': {
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				borderColor: '#D8A0F7',
+			},
+			'html[data-color-mode=dark] &': {
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				borderColor: '#803FA5',
+			},
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-text': {
+			color: token('color.text.discovery.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.information.subtler'),
+			'html:not([data-color-mode=dark]) &': {
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				borderColor: '#8FB8F6',
+			},
+			'html[data-color-mode=dark] &': {
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				borderColor: '#1558BC',
+			},
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-text': {
+			color: token('color.text.information.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.danger.subtler'),
+			'html:not([data-color-mode=dark]) &': {
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				borderColor: '#FD9891',
+			},
+			'html[data-color-mode=dark] &': {
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				borderColor: '#AE2E24',
+			},
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-text': {
+			color: token('color.text.danger.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.warning.subtler'),
+			'html:not([data-color-mode=dark]) &': {
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				borderColor: '#FBC828',
+			},
+			'html[data-color-mode=dark] &': {
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				borderColor: '#9E4C00',
+			},
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-text': {
+			color: token('color.text.warning.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.success.subtler'),
+			'html:not([data-color-mode=dark]) &': {
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				borderColor: '#B3DF72',
+			},
+			'html[data-color-mode=dark] &': {
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				borderColor: '#4C6B1F',
+			},
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-text': {
+			color: token('color.text.success.bolder'),
+		},
+
+		/* Find and Replace Styles */
+		'.statusView-content-wrap:not(.search-match-block)': {
+			'&.ak-editor-selected-node .status-lozenge-span > span': {
+				boxShadow: `0 0 0 2px ${token('color.border.selected')}`,
+			},
+		},
+
+		'.danger': {
+			'.statusView-content-wrap:not(.search-match-block).ak-editor-selected-node .status-lozenge-span > span':
+				{
+					boxShadow: `0 0 0 2px ${token('color.border.danger')}`,
 				},
 		},
 	},

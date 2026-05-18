@@ -7,7 +7,10 @@ import type { ViewUpdate } from '@codemirror/view';
 import type { IntlShape } from 'react-intl';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
+import {
+	areCodeBlockLineNumbersHidden,
+	isCodeBlockWordWrapEnabled,
+} from '@atlaskit/editor-common/code-block';
 import { messages as floatingToolbarMessages } from '@atlaskit/editor-common/floating-toolbar';
 import {
 	blockTypeMessages,
@@ -68,6 +71,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private updating: boolean;
 	private view: EditorView;
 	private lineWrappingCompartment = new Compartment();
+	private lineNumbersCompartment = new Compartment();
 	private languageCompartment = new Compartment();
 	private readOnlyCompartment = new Compartment();
 	private pmDecorationsCompartment = new Compartment();
@@ -126,11 +130,6 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		const { formatMessage } = config.getIntl();
 		const formattedAriaLabel = formatMessage(blockTypeMessages.codeblock);
 
-		const selectNode = () => {
-			this.selectCodeBlockNode(undefined);
-			this.view.focus();
-		};
-
 		const isMacOS = getBrowserInfo().mac;
 
 		this.cm = new CodeMirror({
@@ -161,16 +160,11 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				),
 				syntaxHighlighting(highlightStyle),
 				bracketMatching(),
-				lineNumbers({
-					domEventHandlers: {
-						click: () => {
-							selectNode();
-							return true;
-						},
-					},
-				}),
-				// Explicitly disable "sticky" positioning on line numbers to match
-				// Renderer behaviour
+				expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)
+					? this.lineNumbersCompartment.of(this.getLineNumberVisibilityExtensions(node))
+					: this.getLineNumberExtensions(),
+				// Explicitly disable "sticky" positioning on all gutters to match
+				// Renderer behaviour.
 				gutters({ fixed: false }),
 				CodeMirror.updateListener.of((update) => this.forwardUpdate(update)),
 				this.readOnlyCompartment.of([
@@ -207,7 +201,12 @@ class CodeBlockAdvancedNodeView implements NodeView {
 						}),
 				}),
 				config.allowCodeFolding
-					? [foldGutterExtension({ selectNode, getNode: () => this.node })]
+					? [
+							foldGutterExtension({
+								selectNode: this.selectCodeBlockNodeAndFocus,
+								getNode: () => this.node,
+							}),
+						]
 					: [],
 				// With platform_editor_fix_advanced_codeblocks_crlf_patch the lineSeparatorExtension is not needed
 				expValEquals('platform_editor_fix_advanced_codeblocks_crlf_patch', 'isEnabled', true)
@@ -293,6 +292,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		this.updateLanguage();
 		this.updateLocalIdAttribute();
 		this.wordWrappingEnabled = isCodeBlockWordWrapEnabled(node);
+		this.lineNumbersHidden = areCodeBlockLineNumbersHidden(node);
 
 		// Restore fold state after initialization
 		if (config.allowCodeFolding) {
@@ -405,6 +405,44 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	}
 
 	private wordWrappingEnabled = false;
+	private lineNumbersHidden = false;
+
+	private selectCodeBlockNodeAndFocus = () => {
+		this.selectCodeBlockNode(undefined);
+		this.view.focus();
+	};
+
+	private getLineNumberExtensions(): Extension[] {
+		return [
+			lineNumbers({
+				domEventHandlers: {
+					click: () => {
+						this.selectCodeBlockNodeAndFocus();
+						return true;
+					},
+				},
+			}),
+		];
+	}
+
+	private getLineNumberVisibilityExtensions(node: PMNode): Extension[] {
+		if (areCodeBlockLineNumbersHidden(node)) {
+			return [];
+		}
+
+		return this.getLineNumberExtensions();
+	}
+
+	private getLineNumbersEffects(node: PMNode) {
+		const lineNumbersHidden = areCodeBlockLineNumbersHidden(node);
+		if (this.lineNumbersHidden !== lineNumbersHidden) {
+			this.lineNumbersHidden = lineNumbersHidden;
+			return this.lineNumbersCompartment.reconfigure(
+				this.getLineNumberVisibilityExtensions(node),
+			);
+		}
+		return undefined;
+	}
 
 	private getWordWrapEffects(node: PMNode) {
 		if (this.wordWrappingEnabled !== isCodeBlockWordWrapEnabled(node)) {
@@ -455,11 +493,18 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		// Updates bundled for performance (to avoid multiple-dispatches)
 		const changes = getCMSelectionChanges(curText, newText);
 		const wordWrapEffect = this.getWordWrapEffects(node);
+		const lineNumbersEffect = expValEquals(
+			'platform_editor_code_block_q4_lovability',
+			'isEnabled',
+			true,
+		)
+			? this.getLineNumbersEffects(node)
+			: undefined;
 		const prosemirrorDecorationsEffect = this.getProseMirrorDecorationEffects(innerDecorations);
-		if (changes || wordWrapEffect || prosemirrorDecorationsEffect) {
+		if (changes || wordWrapEffect || lineNumbersEffect || prosemirrorDecorationsEffect) {
 			this.updating = true;
 			this.cm.dispatch({
-				effects: [wordWrapEffect, prosemirrorDecorationsEffect].filter(
+				effects: [wordWrapEffect, lineNumbersEffect, prosemirrorDecorationsEffect].filter(
 					(effect): effect is StateEffect<unknown> => !!effect,
 				),
 				changes,

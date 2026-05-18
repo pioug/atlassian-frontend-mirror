@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "219.7.5",
+	"version": "219.8.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -332,9 +332,6 @@
 		},
 		"platform_editor_chromeless_akeditor_class": {
 			"type": "boolean"
-		},
-		"platform_synced_block_patch_11": {
-			"type": "boolean"
 		}
 	},
 	"stricter": {
@@ -344,30 +341,48 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
+		"./actions": "./src/entry-points/actions.ts",
+		"./appearance-editor-chromeless": "./src/entry-points/appearance-editor-chromeless.tsx",
+		"./appearance-editor-comment": "./src/entry-points/appearance-editor-comment.tsx",
+		"./appearance-editor-full-page": "./src/entry-points/appearance-editor-full-page.tsx",
+		"./appearance-editor-full-width": "./src/entry-points/appearance-editor-full-width.tsx",
+		"./CollapsedEditor": "./src/entry-points/CollapsedEditor.tsx",
+		"./command": "./src/entry-points/command.ts",
 		"./composable-editor": "./src/composable-editor.ts",
+		"./ContextPanel": "./src/entry-points/ContextPanel.tsx",
+		"./create-plugins-list": "./src/entry-points/create-plugins-list.ts",
+		"./editor": "./src/entry-points/editor.tsx",
 		"./editor-context": "./src/editor-context.ts",
-		"./editor": "./src/editor.tsx",
-		"./exclude-from-hydration": "./src/ui/ExcludeFromHydration/index.tsx",
+		"./editor-instance": "./src/entry-points/editor-instance.ts",
+		"./editor-props": "./src/entry-points/editor-props.ts",
+		"./EditorContext": "./src/entry-points/EditorContext.tsx",
+		"./exclude-from-hydration": "./src/entry-points/exclude-from-hydration.tsx",
+		"./feature-flags-from-props": "./src/entry-points/feature-flags-from-props.ts",
+		"./getNodesCount": "./src/entry-points/getNodesCount.ts",
 		"./i18n": "./src/i18n/index.ts",
+		"./i18n-languages": "./src/entry-points/i18n-languages.ts",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
-		"./i18n-languages": "./src/i18n/languages.ts",
 		"./labs-next": "./src/labs-next.ts",
-		"./preset-default": "./src/preset-default.ts",
-		"./preset-universal": "./src/preset-universal.ts",
-		"./test-utils": "./src/test-utils.ts",
-		"./use-preset": "./src/use-preset.ts",
-		"./use-preset-context": "./src/presets/context.tsx",
-		"./appearance-editor-full-page": "./src/editor-appearances/FullPageEditor.tsx",
-		"./appearance-editor-full-width": "./src/editor-appearances/FullWidthEditor.tsx",
-		"./appearance-editor-comment": "./src/editor-appearances/CommentEditor.tsx",
-		"./appearance-editor-chromeless": "./src/editor-appearances/ChromelessEditor.tsx",
-		"./version-wrapper": "./src/version-wrapper.ts",
+		"./measure-enum": "./src/entry-points/measure-enum.ts",
 		"./package.json": {
 			"publish": null,
 			"default": "./package.json"
-		}
+		},
+		"./preset-default": "./src/preset-default.ts",
+		"./preset-universal/universal": "./src/entry-points/preset-universal-universal.ts",
+		"./preset-universal/useUniversalPreset": "./src/entry-points/preset-universal-useUniversalPreset.ts",
+		"./preset-universal": "./src/preset-universal.ts",
+		"./ReactEditorView": "./src/entry-points/ReactEditorView.tsx",
+		"./test-utils": "./src/entry-points/test-utils.ts",
+		"./ToolbarHelp": "./src/entry-points/ToolbarHelp.tsx",
+		"./ToolbarPortal": "./src/entry-points/ToolbarPortal.tsx",
+		"./use-preset": "./src/use-preset.ts",
+		"./use-preset-context": "./src/entry-points/use-preset-context.tsx",
+		"./version-wrapper": "./src/entry-points/version-wrapper.ts",
+		"./WithEditorActions": "./src/entry-points/WithEditorActions.tsx",
+		"./WithHelpTrigger": "./src/entry-points/WithHelpTrigger.tsx"
 	}
 }

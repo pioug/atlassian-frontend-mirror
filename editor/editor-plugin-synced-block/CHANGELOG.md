@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 8.3.7
+
+### Patch Changes
+
+- [`cec76b6d3aeaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cec76b6d3aeaa) -
+  Cleanup feature gate `platform_synced_block_patch_11`. Jira work-item issue-type icons,
+  product-specific copy, and Relay environment initialisation are now permanently enabled.
+- Updated dependencies
+
+## 8.3.6
+
+### Patch Changes
+
+- [`81682ab6c4a7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81682ab6c4a7f) -
+  EDITOR-7104: Update editor block menu copy behind feature gates.
+  - Update synced block quick insert and toolbar copy to "Sync block" behind
+    `platform_synced_block_patch_12`
+  - Update block menu "Turn into" copy to "Change format" behind
+    `platform_editor_block_menu_v2_patch_2`
+
+- Updated dependencies
+
+## 8.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.4
+
+### Patch Changes
+
+- [`4c459a2718b67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c459a2718b67) -
+  Clean up synced block feature gates
+- Updated dependencies
+
 ## 8.3.3
 
 ### Patch Changes

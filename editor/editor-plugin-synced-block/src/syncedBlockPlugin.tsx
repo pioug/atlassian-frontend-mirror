@@ -11,7 +11,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	flushBodiedSyncBlocks,
@@ -22,7 +21,6 @@ import {
 	copySyncedBlockReferenceToClipboardEditorCommand,
 	createSyncedBlock,
 } from './editor-commands';
-import { bodiedSyncBlockNodeWithToDOMFixed } from './nodeviews/bodiedSyncBlockNodeWithToDOMFixed';
 import { createPlugin, syncedBlockPluginKey } from './pm-plugins/main';
 import { getMenuAndToolbarExperiencesPlugin } from './pm-plugins/menu-and-toolbar-experiences';
 import type { SyncedBlockPlugin } from './syncedBlockPluginType';
@@ -113,10 +111,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				},
 				{
 					name: 'bodiedSyncBlock',
-					node: !editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
-						? // delete bodiedSyncBlockNodeWithToDOMFixed when cleaning up platform_synced_block_patch_6
-							bodiedSyncBlockNodeWithToDOMFixed()
-						: bodiedSyncBlock,
+					node: bodiedSyncBlock,
 				},
 			];
 		},

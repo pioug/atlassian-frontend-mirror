@@ -44,15 +44,11 @@ const colorPaletteStyles = cssMap({
 	},
 });
 
-type BackgroundColorItemProps = {
-	testId: string;
-};
-
-export const BackgroundColorItem = ({ testId }: BackgroundColorItemProps): React.JSX.Element => {
+export const BackgroundColorItem = (): React.JSX.Element => {
 	const { formatMessage } = useIntl();
-	const selectedColor = '#ffffff';
 	const onClick = useCallback(() => {}, []);
-	const colorPreviewStyle = useMemo(() => ({ backgroundColor: selectedColor }), [selectedColor]);
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	const colorPreviewStyle = useMemo(() => ({ backgroundColor: '#ffffff' }), []);
 
 	const paletteOptions = useMemo(() => {
 		return {
@@ -64,7 +60,6 @@ export const BackgroundColorItem = ({ testId }: BackgroundColorItemProps): React
 
 	return (
 		<ToolbarNestedDropdownMenu
-			testId={testId}
 			elemBefore={<PaintBucketIcon color="currentColor" label="" size="small" />}
 			elemAfter={
 				<Box xcss={colorPaletteStyles.elemAfter}>
@@ -79,7 +74,7 @@ export const BackgroundColorItem = ({ testId }: BackgroundColorItemProps): React
 				<ColorPalette
 					cols={colorPaletteColumns}
 					onClick={onClick}
-					selectedColor={selectedColor}
+					selectedColor={colorPreviewStyle.backgroundColor}
 					paletteOptions={paletteOptions}
 				/>
 			</Box>

@@ -12,7 +12,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { AvatarContentContext } from './internal/content-context';
-import { useEnsureIsInsideAvatar } from './internal/ensure-is-inside-avatar-context';
+import { useEnsureIsInsideAvatar } from './internal/use-ensure-is-inside-avatar';
 
 const boxShadowCssVar = '--avatar-box-shadow';
 const bgColorCssVar = '--avatar-bg-color';

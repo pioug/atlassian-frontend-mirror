@@ -10,6 +10,7 @@ import { Label } from '@atlaskit/form';
 import AsyncIcon from '@atlaskit/icon/core/clock';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
 	HeadingItem,
 	NavigationHeader,

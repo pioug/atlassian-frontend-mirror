@@ -1,3 +1,6 @@
+/**
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export type SkeletonCreateButtonProps = {
 	/**
 	 * Text to be displayed inside the skeleton create button.

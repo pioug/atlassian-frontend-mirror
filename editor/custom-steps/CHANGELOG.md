@@ -1,5 +1,16 @@
 # @atlaskit/custom-steps
 
+## 0.17.0
+
+### Minor Changes
+
+- [`ce30a31e6369d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce30a31e6369d) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.16.6
 
 ### Patch Changes

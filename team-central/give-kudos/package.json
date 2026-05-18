@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/give-kudos",
-	"version": "5.8.0",
+	"version": "5.8.1",
 	"description": "Give Kudos experience ",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,6 +8,13 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Team Central",
 		"website": {
 			"name": "Give Kudos"
@@ -70,6 +77,7 @@
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*",

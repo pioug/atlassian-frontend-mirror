@@ -106,6 +106,11 @@ export const messages: {
 		description: string;
 		id: string;
 	};
+	changeFormat: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	wrapIcon: {
 		defaultMessage: string;
 		description: string;
@@ -168,6 +173,11 @@ export const messages: {
 		id: 'fabric.editor.block.menu.turn.into',
 		defaultMessage: 'Turn into',
 		description: 'Turn the selected block into another type',
+	},
+	changeFormat: {
+		id: 'fabric.editor.block.menu.change.format',
+		defaultMessage: 'Change format',
+		description: 'Change the selected block to another format',
 	},
 	syncBlock: {
 		id: 'fabric.editor.block.menu.sync.block',

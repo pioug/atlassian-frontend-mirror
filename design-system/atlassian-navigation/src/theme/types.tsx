@@ -19,12 +19,24 @@ export type ButtonCSSContext = {
 	selectedHover?: ButtonCSSProperties;
 };
 
+/**
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export type CreateCSS = ButtonCSSContext;
 
+/**
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export type IconButtonCSS = ButtonCSSContext;
 
+/**
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export type PrimaryButtonCSS = ButtonCSSContext;
 
+/**
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export type NavigationCSS = CSSProperties;
 
 type LogoStyleProps = {
@@ -33,18 +45,27 @@ type LogoStyleProps = {
 };
 export type ProductHomeCSS = CSSProperties & LogoStyleProps;
 
+/**
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export type SearchCSS = {
 	default: CSSProperties;
 	focus: CSSObject;
 	hover: CSSObject;
 };
 
+/**
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export type SkeletonCSS = CSSObject & {
 	backgroundColor: string;
 	opacity: number;
 };
 
 // This is the shape of a theme 'mode', e.g. light, dark, or custom
+/**
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export type Mode = {
 	create: CreateCSS;
 	iconButton: IconButtonCSS;
@@ -55,15 +76,24 @@ export type Mode = {
 	skeleton: SkeletonCSS;
 };
 
+/**
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export type NavigationTheme = {
 	mode: Mode;
 };
 
+/**
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export type Colors = {
 	backgroundColor: string;
 	color: string;
 };
 
+/**
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export type GenerateThemeArgs = {
 	/**
 	 * Name of the theme.

@@ -12,6 +12,8 @@ import { type ProfileProps } from './types';
  *
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#profile)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ *
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 export const Profile: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<ProfileProps> & React.RefAttributes<HTMLElement>

@@ -60,6 +60,8 @@ const buttonHighlightedStyles = css({
  *
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#dropdown-menu)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ *
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 export const PrimaryButton: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<PrimaryButtonProps> & React.RefAttributes<HTMLElement>

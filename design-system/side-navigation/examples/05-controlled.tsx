@@ -15,6 +15,7 @@ import CustomerIcon from '@atlaskit/icon/core/person';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
 	ButtonItem,
 	HeadingItem,

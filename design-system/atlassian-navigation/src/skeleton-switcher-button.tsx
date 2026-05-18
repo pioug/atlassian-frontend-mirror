@@ -12,6 +12,9 @@ import { token } from '@atlaskit/tokens';
 
 import { useTheme } from './theme';
 
+/**
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export type SkeletonSwitcherButtonProps = {
 	/**
 	 *  Describes the specific role of this navigation component for users viewing the page with a screen
@@ -68,6 +71,8 @@ const skeletonSwitcherButtonStyles = css({
  *
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#skeleton-button)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ *
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 export const SkeletonSwitcherButton = ({
 	label = '',

@@ -11,16 +11,17 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { copyToClipboard, getAnalyticsPayload } from '@atlaskit/editor-common/clipboard';
 import {
 	codeBlockWrappedStates,
-	isCodeBlockWordWrapEnabled,
 	getDefaultCodeBlockAttrs,
+	isCodeBlockWordWrapEnabled,
 } from '@atlaskit/editor-common/code-block';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import {
 	contentAllowedInCodeBlock,
 	shouldSplitSelectedNodeOnNodeInsertion,
 } from '@atlaskit/editor-common/insert';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import { findCodeBlock } from '@atlaskit/editor-common/transforms';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
@@ -333,3 +334,42 @@ export const toggleWordWrapStateForCodeBlockNode =
 
 		return true;
 	};
+
+export const toggleLineNumbersForCodeBlockNodeEditorCommand =
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): EditorCommand =>
+	({ tr }) => {
+		const { codeBlock: codeBlockType } = tr.doc.type.schema.nodes;
+		const codeBlock =
+			findSelectedNodeOfType(codeBlockType)(tr.selection) ||
+			findParentNodeOfType(codeBlockType)(tr.selection);
+
+		if (!codeBlock) {
+			return null;
+		}
+
+		const codeBlockNode = codeBlock.node;
+		const lineNumbersHidden = !Boolean(codeBlockNode.attrs.hideLineNumbers);
+
+		tr.setNodeMarkup(codeBlock.pos, undefined, {
+			...codeBlockNode.attrs,
+			hideLineNumbers: lineNumbersHidden,
+		});
+
+		editorAnalyticsAPI?.attachAnalyticsEvent({
+			action: ACTION.TOGGLE_CODE_BLOCK_LINE_NUMBERS,
+			actionSubject: ACTION_SUBJECT.CODE_BLOCK,
+			attributes: {
+				platform: PLATFORMS.WEB,
+				lineNumbersHidden,
+				codeBlockNodeSize: codeBlockNode.nodeSize,
+			},
+			eventType: EVENT_TYPE.TRACK,
+		})(tr);
+
+		return tr;
+	};
+
+export const toggleLineNumbersForCodeBlockNode = (
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+): Command =>
+	editorCommandToPMCommand(toggleLineNumbersForCodeBlockNodeEditorCommand(editorAnalyticsAPI));

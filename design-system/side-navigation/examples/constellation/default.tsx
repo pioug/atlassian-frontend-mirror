@@ -7,6 +7,7 @@ import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
 import PagesIcon from '@atlaskit/icon/core/pages';
 import PersonIcon from '@atlaskit/icon/core/person';
 import SettingsIcon from '@atlaskit/icon/core/settings';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
 	ButtonItem,
 	LinkItem,

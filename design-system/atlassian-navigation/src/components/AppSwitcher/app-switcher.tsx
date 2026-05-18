@@ -24,6 +24,8 @@ const iconSpacingStyles = cssMap({
  *
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#app-switcher)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ *
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 export const AppSwitcher: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<AppSwitcherProps> & React.RefAttributes<any>

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-media
 
+## 12.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.7.1
+
+### Patch Changes
+
+- [`3a96ba83a62ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a96ba83a62ba) -
+  Clean up feature gate platform_editor_media_disable_save_during_upload. The attempted fix for
+  disabling save during upload did not resolve the issue and the code behind this gate has been
+  reverted.
+- Updated dependencies
+
 ## 12.7.0
 
 ### Minor Changes

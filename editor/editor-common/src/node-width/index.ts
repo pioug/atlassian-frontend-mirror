@@ -160,7 +160,7 @@ export const getNestedParentNode = (tablePos: number, state: EditorState): PMNod
 		state.schema.nodes.expand,
 		state.schema.nodes.tableCell,
 		state.schema.nodes.tableHeader,
-		...(fg('platform_synced_block_patch_8') ? [state.schema.nodes.bodiedSyncBlock] : []),
+		state.schema.nodes.bodiedSyncBlock,
 	]);
 
 	return parent ? parent.node : null;

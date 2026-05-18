@@ -30,6 +30,7 @@ import {
 	getMediaTypeFromMimeType,
 	getRandomTelemetryId,
 } from '@atlaskit/media-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface CancellableFileUpload {
 	mediaFile: MediaFile;
@@ -54,6 +55,8 @@ export class UploadServiceImpl implements UploadService {
 		private tenantUploadParams: UploadParams,
 		private readonly shouldCopyFileToRecents: boolean,
 		private readonly maxUploadBatchSize = 255, // Max supported batch is 255. We parametrise it for testing purposes
+		private readonly uploadBatchSize: number = 20,
+		private readonly uploadBatchDelayMs: number = 1000,
 	) {
 		this.emitter = new EventEmitter2();
 		this.cancellableFilesUploads = {};
@@ -85,16 +88,31 @@ export class UploadServiceImpl implements UploadService {
 		files: LocalFileWithSource[],
 		traceContext: MediaTraceContext = generateTraceContext(),
 	): Promise<void> {
-		const batches: Promise<void>[] = [];
-		for (let iterator = 0; iterator < files.length; iterator += this.maxUploadBatchSize) {
-			batches.push(
-				this.addFilesAndUpload(
-					files.slice(iterator, iterator + this.maxUploadBatchSize),
-					traceContext,
-				),
-			);
+		const shouldBatchSequentially =
+			this.uploadBatchSize &&
+			this.uploadBatchSize > 0 &&
+			fg('platform_media_picker_upload_batching');
+
+		if (shouldBatchSequentially) {
+			const batchSize = this.uploadBatchSize!;
+			for (let i = 0; i < files.length; i += batchSize) {
+				if (i > 0 && this.uploadBatchDelayMs > 0) {
+					await new Promise<void>((resolve) => setTimeout(resolve, this.uploadBatchDelayMs));
+				}
+				await this.addFilesAndUpload(files.slice(i, i + batchSize), traceContext, true);
+			}
+		} else {
+			const batches: Promise<void>[] = [];
+			for (let iterator = 0; iterator < files.length; iterator += this.maxUploadBatchSize) {
+				batches.push(
+					this.addFilesAndUpload(
+						files.slice(iterator, iterator + this.maxUploadBatchSize),
+						traceContext,
+					),
+				);
+			}
+			await Promise.all(batches);
 		}
-		await Promise.all(batches);
 	}
 
 	isCancellableFileUpload(
@@ -136,6 +154,7 @@ export class UploadServiceImpl implements UploadService {
 	private async addFilesAndUpload(
 		files: LocalFileWithSource[],
 		traceContext: MediaTraceContext,
+		awaitUploadCompletion = false,
 	): Promise<void> {
 		if (files.length === 0) {
 			return;
@@ -181,6 +200,8 @@ export class UploadServiceImpl implements UploadService {
 		} catch (error) {
 			caughtError = error;
 		}
+
+		const uploadCompletions: Promise<void>[] = [];
 
 		const cancellableFileUploads: (null | CancellableFileUpload)[] = files.map(
 			({ file, source }, i) => {
@@ -275,6 +296,15 @@ export class UploadServiceImpl implements UploadService {
 					},
 				};
 
+				let resolveUploadCompletion: (() => void) | undefined;
+				if (awaitUploadCompletion) {
+					uploadCompletions.push(
+						new Promise<void>((resolve) => {
+							resolveUploadCompletion = resolve;
+						}),
+					);
+				}
+
 				const { unsubscribe } = sourceFileObservable.subscribe({
 					next: (state) => {
 						if (
@@ -288,6 +318,7 @@ export class UploadServiceImpl implements UploadService {
 								globalMediaEventEmitter.emit('file-added', state);
 							}
 							this.onFileSuccess(cancellableFileUpload, id, traceContext);
+							resolveUploadCompletion?.();
 						}
 						if (state.status === 'error') {
 							this.onFileError(
@@ -296,10 +327,12 @@ export class UploadServiceImpl implements UploadService {
 								state.message || 'no-message',
 								traceContext,
 							);
+							resolveUploadCompletion?.();
 						}
 					},
 					error: (error) => {
 						this.onFileError(mediaFile, 'upload_fail', error, traceContext);
+						resolveUploadCompletion?.();
 					},
 				});
 
@@ -319,6 +352,10 @@ export class UploadServiceImpl implements UploadService {
 
 		this.emit('files-added', { files: mediaFiles, traceContext });
 		this.emitPreviews(filteredCancellableFileUploads);
+
+		if (awaitUploadCompletion && uploadCompletions.length > 0) {
+			await Promise.allSettled(uploadCompletions);
+		}
 	}
 
 	private readonly emit = <E extends keyof UploadServiceEventPayloadTypes>(

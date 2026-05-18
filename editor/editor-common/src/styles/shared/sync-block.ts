@@ -26,6 +26,8 @@ export const BodiedSyncBlockSharedCssClassName: {
 	selectionInside: `${bodiedPrefix}__selection_inside`,
 };
 
+// Constant labelClassName value here has been inlined in css from EditorContentContainer, if you need to make
+// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
 const labelClassName = 'ak-editor-sync-block__label';
 export const SyncBlockLabelSharedCssClassName: {
 	labelClassName: string;

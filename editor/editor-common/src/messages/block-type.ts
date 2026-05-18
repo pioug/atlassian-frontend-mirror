@@ -161,6 +161,11 @@ export const messages: {
 		description: string;
 		id: string;
 	};
+	syncBlock: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	syncedBlockDescription: {
 		defaultMessage: string;
 		description: string;
@@ -347,6 +352,11 @@ export const messages: {
 		id: 'fabric.editor.syncedBlock',
 		defaultMessage: 'Create synced block',
 		description: 'Inserts a synced block that auto-updates content across Atlassian apps',
+	},
+	syncBlock: {
+		id: 'fabric.editor.syncBlock',
+		defaultMessage: 'Sync block',
+		description: 'Short label for inserting a synced block',
 	},
 	syncedBlockDescription: {
 		id: 'fabric.editor.syncedBlock.description',

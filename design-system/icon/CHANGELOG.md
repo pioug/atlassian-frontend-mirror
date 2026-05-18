@@ -1,5 +1,21 @@
 # @atlaskit/icon
 
+## 34.6.0
+
+### Minor Changes
+
+- [`b75e40f942dce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b75e40f942dce) -
+  This release updates icons in `@atlaskit/icon`.
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+  - `ai-generative-text-summary`
+  - `briefcase`
+  - `chart-pie`
+  - `customize`
+  - `filter`
+
 ## 34.5.0
 
 ### Minor Changes

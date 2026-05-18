@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { AtlassianNavigation, Notifications } from '@atlaskit/atlassian-navigation';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
 

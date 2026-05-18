@@ -26,6 +26,7 @@ import {
 	OpenLayerObserverNamespaceProvider,
 	useOpenLayerObserver,
 } from '@atlaskit/layering/experimental/open-layer-observer';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { media } from '@atlaskit/primitives/responsive';
 import { token } from '@atlaskit/tokens';
@@ -446,27 +447,39 @@ function SideNavInternal({
 }: SideNavProps) {
 	const isFhsEnabled = useIsFhsEnabled();
 	const id = useLayoutId({ providedId });
-	const expandSideNav = useExpandSideNav({ trigger: 'skip-link' });
+	const expandAndFocusSideNav = useExpandSideNav({ trigger: 'skip-link' });
 	/**
 	 * Called after clicking on the side nav skip link, and ensures the side nav is expanded so that it is focusable.
 	 *
 	 * We need to update the DOM synchronously because `.focus()` is called synchronously after this state update.
+	 *
+	 * Only used when `platform_dst_nav4_skip_link_a11y_1` is OFF; can be removed on gate cleanup.
 	 */
 	const synchronouslyExpandSideNav = useCallback(() => {
 		flushSync(() => {
 			/**
 			 * Calling this unconditionally and relying on it to avoid no-op renders.
 			 *
-			 * We _could_ call it conditionally, but we'd be duplicating the screen size checks `expandSideNav` makes.
+			 * We _could_ call it conditionally, but we'd be duplicating the screen size checks `expandAndFocusSideNav` makes.
 			 */
-			expandSideNav();
+			expandAndFocusSideNav();
 		});
-	}, [expandSideNav]);
+	}, [expandAndFocusSideNav]);
 
 	useSkipLinkInternal({
 		id,
 		label: skipLinkLabel,
-		onBeforeNavigate: synchronouslyExpandSideNav,
+		/**
+		 * `navigate` is the gate-on contract: it owns expanding the side nav AND moving
+		 * focus to the first nav item, atomically (via `useExpandSideNav`'s `flushSync`).
+		 *
+		 * `onBeforeNavigate` is the legacy contract used only when the gate is OFF.
+		 * On gate cleanup, drop `onBeforeNavigate` and `synchronouslyExpandSideNav` here.
+		 */
+		navigate: fg('platform_dst_nav4_skip_link_a11y_1') ? expandAndFocusSideNav : undefined,
+		onBeforeNavigate: fg('platform_dst_nav4_skip_link_a11y_1')
+			? undefined
+			: synchronouslyExpandSideNav,
 	});
 
 	const sideNavState = useContext(SideNavVisibilityState);

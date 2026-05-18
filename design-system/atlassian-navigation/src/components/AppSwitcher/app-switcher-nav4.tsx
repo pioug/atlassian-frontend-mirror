@@ -7,7 +7,9 @@ import { IconButton } from '../IconButton';
 
 import { type AppSwitcherProps } from './types';
 
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+/**
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export const AppSwitcherNav4: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<AppSwitcherProps> & React.RefAttributes<any>
 > = forwardRef((props: AppSwitcherProps, ref: Ref<any>) => {

@@ -15,7 +15,7 @@ import {
 	SyncBlockError,
 } from '@atlaskit/editor-synced-block-provider';
 import type { SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
-import { productAttrIfGateOn } from '@atlaskit/editor-synced-block-provider/utils';
+import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
 
 import { SyncedBlockEntityNotFoundError } from './SyncedBlockEntityNotFoundError';
 import { SyncedBlockGenericError } from './SyncedBlockGenericError';
@@ -96,7 +96,7 @@ export const SyncedBlockErrorComponent = ({
 				return (
 					<SyncedBlockUnpublishedError
 						sourceURL={sourceURL}
-						sourceProduct={productAttrIfGateOn(resourceId)}
+						sourceProduct={getSourceProductFromResourceIdSafe(resourceId)}
 					/>
 				);
 			}

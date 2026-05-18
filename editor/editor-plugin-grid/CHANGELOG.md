@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-grid
 
+## 10.2.1
+
+### Patch Changes
+
+- [`c61ad86da2b49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c61ad86da2b49) -
+  Clean up `platform_editor_remove_grid_init_reflow` experiment.
+  - Remove `expValEquals` gate check from `ContentComponent` in `editor-plugin-grid`, keeping the
+    treatment branch (`isEnabled=true`) logic permanently
+  - Remove unused `expValEquals` import from `gridPlugin.tsx`
+  - Remove `platform_editor_remove_grid_init_reflow` type definition and config entries from
+    `tmp-editor-statsig` experiments-config
+
+- Updated dependencies
+
 ## 10.2.0
 
 ### Minor Changes

@@ -18,8 +18,7 @@ type SyncedBlockSuccessAttributes = {
 	resourceId: string;
 	/**
 	 * The product the source block lives in, derived from `resourceId`.
-	 * Optional during the rollout of `platform_synced_block_patch_11`; once the gate is
-	 * fully on this can be marked required.
+	 * Always optional because batch / subscription init paths fire without a `resourceId`.
 	 */
 	sourceProduct?: string;
 };

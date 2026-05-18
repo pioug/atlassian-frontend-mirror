@@ -1048,8 +1048,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		const useMeasuredWidthForBodiedSyncBlock =
 			isNested &&
 			typeof tablePos === 'number' &&
-			isTableNestedUnderBodiedSyncBlock(this.props.view.state, tablePos) &&
-			fg('platform_synced_block_patch_9');
+			isTableNestedUnderBodiedSyncBlock(this.props.view.state, tablePos);
 
 		if (useMeasuredWidthForBodiedSyncBlock) {
 			// Prefer the live DOM measurement (`clientWidth`) over the ResizeObserver-cached

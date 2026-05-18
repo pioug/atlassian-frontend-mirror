@@ -228,7 +228,7 @@ export interface TableState {
  * The visible styling for these divs lives in `tableFakeBorderStyles`
  * (`renderer/src/ui/Renderer/RendererStyleContainer.tsx`), which is itself
  * gated on `editorExperiment('platform_synced_block', true)` AND
- * `isInsideSyncBlock` AND `fg('platform_synced_block_patch_9')`.
+ * `isInsideSyncBlock`.
  *
  * Shared between `renderer/src/react/nodes/table.tsx` and
  * `renderer/src/react/nodes/tableNew.tsx` so the two stay in sync.
@@ -262,8 +262,7 @@ export const RefSyncBlockFakeBorders = ({
 	const isInsideOfRefSyncBlock = nestedRendererType === 'syncedBlock';
 	if (
 		!isInsideOfRefSyncBlock ||
-		!editorExperiment('platform_synced_block', true) ||
-		!fg('platform_synced_block_patch_9')
+		!editorExperiment('platform_synced_block', true)
 	) {
 		return null;
 	}

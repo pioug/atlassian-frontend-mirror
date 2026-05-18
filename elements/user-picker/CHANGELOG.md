@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 12.0.9
+
+### Patch Changes
+
+- [`0039f15f6734f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0039f15f6734f) -
+  Clean up platform_user_picker_firefox_tab_fix FG (treated as off / control)
+
 ## 12.0.8
 
 ### Patch Changes

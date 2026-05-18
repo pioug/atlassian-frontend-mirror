@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-palette",
-	"version": "2.1.26",
+	"version": "2.2.0",
 	"description": "The editor palette",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,7 +29,12 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./background": "./src/entry-points/background.ts",
+		"./border": "./src/entry-points/border.ts",
+		"./table-charts": "./src/entry-points/table-charts.ts",
+		"./text": "./src/entry-points/text.ts",
+		"./text-background-color": "./src/entry-points/text-background-color.ts"
 	},
 	"dependencies": {
 		"@atlaskit/tokens": "workspace:^",

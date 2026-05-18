@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/activity-provider",
-	"version": "2.5.3",
+	"version": "2.6.0",
 	"description": "A provider to support recent activities in editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,8 +23,10 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		"./types": "./src/types.ts",
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./ActivityResource": "./src/entry-points/ActivityResource.ts",
+		"./error": "./src/entry-points/error.ts",
+		"./types": "./src/entry-points/types.ts"
 	},
 	"atlassian": {
 		"website": {

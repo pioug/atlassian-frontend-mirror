@@ -1,7 +1,6 @@
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ResourceId, BlockInstanceId } from '../common/types';
 import type {
@@ -14,7 +13,7 @@ import type {
 } from '../providers/types';
 import { fetchErrorPayload, fetchSuccessPayload } from '../utils/errorHandling';
 import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
-import { getSourceProductFromResourceIdSafe, productAttrIfGateOn } from '../utils/utils';
+import { getSourceProductFromResourceIdSafe } from '../utils/utils';
 
 export interface SyncBlockSubscriptionManagerDeps {
 	debouncedBatchedFetchSyncBlocks: (resourceId: string) => void;
@@ -270,7 +269,7 @@ export class SyncBlockSubscriptionManager {
 						'editor-synced-block-provider/syncBlockSubscriptionManager/graphql-subscription',
 				});
 				this.deps.getFireAnalyticsEvent()?.(
-					fetchErrorPayload(error.message, resourceId, productAttrIfGateOn(resourceId)),
+					fetchErrorPayload(error.message, resourceId, getSourceProductFromResourceIdSafe(resourceId)),
 				);
 			},
 		);
@@ -339,11 +338,7 @@ export class SyncBlockSubscriptionManager {
 					fetchSuccessPayload(
 						syncBlockInstance.resourceId,
 						localId,
-						// Prefer cached product when available; fall back to parsing the resourceId.
-						fg('platform_synced_block_patch_11')
-							? (syncBlockInstance.data?.product ??
-									getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId))
-							: undefined,
+						(syncBlockInstance.data?.product ?? getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId)),
 					),
 				);
 			});
@@ -355,10 +350,7 @@ export class SyncBlockSubscriptionManager {
 				fetchErrorPayload(
 					errorMessage,
 					syncBlockInstance.resourceId,
-					fg('platform_synced_block_patch_11')
-						? (syncBlockInstance.data?.product ??
-								getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId))
-						: undefined,
+					(syncBlockInstance.data?.product ?? getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId)),
 				),
 			);
 		}

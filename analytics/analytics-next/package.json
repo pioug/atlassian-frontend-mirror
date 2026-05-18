@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics-next",
-	"version": "11.2.1",
+	"version": "11.2.2",
 	"description": "React components, HOCs and hooks to assist with tracking user activity with React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,6 +23,13 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "UIP Frontend Observability",
 		"website": {
 			"name": "Analytics next"
@@ -64,6 +71,7 @@
 	},
 	"devDependencies": {
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "root:*",
 		"storybook-addon-performance": "root:*"

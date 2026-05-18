@@ -11,7 +11,6 @@ import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import AkFlag, { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { syncedBlockPluginKey } from '../pm-plugins/main';
@@ -108,12 +107,10 @@ export const Flag = ({ api }: Props): React.JSX.Element | undefined => {
 	const { onRetry, onDismissed: onDismissedCallback } = activeFlag;
 
 	// For the unpublished-paste flag, swap to the Jira-flavoured copy when the source
-	// is a Jira work item. Other flags don't currently vary by product. Gated by
-	// `platform_synced_block_patch_11` so the new copy can be dialled off independently.
+	// is a Jira work item. Other flags don't currently vary by product.
 	const isJiraUnpublishedPaste =
 		activeFlag.id === FLAG_ID.UNPUBLISHED_SYNC_BLOCK_PASTED &&
-		activeFlag.sourceProduct === 'jira-work-item' &&
-		fg('platform_synced_block_patch_11');
+		activeFlag.sourceProduct === 'jira-work-item';
 	const title = isJiraUnpublishedPaste
 		? messages.unpublishedSyncBlockPastedTitleJiraWorkItem
 		: defaultTitle;

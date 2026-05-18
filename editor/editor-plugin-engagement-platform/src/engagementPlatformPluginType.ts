@@ -41,8 +41,7 @@ export type EngagementPlatformPlugin = NextEditorPlugin<
 /**
  * Engagement Platform coordination client.
  *
- * This type should be the same as the `CoordinationClientType`
- * from the `@atlassiansox/engagekit-ts` package.
+ * Product implementations should satisfy this interface.
  */
 export interface CoordinationClient {
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
@@ -64,11 +63,11 @@ export type EngagementPlatformPluginOptions = {
 	 * - `getMessageActivities`
 	 * - `isMessageActive`
 	 *
-	 * The client lives in the `@atlassiansox/engagekit-ts` package.
+	 * Product packages provide this client implementation.
 	 */
 	coordinationClient: CoordinationClient;
-	epComponents: EpComponents;
-	epHooks: EpHooks;
+	epComponents?: EpComponents;
+	epHooks?: EpHooks;
 };
 
 /**

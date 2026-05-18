@@ -1,5 +1,30 @@
 # @atlaskit/renderer
 
+## 130.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 130.6.2
+
+### Patch Changes
+
+- [`4c459a2718b67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c459a2718b67) -
+  Clean up synced block feature gates
+- [`276587be50499`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/276587be50499) -
+  Cleanup feature gate platform_editor\_\_renderer_indentation_text_margin. Apply renderer
+  indentation text margin fix unconditionally.
+- Updated dependencies
+
+## 130.6.1
+
+### Patch Changes
+
+- [`7e8145e6a7ce6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e8145e6a7ce6) -
+  Add ADF-backed code block line number visibility
+- Updated dependencies
+
 ## 130.6.0
 
 ### Minor Changes

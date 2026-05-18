@@ -107,11 +107,9 @@ export function processRawValueWithoutValidation(
 		dispatchAnalyticsEvent,
 	);
 
-	if (fg('platform_editor_sync_block_fallback_transform')) {
-		const result = syncBlockFallbackTransform(schema, transformedAdf);
-		if (result.isTransformed && result.transformedAdf) {
-			transformedAdf = result.transformedAdf;
-		}
+	const result = syncBlockFallbackTransform(schema, transformedAdf);
+	if (result.isTransformed && result.transformedAdf) {
+		transformedAdf = result.transformedAdf;
 	}
 
 	return Node.fromJSON(schema, transformedAdf);

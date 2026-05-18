@@ -1,5 +1,20 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.21.0
+
+### Minor Changes
+
+- [`be1d39d698418`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be1d39d698418) -
+  Report client network errors as terminal errors and include error classification
+
+## 5.20.3
+
+### Patch Changes
+
+- [`caa0499e0b24a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/caa0499e0b24a) -
+  Enrol mercury, one-software-catalog, team-central, react-ufo, analytics and performance packages
+  into the React Compiler with platform gating via isReactCompilerActivePlatform
+
 ## 5.20.2
 
 ### Patch Changes

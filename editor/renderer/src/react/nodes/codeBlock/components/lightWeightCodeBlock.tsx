@@ -199,15 +199,16 @@ export const getLightWeightCodeBlockStylesForRootRendererStyleSheet = (): Serial
 };
 
 const LightWeightCodeBlock: React.ForwardRefExoticComponent<
-	Pick<CodeBlockProps, 'text' | 'className' | 'codeBidiWarningTooltipEnabled'> &
+	Pick<CodeBlockProps, 'text' | 'className' | 'codeBidiWarningTooltipEnabled' | 'hideLineNumbers'> &
 		React.RefAttributes<HTMLDivElement>
 > = forwardRef(
 	(
 		{
 			text,
 			codeBidiWarningTooltipEnabled = true,
+			hideLineNumbers = false,
 			className,
-		}: Pick<CodeBlockProps, 'text' | 'codeBidiWarningTooltipEnabled' | 'className'>,
+		}: Pick<CodeBlockProps, 'text' | 'codeBidiWarningTooltipEnabled' | 'className' | 'hideLineNumbers'>,
 		ref: React.Ref<HTMLDivElement>,
 	) => {
 		const textRows = useMemo(() => (text ?? '').split('\n'), [text]);
@@ -238,16 +239,18 @@ const LightWeightCodeBlock: React.ForwardRefExoticComponent<
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER}
 					>
-						<div
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}
-						>
-							{textRows.map((_, index) => (
-								// Ignored via go/ees005
-								// eslint-disable-next-line react/no-array-index-key
-								<span key={index} />
-							))}
-						</div>
+						{!hideLineNumbers && (
+							<div
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+								className={CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}
+							>
+								{textRows.map((_, index) => (
+									// Ignored via go/ees005
+									// eslint-disable-next-line react/no-array-index-key
+									<span key={index} />
+								))}
+							</div>
+						)}
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 						<div className={CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}>
 							{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}

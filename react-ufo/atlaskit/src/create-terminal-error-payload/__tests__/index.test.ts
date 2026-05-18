@@ -158,6 +158,19 @@ describe('createTerminalErrorPayload', () => {
 		expect(result?.attributes.properties.terminalError).toEqual(dataWithAttributes);
 	});
 
+	it('should include errorCategory in the terminalError payload', () => {
+		const dataWithCategory: TerminalErrorData = {
+			...mockTerminalErrorData,
+			errorCategory: 'network-server' as const,
+		};
+
+		const result = createTerminalErrorPayload(dataWithCategory, mockTerminalErrorContext);
+
+		expect(result?.attributes.properties.terminalError).toEqual(
+			expect.objectContaining({ errorCategory: 'network-server' }),
+		);
+	});
+
 	it('should include labelStack from context in payload', () => {
 		const labelStack = [
 			{ name: 'app-root', segmentId: 'seg-1' },

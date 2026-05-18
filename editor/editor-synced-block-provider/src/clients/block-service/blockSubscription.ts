@@ -3,7 +3,6 @@ import type { Client } from 'graphql-ws';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncBlockProduct } from '../../common/types';
 import { convertContentUpdatedAt } from '../../utils/utils';
@@ -73,35 +72,33 @@ const getBlockServiceClient = (): Client | null => {
 			url: wsUrl,
 			lazy: true,
 			retryAttempts: 3,
-			on: fg('platform_synced_block_add_info_web_socket_error')
-				? {
-						connecting: (isRetry) => {
-							connectionDiagnostics.wasRetry = isRetry;
-							connectionDiagnostics.state = 'connecting';
-						},
-						connected: (_socket, _payload, wasRetry) => {
-							connectionDiagnostics.state = 'connected';
-							connectionDiagnostics.lastConnectedAt = Date.now();
-							connectionDiagnostics.wasRetry = wasRetry;
-							connectionDiagnostics.consecutiveFailures = 0;
-						},
-						closed: (event) => {
-							connectionDiagnostics.state = 'closed';
-							const closeEvent = event as {
-								code?: number;
-								reason?: string;
-								wasClean?: boolean;
-							};
-							connectionDiagnostics.lastCloseCode = closeEvent.code ?? 0;
-							connectionDiagnostics.lastCloseReason = closeEvent.reason ?? '';
-							connectionDiagnostics.lastCloseWasClean = closeEvent.wasClean ?? false;
-						},
-						error: () => {
-							connectionDiagnostics.state = 'error';
-							connectionDiagnostics.consecutiveFailures += 1;
-						},
-					}
-				: undefined,
+			on: {
+				connecting: (isRetry) => {
+					connectionDiagnostics.wasRetry = isRetry;
+					connectionDiagnostics.state = 'connecting';
+				},
+				connected: (_socket, _payload, wasRetry) => {
+					connectionDiagnostics.state = 'connected';
+					connectionDiagnostics.lastConnectedAt = Date.now();
+					connectionDiagnostics.wasRetry = wasRetry;
+					connectionDiagnostics.consecutiveFailures = 0;
+				},
+				closed: (event) => {
+					connectionDiagnostics.state = 'closed';
+					const closeEvent = event as {
+						code?: number;
+						reason?: string;
+						wasClean?: boolean;
+					};
+					connectionDiagnostics.lastCloseCode = closeEvent.code ?? 0;
+					connectionDiagnostics.lastCloseReason = closeEvent.reason ?? '';
+					connectionDiagnostics.lastCloseWasClean = closeEvent.wasClean ?? false;
+				},
+				error: () => {
+					connectionDiagnostics.state = 'error';
+					connectionDiagnostics.consecutiveFailures += 1;
+				},
+			},
 		});
 	}
 
@@ -271,13 +268,7 @@ export const subscribeToBlockUpdates = (
 				}
 			},
 			error: (error) => {
-				if (fg('platform_synced_block_add_info_web_socket_error')) {
-					onError?.(new Error(extractGraphQLWSErrorMessage(error)));
-				} else {
-					const errorMessage =
-						error instanceof Error ? error.message : 'GraphQL subscription error';
-					onError?.(new Error(errorMessage));
-				}
+				onError?.(new Error(extractGraphQLWSErrorMessage(error)));
 			},
 			complete: () => {
 				// Subscription completed

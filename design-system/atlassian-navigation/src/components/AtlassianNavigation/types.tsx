@@ -2,6 +2,9 @@ import { type default as React, type ReactNode, type ReactNodeArray } from 'reac
 
 import { type NavigationTheme } from '../../theme';
 
+/**
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export interface AtlassianNavigationProps {
 	/**
 	 *  Describes the specific role of this navigation component for users viewing the page with a screen
@@ -97,6 +100,9 @@ export interface AtlassianNavigationProps {
 	isSSRPlaceholderEnabled?: boolean;
 }
 
+/**
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export interface NavigationSkeletonProps {
 	/**
 	 * How many skeleton primary items to display.

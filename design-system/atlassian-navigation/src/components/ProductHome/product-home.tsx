@@ -133,6 +133,8 @@ const siteTitleStyles = css({
  *
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#product-home)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ *
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const ProductHome = ({
 	'aria-label': ariaLabel,

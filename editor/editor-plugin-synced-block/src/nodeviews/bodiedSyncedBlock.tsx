@@ -23,7 +23,6 @@ import {
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { BodiedSyncBlockWrapper } from '../ui/BodiedSyncBlockWrapper';
@@ -229,7 +228,6 @@ export class BodiedSyncBlock implements NodeView {
 	getPos: getPosHandlerNode;
 	nodeViewPortalProviderAPI: PortalProviderAPI;
 	private api?: ExtractInjectionAPI<SyncedBlockPlugin>;
-	private syncBlockStore?: SyncBlockStoreManager;
 	private cleanupConnectivityModeListener?: () => void;
 	private cleanupViewModeListener?: () => void;
 	private labelKey: string;
@@ -239,13 +237,11 @@ export class BodiedSyncBlock implements NodeView {
 		getPos: getPosHandlerNode,
 		api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
 		nodeViewPortalProviderAPI: PortalProviderAPI,
-		syncBlockStore?: SyncBlockStoreManager,
 	) {
 		this.node = node;
 		this.view = view;
 		this.getPos = getPos;
 		this.api = api;
-		this.syncBlockStore = syncBlockStore;
 		this.nodeViewPortalProviderAPI = nodeViewPortalProviderAPI;
 		const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOM(this.node));
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -272,11 +268,8 @@ export class BodiedSyncBlock implements NodeView {
 		this.handleConnectivityModeChange();
 		this.handleViewModeChange();
 
-		// update sync block data on initial creation
-		// When fg is ON, cache is populated in state.init() and updated in appendTransaction
-		if (!fg('platform_synced_block_update_refactor')) {
-			this.syncedBlockStore?.sourceManager.updateSyncBlockData(node, false);
-		}
+		// Cache is populated in state.init() and updated in appendTransaction,
+		// so no additional updateSyncBlockData call is needed here.
 	}
 
 	private updateContentEditable({
@@ -317,22 +310,13 @@ export class BodiedSyncBlock implements NodeView {
 		}
 	}
 
-	private get syncedBlockStore(): SyncBlockStoreManager | undefined {
-		return this.api?.syncedBlock.sharedState?.currentState()?.syncBlockStore ?? this.syncBlockStore;
-	}
-
 	update(node: PMNode): boolean {
 		if (this.node.type !== node.type) {
 			return false;
 		}
 
-		if (node !== this.node) {
-			// When fg is ON, cache updates are handled in appendTransaction where we can
-			// filter out non-user changes (remote collab, table auto-scale, etc.)
-			if (!fg('platform_synced_block_update_refactor')) {
-				this.syncedBlockStore?.sourceManager.updateSyncBlockData(node, false);
-			}
-		}
+		// Cache updates are handled in appendTransaction where we can
+		// filter out non-user changes (remote collab, table auto-scale, etc.)
 		this.node = node;
 
 		return true;
@@ -357,7 +341,6 @@ export const bodiedSyncBlockNodeView = (
 ): ((node: PMNode, view: EditorView, getPos: getPosHandler) => NodeView) => {
 	const {
 		api,
-		syncBlockStore,
 		pmPluginFactoryParams: { nodeViewPortalProviderAPI },
 	} = props;
 
@@ -368,7 +351,6 @@ export const bodiedSyncBlockNodeView = (
 			getPos as getPosHandlerNode,
 			api,
 			nodeViewPortalProviderAPI,
-			syncBlockStore,
 		);
 	};
 };

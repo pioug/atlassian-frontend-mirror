@@ -11,7 +11,17 @@ export const codeBlockButtonMessages: {
 		description: string;
 		id: string;
 	};
+	hideLineNumbersLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	selectLanguage: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	showLineNumbersLabel: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -72,6 +82,18 @@ export const codeBlockButtonMessages: {
 		defaultMessage: 'Unwrap code',
 		description:
 			'Tooltip for a code block toolbar button that turns off line wrapping. This is shown when code is wrapped.',
+	},
+	showLineNumbersLabel: {
+		id: 'fabric.editor.codeBlockLineNumbersButton.showLineNumbers',
+		defaultMessage: 'Show line numbers',
+		description:
+			'Tooltip for a code block toolbar button that shows line numbers. This is shown when line numbers are hidden.',
+	},
+	hideLineNumbersLabel: {
+		id: 'fabric.editor.codeBlockLineNumbersButton.hideLineNumbers',
+		defaultMessage: 'Hide line numbers',
+		description:
+			'Tooltip for a code block toolbar button that hides line numbers. This is shown when line numbers are visible.',
 	},
 	selectLanguage: {
 		id: 'fabric.editor.selectLanguage',

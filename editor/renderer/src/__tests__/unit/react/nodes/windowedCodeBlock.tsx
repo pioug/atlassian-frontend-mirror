@@ -34,6 +34,7 @@ const textSample = 'const fn = () => {}';
 const getLightWeightCodeBlock = () => document.querySelector(selectors.lightWeightCodeBlock);
 
 const getAkCodeBlock = () => document.querySelector(selectors.designSystemCodeBlock);
+const getLineNumberGutter = () => document.querySelector('.line-number-gutter');
 
 const getMockAkCodeBlock = () => document.querySelector('[data-testid="windowed-ak-code-block"]');
 
@@ -122,6 +123,19 @@ describe('Renderer - React/Nodes/WindowedCodeBlock', () => {
 			expect(lightWeightCodeBlock).toBeTruthy();
 			expect(lightWeightCodeBlock?.textContent).toBe(textSample);
 			expect(akCodeBlock).toBeFalsy();
+
+			cleanup();
+		});
+
+		it('should hide line number gutter in LightWeightCodeBlock when hideLineNumbers is true', async () => {
+			const { cleanup } = await render({ hideLineNumbers: true });
+
+			act(() => {
+				mockObserver.triggerIntersect({ isIntersecting: false });
+			});
+
+			expect(getLightWeightCodeBlock()).toBeTruthy();
+			expect(getLineNumberGutter()).toBeFalsy();
 
 			cleanup();
 		});

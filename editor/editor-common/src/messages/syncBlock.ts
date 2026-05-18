@@ -61,6 +61,11 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	syncBlockLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	defaultSyncBlockTooltip: {
 		defaultMessage: string;
 		description: string;
@@ -619,6 +624,11 @@ export const syncBlockMessages: {
 		id: 'fabric.editor.createSyncBlockLabel',
 		defaultMessage: 'Create synced block',
 		description: 'Label for button which creates a new synced block',
+	},
+	syncBlockLabel: {
+		id: 'fabric.editor.syncBlockLabel',
+		defaultMessage: 'Sync block',
+		description: 'Short label for button which creates a new synced block',
 	},
 	newLozenge: {
 		id: 'fabric.editor.syncBlock.toolbar.newLozenge',

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { CheckboxOption } from './components/input-options';
+import { CheckboxOption } from './components/checkbox-option';
 import Select from './select';
 import { type OptionType, type SelectComponentsConfig, type SelectProps } from './types';
 

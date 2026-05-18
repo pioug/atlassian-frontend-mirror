@@ -6,7 +6,6 @@ import { useIntl } from 'react-intl';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { SyncBlockProduct } from '@atlaskit/editor-synced-block-provider';
 import EyeOpenStrikethroughIcon from '@atlaskit/icon/core/eye-open-strikethrough';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor } from '@atlaskit/primitives/compiled';
 
 import { SyncedBlockErrorStateCard } from './SyncedBlockErrorStateCard';
@@ -30,11 +29,8 @@ export const SyncedBlockUnpublishedError = ({
 	// description is saved" rather than "the page is published" because Jira issues
 	// don't have a page-level publish action — the description field is what's
 	// being authored.
-	//
-	// Gated by `platform_synced_block_patch_11` so the new copy can be rolled out (and
-	// dialled off) independently of the rest of the renderer.
 	const message =
-		sourceProduct === 'jira-work-item' && fg('platform_synced_block_patch_11')
+		sourceProduct === 'jira-work-item'
 			? messages.unpublishedErrorJiraWorkItem
 			: messages.unpublishedError;
 

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::82ab01af3f80a4391aaf33fbaff15a85>>
+ * @codegen <<SignedSource::0b83e18362be7337c33091ec68bfbcb2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -22,7 +22,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const FilterIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
   name: "FilterIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M15 3.5H1V2h14zm-2 5.25H3v-1.5h10zM11 14H5v-1.5h6z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M11 12v1.5H5V12zm2-4.75v1.5H3v-1.5zm2-4.75V4H1V2.5z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 FilterIcon.displayName = 'FilterIcon';

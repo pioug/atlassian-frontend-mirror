@@ -19,9 +19,11 @@ import StatusVerifiedIcon from '@atlaskit/icon/core/status-verified';
 import type { TeamAvatarProps } from '@atlaskit/teams-avatar';
 import { token } from '@atlaskit/tokens';
 
-import { LinkWrapper, RemovableWrapper, useRemoveButton } from './shared';
+import { LinkWrapper } from './link-wrapper';
+import { RemovableWrapper } from './removable-wrapper';
 import { useButtonInteraction } from './use-button-interaction';
 import { useLink } from './use-link';
+import { useRemoveButton } from './use-remove-button';
 import { useTagRemoval } from './use-tag-removal';
 
 /**

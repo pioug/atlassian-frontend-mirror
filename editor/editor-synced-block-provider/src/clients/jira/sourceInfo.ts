@@ -1,5 +1,4 @@
 /* eslint-disable require-unicode-regexp  */
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncBlockSourceInfo } from '../../providers/types';
 import { fetchWithRetry } from '../../utils/retry';
@@ -25,8 +24,7 @@ type GetSourceInfoResult = {
 				/**
 				 * Issue-type metadata used by the SyncedLocationDropdown to render the correct
 				 * ADS icon. Optional in the AGG schema, may be `null` for partially indexed
-				 * issues. Mapping to `SyncBlockSourceInfo.issueType` is gated by
-				 * `platform_synced_block_patch_11`.
+				 * issues.
 				 */
 				issueType?: {
 					avatar?: {
@@ -48,23 +46,21 @@ type GetSourceInfoResult = {
  * @param id - the ID of the work item
  * @returns url of the work item
  */
-// `issueType` is requested unconditionally because GraphQL field selection cannot be
-// gated at the network layer without a separate operation; AGG ignores unknown
-// front-end gating. The runtime mapping into `SyncBlockSourceInfo.issueType` is gated
-// by `platform_synced_block_patch_11` below.
+// `issueType` is requested alongside `summary` and `webUrl` so the
+// SyncedLocationDropdown can render the correct ADS issue-type icon.
 const GET_SOURCE_INFO_QUERY = `query ${GET_SOURCE_INFO_OPERATION_NAME} ($id: ID!) {
   jira {
-    issueById(id: $id) {
-      id
-      webUrl
-      summary
-      issueType {
-        name
-        avatar {
-          xsmall
-        }
-      }
-    }
+	issueById(id: $id) {
+	id
+	webUrl
+	summary
+	issueType {
+		name
+		avatar {
+		xsmall
+		}
+	}
+	}
   }}`;
 
 const getJiraWorkItemSourceInfo = async (ari: string): Promise<GetSourceInfoResult> => {
@@ -143,50 +139,29 @@ export const fetchJiraWorkItemInfo = async (
 
 		const contentData = response.data?.jira?.issueById;
 
-		// Defensive narrowing (gated by `platform_synced_block_patch_11`):
-		// AGG may return `null` (not just omit the field) for `webUrl` / `summary` on
-		// partially indexed issues. Without these guards, downstream consumers that
-		// expect `string | undefined` would receive `null` and either crash or render
-		// the literal string "null". The pre-gate path preserves the legacy behaviour
-		// so this can be dialled off independently.
-		if (fg('platform_synced_block_patch_11')) {
-			const webUrl = typeof contentData?.webUrl === 'string' ? contentData.webUrl : undefined;
-			const summary = typeof contentData?.summary === 'string' ? contentData.summary : undefined;
+		const webUrl = typeof contentData?.webUrl === 'string' ? contentData.webUrl : undefined;
+		const summary = typeof contentData?.summary === 'string' ? contentData.summary : undefined;
 
-			// Surface issue-type metadata so consumers can render the correct ADS issue-type
-			// icon. Defensive narrowing mirrors the webUrl/summary treatment above: only
-			// surfaced when `name` is a non-empty string; AGG values like `{ name: null }`
-			// collapse back to `undefined`.
-			const rawIssueType = contentData?.issueType;
-			const issueTypeName =
-				typeof rawIssueType?.name === 'string' && rawIssueType.name.length > 0
-					? rawIssueType.name
-					: undefined;
-			const issueType = issueTypeName
+		// Surface issue-type metadata for the SyncedLocationDropdown's ADS icon.
+		// Defensive narrowing: only surface when `name` is a non-empty string;
+		// AGG values like `{ name: null }` collapse back to `undefined`.
+		const issueTypeName = contentData?.issueType?.name;
+		const issueType =
+			typeof issueTypeName === 'string' && issueTypeName.length > 0
 				? {
 						name: issueTypeName,
 						iconUrl:
-							typeof rawIssueType?.avatar?.xsmall === 'string'
-								? rawIssueType.avatar.xsmall
+							typeof contentData?.issueType?.avatar?.xsmall === 'string'
+								? contentData.issueType.avatar.xsmall
 								: undefined,
 					}
 				: undefined;
-
-			return Promise.resolve({
-				url: webUrl,
-				sourceAri: workItemAri,
-				title: summary,
-				issueType,
-			});
-		}
-
-		const webUrl = contentData?.webUrl ?? undefined;
-		const summary = contentData?.summary ?? undefined;
 
 		return Promise.resolve({
 			url: webUrl,
 			sourceAri: workItemAri,
 			title: summary,
+			issueType,
 		});
 	} else {
 		return await resolveNoAccessWorkItemInfo(workItemAri);

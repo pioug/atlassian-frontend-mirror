@@ -8,6 +8,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import warnOnce from '@atlaskit/ds-lib/warn-once';
 import { token } from '@atlaskit/tokens';
 
 import { HORIZONTAL_GLOBAL_NAV_HEIGHT } from '../../common/constants';
@@ -69,8 +70,20 @@ const analyticsData = {
  *
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples)
  * - [Code](https://atlassian.design/components/atlassian-navigation/examples)
+ *
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 export const AtlassianNavigation = (props: AtlassianNavigationProps): React.JSX.Element => {
+	if (
+		typeof process !== 'undefined' &&
+		process.env.NODE_ENV !== 'production' &&
+		process.env.NODE_ENV !== 'CI'
+	) {
+		warnOnce(
+			'@atlaskit/atlassian-navigation is deprecated. Use @atlaskit/navigation-system instead.',
+		);
+	}
+
 	const {
 		label: label,
 		primaryItems = [],

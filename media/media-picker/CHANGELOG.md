@@ -1,5 +1,17 @@
 # @atlaskit/media-picker
 
+## 71.3.0
+
+### Minor Changes
+
+- [`2bd6fc60982c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bd6fc60982c8) -
+  Add optional sequential upload batching behind the `platform_media_picker_upload_batching` feature
+  flag to help consumers avoid overwhelming upload credential endpoints during bulk uploads.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 71.2.2
 
 ### Patch Changes

@@ -6,6 +6,7 @@ import {
 	CodeBlockRendererTrailingNewline,
 	CodeBlockRendererWrap,
 	CodeBlockRendererOverflow,
+	CodeBlockRendererLineNumbersHidden,
 	CodeBlockWithReactLooselyLazy,
 	CodeBlockRendererWithBreakout,
 	CodeBlockRendererWithBreakoutFullWidth,
@@ -39,6 +40,10 @@ snapshot(CodeBlockRendererWithWrapEnabled, {
 	},
 	variants: [{ name: 'light', environment: { colorScheme: 'light' } }],
 	states: [{ state: 'hovered', selector: { byTestId: 'renderer-code-block' } }],
+});
+
+snapshot(CodeBlockRendererLineNumbersHidden, {
+	description: 'renderer code block - line numbers hidden',
 });
 
 snapshot(CodeBlockRendererOverflow, {

@@ -1,5 +1,14 @@
 # @atlassian/navigation-system
 
+## 9.4.0
+
+### Minor Changes
+
+- [`c9a83a4b370b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9a83a4b370b5) -
+  Focus will now move to the first item in the side nav after expanding via the toggle button or
+  when navigating via the skip link. This change is behind the `platform_dst_nav4_skip_link_a11y_1`
+  feature gate.
+
 ## 9.3.1
 
 ### Patch Changes

@@ -71,6 +71,11 @@ const generateCreateButtonColors = (_themeBackground: string, themeHighlight: st
 	highlightColor: themeHighlight,
 });
 
+/**
+ * __generateTheme__
+ *
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export const generateTheme = (themeColors: GenerateThemeArgs): NavigationTheme => {
 	const { backgroundColor, highlightColor, name } = themeColors;
 	const color = generateTextColor(backgroundColor);

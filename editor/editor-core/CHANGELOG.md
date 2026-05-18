@@ -1,5 +1,39 @@
 # @atlaskit/editor-core
 
+## 219.8.1
+
+### Patch Changes
+
+- [`cec76b6d3aeaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cec76b6d3aeaa) -
+  Cleanup feature gate `platform_synced_block_patch_11`. Jira work-item issue-type icons,
+  product-specific copy, and Relay environment initialisation are now permanently enabled.
+- Updated dependencies
+
+## 219.8.0
+
+### Minor Changes
+
+- [`ce30a31e6369d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce30a31e6369d) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- [`3397205a409ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3397205a409ed) -
+  EDITOR-6686: Migrate layout styles
+- [`55f569128b59e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55f569128b59e) -
+  EDITOR-6686: migrate syncBlock styles
+- [`c9103fcfb68be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9103fcfb68be) -
+  [ux] Add statusStyles to EditorContentContainer-compiled
+- Updated dependencies
+
+## 219.7.6
+
+### Patch Changes
+
+- [`4c459a2718b67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c459a2718b67) -
+  Clean up synced block feature gates
+- Updated dependencies
+
 ## 219.7.5
 
 ### Patch Changes

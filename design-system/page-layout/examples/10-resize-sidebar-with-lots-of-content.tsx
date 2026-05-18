@@ -7,6 +7,7 @@ import { type CSSProperties, Fragment, type ReactElement, useCallback, useState 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
 	Banner,
 	Content,

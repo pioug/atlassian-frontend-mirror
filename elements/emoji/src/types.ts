@@ -6,13 +6,8 @@ import type { EmojiRepository } from './resource';
 
 export type { CategoryId } from './components/picker/categories';
 
-export interface EmojiProvider extends Provider<
-	string,
-	EmojiSearchResult,
-	any,
-	undefined,
-	SearchOptions
-> {
+export interface EmojiProvider
+	extends Provider<string, EmojiSearchResult, any, undefined, SearchOptions> {
 	/**
 	 * Returns an immutable copy of EmojiDescription where mediaPath has token and client appended to url.
 	 *
@@ -261,10 +256,15 @@ export interface MediaApiRepresentation extends EmojiImageRepresentation {
 	mediaPath: string;
 }
 
+export interface UnicodeRepresentation {
+	unicodeEmoji: string;
+}
+
 export type EmojiRepresentation =
 	| SpriteRepresentation
 	| ImageRepresentation
 	| MediaApiRepresentation
+	| UnicodeRepresentation
 	| undefined;
 
 export interface EmojiDescription extends EmojiId {

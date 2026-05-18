@@ -157,12 +157,15 @@ export const CachingMediaEmoji = (
 		);
 	}
 
+	const imageRepresentation =
+		representation && 'height' in representation ? representation : undefined;
+
 	return (
 		<EmojiPlaceholder
 			size={fitToHeight || placeholderSize}
 			shortName={shortName}
 			showTooltip={showTooltip}
-			representation={representation}
+			representation={imageRepresentation}
 		/>
 	);
 };

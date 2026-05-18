@@ -1,5 +1,12 @@
 # @atlaskit/editor-palette
 
+## 2.2.0
+
+### Minor Changes
+
+- [`ce30a31e6369d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce30a31e6369d) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 2.1.26
 
 ### Patch Changes

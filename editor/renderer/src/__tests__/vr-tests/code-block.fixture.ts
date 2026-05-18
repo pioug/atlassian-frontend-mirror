@@ -1,3 +1,5 @@
+import type { DocNode } from '@atlaskit/adf-schema';
+
 import * as codeBlockAdf from '../__fixtures__/code-block.adf.json';
 import * as codeBlockWithBreakoutAdf from '../__fixtures__/code-block-with-breakout.adf.json';
 import * as adfTrailingNewline from '../__fixtures__/code-block-trailing-newline.adf.json';
@@ -20,11 +22,36 @@ export const CodeBlockRendererWrap: ComponentType<any> = generateRendererCompone
 	allowWrapCodeBlock: true,
 });
 
+const codeBlockWithLineNumbersHiddenAdf: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'codeBlock',
+			attrs: {
+				language: 'javascript',
+				hideLineNumbers: true,
+			},
+			content: [
+				{
+					type: 'text',
+					text: '// Create a map.\nfinal IntIntOpenHashMap map = new IntIntOpenHashMap();\nmap.put(1, 2);\nmap.put(2, 5);\nmap.put(3, 10);',
+				},
+			],
+		},
+	],
+};
+
 export const CodeBlockRendererCopyWrap: ComponentType<any> = generateRendererComponent({
 	document: codeBlockAdf,
 	appearance: 'full-width',
 	allowCopyToClipboard: true,
 	allowWrapCodeBlock: true,
+});
+
+export const CodeBlockRendererLineNumbersHidden: ComponentType<any> = generateRendererComponent({
+	document: codeBlockWithLineNumbersHiddenAdf,
+	appearance: 'full-width',
 });
 
 export const CodeBlockRendererTrailingNewline: ComponentType<any> = generateRendererComponent({

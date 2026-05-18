@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-card-provider",
-	"version": "6.7.17",
+	"version": "6.8.0",
 	"description": "Contains the EditorCardProvider, for determining smart card behaviour in the editor.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -30,7 +30,9 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./url-checkers": "./src/url-checkers.ts"
+		"./provider": "./src/entry-points/provider.ts",
+		"./smart-card-local-cache-client": "./src/entry-points/smart-card-local-cache-client.ts",
+		"./url-checkers": "./src/entry-points/url-checkers.ts"
 	},
 	"dependencies": {
 		"@atlaskit/editor-json-transformer": "workspace:^",

@@ -23,6 +23,8 @@ const iconSpacingStyles = cssMap({
  *
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#sign-in)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ *
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 export const SignIn = (props: SignInProps): React.JSX.Element => {
 	const {

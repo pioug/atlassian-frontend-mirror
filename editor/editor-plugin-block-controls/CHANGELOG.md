@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 11.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.4.1
+
+### Patch Changes
+
+- [`4c459a2718b67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c459a2718b67) -
+  Clean up synced block feature gates
+- Updated dependencies
+
 ## 11.4.0
 
 ### Minor Changes

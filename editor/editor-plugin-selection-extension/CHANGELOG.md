@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 13.3.2
+
+### Patch Changes
+
+- [`6aa28179246c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6aa28179246c9) -
+  Support data-extension-item-key to identify the selection extension menu items.
+- Updated dependencies
+
+## 13.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.3.0
 
 ### Minor Changes

@@ -340,10 +340,7 @@ export const getActiveDropTargetDecorations = (
 	let anchorEmitNodeWithPos: NodeWithPos = rootNodeWithPos;
 
 	if (editorExperiment('advanced_layouts', true)) {
-		if (
-			editorExperiment('platform_synced_block', true) &&
-			editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
-		) {
+		if (editorExperiment('platform_synced_block', true)) {
 			const schema = rootNodeWithPos.node.type.schema;
 			const { layoutSection } = schema.nodes;
 			const isLayoutSectionChildOfRoot =

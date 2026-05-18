@@ -3262,8 +3262,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				expValEquals('platform_editor_flexible_list_schema', 'isEnabled', true) &&
 					listItemHiddenMarkerStyles,
 				indentationSharedStyles,
-				fg('platform_editor__renderer_indentation_text_margin') &&
-					indentationSharedStylesWithMarginFix,
+				indentationSharedStylesWithMarginFix,
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
 					? blockMarksSharedStyles
 					: blockMarksSharedStylesDuplicateAnchor,
@@ -3358,21 +3357,16 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 						: undefined,
 				editorExperiment('platform_synced_block', true) && syncBlockStyles,
 				centerWrapperStyles,
-				editorExperiment('platform_synced_block', true) &&
-				isInsideSyncBlock &&
-				fg('platform_synced_block_patch_9')
+				editorExperiment('platform_synced_block', true) && isInsideSyncBlock
 					? syncBlockRendererStyles
 					: null,
 				isInsideSyncBlock &&
 					editorExperiment('platform_synced_block', true) &&
-					fg('platform_synced_block_patch_9') &&
 					tableFakeBorderStyles,
 				isInsideSyncBlock &&
-				editorExperiment('platform_synced_block', true) &&
-				fg('platform_synced_block_patch_9')
-					? expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-						? roundedTableFakeBorderOverlayStyles
-						: null
+					editorExperiment('platform_synced_block', true) &&
+					expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+					? roundedTableFakeBorderOverlayStyles
 					: null,
 				expValEquals('platform_editor_hide_extension_renderer_support', 'isEnabled', true) &&
 					hideExtensionStyles,

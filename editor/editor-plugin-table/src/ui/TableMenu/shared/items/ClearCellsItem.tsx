@@ -10,15 +10,10 @@ import {
 	ToolbarKeyboardShortcutHint,
 } from '@atlaskit/editor-toolbar';
 
-type ClearCellsItemProps = {
-	testId: string;
-};
-
-export const ClearCellsItem = ({ testId }: ClearCellsItemProps): React.JSX.Element => {
+export const ClearCellsItem = (): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	return (
 		<ToolbarDropdownItem
-			testId={testId}
 			elemBefore={<CrossIcon color="currentColor" label="" size="small" />}
 			elemAfter={<ToolbarKeyboardShortcutHint shortcut={tooltip(backspace) ?? ''} />}
 		>

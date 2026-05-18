@@ -3,8 +3,8 @@ import type { CoordinationClient, EpComponents, EpHooks } from '../../engagement
 export interface EngagementPlatformPmPluginState {
 	/** Engagement Platform coordination client */
 	coordinationClient: CoordinationClient;
-	epComponents: EpComponents;
-	epHooks: EpHooks;
+	epComponents?: EpComponents;
+	epHooks?: EpHooks;
 	/**
 	 * State of Engagement Platform messages in the Editor.
 	 *

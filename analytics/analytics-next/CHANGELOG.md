@@ -1,5 +1,13 @@
 # @atlaskit/analytics-next
 
+## 11.2.2
+
+### Patch Changes
+
+- [`caa0499e0b24a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/caa0499e0b24a) -
+  Enrol mercury, one-software-catalog, team-central, react-ufo, analytics and performance packages
+  into the React Compiler with platform gating via isReactCompilerActivePlatform
+
 ## 11.2.1
 
 ### Patch Changes

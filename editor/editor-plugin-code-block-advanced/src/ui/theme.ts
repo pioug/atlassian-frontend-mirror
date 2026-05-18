@@ -75,6 +75,13 @@ export const cmTheme = (options?: ThemeOptions): Extension =>
 			border: 'none',
 			padding: token('space.0'),
 			color: token('color.text.subtlest'),
+			...(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) && {
+				// CodeMirror defaults this to height: 100%, which can resolve against an indefinite
+				// parent height in content-height editor and prevent flex stretching when gutter
+				// content is sparse, such as fold-only gutters.
+				height: 'unset',
+				alignSelf: 'stretch',
+			}),
 		},
 		'.cm-lineNumbers .cm-gutterElement': {
 			paddingLeft: token('space.0'),

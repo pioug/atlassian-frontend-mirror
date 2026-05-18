@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "5.20.2",
+	"version": "5.21.0",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,6 +8,13 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"singleton": true,
 		"team": "UIP Frontend Observability"
 	},
@@ -98,6 +105,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/is-ci": "root:*",
@@ -249,6 +257,12 @@
 			"type": "boolean"
 		},
 		"platform_ufo_exclude_pdnd_attributes_from_vc": {
+			"type": "boolean"
+		},
+		"platform_ufo_terminal_errors_track_client_errors": {
+			"type": "boolean"
+		},
+		"ufo-bump-walk-levels": {
 			"type": "boolean"
 		}
 	}

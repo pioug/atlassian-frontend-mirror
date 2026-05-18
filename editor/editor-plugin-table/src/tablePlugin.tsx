@@ -82,7 +82,7 @@ import { createPlugin as createViewModeSortPlugin } from './pm-plugins/view-mode
 import type { TablePlugin, TablePluginOptions } from './tablePluginType';
 import type { ColumnResizingPluginState, TableSharedStateInternal } from './types';
 import { ContentComponent } from './ui/ContentComponent';
-import { getRowMenuComponents } from './ui/TableMenu/row/getRowMenuComponents';
+import { getTableMenuComponents } from './ui/TableMenu/shared/getTableMenuComponents';
 import { getToolbarConfig } from './ui/toolbar';
 
 const defaultGetEditorFeatureFlags = () => ({});
@@ -130,7 +130,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 		editorExperiment('platform_editor_controls', 'variant1');
 
 	if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
-		api?.uiControlRegistry?.actions.register(getRowMenuComponents());
+		api?.uiControlRegistry?.actions.register(getTableMenuComponents());
 	}
 
 	return {

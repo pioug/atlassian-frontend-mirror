@@ -1,6 +1,7 @@
 import React from 'react';
 
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ButtonItem, Section } from '@atlaskit/side-navigation';
 
 const ButtonItemExample = (): React.JSX.Element => {

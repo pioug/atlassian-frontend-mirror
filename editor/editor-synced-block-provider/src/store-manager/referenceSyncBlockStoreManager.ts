@@ -6,7 +6,6 @@ import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ProviderFactory, MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SyncBlockError } from '../common/types';
 import type {
@@ -38,7 +37,6 @@ import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
 import {
 	createSyncBlockNode,
 	getSourceProductFromResourceIdSafe,
-	productAttrIfGateOn,
 } from '../utils/utils';
 
 import { SyncBlockBatchFetcher } from './syncBlockBatchFetcher';
@@ -331,9 +329,7 @@ export class ReferenceSyncBlockStoreManager {
 			// Derive once per call so we don't re-parse on every analytics event below.
 			// `product` from cached data is preferred when available; fall back to parsing
 			// the resourceId.
-			const sourceProduct = fg('platform_synced_block_patch_11')
-				? (product ?? getSourceProductFromResourceIdSafe(resourceId))
-				: undefined;
+			const sourceProduct = (product ?? getSourceProductFromResourceIdSafe(resourceId));
 
 			if (!sourceAri || !product || !blockInstanceId) {
 				this.fireAnalyticsEvent?.(
@@ -401,7 +397,7 @@ export class ReferenceSyncBlockStoreManager {
 				getSourceInfoErrorPayload(
 					(error as Error).message,
 					resourceId,
-					productAttrIfGateOn(resourceId),
+					getSourceProductFromResourceIdSafe(resourceId),
 				),
 			);
 		}
@@ -559,10 +555,7 @@ export class ReferenceSyncBlockStoreManager {
 					fetchErrorPayload(
 						syncBlockInstance.error.reason || syncBlockInstance.error.type,
 						syncBlockInstance.resourceId,
-						fg('platform_synced_block_patch_11')
-							? (syncBlockInstance.data?.product ??
-									getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId))
-							: undefined,
+						(syncBlockInstance.data?.product ?? getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId)),
 					),
 				);
 
@@ -585,11 +578,7 @@ export class ReferenceSyncBlockStoreManager {
 					fetchSuccessPayload(
 						syncBlockInstance.resourceId,
 						localId,
-						// Prefer cached product when available; fall back to parsing the resourceId.
-						fg('platform_synced_block_patch_11')
-							? (syncBlockInstance.data?.product ??
-									getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId))
-							: undefined,
+						(syncBlockInstance.data?.product ?? getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId)),
 					),
 				);
 			});
@@ -719,7 +708,7 @@ export class ReferenceSyncBlockStoreManager {
 	 * @returns true if the reference synced blocks are updated successfully, false otherwise
 	 */
 	public async flush(): Promise<boolean> {
-		if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+		if (this.viewMode === 'view') {
 			return false;
 		}
 

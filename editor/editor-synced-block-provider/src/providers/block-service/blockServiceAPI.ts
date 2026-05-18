@@ -2,7 +2,6 @@
 import { useMemo } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { generateBlockAri, generateBlockAriFromReference } from '../../clients/block-service/ari';
@@ -77,9 +76,7 @@ const mapErrorResponseCode = (errorCode: string): SyncBlockError => {
 		case 'NOT_FOUND':
 			return SyncBlockError.NotFound;
 		case 'EntityNotFound':
-			return fg('platform_synced_block_patch_10')
-				? SyncBlockError.EntityNotFound
-				: SyncBlockError.Errored;
+			return SyncBlockError.EntityNotFound;
 		case 'INVALID_REQUEST':
 			return SyncBlockError.InvalidRequest;
 		case 'CONFLICT':
@@ -776,11 +773,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			await deleteSyncedBlock({ blockAri, deleteReason });
 			return { resourceId, success: true, error: undefined };
 		} catch (error) {
-			if (
-				error instanceof BlockNotFoundError &&
-				this.parentAri &&
-				fg('platform_synced_block_patch_8')
-			) {
+			if (error instanceof BlockNotFoundError && this.parentAri) {
 				return this.deleteOrphanBlock({
 					blockAri,
 					resourceId,
@@ -935,7 +928,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 					if (successBlock) {
 						results.push({
 							resourceId: block.resourceId,
-							...(fg('platform_synced_block_patch_10') && { status: successBlock.status }),
+							status: successBlock.status,
 						});
 					}
 				}

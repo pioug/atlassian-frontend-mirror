@@ -4,6 +4,7 @@ import { cssMap } from '@atlaskit/css';
 import OpenIcon from '@atlaskit/icon/core/arrow-up-right';
 import AddItemIcon from '@atlaskit/icon/core/shortcut';
 import { Flex } from '@atlaskit/primitives/compiled';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ButtonItem } from '@atlaskit/side-navigation';
 import { token } from '@atlaskit/tokens';
 

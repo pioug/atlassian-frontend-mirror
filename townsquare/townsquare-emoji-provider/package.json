@@ -1,8 +1,15 @@
 {
 	"name": "@atlaskit/townsquare-emoji-provider",
-	"version": "1.0.9",
+	"version": "1.0.10",
 	"description": "Townsquare emoji provider",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Townsquare"
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
@@ -37,6 +44,7 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*"
 	},
 	"techstack": {

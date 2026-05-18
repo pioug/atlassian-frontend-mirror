@@ -5,6 +5,7 @@ import { cssMap } from '@atlaskit/css';
 import VideoRewindOverlayIcon from '@atlaskit/icon-lab/core/video-rewind-overlay';
 import AsyncIcon from '@atlaskit/icon/core/clock';
 import { Flex } from '@atlaskit/primitives/compiled';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
 	NavigationHeader,
 	NestableNavigationContent,

@@ -1,6 +1,7 @@
 import isEqual from 'lodash/isEqual';
 import type { IntlShape } from 'react-intl';
 
+import { getDocument } from '@atlaskit/browser-apis';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import {
 	messages,
@@ -246,7 +247,12 @@ export class EmojiNodeView implements NodeView {
 		this.renderingFallback = true;
 		this.cleanUpAndRenderCommonAttributes();
 
-		const fallbackElement = document.createElement('span');
+		let doc = getDocument();
+		if (!doc) {
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
+			doc = document;
+		}
+		const fallbackElement = doc.createElement('span');
 		fallbackElement.innerText = this.node.attrs.text || this.node.attrs.shortName;
 		fallbackElement.setAttribute('data-testid', `fallback-emoji-${this.node.attrs.shortName}`);
 		fallbackElement.setAttribute('data-emoji-type', 'fallback');
@@ -263,8 +269,14 @@ export class EmojiNodeView implements NodeView {
 
 		const emojiType = 'sprite' in representation ? 'sprite' : 'image';
 
+		let doc = getDocument();
+		if (!doc) {
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
+			doc = document;
+		}
+
 		// Add wrapper for the emoji
-		const containerElement = document.createElement('span');
+		const containerElement = doc.createElement('span');
 		containerElement.setAttribute('role', 'img');
 		containerElement.setAttribute('title', description.shortName);
 		containerElement.classList.add(EmojiSharedCssClassName.EMOJI_CONTAINER);
@@ -276,17 +288,37 @@ export class EmojiNodeView implements NodeView {
 		);
 
 		const emojiElement =
-			'sprite' in representation
-				? this.createSpriteEmojiElement(representation)
-				: this.createImageEmojiElement(description, representation);
+			'unicodeEmoji' in representation
+				? this.createUnicodeEmojiElement(representation.unicodeEmoji)
+				: 'sprite' in representation
+					? this.createSpriteEmojiElement(representation)
+					: this.createImageEmojiElement(description, representation);
 
 		containerElement.appendChild(emojiElement);
 
 		this.dom.appendChild(containerElement);
 	}
 
+	private createUnicodeEmojiElement(_: string): HTMLSpanElement {
+		let doc = getDocument();
+		if (!doc) {
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
+			doc = document;
+		}
+		const spanElement = doc.createElement('span');
+
+		// NOTE: Implement unicode emoji element creation
+
+		return spanElement;
+	}
+
 	private createSpriteEmojiElement(representation: SpriteRepresentation): HTMLSpanElement {
-		const spriteElement = document.createElement('span');
+		let doc = getDocument();
+		if (!doc) {
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
+			doc = document;
+		}
+		const spriteElement = doc.createElement('span');
 
 		spriteElement.classList.add(EmojiSharedCssClassName.EMOJI_SPRITE);
 
@@ -312,7 +344,12 @@ export class EmojiNodeView implements NodeView {
 		emojiDescription: EmojiDescription,
 		representation: ImageRepresentation | MediaApiRepresentation,
 	): HTMLImageElement {
-		const imageElement = document.createElement('img');
+		let doc = getDocument();
+		if (!doc) {
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
+			doc = document;
+		}
+		const imageElement = doc.createElement('img');
 
 		imageElement.classList.add(EmojiSharedCssClassName.EMOJI_IMAGE);
 

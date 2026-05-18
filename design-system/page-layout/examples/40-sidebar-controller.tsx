@@ -1,7 +1,9 @@
 import React from 'react';
 
 import { ButtonItem, Section } from '@atlaskit/menu';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Content, LeftSidebar, Main, PageLayout, usePageLayoutResize } from '@atlaskit/page-layout';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
 	Header,
 	NavigationHeader,

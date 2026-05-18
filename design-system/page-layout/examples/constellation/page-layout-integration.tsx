@@ -7,6 +7,7 @@ import { useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
 	AtlassianNavigation,
 	Create,
@@ -17,8 +18,10 @@ import {
 import noop from '@atlaskit/ds-lib/noop';
 import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/logo';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Content, LeftSidebar, Main, PageLayout, TopNavigation } from '@atlaskit/page-layout';
 import Popup from '@atlaskit/popup';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
 	Header,
 	NavigationHeader,

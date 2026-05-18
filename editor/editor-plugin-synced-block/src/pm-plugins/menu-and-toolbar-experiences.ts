@@ -15,7 +15,6 @@ import {
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { SYNCED_BLOCK_BUTTON_TEST_ID } from '../types';
@@ -31,8 +30,6 @@ const SYNCED_BLOCK_BUTTON_TEST_IDS = Object.values(SYNCED_BLOCK_BUTTON_TEST_ID);
 type SyncedBlockButtonId = (typeof SYNCED_BLOCK_BUTTON_TEST_IDS)[number];
 
 const syncedBlockButtonIds = new Set<SyncedBlockButtonId>(SYNCED_BLOCK_BUTTON_TEST_IDS);
-
-let targetEl: HTMLElement | undefined;
 
 type ExperienceOptions = {
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
@@ -197,9 +194,7 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 						return;
 					}
 
-					const targetElement = fg('platform_synced_block_fix_experience_tracking')
-						? typeaheadPopup.querySelector('[role="option"][aria-selected="true"]')
-						: typeaheadPopup.querySelector('[role="option"]');
+					const targetElement = typeaheadPopup.querySelector('[role="option"][aria-selected="true"]');
 					if (!targetElement || !(targetElement instanceof HTMLElement)) {
 						return;
 					}
@@ -343,19 +338,6 @@ const isEnterKey = (key: string) => {
 	return key === 'Enter';
 };
 
-const getTarget = (containerElement: HTMLElement | undefined): HTMLElement | null => {
-	if (!targetEl) {
-		const element = containerElement?.querySelector('.ProseMirror');
-		if (!element || !(element instanceof HTMLElement)) {
-			return null;
-		}
-
-		targetEl = element;
-	}
-
-	return targetEl;
-};
-
 const syncedBlockAddedToDomCheck = (
 	refs: {
 		containerElement?: HTMLElement;
@@ -374,26 +356,20 @@ const syncedBlockAddedToDomCheck = (
 		observeConfig: () => {
 			return [
 				{
-					target: fg('platform_synced_block_fix_experience_tracking')
-						? editorViewRef?.current?.dom
-						: getTarget(refs.containerElement),
+					target: editorViewRef?.current?.dom,
 					options: {
 						childList: true,
 					},
 				},
 				// When wrapping a node with breakout mark with sync block, breakout dom is reused
 				// hence we need to observe subtree to catch sync block mutation
-				...(fg('platform_synced_block_fix_experience_tracking')
-					? [
-							{
-								target: getSelectionAncestorDOM(editorViewRef?.current),
-								options: {
-									childList: true,
-									subtree: true,
-								},
-							},
-						]
-					: []),
+				{
+					target: getSelectionAncestorDOM(editorViewRef?.current),
+					options: {
+						childList: true,
+						subtree: true,
+					},
+				},
 			];
 		},
 	});
@@ -423,24 +399,18 @@ const referenceSyncBlockRemovedFromDomCheck = (
 		observeConfig: () => {
 			return [
 				{
-					target: fg('platform_synced_block_fix_experience_tracking')
-						? editorViewRef?.current?.dom
-						: getTarget(refs.containerElement),
+					target: editorViewRef?.current?.dom,
 					options: {
 						childList: true,
 					},
 				},
-				...(fg('platform_synced_block_fix_experience_tracking')
-					? [
-							{
-								target: getSelectionAncestorDOM(editorViewRef?.current),
-								options: {
-									childList: true,
-									subtree: true,
-								},
+						{
+							target: getSelectionAncestorDOM(editorViewRef?.current),
+							options: {
+								childList: true,
+								subtree: true,
 							},
-						]
-					: []),
+						},
 			];
 		},
 	});

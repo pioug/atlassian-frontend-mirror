@@ -27,7 +27,9 @@ import {
 	type ValueType,
 } from '../types';
 
-import { defaultComponents, DummyControl, MenuDialog } from './components';
+import { defaultComponents } from './components';
+import { DummyControl } from './dummy-control';
+import { MenuDialog } from './menu-dialog';
 import { NotifyOpenLayerObserver } from './notify-open-layer-observer';
 import { PopupSelectTopLayer } from './popup-select-top-layer';
 

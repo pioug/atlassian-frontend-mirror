@@ -9,7 +9,7 @@ import { SyncBlockError } from '../common/types';
 import type { SyncBlockInstance } from '../providers/types';
 import type { SyncBlockStoreManager } from '../store-manager/syncBlockStoreManager';
 import { fetchErrorPayload } from '../utils/errorHandling';
-import { createSyncBlockNode, productAttrIfGateOn } from '../utils/utils';
+import { createSyncBlockNode, getSourceProductFromResourceIdSafe } from '../utils/utils';
 
 type SSRProviders = { media?: MediaProvider | null };
 
@@ -62,7 +62,7 @@ export const useFetchSyncBlockData = (
 				location: 'editor-synced-block-provider/useFetchSyncBlockData',
 			});
 			fireAnalyticsEvent?.(
-				fetchErrorPayload((error as Error).message, resourceId, productAttrIfGateOn(resourceId)),
+				fetchErrorPayload((error as Error).message, resourceId, getSourceProductFromResourceIdSafe(resourceId)),
 			);
 
 			// Set error state if fetching fails

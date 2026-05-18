@@ -25,6 +25,8 @@ const buttonNoOpStyle = css({
  *
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#button)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ *
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 export const PrimaryDropdownButton: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<PrimaryDropdownButtonProps> & React.RefAttributes<HTMLElement>

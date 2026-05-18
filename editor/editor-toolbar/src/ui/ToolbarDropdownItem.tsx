@@ -4,6 +4,7 @@ import type { ReactNode, Ref } from 'react';
 import { cssMap, cx } from '@atlaskit/css';
 import { DropdownItem } from '@atlaskit/dropdown-menu';
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Box, Pressable } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -81,6 +82,7 @@ export type CustomDropdownMenuItemButtonProps = CustomItemComponentProps & {
 	'aria-haspopup'?: boolean;
 	'aria-keyshortcuts'?: string;
 	'aria-pressed'?: boolean;
+	'data-extension-item-key'?: string;
 	title?: string;
 };
 
@@ -99,6 +101,7 @@ const CustomDropdownMenuItemButton = forwardRef<
 			onClick,
 			tabIndex,
 			title,
+			'data-extension-item-key': dataExtensionItemKey,
 		},
 		ref,
 	) => (
@@ -134,6 +137,7 @@ const CustomDropdownMenuItemButton = forwardRef<
 					? title
 					: undefined
 			}
+			data-extension-item-key={fg('cc_blocks_changeboarding') ? dataExtensionItemKey : undefined}
 		>
 			{children}
 		</Pressable>

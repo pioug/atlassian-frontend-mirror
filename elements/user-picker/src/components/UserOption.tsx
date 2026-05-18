@@ -5,7 +5,7 @@
 import { getAppearanceForAppType } from '@atlaskit/avatar';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import React from 'react';
 import { type User } from '../types';
 import { AvatarItemOption, textWrapper } from './AvatarItemOption';
@@ -20,16 +20,6 @@ export type UserOptionProps = {
 	status?: string;
 	user: User;
 };
-
-const styles = (color: string) =>
-	css({
-		display: 'inline',
-		verticalAlign: 'top',
-		overflow: 'hidden',
-		whiteSpace: 'nowrap',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-		color,
-	});
 
 export class UserOption extends React.PureComponent<UserOptionProps> {
 	getPrimaryText = (): jsx.JSX.Element[] => {
@@ -58,7 +48,7 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 					{' '}
 					<span
 						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						css={fg('platform_user_picker_firefox_tab_fix') ? styles(color) : textWrapper(color)}
+						css={textWrapper(color)}
 						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 					>
 						(

@@ -225,6 +225,12 @@ const RovoAgentAvatar = lazy(
 	() =>
 		import(/* webpackChunkName: "@atlaskit-rovo-avatar-RovoAgentAvatar"*/ './assets/rovo-agent'),
 );
+const JiraWorkAgentAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-JiraWorkAgentAvatar"*/ './assets/jira-work-agent'
+		),
+);
 /**
  * OOTB Agents avatars - end
  */
@@ -518,6 +524,12 @@ const outOfTheBoxAgentAvatar: {
 		),
 		color: blueColor,
 	},
+	jira_work_agent: {
+		getRender: (size: SizeType) => (
+			<JiraWorkAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
+		color: blueColor,
+	}
 };
 
 /**

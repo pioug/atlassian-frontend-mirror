@@ -35,6 +35,7 @@ const WindowedCodeBlock = ({
 	allowCopyToClipboard,
 	allowWrapCodeBlock = false,
 	codeBidiWarningTooltipEnabled,
+	hideLineNumbers = false,
 	className: rootClassName,
 	wrap,
 }: CodeBlockProps): jsx.JSX.Element => {
@@ -49,6 +50,10 @@ const WindowedCodeBlock = ({
 			ref={trackingRef}
 			text={text}
 			codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
+			hideLineNumbers={
+				expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
+				hideLineNumbers
+			}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={rootClassName}
 		/>
@@ -77,6 +82,12 @@ const WindowedCodeBlock = ({
 						codeBidiWarningLabel={warningLabel}
 						codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
 						shouldWrapLongLines={allowWrapCodeBlock && wrapLongLines}
+						shouldShowLineNumbers={
+							!(
+								expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
+								hideLineNumbers
+							)
+						}
 						hasBidiWarnings={
 							expValEquals('platform_editor_remove_bidi_char_warning', 'isEnabled', true)
 								? false

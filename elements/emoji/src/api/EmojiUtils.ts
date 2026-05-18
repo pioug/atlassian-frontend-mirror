@@ -217,5 +217,7 @@ export const shouldUseAltRepresentation = (
 	!!(
 		fitToHeight &&
 		emoji.altRepresentation &&
-		getHeight(fitToHeight) > emoji.representation!.height
+		emoji.representation &&
+		'height' in emoji.representation &&
+		getHeight(fitToHeight) > emoji.representation.height
 	);

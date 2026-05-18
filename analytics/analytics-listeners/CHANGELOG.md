@@ -1,5 +1,14 @@
 # @atlaskit/analytics-listeners
 
+## 10.1.1
+
+### Patch Changes
+
+- [`caa0499e0b24a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/caa0499e0b24a) -
+  Enrol mercury, one-software-catalog, team-central, react-ufo, analytics and performance packages
+  into the React Compiler with platform gating via isReactCompilerActivePlatform
+- Updated dependencies
+
 ## 10.1.0
 
 ### Minor Changes

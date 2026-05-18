@@ -14,6 +14,7 @@ import { token } from '@atlaskit/tokens';
 
 import { type SkipLinkData } from '../../context/skip-links/types';
 
+import { focusElement } from './focus-element';
 import { SkipLink } from './skip-link';
 
 const contentStyles = cssMap({
@@ -135,13 +136,34 @@ export function SkipLinksPopup({
 						{title}
 					</div>
 					<ol css={[contentStyles.skipLinkList]}>
-						{links.map(({ id, label, onBeforeNavigate }) => (
+						{links.map(({ id, label, navigate }) => (
 							<SkipLink
 								key={id}
 								id={id}
-								onBeforeNavigate={() => {
+								/**
+								 * The popup always owns the navigation effect under the
+								 * `platform_dst_nav4_skip_link_a11y_1` gate (the only path
+								 * that renders `SkipLinksPopup`). It first closes itself
+								 * synchronously so its focus lock is released, then either:
+								 *
+								 *  - delegates to the consumer's `navigate` (e.g. SideNav
+								 *    expanding and focusing its first nav item), or
+								 *  - falls back to focusing the slot element with `id`.
+								 *
+								 * This means `SkipLink`'s `onBeforeNavigate` hook is never
+								 * needed under the gate and can be removed on cleanup.
+								 */
+								navigate={() => {
 									closePopup();
-									onBeforeNavigate?.();
+									if (navigate) {
+										navigate();
+										return;
+									}
+									// Intentionally not using `document.querySelector` because many valid IDs are not valid selectors.
+									const target = document.getElementById(id);
+									if (target) {
+										focusElement(target);
+									}
 								}}
 							>
 								{label}

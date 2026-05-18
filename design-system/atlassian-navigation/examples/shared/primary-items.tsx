@@ -1,5 +1,6 @@
 import React, { type KeyboardEvent, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
 	PrimaryButton,
 	type PrimaryButtonProps,

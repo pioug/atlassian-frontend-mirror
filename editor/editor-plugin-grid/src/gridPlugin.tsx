@@ -18,7 +18,6 @@ import {
 	akEditorFullPageMaxWidth,
 	breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { GridPlugin } from './gridPluginType';
 import type { CreateDisplayGrid, GridPluginOptions, GridPluginState, Highlights } from './types';
@@ -208,18 +207,8 @@ const ContentComponent = ({ api, editorView, options }: ContentComponentProps) =
 		selector,
 	);
 
-	if (visible === undefined || !highlight) {
+	if (!visible || !highlight) {
 		return null;
-	}
-
-	if (expValEquals('platform_editor_remove_grid_init_reflow', 'isEnabled', true)) {
-		if (!visible || !highlight) {
-			return null;
-		}
-	} else {
-		if (visible === undefined || !highlight) {
-			return null;
-		}
 	}
 
 	return (

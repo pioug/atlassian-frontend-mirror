@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-picker",
-	"version": "71.2.2",
+	"version": "71.3.0",
 	"description": "Library for handling file uploads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -75,6 +75,7 @@
 		"@atlaskit/media-core": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ufo": "workspace:^",
 		"@babel/plugin-proposal-numeric-separator": "root:*",
@@ -106,6 +107,9 @@
 			"type": "boolean"
 		},
 		"platform_media_package_react19_lifecycle_fix": {
+			"type": "boolean"
+		},
+		"platform_media_picker_upload_batching": {
 			"type": "boolean"
 		}
 	}

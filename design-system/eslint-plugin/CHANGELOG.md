@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 14.3.0
+
+### Minor Changes
+
+- [`fca44a3d35abe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fca44a3d35abe) -
+  Adds Nav 3 packages (`@atlaskit/atlassian-navigation` + `@atlaskit/page-layout` +
+  `@atlaskit/side-navigation`) to the deprecated config.
+
 ## 14.2.0
 
 ### Minor Changes

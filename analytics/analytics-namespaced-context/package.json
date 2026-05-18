@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics-namespaced-context",
-	"version": "7.3.0",
+	"version": "7.3.1",
 	"description": "Provides a namespace for AnalyticsContext data (@atlaskit/analytics-next)",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,6 +41,13 @@
 		"./TownsquareHomeAnalyticsContext": "./src/entry-points/TownsquareHomeAnalyticsContext.tsx"
 	},
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "UIP Frontend Observability"
 	},
 	"config": {
@@ -54,6 +61,7 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*"
 	},
 	"keywords": [

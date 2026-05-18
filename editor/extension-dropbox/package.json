@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-extension-dropbox",
-	"version": "8.0.20",
+	"version": "8.1.0",
 	"description": "A an atlassian editor extension to add a native dropbox picker",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,12 +26,12 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./constants": "./src/constants.ts",
-		"./dropboxscript": "./src/dropboxscript.ts",
-		"./enable-dropbox": "./src/enable-dropbox.tsx",
-		"./manifest": "./src/manifest.tsx",
-		"./modal": "./src/modal.tsx",
-		"./types": "./src/types.ts"
+		"./constants": "./src/entry-points/constants.ts",
+		"./dropboxscript": "./src/entry-points/dropboxscript.ts",
+		"./enable-dropbox": "./src/entry-points/enable-dropbox.tsx",
+		"./manifest": "./src/entry-points/manifest.tsx",
+		"./modal": "./src/entry-points/modal.tsx",
+		"./types": "./src/entry-points/types.ts"
 	},
 	"atlassian": {
 		"react-compiler": {

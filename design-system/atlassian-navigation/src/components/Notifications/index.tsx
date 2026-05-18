@@ -27,6 +27,8 @@ const NOTIFICATIONS_BADGE_ID = 'atlassian-navigation-notification-count';
  *
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#notifications)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ *
+ * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 export const Notifications: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<NotificationsProps> & React.RefAttributes<any>

@@ -100,6 +100,9 @@
 			"path": "../../data/ufo-external/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../data/ufo-internal/tsconfig.app.json"
 		}
 	]

@@ -11,7 +11,6 @@ import { requestJiraSpaceAccess } from '@atlaskit/editor-synced-block-provider/r
 import Heading from '@atlaskit/heading';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
 import Image from '@atlaskit/image';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text, Flex, Stack, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -232,13 +231,11 @@ export const SyncedBlockPermissionDenied = ({
 		case 'confluence-page':
 			return <SyncedBlockPermissionDeniedConfluencePage sourceContentId={sourceContentId} />;
 		case 'jira-work-item':
-			return fg('platform_synced_block_patch_10') ? (
+			return (
 				<SyncedBlockPermissionDeniedJiraWorkItem
 					sourceContentId={sourceContentId}
 					accountId={accountId}
 				/>
-			) : (
-				<SyncedBlockGenericError />
 			);
 		default:
 			return <SyncedBlockGenericError />;

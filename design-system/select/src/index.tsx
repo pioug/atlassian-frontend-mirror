@@ -7,7 +7,8 @@ export {
 export { useAsync } from './entry-points/use-async';
 export { useCreatable } from './entry-points/use-creatable';
 
-export { CheckboxOption, RadioOption } from './components/input-options';
+export { CheckboxOption } from './components/checkbox-option';
+export { RadioOption } from './components/radio-option';
 
 export { default, SelectWithoutAnalytics } from './entry-points/select';
 export { default as AsyncSelect } from './entry-points/async-select';

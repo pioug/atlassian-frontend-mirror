@@ -1,4 +1,7 @@
-import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
+import {
+	areCodeBlockLineNumbersVisible,
+	isCodeBlockWordWrapEnabled,
+} from '@atlaskit/editor-common/code-block';
 import commonMessages, { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
@@ -15,7 +18,9 @@ import type {
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
+import ListNumberedIcon from '@atlaskit/icon/core/list-numbered';
 import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
@@ -23,6 +28,7 @@ import {
 	copyContentToClipboardWithAnalytics,
 	removeCodeBlockWithAnalytics,
 	resetCopiedState,
+	toggleLineNumbersForCodeBlockNode,
 	toggleWordWrapStateForCodeBlockNode,
 } from '../editor-commands';
 import type { CodeBlockPlugin } from '../index';
@@ -63,6 +69,7 @@ export const getToolbarConfig =
 			return;
 		}
 		const isWrapped = isCodeBlockWordWrapEnabled(node);
+		const areLineNumbersVisible = areCodeBlockLineNumbersVisible(node);
 		const language = node?.attrs?.language;
 
 		const languageList = createLanguageList(
@@ -206,13 +213,33 @@ export const getToolbarConfig =
 		const codeBlockWrapButton: FloatingToolbarButton<Command> = {
 			id: 'editor.codeBlock.wrap',
 			type: 'button',
-			supportsViewMode: true,
+			// Toggling button now writes to ADF, hence it should be available in view mode
+			supportsViewMode: !expValEquals(
+				'platform_editor_code_block_q4_lovability',
+				'isEnabled',
+				true,
+			),
 			icon: TextWrapIcon,
 			iconFallback: WrapIcon,
 			onClick: toggleWordWrapStateForCodeBlockNode(editorAnalyticsAPI),
 			title: codeBlockWrapButtonTitle,
 			tabIndex: null,
 			selected: isWrapped,
+		};
+
+		const codeBlockLineNumbersButton: FloatingToolbarButton<Command> = {
+			id: 'editor.codeBlock.lineNumbers',
+			type: 'button',
+			supportsViewMode: false,
+			icon: ListNumberedIcon,
+			onClick: toggleLineNumbersForCodeBlockNode(editorAnalyticsAPI),
+			title: formatMessage(
+				areLineNumbersVisible
+					? codeBlockButtonMessages.hideLineNumbersLabel
+					: codeBlockButtonMessages.showLineNumbersLabel,
+			),
+			tabIndex: null,
+			selected: areLineNumbersVisible,
 		};
 
 		return {
@@ -225,6 +252,10 @@ export const getToolbarConfig =
 				languageSelect,
 				...(areAnyNewToolbarFlagsEnabled ? [] : [separator]),
 				codeBlockWrapButton,
+				...(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
+				fg('platform_editor_code_block_add_line_number_button')
+					? [codeBlockLineNumbersButton]
+					: []),
 				...copyAndDeleteButtonMenuItems,
 			],
 			scrollable: true,

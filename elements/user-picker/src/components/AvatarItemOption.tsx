@@ -23,23 +23,8 @@ const AsyncTooltip = React.lazy(() =>
 	),
 );
 
-const wrapper = (isDisabled?: boolean) => {
-	if (fg('platform_user_picker_firefox_tab_fix')) {
-		return css({
-			alignItems: 'center',
-			boxSizing: 'border-box',
-			display: 'flex',
-			outline: 'none',
-			margin: 0,
-			width: '100%',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			cursor: isDisabled ? 'not-allowed' : 'pointer',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			opacity: isDisabled ? token('opacity.disabled') : undefined,
-		});
-	}
-
-	return css({
+const wrapper = (isDisabled?: boolean) =>
+	css({
 		alignItems: 'center',
 		boxSizing: 'border-box',
 		display: 'flex',
@@ -53,7 +38,6 @@ const wrapper = (isDisabled?: boolean) => {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		opacity: isDisabled ? token('opacity.disabled') : undefined,
 	});
-};
 
 const optionWrapper = css({
 	maxWidth: '100%',
@@ -63,28 +47,8 @@ const optionWrapper = css({
 	paddingLeft: token('space.100'),
 });
 
-const optionWrapperFix = css({
-	display: 'inline-block',
-	overflow: 'hidden',
-	minWidth: 0,
-	maxWidth: '100%',
-	paddingLeft: token('space.100'),
-});
-
 const getTextStyle = (isSecondary?: boolean) => {
 	const secondaryCssArgs = isSecondary ? { font: token('font.body.small') } : {};
-
-	if (fg('platform_user_picker_firefox_tab_fix')) {
-		return css({
-			margin: 0,
-			maxWidth: '100%',
-			overflow: 'hidden',
-			textOverflow: 'ellipsis',
-			whiteSpace: 'nowrap',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			...secondaryCssArgs,
-		});
-	}
 
 	return css({
 		margin: 0,
@@ -101,28 +65,14 @@ const additionalInfo = css({
 	marginLeft: token('space.100'),
 });
 
-export const textWrapper = (color?: string): SerializedStyles => {
-	if (fg('platform_user_picker_firefox_tab_fix')) {
-		return css({
-			display: 'inline-block',
-			verticalAlign: 'bottom',
-			maxWidth: '100%',
-			overflow: 'hidden',
-			textOverflow: 'ellipsis',
-			whiteSpace: 'nowrap',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			color,
-		});
-	}
-
-	return css({
+export const textWrapper = (color?: string): SerializedStyles =>
+	css({
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		display: 'inline',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		color,
 	});
-};
 
 const lozengeAppearanceToTagColor: Record<LozengeColor, TagColor> = {
 	default: 'standard',
@@ -195,7 +145,7 @@ export const AvatarItemOption = ({
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<span css={wrapper(isDisabled)}>
 			{avatar}
-			<div css={fg('platform_user_picker_firefox_tab_fix') ? optionWrapperFix : optionWrapper}>
+			<div css={optionWrapper}>
 				<div>
 					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={getTextStyle()}>{primaryText}</div>

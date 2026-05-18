@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "25.6.2",
+	"version": "25.7.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -223,6 +223,9 @@
 			"type": "boolean"
 		},
 		"update_profile_card_to_open_on_mouse_over": {
+			"type": "boolean"
+		},
+		"teams_app_react_19_upgrade": {
 			"type": "boolean"
 		}
 	},

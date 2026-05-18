@@ -9,6 +9,7 @@ import { cssMap, jsx } from '@compiled/react';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
 	type CustomItemComponentProps,
 	GoBackItem,

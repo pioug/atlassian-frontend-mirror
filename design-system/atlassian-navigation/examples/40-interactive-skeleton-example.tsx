@@ -7,6 +7,7 @@ import React, { type ChangeEvent, Fragment, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { AtlassianNavigation } from '@atlaskit/atlassian-navigation';
 import { NavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';
 import Button from '@atlaskit/button/new';

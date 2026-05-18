@@ -1,5 +1,12 @@
 # @atlaskit/notification-log-service
 
+## 8.1.0
+
+### Minor Changes
+
+- [`43d65fc23f039`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43d65fc23f039) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 8.0.0
 
 ### Major Changes

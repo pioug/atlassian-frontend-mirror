@@ -40,12 +40,16 @@ export const getQuickInsertConfig = (
 			return [];
 		}
 
+		const syncBlockTitle = fg('platform_synced_block_patch_12')
+			? blockTypeMessages.syncBlock
+			: blockTypeMessages.syncedBlock;
+
 		return [
 			{
 				id: 'syncBlock',
-				title: formatMessage(blockTypeMessages.syncedBlock),
+				title: formatMessage(syncBlockTitle),
 				description: formatMessage(blockTypeMessages.syncedBlockDescription),
-				priority: fg('platform_synced_block_patch_10') ? 400 : 800,
+				priority: 400,
 				keywords: [
 					'synced',
 					'block',
@@ -56,7 +60,7 @@ export const getQuickInsertConfig = (
 					'update',
 					'excerpt',
 					'connect',
-					...(fg('platform_synced_block_patch_10') ? ['create'] : []),
+					'create',
 				],
 				isDisabledOffline: true,
 				keyshortcut: '',
@@ -71,7 +75,7 @@ export const getQuickInsertConfig = (
 						</Lozenge>
 					</span>
 				),
-				icon: () => <IconSyncBlock label={formatMessage(blockTypeMessages.syncedBlock)} />,
+				icon: () => <IconSyncBlock label={formatMessage(syncBlockTitle)} />,
 				action: (insert: QuickInsertActionInsert, state: EditorState) => {
 					return createSyncedBlock({
 						tr: state.tr,

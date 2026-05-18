@@ -387,7 +387,7 @@ export const pragmaticResizerStylesCodeBlockLegacy: SerializedStyles = css({
 	},
 });
 
-// Code block resizer position: only when breakout directly wraps a code block (platform_synced_block_patch_1).
+// Code block resizer position: only when breakout directly wraps a code block.
 // Synced block containing code block keeps -24px from pragmaticResizerStylesSyncedBlock so the handle stays outside.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const pragmaticResizerStylesCodeBlockSyncedBlockPatch: SerializedStyles = css({

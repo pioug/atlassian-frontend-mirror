@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { type GridProps } from '@atlaskit/grid';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
 	Content,
 	LeftSidebarWithoutResize,

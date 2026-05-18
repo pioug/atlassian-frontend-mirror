@@ -20,7 +20,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, Decoration, DecorationSource } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { removeSyncedBlockAtPos } from '../editor-commands';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
@@ -104,9 +103,7 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 			node,
 			decorations,
 			innerDecorations,
-			editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
-				? this.validUpdate
-				: undefined,
+			this.validUpdate,
 		);
 	}
 

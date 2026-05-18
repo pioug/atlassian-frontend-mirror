@@ -5,7 +5,6 @@ import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getProductFromSourceAri } from '../clients/block-service/ari';
 import { SyncBlockError } from '../common/types';
@@ -16,7 +15,7 @@ import {
 	getFetchReferencesExperience,
 	getFetchSourceInfoExperience,
 } from '../utils/experienceTracking';
-import { productAttrIfGateOn } from '../utils/utils';
+import { getSourceProductFromResourceIdSafe } from '../utils/utils';
 
 import { ReferenceSyncBlockStoreManager } from './referenceSyncBlockStoreManager';
 import { SourceSyncBlockStoreManager } from './sourceSyncBlockStoreManager';
@@ -81,19 +80,7 @@ export class SyncBlockStoreManager {
 			}
 
 			if (!response.references || response.references?.length === 0) {
-				if (fg('platform_synced_block_patch_8')) {
-					return this.getUnregisteredReferences(resourceId, blockInstanceId, isSourceSyncBlock);
-				} else {
-					// No reference found
-					if (isSourceSyncBlock) {
-						this.fetchReferencesExperience?.success();
-					} else {
-						this.fetchReferencesExperience?.failure({
-							reason: 'No references found for reference synced block',
-						});
-					}
-					return isSourceSyncBlock ? { references: [] } : { error: SyncBlockError.Errored };
-				}
+				return this.getUnregisteredReferences(resourceId, blockInstanceId, isSourceSyncBlock);
 			}
 
 			this.fetchReferencesExperience?.success();
@@ -145,7 +132,7 @@ export class SyncBlockStoreManager {
 				fetchReferencesErrorPayload(
 					(error as Error).message,
 					resourceId,
-					productAttrIfGateOn(resourceId),
+					getSourceProductFromResourceIdSafe(resourceId),
 				),
 			);
 

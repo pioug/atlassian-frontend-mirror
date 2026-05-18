@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/user-picker",
-	"version": "12.0.8",
+	"version": "12.0.9",
 	"description": "Fabric component for display a dropdown to select a user from",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -116,9 +116,6 @@
 	],
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {
-			"type": "boolean"
-		},
-		"platform_user_picker_firefox_tab_fix": {
 			"type": "boolean"
 		},
 		"twcg-444-invite-usd-improvements-m2-gate": {

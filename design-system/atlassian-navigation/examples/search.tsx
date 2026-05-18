@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { AtlassianNavigation, Search } from '@atlaskit/atlassian-navigation';
 
 export default (): React.JSX.Element => {

@@ -33,7 +33,8 @@ import {
 	type ValueType,
 } from '../types';
 
-import { defaultComponents, DummyControl } from './components';
+import { defaultComponents } from './components';
+import { DummyControl } from './dummy-control';
 import type { PopupSelectProps } from './popup-select';
 
 const animation = slideAndFade();

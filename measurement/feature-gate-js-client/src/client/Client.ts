@@ -1155,6 +1155,18 @@ export class Client {
 	}
 
 	/**
+	 * Returns the `targetApp` value that was provided during client initialization.
+	 * This identifies the product/app context (e.g., `'confluence_web'`, `'jira_web'`).
+	 *
+	 * Returns `undefined` if `initialize` has never been called.
+	 *
+	 * @returns The targetApp string, or undefined if initialize has never been called.
+	 */
+	getTargetApp(): string | undefined {
+		return this.initOptions?.targetApp;
+	}
+
+	/**
 	 * Returns a specified layer otherwise returns an empty layer as a default value if the layer doesn't exist.
 	 *
 	 * @param {string} layerName - The name of the layer

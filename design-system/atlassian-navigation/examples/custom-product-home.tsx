@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { AtlassianNavigation, CustomProductHome } from '@atlaskit/atlassian-navigation';
 
 import atlassianIconUrl from './shared/assets/atlassian-icon.png';

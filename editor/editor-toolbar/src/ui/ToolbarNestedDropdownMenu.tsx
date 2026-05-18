@@ -8,6 +8,7 @@ import type { ReactNode } from 'react';
 import { jsx, cssMap, cx } from '@compiled/react';
 
 import DropdownMenu from '@atlaskit/dropdown-menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { ToolbarDropdownItem } from './ToolbarDropdownItem';
@@ -22,6 +23,7 @@ const styles = cssMap({
 
 type ToolbarNestedDropdownMenuProps = {
 	children?: ReactNode;
+	'data-extension-item-key'?: string;
 	dropdownTestId?: string;
 	elemAfter: ReactNode;
 	elemAfterText?: ReactNode;
@@ -53,6 +55,7 @@ export const ToolbarNestedDropdownMenu = ({
 	shouldFitContainer = false,
 	shouldTitleWrap,
 	tooltipContent,
+	'data-extension-item-key': dataExtensionItemKey,
 }: ToolbarNestedDropdownMenuProps): JSX.Element => {
 	return (
 		<DropdownMenu<HTMLButtonElement>
@@ -76,6 +79,7 @@ export const ToolbarNestedDropdownMenu = ({
 						hasNestedDropdownMenu={true}
 						isDisabled={isDisabled}
 						shouldTitleWrap={shouldTitleWrap}
+						data-extension-item-key={fg('cc_blocks_changeboarding') ? dataExtensionItemKey : undefined}
 					>
 						{text}
 						{elemAfterText}

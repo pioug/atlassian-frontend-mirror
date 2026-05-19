@@ -1,5 +1,11 @@
 # @atlaskit/icon-lab
 
+## 6.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.9.0
 
 ### Minor Changes

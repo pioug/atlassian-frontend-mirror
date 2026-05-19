@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled */
-import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
+import { css } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -406,6 +406,10 @@ export const layoutSelectedStylesAdvanced: SerializedStyles = css({
 					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 					marginLeft: -25,
 				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'[data-layout-column]:is([data-valign="middle"], [data-valign="bottom"]):not(:first-of-type) [data-layout-content]::before': {
+					top: token('space.150'),
+				},
 			},
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -655,6 +659,28 @@ export const layoutBaseStyles: SerializedStyles = css({
 						clear: 'both',
 					},
 				},
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'&[data-valign="middle"], &[data-valign="bottom"]': {
+					display: 'flex',
+					flexDirection: 'column',
+				},
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'&[data-valign="middle"]': {
+					justifyContent: 'center',
+				},
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'&[data-valign="bottom"]': {
+					justifyContent: 'flex-end',
+				},
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'&[data-valign="middle"] > [data-layout-content], &[data-valign="bottom"] > [data-layout-content]':
+					{
+						height: 'auto',
+					},
 			},
 		},
 	},

@@ -3,6 +3,7 @@ import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SyncBlockError } from '../common/types';
 import type {
@@ -58,6 +59,9 @@ type SyncBlockData = Data & {
 	pendingDeletion?: boolean;
 };
 
+/** Maximum time (ms) flush() will wait for in-flight block creations before proceeding. */
+const FLUSH_CREATION_AWAIT_TIMEOUT_MS = 1000;
+
 // A store manager responsible for the lifecycle and state management of source sync blocks in an editor instance.
 // Designed to manage local in-memory state and synchronize with an external data provider.
 // Supports create, flush, and delete operations for source sync blocks.
@@ -84,6 +88,23 @@ export class SourceSyncBlockStoreManager {
 
 	private creationCompletionCallbacks: Map<ResourceId, OnCompletion>;
 	private flushCompletionCallback?: () => void;
+	private postCreationFlushCallback?: () => void;
+	/**
+	 * Promises for in-flight block creations, keyed by resourceId.
+	 * `flush()` awaits these so that blocks created from existing content are
+	 * persisted even if no further edits trigger a subsequent flush.
+	 * See EDITOR-7112.
+	 */
+	private pendingCreationPromises: Map<ResourceId, Promise<void>> = new Map();
+	/**
+	 * Set of resource IDs whose creation was still in-flight when a `flush()`
+	 * timed out. Each completion (success or failure) is removed from this set;
+	 * the first successful completion of any of these IDs triggers
+	 * `postCreationFlushCallback` so the content is eventually persisted.
+	 * Tracking IDs (not just a boolean) avoids dropping late completions when
+	 * multiple blocks are created concurrently. See EDITOR-7112.
+	 */
+	private creationsTimedOutDuringFlush: Set<ResourceId> = new Set();
 
 	private createExperience: Experience | undefined;
 	private saveExperience: Experience | undefined;
@@ -109,6 +130,16 @@ export class SourceSyncBlockStoreManager {
 	 */
 	public registerFlushCompletionCallback(callback: () => void): void {
 		this.flushCompletionCallback = callback;
+	}
+
+	/**
+	 * Register a callback to be invoked when flush() timed out waiting for a
+	 * pending block creation and that creation subsequently completes. The
+	 * callback should trigger a deferred flush to persist the content that
+	 * was skipped due to the timeout. See EDITOR-7112.
+	 */
+	public registerPostCreationFlushCallback(callback: () => void): void {
+		this.postCreationFlushCallback = callback;
 	}
 
 	public setFireAnalyticsEvent(
@@ -195,6 +226,45 @@ export class SourceSyncBlockStoreManager {
 		try {
 			if (this.viewMode === 'view') {
 				return true;
+			}
+
+			// Wait (up to FLUSH_CREATION_AWAIT_TIMEOUT_MS) for any in-flight
+			// block creations to complete before iterating the cache. Without
+			// this, blocks created from existing content are skipped
+			// (isPendingCreation check below) and if no further edits are made,
+			// no subsequent flush is triggered — causing references to show an
+			// "unpublished" error.
+			// If the timeout expires, any block whose creation is still
+			// in-flight is recorded in `creationsTimedOutDuringFlush` so that
+			// `commitPendingCreation()` can trigger a follow-up flush once that
+			// specific creation completes.
+			// See EDITOR-7112.
+			if (
+				this.pendingCreationPromises.size > 0 &&
+				fg('platform_synced_block_patch_12')
+			) {
+				let timedOut = false;
+				let timeoutId: ReturnType<typeof setTimeout> | undefined;
+				const timeout = new Promise<void>((resolve) => {
+					timeoutId = setTimeout(() => {
+						timedOut = true;
+						resolve();
+					}, FLUSH_CREATION_AWAIT_TIMEOUT_MS);
+				});
+				await Promise.race([
+					Promise.all(this.pendingCreationPromises.values()),
+					timeout,
+				]);
+				if (timeoutId !== undefined) {
+					clearTimeout(timeoutId);
+				}
+				if (timedOut) {
+					// Record every still-in-flight creation so each late
+					// completion is tracked independently.
+					for (const resourceId of this.pendingCreationPromises.keys()) {
+						this.creationsTimedOutDuringFlush.add(resourceId);
+					}
+				}
 			}
 
 			const bodiedSyncBlockNodes: SyncBlockNode[] = [];
@@ -347,10 +417,19 @@ export class SourceSyncBlockStoreManager {
 		if (onCompletion) {
 			this.creationCompletionCallbacks.delete(resourceId);
 			onCompletion(success);
+			// If a previous flush() timed out waiting for this specific
+			// creation, drop it from the tracking set regardless of outcome so
+			// it does not leak. See EDITOR-7112.
+			const wasTimedOut = this.creationsTimedOutDuringFlush.delete(resourceId);
 			if (success) {
 				// If creation is successful, set hasReceivedContentChange to true
 				// to indicate that there are unsaved changes in the cache
 				this.hasReceivedContentChange = true;
+				// If flush() timed out waiting for this creation, notify the
+				// plugin so it can trigger a deferred flush. See EDITOR-7112.
+				if (wasTimedOut) {
+					this.postCreationFlushCallback?.();
+				}
 			}
 		} else {
 			this.fireAnalyticsEvent?.(
@@ -435,7 +514,7 @@ export class SourceSyncBlockStoreManager {
 
 			this.creationCompletionCallbacks.set(resourceId, onCompletion);
 			this.createExperience?.start({});
-			this.dataProvider
+			const creationPromise = this.dataProvider
 				.createNodeData({
 					content: [],
 					blockInstanceId,
@@ -474,7 +553,11 @@ export class SourceSyncBlockStoreManager {
 							getSourceProductFromResourceIdSafe(resourceId),
 						),
 					);
+				})
+				.finally(() => {
+					this.pendingCreationPromises.delete(resourceId);
 				});
+			this.pendingCreationPromises.set(resourceId, creationPromise);
 		} catch (error) {
 			if (this.isPendingCreation(resourceId)) {
 				this.commitPendingCreation(false, resourceId);
@@ -788,6 +871,9 @@ export class SourceSyncBlockStoreManager {
 		this.confirmationCallback = undefined;
 		this.creationCompletionCallbacks.clear();
 		this.flushCompletionCallback = undefined;
+		this.postCreationFlushCallback = undefined;
+		this.pendingCreationPromises.clear();
+		this.creationsTimedOutDuringFlush.clear();
 		this.dataProvider = undefined;
 		this.saveExperience?.abort({ reason: 'editorDestroyed' });
 		this.createExperience?.abort({ reason: 'editorDestroyed' });

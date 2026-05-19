@@ -18,6 +18,7 @@ import { token } from '@atlaskit/tokens';
 import type { ExtensionProvider, ReferenceEntity } from '../../../extensions';
 import { useSharedPluginStateWithSelector } from '../../../hooks';
 import type { ProsemirrorGetPosHandler } from '../../../react-node-view';
+import { NodeViewContentHole } from '../../../react-node-view/NodeViewContentHole';
 import type { EditorAppearance, EditorContainerWidth } from '../../../types';
 import type { OverflowShadowProps, OverflowShadowState } from '../../../ui';
 import { overflowShadow } from '../../../ui';
@@ -319,9 +320,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 									className={contentClassNames}
 								>
-									{/* NOTE: this is a way around a bit strange issue where ref is always null on SSR
-								    when `css` property is provided to the component. */}
-									<div ref={handleContentDOMRef} />
+									<NodeViewContentHole ref={handleContentDOMRef} />
 								</div>
 							)}
 						</div>

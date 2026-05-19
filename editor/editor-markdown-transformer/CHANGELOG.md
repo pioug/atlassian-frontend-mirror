@@ -1,5 +1,12 @@
 # @atlaskit/editor-markdown-transformer
 
+## 5.21.0
+
+### Minor Changes
+
+- [`2c5cb029d4f72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c5cb029d4f72) -
+  Bump markdown-it from ^13.0.2 to ^14.1.1 to fix CVE-2026-2327 (VULN-1930094)
+
 ## 5.20.6
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 130.6.4
+
+### Patch Changes
+
+- [`0197bccd3d244`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0197bccd3d244) -
+  Add vertical alignment options to layout column menus and rendering.
+- Updated dependencies
+
 ## 130.6.3
 
 ### Patch Changes

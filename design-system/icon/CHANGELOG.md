@@ -1,5 +1,30 @@
 # @atlaskit/icon
 
+## 35.0.0
+
+### Major Changes
+
+- [`2b84ca637685f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b84ca637685f) -
+  [ux] Cleans up the `IconTile` API following the rollout of `platform_dst_new_icon_tile` and
+  `platform_dst_new_icon_tile_stage2` flags.
+
+  ### Breaking changes
+  - **`size="16"` removed** — Migrate to direct icon glyph usage (e.g. `<MyIcon label="..." />`), or
+    use `size="xsmall"` for the smallest tile (20px).
+  - **Pixel number sizes removed** — `size` values `"24"`, `"32"`, `"40"`, `"48"` have been removed.
+    Migrate to t-shirt sizes:
+    - `"small"` (replaces `"24"`)
+    - `"medium"` (replaces `"32"`)
+    - `"large"` (replaces `"40"`)
+    - `"xlarge"` (replaces `"48"`)
+  - **`LegacyIconTileSize` and `NewIconTileSize` types removed** — Use `IconTileSize` directly.
+  - Icon tile defaults to size `medium` (previously - `small`).
+  - `UNSAFE_circleReplacementComponent` is required if `shape='circle'` is passed in.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.6.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/user-picker",
-	"version": "12.0.9",
+	"version": "12.1.1",
 	"description": "Fabric component for display a dropdown to select a user from",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,12 +27,27 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./analytics": "./src/analytics.ts",
+		"./components/custom-option": "./src/components/CustomOption/index.ts",
+		"./components/custom-option/main": "./src/components/CustomOption/main.tsx",
+		"./components/email-option": "./src/components/EmailOption/index.ts",
+		"./components/email-option/main": "./src/components/EmailOption/main.tsx",
+		"./components/email-validation": "./src/components/emailValidation.ts",
+		"./components/group-option": "./src/components/GroupOption/index.ts",
+		"./components/group-option/main": "./src/components/GroupOption/main.tsx",
+		"./components/option": "./src/components/Option.tsx",
+		"./components/popup-user-picker": "./src/components/PopupUserPicker.tsx",
+		"./components/single-value": "./src/components/SingleValue.tsx",
+		"./components/team-option": "./src/components/TeamOption/index.ts",
+		"./components/team-option/main": "./src/components/TeamOption/main.tsx",
+		"./components/user-option": "./src/components/UserOption.tsx",
+		"./components/user-picker": "./src/components/UserPicker.tsx",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
 		"./option": "./src/option.ts",
-		"./types": "./src/types.ts"
+		"./types": "./src/types.ts",
+		"./utils": "./src/components/utils.ts"
 	},
 	"atlassian": {
 		"team": "Search Platform: Search Experience",

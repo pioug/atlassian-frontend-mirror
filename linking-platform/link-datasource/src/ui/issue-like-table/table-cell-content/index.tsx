@@ -3,8 +3,14 @@ import React from 'react';
 import { cssMap } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import { type DatasourceDataResponseItem, type DatasourceType } from '@atlaskit/linking-types';
+import {
+	type DatasourceDataResponseItem,
+	type DatasourceType,
+	type Link,
+} from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
+import LinkUrl from '@atlaskit/smart-card/link-url';
 import Tooltip from '@atlaskit/tooltip';
 
 import { useDatasourceItem } from '../../../state';
@@ -71,6 +77,49 @@ const TooltipWrapper = ({
 	return <>{children}</>;
 };
 
+/**
+ * Extracts the issue link (URL + text) from a row's `key` column data, if present.
+ * Returns `undefined` when the row has no `key` data or the data has no URL,
+ * so callers can treat the result as a simple "is this row linkable?" check.
+ */
+const getIssueLinkData = (rowData: DatasourceDataResponseItem): Link | undefined => {
+	const keyData = rowData.key?.data as Link | undefined;
+	return keyData?.url ? keyData : undefined;
+};
+
+/**
+ * Wraps the given cell `children` in a `LinkUrl` pointing at the issue URL,
+ * making the cell's contents (e.g. the issue type icon) act as a link to the
+ * issue. If `issueLinkData` is missing, returns `children` unchanged so the
+ * caller doesn't need to branch on linkability.
+ */
+const getLinkedCellContent = ({
+	children,
+	issueLinkData,
+}: {
+	children: React.ReactNode;
+	issueLinkData?: Link;
+}) => {
+	if (!issueLinkData) {
+		return children;
+	}
+
+	return (
+		<LinkUrl
+			href={issueLinkData.url}
+			target="_blank"
+			aria-label={issueLinkData.text || issueLinkData.url}
+			data-testid={'issue-like-table-type-icon-link'}
+		>
+			{children}
+		</LinkUrl>
+	);
+};
+
+const isIssueTypeColumnFn = (columnKey: string) => {
+	return columnKey === 'issuetype';
+};
+
 export const ReadOnlyCell = ({
 	id,
 	columnType,
@@ -92,6 +141,24 @@ export const ReadOnlyCell = ({
 		values,
 	} as DatasourceTypeWithOnlyValues;
 
+	if (fg('platform_lp_sllv_jira_type_as_link')) {
+		const isIssueTypeColumn = isIssueTypeColumnFn(columnKey);
+		const issueLinkData = getIssueLinkData(rowData);
+
+		return (
+			<TooltipWrapper
+				columnKey={columnKey}
+				datasourceTypeWithValues={datasourceTypeWithValues}
+				wrappedColumnKeys={wrappedColumnKeys}
+			>
+				{isIssueTypeColumn && issueLinkData ? getLinkedCellContent({
+					children: renderItem(datasourceTypeWithValues),
+					issueLinkData,
+				}) : renderItem(datasourceTypeWithValues)}
+			</TooltipWrapper>
+		);
+	}
+
 	return (
 		<TooltipWrapper
 			columnKey={columnKey}
@@ -110,12 +177,14 @@ const InlineEditableCell = ({
 	columnTitle,
 	renderItem,
 	integrationKey,
+	issueLinkData,
 	wrappedColumnKeys,
 }: {
 	ari: string;
 	columnKey: string;
 	columnTitle: string;
 	integrationKey: string;
+	issueLinkData?: Link;
 	renderItem: TableViewPropsRenderType;
 	values: DatasourceTypeWithOnlyValues;
 	wrappedColumnKeys: string[] | undefined;
@@ -144,8 +213,14 @@ const InlineEditableCell = ({
 				// minHeight here compensates for 2px from both top and bottom taken by InlneEdit (from transparent border in read-view mode and border+padding in edit view)
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={{ minHeight: 'calc(40px - 2px * 2)' }}
-			>
-				{renderItem(values)}
+			>{fg('platform_lp_sllv_jira_type_as_link') ? (
+				!isEditable && isIssueTypeColumnFn(columnKey) && issueLinkData ? getLinkedCellContent({
+					children: renderItem(values),
+					issueLinkData,
+				}) : renderItem(values)
+			) : (
+				renderItem(values)
+			)}
 			</Box>
 		</TooltipWrapper>
 	);
@@ -214,6 +289,11 @@ export const TableCellContent = ({
 					columnTitle={columnTitle}
 					renderItem={renderItem}
 					integrationKey={integrationKey}
+					issueLinkData={
+						fg('platform_lp_sllv_jira_type_as_link')
+							? getIssueLinkData(rowData)
+							: undefined
+					}
 					values={toDatasourceTypeWithValues({ rowData, columnKey, columnType })}
 					wrappedColumnKeys={wrappedColumnKeys}
 				/>

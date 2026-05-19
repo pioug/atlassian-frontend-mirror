@@ -11,9 +11,11 @@ import type {
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { AnalyticsDispatch, AnalyticsEventPayload } from '../analytics';
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
+import { isSSR } from '../core-utils';
 import type { EventDispatcher } from '../event-dispatcher';
 import { createDispatch } from '../event-dispatcher';
 import type { PortalProviderAPI } from '../portal';
@@ -43,6 +45,7 @@ export type {
 };
 export type { InlineNodeViewComponentProps } from './getInlineNodeViewProducer';
 export { getInlineNodeViewProducer, inlineNodeViewClassname } from './getInlineNodeViewProducer';
+export { NodeViewContentHole } from './NodeViewContentHole';
 
 export default class ReactNodeView<P = ReactComponentProps> implements NodeView {
 	private domRef?: HTMLElement;
@@ -127,6 +130,21 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 
 		if (!shouldSkipInitRender) {
 			this.renderReactComponent(() => this.render(this.reactComponentProps, this.handleRef));
+
+			// During SSR, renderToStaticMarkup + container.innerHTML (in portal) clobbers the
+			// contentDOMWrapper that was appended above. The React ref callback
+			// (forwardRef) never fires in renderToStaticMarkup, so contentDOM is
+			// left detached. Re-attach it by finding the marked SSR ref target.
+			if (
+				isSSR() &&
+				this.domRef &&
+				expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+			) {
+				const refTarget = this.domRef.querySelector('[data-ssr-content-dom-ref]');
+				if (refTarget) {
+					this.handleRef(refTarget);
+				}
+			}
 		}
 
 		trackingEnabled &&
@@ -185,9 +203,9 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		return undefined;
 	}
 
-	handleRef = (node: HTMLElement | null): void => this._handleRef(node);
+	handleRef = (node: Element | null): void => this._handleRef(node);
 
-	private _handleRef(node: HTMLElement | null) {
+	private _handleRef(node: Element | null) {
 		const contentDOM = this.contentDOMWrapper || this.contentDOM;
 		// @ts-ignore
 		// Spreading props to pass through dynamic component props

@@ -1,5 +1,18 @@
 # @atlaskit/rovo-triggers
 
+## 6.2.0
+
+### Minor Changes
+
+- [`4fa6da872648d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4fa6da872648d) -
+  Cleanup feature gate `ai-mate-pub-sub-post-message-origin-fix`.
+
+### Patch Changes
+
+- [`69e5d70a23296`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69e5d70a23296) -
+  Fix 3P connector recommendation matching to use ORS generator name as primary identifier,
+  enablingmatching regardless of SmartLinks auth state
+
 ## 6.1.0
 
 ### Minor Changes

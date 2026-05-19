@@ -11,10 +11,12 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- intentional: emotion fallback for compiled migration
-import { jsx, css } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
+import type { Valign } from '@atlaskit/editor-common/types/valign';
 import { WidthProvider } from '@atlaskit/editor-common/ui';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 // localized styles, was from clearNextSiblingMarginTopStyle in @atlaskit/editor-common/ui
 const clearNextSiblingMarginTopStyle = css({
@@ -23,6 +25,18 @@ const clearNextSiblingMarginTopStyle = css({
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		marginTop: '0 !important',
 	},
+});
+
+const verticalAlignMiddleStyles = css({
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'center',
+});
+
+const verticalAlignBottomStyles = css({
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'flex-end',
 });
 
 const multipleWrappedImagesStyle = css({
@@ -52,14 +66,27 @@ const clearNextSiblingBlockMarkMarginTopStyle = css({
 });
 
 export const LayoutSectionEmotion = (
-	props: React.PropsWithChildren<{ width?: number }>,
+	props: React.PropsWithChildren<{ valign?: Valign; width?: number }>,
 ): React.JSX.Element => {
+	const isLayoutColumnMenuEnabled = expValEqualsNoExposure(
+		'platform_editor_layout_column_menu',
+		'isEnabled',
+		true,
+	);
+
 	return (
 		<div
 			data-layout-column
 			data-column-width={props.width}
+			data-valign={props.valign}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- flexBasis is dynamic
 			style={{ flexBasis: `${props.width}%` }}
-			css={fg('platform_editor_fix_media_in_renderer') && multipleWrappedImagesStyle}
+			css={[
+				// Keep separate: Compiled crashes on ternary/object lookup here.
+				isLayoutColumnMenuEnabled && props.valign === 'middle' && verticalAlignMiddleStyles,
+				isLayoutColumnMenuEnabled && props.valign === 'bottom' && verticalAlignBottomStyles,
+				fg('platform_editor_fix_media_in_renderer') && multipleWrappedImagesStyle,
+			]}
 		>
 			<WidthProvider>
 				<div css={[clearNextSiblingMarginTopStyle, clearNextSiblingBlockMarkMarginTopStyle]} />

@@ -70,7 +70,6 @@
 		"./constants": "./src/_constants.ts",
 		"./context-mention-resource": "./src/api/ContextMentionResource.ts",
 		"./element": "./src/element.ts",
-		"./i18n": "./src/i18n/index.ts",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
@@ -143,5 +142,5 @@
 			]
 		}
 	},
-	"version": "25.1.0"
+	"version": "26.0.1"
 }

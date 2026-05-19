@@ -80,6 +80,9 @@ type FooterFacadeProps =
 			onClick?: never;
 	  });
 
+/**
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export type FooterProps = HeaderProps | NewFooterProps;
 
 /**
@@ -87,6 +90,8 @@ export type FooterProps = HeaderProps | NewFooterProps;
  *
  * - [Examples](https://atlassian.design/components/side-navigation/examples#header-and-footer)
  * - [Code](https://atlassian.design/components/side-navigation/code)
+ *
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const OldFooter = (props: HeaderProps) => {
 	// https://stackoverflow.com/a/39333479
@@ -137,6 +142,8 @@ const Footer = ({ description, children, iconBefore, testId }: NewFooterProps) =
  *
  * - [Examples](https://atlassian.design/components/side-navigation/examples#header-and-footer)
  * - [Code](https://atlassian.design/components/side-navigation/code)
+ *
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const FooterFacade: ({
 	useDeprecatedApi,

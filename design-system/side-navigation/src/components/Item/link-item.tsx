@@ -62,6 +62,8 @@ const styles = cssMap({
  *
  * - [Examples](https://atlassian.design/components/side-navigation/examples#link-item)
  * - [Code](https://atlassian.design/components/side-navigation/code)
+ *
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const LinkItem: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<LinkItemProps> & React.RefAttributes<HTMLElement>

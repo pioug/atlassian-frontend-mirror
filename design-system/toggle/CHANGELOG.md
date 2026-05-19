@@ -1,5 +1,11 @@
 # @atlaskit/toggle
 
+## 15.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.6.1
 
 ### Patch Changes

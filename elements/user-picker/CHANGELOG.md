@@ -1,5 +1,22 @@
 # @atlaskit/user-picker
 
+## 12.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.0
+
+### Minor Changes
+
+- [`d4e632fa57116`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4e632fa57116) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.9
 
 ### Patch Changes

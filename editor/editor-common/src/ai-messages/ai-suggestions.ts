@@ -116,6 +116,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	suggestEditsButtonLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	suggestedLabel: {
 		defaultMessage: string;
 		description: string;
@@ -157,6 +162,11 @@ export const aiSuggestionsMessages: {
 		id: string;
 	};
 } = defineMessages({
+	suggestEditsButtonLabel: {
+		id: 'fabric.editor.ai.suggestions.suggestEdits.buttonLabel',
+		defaultMessage: 'Review',
+		description: 'Label for the Suggest edits button in the editor toolbar',
+	},
 	suggestionsToolbarButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.toolbarButton.label.non-final',
 		defaultMessage: 'Suggestions',

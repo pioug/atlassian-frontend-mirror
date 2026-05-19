@@ -26,6 +26,7 @@ export type Identifiers = {
 	productIntegrationsVendorId?: string;
 	randomizationId?: string;
 	stableId?: string;
+	studioWorkspaceId?: string;
 	tenantId?: string;
 	transactionAccountId?: string;
 	trelloUserId?: string;

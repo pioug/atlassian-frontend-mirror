@@ -1,5 +1,19 @@
 # @atlaskit/feature-gate-js-client
 
+## 5.7.0
+
+### Minor Changes
+
+- [`9553e19fc007d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9553e19fc007d) -
+  Adds newly rolled out studioWorkspaceId identifier.
+
+## 5.6.0
+
+### Minor Changes
+
+- [`d4e632fa57116`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4e632fa57116) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 5.5.12
 
 ### Patch Changes

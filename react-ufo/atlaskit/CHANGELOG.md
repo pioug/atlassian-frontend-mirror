@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.21.1
+
+### Patch Changes
+
+- [`7fdee239d2cc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fdee239d2cc0) -
+  Capture forge app's perf data by react-ufo UFOThirdPartySegment
+
 ## 5.21.0
 
 ### Minor Changes

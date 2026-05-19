@@ -147,7 +147,7 @@ export default class TableView extends ReactNodeView<Props> {
 		this.options = props.options;
 		this.getEditorFeatureFlags = props.getEditorFeatureFlags;
 
-		this.handleRef = (node: HTMLElement | null) => this._handleTableRef(node);
+		this.handleRef = (node: Element | null) => this._handleTableRef(node);
 	}
 
 	getContentDOM(): {
@@ -210,7 +210,7 @@ export default class TableView extends ReactNodeView<Props> {
 	 * wasn't at start of node. This prevents duplicate tables and maintains editor state during
 	 * the DOM manipulation.
 	 */
-	private _handleTableRef(node: HTMLElement | null) {
+	private _handleTableRef(node: Element | null) {
 		let oldIgnoreMutation: (mutation: MutationRecord) => boolean;
 
 		let selectionBookmark: SelectionBookmark;

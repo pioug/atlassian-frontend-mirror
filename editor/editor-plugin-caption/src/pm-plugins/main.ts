@@ -1,3 +1,5 @@
+import type { IntlShape } from 'react-intl';
+
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -37,6 +39,7 @@ export default (
 	providerFactory: ProviderFactory,
 	dispatch: Dispatch,
 	pluginInjectionApi: ExtractInjectionAPI<CaptionPlugin> | undefined,
+	intl?: IntlShape,
 ): SafePlugin => {
 	const analyticsApi = pluginInjectionApi?.analytics?.actions;
 	return new SafePlugin({
@@ -72,7 +75,7 @@ export default (
 		key: pluginKey,
 		props: {
 			nodeViews: {
-				caption: captionNodeView(portalProviderAPI, eventDispatcher, pluginInjectionApi),
+				caption: captionNodeView(portalProviderAPI, eventDispatcher, pluginInjectionApi, intl),
 			},
 		},
 	});

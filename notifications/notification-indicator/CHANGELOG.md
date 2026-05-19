@@ -1,5 +1,13 @@
 # @atlaskit/notification-indicator
 
+## 10.1.4
+
+### Patch Changes
+
+- [`8a0fcd0cacc99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a0fcd0cacc99) -
+  Enrol post-office, notifications and activity-platform packages into the React Compiler with
+  platform gating via isReactCompilerActivePlatform
+
 ## 10.1.3
 
 ### Patch Changes

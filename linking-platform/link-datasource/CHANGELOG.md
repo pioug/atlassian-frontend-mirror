@@ -1,5 +1,22 @@
 # @atlaskit/link-datasource
 
+## 5.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.2.5
+
+### Patch Changes
+
+- [`b6c31533f2cd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6c31533f2cd2) -
+  Render Jira issue type icons as links to their issue URLs.
+
+  All changes behind feature gate: platform_lp_sllv_jira_type_as_link.
+
+- Updated dependencies
+
 ## 5.2.4
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/link-extractors
 
+## 2.6.0
+
+### Minor Changes
+
+- [`9331fc2edba96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9331fc2edba96) -
+  Add extractNameFromJsonLd and /extract-name-from-json-ld entrypoint
+
 ## 2.5.0
 
 ### Minor Changes

@@ -30,6 +30,7 @@ import type { SubmitEditorPlugin } from '@atlaskit/editor-plugins/submit-editor'
 import type { TextFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugins/ui-control-registry';
 import type { UndoRedoPlugin } from '@atlaskit/editor-plugins/undo-redo';
 import type { UnsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-content';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugins/user-intent';
@@ -61,9 +62,10 @@ export type DefaultPresetPlugins = [
 	HyperlinkPlugin,
 	SelectionToolbarPlugin,
 	ClearMarksOnEmptyDocPlugin,
-	UndoRedoPlugin | undefined,
-	BlockMenuPlugin | undefined,
 	BlockTypePlugin,
+	BlockMenuPlugin | undefined,
+	UndoRedoPlugin | undefined,
+	UiControlRegistryPlugin | undefined,
 	PrimaryToolbarPlugin,
 	ToolbarPlugin | undefined,
 	UserIntentPlugin | undefined,

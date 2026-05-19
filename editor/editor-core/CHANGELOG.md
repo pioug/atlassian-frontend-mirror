@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 219.9.0
+
+### Minor Changes
+
+- [`435d51a863324`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/435d51a863324) -
+  Gate markdown source-view toolbar hiding behind a feature flag.
+
+## 219.8.3
+
+### Patch Changes
+
+- [`0197bccd3d244`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0197bccd3d244) -
+  Add vertical alignment options to layout column menus and rendering.
+- Updated dependencies
+
+## 219.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 219.8.1
 
 ### Patch Changes

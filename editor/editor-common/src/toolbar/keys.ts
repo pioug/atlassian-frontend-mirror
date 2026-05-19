@@ -181,6 +181,17 @@ export const ADD_POLISH_MENU_ITEM = {
 	type: 'menu-item',
 } as const;
 
+export const AI_SUGGESTIONS_GROUP = {
+	key: 'ai-suggestions-group',
+	type: 'group',
+} as const;
+
+export const AI_SUGGESTIONS_BUTTON = {
+	key: 'ai-suggestions-button',
+	type: 'button',
+} as const;
+
+
 /**
  * Text section
  */

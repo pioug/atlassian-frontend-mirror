@@ -550,6 +550,11 @@ export type SmartLinksContextPayload = PayloadCore<'smartlinks-context-payload'>
 		 * enabling the chat to cross-reference with Knowledge API without a mapping table.
 		 */
 		orsAuthKey: string;
+		/**
+		 * Human-readable provider name from ORS generator (e.g. 'Google Drive', 'Slack').
+		 * Available regardless of SmartLinks auth state — matched against connector friendlyName.
+		 */
+		generatorName?: string;
 		/** Number of occurrences on the page — used for ranking in the banner. */
 		count: number;
 	}>;

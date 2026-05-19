@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 8.3.9
+
+### Patch Changes
+
+- [`7ddc63dca3716`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ddc63dca3716) -
+  Fix synced block reference showing unpublished error when created from existing content on a live
+  page without further edits
+- Updated dependencies
+
+## 8.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.3.7
 
 ### Patch Changes

@@ -32,6 +32,7 @@ import type {
 	ContextIdentifierProvider,
 	MediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
+import { NodeViewContentHole } from '@atlaskit/editor-common/react-node-view';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { MediaSingle } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -652,7 +653,9 @@ export const MediaSingleNodeNext = (
 					</>
 				)}
 			</MediaBadges>
-			<div ref={forwardRef} />
+
+			<NodeViewContentHole ref={forwardRef} />
+
 			{shouldShowPlaceholder &&
 				(fg('platform_editor_typography_ugc') ? (
 					<CaptionPlaceholderButton

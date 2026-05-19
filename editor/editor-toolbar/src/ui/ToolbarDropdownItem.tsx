@@ -107,9 +107,13 @@ const CustomDropdownMenuItemButton = forwardRef<
 	) => (
 		<Pressable
 			role={
-				expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
-					? 'menuitem'
-					: undefined
+				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
+					? ariaPressed !== undefined && !ariaHasPopup
+						? 'menuitemradio'
+						: 'menuitem'
+					: expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
+						? 'menuitem'
+						: undefined
 			}
 			testId={testId as string}
 			xcss={cx(
@@ -120,11 +124,18 @@ const CustomDropdownMenuItemButton = forwardRef<
 			tabIndex={tabIndex}
 			aria-haspopup={ariaHasPopup}
 			aria-expanded={ariaHasPopup ? (ariaPressed ? true : false) : undefined}
+			aria-checked={
+				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true) && !ariaHasPopup
+					? ariaPressed
+					: undefined
+			}
 			// platform_editor_enghealth_a11y_jan_fixes: menuitem roles cannot have aria-pressed attribute
 			aria-pressed={
-				expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
+				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
 					? undefined
-					: ariaPressed
+					: expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
+						? undefined
+						: ariaPressed
 			}
 			aria-disabled={ariaDisabled}
 			aria-keyshortcuts={ariaKeyshortcuts}
@@ -199,9 +210,13 @@ const CustomDropdownMenuItemAnchor = forwardRef<
 	) => (
 		<Anchor
 			role={
-				expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
-					? 'menuitem'
-					: undefined
+				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
+					? ariaPressed !== undefined && !ariaHasPopup
+						? 'menuitemradio'
+						: 'menuitem'
+					: expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
+						? 'menuitem'
+						: undefined
 			}
 			testId={testId as string}
 			xcss={cx(
@@ -213,11 +228,18 @@ const CustomDropdownMenuItemAnchor = forwardRef<
 			tabIndex={tabIndex}
 			aria-haspopup={ariaHasPopup}
 			aria-expanded={ariaHasPopup ? (ariaPressed ? true : false) : undefined}
+			aria-checked={
+				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true) && !ariaHasPopup
+					? ariaPressed
+					: undefined
+			}
 			// platform_editor_enghealth_a11y_jan_fixes: menuitem roles cannot have aria-pressed attribute
 			aria-pressed={
-				expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
+				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
 					? undefined
-					: ariaPressed
+					: expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
+						? undefined
+						: ariaPressed
 			}
 			aria-disabled={ariaDisabled}
 			aria-keyshortcuts={ariaKeyshortcuts}

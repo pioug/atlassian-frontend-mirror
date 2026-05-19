@@ -11,6 +11,26 @@ export const toolbarMessages: {
 		description: string;
 		id: string;
 	};
+	alignColumn: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	alignColumnBottom: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	alignColumnMiddle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	alignColumnTop: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	distributeColumns: {
 		defaultMessage: string;
 		description: string;
@@ -202,5 +222,29 @@ export const toolbarMessages: {
 		defaultMessage: 'Distribute columns',
 		description:
 			'The text is shown as a label for an option that distributes layout columns evenly.',
+	},
+	alignColumn: {
+		id: 'fabric.editor.layout.alignColumn',
+		defaultMessage: 'Alignment',
+		description:
+			'The text is shown as a label for a nested menu that aligns content vertically inside a layout column.',
+	},
+	alignColumnTop: {
+		id: 'fabric.editor.layout.alignColumnTop',
+		defaultMessage: 'Top',
+		description:
+			'The text is shown as a label for an option that aligns layout column content to the top.',
+	},
+	alignColumnMiddle: {
+		id: 'fabric.editor.layout.alignColumnMiddle',
+		defaultMessage: 'Center',
+		description:
+			'The text is shown as a label for an option that aligns layout column content to the middle.',
+	},
+	alignColumnBottom: {
+		id: 'fabric.editor.layout.alignColumnBottom',
+		defaultMessage: 'Bottom',
+		description:
+			'The text is shown as a label for an option that aligns layout column content to the bottom.',
 	},
 });

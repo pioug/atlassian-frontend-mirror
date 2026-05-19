@@ -2,6 +2,10 @@ import { adfNodeGroup } from '../../adfNodeGroup';
 import { adfNode } from '../../adfNode';
 import { PMSpecTransformerName } from '../../transforms/transformerNames';
 import { adfMark } from '../../adfMark';
+import { $onePlus } from '../../$onePlus';
+import { $zeroPlus } from '../../$zeroPlus';
+import { $or } from '../../$or';
+import type { ADFNodeContentOneOrMoreSpec, ADFNodeContentOrSpec } from '../../types/ADFNodeSpec';
 
 test('should define root node', () => {
 	const node = adfNode('doc').define({
@@ -436,5 +440,125 @@ describe('stage 0 with overrides', () => {
 
 			expect(node.isStage0Only()).toBe(false);
 		});
+	});
+});
+
+describe('addContent', () => {
+	test('should append a node to the last $or() group of existing content', () => {
+		const paragraph = adfNode('paragraph').define({});
+		const heading = adfNode('heading').define({});
+		const doc = adfNode('doc').define({
+			root: true,
+			content: [$onePlus($or(paragraph))],
+		});
+
+		doc.addContent(heading);
+
+		expect(doc.getSpec()?.content).toEqual([$onePlus($or(paragraph, heading))]);
+	});
+
+	test('should also work for $zero+($or(...)) content', () => {
+		const paragraph = adfNode('paragraph').define({});
+		const heading = adfNode('heading').define({});
+		const doc = adfNode('doc').define({
+			root: true,
+			content: [$zeroPlus($or(paragraph))],
+		});
+
+		doc.addContent(heading);
+
+		expect(doc.getSpec()?.content).toEqual([$zeroPlus($or(paragraph, heading))]);
+	});
+
+	test('should seed content if the node has none yet', () => {
+		const paragraph = adfNode('paragraph').define({});
+		const doc = adfNode('doc').define({ root: true });
+
+		doc.addContent(paragraph);
+
+		expect(doc.getSpec()?.content).toEqual([$onePlus($or(paragraph))]);
+	});
+
+	test('should throw if called before define()', () => {
+		const doc = adfNode('doc');
+		const paragraph = adfNode('paragraph').define({});
+		expect(() => doc.addContent(paragraph)).toThrow('Cannot addContent before define()');
+	});
+
+	test('should throw if existing content is not a $one+/$zero+ ($or(...)) expression', () => {
+		const paragraph = adfNode('paragraph').define({});
+		const heading = adfNode('heading').define({});
+		// Construct content that is not the expected $one+($or(...)) shape.
+		const doc = adfNode('doc').define({
+			root: true,
+			content: [{ type: '$or', content: [paragraph] }],
+		});
+
+		expect(() => doc.addContent(heading)).toThrow(
+			/expects existing content to end with a \$one\+\(\$or\(\.\.\.\)\) or \$zero\+\(\$or\(\.\.\.\)\) expression/u,
+		);
+	});
+
+	test('should NOT mutate the base node when called on a variant that inherited content', () => {
+		// `variant()` shallow-clones the base spec, so the variant's `content` array initially
+		// points at the same `$one+` / `$or` objects as the base. `addContent` must deep-clone
+		// the mutation path so the new child does not leak into the parent node's content.
+		const paragraph = adfNode('paragraph').define({});
+		const table = adfNode('table').define({});
+
+		const panel = adfNode('panel').define({
+			attrs: {},
+			content: [$onePlus($or(paragraph))],
+		});
+		const panelC1 = panel.variant('c1', { selectable: true }).use('c1');
+
+		panelC1.addContent(table);
+
+		expect(panel.getSpec()?.content).toEqual([$onePlus($or(paragraph))]);
+		expect(panelC1.getSpec()?.content).toEqual([$onePlus($or(paragraph, table))]);
+		// Verify that the original `paragraph` reference is preserved — not a broken clone.
+		// (ADFNode state lives in private # fields so toEqual cannot catch broken clones.)
+		const c1OrContent = (panelC1.getSpec()!.content![0] as ADFNodeContentOneOrMoreSpec).content as ADFNodeContentOrSpec;
+		expect(c1OrContent.content[0]!).toBe(paragraph);
+	});
+
+	test('should be a no-op if the same child is added twice (duplicate guard)', () => {
+		const paragraph = adfNode('paragraph').define({});
+		const table = adfNode('table').define({});
+		const doc = adfNode('doc').define({
+			root: true,
+			content: [$onePlus($or(paragraph))],
+		});
+
+		doc.addContent(table);
+		doc.addContent(table); // second call — should not duplicate
+
+		const orContent = ((doc.getSpec()!.content![0] as ADFNodeContentOneOrMoreSpec).content as ADFNodeContentOrSpec).content;
+		expect(orContent).toHaveLength(2);
+		expect(orContent[orContent.length - 1]!).toBe(table);
+	});
+
+	test('should support breaking module circular references by deferring wiring', () => {
+		// Simulates the panel <-> table cross-reference case: each node defines its base
+		// non-circular content in isolation, then the cross-reference is wired afterwards
+		// (by which point both nodes are fully evaluated, so neither is `undefined`).
+		const paragraph = adfNode('paragraph').define({});
+		const tableRow = adfNode('tableRow').define({});
+
+		const panel = adfNode('panel').define({
+			attrs: {},
+			content: [$onePlus($or(paragraph))],
+		});
+		const table = adfNode('table').define({
+			attrs: {},
+			content: [$onePlus($or(tableRow))],
+		});
+
+		// External wiring — `panel` and `table` reference each other safely here.
+		panel.addContent(table);
+		table.addContent(panel);
+
+		expect(panel.getSpec()?.content).toEqual([$onePlus($or(paragraph, table))]);
+		expect(table.getSpec()?.content).toEqual([$onePlus($or(tableRow, panel))]);
 	});
 });

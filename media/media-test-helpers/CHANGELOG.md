@@ -1,5 +1,16 @@
 # @atlaskit/media-test-helpers
 
+## 41.1.0
+
+### Minor Changes
+
+- [`93de3f3243bc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93de3f3243bc0) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 41.0.3
 
 ### Patch Changes

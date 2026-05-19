@@ -186,7 +186,15 @@ export function EditorSSRRenderer({
 						if (pmPlugin) {
 							acc.push(pmPlugin);
 						}
-					} catch {}
+					} catch (error) {
+						if (process.env.NODE_ENV !== 'production') {
+							// eslint-disable-next-line no-console
+							console.warn(
+								`[EditorSSR] Failed to create PM plugin (${plugin?.name}) during SSR. This plugin will be skipped.`,
+								error,
+							);
+						}
+					}
 				});
 
 				return acc;
@@ -287,21 +295,40 @@ export function EditorSSRRenderer({
 					return [
 						nodeName,
 						(node: PMNode) => {
-							const nodeViewInstance = nodeViewFactory(
-								node,
-								editorView,
-								() => nodePositions.get(node) ?? 0,
-								[],
-								DecorationSet.create(node, []),
-							);
+							try {
+								const nodeViewInstance = nodeViewFactory(
+									node,
+									editorView,
+									() => nodePositions.get(node) ?? 0,
+									[],
+									DecorationSet.create(node, []),
+								);
 
-							addTrailingBreakIfNeeded(node, nodeViewInstance.contentDOM);
+								addTrailingBreakIfNeeded(node, nodeViewInstance.contentDOM);
 
-							return {
-								dom: nodeViewInstance.dom,
-								// Leaf nodes have no content, ProseMirror will throw an error if we pass contentDOM
-								contentDOM: node.isLeaf ? undefined : nodeViewInstance.contentDOM,
-							};
+								return {
+									dom: nodeViewInstance.dom,
+									// Leaf nodes have no content, ProseMirror will throw an error if we pass contentDOM
+									contentDOM: node.isLeaf ? undefined : nodeViewInstance.contentDOM,
+								};
+							} catch (error) {
+								if (process.env.NODE_ENV !== 'production') {
+									// eslint-disable-next-line no-console
+									console.warn(
+										`[EditorSSR] Failed to instantiate "${nodeName}" nodeView during SSR. ` +
+											'Falling back to schema toDOM for this node.',
+										error,
+									);
+								}
+
+								// Fall back to schema-level toDOM for this node
+								const toDOM = schema.nodes[nodeName]?.spec.toDOM;
+								if (toDOM) {
+									return DOMSerializer.renderSpec(document, toDOM(node));
+								}
+								// Last resort: empty div
+								return { dom: document.createElement('div') };
+							}
 						},
 					];
 				}),
@@ -401,7 +428,11 @@ export function EditorSSRRenderer({
 				serializeFragment,
 				onSSRMeasure,
 			);
-		} catch {
+		} catch (error) {
+			if (process.env.NODE_ENV !== 'production') {
+				// eslint-disable-next-line no-console
+				console.warn('[EditorSSR] Failed to serialize editor document during SSR.', error);
+			}
 			return undefined;
 		}
 		// eslint-disable-next-line @atlassian/perf-linting/no-unstable-usememo-deps -- Ignored via go/ees017 (to be fixed)

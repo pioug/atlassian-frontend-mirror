@@ -1,5 +1,11 @@
 # @atlaskit/help-layout
 
+## 7.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.0
 
 ### Minor Changes

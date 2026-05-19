@@ -13,6 +13,8 @@ import ButtonItem from './button-item';
  *
  * - [Examples](https://atlassian.design/components/side-navigation/examples#go-back-item)
  * - [Code](https://atlassian.design/components/side-navigation/code)
+ *
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const GoBackItem: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<ButtonItemProps> & React.RefAttributes<HTMLElement>

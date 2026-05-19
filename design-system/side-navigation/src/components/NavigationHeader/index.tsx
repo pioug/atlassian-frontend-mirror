@@ -17,6 +17,9 @@ const styles = cssMap({
 	},
 });
 
+/**
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export interface NavigationHeaderProps {
 	children: JSX.Element | JSX.Element[];
 }
@@ -28,6 +31,8 @@ export interface NavigationHeaderProps {
  *
  * - [Examples](https://atlassian.design/components/side-navigation/examples#header-and-footer)
  * - [Code](https://atlassian.design/components/side-navigation/code)
+ *
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const NavigationHeader: (props: NavigationHeaderProps) => JSX.Element = (
 	props: NavigationHeaderProps,

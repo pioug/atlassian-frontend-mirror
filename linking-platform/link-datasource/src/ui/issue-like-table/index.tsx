@@ -288,6 +288,7 @@ const keyBasedWidthMap: Record<string, number> = {
 	summary: COLUMN_BASE_WIDTH * 45,
 	description: COLUMN_BASE_WIDTH * 31,
 	type: COLUMN_BASE_WIDTH * 6,
+	issuetype: COLUMN_BASE_WIDTH * 6,
 	key: COLUMN_BASE_WIDTH * 15,
 };
 

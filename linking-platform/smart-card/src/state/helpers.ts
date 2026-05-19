@@ -34,6 +34,9 @@ export const getDefinitionId = (details?: JsonLd.Response): string | undefined =
 export const getExtensionKey = (details?: JsonLd.Response): string | undefined =>
 	details?.meta?.key;
 
+/**
+ * @deprecated Use extractAri from @atlaskit/link-extractors instead
+ */
 export const getObjectAri = (details?: JsonLd.Response): string | undefined =>
 	(details?.data && 'atlassian:ari' in details.data && details.data['atlassian:ari']) || undefined;
 
@@ -89,9 +92,15 @@ export const getFirstPartyIdentifier = (): string | undefined => {
 	return undefined;
 };
 
+/**
+ * @deprecated Use extractNameFromJsonLd from @atlaskit/link-extractors/extract-name-from-json-ld instead
+ */
 export const getObjectName = (details?: JsonLd.Response): string | undefined =>
 	(details?.data && 'name' in details.data && details.data.name) || undefined;
 
+/**
+ * @deprecated Use extractUrlFromIconJsonLd from @atlaskit/link-extractors instead
+ */
 export const getObjectIconUrl = (details?: JsonLd.Response): string | undefined => {
 	if (details?.data && 'icon' in details.data && details.data.icon) {
 		if (

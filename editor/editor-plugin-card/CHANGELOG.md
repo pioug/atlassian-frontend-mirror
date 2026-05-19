@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-card
 
+## 16.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.9.0
+
+### Minor Changes
+
+- [`2e9c8b4281869`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e9c8b4281869) -
+  [EDITOR-6965] Add `onlyInlineCards` option to the card plugin and enable inline Smart Links in the
+  Confluence markdown preset.
+  - `@atlaskit/editor-common`: add optional `onlyInlineCards?: boolean` to `CardOptions`. Defaults
+    to `false` (back-compat). When `true`, the card plugin contributes only the `inlineCard` node to
+    the schema and forces `allowBlockCards` / `allowEmbeds` to `false` at runtime regardless of
+    their explicit values.
+  - `@atlaskit/editor-plugin-card`: honour `onlyInlineCards` in both `nodes()` (skip `blockCard` /
+    `embedCard` entirely) and `pmPlugins()` (force the runtime gates so schema and runtime stay in
+    sync).
+  - `@atlassian/confluence-presets`: `markdownPreset` now `.maybeAdd`s `cardPlugin` after the
+    annotation block when `pluginOptions.card` is supplied, hard-coding `onlyInlineCards: true` so
+    the preset itself guarantees the inline-only constraint. Adds `'card'` to
+    `MarkdownPluginOptionsKeys` and `CardPlugin` to `MarkdownPresetPluginsReversed`. `cardPlugin` is
+    removed from the "intentionally excluded" comment block.
+
+  Existing callers of `cardPlugin` and `markdownPreset` are unaffected: `onlyInlineCards` defaults
+  to `false`, and `cardPlugin` is only added to the markdown preset when callers supply
+  `pluginOptions.card`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.8.2
 
 ### Patch Changes

@@ -15,6 +15,9 @@ const styles = cssMap({
 	},
 });
 
+/**
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export interface SkeletonHeadingItemProps extends MenuSkeletonHeadingItemProps {}
 /**
  * __Skeleton heading item__
@@ -22,6 +25,8 @@ export interface SkeletonHeadingItemProps extends MenuSkeletonHeadingItemProps {
  * A skeleton heading item for use in managing loading states.
  *
  * - [Examples](https://atlassian.design/components/side-navigation/examples#loading)
+ *
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const SkeletonHeadingItem = (props: SkeletonHeadingItemProps): React.JSX.Element | null => {
 	const { shouldRender } = useShouldNestedElementRender();

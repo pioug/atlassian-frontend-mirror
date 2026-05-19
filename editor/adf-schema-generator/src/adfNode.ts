@@ -1,7 +1,14 @@
 import type { ADFMark } from './adfMark';
 import type { TransformerNames } from './transforms/transformerNames';
 import type { ADFMarkSpec } from './types/ADFMarkSpec';
-import type { ADFNodeSpec } from './types/ADFNodeSpec';
+import type { ADFNodeGroup } from './types/ADFNodeGroup';
+import type {
+	ADFNodeContentOneOrMoreSpec,
+	ADFNodeContentOrSpec,
+	ADFNodeContentZeroOrMoreSpec,
+	ADFNodeContentSpec,
+	ADFNodeSpec,
+} from './types/ADFNodeSpec';
 
 export class ADFNode<
 	TVariantsNames extends Array<unknown> = [],
@@ -72,6 +79,77 @@ export class ADFNode<
 			throw new Error('Node with noMarks true has marks');
 		}
 
+		return this;
+	}
+
+	/**
+	 * Allow an additional node (or node group) to appear in this node's content.
+	 *
+	 * This exists so node files can be authored in isolation and any cross-node `content`
+	 * references that would otherwise form a module import cycle (e.g. `panel` ↔ `table`) can
+	 * be wired up downstream, once every node module has finished evaluating. That removes the
+	 * "referenced node is `undefined` during traversal" crash class entirely — by construction.
+	 *
+	 * Behavior:
+	 * - Appends `child` to the last `$or(...)` group of this node's content.
+	 * - If the node has no content yet, seeds it with `[$one+($or(child))]`.
+	 * - If the node's existing content does not end with a `$one+($or(...))` (or `$zero+($or(...))`)
+	 *   expression, throws — the caller should set up base content via `define()` first.
+	 *
+	 * Must be called after `define()`.
+	 */
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	addContent(child: ADFNode<any> | ADFNodeGroup): this {
+		if (!this.#spec) {
+			throw new Error('Cannot addContent before define()');
+		}
+
+		// Case 1 — the node has no content yet. Seed it with `[$one+($or(child))]`.
+		if (!this.#spec.content || this.#spec.content.length === 0) {
+			const content: ADFNodeContentSpec[] = [
+				{ type: '$one+', content: { type: '$or', content: [child] } },
+			];
+			this.#spec = { ...this.#spec, content };
+			return this;
+		}
+
+		// Case 2 — append `child` into the existing trailing `$one+($or(...))` / `$zero+($or(...))`.
+		const existingLast = this.#spec.content[this.#spec.content.length - 1];
+		const isQuantifier = existingLast?.type === '$one+' || existingLast?.type === '$zero+';
+		const existingOrGroup = isQuantifier && !Array.isArray(existingLast.content)
+			? existingLast.content
+			: undefined;
+		const isOrGroup = existingOrGroup?.type === '$or' && Array.isArray(existingOrGroup.content);
+
+		if (!isQuantifier || !isOrGroup || !existingOrGroup) {
+			throw new Error(
+				`addContent expects existing content to end with a $one+($or(...)) or $zero+($or(...)) expression. Node type: ${this.#type}`,
+			);
+		}
+
+		// No-op if the child is already present — prevents duplicate schema entries.
+		if ((existingOrGroup.content as Array<unknown>).includes(child)) {
+			return this;
+		}
+
+		// Only the plain-object wrappers along the mutation path ($one+/$zero+ and $or) need
+		// cloning — not the ADFNode references inside $or.content, whose state lives entirely
+		// in private class fields that spread/lodash cannot introspect. Shallow-cloning just
+		// the wrappers is therefore both correct and safe for variant isolation.
+		const clonedOrGroup: ADFNodeContentOrSpec = {
+			...(existingOrGroup as ADFNodeContentOrSpec),
+			content: [...(existingOrGroup as ADFNodeContentOrSpec).content, child],
+		};
+		const clonedQuantifier = {
+			...existingLast,
+			content: clonedOrGroup,
+		} as ADFNodeContentOneOrMoreSpec | ADFNodeContentZeroOrMoreSpec;
+		const content = [
+			...this.#spec.content.slice(0, -1),
+			clonedQuantifier,
+		];
+
+		this.#spec = { ...this.#spec, content };
 		return this;
 	}
 

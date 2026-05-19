@@ -1,5 +1,18 @@
 # @atlaskit/modal-dialog
 
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- [`fd5faf5d7fc8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd5faf5d7fc8e) -
+  Updated scroll indicator width to use the correct token.
+
 ## 15.0.2
 
 ### Patch Changes

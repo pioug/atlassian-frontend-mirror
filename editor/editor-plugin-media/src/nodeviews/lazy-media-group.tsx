@@ -1,3 +1,5 @@
+import type { IntlShape } from 'react-intl';
+
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -15,6 +17,7 @@ export const lazyMediaGroupView = (
 	providerFactory: ProviderFactory,
 	options: MediaPluginOptions | undefined = {},
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
+	intl?: IntlShape,
 ): NodeViewConstructor => {
-	return ReactMediaGroupNode(portalProviderAPI, eventDispatcher, providerFactory, options, api);
+	return ReactMediaGroupNode(portalProviderAPI, eventDispatcher, providerFactory, options, api, intl);
 };

@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
+import type { IntlShape } from 'react-intl';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
@@ -38,6 +39,7 @@ import type {
 	getPosHandlerNode,
 	getPosHandler as ProsemirrorGetPosHandler,
 } from '../types';
+import { MediaSSRReactContextsProvider } from '../ui/MediaSSRReactContextsProvider';
 import { MediaViewerContainer } from '../ui/MediaViewer/MediaViewerContainer';
 
 import { MediaNodeUpdater } from './mediaNodeUpdater';
@@ -297,6 +299,7 @@ interface MediaInlineNodeViewProps {
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	fallbackMediaNameFetcher?: (id: string) => Promise<string>;
+	intl?: IntlShape;
 	providerFactory: ProviderFactory;
 }
 export class MediaInlineNodeView extends SelectionBasedNodeView<MediaInlineNodeViewProps> {
@@ -319,30 +322,32 @@ export class MediaInlineNodeView extends SelectionBasedNodeView<MediaInlineNodeV
 	}
 
 	render(props: MediaInlineNodeViewProps): jsx.JSX.Element {
-		const { providerFactory, api, fallbackMediaNameFetcher } = props;
+		const { providerFactory, api, fallbackMediaNameFetcher, intl } = props;
 		const { view } = this;
 		const getPos = this.getPos as getPosHandlerNode;
 		return (
-			<WithProviders
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				providers={['contextIdentifierProvider']}
-				providerFactory={providerFactory}
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				renderNode={({ mediaProvider: _mediaProvider, contextIdentifierProvider }) => {
-					return (
-						<MediaInlineSharedState
-							identifier={this.node.attrs.id}
-							node={this.node}
-							isSelected={this.nodeInsideSelection()}
-							view={view}
-							getPos={getPos}
-							contextIdentifierProvider={contextIdentifierProvider}
-							api={api}
-							fallbackMediaNameFetcher={fallbackMediaNameFetcher}
-						/>
-					);
-				}}
-			/>
+			<MediaSSRReactContextsProvider intl={intl}>
+				<WithProviders
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+					providers={['contextIdentifierProvider']}
+					providerFactory={providerFactory}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+					renderNode={({ mediaProvider: _mediaProvider, contextIdentifierProvider }) => {
+						return (
+							<MediaInlineSharedState
+								identifier={this.node.attrs.id}
+								node={this.node}
+								isSelected={this.nodeInsideSelection()}
+								view={view}
+								getPos={getPos}
+								contextIdentifierProvider={contextIdentifierProvider}
+								api={api}
+								fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+							/>
+						);
+					}}
+				/>
+			</MediaSSRReactContextsProvider>
 		);
 	}
 }
@@ -355,6 +360,7 @@ export const ReactMediaInlineNode =
 		api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 		dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 		fallbackMediaNameFetcher?: (id: string) => Promise<string>,
+		intl?: IntlShape,
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
 		return new MediaInlineNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
@@ -362,5 +368,6 @@ export const ReactMediaInlineNode =
 			dispatchAnalyticsEvent,
 			api,
 			fallbackMediaNameFetcher,
+			intl,
 		}).init();
 	};

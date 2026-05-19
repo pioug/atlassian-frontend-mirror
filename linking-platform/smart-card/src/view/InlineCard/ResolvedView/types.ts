@@ -25,8 +25,12 @@ export interface InlineCardResolvedViewFunctionalProps {
 	link?: string;
 	/** The the optional lozenge that might represent the statux of the resource */
 	lozenge?: LozengeProps;
+	/** Optional middle-click handler. */
+	onAuxClick?: React.EventHandler<React.MouseEvent>;
 	/** The optional click handler */
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	/** Optional right-click handler. */
+	onContextMenu?: React.EventHandler<React.MouseEvent>;
 	/** Enables showing a custom preview on hover of link */
 	showHoverPreview?: boolean;
 	/** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */

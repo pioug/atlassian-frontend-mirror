@@ -1,5 +1,17 @@
 # @atlaskit/editor-statsig-tmp
 
+## 81.1.0
+
+### Minor Changes
+
+- [`46f34d2400d1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46f34d2400d1c) -
+  Fixes malfunctioning sticky header when header columns are merged so that headers don't
+  stack/overlap.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 81.0.0
 
 ### Major Changes

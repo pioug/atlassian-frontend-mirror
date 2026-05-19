@@ -136,6 +136,8 @@ import {
 	SYNCED_BLOCK_SECTION,
 	SYNCED_BLOCK_BUTTON,
 	ADD_POLISH_MENU_ITEM,
+	AI_SUGGESTIONS_GROUP,
+	AI_SUGGESTIONS_BUTTON,
 	OVERFLOW_EXTENSIONS_MENU_SECTION,
 	FIRST_PARTY_EXTENSIONS_MENU_ITEM,
 	EXTERNAL_EXTENSIONS_MENU_ITEM,
@@ -151,18 +153,18 @@ import {
 export const TOOLBAR_RANK: {
 	readonly 'ai-section': 100;
 	readonly 'ai-view-section': 100;
+	readonly 'apps-section': 600;
+	readonly 'collab-section': 500;
+	readonly 'insert-block-section': 300;
+	readonly 'linking-section': 400;
+	readonly 'overflow-section': 800;
+	readonly 'overflow-section-primary-toolbar': 1000;
+	readonly 'pin-section': 900;
 	readonly 'text-section': 200;
 	/* Same rank as TEXT_SECTION as only one is ever shown at a time */
 	readonly 'text-section-collapsed': 200;
-	readonly 'insert-block-section': 300;
-	readonly 'linking-section': 400;
-	readonly 'collab-section': 500;
-	readonly 'apps-section': 600;
 	readonly 'track-changes-section': 700;
-	readonly 'overflow-section': 800;
-	readonly 'pin-section': 900;
 	readonly 'view-mode-toggle-section': 950;
-	readonly 'overflow-section-primary-toolbar': 1000;
 } = {
 	[AI_SECTION.key]: 100,
 	[AI_VIEW_SECTION.key]: 100,
@@ -187,12 +189,13 @@ export const TOOLBAR_RANK: {
  * AI section
  */
 export const AI_SECTION_RANK: {
+	'ai-suggestions-group': number;
+	'define-group': number;
+	'hero-prompt-button-group': number;
+	'improve-writing-group': number;
 	'rovo-group': number;
 	'rovo-group-display-small': number;
 	'rovo-group-primary-toolbar': number;
-	'define-group': number;
-	'improve-writing-group': number;
-	'hero-prompt-button-group': number;
 } = {
 	[ROVO_GROUP.key]: 100,
 	[ROVO_GROUP_DISPLAY_SMALL.key]: 100,
@@ -200,12 +203,19 @@ export const AI_SECTION_RANK: {
 	[DEFINE_GROUP.key]: 200,
 	[IMPROVE_WRITING_GROUP.key]: 300,
 	[HERO_PROMPT_BUTTON_GROUP.key]: 300,
+	[AI_SUGGESTIONS_GROUP.key]: 400,
+};
+
+export const AI_SUGGESTIONS_GROUP_RANK: {
+	'ai-suggestions-button': number;
+} = {
+	[AI_SUGGESTIONS_BUTTON.key]: 100,
 };
 
 export const ROVO_GROUP_RANK: {
 	'rovo-hero-button': number;
-	'rovo-write-button-primary-toolbar': number;
 	'rovo-menu': number;
+	'rovo-write-button-primary-toolbar': number;
 } = {
 	[ROVO_HERO_BUTTON.key]: 100,
 	[ROVO_WRITE_BUTTON_PRIMARY_TOOLBAR.key]: 100,
@@ -213,11 +223,13 @@ export const ROVO_GROUP_RANK: {
 };
 
 export const ROVO_GROUP_DISPLAY_SMALL_RANK: {
+	'ai-suggestions-button': number;
 	'rovo-hero-button': number;
 	'rovo-menu-display-small': number;
 } = {
 	[ROVO_HERO_BUTTON.key]: 100,
 	[ROVO_MENU_DISPLAY_SMALL.key]: 200,
+	[AI_SUGGESTIONS_BUTTON.key]: 300,
 };
 
 export const DEFINE_GROUP_RANK: {
@@ -239,23 +251,23 @@ export const HERO_PROMPT_BUTTON_GROUP_RANK: {
 };
 
 export const ROVO_MENU_RANK: {
-	'rovo-prompt-menu-section-display-small': number;
 	'rovo-prompt-menu-section': number;
+	'rovo-prompt-menu-section-display-small': number;
 } = {
 	[ROVO_PROMPT_MENU_SECTION_DISPLAY_SMALL.key]: 100,
 	[ROVO_PROMPT_MENU_SECTION.key]: 100,
 };
 
 export const ROVO_PROMPT_MENU_SECTION_RANK: {
-	'improve-writing-menu-item': number;
-	'hero-prompt-menu-item': number;
 	'add-polish-menu-item': number;
-	'spelling-and-grammar-menu-item': number;
 	'change-tone-nested-menu': number;
-	'make-shorter-menu-item': number;
-	'make-longer-menu-item': number;
-	'translate-nested-menu': number;
 	'define-menu-item': number;
+	'hero-prompt-menu-item': number;
+	'improve-writing-menu-item': number;
+	'make-longer-menu-item': number;
+	'make-shorter-menu-item': number;
+	'spelling-and-grammar-menu-item': number;
+	'translate-nested-menu': number;
 } = {
 	[IMPROVE_WRITING_MENU_ITEM.key]: 100,
 	[HERO_PROMPT_MENU_ITEM.key]: 100,
@@ -275,9 +287,9 @@ export const CHANGE_TONE_MENU_RANK: {
 };
 
 export const CHANGE_TONE_MENU_SECTION_RANK: {
-	'more-professional-menu-item': number;
 	'more-casual-menu-item': number;
 	'more-empathetic-menu-item': number;
+	'more-professional-menu-item': number;
 } = {
 	[MORE_PROFESSIONAL_MENU_ITEM.key]: 100,
 	[MORE_CASUAL_MENU_ITEM.key]: 200,
@@ -294,11 +306,11 @@ export const TRANSLATE_MENU_RANK: {
  * Text section
  */
 export const TEXT_SECTION_RANK: {
-	'text-styles-group': number;
-	'text-formatting-group': number;
-	'lists-indentation-group': number;
 	'alignment-group': number;
+	'lists-indentation-group': number;
 	'text-color-highlight-group': number;
+	'text-formatting-group': number;
+	'text-styles-group': number;
 } = {
 	[TEXT_STYLES_GROUP.key]: 100,
 	[TEXT_FORMATTING_GROUP.key]: 200,
@@ -308,14 +320,14 @@ export const TEXT_SECTION_RANK: {
 };
 
 export const TEXT_SECTION_PRIMARY_TOOLBAR_RANK: {
-	'text-styles-group': number;
+	'alignment-group': number;
 	'bold-button-group': number;
-	'underline-button-group': number;
-	'text-formatting-group': number;
 	'bullet-list-button-group': number;
 	'lists-indentation-group': number;
-	'alignment-group': number;
 	'text-color-highlight-group': number;
+	'text-formatting-group': number;
+	'text-styles-group': number;
+	'underline-button-group': number;
 } = {
 	[TEXT_STYLES_GROUP.key]: 100,
 	[BOLD_BUTTON_GROUP.key]: 200,
@@ -340,12 +352,12 @@ export const TEXT_COLLAPSED_GROUP_RANK: {
 };
 
 export const TEXT_COLLAPSED_MENU_RANK: {
-	'text-styles-menu-section': number;
-	'text-formatting-menu-section': number;
+	'alignment-menu-section': number;
 	'clear-formatting-menu-section': number;
 	'lists-indendation-menu-section': number;
-	'alignment-menu-section': number;
 	'text-color-highlight-menu-section': number;
+	'text-formatting-menu-section': number;
+	'text-styles-menu-section': number;
 } = {
 	[TEXT_STYLES_MENU_SECTION.key]: 100,
 	[TEXT_FORMATTING_MENU_SECTION.key]: 200,
@@ -402,8 +414,8 @@ export const TEXT_FORMAT_GROUP_COLLAPSED_RANK: {
 };
 
 export const TEXT_FORMAT_MENU_RANK: {
-	'text-formatting-menu-section': number;
 	'clear-formatting-menu-section': number;
+	'text-formatting-menu-section': number;
 } = {
 	[TEXT_FORMATTING_MENU_SECTION.key]: 100,
 	[CLEAR_FORMARTTING_MENU_SECTION.key]: 200,
@@ -411,12 +423,12 @@ export const TEXT_FORMAT_MENU_RANK: {
 
 export const TEXT_FORMATTING_MENU_SECTION_RANK: {
 	'bold-menu-item': number;
-	'italic-menu-item': number;
-	'underline-menu-item': number;
-	'strike-menu-item': number;
 	'code-menu-item': number;
+	'italic-menu-item': number;
+	'strike-menu-item': number;
 	'subscript-menu-item': number;
 	'superscript-menu-item': number;
+	'underline-menu-item': number;
 } = {
 	[BOLD_MENU_ITEM.key]: 100,
 	[ITALIC_MENU_ITEM.key]: 200,
@@ -468,10 +480,10 @@ export const LISTS_INDENTATION_MENU_RANK: {
 
 export const LISTS_INDENTATION_MENU_SECTION_RANK: {
 	'bullet-list-menu-item': number;
-	'numbered-list-menu-item': number;
-	'task-list-menu-item': number;
-	'outdent-menu-item': number;
 	'indent-menu-item': number;
+	'numbered-list-menu-item': number;
+	'outdent-menu-item': number;
+	'task-list-menu-item': number;
 } = {
 	[BULLETED_LIST_MENU_ITEM.key]: 100,
 	[NUMBERED_LIST_MENU_ITEM.key]: 200,
@@ -496,8 +508,8 @@ export const ALIGNMENT_MENU_RANK: {
 };
 
 export const ALIGNMENT_MENU_SECTION_RANK: {
-	'align-left-menu-item': number;
 	'align-center-menu-item': number;
+	'align-left-menu-item': number;
 	'align-right-menu-item': number;
 } = {
 	[ALIGN_LEFT_MENU_ITEM.key]: 100,
@@ -522,9 +534,9 @@ export const TEXT_COLOR_HIGHLIGHT_MENU_RANK: {
 };
 
 export const TEXT_COLOR_HIGHLIGHT_MENU_SECTION_RANK: {
-	'text-color-menu-item': number;
-	'highlight-menu-item': number;
 	'clear-color-menu-item': number;
+	'highlight-menu-item': number;
+	'text-color-menu-item': number;
 } = {
 	[TEXT_COLOR_MENU_ITEM.key]: 100,
 	[HIGHLIGHT_MENU_ITEM.key]: 200,
@@ -536,15 +548,15 @@ export const TEXT_COLOR_HIGHLIGHT_MENU_SECTION_RANK: {
  */
 
 export const INSERT_BLOCK_SECTION_RANK: {
-	'task-list-group': number;
-	'media-group': number;
 	'code-block-group': number;
-	'mention-group': number;
 	'emoji-group': number;
+	'insert-group': number;
 	'layout-group': number;
+	'media-group': number;
+	'mention-group': number;
 	'synced-block-group': number;
 	'table-group': number;
-	'insert-group': number;
+	'task-list-group': number;
 } = {
 	[TASK_LIST_GROUP.key]: 100,
 	[MEDIA_GROUP.key]: 200,
@@ -642,9 +654,9 @@ export const COMMENT_GROUP_RANK: {
  */
 
 export const TRACK_CHANGES_SECTION_RANK: {
-	'undo-changes-group': number;
 	'redo-changes-group': number;
 	'track-changes-group': number;
+	'undo-changes-group': number;
 } = {
 	[UNDO_CHANGES_GROUP.key]: 100,
 	[REDO_CHANGES_GROUP.key]: 200,
@@ -685,9 +697,9 @@ export const OVERFLOW_GROUP_RANK: {
 };
 
 export const OVERFLOW_MENU_RANK: {
-	'pin-menu-section': number;
 	'loom-menu-section': number;
 	'overflow-extensions-menu-section': number;
+	'pin-menu-section': number;
 	'selection-extension-menu-section': number;
 	'synced-block-section': number;
 } = {
@@ -705,9 +717,9 @@ export const PIN_MENU_SECTION_RANK: {
 };
 
 export const OVERFLOW_EXTENSIONS_MENU_SECTION_RANK: {
-	'loom-menu-item': number;
-	'first-party-extensions-menu-item': number;
 	'external-extensions-menu-item': number;
+	'first-party-extensions-menu-item': number;
+	'loom-menu-item': number;
 } = {
 	[LOOM_MENU_ITEM.key]: 100,
 	[FIRST_PARTY_EXTENSIONS_MENU_ITEM.key]: 200,
@@ -780,9 +792,9 @@ export const PASTE_NESTED_MENU_RANK: {
 };
 
 export const PASTE_MENU_NESTED_SECTION_RANK: {
-	'rich-text-menu-item': number;
 	'markdown-menu-item': number;
 	'plain-text-menu-item': number;
+	'rich-text-menu-item': number;
 } = {
 	[PASTE_RICH_TEXT_MENU_ITEM.key]: 100,
 	[PASTE_MARKDOWN_MENU_ITEM.key]: 200,

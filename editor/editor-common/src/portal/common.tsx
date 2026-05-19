@@ -108,7 +108,24 @@ export const getPortalProviderAPI = (portalManager: PortalManager): PortalProvid
 					const renderToStaticMarkup = getRenderToStaticMarkup();
 					const Children = children;
 					html = renderToStaticMarkup(<Children />);
-				} catch {}
+				} catch (error) {
+					if (process.env.NODE_ENV !== 'production') {
+						// Extract the nodeView type name from container classes, e.g. "mediaSingleView-content-wrap" → "mediaSingle"
+						const nodeTypeName =
+							Array.from(container.classList)
+								.find((c) => c.endsWith('View-content-wrap'))
+								?.replace('View-content-wrap', '') ?? 'unknown';
+						// eslint-disable-next-line no-console
+						console.warn(
+							`[EditorSSR] Failed to render "${nodeTypeName}" nodeView to static markup during SSR streaming. ` +
+								'The container will be empty. This is likely caused by a React hook ' +
+								'(e.g. useSharedPluginStateWithSelector, useIntl) that requires a context ' +
+								"not available during renderToStaticMarkup. Ensure the nodeView's render() " +
+								'is wrapped with Context Providers, or that the hook has an SSR-safe fallback.',
+							error,
+						);
+					}
+				}
 
 				container.innerHTML = html;
 			} else {

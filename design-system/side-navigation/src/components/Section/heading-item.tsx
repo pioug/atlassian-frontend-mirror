@@ -18,6 +18,9 @@ const styles = cssMap({
 	},
 });
 
+/**
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export interface HeadingItemProps extends MenuHeadingItemProps {}
 
 /**
@@ -25,6 +28,7 @@ export interface HeadingItemProps extends MenuHeadingItemProps {}
  *
  * Available for advanced use cases, for most situations providing a `title` to `section` should be enough.
  *
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const HeadingItem: (props: HeadingItemProps) => JSX.Element | null = (props: HeadingItemProps) => {
 	const { shouldRender } = useShouldNestedElementRender();

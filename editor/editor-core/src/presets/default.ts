@@ -13,8 +13,8 @@ import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import type { BasePluginOptions } from '@atlaskit/editor-plugins/base';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { betterTypeHistoryPlugin } from '@atlaskit/editor-plugins/better-type-history';
-import { blockMenuPlugin } from '@atlaskit/editor-plugins/block-menu';
 import type { BlockMenuPluginOptions } from '@atlaskit/editor-plugins/block-menu';
+import { blockMenuPlugin } from '@atlaskit/editor-plugins/block-menu';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type';
 import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
 import { clearMarksOnEmptyDocPlugin } from '@atlaskit/editor-plugins/clear-marks-on-empty-doc';
@@ -30,25 +30,26 @@ import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-toolbar';
 import { focusPlugin } from '@atlaskit/editor-plugins/focus';
 import { historyPlugin } from '@atlaskit/editor-plugins/history';
-import { hyperlinkPlugin } from '@atlaskit/editor-plugins/hyperlink';
 import type { HyperlinkPluginOptions } from '@atlaskit/editor-plugins/hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugins/hyperlink';
 import { interactionPlugin } from '@atlaskit/editor-plugins/interaction';
 import type { PastePluginOptions } from '@atlaskit/editor-plugins/paste';
 import { pastePlugin } from '@atlaskit/editor-plugins/paste';
 import type { PlaceholderPluginOptions } from '@atlaskit/editor-plugins/placeholder';
 import { placeholderPlugin } from '@atlaskit/editor-plugins/placeholder';
 import { primaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
-import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
 import type { QuickInsertPluginOptions } from '@atlaskit/editor-plugins/quick-insert';
+import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
 import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
 import { selectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
 import { submitEditorPlugin } from '@atlaskit/editor-plugins/submit-editor';
-import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
 import type { TextFormattingPluginOptions } from '@atlaskit/editor-plugins/text-formatting';
+import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
 import type { ToolbarPluginOptions } from '@atlaskit/editor-plugins/toolbar';
 import { toolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { TypeAheadPluginOptions } from '@atlaskit/editor-plugins/type-ahead';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
+import { uiControlRegistryPlugin } from '@atlaskit/editor-plugins/ui-control-registry';
 import { undoRedoPlugin } from '@atlaskit/editor-plugins/undo-redo';
 import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-content';
 import { userIntentPlugin } from '@atlaskit/editor-plugins/user-intent';
@@ -56,6 +57,7 @@ import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 
@@ -152,6 +154,12 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 			Boolean(options.toolbar?.enableNewToolbarExperience),
 		)
 		.add([primaryToolbarPlugin, { contextualFormattingEnabled: isFullPage }])
+		.maybeAdd(
+			uiControlRegistryPlugin,
+			expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true) ||
+				expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true) ||
+				expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true),
+		)
 		.maybeAdd(
 			undoRedoPlugin,
 			Boolean(options.featureFlags?.undoRedoButtons ?? options.allowUndoRedoButtons),

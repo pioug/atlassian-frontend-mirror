@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feature-gate-js-client",
-	"version": "5.5.12",
+	"version": "5.7.0",
 	"description": "Atlassians wrapper for the Statsig js-lite client.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -30,14 +30,20 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./client": "./src/client.ts",
+		"./compat/types": "./src/client/compat/types.ts",
+		"./dynamic-config": "./src/client/compat/DynamicConfig.ts",
+		"./feature-gates": "./src/client/FeatureGates.ts",
 		"./file-persistent-override-adapter": {
 			"publish": null,
 			"default": "./src/client/FilePeristentOverrideAdapter.ts"
 		},
+		"./layer": "./src/client/compat/Layer.ts",
 		"./persistent-override-adapter": {
 			"publish": null,
 			"default": "./src/client/PersistentOverrideAdapter.ts"
-		}
+		},
+		"./types": "./src/client/types.ts",
+		"./version": "./src/client/version.ts"
 	},
 	"dependencies": {
 		"@atlaskit/atlassian-context": "workspace:^",

@@ -1,5 +1,18 @@
 # @atlaskit/emoji
 
+## 70.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 70.9.0
+
+### Minor Changes
+
+- [`54ec962646a89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54ec962646a89) -
+  Close upload emoji on category selected + hide selected category on upload emoji open
+
 ## 70.8.0
 
 ### Minor Changes

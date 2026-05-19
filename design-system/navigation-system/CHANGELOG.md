@@ -1,5 +1,11 @@
 # @atlassian/navigation-system
 
+## 9.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.4.0
 
 ### Minor Changes

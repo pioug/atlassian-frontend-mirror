@@ -31,7 +31,12 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./analytics-context": "./src/ui/analytics-context/index.tsx",
+		"./analytics/types": "./src/common/utils/generated/analytics.types.ts",
+		"./create-event-payload": "./src/common/utils/generated/create-event-payload.ts",
+		"./types": "./src/common/utils/types.ts",
+		"./use-analytics-events": "./src/common/utils/generated/use-analytics-events.ts"
 	},
 	"scripts": {
 		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics --output ./src/common/utils/generated"
@@ -97,7 +102,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-internal-analytics",
-	"version": "1.29.0",
+	"version": "1.30.0",
 	"description": "A package used by the teams app and platform packages to handle people and teams analytics",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

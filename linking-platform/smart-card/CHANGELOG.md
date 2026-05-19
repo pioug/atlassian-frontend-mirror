@@ -1,5 +1,28 @@
 # @atlaskit/smart-card
 
+## 44.12.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.12.0
+
+### Minor Changes
+
+- [`dd59463db49fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd59463db49fa) -
+  Track middle- and right-clicks from InlineCard (via CardWithUrl) to fire fire3PClickEvent, gated
+  by the linking_platform_track_non_primary_3p_clicks experiment
+
+## 44.11.4
+
+### Patch Changes
+
+- [`9331fc2edba96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9331fc2edba96) -
+  Mark getObjectAri, getObjectName, getObjectIconUrl as deprecated. Use extractAri,
+  extractNameFromJsonLd, extractUrlFromIconJsonLd from @atlaskit/link-extractors instead.
+- Updated dependencies
+
 ## 44.11.3
 
 ### Patch Changes

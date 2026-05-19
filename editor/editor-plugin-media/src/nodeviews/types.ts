@@ -1,3 +1,5 @@
+import type { IntlShape } from 'react-intl';
+
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type {
@@ -42,6 +44,7 @@ export interface MediaSingleNodeViewProps {
 	editorAppearance?: EditorAppearance;
 	eventDispatcher: EventDispatcher;
 	fullWidthMode?: boolean;
+	intl?: IntlShape;
 	isCopyPasteEnabled?: boolean;
 	mediaOptions: MediaOptions;
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
@@ -50,6 +53,7 @@ export interface MediaSingleNodeViewProps {
 
 export interface MediaNodeViewProps {
 	eventDispatcher: EventDispatcher;
+	intl?: IntlShape;
 	mediaOptions: MediaOptions;
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	providerFactory: ProviderFactory;

@@ -13,4 +13,27 @@ describe('Renderer - React/Nodes/LayoutColumn', () => {
 
 		expect(container.firstChild).toBeInstanceOf(HTMLDivElement);
 	});
+
+	it('renders no data-valign attribute when valign is absent', () => {
+		const { container } = render(
+			<LayoutColumn width={50}>
+				<p>test</p>
+			</LayoutColumn>,
+		);
+
+		expect(container.firstChild).not.toHaveAttribute('data-valign');
+	});
+
+	it.each(['top', 'middle', 'bottom'] as const)(
+		'renders data-valign attribute for %s valign',
+		(valign) => {
+			const { container } = render(
+				<LayoutColumn width={50} valign={valign}>
+					<p>test</p>
+				</LayoutColumn>,
+			);
+
+			expect(container.firstChild).toHaveAttribute('data-valign', valign);
+		},
+	);
 });

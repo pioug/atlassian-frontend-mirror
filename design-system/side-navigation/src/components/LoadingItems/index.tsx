@@ -10,6 +10,9 @@ import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 
 import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
 
+/**
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export interface LoadingItemsProps {
 	/**
 	 * Child items that will be loaded asynchronously.
@@ -61,6 +64,8 @@ const enteringStyles = css({
  * __Loading items__
  *
  * Loading items conditionally render based on the useShouldNestedElementRender() hook.
+ *
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const LoadingItems: ({
 	children,

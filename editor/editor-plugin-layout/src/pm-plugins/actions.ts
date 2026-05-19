@@ -9,6 +9,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import type { Command, EditorCommand, TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
+import type { Valign } from '@atlaskit/editor-common/types/valign';
 import { flatmap, getStepRange, isEmptyDocument, mapChildren } from '@atlaskit/editor-common/utils';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
@@ -16,6 +17,7 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { Change, PresetLayout } from '../types';
@@ -664,6 +666,36 @@ const formatLayoutName = (layout: PresetLayout): LAYOUT_TYPE | undefined => {
 			return LAYOUT_TYPE.THREE_WITH_SIDEBARS;
 	}
 };
+
+export const setLayoutColumnValign =
+	(valign: Valign): EditorCommand =>
+	({ tr }) => {
+		if (!expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
+			return null;
+		}
+
+		const { layoutColumn } = tr.doc.type.schema.nodes;
+		const selectedColumn =
+			tr.selection instanceof NodeSelection && tr.selection.node.type === layoutColumn
+				? { node: tr.selection.node, pos: tr.selection.from }
+				: undefined;
+
+		if (!selectedColumn) {
+			return null;
+		}
+
+		if (selectedColumn.node.attrs.valign === valign) {
+			return null;
+		}
+
+		tr.setNodeMarkup(selectedColumn.pos, selectedColumn.node.type, {
+			...selectedColumn.node.attrs,
+			valign,
+		});
+		tr.setMeta('scrollIntoView', false);
+
+		return tr;
+	};
 
 export const toggleLayoutColumnMenu =
 	({ isOpen }: { isOpen?: boolean }): EditorCommand =>

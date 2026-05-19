@@ -1,5 +1,18 @@
 # @atlassian/give-kudos
 
+## 5.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.0
+
+### Minor Changes
+
+- [`3a42014833ae1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a42014833ae1) -
+  Adding event origin and safe url checks to the kudos launcher
+
 ## 5.8.1
 
 ### Patch Changes

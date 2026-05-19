@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-caption
 
+## 10.1.1
+
+### Patch Changes
+
+- [`ed7459903c172`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed7459903c172) -
+  Updated media to display correctly when ssr streaming is used.
+- Updated dependencies
+
 ## 10.1.0
 
 ### Minor Changes

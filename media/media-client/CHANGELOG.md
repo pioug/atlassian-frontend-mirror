@@ -1,5 +1,12 @@
 # @atlaskit/media-client
 
+## 36.3.0
+
+### Minor Changes
+
+- [`d4e632fa57116`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4e632fa57116) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 36.2.2
 
 ### Patch Changes

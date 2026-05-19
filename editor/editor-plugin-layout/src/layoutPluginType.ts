@@ -12,6 +12,7 @@ import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 import type {
 	insertLayoutColumnsWithAnalytics,
+	setLayoutColumnValign,
 	toggleLayoutColumnMenu,
 } from './pm-plugins/actions';
 import type { LayoutState } from './pm-plugins/types';
@@ -37,6 +38,7 @@ export type LayoutPlugin = NextEditorPlugin<
 			insertLayoutColumns: ReturnType<typeof insertLayoutColumnsWithAnalytics>;
 		};
 		commands: {
+			setLayoutColumnValign: typeof setLayoutColumnValign;
 			toggleLayoutColumnMenu: typeof toggleLayoutColumnMenu;
 		};
 		dependencies: LayoutPluginDependencies;

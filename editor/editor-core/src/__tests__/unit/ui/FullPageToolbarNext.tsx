@@ -3,11 +3,13 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { TOOLBARS } from '@atlaskit/editor-common/toolbar';
+import { TOOLBARS, VIEW_MODE_TOGGLE_SECTION } from '@atlaskit/editor-common/toolbar';
 import type { PublicPluginAPI, DocBuilder } from '@atlaskit/editor-common/types';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { MarkdownModePlugin, MarkdownModeView } from '@atlassian/editor-plugin-markdown-mode';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { FullPageToolbarNext } from '../../../../src/ui/Appearance/FullPage/FullPageToolbarNext';
 
@@ -25,12 +27,31 @@ const primaryToolbarComponent = {
 	),
 };
 
+const viewModeToggleComponent = {
+	type: VIEW_MODE_TOGGLE_SECTION.type,
+	key: VIEW_MODE_TOGGLE_SECTION.key,
+	parents: [{ type: 'toolbar', key: TOOLBARS.PRIMARY_TOOLBAR }],
+	component: () => <div data-testid="view-mode-toggle">View mode toggle</div>,
+};
+
+const editToolbarComponent = {
+	type: 'section',
+	key: 'edit-toolbar-section',
+	parents: [{ type: 'toolbar', key: TOOLBARS.PRIMARY_TOOLBAR }],
+	component: () => <div data-testid="edit-toolbar-control">Edit toolbar control</div>,
+};
+
 // Stub for the `sharedState` half of the toolbar plugin's injection API
 // surface that `useSharedPluginStateWithSelector` reads from.
 const noopSharedState = {
 	currentState: () => undefined,
 	onChange: () => () => {},
 };
+
+const getMarkdownModeSharedState = (view: MarkdownModeView) => ({
+	currentState: () => ({ view, isMarkdownMode: true }),
+	onChange: () => () => {},
+});
 
 // Tests only exercise actions / sharedState; cast via `unknown` to bypass
 // shape-overlap checks for the rest of the toolbar plugin's injection API.
@@ -44,6 +65,24 @@ const getMockEditorAPIWithToolbar = () =>
 			sharedState: noopSharedState,
 		},
 	}) as unknown as PublicPluginAPI<ToolbarPlugin>;
+
+const getMockEditorAPIWithMarkdownMode = (view: MarkdownModeView) =>
+	({
+		toolbar: {
+			actions: {
+				getComponents: () => [
+					primaryToolbarComponent,
+					editToolbarComponent,
+					viewModeToggleComponent,
+				],
+				contextualFormattingMode: () => 'controlled',
+			},
+			sharedState: noopSharedState,
+		},
+		markdownMode: {
+			sharedState: getMarkdownModeSharedState(view),
+		},
+	}) as unknown as PublicPluginAPI<[ToolbarPlugin, MarkdownModePlugin]>;
 
 const getMockEditorAPIEmptyToolbar = () =>
 	({
@@ -80,6 +119,64 @@ describe('FullPageToolbarNext', () => {
 				expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
 
 				await expect(document.body).toBeAccessible();
+			});
+
+			it('should render edit controls when markdown mode is in wysiwyg view', () => {
+				const screen = render(
+					<IntlProvider locale="en">
+						<FullPageToolbarNext
+							editorAPI={getMockEditorAPIWithMarkdownMode('wysiwyg')}
+							toolbarDockingPosition="top"
+							showKeyline={false}
+							editorView={editorView}
+							disabled={false}
+						/>
+					</IntlProvider>,
+				);
+
+				expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
+				expect(screen.getByTestId('edit-toolbar-control')).toBeInTheDocument();
+				expect(screen.getByTestId('view-mode-toggle')).toBeInTheDocument();
+			});
+
+			it('should render edit controls when markdown mode is in syntax view and toolbar hiding is gated off', () => {
+				failGate('platform_editor_markdown_mode_hide_source_toolbar');
+
+				const screen = render(
+					<IntlProvider locale="en">
+						<FullPageToolbarNext
+							editorAPI={getMockEditorAPIWithMarkdownMode('syntax')}
+							toolbarDockingPosition="top"
+							showKeyline={false}
+							editorView={editorView}
+							disabled={false}
+						/>
+					</IntlProvider>,
+				);
+
+				expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
+				expect(screen.getByTestId('edit-toolbar-control')).toBeInTheDocument();
+				expect(screen.getByTestId('view-mode-toggle')).toBeInTheDocument();
+			});
+
+			it('should hide edit controls and keep the view mode toggle when markdown mode is in syntax view and toolbar hiding is gated on', () => {
+				passGate('platform_editor_markdown_mode_hide_source_toolbar');
+
+				const screen = render(
+					<IntlProvider locale="en">
+						<FullPageToolbarNext
+							editorAPI={getMockEditorAPIWithMarkdownMode('syntax')}
+							toolbarDockingPosition="top"
+							showKeyline={false}
+							editorView={editorView}
+							disabled={false}
+						/>
+					</IntlProvider>,
+				);
+
+				expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
+				expect(screen.queryByTestId('edit-toolbar-control')).not.toBeInTheDocument();
+				expect(screen.getByTestId('view-mode-toggle')).toBeInTheDocument();
 			});
 		});
 

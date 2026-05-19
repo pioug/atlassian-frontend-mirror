@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
 	layoutColumn,
+	layoutColumnStage0,
 	layoutColumnWithLocalId,
 	layoutSection,
 	layoutSectionWithLocalId,
@@ -54,6 +55,7 @@ import {
 	createDefaultLayoutSection,
 	createMultiColumnLayoutSection,
 	insertLayoutColumnsWithAnalytics,
+	setLayoutColumnValign,
 	toggleLayoutColumnMenu,
 } from './pm-plugins/actions';
 import { default as createLayoutPlugin } from './pm-plugins/main';
@@ -143,7 +145,13 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 				},
 				{
 					name: 'layoutColumn',
-					node: fg('platform_editor_adf_with_localid') ? layoutColumnWithLocalId : layoutColumn,
+					node: expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)
+						? // `layoutColumnStage0` includes both `valign` and `localId` attrs, so it remains
+							// compatible with `platform_editor_adf_with_localid` when both flags are enabled.
+							layoutColumnStage0
+						: fg('platform_editor_adf_with_localid')
+							? layoutColumnWithLocalId
+							: layoutColumn,
 				},
 			];
 		},
@@ -387,6 +395,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 			return pluginKey.getState(editorState);
 		},
 		commands: {
+			setLayoutColumnValign,
 			toggleLayoutColumnMenu,
 		},
 	};

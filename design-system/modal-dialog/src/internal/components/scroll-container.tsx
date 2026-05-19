@@ -36,14 +36,14 @@ const styles = cssMap({
 		},
 	},
 	topKeyline: {
-		borderBlockStart: `${token('border.width.selected')} solid ${keylineColor}`,
+		borderBlockStart: `${token('border.width')} solid ${keylineColor}`,
 	},
 	bottomKeyline: {
-		borderBlockEnd: `${token('border.width.selected')} solid ${keylineColor}`,
+		borderBlockEnd: `${token('border.width')} solid ${keylineColor}`,
 	},
 });
 
-const keylineHeight = 2;
+const keylineHeight = 1;
 
 interface ScrollContainerProps {
 	/**

@@ -308,6 +308,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 										providerFactory,
 										options,
 										api,
+										getIntl(),
 									),
 									mediaSingle: ReactMediaSingleNode(
 										portalProviderAPI,
@@ -316,6 +317,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 										api,
 										dispatchAnalyticsEvent,
 										options,
+										getIntl(),
 									),
 									media: ReactMediaNode(
 										portalProviderAPI,
@@ -323,6 +325,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 										providerFactory,
 										options,
 										api,
+										getIntl(),
 									),
 									mediaInline: lazyMediaInlineView(
 										portalProviderAPI,
@@ -331,6 +334,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 										api,
 										undefined,
 										options?.fallbackMediaNameFetcher,
+										getIntl(),
 									),
 								},
 								errorReporter,
@@ -496,7 +500,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 									return tr;
 								},
 							},
-						]
+					  ]
 					: [],
 
 			floatingToolbar: (state, intl, providerFactory) =>

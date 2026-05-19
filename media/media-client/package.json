@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client",
-	"version": "36.2.2",
+	"version": "36.3.0",
 	"description": "Media API Web Client Library",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,9 +23,84 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
+		".": "./src/index.ts",
+		"./artifacts": "./src/models/artifacts.ts",
+		"./check-webp-support": "./src/utils/checkWebpSupport.ts",
 		"./constants": "./src/constants.ts",
+		"./create-media-subject": "./src/utils/createMediaSubject.ts",
+		"./error": "./src/client/media-store/error.ts",
+		"./errors": "./src/models/errors/index.ts",
+		"./errors/helpers": "./src/models/errors/helpers.ts",
+		"./errors/types": "./src/models/errors/types.ts",
+		"./events": "./src/client/events.ts",
+		"./file-fetcher": "./src/client/file-fetcher/index.ts",
+		"./file-fetcher/error": "./src/client/file-fetcher/error.ts",
+		"./file-state": "./src/models/file-state.ts",
+		"./file-streams-cache": "./src/file-streams-cache.ts",
+		"./from-observable": "./src/utils/mediaSubscribable/fromObservable.ts",
+		"./get-dimensions-from-blob": "./src/utils/getDimensionsFromBlob.ts",
+		"./global-media-event-emitter": "./src/globalMediaEventEmitter.ts",
+		"./identifier": "./src/identifier.ts",
+		"./image-resize-mode-to-file-image-mode": "./src/utils/imageResizeModeToFileImageMode.ts",
+		"./item": "./src/models/item.ts",
+		"./media-client": "./src/client/media-client.ts",
+		"./media-store": "./src/client/media-store/MediaStore.ts",
+		"./media-store/types": "./src/client/media-store/types.ts",
+		"./media-subscribable/types": "./src/utils/mediaSubscribable/types.ts",
+		"./media": "./src/models/media.ts",
+		"./mobile-upload": "./src/models/mobile-upload.ts",
+		"./polling": "./src/utils/polling/index.ts",
+		"./polling/errors": "./src/utils/polling/errors.ts",
+		"./polling/types": "./src/utils/polling/types.ts",
+		"./request": "./src/utils/request/index.ts",
+		"./request/errors": "./src/utils/request/errors.ts",
+		"./request/helpers": "./src/utils/request/helpers.ts",
+		"./request/types": "./src/utils/request/types.ts",
+		"./stargate-client": "./src/client/stargate-client.ts",
+		"./test-helpers/auth-provider": {
+			"publish": null,
+			"default": "./src/test-helpers/authProvider.ts"
+		},
+		"./test-helpers/collection-names": {
+			"publish": null,
+			"default": "./src/test-helpers/collectionNames.ts"
+		},
+		"./test-helpers/example-media-items": {
+			"publish": null,
+			"default": "./src/test-helpers/exampleMediaItems.ts"
+		},
+		"./test-helpers/fake-media-client": {
+			"publish": null,
+			"default": "./src/test-helpers/fakeMediaClient.ts"
+		},
+		"./test-helpers/media-client-errors": {
+			"publish": null,
+			"default": "./src/test-helpers/mediaClientErrors.ts"
+		},
+		"./test-helpers/media-client-provider": {
+			"publish": null,
+			"default": "./src/test-helpers/mediaClientProvider.ts"
+		},
+		"./test-helpers/media-picker-auth-provider": {
+			"publish": null,
+			"default": "./src/test-helpers/mediaPickerAuthProvider.ts"
+		},
+		"./test-helpers/mocked-media-api": {
+			"publish": null,
+			"default": "./src/test-helpers/MockedMediaApi/MockedMediaApi.ts"
+		},
+		"./test-helpers/mocked-media-api/helpers": {
+			"publish": null,
+			"default": "./src/test-helpers/MockedMediaApi/helpers.ts"
+		},
+		"./test-helpers/mocked-media-api/types": {
+			"publish": null,
+			"default": "./src/test-helpers/MockedMediaApi/types.ts"
+		},
 		"./test-helpers": "./src/test-helpers/index.ts",
-		".": "./src/index.ts"
+		"./upload-controller": "./src/upload-controller.ts",
+		"./uploader": "./src/uploader/index.ts",
+		"./url": "./src/utils/url.ts"
 	},
 	"atlassian": {
 		"team": "Media Exif",

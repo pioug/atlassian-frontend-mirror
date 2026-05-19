@@ -1,5 +1,13 @@
 # @atlaskit/side-navigation
 
+## 11.2.2
+
+### Patch Changes
+
+- [`7aa1eeb7ac2e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7aa1eeb7ac2e6) -
+  Add deprecation notices to code exports
+- Updated dependencies
+
 ## 11.2.1
 
 ### Patch Changes

@@ -46,6 +46,7 @@ const ExampleBody = ({
 	forceLoading = false,
 	visibleColumnKeys: overrideVisibleColumnKeys,
 	mockExecutionDelay = 600,
+	initialVisibleColumnKeys,
 	cloudId,
 }: Props) => {
 	const parameters = useMemo<JiraIssueDatasourceParameters>(
@@ -57,7 +58,7 @@ const ExampleBody = ({
 	);
 
 	useEffect(() => {
-		mockDatasourceFetchRequests({ mockExecutionDelay });
+		mockDatasourceFetchRequests({ initialVisibleColumnKeys, mockExecutionDelay });
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

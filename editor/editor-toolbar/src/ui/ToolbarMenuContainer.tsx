@@ -31,7 +31,7 @@ export const ToolbarMenuContainer = ({
 	children,
 }: ToolbarMenuContainerProps): React.JSX.Element => {
 	return (
-		<Box xcss={styles.container} data-toolbar-component="menu">
+		<Box xcss={styles.container} data-toolbar-component="menu" role="menu">
 			{children}
 		</Box>
 	);

@@ -71,6 +71,8 @@ interface CustomItemPropsHack {
 /**
  * Used to support any custom items needed by products alongside the Header and Footer patterns.
  * Specific implementation of headers and footers are provided in the examples folder.
+ *
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const CustomItem: CustomItemPropsHack = forwardRef<HTMLElement, CustomItemProps>(
 	({ className, ...props }, ref) => {

@@ -17,6 +17,8 @@ export function InlineCardResolvedViewBase({
 	isSelected,
 	isHovered,
 	onClick,
+	onAuxClick,
+	onContextMenu,
 	icon,
 	link,
 	testId = 'inline-card-resolved-view',
@@ -37,6 +39,8 @@ export function InlineCardResolvedViewBase({
 			isSelected={isSelected}
 			isHovered={isHovered}
 			onClick={onClick}
+			onAuxClick={onAuxClick}
+			onContextMenu={onContextMenu}
 			truncateInline={truncateInline}
 		>
 			<IconAndTitleLayout
@@ -73,6 +77,8 @@ export function InlineCardResolvedViewFunctionalWithRovoActions({
 	isSelected,
 	isHovered,
 	onClick,
+	onAuxClick,
+	onContextMenu,
 	icon,
 	link,
 	testId = 'inline-card-resolved-view',
@@ -96,6 +102,8 @@ export function InlineCardResolvedViewFunctionalWithRovoActions({
 			isSelected={isSelected}
 			isHovered={isHovered}
 			onClick={onClick}
+			onAuxClick={onAuxClick}
+			onContextMenu={onContextMenu}
 			truncateInline={truncateInline}
 		>
 			<IconAndTitleLayout

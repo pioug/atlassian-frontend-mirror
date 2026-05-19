@@ -14,7 +14,11 @@ export type InlineCardProps = {
 	actionOptions?: CardActionOptions;
 	cardState: CardState;
 	handleAuthorize: (() => void) | undefined;
+	/** Optional middle-click handler. */
+	handleFrameAuxClick?: EventHandler<MouseEvent>;
 	handleFrameClick: EventHandler<MouseEvent | KeyboardEvent>;
+	/** Optional right-click handler. */
+	handleFrameContextMenu?: EventHandler<MouseEvent>;
 	hideIconLoadingSkeleton?: boolean;
 	hoverPreviewOptions?: HoverPreviewOptions;
 	id: string;

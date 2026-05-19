@@ -16,8 +16,12 @@ export interface FrameViewProps {
 	/** A flag that determines whether the card is selected in edit mode. */
 	isSelected?: boolean;
 	link?: string;
+	/** Optional middle-click handler. */
+	onAuxClick?: React.EventHandler<React.MouseEvent>;
 	/** The optional click handler */
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	/** Optional right-click handler. */
+	onContextMenu?: React.EventHandler<React.MouseEvent>;
 	/** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
 	testId?: string;
 	/** A flag that determines whether a card is truncated to 1 line */
@@ -34,6 +38,8 @@ export const Frame: React.ForwardRefExoticComponent<FrameViewProps & React.RefAt
 			isSelected,
 			children,
 			onClick,
+			onAuxClick,
+			onContextMenu,
 			link,
 			viewType,
 			withoutBackground,
@@ -93,6 +99,8 @@ export const Frame: React.ForwardRefExoticComponent<FrameViewProps & React.RefAt
 						: undefined
 				}
 				onClick={handleClick}
+				onAuxClick={onAuxClick}
+				onContextMenu={onContextMenu}
 				onMouseDown={handleMouseDown}
 				onKeyPress={handleKeyPress}
 				data-testid={testId}

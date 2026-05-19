@@ -1,5 +1,22 @@
 # @atlaskit/mention
 
+## 26.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.0
+
+### Major Changes
+
+- [`041c8e5937beb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/041c8e5937beb) -
+  Removed the `./i18n` package export, which was a duplicate of `./i18n/index` resolved via the
+  `./i18n/*` wildcard. Consumers must now import the i18n entry point explicitly as
+  `@atlaskit/mention/i18n/index` (or a specific locale, e.g. `@atlaskit/mention/i18n/en`). Removing
+  the duplicate export ensures the canonical source for `@atlaskit/mention/i18n/*` resolves
+  unambiguously to a single file.
+
 ## 25.1.0
 
 ### Minor Changes

@@ -32,6 +32,11 @@ const columns: DatasourceResponseSchemaProperty[] = [
 		title: 'Type',
 	},
 	{
+		key: 'issuetype',
+		type: 'icon',
+		title: 'Type',
+	},
+	{
 		key: 'summary',
 		title: 'Summary',
 		type: 'string',
@@ -328,6 +333,9 @@ const buildDataResponse = ({
 						data: item.issueNumber + numberOfLoads,
 					},
 					type: {
+						data: { source: item.type.source, label: item.type.label },
+					},
+					issuetype: {
 						data: { source: item.type.source, label: item.type.label },
 					},
 					key: {

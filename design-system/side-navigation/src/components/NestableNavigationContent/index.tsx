@@ -19,6 +19,9 @@ import { NestingMotion } from './nesting-motion';
 
 export const ROOT_ID = 'ATLASKIT_NESTED_ROOT';
 
+/**
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export interface NestableNavigationContentProps {
 	/**
 	 * The NestableNavigationContent wraps the entire navigation hierarchy of a side navigation.
@@ -123,6 +126,8 @@ const nestingRootStyles = css({
  *
  * - [Examples](https://atlassian.design/components/side-navigation/examples#nested-navigation)
  * - [Code](https://atlassian.design/components/side-navigation/code)
+ *
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const NestableNavigationContent: (props: NestableNavigationContentProps) => JSX.Element = (
 	props: NestableNavigationContentProps,

@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.33.0
+
+### Minor Changes
+
+- [`93de3f3243bc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93de3f3243bc0) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 4.32.5
 
 ### Patch Changes

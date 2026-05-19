@@ -53,6 +53,17 @@ const styles = cssMap({
 
 const ANALYTICS_CHANNEL = 'atlas';
 
+export const isTrustedOrigin = (baseUrl: string, eventOrigin: string): boolean => {
+	try {
+		return new URL(baseUrl).origin === eventOrigin;
+	} catch {
+		return false;
+	}
+};
+
+export const isSafeHttpsUrl = (url: string | undefined): url is string =>
+	url ? new URL(url).protocol === 'https:' : false;
+
 const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 	const [isCloseConfirmModalOpen, setIsCloseConfirmModalOpen] = useState(false);
 	const [isDirty, setIsDirty] = useState(false);
@@ -162,7 +173,10 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 						type: 'error',
 					});
 					break;
-				case FlagEventType.JIRA_KUDOS_CREATED:
+				case FlagEventType.JIRA_KUDOS_CREATED: {
+					if (!isSafeHttpsUrl(flagEvent.jiraKudosUrl)) {
+						return;
+					}
 					handleCreateOrFail({
 						title: <FormattedMessage {...messages.JiraKudosCreatedFlag} />,
 						id: `kudosCreatedFlag-${flagEvent.kudosUuid}`,
@@ -171,7 +185,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 						actions: [
 							{
 								content: 'Track gift request',
-								href: flagEvent.jiraKudosUrl,
+								href: flagEvent.jiraKudosUrl ?? '',
 							},
 							{
 								content: 'View kudos',
@@ -180,7 +194,11 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 						],
 					});
 					break;
-				case FlagEventType.JIRA_KUDOS_FAILED:
+				}
+				case FlagEventType.JIRA_KUDOS_FAILED: {
+					if (!isSafeHttpsUrl(flagEvent.jiraKudosFormUrl)) {
+						return;
+					}
 					handleCreateOrFail({
 						title: <FormattedMessage {...messages.JiraKudosCreationFailedFlag} />,
 						id: `jiraKudosCreationFailedFlag-${flagEvent.kudosUuid}`,
@@ -207,6 +225,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 						],
 					});
 					break;
+				}
 				case FlagEventType.DIRTY:
 					setIsDirty(true);
 					break;
@@ -227,6 +246,10 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 				return;
 			}
 
+			if (!isTrustedOrigin(teamCentralBaseUrl, event.origin)) {
+				return;
+			}
+
 			if (event.data === 'dirty') {
 				setIsDirty(true);
 			} else if (event.data === 'close') {
@@ -242,7 +265,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 				}
 			}
 		},
-		[props.isOpen, closeDrawer, createFlagWithJsonStringifiedInput],
+		[props.isOpen, teamCentralBaseUrl, closeDrawer, createFlagWithJsonStringifiedInput],
 	);
 
 	useEffect(() => {

@@ -35,6 +35,9 @@ const styles = cssMap({
 	},
 });
 
+/**
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export type HeaderProps = {
 	/**
 	 * Element to render before the item text.
@@ -80,6 +83,8 @@ export type HeaderProps = {
  *
  * - [Examples](https://atlassian.design/components/side-navigation/examples#header-and-footer)
  * - [Code](https://atlassian.design/components/side-navigation/code)
+ *
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const Header: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<HeaderProps> & React.RefAttributes<HTMLElement>

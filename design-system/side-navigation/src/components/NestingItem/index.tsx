@@ -59,6 +59,9 @@ interface NestingItemOverrides {
 }
 
 // Doesn't extend from ButtonItemProps because it blows ERT up.
+/**
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export interface NestingItemProps<TCustomComponentProps = CustomItemComponentProps> {
 	/**
 	 * A unique identifier for the nesting item.
@@ -145,6 +148,8 @@ export interface NestingItemProps<TCustomComponentProps = CustomItemComponentPro
  * NestingItem will render itself differently depending in what context it is rendered in.
  * When not open - it will render itself as an item.
  * When open - it will render its children.
+ *
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const NestingItem: <TCustomComponentProps extends CustomItemComponentProps>(
 	props: NestingItemProps<TCustomComponentProps> &

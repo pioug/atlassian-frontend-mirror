@@ -60,6 +60,8 @@ const styles = cssMap({
  *
  * - [Examples](https://atlassian.design/components/side-navigation/examples#button-item)
  * - [Code](https://atlassian.design/components/side-navigation/code)
+ *
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const ButtonItem: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<ButtonItemProps> & React.RefAttributes<HTMLElement>

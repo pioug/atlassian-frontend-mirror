@@ -92,7 +92,12 @@ export {
 	UnresolvedAction,
 	CustomUnresolvedAction,
 } from './view/FlexibleCard/external';
+
+/**
+ * @deprecated Use extractAri, extractNameFromJsonLd, extractUrlFromIconJsonLd from @atlaskit/link-extractors instead
+ */
 export { getObjectAri, getObjectName, getObjectIconUrl } from './state/helpers';
+
 export type {
 	ActionItem,
 	ElementItem,

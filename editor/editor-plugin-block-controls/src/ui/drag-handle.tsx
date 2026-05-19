@@ -3,15 +3,15 @@
  * @jsx jsx
  */
 import {
-	type CSSProperties,
-	type DragEvent,
-	type KeyboardEvent,
-	type MouseEvent,
 	useCallback,
 	useEffect,
 	useMemo,
 	useRef,
 	useState,
+	type CSSProperties,
+	type DragEvent,
+	type KeyboardEvent,
+	type MouseEvent,
 } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports

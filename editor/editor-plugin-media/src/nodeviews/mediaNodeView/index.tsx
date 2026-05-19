@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { bind } from 'bind-event-listener';
+import type { IntlShape } from 'react-intl';
 
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
@@ -41,6 +42,7 @@ import type {
 	MediaOptions,
 	MediaPluginOptions,
 } from '../../types';
+import { MediaSSRReactContextsProvider } from '../../ui/MediaSSRReactContextsProvider';
 import type { MediaNodeViewProps } from '../types';
 
 // Ignored via go/ees005
@@ -359,15 +361,17 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 	};
 
 	render(): React.JSX.Element {
-		const { providerFactory } = this.reactComponentProps;
+		const { providerFactory, intl } = this.reactComponentProps;
 
 		return (
-			<WithProviders
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				providers={['contextIdentifierProvider']}
-				providerFactory={providerFactory}
-				renderNode={this.renderMediaNodeWithProviders}
-			/>
+			<MediaSSRReactContextsProvider intl={intl}>
+				<WithProviders
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+					providers={['contextIdentifierProvider']}
+					providerFactory={providerFactory}
+					renderNode={this.renderMediaNodeWithProviders}
+				/>
+			</MediaSSRReactContextsProvider>
 		);
 	}
 
@@ -386,6 +390,7 @@ export const ReactMediaNode =
 		providerFactory: ProviderFactory,
 		mediaOptions: MediaPluginOptions | undefined = {},
 		pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
+		intl?: IntlShape,
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler): MediaNodeView => {
 		return new MediaNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
@@ -393,5 +398,6 @@ export const ReactMediaNode =
 			providerFactory,
 			mediaOptions,
 			pluginInjectionApi,
+			intl,
 		}).init();
 	};

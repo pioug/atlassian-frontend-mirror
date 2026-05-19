@@ -7,6 +7,7 @@ import { useCallback, useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
+import type { IntlShape } from 'react-intl';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
@@ -28,6 +29,7 @@ import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { MEDIA_CONTENT_WRAP_CLASS_NAME } from '../pm-plugins/main';
 import type { ForwardRef, getPosHandler, getPosHandlerNode, MediaOptions } from '../types';
+import { MediaSSRReactContextsProvider } from '../ui/MediaSSRReactContextsProvider';
 
 import { MediaSingleNodeNext } from './mediaSingleNext';
 import type { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
@@ -286,40 +288,42 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 			dispatchAnalyticsEvent,
 			pluginInjectionApi,
 			editorAppearance,
+			intl,
 		} = this.reactComponentProps;
-
 		// getPos is a boolean for marks, since this is a node we know it must be a function
 		const getPos = this.getPos as getPosHandlerNode;
 
 		return (
-			<WithProviders
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				providers={['contextIdentifierProvider']}
-				providerFactory={providerFactory}
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				renderNode={({ contextIdentifierProvider }) => {
-					return (
-						<MediaSingleNodeWrapper
-							pluginInjectionApi={pluginInjectionApi}
-							contextIdentifierProvider={contextIdentifierProvider}
-							node={this.node}
-							getPos={getPos}
-							mediaOptions={mediaOptions}
-							view={this.view}
-							fullWidthMode={fullWidthMode}
-							selected={this.isNodeSelected}
-							eventDispatcher={eventDispatcher}
-							// Ignored via go/ees005
-							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							dispatchAnalyticsEvent={dispatchAnalyticsEvent!}
-							// Ignored via go/ees005
-							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							forwardRef={forwardRef!}
-							editorAppearance={editorAppearance}
-						/>
-					);
-				}}
-			/>
+			<MediaSSRReactContextsProvider intl={intl}>
+				<WithProviders
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+					providers={['contextIdentifierProvider']}
+					providerFactory={providerFactory}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+					renderNode={({ contextIdentifierProvider }) => {
+						return (
+							<MediaSingleNodeWrapper
+								pluginInjectionApi={pluginInjectionApi}
+								contextIdentifierProvider={contextIdentifierProvider}
+								node={this.node}
+								getPos={getPos}
+								mediaOptions={mediaOptions}
+								view={this.view}
+								fullWidthMode={fullWidthMode}
+								selected={this.isNodeSelected}
+								eventDispatcher={eventDispatcher}
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+								dispatchAnalyticsEvent={dispatchAnalyticsEvent!}
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+								forwardRef={forwardRef!}
+								editorAppearance={editorAppearance}
+							/>
+						);
+					}}
+				/>
+			</MediaSSRReactContextsProvider>
 		);
 	}
 
@@ -354,6 +358,7 @@ export const ReactMediaSingleNode =
 		pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 		dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 		mediaOptions: MediaOptions = {},
+		intl?: IntlShape,
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler): MediaSingleNodeView => {
 		return new MediaSingleNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
@@ -365,5 +370,6 @@ export const ReactMediaSingleNode =
 			isCopyPasteEnabled: mediaOptions.isCopyPasteEnabled,
 			pluginInjectionApi,
 			editorAppearance: mediaOptions.editorAppearance,
+			intl,
 		}).init();
 	};

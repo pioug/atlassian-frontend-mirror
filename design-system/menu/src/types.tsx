@@ -231,6 +231,9 @@ export interface MenuItemProps {
 	interactionName?: string;
 }
 
+/**
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export interface ButtonItemProps extends MenuItemProps {
 	/**
 	 * Unique identifier for the element.
@@ -243,6 +246,9 @@ export interface ButtonItemProps extends MenuItemProps {
 	role?: string;
 }
 
+/**
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export interface LinkItemProps extends MenuItemProps {
 	/**
 	 * Link to another page.
@@ -279,6 +285,9 @@ export interface LinkItemProps extends MenuItemProps {
 	UNSAFE_isDraggable?: boolean;
 }
 
+/**
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export interface CustomItemComponentProps {
 	/**
 	 * The children of the item.
@@ -338,9 +347,11 @@ export interface CustomItemComponentProps {
 	disabled?: boolean;
 }
 
-export interface CustomItemProps<
-	TCustomComponentProps = CustomItemComponentProps,
-> extends MenuItemProps {
+/**
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
+export interface CustomItemProps<TCustomComponentProps = CustomItemComponentProps>
+	extends MenuItemProps {
 	/**
 	 * Custom component to render as an item. This can be both a functional component or a class component.
 	 *
@@ -363,6 +374,9 @@ export interface CustomItemProps<
 	UNSAFE_isDraggable?: boolean;
 }
 
+/**
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
+ */
 export interface SkeletonItemProps {
 	/**
 	 * Renders a skeleton circle in the `iconBefore` location.

@@ -3,7 +3,7 @@
  * @jsx jsx
  * @jsxFrag
  */
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -11,8 +11,12 @@ import { cssMap, jsx } from '@atlaskit/css';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/context-panel';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { shouldShowPrimaryToolbar, TOOLBARS } from '@atlaskit/editor-common/toolbar';
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import {
+	shouldShowPrimaryToolbar,
+	TOOLBARS,
+	VIEW_MODE_TOGGLE_SECTION,
+} from '@atlaskit/editor-common/toolbar';
+import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -20,6 +24,7 @@ import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
+import type { MarkdownModePlugin, MarkdownModeView } from '@atlassian/editor-plugin-markdown-mode';
 
 import type { PrimaryToolbarComponents } from '../../../types';
 import { isToolbar } from '../../../utils/toolbar';
@@ -31,7 +36,7 @@ type FullPageToolbarNextProps = {
 	beforeIcon?: React.ReactNode;
 	customPrimaryToolbarComponents?: PrimaryToolbarComponents;
 	disabled: boolean;
-	editorAPI?: PublicPluginAPI<[ToolbarPlugin]>;
+	editorAPI?: FullPageToolbarPluginAPI;
 	editorView?: EditorView;
 	popupsBoundariesElement?: HTMLElement;
 	popupsMountPoint?: HTMLElement;
@@ -39,6 +44,10 @@ type FullPageToolbarNextProps = {
 	showKeyline: boolean;
 	toolbarDockingPosition?: 'top' | 'none';
 };
+
+type FullPageToolbarPluginAPI = PublicPluginAPI<
+	[ToolbarPlugin, OptionalPlugin<MarkdownModePlugin>]
+>;
 
 const styles = cssMap({
 	// copied from mainToolbarIconBeforeStyle
@@ -155,6 +164,24 @@ const shouldShowToolbarContainer = (
 	return !!toolbar || !!customPrimaryToolbarComponents;
 };
 
+const getToolbarComponentsForMarkdownView = (
+	components: RegisterComponent[],
+	markdownModeView?: MarkdownModeView,
+) => {
+	if (
+		(markdownModeView === 'syntax' || markdownModeView === 'preview') &&
+		fg('platform_editor_markdown_mode_hide_source_toolbar')
+	) {
+		return components.filter(
+			(component) =>
+				component.key === TOOLBARS.PRIMARY_TOOLBAR ||
+				component.key === VIEW_MODE_TOGGLE_SECTION.key,
+		);
+	}
+
+	return components;
+};
+
 export const FullPageToolbarNext = ({
 	editorAPI,
 	beforeIcon,
@@ -177,8 +204,18 @@ export const FullPageToolbarNext = ({
 			: undefined;
 	const contextualFormattingEnabled =
 		effectiveRuntimeOverride ?? editorAPI?.toolbar?.actions.contextualFormattingMode();
+	const markdownModeView = useSharedPluginStateWithSelector(
+		editorAPI,
+		['markdownMode'],
+		(states) => states.markdownModeState?.view,
+	);
 	const intl = useIntl();
 	const toolbar = components?.find((component) => component.key === TOOLBARS.PRIMARY_TOOLBAR);
+	const visibleToolbarComponents = useMemo(
+		() =>
+			components ? getToolbarComponentsForMarkdownView(components, markdownModeView) : undefined,
+		[components, markdownModeView],
+	);
 	const primaryToolbarDockingConfigEnabled = shouldShowPrimaryToolbar(
 		contextualFormattingEnabled,
 		toolbarDockingPosition,
@@ -239,12 +276,13 @@ export const FullPageToolbarNext = ({
 									<ExcludeFromHydration>
 										{primaryToolbarDockingConfigEnabled &&
 											components &&
+											visibleToolbarComponents &&
 											isToolbar(toolbar) &&
 											editorView &&
 											!isSSR() && (
 												<ToolbarNext
 													toolbar={toolbar}
-													components={components}
+													components={visibleToolbarComponents}
 													editorView={editorView}
 													editorAPI={editorAPI}
 													popupsMountPoint={mountPoint}

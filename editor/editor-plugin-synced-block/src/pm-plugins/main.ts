@@ -453,6 +453,16 @@ export const createPlugin = (
 		});
 	});
 
+	// Trigger a deferred flush when block creation completes after the initial
+	// flush timed out waiting for it. This ensures content created from
+	// existing text is eventually persisted even if no further edits are made.
+	// See EDITOR-7112.
+	syncBlockStore.sourceManager.registerPostCreationFlushCallback(() => {
+		deferDispatch(() => {
+			syncBlockStore.sourceManager.flush();
+		});
+	});
+
 	// Set up callback to detect unpublished sync blocks when they're fetched
 	syncBlockStore.referenceManager.setOnUnpublishedSyncBlockDetected((resourceId: string) => {
 		// Only show the flag once per sync block

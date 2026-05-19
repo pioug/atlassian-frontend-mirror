@@ -11,6 +11,8 @@ import { useShouldNestedElementRender } from '../NestableNavigationContent/use-s
  *
  * - [Examples](https://atlassian.design/components/side-navigation/examples#loading)
  * - [Code](https://atlassian.design/components/side-navigation/code)
+ *
+ * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
 const SkeletonItem = (props: SkeletonItemProps): React.JSX.Element | null => {
 	const { shouldRender } = useShouldNestedElementRender();

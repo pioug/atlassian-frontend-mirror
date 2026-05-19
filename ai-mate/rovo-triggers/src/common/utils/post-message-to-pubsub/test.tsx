@@ -137,7 +137,9 @@ describe('RovoPostMessagePubsubListener', () => {
 				eventType: ROVO_POST_MESSAGE_ACK_EVENT_TYPE,
 				payloadId: '13412',
 			},
-			undefined,
+			{
+				targetOrigin: '*',
+			},
 		);
 	});
 });

@@ -3,6 +3,7 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export const isIsolating = (node: PmNode): boolean => {
 	return !!node.type.spec.isolating;
@@ -24,7 +25,7 @@ export const containsHeaderColumn = (table: PmNode): boolean => {
 			if (cell && cell.type !== table.type.schema.nodes.tableHeader) {
 				return false;
 			}
-		} catch (e) {
+		} catch {
 			return false;
 		}
 	}
@@ -157,10 +158,15 @@ export const isTableNestedUnderBodiedSyncBlock = (
 const anyChildCellMergedAcrossRow = (node: PmNode): boolean =>
 	mapChildren(node, (child) => child.attrs.rowspan || 0).some((rowspan) => rowspan > 1);
 
+const anyChildCellMergedAcrossColumn = (node: PmNode): boolean =>
+	mapChildren(node, (child) => child.attrs.colspan || 0).some((colspan) => colspan > 1);
+
 /**
  * Check if a given node is a header row with this definition:
  *  - all children are tableHeader cells
- *  - no table cells have been have merged with other table row cells
+ *  - no table cells have been merged with other table row cells (rowspan > 1)
+ *  - no table cells have been merged with other table column cells (colspan > 1),
+ *    (colspan check gated behind platform_editor_fix_sticky_header_malfunction)
  *
  * @param node ProseMirror node
  * @returns boolean if it meets definition
@@ -168,7 +174,12 @@ const anyChildCellMergedAcrossRow = (node: PmNode): boolean =>
 export const supportedHeaderRow = (node: PmNode): boolean => {
 	const allHeaders = mapChildren(node, (child) => child.type.name === 'tableHeader').every(Boolean);
 
-	const someMerged = anyChildCellMergedAcrossRow(node);
+	if (expValEquals('platform_editor_fix_sticky_header_malfunction', 'isEnabled', true)) {
+		const someMergedAcrossRow = anyChildCellMergedAcrossRow(node);
+		const someMergedAcrossColumn = anyChildCellMergedAcrossColumn(node);
+		return allHeaders && !someMergedAcrossRow && !someMergedAcrossColumn;
+	}
 
+	const someMerged = anyChildCellMergedAcrossRow(node);
 	return allHeaders && !someMerged;
 };

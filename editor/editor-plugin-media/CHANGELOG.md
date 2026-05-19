@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-media
 
+## 12.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.7.3
+
+### Patch Changes
+
+- [`ed7459903c172`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed7459903c172) -
+  Updated media to display correctly when ssr streaming is used.
+- Updated dependencies
+
 ## 12.7.2
 
 ### Patch Changes

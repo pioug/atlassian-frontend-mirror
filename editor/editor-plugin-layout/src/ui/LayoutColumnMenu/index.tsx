@@ -1,10 +1,13 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { EditorToolbarProvider } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
-import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
+import {
+	OutsideClickTargetRefContext,
+	withReactEditorViewOuterListeners,
+} from '@atlaskit/editor-common/ui-react';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
@@ -13,7 +16,8 @@ import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
 
-import { LAYOUT_COLUMN_MENU, LAYOUT_COLUMN_MENU_FALLBACKS } from './components';
+import { LAYOUT_COLUMN_MENU_FALLBACKS } from './components';
+import { LAYOUT_COLUMN_MENU } from './keys';
 
 const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
 
@@ -59,10 +63,30 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 				selection: states.selectionState?.selection,
 			}),
 		);
+		const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
+		const menuRef = useRef<HTMLDivElement | null>(null);
 
 		const closeLayoutColumnMenu = useCallback(() => {
 			api?.core?.actions.execute(api?.layout?.commands.toggleLayoutColumnMenu({ isOpen: false }));
 		}, [api]);
+
+		const handleClickOutside = useCallback(
+			(event: MouseEvent) => {
+				if (event.target instanceof Node && menuRef.current?.contains(event.target)) {
+					return;
+				}
+
+				if (
+					event.target instanceof Element &&
+					event.target.closest('[data-toolbar-nested-dropdown-menu]')
+				) {
+					return;
+				}
+
+				closeLayoutColumnMenu();
+			},
+			[closeLayoutColumnMenu],
+		);
 
 		const handleSetIsOpen = useCallback(
 			(isOpen: boolean) => {
@@ -71,6 +95,14 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 				}
 			},
 			[closeLayoutColumnMenu],
+		);
+
+		const handleMenuRef = useCallback(
+			(el: HTMLDivElement | null) => {
+				setOutsideClickTargetRef?.(el);
+				menuRef.current = el;
+			},
+			[setOutsideClickTargetRef],
 		);
 
 		const components = api?.uiControlRegistry?.actions.getComponents(LAYOUT_COLUMN_MENU.key) ?? [];
@@ -100,18 +132,23 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 				alignY="top"
 				forcePlacement
 				offset={LAYOUT_COLUMN_MENU_POPUP_OFFSET}
-				handleClickOutside={closeLayoutColumnMenu}
+				handleClickOutside={handleClickOutside}
 				handleEscapeKeydown={closeLayoutColumnMenu}
 			>
-				<EditorToolbarProvider editorView={editorView}>
-					<ToolbarDropdownMenuProvider isOpen={isLayoutColumnMenuOpen} setIsOpen={handleSetIsOpen}>
-						<SurfaceRenderer
-							components={components}
-							fallbacks={LAYOUT_COLUMN_MENU_FALLBACKS}
-							surface={LAYOUT_COLUMN_MENU}
-						/>
-					</ToolbarDropdownMenuProvider>
-				</EditorToolbarProvider>
+				<div ref={handleMenuRef}>
+					<EditorToolbarProvider editorView={editorView}>
+						<ToolbarDropdownMenuProvider
+							isOpen={isLayoutColumnMenuOpen}
+							setIsOpen={handleSetIsOpen}
+						>
+							<SurfaceRenderer
+								components={components}
+								fallbacks={LAYOUT_COLUMN_MENU_FALLBACKS}
+								surface={LAYOUT_COLUMN_MENU}
+							/>
+						</ToolbarDropdownMenuProvider>
+					</EditorToolbarProvider>
+				</div>
 			</PopupWithListeners>
 		);
 	},

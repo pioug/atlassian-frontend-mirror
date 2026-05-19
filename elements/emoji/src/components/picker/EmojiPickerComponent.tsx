@@ -243,11 +243,15 @@ const EmojiPickerComponent = ({
 			if (isProgrammaticScroll.current && fg('platform_emoji_picker_refresh')) {
 				return;
 			}
+			// Ignore scroll-driven category changes while the upload screen is open
+			if (uploading && fg('platform_emoji_picker_refresh')) {
+				return;
+			}
 			if (activeCategory !== category) {
 				setActiveCategory(category);
 			}
 		},
-		[activeCategory],
+		[activeCategory, uploading],
 	);
 
 	const calculateElapsedTime = () => {
@@ -452,6 +456,12 @@ const EmojiPickerComponent = ({
 				return;
 			}
 
+			// If the upload screen is open, close it when a category is selected
+			if (uploading && fg('platform_emoji_picker_refresh')) {
+				setUploading(false);
+				setUploadErrorMessage(undefined);
+			}
+
 			emojiProvider.findInCategory(categoryId).then((emojisInCategory) => {
 				if (!disableCategories) {
 					let newSelectedEmoji: EmojiDescription | undefined;
@@ -482,7 +492,7 @@ const EmojiPickerComponent = ({
 				}
 			});
 		},
-		[disableCategories, emojiPickerList, emojiProvider, fireAnalytics, selectedTone],
+		[disableCategories, emojiPickerList, emojiProvider, fireAnalytics, selectedTone, uploading],
 	);
 
 	const recordUsageOnSelection = useMemo(
@@ -731,7 +741,9 @@ const EmojiPickerComponent = ({
 					css={emojiPickerWrapper}
 				>
 					<CategorySelector
-						activeCategoryId={activeCategory}
+						activeCategoryId={
+							uploading && fg('platform_emoji_picker_refresh') ? null : activeCategory
+						}
 						dynamicCategories={dynamicCategories}
 						disableCategories={disableCategories}
 						onCategorySelected={onCategorySelected}
@@ -797,7 +809,7 @@ const EmojiPickerComponent = ({
 			onKeyDown={suppressKeyPress}
 		>
 			<CategorySelector
-				activeCategoryId={activeCategory}
+				activeCategoryId={uploading && fg('platform_emoji_picker_refresh') ? null : activeCategory}
 				dynamicCategories={dynamicCategories}
 				disableCategories={disableCategories}
 				onCategorySelected={onCategorySelected}

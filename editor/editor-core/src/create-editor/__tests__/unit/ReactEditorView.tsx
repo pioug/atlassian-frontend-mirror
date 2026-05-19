@@ -1033,6 +1033,7 @@ describe('@atlaskit/editor-core', () => {
 										attrs: {
 											width: 33.33,
 											localId: null,
+											valign: null,
 										},
 										content: [
 											{
@@ -1054,6 +1055,7 @@ describe('@atlaskit/editor-core', () => {
 										attrs: {
 											width: 66.66,
 											localId: null,
+											valign: null,
 										},
 										content: [
 											{

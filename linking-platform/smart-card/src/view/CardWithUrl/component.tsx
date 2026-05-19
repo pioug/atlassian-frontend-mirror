@@ -4,6 +4,7 @@ import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytic
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
@@ -30,6 +31,7 @@ import { isSpecialClick, isSpecialEvent, isSpecialKey } from '../../utils';
 import { combineActionOptions } from '../../utils/actions/combine-action-options';
 import { fireLinkClickedEvent } from '../../utils/analytics/click';
 import { SmartLinkAnalyticsContext } from '../../utils/analytics/SmartLinkAnalyticsContext';
+import { isAuxClick } from '../../utils/click-helpers';
 import { isFlexibleUiCard } from '../../utils/flexible';
 import * as measure from '../../utils/performance';
 import { BlockCard } from '../BlockCard';
@@ -42,6 +44,7 @@ import withCardIntersectionObserver from './card-intersection-observer';
 import { type CardWithUrlContentProps } from './types';
 
 const thirdPartyARIPrefix = 'ari:third-party';
+const TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT = 'linking_platform_track_non_primary_3p_clicks';
 
 function Component({
 	id,
@@ -105,6 +108,14 @@ function Component({
 			useFire3PWorkflowsClickEvent(firstPartyIdentifier, thirdPartyARI)
 		: undefined;
 
+	// Shared scope guard for all 3P-click handlers.
+	const shouldFire3PClickEvent =
+		thirdPartyARI &&
+		thirdPartyARI.startsWith(thirdPartyARIPrefix) &&
+		getClickUrl(url, state.details) === url &&
+		fire3PClickEvent &&
+		fg('platform_smartlink_3pclick_analytics');
+
 	// Setup UI handlers.
 	const handleClickWrapper = useCallback(
 		(event: MouseEvent) => {
@@ -117,15 +128,10 @@ function Component({
 				isModifierKeyPressed,
 			});
 
-			if (fg('platform_smartlink_3pclick_analytics')) {
-				if (thirdPartyARI && thirdPartyARI.startsWith(thirdPartyARIPrefix)) {
-					const clickURL = getClickUrl(url, state.details);
-					if (clickURL === url && fire3PClickEvent) {
-						// For questions or concerns about this event,
-						// please reach out to the 3P Workflows Team via Slack in #help-3p-connector-workflow
-						fire3PClickEvent();
-					}
-				}
+			if (shouldFire3PClickEvent) {
+				// For questions or concerns about this event,
+				// please reach out to the 3P Workflows Team via Slack in #help-3p-connector-workflow
+				fire3PClickEvent?.();
 			}
 
 			const isDisablePreviewPanel =
@@ -198,13 +204,51 @@ function Component({
 			ari,
 			name,
 			fire3PClickEvent,
+			shouldFire3PClickEvent,
 			isPreviewPanelAvailable,
 			openPreviewPanel,
 			createAnalyticsEvent,
-			thirdPartyARI,
 			disablePreviewPanel,
 		],
 	);
+
+	// Exposure fires once per eligible mount; click-time reads use no-exposure variant.
+	useEffect(() => {
+		if (shouldFire3PClickEvent) {
+			expValEquals(TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT, 'isEnabled', true);
+		}
+	}, [shouldFire3PClickEvent]);
+
+	// Middle-click handler to trigger fire3PClickEvent on middle-clicks.
+	// Scope is limited to 3P click analytics to keep the experiment focused.
+	const handleFrameAuxClick = useCallback(
+		(event: MouseEvent) => {
+			// isAuxClick filters Windows right-clicks (button === 2) that also fire onAuxClick.
+			if (
+				isAuxClick(event) &&
+				shouldFire3PClickEvent &&
+				expValEqualsNoExposure(TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT, 'isEnabled', true)
+			) {
+				fire3PClickEvent?.({ isAuxClick: true });
+			}
+		},
+		[fire3PClickEvent, shouldFire3PClickEvent],
+	);
+
+	// Right-click handler to trigger fire3PClickEvent on right-clicks.
+	// Scope is limited to 3P click analytics to keep the experiment focused.
+	const handleFrameContextMenu = useCallback(
+		(_event: MouseEvent) => {
+			if (
+				shouldFire3PClickEvent &&
+				expValEqualsNoExposure(TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT, 'isEnabled', true)
+			) {
+				fire3PClickEvent?.({ isContextMenu: true });
+			}
+		},
+		[fire3PClickEvent, shouldFire3PClickEvent],
+	);
+
 	const handleAuthorize = useCallback(() => actions.authorize(appearance), [actions, appearance]);
 	const handleRetry = useCallback(() => {
 		actions.reload();
@@ -368,6 +412,8 @@ function Component({
 					cardState={state}
 					handleAuthorize={(services.length && handleAuthorize) || undefined}
 					handleFrameClick={handleClickWrapper}
+					handleFrameAuxClick={handleFrameAuxClick}
+					handleFrameContextMenu={handleFrameContextMenu}
 					isSelected={isSelected}
 					isHovered={isHovered}
 					onResolve={onResolve}

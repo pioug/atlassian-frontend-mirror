@@ -4,7 +4,7 @@ import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { EditorToolbarContextType } from '@atlaskit/editor-common/toolbar';
 import { EditorToolbarProvider, EditorToolbarUIProvider } from '@atlaskit/editor-common/toolbar';
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
@@ -18,6 +18,7 @@ import type { ToolbarUIContextType } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterComponent, RegisterToolbar } from '@atlaskit/editor-toolbar-model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import type { MarkdownModePlugin } from '@atlassian/editor-plugin-markdown-mode';
 
 import type { ToolbarProps } from './toolbar-types';
 import { ToolbarInner } from './ToolbarInner';
@@ -60,7 +61,7 @@ type NewToolbarProps = Pick<
 > &
 	Pick<EditorToolbarContextType, 'editorAppearance'> & {
 		components: RegisterComponent[];
-		editorAPI?: PublicPluginAPI<[ToolbarPlugin]>;
+		editorAPI?: PublicPluginAPI<[ToolbarPlugin, OptionalPlugin<MarkdownModePlugin>]>;
 		editorView?: EditorView;
 		toolbar: RegisterToolbar;
 	};

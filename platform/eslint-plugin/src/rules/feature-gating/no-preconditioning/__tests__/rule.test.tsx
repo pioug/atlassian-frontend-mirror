@@ -67,6 +67,34 @@ tester.run('feature-flags/no-preconditioning', rule, {
                 if (count > 0 && fg('my_gate') ) {}
             `,
 		},
+		{
+			code: outdent`
+                import { expVal } from '@adminhub/feature-experimenting';
+
+                if (isAdmin && expVal('my-exp', 'cohort', 'not-enrolled')) {}
+            `,
+		},
+		{
+			code: outdent`
+                import { fg } from '@adminhub/feature-gating';
+
+                if (preCheck && fg('gate')) {}
+            `,
+		},
+		{
+			code: outdent`
+                import { expVal } from '@adminhub/feature-experimenting';
+
+                if (expVal('one', 'cohort', 'control') && expVal('two', 'cohort', 'control')) {}
+            `,
+		},
+		{
+			code: outdent`
+                import { fg } from '@adminhub/feature-gating';
+
+                const value = fg('gate') && 'value';
+            `,
+		},
 	],
 	invalid: [
 		{
@@ -157,6 +185,39 @@ tester.run('feature-flags/no-preconditioning', rule, {
                 import { fg } from '@atlassian/jira-feature-gating';
 
                 if (preGate && fg('one') || fg('two') && preGate ) {}
+            `,
+			errors: [{ messageId: 'incorrectExposure' }],
+		},
+		{
+			code: outdent`
+                import { fg } from '@adminhub/feature-gating';
+
+                if (fg('one') && fg('two')) {}
+            `,
+			errors: [{ messageId: 'useConfig' }],
+		},
+		{
+			code: outdent`
+                import { fg } from '@adminhub/feature-gating';
+                import { expVal } from '@adminhub/feature-experimenting';
+
+                if (expVal('exp', 'cohort', 'control') && fg('gate')) {}
+            `,
+			errors: [{ messageId: 'useConfig' }],
+		},
+		{
+			code: outdent`
+                import { fg } from '@adminhub/feature-gating';
+
+                if (fg('gate') && isAdmin) {}
+            `,
+			errors: [{ messageId: 'incorrectExposure' }],
+		},
+		{
+			code: outdent`
+                import { expVal } from '@adminhub/feature-experimenting';
+
+                if (expVal('exp', 'cohort', 'control') && isAdmin) {}
             `,
 			errors: [{ messageId: 'incorrectExposure' }],
 		},

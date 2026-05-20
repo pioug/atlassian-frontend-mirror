@@ -1,5 +1,18 @@
 # @atlaskit/motion
 
+## 6.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.3
+
+### Patch Changes
+
+- [`68077cab1f95d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68077cab1f95d) -
+  Fixed styling related issues behind the new motion uplift
+
 ## 6.2.2
 
 ### Patch Changes

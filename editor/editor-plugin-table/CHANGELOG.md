@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-table
 
+## 22.4.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.4.9
+
+### Patch Changes
+
+- [`0091cbd21d8f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0091cbd21d8f7) -
+  [ux] Add conditional visibility to row, column, and cell handle menu items behind the
+  `platform_editor_table_menu_updates` experiment, so menu surfaces only show options that apply to
+  the current selection.
+- Updated dependencies
+
+## 22.4.8
+
+### Patch Changes
+
+- [`98ee7ca379f42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98ee7ca379f42) -
+  Add experiment-gated table menu updates for cell menu
+- Updated dependencies
+
 ## 22.4.7
 
 ### Patch Changes

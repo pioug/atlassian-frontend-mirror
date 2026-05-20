@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { type PropsWithChildren } from 'react';
 
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
 
 import { AddColumnLeftItem } from './items/AddColumnLeftItem';
 import { AddColumnRightItem } from './items/AddColumnRightItem';
+import { ColumnBackgroundSection } from './items/ColumnBackgroundSection';
+import { ColumnToggleSection } from './items/ColumnToggleSection';
 import { DeleteColumnItem } from './items/DeleteColumnItem';
 import { DistributeColumnsItem } from './items/DistributeColumnsItem';
 import { HeaderColumnToggleItem } from './items/HeaderColumnToggleItem';
@@ -33,13 +35,6 @@ import {
 	COLUMN_DANGER_SECTION_RANK,
 } from './keys';
 
-/**
- * Returns the RegisterComponent[] array defining the column menu surface.
- *
- * This is a **UI-only stub** — all items are always visible with no conditional
- * logic and no wired actions. Functional behaviour (actions, conditional visibility)
- * will be connected in follow-up tickets.
- */
 export const getColumnMenuComponents = (): RegisterComponent[] => [
 	// --- Menu surface ---
 	{
@@ -58,8 +53,8 @@ export const getColumnMenuComponents = (): RegisterComponent[] => [
 				rank: COLUMN_SECTION_RANK[COLUMN_TOGGLE_SECTION.key],
 			},
 		],
-		component: (props: Record<string, unknown>) => (
-			<ToolbarDropdownItemSection>{props.children as React.ReactNode}</ToolbarDropdownItemSection>
+		component: (props: PropsWithChildren) => (
+			<ColumnToggleSection>{props.children}</ColumnToggleSection>
 		),
 	},
 	{
@@ -86,8 +81,8 @@ export const getColumnMenuComponents = (): RegisterComponent[] => [
 				rank: COLUMN_SECTION_RANK[COLUMN_BACKGROUND_SECTION.key],
 			},
 		],
-		component: (props: Record<string, unknown>) => (
-			<ToolbarDropdownItemSection hasSeparator>{props.children as React.ReactNode}</ToolbarDropdownItemSection>
+		component: (props: PropsWithChildren) => (
+			<ColumnBackgroundSection>{props.children}</ColumnBackgroundSection>
 		),
 	},
 
@@ -102,8 +97,8 @@ export const getColumnMenuComponents = (): RegisterComponent[] => [
 				rank: COLUMN_SECTION_RANK[COLUMN_SORT_SECTION.key],
 			},
 		],
-		component: (props: Record<string, unknown>) => (
-			<ToolbarDropdownItemSection hasSeparator>{props.children as React.ReactNode}</ToolbarDropdownItemSection>
+		component: (props: PropsWithChildren) => (
+			<ToolbarDropdownItemSection hasSeparator>{props.children}</ToolbarDropdownItemSection>
 		),
 	},
 	{
@@ -142,8 +137,8 @@ export const getColumnMenuComponents = (): RegisterComponent[] => [
 				rank: COLUMN_SECTION_RANK[COLUMN_ADD_SECTION.key],
 			},
 		],
-		component: (props: Record<string, unknown>) => (
-			<ToolbarDropdownItemSection hasSeparator>{props.children as React.ReactNode}</ToolbarDropdownItemSection>
+		component: (props: PropsWithChildren) => (
+			<ToolbarDropdownItemSection hasSeparator>{props.children}</ToolbarDropdownItemSection>
 		),
 	},
 	{
@@ -206,8 +201,8 @@ export const getColumnMenuComponents = (): RegisterComponent[] => [
 				rank: COLUMN_SECTION_RANK[COLUMN_DANGER_SECTION.key],
 			},
 		],
-		component: (props: Record<string, unknown>) => (
-			<ToolbarDropdownItemSection hasSeparator>{props.children as React.ReactNode}</ToolbarDropdownItemSection>
+		component: (props: PropsWithChildren) => (
+			<ToolbarDropdownItemSection hasSeparator>{props.children}</ToolbarDropdownItemSection>
 		),
 	},
 	{

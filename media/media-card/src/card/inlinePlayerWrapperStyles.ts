@@ -13,7 +13,7 @@ import { token } from '@atlaskit/tokens';
  * Used to display the blue border around a selected card without
  * shrinking the image OR growing the card size
  */
-const getSelectedBorderStyle = ({ selected }: { selected?: boolean }) => `
+const getSelectedBorderStyle = (selected?: boolean) => `
     ${selected ? hideNativeBrowserTextSelectionStyles : ''}
 
     &::after {

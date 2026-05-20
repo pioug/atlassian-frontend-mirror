@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 8.3.12
+
+### Patch Changes
+
+- [`6ce6728b2191c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ce6728b2191c) -
+  Adds separate testId for overflow menu to differenciate between reference and source sync block
+  button.
+
+## 8.3.11
+
+### Patch Changes
+
+- [`2cef675d24c75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2cef675d24c75) -
+  Performance: short-circuit synced block plugin state updates for no-op editor transactions when
+  the perf experiment is enabled.
+- Updated dependencies
+
+## 8.3.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.3.9
 
 ### Patch Changes

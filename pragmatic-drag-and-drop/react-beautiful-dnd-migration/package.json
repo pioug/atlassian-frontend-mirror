@@ -1,11 +1,18 @@
 {
 	"name": "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"description": "An optional Pragmatic drag and drop package that enables rapid migration from react-beautiful-dnd to Pragmatic drag and drop",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Design System Team",
 		"website": {
 			"name": "react-beautiful-dnd migration",
@@ -27,6 +34,28 @@
 				"dist/types-ts4.5/index.d.ts"
 			]
 		}
+	},
+	"devDependencies": {
+		"@af/integration-testing": "workspace:^",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/codemod-utils": "workspace:^",
+		"@atlaskit/motion": "workspace:^",
+		"@atlaskit/radio": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/a11y-playwright-testing": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
+		"@testing-library/dom": "root:*",
+		"@testing-library/react": "root:*",
+		"@testing-library/user-event": "root:*",
+		"@types/react-beautiful-dnd": "root:*",
+		"@types/react-window": "root:*",
+		"jscodeshift": "root:*",
+		"raf-stub": "root:*",
+		"react-beautiful-dnd": "root:*",
+		"react-virtualized": "root:*",
+		"react-window": "root:*",
+		"stylelint": "root:*",
+		"wait-for-expect": "root:*"
 	},
 	"sideEffects": [
 		"*.compiled.css"
@@ -51,27 +80,6 @@
 	"peerDependencies": {
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
-	},
-	"devDependencies": {
-		"@af/integration-testing": "workspace:^",
-		"@af/visual-regression": "workspace:^",
-		"@atlaskit/codemod-utils": "workspace:^",
-		"@atlaskit/motion": "workspace:^",
-		"@atlaskit/radio": "workspace:^",
-		"@atlassian/a11y-jest-testing": "workspace:^",
-		"@atlassian/a11y-playwright-testing": "workspace:^",
-		"@testing-library/dom": "root:*",
-		"@testing-library/react": "root:*",
-		"@testing-library/user-event": "root:*",
-		"@types/react-beautiful-dnd": "root:*",
-		"@types/react-window": "root:*",
-		"jscodeshift": "root:*",
-		"raf-stub": "root:*",
-		"react-beautiful-dnd": "root:*",
-		"react-virtualized": "root:*",
-		"react-window": "root:*",
-		"stylelint": "root:*",
-		"wait-for-expect": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

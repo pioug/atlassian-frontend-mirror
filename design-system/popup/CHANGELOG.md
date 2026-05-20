@@ -1,5 +1,24 @@
 # @atlaskit/popup
 
+## 4.20.0
+
+### Minor Changes
+
+- [`43e486948865a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43e486948865a) -
+  When `platform-dst-top-layer` is enabled, the compositional `PopupContent` now renders using
+  `Popover` directly (instead of `Popup.Content`) so that `useAnchorPosition` and
+  `useWidthFromAnchor` hooks can be applied with the correct anchor ref from
+  `TriggerRefObjectContext`.
+
+  This fixes the popup appearing in the wrong position and having incorrect width/layout relative to
+  its trigger.
+
+  The `xcss` prop is also now correctly forwarded to the underlying container element.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.19.1
 
 ### Patch Changes

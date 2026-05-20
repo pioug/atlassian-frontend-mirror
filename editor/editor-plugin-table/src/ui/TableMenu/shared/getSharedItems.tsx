@@ -3,6 +3,12 @@ import React from 'react';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
 
 import {
+	CELL_ACTION_SECTION,
+	CELL_DANGER_SECTION,
+	CELL_ACTION_SECTION_RANK,
+	CELL_DANGER_SECTION_RANK,
+} from '../cell/keys';
+import {
 	COLUMN_BACKGROUND_SECTION,
 	COLUMN_DANGER_SECTION,
 	COLUMN_BACKGROUND_SECTION_RANK,
@@ -34,6 +40,11 @@ export const getSharedItems = (): RegisterComponent[] => [
 				key: COLUMN_BACKGROUND_SECTION.key,
 				rank: COLUMN_BACKGROUND_SECTION_RANK[BACKGROUND_COLOR_ITEM.key],
 			},
+			{
+				type: CELL_ACTION_SECTION.type,
+				key: CELL_ACTION_SECTION.key,
+				rank: CELL_ACTION_SECTION_RANK[BACKGROUND_COLOR_ITEM.key],
+			},
 		],
 		component: () => <BackgroundColorItem />,
 	},
@@ -50,6 +61,11 @@ export const getSharedItems = (): RegisterComponent[] => [
 				type: COLUMN_DANGER_SECTION.type,
 				key: COLUMN_DANGER_SECTION.key,
 				rank: COLUMN_DANGER_SECTION_RANK[CLEAR_CELLS_ITEM.key],
+			},
+			{
+				type: CELL_DANGER_SECTION.type,
+				key: CELL_DANGER_SECTION.key,
+				rank: CELL_DANGER_SECTION_RANK[CLEAR_CELLS_ITEM.key],
 			},
 		],
 		component: () => <ClearCellsItem />,

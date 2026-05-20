@@ -97,4 +97,6 @@ export const SYNCED_BLOCK_BUTTON_TEST_ID = {
 	syncedBlockToolbarReferenceUnsync: 'reference-synced-block-unsync-btn',
 	syncedBlockToolbarSourceUnsync: 'source-synced-block-unsync-btn',
 	syncedBlockToolbarSyncedLocationsTrigger: 'synced-block-synced-locations-dropdown--trigger',
+	syncedBlockToolbarReferenceOverflowTrigger: 'reference-synced-block-overflow-dropdown--trigger',
+	syncedBlockToolbarSourceOverflowTrigger: 'source-synced-block-overflow-dropdown--trigger',
 } as const;

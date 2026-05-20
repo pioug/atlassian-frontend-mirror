@@ -162,7 +162,6 @@ export const PopupContent = ({
 				shouldDisableGpuAcceleration={shouldDisableGpuAcceleration}
 				isOpen={isOpen}
 				id={id}
-				triggerRef={triggerRef}
 			>
 				{children}
 			</PopupContentTopLayer>

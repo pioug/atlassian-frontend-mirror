@@ -41,6 +41,7 @@ import { InlineCard } from '../InlineCard';
 import { useFire3PWorkflowsClickEvent } from '../SmartLinkEvents/useSmartLinkEvents';
 
 import withCardIntersectionObserver from './card-intersection-observer';
+import useExperimentMetaEventAttributes from './experiment-meta-event-attributes';
 import { type CardWithUrlContentProps } from './types';
 
 const thirdPartyARIPrefix = 'ari:third-party';
@@ -257,6 +258,10 @@ function Component({
 		(opts: InvokeClientOpts | InvokeServerOpts) => actions.invoke(opts, appearance),
 		[actions, appearance],
 	);
+	const experimentMetaEventAttributes = useExperimentMetaEventAttributes({
+		appearance,
+		state,
+	});
 
 	// NB: for each status change in a Smart Link, a performance mark is created.
 	// Measures are sent relative to the first mark, matching what a user sees.
@@ -319,9 +324,19 @@ function Component({
 			fireEvent('ui.smartLink.renderSuccess', {
 				display: isFlexibleUi ? 'flexible' : appearance,
 				...(appearance === 'inline' && { rovoActionsCtaShown }),
+				...(experimentMetaEventAttributes && { experimentMeta: experimentMetaEventAttributes }),
 			});
 		}
-	}, [appearance, extensionKey, fireEvent, id, isFlexibleUi, rovoActionsCtaShown, state.status]);
+	}, [
+		appearance,
+		extensionKey,
+		fireEvent,
+		id,
+		isFlexibleUi,
+		rovoActionsCtaShown,
+		state.status,
+		experimentMetaEventAttributes,
+	]);
 
 	const onIframeDwell = useCallback(
 		(dwellTime: number, dwellPercentVisible: number) => {

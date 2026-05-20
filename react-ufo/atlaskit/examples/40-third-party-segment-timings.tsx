@@ -37,18 +37,30 @@ export default function Example(): JSX.Element {
 		(listener: (event: IframeSegmentEvent) => void) => {
 			listenersRef.current.add(listener);
 
-			// Simulate the event sequence from Forge UI's PerformanceAnalyticsContext (validated timeline):
-			//   1. emit-ready-event  (optional; not written to segment3pTimings)
-			//   2. lcp-snapshot      → segment3pTimings[segmentId] gets { label: 'lcp-snapshot', data: { ... } }
-			//   3. fcp-snapshot      → same array, { label: 'fcp-snapshot', data: { ... } } (resourceTimings shape)
+			// Simulate the event sequence from Forge UI's PerformanceAnalyticsContext (validated timeline).
+			// Events must have type='ufo-event' and name starting with 'ufo-forge-' to be processed.
+			// A 'navigation-timing' event releases the forge-ui-requests UFO hold.
 			const timer = setTimeout(() => {
 				const emit = (event: IframeSegmentEvent) => {
 					listenersRef.current.forEach((l) => l(event));
 				};
 
-				emit({ type: 'emit-ready-event', elapsed: performance.now() });
-				emit({ type: 'lcp-snapshot', elapsed: performance.now(), size: 1200, start: 250 });
-				emit({ type: 'fcp-snapshot', elapsed: performance.now(), start: 120 });
+				// navigation-timing releases the forge-ui-requests hold and is recorded as a segment3pTimings row
+				emit({
+					type: 'ufo-event',
+					name: 'ufo-forge-navigation-timing',
+					elapsed: performance.now(),
+					duration: 300,
+					start: 0,
+				});
+				// paint-timing is recorded as a segment3pTimings row
+				emit({
+					type: 'ufo-event',
+					name: 'ufo-forge-paint-timing',
+					elapsed: performance.now(),
+					start: 120,
+					paintType: 'first-contentful-paint',
+				});
 
 				setIsContentLoading(false);
 			}, 200);

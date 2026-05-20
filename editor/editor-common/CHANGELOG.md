@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 114.36.1
+
+### Patch Changes
+
+- [`e55600892c6bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e55600892c6bd) -
+  Ensure table localIds (rows, cells) get sent to the BE
+- Updated dependencies
+
+## 114.36.0
+
+### Minor Changes
+
+- [`4f2e912c65ae3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f2e912c65ae3) -
+  Gate table-in-panel ADF validation behind experiment (EDITOR-7168)
+- [`dbd418b1304cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbd418b1304cd) -
+  [ux] Added support to show an icon-only version of the hero prompt in the editor's AI toolbar on
+  smaller screen sizes, when Rovo is enabled on the product and an empty state hero item is
+  configured.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.35.0
 
 ### Minor Changes

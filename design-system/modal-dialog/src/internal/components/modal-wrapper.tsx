@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import { type CSSProperties, useCallback, useEffect, useMemo, useRef } from 'react';
+import { type CSSProperties, forwardRef, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 import FocusLock from 'react-focus-lock';
@@ -147,17 +147,9 @@ const allowlistElements = (element: HTMLElement, callback?: (element: HTMLElemen
 	return true;
 };
 
-/**
- * __Modal wrapper__
- *
- * A modal wrapper displays content that requires user interaction, in a layer above the page.
- * This component is primary container for other modal components.
- *
- * - [Examples](https://atlassian.design/components/modal-dialog/examples)
- * - [Code](https://atlassian.design/components/modal-dialog/code)
- * - [Usage](https://atlassian.design/components/modal-dialog/usage)
- */
-const InternalModalWrapper = (props: InternalModalWrapperProps): JSX.Element => {
+const InternalModalWrapper: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<InternalModalWrapperProps> & React.RefAttributes<HTMLElement>
+> = forwardRef((props: InternalModalWrapperProps, ref: React.Ref<HTMLElement>) => {
 	const {
 		autoFocus,
 		focusLockAllowlist,
@@ -471,6 +463,7 @@ const InternalModalWrapper = (props: InternalModalWrapperProps): JSX.Element => 
 				hasProvidedOnClose={Boolean(providedOnClose)}
 				isFullScreen={isFullScreen}
 				UNSAFE_shouldDisableMotionUplift={UNSAFE_shouldDisableMotionUplift}
+				ref={ref}
 			>
 				{children}
 			</ModalDialog>
@@ -548,6 +541,7 @@ const InternalModalWrapper = (props: InternalModalWrapperProps): JSX.Element => 
 			</Portal>
 		</Layering>
 	);
-};
+});
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default InternalModalWrapper;

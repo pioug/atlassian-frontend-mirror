@@ -32,22 +32,29 @@ const panelContent = [
 	unsupportedBlock,
 ];
 
-export const panel: ADFNode<[string], ADFCommonNodeSpec> = adfNode('panel').define({
-	selectable: true,
+export const panel: ADFNode<[string, 'c1'], ADFCommonNodeSpec> = adfNode('panel')
+	.define({
+		selectable: true,
 
-	marks: [unsupportedMark, unsupportedNodeAttribute],
+		marks: [unsupportedMark, unsupportedNodeAttribute],
 
-	attrs: {
-		panelType: {
-			type: 'enum',
-			values: ['info', 'note', 'tip', 'warning', 'error', 'success', 'custom'],
-			default: 'info',
+		attrs: {
+			panelType: {
+				type: 'enum',
+				values: ['info', 'note', 'tip', 'warning', 'error', 'success', 'custom'],
+				default: 'info',
+			},
+			panelIcon: { type: 'string', default: null, optional: true },
+			panelIconId: { type: 'string', default: null, optional: true },
+			panelIconText: { type: 'string', default: null, optional: true },
+			panelColor: { type: 'string', default: null, optional: true },
+			localId: { type: 'string', default: null, optional: true },
 		},
-		panelIcon: { type: 'string', default: null, optional: true },
-		panelIconId: { type: 'string', default: null, optional: true },
-		panelIconText: { type: 'string', default: null, optional: true },
-		panelColor: { type: 'string', default: null, optional: true },
-		localId: { type: 'string', default: null, optional: true },
-	},
-	content: [$onePlus($or(...panelContent, extension.use('with_marks')))],
-});
+		content: [$onePlus($or(...panelContent, extension.use('with_marks')))],
+	})
+	.variant('c1', {
+		// panel_c1 allows all standard panel content plus table (wired via addContent
+		// in full-schema.adf.ts to avoid a circular module import).
+		content: [$onePlus($or(...panelContent, extension.use('with_marks')))],
+		ignore: ['json-schema', 'validator-spec'],
+	});

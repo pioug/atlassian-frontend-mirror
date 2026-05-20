@@ -17,7 +17,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
-import { isNestedTablesSupported } from '../nesting/utilities';
+import { isNestedTablesSupported, isPanelNestingTableSupported } from '../nesting/utilities';
 import type { ProviderFactory } from '../provider-factory';
 import type { ReplaceRawValue, Transformer } from '../types';
 
@@ -281,11 +281,19 @@ export function processRawValue(
 		// Validate ADF first before converting nested-table extensions into nested tables
 		// This matches the renderer's behavior in render-document.ts
 		const allowNestedTables = isNestedTablesSupported(schema);
+		const allowTableInPanel = isPanelNestingTableSupported(schema);
+		const validateADFEntityOptions =
+			allowNestedTables || allowTableInPanel
+				? {
+						allowNestedTables: allowNestedTables || undefined,
+						allowTableInPanel: allowTableInPanel || undefined,
+					}
+				: undefined;
 		let entity: ADFEntity = validateADFEntity(
 			schema,
 			transformedAdf || (node as ADFEntity),
 			dispatchAnalyticsEvent,
-			allowNestedTables ? { allowNestedTables } : undefined,
+			validateADFEntityOptions,
 		);
 
 		// Convert nested-table extensions into nested tables

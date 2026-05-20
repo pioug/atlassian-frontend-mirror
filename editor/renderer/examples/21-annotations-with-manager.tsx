@@ -30,7 +30,7 @@ import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { AnnotationsWrapper, RendererWithAnalytics } from '@atlaskit/renderer';
-import { RendererActionsContext } from '@atlaskit/renderer/actions';
+import { RendererActionsContext } from '@atlaskit/renderer/actions/renderer-actions-context';
 import { token } from '@atlaskit/tokens';
 import { Inline } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';

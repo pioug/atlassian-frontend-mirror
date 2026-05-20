@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 219.9.2
+
+### Patch Changes
+
+- [`b4b10071d5c4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4b10071d5c4a) -
+  Delay browser-persisted markdown view-mode evaluation until after hydration when
+  `platform_editor_delay_markdown_view_mode_eval` is enabled.
+
+  Scope the markdown-mode ProseMirror hide style under an explicit data attribute when the same gate
+  is enabled.
+
+- Updated dependencies
+
+## 219.9.1
+
+### Patch Changes
+
+- [`b7ea014ea8998`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7ea014ea8998) -
+  Migrate extensionStyles.ts to Compiled CSS
+- [`8ecd89c10f42a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ecd89c10f42a) -
+  EDITOR-6686 Migrate smartCardStyles to compiled in EditorContentContainer
+- Updated dependencies
+
 ## 219.9.0
 
 ### Minor Changes

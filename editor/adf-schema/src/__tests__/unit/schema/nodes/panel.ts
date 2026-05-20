@@ -3,6 +3,7 @@ import type { SchemaConfig } from '../../../../schema/create-schema';
 import { createSchema } from '../../../../schema/create-schema';
 import { toHTML, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
 import { extendedPanel } from '../../../../schema/nodes/panel';
+import { panel, panelC1 } from '../../../../next-schema';
 
 const schema = makeSchema();
 const schemaWithAllowCustomPanel = makeSchema({
@@ -294,6 +295,37 @@ describe(`${packageName}/schema panel node `, () => {
 			expect(parsedPanel.firstChild!.marks[0].type.name).toBe('fontSize');
 			expect(parsedPanel.firstChild!.marks[0].attrs.fontSize).toBe('small');
 		});
+	});
+});
+
+describe('panel_c1 variant (next-schema)', () => {
+	// PMNodeSpecFactoryInstance is a curried function — call it with {} to get the NodeSpec
+	const panelC1Spec = panelC1({});
+	const panelSpec = panel({});
+
+	it('should include table in content string but not in base panel', () => {
+		// Validates the generated nodeTypes.ts output — table is baked into
+		// panelC1's content string by the schema generator, not by addContent() at runtime.
+		expect(panelSpec.content).not.toContain('table');
+		expect(panelC1Spec.content).toContain('table');
+	});
+
+	it('should have the correct content expression including table', () => {
+		expect(panelC1Spec.content).toBe(
+			'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension | table)+',
+		);
+	});
+
+	it('should have the same attrs as the base panel', () => {
+		expect(panelC1Spec.attrs).toStrictEqual(panelSpec.attrs);
+	});
+
+	it('should be in the block group', () => {
+		expect(panelC1Spec.group).toBe('block');
+	});
+
+	it('should be selectable', () => {
+		expect(panelC1Spec.selectable).toBe(true);
 	});
 });
 

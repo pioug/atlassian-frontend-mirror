@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "130.6.4",
+	"version": "131.1.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -257,7 +257,7 @@
 		"./actions/main": "./src/entry-points/actions-main.ts",
 		"./actions/renderer-actions-context": "./src/entry-points/actions-renderer-actions-context.tsx",
 		"./actions/with-renderer-actions": "./src/entry-points/actions-with-renderer-actions.tsx",
-		"./actions": "./src/actions.ts",
+		"./actions": "./src/actions/index.ts",
 		"./annotations": "./src/entry-points/annotations.tsx",
 		"./consts": "./src/entry-points/consts.ts",
 		"./custom-nodes/loosely-lazy": "./src/entry-points/custom-nodes-loosely-lazy.ts",

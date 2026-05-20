@@ -126,7 +126,6 @@ const blanketSelectionStyles = css({
 		bottom: 0,
 		width: '100%',
 		pointerEvents: 'none',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
 		zIndex: 12,
 		backgroundColor: token('color.blanket.selected'),
 	},
@@ -1456,8 +1455,17 @@ const editorContentStyles = cssMap({
 			color: 'var(--diff-decoration-marker-color)',
 		},
 	},
+	// Move this into `smartCardStyles` below when cleaning up editor_controls_patch_15
 	editorControlsSmartCardStyles: {
-		// placeholder for migration
+		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
+		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// SmartCardSharedCssClassName.INLINE_CARD_CONTAINER = 'inlineCardView-content-wrap'
+		'.inlineCardView-content-wrap': {
+			'[data-inlinecard-button-overlay="icon-wrapper-line-height"] span': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: 0,
+			},
+		},
 	},
 	editorLargeGutterPuddingBaseStyles: {
 		'--ak-editor--large-gutter-padding': '52px',
@@ -1905,8 +1913,381 @@ const editorContentStyles = cssMap({
 			fontSize: 'var(--ak-editor-base-font-size)',
 		},
 	},
+	extensionStyles: {
+		'.multiBodiedExtensionView-content-wrap': {
+			'&.danger > span > .multiBodiedExtension--container': {
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				backgroundColor: token('color.background.danger'),
+			},
+
+			// ...extensionLabelStyles
+			'&.danger > span > div > .extension-label': {
+				backgroundColor: token('color.background.accent.red.subtler'),
+				color: token('color.text.danger'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label': {
+				backgroundColor: token('color.background.selected'),
+				color: token('color.text.selected'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			/* Targets the icon for bodied macro styling in button label */
+			'&.danger > span > div > .extension-label > span': {
+				display: 'inline',
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div .extension-label > span': {
+				display: 'inline',
+			},
+			/* Start of bodied extension edit toggle styles */
+			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container': {
+				opacity: 1,
+			},
+			'&:not(.danger).ak-editor-selected-node > span > .extension-edit-toggle-container': {
+				opacity: 1,
+			},
+			/* In view mode of the bodied macro, we never want to show the extension label */
+			'&.danger.ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+				opacity: 0,
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+				opacity: 0,
+			},
+			/* .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled */
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+				{
+					boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+				},
+			'&.danger.ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+				{
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				},
+			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container > .extension-edit-toggle':
+				{
+					backgroundColor: token('color.background.accent.red.subtler'),
+					color: token('color.text.danger'),
+					boxShadow: 'none',
+				},
+
+			'&.danger > span > .with-danger-overlay': {
+				backgroundColor: 'transparent',
+				'.multiBodiedExtension--overlay': {
+					// ...dangerOverlayStyles
+					opacity: 0.3,
+					backgroundColor: token('color.background.danger.hovered'),
+				},
+			},
+
+			'&:not(.danger).ak-editor-selected-node': {
+				'& > span > .multiBodiedExtension--container': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...blanketSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+				},
+			},
+
+			'.multiBodiedExtension--container': {
+				width: '100%',
+				maxWidth: '100%', // ensure width can't go over 100%
+			},
+		},
+
+		'.inlineExtensionView-content-wrap': {
+			'&.danger > span > .extension-container': {
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				backgroundColor: token('color.background.danger'),
+			},
+
+			'&.danger > span > .with-danger-overlay': {
+				/* If the macro turned used to red before, not setting the background to be transparent will cause the
+			danger state to have two layers of red which we don't want. */
+				backgroundColor: 'transparent',
+				'.extension-overlay': {
+					// ...dangerOverlayStyles
+					opacity: 0.3,
+					backgroundColor: token('color.background.danger.hovered'),
+				},
+			},
+
+			'&:not(.danger).ak-editor-selected-node': {
+				'& > span > .extension-container': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+				},
+			},
+
+			// ...extensionLabelStyles
+			'&.danger > span > div > .extension-label': {
+				backgroundColor: token('color.background.accent.red.subtler'),
+				color: token('color.text.danger'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label': {
+				backgroundColor: token('color.background.selected'),
+				color: token('color.text.selected'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			/* Targets the icon for bodied macro styling in button label */
+			'&.danger > span > div > .extension-label > span': {
+				display: 'inline',
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div .extension-label > span': {
+				display: 'inline',
+			},
+			/* Start of bodied extension edit toggle styles */
+			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container': {
+				opacity: 1,
+			},
+			'&:not(.danger).ak-editor-selected-node > span > .extension-edit-toggle-container': {
+				opacity: 1,
+			},
+			/* In view mode of the bodied macro, we never want to show the extension label */
+			'&.danger.ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+				opacity: 0,
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+				opacity: 0,
+			},
+			/* .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled */
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+				{
+					boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+				},
+			'&.danger.ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+				{
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				},
+			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container > .extension-edit-toggle':
+				{
+					backgroundColor: token('color.background.accent.red.subtler'),
+					color: token('color.text.danger'),
+					boxShadow: 'none',
+				},
+		},
+
+		/* This is referenced in the toDOM of a bodied extension and is used to put
+		label content into the bodied extension.
+		We do this so that we don't serialise the label (which causes the label to be
+		copied to the clipboard causing copy-paste issues). */
+		'.bodied-extension-to-dom-label::after': {
+			content: 'attr(data-bodied-extension-label)',
+		},
+
+		'.extensionView-content-wrap, .multiBodiedExtensionView-content-wrap, .bodiedExtensionView-content-wrap':
+			{
+				margin: `0.75rem 0`,
+
+				'&:first-of-type': {
+					marginTop: 0,
+				},
+
+				'&:last-of-type': {
+					marginBottom: 0,
+				},
+
+				'&:not(.danger).ak-editor-selected-node': {
+					'& > span > .extension-container': {
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+						...boxShadowSelectionStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+						...hideNativeBrowserTextSelectionStyles,
+					},
+				},
+
+				'&.danger > span > .extension-container': {
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					backgroundColor: token('color.background.danger'),
+				},
+
+				// ...extensionLabelStyles
+				'&.danger > span > div > .extension-label': {
+					backgroundColor: token('color.background.accent.red.subtler'),
+					color: token('color.text.danger'),
+					opacity: 1,
+					boxShadow: 'none',
+				},
+				'&:not(.danger).ak-editor-selected-node > span > div > .extension-label': {
+					backgroundColor: token('color.background.selected'),
+					color: token('color.text.selected'),
+					opacity: 1,
+					boxShadow: 'none',
+				},
+				/* Targets the icon for bodied macro styling in button label */
+				'&.danger > span > div > .extension-label > span': {
+					display: 'inline',
+				},
+				/** Targets legacy content header in LCM extension */
+				'&.danger > span > .legacy-content-header': {
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					backgroundColor: `${token('color.background.danger')}`,
+
+					'& .status-lozenge-span > span': {
+						backgroundColor: `${token('color.background.accent.red.subtle.hovered')}`,
+					},
+				},
+				'&:not(.danger).ak-editor-selected-node > span > div .extension-label > span': {
+					display: 'inline',
+				},
+				/* Start of bodied extension edit toggle styles */
+				'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container': {
+					opacity: 1,
+				},
+				'&:not(.danger).ak-editor-selected-node > span > .extension-edit-toggle-container': {
+					opacity: 1,
+				},
+				/* In view mode of the bodied macro, we never want to show the extension label */
+				'&.danger.ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+					opacity: 0,
+				},
+				'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.always-hide-label':
+					{
+						opacity: 0,
+					},
+				/* .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled */
+				'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+					{
+						boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+					},
+				'&.danger.ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+					{
+						boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					},
+				'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container > .extension-edit-toggle':
+					{
+						backgroundColor: token('color.background.accent.red.subtler'),
+						color: token('color.text.danger'),
+						boxShadow: 'none',
+					},
+
+				'&.danger > span > .with-danger-overlay': {
+					backgroundColor: 'transparent',
+					'.extension-overlay': {
+						// ...dangerOverlayStyles
+						opacity: 0.3,
+						backgroundColor: token('color.background.danger.hovered'),
+					},
+				},
+
+				'&.inline': {
+					// wordWrap: 'break-all' was previously used here, but break-all is not a valid CSS property of word-wrap.
+					// It was probably intended to be word-break: break-all, however I'm omitting it here for consistency with previous actual behavior.
+				},
+			},
+
+		'.extensionView-content-wrap .extension-container': {
+			overflow: 'hidden',
+
+			/* Don't hide overflow for editors inside extensions. */
+			'&:has(.extension-editable-area)': {
+				overflow: 'visible',
+			},
+		},
+
+		'.bodiedExtensionView-content-wrap .extensionView-content-wrap .extension-container': {
+			width: '100%',
+			maxWidth: '100%', // ensure width can't go over 100%
+		},
+
+		"[data-mark-type='fragment']": {
+			'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+				margin: '0.75rem 0',
+			},
+
+			"& > [data-mark-type='dataConsumer']": {
+				'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+					margin: '0.75rem 0',
+				},
+			},
+
+			'&:first-child': {
+				'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+					marginTop: 0,
+				},
+				"& > [data-mark-type='dataConsumer']": {
+					'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+						marginTop: 0,
+					},
+				},
+			},
+
+			'&:nth-last-of-type(-n + 2):not(:first-of-type)': {
+				'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+					marginBottom: 0,
+				},
+
+				"& > [data-mark-type='dataConsumer']": {
+					'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+						marginBottom: 0,
+					},
+				},
+			},
+		},
+	},
+	// Dense content mode extensions styling fix - addresses EDITOR-1992
+	// When cleaning up the experiment, move this logic into the base styles above
+	// Used when (contentMode === 'compact' && expValEquals('confluence_compact_text_format', 'isEnabled', true))
+	// OR (expValEquals('cc_editor_ai_content_mode', 'variant', 'test') && fg('platform_editor_content_mode_button_mvp'))
+	extensionStylesDense: {
+		// Table of Contents Macro
+		'.extension-container [data-macro-name="toc"] * :not(.status-lozenge-span *)': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: 'var(--ak-editor-base-font-size)',
+		},
+		// Excerpt Include Macro
+		'.extension-container .ak-excerpt-include :not([data-inline-card-lozenge] *, code, .status-lozenge-span *, .code-block *)':
+			{
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				fontSize: 'var(--ak-editor-base-font-size)',
+			},
+	},
+	// Used when contentMode === 'compact' && (expValEquals('confluence_compact_text_format', 'isEnabled', true) || expValEquals('cc_editor_ai_content_mode', 'variant', 'test')))
+	extensionStylesLegacyDense: {
+		'.extension-container a span': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			fontSize: `calc(${akEditorFullPageDenseFontSize}rem / 16)`,
+		},
+	},
 	extensionDiffStyles: {
-		// placeholder for migration
+		'.show-diff-changed-decoration-node > span .extension-container': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			boxShadow: `0 0 0 var(--diff-decoration-marker-ring-width, 1px) var(--diff-decoration-marker-color)`,
+		},
+	},
+	// Dense content mode extensions styling fix - addresses EDITOR-1992
+	// Used when (expValEquals('platform_editor_bodiedextension_layoutshift_fix', 'isEnabled', true))
+	bodiedExtensionLayoutShiftFix: {
+		'.bodiedExtensionView-content-wrap': {
+			'.bodiedExtension-content-outer-wrapper': {
+				margin: '23px -1px -1px -1px', // Reserve space for lozenge (24px) then subtract 1px to account for the border of the inner wrapper preventing layoutshift
+			},
+			'.bodiedExtension-content-inner-wrapper': {
+				margin: `0 ${token('space.negative.250')}`,
+				padding: `${token('space.200')} ${token('space.250')}`,
+				border: `${token('border.width')} solid ${token('color.border')}`,
+				borderRadius: token('radius.small', '3px'),
+			},
+			'.extension-container': {
+				// Remove styling when Prosemirror moves content inside
+
+				'.bodiedExtension-content-outer-wrapper': {
+					margin: '0',
+				},
+				'.bodiedExtension-content-inner-wrapper': {
+					margin: 0,
+					padding: 0,
+					border: 'none',
+					borderRadius: 0,
+				},
+			},
+		},
 	},
 	findReplaceStyles: {
 		'.search-match': {
@@ -3186,7 +3567,16 @@ const editorContentStyles = cssMap({
 		},
 	},
 	linkingVisualRefreshV1Styles: {
-		// placeholder for migration
+		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
+		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER = 'blockCardView-content-wrap'
+		// SmartCardSharedCssClassName.DATASOURCE_CONTAINER = 'datasourceView-content-wrap'
+		'.blockCardView-content-wrap:not(.datasourceView-content-wrap)': {
+			// EDM-11991: Fix list plugin adding padding to ADS AvatarGroup
+			'ul, ol': {
+				paddingLeft: 'inherit',
+			},
+		},
 	},
 	linkStyles: {
 		'.ProseMirror a.blockLink': {
@@ -4331,28 +4721,353 @@ const editorContentStyles = cssMap({
 		},
 	},
 	pragmaticResizerStyles: {
-		// placeholder for migration
+		'.fabric-editor-breakout-mark': {
+			'&:has([data-prosemirror-node-name="expand"]), &:has([data-prosemirror-node-name="layoutSection"])':
+				{
+					'> .pm-breakout-resize-handle-container--left': {
+						left: '-25px',
+					},
+					'> .pm-breakout-resize-handle-container--right': {
+						right: '-25px',
+					},
+				},
+			'&:has([data-prosemirror-node-name="expand"])': {
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 4px)',
+				},
+			},
+			'&:has([data-prosemirror-node-name="layoutSection"])': {
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 8px)',
+				},
+			},
+			'&:has(.first-node-in-document)': {
+				'> .pm-breakout-resize-handle-container': {
+					height: '100%',
+				},
+			},
+		},
+		'.pm-breakout-resize-handle-container': {
+			position: 'relative',
+			alignSelf: 'end',
+			gridRow: 1,
+			gridColumn: 1,
+			height: '100%',
+			width: 7,
+		},
+		'.pm-breakout-resize-handle-container--left': {
+			justifySelf: 'start',
+		},
+		'.pm-breakout-resize-handle-container--right': {
+			justifySelf: 'end',
+		},
+		'.pm-breakout-resize-handle-rail': {
+			position: 'relative',
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+			height: '100%',
+			cursor: 'col-resize',
+			borderRadius: token('radius.small'),
+			transition: 'background-color 0.2s, visibility 0.2s, opacity 0.2s',
+			zIndex: 2,
+			opacity: 0,
+			'&:hover': {
+				background: token('color.background.selected'),
+				'.pm-breakout-resize-handle-thumb': {
+					background: token('color.border.focused'),
+				},
+			},
+		},
+		'.pm-breakout-resize-handle-container--active': {
+			background: token('color.background.selected'),
+			'.pm-breakout-resize-handle-thumb': {
+				background: token('color.border.focused'),
+			},
+		},
+		'.pm-breakout-resize-handle-hit-box': {
+			position: 'absolute',
+			top: 0,
+			bottom: 0,
+			left: -20,
+			right: -20,
+			zIndex: 0,
+		},
+		'.pm-breakout-resize-handle-thumb': {
+			minWidth: 3,
+			height: 'clamp(27px, calc(100% - 32px), 96px)',
+			background: token('color.border'),
+			borderRadius: token('radius.medium'),
+			position: 'sticky',
+			top: token('space.150'),
+			bottom: token('space.150'),
+		},
 	},
 	pragmaticResizerStylesCodeBlockLegacy: {
-		// placeholder for migration
+		'.fabric-editor-breakout-mark': {
+			'&:has([data-prosemirror-node-name="codeBlock"])': {
+				'> .pm-breakout-resize-handle-container--left': {
+					left: '-5px',
+				},
+				'> .pm-breakout-resize-handle-container--right': {
+					right: '-5px',
+				},
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 12px)',
+				},
+			},
+			'&:has(.first-node-in-document)': {
+				'> .pm-breakout-resize-handle-container': {
+					height: '100%',
+				},
+			},
+		},
 	},
 	pragmaticResizerStylesCodeBlockSyncedBlockPatch: {
-		// placeholder for migration
+		'.fabric-editor-breakout-mark': {
+			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="codeBlock"])': {
+				'> .pm-breakout-resize-handle-container--left': {
+					left: '-5px',
+				},
+				'> .pm-breakout-resize-handle-container--right': {
+					right: '-5px',
+				},
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 12px)',
+				},
+			},
+			'&:has(.first-node-in-document.first-node-in-document)': {
+				'> .pm-breakout-resize-handle-container': {
+					height: '100%',
+				},
+			},
+		},
 	},
 	pragmaticResizerStylesForTooltip: {
-		// placeholder for migration
+		'.pm-breakout-resize-handle-rail-wrapper': {
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+			height: '100%',
+			cursor: 'col-resize',
+			borderRadius: token('radius.small'),
+			zIndex: 2,
+			'[role="presentation"]': {
+				height: '100%',
+				width: '100%',
+			},
+			'.pm-breakout-resize-handle-rail-inside-tooltip': {
+				height: '100%',
+			},
+		},
 	},
 	pragmaticResizerStylesSyncedBlock: {
-		// placeholder for migration
+		'.fabric-editor-breakout-mark': {
+			'&:has([data-prosemirror-node-name="syncBlock"]), &:has([data-prosemirror-node-name="bodiedSyncBlock"])':
+				{
+					'> .pm-breakout-resize-handle-container--left': {
+						left: '-24px',
+					},
+					'> .pm-breakout-resize-handle-container--right': {
+						right: '-24px',
+					},
+					'> .pm-breakout-resize-handle-container': {
+						height: 'calc(100% - 12px)',
+					},
+				},
+		},
 	},
 	pragmaticResizerStylesWithReducedEditorGutter: {
-		// placeholder for migration
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries
+		'@container editor-area (max-width: 600px)': {
+			'.fabric-editor-breakout-mark': {
+				'&:has([data-prosemirror-node-name="expand"]), &:has([data-prosemirror-node-name="layoutSection"])':
+					{
+						'> .pm-breakout-resize-handle-container': {
+							opacity: 0,
+							visibility: 'hidden',
+						},
+					},
+				'&:has([data-prosemirror-node-name="layoutSection"])': {
+					'.resizer-item': {
+						willChange: 'width',
+						'&:hover, &.display-handle': {
+							'& > .resizer-handle-wrapper > .resizer-handle': {
+								visibility: 'hidden',
+								opacity: 0,
+							},
+						},
+					},
+				},
+			},
+		},
 	},
 	pragmaticStylesLayoutFirstNodeResizeHandleFix: {
-		// placeholder for migration
+		'.fabric-editor-breakout-mark': {
+			'&:has([data-prosemirror-node-name="layoutSection"].first-node-in-document)': {
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 8px)',
+				},
+			},
+		},
 	},
 	resizerStyles: {
-		// placeholder for migration
+		'.resizer-item': {
+			willChange: 'width',
+			'&:hover, &.display-handle': {
+				'& > .resizer-handle-wrapper > .resizer-handle': {
+					visibility: 'visible',
+					opacity: 1,
+				},
+			},
+			'&.is-resizing': {
+				'& .resizer-handle-thumb': {
+					background: token('color.border.focused'),
+				},
+			},
+			'&.resizer-handle-danger': {
+				'& .resizer-handle-thumb': {
+					transition: 'none',
+					background: token('color.icon.danger'),
+				},
+			},
+		},
+		'.resizer-handle': {
+			display: 'flex',
+			visibility: 'hidden',
+			opacity: 0,
+			flexDirection: 'column',
+			justifyContent: 'center',
+			alignItems: 'center',
+			width: 7,
+			transition: 'visibility 0.2s, opacity 0.2s',
+			"& div[role='presentation']": {
+				width: '100%',
+				height: '100%',
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'center',
+				alignItems: 'center',
+				marginTop: token('space.negative.200'),
+				whiteSpace: 'normal',
+			},
+			'&.left': {
+				alignItems: 'flex-start',
+			},
+			'&.right': {
+				alignItems: 'flex-end',
+			},
+			'&.small': {
+				'& .resizer-handle-thumb': {
+					height: 43,
+				},
+			},
+			'&.medium': {
+				'& .resizer-handle-thumb': {
+					height: 64,
+				},
+			},
+			'&.large': {
+				'& .resizer-handle-thumb': {
+					height: 96,
+				},
+			},
+			'&.clamped': {
+				'& .resizer-handle-thumb': {
+					height: 'clamp(43px, calc(100% - 32px), 96px)',
+				},
+			},
+			'&.sticky': {
+				'& .resizer-handle-thumb': {
+					position: 'sticky',
+					top: token('space.150'),
+					bottom: token('space.150'),
+				},
+			},
+			'&:hover': {
+				'& .resizer-handle-thumb': {
+					background: token('color.border.focused'),
+				},
+				'& .resizer-handle-track': {
+					visibility: 'visible',
+					opacity: 0.5,
+				},
+			},
+		},
+		'.resizer-handle-thumb': {
+			content: "' '",
+			display: 'flex',
+			width: 3,
+			margin: `0 ${token('space.025')}`,
+			height: 64,
+			transition: 'background-color 0.2s',
+			borderRadius: token('radius.medium'),
+			border: 0,
+			padding: 0,
+			zIndex: 2,
+			outline: 'none',
+			minHeight: 24,
+			background: token('color.border'),
+			'&:hover': {
+				cursor: 'col-resize',
+			},
+			'&:focus': {
+				background: token('color.border.selected'),
+				'&::after': {
+					content: "''",
+					position: 'absolute',
+					top: token('space.negative.050'),
+					right: token('space.negative.050'),
+					bottom: token('space.negative.050'),
+					left: token('space.negative.050'),
+					border: `${token('border.width.selected')} solid ${token('color.border.focused')}`,
+					borderRadius: 'inherit',
+					zIndex: -1,
+				},
+			},
+		},
+		'.resizer-handle-track': {
+			visibility: 'hidden',
+			position: 'absolute',
+			width: 7,
+			height: 'calc(100% - 40px)',
+			borderRadius: token('radius.small'),
+			opacity: 0,
+			transition: 'background-color 0.2s, visibility 0.2s, opacity 0.2s',
+			'&.none': {
+				background: 'none',
+			},
+			'&.shadow': {
+				background: token('color.background.selected'),
+			},
+			'&.full-height': {
+				background: token('color.background.selected'),
+				height: '100%',
+				minHeight: 36,
+			},
+		},
+		'.ak-editor-selected-node': {
+			'& .resizer-handle-thumb': {
+				background: token('color.border.focused'),
+			},
+		},
+		'.ak-editor-no-interaction .ak-editor-selected-node .resizer-handle:not(:hover) .resizer-handle-thumb':
+			{
+				background: token('color.border'),
+			},
+		'.resizer-hover-zone': {
+			position: 'relative',
+			display: 'flow-root',
+			width: '100%',
+			'&.resizer-is-extended': {
+				padding: `0 ${token('space.150')}`,
+				left: token('space.negative.150'),
+			},
+		},
+		'table .resizer-hover-zone, table .resizer-hover-zone.resizer-is-extended': {
+			padding: 'unset',
+			left: 'unset',
+		},
 	},
 	ruleStyles: {
 		'.ProseMirror hr': {
@@ -4572,28 +5287,715 @@ const editorContentStyles = cssMap({
 		},
 	},
 	showDiffDeletedNodeStyles: {
-		// placeholder for migration
+		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
+		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
+		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
+		'.embedCardView-content-wrap': {
+			'&.show-diff-deleted-node .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
+				borderColor: 'transparent',
+			},
+			'&.show-diff-deleted-node-traditional .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
+				borderColor: 'transparent',
+			},
+			'&.show-diff-deleted-node-traditional.show-diff-deleted-outline-new .loader-wrapper > div::after':
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 4px ${token('color.background.accent.red.subtlest')}`,
+					borderColor: 'transparent',
+				},
+			'&.show-diff-deleted-node-traditional.show-diff-deleted-active .loader-wrapper > div::after':
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 4px ${token('color.background.accent.red.subtler.pressed')}`,
+					borderColor: 'transparent',
+				},
+			'&.show-diff-deleted-node.show-diff-deleted-active .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 4px ${token('color.background.accent.red.subtler.pressed')}`,
+				borderColor: 'transparent',
+			},
+			'&.show-diff-deleted-node .loader-wrapper': {
+				opacity: 0.6,
+			},
+		},
+		'.show-diff-deleted-node .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
+				borderRadius: token('radius.small'),
+				opacity: 0.6,
+			},
+		},
+		'.show-diff-deleted-node-traditional .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
+				borderRadius: token('radius.small'),
+			},
+		},
+		'.show-diff-deleted-node-traditional.show-diff-deleted-outline-new .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 4px ${token('color.background.accent.red.subtlest')}`,
+				borderRadius: token('radius.small'),
+			},
+		},
+		'.show-diff-deleted-node-traditional.show-diff-deleted-active .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 4px ${token('color.background.accent.red.subtler.pressed')}`,
+				borderRadius: token('radius.small'),
+			},
+		},
+		'.show-diff-deleted-node.show-diff-deleted-active .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 4px ${token('color.background.accent.red.subtler.pressed')}`,
+				borderRadius: token('radius.small'),
+				opacity: 0.6,
+			},
+		},
+		'[data-prosemirror-node-name="blockquote"].show-diff-deleted-node': {
+			textDecoration: 'line-through',
+		},
+		'[data-prosemirror-node-name="blockquote"].show-diff-deleted-node-traditional': {
+			textDecoration: 'line-through',
+			textDecorationColor: token('color.border.accent.red'),
+		},
+		'[data-prosemirror-node-name="embedCard"].show-diff-deleted-node-traditional': {
+			textDecoration: 'line-through',
+			textDecorationColor: token('color.border.accent.red'),
+		},
 	},
 	showDiffDeletedNodeStylesNew: {
-		// placeholder for migration
+		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
+		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
+		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
+		'.embedCardView-content-wrap': {
+			'&.show-diff-deleted-node .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
+				borderColor: 'transparent',
+			},
+			'&.show-diff-deleted-node-traditional .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
+				borderColor: 'transparent',
+			},
+			'&.show-diff-deleted-node-traditional.show-diff-deleted-outline-new .loader-wrapper > div::after':
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 4px ${token('color.background.accent.red.subtlest')}`,
+					borderColor: 'transparent',
+				},
+			'&.show-diff-deleted-node-traditional.show-diff-deleted-active .loader-wrapper > div::after':
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 4px ${token('color.background.accent.red.subtler.pressed')}`,
+					borderColor: 'transparent',
+				},
+			'&.show-diff-deleted-node.show-diff-deleted-active .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 4px ${token('color.background.accent.red.subtler.pressed')}`,
+				borderColor: 'transparent',
+			},
+			'&.show-diff-deleted-node .loader-wrapper': {
+				opacity: 0.8,
+			},
+		},
+		'.show-diff-deleted-node .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
+				borderRadius: token('radius.small'),
+				opacity: 0.8,
+			},
+		},
+		'.show-diff-deleted-node-traditional .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 var(--diff-decoration-marker-ring-width, 1px) ${token(
+					'color.border.accent.red',
+				)}`,
+				borderRadius: token('radius.small'),
+			},
+		},
+		'.show-diff-deleted-node-traditional.show-diff-deleted-outline-new .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 4px ${token('color.background.accent.red.subtlest')}`,
+				borderRadius: token('radius.small'),
+			},
+		},
+		'.show-diff-deleted-node-traditional.show-diff-deleted-active .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 4px ${token('color.background.accent.red.subtler.pressed')}`,
+				borderRadius: token('radius.small'),
+			},
+		},
+		'.show-diff-deleted-node.show-diff-deleted-active .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 4px ${token('color.background.accent.red.subtler.pressed')}`,
+				borderRadius: token('radius.small'),
+				opacity: 0.8,
+			},
+		},
+		'[data-prosemirror-node-name="blockquote"].show-diff-deleted-node': {
+			textDecoration: 'line-through',
+		},
+		'[data-prosemirror-node-name="blockquote"].show-diff-deleted-node-traditional': {
+			textDecoration: 'line-through',
+			textDecorationColor: token('color.border.accent.red'),
+		},
+		'[data-prosemirror-node-name="embedCard"].show-diff-deleted-node-traditional': {
+			textDecoration: 'line-through',
+			textDecorationColor: token('color.border.accent.red'),
+		},
 	},
 	smartCardDiffStyles: {
-		// placeholder for migration
+		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
+		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
+		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
+		'.embedCardView-content-wrap': {
+			'&[data-testid="show-diff-changed-decoration-node"] .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 var(--diff-decoration-marker-ring-width, 1px) var(--diff-decoration-marker-color)`,
+				borderColor: 'transparent',
+			},
+		},
 	},
 	smartCardStyles: {
-		// placeholder for migration
+		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
+		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// SmartCardSharedCssClassName.INLINE_CARD_CONTAINER = 'inlineCardView-content-wrap'
+		// SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER = 'blockCardView-content-wrap'
+		// SmartCardSharedCssClassName.DATASOURCE_CONTAINER = 'datasourceView-content-wrap'
+		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
+		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
+		// FLOATING_TOOLBAR_LINKPICKER_CLASSNAME = 'card-floating-toolbar--link-picker'
+		// DATASOURCE_INNER_CONTAINER_CLASSNAME = 'datasourceView-content-inner-wrap'
+		'.inlineCardView-content-wrap': {
+			maxWidth: 'calc(100% - 20px)',
+			verticalAlign: 'top',
+			wordBreak: 'break-all',
+
+			'.card-with-comment': {
+				background: token('color.background.accent.yellow.subtler'),
+				borderBottom: `${token('border.width.selected')} solid ${token(
+					'color.border.accent.yellow',
+				)}`,
+				boxShadow: token('elevation.shadow.overlay'),
+			},
+
+			'.card': {
+				paddingLeft: token('space.025'),
+				paddingRight: token('space.025'),
+				paddingTop: token('space.100'),
+				paddingBottom: token('space.100'),
+				marginBottom: token('space.negative.100'),
+
+				'.loader-wrapper > a:focus': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+				},
+			},
+
+			'&.ak-editor-selected-node .loader-wrapper > a': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+			},
+
+			'.loader-wrapper > a': {
+				// EDM-1717: box-shadow Safari fix start
+				zIndex: 1,
+				position: 'relative',
+			},
+
+			'&.danger': {
+				'.loader-wrapper > a': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					// EDM-1717: box-shadow Safari fix start
+					zIndex: 2,
+					// EDM-1717: box-shadow Safari fix end
+				},
+			},
+		},
+
+		'.blockCardView-content-wrap': {
+			display: 'block',
+			margin: '0.75rem 0 0',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			maxWidth: `${8 * 95}px`,
+
+			'&.ak-editor-selected-node .loader-wrapper > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+				borderRadius: token('radius.large', '8px'),
+			},
+
+			'&.danger': {
+				'.loader-wrapper > div': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')} !important`,
+				},
+			},
+		},
+
+		'.datasourceView-content-wrap.blockCardView-content-wrap': {
+			maxWidth: '100%',
+			display: 'flex',
+			justifyContent: 'center',
+
+			'.datasourceView-content-inner-wrap': {
+				cursor: 'pointer',
+				backgroundColor: token('color.background.neutral.subtle'),
+				borderRadius: token('radius.large', '8px'),
+				border: `1px solid ${token('color.border')}`,
+				overflow: 'hidden',
+			},
+
+			'&.ak-editor-selected-node': {
+				'.datasourceView-content-inner-wrap': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+
+					'input::selection': {
+						backgroundColor: token('color.background.selected.hovered'),
+					},
+
+					'input::-moz-selection': {
+						backgroundColor: token('color.background.selected.hovered'),
+					},
+				},
+			},
+
+			'&.danger': {
+				'.datasourceView-content-inner-wrap': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				},
+			},
+		},
+
+		'.embedCardView-content-wrap': {
+			'.loader-wrapper > div': {
+				cursor: 'pointer',
+
+				'&::after': {
+					transition: 'box-shadow 0s',
+				},
+			},
+
+			'&.ak-editor-selected-node .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+			},
+
+			'&.danger': {
+				'.media-card-frame::after': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')} !important`,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values
+					background: `${token('color.background.danger')} !important`,
+				},
+
+				'.richMedia-resize-handle-right::after, .richMedia-resize-handle-left::after': {
+					background: token('color.border.danger'),
+				},
+			},
+		},
+
+		'.card-floating-toolbar--link-picker': {
+			padding: 0,
+		},
 	},
 	smartCardStylesWithSearchMatch: {
-		// placeholder for migration
+		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
+		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// SmartCardSharedCssClassName.INLINE_CARD_CONTAINER = 'inlineCardView-content-wrap'
+		// SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER = 'blockCardView-content-wrap'
+		// SmartCardSharedCssClassName.DATASOURCE_CONTAINER = 'datasourceView-content-wrap'
+		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
+		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
+		// FLOATING_TOOLBAR_LINKPICKER_CLASSNAME = 'card-floating-toolbar--link-picker'
+		// DATASOURCE_INNER_CONTAINER_CLASSNAME = 'datasourceView-content-inner-wrap'
+		'.inlineCardView-content-wrap': {
+			maxWidth: 'calc(100% - 20px)',
+			verticalAlign: 'top',
+			wordBreak: 'break-all',
+
+			'.card-with-comment': {
+				background: token('color.background.accent.yellow.subtler'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				borderBottom: `2px solid ${token('color.border.accent.yellow')}`,
+				boxShadow: token('elevation.shadow.overlay'),
+			},
+
+			'.card': {
+				paddingLeft: token('space.025'),
+				paddingRight: token('space.025'),
+				paddingTop: token('space.100'),
+				paddingBottom: token('space.100'),
+				marginBottom: token('space.negative.100'),
+
+				'.loader-wrapper > a:focus': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+				},
+			},
+
+			'&.ak-editor-selected-node .loader-wrapper > a': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+			},
+
+			'&.ak-editor-selected-node:not(.search-match-block) .loader-wrapper > a': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+			},
+
+			'.loader-wrapper > a': {
+				// EDM-1717: box-shadow Safari fix start
+				zIndex: 1,
+				position: 'relative',
+			},
+
+			'&.danger': {
+				'.loader-wrapper > a': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					// EDM-1717: box-shadow Safari fix start
+					zIndex: 2,
+					// EDM-1717: box-shadow Safari fix end
+				},
+			},
+		},
+
+		'.blockCardView-content-wrap': {
+			display: 'block',
+			margin: '0.75rem 0 0',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			maxWidth: `${8 * 95}px`,
+
+			'&.ak-editor-selected-node .loader-wrapper > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+
+				borderRadius: token('radius.large', '8px'),
+			},
+
+			'&.danger': {
+				'.loader-wrapper > div': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')} !important`,
+				},
+			},
+		},
+
+		'.datasourceView-content-wrap.blockCardView-content-wrap': {
+			maxWidth: '100%',
+			display: 'flex',
+			justifyContent: 'center',
+
+			'.datasourceView-content-inner-wrap': {
+				cursor: 'pointer',
+				backgroundColor: token('color.background.neutral.subtle'),
+				borderRadius: token('radius.large', '8px'),
+				border: `1px solid ${token('color.border')}`,
+				overflow: 'hidden',
+			},
+
+			'&.ak-editor-selected-node': {
+				'.datasourceView-content-inner-wrap': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+
+					'input::selection': {
+						backgroundColor: token('color.background.selected.hovered'),
+					},
+
+					'input::-moz-selection': {
+						backgroundColor: token('color.background.selected.hovered'),
+					},
+				},
+			},
+
+			'&.danger': {
+				'.datasourceView-content-inner-wrap': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				},
+			},
+		},
+
+		'.embedCardView-content-wrap': {
+			'.loader-wrapper > div': {
+				cursor: 'pointer',
+
+				'&::after': {
+					transition: 'box-shadow 0s',
+				},
+			},
+
+			'&.ak-editor-selected-node .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+			},
+
+			'&.ak-editor-selected-node:not(.search-match-block) .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+			},
+
+			'&.danger': {
+				'.media-card-frame::after': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')} !important`,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values
+					background: `${token('color.background.danger')} !important`,
+				},
+
+				'.richMedia-resize-handle-right::after, .richMedia-resize-handle-left::after': {
+					background: token('color.border.danger'),
+				},
+			},
+		},
+
+		'.card-floating-toolbar--link-picker': {
+			padding: 0,
+		},
 	},
 	smartCardStylesWithSearchMatchAndBlockMenuDangerStyles: {
-		// placeholder for migration
+		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
+		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// SmartCardSharedCssClassName.INLINE_CARD_CONTAINER = 'inlineCardView-content-wrap'
+		// SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER = 'blockCardView-content-wrap'
+		// SmartCardSharedCssClassName.DATASOURCE_CONTAINER = 'datasourceView-content-wrap'
+		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
+		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
+		// FLOATING_TOOLBAR_LINKPICKER_CLASSNAME = 'card-floating-toolbar--link-picker'
+		// DATASOURCE_INNER_CONTAINER_CLASSNAME = 'datasourceView-content-inner-wrap'
+		'.inlineCardView-content-wrap': {
+			maxWidth: 'calc(100% - 20px)',
+			verticalAlign: 'top',
+			wordBreak: 'break-all',
+
+			'.card-with-comment': {
+				background: token('color.background.accent.yellow.subtler'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				borderBottom: `2px solid ${token('color.border.accent.yellow')}`,
+				boxShadow: token('elevation.shadow.overlay'),
+			},
+
+			'.card': {
+				paddingLeft: token('space.025'),
+				paddingRight: token('space.025'),
+				paddingTop: token('space.100'),
+				paddingBottom: token('space.100'),
+				marginBottom: token('space.negative.100'),
+
+				'.loader-wrapper > a:focus': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+				},
+			},
+
+			'&.ak-editor-selected-node .loader-wrapper > a': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+			},
+
+			'&.ak-editor-selected-node:not(.search-match-block):not(.danger) .loader-wrapper > a': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+			},
+
+			'.loader-wrapper > a': {
+				// EDM-1717: box-shadow Safari fix start
+				zIndex: 1,
+				position: 'relative',
+			},
+
+			'&.danger': {
+				'.loader-wrapper > a': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					// EDM-1717: box-shadow Safari fix start
+					zIndex: 2,
+					// EDM-1717: box-shadow Safari fix end
+				},
+			},
+		},
+
+		'.blockCardView-content-wrap': {
+			display: 'block',
+			margin: '0.75rem 0 0',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			maxWidth: `${8 * 95}px`,
+
+			'&.ak-editor-selected-node .loader-wrapper > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+
+				borderRadius: token('radius.large', '8px'),
+			},
+
+			'&.danger': {
+				'.loader-wrapper > div': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')} !important`,
+				},
+			},
+		},
+
+		'.datasourceView-content-wrap.blockCardView-content-wrap': {
+			maxWidth: '100%',
+			display: 'flex',
+			justifyContent: 'center',
+
+			'.datasourceView-content-inner-wrap': {
+				cursor: 'pointer',
+				backgroundColor: token('color.background.neutral.subtle'),
+				borderRadius: token('radius.large', '8px'),
+				border: `1px solid ${token('color.border')}`,
+				overflow: 'hidden',
+			},
+
+			'&.ak-editor-selected-node': {
+				'.datasourceView-content-inner-wrap': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+
+					'input::selection': {
+						backgroundColor: token('color.background.selected.hovered'),
+					},
+
+					'input::-moz-selection': {
+						backgroundColor: token('color.background.selected.hovered'),
+					},
+				},
+			},
+
+			'&.danger': {
+				'.datasourceView-content-inner-wrap': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				},
+			},
+		},
+
+		'.embedCardView-content-wrap': {
+			'.loader-wrapper > div': {
+				cursor: 'pointer',
+
+				'&::after': {
+					transition: 'box-shadow 0s',
+				},
+			},
+
+			'&.ak-editor-selected-node .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+			},
+
+			'&.ak-editor-selected-node:not(.search-match-block) .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+			},
+
+			'&.danger': {
+				'.media-card-frame::after': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')} !important`,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values
+					background: `${token('color.background.danger')} !important`,
+				},
+
+				'.richMedia-resize-handle-right::after, .richMedia-resize-handle-left::after': {
+					background: token('color.border.danger'),
+				},
+			},
+		},
+
+		'.card-floating-toolbar--link-picker': {
+			padding: 0,
+		},
 	},
 	smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness: {
-		// placeholder for migration
+		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
+		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
+		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
+		// Uses editorAreaNarrowPageContainerQuery = `@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`
+		[editorAreaNarrowPageContainerQuery]: {
+			'.embedCardView-content-wrap': {
+				marginTop: token('space.150'),
+			},
+
+			'.embedCardView-content-wrap.ak-editor-selected-node .loader-wrapper > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+				borderRadius: token('radius.large', '8px'),
+			},
+		},
 	},
 	smartLinksInLivePagesStyles: {
-		// placeholder for migration
+		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
+		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER = 'blockCardView-content-wrap'
+		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
+		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
+		'.blockCardView-content-wrap': {
+			'.loader-wrapper > div': {
+				cursor: 'pointer',
+
+				a: {
+					cursor: 'auto',
+				},
+			},
+		},
+
+		'.embedCardView-content-wrap': {
+			'.loader-wrapper > div': {
+				a: {
+					cursor: 'auto',
+				},
+			},
+		},
 	},
 	syncBlockFirstNodeStyles: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -6066,12 +7468,12 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 		? {
 				'--ak-editor-base-font-size': `${editorFontSize({ theme: { baseFontSize } })}px`,
 				'--ak-editor--table-overflow-shadow': tableOverflowShadow,
-			}
+		  }
 		: {
 				'--ak-editor-base-font-size': `${editorFontSize({ theme: { baseFontSize } })}px`,
 				'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingDynamic()}px`,
 				'--ak-editor--table-overflow-shadow': tableOverflowShadow,
-			};
+		  };
 
 	const browser = getBrowserInfo();
 
@@ -6192,12 +7594,19 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.gridStyles,
 				editorContentStyles.blockMarksStyles,
 				editorContentStyles.dateStyles,
-				// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-				// TODO: uncomment and remove dynamic styles from getExtensionStyles
-				// migrate this with packages/editor/editor-core/src/ui/EditorContentContainer/styles/extensionStyles.ts
-				// suggest creating a new cssMap for the variant use case from the guide below
-				// reference: https://atlassian.design/components/eslint-plugin-ui-styling-standard/no-dynamic-styles/usage
-				// getExtensionStyles(contentMode),
+				editorContentStyles.extensionStyles,
+				((contentMode === 'compact' &&
+					expValEquals('confluence_compact_text_format', 'isEnabled', true)) ||
+					(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+						fg('platform_editor_content_mode_button_mvp'))) &&
+					editorContentStyles.extensionStylesDense,
+				contentMode === 'compact' &&
+					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+					!expValEquals('confluence_compact_text_format', 'isEnabled', true) &&
+					!fg('platform_editor_content_mode_button_mvp') &&
+					editorContentStyles.extensionStylesLegacyDense,
+				expValEquals('platform_editor_bodiedextension_layoutshift_fix', 'isEnabled', true) &&
+					editorContentStyles.bodiedExtensionLayoutShiftFix,
 				editorContentStyles.extensionDiffStyles,
 				editorContentStyles.expandStylesBase,
 				// Apply expand delta styles conditionally based on useStandardNodeWidth (negative margins or not)
@@ -6234,20 +7643,20 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				fg('platform-dst-lozenge-tag-badge-visual-uplifts')
 					? editorContentStyles.statusStylesTeam26
 					: fg('platform-component-visual-refresh')
-						? expValEqualsNoExposure(
-								'platform_editor_find_and_replace_improvements',
-								'isEnabled',
-								true,
-							)
-							? editorContentStyles.statusStylesMixin_fg_platform_component_visual_refresh_with_search_match
-							: editorContentStyles.statusStylesMixin_fg_platform_component_visual_refresh
-						: expValEqualsNoExposure(
-									'platform_editor_find_and_replace_improvements',
-									'isEnabled',
-									true,
-							  )
-							? editorContentStyles.statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match
-							: editorContentStyles.statusStylesMixin_without_fg_platform_component_visual_refresh,
+					? expValEqualsNoExposure(
+							'platform_editor_find_and_replace_improvements',
+							'isEnabled',
+							true,
+					  )
+						? editorContentStyles.statusStylesMixin_fg_platform_component_visual_refresh_with_search_match
+						: editorContentStyles.statusStylesMixin_fg_platform_component_visual_refresh
+					: expValEqualsNoExposure(
+							'platform_editor_find_and_replace_improvements',
+							'isEnabled',
+							true,
+					  )
+					? editorContentStyles.statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match
+					: editorContentStyles.statusStylesMixin_without_fg_platform_component_visual_refresh,
 				editorContentStyles.annotationStyles,
 				expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 					? editorExperiment('platform_editor_block_menu', true)
@@ -6317,19 +7726,19 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.dateVanillaStyles,
 				fg('platform_editor_typography_ugc')
 					? contentMode === 'compact' &&
-						(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+					  (expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
 							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 							(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 								fg('platform_editor_content_mode_button_mvp')))
 						? editorContentStyles.paragraphStylesWithScaledMargin
 						: editorContentStyles.paragraphStylesUGCRefreshed
 					: contentMode === 'compact' &&
-						  (expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-								// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-								(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-									fg('platform_editor_content_mode_button_mvp')))
-						? editorContentStyles.paragraphStylesOldWithScaledMargin
-						: editorContentStyles.paragraphStylesOld,
+					  (expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+							(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+								fg('platform_editor_content_mode_button_mvp')))
+					? editorContentStyles.paragraphStylesOldWithScaledMargin
+					: editorContentStyles.paragraphStylesOld,
 				editorContentStyles.linkStyles,
 				browser.safari && editorContentStyles.listsStylesSafariFix,
 				editorExperiment('platform_synced_block', true) &&

@@ -1,5 +1,25 @@
 # @atlaskit/modal-dialog
 
+## 15.1.1
+
+### Patch Changes
+
+- [`68077cab1f95d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68077cab1f95d) -
+  Fixed styling related issues behind the new motion uplift
+- Updated dependencies
+
+## 15.1.0
+
+### Minor Changes
+
+- [`cfeab708c0a5d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfeab708c0a5d) -
+  Add ref forwarding to the modal dialog. The ref will be placed on the outer container of the modal
+  dialog.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.4
 
 ### Patch Changes

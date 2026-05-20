@@ -5,7 +5,8 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';
 import { Box } from '@atlaskit/primitives/compiled';
 
-import { Card, CardAction } from '../../src';
+import { Card } from '../../src';
+import { CardAction } from '../../src/constants';
 import { useSmartLinkActions } from '../../src/hooks';
 
 import ExampleContainer from './example-container';

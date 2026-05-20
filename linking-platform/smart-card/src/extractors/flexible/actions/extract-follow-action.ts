@@ -2,13 +2,11 @@ import type { JsonLd } from '@atlaskit/json-ld-types';
 import { extractLink, extractType } from '@atlaskit/link-extractors';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 
+import { CardAction } from '../../../constants';
 import { type ServerActionProp } from '../../../state/flexible-ui-context/types';
 import { getExtensionKey } from '../../../state/helpers';
 import { canShowAction } from '../../../utils/actions/can-show-action';
-import {
-	CardAction,
-	type InternalCardActionOptions as CardActionOptions,
-} from '../../../view/Card/types';
+import { type InternalCardActionOptions as CardActionOptions } from '../../../view/Card/types';
 import extractServerAction from '../extract-server-action';
 
 const extractFollowAction = (

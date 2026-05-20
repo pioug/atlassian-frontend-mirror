@@ -1,6 +1,7 @@
 import { extractSmartLinkUrl } from '@atlaskit/link-extractors';
 
-import { ActionName, CardAction } from '../../index';
+import { CardAction } from '../../constants';
+import { ActionName } from '../../index';
 import { getDefinitionId, getExtensionKey, getResourceType } from '../../state/helpers';
 import { type InvokeClientActionProps } from '../../state/hooks/use-invoke-client-action/types';
 import { canShowAction } from '../../utils/actions/can-show-action';

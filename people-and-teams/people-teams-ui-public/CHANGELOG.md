@@ -1,5 +1,12 @@
 # @atlaskit/people-teams-ui-public
 
+## 4.1.0
+
+### Minor Changes
+
+- [`c4618bd639f01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4618bd639f01) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 4.0.3
 
 ### Patch Changes

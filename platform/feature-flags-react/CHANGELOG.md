@@ -1,5 +1,13 @@
 # @atlaskit/platform-feature-flags-react
 
+## 0.5.1
+
+### Patch Changes
+
+- [`72290778b16ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72290778b16ca) -
+  Enrol mixed platform packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform
+
 ## 0.5.0
 
 ### Minor Changes

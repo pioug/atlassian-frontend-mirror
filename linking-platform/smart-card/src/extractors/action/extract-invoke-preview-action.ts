@@ -11,7 +11,8 @@ import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { type FireEventFunction } from '../../common/analytics/types';
-import { ActionName, CardAction } from '../../index';
+import { CardAction } from '../../constants';
+import { ActionName } from '../../index';
 import { getExtensionKey } from '../../state/helpers';
 import { type InvokeClientActionProps } from '../../state/hooks/use-invoke-client-action/types';
 import { canShowAction } from '../../utils/actions/can-show-action';
@@ -66,11 +67,11 @@ export const extractInvokePreviewAction = (
 
 	const hasPreviewPanelParams = Boolean(
 		expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') &&
-		isPreviewPanelAvailable &&
-		openPreviewPanel &&
-		ari &&
-		url &&
-		name,
+			isPreviewPanelAvailable &&
+			openPreviewPanel &&
+			ari &&
+			url &&
+			name,
 	);
 
 	const hasPreviewPanel = hasPreviewPanelParams && isPreviewPanelAvailable!({ ari: ari! });

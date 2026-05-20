@@ -4,6 +4,8 @@
  */
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
+import { fg } from '@atlaskit/platform-feature-flags';
+import Heading from '@atlaskit/heading';
 import { FormattedMessage } from 'react-intl';
 import { isMessagesKey } from '../../util/type-helpers';
 import { messages } from '../i18n';
@@ -18,6 +20,8 @@ const emojiCategoryTitle = css({
 	paddingLeft: token('space.100'),
 	paddingRight: token('space.100'),
 	textTransform: 'lowercase',
+	// Reset heading element default styles to avoid visual changes
+	margin: 0,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:first-letter': {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -45,9 +49,17 @@ const EmojiPickerCategoryHeading = ({ id, title, className }: Props): JSX.Elemen
 		data-testid={RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID}
 		role="rowheader"
 	>
-		<div css={emojiCategoryTitle}>
-			{isMessagesKey(title) ? <FormattedMessage {...messages[title]} /> : title}
-		</div>
+		{fg('platform_emoji_a11y_category_heading') ? (
+			<div css={emojiCategoryTitle}>
+				<Heading size="xsmall" as="h2">
+					{isMessagesKey(title) ? <FormattedMessage {...messages[title]} /> : title}
+				</Heading>
+			</div>
+		) : (
+			<div css={emojiCategoryTitle}>
+				{isMessagesKey(title) ? <FormattedMessage {...messages[title]} /> : title}
+			</div>
+		)}
 	</div>
 );
 

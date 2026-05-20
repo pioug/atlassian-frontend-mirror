@@ -224,12 +224,14 @@ export const ROVO_GROUP_RANK: {
 
 export const ROVO_GROUP_DISPLAY_SMALL_RANK: {
 	'ai-suggestions-button': number;
+	'hero-prompt-button': number;
 	'rovo-hero-button': number;
 	'rovo-menu-display-small': number;
 } = {
 	[ROVO_HERO_BUTTON.key]: 100,
 	[ROVO_MENU_DISPLAY_SMALL.key]: 200,
-	[AI_SUGGESTIONS_BUTTON.key]: 300,
+	[HERO_PROMPT_BUTTON.key]: 300,
+	[AI_SUGGESTIONS_BUTTON.key]: 400,
 };
 
 export const DEFINE_GROUP_RANK: {

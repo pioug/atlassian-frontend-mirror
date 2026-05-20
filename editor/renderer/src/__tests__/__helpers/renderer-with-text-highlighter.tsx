@@ -7,7 +7,7 @@ import { Fragment, useRef } from 'react';
 import { jsx } from '@emotion/react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
-import { RendererActionsContext } from '@atlaskit/renderer/actions';
+import { RendererActionsContext } from '@atlaskit/renderer/actions/renderer-actions-context';
 import {
 	AnnotationsProvider,
 	CommentsContentProvider,

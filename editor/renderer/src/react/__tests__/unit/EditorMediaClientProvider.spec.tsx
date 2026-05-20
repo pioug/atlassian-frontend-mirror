@@ -95,6 +95,134 @@ describe('child MediaClientContext with config should not use mediaClient from p
 	});
 });
 
+// Fix 1: Stale promise cancellation — when mediaProvider changes mid-flight, the stale
+// promise must not overwrite the state set by the new provider.
+describe('stale mediaProvider promise should not overwrite state from the new provider', () => {
+	eeTest('platform_editor_media_reliability_enhancements', {
+		true: async () => {
+			let resolveFirstProvider!: (value: any) => void;
+			const firstProvider = new Promise<any>((resolve) => {
+				resolveFirstProvider = resolve;
+			});
+
+			const firstProviderFactory = new ProviderFactory();
+			firstProviderFactory.setProvider('mediaProvider', firstProvider);
+
+			const secondProviderFactory = createProviderFactory('second-token');
+
+			const { rerender } = renderWithIntl(
+				<ProviderFactoryProvider value={firstProviderFactory}>
+					<EditorMediaClientProvider>
+						<MediaClientConsumer testIdPrefix="consumer" />
+					</EditorMediaClientProvider>
+				</ProviderFactoryProvider>,
+			);
+
+			// Switch to the second provider before the first resolves —
+			// this re-runs the effect and sets cancelled=true on the first promise's closure.
+			rerender(
+				<ProviderFactoryProvider value={secondProviderFactory}>
+					<EditorMediaClientProvider>
+						<MediaClientConsumer testIdPrefix="consumer" />
+					</EditorMediaClientProvider>
+				</ProviderFactoryProvider>,
+			);
+
+			// Wait for the second provider to resolve and set state.
+			await screen.findByTestId('consumer-token');
+			expect(screen.getByTestId('consumer-token')).toHaveTextContent('second-token');
+
+			// Now resolve the first (stale) provider — the cancelled flag must prevent it
+			// from overwriting the correct 'second-token' state.
+			resolveFirstProvider({ viewMediaClientConfig: createMediaClientConfig('stale-token') });
+			await Promise.resolve();
+
+			// State must still reflect the second provider, not the stale first one.
+			expect(screen.getByTestId('consumer-token')).toHaveTextContent('second-token');
+		},
+		false: async () => {
+			// Old path — no cancellation, smoke test only
+			let resolveProvider!: (value: any) => void;
+			const lazyMediaProvider = new Promise<any>((resolve) => {
+				resolveProvider = resolve;
+			});
+			const providerFactory = new ProviderFactory();
+			providerFactory.setProvider('mediaProvider', lazyMediaProvider);
+
+			const { unmount } = renderWithIntl(
+				<ProviderFactoryProvider value={providerFactory}>
+					<EditorMediaClientProvider>
+						<div data-testid="child" />
+					</EditorMediaClientProvider>
+				</ProviderFactoryProvider>,
+			);
+
+			expect(screen.getByTestId('child')).toBeInTheDocument();
+
+			unmount();
+			resolveProvider({ viewMediaClientConfig: createMediaClientConfig('token') });
+			await Promise.resolve();
+		},
+	});
+});
+
+// Fix 2: mediaClient must be available on first render when ssr.config is provided
+describe('mediaClient should be available on first render when ssr.config is provided', () => {
+	eeTest('platform_editor_media_reliability_enhancements', {
+		true: () => {
+			const firstRenderClients: Array<unknown> = [];
+
+			function CapturingConsumer() {
+				const mediaClient = useContext(MediaClientContext);
+				// Only capture on first render
+				if (firstRenderClients.length === 0) {
+					firstRenderClients.push(mediaClient);
+				}
+				return <div data-testid="consumer" />;
+			}
+
+			const ssrConfig = createMediaClientConfig('ssr-token');
+			const providerFactory = new ProviderFactory();
+
+			renderWithIntl(
+				<ProviderFactoryProvider value={providerFactory}>
+					<EditorMediaClientProvider ssr={{ config: ssrConfig, mode: 'server' }}>
+						<CapturingConsumer />
+					</EditorMediaClientProvider>
+				</ProviderFactoryProvider>,
+			);
+
+			// mediaClient must be defined on the very first render — no waiting for useLayoutEffect
+			expect(firstRenderClients[0]).toBeDefined();
+		},
+		false: () => {
+			const firstRenderClients: Array<unknown> = [];
+
+			function CapturingConsumer() {
+				const mediaClient = useContext(MediaClientContext);
+				if (firstRenderClients.length === 0) {
+					firstRenderClients.push(mediaClient);
+				}
+				return <div data-testid="consumer" />;
+			}
+
+			const ssrConfig = createMediaClientConfig('ssr-token');
+			const providerFactory = new ProviderFactory();
+
+			renderWithIntl(
+				<ProviderFactoryProvider value={providerFactory}>
+					<EditorMediaClientProvider ssr={{ config: ssrConfig, mode: 'server' }}>
+						<CapturingConsumer />
+					</EditorMediaClientProvider>
+				</ProviderFactoryProvider>,
+			);
+
+			// Old path — mediaClient is undefined on first render (known limitation)
+			expect(firstRenderClients[0]).toBeUndefined();
+		},
+	});
+});
+
 // Regression test for EDITOR-679:
 // When the ProviderFactory already has a mediaProvider registered before the
 // EditorMediaClientProvider mounts (the common case in nested/include-page renderers),

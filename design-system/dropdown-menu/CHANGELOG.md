@@ -1,5 +1,18 @@
 # @atlaskit/dropdown-menu
 
+## 16.9.0
+
+### Minor Changes
+
+- [`43e486948865a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43e486948865a) -
+  When `platform-dst-top-layer` is enabled, the dropdown menu now uses the updated `widthFromAnchor`
+  prop (with string values `'min-anchor'` | `'none'`) on `Popup.Content` instead of the previous
+  `width` prop, to control whether the dropdown matches the width of its trigger.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.8.12
 
 ### Patch Changes

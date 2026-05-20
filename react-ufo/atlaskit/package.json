@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "5.21.1",
+	"version": "5.22.1",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -83,7 +83,17 @@
 		"./use-press-tracing": "./src/use-press-tracing/index.ts",
 		"./vc": "./src/vc/index.ts",
 		"./vc-media": "./src/vc/vc-observer/media-wrapper/index.ts",
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./additional-payload/cache-hit-ratio": "./src/entry-points/additional-payload-cache-hit-ratio.ts",
+		"./additional-payload/lighthouse-metrics": "./src/entry-points/additional-payload-lighthouse-metrics.ts",
+		"./interaction-ignore/ufo-interaction-ignore": "./src/entry-points/interaction-ignore-ufo-interaction-ignore.tsx",
+		"./resource-timing/config": "./src/entry-points/resource-timing-config.ts",
+		"./resource-timing/main": "./src/entry-points/resource-timing-main.ts",
+		"./resource-timing/types": "./src/entry-points/resource-timing-types.ts",
+		"./resource-timing/utils": "./src/entry-points/resource-timing-utils.tsx",
+		"./ssr-scripts/bindAbortListeners": "./src/entry-points/ssr-scripts-bindAbortListeners.ts",
+		"./ssr-scripts/collectSSRPlaceholderDimensions": "./src/entry-points/ssr-scripts-collectSSRPlaceholderDimensions.ts",
+		"./vc-media/MediaWrapper": "./src/entry-points/vc-media-MediaWrapper.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/atlassian-context": "workspace:^",
@@ -263,6 +273,9 @@
 			"type": "boolean"
 		},
 		"ufo-bump-walk-levels": {
+			"type": "boolean"
+		},
+		"platform_ufo_ecosystem_data_in_payload": {
 			"type": "boolean"
 		}
 	}

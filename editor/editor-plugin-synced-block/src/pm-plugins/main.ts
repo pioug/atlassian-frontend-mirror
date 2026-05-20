@@ -568,6 +568,42 @@ export const createPlugin = (
 					prevIsDragging: prevDragging,
 				} = currentPluginState;
 
+				// Pre-compute once so the fast-path probe and the bottom ref-equality
+				// short-circuit share the same source-manager snapshot. Track C will make this O(1).
+				const nextHasUnsavedBodiedSyncBlockChanges =
+					syncBlockStore.sourceManager.hasUnsavedChanges();
+
+				// --- Fast path (EDITOR-6934 follow-up, see Confluence 7050540723 §9.3 / §9.9):
+				// when no plugin meta is set, and neither the document nor selection changed,
+				// most synced-block plugin state cannot change. The source manager is mutable
+				// outside ProseMirror transactions, though, so preserve existing empty-transaction
+				// sync semantics by checking that snapshot first.
+				//
+				// Note: selection-only transactions intentionally fall through to the normal
+				// apply path because calculateDecorations depends on drag/view-mode state
+				// that is not captured here.
+				//
+				// We also need to ensure shared-state signals (drag, offline, view-mode)
+				// haven't changed — these are propagated via empty transactions and drive
+				// status decoration rebuilds (e.g. drag border). Without this check the
+				// fast path would swallow drag-start transactions and the synced block
+				// border would never appear (see VR test: synced-block-drag-selection).
+				if (
+					isPerfExperimentOn &&
+					!meta &&
+					!tr.docChanged &&
+					tr.selection.eq(oldEditorState.selection) &&
+					nextHasUnsavedBodiedSyncBlockChanges ===
+						currentPluginState.hasUnsavedBodiedSyncBlockChanges &&
+					(api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'dragging') ===
+						prevDragging &&
+					isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode) ===
+						prevOffline &&
+					(api?.editorViewMode?.sharedState.currentState()?.mode === 'view') === prevViewMode
+				) {
+					return currentPluginState;
+				}
+
 				// Lazy-init bookkeeping: once a synced block enters the document we
 				// flip `hasSyncedBlocks` to `true` for the lifetime of this editor
 				let nextHasSyncedBlocks = prevHasSyncedBlocks;
@@ -575,20 +611,6 @@ export const createPlugin = (
 					if (transactionInsertsSyncedBlock(tr)) {
 						nextHasSyncedBlocks = true;
 					}
-				}
-
-				// --- Fast path (EDITOR-6929): when `hasSyncedBlocks` is false,
-				// no meta is set, and the selection/doc haven't changed in a way
-				// that affects our state, return the SAME object reference so
-				// SharedStateAPI skips notifying subscribers. ---
-				if (
-					!nextHasSyncedBlocks &&
-					!meta &&
-					!tr.docChanged &&
-					tr.selection.eq(oldEditorState.selection) &&
-					isPerfExperimentOn
-				) {
-					return currentPluginState;
 				}
 
 				let newDecorationSet = tr.docChanged
@@ -666,8 +688,6 @@ export const createPlugin = (
 				const nextActiveFlag = meta?.activeFlag ?? activeFlag;
 				const nextBodiedSyncBlockDeletionStatus =
 					meta?.bodiedSyncBlockDeletionStatus ?? bodiedSyncBlockDeletionStatus;
-				const nextHasUnsavedBodiedSyncBlockChanges =
-					syncBlockStore.sourceManager.hasUnsavedChanges();
 
 				// --- Reference equality (EDITOR-6929): return the same object
 				// when ALL fields are reference-equal to avoid SharedStateAPI

@@ -1,5 +1,29 @@
 # @atlaskit/link-datasource
 
+## 5.3.0
+
+### Minor Changes
+
+- [`9fc64416c119f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9fc64416c119f) -
+  Mark barrel exports as deprecated and add new entry points:
+  - @atlaskit/link-datasource/analytics/render-failed
+  - @atlaskit/link-datasource/assets-modal
+  - @atlaskit/link-datasource/assets-modal/types
+  - @atlaskit/link-datasource/confluence-search-modal
+  - @atlaskit/link-datasource/confluence-search-modal/types
+  - @atlaskit/link-datasource/datasource-table-view
+  - @atlaskit/link-datasource/elements/render-type
+  - @atlaskit/link-datasource/jira-issues-modal
+  - @atlaskit/link-datasource/jira-issues-modal/types
+  - @atlaskit/link-datasource/types
+  - @atlaskit/link-datasource/utils/schema
+
+### Patch Changes
+
+- [`cf8cd6e12c000`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf8cd6e12c000) -
+  [ux] NAVX-4869 Adding keyboard focus support for SLLV column picker
+- Updated dependencies
+
 ## 5.2.6
 
 ### Patch Changes

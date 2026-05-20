@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import { type CSSProperties, useEffect, useMemo } from 'react';
+import { type CSSProperties, forwardRef, useEffect, useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
@@ -130,17 +130,26 @@ const dialogStyles = cssMap({
 		},
 	},
 	motion: {
-		height: '100%',
 		// @ts-expect-error
 		maxHeight: 'inherit',
 		// @ts-expect-error
 		maxWidth: 'inherit',
+		// On mobile (< 30rem), the modal is full-screen so the Motion wrapper should fill the viewport.
+		'@media (max-width: 29.9375rem)': {
+			height: '100%',
+		},
 		'@media (min-width: 30rem)': {
-			height: 'auto',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			// @ts-expect-error
-			marginInlineEnd: 'inherit',
-			// @ts-expect-error
-			marginInlineStart: 'inherit',
+			height: 'var(--modal-dialog-height, auto)',
+		},
+		display: 'flex',
+	},
+	// Combine with root when platform-dst-motion-uplift-modal is cleaned up
+	rootMotion: {
+		'@media (min-width: 30rem)': {
+			marginInlineEnd: 'auto',
+			marginInlineStart: 'auto',
 		},
 	},
 	fullscreen: {
@@ -179,7 +188,9 @@ const bodyScrollStyles = css({
 	},
 });
 
-const ModalDialog = (props: InternalModalDialogProps): JSX.Element => {
+const ModalDialog: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<InternalModalDialogProps> & React.RefAttributes<HTMLElement>
+> = forwardRef((props: InternalModalDialogProps, ref: React.Ref<HTMLElement>) => {
 	const {
 		width = 'medium',
 		shouldScrollInViewport = false,
@@ -255,10 +266,18 @@ const ModalDialog = (props: InternalModalDialogProps): JSX.Element => {
 							exitingAnimation={token('motion.modal.exit')}
 							onFinish={onMotionFinish}
 							xcss={cx(dialogStyles.motion, isFullScreen && dialogStyles.fullscreen)}
+							style={
+								{
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+									'--modal-dialog-width': dialogWidth(width),
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+									'--modal-dialog-height': dialogHeight(height),
+								} as CSSProperties
+							}
 						>
 							<section
 								aria-label={label}
-								ref={motionRef}
+								ref={mergeRefs([motionRef, ref])}
 								style={
 									{
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -269,6 +288,7 @@ const ModalDialog = (props: InternalModalDialogProps): JSX.Element => {
 								}
 								css={[
 									dialogStyles.root,
+									dialogStyles.rootMotion,
 									!isFullScreen && dialogStyles.borderRadius,
 									!isFullScreen &&
 										fg('platform-dst-shape-theme-default') &&
@@ -299,7 +319,7 @@ const ModalDialog = (props: InternalModalDialogProps): JSX.Element => {
 								<section
 									{...bottomFadeInProps}
 									aria-label={label}
-									ref={mergeRefs([bottomFadeInProps.ref, motionRef])}
+									ref={mergeRefs([bottomFadeInProps.ref, motionRef, ref])}
 									style={
 										{
 											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -335,7 +355,7 @@ const ModalDialog = (props: InternalModalDialogProps): JSX.Element => {
 			</ModalContext.Provider>
 		</Positioner>
 	);
-};
+});
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default ModalDialog;

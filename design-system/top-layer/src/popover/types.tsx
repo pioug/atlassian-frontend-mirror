@@ -167,3 +167,17 @@ export type TPopoverProps = TPopoverBaseProps &
 				onClose?: never;
 		  }
 	);
+
+/**
+ * The width mode of the popover relative to its anchor element.
+ *
+ * - `'none'` (default): popover sizes to its content, ignoring the anchor width.
+ * - `'match-anchor'`: popover matches the anchor element's width exactly
+ *   via CSS `anchor-size(width)`. Falls back to a one-off measurement
+ *   of `anchorRef.current.offsetWidth` when CSS Anchor Positioning
+ *   is not supported.
+ * - `'min-anchor'`: popover is at least as wide as the anchor, but
+ *   can grow wider if content requires it. Uses `min-width: anchor-size(width)`.
+ *   Falls back to a one-off measurement of the anchor's width.
+ */
+export type TWidthFromAnchorMode = 'none' | 'match-anchor' | 'min-anchor';

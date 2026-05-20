@@ -1,5 +1,14 @@
 # @atlaskit/pubsub
 
+## 7.0.4
+
+### Patch Changes
+
+- [`72290778b16ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72290778b16ca) -
+  Enrol mixed platform packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform
+- Updated dependencies
+
 ## 7.0.3
 
 ### Patch Changes

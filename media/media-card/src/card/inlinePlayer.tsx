@@ -177,7 +177,7 @@ export const InlinePlayerBase = ({
 		<InlinePlayerWrapper
 			testId={testId || 'media-card-inline-player'}
 			data-vc="media-card-inline-player"
-			selected={{ selected }}
+			selected={selected}
 			onClick={onClick}
 			innerRef={forwardRef || undefined}
 			dimensions={dimensions}

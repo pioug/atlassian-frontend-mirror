@@ -11,6 +11,7 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { roleToAriaHasPopup } from '../internal/role-types';
 import { useAnchorPosition } from '../internal/use-anchor-position';
 import { usePresetStyles } from '../internal/use-preset-styles';
+import { useWidthFromAnchor } from '../internal/use-width-from-anchor';
 import { Popover } from '../popover/popover';
 import { type TPopoverInternalProps } from '../popover/types';
 
@@ -33,7 +34,7 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 		animate,
 		arrow,
 		mode,
-		width = 'content',
+		widthFromAnchor = 'none',
 		xcss,
 		isOpen: isOpenProp,
 		triggerRef: triggerRefProp,
@@ -141,44 +142,7 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 		arrow: arrowPreset ?? undefined,
 	});
 
-	// ── Width: match trigger ──
-	// When width="trigger" or width="min-trigger", size the popover relative
-	// to the trigger element. Uses CSS `anchor-size(width)` when supported,
-	// falling back to a one-off measurement of the trigger's offsetWidth.
-	useLayoutEffect(() => {
-		if (width === 'content') {
-			return;
-		}
-		const node = popoverRef.current;
-		if (!node) {
-			return;
-		}
-
-		const cssProperty = width === 'trigger' ? 'width' : 'min-width';
-		const anchorValue = 'anchor-size(width)';
-
-		// Feature-detect `anchor-size()` specifically (not just `anchor-name`)
-		// so the JS fallback fires correctly in browsers that support anchor
-		// positioning but not anchor sizing.
-		const supportsAnchorSize =
-			typeof CSS !== 'undefined' &&
-			typeof CSS.supports === 'function' &&
-			CSS.supports('width', 'anchor-size(width)');
-
-		if (supportsAnchorSize) {
-			node.style.setProperty(cssProperty, anchorValue);
-		} else {
-			// JS fallback: one-off read of the trigger's width.
-			const trigger = triggerRef?.current;
-			if (trigger) {
-				node.style.setProperty(cssProperty, `${trigger.offsetWidth}px`);
-			}
-		}
-
-		return () => {
-			node.style.removeProperty(cssProperty);
-		};
-	}, [width, popoverRef, triggerRef]);
+	useWidthFromAnchor({ mode: widthFromAnchor, popoverRef, anchorRef: triggerRef });
 
 	// Merge: the popoverRef (shared with trigger + positioning) and the forwarded ref.
 	const combinedRef = mergeRefs([popoverRef, ref]);

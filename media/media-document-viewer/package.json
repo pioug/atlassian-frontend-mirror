@@ -93,7 +93,7 @@
 		}
 	},
 	"name": "@atlaskit/media-document-viewer",
-	"version": "0.7.1",
+	"version": "0.7.2",
 	"description": "Modern and fast document viewer",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

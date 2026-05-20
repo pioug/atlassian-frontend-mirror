@@ -1,5 +1,23 @@
 # @atlaskit/editor-statsig-tmp
 
+## 81.3.0
+
+### Minor Changes
+
+- [`2f3106da1d9cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f3106da1d9cb) -
+  [EDITOR-7190] added experiment gate for adding improve formatting in pinned toolbar experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.2.0
+
+### Minor Changes
+
+- [`4f2e912c65ae3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f2e912c65ae3) -
+  Gate table-in-panel ADF validation behind experiment (EDITOR-7168)
+
 ## 81.1.0
 
 ### Minor Changes

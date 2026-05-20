@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { MediaClientContext, getMediaClient } from '@atlaskit/media-client-react';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import { useProviderFactory, useProviderLayout } from '@atlaskit/editor-common/provider-factory';
@@ -10,7 +10,11 @@ export const EditorMediaClientProvider = ({
 	children,
 	ssr,
 }: React.PropsWithChildren<{ ssr?: MediaSSR }>): React.JSX.Element => {
-	const [mediaClientConfig, setMediaClientConfig] = useState<MediaClientConfig | undefined>();
+	const [mediaClientConfig, setMediaClientConfig] = useState<MediaClientConfig | undefined>(() =>
+		expValEquals('platform_editor_media_reliability_enhancements', 'isEnabled', true)
+			? ssr?.config
+			: undefined,
+	);
 
 	const providerFactory = useProviderFactory();
 	const mediaProvider = useProviderLayout('mediaProvider');
@@ -52,7 +56,46 @@ export const EditorMediaClientProvider = ({
 	// and provide a top level mediaClient context
 	// This is useful for testing and creating examples.
 
+	// When the experiment is enabled, use useEffect instead of useLayoutEffect because:
+	// - For the ssr.config branch: useState is already initialised with ssr.config, so this
+	//   effect is a no-op on first render — the "before paint" guarantee is irrelevant.
+	// - For the mediaProvider branch: the actual work happens inside a Promise callback which
+	//   resolves asynchronously, so it can never run before paint regardless of which hook
+	//   schedules it — useLayoutEffect's guarantee is equally irrelevant here.
+	// The legacy path keeps useLayoutEffect to preserve existing behaviour when the experiment is off.
+	//
+	// The two hooks below are mutually exclusive — only one runs per render — so there is no
+	// actual chaining of state updates at runtime. The lint rule cannot statically prove this.
+	useEffect(() => {
+		if (!expValEquals('platform_editor_media_reliability_enhancements', 'isEnabled', true)) {
+			return;
+		}
+		if (ssr?.config) {
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates
+			setMediaClientConfig(ssr.config);
+		} else if (mediaProvider) {
+			let cancelled = false;
+			// Cancellation flag prevents setMediaClientConfig from being called after
+			// unmount or when mediaProvider changes mid-flight (stale promise fix).
+			// No .catch() is needed — the media provider is not expected to reject,
+			// and a catch handler would be a no-op anyway.
+			mediaProvider.then((provider) => {
+				if (!cancelled) {
+					setMediaClientConfig(provider.viewMediaClientConfig);
+				}
+			});
+			return () => {
+				cancelled = true;
+			};
+		}
+	}, [mediaProvider, ssr?.config]);
+
+	// Legacy path (experiment off): keep useLayoutEffect to preserve existing behaviour.
+	// remove this when clean up platform_editor_media_reliability_enhancements
 	useLayoutEffect(() => {
+		if (expValEquals('platform_editor_media_reliability_enhancements', 'isEnabled', true)) {
+			return;
+		}
 		if (ssr?.config) {
 			setMediaClientConfig(ssr.config);
 		} else if (mediaProvider) {
@@ -60,7 +103,7 @@ export const EditorMediaClientProvider = ({
 				setMediaClientConfig(provider.viewMediaClientConfig);
 			});
 		}
-	}, [mediaProvider, ssr]);
+	}, [mediaProvider, ssr?.config]);
 
 	return (
 		<MediaClientContext.Provider value={shouldSkipContext ? mediaClient : contextMediaClient}>

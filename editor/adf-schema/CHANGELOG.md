@@ -1,5 +1,13 @@
 # @atlaskit/adf-schema
 
+## 52.12.0
+
+### Minor Changes
+
+- [`5a9d51dd03237`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a9d51dd03237) -
+  EDITOR-7168: Properly declare panel_c1 variant in next-schema source using addContent() for
+  cycle-safe table wiring
+
 ## 52.11.4
 
 ### Patch Changes

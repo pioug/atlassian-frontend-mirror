@@ -1,4 +1,5 @@
-import type { CardAction, CardActionOptions } from '../../view/Card/types';
+import type { CardAction } from '../../constants';
+import type { CardActionOptions } from '../../view/Card/types';
 
 export const canShowAction = (action: CardAction, actionOptions?: CardActionOptions): boolean => {
 	if (typeof actionOptions === 'undefined') {

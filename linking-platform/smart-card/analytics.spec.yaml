@@ -847,6 +847,14 @@ events:
           required: false
           type: boolean
           description: Whether the Rovo Actions CTA (inline nudge) was shown for this Smart Link
+        experimentMeta:
+          required: false
+          type: object
+          description: |
+            Optional experiment metadata attached to the Smart Link render success event. Root keys
+            should be Statsig experiment keys. Each experiment entry can contain metadata specific
+            to that experiment, derived from no-exposure eligibility data only unless explicitly
+            documented otherwise.
   - smartLink renderFailed:
       type: ui
       description: fires an event that represents when a Smart Link renders unsuccessfully.

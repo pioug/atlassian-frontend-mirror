@@ -20,7 +20,7 @@ const styles = cssMap({
 });
 
 /**
- * Test fixture for `width="trigger"` behavior.
+ * Test fixture for `widthFromAnchor="match-anchor"` behavior.
  * The trigger is an element with a known width so we can verify the
  * popover matches it.
  */
@@ -33,7 +33,7 @@ export default function TestingPopoverWidthTrigger(): JSX.Element {
 						Wide trigger element
 					</div>
 				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Width test" width="trigger">
+				<Popup.Content role="dialog" label="Width test" widthFromAnchor="match-anchor">
 					<div data-testid="popover-content" css={styles.content}>
 						This popover should match the trigger width
 					</div>

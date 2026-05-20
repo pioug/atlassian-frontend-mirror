@@ -1,5 +1,12 @@
 # @atlaskit/collab-provider
 
+## 19.0.0
+
+### Major Changes
+
+- [`61d2fd59ab062`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61d2fd59ab062) -
+  Remove canonical file violations and file barrelling from @atlaskit/editor-common/collab
+
 ## 18.3.0
 
 ### Minor Changes

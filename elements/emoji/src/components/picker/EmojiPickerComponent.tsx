@@ -4,6 +4,7 @@
  */
 import {
 	type SyntheticEvent,
+	type MutableRefObject,
 	useCallback,
 	useEffect,
 	useMemo,
@@ -16,6 +17,13 @@ import {
 import { css, cssMap, jsx } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { getDocument } from '@atlaskit/browser-apis';
+import {
+	dropTargetForExternal,
+	monitorForExternal,
+} from '@atlaskit/pragmatic-drag-and-drop/external/adapter';
+import { containsFiles } from '@atlaskit/pragmatic-drag-and-drop/external/file';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
+import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
 import { token } from '@atlaskit/tokens';
 import { unstable_batchedUpdates as batchedUpdates } from 'react-dom';
 import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl';
@@ -206,6 +214,16 @@ const EmojiPickerComponent = ({
 	const isMounting = useRef(true);
 	const previousEmojiProvider = useRef(emojiProvider);
 	const isProgrammaticScroll = useRef(false);
+	const pickerRef = useRef<HTMLDivElement>(null);
+	const setPickerRef = useCallback(
+		(el: HTMLDivElement | null) => {
+			if (fg('platform_emoji_picker_refresh')) {
+				(pickerRef as MutableRefObject<HTMLDivElement | null>).current = el;
+			}
+			onPickerRef?.(el);
+		},
+		[onPickerRef],
+	);
 	const currentUser = useMemo(() => {
 		return emojiProvider.getCurrentUser();
 	}, [emojiProvider]);
@@ -536,6 +554,40 @@ const EmojiPickerComponent = ({
 		[query, filteredEmojis, selectedTone, updateEmojis, scrollToTopOfList],
 	);
 
+	// When the upload screen is open, intercept any file drag at the window level so it
+	// cannot reach underlying page drop handlers (e.g. the Confluence editor).
+	useEffect(() => {
+		if (!uploading || !fg('platform_emoji_picker_refresh')) {
+			return;
+		}
+
+		const body = getDocument()?.body;
+		if (!body) {
+			return;
+		}
+
+		// Register a full-page drop target on document.body and a monitor using
+		// pragmatic-drag-and-drop so that file drops are intercepted before reaching
+		// any underlying native DOM handlers (e.g. the Confluence editor).
+		// The FileChooser's own drop target (registered on pickerRef) takes priority
+		// over the body target for drops inside the picker.
+		const cleanup = combine(
+			dropTargetForExternal({
+				element: body,
+				canDrop: containsFiles,
+			}),
+			monitorForExternal({
+				onDragStart: () => preventUnhandled.start(),
+				onDrop: () => preventUnhandled.stop(),
+			}),
+		);
+
+		return () => {
+			preventUnhandled.stop();
+			cleanup();
+		};
+	}, [uploading]);
+
 	const onOpenUpload = useCallback(() => {
 		// Prime upload token so it's ready when the user adds
 		if (supportsUploadFeature(emojiProvider)) {
@@ -727,7 +779,7 @@ const EmojiPickerComponent = ({
 					showPreview && withPreviewHeight[size],
 					!showPreview && withoutPreviewHeight[size],
 				]}
-				ref={onPickerRef}
+				ref={setPickerRef}
 				data-emoji-picker-container
 				role="dialog"
 				aria-label={formatMessage(messages.emojiPickerTitle)}
@@ -799,7 +851,7 @@ const EmojiPickerComponent = ({
 					? withPreviewHeight[size]
 					: withoutPreviewHeight[size],
 			]}
-			ref={onPickerRef}
+			ref={setPickerRef}
 			data-emoji-picker-container
 			role="dialog"
 			aria-label={formatMessage(messages.emojiPickerTitle)}

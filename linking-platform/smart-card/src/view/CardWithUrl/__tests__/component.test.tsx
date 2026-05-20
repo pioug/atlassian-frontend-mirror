@@ -41,6 +41,9 @@ jest.mock('../../../state', () => ({
 		isPreviewPanelAvailable: undefined,
 		openPreviewPanel: undefined,
 	})),
+	useSmartLinkContext: jest.fn(() => ({
+		connections: { client: { baseUrlOverride: undefined } },
+	})),
 }));
 jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
 	expValEquals: jest.fn(() => false),

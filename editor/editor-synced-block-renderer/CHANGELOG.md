@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 8.3.4
+
+### Patch Changes
+
+- [`479eca77367d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/479eca77367d5) -
+  Update imports of renderer to remove file barrelling
+- Updated dependencies
+
 ## 8.3.3
 
 ### Patch Changes

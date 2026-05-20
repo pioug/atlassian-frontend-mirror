@@ -1,5 +1,17 @@
 # @atlaskit/forge-react-types
 
+## 1.6.0
+
+### Minor Changes
+
+- [`ab2a4204087b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab2a4204087b8) -
+  Add ReorderableMenuItems component for Forge global apps
+
+### Patch Changes
+
+- [`cd226e3ea10b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd226e3ea10b4) -
+  Added forge-ui-iframe-ufo-perf-observers to Forge iframe
+
 ## 1.5.0
 
 ### Minor Changes

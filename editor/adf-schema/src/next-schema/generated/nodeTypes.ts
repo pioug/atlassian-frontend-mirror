@@ -1882,6 +1882,64 @@ export const panel: PMNodeSpecFactoryInstance<PanelNode> =
     selectable: true,
   });
 
+export interface PanelC1Definition {
+  type: 'panel';
+  content: Array<
+    | BlockCardDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | DecisionListDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | OrderedListDefinition
+    | ParagraphWithFontSizeDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TableDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    panelType:
+      | 'info'
+      | 'note'
+      | 'tip'
+      | 'warning'
+      | 'error'
+      | 'success'
+      | 'custom';
+    panelIcon?: string;
+    panelIconId?: string;
+    panelIconText?: string;
+    panelColor?: string;
+    localId?: string;
+  };
+}
+
+export type PanelC1Node = PMNode & PanelC1Definition;
+
+export const panelC1: PMNodeSpecFactoryInstance<PanelC1Node> =
+  createPMNodeSpecFactory<PanelC1Node>({
+    content:
+      '(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension | table)+',
+    marks:
+      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    group: 'block',
+    attrs: {
+      panelType: { default: 'info' },
+      panelIcon: { default: null },
+      panelIconId: { default: null },
+      panelIconText: { default: null },
+      panelColor: { default: null },
+      localId: { default: null },
+    },
+    selectable: true,
+  });
+
 export interface ParagraphDefinition {
   type: 'paragraph';
   content: Array<InlineDefinition>;

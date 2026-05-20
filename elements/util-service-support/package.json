@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/util-service-support",
-	"version": "6.4.0",
+	"version": "6.4.1",
 	"description": "A library of support classes for integrating React components with REST HTTP services",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,6 +29,13 @@
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Build Infra"
 	},
 	"config": {
@@ -41,6 +48,7 @@
 		"meros": "root:*"
 	},
 	"devDependencies": {
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"es6-promise": "root:*",
 		"fetch-mock": "root:*",
 		"sinon": "root:*"

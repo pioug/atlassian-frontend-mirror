@@ -45,6 +45,7 @@ import type {
   MentionStage0Definition,
   MultiBodiedExtensionStage0Definition,
   OrderedListDefinition,
+  PanelC1Definition,
   PanelDefinition,
   ParagraphDefinition,
   ParagraphWithAlignmentDefinition,
@@ -93,6 +94,7 @@ export type BlockDefinition = Array<
   | MediaGroupDefinition
   | RuleDefinition
   | PanelDefinition
+  | PanelC1Definition
   | TableDefinition
   | TableWithNestedTableDefinition
   | BodiedExtensionDefinition

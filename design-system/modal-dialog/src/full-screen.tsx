@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import InternalModalWrapper from './internal/components/modal-wrapper';
 import type { ModalDialogProps } from './types';
 
-export interface FullScreenModalDialogProps extends Omit<
-	ModalDialogProps,
-	'width' | 'height' | 'shouldScrollInViewport' | 'shouldCloseOnOverlayClick' | 'isBlanketHidden'
-> {}
+export interface FullScreenModalDialogProps
+	extends Omit<
+		ModalDialogProps,
+		'width' | 'height' | 'shouldScrollInViewport' | 'shouldCloseOnOverlayClick' | 'isBlanketHidden'
+	> {}
 
-export function FullScreenModalDialog(props: FullScreenModalDialogProps): React.JSX.Element {
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const FullScreenModalDialog: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<FullScreenModalDialogProps> & React.RefAttributes<HTMLElement>
+> = forwardRef((props: ModalDialogProps, ref: React.Ref<HTMLElement>) => {
 	return (
 		<InternalModalWrapper
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
@@ -49,9 +53,12 @@ export function FullScreenModalDialog(props: FullScreenModalDialogProps): React.
 			 * We don't want consumers to disable it.
 			 */
 			isBlanketHidden={false}
+			ref={ref}
 		/>
 	);
-}
+});
+
+FullScreenModalDialog.displayName = 'FullScreenModalDialog';
 
 export { default as ModalTransition } from './modal-transition';
 export { default as ModalHeader } from './modal-header';

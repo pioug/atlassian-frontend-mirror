@@ -1,4 +1,5 @@
 import { matchers } from '@emotion/jest';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
@@ -75,6 +76,34 @@ describe('<EmojiPickerList />', () => {
 			const peopleHeadingItem = await screen.findByText(messages.peopleCategory.defaultMessage);
 			expect(peopleHeadingItem).toBeInTheDocument();
 		});
+
+		ffTest.on(
+			'platform_emoji_a11y_category_heading',
+			'when a11y category heading gate is on',
+			() => {
+				it('should render category headings as h2 elements for screen reader accessibility', async () => {
+					renderEmojiPickerList();
+					const headings = await screen.findAllByRole('heading', { level: 2 });
+					expect(headings.length).toBeGreaterThan(0);
+					expect(headings[0]).toHaveTextContent(messages.peopleCategory.defaultMessage);
+				});
+			},
+		);
+
+		ffTest.off(
+			'platform_emoji_a11y_category_heading',
+			'when a11y category heading gate is off',
+			() => {
+				it('should render category headings as div elements (legacy)', async () => {
+					renderEmojiPickerList();
+					const peopleHeadingItem = await screen.findByText(
+						messages.peopleCategory.defaultMessage,
+					);
+					expect(peopleHeadingItem.tagName).toBe('DIV');
+					expect(screen.queryAllByRole('heading', { level: 2 })).toHaveLength(0);
+				});
+			},
+		);
 
 		it('should show frequently used category first if present', async () => {
 			const frequentEmoji: EmojiDescription = {

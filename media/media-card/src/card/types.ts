@@ -10,7 +10,7 @@ import { type CardDimensions } from '../types';
 export type InlinePlayerWrapperProps = {
 	testId?: string;
 	dimensions?: CardDimensions;
-	selected: { selected?: boolean | undefined };
+	selected?: boolean;
 	onClick?: (event: React.MouseEvent<HTMLDivElement>, analyticsEvent?: UIAnalyticsEvent) => void;
 	innerRef?: RefObject<HTMLDivElement> | ((instance: HTMLDivElement | null) => void) | undefined;
 	children?: JSX.Element[] | ReactElement<any, any> | null | any;

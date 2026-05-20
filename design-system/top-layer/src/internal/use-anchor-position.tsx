@@ -375,9 +375,6 @@ export function useAnchorPosition({
 				// with anchor positioning (UA: `inset: 0; margin: auto;`)
 				{ property: 'margin', value: '0' },
 				{ property: 'inset', value: 'auto' },
-				// Ensures the popup's margin box overflows the viewport when its span region is too
-				// narrow, triggering position-try-fallbacks correctly rather than wrapping content.
-				{ property: 'min-inline-size', value: 'max-content' },
 				// Main-axis gap between the popover and its trigger
 				{ property: gap.property, value: gap.value },
 				// Cross-axis shift

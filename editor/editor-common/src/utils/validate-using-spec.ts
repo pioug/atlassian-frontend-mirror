@@ -23,13 +23,17 @@ const errorCallbackFor = (
 	marks: any,
 	validate: Validate,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-	validationOverrides?: { allowNestedTables?: boolean },
+	validationOverrides?: { allowNestedTables?: boolean; allowTableInPanel?: boolean },
 ) => {
 	return (entity: ADFEntity, error: ValidationError, options: ErrorCallbackOptions) => {
 		return validationErrorHandler(
 			entity,
 			error,
-			{ ...options, allowNestedTables: validationOverrides?.allowNestedTables },
+			{
+				...options,
+				allowNestedTables: validationOverrides?.allowNestedTables,
+				allowTableInPanel: validationOverrides?.allowTableInPanel,
+			},
 			marks,
 			validate,
 			dispatchAnalyticsEvent,
@@ -47,10 +51,10 @@ export const validationErrorHandler = (
 ):
 	| ADFEntity
 	| {
-			type: string;
 			attrs: {
 				originalValue: ADFEntity;
 			};
+			type: string;
 	  }
 	| undefined => {
 	if (entity && entity.type === UNSUPPORTED_NODE_ATTRIBUTE) {
@@ -120,6 +124,17 @@ export const validationErrorHandler = (
 			error.code === 'INVALID_CONTENT' &&
 			entity.type === 'table'
 		) {
+			return entity;
+		}
+	}
+
+	// panel_c1 is a ProseMirror-only variant: on save, table-in-panel documents are stored as
+	// plain ADF `panel` nodes containing a `table`. The base validator-spec does not permit
+	// `table` inside `panel` (it's gated behind the experiment), so we suppress the
+	// INVALID_CONTENT error when the experiment is active.
+	if (options.allowTableInPanel) {
+		const meta = error.meta as ValidationErrorMap['INVALID_CONTENT'] | undefined;
+		if (meta?.parentType === 'panel' && error.code === 'INVALID_CONTENT' && entity.type === 'table') {
 			return entity;
 		}
 	}
@@ -201,7 +216,7 @@ export const validateADFEntity = (
 	schema: Schema,
 	node: ADFEntity,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-	validationOverrides?: { allowNestedTables?: boolean },
+	validationOverrides?: { allowNestedTables?: boolean; allowTableInPanel?: boolean },
 ): ADFEntity => {
 	const nodes = Object.keys(schema.nodes);
 	const marks = Object.keys(schema.marks);
@@ -220,10 +235,10 @@ export function wrapWithUnsupported(
 	originalValue: ADFEntity,
 	type: 'block' | 'inline' | 'mark' = 'block',
 ): {
-	type: string;
 	attrs: {
 		originalValue: ADFEntity;
 	};
+	type: string;
 } {
 	let unsupportedNodeType: string;
 	switch (type) {

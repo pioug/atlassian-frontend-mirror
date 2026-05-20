@@ -1,5 +1,12 @@
 {
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Jlove-Makkuro",
 		"website": {
 			"name": "PlatformFeatureFlagsReact",
@@ -18,6 +25,16 @@
 				"dist/types-ts4.5/index.d.ts"
 			]
 		}
+	},
+	"devDependencies": {
+		"@af/integration-testing": "workspace:^",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
+		"@testing-library/react": "root:*",
+		"react-dom": "root:*"
 	},
 	"sideEffects": [
 		"*.compiled.css"
@@ -39,15 +56,6 @@
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
-	},
-	"devDependencies": {
-		"@af/integration-testing": "workspace:^",
-		"@af/visual-regression": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
-		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@atlassian/testing-library": "workspace:^",
-		"@testing-library/react": "root:*",
-		"react-dom": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -88,7 +96,7 @@
 		}
 	},
 	"name": "@atlaskit/platform-feature-flags-react",
-	"version": "0.5.0",
+	"version": "0.5.1",
 	"description": "utility library for working with feature flags in react",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

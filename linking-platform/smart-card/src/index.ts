@@ -1,6 +1,5 @@
 export { Card } from './view/Card';
 export type { CardProps, CardAppearance, CardPlatform } from './view/Card';
-export { CardAction } from './view/Card/types';
 
 export { EmbedResizeMessageListener } from './view/EmbedCard/EmbedResizeMessageListener';
 export { ExpandedFrame } from './view/EmbedCard/components/ExpandedFrame';
@@ -30,6 +29,7 @@ export { loadingPlaceholderClassName } from './view/CardWithUrl/component-lazy/L
 // Flexible UI
 export {
 	ActionName,
+	CardAction,
 	ElementName,
 	MediaPlacement,
 	SmartLinkDirection,

@@ -598,6 +598,21 @@ describe('autoFocus', () => {
 	});
 });
 
+describe('forwarded ref', () => {
+	it('should forward a ref through', () => {
+		const ref = React.createRef<HTMLElement>();
+
+		render(
+			<ModalDialog onClose={close} ref={ref} testId={testId}>
+				<div>Test</div>
+			</ModalDialog>,
+		);
+
+		const container = screen.getByTestId(testId);
+		expect(ref.current).toBe(container);
+	});
+});
+
 describe('multiple modals', () => {
 	beforeEach(() => {
 		skipA11yAudit();

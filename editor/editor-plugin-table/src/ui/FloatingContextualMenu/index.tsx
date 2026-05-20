@@ -19,6 +19,7 @@ import {
 	getSelectionRect,
 	isSelectionType,
 } from '@atlaskit/editor-tables/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getPluginState } from '../../pm-plugins/plugin-factory';
 import type { PluginConfig, PluginInjectionAPI } from '../../types';
@@ -27,7 +28,9 @@ import {
 	contextualMenuTriggerSize,
 	tablePopupMenuFitHeight,
 } from '../consts';
+import { TABLE_MENU_WIDTH } from '../TableMenu/shared/consts';
 
+import { CellMenuPopup } from './CellMenuPopup';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import ContextualMenu from './ContextualMenu';
@@ -122,7 +125,7 @@ const FloatingContextualMenu: {
 			boundariesElement={boundariesElement}
 			scrollableElement={scrollableElement}
 			fitHeight={tablePopupMenuFitHeight}
-			fitWidth={contextualMenuDropdownWidthDnD}
+			fitWidth={expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) ? TABLE_MENU_WIDTH : contextualMenuDropdownWidthDnD}
 			// z-index value below is to ensure that this menu is above other floating menu
 			// in table, but below floating dialogs like typeaheads, pickers, etc.
 			zIndex={parentSticky ? akEditorFloatingDialogZIndex : akEditorFloatingOverlapPanelZIndex}
@@ -131,33 +134,43 @@ const FloatingContextualMenu: {
 			offset={[-7, 0]}
 			stick={true}
 		>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			<div css={tablePopupStyles()}>
-				<ContextualMenu
-					editorView={editorView}
-					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					offset={[contextualMenuTriggerSize / 2, -contextualMenuTriggerSize]}
-					isOpen={isOpen}
-					targetCellPosition={targetCellPosition}
-					allowColumnSorting={pluginConfig && pluginConfig.allowColumnSorting}
-					// Ignored via go/ees005
-					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					allowMergeCells={pluginConfig!.allowMergeCells}
-					// Ignored via go/ees005
-					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					allowBackgroundColor={pluginConfig!.allowBackgroundColor}
-					selectionRect={selectionRect}
-					mountPoint={mountPoint}
-					boundariesElement={boundariesElement}
-					editorAnalyticsAPI={editorAnalyticsAPI}
-					getEditorContainerWidth={getEditorContainerWidth}
-					getEditorFeatureFlags={getEditorFeatureFlags}
-					isCellMenuOpenByKeyboard={isCellMenuOpenByKeyboard}
-					isCommentEditor={isCommentEditor}
+			{expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)  ? (
+				<CellMenuPopup
 					api={api}
-					isDragMenuOpen={isDragMenuOpen}
+					editorView={editorView}
+					isCellMenuOpenByKeyboard={isCellMenuOpenByKeyboard}
+					isOpen={isOpen}
+					targetCellRef={targetCellRef}
 				/>
-			</div>
+			) : (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+				<div css={tablePopupStyles()}>
+					<ContextualMenu
+						editorView={editorView}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+						offset={[contextualMenuTriggerSize / 2, -contextualMenuTriggerSize]}
+						isOpen={isOpen}
+						targetCellPosition={targetCellPosition}
+						allowColumnSorting={pluginConfig && pluginConfig.allowColumnSorting}
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						allowMergeCells={pluginConfig!.allowMergeCells}
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						allowBackgroundColor={pluginConfig!.allowBackgroundColor}
+						selectionRect={selectionRect}
+						mountPoint={mountPoint}
+						boundariesElement={boundariesElement}
+						editorAnalyticsAPI={editorAnalyticsAPI}
+						getEditorContainerWidth={getEditorContainerWidth}
+						getEditorFeatureFlags={getEditorFeatureFlags}
+						isCellMenuOpenByKeyboard={isCellMenuOpenByKeyboard}
+						isCommentEditor={isCommentEditor}
+						api={api}
+						isDragMenuOpen={isDragMenuOpen}
+					/>
+				</div>
+			)}
 		</Popup>
 	);
 };

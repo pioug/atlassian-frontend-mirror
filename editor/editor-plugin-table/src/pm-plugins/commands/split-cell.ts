@@ -1,8 +1,29 @@
 import type { Command } from '@atlaskit/editor-common/types';
-import { splitCellWithType } from '@atlaskit/editor-tables/utils';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { cellWrapping, splitCellWithType } from '@atlaskit/editor-tables/utils';
 
 import type { TablePluginState } from '../../types';
 import { getPluginState } from '../plugin-factory';
+
+export const canSplitCellSelection = (selection: Selection): boolean => {
+	let cellNode: PMNode | null | undefined;
+
+	if (!(selection instanceof CellSelection)) {
+		cellNode = cellWrapping(selection.$from);
+		if (!cellNode) {
+			return false;
+		}
+	} else {
+		if (selection.$anchorCell.pos !== selection.$headCell.pos) {
+			return false;
+		}
+		cellNode = selection.$anchorCell.nodeAfter;
+	}
+
+	return Boolean(cellNode && (cellNode.attrs.colspan !== 1 || cellNode.attrs.rowspan !== 1));
+};
 
 /**
  * We need to split cell keeping the right type of cell given current table configuration.

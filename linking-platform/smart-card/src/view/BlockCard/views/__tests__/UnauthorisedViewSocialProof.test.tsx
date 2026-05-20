@@ -11,9 +11,11 @@ import { screen, waitFor } from '@atlassian/testing-library';
 
 // Mock the hook — all experiment logic is tested in the hook's own test file.
 const mockUseSocialProofExperiment = jest.fn();
+const mockGetSocialProofExperimentMeta = jest.fn();
 jest.mock('../../../../state/hooks/use-social-proof-experiment', () => ({
 	__esModule: true,
 	default: (...args: unknown[]) => mockUseSocialProofExperiment(...args),
+	getSocialProofExperimentMeta: (...args: unknown[]) => mockGetSocialProofExperimentMeta(...args),
 }));
 
 import type { SocialProofExperiment } from '../../../../state/hooks/use-social-proof-experiment';
@@ -66,6 +68,9 @@ describe('UnauthorisedView social proof experiment', () => {
 
 	beforeEach(() => {
 		mockUseSocialProofExperiment.mockReturnValue(defaultHookResult);
+		mockGetSocialProofExperimentMeta.mockReturnValue({
+			social_proof_3p_unauth_block_exp: { isEligible: false },
+		});
 	});
 
 	afterEach(() => {
@@ -80,6 +85,7 @@ describe('UnauthorisedView social proof experiment', () => {
 			expect(description).toHaveTextContent(/Turn your URLs into rich, interactive previews\./i);
 			expect(screen.queryByTestId('smart-block-social-proof-message')).not.toBeInTheDocument();
 			expect(mockUseSocialProofExperiment).not.toHaveBeenCalled();
+			expect(mockGetSocialProofExperimentMeta).not.toHaveBeenCalled();
 		});
 	});
 

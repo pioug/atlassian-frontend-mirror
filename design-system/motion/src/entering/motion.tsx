@@ -110,6 +110,12 @@ export interface MotionProps {
 	xcss?: XCSSProp<XCSSAllProperties, XCSSAllPseudos>;
 
 	/**
+	 * Inline styles to apply to the motion container div.
+	 * These are merged with any animation styles managed internally.
+	 */
+	style?: React.CSSProperties;
+
+	/**
 	 * A `testId` prop is provided for specified elements,
 	 * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
 	 * serving as a hook for automated tests.
@@ -134,6 +140,7 @@ const Motion: React.ForwardRefExoticComponent<
 			exitingAnimationXcss,
 			onFinish: onFinishMotion,
 			xcss,
+			style: styleProp,
 			testId,
 		},
 		ref: Ref<any>,
@@ -339,7 +346,7 @@ const Motion: React.ForwardRefExoticComponent<
 					state === 'exiting' && styles.exiting,
 				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				style={hasAnimationStyles ? style : undefined}
+				style={styleProp || hasAnimationStyles ? { ...styleProp, ...style } : undefined}
 				data-testid={testId}
 			>
 				{children}

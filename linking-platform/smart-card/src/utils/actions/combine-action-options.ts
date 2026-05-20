@@ -1,5 +1,5 @@
+import type { CardAction } from '../../constants';
 import {
-	type CardAction,
 	type InternalCardActionOptions as CardActionOptions,
 	type CardPlatform,
 } from '../../view/Card/types';

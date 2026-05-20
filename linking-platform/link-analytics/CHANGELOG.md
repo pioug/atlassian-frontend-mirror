@@ -1,5 +1,12 @@
 # @atlaskit/link-analytics
 
+## 11.1.0
+
+### Minor Changes
+
+- [`6edfa170e1750`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6edfa170e1750) -
+  Mark barrel exports as deprecated, update paths and add new entry points
+
 ## 11.0.4
 
 ### Patch Changes

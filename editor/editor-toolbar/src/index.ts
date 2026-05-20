@@ -79,6 +79,8 @@ export { ArrowUpIcon } from './ui/icons/ArrowUpIcon';
 export { TableIcon } from './ui/icons/TableIcon';
 export { TableColumnAddLeftIcon } from './ui/icons/TableColumnAddLeftIcon';
 export { TableColumnAddRightIcon } from './ui/icons/TableColumnAddRightIcon';
+export { TableCellMergeIcon } from './ui/icons/TableCellMergeIcon';
+export { TableCellSplitIcon } from './ui/icons/TableCellSplitIcon';
 export { TableColumnMoveRightIcon } from './ui/icons/TableColumnMoveRightIcon';
 export { TableColumnsDistributeIcon } from './ui/icons/TableColumnsDistributeIcon';
 export { TableRowAddAboveIcon } from './ui/icons/TableRowAddAboveIcon';

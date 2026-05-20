@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/intl-messages-provider",
-	"version": "3.3.0",
+	"version": "3.3.1",
 	"description": " IntlMessagesProvider is a Frontend Utility to asynchronously load i18n translated messages and feed them to IntlProvider based on the locale in product.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,6 +8,13 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Frontend Platform Consortium",
 		"i18n": true,
 		"website": {
@@ -27,6 +34,14 @@
 			]
 		}
 	},
+	"devDependencies": {
+		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
+		"react-intl": "root:*",
+		"wait-for-expect": "root:*"
+	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
@@ -44,13 +59,6 @@
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
-	},
-	"devDependencies": {
-		"@atlaskit/ssr": "workspace:^",
-		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@atlassian/testing-library": "workspace:^",
-		"react-intl": "root:*",
-		"wait-for-expect": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

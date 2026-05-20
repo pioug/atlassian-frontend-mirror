@@ -1,5 +1,29 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.10.2
+
+### Patch Changes
+
+- [`7925fe6968153`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7925fe6968153) -
+  Add `@adminhub/feature-gating` and `@adminhub/feature-experimenting` to the shared
+  `FEATURE_API_IMPORT_SOURCES` constant consumed by `isAPIimport()`.
+
+  This extends every `feature-gating/*` lint rule that resolves call sites via the import-tracking
+  helper to Admin Hub usages of `fg()`, `expVal()`, `expValEquals()`, `UNSAFE_noExposureExp()` and
+  related functions imported from `@adminhub/feature-gating` / `@adminhub/feature-experimenting`.
+  Affected rules include (non-exhaustive):
+  - `no-preconditioning`
+  - `inline-usage`
+  - `prefer-fg`
+  - `no-alias`
+  - `valid-gate-name`
+  - `no-module-level-eval`
+  - `static-feature-flags`
+  - `use-recommended-utils`
+
+  Any future rule that uses `isAPIimport()` will automatically apply to Admin Hub call sites without
+  further changes.
+
 ## 2.10.1
 
 ### Patch Changes

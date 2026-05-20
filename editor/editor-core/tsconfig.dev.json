@@ -368,9 +368,6 @@
 			"path": "../adf-schema-json/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-plugin-markdown-mode/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-rovo-bridge/tsconfig.app.json"
 		},
 		{

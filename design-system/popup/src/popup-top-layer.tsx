@@ -204,7 +204,7 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 				isOpen={effectiveIsOpen}
 				animate={animation}
 				testId={testId && `${testId}--content`}
-				width={shouldFitContainer ? 'trigger' : 'content'}
+				widthFromAnchor={shouldFitContainer ? 'match-anchor' : 'none'}
 			>
 				{Container ? (
 					<Container

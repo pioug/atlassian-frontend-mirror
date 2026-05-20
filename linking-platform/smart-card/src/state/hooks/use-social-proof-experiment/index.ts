@@ -2,9 +2,32 @@ import { useMemo } from 'react';
 
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import {
+	getCurrentSiteCloudIdSync,
+} from '../../services/current-site-cloud-id';
+import {
+	getProviderPctMapSync,
+	SOCIAL_PROOF_TRAIT_NAME,
+} from '../../services/personalization';
 import useSocialProof from '../use-social-proof';
 
 export type SocialProofTier = 'low' | 'not-low';
+
+export const SOCIAL_PROOF_3P_UNAUTH_BLOCK_EXPERIMENT_KEY = 'social_proof_3p_unauth_block_exp';
+export const INLINE_SOCIAL_PROOF_EXPERIMENT_KEY = 'platform_sl_3p_preauth_social_proof_inline_cta';
+
+type SocialProofExperimentMetadata = {
+	isEligible: boolean;
+	tier?: SocialProofTier;
+};
+
+export type BlockCardSocialProofExperimentMeta = {
+	[SOCIAL_PROOF_3P_UNAUTH_BLOCK_EXPERIMENT_KEY]: SocialProofExperimentMetadata;
+};
+
+export type InlineSocialProofExperimentMeta = {
+	[INLINE_SOCIAL_PROOF_EXPERIMENT_KEY]: SocialProofExperimentMetadata;
+};
 
 export interface SocialProofExperiment {
 	/**
@@ -28,7 +51,50 @@ export interface SocialProofExperiment {
 	tier: SocialProofTier;
 }
 
-const TIER_THRESHOLD = 30;
+export const SOCIAL_PROOF_TIER_THRESHOLD = 30;
+
+export const getSocialProofTier = (connectedPct?: number): SocialProofTier | undefined => {
+	if (connectedPct === undefined) {
+		return undefined;
+	}
+
+	return connectedPct >= SOCIAL_PROOF_TIER_THRESHOLD ? 'not-low' : 'low';
+};
+
+const getSocialProofExperimentMetadata = ({
+	extensionKey,
+	baseUriWithNoTrailingSlash = '',
+}: {
+	baseUriWithNoTrailingSlash?: string;
+	extensionKey?: string;
+}): SocialProofExperimentMetadata => {
+	if (!extensionKey) {
+		return { isEligible: false };
+	}
+
+	const cloudId = getCurrentSiteCloudIdSync(baseUriWithNoTrailingSlash);
+	const providerPctMap = getProviderPctMapSync(cloudId, SOCIAL_PROOF_TRAIT_NAME);
+	const tier = getSocialProofTier(providerPctMap?.[extensionKey]);
+
+	return {
+		isEligible: tier !== undefined,
+		...(tier ? { tier } : {}),
+	};
+};
+
+export const getSocialProofExperimentMeta = (params: {
+	baseUriWithNoTrailingSlash?: string;
+	extensionKey?: string;
+}): BlockCardSocialProofExperimentMeta => ({
+	[SOCIAL_PROOF_3P_UNAUTH_BLOCK_EXPERIMENT_KEY]: getSocialProofExperimentMetadata(params),
+});
+
+export const getInlineSocialProofExperimentMeta = (params: {
+	baseUriWithNoTrailingSlash?: string;
+	extensionKey?: string;
+}): InlineSocialProofExperimentMeta => ({
+	[INLINE_SOCIAL_PROOF_EXPERIMENT_KEY]: getSocialProofExperimentMetadata(params),
+});
 
 /**
  * Returns enrollment and treatment state for the social proof unauth block card experiment.
@@ -64,8 +130,7 @@ const useSocialProofExperiment = (
 				? editorExperiment('social_proof_3p_unauth_block_exp', true)
 				: false;
 
-		const tier: SocialProofTier =
-			connectedPct !== undefined && connectedPct >= TIER_THRESHOLD ? 'not-low' : 'low';
+		const tier = getSocialProofTier(connectedPct) ?? 'low';
 
 		return { isTreatment, tier, connectedPct, isLoading };
 	}, [isEnabled, isLoading, connectedPct]);

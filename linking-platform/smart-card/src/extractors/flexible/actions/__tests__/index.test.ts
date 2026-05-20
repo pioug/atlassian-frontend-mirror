@@ -1,7 +1,8 @@
 import type { JsonLd } from '@atlaskit/json-ld-types';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { ActionName, CardAction } from '../../../../index';
+import { CardAction } from '../../../../constants';
+import { ActionName } from '../../../../index';
 import {
 	PREVIEW,
 	TEST_DOCUMENT,

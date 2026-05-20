@@ -139,8 +139,7 @@ export function mergeCells(tr: Transaction): Transaction {
 		.setSelection(Selection.near(tr.doc.resolve((mergedCellPos || 0) + table.start)));
 }
 
-export function canMergeCells(tr: Transaction): boolean {
-	const { selection } = tr;
+export function canMergeCellSelection(selection: Selection): boolean {
 	if (
 		!(selection instanceof CellSelection) ||
 		selection.$anchorCell.pos === selection.$headCell.pos
@@ -159,6 +158,10 @@ export function canMergeCells(tr: Transaction): boolean {
 	}
 
 	return true;
+}
+
+export function canMergeCells(tr: Transaction): boolean {
+	return canMergeCellSelection(tr.selection);
 }
 
 function isEmptyCell(cell: PMNode) {

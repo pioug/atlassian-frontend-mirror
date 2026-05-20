@@ -1,13 +1,11 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 
+import { CardAction } from '../../../constants';
 import { type AISummaryActionData } from '../../../state/flexible-ui-context/types';
 import { type AISummaryConfig } from '../../../state/hooks/use-ai-summary-config/types';
 import { canShowAction } from '../../../utils/actions/can-show-action';
 import { getIsAISummaryEnabled } from '../../../utils/ai-summary';
-import {
-	CardAction,
-	type InternalCardActionOptions as CardActionOptions,
-} from '../../../view/Card/types';
+import { type InternalCardActionOptions as CardActionOptions } from '../../../view/Card/types';
 
 export const extractAISummaryAction = (
 	response: JsonLd.Response,

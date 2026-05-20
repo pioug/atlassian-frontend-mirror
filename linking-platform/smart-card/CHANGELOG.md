@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 44.12.4
+
+### Patch Changes
+
+- [`dae1323186970`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dae1323186970) -
+  Move CardAction to constants.ts
+- Updated dependencies
+
+## 44.12.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.12.2
+
+### Patch Changes
+
+- [`a5bfb8fe1d675`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5bfb8fe1d675) -
+  Add no-exposure social proof experiment metadata to Smart Link render success analytics.
+- Updated dependencies
+
 ## 44.12.1
 
 ### Patch Changes

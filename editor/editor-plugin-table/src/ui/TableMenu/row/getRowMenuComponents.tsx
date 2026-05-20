@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type PropsWithChildren } from 'react';
 
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
@@ -29,13 +29,6 @@ import {
 	ROW_DANGER_SECTION_RANK,
 } from './keys';
 
-/**
- * Returns the RegisterComponent[] array defining the row menu surface.
- *
- * This is a **UI-only stub** — all items are always visible with no conditional
- * logic and no wired actions. Functional behaviour (actions, conditional visibility)
- * will be connected in follow-up tickets.
- */
 export const getRowMenuComponents = (): RegisterComponent[] => [
 	// --- Menu surface ---
 	{
@@ -50,8 +43,8 @@ export const getRowMenuComponents = (): RegisterComponent[] => [
 		parents: [
 			{ type: ROW_MENU.type, key: ROW_MENU.key, rank: ROW_MENU_SECTION_RANK[ROW_TOGGLE_SECTION.key] },
 		],
-		component: (props: Record<string, unknown>) => (
-			<ToolbarDropdownItemSection>{props.children as React.ReactNode}</ToolbarDropdownItemSection>
+		component: (props: PropsWithChildren) => (
+			<ToolbarDropdownItemSection>{props.children}</ToolbarDropdownItemSection>
 		),
 	},
 	{
@@ -89,9 +82,9 @@ export const getRowMenuComponents = (): RegisterComponent[] => [
 				rank: ROW_MENU_SECTION_RANK[ROW_BACKGROUND_SECTION.key],
 			},
 		],
-		component: (props: Record<string, unknown>) => (
+		component: (props: PropsWithChildren) => (
 			<ToolbarDropdownItemSection hasSeparator>
-				{props.children as React.ReactNode}
+				{props.children}
 			</ToolbarDropdownItemSection>
 		),
 	},
@@ -102,9 +95,9 @@ export const getRowMenuComponents = (): RegisterComponent[] => [
 		parents: [
 			{ type: ROW_MENU.type, key: ROW_MENU.key, rank: ROW_MENU_SECTION_RANK[ROW_ADD_SECTION.key] },
 		],
-		component: (props: Record<string, unknown>) => (
+		component: (props: PropsWithChildren) => (
 			<ToolbarDropdownItemSection hasSeparator>
-				{props.children as React.ReactNode}
+				{props.children}
 			</ToolbarDropdownItemSection>
 		),
 	},
@@ -163,9 +156,9 @@ export const getRowMenuComponents = (): RegisterComponent[] => [
 		parents: [
 			{ type: ROW_MENU.type, key: ROW_MENU.key, rank: ROW_MENU_SECTION_RANK[ROW_DANGER_SECTION.key] },
 		],
-		component: (props: Record<string, unknown>) => (
+		component: (props: PropsWithChildren) => (
 			<ToolbarDropdownItemSection hasSeparator>
-				{props.children as React.ReactNode}
+				{props.children}
 			</ToolbarDropdownItemSection>
 		),
 	},

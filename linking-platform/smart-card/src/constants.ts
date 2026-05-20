@@ -269,6 +269,18 @@ export enum MediaPlacement {
 	Right = 'right',
 }
 
+export enum CardAction {
+	AISummaryAction = 'AISummaryAction',
+	AutomationAction = 'AutomationAction',
+	ChangeStatusAction = 'ChangeStatusAction',
+	CopyLinkAction = 'CopyLinkAction',
+	DownloadAction = 'DownloadAction',
+	FollowAction = 'FollowAction',
+	PreviewAction = 'PreviewAction',
+	RovoChatAction = 'RovoChatAction',
+	ViewAction = 'ViewAction',
+}
+
 export enum CardDisplay {
 	Inline = 'inline',
 	Block = 'block',

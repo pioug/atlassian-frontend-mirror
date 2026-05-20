@@ -4,17 +4,14 @@ import type { ProductType } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
-import { ActionName } from '../../../constants';
+import { ActionName, CardAction } from '../../../constants';
 import type { RovoChatActionData } from '../../../state/flexible-ui-context/types';
 import { getDefinitionId, getExtensionKey, getResourceType } from '../../../state/helpers';
 import { isBlockCardRovoActionExperimentEnabled } from '../../../state/hooks/use-block-card-rovo-action-experiment';
 import type { RovoConfig } from '../../../state/hooks/use-rovo-config';
 import { canShowAction } from '../../../utils/actions/can-show-action';
 import { getIsRovoChatEnabled } from '../../../utils/rovo';
-import {
-	CardAction,
-	type InternalCardActionOptions as CardActionOptions,
-} from '../../../view/Card/types';
+import { type InternalCardActionOptions as CardActionOptions } from '../../../view/Card/types';
 import type { FlexibleCardProps } from '../../../view/FlexibleCard/types';
 
 type ExtractInvokeRovoChatActionParam = {

@@ -9,22 +9,28 @@ import {
 	type ReactNode,
 	type RefAttributes,
 	useCallback,
+	useContext,
 	useMemo,
 	useRef,
 	useState,
 } from 'react';
 
 import { css, jsx } from '@compiled/react';
+import { ax } from '@compiled/react/runtime';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { createPopoverCloseEvent } from '@atlaskit/top-layer/create-close-event';
 import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import { type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
-import { Popup } from '@atlaskit/top-layer/popup';
+import { Popover, type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
+import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';
 
 import { useRoleProps } from '../internal/top-layer-bridge';
 import { type ContentProps, type PopupComponentProps, type PopupProps } from '../types';
+
+import { TriggerRefObjectContext } from './trigger-ref-object-context';
 
 const overflowAutoStyles = css({ overflow: 'auto' });
 
@@ -97,9 +103,7 @@ export function PopupContentTopLayer({
 	shouldDisableGpuAcceleration?: boolean;
 	isOpen: boolean;
 	id: string | undefined;
-	triggerRef: HTMLElement | null;
 }): ReactNode {
-	const popupContainerRef = useRef<HTMLDivElement>(null);
 	const [, setInitialFocusRef] = useState<HTMLElement | null>(null);
 
 	// ── Placement conversion ──
@@ -136,6 +140,21 @@ export function PopupContentTopLayer({
 	// ── Role mapping ──
 	const roleProps = useRoleProps({ role, label, titleId });
 
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const anchorRef = useContext(TriggerRefObjectContext);
+
+	useAnchorPosition({
+		anchorRef,
+		popoverRef,
+		placement: topLayerPlacement,
+	});
+
+	useWidthFromAnchor({
+		mode: shouldFitContainer ? 'match-anchor' : 'none',
+		popoverRef,
+		anchorRef,
+	});
+
 	// Narrow to ForwardRefExoticComponent so JSX accepts the ref prop.
 	// All popupComponent implementations use forwardRef per the PopupComponentProps contract.
 	const Container = PopupContainer as
@@ -144,37 +163,38 @@ export function PopupContentTopLayer({
 		  >
 		| undefined;
 
-	if (!isOpen) {
-		return null;
-	}
-
 	return (
-		<Popup placement={topLayerPlacement} onClose={handleOnClose} testId={testId}>
-			<Popup.Content
-				{...roleProps}
-				isOpen={isOpen}
-				animate={animation}
-				testId={testId && `${testId}--content`}
-				width={shouldFitContainer ? 'trigger' : 'content'}
-			>
-				{Container ? (
-					<Container
-						ref={popupContainerRef}
-						style={EMPTY_STYLE}
-						id={providedId}
-						data-placement={placement}
-						data-testid={testId}
-						tabIndex={autoFocus ? -1 : undefined}
-						xcss={xcss as PopupComponentProps['xcss']}
+		<Popover
+			ref={popoverRef}
+			{...roleProps}
+			isOpen={isOpen}
+			animate={animation}
+			placement={topLayerPlacement}
+			onClose={handleOnClose}
+			testId={testId && `${testId}--content`}
+		>
+			{Container ? (
+				<Container
+					style={EMPTY_STYLE}
+					id={providedId}
+					data-placement={placement}
+					data-testid={testId}
+					tabIndex={autoFocus ? -1 : undefined}
+					xcss={xcss as PopupComponentProps['xcss']}
+				>
+					{children(contentProps)}
+				</Container>
+			) : (
+				<PopupSurface>
+					<div
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+						className={ax([xcss as string])}
+						css={[shouldFitViewport && overflowAutoStyles]}
 					>
 						{children(contentProps)}
-					</Container>
-				) : (
-					<Popup.Surface>
-						<div css={[shouldFitViewport && overflowAutoStyles]}>{children(contentProps)}</div>
-					</Popup.Surface>
-				)}
-			</Popup.Content>
-		</Popup>
+					</div>
+				</PopupSurface>
+			)}
+		</Popover>
 	);
 }

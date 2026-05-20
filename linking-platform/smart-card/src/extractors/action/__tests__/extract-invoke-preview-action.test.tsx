@@ -1,4 +1,5 @@
-import { ActionName, CardAction } from '../../../index';
+import { CardAction } from '../../../constants';
+import { ActionName } from '../../../index';
 import { EmbedModalSize } from '../../../view/EmbedModal/types';
 import * as utils from '../../../view/EmbedModal/utils';
 import {

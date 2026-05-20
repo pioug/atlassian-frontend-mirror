@@ -5,12 +5,10 @@ import type { SmartLinkResponse } from '@atlaskit/linking-types';
 import { act, fireEvent, screen, within } from '@atlassian/testing-library';
 
 import { closeEmbedModal } from '../../../../__tests__/__utils__/unit-helpers';
+import { CardAction } from '../../../../constants';
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../../extractors/constants';
 import * as analytics from '../../../../utils/analytics/analytics';
-import {
-	CardAction,
-	type InternalCardActionOptions as CardActionOptions,
-} from '../../../../view/Card/types';
+import { type InternalCardActionOptions as CardActionOptions } from '../../../../view/Card/types';
 import {
 	mockBaseResponseWithErrorPreview,
 	mockConfluenceResponse,

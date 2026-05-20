@@ -11,10 +11,13 @@ import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/ana
 import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { asMock, type JestFunction } from '@atlaskit/media-test-helpers';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { fireEvent, render, screen, waitFor, userEvent } from '@atlassian/testing-library';
 
-import { CardAction, TitleBlock } from '../../../index';
+import { CardAction } from '../../../constants';
+import { TitleBlock } from '../../../index';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
+import * as socialProofExperiment from '../../../state/hooks/use-social-proof-experiment';
 import { isSpecialClick, isSpecialKey } from '../../../utils';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { shouldSample } from '../../../utils/shouldSample';
@@ -41,11 +44,10 @@ describe('smart-card: success analytics', () => {
 	let mockWindowOpen: jest.Mock;
 
 	const mockUuid = uuid as JestFunction<typeof uuid>;
-	const mockStartUfoExperience = jest.spyOn(ufoWrapper, 'startUfoExperience');
-	const mockSucceedUfoExperience = jest.spyOn(ufoWrapper, 'succeedUfoExperience');
-
-	const mockFailUfoExperience = jest.spyOn(ufoWrapper, 'failUfoExperience');
-	const mockAddMetadataToExperience = jest.spyOn(ufoWrapper, 'addMetadataToExperience');
+	let mockStartUfoExperience: jest.SpyInstance;
+	let mockSucceedUfoExperience: jest.SpyInstance;
+	let mockFailUfoExperience: jest.SpyInstance;
+	let mockAddMetadataToExperience: jest.SpyInstance;
 
 	const mockAnalyticsClient = {
 		sendUIEvent: jest.fn().mockResolvedValue(undefined),
@@ -59,6 +61,10 @@ describe('smart-card: success analytics', () => {
 		mockPostData = jest.fn(async () => mocks.actionSuccess);
 		mockClient = new (fakeFactory(mockFetch, mockPostData))();
 		mockWindowOpen = jest.fn();
+		mockStartUfoExperience = jest.spyOn(ufoWrapper, 'startUfoExperience');
+		mockSucceedUfoExperience = jest.spyOn(ufoWrapper, 'succeedUfoExperience');
+		mockFailUfoExperience = jest.spyOn(ufoWrapper, 'failUfoExperience');
+		mockAddMetadataToExperience = jest.spyOn(ufoWrapper, 'addMetadataToExperience');
 		mockUuid.mockReturnValueOnce('some-uuid-1').mockReturnValueOnce('some-uuid-2');
 		/// @ts-ignore
 		global.open = mockWindowOpen;
@@ -219,6 +225,152 @@ describe('smart-card: success analytics', () => {
 								definitionId: 'd1',
 								display: 'embed',
 								interactionType: 'mouseleave',
+							}),
+						}),
+					);
+				});
+			});
+		});
+
+		describe('social proof renderSuccess experimentMeta', () => {
+			const renderCard = async (appearance: CardAppearance = 'block') => {
+				const mockUrl = 'https://this.is.social.proof.url';
+				mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+
+				render(
+					<FabricAnalyticsListeners client={mockAnalyticsClient}>
+						<IntlProvider locale="en">
+							<Provider client={mockClient}>
+								<Card testId="socialProofCard" appearance={appearance} url={mockUrl} />
+							</Provider>
+						</IntlProvider>
+					</FabricAnalyticsListeners>,
+				);
+
+				await screen.findByTestId(
+					appearance === 'inline' ? 'socialProofCard-unauthorized-view' : 'socialProofCard',
+				);
+			};
+
+			describe('with social proof renderSuccess metadata gate on', () => {
+				it('adds nested experimentMeta for unauthorized block cards', async () => {
+					passGate('social-proof-3p-unauth-block-fg');
+					jest.spyOn(socialProofExperiment, 'getSocialProofExperimentMeta').mockReturnValue({
+						social_proof_3p_unauth_block_exp: { isEligible: true, tier: 'not-low' },
+					});
+
+					await renderCard('block');
+
+					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							action: 'renderSuccess',
+							actionSubject: 'smartLink',
+							attributes: expect.objectContaining({
+								display: 'block',
+								status: 'unauthorized',
+								experimentMeta: {
+									social_proof_3p_unauth_block_exp: { isEligible: true, tier: 'not-low' },
+								},
+							}),
+						}),
+					);
+				});
+
+				it('adds ineligible nested experimentMeta for unauthorized block cards without cached eligibility', async () => {
+					passGate('social-proof-3p-unauth-block-fg');
+					jest.spyOn(socialProofExperiment, 'getSocialProofExperimentMeta').mockReturnValue({
+						social_proof_3p_unauth_block_exp: { isEligible: false },
+					});
+
+					await renderCard('block');
+
+					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							action: 'renderSuccess',
+							actionSubject: 'smartLink',
+							attributes: expect.objectContaining({
+								display: 'block',
+								status: 'unauthorized',
+								experimentMeta: {
+									social_proof_3p_unauth_block_exp: { isEligible: false },
+								},
+							}),
+						}),
+					);
+				});
+			});
+
+			describe('with inline social proof renderSuccess metadata gate on', () => {
+				it('adds nested experimentMeta for unauthorized inline cards', async () => {
+					passGate('platform_sl_3p_preauth_soc_proof_inline_killswitch');
+					jest.spyOn(socialProofExperiment, 'getInlineSocialProofExperimentMeta').mockReturnValue({
+						platform_sl_3p_preauth_social_proof_inline_cta: {
+							isEligible: true,
+							tier: 'low',
+						},
+					});
+
+					await renderCard('inline');
+
+					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							action: 'renderSuccess',
+							actionSubject: 'smartLink',
+							attributes: expect.objectContaining({
+								display: 'inline',
+								status: 'unauthorized',
+								experimentMeta: {
+									platform_sl_3p_preauth_social_proof_inline_cta: {
+										isEligible: true,
+										tier: 'low',
+									},
+								},
+							}),
+						}),
+					);
+				});
+			});
+
+			describe('with inline social proof renderSuccess metadata gate off', () => {
+				it('does not add inline nested experimentMeta for unauthorized inline cards', async () => {
+					failGate('platform_sl_3p_preauth_soc_proof_inline_killswitch');
+					const getInlineSocialProofExperimentMetaSpy = jest.spyOn(
+						socialProofExperiment,
+						'getInlineSocialProofExperimentMeta',
+					);
+
+					await renderCard('inline');
+
+					expect(getInlineSocialProofExperimentMetaSpy).not.toHaveBeenCalled();
+					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							action: 'renderSuccess',
+							actionSubject: 'smartLink',
+							attributes: expect.not.objectContaining({
+								experimentMeta: expect.anything(),
+							}),
+						}),
+					);
+				});
+			});
+
+			describe('with social proof renderSuccess metadata gate off', () => {
+				it('does not add nested experimentMeta for unauthorized block cards', async () => {
+					failGate('social-proof-3p-unauth-block-fg');
+					const getSocialProofExperimentMetaSpy = jest.spyOn(
+						socialProofExperiment,
+						'getSocialProofExperimentMeta',
+					);
+
+					await renderCard('block');
+
+					expect(getSocialProofExperimentMetaSpy).not.toHaveBeenCalled();
+					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							action: 'renderSuccess',
+							actionSubject: 'smartLink',
+							attributes: expect.not.objectContaining({
+								experimentMeta: expect.anything(),
 							}),
 						}),
 					);

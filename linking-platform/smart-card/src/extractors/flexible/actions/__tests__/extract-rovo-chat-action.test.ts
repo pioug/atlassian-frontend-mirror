@@ -2,7 +2,7 @@ import type { JsonLd } from '@atlaskit/json-ld-types';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { CardAction } from '../../../../view/Card/types';
+import { CardAction } from '../../../../constants';
 import {
 	TEST_DOCUMENT,
 	TEST_RESOLVED_META_DATA,

@@ -1,5 +1,16 @@
 # @atlaskit/adf-utils
 
+## 19.30.0
+
+### Minor Changes
+
+- [`4f2e912c65ae3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f2e912c65ae3) -
+  Gate table-in-panel ADF validation behind experiment (EDITOR-7168)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.29.7
 
 ### Patch Changes

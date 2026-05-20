@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/share",
-	"version": "7.1.1",
+	"version": "7.1.2",
 	"description": "Fabric Share Element",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -22,6 +22,13 @@
 	},
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Jira Warepil",
 		"website": {
 			"name": "Share"
@@ -76,6 +83,7 @@
 		"@atlaskit/editor-test-helpers": "workspace:^",
 		"@atlaskit/flag": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"enzyme": "root:*",

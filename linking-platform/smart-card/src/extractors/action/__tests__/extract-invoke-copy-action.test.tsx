@@ -1,6 +1,7 @@
 import { userEvent } from '@atlassian/testing-library';
 
-import { ActionName, CardAction } from '../../../index';
+import { CardAction } from '../../../constants';
+import { ActionName } from '../../../index';
 import { TEST_RESPONSE, TEST_URL } from '../../common/__mocks__/jsonld';
 import { extractInvokeCopyLinkAction } from '../extract-invoke-copy-link-action';
 

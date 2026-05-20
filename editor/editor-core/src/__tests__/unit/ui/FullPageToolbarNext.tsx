@@ -8,9 +8,9 @@ import type { PublicPluginAPI, DocBuilder } from '@atlaskit/editor-common/types'
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { MarkdownModePlugin, MarkdownModeView } from '@atlassian/editor-plugin-markdown-mode';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
+import type { MarkdownModePlugin, MarkdownModeView } from '../../../../src/types/markdown-mode';
 import { FullPageToolbarNext } from '../../../../src/ui/Appearance/FullPage/FullPageToolbarNext';
 
 const createEditor = createEditorFactory();

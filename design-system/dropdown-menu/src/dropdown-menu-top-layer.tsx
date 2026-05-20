@@ -248,9 +248,6 @@ function DropdownMenuTopLayer({
 		});
 	}, [isLocalOpen, isTriggeredUsingKeyboard, autoFocus]);
 
-	// shouldFitContainer is handled by the width prop on Popup.Content below.
-	const popupContentWidth = shouldFitContainer ? ('min-trigger' as const) : ('content' as const);
-
 	// ── Close on menu item click ──
 	// Close when a regular menuitem is clicked, but not checkboxes/radios
 	// and not nested triggers (items with aria-haspopup).
@@ -334,7 +331,7 @@ function DropdownMenuTopLayer({
 					label={menuLabel ?? label ?? (typeof trigger === 'string' ? trigger : 'Menu')}
 					isOpen={isLocalOpen}
 					animate={animation}
-					width={popupContentWidth}
+					widthFromAnchor={shouldFitContainer ? 'min-anchor' : 'none'}
 					testId={testId && `${testId}--content`}
 				>
 					<div css={styles.menuContent} ref={menuRef}>

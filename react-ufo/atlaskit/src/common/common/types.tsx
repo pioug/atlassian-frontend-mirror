@@ -249,6 +249,12 @@ export interface InteractionMetrics {
 	 * shape as resourceTimings; emitted on the payload as `segment3pTimings`.
 	 */
 	segment3pTimings?: Record<string, Segment3pTimingEntry[]>;
+	/**
+	 * Arbitrary extra data keyed by UFO segment id. Unlike customData (interaction-level),
+	 * this is scoped per segment so multiple segments on the same page don't collide.
+	 */
+	segmentExtraData?: Record<string, Record<string, string | undefined>>;
+
 	metricWindows?: MetricWindows;
 	lifecycleObservations?: LifecycleObservation[];
 }

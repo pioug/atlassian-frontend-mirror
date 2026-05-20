@@ -141,6 +141,7 @@ export type Err = <T extends ValidationErrorType>(
 
 export interface ErrorCallbackOptions {
 	allowNestedTables?: boolean;
+	allowTableInPanel?: boolean;
 	allowUnsupportedBlock?: boolean;
 	allowUnsupportedInline?: boolean;
 	// Ignored via go/ees005

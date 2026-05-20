@@ -3,9 +3,9 @@
  *
  * Index file for generated Global component prop types
  *
- * @codegen <<SignedSource::5bfaa3d4d96123b00f66ce1a54f40e2f>>
+ * @codegen <<SignedSource::48152998b78809f094cbabddf1d84882>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::c749a1bc5e1017e1bcbe09febba5a9a3>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::e17547609898913bc776d1c2fe21bbc1>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -14,6 +14,7 @@ export type { MainProps, TMain } from './MainProps.codegen';
 export type { SidebarProps, TSidebar } from './SidebarProps.codegen';
 export type { LinkMenuItemProps, TLinkMenuItem } from './LinkMenuItemProps.codegen';
 export type { ExpandableMenuItemProps, TExpandableMenuItem } from './ExpandableMenuItemProps.codegen';
+export type { ReorderableMenuItemsProps, TReorderableMenuItems } from './ReorderableMenuItemsProps.codegen';
 export type { CreateButtonProps, TCreateButton } from './CreateButtonProps.codegen';
 export type { CreateMenuItemProps, TCreateMenuItem } from './CreateMenuItemProps.codegen';
 export type { FlyOutMenuItemProps, TFlyOutMenuItem } from './FlyOutMenuItemProps.codegen';

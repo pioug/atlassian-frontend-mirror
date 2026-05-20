@@ -1,6 +1,13 @@
 {
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Search Platform: Search Experience",
 		"slack": {
 			"channel": "#search-plex-prs",
@@ -50,6 +57,7 @@
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/a11y-playwright-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"@types/query-string": "root:*",
@@ -142,5 +150,5 @@
 			]
 		}
 	},
-	"version": "26.0.1"
+	"version": "26.0.2"
 }

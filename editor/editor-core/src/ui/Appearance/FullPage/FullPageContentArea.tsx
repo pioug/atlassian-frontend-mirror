@@ -33,19 +33,19 @@ import type { ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel'
 import type { ViewMode } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
+	akEditorFullPageNarrowBreakout,
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPaddingReduced,
-	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
-import type { MarkdownModePlugin } from '@atlassian/editor-plugin-markdown-mode';
 
 import type EditorActions from '../../../actions';
 import type { ContentComponents, ReactComponents } from '../../../types';
+import type { MarkdownModePlugin } from '../../../types/markdown-mode';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import ClickAreaBlock from '../../Addon/ClickAreaBlock';
@@ -91,6 +91,13 @@ const editorContentAreaProsemirrorStyle = css({
 const hideEditorContentAreaProsemirrorStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& .ProseMirror': {
+		display: 'none',
+	},
+});
+
+const hideEditorContentAreaProsemirrorWithAttributeStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&[data-markdown-mode-hide-prosemirror="true"] .ProseMirror': {
 		display: 'none',
 	},
 });
@@ -344,6 +351,10 @@ const Content = React.forwardRef<
 		['markdownMode'],
 		(states) => states.markdownModeState?.isMarkdownMode,
 	);
+	const shouldHideProseMirrorForMarkdownMode =
+		expValEqualsNoExposure('cc-markdown-mode', 'isEnabled', true) &&
+		markdownPluginCurrentView !== 'wysiwyg' &&
+		markdownPluginCurrentIsMarkdownMode;
 
 	return (
 		<div
@@ -372,15 +383,21 @@ const Content = React.forwardRef<
 				>
 					<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
 						<div
+							data-markdown-mode-hide-prosemirror={
+								shouldHideProseMirrorForMarkdownMode &&
+								fg('platform_editor_delay_markdown_view_mode_eval')
+									? 'true'
+									: undefined
+							}
 							css={[
 								editorContentAreaNew,
 								editorContentAreaProsemirrorStyle,
 								// EDITOR-6558: hide ProseMirror when the markdown-mode plugin
 								// reports a non-WYSIWYG view.
-								expValEqualsNoExposure('cc-markdown-mode', 'isEnabled', true) &&
-									markdownPluginCurrentView !== 'wysiwyg' &&
-									markdownPluginCurrentIsMarkdownMode &&
-									hideEditorContentAreaProsemirrorStyle,
+								shouldHideProseMirrorForMarkdownMode &&
+									(fg('platform_editor_delay_markdown_view_mode_eval')
+										? hideEditorContentAreaProsemirrorWithAttributeStyle
+										: hideEditorContentAreaProsemirrorStyle),
 								tableFullPageEditorStylesNew,
 								fullWidthNonChromelessBreakoutBlockTableStyle,
 								// for breakout resizing, there's no need to restrict the width of codeblocks as they're always wrapped in a breakout mark

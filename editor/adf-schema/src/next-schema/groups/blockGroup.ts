@@ -50,6 +50,7 @@ export const blockGroup: ADFNodeGroup = adfNodeGroup(
 		mediaGroup,
 		rule,
 		panel,
+		panel.use('c1'),
 		table,
 		// @ts-expect-error - types don't deal well with circular references for the variant
 		table.use('with_nested_table'),

@@ -1,4 +1,4 @@
-import { CardAction } from '../../../index';
+import { CardAction } from '../../../constants';
 import * as utils from '../../../utils';
 import {
 	TEST_RESPONSE,

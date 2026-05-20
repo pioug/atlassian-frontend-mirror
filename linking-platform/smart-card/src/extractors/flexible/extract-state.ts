@@ -7,6 +7,7 @@ import {
 } from '@atlaskit/linking-types';
 
 import { type FireEventFunction } from '../../common/analytics/types';
+import { CardAction } from '../../constants';
 import { getExtensionKey } from '../../state/helpers';
 import {
 	type CardDetails,
@@ -16,7 +17,6 @@ import { type ResolveFunction } from '../../state/hooks/use-resolve';
 import { canShowAction } from '../../utils/actions/can-show-action';
 import { type AnalyticsOrigin } from '../../utils/types';
 import {
-	CardAction,
 	type InternalCardActionOptions as CardActionOptions,
 	type CardInnerAppearance,
 } from '../../view/Card/types';

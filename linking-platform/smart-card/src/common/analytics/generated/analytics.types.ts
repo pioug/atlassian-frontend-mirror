@@ -383,6 +383,7 @@ export type ButtonClickedEmbedPreviewResizeAttributesType = {
 export type SmartLinkRenderSuccessAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
 	rovoActionsCtaShown?: boolean | null;
+	experimentMeta?: Record<string, unknown> | null;
 };
 export type SmartLinkRenderFailedAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';

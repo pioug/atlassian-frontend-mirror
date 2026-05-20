@@ -20,7 +20,9 @@ import { ElementName, SmartLinkDirection, SmartLinkSize, SmartLinkWidth } from '
 import { messages } from '../../../messages';
 import { useFlexibleCardContext } from '../../../state/flexible-ui-context';
 import { hasAuthScopeOverrides } from '../../../state/helpers';
-import useSocialProofExperiment from '../../../state/hooks/use-social-proof-experiment';
+import useSocialProofExperiment, {
+	getSocialProofExperimentMeta,
+} from '../../../state/hooks/use-social-proof-experiment';
 import UnauthorisedViewContent from '../../common/UnauthorisedViewContent';
 import FlexibleCard from '../../FlexibleCard';
 import ActionGroup from '../../FlexibleCard/components/blocks/action-group';
@@ -368,17 +370,31 @@ const UnauthorisedViewWithExperiment = ({
 		providerName ? extensionKey : undefined,
 		connections.client.baseUrlOverride,
 	);
+	const socialProofExperimentMeta = getSocialProofExperimentMeta({
+		extensionKey,
+		baseUriWithNoTrailingSlash: connections.client.baseUrlOverride,
+	});
+	const analyticsContextData = {
+		attributes: {
+			experiment: 'social_proof_3p_unauth_block_exp',
+			cohort: isTreatment ? 'treatment' : 'control',
+			tier,
+			experimentMeta: socialProofExperimentMeta,
+		},
+	};
 
 	if (!isTreatment || !providerName) {
-		return <UnauthorisedViewBase {...props} testId={testId} />;
+		const fallbackView = <UnauthorisedViewBase {...props} testId={testId} />;
+
+		return connectedPct !== undefined ? (
+			<AnalyticsContext data={analyticsContextData}>{fallbackView}</AnalyticsContext>
+		) : (
+			fallbackView
+		);
 	}
 
 	return (
-		<AnalyticsContext
-			data={{
-				attributes: { experiment: 'social_proof_3p_unauth_block_exp', cohort: 'treatment', tier },
-			}}
-		>
+		<AnalyticsContext data={analyticsContextData}>
 			<UnauthorisedViewFrame
 				{...props}
 				content={

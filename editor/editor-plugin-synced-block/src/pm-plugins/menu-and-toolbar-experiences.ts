@@ -325,6 +325,9 @@ const handleButtonClick = ({
 				syncedLocationsExperience?.start({ forceRestart: true });
 			}
 			break;
+		case SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceOverflowTrigger:
+		case SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceOverflowTrigger:
+			break;
 		default: {
 			// Exhaustiveness check: if a new SyncedBlockToolbarButtonId is added
 			// but not handled above, TypeScript will error here.

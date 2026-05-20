@@ -3,6 +3,7 @@ import React from 'react';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
+import { UserIntentPopupWrapper } from '@atlaskit/editor-common/user-intent';
 import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -126,7 +127,13 @@ const FloatingDragMenu: FloatingDragMenuFunction = ({
 			stick={true}
 		>
 			{expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) ? (
-				<TableMenu api={api} surface={direction === 'row' ? ROW_MENU : COLUMN_MENU} />
+				<UserIntentPopupWrapper api={api} userIntent="tableDragMenuPopupOpen">
+					<TableMenu
+						api={api}
+						editorView={editorView}
+						surface={direction === 'row' ? ROW_MENU : COLUMN_MENU}
+					/>
+				</UserIntentPopupWrapper>
 			) : (
 				<DragMenu
 					editorView={editorView}

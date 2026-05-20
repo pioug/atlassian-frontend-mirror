@@ -638,7 +638,21 @@ async function createInteractionMetricsPayload(
 			customTimings: optimizeCustomTimings(interaction.customTimings, start),
 			bundleEvalTimings: objectToArray(getBundleEvalTimings(start)),
 			resourceTimings: objectToArray(resourceTimings) as ResourceTiming[],
-			...(interaction.segment3pTimings ? { segment3pTimings: interaction.segment3pTimings } : {}),
+			// Feature-gated: when off, record only the serialized size in Kb to measure payload impact before enabling.
+			...(interaction.segment3pTimings
+				? fg('platform_ufo_ecosystem_data_in_payload')
+					? { segment3pTimings: interaction.segment3pTimings }
+					: {
+							segment3pTimingsSizeInKb: getPayloadSize(interaction.segment3pTimings),
+						}
+				: {}),
+			...(interaction.segmentExtraData
+				? fg('platform_ufo_ecosystem_data_in_payload')
+					? { segmentExtraData: interaction.segmentExtraData }
+					: {
+							segmentExtraDataSizeInKb: getPayloadSize(interaction.segmentExtraData),
+						}
+				: {}),
 		};
 
 		// Include third-party holds when feature flag is active

@@ -10,7 +10,7 @@ import {
 	ValidationContextProvider,
 	defaultNodeComponents,
 } from '@atlaskit/renderer';
-import { RendererActionsContext } from '@atlaskit/renderer/actions';
+import { RendererActionsContext } from '@atlaskit/renderer/actions/renderer-actions-context';
 import { RendererContextProvider } from '@atlaskit/renderer/renderer-context';
 import Tooltip from '@atlaskit/tooltip';
 

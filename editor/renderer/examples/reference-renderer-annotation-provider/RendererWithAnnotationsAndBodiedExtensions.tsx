@@ -26,7 +26,7 @@ import {
 	ExampleAnnotationProductStateContext,
 	useExampleRendererAnnotationProvider,
 } from './example-renderer-annotation-provider';
-import { RendererActionsContext } from '../../src/actions';
+import { RendererActionsContext } from '../../src/ui/RendererActionsContext';
 
 const toolbarStyle = css({
 	display: 'flex',

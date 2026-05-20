@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/date",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"description": "Fabric Date React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -20,6 +20,14 @@
 			]
 		}
 	},
+	"devDependencies": {
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/elements-test-helpers": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
+		"@testing-library/react": "root:*",
+		"@testing-library/user-event": "root:*",
+		"react": "root:*"
+	},
 	"sideEffects": [
 		"*.compiled.css"
 	],
@@ -30,6 +38,13 @@
 		"./date-lozenge": "./src/components/DateLozenge.tsx"
 	},
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Editor: AI",
 		"website": {
 			"name": "Date"
@@ -46,13 +61,6 @@
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
-	},
-	"devDependencies": {
-		"@af/visual-regression": "workspace:^",
-		"@atlaskit/elements-test-helpers": "workspace:^",
-		"@testing-library/react": "root:*",
-		"@testing-library/user-event": "root:*",
-		"react": "root:*"
 	},
 	"keywords": [
 		"ui",

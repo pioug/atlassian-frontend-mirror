@@ -3,7 +3,7 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: UFOThirdPartySegment segment3pTimings', () => {
 	test.use({
 		examplePage: 'third-party-segment-timings',
-		featureFlags: ['platform_ufo_3p_segment_timings'],
+		featureFlags: ['platform_ufo_3p_segment_timings', 'platform_ufo_ecosystem_data_in_payload'],
 	});
 
 	test('segment3pTimings from iframe analytics appear as label/data rows in interactionMetrics', async ({
@@ -40,15 +40,16 @@ test.describe('ReactUFO: UFOThirdPartySegment segment3pTimings', () => {
 		expect(Array.isArray(rows)).toBe(true);
 		expect(rows.length).toBeGreaterThanOrEqual(2);
 
-		const lcp = rows.find((r) => r.label === 'lcp-snapshot');
-		expect(lcp).toBeDefined();
-		expect(lcp!.data.start).toBe(250);
-		expect(lcp!.data.size).toBe(1200);
-		expect(typeof lcp!.data.elapsed).toBe('number');
+		const navigationTiming = rows.find((r) => r.label === 'navigation-timing');
+		expect(navigationTiming).toBeDefined();
+		expect(navigationTiming!.data.duration).toBe(300);
+		expect(navigationTiming!.data.start).toBe(0);
+		expect(typeof navigationTiming!.data.elapsed).toBe('number');
 
-		const fcp = rows.find((r) => r.label === 'fcp-snapshot');
-		expect(fcp).toBeDefined();
-		expect(fcp!.data.start).toBe(120);
-		expect(typeof fcp!.data.elapsed).toBe('number');
+		const paintTiming = rows.find((r) => r.label === 'paint-timing');
+		expect(paintTiming).toBeDefined();
+		expect(paintTiming!.data.start).toBe(120);
+		expect(paintTiming!.data.paintType).toBe('first-contentful-paint');
+		expect(typeof paintTiming!.data.elapsed).toBe('number');
 	});
 });

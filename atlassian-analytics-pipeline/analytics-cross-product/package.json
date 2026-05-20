@@ -23,7 +23,9 @@
 		"*.compiled.css"
 	],
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./globalInteractionSessionTracking": "./src/globalInteractionSessionTracking.ts",
+		"./useCrossProductUrlWrapper": "./src/useCrossProductUrlWrapper.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "workspace:^",
@@ -78,7 +80,7 @@
 		}
 	},
 	"name": "@atlaskit/analytics-cross-product",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"description": "Utilities to enable cross-product interaction session tracking",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

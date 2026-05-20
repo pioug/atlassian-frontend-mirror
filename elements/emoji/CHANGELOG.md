@@ -1,5 +1,17 @@
 # @atlaskit/emoji
 
+## 70.9.2
+
+### Patch Changes
+
+- [`272f9e5d477db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/272f9e5d477db) -
+  Fix accessibility: render emoji picker category headings (e.g. "Search results") as semantic
+  `<h2>` elements instead of `<div>` elements, so screen reader users can navigate and understand
+  the picker's content structure (WCAG 1.3.1, 2.4.6).
+- [`50bf488a08bf3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50bf488a08bf3) -
+  Drag and drop for emoji upload will disable drag and drop on page content
+- Updated dependencies
+
 ## 70.9.1
 
 ### Patch Changes

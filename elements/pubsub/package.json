@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/pubsub",
-	"version": "7.0.3",
+	"version": "7.0.4",
 	"description": "Interacts with Atlassian Frontend PubSub service to receive pubsub events.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -20,6 +20,13 @@
 			]
 		}
 	},
+	"devDependencies": {
+		"@atlassian/react-compiler-gating": "workspace:^",
+		"es6-promise": "root:*",
+		"fetch-mock": "root:*",
+		"jest-extended": "root:*",
+		"sinon": "root:*"
+	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
@@ -30,6 +37,13 @@
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Event Platform",
 		"website": {
 			"name": "pubsub"
@@ -47,11 +61,5 @@
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
-	},
-	"devDependencies": {
-		"es6-promise": "root:*",
-		"fetch-mock": "root:*",
-		"jest-extended": "root:*",
-		"sinon": "root:*"
 	}
 }

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-hooks",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -83,6 +83,8 @@
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
-		}
+		},
+		"./transform-recommendations-to-options": "./src/entry-points/transform-recommendations-to-options.ts",
+		"./use-user-recommendations": "./src/entry-points/use-user-recommendations.ts"
 	}
 }

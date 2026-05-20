@@ -8,6 +8,12 @@ import { codeBlock } from './nodes/codeBlock';
 import { syncBlock } from './nodes/syncBlock';
 import { bodiedSyncBlock } from './nodes/bodiedSyncBlock';
 import type { ADFNode, ADFCommonNodeSpec } from '@atlaskit/adf-schema-generator';
+import { panel } from './nodes/panel';
+import { table } from './nodes/tableNodes';
+
+// Wire cross-container content after all node modules are fully evaluated,
+// so neither import is undefined when the $or() expression is constructed.
+panel.use('c1').addContent(table);
 
 const doc: ADFNode<[string], ADFCommonNodeSpec> = adfNode('doc').define({
 	root: true,

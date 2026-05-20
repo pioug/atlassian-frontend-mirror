@@ -4,7 +4,8 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 
-import { Card, CardAction } from '../../src';
+import { Card } from '../../src';
+import { CardAction } from '../../src/constants';
 
 export default (): React.JSX.Element => (
 	<SmartCardProvider client={new ResolvedClient('stg')}>

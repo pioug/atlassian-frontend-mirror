@@ -1,4 +1,4 @@
-import { CardAction } from '../../../view/Card/types';
+import { CardAction } from '../../../constants';
 import { canShowAction } from '../can-show-action';
 
 describe('canShowAction', () => {

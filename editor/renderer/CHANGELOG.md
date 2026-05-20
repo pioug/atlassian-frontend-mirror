@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 131.1.0
+
+### Minor Changes
+
+- [`3e32ed83c03e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e32ed83c03e3) -
+  DITOR-679 improve media provider
+
+### Patch Changes
+
+- Updated dependencies
+
+## 131.0.0
+
+### Major Changes
+
+- [`479eca77367d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/479eca77367d5) -
+  Update imports of renderer to remove file barrelling
+
 ## 130.6.4
 
 ### Patch Changes

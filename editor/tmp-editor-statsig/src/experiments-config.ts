@@ -1917,6 +1917,20 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-18
+	platform_editor_nest_table_in_panel: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-05-19
+	platform_editor_ai_improve_formatting_toolbar: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -4100,10 +4114,26 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-05-18
+	platform_editor_nest_table_in_panel: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_nest_table_in_panel',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-05-15
 	platform_editor_fix_sticky_header_malfunction: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_fix_sticky_header_malfunction',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-19
+	platform_editor_ai_improve_formatting_toolbar: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_improve_formatting_toolbar',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

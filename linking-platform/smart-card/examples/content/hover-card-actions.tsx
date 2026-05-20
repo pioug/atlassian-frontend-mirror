@@ -6,7 +6,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';
 import { Stack } from '@atlaskit/primitives/compiled';
 
-import { CardAction } from '../../src';
+import { CardAction } from '../../src/constants';
 import { HoverCard } from '../../src/hoverCard';
 import HoverOverMe from '../utils/hover-card-box';
 

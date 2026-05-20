@@ -74,6 +74,12 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 
 	const handleClick = () => {
 		const { state, dispatch } = editorView;
+
+		if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+			toggleContextualMenu()(state, dispatch);
+			return;
+		}
+
 		// Clicking outside the dropdown handles toggling the menu closed
 		// (otherwise these two toggles combat each other).
 		// In the event a user clicks the chevron button again

@@ -299,7 +299,7 @@ export class EmojiNodeView implements NodeView {
 		this.dom.appendChild(containerElement);
 	}
 
-	private createUnicodeEmojiElement(_: string): HTMLSpanElement {
+	private createUnicodeEmojiElement(emoji: string): HTMLSpanElement {
 		let doc = getDocument();
 		if (!doc) {
 			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
@@ -307,7 +307,17 @@ export class EmojiNodeView implements NodeView {
 		}
 		const spanElement = doc.createElement('span');
 
-		// NOTE: Implement unicode emoji element creation
+		spanElement.classList.add(EmojiSharedCssClassName.EMOJI_IMAGE);
+
+		spanElement.style.textAlign = 'center';
+		spanElement.style.alignContent = 'center';
+		spanElement.textContent = emoji;
+		spanElement.style.fontSize = `max(1em, ${defaultEmojiHeight}px)`;
+		spanElement.style.width = `max(calc(1em + 2px), ${defaultEmojiHeight + 2}px)`;
+		spanElement.style.height = `max(calc(1em + 2px), ${defaultEmojiHeight + 2}px)`;
+		spanElement.style.lineHeight = '0';
+		spanElement.style.margin = '0';
+		spanElement.style.padding = '0';
 
 		return spanElement;
 	}

@@ -1,5 +1,14 @@
 # @atlaskit/util-service-support
 
+## 6.4.1
+
+### Patch Changes
+
+- [`72290778b16ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72290778b16ca) -
+  Enrol mixed platform packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform
+- Updated dependencies
+
 ## 6.4.0
 
 ### Minor Changes

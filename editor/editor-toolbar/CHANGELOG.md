@@ -1,5 +1,22 @@
 # @atlaskit/editor-toolbar
 
+## 1.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.6.0
+
+### Minor Changes
+
+- [`98ee7ca379f42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98ee7ca379f42) -
+  Add experiment-gated table menu updates for cell menu
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.2
 
 ### Patch Changes

@@ -8,7 +8,7 @@ import React, { Fragment } from 'react';
 import { jsx, css } from '@emotion/react';
 //import { exampleDocumentWithComments } from './helper/example-doc-with-comments';
 import { RendererWithAnalytics as Renderer, AnnotationsWrapper } from '../src/';
-import { RendererActionsContext } from '../src/actions';
+import { RendererActionsContext } from '../src/ui/RendererActionsContext';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
 import {
 	AnnotationUpdateEmitter,

@@ -5,6 +5,7 @@
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	CheckboxOption,
 	components,
@@ -24,6 +25,14 @@ const messageStyles = css({
 	fontWeight: token('font.weight.regular'),
 });
 
+const listItemBaseStyles = css({
+	boxShadow: 'none'
+})
+
+const listItemStylesFocusedSelected = css({
+	backgroundColor: token('color.background.selected.hovered'),
+});
+
 const listItemStylesSelected = css({
 	backgroundColor: token('color.background.selected'),
 	'&:hover': {
@@ -32,7 +41,6 @@ const listItemStylesSelected = css({
 	'&:active': {
 		backgroundColor: token('color.background.selected.pressed'),
 	},
-	boxShadow: 'none',
 });
 
 const listItemStyles = css({
@@ -42,7 +50,6 @@ const listItemStyles = css({
 	'&:active': {
 		backgroundColor: token('color.background.neutral.pressed'),
 	},
-	boxShadow: 'none',
 });
 
 export const ConcatenatedMenuList = ({
@@ -78,7 +85,17 @@ export const ConcatenatedMenuList = ({
 
 export const MenuItem = ({ children, ...props }: OptionProps<OptionType, true>): JSX.Element => {
 	return (
-		<CheckboxOption css={[props.isSelected ? listItemStylesSelected : listItemStyles]} {...props}>
+		<CheckboxOption
+			css={[
+				props.isSelected ? listItemStylesSelected : listItemStyles,
+				!fg('navx-4870-adding-keyboard-focus-for-sllv-columns') && listItemBaseStyles,
+				props.isSelected &&
+					props.isFocused &&
+					fg('navx-4870-adding-keyboard-focus-for-sllv-columns') &&
+					listItemStylesFocusedSelected,
+			]}
+			{...props}
+		>
 			{children}
 		</CheckboxOption>
 	);

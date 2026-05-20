@@ -7,7 +7,24 @@ import type { Symbol, InterfaceDeclaration, PropertySignature, SourceFile } from
 import { resolve } from 'path';
 import fs from 'fs';
 
-// Path to the global component props source file (re-exports)
+/**
+ * Strips the `createSignedArtifact` JSDoc header from a codegen file so that
+ * only the actual generated source body remains. The header contains a
+ * `@codegen <<SignedSource::...>>` hash that is computed from the whole file
+ * (including itself), making it non-deterministic to compare against freshly
+ * generated content. Comparing just the body lets us reliably detect whether
+ * the prop types themselves have changed.
+ */
+const stripSignedHeader = (fileContent: string): string => {
+	// The header is a JSDoc comment block starting with `/**` and ending with
+	// `*/\n`. Everything after that is the generated source body.
+	const headerEnd = fileContent.indexOf('*/\n');
+	if (headerEnd === -1) {
+		return fileContent;
+	}
+	return fileContent.slice(headerEnd + 3); // skip past `*/\n`
+};
+
 const GLOBAL_PROPS_SOURCE_PATH = resolve(
 	__dirname,
 	'../../../../..',
@@ -148,11 +165,32 @@ const resolveToInterfaceDeclaration = (
 };
 
 /**
+ * Collects all exported interface and type-alias names from a source file.
+ * Used to detect references in generated code that need an explicit import.
+ */
+const getExportedTypeNames = (sourceFilePath: string, project: Project): string[] => {
+	let sourceFile = project.getSourceFile(sourceFilePath);
+	if (!sourceFile) {
+		sourceFile = project.addSourceFileAtPath(sourceFilePath);
+	}
+	const names: string[] = [];
+	for (const decl of sourceFile.getInterfaces()) {
+		names.push(decl.getName());
+	}
+	for (const decl of sourceFile.getTypeAliases()) {
+		names.push(decl.getName());
+	}
+	return names;
+};
+
+/**
  * Generates the source code for a single component's prop types.
  */
 const generateComponentPropTypeCode = (
 	interfaceDecl: InterfaceDeclaration,
 	allPropsNames: string[],
+	sourceFilePath: string,
+	project: Project,
 ): string => {
 	const interfaceName = interfaceDecl.getName();
 	const componentName = interfaceName.replace('Props', '');
@@ -248,6 +286,41 @@ const generateComponentPropTypeCode = (
 		}
 	}
 
+	// Detect references to types exported from the component's own source dependency file
+	// (e.g. a named `Item` interface used in the Props). Because the generated file lives
+	// in a different package from the source, we cannot import across the package boundary.
+	// Instead we emit the referenced type declarations inline in the generated file so it
+	// is fully self-contained.
+	const sourceDependencyTypeNames = getExportedTypeNames(sourceFilePath, project).filter(
+		(name) => name !== interfaceName && !allPropsNames.includes(name),
+	);
+	const referencedSourceTypes = sourceDependencyTypeNames.filter((name) =>
+		new RegExp(`\\b${name}\\b`).test(generatedCode),
+	);
+	if (referencedSourceTypes.length > 0) {
+		let sourceFile = project.getSourceFile(sourceFilePath);
+		if (!sourceFile) {
+			sourceFile = project.addSourceFileAtPath(sourceFilePath);
+		}
+		const inlinedTypeLines: string[] = [];
+		for (const name of referencedSourceTypes) {
+			const iface = sourceFile.getInterface(name);
+			if (iface) {
+				inlinedTypeLines.push(iface.getText());
+				continue;
+			}
+			const alias = sourceFile.getTypeAlias(name);
+			if (alias) {
+				inlinedTypeLines.push(alias.getText());
+			}
+		}
+		if (inlinedTypeLines.length > 0) {
+			// Insert the inlined type declarations after the eslint directive + blank line.
+			// We splice them in before the props type so references resolve correctly.
+			lines.splice(2, 0, ...inlinedTypeLines.flatMap((t) => [t, '']));
+		}
+	}
+
 	if (importLines.length > 0) {
 		// Insert imports after the eslint directive and blank line (index 2)
 		lines.splice(2, 0, ...importLines, '');
@@ -301,24 +374,32 @@ const generateGlobalComponentPropTypes = (): void => {
 		}
 
 		const { interfaceDecl, sourceFilePath } = resolved;
-		const sourceCode = generateComponentPropTypeCode(interfaceDecl, allPropsNames);
+		const sourceCode = generateComponentPropTypeCode(interfaceDecl, allPropsNames, sourceFilePath, project);
 		const outputPath = resolve(GLOBAL_OUTPUT_DIR, `${symbolName}.codegen.tsx`);
 
-		const signedSourceCode = createSignedArtifact(
-			sourceCode,
-			'yarn workspace @atlaskit/forge-react-types codegen-global',
-			{
-				description: `Generated prop types for Global component - ${componentName}`,
-				dependencies: [GLOBAL_PROPS_SOURCE_PATH, sourceFilePath],
-				outputFolder: GLOBAL_OUTPUT_DIR,
-			},
-		);
+		const existingSourceCode = fs.existsSync(outputPath)
+			? stripSignedHeader(fs.readFileSync(outputPath, 'utf-8'))
+			: null;
 
-		fs.writeFileSync(outputPath, signedSourceCode);
+		if (existingSourceCode === sourceCode) {
+			// eslint-disable-next-line no-console
+			console.log(`  – Skipped ${symbolName}.codegen.tsx (no changes)`);
+		} else {
+			const signedSourceCode = createSignedArtifact(
+				sourceCode,
+				'yarn workspace @atlaskit/forge-react-types codegen-global',
+				{
+					description: `Generated prop types for Global component - ${componentName}`,
+					dependencies: [GLOBAL_PROPS_SOURCE_PATH, sourceFilePath],
+					outputFolder: GLOBAL_OUTPUT_DIR,
+				},
+			);
+			fs.writeFileSync(outputPath, signedSourceCode);
+			// eslint-disable-next-line no-console
+			console.log(`  ✓ Generated ${symbolName}.codegen.tsx`);
+		}
+
 		generatedFiles.push(symbolName);
-
-		// eslint-disable-next-line no-console
-		console.log(`  ✓ Generated ${symbolName}.codegen.tsx`);
 	});
 
 	generateIndexFile(generatedFiles);
@@ -357,7 +438,13 @@ const generateIndexFile = (interfaceNames: string[]) => {
 		},
 	);
 
-	fs.writeFileSync(indexPath, signedSourceCode);
+	const existingIndexContent = fs.existsSync(indexPath)
+		? stripSignedHeader(fs.readFileSync(indexPath, 'utf-8'))
+		: null;
+
+	if (existingIndexContent !== sourceCode) {
+		fs.writeFileSync(indexPath, signedSourceCode);
+	}
 };
 
 export { generateGlobalComponentPropTypes };

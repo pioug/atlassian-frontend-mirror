@@ -22,6 +22,7 @@ import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	copySyncedBlockReferenceToClipboard,
@@ -172,7 +173,12 @@ export const getToolbarConfig = (
 
 		// testId is required to show focus on trigger button on ESC key press
 		// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
-		const testId = 'synced-block-overflow-dropdown-trigger';
+		let testId = 'synced-block-overflow-dropdown-trigger';
+		if (fg('platform_synced_block_patch_12')) {
+			testId = isBodiedSyncBlock
+				? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceOverflowTrigger
+				: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceOverflowTrigger;
+		}
 
 		const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
 			{

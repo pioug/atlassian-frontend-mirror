@@ -1,5 +1,27 @@
 # @atlaskit/rovo-agent-components
 
+## 4.6.0
+
+### Minor Changes
+
+- [`2f13c6822ad55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f13c6822ad55) -
+  [TREX-1413] Add presentational `AgentResponseHat` (above assistant messages) and `AgentInputHat`
+  (above the chat prompt input) components for per-turn agent attribution. Both render under the
+  `rovo_chat_agent_identity_ui` feature gate; data wiring (selected agent, dismiss callback) is
+  intentionally not yet connected and will land with TREX-1410/TREX-1411.
+
+  Also:
+  - Adds shared `deriveAgentIdentity` helper in `@atlaskit/rovo-agent-components` (subpath:
+    `ui/agent-identity/derive-agent-identity`) that centralises specialist-vs-default detection,
+    visible/accessible name derivation, and Forge prop gating via `rovo_agent_support_a2a_avatar`.
+    Both hats consume this helper to avoid drift.
+  - Extends `Message.author` in `@atlassian/conversation-assistant-service-api` with
+    `external_config_reference`, `identity_account_id`, `creator_type`, and `icon` so
+    `AgentResponseHat` receives the right inputs once TREX-1411 wires live data. Also marks the
+    existing `named_id` field as `@deprecated` in favour of `external_config_reference` for OOTB
+    avatar lookup.
+  - Adds storybook examples (`73-agent-response`, `74-chat-prompt-input`) for visual validation.
+
 ## 4.5.1
 
 ### Patch Changes

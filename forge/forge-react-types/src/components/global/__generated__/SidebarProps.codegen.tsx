@@ -3,10 +3,10 @@
  *
  * Generated prop types for Global component - Sidebar
  *
- * @codegen <<SignedSource::4e9b46686f659a994b41b5e948ace123>>
+ * @codegen <<SignedSource::a16e20045c7a11879d94109a67ef83a6>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::c749a1bc5e1017e1bcbe09febba5a9a3>>
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/Sidebar.tsx <<SignedSource::82ff22e83c83968012f8de177239d386>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::7a3e9449cf4c9c0e362e8ab44b0b13de>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/Sidebar.tsx <<SignedSource::1792d75f8d71bf2f621af711edf01c83>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -14,7 +14,7 @@ import type React from 'react';
 
 export type SidebarProps = {
 	/**
-	 * Accepts LinkMenuItem, ExpandableMenuItem and FlyOutMenuItem components.
+	 * Accepts LinkMenuItem, ExpandableMenuItem, FlyOutMenuItem and ReorderableMenuItems components.
 	 */
 	children?: React.ReactElement | React.ReactElement[];
 };

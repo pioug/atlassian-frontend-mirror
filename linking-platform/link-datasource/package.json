@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "5.2.6",
+	"version": "5.3.0",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -170,11 +170,22 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
+		"./analytics/render-failed": "./src/entry-points/analytics-render-failed.ts",
+		"./assets-modal": "./src/entry-points/assets-modal.ts",
+		"./assets-modal/types": "./src/entry-points/assets-modal-types.ts",
+		"./confluence-search-modal": "./src/entry-points/confluence-search-modal.ts",
+		"./confluence-search-modal/types": "./src/entry-points/confluence-search-modal-types.ts",
+		"./datasource-table-view": "./src/entry-points/datasource-table-view.ts",
+		"./elements/render-type": "./src/entry-points/elements-render-type.ts",
 		"./elements": "./src/elements.ts",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
-		}
+		},
+		"./jira-issues-modal": "./src/entry-points/jira-issues-modal.ts",
+		"./jira-issues-modal/types": "./src/entry-points/jira-issues-modal-types.ts",
+		"./types": "./src/entry-points/types.ts",
+		"./utils/schema": "./src/entry-points/utils-schema.ts"
 	},
 	"platform-feature-flags": {
 		"confluence-issue-terminology-refresh": {
@@ -202,6 +213,9 @@
 			"type": "boolean"
 		},
 		"linking_platform_link_datasource_unit_compliant": {
+			"type": "boolean"
+		},
+		"navx-4870-adding-keyboard-focus-for-sllv-columns": {
 			"type": "boolean"
 		}
 	},

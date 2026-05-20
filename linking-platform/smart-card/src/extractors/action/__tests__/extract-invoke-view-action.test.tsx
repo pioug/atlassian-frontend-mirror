@@ -1,4 +1,4 @@
-import { CardAction } from '../../../index';
+import { CardAction } from '../../../constants';
 import * as utils from '../../../utils';
 import { TEST_RESPONSE, TEST_RESPONSE_WITH_VIEW, TEST_URL } from '../../common/__mocks__/jsonld';
 import { extractInvokeViewAction } from '../extract-invoke-view-action';

@@ -336,7 +336,6 @@ export const test: TestType<
 	) => {
 		const reset = async () => {
 			// THis is hardcoded applied when the `sendOperationalEvent` is called
-			// See: website/src/metrics.ts
 			const mainDivAfterTTVCFinished = page.locator('[data-is-ttvc-ready="true"]');
 
 			await expect(mainDivAfterTTVCFinished).toBeVisible({ timeout: 20000 });
@@ -501,11 +500,13 @@ export const test: TestType<
 		use: FixtureUse<() => Promise<ReactUFOPayload | null>>,
 	) => {
 		const reset = async () => {
-			// This is hardcoded applied when the `sendOperationalEvent` is called
+			// data-is-extra-metrics-ready is set by ANY sendOperationalEvent call (including
+			// custom.interaction-extra-metrics), which is faster than data-is-ttvc-ready which
+			// only fires after the main payload's getVCMetrics completes.
 			// See: website/src/metrics.ts
-			const mainDivAfterTTVCFinished = page.locator('[data-is-ttvc-ready="true"]');
+			const mainDivAfterAnyPayload = page.locator('[data-is-extra-metrics-ready="true"]');
 
-			await expect(mainDivAfterTTVCFinished).toBeVisible({ timeout: 20000 });
+			await expect(mainDivAfterAnyPayload).toBeVisible({ timeout: 20000 });
 
 			let interactionExtraMetricsPayload: ReactUFOPayload | null = null;
 			await expect

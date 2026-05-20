@@ -1,5 +1,25 @@
 # @atlaskit/top-layer
 
+## 0.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.7.0
+
+### Minor Changes
+
+- [`43e486948865a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43e486948865a) -
+  Added a new `useWidthFromAnchor` hook exported from `@atlaskit/top-layer/use-width-from-anchor`,
+  for setting the width of a popover element relative to its anchor trigger. Supports three modes:
+  `'none'` (no width constraint), `'match-anchor'` (popover matches anchor width exactly), and
+  `'min-anchor'` (popover is at least as wide as the anchor).
+
+  Renamed the `width` prop on `Popup.Content` to `widthFromAnchor`, and updated its type from a
+  string enum `'content' | 'trigger' | 'min-trigger'` to `'none' | 'match-anchor' | 'min-anchor'` to
+  match the new hook.
+
 ## 0.6.3
 
 ### Patch Changes

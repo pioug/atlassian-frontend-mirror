@@ -1,7 +1,7 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { extractLink } from '@atlaskit/link-extractors';
 
-import { CardAction } from '../../index';
+import { CardAction } from '../../constants';
 import { getDefinitionId, getExtensionKey, getResourceType } from '../../state/helpers';
 import { type InvokeClientActionProps } from '../../state/hooks/use-invoke-client-action/types';
 import { openUrl } from '../../utils';

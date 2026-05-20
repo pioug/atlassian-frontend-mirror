@@ -2,6 +2,7 @@ import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { type CardPlatform } from '@atlaskit/link-extractors';
 import { type CardAppearance } from '@atlaskit/linking-common';
 
+import type { CardAction } from '../../constants';
 import { type FrameStyle } from '../EmbedCard/types';
 import type { EmbedModalSize } from '../EmbedModal/types';
 import { type FlexibleUiOptions } from '../FlexibleCard/types';
@@ -24,18 +25,6 @@ export type OnResolveCallback = (data: {
 	title?: string;
 	url?: string;
 }) => void;
-
-export enum CardAction {
-	AISummaryAction = 'AISummaryAction',
-	AutomationAction = 'AutomationAction',
-	ChangeStatusAction = 'ChangeStatusAction',
-	CopyLinkAction = 'CopyLinkAction',
-	DownloadAction = 'DownloadAction',
-	FollowAction = 'FollowAction',
-	PreviewAction = 'PreviewAction',
-	RovoChatAction = 'RovoChatAction',
-	ViewAction = 'ViewAction',
-}
 
 /**
  * A CardActionOptions object contains the configuration for the actions available on the card.
@@ -240,8 +229,7 @@ export interface FlexibleProps extends ActionProps, HoverPreviewProps {
 }
 
 export interface CardProps
-	extends
-		BaseCardProps,
+	extends BaseCardProps,
 		InlineProps,
 		BlockProps,
 		EmbedProps,

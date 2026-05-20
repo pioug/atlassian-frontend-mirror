@@ -25,6 +25,8 @@ import {
 	getSelectionRect,
 	removeTable,
 } from '@atlaskit/editor-tables/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
 
 import {
 	addResizeHandleDecorations,
@@ -71,6 +73,8 @@ import { getAllowAddColumnCustomStep } from '../pm-plugins/utils/get-allow-add-c
 import { TableCssClassName as ClassName, RESIZE_HANDLE_AREA_DECORATION_GAP } from '../types';
 import type { PluginInjectionAPI } from '../types';
 
+import { TABLE_MENU_SELECTOR } from './TableMenu/shared/consts';
+
 const isFocusingCalendar = (event: Event) =>
 	event instanceof FocusEvent &&
 	event.relatedTarget instanceof HTMLElement &&
@@ -98,6 +102,12 @@ const isFocusingDragHandlesClickableZone = (event: Event) =>
 	event.relatedTarget.closest('button') &&
 	event.relatedTarget.classList.contains(ClassName.DRAG_HANDLE_BUTTON_CLICKABLE_ZONE);
 
+const isFocusingTableMenu = (event: Event) =>
+	expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) &&
+	event instanceof FocusEvent &&
+	event.relatedTarget instanceof HTMLElement &&
+	Boolean(event.relatedTarget.closest(TABLE_MENU_SELECTOR));
+
 export const handleBlur = (view: EditorView, event: Event): boolean => {
 	const { state, dispatch } = view;
 	// IE version check for ED-4665
@@ -108,7 +118,8 @@ export const handleBlur = (view: EditorView, event: Event): boolean => {
 		!isFocusingModal(event) &&
 		!isFocusingFloatingToolbar(event) &&
 		!isFocusingDragHandles(event) &&
-		!isFocusingDragHandlesClickableZone(event)
+		!isFocusingDragHandlesClickableZone(event) &&
+		!isFocusingTableMenu(event)
 	) {
 		setEditorFocus(false)(state, dispatch);
 	}

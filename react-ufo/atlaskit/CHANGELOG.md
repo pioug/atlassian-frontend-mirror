@@ -1,5 +1,32 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.22.1
+
+### Patch Changes
+
+- [`12a399c5880e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12a399c5880e9) -
+  Capture forge app's perf data by react-ufo UFOThirdPartySegment
+
+## 5.22.0
+
+### Minor Changes
+
+- [`3f23aba4db7f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f23aba4db7f2) -
+  Autofix: add explicit package exports (barrel removal)
+
+## 5.21.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.21.2
+
+### Patch Changes
+
+- [`1ffab2fd31cca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ffab2fd31cca) -
+  increase DOM traversal levels from 40 to 400
+
 ## 5.21.1
 
 ### Patch Changes

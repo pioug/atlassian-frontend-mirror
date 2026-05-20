@@ -62,7 +62,9 @@ type TPopoverMode = 'auto' | 'hint' | 'manual';
  * Unopinionated top-layer primitive.
  *
  * Manages only visibility (isOpen) and animation (animate). Has no knowledge
- * of positioning — compose with `useAnchorPosition` for anchor positioning.
+ * of positioning — compose with `useAnchorPosition` for anchor positioning
+ * and optionally `useWidthFromAnchor` for setting the width of a popover element
+ * relative to its anchor trigger.
  *
  * Visibility is driven by the `isOpen` prop:
  * - `isOpen={true}` → `showPopover()`, entry animation via `@starting-style`

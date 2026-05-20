@@ -83,7 +83,7 @@ test.describe('Positioning', () => {
 		expect(popoverBox.y + popoverBox.height).toBeLessThanOrEqual(triggerBox.y + 2);
 	});
 
-	test('width="trigger" makes popover match trigger width', async ({ page }) => {
+	test('widthFromAnchor="match-anchor" makes popover match trigger width', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/114-testing-popover-width-trigger.tsx')>(
 			'design-system',
 			'top-layer',

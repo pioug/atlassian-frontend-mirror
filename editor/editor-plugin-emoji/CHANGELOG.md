@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-emoji
 
+## 11.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.0
+
+### Minor Changes
+
+- [`98324cca28bc6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98324cca28bc6) -
+  Add unicode emoji support to EmojiNodeView
+
 ## 11.1.2
 
 ### Patch Changes

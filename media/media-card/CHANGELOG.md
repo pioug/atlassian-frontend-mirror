@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 80.5.3
+
+### Patch Changes
+
+- [`a27d2174bbdbb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a27d2174bbdbb) -
+  Fixes a permanent blue 1px border appearing on every inline video media card in Confluence, even
+  when the card was not selected.
+- Updated dependencies
+
 ## 80.5.2
 
 ### Patch Changes

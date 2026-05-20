@@ -230,6 +230,23 @@ export function addCustomData(
 	}
 }
 
+export function addSegmentExtraData(
+	interactionId: string,
+	segmentId: string,
+	data: Record<string, string | undefined>,
+): void {
+	const interaction = interactions.get(interactionId);
+	if (interaction != null) {
+		if (!interaction.segmentExtraData) {
+			interaction.segmentExtraData = {};
+		}
+		interaction.segmentExtraData[segmentId] = {
+			...interaction.segmentExtraData[segmentId],
+			...data,
+		};
+	}
+}
+
 export function addIframeSegmentData(
 	interactionId: string,
 	segmentId: string,
@@ -570,6 +587,27 @@ export function addHoldByID(
 		}
 	}
 	return (): void => {};
+}
+
+/**
+ * Records a completed third-party hold with explicit start and end timestamps.
+ * Use this when the hold timing is known upfront (e.g. from React Profiler's
+ * actualStartTime and commitTime) rather than being captured at call time.
+ */
+export function addCompletedHold(
+	interactionId: string,
+	labelStack: LabelStack,
+	name: string,
+	start: number,
+	end: number,
+): void {
+	const interaction = interactions.get(interactionId);
+	if (interaction != null) {
+		if (!interaction.hold3pInfo) {
+			interaction.hold3pInfo = [];
+		}
+		interaction.hold3pInfo.push({ labelStack, name, start, end });
+	}
 }
 
 export function removeHoldByID(interactionId: string, id: string): void {

@@ -9,7 +9,7 @@ import {
 	type TRoleRequiringAccessibleName,
 	type TRoleWithImplicitName,
 } from '../internal/role-types';
-import { type TPopoverCloseReason } from '../popover/types';
+import { type TPopoverCloseReason, type TWidthFromAnchorMode } from '../popover/types';
 
 /**
  * Describes where to position a popover relative to its trigger. All fields
@@ -121,18 +121,18 @@ type TPopupContentBaseProps = {
 	 */
 	ref?: Ref<HTMLDivElement>;
 	/**
-	 * Controls the width of the popover.
+	 * Controls the width of the popover relative to its anchor element.
 	 *
-	 * - `'content'` (default): popover sizes to its content.
-	 * - `'trigger'`: popover matches the trigger element's width exactly
+	 * - `'none'` (default): popover sizes to its content, ignoring the anchor width.
+	 * - `'match-anchor'`: popover matches the anchor element's width exactly
 	 *   via CSS `anchor-size(width)`. Falls back to a one-off measurement
-	 *   of `triggerRef.current.offsetWidth` when CSS Anchor Positioning
+	 *   of `anchorRef.current.offsetWidth` when CSS Anchor Positioning
 	 *   is not supported.
-	 * - `'min-trigger'`: popover is at least as wide as the trigger, but
+	 * - `'min-anchor'`: popover is at least as wide as the anchor, but
 	 *   can grow wider if content requires it. Uses `min-width: anchor-size(width)`.
-	 *   Falls back to a one-off measurement of the trigger's width.
+	 *   Falls back to a one-off measurement of the anchor's width.
 	 */
-	width?: 'content' | 'trigger' | 'min-trigger';
+	widthFromAnchor?: TWidthFromAnchorMode;
 	/**
 	 * Applies additional CSS styles to the popover root element using
 	 * design-system-safe xcss.

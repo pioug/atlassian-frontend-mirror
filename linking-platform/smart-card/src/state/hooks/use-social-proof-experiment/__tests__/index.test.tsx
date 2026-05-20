@@ -4,7 +4,23 @@ import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-uti
 import { renderHook } from '@atlassian/testing-library';
 
 import type { SocialProof } from '../../use-social-proof';
-import useSocialProofExperiment from '../index';
+import useSocialProofExperiment, {
+	getInlineSocialProofExperimentMeta,
+	getSocialProofExperimentMeta,
+	getSocialProofTier,
+} from '../index';
+
+const mockGetCurrentSiteCloudIdSync = jest.fn<string | undefined, [string | undefined]>();
+const mockGetProviderPctMapSync = jest.fn<Record<string, number> | null, [string | undefined, string]>();
+
+jest.mock('../../../services/current-site-cloud-id', () => ({
+	getCurrentSiteCloudIdSync: (...args: [string | undefined]) => mockGetCurrentSiteCloudIdSync(...args),
+}));
+
+jest.mock('../../../services/personalization', () => ({
+	getProviderPctMapSync: (...args: [string | undefined, string]) => mockGetProviderPctMapSync(...args),
+	SOCIAL_PROOF_TRAIT_NAME: 'sl_3p_connected_providers_site_pct',
+}));
 
 const mockUseSocialProof = jest.fn<
 	SocialProof,
@@ -33,6 +49,8 @@ describe('useSocialProofExperiment', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 		mockUseSocialProof.mockReturnValue(socialProofResult());
+		mockGetCurrentSiteCloudIdSync.mockReturnValue('cloud-id');
+		mockGetProviderPctMapSync.mockReturnValue({ [MOCK_EXTENSION_KEY]: 45 });
 	});
 
 	it('delegates to useSocialProof with extensionKey, isKillswitchOn=true, and base URI', () => {
@@ -102,26 +120,80 @@ describe('useSocialProofExperiment', () => {
 	});
 
 	describe('tier calculation', () => {
-		eeTest.describe('social_proof_3p_unauth_block_exp', 'tier with treatment').variant(true, () => {
-			it('returns not-low tier when adoption >= 30%', () => {
-				mockUseSocialProof.mockReturnValue(socialProofResult({ connectedPct: 45 }));
+		it('returns undefined when adoption is unavailable', () => {
+			expect(getSocialProofTier()).toBeUndefined();
+		});
 
-				const result = renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
-				expect(result.current.tier).toBe('not-low');
+		it('returns not-low tier when adoption >= 30%', () => {
+			expect(getSocialProofTier(45)).toBe('not-low');
+		});
+
+		it('returns not-low tier when adoption is exactly 30%', () => {
+			expect(getSocialProofTier(30)).toBe('not-low');
+		});
+
+		it('returns low tier when adoption < 30%', () => {
+			expect(getSocialProofTier(15)).toBe('low');
+		});
+	});
+
+	describe('experiment metadata helpers', () => {
+		it('returns ineligible meta when extension key is missing', () => {
+			expect(getSocialProofExperimentMeta({})).toEqual({
+				social_proof_3p_unauth_block_exp: { isEligible: false },
+			});
+			expect(mockGetCurrentSiteCloudIdSync).not.toHaveBeenCalled();
+			expect(mockGetProviderPctMapSync).not.toHaveBeenCalled();
+		});
+
+		it('returns eligible not-low tier meta from cached provider data', () => {
+			expect(
+				getSocialProofExperimentMeta({
+					extensionKey: MOCK_EXTENSION_KEY,
+					baseUriWithNoTrailingSlash: 'https://site.example',
+				}),
+			).toEqual({
+				social_proof_3p_unauth_block_exp: { isEligible: true, tier: 'not-low' },
 			});
 
-			it('returns not-low tier when adoption is exactly 30%', () => {
-				mockUseSocialProof.mockReturnValue(socialProofResult({ connectedPct: 30 }));
+			expect(mockGetCurrentSiteCloudIdSync).toHaveBeenCalledWith('https://site.example');
+			expect(mockGetProviderPctMapSync).toHaveBeenCalledWith(
+				'cloud-id',
+				'sl_3p_connected_providers_site_pct',
+			);
+		});
 
-				const result = renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
-				expect(result.current.tier).toBe('not-low');
+		it('returns eligible low tier meta from cached provider data', () => {
+			mockGetProviderPctMapSync.mockReturnValue({ [MOCK_EXTENSION_KEY]: 15 });
+
+			expect(getSocialProofExperimentMeta({ extensionKey: MOCK_EXTENSION_KEY })).toEqual({
+				social_proof_3p_unauth_block_exp: { isEligible: true, tier: 'low' },
 			});
+		});
 
-			it('returns low tier when adoption < 30%', () => {
-				mockUseSocialProof.mockReturnValue(socialProofResult({ connectedPct: 15 }));
+		it('returns ineligible meta when cached cloud id is missing', () => {
+			mockGetCurrentSiteCloudIdSync.mockReturnValue(undefined);
+			mockGetProviderPctMapSync.mockReturnValue(null);
 
-				const result = renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
-				expect(result.current.tier).toBe('low');
+			expect(getSocialProofExperimentMeta({ extensionKey: MOCK_EXTENSION_KEY })).toEqual({
+				social_proof_3p_unauth_block_exp: { isEligible: false },
+			});
+		});
+
+		it('returns ineligible meta when provider is missing from cached trait data', () => {
+			mockGetProviderPctMapSync.mockReturnValue({ 'slack-object-provider': 40 });
+
+			expect(getSocialProofExperimentMeta({ extensionKey: MOCK_EXTENSION_KEY })).toEqual({
+				social_proof_3p_unauth_block_exp: { isEligible: false },
+			});
+		});
+
+		it('returns inline experiment meta under the inline Statsig key', () => {
+			expect(getInlineSocialProofExperimentMeta({ extensionKey: MOCK_EXTENSION_KEY })).toEqual({
+				platform_sl_3p_preauth_social_proof_inline_cta: {
+					isEligible: true,
+					tier: 'not-low',
+				},
 			});
 		});
 	});

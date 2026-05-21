@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-local-id
 
+## 8.1.2
+
+### Patch Changes
+
+- [`79c9ce8cbf593`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79c9ce8cbf593) -
+  FFCLEANUP-84819 - Clean up platform_editor_localid_ime_composition_fix
+- Updated dependencies
+
 ## 8.1.1
 
 ### Patch Changes

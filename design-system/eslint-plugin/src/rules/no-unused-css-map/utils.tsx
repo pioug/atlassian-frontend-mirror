@@ -21,6 +21,7 @@ export const getCssMapObject = (node: CallExpression): ObjectExpression | undefi
 	return node.arguments[0];
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export class UnusedCssMapChecker {
 	private readonly cssMapObject: ObjectExpression;
 	private readonly cssMapCallNode: CallExpression;

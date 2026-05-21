@@ -10,6 +10,7 @@ const TableBodyContext = createContext(false);
  */
 export const TableBodyProvider: import('react').Provider<boolean> = TableBodyContext.Provider;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const useTableBody: () => void = (): void => {
 	const hasTableBody = useContext(TableBodyContext);
 	invariant(hasTableBody, '<Row /> must be nested inside a <TableBody>');

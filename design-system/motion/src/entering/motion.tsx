@@ -355,4 +355,5 @@ const Motion: React.ForwardRefExoticComponent<
 	},
 );
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default Motion;

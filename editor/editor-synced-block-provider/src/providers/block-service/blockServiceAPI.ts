@@ -605,6 +605,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 		resourceId: ResourceId,
 		onUpdate: (data: SyncBlockInstance) => void,
 		onError?: (error: Error) => void,
+		onComplete?: () => void,
 	): () => void {
 		const blockAri = generateBlockAriFromReference({ cloudId: this.cloudId, resourceId });
 
@@ -641,6 +642,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 						onUpdate(syncBlockInstance);
 					},
 					onError,
+					onComplete,
 				);
 			})
 			.catch((err: unknown) => {

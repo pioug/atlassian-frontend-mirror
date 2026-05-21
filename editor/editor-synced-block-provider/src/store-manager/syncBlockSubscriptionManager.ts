@@ -1,6 +1,7 @@
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ResourceId, BlockInstanceId } from '../common/types';
 import type {
@@ -49,6 +50,13 @@ export class SyncBlockSubscriptionManager {
 	// causing the cache to be deleted prematurely. We delay deletion to allow
 	// the new component to subscribe and cancel the pending deletion.
 	private pendingCacheDeletions = new Map<ResourceId, ReturnType<typeof setTimeout>>();
+
+	// Reconnection with exponential backoff
+	private static readonly INITIAL_RETRY_DELAY_MS = 1000;
+	private static readonly RETRY_BACKOFF_MULTIPLIER = 2;
+	private static readonly MAX_RETRY_ATTEMPTS = 5;
+	private retryAttempts = new Map<ResourceId, number>();
+	private pendingRetries = new Map<ResourceId, ReturnType<typeof setTimeout>>();
 
 	constructor(private deps: SyncBlockSubscriptionManagerDeps) {}
 
@@ -258,6 +266,8 @@ export class SyncBlockSubscriptionManager {
 			return;
 		}
 
+		const reconnectEnabled = fg('platform_synced_block_patch_12');
+
 		const unsubscribe = dataProvider.subscribeToBlockUpdates(
 			resourceId,
 			(syncBlockInstance) => {
@@ -271,7 +281,15 @@ export class SyncBlockSubscriptionManager {
 				this.deps.getFireAnalyticsEvent()?.(
 					fetchErrorPayload(error.message, resourceId, getSourceProductFromResourceIdSafe(resourceId)),
 				);
+				if (reconnectEnabled) {
+					this.handleSubscriptionTerminated(resourceId);
+				}
 			},
+			reconnectEnabled
+				? () => {
+						this.handleSubscriptionTerminated(resourceId);
+					}
+				: undefined,
 		);
 
 		if (unsubscribe) {
@@ -279,11 +297,107 @@ export class SyncBlockSubscriptionManager {
 		}
 	}
 
+	/**
+	 * Handles subscription termination (complete or error) by cleaning up the
+	 * stale entry and scheduling a reconnection with exponential backoff.
+	 */
+	private handleSubscriptionTerminated(resourceId: ResourceId): void {
+		// Remove the stale subscription entry so setupSubscription won't early-return
+		this.graphqlSubscriptions.delete(resourceId);
+
+		// Guard against duplicate calls (graphql-ws can fire both error and complete)
+		if (this.pendingRetries.has(resourceId)) {
+			return;
+		}
+
+		// Only reconnect if there are still active subscribers for this resource
+		if (this.subscriptions.has(resourceId) && this.shouldUseRealTime()) {
+			this.scheduleReconnection(resourceId);
+		}
+	}
+
+	/**
+	 * Schedules a reconnection attempt with exponential backoff.
+	 * Delay = INITIAL_RETRY_DELAY_MS * (RETRY_BACKOFF_MULTIPLIER ^ attempts)
+	 * e.g. 1s, 2s, 4s, 8s, 16s
+	 */
+	private scheduleReconnection(resourceId: ResourceId): void {
+		const attempts = this.retryAttempts.get(resourceId) ?? 0;
+
+		if (attempts >= SyncBlockSubscriptionManager.MAX_RETRY_ATTEMPTS) {
+			const errorMessage = `Subscription reconnection failed after ${attempts} attempts`;
+			logException(new Error(errorMessage), {
+				location:
+					'editor-synced-block-provider/syncBlockSubscriptionManager/max-retries-exhausted',
+			});
+			this.deps.getFireAnalyticsEvent()?.(
+				fetchErrorPayload(
+					errorMessage,
+					resourceId,
+					getSourceProductFromResourceIdSafe(resourceId),
+				),
+			);
+			return;
+		}
+
+		const delay =
+			SyncBlockSubscriptionManager.INITIAL_RETRY_DELAY_MS *
+			Math.pow(SyncBlockSubscriptionManager.RETRY_BACKOFF_MULTIPLIER, attempts);
+
+		const timer = setTimeout(() => {
+			this.pendingRetries.delete(resourceId);
+
+			// Only re-subscribe if still relevant
+			if (this.subscriptions.has(resourceId) && this.shouldUseRealTime()) {
+				this.setupSubscription(resourceId);
+
+				// Only increment if the subscription was actually established
+				// (setupSubscription may be a no-op if another code path already re-established it)
+				if (this.graphqlSubscriptions.has(resourceId)) {
+					this.retryAttempts.set(resourceId, attempts + 1);
+				}
+			} else {
+				// Conditions no longer met — clean up stale retry state
+				this.retryAttempts.delete(resourceId);
+			}
+		}, delay);
+
+		this.pendingRetries.set(resourceId, timer);
+	}
+
+	/**
+	 * Resets the retry counter for a resource. Called when a successful
+	 * update is received, indicating the subscription is healthy.
+	 */
+	private resetRetryCount(resourceId: ResourceId): void {
+		this.retryAttempts.delete(resourceId);
+	}
+
+	private cancelPendingRetry(resourceId: ResourceId): void {
+		const timer = this.pendingRetries.get(resourceId);
+		if (timer) {
+			clearTimeout(timer);
+			this.pendingRetries.delete(resourceId);
+		}
+	}
+
+	private cancelAllPendingRetries(): void {
+		for (const timer of this.pendingRetries.values()) {
+			clearTimeout(timer);
+		}
+		this.pendingRetries.clear();
+		this.retryAttempts.clear();
+	}
+
 	public cleanupSubscription(resourceId: ResourceId): void {
 		const unsubscribe = this.graphqlSubscriptions.get(resourceId);
 		if (unsubscribe) {
 			unsubscribe();
 			this.graphqlSubscriptions.delete(resourceId);
+		}
+		if (fg('platform_synced_block_patch_12')) {
+			this.cancelPendingRetry(resourceId);
+			this.retryAttempts.delete(resourceId);
 		}
 	}
 
@@ -298,6 +412,9 @@ export class SyncBlockSubscriptionManager {
 			unsubscribe();
 		}
 		this.graphqlSubscriptions.clear();
+		if (fg('platform_synced_block_patch_12')) {
+			this.cancelAllPendingRetries();
+		}
 	}
 
 	public destroy(): void {
@@ -331,6 +448,10 @@ export class SyncBlockSubscriptionManager {
 		this.deps.updateCache(resolved);
 
 		if (!syncBlockInstance.error) {
+			// Successful data delivery means the subscription is healthy — reset retry counter
+			if (fg('platform_synced_block_patch_12')) {
+				this.resetRetryCount(syncBlockInstance.resourceId);
+			}
 			const callbacks = this.subscriptions.get(syncBlockInstance.resourceId);
 			const localIds = callbacks ? Object.keys(callbacks) : [];
 			localIds.forEach((localId) => {

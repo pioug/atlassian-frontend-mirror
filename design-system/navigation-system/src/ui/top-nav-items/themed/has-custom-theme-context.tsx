@@ -8,6 +8,7 @@ export const HasCustomThemeContext: import('react').Context<boolean> = createCon
 /**
  * Returns whether a custom theme is being applied.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function useHasCustomTheme(): boolean {
 	return useContext(HasCustomThemeContext);
 }

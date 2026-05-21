@@ -1,5 +1,52 @@
 # @atlaskit/editor-common
 
+## 114.39.0
+
+### Minor Changes
+
+- [`6d95dce3d9a86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d95dce3d9a86) -
+  Add deleteLayoutColumn command to editor-plugin-layout with proportional width redistribution and
+  analytics tracking (EDITOR-6669)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.38.0
+
+### Minor Changes
+
+- [`f4a8bbaef8ffa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4a8bbaef8ffa) -
+  Consolidate markdown conversion dialogs by removing the separate unlink-synced-blocks modal and
+  handling synced-block warnings directly inside the convert dialog, including updated copy and
+  iconography for markdown and live-doc conversion variants.
+
+### Patch Changes
+
+- [`47e7189edb428`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47e7189edb428) -
+  Refresh code block language picker UI
+- Updated dependencies
+
+## 114.37.0
+
+### Minor Changes
+
+- [`32dce97f78584`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32dce97f78584) -
+  Fix preserved selection mapping when comment editors append a trailing paragraph after block menu
+  transforms.
+
+### Patch Changes
+
+- [`626fb6e8ce019`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/626fb6e8ce019) -
+  Wire layout column menu insert actions with proportional width redistribution.
+- Updated dependencies
+
+## 114.36.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.36.1
 
 ### Patch Changes

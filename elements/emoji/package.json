@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "70.9.2",
+	"version": "70.10.2",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -111,17 +111,41 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./admin": "./src/admin.ts",
+		"./analytics": "./src/util/analytics/analytics.ts",
+		"./categories": "./src/components/picker/categories.ts",
+		"./constants": "./src/util/constants.ts",
 		"./element": "./src/element.ts",
+		"./emoji": "./src/components/common/Emoji.tsx",
+		"./emoji-common-provider": "./src/context/EmojiCommonProvider.tsx",
+		"./emoji-context-provider": "./src/context/EmojiContextProvider.tsx",
+		"./emoji-id-to-emoji": "./src/util/emojiIdToEmoji.ts",
+		"./emoji-loader": "./src/api/EmojiLoader.ts",
+		"./emoji-picker": "./src/components/picker/EmojiPicker.tsx",
+		"./emoji-placeholder": "./src/components/common/EmojiPlaceholder.tsx",
+		"./emoji-repository": "./src/api/EmojiRepository.ts",
+		"./emoji-resource": "./src/api/EmojiResource.ts",
+		"./emoji-type-ahead": "./src/components/typeahead/EmojiTypeAhead.tsx",
+		"./emoji-type-ahead-item": "./src/components/typeahead/EmojiTypeAheadItem.tsx",
+		"./emoji-type-ahead-list": "./src/components/typeahead/EmojiTypeAheadList.tsx",
+		"./emoji-uploader": "./src/components/uploader/EmojiUploader.tsx",
+		"./emoji-utils": "./src/api/EmojiUtils.ts",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
 		"./picker": "./src/picker.ts",
 		"./resource": "./src/resource.ts",
+		"./resourced-emoji": "./src/components/common/ResourcedEmoji.tsx",
+		"./sampling-ufo": "./src/util/analytics/samplingUfo.ts",
+		"./styles": "./src/components/common/styles.ts",
+		"./type-helpers": "./src/util/type-helpers.ts",
 		"./typeahead": "./src/typeahead.ts",
 		"./types": "./src/types.ts",
-		"./utils": "./src/utils.ts",
-		"./emoji-id-to-emoji": "./src/util/emojiIdToEmoji.ts"
+		"./ufo-experiences": "./src/util/analytics/ufoExperiences.ts",
+		"./usage-frequency-tracker": "./src/api/internal/UsageFrequencyTracker.ts",
+		"./use-emoji": "./src/hooks/useEmoji.ts",
+		"./use-emoji-context": "./src/hooks/useEmojiContext.ts",
+		"./utils": "./src/utils.ts"
 	},
 	"techstack": {
 		"@repo/internal": {

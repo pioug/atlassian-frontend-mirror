@@ -14,6 +14,7 @@ export const ThemeContext: import('react').Context<Theme | undefined> = createCo
 /**
  * __Set theme context__
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const SetThemeContext: import('react').Context<
 	((value: Partial<Theme>) => void) | undefined
 > = createContext<((value: Partial<Theme>) => void) | undefined>(undefined);

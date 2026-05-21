@@ -58,6 +58,7 @@ const defaults: RuleConfig = {
 	patterns: ['compiled-css-function'],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getConfig = (overrides: Partial<RuleConfig>): RuleConfig => {
 	return Object.assign({}, defaults, overrides);
 };

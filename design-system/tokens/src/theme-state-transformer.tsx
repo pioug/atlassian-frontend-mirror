@@ -69,6 +69,7 @@ export const themeStringToObject = (themeState: string): Partial<ThemeState> => 
  * // returns 'dark:dark light:light spacing:spacing'
  * ```
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const themeObjectToString = (themeState: Partial<ThemeState>): string =>
 	Object.entries(themeState).reduce<string>((themeString, [kind, id]) => {
 		if (

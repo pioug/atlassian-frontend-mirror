@@ -40,6 +40,7 @@ export const noTaggedTemplateExpressionRuleSchema: JSONSchema4 = [
  */
 const shouldSkipMultilineComments = false;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const createNoTaggedTemplateExpressionRule =
 	(isUsage: SupportedNameChecker, messageId: string): RuleModule['create'] =>
 	(context) => {

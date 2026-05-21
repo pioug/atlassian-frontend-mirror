@@ -192,4 +192,5 @@ export const Icon: import('react').NamedExoticComponent<
 	);
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default Icon;

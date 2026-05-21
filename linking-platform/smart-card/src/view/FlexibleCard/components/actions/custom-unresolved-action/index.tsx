@@ -67,6 +67,9 @@ const getMessageDescriptor = (
 	return message;
 };
 
+/**
+ * Public API — exported externally. Do not add props without external support intent.
+ */
 const CustomUnresolvedAction = ({
 	testId = 'custom-unresolved-action',
 	onlyShowIfAction = false,

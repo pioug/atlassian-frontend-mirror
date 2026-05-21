@@ -10,7 +10,6 @@ import { token } from '@atlaskit/tokens';
 import type { FrameStyle } from '../types';
 
 export const className = 'media-card-frame';
-export const embedHeaderHeight = 32;
 
 export interface WrapperProps {
 	className?: string;

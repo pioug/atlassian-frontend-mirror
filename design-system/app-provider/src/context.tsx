@@ -7,6 +7,7 @@ export const useIsInsideAppProvider: () => boolean = () => {
 	return useContext(InsideAppProviderContext);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const useIsAppProviderThemingEnabled: () => boolean = () => {
 	return useContext(AppProviderThemingEnabledContext);
 };

@@ -6,8 +6,9 @@ import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
  * Appearance determines the icon and background color pairing indicating the message type
  */
 export type Appearance = 'information' | 'warning' | 'error' | 'success' | 'discovery';
+type HeadingElements = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
-export interface SectionMessageProps {
+interface BaseSectionMessageProps {
 	/**
 	 * The appearance styling to use for the section message.
 	 */
@@ -17,6 +18,11 @@ export interface SectionMessageProps {
 	 * we recommend that this should be a paragraph.
 	 */
 	children: React.ReactNode;
+	/**
+	 * Allows the section message's `title` to be rendered as the specified HTML
+	 * heading element. The default heading element is `h2`.
+	 */
+	headingLevel?: HeadingElements;
 	/**
 	 * The heading of the section message.
 	 */
@@ -52,6 +58,18 @@ export interface SectionMessageProps {
 	 */
 	testId?: string;
 }
+
+type ConditionalSectionMessageProps =
+	| {
+			headingLevel?: HeadingElements;
+			title: string;
+	  }
+	| {
+			headingLevel?: never;
+			title?: never;
+	  };
+
+export type SectionMessageProps = BaseSectionMessageProps & ConditionalSectionMessageProps;
 
 export interface SectionMessageActionProps {
 	/**

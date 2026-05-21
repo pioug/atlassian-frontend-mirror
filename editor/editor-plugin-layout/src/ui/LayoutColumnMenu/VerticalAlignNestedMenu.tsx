@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -12,7 +12,8 @@ import {
 
 import type { LayoutPlugin } from '../../layoutPluginType';
 
-import { useCurrentLayoutColumnValign } from './useCurrentLayoutColumnValign';
+import { getLayoutColumnValign } from './layoutColumnSelection';
+import { useCurrentLayoutColumn } from './useCurrentLayoutColumn';
 import { VERTICAL_ALIGN_ICONS } from './verticalAlignIcons';
 
 export type VerticalAlignNestedMenuProps = {
@@ -25,10 +26,11 @@ export const VerticalAlignNestedMenu = ({
 	children,
 }: VerticalAlignNestedMenuProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
-	const { currentValign, selectedColumn } = useCurrentLayoutColumnValign(api);
+	const currentColumn = useCurrentLayoutColumn(api);
+	const currentValign = useMemo(() => getLayoutColumnValign(currentColumn), [currentColumn]);
 	const TriggerIcon = currentValign ? VERTICAL_ALIGN_ICONS[currentValign] : LayoutIcon;
 
-	if (!selectedColumn) {
+	if (!currentColumn) {
 		return null;
 	}
 
@@ -37,8 +39,6 @@ export const VerticalAlignNestedMenu = ({
 			elemBefore={<TriggerIcon label="" size="small" />}
 			elemAfter={<NestedDropdownRightIcon label="" size="small" />}
 			text={formatMessage(layoutMessages.alignColumn)}
-			testId="layout-column-align-menu"
-			dropdownTestId="layout-column-align-dropdown"
 		>
 			{children}
 		</ToolbarNestedDropdownMenu>

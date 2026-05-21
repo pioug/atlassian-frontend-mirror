@@ -188,6 +188,7 @@ export const Box = forwardRef(
 	// The return type of `BoxComponent` does not match the return type of `forwardRef` in React 18
 ) as BoxComponent;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default Box;
 
 const baseStyles = css({

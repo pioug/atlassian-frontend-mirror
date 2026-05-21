@@ -2,45 +2,70 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { moveRowDown, moveRowDownOld, tooltip } from '@atlaskit/editor-common/keymaps';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { moveRowDown, tooltip } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import {
 	TableRowMoveDownIcon,
 	ToolbarDropdownItem,
 	ToolbarKeyboardShortcutHint,
 } from '@atlaskit/editor-toolbar';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import {
-	type TableMenuContextValue,
-	useTableMenuContext,
-} from '../../shared/TableMenuContext';
+import { moveSourceWithAnalytics } from '../../../../pm-plugins/drag-and-drop/commands-with-analytics';
+import { getPluginState } from '../../../../pm-plugins/plugin-factory';
+import { getSelectedRowIndexes } from '../../../../pm-plugins/utils/selection';
+import type { TableSharedStateInternal } from '../../../../types';
+import { TABLE_ROW } from '../../shared/consts';
+import { useTableMenuContext } from '../../shared/TableMenuContext';
+import type { TableMenuComponentsParams } from '../../shared/types';
 
-const getMoveRowDownShortcut = () =>
-	tooltip(
-		expValEquals('editor-a11y-fy26-keyboard-move-row-column', 'isEnabled', true)
-			? moveRowDown
-			: moveRowDownOld,
-	);
+const shouldShowMoveRowDown = (isLastRow?: boolean): boolean => !isLastRow;
 
-/** Move row down is hidden when the selection includes the last row (cannot move further down). */
-const shouldShowMoveRowDown = (tableMenuContext?: TableMenuContextValue): boolean =>
-	!tableMenuContext?.isLastRow;
-
-export const MoveRowDownItem = (): React.JSX.Element | null => {
+export const MoveRowDownItem = (props: TableMenuComponentsParams): React.JSX.Element | null => {
+	const { api } = props;
+	const { editorView } = useEditorToolbar();
 	const tableMenuContext = useTableMenuContext();
+	const { tableNode } = useSharedPluginStateWithSelector(api ?? undefined, ['table'], (states) => ({
+		tableNode: (states.tableState as TableSharedStateInternal | undefined)?.tableNode,
+	}));
+	const selectedRowCount = tableMenuContext?.selectedRowCount ?? 1;
 	const { formatMessage } = useIntl();
 
-	if (!shouldShowMoveRowDown(tableMenuContext)) {
+	const handleClick = () => {
+		if (!editorView) {
+			return;
+		}
+
+		const selectionRect = getSelectionRect(editorView.state.selection);
+		if (!selectionRect) {
+			return;
+		}
+		moveSourceWithAnalytics(
+			api?.analytics?.actions,
+			api?.accessibilityUtils?.actions.ariaNotify,
+			getPluginState(editorView.state).getIntl,
+		)(
+			INPUT_METHOD.TABLE_CONTEXT_MENU,
+			TABLE_ROW,
+			getSelectedRowIndexes(selectionRect),
+			selectionRect.bottom,
+		)(editorView.state, editorView.dispatch);
+	};
+
+	if (!tableNode || !shouldShowMoveRowDown(tableMenuContext?.isLastRow)) {
 		return null;
 	}
 
 	return (
 		<ToolbarDropdownItem
+			onClick={handleClick}
 			elemBefore={<TableRowMoveDownIcon color="currentColor" label="" size="small" />}
-			elemAfter={<ToolbarKeyboardShortcutHint shortcut={getMoveRowDownShortcut() ?? ''} />}
+			elemAfter={<ToolbarKeyboardShortcutHint shortcut={tooltip(moveRowDown) ?? ''} />}
 		>
-			{formatMessage(messages.moveRowDown, { 0: 1 })}
+			{formatMessage(messages.moveRowDown, { 0: selectedRowCount })}
 		</ToolbarDropdownItem>
 	);
 };

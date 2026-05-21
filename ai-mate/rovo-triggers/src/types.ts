@@ -123,6 +123,12 @@ export type ChatNewPayload = PayloadCore<
 			versionNumber?: number;
 		};
 		spaceId?: string;
+		/**
+		 * Optional artifact representing the object the user is currently interacting with or
+		 * acting on (e.g. 3P forge artifacts that are not resolvable without an ARI).
+		 * Sent as `search_artifact` in `body.context`.
+		 */
+		searchArtifact?: SendMessageSearchArtifact;
 	} & Partial<TargetAgentParam> &
 		PlaceholderParam
 >;
@@ -710,4 +716,11 @@ export type UploadedFile = {
 	isLoading: boolean;
 	error?: string;
 	fileObject?: File;
+};
+
+type SendMessageSearchArtifact = {
+	/** The Atlassian Resource Identifier (ARI) of the object. */
+	ari?: string;
+	/** The URL of the object. */
+	url?: string;
 };

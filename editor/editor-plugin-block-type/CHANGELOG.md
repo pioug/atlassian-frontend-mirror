@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-type
 
+## 14.1.4
+
+### Patch Changes
+
+- [`32dce97f78584`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32dce97f78584) -
+  Fix preserved selection mapping when comment editors append a trailing paragraph after block menu
+  transforms.
+- Updated dependencies
+
+## 14.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.2
 
 ### Patch Changes

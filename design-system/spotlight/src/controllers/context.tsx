@@ -96,6 +96,7 @@ export const SpotlightContext: Context<SpotlightContextType> = createContext<Spo
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const SpotlightContextProvider = ({ children }: { children: ReactNode }): JSX.Element => {
 	const id = useId();
 	const defaultTargetRef = useRef<HTMLDivElement>(null);

@@ -1,9 +1,8 @@
 import React from 'react';
 
+import { loadingPlaceholderClassName } from '../../../classNames';
 import { CardLinkView } from '../../../view/LinkView';
 import { type CardWithUrlContentProps } from '../types';
-
-import { loadingPlaceholderClassName } from './LazyFallback';
 
 export const LoadingCardLink = ({
 	isSelected,

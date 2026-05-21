@@ -77,14 +77,22 @@ const styles = cssMap({
 	},
 });
 
-export type CustomDropdownMenuItemButtonProps = CustomItemComponentProps & {
-	'aria-disabled'?: boolean;
-	'aria-haspopup'?: boolean;
-	'aria-keyshortcuts'?: string;
-	'aria-pressed'?: boolean;
-	'data-extension-item-key'?: string;
-	title?: string;
+export type ToolbarDropdownItemInteractionProps = {
+	onBlur?: React.FocusEventHandler;
+	onFocus?: React.FocusEventHandler;
+	onMouseEnter?: React.MouseEventHandler;
+	onMouseLeave?: React.MouseEventHandler;
 };
+
+export type CustomDropdownMenuItemButtonProps = CustomItemComponentProps &
+	ToolbarDropdownItemInteractionProps & {
+		'aria-disabled'?: boolean;
+		'aria-haspopup'?: boolean;
+		'aria-keyshortcuts'?: string;
+		'aria-pressed'?: boolean;
+		'data-extension-item-key'?: string;
+		title?: string;
+	};
 
 const CustomDropdownMenuItemButton = forwardRef<
 	HTMLButtonElement,
@@ -99,6 +107,10 @@ const CustomDropdownMenuItemButton = forwardRef<
 			'aria-pressed': ariaPressed,
 			'aria-keyshortcuts': ariaKeyshortcuts,
 			onClick,
+			onBlur,
+			onFocus,
+			onMouseEnter,
+			onMouseLeave,
 			tabIndex,
 			title,
 			'data-extension-item-key': dataExtensionItemKey,
@@ -121,6 +133,10 @@ const CustomDropdownMenuItemButton = forwardRef<
 				ariaDisabled ? styles.disabled : ariaPressed ? styles.selected : styles.enabled,
 			)}
 			onClick={onClick}
+			onBlur={onBlur}
+			onFocus={onFocus}
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
 			tabIndex={tabIndex}
 			aria-haspopup={ariaHasPopup}
 			aria-expanded={ariaHasPopup ? (ariaPressed ? true : false) : undefined}
@@ -155,7 +171,7 @@ const CustomDropdownMenuItemButton = forwardRef<
 	),
 );
 
-type ToolbarDropdownItemProps = {
+type ToolbarDropdownItemProps = ToolbarDropdownItemInteractionProps & {
 	ariaKeyshortcuts?: string;
 	children?: React.ReactNode;
 	elemAfter?: ReactNode;
@@ -175,7 +191,8 @@ type ToolbarDropdownItemProps = {
 	triggerRef?: Ref<HTMLButtonElement>;
 } & DataAttributes;
 
-type CustomDropdownMenuItemAnchorProps = CustomItemComponentProps & {
+type CustomDropdownMenuItemAnchorProps = CustomItemComponentProps &
+	ToolbarDropdownItemInteractionProps & {
 	'aria-disabled'?: boolean;
 	'aria-haspopup'?: boolean;
 	'aria-keyshortcuts'?: string;
@@ -199,6 +216,10 @@ const CustomDropdownMenuItemAnchor = forwardRef<
 			'aria-pressed': ariaPressed,
 			'aria-keyshortcuts': ariaKeyshortcuts,
 			onClick,
+			onBlur,
+			onFocus,
+			onMouseEnter,
+			onMouseLeave,
 			tabIndex,
 			href,
 			target,
@@ -225,6 +246,10 @@ const CustomDropdownMenuItemAnchor = forwardRef<
 				ariaDisabled ? styles.disabled : ariaPressed ? styles.selected : styles.enabled,
 			)}
 			onClick={onClick}
+			onBlur={onBlur}
+			onFocus={onFocus}
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
 			tabIndex={tabIndex}
 			aria-haspopup={ariaHasPopup}
 			aria-expanded={ariaHasPopup ? (ariaPressed ? true : false) : undefined}
@@ -259,6 +284,10 @@ const CustomDropdownMenuItemAnchor = forwardRef<
 
 export const ToolbarDropdownItem = ({
 	onClick,
+	onBlur,
+	onFocus,
+	onMouseEnter,
+	onMouseLeave,
 	elemBefore,
 	elemAfter,
 	elemAfterText,
@@ -303,6 +332,10 @@ export const ToolbarDropdownItem = ({
 				}
 				onClick?.(e);
 			}}
+			onBlur={onBlur}
+			onFocus={onFocus}
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
 			elemBefore={elemBefore}
 			elemAfter={injectedElemAfter}
 			isSelected={isSelected}

@@ -5,9 +5,6 @@ import InteractiveAvatar from '../../../examples/10-basic-avatar-interactive';
 
 snapshot(BasicAvatar, {
 	drawsOutsideBounds: true,
-	featureFlags: {
-		platform_dst_hexagon_avatar_unified_size: [true, false],
-	},
 	variants: [
 		{
 			name: 'light mode',

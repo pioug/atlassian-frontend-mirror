@@ -77,6 +77,7 @@ const getColorFromTokenRaw = (tokenName: string, mode: 'light' | 'dark'): string
 	) as string;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const additionalContrastChecker = ({
 	customThemeTokenMap,
 	mode,

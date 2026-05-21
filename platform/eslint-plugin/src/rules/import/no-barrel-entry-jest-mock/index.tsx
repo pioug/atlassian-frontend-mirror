@@ -465,7 +465,8 @@ function findAllJestMocksInFile({
 	context: Rule.RuleContext;
 }): Map<string, ExistingMockInfo> {
 	const allMocks = new Map<string, ExistingMockInfo>();
-	const sourceCode = context.getSourceCode();
+	// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
+	const sourceCode = context.sourceCode ?? context.getSourceCode();
 	const ast = sourceCode.ast as unknown as TSESTree.Program;
 
 	// Use a visited set to prevent infinite recursion
@@ -1223,7 +1224,8 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 							newPath = cpImportPath;
 						}
 
-						const sourceCode = context.getSourceCode();
+						// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
+						const sourceCode = context.sourceCode ?? context.getSourceCode();
 
 						if (newPath) {
 							const resolvedNewPath = newPath;
@@ -1286,7 +1288,8 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 					}
 
 					const mockObjectNode = extractMockImplementation({ mockImpl: mockImpl as TSESTree.Node });
-					const sourceCode = context.getSourceCode();
+					// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
+					const sourceCode = context.sourceCode ?? context.getSourceCode();
 					const { properties: mockProperties } = extractMockProperties({
 						sourceCode,
 						mockObjectNode,

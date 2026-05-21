@@ -1,6 +1,11 @@
 import { defineMessages } from 'react-intl';
 
 export const codeBlockButtonMessages: {
+	all: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	copiedCodeToClipboard: {
 		defaultMessage: string;
 		description: string;
@@ -11,7 +16,17 @@ export const codeBlockButtonMessages: {
 		description: string;
 		id: string;
 	};
+	detectLanguage: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	hideLineNumbersLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	recentlyUsed: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -100,5 +115,21 @@ export const codeBlockButtonMessages: {
 		defaultMessage: 'Select language',
 		description:
 			'Code blocks display software code. A prompt to select the software language the code is written in.',
+	},
+	detectLanguage: {
+		id: 'fabric.editor.codeBlock.detectLanguage',
+		defaultMessage: 'Detect language',
+		description:
+			'Option in the code block language picker that clears the selected language so the editor can detect it automatically.',
+	},
+	recentlyUsed: {
+		id: 'fabric.editor.codeBlock.recentlyUsed',
+		defaultMessage: 'Recently used',
+		description: 'Section heading for recently used languages in the code block language picker.',
+	},
+	all: {
+		id: 'fabric.editor.codeBlock.all',
+		defaultMessage: 'All',
+		description: 'Section heading for all languages in the code block language picker.',
 	},
 });

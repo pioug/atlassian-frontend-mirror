@@ -54,6 +54,8 @@ import type { LayoutPlugin } from './layoutPluginType';
 import {
 	createDefaultLayoutSection,
 	createMultiColumnLayoutSection,
+	deleteLayoutColumn,
+	insertLayoutColumn,
 	insertLayoutColumnsWithAnalytics,
 	setLayoutColumnValign,
 	toggleLayoutColumnMenu,
@@ -395,6 +397,8 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 			return pluginKey.getState(editorState);
 		},
 		commands: {
+			deleteLayoutColumn: (props) => deleteLayoutColumn(api?.analytics?.actions)(props),
+			insertLayoutColumn: (side) => insertLayoutColumn(side, api?.analytics?.actions),
 			setLayoutColumnValign,
 			toggleLayoutColumnMenu,
 		},

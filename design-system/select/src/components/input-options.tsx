@@ -248,6 +248,7 @@ export const CheckboxOption: <OptionT extends OptionType>(
 /**
  * __Radio option__
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const RadioOption: <OptionT extends OptionType>(
 	props: OptionProps<OptionT, false>,
 ) => JSX.Element = <OptionT extends OptionType>(props: OptionProps<OptionT, false>) => (

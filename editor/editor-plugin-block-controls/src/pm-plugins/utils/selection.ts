@@ -1,3 +1,4 @@
+import { INSERTED_TRAILING_PARAGRAPH_TO_LAST_NODE_META } from '@atlaskit/editor-common/block-type';
 import { expandToBlockRange, isMultiBlockRange } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
@@ -9,6 +10,7 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import type { CellSelection } from '@atlaskit/editor-tables';
 import { getTableSelectionClosesToPos } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 import { getBlockControlsMeta, key } from '../main';
@@ -116,7 +118,13 @@ export const mapPreservedSelection = (
 	const mapping = preservedSelectionMapping || tr.mapping;
 
 	const from = mapping.map(selection.from);
-	const to = mapping.map(selection.to);
+	// When lastNodeMustBeParagraph inserts a trailing paragraph exactly at the end boundary
+	// of a preserved block selection, keep the mapped end position on the left side of the
+	// inserted paragraph so it is not included in the preserved selection.
+	const shouldTrimTrailingParagraph =
+		fg('platform_editor_block_menu_jira_patch_2') &&
+		tr.getMeta(INSERTED_TRAILING_PARAGRAPH_TO_LAST_NODE_META) === true;
+	const to = shouldTrimTrailingParagraph ? mapping.map(selection.to, -1) : mapping.map(selection.to);
 
 	const isSelectionEmpty = from === to;
 	const wasSelectionEmpty = selection.from === selection.to;

@@ -615,13 +615,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-04-02
-	platform_editor_ai_aifc_listitem_indentation_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-03-31
 	platform_editor_lovability_distribute_column_fix: {
 		defaultValue: boolean;
@@ -989,13 +982,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-17
 	platform_editor_aifc_sync_block_stream_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-12-22
-	platform_editor_localid_ime_composition_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2983,14 +2969,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-12-22
-	platform_editor_localid_ime_composition_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_localid_ime_composition_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-04-13
 	platform_editor_hide_extension_renderer_support: createBooleanExperiment({
 		productKeys: {
@@ -3823,14 +3801,6 @@ export const editorExperimentsConfig: {
 	platform_editor_lovability_distribute_column_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_lovability_distribute_column_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-04-02
-	platform_editor_ai_aifc_listitem_indentation_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_aifc_listitem_indentation_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

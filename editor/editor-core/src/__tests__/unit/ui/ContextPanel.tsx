@@ -13,6 +13,244 @@ import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
 import { ContextPanel, SwappableContentArea } from '../../../ui/ContextPanel';
+import {
+	ContextPanelContentCompiled,
+	ContextPanelWrapperCompiled,
+} from '../../../ui/ContextPanel/index-compiled';
+import {
+	ContextPanelContentEmotion,
+	ContextPanelWrapperEmotion,
+} from '../../../ui/ContextPanel/index-emotion';
+
+// Temporary test to validate emotion -> compiled migration. This can be removed on platform_editor_core_non_ecc_static_css clean up
+
+describe('ContextPanel migration parity', () => {
+	const DEFAULT_CONTEXT_PANEL_WIDTHS = ['320px', '20pc'];
+	const parityCases = [
+		{ customWidth: undefined, visible: true, disableAnimation: false },
+		{ customWidth: 280, visible: true, disableAnimation: false },
+		{ customWidth: 280, visible: true, disableAnimation: true },
+		{ customWidth: undefined, visible: false, disableAnimation: false },
+		{ customWidth: undefined, visible: false, disableAnimation: true },
+	];
+
+	type ParityCase = {
+		customWidth?: number;
+		disableAnimation: boolean;
+		visible: boolean;
+	};
+
+	type WrapperStyles = {
+		overflowX: string;
+		overflowY: string;
+		transitionDuration: string;
+		transitionProperty: string;
+		width: string;
+	};
+
+	type ContentStyles = WrapperStyles & {
+		boxSizing: string;
+	};
+
+	const getWrapperStyles = (element: HTMLElement): WrapperStyles => {
+		const styles = window.getComputedStyle(element);
+		return {
+			width: styles.width,
+			overflowX: styles.overflowX,
+			overflowY: styles.overflowY,
+			transitionProperty: styles.transitionProperty,
+			transitionDuration: styles.transitionDuration,
+		};
+	};
+
+	const getContentStyles = (element: HTMLElement): ContentStyles => {
+		const styles = window.getComputedStyle(element);
+		return {
+			width: styles.width,
+			overflowX: styles.overflowX,
+			overflowY: styles.overflowY,
+			transitionProperty: styles.transitionProperty,
+			transitionDuration: styles.transitionDuration,
+			boxSizing: styles.boxSizing,
+		};
+	};
+
+	const expectVisibilityWidth = (width: string, visible: boolean) => {
+		if (visible) {
+			expect(width).not.toBe('0px');
+		} else {
+			expect(width).toBe('0px');
+		}
+	};
+
+	const expectOptionalHiddenOverflowX = (overflowX: string) => {
+		if (overflowX) {
+			expect(overflowX).toBe('hidden');
+		}
+	};
+
+	const expectDefaultWidth = (width: string) => {
+		expect(DEFAULT_CONTEXT_PANEL_WIDTHS).toContain(width);
+	};
+
+	// Compiled and Emotion can serialize the same default width using different but
+	// equivalent CSS units in tests (for example 320px vs 20pc). Normalize before
+	// comparing so parity checks assert on resolved size rather than raw unit choice.
+	const normalizeWidth = (width: string) => {
+		if (width.endsWith('pc')) {
+			return `${parseFloat(width) * 16}px`;
+		}
+
+		return width;
+	};
+
+	const expectMatchingNormalizedWidth = (compiledWidth: string, emotionWidth: string) => {
+		expect(normalizeWidth(compiledWidth)).toBe(normalizeWidth(emotionWidth));
+	};
+
+	const expectSharedAnimationStyles = (
+		compiled: WrapperStyles | ContentStyles,
+		emotion: WrapperStyles | ContentStyles,
+	) => {
+		expect(compiled.transitionProperty).toBe(emotion.transitionProperty);
+		expect(compiled.transitionDuration).toBe(emotion.transitionDuration);
+	};
+
+	const expectWrapperBehavior = (element: HTMLElement, { customWidth, visible }: ParityCase) => {
+		const styles = getWrapperStyles(element);
+
+		expectVisibilityWidth(styles.width, visible);
+		if (customWidth) {
+			expect(styles.width).toBe(`${customWidth}px`);
+			expect(styles.overflowX).toBe('hidden');
+		}
+	};
+
+	const expectContentBehavior = (element: HTMLElement, { customWidth, visible }: ParityCase) => {
+		const styles = getContentStyles(element);
+
+		expectVisibilityWidth(styles.width, visible);
+		if (customWidth) {
+			expect(styles.width).toBe(`${customWidth}px`);
+		}
+		expectOptionalHiddenOverflowX(styles.overflowX);
+	};
+
+	const expectWrapperParity = (
+		compiled: HTMLElement,
+		emotion: HTMLElement,
+		{ customWidth, visible }: ParityCase,
+	) => {
+		expectWrapperBehavior(compiled, { customWidth, visible, disableAnimation: false });
+		expectWrapperBehavior(emotion, { customWidth, visible, disableAnimation: false });
+
+		const compiledStyles = getWrapperStyles(compiled);
+		const emotionStyles = getWrapperStyles(emotion);
+
+		if (!visible) {
+			expectMatchingNormalizedWidth(compiledStyles.width, emotionStyles.width);
+			return;
+		}
+
+		if (customWidth) {
+			expectMatchingNormalizedWidth(compiledStyles.width, emotionStyles.width);
+		} else {
+			expectDefaultWidth(compiledStyles.width);
+			expectDefaultWidth(emotionStyles.width);
+			expectMatchingNormalizedWidth(compiledStyles.width, emotionStyles.width);
+		}
+	};
+
+	const expectContentParity = (
+		compiled: HTMLElement,
+		emotion: HTMLElement,
+		{ customWidth, visible }: ParityCase,
+	) => {
+		expectContentBehavior(compiled, { customWidth, visible, disableAnimation: false });
+		expectContentBehavior(emotion, { customWidth, visible, disableAnimation: false });
+
+		const compiledStyles = getContentStyles(compiled);
+		const emotionStyles = getContentStyles(emotion);
+
+		if (!visible) {
+			expectMatchingNormalizedWidth(compiledStyles.width, emotionStyles.width);
+			return;
+		}
+
+		if (customWidth) {
+			expectMatchingNormalizedWidth(compiledStyles.width, emotionStyles.width);
+		} else {
+			expectDefaultWidth(compiledStyles.width);
+			expectDefaultWidth(emotionStyles.width);
+			expectMatchingNormalizedWidth(compiledStyles.width, emotionStyles.width);
+		}
+
+		expect(compiledStyles.boxSizing).toBe(emotionStyles.boxSizing);
+		expect(compiledStyles.overflowY).toBe(emotionStyles.overflowY);
+		if (compiledStyles.overflowX || emotionStyles.overflowX) {
+			expect(compiledStyles.overflowX || 'hidden').toBe(emotionStyles.overflowX || 'hidden');
+		}
+	};
+
+	const renderParityCase = ({ customWidth, visible, disableAnimation }: ParityCase) => {
+		renderWithIntl(
+			<>
+				<ContextPanelWrapperCompiled
+					data-testid="wrapper-compiled"
+					customWidth={customWidth}
+					visible={visible}
+					disableAnimation={disableAnimation}
+				/>
+				<ContextPanelWrapperEmotion
+					data-testid="wrapper-emotion"
+					customWidth={customWidth}
+					visible={visible}
+					disableAnimation={disableAnimation}
+				/>
+				<ContextPanelContentCompiled
+					data-testid="content-compiled"
+					customWidth={customWidth}
+					visible={visible}
+					disableAnimation={disableAnimation}
+					hasPadding={false}
+				/>
+				<ContextPanelContentEmotion
+					data-testid="content-emotion"
+					customWidth={customWidth}
+					visible={visible}
+					disableAnimation={disableAnimation}
+					hasPadding={false}
+				/>
+			</>,
+		);
+
+		return {
+			wrapperCompiled: screen.getByTestId('wrapper-compiled'),
+			wrapperEmotion: screen.getByTestId('wrapper-emotion'),
+			contentCompiled: screen.getByTestId('content-compiled'),
+			contentEmotion: screen.getByTestId('content-emotion'),
+		};
+	};
+
+	it.each(parityCases)(
+		'matches wrapper and content CSS parity for customWidth=$customWidth visible=$visible disableAnimation=$disableAnimation',
+		(testCase) => {
+			const { wrapperCompiled, wrapperEmotion, contentCompiled, contentEmotion } =
+				renderParityCase(testCase);
+
+			expectWrapperParity(wrapperCompiled, wrapperEmotion, testCase);
+			expectContentParity(contentCompiled, contentEmotion, testCase);
+			expectSharedAnimationStyles(
+				getWrapperStyles(wrapperCompiled),
+				getWrapperStyles(wrapperEmotion),
+			);
+			expectSharedAnimationStyles(
+				getContentStyles(contentCompiled),
+				getContentStyles(contentEmotion),
+			);
+		},
+	);
+});
 
 describe('SwappableContentArea', () => {
 	it('renders children', () => {

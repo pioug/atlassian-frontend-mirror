@@ -219,13 +219,22 @@ const ThemingNavigationSkeletonExample = (): React.JSX.Element => (
 
 export {
 	NavExample,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 	NavExampleAppHome,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 	ResponsiveCreateHomeAndSearchExample,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 	CustomProductHomeExample,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 	SkeletonButtonsExample,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 	ThemedSkeletonButtonsExample,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 	NavigationSkeletonExample,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 	ThemingAppHomeExample,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 	ThemingExample,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 	ThemingNavigationSkeletonExample,
 };

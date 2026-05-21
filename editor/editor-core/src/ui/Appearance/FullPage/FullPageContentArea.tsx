@@ -471,7 +471,7 @@ const Content = React.forwardRef<
 									: null}
 								{allowScrollGutter &&
 									(FeatureGates.getExperimentValue(
-										'cc_snippets_dogfooding_beta',
+										'cc_snippets',
 										'isEnabled',
 										false,
 									) ? (

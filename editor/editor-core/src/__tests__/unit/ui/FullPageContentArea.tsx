@@ -100,7 +100,7 @@ describe('FullPageContentArea - scroll gutter rendering', () => {
 		(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue(false);
 	});
 
-	describe('when experiment cc_snippets_dogfooding_beta is enabled', () => {
+	describe('when experiment cc_snippets is enabled', () => {
 		beforeEach(() => {
 			(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue(true);
 		});
@@ -116,7 +116,7 @@ describe('FullPageContentArea - scroll gutter rendering', () => {
 		});
 	});
 
-	describe('when experiment cc_snippets_dogfooding_beta is disabled', () => {
+	describe('when experiment cc_snippets is disabled', () => {
 		it('renders scroll gutter without data-editor-scroll-gutter attribute', () => {
 			renderComponent({ editorAPI: createMockEditorAPI({ gutterSize: 120 }) as any });
 			const gutter = document.querySelector('#editor-scroll-gutter');

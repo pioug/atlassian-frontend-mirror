@@ -87,6 +87,7 @@ function getAllowList({
 	return merge({}, defaultAllowList, collectEntries(options[0][allowListKey]));
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getAllowedFunctionCalls = (options: any[]): AllowList =>
 	getAllowList({
 		options,
@@ -94,6 +95,7 @@ export const getAllowedFunctionCalls = (options: any[]): AllowList =>
 		defaultAllowList: defaultAllowedValues,
 	});
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getAllowedDynamicKeys = (options: any[]): AllowList =>
 	getAllowList({
 		options,

@@ -130,7 +130,11 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 		editorExperiment('platform_editor_controls', 'variant1');
 
 	if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
-		api?.uiControlRegistry?.actions.register(getTableMenuComponents());
+		api?.uiControlRegistry?.actions.register(
+			getTableMenuComponents({
+				api,
+			}),
+		);
 	}
 
 	return {
@@ -165,6 +169,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 				wasMaxWidthModeEnabled: !!options?.wasMaxWidthEnabled,
 				isHeaderRowEnabled: tablePluginState.isHeaderRowEnabled,
 				isHeaderColumnEnabled: tablePluginState.isHeaderColumnEnabled,
+				isNumberColumnEnabled: tablePluginState.isNumberColumnEnabled,
 				ordering: tablePluginState.ordering,
 				isResizing: !!(
 					tableResizingPluginState?.dragging || tableWidthResizingPluginState?.resizing

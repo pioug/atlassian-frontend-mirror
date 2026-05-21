@@ -75,7 +75,17 @@ const appearanceStyles = cssMap({
 const SectionMessage: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<SectionMessageProps> & React.RefAttributes<HTMLElement>
 > = forwardRef<HTMLElement, SectionMessageProps>(function SectionMessage(
-	{ children, appearance = 'information', actions, title, icon, isDismissible, onDismiss, testId },
+	{
+		children,
+		appearance = 'information',
+		actions,
+		title,
+		headingLevel = 'h2',
+		icon,
+		isDismissible,
+		onDismiss,
+		testId,
+	},
 	ref,
 ) {
 	const [dismissed, setDismissed] = useState<boolean>(false);
@@ -125,7 +135,7 @@ const SectionMessage: React.ForwardRefExoticComponent<
 					xcss={sectionMessageStyles.contentContainer}
 				>
 					{!!title && (
-						<Heading as="h2" size="small">
+						<Heading as={headingLevel} size="small">
 							{title}
 						</Heading>
 					)}

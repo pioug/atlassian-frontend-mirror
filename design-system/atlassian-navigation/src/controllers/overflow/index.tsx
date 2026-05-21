@@ -75,8 +75,10 @@ export const OverflowProvider = ({
  *
  * @deprecated `@atlaskit/atlassian-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const useOverflowStatus = (): OverflowContext => useContext(OverflowContext);
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const useOverflowController = (
 	nodes: ReactNode | ReactNode[],
 ): {
@@ -173,4 +175,5 @@ export const useOverflowController = (
 
 // Used to extract props for useOverflowStatus();
 // eslint-disable-next-line import/no-anonymous-default-export
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default (_props: OverflowContext): void => {};

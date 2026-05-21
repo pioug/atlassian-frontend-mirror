@@ -84,7 +84,8 @@ export class Linter {
 
 		const variable = findVariable({
 			identifier: value,
-			sourceCode: this.context.getSourceCode(),
+			// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
+			sourceCode: this.context.sourceCode ?? this.context.getSourceCode(),
 		});
 		if (!variable) {
 			this.lintUnhandledIdentifier(value);
@@ -173,7 +174,8 @@ export class Linter {
 
 		const variable = findVariable({
 			identifier,
-			sourceCode: this.context.getSourceCode(),
+			// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
+			sourceCode: this.context.sourceCode ?? this.context.getSourceCode(),
 		});
 		if (!variable) {
 			return false;
@@ -214,7 +216,8 @@ export class Linter {
 
 		const variable = findVariable({
 			identifier,
-			sourceCode: this.context.getSourceCode(),
+			// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
+			sourceCode: this.context.sourceCode ?? this.context.getSourceCode(),
 		});
 		if (!variable) {
 			return false;

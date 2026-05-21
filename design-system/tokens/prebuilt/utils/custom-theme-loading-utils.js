@@ -32,6 +32,8 @@ function findMissingCustomStyleElements(UNSAFE_themeOptions, mode) {
   });
   return attrOfMissingCustomStyles;
 }
+
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 function reduceTokenMap(tokenMap, themeRamp) {
   return Object.entries(tokenMap).reduce(function (acc, _ref) {
     var _ref2 = (0, _slicedToArray2.default)(_ref, 2),

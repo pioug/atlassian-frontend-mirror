@@ -65,6 +65,7 @@ const SpotlightStateProvider: React.Provider<{
 
 export { TargetConsumer };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export { SpotlightContext, SpotlightStateConsumer as SpotlightConsumer };
 
 interface SpotlightManagerProps {
@@ -109,7 +110,7 @@ const Container = ({
  *
  * @deprecated Use `@atlaskit/spotlight` instead.
  */
-// eslint-disable-next-line @repo/internal/react/no-class-components
+// eslint-disable-next-line @repo/internal/react/no-class-components, @atlaskit/volt-strict-mode/no-multiple-exports
 export default class SpotlightManager extends PureComponent<
 	SpotlightManagerProps,
 	{

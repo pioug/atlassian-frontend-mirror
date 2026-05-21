@@ -37,7 +37,6 @@ import {
 	scaleAndFade,
 	slideAndFade,
 } from '../../src/entry-points/animations';
-import { arrow } from '../../src/entry-points/arrow';
 import {
 	createCloseEvent,
 	createPopoverCloseEvent,
@@ -95,13 +94,6 @@ describe('React 19 readiness (top-layer)', () => {
 			expect(scaleAndFade().name).toBeDefined();
 			expect(dialogSlideUpAndFade().name).toBeDefined();
 			expect(dialogFade().name).toBeDefined();
-		});
-	});
-
-	describe('entry: ./arrow', () => {
-		it('returns an arrow preset', () => {
-			const preset = arrow();
-			expect(preset.name).toBeDefined();
 		});
 	});
 
@@ -1291,19 +1283,6 @@ describe('React 19 readiness (top-layer)', () => {
 		it('popover light-dismiss reason produces a MouseEvent', () => {
 			const event = createPopoverCloseEvent({ reason: 'light-dismiss' });
 			expect(event).toBeInstanceOf(MouseEvent);
-		});
-	});
-
-	describe('Arrow: core behaviors', () => {
-		it('arrow() returns a config object', () => {
-			const config = arrow();
-			expect(typeof config).toBe('object');
-		});
-
-		it('arrow() returns the same instance (memoised)', () => {
-			const config1 = arrow();
-			const config2 = arrow();
-			expect(config1).toBe(config2);
 		});
 	});
 });

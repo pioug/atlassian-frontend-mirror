@@ -10,6 +10,7 @@ props:
 import { FlagsProvider } from '@atlaskit/flag';
 import FlagsProviderExample from '../../examples/constellation/flags-provider';
 import FlagsProviderShowFlag from '../../examples/constellation/flags-provider-show-flag';
+import FlagsProviderHideFlag from '../../examples/constellation/flags-provider-hide-flag';
 
 ## Default
 
@@ -29,3 +30,13 @@ displayed. `CreateFlagArgs` is defined as follows:
 The return value of `showFlags` is a function that dismisses the flag that was just created.
 
 <Example Component={FlagsProviderShowFlag} packageName="@atlaskit/flag" />
+
+### Using hideFlag
+
+`useFlags` also exposes a `hideFlag(id)` function that programmatically dismisses a flag by its
+`id`. This is useful when the code that needs to dismiss the flag does not have a reference to the
+`dismiss` function returned by `showFlag` — for example, when the dismissal is triggered by a
+different component, an effect, or an external event. Calling `hideFlag` with an `id` that is not
+currently shown is a no-op.
+
+<Example Component={FlagsProviderHideFlag} packageName="@atlaskit/flag" />

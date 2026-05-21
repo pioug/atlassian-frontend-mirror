@@ -369,7 +369,7 @@ describe('<Spotlight />', () => {
 		);
 
 		const pulse = screen.getByTestId('spotlight-pulse');
-		expect(pulse).toHaveCompiledCss('animationDuration', '3s');
+		expect(pulse).toHaveCompiledCss('animationDuration', 'var(--ds-duration-xxlong,3s)');
 		expect(pulse).toHaveCompiledCss('animationIterationCount', 'infinite');
 		expect(pulse).toHaveCompiledCss('animationTimingFunction', 'cubic-bezier(.55,.055,.675,.19)');
 	});

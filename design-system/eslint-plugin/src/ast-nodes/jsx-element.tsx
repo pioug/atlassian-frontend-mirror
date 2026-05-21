@@ -119,4 +119,5 @@ export const JSXElementHelper = {
 	},
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export { JSXElementHelper as JSXElement };

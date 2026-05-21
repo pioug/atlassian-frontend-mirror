@@ -10,6 +10,7 @@ import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
 import ChangesIcon from '@atlaskit/icon/core/changes';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
@@ -23,9 +24,12 @@ export const FormatMenuComponent = ({
 	children: React.ReactNode;
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
-	const formatMenuLabel = fg('platform_editor_block_menu_v2_patch_2')
-		? blockMenuMessages.changeFormat
-		: blockMenuMessages.turnInto;
+
+	// eslint-disable-next-line @atlaskit/platform/no-preconditioning -- gate + experiment layering for MAUI rollout (cc-maui-experiment + cc-maui-phase-3); will simplify post-rollout
+	const formatMenuLabel =
+		expValEquals('cc-maui-experiment', 'isEnabled', true) && fg('cc-maui-phase-3')
+			? blockMenuMessages.changeFormat
+			: blockMenuMessages.turnInto;
 
 	const handleClick = useCallback(() => {
 		api?.core.actions.execute(({ tr }) => {

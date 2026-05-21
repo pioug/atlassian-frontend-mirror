@@ -61,7 +61,13 @@ export { mention, toJSON as mentionToJSON } from './mention';
 export type { MentionAttributes, UserType as MentionUserType, MentionDefinition } from './mention';
 export { listItem, listItemWithLocalId } from './list-item';
 export type { ListItemArray, ListItemDefinition } from './types/list';
-export { extendedPanel, extendedPanelWithLocalId, PanelType } from './panel';
+export {
+	extendedPanel,
+	extendedPanelWithLocalId,
+	extendedPanelC1,
+	extendedPanelC1WithLocalId,
+	PanelType,
+} from './panel';
 export type { PanelAttributes, PanelDefinition } from './panel';
 export { text } from './text';
 export type { TextDefinition } from './text';

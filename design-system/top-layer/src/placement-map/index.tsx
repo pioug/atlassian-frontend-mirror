@@ -119,6 +119,7 @@ export function fromLegacyPlacement({
 /**
  * The full mapping record, exposed for consumers that need to iterate or introspect.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export { placementMapping };
 
 export type { TPlacementOptions };

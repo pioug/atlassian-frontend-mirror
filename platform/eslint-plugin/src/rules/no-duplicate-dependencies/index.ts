@@ -35,7 +35,8 @@ const rule: Rule.RuleModule = {
 								name: dependency,
 							},
 							fix(fixer) {
-								const sourceCode = context.getSourceCode();
+								// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
+								const sourceCode = context.sourceCode ?? context.getSourceCode();
 								const property = node.parent;
 								const isLastLine = sourceCode.getTokenAfter(property)?.value === '}';
 								const end = property.loc.end;

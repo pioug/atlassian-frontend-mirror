@@ -53,6 +53,8 @@ var additionalChecks = exports.additionalChecks = [{
 var getColorFromTokenRaw = function getColorFromTokenRaw(tokenName, mode) {
   return mode === 'light' ? _atlassianLightTokenValueForContrastCheck.default[tokenName] : _atlassianDarkTokenValueForContrastCheck.default[tokenName];
 };
+
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 var additionalContrastChecker = exports.additionalContrastChecker = function additionalContrastChecker(_ref) {
   var customThemeTokenMap = _ref.customThemeTokenMap,
     mode = _ref.mode,

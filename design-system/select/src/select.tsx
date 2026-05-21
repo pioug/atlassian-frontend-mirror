@@ -31,4 +31,5 @@ const Select = withAnalyticsContext({
 	})(SelectWithoutAnalytics),
 ) as unknown as ReturnType<typeof createSelect>;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default Select;

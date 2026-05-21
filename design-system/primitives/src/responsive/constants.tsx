@@ -106,6 +106,7 @@ export const UNSAFE_BREAKPOINTS_CONFIG: {
  *
  * @experimental Unsafe for consumption outside of the design system itself.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const UNSAFE_BREAKPOINTS_ORDERED_LIST = Object.keys(
 	UNSAFE_BREAKPOINTS_CONFIG,
 ) as Breakpoint[] as ['xxs', 'xs', 'sm', 'md', 'lg', 'xl'];
@@ -115,4 +116,5 @@ export const UNSAFE_BREAKPOINTS_ORDERED_LIST = Object.keys(
  * 1. It is the default value for shorthands, eg. `<GridItem span={6} />` maps to `{ [SMALLEST_BREAKPOINT]: props.span }`
  * 2. It's omitted in `media.below` as there's nothing below `0px`.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const SMALLEST_BREAKPOINT: 'xxs' = UNSAFE_BREAKPOINTS_ORDERED_LIST[0];

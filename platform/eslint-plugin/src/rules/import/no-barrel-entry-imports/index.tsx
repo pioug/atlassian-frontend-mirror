@@ -1044,7 +1044,8 @@ function handleRequireMemberExpression({
 	});
 	const newRhs = getRhsPropertyAfterTransform(transformed);
 
-	const sourceCode = context.getSourceCode();
+	// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
+	const sourceCode = context.sourceCode ?? context.getSourceCode();
 	const quote = sourceCode.getText(reqCall.arguments[0] as unknown as Rule.Node)[0];
 
 	context.report({
@@ -1163,7 +1164,8 @@ function handleRequireDestructuringDeclarator({
 		return;
 	}
 
-	const sourceCode = context.getSourceCode();
+	// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
+	const sourceCode = context.sourceCode ?? context.getSourceCode();
 	const quote = sourceCode.getText(initCall.arguments[0] as unknown as Rule.Node)[0];
 	const pkg = importContext.packageName;
 

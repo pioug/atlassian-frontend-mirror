@@ -119,6 +119,7 @@ interface ComponentsProps<Option, IsMulti extends boolean, Group extends GroupBa
 	components: SelectComponentsConfig<Option, IsMulti, Group>;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const defaultComponents = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ComponentsProps<Option, IsMulti, Group>,
 ): SelectComponentsGeneric =>

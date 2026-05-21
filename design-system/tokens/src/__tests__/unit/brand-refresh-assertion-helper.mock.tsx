@@ -4,6 +4,7 @@ const backgroundSuccessRegex = /--ds-background-success:\s*([^;]+);/;
 
 export const mainThemes: ThemeIdsWithOverrides[] = ['light', 'dark'];
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const verifyBrandRefreshColors = (css: string, id: ThemeIdsWithOverrides): void => {
 	switch (id) {
 		case 'light': {
@@ -19,7 +20,9 @@ export const verifyBrandRefreshColors = (css: string, id: ThemeIdsWithOverrides)
 	}
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const verifyLightColor = (css: string): void => verifyColors(css, '#EFFFD6');
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const verifyDarkColor = (css: string): void => verifyColors(css, '#28311B');
 
 const verifyColors = (css: string, color: string) => {

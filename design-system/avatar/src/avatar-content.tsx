@@ -103,19 +103,13 @@ const unboundStyles = unboundCssMap({
 		// The goal here is emulating a 2px "outline"
 		paddingBlock: `calc(${token('border.width.selected')} * 1.25)`,
 		paddingInline: token('border.width.selected'),
-
-		// NOTE: `marginInline` is set in `marginAdjustmentMap[size]` without fg
-		// TODO: Move hexagonFocusContainerMarginFg styles in here if successful
 		marginBlock: `calc(${token('border.width.selected')} * 1.25 * -1)`,
+		marginInline: `calc(${token('border.width.selected')} * -1)`,
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- We have to hack the focus together with this hexagon `clip-path`
 		'&:has(:focus-visible)': {
 			backgroundColor: token('color.border.focused'),
 		},
-	},
-	hexagonFocusContainerMarginFg: {
-		// NOTE: move into `hexagonFocusContainer` if fg is successful
-		marginInline: `calc(${token('border.width.selected')} * -1)`,
 	},
 	hexagonBorderContainerCustomBorder: {
 		// eslint-disable-next-line @compiled/shorthand-property-sorting -- Intentional: `background` shorthand must override `backgroundColor` in `hexagonBorderContainer` when avatar-custom-border is enabled
@@ -130,7 +124,8 @@ const unboundStyles = unboundCssMap({
 		// The goal here is emulating a 2px "border"
 		paddingBlock: `calc(${token('border.width.selected')} * 0.5)`,
 		paddingInline: `calc(${token('border.width.selected')} * 0.4)`,
-		// TODO: Move hexagonBorderContainerMarginFg styles in here if successful
+		marginBlock: `calc(${token('border.width.selected')} * 0.5 * -1)`,
+		marginInline: `calc(${token('border.width.selected')} * 0.4 * -1)`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- We have to hack the focus together with this hexagon `clip-path`
 		'&:has(:focus-visible)': {
 			// NOTE: For `circle` and `square` this is different. This would be border:none` and
@@ -140,11 +135,6 @@ const unboundStyles = unboundCssMap({
 			// as seen in `circle` and `square` appearances.
 			backgroundColor: token('elevation.surface'),
 		},
-	},
-	hexagonBorderContainerMarginFg: {
-		// TODO: Move into `hexagonBorderContainer` when fg is removed
-		marginBlock: `calc(${token('border.width.selected')} * 0.5 * -1)`,
-		marginInline: `calc(${token('border.width.selected')} * 0.4 * -1)`,
 	},
 	hexagon: {
 		clipPath: 'inherit',
@@ -195,17 +185,6 @@ const widthHeightMap = cssMap({
 	large: { width: '40px', height: '40px' },
 	xlarge: { width: '96px', height: '96px' },
 	xxlarge: { width: '128px', height: '128px' },
-});
-
-const marginAdjustmentMap = unboundCssMap({
-	// NOTE: These are relatively magical, manual adjustments to adjust for the imperfection of this hexagon.
-	// The hexagon is a 9:10 ratio so we use negative margin to align it in AvatarGroup and other places.
-	xsmall: { marginInline: `calc(${token('border.width.selected')} * -1 - 1px)` },
-	small: { marginInline: `calc(${token('border.width.selected')} * -1 - 1px)` },
-	medium: { marginInline: `calc(${token('border.width.selected')} * -1 - 2px)` },
-	large: { marginInline: `calc(${token('border.width.selected')} * -1 - 2px)` },
-	xlarge: { marginInline: `calc(${token('border.width.selected')} * -1 - 4px)` },
-	xxlarge: { marginInline: `calc(${token('border.width.selected')} * -1 - 8px)` },
 });
 
 type AvatarContentProps = {
@@ -305,9 +284,6 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 		<div
 			css={[
 				unboundStyles.hexagonFocusContainer,
-				!fg('platform_dst_hexagon_avatar_unified_size') && marginAdjustmentMap[size],
-				fg('platform_dst_hexagon_avatar_unified_size') &&
-					unboundStyles.hexagonFocusContainerMarginFg,
 				isInteractive &&
 					!isDisabled &&
 					fg('platform-dst-motion-uplift') &&
@@ -325,8 +301,6 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 				css={[
 					unboundStyles.hexagonBorderContainer,
 					fg('avatar-custom-border') && unboundStyles.hexagonBorderContainerCustomBorder,
-					fg('platform_dst_hexagon_avatar_unified_size') &&
-						unboundStyles.hexagonBorderContainerMarginFg,
 				]}
 				data-testid={testId ? `${testId}-hexagon-border-container` : 'hexagon-border-container'}
 			>

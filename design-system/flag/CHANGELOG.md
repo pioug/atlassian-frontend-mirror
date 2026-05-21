@@ -1,5 +1,18 @@
 # @atlaskit/flag
 
+## 17.12.0
+
+### Minor Changes
+
+- [`b52ee6820e33a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b52ee6820e33a) -
+  Add hideFlag(id) API to useFlags() for programmatically dismissing flags by id. Useful when an
+  action button on a flag needs to dismiss the flag itself, or when the code dismissing the flag
+  does not have a reference to the dismiss callback returned by showFlag.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.11.3
 
 ### Patch Changes

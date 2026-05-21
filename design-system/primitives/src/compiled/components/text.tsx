@@ -280,4 +280,5 @@ const Text: React.ForwardRefExoticComponent<
 	},
 );
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default Text;

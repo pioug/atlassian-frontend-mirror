@@ -6,6 +6,7 @@ import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ProviderFactory, MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SyncBlockError } from '../common/types';
 import type {
@@ -37,6 +38,7 @@ import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
 import {
 	createSyncBlockNode,
 	getSourceProductFromResourceIdSafe,
+	stripAnnotationMarksFromJSONContent,
 } from '../utils/utils';
 
 import { SyncBlockBatchFetcher } from './syncBlockBatchFetcher';
@@ -206,9 +208,31 @@ export class ReferenceSyncBlockStoreManager {
 		const syncBlockNode = createSyncBlockNode('', resourceId);
 		const providerData = this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
 		if (providerData) {
-			return providerData;
+			return this.stripAnnotationMarksFromReferenceData(providerData);
 		}
 		return this.getFromSessionCache(resourceId);
+	}
+
+	private stripAnnotationMarksFromReferenceData(
+		syncBlock: SyncBlockInstance,
+	): SyncBlockInstance {
+		if (!fg('platform_synced_block_patch_12') || !syncBlock.data?.content) {
+			return syncBlock;
+		}
+
+		const content = stripAnnotationMarksFromJSONContent(syncBlock.data.content);
+
+		if (content === syncBlock.data.content) {
+			return syncBlock;
+		}
+
+		return {
+			...syncBlock,
+			data: {
+				...syncBlock.data,
+				content,
+			},
+		};
 	}
 
 	private updateSessionCache(resourceId: ResourceId): void {
@@ -227,7 +251,7 @@ export class ReferenceSyncBlockStoreManager {
 			if (!raw) {
 				return undefined;
 			}
-			return JSON.parse(raw) as SyncBlockInstance;
+			return this.stripAnnotationMarksFromReferenceData(JSON.parse(raw) as SyncBlockInstance);
 		} catch (error) {
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/referenceSyncBlockStoreManager/getFromSessionCache',
@@ -606,14 +630,15 @@ export class ReferenceSyncBlockStoreManager {
 	}
 
 	private updateCache(syncBlock: SyncBlockInstance) {
-		const { resourceId } = syncBlock;
+		const sanitizedSyncBlock = this.stripAnnotationMarksFromReferenceData(syncBlock);
+		const { resourceId } = sanitizedSyncBlock;
 
 		if (resourceId) {
 			this.dataProvider?.updateCache(
-				{ [resourceId]: syncBlock },
+				{ [resourceId]: sanitizedSyncBlock },
 				{ strategy: 'merge', source: 'network' },
 			);
-			this._subscriptionManager.notifySubscriptionCallbacks(resourceId, syncBlock);
+			this._subscriptionManager.notifySubscriptionCallbacks(resourceId, sanitizedSyncBlock);
 			this.updateSessionCache(resourceId);
 		}
 	}

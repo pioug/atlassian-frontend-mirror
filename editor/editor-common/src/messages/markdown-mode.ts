@@ -63,9 +63,7 @@ export const markdownModeMessages: {
 	source: { defaultMessage: string; description: string; id: string };
 	sourceAriaLabel: { defaultMessage: string; description: string; id: string };
 	unlinkSyncedBlocksBody: { defaultMessage: string; description: string; id: string };
-	unlinkSyncedBlocksLearnMore: { defaultMessage: string; description: string; id: string };
 	unlinkSyncedBlocksTitle: { defaultMessage: string; description: string; id: string };
-	unlinkSyncedBlocksUnderstood: { defaultMessage: string; description: string; id: string };
 	wysiwyg: { defaultMessage: string; description: string; id: string };
 } = defineMessages({
 	groupLabel: {
@@ -99,74 +97,73 @@ export const markdownModeMessages: {
 	},
 	confirmDialogTitleToMarkdown: {
 		id: 'fabric.editor.markdownMode.confirmDialog.title.toMarkdown',
-		defaultMessage: 'Convert to markdown?',
+		defaultMessage: 'Convert to markdown',
 		description:
 			'Title of the confirmation dialog shown when the user is about to convert a Live Doc from rich text into markdown mode.',
 	},
 	confirmDialogTitleToMarkdownLossy: {
 		id: 'fabric.editor.markdownMode.confirmDialog.title.toMarkdownLossy',
-		defaultMessage: 'Convert to Markdown?',
+		defaultMessage: 'Convert to markdown',
 		description:
 			'Title of the warning dialog shown when the user is about to convert a Live Doc whose rich-text content cannot fully round-trip through markdown (lossy conversion).',
 	},
 	confirmDialogTitleToRichText: {
 		id: 'fabric.editor.markdownMode.confirmDialog.title.toRichText',
-		defaultMessage: 'Convert to rich text?',
+		defaultMessage: 'Convert to rich text',
 		description:
 			'Title of the confirmation dialog shown when the user is about to convert a Live Doc from markdown back to rich text mode.',
 	},
 	confirmDialogToMarkdownToolsRemoved: {
 		id: 'fabric.editor.markdownMode.confirmDialog.toMarkdown.toolsRemoved',
-		defaultMessage: 'Standard rich text tools will be removed.',
+		defaultMessage: 'Use basic formatting',
 		description:
 			'Body row inside the convert-to-markdown confirmation dialog; explains that the rich-text editor toolbar disappears once the document is in markdown mode.',
 	},
 	confirmDialogToMarkdownToggle: {
 		id: 'fabric.editor.markdownMode.confirmDialog.toMarkdown.toggle',
-		defaultMessage: 'Toggle between syntax and WYSIWYG editing as you work.',
+		defaultMessage: 'Toggle between the syntax and preview editor',
 		description:
 			'Body row inside the convert-to-markdown confirmation dialog; explains that the user can still flip between markdown source view and WYSIWYG view after the conversion.',
 	},
 	confirmDialogToMarkdownVersionHistory: {
 		id: 'fabric.editor.markdownMode.confirmDialog.toMarkdown.versionHistory',
-		defaultMessage: 'Revert to the previous version via version history at any time.',
+		defaultMessage: 'Restore previous drafts with version history',
 		description:
 			'Body row inside the convert-to-markdown confirmation dialog; reassures the user that the pre-conversion version is preserved and recoverable from version history.',
 	},
 	confirmDialogToMarkdownLossyRichContent: {
 		id: 'fabric.editor.markdownMode.confirmDialog.toMarkdownLossy.richContent',
-		defaultMessage: 'Your content has rich text formatting that may be unsupported in markdown.',
+		defaultMessage: 'Your content may look different as converting removes rich text formatting',
 		description:
 			'Body row in the lossy convert-to-markdown warning dialog; explains that rich-text formatting may not survive the conversion.',
 	},
 	confirmDialogToMarkdownLossyVersionHistory: {
 		id: 'fabric.editor.markdownMode.confirmDialog.toMarkdownLossy.versionHistory',
-		defaultMessage:
-			'Converting may result in data loss, although you can always revert to this previous version in version history.',
+		defaultMessage: 'To restore formatting, access previous drafts from version history',
 		description:
 			'Body row in the lossy convert-to-markdown warning dialog; reassures the user that the pre-conversion version is recoverable from version history.',
 	},
 	confirmDialogToMarkdownLossyCta: {
 		id: 'fabric.editor.markdownMode.confirmDialog.toMarkdownLossy.cta',
-		defaultMessage: 'Convert to Markdown',
+		defaultMessage: 'Convert',
 		description:
 			'Primary (warning-styled) action button label in the lossy convert-to-markdown warning dialog.',
 	},
 	confirmDialogToRichTextStandardTools: {
 		id: 'fabric.editor.markdownMode.confirmDialog.toRichText.standardTools',
-		defaultMessage: 'Standard rich text tools will be available again.',
+		defaultMessage: 'Use all rich text tools',
 		description:
 			'Body row inside the convert-to-rich-text confirmation dialog; explains that the full rich-text toolbar comes back after the conversion.',
 	},
 	confirmDialogToRichTextInstantEdits: {
 		id: 'fabric.editor.markdownMode.confirmDialog.toRichText.instantEdits',
-		defaultMessage: 'Edits will continue to happen instantly without the need to publish.',
+		defaultMessage: 'Edit and save as a live doc',
 		description:
 			'Body row inside the convert-to-rich-text confirmation dialog; reassures the user that live-edit semantics are preserved when leaving markdown mode.',
 	},
 	confirmDialogToRichTextVersionHistory: {
 		id: 'fabric.editor.markdownMode.confirmDialog.toRichText.versionHistory',
-		defaultMessage: 'Revert to the previous version via version history at any time.',
+		defaultMessage: 'Restore previous drafts with version history',
 		description:
 			'Body row inside the convert-to-rich-text confirmation dialog; reassures the user that the pre-conversion version is preserved and recoverable from version history.',
 	},
@@ -190,28 +187,16 @@ export const markdownModeMessages: {
 	},
 	unlinkSyncedBlocksTitle: {
 		id: 'fabric.editor.markdownMode.unlinkSyncedBlocks.title',
-		defaultMessage: 'Unlink synced blocks to convert',
+		defaultMessage: 'Delete synced content?',
 		description:
 			'Title of the modal shown when the user tries to convert a page to markdown but the page contains synced blocks. The dialog asks them to unlink (unsync) the blocks first.',
 	},
 	unlinkSyncedBlocksBody: {
 		id: 'fabric.editor.markdownMode.unlinkSyncedBlocks.body',
 		defaultMessage:
-			'{count, plural, one {This content contains 1 synced block syncing to multiple locations. Converting to markdown will detach the synced block and result in it being removed from multiple synced locations, where it will appear as an "Unsynced block". Unsync it to continue.} other {This content contains {count} synced blocks syncing to multiple locations. Converting to markdown will detach the synced blocks and result in them being removed from multiple synced locations, where they will appear as "Unsynced blocks". Unsync them to continue.}}',
+			'Converting will delete synced blocks and their content. This cannot be restored in version history.',
 		description:
-			'Body copy of the unlink-synced-blocks dialog. {count} is the number of synced blocks in the document (always >= 1 in practice; 0 takes the plural branch defensively).',
-	},
-	unlinkSyncedBlocksLearnMore: {
-		id: 'fabric.editor.markdownMode.unlinkSyncedBlocks.learnMore',
-		defaultMessage: 'Learn more',
-		description:
-			'Footer link in the unlink-synced-blocks dialog that opens external documentation about managing synced blocks.',
-	},
-	unlinkSyncedBlocksUnderstood: {
-		id: 'fabric.editor.markdownMode.unlinkSyncedBlocks.understood',
-		defaultMessage: 'Understood',
-		description:
-			'Primary acknowledgement button label in the unlink-synced-blocks dialog. Dismisses the dialog — there is no "convert anyway" action.',
+			'Body copy for the warning section shown in the convert dialog when synced blocks are present.',
 	},
 	labsLozenge: {
 		id: 'fabric.editor.markdownMode.labsLozenge',

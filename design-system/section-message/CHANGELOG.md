@@ -1,5 +1,13 @@
 # @atlaskit/section-message
 
+## 8.13.0
+
+### Minor Changes
+
+- [`36317b7bc1752`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36317b7bc1752) -
+  Add `headingLevel` prop to customize heading element and ensure makers can use proper and
+  accessible heading structures.
+
 ## 8.12.15
 
 ### Patch Changes

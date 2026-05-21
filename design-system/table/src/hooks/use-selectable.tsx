@@ -172,4 +172,5 @@ function useSelectable(): [SelectableState, SelectableActions] {
 	return [state, { setAll, removeAll, toggleSelection, setMax }];
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default useSelectable;

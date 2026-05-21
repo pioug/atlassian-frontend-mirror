@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 6.3.0
+
+### Minor Changes
+
+- [`b8323b0e8414e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8323b0e8414e) -
+  Add searchArtifact parameter to the sendMessage API Integrate searchArtifact to chat-new pubsub
+  event and add to search
+
 ## 6.2.0
 
 ### Minor Changes

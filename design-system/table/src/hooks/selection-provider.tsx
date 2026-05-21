@@ -36,4 +36,5 @@ export const useSelection: () => SelectionContext = () => {
 	return useContext(SelectionContext);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default SelectionProvider;

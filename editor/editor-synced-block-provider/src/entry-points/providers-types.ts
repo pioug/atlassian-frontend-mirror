@@ -4,6 +4,7 @@ export type {
 	ADFWriteProvider,
 	BatchFetchConfig,
 	BlockNodeIdentifiers,
+	BlockSubscriptionCompleteCallback,
 	BlockSubscriptionErrorCallback,
 	BlockUpdateCallback,
 	SyncBlockDataProviderInterface,

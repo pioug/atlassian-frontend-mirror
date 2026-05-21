@@ -4,10 +4,34 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { useAssetsWorkspaceHost } from '@atlassian/assets-workspace-host';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import SmartLinkCustomClient from '../../../../../examples-helpers/smartLinkCustomClient';
+import { getMeta } from '../../../../services/getMeta';
 
 import Link, { LINK_TYPE_TEST_ID } from './index';
+
+jest.mock('../../../../services/getMeta');
+jest.mock('@atlassian/assets-workspace-host');
+
+const mockGetMeta = asMock(getMeta);
+const mockUseAssetsWorkspaceHost = asMock(useAssetsWorkspaceHost);
+
+const resolverWithHost = (host: string | null) =>
+	({
+		data: { host, workspaceId: 'ws-1', toAbsoluteUrl: (p: string) => p },
+		isPending: false,
+		isIdle: false,
+	}) as unknown as ReturnType<typeof useAssetsWorkspaceHost>;
+
+const resolverNoData = () =>
+	({
+		data: null,
+		isPending: false,
+		isIdle: false,
+	}) as unknown as ReturnType<typeof useAssetsWorkspaceHost>;
 
 mockSimpleIntersectionObserver(); // required to mock smart link internals
 describe('Link Type', () => {
@@ -19,6 +43,8 @@ describe('Link Type', () => {
 
 	beforeEach(() => {
 		consoleErrorFn = jest.spyOn(console, 'error').mockImplementation(() => jest.fn());
+		mockGetMeta.mockReturnValue(undefined);
+		mockUseAssetsWorkspaceHost.mockReturnValue(resolverNoData());
 	});
 	afterEach(() => {
 		consoleErrorFn.mockRestore();
@@ -135,6 +161,79 @@ describe('Link Type', () => {
 		const anchor = queryByRole('link');
 
 		expect(anchor).toBeInTheDocument();
+	});
+
+	describe('Units host rewrite (astral_units_workspace_host_resolver)', () => {
+		const ASSETS_PATH = '/jira/servicedesk/assets/object/1';
+		const ABSOLUTE_HOST = 'https://primary.atlassian.net';
+		const cloudId = 'cloud-1';
+
+		ffTest.on(
+			'astral_units_workspace_host_resolver',
+			'when the gate is ON, cloudId is present, and the resolver returned a host',
+			() => {
+				it('rewrites the href, hover-card url, and click target for /jira/servicedesk/assets/ URLs', () => {
+					mockGetMeta.mockReturnValue(cloudId);
+					mockUseAssetsWorkspaceHost.mockReturnValue(resolverWithHost(ABSOLUTE_HOST));
+
+					const { getByRole } = setup({ url: ASSETS_PATH, text: 'MAS-1' });
+					const anchor = getByRole('link');
+
+					expect(anchor).toHaveAttribute('href', `${ABSOLUTE_HOST}${ASSETS_PATH}`);
+				});
+
+				it('leaves non-assets urls untouched', () => {
+					mockGetMeta.mockReturnValue(cloudId);
+					mockUseAssetsWorkspaceHost.mockReturnValue(resolverWithHost(ABSOLUTE_HOST));
+
+					const { getByRole } = setup({ url: '/jira/issues/MAS-1', text: 'MAS-1' });
+					expect(getByRole('link')).toHaveAttribute('href', '/jira/issues/MAS-1');
+				});
+
+				it('leaves the url untouched when the resolver returned no host', () => {
+					mockGetMeta.mockReturnValue(cloudId);
+					mockUseAssetsWorkspaceHost.mockReturnValue(resolverWithHost(null));
+
+					const { getByRole } = setup({ url: ASSETS_PATH, text: 'MAS-1' });
+					expect(getByRole('link')).toHaveAttribute('href', ASSETS_PATH);
+				});
+
+				it('skips the resolver when cloudId is empty', () => {
+					mockGetMeta.mockReturnValue(undefined);
+					mockUseAssetsWorkspaceHost.mockReturnValue(resolverWithHost(ABSOLUTE_HOST));
+
+					const { getByRole } = setup({ url: ASSETS_PATH, text: 'MAS-1' });
+					expect(getByRole('link')).toHaveAttribute('href', ASSETS_PATH);
+					expect(mockUseAssetsWorkspaceHost).toHaveBeenCalledWith(
+						expect.objectContaining({ skip: true }),
+					);
+				});
+
+				it('skips the resolver when url is not an assets url', () => {
+					mockGetMeta.mockReturnValue(cloudId);
+					mockUseAssetsWorkspaceHost.mockReturnValue(resolverWithHost(ABSOLUTE_HOST));
+
+					setup({ url: '/wiki/spaces/X/pages/1', text: 'page' });
+					expect(mockUseAssetsWorkspaceHost).toHaveBeenCalledWith(
+						expect.objectContaining({ skip: true }),
+					);
+				});
+			},
+		);
+
+		ffTest.off(
+			'astral_units_workspace_host_resolver',
+			'when the gate is OFF',
+			() => {
+				it('leaves assets urls untouched even if the resolver would return a host', () => {
+					mockGetMeta.mockReturnValue(cloudId);
+					mockUseAssetsWorkspaceHost.mockReturnValue(resolverWithHost(ABSOLUTE_HOST));
+
+					const { getByRole } = setup({ url: ASSETS_PATH, text: 'MAS-1' });
+					expect(getByRole('link')).toHaveAttribute('href', ASSETS_PATH);
+				});
+			},
+		);
 	});
 
 	it('should capture and report a11y violations', async () => {

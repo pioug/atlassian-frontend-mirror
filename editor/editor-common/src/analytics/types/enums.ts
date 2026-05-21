@@ -265,6 +265,7 @@ export enum INPUT_METHOD {
 	BLOCK_MENU = 'blockMenu',
 	SMART_LINK = 'smartLink',
 	ELEMENT_BROWSER = 'elementBrowser',
+	LAYOUT_COLUMN_MENU = 'layoutColumnMenu',
 	REMIX = 'remix',
 }
 
@@ -466,6 +467,7 @@ export enum ACTION_SUBJECT_ID {
 	HYPERLINK = 'hyperlink',
 	INLINE_COMMENT = 'inlineComment',
 	LAYOUT = 'layout',
+	LAYOUT_COLUMN = 'layoutColumn',
 	LINE_BREAK = 'lineBreak',
 	LINK = 'link',
 	LINK_PREVIEW = 'linkPreview',

@@ -50,8 +50,7 @@ type TPopoverBaseProps = {
 	children: ReactNode;
 	/**
 	 * Additional CSS styles applied to the popover root element.
-	 * Use to set `backgroundColor` so arrow pseudo-elements (which use
-	 * `background: inherit`) match the popup surface colour.
+	 * Use to set `backgroundColor` to match the popup surface colour.
 	 */
 	xcss?: StrictXCSSProp<'backgroundColor', never>;
 	/**

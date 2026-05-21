@@ -1,5 +1,12 @@
 # @atlaskit/jql-ast
 
+## 3.5.0
+
+### Minor Changes
+
+- [`80d8df1d8b42a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80d8df1d8b42a) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 3.4.0
 
 ### Minor Changes

@@ -1,5 +1,97 @@
 # @atlaskit/smart-card
 
+## 44.13.0
+
+### Minor Changes
+
+- [`4a5eec0f824cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a5eec0f824cf) -
+  Debarrel @atlaskit/smart-card. Add new entry points and mark barrel files as deprecated
+
+  New entry points:
+  - `@atlaskit/smart-card/analytics`
+  - `@atlaskit/smart-card/analytics/types`
+  - `@atlaskit/smart-card/card/lazy` (Card)
+  - `@atlaskit/smart-card/card/types`
+  - `@atlaskit/smart-card/class-names`
+  - `@atlaskit/smart-card/embed-resize-message-listener`
+  - `@atlaskit/smart-card/enums`
+  - `@atlaskit/smart-card/expanded-frame`
+  - `@atlaskit/smart-card/flexible/assigned-to-element`
+  - `@atlaskit/smart-card/flexible/assigned-to-group-element`
+  - `@atlaskit/smart-card/flexible/attachment-count-element`
+  - `@atlaskit/smart-card/flexible/author-group-element`
+  - `@atlaskit/smart-card/flexible/checklist-progress-element`
+  - `@atlaskit/smart-card/flexible/collaborator-group-element`
+  - `@atlaskit/smart-card/flexible/comment-count-element`
+  - `@atlaskit/smart-card/flexible/copy-link-action`
+  - `@atlaskit/smart-card/flexible/created-by-element`
+  - `@atlaskit/smart-card/flexible/created-on-element`
+  - `@atlaskit/smart-card/flexible/custom-action`
+  - `@atlaskit/smart-card/flexible/custom-block`
+  - `@atlaskit/smart-card/flexible/custom-by-access-type-element`
+  - `@atlaskit/smart-card/flexible/custom-by-status-element`
+  - `@atlaskit/smart-card/flexible/custom-unresolved-action`
+  - `@atlaskit/smart-card/flexible/download-action`
+  - `@atlaskit/smart-card/flexible/due-on-element`
+  - `@atlaskit/smart-card/flexible/follow-action`
+  - `@atlaskit/smart-card/flexible/footer-block`
+  - `@atlaskit/smart-card/flexible/latest-commit-element`
+  - `@atlaskit/smart-card/flexible/link-icon-element`
+  - `@atlaskit/smart-card/flexible/location-element`
+  - `@atlaskit/smart-card/flexible/metadata-block`
+  - `@atlaskit/smart-card/flexible/modified-by-element`
+  - `@atlaskit/smart-card/flexible/modified-on-element`
+  - `@atlaskit/smart-card/flexible/owned-by-element`
+  - `@atlaskit/smart-card/flexible/owned-by-group-element`
+  - `@atlaskit/smart-card/flexible/preview-action`
+  - `@atlaskit/smart-card/flexible/preview-block`
+  - `@atlaskit/smart-card/flexible/preview-element`
+  - `@atlaskit/smart-card/flexible/priority-element`
+  - `@atlaskit/smart-card/flexible/programming-language-element`
+  - `@atlaskit/smart-card/flexible/provider-element`
+  - `@atlaskit/smart-card/flexible/react-count-element`
+  - `@atlaskit/smart-card/flexible/read-time-element`
+  - `@atlaskit/smart-card/flexible/sent-on-element`
+  - `@atlaskit/smart-card/flexible/snippet-block`
+  - `@atlaskit/smart-card/flexible/snippet-element`
+  - `@atlaskit/smart-card/flexible/source-branch-element`
+  - `@atlaskit/smart-card/flexible/state-element`
+  - `@atlaskit/smart-card/flexible/story-points-element`
+  - `@atlaskit/smart-card/flexible/sub-tasks-progress-element`
+  - `@atlaskit/smart-card/flexible/subscriber-count-element`
+  - `@atlaskit/smart-card/flexible/target-branch-element`
+  - `@atlaskit/smart-card/flexible/title-block`
+  - `@atlaskit/smart-card/flexible/title-element`
+  - `@atlaskit/smart-card/flexible/types`
+  - `@atlaskit/smart-card/flexible/unresolved-action`
+  - `@atlaskit/smart-card/flexible/view-count-element`
+  - `@atlaskit/smart-card/flexible/vote-count-element`
+  - `@atlaskit/smart-card/hook/use-smart-link-actions`
+  - `@atlaskit/smart-card/hook/use-smart-link-events`
+  - `@atlaskit/smart-card/hook/use-smart-link-reload`
+  - `@atlaskit/smart-card/hover` (HoverCard)
+  - `@atlaskit/smart-card/hover/types`
+  - `@atlaskit/smart-card/link` (LinkUrl)
+  - `@atlaskit/smart-card/link/types`
+  - `@atlaskit/smart-card/ssr` (CardSSR - existing path, redirect to entry-points)
+
+  Deprecating entry points:
+  - `@atlaskit/smart-card/types`
+  - `@atlaskit/smart-card/hooks`
+  - `@atlaskit/smart-card/hover-card`
+  - `@atlaskit/smart-card/link-url`
+  - `@atlaskit/smart-card` (index.ts)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.12.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.12.4
 
 ### Patch Changes

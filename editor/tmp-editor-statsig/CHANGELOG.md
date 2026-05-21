@@ -1,5 +1,23 @@
 # @atlaskit/editor-statsig-tmp
 
+## 82.1.0
+
+### Minor Changes
+
+- [`e481e48b7f35f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e481e48b7f35f) -
+  Cleaned up platform_editor_ai_aifc_listitem_indentation_fix experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 82.0.0
+
+### Major Changes
+
+- [`79c9ce8cbf593`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79c9ce8cbf593) -
+  FFCLEANUP-84819 - Clean up platform_editor_localid_ime_composition_fix
+
 ## 81.3.0
 
 ### Minor Changes

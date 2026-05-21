@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 9.2.6
+
+### Patch Changes
+
+- [`fe16d6a5e7c9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe16d6a5e7c9b) -
+  Gate the block menu Change format copy behind the MAUI experiment and phase 3 feature gate.
+- Updated dependencies
+
+## 9.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.2.4
 
 ### Patch Changes

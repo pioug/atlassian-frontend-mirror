@@ -45,6 +45,7 @@ export const dialogWidth = (input?: ModalDialogProps['width']): string => {
 	return typeof input === 'number' ? `${input}px` : input;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const dialogHeight = (input?: ModalDialogProps['height']): string => {
 	if (!input) {
 		return 'auto';
@@ -357,5 +358,5 @@ const ModalDialog: React.ForwardRefExoticComponent<
 	);
 });
 
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export default ModalDialog;

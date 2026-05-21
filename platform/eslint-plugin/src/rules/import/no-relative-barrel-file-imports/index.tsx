@@ -595,7 +595,8 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 				const nodeSource = node.source;
 				if (unmappedSpecifiers.length === 0 && nodeSource) {
 					reportObj.fix = function (fixer: Rule.RuleFixer) {
-						const sourceCode = context.getSourceCode();
+						// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
+						const sourceCode = context.sourceCode ?? context.getSourceCode();
 						const quote = sourceCode.getText(nodeSource)[0]; // Get quote character
 						const basedirForFix = dirname(context.filename);
 

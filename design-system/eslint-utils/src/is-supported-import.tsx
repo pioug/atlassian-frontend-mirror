@@ -32,6 +32,7 @@ export const DEFAULT_IMPORT_SOURCES: ImportSource[] = Object.values(CSS_IN_JS_IM
  * @returns An array of strings representing what CSS-in-JS packages that should be checked, based
  *          on the rule options configuration.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getImportSources: (context: Rule.RuleContext) => ImportSource[] = (
 	context: Rule.RuleContext,
 ): ImportSource[] => {
@@ -123,17 +124,24 @@ const isSupportedImportWrapper = (
 // Unused functions have been commented out until we implement corresponding
 // eslint rules which use them
 //
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isCss: SupportedNameChecker = isSupportedImportWrapper('css');
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isCxFunction: SupportedNameChecker = isSupportedImportWrapper('cx');
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isCssMap: SupportedNameChecker = isSupportedImportWrapper('cssMap');
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isKeyframes: SupportedNameChecker = isSupportedImportWrapper('keyframes');
 // `styled` is also the explicit default of `styled-components` and `@emotion/styled`, so we also match on default imports generally
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isStyled: SupportedNameChecker = isSupportedImportWrapper('styled', [
 	'styled-components',
 	'@emotion/styled',
 ]);
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isXcss: SupportedNameChecker = isSupportedImportWrapper('xcss');
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const hasStyleObjectArguments: SupportedNameChecker = (node, references, importSources) =>
 	[isCss, isCssMap, isKeyframes, isStyled, isXcss].some((checker) => {
 		if (checker === isStyled) {
@@ -159,6 +167,7 @@ export const hasStyleObjectArguments: SupportedNameChecker = (node, references, 
 		return checker(node, references, importSources);
 	});
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isImportedFrom: (
 	moduleName: string,
 	exactMatch?: boolean,
@@ -218,21 +227,25 @@ export const isImportedFrom: (
  *
  * This can be cleaned up when `'styled-components'` is no longer a valid ImportSource.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isStyledComponents: (
 	nodeToCheck: Callee,
 	referencesInScope: Reference[],
 	importSources?: ImportSource[] | null,
 ) => boolean = isImportedFrom('styled-components');
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isCompiled: (
 	nodeToCheck: Callee,
 	referencesInScope: Reference[],
 	importSources?: ImportSource[] | null,
 ) => boolean = isImportedFrom('@compiled/', false);
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isEmotion: (
 	nodeToCheck: Callee,
 	referencesInScope: Reference[],
 	importSources?: ImportSource[] | null,
 ) => boolean = isImportedFrom('@emotion/', false);
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isAtlasKitCSS: (
 	nodeToCheck: Callee,
 	referencesInScope: Reference[],

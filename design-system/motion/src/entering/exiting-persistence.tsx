@@ -254,4 +254,5 @@ export const useExitingPersistence = (): ExitingChildContext => {
 
 ExitingPersistence.displayName = 'ExitingPersistence';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default ExitingPersistence;

@@ -1,28 +1,54 @@
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { traverse } from '../traverse/traverse';
-import type { ADFEntity } from '../types';
+import type { ADFEntity, EntityParent } from '../types';
 import { validator } from '../validator/validator';
 
 const NATIVE_EMBED_EXTENSION_KEY = 'native-embed';
 
 /**
- * Replaces any `extension` nodes whose `extensionKey` is
- * `native-embed` with a paragraph containing an `inlineCard`
- * node pointing at the same URL.
- * If a native-embed node has no URL it is dropped from the document.
- *
- * The transformed ADF is validated against the ADF spec.
- * If validation fails the original (untransformed) ADF is returned
- * to avoid rendering broken content.
+ * Returns the set of parent node names whose content expression in the
+ * supplied schema allows an `embedCard` child. Returns an empty set if the
+ * schema does not declare an `embedCard` node.
+ */
+const getEmbedCardAllowedParentTypes = (schema: Schema): Set<string> => {
+	const embedCardType = schema.nodes.embedCard;
+	if (!embedCardType) {
+		return new Set();
+	}
+
+	const allowed = new Set<string>();
+	for (const nodeType of Object.values(schema.nodes)) {
+		if (nodeType.contentMatch?.matchType(embedCardType)) {
+			allowed.add(nodeType.name);
+		}
+	}
+	return allowed;
+};
+
+/**
+ * Replaces `extension` nodes whose `extensionKey` starts with `native-embed`
+ * with an `embedCard` when the parent context allows it (per the supplied
+ * schema), otherwise a `paragraph` containing an `inlineCard`. Native-embed
+ * nodes with no URL are dropped. If the transformed ADF fails schema
+ * validation the original ADF is returned.
  */
 export const nativeEmbedsFallbackTransform = (
 	adf: ADFEntity,
+	schema: Schema,
 ): {
 	hasValidTransform: boolean;
 	transformedAdf: false | ADFEntity;
 } => {
+	const embedCardAllowedParentTypes = getEmbedCardAllowedParentTypes(schema);
+
+	const isEmbedCardAllowedInParent = (parent: EntityParent): boolean => {
+		const parentType = parent?.node?.type;
+		return parentType ? embedCardAllowedParentTypes.has(parentType) : false;
+	};
+
 	let didTransform = false;
 	const transformedAdf = traverse(adf, {
-		extension: (node) => {
+		extension: (node, parent) => {
 			if (node.attrs?.['extensionKey'].split(':')[0] !== NATIVE_EMBED_EXTENSION_KEY) {
 				return node;
 			}
@@ -35,6 +61,13 @@ export const nativeEmbedsFallbackTransform = (
 			}
 
 			didTransform = true;
+
+			if (isEmbedCardAllowedInParent(parent)) {
+				return {
+					type: 'embedCard',
+					attrs: { url, layout: 'center' },
+				};
+			}
 
 			return {
 				type: 'paragraph',

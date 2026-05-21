@@ -312,4 +312,5 @@ const Form: <FormValues extends Record<string, any>>(
 	props: FormProps<FormValues> & React.RefAttributes<HTMLFormElement>,
 ) => React.ReactElement | null = forwardRefWithGeneric(FormBase);
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default Form;

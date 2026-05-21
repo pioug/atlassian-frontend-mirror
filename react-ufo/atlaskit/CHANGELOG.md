@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 6.0.0
+
+### Major Changes
+
+- [`32e38d1880255`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32e38d1880255) -
+  Add shorter timeout to detect new inframe events receive for forge apps
+
 ## 5.22.1
 
 ### Patch Changes

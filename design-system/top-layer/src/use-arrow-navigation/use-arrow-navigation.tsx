@@ -183,6 +183,7 @@ export type TUseArrowNavigationArgs = {
  * });
  * ```
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function useArrowNavigation({
 	containerRef,
 	onClose,

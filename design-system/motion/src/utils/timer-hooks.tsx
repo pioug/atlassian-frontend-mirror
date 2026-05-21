@@ -49,6 +49,7 @@ export const useRequestAnimationFrame = (
 /**
  * Will return set  timeout as a function which will clean itself up.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const useSetTimeout = (
 	opts: Opts = { cleanup: 'unmount' },
 ): ((handler: Function, timeout?: number | undefined, ...args: any[]) => void) => {

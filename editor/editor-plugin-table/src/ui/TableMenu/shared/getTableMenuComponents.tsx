@@ -5,10 +5,11 @@ import { getColumnMenuComponents } from '../column/getColumnMenuComponents';
 import { getRowMenuComponents } from '../row/getRowMenuComponents';
 
 import { getSharedItems } from './getSharedItems';
+import type { TableMenuComponentsParams } from './types';
 
-export const getTableMenuComponents = (): RegisterComponent[] => [
-	...getRowMenuComponents(),
+export const getTableMenuComponents = (params: TableMenuComponentsParams): RegisterComponent[] => [
+	...getRowMenuComponents(params),
 	...getColumnMenuComponents(),
 	...getCellMenuComponents(),
-	...getSharedItems(),
+	...getSharedItems(params),
 ];

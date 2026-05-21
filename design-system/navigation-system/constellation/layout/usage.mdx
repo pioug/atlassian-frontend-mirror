@@ -72,28 +72,18 @@ When applying components to the navigational areas,
 		<strong>Main:</strong> Use for the page content. Expands to fill available space.
 	</li>
 	<li>
-		<strong>Aside:</strong> Optional. Use to display supporting or supplementary content. Is
-		resizable. <em>We plan to deprecate aside, please use panel instead.</em>
-	</li>
-	<li>
 		<strong>Panel:</strong> Optional. Use to display supporting or supplementary content. Is
 		resizable and collapsible.
 	</li>
 </ol>
 
-### The difference between aside, panel and modal dialog
+### The difference between panel and modal dialog
 
-<SectionMessage appearance="warning" title="Caution">
-	We plan to deprecate aside. Use panel instead.
-</SectionMessage>
+The main difference between panel and modal dialog is their behaviors:
 
-The main difference between aside, panel and modal dialog is their behaviours:
-
-- **Aside** is not collapsible, while **panel** can be collapsible.
-- **Panel** and **aside** present content alongside the **main** area, while a **modal dialog**
+- **Panel** presents content alongside the **main** area, while a **modal dialog**
   appears in a layer above the page.
-- On small viewports (1024px and below), the **panel** becomes an overlay, while the **aside** moves
-  below the **main** area.
+- **Panel** can be collapsed and resized. On small viewports (1024px and below), the **panel** becomes an overlay.
 
 #### Usage guidance
 
@@ -102,14 +92,13 @@ The main difference between aside, panel and modal dialog is their behaviours:
   connected to their primary task.
 - Use a **modal dialog** when you need the user to focus on a specific task, such as making a
   decision or completing an action, before they can return to their primary task.
-- Don’t use aside for new experiences. It is planned for deprecation.
 
 ## Accessibility
 
 - Always place slots in this order as direct children of the root: banner, top nav, side nav, main,
-  aside, panel. This determines the keyboard tab order, screen reader reading order, and skip link
+  panel. This determines the keyboard tab order, screen reader reading order, and skip link
   order.
-- Provide a unique, meaningful `label` for side nav, aside, panel, and top nav end. The label is
+- Provide a unique, meaningful `label` for side nav, panel, and top nav end. The label is
   exposed as the landmark's accessible name. Don't repeat the landmark's role in the label.
 - Slots provide landmark roles automatically. Don't add or duplicate landmark roles inside them.
 - Use custom skip links sparingly. Too many skip links makes the skip links menu noisy. Consider the
@@ -137,11 +126,11 @@ The main difference between aside, panel and modal dialog is their behaviours:
 		image={{
 			url: layoutDontLight,
 			urlDarkMode: layoutDontDark,
-			alt: 'A layout with a grid overlay on the Main area, but also on the Side nav, Aside and Panel areas.',
+			alt: 'A layout with a grid overlay on the Main area, but also on the Side nav and Panel areas.',
 		}}
 		isFullWidth
 	>
-		Don't include side nav, aside or panel areas as part of your grid.
+		Don't include side nav or panel areas as part of your grid.
 	</DoDont>
 </DoDontGrid>
 

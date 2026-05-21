@@ -69,4 +69,5 @@ const RouterLinkProvider = ({
 	);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default RouterLinkProvider;

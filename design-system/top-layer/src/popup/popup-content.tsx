@@ -10,7 +10,6 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 
 import { roleToAriaHasPopup } from '../internal/role-types';
 import { useAnchorPosition } from '../internal/use-anchor-position';
-import { usePresetStyles } from '../internal/use-preset-styles';
 import { useWidthFromAnchor } from '../internal/use-width-from-anchor';
 import { Popover } from '../popover/popover';
 import { type TPopoverInternalProps } from '../popover/types';
@@ -32,7 +31,6 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 		label,
 		labelledBy,
 		animate,
-		arrow,
 		mode,
 		widthFromAnchor = 'none',
 		xcss,
@@ -132,14 +130,12 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 	// reach the same DOM element for togglePopover). Otherwise use a local ref.
 	const localRef = useRef<HTMLDivElement>(null);
 	const popoverRef = ctx?.popoverRef ?? localRef;
-	const arrowPreset = usePresetStyles({ preset: arrow });
 
 	useAnchorPosition({
 		anchorRef: triggerRef ?? { current: null },
 		popoverRef,
 		placement,
 		forceFallbackPositioning,
-		arrow: arrowPreset ?? undefined,
 	});
 
 	useWidthFromAnchor({ mode: widthFromAnchor, popoverRef, anchorRef: triggerRef });

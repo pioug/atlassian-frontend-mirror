@@ -53,6 +53,7 @@ export type TableSharedStateInternal = Pick<
 	| 'wasMaxWidthModeEnabled'
 	| 'isHeaderRowEnabled'
 	| 'isHeaderColumnEnabled'
+	| 'isNumberColumnEnabled'
 	| 'ordering'
 	| 'isInDanger'
 	| 'hoveredRows'

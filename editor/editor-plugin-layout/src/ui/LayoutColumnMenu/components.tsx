@@ -8,9 +8,14 @@ import type { RegisterComponent, SurfaceFallbacks } from '@atlaskit/editor-ui-co
 
 import type { LayoutPlugin } from '../../layoutPluginType';
 
+import { DeleteColumnDropdownItem } from './DeleteColumnDropdownItem';
 import { createDistributeColumnsDropdownItem } from './DistributeColumnsDropdownItem';
+import { InsertColumnDropdownItem } from './InsertColumnDropdownItem';
 import {
+	DELETE_COLUMN_MENU_ITEM,
 	DISTRIBUTE_COLUMNS_MENU_ITEM,
+	INSERT_COLUMN_LEFT_MENU_ITEM,
+	INSERT_COLUMN_RIGHT_MENU_ITEM,
 	LAYOUT_COLUMN_MENU,
 	LAYOUT_COLUMN_MENU_RANK,
 	LAYOUT_COLUMN_MENU_SECTION,
@@ -56,12 +61,42 @@ export const getLayoutColumnMenuComponents = ({
 			],
 		},
 		{
+			...INSERT_COLUMN_LEFT_MENU_ITEM,
+			component: () => <InsertColumnDropdownItem api={api} side="left" />,
+			parents: [
+				{
+					...LAYOUT_COLUMN_MENU_SECTION,
+					rank: LAYOUT_COLUMN_MENU_SECTION_RANK[INSERT_COLUMN_LEFT_MENU_ITEM.key],
+				},
+			],
+		},
+		{
+			...INSERT_COLUMN_RIGHT_MENU_ITEM,
+			component: () => <InsertColumnDropdownItem api={api} side="right" />,
+			parents: [
+				{
+					...LAYOUT_COLUMN_MENU_SECTION,
+					rank: LAYOUT_COLUMN_MENU_SECTION_RANK[INSERT_COLUMN_RIGHT_MENU_ITEM.key],
+				},
+			],
+		},
+		{
 			...DISTRIBUTE_COLUMNS_MENU_ITEM,
 			component: createDistributeColumnsDropdownItem(api),
 			parents: [
 				{
 					...LAYOUT_COLUMN_MENU_SECTION,
 					rank: LAYOUT_COLUMN_MENU_SECTION_RANK[DISTRIBUTE_COLUMNS_MENU_ITEM.key],
+				},
+			],
+		},
+		{
+			...DELETE_COLUMN_MENU_ITEM,
+			component: () => <DeleteColumnDropdownItem api={api} />,
+			parents: [
+				{
+					...LAYOUT_COLUMN_MENU_SECTION,
+					rank: LAYOUT_COLUMN_MENU_SECTION_RANK[DELETE_COLUMN_MENU_ITEM.key],
 				},
 			],
 		},

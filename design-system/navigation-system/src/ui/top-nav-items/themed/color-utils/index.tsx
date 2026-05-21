@@ -64,6 +64,7 @@ export function isLight(color: RGB): boolean {
 
 export type ColorMode = 'light' | 'dark';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getColorMode(backgroundColor: RGB): ColorMode {
 	if (relativeLuminanceW3C(backgroundColor) >= flipLuminance) {
 		return 'light';
@@ -82,6 +83,7 @@ const textColor: Record<ColorMode, { hex: string; rgb: RGB }> = {
 	},
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getTextColor(backgroundColor: RGB): { hex: string; rgb: RGB } {
 	const colorMode = getColorMode(backgroundColor);
 	return textColor[colorMode];
@@ -96,6 +98,7 @@ export function getTextColor(backgroundColor: RGB): { hex: string; rgb: RGB } {
  *
  * This has been simplified to assume the background has no transparency.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function simpleAlphaComposite({
 	background,
 	foreground,

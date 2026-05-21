@@ -126,6 +126,18 @@ type DeletedLayoutAEP = TrackAEP<
 	undefined
 >;
 
+type DeletedLayoutColumnAEP = TrackAEP<
+	ACTION.DELETED,
+	ACTION_SUBJECT.DOCUMENT,
+	ACTION_SUBJECT_ID.LAYOUT_COLUMN,
+	{
+		columnCount: number;
+		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU;
+		selectedIndex: number;
+	},
+	undefined
+>;
+
 type DeletedExpandAEP = TrackAEP<
 	ACTION.DELETED,
 	ACTION_SUBJECT.EXPAND | ACTION_SUBJECT.NESTED_EXPAND,
@@ -160,6 +172,7 @@ export type NodeEventPayload =
 	| VisitedHyperlink
 	| ChangedLayoutAEP
 	| DeletedLayoutAEP
+	| DeletedLayoutColumnAEP
 	| DeletedExpandAEP
 	| NodeDeletedAEP
 	| ChangeSmartLinkAEP

@@ -43,4 +43,5 @@ export function filterFromConsoleErrorOutput(searchString: RegExp): ResetConsole
 
 // Expected error due to jsdom not knowing how to parse the `@starting-style` at-rule.
 // See: https://github.com/jsdom/jsdom/issues/3236
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const parseCssErrorRegex: RegExp = /Could not parse CSS stylesheet/;

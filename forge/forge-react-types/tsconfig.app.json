@@ -29,7 +29,7 @@
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__forge-react-types/app",
-		"isolatedDeclarations": true
+		"isolatedDeclarations": false
 	},
 	"references": [
 		{

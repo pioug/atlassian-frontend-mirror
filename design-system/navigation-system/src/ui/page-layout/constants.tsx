@@ -20,7 +20,9 @@ export const ribbonVar = '--n_rbnW';
 export const sideNavLiveWidthVar = '--n_sNvlw';
 
 export const sideNavPanelSplitterId: unique symbol = Symbol('SideNav PanelSplitter');
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const asidePanelSplitterId: unique symbol = Symbol('Aside PanelSplitter');
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const panelPanelSplitterId: unique symbol = Symbol('Panel PanelSplitter');
 
 // We aren't using template literals here because Compiled can't compiled them in platform ATM.
@@ -50,6 +52,7 @@ export const UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY: 'calc(var(--rightSide
  * For globally defined values such as flag, modal, etc, we can continue to
  * rely on accessing them through global means.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const localSlotLayers: {
 	ribbon: number;
 	sideNavPanelSplitterFHS: number;

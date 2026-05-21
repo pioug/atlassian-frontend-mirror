@@ -1,7 +1,8 @@
 /* eslint-disable require-unicode-regexp  */
 
-import type { JSONNode } from '@atlaskit/editor-json-transformer';
+import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type {
 	SyncBlockData,
@@ -11,10 +12,61 @@ import type {
 	SyncBlockProduct,
 } from '../common/types';
 
+export const stripAnnotationMarksFromJSONContent = <T extends JSONNode | undefined>(
+	content: T[],
+): T[] => {
+	let strippedContent: T[] | undefined;
+
+	content.forEach((contentNode, index) => {
+		if (!contentNode) {
+			strippedContent?.push(contentNode);
+			return;
+		}
+
+		const hasAnnotationMark = contentNode.marks?.some((mark) => mark.type === 'annotation');
+		const childContent = contentNode.content
+			? stripAnnotationMarksFromJSONContent(contentNode.content)
+			: undefined;
+		const hasContentChanged = childContent !== undefined && childContent !== contentNode.content;
+
+		if (!hasAnnotationMark && !hasContentChanged) {
+			strippedContent?.push(contentNode);
+			return;
+		}
+
+		if (!strippedContent) {
+			strippedContent = content.slice(0, index);
+		}
+
+		const strippedNode = { ...contentNode };
+
+		if (hasAnnotationMark) {
+			const marks = contentNode.marks?.filter((mark) => mark.type !== 'annotation');
+			if (marks && marks.length > 0) {
+				strippedNode.marks = marks;
+			} else {
+				delete strippedNode.marks;
+			}
+		}
+
+		if (hasContentChanged && childContent) {
+			strippedNode.content = childContent;
+		}
+
+		strippedContent.push(strippedNode as T);
+	});
+
+	return strippedContent ?? content;
+};
+
 export const convertSyncBlockPMNodeToSyncBlockData = (node: PMNode): SyncBlockData => {
+	const content = node.content.toJSON();
+
 	return {
 		blockInstanceId: node.attrs.localId,
-		content: node.content.toJSON(),
+		content: fg('platform_synced_block_patch_12')
+			? stripAnnotationMarksFromJSONContent(content)
+			: content,
 		resourceId: node.attrs.resourceId,
 	};
 };

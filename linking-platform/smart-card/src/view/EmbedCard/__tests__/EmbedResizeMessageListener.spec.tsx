@@ -2,8 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@atlassian/testing-library';
 
-import { embedHeaderHeight } from '../components/styled';
-import { EmbedResizeMessageListener } from '../EmbedResizeMessageListener';
+import { embedHeaderHeight, EmbedResizeMessageListener } from '../EmbedResizeMessageListener';
 
 describe('EmbedResizeMessageListener', () => {
 	const getIframeElement = (windowId: number) => {

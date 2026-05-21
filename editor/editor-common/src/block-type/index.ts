@@ -1,0 +1,2 @@
+export const INSERTED_TRAILING_PARAGRAPH_TO_LAST_NODE_META =
+	'insertedTrailingParagraphToLastNode';

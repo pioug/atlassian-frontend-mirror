@@ -43,6 +43,7 @@ export const getObjectLikeness: (node: ObjectExpression) => number = (node: Obje
 	return countMatchingKeyValues(styleEntries);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const countMatchingKeyValues: (styleEntries: KeyValue[]) => number = (
 	styleEntries: KeyValue[],
 ) => {

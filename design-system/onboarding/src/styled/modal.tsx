@@ -80,6 +80,7 @@ export const ModalBody = ({ children }: { children: ReactNode }): JSX.Element =>
  *
  * @internal
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports, @repo/internal/react/require-jsdoc
 export const ModalHeading = ({
 	children,
 	id,
@@ -100,6 +101,7 @@ export const ModalHeading = ({
  *
  * @internal
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports, @repo/internal/react/require-jsdoc
 export const ModalImage = ({ alt, src }: ModalImageProps): JSX.Element => (
 	<img css={modalImageStyles} alt={alt} src={src} />
 );
@@ -109,6 +111,7 @@ export const ModalImage = ({ alt, src }: ModalImageProps): JSX.Element => (
  *
  * @internal
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports, @repo/internal/react/require-jsdoc
 export const ModalActionContainer = ({
 	children,
 	shouldReverseButtonOrder,
@@ -128,6 +131,7 @@ export const ModalActionContainer = ({
  *
  * @internal
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports, @repo/internal/react/require-jsdoc
 export const ModalActionItem = ({ children }: { children: ReactNode }): JSX.Element => (
 	<Box xcss={modalActionItemStyles.root}>{children}</Box>
 );

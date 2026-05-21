@@ -12,6 +12,9 @@ export type CustomElementProps = Prettify<
 	} & Partial<Record<SmartLinkStatus, React.ReactNode>>
 >;
 
+/**
+ * Public API — exported externally. Do not add props without external support intent.
+ */
 const CustomByStatusElement = ({
 	className,
 	testId = 'custom-by-status-element',

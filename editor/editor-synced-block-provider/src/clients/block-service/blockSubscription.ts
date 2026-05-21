@@ -150,6 +150,7 @@ subscription EDITOR_SYNCED_BLOCK_ON_BLOCK_UPDATED($resourceId: ID!) {
 
 type SubscriptionCallback = (data: ParsedBlockSubscriptionData) => void;
 type ErrorCallback = (error: Error) => void;
+type CompleteCallback = () => void;
 type Unsubscribe = () => void;
 
 /**
@@ -240,6 +241,7 @@ export const subscribeToBlockUpdates = (
 	blockAri: string,
 	onData: SubscriptionCallback,
 	onError?: ErrorCallback,
+	onComplete?: CompleteCallback,
 ): Unsubscribe => {
 	const client = getBlockServiceClient();
 
@@ -271,7 +273,7 @@ export const subscribeToBlockUpdates = (
 				onError?.(new Error(extractGraphQLWSErrorMessage(error)));
 			},
 			complete: () => {
-				// Subscription completed
+				onComplete?.();
 			},
 		},
 	);

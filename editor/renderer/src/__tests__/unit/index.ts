@@ -526,7 +526,7 @@ describe('Renderer', () => {
 					mockDispatchAnalyticsEvent,
 				);
 
-				expect(nativeEmbedsFallbackTransform).toHaveBeenCalledWith(gateOnDocument);
+				expect(nativeEmbedsFallbackTransform).toHaveBeenCalledWith(gateOnDocument, schema);
 				expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
 					action: ACTION.NATIVE_EMBEDS_TRANSFORMED,
 					actionSubject: ACTION_SUBJECT.RENDERER,

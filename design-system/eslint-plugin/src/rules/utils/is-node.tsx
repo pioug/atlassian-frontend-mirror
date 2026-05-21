@@ -9,12 +9,14 @@ export const isCssInJsCallNode = (node?: Expression | null): node is CallExpress
 	node.callee.type === 'Identifier' &&
 	cssInJsCallees.includes(node.callee.name);
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isCssInJsObjectNode = (node?: Expression | null): node is CallExpression =>
 	node?.type === 'CallExpression' &&
 	node.callee.type === 'MemberExpression' &&
 	node.callee.object.type === 'Identifier' &&
 	cssInJsCallees.includes(node.callee.object.name);
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isDecendantOfStyleBlock = (node: Rule.Node): boolean => {
 	if (node.type === 'VariableDeclarator') {
 		if (node.id.type !== 'Identifier') {

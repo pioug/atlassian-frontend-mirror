@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "5.3.0",
+	"version": "5.4.1",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -97,6 +97,7 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/width-detector": "workspace:^",
+		"@atlassian/assets-workspace-host": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@types/dompurify": "root:*",
@@ -212,7 +213,13 @@
 		"platform_lp_sllv_jira_type_as_link": {
 			"type": "boolean"
 		},
+		"fallback_to_default_columns_to_display_in_sllv": {
+			"type": "boolean"
+		},
 		"linking_platform_link_datasource_unit_compliant": {
+			"type": "boolean"
+		},
+		"astral_units_workspace_host_resolver": {
 			"type": "boolean"
 		},
 		"navx-4870-adding-keyboard-focus-for-sllv-columns": {

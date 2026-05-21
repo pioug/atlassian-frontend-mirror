@@ -35,7 +35,7 @@
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__forge-react-types/dev",
-		"isolatedDeclarations": true
+		"isolatedDeclarations": false
 	},
 	"references": [
 		{

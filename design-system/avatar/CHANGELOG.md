@@ -1,5 +1,15 @@
 # @atlaskit/avatar
 
+## 25.15.0
+
+### Minor Changes
+
+- [`e52f0046ff01d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e52f0046ff01d) -
+  Cleanup feature gate `platform_dst_hexagon_avatar_unified_size`. Hexagonal avatars now
+  consistently use unified sizing to align with other avatar types. We have not seen any regression
+  with this breaking alignment, but it's possible to have subtle breaking changes with unsafe style
+  overrides.
+
 ## 25.14.2
 
 ### Patch Changes

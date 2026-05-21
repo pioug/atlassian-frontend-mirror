@@ -62,6 +62,9 @@ const maxLinesCss = css({
 	},
 });
 
+/**
+ * Public API — exported externally. Do not add props without external support intent.
+ */
 const CustomElementByAccessType = ({
 	className,
 	testId = 'custom-by-access-type-element',

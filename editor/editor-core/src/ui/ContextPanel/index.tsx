@@ -1,13 +1,6 @@
 /* eslint-disable jsdoc/require-jsdoc -- Pre-existing lint debt surfaced by this mechanical type-import-only PR. */
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React from 'react';
 
-/* eslint-disable @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
-import { css, jsx } from '@emotion/react';
-import type { SerializedStyles } from '@emotion/react';
 import { injectIntl } from 'react-intl';
 import type { IntlShape, WithIntlProps } from 'react-intl';
 import Transition from 'react-transition-group/Transition';
@@ -18,13 +11,13 @@ import { contextPanelMessages } from '@atlaskit/editor-common/messages';
 import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
 import type { ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import {
-	akEditorContextPanelWidth,
-	akEditorSwoopCubicBezier,
-} from '@atlaskit/editor-shared-styles';
+import { akEditorContextPanelWidth } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { token } from '@atlaskit/tokens';
+
+import { ContextPanelContentCompiled, ContextPanelWrapperCompiled } from './index-compiled';
+import { ContextPanelContentEmotion, ContextPanelWrapperEmotion } from './index-emotion';
 
 export type Props = {
 	children?: React.ReactElement;
@@ -36,39 +29,17 @@ export type Props = {
 
 const ANIM_SPEED_MS = 500;
 
-const panelHidden = css({
-	width: 0,
-});
+const ContextPanelWrapperMigration = componentWithCondition(
+	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
+	ContextPanelWrapperCompiled,
+	ContextPanelWrapperEmotion,
+);
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const panel: SerializedStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	width: `${akEditorContextPanelWidth}px`,
-	height: '100%',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	transition: `width ${ANIM_SPEED_MS}ms ${akEditorSwoopCubicBezier}`,
-	overflow: 'hidden',
-	boxShadow: `inset 2px 0 0 0 ${token('color.border')}`,
-});
-
-const disablePanelAnimation = css({
-	transition: 'none',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const content: SerializedStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	transition: `width 600ms ${akEditorSwoopCubicBezier}`,
-	boxSizing: 'border-box',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	width: `${akEditorContextPanelWidth}px`,
-	height: '100%',
-	overflowY: 'auto',
-});
-
-const paddingStyles = css({
-	padding: `${token('space.200')} ${token('space.200')} 0px`,
-});
+const ContextPanelContentMigration = componentWithCondition(
+	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
+	ContextPanelContentCompiled,
+	ContextPanelContentEmotion,
+);
 
 type SwappableContentAreaProps = {
 	editorView?: EditorView;
@@ -174,11 +145,7 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 		const userVisible = !!this.props.visible;
 		const visible = userVisible || !!this.state.currentPluginContent;
 		const hasPadding = this.props.hasPadding === undefined ? true : this.props.hasPadding;
-		const customPanelWidthStyles = css({
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @repo/internal/react/no-class-components
-			width: `${this.props.customWidth}px`,
-			overflowX: 'hidden',
-		});
+		const disableAnimation = fg('platform_editor_disable_context_panel_animation');
 
 		return (
 			<ContextPanelConsumer>
@@ -187,20 +154,21 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 					broadcastWidth(contextPanelWidth);
 
 					return (
-						<div
-							css={[
-								panel,
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage
-								this.props.customWidth && customPanelWidthStyles,
-								!visible && panelHidden,
-								fg('platform_editor_disable_context_panel_animation') && disablePanelAnimation,
-							]}
+						<ContextPanelWrapperMigration
+							customWidth={this.props.customWidth}
+							visible={visible}
+							disableAnimation={disableAnimation}
 							data-testid="context-panel-panel"
+							// eslint-disable-next-line @atlassian/a11y/no-empty-aria-label -- Pre-existing; intl should always resolve a label here
 							aria-label={this.props.intl?.formatMessage(contextPanelMessages.panelLabel) || ''}
 							aria-modal="false"
 							role="dialog"
 						>
-							<div
+							<ContextPanelContentMigration
+								customWidth={this.props.customWidth}
+								visible={visible}
+								disableAnimation={disableAnimation}
+								hasPadding={hasPadding}
 								data-testid="context-panel-content"
 								// Adding tabIndex=0 here to make content focusable as it is a scrollable region
 								tabIndex={fg('platform_editor_nov_a11y_fixes') ? 0 : undefined}
@@ -210,18 +178,10 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 										? this.props.intl?.formatMessage(contextPanelMessages.panelContentLabel)
 										: undefined
 								}
-								css={[
-									content,
-									hasPadding && paddingStyles,
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage
-									this.props.customWidth && customPanelWidthStyles,
-									!visible && panelHidden,
-									fg('platform_editor_disable_context_panel_animation') && disablePanelAnimation,
-								]}
 							>
 								{this.showPluginContent() || this.showProvidedContent(userVisible)}
-							</div>
-						</div>
+							</ContextPanelContentMigration>
+						</ContextPanelWrapperMigration>
 					);
 				}}
 			</ContextPanelConsumer>
@@ -234,7 +194,7 @@ export const SwappableContentArea: React.FC<WithIntlProps<SwappableContentAreaPr
 	WrappedComponent: React.ComponentType<SwappableContentAreaProps>;
 } = injectIntl(SwappableContentAreaInner);
 
-export function ContextPanel(props: Props): jsx.JSX.Element {
+export function ContextPanel(props: Props): React.JSX.Element {
 	const contextPanelContents = useSharedPluginStateWithSelector(
 		props.editorAPI,
 		['contextPanel'],

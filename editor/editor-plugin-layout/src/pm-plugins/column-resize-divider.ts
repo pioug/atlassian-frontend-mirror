@@ -6,13 +6,12 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import { MIN_LAYOUT_COLUMN_WIDTH_PERCENT } from './consts';
+
 // Class names for the column resize divider widget — must stay in sync with layout.ts in editor-core
 const layoutColumnDividerClassName = 'layout-column-divider';
 const layoutColumnDividerRailClassName = 'layout-column-divider-rail';
 const layoutColumnDividerThumbClassName = 'layout-column-divider-thumb';
-
-// Minimum column width percentage to prevent columns from collapsing
-const MIN_COLUMN_WIDTH_PERCENT = 5;
 
 // Module-level drag state so it survives widget DOM recreation during transactions.
 let dragState: {
@@ -104,12 +103,12 @@ const calcDragWidths = (clientX: number): { leftWidth: number; rightWidth: numbe
 	let leftWidth = dragState.startLeftWidth + deltaPercent;
 	let rightWidth = dragState.startRightWidth - deltaPercent;
 
-	if (leftWidth < MIN_COLUMN_WIDTH_PERCENT) {
-		leftWidth = MIN_COLUMN_WIDTH_PERCENT;
-		rightWidth = combinedWidth - MIN_COLUMN_WIDTH_PERCENT;
-	} else if (rightWidth < MIN_COLUMN_WIDTH_PERCENT) {
-		rightWidth = MIN_COLUMN_WIDTH_PERCENT;
-		leftWidth = combinedWidth - MIN_COLUMN_WIDTH_PERCENT;
+	if (leftWidth < MIN_LAYOUT_COLUMN_WIDTH_PERCENT) {
+		leftWidth = MIN_LAYOUT_COLUMN_WIDTH_PERCENT;
+		rightWidth = combinedWidth - MIN_LAYOUT_COLUMN_WIDTH_PERCENT;
+	} else if (rightWidth < MIN_LAYOUT_COLUMN_WIDTH_PERCENT) {
+		rightWidth = MIN_LAYOUT_COLUMN_WIDTH_PERCENT;
+		leftWidth = combinedWidth - MIN_LAYOUT_COLUMN_WIDTH_PERCENT;
 	}
 
 	return { leftWidth, rightWidth };

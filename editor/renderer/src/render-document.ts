@@ -147,7 +147,7 @@ const _validation = (
 		!expValEquals('cc-maui-experiment', 'isEnabled', true) &&
 		fg('platform_editor_native_embeds_fallback_transform')
 	) {
-		const { transformedAdf, hasValidTransform } = nativeEmbedsFallbackTransform(result);
+		const { transformedAdf, hasValidTransform } = nativeEmbedsFallbackTransform(result, schema);
 
 		if (hasValidTransform && transformedAdf) {
 			dispatchAnalyticsEvent?.({

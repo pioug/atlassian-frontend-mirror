@@ -39,4 +39,5 @@ const useExpand: () => ExpandContextState = () => {
 	return useContext(ExpandContext);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default useExpand;

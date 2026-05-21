@@ -16,6 +16,7 @@ export function hexToRgbA(hex: string): [number, number, number, number] {
 	return [(c >> 16) & 255, (c >> 8) & 255, c & 255, getAlpha(hex)];
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function hexToRgb(hex: string): [number, number, number] {
 	if (!isValidHex(hex)) {
 		throw new Error('Invalid HEX');
@@ -29,6 +30,7 @@ export function hexToRgb(hex: string): [number, number, number] {
 	return [(c >> 16) & 255, (c >> 8) & 255, c & 255];
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function hexToHSL(hex: string): [number, number, number] {
 	if (!isValidHex(hex)) {
 		throw new Error('Invalid HEX');
@@ -81,6 +83,7 @@ export function hexToHSL(hex: string): [number, number, number] {
 	return [h, s, l];
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getContrastRatio(foreground: string, background: string): number {
 	if (!isValidHex(foreground) || !isValidHex(background)) {
 		throw new Error('Invalid HEX');
@@ -104,6 +107,7 @@ export function getContrastRatio(foreground: string, background: string): number
 	return (brightest + 0.05) / (darkest + 0.05);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function deltaE(rgbA: number[], rgbB: number[]): number {
 	let labA = rgbToLab(rgbA);
 	let labB = rgbToLab(rgbB);

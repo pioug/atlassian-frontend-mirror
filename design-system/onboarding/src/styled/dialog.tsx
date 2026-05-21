@@ -57,6 +57,7 @@ export const DialogImage = ({
  *
  * @internal
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports, @repo/internal/react/require-jsdoc
 export const DialogActionItemContainer = ({ children }: { children: ReactNode }): JSX.Element => (
 	<Box xcss={actionItemContainerStyles.root}>{children}</Box>
 );
@@ -68,6 +69,7 @@ export const DialogActionItemContainer = ({ children }: { children: ReactNode })
  *
  * @internal
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports, @repo/internal/react/require-jsdoc
 export const DialogActionItem = ({ children }: { children: ReactNode }): JSX.Element => (
 	<Box xcss={actionItemStyles.root}>{children}</Box>
 );

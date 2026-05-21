@@ -22,6 +22,7 @@ const completeTriplet = (colors: string[]) => `#${repeat(colors[1], 6)}`;
 
 const isTriplet = (colors: string[]) => colors[0] === colors[1] && colors[1] === colors[2];
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const convertHexShorthand = (color: string): string => {
 	if (isShortHexColor(color)) {
 		// when color = '#ccc', matches is structured as ['#ccc', 'c', 'c', 'c', ...]
@@ -40,11 +41,13 @@ export const convertHexShorthand = (color: string): string => {
 	return color;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const generateTextColor = (color: string): string => {
 	const converted = convertHexShorthand(color);
 	return chromatism.contrastRatio(converted).hex;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getContrastColor = (
 	contrastValue: number,
 	opacityValue: number,

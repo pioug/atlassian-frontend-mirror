@@ -9,11 +9,8 @@ import { jsx } from '@compiled/react';
 import { cssMap } from '@atlaskit/css';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import { arrow } from '@atlaskit/top-layer/arrow';
 import { Popup, type TPlacementOptions } from '@atlaskit/top-layer/popup';
 import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
-
-const popoverArrow = arrow();
 
 const styles = cssMap({
 	center: {
@@ -53,10 +50,6 @@ const styles = cssMap({
 	flipInlineStart: {
 		insetInlineStart: token('space.200'),
 		insetBlockStart: '50%',
-	},
-	// Dark surface so the arrow is visually distinguishable from the white background.
-	arrowSurface: {
-		backgroundColor: token('color.background.neutral.bold'),
 	},
 });
 
@@ -138,10 +131,8 @@ function VrPopoverJsFallback({ placement }: { placement: TPlacementOptions }) {
 // container so Compiled CSS can statically analyze the edge style.
 function PopupAtEdge({
 	placement,
-	withArrow = false,
 }: {
 	placement: TPlacementOptions;
-	withArrow?: boolean;
 }) {
 	const label = offsetLabel(placement);
 	const triggerRef = useRef<HTMLButtonElement>(null);
@@ -149,30 +140,6 @@ function PopupAtEdge({
 	useEffect(() => {
 		triggerRef.current?.click();
 	}, []);
-
-	if (withArrow) {
-		return (
-			<Popup placement={placement} onClose={() => {}}>
-				<Popup.Trigger>
-					<button ref={triggerRef} type="button">
-						{label}
-					</button>
-				</Popup.Trigger>
-				<Popup.Content
-					role="dialog"
-					label={`Edge ${label}`}
-					arrow={popoverArrow}
-					xcss={styles.arrowSurface}
-				>
-					<Box padding="space.200">
-						<Text size="small" weight="medium" color="color.text.inverse">
-							{label}
-						</Text>
-					</Box>
-				</Popup.Content>
-			</Popup>
-		);
-	}
 
 	return (
 		<Popup placement={placement} onClose={() => {}}>
@@ -689,77 +656,6 @@ export function VrFlipInlineStartShiftBackwards(): JSX.Element {
 							crossAxisShift: { value: 12, direction: 'backwards' },
 						},
 					}}
-				/>
-			</div>
-		</div>
-	);
-}
-
-// Section C: Arrow + shift + edge flip.
-// Confirms named @position-try rules carry the shift margin through the flip.
-
-export function VrArrowFlipBlockEndShift(): JSX.Element {
-	return (
-		<div css={styles.container}>
-			<div css={[styles.inner, styles.flipBlockEnd]}>
-				<PopupAtEdge
-					placement={{
-						axis: 'block',
-						edge: 'end',
-						offset: { crossAxisShift: { value: 12, direction: 'forwards' } },
-					}}
-					withArrow
-				/>
-			</div>
-		</div>
-	);
-}
-
-export function VrArrowFlipBlockStartShift(): JSX.Element {
-	return (
-		<div css={styles.container}>
-			<div css={[styles.inner, styles.flipBlockStart]}>
-				<PopupAtEdge
-					placement={{
-						axis: 'block',
-						edge: 'start',
-						offset: { crossAxisShift: { value: 12, direction: 'forwards' } },
-					}}
-					withArrow
-				/>
-			</div>
-		</div>
-	);
-}
-
-export function VrArrowFlipInlineEndShift(): JSX.Element {
-	return (
-		<div css={styles.container}>
-			<div css={[styles.inner, styles.flipInlineEnd]}>
-				<PopupAtEdge
-					placement={{
-						axis: 'inline',
-						edge: 'end',
-						offset: { crossAxisShift: { value: 12, direction: 'forwards' } },
-					}}
-					withArrow
-				/>
-			</div>
-		</div>
-	);
-}
-
-export function VrArrowFlipInlineStartShift(): JSX.Element {
-	return (
-		<div css={styles.container}>
-			<div css={[styles.inner, styles.flipInlineStart]}>
-				<PopupAtEdge
-					placement={{
-						axis: 'inline',
-						edge: 'start',
-						offset: { crossAxisShift: { value: 12, direction: 'forwards' } },
-					}}
-					withArrow
 				/>
 			</div>
 		</div>

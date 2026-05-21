@@ -30,6 +30,7 @@ export function findMissingCustomStyleElements(
 	return attrOfMissingCustomStyles;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function reduceTokenMap(
 	tokenMap: { [key in Token]?: number | string },
 	themeRamp: string[],

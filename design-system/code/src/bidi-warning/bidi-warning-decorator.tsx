@@ -7,6 +7,7 @@ export const bidiCharacterRegex: RegExp = /[\u202A-\u202E\u2066-\u2069]/g;
  * In case if bidi characters found - returns children with decorated
  * bidi characters. If no bidi characters found - original text returned.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default function codeBidiWarningDecorator<DecoratorOutput>(
 	originalText: string,
 	decorate: (options: { bidiCharacter: string; index?: number }) => DecoratorOutput,

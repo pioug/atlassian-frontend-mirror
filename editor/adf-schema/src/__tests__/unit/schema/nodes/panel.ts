@@ -2,7 +2,7 @@ import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import type { SchemaConfig } from '../../../../schema/create-schema';
 import { createSchema } from '../../../../schema/create-schema';
 import { toHTML, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
-import { extendedPanel } from '../../../../schema/nodes/panel';
+import { extendedPanel, extendedPanelC1, extendedPanelC1WithLocalId } from '../../../../schema/nodes/panel';
 import { panel, panelC1 } from '../../../../next-schema';
 
 const schema = makeSchema();
@@ -326,6 +326,108 @@ describe('panel_c1 variant (next-schema)', () => {
 
 	it('should be selectable', () => {
 		expect(panelC1Spec.selectable).toBe(true);
+	});
+});
+
+describe('extendedPanelC1 factory wrappers', () => {
+	describe('extendedPanelC1', () => {
+		it('should include table in the content expression', () => {
+			const spec = extendedPanelC1(false);
+			expect(spec.content).toContain('table');
+		});
+
+		it('should have the same attrs as extendedPanel', () => {
+			expect(extendedPanelC1(false).attrs).toStrictEqual(extendedPanel(false).attrs);
+		});
+
+		it('should be in the block group', () => {
+			expect(extendedPanelC1(false).group).toBe('block');
+		});
+
+		it('should be selectable', () => {
+			expect(extendedPanelC1(false).selectable).toBe(true);
+		});
+
+		it('should have parseDOM and toDOM entries', () => {
+			const spec = extendedPanelC1(false);
+			expect(spec.parseDOM).toHaveLength(1);
+			expect(spec.toDOM).toBeInstanceOf(Function);
+		});
+
+		describe('allowCustomPanel: false', () => {
+			it('should strip custom panel attrs when parsing from DOM', () => {
+				const spec = extendedPanelC1(false);
+				const parser = new DOMParser();
+				const dom = parser.parseFromString(
+				'<div data-panel-type="custom" data-panel-icon=":smiley:" data-panel-color="#33FF33"><p>test</p></div>',
+				'text/html',
+			);
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
+			const el = dom.body.firstChild as HTMLElement;
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				const attrs = (spec.parseDOM![0] as { getAttrs: (el: HTMLElement) => object }).getAttrs(el);
+				expect(attrs).not.toHaveProperty('panelIcon');
+				expect(attrs).not.toHaveProperty('panelColor');
+				// custom panelType should be coerced to info
+				expect((attrs as { panelType: string }).panelType).toBe('info');
+			});
+		});
+
+		describe('allowCustomPanel: true', () => {
+			it('should preserve custom panel attrs when parsing from DOM', () => {
+				const spec = extendedPanelC1(true);
+				const parser = new DOMParser();
+				const dom = parser.parseFromString(
+				'<div data-panel-type="custom" data-panel-icon=":smiley:" data-panel-color="#33FF33" data-panel-icon-id="1f603" data-panel-icon-text="😃"><p>test</p></div>',
+				'text/html',
+			);
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
+			const el = dom.body.firstChild as HTMLElement;
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				const attrs = (spec.parseDOM![0] as { getAttrs: (el: HTMLElement) => object }).getAttrs(el);
+				expect((attrs as { panelType: string }).panelType).toBe('custom');
+				expect((attrs as { panelIcon: string }).panelIcon).toBe(':smiley:');
+				expect((attrs as { panelColor: string }).panelColor).toBe('#33FF33');
+				expect((attrs as { panelIconId: string }).panelIconId).toBe('1f603');
+				expect((attrs as { panelIconText: string }).panelIconText).toBe('😃');
+			});
+		});
+	});
+
+	describe('extendedPanelC1WithLocalId', () => {
+		it('should include table in the content expression', () => {
+			const spec = extendedPanelC1WithLocalId(false);
+			expect(spec.content).toContain('table');
+		});
+
+		it('should generate a localId when parsing from DOM', () => {
+			const spec = extendedPanelC1WithLocalId(false);
+			const parser = new DOMParser();
+			const dom = parser.parseFromString(
+				'<div data-panel-type="info"><p>test</p></div>',
+				'text/html',
+			);
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
+			const el = dom.body.firstChild as HTMLElement;
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
+			const attrs = (spec.parseDOM![0] as { getAttrs: (el: HTMLElement) => object }).getAttrs(el);
+			expect((attrs as { localId: string }).localId).toBeTruthy();
+			expect(typeof (attrs as { localId: string }).localId).toBe('string');
+		});
+
+		it('should NOT generate a localId when using extendedPanelC1 (no localId)', () => {
+			const spec = extendedPanelC1(false);
+			const parser = new DOMParser();
+			const dom = parser.parseFromString(
+				'<div data-panel-type="info"><p>test</p></div>',
+				'text/html',
+			);
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
+			const el = dom.body.firstChild as HTMLElement;
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
+			const attrs = (spec.parseDOM![0] as { getAttrs: (el: HTMLElement) => object }).getAttrs(el);
+			expect((attrs as { localId: string | undefined }).localId).toBeUndefined();
+		});
 	});
 });
 

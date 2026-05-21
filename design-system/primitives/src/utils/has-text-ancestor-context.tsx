@@ -8,4 +8,5 @@ export const useHasTextAncestor = (): boolean => useContext(HasTextAncestorConte
 /**
  * @internal
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const HasTextAncestorProvider: Provider<boolean> = HasTextAncestorContext.Provider;

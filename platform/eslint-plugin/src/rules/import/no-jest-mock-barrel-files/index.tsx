@@ -684,7 +684,8 @@ function findAllJestMocksInFile({
 	}
 > {
 	const allMocks = new Map();
-	const sourceCode = context.getSourceCode();
+	// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
+	const sourceCode = context.sourceCode ?? context.getSourceCode();
 	const ast = sourceCode.ast as unknown as TSESTree.Program;
 
 	// Use a visited set to prevent infinite recursion
@@ -1074,7 +1075,8 @@ function generateMockImplementationFix({
 		for (let i = 1; i < sortedNodesToRemove.length; i++) {
 			const nodeToRemove = sortedNodesToRemove[i];
 			// Find the statement that contains this node to remove the entire line
-			const sourceCode = context.getSourceCode();
+			// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
+			const sourceCode = context.sourceCode ?? context.getSourceCode();
 			const tokenAfter = sourceCode.getTokenAfter(nodeToRemove as Rule.Node);
 
 			// Try to remove the entire statement including semicolon and newline
@@ -1102,7 +1104,8 @@ function generateMockImplementationFix({
 	// Fix jest.requireMock() calls that reference the old barrel path.
 	// When we split a jest.mock('./barrel') into jest.mock('./specific-file'),
 	// any jest.requireMock('./barrel') calls also need to be updated.
-	const ast = context.getSourceCode().ast as TSESTree.Program;
+	// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
+	const ast = (context.sourceCode ?? context.getSourceCode()).ast as TSESTree.Program;
 	const normalizedTarget = normalizePathForComparison({ basedir, importPath, fs });
 	const requireMockCalls = findJestRequireMockCalls({
 		ast,
@@ -1187,7 +1190,8 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 					}
 
 					const { exportMap, resolvedPath: barrelFilePath } = barrelInfo;
-					const sourceCode = context.getSourceCode();
+					// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
+					const sourceCode = context.sourceCode ?? context.getSourceCode();
 					const firstArg = node.arguments[0];
 
 					// Step 4: Handle auto-mock case (no mock implementation)

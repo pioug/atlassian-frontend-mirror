@@ -19,7 +19,6 @@ import rafSchedule from 'raf-schd';
 
 import once from '@atlaskit/ds-lib/once';
 
-import { type TArrowPreset } from '../arrow/types';
 import { type TPlacementOptions } from '../internal/resolve-placement';
 
 import { computeFallbackPosition } from './anchor-positioning-fallback';
@@ -94,6 +93,7 @@ export function placementToPositionArea({ placement }: { placement: TPlacementOp
  * `position-try-fallbacks` do NOT update margins, so only the `flip-*`
  * tactic keywords correctly flip the gap margin along with the position.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function placementToTryFallbacks({ placement }: { placement: TPlacementOptions }): string {
 	const { axis, edge, align } = getPlacement({ placement });
 	const crossAxis = axis === 'block' ? 'inline' : 'block';
@@ -273,12 +273,12 @@ function isResolvedPlacementEqual(a: TPlacement, b: TPlacement): boolean {
  * comparison is used internally so re-runs are skipped when the resolved
  * placement shape is unchanged.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function useAnchorPosition({
 	anchorRef,
 	popoverRef,
 	placement = {},
 	forceFallbackPositioning = false,
-	arrow,
 }: {
 	/**
 	 * Element to position relative to.
@@ -315,15 +315,6 @@ export function useAnchorPosition({
 	 * behavior in any environment, including production.
 	 */
 	forceFallbackPositioning?: boolean;
-	/**
-	 * Arrow preset from `@atlaskit/top-layer/arrow`. When provided, uses
-	 * the preset's named `@position-try` rules (which update both
-	 * `position-area` and `margin` on flip) and sets `--ds-arrow-size`.
-	 *
-	 * Pass `null` to disable. Has no effect in the JS fallback path -
-	 * arrows are CSS-only.
-	 */
-	arrow?: TArrowPreset | null;
 }): void {
 	const id = useId();
 	// Stabilize `placement` object so the same object literal
@@ -367,9 +358,7 @@ export function useAnchorPosition({
 				},
 				{
 					property: 'position-try-fallbacks',
-					value: arrow
-						? arrow.getTryFallbacks({ placement: stablePlacement })
-						: placementToTryFallbacks({ placement: stablePlacement }),
+					value: placementToTryFallbacks({ placement: stablePlacement }),
 				},
 				// Reset browser default popover positioning that conflicts
 				// with anchor positioning (UA: `inset: 0; margin: auto;`)
@@ -416,17 +405,6 @@ export function useAnchorPosition({
 				});
 			}
 
-			if (arrow) {
-				// Set the arrow size variable used by the injected arrow CSS
-				// and the @position-try rules for margin values.
-				popoverStyles.push({ property: '--ds-arrow-size', value: gapCssValue });
-				// Mark the popover root as the arrow host. The ARROW_CSS targets
-				// [data-ds-popover-arrow] to apply clip-path: inset(0) margin-box
-				// and box-shadow: none. Must be on the popover root (not a child)
-				// because that's where useAnchorPosition sets the margin gap.
-				popover.setAttribute('data-ds-popover-arrow', '');
-			}
-
 			/**
 			 * **We are never cleaning up anchor names**
 			 *
@@ -448,7 +426,6 @@ export function useAnchorPosition({
 
 			const undoPositioning = combine(
 				setStyle({ el: popover, styles: popoverStyles }),
-				arrow ? () => popover.removeAttribute('data-ds-popover-arrow') : () => {},
 			);
 
 			return undoPositioning;
@@ -589,5 +566,5 @@ export function useAnchorPosition({
 		);
 
 		return undoPositioning;
-	}, [anchorRef, popoverRef, stablePlacement, forceFallbackPositioning, arrow, id]);
+	}, [anchorRef, popoverRef, stablePlacement, forceFallbackPositioning, id]);
 }

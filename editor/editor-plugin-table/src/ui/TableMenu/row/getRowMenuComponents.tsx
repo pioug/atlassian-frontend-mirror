@@ -3,6 +3,8 @@ import React, { type PropsWithChildren } from 'react';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
 
+import type { TableMenuComponentsParams } from '../shared/types';
+
 import { AddRowAboveItem } from './items/AddRowAboveItem';
 import { AddRowBelowItem } from './items/AddRowBelowItem';
 import { DeleteRowItem } from './items/DeleteRowItem';
@@ -29,7 +31,7 @@ import {
 	ROW_DANGER_SECTION_RANK,
 } from './keys';
 
-export const getRowMenuComponents = (): RegisterComponent[] => [
+export const getRowMenuComponents = ({ api }: TableMenuComponentsParams): RegisterComponent[] => [
 	// --- Menu surface ---
 	{
 		type: ROW_MENU.type,
@@ -57,7 +59,7 @@ export const getRowMenuComponents = (): RegisterComponent[] => [
 				rank: ROW_TOGGLE_SECTION_RANK[HEADER_ROW_TOGGLE_ITEM.key],
 			},
 		],
-		component: () => <HeaderRowToggleItem />,
+		component: () => <HeaderRowToggleItem api={api} />,
 	},
 	{
 		type: NUMBERED_ROWS_TOGGLE_ITEM.type,
@@ -69,7 +71,7 @@ export const getRowMenuComponents = (): RegisterComponent[] => [
 				rank: ROW_TOGGLE_SECTION_RANK[NUMBERED_ROWS_TOGGLE_ITEM.key],
 			},
 		],
-		component: () => <NumberedRowsToggleItem />,
+		component: () => <NumberedRowsToggleItem api={api} />,
 	},
 	// --- Background color section ---
 	{
@@ -111,7 +113,7 @@ export const getRowMenuComponents = (): RegisterComponent[] => [
 				rank: ROW_ADD_SECTION_RANK[ADD_ROW_ABOVE_ITEM.key],
 			},
 		],
-		component: () => <AddRowAboveItem />,
+		component: () => <AddRowAboveItem api={api} />,
 	},
 	{
 		type: ADD_ROW_BELOW_ITEM.type,
@@ -123,7 +125,7 @@ export const getRowMenuComponents = (): RegisterComponent[] => [
 				rank: ROW_ADD_SECTION_RANK[ADD_ROW_BELOW_ITEM.key],
 			},
 		],
-		component: () => <AddRowBelowItem />,
+		component: () => <AddRowBelowItem api={api} />,
 	},
 	{
 		type: MOVE_ROW_UP_ITEM.type,
@@ -135,7 +137,7 @@ export const getRowMenuComponents = (): RegisterComponent[] => [
 				rank: ROW_ADD_SECTION_RANK[MOVE_ROW_UP_ITEM.key],
 			},
 		],
-		component: () => <MoveRowUpItem />,
+		component: () => <MoveRowUpItem api={api} />,
 	},
 	{
 		type: MOVE_ROW_DOWN_ITEM.type,
@@ -147,7 +149,7 @@ export const getRowMenuComponents = (): RegisterComponent[] => [
 				rank: ROW_ADD_SECTION_RANK[MOVE_ROW_DOWN_ITEM.key],
 			},
 		],
-		component: () => <MoveRowDownItem />,
+		component: () => <MoveRowDownItem api={api} />,
 	},
 	// --- Danger section (Clear cells, Delete row) ---
 	{
@@ -172,6 +174,6 @@ export const getRowMenuComponents = (): RegisterComponent[] => [
 				rank: ROW_DANGER_SECTION_RANK[DELETE_ROW_ITEM.key],
 			},
 		],
-		component: () => <DeleteRowItem />,
+		component: () => <DeleteRowItem api={api} />,
 	},
 ];

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { embedHeaderHeight } from './components/styled';
+export const embedHeaderHeight = 32;
 
 interface Props {
 	children?: React.ReactNode;

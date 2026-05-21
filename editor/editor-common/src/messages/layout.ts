@@ -1,16 +1,6 @@
 import { defineMessages } from 'react-intl';
 
 export const toolbarMessages: {
-	columnOption: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
-	controlslayoutPlaceholder: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
 	alignColumn: {
 		defaultMessage: string;
 		description: string;
@@ -31,6 +21,21 @@ export const toolbarMessages: {
 		description: string;
 		id: string;
 	};
+	columnOption: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	controlslayoutPlaceholder: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deleteColumn: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	distributeColumns: {
 		defaultMessage: string;
 		description: string;
@@ -47,6 +52,16 @@ export const toolbarMessages: {
 		id: string;
 	};
 	fourColumns: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	insertColumnLeft: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	insertColumnRight: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -223,6 +238,18 @@ export const toolbarMessages: {
 		description:
 			'The text is shown as a label for an option that distributes layout columns evenly.',
 	},
+	insertColumnLeft: {
+		id: 'fabric.editor.layout.insertColumnLeft',
+		defaultMessage: 'Insert column left',
+		description:
+			'The text is shown as a label for an option that inserts a layout column to the left of the selected column.',
+	},
+	insertColumnRight: {
+		id: 'fabric.editor.layout.insertColumnRight',
+		defaultMessage: 'Insert column right',
+		description:
+			'The text is shown as a label for an option that inserts a layout column to the right of the selected column.',
+	},
 	alignColumn: {
 		id: 'fabric.editor.layout.alignColumn',
 		defaultMessage: 'Alignment',
@@ -246,5 +273,11 @@ export const toolbarMessages: {
 		defaultMessage: 'Bottom',
 		description:
 			'The text is shown as a label for an option that aligns layout column content to the bottom.',
+	},
+	deleteColumn: {
+		id: 'fabric.editor.layout.deleteColumn',
+		defaultMessage: 'Delete column',
+		description:
+			'The text is shown as a label for an option that deletes the selected layout column and its content.',
 	},
 });

@@ -26,10 +26,12 @@ export function startTextSelectionDrag({ element }: { element: HTMLElement }): v
 	text.dispatchEvent(event);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function clearSelection(): void {
 	document.getSelection()?.empty();
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function select(element: HTMLElement): CleanupFn {
 	const selection = document.getSelection();
 	const range = new Range();

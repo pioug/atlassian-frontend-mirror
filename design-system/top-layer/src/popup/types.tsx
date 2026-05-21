@@ -3,7 +3,6 @@ import { type ReactElement, type ReactNode, type Ref, type RefObject } from 'rea
 import { type StrictXCSSProp } from '@atlaskit/css';
 
 import { type TAnimationPreset } from '../animations/types';
-import { type TArrowPreset } from '../arrow/types';
 import { type TPlacementOptions } from '../internal/resolve-placement';
 import {
 	type TRoleRequiringAccessibleName,
@@ -137,14 +136,10 @@ type TPopupContentBaseProps = {
 	 * Applies additional CSS styles to the popover root element using
 	 * design-system-safe xcss.
 	 *
-	 * **Required when using `arrow`:** the arrow pseudo-elements use
-	 * `background: inherit` to pick up their color from the popover root.
-	 * Without setting `backgroundColor` here, the arrow tip will be transparent.
-	 *
 	 * @example
 	 * ```tsx
 	 * const styles = cssMap({ surface: { backgroundColor: token('elevation.surface.overlay') } });
-	 * <Popup.Content xcss={styles.surface} arrow={arrowPreset} ... />
+	 * <Popup.Content xcss={styles.surface} ... />
 	 * ```
 	 */
 	xcss?: StrictXCSSProp<'backgroundColor', never>;
@@ -184,28 +179,6 @@ type TPopupContentBaseProps = {
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention -- testing prop
 	forceFallbackPositioning?: boolean;
-	/**
-	 * Arrow preset from `@atlaskit/top-layer/arrow`.
-	 *
-	 * When provided, renders CSS arrows that automatically flip when the
-	 * popover flips via `@position-try` fallbacks. The arrows inherit
-	 * their background color from the popover element.
-	 *
-	 * @example
-	 * ```tsx
-	 * import { arrow } from '@atlaskit/top-layer/arrow';
-	 *
-	 * const myArrow = arrow();
-	 * <Popup.Content arrow={myArrow} />
-	 * ```
-	 *
-	 * Constraints:
-	 * - `box-shadow` is disabled on the popover (incompatible with the
-	 *   `clip-path: inset() margin-box` technique)
-	 * - `::before` and `::after` pseudo-elements are consumed by the arrows
-	 * - Only works with CSS Anchor Positioning; no arrow in the JS fallback
-	 */
-	arrow?: false | TArrowPreset;
 	/**
 	 * Native popover attribute value. Default is `'auto'`.
 	 *

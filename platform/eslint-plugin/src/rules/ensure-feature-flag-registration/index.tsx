@@ -29,7 +29,8 @@ const rule: Rule.RuleModule = {
 					if (node.type === 'CallExpression') {
 						const args = node.arguments;
 
-						const filename = context.getFilename();
+						// @ts-ignore - Jira's ESLint v10 types expose filename, platform still checks with ESLint v9.
+						const filename = context.filename ?? context.getFilename();
 						const { pkgJson: packageJson, fuse } = getMetadataForFilename(filename);
 						const platformFeatureFlags = packageJson['platform-feature-flags'];
 

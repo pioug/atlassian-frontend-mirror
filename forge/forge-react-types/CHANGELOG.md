@@ -1,5 +1,15 @@
 # @atlaskit/forge-react-types
 
+## 1.6.1
+
+### Patch Changes
+
+- [`08165c4246069`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08165c4246069) -
+  Resolved xcss type regression that caused TypeScript `xcss` props to degrade to `any` type, which
+  was triggering `@typescript-eslint/no-unsafe-assignment` errors in projects with strict
+  ESLint/TypeScript configurations. Updated `@atlaskit/forge-react-types` to `^1.5.0` which includes
+  the proper type exports for design token type safety.
+
 ## 1.6.0
 
 ### Minor Changes

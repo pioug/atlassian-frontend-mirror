@@ -99,6 +99,19 @@ const DatasourceTableViewWithoutAnalytics = ({
 
 	visibleColumnCount.current = visibleColumnKeys?.length || 0;
 
+	// SLLV bug fix: This check exists because of JIM to SLLV conversion job
+	// which misconfigured the customfield mapping (stored name instead of ID) when converted to SLLV.
+	// Ideally, BE API should support both customfield name as well as ID.
+	// stored visibleColumnKeys (e.g. customfield names) may not match the
+	// resolved columns (e.g. customfield ids) returned by the API. When that happens the table
+	// would otherwise stay on the loading skeleton forever, so we render with defaultVisibleColumnKeys
+	// instead.
+	const hasStaleVisibleColumnKeys =
+		(visibleColumnKeys || []).length > 0 &&
+		columns.length > 0 &&
+		!(visibleColumnKeys || []).some((key) => columns.some((col) => col.key === key)) &&
+		fg('fallback_to_default_columns_to_display_in_sllv');
+
 	// parameters is an object that we want to track, and when something inside it changes we want to
 	// call effect callback. Normal useEffect will not do deep comparison, but only reference one.
 	// This hook will do deep comparison making sure we don't call reset() when only reference to an object
@@ -216,7 +229,9 @@ const DatasourceTableViewWithoutAnalytics = ({
 						onLoadDatasourceDetails={loadDatasourceDetails}
 						status={status}
 						columns={columns}
-						visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
+						visibleColumnKeys={
+							hasStaleVisibleColumnKeys ? defaultVisibleColumnKeys : visibleColumnKeys || defaultVisibleColumnKeys
+						}
 						onVisibleColumnKeysChange={onVisibleColumnKeysChange}
 						columnCustomSizes={columnCustomSizes}
 						onColumnResize={onColumnResize}

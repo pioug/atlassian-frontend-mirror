@@ -91,4 +91,5 @@ export const SpotlightTransitionConsumer: React.Consumer<SpotlightTransitionCont
 	SpotlightTransitionContext.Consumer;
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default SpotlightTransition;

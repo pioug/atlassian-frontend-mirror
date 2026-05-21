@@ -1,5 +1,19 @@
 # @atlaskit/editor-toolbar
 
+## 1.7.0
+
+### Minor Changes
+
+- [`cae3f93f31a3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cae3f93f31a3f) -
+  Wire up actions with row menu refactor, add focus, blue, mouseenter and mouseleave events to
+  ToolbarDropdownItem
+
+## 1.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.6.1
 
 ### Patch Changes

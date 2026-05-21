@@ -1,5 +1,20 @@
 # @atlaskit/editor-synced-block-provider
 
+## 6.6.6
+
+### Patch Changes
+
+- [`33333417b0969`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33333417b0969) -
+  Strip inline comment annotation marks from synced block content before syncing references behind
+  platform_synced_block_patch_12.
+- Updated dependencies
+
+## 6.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.6.4
 
 ### Patch Changes

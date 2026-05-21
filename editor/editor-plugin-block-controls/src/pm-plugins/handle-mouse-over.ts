@@ -6,6 +6,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -332,9 +333,11 @@ export const handleMouseOver = (
 			parentRootElement &&
 			parentRootElement.getAttribute('data-layout-section') === 'true' &&
 			parentRootElement.querySelectorAll('[data-layout-column]').length === 1 &&
-			editorExperiment('advanced_layouts', true)
+			editorExperiment('advanced_layouts', true) &&
+			!expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)
 		) {
-			// Don't show drag handle for layout column in a single column layout
+			// Don't show drag handle for layout column in a single column layout,
+			// unless the layout column menu is enabled (menu needs the handle to be accessible).
 			return false;
 		}
 

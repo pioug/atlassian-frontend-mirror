@@ -466,8 +466,13 @@ const getTypeDeclarationCodeFromImport = (
 	if (!importTypeSymbol) {
 		throw new Error(`Could not find type for ${typeName} in ${packageName}`);
 	}
-	const importSourcePath = importTypeSymbol
-		.getDeclarations()[0]
+	const declarations = importTypeSymbol.getDeclarations();
+	if (!declarations || declarations.length === 0) {
+		// eslint-disable-next-line no-console
+		console.warn(`[codegen] No declarations found for type "${typeName}" from "${packageName}" — skipping. This may result in missing types in the generated output.`);
+		return null;
+	}
+	const importSourcePath = declarations[0]
 		.getType()
 		.getText()
 		.match(/import\("(.+)"\)/)?.[1];

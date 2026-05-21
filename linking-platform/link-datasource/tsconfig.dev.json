@@ -149,6 +149,9 @@
 			"path": "../../accessibility/axe-integration/a11y-playwright-testing/tsconfig.app.json"
 		},
 		{
+			"path": "../../cmdb/assets-workspace-host/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		}
 	]

@@ -6,7 +6,7 @@
  *
  * Note: injected `<style>` elements and the tracking Set are append-only —
  * they are never removed. This is intentional: the number of distinct
- * presets is bounded (handful of animation + arrow presets), so the
+ * presets is bounded (handful of animation presets), so the
  * memory footprint is negligible. Removing styles would risk breaking
  * other instances of the same preset that are still mounted.
  *

@@ -70,6 +70,8 @@ const getByHref = queryByAttribute.bind(null, 'href');
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('SectionMessage', () => {
+	const headingText = 'Heading';
+
 	it('should render correct defaults', () => {
 		render(<SectionMessage>boo</SectionMessage>);
 
@@ -77,10 +79,25 @@ describe('SectionMessage', () => {
 	});
 
 	it('should render both <Title /> and children if there is a title', () => {
-		render(<SectionMessage title="things">boo</SectionMessage>);
+		render(<SectionMessage title={headingText}>boo</SectionMessage>);
 
-		expect(screen.getByText('things')).toBeInTheDocument();
+		const heading = screen.getByText(headingText);
+		expect(heading).toBeInTheDocument();
+		expect(heading.tagName.toLowerCase()).toBe('h2');
 		expect(screen.getByText('boo')).toBeInTheDocument();
+	});
+
+	it('should allow custom heading levels', () => {
+		const headingLevel = 'h6';
+		render(
+			<SectionMessage title={headingText} headingLevel={headingLevel}>
+				boo
+			</SectionMessage>,
+		);
+
+		const heading = screen.getByText(headingText);
+		expect(heading).toBeInTheDocument();
+		expect(heading.tagName.toLowerCase()).toBe(headingLevel);
 	});
 
 	it('should render a custom icon and label if one is given', () => {
@@ -90,7 +107,7 @@ describe('SectionMessage', () => {
 			</Flex>
 		);
 		render(
-			<SectionMessage title="things" icon={CustomIcon}>
+			<SectionMessage title={headingText} icon={CustomIcon}>
 				boo
 			</SectionMessage>,
 		);

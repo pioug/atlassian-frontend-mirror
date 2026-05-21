@@ -133,6 +133,7 @@ export const spotlightButtonTheme = (current: any, themeProps: Record<string, an
  * @deprecated
  * Custom button themes are deprecated and will be removed in the future.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const modalButtonTheme = (current: any, themeProps: Record<string, any>): any => {
 	const { buttonStyles, ...rest } = current(themeProps);
 	return {

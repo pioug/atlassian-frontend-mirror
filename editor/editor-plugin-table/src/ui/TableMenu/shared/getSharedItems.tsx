@@ -24,8 +24,9 @@ import {
 import { BackgroundColorItem } from './items/BackgroundColorItem';
 import { ClearCellsItem } from './items/ClearCellsItem';
 import { BACKGROUND_COLOR_ITEM, CLEAR_CELLS_ITEM } from './keys';
+import type { TableMenuComponentsParams } from './types';
 
-export const getSharedItems = (): RegisterComponent[] => [
+export const getSharedItems = ({ api }: TableMenuComponentsParams): RegisterComponent[] => [
 	{
 		type: BACKGROUND_COLOR_ITEM.type,
 		key: BACKGROUND_COLOR_ITEM.key,
@@ -68,6 +69,6 @@ export const getSharedItems = (): RegisterComponent[] => [
 				rank: CELL_DANGER_SECTION_RANK[CLEAR_CELLS_ITEM.key],
 			},
 		],
-		component: () => <ClearCellsItem />,
+		component: () => <ClearCellsItem api={api} />,
 	},
 ];

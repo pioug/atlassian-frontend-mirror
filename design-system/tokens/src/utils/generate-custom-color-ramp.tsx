@@ -77,6 +77,7 @@ function getInteractionStates(rampPosition: number, number: number, colors: CSSC
 	return result;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const generateTokenMap = (
 	brandColor: CSSColor,
 	mode: ThemeColorModes,
@@ -218,6 +219,7 @@ export const generateTokenMap = (
 	return { light: customThemeTokenMapLight, dark: customThemeTokenMapDark };
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const generateTokenMapWithContrastCheck = (
 	brandColor: CSSColor,
 	mode: ThemeColorModes,

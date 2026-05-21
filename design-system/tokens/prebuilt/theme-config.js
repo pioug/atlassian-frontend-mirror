@@ -197,6 +197,7 @@ function getMotionDefault() {
 /**
  * themeStateDefaults: the default values for ThemeState used by theming utilities
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 var themeStateDefaults = exports.themeStateDefaults = {
   colorMode: 'auto',
   contrastMode: 'auto',
@@ -213,4 +214,5 @@ var themeStateDefaults = exports.themeStateDefaults = {
  * Represents theme state once mounted to the page
  * (the page doesn't have an "auto" color mode, it's either light or dark)
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 var _default = exports.default = themeConfig;

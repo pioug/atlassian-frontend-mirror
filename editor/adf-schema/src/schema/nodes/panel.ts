@@ -12,8 +12,11 @@ import type { DecisionListDefinition as DecisionList } from './decision-list';
 import type { TaskListDefinition as TaskList } from './task-list';
 import type { RuleDefinition as Rule } from './rule';
 import type { NodeSpecOptions } from '../createPMSpecFactory';
-import type { PanelNode } from '../../next-schema/generated/nodeTypes';
-import { panel as panelFactory } from '../../next-schema/generated/nodeTypes';
+import type { PanelNode, PanelC1Node } from '../../next-schema/generated/nodeTypes';
+import {
+	panel as panelFactory,
+	panelC1 as panelC1Factory,
+} from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
@@ -126,7 +129,7 @@ const getParseDOMAttrs = (
 const createPanelNodeSpecOptions: (
 	allowCustomPanel: boolean,
 	generateLocalId?: boolean,
-) => NodeSpecOptions<PanelNode> = (allowCustomPanel, generateLocalId) => ({
+) => NodeSpecOptions<PanelNode | PanelC1Node> = (allowCustomPanel, generateLocalId) => ({
 	parseDOM: [
 		{
 			tag: 'div[data-panel-type]',
@@ -146,7 +149,8 @@ const createPanelNodeSpecOptions: (
 
 /**
  * @name extended_panel
- * @description it allows more content to be nested as compared to panel node.
+ *
+ * it allows more content to be nested as compared to panel node.
  * Specifically, it allows Media, action, code-block, rule and decision nodes in
  * addition to content allowed inside panel
  */
@@ -155,3 +159,17 @@ export const extendedPanel = (allowCustomPanel: boolean): NodeSpec =>
 
 export const extendedPanelWithLocalId = (allowCustomPanel: boolean): NodeSpec =>
 	panelFactory(createPanelNodeSpecOptions(allowCustomPanel, true));
+
+/**
+ * @name extended_panel_c1
+ *
+ * Depth-level-1 variant of panel. Allows all standard panel content
+ * plus table nodes. Derives its parseDOM/toDOM behaviour from the same
+ * createPanelNodeSpecOptions helper as extendedPanel so that allowCustomPanel
+ * and generateLocalId propagate identically.
+ */
+export const extendedPanelC1 = (allowCustomPanel: boolean): NodeSpec =>
+	panelC1Factory(createPanelNodeSpecOptions(allowCustomPanel));
+
+export const extendedPanelC1WithLocalId = (allowCustomPanel: boolean): NodeSpec =>
+	panelC1Factory(createPanelNodeSpecOptions(allowCustomPanel, true));

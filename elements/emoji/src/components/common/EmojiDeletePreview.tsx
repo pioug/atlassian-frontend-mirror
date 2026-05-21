@@ -13,8 +13,9 @@ import {
 } from 'react-intl';
 import AkButton from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import FocusLock from 'react-focus-lock';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { EmojiDescription } from '../../types';
 import { messages } from '../i18n';
 import CachingEmoji from './CachingEmoji';
@@ -60,6 +61,52 @@ const deleteText = css({
 
 const previewButtonGroup = css({
 	display: 'flex',
+});
+
+const deletePreviewNew = css({
+	display: 'flex',
+	flexDirection: 'column',
+	gap: token('space.150'),
+	minHeight: '390px',
+	paddingTop: token('space.150'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.150'),
+	paddingLeft: token('space.200'),
+	boxSizing: 'border-box',
+});
+
+const deleteTextSection = css({
+	display: 'flex',
+	flexDirection: 'column',
+	gap: token('space.050'),
+	alignItems: 'flex-start',
+	textAlign: 'left',
+});
+
+const emojiPreviewLargeBox = css({
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	flex: '1 1 auto',
+	borderRadius: token('radius.xxlarge'),
+	backgroundColor: token('color.background.danger'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	img: {
+		width: '72px',
+		height: '72px',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	span: {
+		font: token('font.body.small'),
+	},
+});
+
+const deleteButtonGroup = css({
+	display: 'flex',
+	gap: token('space.100'),
+	alignItems: 'center',
+	justifyContent: 'flex-end',
+	marginTop: token('space.150'),
 });
 
 export interface OnDeleteEmoji {
@@ -121,6 +168,54 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 		const { emoji, intl } = this.props;
 		const { loading, error } = this.state;
 		const { formatMessage } = intl;
+
+		if (fg('platform_emoji_picker_refresh')) {
+			return (
+				<FocusLock noFocusGuards>
+					<div css={deletePreviewNew} data-testid={emojiDeletePreviewTestId}>
+						<div css={deleteTextSection}>
+							<Box paddingBlockEnd="space.100">
+								<Heading size="small">
+									<FormattedMessage {...messages.deleteEmojiTitle} />
+								</Heading>
+							</Box>
+							<Text color="color.text.subtle" size="small">
+								<FormattedMessage
+									{...messages.deleteEmojiDescription}
+									values={{ emojiShortName: emoji.shortName }}
+								/>
+							</Text>
+						</div>
+						<div css={emojiPreviewLargeBox}>
+							<CachingEmoji emoji={emoji} />
+						</div>
+						<div css={deleteButtonGroup}>
+							{error && !loading ? (
+								<EmojiErrorMessage
+									message={formatMessage(messages.deleteEmojiFailed)}
+									errorStyle="delete"
+									tooltip
+								/>
+							) : null}
+							<VisuallyHidden id={deleteEmojiLabelId}>
+								{formatMessage(messages.deleteEmojiLabel)}
+							</VisuallyHidden>
+							<AkButton appearance="subtle" onClick={this.onCancel}>
+								<FormattedMessage {...messages.cancelLabel} />
+							</AkButton>
+							<RetryableButton
+								label={formatMessage(messages.deleteEmojiLabel)}
+								onSubmit={this.onSubmit}
+								appearance="danger"
+								loading={loading}
+								error={error}
+								ariaLabelledBy={`${emojiErrorScreenreaderTestId} ${deleteEmojiLabelId}`}
+							/>
+						</div>
+					</div>
+				</FocusLock>
+			);
+		}
 
 		return (
 			<FocusLock noFocusGuards>

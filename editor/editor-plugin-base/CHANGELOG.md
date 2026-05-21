@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-base
 
+## 11.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.2
+
+### Patch Changes
+
+- [`0b640b43bac93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b640b43bac93) -
+  Change experiment name, no functionality changes
+
 ## 11.1.1
 
 ### Patch Changes

@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 219.9.5
+
+### Patch Changes
+
+- [`56bda2bb69c77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56bda2bb69c77) -
+  EDITOR-6461 - migrate contextpanel styles
+- Updated dependencies
+
+## 219.9.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 219.9.3
+
+### Patch Changes
+
+- [`0b640b43bac93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b640b43bac93) -
+  Change experiment name, no functionality changes
+- Updated dependencies
+
 ## 219.9.2
 
 ### Patch Changes

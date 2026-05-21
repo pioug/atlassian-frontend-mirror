@@ -904,7 +904,7 @@ const shouldHideSelectedOptions = <
 
 let instanceId = 1;
 
-// eslint-disable-next-line @repo/internal/react/no-class-components
+// eslint-disable-next-line @repo/internal/react/no-class-components, @atlaskit/volt-strict-mode/no-multiple-exports
 export default class Select<
 	Option = unknown,
 	IsMulti extends boolean = false,

@@ -129,24 +129,5 @@
 			"type": "boolean",
 			"referenceOnly": true
 		}
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"styling": [
-				"static",
-				"emotion"
-			],
-			"design-system": "v1",
-			"deprecation": "no-deprecated-imports"
-		}
 	}
 }

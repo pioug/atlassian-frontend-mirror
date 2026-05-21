@@ -244,6 +244,7 @@ export const lightViolations: {
 	},
 ];
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const lightViolationsVisualRefresh: {
 	foreground: string;
 	background: string;
@@ -461,6 +462,7 @@ export const lightViolationsVisualRefresh: {
 		background: 'elevation.surface.sunken',
 	},
 ];
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const darkViolations: {
 	foreground: string;
 	background: string;
@@ -587,6 +589,7 @@ export const darkViolations: {
 	},
 ];
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const darkViolationsVisualRefresh: {
 	foreground: string;
 	background: string;

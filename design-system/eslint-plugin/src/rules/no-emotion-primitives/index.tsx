@@ -79,4 +79,5 @@ export const rule: Rule.RuleModule = createLintRule({
 	},
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default rule;

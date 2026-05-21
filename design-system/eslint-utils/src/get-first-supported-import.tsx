@@ -1,6 +1,7 @@
 import type { Rule } from 'eslint';
 import { type ImportDeclaration, isNodeOfType, type Program } from 'eslint-codemod-utils';
 
+import { getSourceCode } from './context-compat';
 import { type ImportSource } from './is-supported-import';
 
 type RuleContext = Rule.RuleContext;
@@ -28,7 +29,7 @@ export const getFirstSupportedImport = (
 		);
 	};
 
-	const source = context.getSourceCode();
+	const source = getSourceCode(context);
 	const supportedImports = source.ast.body.filter(isSupportedImport);
 
 	if (supportedImports.length) {

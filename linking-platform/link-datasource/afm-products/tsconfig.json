@@ -180,6 +180,9 @@
 		},
 		{
 			"path": "../../../design-system/width-detector/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../cmdb/assets-workspace-host/afm-products/tsconfig.json"
 		}
 	]
 }

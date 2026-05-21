@@ -112,6 +112,7 @@ function blueFromArgb(argb) {
 /**
  * Converts a color from ARGB to XYZ.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 function argbFromXyz(x, y, z) {
   var matrix = XYZ_TO_SRGB;
   var linearR = matrix[0][0] * x + matrix[0][1] * y + matrix[0][2] * z;
@@ -140,6 +141,7 @@ function xyzFromArgb(argb) {
  * @return ARGB representation of grayscale color with lightness
  * matching L*
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 function argbFromLstar(lstar) {
   var y = yFromLstar(lstar);
   var component = (0, _delinearized.delinearized)(y);
@@ -152,6 +154,7 @@ function argbFromLstar(lstar) {
  * @param argb ARGB representation of a color
  * @return L*, from L*a*b*, coordinate of the color
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 function lstarFromArgb(argb) {
   var y = xyzFromArgb(argb)[1];
   return 116.0 * labF(y / 100.0) - 16.0;
@@ -168,6 +171,7 @@ function lstarFromArgb(argb) {
  * @param lstar L* in L*a*b*
  * @return Y in XYZ
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 function yFromLstar(lstar) {
   return 100.0 * labInvf((lstar + 16.0) / 116.0);
 }
@@ -183,6 +187,7 @@ function yFromLstar(lstar) {
  * @param y Y in XYZ
  * @return L* in L*a*b*
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 function lstarFromY(y) {
   return labF(y / 100.0) * 116.0 - 16.0;
 }
@@ -192,6 +197,7 @@ function lstarFromY(y) {
  *
  * @return The white point
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 function whitePointD65() {
   return WHITE_POINT_D65;
 }
@@ -211,6 +217,7 @@ function whitePointD65() {
  * @param argb ARGB representation of a int32 color.
  * @return RGBA representation of a int32 color.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 function rgbaFromArgb(argb) {
   var r = redFromArgb(argb);
   var g = greenFromArgb(argb);
@@ -230,6 +237,7 @@ function rgbaFromArgb(argb) {
  * @param rgba RGBA representation of a int32 color.
  * @returns ARGB representation of a int32 color.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 function argbFromRgba(_ref) {
   var r = _ref.r,
     g = _ref.g,

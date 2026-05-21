@@ -46,7 +46,8 @@ const rule: Rule.RuleModule = {
 		},
 	},
 	create(context) {
-		const fileName = context.getFilename();
+		// @ts-ignore - Jira's ESLint v10 types expose filename, platform still checks with ESLint v9.
+		const fileName = context.filename ?? context.getFilename();
 		return {
 			ObjectExpression: (node: Rule.Node) => {
 				if (!fileName.endsWith('package.json') || node.type !== 'ObjectExpression') {

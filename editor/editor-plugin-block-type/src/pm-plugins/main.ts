@@ -1,5 +1,6 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INSERTED_TRAILING_PARAGRAPH_TO_LAST_NODE_META } from '@atlaskit/editor-common/block-type';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
@@ -12,6 +13,7 @@ import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockTypePlugin } from '../blockTypePluginType';
@@ -159,10 +161,14 @@ export const createPlugin = (
 				const lastNode = pos.node(1);
 				const { paragraph } = newState.schema.nodes;
 				if (lastNode && lastNode.isBlock && lastNode.type !== paragraph) {
-					return newState.tr.insert(
+					const tr = newState.tr.insert(
 						newState.doc.content.size,
 						newState.schema.nodes.paragraph.create(),
 					);
+
+					return fg('platform_editor_block_menu_jira_patch_2')
+						? tr.setMeta(INSERTED_TRAILING_PARAGRAPH_TO_LAST_NODE_META, true)
+						: tr;
 				}
 			}
 		},

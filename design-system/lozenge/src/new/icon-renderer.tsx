@@ -100,4 +100,5 @@ const IconRenderer: (props: IconRendererProps) => React.JSX.Element = ({
 	);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default IconRenderer;

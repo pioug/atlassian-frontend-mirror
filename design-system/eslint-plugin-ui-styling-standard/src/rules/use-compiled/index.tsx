@@ -98,8 +98,8 @@ const rule: Rule.RuleModule = createLintRule({
 							return;
 						}
 
-						const importDeclarations = context
-							.getSourceCode()
+						// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
+						const importDeclarations = (context.sourceCode ?? context.getSourceCode())
 							.ast.body.filter(
 								(node): node is ESTree.ImportDeclaration => node.type === 'ImportDeclaration',
 							);
@@ -188,7 +188,8 @@ function getSpecifiers({
 		}
 		const styled = findVariable({
 			identifier: defaultSpecifier.local,
-			sourceCode: context.getSourceCode(),
+			// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
+			sourceCode: (context.sourceCode ?? context.getSourceCode()),
 		});
 		if (!styled || !isSafeStyled(styled)) {
 			return;

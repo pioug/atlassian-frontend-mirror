@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-picker",
-	"version": "5.1.7",
+	"version": "5.2.0",
 	"description": "Standalone link picker",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -40,11 +40,15 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./lazy": "./src/lazy.ts",
+		"./errors": "./src/entry-points/errors.ts",
+		"./lazy": "./src/entry-points/lazy-link-picker.tsx",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
-		}
+		},
+		"./link-picker": "./src/entry-points/link-picker.tsx",
+		"./loader-fallback": "./src/entry-points/loader-fallback.tsx",
+		"./types": "./src/entry-points/types.ts"
 	},
 	"platform-feature-flags": {
 		"aifc_create_enabled": {

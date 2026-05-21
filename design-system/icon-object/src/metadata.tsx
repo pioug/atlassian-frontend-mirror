@@ -422,4 +422,5 @@ const metaData: Record<string, Omit<Data, 'packageLoader'>> = Object.fromEntries
 	Object.entries(metaDataWithPackageLoader).map(([key, { packageLoader, ...rest }]) => [key, rest]),
 );
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default metaData;

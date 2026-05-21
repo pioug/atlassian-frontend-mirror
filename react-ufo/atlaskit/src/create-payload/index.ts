@@ -456,6 +456,29 @@ function getStylesheetMetrics() {
 let regularTTAI: number | undefined;
 let expTTAI: number | undefined;
 
+/**
+ * Extracts `segment-timing-abort` entries from segment3pTimings and returns them as a
+ * flat array always included in the payload — independent of `platform_ufo_ecosystem_data_in_payload`.
+ * This allows analytics to detect force-aborted iframe holds even when the full
+ * segment3pTimings blob is feature-gated off.
+ */
+function getSegment3pTimingAbortMarkers(
+	segment3pTimings: InteractionMetrics['segment3pTimings'],
+): { segment3pTimingAborts?: Array<{ segmentId: string; data: Record<string, unknown> }> } {
+	if (!segment3pTimings) {
+		return {};
+	}
+	const aborts: Array<{ segmentId: string; data: Record<string, unknown> }> = [];
+	for (const [segmentId, entries] of Object.entries(segment3pTimings)) {
+		for (const entry of entries) {
+			if (entry.label === 'segment-timing-abort') {
+				aborts.push({ segmentId, data: entry.data });
+			}
+		}
+	}
+	return aborts.length > 0 ? { segment3pTimingAborts: aborts } : {};
+}
+
 function getErrorCounts(interaction: InteractionMetrics) {
 	return {
 		'ufo:errors:globalCount': getGlobalErrorCount(),
@@ -646,6 +669,9 @@ async function createInteractionMetricsPayload(
 							segment3pTimingsSizeInKb: getPayloadSize(interaction.segment3pTimings),
 						}
 				: {}),
+			// Always include abort markers regardless of the ecosystem data flag so they can be
+			// queried in analytics even when the full segment3pTimings payload is disabled.
+			...getSegment3pTimingAbortMarkers(interaction.segment3pTimings),
 			...(interaction.segmentExtraData
 				? fg('platform_ufo_ecosystem_data_in_payload')
 					? { segmentExtraData: interaction.segmentExtraData }

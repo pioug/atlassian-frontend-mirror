@@ -65,21 +65,6 @@ Cross-link to `notes/decisions/placement-offset.md` for the design decision. Sum
   block and custom-property scope. This is safe (no flash) because the JS path keeps the popover
   hidden via `opacity: 0` until the first measurement completes — see JS fallback details below.
 
-## Arrow integration
-
-Arrows replace the built-in `flip-block` / `flip-inline` keywords with 12 named `@position-try`
-rules (one per `axis` × `edge` × `align`). Each rule re-applies both the anchor-facing `gap` margin
-and the cross-axis `shift` margin via four custom properties:
-
-- `--ds-cross-axis-shift-margin-start` / `--ds-cross-axis-shift-margin-end` (block-axis cross =
-  inline)
-- `--ds-cross-axis-shift-margin-block-start` / `--ds-cross-axis-shift-margin-block-end` (inline-axis
-  cross = block)
-
-Only one of the four is non-zero at any one time; `useAnchorPosition` picks based on the active
-`(axis, align)` pair. Known limitation: arrow + `shift` + viewport-overflow flip can produce
-ghost-arrow visual artifacts. See `placement-offset.md` Known Limitations section for details and
-workarounds.
 
 ## JS fallback details
 
@@ -135,7 +120,6 @@ visible. The Playwright spec `__tests__/playwright/form-in-popup.spec.tsx` exerc
 - `src/internal/resolve-css-length.tsx` — `toCssLengthString` helper for the API boundary.
 - `src/internal/resolve-css-length-to-pixels.tsx` — DOM-probe resolver used by the JS fallback to
   convert any CSS length string (token / `calc` / `var` / etc) to pixels.
-- `src/arrow/index.tsx` — arrow CSS and 12 named `@position-try` rules.
 - `src/placement-map/index.tsx` — `fromLegacyPlacement` adapter for migrating from Popper-style
   placement strings.
 

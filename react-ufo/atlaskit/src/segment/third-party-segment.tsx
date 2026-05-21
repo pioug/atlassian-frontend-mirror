@@ -18,8 +18,15 @@ const FORGE_TTAI_EVENT_PREFIX = 'ufo-forge';
 // Grace period (ms) after the navigation hold releases before finalising.
 const GRACE_PERIOD_MS = 2_000;
 
-// Hard abort (ms from mount) — force-releases the hold and logs an abort marker.
-const ABORT_TIMEOUT_MS = 60_000;
+// Initial abort timeout (ms from mount). If no recognised iframe event arrives within
+// this window, the hold is force-released and an abort marker is logged. This protects
+// metric quality during progressive rollouts where old-cohort iframes never emit events.
+const ABORT_TIMEOUT_INITIAL_MS = 6_000;
+
+// Extended abort timeout (ms from mount). Once any recognised iframe event is received
+// we know the iframe is on the new rollout cohort and actively sending data, so we extend
+// the window to accommodate legitimately slow-loading Forge apps.
+const ABORT_TIMEOUT_EXTENDED_MS = 60_000;
 
 // Events logged via addIframeSegmentData as they arrive.
 const IFRAME_SEGMENT_DATA_SUFFIXES = [
@@ -122,9 +129,14 @@ function IframeSegment({
 		let navigationHoldReleased = false;
 		let lastNavEventTime: number | null = null;
 		let gracePeriodTimer: ReturnType<typeof setTimeout> | null = null;
+		// Tracks whether any recognised iframe event has been received, which tells us
+		// the iframe is on the new rollout cohort and actively sending data.
+		let iframeEventsReceived = false;
+		let abortTimer: ReturnType<typeof setTimeout>;
 
 		const mountTime = performance.now();
-		const abortTimer = setTimeout(() => {
+
+		const fireAbort = (abortAfterMs: number) => {
 			// Cancel any pending grace period so it doesn't also fire.
 			if (gracePeriodTimer !== null) {
 				clearTimeout(gracePeriodTimer);
@@ -141,11 +153,20 @@ function IframeSegment({
 					label: 'segment-timing-abort',
 					data: {
 						reason: 'timeout',
-						abortAfterMs: ABORT_TIMEOUT_MS,
+						abortAfterMs,
 					},
 				});
 			}
-		}, ABORT_TIMEOUT_MS);
+		};
+
+		// Start with the short initial timeout. If no recognised iframe event arrives
+		// within this window, the iframe is likely an old-cohort app that will never
+		// send events — abort early to avoid blocking the interaction indefinitely.
+		abortTimer = setTimeout(() => {
+			if (!iframeEventsReceived) {
+				fireAbort(ABORT_TIMEOUT_INITIAL_MS);
+			}
+		}, ABORT_TIMEOUT_INITIAL_MS);
 
 		const finaliseHolds = () => {
 			const iid = interactionId.current;
@@ -192,6 +213,16 @@ function IframeSegment({
 					label: suffix,
 					data: rest as Record<string, unknown>,
 				});
+
+				// First recognised event — the iframe is on the new rollout cohort.
+				// Extend the abort timeout to accommodate legitimately slow-loading apps.
+				if (!iframeEventsReceived) {
+					iframeEventsReceived = true;
+					clearTimeout(abortTimer);
+					abortTimer = setTimeout(() => {
+						fireAbort(ABORT_TIMEOUT_EXTENDED_MS);
+					}, ABORT_TIMEOUT_EXTENDED_MS - ABORT_TIMEOUT_INITIAL_MS);
+				}
 			}
 
 			if (eventName.endsWith('-navigation-timing') && !navigationHoldReleased) {

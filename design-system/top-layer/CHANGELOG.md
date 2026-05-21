@@ -1,5 +1,12 @@
 # @atlaskit/top-layer
 
+## 0.8.0
+
+### Minor Changes
+
+- [`cce485619197c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cce485619197c) -
+  Remove arrow() implementation, as there are currently no consumers of it.
+
 ## 0.7.1
 
 ### Patch Changes

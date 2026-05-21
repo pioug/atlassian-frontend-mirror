@@ -376,9 +376,10 @@ export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
 		resourceId: string,
 		onUpdate: BlockUpdateCallback,
 		onError?: BlockSubscriptionErrorCallback,
+		onComplete?: () => void,
 	): Unsubscribe | undefined {
 		if (this.fetchProvider.subscribeToBlockUpdates) {
-			return this.fetchProvider.subscribeToBlockUpdates(resourceId, onUpdate, onError);
+			return this.fetchProvider.subscribeToBlockUpdates(resourceId, onUpdate, onError, onComplete);
 		}
 		return undefined;
 	}

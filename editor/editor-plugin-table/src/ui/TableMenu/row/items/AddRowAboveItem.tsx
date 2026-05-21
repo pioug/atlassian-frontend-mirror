@@ -2,18 +2,44 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { addRowBefore, tooltip } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import {
 	TableRowAddAboveIcon,
 	ToolbarDropdownItem,
 	ToolbarKeyboardShortcutHint,
 } from '@atlaskit/editor-toolbar';
 
-export const AddRowAboveItem = (): React.JSX.Element => {
+import { insertRowWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
+import type { TableMenuComponentsParams } from '../../shared/types';
+
+export const AddRowAboveItem = (props: TableMenuComponentsParams): React.JSX.Element => {
+	const { api } = props;
+	const { editorView } = useEditorToolbar();
 	const { formatMessage } = useIntl();
+
+	const handleClick = () => {
+		if (!editorView) {
+			return;
+		}
+
+		const selectionRect = getSelectionRect(editorView.state.selection);
+		const index = selectionRect?.top;
+		if (index === undefined) {
+			return;
+		}
+		insertRowWithAnalytics(api?.analytics?.actions)(INPUT_METHOD.TABLE_CONTEXT_MENU, {
+			index,
+			moveCursorToInsertedRow: true,
+		})(editorView.state, editorView.dispatch);
+	};
+
 	return (
 		<ToolbarDropdownItem
+			onClick={handleClick}
 			elemBefore={<TableRowAddAboveIcon color="currentColor" label="" size="small" />}
 			elemAfter={<ToolbarKeyboardShortcutHint shortcut={tooltip(addRowBefore) ?? ''} />}
 		>

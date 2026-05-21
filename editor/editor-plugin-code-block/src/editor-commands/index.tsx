@@ -72,7 +72,7 @@ export const removeCodeBlock: Command = (state, dispatch) => {
 
 export const changeLanguage =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	(language: string): Command =>
+	(language: string | null): Command =>
 	(state, dispatch) => {
 		const { codeBlock } = state.schema.nodes;
 		const pos = pluginKey.getState(state)?.pos;
@@ -96,7 +96,7 @@ export const changeLanguage =
 			editorAnalyticsAPI?.attachAnalyticsEvent({
 				action: ACTION.LANGUAGE_SELECTED,
 				actionSubject: ACTION_SUBJECT.CODE_BLOCK,
-				attributes: { language },
+				attributes: { language: language ?? 'none' },
 				eventType: EVENT_TYPE.TRACK,
 			})(result);
 			dispatch(result);

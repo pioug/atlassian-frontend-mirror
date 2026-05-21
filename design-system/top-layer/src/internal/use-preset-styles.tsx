@@ -9,7 +9,7 @@ type TPresetWithCssAndName = { css: string; name: string };
  * is injected once into `document.head`.
  *
  * Works with any preset that has `{ css, name }` — animation presets
- * (TAnimationPreset) and arrow presets (TArrowPreset) both satisfy this shape.
+ * (TAnimationPreset) satisfies this shape.
  */
 export function usePresetStyles<T extends TPresetWithCssAndName>({
 	preset,

@@ -1,5 +1,29 @@
 # @atlaskit/emoji
 
+## 70.10.2
+
+### Patch Changes
+
+- [`0ad23a9827f5d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ad23a9827f5d) -
+  Updated the delete emoji screen to match the upload emoji screen
+
+## 70.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 70.10.0
+
+### Minor Changes
+
+- [`80d8df1d8b42a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80d8df1d8b42a) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 70.9.2
 
 ### Patch Changes

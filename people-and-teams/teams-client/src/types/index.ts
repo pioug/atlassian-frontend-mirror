@@ -5,6 +5,7 @@ export type {
 	TeamsPermissionFromApi,
 	TeamsPermissionApi,
 	TeamRestriction,
+	TeamDiscoverability,
 	TeamMembershipSettings,
 	ScopeMode,
 	OrgScope,

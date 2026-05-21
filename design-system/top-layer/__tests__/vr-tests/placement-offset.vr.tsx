@@ -1,10 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
 import {
-	VrArrowFlipBlockEndShift,
-	VrArrowFlipBlockStartShift,
-	VrArrowFlipInlineEndShift,
-	VrArrowFlipInlineStartShift,
 	VrBlockEndAlignEndShiftBackwards,
 	VrBlockEndAlignEndShiftForwards,
 	VrBlockEndAlignStartShiftForwards,
@@ -155,9 +151,3 @@ snapshot(VrFlipInlineStartShiftBackwards, {
 	...opts,
 	description: 'flip-inline-start-shift-backwards',
 });
-
-// Section C: Arrow + shift + edge flip
-snapshot(VrArrowFlipBlockEndShift, { ...opts, description: 'arrow-flip-block-end-shift' });
-snapshot(VrArrowFlipBlockStartShift, { ...opts, description: 'arrow-flip-block-start-shift' });
-snapshot(VrArrowFlipInlineEndShift, { ...opts, description: 'arrow-flip-inline-end-shift' });
-snapshot(VrArrowFlipInlineStartShift, { ...opts, description: 'arrow-flip-inline-start-shift' });

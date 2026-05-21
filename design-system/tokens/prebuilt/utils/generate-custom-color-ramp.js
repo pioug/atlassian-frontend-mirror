@@ -76,6 +76,8 @@ function getInteractionStates(rampPosition, number, colors) {
   }
   return result;
 }
+
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 var generateTokenMap = exports.generateTokenMap = function generateTokenMap(brandColor, mode, themeRamp) {
   var _generateColors = generateColors(brandColor),
     ramp = _generateColors.ramp,
@@ -215,6 +217,8 @@ var generateTokenMap = exports.generateTokenMap = function generateTokenMap(bran
     dark: customThemeTokenMapDark
   };
 };
+
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 var generateTokenMapWithContrastCheck = exports.generateTokenMapWithContrastCheck = function generateTokenMapWithContrastCheck(brandColor, mode, themeRamp) {
   var colors = themeRamp || generateColors(brandColor).ramp;
   var tokenMaps = generateTokenMap(brandColor, mode, colors);

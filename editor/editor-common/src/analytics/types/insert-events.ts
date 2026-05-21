@@ -273,12 +273,24 @@ type InsertLayoutAEP = InsertAEP<
 		hasSelectedMultipleNodes?: boolean;
 		inputMethod:
 			| INPUT_METHOD.TOOLBAR
+			| INPUT_METHOD.FLOATING_TB
 			| INPUT_METHOD.INSERT_MENU
 			| INPUT_METHOD.QUICK_INSERT
 			| INPUT_METHOD.DRAG_AND_DROP;
 		// For DRAG_AND_DROP inputMethod, track distinctive types of source nodes that are dragged to create layout
 		// and whether there are multiple nodes
 		nodeTypes?: string;
+	},
+	undefined
+>;
+
+type InsertLayoutColumnAEP = InsertAEP<
+	ACTION_SUBJECT_ID.LAYOUT_COLUMN,
+	{
+		columnCount: number;
+		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU;
+		selectedIndex: number;
+		side: 'left' | 'right';
 	},
 	undefined
 >;
@@ -364,9 +376,9 @@ type InsertReferenceSyncedBlockPayload = InsertAEP<
 	ACTION_SUBJECT_ID.SYNCED_BLOCK,
 	{
 		blockInstanceId: string;
+		isPaste: boolean;
 		resourceId: string;
 		sourceProduct?: string;
-		isPaste: boolean;
 	},
 	undefined
 >;
@@ -423,6 +435,7 @@ export type InsertEventPayload =
 	| InsertMediaLinkAEP
 	| InsertSmartLinkAEP
 	| InsertLayoutAEP
+	| InsertLayoutColumnAEP
 	| InsertExtensionAEP
 	| InsertNodeViaExtensionAPIAEP
 	| InsertDateAEP

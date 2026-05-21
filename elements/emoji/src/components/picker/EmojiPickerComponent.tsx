@@ -61,6 +61,7 @@ import type { CategoryId } from './categories';
 import CategorySelector from './CategorySelector';
 import EmojiPickerFooter from './EmojiPickerFooter';
 import EmojiUploadPicker from '../common/EmojiUploadPicker';
+import EmojiDeletePreviewComponent from '../common/EmojiDeletePreview';
 import {
 	EmojiPickerVirtualListInternal as EmojiPickerList,
 	type PickerListRef,
@@ -261,15 +262,15 @@ const EmojiPickerComponent = ({
 			if (isProgrammaticScroll.current && fg('platform_emoji_picker_refresh')) {
 				return;
 			}
-			// Ignore scroll-driven category changes while the upload screen is open
-			if (uploading && fg('platform_emoji_picker_refresh')) {
+			// Ignore scroll-driven category changes while the upload or delete screen is open
+			if ((uploading || emojiToDelete) && fg('platform_emoji_picker_refresh')) {
 				return;
 			}
 			if (activeCategory !== category) {
 				setActiveCategory(category);
 			}
 		},
-		[activeCategory, uploading],
+		[activeCategory, uploading, emojiToDelete],
 	);
 
 	const calculateElapsedTime = () => {
@@ -474,10 +475,15 @@ const EmojiPickerComponent = ({
 				return;
 			}
 
-			// If the upload screen is open, close it when a category is selected
-			if (uploading && fg('platform_emoji_picker_refresh')) {
-				setUploading(false);
-				setUploadErrorMessage(undefined);
+			// If the upload or delete screen is open, close it when a category is selected
+			if (fg('platform_emoji_picker_refresh')) {
+				if (uploading) {
+					setUploading(false);
+					setUploadErrorMessage(undefined);
+				}
+				if (emojiToDelete) {
+					setEmojiToDelete(undefined);
+				}
 			}
 
 			emojiProvider.findInCategory(categoryId).then((emojisInCategory) => {
@@ -510,7 +516,7 @@ const EmojiPickerComponent = ({
 				}
 			});
 		},
-		[disableCategories, emojiPickerList, emojiProvider, fireAnalytics, selectedTone, uploading],
+		[disableCategories, emojiPickerList, emojiProvider, fireAnalytics, selectedTone, uploading, emojiToDelete],
 	);
 
 	const recordUsageOnSelection = useMemo(
@@ -794,7 +800,7 @@ const EmojiPickerComponent = ({
 				>
 					<CategorySelector
 						activeCategoryId={
-							uploading && fg('platform_emoji_picker_refresh') ? null : activeCategory
+							(uploading || emojiToDelete) && fg('platform_emoji_picker_refresh') ? null : activeCategory
 						}
 						dynamicCategories={dynamicCategories}
 						disableCategories={disableCategories}
@@ -830,7 +836,7 @@ const EmojiPickerComponent = ({
 						size={size}
 						activeCategoryId={activeCategory}
 					/>
-					{showPreview && (
+					{showPreview && !(emojiToDelete && fg('platform_emoji_picker_refresh')) && (
 						<EmojiPickerFooter
 							selectedEmoji={selectedEmoji}
 							uploadEnabled={isUploadSupported && !uploading}
@@ -847,7 +853,7 @@ const EmojiPickerComponent = ({
 		<div
 			css={[
 				emojiPicker,
-				showPreview || (uploading && fg('platform_emoji_picker_refresh'))
+				showPreview || ((uploading || !!emojiToDelete) && fg('platform_emoji_picker_refresh'))
 					? withPreviewHeight[size]
 					: withoutPreviewHeight[size],
 			]}
@@ -861,7 +867,7 @@ const EmojiPickerComponent = ({
 			onKeyDown={suppressKeyPress}
 		>
 			<CategorySelector
-				activeCategoryId={uploading && fg('platform_emoji_picker_refresh') ? null : activeCategory}
+				activeCategoryId={(uploading || emojiToDelete) && fg('platform_emoji_picker_refresh') ? null : activeCategory}
 				dynamicCategories={dynamicCategories}
 				disableCategories={disableCategories}
 				onCategorySelected={onCategorySelected}
@@ -896,7 +902,7 @@ const EmojiPickerComponent = ({
 				size={size}
 				activeCategoryId={activeCategory}
 			/>
-			{showPreview && (
+			{showPreview && !(emojiToDelete && fg('platform_emoji_picker_refresh')) && (
 				<EmojiPickerFooter
 					selectedEmoji={selectedEmoji}
 					uploadEnabled={isUploadSupported && !uploading}
@@ -911,6 +917,15 @@ const EmojiPickerComponent = ({
 						onFileChooserClicked={onFileChooserClicked}
 						errorMessage={formattedErrorMessage}
 						initialUploadName={query}
+					/>
+				</div>
+			)}
+			{emojiToDelete && fg('platform_emoji_picker_refresh') && (
+				<div css={uploadOverlay}>
+					<EmojiDeletePreviewComponent
+						emoji={emojiToDelete}
+						onDeleteEmoji={onDeleteEmoji}
+						onCloseDelete={onCloseDelete}
 					/>
 				</div>
 			)}

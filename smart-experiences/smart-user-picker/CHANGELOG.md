@@ -1,5 +1,16 @@
 # @atlassian/smart-user-picker
 
+## 10.1.0
+
+### Minor Changes
+
+- [`80d8df1d8b42a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80d8df1d8b42a) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.5
 
 ### Patch Changes

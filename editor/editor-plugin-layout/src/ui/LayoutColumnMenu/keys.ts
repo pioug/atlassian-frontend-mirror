@@ -37,6 +37,16 @@ export const VERTICAL_ALIGN_MENU: NestedMenuType = {
 
 // --- Items ---
 
+export const INSERT_COLUMN_LEFT_MENU_ITEM: MenuItemType = {
+	type: 'menu-item',
+	key: 'layout-column-menu-insert-left-item',
+};
+
+export const INSERT_COLUMN_RIGHT_MENU_ITEM: MenuItemType = {
+	type: 'menu-item',
+	key: 'layout-column-menu-insert-right-item',
+};
+
 export const DISTRIBUTE_COLUMNS_MENU_ITEM: MenuItemType = {
 	type: 'menu-item',
 	key: 'layout-column-menu-distribute-columns-item',
@@ -57,11 +67,19 @@ export const VERTICAL_ALIGN_BOTTOM_MENU_ITEM: MenuItemType = {
 	key: 'layout-column-menu-vertical-align-bottom-item',
 };
 
+export const DELETE_COLUMN_MENU_ITEM: MenuItemType = {
+	type: 'menu-item',
+	key: 'layout-column-menu-delete-item',
+};
+
 // --- Item ranks within sections ---
 
 export const LAYOUT_COLUMN_MENU_SECTION_RANK: Record<string, number> = {
-	[DISTRIBUTE_COLUMNS_MENU_ITEM.key]: 100,
-	[VERTICAL_ALIGN_MENU.key]: 200,
+	[VERTICAL_ALIGN_MENU.key]: 100,
+	[INSERT_COLUMN_LEFT_MENU_ITEM.key]: 200,
+	[INSERT_COLUMN_RIGHT_MENU_ITEM.key]: 300,
+	[DISTRIBUTE_COLUMNS_MENU_ITEM.key]: 400,
+	[DELETE_COLUMN_MENU_ITEM.key]: 500,
 };
 
 export const VERTICAL_ALIGN_MENU_RANK: Record<string, number> = {

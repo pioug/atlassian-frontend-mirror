@@ -66,6 +66,7 @@ const MultiValueRemove = (props: MultiValueRemoveProps): JSX.Element => (
 	<components.MultiValueRemove {...props} />
 );
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const defaultComponents: {
 	Control: FC<ControlProps<OptionType, boolean>>;
 	DropdownIndicator: () => JSX.Element;

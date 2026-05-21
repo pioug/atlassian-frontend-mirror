@@ -28,6 +28,7 @@ type DefaultSchemaNodes =
 	| 'blockquote'
 	| 'codeBlock'
 	| 'panel'
+	| 'panel_c1'
 	| 'rule'
 	| 'image'
 	| 'mention'
@@ -105,6 +106,7 @@ const getDefaultSchemaConfig = (): SchemaConfig<DefaultSchemaNodes, DefaultSchem
 			'blockquote',
 			'codeBlock',
 			'panel',
+			'panel_c1',
 			'rule',
 			'image',
 			'caption',

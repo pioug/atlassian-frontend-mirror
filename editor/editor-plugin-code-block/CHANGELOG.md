@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block
 
+## 12.1.5
+
+### Patch Changes
+
+- [`47e7189edb428`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47e7189edb428) -
+  Refresh code block language picker UI
+- Updated dependencies
+
+## 12.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.3
 
 ### Patch Changes

@@ -195,31 +195,6 @@
 		"react-resource-router": "root:*",
 		"ts-node": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": "file-and-folder-level"
-		},
-		"@repo/internal": {
-			"design-system": "v1",
-			"dom-events": "use-bind-event-listener",
-			"analytics": "analytics-next",
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"static",
-				"emotion"
-			],
-			"design-tokens": [
-				"color",
-				"spacing"
-			]
-		}
-	},
 	"homepage": "https://atlassian.design/components/primitives/overview/",
 	"typesVersions": {
 		">=4.5 <4.9": {

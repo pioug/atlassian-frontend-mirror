@@ -67,6 +67,7 @@ type LogoDocsSchema = {
 	deprecated?: boolean;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const logoDocsSchema: LogoDocsSchema[] = [
 	// Program logos
 	{ name: 'atlassian', type: 'legacy', category: 'program' },
@@ -147,23 +148,29 @@ export const logoDocsSchema: LogoDocsSchema[] = [
 	},
 ] as const;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const PROGRAM_LOGO_DOCS_ORDER: string[] = logoDocsSchema
 	.filter((logo) => logo.category === 'program' && !logo.skipExample)
 	.map((logo) => logo.name);
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const APP_LOGO_DOCS_ORDER: string[] = logoDocsSchema
 	.filter((logo) => logo.category === 'app' && !logo.skipExample)
 	.map((logo) => logo.name);
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const AGENT_LOGO_DOCS_ORDER: string[] =
 	logoDocsSchema
 		.filter((logo) => logo.category === 'agent' && !logo.skipExample)
 		.map((logo) => logo.name) || [];
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const LEGACY_ONLY_LOGOS: LogoDocsSchema[] = logoDocsSchema.filter(
 	(logo) => logo.type === 'legacy',
 );
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const SHARED_LOGOS: LogoDocsSchema[] = logoDocsSchema.filter(
 	(logo) => logo.type === 'migration',
 );
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const NEW_ONLY_LOGOS: LogoDocsSchema[] = logoDocsSchema.filter(
 	(logo) => logo.type === 'new',
 );

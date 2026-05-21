@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 22.4.12
+
+### Patch Changes
+
+- [`cae3f93f31a3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cae3f93f31a3f) -
+  Wire up actions with row menu refactor, add focus, blue, mouseenter and mouseleave events to
+  ToolbarDropdownItem
+- Updated dependencies
+
+## 22.4.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.4.10
 
 ### Patch Changes

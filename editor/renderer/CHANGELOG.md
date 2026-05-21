@@ -1,5 +1,28 @@
 # @atlaskit/renderer
 
+## 131.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 131.1.2
+
+### Patch Changes
+
+- [`2ee094c6df7e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ee094c6df7e1) -
+  `nativeEmbedsFallbackTransform` now renders an `embedCard` when the parent context allows it (per
+  the supplied ProseMirror schema), and falls back to the existing `paragraph > inlineCard` shape
+  only when `embedCard` would not be valid in that position. The function now requires a `Schema`
+  argument, which the renderer passes from the schema being used for the current render.
+- Updated dependencies
+
+## 131.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 131.1.0
 
 ### Minor Changes

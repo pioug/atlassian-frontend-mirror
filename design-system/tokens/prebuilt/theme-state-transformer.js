@@ -73,6 +73,7 @@ var themeStringToObject = exports.themeStringToObject = function themeStringToOb
  * // returns 'dark:dark light:light spacing:spacing'
  * ```
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 var themeObjectToString = exports.themeObjectToString = function themeObjectToString(themeState) {
   return Object.entries(themeState).reduce(function (themeString, _ref3) {
     var _ref4 = (0, _slicedToArray2.default)(_ref3, 2),

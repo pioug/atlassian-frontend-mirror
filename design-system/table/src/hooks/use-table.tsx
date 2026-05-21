@@ -44,6 +44,7 @@ export function TableProvider<T extends object>({
 	);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const useTable = <TableItem extends object>() =>
 	// @ts-expect-error
 	useContext(TableContext) as TableContext<TableItem>;

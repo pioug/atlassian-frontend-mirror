@@ -28,12 +28,16 @@ export type DismissFn = () => void;
 
 export type FlagAPI = {
 	showFlag: (args: CreateFlagArgs) => DismissFn;
+	/**
+	 * Programmatically dismiss a flag by id. No-op if the flag isn't currently shown.
+	 */
+	hideFlag: (id: FlagId) => void;
 };
 
 const FlagContext = React.createContext<FlagAPI | null>(null);
 
 /**
- * useFlags is used to access the `showFlags` function which can be used to programatically display flags.
+ * useFlags is used to access the `showFlags` function which can be used to programmatically display flags.
  * - [Examples](https://atlassian.design/components/flag/flags-provider/examples#using-showflags)
  */
 export function useFlags(): FlagAPI {
@@ -50,6 +54,7 @@ const getUniqueId = (() => {
 	return () => `flag-provider-unique-id:${count++}`;
 })();
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function FlagsProvider({
 	children,
 	shouldRenderToParent,
@@ -91,6 +96,7 @@ export function FlagsProvider({
 					removeFlag(flag.id);
 				};
 			},
+			hideFlag: removeFlag,
 		}),
 		[removeFlag],
 	);
@@ -109,6 +115,7 @@ export function FlagsProvider({
 	);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const withFlagsProvider: (fn: () => React.ReactNode) => React.JSX.Element = (
 	fn: () => React.ReactNode,
 ): React.JSX.Element => <FlagsProvider>{fn()}</FlagsProvider>;

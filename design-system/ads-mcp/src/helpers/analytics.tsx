@@ -61,6 +61,7 @@ interface OperationalEventOptions {
  * Wraps the analytics client and handles errors gracefully
  * If analytics client is not available, this function is a no-op
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function sendOperationalEvent({
 	action,
 	actionSubject,

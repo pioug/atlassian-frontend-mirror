@@ -1,5 +1,27 @@
 # @atlaskit/link-datasource
 
+## 5.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.4.0
+
+### Minor Changes
+
+- [`2827c7d2d2023`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2827c7d2d2023) -
+  changed arguments & return values for assets-workspace-host package updated assets units changes
+  for link datasource
+- [`f7d0c8f644e16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7d0c8f644e16) -
+  [ux] Fix Smartlink List View getting stuck on the loading skeleton when stored `visibleColumnKeys`
+  don't match the response schema by falling back to `schema.defaultProperties`, behind feature gate
+  `fallback_to_default_columns_to_display_in_sllv`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.0
 
 ### Minor Changes

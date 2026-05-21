@@ -1,5 +1,7 @@
 # Forge React Types
 
+This package is for EXTERNAL use only and does not comply with Isolated Declarations. Consuming this inside AFM will cause issues with typecheck. Please seek guidance from Loop Experiences before using
+
 This package exposes a public npm package (`@atlaskit/forge-react-types`) that contains all
 necessary types for UIKit codegen components.
 

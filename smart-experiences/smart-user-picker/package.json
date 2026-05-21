@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-user-picker",
-	"version": "10.0.5",
+	"version": "10.1.0",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -24,11 +24,15 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
+		"./components": "./src/components/index.tsx",
+		"./default-value-hydration-client": "./src/service/default-value-hydration-client.ts",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
-		"./option": "./src/option.ts"
+		"./option": "./src/option.ts",
+		"./recommendation-client": "./src/service/recommendation-client.ts",
+		"./types": "./src/types.ts"
 	},
 	"atlassian": {
 		"team": "Search Platform: Search Experience",

@@ -122,6 +122,7 @@ export type BatchFetchConfig = {
 
 export type BlockUpdateCallback = (data: SyncBlockInstance) => void;
 export type BlockSubscriptionErrorCallback = (error: Error) => void;
+export type BlockSubscriptionCompleteCallback = () => void;
 export type Unsubscribe = () => void;
 
 export interface ADFFetchProvider {
@@ -138,6 +139,7 @@ export interface ADFFetchProvider {
 		resourceId: ResourceId,
 		onUpdate: BlockUpdateCallback,
 		onError?: BlockSubscriptionErrorCallback,
+		onComplete?: BlockSubscriptionCompleteCallback,
 	) => Unsubscribe;
 }
 export interface ADFWriteProvider {
@@ -243,12 +245,14 @@ export abstract class SyncBlockDataProviderInterface extends NodeDataProvider<
 	 * @param resourceId - The resource ID of the block to subscribe to
 	 * @param onUpdate - Callback function invoked when the block is updated
 	 * @param onError - Optional callback function invoked on subscription errors
+	 * @param onComplete - Optional callback function invoked when the subscription completes
 	 * @returns Unsubscribe function to stop receiving updates, or undefined if not supported
 	 */
 	subscribeToBlockUpdates?(
 		resourceId: ResourceId,
 		onUpdate: BlockUpdateCallback,
 		onError?: BlockSubscriptionErrorCallback,
+		onComplete?: BlockSubscriptionCompleteCallback,
 	): Unsubscribe | undefined;
 }
 

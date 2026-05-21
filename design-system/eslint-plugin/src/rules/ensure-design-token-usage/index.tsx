@@ -381,4 +381,5 @@ const rule: Rule.RuleModule = createLintRule({
 	create: createWithConfig(defaultConfig),
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default rule;

@@ -89,6 +89,7 @@ export const PopupProvider: React.Provider<TPopupContextValue | null> = PopupCon
  *
  * Throws if called outside of a `<Popup>` compound component.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function usePopupContext(): TPopupContextValue {
 	const ctx = useContext(PopupContext);
 	if (ctx === null) {
@@ -103,6 +104,7 @@ export function usePopupContext(): TPopupContextValue {
  * Used by `PopupContent` to support standalone usage (e.g. tooltip)
  * where values are passed as props instead of coming from a compound component.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function useMaybePopupContext(): TPopupContextValue | null {
 	return useContext(PopupContext);
 }

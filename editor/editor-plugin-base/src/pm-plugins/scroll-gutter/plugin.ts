@@ -12,7 +12,7 @@ const GUTTER_ATTR = 'data-editor-scroll-gutter';
  * Create a gutter element that can be added or removed from the DOM.
  */
 function createGutter(gutterSize: number, parent: HTMLElement | null) {
-	if (FeatureGates.getExperimentValue('cc_snippets_dogfooding_beta', 'isEnabled', false)) {
+	if (FeatureGates.getExperimentValue('cc_snippets', 'isEnabled', false)) {
 		if (!parent) {
 			return () => {};
 		}

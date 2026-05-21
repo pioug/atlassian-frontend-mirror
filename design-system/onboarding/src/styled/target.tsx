@@ -41,7 +41,7 @@ const pulseKeyframes = keyframes({
 });
 
 const animationStyles = css({
-	animationDuration: '3000ms',
+	animationDuration: token('motion.duration.xxlong', '3000ms'),
 	animationIterationCount: 'infinite',
 	animationName: pulseKeyframes,
 	animationTimingFunction: easing,
@@ -128,6 +128,7 @@ const targetOverlayStyles = css({
  *
  * @internal
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports, @repo/internal/react/require-jsdoc
 export const TargetOverlay = ({
 	onClick,
 	...props
@@ -157,6 +158,7 @@ export const TargetOverlay = ({
  *
  * @deprecated Use `@atlaskit/spotlight` instead.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports, @repo/internal/react/require-jsdoc
 export const Pulse = ({
 	bgColor,
 	children,

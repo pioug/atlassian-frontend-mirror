@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-layout
 
+## 10.4.0
+
+### Minor Changes
+
+- [`6d95dce3d9a86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d95dce3d9a86) -
+  Add deleteLayoutColumn command to editor-plugin-layout with proportional width redistribution and
+  analytics tracking (EDITOR-6669)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.3.5
+
+### Patch Changes
+
+- [`626fb6e8ce019`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/626fb6e8ce019) -
+  Wire layout column menu insert actions with proportional width redistribution.
+- Updated dependencies
+
+## 10.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.3.3
 
 ### Patch Changes

@@ -5,6 +5,7 @@ export const completeAnimations = (): void => {
 		jest.runAllTimers();
 	});
 };
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const triggerTransitionEnd = (component: any): void => {
 	// JSDom doesn't trigger transitionend event
 	// https://github.com/jsdom/jsdom/issues/1781

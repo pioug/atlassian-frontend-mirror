@@ -12,3 +12,5 @@ export const blockCardContentHeaderClassName = 'block-card-content-header';
 export const blockCardContentHeaderNameClassName = 'block-card-content-header-name';
 export const blockCardNotFoundViewClassName = 'block-card-not-found-view';
 export const blockCardErroredViewClassName = 'block-card-errored-view';
+
+export const loadingPlaceholderClassName = 'smart-link-loading-placeholder';

@@ -88,6 +88,7 @@ function blueFromArgb(argb: number): number {
 /**
  * Converts a color from ARGB to XYZ.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function argbFromXyz(x: number, y: number, z: number): number {
 	const matrix = XYZ_TO_SRGB;
 	const linearR = matrix[0][0] * x + matrix[0][1] * y + matrix[0][2] * z;
@@ -116,6 +117,7 @@ function xyzFromArgb(argb: number): number[] {
  * @return ARGB representation of grayscale color with lightness
  * matching L*
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function argbFromLstar(lstar: number): number {
 	const y = yFromLstar(lstar);
 	const component = delinearized(y);
@@ -128,6 +130,7 @@ export function argbFromLstar(lstar: number): number {
  * @param argb ARGB representation of a color
  * @return L*, from L*a*b*, coordinate of the color
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function lstarFromArgb(argb: number): number {
 	const y = xyzFromArgb(argb)[1];
 	return 116.0 * labF(y / 100.0) - 16.0;
@@ -144,6 +147,7 @@ export function lstarFromArgb(argb: number): number {
  * @param lstar L* in L*a*b*
  * @return Y in XYZ
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function yFromLstar(lstar: number): number {
 	return 100.0 * labInvf((lstar + 16.0) / 116.0);
 }
@@ -159,6 +163,7 @@ export function yFromLstar(lstar: number): number {
  * @param y Y in XYZ
  * @return L* in L*a*b*
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function lstarFromY(y: number): number {
 	return labF(y / 100.0) * 116.0 - 16.0;
 }
@@ -168,6 +173,7 @@ export function lstarFromY(y: number): number {
  *
  * @return The white point
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function whitePointD65(): number[] {
 	return WHITE_POINT_D65;
 }
@@ -193,6 +199,7 @@ interface Rgba {
  * @param argb ARGB representation of a int32 color.
  * @return RGBA representation of a int32 color.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function rgbaFromArgb(argb: number): Rgba {
 	const r = redFromArgb(argb);
 	const g = greenFromArgb(argb);
@@ -207,6 +214,7 @@ export function rgbaFromArgb(argb: number): Rgba {
  * @param rgba RGBA representation of a int32 color.
  * @returns ARGB representation of a int32 color.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function argbFromRgba({ r, g, b, a }: Rgba): number {
 	const rValue = clampComponent(r);
 	const gValue = clampComponent(g);

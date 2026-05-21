@@ -144,6 +144,7 @@ const FADE_CSS = `
  * <Popup.Content animate={fade()} />
  * ```
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function fade(): TAnimationPreset {
 	return {
 		name: 'fade',
@@ -198,6 +199,7 @@ const SCALE_AND_FADE_CSS = `
  * <Popup.Content animate={scaleAndFade()} />
  * ```
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function scaleAndFade(): TAnimationPreset {
 	return {
 		name: 'scale-and-fade',
@@ -290,6 +292,7 @@ const DIALOG_SLIDE_UP_AND_FADE_CSS = `
  * </Dialog>
  * ```
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function dialogSlideUpAndFade(options?: TDialogSlideUpAndFadeOptions): TAnimationPreset {
 	const distance = options?.distance ?? 12;
 
@@ -368,6 +371,7 @@ const DIALOG_FADE_CSS = `
  * </Dialog>
  * ```
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function dialogFade(): TAnimationPreset {
 	return {
 		name: 'dialog-fade',

@@ -1,5 +1,21 @@
 # @atlaskit/link-picker
 
+## 5.2.0
+
+### Minor Changes
+
+- [`71166a02faaa1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71166a02faaa1) -
+  Mark barrel exports as deprecated and add new entry points:
+  - @atlaskit/link-picker/errors
+  - @atlaskit/link-picker/lazy
+  - @atlaskit/link-picker/loader-fallback
+  - @atlaskit/link-picker/types
+  - @atlaskit/link-picker/ui
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.7
 
 ### Patch Changes

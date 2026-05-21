@@ -79,6 +79,7 @@ export function getFirstFocusable({
 /**
  * Returns the last focusable element within the container.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getLastFocusable({
 	container,
 	filter,
@@ -97,6 +98,7 @@ export function getLastFocusable({
  * Returns `null` if there is no focused element within the container or if
  * the focused element is not in the list of focusable elements.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getNextFocusable({
 	container,
 	direction,

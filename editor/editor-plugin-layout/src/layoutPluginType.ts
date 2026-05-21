@@ -1,4 +1,8 @@
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type {
+	EditorCommand,
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -11,6 +15,8 @@ import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 import type {
+	deleteLayoutColumn,
+	InsertLayoutColumnSide,
 	insertLayoutColumnsWithAnalytics,
 	setLayoutColumnValign,
 	toggleLayoutColumnMenu,
@@ -38,6 +44,8 @@ export type LayoutPlugin = NextEditorPlugin<
 			insertLayoutColumns: ReturnType<typeof insertLayoutColumnsWithAnalytics>;
 		};
 		commands: {
+			deleteLayoutColumn: ReturnType<typeof deleteLayoutColumn>;
+			insertLayoutColumn: (side: InsertLayoutColumnSide) => EditorCommand;
 			setLayoutColumnValign: typeof setLayoutColumnValign;
 			toggleLayoutColumnMenu: typeof toggleLayoutColumnMenu;
 		};

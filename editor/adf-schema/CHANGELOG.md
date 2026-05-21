@@ -1,5 +1,20 @@
 # @atlaskit/adf-schema
 
+## 52.13.0
+
+### Minor Changes
+
+- [`534d05cc607cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/534d05cc607cb) -
+  Add extendedPanelC1 and extendedPanelC1WithLocalId factory wrappers so allowCustomPanel and
+  generateLocalId propagate correctly into panel_c1 node specs. Register panel_c1 as a built-in node
+  in createSchema and include it in the default schema so consumers reading
+  defaultSchema.nodes.panel_c1 see a real NodeType (experiment-gated feature behaviour is unchanged
+  — table-in-panel is still controlled by platform_editor_nest_table_in_panel).
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.12.0
 
 ### Minor Changes

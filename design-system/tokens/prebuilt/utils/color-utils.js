@@ -59,6 +59,8 @@ function hexToRgbA(hex) {
   c = '0x' + c.join('');
   return [c >> 16 & 255, c >> 8 & 255, c & 255, (0, _getAlpha.getAlpha)(hex)];
 }
+
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 function hexToRgb(hex) {
   if (!isValidHex(hex)) {
     throw new Error('Invalid HEX');
@@ -71,6 +73,8 @@ function hexToRgb(hex) {
   c = '0x' + c.join('');
   return [c >> 16 & 255, c >> 8 & 255, c & 255];
 }
+
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 function hexToHSL(hex) {
   if (!isValidHex(hex)) {
     throw new Error('Invalid HEX');
@@ -116,6 +120,8 @@ function hexToHSL(hex) {
   l = +(l * 100).toFixed(1);
   return [h, s, l];
 }
+
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 function getContrastRatio(foreground, background) {
   if (!isValidHex(foreground) || !isValidHex(background)) {
     throw new Error('Invalid HEX');
@@ -129,6 +135,8 @@ function getContrastRatio(foreground, background) {
   var darkest = Math.min(foregroundLuminance, backgroundLuminance);
   return (brightest + 0.05) / (darkest + 0.05);
 }
+
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 function deltaE(rgbA, rgbB) {
   var labA = rgbToLab(rgbA);
   var labB = rgbToLab(rgbB);

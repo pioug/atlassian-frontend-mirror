@@ -19,7 +19,8 @@ const rule: Rule.RuleModule = {
 			'ObjectExpression Property[key.value=scripts] Property[key.value=/^(pre|post)install$/]': (
 				node: Rule.Node,
 			) => {
-				if (!context.getFilename().endsWith('/package.json')) {
+				// @ts-ignore - Jira's ESLint v10 types expose filename, platform still checks with ESLint v9.
+				if (!(context.filename ?? context.getFilename()).endsWith('/package.json')) {
 					return;
 				}
 

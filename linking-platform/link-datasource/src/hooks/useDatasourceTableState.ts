@@ -16,6 +16,7 @@ import {
 	type DatasourceResponseSchemaProperty,
 	type DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
 import { useDatasourceActions } from '../state';
@@ -177,6 +178,19 @@ export const useDatasourceTableState = ({
 				});
 			}
 
+			// Fallback to schema.defaultProperties when stored fieldKeys don't overlap with the response schema.
+			const useFallback =
+				fieldKeys.length > 0 &&
+				propertiesToBeUsed.length === 0 &&
+				properties.length > 0 &&
+				fg('fallback_to_default_columns_to_display_in_sllv');
+
+			if (useFallback) {
+				propertiesToBeUsed = properties.filter((property) =>
+					defaultProperties.includes(property.key),
+				);
+			}
+
 			/*Jira adds identifier fields like id and key to all data responses
       Since defaultProperties already send back the keyField, we are accounting only
       for the idField when we are using defaultProperties
@@ -199,8 +213,11 @@ export const useDatasourceTableState = ({
 				setDefaultVisibleColumnKeys(newProperties);
 			}
 
-			if (!isEqual(lastRequestedFieldKeys, newProperties)) {
-				setLastRequestedFieldKeys(newProperties);
+			// Keep lastRequestedFieldKeys equal to original fieldKeys when fallback fires to avoid an infinite refetch loop.
+			const nextLastRequestedFieldKeys = useFallback ? fieldKeys : newProperties;
+
+			if (!isEqual(lastRequestedFieldKeys, nextLastRequestedFieldKeys)) {
+				setLastRequestedFieldKeys(nextLastRequestedFieldKeys);
 			}
 		},
 		[columns, defaultVisibleColumnKeys, lastRequestedFieldKeys],

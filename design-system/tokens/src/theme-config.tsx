@@ -300,6 +300,7 @@ function getMotionDefault(): ThemeState['motion'] {
 /**
  * themeStateDefaults: the default values for ThemeState used by theming utilities
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const themeStateDefaults: ThemeStateDefaults = {
 	colorMode: 'auto',
 	contrastMode: 'auto',
@@ -320,6 +321,7 @@ export interface ActiveThemeState extends ThemeState {
 	colorMode: DataColorModes;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default themeConfig;
 
 export { themeColorModes } from './theme-color-modes';

@@ -6,7 +6,6 @@ import { stepHasSlice } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { LocalIdPlugin } from '../localIdPluginType';
 
@@ -96,10 +95,7 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 		 * This ensures uniqueness of localIds on nodes being created or edited
 		 */
 		appendTransaction: (transactions, _oldState, newState) => {
-			if (
-				api?.composition.sharedState.currentState()?.isComposing &&
-				expValEquals('platform_editor_localid_ime_composition_fix', 'isEnabled', true)
-			) {
+			if (api?.composition.sharedState.currentState()?.isComposing) {
 				return undefined;
 			}
 

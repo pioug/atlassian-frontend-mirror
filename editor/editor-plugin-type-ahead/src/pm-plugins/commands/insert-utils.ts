@@ -1,8 +1,9 @@
 import { normaliseNestedLayout, safeInsert } from '@atlaskit/editor-common/insert';
-import { transformNodeIntoListItem } from '@atlaskit/editor-common/utils';
+import { isNodeOfSameBaseType, transformNodeIntoListItem } from '@atlaskit/editor-common/utils';
 import { Fragment, Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 function findInsertPoint(
 	doc: PMNode,
@@ -105,7 +106,15 @@ export const insertBlockNode = ({
 		const grandParentNodeType = tr.selection.$from.node(-1)?.type;
 		const ggreatGrandParentNodeType = tr.selection.$from.node(-3)?.type;
 
-		if (grandParentNodeType === listItem && !(ggreatGrandParentNodeType === node.type)) {
+		const isGGreatGrandParentOfSameType = expValEquals(
+			'platform_editor_nest_table_in_panel',
+			'isEnabled',
+			true,
+		)
+			? ggreatGrandParentNodeType && isNodeOfSameBaseType(ggreatGrandParentNodeType, node.type)
+			: ggreatGrandParentNodeType === node.type;
+
+		if (grandParentNodeType === listItem && !isGGreatGrandParentOfSameType) {
 			return transformNodeIntoListItem(tr, nodeNormalized);
 		}
 

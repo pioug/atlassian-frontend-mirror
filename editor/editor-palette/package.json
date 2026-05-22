@@ -42,6 +42,8 @@
 	},
 	"devDependencies": {
 		"@testing-library/react": "root:*",
+		"react": "root:*",
+		"react-dom": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"peerDependencies": {

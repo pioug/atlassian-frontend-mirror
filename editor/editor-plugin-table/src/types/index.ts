@@ -54,6 +54,8 @@ export type TableSharedStateInternal = Pick<
 	| 'isHeaderRowEnabled'
 	| 'isHeaderColumnEnabled'
 	| 'isNumberColumnEnabled'
+	| 'isCommentEditor'
+	| 'isTableScalingEnabled'
 	| 'ordering'
 	| 'isInDanger'
 	| 'hoveredRows'
@@ -78,6 +80,7 @@ export type TableSharedStateInternal = Pick<
 	isDragMenuOpen?: boolean;
 	isResizing: boolean;
 	isSizeSelectorOpen?: boolean;
+	isTableFixedColumnWidthsOptionEnabled?: boolean;
 	isTableResizing?: boolean;
 	isWholeTableInDanger?: boolean;
 	resizingTableLocalId?: string;

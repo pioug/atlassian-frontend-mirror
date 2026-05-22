@@ -1,5 +1,15 @@
 # @atlaskit/json-ld-types
 
+## 1.5.0
+
+### Minor Changes
+
+- [`4ad2574428cb8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ad2574428cb8) -
+  Mark barrel exports as deprecated and add new entry points:
+  - @atlaskit/json-ld-types/default-states
+  - @atlaskit/json-ld-types/jsonld-response-types
+  - @atlaskit/json-ld-types/jsonld
+
 ## 1.4.1
 
 ### Patch Changes

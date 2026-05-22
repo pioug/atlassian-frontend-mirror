@@ -62,6 +62,7 @@
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"
 	},

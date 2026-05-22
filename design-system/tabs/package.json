@@ -68,6 +68,7 @@
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"react-lorem-component": "root:*",
 		"storybook-addon-performance": "root:*"

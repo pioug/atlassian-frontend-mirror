@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::ee328dec5b7caea8da96bbecbd13deb9>>
+ * @codegen <<SignedSource::4e6fead4cb965abb60086be6d1f54e88>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1679,8 +1679,12 @@ export type UserInlinePreviewFailedRequestAttributesType = undefined;
 export type UserInlinePreviewClickedThirdPartyMessageAttributesType = {
 	integration: string;
 };
-export type UserInlinePreviewClickedReportingLinesAttributesType = undefined;
-export type UserInlinePreviewClickedViewProfileAttributesType = undefined;
+export type UserInlinePreviewClickedReportingLinesAttributesType = {
+	renderContext?: string | null;
+};
+export type UserInlinePreviewClickedViewProfileAttributesType = {
+	renderContext?: string | null;
+};
 export type UserProfileCardOpenedAttributesType = {
 	triggerMethod: string;
 };

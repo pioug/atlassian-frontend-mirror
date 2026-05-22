@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { NodeViewContentHole } from '@atlaskit/editor-common/react-node-view';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { useHandleContentChanges } from '@atlaskit/editor-synced-block-provider';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
@@ -21,7 +22,7 @@ export const BodiedSyncBlockWrapper: React.ForwardRefExoticComponent<
 
 		return (
 			<div>
-				<div data-testid="bodied-sync-block-wrapper" ref={ref} />
+				<NodeViewContentHole data-testid="bodied-sync-block-wrapper" ref={ref} />
 				<SyncBlockLabel isSource={true} localId={node.attrs.localId} />
 			</div>
 		);

@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Portal',
 		description: 'A component for rendering content outside the normal DOM hierarchy.',
@@ -41,6 +42,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['portal', 'render', 'dom', 'mount', 'teleport'],
 		categories: ['utility'],
 	},
-];
+	],
+};
 
 export default documentation;

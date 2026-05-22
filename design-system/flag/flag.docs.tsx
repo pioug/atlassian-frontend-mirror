@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Flag',
 		description: 'A component for displaying brief messages.',
@@ -53,6 +54,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['flag', 'message', 'notification', 'alert', 'toast'],
 		categories: ['feedback'],
 	},
-];
+	],
+};
 
 export default documentation;

@@ -1,5 +1,48 @@
 # @atlaskit/editor-statsig-tmp
 
+## 82.5.0
+
+### Minor Changes
+
+- [`bc59bccc2fc5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc59bccc2fc5c) -
+  Reorder advanced layout quick insert suggestions
+
+## 82.4.0
+
+### Minor Changes
+
+- [`41962dd9dccb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41962dd9dccb2) -
+  NO-ISSUE: adds a default toolbar state so we can render the toolbar on initial load without
+  relying on editor state
+
+## 82.3.0
+
+### Minor Changes
+
+- [`8aa63d737699c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8aa63d737699c) -
+  Hide create with rovo content type picker pills for site disabled content types
+- [`ab6159c301de9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab6159c301de9) -
+  [ux] Change the fail safe for when typeSettings failed to return for whatever reason to be only
+  allow the AIFC finalized flow to create pages
+
+  Add the `aifc_space_typesettings` experiment to the typed tmp editor Statsig config.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 82.2.0
+
+### Minor Changes
+
+- [`b284d7fc05568`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b284d7fc05568) -
+  Fix tableCell/tableHeader nodes in middle rows of newly-inserted tables missing localId. The
+  localId plugin's appendTransaction was keyed by PMNode identity, which incorrectly overwrote
+  positions when the same node reference legitimately occupied multiple document positions (as
+  createTable from prosemirror-utils does by reusing cell node objects across non-header rows). The
+  plugin now tracks all positions per node identity and assigns a unique localId per position. Gated
+  behind the `platform_editor_ai_tablecell_localids` experiment.
+
 ## 82.1.0
 
 ### Minor Changes

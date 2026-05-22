@@ -4,9 +4,11 @@ import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 import __noop from '@atlaskit/ds-lib/noop';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { Block } from '../../../examples-util/block';
 import Avatar, { AvatarItem } from '../../index';
+import { SQUARE_AVATAR_MAX_SIZE_FF } from '../../size-utils';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Avatar accessibility', () => {
@@ -41,6 +43,44 @@ describe('Avatar accessibility', () => {
 		);
 		await axe(container);
 	});
+
+	ffTest.on(
+		SQUARE_AVATAR_MAX_SIZE_FF,
+		'Basic Avatar examples should not fail aXe audit when square sizes are capped',
+		() => {
+			it('Basic Avatar examples should not fail aXe audit when square sizes are capped', async () => {
+				const { container } = render(
+					<div>
+						<Block heading="Circle">
+							<Avatar name="xxlarge" size="xxlarge" testId="avatar" />
+							<Avatar name="xlarge" size="xlarge" presence="online" />
+							<Avatar name="large" size="large" presence="offline" />
+							<Avatar name="medium" size="medium" presence="busy" />
+							<Avatar name="small" size="small" presence="focus" />
+							<Avatar name="xsmall" size="xsmall" />
+						</Block>
+						<Block heading="Square">
+							<Avatar appearance="square" name="xxlarge" size="xxlarge" />
+							<Avatar appearance="square" name="xlarge" size="xlarge" status="approved" />
+							<Avatar appearance="square" name="large" size="large" status="declined" />
+							<Avatar appearance="square" name="medium" size="medium" status="locked" />
+							<Avatar appearance="square" name="small" size="small" />
+							<Avatar appearance="square" name="xsmall" size="xsmall" />
+						</Block>
+						<Block heading="Disabled">
+							<Avatar name="xxlarge" size="xxlarge" isDisabled />
+							<Avatar name="xlarge" size="xlarge" presence="online" isDisabled />
+							<Avatar name="large" size="large" presence="offline" isDisabled />
+							<Avatar name="medium" size="medium" presence="busy" isDisabled />
+							<Avatar name="small" size="small" presence="focus" isDisabled />
+							<Avatar name="xsmall" size="xsmall" isDisabled />
+						</Block>
+					</div>,
+				);
+				await axe(container);
+			});
+		},
+	);
 
 	it('Avatar Item examples should not fail aXe audit', async () => {
 		const { container } = render(

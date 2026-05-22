@@ -13,6 +13,7 @@ import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
 import { nodeVisibilityManager } from '@atlaskit/editor-common/node-visibility';
 import { getParentNodeWidth, getTableContainerWidth } from '@atlaskit/editor-common/node-width';
+import { NodeViewContentHole } from '@atlaskit/editor-common/react-node-view';
 import { isTableInContentMode } from '@atlaskit/editor-common/table';
 import type { EditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { isValidPosition } from '@atlaskit/editor-common/utils';
@@ -33,8 +34,8 @@ import { pluginKey as stickyHeadersPluginKey } from '../pm-plugins/sticky-header
 import type { RowStickyState, StickyPluginState } from '../pm-plugins/sticky-headers/types';
 import { findStickyHeaderForTable } from '../pm-plugins/sticky-headers/util';
 import {
-	insertColgroupFromNode,
 	hasTableBeenResized,
+	insertColgroupFromNode,
 } from '../pm-plugins/table-resizing/utils/colgroup';
 import {
 	COLUMN_MIN_WIDTH,
@@ -170,7 +171,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		this.isNestedInTable = tablePos
 			? getParentOfTypeCount(props.view.state.schema.nodes.table)(
 					props.view.state.doc.resolve(tablePos),
-				) > 0
+			  ) > 0
 			: false;
 
 		if (!this.updateColGroupFromFullWidthChange) {
@@ -194,7 +195,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 								...prev,
 								tableWrapperWidth: entry.contentRect.width,
 								tableWrapperHeight: entry.contentRect.height,
-							};
+						  };
 				});
 			}
 		});
@@ -722,6 +723,33 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		}
 	}
 
+	private setWrapperRef = (elem: HTMLDivElement | null) => {
+		this.wrapper = elem;
+		if (!elem) {
+			return;
+		}
+
+		this.props.contentDOM(elem);
+		const tableElement = elem.querySelector('table');
+
+		if (tableElement !== this.table) {
+			this.table = tableElement;
+			this.observeTable(this.table);
+
+			if (
+				this.table &&
+				(!expValEquals('platform_editor_table_ref_optimisation', 'isEnabled', true) ||
+					this.props.tableActive) &&
+				this.props.view &&
+				!expValEquals('platform_editor_fix_editor_unhandled_type_errors', 'isEnabled', true) &&
+				(expValEquals('platform_editor_table_update_table_ref', 'isEnabled', true) ||
+					fg('platform_editor_enable_table_update_ref_atlas'))
+			) {
+				setTableRef(this.table)(this.props.view.state, this.props.view.dispatch);
+			}
+		}
+	};
+
 	onStickyState = (state: StickyPluginState) => {
 		const pos = this.props.getPos();
 		if (!isValidPosition(pos, this.props.view.state)) {
@@ -908,42 +936,14 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 						}}
 					/>
 				)}
-				<div
+				<NodeViewContentHole
+					// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides -- existing table wrapper class required for legacy styling hooks
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={classnames(ClassName.TABLE_NODE_WRAPPER)}
-					ref={(elem) => {
-						this.wrapper = elem;
-						if (elem) {
-							this.props.contentDOM(elem);
-							const tableElement = elem.querySelector('table');
-
-							if (tableElement !== this.table) {
-								this.table = tableElement;
-								this.observeTable(this.table);
-
-								// // Update tableRef in plugin state when table is properly mounted
-								// // At this point, both table and wrapper are in DOM with correct parent-child relationship
-								if (
-									this.table &&
-									(!expValEquals('platform_editor_table_ref_optimisation', 'isEnabled', true) ||
-										this.props.tableActive) &&
-									this.props.view &&
-									!expValEquals(
-										'platform_editor_fix_editor_unhandled_type_errors',
-										'isEnabled',
-										true,
-									) &&
-									(expValEquals('platform_editor_table_update_table_ref', 'isEnabled', true) ||
-										fg('platform_editor_enable_table_update_ref_atlas'))
-								) {
-									setTableRef(this.table)(this.props.view.state, this.props.view.dispatch);
-								}
-							}
-						}
-					}}
+					ref={this.setWrapperRef}
 				>
 					{allowControls && colControls}
-				</div>
+				</NodeViewContentHole>
 				{!this.isNestedInTable ? (
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

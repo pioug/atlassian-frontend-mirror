@@ -27,6 +27,7 @@ export interface Props {
 	scrollableElement?: HTMLElement;
 	shouldFitContainer?: boolean;
 	target?: HTMLElement;
+	testId?: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	trigger?: React.ReactElement<any>;
@@ -115,6 +116,7 @@ export class Dropdown extends PureComponent<Props, State> {
 			alignY,
 			offset,
 			shouldFitContainer = true,
+			testId,
 		} = this.props;
 
 		return (
@@ -155,6 +157,7 @@ export class Dropdown extends PureComponent<Props, State> {
 							position={popupPlacement.join(' ')}
 							shouldFitContainer={shouldFitContainer}
 							id={dropdownListId}
+							testId={testId}
 						>
 							{children}
 						</DropdownList>

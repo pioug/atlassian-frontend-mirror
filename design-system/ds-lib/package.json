@@ -71,7 +71,8 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/react": "root:*",
-		"jest-in-case": "root:*"
+		"jest-in-case": "root:*",
+		"react": "^19.0.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

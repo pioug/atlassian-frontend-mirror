@@ -74,6 +74,7 @@
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"react-resource-router": "root:*"
 	},

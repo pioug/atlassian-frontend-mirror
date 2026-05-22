@@ -74,6 +74,8 @@
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"enzyme": "root:*",
+		"react": "root:*",
+		"react-dom": "root:*",
 		"react-intl": "root:*"
 	},
 	"keywords": [

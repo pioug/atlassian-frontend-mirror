@@ -65,6 +65,8 @@
 	"devDependencies": {
 		"@testing-library/react": "root:*",
 		"raf-stub": "root:*",
+		"react": "root:*",
+		"react-dom": "root:*",
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
 	},

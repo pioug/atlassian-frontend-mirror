@@ -53,6 +53,7 @@
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"keywords": [

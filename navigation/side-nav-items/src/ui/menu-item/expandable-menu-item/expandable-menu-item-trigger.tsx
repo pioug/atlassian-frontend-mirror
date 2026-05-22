@@ -14,14 +14,9 @@ import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
 import type { IconProps } from '@atlaskit/icon';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import {
-	MenuItemBase,
-	nestedOpenPopupCSSSelector,
-	nestedOpenPopupCSSSelectorNew,
-} from '../menu-item';
+import { MenuItemBase, nestedOpenPopupCSSSelector } from '../menu-item';
 import type { MenuItemCommonProps, MenuItemSlots } from '../types';
 import { useScrollMenuItemIntoView } from '../use-scroll-menu-item-into-view';
 
@@ -90,21 +85,11 @@ const wrapperStyles = cssMap({
 	},
 });
 
-const nestedOpenPopupStylesOld = cssMap({
+// Merge back into the `wrapperStyles` after cleanup
+const nestedOpenPopupStyles = cssMap({
 	showProvidedElemBefore: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 		[nestedOpenPopupCSSSelector]: {
-			[chevronDisplayCssVar]: 'flex',
-			[providedElemBeforeDisplayCssVar]: 'none',
-		},
-	},
-});
-
-// Merge back into the `wrapperStyles` after cleanup
-const nestedOpenPopupStylesNew = cssMap({
-	showProvidedElemBefore: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		[nestedOpenPopupCSSSelectorNew]: {
 			[chevronDisplayCssVar]: 'flex',
 			[providedElemBeforeDisplayCssVar]: 'none',
 		},
@@ -325,9 +310,7 @@ export const ExpandableMenuItemTrigger: <RouterLinkConfig extends Record<string,
 				css={[
 					wrapperStyles.root,
 					providedElemBefore && wrapperStyles.showProvidedElemBefore,
-					fg('platform_dst_nav4_flyout_menu_slots_close_button')
-						? nestedOpenPopupStylesNew.showProvidedElemBefore
-						: nestedOpenPopupStylesOld.showProvidedElemBefore,
+					nestedOpenPopupStyles.showProvidedElemBefore,
 				]}
 				ref={itemRef}
 			>

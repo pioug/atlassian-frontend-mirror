@@ -105,6 +105,7 @@
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"raf-stub": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"techstack": {

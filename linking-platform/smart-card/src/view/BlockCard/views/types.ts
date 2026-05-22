@@ -6,6 +6,8 @@ export type FlexibleBlockCardProps = Pick<
 	| 'id'
 	| 'onAuthorize'
 	| 'onClick'
+	| 'onAuxClick'
+	| 'onContextMenu'
 	| 'onError'
 	| 'onResolve'
 	| 'renderers'

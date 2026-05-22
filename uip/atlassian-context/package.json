@@ -79,5 +79,8 @@
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
 		}
+	},
+	"devDependencies": {
+		"react": "^19.0.0"
 	}
 }

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-layout
 
+## 10.5.0
+
+### Minor Changes
+
+- [`bc59bccc2fc5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc59bccc2fc5c) -
+  Reorder advanced layout quick insert suggestions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.4.0
 
 ### Minor Changes

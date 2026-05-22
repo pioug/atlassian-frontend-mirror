@@ -13,9 +13,9 @@ const _default_1: any = md`
   ${(
 		<Example
 			packageName="@atlaskit/link-datasource"
-			Component={require('./examples/basic-config-modal').default}
+			Component={require('../examples/content/basic-config-modal').default}
 			title="Contributing a new config modal"
-			source={require('!!raw-loader!./examples/basic-config-modal')}
+			source={require('!!raw-loader!../examples/content/basic-config-modal')}
 		/>
 	)}
   `;

@@ -1,14 +1,42 @@
+/** @deprecated Use @atlaskit/link-test-helpers/promise/flush-promises */
 export { flushPromises } from './flushPromises';
+
+/** @deprecated Use @atlaskit/link-test-helpers/react-testing-library */
 export { renderWithIntl, asyncAct } from './react-testing-library';
+
+/** @deprecated Use @atlaskit/link-test-helpers/promise/manual-promise */
 export { default as ManualPromise } from './manual-promise';
+
+/** @deprecated Use @atlaskit/link-test-helpers/intersection-observer */
 export {
 	MockIntersectionObserverFactory,
 	type MockIntersectionObserverOpts,
 	mockSimpleIntersectionObserver,
 } from './intersection-observer';
+
+/** @deprecated Use @atlaskit/link-test-helpers/with-wait-for-item */
 export { withWaitForItem } from './withWaitForItem';
 
 // Export all mock clients and related utilities
+/**
+ * @deprecated Use the specific entry points instead:
+ * - Clients: @atlaskit/link-test-helpers/smart-card/mocks/clients
+ * - Asana mocks: @atlaskit/link-test-helpers/smart-card/mocks/asana
+ * - Atlas mocks: @atlaskit/link-test-helpers/smart-card/mocks/atlas
+ * - Bitbucket mocks: @atlaskit/link-test-helpers/smart-card/mocks/bitbucket
+ * - Confluence mocks: @atlaskit/link-test-helpers/smart-card/mocks/confluence
+ * - Dynamic icons: @atlaskit/link-test-helpers/smart-card/mocks/dynamic-icons
+ * - Embed content: @atlaskit/link-test-helpers/smart-card/mocks/embed-content
+ * - Google Drive mocks: @atlaskit/link-test-helpers/smart-card/mocks/gdrive
+ * - GitHub mocks: @atlaskit/link-test-helpers/smart-card/mocks/github
+ * - Jira mocks: @atlaskit/link-test-helpers/smart-card/mocks/jira
+ * - Profile mocks: @atlaskit/link-test-helpers/smart-card/mocks/profile
+ * - Slack mocks: @atlaskit/link-test-helpers/smart-card/mocks/slack
+ * - Trello mocks: @atlaskit/link-test-helpers/smart-card/mocks/trello
+ * - YouTube mocks: @atlaskit/link-test-helpers/smart-card/mocks/youtube
+ * - Unicorn mocks: @atlaskit/link-test-helpers/smart-card/mocks/unicorn
+ * - Images: @atlaskit/link-test-helpers/smart-card/images
+ */
 export {
 	overrideEmbedContent,
 	mocks,

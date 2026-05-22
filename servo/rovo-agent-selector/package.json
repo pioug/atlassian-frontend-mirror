@@ -50,6 +50,7 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*",
 		"react-magnetic-di": "root:*",

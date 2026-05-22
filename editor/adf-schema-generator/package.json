@@ -38,6 +38,22 @@
 		"typescript": "root:*"
 	},
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./adfNode": "./src/entry-points/adfNode.ts",
+		"./adfMark": "./src/entry-points/adfMark.ts",
+		"./adfNodeGroup": "./src/entry-points/adfNodeGroup.ts",
+		"./adfMarkGroup": "./src/entry-points/adfMarkGroup.ts",
+		"./$onePlus": "./src/entry-points/$onePlus.ts",
+		"./$zeroPlus": "./src/entry-points/$zeroPlus.ts",
+		"./$range": "./src/entry-points/$range.ts",
+		"./$or": "./src/entry-points/$or.ts",
+		"./adfToPm": "./src/entry-points/adfToPm.ts",
+		"./adfToJson": "./src/entry-points/adfToJson.ts",
+		"./adfToValidatorSpec": "./src/entry-points/adfToValidatorSpec.ts",
+		"./transformerNames": "./src/entry-points/transformerNames.ts",
+		"./types/ADFMarkSpec": "./src/entry-points/ADFMarkSpecTypes.ts",
+		"./types/ADFNodeSpec": "./src/entry-points/ADFNodeSpecTypes.ts",
+		"./types/ADFNodeGroup": "./src/entry-points/ADFNodeGroupTypes.ts",
+		"./types/ADFMarkGroup": "./src/entry-points/ADFMarkGroupTypes.ts"
 	}
 }

@@ -221,6 +221,37 @@ export type FloatingToolbarInput<T extends Object> = {
 	type: 'input';
 };
 
+export type FloatingToolbarCustomRenderContext = {
+	/**
+	 * Element used as the boundary for positioning floating toolbar popups.
+	 * Custom toolbar items should pass this through to editor popup/dropdown primitives
+	 * so their content stays within the same visual constraints as built-in toolbar items.
+	 */
+	popupsBoundariesElement?: HTMLElement;
+	/**
+	 * Element that editor popups should be mounted into.
+	 * Use this when rendering custom dropdown or popup content outside the editor DOM
+	 * to avoid editor stacking-context issues.
+	 */
+	popupsMountPoint?: HTMLElement;
+	/**
+	 * Scroll container that editor popups should track when recalculating position.
+	 * Custom toolbar items should pass this through when they need popup content to
+	 * remain visually attached to the floating toolbar while the editor scrolls.
+	 */
+	popupsScrollableElement?: HTMLElement;
+	/**
+	 * Whether the floating toolbar can scroll its own contents.
+	 */
+	scrollable?: boolean;
+	/**
+	 * Temporarily disables or re-enables parent toolbar scrolling.
+	 * Custom dropdowns should call this while open when they need keyboard or pointer
+	 * interaction to stay inside the dropdown rather than moving the toolbar contents.
+	 */
+	setDisableParentScroll?: (disabled: boolean) => void;
+};
+
 export type FloatingToolbarCustom<T extends Object> = {
 	/**
 	 * By default -- the floating toolbar supports navigating between
@@ -240,6 +271,7 @@ export type FloatingToolbarCustom<T extends Object> = {
 		view?: EditorView,
 		idx?: number,
 		dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+		context?: FloatingToolbarCustomRenderContext,
 	) => React.ReactNode;
 	supportsViewMode?: boolean; // TODO: MODES-3950 - Clean up this floating toolbar view mode logic
 	type: 'custom';

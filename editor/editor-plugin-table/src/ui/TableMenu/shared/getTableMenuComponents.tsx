@@ -9,7 +9,7 @@ import type { TableMenuComponentsParams } from './types';
 
 export const getTableMenuComponents = (params: TableMenuComponentsParams): RegisterComponent[] => [
 	...getRowMenuComponents(params),
-	...getColumnMenuComponents(),
+	...getColumnMenuComponents(params),
 	...getCellMenuComponents(),
 	...getSharedItems(params),
 ];

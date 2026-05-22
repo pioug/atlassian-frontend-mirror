@@ -18,7 +18,6 @@ import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { cssMap } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { PopupContent } from '@atlaskit/popup/experimental';
 import { token } from '@atlaskit/tokens';
 
@@ -141,35 +140,33 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 				event: Event | React.MouseEvent<HTMLButtonElement> | KeyboardEvent | MouseEvent | null,
 				source?: FlyoutCloseSource,
 			) => {
-				if (fg('platform_dst_nav4_flyout_menu_slots_close_button')) {
-					// Use the passed source if provided, otherwise determine from event
-					let determinedSource: FlyoutCloseSource = source || 'other';
+				// Use the passed source if provided, otherwise determine from event
+				let determinedSource: FlyoutCloseSource = source || 'other';
 
-					if (!source) {
-						if (event instanceof KeyboardEvent) {
-							const keyboardEvent = event as KeyboardEvent;
-							if (keyboardEvent.key === 'Escape' || keyboardEvent.key === 'Esc') {
-								determinedSource = 'escape-key';
-							}
-						} else if (event instanceof MouseEvent) {
-							if (event && 'type' in event && event.type === 'click') {
-								determinedSource = 'outside-click';
-							}
+				if (!source) {
+					if (event instanceof KeyboardEvent) {
+						const keyboardEvent = event as KeyboardEvent;
+						if (keyboardEvent.key === 'Escape' || keyboardEvent.key === 'Esc') {
+							determinedSource = 'escape-key';
+						}
+					} else if (event instanceof MouseEvent) {
+						if (event && 'type' in event && event.type === 'click') {
+							determinedSource = 'outside-click';
 						}
 					}
-
-					// When flyout menu is closed, fire analytics event
-					const navigationAnalyticsEvent = createAnalyticsEvent({
-						source: 'sideNav',
-						actionSubject: 'flyoutMenu',
-						action: 'closed',
-						attributes: {
-							closeSource: determinedSource,
-						},
-					});
-
-					navigationAnalyticsEvent.fire('navigation');
 				}
+
+				// When flyout menu is closed, fire analytics event
+				const navigationAnalyticsEvent = createAnalyticsEvent({
+					source: 'sideNav',
+					actionSubject: 'flyoutMenu',
+					action: 'closed',
+					attributes: {
+						closeSource: determinedSource,
+					},
+				});
+
+				navigationAnalyticsEvent.fire('navigation');
 
 				onClose?.();
 				setIsOpen(false);
@@ -212,8 +209,8 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 				testId={containerTestId}
 				xcss={flyoutMenuItemContentStyles.root}
 				autoFocus={autoFocus}
-				role={fg('platform_dst_nav4_flyout_menu_slots_close_button') ? 'dialog' : undefined}
-				titleId={fg('platform_dst_nav4_flyout_menu_slots_close_button') ? titleId : undefined}
+				role="dialog"
+				titleId={titleId}
 				/**
 				 * Disabling GPU acceleration removes the use of `transform` by popper.js for this popup.
 				 *
@@ -232,19 +229,15 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 			>
 				{({ update }) => (
 					<UpdatePopperOnContentResize ref={forwardedRef} update={update}>
-						{fg('platform_dst_nav4_flyout_menu_slots_close_button') ? (
-							<TitleIdContextProvider value={titleId}>
-								<div
-									css={flyoutMenuItemContentContainerStyles.container}
-									style={{ [maxHeightCssVar as keyof React.CSSProperties]: computedMaxHeight }}
-									data-testid={containerTestId ? `${containerTestId}--container` : undefined}
-								>
-									{children}
-								</div>
-							</TitleIdContextProvider>
-						) : (
-							children
-						)}
+						<TitleIdContextProvider value={titleId}>
+							<div
+								css={flyoutMenuItemContentContainerStyles.container}
+								style={{ [maxHeightCssVar as keyof React.CSSProperties]: computedMaxHeight }}
+								data-testid={containerTestId ? `${containerTestId}--container` : undefined}
+							>
+								{children}
+							</div>
+						</TitleIdContextProvider>
 					</UpdatePopperOnContentResize>
 				)}
 			</PopupContent>

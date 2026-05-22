@@ -6,6 +6,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
+import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 import type { ListPlugin } from '@atlaskit/editor-plugin-list';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
@@ -42,6 +43,7 @@ export type BlockTypePlugin = NextEditorPlugin<
 			OptionalPlugin<BlockMenuPlugin>,
 			OptionalPlugin<ListPlugin>,
 			OptionalPlugin<SelectionPlugin>,
+			OptionalPlugin<InteractionPlugin>,
 		];
 		pluginConfiguration: BlockTypePluginOptions | undefined;
 		sharedState: BlockTypeState | undefined;

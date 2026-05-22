@@ -364,7 +364,6 @@ snapshotInformational(SideNavLayering, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		platform_dst_nav4_flyout_menu_slots_close_button: true,
 	},
 	prepare: async (page) => {
 		// Open the flyout menu item with lots of content

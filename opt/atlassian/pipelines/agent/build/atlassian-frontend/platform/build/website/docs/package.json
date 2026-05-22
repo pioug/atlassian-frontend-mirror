@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/docs",
-	"version": "11.8.2",
+	"version": "11.8.3",
 	"description": "Utilities for building documentation",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -61,6 +61,7 @@
 		"@testing-library/user-event": "root:*",
 		"enzyme": "root:*",
 		"jest-in-case": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"react-test-renderer": "root:*"
 	}

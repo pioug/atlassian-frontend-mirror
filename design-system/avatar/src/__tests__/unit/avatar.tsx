@@ -13,6 +13,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import Avatar, { AvatarContent, AvatarContext, type SizeType } from '../../index';
+import { SQUARE_AVATAR_MAX_SIZE_FF } from '../../size-utils';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -409,6 +410,31 @@ describe('Avatar', () => {
 			expect(screen.queryAllByRole('img')).toHaveLength(expectedRoles);
 		},
 		imageRoleTestCases,
+	);
+
+
+	ffTest.on(
+		SQUARE_AVATAR_MAX_SIZE_FF,
+		'should cap square xlarge and xxlarge sizes to large when the gate is enabled',
+		() => {
+			it('should render square xlarge avatar at large dimensions', () => {
+				render(<Avatar appearance="square" size="xlarge" testId="capped-square-avatar" />);
+
+				expect(screen.getByTestId('capped-square-avatar--inner')).toHaveCompiledCss({
+					width: '40px',
+					height: '40px',
+				});
+			});
+
+			it('should render square xxlarge avatar at large dimensions', () => {
+				render(<Avatar appearance="square" size="xxlarge" testId="capped-square-avatar" />);
+
+				expect(screen.getByTestId('capped-square-avatar--inner')).toHaveCompiledCss({
+					width: '40px',
+					height: '40px',
+				});
+			});
+		},
 	);
 
 	it('should not show a presence indicator not provided', () => {

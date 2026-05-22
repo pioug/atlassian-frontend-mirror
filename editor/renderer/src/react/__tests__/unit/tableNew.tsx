@@ -1,4 +1,6 @@
+/* eslint-disable @atlaskit/ui-styling-standard/no-classname-prop, react/jsx-props-no-spreading */
 import React from 'react';
+// eslint-disable-next-line @atlassian/testing-library/prefer-atlassian-testing-library -- pre-existing usage
 import { render, screen } from '@testing-library/react';
 import { TableContainer } from '../../nodes/table';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
@@ -130,6 +132,69 @@ describe('Tables without a width attribute', () => {
 			});
 		});
 	});
+});
+
+describe('Tables inside nested renderers (e.g. Include Page macro)', () => {
+	const tableNodeWithWidth = {
+		...prosemirrorTableNode,
+		attrs: { ...prosemirrorTableNode.attrs, width: tableWidth },
+	} as any;
+
+	const NestedRendererTable = () => (
+		<div className="ak-renderer-document">
+			<div className="extension-wrapper">
+				<div className="ak-renderer-document">
+					<TableContainer
+						tableNode={tableNodeWithWidth}
+						rendererAppearance="full-width"
+						renderWidth={640}
+						{...requiredProps}
+					>
+						<tr>
+							<td>1</td>
+						</tr>
+					</TableContainer>
+				</div>
+			</div>
+		</div>
+	);
+
+	const TopLevelTable = () => (
+		<div className="ak-renderer-document">
+			<TableContainer
+				tableNode={tableNodeWithWidth}
+				rendererAppearance="full-width"
+				renderWidth={640}
+				{...requiredProps}
+			>
+				<tr>
+					<td>1</td>
+				</tr>
+			</TableContainer>
+		</div>
+	);
+
+	ffTest(
+		'platform_nested_table_style_override',
+		() => {
+			// Feature gate enabled: should apply !important inline styles in nested renderer
+			const { unmount } = render(<NestedRendererTable />);
+			const tableContainer = screen.getByTestId('table-container');
+			expect(tableContainer.style.getPropertyPriority('width')).toBe('important');
+			unmount();
+
+			// Feature gate enabled: should NOT apply !important in top-level renderer
+			render(<TopLevelTable />);
+			const topLevelContainer = screen.getByTestId('table-container');
+			expect(topLevelContainer.style.getPropertyPriority('width')).not.toBe('important');
+		},
+		() => {
+			// Feature gate disabled: should NOT apply !important even in nested renderer
+			render(<NestedRendererTable />);
+			const tableContainer = screen.getByTestId('table-container');
+			expect(tableContainer.style.getPropertyPriority('width')).not.toBe('important');
+		},
+	);
 });
 
 describe('Table isPresentational prop', () => {

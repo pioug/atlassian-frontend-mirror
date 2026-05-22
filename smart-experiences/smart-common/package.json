@@ -41,6 +41,7 @@
 	},
 	"devDependencies": {
 		"fetch-mock": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"techstack": {

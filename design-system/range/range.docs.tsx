@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Range',
 		description: 'A component for selecting a value from a range of values.',
@@ -42,6 +43,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['range', 'slider', 'input', 'form', 'value', 'selection'],
 		categories: ['form'],
 	},
-];
+	],
+};
 
 export default documentation;

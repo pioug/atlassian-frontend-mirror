@@ -38,6 +38,7 @@
 	},
 	"devDependencies": {
 		"@testing-library/react": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"keywords": [

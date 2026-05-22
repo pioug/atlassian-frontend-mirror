@@ -33,9 +33,9 @@ aql?: string;
   ${(
 		<Example
 			packageName="@atlaskit/link-datasource"
-			Component={require('./examples/basic-assets-config-modal').default}
+			Component={require('../examples/content/basic-assets-config-modal').default}
 			title="JSM Assets Configuration Modal"
-			source={require('!!raw-loader!./examples/basic-assets-config-modal')}
+			source={require('!!raw-loader!../examples/content/basic-assets-config-modal')}
 		/>
 	)}
 `;

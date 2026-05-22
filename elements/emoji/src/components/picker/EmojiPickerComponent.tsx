@@ -91,6 +91,8 @@ import { messages } from '../i18n';
 const emojiPickerBoxShadow = token('elevation.shadow.overlay');
 const emojiPickerHeight = 295;
 const emojiPickerHeightWithPreview = 349; // emojiPickerHeight + emojiPickerPreviewHeight;
+const emojiPickerHeightWithPreviewNew = 310;
+const emojiPickerHeightDeleteRefresh = 339;
 const emojiPickerWidth = 350;
 const emojiPickerMinHeight = 260;
 const heightOffset = 80;
@@ -110,6 +112,21 @@ const emojiPicker = css({
 	position: 'relative',
 });
 
+const emojiPickerNew = css({
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'space-between',
+	backgroundColor: token('elevation.surface.overlay'),
+	border: `${token('color.border')} ${token('border.width')} solid`,
+	borderRadius: token('radius.large', '8px'),
+	boxShadow: emojiPickerBoxShadow,
+	height: `${emojiPickerHeight}px`,
+	width: `${emojiPickerWidth}px`,
+	minWidth: `${emojiPickerWidth}px`,
+	maxHeight: 'calc(80vh - 86px)',
+	position: 'relative',
+});
+
 const uploadOverlay = css({
 	position: 'absolute',
 	top: 0,
@@ -117,7 +134,7 @@ const uploadOverlay = css({
 	right: 0,
 	bottom: 0,
 	backgroundColor: token('elevation.surface.overlay'),
-	borderRadius: token('radius.small', '3px'),
+	borderRadius: token('radius.large', '8px'),
 	zIndex: 1,
 	overflowY: 'auto',
 });
@@ -142,6 +159,36 @@ const withPreviewHeight = cssMap({
 	},
 	large: {
 		height: `${emojiPickerHeightWithPreview + heightOffset * 2}px`,
+		minHeight: `${emojiPickerMinHeight + heightOffset * 2}px`,
+	},
+});
+
+const withUploadRefreshHeight = cssMap({
+	small: {
+		height: `${emojiPickerHeightWithPreviewNew}px`,
+		minHeight: `${emojiPickerMinHeight}px`,
+	},
+	medium: {
+		height: `${emojiPickerHeightWithPreviewNew + heightOffset}px`,
+		minHeight: `${emojiPickerMinHeight + heightOffset}px`,
+	},
+	large: {
+		height: `${emojiPickerHeightWithPreviewNew + heightOffset * 2}px`,
+		minHeight: `${emojiPickerMinHeight + heightOffset * 2}px`,
+	},
+});
+
+const withDeleteRefreshHeight = cssMap({
+	small: {
+		height: `${emojiPickerHeightDeleteRefresh}px`,
+		minHeight: `${emojiPickerMinHeight}px`,
+	},
+	medium: {
+		height: `${emojiPickerHeightDeleteRefresh + heightOffset}px`,
+		minHeight: `${emojiPickerMinHeight + heightOffset}px`,
+	},
+	large: {
+		height: `${emojiPickerHeightDeleteRefresh + heightOffset * 2}px`,
 		minHeight: `${emojiPickerMinHeight + heightOffset * 2}px`,
 	},
 });
@@ -516,7 +563,15 @@ const EmojiPickerComponent = ({
 				}
 			});
 		},
-		[disableCategories, emojiPickerList, emojiProvider, fireAnalytics, selectedTone, uploading, emojiToDelete],
+		[
+			disableCategories,
+			emojiPickerList,
+			emojiProvider,
+			fireAnalytics,
+			selectedTone,
+			uploading,
+			emojiToDelete,
+		],
 	);
 
 	const recordUsageOnSelection = useMemo(
@@ -781,9 +836,14 @@ const EmojiPickerComponent = ({
 		return (
 			<div
 				css={[
-					emojiPicker,
-					showPreview && withPreviewHeight[size],
-					!showPreview && withoutPreviewHeight[size],
+					fg('platform_emoji_picker_refresh') ? emojiPickerNew : emojiPicker,
+					!!emojiToDelete && fg('platform_emoji_picker_refresh')
+						? withDeleteRefreshHeight[size]
+						: uploading && fg('platform_emoji_picker_refresh')
+							? withUploadRefreshHeight[size]
+							: showPreview
+								? withPreviewHeight[size]
+								: withoutPreviewHeight[size],
 				]}
 				ref={setPickerRef}
 				data-emoji-picker-container
@@ -800,7 +860,9 @@ const EmojiPickerComponent = ({
 				>
 					<CategorySelector
 						activeCategoryId={
-							(uploading || emojiToDelete) && fg('platform_emoji_picker_refresh') ? null : activeCategory
+							(uploading || emojiToDelete) && fg('platform_emoji_picker_refresh')
+								? null
+								: activeCategory
 						}
 						dynamicCategories={dynamicCategories}
 						disableCategories={disableCategories}
@@ -852,10 +914,14 @@ const EmojiPickerComponent = ({
 		// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions
 		<div
 			css={[
-				emojiPicker,
-				showPreview || ((uploading || !!emojiToDelete) && fg('platform_emoji_picker_refresh'))
-					? withPreviewHeight[size]
-					: withoutPreviewHeight[size],
+				fg('platform_emoji_picker_refresh') ? emojiPickerNew : emojiPicker,
+				!!emojiToDelete && fg('platform_emoji_picker_refresh')
+					? withDeleteRefreshHeight[size]
+					: uploading && fg('platform_emoji_picker_refresh')
+						? withUploadRefreshHeight[size]
+						: showPreview
+							? withPreviewHeight[size]
+							: withoutPreviewHeight[size],
 			]}
 			ref={setPickerRef}
 			data-emoji-picker-container
@@ -867,7 +933,11 @@ const EmojiPickerComponent = ({
 			onKeyDown={suppressKeyPress}
 		>
 			<CategorySelector
-				activeCategoryId={(uploading || emojiToDelete) && fg('platform_emoji_picker_refresh') ? null : activeCategory}
+				activeCategoryId={
+					(uploading || emojiToDelete) && fg('platform_emoji_picker_refresh')
+						? null
+						: activeCategory
+				}
 				dynamicCategories={dynamicCategories}
 				disableCategories={disableCategories}
 				onCategorySelected={onCategorySelected}

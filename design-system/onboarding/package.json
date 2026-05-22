@@ -115,6 +115,7 @@
 		"@types/exenv": "root:*",
 		"@types/react-node-resolver": "root:*",
 		"raf-stub": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"react-lorem-component": "root:*"
 	},

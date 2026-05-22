@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-type-ahead",
-	"version": "10.1.2",
+	"version": "10.2.0",
 	"description": "Type-ahead plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -70,6 +70,8 @@
 	"devDependencies": {
 		"@testing-library/react": "root:*",
 		"@types/react-virtualized": "root:*",
+		"react": "root:*",
+		"react-dom": "root:*",
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
 	},

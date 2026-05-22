@@ -1,5 +1,12 @@
 # @atlaskit/eslint-utils
 
+## 2.0.1
+
+### Patch Changes
+
+- [`7affa87ae5857`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7affa87ae5857) -
+  Add ESLint v9/v10 RuleContext compatibility for platform ESLint packages consumed by Jira.
+
 ## 2.0.0
 
 ### Major Changes

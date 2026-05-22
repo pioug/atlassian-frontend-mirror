@@ -15,9 +15,10 @@ import {
 	removeParentNodeOfType,
 	removeSelectedNode,
 } from '@atlaskit/editor-prosemirror/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PanelOptions } from '../pm-plugins/main';
-import { findPanel } from '../pm-plugins/utils/utils';
+import { findPanel, isPanel, panelTypes } from '../pm-plugins/utils/utils';
 
 export type DomAtPos = (pos: number) => { node: HTMLElement; offset: number };
 
@@ -37,11 +38,13 @@ export const removePanel =
 			eventType: EVENT_TYPE.TRACK,
 		};
 
+		const panelNodeTypes = panelTypes(nodes);
+
 		let deleteTr = tr;
-		if (findSelectedNodeOfType(nodes.panel)(tr.selection)) {
+		if (findSelectedNodeOfType(panelNodeTypes)(tr.selection)) {
 			deleteTr = removeSelectedNode(tr);
-		} else if (findParentNodeOfType(nodes.panel)(tr.selection)) {
-			deleteTr = removeParentNodeOfType(nodes.panel)(tr);
+		} else if (findParentNodeOfType(panelNodeTypes)(tr.selection)) {
+			deleteTr = removeParentNodeOfType(panelNodeTypes)(tr);
 		}
 
 		if (!deleteTr) {
@@ -77,6 +80,10 @@ export const changePanelType =
 		const previousType = panelNode.node.attrs.panelType;
 		let newTr;
 
+		const panelNodeType = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+			? panelNode.node.type
+			: nodes.panel;
+
 		if (allowCustomPanel) {
 			const previousColor =
 				panelNode.node.attrs.panelType === 'custom'
@@ -93,7 +100,7 @@ export const changePanelType =
 				...panelOptions,
 			};
 
-			newTr = tr.setNodeMarkup(panelNode.pos, nodes.panel, {
+			newTr = tr.setNodeMarkup(panelNode.pos, panelNodeType, {
 				panelIcon: newPanelOptions.emoji,
 				panelIconId: newPanelOptions.emojiId,
 				panelIconText: newPanelOptions.emojiText,
@@ -101,7 +108,7 @@ export const changePanelType =
 				panelType,
 			});
 		} else {
-			newTr = tr.setNodeMarkup(panelNode.pos, nodes.panel, { panelType });
+			newTr = tr.setNodeMarkup(panelNode.pos, panelNodeType, { panelType });
 		}
 
 		const payload: AnalyticsEventPayload = {
@@ -113,7 +120,7 @@ export const changePanelType =
 
 		// Select the panel if it was previously selected
 		const newTrWithSelection =
-			state.selection instanceof NodeSelection && state.selection.node.type.name === 'panel'
+			state.selection instanceof NodeSelection && isPanel(state.selection.node.type.name)
 				? newTr.setSelection(new NodeSelection(tr.doc.resolve(panelNode.pos)))
 				: newTr;
 

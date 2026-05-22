@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Table tree',
 		description:
@@ -114,6 +115,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['table-tree', 'cell', 'table', 'data'],
 		categories: ['text and data display', 'data'],
 	},
-];
+	],
+};
 
 export default documentation;

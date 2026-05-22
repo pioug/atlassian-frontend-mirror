@@ -87,6 +87,7 @@
 		"lodash": "root:*",
 		"nullthrows": "root:*",
 		"pkg-dir": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"ts-node": "root:*"
 	},

@@ -68,6 +68,7 @@
 	},
 	"devDependencies": {
 		"@atlassian/react-compiler-gating": "workspace:^",
+		"react": "root:*",
 		"react-intl": "root:*",
 		"typescript": "root:*"
 	},

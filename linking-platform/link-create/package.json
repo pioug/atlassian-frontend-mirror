@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-create",
-	"version": "5.1.3",
+	"version": "5.2.0",
 	"description": "The driver component of meta creation flow",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -43,7 +43,22 @@
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
-		}
+		},
+		"./async-select": "./src/entry-points/async-select.ts",
+		"./callback-context": "./src/entry-points/callback-context.ts",
+		"./create-field": "./src/entry-points/create-field.ts",
+		"./create-form": "./src/entry-points/create-form.ts",
+		"./exit-warning-modal": "./src/entry-points/exit-warning-modal.ts",
+		"./final-form": "./src/entry-points/final-form.ts",
+		"./form-loader": "./src/entry-points/form-loader.ts",
+		"./form-spy": "./src/entry-points/form-spy.ts",
+		"./icons": "./src/entry-points/icons.ts",
+		"./inline-create": "./src/entry-points/inline-create.ts",
+		"./modal-create": "./src/entry-points/modal-create.ts",
+		"./select": "./src/entry-points/select.ts",
+		"./text-field": "./src/entry-points/text-field.ts",
+		"./types": "./src/entry-points/types.ts",
+		"./user-picker": "./src/entry-points/user-picker.ts"
 	},
 	"dependencies": {
 		"@atlaskit/afm-i18n-platform-linking-platform-link-create": "root:*",
@@ -93,6 +108,7 @@
 		"@testing-library/user-event": "root:*",
 		"@types/debounce-promise": "root:*",
 		"fetch-mock": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"

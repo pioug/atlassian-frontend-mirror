@@ -9,6 +9,7 @@ import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { FullPagePadding } from '../../ui/Renderer/style';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { RendererCssClassName } from '../../consts';
 
 import {
 	createCompareNodes,
@@ -299,6 +300,11 @@ export class TableContainer extends React.Component<
 	overflowParent: OverflowParent | null = null;
 	updatedLayout: TableLayout | 'custom' = 'custom';
 
+	private containerRef: HTMLDivElement | null = null;
+	private _isInsideNestedRenderer: boolean | null = null;
+	// Stores the last computed style values from render() for use by applyNestedRendererTableFix().
+	// This avoids reading from the DOM which can be stale when React removes properties between renders.
+	private lastComputedStyle: { width?: string; left?: string; marginLeft?: string } = {};
 	private resizeObserver: ResizeObserver | null = null;
 
 	private applyResizerChange: ResizeObserverCallback = (entries) => {
@@ -321,6 +327,77 @@ export class TableContainer extends React.Component<
 				wrapperWidth,
 				headerRowHeight,
 			});
+		}
+	};
+
+	/**
+	 * Checks if this table is inside a nested renderer (e.g. Include Page macro)
+	 * by looking for multiple .ak-renderer-document ancestors in the DOM.
+	 * The result is cached since a table's position in the DOM tree is stable after mount.
+	 */
+	private isInsideNestedRenderer(): boolean {
+		if (this._isInsideNestedRenderer !== null) {
+			return this._isInsideNestedRenderer;
+		}
+		if (!this.containerRef) {
+			return false;
+		}
+		let docAncestorCount = 0;
+		let el: HTMLElement | null = this.containerRef.parentElement;
+		while (el) {
+			if (el.classList.contains(RendererCssClassName.DOCUMENT)) {
+				docAncestorCount++;
+				if (docAncestorCount >= 2) {
+					this._isInsideNestedRenderer = true;
+					return true;
+				}
+			}
+			el = el.parentElement;
+		}
+		this._isInsideNestedRenderer = false;
+		return false;
+	}
+
+	/**
+	 * For tables inside nested renderers (e.g. Include Page macro), the parent
+	 * renderer's CSS override forces width:100%!important and left:0!important
+	 * which overrides the inline styles set by this component. Using
+	 * style.setProperty with 'important' priority on inline styles beats
+	 * stylesheet !important rules per the CSS cascade.
+	 *
+	 * Uses lastComputedStyle (populated during render) rather than reading from
+	 * element.style, because React may remove properties from the DOM when their
+	 * values transition to undefined between renders.
+	 */
+	private applyNestedRendererTableFix(): void {
+		if (!this.containerRef || !fg('platform_nested_table_style_override')) {
+			return;
+		}
+		if (!this.isInsideNestedRenderer()) {
+			return;
+		}
+
+		const { width, left, marginLeft } = this.lastComputedStyle;
+		const style = this.containerRef.style;
+
+		style.setProperty('width', width || 'auto', 'important');
+		style.setProperty('left', left || 'auto', 'important');
+		style.setProperty('margin-left', marginLeft || '0', 'important');
+	}
+
+	/**
+	 * Callback ref that captures the container DOM element and also forwards
+	 * to the handleRef prop from the overflow shadow HOC.
+	 */
+	private setContainerRef = (el: HTMLDivElement | null): void => {
+		this.containerRef = el;
+		const { handleRef } = this.props;
+		if (typeof handleRef === 'function') {
+			handleRef(el);
+		} else if (handleRef && typeof handleRef === 'object') {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			(handleRef as any).current = el;
 		}
 	};
 
@@ -351,6 +428,8 @@ export class TableContainer extends React.Component<
 		if (this.wrapperRef.current && isStickyScrollbarEnabled(this.props.rendererAppearance)) {
 			this.stickyScrollbar = new TableStickyScrollbar(this.wrapperRef.current);
 		}
+
+		this.applyNestedRendererTableFix();
 	}
 
 	/**
@@ -383,6 +462,10 @@ export class TableContainer extends React.Component<
 		if (prevState.stickyMode !== this.state.stickyMode) {
 			this.onWrapperScrolled();
 		}
+
+		// React re-applies the style prop on every render, which overwrites the
+		// !important priorities set at mount time. Re-apply after each update.
+		this.applyNestedRendererTableFix();
 	}
 
 	componentWillUnmount = (): void => {
@@ -695,6 +778,15 @@ export class TableContainer extends React.Component<
 					: undefined,
 		};
 
+		// Store computed style values for applyNestedRendererTableFix() to use.
+		// Reading from props rather than the DOM ensures correctness when React
+		// removes properties (transitions from set to undefined) between renders.
+		this.lastComputedStyle = {
+			width: typeof style.width === 'number' ? `${style.width}px` : style.width,
+			left: style.left,
+			marginLeft: style.marginLeft,
+		};
+
 		return (
 			<>
 				<div
@@ -704,7 +796,7 @@ export class TableContainer extends React.Component<
 					}`}
 					data-layout={updatedLayout}
 					data-testid="table-container"
-					ref={this.props.handleRef}
+					ref={this.setContainerRef}
 					style={style}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				>

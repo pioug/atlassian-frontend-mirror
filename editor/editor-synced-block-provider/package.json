@@ -73,6 +73,7 @@
 	},
 	"devDependencies": {
 		"@testing-library/react": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"techstack": {
@@ -111,7 +112,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "6.6.6",
+	"version": "6.6.7",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

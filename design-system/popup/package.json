@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popup",
-	"version": "4.20.1",
+	"version": "4.20.2",
 	"description": "A popup displays brief content in an overlay.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -94,6 +94,7 @@
 		"ast-types": "root:*",
 		"jscodeshift": "root:*",
 		"raf-stub": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"keywords": [
@@ -138,9 +139,6 @@
 			"type": "boolean"
 		},
 		"platform-dst-shape-theme-default": {
-			"type": "boolean"
-		},
-		"platform_dst_nav4_flyout_menu_slots_close_button": {
 			"type": "boolean"
 		},
 		"platform_dst_nested_escape": {

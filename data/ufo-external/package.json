@@ -66,5 +66,8 @@
 			]
 		}
 	},
-	"platform-feature-flags": {}
+	"platform-feature-flags": {},
+	"devDependencies": {
+		"react": "root:*"
+	}
 }

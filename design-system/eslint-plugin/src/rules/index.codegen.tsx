@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::794b8b6b0c45b899abab17e0d7cff861>>
+ * @codegen <<SignedSource::b90bcf0b2fb6429faae59c7a454e3260>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -62,6 +62,7 @@ import useDatetimePickerCalendarButton from './use-datetime-picker-calendar-butt
 import useDrawerLabel from './use-drawer-label';
 import useFieldMessageWrapper from './use-field-message-wrapper';
 import useHeading from './use-heading';
+import useHeadingLevelInSectionMessage from './use-heading-level-in-section-message';
 import useHeadingLevelInSpotlightCard from './use-heading-level-in-spotlight-card';
 import useHrefInLinkItem from './use-href-in-link-item';
 import useLatestXcssSyntax from './use-latest-xcss-syntax';
@@ -141,6 +142,7 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'use-drawer-label': useDrawerLabel,
 	'use-field-message-wrapper': useFieldMessageWrapper,
 	'use-heading': useHeading,
+	'use-heading-level-in-section-message': useHeadingLevelInSectionMessage,
 	'use-heading-level-in-spotlight-card': useHeadingLevelInSpotlightCard,
 	'use-href-in-link-item': useHrefInLinkItem,
 	'use-latest-xcss-syntax': useLatestXcssSyntax,

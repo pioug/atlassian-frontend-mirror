@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'ProgressBar',
 		description:
@@ -108,6 +109,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['progress', 'bar', 'transparent', 'overlay', 'subtle'],
 		categories: ['loading'],
 	},
-];
+	],
+};
 
 export default documentation;

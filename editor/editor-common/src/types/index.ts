@@ -65,6 +65,7 @@ export type {
 	FloatingToolbarCopyButton,
 	FloatingToolbarInput,
 	FloatingToolbarCustom,
+	FloatingToolbarCustomRenderContext,
 	FloatingToolbarListPicker,
 	FloatingToolbarColorPicker,
 	FloatingToolbarEmojiPicker,

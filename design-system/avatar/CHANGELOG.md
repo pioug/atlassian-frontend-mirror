@@ -1,5 +1,13 @@
 # @atlaskit/avatar
 
+## 25.15.1
+
+### Patch Changes
+
+- [`d39a9f06a8508`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d39a9f06a8508) -
+  [ux] Bug fix: square avatars allow size to be set to xlarge and xxlarge, which are invalid sizes
+  that should not be available for square avatars (only circle and hexagonal avatars).
+
 ## 25.15.0
 
 ### Minor Changes

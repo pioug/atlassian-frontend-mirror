@@ -31,6 +31,7 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*"
 	},

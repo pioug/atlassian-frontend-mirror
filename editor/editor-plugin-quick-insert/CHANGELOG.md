@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 10.4.4
+
+### Patch Changes
+
+- [`bc59bccc2fc5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc59bccc2fc5c) -
+  Reorder advanced layout quick insert suggestions
+- Updated dependencies
+
 ## 10.4.3
 
 ### Patch Changes

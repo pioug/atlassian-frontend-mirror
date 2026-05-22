@@ -57,6 +57,10 @@ export const ADD_COLUMN_RIGHT_ITEM: MenuItemType = {
 	type: 'menu-item',
 	key: 'add-column-right',
 };
+export const MOVE_COLUMN_LEFT_ITEM: MenuItemType = {
+	type: 'menu-item',
+	key: 'move-column-left',
+};
 export const MOVE_COLUMN_RIGHT_ITEM: MenuItemType = {
 	type: 'menu-item',
 	key: 'move-column-right',
@@ -88,8 +92,9 @@ export const COLUMN_SORT_SECTION_RANK: Record<string, number> = {
 export const COLUMN_ADD_SECTION_RANK: Record<string, number> = {
 	[ADD_COLUMN_LEFT_ITEM.key]: 100,
 	[ADD_COLUMN_RIGHT_ITEM.key]: 200,
-	[MOVE_COLUMN_RIGHT_ITEM.key]: 300,
-	[DISTRIBUTE_COLUMNS_ITEM.key]: 400,
+	[MOVE_COLUMN_LEFT_ITEM.key]: 300,
+	[MOVE_COLUMN_RIGHT_ITEM.key]: 400,
+	[DISTRIBUTE_COLUMNS_ITEM.key]: 500,
 };
 
 export const COLUMN_DANGER_SECTION_RANK: Record<string, number> = {

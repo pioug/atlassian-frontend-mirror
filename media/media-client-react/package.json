@@ -80,6 +80,7 @@
 		"@testing-library/user-event": "root:*",
 		"jest-fetch-mock": "root:*",
 		"msw": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"platform-feature-flags": {

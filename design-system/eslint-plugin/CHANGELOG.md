@@ -1,5 +1,20 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 14.4.0
+
+### Minor Changes
+
+- [`9e3507590f1b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e3507590f1b4) -
+  Add rule to encourage use of `headingLevel` in section message component.
+
+## 14.3.2
+
+### Patch Changes
+
+- [`7affa87ae5857`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7affa87ae5857) -
+  Add ESLint v9/v10 RuleContext compatibility for platform ESLint packages consumed by Jira.
+- Updated dependencies
+
 ## 14.3.1
 
 ### Patch Changes

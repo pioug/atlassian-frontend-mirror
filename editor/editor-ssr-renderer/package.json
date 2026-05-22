@@ -52,6 +52,7 @@
 	"devDependencies": {
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"react": "root:*",
 		"react-intl": "root:*"
 	}
 }

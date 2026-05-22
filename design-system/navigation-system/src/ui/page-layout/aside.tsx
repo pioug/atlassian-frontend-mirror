@@ -91,7 +91,7 @@ const fallbackDefaultWidth = 330;
  *
  * You can optionally render a `PanelSplitter` as a child to make the aside area resizable.
  *
- * Note: We plan to deprecate the Aside component. Please use Panel instead.
+ * @deprecated Use `Panel` instead.
  */
 export function Aside({
 	children,

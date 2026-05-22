@@ -208,6 +208,8 @@ export class ReferenceSyncBlockStoreManager {
 		const syncBlockNode = createSyncBlockNode('', resourceId);
 		const providerData = this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
 		if (providerData) {
+			// Initial provider cache data can come from SSR/prefetch and bypass updateCache(),
+			// so strip annotations here before references render existing synced block payloads.
 			return this.stripAnnotationMarksFromReferenceData(providerData);
 		}
 		return this.getFromSessionCache(resourceId);
@@ -251,6 +253,8 @@ export class ReferenceSyncBlockStoreManager {
 			if (!raw) {
 				return undefined;
 			}
+			// Session cache entries written before this sanitizer existed may still include
+			// source annotation marks, so keep this read-time safety net for legacy data.
 			return this.stripAnnotationMarksFromReferenceData(JSON.parse(raw) as SyncBlockInstance);
 		} catch (error) {
 			logException(error as Error, {

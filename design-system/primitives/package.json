@@ -191,6 +191,7 @@
 		"@testing-library/user-event": "root:*",
 		"csstype": "root:*",
 		"jscodeshift": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"react-resource-router": "root:*",
 		"ts-node": "root:*"

@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.31.0
+
+### Minor Changes
+
+- [`7ac3533571b4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ac3533571b4f) -
+  [ux] Update analytics for mini user profiles across consumers
+
 ## 1.30.0
 
 ### Minor Changes

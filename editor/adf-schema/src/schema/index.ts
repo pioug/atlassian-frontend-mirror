@@ -70,6 +70,8 @@ export {
 	orderedListWithOrder,
 	orderedListWithOrderAndLocalId,
 	extendedPanel,
+	extendedPanelC1,
+	extendedPanelC1WithLocalId,
 	extendedPanelWithLocalId,
 	paragraph,
 	placeholder,

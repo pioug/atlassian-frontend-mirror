@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "25.7.2",
+	"version": "25.7.3",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -141,6 +141,8 @@
 		"es6-promise": "root:*",
 		"fetch-mock": "root:*",
 		"loader-utils": "root:*",
+		"react": "root:*",
+		"react-dom": "root:*",
 		"react-intl": "root:*",
 		"sinon": "root:*",
 		"typescript": "root:*",

@@ -3,7 +3,6 @@ import React, { forwardRef, type ReactNode, useEffect, useRef } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import useControlled from '@atlaskit/ds-lib/use-controlled';
 import usePreviousValue from '@atlaskit/ds-lib/use-previous-value';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Popup } from '@atlaskit/popup/experimental';
 
 import { MenuListItem } from '../menu-list-item';
@@ -96,15 +95,13 @@ export const FlyoutMenuItem: React.ForwardRefExoticComponent<
 
 			// When flyout menu is opened, fire analytics event
 			if (isOpen && previousIsOpen === false) {
-				if (fg('platform_dst_nav4_flyout_menu_slots_close_button')) {
-					const navigationAnalyticsEvent = createAnalyticsEvent({
-						source: 'sideNav',
-						actionSubject: 'flyoutMenu',
-						action: 'opened',
-					});
+				const navigationAnalyticsEvent = createAnalyticsEvent({
+					source: 'sideNav',
+					actionSubject: 'flyoutMenu',
+					action: 'opened',
+				});
 
-					navigationAnalyticsEvent.fire('navigation');
-				}
+				navigationAnalyticsEvent.fire('navigation');
 			}
 
 			onOpenChange?.(isOpen);
@@ -115,11 +112,7 @@ export const FlyoutMenuItem: React.ForwardRefExoticComponent<
 				<SetIsOpenContext.Provider value={setIsOpen}>
 					<OnCloseContext.Provider value={onCloseRef}>
 						<MenuListItem ref={forwardedRef}>
-							<Popup
-								id={id}
-								isOpen={isOpen}
-								role={fg('platform_dst_nav4_flyout_menu_slots_close_button') ? 'dialog' : undefined}
-							>
+							<Popup id={id} isOpen={isOpen} role="dialog">
 								{children}
 							</Popup>
 						</MenuListItem>

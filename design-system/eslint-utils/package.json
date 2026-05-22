@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/eslint-utils",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Shared utilities for ESLint rules",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -52,6 +52,7 @@
 		"@testing-library/react": "root:*",
 		"@types/eslint": "root:*",
 		"@types/eslint-scope": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"techstack": {

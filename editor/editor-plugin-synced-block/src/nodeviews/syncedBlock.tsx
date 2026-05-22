@@ -1,5 +1,7 @@
 import React from 'react';
 
+import type { IntlShape } from 'react-intl';
+
 import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
@@ -24,11 +26,13 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 import { removeSyncedBlockAtPos } from '../editor-commands';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { SyncBlockRendererWrapper } from '../ui/SyncBlockRendererWrapper';
+import { SyncBlockSSRReactContextsProvider } from '../ui/SyncBlockSSRReactContextsProvider';
 
 export interface SyncBlockNodeViewProps extends ReactComponentProps {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 	eventDispatcher: EventDispatcher;
 	getPos: getPosHandlerNode;
+	intl?: IntlShape;
 	isNodeNested?: boolean;
 	node: PMNode;
 	options: SyncedBlockPluginOptions | undefined;
@@ -41,6 +45,7 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 	private options: SyncedBlockPluginOptions | undefined;
 	private api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 	private syncBlockStore?: SyncBlockStoreManager;
+	private intl?: IntlShape;
 
 	constructor(props: SyncBlockNodeViewProps) {
 		super(
@@ -54,6 +59,7 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		this.options = props.options;
 		this.api = props.api;
 		this.syncBlockStore = props.syncBlockStore;
+		this.intl = props.intl;
 	}
 
 	// Stable callback references — defined as arrow properties so they keep a
@@ -80,6 +86,7 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 	unsubscribe: (() => void) | undefined;
 
 	createDomRef(): HTMLElement {
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- NodeView DOM must be created against active runtime document
 		const domRef = document.createElement('div');
 		domRef.classList.add(SyncBlockSharedCssClassName.prefix);
 		return domRef;
@@ -131,41 +138,43 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 
 		// get document node from data provider
 		return (
-			<ErrorBoundary
-				component={ACTION_SUBJECT.SYNCED_BLOCK}
-				dispatchAnalyticsEvent={this.api?.analytics?.actions.fireAnalyticsEvent}
-				fallbackComponent={null}
-			>
-				<SyncBlockActionsProvider
-					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					removeSyncBlock={
-						isPerfEnabled
-							? this.removeSyncBlockStable
-							: () => {
-									const pos = getPos();
-									if (pos !== undefined) {
-										removeSyncedBlockAtPos(this.api, pos);
-									}
-								}
-					}
-					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					fetchSyncBlockSourceInfo={
-						isPerfEnabled
-							? this.fetchSyncBlockSourceInfoStable
-							: (sourceAri: string) =>
-									syncBlockStore.referenceManager.fetchSyncBlockSourceInfoBySourceAri(sourceAri)
-					}
+			<SyncBlockSSRReactContextsProvider intl={this.intl}>
+				<ErrorBoundary
+					component={ACTION_SUBJECT.SYNCED_BLOCK}
+					dispatchAnalyticsEvent={this.api?.analytics?.actions.fireAnalyticsEvent}
+					fallbackComponent={null}
 				>
-					<SyncBlockRendererWrapper
-						localId={localId}
-						resourceId={resourceId}
-						node={this.node}
-						syncBlockStore={syncBlockStore}
-						syncedBlockRenderer={this.options?.syncedBlockRenderer}
-						api={this.api}
-					/>
-				</SyncBlockActionsProvider>
-			</ErrorBoundary>
+					<SyncBlockActionsProvider
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+						removeSyncBlock={
+							isPerfEnabled
+								? this.removeSyncBlockStable
+								: () => {
+										const pos = getPos();
+										if (pos !== undefined) {
+											removeSyncedBlockAtPos(this.api, pos);
+										}
+									}
+						}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+						fetchSyncBlockSourceInfo={
+							isPerfEnabled
+								? this.fetchSyncBlockSourceInfoStable
+								: (sourceAri: string) =>
+										syncBlockStore.referenceManager.fetchSyncBlockSourceInfoBySourceAri(sourceAri)
+						}
+					>
+						<SyncBlockRendererWrapper
+							localId={localId}
+							resourceId={resourceId}
+							node={this.node}
+							syncBlockStore={syncBlockStore}
+							syncedBlockRenderer={this.options?.syncedBlockRenderer}
+							api={this.api}
+						/>
+					</SyncBlockActionsProvider>
+				</ErrorBoundary>
+			</SyncBlockSSRReactContextsProvider>
 		);
 	}
 

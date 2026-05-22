@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 6.0.1
+
+### Patch Changes
+
+- [`9d95bc2565463`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d95bc2565463) -
+  Remove unused FG in package.json
+
 ## 6.0.0
 
 ### Major Changes

@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Radio',
 		description:
@@ -88,6 +89,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['radio', 'group', 'form', 'selection', 'choice', 'options', 'list'],
 		categories: ['form', 'interaction'],
 	},
-];
+	],
+};
 
 export default documentation;

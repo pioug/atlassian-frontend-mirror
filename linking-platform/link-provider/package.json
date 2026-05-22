@@ -70,6 +70,7 @@
 		"@testing-library/react": "root:*",
 		"@types/async-retry": "root:*",
 		"@types/redux": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"
 	},

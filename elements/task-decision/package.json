@@ -34,6 +34,8 @@
 		"date-fns": "root:*",
 		"enzyme": "root:*",
 		"fetch-mock": "root:*",
+		"react": "root:*",
+		"react-dom": "root:*",
 		"react-intl": "root:*",
 		"sinon": "root:*",
 		"url-search-params": "root:*"

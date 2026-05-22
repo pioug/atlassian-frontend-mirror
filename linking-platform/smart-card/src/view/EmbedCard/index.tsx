@@ -37,6 +37,8 @@ export const EmbedCard: React.ForwardRefExoticComponent<
 			handleAuthorize,
 			handleErrorRetry,
 			handleFrameClick,
+			handleFrameAuxClick,
+			handleFrameContextMenu,
 			isSelected,
 			frameStyle,
 			platform,
@@ -118,6 +120,10 @@ export const EmbedCard: React.ForwardRefExoticComponent<
 							frameStyle={frameStyle}
 							inheritDimensions={inheritDimensions}
 							onClick={handleFrameClick}
+							// Support middle-/right-clicks for "resolved" only — the vast majority of clicks happen here.
+							// Other states (e.g. "resolving") could be added later for completeness.
+							onAuxClick={handleFrameAuxClick}
+							onContextMenu={handleFrameContextMenu}
 							ref={iframeRef}
 							onIframeDwell={onIframeDwell}
 							onIframeFocus={onIframeFocus}
@@ -147,6 +153,10 @@ export const EmbedCard: React.ForwardRefExoticComponent<
 							url={url}
 							cardState={cardState}
 							onClick={handleFrameClick}
+							// Support middle-/right-clicks for "resolved" only — the vast majority of clicks happen here.
+							// Other states (e.g. "resolving") could be added later for completeness.
+							onAuxClick={handleFrameAuxClick}
+							onContextMenu={handleFrameContextMenu}
 							onError={onError}
 							onResolve={onResolve}
 							renderers={renderers}

@@ -189,11 +189,15 @@ export type BaseLinkElementProps = ElementProps & {
 	 * The number of lines that the link text should spread over. Maximum of 2 lines.
 	 */
 	maxLines?: number;
+	/** Optional middle-click handler. */
+	onAuxClick?: React.EventHandler<React.MouseEvent>;
 	/**
 	 * Determines the behaviour when the Link is clicked. By default is used to
 	 * propagate analytics.
 	 */
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	/** Optional right-click handler. */
+	onContextMenu?: React.EventHandler<React.MouseEvent>;
 	/**
 	 * Mouse event to be provided to the link
 	 */
@@ -233,6 +237,8 @@ const BaseLinkElement = ({
 	theme = SmartLinkTheme.Link,
 	url,
 	onClick,
+	onAuxClick,
+	onContextMenu,
 	target = '_blank',
 	anchorRef,
 }: BaseLinkElementProps): JSX.Element => {
@@ -257,6 +263,8 @@ const BaseLinkElement = ({
 			data-smart-element-link
 			data-testid={testId}
 			onClick={onClick}
+			onAuxClick={onAuxClick}
+			onContextMenu={onContextMenu}
 			onMouseDown={onMouseDown}
 			href={url}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Code',
 		description: 'Use for short code snippets inline with body text.',
@@ -78,6 +79,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['code', 'block', 'syntax', 'highlighting', 'multiline'],
 		categories: ['data-display'],
 	},
-];
+	],
+};
 
 export default documentation;

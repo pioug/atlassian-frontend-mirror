@@ -23,7 +23,15 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./context": "./src/entry-points/context.ts",
+		"./document-body": "./src/entry-points/document-body.tsx",
+		"./embedded-document": "./src/entry-points/embedded-document.tsx",
+		"./model": "./src/entry-points/model.ts",
+		"./provider": "./src/entry-points/provider.ts",
+		"./service-provider": "./src/entry-points/service-provider.ts",
+		"./toolbar": "./src/entry-points/toolbar.tsx",
+		"./with-document-actions": "./src/entry-points/with-document-actions.tsx"
 	},
 	"atlassian": {
 		"team": "Editor: Collaboration",

@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 8.4.0
+
+### Minor Changes
+
+- [`6644994a61d9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6644994a61d9c) -
+  Add editor-positioned dropdown support for custom floating toolbar items
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.15
+
+### Patch Changes
+
+- [`1c77cce42b15b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c77cce42b15b) -
+  Updated sync blocks to support ssr streaming
+- Updated dependencies
+
 ## 8.3.14
 
 ### Patch Changes

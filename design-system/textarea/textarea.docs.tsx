@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Textarea',
 		description: 'A textarea is a multiline text input control for longer text content.',
@@ -44,6 +45,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['textarea', 'input', 'form', 'text', 'multiline', 'input', 'field'],
 		categories: ['forms-and-input'],
 	},
-];
+	],
+};
 
 export default documentation;

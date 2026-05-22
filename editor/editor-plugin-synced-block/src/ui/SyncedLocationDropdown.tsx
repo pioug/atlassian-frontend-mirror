@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ReactNode, useEffect, useState } from 'react';
+import { type ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { css, jsx, cssMap, keyframes, cx } from '@compiled/react';
 import type { IntlShape } from 'react-intl';
@@ -16,8 +16,12 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { SYNCED_BLOCKS_DOCUMENTATION_URL } from '@atlaskit/editor-common/sync-block';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type {
+	ExtractInjectionAPI,
+	FloatingToolbarCustomRenderContext,
+} from '@atlaskit/editor-common/types';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
+import { ArrowKeyNavigationType, DropdownContainer } from '@atlaskit/editor-common/ui-menu';
 import { getPageIdAndTypeFromConfluencePageAri } from '@atlaskit/editor-synced-block-provider';
 import type {
 	SyncBlockSourceInfo,
@@ -39,6 +43,7 @@ import SubtaskIcon from '@atlaskit/icon/core/subtasks';
 import TaskIcon from '@atlaskit/icon/core/task';
 import { ConfluenceIcon, JiraIcon, AtlassianIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text, Inline, Anchor, Stack } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -48,6 +53,7 @@ import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 
 interface Props {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
+	floatingToolbarRenderContext?: FloatingToolbarCustomRenderContext;
 	intl: IntlShape;
 	isSource: boolean;
 	localId: string;
@@ -91,6 +97,8 @@ const logoTileStyles = css({
 	alignItems: 'center',
 	justifyContent: 'center',
 });
+
+const SYNCED_LOCATIONS_DROPDOWN_TEST_ID = 'synced-block-synced-locations-dropdown';
 
 const styles = cssMap({
 	title: {
@@ -392,17 +400,142 @@ export const SyncedLocationDropdown = ({
 	isSource,
 	localId,
 	api,
+	floatingToolbarRenderContext,
+}: Props): JSX.Element => {
+	if (fg('platform_synced_block_patch_13')) {
+		return (
+			<EditorPositionedSyncedLocationDropdown
+				syncBlockStore={syncBlockStore}
+				resourceId={resourceId}
+				intl={intl}
+				isSource={isSource}
+				localId={localId}
+				api={api}
+				floatingToolbarRenderContext={floatingToolbarRenderContext}
+			/>
+		);
+	}
+
+	return (
+		<LegacySyncedLocationDropdown
+			syncBlockStore={syncBlockStore}
+			resourceId={resourceId}
+			intl={intl}
+			isSource={isSource}
+			localId={localId}
+			api={api}
+		/>
+	);
+};
+
+const EditorPositionedSyncedLocationDropdown = ({
+	syncBlockStore,
+	resourceId,
+	intl,
+	isSource,
+	localId,
+	api,
+	floatingToolbarRenderContext,
 }: Props): JSX.Element => {
 	const { formatMessage } = intl;
 	const triggerTitle = formatMessage(messages.syncedLocationDropdownTitle);
 	const [isOpen, setIsOpen] = useState(false);
+
+	const content = isOpen ? (
+		<DropdownContent
+			syncBlockStore={syncBlockStore}
+			resourceId={resourceId}
+			intl={intl}
+			isSource={isSource}
+			localId={localId}
+			api={api}
+		/>
+	) : null;
+
+	const toggleOpen = useCallback(() => {
+		setIsOpen((currentIsOpen) => !currentIsOpen);
+	}, []);
+
+	const closeDropdown = useCallback(() => {
+		setIsOpen(false);
+	}, []);
+
+	const setDisableParentScroll = floatingToolbarRenderContext?.setDisableParentScroll;
+
+	useEffect(() => {
+		if (!isOpen) {
+			return;
+		}
+
+		setDisableParentScroll?.(true);
+
+		return () => {
+			setDisableParentScroll?.(false);
+		};
+	}, [isOpen, setDisableParentScroll]);
+
+	const trigger = useMemo(
+		() => (
+			<Button
+				areAnyNewToolbarFlagsEnabled={true}
+				selected={isOpen}
+				iconAfter={<ChevronDownIcon color="currentColor" spacing="spacious" label="" size="small" />}
+				onClick={toggleOpen}
+				ariaHasPopup
+			>
+				{triggerTitle}
+			</Button>
+		),
+		[isOpen, toggleOpen, triggerTitle],
+	);
+
+	return (
+		<DropdownContainer
+			testId={SYNCED_LOCATIONS_DROPDOWN_TEST_ID}
+			isOpen={isOpen}
+			trigger={trigger}
+			handleClickOutside={closeDropdown}
+			handleEscapeKeydown={closeDropdown}
+			mountTo={floatingToolbarRenderContext?.popupsMountPoint}
+			boundariesElement={floatingToolbarRenderContext?.popupsBoundariesElement}
+			scrollableElement={floatingToolbarRenderContext?.popupsScrollableElement}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+			arrowKeyNavigationProviderOptions={{ type: ArrowKeyNavigationType.MENU }}
+		>
+			{content}
+		</DropdownContainer>
+	);
+};
+
+const LegacySyncedLocationDropdown = ({
+	syncBlockStore,
+	resourceId,
+	intl,
+	isSource,
+	localId,
+	api,
+}: Props): JSX.Element => {
+	const { formatMessage } = intl;
+	const triggerTitle = formatMessage(messages.syncedLocationDropdownTitle);
+	const [isOpen, setIsOpen] = useState(false);
+
+	const content = isOpen ? (
+		<DropdownContent
+			syncBlockStore={syncBlockStore}
+			resourceId={resourceId}
+			intl={intl}
+			isSource={isSource}
+			localId={localId}
+			api={api}
+		/>
+	) : null;
 
 	return (
 		<DropdownMenu
 			isOpen={isOpen}
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onOpenChange={({ isOpen }) => setIsOpen(isOpen)}
-			testId="synced-block-synced-locations-dropdown"
+			testId={SYNCED_LOCATIONS_DROPDOWN_TEST_ID}
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			trigger={({ triggerRef, ...triggerProps }) => (
 				<Button
@@ -419,16 +552,7 @@ export const SyncedLocationDropdown = ({
 				</Button>
 			)}
 		>
-			{isOpen && (
-				<DropdownContent
-					syncBlockStore={syncBlockStore}
-					resourceId={resourceId}
-					intl={intl}
-					isSource={isSource}
-					localId={localId}
-					api={api}
-				/>
-			)}
+			{content}
 		</DropdownMenu>
 	);
 };

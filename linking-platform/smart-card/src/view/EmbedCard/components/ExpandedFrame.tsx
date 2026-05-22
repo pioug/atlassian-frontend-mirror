@@ -39,8 +39,12 @@ export interface ExpandedFrameProps {
 	isSelected?: boolean;
 	maxWidth?: number;
 	minWidth?: number;
+	/** Optional middle-click handler. */
+	onAuxClick?: React.EventHandler<React.MouseEvent>;
 	/** The optional click handler */
 	onClick?: (evt: React.MouseEvent) => void;
+	/** Optional right-click handler. */
+	onContextMenu?: React.EventHandler<React.MouseEvent>;
 	/** Callback for when mouse enters the content wrapper - for dwell tracking */
 	onContentMouseEnter?: () => void;
 	/** Callback for when mouse leaves the content wrapper - for dwell tracking */
@@ -177,6 +181,8 @@ export const ExpandedFrame = ({
 	isPlaceholder = false,
 	children,
 	onClick,
+	onAuxClick,
+	onContextMenu,
 	icon,
 	text,
 	isSelected,
@@ -214,6 +220,8 @@ export const ExpandedFrame = ({
 										css={styles.headerAnchor}
 										href={href}
 										onClick={handleClick}
+										onAuxClick={onAuxClick}
+										onContextMenu={onContextMenu}
 										onMouseDown={handleMouseDown}
 									>
 										{text}

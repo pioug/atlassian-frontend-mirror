@@ -93,7 +93,9 @@
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/raf-schd": "root:*",
-		"raf-stub": "root:*"
+		"raf-stub": "root:*",
+		"react": "root:*",
+		"react-dom": "root:*"
 	},
 	"platform-feature-flags": {
 		"platform_dst_popup-disable-focuslock": {

@@ -7,6 +7,7 @@ import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownMenu, ToolbarTooltip, TextIcon } from '@atlaskit/editor-toolbar';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
 import { toolbarBlockTypesWithRank } from '../../block-types';
@@ -18,10 +19,18 @@ type TextStylesMenuButtonProps = {
 };
 
 const usePluginState = (api?: ExtractInjectionAPI<BlockTypePlugin>) => {
-	return useSharedPluginStateWithSelector(api, ['blockType'], (state) => ({
-		blockTypesDisabled: state.blockTypeState?.blockTypesDisabled,
-		currentBlockType: state.blockTypeState?.currentBlockType,
-	}));
+	return useSharedPluginStateWithSelector(
+		api,
+		['blockType', 'interaction'],
+		(state) => ({
+			blockTypesDisabled: state.blockTypeState?.blockTypesDisabled,
+			currentBlockType:
+				state.interactionState?.interactionState === 'hasNotHadInteraction' &&
+				expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true)
+					? undefined
+					: state.blockTypeState?.currentBlockType,
+		}),
+	);
 };
 
 export const TextStylesMenuButton = ({

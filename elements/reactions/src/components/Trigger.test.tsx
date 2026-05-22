@@ -1,5 +1,6 @@
 import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import { Trigger } from './Trigger';
 
@@ -7,18 +8,37 @@ const mockIcon = <div>CoolIcon</div>;
 
 describe('@atlaskit/reactions/components/Trigger', () => {
 	mockReactDomWarningGlobal();
-	it('should render a button', async () => {
-		renderWithIntl(<Trigger tooltipContent="" />);
-		const btn = await screen.findByLabelText('Add reaction');
-		expect(btn).toBeInTheDocument();
+
+	ffTest.on('platform_a11y_fixes_reaction_emoji', 'with gate ON', () => {
+		it('should render a button', async () => {
+			renderWithIntl(<Trigger tooltipContent="" />);
+			const btn = await screen.findByTestId('render-trigger-button');
+			expect(btn).toBeInTheDocument();
+		});
+
+		it('should render "Add a reaction" text when showAddReactionText is true', async () => {
+			renderWithIntl(<Trigger tooltipContent="" showAddReactionText />);
+			await screen.findByTestId('render-trigger-button');
+			const addReactionText = screen.getByText('Add a reaction');
+			expect(addReactionText).toBeInTheDocument();
+			expect(addReactionText).toHaveCompiledCss('margin-left', 'var(--ds-space-050,4px)');
+		});
 	});
 
-	it('should render "Add a reaction" text when showAddReactionText is true', async () => {
-		renderWithIntl(<Trigger tooltipContent="" showAddReactionText />);
-		await screen.findByLabelText('Add reaction');
-		const addReactionText = screen.getByText('Add a reaction');
-		expect(addReactionText).toBeInTheDocument();
-		expect(addReactionText).toHaveCompiledCss('margin-left', 'var(--ds-space-050,4px)');
+	ffTest.off('platform_a11y_fixes_reaction_emoji', 'with gate OFF', () => {
+		it('should render a button', async () => {
+			renderWithIntl(<Trigger tooltipContent="" />);
+			const btn = await screen.findByLabelText('Add reaction');
+			expect(btn).toBeInTheDocument();
+		});
+
+		it('should render "Add a reaction" text when showAddReactionText is true', async () => {
+			renderWithIntl(<Trigger tooltipContent="" showAddReactionText />);
+			await screen.findByLabelText('Add reaction');
+			const addReactionText = screen.getByText('Add a reaction');
+			expect(addReactionText).toBeInTheDocument();
+			expect(addReactionText).toHaveCompiledCss('margin-left', 'var(--ds-space-050,4px)');
+		});
 	});
 
 	it('should not render tooltip when showAddReactionText is true', async () => {

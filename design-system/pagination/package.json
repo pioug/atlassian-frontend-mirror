@@ -73,6 +73,7 @@
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/react": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"techstack": {

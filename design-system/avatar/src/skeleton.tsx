@@ -8,6 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
+import { getAvatarSize } from './size-utils';
 import { type AppearanceType, type SizeType } from './types';
 
 export interface SkeletonProps {
@@ -70,17 +71,26 @@ const sizeStyles = cssMap({
  * - [Examples](https://atlassian.design/components/avatar/avatar-skeleton/examples)
  * - [Code](https://atlassian.design/components/avatar/avatar-skeleton/code)
  */
-const Skeleton: FC<SkeletonProps> = ({ size, appearance, color, weight }: SkeletonProps) => (
-	<div
-		css={[
-			styles.root,
-			sizeStyles[size ?? 'medium'],
-			appearance === 'square' && styles.square,
-			appearance === 'hexagon' && styles.hexagon,
-			weight === 'strong' && styles.strongOpacity,
-		]}
-		style={{ [bgColorCssVar]: color ?? 'currentColor' } as CSSProperties}
-	/>
-);
+const Skeleton: FC<SkeletonProps> = ({
+	size,
+	appearance = 'circle',
+	color,
+	weight,
+}: SkeletonProps) => {
+	const avatarSize = getAvatarSize({ appearance, size: size ?? 'medium' });
+
+	return (
+		<div
+			css={[
+				styles.root,
+				sizeStyles[avatarSize],
+				appearance === 'square' && styles.square,
+				appearance === 'hexagon' && styles.hexagon,
+				weight === 'strong' && styles.strongOpacity,
+			]}
+			style={{ [bgColorCssVar]: color ?? 'currentColor' } as CSSProperties}
+		/>
+	);
+};
 
 export default Skeleton;

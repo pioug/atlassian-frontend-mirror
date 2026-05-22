@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'TagGroup',
 		description: 'A component for managing multiple tags.',
@@ -42,6 +43,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['tag', 'group', 'multiple', 'labels', 'chips'],
 		categories: ['data-display'],
 	},
-];
+	],
+};
 
 export default documentation;

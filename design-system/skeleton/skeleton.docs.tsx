@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Skeleton',
 		description: 'A skeleton acts as a placeholder for content, usually while the content loads.',
@@ -43,6 +44,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['skeleton', 'placeholder', 'loading', 'content', 'shimmer', 'animation'],
 		categories: ['loading'],
 	},
-];
+	],
+};
 
 export default documentation;

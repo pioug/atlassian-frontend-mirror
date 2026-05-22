@@ -92,7 +92,7 @@
 		"lodash": "root:*",
 		"postcss": "root:*",
 		"postcss-less": "root:*",
-		"react": "root:*",
+		"react": "^19.0.0",
 		"react-window": "root:*",
 		"style-dictionary": "root:*"
 	},

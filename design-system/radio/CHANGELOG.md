@@ -1,5 +1,11 @@
 # @atlaskit/radio
 
+## 8.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.6.0
 
 ### Minor Changes

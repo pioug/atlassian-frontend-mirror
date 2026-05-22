@@ -90,5 +90,8 @@
 		"platform_editor_allow_viewmode_transaction": {
 			"type": "boolean"
 		}
+	},
+	"devDependencies": {
+		"react": "root:*"
 	}
 }

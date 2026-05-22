@@ -740,6 +740,7 @@ export const createPlugin = (
 						portalProviderAPI: pmPluginFactoryParams.portalProviderAPI,
 						eventDispatcher: pmPluginFactoryParams.eventDispatcher,
 						syncBlockStore: syncBlockStore,
+						intl: pmPluginFactoryParams.getIntl(),
 					}).init(),
 				bodiedSyncBlock: editorExperiment('platform_synced_block_use_new_source_nodeview', true, {
 					exposure: true,

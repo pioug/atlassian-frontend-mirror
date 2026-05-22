@@ -85,6 +85,7 @@
 		}
 	},
 	"devDependencies": {
-		"@atlassian/structured-docs-types": "workspace:^"
+		"@atlassian/structured-docs-types": "workspace:^",
+		"react": "root:*"
 	}
 }

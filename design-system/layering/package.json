@@ -51,7 +51,8 @@
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
-		"@testing-library/user-event": "root:*"
+		"@testing-library/user-event": "root:*",
+		"react": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Spinner',
 		description: 'A loading spinner component.',
@@ -41,6 +42,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['spinner', 'loading', 'progress', 'wait', 'activity'],
 		categories: ['feedback'],
 	},
-];
+	],
+};
 
 export default documentation;

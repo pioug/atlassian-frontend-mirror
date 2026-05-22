@@ -77,6 +77,7 @@
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"jscodeshift": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"techstack": {

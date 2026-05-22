@@ -56,7 +56,8 @@
 		"@atlaskit/table": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
-		"@testing-library/react": "root:*"
+		"@testing-library/react": "root:*",
+		"react": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

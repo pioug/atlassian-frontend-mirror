@@ -64,6 +64,7 @@
 		"fs-extra": "root:*",
 		"jscodeshift": "root:*",
 		"pkg-dir": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"ts-node": "root:*"
 	},

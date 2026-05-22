@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 219.9.6
+
+### Patch Changes
+
+- [`41962dd9dccb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41962dd9dccb2) -
+  NO-ISSUE: adds a default toolbar state so we can render the toolbar on initial load without
+  relying on editor state
+- Updated dependencies
+
 ## 219.9.5
 
 ### Patch Changes

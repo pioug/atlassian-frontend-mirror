@@ -480,7 +480,7 @@ describe('Renderer', () => {
 				expect(nativeEmbedsFallbackTransform).not.toHaveBeenCalled();
 			});
 
-			it('should not run nativeEmbedsFallbackTransform when native embeds are enabled', () => {
+			it('should not run nativeEmbedsFallbackTransform when native embeds are enabled via cc-maui-experiment', () => {
 				(fg as jest.Mock).mockImplementation(
 					(flagName: string) => flagName === 'platform_editor_native_embeds_fallback_transform',
 				);
@@ -490,6 +490,27 @@ describe('Renderer', () => {
 						param === 'isEnabled' &&
 						expectedValue === true,
 				);
+
+				renderDocument(
+					nativeEmbedsEnabledDocument,
+					serializer,
+					schema,
+					undefined,
+					true,
+					undefined,
+					mockDispatchAnalyticsEvent,
+				);
+
+				expect(nativeEmbedsFallbackTransform).not.toHaveBeenCalled();
+			});
+
+			it('should not run nativeEmbedsFallbackTransform when native embeds are enabled via platform_native_embeds_rollout_non_maui_experience', () => {
+				(fg as jest.Mock).mockImplementation(
+					(flagName: string) =>
+						flagName === 'platform_editor_native_embeds_fallback_transform' ||
+						flagName === 'platform_native_embeds_rollout_non_maui_experience',
+				);
+				(expValEquals as jest.Mock).mockImplementation(() => false);
 
 				renderDocument(
 					nativeEmbedsEnabledDocument,

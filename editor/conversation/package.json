@@ -59,10 +59,15 @@
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/react-redux": "root:*",
-		"enzyme": "root:*"
+		"enzyme": "root:*",
+		"react-dom": "root:*"
 	},
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./actions": "./src/entry-points/actions.ts",
+		"./Comment": "./src/entry-points/Comment.tsx",
+		"./Conversation": "./src/entry-points/Conversation.tsx",
+		"./ConversationResource": "./src/entry-points/ConversationResource.ts"
 	},
 	"platform-feature-flags": {}
 }

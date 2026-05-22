@@ -79,5 +79,8 @@
 		"no-unused-dependencies": {
 			"checkDevDependencies": true
 		}
+	},
+	"devDependencies": {
+		"react": "root:*"
 	}
 }

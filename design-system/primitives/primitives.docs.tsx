@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Anchor',
 		description: 'A primitive Anchor component for navigation links with compiled styling support.',
@@ -388,6 +389,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['text', 'typography', 'font', 'primitive', 'compiled'],
 		categories: ['primitive'],
 	},
-];
+	],
+};
 
 export default documentation;

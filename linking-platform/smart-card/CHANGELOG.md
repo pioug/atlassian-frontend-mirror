@@ -1,5 +1,57 @@
 # @atlaskit/smart-card
 
+## 44.16.0
+
+### Minor Changes
+
+- [`1dc73be916b1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1dc73be916b1f) -
+  Track middle- and right-clicks on resolved third-party Smart Links rendered by FlexCard. Fires
+  fire3PClickEvent({isAuxClick}) / fire3PClickEvent({isContextMenu}). Gated by
+  linking_platform_track_non_primary_3p_clicks experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.15.0
+
+### Minor Changes
+
+- [`fa8f6894161e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa8f6894161e0) -
+  Track middle- and right-clicks on resolved third-party Smart Links rendered by EmbedCard. Fires
+  fire3PClickEvent({isAuxClick}) / fire3PClickEvent({isContextMenu}). Gated by
+  linking_platform_track_non_primary_3p_clicks experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.14.0
+
+### Minor Changes
+
+- [`03e32e9e16136`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03e32e9e16136) -
+  Track middle- and right-clicks on resolved third-party Smart Links rendered by BlockCard. Fires
+  fire3PClickEvent({isAuxClick}) / fire3PClickEvent({isContextMenu}). Gated by
+  linking_platform_track_non_primary_3p_clicks experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.13.1
+
+### Patch Changes
+
+- [`56c067e375163`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56c067e375163) -
+  Clean up platform_editor_resolve_hyperlinks_killswitch gate. Ship test path
+
 ## 44.13.0
 
 ### Minor Changes

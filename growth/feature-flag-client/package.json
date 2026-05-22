@@ -39,7 +39,9 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"enzyme": "root:*"
+		"enzyme": "root:*",
+		"react": "root:*",
+		"react-dom": "root:*"
 	},
 	"techstack": {
 		"@repo/internal": {

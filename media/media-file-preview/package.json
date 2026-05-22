@@ -68,6 +68,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"
 	},

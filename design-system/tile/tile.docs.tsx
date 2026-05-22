@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Tile',
 		description:
@@ -25,6 +26,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['tile', 'icon', 'container', 'avatar', 'asset', 'emoji', 'logo', 'shape'],
 		categories: ['images and icons', 'layout'],
 	},
-];
+	],
+};
 
 export default documentation;

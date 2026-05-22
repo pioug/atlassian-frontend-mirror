@@ -61,9 +61,9 @@ ${(
   ${(
 		<Example
 			packageName="@atlaskit/link-datasource"
-			Component={require('./examples/basic-jira-issues-list').default}
+			Component={require('../examples/content/basic-jira-issues-list').default}
 			title="Smart Link List View"
-			source={require('!!raw-loader!./examples/basic-jira-issues-list')}
+			source={require('!!raw-loader!../examples/content/basic-jira-issues-list')}
 		/>
 	)}
 
@@ -121,9 +121,9 @@ export type ConfigModalProps<ADF, Parameters> = {
   ${(
 		<Example
 			packageName="@atlaskit/link-datasource"
-			Component={require('./examples/basic-jira-issues-config-modal').default}
+			Component={require('../examples/content/basic-jira-issues-config-modal').default}
 			title="Configuration Modal Component"
-			source={require('!!raw-loader!./examples/basic-jira-issues-config-modal')}
+			source={require('!!raw-loader!../examples/content/basic-jira-issues-config-modal')}
 		/>
 	)}
 `;

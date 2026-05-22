@@ -82,6 +82,8 @@
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",
 		"@types/raf-schd": "root:*",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
 		"tiny-invariant": "root:*"
 	},
 	"techstack": {

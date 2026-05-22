@@ -9,6 +9,8 @@ const extractLinkTitle = (
 	propUrl?: string,
 	response?: SmartLinkResponse,
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>,
+	onAuxClick?: React.EventHandler<React.MouseEvent>,
+	onContextMenu?: React.EventHandler<React.MouseEvent>,
 ): LinkTitle | undefined => {
 	const responseUrl = extractSmartLinkUrl(response);
 
@@ -17,7 +19,7 @@ const extractLinkTitle = (
 
 	const text = status === SmartLinkStatus.Resolved ? (name ?? responseUrl ?? propUrl) : propUrl;
 
-	return { onClick, text, url };
+	return { onClick, onAuxClick, onContextMenu, text, url };
 };
 
 export default extractLinkTitle;

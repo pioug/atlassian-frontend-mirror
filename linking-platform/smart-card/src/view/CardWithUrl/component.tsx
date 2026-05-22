@@ -396,6 +396,8 @@ function Component({
 				placeholderData={placeholderData}
 				onAuthorize={(services.length && handleAuthorize) || undefined}
 				onClick={handleClickWrapper}
+				onAuxClick={handleFrameAuxClick}
+				onContextMenu={handleFrameContextMenu}
 				origin="smartLinkCard"
 				renderers={renderers}
 				ui={ui}
@@ -454,6 +456,8 @@ function Component({
 					cardState={state}
 					handleAuthorize={(services.length && handleAuthorize) || undefined}
 					handleFrameClick={handleClickWrapper}
+					handleFrameAuxClick={handleFrameAuxClick}
+					handleFrameContextMenu={handleFrameContextMenu}
 					isSelected={isSelected}
 					onResolve={onResolve}
 					onError={onError}
@@ -474,6 +478,8 @@ function Component({
 					handleAuthorize={(services.length && handleAuthorize) || undefined}
 					handleErrorRetry={handleRetry}
 					handleFrameClick={handleClickWrapper}
+					handleFrameAuxClick={handleFrameAuxClick}
+					handleFrameContextMenu={handleFrameContextMenu}
 					handleInvoke={handleInvoke}
 					isSelected={isSelected}
 					frameStyle={frameStyle}

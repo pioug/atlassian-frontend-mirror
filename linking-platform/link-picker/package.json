@@ -117,6 +117,7 @@
 		"mockdate": "root:*",
 		"node-fetch": "root:*",
 		"prettier": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*",
 		"sinon": "root:*"

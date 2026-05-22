@@ -109,6 +109,7 @@
 		}
 	},
 	"devDependencies": {
+		"react": "root:*",
 		"react-intl": "root:*"
 	}
 }

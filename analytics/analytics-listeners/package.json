@@ -56,7 +56,8 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
-		"jest-in-case": "root:*"
+		"jest-in-case": "root:*",
+		"react": "root:*"
 	},
 	"keywords": [
 		"fabric",

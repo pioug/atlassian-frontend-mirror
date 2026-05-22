@@ -63,11 +63,6 @@ const styles = cssMap({
 	circle: {
 		borderRadius: token('radius.full', '50%'),
 	},
-	activeScale: {
-		'&:active': {
-			transform: 'scale(0.9)',
-		},
-	},
 	active: {
 		backgroundColor: token('color.background.selected'),
 		boxShadow: `0 0 0 ${token('border.width.selected')} ${token('color.border.selected')}`,
@@ -80,9 +75,6 @@ const styles = cssMap({
 			backgroundColor: token('color.background.selected.pressed'),
 			color: token('color.text.selected'),
 		},
-	},
-	activeStateScale: {
-		transform: 'scale(0.9)',
 	},
 	disabled: {
 		cursor: 'not-allowed',
@@ -249,14 +241,12 @@ const MoreIndicator: React.ForwardRefExoticComponent<
 				style={{ [boxShadowCssVar]: `0 0 0 2px ${borderColor}` } as CSSProperties}
 				css={[
 					styles.root,
-					!fg('remove_scaling_from_avatar_stack') && styles.activeScale,
 					borderRadiusMap[size],
 					appearance === 'circle' && styles.circle,
 					appearance === 'hexagon' && fg('jira-ai-agent-stack') && styles.hexagon,
 					widthHeightMap[size],
 					fontMap[size],
 					isActive && styles.active,
-					isActive && !fg('remove_scaling_from_avatar_stack') && styles.activeStateScale,
 				]}
 			>
 				+{displayCount}

@@ -38,7 +38,9 @@
 		"@types/uuid": "root:*",
 		"enzyme": "root:*",
 		"mock-apollo-client": "root:*",
+		"react": "root:*",
 		"react-beautiful-dnd": "root:*",
+		"react-dom": "root:*",
 		"react-intl": "root:*",
 		"react-select-event": "root:*"
 	},

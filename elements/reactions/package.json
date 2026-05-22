@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "34.2.3",
+	"version": "34.2.5",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -90,6 +90,7 @@
 		"fetch-mock": "root:*",
 		"raf-stub": "root:*",
 		"react": "root:*",
+		"react-dom": "root:*",
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*",
 		"webpack-dev-server": "root:*"
@@ -161,6 +162,9 @@
 			"type": "boolean"
 		},
 		"platform_reactions_view_more_styling_fix": {
+			"type": "boolean"
+		},
+		"platform_a11y_fixes_reaction_emoji": {
 			"type": "boolean"
 		}
 	},

@@ -37,6 +37,7 @@
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
+		"react": "root:*",
 		"typescript": "root:*",
 		"wait-for-expect": "root:*"
 	},

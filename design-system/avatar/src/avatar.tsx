@@ -23,6 +23,7 @@ import { EnsureIsInsideAvatarContext } from './internal/ensure-is-inside-avatar-
 import getCustomElement from './internal/get-custom-element';
 import PresenceWrapper from './internal/presence-wrapper';
 import StatusWrapper from './internal/status-wrapper';
+import { getAvatarSize } from './size-utils';
 import {
 	type AppearanceType,
 	type AvatarClickEventHandler,
@@ -193,7 +194,10 @@ const Avatar: React.ForwardRefExoticComponent<
 	) => {
 		const { createAnalyticsEvent } = useAnalyticsEvents();
 		const context = useAvatarContext();
-		const size = sizeProp || context?.size || 'medium';
+		const size = getAvatarSize({
+			appearance,
+			size: sizeProp || context?.size || 'medium',
+		});
 		const customPresenceNode = isValidElement(presence) ? presence : null;
 		const customStatusNode = isValidElement(status) ? status : null;
 		const isValidIconSize = size !== 'xxlarge' && size !== 'xsmall';

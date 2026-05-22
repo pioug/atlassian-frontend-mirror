@@ -20,6 +20,7 @@ import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { FULL_PAGE_EDITOR_TOOLBAR_HEIGHT } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorAppearanceComponentProps, PrimaryToolbarComponents } from '../../../types';
@@ -225,7 +226,11 @@ export const FullPageEditor = (props: ComponentProps): jsx.JSX.Element => {
 					{!isEditorToolbarHidden &&
 						(isToolbarAIFCEnabled ? (
 							<FullPageToolbarNext
-								disabled={!!props.disabled}
+								disabled={
+									!!props.disabled ||
+									(!hasHadInteraction &&
+										expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true))
+								}
 								toolbarDockingPosition={toolbarDockingPosition ?? toolbarDocking}
 								beforeIcon={props.primaryToolbarIconBefore}
 								editorAPI={editorAPI}

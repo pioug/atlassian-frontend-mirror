@@ -83,6 +83,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-08
+	aifc_space_typesettings: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-28
 	'agent-managed_blocks_mvp': {
 		defaultValue: boolean;
@@ -1216,6 +1223,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-21
+	platform_editor_layout_typeahead_reorder: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-26
 	platform_editor_perf_lint_cleanup: {
 		defaultValue: boolean;
@@ -1267,6 +1281,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-27
 	confluence_frontend_cwr_outcome_type_picker: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-05-11
+	cfe_cwr_outcome_picker_respect_site_settings: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1805,6 +1826,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-20
+	platform_editor_ai_tablecell_localids: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-27
 	platform_sl_fix_cache_unresolved: {
 		defaultValue: boolean;
@@ -1903,6 +1931,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-20
+	platform_editor_default_toolbar_state: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-05-18
 	platform_editor_nest_table_in_panel: {
 		defaultValue: boolean;
@@ -1935,6 +1970,14 @@ export const editorExperimentsConfig: {
 	cwr_page_tree_auto_finalize: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cwr_page_tree_auto_finalize',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-08
+	aifc_space_typesettings: createBooleanExperiment({
+		productKeys: {
+			confluence: 'aifc_space_typesettings',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3277,6 +3320,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-05-11
+	cfe_cwr_outcome_picker_respect_site_settings: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cfe_cwr_outcome_picker_respect_site_settings',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-04-01
 	confluence_fe_cwr_outcome_picker_prompt_autoselect: createBooleanExperiment({
 		productKeys: {
@@ -3797,6 +3848,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-05-21
+	platform_editor_layout_typeahead_reorder: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_layout_typeahead_reorder',
+			jira: 'platform_editor_layout_typeahead_reorder',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-31
 	platform_editor_lovability_distribute_column_fix: createBooleanExperiment({
 		productKeys: {
@@ -4016,6 +4076,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-05-20
+	platform_editor_ai_tablecell_localids: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_tablecell_localids',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-04-30
 	platform_editor_insert_menu_ai: createBooleanExperiment({
 		productKeys: {
@@ -4088,6 +4156,14 @@ export const editorExperimentsConfig: {
 	platform_editor_nest_table_in_panel: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_nest_table_in_panel',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-20
+	platform_editor_default_toolbar_state: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_default_toolbar_state',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -40,6 +40,7 @@
 		"@atlassian/codegen": "workspace:^",
 		"@testing-library/react": "root:*",
 		"fs-extra": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"ts-node": "root:*"
 	},

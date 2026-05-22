@@ -19,7 +19,11 @@ export type EmbedCardProps = {
 	frameStyle?: FrameStyle;
 	handleAuthorize: (() => void) | undefined;
 	handleErrorRetry: () => void;
+	/** Optional middle-click handler. */
+	handleFrameAuxClick?: React.EventHandler<React.MouseEvent>;
 	handleFrameClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	/** Optional right-click handler. */
+	handleFrameContextMenu?: React.EventHandler<React.MouseEvent>;
 	handleInvoke: InvokeHandler;
 	hideIconLoadingSkeleton?: boolean;
 	id?: string;

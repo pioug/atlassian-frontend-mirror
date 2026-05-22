@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 21.12.4
+
+### Patch Changes
+
+- [`f2e5a96c031f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2e5a96c031f8) -
+  Removed unnecessary token fallbacks and legacy colors.
+- Updated dependencies
+
 ## 21.12.3
 
 ### Patch Changes

@@ -61,6 +61,7 @@
 		"@testing-library/react": "root:*",
 		"fs-extra": "root:*",
 		"pkg-dir": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"ts-node": "root:*"
 	},

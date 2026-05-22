@@ -31,6 +31,8 @@ const FlexibleCard = ({
 	id,
 	onAuthorize,
 	onClick,
+	onAuxClick,
+	onContextMenu,
 	onError,
 	onResolve,
 	origin,
@@ -81,6 +83,8 @@ const FlexibleCard = ({
 				id,
 				onAuthorize,
 				onClick,
+				onAuxClick,
+				onContextMenu,
 				origin,
 				renderers,
 				resolve,
@@ -103,6 +107,8 @@ const FlexibleCard = ({
 			isPreviewPanelAvailable,
 			onAuthorize,
 			onClick,
+			onAuxClick,
+			onContextMenu,
 			openPreviewPanel,
 			origin,
 			placeholderCardState,
@@ -163,6 +169,8 @@ const FlexibleCard = ({
 				testId={testId}
 				{...ui}
 				onClick={onClick}
+				onAuxClick={onAuxClick}
+				onContextMenu={onContextMenu}
 				showHoverPreview={showHoverPreview}
 				hoverPreviewOptions={hoverPreviewOptions}
 				actionOptions={actionOptions}

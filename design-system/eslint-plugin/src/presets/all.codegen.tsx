@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e7c368ed33d7a7522f63adf34dd26857>>
+ * @codegen <<SignedSource::8efae2c2e169f84381b978b4bc47433d>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -67,6 +67,7 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/use-drawer-label': 'warn',
 		'@atlaskit/design-system/use-field-message-wrapper': 'warn',
 		'@atlaskit/design-system/use-heading': 'warn',
+		'@atlaskit/design-system/use-heading-level-in-section-message': 'warn',
 		'@atlaskit/design-system/use-heading-level-in-spotlight-card': 'warn',
 		'@atlaskit/design-system/use-href-in-link-item': 'warn',
 		'@atlaskit/design-system/use-latest-xcss-syntax': 'error',

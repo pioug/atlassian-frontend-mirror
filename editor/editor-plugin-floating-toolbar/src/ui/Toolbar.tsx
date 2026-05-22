@@ -257,7 +257,13 @@ const ToolbarItems = React.memo(
 					);
 
 				case 'custom': {
-					return item.render(editorView, idx, dispatchAnalyticsEvent);
+					return item.render(editorView, idx, dispatchAnalyticsEvent, {
+						popupsBoundariesElement,
+						popupsMountPoint,
+						popupsScrollableElement,
+						scrollable,
+						setDisableParentScroll: scrollable ? setDisableScroll : undefined,
+					});
 				}
 
 				case 'overflow-dropdown':
@@ -496,6 +502,11 @@ const ToolbarItems = React.memo(
 		return !(
 			prevProps.node.type !== nextProps.node.type ||
 			prevProps.node.attrs.localId !== nextProps.node.attrs.localId ||
+			prevProps.popupsBoundariesElement !== nextProps.popupsBoundariesElement ||
+			prevProps.popupsMountPoint !== nextProps.popupsMountPoint ||
+			prevProps.popupsScrollableElement !== nextProps.popupsScrollableElement ||
+			prevProps.scrollable !== nextProps.scrollable ||
+			prevProps.setDisableScroll !== nextProps.setDisableScroll ||
 			!areSameItems(prevProps.items, nextProps.items) ||
 			!prevProps.mounted !== !nextProps.mounted
 		);
@@ -694,7 +705,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 		}
 	}
 
-	private setDisableScroll(disabled: boolean) {
+	private setDisableScroll = (disabled: boolean) => {
 		// wait before setting disabled state incase users jumping from one popup to another
 		if (disabled) {
 			requestAnimationFrame(() => {
@@ -703,7 +714,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 		} else {
 			this.setState({ scrollDisabled: disabled });
 		}
-	}
+	};
 
 	componentDidMount() {
 		this.setState({ mounted: true });
@@ -863,7 +874,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 								// Ignored via go/ees005
 								// eslint-disable-next-line react/jsx-props-no-spreading
 								{...this.props}
-								setDisableScroll={this.setDisableScroll.bind(this)}
+								setDisableScroll={this.setDisableScroll}
 								mountRef={this.mountRef}
 								mounted={this.state.mounted}
 							/>

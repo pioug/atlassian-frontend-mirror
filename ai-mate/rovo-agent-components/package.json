@@ -97,6 +97,7 @@
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"@types/relay-test-utils": "root:*",
+		"react": "root:*",
 		"react-intl": "root:*",
 		"relay-test-utils": "root:*",
 		"wait-for-expect": "root:*"

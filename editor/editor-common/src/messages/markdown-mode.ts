@@ -42,11 +42,6 @@ export const markdownModeMessages: {
 		description: string;
 		id: string;
 	};
-	confirmDialogToRichTextInstantEdits: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
 	confirmDialogToRichTextStandardTools: {
 		defaultMessage: string;
 		description: string;
@@ -154,12 +149,6 @@ export const markdownModeMessages: {
 		defaultMessage: 'Use all rich text tools',
 		description:
 			'Body row inside the convert-to-rich-text confirmation dialog; explains that the full rich-text toolbar comes back after the conversion.',
-	},
-	confirmDialogToRichTextInstantEdits: {
-		id: 'fabric.editor.markdownMode.confirmDialog.toRichText.instantEdits',
-		defaultMessage: 'Edit and save as a live doc',
-		description:
-			'Body row inside the convert-to-rich-text confirmation dialog; reassures the user that live-edit semantics are preserved when leaving markdown mode.',
 	},
 	confirmDialogToRichTextVersionHistory: {
 		id: 'fabric.editor.markdownMode.confirmDialog.toRichText.versionHistory',

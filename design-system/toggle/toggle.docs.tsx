@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Toggle',
 		description: 'A toggle is used to view or switch between enabled or disabled states.',
@@ -44,6 +45,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['toggle', 'switch', 'on-off', 'enabled', 'disabled', 'state'],
 		categories: ['forms-and-input'],
 	},
-];
+	],
+};
 
 export default documentation;

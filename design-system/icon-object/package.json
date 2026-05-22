@@ -67,6 +67,7 @@
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"fs-extra": "root:*",
 		"pkg-dir": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"ts-node": "root:*"
 	},

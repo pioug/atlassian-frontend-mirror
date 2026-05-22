@@ -11,6 +11,7 @@ import noInvalidFeatureFlagUsage from './rules/no-invalid-feature-flag-usage';
 import ensureCriticalDependencyResolutions from './rules/ensure-critical-dependency-resolutions';
 import ensureValidBinValues from './rules/ensure-valid-bin-values';
 import ensureNoPrivateDependencies from './rules/ensure-no-private-dependencies';
+import ensureReactPeerDepsInDevDeps from './rules/ensure-react-peer-deps-in-dev-deps';
 import expandBorderShorthand from './rules/compiled/expand-border-shorthand';
 import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
 import ensurePublishValid from './rules/ensure-publish-valid';
@@ -81,6 +82,7 @@ const rules: {
 	'ensure-critical-dependency-resolutions': Rule.RuleModule;
 	'ensure-valid-bin-values': Rule.RuleModule;
 	'ensure-no-private-dependencies': Rule.RuleModule;
+	'ensure-react-peer-deps-in-dev-deps': Rule.RuleModule;
 	'expand-border-shorthand': Rule.RuleModule;
 	'expand-background-shorthand': Rule.RuleModule;
 	'expand-spacing-shorthand': Rule.RuleModule;
@@ -125,6 +127,7 @@ const rules: {
 	'ensure-critical-dependency-resolutions': ensureCriticalDependencyResolutions,
 	'ensure-valid-bin-values': ensureValidBinValues,
 	'ensure-no-private-dependencies': ensureNoPrivateDependencies,
+	'ensure-react-peer-deps-in-dev-deps': ensureReactPeerDepsInDevDeps,
 	'expand-border-shorthand': expandBorderShorthand,
 	'expand-background-shorthand': expandBackgroundShorthand,
 	'expand-spacing-shorthand': expandSpacingShorthand,
@@ -228,6 +231,7 @@ const plugin: {
 		'ensure-critical-dependency-resolutions': Rule.RuleModule;
 		'ensure-valid-bin-values': Rule.RuleModule;
 		'ensure-no-private-dependencies': Rule.RuleModule;
+		'ensure-react-peer-deps-in-dev-deps': Rule.RuleModule;
 		'expand-border-shorthand': Rule.RuleModule;
 		'expand-background-shorthand': Rule.RuleModule;
 		'expand-spacing-shorthand': Rule.RuleModule;

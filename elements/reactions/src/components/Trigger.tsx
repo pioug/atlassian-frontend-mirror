@@ -266,6 +266,7 @@ export const Trigger: React.ForwardRefExoticComponent<
 					testId="emoji-add-icon"
 					color={disabled ? token('color.icon.disabled') : token('color.icon')}
 					label="Add reaction"
+					{...(fg('platform_a11y_fixes_reaction_emoji') ? { 'aria-hidden': true } : {})}
 					size={emojiPickerSize === 'small' ? 'small' : 'medium'}
 				/>
 			)}

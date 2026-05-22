@@ -60,6 +60,7 @@
 		"@atlassian/confluence-presets": "workspace:^",
 		"@atlassian/content-reconciliation": "root:*",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"react": "root:*",
 		"react-intl": "root:*"
 	},
 	"peerDependencies": {

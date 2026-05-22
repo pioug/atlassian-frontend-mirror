@@ -6,6 +6,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { HighlightPlugin } from '@atlaskit/editor-plugin-highlight';
+import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
@@ -23,6 +24,7 @@ export type Dependencies = [
 	OptionalPlugin<ToolbarPlugin>,
 	OptionalPlugin<UserPreferencesPlugin>,
 	OptionalPlugin<HighlightPlugin>,
+	OptionalPlugin<InteractionPlugin>,
 ];
 
 export type TextColorPlugin = NextEditorPlugin<

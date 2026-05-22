@@ -71,5 +71,8 @@
 				"emotion"
 			]
 		}
+	},
+	"devDependencies": {
+		"react": "root:*"
 	}
 }

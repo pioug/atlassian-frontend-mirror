@@ -104,6 +104,7 @@
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/faker": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"swagger-typescript-api": "root:*",
 		"ts-morph": "root:*",

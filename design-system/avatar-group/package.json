@@ -70,6 +70,7 @@
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"lodash": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"keywords": [
@@ -122,9 +123,6 @@
 			"type": "boolean"
 		},
 		"platform-dst-motion-uplift": {
-			"type": "boolean"
-		},
-		"remove_scaling_from_avatar_stack": {
 			"type": "boolean"
 		},
 		"platform-avatar-group-pass-avatar-to-item": {

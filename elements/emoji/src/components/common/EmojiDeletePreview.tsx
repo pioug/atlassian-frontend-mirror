@@ -107,6 +107,7 @@ const deleteButtonGroup = css({
 	alignItems: 'center',
 	justifyContent: 'flex-end',
 	marginTop: token('space.150'),
+	paddingBottom: token('space.150'),
 });
 
 export interface OnDeleteEmoji {

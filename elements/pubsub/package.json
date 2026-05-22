@@ -25,6 +25,7 @@
 		"es6-promise": "root:*",
 		"fetch-mock": "root:*",
 		"jest-extended": "root:*",
+		"react": "root:*",
 		"sinon": "root:*"
 	},
 	"sideEffects": false,

@@ -65,6 +65,7 @@
 		"@testing-library/react": "root:*",
 		"@types/jscodeshift": "root:*",
 		"jscodeshift": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"techstack": {

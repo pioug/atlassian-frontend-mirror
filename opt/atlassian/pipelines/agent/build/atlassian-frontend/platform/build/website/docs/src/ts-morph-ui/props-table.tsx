@@ -1,3 +1,4 @@
+/* eslint-disable @compiled/shorthand-property-sorting, @atlaskit/design-system/no-unsafe-style-overrides -- Existing docs styles use shorthand and css overrides. */
 /**
  * @jsxRuntime classic
  * @jsx jsx

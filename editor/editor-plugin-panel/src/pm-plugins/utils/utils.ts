@@ -2,7 +2,7 @@ import type { PanelAttributes } from '@atlaskit/adf-schema';
 import { PanelType } from '@atlaskit/adf-schema';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
-import type { DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
+import type { DOMOutputSpec, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import {
@@ -15,17 +15,53 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DomPanelAtrrs } from '../../panelPluginType';
 
+export const isPanel = (nodeName: string): boolean => {
+	return expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+		? ['panel', 'panel_c1'].includes(nodeName)
+		: nodeName === 'panel';
+};
+
+export const panelTypes = (nodes: { [key: string]: NodeType }): NodeType[] => {
+	const { panel, panel_c1 } = nodes;
+
+	return expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+		? [panel, panel_c1]
+		: [panel];
+};
+
 export const findPanel = (
 	state: EditorState,
 	selection?: Selection | null,
 ):
 	| ReturnType<ReturnType<typeof findSelectedNodeOfType>>
 	| ReturnType<ReturnType<typeof findParentNodeOfType>> => {
-	const { panel } = state.schema.nodes;
 	return (
-		findSelectedNodeOfType(panel)(selection || state.selection) ||
-		findParentNodeOfType(panel)(selection || state.selection)
+		findSelectedNodeOfType(panelTypes(state.schema.nodes))(selection || state.selection) ||
+		findParentNodeOfType(panelTypes(state.schema.nodes))(selection || state.selection)
 	);
+};
+
+export const pickPanelTypeForInsertion = (input: EditorState | Selection): NodeType => {
+	const selection = 'selection' in input ? input.selection : input;
+	const schema = selection.$from.doc.type.schema;
+	const { panel, panel_c1 } = schema.nodes;
+	const $from = selection.$from;
+
+	for (let depth = $from.depth; depth >= 0; depth--) {
+		const parent = $from.node(depth);
+		const index = $from.index(depth);
+		if (parent.canReplaceWith(index, index, panel_c1)) {
+			return panel_c1;
+		}
+		const spec = parent.type.spec;
+		// Stop at isolating containers (e.g. expand, tableCell) — hard walls where
+		// the panel stays inside and should use the regular panel type.
+		if (spec.isolating) {
+			return panel;
+		}
+	}
+
+	return panel;
 };
 
 export const panelAttrsToDom = (
@@ -128,11 +164,12 @@ export const handleCut = (
 		// Create a panel using oldState with an empty paragraph node
 		// and insert it in the same location when panel previously existed
 		const emptyParagraph = schema.nodes.paragraph.create();
-		const oldPanelNode = findParentNode((node) => node.type.name === 'panel')(
-			oldState.tr.selection,
-		);
+		const oldPanelNode = findParentNode((node) => isPanel(node.type.name))(oldState.tr.selection);
 		const clonedPanelNode = oldPanelNode?.node.copy();
-		const newPanelNode = schema.nodes.panel.create({ ...clonedPanelNode?.attrs }, emptyParagraph);
+		const panelNodeType = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+			? (oldPanelNode?.node.type ?? schema.nodes.panel)
+			: schema.nodes.panel;
+		const newPanelNode = panelNodeType.create({ ...clonedPanelNode?.attrs }, emptyParagraph);
 		const endPos = oldState.tr.selection.$from.pos;
 
 		if (oldPanelNode) {
@@ -153,7 +190,7 @@ export const panelContentCheck = (newState: EditorState, oldState: EditorState):
 	const isNodeSelection = oldState.tr.selection instanceof NodeSelection;
 	const isNodeTypeRuleOrCodeBlock =
 		isNodeSelection && ['codeBlock', 'rule'].includes(oldState.tr.selection.node.type.name);
-	const isParentTypePanel = findParentNodeOfType(newState.schema.nodes.panel)(
+	const isParentTypePanel = findParentNodeOfType(panelTypes(newState.schema.nodes))(
 		oldState.tr.selection,
 	);
 	const isparentTypeDecision = findParentNodeOfType(newState.schema.nodes.decisionList)(
@@ -161,7 +198,7 @@ export const panelContentCheck = (newState: EditorState, oldState: EditorState):
 	);
 	return Boolean(
 		isNodeSelection &&
-		isParentTypePanel?.node.childCount === 1 &&
-		(isparentTypeDecision?.node.childCount === 1 || isNodeTypeRuleOrCodeBlock),
+			isParentTypePanel?.node.childCount === 1 &&
+			(isparentTypeDecision?.node.childCount === 1 || isNodeTypeRuleOrCodeBlock),
 	);
 };

@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Dynamic table',
 		description:
@@ -66,6 +67,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['table', 'dynamic-table', 'stateless', 'controlled', 'pagination', 'sorting'],
 		categories: ['data display', 'table', 'list'],
 	},
-];
+	],
+};
 
 export default documentation;

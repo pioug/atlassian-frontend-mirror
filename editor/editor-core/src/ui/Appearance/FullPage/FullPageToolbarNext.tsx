@@ -273,24 +273,41 @@ export const FullPageToolbarNext = ({
 							)}
 							<>
 								<FirstChildWrapper>
-									<ExcludeFromHydration>
-										{primaryToolbarDockingConfigEnabled &&
-											components &&
-											visibleToolbarComponents &&
-											isToolbar(toolbar) &&
-											editorView &&
-											!isSSR() && (
-												<ToolbarNext
-													toolbar={toolbar}
-													components={visibleToolbarComponents}
-													editorView={editorView}
-													editorAPI={editorAPI}
-													popupsMountPoint={mountPoint}
-													editorAppearance="full-page"
-													isDisabled={disabled}
-												/>
-											)}
-									</ExcludeFromHydration>
+									{expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true) ? (
+										primaryToolbarDockingConfigEnabled &&
+										components &&
+										visibleToolbarComponents &&
+										isToolbar(toolbar) && (
+											<ToolbarNext
+												toolbar={toolbar}
+												components={visibleToolbarComponents}
+												editorView={editorView}
+												editorAPI={editorAPI}
+												popupsMountPoint={mountPoint}
+												editorAppearance="full-page"
+												isDisabled={disabled}
+											/>
+										)
+									) : (
+										<ExcludeFromHydration>
+											{primaryToolbarDockingConfigEnabled &&
+												components &&
+												visibleToolbarComponents &&
+												isToolbar(toolbar) &&
+												editorView &&
+												!isSSR() && (
+													<ToolbarNext
+														toolbar={toolbar}
+														components={visibleToolbarComponents}
+														editorView={editorView}
+														editorAPI={editorAPI}
+														popupsMountPoint={mountPoint}
+														editorAppearance="full-page"
+														isDisabled={disabled}
+													/>
+												)}
+										</ExcludeFromHydration>
+									)}
 								</FirstChildWrapper>
 								<SecondChildWrapper>
 									<div css={styles.customToolbarWrapperStyle}>

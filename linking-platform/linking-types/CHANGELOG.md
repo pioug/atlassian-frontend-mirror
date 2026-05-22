@@ -1,5 +1,12 @@
 # @atlaskit/linking-types
 
+## 14.4.0
+
+### Minor Changes
+
+- [`8bcf3d1803510`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bcf3d1803510) -
+  Mark barrel exports as deprecated and add new entry points
+
 ## 14.3.0
 
 ### Minor Changes

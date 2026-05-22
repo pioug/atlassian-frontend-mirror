@@ -77,5 +77,8 @@
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
 		}
+	},
+	"devDependencies": {
+		"react": "root:*"
 	}
 }

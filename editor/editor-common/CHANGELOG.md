@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 114.42.0
+
+### Minor Changes
+
+- [`6644994a61d9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6644994a61d9c) -
+  Add editor-positioned dropdown support for custom floating toolbar items
+- [`5521d5049b2c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5521d5049b2c6) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- [`6644994a61d9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6644994a61d9c) -
+  Add typed `testId` pass-through for editor common dropdown containers.
+- Updated dependencies
+
+## 114.41.0
+
+### Minor Changes
+
+- [`ad45394a4fed6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad45394a4fed6) -
+  [ux] EDITOR-7171 add panel plugin support for new panel_c1 node variant which can have tables
+  nested inside
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.40.0
+
+### Minor Changes
+
+- [`b64fa35219339`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b64fa35219339) -
+  Wrap updateParameters change in confluence_frontend_native_tabs_extension feature gate
+
 ## 114.39.0
 
 ### Minor Changes

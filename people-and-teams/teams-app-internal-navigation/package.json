@@ -56,6 +56,7 @@
 		"@atlassian/teams-app-internal-playground": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"techstack": {

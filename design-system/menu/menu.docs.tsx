@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'MenuGroup',
 		description: 'A list of options to action or navigate.',
@@ -251,6 +252,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['menu', 'skeleton', 'heading', 'loading'],
 		categories: ['loading', 'navigation'],
 	},
-];
+	],
+};
 
 export default documentation;

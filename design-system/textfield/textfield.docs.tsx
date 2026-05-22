@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'TextField',
 		description: 'A single-line text input component.',
@@ -45,6 +46,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['textfield', 'input', 'form', 'text', 'field', 'single-line'],
 		categories: ['form'],
 	},
-];
+	],
+};
 
 export default documentation;

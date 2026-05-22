@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'DatePicker',
 		description: 'A component for selecting date values with calendar support.',
@@ -122,6 +123,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['datetime', 'picker', 'date', 'time', 'calendar'],
 		categories: ['form'],
 	},
-];
+	],
+};
 
 export default documentation;

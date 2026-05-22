@@ -53,6 +53,7 @@
 	},
 	"devDependencies": {
 		"@testing-library/react": "root:*",
+		"react": "root:*",
 		"react-intl": "root:*"
 	},
 	"peerDependencies": {

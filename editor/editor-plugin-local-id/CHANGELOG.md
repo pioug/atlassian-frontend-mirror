@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-local-id
 
+## 8.3.0
+
+### Minor Changes
+
+- [`1c5e23accfe24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c5e23accfe24) -
+  Cleanup feature gate platform_editor_localid_improvements. Updates are now always batched into a
+  single BatchAttrsStep. Removes the unused addLocalIdToNode export.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.0
+
+### Minor Changes
+
+- [`b284d7fc05568`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b284d7fc05568) -
+  Fix tableCell/tableHeader nodes in middle rows of newly-inserted tables missing localId. The
+  localId plugin's appendTransaction was keyed by PMNode identity, which incorrectly overwrote
+  positions when the same node reference legitimately occupied multiple document positions (as
+  createTable from prosemirror-utils does by reusing cell node objects across non-header rows). The
+  plugin now tracks all positions per node identity and assigns a unique localId per position. Gated
+  behind the `platform_editor_ai_tablecell_localids` experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.2
 
 ### Patch Changes

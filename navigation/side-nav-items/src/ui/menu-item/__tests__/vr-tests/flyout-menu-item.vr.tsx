@@ -66,7 +66,4 @@ snapshot(FlyoutMenuItemSlotsManyDefaultOpen, {
 		'A flyout menu with many items does not exceed the bounds of the window and should have a visible footer',
 	variants: [variants.desktop, variants.mobile],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		platform_dst_nav4_flyout_menu_slots_close_button: [false, true],
-	},
 });

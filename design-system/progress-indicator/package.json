@@ -59,6 +59,7 @@
 		"@testing-library/user-event": "root:*",
 		"@types/jscodeshift": "root:*",
 		"jscodeshift": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"react-lorem-component": "root:*"
 	},

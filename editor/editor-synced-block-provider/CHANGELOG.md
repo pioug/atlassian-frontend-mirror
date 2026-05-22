@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-provider
 
+## 6.6.7
+
+### Patch Changes
+
+- [`bfba4158ff047`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfba4158ff047) -
+  Fix subscription reconnection for synced blocks when WebSocket or Relay subscriptions complete or
+  error silently
+
 ## 6.6.6
 
 ### Patch Changes

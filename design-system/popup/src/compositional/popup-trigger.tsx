@@ -44,8 +44,7 @@ export const PopupTrigger = ({ children }: PopupTriggerProps): React.JSX.Element
 		[triggerRefObject],
 	);
 
-	const ariaHasPopup =
-		role === 'dialog' && fg('platform_dst_nav4_flyout_menu_slots_close_button') ? 'dialog' : true;
+	const ariaHasPopup = role === 'dialog' ? 'dialog' : true;
 
 	// When the top-layer flag is on, bypass Popper's <Reference> entirely.
 	// We only need to set triggerRefObject.current — no Popper ref merging needed.

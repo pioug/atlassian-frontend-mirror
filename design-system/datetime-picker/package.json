@@ -93,6 +93,7 @@
 		"jest-in-case": "root:*",
 		"jscodeshift": "root:*",
 		"moment": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"react-lorem-component": "root:*"
 	},

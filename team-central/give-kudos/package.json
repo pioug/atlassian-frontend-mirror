@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/give-kudos",
-	"version": "5.9.1",
+	"version": "5.9.2",
 	"description": "Give Kudos experience ",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -80,6 +80,7 @@
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"

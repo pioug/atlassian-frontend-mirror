@@ -1,5 +1,18 @@
 # @atlaskit/link-create
 
+## 5.2.0
+
+### Minor Changes
+
+- [`d91e676ebe778`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d91e676ebe778) -
+  Mark barrel exports as deprecated and add new entry points
+
+## 5.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.3
 
 ### Patch Changes

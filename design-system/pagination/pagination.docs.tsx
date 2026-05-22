@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Pagination',
 		description: 'A component for pagination controls.',
@@ -42,6 +43,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['pagination', 'pages', 'navigation', 'paging', 'controls'],
 		categories: ['navigation'],
 	},
-];
+	],
+};
 
 export default documentation;

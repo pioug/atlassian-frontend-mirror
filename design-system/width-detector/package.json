@@ -55,6 +55,7 @@
 		"@compiled/react": "root:*",
 		"@testing-library/react": "root:*",
 		"@types/raf-schd": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"keywords": [

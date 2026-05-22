@@ -69,6 +69,8 @@ const footerBlockSafariStyles = css({
 const ResolvedView = ({
 	cardState,
 	onClick,
+	onAuxClick,
+	onContextMenu,
 	onError,
 	onResolve,
 	actionOptions,
@@ -172,6 +174,8 @@ const ResolvedView = ({
 			appearance="block"
 			cardState={cardState}
 			onClick={onClick}
+			onAuxClick={onAuxClick}
+			onContextMenu={onContextMenu}
 			onError={onError}
 			onResolve={onResolve}
 			origin="smartLinkCard"

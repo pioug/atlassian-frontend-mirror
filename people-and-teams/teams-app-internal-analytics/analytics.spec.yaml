@@ -3888,9 +3888,25 @@ events:
       type: ui
       description:
         fired when the org chart (reporting lines) button is clicked on the user inline preview
+      attributes:
+        <<: *PackageMetaDataContext
+        renderContext:
+          type: string
+          required: false
+          description: >
+            optional context describing where the UserInlinePreview is rendered.
+            Set to 'collaborator' when rendered inside UserProfilePreview's collaborators list.
   - userInlinePreview clicked (viewProfile):
       type: ui
       description: fired when the View Profile button is clicked on the user inline preview
+      attributes:
+        <<: *PackageMetaDataContext
+        renderContext:
+          type: string
+          required: false
+          description: >
+            optional context describing where the UserInlinePreview is rendered.
+            Set to 'collaborator' when rendered inside UserProfilePreview's collaborators list.
 
   - userProfileCard opened:
       type: ui

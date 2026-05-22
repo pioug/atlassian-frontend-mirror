@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -23,6 +24,7 @@ import {
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { BodiedSyncBlockWrapper } from '../ui/BodiedSyncBlockWrapper';
@@ -116,6 +118,7 @@ class BodiedSyncBlockOld extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 	}
 
 	createDomRef(): HTMLElement {
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- NodeView DOM must be created against active runtime document
 		const domRef = document.createElement('div');
 		domRef.classList.add(BodiedSyncBlockSharedCssClassName.prefix);
 
@@ -143,6 +146,7 @@ class BodiedSyncBlockOld extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 	}
 
 	getContentDOM() {
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- NodeView serialization must target active runtime document
 		const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOMOld());
 		// In SSR, the first check won't work, so fallback to nodeType check
 		if (dom instanceof HTMLElement || dom.nodeType === 1) {
@@ -243,11 +247,24 @@ export class BodiedSyncBlock implements NodeView {
 		this.getPos = getPos;
 		this.api = api;
 		this.nodeViewPortalProviderAPI = nodeViewPortalProviderAPI;
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- NodeView serialization must target active runtime document
 		const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOM(this.node));
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.dom = dom as HTMLElement;
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.contentDOM = contentDOM as HTMLElement;
+
+		// During SSR, the portal's renderToStaticMarkup + innerHTML clobbers
+		// contentDOM. Render the label into a separate container to prevent this.
+		// On client, render directly into this.dom as before.
+		let labelContainer: HTMLElement;
+		if (isSSR() && expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)) {
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- NodeView DOM must be created against active runtime document
+			labelContainer = document.createElement('div');
+			this.dom.appendChild(labelContainer);
+		} else {
+			labelContainer = this.dom;
+		}
 
 		this.labelKey = crypto.randomUUID();
 		this.nodeViewPortalProviderAPI.render(
@@ -261,7 +278,7 @@ export class BodiedSyncBlock implements NodeView {
 					<SyncBlockLabel isSource={true} localId={node.attrs.localId} />
 				</ErrorBoundary>
 			),
-			this.dom,
+			labelContainer,
 			this.labelKey,
 		);
 		this.updateContentEditable({});

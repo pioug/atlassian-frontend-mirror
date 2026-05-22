@@ -57,6 +57,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"devDependencies": {
-		"@atlassian/react-compiler-gating": "workspace:^"
+		"@atlassian/react-compiler-gating": "workspace:^",
+		"react": "root:*"
 	}
 }

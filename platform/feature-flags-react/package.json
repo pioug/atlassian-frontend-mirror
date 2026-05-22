@@ -34,6 +34,7 @@
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"sideEffects": [

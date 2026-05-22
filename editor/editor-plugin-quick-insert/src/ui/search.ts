@@ -10,6 +10,69 @@ type GetQuickInsertSuggestions = (
 	providedItems?: QuickInsertItem[],
 ) => QuickInsertItem[];
 
+type QuickInsertItemWithId = QuickInsertItem & { id: NonNullable<QuickInsertItem['id']> };
+type QuickInsertPrioritySortFn = NonNullable<
+	ReturnType<NonNullable<QuickInsertSearchOptions['prioritySortingFn']>>
+>;
+type QuickInsertPrioritySortResult = Parameters<QuickInsertPrioritySortFn>[0];
+
+const isRegisteredLayoutQuickInsertItem = (
+	item: QuickInsertItem,
+): item is QuickInsertItemWithId =>
+	Boolean(
+		item.id &&
+		item.id !== 'layout' &&
+		item.keywords?.includes('layout') &&
+		item.keywords?.includes('column'),
+	);
+
+const getLayoutQuickInsertItemIdRank = (
+	items: QuickInsertItem[],
+): Map<QuickInsertItem['id'], number> =>
+	new Map(
+		items
+			.filter(isRegisteredLayoutQuickInsertItem)
+			.map((item, index) => [item.id, index]),
+	);
+
+const getQuickInsertItemId = (
+	items: QuickInsertItem[],
+	result: QuickInsertPrioritySortResult,
+): QuickInsertItem['id'] => items[result.idx]?.id;
+
+export const withLayoutQuickInsertPrioritySorting = (
+	prioritySortingFn?: QuickInsertSearchOptions['prioritySortingFn'],
+): QuickInsertSearchOptions['prioritySortingFn'] =>
+	(items) => {
+		const consumerSortFn = prioritySortingFn?.(items);
+		const layoutItemIdRank = getLayoutQuickInsertItemIdRank(items);
+
+		if (layoutItemIdRank.size < 2) {
+			return consumerSortFn;
+		}
+
+		return (firstItem, secondItem) => {
+			const firstLayoutItemRank = layoutItemIdRank.get(getQuickInsertItemId(items, firstItem));
+			const secondLayoutItemRank = layoutItemIdRank.get(getQuickInsertItemId(items, secondItem));
+
+			if (firstLayoutItemRank !== undefined && secondLayoutItemRank !== undefined) {
+				return firstLayoutItemRank - secondLayoutItemRank;
+			}
+
+			if (consumerSortFn) {
+				return consumerSortFn(firstItem, secondItem);
+			}
+
+			return firstItem.score === secondItem.score
+				? firstItem.idx < secondItem.idx
+					? -1
+					: 1
+				: firstItem.score < secondItem.score
+					? -1
+					: 1;
+		};
+	};
+
 export const getQuickInsertSuggestions: GetQuickInsertSuggestions = (
 	searchOptions,
 	lazyDefaultItems = () => [],

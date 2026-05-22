@@ -69,11 +69,15 @@ export type FlexibleCardProps = {
 	 */
 	onAuthorize?: () => void;
 
+	/** Optional middle-click handler. */
+	onAuxClick?: React.EventHandler<React.MouseEvent>;
 	/**
 	 * Determines the onClick behaviour of Flexible UI. This will proxy to the
 	 * TitleBlock if supplied.
 	 */
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	/** Optional right-click handler. */
+	onContextMenu?: React.EventHandler<React.MouseEvent>;
 
 	/**
 	 * function to be called after a flexible card has rendered its error states
@@ -210,7 +214,16 @@ export type RetryOptions = {
 
 export type ExtractFlexibleUiDataContextParams = Pick<
 	FlexibleCardProps,
-	'appearance' | 'id' | 'actionOptions' | 'origin' | 'onAuthorize' | 'onClick' | 'renderers' | 'url'
+	| 'appearance'
+	| 'id'
+	| 'actionOptions'
+	| 'origin'
+	| 'onAuthorize'
+	| 'onClick'
+	| 'onAuxClick'
+	| 'onContextMenu'
+	| 'renderers'
+	| 'url'
 > & {
 	aiSummaryConfig?: AISummaryConfig;
 	fireEvent?: FireEventFunction;

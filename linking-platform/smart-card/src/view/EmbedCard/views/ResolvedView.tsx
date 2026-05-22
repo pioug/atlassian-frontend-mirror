@@ -31,8 +31,12 @@ export interface EmbedCardResolvedViewProps {
 	isTrusted?: boolean;
 	/** The link to display */
 	link: string;
+	/** Optional middle-click handler. */
+	onAuxClick?: React.EventHandler<React.MouseEvent>;
 	/** The optional click handler */
 	onClick?: (evt: React.MouseEvent) => void;
+	/** Optional right-click handler. */
+	onContextMenu?: React.EventHandler<React.MouseEvent>;
 	/** Optional callback for when user dwells cursor over iframe - for analytics **/
 	onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
 	/** Optional callback for when user navigates into an iframe - for analytics **/
@@ -59,6 +63,8 @@ export const EmbedCardResolvedView: React.ForwardRefExoticComponent<
 			link,
 			context,
 			onClick,
+			onAuxClick,
+			onContextMenu,
 			isSelected,
 			frameStyle,
 			preview,
@@ -126,6 +132,8 @@ export const EmbedCardResolvedView: React.ForwardRefExoticComponent<
 				icon={icon}
 				text={text}
 				onClick={onClick}
+				onAuxClick={onAuxClick}
+				onContextMenu={onContextMenu}
 				inheritDimensions={inheritDimensions}
 				setOverflow={false}
 				CompetitorPrompt={CompetitorPrompt}

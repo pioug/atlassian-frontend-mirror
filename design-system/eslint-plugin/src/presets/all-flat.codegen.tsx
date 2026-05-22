@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::80fbc23d43d39baa6c31e19dfe79680c>>
+ * @codegen <<SignedSource::4cd2dfd73ed3cdd152ee6481087c49ee>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Linter } from 'eslint';
@@ -68,6 +68,7 @@ const rules: Linter.FlatConfig = {
 		'@atlaskit/design-system/use-drawer-label': 'warn',
 		'@atlaskit/design-system/use-field-message-wrapper': 'warn',
 		'@atlaskit/design-system/use-heading': 'warn',
+		'@atlaskit/design-system/use-heading-level-in-section-message': 'warn',
 		'@atlaskit/design-system/use-heading-level-in-spotlight-card': 'warn',
 		'@atlaskit/design-system/use-href-in-link-item': 'warn',
 		'@atlaskit/design-system/use-latest-xcss-syntax': 'error',

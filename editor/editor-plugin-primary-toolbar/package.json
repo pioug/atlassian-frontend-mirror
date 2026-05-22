@@ -86,5 +86,8 @@
 		"platform_editor_undo_redo_find_on_primary_toolbar": {
 			"type": "boolean"
 		}
+	},
+	"devDependencies": {
+		"react": "root:*"
 	}
 }

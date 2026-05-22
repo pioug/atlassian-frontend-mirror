@@ -41,6 +41,7 @@
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "root:*",
+		"react": "^19.0.0",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"
 	},

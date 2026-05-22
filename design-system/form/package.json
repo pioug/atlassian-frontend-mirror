@@ -80,6 +80,7 @@
 		"@types/final-form-focus": "root:*",
 		"jest-in-case": "root:*",
 		"jscodeshift": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"keywords": [

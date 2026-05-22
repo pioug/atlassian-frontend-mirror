@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Popup',
 		description: 'A component for displaying popup content relative to a trigger element.',
@@ -42,6 +43,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['popup', 'overlay', 'floating', 'content', 'trigger'],
 		categories: ['overlay'],
 	},
-];
+	],
+};
 
 export default documentation;

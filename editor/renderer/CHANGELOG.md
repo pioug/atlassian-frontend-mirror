@@ -1,5 +1,36 @@
 # @atlaskit/renderer
 
+## 131.1.6
+
+### Patch Changes
+
+- [`ec27ee36acf63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec27ee36acf63) -
+  [ux] Skip the `nativeEmbedsFallbackTransform` in the renderer when
+  `platform_native_embeds_rollout_non_maui_experience` is enabled. After the decoupling commit
+  (a997ef6d703d7) moved native-embed registration from `cc-maui-experiment` to
+  `platform_native_embeds_rollout_non_maui_experience`, the fallback transform's guard only checked
+  the old experiment — so users with the new gate on (but the old experiment off) had their
+  `native-embed:database` / `native-embed:whiteboard` extension nodes incorrectly replaced with
+  `inlineCard` paragraphs at render time, causing published pages to show inline links instead of
+  embedded content. See CNS-29847.
+- Updated dependencies
+
+## 131.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 131.1.4
+
+### Patch Changes
+
+- [`b40f46a41421d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b40f46a41421d) -
+  Fix table indentation and forced 100% width when rendered inside the Include Page macro. Tables
+  with custom widths now render at their original resized size without unexpected indentation in
+  nested renderers.
+- Updated dependencies
+
 ## 131.1.3
 
 ### Patch Changes

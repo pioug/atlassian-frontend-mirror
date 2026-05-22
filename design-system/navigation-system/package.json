@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "9.4.1",
+	"version": "9.4.2",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -65,16 +65,10 @@
 		"website": {
 			"name": "Navigation system",
 			"category": "Navigation",
-			"status": {
-				"type": "beta"
-			},
 			"subPages": [
 				{
 					"title": "Layout",
 					"id": "layout",
-					"status": {
-						"type": "beta"
-					},
 					"sortKey": 1
 				},
 				{
@@ -85,9 +79,6 @@
 				{
 					"title": "Top nav items",
 					"id": "top-nav-items",
-					"status": {
-						"type": "beta"
-					},
 					"sortKey": 3
 				}
 			]
@@ -165,6 +156,7 @@
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"raf-stub": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"techstack": {
@@ -202,9 +194,6 @@
 			"type": "boolean"
 		},
 		"platform-dst-shape-theme-default": {
-			"type": "boolean"
-		},
-		"platform_dst_nav4_flyout_menu_slots_close_button": {
 			"type": "boolean"
 		},
 		"platform_dst_nav4_custom_theming_fhs_1": {

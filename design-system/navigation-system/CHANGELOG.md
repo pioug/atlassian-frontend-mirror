@@ -1,5 +1,16 @@
 # @atlassian/navigation-system
 
+## 9.4.2
+
+### Patch Changes
+
+- [`8f6296fa87d19`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f6296fa87d19) -
+  Deprecate the Aside export.
+- [`cc4a66306965d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc4a66306965d) -
+  Cleanup feature gate `platform_dst_nav4_flyout_menu_slots_close_button`. Flyout menu slot
+  subcomponents (header, body, footer) and close button are now permanently enabled.
+- Updated dependencies
+
 ## 9.4.1
 
 ### Patch Changes

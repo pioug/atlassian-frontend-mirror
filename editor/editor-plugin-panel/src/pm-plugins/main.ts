@@ -5,6 +5,7 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getPanelNodeView } from '../nodeviews/panel';
 import { pluginKey } from '../panelPluginType';
@@ -38,9 +39,21 @@ export const createPlugin = (
 		props: {
 			nodeViews: {
 				panel: getPanelNodeView(pluginOptions, api, nodeViewPortalProviderAPI, providerFactory),
+				...(expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+					? {
+							panel_c1: getPanelNodeView(
+								pluginOptions,
+								api,
+								nodeViewPortalProviderAPI,
+								providerFactory,
+							),
+						}
+					: {}),
 			},
 			handleClickOn: createSelectionClickHandler(
-				['panel'],
+				expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+					? ['panel', 'panel_c1']
+					: ['panel'],
 				(target) => !!target.closest(`.${PanelSharedCssClassName.prefix}`),
 				{ useLongPressSelection },
 			),

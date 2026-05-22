@@ -170,6 +170,9 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 				isHeaderRowEnabled: tablePluginState.isHeaderRowEnabled,
 				isHeaderColumnEnabled: tablePluginState.isHeaderColumnEnabled,
 				isNumberColumnEnabled: tablePluginState.isNumberColumnEnabled,
+				isCommentEditor: tablePluginState.isCommentEditor,
+				isTableScalingEnabled: tablePluginState.isTableScalingEnabled,
+				isTableFixedColumnWidthsOptionEnabled,
 				ordering: tablePluginState.ordering,
 				isResizing: !!(
 					tableResizingPluginState?.dragging || tableWidthResizingPluginState?.resizing

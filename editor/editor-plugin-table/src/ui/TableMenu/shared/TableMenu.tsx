@@ -44,10 +44,14 @@ export const TableMenu: React.NamedExoticComponent<TableMenuProps> = memo(
 			() => api?.uiControlRegistry?.actions.getComponents(surface.key) ?? [],
 			[api, surface.key],
 		);
-		const { tableNode, selection } = useSharedPluginStateWithSelector(api ?? undefined, ['table', 'selection'], (states) => ({
-			tableNode: (states.tableState as TableSharedStateInternal | undefined)?.tableNode,
-			selection: states.selectionState?.selection,
-		}));
+		const { tableNode, selection } = useSharedPluginStateWithSelector(
+			api ?? undefined,
+			['table', 'selection'],
+			(states) => ({
+				tableNode: (states.tableState as TableSharedStateInternal | undefined)?.tableNode,
+				selection: states.selectionState?.selection,
+			}),
+		);
 
 		const tableMenuContext = useMemo(() => {
 			if (!selection || !tableNode) {

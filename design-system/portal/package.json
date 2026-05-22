@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/portal",
-	"version": "5.5.2",
+	"version": "5.5.3",
 	"description": "A wrapper for rendering components in React portals.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -79,7 +79,9 @@
 		"@compiled/react": "root:*",
 		"@testing-library/react": "root:*",
 		"bind-event-listener": "root:*",
-		"raf-stub": "root:*"
+		"raf-stub": "root:*",
+		"react": "root:*",
+		"react-dom": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

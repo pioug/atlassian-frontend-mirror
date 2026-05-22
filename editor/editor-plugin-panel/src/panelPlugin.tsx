@@ -1,7 +1,13 @@
 import React from 'react';
 
 import type { PanelAttributes } from '@atlaskit/adf-schema';
-import { extendedPanel, extendedPanelWithLocalId, PanelType } from '@atlaskit/adf-schema';
+import {
+	extendedPanel,
+	extendedPanelC1,
+	extendedPanelC1WithLocalId,
+	extendedPanelWithLocalId,
+	PanelType,
+} from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -32,11 +38,13 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { PanelPlugin } from './panelPluginType';
 import keymap from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
+import { pickPanelTypeForInsertion } from './pm-plugins/utils/utils';
 import { createPanelBlockMenuItem } from './ui/panelBlockMenuItem';
 import { getToolbarConfig } from './ui/toolbar';
 
@@ -77,9 +85,25 @@ const panelPlugin: PanelPlugin = ({
 							definingAsContext: true,
 						},
 					},
+					...(expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+						? [
+								{
+									name: 'panel_c1',
+									node: {
+										...extendedPanelC1WithLocalId(!!allowCustomPanel),
+										definingAsContext: true,
+									},
+								},
+							]
+						: []),
 				];
 			}
-			return [{ name: 'panel', node: extendedPanel(!!allowCustomPanel) }];
+			return [
+				{ name: 'panel', node: extendedPanel(!!allowCustomPanel) },
+				...(expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+					? [{ name: 'panel_c1', node: extendedPanelC1(!!allowCustomPanel) }]
+					: []),
+			];
 		},
 
 		pmPlugins() {
@@ -274,11 +298,13 @@ function createPanelAction({
 	state: EditorState;
 	typeAheadInsert?: QuickInsertActionInsert;
 }) {
-	const { panel } = state.schema.nodes;
+	const panelNodeType = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+		? pickPanelTypeForInsertion(state)
+		: state.schema.nodes.panel;
 	let tr;
 	// If the selection is empty, we want to insert the panel on a new line
 	if (state.selection.empty) {
-		const node = panel.createAndFill({ ...attributes });
+		const node = panelNodeType.createAndFill({ ...attributes });
 
 		if (!node) {
 			return false;
@@ -294,7 +320,7 @@ function createPanelAction({
 	} else {
 		tr = createWrapSelectionTransaction({
 			state,
-			type: panel,
+			type: panelNodeType,
 			nodeAttributes: { ...attributes },
 		});
 	}

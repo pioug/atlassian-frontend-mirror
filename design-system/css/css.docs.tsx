@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'css',
 		description: 'A typed variant of Compiled CSS-in-JS adhering to the Atlassian Design System.',
@@ -81,6 +82,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['css', 'styles', 'theme', 'styling', 'utilities'],
 		categories: ['utility'],
 	},
-];
+	],
+};
 
 export default documentation;

@@ -1,12 +1,13 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
 
 const packagePath = path.resolve(__dirname);
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Button',
 		description:
@@ -255,6 +256,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['button', 'legacy', 'deprecated', 'action', 'click', 'submit', 'form'],
 		categories: ['form', 'interaction'],
 	},
-];
+	],
+};
 
 export default documentation;

@@ -1,5 +1,29 @@
 # @atlaskit/emoji
 
+## 70.10.5
+
+### Patch Changes
+
+- [`1bfdb5118d1c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bfdb5118d1c7) -
+  Delete emoji screen fix scroll component at bottom
+- Updated dependencies
+
+## 70.10.4
+
+### Patch Changes
+
+- [`c5b9254ad3e07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5b9254ad3e07) -
+  The upload emoji picker copy is updated to reflect new drag and drop functionality
+- Updated dependencies
+
+## 70.10.3
+
+### Patch Changes
+
+- [`3bdfab536342f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3bdfab536342f) -
+  Updated the delete emoji screen to match the upload emoji screen
+- Updated dependencies
+
 ## 70.10.2
 
 ### Patch Changes

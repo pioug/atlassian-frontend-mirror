@@ -3,6 +3,8 @@ import React, { type PropsWithChildren } from 'react';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
 
+import type { TableMenuComponentsParams } from '../shared/types';
+
 import { AddColumnLeftItem } from './items/AddColumnLeftItem';
 import { AddColumnRightItem } from './items/AddColumnRightItem';
 import { ColumnBackgroundSection } from './items/ColumnBackgroundSection';
@@ -10,6 +12,7 @@ import { ColumnToggleSection } from './items/ColumnToggleSection';
 import { DeleteColumnItem } from './items/DeleteColumnItem';
 import { DistributeColumnsItem } from './items/DistributeColumnsItem';
 import { HeaderColumnToggleItem } from './items/HeaderColumnToggleItem';
+import { MoveColumnLeftItem } from './items/MoveColumnLeftItem';
 import { MoveColumnRightItem } from './items/MoveColumnRightItem';
 import { SortDecreasingItem } from './items/SortDecreasingItem';
 import { SortIncreasingItem } from './items/SortIncreasingItem';
@@ -26,6 +29,7 @@ import {
 	SORT_DECREASING_ITEM,
 	ADD_COLUMN_LEFT_ITEM,
 	ADD_COLUMN_RIGHT_ITEM,
+	MOVE_COLUMN_LEFT_ITEM,
 	MOVE_COLUMN_RIGHT_ITEM,
 	DISTRIBUTE_COLUMNS_ITEM,
 	DELETE_COLUMN_ITEM,
@@ -35,7 +39,7 @@ import {
 	COLUMN_DANGER_SECTION_RANK,
 } from './keys';
 
-export const getColumnMenuComponents = (): RegisterComponent[] => [
+export const getColumnMenuComponents = ({ api }: TableMenuComponentsParams): RegisterComponent[] => [
 	// --- Menu surface ---
 	{
 		type: COLUMN_MENU.type,
@@ -54,7 +58,7 @@ export const getColumnMenuComponents = (): RegisterComponent[] => [
 			},
 		],
 		component: (props: PropsWithChildren) => (
-			<ColumnToggleSection>{props.children}</ColumnToggleSection>
+			<ColumnToggleSection api={api}>{props.children}</ColumnToggleSection>
 		),
 	},
 	{
@@ -67,7 +71,7 @@ export const getColumnMenuComponents = (): RegisterComponent[] => [
 				rank: COLUMN_TOGGLE_SECTION_RANK[HEADER_COLUMN_TOGGLE_ITEM.key],
 			},
 		],
-		component: () => <HeaderColumnToggleItem />,
+		component: () => <HeaderColumnToggleItem api={api} />,
 	},
 
 	// --- Background color section ---
@@ -82,7 +86,7 @@ export const getColumnMenuComponents = (): RegisterComponent[] => [
 			},
 		],
 		component: (props: PropsWithChildren) => (
-			<ColumnBackgroundSection>{props.children}</ColumnBackgroundSection>
+			<ColumnBackgroundSection api={api}>{props.children}</ColumnBackgroundSection>
 		),
 	},
 
@@ -111,7 +115,7 @@ export const getColumnMenuComponents = (): RegisterComponent[] => [
 				rank: COLUMN_SORT_SECTION_RANK[SORT_INCREASING_ITEM.key],
 			},
 		],
-		component: () => <SortIncreasingItem />,
+		component: () => <SortIncreasingItem api={api} />,
 	},
 	{
 		type: SORT_DECREASING_ITEM.type,
@@ -123,7 +127,7 @@ export const getColumnMenuComponents = (): RegisterComponent[] => [
 				rank: COLUMN_SORT_SECTION_RANK[SORT_DECREASING_ITEM.key],
 			},
 		],
-		component: () => <SortDecreasingItem />,
+		component: () => <SortDecreasingItem api={api} />,
 	},
 
 	// --- Add / Move section ---
@@ -151,7 +155,7 @@ export const getColumnMenuComponents = (): RegisterComponent[] => [
 				rank: COLUMN_ADD_SECTION_RANK[ADD_COLUMN_LEFT_ITEM.key],
 			},
 		],
-		component: () => <AddColumnLeftItem />,
+		component: () => <AddColumnLeftItem api={api} />,
 	},
 	{
 		type: ADD_COLUMN_RIGHT_ITEM.type,
@@ -163,7 +167,19 @@ export const getColumnMenuComponents = (): RegisterComponent[] => [
 				rank: COLUMN_ADD_SECTION_RANK[ADD_COLUMN_RIGHT_ITEM.key],
 			},
 		],
-		component: () => <AddColumnRightItem />,
+		component: () => <AddColumnRightItem api={api} />,
+	},
+	{
+		type: MOVE_COLUMN_LEFT_ITEM.type,
+		key: MOVE_COLUMN_LEFT_ITEM.key,
+		parents: [
+			{
+				type: COLUMN_ADD_SECTION.type,
+				key: COLUMN_ADD_SECTION.key,
+				rank: COLUMN_ADD_SECTION_RANK[MOVE_COLUMN_LEFT_ITEM.key],
+			},
+		],
+		component: () => <MoveColumnLeftItem api={api} />,
 	},
 	{
 		type: MOVE_COLUMN_RIGHT_ITEM.type,
@@ -175,7 +191,7 @@ export const getColumnMenuComponents = (): RegisterComponent[] => [
 				rank: COLUMN_ADD_SECTION_RANK[MOVE_COLUMN_RIGHT_ITEM.key],
 			},
 		],
-		component: () => <MoveColumnRightItem />,
+		component: () => <MoveColumnRightItem api={api} />,
 	},
 	{
 		type: DISTRIBUTE_COLUMNS_ITEM.type,
@@ -187,7 +203,7 @@ export const getColumnMenuComponents = (): RegisterComponent[] => [
 				rank: COLUMN_ADD_SECTION_RANK[DISTRIBUTE_COLUMNS_ITEM.key],
 			},
 		],
-		component: () => <DistributeColumnsItem />,
+		component: () => <DistributeColumnsItem api={api} />,
 	},
 
 	// --- Danger section (Clear cells, Delete column) ---
@@ -215,6 +231,6 @@ export const getColumnMenuComponents = (): RegisterComponent[] => [
 				rank: COLUMN_DANGER_SECTION_RANK[DELETE_COLUMN_ITEM.key],
 			},
 		],
-		component: () => <DeleteColumnItem />,
+		component: () => <DeleteColumnItem api={api} />,
 	},
 ];

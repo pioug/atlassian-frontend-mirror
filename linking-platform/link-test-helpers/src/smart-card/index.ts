@@ -1,5 +1,8 @@
 // Export all mock clients and related utilities
+/** @deprecated Use @atlaskit/link-test-helpers/smart-card/mocks/embed-content */
 export { overrideEmbedContent } from './example-helpers/_jsonLDExamples/utils';
+
+/** @deprecated Use @atlaskit/link-test-helpers/smart-card/mocks/clients */
 export {
 	mocks,
 
@@ -40,9 +43,11 @@ export {
 } from './mock-clients';
 
 // Export the mock card client
-export { MockCardClient } from './mock-clients/mock-card-client';
+/** @deprecated Use @atlaskit/link-test-helpers/smart-card/mocks/clients */
+export {MockCardClient} from "./mock-clients";
 
 // Export all images and icons
+/** @deprecated Use @atlaskit/link-test-helpers/smart-card/images and @atlaskit/link-test-helpers/smart-card/images/<name> for svg */
 export {
 	// Avatar images
 	avatar1,
@@ -71,6 +76,7 @@ export {
 } from './images';
 
 // Export all example helpers and JSON-LD examples
+/** @deprecated Use @atlaskit/link-test-helpers/smart-card/mocks/<provider> */
 export {
 	// Asana examples
 	AsanaTaskJson,
@@ -137,6 +143,7 @@ export {
 	YouTubeVideoUrl,
 } from './example-helpers';
 
+/** @deprecated Use @atlaskit/link-test-helpers/smart-card/mocks/unicorn */
 export {
 	unicornResponse,
 	response1,

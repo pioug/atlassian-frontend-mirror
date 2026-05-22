@@ -1,5 +1,60 @@
 # @atlaskit/link-test-helpers
 
+## 10.3.0
+
+### Minor Changes
+
+- [`f9123ffa00072`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9123ffa00072) -
+  Debarrel @atlaskit/link-test-helpers. Add new entry points and mark barrel files as deprecated.
+
+  New entry points:
+  - `@atlaskit/link-test-helpers/intersection-observer`
+  - `@atlaskit/link-test-helpers/jest/as-mock`
+  - `@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once`
+  - `@atlaskit/link-test-helpers/promise/flush-promises`
+  - `@atlaskit/link-test-helpers/promise/manual-promise`
+  - `@atlaskit/link-test-helpers/react-testing-library`
+  - `@atlaskit/link-test-helpers/smart-card/images`
+  - `@atlaskit/link-test-helpers/smart-card/images/avatar-1`
+  - `@atlaskit/link-test-helpers/smart-card/images/avatar-2`
+  - `@atlaskit/link-test-helpers/smart-card/images/avatar-3`
+  - `@atlaskit/link-test-helpers/smart-card/images/avatar-square`
+  - `@atlaskit/link-test-helpers/smart-card/images/forbidden-jira`
+  - `@atlaskit/link-test-helpers/smart-card/images/forbidden-jira-embed`
+  - `@atlaskit/link-test-helpers/smart-card/images/slack-logo`
+  - `@atlaskit/link-test-helpers/smart-card/images/rectangle`
+  - `@atlaskit/link-test-helpers/smart-card/mocks/clients`
+  - `@atlaskit/link-test-helpers/smart-card/mocks/asana`
+  - `@atlaskit/link-test-helpers/smart-card/mocks/atlas`
+  - `@atlaskit/link-test-helpers/smart-card/mocks/bitbucket`
+  - `@atlaskit/link-test-helpers/smart-card/mocks/confluence`
+  - `@atlaskit/link-test-helpers/smart-card/mocks/dynamic-icons`
+  - `@atlaskit/link-test-helpers/smart-card/mocks/embed-content`
+  - `@atlaskit/link-test-helpers/smart-card/mocks/gdrive`
+  - `@atlaskit/link-test-helpers/smart-card/mocks/github`
+  - `@atlaskit/link-test-helpers/smart-card/mocks/jira`
+  - `@atlaskit/link-test-helpers/smart-card/mocks/profile`
+  - `@atlaskit/link-test-helpers/smart-card/mocks/slack`
+  - `@atlaskit/link-test-helpers/smart-card/mocks/trello`
+  - `@atlaskit/link-test-helpers/smart-card/mocks/youtube`
+  - `@atlaskit/link-test-helpers/smart-card/mocks/unicorn`
+  - `@atlaskit/link-test-helpers/with-wait-for-item`
+
+  Updated entry points:
+  - `@atlaskit/link-test-helpers/assets` — moved from `src/datasource/assets/index.ts` to
+    `src/entry-points/assets.ts`
+  - `@atlaskit/link-test-helpers/datasource` — moved from `src/datasource/index.ts` to
+    `src/entry-points/datasource.ts`
+  - `@atlaskit/link-test-helpers/images` — moved from `src/images/index.ts` to
+    `src/entry-points/images.ts`
+
+  Deprecating entry points:
+  - `@atlaskit/link-test-helpers` (root barrel — use the specific entry points instead)
+  - `@atlaskit/link-test-helpers/jest` — use `@atlaskit/link-test-helpers/jest/as-mock` or
+    `@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once` instead
+  - `@atlaskit/link-test-helpers/smart-card` — use the specific
+    `@atlaskit/link-test-helpers/smart-card/*` entry points instead
+
 ## 10.2.2
 
 ### Patch Changes

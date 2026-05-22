@@ -93,6 +93,7 @@
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"raf-stub": "root:*",
+		"react": "root:*",
 		"tiny-invariant": "root:*"
 	},
 	"techstack": {

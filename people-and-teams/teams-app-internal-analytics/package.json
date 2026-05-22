@@ -61,6 +61,7 @@
 		"@atlassian/teams-app-internal-playground": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"techstack": {
@@ -102,7 +103,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-internal-analytics",
-	"version": "1.30.0",
+	"version": "1.31.0",
 	"description": "A package used by the teams app and platform packages to handle people and teams analytics",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

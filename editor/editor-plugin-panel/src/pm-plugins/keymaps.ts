@@ -15,6 +15,8 @@ import {
 	setTextSelection,
 } from '@atlaskit/editor-prosemirror/utils';
 
+import { isPanel, panelTypes } from './utils/utils';
+
 function findParentNode(selection: Selection, nodeType: NodeType): PMNode | null {
 	const parentPosition = findParentNodeOfType(nodeType)(selection);
 
@@ -43,8 +45,8 @@ export function keymapPlugin(): SafePlugin | undefined {
 				schema: { nodes },
 				tr,
 			} = state;
-			const { panel, blockquote, orderedList, bulletList, mediaSingle, mediaGroup, extension } =
-				nodes;
+			const { blockquote, orderedList, bulletList, mediaSingle, mediaGroup, extension } = nodes;
+			const panelNodeTypes = panelTypes(nodes);
 			const { $from, $to } = selection;
 			// Don't do anything if selection is a range
 			if ($from.pos !== $to.pos) {
@@ -59,8 +61,8 @@ export function keymapPlugin(): SafePlugin | undefined {
 			const previousNodeType =
 				$previousPos.pos > 0 && $previousPos.parent && $previousPos.parent.type;
 			const parentNodeType = $from.parent.type;
-			const isPreviousNodeAPanel = previousNodeType === panel;
-			const isParentNodeAPanel = parentNodeType === panel;
+			const isPreviousNodeAPanel = previousNodeType && isPanel(previousNodeType.name);
+			const isParentNodeAPanel = isPanel(parentNodeType.name);
 			const nodeBeforePanel = $previousPos?.nodeBefore;
 
 			const isPreviousNodeMedia =
@@ -75,7 +77,7 @@ export function keymapPlugin(): SafePlugin | undefined {
 			// Stops merging blockquotes with panels when deleting from start of blockquote
 			if (
 				(isPreviousNodeAPanel && !isParentNodeAPanel && !isPreviousPosAtExtension) ||
-				isInsideAnEmptyNode(selection, panel, state.schema) ||
+				panelNodeTypes.some((type) => isInsideAnEmptyNode(selection, type, state.schema)) ||
 				(hasParentNodeOfType(blockquote)(selection) &&
 					!isPreviousNodeAList &&
 					!isPreviousNodeMedia &&
@@ -85,7 +87,7 @@ export function keymapPlugin(): SafePlugin | undefined {
 				// (for e.g. a table, or an expand), otherwise the default prosemirror backspace
 				// behaviour will fallback to 'select node backward' logic because the node
 				// before is an isolating node.
-				(nodeBeforePanel?.type?.spec?.isolating && hasParentNodeOfType(panel)(selection))
+				(nodeBeforePanel?.type?.spec?.isolating && hasParentNodeOfType(panelNodeTypes)(selection))
 			) {
 				const content = $from.node($from.depth).content;
 				const insertPos = $previousPos.pos;
@@ -96,7 +98,7 @@ export function keymapPlugin(): SafePlugin | undefined {
 				return true;
 			}
 			const nodeType = $from.node().type;
-			if (nodeType !== panel) {
+			if (!isPanel(nodeType.name)) {
 				return false;
 			}
 			return true;

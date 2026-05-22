@@ -9,7 +9,6 @@ import { cssMap, jsx } from '@compiled/react';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { PopupTrigger } from '@atlaskit/popup/experimental';
 import { token } from '@atlaskit/tokens';
 
@@ -94,12 +93,8 @@ export const FlyoutMenuItemTrigger: React.ForwardRefExoticComponent<
 
 		const handleClick = useCallback(
 			(event: React.MouseEvent<HTMLButtonElement>, analyticsEvent: UIAnalyticsEvent) => {
-				// If the flyout is open and the trigger is clicked, close the flyout and call the onClick
-				// handler with the source information set to 'outside-click'.
-				if (fg('platform_dst_nav4_flyout_menu_slots_close_button')) {
-					if (isOpen && onCloseRef.current) {
-						onCloseRef.current(event, 'outside-click');
-					}
+				if (isOpen && onCloseRef.current) {
+					onCloseRef.current(event, 'outside-click');
 				}
 
 				onClick?.(event, analyticsEvent);

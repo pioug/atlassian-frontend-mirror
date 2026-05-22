@@ -2,6 +2,7 @@ import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/t
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { IndentationPlugin } from '@atlaskit/editor-plugin-indentation';
+import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 import type { ListPlugin } from '@atlaskit/editor-plugin-list';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
@@ -24,6 +25,7 @@ export type ToolbarListsIndentationPluginDependencies = [
 	OptionalPlugin<SelectionToolbarPlugin>,
 	OptionalPlugin<UserPreferencesPlugin>,
 	OptionalPlugin<ToolbarPlugin>,
+	OptionalPlugin<InteractionPlugin>,
 ];
 
 export type ToolbarListsIndentationPlugin = NextEditorPlugin<

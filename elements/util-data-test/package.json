@@ -107,7 +107,8 @@
 		"sample"
 	],
 	"devDependencies": {
-		"@atlassian/react-compiler-gating": "workspace:^"
+		"react": "root:*",
+		"react-dom": "root:*"
 	},
 	"sideEffects": [
 		"*.compiled.css"

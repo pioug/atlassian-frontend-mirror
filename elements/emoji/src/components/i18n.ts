@@ -76,6 +76,11 @@ export const messages: {
 		description: string;
 		id: string;
 	};
+	emojiChooseFileDndTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	emojiChooseFileScreenReaderDescription: {
 		defaultMessage: string;
 		description: string;
@@ -301,6 +306,12 @@ export const messages: {
 		defaultMessage: 'Choose file',
 		description:
 			'Label for the file chooser button in the custom emoji upload panel where users select an image file for their emoji.',
+	},
+	emojiChooseFileDndTitle: {
+		id: 'fabric.emoji.choose.file.dnd.title',
+		defaultMessage: 'Select or drop an image',
+		description:
+			'Label for the file chooser button in the custom emoji upload panel where users select or drag and drop an image file for their emoji.',
 	},
 	emojiChooseFileScreenReaderDescription: {
 		id: 'fabric.emoji.choose.file.screenReaderDescription',

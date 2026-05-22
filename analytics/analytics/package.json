@@ -40,6 +40,7 @@
 		"@testing-library/react": "root:*",
 		"@types/react-redux": "root:*",
 		"enzyme": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"react-redux": "root:*",
 		"redux": "root:*",

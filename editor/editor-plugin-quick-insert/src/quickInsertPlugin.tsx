@@ -31,7 +31,7 @@ import { getQuickInsertOpenExperiencePlugin } from './pm-plugins/experiences/qui
 import { pluginKey } from './pm-plugins/plugin-key';
 import type { QuickInsertPlugin } from './quickInsertPluginType';
 import ModalElementBrowser from './ui/ModalElementBrowser';
-import { getQuickInsertSuggestions } from './ui/search';
+import { getQuickInsertSuggestions, withLayoutQuickInsertPrioritySorting } from './ui/search';
 
 export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) => {
 	const refs: { popupsMountPoint?: HTMLElement; wrapperElement?: HTMLElement } = {};
@@ -40,26 +40,33 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		options?.onInsert?.(item);
 	};
 
+	const typeAheadPrioritySortingFn = expValEquals(
+		'platform_editor_layout_typeahead_reorder',
+		'isEnabled',
+		true,
+	)
+		? withLayoutQuickInsertPrioritySorting(options?.prioritySortingFn)
+		: options?.prioritySortingFn;
+
 	const typeAhead: TypeAheadHandler = {
 		id: TypeAheadAvailableNodes.QUICK_INSERT,
 		trigger: '/',
 		headless: options?.headless,
 		getItems({ query, editorState }) {
 			const quickInsertState = pluginKey.getState(editorState);
-
-			return Promise.resolve(
-				getQuickInsertSuggestions(
-					{
-						query: query,
-						disableDefaultItems: options?.disableDefaultItems,
-						prioritySortingFn: options?.prioritySortingFn,
-						// EDITOR-6558: pass through consumer-supplied filter (e.g. Markdown Mode allowlist)
-						itemFilter: options?.itemFilter,
-					},
-					quickInsertState?.lazyDefaultItems,
-					quickInsertState?.providedItems,
-				),
+			const items = getQuickInsertSuggestions(
+				{
+					query: query,
+					disableDefaultItems: options?.disableDefaultItems,
+					prioritySortingFn: typeAheadPrioritySortingFn,
+					// EDITOR-6558: pass through consumer-supplied filter (e.g. Markdown Mode allowlist)
+					itemFilter: options?.itemFilter,
+				},
+				quickInsertState?.lazyDefaultItems,
+				quickInsertState?.providedItems,
 			);
+
+			return Promise.resolve(items);
 		},
 
 		getEmptyItem({ editorState }) {
@@ -100,7 +107,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 						onClick: openElementBrowserModal,
 						iconBefore: <ShowMoreHorizontalIcon label="" />,
 					};
-				}
+			  }
 			: undefined,
 	};
 
@@ -191,7 +198,14 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 				const { lazyDefaultItems, providedItems } =
 					api?.quickInsert?.sharedState.currentState() ?? {};
 
-				if (options?.prioritySortingFn) {
+				if (expValEquals('platform_editor_layout_typeahead_reorder', 'isEnabled', true)) {
+					searchOptions = {
+						...searchOptions,
+						prioritySortingFn: withLayoutQuickInsertPrioritySorting(
+							options?.prioritySortingFn ?? searchOptions.prioritySortingFn,
+						),
+					};
+				} else if (options?.prioritySortingFn) {
 					searchOptions = { ...searchOptions, prioritySortingFn: options.prioritySortingFn };
 				}
 

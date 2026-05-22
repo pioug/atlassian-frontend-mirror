@@ -115,6 +115,7 @@
 	},
 	"devDependencies": {
 		"@atlassian/structured-docs-types": "workspace:^",
+		"react": "root:*",
 		"react-intl": "root:*"
 	}
 }

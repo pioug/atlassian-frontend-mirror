@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::42424c7764db588f50ac98406a12d3d8>>
+ * @codegen <<SignedSource::b395820ffa461077fb62e48e29b9dae7>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:structured-docs-atlaskit-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -677,7 +677,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'api',
-				type: '{ selectionToolbar: BasePluginDependenciesAPI<{ actions?: { forceToolbarDockingWithoutAnalytics?: (toolbarDocking: ToolbarDocking) => boolean; refreshToolbarDocking?: () => boolean; setToolbarDocking?: (toolbarDocking: ToolbarDocking) => boolean; suppressToolbar?: () => boolean; unsuppressToolbar?: () => boolean; };...',
+				type: '{ selectionToolbar: BasePluginDependenciesAPI<{ actions?: { clearToolbarDockingOverride?: () => boolean; forceToolbarDockingWithoutAnalytics?: (toolbarDocking: ToolbarDocking) => boolean; overrideToolbarDocking?: (toolbarDocking: ToolbarDocking) => boolean; refreshToolbarDocking?: () => boolean; setToolbarDocking?: ...',
 			},
 			{
 				name: 'config',
@@ -802,7 +802,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'api',
-				type: '{ userPreferences: BasePluginDependenciesAPI<{ actions: { getUserPreferences: () => ResolvedUserPreferences; updateUserPreference: (key: "toolbarDockingPosition", value: "top" | "none") => EditorCommand; }; dependencies: [...]; pluginConfiguration: UserPreferencesPluginOptions; sharedState: UserPreferencesSharedStat...',
+				type: '{ userPreferences: BasePluginDependenciesAPI<{ actions: { getUserPreferences: () => ResolvedUserPreferences; updateUserPreference: (key: "toolbarDockingPosition", value: "top" | "none") => EditorCommand; }; commands: { ...; }; dependencies: [...]; pluginConfiguration: UserPreferencesPluginOptions; sharedState: UserP...',
 			},
 			{
 				name: 'config',
@@ -2484,6 +2484,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'hideProvider',
 				type: 'boolean',
 				description: 'Allows hiding of the resources provider',
+			},
+			{
+				name: 'isPreviewBlockErrored',
+				type: 'boolean',
+				description: 'Used with RovoActions to determine if the preview block is visible or not',
 			},
 			{
 				name: 'onActionMenuOpenChange',

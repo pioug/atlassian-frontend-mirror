@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'InlineDialog',
 		description:
@@ -45,6 +46,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['dialog', 'inline', 'popup', 'overlay', 'tooltip'],
 		categories: ['overlay'],
 	},
-];
+	],
+};
 
 export default documentation;

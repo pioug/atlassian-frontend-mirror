@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 12.2.0
+
+### Minor Changes
+
+- [`6644994a61d9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6644994a61d9c) -
+  Add editor-positioned dropdown support for custom floating toolbar items
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.3
 
 ### Patch Changes

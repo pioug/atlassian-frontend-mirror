@@ -1,4 +1,6 @@
+/** @deprecated Use @atlaskit/json-ld-types/jsonld */
 export type { JsonLd } from './jsonld';
+/** @deprecated Use @atlaskit/json-ld-types/jsonld-response-types */
 export type {
 	JsonLdBlogPostDocument,
 	JsonLdDocument,
@@ -23,4 +25,5 @@ export type {
 	JsonLdTaskType,
 	JsonLdUndefinedLinkDocument,
 } from './objects';
+/** @deprecated Use @atlaskit/json-ld-types/default-states */
 export { defaults } from './defaults';

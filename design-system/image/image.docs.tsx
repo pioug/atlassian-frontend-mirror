@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Image',
 		description: 'A component for displaying images with theme support.',
@@ -42,6 +43,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['image', 'picture', 'photo', 'visual', 'media'],
 		categories: ['data-display'],
 	},
-];
+	],
+};
 
 export default documentation;

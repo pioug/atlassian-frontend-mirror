@@ -13,7 +13,11 @@ export type BlockCardProps = {
 	cardState: CardState;
 	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string }>;
 	handleAuthorize: (() => void) | undefined;
+	/** Optional middle-click handler. */
+	handleFrameAuxClick?: React.EventHandler<React.MouseEvent>;
 	handleFrameClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	/** Optional right-click handler. */
+	handleFrameContextMenu?: React.EventHandler<React.MouseEvent>;
 	hideIconLoadingSkeleton?: boolean;
 	id: string;
 	isSelected?: boolean;

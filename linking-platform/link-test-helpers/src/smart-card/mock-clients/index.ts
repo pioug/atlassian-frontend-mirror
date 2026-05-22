@@ -1,6 +1,6 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { CardClient } from '@atlaskit/link-provider';
-import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import {type JsonLd} from '@atlaskit/json-ld-types';
+import {CardClient} from '@atlaskit/link-provider';
+import type {SmartLinkResponse} from '@atlaskit/linking-types';
 
 import {
 	AtlasProject,
@@ -12,8 +12,8 @@ import {
 	YouTubeVideo,
 	YouTubeVideoUrl,
 } from '../example-helpers';
-import { atlasProjectUrl } from '../example-helpers/_jsonLDExamples/provider.atlas';
-import { overrideEmbedContent } from '../example-helpers/_jsonLDExamples/utils';
+import {atlasProjectUrl} from '../example-helpers/_jsonLDExamples/provider.atlas';
+import {overrideEmbedContent} from '../example-helpers/_jsonLDExamples/utils';
 import {
 	avatar3,
 	figmaUnauthImage,
@@ -30,8 +30,6 @@ import {
 	onedriveUnauthImage,
 	slackUnauthImage,
 } from '../images';
-
-import { MockCardClient } from './mock-card-client';
 
 export const mocks = {
 	entityDataSuccess: {
@@ -515,6 +513,12 @@ const iconTestResponseMap: Record<string, JsonLd.Response> = {
 };
 
 export const iconTestUrls: string[] = Object.keys(iconTestResponseMap);
+
+export class MockCardClient extends CardClient {
+	prefetchData(url: string): Promise<JsonLd.Response | undefined> {
+		return Promise.resolve(undefined);
+	}
+}
 
 export class ResolvedClient extends MockCardClient {
 	fetchData(url: string): Promise<JsonLd.Response<JsonLd.Data.BaseData>> {

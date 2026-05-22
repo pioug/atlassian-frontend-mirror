@@ -13,6 +13,7 @@ import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gat
 import { fireEvent, render } from '@atlassian/testing-library';
 
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
+import { TitleBlock } from '../../FlexibleCard/components/blocks';
 import * as SmartLinkEventsModule from '../../SmartLinkEvents/useSmartLinkEvents';
 import { CardWithUrl } from '../component';
 
@@ -32,7 +33,16 @@ jest.mock('../../../state', () => ({
 	useSmartLink: jest.fn(() => ({
 		state: {
 			status: 'resolved',
-			details: { meta: { definitionId: 'test-definition-id' }, data: {} },
+			details: {
+				meta: { definitionId: 'test-definition-id' },
+				data: {
+					name: 'Link title',
+					url: 'https://example.com',
+					// `preview.content` needs to be defined for embed link to not fall back to BlockCard
+					// (the `if (resolvedViewProps.preview)` branch in EmbedCard/index.tsx).
+					preview: { content: 'embed-content' },
+				},
+			},
 		},
 		actions: { authorize: jest.fn(), reload: jest.fn(), invoke: jest.fn() },
 		config: {},
@@ -83,99 +93,121 @@ describe('CardWithUrl', () => {
 		unmount();
 	});
 
-	describe('middle / right clicks on inline card', () => {
-		let mockFireEvent: jest.Mock;
+	// Card variants that support middle / right click 3P telemetry.
+	const variantsThatSupportNonPrimaryClicks = ['inline', 'block', 'embed', 'flexible'] as const;
 
-		const NON_PRIMARY_EXPERIMENT = 'linking_platform_track_non_primary_3p_clicks';
-		const SMARTLINK_3P_ANALYTICS_FF = 'platform_smartlink_3pclick_analytics';
+	describe.each(variantsThatSupportNonPrimaryClicks)(
+		'middle / right clicks on %s card',
+		(appearance) => {
+			let mockFireEvent: jest.Mock;
 
-		const renderResolved3P = () =>
-			render(
-				<IntlProvider locale="en">
-					<SmartCardProvider client={new CardClient()}>
-						<CardWithUrl appearance="inline" id="uid" url="https://example.com" />
-					</SmartCardProvider>
-				</IntlProvider>,
-			);
+			const NON_PRIMARY_EXPERIMENT = 'linking_platform_track_non_primary_3p_clicks';
+			const SMARTLINK_3P_ANALYTICS_FF = 'platform_smartlink_3pclick_analytics';
 
-		const fireAuxClick = (el: Element, button: number) =>
-			fireEvent(el, new MouseEvent('auxclick', { button, bubbles: true, cancelable: true }));
+			const renderResolved3P = () =>
+				render(
+					<IntlProvider locale="en">
+						<SmartCardProvider client={new CardClient()}>
+							{appearance === 'flexible' ? (
+								// FlexCard is detected via the presence of a TitleBlock child (see isFlexibleUiCard).
+								// The outer `appearance` is ignored once FlexCard takes over rendering.
+								<CardWithUrl appearance="block" id="uid" url="https://example.com">
+									<TitleBlock />
+								</CardWithUrl>
+							) : (
+								<CardWithUrl
+									appearance={appearance as 'inline' | 'block' | 'embed'}
+									id="uid"
+									url="https://example.com"
+								/>
+							)}
+						</SmartCardProvider>
+					</IntlProvider>,
+				);
 
-		beforeEach(() => {
-			mockFireEvent = jest.fn();
-			(SmartLinkEventsModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
-				mockFireEvent,
-			);
-		});
+			const fireAuxClick = (el: Element, button: number) =>
+				fireEvent(el, new MouseEvent('auxclick', { button, bubbles: true, cancelable: true }));
 
-		describe('with 3P analytics FF and experiment ON', () => {
 			beforeEach(() => {
-				passGate(SMARTLINK_3P_ANALYTICS_FF);
-				(expValEqualsNoExposure as jest.Mock).mockReturnValue(true);
+				mockFireEvent = jest.fn();
+				(SmartLinkEventsModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
+					mockFireEvent,
+				);
 			});
 
-			it('fires experiment exposure once on mount', () => {
-				renderResolved3P();
-				expect(expValEquals).toHaveBeenCalledWith(NON_PRIMARY_EXPERIMENT, 'isEnabled', true);
+			describe('with 3P analytics FF and experiment ON', () => {
+				beforeEach(() => {
+					passGate(SMARTLINK_3P_ANALYTICS_FF);
+					(expValEqualsNoExposure as jest.Mock).mockReturnValue(true);
+				});
+
+				it('fires experiment exposure once on mount', () => {
+					renderResolved3P();
+					expect(expValEquals).toHaveBeenCalledWith(NON_PRIMARY_EXPERIMENT, 'isEnabled', true);
+				});
+
+				it('fires 3P click event with isAuxClick on middle click', () => {
+					const { container } = renderResolved3P();
+					fireAuxClick(container.querySelector('a')!, 1);
+					expect(mockFireEvent).toHaveBeenCalledWith({ isAuxClick: true });
+				});
+
+				it('does NOT fire 3P click event for auxclick with button === 2 (Windows right-click safety)', () => {
+					const { container } = renderResolved3P();
+					fireAuxClick(container.querySelector('a')!, 2);
+					expect(mockFireEvent).not.toHaveBeenCalled();
+				});
+
+				it('fires 3P click event with isContextMenu on right click', () => {
+					const { container } = renderResolved3P();
+					fireEvent.contextMenu(container.querySelector('a')!);
+					expect(mockFireEvent).toHaveBeenCalledWith({ isContextMenu: true });
+				});
 			});
 
-			it('fires 3P click event with isAuxClick on middle click', () => {
-				const { container } = renderResolved3P();
-				fireAuxClick(container.querySelector('a')!, 1);
-				expect(mockFireEvent).toHaveBeenCalledWith({ isAuxClick: true });
+			describe('with 3P analytics FF ON but experiment OFF', () => {
+				beforeEach(() => {
+					passGate(SMARTLINK_3P_ANALYTICS_FF);
+					(expValEqualsNoExposure as jest.Mock).mockReturnValue(false);
+				});
+
+				it('still fires experiment exposure on mount', () => {
+					renderResolved3P();
+					expect(expValEquals).toHaveBeenCalledWith(NON_PRIMARY_EXPERIMENT, 'isEnabled', true);
+				});
+
+				it('does NOT fire 3P click events on middle or right click', () => {
+					const { container } = renderResolved3P();
+					const link = container.querySelector('a')!;
+					fireAuxClick(link, 1);
+					fireEvent.contextMenu(link);
+					expect(mockFireEvent).not.toHaveBeenCalled();
+				});
 			});
 
-			it('does NOT fire 3P click event for auxclick with button === 2 (Windows right-click safety)', () => {
-				const { container } = renderResolved3P();
-				fireAuxClick(container.querySelector('a')!, 2);
-				expect(mockFireEvent).not.toHaveBeenCalled();
-			});
+			describe('with 3P analytics FF OFF', () => {
+				beforeEach(() => {
+					failGate(SMARTLINK_3P_ANALYTICS_FF);
+					(expValEqualsNoExposure as jest.Mock).mockReturnValue(true);
+				});
 
-			it('fires 3P click event with isContextMenu on right click', () => {
-				const { container } = renderResolved3P();
-				fireEvent.contextMenu(container.querySelector('a')!);
-				expect(mockFireEvent).toHaveBeenCalledWith({ isContextMenu: true });
-			});
-		});
+				it('does NOT fire experiment exposure on mount', () => {
+					renderResolved3P();
+					expect(expValEquals).not.toHaveBeenCalledWith(
+						NON_PRIMARY_EXPERIMENT,
+						'isEnabled',
+						true,
+					);
+				});
 
-		describe('with 3P analytics FF ON but experiment OFF', () => {
-			beforeEach(() => {
-				passGate(SMARTLINK_3P_ANALYTICS_FF);
-				(expValEqualsNoExposure as jest.Mock).mockReturnValue(false);
+				it('does NOT fire 3P click events on middle or right click', () => {
+					const { container } = renderResolved3P();
+					const link = container.querySelector('a')!;
+					fireAuxClick(link, 1);
+					fireEvent.contextMenu(link);
+					expect(mockFireEvent).not.toHaveBeenCalled();
+				});
 			});
-
-			it('still fires experiment exposure on mount', () => {
-				renderResolved3P();
-				expect(expValEquals).toHaveBeenCalledWith(NON_PRIMARY_EXPERIMENT, 'isEnabled', true);
-			});
-
-			it('does NOT fire 3P click events on middle or right click', () => {
-				const { container } = renderResolved3P();
-				const link = container.querySelector('a')!;
-				fireAuxClick(link, 1);
-				fireEvent.contextMenu(link);
-				expect(mockFireEvent).not.toHaveBeenCalled();
-			});
-		});
-
-		describe('with 3P analytics FF OFF', () => {
-			beforeEach(() => {
-				failGate(SMARTLINK_3P_ANALYTICS_FF);
-				(expValEqualsNoExposure as jest.Mock).mockReturnValue(true);
-			});
-
-			it('does NOT fire experiment exposure on mount', () => {
-				renderResolved3P();
-				expect(expValEquals).not.toHaveBeenCalledWith(NON_PRIMARY_EXPERIMENT, 'isEnabled', true);
-			});
-
-			it('does NOT fire 3P click events on middle or right click', () => {
-				const { container } = renderResolved3P();
-				const link = container.querySelector('a')!;
-				fireAuxClick(link, 1);
-				fireEvent.contextMenu(link);
-				expect(mockFireEvent).not.toHaveBeenCalled();
-			});
-		});
-	});
+		},
+	);
 });

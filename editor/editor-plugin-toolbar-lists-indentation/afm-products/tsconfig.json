@@ -38,6 +38,9 @@
 			"path": "../../editor-plugin-indentation/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-interaction/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-list/afm-products/tsconfig.json"
 		},
 		{

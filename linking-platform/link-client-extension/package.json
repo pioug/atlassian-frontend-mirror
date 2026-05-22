@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-client-extension",
-	"version": "6.0.1",
+	"version": "6.1.0",
 	"description": "Extension methods for linking platform client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,11 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./use-smart-link-client-extension": "./src/entry-points/use-smart-link-client-extension.ts",
+		"./use-data-source-client-extension": "./src/entry-points/use-data-source-client-extension.ts",
+		"./use-data-source-client-extension/mocks": "./src/entry-points/data-source-client-extension-mocks.ts",
+		"./use-data-source-client-extension/types": "./src/entry-points/data-source-response-types.ts"
 	},
 	"dependencies": {
 		"@atlaskit/json-ld-types": "workspace:^",
@@ -56,6 +60,7 @@
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"
 	},

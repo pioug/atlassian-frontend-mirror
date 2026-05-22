@@ -94,5 +94,8 @@
 			]
 		}
 	},
-	"homepage": "https://atlassian.design/components/storybook-addon-design-system"
+	"homepage": "https://atlassian.design/components/storybook-addon-design-system",
+	"devDependencies": {
+		"react": "root:*"
+	}
 }

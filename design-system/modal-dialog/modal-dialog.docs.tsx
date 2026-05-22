@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'Modal',
 		description: 'A modal dialog component for important content.',
@@ -221,6 +222,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['modal', 'close', 'button', 'dismiss'],
 		categories: ['overlay'],
 	},
-];
+	],
+};
 
 export default documentation;

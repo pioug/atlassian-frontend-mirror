@@ -39,7 +39,8 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
-		"mkdirp": "root:*"
+		"mkdirp": "root:*",
+		"react": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

@@ -75,5 +75,9 @@
 				}
 			}
 		}
+	},
+	"devDependencies": {
+		"react": "root:*",
+		"react-dom": "root:*"
 	}
 }

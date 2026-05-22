@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'ProgressTracker',
 		description: 'A component for tracking progress through multi-step processes.',
@@ -42,6 +43,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['progress', 'tracker', 'steps', 'completion', 'workflow'],
 		categories: ['feedback'],
 	},
-];
+	],
+};
 
 export default documentation;

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 
 import { useIntl } from 'react-intl';
 
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { toggleHighlightPalette, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { textColorMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -18,6 +19,8 @@ import {
 	ToolbarTooltip,
 	useToolbarUI,
 } from '@atlaskit/editor-toolbar';
+import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';
 
@@ -47,19 +50,78 @@ const getHighlightColorIcon = (highlightColor: string | null | undefined) => {
 	return undefined;
 };
 
+type TextColorHighlightMenuState = {
+	defaultColor?: string | null;
+	highlightColor?: string | null;
+	isPaletteOpen?: boolean;
+	isTextColorDisabled?: boolean;
+	textColor?: string | null;
+};
+
+const useTextColorHighlightMenuStateNew = (
+	api: ExtractInjectionAPI<TextColorPlugin> | undefined,
+): TextColorHighlightMenuState => {
+	return useSharedPluginStateWithSelector(
+		api,
+		['textColor', 'highlight', 'interaction'],
+		(states) => {
+			const useDefaultToolbarState =
+				states.interactionState?.interactionState === 'hasNotHadInteraction';
+
+			return {
+				isTextColorDisabled: states.textColorState?.disabled,
+				textColor: states.textColorState?.color,
+				defaultColor: states.textColorState?.defaultColor,
+				isPaletteOpen: states.textColorState?.isPaletteOpen,
+				highlightColor: useDefaultToolbarState
+					? undefined
+					: states.highlightState?.activeColor,
+			};
+		},
+	);
+};
+
+const useTextColorHighlightMenuStateOld = (
+	api: ExtractInjectionAPI<TextColorPlugin> | undefined,
+): TextColorHighlightMenuState => {
+	const isTextColorDisabled = useSharedPluginStateSelector(api, 'textColor.disabled');
+	const textColor = useSharedPluginStateSelector(api, 'textColor.color');
+	const defaultColor = useSharedPluginStateSelector(api, 'textColor.defaultColor');
+	const isPaletteOpen = useSharedPluginStateSelector(api, 'textColor.isPaletteOpen');
+	const highlightColor = useSharedPluginStateSelector(api, 'highlight.activeColor');
+
+	return {
+		isTextColorDisabled,
+		textColor,
+		defaultColor,
+		isPaletteOpen,
+		highlightColor,
+	};
+};
+
+const useTextColorHighlightMenuState: (
+	api: ExtractInjectionAPI<TextColorPlugin> | undefined,
+) => TextColorHighlightMenuState = conditionalHooksFactory(
+	() => expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true),
+	useTextColorHighlightMenuStateNew,
+	useTextColorHighlightMenuStateOld,
+);
+
 export const TextColorHighlightMenu = ({
 	children,
 	api,
 }: TextColorHighlightMenuProps): React.JSX.Element => {
 	const isHighlightPluginExisted = !!api?.highlight;
-	const isTextColorDisabled = useSharedPluginStateSelector(api, 'textColor.disabled');
 	const { isDisabled: isToolbarDisabled } = useToolbarUI();
+	const {
+		isTextColorDisabled,
+		textColor,
+		defaultColor,
+		isPaletteOpen,
+		highlightColor,
+	} = useTextColorHighlightMenuState(api);
 	const isDisabled = Boolean(isToolbarDisabled || isTextColorDisabled);
-	const highlightColor = useSharedPluginStateSelector(api, 'highlight.activeColor');
-	const textColor = useSharedPluginStateSelector(api, 'textColor.color');
 	const { formatMessage } = useIntl();
-	const defaultColor = useSharedPluginStateSelector(api, 'textColor.defaultColor');
-	const isPaletteOpen = useSharedPluginStateSelector(api, 'textColor.isPaletteOpen');
 
 	const setIsPaletteOpen = useCallback(
 		(isOpen: boolean) => {

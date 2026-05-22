@@ -1,5 +1,18 @@
 # @atlaskit/reactions
 
+## 34.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.2.4
+
+### Patch Changes
+
+- [`0b0def82562f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b0def82562f3) -
+  Fix unnecessary textual description for decorative images
+
 ## 34.2.3
 
 ### Patch Changes

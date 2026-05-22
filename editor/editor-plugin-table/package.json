@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "22.4.12",
+	"version": "22.4.14",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -176,6 +176,8 @@
 		}
 	},
 	"devDependencies": {
+		"react": "root:*",
+		"react-dom": "root:*",
 		"react-intl": "root:*"
 	}
 }

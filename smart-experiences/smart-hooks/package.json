@@ -47,6 +47,7 @@
 		"@welldone-software/why-did-you-render": "root:*",
 		"enzyme": "root:*",
 		"fetch-mock": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"

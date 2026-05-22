@@ -53,6 +53,8 @@
 		"@types/exenv": "root:*",
 		"@types/react-transition-group": "root:*",
 		"enzyme": "root:*",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
 		"react-intl": "root:*",
 		"react-test-renderer": "root:*"
 	},

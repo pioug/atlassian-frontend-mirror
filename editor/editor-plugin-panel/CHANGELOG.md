@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-panel
 
+## 12.2.0
+
+### Minor Changes
+
+- [`ad45394a4fed6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad45394a4fed6) -
+  [ux] EDITOR-7171 add panel plugin support for new panel_c1 node variant which can have tables
+  nested inside
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.3
 
 ### Patch Changes

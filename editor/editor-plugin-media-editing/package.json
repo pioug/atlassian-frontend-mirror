@@ -54,6 +54,7 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"react": "root:*",
 		"react-intl": "root:*",
 		"typescript": "root:*"
 	},

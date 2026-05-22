@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "219.9.5",
+	"version": "219.9.6",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -147,6 +147,7 @@
 		"mockdate": "root:*",
 		"raf-stub": "root:*",
 		"react": "root:*",
+		"react-dom": "root:*",
 		"react-intl": "root:*",
 		"url-search-params": "root:*"
 	},

@@ -1,5 +1,14 @@
 # @atlaskit/side-nav-items
 
+## 1.13.9
+
+### Patch Changes
+
+- [`cc4a66306965d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc4a66306965d) -
+  Cleanup feature gate `platform_dst_nav4_flyout_menu_slots_close_button`. Flyout menu slot
+  subcomponents (header, body, footer) and close button are now permanently enabled.
+- Updated dependencies
+
 ## 1.13.8
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-toolbar
 
+## 1.7.1
+
+### Patch Changes
+
+- [`41962dd9dccb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41962dd9dccb2) -
+  NO-ISSUE: adds a default toolbar state so we can render the toolbar on initial load without
+  relying on editor state
+- Updated dependencies
+
 ## 1.7.0
 
 ### Minor Changes

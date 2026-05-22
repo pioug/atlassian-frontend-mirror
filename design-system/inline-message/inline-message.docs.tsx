@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'InlineMessage',
 		description: 'In-context notification for more info, warning, error, or confirmation.',
@@ -48,6 +49,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['message', 'inline', 'feedback', 'status', 'alert'],
 		categories: ['feedback'],
 	},
-];
+	],
+};
 
 export default documentation;

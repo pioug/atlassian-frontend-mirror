@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/range",
-	"version": "10.1.0",
+	"version": "10.1.1",
 	"description": "A range lets users choose an approximate value on a slider.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -59,6 +59,7 @@
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"lodash": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"keywords": [

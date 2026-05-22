@@ -6,7 +6,12 @@ import { type FlexibleCardProps, type FlexibleUiOptions, type RetryOptions } fro
 export type ContainerProps = PropsWithChildren<
 	Pick<
 		FlexibleCardProps,
-		'onClick' | 'showHoverPreview' | 'hoverPreviewOptions' | 'actionOptions'
+		| 'onClick'
+		| 'onAuxClick'
+		| 'onContextMenu'
+		| 'showHoverPreview'
+		| 'hoverPreviewOptions'
+		| 'actionOptions'
 	> &
 		FlexibleUiOptions & {
 			/**

@@ -41,6 +41,9 @@
 			"path": "../../editor-plugin-highlight/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-interaction/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-primary-toolbar/afm-cc/tsconfig.json"
 		},
 		{
@@ -69,6 +72,9 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags-react/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/primitives/afm-cc/tsconfig.json"

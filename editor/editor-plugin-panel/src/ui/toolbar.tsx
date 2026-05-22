@@ -42,6 +42,7 @@ import StatusDiscoveryIcon from '@atlaskit/icon/core/status-discovery';
 import InformationIcon from '@atlaskit/icon/core/status-information';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { changePanelType, removePanel } from '../editor-actions/actions';
 import type { PanelPlugin } from '../index';
@@ -393,7 +394,9 @@ export const getToolbarConfig = (
 	const { formatMessage } = intl;
 	const panelObject = findPanel(state);
 	if (panelObject) {
-		const nodeType = state.schema.nodes.panel;
+		const nodeType = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+			? panelObject.node.type
+			: state.schema.nodes.panel;
 		const { panelType, panelColor, panelIcon } = panelObject.node.attrs;
 
 		const isStandardPanel = (panelType: PanelType) => {

@@ -1,5 +1,13 @@
 # @atlaskit/adf-schema
 
+## 52.13.1
+
+### Patch Changes
+
+- [`ad45394a4fed6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad45394a4fed6) -
+  EDITOR-7171 add additional exports for extendedPanelC1 and extendedPanelC1WithLocalId
+- Updated dependencies
+
 ## 52.13.0
 
 ### Minor Changes

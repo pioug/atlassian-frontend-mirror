@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/side-nav-items",
-	"version": "1.13.8",
+	"version": "1.13.9",
 	"description": "Menu items and elements for the side nav area.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -93,6 +93,7 @@
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"bind-event-listener": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*"
 	},
 	"techstack": {
@@ -132,9 +133,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-dst-shape-theme-default": {
-			"type": "boolean"
-		},
-		"platform_dst_nav4_flyout_menu_slots_close_button": {
 			"type": "boolean"
 		}
 	}

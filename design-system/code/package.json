@@ -70,6 +70,7 @@
 		"color-contrast-checker": "root:*",
 		"css-loader": "root:*",
 		"prismjs": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"style-loader": "root:*"
 	},

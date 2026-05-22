@@ -30,7 +30,8 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlassian/feature-flags-test-utils": "workspace:^"
+		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"react": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

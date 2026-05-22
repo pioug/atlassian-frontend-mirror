@@ -45,7 +45,8 @@
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
-		"@testing-library/react": "root:*"
+		"@testing-library/react": "root:*",
+		"react": "root:*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

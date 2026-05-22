@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 22.4.14
+
+### Patch Changes
+
+- [`1c77cce42b15b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c77cce42b15b) -
+  Updated sync blocks to support ssr streaming
+- Updated dependencies
+
+## 22.4.13
+
+### Patch Changes
+
+- [`3e9a48e106cc7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e9a48e106cc7) -
+  Wire up column menu actions in the updated table menu
+- Updated dependencies
+
 ## 22.4.12
 
 ### Patch Changes

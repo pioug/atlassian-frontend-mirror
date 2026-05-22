@@ -6,6 +6,7 @@ import React from 'react';
 import type { ComponentClass } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { ufoExperiences } from '../../util/analytics';
 import type { EmojiProvider } from '../../api/EmojiResource';
@@ -27,6 +28,21 @@ const emojiPicker = css({
 	backgroundColor: token('elevation.surface.overlay'),
 	border: `${token('color.border')} ${token('border.width')} solid`,
 	borderRadius: token('radius.small', '3px'),
+	boxShadow: token('elevation.shadow.overlay'),
+	height: '375px',
+	width: '350px',
+	minWidth: '350px',
+	minHeight: '340px',
+	maxHeight: 'calc(80vh - 86px)', // ensure showing full picker in small device: mobile header is 40px (Jira) - 56px(Confluence and Atlas), reaction picker height is 24px with margin 6px,
+});
+
+const emojiPickerNew = css({
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'space-between',
+	backgroundColor: token('elevation.surface.overlay'),
+	border: `${token('color.border')} ${token('border.width')} solid`,
+	borderRadius: token('radius.large', '8px'),
 	boxShadow: token('elevation.shadow.overlay'),
 	height: '375px',
 	width: '350px',
@@ -108,7 +124,11 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
 		};
 		ufoExperiences['emoji-picker-opened'].markFMP();
 
-		return (
+		return fg('platform_emoji_picker_refresh') ? (
+			<div css={emojiPickerNew} ref={handlePickerRef}>
+				{item.renderItem()}
+			</div>
+		) : (
 			<div css={emojiPicker} ref={handlePickerRef}>
 				{item.renderItem()}
 			</div>

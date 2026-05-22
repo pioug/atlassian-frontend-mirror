@@ -103,12 +103,16 @@ const getLayeredLink = (
 	context?: FlexibleUiDataContext,
 	children?: React.ReactNode,
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>,
+	onAuxClick?: React.EventHandler<React.MouseEvent>,
+	onContextMenu?: React.EventHandler<React.MouseEvent>,
 ): React.ReactNode => {
 	const { linkTitle, url = '' } = context || {};
 	const { anchorTarget: target, text } = getTitleBlockProps(children) || {};
 	return (
 		<LayeredLink
 			onClick={onClick}
+			onAuxClick={onAuxClick}
+			onContextMenu={onContextMenu}
 			target={target}
 			testId={testId}
 			text={text || linkTitle?.text}
@@ -255,6 +259,8 @@ const Container = ({
 	hideElevation = false,
 	hidePadding = false,
 	onClick,
+	onAuxClick,
+	onContextMenu,
 	retry,
 	showHoverPreview = false,
 	hoverPreviewOptions,
@@ -302,7 +308,9 @@ const Container = ({
 			data-smart-link-container
 			data-testid={testId}
 		>
-			{clickableContainer ? getLayeredLink(testId, context, children, onClick) : null}
+			{clickableContainer
+				? getLayeredLink(testId, context, children, onClick, onAuxClick, onContextMenu)
+				: null}
 			{filterChildren(children, removeBlockRestriction)}
 		</div>
 	);

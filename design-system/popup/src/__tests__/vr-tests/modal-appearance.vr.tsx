@@ -52,9 +52,6 @@ snapshot(ModalPopupCompositionalAPI, {
 			name: 'desktop',
 		},
 	],
-	featureFlags: {
-		platform_dst_nav4_flyout_menu_slots_close_button: [false, true],
-	},
 });
 
 snapshot(ModalPopupCompositionalAPILong, {
@@ -70,7 +67,4 @@ snapshot(ModalPopupCompositionalAPILong, {
 			name: 'desktop',
 		},
 	],
-	featureFlags: {
-		platform_dst_nav4_flyout_menu_slots_close_button: [false, true],
-	},
 });

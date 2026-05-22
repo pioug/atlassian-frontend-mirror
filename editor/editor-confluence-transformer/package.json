@@ -57,7 +57,8 @@
 		"@atlaskit/editor-test-helpers": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@emotion/react": "root:*",
-		"pretty-data": "root:*"
+		"pretty-data": "root:*",
+		"react": "root:*"
 	},
 	"techstack": {
 		"@repo/internal": {

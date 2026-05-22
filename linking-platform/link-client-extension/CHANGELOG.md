@@ -1,5 +1,16 @@
 # @atlaskit/link-client-extension
 
+## 6.1.0
+
+### Minor Changes
+
+- [`ac7122966de24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac7122966de24) -
+  Mark barrel exports as deprecated, update paths and add new entry points
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.1
 
 ### Patch Changes

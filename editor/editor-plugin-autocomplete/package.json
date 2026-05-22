@@ -57,5 +57,8 @@
 				"file-and-folder-level"
 			]
 		}
+	},
+	"devDependencies": {
+		"react": "root:*"
 	}
 }

@@ -51,8 +51,8 @@ const uploadAddRowNew = css({
 	justifyContent: 'flex-end',
 	alignItems: 'center',
 	gap: token('space.100'),
-	paddingTop: token('space.200'),
-	paddingBottom: token('space.300'),
+	paddingTop: token('space.100'),
+	paddingBottom: token('space.150'),
 });
 
 const emojiUpload = css({
@@ -84,15 +84,20 @@ const emojiUploadTop = css({
 });
 
 const emojiUploadTopNew = css({
-	paddingBottom: token('space.025'),
+	paddingTop: token('space.075'),
+	paddingBottom: token('space.150'),
 	display: 'flex',
 	justifyContent: 'space-between',
 	alignItems: 'flex-end',
-	font: token('font.body.small'),
 });
 
 const labelStyles = css({
 	font: token('font.body.small'),
+	fontWeight: token('font.weight.semibold'),
+});
+
+const labelStylesNew = css({
+	font: token('font.body'),
 	fontWeight: token('font.weight.semibold'),
 });
 
@@ -233,6 +238,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 	const emojiPlaceholder = formatMessage(messages.emojiPlaceholder);
 	const emojiNameAriaLabel = formatMessage(messages.emojiNameAriaLabel);
 	const emojiChooseFileTitle = formatMessage(messages.emojiChooseFileTitle);
+	const emojiChooseFileTitleNew = formatMessage(messages.emojiChooseFileDndTitle);
 
 	const isUploading = uploadStatus === UploadStatus.Uploading;
 	const addEmojiDisabled = !previewImage || !name || isUploading;
@@ -240,7 +246,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 	return fg('platform_emoji_picker_refresh') ? (
 		<div css={emojiUploadNew} data-testid={uploadEmojiComponentTestId}>
 			<div css={emojiUploadTopNew}>
-				<label css={[uploadChooseFileMessage, labelStyles]} htmlFor="new-emoji-name-input">
+				<label css={[uploadChooseFileMessage, labelStylesNew]} htmlFor="new-emoji-name-input">
 					{previewImage ? (
 						<FormattedMessage {...messages.emojiPreviewTitle} />
 					) : (
@@ -253,7 +259,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 					<FormattedMessage {...messages.emojiChooseFileScreenReaderDescription}>
 						{() => (
 							<FileChooser
-								label={emojiChooseFileTitle}
+								label={fg('platform_emoji_picker_refresh') ? emojiChooseFileTitleNew : emojiChooseFileTitle}
 								onChange={onChooseFile}
 								onClick={onClick}
 								accept="image/png,image/jpeg,image/gif"
@@ -351,7 +357,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 					<FormattedMessage {...messages.emojiChooseFileScreenReaderDescription}>
 						{() => (
 							<FileChooser
-								label={emojiChooseFileTitle}
+								label={fg('platform_emoji_picker_refresh') ? emojiChooseFileTitleNew : emojiChooseFileTitle}
 								onChange={onChooseFile}
 								onClick={onClick}
 								accept="image/png,image/jpeg,image/gif"

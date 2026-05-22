@@ -8,6 +8,7 @@ import type {
 	Command,
 	ExtractInjectionAPI,
 	FloatingToolbarConfig,
+	FloatingToolbarCustomRenderContext,
 	FloatingToolbarItem,
 } from '@atlaskit/editor-common/types';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
@@ -94,7 +95,12 @@ export const getToolbarConfig = (
 			const syncedLocation: FloatingToolbarItem<Command> = {
 				type: 'custom',
 				fallback: [],
-				render: () => {
+				render: (
+					_view,
+					_idx,
+					_dispatchAnalyticsEvent,
+					floatingToolbarRenderContext?: FloatingToolbarCustomRenderContext,
+				) => {
 					return (
 						<SyncedLocationDropdown
 							syncBlockStore={syncBlockStore}
@@ -103,6 +109,7 @@ export const getToolbarConfig = (
 							intl={intl}
 							isSource={isBodiedSyncBlock}
 							api={api}
+							floatingToolbarRenderContext={floatingToolbarRenderContext}
 						/>
 					);
 				},

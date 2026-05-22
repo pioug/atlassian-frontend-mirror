@@ -39,7 +39,8 @@
 		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-test-helpers": "workspace:^",
-		"@atlassian/structured-docs-types": "workspace:^"
+		"@atlassian/structured-docs-types": "workspace:^",
+		"react": "root:*"
 	},
 	"techstack": {
 		"@repo/internal": {

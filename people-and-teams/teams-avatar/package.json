@@ -65,6 +65,7 @@
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/teams-app-internal-playground": "workspace:^",
 		"@testing-library/react": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"
 	},

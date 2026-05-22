@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::cea2b2082d579e80351ba3a02a7d253b>>
+ * @codegen <<SignedSource::f97d78f5d66b1426c5864b1b2c918248>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:structured-docs-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -855,7 +855,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'tooltip',
-				type: '{ testId?: string; analyticsContext?: Record<string, any>; content?: ReactNode | (({ update }: { update?: () => void; }) => ReactNode); component?: ComponentType<TooltipPrimitiveProps> | ForwardRefExoticComponent<...>; ... 15 more ...; UNSAFE_shouldRenderToParent?: boolean; }',
+				type: '{ testId?: string; analyticsContext?: Record<string, any>; content?: ReactNode | (({ update }: { update?: () => void; }) => ReactNode); component?: ComponentType<TooltipPrimitiveProps> | ForwardRefExoticComponent<...>; ... 15 more ...; shouldRenderToParent?: boolean; }',
 				description: 'Props passed down to the Tooltip component.',
 			},
 		],
@@ -2489,7 +2489,6 @@ export const components: ComponentMcpPayload[] = [
 				type: 'boolean',
 				description:
 					'Controls if the first menu item receives focus when menu is opened. Note that the menu has a focus lock\nwhich traps the focus within the menu. The first item gets focus automatically\nif the menu is triggered using the keyboard.',
-				defaultValue: 'false',
 			},
 			{
 				name: 'children',
@@ -2502,13 +2501,11 @@ export const components: ComponentMcpPayload[] = [
 				type: 'boolean',
 				description:
 					'Controls the initial open state of the dropdown. If provided, the component is considered to be controlled\nwhich means that the user is responsible for managing the open and close state of the menu.\nUsing `defaultOpen` may cause accessiblity issues because it will automatically shift focus to the first menu item; which can be disorienting.\nOnly use this if action on the menu is required to proceed.',
-				defaultValue: 'false',
 			},
 			{
 				name: 'isLoading',
 				type: 'boolean',
 				description: 'If true, a spinner is rendered instead of the items.',
-				defaultValue: 'false',
 			},
 			{
 				name: 'isOpen',
@@ -2530,13 +2527,11 @@ export const components: ComponentMcpPayload[] = [
 				type: '(args: OnOpenChangeArgs) => void',
 				description:
 					'Called when the menu should be open/closed. Receives an object with `isOpen` state.\n\nIf the dropdown was closed programatically, the `event` parameter will be `null`.',
-				defaultValue: 'noop',
 			},
 			{
 				name: 'placement',
 				type: '"auto-start" | "auto" | "auto-end" | "top-start" | "top" | "top-end" | "right-start" | "right" | "right-end" | "bottom-end" | "bottom" | "bottom-start" | "left-end" | "left" | "left-start"',
 				description: 'Position of the menu.',
-				defaultValue: '"bottom-start"',
 			},
 			{
 				name: 'returnFocusRef',
@@ -2549,28 +2544,6 @@ export const components: ComponentMcpPayload[] = [
 				type: 'boolean',
 				description:
 					"This fits the dropdown menu width to its parent's width.\nWhen set to `true`, the trigger and dropdown menu elements will be wrapped in a `div` with `position: relative`.\nThe dropdown menu will be rendered as a sibling to the trigger element, and will be full width.\nThe default is `false`.\n\nThis fits the dropdown menu width to its parent's width.\nWhen set to `true`, the trigger and dropdown menu elements will be wrapped in a `div` with `position: relative`.\nThe dropdown menu will be rendered as a sibling to the trigger element, and will be full width.\nThe default is `false`.",
-				defaultValue: 'false',
-			},
-			{
-				name: 'shouldFlip',
-				type: 'boolean',
-				description:
-					'Allows the dropdown menu to be placed on the opposite side of its trigger if it does not\nfit in the viewport.',
-				defaultValue: 'true',
-			},
-			{
-				name: 'shouldPreventEscapePropagation',
-				type: 'boolean',
-				description:
-					'When set to true, will call stopPropagation on the ESCAPE key event.\nThis prevents the ESCAPE event from bubbling up to parent elements.',
-				defaultValue: 'false',
-			},
-			{
-				name: 'shouldRenderToParent',
-				type: 'boolean',
-				description:
-					'Controls whether the popup is rendered inline within its parent component or in a portal at the document root.\n`true` renders the dropdown menu in the DOM node closest to the trigger; focus is not trapped inside the element.\n`false` renders the dropdown menu in React.Portal and focus is trapped inside the element.\nDefaults to `false`.\nControls whether the popup is rendered inline within its parent component or in a portal at the document root.\n`true` renders the dropdown menu in the DOM node closest to the trigger; focus is not trapped inside the element.\n`false` renders the dropdown menu in React.Portal and focus is trapped inside the element.\nDefaults to `false`.',
-				defaultValue: 'false',
 			},
 			{
 				name: 'spacing',
@@ -2583,23 +2556,10 @@ export const components: ComponentMcpPayload[] = [
 				description: 'Text to be used as status for assistive technologies. Defaults to "Loading".',
 			},
 			{
-				name: 'strategy',
-				type: '"absolute" | "fixed"',
-				description:
-					'This controls the positioning strategy to use. Can vary between `absolute` and `fixed`.\nThe default is `fixed`.\nThis controls the positioning strategy to use. Can vary between `absolute` and `fixed`.\nThe default is `fixed`.',
-			},
-			{
 				name: 'trigger',
 				type: 'string | ((triggerButtonProps: CustomTriggerProps<T>) => React.ReactElement<any, string | React.JSXElementConstructor<any>>)',
 				description:
 					'Content that triggers the dropdown menu to open and close. Use with\n`triggerType` to get a button trigger. To customize the trigger element,\nprovide a function to this prop. You can find\n[examples for custom triggers](https://atlassian.design/components/dropdown-menu/examples#custom-triggers)\nin our documentation.',
-			},
-			{
-				name: 'zIndex',
-				type: 'number',
-				description:
-					'Z-index that the popup should be displayed in.\nThis is passed to the portal component.\nDefaults to `layers.modal()` from `@atlaskit/theme` which is 510.',
-				defaultValue: '510',
 			},
 		],
 	},
@@ -4318,12 +4278,6 @@ export const components: ComponentMcpPayload[] = [
 				description: 'The elements to be displayed by the popup.',
 			},
 			{
-				name: 'fallbackPlacements',
-				type: 'PopupPlacement[]',
-				description:
-					"This is a list of backup placements for the popup to try.\nWhen the preferred placement doesn't have enough space,\nthe modifier will test the ones provided in the list, and use the first suitable one.\nIf no fallback placements are suitable, it reverts back to the original placement.",
-			},
-			{
 				name: 'iconLabel',
 				type: 'string',
 				description:
@@ -5247,6 +5201,12 @@ export const components: ComponentMcpPayload[] = [
 		],
 		props: [
 			{
+				name: 'autoFocus',
+				type: 'React.RefObject<HTMLElement>',
+				description:
+					'Pass an element `ref` to focus on a specific element on load.  Default\nbehavior is focus is moved to the first interactive element inside the\nmodal dialog.',
+			},
+			{
 				name: 'children',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 				description: 'Contents of the modal dialog.',
@@ -5542,7 +5502,7 @@ export const components: ComponentMcpPayload[] = [
 		examples: [
 			"import React, { useState } from 'react';\nimport { ExitingPersistence, Motion } from '@atlaskit/motion';\nimport { token } from '@atlaskit/tokens';\nexport default function MotionPrimitiveExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<ExitingPersistence appear>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<Motion\n\t\t\t\t\t\tkey=\"item\"\n\t\t\t\t\t\tenteringAnimation={token('motion.modal.enter')}\n\t\t\t\t\t\texitingAnimation={token('motion.modal.exit')}\n\t\t\t\t\t>\n\t\t\t\t\t\t<div>Content</div>\n\t\t\t\t\t</Motion>\n\t\t\t\t)}\n\t\t\t</ExitingPersistence>\n\t\t</>\n\t);\n}",
 			"import React, { useState } from 'react';\nimport { cssMap } from '@atlaskit/css';\nimport { ExitingPersistence, Motion } from '@atlaskit/motion';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.long'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nexport default function MotionPrimitiveCustomExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<ExitingPersistence appear>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<Motion\n\t\t\t\t\t\tkey=\"item\"\n\t\t\t\t\t\tenteringAnimationXcss={styles.entering}\n\t\t\t\t\t\texitingAnimationXcss={styles.exiting}\n\t\t\t\t\t>\n\t\t\t\t\t\t<div>Content</div>\n\t\t\t\t\t</Motion>\n\t\t\t\t)}\n\t\t\t</ExitingPersistence>\n\t\t</>\n\t);\n}",
-			"import React, { useState } from 'react';\nimport { cssMap } from '@atlaskit/css';\nimport { ExitingPersistence, Motion } from '@atlaskit/motion';\nimport { token } from '@atlaskit/tokens';\nimport { keyframes } from '@compiled/react';\nconst slideIn = keyframes({\n\t'0%': { transform: 'translateX(-24px)' },\n\t'100%': { transform: 'translateX(0)' },\n});\nconst slideOut = keyframes({\n\t'0%': { transform: 'translateX(0)' },\n\t'100%': { transform: 'translateX(-24px)' },\n});\nconst styles = cssMap({\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xxlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${slideIn}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.xxlong'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${slideOut}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nexport default function MotionPrimitiveCustomKeyframeExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<ExitingPersistence appear>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<Motion\n\t\t\t\t\t\tkey=\"item\"\n\t\t\t\t\t\tenteringAnimationXcss={styles.entering}\n\t\t\t\t\t\texitingAnimationXcss={styles.exiting}\n\t\t\t\t\t>\n\t\t\t\t\t\t<div>Content</div>\n\t\t\t\t\t</Motion>\n\t\t\t\t)}\n\t\t\t</ExitingPersistence>\n\t\t</>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { keyframes } from '@compiled/react';\nimport { cssMap } from '@atlaskit/css';\nimport { ExitingPersistence, Motion } from '@atlaskit/motion';\nimport { token } from '@atlaskit/tokens';\nconst slideIn = keyframes({\n\t'0%': { transform: 'translateX(-24px)' },\n\t'100%': { transform: 'translateX(0)' },\n});\nconst slideOut = keyframes({\n\t'0%': { transform: 'translateX(0)' },\n\t'100%': { transform: 'translateX(-24px)' },\n});\nconst styles = cssMap({\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xxlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${slideIn}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.xxlong'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${slideOut}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nexport default function MotionPrimitiveCustomKeyframeExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<ExitingPersistence appear>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<Motion\n\t\t\t\t\t\tkey=\"item\"\n\t\t\t\t\t\tenteringAnimationXcss={styles.entering}\n\t\t\t\t\t\texitingAnimationXcss={styles.exiting}\n\t\t\t\t\t>\n\t\t\t\t\t\t<div>Content</div>\n\t\t\t\t\t</Motion>\n\t\t\t\t)}\n\t\t\t</ExitingPersistence>\n\t\t</>\n\t);\n}",
 		],
 		props: [
 			{
@@ -5927,22 +5887,10 @@ export const components: ComponentMcpPayload[] = [
 					'This controls whether the popup takes focus when opening.\nThis changes the `popupComponent` component tabIndex to `null`.\nThe default is `true`.',
 			},
 			{
-				name: 'boundary',
-				type: '"clippingParents" | HTMLElement',
-				description:
-					'The boundary element that the popup will check for overflow.\nThe default is `"clippingParents"` which are parent scroll containers,\nbut can be set to any element.',
-			},
-			{
 				name: 'content',
 				type: '(props: ContentProps) => ReactNode',
 				description: 'Render props for content that is displayed inside the popup.',
 				isRequired: true,
-			},
-			{
-				name: 'fallbackPlacements',
-				type: 'Placement[]',
-				description:
-					"This is a list of backup placements for the popup to try.\nWhen the preferred placement doesn't have enough space,\nthe modifier will test the ones provided in the list, and use the first suitable one.\nIf no fallback placements are suitable, it reverts back to the original placement.",
 			},
 			{
 				name: 'id',
@@ -5969,12 +5917,6 @@ export const components: ComponentMcpPayload[] = [
 					'Additional modifiers and modifier overwrites.\nfor more details - https://popper.js.org/docs/v1/#modifiers',
 			},
 			{
-				name: 'offset',
-				type: '[number, number]',
-				description:
-					'The distance the popup should be offset from the reference in the format of [along, away] (units in px).\nThe default is `[0, 8]`, which means the popup will be `8px` away from the edge of the reference specified\nby the `placement` prop.',
-			},
-			{
 				name: 'onClose',
 				type: '(event: Event | MouseEvent<Element, globalThis.MouseEvent> | KeyboardEvent<Element>, currentLevel?: any) => void',
 				description:
@@ -5999,18 +5941,6 @@ export const components: ComponentMcpPayload[] = [
 					'Use this to set the accessibility role for the popup.\nWe strongly recommend using only `menu` or `dialog`.\nMust be used along with `label` or `titleId`.',
 			},
 			{
-				name: 'rootBoundary',
-				type: '"viewport" | "document"',
-				description:
-					'The root boundary that the popup will check for overflow.\nThe default is `"viewport"` but it can be set to `"document"`.',
-			},
-			{
-				name: 'shouldDisableFocusLock',
-				type: 'boolean',
-				description:
-					'This makes the popup close on Tab key press. It will only work when `shouldRenderToParent` is `true`.\nThe default is `false`.',
-			},
-			{
 				name: 'shouldFitContainer',
 				type: 'boolean',
 				description:
@@ -6023,18 +5953,6 @@ export const components: ComponentMcpPayload[] = [
 					'Determines if the popup will have a `max-width` and `max-height` set to\nconstrain it to the viewport.',
 			},
 			{
-				name: 'shouldFlip',
-				type: 'boolean',
-				description:
-					"Allows the popup to be placed on the opposite side of its trigger if it doesn't fit in the viewport.\nThe default is `true`.",
-			},
-			{
-				name: 'shouldRenderToParent',
-				type: 'boolean',
-				description:
-					'The root element where the popup should be rendered.\nDefaults to `false`.\nThe root element where the popup should be rendered.\nDefaults to `false`.',
-			},
-			{
 				name: 'shouldReturnFocus',
 				type: 'boolean',
 				description:
@@ -6045,12 +5963,6 @@ export const components: ComponentMcpPayload[] = [
 				type: 'boolean',
 				description:
 					'This controls if the event which handles clicks outside the popup is be bound with\n `capture: true`.',
-			},
-			{
-				name: 'strategy',
-				type: '"absolute" | "fixed"',
-				description:
-					'This controls the positioning strategy to use. Can vary between `absolute` and `fixed`.\nThe default is `fixed`.\nThis controls the positioning strategy to use. Can vary between `absolute` and `fixed`.\nThe default is `fixed`.',
 			},
 			{
 				name: 'titleId',
@@ -6069,12 +5981,6 @@ export const components: ComponentMcpPayload[] = [
 				name: 'xcss',
 				type: 'false | (XCSSValue<"paddingBlockEnd" | "paddingBlockStart" | "paddingInlineEnd" | "paddingInlineStart" | "width" | "padding" | "paddingBlock" | "paddingInline", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description: 'Bounded style overrides.',
-			},
-			{
-				name: 'zIndex',
-				type: 'number',
-				description:
-					'Z-index that the popup should be displayed in.\nThis is passed to the portal component.\nThe default is 400.',
 			},
 		],
 	},
@@ -11114,6 +11020,20 @@ export const components: ComponentMcpPayload[] = [
 				type: 'string[]',
 				description:
 					'Display a keyboard shortcut in the tooltip.\n\nKeys will be displayed as individual keyboard key segments after the tooltip content.',
+			},
+			{
+				name: 'shouldAlwaysFadeIn',
+				type: 'boolean',
+				description:
+					'When set to true, the tooltip will always use the fade-in animation\nand never use the show-immediate behavior, even when another tooltip\nis already visible.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'shouldRenderToParent',
+				type: 'boolean',
+				description:
+					'When enabled, the tooltip will be rendered as a sibling to the trigger element instead of being portaled to the document body.\n\nThis is an experimental prop and may be removed at any time. It is not yet intended for public use.',
+				defaultValue: 'false',
 			},
 			{
 				name: 'strategy',

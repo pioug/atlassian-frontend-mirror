@@ -1,3 +1,4 @@
+/** @deprecated Use @atlaskit/linking-types/datasource */
 export type {
 	Access,
 	DateRange,
@@ -37,8 +38,9 @@ export type {
 	User,
 	UserType,
 	Visibility,
-} from './datasource-types';
+} from './entry-points/datasource-types';
 
+/** @deprecated Use @atlaskit/linking-types/datasource-actions */
 export type {
 	ActionsDiscoveryRequest,
 	PermissionTypes,
@@ -49,10 +51,12 @@ export type {
 	AtomicActionExecuteRequest,
 	AtomicActionExecuteResponse,
 	ActionsServiceError,
-} from './datasource-action-types';
+} from './entry-points/datasource-action-types';
 
-export { ActionOperationStatus } from './datasource-action-types';
+/** @deprecated Use @atlaskit/linking-types/datasource-actions */
+export { ActionOperationStatus } from './entry-points/datasource-action-types';
 
+/** @deprecated Use @atlaskit/linking-types/smart-link-actions */
 export type {
 	InvokeRequest,
 	InvokeRequestAction,
@@ -60,12 +64,16 @@ export type {
 	InvokeResponse,
 	InvokeErrorResponse,
 	GetStatusTransitionsInvokeResponse,
-} from './smart-link-action-types';
+} from './entry-points/smart-link-action-types';
 
-export { SmartLinkActionType, InvokeError } from './smart-link-action-types';
+/** @deprecated Use @atlaskit/linking-types/smart-link-actions */
+export { SmartLinkActionType, InvokeError } from './entry-points/smart-link-action-types';
 
+/** @deprecated Use @atlaskit/linking-types/supported-feature */
 export type { SupportedFeature } from './supported-feature';
 
-export type { EntityType, DesignEntity } from './entity-types';
+/** @deprecated Use @atlaskit/linking-types/entity-types */
+export type { EntityType, DesignEntity } from './entry-points/entity-types';
 
+/** @deprecated Use @atlaskit/linking-types/smart-link */
 export type { SmartLinkResponse, ProviderGenerator } from './smart-link-types';

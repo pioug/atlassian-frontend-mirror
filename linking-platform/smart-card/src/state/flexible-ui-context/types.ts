@@ -281,7 +281,11 @@ export type FlexibleUiDataContext = {
 };
 
 export type LinkTitle = {
+	/** Optional middle-click handler. */
+	onAuxClick?: React.EventHandler<React.MouseEvent>;
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	/** Optional right-click handler. */
+	onContextMenu?: React.EventHandler<React.MouseEvent>;
 	text?: string;
 	url?: string;
 };

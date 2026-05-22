@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-panel",
-	"version": "12.1.3",
+	"version": "12.2.0",
 	"description": "Panel plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -113,6 +113,8 @@
 		}
 	},
 	"devDependencies": {
+		"react": "root:*",
+		"react-dom": "root:*",
 		"react-intl": "root:*"
 	}
 }

@@ -69,6 +69,7 @@
 		"@atlaskit/media-core": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@types/exenv": "root:*",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*"
 	},

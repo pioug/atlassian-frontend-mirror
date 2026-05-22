@@ -1,6 +1,6 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 
-import type { EntityType } from './entity-types';
+import type { EntityType } from './entry-points/entity-types';
 
 /**
  * This interface is part of the new metadata returned for noun entities for Smart Links.

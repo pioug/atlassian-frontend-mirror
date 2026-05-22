@@ -44,6 +44,7 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
+		"react": "root:*",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"
 	}

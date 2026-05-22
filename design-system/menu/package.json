@@ -75,7 +75,9 @@
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"ast-types": "root:*",
-		"jscodeshift": "root:*"
+		"jscodeshift": "root:*",
+		"react": "root:*",
+		"react-dom": "root:*"
 	},
 	"keywords": [
 		"atlaskit",

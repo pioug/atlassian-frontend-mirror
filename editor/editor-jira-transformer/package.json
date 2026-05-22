@@ -56,7 +56,8 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
-		"@emotion/react": "root:*"
+		"@emotion/react": "root:*",
+		"react": "root:*"
 	},
 	"techstack": {
 		"@repo/internal": {

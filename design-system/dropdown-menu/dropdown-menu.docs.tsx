@@ -1,8 +1,9 @@
 import path from 'path';
 
-import type { ComponentStructuredContentSource } from '@atlassian/structured-docs-types';
+import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
-const documentation: ComponentStructuredContentSource[] = [
+const documentation: StructuredContentSource = {
+	components: [
 	{
 		name: 'DropdownMenu',
 		description: 'A dropdown menu component for displaying contextual actions and options.',
@@ -241,6 +242,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['dropdown', 'menu', 'radio', 'group', 'single-select'],
 		categories: ['navigation', 'interaction', 'form'],
 	},
-];
+	],
+};
 
 export default documentation;

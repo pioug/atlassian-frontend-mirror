@@ -5,10 +5,7 @@ import { useIntl } from 'react-intl';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { TableCellMergeIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 
-import {
-	useTableMenuContext,
-	type TableMenuContextValue,
-} from '../../shared/TableMenuContext';
+import { useTableMenuContext, type TableMenuContextValue } from '../../shared/TableMenuContext';
 
 /**
  * Merge cells is only visible when the active selection can actually be merged

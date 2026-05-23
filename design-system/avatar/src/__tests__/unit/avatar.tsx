@@ -412,7 +412,6 @@ describe('Avatar', () => {
 		imageRoleTestCases,
 	);
 
-
 	ffTest.on(
 		SQUARE_AVATAR_MAX_SIZE_FF,
 		'should cap square xlarge and xxlarge sizes to large when the gate is enabled',

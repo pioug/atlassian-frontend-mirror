@@ -77,13 +77,12 @@ export function deriveAgentIdentity({
 	defaultName,
 }: AgentIdentityInput): DerivedAgentIdentity {
 	const trimmedAgentId = typeof agentId === 'string' ? agentId.trim() : undefined;
-	const specialistAgentId = trimmedAgentId && trimmedAgentId.length > 0 ? trimmedAgentId : undefined;
+	const specialistAgentId =
+		trimmedAgentId && trimmedAgentId.length > 0 ? trimmedAgentId : undefined;
 
 	const trimmedAgentName = agentName?.trim();
 	const visibleName = specialistAgentId ? trimmedAgentName || undefined : defaultName;
-	const accessibleName = specialistAgentId
-		? trimmedAgentName || specialistAgentId
-		: defaultName;
+	const accessibleName = specialistAgentId ? trimmedAgentName || specialistAgentId : defaultName;
 
 	const a2aGateOn = fg('rovo_agent_support_a2a_avatar');
 

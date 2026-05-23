@@ -6,9 +6,7 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import { EditorToolbarProvider } from '@atlaskit/editor-common/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import {
-	getSelectionRect,
-} from '@atlaskit/editor-tables/utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import type { MenuType, RegisterComponent } from '@atlaskit/editor-ui-control-model';
 import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model';
 import { Box } from '@atlaskit/primitives/compiled';

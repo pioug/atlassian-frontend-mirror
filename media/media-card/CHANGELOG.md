@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 80.5.7
+
+### Patch Changes
+
+- [`d2724a33cb299`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2724a33cb299) -
+  [ux] Bottom-align Rovo gradient loading bar (matches image-upload bottom-inset and 95% width).
+  Applies to the AI loading overlay shared by `@atlassian/rovo-platform-ui-components`,
+  `@atlaskit/media-card`, `@atlassian/native-embeds-core` (inline editing), and
+  `@atlassian/smart-creation` (`DynamicUiLoadingOverlay` in the Rovo Chat ephemeral preview /
+  staging area, behind `cc-maui-phase-2`).
+- Updated dependencies
+
 ## 80.5.6
 
 ### Patch Changes

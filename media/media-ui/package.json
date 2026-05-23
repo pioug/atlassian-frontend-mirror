@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-ui",
-	"version": "29.2.5",
+	"version": "29.3.0",
 	"description": "Includes common components and utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -95,9 +95,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_media_resume_video_on_token_expiry": {
-			"type": "boolean"
-		},
-		"should-render-to-parent-should-be-true-media-exif": {
 			"type": "boolean"
 		}
 	},

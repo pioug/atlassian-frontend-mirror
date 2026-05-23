@@ -17,7 +17,14 @@ const captionPlugin: CaptionPlugin = ({ api }) => {
 				{
 					name: 'caption',
 					plugin: ({ portalProviderAPI, providerFactory, eventDispatcher, dispatch, getIntl }) =>
-						createCaptionPlugin(portalProviderAPI, eventDispatcher, providerFactory, dispatch, api, getIntl()),
+						createCaptionPlugin(
+							portalProviderAPI,
+							eventDispatcher,
+							providerFactory,
+							dispatch,
+							api,
+							getIntl(),
+						),
 				},
 				{
 					name: 'captionKeymap',

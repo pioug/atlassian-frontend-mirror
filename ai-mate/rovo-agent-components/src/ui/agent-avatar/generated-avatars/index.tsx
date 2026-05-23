@@ -529,7 +529,7 @@ const outOfTheBoxAgentAvatar: {
 			<JiraWorkAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
 		color: blueColor,
-	}
+	},
 };
 
 /**

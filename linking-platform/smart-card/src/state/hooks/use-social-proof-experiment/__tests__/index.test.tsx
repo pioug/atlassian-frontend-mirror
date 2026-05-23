@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { renderHook } from '@atlassian/testing-library';
 
 import type { SocialProof } from '../../use-social-proof';
@@ -11,14 +11,19 @@ import useSocialProofExperiment, {
 } from '../index';
 
 const mockGetCurrentSiteCloudIdSync = jest.fn<string | undefined, [string | undefined]>();
-const mockGetProviderPctMapSync = jest.fn<Record<string, number> | null, [string | undefined, string]>();
+const mockGetProviderPctMapSync = jest.fn<
+	Record<string, number> | null,
+	[string | undefined, string]
+>();
 
 jest.mock('../../../services/current-site-cloud-id', () => ({
-	getCurrentSiteCloudIdSync: (...args: [string | undefined]) => mockGetCurrentSiteCloudIdSync(...args),
+	getCurrentSiteCloudIdSync: (...args: [string | undefined]) =>
+		mockGetCurrentSiteCloudIdSync(...args),
 }));
 
 jest.mock('../../../services/personalization', () => ({
-	getProviderPctMapSync: (...args: [string | undefined, string]) => mockGetProviderPctMapSync(...args),
+	getProviderPctMapSync: (...args: [string | undefined, string]) =>
+		mockGetProviderPctMapSync(...args),
 	SOCIAL_PROOF_TRAIT_NAME: 'sl_3p_connected_providers_site_pct',
 }));
 
@@ -31,6 +36,12 @@ jest.mock('../../use-social-proof', () => ({
 	default: (...args: [string | undefined, boolean, string | undefined]) =>
 		mockUseSocialProof(...args),
 }));
+
+jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
+	expValEquals: jest.fn(),
+}));
+
+const mockExpValEquals = jest.mocked(expValEquals);
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
 	<React.StrictMode>{children}</React.StrictMode>
@@ -49,6 +60,7 @@ describe('useSocialProofExperiment', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 		mockUseSocialProof.mockReturnValue(socialProofResult());
+		mockExpValEquals.mockReturnValue(false);
 		mockGetCurrentSiteCloudIdSync.mockReturnValue('cloud-id');
 		mockGetProviderPctMapSync.mockReturnValue({ [MOCK_EXTENSION_KEY]: 45 });
 	});
@@ -97,26 +109,41 @@ describe('useSocialProofExperiment', () => {
 		expect(result.current.tier).toBe('low');
 	});
 
-	eeTest.describe('social_proof_3p_unauth_block_exp', 'experiment enabled').variant(true, () => {
-		it('returns isTreatment=true when loaded with social proof data', () => {
-			mockUseSocialProof.mockReturnValue(socialProofResult({ connectedPct: 45 }));
+	it('returns isTreatment=true when loaded with social proof data and experiment is enabled', () => {
+		mockUseSocialProof.mockReturnValue(socialProofResult({ connectedPct: 45 }));
+		mockExpValEquals.mockReturnValue(true);
 
-			const result = renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
+		const result = renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
 
-			expect(result.current.isTreatment).toBe(true);
-			expect(result.current.connectedPct).toBe(45);
-			expect(result.current.tier).toBe('not-low');
-		});
+		expect(mockExpValEquals).toHaveBeenCalledWith(
+			'social_proof_3p_unauth_block_exp',
+			'isEnabled',
+			true,
+		);
+		expect(result.current.isTreatment).toBe(true);
+		expect(result.current.connectedPct).toBe(45);
+		expect(result.current.tier).toBe('not-low');
 	});
 
-	eeTest.describe('social_proof_3p_unauth_block_exp', 'experiment disabled').variant(false, () => {
-		it('returns isTreatment=false when experiment is off', () => {
-			mockUseSocialProof.mockReturnValue(socialProofResult({ connectedPct: 45 }));
+	it('returns isTreatment=false when experiment is off', () => {
+		mockUseSocialProof.mockReturnValue(socialProofResult({ connectedPct: 45 }));
 
-			const result = renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
+		const result = renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
 
-			expect(result.current.isTreatment).toBe(false);
-		});
+		expect(mockExpValEquals).toHaveBeenCalledWith(
+			'social_proof_3p_unauth_block_exp',
+			'isEnabled',
+			true,
+		);
+		expect(result.current.isTreatment).toBe(false);
+	});
+
+	it('does not check the experiment before social proof data has loaded', () => {
+		mockUseSocialProof.mockReturnValue(socialProofResult({ isLoading: true, connectedPct: 45 }));
+
+		renderHook(() => useSocialProofExperiment(MOCK_EXTENSION_KEY), { wrapper });
+
+		expect(mockExpValEquals).not.toHaveBeenCalled();
 	});
 
 	describe('tier calculation', () => {

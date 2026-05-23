@@ -18,7 +18,9 @@ describe('deriveAgentIdentity', () => {
 		it('treats empty / whitespace agentId as no specialist', () => {
 			expect.hasAssertions();
 			expect(deriveAgentIdentity({ ...baseInput, agentId: '' }).specialistAgentId).toBeUndefined();
-			expect(deriveAgentIdentity({ ...baseInput, agentId: '   ' }).specialistAgentId).toBeUndefined();
+			expect(
+				deriveAgentIdentity({ ...baseInput, agentId: '   ' }).specialistAgentId,
+			).toBeUndefined();
 		});
 	});
 

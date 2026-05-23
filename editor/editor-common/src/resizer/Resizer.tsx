@@ -16,6 +16,7 @@ import { useIntl } from 'react-intl';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -211,7 +212,11 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 		...otherProps
 	} = props;
 
-	const supportedHandles = expValEquals('databases-native-embeds-v2', 'isEnabled', true)
+	const isDatabasesV2Enabled =
+		expValEqualsNoExposure('cc-maui-experiment', 'isEnabled', true) &&
+		expValEquals('databases-native-embeds-v2', 'isEnabled', true);
+
+	const supportedHandles = isDatabasesV2Enabled
 		? SUPPORTED_HANDLES_FOR_VERTICAL_RESIZE
 		: SUPPORTED_HANDLES;
 
@@ -247,13 +252,13 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 				width: resizableCurrent.state.original.width,
 				height: resizableCurrent.state.original.height,
 			};
-			if (expValEquals('databases-native-embeds-v2', 'isEnabled', true)) {
+			if (isDatabasesV2Enabled) {
 				handleResize(originalState, delta, direction);
 			} else {
 				handleResize(originalState, delta);
 			}
 		},
-		[handleResize],
+		[handleResize, isDatabasesV2Enabled],
 	);
 
 	const onResizeStop = useCallback(
@@ -276,13 +281,13 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 			};
 
 			setIsResizing(false);
-			if (expValEquals('databases-native-embeds-v2', 'isEnabled', true)) {
+			if (isDatabasesV2Enabled) {
 				handleResizeStop(originalState, delta, direction);
 			} else {
 				handleResizeStop(originalState, delta);
 			}
 		},
-		[handleResizeStop],
+		[handleResizeStop, isDatabasesV2Enabled],
 	);
 
 	const handles = useMemo(
@@ -294,14 +299,12 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 						handleClassName ?? resizerHandleClassName,
 						position,
 						handleSize,
-						position === 'bottom' && expValEquals('databases-native-embeds-v2', 'isEnabled', true)
-							? undefined
-							: handleAlignmentMethod,
+						position === 'bottom' && isDatabasesV2Enabled ? undefined : handleAlignmentMethod,
 					),
 				}),
 				{} as Record<keyof EnabledHandles, string>,
 			),
-		[handleClassName, handleSize, handleAlignmentMethod, supportedHandles],
+		[handleClassName, handleSize, handleAlignmentMethod, supportedHandles, isDatabasesV2Enabled],
 	);
 
 	const handleWidth = handlePositioning === 'adjacent' ? token('space.100') : token('space.300');
@@ -462,9 +465,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 		return snapGap;
 	}, [snap, snapGap]);
 
-	const resolvedHeight = expValEquals('databases-native-embeds-v2', 'isEnabled', true)
-		? (height ?? 'auto')
-		: 'auto';
+	const resolvedHeight = isDatabasesV2Enabled ? (height ?? 'auto') : 'auto';
 	const resizerAutoSize = useMemo(
 		() => ({ width: width ?? 'auto', height: resolvedHeight }),
 		[resolvedHeight, width],

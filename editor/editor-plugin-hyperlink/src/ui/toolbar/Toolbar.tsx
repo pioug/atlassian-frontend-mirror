@@ -365,11 +365,13 @@ export const getToolbarConfig =
 						? getLinkText(activeLinkMark, state)
 						: linkState.activeText;
 
-					const popupHeight = lpLinkPicker ? LINKPICKER_HEIGHT_IN_PX : RECENT_SEARCH_HEIGHT_IN_PX;
+					const popupHeight =
+						options?.linkPicker?.popupHeight ??
+						(lpLinkPicker ? LINKPICKER_HEIGHT_IN_PX : RECENT_SEARCH_HEIGHT_IN_PX);
 
-					// Removing popupWidth to ensure that we the popup always positions setting positon left instead of flipping to position right
-					// inside of a narrow space like Preview panel
-					const popupWidth = !lpLinkPicker ? undefined : RECENT_SEARCH_WIDTH_IN_PX;
+					const popupWidth =
+						options?.linkPicker?.popupWidth ??
+						(!lpLinkPicker ? undefined : RECENT_SEARCH_WIDTH_IN_PX);
 
 					return {
 						...hyperLinkToolbar,

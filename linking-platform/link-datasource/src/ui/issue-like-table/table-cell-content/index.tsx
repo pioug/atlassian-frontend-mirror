@@ -151,10 +151,12 @@ export const ReadOnlyCell = ({
 				datasourceTypeWithValues={datasourceTypeWithValues}
 				wrappedColumnKeys={wrappedColumnKeys}
 			>
-				{isIssueTypeColumn && issueLinkData ? getLinkedCellContent({
-					children: renderItem(datasourceTypeWithValues),
-					issueLinkData,
-				}) : renderItem(datasourceTypeWithValues)}
+				{isIssueTypeColumn && issueLinkData
+					? getLinkedCellContent({
+							children: renderItem(datasourceTypeWithValues),
+							issueLinkData,
+						})
+					: renderItem(datasourceTypeWithValues)}
 			</TooltipWrapper>
 		);
 	}
@@ -213,14 +215,15 @@ const InlineEditableCell = ({
 				// minHeight here compensates for 2px from both top and bottom taken by InlneEdit (from transparent border in read-view mode and border+padding in edit view)
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={{ minHeight: 'calc(40px - 2px * 2)' }}
-			>{fg('platform_lp_sllv_jira_type_as_link') ? (
-				!isEditable && isIssueTypeColumnFn(columnKey) && issueLinkData ? getLinkedCellContent({
-					children: renderItem(values),
-					issueLinkData,
-				}) : renderItem(values)
-			) : (
-				renderItem(values)
-			)}
+			>
+				{fg('platform_lp_sllv_jira_type_as_link')
+					? !isEditable && isIssueTypeColumnFn(columnKey) && issueLinkData
+						? getLinkedCellContent({
+								children: renderItem(values),
+								issueLinkData,
+							})
+						: renderItem(values)
+					: renderItem(values)}
 			</Box>
 		</TooltipWrapper>
 	);
@@ -290,9 +293,7 @@ export const TableCellContent = ({
 					renderItem={renderItem}
 					integrationKey={integrationKey}
 					issueLinkData={
-						fg('platform_lp_sllv_jira_type_as_link')
-							? getIssueLinkData(rowData)
-							: undefined
+						fg('platform_lp_sllv_jira_type_as_link') ? getIssueLinkData(rowData) : undefined
 					}
 					values={toDatasourceTypeWithValues({ rowData, columnKey, columnType })}
 					wrappedColumnKeys={wrappedColumnKeys}

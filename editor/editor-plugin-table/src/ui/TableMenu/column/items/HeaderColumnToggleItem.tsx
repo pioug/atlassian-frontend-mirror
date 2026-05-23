@@ -32,7 +32,9 @@ export const shouldShowHeaderColumnToggle = ({
 }): boolean =>
 	isHeaderColumnAllowed === true && isFirstColumn === true && selectedColumnCount === 1;
 
-export const HeaderColumnToggleItem = (props: TableMenuComponentsParams): React.JSX.Element | null => {
+export const HeaderColumnToggleItem = (
+	props: TableMenuComponentsParams,
+): React.JSX.Element | null => {
 	const { api } = props;
 	const { editorView } = useEditorToolbar();
 	const tableMenuContext = useTableMenuContext();

@@ -116,14 +116,24 @@ const FloatingDragMenu: FloatingDragMenuFunction = ({
 			mountTo={mountPoint}
 			boundariesElement={boundariesElement}
 			scrollableElement={scrollableElement}
-			fitWidth={expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) ? TABLE_MENU_WIDTH : dragMenuDropdownWidth}
+			fitWidth={
+				expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)
+					? TABLE_MENU_WIDTH
+					: dragMenuDropdownWidth
+			}
 			fitHeight={tablePopupMenuFitHeight}
 			// z-index value below is to ensure that this menu is above other floating menu
 			// in table, but below floating dialogs like typeaheads, pickers, etc.
 			// In sticky mode, we want to show the menu above the sticky header
 			zIndex={inStickyMode ? akEditorFloatingDialogZIndex : akEditorFloatingOverlapPanelZIndex}
 			forcePlacement={true}
-			offset={expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) ? [TABLE_MENU_OFFSET, 0] : direction === 'row' ? [-9, 0] : [0, -7]}
+			offset={
+				expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)
+					? [TABLE_MENU_OFFSET, 0]
+					: direction === 'row'
+						? [-9, 0]
+						: [0, -7]
+			}
 			stick={true}
 		>
 			{expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) ? (

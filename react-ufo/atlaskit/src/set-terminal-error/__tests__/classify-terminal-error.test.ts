@@ -91,6 +91,8 @@ describe('classifyTerminalError', () => {
 
 	it('does not classify access_denied as abort when name is not AuthError', () => {
 		// e.g. a 403 response body containing "access_denied"
-		expect(classifyTerminalError(makeError('Error', 'Policy check: access_denied'))).toBe('product');
+		expect(classifyTerminalError(makeError('Error', 'Policy check: access_denied'))).toBe(
+			'product',
+		);
 	});
 });

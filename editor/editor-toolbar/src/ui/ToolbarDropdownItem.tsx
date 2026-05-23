@@ -193,15 +193,15 @@ type ToolbarDropdownItemProps = ToolbarDropdownItemInteractionProps & {
 
 type CustomDropdownMenuItemAnchorProps = CustomItemComponentProps &
 	ToolbarDropdownItemInteractionProps & {
-	'aria-disabled'?: boolean;
-	'aria-haspopup'?: boolean;
-	'aria-keyshortcuts'?: string;
-	'aria-pressed'?: boolean;
-	href: string;
-	rel?: string;
-	target?: string;
-	title?: string;
-} & DataAttributes;
+		'aria-disabled'?: boolean;
+		'aria-haspopup'?: boolean;
+		'aria-keyshortcuts'?: string;
+		'aria-pressed'?: boolean;
+		href: string;
+		rel?: string;
+		target?: string;
+		title?: string;
+	} & DataAttributes;
 
 const CustomDropdownMenuItemAnchor = forwardRef<
 	HTMLAnchorElement,

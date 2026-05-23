@@ -1,5 +1,25 @@
 # @atlaskit/editor-common
 
+## 114.43.0
+
+### Minor Changes
+
+- [`09fd1de566937`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09fd1de566937) -
+  Add UFO experience tracking to `@atlaskit/editor-plugin-autocomplete` for the asynchronous
+  operations that have meaningful latency and success/failure outcomes — slow-lane fetch, vocabulary
+  load, and vectors load. Experiences surface downstream as
+  `platform.fe.operation.editor-plugin-autocomplete.<name>`.
+
+  Per-keystroke suggestion lifecycle counters (view, insert, dismiss) are tracked exclusively via
+  analytics-next instead of UFO, to avoid emitting zero-duration events on every word boundary. A
+  new `suggestionDismissed` contextual-typeahead analytics event is added
+  (`@atlaskit/editor-common`) alongside the existing `suggestionViewed` / `suggestionInserted`
+  events, with a `reason: 'escape' | 'blur'` attribute.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.42.0
 
 ### Minor Changes

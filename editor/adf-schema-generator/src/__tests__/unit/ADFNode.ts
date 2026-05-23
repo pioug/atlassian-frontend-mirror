@@ -518,7 +518,8 @@ describe('addContent', () => {
 		expect(panelC1.getSpec()?.content).toEqual([$onePlus($or(paragraph, table))]);
 		// Verify that the original `paragraph` reference is preserved — not a broken clone.
 		// (ADFNode state lives in private # fields so toEqual cannot catch broken clones.)
-		const c1OrContent = (panelC1.getSpec()!.content![0] as ADFNodeContentOneOrMoreSpec).content as ADFNodeContentOrSpec;
+		const c1OrContent = (panelC1.getSpec()!.content![0] as ADFNodeContentOneOrMoreSpec)
+			.content as ADFNodeContentOrSpec;
 		expect(c1OrContent.content[0]!).toBe(paragraph);
 	});
 
@@ -533,7 +534,9 @@ describe('addContent', () => {
 		doc.addContent(table);
 		doc.addContent(table); // second call — should not duplicate
 
-		const orContent = ((doc.getSpec()!.content![0] as ADFNodeContentOneOrMoreSpec).content as ADFNodeContentOrSpec).content;
+		const orContent = (
+			(doc.getSpec()!.content![0] as ADFNodeContentOneOrMoreSpec).content as ADFNodeContentOrSpec
+		).content;
 		expect(orContent).toHaveLength(2);
 		expect(orContent[orContent.length - 1]!).toBe(table);
 	});

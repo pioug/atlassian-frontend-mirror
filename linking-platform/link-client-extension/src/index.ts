@@ -16,4 +16,7 @@ export {
 	mockActionsDiscoveryEmptyResponse,
 } from './services/use-data-source-client-extension/mocks';
 /** @deprecated use @atlaskit/link-client-extension/use-data-source-client-extension/types */
-export type { JsonLdDatasourceResponse, DatasourceResolveResponse } from './services/use-data-source-client-extension/types';
+export type {
+	JsonLdDatasourceResponse,
+	DatasourceResolveResponse,
+} from './services/use-data-source-client-extension/types';

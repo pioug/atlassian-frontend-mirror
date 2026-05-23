@@ -5,5 +5,5 @@ export type {
 	LinkCreateProps,
 	LinkCreateWithModalProps,
 	Validator,
-	ValidatorMap
+	ValidatorMap,
 } from '../common/types';

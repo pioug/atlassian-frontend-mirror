@@ -3960,7 +3960,7 @@ const editorContentStyles = cssMap({
 			},
 
 			h1: {
-				'> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .media-inline-image-wrapper':
+				"> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .media-inline-image-wrapper":
 					{
 						height: 36,
 						transform: 'translateY(-3px)',
@@ -3968,7 +3968,7 @@ const editorContentStyles = cssMap({
 			},
 
 			h2: {
-				'> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .media-inline-image-wrapper':
+				"> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .media-inline-image-wrapper":
 					{
 						height: 31,
 						transform: 'translateY(-3px)',
@@ -3976,7 +3976,7 @@ const editorContentStyles = cssMap({
 			},
 
 			h3: {
-				'> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .media-inline-image-wrapper':
+				"> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .media-inline-image-wrapper":
 					{
 						height: 25,
 						transform: 'translateY(-2px)',
@@ -3984,7 +3984,7 @@ const editorContentStyles = cssMap({
 			},
 
 			h4: {
-				'> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .media-inline-image-wrapper':
+				"> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .media-inline-image-wrapper":
 					{
 						height: 23,
 						transform: 'translateY(-2px)',
@@ -3992,7 +3992,7 @@ const editorContentStyles = cssMap({
 			},
 
 			h5: {
-				'> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .media-inline-image-wrapper':
+				"> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .media-inline-image-wrapper":
 					{
 						height: 20,
 						transform: 'translateY(-2px)',
@@ -4000,7 +4000,7 @@ const editorContentStyles = cssMap({
 			},
 
 			h6: {
-				'> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type=\'border\']) .media-inline-image-wrapper':
+				"> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .media-inline-image-wrapper":
 					{
 						height: 18,
 						transform: 'translateY(-2px)',
@@ -7468,12 +7468,12 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 		? {
 				'--ak-editor-base-font-size': `${editorFontSize({ theme: { baseFontSize } })}px`,
 				'--ak-editor--table-overflow-shadow': tableOverflowShadow,
-		  }
+			}
 		: {
 				'--ak-editor-base-font-size': `${editorFontSize({ theme: { baseFontSize } })}px`,
 				'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingDynamic()}px`,
 				'--ak-editor--table-overflow-shadow': tableOverflowShadow,
-		  };
+			};
 
 	const browser = getBrowserInfo();
 
@@ -7643,20 +7643,20 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				fg('platform-dst-lozenge-tag-badge-visual-uplifts')
 					? editorContentStyles.statusStylesTeam26
 					: fg('platform-component-visual-refresh')
-					? expValEqualsNoExposure(
-							'platform_editor_find_and_replace_improvements',
-							'isEnabled',
-							true,
-					  )
-						? editorContentStyles.statusStylesMixin_fg_platform_component_visual_refresh_with_search_match
-						: editorContentStyles.statusStylesMixin_fg_platform_component_visual_refresh
-					: expValEqualsNoExposure(
-							'platform_editor_find_and_replace_improvements',
-							'isEnabled',
-							true,
-					  )
-					? editorContentStyles.statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match
-					: editorContentStyles.statusStylesMixin_without_fg_platform_component_visual_refresh,
+						? expValEqualsNoExposure(
+								'platform_editor_find_and_replace_improvements',
+								'isEnabled',
+								true,
+							)
+							? editorContentStyles.statusStylesMixin_fg_platform_component_visual_refresh_with_search_match
+							: editorContentStyles.statusStylesMixin_fg_platform_component_visual_refresh
+						: expValEqualsNoExposure(
+									'platform_editor_find_and_replace_improvements',
+									'isEnabled',
+									true,
+							  )
+							? editorContentStyles.statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match
+							: editorContentStyles.statusStylesMixin_without_fg_platform_component_visual_refresh,
 				editorContentStyles.annotationStyles,
 				expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 					? editorExperiment('platform_editor_block_menu', true)
@@ -7726,19 +7726,19 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.dateVanillaStyles,
 				fg('platform_editor_typography_ugc')
 					? contentMode === 'compact' &&
-					  (expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+						(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
 							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 							(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 								fg('platform_editor_content_mode_button_mvp')))
 						? editorContentStyles.paragraphStylesWithScaledMargin
 						: editorContentStyles.paragraphStylesUGCRefreshed
 					: contentMode === 'compact' &&
-					  (expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-							(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-								fg('platform_editor_content_mode_button_mvp')))
-					? editorContentStyles.paragraphStylesOldWithScaledMargin
-					: editorContentStyles.paragraphStylesOld,
+						  (expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+								// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+								(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+									fg('platform_editor_content_mode_button_mvp')))
+						? editorContentStyles.paragraphStylesOldWithScaledMargin
+						: editorContentStyles.paragraphStylesOld,
 				editorContentStyles.linkStyles,
 				browser.safari && editorContentStyles.listsStylesSafariFix,
 				editorExperiment('platform_synced_block', true) &&

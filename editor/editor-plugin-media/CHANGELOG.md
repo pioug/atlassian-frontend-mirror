@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-media
 
+## 12.8.0
+
+### Minor Changes
+
+- [`58dc3a8cd70e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58dc3a8cd70e2) -
+  Remove confluence_frontend_preload_inline_comment_editor feature gate
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.7.5
 
 ### Patch Changes

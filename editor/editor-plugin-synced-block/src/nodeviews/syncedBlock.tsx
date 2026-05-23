@@ -106,12 +106,7 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		decorations: ReadonlyArray<Decoration>,
 		innerDecorations?: DecorationSource,
 	): boolean {
-		return super.update(
-			node,
-			decorations,
-			innerDecorations,
-			this.validUpdate,
-		);
+		return super.update(node, decorations, innerDecorations, this.validUpdate);
 	}
 
 	render({ getPos }: SyncBlockNodeViewProps): React.JSX.Element | null {

@@ -1,5 +1,12 @@
 # @atlaskit/conversation
 
+## 25.3.0
+
+### Minor Changes
+
+- [`192cdfa42f9d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/192cdfa42f9d3) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 25.2.1
 
 ### Patch Changes

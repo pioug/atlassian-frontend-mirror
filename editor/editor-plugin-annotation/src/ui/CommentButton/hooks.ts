@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getRangeInlineNodeNames } from '@atlaskit/editor-common/utils';
 import type { EditorState, SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AnnotationPlugin } from '../../annotationPluginType';
 import { resolveDraftBookmark } from '../../pm-plugins/utils';
@@ -30,10 +29,7 @@ export const useCommentButtonMount = ({
 			return;
 		}
 
-		if (
-			annotationProviders?.inlineComment &&
-			fg('confluence_frontend_preload_inline_comment_editor')
-		) {
+		if (annotationProviders?.inlineComment) {
 			annotationProviders.inlineComment.onCommentButtonMount?.();
 		}
 		// Check if the selection includes an non-text inline node

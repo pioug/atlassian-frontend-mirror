@@ -259,7 +259,11 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 					<FormattedMessage {...messages.emojiChooseFileScreenReaderDescription}>
 						{() => (
 							<FileChooser
-								label={fg('platform_emoji_picker_refresh') ? emojiChooseFileTitleNew : emojiChooseFileTitle}
+								label={
+									fg('platform_emoji_picker_refresh')
+										? emojiChooseFileTitleNew
+										: emojiChooseFileTitle
+								}
 								onChange={onChooseFile}
 								onClick={onClick}
 								accept="image/png,image/jpeg,image/gif"
@@ -357,7 +361,11 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 					<FormattedMessage {...messages.emojiChooseFileScreenReaderDescription}>
 						{() => (
 							<FileChooser
-								label={fg('platform_emoji_picker_refresh') ? emojiChooseFileTitleNew : emojiChooseFileTitle}
+								label={
+									fg('platform_emoji_picker_refresh')
+										? emojiChooseFileTitleNew
+										: emojiChooseFileTitle
+								}
 								onChange={onChooseFile}
 								onClick={onClick}
 								accept="image/png,image/jpeg,image/gif"

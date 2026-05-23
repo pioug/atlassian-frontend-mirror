@@ -311,7 +311,7 @@ const rule: Rule.RuleModule = createLintRule({
 			} = {},
 		): string {
 			// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
-			const sourceCode = (context.sourceCode ?? context.getSourceCode());
+			const sourceCode = context.sourceCode ?? context.getSourceCode();
 			const attributes = node.openingElement.attributes;
 
 			// Build new attributes array
@@ -632,7 +632,7 @@ const rule: Rule.RuleModule = createLintRule({
 								const importNode = tagImportInfo.node?.parent;
 								if (importNode) {
 									// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
-									const sourceCode = (context.sourceCode ?? context.getSourceCode());
+									const sourceCode = context.sourceCode ?? context.getSourceCode();
 									const mainModuleSource = '@atlaskit/tag';
 
 									// Get all other specifiers that are not SimpleTag or RemovableTag

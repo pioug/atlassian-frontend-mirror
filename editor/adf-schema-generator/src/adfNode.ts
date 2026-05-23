@@ -116,9 +116,8 @@ export class ADFNode<
 		// Case 2 — append `child` into the existing trailing `$one+($or(...))` / `$zero+($or(...))`.
 		const existingLast = this.#spec.content[this.#spec.content.length - 1];
 		const isQuantifier = existingLast?.type === '$one+' || existingLast?.type === '$zero+';
-		const existingOrGroup = isQuantifier && !Array.isArray(existingLast.content)
-			? existingLast.content
-			: undefined;
+		const existingOrGroup =
+			isQuantifier && !Array.isArray(existingLast.content) ? existingLast.content : undefined;
 		const isOrGroup = existingOrGroup?.type === '$or' && Array.isArray(existingOrGroup.content);
 
 		if (!isQuantifier || !isOrGroup || !existingOrGroup) {
@@ -144,10 +143,7 @@ export class ADFNode<
 			...existingLast,
 			content: clonedOrGroup,
 		} as ADFNodeContentOneOrMoreSpec | ADFNodeContentZeroOrMoreSpec;
-		const content = [
-			...this.#spec.content.slice(0, -1),
-			clonedQuantifier,
-		];
+		const content = [...this.#spec.content.slice(0, -1), clonedQuantifier];
 
 		this.#spec = { ...this.#spec, content };
 		return this;

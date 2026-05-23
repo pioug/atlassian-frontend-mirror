@@ -1,6 +1,9 @@
-The `SectionMessage` component in `@atlaskit/section-message`, when used with a `title` prop, needs to be the correct level within the document flow. This is not something that can be automated and requires contextual knowledge of what is present in the experience.
+The `SectionMessage` component in `@atlaskit/section-message`, when used with a `title` prop, needs
+to be the correct level within the document flow. This is not something that can be automated and
+requires contextual knowledge of what is present in the experience.
 
-For more information on proper heading flow, consider this [W3C document on heading hierarchy](https://www.w3.org/WAI/tutorials/page-structure/headings/).
+For more information on proper heading flow, consider this
+[W3C document on heading hierarchy](https://www.w3.org/WAI/tutorials/page-structure/headings/).
 
 ## Examples
 

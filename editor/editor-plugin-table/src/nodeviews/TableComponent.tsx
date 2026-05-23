@@ -171,7 +171,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		this.isNestedInTable = tablePos
 			? getParentOfTypeCount(props.view.state.schema.nodes.table)(
 					props.view.state.doc.resolve(tablePos),
-			  ) > 0
+				) > 0
 			: false;
 
 		if (!this.updateColGroupFromFullWidthChange) {
@@ -195,7 +195,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 								...prev,
 								tableWrapperWidth: entry.contentRect.width,
 								tableWrapperHeight: entry.contentRect.height,
-						  };
+							};
 				});
 			}
 		});

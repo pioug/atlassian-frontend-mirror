@@ -13,35 +13,35 @@ const packagePath = path.resolve(__dirname);
 
 const documentation: StructuredContentSource = {
 	components: [
-	{
-		name: 'Editor Jira Transformer',
-		description: "Editor JIRA transformer's",
-		status: 'general-availability',
-		import: {
+		{
 			name: 'Editor Jira Transformer',
-			package: '@atlaskit/editor-jira-transformer',
-			type: 'default',
-			packagePath,
-			packageJson,
+			description: "Editor JIRA transformer's",
+			status: 'general-availability',
+			import: {
+				name: 'Editor Jira Transformer',
+				package: '@atlaskit/editor-jira-transformer',
+				type: 'default',
+				packagePath,
+				packageJson,
+			},
+			usageGuidelines: [],
+			contentGuidelines: [],
+			accessibilityGuidelines: [],
+			keywords: ['editor', 'editor-jira-transformer', 'atlaskit'],
+			categories: ['editor'],
+			examples: [
+				{
+					name: 'Jira transformer',
+					description: 'Basic Jira transformer usage.',
+					source: path.resolve(packagePath, './examples/0-jira-transformer.tsx'),
+				},
+				{
+					name: 'Jira HTML to ADF',
+					description: 'Transform Jira HTML to ADF.',
+					source: path.resolve(packagePath, './examples/3-jira-html-to-adf.tsx'),
+				},
+			],
 		},
-		usageGuidelines: [],
-		contentGuidelines: [],
-		accessibilityGuidelines: [],
-		keywords: ['editor', 'editor-jira-transformer', 'atlaskit'],
-		categories: ['editor'],
-		examples: [
-			{
-				name: 'Jira transformer',
-				description: 'Basic Jira transformer usage.',
-				source: path.resolve(packagePath, './examples/0-jira-transformer.tsx'),
-			},
-			{
-				name: 'Jira HTML to ADF',
-				description: 'Transform Jira HTML to ADF.',
-				source: path.resolve(packagePath, './examples/3-jira-html-to-adf.tsx'),
-			},
-		],
-	},
 	],
 };
 

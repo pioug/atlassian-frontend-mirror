@@ -81,9 +81,10 @@ When applying components to the navigational areas,
 
 The main difference between panel and modal dialog is their behaviors:
 
-- **Panel** presents content alongside the **main** area, while a **modal dialog**
-  appears in a layer above the page.
-- **Panel** can be collapsed and resized. On small viewports (1024px and below), the **panel** becomes an overlay.
+- **Panel** presents content alongside the **main** area, while a **modal dialog** appears in a
+  layer above the page.
+- **Panel** can be collapsed and resized. On small viewports (1024px and below), the **panel**
+  becomes an overlay.
 
 #### Usage guidance
 
@@ -96,10 +97,9 @@ The main difference between panel and modal dialog is their behaviors:
 ## Accessibility
 
 - Always place slots in this order as direct children of the root: banner, top nav, side nav, main,
-  panel. This determines the keyboard tab order, screen reader reading order, and skip link
-  order.
-- Provide a unique, meaningful `label` for side nav, panel, and top nav end. The label is
-  exposed as the landmark's accessible name. Don't repeat the landmark's role in the label.
+  panel. This determines the keyboard tab order, screen reader reading order, and skip link order.
+- Provide a unique, meaningful `label` for side nav, panel, and top nav end. The label is exposed as
+  the landmark's accessible name. Don't repeat the landmark's role in the label.
 - Slots provide landmark roles automatically. Don't add or duplicate landmark roles inside them.
 - Use custom skip links sparingly. Too many skip links makes the skip links menu noisy. Consider the
   utility of each one before adding it.

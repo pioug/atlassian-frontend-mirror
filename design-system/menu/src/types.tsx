@@ -350,8 +350,9 @@ export interface CustomItemComponentProps {
 /**
  * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
-export interface CustomItemProps<TCustomComponentProps = CustomItemComponentProps>
-	extends MenuItemProps {
+export interface CustomItemProps<
+	TCustomComponentProps = CustomItemComponentProps,
+> extends MenuItemProps {
 	/**
 	 * Custom component to render as an item. This can be both a functional component or a class component.
 	 *

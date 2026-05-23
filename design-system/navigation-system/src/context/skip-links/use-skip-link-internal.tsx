@@ -40,5 +40,14 @@ export const useSkipLinkInternal: ({
 		return () => {
 			unregisterSkipLink(id);
 		};
-	}, [id, isHidden, label, listIndex, onBeforeNavigate, navigate, registerSkipLink, unregisterSkipLink]);
+	}, [
+		id,
+		isHidden,
+		label,
+		listIndex,
+		onBeforeNavigate,
+		navigate,
+		registerSkipLink,
+		unregisterSkipLink,
+	]);
 };

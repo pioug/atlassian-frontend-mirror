@@ -143,18 +143,18 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 							? layoutSectionWithSingleColumnLocalId
 							: layoutSectionWithSingleColumn
 						: fg('platform_editor_adf_with_localid')
-						? layoutSectionWithLocalId
-						: layoutSection,
+							? layoutSectionWithLocalId
+							: layoutSection,
 				},
 				{
 					name: 'layoutColumn',
 					node: expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)
 						? // `layoutColumnStage0` includes both `valign` and `localId` attrs, so it remains
-						  // compatible with `platform_editor_adf_with_localid` when both flags are enabled.
-						  layoutColumnStage0
+							// compatible with `platform_editor_adf_with_localid` when both flags are enabled.
+							layoutColumnStage0
 						: fg('platform_editor_adf_with_localid')
-						? layoutColumnWithLocalId
-						: layoutColumn,
+							? layoutColumnWithLocalId
+							: layoutColumn,
 				},
 			];
 		},
@@ -256,7 +256,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 										return tr;
 									},
 								},
-						  ]
+							]
 						: [];
 
 					if (expValEquals('platform_editor_layout_typeahead_reorder', 'isEnabled', true)) {

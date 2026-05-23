@@ -129,11 +129,7 @@ function VrPopoverJsFallback({ placement }: { placement: TPlacementOptions }) {
 
 // Renders a popover only; each Vr* export wraps it in a viewport-pinned
 // container so Compiled CSS can statically analyze the edge style.
-function PopupAtEdge({
-	placement,
-}: {
-	placement: TPlacementOptions;
-}) {
+function PopupAtEdge({ placement }: { placement: TPlacementOptions }) {
 	const label = offsetLabel(placement);
 	const triggerRef = useRef<HTMLButtonElement>(null);
 

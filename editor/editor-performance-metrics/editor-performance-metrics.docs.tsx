@@ -13,41 +13,41 @@ const packagePath = path.resolve(__dirname);
 
 const documentation: StructuredContentSource = {
 	components: [
-	{
-		name: 'EditorPerformanceMetrics',
-		description:
-			'Experimental code to track Editor Full Page performance on some particular scenarios',
-		status: 'general-availability',
-		import: {
+		{
 			name: 'EditorPerformanceMetrics',
-			package: '@atlaskit/editor-performance-metrics',
-			type: 'default',
-			packagePath,
-			packageJson,
+			description:
+				'Experimental code to track Editor Full Page performance on some particular scenarios',
+			status: 'general-availability',
+			import: {
+				name: 'EditorPerformanceMetrics',
+				package: '@atlaskit/editor-performance-metrics',
+				type: 'default',
+				packagePath,
+				packageJson,
+			},
+			usageGuidelines: [],
+			contentGuidelines: [],
+			accessibilityGuidelines: [],
+			keywords: ['editor', 'editor-performance-metrics', 'atlaskit'],
+			categories: ['editor'],
+			examples: [
+				{
+					name: 'VC observer next',
+					description: 'Viewport visibility observer (next API).',
+					source: path.resolve(packagePath, './examples/01-vc-observer-next.tsx'),
+				},
+				{
+					name: 'Editor full page',
+					description: 'Full page editor with performance metrics.',
+					source: path.resolve(packagePath, './examples/05-editor-full-page.tsx'),
+				},
+				{
+					name: 'Basic React',
+					description: 'Basic React render performance example.',
+					source: path.resolve(packagePath, './examples/06-basic-react.tsx'),
+				},
+			],
 		},
-		usageGuidelines: [],
-		contentGuidelines: [],
-		accessibilityGuidelines: [],
-		keywords: ['editor', 'editor-performance-metrics', 'atlaskit'],
-		categories: ['editor'],
-		examples: [
-			{
-				name: 'VC observer next',
-				description: 'Viewport visibility observer (next API).',
-				source: path.resolve(packagePath, './examples/01-vc-observer-next.tsx'),
-			},
-			{
-				name: 'Editor full page',
-				description: 'Full page editor with performance metrics.',
-				source: path.resolve(packagePath, './examples/05-editor-full-page.tsx'),
-			},
-			{
-				name: 'Basic React',
-				description: 'Basic React render performance example.',
-				source: path.resolve(packagePath, './examples/06-basic-react.tsx'),
-			},
-		],
-	},
 	],
 };
 

@@ -221,19 +221,15 @@ describe('Link Type', () => {
 			},
 		);
 
-		ffTest.off(
-			'astral_units_workspace_host_resolver',
-			'when the gate is OFF',
-			() => {
-				it('leaves assets urls untouched even if the resolver would return a host', () => {
-					mockGetMeta.mockReturnValue(cloudId);
-					mockUseAssetsWorkspaceHost.mockReturnValue(resolverWithHost(ABSOLUTE_HOST));
+		ffTest.off('astral_units_workspace_host_resolver', 'when the gate is OFF', () => {
+			it('leaves assets urls untouched even if the resolver would return a host', () => {
+				mockGetMeta.mockReturnValue(cloudId);
+				mockUseAssetsWorkspaceHost.mockReturnValue(resolverWithHost(ABSOLUTE_HOST));
 
-					const { getByRole } = setup({ url: ASSETS_PATH, text: 'MAS-1' });
-					expect(getByRole('link')).toHaveAttribute('href', ASSETS_PATH);
-				});
-			},
-		);
+				const { getByRole } = setup({ url: ASSETS_PATH, text: 'MAS-1' });
+				expect(getByRole('link')).toHaveAttribute('href', ASSETS_PATH);
+			});
+		});
 	});
 
 	it('should capture and report a11y violations', async () => {

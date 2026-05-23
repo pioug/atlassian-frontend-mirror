@@ -79,7 +79,9 @@ export const ToolbarNestedDropdownMenu = ({
 						hasNestedDropdownMenu={true}
 						isDisabled={isDisabled}
 						shouldTitleWrap={shouldTitleWrap}
-						data-extension-item-key={fg('cc_blocks_changeboarding') ? dataExtensionItemKey : undefined}
+						data-extension-item-key={
+							fg('cc_blocks_changeboarding') ? dataExtensionItemKey : undefined
+						}
 					>
 						{text}
 						{elemAfterText}

@@ -1,6 +1,6 @@
-import {type JsonLd} from '@atlaskit/json-ld-types';
-import {CardClient} from '@atlaskit/link-provider';
-import type {SmartLinkResponse} from '@atlaskit/linking-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
+import { CardClient } from '@atlaskit/link-provider';
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
 
 import {
 	AtlasProject,
@@ -12,8 +12,8 @@ import {
 	YouTubeVideo,
 	YouTubeVideoUrl,
 } from '../example-helpers';
-import {atlasProjectUrl} from '../example-helpers/_jsonLDExamples/provider.atlas';
-import {overrideEmbedContent} from '../example-helpers/_jsonLDExamples/utils';
+import { atlasProjectUrl } from '../example-helpers/_jsonLDExamples/provider.atlas';
+import { overrideEmbedContent } from '../example-helpers/_jsonLDExamples/utils';
 import {
 	avatar3,
 	figmaUnauthImage,

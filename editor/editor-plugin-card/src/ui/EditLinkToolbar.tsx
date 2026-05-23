@@ -256,12 +256,17 @@ export const buildEditLinkToolbar = ({
 export const editLinkToolbarConfig = (
 	showLinkingToolbar: boolean,
 	lpLinkPicker?: boolean,
+	linkPickerOptions?: LinkPickerOptions,
 ): Partial<FloatingToolbarConfig> => {
-	return showLinkingToolbar
-		? {
-				height: lpLinkPicker ? LINKPICKER_HEIGHT_IN_PX : RECENT_SEARCH_HEIGHT_IN_PX,
-				width: RECENT_SEARCH_WIDTH_IN_PX,
-				forcePlacement: true,
-			}
-		: {};
+	if (!showLinkingToolbar) {
+		return {};
+	}
+	return {
+		height:
+			linkPickerOptions?.popupHeight ??
+			(lpLinkPicker ? LINKPICKER_HEIGHT_IN_PX : RECENT_SEARCH_HEIGHT_IN_PX),
+		width: linkPickerOptions?.popupWidth ?? RECENT_SEARCH_WIDTH_IN_PX,
+		// forcePlacement is always true to prevent the popup from rendering off-screen
+		forcePlacement: true,
+	};
 };

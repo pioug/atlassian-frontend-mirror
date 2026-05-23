@@ -19,7 +19,9 @@ import type { TableMenuComponentsParams } from '../../shared/types';
 const shouldShowDistributeColumns = (selectedColumnCount?: number): boolean =>
 	(selectedColumnCount ?? 0) > 1;
 
-export const DistributeColumnsItem = ({ api }: TableMenuComponentsParams): React.JSX.Element | null => {
+export const DistributeColumnsItem = ({
+	api,
+}: TableMenuComponentsParams): React.JSX.Element | null => {
 	const { editorView } = useEditorToolbar();
 	const tableMenuContext = useTableMenuContext();
 	const { formatMessage } = useIntl();

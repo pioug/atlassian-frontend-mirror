@@ -1,14 +1,9 @@
 import { useMemo } from 'react';
 
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import {
-	getCurrentSiteCloudIdSync,
-} from '../../services/current-site-cloud-id';
-import {
-	getProviderPctMapSync,
-	SOCIAL_PROOF_TRAIT_NAME,
-} from '../../services/personalization';
+import { getCurrentSiteCloudIdSync } from '../../services/current-site-cloud-id';
+import { getProviderPctMapSync, SOCIAL_PROOF_TRAIT_NAME } from '../../services/personalization';
 import useSocialProof from '../use-social-proof';
 
 export type SocialProofTier = 'low' | 'not-low';
@@ -127,7 +122,7 @@ const useSocialProofExperiment = (
 		// Only fire exposure when data has loaded (prevents exposure inflation)
 		const isTreatment =
 			isEnabled && !isLoading && hasSocialProofData
-				? editorExperiment('social_proof_3p_unauth_block_exp', true)
+				? expValEquals(SOCIAL_PROOF_3P_UNAUTH_BLOCK_EXPERIMENT_KEY, 'isEnabled', true)
 				: false;
 
 		const tier = getSocialProofTier(connectedPct) ?? 'low';

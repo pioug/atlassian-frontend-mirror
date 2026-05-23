@@ -1,5 +1,16 @@
 # @atlaskit/media-picker
 
+## 71.4.0
+
+### Minor Changes
+
+- [`4b1523c328148`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b1523c328148) -
+  Clean up flag to improve accessibility of layered components.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 71.3.1
 
 ### Patch Changes

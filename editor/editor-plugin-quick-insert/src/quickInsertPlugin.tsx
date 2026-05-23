@@ -107,7 +107,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 						onClick: openElementBrowserModal,
 						iconBefore: <ShowMoreHorizontalIcon label="" />,
 					};
-			  }
+				}
 			: undefined,
 	};
 

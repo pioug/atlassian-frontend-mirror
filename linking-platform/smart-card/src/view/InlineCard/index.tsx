@@ -116,12 +116,10 @@ export const InlineCard = ({
 					isSelected={isSelected}
 					isHovered={isHovered}
 					onClick={handleFrameClick}
-
 					// Support middle-/right-clicks for "resolved" only — the vast majority of clicks happen here.
 					// Other states (e.g. "resolving") could be added later for completeness.
 					onAuxClick={handleFrameAuxClick}
 					onContextMenu={handleFrameContextMenu}
-
 					testId={testIdWithStatus}
 					truncateInline={truncateInline}
 					hideIconLoadingSkeleton={hideIconLoadingSkeleton}

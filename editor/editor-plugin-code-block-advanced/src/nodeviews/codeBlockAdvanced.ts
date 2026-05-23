@@ -437,9 +437,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		const lineNumbersHidden = areCodeBlockLineNumbersHidden(node);
 		if (this.lineNumbersHidden !== lineNumbersHidden) {
 			this.lineNumbersHidden = lineNumbersHidden;
-			return this.lineNumbersCompartment.reconfigure(
-				this.getLineNumberVisibilityExtensions(node),
-			);
+			return this.lineNumbersCompartment.reconfigure(this.getLineNumberVisibilityExtensions(node));
 		}
 		return undefined;
 	}

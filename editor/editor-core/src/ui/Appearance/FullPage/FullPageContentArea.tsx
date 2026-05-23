@@ -470,11 +470,7 @@ const Content = React.forwardRef<
 									? contentComponentClickWrapper(props.customContentComponents.after)
 									: null}
 								{allowScrollGutter &&
-									(FeatureGates.getExperimentValue(
-										'cc_snippets',
-										'isEnabled',
-										false,
-									) ? (
+									(FeatureGates.getExperimentValue('cc_snippets', 'isEnabled', false) ? (
 										<div
 											id="editor-scroll-gutter"
 											style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}

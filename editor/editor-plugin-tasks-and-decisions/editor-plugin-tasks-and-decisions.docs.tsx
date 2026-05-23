@@ -13,30 +13,33 @@ const packagePath = path.resolve(__dirname);
 
 const documentation: StructuredContentSource = {
 	components: [
-	{
-		name: 'Editor Plugin Tasks And Decisions',
-		description: 'Tasks and decisions plugin for @atlaskit/editor-core',
-		status: 'general-availability',
-		import: {
-			name: 'tasksAndDecisionsPlugin',
-			package: '@atlaskit/editor-plugin-tasks-and-decisions',
-			type: 'named',
-			packagePath,
-			packageJson,
-		},
-		usageGuidelines: [],
-		contentGuidelines: [],
-		accessibilityGuidelines: [],
-		keywords: ['editor', 'editor-plugin-tasks-and-decisions', 'atlaskit'],
-		categories: ['editor'],
-		examples: [
-			{
-				name: 'Composable editor tasks and decisions',
-				description: 'Tasks and decisions plugin in composable editor.',
-				source: path.resolve(packagePath, './examples/1-composable-editor-tasks-and-decisions.tsx'),
+		{
+			name: 'Editor Plugin Tasks And Decisions',
+			description: 'Tasks and decisions plugin for @atlaskit/editor-core',
+			status: 'general-availability',
+			import: {
+				name: 'tasksAndDecisionsPlugin',
+				package: '@atlaskit/editor-plugin-tasks-and-decisions',
+				type: 'named',
+				packagePath,
+				packageJson,
 			},
-		],
-	},
+			usageGuidelines: [],
+			contentGuidelines: [],
+			accessibilityGuidelines: [],
+			keywords: ['editor', 'editor-plugin-tasks-and-decisions', 'atlaskit'],
+			categories: ['editor'],
+			examples: [
+				{
+					name: 'Composable editor tasks and decisions',
+					description: 'Tasks and decisions plugin in composable editor.',
+					source: path.resolve(
+						packagePath,
+						'./examples/1-composable-editor-tasks-and-decisions.tsx',
+					),
+				},
+			],
+		},
 	],
 };
 

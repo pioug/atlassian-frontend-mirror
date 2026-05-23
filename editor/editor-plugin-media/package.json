@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "12.7.5",
+	"version": "12.8.0",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -152,9 +152,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_content_mode_button_mvp": {
-			"type": "boolean"
-		},
-		"confluence_frontend_preload_inline_comment_editor": {
 			"type": "boolean"
 		},
 		"platform_media_video_captions": {

@@ -24,7 +24,9 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./charlie-hierarchy": "./src/charlie-hierarchy/charlie-hierarchy.tsx",
+		"./use-hierarchy": "./src/hooks/use-hierarchy.ts"
 	},
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",
@@ -95,7 +97,7 @@
 		]
 	},
 	"name": "@atlaskit/charlie-hierarchy",
-	"version": "0.1.18",
+	"version": "0.2.0",
 	"description": "A component for building SVG-rendered trees, with support for custom node rendering, zooming, and panning.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

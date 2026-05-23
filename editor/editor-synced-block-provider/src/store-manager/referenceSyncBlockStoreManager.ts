@@ -215,9 +215,7 @@ export class ReferenceSyncBlockStoreManager {
 		return this.getFromSessionCache(resourceId);
 	}
 
-	private stripAnnotationMarksFromReferenceData(
-		syncBlock: SyncBlockInstance,
-	): SyncBlockInstance {
+	private stripAnnotationMarksFromReferenceData(syncBlock: SyncBlockInstance): SyncBlockInstance {
 		if (!fg('platform_synced_block_patch_12') || !syncBlock.data?.content) {
 			return syncBlock;
 		}
@@ -357,7 +355,7 @@ export class ReferenceSyncBlockStoreManager {
 			// Derive once per call so we don't re-parse on every analytics event below.
 			// `product` from cached data is preferred when available; fall back to parsing
 			// the resourceId.
-			const sourceProduct = (product ?? getSourceProductFromResourceIdSafe(resourceId));
+			const sourceProduct = product ?? getSourceProductFromResourceIdSafe(resourceId);
 
 			if (!sourceAri || !product || !blockInstanceId) {
 				this.fireAnalyticsEvent?.(
@@ -583,7 +581,8 @@ export class ReferenceSyncBlockStoreManager {
 					fetchErrorPayload(
 						syncBlockInstance.error.reason || syncBlockInstance.error.type,
 						syncBlockInstance.resourceId,
-						(syncBlockInstance.data?.product ?? getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId)),
+						syncBlockInstance.data?.product ??
+							getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId),
 					),
 				);
 
@@ -606,7 +605,8 @@ export class ReferenceSyncBlockStoreManager {
 					fetchSuccessPayload(
 						syncBlockInstance.resourceId,
 						localId,
-						(syncBlockInstance.data?.product ?? getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId)),
+						syncBlockInstance.data?.product ??
+							getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId),
 					),
 				);
 			});

@@ -19,15 +19,16 @@ const overlayStyles = css({
 	position: 'absolute',
 	inset: 0,
 	display: 'flex',
-	alignItems: 'center',
+	alignItems: 'flex-end',
 	justifyContent: 'center',
+	paddingBlockEnd: token('space.150', '12px'),
 	pointerEvents: 'auto',
 	backgroundColor: token('color.blanket', 'rgba(9, 30, 66, 0.36)'),
 	zIndex: 5,
 });
 
 const progressBarTrackStyles = css({
-	width: '75%',
+	width: '95%',
 	height: '3px',
 	position: 'relative',
 	borderRadius: token('radius.xsmall'),

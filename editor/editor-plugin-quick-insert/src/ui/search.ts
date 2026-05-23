@@ -16,9 +16,7 @@ type QuickInsertPrioritySortFn = NonNullable<
 >;
 type QuickInsertPrioritySortResult = Parameters<QuickInsertPrioritySortFn>[0];
 
-const isRegisteredLayoutQuickInsertItem = (
-	item: QuickInsertItem,
-): item is QuickInsertItemWithId =>
+const isRegisteredLayoutQuickInsertItem = (item: QuickInsertItem): item is QuickInsertItemWithId =>
 	Boolean(
 		item.id &&
 		item.id !== 'layout' &&
@@ -29,20 +27,17 @@ const isRegisteredLayoutQuickInsertItem = (
 const getLayoutQuickInsertItemIdRank = (
 	items: QuickInsertItem[],
 ): Map<QuickInsertItem['id'], number> =>
-	new Map(
-		items
-			.filter(isRegisteredLayoutQuickInsertItem)
-			.map((item, index) => [item.id, index]),
-	);
+	new Map(items.filter(isRegisteredLayoutQuickInsertItem).map((item, index) => [item.id, index]));
 
 const getQuickInsertItemId = (
 	items: QuickInsertItem[],
 	result: QuickInsertPrioritySortResult,
 ): QuickInsertItem['id'] => items[result.idx]?.id;
 
-export const withLayoutQuickInsertPrioritySorting = (
-	prioritySortingFn?: QuickInsertSearchOptions['prioritySortingFn'],
-): QuickInsertSearchOptions['prioritySortingFn'] =>
+export const withLayoutQuickInsertPrioritySorting =
+	(
+		prioritySortingFn?: QuickInsertSearchOptions['prioritySortingFn'],
+	): QuickInsertSearchOptions['prioritySortingFn'] =>
 	(items) => {
 		const consumerSortFn = prioritySortingFn?.(items);
 		const layoutItemIdRank = getLayoutQuickInsertItemIdRank(items);

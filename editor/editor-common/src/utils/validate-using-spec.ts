@@ -134,7 +134,11 @@ export const validationErrorHandler = (
 	// INVALID_CONTENT error when the experiment is active.
 	if (options.allowTableInPanel) {
 		const meta = error.meta as ValidationErrorMap['INVALID_CONTENT'] | undefined;
-		if (meta?.parentType === 'panel' && error.code === 'INVALID_CONTENT' && entity.type === 'table') {
+		if (
+			meta?.parentType === 'panel' &&
+			error.code === 'INVALID_CONTENT' &&
+			entity.type === 'table'
+		) {
 			return entity;
 		}
 	}

@@ -374,7 +374,12 @@ const generateGlobalComponentPropTypes = (): void => {
 		}
 
 		const { interfaceDecl, sourceFilePath } = resolved;
-		const sourceCode = generateComponentPropTypeCode(interfaceDecl, allPropsNames, sourceFilePath, project);
+		const sourceCode = generateComponentPropTypeCode(
+			interfaceDecl,
+			allPropsNames,
+			sourceFilePath,
+			project,
+		);
 		const outputPath = resolve(GLOBAL_OUTPUT_DIR, `${symbolName}.codegen.tsx`);
 
 		const existingSourceCode = fs.existsSync(outputPath)

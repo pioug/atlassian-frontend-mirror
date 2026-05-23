@@ -23,6 +23,9 @@
 			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../data/ufo-external/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-products/tsconfig.json"
 		},
 		{

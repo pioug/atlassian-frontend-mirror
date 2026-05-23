@@ -40,33 +40,19 @@ function useListsIndentationHeroButtonInfo({
 	defaultListType: 'bulletList' | 'orderedList';
 }) {
 	const { formatMessage } = useIntl();
-	const {
-		bulletListActive,
-		bulletListDisabled,
-		orderedListActive,
-		taskListActive,
-	} = useSharedPluginStateWithSelector(
-		api,
-		['list', 'taskDecision', 'interaction'],
-		(states) => {
+	const { bulletListActive, bulletListDisabled, orderedListActive, taskListActive } =
+		useSharedPluginStateWithSelector(api, ['list', 'taskDecision', 'interaction'], (states) => {
 			const useDefaultToolbarState =
 				states.interactionState?.interactionState === 'hasNotHadInteraction' &&
 				expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true);
 
 			return {
-				bulletListActive: useDefaultToolbarState
-					? false
-					: states.listState?.bulletListActive,
+				bulletListActive: useDefaultToolbarState ? false : states.listState?.bulletListActive,
 				bulletListDisabled: states.listState?.bulletListDisabled,
-				orderedListActive: useDefaultToolbarState
-					? false
-					: states.listState?.orderedListActive,
-				taskListActive: useDefaultToolbarState
-					? false
-					: states.taskDecisionState?.isInsideTask,
+				orderedListActive: useDefaultToolbarState ? false : states.listState?.orderedListActive,
+				taskListActive: useDefaultToolbarState ? false : states.taskDecisionState?.isInsideTask,
 			};
-		},
-	);
+		});
 
 	const getListType: ListType = taskListActive
 		? 'taskList'

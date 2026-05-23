@@ -129,10 +129,7 @@ export function useExpandSideNav({
 			}
 		};
 
-		if (
-			triggersWithFocusOnExpand.has(trigger) &&
-			fg('platform_dst_nav4_skip_link_a11y_1')
-		) {
+		if (triggersWithFocusOnExpand.has(trigger) && fg('platform_dst_nav4_skip_link_a11y_1')) {
 			flushSync(runUpdate);
 			const sideNavElement = sideNavRef.current;
 			if (sideNavElement) {

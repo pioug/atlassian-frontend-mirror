@@ -13,30 +13,30 @@ const packagePath = path.resolve(__dirname);
 
 const documentation: StructuredContentSource = {
 	components: [
-	{
-		name: 'Editor Core',
-		description: 'A an atlassian editor extension to add a native dropbox picker',
-		status: 'general-availability',
-		import: {
-			name: 'dropboxExtension',
-			package: '@atlaskit/editor-extension-dropbox',
-			type: 'default',
-			packagePath,
-			packageJson,
-		},
-		usageGuidelines: [],
-		contentGuidelines: [],
-		accessibilityGuidelines: [],
-		keywords: ['editor', 'extension-dropbox', 'atlaskit'],
-		categories: ['editor'],
-		examples: [
-			{
-				name: 'Test modal',
-				description: 'Dropbox extension test modal example.',
-				source: path.resolve(packagePath, './examples/bad-example-test-modal.tsx'),
+		{
+			name: 'Editor Core',
+			description: 'A an atlassian editor extension to add a native dropbox picker',
+			status: 'general-availability',
+			import: {
+				name: 'dropboxExtension',
+				package: '@atlaskit/editor-extension-dropbox',
+				type: 'default',
+				packagePath,
+				packageJson,
 			},
-		],
-	},
+			usageGuidelines: [],
+			contentGuidelines: [],
+			accessibilityGuidelines: [],
+			keywords: ['editor', 'extension-dropbox', 'atlaskit'],
+			categories: ['editor'],
+			examples: [
+				{
+					name: 'Test modal',
+					description: 'Dropbox extension test modal example.',
+					source: path.resolve(packagePath, './examples/bad-example-test-modal.tsx'),
+				},
+			],
+		},
 	],
 };
 

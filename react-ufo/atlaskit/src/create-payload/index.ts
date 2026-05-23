@@ -462,9 +462,9 @@ let expTTAI: number | undefined;
  * This allows analytics to detect force-aborted iframe holds even when the full
  * segment3pTimings blob is feature-gated off.
  */
-function getSegment3pTimingAbortMarkers(
-	segment3pTimings: InteractionMetrics['segment3pTimings'],
-): { segment3pTimingAborts?: Array<{ segmentId: string; data: Record<string, unknown> }> } {
+function getSegment3pTimingAbortMarkers(segment3pTimings: InteractionMetrics['segment3pTimings']): {
+	segment3pTimingAborts?: Array<{ segmentId: string; data: Record<string, unknown> }>;
+} {
 	if (!segment3pTimings) {
 		return {};
 	}

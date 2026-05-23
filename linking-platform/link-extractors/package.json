@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-extractors",
-	"version": "2.6.0",
+	"version": "2.7.0",
 	"description": "Functions for extracting props from JSON-LD",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,11 +35,11 @@
 		}
 	},
 	"sideEffects": false,
-	"atlaskit:src": "src/index.ts",
+	"atlaskit:src": "src/index.tsx",
 	"exports": {
-		"./extract-name-from-json-ld": "./src/entry-points/extract-name-from-json-ld.ts",
-		"./types": "./src/types.ts",
-		".": "./src/index.ts"
+		"./extract-name-from-json-ld": "./src/index.tsx",
+		"./types": "./src/index.tsx",
+		".": "./src/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/json-ld-types": "workspace:^",

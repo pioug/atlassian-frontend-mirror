@@ -1,5 +1,17 @@
 # @atlaskit/native-embeds-common
 
+## 1.4.0
+
+### Minor Changes
+
+- [`ffe37ecd72b10`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffe37ecd72b10) -
+  MAUI-478: Add border options to Infographic, Chart and Visualization native embed toolbar behind
+  the cc-maui-experiment experiment gate.
+
+  Users can now toggle "Add border" / "No border" from the native embed toolbar when the MAUI
+  experiment is enabled. The border state is persisted as a `showBorder` macro parameter on the node
+  and reflected in the embed frame.
+
 ## 1.3.1
 
 ### Patch Changes

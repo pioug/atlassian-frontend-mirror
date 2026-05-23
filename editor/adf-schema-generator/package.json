@@ -3,7 +3,7 @@
 	"atlassian": {
 		"team": "Editor: Lego"
 	},
-	"version": "2.3.0",
+	"version": "2.4.0",
 	"description": "Generates ADF and PM schemas",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

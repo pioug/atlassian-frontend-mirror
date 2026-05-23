@@ -444,9 +444,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 						highlights={this.highlights}
 						nodeType="embed"
 						onResizeStart={
-							editorExperiment('platform_synced_block', true)
-								? this.handleResizeStart
-								: undefined
+							editorExperiment('platform_synced_block', true) ? this.handleResizeStart : undefined
 						}
 						handleStyles={nestedInTableHandleStyles(this.isNestedInTable())}
 						// Ignored via go/ees005

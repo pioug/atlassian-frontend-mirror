@@ -13,24 +13,24 @@ const packagePath = path.resolve(__dirname);
 
 const documentation: StructuredContentSource = {
 	components: [
-	{
-		name: 'Editor Plugin Quick Insert',
-		description: 'Quick insert plugin for @atlaskit/editor-core',
-		status: 'general-availability',
-		import: {
-			name: 'quickInsertPlugin',
-			package: '@atlaskit/editor-plugin-quick-insert',
-			type: 'named',
-			packagePath,
-			packageJson,
+		{
+			name: 'Editor Plugin Quick Insert',
+			description: 'Quick insert plugin for @atlaskit/editor-core',
+			status: 'general-availability',
+			import: {
+				name: 'quickInsertPlugin',
+				package: '@atlaskit/editor-plugin-quick-insert',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
+			usageGuidelines: [],
+			contentGuidelines: [],
+			accessibilityGuidelines: [],
+			keywords: ['editor', 'editor-plugin-quick-insert', 'atlaskit'],
+			categories: ['editor'],
+			examples: [],
 		},
-		usageGuidelines: [],
-		contentGuidelines: [],
-		accessibilityGuidelines: [],
-		keywords: ['editor', 'editor-plugin-quick-insert', 'atlaskit'],
-		categories: ['editor'],
-		examples: [],
-	},
 	],
 };
 

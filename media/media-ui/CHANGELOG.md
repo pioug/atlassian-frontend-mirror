@@ -1,5 +1,12 @@
 # @atlaskit/media-ui
 
+## 29.3.0
+
+### Minor Changes
+
+- [`4b1523c328148`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b1523c328148) -
+  Clean up flag to improve accessibility of layered components.
+
 ## 29.2.5
 
 ### Patch Changes

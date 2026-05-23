@@ -424,9 +424,7 @@ export function useAnchorPosition({
 			 */
 			trigger.style.setProperty('anchor-name', anchorName);
 
-			const undoPositioning = combine(
-				setStyle({ el: popover, styles: popoverStyles }),
-			);
+			const undoPositioning = combine(setStyle({ el: popover, styles: popoverStyles }));
 
 			return undoPositioning;
 		}

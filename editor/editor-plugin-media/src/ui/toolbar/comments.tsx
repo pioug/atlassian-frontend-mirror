@@ -95,9 +95,7 @@ export const commentButton = (
 		supportsViewMode: true,
 		disabled: isOfflineMode(api?.connectivity?.sharedState?.currentState()?.mode),
 		onMount: () => {
-			if (fg('confluence_frontend_preload_inline_comment_editor')) {
-				onCommentButtonMount && onCommentButtonMount();
-			}
+			onCommentButtonMount && onCommentButtonMount();
 		},
 	};
 };

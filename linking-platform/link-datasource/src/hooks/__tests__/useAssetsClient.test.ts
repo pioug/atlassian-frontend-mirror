@@ -1,6 +1,5 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 
-
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { useAssetsWorkspaceHost } from '@atlassian/assets-workspace-host';
 import { ffTest } from '@atlassian/feature-flags-test-utils';

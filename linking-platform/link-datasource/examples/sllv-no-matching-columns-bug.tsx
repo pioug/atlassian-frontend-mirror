@@ -40,9 +40,7 @@ const buildItem = (i: number) => ({
 
 const installFullSchemaDataMock = () => {
 	const datasourceMatcher = '[^/]+';
-	const url = new RegExp(
-		`/gateway/api/object-resolver/datasource/${datasourceMatcher}/fetch/data`,
-	);
+	const url = new RegExp(`/gateway/api/object-resolver/datasource/${datasourceMatcher}/fetch/data`);
 
 	fetchMock.post(
 		url,

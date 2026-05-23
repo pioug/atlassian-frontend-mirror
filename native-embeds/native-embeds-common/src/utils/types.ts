@@ -11,6 +11,16 @@ export type NativeEmbedParameterValues = {
 	alignment: AlignmentValue;
 	alwaysShowTitle: boolean;
 	aspectRatio: number;
+	/**
+	 * Border color as a hex string (e.g. '#091E4224'). When present and non-empty the border is shown.
+	 * Matches the `color` field of `BorderMarkAttributes` used by the image border feature.
+	 */
+	borderColor?: string;
+	/**
+	 * Border size: 1 = Subtle, 2 = Medium, 3 = Bold.
+	 * Matches the `size` field of `BorderMarkAttributes` used by the image border feature.
+	 */
+	borderSize?: number;
 	displayText?: string;
 	height: number; // Deprecated: height is only used when aspectRatio is not available, but it remains a required parameter for backwards compatibility. New code should use aspectRatio and optionally width instead of height.
 	url?: string;
@@ -26,6 +36,8 @@ export type NativeEmbedParameters = {
 		alignment?: NativeEmbedParameterValue;
 		alwaysShowTitle?: NativeEmbedParameterValue;
 		aspectRatio?: NativeEmbedParameterValue;
+		borderColor?: NativeEmbedParameterValue;
+		borderSize?: NativeEmbedParameterValue;
 		displayText?: NativeEmbedParameterValue;
 		height?: NativeEmbedParameterValue; // Deprecated: height is only used when aspectRatio is not available, but it remains a supported parameter for backwards compatibility. New code should use aspectRatio and optionally width instead of height.
 		url?: NativeEmbedParameterValue;

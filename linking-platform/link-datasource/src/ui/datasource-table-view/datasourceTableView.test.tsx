@@ -1157,4 +1157,3 @@ describe('UFO metrics: DatasourceTableView', () => {
 		});
 	});
 });
-

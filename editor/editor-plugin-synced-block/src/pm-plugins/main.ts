@@ -597,8 +597,7 @@ export const createPlugin = (
 						currentPluginState.hasUnsavedBodiedSyncBlockChanges &&
 					(api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'dragging') ===
 						prevDragging &&
-					isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode) ===
-						prevOffline &&
+					isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode) === prevOffline &&
 					(api?.editorViewMode?.sharedState.currentState()?.mode === 'view') === prevViewMode
 				) {
 					return currentPluginState;
@@ -965,8 +964,7 @@ export const createPlugin = (
 			if (tr.docChanged && tr.getMeta('isRemote')) {
 				const { added } = trackSyncBlocks((node) => syncBlockStore.isSyncBlock(node), tr, state);
 				const sourceSyncBlockNodes = added.filter(
-					(nodeInfo) =>
-						nodeInfo.node && syncBlockStore.sourceManager.isSourceBlock(nodeInfo.node),
+					(nodeInfo) => nodeInfo.node && syncBlockStore.sourceManager.isSourceBlock(nodeInfo.node),
 				);
 				const referenceSyncBlockNodes = added.filter(
 					(nodeInfo) =>
@@ -975,10 +973,7 @@ export const createPlugin = (
 
 				sourceSyncBlockNodes.forEach((nodeInfo) => {
 					if (nodeInfo.attrs?.resourceId && nodeInfo.node) {
-						syncBlockStore.sourceManager.updateSyncBlockData(
-							nodeInfo.node,
-							tr.getMeta('isRemote'),
-						);
+						syncBlockStore.sourceManager.updateSyncBlockData(nodeInfo.node, tr.getMeta('isRemote'));
 					}
 				});
 

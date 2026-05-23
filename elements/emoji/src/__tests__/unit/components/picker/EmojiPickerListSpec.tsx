@@ -96,9 +96,7 @@ describe('<EmojiPickerList />', () => {
 			() => {
 				it('should render category headings as div elements (legacy)', async () => {
 					renderEmojiPickerList();
-					const peopleHeadingItem = await screen.findByText(
-						messages.peopleCategory.defaultMessage,
-					);
+					const peopleHeadingItem = await screen.findByText(messages.peopleCategory.defaultMessage);
 					expect(peopleHeadingItem.tagName).toBe('DIV');
 					expect(screen.queryAllByRole('heading', { level: 2 })).toHaveLength(0);
 				});

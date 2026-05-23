@@ -43,7 +43,11 @@ export const getRowMenuComponents = ({ api }: TableMenuComponentsParams): Regist
 		type: ROW_TOGGLE_SECTION.type,
 		key: ROW_TOGGLE_SECTION.key,
 		parents: [
-			{ type: ROW_MENU.type, key: ROW_MENU.key, rank: ROW_MENU_SECTION_RANK[ROW_TOGGLE_SECTION.key] },
+			{
+				type: ROW_MENU.type,
+				key: ROW_MENU.key,
+				rank: ROW_MENU_SECTION_RANK[ROW_TOGGLE_SECTION.key],
+			},
 		],
 		component: (props: PropsWithChildren) => (
 			<ToolbarDropdownItemSection>{props.children}</ToolbarDropdownItemSection>
@@ -85,9 +89,7 @@ export const getRowMenuComponents = ({ api }: TableMenuComponentsParams): Regist
 			},
 		],
 		component: (props: PropsWithChildren) => (
-			<ToolbarDropdownItemSection hasSeparator>
-				{props.children}
-			</ToolbarDropdownItemSection>
+			<ToolbarDropdownItemSection hasSeparator>{props.children}</ToolbarDropdownItemSection>
 		),
 	},
 	// --- Add / Move section ---
@@ -98,9 +100,7 @@ export const getRowMenuComponents = ({ api }: TableMenuComponentsParams): Regist
 			{ type: ROW_MENU.type, key: ROW_MENU.key, rank: ROW_MENU_SECTION_RANK[ROW_ADD_SECTION.key] },
 		],
 		component: (props: PropsWithChildren) => (
-			<ToolbarDropdownItemSection hasSeparator>
-				{props.children}
-			</ToolbarDropdownItemSection>
+			<ToolbarDropdownItemSection hasSeparator>{props.children}</ToolbarDropdownItemSection>
 		),
 	},
 	{
@@ -156,12 +156,14 @@ export const getRowMenuComponents = ({ api }: TableMenuComponentsParams): Regist
 		type: ROW_DANGER_SECTION.type,
 		key: ROW_DANGER_SECTION.key,
 		parents: [
-			{ type: ROW_MENU.type, key: ROW_MENU.key, rank: ROW_MENU_SECTION_RANK[ROW_DANGER_SECTION.key] },
+			{
+				type: ROW_MENU.type,
+				key: ROW_MENU.key,
+				rank: ROW_MENU_SECTION_RANK[ROW_DANGER_SECTION.key],
+			},
 		],
 		component: (props: PropsWithChildren) => (
-			<ToolbarDropdownItemSection hasSeparator>
-				{props.children}
-			</ToolbarDropdownItemSection>
+			<ToolbarDropdownItemSection hasSeparator>{props.children}</ToolbarDropdownItemSection>
 		),
 	},
 	{

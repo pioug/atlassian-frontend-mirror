@@ -407,9 +407,10 @@ export const layoutSelectedStylesAdvanced: SerializedStyles = css({
 					marginLeft: -25,
 				},
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'[data-layout-column]:is([data-valign="middle"], [data-valign="bottom"]):not(:first-of-type) [data-layout-content]::before': {
-					top: token('space.150'),
-				},
+				'[data-layout-column]:is([data-valign="middle"], [data-valign="bottom"]):not(:first-of-type) [data-layout-content]::before':
+					{
+						top: token('space.150'),
+					},
 			},
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

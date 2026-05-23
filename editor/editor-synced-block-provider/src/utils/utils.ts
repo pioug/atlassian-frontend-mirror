@@ -160,7 +160,6 @@ export const getSourceProductFromResourceIdSafe = (
 	}
 };
 
-
 export const convertContentUpdatedAt = (
 	contentUpdatedAt: number | undefined,
 ): string | undefined => {

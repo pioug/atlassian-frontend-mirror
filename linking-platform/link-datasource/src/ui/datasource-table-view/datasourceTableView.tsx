@@ -230,7 +230,9 @@ const DatasourceTableViewWithoutAnalytics = ({
 						status={status}
 						columns={columns}
 						visibleColumnKeys={
-							hasStaleVisibleColumnKeys ? defaultVisibleColumnKeys : visibleColumnKeys || defaultVisibleColumnKeys
+							hasStaleVisibleColumnKeys
+								? defaultVisibleColumnKeys
+								: visibleColumnKeys || defaultVisibleColumnKeys
 						}
 						onVisibleColumnKeysChange={onVisibleColumnKeysChange}
 						columnCustomSizes={columnCustomSizes}

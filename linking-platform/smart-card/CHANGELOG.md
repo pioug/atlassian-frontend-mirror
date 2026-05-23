@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 44.16.1
+
+### Patch Changes
+
+- [`6912c1730a806`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6912c1730a806) -
+  Fix block card social proof experiment exposure to use the exposure-firing experiment helper.
+
 ## 44.16.0
 
 ### Minor Changes

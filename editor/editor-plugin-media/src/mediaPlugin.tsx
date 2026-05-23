@@ -500,7 +500,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 									return tr;
 								},
 							},
-					  ]
+						]
 					: [],
 
 			floatingToolbar: (state, intl, providerFactory) =>

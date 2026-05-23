@@ -193,11 +193,7 @@ describe('CardWithUrl', () => {
 
 				it('does NOT fire experiment exposure on mount', () => {
 					renderResolved3P();
-					expect(expValEquals).not.toHaveBeenCalledWith(
-						NON_PRIMARY_EXPERIMENT,
-						'isEnabled',
-						true,
-					);
+					expect(expValEquals).not.toHaveBeenCalledWith(NON_PRIMARY_EXPERIMENT, 'isEnabled', true);
 				});
 
 				it('does NOT fire 3P click events on middle or right click', () => {

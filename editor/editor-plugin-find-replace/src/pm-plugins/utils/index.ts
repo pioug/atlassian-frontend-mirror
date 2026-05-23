@@ -74,8 +74,7 @@ export const createDecorations = (selectedIndex: number, matches: Match[]): Deco
 
 const isElement = (nodeType?: string) =>
 	['blockCard', 'embedCard', 'inlineCard', 'status', 'mention', 'date'].includes(nodeType || '') ||
-	(nodeType === 'syncBlock' &&
-		editorExperiment('platform_synced_block', true));
+	(nodeType === 'syncBlock' && editorExperiment('platform_synced_block', true));
 
 const isExpandTitle = (match: Match) =>
 	['expand', 'nestedExpand'].includes(match.nodeType || '') && !match.canReplace;
@@ -301,9 +300,7 @@ export function findMatches({
 							collectCardTitleMatch(node, pos);
 							break;
 						case 'syncBlock': {
-							if (
-								editorExperiment('platform_synced_block', true)
-							) {
+							if (editorExperiment('platform_synced_block', true)) {
 								const syncBlockStore = api?.syncedBlock?.sharedState.currentState()?.syncBlockStore;
 								const instance = syncBlockStore?.referenceManager.getFromCache(
 									node.attrs.resourceId as string,

@@ -1,4 +1,5 @@
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { logException } from '@atlaskit/editor-common/monitoring';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
@@ -14,6 +15,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { AutocompletePlugin } from '../autocompletePluginType';
 
 import { createGhostTextDecorationSet } from './ghost-text-decoration';
+import { createLocalSlowLaneClient, type LocalSlowLaneClient } from './local-slow-lane-client';
 import { createSlowLaneClient, setDefaultSlowLaneClient, isWordBoundary } from './slow-lane-client';
 import {
 	predict,
@@ -23,11 +25,13 @@ import {
 	ingestDocumentPage,
 } from './text-predictor';
 
-const SLOW_LANE_ENDPOINT = '/gateway/api/v1/autocomplete/typeahead-encodings';
-
 export const autocompletePluginKey: PluginKey = new PluginKey('autocomplete');
 
 const DEBOUNCE_MS = 150;
+
+const hasDestroy = (
+	client: ReturnType<typeof createSlowLaneClient> | LocalSlowLaneClient,
+): client is LocalSlowLaneClient => 'destroy' in client && typeof client.destroy === 'function';
 
 export interface AutocompletePluginState {
 	/** The decoration set containing the ghost text widget */
@@ -97,14 +101,18 @@ const setAutocompleteMeta = (
 let lastShownGhostText = '';
 
 const showGhostText = (view: EditorView, text: string, position: number): void => {
-	const { state, dispatch } = view;
-	const decorationSet = createGhostTextDecorationSet(state, position, text);
-	const tr = setAutocompleteMeta(state.tr, {
-		ghostText: text,
-		ghostPosition: position,
-		decorationSet,
-	});
-	dispatch(tr);
+	try {
+		const { state, dispatch } = view;
+		const decorationSet = createGhostTextDecorationSet(state, position, text);
+		const tr = setAutocompleteMeta(state.tr, {
+			ghostText: text,
+			ghostPosition: position,
+			decorationSet,
+		});
+		dispatch(tr);
+	} catch (error) {
+		logException(error as Error, { location: 'editor-plugin-autocomplete/showGhostText' });
+	}
 };
 
 /**
@@ -117,12 +125,17 @@ const clearGhostText = (state: EditorState, dispatch?: (tr: Transaction) => void
 	}
 
 	if (dispatch) {
-		const tr = setAutocompleteMeta(state.tr, {
-			ghostText: '',
-			ghostPosition: -1,
-			decorationSet: DecorationSet.empty,
-		});
-		dispatch(tr);
+		try {
+			const tr = setAutocompleteMeta(state.tr, {
+				ghostText: '',
+				ghostPosition: -1,
+				decorationSet: DecorationSet.empty,
+			});
+			dispatch(tr);
+		} catch (error) {
+			logException(error as Error, { location: 'editor-plugin-autocomplete/clearGhostText' });
+			return false;
+		}
 	}
 	return true;
 };
@@ -137,14 +150,19 @@ const acceptGhostText = (state: EditorState, dispatch?: (tr: Transaction) => voi
 	}
 
 	if (dispatch) {
-		const { ghostText, ghostPosition } = pluginState;
-		let tr = state.tr.insertText(ghostText, ghostPosition);
-		tr = setAutocompleteMeta(tr, {
-			ghostText: '',
-			ghostPosition: -1,
-			decorationSet: DecorationSet.empty,
-		});
-		dispatch(tr);
+		try {
+			const { ghostText, ghostPosition } = pluginState;
+			let tr = state.tr.insertText(ghostText, ghostPosition);
+			tr = setAutocompleteMeta(tr, {
+				ghostText: '',
+				ghostPosition: -1,
+				decorationSet: DecorationSet.empty,
+			});
+			dispatch(tr);
+		} catch (error) {
+			logException(error as Error, { location: 'editor-plugin-autocomplete/acceptGhostText' });
+			return false;
+		}
 	}
 	return true;
 };
@@ -178,6 +196,11 @@ export interface AutocompletePluginOptions {
 	 * Use this to serve vectors from a CDN or media service in production.
 	 */
 	getVectorsBinaryUrl?: () => Promise<string>;
+	/**
+	 * When true, uses on-device inference via WebGPU (MLC WebLLM) instead of
+	 * the network-based slow-lane backend. Defaults to false (network client).
+	 */
+	useLocalModel?: boolean;
 }
 
 /**
@@ -235,6 +258,15 @@ export const createAutocompletePlugin = (
 	let lastSuggestionTypedLength = 0;
 	let lastSuggestionLength = 0;
 
+	const fireSuggestionDismissedAnalytics = (reason: 'escape' | 'blur'): void => {
+		api?.analytics?.actions.fireAnalyticsEvent({
+			action: ACTION.SUGGESTION_DISMISSED,
+			actionSubject: ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
+			eventType: EVENT_TYPE.TRACK,
+			attributes: { reason },
+		});
+	};
+
 	const fireSuggestionInsertedAnalytics = (ghostText: string): void => {
 		const typedLength = lastSuggestionTypedLength;
 		const suggestionLength = lastSuggestionLength || typedLength + ghostText.length;
@@ -252,10 +284,14 @@ export const createAutocompletePlugin = (
 		});
 	};
 
-	const slowLaneClient = createSlowLaneClient({
-		baseUrl: '',
-		endpoint: SLOW_LANE_ENDPOINT,
-	});
+	const slowLaneClient = options?.useLocalModel
+		? createLocalSlowLaneClient({
+				debounceMs: 300,
+			})
+		: createSlowLaneClient({
+				baseUrl: '',
+				debounceMs: 300,
+			});
 	setDefaultSlowLaneClient(slowLaneClient);
 
 	/**
@@ -269,45 +305,51 @@ export const createAutocompletePlugin = (
 		}
 
 		debounceTimer = setTimeout(() => {
-			const { state } = view;
-			const { selection } = state;
+			try {
+				const { state } = view;
+				const { selection } = state;
 
-			// Only predict for cursor selections (not range selections)
-			if (!selection.empty) {
-				return;
-			}
-
-			const textBefore = getTextBeforeCursor(state);
-
-			// Suppress re-showing the same suggestion the user just dismissed.
-			// Once the text context changes (user types or deletes), this clears automatically.
-			if (textBefore === dismissedContext) {
-				return;
-			}
-			dismissedContext = null;
-
-			// Don't predict if there's not enough context
-			if (textBefore.trim().length < 3) {
-				return;
-			}
-
-			// Tier 1 prediction is synchronous -- no async needed
-			const prediction = predict(textBefore);
-
-			if (prediction && prediction.length > 0) {
-				const typedLength = getTypedLengthForPrediction(textBefore);
-				lastSuggestionTypedLength = typedLength;
-				lastSuggestionLength = typedLength + prediction.length;
-
-				showGhostText(view, prediction, selection.from);
-				if (prediction !== lastShownGhostText) {
-					lastShownGhostText = prediction;
-					api?.analytics?.actions.fireAnalyticsEvent({
-						action: ACTION.SUGGESTION_VIEWED,
-						actionSubject: ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
-						eventType: EVENT_TYPE.TRACK,
-					});
+				// Only predict for cursor selections (not range selections)
+				if (!selection.empty) {
+					return;
 				}
+
+				const textBefore = getTextBeforeCursor(state);
+
+				// Suppress re-showing the same suggestion the user just dismissed.
+				// Once the text context changes (user types or deletes), this clears automatically.
+				if (textBefore === dismissedContext) {
+					return;
+				}
+				dismissedContext = null;
+
+				// Don't predict if there's not enough context
+				if (textBefore.trim().length < 3) {
+					return;
+				}
+
+				// Tier 1 prediction is synchronous -- no async needed
+				const prediction = predict(textBefore);
+
+				if (prediction && prediction.length > 0) {
+					const typedLength = getTypedLengthForPrediction(textBefore);
+					lastSuggestionTypedLength = typedLength;
+					lastSuggestionLength = typedLength + prediction.length;
+
+					showGhostText(view, prediction, selection.from);
+					if (prediction !== lastShownGhostText) {
+						lastShownGhostText = prediction;
+						api?.analytics?.actions.fireAnalyticsEvent({
+							action: ACTION.SUGGESTION_VIEWED,
+							actionSubject: ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
+							eventType: EVENT_TYPE.TRACK,
+						});
+					}
+				}
+			} catch (error) {
+				logException(error as Error, {
+					location: 'editor-plugin-autocomplete/schedulePrediction',
+				});
 			}
 		}, DEBOUNCE_MS);
 	};
@@ -424,6 +466,7 @@ export const createAutocompletePlugin = (
 					const didClear = clearGhostText(state, dispatch);
 					if (didClear) {
 						dismissedContext = getTextBeforeCursor(state);
+						fireSuggestionDismissedAnalytics('escape');
 					}
 					return didClear;
 				},
@@ -436,12 +479,23 @@ export const createAutocompletePlugin = (
 						| undefined;
 					if (pluginState?.ghostText) {
 						clearGhostText(view.state, view.dispatch);
+						fireSuggestionDismissedAnalytics('blur');
 					}
 					return false;
 				},
 				focus: () => {
-					loadDefaultVocabulary();
-					loadVectorsAsync({ getBinaryUrl: options?.getVectorsBinaryUrl }).catch(() => {});
+					try {
+						loadDefaultVocabulary();
+					} catch (error) {
+						logException(error as Error, {
+							location: 'editor-plugin-autocomplete/loadDefaultVocabulary',
+						});
+					}
+					loadVectorsAsync({ getBinaryUrl: options?.getVectorsBinaryUrl }).catch((error) => {
+						logException(error as Error, {
+							location: 'editor-plugin-autocomplete/loadVectorsAsync',
+						});
+					});
 					if (!hasIngestedPage) {
 						hasIngestedPage = true;
 						if (options?.getContext) {
@@ -461,7 +515,11 @@ export const createAutocompletePlugin = (
 									}
 									context.siblingCommentsContents?.forEach(ingestDocumentPage);
 								})
-								.catch(() => {});
+								.catch((error) => {
+									logException(error as Error, {
+										location: 'editor-plugin-autocomplete/getContext',
+									});
+								});
 						}
 					}
 					return false;
@@ -502,6 +560,9 @@ export const createAutocompletePlugin = (
 			destroy: () => {
 				if (debounceTimer) {
 					clearTimeout(debounceTimer);
+				}
+				if (hasDestroy(slowLaneClient)) {
+					slowLaneClient.destroy();
 				}
 				setDefaultSlowLaneClient(null);
 			},

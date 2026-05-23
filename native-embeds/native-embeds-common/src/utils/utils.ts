@@ -40,6 +40,8 @@ const PARAMETER_TYPES: Record<NativeEmbedParameterKey, 'string' | 'number' | 'bo
 	alignment: 'string',
 	alwaysShowTitle: 'boolean',
 	aspectRatio: 'number',
+	borderColor: 'string',
+	borderSize: 'number',
 	displayText: 'string',
 	height: 'number',
 	url: 'string',

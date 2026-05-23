@@ -23,6 +23,19 @@ type ContextualTypeaheadAcceptedAEP = TrackAEP<
 	undefined
 >;
 
+type ContextualTypeaheadDismissedAttributes = {
+	reason: 'escape' | 'blur';
+};
+
+type ContextualTypeaheadDismissedAEP = TrackAEP<
+	ACTION.SUGGESTION_DISMISSED,
+	ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
+	undefined,
+	ContextualTypeaheadDismissedAttributes,
+	undefined
+>;
+
 export type ContextualTypeaheadEventPayload =
 	| ContextualTypeaheadViewedAEP
-	| ContextualTypeaheadAcceptedAEP;
+	| ContextualTypeaheadAcceptedAEP
+	| ContextualTypeaheadDismissedAEP;

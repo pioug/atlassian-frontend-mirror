@@ -1453,10 +1453,7 @@ describe('useDatasourceTableState', () => {
 	});
 
 	describe('SLLV column fallback (fallback_to_default_columns_to_display_in_sllv)', () => {
-		const buildSchemaResponse = (
-			propertyKeys: string[],
-			defaultProperties?: string[],
-		) => {
+		const buildSchemaResponse = (propertyKeys: string[], defaultProperties?: string[]) => {
 			const properties = propertyKeys.map((key) => ({
 				key,
 				title: key,
@@ -1515,7 +1512,6 @@ describe('useDatasourceTableState', () => {
 					await flushPromises();
 					expect(result.current.columns).toEqual([]);
 				});
-
 			},
 		);
 
@@ -1525,10 +1521,7 @@ describe('useDatasourceTableState', () => {
 			() => {
 				it('does not fall back, leaving columns empty (stuck-on-loading bug behaviour)', async () => {
 					asMock(getDatasourceData).mockResolvedValue(
-						buildSchemaResponse(
-							['issuekey', 'issuetype', 'summary'],
-							['issuekey', 'summary'],
-						),
+						buildSchemaResponse(['issuekey', 'issuetype', 'summary'], ['issuekey', 'summary']),
 					);
 
 					const { result } = setup(['Story Points']);

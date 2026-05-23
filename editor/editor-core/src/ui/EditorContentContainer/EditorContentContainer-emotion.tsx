@@ -624,7 +624,8 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				unsupportedStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				resizerStyles,
-				expValEquals('databases-native-embeds-v2', 'isEnabled', true) &&
+				expValEqualsNoExposure('cc-maui-experiment', 'isEnabled', true) &&
+					expValEquals('databases-native-embeds-v2', 'isEnabled', true) &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					resizerBottomHandleStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

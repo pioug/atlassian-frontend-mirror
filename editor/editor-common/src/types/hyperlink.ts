@@ -9,9 +9,14 @@ export type LinkInputType = INPUT_METHOD.MANUAL | INPUT_METHOD.TYPEAHEAD;
 
 /**
  * Configuration for the link picker
- * Extends `LinkPickerProps` to provide future extensibility out-of-the-box
+ * Extends `LinkPickerProps` to provide future extensibility out-of-the-box.
+ * Use `popupWidth` and `popupHeight` to control the editor popup container size
+ * when providing a custom `component` with non-standard dimensions.
  */
-export type LinkPickerOptions = Partial<LinkPickerProps>;
+export type LinkPickerOptions = Partial<LinkPickerProps> & {
+	popupHeight?: number;
+	popupWidth?: number;
+};
 
 /**
  * Configuration for editor linking behaviours

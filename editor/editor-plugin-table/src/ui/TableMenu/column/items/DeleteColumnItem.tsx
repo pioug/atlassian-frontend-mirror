@@ -8,7 +8,11 @@ import { deleteColumn, tooltip } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { DeleteIcon, ToolbarDropdownItem, ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar';
+import {
+	DeleteIcon,
+	ToolbarDropdownItem,
+	ToolbarKeyboardShortcutHint,
+} from '@atlaskit/editor-toolbar';
 
 import { clearHoverSelection, hoverColumns } from '../../../../pm-plugins/commands';
 import { deleteColumnsWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
@@ -42,7 +46,10 @@ export const DeleteColumnItem = ({ api }: TableMenuComponentsParams): React.JSX.
 			return;
 		}
 
-		hoverColumns(getSelectedColumnIndexes(selectionRect), true)(editorView.state, editorView.dispatch);
+		hoverColumns(getSelectedColumnIndexes(selectionRect), true)(
+			editorView.state,
+			editorView.dispatch,
+		);
 	};
 
 	const handleMouseLeave = () => {
@@ -72,7 +79,11 @@ export const DeleteColumnItem = ({ api }: TableMenuComponentsParams): React.JSX.
 			isTableFixedColumnWidthsOptionEnabled,
 			shouldUseIncreasedScalingPercent,
 			isCommentEditor,
-		)(INPUT_METHOD.TABLE_CONTEXT_MENU, selectionRect)(editorView.state, editorView.dispatch, editorView);
+		)(INPUT_METHOD.TABLE_CONTEXT_MENU, selectionRect)(
+			editorView.state,
+			editorView.dispatch,
+			editorView,
+		);
 	};
 
 	return (

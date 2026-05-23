@@ -36,7 +36,11 @@ export class SyncBlockProviderFactoryManager {
 				location: 'editor-synced-block-provider/syncBlockProviderFactoryManager',
 			});
 			this.deps.getFireAnalyticsEvent()?.(
-				fetchErrorPayload(error.message, resourceId, getSourceProductFromResourceIdSafe(resourceId)),
+				fetchErrorPayload(
+					error.message,
+					resourceId,
+					getSourceProductFromResourceIdSafe(resourceId),
+				),
 			);
 			return undefined;
 		}
@@ -78,7 +82,11 @@ export class SyncBlockProviderFactoryManager {
 					location: 'editor-synced-block-provider/syncBlockProviderFactoryManager',
 				});
 				this.deps.getFireAnalyticsEvent()?.(
-					fetchErrorPayload((error as Error).message, resourceId, getSourceProductFromResourceIdSafe(resourceId)),
+					fetchErrorPayload(
+						(error as Error).message,
+						resourceId,
+						getSourceProductFromResourceIdSafe(resourceId),
+					),
 				);
 			}
 		}

@@ -125,7 +125,11 @@ const FloatingContextualMenu: {
 			boundariesElement={boundariesElement}
 			scrollableElement={scrollableElement}
 			fitHeight={tablePopupMenuFitHeight}
-			fitWidth={expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) ? TABLE_MENU_WIDTH : contextualMenuDropdownWidthDnD}
+			fitWidth={
+				expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)
+					? TABLE_MENU_WIDTH
+					: contextualMenuDropdownWidthDnD
+			}
 			// z-index value below is to ensure that this menu is above other floating menu
 			// in table, but below floating dialogs like typeaheads, pickers, etc.
 			zIndex={parentSticky ? akEditorFloatingDialogZIndex : akEditorFloatingOverlapPanelZIndex}
@@ -134,7 +138,7 @@ const FloatingContextualMenu: {
 			offset={[-7, 0]}
 			stick={true}
 		>
-			{expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)  ? (
+			{expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) ? (
 				<CellMenuPopup
 					api={api}
 					editorView={editorView}

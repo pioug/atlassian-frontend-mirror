@@ -3,12 +3,16 @@ import rule from '../../index';
 
 const code = (pkg: object) => `module.exports = ${JSON.stringify(pkg, null, '\t')};`;
 
-jest.mock(`${process.cwd()}/package.json`, () => ({
-	dependencies: {
-		react: '^18.2.0',
-		'react-dom': '^18.2.0',
-	},
-}), { virtual: true });
+jest.mock(
+	`${process.cwd()}/package.json`,
+	() => ({
+		dependencies: {
+			react: '^18.2.0',
+			'react-dom': '^18.2.0',
+		},
+	}),
+	{ virtual: true },
+);
 
 describe('ensure-react-peer-deps-in-dev-deps', () => {
 	tester.run('ensure-react-peer-deps-in-dev-deps', rule, {

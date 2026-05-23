@@ -261,10 +261,7 @@ export const RefSyncBlockFakeBorders = ({
 }): React.JSX.Element | null => {
 	const { nestedRendererType } = useRendererContext();
 	const isInsideOfRefSyncBlock = nestedRendererType === 'syncedBlock';
-	if (
-		!isInsideOfRefSyncBlock ||
-		!editorExperiment('platform_synced_block', true)
-	) {
+	if (!isInsideOfRefSyncBlock || !editorExperiment('platform_synced_block', true)) {
 		return null;
 	}
 	return <TableFakeBorders isNumberColumnEnabled={isNumberColumnEnabled} />;

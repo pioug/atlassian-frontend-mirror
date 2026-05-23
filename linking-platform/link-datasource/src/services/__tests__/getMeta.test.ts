@@ -33,8 +33,7 @@ describe('getMeta', () => {
 
 	it('caches per-name (different meta keys do not collide)', () => {
 		document.head.innerHTML =
-			'<meta name="ajs-cloud-id" content="cloud-1">' +
-			'<meta name="ajs-org-id" content="org-1">';
+			'<meta name="ajs-cloud-id" content="cloud-1">' + '<meta name="ajs-org-id" content="org-1">';
 		expect(getMeta('ajs-cloud-id')).toBe('cloud-1');
 		expect(getMeta('ajs-org-id')).toBe('org-1');
 	});

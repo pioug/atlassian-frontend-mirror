@@ -60,7 +60,11 @@ const onSubmitInterface =
 	};
 
 export function HyperlinkAddToolbar({
-	linkPickerOptions = {},
+	linkPickerOptions: {
+		popupWidth: _popupWidth,
+		popupHeight: _popupHeight,
+		...linkPickerOptions
+	} = {},
 	onSubmit,
 	displayText,
 	displayUrl,

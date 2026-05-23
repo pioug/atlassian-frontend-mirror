@@ -312,7 +312,11 @@ export const floatingToolbar = (
 				pluginInjectionApi,
 			),
 			scrollable: pluginState?.showLinkingToolbar ? false : true,
-			...editLinkToolbarConfig(Boolean(pluginState?.showLinkingToolbar), isLinkPickerEnabled),
+			...editLinkToolbarConfig(
+				Boolean(pluginState?.showLinkingToolbar),
+				isLinkPickerEnabled,
+				linkPickerOptions,
+			),
 		};
 	};
 };

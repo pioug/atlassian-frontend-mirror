@@ -27,7 +27,6 @@ import {
 } from '@atlaskit/editor-tables/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-
 import {
 	addResizeHandleDecorations,
 	clearHoverSelection,

@@ -26,8 +26,8 @@ const messageStyles = css({
 });
 
 const listItemBaseStyles = css({
-	boxShadow: 'none'
-})
+	boxShadow: 'none',
+});
 
 const listItemStylesFocusedSelected = css({
 	backgroundColor: token('color.background.selected.hovered'),

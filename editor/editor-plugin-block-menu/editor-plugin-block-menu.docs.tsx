@@ -13,30 +13,30 @@ const packagePath = path.resolve(__dirname);
 
 const documentation: StructuredContentSource = {
 	components: [
-	{
-		name: 'Editor Plugin Block Menu',
-		description: 'BlockMenu plugin for @atlaskit/editor-core',
-		status: 'general-availability',
-		import: {
-			name: 'blockMenuPlugin',
-			package: '@atlaskit/editor-plugin-block-menu',
-			type: 'named',
-			packagePath,
-			packageJson,
-		},
-		usageGuidelines: [],
-		contentGuidelines: [],
-		accessibilityGuidelines: [],
-		keywords: ['editor', 'editor-plugin-block-menu', 'atlaskit'],
-		categories: ['editor'],
-		examples: [
-			{
-				name: 'Basic',
-				description: 'Block menu plugin usage.',
-				source: path.resolve(packagePath, './examples/basic.tsx'),
+		{
+			name: 'Editor Plugin Block Menu',
+			description: 'BlockMenu plugin for @atlaskit/editor-core',
+			status: 'general-availability',
+			import: {
+				name: 'blockMenuPlugin',
+				package: '@atlaskit/editor-plugin-block-menu',
+				type: 'named',
+				packagePath,
+				packageJson,
 			},
-		],
-	},
+			usageGuidelines: [],
+			contentGuidelines: [],
+			accessibilityGuidelines: [],
+			keywords: ['editor', 'editor-plugin-block-menu', 'atlaskit'],
+			categories: ['editor'],
+			examples: [
+				{
+					name: 'Basic',
+					description: 'Block menu plugin usage.',
+					source: path.resolve(packagePath, './examples/basic.tsx'),
+				},
+			],
+		},
 	],
 };
 

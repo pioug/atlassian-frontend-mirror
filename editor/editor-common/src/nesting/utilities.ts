@@ -105,5 +105,7 @@ export const isPanelNestingTableSupported = (schema: Schema): boolean => {
 	// Confirm the PM schema actually allows table inside panel_c1
 	const panelC1CanContainTable = panel_c1.contentMatch.matchType(table)?.validEnd === true;
 
-	return panelC1CanContainTable && expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true);
+	return (
+		panelC1CanContainTable && expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+	);
 };

@@ -208,7 +208,10 @@ const LightWeightCodeBlock: React.ForwardRefExoticComponent<
 			codeBidiWarningTooltipEnabled = true,
 			hideLineNumbers = false,
 			className,
-		}: Pick<CodeBlockProps, 'text' | 'codeBidiWarningTooltipEnabled' | 'className' | 'hideLineNumbers'>,
+		}: Pick<
+			CodeBlockProps,
+			'text' | 'codeBidiWarningTooltipEnabled' | 'className' | 'hideLineNumbers'
+		>,
 		ref: React.Ref<HTMLDivElement>,
 	) => {
 		const textRows = useMemo(() => (text ?? '').split('\n'), [text]);

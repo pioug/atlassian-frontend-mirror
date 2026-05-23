@@ -3,11 +3,10 @@ import React, { forwardRef } from 'react';
 import InternalModalWrapper from './internal/components/modal-wrapper';
 import type { ModalDialogProps } from './types';
 
-export interface FullScreenModalDialogProps
-	extends Omit<
-		ModalDialogProps,
-		'width' | 'height' | 'shouldScrollInViewport' | 'shouldCloseOnOverlayClick' | 'isBlanketHidden'
-	> {}
+export interface FullScreenModalDialogProps extends Omit<
+	ModalDialogProps,
+	'width' | 'height' | 'shouldScrollInViewport' | 'shouldCloseOnOverlayClick' | 'isBlanketHidden'
+> {}
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const FullScreenModalDialog: React.ForwardRefExoticComponent<

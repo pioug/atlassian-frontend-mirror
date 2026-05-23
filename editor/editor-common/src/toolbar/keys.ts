@@ -191,7 +191,6 @@ export const AI_SUGGESTIONS_BUTTON = {
 	type: 'button',
 } as const;
 
-
 /**
  * Text section
  */

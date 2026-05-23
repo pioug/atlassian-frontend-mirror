@@ -19,18 +19,14 @@ type TextStylesMenuButtonProps = {
 };
 
 const usePluginState = (api?: ExtractInjectionAPI<BlockTypePlugin>) => {
-	return useSharedPluginStateWithSelector(
-		api,
-		['blockType', 'interaction'],
-		(state) => ({
-			blockTypesDisabled: state.blockTypeState?.blockTypesDisabled,
-			currentBlockType:
-				state.interactionState?.interactionState === 'hasNotHadInteraction' &&
-				expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true)
-					? undefined
-					: state.blockTypeState?.currentBlockType,
-		}),
-	);
+	return useSharedPluginStateWithSelector(api, ['blockType', 'interaction'], (state) => ({
+		blockTypesDisabled: state.blockTypeState?.blockTypesDisabled,
+		currentBlockType:
+			state.interactionState?.interactionState === 'hasNotHadInteraction' &&
+			expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true)
+				? undefined
+				: state.blockTypeState?.currentBlockType,
+	}));
 };
 
 export const TextStylesMenuButton = ({

@@ -7,6 +7,8 @@
  *   Response: { semantic_vector: number[], lm_logits: Record<string, number> }
  */
 
+import { abortExp, EXPERIENCE_NAME, failExp, startExp, succeedExp } from '../analytics/ufo';
+
 import { isAutocompleteDebugEnabled } from './debug-mode';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -84,8 +86,10 @@ export const createSlowLaneClient = (
 	let lastRequestedText = '';
 	let storedContextVector: Float32Array | null = null;
 	let storedLmLogits: Record<string, number> | null = null;
+	let requestSeq = 0;
+	let inflightRequestId: string | null = null;
 
-	const doUpdateContext = async (text: string): Promise<void> => {
+	const doUpdateContext = async (text: string, requestId: string): Promise<void> => {
 		if (!text || text.trim().length === 0) {
 			return;
 		}
@@ -96,6 +100,8 @@ export const createSlowLaneClient = (
 			text,
 			session_id: sessionId,
 		};
+
+		startExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, requestId, { textLength: text.length });
 
 		if (isAutocompleteDebugEnabled()) {
 			// eslint-disable-next-line no-console
@@ -122,6 +128,10 @@ export const createSlowLaneClient = (
 			if (!res.ok) {
 				storedContextVector = null;
 				storedLmLogits = null;
+				failExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, requestId, {
+					status: res.status,
+					errorType: 'http_error',
+				});
 				if (isAutocompleteDebugEnabled()) {
 					// eslint-disable-next-line no-console
 					console.log(
@@ -170,6 +180,12 @@ export const createSlowLaneClient = (
 				console.groupEnd();
 			}
 
+			succeedExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, requestId, {
+				textLength: text.length,
+				hasVector: storedContextVector !== null,
+				hasLmLogits: storedLmLogits !== null,
+			});
+
 			onUpdate?.({
 				textLength: text.length,
 				hasVector: storedContextVector !== null,
@@ -179,6 +195,7 @@ export const createSlowLaneClient = (
 		} catch (e) {
 			storedContextVector = null;
 			storedLmLogits = null;
+			failExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, requestId, { errorType: 'network' });
 			if (isAutocompleteDebugEnabled()) {
 				// eslint-disable-next-line no-console
 				console.log(
@@ -186,6 +203,10 @@ export const createSlowLaneClient = (
 					'color: #9c27b0; font-weight: bold;',
 					'color: #f44336;',
 				);
+			}
+		} finally {
+			if (inflightRequestId === requestId) {
+				inflightRequestId = null;
 			}
 		}
 	};
@@ -197,7 +218,12 @@ export const createSlowLaneClient = (
 		lastRequestedText = text;
 		debounceTimer = setTimeout(() => {
 			debounceTimer = null;
-			doUpdateContext(lastRequestedText);
+			if (inflightRequestId !== null) {
+				abortExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, inflightRequestId, 'superseded');
+			}
+			const requestId = String(++requestSeq);
+			inflightRequestId = requestId;
+			doUpdateContext(lastRequestedText, requestId);
 		}, debounceMs);
 	};
 

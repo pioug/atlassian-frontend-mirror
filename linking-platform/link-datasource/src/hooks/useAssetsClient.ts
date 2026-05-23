@@ -107,7 +107,13 @@ export const useAssetsClient = (
 				setLoading(false);
 			}
 		})();
-	}, [initialParameters, fireEvent, resolvedWorkspaceId, isResolverPendingOrIdle, isResolverGateOn]);
+	}, [
+		initialParameters,
+		fireEvent,
+		resolvedWorkspaceId,
+		isResolverPendingOrIdle,
+		isResolverGateOn,
+	]);
 
 	return {
 		workspaceId,

@@ -39,7 +39,9 @@ import {
 	COLUMN_DANGER_SECTION_RANK,
 } from './keys';
 
-export const getColumnMenuComponents = ({ api }: TableMenuComponentsParams): RegisterComponent[] => [
+export const getColumnMenuComponents = ({
+	api,
+}: TableMenuComponentsParams): RegisterComponent[] => [
 	// --- Menu surface ---
 	{
 		type: COLUMN_MENU.type,

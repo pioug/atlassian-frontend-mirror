@@ -19,5 +19,12 @@ export const lazyMediaGroupView = (
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	intl?: IntlShape,
 ): NodeViewConstructor => {
-	return ReactMediaGroupNode(portalProviderAPI, eventDispatcher, providerFactory, options, api, intl);
+	return ReactMediaGroupNode(
+		portalProviderAPI,
+		eventDispatcher,
+		providerFactory,
+		options,
+		api,
+		intl,
+	);
 };

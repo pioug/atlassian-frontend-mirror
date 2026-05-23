@@ -2,7 +2,11 @@ import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import type { SchemaConfig } from '../../../../schema/create-schema';
 import { createSchema } from '../../../../schema/create-schema';
 import { toHTML, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
-import { extendedPanel, extendedPanelC1, extendedPanelC1WithLocalId } from '../../../../schema/nodes/panel';
+import {
+	extendedPanel,
+	extendedPanelC1,
+	extendedPanelC1WithLocalId,
+} from '../../../../schema/nodes/panel';
 import { panel, panelC1 } from '../../../../next-schema';
 
 const schema = makeSchema();
@@ -359,11 +363,11 @@ describe('extendedPanelC1 factory wrappers', () => {
 				const spec = extendedPanelC1(false);
 				const parser = new DOMParser();
 				const dom = parser.parseFromString(
-				'<div data-panel-type="custom" data-panel-icon=":smiley:" data-panel-color="#33FF33"><p>test</p></div>',
-				'text/html',
-			);
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting
-			const el = dom.body.firstChild as HTMLElement;
+					'<div data-panel-type="custom" data-panel-icon=":smiley:" data-panel-color="#33FF33"><p>test</p></div>',
+					'text/html',
+				);
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				const el = dom.body.firstChild as HTMLElement;
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const attrs = (spec.parseDOM![0] as { getAttrs: (el: HTMLElement) => object }).getAttrs(el);
 				expect(attrs).not.toHaveProperty('panelIcon');
@@ -378,11 +382,11 @@ describe('extendedPanelC1 factory wrappers', () => {
 				const spec = extendedPanelC1(true);
 				const parser = new DOMParser();
 				const dom = parser.parseFromString(
-				'<div data-panel-type="custom" data-panel-icon=":smiley:" data-panel-color="#33FF33" data-panel-icon-id="1f603" data-panel-icon-text="😃"><p>test</p></div>',
-				'text/html',
-			);
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting
-			const el = dom.body.firstChild as HTMLElement;
+					'<div data-panel-type="custom" data-panel-icon=":smiley:" data-panel-color="#33FF33" data-panel-icon-id="1f603" data-panel-icon-text="😃"><p>test</p></div>',
+					'text/html',
+				);
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				const el = dom.body.firstChild as HTMLElement;
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const attrs = (spec.parseDOM![0] as { getAttrs: (el: HTMLElement) => object }).getAttrs(el);
 				expect((attrs as { panelType: string }).panelType).toBe('custom');

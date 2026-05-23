@@ -1,5 +1,13 @@
 # @atlaskit/link-extractors
 
+## 2.7.0
+
+### Minor Changes
+
+- [`437eba4b32d0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/437eba4b32d0d) -
+  Even though there are no API changes in this realase, but internal structure of the package has
+  changed significantly - all exports are now in single src/index.tsx
+
 ## 2.6.0
 
 ### Minor Changes

@@ -182,9 +182,7 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 			),
 			title: createCommentMessage,
 			onMount: () => {
-				if (fg('confluence_frontend_preload_inline_comment_editor')) {
-					onCommentButtonMount && onCommentButtonMount();
-				}
+				onCommentButtonMount && onCommentButtonMount();
 
 				// Check if the selection includes an non-text inline node
 				const inlineCommentPluginState = getPluginState(state);

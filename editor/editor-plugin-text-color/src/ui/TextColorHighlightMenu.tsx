@@ -73,9 +73,7 @@ const useTextColorHighlightMenuStateNew = (
 				textColor: states.textColorState?.color,
 				defaultColor: states.textColorState?.defaultColor,
 				isPaletteOpen: states.textColorState?.isPaletteOpen,
-				highlightColor: useDefaultToolbarState
-					? undefined
-					: states.highlightState?.activeColor,
+				highlightColor: useDefaultToolbarState ? undefined : states.highlightState?.activeColor,
 			};
 		},
 	);
@@ -113,13 +111,8 @@ export const TextColorHighlightMenu = ({
 }: TextColorHighlightMenuProps): React.JSX.Element => {
 	const isHighlightPluginExisted = !!api?.highlight;
 	const { isDisabled: isToolbarDisabled } = useToolbarUI();
-	const {
-		isTextColorDisabled,
-		textColor,
-		defaultColor,
-		isPaletteOpen,
-		highlightColor,
-	} = useTextColorHighlightMenuState(api);
+	const { isTextColorDisabled, textColor, defaultColor, isPaletteOpen, highlightColor } =
+		useTextColorHighlightMenuState(api);
 	const isDisabled = Boolean(isToolbarDisabled || isTextColorDisabled);
 	const { formatMessage } = useIntl();
 

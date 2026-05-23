@@ -10,7 +10,7 @@ export {
 	/** @deprecated Use @atlaskit/link-provider */
 	type ProviderProps,
 	/** @deprecated Use @atlaskit/linking-common */
-	type CardType
+	type CardType,
 } from './state';
 
 /** @deprecated Use @atlaskit/smart-card/card/types */

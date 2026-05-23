@@ -9,4 +9,3 @@ export {
 	iconSlack,
 	iconTrello,
 } from '../smart-card/images/index';
- 

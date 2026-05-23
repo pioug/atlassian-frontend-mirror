@@ -44,7 +44,7 @@ export {
 
 // Export the mock card client
 /** @deprecated Use @atlaskit/link-test-helpers/smart-card/mocks/clients */
-export {MockCardClient} from "./mock-clients";
+export { MockCardClient } from './mock-clients';
 
 // Export all images and icons
 /** @deprecated Use @atlaskit/link-test-helpers/smart-card/images and @atlaskit/link-test-helpers/smart-card/images/<name> for svg */

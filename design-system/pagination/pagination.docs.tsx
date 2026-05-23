@@ -4,45 +4,45 @@ import type { StructuredContentSource } from '@atlassian/structured-docs-types/t
 
 const documentation: StructuredContentSource = {
 	components: [
-	{
-		name: 'Pagination',
-		description: 'A component for pagination controls.',
-		status: 'general-availability',
-		import: {
+		{
 			name: 'Pagination',
-			package: '@atlaskit/pagination',
-			type: 'default',
-			packagePath: path.resolve(__dirname),
-			packageJson: require('./package.json'),
-		},
-		usageGuidelines: [
-			'Use for navigating through paged content',
-			'Provide clear page indicators',
-			'Consider total page count display',
-			'Use appropriate page limits',
-		],
-		contentGuidelines: [
-			'Use clear page labels',
-			'Provide meaningful navigation text',
-			'Use consistent pagination terminology',
-			'Consider page context information',
-		],
-		accessibilityGuidelines: [
-			'Provide clear page navigation labels',
-			'Use appropriate ARIA labels for pagination',
-			'Ensure keyboard navigation support',
-			'Announce page changes to screen readers',
-		],
-		examples: [
-			{
+			description: 'A component for pagination controls.',
+			status: 'general-availability',
+			import: {
 				name: 'Pagination',
-				description: 'Pagination example',
-				source: path.resolve(__dirname, './examples/ai/pagination.tsx'),
+				package: '@atlaskit/pagination',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
 			},
-		],
-		keywords: ['pagination', 'pages', 'navigation', 'paging', 'controls'],
-		categories: ['navigation'],
-	},
+			usageGuidelines: [
+				'Use for navigating through paged content',
+				'Provide clear page indicators',
+				'Consider total page count display',
+				'Use appropriate page limits',
+			],
+			contentGuidelines: [
+				'Use clear page labels',
+				'Provide meaningful navigation text',
+				'Use consistent pagination terminology',
+				'Consider page context information',
+			],
+			accessibilityGuidelines: [
+				'Provide clear page navigation labels',
+				'Use appropriate ARIA labels for pagination',
+				'Ensure keyboard navigation support',
+				'Announce page changes to screen readers',
+			],
+			examples: [
+				{
+					name: 'Pagination',
+					description: 'Pagination example',
+					source: path.resolve(__dirname, './examples/ai/pagination.tsx'),
+				},
+			],
+			keywords: ['pagination', 'pages', 'navigation', 'paging', 'controls'],
+			categories: ['navigation'],
+		},
 	],
 };
 

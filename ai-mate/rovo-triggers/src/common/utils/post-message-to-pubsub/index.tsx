@@ -62,12 +62,9 @@ export const RovoPostMessagePubsubListener = () => {
 						eventType: ROVO_POST_MESSAGE_ACK_EVENT_TYPE,
 						payloadId: eventData.payloadId,
 					};
-					event.source?.postMessage(
-						ackPayload,
-						{
-									targetOrigin: '*',
-								},
-					);
+					event.source?.postMessage(ackPayload, {
+						targetOrigin: '*',
+					});
 					publish(event.data.payload);
 				}
 			},

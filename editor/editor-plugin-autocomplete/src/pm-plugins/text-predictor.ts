@@ -15,6 +15,8 @@
  * via incrementSessionFreq(), called on word boundaries from the plugin.
  */
 
+import { EXPERIENCE_NAME, failExp, startExp, succeedExp } from '../analytics/ufo';
+
 // import bigramsData from './data/bigrams.json';
 import l3VocabularyData from './data/l3_vocabulary.json';
 import vocabularyData from './data/vocabulary_10k.json';
@@ -723,12 +725,14 @@ export const loadVectorsAsync = async (options?: {
 		return;
 	}
 	vectorsLoadStarted = true;
+	startExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton');
 
 	let url: string;
 	try {
 		url = await options.getBinaryUrl();
 	} catch (e) {
 		vectorsLoadStarted = false;
+		failExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton', { errorType: 'resolve_url' });
 		// eslint-disable-next-line no-console
 		console.warn('[text-predictor] Failed to resolve vectors URL:', e);
 		return;
@@ -738,6 +742,10 @@ export const loadVectorsAsync = async (options?: {
 		const res = await fetch(url);
 		if (!res.ok) {
 			vectorsLoadStarted = false;
+			failExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton', {
+				status: res.status,
+				errorType: 'http_error',
+			});
 			// eslint-disable-next-line no-console
 			console.warn(`[text-predictor] Failed to load vectors: ${res.status}`);
 			return;
@@ -749,6 +757,11 @@ export const loadVectorsAsync = async (options?: {
 		const dim = float32.length / nWords;
 
 		vectorStore = { float32, wordIndex, dim };
+		succeedExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton', {
+			wordCount: nWords,
+			dim,
+			sizeBytes: float32.byteLength,
+		});
 		if (isAutocompleteDebugEnabled()) {
 			// eslint-disable-next-line no-console
 			console.log('[text-predictor] Vectors loaded:', {
@@ -759,6 +772,7 @@ export const loadVectorsAsync = async (options?: {
 		}
 	} catch (e) {
 		vectorsLoadStarted = false;
+		failExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton', { errorType: 'network' });
 		// eslint-disable-next-line no-console
 		console.warn('[text-predictor] Failed to load vectors:', e);
 	}
@@ -769,17 +783,33 @@ export const initVectors = (store: VectorStore): void => {
 };
 
 export const loadDefaultVocabulary = (): void => {
-	// 1. Load the Atlassian Domain (L2)
-	const data = vocabularyData as VocabularyJson;
-	const terms = Object.entries(data.words).map(([word, stats]) => ({
-		word,
-		freq: stats.freq,
-		docFreq: stats.doc_freq,
-		authorFreq: stats.author_freq,
-	}));
-	initVocabulary({ terms });
+	if (isInitialized) {
+		return;
+	}
 
-	// 2. Load General English (L3)
-	const l3Words = l3VocabularyData as string[];
-	initL3Vocabulary(l3Words);
+	startExp(EXPERIENCE_NAME.LOAD_VOCABULARY, 'singleton');
+
+	try {
+		// 1. Load the Atlassian Domain (L2)
+		const data = vocabularyData as VocabularyJson;
+		const terms = Object.entries(data.words).map(([word, stats]) => ({
+			word,
+			freq: stats.freq,
+			docFreq: stats.doc_freq,
+			authorFreq: stats.author_freq,
+		}));
+		initVocabulary({ terms });
+
+		// 2. Load General English (L3)
+		const l3Words = l3VocabularyData as string[];
+		initL3Vocabulary(l3Words);
+
+		succeedExp(EXPERIENCE_NAME.LOAD_VOCABULARY, 'singleton', {
+			l2WordCount: terms.length,
+			l3WordCount: l3Words.length,
+		});
+	} catch (e) {
+		failExp(EXPERIENCE_NAME.LOAD_VOCABULARY, 'singleton', { errorType: 'parse_error' });
+		throw e;
+	}
 };

@@ -32,8 +32,8 @@ export const HeaderRowToggleItem = (props: TableMenuComponentsParams): React.JSX
 		api ?? undefined,
 		['table'],
 		(states) => ({
-			isHeaderRowAllowed: (states.tableState as TableSharedStateInternal | undefined)
-				?.pluginConfig?.allowHeaderRow,
+			isHeaderRowAllowed: (states.tableState as TableSharedStateInternal | undefined)?.pluginConfig
+				?.allowHeaderRow,
 			isHeaderRowEnabled: (states.tableState as TableSharedStateInternal | undefined)
 				?.isHeaderRowEnabled,
 		}),
@@ -49,16 +49,20 @@ export const HeaderRowToggleItem = (props: TableMenuComponentsParams): React.JSX
 		toggleHeaderRowWithAnalytics(api?.analytics?.actions)(editorView.state, editorView.dispatch);
 	};
 
-	if (!shouldShowHeaderRowToggle({ isFirstRow: tableMenuContext?.isFirstRow === true, isHeaderRowAllowed, selectedRowCount })) {
+	if (
+		!shouldShowHeaderRowToggle({
+			isFirstRow: tableMenuContext?.isFirstRow === true,
+			isHeaderRowAllowed,
+			selectedRowCount,
+		})
+	) {
 		return null;
 	}
 
 	return (
 		<ToolbarDropdownItem
 			onClick={handleClick}
-			elemAfter={
-				<Toggle label={label} isChecked={!!isHeaderRowEnabled} onChange={handleClick} />
-			}
+			elemAfter={<Toggle label={label} isChecked={!!isHeaderRowEnabled} onChange={handleClick} />}
 		>
 			{label}
 		</ToolbarDropdownItem>

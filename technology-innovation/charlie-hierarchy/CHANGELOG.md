@@ -1,5 +1,12 @@
 # @atlaskit/charlie-hierarchy
 
+## 0.2.0
+
+### Minor Changes
+
+- [`437eba4b32d0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/437eba4b32d0d) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 0.1.18
 
 ### Patch Changes

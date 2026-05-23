@@ -1,5 +1,16 @@
 # @atlaskit/adf-schema
 
+## 52.14.0
+
+### Minor Changes
+
+- [`192cdfa42f9d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/192cdfa42f9d3) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.13.1
 
 ### Patch Changes

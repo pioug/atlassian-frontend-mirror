@@ -9,5 +9,6 @@ import { type Context, createContext, type MutableRefObject } from 'react';
  * renders — allowing `useAnchorPosition` to receive a stable `anchorRef`
  * without needing to create a new ref wrapper on every `triggerRef` state change.
  */
-export const TriggerRefObjectContext: Context<MutableRefObject<HTMLElement | null>> =
-	createContext<MutableRefObject<HTMLElement | null>>({ current: null });
+export const TriggerRefObjectContext: Context<MutableRefObject<HTMLElement | null>> = createContext<
+	MutableRefObject<HTMLElement | null>
+>({ current: null });

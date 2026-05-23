@@ -37,8 +37,6 @@ export const ColumnBackgroundSection = ({
 	});
 
 	return (
-		<ToolbarDropdownItemSection hasSeparator={hasSeparator}>
-			{children}
-		</ToolbarDropdownItemSection>
+		<ToolbarDropdownItemSection hasSeparator={hasSeparator}>{children}</ToolbarDropdownItemSection>
 	);
 };

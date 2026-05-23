@@ -279,7 +279,11 @@ export class SyncBlockSubscriptionManager {
 						'editor-synced-block-provider/syncBlockSubscriptionManager/graphql-subscription',
 				});
 				this.deps.getFireAnalyticsEvent()?.(
-					fetchErrorPayload(error.message, resourceId, getSourceProductFromResourceIdSafe(resourceId)),
+					fetchErrorPayload(
+						error.message,
+						resourceId,
+						getSourceProductFromResourceIdSafe(resourceId),
+					),
 				);
 				if (reconnectEnabled) {
 					this.handleSubscriptionTerminated(resourceId);
@@ -327,15 +331,10 @@ export class SyncBlockSubscriptionManager {
 		if (attempts >= SyncBlockSubscriptionManager.MAX_RETRY_ATTEMPTS) {
 			const errorMessage = `Subscription reconnection failed after ${attempts} attempts`;
 			logException(new Error(errorMessage), {
-				location:
-					'editor-synced-block-provider/syncBlockSubscriptionManager/max-retries-exhausted',
+				location: 'editor-synced-block-provider/syncBlockSubscriptionManager/max-retries-exhausted',
 			});
 			this.deps.getFireAnalyticsEvent()?.(
-				fetchErrorPayload(
-					errorMessage,
-					resourceId,
-					getSourceProductFromResourceIdSafe(resourceId),
-				),
+				fetchErrorPayload(errorMessage, resourceId, getSourceProductFromResourceIdSafe(resourceId)),
 			);
 			return;
 		}
@@ -459,7 +458,8 @@ export class SyncBlockSubscriptionManager {
 					fetchSuccessPayload(
 						syncBlockInstance.resourceId,
 						localId,
-						(syncBlockInstance.data?.product ?? getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId)),
+						syncBlockInstance.data?.product ??
+							getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId),
 					),
 				);
 			});
@@ -471,7 +471,8 @@ export class SyncBlockSubscriptionManager {
 				fetchErrorPayload(
 					errorMessage,
 					syncBlockInstance.resourceId,
-					(syncBlockInstance.data?.product ?? getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId)),
+					syncBlockInstance.data?.product ??
+						getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId),
 				),
 			);
 		}

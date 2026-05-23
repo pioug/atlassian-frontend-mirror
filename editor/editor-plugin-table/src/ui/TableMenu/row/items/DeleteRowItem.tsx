@@ -8,7 +8,11 @@ import { deleteRow, tooltip } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { DeleteIcon, ToolbarDropdownItem, ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar';
+import {
+	DeleteIcon,
+	ToolbarDropdownItem,
+	ToolbarKeyboardShortcutHint,
+} from '@atlaskit/editor-toolbar';
 
 import { clearHoverSelection, hoverRows } from '../../../../pm-plugins/commands';
 import { deleteRowsWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
@@ -25,8 +29,8 @@ export const DeleteRowItem = (props: TableMenuComponentsParams): React.JSX.Eleme
 		api ?? undefined,
 		['table'],
 		(states) => ({
-			isHeaderRowRequired: (states.tableState as TableSharedStateInternal | undefined)
-				?.pluginConfig?.isHeaderRowRequired,
+			isHeaderRowRequired: (states.tableState as TableSharedStateInternal | undefined)?.pluginConfig
+				?.isHeaderRowRequired,
 		}),
 	);
 	const selectedRowCount = tableMenuContext?.selectedRowCount ?? 1;

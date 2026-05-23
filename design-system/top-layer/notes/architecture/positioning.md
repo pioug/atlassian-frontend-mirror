@@ -65,7 +65,6 @@ Cross-link to `notes/decisions/placement-offset.md` for the design decision. Sum
   block and custom-property scope. This is safe (no flash) because the JS path keeps the popover
   hidden via `opacity: 0` until the first measurement completes — see JS fallback details below.
 
-
 ## JS fallback details
 
 The fallback uses `position: fixed` semantics inside the top layer (the popover is already in the

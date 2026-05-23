@@ -12,7 +12,9 @@ import { toggleNumberColumnWithAnalytics } from '../../../../pm-plugins/commands
 import type { TableSharedStateInternal } from '../../../../types';
 import type { TableMenuComponentsParams } from '../../shared/types';
 
-export const NumberedRowsToggleItem = (props: TableMenuComponentsParams): React.JSX.Element | null => {
+export const NumberedRowsToggleItem = (
+	props: TableMenuComponentsParams,
+): React.JSX.Element | null => {
 	const { api } = props;
 	const { editorView } = useEditorToolbar();
 	const { isNumberColumnAllowed, isNumberColumnEnabled } = useSharedPluginStateWithSelector(

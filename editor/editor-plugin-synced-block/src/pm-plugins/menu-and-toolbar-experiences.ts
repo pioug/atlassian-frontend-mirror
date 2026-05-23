@@ -194,7 +194,9 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 						return;
 					}
 
-					const targetElement = typeaheadPopup.querySelector('[role="option"][aria-selected="true"]');
+					const targetElement = typeaheadPopup.querySelector(
+						'[role="option"][aria-selected="true"]',
+					);
 					if (!targetElement || !(targetElement instanceof HTMLElement)) {
 						return;
 					}
@@ -407,13 +409,13 @@ const referenceSyncBlockRemovedFromDomCheck = (
 						childList: true,
 					},
 				},
-						{
-							target: getSelectionAncestorDOM(editorViewRef?.current),
-							options: {
-								childList: true,
-								subtree: true,
-							},
-						},
+				{
+					target: getSelectionAncestorDOM(editorViewRef?.current),
+					options: {
+						childList: true,
+						subtree: true,
+					},
+				},
 			];
 		},
 	});

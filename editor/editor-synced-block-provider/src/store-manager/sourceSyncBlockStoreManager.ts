@@ -33,7 +33,10 @@ import {
 	getSaveSourceExperience,
 	getFetchSourceInfoExperience,
 } from '../utils/experienceTracking';
-import { convertSyncBlockPMNodeToSyncBlockData, getSourceProductFromResourceIdSafe } from '../utils/utils';
+import {
+	convertSyncBlockPMNodeToSyncBlockData,
+	getSourceProductFromResourceIdSafe,
+} from '../utils/utils';
 
 export type ConfirmationCallback = (
 	syncBlockIds: SyncBlockAttrs[],
@@ -239,10 +242,7 @@ export class SourceSyncBlockStoreManager {
 			// `commitPendingCreation()` can trigger a follow-up flush once that
 			// specific creation completes.
 			// See EDITOR-7112.
-			if (
-				this.pendingCreationPromises.size > 0 &&
-				fg('platform_synced_block_patch_12')
-			) {
+			if (this.pendingCreationPromises.size > 0 && fg('platform_synced_block_patch_12')) {
 				let timedOut = false;
 				let timeoutId: ReturnType<typeof setTimeout> | undefined;
 				const timeout = new Promise<void>((resolve) => {
@@ -251,10 +251,7 @@ export class SourceSyncBlockStoreManager {
 						resolve();
 					}, FLUSH_CREATION_AWAIT_TIMEOUT_MS);
 				});
-				await Promise.race([
-					Promise.all(this.pendingCreationPromises.values()),
-					timeout,
-				]);
+				await Promise.race([Promise.all(this.pendingCreationPromises.values()), timeout]);
 				if (timeoutId !== undefined) {
 					clearTimeout(timeoutId);
 				}
@@ -566,7 +563,11 @@ export class SourceSyncBlockStoreManager {
 				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
 			});
 			this.fireAnalyticsEvent?.(
-				createErrorPayload((error as Error).message, resourceId, getSourceProductFromResourceIdSafe(resourceId)),
+				createErrorPayload(
+					(error as Error).message,
+					resourceId,
+					getSourceProductFromResourceIdSafe(resourceId),
+				),
 			);
 		}
 	}
@@ -619,7 +620,10 @@ export class SourceSyncBlockStoreManager {
 				this.deleteExperience?.success();
 				results.forEach((result) => {
 					this.fireAnalyticsEvent?.(
-						deleteSuccessPayload(result.resourceId, getSourceProductFromResourceIdSafe(result.resourceId)),
+						deleteSuccessPayload(
+							result.resourceId,
+							getSourceProductFromResourceIdSafe(result.resourceId),
+						),
 					);
 				});
 			} else {
@@ -631,7 +635,10 @@ export class SourceSyncBlockStoreManager {
 				results.forEach((result) => {
 					if (result.success) {
 						this.fireAnalyticsEvent?.(
-							deleteSuccessPayload(result.resourceId, getSourceProductFromResourceIdSafe(result.resourceId)),
+							deleteSuccessPayload(
+								result.resourceId,
+								getSourceProductFromResourceIdSafe(result.resourceId),
+							),
 						);
 					} else {
 						this.fireAnalyticsEvent?.(
@@ -696,10 +703,7 @@ export class SourceSyncBlockStoreManager {
 	 * This is called on editor init so we know which blocks are 'unpublished' vs 'active'.
 	 */
 	public async fetchAndCacheStatuses(): Promise<void> {
-		if (
-			!this.dataProvider ||
-			this.syncBlockCache.size === 0
-		) {
+		if (!this.dataProvider || this.syncBlockCache.size === 0) {
 			return;
 		}
 

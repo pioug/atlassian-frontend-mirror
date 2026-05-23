@@ -332,11 +332,7 @@ const ItemIcon = ({ reference, intl }: { intl: IntlShape; reference: SyncBlockSo
 	//   - we don't have access (issueType is not surfaced for no-access references),
 	//   - AGG returned no `issueType` (partial index, deleted, etc.), or
 	//   - the issue type is unrecognised AND has no `iconUrl`.
-	if (
-		productType === 'jira-work-item' &&
-		hasAccess &&
-		issueType
-	) {
+	if (productType === 'jira-work-item' && hasAccess && issueType) {
 		const icon = renderJiraIssueTypeIcon(issueType, intl);
 		if (icon !== null) {
 			return icon;
@@ -479,7 +475,9 @@ const EditorPositionedSyncedLocationDropdown = ({
 			<Button
 				areAnyNewToolbarFlagsEnabled={true}
 				selected={isOpen}
-				iconAfter={<ChevronDownIcon color="currentColor" spacing="spacious" label="" size="small" />}
+				iconAfter={
+					<ChevronDownIcon color="currentColor" spacing="spacious" label="" size="small" />
+				}
 				onClick={toggleOpen}
 				ariaHasPopup
 			>
@@ -616,8 +614,7 @@ const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId, 
 							>
 								{referenceData.map((reference) => {
 									const title =
-										reference.title === '' &&
-										reference.hasAccess
+										reference.title === '' && reference.hasAccess
 											? formatMessage(messages.syncedLocationDropdownUntitledPage)
 											: reference.title || reference.url || '';
 

@@ -28,7 +28,6 @@ describe('LinkUrl', () => {
 				const { container } = render(<TestComponent isLinkComponent />, { wrapper });
 				await expect(container).toBeAccessible();
 			});
-
 		});
 
 		describe('checkSafety', () => {

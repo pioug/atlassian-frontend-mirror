@@ -124,7 +124,9 @@ export const mapPreservedSelection = (
 	const shouldTrimTrailingParagraph =
 		fg('platform_editor_block_menu_jira_patch_2') &&
 		tr.getMeta(INSERTED_TRAILING_PARAGRAPH_TO_LAST_NODE_META) === true;
-	const to = shouldTrimTrailingParagraph ? mapping.map(selection.to, -1) : mapping.map(selection.to);
+	const to = shouldTrimTrailingParagraph
+		? mapping.map(selection.to, -1)
+		: mapping.map(selection.to);
 
 	const isSelectionEmpty = from === to;
 	const wasSelectionEmpty = selection.from === selection.to;

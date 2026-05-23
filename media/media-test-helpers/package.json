@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-test-helpers",
-	"version": "41.1.0",
+	"version": "41.2.0",
 	"description": "Collection of test helpers used in media component stories and specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -139,9 +139,5 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"platform-feature-flags": {
-		"should-render-to-parent-should-be-true-media-exif": {
-			"type": "boolean"
-		}
-	}
+	"platform-feature-flags": {}
 }

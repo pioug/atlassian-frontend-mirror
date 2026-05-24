@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 114.44.0
+
+### Minor Changes
+
+- [`3990f4a500c27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3990f4a500c27) -
+  Fix RovoLinkPicker rendering off-screen by using correct dimensions for popup placement
+  calculations
+
 ## 114.43.0
 
 ### Minor Changes

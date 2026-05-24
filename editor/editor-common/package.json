@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "114.43.0",
+	"version": "114.44.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -138,8 +138,6 @@
 		"./use-plugin-state-effect": "./src/hooks/usePluginStateEffect.ts",
 		"./use-shared-plugin-state-selector": "./src/hooks/useSharedPluginStateSelector/index.ts",
 		"./user-intent": "./src/user-intent/index.ts",
-		"./experiences": "./src/experiences/index.ts",
-		"./node-anchor": "./src/node-anchor/index.ts",
 		"./block-type": "./src/block-type/index.ts",
 		"./selection/actions": "./src/selection/gap-cursor/actions.ts",
 		"./analytics/types/activity-session-events": "./src/analytics/types/activity-session-events.ts",

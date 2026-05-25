@@ -8,6 +8,7 @@ import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemir
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TablePluginState } from '../types';
 
@@ -66,9 +67,17 @@ const updateTargetCellPosition: BuilderTablePluginState =
 			return pluginState;
 		}
 
+		// The updated table menu is anchored to the current target cell. When selection moves
+		// to another cell, close the active menu so render state cannot point at a stale anchor.
 		return {
 			...pluginState,
 			targetCellPosition,
+			activeTableMenu:
+				pluginState.activeTableMenu != null &&
+				pluginState.activeTableMenu.type !== 'none' &&
+				expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)
+					? { type: 'none' }
+					: pluginState.activeTableMenu,
 		};
 	};
 

@@ -101,10 +101,8 @@ import { normaliseAlignment } from '../pm-plugins/utils/alignment';
 import { isTableNested } from '../pm-plugins/utils/nodes';
 import { getSelectedColumnIndexes, getSelectedRowIndexes } from '../pm-plugins/utils/selection';
 import { getMergedCellsPositions } from '../pm-plugins/utils/table';
-import {
-	applyMeasuredWidthToSelectedTable,
-	isContentModeSupported,
-} from '../pm-plugins/utils/tableMode';
+import { applyMeasuredWidthToSelectedTable } from '../pm-plugins/utils/tableMode/apply-measured-width-to-selected-table';
+import { isContentModeSupported } from '../pm-plugins/utils/tableMode/is-content-mode-supported';
 import type { TablePluginOptions } from '../tablePluginType';
 import type {
 	AlignmentOptions,

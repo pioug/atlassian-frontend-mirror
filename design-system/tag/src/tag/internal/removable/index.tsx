@@ -15,6 +15,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import TagNew, { colorMapping } from '../../../tag-new';
+import { getTagText } from '../../../tag-new/get-tag-text';
 import BaseTag from '../shared/base';
 import Before from '../shared/before';
 import { getLozengeAppearance } from '../shared/color-to-lozenge-appearance';
@@ -101,6 +102,7 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 	) => {
 		const [status, setStatus] = useState<TagStatus>(TagStatus.Showing);
 		const [isHoverCloseButton, setIsHoverCloseButton] = useState(false);
+		const normalizedText = getTagText(text);
 
 		const onAfterRemoveActionWithAnalytics = useCallbackWithAnalytics(
 			onAfterRemoveAction,
@@ -122,10 +124,15 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 
 		const handleRemoveRequest = useCallback(() => {
 			if (onBeforeRemoveAction && onBeforeRemoveAction()) {
-				onAfterRemoveActionWithAnalytics(text);
+				onAfterRemoveActionWithAnalytics(normalizedText);
 				handleRemoveComplete();
 			}
-		}, [handleRemoveComplete, onBeforeRemoveAction, onAfterRemoveActionWithAnalytics, text]);
+		}, [
+			handleRemoveComplete,
+			normalizedText,
+			onBeforeRemoveAction,
+			onAfterRemoveActionWithAnalytics,
+		]);
 
 		const onKeyPress = useCallback(
 			(e: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -147,7 +154,7 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 
 		const removeButton = isRemovable ? (
 			<RemoveButton
-				aria-label={`${removeButtonLabel || 'Remove'} ${text}`}
+				aria-label={`${removeButtonLabel || 'Remove'} ${normalizedText}`}
 				onClick={handleRemoveRequest}
 				onFocus={removingTag}
 				onBlur={showingTag}
@@ -163,7 +170,7 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 			const lozengeAppearance = getLozengeAppearance(color);
 			return (
 				<Lozenge appearance={lozengeAppearance} isBold={false} testId={testId} {...rest}>
-					{text}
+					{normalizedText}
 				</Lozenge>
 			);
 		}
@@ -177,7 +184,7 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 				<TagNew
 					ref={ref}
 					color={newColor}
-					text={text}
+					text={normalizedText}
 					elemBefore={elemBefore}
 					href={href}
 					testId={testId}
@@ -197,7 +204,7 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 			<Content
 				elemBefore={elemBefore}
 				isRemovable={isRemovable}
-				text={text}
+				text={normalizedText}
 				color={color}
 				href={href}
 				linkComponent={linkComponent}

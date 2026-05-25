@@ -31,6 +31,26 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 		api?.uiControlRegistry?.actions.register(getPasteMenuComponents({ api }));
 	}
 
+	if (config?.pasteMenuButtonsFactory && config?.usePopupBasedPasteActionsMenu) {
+		const rules = (() => {
+			const getContext = () => {
+				const pasteOptsState = api?.pasteOptionsToolbarPlugin?.sharedState.currentState();
+				const pasteState = api?.paste?.sharedState.currentState();
+				return {
+					getPlaintextLength: () => pasteOptsState?.plaintextLength ?? 0,
+					getAncestorNodeNames: () => pasteOptsState?.pasteAncestorNodeNames ?? [],
+					getPastedText: () => pasteState?.lastContentPasted?.text ?? '',
+					getPastedSlice: () => pasteState?.lastContentPasted?.pastedSlice,
+					getNodeTypes: () => [],
+					getPasteSource: () => pasteState?.lastContentPasted?.pasteSource,
+				};
+			};
+			return createPasteMenuRuleFactories(getContext);
+		})();
+		const productButtons = config.pasteMenuButtonsFactory(rules);
+		api?.uiControlRegistry?.actions.register(productButtons);
+	}
+
 	return {
 		name: 'pasteOptionsToolbarPlugin',
 

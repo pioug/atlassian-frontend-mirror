@@ -10,6 +10,8 @@
  * restrict which focusable elements are included.
  */
 
+import { getDocument } from '@atlaskit/browser-apis';
+
 const selectors = (() => {
 	// Common exclusion filter applied to every selector.
 	const not = ':not([tabindex="-1"]):not([aria-disabled="true"]):not([aria-hidden="true"])';
@@ -31,9 +33,53 @@ const selectors = (() => {
 
 	return {
 		focusable: focusable.join(','),
-		focused: focusable.join(':focus,') + ':focus',
+		// Build the `:focus` selector
+		focused: focusable.map((selector) => `${selector}:focus`).join(','),
 	};
 })();
+
+const topLayerSelector = '[popover], dialog, [role="dialog"], [role="alertdialog"]';
+
+/**
+ * Returns true when `element` and `container` resolve to the same nearest
+ * top-layer host (or both resolve to `null`, meaning the document layer).
+ */
+function isInSameLayer({
+	element,
+	container,
+}: {
+	element: HTMLElement;
+	container: HTMLElement;
+}): boolean {
+	const elementLayer = element.closest(topLayerSelector);
+	const containerLayer = container.closest(topLayerSelector);
+	// Both elements are in the "document" layer
+	if (!elementLayer && !containerLayer) {
+		return true;
+	}
+	return elementLayer === containerLayer;
+}
+
+/**
+ * Returns `true` when `document.activeElement` is inside a nested top-layer
+ * descendant of `container` (a `[popover]`, `<dialog>`, `[role="dialog"]` or
+ * `[role="alertdialog"]` that is itself a descendant of `container`).
+ */
+export function isNestedLayerFocused({ container }: { container: HTMLElement }): boolean {
+	const focused = getDocument()?.activeElement;
+
+	if (!(focused instanceof HTMLElement)) {
+		return false;
+	}
+
+	// Cannot be in a nested layer if it is not in the container
+	if (!container.contains(focused)) {
+		return false;
+	}
+
+	// If not in the same layer, must be in a nested layer
+	return !isInSameLayer({ element: focused, container });
+}
 
 /**
  * An optional callback to restrict which focusable elements are included.
@@ -44,11 +90,10 @@ export type TFocusableFilter = (element: HTMLElement, container: HTMLElement) =>
 /**
  * Returns all focusable HTMLElements within the container, optionally filtered.
  *
- * Note: this searches the full subtree and does not stop at nested
- * popover/dialog boundaries. In practice this is fine because nested
- * popovers are not rendered until they are opened, so their content
- * is not in the DOM when the parent's initial focus runs. If that
- * assumption changes, this would need to be scoped to the current layer.
+ * Focusables that belong to a nested top-layer scope (a `[popover]` or
+ * `<dialog>` descendant of the container) are excluded - those elements
+ * are owned by the inner layer's focus management. The container itself
+ * is allowed to be a popover/dialog; only nested ones are filtered.
  */
 function getFocusables({
 	container,
@@ -59,12 +104,14 @@ function getFocusables({
 }): HTMLElement[] {
 	return Array.from(container.querySelectorAll(selectors.focusable))
 		.filter((element): element is HTMLElement => element instanceof HTMLElement)
+		.filter((element) => isInSameLayer({ element, container }))
 		.filter((element) => !filter || filter(element, container));
 }
 
 /**
  * Returns the first focusable element within the container.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getFirstFocusable({
 	container,
 	filter,

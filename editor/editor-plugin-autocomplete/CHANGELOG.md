@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 2.5.2
+
+### Patch Changes
+
+- [`a87ba03d22d27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a87ba03d22d27) -
+  Fix typecheck
+- Updated dependencies
+
 ## 2.5.1
 
 ### Patch Changes

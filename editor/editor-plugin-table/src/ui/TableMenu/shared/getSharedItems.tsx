@@ -47,7 +47,7 @@ export const getSharedItems = ({ api }: TableMenuComponentsParams): RegisterComp
 				rank: CELL_ACTION_SECTION_RANK[BACKGROUND_COLOR_ITEM.key],
 			},
 		],
-		component: () => <BackgroundColorItem />,
+		component: () => <BackgroundColorItem api={api} />,
 	},
 	{
 		type: CLEAR_CELLS_ITEM.type,

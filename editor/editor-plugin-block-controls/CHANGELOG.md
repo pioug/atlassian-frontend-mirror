@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 11.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.5.0
+
+### Minor Changes
+
+- [`71eaad00529a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71eaad00529a1) -
+  Support multi-column layout column menu selections
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.4.7
 
 ### Patch Changes

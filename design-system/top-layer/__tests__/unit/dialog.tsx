@@ -1,8 +1,59 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { fireEvent, render, screen } from '@atlassian/testing-library';
+import { OpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer/open-layer-observer';
+import { useOpenLayerObserver } from '@atlaskit/layering/experimental/use-open-layer-observer';
+import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import { Dialog } from '../../src/entry-points/dialog';
+
+// ── Observer test helpers ──
+
+/**
+ * Renders the open layer count as text so tests can assert declaratively
+ * on what the observer reports, without imperatively reading the API.
+ * Subscribes to onChange so it re-renders whenever the count changes.
+ */
+function LayerCountDisplay() {
+	const api = useOpenLayerObserver();
+	const [totalCount, setTotalCount] = useState(0);
+	const [modalCount, setModalCount] = useState(0);
+
+	useEffect(() => {
+		if (!api) {
+			return;
+		}
+
+		// Sync immediately in case counts changed before this effect ran
+		setTotalCount(api.getCount());
+		setModalCount(api.getCount({ type: 'modal' }));
+
+		// Subscribe to future changes
+		return api.onChange(() => {
+			setTotalCount(api.getCount());
+			setModalCount(api.getCount({ type: 'modal' }));
+		});
+	}, [api]);
+
+	return (
+		<div>
+			<span data-testid="total-count">{totalCount}</span>
+			<span data-testid="modal-count">{modalCount}</span>
+		</div>
+	);
+}
+
+/**
+ * A button that calls closeLayers() when clicked, allowing tests to trigger
+ * programmatic close without imperatively holding the API reference.
+ */
+function CloseLayersButton() {
+	const api = useOpenLayerObserver();
+	return (
+		<button type="button" onClick={() => api?.closeLayers()}>
+			Close layers
+		</button>
+	);
+}
 
 describe('Dialog primitive', () => {
 	it('opens dialog when isOpen is true', () => {
@@ -129,5 +180,78 @@ describe('Dialog primitive', () => {
 		);
 
 		await expect(container).toBeAccessible();
+	});
+});
+
+describe('Dialog primitive — open layer observer', () => {
+	it('registers with the observer as type "modal" when open', () => {
+		render(
+			<OpenLayerObserver>
+				<LayerCountDisplay />
+				<Dialog onClose={() => {}} isOpen={true} label="Test dialog">
+					Dialog content
+				</Dialog>
+			</OpenLayerObserver>,
+		);
+
+		expect(screen.getByTestId('total-count')).toHaveTextContent('1');
+		expect(screen.getByTestId('modal-count')).toHaveTextContent('1');
+	});
+
+	it('does not register with the observer when closed', () => {
+		render(
+			<OpenLayerObserver>
+				<LayerCountDisplay />
+				<Dialog onClose={() => {}} isOpen={false} label="Test dialog">
+					Dialog content
+				</Dialog>
+			</OpenLayerObserver>,
+		);
+
+		expect(screen.getByTestId('total-count')).toHaveTextContent('0');
+	});
+
+	it('deregisters from the observer when isOpen transitions to false', () => {
+		const { rerender } = render(
+			<OpenLayerObserver>
+				<LayerCountDisplay />
+				<Dialog onClose={() => {}} isOpen={true} label="Test dialog">
+					Dialog content
+				</Dialog>
+			</OpenLayerObserver>,
+		);
+
+		expect(screen.getByTestId('total-count')).toHaveTextContent('1');
+
+		rerender(
+			<OpenLayerObserver>
+				<LayerCountDisplay />
+				<Dialog onClose={() => {}} isOpen={false} label="Test dialog">
+					Dialog content
+				</Dialog>
+			</OpenLayerObserver>,
+		);
+
+		expect(screen.getByTestId('total-count')).toHaveTextContent('0');
+	});
+
+	it('does not close when the observer requests closeLayers()', async () => {
+		const user = userEvent.setup();
+		const onClose = jest.fn();
+
+		render(
+			<OpenLayerObserver>
+				<CloseLayersButton />
+				<Dialog onClose={onClose} isOpen={true} label="Test dialog">
+					Dialog content
+				</Dialog>
+			</OpenLayerObserver>,
+		);
+
+		await user.click(screen.getByRole('button', { name: 'Close layers' }));
+
+		// Modals are intentionally persistent — they should not be dismissed
+		// by closeLayers(). The observer onClose is a no-op.
+		expect(onClose).not.toHaveBeenCalled();
 	});
 });

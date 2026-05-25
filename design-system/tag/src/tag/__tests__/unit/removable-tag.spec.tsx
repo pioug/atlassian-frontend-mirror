@@ -11,5 +11,6 @@ describe('<RemovableTag />', () => {
 			render(<RemovableTag text="" testId="tag" />);
 			expect(screen.getByTestId('close-button-tag')).toBeInTheDocument();
 		});
+
 	});
 });

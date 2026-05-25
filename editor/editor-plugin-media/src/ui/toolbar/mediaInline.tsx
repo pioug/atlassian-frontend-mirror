@@ -100,7 +100,7 @@ export const generateMediaInlineFloatingToolbar = (
 		testId: 'file-preview-toolbar-button',
 		type: 'button',
 		icon: areAnyNewToolbarFlagsEnabled ? GrowDiagonalIcon : MaximizeIcon,
-		title: intl.formatMessage(messages.preview),
+		title: intl.formatMessage(messages.expand),
 		onClick: () => {
 			return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
 		},
@@ -391,7 +391,7 @@ const getMediaInlineImageToolbar = (
 				testId: 'file-preview-toolbar-button',
 				type: 'button',
 				icon: isEditorControlsEnabled ? GrowDiagonalIcon : MaximizeIcon,
-				title: intl.formatMessage(messages.preview),
+				title: intl.formatMessage(messages.expand),
 				onClick: () => {
 					return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
 				},

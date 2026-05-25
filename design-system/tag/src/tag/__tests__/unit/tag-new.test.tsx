@@ -29,6 +29,12 @@ describe('TagNew component (UI uplift)', () => {
 			expect(tag).toBeInTheDocument();
 			expect(tag).toHaveTextContent('Default Tag');
 		});
+
+		it('should normalize string arrays into a single rendered string', () => {
+			render(<TagNew text={['hello', ' ', 'world']} testId={testId} isRemovable={false} />);
+			const tag = screen.getByTestId(testId);
+			expect(tag).toHaveTextContent('hello world');
+		});
 	});
 
 	describe('color mapping (old to new)', () => {

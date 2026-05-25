@@ -276,8 +276,8 @@ export const toolbarMessages: {
 	},
 	deleteColumn: {
 		id: 'fabric.editor.layout.deleteColumn',
-		defaultMessage: 'Delete column',
+		defaultMessage: '{count, plural, one {Delete column} other {Delete columns}}',
 		description:
-			'The text is shown as a label for an option that deletes the selected layout column and its content.',
+			'The text is shown as a label for an option that deletes the selected layout column or columns and their content.',
 	},
 });

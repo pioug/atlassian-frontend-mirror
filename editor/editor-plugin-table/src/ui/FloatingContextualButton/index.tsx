@@ -13,6 +13,7 @@ import { injectIntl } from 'react-intl';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { focusToContextMenuTrigger } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { Popup } from '@atlaskit/editor-common/ui';
@@ -25,16 +26,17 @@ import ExpandIcon from '@atlaskit/icon/core/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { toggleContextualMenu } from '../../pm-plugins/commands';
+import { toggleActiveTableMenu, toggleContextualMenu } from '../../pm-plugins/commands';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
 import { isNativeStickySupported } from '../../pm-plugins/utils/sticky-header';
-import { TableCssClassName as ClassName } from '../../types';
+import { TableCssClassName as ClassName, type PluginInjectionAPI, type TableSharedStateInternal } from '../../types';
 
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import FixedButton from './FixedButton';
 import { tableFloatingCellButtonSelectedStyles, tableFloatingCellButtonStyles } from './styles';
 export interface Props {
+	api?: PluginInjectionAPI | null;
 	boundariesElement?: HTMLElement;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	editorView: EditorView;
@@ -61,6 +63,7 @@ const anchorStyles = css({
 
 const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponentProps) => {
 	const {
+		api,
 		editorView,
 		isContextualMenuOpen,
 		mountPoint,
@@ -71,12 +74,18 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 		isCellMenuOpenByKeyboard,
 		intl: { formatMessage },
 	} = props; //  : Props & WrappedComponentProps
+	const { activeTableMenu } = useSharedPluginStateWithSelector(api, ['table'], (states) => ({
+		activeTableMenu: (states.tableState as TableSharedStateInternal | undefined)?.activeTableMenu,
+	}));
+	const isCellMenuOpen = expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)
+		? activeTableMenu?.type === 'cell'
+		: isContextualMenuOpen;
 
 	const handleClick = () => {
 		const { state, dispatch } = editorView;
 
 		if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
-			toggleContextualMenu()(state, dispatch);
+			toggleActiveTableMenu({ type: 'cell', openedBy: 'mouse' })(state, dispatch);
 			return;
 		}
 
@@ -94,12 +103,16 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 	const targetCellRef: Node | undefined = findDomRefAtPos(targetCellPosition, domAtPos);
 
 	useEffect(() => {
-		if (isCellMenuOpenByKeyboard && !isContextualMenuOpen) {
+		if (isCellMenuOpenByKeyboard && !isCellMenuOpen) {
 			const { state, dispatch } = editorView;
 			// open the menu when the keyboard shortcut is pressed
+			if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+				toggleActiveTableMenu({ type: 'cell', openedBy: 'keyboard' })(state, dispatch);
+				return;
+			}
 			toggleContextualMenu()(state, dispatch);
 		}
-	}, [isCellMenuOpenByKeyboard, isContextualMenuOpen, editorView]);
+	}, [isCellMenuOpenByKeyboard, isCellMenuOpen, editorView]);
 
 	if (!targetCellRef || !(targetCellRef instanceof HTMLElement)) {
 		return null;
@@ -113,19 +126,19 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				tableFloatingCellButtonStyles(),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				isContextualMenuOpen && tableFloatingCellButtonSelectedStyles(),
+				isCellMenuOpen && tableFloatingCellButtonSelectedStyles(),
 			]}
 		>
 			<ToolbarButton
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={ClassName.CONTEXTUAL_MENU_BUTTON}
-				selected={isContextualMenuOpen}
+				selected={isCellMenuOpen}
 				title={labelCellOptions}
 				keymap={focusToContextMenuTrigger}
 				onClick={handleClick}
 				iconBefore={<ExpandIcon label="" color="currentColor" size="small" />}
 				aria-label={labelCellOptions}
-				aria-expanded={isContextualMenuOpen}
+				aria-expanded={isCellMenuOpen}
 			/>
 		</div>
 	);
@@ -209,7 +222,7 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 				targetCellPosition={targetCellPosition}
 				targetCellRef={targetCellRef}
 				mountTo={tableWrapper}
-				isContextualMenuOpen={isContextualMenuOpen}
+				isContextualMenuOpen={isCellMenuOpen}
 			>
 				{button}
 			</FixedButton>

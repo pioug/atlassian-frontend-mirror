@@ -7,6 +7,8 @@ import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
+import { getTagText } from '../../../tag-new/get-tag-text';
+
 import type { SimpleTagProps } from './types';
 
 interface ContentProps extends SimpleTagProps {
@@ -61,6 +63,7 @@ const Content: ({
 	testId,
 }: ContentProps) => {
 	const Link = linkComponent ?? 'a';
+	const normalizedText = getTagText(text);
 
 	if (href) {
 		return (
@@ -70,11 +73,11 @@ const Content: ({
 				data-testid={testId ? `${testId}--link` : undefined}
 				css={[baseStyles, linkStyles, isRemovable && hasAfterStyles]}
 			>
-				{text}
+				{normalizedText}
 			</Link>
 		);
 	} else {
-		return <span css={[baseStyles, isRemovable && hasAfterStyles]}>{text}</span>;
+		return <span css={[baseStyles, isRemovable && hasAfterStyles]}>{normalizedText}</span>;
 	}
 };
 

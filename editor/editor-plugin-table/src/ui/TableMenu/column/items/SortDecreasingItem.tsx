@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl';
 import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { ArrowDownIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 
@@ -14,8 +13,8 @@ import { useTableMenuContext } from '../../shared/TableMenuContext';
 import type { TableMenuComponentsParams } from '../../shared/types';
 
 export const SortDecreasingItem = ({ api }: TableMenuComponentsParams): React.JSX.Element => {
-	const { editorView } = useEditorToolbar();
 	const tableMenuContext = useTableMenuContext();
+	const { editorView } = tableMenuContext ?? {};
 	const { formatMessage } = useIntl();
 
 	const handleClick = () => {

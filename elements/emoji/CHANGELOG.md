@@ -1,5 +1,28 @@
 # @atlaskit/emoji
 
+## 70.10.8
+
+### Patch Changes
+
+- [`13de78223addf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13de78223addf) -
+  Add a feature-gated fix to keep the emoji picker open when opening custom emoji upload from picker
+  actions.
+
+## 70.10.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 70.10.6
+
+### Patch Changes
+
+- [`95ba1db6aa5f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95ba1db6aa5f7) -
+  Use findByEmojiId with retry for shortName-only lookups and render native unicode characters for
+  STANDARD emojis behind platform_twemoji_removal_unicode_emojis feature gate
+- Updated dependencies
+
 ## 70.10.5
 
 ### Patch Changes

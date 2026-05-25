@@ -2,8 +2,9 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment } from 'react';
+import { Fragment, useCallback, type MouseEvent } from 'react';
 import { css, jsx } from '@compiled/react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { FormattedMessage, type WrappedComponentProps } from 'react-intl';
 import { messages } from '../i18n';
@@ -31,6 +32,13 @@ type PropsWithWrappedComponentPropsType = Props & WrappedComponentProps;
 type AddOwnEmojiProps = PropsWithWrappedComponentPropsType;
 export const AddOwnEmoji = (props: AddOwnEmojiProps): JSX.Element => {
 	const { onOpenUpload, uploadEnabled } = props;
+	const handleOpenUpload = useCallback((event: MouseEvent<HTMLElement>) => {
+		if (fg('platform_emoji_keep_picker_open_on_upload')) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
+		onOpenUpload();
+	}, [onOpenUpload]);
 
 	return (
 		<Fragment>
@@ -38,7 +46,7 @@ export const AddOwnEmoji = (props: AddOwnEmojiProps): JSX.Element => {
 				<div css={addCustomEmoji} data-testid={uploadEmojiTestId}>
 					<FormattedMessage {...messages.addEmojiLabel}>
 						{(label) => (
-							<Button onClick={onOpenUpload} tabIndex={0} id="add-custom-emoji">
+							<Button onClick={handleOpenUpload} tabIndex={0} id="add-custom-emoji">
 								{label}
 							</Button>
 						)}

@@ -32,24 +32,27 @@ import { type TPopoverCloseReason, type TWidthFromAnchorMode } from '../popover/
  */
 export { type TPlacementOptions } from '../internal/resolve-placement';
 
-export type TPopupProps = {
+/**
+ * Props shared across all `Popup` modes.
+ *
+ * Mode-specific behaviour for `onClose` is encoded in the discriminated
+ * union below: `'auto'` and `'hint'` modes accept an `onClose` handler
+ * (called on light dismiss); `'manual'` mode forbids it (no light dismiss
+ * exists, so a handler would be dead code).
+ */
+type TPopupBaseProps = {
 	/**
 	 * Position of the popup relative to the trigger. Only the Popup compound uses
 	 * placement; the low-level Popover primitive does not.
+	 *
+	 * Defaults to `{}` which means "below the trigger, centered, with a
+	 * `space.100` token gap".
 	 */
-	placement: TPlacementOptions;
+	placement?: TPlacementOptions;
 	/**
 	 * Must contain `Popup.Trigger` and `Popup.Content`.
 	 */
 	children: ReactNode;
-	/**
-	 * Called when the popup is dismissed via light dismiss.
-	 *
-	 * The `reason` field indicates how the dismiss occurred:
-	 * - `'escape'`: the user pressed the Escape key.
-	 * - `'light-dismiss'`: the user clicked outside (or another auto-dismiss).
-	 */
-	onClose: (args: { reason: TPopoverCloseReason }) => void;
 	/**
 	 * Called when the popup's open state changes.
 	 *
@@ -70,14 +73,6 @@ export type TPopupProps = {
 	 */
 	onOpenChange?: (args: { isOpen: boolean; element: HTMLDivElement }) => void;
 	/**
-	 * Native popover attribute value. Default is `'auto'`.
-	 *
-	 * - `'auto'`: light dismiss (Escape, click-outside). Only one `popover="auto"` can be open at a time; opening another closes the previous.
-	 * - `'hint'`: allows ephemeral UI (e.g. tooltips) to open without closing other `popover="auto"` popovers. Falls back to `popover="auto"` when unsupported.
-	 * - `'manual'`: no light dismiss; the consumer controls show/hide entirely. Escape and click-outside do not close the popover.
-	 */
-	mode?: 'auto' | 'hint' | 'manual';
-	/**
 	 * Test ID applied to the popup content element.
 	 */
 	testId?: string;
@@ -89,6 +84,52 @@ export type TPopupProps = {
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention -- testing prop
 	forceFallbackPositioning?: boolean;
 };
+
+/**
+ * Props for the `Popup` compound.
+ *
+ * Discriminated on `mode`:
+ * - `'auto'` (default) and `'hint'`: light dismiss is enabled; `onClose` is
+ *   optional and is called when the browser dismisses the popover.
+ * - `'manual'`: no light dismiss; `onClose` is `never` since the consumer
+ *   owns show/hide entirely and there is no dismiss event to handle.
+ */
+export type TPopupProps = TPopupBaseProps &
+	(
+		| {
+				/**
+				 * Native popover attribute value. Default is `'auto'`.
+				 *
+				 * - `'auto'`: light dismiss (Escape, click-outside). Only one
+				 *   `popover="auto"` can be open at a time; opening another closes
+				 *   the previous.
+				 * - `'hint'`: allows ephemeral UI (e.g. tooltips) to open without
+				 *   closing other `popover="auto"` popovers. Falls back to
+				 *   `popover="auto"` when unsupported.
+				 */
+				mode?: 'auto' | 'hint';
+				/**
+				 * Called when the popup is dismissed via light dismiss.
+				 *
+				 * The `reason` field indicates how the dismiss occurred:
+				 * - `'escape'`: the user pressed the Escape key.
+				 * - `'light-dismiss'`: the user clicked outside (or another auto-dismiss).
+				 */
+				onClose?: (args: { reason: TPopoverCloseReason }) => void;
+		  }
+		| {
+				/**
+				 * `'manual'`: no light dismiss; the consumer controls show/hide
+				 * entirely. Escape and click-outside do not close the popover.
+				 */
+				mode: 'manual';
+				/**
+				 * Manual mode has no dismiss event, so `onClose` is forbidden.
+				 * The consumer owns show/hide via their own state.
+				 */
+				onClose?: never;
+		  }
+	);
 
 export type TPopupTriggerProps = {
 	/**
@@ -111,7 +152,7 @@ export type TPopupRole = TRoleRequiringAccessibleName | TRoleWithImplicitName;
  *
  * When used standalone (e.g. tooltip, spotlight), the consumer must provide `isOpen`
  * to control visibility. If `animate` is provided, `isOpen` is required at the type
- * level — this ensures exit animations always have a controlled lifecycle.
+ * level. This ensures exit animations always have a controlled lifecycle.
  */
 type TPopupContentBaseProps = {
 	children: ReactNode;
@@ -119,6 +160,16 @@ type TPopupContentBaseProps = {
 	 * Ref to the underlying `<div popover>` element.
 	 */
 	ref?: Ref<HTMLDivElement>;
+	/**
+	 * HTML `id` attribute for the popover element.
+	 *
+	 * Provide this when using `Popup.Content` standalone (outside the
+	 * `<Popup>` compound). The consumer is responsible for wiring
+	 * `aria-controls` on their own trigger to this same id. Inside the
+	 * `<Popup>` compound, the id flows from context - passing it here is
+	 * unnecessary.
+	 */
+	id?: string;
 	/**
 	 * Controls the width of the popover relative to its anchor element.
 	 *
@@ -208,7 +259,7 @@ type TPopupContentBaseProps = {
 	 * Inside the `<Popup>` compound, `isOpen` is provided automatically via context
 	 * (the browser manages state through `togglePopover()`).
 	 *
-	 * For standalone usage, provide `isOpen` to control visibility — especially
+	 * For standalone usage, provide `isOpen` to control visibility, especially
 	 * when `animate` is set, so the exit animation lifecycle works correctly.
 	 *
 	 * @example

@@ -400,6 +400,11 @@ export const aiConfigItemMessages: {
 		description: string;
 		id: string;
 	};
+	remixTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	rephraseDescription: {
 		defaultMessage: string;
 		description: string;
@@ -853,6 +858,14 @@ export const aiConfigItemMessages: {
 		defaultMessage: 'Improve description',
 		description:
 			'Describes an option to use Atlassian Intelligence to improve the issue description currently selected by the user.',
+	},
+
+	// Remix messages
+	remixTitle: {
+		id: 'fabric.editor.ai.config.item.remix.title',
+		defaultMessage: 'Remix',
+		description:
+			'Describes an option to use Atlassian Intelligence to turn content into something new while keeping the original meaning, such as a flow chart',
 	},
 
 	// Make longer messages

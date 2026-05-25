@@ -462,19 +462,26 @@ function Tooltip({
 		apiRef.current?.requestHide({ isImmediate: true });
 	}, []);
 
-	useNotifyOpenLayerObserver({
-		// Layer is only visually open if both the tooltip popup (container) and children are rendered.
-		isOpen: shouldRenderTooltipPopup && shouldRenderTooltipChildren,
-		/**
-		 * We don't strictly need to provide an onClose callback at this time, as there is
-		 * already code that handles hiding the tooltip when a drag is started (and the only
-		 * usage right now is closing all layers when the user resizes the side nav).
-		 *
-		 * However, for future-proofing and semantic reasons, it makes sense to close the tooltip
-		 * whenever the open layer observer requests a close.
-		 */
-		onClose: handleOpenLayerObserverCloseSignal,
-	});
+	// On the top-layer path, the Popover primitive (used by TopLayerTooltipPopup)
+	// registers with the observer directly, so we skip registration here to
+	// avoid double-counting.
+	// Safe conditional hook: feature flags are resolved once at startup.
+	if (!fg('platform-dst-top-layer')) {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		useNotifyOpenLayerObserver({
+			// Layer is only visually open if both the tooltip popup (container) and children are rendered.
+			isOpen: shouldRenderTooltipPopup && shouldRenderTooltipChildren,
+			/**
+			 * We don't strictly need to provide an onClose callback at this time, as there is
+			 * already code that handles hiding the tooltip when a drag is started (and the only
+			 * usage right now is closing all layers when the user resizes the side nav).
+			 *
+			 * However, for future-proofing and semantic reasons, it makes sense to close the tooltip
+			 * whenever the open layer observer requests a close.
+			 */
+			onClose: handleOpenLayerObserverCloseSignal,
+		});
+	}
 
 	const getReferenceElement = (): HTMLElement | VirtualElement | undefined => {
 		if (isMousePosition && apiRef.current?.mousePos && targetRef.current) {

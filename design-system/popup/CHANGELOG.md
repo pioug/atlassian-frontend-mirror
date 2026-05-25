@@ -1,5 +1,30 @@
 # @atlaskit/popup
 
+## 4.21.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.21.0
+
+### Minor Changes
+
+- [`8e9ab10567283`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e9ab10567283) -
+  When `platform-dst-top-layer` is enabled, the open layer observer registration now happens inside
+  the `Dialog` and `Popover` primitives directly, so `popup`, `modal-dialog`, and `tooltip` no
+  longer register with the open layer observer separately (avoiding double-counting).
+  - `Dialog` registers as `type: 'modal'`, with a no-op `onClose`, as there is no current use case
+    for programmatic close of modals via the open layer observer.
+  - `Popover` registers as `type: 'popup'` for interactive overlay roles (`dialog`, `alertdialog`,
+    `menu`, `listbox`, `tree`, `grid`) and omits `type` for other roles (e.g. `tooltip`).
+  - A new `programmatic` value has been added to `TPopoverCloseReason` to distinguish programmatic
+    closes, such as those from the open layer observer's `closeLayers()` calls.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.20.2
 
 ### Patch Changes

@@ -222,7 +222,7 @@ const generateMediaCardFloatingToolbar = (
 		testId: 'file-preview-toolbar-button',
 		type: 'button',
 		icon: areAnyNewToolbarFlagsEnabled ? GrowDiagonalIcon : MaximizeIcon,
-		title: intl.formatMessage(messages.preview),
+		title: intl.formatMessage(messages.expand),
 		onClick: () => {
 			return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
 		},
@@ -759,7 +759,7 @@ const generateMediaSingleFloatingToolbar = (
 							testId: 'file-preview-toolbar-button',
 							type: 'button',
 							icon: MaximizeIcon,
-							title: intl.formatMessage(messages.preview),
+							title: intl.formatMessage(messages.expand),
 							onClick: () => {
 								return (
 									handleShowMediaViewer({
@@ -854,7 +854,7 @@ const generateMediaSingleFloatingToolbar = (
 						testId: 'file-preview-toolbar-button',
 						type: 'button',
 						icon: GrowDiagonalIcon,
-						title: intl.formatMessage(messages.preview),
+						title: intl.formatMessage(messages.expand),
 						onClick: () => {
 							return (
 								handleShowMediaViewer({

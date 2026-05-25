@@ -11,9 +11,9 @@ import {
 } from '@atlaskit/editor-toolbar';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
+import { getLayoutColumnValign } from '../../pm-plugins/utils/layout-column-selection';
 
-import { getLayoutColumnValign } from './layoutColumnSelection';
-import { useCurrentLayoutColumn } from './useCurrentLayoutColumn';
+import { useSelectedLayoutColumns } from './useSelectedLayoutColumns';
 import { VERTICAL_ALIGN_ICONS } from './verticalAlignIcons';
 
 export type VerticalAlignNestedMenuProps = {
@@ -26,11 +26,24 @@ export const VerticalAlignNestedMenu = ({
 	children,
 }: VerticalAlignNestedMenuProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
-	const currentColumn = useCurrentLayoutColumn(api);
-	const currentValign = useMemo(() => getLayoutColumnValign(currentColumn), [currentColumn]);
+	const selectedLayoutColumns = useSelectedLayoutColumns(api);
+	const currentValign = useMemo(() => {
+		const selectedColumns = selectedLayoutColumns?.selectedColumns;
+		const firstColumn = selectedColumns?.[0];
+		const firstValign = getLayoutColumnValign(firstColumn?.node);
+
+		if (
+			!firstValign ||
+			!selectedColumns?.every(({ node }) => getLayoutColumnValign(node) === firstValign)
+		) {
+			return undefined;
+		}
+
+		return firstValign;
+	}, [selectedLayoutColumns]);
 	const TriggerIcon = currentValign ? VERTICAL_ALIGN_ICONS[currentValign] : LayoutIcon;
 
-	if (!currentColumn) {
+	if (!selectedLayoutColumns) {
 		return null;
 	}
 

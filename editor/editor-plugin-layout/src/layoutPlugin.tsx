@@ -56,6 +56,7 @@ import {
 	createDefaultLayoutSection,
 	createMultiColumnLayoutSection,
 	deleteLayoutColumn,
+	distributeLayoutColumns,
 	insertLayoutColumn,
 	insertLayoutColumnsWithAnalytics,
 	setLayoutColumnValign,
@@ -472,8 +473,10 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 		},
 		commands: {
 			deleteLayoutColumn: (props) => deleteLayoutColumn(api?.analytics?.actions)(props),
+			distributeLayoutColumns: (props) =>
+				distributeLayoutColumns(api?.analytics?.actions)(props),
 			insertLayoutColumn: (side) => insertLayoutColumn(side, api?.analytics?.actions),
-			setLayoutColumnValign,
+			setLayoutColumnValign: (valign) => setLayoutColumnValign(valign, api?.analytics?.actions),
 			toggleLayoutColumnMenu,
 		},
 	};

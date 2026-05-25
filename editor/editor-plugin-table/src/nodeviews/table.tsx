@@ -31,7 +31,7 @@ import { pluginConfig as getPluginConfig } from '../pm-plugins/create-plugin-con
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
 import { isTableNested, tablesHaveDifferentColumnWidths } from '../pm-plugins/utils/nodes';
-import { isContentModeSupported } from '../pm-plugins/utils/tableMode';
+import { isContentModeSupported } from '../pm-plugins/utils/tableMode/is-content-mode-supported';
 import type { PluginInjectionAPI } from '../types';
 
 import { TableComponentWithSharedState } from './TableComponentWithSharedState';

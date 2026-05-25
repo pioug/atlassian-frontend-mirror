@@ -9,7 +9,7 @@ import type { RegisterComponent, SurfaceFallbacks } from '@atlaskit/editor-ui-co
 import type { LayoutPlugin } from '../../layoutPluginType';
 
 import { DeleteColumnDropdownItem } from './DeleteColumnDropdownItem';
-import { createDistributeColumnsDropdownItem } from './DistributeColumnsDropdownItem';
+import { DistributeColumnsDropdownItem } from './DistributeColumnsDropdownItem';
 import { InsertColumnDropdownItem } from './InsertColumnDropdownItem';
 import {
 	DELETE_COLUMN_MENU_ITEM,
@@ -82,7 +82,7 @@ export const getLayoutColumnMenuComponents = ({
 		},
 		{
 			...DISTRIBUTE_COLUMNS_MENU_ITEM,
-			component: createDistributeColumnsDropdownItem(api),
+			component: () => <DistributeColumnsDropdownItem api={api} />,
 			parents: [
 				{
 					...LAYOUT_COLUMN_MENU_SECTION,

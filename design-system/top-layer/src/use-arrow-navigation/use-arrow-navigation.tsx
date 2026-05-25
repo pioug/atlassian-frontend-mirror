@@ -16,16 +16,16 @@ const menuScope = '[role="menu"]';
 
 /**
  * Returns true if the element belongs to the current menu level of the
- * container — i.e. it is NOT inside a nested `role="menu"` sub-container.
+ * container, i.e. it is NOT inside a nested `role="menu"` sub-container.
  *
  * Uses `element.closest('[role="menu"]')` to determine the nearest menu
  * scope. If the nearest scope is the container's own `role="menu"` element,
- * the element belongs to this level. If it's a different (nested) menu,
+ * the element belongs to this level. If it is a different (nested) menu,
  * the element belongs to a child level and should be excluded.
  *
  * Supports two container patterns:
  *
- * **1. Container has `role="menu"` directly** (preferred — used by avatar-group):
+ * **1. Container has `role="menu"` directly** (preferred, used by avatar-group):
  *   ```
  *   <div ref={containerRef} role="menu">
  *     <button role="menuitem" />   ← isAtCurrentMenuLevel → true
@@ -37,7 +37,7 @@ const menuScope = '[role="menu"]';
  *   Uses the simple check: `element.closest('[role="menu"]') === container`
  *
  * **2. Container is a wrapper without `role="menu"`** (used by dropdown-menu,
- *   where `MenuGroup` owns `role="menu"` but doesn't accept a ref):
+ *   where `MenuGroup` owns `role="menu"` but does not accept a ref):
  *   ```
  *   <div ref={containerRef}>         ← wrapper (no role="menu")
  *     <MenuGroup role="menu">
@@ -64,7 +64,7 @@ const menuScope = '[role="menu"]';
 export function isAtCurrentMenuLevel(element: Element, container: HTMLElement): boolean {
 	const closestMenu = element.closest(menuScope);
 
-	// Container itself has role="menu" — element belongs to this level
+	// Container itself has role="menu". Element belongs to this level
 	// if its closest menu is the container.
 	if (container.getAttribute('role') === 'menu') {
 		return closestMenu === container;
@@ -73,18 +73,18 @@ export function isAtCurrentMenuLevel(element: Element, container: HTMLElement): 
 	// Container is a wrapper without role="menu" (e.g. dropdown-menu
 	// wraps a MenuGroup). The element belongs to the top level if its
 	// closest role="menu" ancestor is a direct child of the container,
-	// i.e. there's no nested role="menu" between them.
+	// i.e. there is no nested role="menu" between them.
 	if (closestMenu === null) {
 		return true;
 	}
 
-	// Walk up from the closest menu to see if it's "owned" by this
+	// Walk up from the closest menu to see if it is "owned" by this
 	// container without passing through another role="menu" first.
 	let parent = closestMenu.parentElement;
 	while (parent && parent !== container) {
 		if (parent.getAttribute('role') === 'menu') {
-			// There's a parent menu between the closest menu and the
-			// container — the element is in a nested sub-menu.
+			// There is a parent menu between the closest menu and the
+			// container, so the element is in a nested sub-menu.
 			return false;
 		}
 		parent = parent.parentElement;
@@ -94,6 +94,20 @@ export function isAtCurrentMenuLevel(element: Element, container: HTMLElement): 
 	return parent === container;
 }
 
+/**
+ * Args for `useArrowNavigation`.
+ *
+ * Keyboard contract:
+ * - `ArrowDown` / `ArrowUp` move within the current menu level.
+ * - `Home` / `End` jump to first / last.
+ * - `ArrowRight` / `ArrowLeft` opens / closes nested submenus.
+ * - `Tab` / `Shift+Tab` dismiss the menu (matching the ARIA APG menu pattern,
+ *   plus Radix UI / Headless UI / React Aria / Floating UI conventions).
+ *   Symmetric in both directions: there is no special-case for the last
+ *   item that lets Tab leave the menu without dismissing it.
+ * - `Page Up` / `Page Down`: NOT handled - extend via your own listener if
+ *   your menu needs page-style scrolling.
+ */
 export type TUseArrowNavigationArgs = {
 	/**
 	 * Ref to the container element that holds the focusable items.
@@ -138,7 +152,7 @@ export type TUseArrowNavigationArgs = {
 	 * When provided, only elements that pass the filter will be focused.
 	 *
 	 * The filter is also used as a guard on the currently focused element:
-	 * if the focused element doesn't pass the filter, the handler bails out.
+	 * if the focused element does not pass the filter, the handler bails out.
 	 * This prevents parent menu handlers from acting on events that belong
 	 * to a nested menu.
 	 *
@@ -271,7 +285,7 @@ export function useArrowNavigation({
 			if (event.key === 'ArrowLeft') {
 				if (onNestedClose) {
 					// Only close if this container is inside another role="menu"
-					// (i.e. it's a submenu, not the top-level menu).
+					// (i.e. it is a submenu, not the top-level menu).
 					// Walk up from the parent to avoid matching the container itself.
 					const isNested = container.parentElement?.closest(menuScope) !== null;
 					if (isNested) {

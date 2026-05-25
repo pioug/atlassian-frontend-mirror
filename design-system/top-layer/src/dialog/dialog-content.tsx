@@ -17,6 +17,8 @@ import { bind } from 'bind-event-listener';
 
 import { cssMap } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import noop from '@atlaskit/ds-lib/noop';
+import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { token } from '@atlaskit/tokens';
 
 import { useAnimatedVisibility } from '../internal/use-animated-visibility';
@@ -39,7 +41,7 @@ const styles = cssMap({
 		maxHeight: 'none',
 		// Positioning
 		margin: 'auto',
-		// Override UA background: canvas — the dialog primitive is unopinionated;
+		// Override UA background: canvas. The dialog primitive is unopinionated;
 		// consumers provide their own background on a child element.
 		backgroundColor: 'transparent',
 		// Backdrop
@@ -51,7 +53,7 @@ const styles = cssMap({
 });
 
 /**
- * Low-level `<dialog>` primitive. No visual opinions — no width, height,
+ * Low-level `<dialog>` primitive. No visual opinions - no width, height,
  * background, border-radius, or layout. Consumers provide their own styling.
  *
  * Visibility is controlled declaratively via `isOpen`:
@@ -62,6 +64,10 @@ const styles = cssMap({
  *
  * Close flow: we never call `dialog.close()` from event handlers. We always call
  * `onClose`; the consumer decides whether to set `isOpen={false}`.
+ *
+ * Accessibility: render at least one focusable element (typically a close
+ * button) when `isOpen` becomes `true`. Tab is always trapped inside the
+ * dialog, so keyboard users need somewhere to land.
  */
 export const Dialog: React.ForwardRefExoticComponent<
 	TDialogProps & React.RefAttributes<HTMLDialogElement>
@@ -99,6 +105,16 @@ export const Dialog: React.ForwardRefExoticComponent<
 	// the boundary (A → B → C → body → A). This hook intercepts Tab to
 	// wrap directly (A → B → C → A), matching the WAI-ARIA APG pattern.
 	useFocusWrap({ elementRef: ownRef, role: 'dialog' });
+
+	// ── Open layer observer registration ──
+	// Notifies the open layer observer so app-coordination features
+	// (open-count subscriptions) work with top-layer dialogs.
+	useNotifyOpenLayerObserver({
+		type: 'modal',
+		isOpen,
+		// No-op: no current use case for programmatic close via OpenLayerObserver.
+		onClose: noop,
+	});
 
 	// Show/hide the dialog in response to isOpen changes.
 	useLayoutEffect(() => {
@@ -162,10 +178,11 @@ export const Dialog: React.ForwardRefExoticComponent<
 		<dialog
 			ref={combinedRef}
 			id={dialogId}
-			// Modern browsers infer modal semantics from `.showModal()` but
-			// some assistive tech still keys off `aria-modal="true"`. Setting
-			// it explicitly is recommended by WAI-ARIA APG dialog pattern.
-			aria-modal="true"
+			// `aria-modal` is intentionally NOT set: native `<dialog>.showModal()`
+			// already conveys modal semantics to assistive tech, and double-
+			// declaring it forecloses non-modal use cases (consumers calling
+			// `.show()` would still appear modal). Modern AT (NVDA / JAWS /
+			// VoiceOver) infer modality from the platform accessibility API.
 			aria-label={label}
 			aria-labelledby={label ? undefined : labelledBy}
 			css={styles.dialog}
@@ -173,11 +190,11 @@ export const Dialog: React.ForwardRefExoticComponent<
 			style={style}
 			onCancel={handleCancel}
 			data-testid={testId}
-			{...(preset ? { [`data-ds-${preset.name}`]: '' } : undefined)}
+			{...(preset ? { [`data-ds-dialog-${preset.name}`]: '' } : undefined)}
 		>
 			{/* Use an ID-scoped <style> to make the backdrop transparent because
 			atomic CSS (Compiled) deduplicates the ::backdrop rule into a single
-			shared class — so we can't conditionally override it with cssMap.
+			shared class, so we cannot conditionally override it with cssMap.
 			The ID selector has higher specificity and always wins. */}
 			{shouldHideBackdrop && (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles

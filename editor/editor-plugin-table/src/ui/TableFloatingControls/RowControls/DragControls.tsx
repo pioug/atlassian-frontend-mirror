@@ -13,6 +13,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { clearHoverSelection } from '../../../pm-plugins/commands';
+import { toggleActiveTableMenuWithAnalytics } from '../../../pm-plugins/commands/commands-with-analytics';
 import { toggleDragMenuWithAnalytics } from '../../../pm-plugins/drag-and-drop/commands-with-analytics';
 import type { TriggerType } from '../../../pm-plugins/drag-and-drop/types';
 import { getPluginState as getTablePluginState } from '../../../pm-plugins/plugin-factory';
@@ -114,12 +115,21 @@ export const DragControls = ({
 			if (event?.shiftKey) {
 				return;
 			}
-			toggleDragMenuWithAnalytics(api?.analytics?.actions)(
-				undefined,
-				'row',
-				hoveredCell?.rowIndex,
-				trigger,
-			)(editorView.state, editorView.dispatch);
+			const rowIndex = hoveredCell?.rowIndex;
+			if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+				if (rowIndex !== undefined) {
+					toggleActiveTableMenuWithAnalytics(api?.analytics?.actions)('row', rowIndex, trigger)(
+						editorView.state,
+						editorView.dispatch,
+					);
+				}
+				return;
+			}
+
+			toggleDragMenuWithAnalytics(api?.analytics?.actions)(undefined, 'row', rowIndex, trigger)(
+				editorView.state,
+				editorView.dispatch,
+			);
 		},
 		[editorView, hoveredCell?.rowIndex, api?.analytics?.actions],
 	);

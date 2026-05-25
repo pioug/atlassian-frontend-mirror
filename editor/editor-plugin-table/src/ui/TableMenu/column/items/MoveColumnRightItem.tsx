@@ -6,7 +6,6 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { moveColumnRight, tooltip } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import {
 	TableColumnMoveRightIcon,
@@ -26,8 +25,8 @@ const shouldShowMoveColumnRight = (isLastColumn?: boolean): boolean => !isLastCo
 
 export const MoveColumnRightItem = (props: TableMenuComponentsParams): React.JSX.Element | null => {
 	const { api } = props;
-	const { editorView } = useEditorToolbar();
 	const tableMenuContext = useTableMenuContext();
+	const { editorView } = tableMenuContext ?? {};
 	const { tableNode } = useSharedPluginStateWithSelector(api ?? undefined, ['table'], (states) => ({
 		tableNode: (states.tableState as TableSharedStateInternal | undefined)?.tableNode,
 	}));

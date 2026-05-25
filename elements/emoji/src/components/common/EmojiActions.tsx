@@ -11,6 +11,7 @@ import {
 	useCallback,
 	type ComponentType,
 	type FC,
+	type MouseEvent,
 } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -112,6 +113,13 @@ type PropsWithWrappedComponentPropsType = Props & WrappedComponentProps;
 type AddOwnEmojiProps = PropsWithWrappedComponentPropsType;
 export const AddOwnEmoji = (props: AddOwnEmojiProps): JSX.Element => {
 	const { onOpenUpload, uploadEnabled } = props;
+	const handleOpenUpload = useCallback((event: MouseEvent<HTMLElement>) => {
+		if (fg('platform_emoji_keep_picker_open_on_upload')) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
+		onOpenUpload();
+	}, [onOpenUpload]);
 
 	return (
 		<Fragment>
@@ -120,7 +128,7 @@ export const AddOwnEmoji = (props: AddOwnEmojiProps): JSX.Element => {
 					<FormattedMessage {...messages.addCustomEmojiLabel}>
 						{(label) => (
 							<AkButton
-								onClick={onOpenUpload}
+								onClick={handleOpenUpload}
 								iconBefore={
 									<Box xcss={styles.icon}>
 										<AddIcon color="currentColor" label="" />

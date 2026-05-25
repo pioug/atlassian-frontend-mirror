@@ -28,6 +28,12 @@ const styles = cssMap({
  * should use `Popup.Content` without wrapping in `PopupSurface`.
  *
  * Exposed as `Popup.Surface` on the compound component.
+ *
+ * **Presentational primitive - `children`-only by design.** This component
+ * intentionally exposes no `style`, `className`, `xcss`, `id`, or `ref`
+ * props. If you need any of those, render your own wrapper element inside
+ * `Popup.Content` instead - `PopupSurface` is the no-config "give me the
+ * default ADS overlay look" surface, nothing more.
  */
 export function PopupSurface({ children }: TPopupSurfaceProps): React.ReactElement {
 	return <div css={styles.root}>{children}</div>;

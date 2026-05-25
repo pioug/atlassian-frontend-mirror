@@ -154,6 +154,13 @@ not user code.
 **Decision:** Browser tests provide sufficient coverage. As long as browser tests cover component
 functionality, dedicated unit tests for the top-layer path are not required.
 
+#### 21a. `anchor-name` lifetime - confirmed; no action
+
+**Decision:** `useAnchorPosition` deliberately does not clear the trigger's `anchor-name` on
+cleanup. The leak is intentional and benign - see `notes/decisions/anchor-name-lifetime.md` for the
+full rationale (we preserve the anchor name so a re-mounted popover can rebind without flicker, and
+the cost is one short string per trigger). No action.
+
 #### 21. Avatar-group disabled item skipping — Accepted improvement
 
 **Decision:** The top-layer path has a broader (more correct) definition of "not focusable". It

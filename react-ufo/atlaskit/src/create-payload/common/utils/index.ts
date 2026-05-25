@@ -24,7 +24,11 @@ export function sanitizeUfoName(name: string): string {
 
 export function sanitizeLabelStackName(name: string): string {
 	if (name.startsWith('/') && fg('platform_ufo_trim_labelstack_slashes')) {
-		return name.replace(/^\/+/, '');
+		name = name.replace(/^\/+/, '');
+	}
+
+	if (name.endsWith('/') && fg('platform_ufo_trim_labelstack_trailing_slashes')) {
+		name = name.replace(/\/+$/, '');
 	}
 
 	return name;

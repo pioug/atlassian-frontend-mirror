@@ -53,6 +53,9 @@
 			"path": "../heading/tsconfig.app.json"
 		},
 		{
+			"path": "../layering/tsconfig.app.json"
+		},
+		{
 			"path": "../lozenge/tsconfig.app.json"
 		},
 		{

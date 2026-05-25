@@ -7,6 +7,7 @@ import React, { useCallback, useMemo } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import {
 	backgroundPaletteTooltipMessages,
@@ -21,6 +22,12 @@ import {
 } from '@atlaskit/editor-toolbar';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
+import { setColorWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
+import { getPluginState } from '../../../../pm-plugins/plugin-factory';
+import { useTableMenuContext } from '../TableMenuContext';
+import type { TableMenuComponentsParams } from '../types';
 
 const colorPaletteColumns = 7;
 
@@ -44,11 +51,37 @@ const colorPaletteStyles = cssMap({
 	},
 });
 
-export const BackgroundColorItem = (): React.JSX.Element => {
+export const BackgroundColorItem = ({ api }: TableMenuComponentsParams): React.JSX.Element => {
+	const { editorView } = useTableMenuContext() ?? {};
 	const { formatMessage } = useIntl();
-	const onClick = useCallback(() => {}, []);
+	const selectedColor = useMemo(() => {
+		if (!editorView) {
+			return '#ffffff';
+		}
+
+		const { targetCellPosition } = getPluginState(editorView.state);
+		const node = targetCellPosition ? editorView.state.doc.nodeAt(targetCellPosition) : null;
+
+		return hexToEditorBackgroundPaletteColor(node?.attrs?.background || '#ffffff');
+	}, [editorView]);
+
+	const onClick = useCallback(
+		(color: string) => {
+			if (!editorView) {
+				return;
+			}
+
+			setColorWithAnalytics(api?.analytics?.actions)(
+				INPUT_METHOD.TABLE_CONTEXT_MENU,
+				color,
+				editorView,
+			)(editorView.state, editorView.dispatch);
+			closeActiveTableMenu()(editorView.state, editorView.dispatch);
+		},
+		[api?.analytics?.actions, editorView],
+	);
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	const colorPreviewStyle = useMemo(() => ({ backgroundColor: '#ffffff' }), []);
+	const colorPreviewStyle = useMemo(() => ({ backgroundColor: selectedColor }), [selectedColor]);
 
 	const paletteOptions = useMemo(() => {
 		return {

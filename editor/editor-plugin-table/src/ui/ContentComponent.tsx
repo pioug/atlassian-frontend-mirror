@@ -132,6 +132,7 @@ const ContentComponentInternal = ({
 				options &&
 				options.allowContextualMenu && (
 					<FloatingContextualButton
+						api={api}
 						isNumberColumnEnabled={tableNode && tableNode.attrs.isNumberColumnEnabled}
 						editorView={editorView}
 						tableNode={tableNode}
@@ -173,7 +174,6 @@ const ContentComponentInternal = ({
 					editorView={editorView}
 					mountPoint={popupsMountPoint}
 					boundariesElement={popupsBoundariesElement}
-					targetCellPosition={targetCellPosition}
 					isOpen={Boolean(isContextualMenuOpen) && !isResizing}
 					pluginConfig={pluginConfig}
 					editorAnalyticsAPI={editorAnalyticsAPI}

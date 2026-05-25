@@ -1,20 +1,19 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
-
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { clickAreaClickHandler } from '../click-area-helper';
 
-const clickWrapper = css({
-	flexGrow: 1,
-	height: '100%',
-});
+import { ClickAreaBlockContainerCompiled } from './clickAreaBlock-compiled';
+import { ClickAreaBlockContainerEmotion } from './clickAreaBlock-emotion';
+
+const ClickAreaBlockContainerMigration = componentWithCondition(
+	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
+	ClickAreaBlockContainerCompiled,
+	ClickAreaBlockContainerEmotion,
+);
 
 export interface Props {
 	children?: React.ReactNode;
@@ -26,7 +25,7 @@ export const ClickAreaBlock = ({
 	editorView,
 	editorDisabled,
 	children,
-}: Props): jsx.JSX.Element => {
+}: Props): React.JSX.Element => {
 	const handleMouseDown = React.useCallback(
 		(event: React.MouseEvent<HTMLDivElement>) => {
 			if (!editorView) {
@@ -41,17 +40,16 @@ export const ClickAreaBlock = ({
 	);
 
 	return (
-		<div
+		<ClickAreaBlockContainerMigration
 			data-editor-click-wrapper
 			data-testid="click-wrapper"
-			css={clickWrapper}
 			onMouseDown={handleMouseDown}
 			// This div is a presentational container that captures mouse events
 			// for programmatic editor focus management, not user interaction.
 			role="presentation"
 		>
 			{children}
-		</div>
+		</ClickAreaBlockContainerMigration>
 	);
 };
 

@@ -1,5 +1,16 @@
 # @atlaskit/tag
 
+## 14.14.0
+
+### Minor Changes
+
+- [`f66361a625b2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f66361a625b2c) -
+  Support `string[]` for the UI-uplifted Tag (`TagNew`) `text` prop.
+
+  This helps Lozenge → Tag migration cases where intl placeholder callbacks return ordered string
+  chunks. `string[]` values are flattened with `join('')` before rendering. AvatarTag remain
+  string-only.
+
 ## 14.13.3
 
 ### Patch Changes

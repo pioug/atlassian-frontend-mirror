@@ -16,6 +16,7 @@ import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 import type {
 	deleteLayoutColumn,
+	distributeLayoutColumns,
 	InsertLayoutColumnSide,
 	insertLayoutColumnsWithAnalytics,
 	setLayoutColumnValign,
@@ -45,8 +46,9 @@ export type LayoutPlugin = NextEditorPlugin<
 		};
 		commands: {
 			deleteLayoutColumn: ReturnType<typeof deleteLayoutColumn>;
+			distributeLayoutColumns: ReturnType<typeof distributeLayoutColumns>;
 			insertLayoutColumn: (side: InsertLayoutColumnSide) => EditorCommand;
-			setLayoutColumnValign: typeof setLayoutColumnValign;
+			setLayoutColumnValign: (valign: Parameters<typeof setLayoutColumnValign>[0]) => EditorCommand;
 			toggleLayoutColumnMenu: typeof toggleLayoutColumnMenu;
 		};
 		dependencies: LayoutPluginDependencies;

@@ -16,7 +16,6 @@ import { css, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { type GroupBase, mergeStyles } from '@atlaskit/react-select';
-import { N40A, N80 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
@@ -42,13 +41,13 @@ const animation = slideAndFade();
 // ── Styles ──
 
 const menuDialogStyles = css({
-	backgroundColor: token('elevation.surface.overlay', 'white'),
-	borderRadius: token('radius.small', '4px'),
-	boxShadow: token('elevation.shadow.overlay', `0 0 0 1px ${N40A}, 0 4px 11px ${N40A}`),
+	backgroundColor: token('elevation.surface.overlay'),
+	borderRadius: token('radius.small'),
+	boxShadow: token('elevation.shadow.overlay'),
 });
 
 const menuDialogStylesT26Shape = css({
-	borderRadius: token('radius.large', '8px'),
+	borderRadius: token('radius.large'),
 });
 
 /**
@@ -150,7 +149,7 @@ export function PopupSelectTopLayer<
 		() => ({
 			groupHeading: (provided) => ({
 				...provided,
-				color: token('color.text.subtlest', N80),
+				color: token('color.text.subtlest'),
 			}),
 		}),
 		[],

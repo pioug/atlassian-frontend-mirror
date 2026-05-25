@@ -15,9 +15,9 @@ import {
 	getEffectiveMaxLayoutColumns,
 	type InsertLayoutColumnSide,
 } from '../../pm-plugins/actions';
+import { getLayoutSectionColumnCount } from '../../pm-plugins/utils/layout-column-selection';
 
-import { getLayoutSectionColumnCount } from './layoutColumnSelection';
-import { useCurrentLayoutColumn, useCurrentLayoutSection } from './useCurrentLayoutColumn';
+import { useSelectedLayoutColumns } from './useSelectedLayoutColumns';
 
 type InsertColumnOption = {
 	Icon: typeof TableColumnAddLeftIcon;
@@ -49,11 +49,10 @@ export const InsertColumnDropdownItem = ({
 }: InsertColumnDropdownItemProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 	const { Icon, label } = INSERT_COLUMN_OPTIONS[side];
-	const currentColumn = useCurrentLayoutColumn(api);
-	const currentLayoutSection = useCurrentLayoutSection(api);
-	const columnCount = getLayoutSectionColumnCount(currentLayoutSection);
+	const selectedLayoutColumns = useSelectedLayoutColumns(api);
+	const columnCount = getLayoutSectionColumnCount(selectedLayoutColumns?.layoutSectionNode);
 	const maxColumnCount = getEffectiveMaxLayoutColumns();
-	const canInsertColumn = currentColumn !== undefined && columnCount < maxColumnCount;
+	const canInsertColumn = selectedLayoutColumns !== undefined && columnCount < maxColumnCount;
 	const onClick = useCallback(() => {
 		const insertCommand = api?.layout?.commands.insertLayoutColumn(side);
 

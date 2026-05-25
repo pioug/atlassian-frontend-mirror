@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 6.1.0
+
+### Minor Changes
+
+- [`6a2c84eff60b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a2c84eff60b0) -
+  Trim trailing slashes from UFO label stack names
+
 ## 6.0.1
 
 ### Patch Changes

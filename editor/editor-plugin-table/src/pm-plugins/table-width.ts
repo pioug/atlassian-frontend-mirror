@@ -21,7 +21,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { TABLE_MAX_WIDTH, TABLE_FULL_WIDTH } from './table-resizing/utils/consts';
 import { ALIGN_START } from './utils/alignment';
-import { isContentModeSupported } from './utils/tableMode';
+import { isContentModeSupported } from './utils/tableMode/is-content-mode-supported';
 
 type TableWidthPluginState = {
 	resizing: boolean;

@@ -4,6 +4,7 @@
  */
 import { forwardRef, memo, useCallback } from 'react';
 
+
 import { cssMap as cssMapUnbound, cx, jsx } from '@compiled/react';
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -13,6 +14,7 @@ import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { colorMapping } from './color-mapping';
+import { getTagText } from './get-tag-text';
 import { LinkWrapper } from './link-wrapper';
 import { RemovableWrapper } from './removable-wrapper';
 import SwatchBefore from './swatch-before';
@@ -356,12 +358,13 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 	},
 	ref,
 ) {
+	const normalizedText = getTagText(text);
 	const { status, handleRemoveRequest, onKeyPress, removingTag, showingTag } =
 		useTagRemoval(onBeforeRemoveAction);
 
 	const onShrinkOutExitComplete = useCallback(() => {
-		onAfterRemoveAction?.(text);
-	}, [onAfterRemoveAction, text]);
+		onAfterRemoveAction?.(normalizedText);
+	}, [normalizedText, onAfterRemoveAction]);
 
 	const { isLink, LinkComponent } = useLink(href, linkComponent);
 	const {
@@ -375,7 +378,7 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 
 	const removeButton = useRemoveButton({
 		isRemovable,
-		tagText: text,
+		tagText: normalizedText,
 		removeButtonLabel,
 		testId,
 		handleRemoveRequest,
@@ -422,7 +425,7 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 				<SwatchBefore colorKey={color} swatchBefore={swatchBefore} />
 				{elemBefore && <span css={styles.beforeStyles}>{elemBefore}</span>}
 				<span css={styles.textStyles} data-tag-text>
-					{text}
+					{normalizedText}
 				</span>
 			</LinkWrapper>
 			{removeButton && <span css={styles.afterStyles}>{removeButton}</span>}
@@ -502,7 +505,7 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 					</span>
 				)}
 				<span css={[styles.textStyles, isSelected && styles.textStylesSelected]} data-tag-text>
-					{text}
+					{getTagText(text)}
 				</span>
 				{hasChevron && (
 					<ChevronDownIcon

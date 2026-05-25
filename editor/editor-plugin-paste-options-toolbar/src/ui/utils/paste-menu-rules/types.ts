@@ -73,14 +73,59 @@ export interface PasteMenuRuleFactories {
 	excludedAncestorRule: (excludedNames: string[]) => PasteMenuRule;
 
 	/**
+	 * A rule that hides the button when the pasted content contains more than
+	 * one node type.
+	 */
+	hideIfMixedNodesRule: PasteMenuRule;
+
+	/**
+	 * A rule that hides the button when the pasted content contains only a
+	 * single node type.
+	 */
+	hideIfSingleNodeRule: PasteMenuRule;
+
+	/**
+	 * A rule that hides the button when the pasted content IS a single
+	 * standalone link (the inverse of `notSingleLinkRule`).
+	 *
+	 * Use this to hide buttons that should NOT appear for single-link pastes,
+	 * e.g. Improve Writing, Fix Spelling — leaving only Ask Rovo visible.
+	 */
+	isSingleLinkRule: PasteMenuRule;
+
+	/**
+	 * Returns a rule that hides the button when the pasted plain-text is
+	 * longer than `maxChars` characters.
+	 */
+	maxCharsRule: (maxChars: number) => PasteMenuRule;
+
+	/**
 	 * Returns a rule that hides the button when the pasted plain-text is
 	 * shorter than `minChars` characters.
 	 */
 	minCharsRule: (minChars: number) => PasteMenuRule;
 
 	/**
+	 * A rule that hides the button when the paste source is NOT an external
+	 * application (i.e. the content was pasted from within the Fabric editor
+	 * or renderer rather than from a third-party source).
+	 */
+	notExternalPasteRule: PasteMenuRule;
+
+	/**
 	 * A rule that hides the button when the pasted content is plain text
 	 * (i.e. not rich-text / prose).
 	 */
 	notProseRule: PasteMenuRule;
+
+	/**
+	 * A rule that hides the button when the pasted content is a single
+	 * standalone link — i.e. a bare URL link (text equals href) alone in a
+	 * paragraph, or a single inline card (smartlink) alone in a paragraph.
+	 *
+	 * Returns `true` (hidden) when the paste is NOT a single link — e.g. a
+	 * link with a custom label, a link with sibling text or nodes, or
+	 * multiple paragraphs.
+	 */
+	notSingleLinkRule: PasteMenuRule;
 }

@@ -8,7 +8,7 @@ import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
 
-import { useCurrentLayoutColumn } from './useCurrentLayoutColumn';
+import { useSelectedLayoutColumns } from './useSelectedLayoutColumns';
 
 type DeleteColumnDropdownItemProps = {
 	api: ExtractInjectionAPI<LayoutPlugin> | undefined;
@@ -18,7 +18,7 @@ const DeleteColumnDropdownItem = ({
 	api,
 }: DeleteColumnDropdownItemProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
-	const currentColumn = useCurrentLayoutColumn(api);
+	const selectedLayoutColumns = useSelectedLayoutColumns(api);
 
 	const onClick = useCallback(() => {
 		const deleteCommand = api?.layout?.commands.deleteLayoutColumn;
@@ -34,13 +34,15 @@ const DeleteColumnDropdownItem = ({
 		});
 	}, [api]);
 
-	if (currentColumn === undefined) {
+	if (selectedLayoutColumns === undefined) {
 		return null;
 	}
 
+	const selectedColumnCount = selectedLayoutColumns.selectedColumns.length;
+
 	return (
 		<ToolbarDropdownItem onClick={onClick}>
-			{formatMessage(layoutMessages.deleteColumn)}
+			{formatMessage(layoutMessages.deleteColumn, { count: selectedColumnCount })}
 		</ToolbarDropdownItem>
 	);
 };

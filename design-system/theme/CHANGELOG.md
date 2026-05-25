@@ -1,5 +1,16 @@
 # @atlaskit/theme
 
+## 25.0.0
+
+### Major Changes
+
+- [`156e892a9ce3a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/156e892a9ce3a) -
+  Removed legacy colors and skeletonShimmer mixin. Colors should only be used via design tokens.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.0.0
 
 ### Major Changes

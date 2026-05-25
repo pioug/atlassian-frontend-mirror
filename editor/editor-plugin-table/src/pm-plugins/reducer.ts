@@ -31,6 +31,9 @@ export default (pluginState: TablePluginState, action: TablePluginAction): Table
 				isContextualMenuOpen: !pluginState.isContextualMenuOpen,
 			};
 
+		case 'SET_ACTIVE_TABLE_MENU':
+			return { ...pluginState, ...action.data };
+
 		case 'SHOW_INSERT_ROW_BUTTON':
 			if (action.data.insertRowButtonIndex === pluginState.insertRowButtonIndex) {
 				return pluginState;

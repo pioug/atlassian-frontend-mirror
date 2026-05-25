@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-media
 
+## 12.8.2
+
+### Patch Changes
+
+- [`00871f73e3651`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00871f73e3651) -
+  [ux] Update translations package for media plugin and use expand tooltip instead of preview for
+  consistency across elements
+- Updated dependencies
+
+## 12.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.8.0
 
 ### Minor Changes

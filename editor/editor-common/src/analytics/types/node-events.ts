@@ -132,8 +132,39 @@ type DeletedLayoutColumnAEP = TrackAEP<
 	ACTION_SUBJECT_ID.LAYOUT_COLUMN,
 	{
 		columnCount: number;
+		endIndex: number;
 		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU;
-		selectedIndex: number;
+		selectedCount: number;
+		startIndex: number;
+	},
+	undefined
+>;
+
+type UpdatedLayoutColumnVerticalAlignmentAEP = TrackAEP<
+	ACTION.UPDATED,
+	ACTION_SUBJECT.DOCUMENT,
+	ACTION_SUBJECT_ID.LAYOUT_COLUMN,
+	{
+		endIndex: number;
+		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU;
+		selectedCount: number;
+		startIndex: number;
+		updatedCount: number;
+		valign: 'top' | 'middle' | 'bottom';
+	},
+	undefined
+>;
+
+type DistributedLayoutColumnAEP = TrackAEP<
+	ACTION.UPDATED,
+	ACTION_SUBJECT.DOCUMENT,
+	ACTION_SUBJECT_ID.LAYOUT_COLUMN,
+	{
+		columnCount: number;
+		endIndex: number;
+		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU | INPUT_METHOD.FLOATING_TB;
+		selectedCount: number;
+		startIndex: number;
 	},
 	undefined
 >;
@@ -173,6 +204,8 @@ export type NodeEventPayload =
 	| ChangedLayoutAEP
 	| DeletedLayoutAEP
 	| DeletedLayoutColumnAEP
+	| UpdatedLayoutColumnVerticalAlignmentAEP
+	| DistributedLayoutColumnAEP
 	| DeletedExpandAEP
 	| NodeDeletedAEP
 	| ChangeSmartLinkAEP

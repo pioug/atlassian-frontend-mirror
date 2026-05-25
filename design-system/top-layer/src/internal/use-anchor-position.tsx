@@ -12,7 +12,7 @@
  * popover with `opacity: 0` until the first measurement completes, so it
  * is never painted at the wrong location.
  */
-import { type RefObject, useId, useLayoutEffect, useRef } from 'react';
+import { type RefObject, useId, useLayoutEffect, useMemo } from 'react';
 
 import { bind } from 'bind-event-listener';
 import rafSchedule from 'raf-schd';
@@ -27,7 +27,19 @@ import { resolveCssLengthToPixels } from './resolve-css-length-to-pixels';
 import { getPlacement, type TPlacement } from './resolve-placement';
 import { setStyle } from './set-style';
 
-export { getPlacement } from './resolve-placement';
+// `getPlacement` is intentionally NOT re-exported here - import it directly
+// from `./resolve-placement` so search-and-jump lands at the source of truth.
+
+/**
+ * Module-scope no-op `ResizeObserver` used in non-DOM jest environments where
+ * `ResizeObserver` is `undefined`. Hoisted out of the effect to avoid
+ * allocating a new class declaration on every run.
+ */
+const NoopResizeObserver = class {
+	observe() {}
+	unobserve() {}
+	disconnect() {}
+};
 
 /**
  * Resolves placement options to CSS `position-area` syntax.
@@ -85,7 +97,7 @@ export function placementToPositionArea({ placement }: { placement: TPlacementOp
  * top-right), flipping only the primary axis (`flip-inline`) moves the popup
  * to the left but keeps the same cross-axis span direction (e.g. upward),
  * which is still off-screen. The combined keyword `flip-inline flip-block`
- * mirrors the popup diagonally — it flips BOTH the position-area AND both
+ * mirrors the popup diagonally. It flips BOTH the position-area AND both
  * inline and block margins simultaneously, placing the popup at the
  * diagonally opposite corner where there is always space.
  *
@@ -98,37 +110,48 @@ export function placementToTryFallbacks({ placement }: { placement: TPlacementOp
 	const { axis, edge, align } = getPlacement({ placement });
 	const crossAxis = axis === 'block' ? 'inline' : 'block';
 	const flippedEdge = edge === 'start' ? 'end' : 'start';
-
-	if (align !== 'center') {
-		const sameEdge = `${axis}-${edge}`;
-		const oppositeEdge = `${axis}-${flippedEdge}`;
-		const flipKeyword = axis === 'block' ? 'flip-block' : 'flip-inline';
-		const flipCrossKeyword = axis === 'block' ? 'flip-inline' : 'flip-block';
-		// Try same-edge shifts first; two flip entries cover single-edge then corner overflow.
-		// Legacy Popper fallbacks for e.g. bottom-start: [bottom, bottom-end, top-start, top, top-end, auto].
-		return [
-			`${sameEdge} span-${crossAxis}-${align === 'start' ? 'end' : 'start'}`,
-			sameEdge,
-			`${sameEdge} span-${crossAxis}-${align === 'start' ? 'start' : 'end'}`,
-			flipKeyword,
-			`${flipKeyword} ${flipCrossKeyword}`,
-			`${oppositeEdge} span-${crossAxis}-${align === 'start' ? 'end' : 'start'}`,
-			oppositeEdge,
-			`${oppositeEdge} span-${crossAxis}-${align === 'start' ? 'start' : 'end'}`,
-		].join(', ');
-	}
-
 	const sameEdge = `${axis}-${edge}`;
 	const oppositeEdge = `${axis}-${flippedEdge}`;
 	const flipKeyword = axis === 'block' ? 'flip-block' : 'flip-inline';
+	const flipCrossKeyword = axis === 'block' ? 'flip-inline' : 'flip-block';
 
-	return [
-		`${sameEdge} span-${crossAxis}-end`,
-		`${sameEdge} span-${crossAxis}-start`,
-		flipKeyword,
-		`${oppositeEdge} span-${crossAxis}-end`,
-		`${oppositeEdge} span-${crossAxis}-start`,
-	].join(', ');
+	// Single algorithm: produce the shift list against any base alignment.
+	// For `align: 'start'` the "near" shift expands toward `end`; for
+	// `align: 'end'` it expands toward `start`; for `align: 'center'`
+	// either order is symmetric (we use end-then-start to match the
+	// historical fallback list).
+	function shifts(baseAlign: 'start' | 'center' | 'end', edgeKey: string): string[] {
+		if (baseAlign === 'center') {
+			return [`${edgeKey} span-${crossAxis}-end`, `${edgeKey} span-${crossAxis}-start`];
+		}
+		const near = baseAlign === 'start' ? 'end' : 'start';
+		const far = baseAlign === 'start' ? 'start' : 'end';
+		return [
+			`${edgeKey} span-${crossAxis}-${near}`,
+			edgeKey,
+			`${edgeKey} span-${crossAxis}-${far}`,
+		];
+	}
+
+	if (align !== 'center') {
+		// Aligned (start/end): try same-edge shifts, then single-axis flip,
+		// then diagonal flip for corner overflow, then opposite-edge shifts.
+		// Legacy Popper fallback ordering for e.g. bottom-start:
+		// [bottom, bottom-end, top-start, top, top-end, auto].
+		return [
+			...shifts(align, sameEdge),
+			flipKeyword,
+			`${flipKeyword} ${flipCrossKeyword}`,
+			...shifts(align, oppositeEdge),
+		].join(', ');
+	}
+
+	// Centered: same-edge shifts, single-axis flip, opposite-edge shifts.
+	// Diagonal flip is unnecessary because centered placements expand
+	// equally in both cross-axis directions.
+	return [...shifts('center', sameEdge), flipKeyword, ...shifts('center', oppositeEdge)].join(
+		', ',
+	);
 }
 
 /**
@@ -146,7 +169,7 @@ function isPopoverOpen(popover: HTMLElement): boolean {
 
 /**
  * Detects whether the browser supports CSS Anchor Positioning.
- * Uses `once()` for lazy evaluation — safe for SSR and avoids hydration mismatches.
+ * Uses `once()` for lazy evaluation: safe for SSR and avoids hydration mismatches.
  */
 const supportsAnchorPositioning = once((): boolean => {
 	if (
@@ -223,33 +246,39 @@ function crossAxisShiftMargin({
 }
 
 /**
- * Returns a referentially-stable, fully-resolved `TPlacement`: the same
- * reference is preserved across renders as long as the resolved shape
- * does not change.
+ * Returns a referentially-stable, fully-resolved `TPlacement`. `useMemo` is
+ * keyed on the primitive fields of the input so a fresh inline `placement`
+ * object on every render does not produce a fresh resolved object. Both
+ * `getPlacement` and the equality check are skipped when the inputs are
+ * unchanged.
  */
 function useStablePlacement(placement: TPlacementOptions): TPlacement {
+	// Resolve to the fully-defaulted primitives BEFORE the memo so the deps
+	// array sees the same key for `{}`, `undefined` fields, and explicit
+	// defaults. Otherwise `axis: undefined` and `axis: 'block'` would be
+	// treated as different inputs and re-run the downstream effect.
 	const resolved = getPlacement({ placement });
-	const stableRef = useRef<TPlacement>(resolved);
-
-	if (!isResolvedPlacementEqual(stableRef.current, resolved)) {
-		stableRef.current = resolved;
-	}
-
-	return stableRef.current;
-}
-
-/**
- * Shallow-equals two fully-resolved placements. Avoids `JSON.stringify` so
- * the comparison cost stays proportional to the number of fields.
- */
-function isResolvedPlacementEqual(a: TPlacement, b: TPlacement): boolean {
-	return (
-		a.axis === b.axis &&
-		a.edge === b.edge &&
-		a.align === b.align &&
-		a.offset.gap === b.offset.gap &&
-		a.offset.crossAxisShift.value === b.offset.crossAxisShift.value &&
-		a.offset.crossAxisShift.direction === b.offset.crossAxisShift.direction
+	const axis = resolved.axis;
+	const edge = resolved.edge;
+	const align = resolved.align;
+	const gap = resolved.offset.gap;
+	const shiftValue = resolved.offset.crossAxisShift.value;
+	const shiftDirection = resolved.offset.crossAxisShift.direction;
+	// Rebuild the placement object inside the memo from the resolved primitive
+	// deps so the factory does not close over the (potentially fresh) outer
+	// `resolved` reference, and `react-hooks/exhaustive-deps` can verify the
+	// deps array.
+	return useMemo(
+		() => ({
+			axis,
+			edge,
+			align,
+			offset: {
+				gap,
+				crossAxisShift: { value: shiftValue, direction: shiftDirection },
+			},
+		}),
+		[axis, edge, align, gap, shiftValue, shiftDirection],
 	);
 }
 
@@ -257,7 +286,7 @@ function isResolvedPlacementEqual(a: TPlacement, b: TPlacement): boolean {
  * Hook that positions an element relative to an anchor element using
  * CSS Anchor Positioning (with a JS fallback for older browsers).
  *
- * This hook is the positioning primitive — it has no knowledge of popovers,
+ * This hook is the positioning primitive. It has no knowledge of popovers,
  * visibility, or animation. Compose it with `Popover` for anchor-positioned
  * top-layer content.
  *
@@ -344,6 +373,9 @@ export function useAnchorPosition({
 				placement: stablePlacement,
 				offset: gapCssValue,
 			});
+			// Hoist crossAxisShift to a single computation; reused below to
+			// populate the active `--ds-cross-axis-shift-margin-*` custom
+			// property for the named arrow @position-try rules.
 			const crossAxisShift = crossAxisShiftMargin({
 				placement: stablePlacement,
 				crossAxisShiftCssValue,
@@ -384,11 +416,8 @@ export function useAnchorPosition({
 				property: '--ds-cross-axis-shift-margin-block-end',
 				value: '0px',
 			});
-			const crossAxisShiftActive = crossAxisShiftMargin({
-				placement: stablePlacement,
-				crossAxisShiftCssValue,
-				direction: stablePlacement.offset.crossAxisShift.direction,
-			});
+			// `crossAxisShift` IS the active margin - reuse instead of recomputing.
+			const crossAxisShiftActive = crossAxisShift;
 			// Map margin property to its corresponding custom property name.
 			const customPropertyByMarginProperty: Record<string, string> = {
 				'margin-inline-start': '--ds-cross-axis-shift-margin-start',
@@ -414,7 +443,7 @@ export function useAnchorPosition({
 			 * - Sometimes the `useAnchorPosition` hook and `Popover`
 			 *   are not in the same component.
 			 * - There can be times when, even with reference counting, we
-			 *   could remove the anchor-name while it's still being used
+			 *   could remove the anchor-name while it is still being used
 			 *   by something else - especially with async react updates
 			 *   which can cause tearing
 			 *
@@ -453,19 +482,19 @@ export function useAnchorPosition({
 			};
 
 			// Resolve consumer-supplied CSS length strings (tokens, calc, var,
-			// px, rem, etc) to pixels. The probe is mounted next to the popover
-			// so it inherits the same custom-property scope and font size.
-			// `popover.parentElement` is guaranteed to exist for any rendered
-			// popover (the popover itself is appended somewhere in the tree),
-			// but fall back to the popover element if not for safety.
-			const probeContainer = popover.parentElement ?? popover;
+			// px, rem, etc) to pixels. The probe is mounted INSIDE the popover
+			// itself so the resolved length matches the scope a token would
+			// resolve against from inside the popover content. (The popover
+			// lives in the top layer, not the trigger's DOM tree, so probing
+			// at `popover.parentElement` would resolve in a different scope
+			// than the consumer's token authoring expects.)
 			const gapPx = resolveCssLengthToPixels({
 				value: gapCssValue,
-				container: probeContainer,
+				container: popover,
 			});
 			const crossAxisShiftPx = resolveCssLengthToPixels({
 				value: crossAxisShiftCssValue,
-				container: probeContainer,
+				container: popover,
 			});
 
 			const { top, left } = computeFallbackPosition({
@@ -498,15 +527,12 @@ export function useAnchorPosition({
 		// scroll/resize is handled by the window listeners below.
 		// `ResizeObserver` is missing in some non-DOM jest environments
 		// (e.g. post-office's `node` environment). Fall back to a no-op
-		// observer there — the scroll/resize listeners below still keep
+		// observer there. The scroll/resize listeners below still keep
 		// the popover positioned in the rare case the consumer also
 		// polyfilled `showPopover` but not `ResizeObserver`. Real
-		// browsers always have it.
-		const NoopResizeObserver = class {
-			observe() {}
-			unobserve() {}
-			disconnect() {}
-		};
+		// browsers always have it. The `NoopResizeObserver` class is
+		// hoisted to module scope (see top of file) so we do not allocate
+		// a new constructor on every effect run.
 		const ResizeObserverImpl =
 			typeof ResizeObserver !== 'undefined' ? ResizeObserver : NoopResizeObserver;
 		const resizeObserver = new ResizeObserverImpl(() => {
@@ -532,7 +558,7 @@ export function useAnchorPosition({
 			// the UA-default position, then re-observe for a fresh
 			// measurement. We use `opacity: 0` rather than
 			// `visibility: hidden` because Firefox skips visibility-hidden
-			// elements during `<dialog>` initial-focus traversal — see
+			// elements during `<dialog>` initial-focus traversal. See
 			// `form-in-popup.spec.tsx` on `desktop-firefox`.
 			bind(popover, {
 				type: 'toggle',

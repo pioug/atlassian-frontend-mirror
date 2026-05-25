@@ -48,6 +48,9 @@ import { SyncBlockSubscriptionManager } from './syncBlockSubscriptionManager';
 
 const CACHE_KEY_PREFIX = 'sync-block-data-';
 
+const ENTITY_NOT_FOUND_MAX_RETRIES = 3;
+const ENTITY_NOT_FOUND_INITIAL_DELAY_MS = 2000;
+
 // A store manager responsible for the lifecycle and state management of reference sync blocks in an editor instance.
 // Designed to manage local in-memory state and synchronize with an external data provider.
 // Supports fetch, cache, and subscription for sync block data.
@@ -76,6 +79,10 @@ export class ReferenceSyncBlockStoreManager {
 	private flushNeededAfterCurrent: boolean = false;
 	// Track the setTimeout handle for queued flush so we can cancel it on destroy
 	private queuedFlushTimeout?: ReturnType<typeof setTimeout>;
+
+	// Track retry attempts for EntityNotFound errors (block may be in the process of being created)
+	private entityNotFoundRetryCount: Map<ResourceId, number> = new Map();
+	private entityNotFoundRetryTimers: Map<ResourceId, ReturnType<typeof setTimeout>> = new Map();
 
 	public fetchExperience: Experience | undefined;
 	private fetchSourceInfoExperience: Experience | undefined;
@@ -576,21 +583,51 @@ export class ReferenceSyncBlockStoreManager {
 				this.newlyAddedSyncBlocks.delete(syncBlockInstance.resourceId);
 			}
 
+			// Clear retry tracking on successful fetch — block has been created
+			if (!syncBlockInstance.error && this.entityNotFoundRetryCount.has(syncBlockInstance.resourceId)) {
+				const timer = this.entityNotFoundRetryTimers.get(syncBlockInstance.resourceId);
+				if (timer) {
+					clearTimeout(timer);
+					this.entityNotFoundRetryTimers.delete(syncBlockInstance.resourceId);
+				}
+				this.entityNotFoundRetryCount.delete(syncBlockInstance.resourceId);
+			}
+
 			if (syncBlockInstance.error) {
-				this.fireAnalyticsEvent?.(
-					fetchErrorPayload(
-						syncBlockInstance.error.reason || syncBlockInstance.error.type,
-						syncBlockInstance.resourceId,
-						syncBlockInstance.data?.product ??
-							getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId),
-					),
-				);
+				// Skip error analytics when EntityNotFound will be retried, to avoid
+				// inflating error-rate metrics with expected transient failures
+				const isRetryingEntityNotFound =
+					syncBlockInstance.error.type === SyncBlockError.EntityNotFound &&
+					(this.entityNotFoundRetryCount.get(syncBlockInstance.resourceId) ?? 0) <
+						ENTITY_NOT_FOUND_MAX_RETRIES &&
+					fg('platform_synced_block_patch_13');
+
+				if (!isRetryingEntityNotFound) {
+					this.fireAnalyticsEvent?.(
+						fetchErrorPayload(
+							syncBlockInstance.error.reason || syncBlockInstance.error.type,
+							syncBlockInstance.resourceId,
+							syncBlockInstance.data?.product ??
+								getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId),
+						),
+					);
+				}
 
 				if (
 					syncBlockInstance.error.type === SyncBlockError.NotFound ||
 					syncBlockInstance.error.type === SyncBlockError.Forbidden
 				) {
 					hasExpectedError = true;
+				} else if (syncBlockInstance.error.type === SyncBlockError.EntityNotFound) {
+					// Schedule a retry for EntityNotFound — the source block may be in
+					// the process of being created by a collaborator (race condition
+					// between NCS propagation and Block Service createBlock call).
+					if (fg('platform_synced_block_patch_13')) {
+						this.scheduleEntityNotFoundRetry(syncBlockInstance.resourceId);
+					}
+					if (!isRetryingEntityNotFound) {
+						hasUnexpectedError = true;
+					}
 				} else if (syncBlockInstance.error) {
 					hasUnexpectedError = true;
 				}
@@ -655,6 +692,57 @@ export class ReferenceSyncBlockStoreManager {
 	private deleteFromCache(resourceId: ResourceId) {
 		this.dataProvider?.removeFromCache([resourceId]);
 		this._providerFactoryManager.deleteFactory(resourceId);
+	}
+
+	/**
+	 * Schedules a delayed retry for a block that returned EntityNotFound.
+	 * The block may be in the process of being created by a collaborator —
+	 * the NCS transaction propagates the bodiedSyncBlock ADF node before
+	 * the Block Service createBlock call completes.
+	 */
+	private scheduleEntityNotFoundRetry(resourceId: ResourceId): void {
+		const currentRetries = this.entityNotFoundRetryCount.get(resourceId) ?? 0;
+
+		if (currentRetries >= ENTITY_NOT_FOUND_MAX_RETRIES) {
+			// Max retries exceeded — keep count at max so future calls immediately exit
+			// (don't delete — that would reset the counter and allow unbounded retry waves)
+			return;
+		}
+
+		// If a timer is already pending, don't schedule another one — let the
+		// existing timer fire. This prevents rapid EntityNotFound responses from
+		// exhausting the retry budget through cancellations without any actual
+		// fetch completing.
+		if (this.entityNotFoundRetryTimers.has(resourceId)) {
+			return;
+		}
+
+		const delay = ENTITY_NOT_FOUND_INITIAL_DELAY_MS * Math.pow(2, currentRetries);
+
+		const timer = setTimeout(() => {
+			this.entityNotFoundRetryTimers.delete(resourceId);
+
+			// If no active subscriptions remain for this block, clean up and skip
+			const subscriptions = this._subscriptionManager.getSubscriptions().get(resourceId);
+			if (!subscriptions || Object.keys(subscriptions).length === 0) {
+				this.entityNotFoundRetryCount.delete(resourceId);
+				return;
+			}
+
+			// Increment count only when the timer fires, not when scheduled
+			this.entityNotFoundRetryCount.set(resourceId, currentRetries + 1);
+
+			// Clear the error from cache so fetchSyncBlocksData doesn't skip it
+			const cached = this.getFromCache(resourceId);
+			if (cached?.error?.type === SyncBlockError.EntityNotFound) {
+				this.deleteFromCache(resourceId);
+			}
+
+			// Trigger a re-fetch via the batch fetcher
+			this.debouncedBatchedFetchSyncBlocks(resourceId);
+		}, delay);
+
+		this.entityNotFoundRetryTimers.set(resourceId, timer);
 	}
 
 	private debouncedBatchedFetchSyncBlocks(resourceId: string): void {
@@ -856,6 +944,11 @@ export class ReferenceSyncBlockStoreManager {
 			clearTimeout(this.queuedFlushTimeout);
 			this.queuedFlushTimeout = undefined;
 		}
+
+		// Cancel any pending EntityNotFound retry timers
+		this.entityNotFoundRetryTimers.forEach((timer) => clearTimeout(timer));
+		this.entityNotFoundRetryTimers.clear();
+		this.entityNotFoundRetryCount.clear();
 
 		this._subscriptionManager.destroy();
 		this._providerFactoryManager.destroy();

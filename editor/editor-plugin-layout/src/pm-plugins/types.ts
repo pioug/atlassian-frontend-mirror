@@ -8,6 +8,7 @@ export type LayoutState = {
 	allowSingleColumnLayout: boolean;
 	isLayoutColumnMenuOpen: boolean;
 	isResizing: boolean;
+	layoutColumnMenuAnchorPos: number | undefined;
 	pos: number | null;
 	selectedLayout: PresetLayout | undefined;
 };

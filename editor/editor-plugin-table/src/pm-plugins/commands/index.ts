@@ -21,6 +21,7 @@ export {
 	toggleNumberColumn,
 	toggleTableLayout,
 } from './toggle';
+export { closeActiveTableMenu, toggleActiveTableMenu } from './active-table-menu';
 export { clearMultipleCells } from './clear';
 export {
 	autoSizeTable,

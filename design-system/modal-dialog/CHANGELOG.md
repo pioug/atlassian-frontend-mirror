@@ -1,5 +1,58 @@
 # @atlaskit/modal-dialog
 
+## 15.2.2
+
+### Patch Changes
+
+- [`dec4f3444bce8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dec4f3444bce8) -
+  Hardens Popup, Popover, and Dialog through stricter typed contracts, focus-management fixes, and
+  clearer entry points.
+  - **Stricter API contracts.** Popup, Popover, and Dialog props are now discriminated unions, so
+    misuse (manual mode with `onClose`, dialogs without a label, popovers without an accessible name
+    for their role) fails at compile time.
+  - **Better defaults.** `Popup`'s `placement` prop now defaults to "below trigger, centered, with
+    `space.100` gap", removing the awkward `placement={{}}` boilerplate.
+  - **Focus-management fixes.** Empty/loading dialogs no longer trap Tab on `<body>`; rapid
+    open/close/open sequences no longer focus a torn-down popover; nested top-layer popovers stay in
+    their own focus scope.
+  - **Cleaner entry points.** `createCloseEvent` is now available as per-primitive subpaths
+    (`@atlaskit/top-layer/dialog/create-close-event` and
+    `@atlaskit/top-layer/popover/create-close-event`); the combined entry point is deprecated. The
+    placement-map entry point now exposes a public `LEGACY_PLACEMENTS` const for migration
+    consumers.
+  - **Per-primitive data attributes.** Animation hooks now emit `data-ds-popover-*` for Popover and
+    `data-ds-dialog-*` for Dialog, preventing cross-primitive selector collisions.
+  - **Performance and internal correctness.** `setStyle` snapshots and restores prior inline values;
+    CSS-length resolution is memoised and probes inside the popover for correct token scope;
+    placement resolution is stable across renders.
+
+- Updated dependencies
+
+## 15.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.2.0
+
+### Minor Changes
+
+- [`8e9ab10567283`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e9ab10567283) -
+  When `platform-dst-top-layer` is enabled, the open layer observer registration now happens inside
+  the `Dialog` and `Popover` primitives directly, so `popup`, `modal-dialog`, and `tooltip` no
+  longer register with the open layer observer separately (avoiding double-counting).
+  - `Dialog` registers as `type: 'modal'`, with a no-op `onClose`, as there is no current use case
+    for programmatic close of modals via the open layer observer.
+  - `Popover` registers as `type: 'popup'` for interactive overlay roles (`dialog`, `alertdialog`,
+    `menu`, `listbox`, `tree`, `grid`) and omits `type` for other roles (e.g. `tooltip`).
+  - A new `programmatic` value has been added to `TPopoverCloseReason` to distinguish programmatic
+    closes, such as those from the open layer observer's `closeLayers()` calls.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.1.3
 
 ### Patch Changes

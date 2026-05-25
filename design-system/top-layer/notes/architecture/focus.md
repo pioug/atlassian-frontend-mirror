@@ -45,6 +45,43 @@ background content.
 - Remaps them to `getNextFocusable({ container, direction })`, which handles wrapping
 - Used in `Popover` (active when role is `'dialog'`) and `Dialog` (always active)
 
+### Nested top-layer scopes
+
+When a `role="dialog"` popover (or `<dialog>`) contains another `role="dialog"`
+top-layer descendant (for example, a date-picker calendar opened inside a
+popup), both layers attach a `useFocusWrap` listener. The capture-phase
+listener on the outer layer fires first.
+
+If the outer layer naively handled Tab while focus was inside the inner
+layer, it would call `preventDefault()` and remap focus to one of its own
+focusables — ejecting focus from the inner layer and triggering its blur
+handlers (which typically close the inner layer).
+
+To avoid this, `useFocusWrap` calls `isNestedLayerFocused({ container })`
+before intercepting Tab. The helper returns `true` when
+`document.activeElement` is a descendant of the container but lives in a
+different (nested) top-layer scope (a `[popover]`, `<dialog>`,
+`[role="dialog"]`, or `[role="alertdialog"]` element). When that is the
+case, the outer hook returns early and lets the inner hook take over.
+
+The contract this preserves:
+
+- **Inside our own layer** → handle Tab normally (cycle).
+- **Inside a nested layer below us** → skip; the inner hook handles it.
+- **Outside our layer** (body, a sibling layer, or no active element) →
+  handle Tab to reclaim focus into our scope.
+
+The "reclaim from loose focus" branch matters for the `<Dialog>` modal
+case: if the user clicks outside and presses Tab, focus should snap back
+into the modal rather than wander the page.
+
+### TODO: empty layers
+
+Layers with no focusable descendants (e.g. spinner-only loading)
+soft-lock on Tab. JSDoc on `Dialog` / `Popover` recommends rendering a
+focusable on open, but this is not enforced. Possible follow-up: fall
+back to focusing the container itself (`tabIndex={-1}`).
+
 ---
 
 ## Initial focus

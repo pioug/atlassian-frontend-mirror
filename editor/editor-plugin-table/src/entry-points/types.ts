@@ -6,6 +6,7 @@ export {
 	TableDecorations,
 } from '../types/index';
 export type {
+	ActiveTableMenu,
 	AlignmentOptions,
 	Cell,
 	CellColumnPositioning,

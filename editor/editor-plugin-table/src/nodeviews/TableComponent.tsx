@@ -60,7 +60,7 @@ import {
 	tablesHaveDifferentNoOfRows,
 } from '../pm-plugins/utils/nodes';
 import { getAssistiveMessage } from '../pm-plugins/utils/table';
-import { isContentModeSupported } from '../pm-plugins/utils/tableMode';
+import { isContentModeSupported } from '../pm-plugins/utils/tableMode/is-content-mode-supported';
 import type { CellHoverMeta, PluginInjectionAPI } from '../types';
 import { TableCssClassName as ClassName } from '../types';
 import {

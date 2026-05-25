@@ -32,9 +32,10 @@ export interface TagNewProps {
 	elemBefore?: ReactNode;
 	/**
 	 * Text to be displayed in the tag.
+	 * Accepts a string or an ordered array of string chunks for migration use cases.
 	 */
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	text: string;
+	text: string | string[];
 	/**
 	 * URI or path. If provided, the tag will be a link.
 	 */

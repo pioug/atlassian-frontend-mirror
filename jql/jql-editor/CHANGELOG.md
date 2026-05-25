@@ -1,5 +1,19 @@
 # @atlaskit/jql-editor
 
+## 6.4.6
+
+### Patch Changes
+
+- [`914fa81a9807b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/914fa81a9807b) -
+  Remove stale `add_nin_press_interactions` feature gate cleanup
+- Updated dependencies
+
+## 6.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.4.4
 
 ### Patch Changes

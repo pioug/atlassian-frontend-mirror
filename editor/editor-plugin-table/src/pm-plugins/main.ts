@@ -84,7 +84,8 @@ import {
 	isHeaderRowRequired,
 	transformSliceTableLayoutDefaultToCenter,
 } from './utils/paste';
-import { applyMeasuredWidthToAllTables, isContentModeSupported } from './utils/tableMode';
+import { applyMeasuredWidthToAllTables } from './utils/tableMode/apply-measured-width-to-all-tables';
+import { isContentModeSupported } from './utils/tableMode/is-content-mode-supported';
 
 export const createPlugin = (
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent,

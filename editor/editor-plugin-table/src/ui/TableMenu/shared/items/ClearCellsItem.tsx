@@ -5,21 +5,21 @@ import { useIntl } from 'react-intl';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { backspace, tooltip } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import {
 	CrossIcon,
 	ToolbarDropdownItem,
 	ToolbarKeyboardShortcutHint,
 } from '@atlaskit/editor-toolbar';
 
+import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { emptyMultipleCellsWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
 import { getPluginState } from '../../../../pm-plugins/plugin-factory';
 import { useTableMenuContext } from '../TableMenuContext';
 import type { TableMenuComponentsParams } from '../types';
 
 export const ClearCellsItem = ({ api }: TableMenuComponentsParams): React.JSX.Element => {
-	const { editorView } = useEditorToolbar();
 	const tableMenuContext = useTableMenuContext();
+	const { editorView } = tableMenuContext ?? {};
 	const { formatMessage } = useIntl();
 	const selectedCellCount = Math.max(
 		tableMenuContext?.selectedColumnCount ?? 1,
@@ -35,7 +35,9 @@ export const ClearCellsItem = ({ api }: TableMenuComponentsParams): React.JSX.El
 			INPUT_METHOD.TABLE_CONTEXT_MENU,
 			targetCellPosition,
 		)(editorView.state, editorView.dispatch);
+		closeActiveTableMenu()(editorView.state, editorView.dispatch);
 	};
+
 	return (
 		<ToolbarDropdownItem
 			onClick={handleClick}

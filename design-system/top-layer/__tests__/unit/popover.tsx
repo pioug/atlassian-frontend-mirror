@@ -1,8 +1,59 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { act, render, screen } from '@atlassian/testing-library';
+import { OpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer/open-layer-observer';
+import { useOpenLayerObserver } from '@atlaskit/layering/experimental/use-open-layer-observer';
+import { act, render, screen, userEvent } from '@atlassian/testing-library';
 
 import { Popup } from '../../src/entry-points/popup';
+
+// ── Observer test helpers ──
+
+/**
+ * Renders the open layer count as text so tests can assert declaratively
+ * on what the observer reports, without imperatively reading the API.
+ * Subscribes to onChange so it re-renders whenever the count changes.
+ */
+function LayerCountDisplay() {
+	const api = useOpenLayerObserver();
+	const [totalCount, setTotalCount] = useState(0);
+	const [popupCount, setPopupCount] = useState(0);
+
+	useEffect(() => {
+		if (!api) {
+			return;
+		}
+
+		// Sync immediately in case counts changed before this effect ran
+		setTotalCount(api.getCount());
+		setPopupCount(api.getCount({ type: 'popup' }));
+
+		// Subscribe to future changes
+		return api.onChange(() => {
+			setTotalCount(api.getCount());
+			setPopupCount(api.getCount({ type: 'popup' }));
+		});
+	}, [api]);
+
+	return (
+		<div>
+			<span data-testid="total-count">{totalCount}</span>
+			<span data-testid="popup-count">{popupCount}</span>
+		</div>
+	);
+}
+
+/**
+ * A button that calls closeLayers() when clicked, allowing tests to trigger
+ * programmatic close without imperatively holding the API reference.
+ */
+function CloseLayersButton() {
+	const api = useOpenLayerObserver();
+	return (
+		<button type="button" onClick={() => api?.closeLayers()}>
+			Close layers
+		</button>
+	);
+}
 
 /**
  * Helper to find the popover element in the rendered output.
@@ -275,5 +326,75 @@ describe('Popup.Content isOpen prop', () => {
 
 		const popoverEl = getPopoverElement();
 		expect(popoverEl).toHaveAttribute('data-popover-open');
+	});
+});
+
+describe('Popover primitive — open layer observer', () => {
+	it('registers as type "popup" for interactive overlay roles (e.g. menu)', () => {
+		render(
+			<OpenLayerObserver>
+				<LayerCountDisplay />
+				<Popup placement={{ edge: 'end' }} onClose={() => {}}>
+					<Popup.Content isOpen={true} testId="popover" role="menu" label="Test label">
+						Content
+					</Popup.Content>
+				</Popup>
+			</OpenLayerObserver>,
+		);
+
+		expect(screen.getByTestId('total-count')).toHaveTextContent('1');
+		expect(screen.getByTestId('popup-count')).toHaveTextContent('1');
+	});
+
+	it('registers but without a type for passive roles (e.g. tooltip)', () => {
+		render(
+			<OpenLayerObserver>
+				<LayerCountDisplay />
+				<Popup placement={{ edge: 'end' }} onClose={() => {}}>
+					<Popup.Content isOpen={true} testId="popover" role="tooltip" label="Test tooltip">
+						Content
+					</Popup.Content>
+				</Popup>
+			</OpenLayerObserver>,
+		);
+
+		// Still registers (isOpen=true), but without a LayerType so popup-count stays 0
+		expect(screen.getByTestId('total-count')).toHaveTextContent('1');
+		expect(screen.getByTestId('popup-count')).toHaveTextContent('0');
+	});
+
+	it('does not register when closed', () => {
+		render(
+			<OpenLayerObserver>
+				<LayerCountDisplay />
+				<Popup placement={{ edge: 'end' }} onClose={() => {}}>
+					<Popup.Content isOpen={false} testId="popover" role="menu" label="Test label">
+						Content
+					</Popup.Content>
+				</Popup>
+			</OpenLayerObserver>,
+		);
+
+		expect(screen.getByTestId('total-count')).toHaveTextContent('0');
+	});
+
+	it('calls onClose with reason "programmatic" when closeLayers() is called', async () => {
+		const user = userEvent.setup();
+		const onClose = jest.fn();
+
+		render(
+			<OpenLayerObserver>
+				<CloseLayersButton />
+				<Popup placement={{ edge: 'end' }} onClose={onClose}>
+					<Popup.Content isOpen={true} testId="popover" role="menu" label="Test label">
+						Content
+					</Popup.Content>
+				</Popup>
+			</OpenLayerObserver>,
+		);
+
+		await user.click(screen.getByRole('button', { name: 'Close layers' }));
+
+		expect(onClose).toHaveBeenCalledWith({ reason: 'programmatic' });
 	});
 });

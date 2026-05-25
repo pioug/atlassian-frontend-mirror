@@ -15,6 +15,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TablePlugin } from '../../tablePluginType';
 import type { DraggableSourceData } from '../../types';
+import { closeActiveTableMenu } from '../commands/active-table-menu';
 import { getPluginState as getTablePluginState } from '../plugin-factory';
 import { pluginKey as tablePluginKey } from '../plugin-key';
 import { insertColgroupFromNode } from '../table-resizing/utils/colgroup';
@@ -109,6 +110,9 @@ const destroyFn = (
 					insm.session?.startFeature('tableDragAndDrop');
 				}
 				toggleDragMenu(false)(editorView.state, editorView.dispatch);
+				if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+					closeActiveTableMenu()(editorView.state, editorView.dispatch);
+				}
 				api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('dragging'));
 			},
 			onDrag(event) {

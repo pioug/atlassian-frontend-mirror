@@ -1,5 +1,33 @@
 # @atlaskit/editor-core
 
+## 219.9.9
+
+### Patch Changes
+
+- [`6ac4a00689c60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ac4a00689c60) -
+  Migrate ui/ChromeCollapsed styles
+- Updated dependencies
+
+## 219.9.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 219.9.7
+
+### Patch Changes
+
+- [`2b34d9b3c52be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b34d9b3c52be) -
+  EDITOR-6461 - migrate chromeless styles
+- [`2b34d9b3c52be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b34d9b3c52be) -
+  EDITOR-6461 - migrate editor chromeless styles to compiled
+- [`2f92bfa334e05`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f92bfa334e05) -
+  Migrate ui pluginslot styles
+- [`6ca645eb352a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ca645eb352a1) -
+  EDITOR-6461 - migrate ui/addon styles
+- Updated dependencies
+
 ## 219.9.6
 
 ### Patch Changes

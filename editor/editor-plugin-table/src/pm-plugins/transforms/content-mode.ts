@@ -14,7 +14,7 @@ export type TableMeasurement = {
 	tableWidth: number;
 };
 
-const tableWidth = (contentWidth: number) => {
+export const clampToEditorMaxWidth = (contentWidth: number): number => {
 	const maxEditorWidth =
 		expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
 		expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
@@ -23,6 +23,8 @@ const tableWidth = (contentWidth: number) => {
 
 	return Math.min(maxEditorWidth, contentWidth);
 };
+
+const tableWidth = clampToEditorMaxWidth;
 
 export const getTableMeasurement = (tableRef: HTMLTableElement): TableMeasurement => {
 	const colWidths = getRenderedColgroupColumnWidths(tableRef);

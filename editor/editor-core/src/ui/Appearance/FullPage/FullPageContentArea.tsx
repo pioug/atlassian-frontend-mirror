@@ -353,7 +353,7 @@ const Content = React.forwardRef<
 	);
 	const shouldHideProseMirrorForMarkdownMode =
 		expValEqualsNoExposure('cc-markdown-mode', 'isEnabled', true) &&
-		markdownPluginCurrentView !== 'wysiwyg' &&
+		markdownPluginCurrentView !== 'preview' &&
 		markdownPluginCurrentIsMarkdownMode;
 
 	return (

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { UserIntentPopupWrapper } from '@atlaskit/editor-common/user-intent';
@@ -16,7 +17,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
-import type { PluginConfig, PluginInjectionAPI, TableDirection } from '../../types';
+import type { PluginConfig, PluginInjectionAPI, TableDirection, TableSharedStateInternal } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
 import {
 	dragMenuDropdownWidth,
@@ -84,7 +85,30 @@ const FloatingDragMenu: FloatingDragMenuFunction = ({
 	isCommentEditor,
 	tableWrapper,
 }) => {
-	if (!isOpen || !targetCellPosition || editorView.state.doc.nodeSize <= targetCellPosition) {
+	const { activeTableMenu } = useSharedPluginStateWithSelector(api, ['table'], (states) => ({
+		activeTableMenu: (states.tableState as TableSharedStateInternal | undefined)?.activeTableMenu,
+	}));
+	const isActiveTableMenuDragMenu =
+		activeTableMenu?.type === 'row' || activeTableMenu?.type === 'column';
+	const hasActiveTableMenuState = activeTableMenu !== undefined;
+	const isDragMenuOpen =
+		expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) && hasActiveTableMenuState
+			? isActiveTableMenuDragMenu
+			: isOpen;
+	const dragMenuDirection =
+		expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) && hasActiveTableMenuState
+			? isActiveTableMenuDragMenu
+				? activeTableMenu.type
+				: undefined
+			: direction;
+	const dragMenuIndex =
+		expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) && hasActiveTableMenuState
+			? isActiveTableMenuDragMenu
+				? activeTableMenu.index
+				: undefined
+			: index;
+
+	if (!isDragMenuOpen || !targetCellPosition || editorView.state.doc.nodeSize <= targetCellPosition) {
 		return null;
 	}
 	const inStickyMode =
@@ -93,7 +117,7 @@ const FloatingDragMenu: FloatingDragMenuFunction = ({
 			fg('platform_editor_table_sticky_header_patch_7'));
 
 	const targetHandleRef =
-		direction === 'row'
+		dragMenuDirection === 'row'
 			? document.querySelector('#drag-handle-button-row')
 			: document.querySelector('#drag-handle-button-column');
 
@@ -108,8 +132,8 @@ const FloatingDragMenu: FloatingDragMenuFunction = ({
 
 	return (
 		<Popup
-			alignX={direction === 'row' ? 'right' : undefined}
-			alignY={direction === 'row' ? 'start' : undefined}
+			alignX={dragMenuDirection === 'row' ? 'right' : undefined}
+			alignY={dragMenuDirection === 'row' ? 'start' : undefined}
 			// Ignored via go/ees005
 			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			target={targetHandleRef as HTMLElement}
@@ -141,16 +165,16 @@ const FloatingDragMenu: FloatingDragMenuFunction = ({
 					<TableMenu
 						api={api}
 						editorView={editorView}
-						surface={direction === 'row' ? ROW_MENU : COLUMN_MENU}
+						surface={dragMenuDirection === 'row' ? ROW_MENU : COLUMN_MENU}
 					/>
 				</UserIntentPopupWrapper>
 			) : (
 				<DragMenu
 					editorView={editorView}
-					isOpen={isOpen}
+					isOpen={isDragMenuOpen}
 					tableNode={tableNode}
-					direction={direction}
-					index={index}
+					direction={dragMenuDirection}
+					index={dragMenuIndex}
 					target={targetHandleRef || undefined}
 					targetCellPosition={targetCellPosition}
 					getEditorContainerWidth={getEditorContainerWidth}

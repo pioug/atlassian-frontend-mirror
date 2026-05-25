@@ -2,7 +2,12 @@ import { type RefObject, useEffect } from 'react';
 
 import { bind } from 'bind-event-listener';
 
-import { getFirstFocusable, getLastFocusable, getNextFocusable } from '../focus/focus';
+import {
+	getFirstFocusable,
+	getLastFocusable,
+	getNextFocusable,
+	isNestedLayerFocused,
+} from '../focus/focus';
 
 /**
  * Roles that require focus wrapping per WAI-ARIA APG.
@@ -16,7 +21,7 @@ import { getFirstFocusable, getLastFocusable, getNextFocusable } from '../focus/
  * not Tab. Tab/Shift+Tab should move focus OUT of a menu entirely.
  *
  * Menu keyboard behavior (arrow keys, Home/End, type-ahead, Enter/Space)
- * is context-dependent — it varies by orientation, nesting depth, item
+ * is context-dependent. It varies by orientation, nesting depth, item
  * type, and control pattern (menu button vs menubar). This makes it
  * impossible to implement generically here. The consumer component
  * (e.g. `dropdown-menu`) owns all menu keyboard navigation.
@@ -62,6 +67,14 @@ export function useFocusWrap({
 					return;
 				}
 
+				// If focus is already in a nested layer, then
+				// we continue to let that nested layer own focus
+				if (isNestedLayerFocused({ container: element })) {
+					return;
+				}
+
+				// Prevent the browser giving focus to where it wants to
+				// (we will be handling it, including with wrapping)
 				event.preventDefault();
 
 				const direction = event.shiftKey ? 'backwards' : 'forwards';
@@ -76,7 +89,7 @@ export function useFocusWrap({
 				}
 
 				// Nothing is currently focused inside the container (or the
-				// focused element isn't in the focusable list). Fall back to
+				// focused element is not in the focusable list). Fall back to
 				// the first or last focusable element depending on direction.
 				const fallback =
 					direction === 'forwards'

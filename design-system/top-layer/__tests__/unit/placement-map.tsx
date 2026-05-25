@@ -1,9 +1,9 @@
 import {
 	fromLegacyPlacement,
-	placementMapping,
 	type TLegacyPlacement,
 	type TPlacementOptions,
 } from '../../src/placement-map';
+import { placementMapping } from '../../src/placement-map/legacy-placements';
 
 describe('placement-map', () => {
 	describe('fromLegacyPlacement', () => {

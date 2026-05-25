@@ -1,4 +1,4 @@
-import { getPlacement } from '../internal/use-anchor-position';
+import { getPlacement } from '../internal/resolve-placement';
 import { type TPlacementOptions } from '../popup/types';
 
 import { type TAnimationPreset } from './types';
@@ -296,8 +296,9 @@ const DIALOG_SLIDE_UP_AND_FADE_CSS = `
 export function dialogSlideUpAndFade(options?: TDialogSlideUpAndFadeOptions): TAnimationPreset {
 	const distance = options?.distance ?? 12;
 
+	// Bare preset name; `Dialog` prefixes it via `data-ds-dialog-{name}`.
 	return {
-		name: distance === 12 ? 'dialog-slide-up-and-fade' : `dialog-slide-up-and-fade-${distance}`,
+		name: distance === 12 ? 'slide-up-and-fade' : `slide-up-and-fade-${distance}`,
 		css:
 			distance === 12
 				? DIALOG_SLIDE_UP_AND_FADE_CSS
@@ -373,8 +374,9 @@ const DIALOG_FADE_CSS = `
  */
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function dialogFade(): TAnimationPreset {
+	// Bare preset name; `Dialog` prefixes it via `data-ds-dialog-{name}`.
 	return {
-		name: 'dialog-fade',
+		name: 'fade',
 		css: DIALOG_FADE_CSS,
 		exitDurationMs: 175,
 	};

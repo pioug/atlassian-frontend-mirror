@@ -50,6 +50,7 @@ export const TableSharedCssClassName: {
 	readonly TABLE_HEADER_CELL_WRAPPER: 'pm-table-header-content-wrap';
 	readonly TABLE_LEFT_BORDER: 'pm-table-left-border';
 	readonly TABLE_LEFT_SHADOW: 'pm-table-with-left-shadow';
+	readonly TABLE_NATIVE_STICKY: 'pm-table-row-native-sticky';
 	readonly TABLE_NODE_WRAPPER: 'pm-table-wrapper';
 	readonly TABLE_NODE_WRAPPER_NO_OVERFLOW: 'pm-table-wrapper-no-overflow';
 	readonly TABLE_RESIZER_CONTAINER: 'pm-table-resizer-container';
@@ -59,6 +60,7 @@ export const TableSharedCssClassName: {
 	readonly TABLE_SCROLL_INLINE_SHADOW: 'pm-table-scroll-inline-shadow';
 	readonly TABLE_SHADOW_SENTINEL_LEFT: 'pm-table-shadow-sentinel-left';
 	readonly TABLE_SHADOW_SENTINEL_RIGHT: 'pm-table-shadow-sentinel-right';
+	readonly TABLE_STICKY: 'pm-table-sticky';
 	readonly TABLE_STICKY_SCROLLBAR_CONTAINER: 'pm-table-sticky-scrollbar-container';
 	readonly TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM: 'pm-table-sticky-scrollbar-sentinel-bottom';
 	readonly TABLE_STICKY_SCROLLBAR_SENTINEL_TOP: 'pm-table-sticky-scrollbar-sentinel-top';
@@ -75,6 +77,7 @@ export const TableSharedCssClassName: {
 	TABLE_RIGHT_BORDER: `${tablePrefixSelector}-right-border`,
 	TABLE_LEFT_BORDER: `${tablePrefixSelector}-left-border`,
 	TABLE_LEFT_SHADOW: `${tablePrefixSelector}-with-left-shadow`,
+	TABLE_NATIVE_STICKY: `${tablePrefixSelector}-row-native-sticky`,
 	TABLE_RIGHT_SHADOW: `${tablePrefixSelector}-with-right-shadow`,
 	TABLE_STICKY_SHADOW: `${tablePrefixSelector}-sticky-shadow`,
 	TABLE_STICKY_WRAPPER: `${tablePrefixSelector}-sticky-wrapper`,
@@ -85,6 +88,7 @@ export const TableSharedCssClassName: {
 	TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM: `${tablePrefixSelector}-sticky-scrollbar-sentinel-bottom`,
 	TABLE_SHADOW_SENTINEL_LEFT: `${tablePrefixSelector}-shadow-sentinel-left`,
 	TABLE_SHADOW_SENTINEL_RIGHT: `${tablePrefixSelector}-shadow-sentinel-right`,
+	TABLE_STICKY: `${tablePrefixSelector}-sticky`,
 	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	TABLE_CELL_NODEVIEW_CONTENT_DOM: tableCellContentDomSelector,
 	// eslint-disable-next-line @atlaskit/editor/no-re-export

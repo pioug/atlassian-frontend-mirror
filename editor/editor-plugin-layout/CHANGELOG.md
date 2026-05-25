@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-layout
 
+## 10.7.0
+
+### Minor Changes
+
+- [`6767563047c0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6767563047c0e) -
+  Add distributeLayoutColumns command that equalises widths of selected layout columns; wire into
+  drag-handle column menu and floating toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.6.0
+
+### Minor Changes
+
+- [`71eaad00529a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71eaad00529a1) -
+  Support multi-column layout column menu selections
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.5.0
 
 ### Minor Changes

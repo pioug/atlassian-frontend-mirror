@@ -14,15 +14,13 @@ import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
 import {
 	fromLegacyPlacement,
-	placementMapping,
+	LEGACY_PLACEMENTS,
 	type TLegacyPlacement,
 } from '@atlaskit/top-layer/placement-map';
 import { Popup, type TPlacementOptions } from '@atlaskit/top-layer/popup';
 import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
 
 import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';
-
-const legacyPlacements = Object.keys(placementMapping) as TLegacyPlacement[];
 
 type TCrossAxisShiftDirection = 'forwards' | 'backwards';
 
@@ -168,7 +166,7 @@ export default function PlacementExample(): JSX.Element {
 								</label>
 								{useLegacy && (
 									<select value={legacyPlacement} onChange={handleLegacyChange} css={styles.select}>
-										{legacyPlacements.map((legacyOption) => (
+										{LEGACY_PLACEMENTS.map((legacyOption) => (
 											<option key={legacyOption} value={legacyOption}>
 												{legacyOption}
 											</option>
@@ -226,7 +224,6 @@ export default function PlacementExample(): JSX.Element {
 						<div css={styles.demoArea}>
 							<Popup
 								placement={placement}
-								onClose={() => {}}
 								forceFallbackPositioning={forceFallbackPositioning}
 							>
 								<Popup.Trigger>

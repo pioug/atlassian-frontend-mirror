@@ -10,6 +10,9 @@ import { isMember } from '../team';
 import { getPermissionMap, vanityActions } from './constants';
 import { type TeamAction, type TeamPermissions } from './types';
 
+/**
+ * @deprecated use import { userCan } from '@atlassian/teams-app-internal-user-permissions';
+ */
 export function hasPermission(
 	action: TeamAction,
 	settings: TeamMembershipSettings,
@@ -61,6 +64,7 @@ type PermissionOptions = {
 
 /**
  * Determines if a user has permission perform a given action on a team
+ * @deprecated use import { userCan } from '@atlassian/teams-app-internal-user-permissions';
  */
 export function userCan(action: TeamAction, options: PermissionOptions): boolean {
 	return getPermissionMap(

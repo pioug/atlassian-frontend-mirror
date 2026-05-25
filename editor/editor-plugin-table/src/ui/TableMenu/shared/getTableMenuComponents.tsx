@@ -10,6 +10,6 @@ import type { TableMenuComponentsParams } from './types';
 export const getTableMenuComponents = (params: TableMenuComponentsParams): RegisterComponent[] => [
 	...getRowMenuComponents(params),
 	...getColumnMenuComponents(params),
-	...getCellMenuComponents(),
+	...getCellMenuComponents(params),
 	...getSharedItems(params),
 ];

@@ -1,22 +1,18 @@
-import * as colors from './colors';
 import getTheme from './utils/get-theme';
 
-export { colors, getTheme };
+export { getTheme };
 
+export { default } from './components/theme';
 export {
+	assistive,
 	CHANNEL,
 	DEFAULT_THEME_MODE,
-	THEME_MODES,
-	assistive,
 	focusRing,
 	layers,
 	noFocusRing,
-	skeletonShimmer,
+	THEME_MODES,
 	visuallyHidden,
 } from './constants';
-export { default } from './components/theme';
-export { createTheme } from './utils/create-theme';
-export type { ThemeProp } from './utils/create-theme';
 export type {
 	AtlaskitThemeProps,
 	CustomThemeProps,
@@ -24,7 +20,9 @@ export type {
 	GlobalThemeTokens,
 	NoThemeProps,
 	Theme,
+	ThemedValue,
 	ThemeModes,
 	ThemeProps,
-	ThemedValue,
 } from './types';
+export { createTheme } from './utils/create-theme';
+export type { ThemeProp } from './utils/create-theme';

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 9.2.8
+
+### Patch Changes
+
+- [`30afd84934977`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30afd84934977) -
+  [ux] EDITOR-7312 Close block menu after transform
+
+## 9.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.2.6
 
 ### Patch Changes

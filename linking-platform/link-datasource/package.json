@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "5.4.2",
+	"version": "5.4.4",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -191,6 +191,9 @@
 		"./utils/schema": "./src/entry-points/utils-schema.ts"
 	},
 	"platform-feature-flags": {
+		"platform_navx_3298_message_wrapper": {
+			"type": "boolean"
+		},
 		"confluence-issue-terminology-refresh": {
 			"type": "boolean"
 		},

@@ -13,7 +13,7 @@ import type { Valign } from '@atlaskit/editor-common/types/valign';
 import { flatmap, getStepRange, isEmptyDocument, mapChildren } from '@atlaskit/editor-common/utils';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -30,6 +30,7 @@ import {
 } from './consts';
 import { pluginKey } from './plugin-key';
 import type { LayoutState } from './types';
+import { getSelectedLayoutColumns } from './utils/layout-column-selection';
 import {
 	redistributeAfterDeletion,
 	redistributeProportionally,
@@ -687,37 +688,6 @@ export function getEffectiveMaxLayoutColumns(): number {
 		: MAX_STANDARD_LAYOUT_COLUMNS;
 }
 
-const getSelectedLayoutColumnInSection = ({
-	doc,
-	selection,
-}: {
-	doc: Node;
-	selection: Selection;
-}) => {
-	const { layoutColumn, layoutSection } = doc.type.schema.nodes;
-	if (!(selection instanceof NodeSelection) || selection.node.type !== layoutColumn) {
-		return;
-	}
-
-	const { $from } = selection;
-	if ($from.parent.type !== layoutSection) {
-		return;
-	}
-
-	const selectedColumnIndex = $from.index($from.depth);
-	const selectedColumnNode = selection.node;
-	const selectedColumnPos = selection.from;
-	const layoutSectionPos = $from.before($from.depth);
-
-	return {
-		layoutSectionNode: $from.parent,
-		layoutSectionPos,
-		selectedColumnIndex,
-		selectedColumnNode,
-		selectedColumnPos,
-	};
-};
-
 const insertLayoutColumnAt =
 	(side: InsertLayoutColumnSide, editorAnalyticsAPI?: EditorAnalyticsAPI): EditorCommand =>
 	({ tr }) => {
@@ -725,12 +695,17 @@ const insertLayoutColumnAt =
 			return null;
 		}
 
-		const selectedColumn = getSelectedLayoutColumnInSection(tr);
-		if (!selectedColumn) {
+		const selectedLayoutColumns = getSelectedLayoutColumns(tr.selection);
+		if (!selectedLayoutColumns) {
 			return null;
 		}
 
-		const { layoutSectionNode, layoutSectionPos, selectedColumnIndex } = selectedColumn;
+		const { layoutSectionNode, layoutSectionPos, selectedColumnIndices, selectedColumns } =
+			selectedLayoutColumns;
+		const startIndex = selectedColumnIndices[0];
+		const endIndex = selectedColumnIndices[selectedColumnIndices.length - 1];
+		const selectedColumnIndex = side === 'left' ? startIndex : endIndex;
+		const selectedColumnCount = selectedColumns.length;
 		if (layoutSectionNode.childCount >= getEffectiveMaxLayoutColumns()) {
 			return null;
 		}
@@ -777,9 +752,11 @@ const insertLayoutColumnAt =
 			actionSubjectId: ACTION_SUBJECT_ID.LAYOUT_COLUMN,
 			attributes: {
 				columnCount: redistributedWidths.length,
+				endIndex,
 				inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU,
-				selectedIndex: selectedColumnIndex,
+				selectedCount: selectedColumnCount,
 				side,
+				startIndex,
 			},
 			eventType: EVENT_TYPE.TRACK,
 		})(tr);
@@ -794,39 +771,133 @@ export const insertLayoutColumn = (
 ): EditorCommand => insertLayoutColumnAt(side, editorAnalyticsAPI);
 
 export const setLayoutColumnValign =
-	(valign: Valign): EditorCommand =>
+	(valign: Valign, editorAnalyticsAPI?: EditorAnalyticsAPI): EditorCommand =>
 	({ tr }) => {
 		if (!expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
 			return null;
 		}
 
-		const { layoutColumn } = tr.doc.type.schema.nodes;
-		const selectedColumn =
-			tr.selection instanceof NodeSelection && tr.selection.node.type === layoutColumn
-				? { node: tr.selection.node, pos: tr.selection.from }
-				: undefined;
-
-		if (!selectedColumn) {
+		const selectedLayoutColumns = getSelectedLayoutColumns(tr.selection);
+		if (!selectedLayoutColumns) {
 			return null;
 		}
 
-		if (selectedColumn.node.attrs.valign === valign) {
+		const { selectedColumnIndices, selectedColumns } = selectedLayoutColumns;
+		const columnsToUpdate = selectedColumns.filter(({ node }) => node.attrs.valign !== valign);
+		if (columnsToUpdate.length === 0) {
 			return null;
 		}
+		const startIndex = selectedColumnIndices[0];
+		const endIndex = selectedColumnIndices[selectedColumnIndices.length - 1];
+		const selectedColumnCount = selectedColumns.length;
+		const updatedColumnCount = columnsToUpdate.length;
 
-		tr.setNodeMarkup(selectedColumn.pos, selectedColumn.node.type, {
-			...selectedColumn.node.attrs,
-			valign,
+		columnsToUpdate.forEach(({ node, pos }) => {
+			tr.setNodeMarkup(pos, node.type, {
+				...node.attrs,
+				valign,
+			});
 		});
+		editorAnalyticsAPI?.attachAnalyticsEvent({
+			action: ACTION.UPDATED,
+			actionSubject: ACTION_SUBJECT.DOCUMENT,
+			actionSubjectId: ACTION_SUBJECT_ID.LAYOUT_COLUMN,
+			attributes: {
+				endIndex,
+				inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU,
+				selectedCount: selectedColumnCount,
+				startIndex,
+				updatedCount: updatedColumnCount,
+				valign,
+			},
+			eventType: EVENT_TYPE.TRACK,
+		})(tr);
+		tr.setMeta('scrollIntoView', false);
+
+		return tr;
+	};
+
+export const distributeLayoutColumns =
+	(
+		editorAnalyticsAPI?: EditorAnalyticsAPI,
+		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU | INPUT_METHOD.FLOATING_TB = INPUT_METHOD.LAYOUT_COLUMN_MENU,
+	): EditorCommand =>
+	({ tr }) => {
+		if (!expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
+			return null;
+		}
+
+		const selectedLayoutColumns = getSelectedLayoutColumns(tr.selection);
+		if (!selectedLayoutColumns || selectedLayoutColumns.selectedColumns.length < 2) {
+			return null;
+		}
+
+		const { layoutSectionNode, layoutSectionPos, selectedColumnIndices, selectedColumns } =
+			selectedLayoutColumns;
+
+		const endIndex = selectedColumnIndices[selectedColumnIndices.length - 1];
+		const selectedColumnCount = selectedColumns.length;
+		const totalColumnCount = layoutSectionNode.childCount;
+
+		// Compute equal width for selected columns
+		const existingWidths = mapChildren(layoutSectionNode, (column) => column.attrs.width as number);
+		const selectedTotal = selectedColumnIndices.reduce((sum, idx) => sum + existingWidths[idx], 0);
+		const equalWidth = selectedTotal / selectedColumnCount;
+
+		// Early return if selected columns are already uniformly distributed — avoids spurious undo entry.
+		if (selectedColumnIndices.every((idx) => existingWidths[idx] === Number(equalWidth.toFixed(2)))) {
+			return null;
+		}
+
+		// Build new widths array: selected columns get equal share, unselected unchanged.
+		// Assign truncated (2dp) equal widths to all selected cols except the last, which absorbs
+		// the rounding remainder so the sum of selected widths equals selectedTotal exactly.
+		const selectedIndexSet = new Set(selectedColumnIndices);
+		let assignedToSelected = 0;
+		let selectedAssignedCount = 0;
+		const newWidths = existingWidths.map((w, idx) => {
+			if (!selectedIndexSet.has(idx)) {
+				return w;
+			}
+			selectedAssignedCount += 1;
+			if (selectedAssignedCount < selectedColumnCount) {
+				const truncated = Number(equalWidth.toFixed(2));
+				assignedToSelected += truncated;
+				return truncated;
+			}
+			// Last selected column: absorb the remainder to avoid drift
+			return Number((selectedTotal - assignedToSelected).toFixed(2));
+		});
+
+		// Apply widths via replaceWith (mirroring forceColumnWidths approach)
+		tr.replaceWith(
+			layoutSectionPos + 1,
+			layoutSectionPos + layoutSectionNode.nodeSize - 1,
+			columnWidth(layoutSectionNode, tr.doc.type.schema, newWidths),
+		);
+
+		editorAnalyticsAPI?.attachAnalyticsEvent({
+			action: ACTION.UPDATED,
+			actionSubject: ACTION_SUBJECT.DOCUMENT,
+			actionSubjectId: ACTION_SUBJECT_ID.LAYOUT_COLUMN,
+			attributes: {
+				columnCount: totalColumnCount,
+				endIndex,
+				inputMethod,
+				selectedCount: selectedColumnCount,
+				startIndex: selectedColumnIndices[0],
+			},
+			eventType: EVENT_TYPE.TRACK,
+		})(tr);
 		tr.setMeta('scrollIntoView', false);
 
 		return tr;
 	};
 
 export const toggleLayoutColumnMenu =
-	({ isOpen }: { isOpen?: boolean }): EditorCommand =>
+	({ anchorPos, isOpen }: { anchorPos?: number; isOpen?: boolean }): EditorCommand =>
 	({ tr }) => {
-		tr.setMeta('toggleLayoutColumnMenu', { isOpen });
+		tr.setMeta('toggleLayoutColumnMenu', { anchorPos, isOpen });
 		tr.setMeta('scrollIntoView', false);
 
 		return tr;
@@ -839,12 +910,17 @@ export const deleteLayoutColumn =
 			return null;
 		}
 
-		const selectedColumn = getSelectedLayoutColumnInSection(tr);
-		if (!selectedColumn) {
+		const selectedLayoutColumns = getSelectedLayoutColumns(tr.selection);
+		if (!selectedLayoutColumns) {
 			return null;
 		}
 
-		const { layoutSectionNode, layoutSectionPos, selectedColumnIndex } = selectedColumn;
+		const { layoutSectionNode, layoutSectionPos, selectedColumnIndices, selectedColumns } =
+			selectedLayoutColumns;
+		const startIndex = selectedColumnIndices[0];
+		const endIndex = selectedColumnIndices[selectedColumnIndices.length - 1];
+		const selectedColumnCount = selectedColumns.length;
+		const selectedColumnIndexSet = new Set(selectedColumnIndices);
 
 		const emitDeleteColumnAnalytics = (columnCount: number) => {
 			editorAnalyticsAPI?.attachAnalyticsEvent({
@@ -853,36 +929,43 @@ export const deleteLayoutColumn =
 				actionSubjectId: ACTION_SUBJECT_ID.LAYOUT_COLUMN,
 				attributes: {
 					columnCount,
+					endIndex,
 					inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU,
-					selectedIndex: selectedColumnIndex,
+					selectedCount: selectedColumnCount,
+					startIndex,
 				},
 				eventType: EVENT_TYPE.TRACK,
 			})(tr);
 		};
 
-		// If only one column remains, remove the entire layoutSection
-		if (layoutSectionNode.childCount === 1) {
+		// If all columns are selected, remove the entire layoutSection
+		if (selectedColumnCount === layoutSectionNode.childCount) {
 			tr.delete(layoutSectionPos, layoutSectionPos + layoutSectionNode.nodeSize);
 			emitDeleteColumnAnalytics(0);
 			tr.setMeta('scrollIntoView', false);
 			return tr;
 		}
 
-		// Build new column list without the selected column
+		// Build new column list without the selected columns
 		const remainingColumns: Node[] = [];
 		layoutSectionNode.forEach((column, _offset, index) => {
-			if (index !== selectedColumnIndex) {
+			if (!selectedColumnIndexSet.has(index)) {
 				remainingColumns.push(column);
 			}
 		});
 
 		// Redistribute widths proportionally among remaining columns using shared utility
 		const existingWidths = mapChildren(layoutSectionNode, (column) => column.attrs.width as number);
-		const redistributed = redistributeAfterDeletion(
-			existingWidths,
-			selectedColumnIndex,
-			MIN_LAYOUT_COLUMN_WIDTH_PERCENT,
-		);
+		const redistributed = selectedColumnIndices
+			.slice()
+			// Delete highest indices first so lower original indices still point at the same columns
+			// as each redistribution step shrinks the widths array.
+			.sort((a, b) => b - a)
+			.reduce(
+				(widths, selectedIndex) =>
+					redistributeAfterDeletion(widths, selectedIndex, MIN_LAYOUT_COLUMN_WIDTH_PERCENT),
+				existingWidths,
+			);
 
 		const updatedLayoutSectionNode = layoutSectionNode.copy(Fragment.fromArray(remainingColumns));
 

@@ -199,6 +199,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 				insertRowButtonIndex: tablePluginState.insertRowButtonIndex,
 				tableWrapperTarget: tablePluginState.tableWrapperTarget,
 				isCellMenuOpenByKeyboard: tablePluginState.isCellMenuOpenByKeyboard,
+				activeTableMenu: tablePluginState.activeTableMenu,
 				stickyHeader,
 				dragMenuDirection: dragAndDropState?.dragMenuDirection,
 				dragMenuIndex: dragAndDropState?.dragMenuIndex,

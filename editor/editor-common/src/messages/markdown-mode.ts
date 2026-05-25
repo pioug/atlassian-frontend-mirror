@@ -65,7 +65,7 @@ export const markdownModeMessages: {
 		id: 'fabric.editor.markdownMode.viewToggle.groupLabel',
 		defaultMessage: 'View mode',
 		description:
-			'Accessible label announced for the group of three view-mode toggle buttons (markdown source, WYSIWYG, preview) shown on Markdown-Mode Live Docs.',
+			'Accessible label announced for the group of three view-mode toggle buttons (syntax editor, preview editor, split view) shown on Markdown-Mode Live Docs.',
 	},
 	source: {
 		id: 'fabric.editor.markdownMode.viewToggle.source',
@@ -75,15 +75,15 @@ export const markdownModeMessages: {
 	},
 	wysiwyg: {
 		id: 'fabric.editor.markdownMode.viewToggle.wysiwyg',
-		defaultMessage: 'WYSIWYG editor',
+		defaultMessage: 'Preview editor',
 		description:
-			'Tooltip and accessible label for the toggle button that switches the editor into the WYSIWYG markdown editing view (the default).',
+			'Tooltip and accessible label for the toggle button that switches the editor into the preview markdown editing view.',
 	},
 	preview: {
 		id: 'fabric.editor.markdownMode.viewToggle.preview',
 		defaultMessage: 'Split view (coming soon)',
 		description:
-			'Tooltip and accessible label for the toggle button that will switch the editor into a split view. This feature is not yet available.',
+			'Tooltip and accessible label for the toggle button that will switch the editor into split view mode. This feature is not yet available.',
 	},
 	sourceAriaLabel: {
 		id: 'fabric.editor.markdownMode.sourceView.ariaLabel',
@@ -118,7 +118,7 @@ export const markdownModeMessages: {
 		id: 'fabric.editor.markdownMode.confirmDialog.toMarkdown.toggle',
 		defaultMessage: 'Toggle between the syntax and preview editor',
 		description:
-			'Body row inside the convert-to-markdown confirmation dialog; explains that the user can still flip between markdown source view and WYSIWYG view after the conversion.',
+			'Body row inside the convert-to-markdown confirmation dialog; explains that the user can still flip between syntax and preview editor after the conversion.',
 	},
 	confirmDialogToMarkdownVersionHistory: {
 		id: 'fabric.editor.markdownMode.confirmDialog.toMarkdown.versionHistory',

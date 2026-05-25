@@ -1,8 +1,11 @@
 import React from 'react';
 
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
 export type TableMenuContextValue = {
 	canMergeCells?: boolean;
 	canSplitCell?: boolean;
+	editorView?: EditorView;
 	hasMergedCellsInTable?: boolean;
 	isFirstColumn?: boolean;
 	isFirstRow?: boolean;

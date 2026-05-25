@@ -1,23 +1,6 @@
 /**
- * Sets inline styles on an element and returns a cleanup function
- * that removes only the styles that were applied.
- *
- * Uses `style.setProperty()` / `style.removeProperty()` so that
- * hyphenated CSS property names (e.g. `position-area`, `anchor-name`)
- * work correctly. These newer properties do not have camelCase
- * mappings in `CSSStyleDeclaration` yet.
- *
- * @example
- * ```ts
- * const cleanup = setStyle({ el: popover, styles: [
- *   { property: 'position-anchor', value: '--my-anchor' },
- *   { property: 'position-area', value: 'block-end' },
- *   { property: 'margin', value: '0' },
- * ] });
- *
- * // Later: removes all three properties
- * cleanup();
- * ```
+ * Sets inline styles on an element and returns a cleanup function that
+ * restores the prior inline values (so we do not stomp consumer styles).
  */
 export function setStyle({
 	el,
@@ -26,13 +9,25 @@ export function setStyle({
 	el: HTMLElement;
 	styles: Array<{ property: string; value: string }>;
 }): () => void {
+	// Snapshot the prior inline value (NOT the computed style - we only want
+	// to restore values that the consumer/our previous run inlined). An empty
+	// string means "no inline value", in which case cleanup uses removeProperty.
+	const priorValues = styles.map(({ property }) => ({
+		property,
+		value: el.style.getPropertyValue(property),
+	}));
+
 	styles.forEach(({ property, value }) => {
 		el.style.setProperty(property, value);
 	});
 
 	return function cleanup() {
-		styles.forEach(({ property }) => {
-			el.style.removeProperty(property);
+		priorValues.forEach(({ property, value }) => {
+			if (value === '') {
+				el.style.removeProperty(property);
+				return;
+			}
+			el.style.setProperty(property, value);
 		});
 	};
 }

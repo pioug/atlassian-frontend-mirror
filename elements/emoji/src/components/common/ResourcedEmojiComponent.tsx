@@ -13,6 +13,7 @@ import { sampledUfoRenderedEmoji } from '../../util/analytics';
 import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
 import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { emojiIdToEmoji } from '../../util/emojiIdToEmoji';
 
 export interface BaseResourcedEmojiProps {
 	/**
@@ -128,7 +129,13 @@ export const ResourcedEmojiComponent = ({
 				});
 			}
 
-			const foundEmoji = _emojiProvider.fetchByEmojiId(emojiId, optimisticFetch);
+			// When id is absent/empty, fetchByEmojiId won't retry if the catalogue isn't loaded yet.
+			// findByEmojiId has retryIfLoading built in — use it for shortName-only lookups.
+			const foundEmoji =
+				!emojiId.id && fg('platform_twemoji_removal_unicode_emojis')
+					? _emojiProvider.findByEmojiId(emojiId)
+					: _emojiProvider.fetchByEmojiId(emojiId, optimisticFetch);
+
 			sampledUfoRenderedEmoji(emojiId).mark(UfoEmojiTimings.METADATA_START);
 			if (isPromise<OptionalEmojiDescription>(foundEmoji)) {
 				setLoaded(false);
@@ -203,16 +210,39 @@ export const ResourcedEmojiComponent = ({
 	}, [emojiProvider]);
 
 	const emojiRenderState = useMemo<ResourcedEmojiComponentRenderStatesEnum>(() => {
-		if (!emoji && !loaded && !optimisticImageURL) {
+		if (
+			(!emoji && !loaded && !optimisticImageURL) ||
+			(optimisticImageURL && !emoji && !id && fg('platform_twemoji_removal_unicode_emojis'))
+		) {
 			return ResourcedEmojiComponentRenderStatesEnum.INITIAL;
 		} else if ((!emoji && loaded) || imageLoadError) {
 			return ResourcedEmojiComponentRenderStatesEnum.FALLBACK;
 		}
 
 		return ResourcedEmojiComponentRenderStatesEnum.EMOJI;
-	}, [emoji, loaded, optimisticImageURL, imageLoadError]);
+	}, [emoji, loaded, optimisticImageURL, imageLoadError, id]);
 
 	const optimisticEmojiDescription = useMemo(() => {
+		// For STANDARD emojis, use native unicode character instead of optimistic image.
+		if (fg('platform_twemoji_removal_unicode_emojis')) {
+			const resolvedId = id || emoji?.id;
+			if (!resolvedId) return undefined;
+			const unicodeEmoji = emojiIdToEmoji(resolvedId);
+			if (unicodeEmoji) {
+				return {
+					...(emoji ?? {
+						id,
+						shortName,
+						fallback,
+						type: 'STANDARD',
+						category: '',
+						searchable: true,
+					}),
+					representation: { unicodeEmoji },
+				};
+			}
+		}
+		
 		// reduce blast radius by targeting page title
 		if (pageTitleEmoji && optimisticImageURL && fg('platform_emoji_prevent_img_src_changing')) {
 			return {

@@ -1,16 +1,20 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React, { PureComponent } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+import { ChromeCollapsedCompiled } from './ChromeCollapsed-compiled';
+import { ChromeCollapsedEmotion } from './ChromeCollapsed-emotion';
 import { messages } from './messages';
-import { inputStyle } from './styles';
+
+const InputMigration = componentWithCondition(
+	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
+	ChromeCollapsedCompiled,
+	ChromeCollapsedEmotion,
+);
 
 export interface Props {
 	label?: string;
@@ -48,10 +52,8 @@ class ChromeCollapsed extends PureComponent<Props & WrappedComponentProps, Objec
 			this.props.text || this.props.intl.formatMessage(messages.chromeCollapsedPlaceholder);
 
 		return (
-			<input
+			<InputMigration
 				data-testid="chrome-collapsed"
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				css={inputStyle}
 				ref={this.handleInputRef}
 				onFocus={this.focusHandler}
 				placeholder={placeholder}

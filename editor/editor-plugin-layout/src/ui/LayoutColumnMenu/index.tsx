@@ -16,10 +16,10 @@ import { ToolbarDropdownMenuProvider } from '@atlaskit/editor-toolbar';
 import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
+import { getLayoutColumnMenuAnchorPos } from '../../pm-plugins/utils/layout-column-selection';
 
 import { LAYOUT_COLUMN_MENU_FALLBACKS } from './components';
 import { LAYOUT_COLUMN_MENU } from './keys';
-import { getLayoutColumnAtSelection } from './layoutColumnSelection';
 
 const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
 
@@ -32,11 +32,13 @@ const LAYOUT_COLUMN_MENU_POPUP_OFFSET: [number, number] = [0, 4];
 const getLayoutColumnMenuTarget = (
 	editorView: EditorView,
 	selection: Selection | undefined,
+	anchorPosFromHandle?: number,
 ): HTMLElement | null | undefined => {
-	if (!getLayoutColumnAtSelection(selection) || selection?.from === undefined) {
+	const anchorPos = getLayoutColumnMenuAnchorPos(selection, anchorPosFromHandle);
+	if (anchorPos === undefined) {
 		return null;
 	}
-	const columnDomRef = editorView.nodeDOM(selection.from);
+	const columnDomRef = editorView.nodeDOM(anchorPos);
 	if (!(columnDomRef instanceof HTMLElement)) {
 		return null;
 	}
@@ -62,14 +64,12 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 		boundariesElement,
 		scrollableElement,
 	}: LayoutColumnMenuProps): React.JSX.Element | null {
-		const { isLayoutColumnMenuOpen, selection } = useSharedPluginStateWithSelector(
-			api,
-			['layout', 'selection'],
-			(states) => ({
+		const { isLayoutColumnMenuOpen, layoutColumnMenuAnchorPos, selection } =
+			useSharedPluginStateWithSelector(api, ['layout', 'selection'], (states) => ({
 				isLayoutColumnMenuOpen: states.layoutState?.isLayoutColumnMenuOpen ?? false,
+				layoutColumnMenuAnchorPos: states.layoutState?.layoutColumnMenuAnchorPos,
 				selection: states.selectionState?.selection,
-			}),
-		);
+			}));
 		const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
 		const menuRef = useRef<HTMLDivElement | null>(null);
 		const popupRef = useRef<HTMLElement | undefined>(undefined);
@@ -96,6 +96,13 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 					event.target instanceof Element &&
 					event.target.closest('[data-toolbar-nested-dropdown-menu]')
 				) {
+					return;
+				}
+
+				// Clicking a drag handle should let the drag handle's own click handler
+				// update selection/menu state. Treating it as a generic outside click
+				// races that transaction and can immediately close the layout column menu.
+				if (event.target instanceof Element && event.target.closest(DRAG_HANDLE_SELECTOR)) {
 					return;
 				}
 
@@ -127,8 +134,11 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 		const components = api?.uiControlRegistry?.actions.getComponents(LAYOUT_COLUMN_MENU.key) ?? [];
 
 		const target = useMemo(
-			() => (isLayoutColumnMenuOpen ? getLayoutColumnMenuTarget(editorView, selection) : null),
-			[editorView, isLayoutColumnMenuOpen, selection],
+			() =>
+				isLayoutColumnMenuOpen
+					? getLayoutColumnMenuTarget(editorView, selection, layoutColumnMenuAnchorPos)
+					: null,
+			[editorView, isLayoutColumnMenuOpen, layoutColumnMenuAnchorPos, selection],
 		);
 
 		const hasValidTarget = target instanceof HTMLElement;

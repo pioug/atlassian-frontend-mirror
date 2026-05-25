@@ -42,10 +42,14 @@ export type TTriggerFunctionRenderProps = {
 	 *
 	 * **Note on `aria-haspopup`:** When the content's role maps to a specific
 	 * popup type (`'menu'`, `'dialog'`, `'listbox'`, etc.), the corresponding
-	 * string value is used. For unmapped roles, the value is `true` (boolean).
-	 * React serialises `aria-haspopup={true}` as `aria-haspopup="true"` in the
-	 * DOM, which is the correct default per the HTML spec. The values can be
-	 * spread directly onto trigger elements without conversion.
+	 * string value is emitted. For non-popup roles (`tooltip`, `note`,
+	 * `status`, `alert`, `log`) the value is `undefined`, so React drops the
+	 * attribute entirely - these triggers should not announce a popup.
+	 *
+	 * The value type (`TAriaHasPopupValue`) is internal and may narrow further
+	 * in future minor versions. Do **not** extract it via `Parameters<…>`.
+	 * Spread `ariaAttributes` directly onto the trigger; do not destructure
+	 * and re-type.
 	 */
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions -- maps to multiple aria-* attributes as a structured object
 	ariaAttributes: {
@@ -59,7 +63,7 @@ type TPopupTriggerFunctionProps = {
 	/**
 	 * Render-prop function that receives trigger props.
 	 *
-	 * Unlike `Popup.Trigger`, this does not use `cloneElement` — the consumer
+	 * Unlike `Popup.Trigger`, this does not use `cloneElement`. The consumer
 	 * is responsible for spreading ref, ARIA attributes, and attaching `toggle`
 	 * to the appropriate event(s).
 	 *
@@ -84,7 +88,7 @@ type TPopupTriggerFunctionProps = {
 /**
  * Render-prop alternative to `Popup.Trigger`.
  *
- * Use when you need full control over the trigger element — for example,
+ * Use when you need full control over the trigger element. For example,
  * to compose your own trigger with custom event handlers, wrap a third-party
  * component, or build a trigger from multiple elements.
  *

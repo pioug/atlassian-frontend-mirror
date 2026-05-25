@@ -3,6 +3,8 @@ import React, { type PropsWithChildren } from 'react';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
 
+import type { TableMenuComponentsParams } from '../shared/types';
+
 import { MergeCellsItem } from './items/MergeCellsItem';
 import { SplitCellItem } from './items/SplitCellItem';
 import {
@@ -15,7 +17,7 @@ import {
 	CELL_ACTION_SECTION_RANK,
 } from './keys';
 
-export const getCellMenuComponents = (): RegisterComponent[] => [
+export const getCellMenuComponents = ({ api }: TableMenuComponentsParams): RegisterComponent[] => [
 	// --- Menu surface ---
 	{
 		type: CELL_MENU.type,
@@ -47,7 +49,7 @@ export const getCellMenuComponents = (): RegisterComponent[] => [
 				rank: CELL_ACTION_SECTION_RANK[MERGE_CELLS_ITEM.key],
 			},
 		],
-		component: () => <MergeCellsItem />,
+		component: () => <MergeCellsItem api={api} />,
 	},
 	{
 		type: SPLIT_CELL_ITEM.type,
@@ -59,7 +61,7 @@ export const getCellMenuComponents = (): RegisterComponent[] => [
 				rank: CELL_ACTION_SECTION_RANK[SPLIT_CELL_ITEM.key],
 			},
 		],
-		component: () => <SplitCellItem />,
+		component: () => <SplitCellItem api={api} />,
 	},
 
 	// --- Danger section (Clear cell) ---

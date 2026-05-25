@@ -126,11 +126,17 @@ export const PopupContent = ({
 		onClose?.(null);
 	}, [onClose]);
 
-	useNotifyOpenLayerObserver({
-		isOpen,
-		onClose: handleOpenLayerObserverCloseSignal,
-		type: 'popup',
-	});
+	// On the top-layer path, the Popover primitive registers with the observer
+	// directly, so we skip registration here to avoid double-counting.
+	// Safe conditional hook: feature flags are resolved once at startup.
+	if (!fg('platform-dst-top-layer')) {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		useNotifyOpenLayerObserver({
+			isOpen,
+			onClose: handleOpenLayerObserverCloseSignal,
+			type: 'popup',
+		});
+	}
 
 	// Top-layer rendering path: native Popover API via @atlaskit/top-layer.
 	// Mirrors the FF branch in the legacy `Popup` component (popup.tsx).

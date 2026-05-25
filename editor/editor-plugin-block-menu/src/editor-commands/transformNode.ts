@@ -17,6 +17,7 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { Mapping, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { CellSelection } from '@atlaskit/editor-tables';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { isNestedNode } from '../ui/utils/isNestedNode';
@@ -118,6 +119,10 @@ export const transformNode: (
 
 					api?.blockControls?.commands.startPreservingSelection()({ tr });
 				}
+			}
+
+			if (fg('platform_editor_block_menu_jira_patch_3')) {
+				api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
 			}
 
 			stopMeasure(measureId, (duration, startTime) => {

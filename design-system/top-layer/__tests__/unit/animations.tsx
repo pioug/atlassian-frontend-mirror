@@ -87,7 +87,8 @@ describe('animation presets', () => {
 	describe('dialogSlideUpAndFade()', () => {
 		it('returns a preset with the correct shape', () => {
 			const preset = dialogSlideUpAndFade();
-			expect(preset.name).toBe('dialog-slide-up-and-fade');
+			// Bare name; the surface namespace lives on the data attribute.
+			expect(preset.name).toBe('slide-up-and-fade');
 			expect(preset.css).toContain('[data-ds-dialog-slide-up-and-fade]');
 			expect(preset.exitDurationMs).toBe(175);
 		});
@@ -112,7 +113,8 @@ describe('animation presets', () => {
 	describe('dialogFade()', () => {
 		it('returns a preset with the correct shape', () => {
 			const preset = dialogFade();
-			expect(preset.name).toBe('dialog-fade');
+			// Bare name; the surface namespace lives on the data attribute.
+			expect(preset.name).toBe('fade');
 			expect(preset.css).toContain('[data-ds-dialog-fade]');
 			expect(preset.exitDurationMs).toBe(175);
 		});

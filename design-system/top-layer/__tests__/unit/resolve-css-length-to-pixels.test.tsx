@@ -47,4 +47,88 @@ describe('resolveCssLengthToPixels', () => {
 		expect(container.children.length).toBe(before);
 		document.body.removeChild(container);
 	});
+
+	describe('zero fast path', () => {
+		it.each(['0', '-0'])(
+			'returns 0 for the unitless string [%s] without mounting a probe',
+			(value) => {
+				const container = document.createElement('div');
+				document.body.appendChild(container);
+				const appendSpy = jest.spyOn(container, 'appendChild');
+
+				expect(resolveCssLengthToPixels({ value, container })).toBe(0);
+				expect(appendSpy).not.toHaveBeenCalled();
+
+				document.body.removeChild(container);
+			},
+		);
+	});
+
+	describe('probe attributes', () => {
+		it('marks the temporary probe as aria-hidden and inert before measuring', () => {
+			const container = document.createElement('div');
+			document.body.appendChild(container);
+			const appendSpy = jest.spyOn(container, 'appendChild');
+
+			// `1rem` does not match any fast path → probe path runs.
+			resolveCssLengthToPixels({ value: '1rem', container });
+
+			expect(appendSpy).toHaveBeenCalledTimes(1);
+			const probe = appendSpy.mock.calls[0][0] as HTMLElement;
+			expect(probe).toHaveAttribute('aria-hidden', 'true');
+			expect(probe).toHaveAttribute('inert');
+
+			document.body.removeChild(container);
+		});
+	});
+
+	describe('memoisation', () => {
+		it('reuses the cached resolution for the same (container, value) pair', () => {
+			const container = document.createElement('div');
+			document.body.appendChild(container);
+			const appendSpy = jest.spyOn(container, 'appendChild');
+
+			const first = resolveCssLengthToPixels({ value: '1rem', container });
+			const second = resolveCssLengthToPixels({ value: '1rem', container });
+
+			expect(second).toBe(first);
+			// Probe ran once; the second call hit the cache.
+			expect(appendSpy).toHaveBeenCalledTimes(1);
+
+			document.body.removeChild(container);
+		});
+
+		it('does not cache values containing var() because custom-property scope can drift', () => {
+			const container = document.createElement('div');
+			document.body.appendChild(container);
+			const appendSpy = jest.spyOn(container, 'appendChild');
+
+			resolveCssLengthToPixels({ value: 'var(--ds-space-100, 8px)', container });
+			resolveCssLengthToPixels({ value: 'var(--ds-space-100, 8px)', container });
+
+			// Probe ran on every call - no cache hit.
+			expect(appendSpy).toHaveBeenCalledTimes(2);
+
+			document.body.removeChild(container);
+		});
+
+		it('caches per container, not globally', () => {
+			const containerA = document.createElement('div');
+			const containerB = document.createElement('div');
+			document.body.appendChild(containerA);
+			document.body.appendChild(containerB);
+			const appendSpyA = jest.spyOn(containerA, 'appendChild');
+			const appendSpyB = jest.spyOn(containerB, 'appendChild');
+
+			resolveCssLengthToPixels({ value: '1rem', container: containerA });
+			resolveCssLengthToPixels({ value: '1rem', container: containerB });
+
+			// Each container probed exactly once - caches are independent.
+			expect(appendSpyA).toHaveBeenCalledTimes(1);
+			expect(appendSpyB).toHaveBeenCalledTimes(1);
+
+			document.body.removeChild(containerA);
+			document.body.removeChild(containerB);
+		});
+	});
 });

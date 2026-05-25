@@ -1,6 +1,6 @@
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 
-export type MarkdownModeView = 'syntax' | 'wysiwyg' | 'preview';
+export type MarkdownModeView = 'syntax' | 'split-view' | 'preview';
 
 export type MarkdownModePlugin = NextEditorPlugin<
 	'markdownMode',

@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { TableColumnsDistributeIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 
@@ -19,11 +18,9 @@ import type { TableMenuComponentsParams } from '../../shared/types';
 const shouldShowDistributeColumns = (selectedColumnCount?: number): boolean =>
 	(selectedColumnCount ?? 0) > 1;
 
-export const DistributeColumnsItem = ({
-	api,
-}: TableMenuComponentsParams): React.JSX.Element | null => {
-	const { editorView } = useEditorToolbar();
+export const DistributeColumnsItem = ({ api }: TableMenuComponentsParams): React.JSX.Element | null => {
 	const tableMenuContext = useTableMenuContext();
+	const { editorView } = tableMenuContext ?? {};
 	const { formatMessage } = useIntl();
 	const { isCommentEditor, isTableFixedColumnWidthsOptionEnabled, isTableScalingEnabled } =
 		useSharedPluginStateWithSelector(api ?? undefined, ['table'], (states) => {

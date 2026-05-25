@@ -85,6 +85,7 @@ const getInitialPluginState = (options: LayoutPluginOptions, state: EditorState)
 		allowSingleColumnLayout,
 		isResizing: false,
 		isLayoutColumnMenuOpen: false,
+		layoutColumnMenuAnchorPos: undefined,
 	};
 };
 
@@ -158,6 +159,8 @@ export default (options: LayoutPluginOptions): SafePlugin<LayoutState> => {
 					? {
 							...pluginState,
 							isLayoutColumnMenuOpen: columnMenuMeta.isOpen ?? !pluginState.isLayoutColumnMenuOpen,
+							layoutColumnMenuAnchorPos:
+								columnMenuMeta.isOpen === false ? undefined : columnMenuMeta.anchorPos,
 						}
 					: pluginState;
 

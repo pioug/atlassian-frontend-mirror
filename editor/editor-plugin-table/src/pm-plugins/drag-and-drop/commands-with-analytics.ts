@@ -223,6 +223,7 @@ export const cloneSourceWithAnalytics =
 		});
 	};
 
+// remove when 'platform_editor_table_menu_updates' is cleaned up
 export const toggleDragMenuWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
 	(

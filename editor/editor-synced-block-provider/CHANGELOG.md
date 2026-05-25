@@ -1,5 +1,24 @@
 # @atlaskit/editor-synced-block-provider
 
+## 6.6.9
+
+### Patch Changes
+
+- [`085a281306c03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/085a281306c03) -
+  Add defensive mechanisms for synced block EntityNotFound errors:
+  - Add retry with exponential backoff when fetching synced block references returns EntityNotFound
+    (up to 3 retries with 2s/4s/8s delays)
+  - Add transformPasted handler to convert any bodiedSyncBlock nodes arriving via paste into
+    syncBlock references, preventing createBlock from being called with the wrong parentId
+
+  Both changes are gated behind `platform_synced_block_patch_13`.
+
+## 6.6.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.6.7
 
 ### Patch Changes

@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 22.4.16
+
+### Patch Changes
+
+- [`6291bc0777dc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6291bc0777dc2) -
+  Converge updated table menu state behind the table menu experiment
+
+  Make table cell menu items interactive
+
+## 22.4.15
+
+### Patch Changes
+
+- [`122438a5ab2b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/122438a5ab2b7) -
+  Improve fit to content table column width distribution
+- Updated dependencies
+
 ## 22.4.14
 
 ### Patch Changes

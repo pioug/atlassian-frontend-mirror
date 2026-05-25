@@ -1,11 +1,5 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
 import isEqual from 'lodash/isEqual';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
@@ -18,16 +12,22 @@ import type {
 	UIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type EditorActions from '../../actions';
 import type {} from '../../types';
 import { ErrorBoundary } from '../ErrorBoundary';
 
 import { MountPluginHooks } from './mount-plugin-hooks';
+import { PluginsComponentsWrapperCompiled } from './PluginSlot-compiled';
+import { PluginsComponentsWrapperEmotion } from './PluginSlot-emotion';
 
-const pluginsComponentsWrapper = css({
-	display: 'flex',
-});
+const PluginsComponentsWrapperMigration = componentWithCondition(
+	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
+	PluginsComponentsWrapperCompiled,
+	PluginsComponentsWrapperEmotion,
+);
 
 export interface Props {
 	appearance?: EditorAppearance;
@@ -74,7 +74,7 @@ const PluginSlot = ({
 				pluginHooks={pluginHooks}
 				containerElement={containerElement}
 			/>
-			<div css={pluginsComponentsWrapper} data-testid="plugins-components-wrapper">
+			<PluginsComponentsWrapperMigration data-testid="plugins-components-wrapper">
 				{/**
 				 * Why don't we do this as:
 				 * ```tsx
@@ -105,7 +105,7 @@ const PluginSlot = ({
 					});
 					return element && React.cloneElement(element, props);
 				})}
-			</div>
+			</PluginsComponentsWrapperMigration>
 		</ErrorBoundary>
 	);
 };

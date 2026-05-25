@@ -575,7 +575,10 @@ export const DragHandle = ({
 					nodeType === 'layoutColumn' &&
 					expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)
 				) {
-					tr.setMeta('toggleLayoutColumnMenu', { isOpen: true });
+					tr.setMeta('toggleLayoutColumnMenu', {
+						anchorPos: startPos,
+						isOpen: true,
+					});
 				}
 
 				const resolvedStartPos = tr.doc.resolve(startPos);
@@ -634,7 +637,10 @@ export const DragHandle = ({
 					nodeType === 'layoutColumn' &&
 					expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)
 				) {
-					tr.setMeta('toggleLayoutColumnMenu', { isOpen: true });
+					tr.setMeta('toggleLayoutColumnMenu', {
+						anchorPos: startPos,
+						isOpen: true,
+					});
 				}
 
 				const mSelect = api?.blockControls.sharedState.currentState()?.multiSelectDnD;
@@ -1103,8 +1109,14 @@ export const DragHandle = ({
 			mSelect?.anchor !== undefined
 				? view.state.doc.resolve(mSelect?.anchor)
 				: view.state.selection.$anchor;
+		const isLayoutColumnMenuEnabled = expValEqualsNoExposure(
+			'platform_editor_layout_column_menu',
+			'isEnabled',
+			true,
+		);
 		if (
 			isShiftDown &&
+			!(isLayoutColumnMenuEnabled && isLayoutColumn) &&
 			(!isTopLevelNodeValue ||
 				(isTopLevelNodeValue && $anchor.depth > DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH))
 		) {
@@ -1112,7 +1124,7 @@ export const DragHandle = ({
 		} else {
 			setDragHandleDisabled(false);
 		}
-	}, [api?.blockControls?.sharedState, isShiftDown, isTopLevelNodeValue, view]);
+	}, [api?.blockControls?.sharedState, isLayoutColumn, isShiftDown, isTopLevelNodeValue, view]);
 
 	const dragHandleMessage = editorExperiment('platform_editor_block_menu', true)
 		? formatMessage(blockControlsMessages.dragToMoveClickToOpen, { br: <br /> })

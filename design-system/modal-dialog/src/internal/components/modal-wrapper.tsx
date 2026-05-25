@@ -213,13 +213,19 @@ const InternalModalWrapper: React.ForwardRefExoticComponent<
 		usePreventProgrammaticScroll();
 	}
 
-	useNotifyOpenLayerObserver({
-		type: 'modal',
-		// Always open — modal is conditionally rendered when visible.
-		isOpen: true,
-		// No-op: no current use case for programmatic close via OpenLayerObserver.
-		onClose: noop,
-	});
+	// On the top-layer path, the Dialog primitive registers with the observer
+	// directly, so we skip registration here to avoid double-counting.
+	// Safe conditional hook: feature flags are resolved once at startup.
+	if (!fg('platform-dst-top-layer')) {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		useNotifyOpenLayerObserver({
+			type: 'modal',
+			// Always open — modal is conditionally rendered when visible.
+			isOpen: true,
+			// No-op: no current use case for programmatic close via OpenLayerObserver.
+			onClose: noop,
+		});
+	}
 
 	/**
 	 * Top-layer path (platform-dst-top-layer).
@@ -401,8 +407,9 @@ const InternalModalWrapper: React.ForwardRefExoticComponent<
 				animate={isFullScreen ? false : modalAnimation}
 				isOpen={!isExiting}
 				shouldHideBackdrop={stackIndex > 0 || Boolean(isBlanketHidden)}
-				label={label}
-				labelledBy={label ? undefined : titleId}
+				// Dialog requires at least one of `label` or `labelledBy` (string, not undefined).
+				// Prefer the consumer-provided `label`; otherwise reference the internal `titleId`.
+				{...(label ? { label } : { labelledBy: titleId })}
 				testId={defaultTestId}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={dialogStyle as CSSProperties}

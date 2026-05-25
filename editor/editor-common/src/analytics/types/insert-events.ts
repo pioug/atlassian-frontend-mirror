@@ -288,9 +288,11 @@ type InsertLayoutColumnAEP = InsertAEP<
 	ACTION_SUBJECT_ID.LAYOUT_COLUMN,
 	{
 		columnCount: number;
+		endIndex: number;
 		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU;
-		selectedIndex: number;
+		selectedCount: number;
 		side: 'left' | 'right';
+		startIndex: number;
 	},
 	undefined
 >;

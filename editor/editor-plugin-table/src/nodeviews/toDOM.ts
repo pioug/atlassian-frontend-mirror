@@ -18,7 +18,7 @@ import {
 	getTableResizerContainerForFullPageWidthInCSS,
 	getTableResizerItemWidthInCSS,
 } from '../pm-plugins/table-resizing/utils/misc';
-import { isContentModeSupported } from '../pm-plugins/utils/tableMode';
+import { isContentModeSupported } from '../pm-plugins/utils/tableMode/is-content-mode-supported';
 
 import { getAlignmentStyle } from './table-container-styles';
 

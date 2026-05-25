@@ -1910,13 +1910,6 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'hasSpellingAndGrammar' | 'hasAltAiActions';
 		values: ('control' | 'hasSpellingAndGrammar' | 'hasAltAiActions')[];
 	};
-	// Added 2026-04-30
-	platform_editor_paste_actions_menu_v2_boolean: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-05-06
 	'jira-smart-replies-v2': {
 		defaultValue: boolean;
@@ -4101,14 +4094,6 @@ export const editorExperimentsConfig: {
 		param: 'variant',
 		values: ['control', 'hasSpellingAndGrammar', 'hasAltAiActions'],
 		defaultValue: 'control',
-	}),
-	platform_editor_paste_actions_menu_v2_boolean: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_paste_actions_menu_v2',
-			jira: 'platform_editor_paste_actions_menu_v2',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
 	}),
 	// Added 2026-05-04
 	platform_editor_show_diff_fix_missing_attrs: createBooleanExperiment({

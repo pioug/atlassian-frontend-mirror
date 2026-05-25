@@ -558,7 +558,12 @@ test.describe('ModalDialog top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 		expect(tag).toBe('dialog');
 	});
 
-	test('should have aria-modal="true" attribute (sanity check)', async ({ page }) => {
+	test('should not have aria-modal="true" attribute (sanity check)', async ({ page }) => {
+		// `aria-modal` is intentionally NOT set: native `<dialog>.showModal()`
+		// already conveys modal semantics to assistive tech, and double-
+		// declaring it forecloses non-modal use cases (consumers calling
+		// `.show()` would still appear modal). Modern AT (NVDA / JAWS /
+		// VoiceOver) infer modality from the platform accessibility API.
 		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
 			'design-system',
 			'modal-dialog',
@@ -574,7 +579,7 @@ test.describe('ModalDialog top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 		await trigger.click();
 
 		await expect(dialog).toBeVisible();
-		await expect(dialog).toHaveAttribute('aria-modal', 'true');
+		await expect(dialog).not.toHaveAttribute('aria-modal');
 	});
 
 	test('should have aria-labelledby set to modal title (sanity check)', async ({ page }) => {

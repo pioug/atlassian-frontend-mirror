@@ -2,7 +2,8 @@ import React from 'react';
 
 import { di } from 'react-magnetic-di';
 
-import { ErrorMessage, Field } from '@atlaskit/form';
+import { ErrorMessage, Field, MessageWrapper } from '@atlaskit/form';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Textfield from '@atlaskit/textfield';
 
 import messages from '../../common/messages';
@@ -57,7 +58,13 @@ const NumberInputPrompt = ({ userInputPrompt }: NumberInputPromptProps): React.J
 			{({ fieldProps, error }) => (
 				<>
 					<Textfield {...fieldProps} />
-					{generateErrorMessage(error)}
+					{fg('platform_navx_3298_message_wrapper') ? (
+						<MessageWrapper>
+							{generateErrorMessage(error)}
+						</MessageWrapper>
+					) : (
+						generateErrorMessage(error)
+					)}
 				</>
 			)}
 		</Field>

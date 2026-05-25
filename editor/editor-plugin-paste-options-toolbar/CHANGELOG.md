@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 11.3.1
+
+### Patch Changes
+
+- [`e5763b625793c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5763b625793c) -
+  Fix tsdoc to remove `listItem` from list of non-structural container nodes.
+- Updated dependencies
+
+## 11.3.0
+
+### Minor Changes
+
+- [`dbe895a6ef5a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbe895a6ef5a2) -
+  Add pasteMenuButtonsFactory config param to pasteOptionsToolbarPlugin for product-specific button
+  composition.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.2.3
 
 ### Patch Changes

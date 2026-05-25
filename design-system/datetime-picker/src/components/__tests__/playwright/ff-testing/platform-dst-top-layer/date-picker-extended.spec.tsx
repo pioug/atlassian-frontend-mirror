@@ -121,14 +121,18 @@ test.describe('DatePicker top-layer — WCAG 2.1.2 No Keyboard Trap - Extended',
 		// Scope nav-button selectors to the popup-nested datepicker (the
 		// example also has an outer datepicker on the page — without this
 		// scoping the locators ambiguously match either calendar). The
-		// popup-nested datepicker only renders the previous-year and
-		// next-month nav buttons (its example variant deliberately omits
-		// previous-month and next-year).
+		// popup-nested calendar renders the full set of nav buttons
+		// (previous-year, previous-month, next-month, next-year) plus the
+		// focused day cell.
 		const popupCalendarPrefix = '[data-testid^="jql-builder-basic-datetime"]';
 		const previousYearButton = page.locator(
 			`button${popupCalendarPrefix}[data-testid$="previous-year"]`,
 		);
+		const previousMonthButton = page.locator(
+			`button${popupCalendarPrefix}[data-testid$="previous-month"]`,
+		);
 		const nextMonthButton = page.locator(`button${popupCalendarPrefix}[data-testid$="next-month"]`);
+		const nextYearButton = page.locator(`button${popupCalendarPrefix}[data-testid$="next-year"]`);
 		const focusedDateCell = page.locator(
 			`button${popupCalendarPrefix}[data-testid$="--day"][data-focused="true"]`,
 		);
@@ -144,7 +148,11 @@ test.describe('DatePicker top-layer — WCAG 2.1.2 No Keyboard Trap - Extended',
 		// every focusable calendar control without trapping the user.
 		await expect(previousYearButton).toBeFocused();
 		await page.keyboard.press('Tab');
+		await expect(previousMonthButton).toBeFocused();
+		await page.keyboard.press('Tab');
 		await expect(nextMonthButton).toBeFocused();
+		await page.keyboard.press('Tab');
+		await expect(nextYearButton).toBeFocused();
 		await page.keyboard.press('Tab');
 		await expect(focusedDateCell).toBeFocused();
 	});

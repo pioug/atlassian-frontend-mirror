@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 
 import { useIntl, type MessageDescriptor } from 'react-intl';
 
@@ -7,9 +7,9 @@ import type { Valign } from '@atlaskit/editor-common/types/valign';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
+import { getLayoutColumnValign } from '../../pm-plugins/utils/layout-column-selection';
 
-import { getLayoutColumnValign } from './layoutColumnSelection';
-import { useCurrentLayoutColumn } from './useCurrentLayoutColumn';
+import { useSelectedLayoutColumns } from './useSelectedLayoutColumns';
 import { VERTICAL_ALIGN_ICONS } from './verticalAlignIcons';
 
 export type VerticalAlignOption = {
@@ -27,8 +27,11 @@ export const VerticalAlignDropdownItem = ({
 	value,
 }: VerticalAlignDropdownItemProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
-	const currentColumn = useCurrentLayoutColumn(api);
-	const currentValign = useMemo(() => getLayoutColumnValign(currentColumn), [currentColumn]);
+	const selectedLayoutColumns = useSelectedLayoutColumns(api);
+	const isSelected =
+		selectedLayoutColumns?.selectedColumns.every(
+			({ node }) => getLayoutColumnValign(node) === value,
+		) ?? false;
 	const Icon = VERTICAL_ALIGN_ICONS[value];
 	const onClick = useCallback(() => {
 		api?.core?.actions.execute(api?.layout?.commands.setLayoutColumnValign(value));
@@ -37,7 +40,7 @@ export const VerticalAlignDropdownItem = ({
 	return (
 		<ToolbarDropdownItem
 			elemBefore={<Icon label="" size="small" />}
-			isSelected={currentValign === value}
+			isSelected={isSelected}
 			onClick={onClick}
 		>
 			{formatMessage(label)}

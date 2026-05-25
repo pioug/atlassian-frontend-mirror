@@ -55,9 +55,7 @@ export const BaseSearch = ({
 					onKeyDown={preventRepeatClick}
 					isLoading={isSearching}
 					icon={SearchIcon}
-					{...(fg('add_nin_press_interactions') && {
-						interactionName: 'jql-editor-base-search-button',
-					})}
+					interactionName="jql-editor-base-search-button"
 				/>
 			</Box>
 		</>
@@ -79,9 +77,7 @@ export const BaseSearch = ({
 						<SearchIcon color="currentColor" label={''} />
 					</Box>
 				}
-				{...(fg('add_nin_press_interactions') && {
-					interactionName: 'jql-editor-base-search-button',
-				})}
+				interactionName="jql-editor-base-search-button"
 			/>
 		</>
 	);

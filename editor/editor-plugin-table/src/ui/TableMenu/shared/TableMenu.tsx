@@ -3,7 +3,6 @@ import React, { memo, useMemo } from 'react';
 import { cssMap } from '@compiled/react';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { EditorToolbarProvider } from '@atlaskit/editor-common/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
@@ -16,7 +15,7 @@ import { canSplitCellSelection } from '../../../pm-plugins/commands/split-cell';
 import { canMergeCellSelection } from '../../../pm-plugins/transforms/merge';
 import type { PluginInjectionAPI, TableSharedStateInternal } from '../../../types';
 
-import { TableMenuProvider, type TableMenuContextValue } from './TableMenuContext';
+import { TableMenuProvider } from './TableMenuContext';
 
 type TableMenuProps = {
 	api: PluginInjectionAPI | undefined | null;
@@ -30,11 +29,8 @@ const tableMenuContainerStyles = cssMap({
 		borderRadius: token('radius.medium'),
 		boxShadow: token('elevation.shadow.overlay'),
 		backgroundColor: token('elevation.surface.overlay'),
-		overflow: 'hidden',
 	},
 });
-
-const EMPTY_CONTEXT: TableMenuContextValue = {};
 
 export const TableMenu: React.NamedExoticComponent<TableMenuProps> = memo(
 	({ api, editorView, surface }: TableMenuProps): React.JSX.Element | null => {
@@ -53,12 +49,13 @@ export const TableMenu: React.NamedExoticComponent<TableMenuProps> = memo(
 
 		const tableMenuContext = useMemo(() => {
 			if (!selection || !tableNode) {
-				return EMPTY_CONTEXT;
+				return { editorView };
 			}
 
 			const tableMap = TableMap.get(tableNode);
 			const selectionRect = getSelectionRect(selection);
 			const cellOps = {
+				editorView,
 				canMergeCells: canMergeCellSelection(selection),
 				canSplitCell: canSplitCellSelection(selection),
 				hasMergedCellsInTable: tableMap.hasMergedCells(),
@@ -77,20 +74,18 @@ export const TableMenu: React.NamedExoticComponent<TableMenuProps> = memo(
 				isLastColumn: selectionRect.right === tableMap.width,
 				selectedColumnCount: selectionRect.right - selectionRect.left,
 			};
-		}, [selection, tableNode]);
+		}, [editorView, selection, tableNode]);
 
 		if (components.length === 0) {
 			return null;
 		}
 
 		return (
-			<EditorToolbarProvider editorView={editorView ?? null}>
-				<TableMenuProvider value={tableMenuContext}>
-					<Box xcss={tableMenuContainerStyles.container} testId={surface.key}>
-						<SurfaceRenderer surface={surface} components={components} />
-					</Box>
-				</TableMenuProvider>
-			</EditorToolbarProvider>
+			<TableMenuProvider value={tableMenuContext}>
+				<Box xcss={tableMenuContainerStyles.container} testId={surface.key}>
+					<SurfaceRenderer surface={surface} components={components} />
+				</Box>
+			</TableMenuProvider>
 		);
 	},
 );

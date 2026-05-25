@@ -48,7 +48,7 @@ import {
 	getLastFocusable,
 	getNextFocusable,
 } from '../../src/entry-points/focus';
-import { fromLegacyPlacement, placementMapping } from '../../src/entry-points/placement-map';
+import { fromLegacyPlacement } from '../../src/entry-points/placement-map';
 import { Popover } from '../../src/entry-points/popover';
 import { Popup } from '../../src/entry-points/popup';
 import { PopupSurface } from '../../src/entry-points/popup-surface';
@@ -58,6 +58,7 @@ import {
 	useArrowNavigation,
 } from '../../src/entry-points/use-arrow-navigation';
 import { useSimpleLightDismiss } from '../../src/entry-points/use-simple-light-dismiss';
+import { placementMapping } from '../../src/placement-map/legacy-placements';
 
 // Polyfills are installed by build/configs/jest-config/setup/setup-top-layer.js.
 // The toBeVisible() patch in setup-top-layer-to-be-visible.js understands
@@ -1204,14 +1205,14 @@ describe('React 19 readiness (top-layer)', () => {
 
 		it('dialogFade() returns a preset with name and css', () => {
 			const preset = dialogFade();
-			expect(preset).toHaveProperty('name', 'dialog-fade');
+			expect(preset).toHaveProperty('name', 'fade');
 			expect(preset).toHaveProperty('css');
 			expect(preset).toHaveProperty('exitDurationMs');
 		});
 
 		it('dialogSlideUpAndFade() returns a preset with name and css', () => {
 			const preset = dialogSlideUpAndFade();
-			expect(preset).toHaveProperty('name', 'dialog-slide-up-and-fade');
+			expect(preset).toHaveProperty('name', 'slide-up-and-fade');
 			expect(preset).toHaveProperty('css');
 			expect(preset).toHaveProperty('exitDurationMs');
 		});
@@ -1219,7 +1220,7 @@ describe('React 19 readiness (top-layer)', () => {
 		it('dialogSlideUpAndFade() custom distance changes the CSS', () => {
 			const defaultPreset = dialogSlideUpAndFade();
 			const customPreset = dialogSlideUpAndFade({ distance: 24 });
-			expect(customPreset.name).toBe('dialog-slide-up-and-fade-24');
+			expect(customPreset.name).toBe('slide-up-and-fade-24');
 			expect(customPreset.css).toContain('24px');
 			expect(defaultPreset.css).toContain('12px');
 		});

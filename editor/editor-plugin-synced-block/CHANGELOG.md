@@ -1,5 +1,40 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 8.4.4
+
+### Patch Changes
+
+- [`0805dc02ccee3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0805dc02ccee3) -
+  Fix partial cut handling for source synced blocks behind platform_synced_block_patch_13.
+- Updated dependencies
+
+## 8.4.3
+
+### Patch Changes
+
+- [`085a281306c03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/085a281306c03) -
+  Add defensive mechanisms for synced block EntityNotFound errors:
+  - Add retry with exponential backoff when fetching synced block references returns EntityNotFound
+    (up to 3 retries with 2s/4s/8s delays)
+  - Add transformPasted handler to convert any bodiedSyncBlock nodes arriving via paste into
+    syncBlock references, preventing createBlock from being called with the wrong parentId
+
+  Both changes are gated behind `platform_synced_block_patch_13`.
+
+- Updated dependencies
+
+## 8.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.4.0
 
 ### Minor Changes

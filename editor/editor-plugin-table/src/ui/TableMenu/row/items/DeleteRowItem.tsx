@@ -6,7 +6,6 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { deleteRow, tooltip } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import {
 	DeleteIcon,
@@ -23,8 +22,8 @@ import type { TableMenuComponentsParams } from '../../shared/types';
 
 export const DeleteRowItem = (props: TableMenuComponentsParams): React.JSX.Element => {
 	const { api } = props;
-	const { editorView } = useEditorToolbar();
 	const tableMenuContext = useTableMenuContext();
+	const { editorView } = tableMenuContext ?? {};
 	const { isHeaderRowRequired } = useSharedPluginStateWithSelector(
 		api ?? undefined,
 		['table'],

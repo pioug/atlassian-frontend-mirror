@@ -11,7 +11,7 @@ Placement is owned by this compound: root provides it via context, Content appli
 Positioning or JS fallback).
 
 ```tsx
-<Popup placement="block-end" onClose={handleClose}>
+<Popup onClose={handleClose}>
 	<Popup.Trigger>
 		<button>Open</button>
 	</Popup.Trigger>
@@ -20,6 +20,10 @@ Positioning or JS fallback).
 	</Popup.Content>
 </Popup>
 ```
+
+`placement` defaults to `{}` - "below trigger, centered, with `space.100` gap".
+Pass an explicit object to override (e.g. `placement={{ axis: 'inline', edge: 'end' }}`
+for a popover anchored to the trigger's right edge).
 
 For default overlay styling (background, shadow, border-radius), see `PopupSurface` in the package
 examples (not currently a public API; we may expose it in a future release).

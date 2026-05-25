@@ -1,4 +1,5 @@
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen, waitFor, within } from '@testing-library/react';
 import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -39,6 +40,8 @@ const props = {
 	onChange: () => {},
 	onToneSelected: jest.fn(),
 };
+
+const keepPickerOpenOnUploadGate = 'platform_emoji_keep_picker_open_on_upload';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
@@ -246,6 +249,50 @@ describe('<EmojiActions />', () => {
 				await renderWithIntl(<EmojiActions {...props} toneEmoji={toneEmoji} uploadEnabled />);
 
 				expect(await screen.queryByText('Add your own emoji')).toBeInTheDocument();
+			});
+
+			it('should bubble the add custom emoji click to parent containers when the gate is off', async () => {
+				failGate(keepPickerOpenOnUploadGate);
+				const onOpenUpload = jest.fn();
+				const onParentClick = jest.fn();
+
+				await renderWithIntl(
+					<div onClick={onParentClick}>
+						<EmojiActions
+							{...props}
+							toneEmoji={toneEmoji}
+							uploadEnabled
+							onOpenUpload={onOpenUpload}
+						/>
+					</div>,
+				);
+
+				await userEvent.click(screen.getByRole('button', { name: 'Add your own emoji' }));
+
+				expect(onOpenUpload).toHaveBeenCalledTimes(1);
+				expect(onParentClick).toHaveBeenCalledTimes(1);
+			});
+
+			it('should not bubble the add custom emoji click to parent containers when the gate is on', async () => {
+				passGate(keepPickerOpenOnUploadGate);
+				const onOpenUpload = jest.fn();
+				const onParentClick = jest.fn();
+
+				await renderWithIntl(
+					<div onClick={onParentClick}>
+						<EmojiActions
+							{...props}
+							toneEmoji={toneEmoji}
+							uploadEnabled
+							onOpenUpload={onOpenUpload}
+						/>
+					</div>,
+				);
+
+				await userEvent.click(screen.getByRole('button', { name: 'Add your own emoji' }));
+
+				expect(onOpenUpload).toHaveBeenCalledTimes(1);
+				expect(onParentClick).not.toHaveBeenCalled();
 			});
 		});
 	});

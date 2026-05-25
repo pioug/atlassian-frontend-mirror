@@ -343,49 +343,113 @@ describe('Side nav keyboard shortcut', () => {
 			jest.useRealTimers();
 		});
 
-		it('should close any open popups when the keyboard shortcut is pressed', async () => {
-			const user = userEvent.setup();
-			setMediaQuery('(min-width: 64rem)', { initial: true });
+		ffTest.both('platform-dst-top-layer', 'top layer feature flag', () => {
+			it('should close any open popups when the keyboard shortcut is pressed', async () => {
+				const user = userEvent.setup();
+				setMediaQuery('(min-width: 64rem)', { initial: true });
 
-			function TestComponent() {
-				const [isPopupOpen, setIsPopupOpen] = useState(true);
+				function TestComponent() {
+					const [isPopupOpen, setIsPopupOpen] = useState(true);
 
-				return (
-					<Root isSideNavShortcutEnabled>
-						<SideNav testId="sidenav">sidenav</SideNav>
-						<Main>
-							<Popup
-								shouldRenderToParent
-								isOpen={isPopupOpen}
-								onClose={() => setIsPopupOpen(false)}
-								placement="bottom-start"
-								content={() => <div>Popup content</div>}
-								trigger={({ ref }) => (
-									<button type="button" ref={ref}>
-										Popup trigger
-									</button>
+					return (
+						<Root isSideNavShortcutEnabled>
+							<SideNav testId="sidenav">sidenav</SideNav>
+							<Main>
+								<Popup
+									shouldRenderToParent
+									isOpen={isPopupOpen}
+									onClose={() => setIsPopupOpen(false)}
+									placement="bottom-start"
+									content={() => <div>Popup content</div>}
+									trigger={({ ref }) => (
+										<button type="button" ref={ref}>
+											Popup trigger
+										</button>
+									)}
+								/>
+							</Main>
+						</Root>
+					);
+				}
+
+				render(<TestComponent />);
+
+				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
+
+				// Popup is open
+				expect(screen.getByText('Popup content')).toBeVisible();
+
+				// Press keyboard shortcut
+				await user.keyboard('{Control>}[[');
+
+				// Popup should be closed.
+				// On the FF-off path the content is unmounted (not in DOM).
+				// On the FF-on path the Popover element stays in the DOM but is hidden via
+				// hidePopover(). Either way, 'Popup content' should not be visible to the user.
+				const popupContent = screen.queryByText('Popup content');
+				if (popupContent) {
+					expect(popupContent).not.toBeVisible();
+				} else {
+					expect(popupContent).not.toBeInTheDocument();
+				}
+
+				// Side nav should have toggled
+				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
+			});
+
+			it('should not toggle when a modal is open', async () => {
+				const user = userEvent.setup();
+				setMediaQuery('(min-width: 64rem)', { initial: true });
+
+				function TestComponent() {
+					const [isModalOpen, setIsModalOpen] = useState(false);
+
+					return (
+						<Root isSideNavShortcutEnabled>
+							<SideNav testId="sidenav">sidenav</SideNav>
+							<Main>
+								<Button onClick={() => setIsModalOpen(true)}>Open modal</Button>
+								{isModalOpen && (
+									<Modal onClose={() => setIsModalOpen(false)}>
+										<ModalHeader hasCloseButton>
+											<ModalTitle>Modal title</ModalTitle>
+										</ModalHeader>
+										<ModalBody>modal body</ModalBody>
+									</Modal>
 								)}
-							/>
-						</Main>
-					</Root>
-				);
-			}
+							</Main>
+						</Root>
+					);
+				}
 
-			render(<TestComponent />);
+				render(<TestComponent />);
 
-			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
+				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
 
-			// Popup is open
-			expect(screen.getByText('Popup content')).toBeVisible();
+				// Toggling should work now that the modal is closed
+				// > is a special testing-library character to keep the key pressed
+				// [[ evaluates to a single [ being pressed
+				await user.keyboard('{Control>}[[');
 
-			// Press keyboard shortcut
-			await user.keyboard('{Control>}[[');
+				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
 
-			// Popup should be closed
-			expect(screen.queryByText('Popup content')).not.toBeInTheDocument();
+				// Open modal
+				await user.click(screen.getByRole('button', { name: 'Open modal' }));
 
-			// Side nav should have toggled
-			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
+				expect(await screen.findByRole('dialog')).toBeVisible();
+
+				await user.keyboard('{Control>}[[');
+
+				// Should not have toggled
+				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
+
+				// Close modal
+				await user.click(screen.getByRole('button', { name: 'Close Modal' }));
+
+				await user.keyboard('{Control>}[[');
+
+				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
+			});
 		});
 
 		// Trigger info is behind separate instrumentation flag
@@ -423,60 +487,6 @@ describe('Side nav keyboard shortcut', () => {
 					trigger: 'keyboard',
 				});
 			});
-		});
-
-		it('should not toggle when a modal is open', async () => {
-			const user = userEvent.setup();
-			setMediaQuery('(min-width: 64rem)', { initial: true });
-
-			function TestComponent() {
-				const [isModalOpen, setIsModalOpen] = useState(false);
-
-				return (
-					<Root isSideNavShortcutEnabled>
-						<SideNav testId="sidenav">sidenav</SideNav>
-						<Main>
-							<Button onClick={() => setIsModalOpen(true)}>Open modal</Button>
-							{isModalOpen && (
-								<Modal onClose={() => setIsModalOpen(false)}>
-									<ModalHeader hasCloseButton>
-										<ModalTitle>Modal title</ModalTitle>
-									</ModalHeader>
-									<ModalBody>modal body</ModalBody>
-								</Modal>
-							)}
-						</Main>
-					</Root>
-				);
-			}
-
-			render(<TestComponent />);
-
-			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
-
-			// Toggling should work now that the modal is closed
-			// > is a special testing-library character to keep the key pressed
-			// [[ evaluates to a single [ being pressed
-			await user.keyboard('{Control>}[[');
-
-			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
-
-			// Open modal
-			await user.click(screen.getByRole('button', { name: 'Open modal' }));
-
-			expect(await screen.findByRole('dialog')).toBeVisible();
-
-			await user.keyboard('{Control>}[[');
-
-			// Should not have toggled
-			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
-
-			// Close modal
-			await user.click(screen.getByRole('button', { name: 'Close Modal' }));
-
-			await user.keyboard('{Control>}[[');
-
-			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
 		});
 	});
 

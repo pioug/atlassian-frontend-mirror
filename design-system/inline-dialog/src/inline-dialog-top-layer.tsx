@@ -13,7 +13,7 @@ import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { createPopoverCloseEvent } from '@atlaskit/top-layer/create-close-event';
 import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
 import { type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
-import { Popup } from '@atlaskit/top-layer/popup';
+import { Popup, type TTriggerFunctionRenderProps } from '@atlaskit/top-layer/popup';
 
 import type { InlineDialogProps } from './types';
 
@@ -54,7 +54,7 @@ function TriggerWrapper({
 	children: ReactNode;
 	triggerRef: React.MutableRefObject<HTMLElement | null>;
 	anchorRef: React.RefCallback<HTMLElement>;
-	ariaAttributes: Record<string, string | boolean>;
+	ariaAttributes: TTriggerFunctionRenderProps['ariaAttributes'];
 }) {
 	useEffect(() => {
 		const trigger = triggerRef.current;
@@ -62,6 +62,10 @@ function TriggerWrapper({
 			return;
 		}
 		for (const [key, value] of Object.entries(ariaAttributes)) {
+			// Skip undefined entries (e.g. aria-haspopup may be undefined for non-popup roles).
+			if (value === undefined) {
+				continue;
+			}
 			trigger.setAttribute(key, String(value));
 		}
 	}, [ariaAttributes, triggerRef]);

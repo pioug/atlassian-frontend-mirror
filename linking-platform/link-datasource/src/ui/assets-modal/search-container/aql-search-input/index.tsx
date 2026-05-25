@@ -8,11 +8,12 @@ import { css, cssMap, jsx, styled } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import { IconButton } from '@atlaskit/button/new';
-import { ErrorMessage, Field } from '@atlaskit/form';
+import { ErrorMessage, Field, MessageWrapper } from '@atlaskit/form';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import SearchIcon from '@atlaskit/icon/core/search';
 import CheckCircleIcon from '@atlaskit/icon/core/status-success';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import Textfield from '@atlaskit/textfield';
@@ -149,8 +150,16 @@ export const AqlSearchInput = ({
 							testId={testId}
 							aria-label={formatMessage(searchInputMessages.placeholder)}
 						/>
-						{lastValidationResult.type === 'invalid' && lastValidationResult.error && (
-							<ErrorMessage>{lastValidationResult.error}</ErrorMessage>
+						{fg('platform_navx_3298_message_wrapper') ? (
+							<MessageWrapper>
+								{lastValidationResult.type === 'invalid' && lastValidationResult.error && (
+									<ErrorMessage>{lastValidationResult.error}</ErrorMessage>
+								)}
+							</MessageWrapper>
+						) : (
+							lastValidationResult.type === 'invalid' && lastValidationResult.error && (
+								<ErrorMessage>{lastValidationResult.error}</ErrorMessage>
+							)
 						)}
 					</Fragment>
 				)}

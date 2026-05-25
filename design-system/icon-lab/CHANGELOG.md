@@ -1,5 +1,26 @@
 # @atlaskit/icon-lab
 
+## 6.10.0
+
+### Minor Changes
+
+- [`28617d8f348d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28617d8f348d3) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `atlassian`
+  - `image-ratio-auto`
+  - `image-ratio-narrow`
+  - `image-ratio-portrait`
+  - `image-ratio-wide`
+  - `tabs`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.9.1
 
 ### Patch Changes

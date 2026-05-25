@@ -18,6 +18,7 @@ import {
 	selectColumn,
 	selectColumns,
 } from '../../../pm-plugins/commands';
+import { toggleActiveTableMenuWithAnalytics } from '../../../pm-plugins/commands/commands-with-analytics';
 import { toggleDragMenuWithAnalytics } from '../../../pm-plugins/drag-and-drop/commands-with-analytics';
 import type { TriggerType } from '../../../pm-plugins/drag-and-drop/types';
 import { getRowsParams } from '../../../pm-plugins/utils/row-controls';
@@ -173,6 +174,16 @@ export const ColumnControls = ({
 			if (event?.shiftKey) {
 				return;
 			}
+			if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+				if (colIndex !== undefined) {
+					toggleActiveTableMenuWithAnalytics(api?.analytics?.actions)('column', colIndex, trigger)(
+						state,
+						dispatch,
+					);
+				}
+				return;
+			}
+
 			toggleDragMenuWithAnalytics(api?.analytics?.actions)(undefined, 'column', colIndex, trigger)(
 				state,
 				dispatch,

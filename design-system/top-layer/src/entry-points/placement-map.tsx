@@ -1,2 +1,3 @@
-export { fromLegacyPlacement, placementMapping } from '../placement-map';
+export { fromLegacyPlacement } from '../placement-map';
+export { LEGACY_PLACEMENTS } from '../placement-map/legacy-placements';
 export type { TLegacyPlacement, TPlacementOptions } from '../placement-map';

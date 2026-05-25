@@ -121,11 +121,13 @@ describe('FullPageToolbarNext', () => {
 				await expect(document.body).toBeAccessible();
 			});
 
-			it('should render edit controls when markdown mode is in wysiwyg view', () => {
+			it('should render edit controls when markdown mode is in preview view', () => {
+				failGate('platform_editor_markdown_mode_hide_source_toolbar');
+
 				const screen = render(
 					<IntlProvider locale="en">
 						<FullPageToolbarNext
-							editorAPI={getMockEditorAPIWithMarkdownMode('wysiwyg')}
+							editorAPI={getMockEditorAPIWithMarkdownMode('preview')}
 							toolbarDockingPosition="top"
 							showKeyline={false}
 							editorView={editorView}
@@ -166,6 +168,26 @@ describe('FullPageToolbarNext', () => {
 					<IntlProvider locale="en">
 						<FullPageToolbarNext
 							editorAPI={getMockEditorAPIWithMarkdownMode('syntax')}
+							toolbarDockingPosition="top"
+							showKeyline={false}
+							editorView={editorView}
+							disabled={false}
+						/>
+					</IntlProvider>,
+				);
+
+				expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
+				expect(screen.queryByTestId('edit-toolbar-control')).not.toBeInTheDocument();
+				expect(screen.getByTestId('view-mode-toggle')).toBeInTheDocument();
+			});
+
+			it('should hide edit controls and keep the view mode toggle when markdown mode is in preview view and toolbar hiding is gated on', () => {
+				passGate('platform_editor_markdown_mode_hide_source_toolbar');
+
+				const screen = render(
+					<IntlProvider locale="en">
+						<FullPageToolbarNext
+							editorAPI={getMockEditorAPIWithMarkdownMode('preview')}
 							toolbarDockingPosition="top"
 							showKeyline={false}
 							editorView={editorView}

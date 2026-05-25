@@ -73,6 +73,7 @@ export type TableSharedStateInternal = Pick<
 	| 'insertRowButtonIndex'
 	| 'tableWrapperTarget'
 	| 'isCellMenuOpenByKeyboard'
+	| 'activeTableMenu'
 > & {
 	dragMenuDirection?: TableDirection;
 	dragMenuIndex?: number;
@@ -168,7 +169,14 @@ export interface WidthToWidest {
 	[tableLocalId: string]: boolean;
 }
 
+export type ActiveTableMenu =
+	| { type: 'none' }
+	| { openedBy: 'mouse' | 'keyboard'; type: 'cell' }
+	| { index: number; openedBy: 'mouse' | 'keyboard'; type: 'row' }
+	| { index: number; openedBy: 'mouse' | 'keyboard'; type: 'column' };
+
 export interface TablePluginState {
+	activeTableMenu?: ActiveTableMenu;
 	canCollapseTable?: boolean; // enabled/disabled state of collapse option
 	editorHasFocus?: boolean;
 	editorViewportHeight?: number;
@@ -338,6 +346,7 @@ export type TablePluginAction =
 			type: 'HIDE_INSERT_COLUMN_OR_ROW_BUTTON';
 	  }
 	| { type: 'TOGGLE_CONTEXTUAL_MENU' }
+	| { data: { activeTableMenu: ActiveTableMenu }; type: 'SET_ACTIVE_TABLE_MENU' }
 	| {
 			data: {
 				isCellMenuOpenByKeyboard: boolean;

@@ -2,7 +2,8 @@ import React from 'react';
 
 import { di } from 'react-magnetic-di';
 
-import { ErrorMessage, Field } from '@atlaskit/form';
+import { ErrorMessage, Field, MessageWrapper } from '@atlaskit/form';
+import { fg } from '@atlaskit/platform-feature-flags';
 import TextArea from '@atlaskit/textarea';
 
 import messages from '../../common/messages';
@@ -51,11 +52,24 @@ const ParagraphInputPrompt = ({
 				<>
 					{/* @ts-expect-error Type 'ChangeEvent<HTMLTextAreaElement>' is not assignable to type 'FormEvent<HTMLInputElement>'. */}
 					<TextArea {...fieldProps} />
-					{error === Errors.EMPTY && (
-						<ErrorMessage>{messages.errorInputMustNotBeEmpty.defaultMessage}</ErrorMessage>
-					)}
-					{error === Errors.CHARACTER_LIMIT && (
-						<ErrorMessage>{messages.errorInputCharacterLimitReached.defaultMessage}</ErrorMessage>
+					{fg('platform_navx_3298_message_wrapper') ? (
+						<MessageWrapper>
+							{error === Errors.EMPTY && (
+								<ErrorMessage>{messages.errorInputMustNotBeEmpty.defaultMessage}</ErrorMessage>
+							)}
+							{error === Errors.CHARACTER_LIMIT && (
+								<ErrorMessage>{messages.errorInputCharacterLimitReached.defaultMessage}</ErrorMessage>
+							)}
+						</MessageWrapper>
+					) : (
+						<>
+							{error === Errors.EMPTY && (
+								<ErrorMessage>{messages.errorInputMustNotBeEmpty.defaultMessage}</ErrorMessage>
+							)}
+							{error === Errors.CHARACTER_LIMIT && (
+								<ErrorMessage>{messages.errorInputCharacterLimitReached.defaultMessage}</ErrorMessage>
+							)}
+						</>
 					)}
 				</>
 			)}

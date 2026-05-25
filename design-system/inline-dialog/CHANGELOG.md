@@ -1,5 +1,39 @@
 # @atlaskit/inline-dialog
 
+## 18.1.6
+
+### Patch Changes
+
+- [`dec4f3444bce8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dec4f3444bce8) -
+  Hardens Popup, Popover, and Dialog through stricter typed contracts, focus-management fixes, and
+  clearer entry points.
+  - **Stricter API contracts.** Popup, Popover, and Dialog props are now discriminated unions, so
+    misuse (manual mode with `onClose`, dialogs without a label, popovers without an accessible name
+    for their role) fails at compile time.
+  - **Better defaults.** `Popup`'s `placement` prop now defaults to "below trigger, centered, with
+    `space.100` gap", removing the awkward `placement={{}}` boilerplate.
+  - **Focus-management fixes.** Empty/loading dialogs no longer trap Tab on `<body>`; rapid
+    open/close/open sequences no longer focus a torn-down popover; nested top-layer popovers stay in
+    their own focus scope.
+  - **Cleaner entry points.** `createCloseEvent` is now available as per-primitive subpaths
+    (`@atlaskit/top-layer/dialog/create-close-event` and
+    `@atlaskit/top-layer/popover/create-close-event`); the combined entry point is deprecated. The
+    placement-map entry point now exposes a public `LEGACY_PLACEMENTS` const for migration
+    consumers.
+  - **Per-primitive data attributes.** Animation hooks now emit `data-ds-popover-*` for Popover and
+    `data-ds-dialog-*` for Dialog, preventing cross-primitive selector collisions.
+  - **Performance and internal correctness.** `setStyle` snapshots and restores prior inline values;
+    CSS-length resolution is memoised and probes inside the popover for correct token scope;
+    placement resolution is stable across renders.
+
+- Updated dependencies
+
+## 18.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.1.4
 
 ### Patch Changes

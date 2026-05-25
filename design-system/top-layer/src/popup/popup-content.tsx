@@ -8,11 +8,11 @@ import { jsx } from '@compiled/react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 
-import { roleToAriaHasPopup } from '../internal/role-types';
+import { roleToAriaHasPopup, shouldFocusIntoPopover } from '../internal/role-types';
 import { useAnchorPosition } from '../internal/use-anchor-position';
 import { useWidthFromAnchor } from '../internal/use-width-from-anchor';
 import { Popover } from '../popover/popover';
-import { type TPopoverInternalProps } from '../popover/types';
+import { type TPopoverForwardedProps } from '../popover/types';
 
 import { useMaybePopupContext } from './popup-context';
 import { type TPopupContentProps } from './types';
@@ -40,6 +40,7 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 		onClose: onCloseProp,
 		testId: testIdProp,
 		forceFallbackPositioning: forceFallbackPositioningProp,
+		id: idProp,
 	},
 	ref,
 ): React.ReactElement {
@@ -84,7 +85,7 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 	// does not restore focus when they close.
 	//
 	// To handle this, we listen for the close transition via `onOpenChange` and
-	// restore focus to the trigger if the browser didn't. This runs after the
+	// restore focus to the trigger if the browser did not. This runs after the
 	// browser's native restoration (which happens synchronously during hidePopover),
 	// so it only takes effect when the browser skipped restoration (nested case).
 	//
@@ -102,7 +103,7 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 			// focus when they close.
 			//
 			// We detect this case by checking if focus is still inside the
-			// closing popover element. If it is, the browser didn't restore,
+			// closing popover element. If it is, the browser did not restore,
 			// and we need to move focus to the trigger ourselves.
 			//
 			// This does NOT fire for:
@@ -111,12 +112,11 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 			if (!args.isOpen) {
 				const trigger = triggerRef?.current;
 				const focusStillInPopover = trigger && args.element.contains(document.activeElement);
-				if (focusStillInPopover) {
-					const shouldRestore =
-						role === 'dialog' || role === 'alertdialog' || role === 'menu' || role === 'listbox';
-					if (shouldRestore) {
-						trigger.focus({ preventScroll: true });
-					}
+				// Single source of truth for "this role moves focus on open
+				// and therefore needs to be restored on close" - see
+				// `shouldFocusIntoPopover` in `internal/role-types.tsx`.
+				if (focusStillInPopover && shouldFocusIntoPopover({ role })) {
+					trigger.focus({ preventScroll: true });
 				}
 			}
 		},
@@ -144,9 +144,9 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 	const combinedRef = mergeRefs([popoverRef, ref]);
 
 	// TPopupContentProps already validates the discriminated union (role + label,
-	// mode + onClose) at its API boundary. Popover accepts TPopoverInternalProps
-	// internally so individual prop forwarding doesn't need to re-prove the union.
-	const popoverProps: TPopoverInternalProps = {
+	// mode + onClose) at its API boundary. Popover accepts TPopoverForwardedProps
+	// internally so individual prop forwarding does not need to re-prove the union.
+	const popoverProps: TPopoverForwardedProps = {
 		isOpen,
 		animate,
 		placement,
@@ -158,7 +158,10 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 		onOpenChange: handleOpenChange,
 		testId,
 		children,
-		id: ctx?.popoverId,
+		// Standalone consumers can pass an explicit `id` - used by their own
+		// trigger to wire `aria-controls`. Inside the `<Popup>` compound, the
+		// id flows from context (`ctx.popoverId`).
+		id: idProp ?? ctx?.popoverId,
 		xcss,
 	};
 

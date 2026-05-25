@@ -1,5 +1,18 @@
 # @atlaskit/editor-statsig-tmp
 
+## 83.0.0
+
+### Major Changes
+
+- [`dbe895a6ef5a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbe895a6ef5a2) -
+  Remove platform_editor_paste_actions_menu_v2_boolean, we will instead use
+  `['hasAltAiActions', 'hasSpellingAndGrammar'].includes(expValNoExposure('platform_editor_paste_actions_menu_v2', 'variant', 'control'))`
+  to check if experiments are not in control
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 82.5.0
 
 ### Minor Changes

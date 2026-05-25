@@ -33,12 +33,6 @@ import { isWordBoundary } from './slow-lane-client';
 
 type WebLlmModelRecord = NonNullable<AppConfig['model_list']>[number];
 
-const startsWithAsciiLetter = (value: string): boolean => {
-	const firstChar = value.charCodeAt(0);
-
-	return (firstChar >= 65 && firstChar <= 90) || (firstChar >= 97 && firstChar <= 122);
-};
-
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 export interface LocalSlowLaneClientConfig {
@@ -195,7 +189,6 @@ export const createLocalSlowLaneClient = (
 				throw new Error('WebGPU not supported');
 			}
 
-			// eslint-disable-next-line @repo/internal/import/no-unresolved, import/dynamic-import-chunkname -- runtime dependency declared in package.json and lazily loaded for webgpu support
 			const { CreateMLCEngine, prebuiltAppConfig } = await import(
 				/* webpackChunkName: "@atlaskit-internal_editor-plugin-autocomplete-mlc-web-llm" */ '@mlc-ai/web-llm'
 			);
@@ -319,7 +312,8 @@ export const createLocalSlowLaneClient = (
 				// Add the top token
 				if (tokenLogprobs.token) {
 					const token = tokenLogprobs.token.trim().toLowerCase();
-					if (token.length > 0 && startsWithAsciiLetter(token)) {
+					// @ts-ignore TS1501: Unicode regex flag requires a newer TS target than the declaration build uses.
+					if (token.length > 0 && /^[a-z]/iu.test(token)) {
 						lmLogits[token] = Math.exp(tokenLogprobs.logprob);
 					}
 				}
@@ -328,7 +322,8 @@ export const createLocalSlowLaneClient = (
 				if (tokenLogprobs.top_logprobs) {
 					for (const alt of tokenLogprobs.top_logprobs) {
 						const token = alt.token.trim().toLowerCase();
-						if (token.length > 0 && startsWithAsciiLetter(token)) {
+						// @ts-ignore TS1501: Unicode regex flag requires a newer TS target than the declaration build uses.
+						if (token.length > 0 && /^[a-z]/iu.test(token)) {
 							lmLogits[token] = Math.exp(alt.logprob);
 						}
 					}

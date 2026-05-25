@@ -25,6 +25,7 @@ import {
 } from '@atlaskit/editor-synced-block-provider';
 import type { SyncBlockStoreManager, DeletionReason } from '@atlaskit/editor-synced-block-provider';
 import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -228,6 +229,7 @@ const filterTransactionOnline = ({
 	// events this lets us triangulate cross-product paste behaviour without standing up a
 	// dedicated `cross_product_paste` event subject.
 	const isPaste = Boolean(tr.getMeta('paste') ?? tr.getMeta('uiEvent') === 'paste');
+	const isPasteOrDrop = isPaste || tr.getMeta('uiEvent') === 'drop';
 	syncBlockAdded.forEach((syncBlock) => {
 		api?.analytics?.actions?.fireAnalyticsEvent({
 			action: ACTION.INSERTED,
@@ -262,6 +264,17 @@ const filterTransactionOnline = ({
 			// After true is returned here and the node is created, we delete the node in the filterTransaction immediately, which cancels out the creation
 			return true;
 		}
+
+		// Defense-in-depth: if a bodiedSyncBlock arrives via paste or drag-and-drop,
+		// it may have bypassed transformCopied (e.g. cut, browser clipboard).
+		// Do not call createBlock — it would use this page's parentId which may
+		// be wrong. The bodiedSyncBlock content will still be inserted but will
+		// not be registered as a source block in Block Service, which is safer
+		// than creating a zombie block under the wrong ARI.
+		if (isPasteOrDrop && fg('platform_synced_block_patch_13')) {
+			return true;
+		}
+
 		handleBodiedSyncBlockCreation(bodiedSyncBlockAdded, state, api);
 		return true;
 	}
@@ -407,6 +420,7 @@ const buildStatusDecorations = (
 class SyncedBlockPluginContext {
 	readonly confirmationTransactionRef: TransactionRef = { current: undefined };
 	private _isCopyEvent = false;
+	private _isCutEvent = false;
 	readonly unpublishedFlagShown = new Set<string>();
 	readonly extensionFlagShown = new Set<string>();
 
@@ -418,9 +432,19 @@ class SyncedBlockPluginContext {
 		this._isCopyEvent = true;
 	}
 
+	markCutEvent(): void {
+		this._isCutEvent = true;
+	}
+
 	consumeCopyEvent(): boolean {
 		const was = this._isCopyEvent;
 		this._isCopyEvent = false;
+		return was;
+	}
+
+	consumeCutEvent(): boolean {
+		const was = this._isCutEvent;
+		this._isCutEvent = false;
 		return was;
 	}
 }
@@ -881,19 +905,56 @@ export const createPlugin = (
 					ctx.markCopyEvent();
 					return false;
 				},
+				cut: () => {
+					if (fg('platform_synced_block_patch_13')) {
+						ctx.consumeCutEvent();
+						ctx.markCutEvent();
+					}
+					return false;
+				},
+			},
+			transformPasted: (slice, _view) => {
+				if (!fg('platform_synced_block_patch_13')) {
+					return slice;
+				}
+
+				// Defense against bodiedSyncBlock nodes arriving via paste
+				// (e.g. drag-and-drop, cut-paste, or browser-level clipboard
+				// operations that bypass the transformCopied handler).
+				// We cannot convert to a syncBlock reference here because we don't
+				// know the source page's parentId (generateResourceIdForReference
+				// would use the current page's parentId which is wrong).
+				// Instead, strip the bodiedSyncBlock wrapper and keep only the
+				// inner content to prevent createBlock being called with the
+				// wrong parentId.
+				return mapSlice(slice, (node: Node) => {
+					if (node.type.name === 'bodiedSyncBlock' && node.attrs.resourceId) {
+						// Return the inner content without the sync block wrapper.
+						// This is the same behavior as when a partial selection of
+						// a bodiedSyncBlock is copied (see transformCopied line 937).
+						return node.content;
+					}
+					return node;
+				});
 			},
 			transformCopied: (slice, { state }) => {
 				const pluginState = syncedBlockPluginKey.getState(state);
 				const syncBlockStore = pluginState?.syncBlockStore;
 				const { schema } = state;
 				const isCopy = ctx.consumeCopyEvent();
+				const isSyncedBlockPatch13Enabled = fg('platform_synced_block_patch_13');
+				const isCut = isSyncedBlockPatch13Enabled && ctx.consumeCutEvent();
 
-				if (!syncBlockStore || !isCopy) {
+				if (!syncBlockStore || (!isCopy && !isCut)) {
 					return slice;
 				}
 
 				return mapSlice(slice, (node: Node) => {
 					if (syncBlockStore.referenceManager.isReferenceBlock(node)) {
+						if (isCut) {
+							return node;
+						}
+
 						showCopiedFlag(api);
 
 						return node;
@@ -903,6 +964,10 @@ export const createPlugin = (
 						// remove the sync block node and only keep the content
 						if (!sliceFullyContainsNode(slice, node)) {
 							return node.content;
+						}
+
+						if (isSyncedBlockPatch13Enabled && isCut) {
+							return node;
 						}
 
 						showCopiedFlag(api);

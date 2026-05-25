@@ -1,5 +1,22 @@
 # @atlaskit/smart-card
 
+## 44.16.3
+
+### Patch Changes
+
+- [`c7fb2b6201353`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7fb2b6201353) -
+  Wrap ErrorMessage/HelperMessage with MessageWrapper in linking-platform packages to improve
+  assistive technology support. Production code changes (link-datasource, link-picker, smart-card
+  source files) are gated behind feature flag `platform_navx_3298_message_wrapper`. The example file
+  `load-link-form.tsx` applies MessageWrapper unconditionally, as example files do not ship to
+  production and are not subject to feature-gating requirements.
+
+## 44.16.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.16.1
 
 ### Patch Changes

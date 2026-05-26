@@ -3,8 +3,8 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::f97d78f5d66b1426c5864b1b2c918248>>
- * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:structured-docs-components
+ * @codegen <<SignedSource::3ab8a33f5d9a961edc6704383dde23c4>>
+ * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:ads-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
 import type { ComponentMcpPayload } from './types';
@@ -3076,7 +3076,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 				description: 'The content of the message',
 				isRequired: true,
 			},
@@ -3448,7 +3448,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 				description: 'The content of the message',
 				isRequired: true,
 			},
@@ -3529,7 +3529,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 				description: 'The content of the message',
 				isRequired: true,
 			},
@@ -3695,7 +3695,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 				description: 'The content of the message',
 				isRequired: true,
 			},
@@ -3900,7 +3900,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['icon', 'tile', 'container', 'background', 'shape', 'appearance'],
 		category: 'images-and-icons',
 		examples: [
-			'import { IconTile } from \'@atlaskit/icon\';\nimport AddIcon from \'@atlaskit/icon/core/add\';\nconst _default_1: React.JSX.Element[] = [\n\t<IconTile icon={AddIcon} label="Add" appearance="redBold" />,\n\t<IconTile icon={AddIcon} label="Add" shape="circle" appearance="blue" />,\n];\nexport default _default_1;',
+			"import { cssMap } from '@atlaskit/css';\nimport { IconTile } from '@atlaskit/icon';\nimport AddIcon from '@atlaskit/icon/core/add';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tblueCircleSmall: {\n\t\tdisplay: 'flex',\n\t\talignItems: 'center',\n\t\tjustifyContent: 'center',\n\t\twidth: '24px',\n\t\theight: '24px',\n\t\tborderRadius: token('radius.full'),\n\t\tbackgroundColor: token('color.background.accent.blue.subtler'),\n\t},\n});\nconst BlueCircleReplacement = (): React.JSX.Element => (\n\t<Box xcss={styles.blueCircleSmall}>\n\t\t<AddIcon label=\"\" size=\"medium\" color={token('color.icon.accent.blue', '#1D7AFC')} />\n\t</Box>\n);\nconst _default_1 = (): React.JSX.Element[] => [\n\t<IconTile size=\"small\" icon={AddIcon} label=\"Add\" appearance=\"redBold\" />,\n\t<IconTile\n\t\tsize=\"small\"\n\t\ticon={AddIcon}\n\t\tlabel=\"Add\"\n\t\tshape=\"circle\"\n\t\tappearance=\"blue\"\n\t\tUNSAFE_circleReplacementComponent={<BlueCircleReplacement />}\n\t/>,\n];\nexport default _default_1;",
 		],
 		props: [
 			{
@@ -3923,9 +3923,9 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'size',
-				type: 'NewIconTileSize | LegacyIconTileSize',
+				type: '"xsmall" | "small" | "medium" | "large" | "xlarge"',
 				description:
-					'Size of the tile, in pixels. Defaults to `24`.\n\nNow supports both semantic t-shirt size names and pixel number values. Pixel number values are deprecated and will be removed in a future release, however they will both be available and backwards-compatible during a transition period.\n\nSize `16` will not have a replacement after deprecation, and should be replaced with direct icons without a tile or enlarging to the next available size `xsmall`.\n\nAll available sizes:\n- `16` (deprecated)\n- `xsmall` (new)\n- `small` or `24`\n- `medium` or `32`\n- `large` or `40`\n- `xlarge` or `48`',
+					'Size of the tile. Defaults to `medium`.\n\nAvailable sizes: `xsmall`, `small`, `medium`, `large`, `xlarge`.',
 			},
 		],
 	},
@@ -5202,13 +5202,13 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'autoFocus',
-				type: 'React.RefObject<HTMLElement>',
+				type: 'RefObject<HTMLElement>',
 				description:
 					'Pass an element `ref` to focus on a specific element on load.  Default\nbehavior is focus is moved to the first interactive element inside the\nmodal dialog.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
 				description: 'Contents of the modal dialog.',
 			},
 			{
@@ -5266,7 +5266,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'shouldReturnFocus',
-				type: 'boolean | React.RefObject<HTMLElement>',
+				type: 'boolean | RefObject<HTMLElement>',
 				description:
 					'ReturnFocus controls what happens when the user exits\nfocus lock mode. If true, focus returns to the element that had focus before focus lock\nwas activated. If false, focus remains where it was when the FocusLock was deactivated.\nIf ref is passed, focus returns to that specific ref element.',
 			},
@@ -7343,8 +7343,14 @@ export const components: ComponentMcpPayload[] = [
 				isRequired: true,
 			},
 			{
+				name: 'headingLevel',
+				type: '"h1" | "h2" | "h3" | "h4" | "h5" | "h6"',
+				description:
+					"Allows the section message's `title` to be rendered as the specified HTML\nheading element. The default heading element is `h2`.\n\nAllows the section message's `title` to be rendered as the specified HTML\nheading element. The default heading element is `h2`.",
+			},
+			{
 				name: 'icon',
-				type: '"symbol" | "object" | "title" | "a" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | "body" | "br" | "button" | ... 159 more ... | ComponentType<...>',
+				type: '"symbol" | "object" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "title" | "a" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | ... 156 more ... | ComponentType<...>',
 				description:
 					'An Icon component to be rendered instead of the default icon for the component.\nThis should only be an `@atlaskit/icon` icon. You can check out [this example](/packages/design-system/section-message/example/custom-icon)\nto see how to provide this icon.',
 			},
@@ -7362,7 +7368,7 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'title',
 				type: 'string',
-				description: 'The heading of the section message.',
+				description: 'The heading of the section message.\n\nThe heading of the section message.',
 			},
 		],
 	},
@@ -10322,8 +10328,9 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'text',
-				type: 'string',
-				description: 'Text to be displayed in the tag.',
+				type: 'string | string[]',
+				description:
+					'Text to be displayed in the tag.\nAccepts a string or an ordered array of string chunks for migration use cases.',
 				isRequired: true,
 			},
 		],
@@ -10388,8 +10395,9 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'text',
-				type: 'string',
-				description: 'Text to be displayed in the tag.',
+				type: 'string | string[]',
+				description:
+					'Text to be displayed in the tag.\nAccepts a string or an ordered array of string chunks for migration use cases.',
 				isRequired: true,
 			},
 		],
@@ -10485,8 +10493,9 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'text',
-				type: 'string',
-				description: 'Text to be displayed in the tag.',
+				type: 'string | string[]',
+				description:
+					'Text to be displayed in the tag.\nAccepts a string or an ordered array of string chunks for migration use cases.',
 				isRequired: true,
 			},
 		],

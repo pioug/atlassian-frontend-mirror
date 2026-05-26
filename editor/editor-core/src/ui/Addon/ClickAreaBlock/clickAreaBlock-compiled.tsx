@@ -17,7 +17,10 @@ const clickWrapperCompiledStyles = cssMap({
 	},
 });
 
-export const ClickAreaBlockContainerCompiled = ({ children, ...rest }: HTMLAttributes<HTMLDivElement>): React.JSX.Element => (
+export const ClickAreaBlockContainerCompiled = ({
+	children,
+	...rest
+}: HTMLAttributes<HTMLDivElement>): React.JSX.Element => (
 	// eslint-disable-next-line react/jsx-props-no-spreading
 	<div css={clickWrapperCompiledStyles.root} {...rest}>
 		{children}

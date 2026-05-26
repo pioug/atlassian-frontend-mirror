@@ -58,7 +58,9 @@ const ParagraphInputPrompt = ({
 								<ErrorMessage>{messages.errorInputMustNotBeEmpty.defaultMessage}</ErrorMessage>
 							)}
 							{error === Errors.CHARACTER_LIMIT && (
-								<ErrorMessage>{messages.errorInputCharacterLimitReached.defaultMessage}</ErrorMessage>
+								<ErrorMessage>
+									{messages.errorInputCharacterLimitReached.defaultMessage}
+								</ErrorMessage>
 							)}
 						</MessageWrapper>
 					) : (
@@ -67,7 +69,9 @@ const ParagraphInputPrompt = ({
 								<ErrorMessage>{messages.errorInputMustNotBeEmpty.defaultMessage}</ErrorMessage>
 							)}
 							{error === Errors.CHARACTER_LIMIT && (
-								<ErrorMessage>{messages.errorInputCharacterLimitReached.defaultMessage}</ErrorMessage>
+								<ErrorMessage>
+									{messages.errorInputCharacterLimitReached.defaultMessage}
+								</ErrorMessage>
 							)}
 						</>
 					)}

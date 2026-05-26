@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/adf-schema",
-	"version": "52.14.1",
+	"version": "52.15.0",
 	"description": "Shared package that contains the ADF-schema (json) and ProseMirror node/mark specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -211,7 +211,6 @@
 		"./schema/image": "./src/entry-points/schema-image.ts",
 		"./schema/inline-card": "./src/entry-points/schema-inline-card.ts",
 		"./schema/inline-extension": "./src/entry-points/schema-inline-extension.ts",
-		"./schema/layout-column": "./src/entry-points/schema-layout-column.ts",
 		"./schema/layout-section": "./src/entry-points/schema-layout-section.ts",
 		"./schema/list-item": "./src/entry-points/schema-list-item.ts",
 		"./schema/media-group": "./src/entry-points/schema-media-group.ts",

@@ -1,5 +1,12 @@
 # @atlaskit/date
 
+## 2.1.2
+
+### Patch Changes
+
+- [`e0487eae0dec6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0487eae0dec6) -
+  Removed skipped ssr tests
+
 ## 2.1.1
 
 ### Patch Changes

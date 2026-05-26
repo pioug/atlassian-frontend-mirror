@@ -4,11 +4,7 @@ import { useIntl } from 'react-intl';
 
 import { layoutMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	LayoutIcon,
-	NestedDropdownRightIcon,
-	ToolbarNestedDropdownMenu,
-} from '@atlaskit/editor-toolbar';
+import { NestedDropdownRightIcon, ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
 import { getLayoutColumnValign } from '../../pm-plugins/utils/layout-column-selection';
@@ -41,11 +37,9 @@ export const VerticalAlignNestedMenu = ({
 
 		return firstValign;
 	}, [selectedLayoutColumns]);
-	const TriggerIcon = currentValign ? VERTICAL_ALIGN_ICONS[currentValign] : LayoutIcon;
-
-	if (!selectedLayoutColumns) {
-		return null;
-	}
+	const TriggerIcon = currentValign
+		? VERTICAL_ALIGN_ICONS[currentValign]
+		: VERTICAL_ALIGN_ICONS.top;
 
 	return (
 		<ToolbarNestedDropdownMenu

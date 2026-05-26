@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 
 import { useIntl, type MessageDescriptor } from 'react-intl';
 
+import type { Valign } from '@atlaskit/adf-schema/layout-column';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { Valign } from '@atlaskit/editor-common/types/valign';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
@@ -12,20 +12,17 @@ import { getLayoutColumnValign } from '../../pm-plugins/utils/layout-column-sele
 import { useSelectedLayoutColumns } from './useSelectedLayoutColumns';
 import { VERTICAL_ALIGN_ICONS } from './verticalAlignIcons';
 
-export type VerticalAlignOption = {
+type VerticalAlignDropdownItemProps = {
+	api: ExtractInjectionAPI<LayoutPlugin> | undefined;
 	label: MessageDescriptor;
 	value: Valign;
-};
-
-type VerticalAlignDropdownItemProps = VerticalAlignOption & {
-	api: ExtractInjectionAPI<LayoutPlugin> | undefined;
 };
 
 export const VerticalAlignDropdownItem = ({
 	api,
 	label,
 	value,
-}: VerticalAlignDropdownItemProps): React.JSX.Element | null => {
+}: VerticalAlignDropdownItemProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const selectedLayoutColumns = useSelectedLayoutColumns(api);
 	const isSelected =
@@ -42,6 +39,7 @@ export const VerticalAlignDropdownItem = ({
 			elemBefore={<Icon label="" size="small" />}
 			isSelected={isSelected}
 			onClick={onClick}
+			role="menuitemradio"
 		>
 			{formatMessage(label)}
 		</ToolbarDropdownItem>

@@ -1,5 +1,13 @@
 # @atlaskit/feature-gate-js-client
 
+## 5.7.1
+
+### Patch Changes
+
+- [`ecdd607bee176`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ecdd607bee176) -
+  Fix BootstrapStableIDMismatch warnings that appear in diagnostics when the stableId identifier is
+  provided
+
 ## 5.7.0
 
 ### Minor Changes

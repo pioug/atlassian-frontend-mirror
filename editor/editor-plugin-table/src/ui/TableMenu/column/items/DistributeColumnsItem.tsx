@@ -8,6 +8,7 @@ import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { TableColumnsDistributeIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 
+import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { distributeColumnsWidthsWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
 import { getNewResizeStateFromSelectedColumns } from '../../../../pm-plugins/table-resizing/utils/resize-state';
 import type { TableSharedStateInternal } from '../../../../types';
@@ -18,7 +19,9 @@ import type { TableMenuComponentsParams } from '../../shared/types';
 const shouldShowDistributeColumns = (selectedColumnCount?: number): boolean =>
 	(selectedColumnCount ?? 0) > 1;
 
-export const DistributeColumnsItem = ({ api }: TableMenuComponentsParams): React.JSX.Element | null => {
+export const DistributeColumnsItem = ({
+	api,
+}: TableMenuComponentsParams): React.JSX.Element | null => {
 	const tableMenuContext = useTableMenuContext();
 	const { editorView } = tableMenuContext ?? {};
 	const { formatMessage } = useIntl();
@@ -61,6 +64,8 @@ export const DistributeColumnsItem = ({ api }: TableMenuComponentsParams): React
 			INPUT_METHOD.TABLE_CONTEXT_MENU,
 			newResizeState,
 		)(editorView.state, editorView.dispatch);
+		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.focus();
 	};
 
 	if (!shouldShowDistributeColumns(tableMenuContext?.selectedColumnCount)) {

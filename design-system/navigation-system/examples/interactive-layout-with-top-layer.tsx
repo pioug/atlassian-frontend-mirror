@@ -287,6 +287,7 @@ function TopNavPopupTrigger(): JSX.Element {
 
 	return (
 		<Popup
+			shouldRenderToParent
 			isOpen={isOpen}
 			onClose={() => {
 				setIsOpen(false);
@@ -476,7 +477,7 @@ function ActionsPopup({ label }: { label: string }): JSX.Element {
 			onClose={() => {
 				setIsOpen(false);
 			}}
-			placement="right-start"
+			placement="bottom-start"
 			shouldRenderToParent
 			content={() => (
 				<div css={popupContentStyles.root}>

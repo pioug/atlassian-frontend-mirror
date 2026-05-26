@@ -1,5 +1,23 @@
 # @atlaskit/popup
 
+## 4.22.0
+
+### Minor Changes
+
+- [`cc76d2e733b71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc76d2e733b71) -
+  Updates the top layer popup trigger's `aria-expanded` attribute, so it stays `"true"` for the
+  duration of the popup's exit animation, only going `false` after the animation completes.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.21.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.21.1
 
 ### Patch Changes

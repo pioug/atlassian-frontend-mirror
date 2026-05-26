@@ -5,6 +5,7 @@ import { act, render, screen } from '@testing-library/react';
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 import EditorActions from '../../../actions';
 import PluginSlot from '../../../ui/PluginSlot';
@@ -33,6 +34,13 @@ const defaultProps = {
 };
 
 describe('PluginSlot Component', () => {
+	beforeEach(() => {
+		setupEditorExperiments('test', {
+			platform_editor_per_plugin_error_boundary: false,
+		});
+		defaultProps.dispatchAnalyticsEvent.mockClear();
+	});
+
 	it('should not render anything when items and pluginHooks are empty and editorView is missing', async () => {
 		const { container } = render(
 			<PluginSlot
@@ -96,6 +104,65 @@ describe('PluginSlot Component', () => {
 			defaultProps.contentArea.dispatchEvent(event);
 		});
 		expect(testItem).toHaveBeenCalledTimes(1);
+
+		await expect(document.body).toBeAccessible();
+	});
+
+	it('should isolate plugin component factory errors to the failing plugin', async () => {
+		setupEditorExperiments('test', {
+			platform_editor_per_plugin_error_boundary: true,
+		});
+		const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
+		const healthyItem = jest.fn(() => <p>healthy plugin</p>);
+		const failingItem = jest.fn(() => {
+			throw new Error('failing plugin factory');
+		});
+
+		try {
+			render(<PluginSlot {...defaultProps} items={[failingItem, healthyItem]} />);
+
+			expect(screen.getByText('healthy plugin')).toBeVisible();
+			expect(defaultProps.dispatchAnalyticsEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'pluginSlot',
+					attributes: expect.objectContaining({
+						errorRethrown: false,
+					}),
+				}),
+			);
+		} finally {
+			consoleError.mockRestore();
+		}
+
+		await expect(document.body).toBeAccessible();
+	});
+
+	it('should isolate plugin component render errors to the failing plugin', async () => {
+		setupEditorExperiments('test', {
+			platform_editor_per_plugin_error_boundary: true,
+		});
+		const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
+		const BrokenPlugin = () => {
+			throw new Error('failing plugin render');
+		};
+		const healthyItem = jest.fn(() => <p>healthy plugin</p>);
+		const failingItem = jest.fn(() => <BrokenPlugin />);
+
+		try {
+			render(<PluginSlot {...defaultProps} items={[failingItem, healthyItem]} />);
+
+			expect(screen.getByText('healthy plugin')).toBeVisible();
+			expect(defaultProps.dispatchAnalyticsEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'pluginSlot',
+					attributes: expect.objectContaining({
+						errorRethrown: false,
+					}),
+				}),
+			);
+		} finally {
+			consoleError.mockRestore();
+		}
 
 		await expect(document.body).toBeAccessible();
 	});

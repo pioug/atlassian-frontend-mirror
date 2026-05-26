@@ -1,5 +1,19 @@
 # @atlaskit/emoji
 
+## 70.10.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 70.10.9
+
+### Patch Changes
+
+- [`d4f4c5fc7110e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4f4c5fc7110e) -
+  Do not announce layout table for screen reader in emoji picker dialog
+- Updated dependencies
+
 ## 70.10.8
 
 ### Patch Changes

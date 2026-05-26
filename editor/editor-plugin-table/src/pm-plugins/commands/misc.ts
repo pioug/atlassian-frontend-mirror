@@ -458,6 +458,39 @@ export const setMultipleCellAttrs =
 		return false;
 	};
 
+/**
+ * EditorCommand variant of `setMultipleCellAttrs`.
+ */
+export const setMultipleCellAttrsEditorCommand =
+	(attrs: object, targetCellPosition?: number): EditorCommand =>
+	({ tr }) => {
+		let cursorPos: number | undefined;
+
+		if (isSelectionType(tr.selection, 'cell')) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			const selection = tr.selection as any as CellSelection;
+			selection.forEachCell((_cell, pos) => {
+				const $pos = tr.doc.resolve(tr.mapping.map(pos + 1));
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				setCellAttrs(findCellClosestToPos($pos)!, attrs)(tr);
+			});
+			cursorPos = selection.$headCell.pos;
+		} else if (typeof targetCellPosition === 'number') {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			const cell = findCellClosestToPos(tr.doc.resolve(targetCellPosition + 1))!;
+			setCellAttrs(cell, attrs)(tr);
+			cursorPos = cell.pos;
+		}
+
+		if (tr.docChanged && cursorPos !== undefined) {
+			return tr;
+		}
+		return null;
+	};
+
 export const selectColumn = (
 	column: number,
 	expand?: boolean,

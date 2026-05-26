@@ -242,7 +242,7 @@ export const ResourcedEmojiComponent = ({
 				};
 			}
 		}
-		
+
 		// reduce blast radius by targeting page title
 		if (pageTitleEmoji && optimisticImageURL && fg('platform_emoji_prevent_img_src_changing')) {
 			return {

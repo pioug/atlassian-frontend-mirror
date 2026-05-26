@@ -56,3 +56,9 @@ export class InvalidUrlError extends Error {
 		this.name = 'InvalidUrlError';
 	}
 }
+
+export class NetworkError extends Error {
+	constructor(error: any) {
+		super(error);
+	}
+}

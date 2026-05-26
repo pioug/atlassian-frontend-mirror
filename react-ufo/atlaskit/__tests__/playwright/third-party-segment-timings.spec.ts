@@ -42,9 +42,14 @@ test.describe('ReactUFO: UFOThirdPartySegment segment3pTimings', () => {
 
 		const navigationTiming = rows.find((r) => r.label === 'navigation-timing');
 		expect(navigationTiming).toBeDefined();
-		expect(navigationTiming!.data.duration).toBe(300);
-		expect(navigationTiming!.data.start).toBe(0);
-		expect(typeof navigationTiming!.data.elapsed).toBe('number');
+		// After shapeNavigationTimingData, the label is the last path segment of payload.name
+		expect(navigationTiming!.data.label).toBe('iframe');
+		// Timing fields come from payload.timing (rounded)
+		expect(navigationTiming!.data.fetchStart).toBe(10);
+		expect(navigationTiming!.data.responseStart).toBe(150);
+		expect(navigationTiming!.data.responseEnd).toBe(300);
+		expect(navigationTiming!.data.type).toBe('navigate');
+		expect(navigationTiming!.data.redirectCount).toBe(0);
 
 		const paintTiming = rows.find((r) => r.label === 'paint-timing');
 		expect(paintTiming).toBeDefined();

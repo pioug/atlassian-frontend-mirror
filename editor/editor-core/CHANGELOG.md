@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 219.9.12
+
+### Patch Changes
+
+- [`304fee6127fd5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/304fee6127fd5) -
+  Add valign to table cell menu, support renderer.
+- Updated dependencies
+
+## 219.9.11
+
+### Patch Changes
+
+- [`a90f47c1c8fe8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a90f47c1c8fe8) -
+  Migrate ui/withFlash styles
+- Updated dependencies
+
+## 219.9.10
+
+### Patch Changes
+
+- [`96b390b511102`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96b390b511102) -
+  Add the `platform_editor_per_plugin_error_boundary` experiment and use it to isolate editor
+  PluginSlot failures to the failing plugin.
+- Updated dependencies
+
 ## 219.9.9
 
 ### Patch Changes

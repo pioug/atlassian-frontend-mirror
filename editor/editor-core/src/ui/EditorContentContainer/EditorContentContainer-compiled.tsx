@@ -6471,6 +6471,12 @@ const editorContentStyles = cssMap({
 				minWidth: `${tableCellMinWidth}px`,
 				fontWeight: token('font.weight.regular'),
 				verticalAlign: 'top',
+				'&[data-valign="middle"]': {
+					verticalAlign: 'middle',
+				},
+				'&[data-valign="bottom"]': {
+					verticalAlign: 'bottom',
+				},
 				border: `1px solid ${token('color.background.accent.gray.subtler')}`,
 				borderRightWidth: 0,
 				borderBottomWidth: 0,

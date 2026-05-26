@@ -17,7 +17,12 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
-import type { PluginConfig, PluginInjectionAPI, TableDirection, TableSharedStateInternal } from '../../types';
+import type {
+	PluginConfig,
+	PluginInjectionAPI,
+	TableDirection,
+	TableSharedStateInternal,
+} from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
 import {
 	dragMenuDropdownWidth,
@@ -108,7 +113,11 @@ const FloatingDragMenu: FloatingDragMenuFunction = ({
 				: undefined
 			: index;
 
-	if (!isDragMenuOpen || !targetCellPosition || editorView.state.doc.nodeSize <= targetCellPosition) {
+	if (
+		!isDragMenuOpen ||
+		!targetCellPosition ||
+		editorView.state.doc.nodeSize <= targetCellPosition
+	) {
 		return null;
 	}
 	const inStickyMode =

@@ -1,7 +1,7 @@
 /* eslint-disable testing-library/no-node-access */
 import React, { type Dispatch, forwardRef, type SetStateAction } from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
@@ -103,7 +103,7 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer gap: content rendering on r
 			<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
 
-		expect(screen.getByTestId('popup-content')).toBeInTheDocument();
+		expect(screen.getByTestId('popup-content')).toBeVisible();
 	});
 
 	it('hides content when isOpen transitions from true to false', () => {
@@ -111,7 +111,7 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer gap: content rendering on r
 			<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
 
-		expect(screen.getByTestId('popup-content')).toBeInTheDocument();
+		expect(screen.getByTestId('popup-content')).toBeVisible();
 
 		rerender(
 			<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
@@ -119,9 +119,44 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer gap: content rendering on r
 
 		// In the top-layer path, closed popover content may remain in the DOM
 		// but the popover element should not be visible (isOpen=false passed to Popup.Content).
-		// The trigger should reflect the closed state.
-		const trigger = screen.getByRole('button', { name: 'Trigger' });
-		expect(trigger).toHaveAttribute('aria-expanded', 'false');
+		expect(screen.getByTestId('popup-content')).not.toBeVisible();
+	});
+
+	it('keeps aria-expanded true during exit animation, then sets it false after animation completes', () => {
+		// aria-expanded should only go false after the exit animation completes.
+		// Updating it immediately when the popup begins closing would cause screen
+		// readers to announce the element as closed while it is still visually
+		// present on screen.
+		//
+		// In JSDOM there are no CSS transitions, so onExitFinish is driven by a
+		// fallback timeout. We use fake timers to control when it fires.
+		jest.useFakeTimers();
+		// Wrapping in try/finally to ensure we always restore the real timers, in case of test failure.
+		try {
+			const { rerender } = render(
+				<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
+			);
+
+			const trigger = screen.getByRole('button', { name: 'Trigger' });
+			expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+			rerender(
+				<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
+			);
+
+			// aria-expanded stays true during the exit animation.
+			expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+			// Run all pending timers to trigger onExitFinish.
+			act(() => {
+				jest.runAllTimers();
+			});
+
+			// Now onExitFinish has fired and aria-expanded should be false.
+			expect(trigger).toHaveAttribute('aria-expanded', 'false');
+		} finally {
+			jest.useRealTimers();
+		}
 	});
 });
 
@@ -244,8 +279,8 @@ ffTest.on(
 				/>,
 			);
 
-			expect(screen.getByText('popup component')).toBeInTheDocument();
-			expect(screen.getByTestId('popup-content')).toBeInTheDocument();
+			expect(screen.getByText('popup component')).toBeVisible();
+			expect(screen.getByTestId('popup-content')).toBeVisible();
 		});
 	},
 );

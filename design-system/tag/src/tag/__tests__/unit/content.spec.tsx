@@ -13,7 +13,6 @@ describe('<Content />', () => {
 
 			expect(content.tagName).toBe('SPAN');
 		});
-
 	});
 
 	describe('link content', () => {

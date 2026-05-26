@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::16076dcc8358b4ceed39bd4386a6c9a2>>
+ * @codegen <<SignedSource::794d861b1db893c5b87be08d5f331345>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -22,7 +22,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const AddIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
   name: "AddIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M7.25 8.75V15h1.5V8.75H15v-1.5H8.75V1h-1.5v6.25H1v1.5z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M8.75 1.5v5.75h5.75v1.5H8.75v5.75h-1.5V8.75H1.5v-1.5h5.75V1.5z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 AddIcon.displayName = 'AddIcon';

@@ -93,9 +93,7 @@ function useCrossProductUrlWrapper_DEPRECATED(
  *
  * @returns A function that appends interaction session ID and other cross-product interaction parameters to a given URL.
  */
-function useCrossProductUrlWrapper(
-	options: CrossProductUrlOptions,
-): (url: string) => string {
+function useCrossProductUrlWrapper(options: CrossProductUrlOptions): (url: string) => string {
 	const { bridge, product, subProduct } = options;
 	const isEnabled = fg('atlaskit-analytics-cross-product');
 

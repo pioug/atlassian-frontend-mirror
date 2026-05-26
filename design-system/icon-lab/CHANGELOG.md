@@ -1,5 +1,48 @@
 # @atlaskit/icon-lab
 
+## 6.12.0
+
+### Minor Changes
+
+- [`16804116e2d36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16804116e2d36) -
+  This release adds and updates icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `arrow-up-circle`
+  - `cloud-fortified`
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+  - `tabs`
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.11.0
+
+### Minor Changes
+
+- [`14dec73701a1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14dec73701a1e) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `atlassian`
+  - `image-ratio-auto`
+  - `image-ratio-narrow`
+  - `image-ratio-portrait`
+  - `image-ratio-wide`
+  - `tabs`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.10.0
 
 ### Minor Changes

@@ -1,6 +1,5 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 /**
  * Returns a copy of the document with all marks removed from all text.
@@ -43,13 +42,10 @@ export function areDocsEqualByBlockStructureAndText(doc1: PMNode, doc2: PMNode):
 	if (doc1.textContent !== doc2.textContent) {
 		return false;
 	}
-	if (expValEquals('platform_editor_show_diff_improvements', 'isEnabled', true)) {
-		// Strip marks before comparing so that mark-driven text fragmentation
-		// (e.g. annotation mark reordering producing different childCounts) does not
-		// cause false inequalities.
-		const stripped1 = stripMarks(doc1);
-		const stripped2 = stripMarks(doc2);
-		return doc1.nodeSize === doc2.nodeSize && isBlockStructureEqual(stripped1, stripped2);
-	}
-	return doc1.nodeSize === doc2.nodeSize && isBlockStructureEqual(doc1, doc2);
+	// Strip marks before comparing so that mark-driven text fragmentation
+	// (e.g. annotation mark reordering producing different childCounts) does not
+	// cause false inequalities.
+	const stripped1 = stripMarks(doc1);
+	const stripped2 = stripMarks(doc2);
+	return doc1.nodeSize === doc2.nodeSize && isBlockStructureEqual(stripped1, stripped2);
 }

@@ -175,6 +175,7 @@ const documentation: StructuredContentSource = {
 				'Prefer MenuGroup instead; PopupMenuGroup is deprecated',
 				'Use only when migrating existing code',
 			],
+			examples: [],
 			keywords: ['menu', 'popup', 'group', 'deprecated'],
 			categories: ['navigation'],
 		},

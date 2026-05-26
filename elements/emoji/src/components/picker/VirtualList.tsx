@@ -7,6 +7,7 @@ import { token } from '@atlaskit/tokens';
 import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
 import React, { useCallback, useImperativeHandle } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { useEmojiPickerListContext } from '../../hooks/useEmojiPickerListContext';
 import {
 	EMOJIPICKERLIST_KEYBOARD_KEYS_SUPPORTED,
@@ -373,7 +374,7 @@ export const VirtualList: React.ForwardRefExoticComponent<Props & React.RefAttri
 				css={virtualList}
 				data-testid={virtualListScrollContainerTestId}
 				aria-labelledby="emoji-picker-table-description"
-				role="grid"
+				role={fg('platform_a11y_fixes_reaction_emoji') ? 'application' : 'grid'}
 			>
 				<div
 					style={{
@@ -395,8 +396,8 @@ export const VirtualList: React.ForwardRefExoticComponent<Props & React.RefAttri
 								height: `${virtualRow.size}px`,
 								transform: `translateY(${virtualRow.start}px)`,
 							}}
-							role="row"
-							aria-rowindex={index + 1}
+							role={fg('platform_a11y_fixes_reaction_emoji') ? 'presentation' : 'row'}
+							{...(fg('platform_a11y_fixes_reaction_emoji') ? {} : { 'aria-rowindex': index + 1 })}
 						>
 							{rowRenderer(virtualRow)}
 						</div>

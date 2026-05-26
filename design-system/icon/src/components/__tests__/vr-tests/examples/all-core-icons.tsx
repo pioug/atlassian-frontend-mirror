@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::5cef3e4533a3f6a99e26cb30d922f122>>
+ * @codegen <<SignedSource::9214aac6fb0c245e777bda34ff11eeff>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */

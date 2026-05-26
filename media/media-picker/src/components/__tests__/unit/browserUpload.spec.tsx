@@ -1,16 +1,19 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { waitFor } from '@testing-library/react';
+import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import { expectFunctionToHaveBeenCalledWith, fakeMediaClient } from '@atlaskit/media-test-helpers';
-import { Browser } from '../../browser/browser';
 import {
 	type TouchFileDescriptor,
 	createMediaSubject,
 	fromObservable,
 } from '@atlaskit/media-client';
+
+import { Browser } from '../../browser/browser';
 import { type LocalUploadConfig } from '../../types';
 import { type BrowserConfig, type UploadErrorEventPayload } from '../../../types';
+
+const getFileInput = () => screen.getByTestId('media-picker-file-input') as HTMLInputElement;
+const createTestFile = () => new File(['file contents'], 'hello.txt', { type: 'text/plain' });
 
 describe('Browser upload phases', () => {
 	const mediaClient = fakeMediaClient();
@@ -39,24 +42,22 @@ describe('Browser upload phases', () => {
 	});
 
 	it('should fire a commenced event on uploadsStart', async () => {
-		mediaClient.file.touchFiles = jest.fn(
-			(descriptors: TouchFileDescriptor[], collection?: string) =>
-				Promise.resolve({
-					created: descriptors.map(({ fileId }) => ({
-						fileId,
-						uploadId,
-					})),
-					rejected: [],
-				}),
+		const user = userEvent.setup();
+		mediaClient.file.touchFiles = jest.fn((descriptors: TouchFileDescriptor[]) =>
+			Promise.resolve({
+				created: descriptors.map(({ fileId }) => ({
+					fileId,
+					uploadId,
+				})),
+				rejected: [],
+			}),
 		);
 		const onUploadsStart = jest.fn();
-		const browser = mount(
+		render(
 			<Browser mediaClient={mediaClient} config={browseConfig} onUploadsStart={onUploadsStart} />,
 		);
-		const fileContents = 'file contents';
-		const file = new Blob([fileContents], { type: 'text/plain' });
 
-		browser.find('input').simulate('change', { target: { files: [file] } });
+		await user.upload(getFileInput(), createTestFile());
 
 		await waitFor(() => {
 			expect(onUploadsStart).toHaveBeenCalledWith({
@@ -64,7 +65,7 @@ describe('Browser upload phases', () => {
 					{
 						creationDate: Date.now(),
 						id: uuidRegexMatcher,
-						name: undefined,
+						name: 'hello.txt',
 						occurrenceKey: uuidRegexMatcher,
 						size: 13,
 						type: 'text/plain',
@@ -76,20 +77,19 @@ describe('Browser upload phases', () => {
 	});
 
 	it('should fire an uploaded success event on end', async () => {
-		mediaClient.file.touchFiles = jest.fn(
-			(descriptors: TouchFileDescriptor[], collection?: string) => {
-				return Promise.resolve({
-					created: descriptors.map(({ fileId }) => ({
-						fileId,
-						uploadId,
-					})),
-					rejected: [],
-				});
-			},
-		);
+		const user = userEvent.setup();
+		mediaClient.file.touchFiles = jest.fn((descriptors: TouchFileDescriptor[]) => {
+			return Promise.resolve({
+				created: descriptors.map(({ fileId }) => ({
+					fileId,
+					uploadId,
+				})),
+				rejected: [],
+			});
+		});
 		const onUploadsStart = jest.fn();
 		const onEnd = jest.fn();
-		const browser = mount(
+		render(
 			<Browser
 				mediaClient={mediaClient}
 				config={browseConfig}
@@ -97,10 +97,8 @@ describe('Browser upload phases', () => {
 				onEnd={onEnd}
 			/>,
 		);
-		const fileContents = 'file contents';
-		const file = new Blob([fileContents], { type: 'text/plain' });
 
-		browser.find('input').simulate('change', { target: { files: [file] } });
+		await user.upload(getFileInput(), createTestFile());
 
 		await waitFor(() => expect(onUploadsStart).toHaveBeenCalled());
 
@@ -118,7 +116,7 @@ describe('Browser upload phases', () => {
 				file: {
 					creationDate: Date.now(),
 					id: uuidRegexMatcher,
-					name: undefined,
+					name: 'hello.txt',
 					occurrenceKey: uuidRegexMatcher,
 					size: 13,
 					type: 'text/plain',
@@ -129,25 +127,21 @@ describe('Browser upload phases', () => {
 	});
 
 	it('should fire an uploaded fail event on end', async () => {
+		const user = userEvent.setup();
 		const error = new Error('oops');
-		mediaClient.file.touchFiles = jest.fn(
-			(descriptors: TouchFileDescriptor[], collection?: string) =>
-				Promise.resolve({
-					created: descriptors.map(({ fileId }) => ({
-						fileId,
-						uploadId,
-					})),
-					rejected: [],
-				}),
+		mediaClient.file.touchFiles = jest.fn((descriptors: TouchFileDescriptor[]) =>
+			Promise.resolve({
+				created: descriptors.map(({ fileId }) => ({
+					fileId,
+					uploadId,
+				})),
+				rejected: [],
+			}),
 		);
 		const onError: jest.MockedFunction<(payload: UploadErrorEventPayload) => void> = jest.fn();
-		const browser = mount(
-			<Browser mediaClient={mediaClient} config={browseConfig} onError={onError} />,
-		);
-		const fileContents = 'file contents';
-		const file = new Blob([fileContents], { type: 'text/plain' });
+		render(<Browser mediaClient={mediaClient} config={browseConfig} onError={onError} />);
 
-		browser.find('input').simulate('change', { target: { files: [file] } });
+		await user.upload(getFileInput(), createTestFile());
 
 		fileStateObservable.error(error);
 
@@ -165,5 +159,10 @@ describe('Browser upload phases', () => {
 				},
 			]);
 		});
+	});
+
+	it('should not introduce any accessibility violations', async () => {
+		render(<Browser mediaClient={mediaClient} config={browseConfig} />);
+		await expect(document.body).toBeAccessible();
 	});
 });

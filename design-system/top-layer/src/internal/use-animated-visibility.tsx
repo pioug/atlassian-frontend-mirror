@@ -18,10 +18,16 @@ type TUseAnimatedVisibilityArgs = {
 	 */
 	animate: TAnimationPreset | false | undefined;
 	/**
-	 * Ref to the DOM element that plays the exit transition.
+	 * Ref to the DOM element that plays the entry/exit transitions.
 	 * Used to listen for `transitionend`.
 	 */
 	elementRef: RefObject<HTMLElement | null>;
+	/**
+	 * Called after the entry animation completes (or immediately on open
+	 * when there is no animation or reduced motion is active).
+	 * This includes initial mount with `isOpen=true`.
+	 */
+	onEnterFinish?: () => void;
 	/**
 	 * Called after the exit animation completes (or immediately on close
 	 * when there is no animation or reduced motion is active).
@@ -83,6 +89,7 @@ export function useAnimatedVisibility({
 	isOpen,
 	animate,
 	elementRef,
+	onEnterFinish,
 	onExitFinish,
 }: TUseAnimatedVisibilityArgs): TUseAnimatedVisibilityResult {
 	// Resolve the animation preset and inject its CSS (idempotent).
@@ -116,12 +123,76 @@ export function useAnimatedVisibility({
 		setShowChildren(false);
 	}
 
-	// Keep a stable ref to the latest `onExitFinish` so the effect and
-	// timeout closures below always call the current callback without
-	// needing `onExitFinish` in dependency arrays (which would reset
-	// the timeout on every new closure).
+	// Keep stable refs to the latest callbacks so effects and timeout closures
+	// always call the current callback without needing them in dependency arrays.
+	const onEnterFinishRef = useRef(onEnterFinish);
+	onEnterFinishRef.current = onEnterFinish;
+
 	const onExitFinishRef = useRef(onExitFinish);
 	onExitFinishRef.current = onExitFinish;
+
+	// ── Animated entry effect ──
+	//
+	// Fires `onEnterFinish` after the entry transition completes.
+	// When there is no animation, fires it immediately via a separate effect.
+	//
+	// A fallback timeout (enterDurationMs + 50ms buffer) ensures it always
+	// fires even if `transitionend` is never emitted (e.g. zero-duration,
+	// browser quirk, or reduced motion).
+	useEffect(() => {
+		if (!isOpen || !showChildren || !willAnimate) {
+			return;
+		}
+
+		const element = elementRef.current;
+		if (!element) {
+			return;
+		}
+
+		// Both the transitionend listener and the fallback timeout are guarded by
+		// a shared `hasFired` flag to prevent double-firing. This handles the race
+		// where the 350ms transition finishes after the 400ms fallback fires
+		// (or vice versa): whichever fires first sets `hasFired = true`, and the
+		// second path becomes a no-op.
+		let hasFired = false;
+		function handleTransitionEnd() {
+			if (hasFired) {
+				return;
+			}
+			hasFired = true;
+			clearTimeout(fallbackId);
+			unbind();
+			onEnterFinishRef.current?.();
+		}
+
+		const fallbackId = setTimeout(handleTransitionEnd, (preset?.enterDurationMs ?? 0) + 50);
+
+		const unbind = bind(element, {
+			type: 'transitionend',
+			listener: handleTransitionEnd,
+			options: { once: true },
+		});
+
+		return () => {
+			hasFired = true;
+			clearTimeout(fallbackId);
+			unbind();
+		};
+	}, [isOpen, showChildren, willAnimate, preset?.enterDurationMs, elementRef]);
+
+	// ── Non-animated entry callback ──
+	//
+	// When there is no animation, fire `onEnterFinish` immediately on mount and after `isOpen` goes false->true.
+	// The initial value is false to make sure it fires on mount if the current `isOpen` is true.
+	const prevIsOpenForEntryRef = useRef(false);
+	useEffect(() => {
+		const prevIsOpen = prevIsOpenForEntryRef.current;
+		prevIsOpenForEntryRef.current = isOpen;
+
+		if (!prevIsOpen && isOpen && !willAnimate) {
+			onEnterFinishRef.current?.();
+		}
+	}, [isOpen, willAnimate]);
 
 	// ── Animated exit effect ──
 	//
@@ -148,24 +219,36 @@ export function useAnimatedVisibility({
 			return;
 		}
 
-		function finish() {
+		// Both the transitionend listener and the fallback timeout are guarded by
+		// a shared `hasFired` flag to prevent double-firing. This handles the race
+		// where the 350ms transition finishes after the 400ms fallback fires
+		// (or vice versa): whichever fires first sets `hasFired = true`, and the
+		// second path becomes a no-op.
+		let hasFired = false;
+		function handleTransitionEnd() {
+			if (hasFired) {
+				return;
+			}
+			hasFired = true;
 			clearTimeout(fallbackId);
+			unbind();
 			setShowChildren(false);
 			onExitFinishRef.current?.();
 		}
 
 		// Fallback: unmount even if transitionend never fires
-		const fallbackId = setTimeout(finish, (preset?.exitDurationMs ?? 0) + 50);
+		const fallbackId = setTimeout(handleTransitionEnd, (preset?.exitDurationMs ?? 0) + 50);
 
 		// Primary: listen for the CSS transition to complete
 		const unbind = bind(element, {
 			type: 'transitionend',
-			listener: finish,
+			listener: handleTransitionEnd,
 			options: { once: true },
 		});
 
 		// Cleanup on re-render or unmount: cancel pending timeout and listener
 		return () => {
+			hasFired = true;
 			clearTimeout(fallbackId);
 			unbind();
 		};

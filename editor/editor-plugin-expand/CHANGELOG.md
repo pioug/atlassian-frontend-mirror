@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-expand
 
+## 11.2.5
+
+### Patch Changes
+
+- [`5e34be0ba10b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e34be0ba10b6) -
+  Cleanup show diff experiments
+- Updated dependencies
+
 ## 11.2.4
 
 ### Patch Changes

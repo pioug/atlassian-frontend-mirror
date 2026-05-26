@@ -12,6 +12,7 @@ import {
 	ToolbarKeyboardShortcutHint,
 } from '@atlaskit/editor-toolbar';
 
+import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { insertRowWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
 import { useTableMenuContext } from '../../shared/TableMenuContext';
 import type { TableMenuComponentsParams } from '../../shared/types';
@@ -35,6 +36,8 @@ export const AddRowAboveItem = (props: TableMenuComponentsParams): React.JSX.Ele
 			index,
 			moveCursorToInsertedRow: true,
 		})(editorView.state, editorView.dispatch);
+		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.focus();
 	};
 
 	return (

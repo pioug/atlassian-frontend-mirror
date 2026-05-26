@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { Fragment, useCallback, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useMemo, useRef, useState } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 import type { IntlShape } from 'react-intl';
@@ -27,15 +27,23 @@ import { token } from '@atlaskit/tokens';
 import { changeLanguage } from '../editor-commands';
 import type { CodeBlockPlugin } from '../index';
 
-import type { LanguagePickerOption, LanguagePickerOptionGroup } from './language-picker-options';
+import type {
+	LanguagePickerOption,
+	LanguagePickerOptionGroup,
+	LanguagePickerSelectionSource,
+} from './language-picker-options';
+import { createGroupedLanguageOptions } from './language-picker-options';
 
-type LanguagePickerProps = {
+export type LanguagePickerProps = {
 	api: ExtractInjectionAPI<CodeBlockPlugin> | undefined;
 	defaultValue?: LanguagePickerOption;
 	editorView: EditorView;
 	filterOption: (option: SelectOption<LanguagePickerOption>, rawInput: string) => boolean;
 	formatMessage: IntlShape['formatMessage'];
-	options: LanguagePickerOptionGroup[];
+	languagePickerOptions: LanguagePickerOption[];
+	onLanguageSelect?: (language: string) => void;
+	onMenuOpen?: () => void;
+	recentLanguageValues?: string[];
 };
 
 const pickerOptionStyles = css({
@@ -102,34 +110,93 @@ const menuPopperProps: NonNullable<PopupSelectProps['popperProps']> = {
 	],
 };
 
+const getRecentlyUsedLanguages = (
+	recentLanguageValues: string[],
+	optionsByValue: Map<string, LanguagePickerOption>,
+): LanguagePickerOption[] => {
+	const recentlyUsedLanguages: LanguagePickerOption[] = [];
+
+	for (const recentLanguageValue of recentLanguageValues) {
+		const option = optionsByValue.get(recentLanguageValue);
+
+		if (option) {
+			recentlyUsedLanguages.push(option);
+		}
+	}
+
+	return recentlyUsedLanguages;
+};
+
 export const LanguagePicker = ({
 	api,
 	defaultValue,
 	editorView,
 	filterOption,
 	formatMessage,
-	options,
+	languagePickerOptions,
+	recentLanguageValues = [],
+	onLanguageSelect,
+	onMenuOpen,
 }: LanguagePickerProps): React.JSX.Element => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
 	const label = defaultValue?.label ?? formatMessage(codeBlockButtonMessages.selectLanguage);
 	const selectLanguageLabel = formatMessage(codeBlockButtonMessages.selectLanguage);
-	const [inputValue, setInputValue] = useState('');
-	const searchOptions = useMemo(() => options.flatMap((group) => group.options), [options]);
-	const hasSearchQuery = inputValue.trim().length > 0;
+	const [hasSearchQuery, setHasSearchQuery] = useState(false);
+	const inputValueRef = useRef('');
+	const optionsByValue = useMemo(
+		() => new Map(languagePickerOptions.map((option) => [option.value, option])),
+		[languagePickerOptions],
+	);
+	const recentlyUsedLanguages = useMemo(
+		() => getRecentlyUsedLanguages(recentLanguageValues, optionsByValue),
+		[recentLanguageValues, optionsByValue],
+	);
+	const options = useMemo<LanguagePickerOptionGroup[]>(
+		() =>
+			createGroupedLanguageOptions({
+				formatMessage,
+				languages: languagePickerOptions,
+				recentlyUsedLanguages,
+			}),
+		[formatMessage, languagePickerOptions, recentlyUsedLanguages],
+	);
+	const searchOptions = useMemo(
+		() => options.flatMap((group) => group.options),
+		[options],
+	);
 	const handleChange = useCallback(
 		(option: ValueType<LanguagePickerOption>) => {
 			if (!option) {
 				return;
 			}
 
-			changeLanguage(editorAnalyticsAPI)(option.value)(editorView.state, editorView.dispatch);
+			const isSearchSelection = inputValueRef.current.trim().length > 0;
+			const selectionSource: LanguagePickerSelectionSource = isSearchSelection
+				? 'search'
+				: option.selectionSource ?? 'all';
+			const commandSucceeded = changeLanguage(editorAnalyticsAPI)(option.value, selectionSource)(
+				editorView.state,
+				editorView.dispatch,
+			);
+
+			if (commandSucceeded) {
+				onLanguageSelect?.(option.value);
+			}
 		},
-		[editorAnalyticsAPI, editorView],
+		[editorAnalyticsAPI, editorView, onLanguageSelect],
 	);
-	const handleInputChange = useCallback((newInputValue: string) => {
-		setInputValue(newInputValue);
-		return newInputValue;
-	}, []);
+	const handleInputChange = useCallback(
+		(newInputValue: string, actionMeta?: { action?: string }) => {
+			// React-select clears the input as part of selecting a value before onChange fires.
+			// Keep the last user-typed query so handleChange can report search selections correctly.
+			if (!actionMeta || actionMeta.action === 'input-change') {
+				inputValueRef.current = newInputValue;
+			}
+			setHasSearchQuery(newInputValue.trim().length > 0);
+			return newInputValue;
+		},
+		[],
+	);
 	const renderTarget = useCallback(
 		({ isOpen, ref, onKeyDown, 'aria-controls': ariaControls }: PopupSelectTargetProps) => (
 			<div css={styles.trigger}>
@@ -155,13 +222,13 @@ export const LanguagePicker = ({
 		<PopupSelect<LanguagePickerOption>
 			components={popupSelectComponents}
 			filterOption={filterOption}
-			inputValue={inputValue}
 			label={selectLanguageLabel}
 			maxMenuHeight={300}
 			minMenuWidth={200}
 			menuPlacement="auto"
 			onChange={handleChange}
 			onInputChange={handleInputChange}
+			onMenuOpen={onMenuOpen}
 			options={hasSearchQuery ? searchOptions : options}
 			popperProps={menuPopperProps}
 			searchThreshold={-1}

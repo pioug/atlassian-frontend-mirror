@@ -1,13 +1,34 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Filmstrip, FilmstripView, type FilmstripProps, type FilmstripItem } from '../..';
+import { render, screen } from '@atlassian/testing-library';
+import { Filmstrip, type FilmstripProps, type FilmstripItem } from '../..';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { Card, CardLoading } from '@atlaskit/media-card';
 import { type Identifier } from '@atlaskit/media-client';
 import { type MediaClientConfig } from '@atlaskit/media-core';
 
+jest.mock('@atlaskit/media-card', () => {
+	const original = jest.requireActual('@atlaskit/media-card');
+	return {
+		...original,
+		Card: (props: any) => (
+			<div
+				data-testid={`media-card-${props.identifier?.id || 'unknown'}`}
+				data-selectable={props.selectable}
+				data-selected={props.selected}
+				data-should-open-media-viewer={props.shouldOpenMediaViewer}
+				data-has-media-client-config={props.mediaClientConfig ? 'true' : undefined}
+				data-media-viewer-items={
+					props.mediaViewerItems ? JSON.stringify(props.mediaViewerItems) : undefined
+				}
+			>
+				Card
+			</div>
+		),
+		CardLoading: (props: any) => <div data-testid="card-loading">CardLoading</div>,
+	};
+});
+
 describe('<Filmstrip />', () => {
-	const firstIdenfier: Identifier = {
+	const firstIdentifier: Identifier = {
 		id: 'id-1',
 		mediaItemType: 'file',
 	};
@@ -24,41 +45,39 @@ describe('<Filmstrip />', () => {
 		const mediaClientConfig: MediaClientConfig = getDefaultMediaClientConfig();
 		const items: FilmstripItem[] = [
 			{
-				identifier: firstIdenfier,
+				identifier: firstIdentifier,
 			},
 			{
 				identifier: secondIdentifier,
 			},
 		];
-		const component = shallow(
+		const result = render(
 			<Filmstrip mediaClientConfig={mediaClientConfig} items={items} {...props} />,
 		);
 
 		return {
-			component,
+			...result,
 			mediaClientConfig,
 		};
 	};
 
-	it('should render a FilmstripView with the right amount of Cards', () => {
-		const { component } = setup();
-
-		expect(component.find(FilmstripView)).toHaveLength(1);
-		expect(component.find(FilmstripView).find(Card)).toHaveLength(2);
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup();
+		await expect(container).toBeAccessible();
 	});
 
-	it('should use right React key for Cards', () => {
-		const { component } = setup();
+	it('should render the right amount of Cards', () => {
+		setup();
 
-		expect(component.find(FilmstripView).find(Card).at(0).key()).toEqual('id-1');
-		expect(component.find(FilmstripView).find(Card).at(1).key()).toEqual('id-2');
+		expect(screen.getByTestId('media-card-id-1')).toBeInTheDocument();
+		expect(screen.getByTestId('media-card-id-2')).toBeInTheDocument();
 	});
 
 	it('should pass properties down to Cards', () => {
-		const { component, mediaClientConfig } = setup({
+		setup({
 			items: [
 				{
-					identifier: firstIdenfier,
+					identifier: firstIdentifier,
 					selectable: true,
 					selected: true,
 				},
@@ -69,52 +88,40 @@ describe('<Filmstrip />', () => {
 			shouldOpenMediaViewer: true,
 		});
 
-		expect(component.find(FilmstripView).find(Card).first().props()).toEqual(
-			expect.objectContaining({
-				mediaClientConfig,
-				selectable: true,
-				selected: true,
-				identifier: {
-					id: 'id-1',
-					mediaItemType: 'file',
-				},
-				shouldOpenMediaViewer: true,
-				mediaViewerItems: [firstIdenfier, secondIdentifier],
-			}),
-		);
+		const firstCard = screen.getByTestId('media-card-id-1');
+		expect(firstCard).toHaveAttribute('data-selectable', 'true');
+		expect(firstCard).toHaveAttribute('data-selected', 'true');
+		expect(firstCard).toHaveAttribute('data-should-open-media-viewer', 'true');
+		expect(firstCard).toHaveAttribute('data-has-media-client-config', 'true');
+		const mediaViewerItems = JSON.parse(firstCard.getAttribute('data-media-viewer-items')!);
+		expect(mediaViewerItems).toEqual([firstIdentifier, secondIdentifier]);
 	});
 
 	it('should not activate media-viewer by default', () => {
-		const { component } = setup({
-			items: [{ identifier: firstIdenfier }, { identifier: secondIdentifier }],
+		setup({
+			items: [{ identifier: firstIdentifier }, { identifier: secondIdentifier }],
 		});
 
-		expect(component.find(FilmstripView).find(Card).first().props()).toEqual(
-			expect.objectContaining({
-				shouldOpenMediaViewer: undefined,
-				mediaViewerItems: undefined,
-			}),
-		);
+		const firstCard = screen.getByTestId('media-card-id-1');
+		expect(firstCard).not.toHaveAttribute('data-should-open-media-viewer', 'true');
+		expect(firstCard).not.toHaveAttribute('data-media-viewer-items');
 	});
 
 	it('should not activate media-viewer if shouldOpenMediaViewer is false', () => {
-		const { component } = setup({
-			items: [{ identifier: firstIdenfier }, { identifier: secondIdentifier }],
+		setup({
+			items: [{ identifier: firstIdentifier }, { identifier: secondIdentifier }],
 			shouldOpenMediaViewer: false,
 		});
 
-		expect(component.find(FilmstripView).find(Card).first().props()).toEqual(
-			expect.objectContaining({
-				shouldOpenMediaViewer: false,
-				mediaViewerItems: undefined,
-			}),
-		);
+		const firstCard = screen.getByTestId('media-card-id-1');
+		expect(firstCard).toHaveAttribute('data-should-open-media-viewer', 'false');
+		expect(firstCard).not.toHaveAttribute('data-media-viewer-items');
 	});
 
 	it('should render loading cards if mediaClientConfig is missing', () => {
-		const { component } = setup({
+		setup({
 			mediaClientConfig: undefined,
 		});
-		expect(component.find(CardLoading)).toHaveLength(2);
+		expect(screen.getAllByTestId('card-loading')).toHaveLength(2);
 	});
 });

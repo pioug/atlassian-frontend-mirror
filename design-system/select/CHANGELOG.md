@@ -1,5 +1,17 @@
 # @atlaskit/select
 
+## 21.12.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.12.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.12.7
 
 ### Patch Changes

@@ -4,7 +4,6 @@
  */
 import { forwardRef, memo, useCallback } from 'react';
 
-
 import { cssMap as cssMapUnbound, cx, jsx } from '@compiled/react';
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';

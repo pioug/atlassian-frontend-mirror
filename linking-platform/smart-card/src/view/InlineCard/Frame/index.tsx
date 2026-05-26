@@ -1,7 +1,5 @@
 import React, { forwardRef, type MouseEvent, useCallback } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
 
 import { WrapperAnchor, WrapperSpan } from './styled';
@@ -88,16 +86,8 @@ export const Frame: React.ForwardRefExoticComponent<FrameViewProps & React.RefAt
 				withoutBackground={withoutBackground}
 				isSelected={isSelected}
 				isInteractive={isInteractive}
-				tabIndex={
-					isInteractive && (fg('navx-3611-inline-card-a11y-role-fix') ? !link : true)
-						? 0
-						: undefined
-				}
-				role={
-					isInteractive && (fg('navx-3611-inline-card-a11y-role-fix') ? !link : true)
-						? 'button'
-						: undefined
-				}
+				tabIndex={isInteractive && !link ? 0 : undefined}
+				role={isInteractive && !link ? 'button' : undefined}
 				onClick={handleClick}
 				onAuxClick={onAuxClick}
 				onContextMenu={onContextMenu}

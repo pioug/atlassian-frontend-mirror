@@ -36,6 +36,7 @@ export {
 	setCellAttr,
 	setEditorFocus,
 	setMultipleCellAttrs,
+	setMultipleCellAttrsEditorCommand,
 	setTableRef,
 	showInsertColumnButton,
 	showInsertRowButton,

@@ -5,6 +5,7 @@ import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import EmojiActions from '../../../../components/common/EmojiActions';
+import { cancelEmojiUploadPickerTestId } from '../../../../components/common/EmojiUploadPicker';
 import { tonePreviewTestId } from '../../../../components/common/TonePreviewButton';
 import { toneSelectorTestId } from '../../../../components/common/ToneSelector';
 import type { EmojiDescriptionWithVariations } from '../../../../types';
@@ -292,6 +293,29 @@ describe('<EmojiActions />', () => {
 				await userEvent.click(screen.getByRole('button', { name: 'Add your own emoji' }));
 
 				expect(onOpenUpload).toHaveBeenCalledTimes(1);
+				expect(onParentClick).not.toHaveBeenCalled();
+			});
+
+			it('should not bubble the upload cancel click to parent containers when the gate is on', async () => {
+				passGate(keepPickerOpenOnUploadGate);
+				const onUploadCancelled = jest.fn();
+				const onParentClick = jest.fn();
+
+				await renderWithIntl(
+					<div onClick={onParentClick}>
+						<EmojiActions
+							{...props}
+							toneEmoji={toneEmoji}
+							uploadEnabled
+							uploading
+							onUploadCancelled={onUploadCancelled}
+						/>
+					</div>,
+				);
+
+				await userEvent.click(screen.getByTestId(cancelEmojiUploadPickerTestId));
+
+				expect(onUploadCancelled).toHaveBeenCalledTimes(1);
 				expect(onParentClick).not.toHaveBeenCalled();
 			});
 		});

@@ -59,9 +59,7 @@ const NumberInputPrompt = ({ userInputPrompt }: NumberInputPromptProps): React.J
 				<>
 					<Textfield {...fieldProps} />
 					{fg('platform_navx_3298_message_wrapper') ? (
-						<MessageWrapper>
-							{generateErrorMessage(error)}
-						</MessageWrapper>
+						<MessageWrapper>{generateErrorMessage(error)}</MessageWrapper>
 					) : (
 						generateErrorMessage(error)
 					)}

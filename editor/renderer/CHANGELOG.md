@@ -1,5 +1,30 @@
 # @atlaskit/renderer
 
+## 131.2.0
+
+### Minor Changes
+
+- [`1c86d46da6101`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c86d46da6101) -
+  Address layout column alignment follow-up review feedback
+
+### Patch Changes
+
+- Updated dependencies
+
+## 131.1.9
+
+### Patch Changes
+
+- [`304fee6127fd5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/304fee6127fd5) -
+  Add valign to table cell menu, support renderer.
+- Updated dependencies
+
+## 131.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 131.1.7
 
 ### Patch Changes

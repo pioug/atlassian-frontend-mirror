@@ -66,6 +66,58 @@ test.describe('Animation lifecycle - exit animation', () => {
 	});
 });
 
+test.describe('Animation lifecycle - animation callbacks', () => {
+	// Verifies that onEnterFinish and onExitFinish fire after real CSS transitionend
+	// events in a real browser. This cannot be tested in JSDOM (which has no CSS
+	// transitions) so it lives here in Playwright.
+	test('onEnterFinish fires after entry animation, not before', async ({ page }) => {
+		await page.visitExample<typeof import('../../examples/127-testing-animation-callbacks.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-animation-callbacks',
+		);
+
+		const enterCount = page.getByTestId('enter-count');
+
+		await expect(enterCount).toHaveText('0');
+
+		// Open the popup — entry animation begins
+		await page.getByTestId('popover-trigger').click();
+		await expect(page.getByTestId('popover-content')).toBeVisible();
+
+		// Immediately after click the animation has just started — not fired yet
+		await expect(enterCount).toHaveText('0');
+
+		// Wait for entry animation to complete (slideAndFade: 350ms + CI headroom)
+		await expect(enterCount).toHaveText('1', { timeout: 2000 });
+	});
+
+	test('onExitFinish fires after exit animation, not before', async ({ page }) => {
+		await page.visitExample<typeof import('../../examples/127-testing-animation-callbacks.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-animation-callbacks',
+		);
+
+		const trigger = page.getByTestId('popover-trigger');
+		const exitCount = page.getByTestId('exit-count');
+
+		// Open the popup and wait for it to be visible
+		await trigger.click();
+		await expect(page.getByTestId('popover-content')).toBeVisible();
+
+		// Close the popup — exit animation begins
+		await trigger.click();
+
+		// Immediately after close the animation has just started — not fired yet
+		await expect(exitCount).toHaveText('0');
+
+		// Wait for exit animation to complete (slideAndFade: 350ms + CI headroom)
+		await expect(page.getByTestId('popover-content')).toBeHidden();
+		await expect(exitCount).toHaveText('1', { timeout: 2000 });
+	});
+});
+
 test.describe('Animation lifecycle - reduced motion', () => {
 	// Category 2: Animation Lifecycle
 	// Verifies that prefers-reduced-motion: reduce disables animations.

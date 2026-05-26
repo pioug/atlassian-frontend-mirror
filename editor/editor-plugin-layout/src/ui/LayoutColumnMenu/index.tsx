@@ -1,14 +1,10 @@
-import React, { useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
-import { EditorToolbarProvider } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
-import {
-	OutsideClickTargetRefContext,
-	withReactEditorViewOuterListeners,
-} from '@atlaskit/editor-common/ui-react';
+import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
@@ -23,8 +19,8 @@ import { LAYOUT_COLUMN_MENU } from './keys';
 
 const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
 
-const FALLBACK_MENU_HEIGHT = 300;
 const LAYOUT_COLUMN_MENU_POPUP_OFFSET: [number, number] = [0, 4];
+const TOOLBAR_MENU_SELECTOR = '[data-toolbar-component="menu"]';
 
 /**
  * Returns the drag handle button for the selected layout column.
@@ -70,31 +66,16 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 				layoutColumnMenuAnchorPos: states.layoutState?.layoutColumnMenuAnchorPos,
 				selection: states.selectionState?.selection,
 			}));
-		const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
-		const menuRef = useRef<HTMLDivElement | null>(null);
-		const popupRef = useRef<HTMLElement | undefined>(undefined);
-		const [menuHeight, setMenuHeight] = React.useState<number>(FALLBACK_MENU_HEIGHT);
-
-		useLayoutEffect(() => {
-			if (!isLayoutColumnMenuOpen) {
-				return;
-			}
-			setMenuHeight(popupRef.current?.clientHeight || FALLBACK_MENU_HEIGHT);
-		}, [isLayoutColumnMenuOpen]);
-
 		const closeLayoutColumnMenu = useCallback(() => {
 			api?.core?.actions.execute(api?.layout?.commands.toggleLayoutColumnMenu({ isOpen: false }));
 		}, [api]);
 
 		const handleClickOutside = useCallback(
 			(event: MouseEvent) => {
-				if (event.target instanceof Node && menuRef.current?.contains(event.target)) {
-					return;
-				}
-
 				if (
 					event.target instanceof Element &&
-					event.target.closest('[data-toolbar-nested-dropdown-menu]')
+					(event.target.closest(TOOLBAR_MENU_SELECTOR) ||
+						event.target.closest('[data-toolbar-nested-dropdown-menu]'))
 				) {
 					return;
 				}
@@ -118,17 +99,6 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 				}
 			},
 			[closeLayoutColumnMenu],
-		);
-
-		const handleMenuRef = useCallback(
-			(el: HTMLDivElement | null) => {
-				setOutsideClickTargetRef?.(el);
-				menuRef.current = el;
-				if (el) {
-					popupRef.current = el;
-				}
-			},
-			[setOutsideClickTargetRef],
 		);
 
 		const components = api?.uiControlRegistry?.actions.getComponents(LAYOUT_COLUMN_MENU.key) ?? [];
@@ -161,27 +131,19 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 				scrollableElement={scrollableElement}
 				zIndex={akEditorFloatingOverlapPanelZIndex}
 				alignX="center"
-				fitHeight={menuHeight}
 				preventOverflow={true}
 				stick={true}
 				offset={LAYOUT_COLUMN_MENU_POPUP_OFFSET}
 				handleClickOutside={handleClickOutside}
 				handleEscapeKeydown={closeLayoutColumnMenu}
 			>
-				<div ref={handleMenuRef}>
-					<EditorToolbarProvider editorView={editorView}>
-						<ToolbarDropdownMenuProvider
-							isOpen={isLayoutColumnMenuOpen}
-							setIsOpen={handleSetIsOpen}
-						>
-							<SurfaceRenderer
-								components={components}
-								fallbacks={LAYOUT_COLUMN_MENU_FALLBACKS}
-								surface={LAYOUT_COLUMN_MENU}
-							/>
-						</ToolbarDropdownMenuProvider>
-					</EditorToolbarProvider>
-				</div>
+				<ToolbarDropdownMenuProvider isOpen={isLayoutColumnMenuOpen} setIsOpen={handleSetIsOpen}>
+					<SurfaceRenderer
+						components={components}
+						fallbacks={LAYOUT_COLUMN_MENU_FALLBACKS}
+						surface={LAYOUT_COLUMN_MENU}
+					/>
+				</ToolbarDropdownMenuProvider>
 			</PopupWithListeners>
 		);
 	},

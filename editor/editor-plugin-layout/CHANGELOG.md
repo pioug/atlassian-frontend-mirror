@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-layout
 
+## 10.8.0
+
+### Minor Changes
+
+- [`1c86d46da6101`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c86d46da6101) -
+  Address layout column alignment follow-up review feedback
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.7.0
 
 ### Minor Changes

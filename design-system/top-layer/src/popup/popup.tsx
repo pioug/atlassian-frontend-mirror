@@ -3,7 +3,7 @@ import React, { useCallback, useId, useRef, useState } from 'react';
 import { type TAriaHasPopupValue } from '../internal/role-types';
 import { type TPopoverCloseReason } from '../popover/types';
 
-import { PopupProvider, type TPopupContextValue } from './popup-context';
+import { PopupProvider, type TPopupContextValue, type TPopupState } from './popup-context';
 import { type TPopupProps } from './types';
 
 /**
@@ -38,7 +38,7 @@ export function PopupRoot(props: TPopupProps): React.ReactElement {
 
 	const triggerRef = useRef<HTMLElement | null>(null);
 	const popoverRef = useRef<HTMLDivElement | null>(null);
-	const [isOpen, setIsOpen] = useState(false);
+	const [popupState, setPopupState] = useState<TPopupState>('closed');
 	// Initial seed before `Popup.Content`'s layout effect resolves the
 	// real role on first paint.
 	const [ariaHasPopup, setAriaHasPopup] = useState<TAriaHasPopupValue>('dialog');
@@ -59,8 +59,8 @@ export function PopupRoot(props: TPopupProps): React.ReactElement {
 		onClose: onClose ? handleClose : null,
 		triggerRef,
 		popoverRef,
-		isOpen,
-		setIsOpen,
+		popupState,
+		setPopupState,
 		onOpenChange,
 		mode,
 		ariaHasPopup,

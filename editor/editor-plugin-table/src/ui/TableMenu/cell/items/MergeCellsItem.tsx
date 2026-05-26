@@ -8,10 +8,7 @@ import { TableCellMergeIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolba
 
 import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { mergeCellsWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
-import {
-	useTableMenuContext,
-	type TableMenuContextValue,
-} from '../../shared/TableMenuContext';
+import { useTableMenuContext, type TableMenuContextValue } from '../../shared/TableMenuContext';
 import type { TableMenuComponentsParams } from '../../shared/types';
 
 /**
@@ -35,7 +32,8 @@ export const MergeCellsItem = ({ api }: TableMenuComponentsParams): React.JSX.El
 			editorView.state,
 			editorView.dispatch,
 		);
-		closeActiveTableMenu()(editorView.state, editorView.dispatch);
+		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.focus();
 	};
 
 	if (!shouldShowMergeCells(tableMenuContext)) {
@@ -43,7 +41,10 @@ export const MergeCellsItem = ({ api }: TableMenuComponentsParams): React.JSX.El
 	}
 
 	return (
-		<ToolbarDropdownItem onClick={handleClick} elemBefore={<TableCellMergeIcon label="" size="small" />}>
+		<ToolbarDropdownItem
+			onClick={handleClick}
+			elemBefore={<TableCellMergeIcon label="" size="small" />}
+		>
 			{formatMessage(messages.mergeCells)}
 		</ToolbarDropdownItem>
 	);

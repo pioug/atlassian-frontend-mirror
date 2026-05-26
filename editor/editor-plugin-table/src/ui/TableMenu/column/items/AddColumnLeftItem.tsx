@@ -13,6 +13,7 @@ import {
 	ToolbarKeyboardShortcutHint,
 } from '@atlaskit/editor-toolbar';
 
+import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { insertColumnWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
 import type { TableSharedStateInternal } from '../../../../types';
 import { useTableMenuContext } from '../../shared/TableMenuContext';
@@ -53,6 +54,8 @@ export const AddColumnLeftItem = ({ api }: TableMenuComponentsParams): React.JSX
 			shouldUseIncreasedScalingPercent,
 			isCommentEditor,
 		)(INPUT_METHOD.TABLE_CONTEXT_MENU, index)(editorView.state, editorView.dispatch, editorView);
+		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.focus();
 	};
 
 	return (

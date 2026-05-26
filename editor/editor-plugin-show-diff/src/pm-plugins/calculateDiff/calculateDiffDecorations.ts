@@ -10,7 +10,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction, EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Step as ProseMirrorStep, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { type Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ColorScheme, ShowDiffPlugin, DiffType } from '../../showDiffPluginType';
@@ -167,28 +166,20 @@ const calculateDiffDecorationsInner = ({
 	// Rather than using .eq() we use a custom function that only checks for structural
 	// changes and ignores differences in attributes which don't affect decoration positions
 	if (!areNodesEqualIgnoreAttrs(steppedDoc, tr.doc)) {
-		const recoveredViaContentEquality = fg('platform_editor_show_diff_equality_fallback')
-			? areDocsEqualByBlockStructureAndText(steppedDoc, tr.doc)
-			: undefined;
+		const recoveredViaContentEquality = areDocsEqualByBlockStructureAndText(steppedDoc, tr.doc);
 
-		if (expValEquals('platform_editor_are_nodes_equal_ignore_mark_order', 'isEnabled', true)) {
-			api?.analytics?.actions.fireAnalyticsEvent<NodesEqualEvent, 'customEventType'>({
-				eventType: 'track',
-				action: 'nodesNotEqual',
-				actionSubject: 'showDiff',
-				attributes: {
-					docSizeEqual: steppedDoc.nodeSize === tr.doc.nodeSize,
-					colorScheme,
-					recoveredViaContentEquality,
-				},
-			});
-		}
+		api?.analytics?.actions.fireAnalyticsEvent<NodesEqualEvent, 'customEventType'>({
+			eventType: 'track',
+			action: 'nodesNotEqual',
+			actionSubject: 'showDiff',
+			attributes: {
+				docSizeEqual: steppedDoc.nodeSize === tr.doc.nodeSize,
+				colorScheme,
+				recoveredViaContentEquality,
+			},
+		});
 
-		if (fg('platform_editor_show_diff_equality_fallback')) {
-			if (!recoveredViaContentEquality) {
-				return DecorationSet.empty;
-			}
-		} else {
+		if (!recoveredViaContentEquality) {
 			return DecorationSet.empty;
 		}
 	}
@@ -279,10 +270,7 @@ const calculateDiffDecorationsInner = ({
 		);
 	});
 	getAttrChangeRanges(tr.doc, attrSteps).forEach((change) => {
-		if (
-			expValEquals('platform_editor_show_diff_improvements', 'isEnabled', true) &&
-			change.isInline
-		) {
+		if (change.isInline) {
 			// Inline nodes (e.g. date) need an inline decoration rather than a block decoration
 			const isActive =
 				activeIndexPos && change.fromB === activeIndexPos.from && change.toB === activeIndexPos.to;

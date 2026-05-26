@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ads-mcp",
-	"version": "0.20.4",
+	"version": "0.21.0",
 	"description": "The official Atlassian Design System MCP server to develop apps and user interfaces matching the Atlassian style.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -46,6 +46,10 @@
 		"./tools/suggest-a11y-fixes": "./src/entry-points/suggest-a11y-fixes.tsx",
 		"./tools/migration-guides": "./src/entry-points/migration-guides.tsx",
 		"./tools/i18n-conversion": "./src/entry-points/i18n-conversion.tsx",
+		"./a11y-guidelines": "./src/entry-points/a11y-guidelines.tsx",
+		"./a11y-fixes": "./src/entry-points/a11y-fixes.tsx",
+		"./migration-registry": "./src/entry-points/migration-registry.tsx",
+		"./i18n-conversion-guide": "./src/entry-points/i18n-conversion-guide.tsx",
 		"./tools/plan": "./src/entry-points/plan.tsx",
 		"./tools/analyze-a11y": "./src/entry-points/analyze-a11y.tsx",
 		"./package.json": "./package.json"

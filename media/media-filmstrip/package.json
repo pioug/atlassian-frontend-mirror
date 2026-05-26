@@ -71,6 +71,7 @@
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/debounce": "root:*",
 		"enzyme": "root:*",

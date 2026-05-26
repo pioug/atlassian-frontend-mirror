@@ -16,7 +16,14 @@ export type EditingEventPayload = {
 	actionSubject: 'rovoAgent';
 	action: 'updated';
 	attributes: VersionedAgentAttributes & {
-		agentType: string;
+		agentType?: string;
 		field: string;
+		/**
+		 * Identifies the subagent (formerly "scenario") whose configuration was updated.
+		 * Pass the scenario/subagent id when the analytics event is fired at the
+		 * scenario/subagent level. Pass `null` when the event is fired at the agent
+		 * level (i.e. not scoped to any specific subagent).
+		 */
+		subagentId: string | null;
 	};
 };

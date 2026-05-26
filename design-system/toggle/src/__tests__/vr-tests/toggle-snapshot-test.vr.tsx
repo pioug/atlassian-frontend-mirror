@@ -6,34 +6,9 @@ import Disabled from '../../../examples/2-disabled';
 
 snapshot(Stateful);
 snapshot(Disabled);
+snapshot(StatefulWithToggleEnabled);
 snapshot(StatefulWithToggleEnabled, {
-	states: [
-		{
-			state: 'focused',
-			selector: { byTestId: 'toggle-button' },
-		},
-	],
-});
-
-snapshot(Stateful, {
-	description: 'stateful - atomic',
-	featureFlags: {
-		'platform-toggle-atomic-styles': true,
-	},
-});
-
-snapshot(StatefulWithToggleEnabled, {
-	description: 'stateful with toggle enabled - atomic',
-	featureFlags: {
-		'platform-toggle-atomic-styles': true,
-	},
-});
-
-snapshot(StatefulWithToggleEnabled, {
-	description: 'stateful with toggle enabled - atomic - hovered checked',
-	featureFlags: {
-		'platform-toggle-atomic-styles': true,
-	},
+	description: 'hovered - checked',
 	states: [
 		{
 			state: 'hovered',
@@ -41,23 +16,12 @@ snapshot(StatefulWithToggleEnabled, {
 		},
 	],
 });
-
 snapshot(StatefulWithToggleEnabled, {
-	description: 'stateful with toggle enabled - atomic - focused',
-	featureFlags: {
-		'platform-toggle-atomic-styles': true,
-	},
+	description: 'focused - checked',
 	states: [
 		{
 			state: 'focused',
 			selector: { byTestId: 'toggle-button' },
 		},
 	],
-});
-
-snapshot(Disabled, {
-	description: 'disabled - atomic',
-	featureFlags: {
-		'platform-toggle-atomic-styles': true,
-	},
 });

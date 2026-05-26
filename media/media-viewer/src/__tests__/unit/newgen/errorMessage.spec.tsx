@@ -5,8 +5,8 @@ jest.mock('../../../analytics/events/operational/previewUnsupported', () => ({
 	createPreviewUnsupportedEvent: jest.fn(),
 }));
 import React from 'react';
+import { render, screen } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
-import { mount } from 'enzyme';
 import * as ufoWrapper from '../../../analytics/ufoExperiences';
 import { ErrorMessage } from '../../../errorMessage';
 import { MediaViewerError } from '../../../errors';
@@ -23,7 +23,7 @@ const mockfailMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'failMediaFileUfoE
 describe('Error Message', () => {
 	describe('Mapping error reason to message text', () => {
 		it('should map error reason to translated message', () => {
-			const el = mount(
+			render(
 				<IntlProvider locale="en">
 					<ErrorMessage
 						fileId="some-id"
@@ -32,19 +32,22 @@ describe('Error Message', () => {
 					/>
 				</IntlProvider>,
 			);
-			expect(el.text()).toContain(i18nMessages.image_format_invalid_error.defaultMessage);
+			expect(
+				screen.getByText(i18nMessages.image_format_invalid_error.defaultMessage as string),
+			).toBeInTheDocument();
 		});
 	});
 
-	it('should render a child component', () => {
-		const el = mount(
+	it('should render a child component', async () => {
+		render(
 			<IntlProvider locale="en">
 				<ErrorMessage intl={fakeIntl} fileId="some-id" error={new MediaViewerError('unsupported')}>
-					<Button />
+					<Button testId="error-child-button">Child</Button>
 				</ErrorMessage>
 			</IntlProvider>,
 		);
-		expect(el.find(Button)).toHaveLength(1);
+		expect(screen.getByTestId('error-child-button')).toBeInTheDocument();
+		await expect(document.body).toBeAccessible();
 	});
 
 	describe('analytics', () => {
@@ -70,10 +73,10 @@ describe('Error Message', () => {
 		it('should not trigger load fail event when displayed if error reason is "unsupported"', () => {
 			const error = new MediaViewerError('unsupported');
 
-			mount(
+			render(
 				<IntlProvider locale="en">
 					<ErrorMessage intl={fakeIntl} fileId="some-id" error={error} fileState={fileState}>
-						<Button />
+						<Button>Child</Button>
 					</ErrorMessage>
 				</IntlProvider>,
 			);
@@ -84,7 +87,7 @@ describe('Error Message', () => {
 
 		it('should trigger load fail event when displayed if error reason not "unsupported"', () => {
 			const error = new MediaViewerError('imageviewer-fetch-url');
-			mount(
+			render(
 				<IntlProvider locale="en">
 					<ErrorMessage
 						intl={fakeIntl}
@@ -93,7 +96,7 @@ describe('Error Message', () => {
 						fileState={fileState}
 						traceContext={traceContext}
 					>
-						<Button />
+						<Button>Child</Button>
 					</ErrorMessage>
 				</IntlProvider>,
 			);
@@ -107,9 +110,10 @@ describe('Error Message', () => {
 		});
 
 		it('should not trigger analytics and ufo events if supressAnalytics prop passed', () => {
-			jest.resetAllMocks();
+			jest.clearAllMocks();
+			mockfailMediaFileUfoExperience.mockClear();
 			const error = new MediaViewerError('imageviewer-fetch-url');
-			mount(
+			render(
 				<IntlProvider locale="en">
 					<ErrorMessage
 						intl={fakeIntl}
@@ -118,7 +122,7 @@ describe('Error Message', () => {
 						fileState={fileState}
 						supressAnalytics={true}
 					>
-						<Button />
+						<Button>Child</Button>
 					</ErrorMessage>
 				</IntlProvider>,
 			);
@@ -158,7 +162,7 @@ describe('Error Message', () => {
 
 		it('should trigger fail ufo event for error with fileStateFlags', () => {
 			const error = new MediaViewerError('imageviewer-fetch-url');
-			mount(
+			render(
 				<IntlProvider locale="en">
 					<ErrorMessage
 						intl={fakeIntl}
@@ -170,11 +174,11 @@ describe('Error Message', () => {
 							wasStatusUploading: false,
 						}}
 					>
-						<Button />
+						<Button>Child</Button>
 					</ErrorMessage>
 				</IntlProvider>,
 			);
-			expect(mockfailMediaFileUfoExperience).toBeCalledWith({
+			expect(mockfailMediaFileUfoExperience).toHaveBeenCalledWith({
 				fileStateFlags: {
 					wasStatusProcessing: false,
 					wasStatusUploading: false,

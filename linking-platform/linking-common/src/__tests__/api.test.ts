@@ -1,4 +1,5 @@
-import { request, NetworkError } from '../api';
+import { request } from '../api';
+import { NetworkError } from '../errors';
 
 describe('Smart Card: request()', () => {
 	let mockFetch: jest.Mock;

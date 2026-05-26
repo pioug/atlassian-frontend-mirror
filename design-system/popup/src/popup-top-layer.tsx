@@ -157,9 +157,6 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 	// Roles requiring accessible names must have label or labelledBy.
 	const roleProps = useRoleProps({ role, label, titleId });
 
-	// Sync controlled isOpen with internal state
-	const effectiveIsOpen = isOpen;
-
 	// Narrow to ForwardRefExoticComponent so JSX accepts the ref prop.
 	// All popupComponent implementations use forwardRef per the PopupComponentProps contract.
 	const Container = PopupContainer as
@@ -180,8 +177,14 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 								ref(node);
 							}
 						},
-						'aria-controls': effectiveIsOpen ? (providedId ?? popoverId) : undefined,
-						'aria-expanded': effectiveIsOpen,
+						'aria-controls': isOpen ? (providedId ?? popoverId) : undefined,
+						// Use ariaAttributes['aria-expanded'] (which comes from `@atlaskit/top-layer`), rather than
+						// `isOpen` directly. `@atlaskit/top-layer` tracks the full animation lifecycle via
+						// TPopupState and only goes false after the exit animation completes, so:
+						//   - Screen readers don't announce the popup as closed while it is still visible.
+						//   - Consumers relying on aria-expanded to show/hide trigger UI don't lose the
+						//     trigger (popup anchor) before the animation finishes.
+						'aria-expanded': ariaAttributes['aria-expanded'],
 						// FUDGE(top-layer-api): cast to the narrow public TriggerProps['aria-haspopup'] union.
 						// `@atlaskit/top-layer` derives `aria-haspopup` from the content's role and types it
 						// as the wider WAI-ARIA union (boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid').
@@ -201,7 +204,7 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 			</Popup.TriggerFunction>
 			<Popup.Content
 				{...roleProps}
-				isOpen={effectiveIsOpen}
+				isOpen={isOpen}
 				animate={animation}
 				testId={testId && `${testId}--content`}
 				widthFromAnchor={shouldFitContainer ? 'match-anchor' : 'none'}

@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 114.48.0
+
+### Minor Changes
+
+- [`1c86d46da6101`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c86d46da6101) -
+  Address layout column alignment follow-up review feedback
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.47.3
+
+### Patch Changes
+
+- [`304fee6127fd5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/304fee6127fd5) -
+  Add valign to table cell menu, support renderer.
+
+## 114.47.2
+
+### Patch Changes
+
+- [`5e34be0ba10b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e34be0ba10b6) -
+  Cleanup show diff experiments
+- Updated dependencies
+
+## 114.47.1
+
+### Patch Changes
+
+- [`a0dc04472d27b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0dc04472d27b) -
+  Add recently used code block languages and analytics metadata
+- Updated dependencies
+
 ## 114.47.0
 
 ### Minor Changes

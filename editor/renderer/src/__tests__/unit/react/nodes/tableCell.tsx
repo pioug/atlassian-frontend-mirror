@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { TableCell } from '../../../../react/nodes/tableCell';
 
 describe('Renderer - React/Nodes/TableCell', () => {
@@ -33,5 +34,26 @@ describe('Renderer - React/Nodes/TableCell', () => {
 		const tableRow = shallow(<TableCell colwidth={colwidth} />);
 
 		expect(tableRow.prop('data-colwidth')).toEqual('10,12,14');
+	});
+
+	eeTest.describe('platform_editor_table_menu_updates', 'vertical alignment').variant(true, () => {
+		it('should render data-valign and vertical-align on the cell', () => {
+			const tableCell = shallow(<TableCell valign="middle">content</TableCell>);
+
+			expect(tableCell.prop('data-valign')).toEqual('middle');
+			expect(tableCell.prop('style')).toEqual({
+				verticalAlign: 'middle',
+			});
+			expect(tableCell.text()).toEqual('content');
+		});
+	});
+
+	eeTest.describe('platform_editor_table_menu_updates', 'vertical alignment').variant(false, () => {
+		it('should not render data-valign or vertical-align', () => {
+			const tableCell = shallow(<TableCell valign="middle">content</TableCell>);
+
+			expect(tableCell.prop('data-valign')).toBeUndefined();
+			expect(tableCell.prop('style')).toEqual({});
+		});
 	});
 });

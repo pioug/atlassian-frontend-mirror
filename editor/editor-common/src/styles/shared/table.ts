@@ -20,6 +20,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import { getBrowserInfo } from '../../utils/browser';
@@ -252,6 +253,14 @@ const tableSharedStyle = (): SerializedStyles => {
 					min-width: ${tableCellMinWidth}px;
 					font-weight: ${token('font.weight.regular')};
 					vertical-align: top;
+					${expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
+						? `&[data-valign='middle'] {
+								vertical-align: middle;
+							}
+							&[data-valign='bottom'] {
+								vertical-align: bottom;
+							}`
+						: ''}
 					border: 1px solid ${token('color.background.accent.gray.subtler')};
 					border-right-width: 0;
 					border-bottom-width: 0;

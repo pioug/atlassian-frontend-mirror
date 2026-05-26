@@ -10,6 +10,10 @@ import {
 	getActiveInteraction,
 } from '../interaction-metrics';
 import UFOLoadHold from '../load-hold/UFOLoadHold';
+import {
+	shapeNavigationTimingData,
+	shapeResourceTimingData,
+} from '../resource-timing/common/utils/shape-resource-timing';
 
 import UFOSegment, { type Props as SegmentProps } from './segment';
 
@@ -209,9 +213,18 @@ function IframeSegment({
 
 			if (suffix && interactionId.current && segmentIdRef.current) {
 				const { type, ...rest } = event;
+				const restData = rest as Record<string, unknown>;
+				let data: Record<string, unknown>;
+				if (suffix === 'resource-timing') {
+					data = shapeResourceTimingData(restData);
+				} else if (suffix === 'navigation-timing') {
+					data = shapeNavigationTimingData(restData);
+				} else {
+					data = restData;
+				}
 				addIframeSegmentData(interactionId.current, segmentIdRef.current, {
 					label: suffix,
-					data: rest as Record<string, unknown>,
+					data,
 				});
 
 				// First recognised event — the iframe is on the new rollout cohort.

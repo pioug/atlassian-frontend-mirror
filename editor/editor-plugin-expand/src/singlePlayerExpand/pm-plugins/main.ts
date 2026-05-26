@@ -15,7 +15,6 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { TOGGLE_EXPAND_RANGE_META_KEY } from '../../editor-commands/toggleExpandRange';
 import type { ExpandPlugin } from '../../types';
@@ -48,10 +47,6 @@ export const createPlugin = (
 				return DecorationSet.empty;
 			},
 			apply(tr: ReadonlyTransaction, decorationSet: DecorationSet) {
-				if (!fg('platform_editor_show_diff_scroll_navigation')) {
-					return DecorationSet.empty;
-				}
-
 				const meta = tr.getMeta(TOGGLE_EXPAND_RANGE_META_KEY) as
 					| { open: boolean; positions: number[] }
 					| undefined;
@@ -84,9 +79,6 @@ export const createPlugin = (
 		},
 		props: {
 			decorations(state) {
-				if (!fg('platform_editor_show_diff_scroll_navigation')) {
-					return undefined;
-				}
 				return pluginKey.getState(state) as DecorationSet;
 			},
 			nodeViews: {

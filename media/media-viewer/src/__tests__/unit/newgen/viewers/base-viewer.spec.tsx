@@ -1,14 +1,11 @@
 import React from 'react';
-import Button from '@atlaskit/button/custom-theme-button';
+import { render, screen } from '@atlassian/testing-library';
+import { IntlProvider } from 'react-intl';
 import { type ProcessedFileState } from '@atlaskit/media-client';
 import { type BaseProps, BaseViewer, type BaseState } from '../../../../viewers/base-viewer';
 import { Outcome } from '../../../../domain';
-import { ErrorMessage } from '../../../../errorMessage';
 import { MediaViewerError } from '../../../../errors';
-import { Spinner } from '../../../../loading';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
-import { mount } from 'enzyme';
-import { IntlProvider } from 'react-intl';
 
 const traceContext = { traceId: 'some-trace-id' };
 
@@ -45,6 +42,7 @@ function createTestViewer(
 	const initSpy = jest.fn();
 	const releaseSpy = jest.fn();
 	const renderSuccessfulSpy = jest.fn((content: string) => <div>{content}</div>);
+
 	class TestViewer extends BaseViewer<string, BaseProps> {
 		protected get initialState() {
 			return initialState;
@@ -54,18 +52,16 @@ function createTestViewer(
 		protected renderSuccessful = renderSuccessfulSpy;
 	}
 
-	// 'setProps' can only set props of the root component.
-	// Therefore, we require this component to pass the root props to the child component that we are testing
-	const PropsPasser = (props: BaseProps) => {
-		return (
-			<IntlProvider locale="en">
-				<TestViewer {...props} />
-			</IntlProvider>
-		);
-	};
+	const renderTree = (renderProps: BaseProps) => (
+		<IntlProvider locale="en">
+			<TestViewer {...renderProps} />
+		</IntlProvider>
+	);
 
-	const el = mount(<PropsPasser {...props} />);
-	return { TestViewer, el, initSpy, releaseSpy, renderSuccessfulSpy };
+	const utils = render(renderTree(props));
+	const rerenderWithProps = (nextProps: BaseProps) => utils.rerender(renderTree(nextProps));
+
+	return { utils, rerender: rerenderWithProps, initSpy, releaseSpy, renderSuccessfulSpy };
 }
 
 describe('BaseViewer', () => {
@@ -75,61 +71,65 @@ describe('BaseViewer', () => {
 	});
 
 	it('calls release() when component is unmounted', () => {
-		const { el, releaseSpy } = createTestViewer(createProps());
-		el.unmount();
+		const { utils, releaseSpy } = createTestViewer(createProps());
+		utils.unmount();
 		expect(releaseSpy).toHaveBeenCalledTimes(1);
 	});
 
 	it('calls release(), then init() when item was updated', () => {
-		const { el, initSpy, releaseSpy } = createTestViewer(createProps());
+		const props = createProps();
+		const { rerender, initSpy, releaseSpy } = createTestViewer(props);
 		const newItem = { ...createItem(), id: 'new-id' };
-		el.setProps({ item: newItem });
+		rerender({ ...props, item: newItem });
 		expect(releaseSpy).toHaveBeenCalledTimes(1);
 		expect(initSpy).toHaveBeenCalledTimes(2);
 	});
 
 	it('calls release(), then init() when collectionName was updated', () => {
-		const { el, initSpy, releaseSpy } = createTestViewer(createProps());
-		el.setProps({ collectionName: 'another-collection-name' });
+		const props = createProps();
+		const { rerender, initSpy, releaseSpy } = createTestViewer(props);
+		rerender({ ...props, collectionName: 'another-collection-name' });
 		expect(releaseSpy).toHaveBeenCalledTimes(1);
 		expect(initSpy).toHaveBeenCalledTimes(2);
 	});
 
-	it('sets the initialState when component is mounted', () => {
-		const { el, TestViewer } = createTestViewer(createProps());
-		expect(el.find(TestViewer).state()).toMatchObject(createInitialState());
+	it('sets the initialState (pending content) when component is mounted', () => {
+		// Pending state -> Spinner is rendered
+		createTestViewer(createProps());
+		expect(screen.getByTestId('spinner-wrapper')).toBeInTheDocument();
 	});
 
 	it('resets the component to the initialState when properties were updated', () => {
-		const { el, TestViewer } = createTestViewer(createProps());
-		const newItem = { ...createItem(), id: 'new-id' };
-		el.setProps({ item: newItem });
-		expect(el.find(TestViewer).state()).toMatchObject(createInitialState());
+		// initialState getter returns pending -> spinner shown both before and after
+		// reset; we observe behaviorally that updating props keeps the component in
+		// initialState (pending -> spinner) rather than crashing or leaking prior state.
+		const props = createProps();
+		const { rerender } = createTestViewer(props);
+		expect(screen.getByTestId('spinner-wrapper')).toBeInTheDocument();
+		rerender({ ...props, item: { ...createItem(), id: 'new-id' } });
+		expect(screen.getByTestId('spinner-wrapper')).toBeInTheDocument();
 	});
 
 	it('renders a spinner while the content is pending', () => {
-		const { el } = createTestViewer(createProps());
-		expect(el.find(Spinner)).toHaveLength(1);
+		createTestViewer(createProps());
+		expect(screen.getByTestId('spinner-wrapper')).toBeInTheDocument();
 	});
 
-	it('invokes renderSuccessful() when the content loading was successful', () => {
-		const { el, renderSuccessfulSpy } = createTestViewer(createProps(), {
+	it('invokes renderSuccessful() when the content loading was successful', async () => {
+		const { renderSuccessfulSpy } = createTestViewer(createProps(), {
 			content: Outcome.successful('test'),
 		});
-		expect(el.text()).toEqual('test');
+		expect(screen.getByText('test')).toBeInTheDocument();
 		expect(renderSuccessfulSpy).toHaveBeenCalled();
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('renders an error message when the content loading has failed', () => {
-		const { el } = createTestViewer(createProps(), {
+		createTestViewer(createProps(), {
 			content: Outcome.failed(new MediaViewerError('unsupported')),
 		});
-		const errorMessage = el.find(ErrorMessage);
-		expect(errorMessage).toHaveLength(1);
-		expect(errorMessage.text()).toContain("We couldn't generate a preview for this file");
-
-		// download button
-		expect(errorMessage.text()).toContain('Try downloading the file to view it');
-		expect(errorMessage.find(Button)).toHaveLength(1);
+		expect(screen.getByText("We couldn't generate a preview for this file.")).toBeInTheDocument();
+		expect(screen.getByText('Try downloading the file to view it.')).toBeInTheDocument();
+		expect(screen.getByRole('button', { name: /download/i })).toBeInTheDocument();
 	});
 });

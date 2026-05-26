@@ -373,6 +373,7 @@ type CodeBlockLanguageSelectedAEP = TrackAEP<
 	undefined,
 	{
 		language: string;
+		selectionSource?: 'all' | 'pinned' | 'recentlyUsed' | 'search';
 	},
 	undefined
 >;

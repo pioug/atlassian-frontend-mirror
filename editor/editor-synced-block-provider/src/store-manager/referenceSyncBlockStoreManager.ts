@@ -584,7 +584,10 @@ export class ReferenceSyncBlockStoreManager {
 			}
 
 			// Clear retry tracking on successful fetch — block has been created
-			if (!syncBlockInstance.error && this.entityNotFoundRetryCount.has(syncBlockInstance.resourceId)) {
+			if (
+				!syncBlockInstance.error &&
+				this.entityNotFoundRetryCount.has(syncBlockInstance.resourceId)
+			) {
 				const timer = this.entityNotFoundRetryTimers.get(syncBlockInstance.resourceId);
 				if (timer) {
 					clearTimeout(timer);

@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect } from 'react';
-import { mount } from 'enzyme';
+import { render } from '@atlassian/testing-library';
 
 import {
 	type AnalyticsEventPayload,
@@ -48,6 +48,19 @@ describe('withMediaAnalyticsContext()', () => {
 		};
 	};
 
+	it('should capture and report a11y violations', async () => {
+		const { someContextData } = setup();
+		const SimpleComponent = (_props: ContextStaticProps) => (
+			<button type="button" aria-label="example">
+				Example
+			</button>
+		);
+		const WrappedSimpleComponent = withMediaAnalyticsContext(someContextData)(SimpleComponent);
+
+		const { container } = render(<WrappedSimpleComponent />);
+		await expect(container).toBeAccessible();
+	});
+
 	it('should create MediaAnalyticsContext containing package infos and feature flags', () => {
 		const analyticsEventPayload = { test: 'ok' };
 		const someFeatureFlags: MediaFeatureFlags = {
@@ -62,7 +75,7 @@ describe('withMediaAnalyticsContext()', () => {
 			someContextData,
 		)(MediaComponentFiringAnalyticsEvent);
 
-		mount(
+		render(
 			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_MEDIA_CHANNEL}>
 				<MediaComponentFiringAnalyticsEventWithContext featureFlags={someFeatureFlags} />
 			</AnalyticsListener>,
@@ -92,7 +105,7 @@ describe('withMediaAnalyticsContext()', () => {
 		const FancyButton = forwardRef<HTMLButtonElement, React.PropsWithChildren<ContextStaticProps>>(
 			(props, ref) => (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				<button ref={ref} className="FancyButton">
+				<button ref={ref} className="FancyButton" aria-label="fancy button">
 					{props.children}
 				</button>
 			),
@@ -100,8 +113,8 @@ describe('withMediaAnalyticsContext()', () => {
 
 		const WrappedFancyButton = withMediaAnalyticsContext(someContextData)(FancyButton);
 
-		const wrapper = mount(<WrappedFancyButton ref={someRef} />);
+		render(<WrappedFancyButton ref={someRef} />);
 
-		expect(wrapper.find(FancyButton).length).toEqual(1);
+		expect(someRef.current).toBeInstanceOf(HTMLButtonElement);
 	});
 });

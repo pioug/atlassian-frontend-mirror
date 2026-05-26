@@ -17,7 +17,10 @@ const pluginsComponentsWrapperEmotionStyles = css({
 	display: 'flex',
 });
 
-export const PluginsComponentsWrapperEmotion = ({ children, ...rest }: HTMLAttributes<HTMLDivElement>): React.JSX.Element => (
+export const PluginsComponentsWrapperEmotion = ({
+	children,
+	...rest
+}: HTMLAttributes<HTMLDivElement>): React.JSX.Element => (
 	// eslint-disable-next-line react/jsx-props-no-spreading
 	<div css={pluginsComponentsWrapperEmotionStyles} {...rest}>
 		{children}

@@ -1,5 +1,13 @@
 # @atlaskit/lozenge
 
+## 13.8.3
+
+### Patch Changes
+
+- [`4837611b390d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4837611b390d6) -
+  Fixed lozenge not truncating when max width is set to a percentage and new motion enabled
+- Updated dependencies
+
 ## 13.8.2
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @atlaskit/editor-toolbar
 
+## 1.8.0
+
+### Minor Changes
+
+- [`1c86d46da6101`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c86d46da6101) -
+  Address layout column alignment follow-up review feedback
+
+## 1.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.7.2
 
 ### Patch Changes

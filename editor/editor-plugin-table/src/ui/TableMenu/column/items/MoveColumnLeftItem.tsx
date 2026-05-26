@@ -10,6 +10,7 @@ import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { ToolbarDropdownItem, ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar';
 import TableColumnMoveLeftIcon from '@atlaskit/icon/core/table-column-move-left';
 
+import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { moveSourceWithAnalytics } from '../../../../pm-plugins/drag-and-drop/commands-with-analytics';
 import { getPluginState } from '../../../../pm-plugins/plugin-factory';
 import { getSelectedColumnIndexes } from '../../../../pm-plugins/utils/selection';
@@ -50,6 +51,8 @@ export const MoveColumnLeftItem = (props: TableMenuComponentsParams): React.JSX.
 			getSelectedColumnIndexes(selectionRect),
 			selectionRect.left - 1,
 		)(editorView.state, editorView.dispatch);
+		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.focus();
 	};
 
 	if (!tableNode || !shouldShowMoveColumnLeft(tableMenuContext?.isFirstColumn)) {

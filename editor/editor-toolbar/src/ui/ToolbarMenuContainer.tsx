@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React from 'react';
+import React, { forwardRef } from 'react';
 import type { ReactNode } from 'react';
 
 import { jsx, cssMap } from '@compiled/react';
@@ -27,12 +27,14 @@ type ToolbarMenuContainerProps = {
  *
  * This intentionally does not provide a trigger or popup positioning; callers own those concerns.
  */
-export const ToolbarMenuContainer = ({
-	children,
-}: ToolbarMenuContainerProps): React.JSX.Element => {
-	return (
-		<Box xcss={styles.container} data-toolbar-component="menu" role="menu">
-			{children}
-		</Box>
-	);
-};
+export const ToolbarMenuContainer: React.ForwardRefExoticComponent<
+	ToolbarMenuContainerProps & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, ToolbarMenuContainerProps>(
+	({ children }, ref): React.JSX.Element => {
+		return (
+			<Box xcss={styles.container} data-toolbar-component="menu" role="menu" ref={ref}>
+				{children}
+			</Box>
+		);
+	},
+);

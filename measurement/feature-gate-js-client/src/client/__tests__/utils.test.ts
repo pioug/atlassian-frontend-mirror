@@ -1,4 +1,4 @@
-import { deepAssign } from '../utils';
+import { deepAssign, toStatsigUser } from '../utils';
 
 describe('deepAssign', () => {
 	test('should return target when no sources provided', () => {
@@ -161,5 +161,49 @@ describe('deepAssign', () => {
 		const source = { a: { arr: [3] } };
 		const result = deepAssign(target, source);
 		expect(result).toEqual({ a: { arr: [3] } });
+	});
+});
+
+describe('toStatsigUser', () => {
+	test('should re-map stableId to stableID', () => {
+		const identifiers = {
+			tenantId: 'myTenantId',
+			atlassianAccountId: 'myAtlassianAccountId',
+			stableId: 'myStableId'
+		};
+
+		const statsigUser = toStatsigUser(identifiers);
+		expect(statsigUser.customIDs).toEqual({
+			tenantId: 'myTenantId',
+			atlassianAccountId: 'myAtlassianAccountId',
+			stableID: 'myStableId'
+		});
+	});
+
+	test('should not include stableID if it is not set', () => {
+		const identifiers = {
+			tenantId: 'myTenantId',
+			atlassianAccountId: 'myAtlassianAccountId'
+		};
+
+		const statsigUser = toStatsigUser(identifiers);
+		expect(statsigUser.customIDs).toEqual({
+			tenantId: 'myTenantId',
+			atlassianAccountId: 'myAtlassianAccountId'
+		});
+	});
+
+	test('should not include stableID if it is explicitly set to undefined', () => {
+		const identifiers = {
+			tenantId: 'myTenantId',
+			atlassianAccountId: 'myAtlassianAccountId',
+			stableId: undefined
+		};
+
+		const statsigUser = toStatsigUser(identifiers);
+		expect(statsigUser.customIDs).toEqual({
+			tenantId: 'myTenantId',
+			atlassianAccountId: 'myAtlassianAccountId'
+		});
 	});
 });

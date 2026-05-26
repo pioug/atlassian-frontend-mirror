@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-table
 
+## 22.4.19
+
+### Patch Changes
+
+- [`304fee6127fd5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/304fee6127fd5) -
+  Add valign to table cell menu, support renderer.
+- Updated dependencies
+
+## 22.4.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.4.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.4.16
 
 ### Patch Changes

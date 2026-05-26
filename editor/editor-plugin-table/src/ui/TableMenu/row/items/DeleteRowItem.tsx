@@ -13,7 +13,7 @@ import {
 	ToolbarKeyboardShortcutHint,
 } from '@atlaskit/editor-toolbar';
 
-import { clearHoverSelection, hoverRows } from '../../../../pm-plugins/commands';
+import { clearHoverSelection, closeActiveTableMenu, hoverRows } from '../../../../pm-plugins/commands';
 import { deleteRowsWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
 import { getSelectedRowIndexes } from '../../../../pm-plugins/utils/selection';
 import type { TableSharedStateInternal } from '../../../../types';
@@ -70,6 +70,8 @@ export const DeleteRowItem = (props: TableMenuComponentsParams): React.JSX.Eleme
 			selectionRect,
 			!!isHeaderRowRequired,
 		)(editorView.state, editorView.dispatch);
+		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.focus();
 	};
 
 	return (

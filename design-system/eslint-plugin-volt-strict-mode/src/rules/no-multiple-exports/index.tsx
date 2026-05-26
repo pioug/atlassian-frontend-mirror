@@ -46,7 +46,7 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			'no-multiple-exports':
-				'Volt Strict Mode allows only one runtime export per file. Split additional exports into separate modules. `export type` / `export interface` for types are exempt.',
+				'Volt Strict Mode: this file has more than one runtime export, but only one is allowed per file (this is the extra export). Fix it by moving each additional runtime export (component, function, class, non-primitive value) into its own file and importing it where needed. Exempt from this rule: `export type`, `export interface`, and `type`-only `export { ... }` specifiers; primitive value exports (string/number/boolean/null/undefined/template literal) are also allowed when the `allowPrimitiveExports` option is enabled. See go/volt-one-export-per-file for rationale and migration guidance.',
 		},
 		schema: [
 			{

@@ -1,5 +1,24 @@
 # @atlaskit/editor-statsig-tmp
 
+## 84.0.0
+
+### Major Changes
+
+- [`5e34be0ba10b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e34be0ba10b6) -
+  Cleanup show diff experiments
+
+## 83.1.0
+
+### Minor Changes
+
+- [`96b390b511102`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96b390b511102) -
+  Add the `platform_editor_per_plugin_error_boundary` experiment and use it to isolate editor
+  PluginSlot failures to the failing plugin.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 83.0.0
 
 ### Major Changes

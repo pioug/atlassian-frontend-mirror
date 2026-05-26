@@ -1,5 +1,14 @@
 # @atlaskit/rovo-agent-analytics
 
+## 1.9.0
+
+### Minor Changes
+
+- [`5ad26dd7ae450`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ad26dd7ae450) -
+  Make `agentType` optional and add required `subagentId: string | null` attribute to
+  `EditingEventPayload`. Use `subagentId` to differentiate events fired at the scenario/subagent
+  level vs the agent level.
+
 ## 1.8.0
 
 ### Minor Changes

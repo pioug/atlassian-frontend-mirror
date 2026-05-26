@@ -103,6 +103,7 @@ export const Popover: React.ForwardRefExoticComponent<
 		mode: modeProp = 'auto',
 		onClose,
 		onOpenChange,
+		onEnterFinish,
 		onExitFinish,
 		animate,
 		placement,
@@ -133,6 +134,7 @@ export const Popover: React.ForwardRefExoticComponent<
 		isOpen,
 		animate,
 		elementRef: ownRef,
+		onEnterFinish,
 		onExitFinish,
 	});
 
@@ -271,13 +273,13 @@ export const Popover: React.ForwardRefExoticComponent<
 			// Defensive: element may be disconnected or in an unexpected state.
 			try {
 				el.showPopover();
-			} catch { }
+			} catch {}
 			return () => {
 				programmaticCloseRef.current = true;
 				// Defensive: element may be disconnected or in an unexpected state.
 				try {
 					el.hidePopover();
-				} catch { }
+				} catch {}
 			};
 		}
 
@@ -285,7 +287,7 @@ export const Popover: React.ForwardRefExoticComponent<
 		// Defensive: element may be disconnected or in an unexpected state.
 		try {
 			el.hidePopover();
-		} catch { }
+		} catch {}
 	}, [isOpen]);
 
 	return (

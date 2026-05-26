@@ -47,7 +47,7 @@ const EmojiPickerCategoryHeading = ({ id, title, className }: Props): JSX.Elemen
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		className={className}
 		data-testid={RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID}
-		role="rowheader"
+		role={fg('platform_a11y_fixes_reaction_emoji') ? 'presentation' : 'rowheader'}
 	>
 		{fg('platform_emoji_a11y_category_heading') ? (
 			<div css={emojiCategoryTitle}>

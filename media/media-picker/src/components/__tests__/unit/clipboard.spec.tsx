@@ -2,19 +2,34 @@ import React from 'react';
 
 jest.mock('../../../service/uploadServiceImpl');
 
+import { render } from '@atlassian/testing-library';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import { ClipboardMockFile, fakeMediaClient } from '@atlaskit/media-test-helpers';
+
 import { LocalFileSource } from '../../../service/types';
-import { Clipboard, ClipboardBase } from '../../clipboard/clipboard';
+import { Clipboard } from '../../clipboard/clipboard';
 import { type ClipboardConfig } from '../../../types';
-import { mount } from 'enzyme';
+import { UploadServiceImpl } from '../../../service/uploadServiceImpl';
+
+const MockedUploadServiceImpl = jest.mocked(UploadServiceImpl);
+
+type UploadServiceMock = {
+	addFilesWithSource: jest.Mock;
+};
+
+const getLatestUploadServiceMock = (): UploadServiceMock => {
+	const instances = MockedUploadServiceImpl.mock.instances;
+	return instances[instances.length - 1] as unknown as UploadServiceMock;
+};
+
+type CapturedHandler = (event: unknown) => void;
 
 describe('Clipboard', () => {
 	const mediaClient = fakeMediaClient();
-	let eventsMap: Record<string, Function>;
-	let eventsMapWithContainer: Record<string, Function>;
+	let documentPasteHandlers: CapturedHandler[];
+	let containerPasteHandlers: CapturedHandler[];
 
 	const legacyConfig: ClipboardConfig = {
 		uploadParams: {},
@@ -27,36 +42,37 @@ describe('Clipboard', () => {
 	};
 
 	beforeEach(() => {
-		eventsMap = {};
-		eventsMapWithContainer = {};
+		documentPasteHandlers = [];
+		containerPasteHandlers = [];
 
 		jest
 			.spyOn(document, 'addEventListener')
-			// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-			//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-			.mockImplementation((event, cb) => (eventsMap[event] = cb));
+			.mockImplementation((event: string, cb: EventListenerOrEventListenerObject) => {
+				if (event === 'paste' && typeof cb === 'function') {
+					documentPasteHandlers.push(cb as CapturedHandler);
+				}
+			});
 
 		jest
 			.spyOn(container, 'addEventListener')
-			// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-			//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-			.mockImplementation((event, cb) => (eventsMapWithContainer[event] = cb));
+			.mockImplementation((event: string, cb: EventListenerOrEventListenerObject) => {
+				if (event === 'paste' && typeof cb === 'function') {
+					containerPasteHandlers.push(cb as CapturedHandler);
+				}
+			});
 	});
 
 	afterEach(() => {
 		jest.resetAllMocks();
 	});
 
+	const lastDocumentPasteHandler = () => documentPasteHandlers[documentPasteHandlers.length - 1];
+	const lastContainerPasteHandler = () => containerPasteHandlers[containerPasteHandlers.length - 1];
+
 	it('(Legacy mechanism) should disable event handler if event target is html input element', () => {
-		const clipboard = mount(<Clipboard mediaClient={mediaClient} config={legacyConfig} />);
-		const clipboardInstance = clipboard.find(ClipboardBase).instance() as ClipboardBase;
+		render(<Clipboard mediaClient={mediaClient} config={legacyConfig} />);
 
-		const addFilesWithSourceSpy = jest.spyOn(
-			(clipboardInstance as any).uploadService,
-			'addFilesWithSource',
-		);
-
-		const event: any = {
+		const event = {
 			target: document.createElement('input'),
 			clipboardData: {
 				files: [new ClipboardMockFile()],
@@ -64,224 +80,149 @@ describe('Clipboard', () => {
 			},
 		};
 
-		// simulate paste event on document object
-		eventsMap.paste(event);
+		lastDocumentPasteHandler()(event);
 
-		expect(addFilesWithSourceSpy).toHaveBeenCalledTimes(0);
+		expect(getLatestUploadServiceMock().addFilesWithSource).toHaveBeenCalledTimes(0);
 	});
 
 	it('(Legacy mechanism) should call this.uploadService.addFilesWithSource() when a paste event is dispatched with a single file', () => {
-		const clipboard = mount(<Clipboard mediaClient={mediaClient} config={legacyConfig} />);
-		const clipboardInstance = clipboard.find(ClipboardBase).instance() as ClipboardBase;
+		render(<Clipboard mediaClient={mediaClient} config={legacyConfig} />);
 
-		const addFilesWithSourceSpy = jest.spyOn(
-			(clipboardInstance as any).uploadService,
-			'addFilesWithSource',
-		);
-
-		const event: any = {
+		const event = {
 			clipboardData: {
 				files: [new ClipboardMockFile()],
 				types: [],
 			},
 		};
 
-		// simulate paste event on document object
-		eventsMap.paste(event);
+		lastDocumentPasteHandler()(event);
 
-		expect(addFilesWithSourceSpy).toHaveBeenCalledTimes(1);
+		expect(getLatestUploadServiceMock().addFilesWithSource).toHaveBeenCalledTimes(1);
 	});
 
 	it('(Legacy mechanism) should NOT call this.uploadService.addFilesWithSource() when a paste event is dispatched without a file', () => {
-		const clipboard = mount(<Clipboard mediaClient={mediaClient} config={legacyConfig} />);
-		const clipboardInstance = clipboard.find(ClipboardBase).instance() as ClipboardBase;
+		render(<Clipboard mediaClient={mediaClient} config={legacyConfig} />);
 
-		const addFilesWithSourceSpy = jest.spyOn(
-			(clipboardInstance as any).uploadService,
-			'addFilesWithSource',
-		);
-
-		const event: any = {
+		const event = {
 			clipboardData: {
 				files: [],
 				types: [],
 			},
 		};
 
-		// simulate paste event on document object
-		eventsMap.paste(event);
+		lastDocumentPasteHandler()(event);
 
-		expect(addFilesWithSourceSpy).not.toHaveBeenCalled();
+		expect(getLatestUploadServiceMock().addFilesWithSource).not.toHaveBeenCalled();
 	});
 
 	it('(Legacy mechanism) should call this.uploadService.addFilesWithSource() when a paste event is dispatched with multiple files', () => {
-		const clipboard = mount(<Clipboard mediaClient={mediaClient} config={legacyConfig} />);
-		const clipboardInstance = clipboard.find(ClipboardBase).instance() as ClipboardBase;
-
-		const addFilesWithSourceSpy = jest.spyOn(
-			(clipboardInstance as any).uploadService,
-			'addFilesWithSource',
-		);
+		render(<Clipboard mediaClient={mediaClient} config={legacyConfig} />);
 
 		const mockFile1 = new ClipboardMockFile();
 		const mockFile2 = new ClipboardMockFile();
 
-		const event: any = {
+		const event = {
 			clipboardData: {
 				files: [mockFile1, mockFile2],
 				types: [],
 			},
 		};
 
-		// simulate paste event on document object
-		eventsMap.paste(event);
+		lastDocumentPasteHandler()(event);
 
-		expect(addFilesWithSourceSpy).toHaveBeenCalledTimes(1);
-		expect(
-			// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-			//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-			addFilesWithSourceSpy.mock.calls /*1st call*/[0] /*1st arg*/[0] /*1st item*/[0].file,
-		).toEqual(mockFile1);
-		expect(
-			// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-			//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-			addFilesWithSourceSpy.mock.calls /*1st call*/[0] /*1st arg*/[0] /*2nd item*/[1].file,
-		).toEqual(mockFile2);
-		expect(
-			// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-			//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-			addFilesWithSourceSpy.mock.calls /*1st call*/[0] /*1st arg*/[0] /*1st item*/[0].source,
-		).toEqual(LocalFileSource.PastedFile);
-		expect(
-			// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-			//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-			addFilesWithSourceSpy.mock.calls /*1st call*/[0] /*1st arg*/[0] /*2nd item*/[1].source,
-		).toEqual(LocalFileSource.PastedFile);
+		const uploadService = getLatestUploadServiceMock();
+		expect(uploadService.addFilesWithSource).toHaveBeenCalledTimes(1);
+		const passedFiles = uploadService.addFilesWithSource.mock.calls[0][0];
+		expect(passedFiles[0].file).toEqual(mockFile1);
+		expect(passedFiles[1].file).toEqual(mockFile2);
+		expect(passedFiles[0].source).toEqual(LocalFileSource.PastedFile);
+		expect(passedFiles[1].source).toEqual(LocalFileSource.PastedFile);
 	});
 
 	it('(Legacy mechanism) should not trigger errors when event.clipboardData is undefined', () => {
-		const clipboard = mount(<Clipboard mediaClient={mediaClient} config={legacyConfig} />);
-		const clipboardInstance = clipboard.find(ClipboardBase).instance() as ClipboardBase;
+		render(<Clipboard mediaClient={mediaClient} config={legacyConfig} />);
 
-		const addFilesWithSourceSpy = jest.spyOn(
-			(clipboardInstance as any).uploadService,
-			'addFilesWithSource',
-		);
+		const event = {};
+		lastDocumentPasteHandler()(event);
 
-		const event: any = {};
-		// simulate paste event on document object
-		eventsMap.paste(event);
-		expect(addFilesWithSourceSpy).toHaveBeenCalledTimes(0);
+		expect(getLatestUploadServiceMock().addFilesWithSource).toHaveBeenCalledTimes(0);
 	});
 
 	it('(Legacy mechanism) should detect pasted screenshots from clipboard event data', () => {
-		const clipboard = mount(<Clipboard mediaClient={mediaClient} config={legacyConfig} />);
-		const clipboardInstance = clipboard.find(ClipboardBase).instance() as ClipboardBase;
-
-		const addFilesWithSourceSpy = jest.spyOn(
-			(clipboardInstance as any).uploadService,
-			'addFilesWithSource',
-		);
+		render(<Clipboard mediaClient={mediaClient} config={legacyConfig} />);
 
 		const mockFile = new ClipboardMockFile();
-
-		const event: any = {
+		const event = {
 			clipboardData: {
 				files: [mockFile],
 				types: ['some-type'],
 			},
 		};
-		// simulate paste event on document object
-		eventsMap.paste(event);
-		expect(
-			// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-			//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-			addFilesWithSourceSpy.mock.calls /*1st call*/[0] /*1st arg*/[0] /*1st item*/[0].file,
-		).toEqual(mockFile);
-		expect(
-			// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-			//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-			addFilesWithSourceSpy.mock.calls /*1st call*/[0] /*1st arg*/[0] /*1st item*/[0].source,
-		).toEqual(LocalFileSource.PastedScreenshot);
+		lastDocumentPasteHandler()(event);
+
+		const uploadService = getLatestUploadServiceMock();
+		const passedFiles = uploadService.addFilesWithSource.mock.calls[0][0];
+		expect(passedFiles[0].file).toEqual(mockFile);
+		expect(passedFiles[0].source).toEqual(LocalFileSource.PastedScreenshot);
 	});
 
 	it('(Legacy mechanism) should remove event handler only when there are no more clipboard instances left', () => {
-		const clipboard = mount(<Clipboard mediaClient={mediaClient} config={legacyConfig} />);
-		const clipboardInstance = clipboard.find(ClipboardBase).instance() as ClipboardBase;
-
-		const addFilesWithSourceSpy = jest.spyOn(
-			(clipboardInstance as any).uploadService,
-			'addFilesWithSource',
+		const { unmount: unmountFirst } = render(
+			<Clipboard mediaClient={mediaClient} config={legacyConfig} />,
 		);
+		const firstUploadService = getLatestUploadServiceMock();
 
 		const mockFile = new ClipboardMockFile();
-
-		const event: any = {
+		const event = {
 			clipboardData: {
 				files: [mockFile],
 				types: [],
 			},
 		};
 
-		const anotherClipboard = mount(<Clipboard mediaClient={mediaClient} config={legacyConfig} />);
-
-		const anotherClipboardInstance = anotherClipboard
-			.find(ClipboardBase)
-			.instance() as ClipboardBase;
-
-		const anotherAddFilesWithSourceSpy = jest.spyOn(
-			(anotherClipboardInstance as any).uploadService,
-			'addFilesWithSource',
+		const { unmount: unmountSecond } = render(
+			<Clipboard mediaClient={mediaClient} config={legacyConfig} />,
 		);
+		const secondUploadService = getLatestUploadServiceMock();
 
-		// simulate paste event on document object
-		eventsMap.paste(event);
+		lastDocumentPasteHandler()(event);
 
-		// first clipboard event handler is not called because we only call the last subscriber
-		expect(addFilesWithSourceSpy).toHaveBeenCalledTimes(0);
-		// second clipboard event handler is called as expected
-		expect(anotherAddFilesWithSourceSpy).toHaveBeenCalledTimes(1);
+		expect(firstUploadService.addFilesWithSource).toHaveBeenCalledTimes(0);
+		expect(secondUploadService.addFilesWithSource).toHaveBeenCalledTimes(1);
 
-		// we unmount second clipboard in order to make the first one "active"
-		anotherClipboard.unmount();
+		unmountSecond();
 
-		eventsMap.paste(event);
+		lastDocumentPasteHandler()(event);
 
-		expect(addFilesWithSourceSpy).toHaveBeenCalledTimes(1);
+		expect(firstUploadService.addFilesWithSource).toHaveBeenCalledTimes(1);
+
+		unmountFirst();
 	});
 
 	it('(Legacy mechanism) should fire Analytics Event on files picked', () => {
 		const analyticsHandler = jest.fn();
 
-		const clipboard = mount(
+		render(
 			<AnalyticsListener channel={FabricChannel.media} onEvent={analyticsHandler}>
 				<Clipboard mediaClient={mediaClient} config={legacyConfig} />
 			</AnalyticsListener>,
 		);
 
-		const clipboardInstance = clipboard.find(ClipboardBase).instance() as ClipboardBase;
-
-		const addFilesWithSourceSpy = jest.spyOn(
-			(clipboardInstance as any).uploadService,
-			'addFilesWithSource',
-		);
-
 		const mockFile1 = new ClipboardMockFile();
 		const mockFile2 = new ClipboardMockFile();
 
-		const event: any = {
+		const event = {
 			clipboardData: {
 				files: [mockFile1, mockFile2],
 				types: [],
 			},
 		};
 
-		// simulate paste event on document object
-		eventsMap.paste(event);
+		lastDocumentPasteHandler()(event);
 
-		expect(addFilesWithSourceSpy).toHaveBeenCalledTimes(1);
+		expect(getLatestUploadServiceMock().addFilesWithSource).toHaveBeenCalledTimes(1);
 		expect(analyticsHandler).toHaveBeenCalledTimes(1);
-		expect(analyticsHandler).toBeCalledWith(
+		expect(analyticsHandler).toHaveBeenCalledWith(
 			expect.objectContaining({
 				context: [
 					{
@@ -301,16 +242,8 @@ describe('Clipboard', () => {
 					attributes: {
 						fileCount: 2,
 						fileAttributes: expect.arrayContaining([
-							{
-								fileMimetype: '',
-								fileSize: 0,
-								fileSource: 'pastedFile',
-							},
-							{
-								fileMimetype: '',
-								fileSize: 0,
-								fileSource: 'pastedFile',
-							},
+							{ fileMimetype: '', fileSize: 0, fileSource: 'pastedFile' },
+							{ fileMimetype: '', fileSize: 0, fileSource: 'pastedFile' },
 						]),
 					},
 				},
@@ -320,246 +253,164 @@ describe('Clipboard', () => {
 	});
 
 	it('should call this.uploadService.addFilesWithSource() when a paste event is dispatched with a single file', () => {
-		const clipboard = mount(<Clipboard mediaClient={mediaClient} config={config} />);
-		const clipboardInstance = clipboard.find(ClipboardBase).instance() as ClipboardBase;
+		render(<Clipboard mediaClient={mediaClient} config={config} />);
 
-		const addFilesWithSourceSpy = jest.spyOn(
-			(clipboardInstance as any).uploadService,
-			'addFilesWithSource',
-		);
-
-		const event: any = {
+		const event = {
 			clipboardData: {
 				files: [new ClipboardMockFile()],
 				types: [],
 			},
 		};
 
-		// simulate paste event on document object
-		eventsMapWithContainer.paste(event);
+		lastContainerPasteHandler()(event);
 
-		expect(addFilesWithSourceSpy).toHaveBeenCalledTimes(1);
+		expect(getLatestUploadServiceMock().addFilesWithSource).toHaveBeenCalledTimes(1);
 	});
 
 	it('should call this.uploadService.addFilesWithSource() when a paste event is dispatched with a single file (onPaste without return value)', () => {
-		const configWithOnPaste = Object.assign(
-			{
-				onPaste: (event: ClipboardEvent) => {},
+		const configWithOnPaste: ClipboardConfig = {
+			...config,
+			onPaste: () => {
+				return undefined;
 			},
-			config,
-		);
-		const clipboard = mount(<Clipboard mediaClient={mediaClient} config={configWithOnPaste} />);
-		const clipboardInstance = clipboard.find(ClipboardBase).instance() as ClipboardBase;
+		};
+		render(<Clipboard mediaClient={mediaClient} config={configWithOnPaste} />);
 
-		const addFilesWithSourceSpy = jest.spyOn(
-			(clipboardInstance as any).uploadService,
-			'addFilesWithSource',
-		);
-
-		const event: any = {
+		const event = {
 			clipboardData: {
 				files: [new ClipboardMockFile()],
 				types: [],
 			},
 		};
 
-		// simulate paste event on document object
-		eventsMapWithContainer.paste(event);
+		lastContainerPasteHandler()(event);
 
-		expect(addFilesWithSourceSpy).toHaveBeenCalledTimes(1);
+		expect(getLatestUploadServiceMock().addFilesWithSource).toHaveBeenCalledTimes(1);
 	});
 
 	it('should call this.uploadService.addFilesWithSource() when a paste event is dispatched with a single file (onPaste returns `false`)', () => {
-		const configWithOnPaste = Object.assign({ onPaste: (event: ClipboardEvent) => false }, config);
-		const clipboard = mount(<Clipboard mediaClient={mediaClient} config={configWithOnPaste} />);
-		const clipboardInstance = clipboard.find(ClipboardBase).instance() as ClipboardBase;
+		const configWithOnPaste: ClipboardConfig = { ...config, onPaste: () => false };
+		render(<Clipboard mediaClient={mediaClient} config={configWithOnPaste} />);
 
-		const addFilesWithSourceSpy = jest.spyOn(
-			(clipboardInstance as any).uploadService,
-			'addFilesWithSource',
-		);
-
-		const event: any = {
+		const event = {
 			clipboardData: {
 				files: [new ClipboardMockFile()],
 				types: [],
 			},
 		};
 
-		// simulate paste event on document object
-		eventsMapWithContainer.paste(event);
+		lastContainerPasteHandler()(event);
 
-		expect(addFilesWithSourceSpy).toHaveBeenCalledTimes(1);
+		expect(getLatestUploadServiceMock().addFilesWithSource).toHaveBeenCalledTimes(1);
 	});
 
 	it('should not call this.uploadService.addFilesWithSource() when a paste event is dispatched with a single file (onPaste returns `true`)', () => {
-		const configWithOnPaste = Object.assign({ onPaste: (event: ClipboardEvent) => true }, config);
-		const clipboard = mount(<Clipboard mediaClient={mediaClient} config={configWithOnPaste} />);
-		const clipboardInstance = clipboard.find(ClipboardBase).instance() as ClipboardBase;
+		const configWithOnPaste: ClipboardConfig = { ...config, onPaste: () => true };
+		render(<Clipboard mediaClient={mediaClient} config={configWithOnPaste} />);
 
-		const addFilesWithSourceSpy = jest.spyOn(
-			(clipboardInstance as any).uploadService,
-			'addFilesWithSource',
-		);
-
-		const event: any = {
+		const event = {
 			clipboardData: {
 				files: [new ClipboardMockFile()],
 				types: [],
 			},
 		};
 
-		// simulate paste event on document object
-		eventsMapWithContainer.paste(event);
+		lastContainerPasteHandler()(event);
 
-		expect(addFilesWithSourceSpy).toHaveBeenCalledTimes(0);
+		expect(getLatestUploadServiceMock().addFilesWithSource).toHaveBeenCalledTimes(0);
 	});
 
 	it('should not call this.uploadService.addFilesWithSource() when a paste event is dispatched without a file', () => {
-		const clipboard = mount(<Clipboard mediaClient={mediaClient} config={config} />);
-		const clipboardInstance = clipboard.find(ClipboardBase).instance() as ClipboardBase;
+		render(<Clipboard mediaClient={mediaClient} config={config} />);
 
-		const addFilesWithSourceSpy = jest.spyOn(
-			(clipboardInstance as any).uploadService,
-			'addFilesWithSource',
-		);
-
-		const event: any = {
+		const event = {
 			clipboardData: {
 				files: [],
 				types: [],
 			},
 		};
 
-		// simulate paste event on document object
-		eventsMapWithContainer.paste(event);
+		lastContainerPasteHandler()(event);
 
-		expect(addFilesWithSourceSpy).not.toHaveBeenCalled();
+		expect(getLatestUploadServiceMock().addFilesWithSource).not.toHaveBeenCalled();
 	});
 
 	it('should call this.uploadService.addFilesWithSource() when a paste event is dispatched with multiple files', () => {
-		const clipboard = mount(<Clipboard mediaClient={mediaClient} config={config} />);
-		const clipboardInstance = clipboard.find(ClipboardBase).instance() as ClipboardBase;
-
-		const addFilesWithSourceSpy = jest.spyOn(
-			(clipboardInstance as any).uploadService,
-			'addFilesWithSource',
-		);
+		render(<Clipboard mediaClient={mediaClient} config={config} />);
 
 		const mockFile1 = new ClipboardMockFile();
 		const mockFile2 = new ClipboardMockFile();
 
-		const event: any = {
+		const event = {
 			clipboardData: {
 				files: [mockFile1, mockFile2],
 				types: [],
 			},
 		};
 
-		// simulate paste event on document object
-		eventsMapWithContainer.paste(event);
+		lastContainerPasteHandler()(event);
 
-		expect(addFilesWithSourceSpy).toHaveBeenCalledTimes(1);
-		expect(
-			// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-			//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-			addFilesWithSourceSpy.mock.calls /*1st call*/[0] /*1st arg*/[0] /*1st item*/[0].file,
-		).toEqual(mockFile1);
-		expect(
-			// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-			//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-			addFilesWithSourceSpy.mock.calls /*1st call*/[0] /*1st arg*/[0] /*2nd item*/[1].file,
-		).toEqual(mockFile2);
-		expect(
-			// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-			//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-			addFilesWithSourceSpy.mock.calls /*1st call*/[0] /*1st arg*/[0] /*1st item*/[0].source,
-		).toEqual(LocalFileSource.PastedFile);
-		expect(
-			// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-			//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-			addFilesWithSourceSpy.mock.calls /*1st call*/[0] /*1st arg*/[0] /*2nd item*/[1].source,
-		).toEqual(LocalFileSource.PastedFile);
+		const uploadService = getLatestUploadServiceMock();
+		expect(uploadService.addFilesWithSource).toHaveBeenCalledTimes(1);
+		const passedFiles = uploadService.addFilesWithSource.mock.calls[0][0];
+		expect(passedFiles[0].file).toEqual(mockFile1);
+		expect(passedFiles[1].file).toEqual(mockFile2);
+		expect(passedFiles[0].source).toEqual(LocalFileSource.PastedFile);
+		expect(passedFiles[1].source).toEqual(LocalFileSource.PastedFile);
 	});
 
 	it('should not trigger errors when event.clipboardData is undefined', () => {
-		const clipboard = mount(<Clipboard mediaClient={mediaClient} config={config} />);
-		const clipboardInstance = clipboard.find(ClipboardBase).instance() as ClipboardBase;
+		render(<Clipboard mediaClient={mediaClient} config={config} />);
 
-		const addFilesWithSourceSpy = jest.spyOn(
-			(clipboardInstance as any).uploadService,
-			'addFilesWithSource',
-		);
+		const event = {};
+		lastContainerPasteHandler()(event);
 
-		const event: any = {};
-		// simulate paste event on document object
-		eventsMapWithContainer.paste(event);
-		expect(addFilesWithSourceSpy).toHaveBeenCalledTimes(0);
+		expect(getLatestUploadServiceMock().addFilesWithSource).toHaveBeenCalledTimes(0);
 	});
 
 	it('should detect pasted screenshots from clipboard event data', () => {
-		const clipboard = mount(<Clipboard mediaClient={mediaClient} config={config} />);
-		const clipboardInstance = clipboard.find(ClipboardBase).instance() as ClipboardBase;
-
-		const addFilesWithSourceSpy = jest.spyOn(
-			(clipboardInstance as any).uploadService,
-			'addFilesWithSource',
-		);
+		render(<Clipboard mediaClient={mediaClient} config={config} />);
 
 		const mockFile = new ClipboardMockFile();
-
-		const event: any = {
+		const event = {
 			clipboardData: {
 				files: [mockFile],
 				types: ['some-type'],
 			},
 		};
-		// simulate paste event on document object
-		eventsMapWithContainer.paste(event);
-		expect(
-			// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-			//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-			addFilesWithSourceSpy.mock.calls /*1st call*/[0] /*1st arg*/[0] /*1st item*/[0].file,
-		).toEqual(mockFile);
-		expect(
-			// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-			//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-			addFilesWithSourceSpy.mock.calls /*1st call*/[0] /*1st arg*/[0] /*1st item*/[0].source,
-		).toEqual(LocalFileSource.PastedScreenshot);
+
+		lastContainerPasteHandler()(event);
+
+		const uploadService = getLatestUploadServiceMock();
+		const passedFiles = uploadService.addFilesWithSource.mock.calls[0][0];
+		expect(passedFiles[0].file).toEqual(mockFile);
+		expect(passedFiles[0].source).toEqual(LocalFileSource.PastedScreenshot);
 	});
 
 	it('should fire Analytics Event on files picked', () => {
 		const analyticsHandler = jest.fn();
 
-		const clipboard = mount(
+		render(
 			<AnalyticsListener channel={FabricChannel.media} onEvent={analyticsHandler}>
 				<Clipboard mediaClient={mediaClient} config={config} />
 			</AnalyticsListener>,
 		);
 
-		const clipboardInstance = clipboard.find(ClipboardBase).instance() as ClipboardBase;
-
-		const addFilesWithSourceSpy = jest.spyOn(
-			(clipboardInstance as any).uploadService,
-			'addFilesWithSource',
-		);
-
 		const mockFile1 = new ClipboardMockFile();
 		const mockFile2 = new ClipboardMockFile();
 
-		const event: any = {
+		const event = {
 			clipboardData: {
 				files: [mockFile1, mockFile2],
 				types: [],
 			},
 		};
 
-		// simulate paste event on document object
-		eventsMapWithContainer.paste(event);
+		lastContainerPasteHandler()(event);
 
-		expect(addFilesWithSourceSpy).toHaveBeenCalledTimes(1);
+		expect(getLatestUploadServiceMock().addFilesWithSource).toHaveBeenCalledTimes(1);
 		expect(analyticsHandler).toHaveBeenCalledTimes(1);
-		expect(analyticsHandler).toBeCalledWith(
+		expect(analyticsHandler).toHaveBeenCalledWith(
 			expect.objectContaining({
 				context: [
 					{
@@ -579,21 +430,18 @@ describe('Clipboard', () => {
 					attributes: {
 						fileCount: 2,
 						fileAttributes: expect.arrayContaining([
-							{
-								fileMimetype: '',
-								fileSize: 0,
-								fileSource: 'pastedFile',
-							},
-							{
-								fileMimetype: '',
-								fileSize: 0,
-								fileSource: 'pastedFile',
-							},
+							{ fileMimetype: '', fileSize: 0, fileSource: 'pastedFile' },
+							{ fileMimetype: '', fileSize: 0, fileSource: 'pastedFile' },
 						]),
 					},
 				},
 			}),
 			FabricChannel.media,
 		);
+	});
+
+	it('should not introduce any accessibility violations', async () => {
+		render(<Clipboard mediaClient={mediaClient} config={config} />);
+		await expect(document.body).toBeAccessible();
 	});
 });

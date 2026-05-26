@@ -222,10 +222,7 @@ export default function PlacementExample(): JSX.Element {
 						</Stack>
 
 						<div css={styles.demoArea}>
-							<Popup
-								placement={placement}
-								forceFallbackPositioning={forceFallbackPositioning}
-							>
+							<Popup placement={placement} forceFallbackPositioning={forceFallbackPositioning}>
 								<Popup.Trigger>
 									<Button>Trigger</Button>
 								</Popup.Trigger>

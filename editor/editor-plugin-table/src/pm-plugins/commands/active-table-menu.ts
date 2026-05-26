@@ -1,25 +1,22 @@
-import type { Command } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types';
 
 import type { ActiveTableMenu } from '../../types';
-import { createCommand, getPluginState } from '../plugin-factory';
+import { pluginKey } from '../plugin-key';
 
-export const closeActiveTableMenu = (): Command =>
-	createCommand(
-		(state) => {
-			const { activeTableMenu } = getPluginState(state);
-			if (!activeTableMenu || activeTableMenu.type === 'none') {
-				return false;
-			}
-
-			return {
-				type: 'SET_ACTIVE_TABLE_MENU',
-				data: {
-					activeTableMenu: { type: 'none' },
-				},
-			};
-		},
-		(tr) => tr.setMeta('addToHistory', false),
-	);
+export const closeActiveTableMenu =
+	(): EditorCommand =>
+	({ tr }) => {
+		tr.setMeta(pluginKey, {
+			type: 'SET_ACTIVE_TABLE_MENU',
+			data: {
+				activeTableMenu: { type: 'none' },
+			},
+		});
+		if (!tr.docChanged) {
+			tr.setMeta('addToHistory', false);
+		}
+		return tr;
+	};
 
 const isSameActiveTableMenu = (current: ActiveTableMenu | undefined, next: ActiveTableMenu) => {
 	if (!current || current.type !== next.type) {
@@ -33,20 +30,20 @@ const isSameActiveTableMenu = (current: ActiveTableMenu | undefined, next: Activ
 	return true;
 };
 
-export const toggleActiveTableMenu = (
-	activeTableMenu: Exclude<ActiveTableMenu, { type: 'none' }>,
-): Command =>
-	createCommand(
-		(state) => {
-			const { activeTableMenu: currentActiveTableMenu } = getPluginState(state);
-			return {
-				type: 'SET_ACTIVE_TABLE_MENU',
-				data: {
-					activeTableMenu: isSameActiveTableMenu(currentActiveTableMenu, activeTableMenu)
-						? { type: 'none' }
-						: activeTableMenu,
-				},
-			};
-		},
-		(tr) => tr.setMeta('addToHistory', false),
-	);
+export const toggleActiveTableMenu =
+	(
+		activeTableMenu: Exclude<ActiveTableMenu, { type: 'none' }>,
+		currentActiveTableMenu: ActiveTableMenu | undefined,
+	): EditorCommand =>
+	({ tr }) => {
+		tr.setMeta(pluginKey, {
+			type: 'SET_ACTIVE_TABLE_MENU',
+			data: {
+				activeTableMenu: isSameActiveTableMenu(currentActiveTableMenu, activeTableMenu)
+					? { type: 'none' }
+					: activeTableMenu,
+			},
+		});
+		tr.setMeta('addToHistory', false);
+		return tr;
+	};

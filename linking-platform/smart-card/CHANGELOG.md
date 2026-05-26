@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 44.16.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.16.4
+
+### Patch Changes
+
+- [`be67cd3cadc6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be67cd3cadc6d) -
+  NAVX-4918 cleaning up navx-3611-inline-card-a11y-role-fix
+- Updated dependencies
+
 ## 44.16.3
 
 ### Patch Changes

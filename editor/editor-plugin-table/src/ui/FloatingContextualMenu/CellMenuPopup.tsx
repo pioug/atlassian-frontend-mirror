@@ -51,12 +51,12 @@ export const CellMenuPopup = ({
 	);
 	const closeCellMenu = useCallback(() => {
 		const { isCellMenuOpenByKeyboard } = getPluginState(editorView.state);
-		closeActiveTableMenu()(editorView.state, editorView.dispatch);
+		api?.core.actions.execute(closeActiveTableMenu());
 
 		if (isCellMenuOpenByKeyboard) {
 			setFocusToCellMenu(false)(editorView.state, editorView.dispatch);
 		}
-	}, [editorView]);
+	}, [api?.core.actions, editorView]);
 
 	const isEventInsideCellMenu = useCallback((event: Event): boolean => {
 		const target = event.target;

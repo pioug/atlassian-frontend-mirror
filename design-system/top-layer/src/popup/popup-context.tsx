@@ -5,6 +5,24 @@ import { type TPopoverCloseReason } from '../popover/types';
 
 import { type TPlacementOptions } from './types';
 
+/**
+ * Represents the lifecycle state of the popup.
+ *
+ * - `'closed'`: fully closed, not visible, no animation playing.
+ * - `'animating-open'`: entry animation is playing (popup is opening but not yet settled).
+ * - `'open'`: fully open, browser popover is showing, entry animation complete.
+ * - `'animating-closed'`: exit animation is playing (popup is closing but still visible).
+ *
+ * Used to derive `aria-expanded` on the trigger:
+ * - `aria-expanded` is `true` in `'animating-open'`, `'open'`, and `'animating-closed'`.
+ *
+ * This avoids screen readers announcing the popup as closed while it is
+ * still visually present on screen during animations, and prevents consumers
+ * that conditionally show/hide trigger UI based on `aria-expanded` from hiding
+ * the trigger (and thus the popup anchor) mid-animation.
+ */
+export type TPopupState = 'closed' | 'animating-open' | 'open' | 'animating-closed';
+
 export type TPopupContextValue = {
 	/**
 	 * Auto-generated ID for the popover content element (used for aria-controls).
@@ -28,13 +46,16 @@ export type TPopupContextValue = {
 	 */
 	popoverRef: RefObject<HTMLDivElement | null>;
 	/**
-	 * Whether the popover is currently open.
+	 * The full lifecycle state of the popup.
+	 *
+	 * See `TPopupState` for the full state machine description.
 	 */
-	isOpen: boolean;
+	popupState: TPopupState;
 	/**
-	 * Set the open state (internal context sync).
+	 * Updates the popup lifecycle state. Called by `PopupContent` as animations
+	 * begin and complete.
 	 */
-	setIsOpen: (open: boolean) => void;
+	setPopupState: (state: TPopupState) => void;
 	/**
 	 * Consumer's onOpenChange callback, forwarded to the Popover.
 	 */

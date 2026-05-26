@@ -4,6 +4,7 @@
  */
 import {
 	type KeyboardEventHandler,
+	type MouseEvent,
 	useEffect,
 	useLayoutEffect,
 	useState,
@@ -536,7 +537,11 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 		[cancelChooseFile, errorOnUpload, onFileLoad],
 	);
 
-	const cancelUpload = useCallback(() => {
+	const cancelUpload = useCallback((event?: MouseEvent<HTMLElement>) => {
+		if (fg('platform_emoji_keep_picker_open_on_upload')) {
+			event?.preventDefault();
+			event?.stopPropagation();
+		}
 		clearUploadPicker();
 		onUploadCancelled();
 

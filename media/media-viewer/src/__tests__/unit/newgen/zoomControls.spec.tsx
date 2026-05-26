@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 import { ZoomControlsBase, type ZoomControlsProps } from '../../../zoomControls';
 import { ZoomLevel } from '../../../domain/zoomLevel';
 import { fakeIntl } from '@atlaskit/media-test-helpers';
@@ -11,7 +11,7 @@ describe('Zooming', () => {
 			const createAnalyticsEventSpy = jest.fn();
 			createAnalyticsEventSpy.mockReturnValue({ fire: jest.fn() });
 
-			const component = mount(
+			render(
 				<ZoomControlsBase
 					createAnalyticsEvent={createAnalyticsEventSpy}
 					zoomLevel={new ZoomLevel(1)}
@@ -21,51 +21,53 @@ describe('Zooming', () => {
 				/>,
 			);
 
+			const buttons = screen.getAllByRole('button');
 			return {
 				onChange,
-				component,
 				createAnalyticsEventSpy,
+				zoomOutButton: buttons[0],
+				zoomInButton: buttons[buttons.length - 1],
 			};
 		};
 
-		it('should increase and decrease zoom', () => {
-			const { component, onChange } = setupBase();
+		it('should increase and decrease zoom', async () => {
+			const { onChange, zoomOutButton, zoomInButton } = setupBase();
 			const zoomLevel = new ZoomLevel(1);
 
-			component.find('button').first().simulate('click');
-			expect(onChange).lastCalledWith(zoomLevel.zoomOut());
-			component.find('button').last().simulate('click');
-			expect(onChange).lastCalledWith(zoomLevel.zoomIn());
+			await userEvent.click(zoomOutButton);
+			expect(onChange).toHaveBeenLastCalledWith(zoomLevel.zoomOut());
+			await userEvent.click(zoomInButton);
+			expect(onChange).toHaveBeenLastCalledWith(zoomLevel.zoomIn());
 		});
 
-		it('should not allow zooming above upper limit', () => {
-			const { component, onChange } = setupBase({
+		it('should not allow zooming above upper limit', async () => {
+			const { onChange, zoomInButton } = setupBase({
 				zoomLevel: new ZoomLevel(1).fullyZoomIn(),
 			});
-			component.find('button').last().simulate('click');
-			expect(onChange).not.toBeCalled();
+			await userEvent.click(zoomInButton);
+			expect(onChange).not.toHaveBeenCalled();
 		});
 
-		it('should not allow zooming below lower limit', () => {
-			const { component, onChange } = setupBase({
+		it('should not allow zooming below lower limit', async () => {
+			const { onChange, zoomOutButton } = setupBase({
 				zoomLevel: new ZoomLevel(1).fullyZoomOut(),
 			});
-			component.find('button').first().simulate('click');
-			expect(onChange).not.toBeCalled();
+			await userEvent.click(zoomOutButton);
+			expect(onChange).not.toHaveBeenCalled();
 		});
 
 		describe('zoom level indicator', () => {
-			it('shows 100% zoom level', () => {
-				const { component } = setupBase();
-				const zoomText = component.find('[data-testid="zoom-level-indicator"]').last().text();
-				expect(zoomText).toContain('100 %');
+			it('shows 100% zoom level', async () => {
+				setupBase();
+				expect(screen.getByTestId('zoom-level-indicator')).toHaveTextContent('100 %');
+				await expect(document.body).toBeAccessible();
 			});
 		});
 
 		describe('analytics', () => {
-			it('triggers analytics events on zoom Out', () => {
-				const { component, createAnalyticsEventSpy } = setupBase();
-				component.find('button').first().simulate('click');
+			it('triggers analytics events on zoom Out', async () => {
+				const { createAnalyticsEventSpy, zoomOutButton } = setupBase();
+				await userEvent.click(zoomOutButton);
 
 				expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
 					eventType: 'ui',
@@ -78,9 +80,9 @@ describe('Zooming', () => {
 				});
 			});
 
-			it('triggers analytics events on zoom in', () => {
-				const { component, createAnalyticsEventSpy } = setupBase();
-				component.find('button').last().simulate('click');
+			it('triggers analytics events on zoom in', async () => {
+				const { createAnalyticsEventSpy, zoomInButton } = setupBase();
+				await userEvent.click(zoomInButton);
 
 				expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
 					eventType: 'ui',

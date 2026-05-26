@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::17d0edaac6a62386d80c2170e2f17807>>
+ * @codegen <<SignedSource::6e4f234d466ffb878c16d52b801dcea1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -695,6 +695,15 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 		slackChannel: '#sc-design',
 	},
+	'arrow-up-circle': {
+		keywords: ['arrow-up-circle', 'arrowupcircle', 'icon', 'icon-lab', 'arrow', 'upgrade', 'up'],
+		componentName: 'ArrowUpCircleIcon',
+		package: '@atlaskit/icon-lab/core/arrow-up-circle',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: upgrading to a paid plan',
+		team: 'Growth',
+		status: 'published',
+	},
 	'arrows-diagonal-up-right-down-left': {
 		keywords: [
 			'arrows-diagonal-up-right-down-left',
@@ -803,6 +812,15 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing schema in Assets.',
 		team: 'Assets',
+		status: 'published',
+	},
+	atlassian: {
+		keywords: ['atlassian', 'icon', 'icon-lab', 'Atlassian', 'logo'],
+		componentName: 'AtlassianIcon',
+		package: '@atlaskit/icon-lab/core/atlassian',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Atlassian branded emojis on emoji picker in Editor.',
+		team: 'Editor',
 		status: 'published',
 	},
 	atom: {
@@ -1128,6 +1146,26 @@ const metadata: Record<string, metadata> = {
 		usage: 'Known uses: Cloud resource, Cloud online',
 		team: 'Compass',
 		status: 'published',
+	},
+	'cloud-fortified': {
+		keywords: [
+			'cloud-fortified',
+			'cloudfortified',
+			'icon',
+			'icon-lab',
+			'Cloud fortified',
+			'trust',
+			'program',
+			'security',
+			'badge',
+		],
+		componentName: 'CloudFortifiedIcon',
+		package: '@atlaskit/icon-lab/core/cloud-fortified',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing Cloud Fortified apps on Marketplace.',
+		team: 'Ecosystem-Marketplace',
+		status: 'published',
+		slackChannel: '#unified-store-design',
 	},
 	'cloud-offline': {
 		keywords: [
@@ -4602,6 +4640,75 @@ const metadata: Record<string, metadata> = {
 		team: 'Design System Team',
 		status: 'published',
 	},
+	'image-ratio-auto': {
+		keywords: [
+			'image-ratio-auto',
+			'imageratioauto',
+			'icon',
+			'icon-lab',
+			'automatic ratio',
+			'ratio',
+			'ratio auto',
+		],
+		componentName: 'ImageRatioAutoIcon',
+		package: '@atlaskit/icon-lab/core/image-ratio-auto',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Auto detect ratio in the image generation process',
+		team: 'Editor',
+		status: 'published',
+	},
+	'image-ratio-narrow': {
+		keywords: [
+			'image-ratio-narrow',
+			'imagerationarrow',
+			'icon',
+			'icon-lab',
+			'narrow',
+			'ratio narrow',
+			'rectangle',
+		],
+		componentName: 'ImageRatioNarrowIcon',
+		package: '@atlaskit/icon-lab/core/image-ratio-narrow',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Narrow image ratio',
+		team: 'Editor',
+		status: 'published',
+	},
+	'image-ratio-portrait': {
+		keywords: [
+			'image-ratio-portrait',
+			'imageratioportrait',
+			'icon',
+			'icon-lab',
+			'portrait',
+			'rectangle',
+			'ratio portrait',
+		],
+		componentName: 'ImageRatioPortraitIcon',
+		package: '@atlaskit/icon-lab/core/image-ratio-portrait',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Portrait image ratio',
+		team: 'Editor',
+		status: 'published',
+	},
+	'image-ratio-wide': {
+		keywords: [
+			'image-ratio-wide',
+			'imageratiowide',
+			'icon',
+			'icon-lab',
+			'wide',
+			'ratio wide',
+			'wide ratio',
+			'rectangle',
+		],
+		componentName: 'ImageRatioWideIcon',
+		package: '@atlaskit/icon-lab/core/image-ratio-wide',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Wide image ratio',
+		team: 'Editor',
+		status: 'published',
+	},
 	'image-strikethrough': {
 		keywords: [
 			'image-strikethrough',
@@ -6465,6 +6572,15 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for limiting table rows.',
 		team: 'Data Experiences',
+		status: 'published',
+	},
+	tabs: {
+		keywords: ['tabs', 'icon', 'icon-lab', 'tab', 'tabs'],
+		componentName: 'TabsIcon',
+		package: '@atlaskit/icon-lab/core/tabs',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: tabs macro feature from the slash command menu in Editor.',
+		team: 'Editor',
 		status: 'published',
 	},
 	'takeout-container': {

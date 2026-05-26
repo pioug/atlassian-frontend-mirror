@@ -13,6 +13,7 @@ import {
 	ToolbarKeyboardShortcutHint,
 } from '@atlaskit/editor-toolbar';
 
+import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { moveSourceWithAnalytics } from '../../../../pm-plugins/drag-and-drop/commands-with-analytics';
 import { getPluginState } from '../../../../pm-plugins/plugin-factory';
 import { getSelectedRowIndexes } from '../../../../pm-plugins/utils/selection';
@@ -52,6 +53,8 @@ export const MoveRowDownItem = (props: TableMenuComponentsParams): React.JSX.Ele
 			getSelectedRowIndexes(selectionRect),
 			selectionRect.bottom,
 		)(editorView.state, editorView.dispatch);
+		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.focus();
 	};
 
 	if (!tableNode || !shouldShowMoveRowDown(tableMenuContext?.isLastRow)) {

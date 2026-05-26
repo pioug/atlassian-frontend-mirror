@@ -20,16 +20,22 @@ jest.mock('@atlaskit/media-client', () => {
 });
 
 import React from 'react';
+import { render, screen, userEvent } from '@atlassian/testing-library';
+import { IntlProvider } from 'react-intl';
 import { type ProcessedFileState } from '@atlaskit/media-client';
-import { fakeMediaClient, sleep } from '@atlaskit/media-test-helpers';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 
 jest.mock('unzipit', () => ({
-	unzip: () => {
-		return {
-			archive: 'file',
-			entries: { 'file_a.jpeg': { name: 'file_a.jpeg' } },
-		};
-	},
+	unzip: () => ({
+		archive: 'file',
+		entries: {
+			'file_a.jpeg': {
+				name: 'file_a.jpeg',
+				isDirectory: false,
+				blob: jest.fn().mockResolvedValue(new Blob(['some-data'], { type: 'image/jpeg' })),
+			},
+		},
+	}),
 	HTTPRangeReader: function () {
 		return 'reader';
 	},
@@ -39,10 +45,6 @@ import {
 	ArchiveViewerBase,
 	type Props as ArchiveViewerProps,
 } from '../../../../../viewers/archiveSidebar/archive';
-import { ArchiveLayout } from '../../../../../viewers/archiveSidebar/styleWrappers';
-import { InteractiveImg } from '../../../../../viewers/image/interactive-img';
-import ArchiveSidebarRenderer from '../../../../../viewers/archiveSidebar/archive-sidebar-renderer';
-import { shallow } from 'enzyme';
 
 describe('Archive with custom renderer', () => {
 	const fileState: ProcessedFileState = {
@@ -70,62 +72,80 @@ describe('Archive with custom renderer', () => {
 		customRenderers: [{ shouldUseCustomRenderer, renderContent }],
 	};
 
-	function mountComponent(passedProps: Partial<ArchiveViewerProps>) {
+	const renderComponent = (passedProps: Partial<ArchiveViewerProps> = {}) => {
 		const baseProps = {
-			mediaClient: mediaClient,
+			mediaClient,
 			item: fileState,
-			collectionName: collectionName,
+			collectionName,
 			onError: () => {},
 			onSuccess: () => {},
 			traceContext: { traceId: 'some-trace-id' },
 		};
 		const props = { ...baseProps, ...passedProps };
-		return shallow(<ArchiveViewerBase viewerOptions={viewerOptions} {...props} />);
-	}
+		return render(
+			<IntlProvider locale="en">
+				<ArchiveViewerBase viewerOptions={viewerOptions} {...props} />
+			</IntlProvider>,
+		);
+	};
+
+	let originalCreateObjectURL: typeof URL.createObjectURL;
+	let originalRevokeObjectURL: typeof URL.revokeObjectURL;
+
+	beforeAll(() => {
+		originalCreateObjectURL = URL.createObjectURL;
+		originalRevokeObjectURL = URL.revokeObjectURL;
+		URL.createObjectURL = jest.fn(() => 'blob:fake-url');
+		URL.revokeObjectURL = jest.fn();
+	});
+
+	afterAll(() => {
+		URL.createObjectURL = originalCreateObjectURL;
+		URL.revokeObjectURL = originalRevokeObjectURL;
+	});
 
 	beforeEach(() => {
 		jest.clearAllMocks();
+		shouldUseCustomRenderer.mockReturnValue(false);
 	});
 
-	it('should have ArchiveLayout element', () => {
-		const el = mountComponent({});
-		expect(el.find(ArchiveLayout)).toHaveLength(1);
+	it('should render the archive sidebar (ArchiveLayout) on mount', async () => {
+		renderComponent({});
+		// Sidebar entry from the mocked archive becomes visible once unzip resolves
+		expect(await screen.findByText('file_a.jpeg')).toBeInTheDocument();
 	});
-	it('should render ArchiveSidebarRenderer', () => {
-		const el = mountComponent({});
-		expect(el.find(ArchiveSidebarRenderer)).toHaveLength(1);
+
+	it('should render ArchiveSidebarRenderer (with the home/root header)', async () => {
+		renderComponent({});
+		// Home header (root folder) is rendered by ArchiveSidebarRenderer's child sidebar
+		expect(await screen.findByLabelText('Home')).toBeInTheDocument();
+		await expect(document.body).toBeAccessible();
 	});
-	it('ArchiveSidebarRenderer should change selected entry and render InteractiveImg', async () => {
+
+	it('should render InteractiveImg when an image entry is selected (no custom renderer)', async () => {
 		await Loadable.preloadAll();
-		const el = mountComponent({});
-		const archiveSidebarRenderer = el.find(ArchiveSidebarRenderer);
-		archiveSidebarRenderer.prop('onSelectedArchiveEntryChange')({
-			isDirectory: false,
-			name: 'file_a.jpeg',
-			src: 'src',
-			blob: jest.fn(),
-		} as any);
-		await sleep(0);
-		expect(el.find(InteractiveImg)).toHaveLength(1);
+		renderComponent({});
+		const entryButton = await screen.findByText('file_a.jpeg');
+		await userEvent.click(entryButton);
+
+		expect(await screen.findByAltText('file_a.jpeg')).toBeInTheDocument();
 		expect(shouldUseCustomRenderer).toHaveBeenCalledTimes(1);
 	});
-	it('ArchiveSidebarRenderer should change selected entry and use custom renderer', async () => {
+
+	it('should use the custom renderer when shouldUseCustomRenderer returns true', async () => {
 		shouldUseCustomRenderer.mockReturnValue(true);
-		const el = mountComponent({});
-		const archiveSidebarRenderer = el.find(ArchiveSidebarRenderer);
-		archiveSidebarRenderer.prop('onSelectedArchiveEntryChange')({
-			isDirectory: false,
-			name: 'file_a.jpeg',
-			src: 'src',
-			blob: jest.fn(),
-		} as any);
-		await sleep(0);
-		const customContent = el.find('[data-testid="custom-renderer"]');
-		expect(customContent).toHaveLength(1);
-		expect(customContent.text()).toEqual('file_a.jpeg');
+		renderComponent({});
+		const entryButton = await screen.findByText('file_a.jpeg');
+		await userEvent.click(entryButton);
+
+		const customContent = await screen.findByTestId('custom-renderer');
+		expect(customContent).toHaveTextContent('file_a.jpeg');
 		expect(renderContent).toHaveBeenCalledTimes(1);
 		expect(renderContent).toHaveBeenLastCalledWith(
-			expect.objectContaining({ fileItem: fileState, archiveFileItem: { name: 'file_a.jpeg' } }),
+			expect.objectContaining({
+				fileItem: fileState,
+				archiveFileItem: { name: 'file_a.jpeg' },
+			}),
 		);
 		expect(shouldUseCustomRenderer).toHaveBeenCalledTimes(1);
 	});

@@ -47,6 +47,57 @@ export interface Props {
 	wrapperElement: HTMLElement | null;
 }
 
+type PluginComponentProps = Pick<
+	Props,
+	| 'appearance'
+	| 'containerElement'
+	| 'disabled'
+	| 'dispatchAnalyticsEvent'
+	| 'editorActions'
+	| 'editorView'
+	| 'eventDispatcher'
+	| 'popupsBoundariesElement'
+	| 'popupsMountPoint'
+	| 'popupsScrollableElement'
+	| 'providerFactory'
+	| 'wrapperElement'
+> & {
+	component: UIComponentFactory;
+};
+
+const PluginComponent = ({
+	component,
+	editorView,
+	editorActions,
+	eventDispatcher,
+	providerFactory,
+	appearance,
+	popupsMountPoint,
+	popupsBoundariesElement,
+	popupsScrollableElement,
+	containerElement,
+	disabled,
+	dispatchAnalyticsEvent,
+	wrapperElement,
+}: PluginComponentProps) => {
+	return component({
+		editorView: editorView as EditorView,
+		editorActions: editorActions as EditorActions,
+		eventDispatcher: eventDispatcher as EventDispatcher,
+		providerFactory,
+		dispatchAnalyticsEvent,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		appearance: appearance!,
+		popupsMountPoint,
+		popupsBoundariesElement,
+		popupsScrollableElement,
+		containerElement,
+		disabled,
+		wrapperElement,
+	});
+};
+
 const PluginSlot = ({
 	items,
 	editorView,
@@ -67,6 +118,10 @@ const PluginSlot = ({
 		return null;
 	}
 
+	const isolatePluginSlotFailures =
+		Boolean(items?.length) &&
+		expValEquals('platform_editor_per_plugin_error_boundary', 'isEnabled', true);
+
 	return (
 		<ErrorBoundary component={ACTION_SUBJECT.PLUGIN_SLOT} fallbackComponent={null}>
 			<MountPluginHooks
@@ -85,8 +140,41 @@ const PluginSlot = ({
 				 *
 				 * After a performance profile it seems that this is much more performant.
 				 */}
-				{items?.map((component, key) => {
-					const props = { key };
+				{items?.map((component, index) => {
+					if (isolatePluginSlotFailures) {
+						return (
+							// The wrapper adds a small amount of overhead, but moves the plugin factory call
+							// inside the per-plugin boundary while still invoking it as a factory.
+							<ErrorBoundary
+								// Switching to a data-derived key currently breaks editor-plugin-ai's
+								// Discard flow (which relies on positional remounts to reset modal
+								// state). Tracked for follow-up behind a separate gate.
+								// eslint-disable-next-line react/no-array-index-key
+								key={index}
+								component={ACTION_SUBJECT.PLUGIN_SLOT}
+								dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+								fallbackComponent={null}
+							>
+								<PluginComponent
+									component={component}
+									editorView={editorView}
+									editorActions={editorActions}
+									eventDispatcher={eventDispatcher}
+									providerFactory={providerFactory}
+									appearance={appearance}
+									popupsMountPoint={popupsMountPoint}
+									popupsBoundariesElement={popupsBoundariesElement}
+									popupsScrollableElement={popupsScrollableElement}
+									containerElement={containerElement}
+									disabled={disabled}
+									dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+									wrapperElement={wrapperElement}
+								/>
+							</ErrorBoundary>
+						);
+					}
+
+					const props = { key: index };
 					const element = component({
 						editorView: editorView as EditorView,
 						editorActions: editorActions as EditorActions,

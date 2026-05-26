@@ -1,5 +1,22 @@
 # @atlaskit/ads-mcp
 
+## 0.21.0
+
+### Minor Changes
+
+- [`25f67befcc5c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25f67befcc5c6) - -
+  Improved ADS MCP component metadata accuracy using the latest design-system documentation.
+  - Expanded Atlaskit component coverage in MCP outputs (including Link Datasource and Smart Card
+    entries).
+  - Updated surfaced prop typing for key APIs (including semantic `IconTile` sizes and
+    `SectionMessage` heading levels).
+  - Added migration-friendly `Tag` `text` typing support (`string | string[]`) in generated
+    metadata.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.20.4
 
 ### Patch Changes

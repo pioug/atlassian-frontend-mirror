@@ -1,12 +1,7 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
+import { NetworkError } from './errors';
 
 const ALLOWED_RESPONSE_STATUS_CODES = [200, 401, 404];
-
-export class NetworkError extends Error {
-	constructor(error: any) {
-		super(error);
-	}
-}
 
 export async function request<T = JsonLd.Response>(
 	method: string,

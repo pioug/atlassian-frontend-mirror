@@ -8,10 +8,7 @@ import { TableCellSplitIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolba
 
 import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { splitCellWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
-import {
-	useTableMenuContext,
-	type TableMenuContextValue,
-} from '../../shared/TableMenuContext';
+import { useTableMenuContext, type TableMenuContextValue } from '../../shared/TableMenuContext';
 import type { TableMenuComponentsParams } from '../../shared/types';
 
 /**
@@ -35,7 +32,8 @@ export const SplitCellItem = ({ api }: TableMenuComponentsParams): React.JSX.Ele
 			editorView.state,
 			editorView.dispatch,
 		);
-		closeActiveTableMenu()(editorView.state, editorView.dispatch);
+		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.focus();
 	};
 
 	if (!shouldShowSplitCell(tableMenuContext)) {
@@ -43,7 +41,10 @@ export const SplitCellItem = ({ api }: TableMenuComponentsParams): React.JSX.Ele
 	}
 
 	return (
-		<ToolbarDropdownItem onClick={handleClick} elemBefore={<TableCellSplitIcon label="" size="small" />}>
+		<ToolbarDropdownItem
+			onClick={handleClick}
+			elemBefore={<TableCellSplitIcon label="" size="small" />}
+		>
 			{formatMessage(messages.splitCell)}
 		</ToolbarDropdownItem>
 	);

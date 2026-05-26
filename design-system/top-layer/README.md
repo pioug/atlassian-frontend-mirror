@@ -21,9 +21,9 @@ Positioning or JS fallback).
 </Popup>
 ```
 
-`placement` defaults to `{}` - "below trigger, centered, with `space.100` gap".
-Pass an explicit object to override (e.g. `placement={{ axis: 'inline', edge: 'end' }}`
-for a popover anchored to the trigger's right edge).
+`placement` defaults to `{}` - "below trigger, centered, with `space.100` gap". Pass an explicit
+object to override (e.g. `placement={{ axis: 'inline', edge: 'end' }}` for a popover anchored to the
+trigger's right edge).
 
 For default overlay styling (background, shadow, border-radius), see `PopupSurface` in the package
 examples (not currently a public API; we may expose it in a future release).

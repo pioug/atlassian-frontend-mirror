@@ -8,6 +8,7 @@ import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { ArrowDownIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 
+import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { sortColumnWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
 import { useTableMenuContext } from '../../shared/TableMenuContext';
 import type { TableMenuComponentsParams } from '../../shared/types';
@@ -31,6 +32,8 @@ export const SortDecreasingItem = ({ api }: TableMenuComponentsParams): React.JS
 			columnIndex,
 			SortOrder.DESC,
 		)(editorView.state, editorView.dispatch);
+		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.focus();
 	};
 
 	return (

@@ -32,6 +32,16 @@ function delayUntilIdle(cb: Function) {
 // eslint-disable-next-line require-unicode-regexp
 const cssVariablePattern = /^VAR\(--.*\)$/;
 
+const getCellDomAttrsForTableMenuUpdates = (node: PMNode): CellDomAttrs => {
+	const attrs = getCellDomAttrs(node);
+
+	if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) && node.attrs.valign) {
+		attrs['data-valign'] = node.attrs.valign;
+	}
+
+	return attrs;
+};
+
 export default class TableCell extends TableNodeView<HTMLElement> implements NodeView {
 	private delayHandle: number | undefined;
 
@@ -171,8 +181,8 @@ export default class TableCell extends TableNodeView<HTMLElement> implements Nod
 			return false;
 		}
 
-		const attrs = getCellDomAttrs(this.node);
-		const nextAttrs = getCellDomAttrs(node);
+		const attrs = getCellDomAttrsForTableMenuUpdates(this.node);
+		const nextAttrs = getCellDomAttrsForTableMenuUpdates(node);
 
 		const { colspan, rowspan } = getCellAttrs(this.dom);
 

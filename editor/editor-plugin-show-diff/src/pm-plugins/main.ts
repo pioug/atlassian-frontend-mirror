@@ -12,7 +12,6 @@ import {
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DiffParams, DiffType, ShowDiffPlugin } from '../showDiffPluginType';
@@ -51,9 +50,7 @@ export const createPlugin = (
 	getIntl: () => IntlShape,
 	api: ExtractInjectionAPI<ShowDiffPlugin> | undefined,
 ): SafePlugin<ShowDiffPluginState> => {
-	if (fg('platform_editor_show_diff_equality_fallback')) {
-		enforceCustomStepRegisters();
-	}
+	enforceCustomStepRegisters();
 
 	const nodeViewSerializer = new NodeViewSerializer({});
 	const setNodeViewSerializer = (editorView: EditorView) => {
@@ -104,9 +101,7 @@ export const createPlugin = (
 							nodeViewSerializer,
 							colorScheme: config?.colorScheme,
 							intl: getIntl(),
-							activeIndexPos: fg('platform_editor_show_diff_scroll_navigation')
-								? newPluginState.activeIndexPos
-								: undefined,
+						activeIndexPos: newPluginState.activeIndexPos,
 							api,
 							...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
 								? {
@@ -134,8 +129,7 @@ export const createPlugin = (
 								: {}),
 						};
 					} else if (
-						(meta?.action === 'SCROLL_TO_NEXT' || meta?.action === 'SCROLL_TO_PREVIOUS') &&
-						fg('platform_editor_show_diff_scroll_navigation')
+						meta?.action === 'SCROLL_TO_NEXT' || meta?.action === 'SCROLL_TO_PREVIOUS'
 					) {
 						// Update the active index in plugin state and recalculate decorations
 						const decorations = getScrollableDecorations(
@@ -238,38 +232,35 @@ export const createPlugin = (
 					}
 
 					// Check for any potential scroll side-effects
-					if (fg('platform_editor_show_diff_scroll_navigation')) {
-						const activeIndexChanged =
-							pluginState?.activeIndex !== undefined &&
-							pluginState.activeIndex !== previousActiveIndex;
-						previousActiveIndex = pluginState?.activeIndex;
+					const activeIndexChanged =
+						pluginState?.activeIndex !== undefined &&
+						pluginState.activeIndex !== previousActiveIndex;
+					previousActiveIndex = pluginState?.activeIndex;
 
-						if (pluginState?.activeIndex !== undefined && activeIndexChanged) {
-							cancelPendingScrollToDecoration?.();
-							const scrollableDecorations = getScrollableDecorations(
-								pluginState.decorations,
-								view.state.doc,
-							);
-							const activeDecoration = scrollableDecorations[pluginState.activeIndex];
-							if (
-								activeDecoration &&
-								api?.expand?.commands?.toggleExpandRange &&
-								fg('platform_editor_show_diff_scroll_navigation')
-							) {
-								api?.core.actions.execute(
-									api.expand.commands.toggleExpandRange(
-										activeDecoration.from,
-										activeDecoration.to,
-										true,
-									),
-								);
-							}
-							cancelPendingScrollToDecoration = scrollToActiveDecoration(
-								view,
-								scrollableDecorations,
-								pluginState.activeIndex,
+					if (pluginState?.activeIndex !== undefined && activeIndexChanged) {
+						cancelPendingScrollToDecoration?.();
+						const scrollableDecorations = getScrollableDecorations(
+							pluginState.decorations,
+							view.state.doc,
+						);
+						const activeDecoration = scrollableDecorations[pluginState.activeIndex];
+						if (
+							activeDecoration &&
+							api?.expand?.commands?.toggleExpandRange
+						) {
+							api?.core.actions.execute(
+								api.expand.commands.toggleExpandRange(
+									activeDecoration.from,
+									activeDecoration.to,
+									true,
+								),
 							);
 						}
+						cancelPendingScrollToDecoration = scrollToActiveDecoration(
+							view,
+							scrollableDecorations,
+							pluginState.activeIndex,
+						);
 					}
 				},
 				destroy() {

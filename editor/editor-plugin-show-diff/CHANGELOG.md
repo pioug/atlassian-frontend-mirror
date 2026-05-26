@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 8.4.6
+
+### Patch Changes
+
+- [`5e34be0ba10b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e34be0ba10b6) -
+  Cleanup show diff experiments
+- Updated dependencies
+
 ## 8.4.5
 
 ### Patch Changes

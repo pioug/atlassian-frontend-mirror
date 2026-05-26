@@ -1,5 +1,28 @@
 # @atlaskit/top-layer
 
+## 0.12.0
+
+### Minor Changes
+
+- [`cc76d2e733b71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc76d2e733b71) - -
+  The prop `onEnterFinish` has been added to `Popup.Content` and `Popover`, for lifecycle
+  coordination after the entry animation completes.
+  - The prop `onExitFinish` has been added to `Popup.Content`, for lifecycle coordination after the
+    exit animation completes. `Popover` already exposed this prop.
+
+  - Updates the popup trigger's `aria-expanded` attribute, so it stays `"true"` for the full
+    duration of the popup's open and close animations, only going `false` after the exit animation
+    completes.
+
+  - Internal refactor to the popup context to use a string union for state.
+
+## 0.11.0
+
+### Minor Changes
+
+- [`c54bd48a31fbb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c54bd48a31fbb) -
+  The slide and fade animation now supports right-to-left text direction.
+
 ## 0.10.0
 
 ### Minor Changes

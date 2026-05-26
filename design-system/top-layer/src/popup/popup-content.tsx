@@ -8,6 +8,7 @@ import { jsx } from '@compiled/react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 
+import { prefersReducedMotion } from '../internal/reduced-motion';
 import { roleToAriaHasPopup, shouldFocusIntoPopover } from '../internal/role-types';
 import { useAnchorPosition } from '../internal/use-anchor-position';
 import { useWidthFromAnchor } from '../internal/use-width-from-anchor';
@@ -41,6 +42,8 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 		testId: testIdProp,
 		forceFallbackPositioning: forceFallbackPositioningProp,
 		id: idProp,
+		onEnterFinish,
+		onExitFinish,
 	},
 	ref,
 ): React.ReactElement {
@@ -53,16 +56,52 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 	const testId = testIdProp ?? ctx?.testId;
 	const forceFallbackPositioning = forceFallbackPositioningProp ?? ctx?.forceFallbackPositioning;
 
-	// Resolve isOpen: prop wins, then context.
-	// Inside the <Popup> compound, ctx.isOpen tracks the browser's toggle state.
-	const isOpen = isOpenProp ?? ctx?.isOpen ?? false;
+	// isOpen: prop wins, otherwise derive from context popupState.
+	// 'animating-open' counts as open so <Popover> stays visible during entry animation.
+	const isOpen =
+		isOpenProp ??
+		(ctx !== null ? ctx.popupState === 'open' || ctx.popupState === 'animating-open' : false);
 
-	// Combine internal state sync with consumer's onOpenChange callback.
-	// The Popup compound needs setIsOpen to keep aria-expanded on the trigger
-	// in sync, and the consumer may also want to respond to open/close events
-	// (e.g. for focus management).
-	const setIsOpen = ctx?.setIsOpen;
+	const setPopupState = ctx?.setPopupState;
 	const consumerOnOpenChange = ctx?.onOpenChange;
+
+	// ── TPopupState ──
+	//
+	// popupState is driven by handleOpenChange (below), which fires on every browser
+	// toggle event (showPopover / hidePopover / light-dismiss).
+	//
+	// Exception — initial mount with isOpen=true (prop-controlled usage):
+	//   handleOpenChange only fires from the Popover's toggle event listener, which
+	//   is registered in a useEffect. On the first render, useEffect hasn't run yet,
+	//   so handleOpenChange never fires. We sync popupState here instead.
+	//
+	// Transitions when animations are active:
+	//   closed → animating-open  → open     (enter)
+	//   open   → animating-closed → closed  (exit, via onExitFinish)
+	//
+	// Without animation: closed ↔ open directly.
+	const willAnimate = Boolean(animate) && !prefersReducedMotion();
+	const hasMountedRef = useRef(false);
+	useLayoutEffect(() => {
+		if (hasMountedRef.current) {
+			return;
+		}
+		hasMountedRef.current = true;
+		if (isOpen) {
+			setPopupState?.(willAnimate ? 'animating-open' : 'open');
+		}
+	}, [isOpen, setPopupState, willAnimate]);
+
+	const handleEnterFinish = useCallback(() => {
+		setPopupState?.('open');
+		onEnterFinish?.();
+	}, [setPopupState, onEnterFinish]);
+
+	const handleExitFinish = useCallback(() => {
+		setPopupState?.('closed');
+		onExitFinish?.();
+	}, [setPopupState, onExitFinish]);
+
 	// Note: onOpenChange composition is handled by handleOpenChange below,
 	// which also adds nested-popover focus restoration.
 
@@ -93,7 +132,12 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 	const handleOpenChange = useCallback(
 		(args: { isOpen: boolean; element: HTMLDivElement }) => {
 			// Sync compound state
-			setIsOpen?.(args.isOpen);
+			if (args.isOpen) {
+				setPopupState?.(willAnimate ? 'animating-open' : 'open');
+			} else {
+				setPopupState?.(willAnimate ? 'animating-closed' : 'closed');
+			}
+
 			consumerOnOpenChange?.(args);
 
 			// ── Nested popover focus restoration fallback ──
@@ -120,7 +164,7 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 				}
 			}
 		},
-		[setIsOpen, consumerOnOpenChange, triggerRef, role],
+		[consumerOnOpenChange, triggerRef, role, setPopupState, willAnimate],
 	);
 
 	// ── Anchor positioning ──
@@ -156,6 +200,8 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 		labelledBy,
 		onClose: onClose ?? undefined,
 		onOpenChange: handleOpenChange,
+		onEnterFinish: handleEnterFinish,
+		onExitFinish: handleExitFinish,
 		testId,
 		children,
 		// Standalone consumers can pass an explicit `id` - used by their own

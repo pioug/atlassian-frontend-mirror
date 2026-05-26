@@ -1,5 +1,55 @@
 # @atlaskit/linking-common
 
+## 9.12.0
+
+### Minor Changes
+
+- [`e496f75d89eec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e496f75d89eec) -
+  Debarrel @atlaskit/linking-common. Add new entry points and mark barrel files as deprecated.
+
+  New entry points:
+  - `@atlaskit/linking-common/actions`
+  - `@atlaskit/linking-common/api`
+  - `@atlaskit/linking-common/api/errors`
+  - `@atlaskit/linking-common/browser`
+  - `@atlaskit/linking-common/client`
+  - `@atlaskit/linking-common/constants`
+  - `@atlaskit/linking-common/hook/use-available-sites`
+  - `@atlaskit/linking-common/hook/use-cloud-id-to-url`
+  - `@atlaskit/linking-common/hook/use-is-mounted`
+  - `@atlaskit/linking-common/linkify`
+  - `@atlaskit/linking-common/pulse`
+  - `@atlaskit/linking-common/sentry/capture-exception`
+  - `@atlaskit/linking-common/skeleton`
+  - `@atlaskit/linking-common/store`
+  - `@atlaskit/linking-common/utils/filter-site-products`
+  - `@atlaskit/linking-common/utils/filter-unique-items`
+  - `@atlaskit/linking-common/utils/get-status`
+  - `@atlaskit/linking-common/utils/get-trace-id`
+  - `@atlaskit/linking-common/utils/preview-panel`
+  - `@atlaskit/linking-common/utils/promise-debounce`
+  - `@atlaskit/linking-common/utils/with-feature-flagged-component`
+
+  Updated entry points:
+  - `@atlaskit/linking-common/types` (previously `./src/types.ts`, now
+    `./src/entry-points/types.ts`)
+
+  Deprecating entry points:
+  - `@atlaskit/linking-common` (root barrel — use the specific entry points instead)
+  - `@atlaskit/linking-common/hooks` (use the specific `hook/*` entry points instead)
+  - `@atlaskit/linking-common/sentry` (use `@atlaskit/linking-common/sentry/capture-exception`
+    instead)
+  - `@atlaskit/linking-common/url` (use `@atlaskit/linking-common/linkify` instead)
+  - `@atlaskit/linking-common/user-agent` (use `@atlaskit/linking-common/browser` instead)
+  - `@atlaskit/linking-common/utils` (use the specific `utils/*` entry points instead)
+
+## 9.11.6
+
+### Patch Changes
+
+- [`03c8ed2c9c8d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03c8ed2c9c8d6) -
+  Refactoring for pre-debarrel. Move NetworkError from api.ts to error.ts
+
 ## 9.11.5
 
 ### Patch Changes

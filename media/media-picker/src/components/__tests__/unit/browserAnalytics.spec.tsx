@@ -1,6 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { waitFor } from '@testing-library/react';
+import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -20,6 +19,9 @@ import * as ufoWrapper from '../../../util/ufoExperiences';
 
 jest.mock('@atlaskit/platform-feature-flags');
 
+const getFileInput = () => screen.getByTestId('media-picker-file-input') as HTMLInputElement;
+const createTestFile = () => new File(['file contents'], 'hello.txt', { type: 'text/plain' });
+
 describe('Browser analytics instrumentation', () => {
 	const browseConfig: BrowserConfig & LocalUploadConfig = {
 		uploadParams: {},
@@ -28,12 +30,10 @@ describe('Browser analytics instrumentation', () => {
 	let oldDateNow: () => number;
 
 	const mockstartMediaUploadUfoExperience = jest.spyOn(ufoWrapper, 'startMediaUploadUfoExperience');
-
 	const mocksucceedMediaUploadUfoExperience = jest.spyOn(
 		ufoWrapper,
 		'succeedMediaUploadUfoExperience',
 	);
-
 	const mockfailMediaUploadUfoExperience = jest.spyOn(ufoWrapper, 'failMediaUploadUfoExperience');
 
 	const mediaClient = fakeMediaClient();
@@ -54,26 +54,20 @@ describe('Browser analytics instrumentation', () => {
 	});
 
 	it('should fire a commenced event on uploadsStart', async () => {
-		mediaClient.file.touchFiles = jest.fn(
-			(descriptors: TouchFileDescriptor[], collection?: string) =>
-				Promise.resolve({
-					created: descriptors.map(({ fileId }) => ({
-						fileId,
-						uploadId,
-					})),
-					rejected: [],
-				}),
+		const user = userEvent.setup();
+		mediaClient.file.touchFiles = jest.fn((descriptors: TouchFileDescriptor[]) =>
+			Promise.resolve({
+				created: descriptors.map(({ fileId }) => ({ fileId, uploadId })),
+				rejected: [],
+			}),
 		);
 		const onEvent = jest.fn();
-		const browser = mount(
+		render(
 			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_MEDIA_CHANNEL}>
 				<Browser mediaClient={mediaClient} config={browseConfig} />
 			</AnalyticsListener>,
 		);
-		const fileContents = 'file contents';
-		const file = new Blob([fileContents], { type: 'text/plain' });
-
-		browser.find('input').simulate('change', { target: { files: [file] } });
+		await user.upload(getFileInput(), createTestFile());
 
 		await waitFor(() => {
 			expect(onEvent).toHaveBeenCalledWith(
@@ -109,31 +103,25 @@ describe('Browser analytics instrumentation', () => {
 				ANALYTICS_MEDIA_CHANNEL,
 			);
 		});
-		expect(mockstartMediaUploadUfoExperience).toBeCalledTimes(1);
-		expect(mockstartMediaUploadUfoExperience).toBeCalledWith(expect.any(String), 'browser');
+		expect(mockstartMediaUploadUfoExperience).toHaveBeenCalledTimes(1);
+		expect(mockstartMediaUploadUfoExperience).toHaveBeenCalledWith(expect.any(String), 'browser');
 	});
 
 	it('should fire an uploaded success event on end', async () => {
-		mediaClient.file.touchFiles = jest.fn(
-			(descriptors: TouchFileDescriptor[], collection?: string) =>
-				Promise.resolve({
-					created: descriptors.map(({ fileId }) => ({
-						fileId,
-						uploadId,
-					})),
-					rejected: [],
-				}),
+		const user = userEvent.setup();
+		mediaClient.file.touchFiles = jest.fn((descriptors: TouchFileDescriptor[]) =>
+			Promise.resolve({
+				created: descriptors.map(({ fileId }) => ({ fileId, uploadId })),
+				rejected: [],
+			}),
 		);
 		const onEvent = jest.fn();
-		const browser = mount(
+		render(
 			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_MEDIA_CHANNEL}>
 				<Browser mediaClient={mediaClient} config={browseConfig} />
 			</AnalyticsListener>,
 		);
-		const fileContents = 'file contents';
-		const file = new Blob([fileContents], { type: 'text/plain' });
-
-		browser.find('input').simulate('change', { target: { files: [file] } });
+		await user.upload(getFileInput(), createTestFile());
 
 		await waitFor(() => {
 			expect(onEvent).toHaveBeenNthCalledWith(
@@ -216,7 +204,7 @@ describe('Browser analytics instrumentation', () => {
 			ANALYTICS_MEDIA_CHANNEL,
 		);
 
-		expect(mocksucceedMediaUploadUfoExperience).toBeCalledWith(expect.any(String), {
+		expect(mocksucceedMediaUploadUfoExperience).toHaveBeenCalledWith(expect.any(String), {
 			fileId: expect.any(String),
 			fileSize: 13,
 			fileMimetype: 'text/plain',
@@ -224,26 +212,20 @@ describe('Browser analytics instrumentation', () => {
 	});
 
 	it('should fire an uploaded fail event on end', async () => {
-		mediaClient.file.touchFiles = jest.fn(
-			(descriptors: TouchFileDescriptor[], collection?: string) =>
-				Promise.resolve({
-					created: descriptors.map(({ fileId }) => ({
-						fileId,
-						uploadId,
-					})),
-					rejected: [],
-				}),
+		const user = userEvent.setup();
+		mediaClient.file.touchFiles = jest.fn((descriptors: TouchFileDescriptor[]) =>
+			Promise.resolve({
+				created: descriptors.map(({ fileId }) => ({ fileId, uploadId })),
+				rejected: [],
+			}),
 		);
 		const onEvent = jest.fn();
-		const browser = mount(
+		render(
 			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_MEDIA_CHANNEL}>
 				<Browser mediaClient={mediaClient} config={browseConfig} />
 			</AnalyticsListener>,
 		);
-		const fileContents = 'file contents';
-		const file = new Blob([fileContents], { type: 'text/plain' });
-
-		browser.find('input').simulate('change', { target: { files: [file] } });
+		await user.upload(getFileInput(), createTestFile());
 
 		await waitFor(() => {
 			expect(onEvent).toHaveBeenNthCalledWith(
@@ -332,7 +314,7 @@ describe('Browser analytics instrumentation', () => {
 			}),
 			ANALYTICS_MEDIA_CHANNEL,
 		);
-		expect(mockfailMediaUploadUfoExperience).toBeCalledWith(expect.any(String), {
+		expect(mockfailMediaUploadUfoExperience).toHaveBeenCalledWith(expect.any(String), {
 			failReason: 'upload_fail',
 			error: 'serverBadGateway',
 			request: {
@@ -350,27 +332,20 @@ describe('Browser analytics instrumentation', () => {
 	});
 
 	it('should populate upload duration time', async () => {
-		mediaClient.file.touchFiles = jest.fn(
-			async (descriptors: TouchFileDescriptor[], collection?: string) => {
-				return Promise.resolve({
-					created: descriptors.map(({ fileId }) => ({
-						fileId,
-						uploadId,
-					})),
-					rejected: [],
-				});
-			},
+		const user = userEvent.setup();
+		mediaClient.file.touchFiles = jest.fn(async (descriptors: TouchFileDescriptor[]) =>
+			Promise.resolve({
+				created: descriptors.map(({ fileId }) => ({ fileId, uploadId })),
+				rejected: [],
+			}),
 		);
 		const onEvent = jest.fn();
-		const browser = mount(
+		render(
 			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_MEDIA_CHANNEL}>
 				<Browser mediaClient={mediaClient} config={browseConfig} />
 			</AnalyticsListener>,
 		);
-		const fileContents = 'file contents';
-		const file = new Blob([fileContents], { type: 'text/plain' });
-
-		browser.find('input').simulate('change', { target: { files: [file] } });
+		await user.upload(getFileInput(), createTestFile());
 
 		await waitFor(() => {
 			expect(onEvent).toHaveBeenNthCalledWith(
@@ -452,11 +427,20 @@ describe('Browser analytics instrumentation', () => {
 			}),
 			ANALYTICS_MEDIA_CHANNEL,
 		);
-		expect(mockstartMediaUploadUfoExperience).toBeCalledTimes(1);
-		expect(mocksucceedMediaUploadUfoExperience).toBeCalledWith(expect.any(String), {
+		expect(mockstartMediaUploadUfoExperience).toHaveBeenCalledTimes(1);
+		expect(mocksucceedMediaUploadUfoExperience).toHaveBeenCalledWith(expect.any(String), {
 			fileId: expect.any(String),
 			fileSize: 13,
 			fileMimetype: 'text/plain',
 		});
+	});
+
+	it('should not introduce any accessibility violations', async () => {
+		render(
+			<AnalyticsListener onEvent={jest.fn()} channel={ANALYTICS_MEDIA_CHANNEL}>
+				<Browser mediaClient={mediaClient} config={browseConfig} />
+			</AnalyticsListener>,
+		);
+		await expect(document.body).toBeAccessible();
 	});
 });

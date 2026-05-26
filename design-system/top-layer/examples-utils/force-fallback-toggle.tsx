@@ -59,13 +59,15 @@ export function ForceFallbackToggle({
 						gap: 6,
 						padding: '4px 10px',
 						borderRadius: 6,
-						border: '1px solid #ddd',
-						background: forceFallbackPositioning ? '#fff3cd' : '#fff',
+						border: `1px solid ${token('color.border')}`,
+						background: forceFallbackPositioning
+							? token('color.background.warning')
+							: token('color.background.input'),
 						fontSize: 12,
 						fontFamily: token('font.family.body'),
 						cursor: 'pointer',
 						userSelect: 'none',
-						boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+						boxShadow: token('elevation.shadow.overlay'),
 					}}
 				>
 					<input

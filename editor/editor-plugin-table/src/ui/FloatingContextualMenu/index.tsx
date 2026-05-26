@@ -97,7 +97,11 @@ const FloatingContextualMenu: {
 
 	// TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
 	const { targetCellPosition } = getPluginState(editorView.state);
-	if (!isCellMenuOpen || !targetCellPosition || editorView.state.doc.nodeSize <= targetCellPosition) {
+	if (
+		!isCellMenuOpen ||
+		!targetCellPosition ||
+		editorView.state.doc.nodeSize <= targetCellPosition
+	) {
 		return null;
 	}
 

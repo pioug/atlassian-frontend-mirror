@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 6.1.1
+
+### Patch Changes
+
+- [`ec73518f378a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec73518f378a7) -
+  Optimise forge app perf resource timing and navigation timing data in payload
+
 ## 6.1.0
 
 ### Minor Changes

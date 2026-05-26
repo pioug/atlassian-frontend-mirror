@@ -71,6 +71,9 @@
 			"path": "../../editor-toolbar/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../helpers/frontend-utilities/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
 		},
 		{

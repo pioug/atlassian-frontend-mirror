@@ -47,6 +47,9 @@
 			"path": "../button/tsconfig.app.json"
 		},
 		{
+			"path": "../checkbox/tsconfig.app.json"
+		},
+		{
 			"path": "../css/tsconfig.app.json"
 		},
 		{
@@ -60,6 +63,9 @@
 		},
 		{
 			"path": "../primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../select/tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"

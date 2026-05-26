@@ -7,9 +7,12 @@ export const NONE_LANGUAGE_VALUE = 'none';
 export const DETECT_LANGUAGE_VALUE = 'autodetect';
 export const PLAIN_TEXT_LANGUAGE_VALUE = 'text';
 
+export type LanguagePickerSelectionSource = 'all' | 'pinned' | 'recentlyUsed' | 'search';
+
 export type LanguagePickerOption = {
 	alias: readonly string[];
 	label: string;
+	selectionSource?: LanguagePickerSelectionSource;
 	value: string;
 };
 
@@ -26,6 +29,7 @@ export const getDetectLanguageOption = (
 ): LanguagePickerOption => ({
 	alias: [DETECT_LANGUAGE_VALUE],
 	label: formatMessage(codeBlockButtonMessages.detectLanguage),
+	selectionSource: 'pinned',
 	value: DETECT_LANGUAGE_VALUE,
 });
 
@@ -34,9 +38,14 @@ export const createGroupedLanguageOptions = ({
 	languages,
 	recentlyUsedLanguages = [],
 }: CreateGroupedLanguageOptionsProps): LanguagePickerOptionGroup[] => {
+	const recentlyUsedLanguageValues = new Set(
+		recentlyUsedLanguages.map((language) => language.value),
+	);
 	const allLanguages = languages.filter(
 		(language) =>
-			language.value !== NONE_LANGUAGE_VALUE && language.value !== PLAIN_TEXT_LANGUAGE_VALUE,
+			language.value !== NONE_LANGUAGE_VALUE &&
+			language.value !== PLAIN_TEXT_LANGUAGE_VALUE &&
+			!recentlyUsedLanguageValues.has(language.value),
 	);
 
 	const plainTextOption = languages.find(
@@ -44,7 +53,7 @@ export const createGroupedLanguageOptions = ({
 	);
 	const pinnedOptions = [getDetectLanguageOption(formatMessage)];
 	if (plainTextOption) {
-		pinnedOptions.push(plainTextOption);
+		pinnedOptions.push({ ...plainTextOption, selectionSource: 'pinned' });
 	}
 
 	return [
@@ -56,13 +65,20 @@ export const createGroupedLanguageOptions = ({
 			? [
 					{
 						label: formatMessage(codeBlockButtonMessages.recentlyUsed),
-						options: recentlyUsedLanguages,
+						options: recentlyUsedLanguages.map(
+							(language): LanguagePickerOption => ({
+								...language,
+								selectionSource: 'recentlyUsed',
+							}),
+						),
 					},
 				]
 			: []),
 		{
 			label: formatMessage(codeBlockButtonMessages.all),
-			options: allLanguages,
+			options: allLanguages.map(
+				(language): LanguagePickerOption => ({ ...language, selectionSource: 'all' }),
+			),
 		},
 	];
 };

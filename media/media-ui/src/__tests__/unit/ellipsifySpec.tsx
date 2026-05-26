@@ -1,58 +1,52 @@
 import React from 'react';
-import { mount, type ReactWrapper } from 'enzyme';
-import { default as Ellipsify } from '../../ellipsify';
+import { render, screen } from '@atlassian/testing-library';
+import Ellipsify from '../../ellipsify';
 
-const getElementHeight = (wrapper: ReactWrapper, container: HTMLDivElement) => {
-	container.appendChild(wrapper.getDOMNode());
+const ELLIPSIFY_TEST_ID = 'ellipsify';
 
-	const el = wrapper.find('div.ellipsed-text').getDOMNode();
-	const height = el.getBoundingClientRect().height;
-
-	container.removeChild(wrapper.getDOMNode());
-
-	return height;
-};
-
-const mountEllipsis = (text: string, lines: number, width = 1000) =>
-	mount(
+const renderEllipsify = (text: string, lines: number, width = 1000) =>
+	render(
 		<div style={{ width: `${width}px` }}>
-			<Ellipsify text={text} lines={lines} />
+			<Ellipsify text={text} lines={lines} testId={ELLIPSIFY_TEST_ID} />
 		</div>,
 	);
 
 describe('Ellipsify', () => {
 	let lineHeight = 0;
-	let container: HTMLDivElement;
+	let lineHeightProbe: HTMLDivElement;
 
 	beforeEach(() => {
-		container = document.createElement('div');
-		container.innerHTML = '<div id="lineheight-check">a</div>';
-		document.body.appendChild(container);
-		lineHeight = container.querySelector('#lineheight-check')!.getBoundingClientRect().height;
+		lineHeightProbe = document.createElement('div');
+		lineHeightProbe.setAttribute('data-testid', 'lineheight-check');
+		lineHeightProbe.textContent = 'a';
+		document.body.appendChild(lineHeightProbe);
+		lineHeight = screen.getByTestId('lineheight-check').getBoundingClientRect().height;
 	});
 
 	afterEach(() => {
-		document.body.removeChild(container);
+		document.body.removeChild(lineHeightProbe);
 	});
 
 	it('should not cut short text where there are enough lines when 1 line allowed', () => {
-		const wrapper = mountEllipsis('foo', 1);
-		const elementHeight = getElementHeight(wrapper, container);
-
-		expect(Math.ceil(elementHeight)).toBe(Math.ceil(lineHeight));
+		renderEllipsify('foo', 1);
+		const el = screen.getByTestId(ELLIPSIFY_TEST_ID);
+		expect(Math.ceil(el.getBoundingClientRect().height)).toBe(Math.ceil(lineHeight));
 	});
 
 	it('should not cut short text where there are enough lines when 2 lines allowed', () => {
-		const wrapper = mountEllipsis('foo', 2);
-		const elementHeight = getElementHeight(wrapper, container);
-
-		expect(Math.ceil(elementHeight)).toBe(Math.ceil(lineHeight));
+		renderEllipsify('foo', 2);
+		const el = screen.getByTestId(ELLIPSIFY_TEST_ID);
+		expect(Math.ceil(el.getBoundingClientRect().height)).toBe(Math.ceil(lineHeight));
 	});
 
 	it('should cut long text when there is not enough lines', () => {
-		const wrapper = mountEllipsis('This text should be bigger than two lines', 2, 50);
-		const elementHeight = getElementHeight(wrapper, container);
+		renderEllipsify('This text should be bigger than two lines', 2, 50);
+		const el = screen.getByTestId(ELLIPSIFY_TEST_ID);
+		expect(Math.ceil(el.getBoundingClientRect().height)).toBe(Math.ceil(lineHeight * 2));
+	});
 
-		expect(Math.ceil(elementHeight)).toBe(Math.ceil(lineHeight * 2));
+	it('should not introduce any accessibility violations', async () => {
+		renderEllipsify('foo', 1);
+		await expect(document.body).toBeAccessible();
 	});
 });

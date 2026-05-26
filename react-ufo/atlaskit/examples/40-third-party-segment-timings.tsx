@@ -45,13 +45,36 @@ export default function Example(): JSX.Element {
 					listenersRef.current.forEach((l) => l(event));
 				};
 
-				// navigation-timing releases the forge-ui-requests hold and is recorded as a segment3pTimings row
+				// navigation-timing releases the forge-ui-requests hold and is recorded as a segment3pTimings row.
+				// Uses the real Forge iframe event structure: { name, elapsed, payload: { name, startTime,
+				// duration, type, redirectCount, timing: { fetchStart, responseStart, responseEnd, ... } } }
 				emit({
 					type: 'ufo-event',
 					name: 'ufo-forge-navigation-timing',
 					elapsed: performance.now(),
-					duration: 300,
-					start: 0,
+					payload: {
+						name: 'https://forge.example.com/iframe',
+						startTime: 0,
+						duration: 300,
+						type: 'navigate',
+						redirectCount: 0,
+						timing: {
+							fetchStart: 10,
+							domainLookupStart: 10,
+							domainLookupEnd: 20,
+							connectStart: 20,
+							connectEnd: 50,
+							secureConnectionStart: 30,
+							requestStart: 55,
+							responseStart: 150,
+							responseEnd: 300,
+							workerStart: 0,
+							redirectStart: 0,
+							redirectEnd: 0,
+							unloadEventStart: 0,
+							unloadEventEnd: 0,
+						},
+					},
 				});
 				// paint-timing is recorded as a segment3pTimings row
 				emit({

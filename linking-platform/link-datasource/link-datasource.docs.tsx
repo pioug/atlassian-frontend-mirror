@@ -41,7 +41,7 @@ const documentation: StructuredContentSource = {
 						'ConfluenceSearchConfigModal for configuring a Confluence search datasource.',
 					source: path.resolve(
 						packagePath,
-						'./docs/examples/basic-confluence-search-config-modal.tsx',
+						'./examples/content/basic-confluence-search-config-modal.tsx',
 					),
 				},
 			],
@@ -71,7 +71,10 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Jira issues config modal',
 					description: 'JiraIssuesConfigModal for configuring a Jira issues datasource.',
-					source: path.resolve(packagePath, './docs/examples/basic-jira-issues-config-modal.tsx'),
+					source: path.resolve(
+						packagePath,
+						'./examples/content/basic-jira-issues-config-modal.tsx',
+					),
 				},
 				{
 					name: 'Jira issues table',
@@ -105,7 +108,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Assets config modal',
 					description: 'AssetsConfigModal for configuring an Assets datasource.',
-					source: path.resolve(packagePath, './docs/examples/basic-assets-config-modal.tsx'),
+					source: path.resolve(packagePath, './examples/content/basic-assets-config-modal.tsx'),
 				},
 			],
 		},

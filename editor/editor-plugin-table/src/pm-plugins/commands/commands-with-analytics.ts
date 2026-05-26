@@ -93,7 +93,14 @@ export const toggleActiveTableMenuWithAnalytics =
 			};
 		})(editorAnalyticsAPI)((state, dispatch) => {
 			if (dispatch) {
-				toggleActiveTableMenu({ type: direction, index, openedBy: trigger })(state, dispatch);
+				const { activeTableMenu: currentActiveTableMenu } = getPluginState(state);
+				const newTr = toggleActiveTableMenu(
+					{ type: direction, index, openedBy: trigger },
+					currentActiveTableMenu,
+				)({ tr: state.tr });
+				if (newTr) {
+					dispatch(newTr);
+				}
 			}
 			return true;
 		});

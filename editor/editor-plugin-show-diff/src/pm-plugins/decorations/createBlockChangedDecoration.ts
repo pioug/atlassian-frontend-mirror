@@ -1,6 +1,5 @@
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ColorScheme } from '../../showDiffPluginType';
@@ -17,22 +16,16 @@ import {
 	deletedCellOverlayStyle,
 } from './colorSchemes/standard';
 import {
-	traditionalDecorationMarkerVariable,
 	traditionalDecorationMarkerVariableActive,
 	traditionalDecorationMarkerVariableNew,
-	traditionalDeletedDecorationMarkerVariable,
 	traditionalDeletedDecorationMarkerVariableActive,
 	traditionalDeletedDecorationMarkerVariableNew,
-	traditionalStyleQuoteNode,
 	traditionalStyleQuoteNodeActive,
 	traditionalStyleQuoteNodeNew,
-	traditionalStyleRuleNode,
 	traditionalStyleRuleNodeActive,
 	traditionalStyleRuleNodeNew,
-	traditionalStyleCardBlockNode,
 	traditionalStyleCardBlockNodeActive,
 	traditionalStyleCardBlockNodeNew,
-	traditionalStyleNode,
 	traditionalStyleNodeActive,
 	traditionalStyleNodeNew,
 	getDeletedTraditionalInlineStyle,
@@ -77,9 +70,6 @@ const getBlockNodeStyle = ({
 			'hardBreak',
 			'decisionList',
 			'taskList',
-			...(expValEquals('platform_editor_show_diff_improvements', 'isEnabled', true)
-				? []
-				: ['taskItem']),
 			'bulletList',
 			'orderedList',
 			'layoutSection',
@@ -104,26 +94,20 @@ const getBlockNodeStyle = ({
 				return isTraditional && isActive
 					? traditionalDecorationMarkerVariableActive
 					: isTraditional
-						? fg('platform_editor_show_diff_scroll_navigation')
-							? traditionalDecorationMarkerVariableNew
-							: traditionalDecorationMarkerVariable
+						? traditionalDecorationMarkerVariableNew
 						: standardDecorationMarkerVariable;
 			} else {
 				return isTraditional && isActive
 					? traditionalDeletedDecorationMarkerVariableActive
 					: isTraditional
-						? fg('platform_editor_show_diff_scroll_navigation')
-							? traditionalDeletedDecorationMarkerVariableNew
-							: traditionalDeletedDecorationMarkerVariable
+						? traditionalDeletedDecorationMarkerVariableNew
 						: deletedContentStyleNew;
 			}
 		}
 		return isTraditional && isActive
 			? traditionalDecorationMarkerVariableActive
 			: isTraditional
-				? fg('platform_editor_show_diff_scroll_navigation')
-					? traditionalDecorationMarkerVariableNew
-					: traditionalDecorationMarkerVariable
+				? traditionalDecorationMarkerVariableNew
 				: standardDecorationMarkerVariable;
 	}
 	if (nodeName === 'blockquote') {
@@ -132,9 +116,7 @@ const getBlockNodeStyle = ({
 				return isTraditional
 					? isActive
 						? traditionalStyleQuoteNodeActive
-						: fg('platform_editor_show_diff_scroll_navigation')
-							? traditionalStyleQuoteNodeNew
-							: traditionalStyleQuoteNode
+						: traditionalStyleQuoteNodeNew
 					: editingStyleQuoteNode;
 			} else {
 				return isTraditional ? deletedTraditionalStyleQuoteNode : deletedStyleQuoteNode;
@@ -143,9 +125,7 @@ const getBlockNodeStyle = ({
 		return isTraditional
 			? isActive
 				? traditionalStyleQuoteNodeActive
-				: fg('platform_editor_show_diff_scroll_navigation')
-					? traditionalStyleQuoteNodeNew
-					: traditionalStyleQuoteNode
+				: traditionalStyleQuoteNodeNew
 			: editingStyleQuoteNode;
 	}
 	if (nodeName === 'rule') {
@@ -154,9 +134,7 @@ const getBlockNodeStyle = ({
 				return isTraditional
 					? isActive
 						? traditionalStyleRuleNodeActive
-						: fg('platform_editor_show_diff_scroll_navigation')
-							? traditionalStyleRuleNodeNew
-							: traditionalStyleRuleNode
+						: traditionalStyleRuleNodeNew
 					: editingStyleRuleNode;
 			} else {
 				return isTraditional ? getDeletedTraditionalInlineStyle(false) : deletedContentStyleNew;
@@ -165,9 +143,7 @@ const getBlockNodeStyle = ({
 		return isTraditional
 			? isActive
 				? traditionalStyleRuleNodeActive
-				: fg('platform_editor_show_diff_scroll_navigation')
-					? traditionalStyleRuleNodeNew
-					: traditionalStyleRuleNode
+				: traditionalStyleRuleNodeNew
 			: editingStyleRuleNode;
 	}
 	if (nodeName === 'blockCard') {
@@ -176,9 +152,7 @@ const getBlockNodeStyle = ({
 				return isTraditional
 					? isActive
 						? traditionalStyleCardBlockNodeActive
-						: fg('platform_editor_show_diff_scroll_navigation')
-							? traditionalStyleCardBlockNodeNew
-							: traditionalStyleCardBlockNode
+						: traditionalStyleCardBlockNodeNew
 					: editingStyleCardBlockNode;
 			} else {
 				return isTraditional ? getDeletedTraditionalInlineStyle(false) : deletedContentStyleNew;
@@ -187,9 +161,7 @@ const getBlockNodeStyle = ({
 		return isTraditional
 			? isActive
 				? traditionalStyleCardBlockNodeActive
-				: fg('platform_editor_show_diff_scroll_navigation')
-					? traditionalStyleCardBlockNodeNew
-					: traditionalStyleCardBlockNode
+				: traditionalStyleCardBlockNodeNew
 			: editingStyleCardBlockNode;
 	}
 	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
@@ -197,9 +169,7 @@ const getBlockNodeStyle = ({
 			return isTraditional
 				? isActive
 					? traditionalStyleNodeActive
-					: fg('platform_editor_show_diff_scroll_navigation')
-						? traditionalStyleNodeNew
-						: traditionalStyleNode
+					: traditionalStyleNodeNew
 				: editingStyleNode;
 		} else {
 			return isTraditional ? getDeletedTraditionalInlineStyle(false) : deletedContentStyleNew;
@@ -208,9 +178,7 @@ const getBlockNodeStyle = ({
 	return isTraditional
 		? isActive
 			? traditionalStyleNodeActive
-			: fg('platform_editor_show_diff_scroll_navigation')
-				? traditionalStyleNodeNew
-				: traditionalStyleNode
+			: traditionalStyleNodeNew
 		: editingStyleNode;
 };
 
@@ -276,28 +244,13 @@ export const createBlockChangedDecoration = ({
 		style = getBlockNodeStyle({ nodeName: change.name, colorScheme, isActive });
 	}
 	const className = getNodeClass(change.name);
-	if (fg('platform_editor_show_diff_scroll_navigation')) {
-		if (style || className) {
-			decorations.push(
-				Decoration.node(
-					change.from,
-					change.to,
-					{
-						style: style,
-						'data-testid': 'show-diff-changed-decoration-node',
-						class: className,
-					},
-					{ key: 'diff-block', nodeName: change.name },
-				),
-			);
-		}
-	} else {
+	if (style || className) {
 		decorations.push(
 			Decoration.node(
 				change.from,
 				change.to,
 				{
-					style,
+					style: style,
 					'data-testid': 'show-diff-changed-decoration-node',
 					class: className,
 				},

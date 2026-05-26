@@ -3,8 +3,8 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::b395820ffa461077fb62e48e29b9dae7>>
- * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:structured-docs-atlaskit-components
+ * @codegen <<SignedSource::bd5b86ae65b6b9e48b637d6a463db4f9>>
+ * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:atlaskit-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
 import type { ComponentMcpPayload } from '../get-all-components/types';
@@ -511,6 +511,32 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'Editor Core',
+		package: '@atlaskit/editor-extension-dropbox',
+		description: 'A an atlassian editor extension to add a native dropbox picker',
+		status: 'general-availability',
+		usageGuidelines: [],
+		contentGuidelines: [],
+		accessibilityGuidelines: [],
+		keywords: ['editor', 'extension-dropbox', 'atlaskit'],
+		category: 'editor',
+		examples: [
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/new';\nimport SectionMessage from '@atlaskit/section-message';\nimport Modal from '../src/modal';\nexport default (): React.JSX.Element => {\n\tconst [isOpen, setIsOpen] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<SectionMessage appearance=\"warning\">\n\t\t\t\tInternal component only - not consumable outside this package\n\t\t\t</SectionMessage>\n\t\t\t<Button onClick={() => setIsOpen(true)}>Show Modal</Button>\n\t\t\t<Modal\n\t\t\t\tshowModal={isOpen}\n\t\t\t\tonClose={() => setIsOpen(false)}\n\t\t\t\tTEST_ONLY_src=\"http://localhost:9000/examples.html?groupId=editor&packageId=extension-dropbox&exampleId=bad-example-modal-content\"\n\t\t\t/>\n\t\t</>\n\t);\n};",
+		],
+		props: [
+			{
+				name: 'appKey',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'canMountinIframe',
+				type: 'boolean',
+				isRequired: true,
+			},
+		],
+	},
+	{
 		name: 'Editor Plugin Block Controls',
 		package: '@atlaskit/editor-plugin-block-controls',
 		description: 'Block controls plugin for @atlaskit/editor-core',
@@ -887,28 +913,509 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'Editor Core',
-		package: '@atlaskit/editor-extension-dropbox',
-		description: 'A an atlassian editor extension to add a native dropbox picker',
+		name: 'AssetsConfigModal',
+		package: '@atlaskit/link-datasource',
+		description:
+			'Configuration modal for the Assets (object schema) datasource. Lets users set up a list of links from an Assets schema and produces Assets datasource ADF.',
 		status: 'general-availability',
-		usageGuidelines: [],
+		usageGuidelines: [
+			'Use when the user is configuring an Assets-based list of links. On confirm, use the returned parameters for datasource ADF or table view.',
+		],
 		contentGuidelines: [],
-		accessibilityGuidelines: [],
-		keywords: ['editor', 'extension-dropbox', 'atlaskit'],
-		category: 'editor',
+		accessibilityGuidelines: [
+			'Ensure the modal has an accessible title and that schema/object pickers have clear labels.',
+		],
+		keywords: ['link-datasource', 'assets', 'datasource', 'config', 'modal'],
+		category: 'linking',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/new';\nimport SectionMessage from '@atlaskit/section-message';\nimport Modal from '../src/modal';\nexport default (): React.JSX.Element => {\n\tconst [isOpen, setIsOpen] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<SectionMessage appearance=\"warning\">\n\t\t\t\tInternal component only - not consumable outside this package\n\t\t\t</SectionMessage>\n\t\t\t<Button onClick={() => setIsOpen(true)}>Show Modal</Button>\n\t\t\t<Modal\n\t\t\t\tshowModal={isOpen}\n\t\t\t\tonClose={() => setIsOpen(false)}\n\t\t\t\tTEST_ONLY_src=\"http://localhost:9000/examples.html?groupId=editor&packageId=extension-dropbox&exampleId=bad-example-modal-content\"\n\t\t\t/>\n\t\t</>\n\t);\n};",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/new';\nimport { SmartCardProvider } from '@atlaskit/link-provider';\nimport { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/assets';\nimport SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';\nimport { ASSETS_LIST_OF_LINKS_DATASOURCE_ID, type AssetsDatasourceParameters } from '../../src';\nimport JSMAssetsConfigModal from '../../src/ui/assets-modal';\nmockAssetsClientFetchRequests({ delayedResponse: false });\nconst mockVisibleColumnKeys = [\n\t'Key',\n\t'Label',\n\t'Created',\n\t'Is Virtual',\n\t'Hardware Components',\n\t'Applications',\n\t'Software Services',\n\t'Number of Slots',\n\t'Primary Capability',\n\t'Owners',\n\t'Notes',\n];\nexport default (): React.JSX.Element => {\n\tconst [showModal, setShowModal] = useState(false);\n\tconst [parameters] = useState<AssetsDatasourceParameters>({\n\t\taql: 'dummy aql',\n\t\tworkspaceId: '',\n\t\tschemaId: '1',\n\t});\n\tconst [visibleColumnKeys] = useState<string[] | undefined>(mockVisibleColumnKeys);\n\tconst toggleIsOpen = () => setShowModal((prevOpenState) => !prevOpenState);\n\tconst closeModal = () => setShowModal(false);\n\treturn (\n\t\t<SmartCardProvider client={new SmartLinkClient()}>\n\t\t\t<Button appearance=\"primary\" onClick={toggleIsOpen}>\n\t\t\t\tToggle Modal\n\t\t\t</Button>\n\t\t\t{showModal && (\n\t\t\t\t<JSMAssetsConfigModal\n\t\t\t\t\tdatasourceId={ASSETS_LIST_OF_LINKS_DATASOURCE_ID}\n\t\t\t\t\tvisibleColumnKeys={visibleColumnKeys}\n\t\t\t\t\tparameters={parameters}\n\t\t\t\t\tonCancel={closeModal}\n\t\t\t\t\tonInsert={closeModal}\n\t\t\t\t/>\n\t\t\t)}\n\t\t</SmartCardProvider>\n\t);\n};",
 		],
 		props: [
 			{
-				name: 'appKey',
+				name: 'columnCustomSizes',
+				type: 'ColumnSizesMap',
+				description: 'Map of column key to custom column width',
+			},
+			{
+				name: 'datasourceId',
 				type: 'string',
+				description:
+					'Unique identifier for which type of datasource is being rendered and for making its requests',
 				isRequired: true,
 			},
 			{
-				name: 'canMountinIframe',
+				name: 'disableDisplayDropdown',
 				type: 'boolean',
+				description: 'Disable the view mode display dropdown',
+			},
+			{
+				name: 'onCancel',
+				type: '() => void',
+				description:
+					'Callback function to be invoked when the modal is closed either via cancel button click, esc keydown, or modal blanket click',
 				isRequired: true,
+			},
+			{
+				name: 'onInsert',
+				type: '(adf: InlineCardAdf | AssetsDatasourceAdf, analyticsEvent?: UIAnalyticsEvent) => void',
+				description: 'Callback function to be invoked when the insert issues button is clicked',
+				isRequired: true,
+			},
+			{
+				name: 'parameters',
+				type: 'DatasourceParameters | AssetsDatasourceParameters',
+				description:
+					'Parameters for making the data requests necessary to render data within the table',
+			},
+			{
+				name: 'shouldReturnFocus',
+				type: 'boolean | React.RefObject<HTMLElement>',
+				description:
+					'Set the focus to return to the element that had focus before focus lock was activated or pass through a specific ref element\nDefaults to false, meaning focus remains where it was when the FocusLock was deactivated',
+			},
+			{
+				name: 'url',
+				type: 'string',
+				description: 'The url that was used to insert a List of Links',
+			},
+			{
+				name: 'viewMode',
+				type: '"table" | "inline"',
+				description:
+					"The view mode that the modal will show on open:\n- Table = Displays a list of links in table format\n- Inline = Presents a smart link that shows the count of query results. However, if there's only one result, it converts to an inline smart link of that issue.",
+			},
+			{
+				name: 'visibleColumnKeys',
+				type: 'string[]',
+				description: 'List of properties/column keys that are visible/selected',
+			},
+			{
+				name: 'wrappedColumnKeys',
+				type: 'string[]',
+				description:
+					'List of column keys that needs to be shown without truncation (content will wrap to a new line)',
+			},
+		],
+	},
+	{
+		name: 'ConfluenceSearchConfigModal',
+		package: '@atlaskit/link-datasource',
+		description:
+			'Configuration modal for the Confluence search datasource. Lets users set up a "list of links" backed by a Confluence search query (space, query, sort) and produces Confluence search datasource ADF.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when the user is configuring a Confluence search-based list of links (e.g. in a block or sidebar). On confirm, use the returned parameters to build datasource ADF or pass to DatasourceTableView.',
+		],
+		contentGuidelines: [],
+		accessibilityGuidelines: [
+			'Ensure the modal has an accessible title and focus is trapped; form fields (space, query, sort) must have labels and error messages announced.',
+		],
+		keywords: ['link-datasource', 'confluence', 'search', 'datasource', 'config', 'modal'],
+		category: 'linking',
+		examples: [
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/standard-button';\nimport { SmartCardProvider } from '@atlaskit/link-provider';\nimport {\n\tdefaultInitialVisibleConfluenceColumnKeys,\n\tmockBasicFilterAGGFetchRequests,\n\tmockDatasourceFetchRequests,\n\tmockProductsData,\n\tmockSiteData,\n} from '@atlaskit/link-test-helpers/datasource';\nimport SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';\nimport { CONFLUENCE_SEARCH_DATASOURCE_ID } from '../../src/ui/confluence-search-modal';\nimport { ConfluenceSearchConfigModal } from '../../src/ui/confluence-search-modal/modal';\nimport { type ConfluenceSearchDatasourceParameters } from '../../src/ui/confluence-search-modal/types';\nmockDatasourceFetchRequests({\n\ttype: 'confluence',\n\tdelayedResponse: false,\n\tshouldMockORSBatch: true,\n\tavailableSitesOverride: mockSiteData.filter(\n\t\t(site) => !['test1', 'test2', 'test4'].includes(site.displayName),\n\t),\n\taccessibleProductsOverride: mockProductsData.filter((product) =>\n\t\t['confluence.ondemand'].includes(product.productId),\n\t),\n});\nmockBasicFilterAGGFetchRequests();\nexport default (): React.JSX.Element => {\n\tconst [showModal, setShowModal] = useState(false);\n\tconst [parameters] = useState<ConfluenceSearchDatasourceParameters>({\n\t\tcloudId: '67899',\n\t\tsearchString: 'Searched something',\n\t});\n\tconst [visibleColumnKeys] = useState<string[] | undefined>(\n\t\tdefaultInitialVisibleConfluenceColumnKeys,\n\t);\n\tconst toggleIsOpen = () => setShowModal((prevOpenState) => !prevOpenState);\n\tconst closeModal = () => setShowModal(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<SmartCardProvider client={new SmartLinkClient()}>\n\t\t\t\t<Button appearance=\"primary\" onClick={toggleIsOpen}>\n\t\t\t\t\tToggle Modal\n\t\t\t\t</Button>\n\t\t\t\t{showModal && (\n\t\t\t\t\t<ConfluenceSearchConfigModal\n\t\t\t\t\t\tdatasourceId={CONFLUENCE_SEARCH_DATASOURCE_ID}\n\t\t\t\t\t\tvisibleColumnKeys={visibleColumnKeys}\n\t\t\t\t\t\tparameters={parameters}\n\t\t\t\t\t\tonCancel={closeModal}\n\t\t\t\t\t\tonInsert={closeModal}\n\t\t\t\t\t/>\n\t\t\t\t)}\n\t\t\t</SmartCardProvider>\n\t\t</IntlProvider>\n\t);\n};",
+		],
+		props: [
+			{
+				name: 'columnCustomSizes',
+				type: 'ColumnSizesMap',
+				description: 'Map of column key to custom column width',
+			},
+			{
+				name: 'datasourceId',
+				type: 'string',
+				description:
+					'Unique identifier for which type of datasource is being rendered and for making its requests',
+				isRequired: true,
+			},
+			{
+				name: 'disableDisplayDropdown',
+				type: 'boolean',
+				description: 'Disable the view mode display dropdown',
+			},
+			{
+				name: 'disableSiteSelector',
+				type: 'boolean',
+			},
+			{
+				name: 'onCancel',
+				type: '() => void',
+				description:
+					'Callback function to be invoked when the modal is closed either via cancel button click, esc keydown, or modal blanket click',
+				isRequired: true,
+			},
+			{
+				name: 'onInsert',
+				type: '(adf: InlineCardAdf | ConfluenceSearchDatasourceAdf, analyticsEvent?: UIAnalyticsEvent) => void',
+				description: 'Callback function to be invoked when the insert issues button is clicked',
+				isRequired: true,
+			},
+			{
+				name: 'overrideParameters',
+				type: '{ entityTypes?: string[]; }',
+			},
+			{
+				name: 'parameters',
+				type: 'DatasourceParameters | ConfluenceSearchDatasourceParameters',
+				description:
+					'Parameters for making the data requests necessary to render data within the table',
+			},
+			{
+				name: 'shouldReturnFocus',
+				type: 'boolean | React.RefObject<HTMLElement>',
+				description:
+					'Set the focus to return to the element that had focus before focus lock was activated or pass through a specific ref element\nDefaults to false, meaning focus remains where it was when the FocusLock was deactivated',
+			},
+			{
+				name: 'url',
+				type: 'string',
+				description: 'The url that was used to insert a List of Links',
+			},
+			{
+				name: 'viewMode',
+				type: '"table" | "inline"',
+				description:
+					"The view mode that the modal will show on open:\n- Table = Displays a list of links in table format\n- Inline = Presents a smart link that shows the count of query results. However, if there's only one result, it converts to an inline smart link of that issue.",
+			},
+			{
+				name: 'visibleColumnKeys',
+				type: 'string[]',
+				description: 'List of properties/column keys that are visible/selected',
+			},
+			{
+				name: 'wrappedColumnKeys',
+				type: 'string[]',
+				description:
+					'List of column keys that needs to be shown without truncation (content will wrap to a new line)',
+			},
+		],
+	},
+	{
+		name: 'DatasourceTableView',
+		package: '@atlaskit/link-datasource',
+		description:
+			'Table view component that renders a datasource (list of links) with configurable columns, sorting, and actions. Consumes datasource ADF or parameters and fetches data via the link client.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when you need to display a list of links (Jira issues, Confluence search, Assets) in a table. Pass the datasource ADF or parameters; wrap in SmartCardProvider so resolution and actions work.',
+		],
+		contentGuidelines: [],
+		accessibilityGuidelines: [
+			'Ensure the table has a caption or aria-label; column headers and sort controls must be focusable and announced. Loading and error states should be announced.',
+		],
+		keywords: ['link-datasource', 'table', 'datasource', 'list of links', 'view'],
+		category: 'linking',
+		examples: [
+			"import { DatasourceTableView } from '@atlaskit/link-datasource';\nimport { ExampleJiraIssuesTableView } from '../examples-helpers/buildJiraIssuesTable';\nimport { FakeModalDialogContainer } from '../examples-helpers/fakeModalDialogContainer';\nexport default (): React.JSX.Element => {\n\treturn (\n\t\t<FakeModalDialogContainer>\n\t\t\t<ExampleJiraIssuesTableView DatasourceTable={DatasourceTableView} />\n\t\t</FakeModalDialogContainer>\n\t);\n};",
+		],
+		props: [
+			{
+				name: 'columnCustomSizes',
+				type: 'ColumnSizesMap',
+				description: 'Map of column key to custom column width',
+			},
+			{
+				name: 'datasourceId',
+				type: 'string',
+				description:
+					'Unique identifier for which type of datasource is being rendered and for making its requests',
+				isRequired: true,
+			},
+			{
+				name: 'onColumnResize',
+				type: '(key: string, width: number) => void',
+			},
+			{
+				name: 'onVisibleColumnKeysChange',
+				type: '(visibleColumnKeys: string[]) => void',
+				description:
+					'Callback to be invoked whenever a user changes the visible columns in a datasource table\neither by selecting/unselecting or reordering (drag and drop)\n\n@param visibleColumnKeys the array of keys for all of the selected columns',
+			},
+			{
+				name: 'onWrappedColumnChange',
+				type: '(key: string, shouldWrap: boolean) => void',
+				description:
+					'Callback to be invoked whenever user changes wrap attribute of the column.\n\n@param key Column key\n@param shouldWrap  Whenever column should wrap',
+			},
+			{
+				name: 'parameters',
+				type: 'DatasourceParameters',
+				description:
+					'Parameters for making the data requests necessary to render data within the table',
+				isRequired: true,
+			},
+			{
+				name: 'scrollableContainerHeight',
+				type: 'number',
+				description:
+					'If this number is set it will restrict (max-height) maximum size of the component AND make main container a scrollable container.\nIt this number is 0 it will not restrict height and not make container scrollable.',
+			},
+			{
+				name: 'url',
+				type: 'string',
+				description:
+					'Url for an existing datasource, initially used for displaying to a user unauthorized to query that site',
+			},
+			{
+				name: 'visibleColumnKeys',
+				type: 'string[]',
+				description: 'List of properties/column keys that are visible/selected',
+			},
+			{
+				name: 'wrappedColumnKeys',
+				type: 'string[]',
+				description:
+					'List of column keys that needs to be shown without truncation (content will wrap to a new line)',
+			},
+		],
+	},
+	{
+		name: 'JiraIssuesConfigModal',
+		package: '@atlaskit/link-datasource',
+		description:
+			'Configuration modal for the Jira issues datasource. Lets users set up a list of Jira issues (JQL, columns, filters) and produces Jira issues datasource ADF.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when the user is configuring a Jira issues list (e.g. in a block or table). On confirm, use the returned parameters for datasource ADF or DatasourceTableView.',
+		],
+		contentGuidelines: [],
+		accessibilityGuidelines: [
+			'Ensure the modal has an accessible title and focus management; JQL and column pickers must have clear labels and error announcements.',
+		],
+		keywords: ['link-datasource', 'jira', 'issues', 'datasource', 'config', 'modal', 'JQL'],
+		category: 'linking',
+		examples: [
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/new';\nimport { SmartCardProvider } from '@atlaskit/link-provider';\nimport {\n\tdefaultInitialVisibleJiraColumnKeys,\n\tmockBasicFilterAGGFetchRequests,\n\tmockDatasourceFetchRequests,\n\tmockProductsData,\n\tmockSiteData,\n} from '@atlaskit/link-test-helpers/datasource';\nimport SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';\nimport { JIRA_LIST_OF_LINKS_DATASOURCE_ID, JiraIssuesConfigModal } from '../../src';\nmockDatasourceFetchRequests({\n\tdelayedResponse: false,\n\tshouldMockORSBatch: true,\n\tavailableSitesOverride: mockSiteData\n\t\t.map((site, index) => ({\n\t\t\t...site,\n\t\t\tcloudId: index === 0 ? 'doc-cloudId' : site.cloudId,\n\t\t}))\n\t\t.filter((site) => !['test1', 'test2', 'test4'].includes(site.displayName)),\n\taccessibleProductsOverride: mockProductsData\n\t\t.filter((product) => ['jira-servicedesk.ondemand'].includes(product.productId))\n\t\t.flatMap((product) => ({\n\t\t\t...product,\n\t\t\tworkspaces: product.workspaces?.map((workspace, index) => ({\n\t\t\t\t...workspace,\n\t\t\t\tcloudId: index === 0 ? 'doc-cloudId' : workspace.cloudId,\n\t\t\t})),\n\t\t})),\n});\nmockBasicFilterAGGFetchRequests({ withJiraFilterHydration: false });\nexport default (): React.JSX.Element => {\n\tconst [showModal, setShowModal] = useState(false);\n\tconst [visibleColumnKeys] = useState<string[] | undefined>(defaultInitialVisibleJiraColumnKeys);\n\tconst [columnCustomSizes] = useState<{ [key: string]: number } | undefined>();\n\tconst [wrappedColumnKeys] = useState<string[] | undefined>();\n\tconst toggleIsOpen = () => setShowModal((prevOpenState) => !prevOpenState);\n\tconst closeModal = () => setShowModal(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<SmartCardProvider client={new SmartLinkClient()}>\n\t\t\t\t<Button appearance=\"primary\" onClick={toggleIsOpen}>\n\t\t\t\t\tToggle Modal\n\t\t\t\t</Button>\n\t\t\t\t{showModal && (\n\t\t\t\t\t<JiraIssuesConfigModal\n\t\t\t\t\t\tdatasourceId={JIRA_LIST_OF_LINKS_DATASOURCE_ID}\n\t\t\t\t\t\tvisibleColumnKeys={visibleColumnKeys}\n\t\t\t\t\t\tcolumnCustomSizes={columnCustomSizes}\n\t\t\t\t\t\twrappedColumnKeys={wrappedColumnKeys}\n\t\t\t\t\t\tparameters={{ cloudId: 'doc-cloudId' }}\n\t\t\t\t\t\tonCancel={closeModal}\n\t\t\t\t\t\tonInsert={closeModal}\n\t\t\t\t\t/>\n\t\t\t\t)}\n\t\t\t</SmartCardProvider>\n\t\t</IntlProvider>\n\t);\n};",
+			"import { DatasourceTableView } from '@atlaskit/link-datasource';\nimport { ExampleJiraIssuesTableView } from '../examples-helpers/buildJiraIssuesTable';\nimport { FakeModalDialogContainer } from '../examples-helpers/fakeModalDialogContainer';\nexport default (): React.JSX.Element => {\n\treturn (\n\t\t<FakeModalDialogContainer>\n\t\t\t<ExampleJiraIssuesTableView DatasourceTable={DatasourceTableView} />\n\t\t</FakeModalDialogContainer>\n\t);\n};",
+		],
+		props: [
+			{
+				name: 'columnCustomSizes',
+				type: 'ColumnSizesMap',
+				description: 'Map of column key to custom column width',
+			},
+			{
+				name: 'datasourceId',
+				type: 'string',
+				description:
+					'Unique identifier for which type of datasource is being rendered and for making its requests',
+				isRequired: true,
+			},
+			{
+				name: 'disableDisplayDropdown',
+				type: 'boolean',
+				description: 'Disable the view mode display dropdown',
+			},
+			{
+				name: 'onCancel',
+				type: '() => void',
+				description:
+					'Callback function to be invoked when the modal is closed either via cancel button click, esc keydown, or modal blanket click',
+				isRequired: true,
+			},
+			{
+				name: 'onInsert',
+				type: '(adf: InlineCardAdf | DatasourceAdf<Record<string, unknown>>, analyticsEvent?: UIAnalyticsEvent) => void',
+				description: 'Callback function to be invoked when the insert issues button is clicked',
+				isRequired: true,
+			},
+			{
+				name: 'parameters',
+				type: 'DatasourceParameters | JiraIssueDatasourceParameters',
+				description:
+					'Parameters for making the data requests necessary to render data within the table',
+			},
+			{
+				name: 'shouldReturnFocus',
+				type: 'boolean | React.RefObject<HTMLElement>',
+				description:
+					'Set the focus to return to the element that had focus before focus lock was activated or pass through a specific ref element\nDefaults to false, meaning focus remains where it was when the FocusLock was deactivated',
+			},
+			{
+				name: 'url',
+				type: 'string',
+				description: 'The url that was used to insert a List of Links',
+			},
+			{
+				name: 'viewMode',
+				type: '"table" | "inline"',
+				description:
+					"The view mode that the modal will show on open:\n- Table = Displays a list of links in table format\n- Inline = Presents a smart link that shows the count of query results. However, if there's only one result, it converts to an inline smart link of that issue.",
+			},
+			{
+				name: 'visibleColumnKeys',
+				type: 'string[]',
+				description: 'List of properties/column keys that are visible/selected',
+			},
+			{
+				name: 'wrappedColumnKeys',
+				type: 'string[]',
+				description:
+					'List of column keys that needs to be shown without truncation (content will wrap to a new line)',
+			},
+		],
+	},
+	{
+		name: 'LinkPicker',
+		package: '@atlaskit/link-picker',
+		description:
+			'Standalone link picker UI that lets users search and select links to insert. Supports plugins for different data sources (recents, search, Jira, Confluence, etc.) and can be used in modals, popups, or inline.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when the user needs to choose a link to insert (e.g. in an editor, form, or toolbar). Add plugins to define tabs and data sources; use SmartCardProvider above the picker so selected links resolve correctly.',
+		],
+		contentGuidelines: [],
+		accessibilityGuidelines: [
+			'Ensure the picker is focusable and has an accessible name (e.g. "Insert link"). Provide a keyboard-accessible way to open and close; ensure search and results are announced to screen readers.',
+		],
+		keywords: ['link-picker', 'link', 'picker', 'search', 'insert link', 'plugins'],
+		category: 'linking',
+		examples: [
+			"import React, { Fragment, type SyntheticEvent, useMemo, useState } from 'react';\nimport Link from '@atlaskit/link';\nimport { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';\nimport { token } from '@atlaskit/tokens';\nimport { AtlassianLinkPickerPlugin, Scope } from '@atlassian/link-picker-atlassian-plugin';\nimport { mockEndpoints } from '@atlassian/recent-work-client/mocks';\nimport { PageWrapper } from '../example-helpers/common';\nimport { mockPluginEndpoints } from '../example-helpers/mock-plugin-endpoints';\nimport { MOCK_DATA_V3 as mockRecentData } from '../example-helpers/mock-recents-data';\nimport { LinkPicker, type LinkPickerProps } from '../src';\ntype OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];\nmockPluginEndpoints();\nmockEndpoints(undefined, undefined, mockRecentData);\nfunction Basic() {\n\tconst [link, setLink] = useState<OnSubmitPayload>({\n\t\turl: '',\n\t\tdisplayText: null,\n\t\ttitle: null,\n\t\tmeta: {\n\t\t\tinputMethod: 'manual',\n\t\t},\n\t});\n\tconst linkAnalytics = useSmartLinkLifecycleAnalytics();\n\tconst handleSubmit: LinkPickerProps['onSubmit'] = (payload, analytic) => {\n\t\tsetLink(payload);\n\t\tlinkAnalytics.linkCreated(payload, analytic);\n\t};\n\tconst handleClick = (e: SyntheticEvent) => {\n\t\te.preventDefault();\n\t};\n\tconst plugins = useMemo(\n\t\t() => [\n\t\t\tnew AtlassianLinkPickerPlugin({\n\t\t\t\tcloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',\n\t\t\t\tscope: Scope.ConfluenceContentType,\n\t\t\t\taggregatorUrl: 'https://pug.jira-dev.com/gateway/api/xpsearch-aggregator',\n\t\t\t\tactivityClientEndpoint: 'https://pug.jira-dev.com/gateway/api/graphql',\n\t\t\t}),\n\t\t],\n\t\t[],\n\t);\n\treturn (\n\t\t<Fragment>\n\t\t\t{\n\t\t\t<div style={{ paddingBottom: token('space.250') }}>\n\t\t\t\t<Link id=\"test-link\" href={link.url} target=\"_blank\" onClick={handleClick}>\n\t\t\t\t\t{link.displayText || link.url}\n\t\t\t\t</Link>\n\t\t\t</div>\n\t\t\t<LinkPicker\n\t\t\t\tplugins={plugins}\n\t\t\t\turl={link.url}\n\t\t\t\tdisplayText={link.displayText}\n\t\t\t\tonSubmit={handleSubmit}\n\t\t\t/>\n\t\t</Fragment>\n\t);\n}\nexport default function BasicWrapper(): React.JSX.Element {\n\treturn (\n\t\t<PageWrapper>\n\t\t\t<Basic />\n\t\t</PageWrapper>\n\t);\n}",
+			"import React, { Fragment, type SyntheticEvent, useState } from 'react';\nimport Button from '@atlaskit/button/new';\nimport Link from '@atlaskit/link';\nimport Popup from '@atlaskit/popup';\nimport { token } from '@atlaskit/tokens';\nimport { PageHeader, PageWrapper } from '../example-helpers/common';\nimport { LinkPicker } from '../src';\ntype OnSubmitPayload = Parameters<Required<React.ComponentProps<typeof LinkPicker>>['onSubmit']>[0];\nfunction WithoutPlugins() {\n\tconst [isOpen, setIsOpen] = useState(true);\n\tconst [link, setLink] = useState<OnSubmitPayload>({\n\t\turl: '',\n\t\tdisplayText: null,\n\t\ttitle: null,\n\t\tmeta: {\n\t\t\tinputMethod: 'manual',\n\t\t},\n\t});\n\tconst handleToggle = () => setIsOpen(!isOpen);\n\tconst handleSubmit = (payload: OnSubmitPayload) => {\n\t\tsetLink(payload);\n\t\tsetIsOpen(false);\n\t};\n\tconst handleClick = (e: SyntheticEvent) => {\n\t\te.preventDefault();\n\t\te.stopPropagation();\n\t\tsetIsOpen(true);\n\t};\n\tconst linkPickerInPopup = (\n\t\t<Popup\n\t\t\tisOpen={isOpen}\n\t\t\tautoFocus={false}\n\t\t\tonClose={handleToggle}\n\t\t\tcontent={({ update }) => (\n\t\t\t\t<LinkPicker\n\t\t\t\t\turl={link.url}\n\t\t\t\t\tdisplayText={link.displayText}\n\t\t\t\t\tonSubmit={handleSubmit}\n\t\t\t\t\tonCancel={handleToggle}\n\t\t\t\t\tonContentResize={update}\n\t\t\t\t/>\n\t\t\t)}\n\t\t\tplacement=\"right-start\"\n\t\t\ttrigger={({ ref, ...triggerProps }) => (\n\t\t\t\t<Button\n\t\t\t\t\t{...triggerProps}\n\t\t\t\t\tref={ref}\n\t\t\t\t\tappearance=\"primary\"\n\t\t\t\t\tisSelected={isOpen}\n\t\t\t\t\tonClick={handleToggle}\n\t\t\t\t>\n\t\t\t\t\t{isOpen ? '-' : '+'}\n\t\t\t\t</Button>\n\t\t\t)}\n\t\t/>\n\t);\n\treturn (\n\t\t<Fragment>\n\t\t\t<PageHeader>\n\t\t\t\t<p>\n\t\t\t\t\t<b>LinkPicker</b> without search, used as an interface to submit a valid link with custom\n\t\t\t\t\tdisplay text.\n\t\t\t\t</p>\n\t\t\t</PageHeader>\n\t\t\t{\n\t\t\t<div style={{ paddingBottom: token('space.250') }}>\n\t\t\t\t<Link id=\"test-link\" href={link.url} target=\"_blank\" onClick={handleClick}>\n\t\t\t\t\t{link.displayText || link.url}\n\t\t\t\t</Link>\n\t\t\t</div>\n\t\t\t{linkPickerInPopup}\n\t\t</Fragment>\n\t);\n}\nexport default function WithoutPluginsWrapper(): React.JSX.Element {\n\treturn (\n\t\t<PageWrapper>\n\t\t\t<WithoutPlugins />\n\t\t</PageWrapper>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'adaptiveHeight',
+				type: 'boolean',
+				description:
+					'Allows height of search results to adapt to the number of results being displayed.',
+			},
+			{
+				name: 'additionalError',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'This prop passes one additional error that is secondary to component errors',
+			},
+			{
+				name: 'alwaysShowTabs',
+				type: 'boolean',
+				description: 'When true, tabs are displayed even if there is only one plugin.',
+			},
+			{
+				name: 'component',
+				type: 'ComponentClass<Partial<LinkPickerProps> & { children: ReactElement<any, string | JSXElementConstructor<any>>; }, any> | FunctionComponent<...>',
+				description: 'Customise the link picker root component',
+			},
+			{
+				name: 'customMessages',
+				type: '{ linkLabel?: MessageDescriptor; linkAriaLabel?: MessageDescriptor; linkPlaceholder?: MessageDescriptor; linkTextLabel?: MessageDescriptor; linkTextPlaceholder?: MessageDescriptor; linkHelperTextLabel?: MessageDescriptor; submitButtonLabel?: MessageDescriptor; }',
+				description: 'Allows for customisation of text in the link picker.',
+			},
+			{
+				name: 'disableWidth',
+				type: 'boolean',
+				description: 'Disables the default width containing the link picker.',
+			},
+			{
+				name: 'displayHelperText',
+				type: 'string',
+				description:
+					'The desired text to be displayed below the display text input field. Only displayed when `platform-linking-visual-refresh-link-picker` gate is enabled.',
+			},
+			{
+				name: 'displayText',
+				type: 'string',
+				description:
+					'The desired text to be displayed alternatively to the title of the linked resource for editing.',
+			},
+			{
+				name: 'featureFlags',
+				type: '{ [x: string]: unknown; }',
+			},
+			{
+				name: 'hideDisplayText',
+				type: 'boolean',
+				description: 'Hides the link picker display text field if set to true.',
+			},
+			{
+				name: 'inputRef',
+				type: '((instance: HTMLInputElement) => void) | RefObject<HTMLInputElement>',
+				description: 'Ref to the link picker search input.',
+			},
+			{
+				name: 'isLoadingPlugins',
+				type: 'boolean',
+				description:
+					'If set true, Link picker will show the loading spinner where the tabs and results will show.',
+			},
+			{
+				name: 'isSubmitting',
+				type: 'boolean',
+				description: 'Controls showing a "submission in-progres" UX',
+			},
+			{
+				name: 'moveSubmitButton',
+				type: 'boolean',
+				description:
+					'This prop controls where the submit button appears. When true the submit button will move below the input field and be full width',
+			},
+			{
+				name: 'onCancel',
+				type: '() => void',
+				description:
+					'Callback to fire when the cancel button is clicked.\nIf not provided, cancel button is not displayed.',
+			},
+			{
+				name: 'onContentResize',
+				type: '() => void',
+				description:
+					'Callback to fire when content is changed inside the link picker e.g. items, when loading, tabs',
+			},
+			{
+				name: 'onSubmit',
+				type: '(arg: OnSubmitParameter, analytic?: UIAnalyticsEvent) => void',
+				description: 'Callback to fire on form submission.',
+				isRequired: true,
+			},
+			{
+				name: 'paddingBottom',
+				type: 'string',
+				description: 'Override the default bottom padding.',
+			},
+			{
+				name: 'paddingLeft',
+				type: 'string',
+				description: 'Override the default left padding.',
+			},
+			{
+				name: 'paddingRight',
+				type: 'string',
+				description: 'Override the default right padding.',
+			},
+			{
+				name: 'paddingTop',
+				type: 'string',
+				description: 'Override the default top padding.',
+			},
+			{
+				name: 'plugins',
+				type: 'LinkPickerPlugin[]',
+				description: 'Plugins that provide link suggestions / search capabilities.',
+			},
+			{
+				name: 'previewableLinksOnly',
+				type: 'boolean',
+				description: 'Disables URLs that do not have an embeddable preview',
+			},
+			{
+				name: 'recentSearchListSize',
+				type: 'number',
+				description: 'Showing dynamic list size based on window height',
+			},
+			{
+				name: 'shouldRenderNoResultsImage',
+				type: 'boolean',
+				description: 'Controls showing the image in the no results state',
+			},
+			{
+				name: 'submitOnInputChange',
+				type: 'boolean',
+				description: 'This prop disables submit button and handles submit on input change',
+			},
+			{
+				name: 'url',
+				type: 'string',
+				description: 'The url of the linked resource for editing.',
 			},
 		],
 	},
@@ -1186,513 +1693,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'ConfluenceSearchConfigModal',
-		package: '@atlaskit/link-datasource',
-		description:
-			'Configuration modal for the Confluence search datasource. Lets users set up a "list of links" backed by a Confluence search query (space, query, sort) and produces Confluence search datasource ADF.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use when the user is configuring a Confluence search-based list of links (e.g. in a block or sidebar). On confirm, use the returned parameters to build datasource ADF or pass to DatasourceTableView.',
-		],
-		contentGuidelines: [],
-		accessibilityGuidelines: [
-			'Ensure the modal has an accessible title and focus is trapped; form fields (space, query, sort) must have labels and error messages announced.',
-		],
-		keywords: ['link-datasource', 'confluence', 'search', 'datasource', 'config', 'modal'],
-		category: 'linking',
-		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/standard-button';\nimport { SmartCardProvider } from '@atlaskit/link-provider';\nimport {\n\tdefaultInitialVisibleConfluenceColumnKeys,\n\tmockBasicFilterAGGFetchRequests,\n\tmockDatasourceFetchRequests,\n\tmockProductsData,\n\tmockSiteData,\n} from '@atlaskit/link-test-helpers/datasource';\nimport SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';\nimport { CONFLUENCE_SEARCH_DATASOURCE_ID } from '../../src/ui/confluence-search-modal';\nimport { ConfluenceSearchConfigModal } from '../../src/ui/confluence-search-modal/modal';\nimport { type ConfluenceSearchDatasourceParameters } from '../../src/ui/confluence-search-modal/types';\nmockDatasourceFetchRequests({\n\ttype: 'confluence',\n\tdelayedResponse: false,\n\tshouldMockORSBatch: true,\n\tavailableSitesOverride: mockSiteData.filter(\n\t\t(site) => !['test1', 'test2', 'test4'].includes(site.displayName),\n\t),\n\taccessibleProductsOverride: mockProductsData.filter((product) =>\n\t\t['confluence.ondemand'].includes(product.productId),\n\t),\n});\nmockBasicFilterAGGFetchRequests();\nexport default (): React.JSX.Element => {\n\tconst [showModal, setShowModal] = useState(false);\n\tconst [parameters] = useState<ConfluenceSearchDatasourceParameters>({\n\t\tcloudId: '67899',\n\t\tsearchString: 'Searched something',\n\t});\n\tconst [visibleColumnKeys] = useState<string[] | undefined>(\n\t\tdefaultInitialVisibleConfluenceColumnKeys,\n\t);\n\tconst toggleIsOpen = () => setShowModal((prevOpenState) => !prevOpenState);\n\tconst closeModal = () => setShowModal(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<SmartCardProvider client={new SmartLinkClient()}>\n\t\t\t\t<Button appearance=\"primary\" onClick={toggleIsOpen}>\n\t\t\t\t\tToggle Modal\n\t\t\t\t</Button>\n\t\t\t\t{showModal && (\n\t\t\t\t\t<ConfluenceSearchConfigModal\n\t\t\t\t\t\tdatasourceId={CONFLUENCE_SEARCH_DATASOURCE_ID}\n\t\t\t\t\t\tvisibleColumnKeys={visibleColumnKeys}\n\t\t\t\t\t\tparameters={parameters}\n\t\t\t\t\t\tonCancel={closeModal}\n\t\t\t\t\t\tonInsert={closeModal}\n\t\t\t\t\t/>\n\t\t\t\t)}\n\t\t\t</SmartCardProvider>\n\t\t</IntlProvider>\n\t);\n};",
-		],
-		props: [
-			{
-				name: 'columnCustomSizes',
-				type: 'ColumnSizesMap',
-				description: 'Map of column key to custom column width',
-			},
-			{
-				name: 'datasourceId',
-				type: 'string',
-				description:
-					'Unique identifier for which type of datasource is being rendered and for making its requests',
-				isRequired: true,
-			},
-			{
-				name: 'disableDisplayDropdown',
-				type: 'boolean',
-				description: 'Disable the view mode display dropdown',
-			},
-			{
-				name: 'disableSiteSelector',
-				type: 'boolean',
-			},
-			{
-				name: 'onCancel',
-				type: '() => void',
-				description:
-					'Callback function to be invoked when the modal is closed either via cancel button click, esc keydown, or modal blanket click',
-				isRequired: true,
-			},
-			{
-				name: 'onInsert',
-				type: '(adf: InlineCardAdf | ConfluenceSearchDatasourceAdf, analyticsEvent?: UIAnalyticsEvent) => void',
-				description: 'Callback function to be invoked when the insert issues button is clicked',
-				isRequired: true,
-			},
-			{
-				name: 'overrideParameters',
-				type: '{ entityTypes?: string[]; }',
-			},
-			{
-				name: 'parameters',
-				type: 'DatasourceParameters | ConfluenceSearchDatasourceParameters',
-				description:
-					'Parameters for making the data requests necessary to render data within the table',
-			},
-			{
-				name: 'shouldReturnFocus',
-				type: 'boolean | React.RefObject<HTMLElement>',
-				description:
-					'Set the focus to return to the element that had focus before focus lock was activated or pass through a specific ref element\nDefaults to false, meaning focus remains where it was when the FocusLock was deactivated',
-			},
-			{
-				name: 'url',
-				type: 'string',
-				description: 'The url that was used to insert a List of Links',
-			},
-			{
-				name: 'viewMode',
-				type: '"table" | "inline"',
-				description:
-					"The view mode that the modal will show on open:\n- Table = Displays a list of links in table format\n- Inline = Presents a smart link that shows the count of query results. However, if there's only one result, it converts to an inline smart link of that issue.",
-			},
-			{
-				name: 'visibleColumnKeys',
-				type: 'string[]',
-				description: 'List of properties/column keys that are visible/selected',
-			},
-			{
-				name: 'wrappedColumnKeys',
-				type: 'string[]',
-				description:
-					'List of column keys that needs to be shown without truncation (content will wrap to a new line)',
-			},
-		],
-	},
-	{
-		name: 'JiraIssuesConfigModal',
-		package: '@atlaskit/link-datasource',
-		description:
-			'Configuration modal for the Jira issues datasource. Lets users set up a list of Jira issues (JQL, columns, filters) and produces Jira issues datasource ADF.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use when the user is configuring a Jira issues list (e.g. in a block or table). On confirm, use the returned parameters for datasource ADF or DatasourceTableView.',
-		],
-		contentGuidelines: [],
-		accessibilityGuidelines: [
-			'Ensure the modal has an accessible title and focus management; JQL and column pickers must have clear labels and error announcements.',
-		],
-		keywords: ['link-datasource', 'jira', 'issues', 'datasource', 'config', 'modal', 'JQL'],
-		category: 'linking',
-		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/new';\nimport { SmartCardProvider } from '@atlaskit/link-provider';\nimport {\n\tdefaultInitialVisibleJiraColumnKeys,\n\tmockBasicFilterAGGFetchRequests,\n\tmockDatasourceFetchRequests,\n\tmockProductsData,\n\tmockSiteData,\n} from '@atlaskit/link-test-helpers/datasource';\nimport SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';\nimport { JIRA_LIST_OF_LINKS_DATASOURCE_ID, JiraIssuesConfigModal } from '../../src';\nmockDatasourceFetchRequests({\n\tdelayedResponse: false,\n\tshouldMockORSBatch: true,\n\tavailableSitesOverride: mockSiteData\n\t\t.map((site, index) => ({\n\t\t\t...site,\n\t\t\tcloudId: index === 0 ? 'doc-cloudId' : site.cloudId,\n\t\t}))\n\t\t.filter((site) => !['test1', 'test2', 'test4'].includes(site.displayName)),\n\taccessibleProductsOverride: mockProductsData\n\t\t.filter((product) => ['jira-servicedesk.ondemand'].includes(product.productId))\n\t\t.flatMap((product) => ({\n\t\t\t...product,\n\t\t\tworkspaces: product.workspaces?.map((workspace, index) => ({\n\t\t\t\t...workspace,\n\t\t\t\tcloudId: index === 0 ? 'doc-cloudId' : workspace.cloudId,\n\t\t\t})),\n\t\t})),\n});\nmockBasicFilterAGGFetchRequests({ withJiraFilterHydration: false });\nexport default (): React.JSX.Element => {\n\tconst [showModal, setShowModal] = useState(false);\n\tconst [visibleColumnKeys] = useState<string[] | undefined>(defaultInitialVisibleJiraColumnKeys);\n\tconst [columnCustomSizes] = useState<{ [key: string]: number } | undefined>();\n\tconst [wrappedColumnKeys] = useState<string[] | undefined>();\n\tconst toggleIsOpen = () => setShowModal((prevOpenState) => !prevOpenState);\n\tconst closeModal = () => setShowModal(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<SmartCardProvider client={new SmartLinkClient()}>\n\t\t\t\t<Button appearance=\"primary\" onClick={toggleIsOpen}>\n\t\t\t\t\tToggle Modal\n\t\t\t\t</Button>\n\t\t\t\t{showModal && (\n\t\t\t\t\t<JiraIssuesConfigModal\n\t\t\t\t\t\tdatasourceId={JIRA_LIST_OF_LINKS_DATASOURCE_ID}\n\t\t\t\t\t\tvisibleColumnKeys={visibleColumnKeys}\n\t\t\t\t\t\tcolumnCustomSizes={columnCustomSizes}\n\t\t\t\t\t\twrappedColumnKeys={wrappedColumnKeys}\n\t\t\t\t\t\tparameters={{ cloudId: 'doc-cloudId' }}\n\t\t\t\t\t\tonCancel={closeModal}\n\t\t\t\t\t\tonInsert={closeModal}\n\t\t\t\t\t/>\n\t\t\t\t)}\n\t\t\t</SmartCardProvider>\n\t\t</IntlProvider>\n\t);\n};",
-			"import { DatasourceTableView } from '@atlaskit/link-datasource';\nimport { ExampleJiraIssuesTableView } from '../examples-helpers/buildJiraIssuesTable';\nimport { FakeModalDialogContainer } from '../examples-helpers/fakeModalDialogContainer';\nexport default (): React.JSX.Element => {\n\treturn (\n\t\t<FakeModalDialogContainer>\n\t\t\t<ExampleJiraIssuesTableView DatasourceTable={DatasourceTableView} />\n\t\t</FakeModalDialogContainer>\n\t);\n};",
-		],
-		props: [
-			{
-				name: 'columnCustomSizes',
-				type: 'ColumnSizesMap',
-				description: 'Map of column key to custom column width',
-			},
-			{
-				name: 'datasourceId',
-				type: 'string',
-				description:
-					'Unique identifier for which type of datasource is being rendered and for making its requests',
-				isRequired: true,
-			},
-			{
-				name: 'disableDisplayDropdown',
-				type: 'boolean',
-				description: 'Disable the view mode display dropdown',
-			},
-			{
-				name: 'onCancel',
-				type: '() => void',
-				description:
-					'Callback function to be invoked when the modal is closed either via cancel button click, esc keydown, or modal blanket click',
-				isRequired: true,
-			},
-			{
-				name: 'onInsert',
-				type: '(adf: InlineCardAdf | DatasourceAdf<Record<string, unknown>>, analyticsEvent?: UIAnalyticsEvent) => void',
-				description: 'Callback function to be invoked when the insert issues button is clicked',
-				isRequired: true,
-			},
-			{
-				name: 'parameters',
-				type: 'DatasourceParameters | JiraIssueDatasourceParameters',
-				description:
-					'Parameters for making the data requests necessary to render data within the table',
-			},
-			{
-				name: 'shouldReturnFocus',
-				type: 'boolean | React.RefObject<HTMLElement>',
-				description:
-					'Set the focus to return to the element that had focus before focus lock was activated or pass through a specific ref element\nDefaults to false, meaning focus remains where it was when the FocusLock was deactivated',
-			},
-			{
-				name: 'url',
-				type: 'string',
-				description: 'The url that was used to insert a List of Links',
-			},
-			{
-				name: 'viewMode',
-				type: '"table" | "inline"',
-				description:
-					"The view mode that the modal will show on open:\n- Table = Displays a list of links in table format\n- Inline = Presents a smart link that shows the count of query results. However, if there's only one result, it converts to an inline smart link of that issue.",
-			},
-			{
-				name: 'visibleColumnKeys',
-				type: 'string[]',
-				description: 'List of properties/column keys that are visible/selected',
-			},
-			{
-				name: 'wrappedColumnKeys',
-				type: 'string[]',
-				description:
-					'List of column keys that needs to be shown without truncation (content will wrap to a new line)',
-			},
-		],
-	},
-	{
-		name: 'AssetsConfigModal',
-		package: '@atlaskit/link-datasource',
-		description:
-			'Configuration modal for the Assets (object schema) datasource. Lets users set up a list of links from an Assets schema and produces Assets datasource ADF.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use when the user is configuring an Assets-based list of links. On confirm, use the returned parameters for datasource ADF or table view.',
-		],
-		contentGuidelines: [],
-		accessibilityGuidelines: [
-			'Ensure the modal has an accessible title and that schema/object pickers have clear labels.',
-		],
-		keywords: ['link-datasource', 'assets', 'datasource', 'config', 'modal'],
-		category: 'linking',
-		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/new';\nimport { SmartCardProvider } from '@atlaskit/link-provider';\nimport { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/assets';\nimport SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';\nimport { ASSETS_LIST_OF_LINKS_DATASOURCE_ID, type AssetsDatasourceParameters } from '../../src';\nimport JSMAssetsConfigModal from '../../src/ui/assets-modal';\nmockAssetsClientFetchRequests({ delayedResponse: false });\nconst mockVisibleColumnKeys = [\n\t'Key',\n\t'Label',\n\t'Created',\n\t'Is Virtual',\n\t'Hardware Components',\n\t'Applications',\n\t'Software Services',\n\t'Number of Slots',\n\t'Primary Capability',\n\t'Owners',\n\t'Notes',\n];\nexport default (): React.JSX.Element => {\n\tconst [showModal, setShowModal] = useState(false);\n\tconst [parameters] = useState<AssetsDatasourceParameters>({\n\t\taql: 'dummy aql',\n\t\tworkspaceId: '',\n\t\tschemaId: '1',\n\t});\n\tconst [visibleColumnKeys] = useState<string[] | undefined>(mockVisibleColumnKeys);\n\tconst toggleIsOpen = () => setShowModal((prevOpenState) => !prevOpenState);\n\tconst closeModal = () => setShowModal(false);\n\treturn (\n\t\t<SmartCardProvider client={new SmartLinkClient()}>\n\t\t\t<Button appearance=\"primary\" onClick={toggleIsOpen}>\n\t\t\t\tToggle Modal\n\t\t\t</Button>\n\t\t\t{showModal && (\n\t\t\t\t<JSMAssetsConfigModal\n\t\t\t\t\tdatasourceId={ASSETS_LIST_OF_LINKS_DATASOURCE_ID}\n\t\t\t\t\tvisibleColumnKeys={visibleColumnKeys}\n\t\t\t\t\tparameters={parameters}\n\t\t\t\t\tonCancel={closeModal}\n\t\t\t\t\tonInsert={closeModal}\n\t\t\t\t/>\n\t\t\t)}\n\t\t</SmartCardProvider>\n\t);\n};",
-		],
-		props: [
-			{
-				name: 'columnCustomSizes',
-				type: 'ColumnSizesMap',
-				description: 'Map of column key to custom column width',
-			},
-			{
-				name: 'datasourceId',
-				type: 'string',
-				description:
-					'Unique identifier for which type of datasource is being rendered and for making its requests',
-				isRequired: true,
-			},
-			{
-				name: 'disableDisplayDropdown',
-				type: 'boolean',
-				description: 'Disable the view mode display dropdown',
-			},
-			{
-				name: 'onCancel',
-				type: '() => void',
-				description:
-					'Callback function to be invoked when the modal is closed either via cancel button click, esc keydown, or modal blanket click',
-				isRequired: true,
-			},
-			{
-				name: 'onInsert',
-				type: '(adf: InlineCardAdf | AssetsDatasourceAdf, analyticsEvent?: UIAnalyticsEvent) => void',
-				description: 'Callback function to be invoked when the insert issues button is clicked',
-				isRequired: true,
-			},
-			{
-				name: 'parameters',
-				type: 'DatasourceParameters | AssetsDatasourceParameters',
-				description:
-					'Parameters for making the data requests necessary to render data within the table',
-			},
-			{
-				name: 'shouldReturnFocus',
-				type: 'boolean | React.RefObject<HTMLElement>',
-				description:
-					'Set the focus to return to the element that had focus before focus lock was activated or pass through a specific ref element\nDefaults to false, meaning focus remains where it was when the FocusLock was deactivated',
-			},
-			{
-				name: 'url',
-				type: 'string',
-				description: 'The url that was used to insert a List of Links',
-			},
-			{
-				name: 'viewMode',
-				type: '"table" | "inline"',
-				description:
-					"The view mode that the modal will show on open:\n- Table = Displays a list of links in table format\n- Inline = Presents a smart link that shows the count of query results. However, if there's only one result, it converts to an inline smart link of that issue.",
-			},
-			{
-				name: 'visibleColumnKeys',
-				type: 'string[]',
-				description: 'List of properties/column keys that are visible/selected',
-			},
-			{
-				name: 'wrappedColumnKeys',
-				type: 'string[]',
-				description:
-					'List of column keys that needs to be shown without truncation (content will wrap to a new line)',
-			},
-		],
-	},
-	{
-		name: 'DatasourceTableView',
-		package: '@atlaskit/link-datasource',
-		description:
-			'Table view component that renders a datasource (list of links) with configurable columns, sorting, and actions. Consumes datasource ADF or parameters and fetches data via the link client.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use when you need to display a list of links (Jira issues, Confluence search, Assets) in a table. Pass the datasource ADF or parameters; wrap in SmartCardProvider so resolution and actions work.',
-		],
-		contentGuidelines: [],
-		accessibilityGuidelines: [
-			'Ensure the table has a caption or aria-label; column headers and sort controls must be focusable and announced. Loading and error states should be announced.',
-		],
-		keywords: ['link-datasource', 'table', 'datasource', 'list of links', 'view'],
-		category: 'linking',
-		examples: [
-			"import { DatasourceTableView } from '@atlaskit/link-datasource';\nimport { ExampleJiraIssuesTableView } from '../examples-helpers/buildJiraIssuesTable';\nimport { FakeModalDialogContainer } from '../examples-helpers/fakeModalDialogContainer';\nexport default (): React.JSX.Element => {\n\treturn (\n\t\t<FakeModalDialogContainer>\n\t\t\t<ExampleJiraIssuesTableView DatasourceTable={DatasourceTableView} />\n\t\t</FakeModalDialogContainer>\n\t);\n};",
-		],
-		props: [
-			{
-				name: 'columnCustomSizes',
-				type: 'ColumnSizesMap',
-				description: 'Map of column key to custom column width',
-			},
-			{
-				name: 'datasourceId',
-				type: 'string',
-				description:
-					'Unique identifier for which type of datasource is being rendered and for making its requests',
-				isRequired: true,
-			},
-			{
-				name: 'onColumnResize',
-				type: '(key: string, width: number) => void',
-			},
-			{
-				name: 'onVisibleColumnKeysChange',
-				type: '(visibleColumnKeys: string[]) => void',
-				description:
-					'Callback to be invoked whenever a user changes the visible columns in a datasource table\neither by selecting/unselecting or reordering (drag and drop)\n\n@param visibleColumnKeys the array of keys for all of the selected columns',
-			},
-			{
-				name: 'onWrappedColumnChange',
-				type: '(key: string, shouldWrap: boolean) => void',
-				description:
-					'Callback to be invoked whenever user changes wrap attribute of the column.\n\n@param key Column key\n@param shouldWrap  Whenever column should wrap',
-			},
-			{
-				name: 'parameters',
-				type: 'DatasourceParameters',
-				description:
-					'Parameters for making the data requests necessary to render data within the table',
-				isRequired: true,
-			},
-			{
-				name: 'scrollableContainerHeight',
-				type: 'number',
-				description:
-					'If this number is set it will restrict (max-height) maximum size of the component AND make main container a scrollable container.\nIt this number is 0 it will not restrict height and not make container scrollable.',
-			},
-			{
-				name: 'url',
-				type: 'string',
-				description:
-					'Url for an existing datasource, initially used for displaying to a user unauthorized to query that site',
-			},
-			{
-				name: 'visibleColumnKeys',
-				type: 'string[]',
-				description: 'List of properties/column keys that are visible/selected',
-			},
-			{
-				name: 'wrappedColumnKeys',
-				type: 'string[]',
-				description:
-					'List of column keys that needs to be shown without truncation (content will wrap to a new line)',
-			},
-		],
-	},
-	{
-		name: 'LinkPicker',
-		package: '@atlaskit/link-picker',
-		description:
-			'Standalone link picker UI that lets users search and select links to insert. Supports plugins for different data sources (recents, search, Jira, Confluence, etc.) and can be used in modals, popups, or inline.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use when the user needs to choose a link to insert (e.g. in an editor, form, or toolbar). Add plugins to define tabs and data sources; use SmartCardProvider above the picker so selected links resolve correctly.',
-		],
-		contentGuidelines: [],
-		accessibilityGuidelines: [
-			'Ensure the picker is focusable and has an accessible name (e.g. "Insert link"). Provide a keyboard-accessible way to open and close; ensure search and results are announced to screen readers.',
-		],
-		keywords: ['link-picker', 'link', 'picker', 'search', 'insert link', 'plugins'],
-		category: 'linking',
-		examples: [
-			"import React, { Fragment, type SyntheticEvent, useMemo, useState } from 'react';\nimport Link from '@atlaskit/link';\nimport { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';\nimport { token } from '@atlaskit/tokens';\nimport { AtlassianLinkPickerPlugin, Scope } from '@atlassian/link-picker-atlassian-plugin';\nimport { mockEndpoints } from '@atlassian/recent-work-client/mocks';\nimport { PageWrapper } from '../example-helpers/common';\nimport { mockPluginEndpoints } from '../example-helpers/mock-plugin-endpoints';\nimport { MOCK_DATA_V3 as mockRecentData } from '../example-helpers/mock-recents-data';\nimport { LinkPicker, type LinkPickerProps } from '../src';\ntype OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];\nmockPluginEndpoints();\nmockEndpoints(undefined, undefined, mockRecentData);\nfunction Basic() {\n\tconst [link, setLink] = useState<OnSubmitPayload>({\n\t\turl: '',\n\t\tdisplayText: null,\n\t\ttitle: null,\n\t\tmeta: {\n\t\t\tinputMethod: 'manual',\n\t\t},\n\t});\n\tconst linkAnalytics = useSmartLinkLifecycleAnalytics();\n\tconst handleSubmit: LinkPickerProps['onSubmit'] = (payload, analytic) => {\n\t\tsetLink(payload);\n\t\tlinkAnalytics.linkCreated(payload, analytic);\n\t};\n\tconst handleClick = (e: SyntheticEvent) => {\n\t\te.preventDefault();\n\t};\n\tconst plugins = useMemo(\n\t\t() => [\n\t\t\tnew AtlassianLinkPickerPlugin({\n\t\t\t\tcloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',\n\t\t\t\tscope: Scope.ConfluenceContentType,\n\t\t\t\taggregatorUrl: 'https://pug.jira-dev.com/gateway/api/xpsearch-aggregator',\n\t\t\t\tactivityClientEndpoint: 'https://pug.jira-dev.com/gateway/api/graphql',\n\t\t\t}),\n\t\t],\n\t\t[],\n\t);\n\treturn (\n\t\t<Fragment>\n\t\t\t{\n\t\t\t<div style={{ paddingBottom: token('space.250') }}>\n\t\t\t\t<Link id=\"test-link\" href={link.url} target=\"_blank\" onClick={handleClick}>\n\t\t\t\t\t{link.displayText || link.url}\n\t\t\t\t</Link>\n\t\t\t</div>\n\t\t\t<LinkPicker\n\t\t\t\tplugins={plugins}\n\t\t\t\turl={link.url}\n\t\t\t\tdisplayText={link.displayText}\n\t\t\t\tonSubmit={handleSubmit}\n\t\t\t/>\n\t\t</Fragment>\n\t);\n}\nexport default function BasicWrapper(): React.JSX.Element {\n\treturn (\n\t\t<PageWrapper>\n\t\t\t<Basic />\n\t\t</PageWrapper>\n\t);\n}",
-			"import React, { Fragment, type SyntheticEvent, useState } from 'react';\nimport Button from '@atlaskit/button/new';\nimport Link from '@atlaskit/link';\nimport Popup from '@atlaskit/popup';\nimport { token } from '@atlaskit/tokens';\nimport { PageHeader, PageWrapper } from '../example-helpers/common';\nimport { LinkPicker } from '../src';\ntype OnSubmitPayload = Parameters<Required<React.ComponentProps<typeof LinkPicker>>['onSubmit']>[0];\nfunction WithoutPlugins() {\n\tconst [isOpen, setIsOpen] = useState(true);\n\tconst [link, setLink] = useState<OnSubmitPayload>({\n\t\turl: '',\n\t\tdisplayText: null,\n\t\ttitle: null,\n\t\tmeta: {\n\t\t\tinputMethod: 'manual',\n\t\t},\n\t});\n\tconst handleToggle = () => setIsOpen(!isOpen);\n\tconst handleSubmit = (payload: OnSubmitPayload) => {\n\t\tsetLink(payload);\n\t\tsetIsOpen(false);\n\t};\n\tconst handleClick = (e: SyntheticEvent) => {\n\t\te.preventDefault();\n\t\te.stopPropagation();\n\t\tsetIsOpen(true);\n\t};\n\tconst linkPickerInPopup = (\n\t\t<Popup\n\t\t\tisOpen={isOpen}\n\t\t\tautoFocus={false}\n\t\t\tonClose={handleToggle}\n\t\t\tcontent={({ update }) => (\n\t\t\t\t<LinkPicker\n\t\t\t\t\turl={link.url}\n\t\t\t\t\tdisplayText={link.displayText}\n\t\t\t\t\tonSubmit={handleSubmit}\n\t\t\t\t\tonCancel={handleToggle}\n\t\t\t\t\tonContentResize={update}\n\t\t\t\t/>\n\t\t\t)}\n\t\t\tplacement=\"right-start\"\n\t\t\ttrigger={({ ref, ...triggerProps }) => (\n\t\t\t\t<Button\n\t\t\t\t\t{...triggerProps}\n\t\t\t\t\tref={ref}\n\t\t\t\t\tappearance=\"primary\"\n\t\t\t\t\tisSelected={isOpen}\n\t\t\t\t\tonClick={handleToggle}\n\t\t\t\t>\n\t\t\t\t\t{isOpen ? '-' : '+'}\n\t\t\t\t</Button>\n\t\t\t)}\n\t\t/>\n\t);\n\treturn (\n\t\t<Fragment>\n\t\t\t<PageHeader>\n\t\t\t\t<p>\n\t\t\t\t\t<b>LinkPicker</b> without search, used as an interface to submit a valid link with custom\n\t\t\t\t\tdisplay text.\n\t\t\t\t</p>\n\t\t\t</PageHeader>\n\t\t\t{\n\t\t\t<div style={{ paddingBottom: token('space.250') }}>\n\t\t\t\t<Link id=\"test-link\" href={link.url} target=\"_blank\" onClick={handleClick}>\n\t\t\t\t\t{link.displayText || link.url}\n\t\t\t\t</Link>\n\t\t\t</div>\n\t\t\t{linkPickerInPopup}\n\t\t</Fragment>\n\t);\n}\nexport default function WithoutPluginsWrapper(): React.JSX.Element {\n\treturn (\n\t\t<PageWrapper>\n\t\t\t<WithoutPlugins />\n\t\t</PageWrapper>\n\t);\n}",
-		],
-		props: [
-			{
-				name: 'adaptiveHeight',
-				type: 'boolean',
-				description:
-					'Allows height of search results to adapt to the number of results being displayed.',
-			},
-			{
-				name: 'additionalError',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
-				description: 'This prop passes one additional error that is secondary to component errors',
-			},
-			{
-				name: 'alwaysShowTabs',
-				type: 'boolean',
-				description: 'When true, tabs are displayed even if there is only one plugin.',
-			},
-			{
-				name: 'component',
-				type: 'ComponentClass<Partial<LinkPickerProps> & { children: ReactElement<any, string | JSXElementConstructor<any>>; }, any> | FunctionComponent<...>',
-				description: 'Customise the link picker root component',
-			},
-			{
-				name: 'customMessages',
-				type: '{ linkLabel?: MessageDescriptor; linkAriaLabel?: MessageDescriptor; linkPlaceholder?: MessageDescriptor; linkTextLabel?: MessageDescriptor; linkTextPlaceholder?: MessageDescriptor; linkHelperTextLabel?: MessageDescriptor; submitButtonLabel?: MessageDescriptor; }',
-				description: 'Allows for customisation of text in the link picker.',
-			},
-			{
-				name: 'disableWidth',
-				type: 'boolean',
-				description: 'Disables the default width containing the link picker.',
-			},
-			{
-				name: 'displayHelperText',
-				type: 'string',
-				description:
-					'The desired text to be displayed below the display text input field. Only displayed when `platform-linking-visual-refresh-link-picker` gate is enabled.',
-			},
-			{
-				name: 'displayText',
-				type: 'string',
-				description:
-					'The desired text to be displayed alternatively to the title of the linked resource for editing.',
-			},
-			{
-				name: 'featureFlags',
-				type: '{ [x: string]: unknown; }',
-			},
-			{
-				name: 'hideDisplayText',
-				type: 'boolean',
-				description: 'Hides the link picker display text field if set to true.',
-			},
-			{
-				name: 'inputRef',
-				type: '((instance: HTMLInputElement) => void) | RefObject<HTMLInputElement>',
-				description: 'Ref to the link picker search input.',
-			},
-			{
-				name: 'isLoadingPlugins',
-				type: 'boolean',
-				description:
-					'If set true, Link picker will show the loading spinner where the tabs and results will show.',
-			},
-			{
-				name: 'isSubmitting',
-				type: 'boolean',
-				description: 'Controls showing a "submission in-progres" UX',
-			},
-			{
-				name: 'moveSubmitButton',
-				type: 'boolean',
-				description:
-					'This prop controls where the submit button appears. When true the submit button will move below the input field and be full width',
-			},
-			{
-				name: 'onCancel',
-				type: '() => void',
-				description:
-					'Callback to fire when the cancel button is clicked.\nIf not provided, cancel button is not displayed.',
-			},
-			{
-				name: 'onContentResize',
-				type: '() => void',
-				description:
-					'Callback to fire when content is changed inside the link picker e.g. items, when loading, tabs',
-			},
-			{
-				name: 'onSubmit',
-				type: '(arg: OnSubmitParameter, analytic?: UIAnalyticsEvent) => void',
-				description: 'Callback to fire on form submission.',
-				isRequired: true,
-			},
-			{
-				name: 'paddingBottom',
-				type: 'string',
-				description: 'Override the default bottom padding.',
-			},
-			{
-				name: 'paddingLeft',
-				type: 'string',
-				description: 'Override the default left padding.',
-			},
-			{
-				name: 'paddingRight',
-				type: 'string',
-				description: 'Override the default right padding.',
-			},
-			{
-				name: 'paddingTop',
-				type: 'string',
-				description: 'Override the default top padding.',
-			},
-			{
-				name: 'plugins',
-				type: 'LinkPickerPlugin[]',
-				description: 'Plugins that provide link suggestions / search capabilities.',
-			},
-			{
-				name: 'previewableLinksOnly',
-				type: 'boolean',
-				description: 'Disables URLs that do not have an embeddable preview',
-			},
-			{
-				name: 'recentSearchListSize',
-				type: 'number',
-				description: 'Showing dynamic list size based on window height',
-			},
-			{
-				name: 'shouldRenderNoResultsImage',
-				type: 'boolean',
-				description: 'Controls showing the image in the no results state',
-			},
-			{
-				name: 'submitOnInputChange',
-				type: 'boolean',
-				description: 'This prop disables submit button and handles submit on input change',
-			},
-			{
-				name: 'url',
-				type: 'string',
-				description: 'The url of the linked resource for editing.',
-			},
-		],
-	},
-	{
 		name: 'Card',
 		package: '@atlaskit/smart-card',
 		description:
@@ -1863,141 +1863,216 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'HoverCard',
+		name: 'FooterBlock',
 		package: '@atlaskit/smart-card',
 		description:
-			'Hover cards can be used as a standalone component to wrap any React component and display information about a supplied URL when the user hovers over the child. Different actions are shown depending on the resource type.',
+			'A block component for the Smart Link footer, typically showing actions (e.g. copy, open, follow).',
 		status: 'general-availability',
 		usageGuidelines: [
-			'Use when you need a Smart Link preview on hover over a custom trigger (e.g. text, icon). For hover preview on inline Smart Links in body text, use Card with showHoverPreview instead.',
+			'Use at the bottom of a FlexibleCard when you need actions such as copy link, open, or follow.',
 		],
 		contentGuidelines: [],
 		accessibilityGuidelines: [
-			'Provide a keyboard-accessible way to open the preview (e.g. focus or explicit trigger); do not rely on hover alone.',
-			'Ensure the trigger element has an accessible name and role (e.g. link or button).',
-			'Ensure the hover card content is announced when shown (e.g. aria-describedby or live region) and can be dismissed via keyboard.',
+			'Give each action button or control an accessible name (e.g. "Copy link", "Open in new tab") so purpose is clear to screen readers.',
+			'Ensure actions are keyboard operable and appear in a logical tab order.',
 		],
-		keywords: ['smart-card', 'hover card', 'hover', 'preview', 'smart link'],
+		keywords: ['smart-card', 'footer block', 'flexible', 'block', 'actions'],
 		category: 'linking',
 		examples: [
-			"import { IntlProvider } from 'react-intl';\nimport { SmartCardProvider } from '@atlaskit/link-provider';\nimport { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';\nimport { HoverCard } from '../../src/hoverCard';\nimport HoverOverMe from '../utils/hover-card-box';\nexport default (): React.JSX.Element => (\n\t<IntlProvider locale=\"en\">\n\t\t<SmartCardProvider client={new ResolvedClient('stg')}>\n\t\t\t<HoverCard url={ResolvedClientEmbedUrl}>\n\t\t\t\t<HoverOverMe />\n\t\t\t</HoverCard>\n\t\t</SmartCardProvider>\n\t</IntlProvider>\n);",
+			"import { FooterBlock } from '../../src';\nimport ExampleContainer from './example-container';\nexport default (): React.JSX.Element => (\n\t<ExampleContainer>\n\t\t<FooterBlock />\n\t</ExampleContainer>\n);",
 		],
 		props: [
 			{
-				name: 'actionOptions',
-				type: 'CardActionVisibilityOptions & { previewAction?: { hideBlanket?: boolean; size?: EmbedModalSize; }; rovoChatAction?: { optIn: boolean; }; }',
-				description: 'Configure visibility of server and client actions',
-			},
-			{
-				name: 'allowEventPropagation',
-				type: 'boolean',
-				description: 'Allow click event to bubble up from hover preview trigger component.',
-			},
-			{
-				name: 'canOpen',
-				type: 'boolean',
+				name: 'actions',
+				type: 'ActionItem[]',
 				description:
-					'Determines if the hover card is allowed to open. If changed from true to false while the\nhover card is open, the hover card will be closed.',
+					'An array of actions to be displayed on the right.\nAdding more than three actions will result in the second and following\nactions being hidden inside of a dropdown\n@see ActionItem',
+			},
+			{
+				name: 'alwaysShow',
+				type: 'boolean',
+				description: 'Allows rendering of the footer regardless of whether the block has resolved',
+			},
+			{
+				name: 'blockRef',
+				type: '((instance: HTMLDivElement) => void) | React.RefObject<HTMLDivElement>',
+				description: 'Ref to block wrapper div.',
 			},
 			{
 				name: 'children',
-				type: 'React.ReactElement<any, string | React.JSXElementConstructor<any>>',
-				description: 'React children component over which the hover card can be triggered.',
-				isRequired: true,
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'React children',
 			},
 			{
-				name: 'closeOnChildClick',
+				name: 'hideIconLoadingSkeleton',
 				type: 'boolean',
 				description:
-					'Determines if the hover card should close when the children passed in are\nclicked.',
+					'For image icons in the title, whether to hide the loading skeleton while the image is loading.',
 			},
 			{
-				name: 'hoverPreviewOptions',
-				type: 'HoverPreviewOptions',
-				description: 'Additional configurations for hover card.',
-			},
-			{
-				name: 'id',
-				type: 'string',
-				description: 'Unique ID for a hover card. Used for analytics.',
-			},
-			{
-				name: 'label',
-				type: 'string',
-				description:
-					'Refers to an `aria-label` attribute. Sets an accessible name for the hover card to announce it to users of assistive technology.\nUsage of either this, or the `titleId` attribute is strongly recommended.',
-			},
-			{
-				name: 'onVisibilityChange',
-				type: '(isVisible: boolean) => void',
-				description: 'Callback function that is called when the hover card is visible or hidden.',
-			},
-			{
-				name: 'role',
-				type: 'string',
-				description:
-					'Use this to set the accessibility role for the hover card.\nShould be used along with `label` or `titleId` for supported roles.',
-			},
-			{
-				name: 'shouldRenderToParent',
+				name: 'hideProvider',
 				type: 'boolean',
-				description:
-					'Whether the hover card should render to the parent element, to the\natlaskit-portal-container at the root of the document. Defaults to false.',
+				description: 'Allows hiding of the resources provider',
 			},
 			{
-				name: 'titleId',
+				name: 'isPreviewBlockErrored',
+				type: 'boolean',
+				description: 'Used with RovoActions to determine if the preview block is visible or not',
+			},
+			{
+				name: 'onActionMenuOpenChange',
+				type: '(options: OnActionMenuOpenChangeOptions) => void',
+				description: 'Function to be called when footer action dropdown open state is changed.',
+			},
+			{
+				name: 'placeholderId',
 				type: 'string',
 				description:
-					'Id referenced by the hover card `aria-labelledby` attribute.\nUsage of either this, or the `label` attribute is strongly recommended.',
+					'A unique identifier for the placeholder loading state, which is constant across all loading states of the same item.',
 			},
 			{
-				name: 'url',
-				type: 'string',
-				description: 'Hover card will display data from this url.',
-				isRequired: true,
-			},
-			{
-				name: 'zIndex',
-				type: 'number',
+				name: 'size',
+				type: 'SmartLinkSize',
 				description:
-					'Z-index that the hover card should be displayed in.\nThis is passed to the portal component.',
+					'The size of the block and the size that the underlying elements should\ndefault to.',
 			},
 		],
 	},
 	{
-		name: 'LinkUrl',
+		name: 'MetadataBlock',
 		package: '@atlaskit/smart-card',
 		description:
-			'LinkUrl is a plain hyperlink (<a>) with a built-in safety check. Use it when you want to warn users if the link description looks like one URL but the actual destination is different.',
+			'A block component that displays a row of metadata elements (e.g. created by, due date, state) in a Smart Link.',
 		status: 'general-availability',
 		usageGuidelines: [
-			'Use when the link text might look like one URL but point elsewhere—e.g. user-generated or external links—so users get a warning before navigating.',
+			'Use when you need a single row of metadata (e.g. created by, due date, state) in a block Smart Link.',
 		],
 		contentGuidelines: [],
 		accessibilityGuidelines: [
-			'Use descriptive link text that indicates the destination or action; avoid exposing only the URL when possible.',
-			'Ensure the safety-check warning (when link text and destination differ) is announced to screen readers.',
+			'Ensure metadata is available to screen readers (e.g. not conveyed only by color or icon).',
+			'Use a list or group with an accessible name if the metadata row has a specific purpose (e.g. "Contributors", "Dates").',
 		],
-		keywords: ['smart-card', 'link', 'url', 'safety', 'hyperlink'],
+		keywords: ['smart-card', 'metadata block', 'flexible', 'block', 'metadata'],
 		category: 'linking',
 		examples: [
-			'import Link from \'@atlaskit/link\';\nimport { CardClient, SmartCardProvider } from \'@atlaskit/link-provider\';\nimport { UnAuthClient } from \'@atlaskit/link-test-helpers\';\nimport LinkUrl from \'../../src/view/LinkUrl\';\nexport default (): React.JSX.Element => (\n\t<div>\n\t\t<h2>Link safety warning</h2>\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\tLink description is a URL and it\'s different from a destination.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://www.google.com/">atlassian.com</LinkUrl>\n\t\t\t</li>\n\t\t</ul>\n\t\t<h2>No link safety warning</h2>\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\tLink description is a plain text.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://www.google.com/">Here is a google link</LinkUrl>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\tLink description is a URL identical to a destination.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://www.atlassian.com/solutions/devops">\n\t\t\t\t\thttps://www.atlassian.com/solutions/devops\n\t\t\t\t</LinkUrl>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\tLink is a multi-line URL.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://www.atlassian.com/solutions/devops">\n\t\t\t\t\t<p>Help</p>\n\t\t\t\t\t<Link href="https://www.atlassian.com/solutions/devops">\n\t\t\t\t\t\thttps://www.atlassian.com/solutions/devops\n\t\t\t\t\t</Link>\n\t\t\t\t</LinkUrl>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\tLink is a multi-line URL.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://hello.atlassian.com/wiki">\n\t\t\t\t\t<div>Help</div>\n\t\t\t\t\t<span>https://hello.atlas...</span>\n\t\t\t\t</LinkUrl>\n\t\t\t</li>\n\t\t</ul>\n\t\t<h2>Link with smart link resolver</h2>\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\tThis link trigger smart link resolver\n\t\t\t\t<br />\n\t\t\t\t<SmartCardProvider client={new CardClient(\'stg\')}>\n\t\t\t\t\t<LinkUrl enableResolve={true} href="https://www.google.com/">\n\t\t\t\t\t\thttps://www.resolved-link.com/\n\t\t\t\t\t</LinkUrl>\n\t\t\t\t</SmartCardProvider>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\tThis link trigger smart link resolver with unauth\n\t\t\t\t<br />\n\t\t\t\t<SmartCardProvider client={new UnAuthClient()}>\n\t\t\t\t\t<LinkUrl enableResolve={true} href="https://www.unauth-link.com/">\n\t\t\t\t\t\thttps://www.unauth-link.com/\n\t\t\t\t\t</LinkUrl>\n\t\t\t\t</SmartCardProvider>\n\t\t\t</li>\n\t\t</ul>\n\t</div>\n);',
+			"import { ElementName, MetadataBlock } from '../../src';\nimport ExampleContainer from './example-container';\nexport default (): React.JSX.Element => (\n\t<ExampleContainer>\n\t\t<MetadataBlock\n\t\t\tprimary={[{ name: ElementName.CollaboratorGroup }, { name: ElementName.ModifiedOn }]}\n\t\t/>\n\t</ExampleContainer>\n);",
 		],
 		props: [
 			{
-				name: 'checkSafety',
-				type: 'boolean',
-				description: 'Determines if we want to perform a link safety check. True by default.',
+				name: 'blockRef',
+				type: '((instance: HTMLDivElement) => void) | React.RefObject<HTMLDivElement>',
+				description: 'Ref to block wrapper div.',
 			},
 			{
-				name: 'enableResolve',
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'React children',
+			},
+			{
+				name: 'hideIconLoadingSkeleton',
 				type: 'boolean',
 				description:
-					'Determines if we want to resolve the URL in the background for Rovo indexing. This has no impact on the UI/UX. False by default.',
+					'For image icons in the title, whether to hide the loading skeleton while the image is loading.',
 			},
 			{
-				name: 'isLinkComponent',
+				name: 'maxLines',
+				type: 'number',
+				description:
+					'Determines the number of lines the metadata should span across.\nDefault is 2. Maximum is 2.',
+				defaultValue: '2',
+			},
+			{
+				name: 'placeholderId',
+				type: 'string',
+				description:
+					'A unique identifier for the placeholder loading state, which is constant across all loading states of the same item.',
+			},
+			{
+				name: 'primary',
+				type: 'ElementItem[]',
+				description:
+					'An array of metadata elements to display on the left.\nBy default elements will be shown to the right of the TitleBlock.\nThe visibility of the element is determine by the link data.\nIf link contain no data to display a particular element, the element\nwill simply not show up.\n@see ElementItem',
+				defaultValue: '[]',
+			},
+			{
+				name: 'secondary',
+				type: 'ElementItem[]',
+				description:
+					'An array of metadata elements to display on the right.\nBy default elements will be shown to the right of the TitleBlock.\nThe visibility of the element is determine by the link data.\nIf link contain no data to display a particular element, the element\nwill simply not show up.\n@see ElementItem',
+				defaultValue: '[]',
+			},
+			{
+				name: 'size',
+				type: 'SmartLinkSize',
+				description:
+					'The size of the block and the size that the underlying elements should\ndefault to.',
+			},
+		],
+	},
+	{
+		name: 'PreviewBlock',
+		package: '@atlaskit/smart-card',
+		description: 'A block component that displays a preview image or media for the Smart Link.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when the linked resource has a preview image or media and you want to surface it in the block card.',
+		],
+		contentGuidelines: [],
+		accessibilityGuidelines: [
+			'If the preview image conveys information, provide meaningful alt text; if purely decorative, use alt="" or aria-hidden.',
+			'Ensure no critical information is shown only in the preview; duplicate in text or metadata when needed.',
+		],
+		keywords: ['smart-card', 'preview block', 'flexible', 'block', 'preview', 'image'],
+		category: 'linking',
+		examples: [
+			"import { PreviewBlock } from '../../src';\nimport ExampleContainer from './example-container';\nexport default (): React.JSX.Element => (\n\t<ExampleContainer>\n\t\t<PreviewBlock />\n\t</ExampleContainer>\n);",
+		],
+		props: [
+			{
+				name: 'blockRef',
+				type: '((instance: HTMLDivElement) => void) | React.RefObject<HTMLDivElement>',
+				description: 'Ref to block wrapper div.',
+			},
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'React children',
+			},
+			{
+				name: 'hideIconLoadingSkeleton',
 				type: 'boolean',
+				description:
+					'For image icons in the title, whether to hide the loading skeleton while the image is loading.',
+			},
+			{
+				name: 'ignoreContainerPadding',
+				type: 'boolean',
+				description:
+					'Indicate whether preview block should ignore the padding its parent container.\nDefault is false.',
+			},
+			{
+				name: 'overrideUrl',
+				type: 'string',
+				description:
+					'An image URL to render. This will replace the default image from smart link data.',
+			},
+			{
+				name: 'placeholderId',
+				type: 'string',
+				description:
+					'A unique identifier for the placeholder loading state, which is constant across all loading states of the same item.',
+			},
+			{
+				name: 'placement',
+				type: 'MediaPlacement',
+				description:
+					'The placement of the preview block in relation of its container.\nThis makes the preview block leave flex layout to absolute positioning\nto the left/right of the container.',
+			},
+			{
+				name: 'size',
+				type: 'SmartLinkSize',
+				description:
+					'The size of the block and the size that the underlying elements should\ndefault to.',
 			},
 		],
 	},
@@ -2296,220 +2371,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'MetadataBlock',
-		package: '@atlaskit/smart-card',
-		description:
-			'A block component that displays a row of metadata elements (e.g. created by, due date, state) in a Smart Link.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use when you need a single row of metadata (e.g. created by, due date, state) in a block Smart Link.',
-		],
-		contentGuidelines: [],
-		accessibilityGuidelines: [
-			'Ensure metadata is available to screen readers (e.g. not conveyed only by color or icon).',
-			'Use a list or group with an accessible name if the metadata row has a specific purpose (e.g. "Contributors", "Dates").',
-		],
-		keywords: ['smart-card', 'metadata block', 'flexible', 'block', 'metadata'],
-		category: 'linking',
-		examples: [
-			"import { ElementName, MetadataBlock } from '../../src';\nimport ExampleContainer from './example-container';\nexport default (): React.JSX.Element => (\n\t<ExampleContainer>\n\t\t<MetadataBlock\n\t\t\tprimary={[{ name: ElementName.CollaboratorGroup }, { name: ElementName.ModifiedOn }]}\n\t\t/>\n\t</ExampleContainer>\n);",
-		],
-		props: [
-			{
-				name: 'blockRef',
-				type: '((instance: HTMLDivElement) => void) | React.RefObject<HTMLDivElement>',
-				description: 'Ref to block wrapper div.',
-			},
-			{
-				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
-				description: 'React children',
-			},
-			{
-				name: 'hideIconLoadingSkeleton',
-				type: 'boolean',
-				description:
-					'For image icons in the title, whether to hide the loading skeleton while the image is loading.',
-			},
-			{
-				name: 'maxLines',
-				type: 'number',
-				description:
-					'Determines the number of lines the metadata should span across.\nDefault is 2. Maximum is 2.',
-				defaultValue: '2',
-			},
-			{
-				name: 'placeholderId',
-				type: 'string',
-				description:
-					'A unique identifier for the placeholder loading state, which is constant across all loading states of the same item.',
-			},
-			{
-				name: 'primary',
-				type: 'ElementItem[]',
-				description:
-					'An array of metadata elements to display on the left.\nBy default elements will be shown to the right of the TitleBlock.\nThe visibility of the element is determine by the link data.\nIf link contain no data to display a particular element, the element\nwill simply not show up.\n@see ElementItem',
-				defaultValue: '[]',
-			},
-			{
-				name: 'secondary',
-				type: 'ElementItem[]',
-				description:
-					'An array of metadata elements to display on the right.\nBy default elements will be shown to the right of the TitleBlock.\nThe visibility of the element is determine by the link data.\nIf link contain no data to display a particular element, the element\nwill simply not show up.\n@see ElementItem',
-				defaultValue: '[]',
-			},
-			{
-				name: 'size',
-				type: 'SmartLinkSize',
-				description:
-					'The size of the block and the size that the underlying elements should\ndefault to.',
-			},
-		],
-	},
-	{
-		name: 'PreviewBlock',
-		package: '@atlaskit/smart-card',
-		description: 'A block component that displays a preview image or media for the Smart Link.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use when the linked resource has a preview image or media and you want to surface it in the block card.',
-		],
-		contentGuidelines: [],
-		accessibilityGuidelines: [
-			'If the preview image conveys information, provide meaningful alt text; if purely decorative, use alt="" or aria-hidden.',
-			'Ensure no critical information is shown only in the preview; duplicate in text or metadata when needed.',
-		],
-		keywords: ['smart-card', 'preview block', 'flexible', 'block', 'preview', 'image'],
-		category: 'linking',
-		examples: [
-			"import { PreviewBlock } from '../../src';\nimport ExampleContainer from './example-container';\nexport default (): React.JSX.Element => (\n\t<ExampleContainer>\n\t\t<PreviewBlock />\n\t</ExampleContainer>\n);",
-		],
-		props: [
-			{
-				name: 'blockRef',
-				type: '((instance: HTMLDivElement) => void) | React.RefObject<HTMLDivElement>',
-				description: 'Ref to block wrapper div.',
-			},
-			{
-				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
-				description: 'React children',
-			},
-			{
-				name: 'hideIconLoadingSkeleton',
-				type: 'boolean',
-				description:
-					'For image icons in the title, whether to hide the loading skeleton while the image is loading.',
-			},
-			{
-				name: 'ignoreContainerPadding',
-				type: 'boolean',
-				description:
-					'Indicate whether preview block should ignore the padding its parent container.\nDefault is false.',
-			},
-			{
-				name: 'overrideUrl',
-				type: 'string',
-				description:
-					'An image URL to render. This will replace the default image from smart link data.',
-			},
-			{
-				name: 'placeholderId',
-				type: 'string',
-				description:
-					'A unique identifier for the placeholder loading state, which is constant across all loading states of the same item.',
-			},
-			{
-				name: 'placement',
-				type: 'MediaPlacement',
-				description:
-					'The placement of the preview block in relation of its container.\nThis makes the preview block leave flex layout to absolute positioning\nto the left/right of the container.',
-			},
-			{
-				name: 'size',
-				type: 'SmartLinkSize',
-				description:
-					'The size of the block and the size that the underlying elements should\ndefault to.',
-			},
-		],
-	},
-	{
-		name: 'FooterBlock',
-		package: '@atlaskit/smart-card',
-		description:
-			'A block component for the Smart Link footer, typically showing actions (e.g. copy, open, follow).',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use at the bottom of a FlexibleCard when you need actions such as copy link, open, or follow.',
-		],
-		contentGuidelines: [],
-		accessibilityGuidelines: [
-			'Give each action button or control an accessible name (e.g. "Copy link", "Open in new tab") so purpose is clear to screen readers.',
-			'Ensure actions are keyboard operable and appear in a logical tab order.',
-		],
-		keywords: ['smart-card', 'footer block', 'flexible', 'block', 'actions'],
-		category: 'linking',
-		examples: [
-			"import { FooterBlock } from '../../src';\nimport ExampleContainer from './example-container';\nexport default (): React.JSX.Element => (\n\t<ExampleContainer>\n\t\t<FooterBlock />\n\t</ExampleContainer>\n);",
-		],
-		props: [
-			{
-				name: 'actions',
-				type: 'ActionItem[]',
-				description:
-					'An array of actions to be displayed on the right.\nAdding more than three actions will result in the second and following\nactions being hidden inside of a dropdown\n@see ActionItem',
-			},
-			{
-				name: 'alwaysShow',
-				type: 'boolean',
-				description: 'Allows rendering of the footer regardless of whether the block has resolved',
-			},
-			{
-				name: 'blockRef',
-				type: '((instance: HTMLDivElement) => void) | React.RefObject<HTMLDivElement>',
-				description: 'Ref to block wrapper div.',
-			},
-			{
-				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
-				description: 'React children',
-			},
-			{
-				name: 'hideIconLoadingSkeleton',
-				type: 'boolean',
-				description:
-					'For image icons in the title, whether to hide the loading skeleton while the image is loading.',
-			},
-			{
-				name: 'hideProvider',
-				type: 'boolean',
-				description: 'Allows hiding of the resources provider',
-			},
-			{
-				name: 'isPreviewBlockErrored',
-				type: 'boolean',
-				description: 'Used with RovoActions to determine if the preview block is visible or not',
-			},
-			{
-				name: 'onActionMenuOpenChange',
-				type: '(options: OnActionMenuOpenChangeOptions) => void',
-				description: 'Function to be called when footer action dropdown open state is changed.',
-			},
-			{
-				name: 'placeholderId',
-				type: 'string',
-				description:
-					'A unique identifier for the placeholder loading state, which is constant across all loading states of the same item.',
-			},
-			{
-				name: 'size',
-				type: 'SmartLinkSize',
-				description:
-					'The size of the block and the size that the underlying elements should\ndefault to.',
-			},
-		],
-	},
-	{
 		name: 'useSmartLinkEvents',
 		package: '@atlaskit/smart-card',
 		description:
@@ -2689,7 +2550,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['smart-card', 'hooks', 'useSmartLinkActions', 'actions'],
 		category: 'linking',
 		examples: [
-			"import React, { useCallback } from 'react';\nimport Button from '@atlaskit/button/new';\nimport { SmartCardProvider } from '@atlaskit/link-provider';\nimport { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { Card, CardAction } from '../../src';\nimport { useSmartLinkActions } from '../../src/hooks';\nimport ExampleContainer from './example-container';\nconst PreviewButton = ({ url }: { url: string }) => {\n\tconst actions = useSmartLinkActions({ url, appearance: 'block' });\n\t// actions are returned in an array, find the preview action\n\tconst previewAction = actions.find((action) => action.id === 'preview-content');\n\tconst handleClick = useCallback(() => {\n\t\tif (previewAction) {\n\t\t\tpreviewAction.invoke();\n\t\t}\n\t}, [previewAction]);\n\tif (!previewAction) {\n\t\treturn null;\n\t}\n\treturn <Button onClick={handleClick}>{previewAction.text}</Button>;\n};\nconst UseSmartLinkActionsExample = (): React.JSX.Element => (\n\t<ExampleContainer>\n\t\t<SmartCardProvider client={new ResolvedClient()}>\n\t\t\t<Card\n\t\t\t\tappearance=\"block\"\n\t\t\t\turl={ResolvedClientUrl}\n\t\t\t\tactionOptions={{ hide: false, exclude: [CardAction.PreviewAction] }}\n\t\t\t/>\n\t\t\t<Box paddingBlockStart=\"space.200\">\n\t\t\t\t<PreviewButton url={ResolvedClientUrl} />\n\t\t\t</Box>\n\t\t</SmartCardProvider>\n\t</ExampleContainer>\n);\nexport default UseSmartLinkActionsExample;",
+			"import React, { useCallback } from 'react';\nimport Button from '@atlaskit/button/new';\nimport { SmartCardProvider } from '@atlaskit/link-provider';\nimport { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { Card } from '../../src';\nimport { CardAction } from '../../src/constants';\nimport { useSmartLinkActions } from '../../src/hooks';\nimport ExampleContainer from './example-container';\nconst PreviewButton = ({ url }: { url: string }) => {\n\tconst actions = useSmartLinkActions({ url, appearance: 'block' });\n\t// actions are returned in an array, find the preview action\n\tconst previewAction = actions.find((action) => action.id === 'preview-content');\n\tconst handleClick = useCallback(() => {\n\t\tif (previewAction) {\n\t\t\tpreviewAction.invoke();\n\t\t}\n\t}, [previewAction]);\n\tif (!previewAction) {\n\t\treturn null;\n\t}\n\treturn <Button onClick={handleClick}>{previewAction.text}</Button>;\n};\nconst UseSmartLinkActionsExample = (): React.JSX.Element => (\n\t<ExampleContainer>\n\t\t<SmartCardProvider client={new ResolvedClient()}>\n\t\t\t<Card\n\t\t\t\tappearance=\"block\"\n\t\t\t\turl={ResolvedClientUrl}\n\t\t\t\tactionOptions={{ hide: false, exclude: [CardAction.PreviewAction] }}\n\t\t\t/>\n\t\t\t<Box paddingBlockStart=\"space.200\">\n\t\t\t\t<PreviewButton url={ResolvedClientUrl} />\n\t\t\t</Box>\n\t\t</SmartCardProvider>\n\t</ExampleContainer>\n);\nexport default UseSmartLinkActionsExample;",
 		],
 		props: [
 			{
@@ -2727,6 +2588,145 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				description:
 					'Smart Link URL for which actions will be invoked.\n@example https://start.atlassian.com',
 				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'HoverCard',
+		package: '@atlaskit/smart-card',
+		description:
+			'Hover cards can be used as a standalone component to wrap any React component and display information about a supplied URL when the user hovers over the child. Different actions are shown depending on the resource type.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when you need a Smart Link preview on hover over a custom trigger (e.g. text, icon). For hover preview on inline Smart Links in body text, use Card with showHoverPreview instead.',
+		],
+		contentGuidelines: [],
+		accessibilityGuidelines: [
+			'Provide a keyboard-accessible way to open the preview (e.g. focus or explicit trigger); do not rely on hover alone.',
+			'Ensure the trigger element has an accessible name and role (e.g. link or button).',
+			'Ensure the hover card content is announced when shown (e.g. aria-describedby or live region) and can be dismissed via keyboard.',
+		],
+		keywords: ['smart-card', 'hover card', 'hover', 'preview', 'smart link'],
+		category: 'linking',
+		examples: [
+			"import { IntlProvider } from 'react-intl';\nimport { SmartCardProvider } from '@atlaskit/link-provider';\nimport { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';\nimport { HoverCard } from '../../src/hoverCard';\nimport HoverOverMe from '../utils/hover-card-box';\nexport default (): React.JSX.Element => (\n\t<IntlProvider locale=\"en\">\n\t\t<SmartCardProvider client={new ResolvedClient('stg')}>\n\t\t\t<HoverCard url={ResolvedClientEmbedUrl}>\n\t\t\t\t<HoverOverMe />\n\t\t\t</HoverCard>\n\t\t</SmartCardProvider>\n\t</IntlProvider>\n);",
+		],
+		props: [
+			{
+				name: 'actionOptions',
+				type: 'CardActionVisibilityOptions & { previewAction?: { hideBlanket?: boolean; size?: EmbedModalSize; }; rovoChatAction?: { optIn: boolean; }; }',
+				description: 'Configure visibility of server and client actions',
+			},
+			{
+				name: 'allowEventPropagation',
+				type: 'boolean',
+				description: 'Allow click event to bubble up from hover preview trigger component.',
+			},
+			{
+				name: 'canOpen',
+				type: 'boolean',
+				description:
+					'Determines if the hover card is allowed to open. If changed from true to false while the\nhover card is open, the hover card will be closed.',
+			},
+			{
+				name: 'children',
+				type: 'React.ReactElement<any, string | React.JSXElementConstructor<any>>',
+				description: 'React children component over which the hover card can be triggered.',
+				isRequired: true,
+			},
+			{
+				name: 'closeOnChildClick',
+				type: 'boolean',
+				description:
+					'Determines if the hover card should close when the children passed in are\nclicked.',
+			},
+			{
+				name: 'hoverPreviewOptions',
+				type: 'HoverPreviewOptions',
+				description: 'Additional configurations for hover card.',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description: 'Unique ID for a hover card. Used for analytics.',
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'Refers to an `aria-label` attribute. Sets an accessible name for the hover card to announce it to users of assistive technology.\nUsage of either this, or the `titleId` attribute is strongly recommended.',
+			},
+			{
+				name: 'onVisibilityChange',
+				type: '(isVisible: boolean) => void',
+				description: 'Callback function that is called when the hover card is visible or hidden.',
+			},
+			{
+				name: 'role',
+				type: 'string',
+				description:
+					'Use this to set the accessibility role for the hover card.\nShould be used along with `label` or `titleId` for supported roles.',
+			},
+			{
+				name: 'shouldRenderToParent',
+				type: 'boolean',
+				description:
+					'Whether the hover card should render to the parent element, to the\natlaskit-portal-container at the root of the document. Defaults to false.',
+			},
+			{
+				name: 'titleId',
+				type: 'string',
+				description:
+					'Id referenced by the hover card `aria-labelledby` attribute.\nUsage of either this, or the `label` attribute is strongly recommended.',
+			},
+			{
+				name: 'url',
+				type: 'string',
+				description: 'Hover card will display data from this url.',
+				isRequired: true,
+			},
+			{
+				name: 'zIndex',
+				type: 'number',
+				description:
+					'Z-index that the hover card should be displayed in.\nThis is passed to the portal component.',
+			},
+		],
+	},
+	{
+		name: 'LinkUrl',
+		package: '@atlaskit/smart-card',
+		description:
+			'LinkUrl is a plain hyperlink (<a>) with a built-in safety check. Use it when you want to warn users if the link description looks like one URL but the actual destination is different.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when the link text might look like one URL but point elsewhere—e.g. user-generated or external links—so users get a warning before navigating.',
+		],
+		contentGuidelines: [],
+		accessibilityGuidelines: [
+			'Use descriptive link text that indicates the destination or action; avoid exposing only the URL when possible.',
+			'Ensure the safety-check warning (when link text and destination differ) is announced to screen readers.',
+		],
+		keywords: ['smart-card', 'link', 'url', 'safety', 'hyperlink'],
+		category: 'linking',
+		examples: [
+			'import Link from \'@atlaskit/link\';\nimport { CardClient, SmartCardProvider } from \'@atlaskit/link-provider\';\nimport { UnAuthClient } from \'@atlaskit/link-test-helpers\';\nimport LinkUrl from \'../../src/view/LinkUrl\';\nexport default (): React.JSX.Element => (\n\t<div>\n\t\t<h2>Link safety warning</h2>\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\tLink description is a URL and it\'s different from a destination.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://www.google.com/">atlassian.com</LinkUrl>\n\t\t\t</li>\n\t\t</ul>\n\t\t<h2>No link safety warning</h2>\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\tLink description is a plain text.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://www.google.com/">Here is a google link</LinkUrl>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\tLink description is a URL identical to a destination.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://www.atlassian.com/solutions/devops">\n\t\t\t\t\thttps://www.atlassian.com/solutions/devops\n\t\t\t\t</LinkUrl>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\tLink is a multi-line URL.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://www.atlassian.com/solutions/devops">\n\t\t\t\t\t<p>Help</p>\n\t\t\t\t\t<Link href="https://www.atlassian.com/solutions/devops">\n\t\t\t\t\t\thttps://www.atlassian.com/solutions/devops\n\t\t\t\t\t</Link>\n\t\t\t\t</LinkUrl>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\tLink is a multi-line URL.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://hello.atlassian.com/wiki">\n\t\t\t\t\t<div>Help</div>\n\t\t\t\t\t<span>https://hello.atlas...</span>\n\t\t\t\t</LinkUrl>\n\t\t\t</li>\n\t\t</ul>\n\t\t<h2>Link with smart link resolver</h2>\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\tThis link trigger smart link resolver\n\t\t\t\t<br />\n\t\t\t\t<SmartCardProvider client={new CardClient(\'stg\')}>\n\t\t\t\t\t<LinkUrl enableResolve={true} href="https://www.google.com/">\n\t\t\t\t\t\thttps://www.resolved-link.com/\n\t\t\t\t\t</LinkUrl>\n\t\t\t\t</SmartCardProvider>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\tThis link trigger smart link resolver with unauth\n\t\t\t\t<br />\n\t\t\t\t<SmartCardProvider client={new UnAuthClient()}>\n\t\t\t\t\t<LinkUrl enableResolve={true} href="https://www.unauth-link.com/">\n\t\t\t\t\t\thttps://www.unauth-link.com/\n\t\t\t\t\t</LinkUrl>\n\t\t\t\t</SmartCardProvider>\n\t\t\t</li>\n\t\t</ul>\n\t</div>\n);',
+		],
+		props: [
+			{
+				name: 'checkSafety',
+				type: 'boolean',
+				description: 'Determines if we want to perform a link safety check. True by default.',
+			},
+			{
+				name: 'enableResolve',
+				type: 'boolean',
+				description:
+					'Determines if we want to resolve the URL in the background for Rovo indexing. This has no impact on the UI/UX. False by default.',
+			},
+			{
+				name: 'isLinkComponent',
+				type: 'boolean',
 			},
 		],
 	},

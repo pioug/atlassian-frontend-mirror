@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { Valign } from '@atlaskit/editor-common/types/valign';
+import type { Valign } from '@atlaskit/adf-schema/layout-column';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

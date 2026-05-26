@@ -121,12 +121,13 @@ describe('Link Type', () => {
 	});
 
 	it('renders fallback when smart link resolves with ResolveUnsupportedError', async () => {
-		const { findByRole } = setup({
+		const { findByRole, findByTestId } = setup({
 			url: 'https://link-that-is-unsupported.com',
 		});
 
 		await waitFor(() => expect(spyFetchData).toHaveBeenCalled());
 
+		await findByTestId('link-datasource-render-type--link')
 		const anchor = await findByRole('link');
 
 		expect(anchor).toBeInTheDocument();

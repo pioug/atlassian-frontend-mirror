@@ -27,9 +27,14 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { toggleActiveTableMenu, toggleContextualMenu } from '../../pm-plugins/commands';
+import { getPluginState } from '../../pm-plugins/plugin-factory';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
 import { isNativeStickySupported } from '../../pm-plugins/utils/sticky-header';
-import { TableCssClassName as ClassName, type PluginInjectionAPI, type TableSharedStateInternal } from '../../types';
+import {
+	TableCssClassName as ClassName,
+	type PluginInjectionAPI,
+	type TableSharedStateInternal,
+} from '../../types';
 
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
@@ -85,7 +90,19 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 		const { state, dispatch } = editorView;
 
 		if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
-			toggleActiveTableMenu({ type: 'cell', openedBy: 'mouse' })(state, dispatch);
+			if (!api) {
+				return;
+			}
+
+			const { activeTableMenu: currentActiveTableMenu } = getPluginState(state);
+			api.core.actions.execute(({ tr }) => {
+				toggleActiveTableMenu(
+					{ type: 'cell', openedBy: 'mouse' },
+					currentActiveTableMenu,
+				)({ tr });
+				return tr;
+			});
+
 			return;
 		}
 
@@ -107,12 +124,23 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 			const { state, dispatch } = editorView;
 			// open the menu when the keyboard shortcut is pressed
 			if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
-				toggleActiveTableMenu({ type: 'cell', openedBy: 'keyboard' })(state, dispatch);
+				if (!api) {
+					return;
+				}
+
+				const { activeTableMenu: currentActiveTableMenu } = getPluginState(state);
+				api.core.actions.execute(({ tr }) => {
+					toggleActiveTableMenu(
+						{ type: 'cell', openedBy: 'keyboard' },
+						currentActiveTableMenu,
+					)({ tr });
+					return tr;
+				});
 				return;
 			}
 			toggleContextualMenu()(state, dispatch);
 		}
-	}, [isCellMenuOpenByKeyboard, isCellMenuOpen, editorView]);
+	}, [isCellMenuOpenByKeyboard, isCellMenuOpen, editorView, api]);
 
 	if (!targetCellRef || !(targetCellRef instanceof HTMLElement)) {
 		return null;

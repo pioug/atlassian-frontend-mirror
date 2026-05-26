@@ -126,11 +126,7 @@ export function placementToTryFallbacks({ placement }: { placement: TPlacementOp
 		}
 		const near = baseAlign === 'start' ? 'end' : 'start';
 		const far = baseAlign === 'start' ? 'start' : 'end';
-		return [
-			`${edgeKey} span-${crossAxis}-${near}`,
-			edgeKey,
-			`${edgeKey} span-${crossAxis}-${far}`,
-		];
+		return [`${edgeKey} span-${crossAxis}-${near}`, edgeKey, `${edgeKey} span-${crossAxis}-${far}`];
 	}
 
 	if (align !== 'center') {
@@ -149,9 +145,7 @@ export function placementToTryFallbacks({ placement }: { placement: TPlacementOp
 	// Centered: same-edge shifts, single-axis flip, opposite-edge shifts.
 	// Diagonal flip is unnecessary because centered placements expand
 	// equally in both cross-axis directions.
-	return [...shifts('center', sameEdge), flipKeyword, ...shifts('center', oppositeEdge)].join(
-		', ',
-	);
+	return [...shifts('center', sameEdge), flipKeyword, ...shifts('center', oppositeEdge)].join(', ');
 }
 
 /**

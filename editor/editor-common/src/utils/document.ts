@@ -220,7 +220,7 @@ function marksEqualIgnoringOrder(m1: readonly Mark[], m2: readonly Mark[]): bool
  * @param doc1 PMNode
  * @param doc2 PMNode
  * @param attributesToIgnore Specific array of attribute keys to ignore - defaults to ignoring all
- * @param opts.ignoreMarkOrder If mark order should be ignored to still be equal (e.g. reversed annotation marks). When not provided, controlled by platform_editor_are_nodes_equal_ignore_mark_order feature gate (defaults to true when gate is on).
+ * @param opts.ignoreMarkOrder If mark order should be ignored to still be equal (e.g. reversed annotation marks). Defaults to true.
  * @returns boolean
  */
 
@@ -232,9 +232,7 @@ export function areNodesEqualIgnoreAttrs(
 		ignoreMarkOrder?: boolean;
 	},
 ): boolean {
-	const ignoreMarkOrder =
-		opts?.ignoreMarkOrder ??
-		expValEquals('platform_editor_are_nodes_equal_ignore_mark_order', 'isEnabled', true);
+	const ignoreMarkOrder = opts?.ignoreMarkOrder ?? true;
 
 	if (node1.isText) {
 		if (ignoreMarkOrder) {
@@ -249,20 +247,12 @@ export function areNodesEqualIgnoreAttrs(
 
 	// If no attributes to ignore, compare all attributes
 	if (!attributesToIgnore || attributesToIgnore.length === 0) {
-		if (expValEquals('platform_editor_are_nodes_equal_ignore_mark_order', 'isEnabled', true)) {
-			return (
-				node1 === node2 ||
-				(node1.hasMarkup(node2.type, node1.attrs, node1.marks) &&
-					marksEqual &&
-					areFragmentsEqual(node1.content, node2.content, undefined, opts))
-			);
-		} else {
-			return (
-				node1 === node2 ||
-				(node1.hasMarkup(node2.type, node1.attrs, node2.marks) &&
-					areFragmentsEqual(node1.content, node2.content))
-			);
-		}
+		return (
+			node1 === node2 ||
+			(node1.hasMarkup(node2.type, node1.attrs, node1.marks) &&
+				marksEqual &&
+				areFragmentsEqual(node1.content, node2.content, undefined, opts))
+		);
 	}
 
 	// Build attrs to compare by excluding ignored attributes
@@ -279,21 +269,13 @@ export function areNodesEqualIgnoreAttrs(
 			attrsToCompare[key] = node1.attrs[key];
 		}
 	}
-	if (expValEquals('platform_editor_are_nodes_equal_ignore_mark_order', 'isEnabled', true)) {
-		return (
-			node1 === node2 ||
-			(node1.type === node2.type &&
-				node1.hasMarkup(node2.type, attrsToCompare, node1.marks) &&
-				marksEqual &&
-				areFragmentsEqual(node1.content, node2.content, attributesToIgnore, opts))
-		);
-	} else {
-		return (
-			node1 === node2 ||
-			(node1.hasMarkup(node2.type, attrsToCompare, node2.marks) &&
-				areFragmentsEqual(node1.content, node2.content, attributesToIgnore))
-		);
-	}
+	return (
+		node1 === node2 ||
+		(node1.type === node2.type &&
+			node1.hasMarkup(node2.type, attrsToCompare, node1.marks) &&
+			marksEqual &&
+			areFragmentsEqual(node1.content, node2.content, attributesToIgnore, opts))
+	);
 }
 
 function areFragmentsEqual(

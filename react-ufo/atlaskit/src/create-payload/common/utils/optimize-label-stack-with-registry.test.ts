@@ -330,5 +330,4 @@ describe('optimizeLabelStackWithRegistry', () => {
 			},
 		);
 	});
-
 });

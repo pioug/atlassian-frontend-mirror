@@ -1,5 +1,18 @@
 # @atlaskit/adf-schema
 
+## 52.15.0
+
+### Minor Changes
+
+- [`1c86d46da6101`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c86d46da6101) -
+  Address layout column alignment follow-up review feedback
+
+## 52.14.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.14.1
 
 ### Patch Changes

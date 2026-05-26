@@ -67,7 +67,7 @@
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/tooltip/tsconfig.app.json"
+			"path": "../../platform/testing-library/tsconfig.app.json"
 		}
 	]
 }

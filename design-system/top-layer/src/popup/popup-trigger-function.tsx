@@ -116,7 +116,7 @@ type TPopupTriggerFunctionProps = {
  * ```
  */
 export function PopupTriggerFunction({ children }: TPopupTriggerFunctionProps): React.ReactNode {
-	const { triggerRef, popoverRef, popoverId, isOpen, ariaHasPopup } = usePopupContext();
+	const { triggerRef, popoverRef, popoverId, popupState, ariaHasPopup } = usePopupContext();
 
 	const ref: RefCallback<HTMLElement> = useCallback(
 		(node: HTMLElement | null) => {
@@ -137,12 +137,24 @@ export function PopupTriggerFunction({ children }: TPopupTriggerFunctionProps): 
 
 	const ariaAttributes = useMemo(
 		() => ({
-			'aria-expanded': isOpen,
+			// aria-expanded stays true throughout entry and exit animations so screen readers
+			// don't announce the popup as closed while it's still visible, and consumers
+			// relying on aria-expanded to show/hide trigger UI don't lose the anchor mid-animation.
+			'aria-expanded':
+				popupState === 'open' ||
+				popupState === 'animating-open' ||
+				popupState === 'animating-closed',
 			'aria-controls': popoverId,
 			'aria-haspopup': ariaHasPopup,
 		}),
-		[isOpen, popoverId, ariaHasPopup],
+		[popupState, popoverId, ariaHasPopup],
 	);
 
-	return children({ ref, isOpen, popoverId, toggle, ariaAttributes });
+	return children({
+		ref,
+		isOpen: popupState === 'open' || popupState === 'animating-open',
+		popoverId,
+		toggle,
+		ariaAttributes,
+	});
 }

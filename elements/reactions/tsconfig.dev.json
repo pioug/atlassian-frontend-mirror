@@ -59,9 +59,6 @@
 			"path": "../../editor/editor-test-helpers/tsconfig.app.json"
 		},
 		{
-			"path": "../elements-test-helpers/tsconfig.app.json"
-		},
-		{
 			"path": "../emoji/tsconfig.app.json"
 		},
 		{

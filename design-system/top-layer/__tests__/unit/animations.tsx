@@ -38,16 +38,6 @@ describe('animation presets', () => {
 			});
 		});
 
-		it('uses a custom distance when provided', () => {
-			const preset = slideAndFade({ distance: 8 });
-			expect(preset.getProperties).toBeDefined();
-
-			expect(preset.getProperties?.({ placement: { axis: 'block', edge: 'end' } })).toEqual({
-				'--ds-popover-tx': '0',
-				'--ds-popover-ty': '-8px',
-			});
-		});
-
 		it('includes reduced motion media query', () => {
 			const preset = slideAndFade();
 			expect(preset.css).toContain('prefers-reduced-motion');

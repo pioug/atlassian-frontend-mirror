@@ -64,9 +64,6 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
-			"path": "../elements-test-helpers/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/heading/tsconfig.app.json"
 		},
 		{

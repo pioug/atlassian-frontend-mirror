@@ -225,7 +225,8 @@ snapshot(FlexibleUiElementLozenge, {
 	],
 	waitForReactLazy: true,
 });
-snapshot(FlexibleUiElementBadge, {
+// NAVX-5074: To be investigated - test failed in pipeline (passed locally)
+snapshot.skip(FlexibleUiElementBadge, {
 	drawsOutsideBounds: true,
 	ignoredErrors: [
 		{

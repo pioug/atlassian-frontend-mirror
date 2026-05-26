@@ -1,8 +1,6 @@
 import React from 'react';
-import { mount, type ReactWrapper } from 'enzyme';
-import { MediaImage, type MediaImageProps, type MediaImageState } from '../../mediaImage';
-import { ImageComponent } from '../../mediaImage/styled';
-import { expectToEqual, nextTick } from '@atlaskit/media-common/test-helpers';
+import { fireEvent, render, screen } from '@atlassian/testing-library';
+import { MediaImage, type MediaImageProps } from '../../mediaImage';
 import { type isRotated } from '../../imageMetaData';
 
 interface SetupParams {
@@ -24,82 +22,117 @@ jest.mock('../../imageMetaData/imageOrientationUtil', () => ({
 	),
 }));
 
-describe('MediaImage', () => {
-	const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect;
-	const dimensionsMap = {
-		isImageMoreLandscapyThanContainer: [
-			[2000, 1000],
-			[500, 500],
-		],
-		isImageMorePortraityThanContainer: [
-			[100, 200],
-			[500, 500],
-		],
-	};
-	const defaultTransform = {
-		transform: 'translate(-50%, -50%)',
-	};
-	let onImageLoad: jest.Mock<any>;
-	let onImageError: jest.Mock<any>;
+const dimensionsMap = {
+	isImageMoreLandscapyThanContainer: [
+		[2000, 1000],
+		[500, 500],
+	],
+	isImageMorePortraityThanContainer: [
+		[100, 200],
+		[500, 500],
+	],
+};
 
-	const mockImageTag = (
-		component: ReactWrapper<MediaImageProps, MediaImageState>,
-		imageDimentions: number[],
-		containerDimentions: number[],
-		loadImageImmediately: boolean,
-	) => {
-		Element.prototype.getBoundingClientRect = () =>
-			({
-				width: containerDimentions[0],
-				height: containerDimentions[1],
-			}) as any;
-		const img = component.find('img');
-		const imgInstance = img.instance();
-		Object.defineProperty(imgInstance, 'naturalHeight', {
-			value: imageDimentions[1],
-		});
-		Object.defineProperty(imgInstance, 'naturalWidth', {
-			value: imageDimentions[0],
-		});
-		if (loadImageImmediately) {
-			img.simulate('load');
+const defaultTransform = { transform: 'translate(-50%, -50%)' };
+
+// MediaImage merges its computed `style` with these defaults inside ImageComponent.
+// We strip them out when extracting the MediaImage-controlled style for assertions.
+const baseImgStyleKeys = new Set(['position', 'left', 'top', 'objectFit', 'imageOrientation']);
+
+const getRenderedStyle = (el: HTMLElement): Record<string, string> => {
+	const out: Record<string, string> = {};
+	for (let i = 0; i < el.style.length; i++) {
+		const prop = el.style[i];
+		const camel = prop.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+		if (baseImgStyleKeys.has(camel)) {
+			continue;
 		}
-	};
+		out[camel] = el.style.getPropertyValue(prop);
+	}
+	return out;
+};
 
-	const setup = (params: SetupParams) => {
-		const {
-			isCoverStrategy,
-			isImageMoreLandscapyThanContainer,
-			isStretchingProhibited,
-			loadImageImmediately = true,
+const setBoundingClientRectMock = (containerDimensions: number[]) => {
+	Element.prototype.getBoundingClientRect = () =>
+		({
+			width: containerDimensions[0],
+			height: containerDimensions[1],
+		}) as DOMRect;
+};
+
+const renderMediaImage = (
+	props: Partial<MediaImageProps> &
+		Pick<MediaImageProps, 'dataURI' | 'stretch' | 'crop'> & { altText?: string },
+	imageDimensions: number[],
+	containerDimensions: number[],
+	loadImageImmediately = true,
+	onImageLoad?: jest.Mock,
+	onImageError?: jest.Mock,
+) => {
+	setBoundingClientRectMock(containerDimensions);
+	const { altText, ...rest } = props;
+	const view = render(
+		<MediaImage
+			{...rest}
+			alt={altText}
+			onImageLoad={onImageLoad}
+			onImageError={onImageError}
+			crossOrigin="anonymous"
+		/>,
+	);
+	const imgEl = screen.getByTestId('media-image') as HTMLImageElement;
+	Object.defineProperty(imgEl, 'naturalWidth', {
+		value: imageDimensions[0],
+		configurable: true,
+	});
+	Object.defineProperty(imgEl, 'naturalHeight', {
+		value: imageDimensions[1],
+		configurable: true,
+	});
+	if (loadImageImmediately) {
+		fireEvent.load(imgEl);
+	}
+	return { ...view, imgEl };
+};
+
+const setup = (params: SetupParams, onImageLoad?: jest.Mock, onImageError?: jest.Mock) => {
+	const {
+		isCoverStrategy,
+		isImageMoreLandscapyThanContainer,
+		isStretchingProhibited,
+		loadImageImmediately = true,
+		previewOrientation,
+		altText,
+		forceSyncDisplay,
+	} = params;
+	const [imageDimensions, containerDimensions] =
+		dimensionsMap[
+			isImageMoreLandscapyThanContainer
+				? 'isImageMoreLandscapyThanContainer'
+				: 'isImageMorePortraityThanContainer'
+		];
+
+	return renderMediaImage(
+		{
+			dataURI: 'data:image/png;base64,',
+			stretch: !isStretchingProhibited,
+			crop: isCoverStrategy,
 			previewOrientation,
 			altText,
 			forceSyncDisplay,
-		} = params;
-		const [imageDimentions, containerDimentions] =
-			dimensionsMap[
-				isImageMoreLandscapyThanContainer
-					? 'isImageMoreLandscapyThanContainer'
-					: 'isImageMorePortraityThanContainer'
-			];
+		},
+		imageDimensions,
+		containerDimensions,
+		loadImageImmediately,
+		onImageLoad,
+		onImageError,
+	);
+};
 
-		const component = mount<MediaImageProps, MediaImageState>(
-			<MediaImage
-				dataURI="data:image/png;base64,"
-				stretch={!isStretchingProhibited}
-				crop={isCoverStrategy}
-				previewOrientation={previewOrientation}
-				onImageLoad={onImageLoad}
-				onImageError={onImageError}
-				crossOrigin={'anonymous'}
-				alt={altText}
-				forceSyncDisplay={forceSyncDisplay}
-			/>,
-		);
-		mockImageTag(component, imageDimentions, containerDimentions, loadImageImmediately);
-
-		return component.find(ImageComponent);
-	};
+describe('MediaImage', () => {
+	const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect;
+	let onImageLoad: jest.Mock;
+	let onImageError: jest.Mock;
 
 	beforeEach(() => {
 		onImageLoad = jest.fn();
@@ -114,94 +147,70 @@ describe('MediaImage', () => {
 
 	describe("when image hasn't been loaded yet", () => {
 		it('should not show image yet with cover strategy', () => {
-			const component = setup({
+			const { imgEl } = setup({
 				isCoverStrategy: true,
 				isImageMoreLandscapyThanContainer: true,
 				isStretchingProhibited: true,
 				loadImageImmediately: false,
 			});
-			expect(component.props().style).toEqual(
-				expect.objectContaining({
-					display: 'none',
-				}),
-			);
+			expect(imgEl.style.display).toBe('none');
 		});
 
 		it('should not show image yet with both cover and stretch strategy', () => {
-			const component = setup({
+			const { imgEl } = setup({
 				isCoverStrategy: true,
 				isImageMoreLandscapyThanContainer: true,
 				isStretchingProhibited: false,
 				loadImageImmediately: false,
 			});
-			expect(component.props().style).toEqual(
-				expect.objectContaining({
-					display: 'none',
-				}),
-			);
+			expect(imgEl.style.display).toBe('none');
 		});
 
 		it('should not show image yet with rotation', () => {
-			const component = setup({
+			const { imgEl } = setup({
 				isCoverStrategy: false,
 				previewOrientation: 6,
 				isImageMoreLandscapyThanContainer: true,
 				isStretchingProhibited: true,
 				loadImageImmediately: false,
 			});
-			expect(component.props().style).toEqual(
-				expect.objectContaining({
-					display: 'none',
-				}),
-			);
+			expect(imgEl.style.display).toBe('none');
 		});
 
 		it('should show image right away with fit strategy', () => {
-			const component = setup({
+			const { imgEl } = setup({
 				isCoverStrategy: false,
 				isImageMoreLandscapyThanContainer: true,
 				isStretchingProhibited: true,
 				loadImageImmediately: false,
 			});
-			expect(component.props().style).not.toEqual(
-				expect.objectContaining({
-					display: 'none',
-				}),
-			);
+			expect(imgEl.style.display).not.toBe('none');
 		});
 
 		it('should show image right away with cover strategy and forcing display ', () => {
-			const component = setup({
+			const { imgEl } = setup({
 				isCoverStrategy: true,
 				isImageMoreLandscapyThanContainer: true,
 				isStretchingProhibited: true,
 				loadImageImmediately: false,
 				forceSyncDisplay: true,
 			});
-			expect(component.props().style).not.toEqual(
-				expect.objectContaining({
-					display: 'none',
-				}),
-			);
+			expect(imgEl.style.display).not.toBe('none');
 		});
 
 		it('should show image right away with cover & stretch strategy and forcing display ', () => {
-			const component = setup({
+			const { imgEl } = setup({
 				isCoverStrategy: true,
 				isImageMoreLandscapyThanContainer: true,
 				isStretchingProhibited: false,
 				loadImageImmediately: false,
 				forceSyncDisplay: true,
 			});
-			expect(component.props().style).not.toEqual(
-				expect.objectContaining({
-					display: 'none',
-				}),
-			);
+			expect(imgEl.style.display).not.toBe('none');
 		});
 
 		it('should show image right away with rotation and forcing display ', () => {
-			const component = setup({
+			const { imgEl } = setup({
 				isCoverStrategy: false,
 				previewOrientation: 6,
 				isImageMoreLandscapyThanContainer: true,
@@ -209,86 +218,82 @@ describe('MediaImage', () => {
 				loadImageImmediately: false,
 				forceSyncDisplay: true,
 			});
-			expect(component.props().style).not.toEqual(
-				expect.objectContaining({
-					display: 'none',
-				}),
-			);
+			expect(imgEl.style.display).not.toBe('none');
 		});
 
 		it('should show image right away with fit strategy and forcing display', () => {
-			const component = setup({
+			const { imgEl } = setup({
 				isCoverStrategy: false,
 				isImageMoreLandscapyThanContainer: true,
 				isStretchingProhibited: true,
 				loadImageImmediately: false,
 				forceSyncDisplay: true,
 			});
-			expect(component.props().style).not.toEqual(
-				expect.objectContaining({
-					display: 'none',
-				}),
-			);
+			expect(imgEl.style.display).not.toBe('none');
 		});
 	});
 
 	describe('when image loaded correctly', () => {
 		it('should call onImageLoad', () => {
-			setup({
-				isCoverStrategy: true,
-				isImageMoreLandscapyThanContainer: true,
-				isStretchingProhibited: true,
-			});
+			setup(
+				{
+					isCoverStrategy: true,
+					isImageMoreLandscapyThanContainer: true,
+					isStretchingProhibited: true,
+				},
+				onImageLoad,
+			);
 			expect(onImageLoad).toHaveBeenCalled();
 		});
 
 		it('should set crossOrigin', () => {
-			const component = setup({
+			const { imgEl } = setup({
 				isCoverStrategy: true,
 				isImageMoreLandscapyThanContainer: true,
 				isStretchingProhibited: true,
 			});
 
-			const { crossOrigin } = component.find('img').props();
-			expect(crossOrigin).toBe('anonymous');
+			expect(imgEl.crossOrigin).toBe('anonymous');
 		});
 
 		describe('alt prop is not provided', () => {
 			it('should render img tag without alt-text attribute', () => {
-				const component = setup({
+				const { imgEl } = setup({
 					isCoverStrategy: true,
 					isImageMoreLandscapyThanContainer: true,
 					isStretchingProhibited: true,
 				});
 
-				const { alt } = component.find('img').props();
-				expect(alt).toBe('');
+				expect(imgEl.alt).toBe('');
 			});
 		});
 
 		describe('alt prop is provided', () => {
 			it('should render img tag with alt-text attribute', () => {
-				const component = setup({
+				const { imgEl } = setup({
 					isCoverStrategy: true,
 					isImageMoreLandscapyThanContainer: true,
 					isStretchingProhibited: true,
 					altText: 'this is an alt text',
 				});
 
-				const { alt } = component.find('img').props();
-				expect(alt).toBe('this is an alt text');
+				expect(imgEl.alt).toBe('this is an alt text');
 			});
 		});
 	});
 
 	describe('when image loaded with an error', () => {
 		it('should call onImageLoad', () => {
-			const component = setup({
-				isCoverStrategy: true,
-				isImageMoreLandscapyThanContainer: true,
-				isStretchingProhibited: true,
-			});
-			component.find('img').props().onError!('some-error' as any);
+			const { imgEl } = setup(
+				{
+					isCoverStrategy: true,
+					isImageMoreLandscapyThanContainer: true,
+					isStretchingProhibited: true,
+				},
+				undefined,
+				onImageError,
+			);
+			fireEvent.error(imgEl);
 			expect(onImageError).toHaveBeenCalled();
 		});
 	});
@@ -296,23 +301,23 @@ describe('MediaImage', () => {
 	describe('when image is more landscapy than container', () => {
 		describe('when image is smaller than container', () => {
 			it('should have right style for cover strategy', () => {
-				const component = setup({
+				const { imgEl } = setup({
 					isCoverStrategy: true,
 					isImageMoreLandscapyThanContainer: true,
 					isStretchingProhibited: true,
 				});
-				expect(component.props().style).toEqual({
+				expect(getRenderedStyle(imgEl)).toEqual({
 					maxHeight: '100%',
 					...defaultTransform,
 				});
 			});
 			it('should have right style for fit strategy', () => {
-				const component = setup({
+				const { imgEl } = setup({
 					isCoverStrategy: false,
 					isImageMoreLandscapyThanContainer: true,
 					isStretchingProhibited: true,
 				});
-				expect(component.props().style).toEqual({
+				expect(getRenderedStyle(imgEl)).toEqual({
 					maxWidth: '100%',
 					maxHeight: '100%',
 					...defaultTransform,
@@ -322,23 +327,23 @@ describe('MediaImage', () => {
 
 		describe('when image is bigger than container', () => {
 			it('should have right style for cover strategy', () => {
-				const component = setup({
+				const { imgEl } = setup({
 					isCoverStrategy: true,
 					isImageMoreLandscapyThanContainer: true,
 					isStretchingProhibited: false,
 				});
-				expect(component.props().style).toEqual({
+				expect(getRenderedStyle(imgEl)).toEqual({
 					height: '100%',
 					...defaultTransform,
 				});
 			});
 			it('should have right style for fit strategy', () => {
-				const component = setup({
+				const { imgEl } = setup({
 					isCoverStrategy: false,
 					isImageMoreLandscapyThanContainer: true,
 					isStretchingProhibited: false,
 				});
-				expect(component.props().style).toEqual({
+				expect(getRenderedStyle(imgEl)).toEqual({
 					width: '100%',
 					...defaultTransform,
 				});
@@ -349,33 +354,35 @@ describe('MediaImage', () => {
 			it('should choose appropriate width when cover strategy chosen', () => {
 				mockIsRotated = jest.fn().mockReturnValue(true);
 
-				const component = mount<MediaImageProps, MediaImageState>(
-					<MediaImage
-						dataURI="data:image/png;base64,"
-						stretch={true}
-						crop={true}
-						previewOrientation={6}
-					/>,
+				const { imgEl } = renderMediaImage(
+					{
+						dataURI: 'data:image/png;base64,',
+						stretch: true,
+						crop: true,
+						previewOrientation: 6,
+					},
+					[1000, 750],
+					[100, 75],
+					true,
 				);
-
-				mockImageTag(component, [1000, 750], [100, 75], true);
-				expectToEqual(component.find(ImageComponent).prop('style')!.width, '134%');
+				expect(imgEl.style.width).toBe('134%');
 			});
 
 			it('should choose appropriate height when fit strategy chosen', () => {
 				mockIsRotated = jest.fn().mockReturnValue(true);
 
-				const component = mount<MediaImageProps, MediaImageState>(
-					<MediaImage
-						dataURI="data:image/png;base64,"
-						stretch={true}
-						crop={false}
-						previewOrientation={6}
-					/>,
+				const { imgEl } = renderMediaImage(
+					{
+						dataURI: 'data:image/png;base64,',
+						stretch: true,
+						crop: false,
+						previewOrientation: 6,
+					},
+					[1000, 750],
+					[100, 75],
+					true,
 				);
-
-				mockImageTag(component, [1000, 750], [100, 75], true);
-				expectToEqual(component.find(ImageComponent).prop('style')!.height, '134%');
+				expect(imgEl.style.height).toBe('134%');
 			});
 		});
 	});
@@ -383,23 +390,23 @@ describe('MediaImage', () => {
 	describe('when image is more portraity than container', () => {
 		describe('when image is smaller than container', () => {
 			it('should have right style for cover strategy', () => {
-				const component = setup({
+				const { imgEl } = setup({
 					isCoverStrategy: true,
 					isImageMoreLandscapyThanContainer: false,
 					isStretchingProhibited: true,
 				});
-				expect(component.props().style).toEqual({
+				expect(getRenderedStyle(imgEl)).toEqual({
 					maxWidth: '100%',
 					...defaultTransform,
 				});
 			});
 			it('should have right style for fit strategy', () => {
-				const component = setup({
+				const { imgEl } = setup({
 					isCoverStrategy: false,
 					isImageMoreLandscapyThanContainer: false,
 					isStretchingProhibited: true,
 				});
-				expect(component.props().style).toEqual({
+				expect(getRenderedStyle(imgEl)).toEqual({
 					maxWidth: '100%',
 					maxHeight: '100%',
 					...defaultTransform,
@@ -408,23 +415,23 @@ describe('MediaImage', () => {
 		});
 		describe('when image is bigger than container', () => {
 			it('should have right style for cover strategy', () => {
-				const component = setup({
+				const { imgEl } = setup({
 					isCoverStrategy: true,
 					isImageMoreLandscapyThanContainer: false,
 					isStretchingProhibited: false,
 				});
-				expect(component.props().style).toEqual({
+				expect(getRenderedStyle(imgEl)).toEqual({
 					width: '100%',
 					...defaultTransform,
 				});
 			});
 			it('should have right style for fit strategy', () => {
-				const component = setup({
+				const { imgEl } = setup({
 					isCoverStrategy: false,
 					isImageMoreLandscapyThanContainer: false,
 					isStretchingProhibited: false,
 				});
-				expect(component.props().style).toEqual({
+				expect(getRenderedStyle(imgEl)).toEqual({
 					height: '100%',
 					...defaultTransform,
 				});
@@ -433,7 +440,7 @@ describe('MediaImage', () => {
 
 		describe('when image is rotated', () => {
 			it('should do nothing if orientation is 1', () => {
-				const component = setup({
+				const { imgEl } = setup({
 					isCoverStrategy: false,
 					isImageMoreLandscapyThanContainer: false,
 					isStretchingProhibited: false,
@@ -441,27 +448,24 @@ describe('MediaImage', () => {
 					previewOrientation: 1,
 				});
 
-				expect(component.prop('style')!.transform).toEqual(defaultTransform.transform);
+				expect(imgEl.style.transform).toBe(defaultTransform.transform);
 			});
 
-			it('should rotate the image and revert width and height when image is rotated 90deg', async () => {
+			it('should rotate the image and revert width and height when image is rotated 90deg', () => {
 				mockIsRotated = jest.fn().mockReturnValue(true);
 
-				const component = mount<MediaImageProps, MediaImageState>(
-					<MediaImage
-						dataURI="data:image/png;base64,"
-						stretch={true}
-						crop={false}
-						previewOrientation={6}
-					/>,
+				const { imgEl } = renderMediaImage(
+					{
+						dataURI: 'data:image/png;base64,',
+						stretch: true,
+						crop: false,
+						previewOrientation: 6,
+					},
+					[1000, 750],
+					[75, 100],
+					true,
 				);
-
-				await nextTick();
-				await nextTick();
-				await nextTick();
-
-				mockImageTag(component, [1000, 750], [75, 100], true);
-				expectToEqual(component.find(ImageComponent).prop('style'), {
+				expect(getRenderedStyle(imgEl)).toEqual({
 					...defaultTransform,
 					height: '134%',
 					transform: 'translate(-50%, -50%) rotate(90deg)',
@@ -471,18 +475,32 @@ describe('MediaImage', () => {
 			it('should choose appropriate width when cover strategy chosen', () => {
 				mockIsRotated = jest.fn().mockReturnValue(true);
 
-				const component = mount<MediaImageProps, MediaImageState>(
-					<MediaImage
-						dataURI="data:image/png;base64,"
-						stretch={true}
-						crop={true}
-						previewOrientation={6}
-					/>,
+				const { imgEl } = renderMediaImage(
+					{
+						dataURI: 'data:image/png;base64,',
+						stretch: true,
+						crop: true,
+						previewOrientation: 6,
+					},
+					[1000, 750],
+					[75, 100],
+					true,
 				);
-
-				mockImageTag(component, [1000, 750], [75, 100], true);
-				expectToEqual(component.find(ImageComponent).prop('style')!.width, '134%');
+				expect(imgEl.style.width).toBe('134%');
 			});
 		});
+	});
+
+	it('should not introduce any accessibility violations', async () => {
+		setBoundingClientRectMock([500, 500]);
+		render(
+			<MediaImage
+				dataURI="data:image/png;base64,"
+				stretch={false}
+				crop={false}
+				alt="example image"
+			/>,
+		);
+		await expect(document.body).toBeAccessible();
 	});
 });

@@ -46,6 +46,26 @@ export const messages: {
 		description: string;
 		id: string;
 	};
+	cellAlignment: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cellAlignmentBottom: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cellAlignmentMiddle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cellAlignmentTop: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	cellBackground: {
 		defaultMessage: string;
 		description: string;
@@ -647,6 +667,27 @@ export const messages: {
 		id: 'fabric.editor.cellBackground',
 		defaultMessage: 'Cell background',
 		description: 'Change the background color of a table cell.',
+	},
+	cellAlignment: {
+		id: 'fabric.editor.table.cellAlignment',
+		defaultMessage: 'Alignment',
+		description:
+			'Label for a nested menu that aligns content vertically inside a table cell.',
+	},
+	cellAlignmentTop: {
+		id: 'fabric.editor.table.cellAlignmentTop',
+		defaultMessage: 'Top',
+		description: 'Label for an option that aligns table cell content to the top.',
+	},
+	cellAlignmentMiddle: {
+		id: 'fabric.editor.table.cellAlignmentMiddle',
+		defaultMessage: 'Middle',
+		description: 'Label for an option that aligns table cell content to the middle.',
+	},
+	cellAlignmentBottom: {
+		id: 'fabric.editor.table.cellAlignmentBottom',
+		defaultMessage: 'Bottom',
+		description: 'Label for an option that aligns table cell content to the bottom.',
 	},
 	backgroundColor: {
 		id: 'fabric.editor.backgroundColor',

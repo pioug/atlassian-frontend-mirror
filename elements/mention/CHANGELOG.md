@@ -1,5 +1,13 @@
 # @atlaskit/mention
 
+## 26.0.3
+
+### Patch Changes
+
+- [`e0487eae0dec6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0487eae0dec6) -
+  Removed skipped ssr tests
+- Updated dependencies
+
 ## 26.0.2
 
 ### Patch Changes

@@ -113,13 +113,16 @@ type PropsWithWrappedComponentPropsType = Props & WrappedComponentProps;
 type AddOwnEmojiProps = PropsWithWrappedComponentPropsType;
 export const AddOwnEmoji = (props: AddOwnEmojiProps): JSX.Element => {
 	const { onOpenUpload, uploadEnabled } = props;
-	const handleOpenUpload = useCallback((event: MouseEvent<HTMLElement>) => {
-		if (fg('platform_emoji_keep_picker_open_on_upload')) {
-			event.preventDefault();
-			event.stopPropagation();
-		}
-		onOpenUpload();
-	}, [onOpenUpload]);
+	const handleOpenUpload = useCallback(
+		(event: MouseEvent<HTMLElement>) => {
+			if (fg('platform_emoji_keep_picker_open_on_upload')) {
+				event.preventDefault();
+				event.stopPropagation();
+			}
+			onOpenUpload();
+		},
+		[onOpenUpload],
+	);
 
 	return (
 		<Fragment>

@@ -1,24 +1,15 @@
 import React from 'react';
-import { shallow, type ShallowWrapper } from 'enzyme';
+import { render, fireEvent } from '@atlassian/testing-library';
 import { createMouseEvent, createTouchEvent } from '@atlaskit/media-test-helpers';
 
 import { ImagePlacerContainer, type ImagePlacerContainerProps } from '../../image-placer/container';
-import { ContainerWrapper } from '../../image-placer/containerWrapper';
 
-interface SetupInfo {
-	wrapper: ShallowWrapper;
-	instance: ImagePlacerContainer;
-	onDragStart: () => void;
-	onDragMove: () => void;
-	onWheel: () => void;
-}
-
-const setup = (props: Partial<ImagePlacerContainerProps> = {}): SetupInfo => {
+const setup = (props: Partial<ImagePlacerContainerProps> = {}) => {
 	const onDragStart = jest.fn();
 	const onDragMove = jest.fn();
 	const onWheel = jest.fn();
 
-	let wrapper = shallow(
+	const result = render(
 		<ImagePlacerContainer
 			width={1}
 			height={2}
@@ -30,8 +21,9 @@ const setup = (props: Partial<ImagePlacerContainerProps> = {}): SetupInfo => {
 		/>,
 	);
 
-	const instance = wrapper.instance() as ImagePlacerContainer;
-	return { wrapper, instance, onDragStart, onDragMove, onWheel };
+	const container = result.container.querySelector('#container-wrapper') as HTMLElement;
+
+	return { ...result, container: container, onDragStart, onDragMove, onWheel };
 };
 
 /* simulate whether touch is available in environment, container.tsx isTouch accessor checks window property */
@@ -44,16 +36,21 @@ const setIsTouch = (isTouch: boolean) => {
 	}
 };
 
-const mouseLeftEvent: Partial<MouseEvent> = {
+const mouseLeftEvent = {
 	button: 1,
 	clientX: 1,
 	clientY: 2,
 };
-const mouseRightEvent: Partial<MouseEvent> = { button: 2 };
+const mouseRightEvent = { button: 2 };
 const touchStartEvent = { touches: [{ clientX: 1, clientY: 2 }] };
 const touchMoveEvent = { touches: [{ clientX: 2, clientY: 3 } as Touch] };
 
 describe('Image Placer Container', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup();
+		await expect(container).toBeAccessible();
+	});
+
 	describe('Events', () => {
 		describe('Touch vs Mouse', () => {
 			let addEventListener: jest.SpyInstance;
@@ -67,90 +64,95 @@ describe('Image Placer Container', () => {
 
 			it('should listen to touch events when touch present', () => {
 				setIsTouch(true);
-				const { instance } = setup();
+				setup();
 
-				expect(instance.isTouch).toEqual(true);
-				expect(addEventListener).toHaveBeenCalledWith('touchmove', instance.onTouchMove);
-				expect(addEventListener).toHaveBeenCalledWith('touchend', instance.onMouseUp);
-				expect(addEventListener).toHaveBeenCalledWith('touchcancel', instance.onMouseUp);
+				expect(addEventListener).toHaveBeenCalledWith('touchmove', expect.any(Function));
+				expect(addEventListener).toHaveBeenCalledWith('touchend', expect.any(Function));
+				expect(addEventListener).toHaveBeenCalledWith('touchcancel', expect.any(Function));
 			});
 
 			it('should listen to mouse events when touch not present', () => {
 				setIsTouch(false);
-				const { instance } = setup();
+				setup();
 
-				expect(instance.isTouch).toEqual(false);
-				expect(addEventListener).toHaveBeenCalledWith('mousemove', instance.onMouseMove);
-				expect(addEventListener).toHaveBeenCalledWith('mouseup', instance.onMouseUp);
+				expect(addEventListener).toHaveBeenCalledWith('mousemove', expect.any(Function));
+				expect(addEventListener).toHaveBeenCalledWith('mouseup', expect.any(Function));
 			});
 
 			it('should call onDragStart prop when mousedown event', () => {
 				setIsTouch(false);
-				const { wrapper, onDragStart } = setup();
+				const { container, onDragStart } = setup();
 
-				wrapper.simulate('mousedown', mouseLeftEvent);
+				fireEvent.mouseDown(container, mouseLeftEvent);
 				expect(onDragStart).toHaveBeenCalled();
 			});
 
 			it('should not call onDragStart prop when right-mousedown event', () => {
 				setIsTouch(false);
-				const { wrapper, onDragStart } = setup();
+				const { container, onDragStart } = setup();
 
-				wrapper.simulate('mousedown', mouseRightEvent);
+				fireEvent.mouseDown(container, mouseRightEvent);
 				expect(onDragStart).not.toHaveBeenCalled();
 			});
 
 			it('should call onDragStart prop when touchstart event', () => {
 				setIsTouch(true);
-				const { wrapper, onDragStart } = setup();
+				const { container, onDragStart } = setup();
 
-				wrapper.simulate('touchstart', touchStartEvent);
+				fireEvent.touchStart(container, touchStartEvent);
 				expect(onDragStart).toHaveBeenCalled();
 			});
 		});
 
 		it('should call onDragMove prop when mousemove event', () => {
 			setIsTouch(false);
-			const { wrapper, onDragMove } = setup();
+			const { container, onDragMove } = setup();
 
-			wrapper.simulate('mousedown', mouseLeftEvent);
+			fireEvent.mouseDown(container, mouseLeftEvent);
 			document.dispatchEvent(createMouseEvent('mousemove', { clientX: 2, clientY: 3 }));
 			expect(onDragMove).toHaveBeenCalledWith({ x: 1, y: 1 });
 		});
 
 		it('should call onDragMove prop when touchmove event', () => {
 			setIsTouch(true);
-			const { wrapper, onDragMove } = setup();
+			const { container, onDragMove } = setup();
 
-			wrapper.simulate('touchstart', touchStartEvent);
+			fireEvent.touchStart(container, touchStartEvent);
 			document.dispatchEvent(createTouchEvent('touchmove', touchMoveEvent));
 			expect(onDragMove).toHaveBeenCalledWith({ x: 1, y: 1 });
 		});
 
 		it('should clear dragClientStart when touchend event', () => {
 			setIsTouch(true);
-			const { wrapper, instance } = setup();
+			const { container, onDragMove } = setup();
 
-			wrapper.simulate('touchstart', touchStartEvent);
+			fireEvent.touchStart(container, touchStartEvent);
 			document.dispatchEvent(createTouchEvent('touchmove', touchMoveEvent));
 			document.dispatchEvent(createTouchEvent('touchend'));
-			expect(instance.isDragging).toBeFalsy();
+
+			// After touchend, further touchmove should not trigger onDragMove again
+			onDragMove.mockClear();
+			document.dispatchEvent(createTouchEvent('touchmove', touchMoveEvent));
+			expect(onDragMove).not.toHaveBeenCalled();
 		});
 
 		it('should clear dragClientStart when mouseup event', () => {
 			setIsTouch(false);
-			const { wrapper, instance } = setup();
+			const { container, onDragMove } = setup();
 
-			wrapper.simulate('mousedown', mouseLeftEvent);
-			document.dispatchEvent(createTouchEvent('touchmove'));
+			fireEvent.mouseDown(container, mouseLeftEvent);
 			document.dispatchEvent(createTouchEvent('mouseup'));
-			expect(instance.isDragging).toBeFalsy();
+
+			// After mouseup, further mousemove should not trigger onDragMove
+			onDragMove.mockClear();
+			document.dispatchEvent(createMouseEvent('mousemove', { clientX: 5, clientY: 5 }));
+			expect(onDragMove).not.toHaveBeenCalled();
 		});
 
 		it('should call onWheel prop when wheel event', () => {
 			setIsTouch(false);
-			const { onWheel, instance } = setup();
-			instance.onWheel({ deltaY: 1 } as React.WheelEvent<HTMLDivElement>);
+			const { container, onWheel } = setup();
+			fireEvent.wheel(container, { deltaY: 1 });
 			expect(onWheel).toHaveBeenCalledWith(1);
 		});
 	});
@@ -158,27 +160,34 @@ describe('Image Placer Container', () => {
 	describe('Rendering', () => {
 		it('should apply correct events when touch present', () => {
 			setIsTouch(true);
-			const { wrapper, instance } = setup();
-			const containerWrapper = wrapper.find(ContainerWrapper).get(0);
-			const { onMouseDown, onTouchStart } = containerWrapper.props;
-			expect(onMouseDown).toBeUndefined();
-			expect(onTouchStart).toEqual(instance.onTouchStart);
+			const { container, onDragStart } = setup();
+
+			// When touch is present, mouseDown should not trigger onDragStart
+			fireEvent.mouseDown(container, mouseLeftEvent);
+			expect(onDragStart).not.toHaveBeenCalled();
+
+			// But touchStart should
+			fireEvent.touchStart(container, touchStartEvent);
+			expect(onDragStart).toHaveBeenCalled();
 		});
 
 		it('should apply correct events when mouse present', () => {
 			setIsTouch(false);
-			const { wrapper, instance } = setup();
-			const containerWrapper = wrapper.find(ContainerWrapper).get(0);
-			const { onMouseDown, onTouchStart } = containerWrapper.props;
-			expect(onMouseDown).toEqual(instance.onMouseDown);
-			expect(onTouchStart).toBeUndefined();
+			const { container, onDragStart } = setup();
+
+			// When mouse is present, touchStart should not trigger onDragStart
+			fireEvent.touchStart(container, touchStartEvent);
+			expect(onDragStart).not.toHaveBeenCalled();
+
+			// But mouseDown should
+			fireEvent.mouseDown(container, mouseLeftEvent);
+			expect(onDragStart).toHaveBeenCalled();
 		});
 
 		it('should listen to wrapper wheel event', () => {
-			const { wrapper, instance } = setup();
-			const containerWrapper = wrapper.find(ContainerWrapper).get(0);
-			const { onWheel } = containerWrapper.props;
-			expect(onWheel).toEqual(instance.onWheel);
+			const { container, onWheel } = setup();
+			fireEvent.wheel(container, { deltaY: 5 });
+			expect(onWheel).toHaveBeenCalledWith(5);
 		});
 	});
 });

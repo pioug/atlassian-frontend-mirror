@@ -38,7 +38,9 @@ export const measureTableWithAutoLayout = (
 		}
 
 		const stickyRows = Array.from(
-			tableRef.querySelectorAll<HTMLTableRowElement>(`tr.sticky, tr.${TableSharedCssClassName.TABLE_NATIVE_STICKY}`),
+			tableRef.querySelectorAll<HTMLTableRowElement>(
+				`tr.sticky, tr.${TableSharedCssClassName.TABLE_NATIVE_STICKY}`,
+			),
 		);
 		const prevStickyRowState = stickyRows.map((row) => ({
 			row,

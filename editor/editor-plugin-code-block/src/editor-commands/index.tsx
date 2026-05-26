@@ -40,6 +40,7 @@ import { copySelectionPluginKey } from '../pm-plugins/codeBlockCopySelectionPlug
 import type { CodeBlockState } from '../pm-plugins/main-state';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { transformToCodeBlockAction } from '../pm-plugins/transform-to-code-block';
+import type { LanguagePickerSelectionSource } from '../ui/language-picker-options';
 
 export const removeCodeBlockWithAnalytics = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
@@ -72,7 +73,7 @@ export const removeCodeBlock: Command = (state, dispatch) => {
 
 export const changeLanguage =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	(language: string | null): Command =>
+	(language: string | null, selectionSource?: LanguagePickerSelectionSource): Command =>
 	(state, dispatch) => {
 		const { codeBlock } = state.schema.nodes;
 		const pos = pluginKey.getState(state)?.pos;
@@ -96,7 +97,10 @@ export const changeLanguage =
 			editorAnalyticsAPI?.attachAnalyticsEvent({
 				action: ACTION.LANGUAGE_SELECTED,
 				actionSubject: ACTION_SUBJECT.CODE_BLOCK,
-				attributes: { language: language ?? 'none' },
+				attributes: {
+					language: language ?? 'none',
+					...(selectionSource ? { selectionSource } : {}),
+				},
 				eventType: EVENT_TYPE.TRACK,
 			})(result);
 			dispatch(result);

@@ -3,7 +3,6 @@ import type { IntlShape } from 'react-intl';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { trackChangesMessages } from '@atlaskit/editor-common/messages';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -26,10 +25,8 @@ import {
 	deletedCellOverlayStyle,
 } from '../colorSchemes/standard';
 import {
-	deletedTraditionalBlockOutline,
 	deletedTraditionalBlockOutlineActive,
 	deletedTraditionalBlockOutlineNew,
-	deletedTraditionalBlockOutlineRounded,
 	deletedTraditionalBlockOutlineRoundedActive,
 	deletedTraditionalBlockOutlineRoundedNew,
 	getDeletedTraditionalInlineStyle,
@@ -37,10 +34,8 @@ import {
 	deletedTraditionalStyleQuoteNodeActive,
 	traditionalInsertStyle,
 	traditionalInsertStyleActive,
-	traditionalStyleNode,
 	traditionalStyleNodeActive,
 	traditionalStyleNodeNew,
-	traditionalAddedCellOverlayStyle,
 	traditionalAddedCellOverlayStyleNew,
 	deletedTraditionalCellOverlayStyle,
 } from '../colorSchemes/traditional';
@@ -134,10 +129,7 @@ const getChangedNodeStyle = (
 			return undefined;
 		}
 		if (isTraditional) {
-			if (fg('platform_editor_show_diff_scroll_navigation')) {
-				return isActive ? traditionalStyleNodeActive : traditionalStyleNodeNew;
-			}
-			return isActive ? traditionalStyleNodeActive : traditionalStyleNode;
+			return isActive ? traditionalStyleNodeActive : traditionalStyleNodeNew;
 		}
 		return editingStyleNode;
 	}
@@ -153,9 +145,7 @@ const getChangedNodeStyle = (
 			if (isTraditional) {
 				return isActive
 					? deletedTraditionalBlockOutlineActive
-					: fg('platform_editor_show_diff_scroll_navigation')
-						? deletedTraditionalBlockOutlineNew
-						: deletedTraditionalBlockOutline;
+					: deletedTraditionalBlockOutlineNew;
 			}
 			return isActive ? deletedBlockOutlineActive : deletedBlockOutline;
 		case 'panel':
@@ -163,9 +153,7 @@ const getChangedNodeStyle = (
 			if (isTraditional) {
 				return isActive
 					? deletedTraditionalBlockOutlineRoundedActive
-					: fg('platform_editor_show_diff_scroll_navigation')
-						? deletedTraditionalBlockOutlineRoundedNew
-						: deletedTraditionalBlockOutlineRounded;
+					: deletedTraditionalBlockOutlineRoundedNew;
 			}
 			return isActive ? deletedBlockOutlineRoundedActive : deletedBlockOutlineRounded;
 		default:
@@ -217,8 +205,7 @@ const maybeAddDeletedOutlineNewClass = ({
 	}
 	if (
 		colorScheme === 'traditional' &&
-		!isActive &&
-		fg('platform_editor_show_diff_scroll_navigation')
+		!isActive
 	) {
 		nodeView.classList.add('show-diff-deleted-outline-new');
 	}
@@ -256,9 +243,7 @@ const applyCellOverlayStyles = ({
 		const overlayStyle =
 			colorScheme === 'traditional'
 				? isInserted
-					? fg('platform_editor_show_diff_scroll_navigation')
-						? traditionalAddedCellOverlayStyleNew
-						: traditionalAddedCellOverlayStyle
+					? traditionalAddedCellOverlayStyleNew
 					: deletedTraditionalCellOverlayStyle
 				: isInserted
 					? addedCellOverlayStyle

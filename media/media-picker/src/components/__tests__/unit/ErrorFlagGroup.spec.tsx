@@ -1,8 +1,12 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { act, render, screen } from '@atlassian/testing-library';
 import ErrorFlagGroup from '../../errorFlagGroup/ErrorFlagGroup';
 import { type FileEmptyData, type UploadRejectionData } from '../../../types';
-import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
+
+const renderErrorFlagGroup = (
+	flagData: Array<UploadRejectionData | FileEmptyData>,
+	onFlagDismissed: () => void = () => {},
+) => render(<ErrorFlagGroup flagData={flagData} onFlagDismissed={onFlagDismissed} />);
 
 describe('UploadRejectionFlagGroup', () => {
 	const rejectionData1: UploadRejectionData = {
@@ -17,47 +21,34 @@ describe('UploadRejectionFlagGroup', () => {
 	};
 
 	it('should render a flag when flagData is provided', () => {
-		const rejectionFlagGroup = mount(
-			<ErrorFlagGroup flagData={[rejectionData1]} onFlagDismissed={() => {}} />,
-		);
-		const flagGroup = rejectionFlagGroup.find(FlagGroup);
-		expect(flagGroup.find(AutoDismissFlag)).toHaveLength(1);
+		renderErrorFlagGroup([rejectionData1]);
+		expect(screen.getAllByRole('alert')).toHaveLength(1);
 	});
 
 	it('should not render any flags when no payloads are provided', () => {
-		const rejectionFlagGroup = mount(<ErrorFlagGroup flagData={[]} onFlagDismissed={() => {}} />);
-		const flagGroup = rejectionFlagGroup.find(FlagGroup);
-		expect(flagGroup.find(AutoDismissFlag)).toHaveLength(0);
+		renderErrorFlagGroup([]);
+		expect(screen.queryByRole('alert')).not.toBeInTheDocument();
 	});
 
 	it('should render multiple flags multiple payloads are provided', () => {
-		const rejectionFlagGroup = mount(
-			<ErrorFlagGroup flagData={[rejectionData1, rejectionData2]} onFlagDismissed={() => {}} />,
-		);
-		const flagGroup = rejectionFlagGroup.find(FlagGroup);
-		expect(flagGroup.find(AutoDismissFlag)).toHaveLength(2);
+		renderErrorFlagGroup([rejectionData1, rejectionData2]);
+		expect(screen.getAllByRole('alert')).toHaveLength(2);
 	});
 
 	it('should render a flag with a descriptive title', () => {
-		const rejectionFlagGroup = mount(
-			<ErrorFlagGroup flagData={[rejectionData1]} onFlagDismissed={() => {}} />,
-		);
-		const flag = rejectionFlagGroup.find(AutoDismissFlag);
-		expect(flag.prop('title')).toEqual('Your file failed to upload');
+		renderErrorFlagGroup([rejectionData1]);
+		expect(screen.getByRole('heading', { name: 'Your file failed to upload' })).toBeInTheDocument();
 	});
 
 	describe('should render a flag with an appropriate description', () => {
 		it('with the correct the file name', () => {
-			const rejectionFlagGroup = mount(
-				<ErrorFlagGroup flagData={[rejectionData1, rejectionData2]} onFlagDismissed={() => {}} />,
-			);
-			const flags = rejectionFlagGroup.find(AutoDismissFlag);
-			expect(flags.get(0).props.description).toEqual(
-				'file-name-1.png is too big to upload. Files must be less than 10.00 kB.',
-			);
-			expect(flags.get(1).props.description).toEqual(
-				'file-name-2.png is too big to upload. Files must be less than 10.00 kB.',
-			);
+			renderErrorFlagGroup([rejectionData1, rejectionData2]);
+			expect(
+				screen.getByText('file-name-1.png is too big to upload. Files must be less than 10.00 kB.'),
+			).toBeInTheDocument();
+			expect(
+				screen.getByText('file-name-2.png is too big to upload. Files must be less than 10.00 kB.'),
+			).toBeInTheDocument();
 		});
 
 		it('with a file size of zero bytes', () => {
@@ -65,217 +56,159 @@ describe('UploadRejectionFlagGroup', () => {
 				reason: 'fileEmpty',
 				fileName: 'file-name.png',
 			};
-			const errorFlagGroup = mount(
-				<ErrorFlagGroup flagData={[fileEmptyData]} onFlagDismissed={() => {}} />,
-			);
-			const flag = errorFlagGroup.find(AutoDismissFlag);
-			expect(flag.get(0).props.description).toEqual(
-				'The file you selected was empty. Please select another file and try again.',
-			);
+			renderErrorFlagGroup([fileEmptyData]);
+			expect(
+				screen.getByText(
+					'The file you selected was empty. Please select another file and try again.',
+				),
+			).toBeInTheDocument();
 		});
 
 		it('with a file size limit that is smaller than 1 kB', () => {
-			const rejectionData: UploadRejectionData = {
-				reason: 'fileSizeLimitExceeded',
-				fileName: 'file-name.png',
-				limit: 1,
-			};
-			const rejectionFlagGroup = mount(
-				<ErrorFlagGroup flagData={[rejectionData]} onFlagDismissed={() => {}} />,
-			);
-			const flag = rejectionFlagGroup.find(AutoDismissFlag);
-			expect(flag.get(0).props.description).toEqual(
-				'file-name.png is too big to upload. Files must be less than 0.001 kB.',
-			);
+			renderErrorFlagGroup([
+				{ reason: 'fileSizeLimitExceeded', fileName: 'file-name.png', limit: 1 },
+			]);
+			expect(
+				screen.getByText('file-name.png is too big to upload. Files must be less than 0.001 kB.'),
+			).toBeInTheDocument();
 		});
 
 		it('with a file size limit that is just smaller than 1 kB', () => {
-			const rejectionData: UploadRejectionData = {
-				reason: 'fileSizeLimitExceeded',
-				fileName: 'file-name.png',
-				limit: 999,
-			};
-			const rejectionFlagGroup = mount(
-				<ErrorFlagGroup flagData={[rejectionData]} onFlagDismissed={() => {}} />,
-			);
-			const flag = rejectionFlagGroup.find(AutoDismissFlag);
-			expect(flag.get(0).props.description).toEqual(
-				'file-name.png is too big to upload. Files must be less than 0.999 kB.',
-			);
+			renderErrorFlagGroup([
+				{ reason: 'fileSizeLimitExceeded', fileName: 'file-name.png', limit: 999 },
+			]);
+			expect(
+				screen.getByText('file-name.png is too big to upload. Files must be less than 0.999 kB.'),
+			).toBeInTheDocument();
 		});
 
 		it('with a file size limit that is 1 kB', () => {
-			const rejectionData: UploadRejectionData = {
-				reason: 'fileSizeLimitExceeded',
-				fileName: 'file-name.png',
-				limit: 1_000,
-			};
-			const rejectionFlagGroup = mount(
-				<ErrorFlagGroup flagData={[rejectionData]} onFlagDismissed={() => {}} />,
-			);
-			const flag = rejectionFlagGroup.find(AutoDismissFlag);
-			expect(flag.get(0).props.description).toEqual(
-				'file-name.png is too big to upload. Files must be less than 1.00 kB.',
-			);
+			renderErrorFlagGroup([
+				{ reason: 'fileSizeLimitExceeded', fileName: 'file-name.png', limit: 1_000 },
+			]);
+			expect(
+				screen.getByText('file-name.png is too big to upload. Files must be less than 1.00 kB.'),
+			).toBeInTheDocument();
 		});
 
 		it('with a file size limit that is between 1kB and 1 MB', () => {
-			const rejectionData: UploadRejectionData = {
-				reason: 'fileSizeLimitExceeded',
-				fileName: 'file-name.png',
-				limit: 900_000,
-			};
-			const rejectionFlagGroup = mount(
-				<ErrorFlagGroup flagData={[rejectionData]} onFlagDismissed={() => {}} />,
-			);
-			const flag = rejectionFlagGroup.find(AutoDismissFlag);
-			expect(flag.get(0).props.description).toEqual(
-				'file-name.png is too big to upload. Files must be less than 900.00 kB.',
-			);
+			renderErrorFlagGroup([
+				{ reason: 'fileSizeLimitExceeded', fileName: 'file-name.png', limit: 900_000 },
+			]);
+			expect(
+				screen.getByText('file-name.png is too big to upload. Files must be less than 900.00 kB.'),
+			).toBeInTheDocument();
 		});
 
 		it('with a file size limit that is just less than 1 MB', () => {
-			const rejectionData: UploadRejectionData = {
-				reason: 'fileSizeLimitExceeded',
-				fileName: 'file-name.png',
-				limit: 999_999,
-			};
-			const rejectionFlagGroup = mount(
-				<ErrorFlagGroup flagData={[rejectionData]} onFlagDismissed={() => {}} />,
-			);
-			const flag = rejectionFlagGroup.find(AutoDismissFlag);
-			expect(flag.get(0).props.description).toEqual(
-				'file-name.png is too big to upload. Files must be less than 999.999 kB.',
-			);
+			renderErrorFlagGroup([
+				{ reason: 'fileSizeLimitExceeded', fileName: 'file-name.png', limit: 999_999 },
+			]);
+			expect(
+				screen.getByText('file-name.png is too big to upload. Files must be less than 999.999 kB.'),
+			).toBeInTheDocument();
 		});
 
 		it('with a file size limit that is 1 MB', () => {
-			const rejectionData: UploadRejectionData = {
-				reason: 'fileSizeLimitExceeded',
-				fileName: 'file-name.png',
-				limit: 1_000_000,
-			};
-			const rejectionFlagGroup = mount(
-				<ErrorFlagGroup flagData={[rejectionData]} onFlagDismissed={() => {}} />,
-			);
-			const flag = rejectionFlagGroup.find(AutoDismissFlag);
-			expect(flag.get(0).props.description).toEqual(
-				'file-name.png is too big to upload. Files must be less than 1.00 MB.',
-			);
+			renderErrorFlagGroup([
+				{ reason: 'fileSizeLimitExceeded', fileName: 'file-name.png', limit: 1_000_000 },
+			]);
+			expect(
+				screen.getByText('file-name.png is too big to upload. Files must be less than 1.00 MB.'),
+			).toBeInTheDocument();
 		});
 
 		it('with a file size limit that is between 1 MB and 1 GB', () => {
-			const rejectionData: UploadRejectionData = {
-				reason: 'fileSizeLimitExceeded',
-				fileName: 'file-name.png',
-				limit: 2_000_000,
-			};
-			const rejectionFlagGroup = mount(
-				<ErrorFlagGroup flagData={[rejectionData]} onFlagDismissed={() => {}} />,
-			);
-			const flag = rejectionFlagGroup.find(AutoDismissFlag);
-			expect(flag.get(0).props.description).toEqual(
-				'file-name.png is too big to upload. Files must be less than 2.00 MB.',
-			);
+			renderErrorFlagGroup([
+				{ reason: 'fileSizeLimitExceeded', fileName: 'file-name.png', limit: 2_000_000 },
+			]);
+			expect(
+				screen.getByText('file-name.png is too big to upload. Files must be less than 2.00 MB.'),
+			).toBeInTheDocument();
 		});
 
 		it('with a file size limit that is 1 GB', () => {
-			const rejectionData: UploadRejectionData = {
-				reason: 'fileSizeLimitExceeded',
-				fileName: 'file-name.png',
-				limit: 1_000_000_000,
-			};
-			const rejectionFlagGroup = mount(
-				<ErrorFlagGroup flagData={[rejectionData]} onFlagDismissed={() => {}} />,
-			);
-			const flag = rejectionFlagGroup.find(AutoDismissFlag);
-			expect(flag.get(0).props.description).toEqual(
-				'file-name.png is too big to upload. Files must be less than 1.00 GB.',
-			);
+			renderErrorFlagGroup([
+				{ reason: 'fileSizeLimitExceeded', fileName: 'file-name.png', limit: 1_000_000_000 },
+			]);
+			expect(
+				screen.getByText('file-name.png is too big to upload. Files must be less than 1.00 GB.'),
+			).toBeInTheDocument();
 		});
 
 		it('with a file size limit that is just greater than 1 GB', () => {
-			const rejectionData: UploadRejectionData = {
-				reason: 'fileSizeLimitExceeded',
-				fileName: 'file-name.png',
-				limit: 1_000_000_001,
-			};
-			const rejectionFlagGroup = mount(
-				<ErrorFlagGroup flagData={[rejectionData]} onFlagDismissed={() => {}} />,
-			);
-			const flag = rejectionFlagGroup.find(AutoDismissFlag);
-			expect(flag.get(0).props.description).toEqual(
-				'file-name.png is too big to upload. Files must be less than 1.00 GB.',
-			);
+			renderErrorFlagGroup([
+				{ reason: 'fileSizeLimitExceeded', fileName: 'file-name.png', limit: 1_000_000_001 },
+			]);
+			expect(
+				screen.getByText('file-name.png is too big to upload. Files must be less than 1.00 GB.'),
+			).toBeInTheDocument();
 		});
 
 		it('with a file size limit that is greater than 1 GB', () => {
-			const rejectionData: UploadRejectionData = {
-				reason: 'fileSizeLimitExceeded',
-				fileName: 'file-name.png',
-				limit: 44_000_000_000,
-			};
-			const rejectionFlagGroup = mount(
-				<ErrorFlagGroup flagData={[rejectionData]} onFlagDismissed={() => {}} />,
-			);
-			const flag = rejectionFlagGroup.find(AutoDismissFlag);
-			expect(flag.get(0).props.description).toEqual(
-				'file-name.png is too big to upload. Files must be less than 44.00 GB.',
-			);
+			renderErrorFlagGroup([
+				{ reason: 'fileSizeLimitExceeded', fileName: 'file-name.png', limit: 44_000_000_000 },
+			]);
+			expect(
+				screen.getByText('file-name.png is too big to upload. Files must be less than 44.00 GB.'),
+			).toBeInTheDocument();
 		});
 
 		it('with a file size limit that is has less than 3 decimal places', () => {
-			const rejectionData: UploadRejectionData = {
-				reason: 'fileSizeLimitExceeded',
-				fileName: 'file-name.png',
-				limit: 1_230,
-			};
-			const rejectionFlagGroup = mount(
-				<ErrorFlagGroup flagData={[rejectionData]} onFlagDismissed={() => {}} />,
-			);
-			const flag = rejectionFlagGroup.find(AutoDismissFlag);
-			expect(flag.get(0).props.description).toEqual(
-				'file-name.png is too big to upload. Files must be less than 1.23 kB.',
-			);
+			renderErrorFlagGroup([
+				{ reason: 'fileSizeLimitExceeded', fileName: 'file-name.png', limit: 1_230 },
+			]);
+			expect(
+				screen.getByText('file-name.png is too big to upload. Files must be less than 1.23 kB.'),
+			).toBeInTheDocument();
 		});
 
 		it('with a file size limit that should ignore more than 3 decimal places', () => {
-			const rejectionData: UploadRejectionData = {
-				reason: 'fileSizeLimitExceeded',
-				fileName: 'file-name.png',
-				limit: 1_201_345,
-			};
-			const rejectionFlagGroup = mount(
-				<ErrorFlagGroup flagData={[rejectionData]} onFlagDismissed={() => {}} />,
-			);
-			const flag = rejectionFlagGroup.find(AutoDismissFlag);
-			expect(flag.get(0).props.description).toEqual(
-				'file-name.png is too big to upload. Files must be less than 1.201 MB.',
-			);
+			renderErrorFlagGroup([
+				{ reason: 'fileSizeLimitExceeded', fileName: 'file-name.png', limit: 1_201_345 },
+			]);
+			expect(
+				screen.getByText('file-name.png is too big to upload. Files must be less than 1.201 MB.'),
+			).toBeInTheDocument();
 		});
 
 		it('with a file size limit that requires commas', () => {
-			const rejectionData: UploadRejectionData = {
-				reason: 'fileSizeLimitExceeded',
-				fileName: 'file-name.png',
-				limit: 1_000_000_000_000_000,
-			};
-			const rejectionFlagGroup = mount(
-				<ErrorFlagGroup flagData={[rejectionData]} onFlagDismissed={() => {}} />,
-			);
-			const flag = rejectionFlagGroup.find(AutoDismissFlag);
-			expect(flag.get(0).props.description).toEqual(
-				'file-name.png is too big to upload. Files must be less than 1,000,000.00 GB.',
-			);
+			renderErrorFlagGroup([
+				{
+					reason: 'fileSizeLimitExceeded',
+					fileName: 'file-name.png',
+					limit: 1_000_000_000_000_000,
+				},
+			]);
+			expect(
+				screen.getByText(
+					'file-name.png is too big to upload. Files must be less than 1,000,000.00 GB.',
+				),
+			).toBeInTheDocument();
 		});
 	});
 
 	it('should set onDismissed callback correctly for the FlagGroup', () => {
-		const onDismissedCallback = jest.fn();
-		const rejectionFlagGroup = mount(
-			<ErrorFlagGroup flagData={[rejectionData1]} onFlagDismissed={onDismissedCallback} />,
-		);
-		const flagGroup = rejectionFlagGroup.find(FlagGroup);
-		expect(flagGroup.prop('onDismissed')).toBe(onDismissedCallback);
+		jest.useFakeTimers();
+		try {
+			const onDismissed = jest.fn();
+			renderErrorFlagGroup([rejectionData1], onDismissed);
+
+			act(() => {
+				jest.advanceTimersByTime(8_500);
+			});
+
+			expect(onDismissed).toHaveBeenCalledTimes(1);
+		} finally {
+			act(() => {
+				jest.runOnlyPendingTimers();
+			});
+			jest.useRealTimers();
+		}
+	});
+
+	it('should not introduce any accessibility violations', async () => {
+		renderErrorFlagGroup([rejectionData1]);
+		await expect(document.body).toBeAccessible();
 	});
 });

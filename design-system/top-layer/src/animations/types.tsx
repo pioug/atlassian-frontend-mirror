@@ -27,7 +27,11 @@ export type TAnimationPreset = {
 	 */
 	getProperties?: (args: { placement: TPlacementOptions }) => Record<string, string>;
 	/**
-	 * Exit duration in ms (for `transitionend` fallback timeout).
+	 * Entry duration in ms (for `transitionend` fallback timeout on open).
+	 */
+	enterDurationMs: number;
+	/**
+	 * Exit duration in ms (for `transitionend` fallback timeout on close).
 	 */
 	exitDurationMs: number;
 };

@@ -76,9 +76,10 @@ export const BackgroundColorItem = ({ api }: TableMenuComponentsParams): React.J
 				color,
 				editorView,
 			)(editorView.state, editorView.dispatch);
-			closeActiveTableMenu()(editorView.state, editorView.dispatch);
+			api?.core.actions.execute(closeActiveTableMenu());
+			api?.core.actions.focus();
 		},
-		[api?.analytics?.actions, editorView],
+		[api, editorView],
 	);
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	const colorPreviewStyle = useMemo(() => ({ backgroundColor: selectedColor }), [selectedColor]);

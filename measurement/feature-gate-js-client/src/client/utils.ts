@@ -67,8 +67,13 @@ export const toStatsigUser = (
 	identifiers: Identifiers,
 	customAttributes?: CustomAttributes,
 ): StatsigUser => {
+	// Re-map `stableId` to `stableID` to match Statsig's native type.
+	const { stableId, ...otherIdentifiers } = identifiers;
 	const user: StatsigUser = {
-		customIDs: identifiers,
+		customIDs: {
+			...otherIdentifiers,
+			...(stableId !== undefined ? { stableID: stableId } : {})
+		},
 		custom: customAttributes,
 	};
 

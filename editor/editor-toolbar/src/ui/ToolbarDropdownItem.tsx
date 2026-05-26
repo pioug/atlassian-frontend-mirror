@@ -84,6 +84,8 @@ export type ToolbarDropdownItemInteractionProps = {
 	onMouseLeave?: React.MouseEventHandler;
 };
 
+export type ToolbarDropdownItemRole = 'menuitem' | 'menuitemcheckbox' | 'menuitemradio';
+
 export type CustomDropdownMenuItemButtonProps = CustomItemComponentProps &
 	ToolbarDropdownItemInteractionProps & {
 		'aria-disabled'?: boolean;
@@ -91,6 +93,7 @@ export type CustomDropdownMenuItemButtonProps = CustomItemComponentProps &
 		'aria-keyshortcuts'?: string;
 		'aria-pressed'?: boolean;
 		'data-extension-item-key'?: string;
+		itemRole?: ToolbarDropdownItemRole;
 		title?: string;
 	};
 
@@ -114,15 +117,14 @@ const CustomDropdownMenuItemButton = forwardRef<
 			tabIndex,
 			title,
 			'data-extension-item-key': dataExtensionItemKey,
+			itemRole,
 		},
 		ref,
 	) => (
 		<Pressable
 			role={
 				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
-					? ariaPressed !== undefined && !ariaHasPopup
-						? 'menuitemradio'
-						: 'menuitem'
+					? itemRole || 'menuitem'
 					: expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
 						? 'menuitem'
 						: undefined
@@ -141,7 +143,8 @@ const CustomDropdownMenuItemButton = forwardRef<
 			aria-haspopup={ariaHasPopup}
 			aria-expanded={ariaHasPopup ? (ariaPressed ? true : false) : undefined}
 			aria-checked={
-				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true) && !ariaHasPopup
+				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true) &&
+				(itemRole === 'menuitemradio' || itemRole === 'menuitemcheckbox')
 					? ariaPressed
 					: undefined
 			}
@@ -183,6 +186,7 @@ type ToolbarDropdownItemProps = ToolbarDropdownItemInteractionProps & {
 	isSelected?: boolean;
 	onClick?: (e: React.MouseEvent | React.KeyboardEvent) => void;
 	rel?: string;
+	role?: ToolbarDropdownItemRole;
 	shouldTitleWrap?: boolean;
 	target?: string;
 	testId?: string;
@@ -198,6 +202,7 @@ type CustomDropdownMenuItemAnchorProps = CustomItemComponentProps &
 		'aria-keyshortcuts'?: string;
 		'aria-pressed'?: boolean;
 		href: string;
+		itemRole?: ToolbarDropdownItemRole;
 		rel?: string;
 		target?: string;
 		title?: string;
@@ -225,6 +230,7 @@ const CustomDropdownMenuItemAnchor = forwardRef<
 			target,
 			rel,
 			title,
+			itemRole,
 			...dataAttributes
 		},
 		ref,
@@ -232,9 +238,7 @@ const CustomDropdownMenuItemAnchor = forwardRef<
 		<Anchor
 			role={
 				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
-					? ariaPressed !== undefined && !ariaHasPopup
-						? 'menuitemradio'
-						: 'menuitem'
+					? itemRole || 'menuitem'
 					: expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
 						? 'menuitem'
 						: undefined
@@ -254,7 +258,8 @@ const CustomDropdownMenuItemAnchor = forwardRef<
 			aria-haspopup={ariaHasPopup}
 			aria-expanded={ariaHasPopup ? (ariaPressed ? true : false) : undefined}
 			aria-checked={
-				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true) && !ariaHasPopup
+				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true) &&
+				(itemRole === 'menuitemradio' || itemRole === 'menuitemcheckbox')
 					? ariaPressed
 					: undefined
 			}
@@ -303,6 +308,7 @@ export const ToolbarDropdownItem = ({
 	href,
 	target,
 	rel,
+	role,
 	...dataAttributes
 }: ToolbarDropdownItemProps): React.JSX.Element => {
 	const parentContext = useToolbarDropdownMenu();
@@ -343,6 +349,7 @@ export const ToolbarDropdownItem = ({
 			aria-haspopup={hasNestedDropdownMenu}
 			aria-pressed={isSelected}
 			aria-keyshortcuts={ariaKeyshortcuts}
+			itemRole={role}
 			ref={triggerRef}
 			href={href}
 			target={target}

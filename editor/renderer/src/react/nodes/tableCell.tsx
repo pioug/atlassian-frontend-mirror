@@ -15,6 +15,7 @@ import { useIntl } from 'react-intl';
 import type { IntlShape } from 'react-intl';
 import { tableCellMessages } from '../../messages';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 export type TableCellEdgeProps = {
 	reachesBottom?: boolean;
@@ -77,12 +78,14 @@ type DataAttributes = {
 	'data-reaches-left'?: boolean;
 	'data-reaches-right'?: boolean;
 	'data-reaches-top'?: boolean;
+	'data-valign'?: CellAttributes['valign'];
 };
 
 const getDataAttributes = (
 	colwidth?: number[],
 	background?: string,
 	cellEdgeProps?: TableCellEdgeProps,
+	valign?: CellAttributes['valign'],
 ): DataAttributes => {
 	const attrs: DataAttributes = {};
 	if (colwidth) {
@@ -122,6 +125,13 @@ const getDataAttributes = (
 		attrs['data-cell-background'] = background;
 	}
 
+	if (
+		valign &&
+		expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
+	) {
+		attrs['data-valign'] = valign;
+	}
+
 	return attrs;
 };
 
@@ -134,11 +144,13 @@ const getStyle = ({
 	colGroupWidth,
 	offsetTop,
 	colorMode,
+	valign,
 }: {
 	background?: string;
 	colGroupWidth?: string;
 	colorMode: ReturnType<typeof useThemeObserver>['colorMode'];
 	offsetTop?: number;
+	valign?: CellAttributes['valign'];
 }): CSSProperties => {
 	const style: CSSProperties = {};
 	if (
@@ -197,6 +209,13 @@ const getStyle = ({
 		style.top = offsetTop;
 	}
 
+	if (
+		valign &&
+		expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
+	) {
+		style.verticalAlign = valign;
+	}
+
 	return style;
 };
 
@@ -218,6 +237,7 @@ const getWithCellProps = (WrapperComponent: React.ElementType) => {
 			reachesBottom,
 			reachesLeft,
 			reachesRight,
+			valign,
 		} = props;
 
 		// This is used to set the background color of the cell
@@ -233,19 +253,30 @@ const getWithCellProps = (WrapperComponent: React.ElementType) => {
 				// Instead it is taken from the data-cell-background attribute
 				// (added via getDataAttributes below).
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				style={getStyle({ background, colGroupWidth, offsetTop, colorMode })}
+				style={getStyle({
+					background,
+					colGroupWidth,
+					offsetTop,
+					colorMode,
+					valign,
+				})}
 				colorname={colorName}
 				onClick={onClick}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={className}
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
-				{...getDataAttributes(colwidth, background, {
-					reachesTop,
-					reachesBottom,
-					reachesLeft,
-					reachesRight,
-				})}
+				{...getDataAttributes(
+					colwidth,
+					background,
+					{
+						reachesTop,
+						reachesBottom,
+						reachesLeft,
+						reachesRight,
+					},
+					valign,
+				)}
 				aria-sort={ariaSort}
 			>
 				{children}

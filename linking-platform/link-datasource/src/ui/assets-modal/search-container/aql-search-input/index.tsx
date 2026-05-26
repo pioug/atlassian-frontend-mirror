@@ -157,7 +157,8 @@ export const AqlSearchInput = ({
 								)}
 							</MessageWrapper>
 						) : (
-							lastValidationResult.type === 'invalid' && lastValidationResult.error && (
+							lastValidationResult.type === 'invalid' &&
+							lastValidationResult.error && (
 								<ErrorMessage>{lastValidationResult.error}</ErrorMessage>
 							)
 						)}

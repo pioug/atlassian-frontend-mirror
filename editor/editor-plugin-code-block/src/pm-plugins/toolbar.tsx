@@ -35,14 +35,13 @@ import {
 	toggleWordWrapStateForCodeBlockNode,
 } from '../editor-commands';
 import type { CodeBlockPlugin } from '../index';
+import { CodeBlockLanguagePicker } from '../ui/CodeBlockLanguagePicker';
 import { WrapIcon } from '../ui/icons/WrapIcon';
 import {
-	createGroupedLanguageOptions,
 	NONE_LANGUAGE_VALUE,
 	PLAIN_TEXT_LANGUAGE_VALUE,
 	type LanguagePickerOption,
 } from '../ui/language-picker-options';
-import { LanguagePicker } from '../ui/LanguagePicker';
 
 import {
 	provideVisualFeedbackForCopyButton,
@@ -53,13 +52,29 @@ import type { Language } from './language-list';
 import type { CodeBlockState } from './main-state';
 import { pluginKey } from './plugin-key';
 
-export const getToolbarConfig =
-	(
-		allowCopyToClipboard: boolean = false,
-		api: ExtractInjectionAPI<CodeBlockPlugin> | undefined,
-		overrideLanguageName: ((name: Language['name']) => string) | undefined = undefined,
-	): FloatingToolbarHandler =>
-	(state, { formatMessage }) => {
+export const getToolbarConfig = (
+	allowCopyToClipboard: boolean = false,
+	api: ExtractInjectionAPI<CodeBlockPlugin> | undefined,
+	overrideLanguageName: ((name: Language['name']) => string) | undefined = undefined,
+): FloatingToolbarHandler => {
+	const languageList = createLanguageList(
+		overrideLanguageName
+			? DEFAULT_LANGUAGES.map(
+					(languageOption) =>
+						({
+							...languageOption,
+							name: overrideLanguageName(languageOption.name),
+						}) as Language,
+				)
+			: DEFAULT_LANGUAGES,
+	);
+	const languagePickerOptions: LanguagePickerOption[] = languageList.map((lang) => ({
+		label: lang.name,
+		value: getLanguageIdentifier(lang),
+		alias: lang.alias,
+	}));
+
+	return (state, { formatMessage }) => {
 		const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
 
 		const { hoverDecoration } = api?.decorations?.actions ?? {};
@@ -81,29 +96,15 @@ export const getToolbarConfig =
 		const isWrapped = isCodeBlockWordWrapEnabled(node);
 		const areLineNumbersVisible = areCodeBlockLineNumbersVisible(node);
 		const language = node?.attrs?.language;
-
-		const languageList = createLanguageList(
-			overrideLanguageName
-				? DEFAULT_LANGUAGES.map(
-						(language) =>
-							({
-								...language,
-								name: overrideLanguageName(language.name),
-							}) as Language,
-					)
-				: DEFAULT_LANGUAGES,
-		);
-
-		const options = languageList.map((lang) => ({
-			label: lang.name,
-			value: getLanguageIdentifier(lang),
-			alias: lang.alias,
+		// Keep fresh option objects for the legacy toolbar select so reopening it
+		// continues to start from the top rather than preserving the previously
+		// focused option by reference.
+		const languageSelectOptions: LanguagePickerOption[] = languagePickerOptions.map((option) => ({
+			...option,
 		}));
-
-		// If language is not undefined search for it in the value and then search in the aliases
 		const defaultValue = language
-			? options.find((option) => option.value === language) ||
-				options.find((option) => option.alias.includes(language as never))
+			? languageSelectOptions.find((option) => option.value === language) ||
+				languageSelectOptions.find((option) => option.alias.includes(language as never))
 			: null;
 
 		const languageSelect: FloatingToolbarListPicker<Command> = {
@@ -113,7 +114,7 @@ export const getToolbarConfig =
 			onChange: (option) => changeLanguage(editorAnalyticsAPI)(option.value),
 			defaultValue,
 			placeholder: formatMessage(codeBlockButtonMessages.selectLanguage),
-			options,
+			options: languageSelectOptions,
 			filterOption: languageListFilter,
 		};
 
@@ -123,11 +124,6 @@ export const getToolbarConfig =
 			expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
 			fg('platform_editor_code_block_add_line_number_button')
 		) {
-			const languagePickerOptions: LanguagePickerOption[] = options;
-			const groupedOptions = createGroupedLanguageOptions({
-				formatMessage,
-				languages: languagePickerOptions,
-			});
 			const defaultPickerValue = language
 				? languagePickerOptions.find((option) =>
 						language === NONE_LANGUAGE_VALUE
@@ -145,13 +141,13 @@ export const getToolbarConfig =
 					}
 
 					return (
-						<LanguagePicker
+						<CodeBlockLanguagePicker
 							api={api}
 							defaultValue={defaultPickerValue}
 							editorView={view}
 							filterOption={languageListFilter}
 							formatMessage={formatMessage}
-							options={groupedOptions}
+							languagePickerOptions={languagePickerOptions}
 						/>
 					);
 				},
@@ -312,6 +308,7 @@ export const getToolbarConfig =
 			scrollable: true,
 		};
 	};
+};
 
 /**
  * Filters language list based on both name and alias properties.

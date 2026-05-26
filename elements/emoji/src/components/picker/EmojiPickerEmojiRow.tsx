@@ -5,6 +5,7 @@
 import { memo, type MemoExoticComponent } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { useIntl } from 'react-intl';
 import type { EmojiDescription, OnEmojiEvent } from '../../types';
 import CachingEmoji from '../common/CachingEmoji';
@@ -118,8 +119,8 @@ const EmojiPickerEmojiRow = ({
 					<span
 						css={emojiItem}
 						key={key}
-						role="gridcell"
-						aria-colindex={index + 1} // aria-colindex is 1 based
+						role={fg('platform_a11y_fixes_reaction_emoji') ? 'presentation' : 'gridcell'}
+						{...(fg('platform_a11y_fixes_reaction_emoji') ? {} : { 'aria-colindex': index + 1 })}
 						onMouseLeave={onMouseLeave}
 						onBlur={onMouseLeave}
 						tabIndex={0}

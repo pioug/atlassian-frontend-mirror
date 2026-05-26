@@ -390,7 +390,7 @@ describe('smart-card: success analytics', () => {
 				</FabricAnalyticsListeners>,
 			);
 			const resolvedView = await screen.findByTestId('resolvedCard1-resolved-view');
-			const resolvedCard = screen.getByRole('button');
+			const resolvedCard = screen.getByRole('link');
 			expect(resolvedView).toBeTruthy();
 			expect(resolvedCard).toBeTruthy();
 			expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
@@ -550,7 +550,7 @@ describe('smart-card: success analytics', () => {
 			const resolvedView = await screen.findByTestId('resolvedCard2-resolved-view');
 			expect(resolvedView).toBeTruthy();
 
-			const resolvedCard = screen.getByRole('button');
+			const resolvedCard = screen.getByRole('link');
 			expect(resolvedCard).toBeTruthy();
 			expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -647,7 +647,7 @@ describe('smart-card: success analytics', () => {
 				</IntlProvider>,
 			);
 			const resolvedView = await screen.findByTestId('resolvedCard1-resolved-view');
-			const resolvedCard = screen.getByRole('button');
+			const resolvedCard = screen.getByRole('link');
 			expect(resolvedView).toBeTruthy();
 			expect(resolvedCard).toBeTruthy();
 

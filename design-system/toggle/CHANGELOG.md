@@ -1,5 +1,20 @@
 # @atlaskit/toggle
 
+## 16.0.0
+
+### Major Changes
+
+- [`d156157c9f0f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d156157c9f0f9) -
+  The feature gate `platform-toggle-atomic-styles` has been removed. Atomic styles are now always
+  applied.
+
+  The `data-checked`, `data-disabled`, and `data-size` attributes have been removed from the Toggle
+  component's rendered output.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.6.2
 
 ### Patch Changes

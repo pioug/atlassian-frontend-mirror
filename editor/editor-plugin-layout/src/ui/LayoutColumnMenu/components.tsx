@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { layoutMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 import { ToolbarMenuContainer } from '@atlaskit/editor-toolbar/toolbar-menu-container';
 import type { RegisterComponent, SurfaceFallbacks } from '@atlaskit/editor-ui-control-model';
@@ -35,6 +36,12 @@ type MenuSectionFallbackProps = {
 	children?: React.ReactNode;
 };
 
+const LayoutColumnMenuContainer = ({ children }: { children?: React.ReactNode }): React.JSX.Element => {
+	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
+
+	return <ToolbarMenuContainer ref={setOutsideClickTargetRef}>{children}</ToolbarMenuContainer>;
+};
+
 export const LAYOUT_COLUMN_MENU_FALLBACKS: SurfaceFallbacks = {
 	'menu-section': ({ children }: MenuSectionFallbackProps) => (
 		<ToolbarDropdownItemSection>{children}</ToolbarDropdownItemSection>
@@ -49,7 +56,7 @@ export const getLayoutColumnMenuComponents = ({
 	return [
 		{
 			...LAYOUT_COLUMN_MENU,
-			component: ToolbarMenuContainer,
+			component: LayoutColumnMenuContainer,
 		},
 		{
 			...LAYOUT_COLUMN_MENU_SECTION,

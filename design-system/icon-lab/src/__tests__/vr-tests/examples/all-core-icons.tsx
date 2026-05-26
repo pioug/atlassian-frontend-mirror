@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::bd3ea9cdac22231baf74f78d02254d52>>
+ * @codegen <<SignedSource::b5cfefef3e3ee79669c139e274ec8b59>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -52,6 +52,7 @@ import ArrowCurvedUpLeftIcon from '../../../../core/arrow-curved-up-left';
 import ArrowCurvedUpRightIcon from '../../../../core/arrow-curved-up-right';
 import ArrowEndIcon from '../../../../core/arrow-end';
 import ArrowStartIcon from '../../../../core/arrow-start';
+import ArrowUpCircleIcon from '../../../../core/arrow-up-circle';
 import ArrowsDiagonalUpRightDownLeftIcon from '../../../../core/arrows-diagonal-up-right-down-left';
 import AskIcon from '../../../../core/ask';
 import AssetsDataManagerIcon from '../../../../core/assets-data-manager';
@@ -59,6 +60,7 @@ import AssetsGraphIcon from '../../../../core/assets-graph';
 import AssetsObjectIcon from '../../../../core/assets-object';
 import AssetsObjectTypeIcon from '../../../../core/assets-object-type';
 import AssetsSchemaIcon from '../../../../core/assets-schema';
+import AtlassianIcon from '../../../../core/atlassian';
 import AtomIcon from '../../../../core/atom';
 import AudioWaveformIcon from '../../../../core/audio-waveform';
 import BeachUmbrellaIcon from '../../../../core/beach-umbrella';
@@ -83,6 +85,7 @@ import ChartFunnelIcon from '../../../../core/chart-funnel';
 import ChartScatterPlotIcon from '../../../../core/chart-scatter-plot';
 import ClockAlarmIcon from '../../../../core/clock-alarm';
 import CloudIcon from '../../../../core/cloud';
+import CloudFortifiedIcon from '../../../../core/cloud-fortified';
 import CloudOfflineIcon from '../../../../core/cloud-offline';
 import CloudSavedIcon from '../../../../core/cloud-saved';
 import CoinsIcon from '../../../../core/coins';
@@ -291,6 +294,10 @@ import HourglassIcon from '../../../../core/hourglass';
 import IfElseIcon from '../../../../core/if-else';
 import ImageAltTextIcon from '../../../../core/image-alt-text';
 import ImageCropIcon from '../../../../core/image-crop';
+import ImageRatioAutoIcon from '../../../../core/image-ratio-auto';
+import ImageRatioNarrowIcon from '../../../../core/image-ratio-narrow';
+import ImageRatioPortraitIcon from '../../../../core/image-ratio-portrait';
+import ImageRatioWideIcon from '../../../../core/image-ratio-wide';
 import ImageStrikethroughIcon from '../../../../core/image-strikethrough';
 import IncognitoIcon from '../../../../core/incognito';
 import InitiativeIcon from '../../../../core/initiative';
@@ -413,6 +420,7 @@ import SwitchCaseIcon from '../../../../core/switch-case';
 import SyncIcon from '../../../../core/sync';
 import TabIcon from '../../../../core/tab';
 import TableRowLimitIcon from '../../../../core/table-row-limit';
+import TabsIcon from '../../../../core/tabs';
 import TakeoutContainerIcon from '../../../../core/takeout-container';
 import TalentIcon from '../../../../core/talent';
 import TeamworkGraphIcon from '../../../../core/teamwork-graph';
@@ -979,6 +987,14 @@ const Icons = [
 	SpeedometerRightUpIcon,
 	AiAgentAddIcon,
 	EmojiSadIcon,
+	AtlassianIcon,
+	ImageRatioAutoIcon,
+	ImageRatioNarrowIcon,
+	ImageRatioPortraitIcon,
+	ImageRatioWideIcon,
+	TabsIcon,
+	ArrowUpCircleIcon,
+	CloudFortifiedIcon,
 ];
 
 const groupSize = 50;

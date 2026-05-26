@@ -214,6 +214,367 @@ describe('UFOThirdPartySegment', () => {
 			);
 		});
 
+		describe('resource-timing event shaping', () => {
+			it('shapes a cacheable (script) resource-timing event to only include consistent fields', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				act(() => {
+					getListener()({
+						type: 'ufo-event',
+						name: 'ufo-forge-resource-timing',
+						elapsed: 500,
+						payload: {
+							name: 'https://forge.cdn.prod.atlassian-dev.net/main.js',
+							initiatorType: 'script',
+							startTime: 100,
+							duration: 200,
+							transferSize: 1024,
+							encodedBodySize: 900,
+							decodedBodySize: 1800,
+							nextHopProtocol: 'h2',
+							// timing sub-object — extra fields should be stripped
+							timing: {
+								fetchStart: 90,
+								workerStart: 0,
+								responseStart: 150,
+								requestStart: 110,
+								redirectStart: 0,
+								redirectEnd: 0,
+								domainLookupStart: 95,
+								domainLookupEnd: 100,
+								connectStart: 100,
+								connectEnd: 110,
+								secureConnectionStart: 105,
+								responseEnd: 300,
+							},
+						},
+					});
+				});
+
+				expect(mockAddIframeSegmentData).toHaveBeenCalledWith(
+					'test-interaction-id',
+					expect.anything(),
+					{
+						label: 'resource-timing',
+						data: {
+							// Base fields
+							label: 'main.js',
+							startTime: 100,
+							duration: 200,
+							fetchStart: 90,
+							workerStart: 0,
+							type: 'script',
+							// Cacheable-specific fields
+							transferType: 'network', // transferSize > 0
+							ttfb: 150,
+							encodedSize: 900,
+							decodedSize: 1800,
+							size: 1024,
+						},
+					},
+				);
+			});
+
+			it('shapes a non-cacheable (fetch) resource-timing event to only include consistent fields', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				act(() => {
+					getListener()({
+						type: 'ufo-event',
+						name: 'ufo-forge-resource-timing',
+						elapsed: 500,
+						payload: {
+							name: 'https://static.gliffy.com/shapes/index.json',
+							initiatorType: 'fetch',
+							startTime: 200,
+							duration: 300,
+							transferSize: 2048,
+							encodedBodySize: 2000,
+							decodedBodySize: 8000,
+							nextHopProtocol: 'h2',
+							// Extra timing fields that should be stripped
+							timing: {
+								fetchStart: 195,
+								workerStart: 0,
+								responseStart: 350,
+								requestStart: 210,
+								redirectStart: 0,
+								domainLookupStart: 195,
+								responseEnd: 500,
+							},
+						},
+					});
+				});
+
+				expect(mockAddIframeSegmentData).toHaveBeenCalledWith(
+					'test-interaction-id',
+					expect.anything(),
+					{
+						label: 'resource-timing',
+						data: {
+							// Base fields
+							label: 'index.json',
+							startTime: 200,
+							duration: 300,
+							fetchStart: 195,
+							workerStart: 0,
+							type: 'fetch',
+							// Non-cacheable specific fields
+							ttfb: 350,
+							requestStart: 210,
+							size: 2048,
+						},
+					},
+				);
+			});
+
+			it('marks a script with zero transferSize and zero duration as memory-cached', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				act(() => {
+					getListener()({
+						type: 'ufo-event',
+						name: 'ufo-forge-resource-timing',
+						elapsed: 100,
+						payload: {
+							name: 'https://forge.cdn.prod.atlassian-dev.net/global-bridge.js',
+							initiatorType: 'script',
+							startTime: 10,
+							duration: 0,
+							transferSize: 0,
+							encodedBodySize: 0,
+							decodedBodySize: 0,
+							nextHopProtocol: '',
+							timing: {
+								fetchStart: 9,
+								workerStart: 0,
+								responseStart: 0,
+								requestStart: 0,
+								responseEnd: 10,
+							},
+						},
+					});
+				});
+
+				expect(mockAddIframeSegmentData).toHaveBeenCalledWith(
+					'test-interaction-id',
+					expect.anything(),
+					expect.objectContaining({
+						label: 'resource-timing',
+						data: expect.objectContaining({ transferType: 'memory' }),
+					}),
+				);
+			});
+
+			it('marks a script with zero transferSize and non-zero duration as disk-cached', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				act(() => {
+					getListener()({
+						type: 'ufo-event',
+						name: 'ufo-forge-resource-timing',
+						elapsed: 100,
+						payload: {
+							name: 'https://forge.cdn.prod.atlassian-dev.net/iframeResizer.contentWindow.min.js',
+							initiatorType: 'script',
+							startTime: 10,
+							duration: 50,
+							transferSize: 0,
+							encodedBodySize: 0,
+							decodedBodySize: 0,
+							nextHopProtocol: '',
+							timing: {
+								fetchStart: 9,
+								workerStart: 0,
+								responseStart: 30,
+								requestStart: 10,
+								responseEnd: 60,
+							},
+						},
+					});
+				});
+
+				expect(mockAddIframeSegmentData).toHaveBeenCalledWith(
+					'test-interaction-id',
+					expect.anything(),
+					expect.objectContaining({
+						label: 'resource-timing',
+						data: expect.objectContaining({ transferType: 'disk' }),
+					}),
+				);
+			});
+
+			it('shapes a navigation-timing event to match NavigationMetrics field set', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				act(() => {
+					getListener()({
+						type: 'ufo-event',
+						name: 'ufo-forge-navigation-timing',
+						elapsed: 6225,
+						payload: {
+							name: 'https://example.com/',
+							startTime: 0,
+							duration: 540.9,
+							type: 'navigate',
+							redirectCount: 0,
+							timing: {
+								unloadEventStart: 0,
+								unloadEventEnd: 0,
+								redirectStart: 0,
+								redirectEnd: 0,
+								fetchStart: 1.1,
+								domainLookupStart: 1.1,
+								domainLookupEnd: 1.1,
+								connectStart: 1.1,
+								connectEnd: 1.1,
+								secureConnectionStart: 1.1,
+								requestStart: 7.9,
+								responseStart: 60.2,
+								responseEnd: 61.7,
+								// These should be dropped (same rationale as host-page)
+								domInteractive: 516.9,
+								domContentLoadedEventStart: 517,
+								domContentLoadedEventEnd: 517.1,
+								domComplete: 540.9,
+								loadEventStart: 540.9,
+								loadEventEnd: 540.9,
+							},
+							// pre-computed metrics — should be dropped
+							metrics: {
+								dns: 0,
+								tcp: 0,
+								ssl: 0,
+								ttfb: 52.3,
+								download: 1.5,
+								domProcessing: 24,
+								onload: 0,
+							},
+						},
+					});
+				});
+
+				expect(mockAddIframeSegmentData).toHaveBeenCalledWith(
+					'test-interaction-id',
+					expect.anything(),
+					{
+						label: 'navigation-timing',
+						data: {
+							label: 'example.com',
+							// Resource Timing fields — rounded
+							redirectStart: 0,
+							redirectEnd: 0,
+							fetchStart: 1,
+							domainLookupStart: 1,
+							domainLookupEnd: 1,
+							connectStart: 1,
+							connectEnd: 1,
+							secureConnectionStart: 1,
+							requestStart: 8,
+							responseStart: 60,
+							responseEnd: 62,
+							// Navigation Timing 2 fields
+							redirectCount: 0,
+							type: 'navigate',
+							unloadEventStart: 0,
+							unloadEventEnd: 0,
+							workerStart: 0,
+						},
+					},
+				);
+			});
+
+			it('does NOT shape non-resource-timing events (passes data through unchanged)', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				act(() => {
+					getListener()({
+						type: 'ufo-event',
+						name: 'ufo-forge-paint-timing',
+						elapsed: 300,
+						payload: {
+							name: 'first-contentful-paint',
+							startTime: 820,
+							duration: 0,
+							entryType: 'paint',
+						},
+					});
+				});
+
+				expect(mockAddIframeSegmentData).toHaveBeenCalledWith(
+					'test-interaction-id',
+					expect.anything(),
+					{
+						label: 'paint-timing',
+						data: {
+							name: 'ufo-forge-paint-timing',
+							elapsed: 300,
+							payload: {
+								name: 'first-contentful-paint',
+								startTime: 820,
+								duration: 0,
+								entryType: 'paint',
+							},
+						},
+					},
+				);
+			});
+		});
+
 		it('should NOT abort at all when navigation-timing event is received (natural hold release)', () => {
 			const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
 

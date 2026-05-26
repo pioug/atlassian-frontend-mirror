@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block
 
+## 12.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.7
+
+### Patch Changes
+
+- [`a0dc04472d27b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0dc04472d27b) -
+  Add recently used code block languages and analytics metadata
+- Updated dependencies
+
 ## 12.1.6
 
 ### Patch Changes

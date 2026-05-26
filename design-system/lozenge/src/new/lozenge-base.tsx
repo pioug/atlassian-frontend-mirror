@@ -517,6 +517,9 @@ const styles = cssMap({
 		display: 'inline-flex',
 		alignItems: 'center',
 	},
+	maxWidth: {
+		maxWidth: '100%',
+	},
 	contentSpacious: {
 		gap: token('space.075'),
 	},
@@ -642,12 +645,10 @@ const LozengeBase: import('react').MemoExoticComponent<
 						styles.content,
 						spacing === 'spacious' && styles.contentSpacious,
 						isLoading && styles.loadingContent,
-					]}
-					style={{
 						// When maxWidth is a percentage, constrain the content wrapper
 						// so text truncation works correctly within the flex layout
-						maxWidth: maxWidthIsPc ? '100%' : undefined,
-					}}
+						maxWidthIsPc && styles.maxWidth,
+					]}
 					{...(enableMotionFG ? resizingWidth : undefined)}
 				>
 					{iconBefore && (
@@ -661,7 +662,8 @@ const LozengeBase: import('react').MemoExoticComponent<
 					<span
 						css={[
 							styles.text,
-							enableMotionFG && resizing ? styles.textClip : styles.textEllipsis,
+							// Clip during animating width changes, but not when a maxWidth is specified
+							enableMotionFG && resizing && !maxWidth ? styles.textClip : styles.textEllipsis,
 							spacing === 'spacious' && styles.textSpacious,
 						]}
 						style={{

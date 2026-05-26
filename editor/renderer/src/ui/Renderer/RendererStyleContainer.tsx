@@ -72,6 +72,7 @@ import {
 	denseEmojiHeightH4,
 } from '@atlaskit/editor-common/emoji';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import {
 	BodiedSyncBlockSharedCssClassName,
 	SyncBlockSharedCssClassName,
@@ -2452,6 +2453,27 @@ const rendererTableSortableColumnStyles = css({
 	},
 });
 
+// Sortable header cells render content inside an extra div, so mirror the th alignment there.
+const rendererTableSortableColumnValignStyles = css({
+	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
+		[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table, .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
+			{
+				[`th[data-valign='middle'].${RendererCssClassName.SORTABLE_COLUMN_WRAPPER} > .${RendererCssClassName.SORTABLE_COLUMN}`]:
+					{
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'center',
+					},
+				[`th[data-valign='bottom'].${RendererCssClassName.SORTABLE_COLUMN_WRAPPER} > .${RendererCssClassName.SORTABLE_COLUMN}`]:
+					{
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'flex-end',
+					},
+			},
+	},
+});
+
 const rendererTableColumnStyles = css({
 	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
 		'table[data-number-column="true"]': {
@@ -3321,6 +3343,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				isStickyScrollbarEnabled(appearance) && stickyScrollbarStyles,
 				rendererTableHeaderEqualHeightStylesForTableCellOnly,
 				allowColumnSorting && rendererTableSortableColumnStyles,
+				allowColumnSorting &&
+					expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true) &&
+					rendererTableSortableColumnValignStyles,
 				allowColumnSorting &&
 					allowNestedHeaderLinks &&
 					(expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)

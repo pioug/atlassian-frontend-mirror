@@ -1,43 +1,42 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 import {
 	ArchiveSidebarHeader,
 	type HeaderProps,
 } from '../../../../../viewers/archiveSidebar/archive-sidebar-header';
-import { CustomButtonItem } from '../../../../../viewers/archiveSidebar/custom-button-item';
-import HomeIcon from '@atlaskit/icon/core/home';
-import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
 
 describe('ArchiveSidebarHeader', () => {
-	function mountBaseComponent(props: HeaderProps) {
-		return mount(<ArchiveSidebarHeader {...props} />);
-	}
+	const renderBaseComponent = (props: HeaderProps) => render(<ArchiveSidebarHeader {...props} />);
 
-	it('should render CustomButtonItem element', () => {
-		const el = mountBaseComponent({
+	it('should render CustomButtonItem element', async () => {
+		renderBaseComponent({
 			folderName: 'folder_a',
 			onHeaderClick: () => {},
 		});
-		expect(el.find(CustomButtonItem)).toHaveLength(1);
+		expect(screen.getByRole('button')).toBeInTheDocument();
+		await expect(document.body).toBeAccessible();
 	});
-	it('should call passed in callback when Item is clicked', () => {
+
+	it('should call passed in callback when Item is clicked', async () => {
 		const spy = jest.fn();
-		const el = shallow(<ArchiveSidebarHeader folderName={'folder_a'} onHeaderClick={spy} />);
-		el.find(CustomButtonItem).simulate('click');
-		expect(spy).toBeCalledTimes(1);
+		renderBaseComponent({ folderName: 'folder_a', onHeaderClick: spy });
+		await userEvent.click(screen.getByRole('button'));
+		expect(spy).toHaveBeenCalledTimes(1);
 	});
+
 	it('should render HomeIcon', () => {
-		const el = mountBaseComponent({
+		renderBaseComponent({
 			folderName: '',
 			onHeaderClick: () => {},
 		});
-		expect(el.find(HomeIcon)).toHaveLength(1);
+		expect(screen.getByLabelText('Home')).toBeInTheDocument();
 	});
+
 	it('should render ArrowLeftIcon', () => {
-		const el = mountBaseComponent({
+		renderBaseComponent({
 			folderName: 'folder_a',
 			onHeaderClick: () => {},
 		});
-		expect(el.find(ArrowLeftIcon)).toHaveLength(1);
+		expect(screen.getByLabelText('Back')).toBeInTheDocument();
 	});
 });

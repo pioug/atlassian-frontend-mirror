@@ -1,5 +1,13 @@
 # @atlaskit/portal
 
+## 5.5.5
+
+### Patch Changes
+
+- [`66215bbc9a383`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66215bbc9a383) -
+  Cleanup feature gate `platform-dst-portal-conditial-theme-provider`. ThemeProvider wrapping
+  behaviour (wrapping portal children when inside a ThemeProvider) is now permanently enabled.
+
 ## 5.5.4
 
 ### Patch Changes

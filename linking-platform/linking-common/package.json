@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/linking-common",
-	"version": "9.11.5",
+	"version": "9.12.0",
 	"description": "Contains utils and interfaces shared across different LP components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -63,7 +63,28 @@
 		"wait-for-expect": "root:*"
 	},
 	"exports": {
-		"./types": "./src/types.ts",
+		"./actions": "./src/entry-points/actions.ts",
+		"./api": "./src/entry-points/api.ts",
+		"./api/errors": "./src/entry-points/api-errors.ts",
+		"./browser": "./src/entry-points/browser.ts",
+		"./client": "./src/entry-points/client.ts",
+		"./constants": "./src/entry-points/constants.ts",
+		"./hook/use-available-sites": "./src/entry-points/hook-use-available-sites.ts",
+		"./hook/use-cloud-id-to-url": "./src/entry-points/hook-use-cloud-id-to-url.ts",
+		"./hook/use-is-mounted": "./src/entry-points/hook-use-is-mounted.ts",
+		"./linkify": "./src/entry-points/linkify.ts",
+		"./pulse": "./src/entry-points/pulse.ts",
+		"./sentry/capture-exception": "./src/entry-points/sentry-capture-exception.ts",
+		"./skeleton": "./src/entry-points/skeleton.ts",
+		"./store": "./src/entry-points/store.ts",
+		"./types": "./src/entry-points/types.ts",
+		"./utils/filter-site-products": "./src/entry-points/utils-filter-site-products.ts",
+		"./utils/filter-unique-items": "./src/entry-points/utils-filter-unique-items.ts",
+		"./utils/get-status": "./src/entry-points/utils-get-status.ts",
+		"./utils/get-trace-id": "./src/entry-points/utils-get-trace-id.ts",
+		"./utils/preview-panel": "./src/entry-points/utils-preview-panel.ts",
+		"./utils/promise-debounce": "./src/entry-points/utils-promise-debounce.ts",
+		"./utils/with-feature-flagged-component": "./src/entry-points/utils-with-feature-flagged-component.ts",
 		"./url": "./src/url.ts",
 		"./user-agent": "./src/user-agent/index.ts",
 		"./utils": "./src/utils/index.ts",

@@ -4,7 +4,6 @@ import type { IntlShape } from 'react-intl';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ColorScheme } from '../../showDiffPluginType';
@@ -71,23 +70,6 @@ const getDeletedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = f
 	return expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
 		? deletedContentStyleNew
 		: deletedContentStyle;
-};
-
-/**
- * Wraps content with deleted styling without opacity (for use when content is a direct child of dom)
- */
-const createDeletedStyleWrapperWithoutOpacity = (colorScheme?: ColorScheme, isActive?: boolean) => {
-	const wrapper = document.createElement('span');
-	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
-		wrapper.setAttribute(
-			'style',
-			// Merge into existing styles when cleaning up
-			getDeletedContentStyle(colorScheme, isActive) + deletedInlineContentBackground,
-		);
-	} else {
-		wrapper.setAttribute('style', getDeletedContentStyle(colorScheme, isActive));
-	}
-	return wrapper;
 };
 
 /**
@@ -183,8 +165,7 @@ export const createNodeChangedDecorationWidget = ({
 		!isInserted &&
 		slice?.content?.childCount === 1 &&
 		slice?.content?.firstChild?.type.name === 'paragraph' &&
-		slice?.content?.firstChild?.content.size === 0 &&
-		fg('platform_editor_show_diff_scroll_navigation');
+		slice?.content?.firstChild?.content.size === 0;
 	// Widget decoration used for deletions as the content is not in the document
 	// and we want to display the deleted content with a style.
 	const safeInsertPos = findSafeInsertPos(newDoc, change.fromB, slice);
@@ -311,13 +292,9 @@ export const createNodeChangedDecorationWidget = ({
 		) {
 			// Skip the case where the node is a paragraph or table row that way it can still be rendered and delete the entire table
 			return;
-		} else {
-			const fallbackNode = fallbackSerialization();
-			if (fallbackNode) {
-				if (
-					expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) ||
-					fg('platform_editor_show_diff_scroll_navigation')
-				) {
+			} else {
+				const fallbackNode = fallbackSerialization();
+				if (fallbackNode) {
 					if (fallbackNode instanceof HTMLElement) {
 						const injectedNode = injectInnerWrapper({
 							node: fallbackNode,
@@ -331,12 +308,7 @@ export const createNodeChangedDecorationWidget = ({
 						wrapper.append(fallbackNode);
 						dom.append(wrapper);
 					}
-				} else {
-					const wrapper = createDeletedStyleWrapperWithoutOpacity(colorScheme, isActive);
-					wrapper.append(fallbackNode);
-					dom.append(wrapper);
 				}
-			}
 		}
 	});
 

@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 34.2.7
+
+### Patch Changes
+
+- [`e0487eae0dec6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0487eae0dec6) -
+  Removed skipped ssr tests
+- Updated dependencies
+
 ## 34.2.6
 
 ### Patch Changes

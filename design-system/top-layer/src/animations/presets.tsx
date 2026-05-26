@@ -39,15 +39,20 @@ function getSlideAndFadeProperties({
 	return { '--ds-popover-tx': '0', '--ds-popover-ty': neg };
 }
 
+// ℹ️ Note: The `transform` x value is flipped in right-to-left mode using the `[dir='rtl']` selector.
 const SLIDE_AND_FADE_CSS = `
 [data-ds-popover-slide-and-fade] {
   opacity: 0;
-  transform: translate3d(var(--ds-popover-tx, 0), var(--ds-popover-ty, 0), 0);
+  transform: translate(var(--ds-popover-tx, 0), var(--ds-popover-ty, 0));
   transition:
     opacity 175ms cubic-bezier(0.15, 1, 0.3, 1),
     transform 175ms cubic-bezier(0.15, 1, 0.3, 1),
     overlay 175ms allow-discrete,
     display 175ms allow-discrete;
+}
+
+[dir='rtl'] [data-ds-popover-slide-and-fade] {
+  transform: translate(calc(-1 * var(--ds-popover-tx, 0)), var(--ds-popover-ty, 0));
 }
 
 [data-ds-popover-slide-and-fade]:popover-open {
@@ -59,7 +64,13 @@ const SLIDE_AND_FADE_CSS = `
 @starting-style {
   [data-ds-popover-slide-and-fade]:popover-open {
     opacity: 0;
-    transform: translate3d(var(--ds-popover-tx, 0), var(--ds-popover-ty, 0), 0);
+    transform: translate(var(--ds-popover-tx, 0), var(--ds-popover-ty, 0));
+  }
+}
+
+@starting-style {
+  [dir='rtl'] [data-ds-popover-slide-and-fade]:popover-open {
+    transform: translate(calc(-1 * var(--ds-popover-tx, 0)), var(--ds-popover-ty, 0));
   }
 }
 
@@ -98,6 +109,7 @@ export function slideAndFade(options?: TSlideAndFadeOptions): TAnimationPreset {
 		css: SLIDE_AND_FADE_CSS,
 		getProperties: ({ placement }: { placement: TPlacementOptions }) =>
 			getSlideAndFadeProperties({ placement, distance }),
+		enterDurationMs: 350,
 		exitDurationMs: 175,
 	};
 }
@@ -149,6 +161,7 @@ export function fade(): TAnimationPreset {
 	return {
 		name: 'fade',
 		css: FADE_CSS,
+		enterDurationMs: 350,
 		exitDurationMs: 175,
 	};
 }
@@ -204,6 +217,7 @@ export function scaleAndFade(): TAnimationPreset {
 	return {
 		name: 'scale-and-fade',
 		css: SCALE_AND_FADE_CSS,
+		enterDurationMs: 350,
 		exitDurationMs: 175,
 	};
 }
@@ -303,6 +317,7 @@ export function dialogSlideUpAndFade(options?: TDialogSlideUpAndFadeOptions): TA
 			distance === 12
 				? DIALOG_SLIDE_UP_AND_FADE_CSS
 				: DIALOG_SLIDE_UP_AND_FADE_CSS.replace(/12px/g, `${distance}px`),
+		enterDurationMs: 350,
 		exitDurationMs: 175,
 	};
 }
@@ -378,6 +393,7 @@ export function dialogFade(): TAnimationPreset {
 	return {
 		name: 'fade',
 		css: DIALOG_FADE_CSS,
+		enterDurationMs: 350,
 		exitDurationMs: 175,
 	};
 }

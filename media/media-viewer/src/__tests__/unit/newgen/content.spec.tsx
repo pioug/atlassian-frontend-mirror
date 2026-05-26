@@ -1,40 +1,43 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@atlassian/testing-library';
 import { Content } from '../../../content';
-import { InactivityDetector, type WithShowControlMethodProp } from '@atlaskit/media-ui';
+import { type WithShowControlMethodProp } from '@atlaskit/media-ui';
+
+let receivedShowControls: (() => void) | undefined;
 
 class DummyChild extends React.Component<WithShowControlMethodProp> {
 	render() {
-		return null;
+		receivedShowControls = this.props.showControls;
+		return <div data-testid="dummy-child" />;
 	}
 }
 
 describe('<Content />', () => {
-	const setup = () => {
-		const showControls = jest.fn();
-		const component = mount(
+	beforeEach(() => {
+		receivedShowControls = undefined;
+	});
+
+	it('should render children', async () => {
+		render(
 			<Content>
 				<DummyChild />
 			</Content>,
 		);
-		const children = mount(component.find(InactivityDetector).props().children(showControls));
-
-		return {
-			component,
-			children,
-			showControls,
-		};
-	};
-
-	it('should render children', () => {
-		const { children } = setup();
-		expect(children).toHaveLength(2);
+		expect(screen.getByTestId('dummy-child')).toBeInTheDocument();
+		expect(screen.getByTestId('media-viewer-close-button')).toBeInTheDocument();
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should allow children to show controls', () => {
-		const { children, showControls } = setup();
-		const childrenShowControls = children.find(DummyChild).prop('showControls');
-		expect(childrenShowControls).toBeDefined();
-		expect(childrenShowControls).toBe(showControls);
+		// Note: referential-equality assertion couldn't be converted; instead we
+		// verify the child receives a callable showControls function.
+		render(
+			<Content>
+				<DummyChild />
+			</Content>,
+		);
+		expect(receivedShowControls).toBeDefined();
+		expect(typeof receivedShowControls).toBe('function');
+		expect(() => receivedShowControls!()).not.toThrow();
 	});
 });

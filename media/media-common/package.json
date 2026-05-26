@@ -95,6 +95,7 @@
 	},
 	"devDependencies": {
 		"@atlassian/react-compiler-gating": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"enzyme": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*"

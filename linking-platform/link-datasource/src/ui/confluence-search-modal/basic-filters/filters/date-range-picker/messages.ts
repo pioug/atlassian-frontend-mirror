@@ -135,7 +135,7 @@ export const dateRangeMessages: {
 	dateRangeCustom: {
 		id: 'linkDataSource.confluence-search.configmodal.date.range.custom',
 		defaultMessage: 'Custom',
-		description: 'Custom date range',
+		description: 'Option to select a custom date range for filtering content by last modified date',
 	},
 	dateRangeFrom: {
 		id: 'linkDataSource.confluence-search.configmodal.date.range.from',
@@ -145,7 +145,7 @@ export const dateRangeMessages: {
 	dateRangeTo: {
 		id: 'linkDataSource.confluence-search.configmodal.date.range.to',
 		defaultMessage: 'To',
-		description: 'Filter up to a custom date',
+		description: 'Label for the end date field in the custom date range filter picker',
 	},
 	dateRangeDateInputPlaceholder: {
 		id: 'linkDataSource.confluence-search.configmodal.date.range.input.placeholder',

@@ -78,7 +78,7 @@ export const ChromelessEditorContainerCompiled = ({
 	children,
 	containerRef,
 	maxHeight,
-	minHeight
+	minHeight,
 }: ChromelessEditorContainerProps): React.JSX.Element => (
 	<div
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

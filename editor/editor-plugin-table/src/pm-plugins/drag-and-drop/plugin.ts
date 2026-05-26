@@ -109,11 +109,17 @@ const destroyFn = (
 				if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
 					insm.session?.startFeature('tableDragAndDrop');
 				}
-				toggleDragMenu(false)(editorView.state, editorView.dispatch);
+
 				if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
-					closeActiveTableMenu()(editorView.state, editorView.dispatch);
+					api?.core.actions.execute(({ tr }) => {
+						closeActiveTableMenu()({ tr });
+						api?.userIntent?.commands.setCurrentUserIntent('dragging')({ tr });
+						return tr;
+					});
+				} else {
+					toggleDragMenu(false)(editorView.state, editorView.dispatch);
+					api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('dragging'));
 				}
-				api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('dragging'));
 			},
 			onDrag(event) {
 				const data = getDraggableDataFromEvent(event);

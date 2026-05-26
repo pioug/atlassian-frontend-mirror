@@ -1,7 +1,4 @@
-import {
-	type TableMeasurement,
-	getTableMeasurement,
-} from '../../../transforms/content-mode';
+import { type TableMeasurement, getTableMeasurement } from '../../../transforms/content-mode';
 
 import { distributeByEvenShareRatio, sumWidths } from './distribute-column-widths';
 
@@ -50,11 +47,7 @@ export const runSmartAdjust = (
 	resizerItem: HTMLElement | undefined | null,
 	editorContainerWidthFromApi: number | undefined,
 ): TableMeasurement => {
-	const preferredMeasurement = measureWithIntrinsicWidth(
-		tableRef,
-		resizerContainer,
-		resizerItem,
-	);
+	const preferredMeasurement = measureWithIntrinsicWidth(tableRef, resizerContainer, resizerItem);
 
 	const desiredWidths = preferredMeasurement.colWidths;
 	const editorContainerWidth = editorContainerWidthFromApi ?? sumWidths(desiredWidths);

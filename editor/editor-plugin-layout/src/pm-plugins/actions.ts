@@ -1,3 +1,4 @@
+import type { Valign } from '@atlaskit/adf-schema/layout-column';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -9,7 +10,6 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import type { Command, EditorCommand, TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
-import type { Valign } from '@atlaskit/editor-common/types/valign';
 import { flatmap, getStepRange, isEmptyDocument, mapChildren } from '@atlaskit/editor-common/utils';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
@@ -820,7 +820,9 @@ export const setLayoutColumnValign =
 export const distributeLayoutColumns =
 	(
 		editorAnalyticsAPI?: EditorAnalyticsAPI,
-		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU | INPUT_METHOD.FLOATING_TB = INPUT_METHOD.LAYOUT_COLUMN_MENU,
+		inputMethod:
+			| INPUT_METHOD.LAYOUT_COLUMN_MENU
+			| INPUT_METHOD.FLOATING_TB = INPUT_METHOD.LAYOUT_COLUMN_MENU,
 	): EditorCommand =>
 	({ tr }) => {
 		if (!expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
@@ -845,7 +847,9 @@ export const distributeLayoutColumns =
 		const equalWidth = selectedTotal / selectedColumnCount;
 
 		// Early return if selected columns are already uniformly distributed — avoids spurious undo entry.
-		if (selectedColumnIndices.every((idx) => existingWidths[idx] === Number(equalWidth.toFixed(2)))) {
+		if (
+			selectedColumnIndices.every((idx) => existingWidths[idx] === Number(equalWidth.toFixed(2)))
+		) {
 			return null;
 		}
 

@@ -1,8 +1,6 @@
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type Step as ProseMirrorStep, AttrStep } from '@atlaskit/editor-prosemirror/transform';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 type StepRange = {
 	fromB: number;
 	/** Whether the changed node is inline (true) or block (false/undefined) */
@@ -47,29 +45,27 @@ export const getAttrChangeRanges = (doc: PMNode, steps: ProseMirrorStep[]): Step
 			const $pos = doc.resolve(step.pos);
 			const nodeAtPos = doc.nodeAt(step.pos);
 
-			if (expValEquals('platform_editor_show_diff_improvements', 'isEnabled', true)) {
-				// date node: timestamp attribute change — highlight the date node itself (inline)
-				if (stepAttrs.some((v) => dateAttrs.includes(v)) && nodeAtPos?.type.name === 'date') {
-					return { fromB: step.pos, toB: step.pos + nodeAtPos.nodeSize, isInline: true };
-				}
+			// date node: timestamp attribute change — highlight the date node itself (inline)
+			if (stepAttrs.some((v) => dateAttrs.includes(v)) && nodeAtPos?.type.name === 'date') {
+				return { fromB: step.pos, toB: step.pos + nodeAtPos.nodeSize, isInline: true };
+			}
 
-				// taskItem node: state attribute change — highlight the taskItem node
-				if (
-					stepAttrs.some((v) => taskItemAttrs.includes(v)) &&
-					nodeAtPos?.type.name === 'taskItem'
-				) {
-					return { fromB: step.pos, toB: step.pos + nodeAtPos.nodeSize };
-				}
+			// taskItem node: state attribute change — highlight the taskItem node
+			if (
+				stepAttrs.some((v) => taskItemAttrs.includes(v)) &&
+				nodeAtPos?.type.name === 'taskItem'
+			) {
+				return { fromB: step.pos, toB: step.pos + nodeAtPos.nodeSize };
+			}
 
-				// extension nodes: any attribute change except localId — highlight the node
-				if (
-					nodeAtPos &&
-					extensionNodeNames.includes(nodeAtPos.type.name) &&
-					stepAttrs.some((v) => !extensionExcludedAttrs.includes(v))
-				) {
-					const isInline = nodeAtPos.type.name === 'inlineExtension';
-					return { fromB: step.pos, toB: step.pos + nodeAtPos.nodeSize, isInline };
-				}
+			// extension nodes: any attribute change except localId — highlight the node
+			if (
+				nodeAtPos &&
+				extensionNodeNames.includes(nodeAtPos.type.name) &&
+				stepAttrs.some((v) => !extensionExcludedAttrs.includes(v))
+			) {
+				const isInline = nodeAtPos.type.name === 'inlineExtension';
+				return { fromB: step.pos, toB: step.pos + nodeAtPos.nodeSize, isInline };
 			}
 
 			// media node: id/collection/url attribute change — highlight the mediaSingle parent

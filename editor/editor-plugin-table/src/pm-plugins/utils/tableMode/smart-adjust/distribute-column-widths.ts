@@ -69,7 +69,9 @@ export const distributeByEvenShareRatio = (
 	// Overflow: reclaim from non-protected ceiling-hitters only.
 	const overage = sum - usableWidth;
 	const slacks = capped.map((width, index) =>
-		!isCompactColumn(desiredCeil[index]) && width >= ceiling ? Math.max(width - tableCellMinWidth, 0) : 0,
+		!isCompactColumn(desiredCeil[index]) && width >= ceiling
+			? Math.max(width - tableCellMinWidth, 0)
+			: 0,
 	);
 	const totalSlack = sumWidths(slacks);
 	if (totalSlack <= 0) {

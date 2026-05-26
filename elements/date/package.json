@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/date",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"description": "Fabric Date React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -22,7 +22,6 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
-		"@atlaskit/elements-test-helpers": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",

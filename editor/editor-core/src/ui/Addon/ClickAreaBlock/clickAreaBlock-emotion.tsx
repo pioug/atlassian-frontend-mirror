@@ -18,7 +18,10 @@ const clickWrapperEmotionStyles = css({
 	height: '100%',
 });
 
-export const ClickAreaBlockContainerEmotion = ({ children, ...rest }: HTMLAttributes<HTMLDivElement>): React.JSX.Element => (
+export const ClickAreaBlockContainerEmotion = ({
+	children,
+	...rest
+}: HTMLAttributes<HTMLDivElement>): React.JSX.Element => (
 	// eslint-disable-next-line react/jsx-props-no-spreading
 	<div css={clickWrapperEmotionStyles} {...rest}>
 		{children}

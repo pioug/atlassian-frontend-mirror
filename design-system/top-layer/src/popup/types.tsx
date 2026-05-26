@@ -274,6 +274,18 @@ type TPopupContentBaseProps = {
 	 * ```
 	 */
 	isOpen?: boolean;
+	/**
+	 * Called after the entry animation completes (or immediately on open when
+	 * there is no animation). Use this for lifecycle coordination that must
+	 * happen after the popup has fully animated in.
+	 */
+	onEnterFinish?: () => void;
+	/**
+	 * Called after the exit animation completes (or immediately on close when
+	 * there is no animation). Use this for lifecycle coordination that must
+	 * happen after the popup has fully animated out.
+	 */
+	onExitFinish?: () => void;
 };
 
 /**

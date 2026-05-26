@@ -17,16 +17,17 @@ import { type TPopupTriggerProps } from './types';
  * composition.
  */
 export function PopupTrigger({ children }: TPopupTriggerProps): ReactNode {
-	const { triggerRef, popoverRef, popoverId, isOpen, ariaHasPopup } = usePopupContext();
+	const { triggerRef, popoverRef, popoverId, popupState, ariaHasPopup } = usePopupContext();
 
 	const childOnClick = isValidElement<{ onClick?: (event: React.MouseEvent) => void }>(children)
 		? children.props.onClick
 		: undefined;
 
-	// Track latest isOpen via ref so the click handler keeps a stable
-	// identity (cloneElement relies on it).
-	const isOpenRef = React.useRef(isOpen);
-	isOpenRef.current = isOpen;
+	// Use a ref to track the latest isOpen value so the click handler
+	// does not need isOpen in its dependency array (which would recreate
+	// the handler on every open/close, breaking cloneElement identity).
+	const isOpenRef = React.useRef(popupState === 'open' || popupState === 'animating-open');
+	isOpenRef.current = popupState === 'open' || popupState === 'animating-open';
 
 	const handleClick = useCallback(
 		(event: React.MouseEvent) => {
@@ -54,7 +55,14 @@ export function PopupTrigger({ children }: TPopupTriggerProps): ReactNode {
 		<Slot
 			ref={triggerRef}
 			onClick={handleClick}
-			aria-expanded={isOpen}
+			// aria-expanded stays true throughout entry and exit animations so screen readers
+			// don't announce the popup as closed while it's still visible, and consumers
+			// relying on aria-expanded to show/hide trigger UI don't lose the anchor mid-animation.
+			aria-expanded={
+				popupState === 'open' ||
+				popupState === 'animating-open' ||
+				popupState === 'animating-closed'
+			}
 			aria-controls={popoverId}
 			aria-haspopup={ariaHasPopup}
 		>

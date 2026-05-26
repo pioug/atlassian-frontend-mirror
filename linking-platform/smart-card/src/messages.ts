@@ -239,7 +239,7 @@ export const messages: Messages = defineMessages({
 	add_account: {
 		id: 'fabric.linking.add_account',
 		defaultMessage: 'Add account',
-		description: 'Allows to add a new account',
+		description: 'Button label that allows the user to add and connect a new external account',
 	},
 	ai_summarize: {
 		id: 'fabric.linking.ai_summarize',

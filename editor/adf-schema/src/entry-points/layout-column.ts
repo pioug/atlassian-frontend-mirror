@@ -5,3 +5,4 @@ export {
 	layoutColumnWithLocalId,
 } from '../schema/nodes/layout-column';
 export type { LayoutColumnDefinition } from '../schema/nodes/layout-column';
+export type { Valign } from '../schema/nodes/types/valign';

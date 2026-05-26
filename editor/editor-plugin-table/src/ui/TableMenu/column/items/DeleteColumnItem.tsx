@@ -13,7 +13,11 @@ import {
 	ToolbarKeyboardShortcutHint,
 } from '@atlaskit/editor-toolbar';
 
-import { clearHoverSelection, hoverColumns } from '../../../../pm-plugins/commands';
+import {
+	clearHoverSelection,
+	closeActiveTableMenu,
+	hoverColumns,
+} from '../../../../pm-plugins/commands';
 import { deleteColumnsWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
 import { getSelectedColumnIndexes } from '../../../../pm-plugins/utils/selection';
 import type { TableSharedStateInternal } from '../../../../types';
@@ -83,6 +87,8 @@ export const DeleteColumnItem = ({ api }: TableMenuComponentsParams): React.JSX.
 			editorView.dispatch,
 			editorView,
 		);
+		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.focus();
 	};
 
 	return (

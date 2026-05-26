@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/status",
-	"version": "4.1.5",
+	"version": "4.1.7",
 	"description": "Fabric Status React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,7 +28,6 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
-		"@atlaskit/elements-test-helpers": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",

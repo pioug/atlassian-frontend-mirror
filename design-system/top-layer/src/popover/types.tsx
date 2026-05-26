@@ -111,6 +111,14 @@ type TPopoverBaseProps = {
 	 */
 	placement?: TPlacementOptions;
 	/**
+	 * Called after the entry animation completes (or immediately on open when
+	 * there is no animation or reduced motion is active).
+	 *
+	 * Use this for external lifecycle coordination — e.g. notifying a manager
+	 * that the show sequence is finished.
+	 */
+	onEnterFinish?: () => void;
+	/**
 	 * Called after the exit animation completes (or immediately on close when
 	 * there is no animation or reduced motion is active).
 	 *

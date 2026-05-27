@@ -1,8 +1,10 @@
+import { isNodeTypeValidChildOf } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getTargetNodeTypeNameInContext } from '../transform-node-utils/utils';
 
-import { TRANSFORMATION_MATRIX } from './TRANSFORMATION_MATRIX';
+import { TRANSFORMATION_MATRIX, TRANSFORMATION_MATRIX_PANEL_C1 } from './TRANSFORMATION_MATRIX';
 import type { NodeTypeName, TransformStepContext } from './types';
 import { getNodeName, toNodeTypeValue } from './types';
 
@@ -14,6 +16,26 @@ interface GetOutputNodesArgs {
 	targetAttrs?: Record<string, unknown>;
 	targetNodeType: NodeType;
 }
+
+// Upgrade broken-out panel nodes to panel_c1 if the parent node allows it
+export const upgradePanelNodesToPanelC1 = (
+	nodes: PMNode[],
+	parentNode: PMNode | undefined,
+	schema: Schema,
+): PMNode[] => {
+	if (!schema.nodes['panel_c1'] || !expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
+		return nodes;
+	}
+	return nodes.map((node) => {
+		if (node.type.name === 'panel') {
+			const shouldUsePanelC1 = !parentNode || isNodeTypeValidChildOf('panel_c1', parentNode, schema);
+			if (shouldUsePanelC1) {
+				return schema.nodes['panel_c1'].createAndFill(node.attrs, node.content, node.marks) ?? node;
+			}
+		}
+		return node;
+	});
+};
 
 /**
  * Convert a list of nodes to a target node type.
@@ -50,13 +72,20 @@ export const convertNodesToTargetType = ({
 		initialTargetNodeTypeName,
 		isNested,
 		parentNode,
+		schema,
 	);
 
 	if (!selectedNodeTypeName || !targetNodeTypeName) {
 		return sourceNodes;
 	}
 
-	const steps = TRANSFORMATION_MATRIX[selectedNodeTypeName][targetNodeTypeName];
+	const steps = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+		? TRANSFORMATION_MATRIX_PANEL_C1[selectedNodeTypeName][
+				targetNodeTypeName
+			]
+		: TRANSFORMATION_MATRIX[selectedNodeTypeName][
+				targetNodeTypeName
+			];
 
 	const context: TransformStepContext = {
 		// sourceNode is incorrect now - what to do here?
@@ -70,15 +99,21 @@ export const convertNodesToTargetType = ({
 		return sourceNodes;
 	}
 
-	return steps.reduce((nodes, step) => {
+	const resultNodes = steps.reduce((nodes, step) => {
 		return step(nodes, context);
 	}, sourceNodes);
+
+	return upgradePanelNodesToPanelC1(resultNodes, parentNode, schema);
 };
 
 export const isTransformDisabledBasedOnStepsConfig = (
 	selectedNodeType: NodeTypeName,
 	targetNodeType: NodeTypeName,
 ): boolean => {
-	const steps = TRANSFORMATION_MATRIX[selectedNodeType][targetNodeType];
+	const steps = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+		? TRANSFORMATION_MATRIX_PANEL_C1[selectedNodeType][
+				targetNodeType
+			]
+		: TRANSFORMATION_MATRIX[selectedNodeType][targetNodeType];
 	return !steps || steps.length === 0;
 };

@@ -3,6 +3,7 @@ import { screen } from '@testing-library/react';
 import { type EmojiDescription, type EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-repository';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import {
 	mockReactDomWarningGlobal,
 	renderWithIntl,
@@ -50,5 +51,31 @@ describe('@atlaskit/reactions/components/ReactionParticleEffect', () => {
 		);
 		const emojis = screen.getAllByText(`ResourcedEmoji`);
 		expect(emojis.length).toBe(PARTICLE_COUNT);
+	});
+
+	describe('a11y: platform_a11y_fixes_reaction_emoji gate', () => {
+		it('should set aria-hidden="true" on container when gate is on', () => {
+			passGate('platform_a11y_fixes_reaction_emoji');
+			const { container } = renderWithIntl(
+				<ReactionParticleEffect
+					emojiId={{ id: grinning.id, shortName: ' ' }}
+					emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
+				/>,
+			);
+			const particleContainer = container.querySelector('div') as HTMLElement;
+			expect(particleContainer).toHaveAttribute('aria-hidden', 'true');
+		});
+
+		it('should not set aria-hidden on container when gate is off', () => {
+			failGate('platform_a11y_fixes_reaction_emoji');
+			const { container } = renderWithIntl(
+				<ReactionParticleEffect
+					emojiId={{ id: grinning.id, shortName: ' ' }}
+					emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
+				/>,
+			);
+			const particleContainer = container.querySelector('div') as HTMLElement;
+			expect(particleContainer).not.toHaveAttribute('aria-hidden');
+		});
 	});
 });

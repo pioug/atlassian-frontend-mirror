@@ -1,5 +1,17 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.32.0
+
+### Minor Changes
+
+- [`f115eca784698`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f115eca784698) -
+  Clean up `twcg_640_invite_prompt_on_teams_page_links` feature gate. The
+  invite-prompt-on-team-page-links experiment is not shipping, so the control behaviour (no invite
+  prompt) is now permanent. Removed the entire `use-invite-flag/` controller subtree, the
+  `InviteFlagMessages` example, all related `invitePrompt.*` analytics events, and the gate
+  registrations from `@atlassian/teams`, `@townsquare/stat-sig`, and the Confluence e2e gates
+  fixture.
+
 ## 1.31.0
 
 ### Minor Changes

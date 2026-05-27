@@ -8,7 +8,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { ToolbarButton, ToolbarTooltip } from '@atlaskit/editor-toolbar';
 import BlockSyncedIcon from '@atlaskit/icon-lab/core/block-synced';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { canBeConvertedToSyncBlock } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
@@ -42,11 +41,7 @@ export const CreateSyncedBlockButton = ({
 		api?.core?.actions.focus();
 	}, [api]);
 
-	const message = intl.formatMessage(
-		fg('platform_synced_block_patch_12')
-			? syncBlockMessages.syncBlockLabel
-			: syncBlockMessages.createSyncBlockLabel,
-	);
+	const message = intl.formatMessage(syncBlockMessages.syncBlockLabel);
 
 	return (
 		<ToolbarTooltip content={message}>

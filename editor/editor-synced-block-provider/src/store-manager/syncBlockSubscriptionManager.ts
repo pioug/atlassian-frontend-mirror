@@ -1,7 +1,6 @@
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ResourceId, BlockInstanceId } from '../common/types';
 import type {
@@ -266,8 +265,6 @@ export class SyncBlockSubscriptionManager {
 			return;
 		}
 
-		const reconnectEnabled = fg('platform_synced_block_patch_12');
-
 		const unsubscribe = dataProvider.subscribeToBlockUpdates(
 			resourceId,
 			(syncBlockInstance) => {
@@ -285,15 +282,11 @@ export class SyncBlockSubscriptionManager {
 						getSourceProductFromResourceIdSafe(resourceId),
 					),
 				);
-				if (reconnectEnabled) {
-					this.handleSubscriptionTerminated(resourceId);
-				}
+				this.handleSubscriptionTerminated(resourceId);
 			},
-			reconnectEnabled
-				? () => {
-						this.handleSubscriptionTerminated(resourceId);
-					}
-				: undefined,
+			() => {
+				this.handleSubscriptionTerminated(resourceId);
+			},
 		);
 
 		if (unsubscribe) {
@@ -394,10 +387,8 @@ export class SyncBlockSubscriptionManager {
 			unsubscribe();
 			this.graphqlSubscriptions.delete(resourceId);
 		}
-		if (fg('platform_synced_block_patch_12')) {
-			this.cancelPendingRetry(resourceId);
-			this.retryAttempts.delete(resourceId);
-		}
+		this.cancelPendingRetry(resourceId);
+		this.retryAttempts.delete(resourceId);
 	}
 
 	public setupSubscriptionsForAllBlocks(): void {
@@ -411,9 +402,7 @@ export class SyncBlockSubscriptionManager {
 			unsubscribe();
 		}
 		this.graphqlSubscriptions.clear();
-		if (fg('platform_synced_block_patch_12')) {
-			this.cancelAllPendingRetries();
-		}
+		this.cancelAllPendingRetries();
 	}
 
 	public destroy(): void {
@@ -447,10 +436,7 @@ export class SyncBlockSubscriptionManager {
 		this.deps.updateCache(resolved);
 
 		if (!syncBlockInstance.error) {
-			// Successful data delivery means the subscription is healthy — reset retry counter
-			if (fg('platform_synced_block_patch_12')) {
-				this.resetRetryCount(syncBlockInstance.resourceId);
-			}
+			this.resetRetryCount(syncBlockInstance.resourceId);
 			const callbacks = this.subscriptions.get(syncBlockInstance.resourceId);
 			const localIds = callbacks ? Object.keys(callbacks) : [];
 			localIds.forEach((localId) => {

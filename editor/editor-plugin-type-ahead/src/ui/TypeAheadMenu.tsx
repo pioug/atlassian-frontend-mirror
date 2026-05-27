@@ -39,8 +39,15 @@ export const TypeAheadMenu: React.MemoExoticComponent<
 		api,
 	}: TypeAheadMenuType): React.JSX.Element | null => {
 		const isOpen = typeAheadState.decorationSet.find().length > 0;
-		const { triggerHandler, items, errorInfo, decorationElement, decorationSet, query } =
-			typeAheadState;
+		const {
+			triggerHandler,
+			items,
+			sections = [],
+			errorInfo,
+			decorationElement,
+			decorationSet,
+			query,
+		} = typeAheadState;
 
 		const [onItemInsert, onTextInsert, onItemMatch] = useItemInsert(
 			// Ignored via go/ees005
@@ -136,6 +143,7 @@ export const TypeAheadMenu: React.MemoExoticComponent<
 				anchorElement={decorationElement}
 				triggerHandler={triggerHandler}
 				items={items}
+				sections={sections}
 				emptyItem={emptyItem}
 				errorInfo={errorInfo}
 				selectedIndex={selectedIndex}

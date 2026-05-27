@@ -22,6 +22,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MenuGroup } from '@atlaskit/menu';
 import { Text, Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { InputMethodType } from '../pm-plugins/analytics';
@@ -30,7 +31,7 @@ import { updateSelectedIndex } from '../pm-plugins/commands/update-selected-inde
 import { TYPE_AHEAD_DECORATION_ELEMENT_ID } from '../pm-plugins/constants';
 import { getTypeAheadListAriaLabels, moveSelectedIndex } from '../pm-plugins/utils';
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
-import type { TypeAheadHandler } from '../types';
+import type { TypeAheadHandler, TypeAheadResolvedSection } from '../types';
 
 import { ListRow } from './ListRow';
 import { MoreOptions } from './MoreOptions';
@@ -54,10 +55,43 @@ type TypeAheadListProps = {
 	moreElementsInQuickInsertViewEnabled?: boolean;
 	onItemClick: (mode: SelectItemMode, index: number, inputMethod?: InputMethodType) => void;
 	onMoreOptionsClicked?: () => void;
+	sections?: Array<TypeAheadResolvedSection>;
 	selectedIndex: number;
 	showMoreOptionsButton?: boolean;
 	triggerHandler?: TypeAheadHandler;
 } & WrappedComponentProps;
+
+type TypeAheadRowEntry =
+	| { section: TypeAheadResolvedSection; type: 'section' }
+	| { itemIndex: number; type: 'item' };
+
+const buildTypeAheadRows = ({
+	itemsLength,
+	sections,
+}: {
+	itemsLength: number;
+	sections: Array<TypeAheadResolvedSection>;
+}): Array<TypeAheadRowEntry> => {
+	if (sections.length === 0) {
+		return Array.from({ length: itemsLength }, (_, itemIndex) => ({ type: 'item', itemIndex }));
+	}
+
+	const sortedSections = [...sections].sort((left, right) => left.startIndex - right.startIndex);
+	const sectionsByStartIndex = new Map<number, TypeAheadResolvedSection>(
+		sortedSections.map((section) => [section.startIndex, section]),
+	);
+	const rows: Array<TypeAheadRowEntry> = [];
+
+	for (let itemIndex = 0; itemIndex < itemsLength; itemIndex++) {
+		const section = sectionsByStartIndex.get(itemIndex);
+		if (section) {
+			rows.push({ type: 'section', section });
+		}
+		rows.push({ type: 'item', itemIndex });
+	}
+
+	return rows;
+};
 
 const TypeaheadAssistiveTextPureComponent = React.memo(
 	({ numberOfResults }: { numberOfResults: string }) => {
@@ -78,6 +112,7 @@ const TypeaheadAssistiveTextPureComponent = React.memo(
 const TypeAheadListComponent = React.memo(
 	({
 		items,
+		sections,
 		emptyItem,
 		selectedIndex,
 		editorView,
@@ -121,6 +156,33 @@ const TypeAheadListComponent = React.memo(
 				defaultHeight: LIST_ITEM_ESTIMATED_HEIGHT,
 			}),
 		);
+
+		const listRows = useMemo(
+			() =>
+				buildTypeAheadRows({
+					itemsLength,
+					sections: sections || [],
+				}),
+			[itemsLength, sections],
+		);
+
+		const itemRowIndexByItemIndex = useMemo(() => {
+			const rowIndexByItemIndex = new Map<number, number>();
+			listRows.forEach((row, rowIndex) => {
+				if (row.type === 'item') {
+					rowIndexByItemIndex.set(row.itemIndex, rowIndex);
+				}
+			});
+			return rowIndexByItemIndex;
+		}, [listRows]);
+
+		const populatedSectionCount = useMemo(
+			() => listRows.filter((row) => row.type === 'section').length,
+			[listRows],
+		);
+
+		const selectedItemRowIndex =
+			selectedIndex >= 0 ? (itemRowIndexByItemIndex.get(selectedIndex) ?? -1) : -1;
 
 		const onItemsRendered = useCallback(
 			(props: {
@@ -190,13 +252,14 @@ const TypeAheadListComponent = React.memo(
 					requestAnimationFrame(() => {
 						const isViewMoreSelected = showMoreOptionsButton && selectedIndex === itemsLength;
 						const isSelectedItemVisible =
-							(selectedIndex >= lastVisibleStartIndex && selectedIndex <= lastVisibleStopIndex) ||
+							(selectedItemRowIndex >= lastVisibleStartIndex &&
+								selectedItemRowIndex <= lastVisibleStopIndex) ||
 							// view more is always visible, hence no scrolling
 							isViewMoreSelected;
 
 						//Should scroll to the list item only when the selectedIndex >= 0 and item is not visible
 						if (!isSelectedItemVisible && selectedIndex !== -1) {
-							listRef.current.scrollToRow(selectedIndex);
+							listRef.current.scrollToRow(selectedItemRowIndex);
 						} else if (selectedIndex === -1) {
 							listRef.current.scrollToRow(0);
 						}
@@ -209,18 +272,24 @@ const TypeAheadListComponent = React.memo(
 				lastVisibleStopIndex,
 				itemsLength,
 				showMoreOptionsButton,
+				selectedItemRowIndex,
 			],
 		);
 
-		const onMouseMove = (event: React.MouseEvent, index: number) => {
+		const onMouseMove = (event: React.MouseEvent, row: TypeAheadRowEntry) => {
+			if (row.type !== 'item') {
+				return;
+			}
+
+			const itemIndex = row.itemIndex;
 			event.preventDefault();
 			event.stopPropagation();
-			if (selectedIndex === index) {
+			if (selectedIndex === itemIndex) {
 				return;
 			}
 			mouseMovedRef.current = true;
 			lastInputMethodRef.current = 'mouse';
-			updateSelectedIndex(index, api)(editorView.state, editorView.dispatch);
+			updateSelectedIndex(itemIndex, api)(editorView.state, editorView.dispatch);
 		};
 
 		useLayoutEffect(() => {
@@ -237,13 +306,14 @@ const TypeAheadListComponent = React.memo(
 			}
 			const isViewMoreSelected = showMoreOptionsButton && selectedIndex === itemsLength;
 			const isSelectedItemVisible =
-				(selectedIndex >= lastVisibleStartIndex && selectedIndex <= lastVisibleStopIndex) ||
+				(selectedItemRowIndex >= lastVisibleStartIndex &&
+					selectedItemRowIndex <= lastVisibleStopIndex) ||
 				// view more is always visible, hence no scrolling
 				isViewMoreSelected;
 
 			//Should scroll to the list item only when the selectedIndex >= 0 and item is not visible
 			if (!isSelectedItemVisible && selectedIndex !== -1) {
-				listRef.current.scrollToRow(selectedIndex);
+				listRef.current.scrollToRow(selectedItemRowIndex);
 			} else if (selectedIndex === -1) {
 				listRef.current.scrollToRow(0);
 			}
@@ -253,6 +323,7 @@ const TypeAheadListComponent = React.memo(
 			lastVisibleStopIndex,
 			itemsLength,
 			showMoreOptionsButton,
+			selectedItemRowIndex,
 		]);
 
 		useLayoutEffect(() => {
@@ -271,11 +342,15 @@ const TypeAheadListComponent = React.memo(
 					(listContainerRef.current.firstChild as HTMLElement).scrollTo(0, 0);
 				}
 			});
-		}, [items]);
+		}, [items, sections]);
 
 		useLayoutEffect(() => {
 			// Exclude view more item from the count
-			const itemsToRender = showMoreOptionsButton ? items.slice(0, -1) : items;
+			const itemsToRender = editorExperiment('platform_editor_agent_mentions', true)
+				? listRows
+				: showMoreOptionsButton
+					? items.slice(0, -1)
+					: items;
 			const height = Math.min(
 				// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 				itemsToRender.reduce((prevValue, currentValue, index) => {
@@ -284,7 +359,7 @@ const TypeAheadListComponent = React.memo(
 				fitHeight,
 			);
 			setHeight(height);
-		}, [items, cache, fitHeight, showMoreOptionsButton]);
+		}, [listRows, items, cache, fitHeight, showMoreOptionsButton]);
 
 		useLayoutEffect(() => {
 			if (!listContainerRef.current) {
@@ -374,7 +449,10 @@ const TypeAheadListComponent = React.memo(
 		};
 
 		const renderRow: ListRowRenderer = ({ index, key, style, parent, isScrolling, isVisible }) => {
-			const currentItem = items[index];
+			const currentRow = listRows[index];
+			if (!currentRow) {
+				return null;
+			}
 			return (
 				<CellMeasurer key={key} cache={cache} parent={parent} columnIndex={0} rowIndex={index}>
 					{({ measure }) => (
@@ -386,27 +464,40 @@ const TypeAheadListComponent = React.memo(
 							isVisible={isVisible}
 							isScrolling={isScrolling}
 							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-							onMouseMove={(e) => onMouseMove(e, index)}
+							onMouseMove={(e) => onMouseMove(e, currentRow)}
 						>
-							<TypeAheadListItem
-								key={items[index].title}
-								item={currentItem}
-								firstOnlineSupportedIndex={firstOnlineSupportedRow}
-								itemsLength={itemsLength}
-								itemIndex={index}
-								selectedIndex={selectedIndex}
-								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-								onItemClick={(mode: SelectItemMode, index: number) => {
-									actions.onItemClick(mode, index, INPUT_METHOD.MOUSE);
-								}}
-								ariaLabel={
-									getTypeAheadListAriaLabels(triggerHandler?.trigger, intl, currentItem)
-										.listItemAriaLabel
-								}
-								moreElementsInQuickInsertViewEnabled={moreElementsInQuickInsertViewEnabled}
-								api={api}
-								lastInputMethodRef={lastInputMethodRef}
-							/>
+							{currentRow.type === 'section' ? (
+								populatedSectionCount === 1 ? null : (
+									<Box paddingInline="space.150" paddingBlock="space.050">
+										<Text as="span" size="small" color="color.text.subtle" weight="medium">
+											{currentRow.section.title}
+										</Text>
+									</Box>
+								)
+							) : (
+								<TypeAheadListItem
+									key={items[currentRow.itemIndex].title}
+									item={items[currentRow.itemIndex]}
+									firstOnlineSupportedIndex={firstOnlineSupportedRow}
+									itemsLength={itemsLength}
+									itemIndex={currentRow.itemIndex}
+									selectedIndex={selectedIndex}
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+									onItemClick={(mode: SelectItemMode, itemIndex: number) => {
+										actions.onItemClick(mode, itemIndex, INPUT_METHOD.MOUSE);
+									}}
+									ariaLabel={
+										getTypeAheadListAriaLabels(
+											triggerHandler?.trigger,
+											intl,
+											items[currentRow.itemIndex],
+										).listItemAriaLabel
+									}
+									moreElementsInQuickInsertViewEnabled={moreElementsInQuickInsertViewEnabled}
+									api={api}
+									lastInputMethodRef={lastInputMethodRef}
+								/>
+							)}
 						</ListRow>
 					)}
 				</CellMeasurer>
@@ -450,7 +541,7 @@ const TypeAheadListComponent = React.memo(
 				rowRenderer={renderRow}
 				ref={listRef}
 				// Skip rendering the view more button in the list
-				rowCount={itemsLength}
+				rowCount={listRows.length}
 				rowHeight={cache.rowHeight}
 				onRowsRendered={onItemsRendered}
 				width={LIST_WIDTH}
@@ -517,6 +608,7 @@ export const TypeAheadList: React.FC<
 			moreElementsInQuickInsertViewEnabled?: boolean;
 			onItemClick: (mode: SelectItemMode, index: number, inputMethod?: InputMethodType) => void;
 			onMoreOptionsClicked?: () => void;
+			sections?: Array<TypeAheadResolvedSection>;
 			selectedIndex: number;
 			showMoreOptionsButton?: boolean;
 			triggerHandler?: TypeAheadHandler;
@@ -534,6 +626,7 @@ export const TypeAheadList: React.FC<
 			moreElementsInQuickInsertViewEnabled?: boolean;
 			onItemClick: (mode: SelectItemMode, index: number, inputMethod?: InputMethodType) => void;
 			onMoreOptionsClicked?: () => void;
+			sections?: Array<TypeAheadResolvedSection>;
 			selectedIndex: number;
 			showMoreOptionsButton?: boolean;
 			triggerHandler?: TypeAheadHandler;

@@ -71,17 +71,6 @@ const ColorColumn = ({ key, src, borderColor, presence, status, appearance }: Co
 				status={status}
 				presence={presence}
 				appearance={appearance}
-				size="xlarge"
-				name="John Smith ACME Co."
-			/>
-			<Avatar
-				onClick={console.log}
-				key={key}
-				src={src}
-				borderColor={borderColor}
-				status={status}
-				presence={presence}
-				appearance={appearance}
 				name="John Smith ACME Co."
 			/>
 		</Stack>
@@ -176,7 +165,6 @@ const _default: () => JSX.Element = () => (
 									src={ExampleImg}
 									borderColor="transparent"
 									appearance="square"
-									size="xlarge"
 									name="Gradient border square"
 								/>
 							</div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 import { waitFor, cleanup, screen, fireEvent } from '@testing-library/react';
-import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -427,7 +426,7 @@ describe('<ResourcedEmoji />', () => {
 			/>,
 		);
 
-		return waitUntil(() => !!resolver).then(() => {
+		return waitFor(() => expect(resolver).toBeDefined()).then(() => {
 			resolver();
 			expect(screen.getByTestId('emoji-placeholder-doesnotexist')).toBeInTheDocument();
 		});

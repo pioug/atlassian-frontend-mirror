@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
+import type { IntlShape } from 'react-intl';
+
 import type {
 	ExtractInjectionAPI,
 	TypeAheadHandler,
@@ -14,6 +16,8 @@ import { updateListError } from '../../pm-plugins/commands/update-list-error';
 import { updateListItem } from '../../pm-plugins/commands/update-list-items';
 import type { TypeAheadPlugin } from '../../typeAheadPluginType';
 
+import { buildSectionedResult } from './build-sectioned-result';
+
 const EMPTY_LIST_ITEM: Array<TypeAheadItem> = [];
 export const useLoadItems = (
 	triggerHandler: TypeAheadHandler,
@@ -21,6 +25,7 @@ export const useLoadItems = (
 	query: string,
 	showViewMore?: boolean,
 	api?: ExtractInjectionAPI<TypeAheadPlugin> | undefined,
+	intl?: IntlShape,
 ): Array<TypeAheadItem> => {
 	const [items, setItems] = useState<Array<TypeAheadItem>>(EMPTY_LIST_ITEM);
 	const componentIsMounted = useRef(true);
@@ -56,7 +61,12 @@ export const useLoadItems = (
 						? triggerHandler.getEmptyItem?.({ editorState: editorView.state })
 						: undefined;
 
-				const list = result.length > 0 ? result : emptyItem ? [emptyItem] : EMPTY_LIST_ITEM;
+				const rawList = result.length > 0 ? result : emptyItem ? [emptyItem] : EMPTY_LIST_ITEM;
+				const { items: list, sections } = buildSectionedResult({
+					items: rawList,
+					triggerHandler,
+					intl: intl ?? null,
+				});
 
 				if (componentIsMounted.current) {
 					setItems(list);
@@ -68,7 +78,7 @@ export const useLoadItems = (
 				};
 
 				queueMicrotask(() => {
-					updateListItem(showViewMore ? list.concat(viewMoreItem) : list)(
+					updateListItem(showViewMore ? list.concat(viewMoreItem) : list, sections)(
 						view.state,
 						view.dispatch,
 					);
@@ -90,7 +100,7 @@ export const useLoadItems = (
 		// ignore because EditorView is mutable but we don't want to
 		// call loadItems when it changes, only when the query changes
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [triggerHandler, query]);
+	}, [triggerHandler, query, intl]);
 
 	useEffect(() => {
 		return () => {

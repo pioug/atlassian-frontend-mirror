@@ -1,4 +1,4 @@
-import { waitUntil } from '@atlaskit/elements-test-helpers';
+import { waitFor } from '@testing-library/react';
 import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 import fetchMock from 'fetch-mock/cjs/client';
 
@@ -124,22 +124,21 @@ describe('MediaImageLoader', () => {
 				mediaImageLoader.loadMediaImage(`${mediaEmojiImagePath}2`),
 			];
 
-			return waitUntil(
-				() =>
-					mediaImageLoader.getActiveDownloads() === 2 &&
-					mediaImageLoader.getQueueSize() === 1 &&
-					fetchMock.calls('media-emoji').length === 2,
-			)
+			return waitFor(() => {
+				expect(mediaImageLoader.getActiveDownloads()).toBe(2);
+				expect(mediaImageLoader.getQueueSize()).toBe(1);
+				expect(fetchMock.calls('media-emoji').length).toBe(2);
+			})
 				.then(() => {
 					expect(fetchMock.calls('media-emoji').length).toEqual(2);
 					expect(mediaImageLoader.getActiveDownloads()).toEqual(2);
 					expect(mediaImageLoader.getQueueSize()).toEqual(1);
 					// Complete first download
 					resolvers[0](blobResponse(blob));
-					return waitUntil(
-						() =>
-							mediaImageLoader.getQueueSize() === 0 && fetchMock.calls('media-emoji').length === 3,
-					);
+					return waitFor(() => {
+						expect(mediaImageLoader.getQueueSize()).toBe(0);
+						expect(fetchMock.calls('media-emoji').length).toBe(3);
+					});
 				})
 				.then(() => p[0])
 				.then((dataURL0: string) => {

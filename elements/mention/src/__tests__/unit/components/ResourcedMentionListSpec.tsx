@@ -12,7 +12,7 @@ import ResourcedMentionList, {
 	type State,
 } from '../../../components/ResourcedMentionList';
 import * as Analytics from '../../../util/analytics';
-import { waitUntil } from '@atlaskit/elements-test-helpers';
+import { waitFor } from '@testing-library/react';
 import MentionItem from '../../../components/MentionItem';
 
 describe('ResourcedMentionList', () => {
@@ -48,9 +48,9 @@ describe('ResourcedMentionList', () => {
 
 		expect(component).toBeDefined();
 		expect(component.find(MentionList).find(MentionItem).length).toBe(0);
-		await waitUntil(() => {
+		await waitFor(() => {
 			component.update();
-			return component.find(MentionList).find(MentionItem).length > 0;
+			expect(component.find(MentionList).find(MentionItem).length).toBeGreaterThan(0);
 		});
 
 		expect(component.find(MentionList).find(MentionItem).length).toBe(6);
@@ -63,9 +63,9 @@ describe('ResourcedMentionList', () => {
 		});
 
 		expect(component).toBeDefined();
-		await waitUntil(() => {
+		await waitFor(() => {
 			component.update();
-			return component.find(MentionList).find(MentionItem).length > 0;
+			expect(component.find(MentionList).find(MentionItem).length).toBeGreaterThan(0);
 		});
 
 		expect(analytics).toHaveBeenCalled();

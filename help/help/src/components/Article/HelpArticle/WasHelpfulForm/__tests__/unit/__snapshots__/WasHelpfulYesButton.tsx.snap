@@ -76,18 +76,18 @@ exports[`ArticleContent Match snapshot 1`] = `
 
 .emotion-1[disabled] {
   color: var(--ds-text-disabled, #080F214A);
-  background-color: var(--ds-background-disabled, #17171708);
+  background-color: var(--ds-background-disabled, #0515240F);
   cursor: not-allowed;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 .emotion-1[disabled]:hovered {
-  background-color: var(--ds-background-disabled, #17171708);
+  background-color: var(--ds-background-disabled, #0515240F);
 }
 
 .emotion-1[disabled]:active {
-  background-color: var(--ds-background-disabled, #17171708);
+  background-color: var(--ds-background-disabled, #0515240F);
 }
 
 .emotion-1[data-has-overlay="true"] {

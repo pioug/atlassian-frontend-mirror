@@ -270,6 +270,14 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		}),
 	);
 
+	private onPreviewRender = (fileId: string) => {
+		if (fg('aifc_page_create_with_rovo_include_infographics')) {
+			this.props.pluginInjectionApi?.core?.actions.execute(({ tr }) =>
+				tr.setMeta(mediaStateKey, { type: 'PREVIEW_RENDERED', fileId }),
+			);
+		}
+	};
+
 	private onError = (reason: string) => {
 		const nestedUnder = this.getNestedUnder();
 		this.props.api?.media.actions.handleMediaNodeRenderError(this.props.node, reason, nestedUnder);
@@ -398,6 +406,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 						ssr={ssr}
 						mediaSettings={this.getMediaSettings(viewAndUploadMediaClientConfig)}
 						isAIGenerating={!!this.props.isAIGenerating}
+						onPreviewRender={this.onPreviewRender}
 						onError={
 							expValEquals('platform_editor_media_error_analytics', 'isEnabled', true)
 								? this.onError

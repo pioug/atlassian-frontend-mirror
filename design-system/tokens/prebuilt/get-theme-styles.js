@@ -15,7 +15,7 @@ var _getThemeOverridePreferences = require("./utils/get-theme-override-preferenc
 var _getThemePreferences = require("./utils/get-theme-preferences");
 var _isValidBrandHex = require("./utils/is-valid-brand-hex");
 var _loadThemeCss = require("./utils/load-theme-css");
-function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function _interopRequireWildcard(e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != _typeof(e) && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (var _t in e) "default" !== _t && {}.hasOwnProperty.call(e, _t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, _t)) && (i.get || i.set) ? o(f, _t, i) : f[_t] = e[_t]); return f; })(e, t); }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function _interopRequireWildcard(e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != _typeof(e) && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (var _t3 in e) "default" !== _t3 && {}.hasOwnProperty.call(e, _t3) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, _t3)) && (i.get || i.set) ? o(f, _t3, i) : f[_t3] = e[_t3]); return f; })(e, t); }
 /**
  * Takes an object containing theme preferences, and returns an array of objects for use in applying styles to the document head.
  * Only supplies the color themes necessary for initial render, based on the current themeState. I.e. if in light mode, dark mode themes are not returned.
@@ -36,7 +36,7 @@ function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r
 var getThemeStyles = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3(preferences) {
     var themePreferences, themeOverridePreferences, themeState, results;
-    return _regenerator.default.wrap(function _callee3$(_context3) {
+    return _regenerator.default.wrap(function (_context3) {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
           themeOverridePreferences = [];
@@ -63,17 +63,17 @@ var getThemeStyles = /*#__PURE__*/function () {
             themePreferences = (0, _getThemePreferences.getThemePreferences)(themeState);
             themeOverridePreferences = (0, _getThemeOverridePreferences.getThemeOverridePreferences)(themeState);
           }
-          _context3.next = 4;
+          _context3.next = 1;
           return Promise.all([].concat((0, _toConsumableArray2.default)([].concat((0, _toConsumableArray2.default)(themePreferences), (0, _toConsumableArray2.default)(themeOverridePreferences)).map( /*#__PURE__*/function () {
             var _ref2 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee(themeId) {
-              var css;
-              return _regenerator.default.wrap(function _callee$(_context) {
+              var css, _t;
+              return _regenerator.default.wrap(function (_context) {
                 while (1) switch (_context.prev = _context.next) {
                   case 0:
                     _context.prev = 0;
-                    _context.next = 3;
+                    _context.next = 1;
                     return (0, _loadThemeCss.loadThemeCss)(themeId);
-                  case 3:
+                  case 1:
                     css = _context.sent;
                     return _context.abrupt("return", {
                       id: themeId,
@@ -82,15 +82,15 @@ var getThemeStyles = /*#__PURE__*/function () {
                       },
                       css: css
                     });
-                  case 7:
-                    _context.prev = 7;
-                    _context.t0 = _context["catch"](0);
+                  case 2:
+                    _context.prev = 2;
+                    _t = _context["catch"](0);
                     return _context.abrupt("return", undefined);
-                  case 10:
+                  case 3:
                   case "end":
                     return _context.stop();
                 }
-              }, _callee, null, [[0, 7]]);
+              }, _callee, null, [[0, 2]]);
             }));
             return function (_x2) {
               return _ref2.apply(this, arguments);
@@ -99,49 +99,49 @@ var getThemeStyles = /*#__PURE__*/function () {
           // Add custom themes if they're present
           (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
             var _preferences$UNSAFE_t;
-            var _yield$import, getCustomThemeStyles, customThemeStyles;
-            return _regenerator.default.wrap(function _callee2$(_context2) {
+            var _yield$import, getCustomThemeStyles, customThemeStyles, _t2;
+            return _regenerator.default.wrap(function (_context2) {
               while (1) switch (_context2.prev = _context2.next) {
                 case 0:
                   if (!(preferences !== 'all' && preferences !== null && preferences !== void 0 && preferences.UNSAFE_themeOptions && (0, _isValidBrandHex.isValidBrandHex)(preferences === null || preferences === void 0 || (_preferences$UNSAFE_t = preferences.UNSAFE_themeOptions) === null || _preferences$UNSAFE_t === void 0 ? void 0 : _preferences$UNSAFE_t.brandColor))) {
-                    _context2.next = 15;
+                    _context2.next = 5;
                     break;
                   }
                   _context2.prev = 1;
-                  _context2.next = 4;
+                  _context2.next = 2;
                   return Promise.resolve().then(function () {
                     return _interopRequireWildcard(require( /* webpackChunkName: "@atlaskit-internal_atlassian-custom-theme" */
                     './custom-theme'));
                   });
-                case 4:
+                case 2:
                   _yield$import = _context2.sent;
                   getCustomThemeStyles = _yield$import.getCustomThemeStyles;
-                  _context2.next = 8;
+                  _context2.next = 3;
                   return getCustomThemeStyles({
                     colorMode: (preferences === null || preferences === void 0 ? void 0 : preferences.colorMode) || _themeConfig.themeStateDefaults['colorMode'],
                     UNSAFE_themeOptions: preferences === null || preferences === void 0 ? void 0 : preferences.UNSAFE_themeOptions
                   });
-                case 8:
+                case 3:
                   customThemeStyles = _context2.sent;
                   return _context2.abrupt("return", customThemeStyles);
-                case 12:
-                  _context2.prev = 12;
-                  _context2.t0 = _context2["catch"](1);
+                case 4:
+                  _context2.prev = 4;
+                  _t2 = _context2["catch"](1);
                   return _context2.abrupt("return", undefined);
-                case 15:
+                case 5:
                   return _context2.abrupt("return", undefined);
-                case 16:
+                case 6:
                 case "end":
                   return _context2.stop();
               }
-            }, _callee2, null, [[1, 12]]);
+            }, _callee2, null, [[1, 4]]);
           }))()]));
-        case 4:
+        case 1:
           results = _context3.sent;
           return _context3.abrupt("return", results.flat().filter(function (theme) {
             return theme !== undefined;
           }));
-        case 6:
+        case 2:
         case "end":
           return _context3.stop();
       }

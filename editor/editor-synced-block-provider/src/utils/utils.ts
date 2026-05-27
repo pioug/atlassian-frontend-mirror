@@ -2,7 +2,6 @@
 
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type {
 	SyncBlockData,
@@ -64,9 +63,7 @@ export const convertSyncBlockPMNodeToSyncBlockData = (node: PMNode): SyncBlockDa
 
 	return {
 		blockInstanceId: node.attrs.localId,
-		content: fg('platform_synced_block_patch_12')
-			? stripAnnotationMarksFromJSONContent(content)
-			: content,
+		content: content ? stripAnnotationMarksFromJSONContent(content) : content,
 		resourceId: node.attrs.resourceId,
 	};
 };

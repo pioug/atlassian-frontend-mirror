@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 10.3.0
+
+### Minor Changes
+
+- [`beab4fffee103`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/beab4fffee103) -
+  EDITOR-7318: Add type-ahead sections support with getSections handler API.
+
+  Adds `TypeAheadSection` and `TypeAheadSectionUpdate` types and an optional `getSections()` method
+  to `TypeAheadHandler` in `editor-common`. Implements section grouping in
+  `editor-plugin-type-ahead` via `buildSectionedResult`. Adds People/Agents section split to
+  `editor-plugin-mentions`.
+
+  Removes the `updateSection` action and associated `sectionOverrides`/`sectionsRefreshKey`
+  pm-plugin state — section definitions are now derived directly from `getSections()` at load time
+  rather than being mutated at runtime.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.2.2
 
 ### Patch Changes

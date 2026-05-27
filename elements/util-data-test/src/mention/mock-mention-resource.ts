@@ -16,7 +16,30 @@ import debug from '../logger';
 import { mentionTestResult } from './mention-test-data';
 import { HttpError } from './utils';
 
+const mentionTestResultWithAgents = [
+	{
+		id: 'agent-default-1',
+		name: 'Raina Halper Agent',
+		mentionName: 'raina-agent',
+		nickname: 'Raina Agent',
+		avatarUrl: '',
+		accessLevel: 'APPLICATION',
+		userType: 'AGENT',
+	},
+	{
+		id: 'agent-default-2',
+		name: 'Raina Halper Assistant',
+		mentionName: 'raina-assistant',
+		nickname: 'Raina Assistant',
+		avatarUrl: '',
+		accessLevel: 'APPLICATION',
+		userType: 'AGENT',
+	},
+	...mentionTestResult,
+];
+
 export interface MockMentionConfig {
+	allowAgents?: boolean;
 	maxWait?: number;
 	mentionNameResolver?: MentionNameResolver;
 	minWait?: number;
@@ -46,7 +69,7 @@ export class MockMentionResource
 		this.search.addIndex('name');
 		this.search.addIndex('mentionName');
 		this.search.addIndex('nickname');
-		this.search.addDocuments(mentionTestResult);
+		this.search.addDocuments(config.allowAgents ? mentionTestResultWithAgents : mentionTestResult);
 
 		this.config = config;
 		this.lastReturnedSearch = 0;
@@ -110,7 +133,7 @@ export class MockMentionResource
 			} else if (query) {
 				mentions = this.search.search(query);
 			} else {
-				mentions = mentionTestResult;
+				mentions = this.config.allowAgents ? mentionTestResultWithAgents : mentionTestResult;
 			}
 			notify({ mentions, query });
 			notifyAnalytics(SLI_EVENT_TYPE, 'searchUser', 'succeeded');

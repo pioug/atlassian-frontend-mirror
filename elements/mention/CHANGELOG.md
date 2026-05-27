@@ -1,5 +1,13 @@
 # @atlaskit/mention
 
+## 26.0.4
+
+### Patch Changes
+
+- [`2a75c1be2244e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a75c1be2244e) -
+  Removed usage of @atlaskit/elements-test-helpers from tests
+- Updated dependencies
+
 ## 26.0.3
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 11.5.3
+
+### Patch Changes
+
+- [`cd85cdec5ae7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd85cdec5ae7e) -
+  EDITOR-7170 add transform for panel -> panel_c1
+- Updated dependencies
+
 ## 11.5.2
 
 ### Patch Changes

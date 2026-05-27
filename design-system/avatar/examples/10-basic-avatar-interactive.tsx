@@ -30,21 +30,6 @@ export default (): React.JSX.Element => (
 				borderColor="red"
 				onClick={() => {}}
 				appearance="square"
-				name="xxlarge"
-				size="xxlarge"
-			/>
-			<Avatar
-				borderColor="red"
-				onClick={() => {}}
-				appearance="square"
-				name="xlarge"
-				size="xlarge"
-				status="approved"
-			/>
-			<Avatar
-				borderColor="red"
-				onClick={() => {}}
-				appearance="square"
 				name="large"
 				size="large"
 				status="declined"

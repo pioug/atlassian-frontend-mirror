@@ -1,5 +1,12 @@
 # @atlaskit/linking-common
 
+## 9.12.1
+
+### Patch Changes
+
+- [`188a015533f17`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/188a015533f17) -
+  Feature gate clean up
+
 ## 9.12.0
 
 ### Minor Changes

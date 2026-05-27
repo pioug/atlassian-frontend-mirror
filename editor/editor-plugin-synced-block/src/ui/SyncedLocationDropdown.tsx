@@ -50,6 +50,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
+import { SYNCED_BLOCK_BUTTON_TEST_ID } from '../types';
 
 interface Props {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
@@ -474,6 +475,7 @@ const EditorPositionedSyncedLocationDropdown = ({
 		() => (
 			<Button
 				areAnyNewToolbarFlagsEnabled={true}
+				testId={SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSyncedLocationsTrigger}
 				selected={isOpen}
 				iconAfter={
 					<ChevronDownIcon color="currentColor" spacing="spacious" label="" size="small" />

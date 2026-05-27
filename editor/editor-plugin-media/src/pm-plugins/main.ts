@@ -139,6 +139,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	ignoreLinks: boolean = false;
 	waitForMediaUpload: boolean = true;
 	allUploadsFinished: boolean = true;
+	previewRenderedMediaIds: Set<string> = new Set();
 	showDropzone: boolean = false;
 	isFullscreen: boolean = false;
 	element?: HTMLElement;
@@ -1181,12 +1182,21 @@ export const createPlugin = (
 				}
 
 				const meta = tr.getMeta(stateKey);
-				if (meta) {
+				if (meta && meta.type !== 'PREVIEW_RENDERED') {
 					const { allowsUploads } = meta;
 					pluginState.updateAndDispatch({
 						allowsUploads:
 							typeof allowsUploads === 'undefined' ? pluginState.allowsUploads : allowsUploads,
 					});
+					nextPluginState = nextPluginState.clone();
+				}
+
+				// Handle preview render notifications — add the file ID to the
+				// previewRenderedMediaIds Set so sharedState subscribers can react.
+				if (meta?.type === 'PREVIEW_RENDERED' && typeof meta.fileId === 'string') {
+					const newSet = new Set(pluginState.previewRenderedMediaIds);
+					newSet.add(meta.fileId);
+					pluginState.previewRenderedMediaIds = newSet;
 					nextPluginState = nextPluginState.clone();
 				}
 

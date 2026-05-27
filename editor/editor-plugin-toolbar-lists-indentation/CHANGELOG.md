@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 11.2.0
+
+### Minor Changes
+
+- [`3b79e10490ac2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b79e10490ac2) -
+  Support markdown source view list and task toolbar actions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.7
 
 ### Patch Changes

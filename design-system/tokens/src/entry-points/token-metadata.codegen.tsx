@@ -3,7 +3,7 @@
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::8a97395137b2eee0fedb0ac95a7a2528>>
+ * @codegen <<SignedSource::ecdf4f84ae7b36849943b200af52ee54>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -2762,7 +2762,7 @@ export const tokens: Token[] = [
 		name: 'color.background.disabled',
 		path: ['color', 'background', 'disabled'],
 		description: 'Use for backgrounds of elements in a disabled state.',
-		exampleValue: '#17171708',
+		exampleValue: '#0515240F',
 		usageGuidelines: {
 			usage:
 				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',

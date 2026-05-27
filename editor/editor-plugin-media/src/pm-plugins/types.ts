@@ -66,6 +66,9 @@ export interface MediaPluginState {
 	options: MediaPluginOptions;
 	pickerPromises: Array<Promise<PickerFacade>>;
 	pickers: PickerFacade[];
+	// Set of media file IDs whose image preview has rendered (<img> onload fired).
+	// Populated by the notifyPreviewRender action.
+	previewRenderedMediaIds: Set<string>;
 	removeSelectedMediaContainer: () => boolean;
 	replaceMediaFileId: string | null;
 	replaceMediaTargetDisplayHeight: number | null;

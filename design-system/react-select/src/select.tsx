@@ -42,6 +42,7 @@ import { NotifyOpenLayerObserver } from './internal/notify-open-layer-observer';
 import RequiredInput from './internal/required-input';
 import ScrollManager from './internal/scroll-manager';
 import { scrollTo } from './internal/scroll-to';
+import { SelectGetStylesContext } from './internal/select-get-styles-context';
 import { singleValueAsValue } from './internal/single-value-as-value';
 import { valueTernary } from './internal/value-ternary';
 import { type ClassNamesConfig, type StylesConfig, type StylesProps } from './styles';
@@ -2695,6 +2696,7 @@ export default class Select<
 		const commonProps = (this.commonProps = this.getCommonProps());
 		const isCompact = spacing === 'compact';
 		return (
+			<SelectGetStylesContext.Provider value={this.getStyles}>
 			<SelectContainer
 				{...commonProps}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
@@ -2770,6 +2772,7 @@ export default class Select<
 					onClose={this.handleOpenLayerObserverCloseSignal}
 				/>
 			</SelectContainer>
+			</SelectGetStylesContext.Provider>
 		);
 	}
 }

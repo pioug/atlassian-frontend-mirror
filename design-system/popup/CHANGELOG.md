@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 4.22.1
+
+### Patch Changes
+
+- [`ae5198c2f44ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae5198c2f44ed) -
+  Fix @atlaskit/popup containing a portal-rendered child overlay (Drawer, Modal, etc.) now correctly
+  ignores clicks inside that overlay
+
 ## 4.22.0
 
 ### Minor Changes

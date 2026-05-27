@@ -29,6 +29,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 import type { MediaClientConfig } from '@atlaskit/media-core';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { checkMediaType } from '../../pm-plugins/utils/check-media-type';
@@ -286,15 +287,18 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 
 	highlights = (newWidth: number, snapPoints: number[]): string[] | number[] => {
 		const snapWidth = snapTo(newWidth, snapPoints);
-		const { layoutColumn, table, expand, nestedExpand, panel } = this.props.view.state.schema.nodes;
+		const { layoutColumn, table, expand, nestedExpand, panel, panel_c1 } =
+			this.props.view.state.schema.nodes;
 
-		if (
-			this.$pos &&
-			!!findParentNodeOfTypeClosestToPos(
-				this.$pos,
-				[layoutColumn, table, expand, nestedExpand, panel].filter(Boolean),
-			)
-		) {
+		const parentsToHideGridLines = expValEquals(
+			'platform_editor_nest_table_in_panel',
+			'isEnabled',
+			true,
+		)
+			? [layoutColumn, table, expand, nestedExpand, panel, panel_c1].filter(Boolean)
+			: [layoutColumn, table, expand, nestedExpand, panel].filter(Boolean);
+
+		if (this.$pos && !!findParentNodeOfTypeClosestToPos(this.$pos, parentsToHideGridLines)) {
 			return [];
 		}
 

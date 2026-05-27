@@ -115,7 +115,7 @@ const SplitButtonDropdown: React.FC<SplitButtonDropdownProps> = (props) => {
 			placement="bottom-end"
 			isOpen={isUsingSplitButton}
 			onOpenChange={onOpenChange}
-			shouldRenderToParent={fg('should-render-to-parent-should-be-true-people-and-')}
+			shouldRenderToParent
 		>
 			<DropdownItemGroup>
 				{shareIntegrations.map((integration: Integration) => (

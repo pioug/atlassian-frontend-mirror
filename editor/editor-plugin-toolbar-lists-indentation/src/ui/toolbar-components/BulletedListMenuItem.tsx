@@ -18,6 +18,7 @@ import {
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
+import { isMarkdownCompatibleToolbarEnabled } from '../utils/markdown-compatible-toolbar';
 
 type BulletedListType = {
 	api?: ExtractInjectionAPI<ToolbarListsIndentationPlugin>;
@@ -36,31 +37,57 @@ export const useBulletedListInfo = ({
 } => {
 	const { formatMessage } = useIntl();
 	const bulletMessage = formatMessage(listMessages.bulletedList);
-	const { bulletListActive, bulletListDisabled, taskListActive } = useSharedPluginStateWithSelector(
-		api,
-		['list', 'taskDecision'],
-		(states) => ({
-			bulletListActive: states.listState?.bulletListActive,
-			bulletListDisabled: states.listState?.bulletListDisabled,
-			taskListActive: states.taskDecisionState?.isInsideTask,
-		}),
-	);
+	const isMarkdownToolbarEnabled = isMarkdownCompatibleToolbarEnabled();
+	const {
+		bulletListActive,
+		bulletListDisabled,
+		taskListActive,
+		sourceBlockFormatState,
+		sourceListFormatState,
+		markdownView,
+	} = useSharedPluginStateWithSelector(api, ['list', 'taskDecision', 'markdownMode'], (states) => ({
+		bulletListActive: states.listState?.bulletListActive,
+		bulletListDisabled: states.listState?.bulletListDisabled,
+		taskListActive: states.taskDecisionState?.isInsideTask,
+		markdownView: isMarkdownToolbarEnabled ? states.markdownModeState?.view : undefined,
+		sourceBlockFormatState: isMarkdownToolbarEnabled
+			? states.markdownModeState?.sourceBlockFormatState
+			: null,
+		sourceListFormatState: isMarkdownToolbarEnabled
+			? states.markdownModeState?.sourceListFormatState
+			: null,
+	}));
+
+	const isInSourceView = isMarkdownToolbarEnabled && markdownView === 'syntax';
+	const isSourceTaskListActive = Boolean(sourceListFormatState?.inTaskList);
+	const isDisabled = isInSourceView
+		? Boolean(sourceBlockFormatState?.inCodeBlock || isSourceTaskListActive)
+		: bulletListDisabled && !taskListActive;
 
 	const onClick = (): void => {
+		if (isInSourceView) {
+			if (sourceBlockFormatState?.inCodeBlock) {
+				return;
+			}
+			if (isSourceTaskListActive) {
+				return;
+			}
+			api?.markdownMode?.actions.toggleSourceBulletList();
+			return;
+		}
 		api?.core.actions.execute(
 			taskListActive
 				? api?.taskDecision?.commands.toggleTaskList('bulletList')
 				: api?.list.commands.toggleBulletList(getInputMethodFromParentKeys(parents)),
 		);
 	};
-	const isDisabled = bulletListDisabled && !taskListActive;
 	const shortcut = formatShortcut(toggleBulletListKeymap);
 
 	return {
 		bulletMessage,
 		onClick,
 		isDisabled,
-		isSelected: bulletListActive,
+		isSelected: isInSourceView ? sourceListFormatState?.inBulletList : bulletListActive,
 		shortcut,
 	};
 };

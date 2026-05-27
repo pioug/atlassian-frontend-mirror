@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-media
 
+## 12.9.1
+
+### Patch Changes
+
+- [`cd85cdec5ae7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd85cdec5ae7e) -
+  EDITOR-7170 add transform for panel -> panel_c1
+- Updated dependencies
+
+## 12.9.0
+
+### Minor Changes
+
+- [`330e005b44aa7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/330e005b44aa7) -
+  [ux] Adding support for loading state on media nodes during CWR with image gen. We reuse the
+  ai-generating-decoration and make gated changes to rebuild logic for this use case. We add
+  onPreviewRender callback to media-card to signal when the image has rendered.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.8.3
 
 ### Patch Changes

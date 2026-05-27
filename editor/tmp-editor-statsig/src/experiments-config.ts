@@ -316,6 +316,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-22
+	confluence_editor_paste_3p_link_actions_menu: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-11-03
 	editor_tinymce_full_width_mode: {
 		defaultValue: boolean;
@@ -679,6 +686,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	}; //Added 2025-11-19
+	// Added 2026-05-26
+	platform_editor_agent_mentions: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	platform_editor_pasting_text_in_panel: {
 		defaultValue: boolean;
 		param: string;
@@ -1398,6 +1412,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-26
+	platform_editor_remix_in_block_menu: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	platform_editor_ai_aifc_space_shortcut_patch: {
 		defaultValue: boolean;
 		param: string;
@@ -1756,6 +1777,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-21
+	platform_editor_fix_a11y_tab_focus_insertion_menu: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-28
 	create_work_item_modernization_exp: {
 		defaultValue: boolean;
@@ -1931,8 +1959,29 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-20
+	platform_rovo_support_create_inline_comment: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-05-19
 	platform_editor_ai_improve_formatting_toolbar: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-05-21
+	fix_free_gen_prompt_bar_position: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-05-25
+	platform_editor_use_html_plus_streaming_parser: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2317,6 +2366,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-05-22
+	confluence_editor_paste_3p_link_actions_menu: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_editor_paste_3p_link_actions_menu',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2024-12-05
 	platform_editor_blockquote_in_text_formatting_menu: createBooleanExperiment({
 		productKeys: {
@@ -2364,6 +2421,15 @@ export const editorExperimentsConfig: {
 	platform_editor_offline_editing_web: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_offline_editing_web',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-26
+	platform_editor_agent_mentions: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_agent_mentions',
+			jira: 'platform_editor_agent_mentions',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3454,6 +3520,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-05-26
+	platform_editor_remix_in_block_menu: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_remix_in_block_menu',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added for space shortcut plugin: when on, space shortcut is not added if AI opt-in is not enabled
 	platform_editor_ai_aifc_space_shortcut_patch: createBooleanExperiment({
 		productKeys: {
@@ -4021,6 +4095,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-05-21
+	platform_editor_fix_a11y_tab_focus_insertion_menu: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_a11y_tab_focus_insertion_menu',
+			jira: 'platform_editor_fix_a11y_tab_focus_insertion_menu',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-04-27
 	platform_sl_fix_cache_unresolved: createBooleanExperiment({
 		productKeys: {
@@ -4137,6 +4220,13 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	platform_rovo_support_create_inline_comment: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_rovo_support_create_inline_comment',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-05-15
 	platform_editor_fix_sticky_header_malfunction: createBooleanExperiment({
 		productKeys: {
@@ -4149,6 +4239,27 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_improve_formatting_toolbar: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_improve_formatting_toolbar',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-21
+	fix_free_gen_prompt_bar_position: createBooleanExperiment({
+		productKeys: {
+			confluence: 'fix_free_gen_prompt_bar_position',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-25
+	// HTML+ v2 incremental tool-call streaming contract — gates the new
+	// PartialStreamParserV2 / ToolCallProcessorV2 / AdfChunkStrategyV2 stack
+	// in `@atlassian/editor-rovo-bridge`, the `replaceValue` orchestrator
+	// action, and the `toolCallsStreaming.supportsProvisionalToolCalls`
+	// capability advert on `PageContentCommandResult`.
+	platform_editor_use_html_plus_streaming_parser: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_use_html_plus_streaming_parser',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

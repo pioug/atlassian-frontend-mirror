@@ -9,6 +9,7 @@ import { token } from '@atlaskit/tokens';
 import { deleteEmojiLabel } from '../../util/constants';
 import { emojiDeleteButton } from './styles';
 import { Box } from '@atlaskit/primitives/compiled';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const styles = cssMap({
 	boxWrapperStyle: {
@@ -32,36 +33,53 @@ const deleteButton = css({
 	},
 });
 
+const refreshedDeleteButton = css({
+	top: token('space.negative.050'),
+	right: token('space.negative.050'),
+});
+
 /**
  * Test id for wrapper Emoji delete button
  */
 export const RENDER_EMOJI_DELETE_BUTTON_TESTID = 'render-emoji-delete-button';
 
-const DeleteButton = (props: ButtonProps): JSX.Element => (
-	<span
-		css={deleteButton}
+const DeleteButton = (props: ButtonProps): JSX.Element => {
+	const isEmojiPickerRefreshEnabled = fg('platform_emoji_picker_refresh');
+
+	return (
+		<span
+			css={[deleteButton, isEmojiPickerRefreshEnabled && refreshedDeleteButton]}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-		className={emojiDeleteButton}
-		data-testid={RENDER_EMOJI_DELETE_BUTTON_TESTID}
-	>
-		<Button
-			iconBefore={
-				<Box xcss={styles.boxWrapperStyle}>
-					<CrossCircleIcon
-						label={deleteEmojiLabel}
-						color={token('color.text.subtle')}
-						size="small"
-					/>
-				</Box>
-			}
-			onClick={props.onClick}
-			// TODO: (from codemod) "link" and "subtle-link" appearances are only available in LinkButton, please either provide a href prop then migrate to LinkButton, or remove the appearance from the default button.
-			appearance="subtle-link"
-			spacing="none"
-			testId="emoji-delete-button"
-			tabIndex={-1}
-		/>
-	</span>
-);
+			className={emojiDeleteButton}
+			data-testid={RENDER_EMOJI_DELETE_BUTTON_TESTID}
+		>
+			<Button
+				iconBefore={
+					<Box xcss={styles.boxWrapperStyle}>
+						{isEmojiPickerRefreshEnabled ? (
+							<CrossCircleIcon
+								label={deleteEmojiLabel}
+								color={token('color.icon')}
+								size="medium"
+							/>
+						) : (
+							<CrossCircleIcon
+								label={deleteEmojiLabel}
+								color={token('color.text.subtle')}
+								size="small"
+							/>
+						)}
+					</Box>
+				}
+				onClick={props.onClick}
+				// TODO: (from codemod) "link" and "subtle-link" appearances are only available in LinkButton, please either provide a href prop then migrate to LinkButton, or remove the appearance from the default button.
+				appearance="subtle-link"
+				spacing="none"
+				testId="emoji-delete-button"
+				tabIndex={-1}
+			/>
+		</span>
+	);
+};
 
 export default DeleteButton;

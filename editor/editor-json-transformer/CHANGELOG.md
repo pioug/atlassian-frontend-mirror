@@ -1,5 +1,16 @@
 # @atlaskit/editor-json-transformer
 
+## 8.33.0
+
+### Minor Changes
+
+- [`cd85cdec5ae7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd85cdec5ae7e) -
+  EDITOR-7170 add transform for panel -> panel_c1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.32.0
 
 ### Minor Changes

@@ -44,6 +44,7 @@ export type {
 	LifecycleObservation,
 	LifecycleObservationType,
 	Segment3pTimingEntry,
+	FlatSegment3pTimingEntry,
 	EnhancedUFOInteractionContextType,
 	BM3Event,
 	PostInteractionLogOutput,

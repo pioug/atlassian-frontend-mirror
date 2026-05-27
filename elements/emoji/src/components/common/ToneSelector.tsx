@@ -3,8 +3,9 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import {
+import React, {
 	memo,
+	useCallback,
 	useEffect,
 	useMemo,
 	useRef,
@@ -12,6 +13,7 @@ import {
 	type MemoExoticComponent,
 	type RefAttributes,
 } from 'react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type {
 	EmojiDescription,
 	EmojiDescriptionWithVariations,
@@ -63,6 +65,8 @@ export const ToneSelectorInternal = (props: PropsWithAnalyticsEventsPropsType): 
 		props;
 	const isMounted = useRef(false);
 	const selectedToneRadioRef = useRef<HTMLInputElement>(null);
+	// Refs for all radio inputs — used for FG-gated arrow-key focus management
+	const radioRefs = useRef<(HTMLInputElement | null)[]>([]);
 	const { formatMessage } = useIntl();
 
 	const emojiToneCollection = useMemo(() => {
@@ -99,6 +103,12 @@ export const ToneSelectorInternal = (props: PropsWithAnalyticsEventsPropsType): 
 		}
 	};
 
+	const onArrowKey = useCallback((currentIndex: number, direction: -1 | 1) => {
+		const len = radioRefs.current.length;
+		const nextIndex = (currentIndex + direction + len) % len;
+		radioRefs.current[nextIndex]?.focus();
+	}, []);
+
 	const onToneSelectedHandler = (toneValue: ToneValueType) => () => {
 		if (selectedTone === toneValue && onToneClose) {
 			onToneClose();
@@ -130,8 +140,25 @@ export const ToneSelectorInternal = (props: PropsWithAnalyticsEventsPropsType): 
 			aria-label={formatMessage(messages.emojiSelectSkinToneListAriaLabelText)}
 			css={!isVisible && hidden}
 		>
-			{emojiToneCollection.map((tone) => {
-				return (
+			{emojiToneCollection.map((tone, renderIndex) => {
+				return fg('platform_emoji_picker_refresh') ? (
+					<EmojiRadioButton
+						ref={(el) => {
+							radioRefs.current[renderIndex] = el;
+							if (tone.isSelected && selectedToneRadioRef) {
+								(selectedToneRadioRef as React.MutableRefObject<HTMLInputElement | null>).current =
+									el;
+							}
+						}}
+						defaultChecked={tone.isSelected}
+						ariaLabelText={tone.label}
+						key={`${tone.id}`}
+						emoji={tone}
+						onArrowKey={(direction) => onArrowKey(renderIndex, direction)}
+						onSelected={onToneSelectedHandler(tone.toneIndex)}
+						selectOnHover
+					/>
+				) : (
 					<EmojiRadioButton
 						ref={tone.isSelected ? selectedToneRadioRef : null}
 						defaultChecked={tone.isSelected}

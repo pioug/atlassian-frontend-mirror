@@ -10,6 +10,100 @@ import { optimizeChanges } from './optimizeChanges';
 const mapPosition = (mapping: Mapping, pos: number): number => mapping.map(pos);
 
 /**
+ * Given a ProseMirror doc and a position range [from, to], expand
+ * both endpoints outward to the nearest word boundaries.
+ *
+ * A "word character" is any non-whitespace, non-punctuation character, plus hyphen.
+ * This covers accented/Unicode letters (e.g. é, ñ, ü) while still stopping at
+ * commas, periods, and other punctuation. Hyphens are explicitly included so that
+ * hyphenated words (e.g. "deep-sea") are treated as a single word.
+ * Expansion stops at whitespace, punctuation (excluding hyphen), or the textblock edges.
+ *
+ * If `from` and `to` resolve into different parent nodes, or if the
+ * parent is not a textblock, the range is returned unchanged.
+ */
+const expandToWordBoundaries = (
+	doc: PMNode,
+	from: number,
+	to: number,
+): { from: number; to: number } => {
+	const $from = doc.resolve(from);
+
+	// Only expand inside a textblock.
+	if (!$from.parent.isTextblock) {
+		return { from, to };
+	}
+
+	// When `from !== to`, verify both ends are in the same textblock.
+	if (from !== to) {
+		const $to = doc.resolve(to);
+		if ($from.parent !== $to.parent) {
+			return { from, to };
+		}
+	}
+
+	const parent = $from.parent;
+	const text = parent.textContent;
+	const parentStart = $from.start(); // absolute position of the first character in the textblock
+
+	// Convert absolute doc positions to zero-based string indices.
+	let fromIdx = from - parentStart;
+	let toIdx = to - parentStart;
+
+	// any non whitespace and non punctuation chars
+	// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+	const isWordChar = (ch: string) => /[\p{L}\p{N}_-]/u.test(ch);
+
+	// Detect whether the position sits mid-word: there is a word character
+	// on both sides of the position (or, for a non-empty range, on the
+	// outer side of each endpoint).
+	const isMidWord = (idx: number) =>
+		idx > 0 && idx < text.length && isWordChar(text[idx - 1]) && isWordChar(text[idx]);
+
+	// For a zero-width range (pure insertion / deletion point), only expand
+	// if the point is mid-word — i.e. both the char before and after are
+	// word characters. Otherwise the point is already at a word boundary.
+	if (from === to) {
+		if (!isMidWord(fromIdx)) {
+			return { from, to };
+		}
+		// Expand both directions from the mid-word point.
+		while (fromIdx > 0 && isWordChar(text[fromIdx - 1])) {
+			fromIdx--;
+		}
+		while (toIdx < text.length && isWordChar(text[toIdx])) {
+			toIdx++;
+		}
+		return { from: parentStart + fromIdx, to: parentStart + toIdx };
+	}
+
+	// Non-empty range: expand each endpoint outward if it is mid-word.
+
+	// Expand left only if `from` is truly mid-word: the character at `from`
+	// (inside the range) and the character before `from` are both word chars.
+	if (
+		fromIdx > 0 &&
+		fromIdx < text.length &&
+		isWordChar(text[fromIdx]) &&
+		isWordChar(text[fromIdx - 1])
+	) {
+		while (fromIdx > 0 && isWordChar(text[fromIdx - 1])) {
+			fromIdx--;
+		}
+	}
+
+	// Expand right only if `to` is truly mid-word: the character just before
+	// `to` (last char of the range) and the character at `to` are both word chars.
+	if (toIdx > 0 && toIdx < text.length && isWordChar(text[toIdx - 1]) && isWordChar(text[toIdx])) {
+		while (toIdx < text.length && isWordChar(text[toIdx])) {
+			toIdx++;
+		}
+	}
+
+	return { from: parentStart + fromIdx, to: parentStart + toIdx };
+};
+
+/**
  * Compare marks between two nodes
  * We have to check each child because adding a mark splits text into multiple nodes
  */
@@ -204,10 +298,64 @@ export const diffBySteps = (originalDoc: PMNode, steps: Step[]): Change[] => {
 				simplifyChanges(granularStepChanges.changes, rangedStep.doc),
 			);
 			for (const granularChange of optimizedGranularStepChanges) {
-				const granularFromA = mapPosition(beforeStepToOriginal, granularChange.fromA);
-				const granularToA = mapPosition(beforeStepToOriginal, granularChange.toA);
-				const granularFromB = mapPosition(afterStepToFinal, granularChange.fromB);
-				const granularToB = mapPosition(afterStepToFinal, granularChange.toB);
+				// Expand each granular change to the nearest word boundaries in
+				// both the pre-step doc (A-side) and the post-step doc (B-side).
+				// This ensures that a mid-word edit like "sanitised" → "sanitized"
+				// shows as deleting the whole original word and inserting the whole
+				// new word, rather than a single-character swap.
+				const expandedA = expandToWordBoundaries(
+					rangedStep.before,
+					granularChange.fromA,
+					granularChange.toA,
+				);
+				const expandedB = expandToWordBoundaries(
+					rangedStep.doc,
+					granularChange.fromB,
+					granularChange.toB,
+				);
+
+				// When one side expanded further than the other (e.g. a space
+				// was inserted mid-word: "altogether" → "all together"), the
+				// less-expanded side must grow to match — otherwise the renderer
+				// shows a partial word as plain text next to a deletion/insertion.
+				// We compare left and right deltas independently so partial
+				// expansion on one side doesn't prevent the other side from
+				// being pulled out further.
+				const aLeftDelta = granularChange.fromA - expandedA.from;
+				const aRightDelta = expandedA.to - granularChange.toA;
+				const bLeftDelta = granularChange.fromB - expandedB.from;
+				const bRightDelta = expandedB.to - granularChange.toB;
+
+				let finalA = expandedA;
+				let finalB = expandedB;
+
+				// If A expanded further on either side, nudge B outward
+				// by the excess and re-expand to snap to word boundaries.
+				if (aLeftDelta > bLeftDelta || aRightDelta > bRightDelta) {
+					const extraLeft = Math.max(0, aLeftDelta - bLeftDelta);
+					const extraRight = Math.max(0, aRightDelta - bRightDelta);
+					finalB = expandToWordBoundaries(
+						rangedStep.doc,
+						Math.max(expandedB.from - extraLeft, 0),
+						expandedB.to + extraRight,
+					);
+				}
+
+				// If B expanded further on either side, nudge A outward.
+				if (bLeftDelta > aLeftDelta || bRightDelta > aRightDelta) {
+					const extraLeft = Math.max(0, bLeftDelta - aLeftDelta);
+					const extraRight = Math.max(0, bRightDelta - aRightDelta);
+					finalA = expandToWordBoundaries(
+						rangedStep.before,
+						Math.max(expandedA.from - extraLeft, 0),
+						expandedA.to + extraRight,
+					);
+				}
+
+				const granularFromA = mapPosition(beforeStepToOriginal, finalA.from);
+				const granularToA = mapPosition(beforeStepToOriginal, finalA.to);
+				const granularFromB = mapPosition(afterStepToFinal, finalB.from);
+				const granularToB = mapPosition(afterStepToFinal, finalB.to);
 
 				changes.push({
 					fromA: granularFromA,

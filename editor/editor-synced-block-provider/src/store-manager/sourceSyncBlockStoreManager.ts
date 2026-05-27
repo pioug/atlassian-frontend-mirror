@@ -3,7 +3,6 @@ import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SyncBlockError } from '../common/types';
 import type {
@@ -242,7 +241,7 @@ export class SourceSyncBlockStoreManager {
 			// `commitPendingCreation()` can trigger a follow-up flush once that
 			// specific creation completes.
 			// See EDITOR-7112.
-			if (this.pendingCreationPromises.size > 0 && fg('platform_synced_block_patch_12')) {
+			if (this.pendingCreationPromises.size > 0) {
 				let timedOut = false;
 				let timeoutId: ReturnType<typeof setTimeout> | undefined;
 				const timeout = new Promise<void>((resolve) => {

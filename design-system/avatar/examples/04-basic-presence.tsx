@@ -31,8 +31,6 @@ export default (): React.JSX.Element => (
 			<Avatar name="xsmall" size="xsmall" />
 		</Block>
 		<Block heading="Square">
-			<Avatar appearance="square" name="xxlarge" size="xxlarge" />
-			<Avatar appearance="square" name="xlarge" size="xlarge" presence="online" />
 			<Avatar appearance="square" name="large" size="large" presence="busy" />
 			<Avatar appearance="square" name="medium" size="medium" presence="focus" />
 			<Avatar appearance="square" name="small" size="small" presence="offline" />

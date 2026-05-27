@@ -4,6 +4,7 @@
  */
 import { type EmojiProvider, ResourcedEmoji, type EmojiId } from '@atlaskit/emoji';
 import { css, jsx } from '@compiled/react';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { layers } from '@atlaskit/theme/constants';
 
@@ -96,7 +97,10 @@ export const ReactionParticleEffect = ({
 	emojiId,
 	optimisticImageURL,
 }: ReactionParticleEffectProps): JSX.Element => (
-	<div css={containerStyle}>
+	<div
+		css={containerStyle}
+		aria-hidden={fg('platform_a11y_fixes_reaction_emoji') ? true : undefined}
+	>
 		{[...Array(PARTICLE_COUNT)].map((_, index) => {
 			return (
 				<div key={index} css={reactionParticleStyle}>

@@ -1,4 +1,4 @@
-import { waitUntil } from '@atlaskit/elements-test-helpers';
+import { waitFor } from '@testing-library/react';
 import * as sinon from 'sinon';
 import MediaEmojiCache, {
 	BrowserCacheStrategy,
@@ -242,7 +242,7 @@ describe('BrowserCacheStrategy', () => {
 					expect(mockImage.src).toEqual('cheese');
 				},
 			);
-			return waitUntil(() => !!mockImage.listeners.get('load')).then(() => {
+			return waitFor(() => expect(mockImage.listeners.get('load')).toBeDefined()).then(() => {
 				mockImage.listeners.get('load')!();
 				return promise;
 			});
@@ -255,7 +255,7 @@ describe('BrowserCacheStrategy', () => {
 					expect(mockImage.src).toEqual('cheese');
 				},
 			);
-			return waitUntil(() => !!mockImage.listeners.get('error')).then(() => {
+			return waitFor(() => expect(mockImage.listeners.get('error')).toBeDefined()).then(() => {
 				mockImage.listeners.get('error')!();
 				return promise;
 			});

@@ -57,10 +57,18 @@ export type TypeAheadPluginState = {
 	 * If true, removes the trigger character from query when typeahead is closed
 	 */
 	removePrefixTriggerOnCancel?: boolean;
+	sections: Array<TypeAheadResolvedSection>;
 	selectedIndex: number;
 	stats: TypeAheadStatsSerializable | null;
 	triggerHandler?: TypeAheadHandler;
 	typeAheadHandlers: Array<TypeAheadHandler>;
+};
+
+export type TypeAheadResolvedSection = {
+	endIndex: number;
+	id: string;
+	startIndex: number;
+	title: string;
 };
 
 export type OnInsertSelectedItemProps = {
@@ -130,6 +138,7 @@ export interface TypeAheadPluginSharedState {
 	isOpen: boolean;
 	items: Array<TypeAheadItem>;
 	query: string;
+	sections: Array<TypeAheadResolvedSection>;
 	selectedIndex: number;
 	triggerHandler?: TypeAheadHandler;
 }

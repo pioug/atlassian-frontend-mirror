@@ -145,6 +145,13 @@ export type Segment3pTimingEntry = {
 	data: Record<string, unknown>;
 };
 
+/** Flattened row emitted in the analytics payload — segmentId promoted from object key to field. */
+export type FlatSegment3pTimingEntry = {
+	segmentId: string;
+	label: string;
+	data: Record<string, unknown>;
+};
+
 export type MetricVariantCategory = 'third-party' | 'gen-ai';
 export type MetricVariantName = string;
 

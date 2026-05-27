@@ -1,5 +1,51 @@
 # @atlaskit/editor-common
 
+## 114.50.0
+
+### Minor Changes
+
+- [`beab4fffee103`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/beab4fffee103) -
+  EDITOR-7318: Add type-ahead sections support with getSections handler API.
+
+  Adds `TypeAheadSection` and `TypeAheadSectionUpdate` types and an optional `getSections()` method
+  to `TypeAheadHandler` in `editor-common`. Implements section grouping in
+  `editor-plugin-type-ahead` via `buildSectionedResult`. Adds People/Agents section split to
+  `editor-plugin-mentions`.
+
+  Removes the `updateSection` action and associated `sectionOverrides`/`sectionsRefreshKey`
+  pm-plugin state — section definitions are now derived directly from `getSections()` at load time
+  rather than being mutated at runtime.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.49.0
+
+### Minor Changes
+
+- [`a664c439e70be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a664c439e70be) -
+  [ux] Added experiment to add remix button in place of improve formatting button
+- [`cd85cdec5ae7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd85cdec5ae7e) -
+  EDITOR-7170 add transform for panel -> panel_c1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.48.1
+
+### Patch Changes
+
+- [`78c42f10ef772`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78c42f10ef772) -
+  Add support in block menu for new panel_c1 variant which allows tables inside
+- [`31f3e12a73d86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31f3e12a73d86) -
+  [ux] Fix a11y issue by preventing tab focus in editor insert dropdown list so only arrow key
+  selection is available within the inside list. Tab selection is reserved for moving between the
+  inside list and exterior components such as search and view more. Gated behind
+  platform_editor_fix_a11y_tab_focus_insertion_menu.
+- Updated dependencies
+
 ## 114.48.0
 
 ### Minor Changes

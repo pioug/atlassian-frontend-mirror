@@ -7,7 +7,11 @@ import type {
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 
 import { ACTIONS } from '../pm-plugins/actions';
-import { setAIGeneratingMeta, clearAIGeneratingMeta } from '../pm-plugins/ai-generating-decoration';
+import {
+	setAIGeneratingMeta,
+	clearAIGeneratingMeta,
+	type AIGeneratingSource,
+} from '../pm-plugins/ai-generating-decoration';
 import { stateKey } from '../pm-plugins/plugin-key';
 import { getIdentifier } from '../pm-plugins/utils/media-common';
 
@@ -52,9 +56,9 @@ export const trackMediaPaste =
  * or undo/redo history.
  */
 export const setAIGenerating =
-	(mediaId: string): EditorCommand =>
+	(mediaId: string, source?: AIGeneratingSource): EditorCommand =>
 	({ tr }) =>
-		setAIGeneratingMeta(tr, mediaId);
+		setAIGeneratingMeta(tr, mediaId, source);
 
 /**
  * Clears the AI-generating decoration for a specific media node identified by

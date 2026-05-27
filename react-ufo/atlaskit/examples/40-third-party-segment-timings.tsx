@@ -76,13 +76,18 @@ export default function Example(): JSX.Element {
 						},
 					},
 				});
-				// paint-timing is recorded as a segment3pTimings row
+				// paint-timing is recorded as a segment3pTimings row.
+				// Uses the real Forge iframe event structure: { name, elapsed, payload: { name, startTime, duration, entryType } }
 				emit({
 					type: 'ufo-event',
 					name: 'ufo-forge-paint-timing',
 					elapsed: performance.now(),
-					start: 120,
-					paintType: 'first-contentful-paint',
+					payload: {
+						name: 'first-contentful-paint',
+						startTime: 120,
+						duration: 0,
+						entryType: 'paint',
+					},
 				});
 
 				setIsContentLoading(false);

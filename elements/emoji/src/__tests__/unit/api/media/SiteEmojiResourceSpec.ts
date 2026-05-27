@@ -11,7 +11,7 @@ import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 
 import fetchMock from 'fetch-mock/cjs/client';
 import * as sinon from 'sinon';
-import { waitUntil } from '@atlaskit/elements-test-helpers';
+import { waitFor } from '@testing-library/react';
 
 import SiteEmojiResource, {
 	type EmojiProgress,
@@ -294,7 +294,7 @@ describe('SiteEmojiResource', () => {
 			siteEmojiResource.uploadEmoji(upload, false, progressCallback);
 
 			const portion = 0.5;
-			const donePromise = waitUntil(() => progress).then(() => {
+			const donePromise = waitFor(() => expect(progress).toBeDefined()).then(() => {
 				expect(progress.percent < portion).toBeTruthy();
 				expect(progress.percent).toEqual(portion * mediaProportionOfProgress);
 			});

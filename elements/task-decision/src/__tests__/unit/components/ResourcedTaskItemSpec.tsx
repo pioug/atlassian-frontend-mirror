@@ -1,9 +1,8 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import FabricAnalyticsListener, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { renderWithIntl } from '@atlaskit/elements-test-helpers/rtl';
+import { renderWithIntl } from '../_testing-library';
 import ResourcedTaskItem from '../../../components/ResourcedTaskItem';
 import { type TaskDecisionProvider } from '../../../types';
 import { asMock } from '../_mock';
@@ -78,7 +77,7 @@ describe('<ResourcedTaskItem/>', () => {
 		);
 		const checkbox = screen.getByRole('checkbox');
 		await userEvent.click(checkbox);
-		await waitUntil(() => asMock(provider.toggleTask).mock.calls.length);
+		await waitFor(() => expect(asMock(provider.toggleTask).mock.calls.length).toBeGreaterThan(0));
 		expect(spy).toHaveBeenCalled();
 	});
 
@@ -165,7 +164,9 @@ describe('<ResourcedTaskItem/>', () => {
 				Hello World
 			</ResourcedTaskItem>,
 		);
-		await waitUntil(() => (provider.subscribe as jest.Mock).mock.calls.length).then(() => {
+		await waitFor(() =>
+			expect((provider.subscribe as jest.Mock).mock.calls.length).toBeGreaterThan(0),
+		).then(() => {
 			expect(provider.subscribe).toBeCalled();
 		});
 	});
@@ -182,7 +183,7 @@ describe('<ResourcedTaskItem/>', () => {
 			</ResourcedTaskItem>,
 		);
 
-		await waitUntil(() => asMock(provider.subscribe).mock.calls.length);
+		await waitFor(() => expect(asMock(provider.subscribe).mock.calls.length).toBeGreaterThan(0));
 		expect(provider.subscribe).toBeCalled();
 		const checkbox = screen.getByRole('checkbox') as HTMLInputElement;
 		expect(checkbox.checked).toBe(false);
@@ -217,7 +218,9 @@ describe('<ResourcedTaskItem/>', () => {
 		const checkbox = screen.getByRole('checkbox');
 		await userEvent.click(checkbox);
 
-		return waitUntil(() => asMock(provider.toggleTask).mock.calls.length).then(() => {
+		return waitFor(() =>
+			expect(asMock(provider.toggleTask).mock.calls.length).toBeGreaterThan(0),
+		).then(() => {
 			expect(provider.toggleTask).toBeCalled();
 		});
 	});

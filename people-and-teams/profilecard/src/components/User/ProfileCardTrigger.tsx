@@ -81,7 +81,7 @@ function ProfileCardContent({
 				onChatClick={agentActions?.onChatClick}
 				onConversationStartersClick={agentActions?.onConversationStartersClick}
 				addFlag={addFlag}
-				hideMoreActions={fg('jira_ai_profilecard_hide_agent_actions') && !!hideAgentMoreActions}
+				hideMoreActions={!!hideAgentMoreActions}
 				hideConversationStarters={
 					fg('jira_ai_hide_conversation_starters_profilecard') &&
 					!!profilecardProps.hideAgentConversationStarters

@@ -1,5 +1,14 @@
 # @atlaskit/tooltip
 
+## 22.4.0
+
+### Minor Changes
+
+- [`260b756c2509d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/260b756c2509d) -
+  Restore the 8px gap between a tooltip and its trigger on the `platform-dst-top-layer` rendering
+  path. The initial top-layer migration used a 4px gap, which visibly tightened the spacing compared
+  to the legacy popper rendering.
+
 ## 22.3.4
 
 ### Patch Changes

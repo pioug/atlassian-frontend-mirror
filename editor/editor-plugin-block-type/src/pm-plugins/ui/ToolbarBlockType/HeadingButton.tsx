@@ -9,6 +9,7 @@ import { useIntl } from 'react-intl';
 
 import { jsx } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import {
 	formatShortcut,
 	setNormalText,
@@ -27,7 +28,9 @@ import { editorUGCToken } from '@atlaskit/editor-common/ugc-tokens';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ToolbarDropdownItem, ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
 import type { TextBlockTypes } from '../../block-types';
@@ -128,6 +131,19 @@ export const HeadingButton = ({ blockType, api }: HeadingButtonProps): React.JSX
 		api,
 		'blockType.availableBlockTypesInDropdown',
 	);
+	const isMarkdownBridgeEnabled =
+		expValEqualsNoExposure('cc-markdown-mode', 'isEnabled', true) &&
+		fg('platform_editor_markdown_compatible_toolbar');
+	const { markdownView, sourceFormatState } = useSharedPluginStateWithSelector(
+		api,
+		['markdownMode'],
+		(states) => ({
+			markdownView: isMarkdownBridgeEnabled ? states.markdownModeState?.view : undefined,
+			sourceFormatState: isMarkdownBridgeEnabled
+				? states.markdownModeState?.sourceBlockFormatState
+				: null,
+		}),
+	);
 	const { editorView } = useEditorToolbar();
 
 	if (
@@ -138,16 +154,51 @@ export const HeadingButton = ({ blockType, api }: HeadingButtonProps): React.JSX
 		return null;
 	}
 
-	const isDisabled = expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-		? shouldDisableHeadingButton(editorView?.state, blockType)
-		: false;
+	// When in source view and the bridge is enabled, read heading level from
+	// the CM6 Lezer-tree-derived format state rather than the PM block type state.
+	// markdownView is authoritative for "in source view" — it flips synchronously
+	// on setView. sourceFormatState is null between the view switch and the
+	// first CM6 update listener fire, so we can't rely on it as the sentinel.
+	const isMarkdownBridgeActive = markdownView === 'syntax';
+
+	// Extract the numeric level from the block type name (e.g. 'heading1' → 1).
+	const headingLevel = blockType.name.startsWith('heading')
+		? parseInt(blockType.name.replace('heading', ''), 10)
+		: null;
+
+	const isDisabled = isMarkdownBridgeActive
+		? Boolean(sourceFormatState?.inCodeBlock)
+		: expValEquals('platform_editor_small_font_size', 'isEnabled', true)
+			? shouldDisableHeadingButton(editorView?.state, blockType)
+			: false;
 
 	const fromBlockQuote = currentBlockType?.name === 'blockquote';
 	const onClick = () => {
 		if (isDisabled) {
 			return;
 		}
-		api?.core?.actions.execute(
+
+			// Route to CM6 when in source view.
+			//
+			// - heading1..6: apply/replace via toggleSourceHeading(targetLevel).
+			// - normal (paragraph): if the cursor is currently on a heading line,
+			//   call toggleSourceHeading with the *current* level — toggleHeading
+			//   removes the prefix when invoked with the matching level, so this
+			//   downgrades the heading back to a plain paragraph. No-op when not
+			//   on a heading (already normal) or when smallText is selected (no
+			//   markdown equivalent).
+			if (isMarkdownBridgeActive) {
+				const targetLevel =
+					blockType.name === 'normal' ? sourceFormatState?.headingLevel ?? null : headingLevel;
+				if (targetLevel !== null && targetLevel >= 1 && targetLevel <= 6) {
+					api?.markdownMode?.actions.toggleSourceHeading(
+						targetLevel as 1 | 2 | 3 | 4 | 5 | 6,
+					);
+				}
+				return;
+			}
+
+			api?.core?.actions.execute(
 			api?.blockType?.commands?.setTextLevel(
 				blockType.name as TextBlockTypes,
 				INPUT_METHOD.TOOLBAR,
@@ -156,7 +207,28 @@ export const HeadingButton = ({ blockType, api }: HeadingButtonProps): React.JSX
 		);
 	};
 	const shortcut = formatShortcut(shortcuts[blockType.name as TextBlockTypes]);
-	const isSelected = currentBlockType?.name === blockType.name;
+
+	// In source view, derive isSelected from the Lezer heading level.
+	// In WYSIWYG, use the existing PM block type comparison.
+	//
+	// Branches in source view:
+	// - heading1..6: select when the source heading level matches.
+	// - normal (paragraph): select when the source has no heading and is not
+	//   inside a blockquote — i.e. cursor is on a plain markdown paragraph.
+	// - smallText: no markdown equivalent, so never selected in source view.
+	//
+	// Guard on `sourceFormatState != null` up-front so the body can read the
+	// fields directly — clearer than nested optional chains and not fragile to
+	// future reordering of the conditions.
+	const isSelected = isMarkdownBridgeActive
+		? sourceFormatState != null
+			? headingLevel !== null
+				? sourceFormatState.headingLevel === headingLevel
+				: blockType.name === 'normal'
+					? sourceFormatState.headingLevel === null && !sourceFormatState.inBlockquote
+					: false
+			: false
+		: currentBlockType?.name === blockType.name;
 
 	return (
 		<ToolbarDropdownItem

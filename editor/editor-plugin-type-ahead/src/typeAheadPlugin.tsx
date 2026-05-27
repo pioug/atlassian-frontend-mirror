@@ -253,6 +253,7 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ api }) => {
 					decorationElement: null,
 					triggerHandler: undefined,
 					items: [],
+					sections: [],
 					errorInfo: null,
 					selectedIndex: 0,
 				};
@@ -270,6 +271,7 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ api }) => {
 				decorationElement: state?.decorationElement ?? null,
 				triggerHandler: state?.triggerHandler,
 				items: state?.items ?? [],
+				sections: state?.sections ?? [],
 				errorInfo: state?.errorInfo ?? null,
 				selectedIndex: state?.selectedIndex ?? 0,
 			};

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 8.4.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.4.9
+
+### Patch Changes
+
+- [`d1de671baa2aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1de671baa2aa) -
+  Restore the synced locations dropdown trigger test id when `platform_synced_block_patch_13` is
+  enabled.
+- Updated dependencies
+
 ## 8.4.8
 
 ### Patch Changes

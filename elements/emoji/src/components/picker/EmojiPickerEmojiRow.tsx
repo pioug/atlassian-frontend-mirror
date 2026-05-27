@@ -73,6 +73,13 @@ const emojiPickerRow = css({
 	marginLeft: token('space.100'),
 });
 
+const emojiPickerRowList = css({
+	listStyle: 'none',
+	padding: 0,
+	margin: 0,
+	marginLeft: token('space.100'),
+});
+
 export interface Props {
 	category: CategoryGroupKey;
 	emojis: EmojiDescription[];
@@ -108,6 +115,37 @@ const EmojiPickerEmojiRow = ({
 			});
 			onFocus && onFocus(emojiId, emoji, event);
 		};
+	if (fg('platform_a11y_fixes_reaction_emoji')) {
+		return (
+			<ul css={emojiPickerRowList} role="list">
+				{emojis.map((emoji, index) => {
+					const { shortName, id } = emoji;
+					const key = id ? `${id}-${title}` : `${shortName}-${title}`;
+					const focus =
+						currentEmojisFocus.rowIndex === rowIndex && currentEmojisFocus.columnIndex === index;
+					return (
+						<li key={key} css={emojiItem}>
+							<CachingEmoji
+								emoji={emoji}
+								selectOnHover={true}
+								onSelected={onSelected}
+								onMouseMove={onMouseMove}
+								onFocus={handleFocus(index)}
+								showDelete={showDelete}
+								onDelete={onDelete}
+								placeholderSize={24}
+								data-focus-index={`${rowIndex}-${index}`}
+								tabIndex={focus ? 0 : -1}
+								aria-roledescription={formatMessage(messages.emojiButtonRoleDescription)}
+								shouldBeInteractive
+							/>
+						</li>
+					);
+				})}
+			</ul>
+		);
+	}
+
 	return (
 		<div css={emojiPickerRow} role="presentation">
 			{emojis.map((emoji, index) => {
@@ -123,7 +161,6 @@ const EmojiPickerEmojiRow = ({
 						{...(fg('platform_a11y_fixes_reaction_emoji') ? {} : { 'aria-colindex': index + 1 })}
 						onMouseLeave={onMouseLeave}
 						onBlur={onMouseLeave}
-						tabIndex={0}
 					>
 						<CachingEmoji
 							emoji={emoji}

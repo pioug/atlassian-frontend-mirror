@@ -75,9 +75,6 @@
 			"path": "../../editor/editor-test-helpers/tsconfig.app.json"
 		},
 		{
-			"path": "../elements-test-helpers/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/focus-ring/tsconfig.app.json"
 		},
 		{

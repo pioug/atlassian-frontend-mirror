@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 10.2.0
+
+### Minor Changes
+
+- [`f9107727f48c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9107727f48c2) -
+  Support markdown source view inline formatting toolbar actions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.6
 
 ### Patch Changes

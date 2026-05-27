@@ -26,8 +26,6 @@ const _default: () => JSX.Element = () => (
 			<Skeleton size="xsmall" />
 		</Block>
 		<Block heading="Square" testId="example-block">
-			<Skeleton appearance="square" size="xxlarge" />
-			<Skeleton appearance="square" size="xlarge" />
 			<Skeleton appearance="square" size="large" />
 			<Skeleton appearance="square" size="medium" />
 			<Skeleton appearance="square" size="small" />

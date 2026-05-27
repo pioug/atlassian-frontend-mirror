@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/linking-common",
-	"version": "9.12.0",
+	"version": "9.12.1",
 	"description": "Contains utils and interfaces shared across different LP components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -95,9 +95,6 @@
 	},
 	"platform-feature-flags": {
 		"linking_platform_site_picker_api_unit_compliant": {
-			"type": "boolean"
-		},
-		"platform_editor_linkify-text-improvement": {
 			"type": "boolean"
 		}
 	},

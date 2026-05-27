@@ -12,6 +12,7 @@ export type TransfromNodeTargetType =
 	| 'expand'
 	| 'layoutSection'
 	| 'panel'
+	| 'panel_c1'
 	| 'codeBlock'
 	| 'bulletList'
 	| 'orderedList'

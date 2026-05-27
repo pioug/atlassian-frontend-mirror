@@ -12,7 +12,7 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 			danger: { value: '#E3493514' },
 		},
 		background: {
-			disabled: { value: 'DarkNeutral100A' },
+			disabled: { value: 'DarkNeutral300A' },
 			inverse: {
 				subtle: {
 					// @ts-ignore temporary value (#FFFFFF 16% opacity)

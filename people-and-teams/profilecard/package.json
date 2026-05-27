@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "25.7.5",
+	"version": "25.7.6",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -189,9 +189,6 @@
 			"type": "boolean"
 		},
 		"cover-header-image-team-profilecard": {
-			"type": "boolean"
-		},
-		"jira_ai_profilecard_hide_agent_actions": {
 			"type": "boolean"
 		},
 		"jira_ai_profilecard_hide_reportinglines": {

@@ -1874,7 +1874,7 @@
       }
     },
     "Dark increased-contrast/color.background.disabled": {
-      "value": "#BDBDBD0A",
+      "value": "#E3E4F21F",
       "attributes": {
         "group": "paint",
         "state": "active",

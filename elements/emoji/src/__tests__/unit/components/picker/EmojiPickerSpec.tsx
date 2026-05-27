@@ -1,5 +1,4 @@
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { matchers } from '@emotion/jest';
 import { act, fireEvent, type RenderResult, screen, waitFor, within } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
@@ -488,7 +487,7 @@ describe('<EmojiPicker />', () => {
 			const hoverButton = emojis[clickOffset];
 			await userEvent.click(hoverButton);
 
-			await waitUntil(() => !!selection);
+			await waitFor(() => expect(selection).toBeDefined());
 			expect(selection).toBeDefined();
 			expect(selection!.id).toEqual(helper.allEmojis[clickOffset].id);
 
@@ -544,8 +543,8 @@ describe('<EmojiPicker />', () => {
 			const hoverButton = emojis[clickOffset];
 			await userEvent.click(hoverButton);
 
-			await waitUntil(() => failureOccurred);
-			await waitUntil(() => !!selection);
+			await waitFor(() => expect(failureOccurred).toBe(true));
+			await waitFor(() => expect(selection).toBeDefined());
 
 			expect(selection).toBeDefined();
 			expect(selection!.id).toEqual(helper.allEmojis[clickOffset].id);
@@ -576,7 +575,7 @@ describe('<EmojiPicker />', () => {
 			const hoverButton = emojis[clickOffset];
 			await userEvent.click(hoverButton);
 
-			await waitUntil(() => !!selection);
+			await waitFor(() => expect(selection).toBeDefined());
 			const provider = await emojiResourcePromise;
 			expect(provider.recordedSelections).toHaveLength(1);
 			expect(provider.recordedSelections[0].shortName).toEqual(

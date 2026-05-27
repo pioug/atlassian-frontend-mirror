@@ -3,6 +3,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
+import { mentionMessages } from '@atlaskit/editor-common/messages';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type {
 	ExtractInjectionAPI,
@@ -20,6 +21,7 @@ import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 import type { TeamMember } from '@atlaskit/mention/team-resource';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+
 
 import { createSingleMentionFragment } from '../../editor-commands';
 import type { MentionsPlugin } from '../../mentionsPluginType';
@@ -40,6 +42,9 @@ import {
 	buildTypeAheadRenderedPayload,
 } from './analytics';
 import { isInviteItem, isTeamStats, isTeamType, shouldKeepInviteItem } from './utils';
+
+const isAgentType = (userType: string | undefined): boolean =>
+	userType === 'APP' || userType === 'AGENT';
 
 const createInviteItem = ({
 	mentionProvider,
@@ -393,6 +398,23 @@ export const createTypeAheadConfig = ({
 					sessionId,
 				});
 			});
+		},
+		getSections({ intl }) {
+			return [
+				{
+					id: 'people',
+					title: intl.formatMessage(mentionMessages.typeAheadSectionPeople),
+					filter: (item) =>
+						!isAgentType((item.mention?.userType as string) || ''),
+					limit: 6,
+				},
+				{
+					id: 'agents',
+					title: intl.formatMessage(mentionMessages.typeAheadSectionAgents),
+					filter: (item) =>
+						isAgentType((item.mention?.userType as string) || ''),
+				},
+			];
 		},
 		onOpen: () => {
 			firstQueryWithoutResults = null;

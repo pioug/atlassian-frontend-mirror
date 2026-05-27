@@ -1,7 +1,7 @@
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
-import type { TextFormattingPlugin } from '../textFormattingPluginType';
+import type { TextFormattingPlugin, TextFormattingPluginOptions } from '../textFormattingPluginType';
 
 import { boldButtonGroup } from './Toolbar/components/BoldButtonGroup';
 import { textFormattingGroupForInlineToolbar } from './Toolbar/components/TextFormattingGroupForInlineToolbar';
@@ -11,12 +11,13 @@ import { underlineButtonGroup } from './Toolbar/components/UnderlineButtonGroup'
 
 export const getToolbarComponents = (
 	api?: ExtractInjectionAPI<TextFormattingPlugin>,
+	options?: TextFormattingPluginOptions,
 ): RegisterComponent[] => {
 	return [
 		...textFormattingGroupForPrimaryToolbar(api),
 		...textFormattingGroupForInlineToolbar(api),
 		...boldButtonGroup(api),
-		...underlineButtonGroup(api),
+		...(options?.disableUnderline ? [] : underlineButtonGroup(api)),
 		...textFormattingMenuGroup(api),
 	];
 };

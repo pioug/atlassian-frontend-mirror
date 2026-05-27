@@ -1,5 +1,4 @@
 import React from 'react';
-import { waitUntil } from '@atlaskit/elements-test-helpers';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
@@ -135,7 +134,7 @@ describe('<EmojiUploader />', () => {
 			uploadPreviewShown();
 			addEmojiButton.click();
 
-			await waitUntil(() => provider.getUploads().length > 0);
+			await waitFor(() => expect(provider.getUploads().length).toBeGreaterThan(0));
 			// Check uploaded emoji
 			const uploads = provider.getUploads();
 			expect(uploads).toHaveLength(1);
@@ -263,7 +262,7 @@ describe('<EmojiUploader />', () => {
 
 			// Successfully upload this time
 			retryButton.click();
-			await waitUntil(() => provider.getUploads().length > 0);
+			await waitFor(() => expect(provider.getUploads().length).toBeGreaterThan(0));
 
 			expect(onEvent).toHaveBeenCalledTimes(5);
 

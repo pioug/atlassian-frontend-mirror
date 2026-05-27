@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
+import { useIntl } from 'react-intl';
+
 import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -72,11 +74,12 @@ export const WrapperTypeAhead: React.MemoExoticComponent<
 			showMoreOptionsButton = !!triggerHandler?.getMoreOptionsButtonConfig;
 		}
 
+		const intl = useIntl();
 		const [closed, setClosed] = useState(false);
 		const [query, setQuery] = useState<string>(reopenQuery || '');
 		const queryRef = useRef(query);
 		const editorViewRef = useRef(editorView);
-		const items = useLoadItems(triggerHandler, editorView, query, showMoreOptionsButton, api);
+		const items = useLoadItems(triggerHandler, editorView, query, showMoreOptionsButton, api, intl);
 
 		useEffect(() => {
 			if (!closed && fg('platform_editor_ease_of_use_metrics')) {

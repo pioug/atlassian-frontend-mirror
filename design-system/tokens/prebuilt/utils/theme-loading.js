@@ -19,30 +19,30 @@ var _loadThemeCss = require("./load-theme-css");
 var loadAndAppendThemeCss = exports.loadAndAppendThemeCss = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee(themeId) {
     var themeCss, style;
-    return _regenerator.default.wrap(function _callee$(_context) {
+    return _regenerator.default.wrap(function (_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           if (!document.head.querySelector("style[".concat(_constants.THEME_DATA_ATTRIBUTE, "=\"").concat(themeId, "\"]:not([").concat(_constants.CUSTOM_THEME_ATTRIBUTE, "])"))) {
+            _context.next = 1;
+            break;
+          }
+          return _context.abrupt("return");
+        case 1:
+          if (themeId) {
             _context.next = 2;
             break;
           }
           return _context.abrupt("return");
         case 2:
-          if (themeId) {
-            _context.next = 4;
-            break;
-          }
-          return _context.abrupt("return");
-        case 4:
-          _context.next = 6;
+          _context.next = 3;
           return (0, _loadThemeCss.loadThemeCss)(themeId);
-        case 6:
+        case 3:
           themeCss = _context.sent;
           style = document.createElement('style');
           style.textContent = themeCss;
           style.dataset.theme = themeId;
           document.head.appendChild(style);
-        case 11:
+        case 4:
         case "end":
           return _context.stop();
       }

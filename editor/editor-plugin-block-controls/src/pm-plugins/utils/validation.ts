@@ -5,6 +5,7 @@ import { getParentOfTypeCount, isNestedTablesSupported } from '@atlaskit/editor-
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { NodeType, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export const isInsideTable = (nodeType: NodeType): Boolean => {
@@ -132,6 +133,7 @@ export function canMoveNodeToIndex(
 		nestedExpand,
 		doc,
 		panel,
+		panel_c1,
 		layoutColumn,
 		layoutSection,
 	} = schema.nodes;
@@ -160,7 +162,11 @@ export function canMoveNodeToIndex(
 
 			return canCreateNodeWithContentInsideAnotherNode([tableCell, tableHeader], convertedFragment);
 		}
-		if (destParentNodeType === panel) {
+		if (
+			destParentNodeType === panel ||
+			(expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) &&
+				destParentNodeType === panel_c1)
+		) {
 			return canCreateNodeWithContentInsideAnotherNode([panel], layoutColumnContent);
 		}
 

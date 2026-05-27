@@ -1,4 +1,4 @@
-import { waitUntil } from '@atlaskit/elements-test-helpers';
+import { waitFor } from '@testing-library/react';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import type {
 	OnProviderChange,
@@ -333,9 +333,7 @@ describe('UploadingEmojiResource', () => {
 			const emojiResource = new TestUploadingEmojiResource(siteEmojiResource);
 			emojiResource.fetchEmojiProvider();
 			emojiResource.prepareForUpload();
-			return waitUntil(() => prepareForUploadStub.called).then(() => {
-				expect(prepareForUploadStub.called).toEqual(true);
-			});
+			return waitFor(() => expect(prepareForUploadStub.called).toEqual(true));
 		});
 	});
 
@@ -348,9 +346,7 @@ describe('UploadingEmojiResource', () => {
 			const deleteStub = siteEmojiResource.deleteEmoji;
 			deleteStub.returns(new Promise(() => {}));
 			emojiResource.deleteSiteEmoji(mediaEmoji);
-			return waitUntil(() => deleteStub.called).then(() => {
-				expect(deleteStub.called).toEqual(true);
-			});
+			return waitFor(() => expect(deleteStub.called).toEqual(true));
 		});
 
 		it('can find mediaEmoji by id if not yet deleted', async () => {

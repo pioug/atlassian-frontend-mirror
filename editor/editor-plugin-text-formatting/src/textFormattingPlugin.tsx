@@ -68,7 +68,7 @@ export const textFormattingPlugin: TextFormattingPlugin = ({ config: options, ap
 	};
 
 	if (isToolbarAIFCEnabled) {
-		api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
+		api?.toolbar?.actions.registerComponents(getToolbarComponents(api, options));
 	} else {
 		api?.primaryToolbar?.actions.registerComponent({
 			name: 'textFormatting',

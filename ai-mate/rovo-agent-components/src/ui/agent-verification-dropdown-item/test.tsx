@@ -24,7 +24,7 @@ const TestWrapper = (props: RenderProps) => {
 			query testAgentVerificationDropdownItemQuery @relay_test_operation {
 				agentStudio_agentById(id: "test-agent-id") @required(action: THROW) {
 					... on AgentStudioAssistant {
-						...agentVerificationDropdownItem_AtlaskitRovoAgentComponents_agentRef
+						...agentVerificationDropdownItem_AtlaskitRovoAgentComponents_agentRef @dangerously_unaliased_fixme
 					}
 				}
 				atlassianStudio_userSiteContext(cloudId: "test-cloud-id") {

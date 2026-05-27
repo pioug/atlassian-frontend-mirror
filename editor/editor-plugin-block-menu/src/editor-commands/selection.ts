@@ -1,5 +1,6 @@
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TransfromNodeTargetType } from './types';
 
@@ -27,7 +28,10 @@ export const setSelectionAfterTransform = (
 	const isListNode =
 		targetType === 'bulletList' || targetType === 'orderedList' || targetType === 'taskList';
 	const isBlockquote = targetType === 'blockquote';
-	const isContainer = ['panel', 'expand', 'codeBlock', 'layoutSection'].includes(targetType);
+
+	const isContainer = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+		? ['panel', 'panel_c1', 'expand', 'codeBlock', 'layoutSection'].includes(targetType)
+		: ['panel', 'expand', 'codeBlock', 'layoutSection'].includes(targetType);
 
 	if (isListNode || isBlockquote) {
 		// For taskList, select all content within the list

@@ -242,7 +242,7 @@ export const wrapMixedContentStep: TransformStep = (nodes, context) => {
 		}
 
 		// All other nodes that cannot be wrapped in the target node - break out
-		// Examples: same-type containers, tables in panels, layoutSections in layouts
+		// Examples: same-type containers, layoutSections in layouts
 		handleUnsupportedNode(node);
 	};
 

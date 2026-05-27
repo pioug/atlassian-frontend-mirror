@@ -529,7 +529,7 @@ describe('UFOThirdPartySegment', () => {
 				);
 			});
 
-			it('does NOT shape non-resource-timing events (passes data through unchanged)', () => {
+			it('shapes paint-timing to only { name, startTime } — dropping elapsed, entryType, duration', () => {
 				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
 
 				renderWithContext(
@@ -548,7 +548,7 @@ describe('UFOThirdPartySegment', () => {
 						elapsed: 300,
 						payload: {
 							name: 'first-contentful-paint',
-							startTime: 820,
+							startTime: 820.7,
 							duration: 0,
 							entryType: 'paint',
 						},
@@ -561,16 +561,305 @@ describe('UFOThirdPartySegment', () => {
 					{
 						label: 'paint-timing',
 						data: {
-							name: 'ufo-forge-paint-timing',
-							elapsed: 300,
-							payload: {
-								name: 'first-contentful-paint',
-								startTime: 820,
-								duration: 0,
-								entryType: 'paint',
-							},
+							name: 'first-contentful-paint',
+							startTime: 821,
 						},
 					},
+				);
+			});
+
+			it('shapes frame-mark to only { entryName, startTime } — dropping elapsed, detail', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				act(() => {
+					getListener()({
+						type: 'ufo-event',
+						name: 'ufo-forge-frame-mark',
+						elapsed: 50,
+						payload: {
+							entryName: 'render-start',
+							startTime: 50.4,
+							detail: { x: 1, largeBlob: 'a'.repeat(500) },
+						},
+					});
+				});
+
+				expect(mockAddIframeSegmentData).toHaveBeenCalledWith(
+					'test-interaction-id',
+					expect.anything(),
+					{
+						label: 'frame-mark',
+						data: {
+							entryName: 'render-start',
+							startTime: 50,
+						},
+					},
+				);
+			});
+
+			it('shapes frame-measure to only { entryName, startTime, duration } — dropping elapsed, detail', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				act(() => {
+					getListener()({
+						type: 'ufo-event',
+						name: 'ufo-forge-frame-measure',
+						elapsed: 150,
+						payload: {
+							entryName: 'render',
+							startTime: 50.6,
+							duration: 100.3,
+							detail: { y: 2, largeBlob: 'b'.repeat(500) },
+						},
+					});
+				});
+
+				expect(mockAddIframeSegmentData).toHaveBeenCalledWith(
+					'test-interaction-id',
+					expect.anything(),
+					{
+						label: 'frame-measure',
+						data: {
+							entryName: 'render',
+							startTime: 51,
+							duration: 100,
+						},
+					},
+				);
+			});
+
+			it('shapes layout-shift — drops rects, hadRecentInput, duration, lastInputTime; keeps only node tagName in sources', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				act(() => {
+					getListener()({
+						type: 'ufo-event',
+						name: 'ufo-forge-layout-shift',
+						elapsed: 200,
+						payload: {
+							value: 0.15,
+							startTime: 200.8,
+							duration: 0,
+							hadRecentInput: false,
+							lastInputTime: 0,
+							cumulativeScore: 0.25,
+							sessionValue: 0.15,
+							sources: [
+								{
+									node: 'DIV',
+									currentRect: { x: 10, y: 20, width: 100, height: 50 },
+									previousRect: { x: 0, y: 0, width: 100, height: 50 },
+								},
+								{
+									node: 'SPAN',
+									currentRect: { x: 5, y: 5, width: 30, height: 10 },
+									previousRect: { x: 0, y: 0, width: 30, height: 10 },
+								},
+							],
+						},
+					});
+				});
+
+				expect(mockAddIframeSegmentData).toHaveBeenCalledWith(
+					'test-interaction-id',
+					expect.anything(),
+					{
+						label: 'layout-shift',
+						data: {
+							value: 0.15,
+							startTime: 201,
+							cumulativeScore: 0.25,
+							sessionValue: 0.15,
+							sources: [{ node: 'DIV' }, { node: 'SPAN' }],
+						},
+					},
+				);
+			});
+
+			it('layout-shift: handles missing sources array gracefully', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				act(() => {
+					getListener()({
+						type: 'ufo-event',
+						name: 'ufo-forge-layout-shift',
+						elapsed: 100,
+						payload: {
+							value: 0.1,
+							startTime: 100,
+							cumulativeScore: 0.1,
+							sessionValue: 0.1,
+							// no sources field
+						},
+					});
+				});
+
+				expect(mockAddIframeSegmentData).toHaveBeenCalledWith(
+					'test-interaction-id',
+					expect.anything(),
+					{
+						label: 'layout-shift',
+						data: {
+							value: 0.1,
+							startTime: 100,
+							cumulativeScore: 0.1,
+							sessionValue: 0.1,
+							sources: [],
+						},
+					},
+				);
+			});
+
+			it('dom-mutations: skips intermediate batches (isFinalBatch:false) and only stores the final batch', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				// Intermediate batch — should NOT be stored
+				act(() => {
+					getListener()({
+						type: 'ufo-event',
+						name: 'ufo-forge-dom-mutations',
+						elapsed: 50,
+						payload: {
+							mutationCount: 3,
+							totalMutations: 3,
+							timeSinceLastMutation: 10,
+							timestamp: 50,
+							observationDurationMs: 50,
+							isTimedOut: false,
+							isFinalBatch: false,
+							stopReason: null,
+							mutations: [{ type: 'childList', target: { tagName: 'DIV', className: '', id: '' } }],
+						},
+					});
+				});
+
+				expect(mockAddIframeSegmentData).not.toHaveBeenCalledWith(
+					expect.anything(),
+					expect.anything(),
+					expect.objectContaining({ label: 'dom-mutations' }),
+				);
+
+				// Final batch — SHOULD be stored with shaped summary only
+				act(() => {
+					getListener()({
+						type: 'ufo-event',
+						name: 'ufo-forge-dom-mutations',
+						elapsed: 350,
+						payload: {
+							mutationCount: 2,
+							totalMutations: 5,
+							timeSinceLastMutation: 300,
+							timestamp: 350,
+							observationDurationMs: 350.7,
+							isTimedOut: false,
+							isFinalBatch: true,
+							stopReason: 'idle',
+							mutations: [],
+						},
+					});
+				});
+
+				expect(mockAddIframeSegmentData).toHaveBeenCalledTimes(1);
+				expect(mockAddIframeSegmentData).toHaveBeenCalledWith(
+					'test-interaction-id',
+					expect.anything(),
+					{
+						label: 'dom-mutations',
+						data: {
+							totalMutations: 5,
+							observationDurationMs: 351,
+							stopReason: 'idle',
+						},
+					},
+				);
+			});
+
+			it('dom-mutations: intermediate batch still extends abort timer to 60s', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				// Send intermediate batch within the initial 6s window
+				act(() => {
+					jest.advanceTimersByTime(3_000);
+					getListener()({
+						type: 'ufo-event',
+						name: 'ufo-forge-dom-mutations',
+						elapsed: 3000,
+						payload: {
+							mutationCount: 1,
+							totalMutations: 1,
+							timeSinceLastMutation: 0,
+							timestamp: 3000,
+							observationDurationMs: 3000,
+							isTimedOut: false,
+							isFinalBatch: false,
+							stopReason: null,
+							mutations: [],
+						},
+					});
+				});
+
+				// Should NOT abort at 6s (timer was extended to 60s by the intermediate batch)
+				act(() => {
+					jest.advanceTimersByTime(3_001);
+				});
+				expect(mockAddIframeSegmentData).not.toHaveBeenCalledWith(
+					expect.anything(),
+					expect.anything(),
+					expect.objectContaining({ label: 'segment-timing-abort' }),
 				);
 			});
 		});

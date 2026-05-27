@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 13.1.0
+
+### Minor Changes
+
+- [`6ae1bed1867c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ae1bed1867c5) -
+  [ux] Updated `color.background.disabled` to use a stronger neutral palette value (`Neutral200A` in
+  light themes, `DarkNeutral300A` in dark themes).
+
 ## 13.0.4
 
 ### Patch Changes

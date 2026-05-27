@@ -588,11 +588,29 @@ export function ElementItem({
 				id={`searched-item-${index}`}
 				isDisabled={isDisabled}
 				role={role}
+				// @ts-expect-error -- see A11Y-30538
+				tabIndex={
+					expValEquals(
+						'platform_editor_fix_a11y_tab_focus_insertion_menu',
+						'isEnabled',
+						true,
+					)
+						? -1
+						: undefined
+				}
 			>
 				<ItemContent
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={inlineMode ? null : itemStyleOverrides}
-					tabIndex={0}
+					tabIndex={
+						expValEquals(
+							'platform_editor_fix_a11y_tab_focus_insertion_menu',
+							'isEnabled',
+							true,
+						)
+							? undefined
+							: 0
+					}
 					title={title}
 					description={description}
 					keyshortcut={keyshortcut}

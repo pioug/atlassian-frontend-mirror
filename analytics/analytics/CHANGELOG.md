@@ -1,5 +1,12 @@
 # @atlaskit/analytics
 
+## 9.0.3
+
+### Patch Changes
+
+- [`aaeecdcf60f1a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaeecdcf60f1a) -
+  Feature gate cleanup
+
 ## 9.0.2
 
 ### Patch Changes

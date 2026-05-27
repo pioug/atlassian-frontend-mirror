@@ -24,6 +24,7 @@ import TaskIcon from '@atlaskit/icon/core/task';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
+import { isMarkdownCompatibleToolbarEnabled } from '../utils/markdown-compatible-toolbar';
 
 type ListsIndentationHeroButtonProps = {
 	api?: ExtractInjectionAPI<ToolbarListsIndentationPlugin>;
@@ -40,23 +41,58 @@ function useListsIndentationHeroButtonInfo({
 	defaultListType: 'bulletList' | 'orderedList';
 }) {
 	const { formatMessage } = useIntl();
-	const { bulletListActive, bulletListDisabled, orderedListActive, taskListActive } =
-		useSharedPluginStateWithSelector(api, ['list', 'taskDecision', 'interaction'], (states) => {
+	const isMarkdownToolbarEnabled = isMarkdownCompatibleToolbarEnabled();
+	const {
+		pmBulletListActive,
+		pmBulletListDisabled,
+		pmOrderedListActive,
+		pmTaskListActive,
+		sourceBlockFormatState,
+		sourceListFormatState,
+		markdownView,
+	} = useSharedPluginStateWithSelector(
+		api,
+		['list', 'taskDecision', 'interaction', 'markdownMode'],
+		(states) => {
 			const useDefaultToolbarState =
 				states.interactionState?.interactionState === 'hasNotHadInteraction' &&
 				expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true);
 
 			return {
-				bulletListActive: useDefaultToolbarState ? false : states.listState?.bulletListActive,
-				bulletListDisabled: states.listState?.bulletListDisabled,
-				orderedListActive: useDefaultToolbarState ? false : states.listState?.orderedListActive,
-				taskListActive: useDefaultToolbarState ? false : states.taskDecisionState?.isInsideTask,
+				pmBulletListActive: useDefaultToolbarState
+					? false
+					: states.listState?.bulletListActive,
+				pmBulletListDisabled: states.listState?.bulletListDisabled,
+				pmOrderedListActive: useDefaultToolbarState
+					? false
+					: states.listState?.orderedListActive,
+				pmTaskListActive: useDefaultToolbarState
+					? false
+					: states.taskDecisionState?.isInsideTask,
+				markdownView: isMarkdownToolbarEnabled ? states.markdownModeState?.view : undefined,
+				sourceBlockFormatState: isMarkdownToolbarEnabled
+					? states.markdownModeState?.sourceBlockFormatState
+					: null,
+				sourceListFormatState: isMarkdownToolbarEnabled
+					? states.markdownModeState?.sourceListFormatState
+					: null,
 			};
 		});
 
+	const isInSourceView = isMarkdownToolbarEnabled && markdownView === 'syntax';
+	const isBulletListActive = isInSourceView
+		? sourceListFormatState?.inBulletList
+		: pmBulletListActive;
+	const isOrderedListActive = isInSourceView
+		? sourceListFormatState?.inOrderedList
+		: pmOrderedListActive;
+	const taskListActive = isInSourceView
+		? Boolean(sourceListFormatState?.inTaskList)
+		: pmTaskListActive;
+
 	const getListType: ListType = taskListActive
 		? 'taskList'
-		: orderedListActive
+		: isOrderedListActive
 			? 'orderedList'
 			: defaultListType;
 	const taskListKeymap = toggleTaskListKeymap;
@@ -78,6 +114,19 @@ function useListsIndentationHeroButtonInfo({
 
 	const onClick = () => {
 		const inputMethod = getInputMethodFromParentKeys(parents);
+		if (isInSourceView) {
+			if (sourceBlockFormatState?.inCodeBlock || getListType === 'taskList') {
+				return;
+			}
+
+			if (getListType === 'orderedList') {
+				api?.markdownMode?.actions.toggleSourceOrderedList();
+			} else {
+				api?.markdownMode?.actions.toggleSourceBulletList();
+			}
+			return;
+		}
+
 		if (getListType === 'taskList') {
 			api?.core.actions.execute(api?.taskDecision?.commands.toggleTaskList());
 		} else if (getListType === 'orderedList') {
@@ -97,12 +146,14 @@ function useListsIndentationHeroButtonInfo({
 		);
 	const isSelected =
 		getListType === 'bulletList'
-			? bulletListActive
+			? isBulletListActive
 			: getListType === 'orderedList'
-				? orderedListActive
+				? isOrderedListActive
 				: taskListActive;
 
-	const isDisabled = !orderedListActive && !taskListActive && bulletListDisabled;
+	const isDisabled = isInSourceView
+		? Boolean(sourceBlockFormatState?.inCodeBlock || taskListActive)
+		: !isOrderedListActive && !taskListActive && pmBulletListDisabled;
 
 	return {
 		shortcut,
@@ -159,57 +210,15 @@ export const ListsIndentationHeroButton = ({
 	api,
 	parents,
 }: ListsIndentationHeroButtonProps): React.JSX.Element => {
-	const { formatMessage } = useIntl();
-
-	const { bulletListActive, bulletListDisabled, orderedListActive, taskListActive } =
-		useSharedPluginStateWithSelector(api, ['list', 'taskDecision'], (states) => ({
-			bulletListActive: states.listState?.bulletListActive,
-			bulletListDisabled: states.listState?.bulletListDisabled,
-			orderedListActive: states.listState?.orderedListActive,
-			taskListActive: states.taskDecisionState?.isInsideTask,
-		}));
-
-	const taskListKeymap = toggleTaskListKeymap;
-
-	const shortcut = taskListActive
-		? formatShortcut(taskListKeymap)
-		: orderedListActive
-			? formatShortcut(toggleOrderedListKeymap)
-			: formatShortcut(toggleBulletListKeymap);
-
-	const onClick = () => {
-		const inputMethod = getInputMethodFromParentKeys(parents);
-		if (taskListActive) {
-			api?.core.actions.execute(api?.taskDecision?.commands.toggleTaskList());
-		} else if (orderedListActive) {
-			api?.core.actions.execute(api?.list.commands.toggleOrderedList(inputMethod));
-		} else {
-			api?.core.actions.execute(api?.list.commands.toggleBulletList(inputMethod));
-		}
-	};
+	const { shortcut, message, onClick, iconBefore, isSelected, isDisabled } =
+		useListsIndentationHeroButtonInfo({ api, parents, defaultListType: 'bulletList' });
 
 	return (
-		<ToolbarTooltip
-			content={
-				taskListActive
-					? formatMessage(tasksAndDecisionsMessages.taskList)
-					: orderedListActive
-						? formatMessage(listMessages.orderedList)
-						: formatMessage(listMessages.bulletedList)
-			}
-		>
+		<ToolbarTooltip content={message}>
 			<ToolbarButton
-				iconBefore={
-					taskListActive ? (
-						<TaskIcon label={formatMessage(tasksAndDecisionsMessages.taskList)} size="small" />
-					) : orderedListActive ? (
-						<ListNumberedIcon label={formatMessage(listMessages.orderedList)} size="small" />
-					) : (
-						<ListBulletedIcon label={formatMessage(listMessages.bulletedList)} size="small" />
-					)
-				}
-				isSelected={bulletListActive || orderedListActive || taskListActive}
-				isDisabled={!orderedListActive && !taskListActive && bulletListDisabled}
+				iconBefore={iconBefore}
+				isSelected={isSelected}
+				isDisabled={isDisabled}
 				ariaKeyshortcuts={shortcut}
 				onClick={onClick}
 			/>

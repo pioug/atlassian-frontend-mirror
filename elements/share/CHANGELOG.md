@@ -1,5 +1,12 @@
 # @atlaskit/share
 
+## 7.2.0
+
+### Minor Changes
+
+- [`ec62887583bf1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec62887583bf1) -
+  Clean up flag to improve accessibility of layered components.
+
 ## 7.1.4
 
 ### Patch Changes

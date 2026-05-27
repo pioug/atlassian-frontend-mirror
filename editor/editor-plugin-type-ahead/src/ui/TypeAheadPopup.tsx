@@ -19,8 +19,8 @@ import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type {
 	ExtractInjectionAPI,
-	TypeAheadHandler,
 	TypeAheadItem,
+	TypeAheadHandler,
 } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -39,7 +39,7 @@ import {
 } from '../pm-plugins/constants';
 import { getPluginState } from '../pm-plugins/utils';
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
-import type { OnSelectItem, TypeAheadErrorInfo, TypeAheadInputMethod } from '../types';
+import type { OnSelectItem, TypeAheadErrorInfo, TypeAheadInputMethod, TypeAheadResolvedSection } from '../types';
 
 import { TypeAheadErrorFallback } from './TypeAheadErrorFallback';
 import { TypeAheadList } from './TypeAheadList';
@@ -85,6 +85,7 @@ type TypeAheadPopupProps = {
 	errorInfo: TypeAheadErrorInfo;
 	isEmptyQuery: boolean;
 	items: Array<TypeAheadItem>;
+	sections?: Array<TypeAheadResolvedSection>;
 	onItemInsert: (mode: SelectItemMode, index: number) => void;
 	popupsBoundariesElement?: HTMLElement;
 	popupsMountPoint?: HTMLElement;
@@ -120,6 +121,7 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 		popupsBoundariesElement,
 		popupsScrollableElement,
 		items,
+		sections = [],
 		emptyItem,
 		errorInfo,
 		selectedIndex,
@@ -449,6 +451,7 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 						<Highlight state={editorView.state} triggerHandler={triggerHandler} />
 						<TypeAheadList
 							items={items}
+							sections={sections}
 							emptyItem={emptyItem}
 							selectedIndex={selectedIndex}
 							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)

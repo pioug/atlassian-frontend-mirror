@@ -1,6 +1,6 @@
 import URLSearchParams from 'url-search-params';
 import fetchMock from 'fetch-mock/cjs/client';
-import { waitUntil } from '@atlaskit/elements-test-helpers';
+import { waitFor } from '@testing-library/react';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import TaskDecisionResource, { type ItemStateManager } from '../../../api/TaskDecisionResource';
@@ -156,14 +156,14 @@ describe('TaskDecisionResource', () => {
 				latestState = state;
 			};
 			resource.subscribe(key1, handler);
-			return waitUntil(() => latestState === 'TODO')
+			return waitFor(() => expect(latestState).toBe('TODO'))
 				.then(() => {
 					resource.toggleTask(key1, 'DONE');
-					return waitUntil(() => latestState === 'DONE');
+					return waitFor(() => expect(latestState).toBe('DONE'));
 				})
 				.then(() => {
 					expect(latestState).toBe('DONE');
-					return waitUntil(() => fetchMock.called('set-task'));
+					return waitFor(() => expect(fetchMock.called('set-task')).toBe(true));
 				})
 				.then(() => {
 					expect(latestState).toBe('DONE');
@@ -189,10 +189,10 @@ describe('TaskDecisionResource', () => {
 			};
 			resource.subscribe(key1, handler);
 			let toggleStatePromise: Promise<TaskState>;
-			return waitUntil(() => latestState === 'TODO')
+			return waitFor(() => expect(latestState).toBe('TODO'))
 				.then(() => {
 					toggleStatePromise = resource.toggleTask(key1, 'DONE');
-					return waitUntil(() => latestState === 'DONE');
+					return waitFor(() => expect(latestState).toBe('DONE'));
 				})
 				.then(() => {
 					expect(latestState).toBe('DONE');
@@ -238,17 +238,23 @@ describe('TaskDecisionResource', () => {
 			};
 			resource.subscribe(key1, handler1);
 			resource.subscribe(key2, handler2);
-			return waitUntil(() => latestState1 === 'TODO' && latestState2 === 'DONE')
+			return waitFor(() => {
+				expect(latestState1).toBe('TODO');
+				expect(latestState2).toBe('DONE');
+			})
 				.then(() => {
 					resource.toggleTask(key1, 'DONE');
 					resource.toggleTask(key2, 'TODO');
-					return waitUntil(() => latestState1 === 'DONE' && latestState2 === 'TODO');
+					return waitFor(() => {
+						expect(latestState1).toBe('DONE');
+						expect(latestState2).toBe('TODO');
+					});
 				})
 				.then(() => {
 					expect(latestState1).toBe('DONE');
 					expect(latestState2).toBe('TODO');
 					// Wait for calls to service...
-					return waitUntil(() => fetchMock.calls('set-task').length === 2);
+					return waitFor(() => expect(fetchMock.calls('set-task').length).toBe(2));
 				})
 				.then(() => {
 					expect(latestState1).toBe('DONE');

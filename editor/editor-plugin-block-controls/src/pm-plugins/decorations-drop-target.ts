@@ -7,7 +7,7 @@ import uuid from 'uuid';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import { getBaseNodeTypeName, isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
@@ -370,10 +370,13 @@ export const dropTargetDecorations = (
 			? PARENT_WITH_END_DROP_TARGET_NEXT
 			: PARENT_WITH_END_DROP_TARGET;
 
+		const parentTypeName = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+			? getBaseNodeTypeName(parent.type)
+			: parent.type.name;
 		if (
 			parent.lastChild === node &&
 			!isEmptyParagraph(node) &&
-			parentTypesWithEndDropTarget.includes(parent.type.name)
+			parentTypesWithEndDropTarget.includes(parentTypeName)
 		) {
 			endPos = pos + node.nodeSize;
 		}

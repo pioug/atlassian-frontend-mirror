@@ -11,16 +11,16 @@ var _themeImportMap = _interopRequireDefault(require("../artifacts/theme-import-
 var loadThemeCss = exports.loadThemeCss = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee(themeId) {
     var _yield$themeImportMap, themeCss;
-    return _regenerator.default.wrap(function _callee$(_context) {
+    return _regenerator.default.wrap(function (_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          _context.next = 2;
+          _context.next = 1;
           return _themeImportMap.default[themeId]();
-        case 2:
+        case 1:
           _yield$themeImportMap = _context.sent;
           themeCss = _yield$themeImportMap.default;
           return _context.abrupt("return", themeCss);
-        case 5:
+        case 2:
         case "end":
           return _context.stop();
       }

@@ -74,19 +74,23 @@ import { copyUnsupportedContentToClipboard, getSelectedExtension, onCopyFailed }
 // non-bodied extensions nested inside panels, blockquotes and lists do not support layouts
 const isNestedNBM = (state: EditorState, selectedExtNode: { node: PMNode; pos: number }) => {
 	const {
-		schema: {
-			nodes: { extension, panel, blockquote, listItem },
-		},
+		schema: { nodes },
 		selection,
 	} = state;
+
+	const { extension, panel, blockquote, listItem, panel_c1 } = nodes;
 
 	if (!selectedExtNode) {
 		return false;
 	}
 
+	const parentNodeTypes = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+		? [panel, panel_c1, blockquote, listItem]
+		: [panel, blockquote, listItem];
+
 	return (
 		selectedExtNode.node.type === extension &&
-		hasParentNodeOfType([panel, blockquote, listItem].filter(Boolean))(selection)
+		hasParentNodeOfType(parentNodeTypes.filter(Boolean))(selection)
 	);
 };
 

@@ -40,9 +40,7 @@ export const getQuickInsertConfig = (
 			return [];
 		}
 
-		const syncBlockTitle = fg('platform_synced_block_patch_12')
-			? blockTypeMessages.syncBlock
-			: blockTypeMessages.syncedBlock;
+		const syncBlockTitle = blockTypeMessages.syncBlock;
 
 		return [
 			{

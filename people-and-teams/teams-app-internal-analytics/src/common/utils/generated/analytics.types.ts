@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::4e6fead4cb965abb60086be6d1f54e88>>
+ * @codegen <<SignedSource::906db3e448d610002b84510adfaef8cc>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1567,43 +1567,6 @@ export type TeamCustomFieldUpdateFailedAttributesType = {
 	fieldType: string;
 	errorMessage: string;
 };
-export type InvitePromptEligibilityCheckedAttributesType = {
-	isEligible: boolean;
-	ineligibilityReason: string;
-};
-export type InvitePromptEligibilityCheckFailedAttributesType = {
-	error: string;
-};
-export type InvitePromptShownFlagAttributesType = {
-	inviteesCount: number;
-	targetApp: string;
-};
-export type InvitePromptClickedInviteButtonAttributesType = {
-	inviteesCount: number;
-	targetApp: string;
-};
-export type InvitePromptShownSuccessFlagAttributesType = {
-	invitedCount: number;
-	requestedAccessCount: number;
-	variant: string;
-	targetApp: string;
-};
-export type InvitePromptShownFailedFlagAttributesType = {
-	invitedCount: number;
-	failedCount: number;
-	totalCount: number;
-};
-export type InvitePromptClickedDismissButtonAttributesType = {
-	inviteesCount: number;
-	targetApp: string;
-};
-export type FeatureExposedAttributesType = {
-	flagKey: string;
-	cohort: string;
-};
-export type InvitePromptShowContainerAddedFlagFailedAttributesType = {
-	error: string;
-};
 export type StarredSucceededTeamAttributesType = {
 	starred: boolean;
 };
@@ -2767,33 +2730,6 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when saving a custom field value fails (network error or server error) */
 	'track.teamCustomField.updateFailed': TeamCustomFieldUpdateFailedAttributesType;
-	/**
-	 * Fired when eligibility check is performed for twcg_640_invite_prompt_on_teams_page_links */
-	'operational.invitePrompt.eligibilityChecked': InvitePromptEligibilityCheckedAttributesType;
-	/**
-	 * Fired when eligibility check is for twcg_640_invite_prompt_on_teams_page_links failes for whatever reason */
-	'operational.invitePrompt.eligibilityCheckFailed': InvitePromptEligibilityCheckFailedAttributesType;
-	/**
-	 * Fired when the invite prompt flag is displayed to the user */
-	'ui.invitePrompt.shown.flag': InvitePromptShownFlagAttributesType;
-	/**
-	 * Fired when the user clicks on Invite X team members / Invite X */
-	'ui.invitePrompt.clicked.inviteButton': InvitePromptClickedInviteButtonAttributesType;
-	/**
-	 * Fired when the invitation action is successfully completed and the success flag is shown to the user */
-	'ui.invitePrompt.shown.successFlag': InvitePromptShownSuccessFlagAttributesType;
-	/**
-	 * Fired when the invite action fails and we shown an error flag to the user */
-	'ui.invitePrompt.shown.failedFlag': InvitePromptShownFailedFlagAttributesType;
-	/**
-	 * Fired when the users dismisses the invite prompt flag */
-	'ui.invitePrompt.clicked.dismissButton': InvitePromptClickedDismissButtonAttributesType;
-	/**
-	 * Fired when a flag is exposed to a user */
-	'track.feature.exposed': FeatureExposedAttributesType;
-	/**
-	 * Fired when something fails horribly inside of showContainerAddedFlagFailed */
-	'operational.invitePrompt.showContainerAddedFlagFailed': InvitePromptShowContainerAddedFlagFailedAttributesType;
 	/**
 	 * fired when a team is starred or unstarred succeeds */
 	'track.starred.succeeded.team': StarredSucceededTeamAttributesType;

@@ -4,7 +4,6 @@
  * Ticket for dedeplication: https://product-fabric.atlassian.net/browse/EDM-7138
  * Ticket for fixing linkification of filename-like urls: https://product-fabric.atlassian.net/browse/EDM-7190
  */
-import { fg } from '@atlaskit/platform-feature-flags';
 import LinkifyIt from 'linkify-it';
 
 const whitelistedURLPatterns = [
@@ -97,9 +96,10 @@ linkify.add('file:', urlWithoutSpacesValidator);
 
 linkify.add('notes:', 'http:');
 
-const tlds = 'biz|com|edu|gov|net|org|pro|web|xxx|aero|asia|coop|info|museum|name|shop|рф'.split(
-	'|',
-);
+const tlds =
+	'biz|com|edu|gov|net|org|pro|web|xxx|aero|asia|coop|info|museum|name|shop|рф'.split(
+		'|',
+	);
 const tlds2Char =
 	'a[cdefgilmnoqrtuwxz]|b[abdefghijmnorstvwyz]|c[acdfghiklmnoruvwxyz]|d[ejkmoz]|e[cegrstu]|f[ijkmor]|g[abdefghilmnpqrstuwy]|h[kmnrtu]|i[delmnoqrst]|j[emop]|k[eghimnprwyz]|l[abcikrstuvy]|m[acdeghklmnopqrtuvwxyz]|n[acefgilopruz]|om|p[aefghkmnrtw]|qa|r[eosuw]|s[abcdegijklmnrtuvxyz]|t[cdfghjklmnortvwz]|u[agksyz]|v[aceginu]|w[fs]|y[et]|z[amw]';
 tlds.push(tlds2Char);
@@ -135,7 +135,7 @@ export const linkifyMatch = (text: string): Match[] => {
 				text: link,
 				schema: '',
 			});
-			startpos = fg('platform_editor_linkify-text-improvement') ? end : startpos + end;
+			startpos = end;
 			substr = text.substr(startpos);
 		} else {
 			break;

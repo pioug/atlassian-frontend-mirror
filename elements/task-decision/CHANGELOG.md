@@ -1,5 +1,13 @@
 # @atlaskit/task-decision
 
+## 20.1.7
+
+### Patch Changes
+
+- [`2a75c1be2244e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a75c1be2244e) -
+  Removed usage of @atlaskit/elements-test-helpers from tests
+- Updated dependencies
+
 ## 20.1.6
 
 ### Patch Changes

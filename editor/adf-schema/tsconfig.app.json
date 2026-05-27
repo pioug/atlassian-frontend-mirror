@@ -9,7 +9,7 @@
   ],
   "exclude": [
     "**/*.docs.tsx",
-		"**/docs/**/*",
+    "**/docs/**/*",
     "**/__tests__/**/*",
     "**/vr-tests/**/*",
     "**/__perf__/**/*",
@@ -44,9 +44,6 @@
     },
     {
       "path": "../editor-prosemirror/tsconfig.app.json"
-    },
-    {
-      "path": "../../platform/feature-flags/tsconfig.app.json"
     },
     {
       "path": "../tmp-editor-statsig/tsconfig.app.json"

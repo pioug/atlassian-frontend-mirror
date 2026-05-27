@@ -1,5 +1,15 @@
 # @atlaskit/media-client
 
+## 36.3.1
+
+### Patch Changes
+
+- [`05eeefb6d608c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05eeefb6d608c) -
+  Tightened dependency floor for `@atlaskit/media-common` to ensure the `mediaEnvUtils` subpath
+  export is available. This fixes a resolution issue where downstream consumers could resolve an
+  older version of `@atlaskit/media-common` (13.3.0/13.3.1) that doesn't export this subpath,
+  causing runtime/Jest failures.
+
 ## 36.3.0
 
 ### Minor Changes

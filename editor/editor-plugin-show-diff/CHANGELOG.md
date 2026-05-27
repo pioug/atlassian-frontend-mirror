@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 8.4.7
+
+### Patch Changes
+
+- [`8132cf74d023d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8132cf74d023d) -
+  EDITOR-7377: Fix granular diffs to show diffs at word boundaries (non-whitespace characters)
+- Updated dependencies
+
 ## 8.4.6
 
 ### Patch Changes

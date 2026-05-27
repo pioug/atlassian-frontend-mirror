@@ -38,6 +38,7 @@ export type {
 	TypeAheadItem,
 	TypeAheadForceSelect,
 	TypeAheadHandler,
+	TypeAheadSection,
 } from './type-ahead';
 
 export type { CommandDispatch, Command, HigherOrderCommand, Predicate } from './command';

@@ -16,3 +16,4 @@ export { transformNestedTableNodeOutgoingDocument } from './transforms/nested-ta
 export { NodeNestingTransformError } from './transforms/errors';
 export { syncBlockFallbackTransform } from './transforms/sync-block-fallback-transform';
 export { nativeEmbedsFallbackTransform } from './transforms/native-embeds-fallback-transform';
+export { transformContainerNodes } from './transforms/depth-limited-nesting-container-nodes-transform';

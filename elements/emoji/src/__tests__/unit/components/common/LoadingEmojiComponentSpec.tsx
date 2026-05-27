@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { mount, type ReactWrapper } from 'enzyme';
-import { waitUntil } from '@atlaskit/elements-test-helpers';
+import { waitFor } from '@testing-library/react';
 import type { EmojiProvider } from '../../../../api/EmojiResource';
 import LoadingEmojiComponent, {
 	type Props,
@@ -47,7 +47,7 @@ describe('<LoadingEmojiComponent />', () => {
 		it('Rendered once Promise resolved', () => {
 			const providerPromise = Promise.resolve({} as EmojiProvider);
 			const component = mount(<TestLoadingComponent emojiProvider={providerPromise} />);
-			return waitUntil(() => hasLoaded(component)).then(() =>
+			return waitFor(() => expect(hasLoaded(component)).toBe(true)).then(() =>
 				expect(component.isEmptyRender()).toBe(false),
 			);
 		});
@@ -55,7 +55,7 @@ describe('<LoadingEmojiComponent />', () => {
 		it('should call #asyncLoadComponent on initial load', () => {
 			const providerPromise = Promise.resolve({} as EmojiProvider);
 			const component = mount(<TestLoadingComponent emojiProvider={providerPromise} />);
-			return waitUntil(() => hasLoaded(component)).then(() =>
+			return waitFor(() => expect(hasLoaded(component)).toBe(true)).then(() =>
 				expect(asyncLoadMock.call.length).toBe(1),
 			);
 		});
@@ -64,9 +64,9 @@ describe('<LoadingEmojiComponent />', () => {
 			const providerPromise = Promise.resolve({} as EmojiProvider);
 			const component1 = mount(<TestLoadingComponent emojiProvider={providerPromise} />);
 			const component2 = mount(<TestLoadingComponent emojiProvider={providerPromise} />);
-			return waitUntil(() => hasLoaded(component1) && hasLoaded(component2)).then(() =>
-				expect(asyncLoadMock.call.length).toBe(1),
-			);
+			return waitFor(() =>
+				expect(hasLoaded(component1) && hasLoaded(component2)).toBe(true),
+			).then(() => expect(asyncLoadMock.call.length).toBe(1));
 		});
 	});
 });

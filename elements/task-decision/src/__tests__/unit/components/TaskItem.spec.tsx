@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { screen } from '@testing-library/react';
-import { renderWithIntl } from '@atlaskit/elements-test-helpers/rtl';
+import { renderWithIntl } from '../_testing-library';
 
 import { TaskItem } from '../../../';
 

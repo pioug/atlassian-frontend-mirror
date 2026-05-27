@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9cf43027d49c104eeaabe2f135ba8c22>>
+ * @codegen <<SignedSource::07c07cb4fbd8c34128a7303a4b5bf336>>
  * @codegenCommand yarn build tokens
  */
 
@@ -4587,7 +4587,7 @@ var tokens = [{
   "path": ["color", "background", "accent", "gray", "bolder", "pressed"],
   "cleanName": "color.background.accent.gray.bolder.pressed"
 }, {
-  "value": "#BDBDBD0A",
+  "value": "#E3E4F21F",
   "filePath": "schema/themes/atlassian-dark/color/background.tsx",
   "isSource": false,
   "attributes": {
@@ -4597,7 +4597,7 @@ var tokens = [{
     "description": "Use for backgrounds of elements in a disabled state."
   },
   "original": {
-    "value": "DarkNeutral100A",
+    "value": "DarkNeutral300A",
     "attributes": {
       "group": "paint",
       "state": "active",

@@ -345,10 +345,23 @@ export const mentionResourceProvider: MentionResource = new MentionResource({
 	maxWait: 25,
 });
 
+export const mentionResourceProviderWithAgents: MentionResource = new MentionResource({
+	minWait: 10,
+	maxWait: 25,
+	allowAgents: true,
+});
+
 export const mentionResourceProviderWithResolver: MentionResource = new MentionResource({
 	minWait: 10,
 	maxWait: 25,
 	mentionNameResolver: createMockMentionNameResolver(),
+});
+
+export const mentionResourceProviderWithResolverWithAgents: MentionResource = new MentionResource({
+	minWait: 10,
+	maxWait: 25,
+	mentionNameResolver: createMockMentionNameResolver(),
+	allowAgents: true,
 });
 
 export const mentionResourceProviderWithResolver2: MentionResource = new MentionResource({

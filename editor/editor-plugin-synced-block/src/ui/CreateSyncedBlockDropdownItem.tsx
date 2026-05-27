@@ -63,8 +63,7 @@ const CreateSyncedBlockDropdownItem = ({
 			onClick={onClick}
 			isDisabled={isOffline}
 			testId={SYNCED_BLOCK_BUTTON_TEST_ID.blockMenuCreate}
-			elemAfter={fg('platform_synced_block_patch_12') ? undefined : lozenge}
-			elemAfterText={fg('platform_synced_block_patch_12') ? lozenge : undefined}
+			elemAfterText={lozenge}
 		>
 			{formatMessage(blockMenuMessages.syncBlock)}
 		</ToolbarDropdownItem>
@@ -95,8 +94,7 @@ const CopySyncedBlockDropdownItem = ({
 			elemBefore={<SyncBlocksIcon label="" size="small" />}
 			onClick={onClick}
 			isDisabled={isOfflineMode(mode)}
-			elemAfter={fg('platform_synced_block_patch_12') ? undefined : lozenge}
-			elemAfterText={fg('platform_synced_block_patch_12') ? lozenge : undefined}
+			elemAfterText={lozenge}
 		>
 			{formatMessage(blockMenuMessages.copySyncedBlock)}
 		</ToolbarDropdownItem>

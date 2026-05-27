@@ -11,6 +11,7 @@ import Tag, { type NewTagColor } from '@atlaskit/tag';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../get-style-props';
+import { useSelectGetStyles } from '../internal/use-select-get-styles';
 import type { CommonPropsAndClassName, GroupBase, MultiValueGenericProps } from '../types';
 
 import { MultiValueLabel } from './multi-value-label';
@@ -193,8 +194,27 @@ const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Opti
 	});
 
 	const hasCustomLabel = Label !== MultiValueLabel;
-	// Plain labels: use Tag with fillContainer so it truncates like tag-like structure.
-	if (ffTagUplifts && isPlainLabel && !hasCustomLabel) {
+	const selectStyles = selectProps.styles;
+	const hasCustomMultiValueStyles = Boolean(
+		selectStyles?.multiValue || selectStyles?.multiValueLabel || selectStyles?.multiValueRemove,
+	);
+	const selectClassNames = selectProps.classNames;
+	const hasCustomMultiValueClassNames = Boolean(
+		selectClassNames?.multiValue ||
+			selectClassNames?.multiValueLabel ||
+			selectClassNames?.multiValueRemove,
+	);
+	// Detect if getStyles was overridden directly on this component instance (e.g. via the
+	// components prop wrapper passing a custom getStyles). The context holds the original
+	// Select instance's getStyles — a reference inequality means a custom override was passed.
+	// When context is absent (e.g. in mocked/test contexts), assume no override.
+	const selectGetStyles = useSelectGetStyles();
+	const hasOverriddenGetStyles =
+		selectGetStyles !== undefined && props.getStyles !== selectGetStyles;
+	const hasCustomContainerStyles =
+		hasCustomMultiValueStyles || hasCustomMultiValueClassNames || hasOverriddenGetStyles;
+
+	if (ffTagUplifts && isPlainLabel && !hasCustomLabel && !hasCustomContainerStyles) {
 		const { elemBefore, color: tagColor } = (data ?? {}) as {
 			elemBefore?: ReactNode;
 			color?: NewTagColor;

@@ -1,5 +1,43 @@
 # @atlaskit/editor-statsig-tmp
 
+## 84.3.1
+
+### Patch Changes
+
+- [`60d28e13ab1a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60d28e13ab1a3) -
+  [ux] Position free generation prompt bar to its relative position when the maui app is side a
+  layout behind an experiment
+
+## 84.3.0
+
+### Minor Changes
+
+- [`835c3e861c94e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/835c3e861c94e) -
+  Add gated Smart Link Rovo prompt helpers
+- [`a664c439e70be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a664c439e70be) -
+  [ux] Added experiment to add remix button in place of improve formatting button
+
+## 84.2.0
+
+### Minor Changes
+
+- [`31f3e12a73d86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31f3e12a73d86) -
+  [ux] Fix a11y issue by preventing tab focus in editor insert dropdown list so only arrow key
+  selection is available within the inside list. Tab selection is reserved for moving between the
+  inside list and exterior components such as search and view more. Gated behind
+  platform_editor_fix_a11y_tab_focus_insertion_menu.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 84.1.0
+
+### Minor Changes
+
+- [`f8a73491895c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f8a73491895c4) -
+  Export Smart Link summarize action helpers for caller-owned UI.
+
 ## 84.0.0
 
 ### Major Changes

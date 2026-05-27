@@ -41,6 +41,16 @@ export const mentionMessages: {
 		description: string;
 		id: string;
 	};
+	typeAheadSectionPeople: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	typeAheadSectionAgents: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 } = defineMessages({
 	inviteItemTitle: {
 		id: 'fabric.editor.inviteItem.title',
@@ -86,5 +96,15 @@ export const mentionMessages: {
 		id: 'fabric.editor.inviteItem.inviteButton',
 		defaultMessage: 'Invite',
 		description: 'Label for the invite button shown in the mention typeahead invite item.',
+	},
+	typeAheadSectionPeople: {
+		id: 'fabric.editor.typeAhead.mentionSection.people',
+		defaultMessage: 'People',
+		description: 'Section header for people (non-agent) results in the mention type-ahead menu',
+	},
+	typeAheadSectionAgents: {
+		id: 'fabric.editor.typeAhead.mentionSection.agents',
+		defaultMessage: 'Agents',
+		description: 'Section header for agent results in the mention type-ahead menu',
 	},
 });

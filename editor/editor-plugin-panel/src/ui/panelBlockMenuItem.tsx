@@ -7,8 +7,11 @@ import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PanelPlugin } from '../panelPluginType';
+import { pickPanelTypeForInsertion } from '../pm-plugins/utils/utils';
+
 
 type Props = {
 	api: ExtractInjectionAPI<PanelPlugin> | undefined;
@@ -27,7 +30,10 @@ const PanelBlockMenuItem = ({ api }: Props) => {
 		const inputMethod = INPUT_METHOD.BLOCK_MENU;
 
 		api?.core.actions.execute(({ tr }) => {
-			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.panel, {
+			const panelNodeType = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+				? pickPanelTypeForInsertion(tr.selection)
+				: tr.doc.type.schema.nodes.panel;
+			const command = api?.blockMenu?.commands.transformNode(panelNodeType, {
 				inputMethod,
 				triggeredFrom,
 				targetTypeName: NODE_NAME,

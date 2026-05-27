@@ -72,6 +72,7 @@ export function createPlugin({
 					decorationSet: DecorationSet.empty,
 					decorationElement: null,
 					items: [],
+					sections: [],
 					errorInfo: null,
 					selectedIndex: -1,
 					stats: null,

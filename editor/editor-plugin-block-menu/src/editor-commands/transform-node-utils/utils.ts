@@ -1,9 +1,11 @@
+import { isNodeTypeValidChildOf } from '@atlaskit/editor-common/utils';
 import type { NodeRange, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { NodeTypeName } from './types';
 import { NODE_CATEGORY_BY_TYPE } from './types';
@@ -67,6 +69,7 @@ export const getTargetNodeTypeNameInContext = (
 	nodeTypeName: NodeTypeName | null,
 	isNested?: boolean,
 	parentNode?: PMNode,
+	schema?: Schema,
 ): NodeTypeName | null => {
 	if (
 		parentNode &&
@@ -78,6 +81,12 @@ export const getTargetNodeTypeNameInContext = (
 
 	if (nodeTypeName === 'expand' && isNested) {
 		return 'nestedExpand';
+	}
+
+	if (nodeTypeName === 'panel' && schema?.nodes['panel_c1'] && expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
+		if (!parentNode || isNodeTypeValidChildOf('panel_c1', parentNode, schema)) {
+			return 'panel_c1';
+		}
 	}
 
 	return nodeTypeName;

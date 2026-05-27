@@ -8,12 +8,14 @@ import {
 	transformNodesMissingContent,
 	transformTextLinkCodeMarks,
 	transformMediaSingleWidth,
+	transformContainerNodes,
 } from '@atlaskit/adf-utils/transforms';
 import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Fragment, Node } from '@atlaskit/editor-prosemirror/model';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
@@ -98,6 +100,16 @@ export function processRawValueWithoutValidation(
 	const result = syncBlockFallbackTransform(schema, transformedAdf);
 	if (result.isTransformed && result.transformedAdf) {
 		transformedAdf = result.transformedAdf;
+	}
+
+	if (expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
+		const containerNodeTransformResult = transformContainerNodes(
+			transformedAdf as ADFEntity,
+			schema,
+		);
+		if (containerNodeTransformResult.isTransformed && containerNodeTransformResult.transformedAdf) {
+			transformedAdf = containerNodeTransformResult.transformedAdf;
+		}
 	}
 
 	return Node.fromJSON(schema, transformedAdf);
@@ -287,6 +299,13 @@ export function processRawValue(
 		// Convert nested-table extensions into nested tables
 		({ transformedAdf } = transformNestedTablesWithAnalytics(entity, dispatchAnalyticsEvent));
 		entity = transformedAdf;
+
+		if (expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
+			({ transformedAdf, isTransformed } = transformContainerNodes(entity as ADFEntity, schema));
+			if (isTransformed) {
+				entity = transformedAdf as ADFEntity;
+			}
+		}
 
 		const newEntity = maySanitizePrivateContent(
 			entity as JSONDocNode,

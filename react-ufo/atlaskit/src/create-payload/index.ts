@@ -50,6 +50,10 @@ import { LabelStackRegistry } from './common/utils/label-stack-registry';
 import { createCriticalMetricsPayloads } from './critical-metrics-payload';
 import type { CriticalMetricsPayload } from './critical-metrics-payload/types';
 import { addPerformanceMeasures } from './utils/add-performance-measures';
+import {
+	flattenAndDeduplicateSegment3pTimings,
+	getSegment3pTimingsSizes,
+} from './utils/flatten-segment-3p-timings';
 import { getBatteryInfoToLegacyFormat } from './utils/get-battery-info';
 import { getBrowserMetadataToLegacyFormat } from './utils/get-browser-metadata';
 import getInteractionStatus from './utils/get-interaction-status';
@@ -664,10 +668,12 @@ async function createInteractionMetricsPayload(
 			// Feature-gated: when off, record only the serialized size in Kb to measure payload impact before enabling.
 			...(interaction.segment3pTimings
 				? fg('platform_ufo_ecosystem_data_in_payload')
-					? { segment3pTimings: interaction.segment3pTimings }
-					: {
-							segment3pTimingsSizeInKb: getPayloadSize(interaction.segment3pTimings),
+					? {
+							segment3pTimings: flattenAndDeduplicateSegment3pTimings(interaction.segment3pTimings),
 						}
+					: getSegment3pTimingsSizes(
+							flattenAndDeduplicateSegment3pTimings(interaction.segment3pTimings) ?? [],
+						)
 				: {}),
 			// Always include abort markers regardless of the ecosystem data flag so they can be
 			// queried in analytics even when the full segment3pTimings payload is disabled.

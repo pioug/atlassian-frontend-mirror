@@ -23,6 +23,7 @@ export function ContentComponent({
 	const {
 		triggerHandler,
 		items,
+		sections,
 		errorInfo,
 		decorationElement,
 		decorationSet,
@@ -31,6 +32,7 @@ export function ContentComponent({
 	} = useSharedPluginStateWithSelector(api, ['typeAhead'], (states) => ({
 		triggerHandler: states.typeAheadState?.triggerHandler,
 		items: states.typeAheadState?.items,
+		sections: states.typeAheadState?.sections,
 		errorInfo: states.typeAheadState?.errorInfo,
 		decorationElement: states.typeAheadState?.decorationElement,
 		decorationSet: states.typeAheadState?.decorationSet,
@@ -39,6 +41,7 @@ export function ContentComponent({
 	}));
 	if (
 		items === undefined ||
+		sections === undefined ||
 		decorationSet === undefined ||
 		errorInfo === undefined ||
 		decorationElement === undefined ||
@@ -56,6 +59,7 @@ export function ContentComponent({
 			typeAheadState={{
 				triggerHandler,
 				items,
+				sections,
 				errorInfo,
 				decorationElement,
 				decorationSet,

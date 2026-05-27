@@ -18,6 +18,7 @@ export type NodeTypeName =
 	| 'multiBodiedExtension'
 	| 'orderedList'
 	| 'panel'
+	| 'panel_c1'
 	| 'paragraph'
 	| 'nestedExpand'
 	| 'taskList'
@@ -44,6 +45,7 @@ export const NODE_CATEGORY_BY_TYPE: Record<NodeTypeName, NodeCategory> = {
 	multiBodiedExtension: 'atomic',
 	orderedList: 'list',
 	panel: 'container',
+	panel_c1: 'container',
 	paragraph: 'text',
 	nestedExpand: 'container',
 	taskList: 'list',

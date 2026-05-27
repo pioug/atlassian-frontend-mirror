@@ -1880,7 +1880,7 @@
         "introduced": "0.0.15",
         "description": "Use for backgrounds of elements in a disabled state."
       },
-      "value": "#17171708"
+      "value": "#0515240F"
     },
     "Light/color.background.input": {
       "attributes": {

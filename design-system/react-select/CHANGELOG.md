@@ -1,5 +1,12 @@
 # @atlaskit/react-select
 
+## 3.16.2
+
+### Patch Changes
+
+- [`6622a9a9710ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6622a9a9710ad) -
+  [ux] Fix for select not detecting a case of custom styling and overwriting styles behind a ff.
+
 ## 3.16.1
 
 ### Patch Changes

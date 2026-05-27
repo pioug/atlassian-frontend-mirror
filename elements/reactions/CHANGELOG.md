@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 34.2.8
+
+### Patch Changes
+
+- [`d0246d76b398a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0246d76b398a) -
+  Do not announce decorative particle effects
+- Updated dependencies
+
 ## 34.2.7
 
 ### Patch Changes

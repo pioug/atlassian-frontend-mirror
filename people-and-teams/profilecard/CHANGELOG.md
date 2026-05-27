@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 25.7.6
+
+### Patch Changes
+
+- [`6161128d5fe36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6161128d5fe36) -
+  Cleanup feature gate `jira_ai_profilecard_hide_agent_actions`.
+- Updated dependencies
+
 ## 25.7.5
 
 ### Patch Changes

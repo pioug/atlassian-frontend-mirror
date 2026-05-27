@@ -25,6 +25,7 @@ import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
+import type { AIGeneratingSource } from './pm-plugins/ai-generating-decoration';
 import type { MediaPluginState } from './pm-plugins/types';
 import type { InsertMediaAsMediaSingle } from './pm-plugins/utils/media-single';
 import type { MediaOptions } from './types';
@@ -107,7 +108,7 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 			 * Decorations live in the view layer only and never affect the document model
 			 * or undo/redo history.
 			 */
-			setAIGenerating: (mediaId: string) => EditorCommand;
+			setAIGenerating: (mediaId: string, source?: AIGeneratingSource) => EditorCommand;
 			showMediaViewer: (media: MediaADFAttrs) => EditorCommand;
 			trackMediaPaste: (attrs: MediaADFAttrs) => EditorCommand;
 		};

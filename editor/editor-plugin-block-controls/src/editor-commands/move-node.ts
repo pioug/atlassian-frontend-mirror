@@ -17,7 +17,7 @@ import {
 	type ExtractInjectionAPI,
 	DIRECTION,
 } from '@atlaskit/editor-common/types';
-import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import { getBaseNodeTypeName, isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import {
 	type Node as PMNode,
 	Fragment,
@@ -34,6 +34,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import { findTable, isInTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ActiveNode, BlockControlsPlugin, MoveNodeMethod } from '../blockControlsPluginType';
@@ -112,7 +113,10 @@ const nodesSupportDragLayoutColumnInto = [
 
 const isDragLayoutColumnIntoSupportedNodes = ($from: ResolvedPos, $to: ResolvedPos) => {
 	const isTopLevel = $to.depth === 0;
-	const isDragIntoNodes = nodesSupportDragLayoutColumnInto.includes($to.parent.type.name);
+	const toParentTypeName = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+		? getBaseNodeTypeName($to.parent.type)
+		: $to.parent.type.name;
+	const isDragIntoNodes = nodesSupportDragLayoutColumnInto.includes(toParentTypeName);
 	const supportedCondition = isDragIntoNodes || isTopLevel;
 
 	return (

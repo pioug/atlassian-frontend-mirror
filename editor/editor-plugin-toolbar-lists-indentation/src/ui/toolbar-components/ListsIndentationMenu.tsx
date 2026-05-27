@@ -10,6 +10,7 @@ import { MoreItemsIcon, ToolbarDropdownMenu, ToolbarTooltip } from '@atlaskit/ed
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
 import { useIndentationState } from '../utils/hooks';
+import { isMarkdownCompatibleToolbarEnabled } from '../utils/markdown-compatible-toolbar';
 
 type ListsIndentationMenuProps = {
 	allowHeadingAndParagraphIndentation: boolean;
@@ -30,14 +31,18 @@ export const ListsIndentationMenu = ({
 		allowHeadingAndParagraphIndentation,
 		state: editorView?.state,
 	});
-	const { bulletListDisabled, orderedListDisabled, taskListActive } =
-		useSharedPluginStateWithSelector(api, ['list', 'taskDecision'], (states) => ({
+	const isMarkdownToolbarEnabled = isMarkdownCompatibleToolbarEnabled();
+	const { bulletListDisabled, orderedListDisabled, taskListActive, markdownView } =
+		useSharedPluginStateWithSelector(api, ['list', 'taskDecision', 'markdownMode'], (states) => ({
 			bulletListDisabled: states.listState?.bulletListDisabled,
 			orderedListDisabled: states.listState?.orderedListDisabled,
 			taskListActive: states.taskDecisionState?.isInsideTask,
+			markdownView: isMarkdownToolbarEnabled ? states.markdownModeState?.view : undefined,
 		}));
+	const isInSourceView = isMarkdownToolbarEnabled && markdownView === 'syntax';
 
 	const allItemsDisabled =
+		!isInSourceView &&
 		bulletListDisabled &&
 		orderedListDisabled &&
 		indentationState?.indentDisabled &&

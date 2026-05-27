@@ -53,7 +53,6 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/search-test-utils": "workspace:^",
 		"@af/visual-regression": "workspace:^",
-		"@atlaskit/elements-test-helpers": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/a11y-playwright-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
@@ -150,5 +149,5 @@
 			]
 		}
 	},
-	"version": "26.0.3"
+	"version": "26.0.4"
 }

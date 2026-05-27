@@ -106,6 +106,7 @@ export const createReducer = ({
 			inputMethod,
 			selectedIndex: typeof selectedIndex === 'number' ? selectedIndex : -1,
 			items: [],
+			sections: [],
 			query: reopenQuery || '',
 			removePrefixTriggerOnCancel,
 		};
@@ -125,6 +126,7 @@ export const createReducer = ({
 			stats: null,
 			triggerHandler: undefined,
 			items: [],
+			sections: [],
 			removePrefixTriggerOnCancel: undefined,
 		};
 	};
@@ -187,15 +189,17 @@ export const createReducer = ({
 				...currentPluginState,
 				errorInfo,
 				items: [],
+				sections: [],
 				selectedIndex: -1,
 			};
 		} else if (shouldUpdateListItems) {
-			const { items } = params;
+			const { items, sections = [] } = params;
 			const { selectedIndex } = currentPluginState;
 
 			return {
 				...currentPluginState,
 				items,
+				sections,
 				selectedIndex: Math.max(
 					selectedIndex >= items.length ? items.length - 1 : selectedIndex,
 					-1,

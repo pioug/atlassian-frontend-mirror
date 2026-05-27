@@ -1874,7 +1874,7 @@
       }
     },
     "Light increased-contrast/color.background.disabled": {
-      "value": "#17171708",
+      "value": "#0515240F",
       "attributes": {
         "group": "paint",
         "state": "active",

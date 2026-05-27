@@ -19,6 +19,32 @@ import type { ClearFormattingInputMethod, InputMethod } from './pm-plugins/comma
 import type { BlockTypeState } from './pm-plugins/main';
 import type { BlockTypePluginOptions } from './pm-plugins/types';
 
+/**
+ * Minimal duck-typed slice of `@atlassian/editor-plugin-markdown-mode`'s
+ * `MarkdownModePlugin` covering only the block-level surface this plugin uses.
+ * See `editor-plugin-text-formatting/textFormattingPluginType.ts` for the
+ * rationale for not importing the real type.
+ */
+type _MarkdownModePluginStub = NextEditorPlugin<
+	'markdownMode',
+	{
+		actions: {
+			toggleSourceBlockquote: () => boolean;
+			toggleSourceHeading: (level: 1 | 2 | 3 | 4 | 5 | 6) => boolean;
+		};
+		sharedState:
+			| {
+					sourceBlockFormatState: {
+						headingLevel: number | null;
+						inBlockquote: boolean;
+						inCodeBlock: boolean;
+					} | null;
+					view: 'syntax' | 'split-view' | 'preview';
+			  }
+			| undefined;
+	}
+>;
+
 export type BlockTypePlugin = NextEditorPlugin<
 	'blockType',
 	{
@@ -44,6 +70,7 @@ export type BlockTypePlugin = NextEditorPlugin<
 			OptionalPlugin<ListPlugin>,
 			OptionalPlugin<SelectionPlugin>,
 			OptionalPlugin<InteractionPlugin>,
+			OptionalPlugin<_MarkdownModePluginStub>,
 		];
 		pluginConfiguration: BlockTypePluginOptions | undefined;
 		sharedState: BlockTypeState | undefined;

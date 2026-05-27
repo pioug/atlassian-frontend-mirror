@@ -1,5 +1,29 @@
 # @atlaskit/emoji
 
+## 70.10.13
+
+### Patch Changes
+
+- [`87d80420e93ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87d80420e93ce) -
+  Update the emoji delete button icon styling.
+- Updated dependencies
+
+## 70.10.12
+
+### Patch Changes
+
+- [`93fae868945b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93fae868945b0) -
+  Fix accessibility - inaccessible skin tones from keyboard navigation
+- Updated dependencies
+
+## 70.10.11
+
+### Patch Changes
+
+- [`2a75c1be2244e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a75c1be2244e) -
+  Removed usage of @atlaskit/elements-test-helpers from tests
+- Updated dependencies
+
 ## 70.10.10
 
 ### Patch Changes

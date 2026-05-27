@@ -223,7 +223,7 @@ export class ReferenceSyncBlockStoreManager {
 	}
 
 	private stripAnnotationMarksFromReferenceData(syncBlock: SyncBlockInstance): SyncBlockInstance {
-		if (!fg('platform_synced_block_patch_12') || !syncBlock.data?.content) {
+		if (!syncBlock.data?.content) {
 			return syncBlock;
 		}
 

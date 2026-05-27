@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-type
 
+## 14.2.0
+
+### Minor Changes
+
+- [`1f36a5ab4e9ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f36a5ab4e9ae) -
+  Support markdown source view heading and quote toolbar actions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.7
 
 ### Patch Changes

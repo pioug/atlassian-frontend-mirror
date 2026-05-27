@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 9.2.10
+
+### Patch Changes
+
+- [`78c42f10ef772`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78c42f10ef772) -
+  Add support in block menu for new panel_c1 variant which allows tables inside
+- Updated dependencies
+
 ## 9.2.9
 
 ### Patch Changes

@@ -189,3 +189,7 @@ export const AI_IMPROVE_WRITING_MENU_ITEM = {
 export const AI_POLISH_MENU_ITEM = {
 	key: 'block-menu-ai-polish-menu-item',
 };
+
+export const AI_REMIX_MENU_ITEM = {
+	key: 'block-menu-ai-remix-menu-item',
+};

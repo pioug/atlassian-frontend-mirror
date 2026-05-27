@@ -67,6 +67,13 @@ export type TypeAheadItem = {
 	title: string;
 };
 
+export type TypeAheadSection = {
+	filter: (item: TypeAheadItem) => boolean;
+	id: string;
+	limit?: number;
+	title: string;
+};
+
 export type TypeAheadForceSelect = (props: TypeAheadForceSelectProps) => TypeAheadItem | undefined;
 
 export type MoreOptionsButtonConfig = {
@@ -102,6 +109,9 @@ export type TypeAheadHandler = {
 
 	/** Handler returns an array of TypeAheadItem based on query to be displayed in the TypeAhead */
 	getItems: (props: { editorState: EditorState; query: string }) => Promise<Array<TypeAheadItem>>;
+
+	/** Optional section definitions used by type-ahead menu to group items */
+	getSections?: (props: { intl: IntlShape }) => Array<TypeAheadSection>;
 
 	getMoreOptionsButtonConfig?: (intl: IntlShape) => MoreOptionsButtonConfig;
 

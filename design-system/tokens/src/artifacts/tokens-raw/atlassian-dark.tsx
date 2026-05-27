@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::59ef4b5bec3f9d0828615e38ebd219c2>>
+ * @codegen <<SignedSource::c7aa39eae7839f7e54fc07b5614a5359>>
  * @codegenCommand yarn build tokens
  */
 
@@ -6117,7 +6117,7 @@ const tokens: Token[] = [
       "introduced": "0.0.15",
       "description": "Use for backgrounds of elements in a disabled state."
     },
-    "value": "#BDBDBD0A",
+    "value": "#E3E4F21F",
     "filePath": "schema/themes/atlassian-dark/color/background.tsx",
     "isSource": true,
     "original": {
@@ -6127,7 +6127,7 @@ const tokens: Token[] = [
         "introduced": "0.0.15",
         "description": "Use for backgrounds of elements in a disabled state."
       },
-      "value": "DarkNeutral100A"
+      "value": "DarkNeutral300A"
     },
     "name": "color.background.disabled",
     "path": [

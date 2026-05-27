@@ -19,10 +19,6 @@ export default (): React.JSX.Element => (
 			<Avatar name="xsmall" size="xsmall" />
 		</Block>
 		<Block heading="Square">
-			<Tooltip content="xxlarge">
-				<Avatar appearance="square" name="xxlarge" size="xxlarge" presence="focus" />
-			</Tooltip>
-			<Avatar appearance="square" name="xlarge" size="xlarge" status="approved" />
 			<Avatar appearance="square" name="large" size="large" status="declined" />
 			<Avatar appearance="square" name="medium" size="medium" status="locked" />
 			<Avatar appearance="square" name="small" size="small" />

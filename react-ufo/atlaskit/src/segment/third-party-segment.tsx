@@ -16,6 +16,14 @@ import {
 } from '../resource-timing/common/utils/shape-resource-timing';
 
 import UFOSegment, { type Props as SegmentProps } from './segment';
+import {
+	isDomMutationsFinalBatch,
+	shapeDomMutationsData,
+	shapeFrameMarkData,
+	shapeFrameMeasureData,
+	shapeLayoutShiftData,
+	shapePaintTimingData,
+} from './shape-iframe-dom-events';
 
 const FORGE_TTAI_EVENT_PREFIX = 'ufo-forge';
 
@@ -219,6 +227,28 @@ function IframeSegment({
 					data = shapeResourceTimingData(restData);
 				} else if (suffix === 'navigation-timing') {
 					data = shapeNavigationTimingData(restData);
+				} else if (suffix === 'paint-timing') {
+					data = shapePaintTimingData(restData);
+				} else if (suffix === 'frame-mark') {
+					data = shapeFrameMarkData(restData);
+				} else if (suffix === 'frame-measure') {
+					data = shapeFrameMeasureData(restData);
+				} else if (suffix === 'layout-shift') {
+					data = shapeLayoutShiftData(restData);
+				} else if (suffix === 'dom-mutations') {
+					// Skip intermediate batches — only record the final summary batch.
+					if (!isDomMutationsFinalBatch(restData)) {
+						// Still update iframeEventsReceived / abort timer below, but don't store.
+						if (!iframeEventsReceived) {
+							iframeEventsReceived = true;
+							clearTimeout(abortTimer);
+							abortTimer = setTimeout(() => {
+								fireAbort(ABORT_TIMEOUT_EXTENDED_MS);
+							}, ABORT_TIMEOUT_EXTENDED_MS - ABORT_TIMEOUT_INITIAL_MS);
+						}
+						return;
+					}
+					data = shapeDomMutationsData(restData);
 				} else {
 					data = restData;
 				}

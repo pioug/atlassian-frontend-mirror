@@ -581,15 +581,6 @@ export type SpaceDeselectedPayload = PayloadCore<'space-deselected'>;
 
 export type RecommendedSpacesSelectedPayload = PayloadCore<'recommended-spaces-selected'>;
 
-/** Published after a new conversation is linked to a Rovo Space (e.g. space landing chat). */
-export type SpaceConversationCreatedPayload = PayloadCore<
-	'space-conversation-created',
-	{
-		spaceId: string;
-		conversationId: string;
-	}
->;
-
 export type SmartlinksSubscriptionChangedPayload =
 	PayloadCore<'smartlinks-subscription-changed'> & {
 		/** Never opens chat — internal signal only. */
@@ -641,7 +632,6 @@ export type Payload =
 	| SpaceSelectedPayload
 	| SpaceDeselectedPayload
 	| RecommendedSpacesSelectedPayload
-	| SpaceConversationCreatedPayload
 	| TaskPlanConfirmedPayload
 	| TaskAskQuestionRenderedPayload
 	| TaskPlanRenderedPayload

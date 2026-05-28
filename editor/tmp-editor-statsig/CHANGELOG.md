@@ -1,5 +1,31 @@
 # @atlaskit/editor-statsig-tmp
 
+## 85.0.0
+
+### Major Changes
+
+- [`b0378b1a1762f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0378b1a1762f) -
+  Cleanup platform_sl_fix_cache_unresolved
+
+## 84.4.0
+
+### Minor Changes
+
+- [`0ded3f82666cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ded3f82666cb) -
+  Remove platform_editor_ai_disable_bridge_without_ai experiment gate. The bridge now always
+  requires aiExperience and aiStreamingOrchestrator to be present before initializing.
+
+## 84.3.2
+
+### Patch Changes
+
+- [`cf6977530a136`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf6977530a136) -
+  Support fullwidth slash ／ (U+FF0F) as a quick insert trigger for Japanese/CJK keyboard users.
+  Japanese keyboards produce the fullwidth slash when pressing the / key, which previously did not
+  open the quick insert menu. The fix adds a `customRegex` to the quick-insert typeahead handler
+  that matches both ASCII slash `/` and fullwidth slash `／`, and extends the trigger cleanup logic
+  in `openTypeAheadAtCursor` to handle `customRegex` alternatives.
+
 ## 84.3.1
 
 ### Patch Changes

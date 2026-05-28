@@ -765,12 +765,14 @@ function TopLayerTooltipPopup({
 
 	// Anchor positioning: only for non-mouse positions.
 	// Mouse positions use JS-based fixed positioning below.
+
+	// This will offset the tooltip away by the standard "space.100"
+	// Which matches the legacy path
+	// (@atlaskit/popper used 8px as its default offset)
 	useAnchorPosition({
 		anchorRef: isMousePosition ? { current: null } : targetRef,
 		popoverRef,
-		// Tooltips sit 4px away from the trigger; the legacy popper tuple is
-		// `[along, away]`, so a 4px gap is `[0, 4]`.
-		placement: fromLegacyPlacement({ legacy: tooltipPosition, offset: [0, 4] }),
+		placement: fromLegacyPlacement({ legacy: tooltipPosition }),
 	});
 
 	// Mouse position: JS positioning only (no anchor).

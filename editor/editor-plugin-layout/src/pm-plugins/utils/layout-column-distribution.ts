@@ -2,8 +2,6 @@ const roundLayoutColumnWidth = (width: number): number => Number(width.toFixed(2
 
 const sumWidths = (widths: number[]): number => widths.reduce((sum, width) => sum + width, 0);
 
-const isValidWidth = (width: number): boolean => Number.isFinite(width) && width > 0;
-
 const normaliseWidthsTotal = (widths: number[], totalWidth: number, minWidth: number): number[] => {
 	const roundedWidths = widths.map(roundLayoutColumnWidth);
 	const remainder = roundLayoutColumnWidth(totalWidth - sumWidths(roundedWidths));
@@ -26,6 +24,8 @@ const normaliseWidthsTotal = (widths: number[], totalWidth: number, minWidth: nu
 
 	return roundedWidths.map((width, index) => (index === adjustmentIndex ? adjustedWidth : width));
 };
+
+const isValidWidth = (width: number): boolean => Number.isFinite(width) && width > 0;
 
 const redistributeWithMinimumWidth = ({
 	minWidth,
@@ -82,6 +82,47 @@ const redistributeWithMinimumWidth = ({
 
 	return widths;
 };
+
+/**
+ * Returns true when the given selected columns already reflect the distribution that
+ * `distributeLayoutColumns` would produce — i.e. the first N-1 cols each hold
+ * `equalWidth` (rounded to 2 dp) and the last col absorbs the rounding remainder.
+ *
+ * This mirrors the action's "last col absorbs remainder" logic so that the UI can
+ * disable the option when it would be a no-op, avoiding spurious undo entries.
+ */
+export type Distribution = {
+	equalWidth: number;
+	selectedTotal: number;
+};
+
+export const calculateDistribution = (selectedWidths: number[]): Distribution | undefined => {
+	const count = selectedWidths.length;
+	if (count < 2) {
+		return undefined;
+	}
+
+	const selectedTotal = sumWidths(selectedWidths);
+	const equalWidth = roundLayoutColumnWidth(selectedTotal / count);
+
+	return { selectedTotal, equalWidth };
+};
+
+export function isDistributedUniformly(
+	selectedWidths: number[],
+	distribution: Distribution | undefined = calculateDistribution(selectedWidths),
+): boolean {
+	if (!distribution || selectedWidths.length < 2) {
+		return false;
+	}
+
+	const { selectedTotal, equalWidth } = distribution;
+	const lastColWidth = roundLayoutColumnWidth(selectedTotal - equalWidth * (selectedWidths.length - 1));
+	return (
+		selectedWidths.slice(0, -1).every((width) => width === equalWidth) &&
+		selectedWidths[selectedWidths.length - 1] === lastColWidth
+	);
+}
 
 export const redistributeAfterDeletion = (
 	currentWidths: number[],

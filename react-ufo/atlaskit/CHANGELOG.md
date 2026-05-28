@@ -1,5 +1,20 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 6.3.1
+
+### Patch Changes
+
+- [`c60b23689f626`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c60b23689f626) -
+  Cleanup feature gate `platform_ufo_drop_prior_fg_interactions`. For `press` interactions,
+  `priorAccessedFg` is now always `{}` as permanent behaviour.
+
+## 6.3.0
+
+### Minor Changes
+
+- [`f5c47464661f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5c47464661f7) -
+  Optimise forge app perf data size
+
 ## 6.2.0
 
 ### Minor Changes

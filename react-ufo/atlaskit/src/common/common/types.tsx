@@ -257,6 +257,15 @@ export interface InteractionMetrics {
 	 */
 	segment3pTimings?: Record<string, Segment3pTimingEntry[]>;
 	/**
+	 * Cross-segment deduplication set for iframe timing entries (B3).
+	 * Keys are `${label}|${stableDataFingerprint}` (no segmentId) so that identical
+	 * entries reported by N iframes on the same page (e.g. shared Forge runtime CDN
+	 * resources) are rejected on arrival rather than stored N times and deduped later.
+	 *
+	 * Not serialised into the payload — used only during the interaction lifetime.
+	 */
+	segment3pCrossSegmentSeen?: Set<string>;
+	/**
 	 * Arbitrary extra data keyed by UFO segment id. Unlike customData (interaction-level),
 	 * this is scoped per segment so multiple segments on the same page don't collide.
 	 */

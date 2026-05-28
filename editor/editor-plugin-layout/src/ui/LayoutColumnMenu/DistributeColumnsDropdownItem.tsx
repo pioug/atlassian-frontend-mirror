@@ -7,6 +7,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
+import { isDistributedUniformly } from '../../pm-plugins/utils/layout-column-distribution';
 
 import { useSelectedLayoutColumns } from './useSelectedLayoutColumns';
 
@@ -32,8 +33,6 @@ export const DistributeColumnsDropdownItem = ({
 		});
 	}, [api]);
 
-	// Hide when selected columns are already evenly distributed — no-op action.
-	// Must be before any early return to satisfy rules-of-hooks.
 	const isAlreadyUniform = useMemo(() => {
 		if (!selectedLayoutColumns || selectedLayoutColumns.selectedColumns.length < 2) {
 			return false;
@@ -41,21 +40,15 @@ export const DistributeColumnsDropdownItem = ({
 		const selectedWidths = selectedLayoutColumns.selectedColumns.map(
 			(col) => col.node.attrs.width as number,
 		);
-		const selectedTotal = selectedWidths.reduce((sum, w) => sum + w, 0);
-		const equalWidth = Number((selectedTotal / selectedWidths.length).toFixed(2));
-		return selectedWidths.every((w) => w === equalWidth);
+		return isDistributedUniformly(selectedWidths);
 	}, [selectedLayoutColumns]);
 
 	if (selectedLayoutColumns === undefined || selectedLayoutColumns.selectedColumns.length < 2) {
 		return null;
 	}
 
-	if (isAlreadyUniform) {
-		return null;
-	}
-
 	return (
-		<ToolbarDropdownItem onClick={handleClick}>
+		<ToolbarDropdownItem onClick={handleClick} isDisabled={isAlreadyUniform}>
 			{formatMessage(layoutMessages.distributeColumns)}
 		</ToolbarDropdownItem>
 	);

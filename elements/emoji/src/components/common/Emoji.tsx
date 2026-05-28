@@ -17,6 +17,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import { shouldUseAltRepresentation } from '../../api/EmojiUtils';
 import {
+	defaultEmojiHeight,
 	deleteEmojiLabel,
 	EMOJI_KEYBOARD_KEYS_SUPPORTED,
 	KeyboardKeys,
@@ -26,6 +27,7 @@ import {
 	isImageRepresentation,
 	isMediaRepresentation,
 	isSpriteRepresentation,
+	isUnicodeRepresentation,
 	toEmojiId,
 } from '../../util/type-helpers';
 import {
@@ -33,6 +35,7 @@ import {
 	type OnEmojiEvent,
 	type SpriteRepresentation,
 	UfoEmojiTimings,
+	type UnicodeRepresentation,
 } from '../../types';
 import { leftClick } from '../../util/mouse';
 import DeleteButton from './DeleteButton';
@@ -101,6 +104,46 @@ const emojiImageContainer = css({
 	img: {
 		display: 'block',
 	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.emoji-common-selected,&.emoji-common-select-on-hover:hover': {
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.emoji-common-selected,&.emoji-common-select-on-hover:hover .emoji-common-deleteButton': {
+		// show delete button on hover
+		visibility: 'visible',
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.emoji-common-deletable': {
+		position: 'relative',
+	},
+
+	// show delete button on focus
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.emoji-common-deletable:focus-within .emoji-common-deleteButton': {
+		visibility: 'visible',
+	},
+
+	'&:focus': {
+		boxShadow: `0 0 0 2px ${token('color.border.focused')}`,
+		transitionDuration: '0s, 0.2s',
+		outline: 'none',
+	},
+});
+
+// Unicode emojis render as text inside a <span>, not an <img>, so they do not need
+// borderRadius (which would clip a background on hover) or the img { display: block } rule.
+const emojiUnicodeContainer = css({
+	backgroundColor: 'transparent',
+	display: 'inline-block',
+	verticalAlign: 'middle',
+	// Ensure along with vertical align middle, we don't increase the line height for p and some
+	// headings. Smaller headings get a slight increase in height, cannot add more negative margin
+	// as a "selected" emoji (e.g. in the editor) will not look good.
+	margin: '-1px 0',
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.emoji-common-selected,&.emoji-common-select-on-hover:hover': {
@@ -305,9 +348,8 @@ export const SpriteEmoji = (props: Props): JSX.Element => {
 	const representation = emoji.representation as SpriteRepresentation;
 	const sprite = representation.sprite;
 
-	const classes = `${emojiNodeStyles} ${selected ? commonSelectedStyles : ''} ${
-		selectOnHover ? selectOnHoverStyles : ''
-	} ${className ? className : ''}`;
+	const classes = `${emojiNodeStyles} ${selected ? commonSelectedStyles : ''} ${selectOnHover ? selectOnHoverStyles : ''
+		} ${className ? className : ''}`;
 
 	let sizing = {};
 	if (fitToHeight) {
@@ -344,6 +386,40 @@ export const SpriteEmoji = (props: Props): JSX.Element => {
 	);
 };
 
+export const UnicodeEmoji = (props: Props): JSX.Element => {
+	const { emoji, fitToHeight, selected, selectOnHover, className } = props;
+
+	const classes = `${emojiNodeStyles} ${selected ? commonSelectedStyles : ''} ${selectOnHover ? selectOnHoverStyles : ''
+		} ${className ? className : ''}`;
+
+	const emojiText = (emoji.representation as UnicodeRepresentation).unicodeEmoji;
+
+	const size = fitToHeight ?? defaultEmojiHeight;
+
+	const style: React.CSSProperties = {
+		display: 'inline-block',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		fontSize: `max(1em, ${size}px)`,
+		width: `max(1em, ${size}px)`,
+		height: `max(1em, ${size}px)`,
+		textAlign: 'center',
+		alignContent: 'center',
+		alignSelf: 'center',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		lineHeight: '0',
+		margin: '0',
+		padding: '0',
+	};
+
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+		<EmojiNodeWrapper {...props} type="unicode" className={classes}>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop */}
+			<span style={style}>{emojiText}</span>
+		</EmojiNodeWrapper>
+	);
+};
+
 // Keep as pure functional component, see renderAsSprite.
 export const ImageEmoji = (props: Props): JSX.Element => {
 	const {
@@ -364,11 +440,9 @@ export const ImageEmoji = (props: Props): JSX.Element => {
 
 	const ufoExp = useMemo(() => sampledUfoRenderedEmoji(emoji), [emoji]);
 
-	const classes = `${emojiMainStyle} ${emojiNodeStyles} ${
-		selected ? commonSelectedStyles : ''
-	} ${selectOnHover ? selectOnHoverStyles : ''} ${emojiImage} ${
-		className ? className : ''
-	} ${showDelete ? deletableEmoji : ''}`;
+	const classes = `${emojiMainStyle} ${emojiNodeStyles} ${selected ? commonSelectedStyles : ''
+		} ${selectOnHover ? selectOnHoverStyles : ''} ${emojiImage} ${className ? className : ''
+		} ${showDelete ? deletableEmoji : ''}`;
 
 	let width;
 	let height;
@@ -507,7 +581,7 @@ export const ImageEmoji = (props: Props): JSX.Element => {
 };
 
 interface EmojiNodeWrapperProps extends Props {
-	type: 'sprite' | 'image';
+	type: 'sprite' | 'image' | 'unicode';
 }
 
 export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
@@ -561,7 +635,13 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 			data-testid={`${type}-emoji-${emoji.shortName}`}
 			data-emoji-type={type}
 			tabIndex={shouldBeInteractive ? tabIndex || 0 : undefined}
-			css={[type === 'sprite' ? emojiSpriteContainer : emojiImageContainer]}
+			css={[
+				type === 'sprite'
+					? emojiSpriteContainer
+					: type === 'unicode'
+						? emojiUnicodeContainer
+						: emojiImageContainer
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 			onKeyDown={(event) => handleKeyDown(props, event)}
@@ -604,6 +684,10 @@ export const Emoji = (props: Props): JSX.Element => {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	if (isUnicodeRepresentation(emoji.representation)) {
+		return <UnicodeEmoji {...props} />
+	}
 	// TODO: We always prefer render as image as having accessibility issues with sprite representation
 	if (isSpriteRepresentation(emoji.representation)) {
 		return <SpriteEmoji {...props} />;

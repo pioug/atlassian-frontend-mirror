@@ -344,140 +344,74 @@ describe('EditorCardProvider', () => {
 					);
 				});
 
-				eeTest
-					.describe('platform_sl_fix_cache_unresolved', 'platform_sl_fix_cache_unresolved')
-					.variant(true, () => {
-						it('should return cached data when cached response status is resolved', async () => {
-							const cachedResponse = createSmartLinkResponse('https://cached.example.com');
-							const asyncResponse = createSmartLinkResponse('https://fresh.example.com');
-							const { callback, setItemSpy } = setupCacheScenario(asyncResponse, cachedResponse);
+				it('should return cached data when cached response status is resolved', async () => {
+						const cachedResponse = createSmartLinkResponse('https://cached.example.com');
+						const asyncResponse = createSmartLinkResponse('https://fresh.example.com');
+						const { callback, setItemSpy } = setupCacheScenario(asyncResponse, cachedResponse);
 
-							expect(setItemSpy).toHaveBeenCalledTimes(1);
-							expect(setItemSpy).toHaveBeenCalledWith(cacheTestUrl, asyncResponse);
-							expect(callback).toHaveBeenCalledTimes(2);
-							expect(callback).toHaveBeenNthCalledWith(1, { data: cachedResponse });
-							expect(callback).toHaveBeenNthCalledWith(2, { data: asyncResponse });
+						expect(setItemSpy).toHaveBeenCalledTimes(1);
+						expect(setItemSpy).toHaveBeenCalledWith(cacheTestUrl, asyncResponse);
+						expect(callback).toHaveBeenCalledTimes(2);
+						expect(callback).toHaveBeenNthCalledWith(1, { data: cachedResponse });
+						expect(callback).toHaveBeenNthCalledWith(2, { data: asyncResponse });
+					});
+
+				it.each<[JsonLd.Meta.BaseMeta]>([
+					[{ access: 'forbidden', visibility: 'restricted' }],
+					[{ access: 'unauthorized', visibility: 'restricted' }],
+				])(
+					'should ignore cached data when cached response status is not resolved',
+					async (meta) => {
+						const cachedResponse = createSmartLinkResponse('https://cached.example.com', meta);
+						const asyncResponse = createSmartLinkResponse('https://fresh.example.com');
+						const { callback, setItemSpy } = setupCacheScenario(asyncResponse, cachedResponse);
+
+						expect(setItemSpy).toHaveBeenCalledTimes(1);
+						expect(setItemSpy).toHaveBeenCalledWith(cacheTestUrl, asyncResponse);
+						expect(callback).toHaveBeenCalledTimes(1);
+						expect(callback).toHaveBeenCalledWith({ data: asyncResponse });
+					},
+				);
+
+				it.each<[JsonLd.Meta.BaseMeta]>([
+					[{ access: 'forbidden', visibility: 'restricted' }],
+					[{ access: 'forbidden', visibility: 'restricted', accessType: 'ACCESS_EXISTS' }],
+					[
+						{
+							access: 'forbidden',
+							visibility: 'not_found',
+							accessType: 'DENIED_REQUEST_EXISTS',
+						},
+					],
+					[{ access: 'forbidden', visibility: 'not_found', accessType: 'DIRECT_ACCESS' }],
+					[{ access: 'forbidden', visibility: 'not_found', accessType: 'FORBIDDEN' }],
+					[
+						{
+							access: 'forbidden',
+							visibility: 'not_found',
+							accessType: 'PENDING_REQUEST_EXISTS',
+						},
+					],
+					[{ access: 'forbidden', visibility: 'not_found' }],
+					[{ access: 'forbidden', visibility: 'not_found', accessType: 'ACCESS_EXISTS' }],
+					[{ access: 'forbidden', visibility: 'restricted' }],
+					[{ access: 'unauthorized', visibility: 'restricted' }],
+				])(
+					'should not update cache via setItem when getDataAsync returns data with unresolved status',
+					async (meta) => {
+						const asyncResponse = createSmartLinkResponse('https://example.com', meta);
+						const { callback, setItemSpy } = setupCacheScenario(asyncResponse);
+
+						expect(setItemSpy).not.toHaveBeenCalled();
+						expect(callback).toHaveBeenCalledTimes(1);
+						expect(callback.mock.calls[0].at(0)).toEqual({
+							data: expect.objectContaining({
+								data: expect.any(Object),
+								meta: expect.objectContaining(meta),
+							}),
 						});
-
-						it.each<[JsonLd.Meta.BaseMeta]>([
-							[{ access: 'forbidden', visibility: 'restricted' }],
-							[{ access: 'unauthorized', visibility: 'restricted' }],
-						])(
-							'should ignore cached data when cached response status is not resolved',
-							async (meta) => {
-								const cachedResponse = createSmartLinkResponse('https://cached.example.com', meta);
-								const asyncResponse = createSmartLinkResponse('https://fresh.example.com');
-								const { callback, setItemSpy } = setupCacheScenario(asyncResponse, cachedResponse);
-
-								expect(setItemSpy).toHaveBeenCalledTimes(1);
-								expect(setItemSpy).toHaveBeenCalledWith(cacheTestUrl, asyncResponse);
-								expect(callback).toHaveBeenCalledTimes(1);
-								expect(callback).toHaveBeenCalledWith({ data: asyncResponse });
-							},
-						);
-
-						it.each<[JsonLd.Meta.BaseMeta]>([
-							[{ access: 'forbidden', visibility: 'restricted' }],
-							[{ access: 'forbidden', visibility: 'restricted', accessType: 'ACCESS_EXISTS' }],
-							[
-								{
-									access: 'forbidden',
-									visibility: 'not_found',
-									accessType: 'DENIED_REQUEST_EXISTS',
-								},
-							],
-							[{ access: 'forbidden', visibility: 'not_found', accessType: 'DIRECT_ACCESS' }],
-							[{ access: 'forbidden', visibility: 'not_found', accessType: 'FORBIDDEN' }],
-							[
-								{
-									access: 'forbidden',
-									visibility: 'not_found',
-									accessType: 'PENDING_REQUEST_EXISTS',
-								},
-							],
-							[{ access: 'forbidden', visibility: 'not_found' }],
-							[{ access: 'forbidden', visibility: 'not_found', accessType: 'ACCESS_EXISTS' }],
-							[{ access: 'forbidden', visibility: 'restricted' }],
-							[{ access: 'unauthorized', visibility: 'restricted' }],
-						])(
-							'should not update cache via setItem when getDataAsync returns data with unresolved status',
-							async (meta) => {
-								const asyncResponse = createSmartLinkResponse('https://example.com', meta);
-								const { callback, setItemSpy } = setupCacheScenario(asyncResponse);
-
-								expect(setItemSpy).not.toHaveBeenCalled();
-								expect(callback).toHaveBeenCalledTimes(1);
-								expect(callback.mock.calls[0].at(0)).toEqual({
-									data: expect.objectContaining({
-										data: expect.any(Object),
-										meta: expect.objectContaining(meta),
-									}),
-								});
-							},
-						);
-					});
-
-				eeTest
-					.describe('platform_sl_fix_cache_unresolved', 'platform_sl_fix_cache_unresolved')
-					.variant(false, () => {
-						it.each<[JsonLd.Meta.BaseMeta]>([
-							[{ access: 'forbidden', visibility: 'restricted' }],
-							[{ access: 'unauthorized', visibility: 'restricted' }],
-						])(
-							'should return cached data even when cached response status is not resolved',
-							async (meta) => {
-								const cachedResponse = createSmartLinkResponse('https://cached.example.com', meta);
-								const asyncResponse = createSmartLinkResponse('https://fresh.example.com');
-								const { callback, setItemSpy } = setupCacheScenario(asyncResponse, cachedResponse);
-
-								expect(setItemSpy).toHaveBeenCalledTimes(1);
-								expect(setItemSpy).toHaveBeenCalledWith(cacheTestUrl, asyncResponse);
-								expect(callback).toHaveBeenCalledTimes(2);
-								expect(callback).toHaveBeenNthCalledWith(1, { data: cachedResponse });
-								expect(callback).toHaveBeenNthCalledWith(2, { data: asyncResponse });
-							},
-						);
-
-						it.each<[JsonLd.Meta.BaseMeta]>([
-							[{ access: 'granted', visibility: 'public' }],
-							[{ access: 'granted', visibility: 'restricted' }],
-							[{ access: 'forbidden', visibility: 'restricted' }],
-							[{ access: 'forbidden', visibility: 'restricted', accessType: 'ACCESS_EXISTS' }],
-							[
-								{
-									access: 'forbidden',
-									visibility: 'not_found',
-									accessType: 'DENIED_REQUEST_EXISTS',
-								},
-							],
-							[{ access: 'forbidden', visibility: 'not_found', accessType: 'DIRECT_ACCESS' }],
-							[{ access: 'forbidden', visibility: 'not_found', accessType: 'FORBIDDEN' }],
-							[
-								{
-									access: 'forbidden',
-									visibility: 'not_found',
-									accessType: 'PENDING_REQUEST_EXISTS',
-								},
-							],
-							[{ access: 'forbidden', visibility: 'not_found' }],
-							[{ access: 'forbidden', visibility: 'not_found', accessType: 'ACCESS_EXISTS' }],
-							[{ access: 'forbidden', visibility: 'restricted' }],
-							[{ access: 'unauthorized', visibility: 'restricted' }],
-						])(
-							'should update cache via setItem when getDataAsync returns data with unresolved status',
-							async (meta) => {
-								const asyncResponse = createSmartLinkResponse('https://example.com', meta);
-								const { callback, getDataAsyncSpy, setItemSpy } = setupCacheScenario(asyncResponse);
-
-								expect(getDataAsyncSpy).toHaveBeenCalledTimes(1);
-								expect(getDataAsyncSpy).toHaveBeenCalledWith(cacheTestNode, expect.any(Function));
-								expect(setItemSpy).toHaveBeenCalledTimes(1);
-								expect(setItemSpy).toHaveBeenCalledWith(cacheTestUrl, asyncResponse);
-								expect(callback).toHaveBeenCalledTimes(1);
-								expect(callback).toHaveBeenCalledWith({ data: asyncResponse });
-							},
-						);
-					});
+					},
+				);
 			});
 		});
 

@@ -1,47 +1,87 @@
-import { LabelStackRegistry } from './label-stack-registry';
+import { LabelStackRegistry, resolveLabelStackFromTrie } from './label-stack-registry';
+
+function expectResolvedLabelStacks(registry: LabelStackRegistry, refs: Record<string, string>) {
+	const lookupTable = registry.getLookupTable();
+
+	for (const [ref, labelStack] of Object.entries(refs)) {
+		expect(resolveLabelStackFromTrie(lookupTable, Number(ref))).toBe(labelStack);
+	}
+}
 
 describe('LabelStackRegistry', () => {
-	it('should register a new labelStack and return index 0', () => {
+	it('should register a new labelStack and return its terminal trie node id', () => {
 		const registry = new LabelStackRegistry();
 		const index = registry.register('segId123/componentName');
-		expect(index).toBe(0);
+
+		expect(index).toBe(1);
+		expectResolvedLabelStacks(registry, {
+			[index]: 'segId123/componentName',
+		});
 	});
 
-	it('should return the same index for duplicate labelStack strings', () => {
+	it('should return the same terminal node id for duplicate labelStack strings', () => {
 		const registry = new LabelStackRegistry();
 		const index1 = registry.register('segId123/componentName');
 		const index2 = registry.register('segId123/componentName');
-		expect(index1).toBe(0);
-		expect(index2).toBe(0);
+
+		expect(index1).toBe(1);
+		expect(index2).toBe(1);
+		expectResolvedLabelStacks(registry, {
+			[index1]: 'segId123/componentName',
+		});
 	});
 
-	it('should assign incrementing indices for different labelStack strings', () => {
+	it('should reuse shared trie prefixes for different labelStack strings', () => {
+		const registry = new LabelStackRegistry();
+		const index1 = registry.register('segId123/componentA');
+		const index2 = registry.register('segId123/componentB');
+		const index3 = registry.register('segId123/componentB/child');
+
+		expect(index1).toBe(1);
+		expect(index2).toBe(2);
+		expect(index3).toBe(3);
+		expect(registry.getLookupTable()).toEqual({
+			v: 2,
+			n: [
+				['segId123', -1],
+				['componentA', 0],
+				['componentB', 0],
+				['child', 2],
+			],
+		});
+		expectResolvedLabelStacks(registry, {
+			[index1]: 'segId123/componentA',
+			[index2]: 'segId123/componentB',
+			[index3]: 'segId123/componentB/child',
+		});
+	});
+
+	it('should return the correct lookup table for independent roots', () => {
 		const registry = new LabelStackRegistry();
 		const index1 = registry.register('segId123/componentA');
 		const index2 = registry.register('segId456/componentB');
-		const index3 = registry.register('segId789/componentC');
-		expect(index1).toBe(0);
-		expect(index2).toBe(1);
-		expect(index3).toBe(2);
-	});
-
-	it('should return the correct lookup table', () => {
-		const registry = new LabelStackRegistry();
-		registry.register('segId123/componentA');
-		registry.register('segId456/componentB');
 		registry.register('segId123/componentA'); // duplicate
 
 		const table = registry.getLookupTable();
 		expect(table).toEqual({
-			'0': 'segId123/componentA',
-			'1': 'segId456/componentB',
+			v: 2,
+			n: [
+				['segId123', -1],
+				['componentA', 0],
+				['segId456', -1],
+				['componentB', 2],
+			],
+		});
+		expectResolvedLabelStacks(registry, {
+			[index1]: 'segId123/componentA',
+			[index2]: 'segId456/componentB',
 		});
 	});
 
 	it('should return empty lookup table when no entries registered', () => {
 		const registry = new LabelStackRegistry();
 		const table = registry.getLookupTable();
-		expect(table).toEqual({});
+		expect(table).toEqual({ v: 2, n: [] });
 	});
 
 	it('should track the correct size', () => {
@@ -62,7 +102,39 @@ describe('LabelStackRegistry', () => {
 	it('should handle empty strings', () => {
 		const registry = new LabelStackRegistry();
 		const index = registry.register('');
+
 		expect(index).toBe(0);
-		expect(registry.getLookupTable()).toEqual({ '0': '' });
+		expect(registry.getLookupTable()).toEqual({ v: 2, n: [['', -1]] });
+		expectResolvedLabelStacks(registry, {
+			[index]: '',
+		});
+	});
+
+	it('should reduce serialized size when labelStacks share prefixes', () => {
+		const registry = new LabelStackRegistry();
+		const labelStacks = [
+			'VbNU47v/9RU9Fv4/FXnmEgg/veCGX2o/in0kthR/HpqVe0V/media-card-file-card',
+			'VbNU47v/9RU9Fv4/FXnmEgg/veCGX2o/in0kthR/HpqVe0V',
+			'VbNU47v/9RU9Fv4/FXnmEgg/veCGX2o/in0kthR',
+			'VbNU47v/9RU9Fv4/FXnmEgg/veCGX2o/jtN6dUy/3n7ByRU',
+			'VbNU47v/9RU9Fv4/FXnmEgg/veCGX2o/jtN6dUy',
+			'VbNU47v/9RU9Fv4/FXnmEgg/veCGX2o',
+			'VbNU47v/9RU9Fv4/FXnmEgg',
+			'VbNU47v/9RU9Fv4',
+			'VbNU47v',
+		];
+		const refs = labelStacks.map((labelStack) => registry.register(labelStack));
+
+		refs.forEach((ref, index) => {
+			expect(resolveLabelStackFromTrie(registry.getLookupTable(), ref)).toBe(labelStacks[index]);
+		});
+
+		const legacyLookupTable = Object.fromEntries(
+			labelStacks.map((labelStack, index) => [String(index), labelStack]),
+		);
+
+		expect(JSON.stringify(registry.getLookupTable()).length).toBeLessThan(
+			JSON.stringify(legacyLookupTable).length,
+		);
 	});
 });

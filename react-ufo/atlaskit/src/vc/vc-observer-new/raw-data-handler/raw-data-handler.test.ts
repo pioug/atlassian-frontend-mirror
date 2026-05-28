@@ -779,6 +779,117 @@ describe('RawDataHandler', () => {
 			expect(result?.rawData?.evt?.[scrollEventId!]).toBe('scroll');
 		});
 
+		it('should include event target eid for window events with elementName', async () => {
+			const entries: VCObserverEntry[] = [
+				{
+					time: startTime + 100,
+					data: {
+						type: 'window:event',
+						eventType: 'scroll-container',
+						elementName: 'div[data-vc="scrollable"]',
+					} as WindowEventEntryData,
+				},
+			];
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
+
+			const eventObservation = result?.rawData?.evts?.[0];
+			expect(eventObservation).toEqual({
+				t: 100,
+				evt: expect.any(Number),
+				eid: expect.any(Number),
+			});
+			expect(result?.rawData?.evt?.[eventObservation!.evt]).toBe('scroll-container');
+			expect(result?.rawData?.eid?.[eventObservation!.eid!]).toBe('div[data-vc="scrollable"]');
+		});
+
+		it('should reuse viewport eid for window event elementName when already present', async () => {
+			const entries: VCObserverEntry[] = [
+				{
+					time: startTime + 50,
+					data: {
+						type: 'mutation:element',
+						elementName: 'div[data-vc="scrollable"]',
+						rect: new DOMRect(0, 0, 100, 100),
+						visible: true,
+					} as ViewportEntryData,
+				},
+				{
+					time: startTime + 100,
+					data: {
+						type: 'window:event',
+						eventType: 'scroll-container',
+						elementName: 'div[data-vc="scrollable"]',
+					} as WindowEventEntryData,
+				},
+			];
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
+
+			expect(result?.rawData?.evts?.[0].eid).toBe(result?.rawData?.obs?.[0].eid);
+		});
+
+		it('should remove unreferenced event target eid map entries after trimming', async () => {
+			const entries: VCObserverEntry[] = [];
+			const totalEvents = MAX_OBSERVATIONS + 50;
+
+			entries.push({
+				time: startTime,
+				data: {
+					type: 'window:event',
+					eventType: 'resize',
+					elementName: 'kept-first-container',
+				} as WindowEventEntryData,
+			});
+
+			entries.push({
+				time: startTime + 5,
+				data: {
+					type: 'window:event',
+					eventType: 'wheel',
+					elementName: 'trimmed-container',
+				} as WindowEventEntryData,
+			});
+
+			for (let i = 0; i < totalEvents; i++) {
+				entries.push({
+					time: startTime + i * 10,
+					data: {
+						type: 'window:event',
+						eventType: 'scroll',
+						elementName: 'kept-scroll-container',
+					} as WindowEventEntryData,
+				});
+			}
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
+
+			const elementNames = Object.values(result?.rawData?.eid || {});
+			expect(elementNames).toContain('kept-first-container');
+			expect(elementNames).toContain('kept-scroll-container');
+			expect(elementNames).not.toContain('trimmed-container');
+
+			const referencedEids = new Set(result?.rawData?.evts?.map((evt) => evt.eid).filter(Boolean));
+			for (const eid of referencedEids) {
+				expect(result?.rawData?.eid?.[Number(eid)]).toBeDefined();
+			}
+		});
+
 		it('should remove unreferenced event type map entries after trimming', async () => {
 			const entries: VCObserverEntry[] = [];
 			const totalEvents = MAX_OBSERVATIONS + 50; // 150 events

@@ -4,8 +4,8 @@
  */
 import { memo, type MemoExoticComponent } from 'react';
 import { css, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 import { useIntl } from 'react-intl';
 import type { EmojiDescription, OnEmojiEvent } from '../../types';
 import CachingEmoji from '../common/CachingEmoji';
@@ -107,6 +107,7 @@ const EmojiPickerEmojiRow = ({
 	const { currentEmojisFocus, setEmojisFocus } = useEmojiPickerListContext();
 	const rowIndex = virtualItemContext?.index || 0;
 	const { formatMessage } = useIntl();
+	const fitToHeight = fg('platform_twemoji_removal_unicode_emojis') ? 24 : undefined;
 	const handleFocus: (index: number) => OnEmojiEvent<HTMLSpanElement> =
 		(index) => (emojiId, emoji, event) => {
 			setEmojisFocus({
@@ -175,6 +176,7 @@ const EmojiPickerEmojiRow = ({
 							tabIndex={focus ? 0 : -1}
 							aria-roledescription={formatMessage(messages.emojiButtonRoleDescription)}
 							shouldBeInteractive
+							fitToHeight={fitToHeight}
 						/>
 					</span>
 				);

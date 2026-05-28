@@ -1001,13 +1001,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-02-02
-	platform_editor_ai_disable_bridge_without_ai: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-02-17
 	platform_editor_aifc_sync_block_stream_fix: {
 		defaultValue: boolean;
@@ -1861,13 +1854,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-04-27
-	platform_sl_fix_cache_unresolved: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-04-30
 	confluence_fe_disable_comment_if_offline_fix: {
 		defaultValue: boolean;
@@ -1982,6 +1968,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-05-25
 	platform_editor_use_html_plus_streaming_parser: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-05-26
+	platform_editor_wide_slash_trigger: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -3128,14 +3121,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-02-02
-	platform_editor_ai_disable_bridge_without_ai: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_disable_bridge_without_ai',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-01-27 - AI create-page expand collapse fix
 	platform_editor_aifc_expand_collapses_oncreate_fix: createBooleanExperiment({
 		productKeys: {
@@ -4104,14 +4089,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-04-27
-	platform_sl_fix_cache_unresolved: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_sl_fix_cache_unresolved',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-04-30
 	confluence_fe_disable_comment_if_offline_fix: createBooleanExperiment({
 		productKeys: {
@@ -4260,6 +4237,13 @@ export const editorExperimentsConfig: {
 	platform_editor_use_html_plus_streaming_parser: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_use_html_plus_streaming_parser',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	platform_editor_wide_slash_trigger: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_wide_slash_trigger',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

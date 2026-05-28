@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-layout
 
+## 10.8.1
+
+### Patch Changes
+
+- [`2ad681c18e86f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ad681c18e86f) -
+  Add layout column menu actions for inserting, deleting, distributing, and aligning columns.
+- Updated dependencies
+
 ## 10.8.0
 
 ### Minor Changes

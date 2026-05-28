@@ -51,6 +51,7 @@ import { createCriticalMetricsPayloads } from './critical-metrics-payload';
 import type { CriticalMetricsPayload } from './critical-metrics-payload/types';
 import { addPerformanceMeasures } from './utils/add-performance-measures';
 import {
+	applySegment3pBudget,
 	flattenAndDeduplicateSegment3pTimings,
 	getSegment3pTimingsSizes,
 } from './utils/flatten-segment-3p-timings';
@@ -668,9 +669,16 @@ async function createInteractionMetricsPayload(
 			// Feature-gated: when off, record only the serialized size in Kb to measure payload impact before enabling.
 			...(interaction.segment3pTimings
 				? fg('platform_ufo_ecosystem_data_in_payload')
-					? {
-							segment3pTimings: flattenAndDeduplicateSegment3pTimings(interaction.segment3pTimings),
-						}
+					? (() => {
+							const flat =
+								flattenAndDeduplicateSegment3pTimings(interaction.segment3pTimings) ?? [];
+							// B1+B2: apply soft/hard budget cap with suffix-level drop order
+							const { result, wasTrimmed } = applySegment3pBudget(flat);
+							return {
+								segment3pTimings: result,
+								...(wasTrimmed ? { 'segment3pTimings:wasTrimmed': true } : {}),
+							};
+						})()
 					: getSegment3pTimingsSizes(
 							flattenAndDeduplicateSegment3pTimings(interaction.segment3pTimings) ?? [],
 						)

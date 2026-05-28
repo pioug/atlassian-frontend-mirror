@@ -48,6 +48,7 @@ export type VCObserverLabelStacks = {
 export type WindowEventEntryData = {
 	readonly type: VCObserverEntryType;
 	readonly eventType: ObservedWindowEventExtended;
+	readonly elementName?: string;
 };
 
 export type VCObserverEntry = {

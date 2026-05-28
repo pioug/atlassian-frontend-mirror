@@ -121,7 +121,17 @@ export const messages: {
 		description: string;
 		id: string;
 	};
+	emojiPickerAddCustomEmoji: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	emojiPickerGrid: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiPickerNoResults: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -157,6 +167,11 @@ export const messages: {
 		id: string;
 	};
 	emojiSelectSkinToneListAriaLabelText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiUnsupportedFileType: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -497,11 +512,29 @@ export const messages: {
 		defaultMessage: 'Selected image is more than 1 MB',
 		description: 'Error message for image too big, beyond the size limit',
 	},
+	emojiUnsupportedFileType: {
+		id: 'fabric.emoji.error.unsupported.file.type',
+		defaultMessage:
+			"This file type isn't supported. Select a PNG, JPEG, or GIF to create your emoji.",
+		description: 'Error message shown when the selected emoji upload file type is not supported',
+	},
 	emojiDuplicateName: {
 		id: 'fabric.emoji.error.duplicate.name',
 		defaultMessage: 'An emoji with this name exists already',
 		description:
 			'Error message shown when the user tries to upload an emoji with a name that already exists in the custom emoji set',
+	},
+	emojiPickerNoResults: {
+		id: 'fabric.emoji.picker.no.results',
+		defaultMessage: 'No results',
+		description:
+			'Heading shown in the emoji picker when a search query returns no matching emojis.',
+	},
+	emojiPickerAddCustomEmoji: {
+		id: 'fabric.emoji.picker.add.custom.emoji',
+		defaultMessage: 'Add custom emoji',
+		description:
+			'Label for the button shown in the emoji picker no-results screen that opens the custom emoji upload panel.',
 	},
 	emojiPickerTitle: {
 		id: 'fabric.emoji.picker',

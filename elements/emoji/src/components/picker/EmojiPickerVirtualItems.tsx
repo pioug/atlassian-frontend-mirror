@@ -9,6 +9,7 @@ import EmojiPickerCategoryHeading, {
 	type Props as CategoryHeadingProps,
 } from './EmojiPickerCategoryHeading';
 import EmojiPickerEmojiRow, { type Props as EmojiRowProps } from './EmojiPickerEmojiRow';
+import EmojiPickerNoResults, { type Props as NoResultsProps } from './EmojiPickerNoResults';
 import { sizes } from './EmojiPickerSizes';
 import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
 
@@ -78,11 +79,19 @@ export class CategoryHeadingItem extends AbstractItem<CategoryHeadingProps> {
 	renderItem = (): JSX.Element => <EmojiPickerCategoryHeading {...this.props} />;
 }
 
+export class NoResultsItem extends AbstractItem<NoResultsProps> {
+	constructor(props: NoResultsProps) {
+		super(props, sizes.noResultsHeight);
+	}
+
+	renderItem = (): JSX.Element => <EmojiPickerNoResults {...this.props} />;
+}
+
 export const virtualItemRenderer = (
-	rows: VirtualItem<CategoryHeadingProps | EmojiRowProps | {}>[],
+	rows: VirtualItem<CategoryHeadingProps | EmojiRowProps | NoResultsProps | {}>[],
 	context: VirtualItemContext,
 ): JSX.Element => {
 	const { index, key } = context;
-	const row: VirtualItem<CategoryHeadingProps | EmojiRowProps | {}> = rows[index];
+	const row: VirtualItem<CategoryHeadingProps | EmojiRowProps | NoResultsProps | {}> = rows[index];
 	return <div key={key}>{row && row.renderItem(context)}</div>;
 };

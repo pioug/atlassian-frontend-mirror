@@ -3,10 +3,16 @@
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import console from 'console';
 import EmojiRepository from '../../../../api/EmojiRepository';
 import { emojiDeletePreviewTestId } from '../../../../components/common/EmojiDeletePreview';
+import {
+	chooseFileButtonTestId,
+	fileUploadInputTestId,
+} from '../../../../components/common/FileChooser';
 import { cancelUploadButtonTestId } from '../../../../components/common/EmojiUploadPreview';
+import { uploadEmojiNameInputTestId } from '../../../../components/common/EmojiUploadPicker';
 import { messages } from '../../../../components/i18n';
 import {
 	deleteBeginEvent,
@@ -47,6 +53,11 @@ skipAutoA11yFile();
 
 // Turn off delay to allow using user events with fake timers
 const userEventWithoutDelay = userEvent.setup({ delay: null });
+const emojiPickerRefreshGate = 'platform_emoji_picker_refresh';
+const createSvgFile = (): File =>
+	new File(['<svg xmlns="http://www.w3.org/2000/svg"></svg>'], 'unsupported.svg', {
+		type: 'image/svg+xml',
+	});
 
 describe('<UploadingEmojiPicker />', () => {
 	let onEvent: jest.SpyInstance;
@@ -359,6 +370,49 @@ describe('<UploadingEmojiPicker />', () => {
 			screen
 				.getAllByText(messages.emojiImageTooBig.defaultMessage)
 				.forEach((element) => expect(element).toBeInTheDocument());
+		});
+
+		it('shows unsupported file type error in refresh upload flow', async () => {
+			passGate(emojiPickerRefreshGate);
+
+			await helper.setupPicker({
+				emojiProvider,
+				hideToneSelector: true,
+			});
+			await emojiProvider;
+
+			await waitFor(() => {
+				expect(helperTestingLibrary.getEmojiActionsSection()).toBeInTheDocument();
+			});
+
+			await waitFor(() => {
+				expect(helperTestingLibrary.queryAddCustomEmojiButton()).toBeInTheDocument();
+			});
+
+			await userEvent.click(
+				within(helperTestingLibrary.queryAddCustomEmojiButton()!).getByRole('button'),
+			);
+
+			await waitFor(() => {
+				expect(screen.getAllByTestId(uploadEmojiNameInputTestId).length).toBeGreaterThan(0);
+			});
+
+			fireEvent.change(screen.getAllByTestId(uploadEmojiNameInputTestId)[0], {
+				target: { value: ':cheese burger:' },
+			});
+
+			fireEvent.click(screen.getAllByTestId(chooseFileButtonTestId)[0]);
+			fireEvent.change(screen.getAllByTestId(fileUploadInputTestId)[0], {
+				target: { files: [createSvgFile()] },
+			});
+
+			await waitFor(() => {
+				expect(
+					screen.getAllByText(messages.emojiUnsupportedFileType.defaultMessage).length,
+				).toBeGreaterThan(0);
+			});
+
+			expect(screen.queryByTestId('emoji-picker-footer')).not.toBeInTheDocument();
 		});
 
 		it('Upload after searching', async () => {

@@ -564,7 +564,7 @@ ffTest.on('platform-dst-top-layer', 'Tooltip top-layer rendering', () => {
 		expect(popover).toHaveAttribute('data-ds-popover-slide-and-fade');
 	});
 
-	it('should use 4px offset (smaller than default 8px)', async () => {
+	it('should inherit the default 8px gap from useAnchorPosition', async () => {
 		const user = createUser();
 
 		render(
@@ -578,9 +578,9 @@ ffTest.on('platform-dst-top-layer', 'Tooltip top-layer rendering', () => {
 		await user.hover(screen.getByTestId('trigger'));
 		runAllTimers();
 
-		// The popover should be in the document. Offset is applied internally
-		// by useAnchorPositioning but we verify the tooltip renders at all
-		// (offset=4 is passed to Popup.Content, if it were invalid it would error)
+		// The popover should be in the document. The gap is applied internally
+		// by useAnchorPosition (defaults to `token('space.100', '8px')` when no
+		// offset is provided), but we verify the tooltip renders at all.
 		expect(screen.getByTestId('tooltip--popover')).toBeInTheDocument();
 	});
 

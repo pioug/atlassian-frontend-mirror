@@ -1,6 +1,7 @@
 import type { IntlShape } from 'react-intl';
 
 import { InsertTypeAheadStep } from '@atlaskit/adf-schema/steps';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -9,11 +10,13 @@ import { closest } from '@atlaskit/editor-common/utils';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
 import type { PopupMountPointReference, TypeAheadHandler, TypeAheadPluginState } from '../types';
 
 import { ACTIONS } from './actions';
+import { openTypeAheadAtCursor } from './commands/open-typeahead-at-cursor';
 import { TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE } from './constants';
 import { factoryDecorations } from './decorations';
 import { isInsertionTransaction } from './isInsertionTransaction';
@@ -61,6 +64,12 @@ export function createPlugin({
 		typeAheadHandlers,
 		popupMountRef,
 	});
+
+	// Tracks a wide-char trigger handler detected during IME composition (e.g. ／).
+	// Set by compositionupdate, cleared by compositionend. Used by handleKeyDown
+	// to intercept Enter that confirms the composition.
+	let pendingWideSlashHandler: TypeAheadHandler | null = null;
+
 	return new SafePlugin<TypeAheadPluginState>({
 		key: pluginKey,
 
@@ -118,8 +127,55 @@ export function createPlugin({
 				return pluginKey.getState(state)?.decorationSet;
 			},
 
+			handleKeyDown: (view, event) => {
+				// When composing a wide-char trigger (e.g. ／), intercept the Enter key
+				// that confirms the composition so we can open the typeahead instead.
+				if (
+					pendingWideSlashHandler &&
+					event.isComposing &&
+					(event.key === 'Enter' || event.keyCode === 13)
+				) {
+					const handler = pendingWideSlashHandler;
+					pendingWideSlashHandler = null;
+					// Defer until ProseMirror has flushed the composed text into its state.
+					setTimeout(() => {
+						const command = openTypeAheadAtCursor({
+							triggerHandler: handler,
+							inputMethod: INPUT_METHOD.KEYBOARD,
+						});
+						const tr = command({ tr: view.state.tr });
+						if (tr) {
+							view.dispatch(tr);
+						}
+					}, 0);
+					return true;
+				}
+				return false;
+			},
+
 			handleDOMEvents: {
+				compositionupdate: (view, event) => {
+					// When the experiment is on, track whether the current composition
+					// exactly matches a wide-char trigger (e.g. ／ from Japanese keyboard).
+					// We can't open the typeahead yet because composition is still active,
+					// but we record the matching handler so the next keydown (Enter) can use it.
+					if (expValEquals('platform_editor_wide_slash_trigger', 'isEnabled', true)) {
+						const pendingData = event.data ?? '';
+						pendingWideSlashHandler = typeAheadHandlers.find((handler) => {
+							if (!handler.customRegex) {
+								return false;
+							}
+							// Only match if the entire composition is a trigger character
+							const pattern = new RegExp(`^(${handler.customRegex})$`, 'u');
+							return pattern.test(pendingData);
+						}) ?? null;
+					}
+					return false;
+				},
 				compositionend: (view, event) => {
+					// Clear the pending handler when composition ends (cancelled or committed
+					// via a non-Enter key like Space, which we don't want to intercept).
+					pendingWideSlashHandler = null;
 					return false;
 				},
 

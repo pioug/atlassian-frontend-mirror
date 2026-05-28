@@ -167,6 +167,7 @@ export type RawObservation = {
 export type RawEventObservation = {
 	t: number;
 	evt: number;
+	eid?: number;
 };
 
 export type LayoutShiftInsightsPayload = {

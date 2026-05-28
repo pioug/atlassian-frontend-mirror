@@ -1,4 +1,9 @@
-import type { RawObservation, RevisionPayloadEntry, VCAbortReason } from '../../../common/vc/types';
+import type {
+	RawEventObservation,
+	RawObservation,
+	RevisionPayloadEntry,
+	VCAbortReason,
+} from '../../../common/vc/types';
 import { isFedrampOverrideActive } from '../../../config';
 import { getEarliestHiddenTiming } from '../../../hidden-timing';
 import getViewportHeight from '../metric-calculator/utils/get-viewport-height';
@@ -204,18 +209,41 @@ export default class RawDataHandler {
 				eventTypeMapEntriesMap[evtId] = eventType;
 			}
 
-			const eventObservation = {
+			let eventTargetId = 0;
+			const eventTargetName = windowEventEntry.elementName || '';
+			if (eventTargetName) {
+				eventTargetId = targetNameToIdMap.get(eventTargetName) || 0;
+				if (eventTargetId === 0) {
+					eventTargetId = nextElementId;
+					nextElementId += 1;
+					targetNameToIdMap.set(eventTargetName, eventTargetId);
+					elementMapEntriesMap[eventTargetId] = eventTargetName;
+				}
+			}
+
+			const eventObservation: RawEventObservation = {
 				t: Math.round(entry.time - startTime),
 				evt: evtId,
+				...(eventTargetId > 0 ? { eid: eventTargetId } : {}),
 			};
 
 			return eventObservation;
 		});
 
+		const shouldTrimEventObservations = rawEventObservations.length > MAX_OBSERVATIONS;
+		const shouldTrimViewportObservations = rawObservations.length > MAX_OBSERVATIONS;
+
+		// If the number of event observations is greater than the maximum allowed, we need to trim the event observations to the maximum allowed.
+		// We do this by keeping the first observation and the last MAX_OBSERVATIONS observations.
+		if (shouldTrimEventObservations) {
+			const firstEventObservation = rawEventObservations[0];
+			const lastEventObservations = rawEventObservations.slice(-MAX_OBSERVATIONS);
+			rawEventObservations = [firstEventObservation, ...lastEventObservations];
+		}
+
 		// If the number of observations is greater than the maximum allowed, we need to trim the observations to the maximum allowed.
 		// We do this by keeping the first observation, the SSR observation (if present), and the last MAX_OBSERVATIONS observations.
-		// We then collect the referenced IDs from the remaining observations and remove the unreferenced entries from the maps
-		if (rawObservations.length > MAX_OBSERVATIONS) {
+		if (shouldTrimViewportObservations) {
 			const firstObservation = rawObservations[0];
 			const lastObservations = rawObservations.slice(-MAX_OBSERVATIONS);
 
@@ -233,11 +261,16 @@ export default class RawDataHandler {
 				...(ssrObservation && !ssrAlreadyIncluded ? [ssrObservation] : []),
 				...lastObservations,
 			];
+		}
 
-			// Collect referenced IDs from remaining observations
+		if (shouldTrimViewportObservations || shouldTrimEventObservations) {
+			// Collect referenced IDs from final retained observations. Keep this inside the trim
+			// guard so the common untrimmed path avoids extra Set allocations and scans.
 			const referencedEids = new Set<number>();
 			const referencedChgs = new Set<number>();
 			const referencedAtts = new Set<number>();
+			const referencedEvts = new Set<number>();
+			const referencedEventTargetEids = new Set<number>();
 
 			for (const observation of rawObservations) {
 				if (observation.eid > 0) {
@@ -251,48 +284,44 @@ export default class RawDataHandler {
 				}
 			}
 
-			// Remove unreferenced entries from maps
+			for (const observation of rawEventObservations) {
+				if (observation.evt > 0) {
+					referencedEvts.add(observation.evt);
+				}
+				if (observation.eid !== undefined && observation.eid > 0) {
+					referencedEventTargetEids.add(observation.eid);
+				}
+			}
+
 			for (const eid of Object.keys(elementMapEntriesMap).map(Number)) {
-				if (!referencedEids.has(eid)) {
+				if (!referencedEids.has(eid) && !referencedEventTargetEids.has(eid)) {
 					delete elementMapEntriesMap[eid];
 					delete labelStacksMap[eid];
 				}
 			}
 
-			for (const chg of Object.keys(typeMapEntriesMap).map(Number)) {
-				if (!referencedChgs.has(chg)) {
-					delete typeMapEntriesMap[chg];
+			if (shouldTrimViewportObservations) {
+				for (const chg of Object.keys(typeMapEntriesMap).map(Number)) {
+					if (!referencedChgs.has(chg)) {
+						delete typeMapEntriesMap[chg];
+					}
+				}
+
+				for (const att of Object.keys(attributeEntriesMap).map(Number)) {
+					if (!referencedAtts.has(att)) {
+						delete attributeEntriesMap[att];
+					}
 				}
 			}
 
-			for (const att of Object.keys(attributeEntriesMap).map(Number)) {
-				if (!referencedAtts.has(att)) {
-					delete attributeEntriesMap[att];
-				}
-			}
-		}
-
-		// If the number of event observations is greater than the maximum allowed, we need to trim the event observations to the maximum allowed.
-		// We do this by keeping the first observation and the last MAX_OBSERVATIONS observations.
-		// We then collect the referenced IDs from the remaining observations and remove the unreferenced entries from the maps
-		if (rawEventObservations.length > MAX_OBSERVATIONS) {
-			const firstEventObservation = rawEventObservations[0];
-			const lastEventObservations = rawEventObservations.slice(-MAX_OBSERVATIONS);
-			rawEventObservations = [firstEventObservation, ...lastEventObservations];
-
-			// Collect referenced IDs from remaining observations
-			const referencedEvts = new Set<number>();
-
-			for (const observation of rawEventObservations) {
-				if (observation.evt > 0) {
-					referencedEvts.add(observation.evt);
-				}
-			}
-
-			// Remove unreferenced entries from maps
-			for (const evt of Object.keys(eventTypeMapEntriesMap).map(Number)) {
-				if (!referencedEvts.has(evt)) {
-					delete eventTypeMapEntriesMap[evt];
+			if (shouldTrimEventObservations) {
+				// Event type map cleanup is only needed when event observations were trimmed.
+				// If only viewport observations were trimmed, all event observations remain and
+				// therefore every event type ID in the map is still referenced.
+				for (const evt of Object.keys(eventTypeMapEntriesMap).map(Number)) {
+					if (!referencedEvts.has(evt)) {
+						delete eventTypeMapEntriesMap[evt];
+					}
 				}
 			}
 		}

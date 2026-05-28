@@ -1,5 +1,6 @@
 export type {
 	TeamWithImageUrls,
+	TeamAvatarImage,
 	Team,
 	TeamPermission,
 	TeamsPermissionFromApi,

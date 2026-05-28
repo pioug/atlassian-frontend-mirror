@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 114.50.2
+
+### Patch Changes
+
+- [`2ad681c18e86f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ad681c18e86f) -
+  Add layout column menu actions for inserting, deleting, distributing, and aligning columns.
+- Updated dependencies
+
+## 114.50.1
+
+### Patch Changes
+
+- [`3b124b51740be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b124b51740be) -
+  Remove fully rolled out feature gates platform_synced_block_patch_12 and
+  platform_synced_blocks_dogfooding
+- Updated dependencies
+
 ## 114.50.0
 
 ### Minor Changes

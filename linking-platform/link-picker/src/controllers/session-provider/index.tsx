@@ -20,15 +20,6 @@ interface SessionProviderProps {
 	children: ReactNode;
 }
 
-const useConstructor = (callback: () => void) => {
-	const hasBeenFired = useRef(false);
-	if (!hasBeenFired.current) {
-		callback();
-		hasBeenFired.current = true;
-	}
-	return null;
-};
-
 export const LinkPickerSessionProvider = ({
 	children,
 }: SessionProviderProps): React.JSX.Element => {
@@ -36,10 +27,9 @@ export const LinkPickerSessionProvider = ({
 	const { current: sessionId } = useRef(uuidv4());
 
 	useEffect(() => {
+		startUfoExperience(ufoExperience.mounted, sessionId);
 		return () => abortUfoExperience(ufoExperience.mounted, sessionId);
 	}, [sessionId]);
-
-	useConstructor(() => startUfoExperience(ufoExperience.mounted, sessionId));
 
 	return <SessionContext.Provider value={sessionId}>{children}</SessionContext.Provider>;
 };

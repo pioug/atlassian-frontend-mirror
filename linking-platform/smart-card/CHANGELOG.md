@@ -1,5 +1,22 @@
 # @atlaskit/smart-card
 
+## 44.17.0
+
+### Minor Changes
+
+- [`fbb51c73ed426`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fbb51c73ed426) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.16.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.16.5
 
 ### Patch Changes

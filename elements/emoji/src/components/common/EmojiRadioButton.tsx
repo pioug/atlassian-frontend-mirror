@@ -4,8 +4,8 @@
  */
 import React, { memo, forwardRef } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 import type { EmojiDescription } from '../../types';
 import Emoji from './Emoji';
 import { TONESELECTOR_KEYBOARD_KEYS_SUPPORTED } from '../../util/constants';
@@ -75,9 +75,9 @@ export interface Props {
 	ariaLabelText?: string;
 	defaultChecked?: boolean;
 	emoji: EmojiDescription;
+	onArrowKey?: (direction: -1 | 1) => void;
 	onSelected?: () => void;
 	selectOnHover?: boolean;
-	onArrowKey?: (direction: -1 | 1) => void;
 }
 
 const handleKeyDown = (props: Props, event: React.KeyboardEvent) => {
@@ -106,6 +106,7 @@ export const EmojiRadioButton: React.ForwardRefExoticComponent<
 	Props & React.RefAttributes<HTMLInputElement>
 > = forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
 	const { emoji, selectOnHover, ariaLabelText, defaultChecked } = props;
+	const fitToHeight = fg('platform_twemoji_removal_unicode_emojis') ? 24 : undefined;
 
 	return (
 		<label css={emojiButton}>
@@ -127,6 +128,7 @@ export const EmojiRadioButton: React.ForwardRefExoticComponent<
 				selectOnHover={selectOnHover}
 				shouldBeInteractive={false}
 				aria-hidden={true}
+				fitToHeight={fitToHeight}
 			/>
 		</label>
 	);

@@ -208,6 +208,22 @@ const withoutPreviewHeight = cssMap({
 	},
 });
 
+const emojiPickerHeightNoResults = 354;
+const withNoResultsRefreshHeight = cssMap({
+	small: {
+		height: `${emojiPickerHeightNoResults}px`,
+		minHeight: `${emojiPickerMinHeight}px`,
+	},
+	medium: {
+		height: `${emojiPickerHeightNoResults + heightOffset}px`,
+		minHeight: `${emojiPickerMinHeight + heightOffset}px`,
+	},
+	large: {
+		height: `${emojiPickerHeightNoResults + heightOffset * 2}px`,
+		minHeight: `${emojiPickerMinHeight + heightOffset * 2}px`,
+	},
+});
+
 const FREQUENTLY_USED_MAX = 16;
 
 export interface PickerRefHandler {
@@ -260,6 +276,7 @@ const EmojiPickerComponent = ({
 	const emojiPickerList = useMemo(() => createRef<PickerListRef>(), []);
 	const openTime = useRef(0);
 	const isMounting = useRef(true);
+	const lastNonSearchCategory = useRef<CategoryId | null>(activeCategory);
 	const previousEmojiProvider = useRef(emojiProvider);
 	const isProgrammaticScroll = useRef(false);
 	const pickerRef = useRef<HTMLDivElement>(null);
@@ -315,9 +332,12 @@ const EmojiPickerComponent = ({
 			}
 			if (activeCategory !== category) {
 				setActiveCategory(category);
+				if (!query && fg('platform_emoji_picker_refresh')) {
+					lastNonSearchCategory.current = category;
+				}
 			}
 		},
-		[activeCategory, uploading, emojiToDelete],
+		[activeCategory, uploading, emojiToDelete, query],
 	);
 
 	const calculateElapsedTime = () => {
@@ -602,6 +622,10 @@ const EmojiPickerComponent = ({
 				source: SearchSourceTypes.PICKER,
 			};
 			if (searchQuery !== query) {
+				// Capture the active category before entering search so we can keep it highlighted
+				if (!query && searchQuery && fg('platform_emoji_picker_refresh')) {
+					lastNonSearchCategory.current = activeCategory;
+				}
 				setQuery(searchQuery);
 			}
 
@@ -612,7 +636,7 @@ const EmojiPickerComponent = ({
 				scrollToTopOfList();
 			}
 		},
-		[query, filteredEmojis, selectedTone, updateEmojis, scrollToTopOfList],
+		[activeCategory, query, filteredEmojis, selectedTone, updateEmojis, scrollToTopOfList],
 	);
 
 	// When the upload screen is open, intercept any file drag at the window level so it
@@ -841,9 +865,11 @@ const EmojiPickerComponent = ({
 						? withDeleteRefreshHeight[size]
 						: uploading && fg('platform_emoji_picker_refresh')
 							? withUploadRefreshHeight[size]
-							: showPreview
-								? withPreviewHeight[size]
-								: withoutPreviewHeight[size],
+							: query && filteredEmojis.length === 0 && fg('platform_emoji_picker_refresh')
+								? withNoResultsRefreshHeight[size]
+								: showPreview
+									? withPreviewHeight[size]
+									: withoutPreviewHeight[size],
 				]}
 				ref={setPickerRef}
 				data-emoji-picker-container
@@ -898,13 +924,15 @@ const EmojiPickerComponent = ({
 						size={size}
 						activeCategoryId={activeCategory}
 					/>
-					{showPreview && !(emojiToDelete && fg('platform_emoji_picker_refresh')) && (
-						<EmojiPickerFooter
-							selectedEmoji={selectedEmoji}
-							uploadEnabled={isUploadSupported && !uploading}
-							onOpenUpload={onOpenUpload}
-						/>
-					)}
+					{showPreview &&
+						!(emojiToDelete && fg('platform_emoji_picker_refresh')) &&
+						!(query && filteredEmojis.length === 0 && fg('platform_emoji_picker_refresh')) && (
+							<EmojiPickerFooter
+								selectedEmoji={selectedEmoji}
+								uploadEnabled={isUploadSupported && !uploading}
+								onOpenUpload={onOpenUpload}
+							/>
+						)}
 				</div>
 			</div>
 		);
@@ -919,9 +947,11 @@ const EmojiPickerComponent = ({
 					? withDeleteRefreshHeight[size]
 					: uploading && fg('platform_emoji_picker_refresh')
 						? withUploadRefreshHeight[size]
-						: showPreview
-							? withPreviewHeight[size]
-							: withoutPreviewHeight[size],
+						: query && filteredEmojis.length === 0 && fg('platform_emoji_picker_refresh')
+							? withNoResultsRefreshHeight[size]
+							: showPreview
+								? withPreviewHeight[size]
+								: withoutPreviewHeight[size],
 			]}
 			ref={setPickerRef}
 			data-emoji-picker-container
@@ -972,13 +1002,15 @@ const EmojiPickerComponent = ({
 				size={size}
 				activeCategoryId={activeCategory}
 			/>
-			{showPreview && !(emojiToDelete && fg('platform_emoji_picker_refresh')) && (
-				<EmojiPickerFooter
-					selectedEmoji={selectedEmoji}
-					uploadEnabled={isUploadSupported && !uploading}
-					onOpenUpload={onOpenUpload}
-				/>
-			)}
+			{showPreview &&
+				!(emojiToDelete && fg('platform_emoji_picker_refresh')) &&
+				!(query && filteredEmojis.length === 0 && fg('platform_emoji_picker_refresh')) && (
+					<EmojiPickerFooter
+						selectedEmoji={selectedEmoji}
+						uploadEnabled={isUploadSupported && !uploading}
+						onOpenUpload={onOpenUpload}
+					/>
+				)}
 			{uploading && fg('platform_emoji_picker_refresh') && (
 				<div css={uploadOverlay}>
 					<EmojiUploadPicker

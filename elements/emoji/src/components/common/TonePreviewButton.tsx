@@ -85,6 +85,7 @@ export const TonePreviewButton: ForwardRefExoticComponent<
 	Props & RefAttributes<HTMLButtonElement>
 > = forwardRef<HTMLButtonElement, Props>((props: Props, ref) => {
 	const { emoji, selectOnHover, ariaLabelText, ariaExpanded, onSelected, isVisible = true } = props;
+	const fitToHeight = fg('platform_twemoji_removal_unicode_emojis') ? 24 : undefined;
 
 	return fg('platform_emoji_picker_refresh') ? (
 		<button
@@ -104,6 +105,7 @@ export const TonePreviewButton: ForwardRefExoticComponent<
 				selectOnHover={selectOnHover}
 				shouldBeInteractive={false}
 				aria-hidden={true}
+				fitToHeight={fitToHeight}
 			/>
 		</button>
 	) : (
@@ -124,6 +126,7 @@ export const TonePreviewButton: ForwardRefExoticComponent<
 				selectOnHover={selectOnHover}
 				shouldBeInteractive={false}
 				aria-hidden={true}
+				fitToHeight={fitToHeight}
 			/>
 		</button>
 	);

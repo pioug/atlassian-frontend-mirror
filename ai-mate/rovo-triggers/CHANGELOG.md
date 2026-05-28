@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 6.4.0
+
+### Minor Changes
+
+- [`83010b0f5950d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83010b0f5950d) -
+  Clean up code relating to refetching space-scoped conversation data as that is handled by the
+  store and adding conversation to a space since it is now handled by the BE
+
 ## 6.3.0
 
 ### Minor Changes

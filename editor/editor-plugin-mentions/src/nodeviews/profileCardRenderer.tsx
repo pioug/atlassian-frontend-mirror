@@ -5,15 +5,17 @@ import { bind } from 'bind-event-listener';
 import uuid from 'uuid/v4';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
 import type { MentionPluginOptions } from '../types';
-import { ProfileCardComponent } from '../ui/ProfileCardComponent';
+import { isAgentMentionType, ProfileCardComponent } from '../ui/ProfileCardComponent';
 
 export const profileCardRenderer = ({
 	dom,
@@ -46,87 +48,110 @@ export const profileCardRenderer = ({
 		cleanupSelection?.();
 	};
 
+	const renderProfileCardPopup = (
+		renderProfileCard: (referenceElement: HTMLElement) => JSX.Element,
+	): void => {
+		if (!(dom instanceof HTMLElement) || renderingProfileCard) {
+			return;
+		}
+
+		const referenceElement = dom;
+		referenceElement.setAttribute('aria-expanded', 'true');
+		renderingProfileCard = true;
+		portalProviderAPI.render(() => renderProfileCard(referenceElement), referenceElement, key);
+		cleanupSelection = api?.selection?.sharedState.onChange(({ nextSharedState }) => {
+			const selection = nextSharedState?.selection;
+			if (selection instanceof NodeSelection ? selection.node === node : false) {
+				return;
+			}
+			removeProfileCard?.();
+		});
+	};
+
+	const renderEditorProfileCard = (): void => {
+		renderProfileCardPopup((referenceElement) => (
+			<ProfileCardComponent
+				activeMention={node}
+				profilecardProvider={options?.profilecardProvider}
+				dom={referenceElement}
+				closeComponent={removeProfileCard}
+			/>
+		));
+	};
+
+	const renderUserProfileCard = ({
+		userId,
+		cloudId,
+		renderUserMentionCard,
+	}: {
+		cloudId: string;
+		renderUserMentionCard: ProfilecardProvider['renderUserMentionCard'];
+		userId: string;
+	}): boolean => {
+		if (!renderUserMentionCard) {
+			return false;
+		}
+
+		renderProfileCardPopup((referenceElement) => (
+			<>{renderUserMentionCard({ userId, cloudId, children: null, referenceElement })}</>
+		));
+		return true;
+	};
+
+	const navigateToProfile = (userId: string, cloudId: string): void => {
+		if (navigatingToProfile) {
+			return;
+		}
+		navigatingToProfile = true;
+		const { href, target } = navigateToTeamsApp({
+			type: 'USER',
+			payload: { userId },
+			cloudId,
+		});
+		window.open(href, target, 'noopener,noreferrer');
+	};
+
+	const renderDefaultProfileCard = (userId: string, provider: ProfilecardProvider): void => {
+		if (
+			renderUserProfileCard({
+				userId,
+				cloudId: provider.cloudId,
+				renderUserMentionCard: provider.renderUserMentionCard,
+			})
+		) {
+			return;
+		}
+
+		navigateToProfile(userId, provider.cloudId);
+	};
+
 	const listenerCleanup = bind(dom, {
 		type: 'click',
 		listener: () => {
 			if (fg('people-teams_migrate-user-profile-card')) {
 				const userId = node.attrs?.id;
-				if (userId) {
-					navigatingToProfile = false;
-					options?.profilecardProvider?.then((provider) => {
-						// If a consumer (e.g. Confluence) has supplied a custom profile card
-						// renderer, render it into the portal instead of navigating away. The
-						// consumer owns its own popup/positioning behavior - subsequent clicks
-						// while the card is already open are no-ops here so the card's own
-						// outside-click / toggle logic can take over.
-						if (provider.renderUserMentionCard) {
-							if (dom instanceof HTMLElement && !renderingProfileCard) {
-								dom.setAttribute('aria-expanded', 'true');
-								renderingProfileCard = true;
-								portalProviderAPI.render(
-									() => (
-										<>
-											{provider.renderUserMentionCard?.({
-												userId,
-												cloudId: provider.cloudId,
-												children: null,
-												referenceElement: dom,
-											})}
-										</>
-									),
-									dom,
-									key,
-								);
-								cleanupSelection = api?.selection?.sharedState.onChange(({ nextSharedState }) => {
-									const selection = nextSharedState?.selection;
-									if (selection instanceof NodeSelection ? selection.node === node : false) {
-										return;
-									}
-									removeProfileCard?.();
-								});
-							}
-							return;
-						}
-
-						if (navigatingToProfile) {
-							return;
-						}
-						navigatingToProfile = true;
-						const { href, target } = navigateToTeamsApp({
-							type: 'USER',
-							payload: { userId },
-							cloudId: provider.cloudId,
-						});
-						window.open(href, target, 'noopener,noreferrer');
-					});
+				if (!userId) {
+					return;
 				}
-				return;
-			}
-			if (dom instanceof HTMLElement && options?.profilecardProvider && !renderingProfileCard) {
-				dom.setAttribute('aria-expanded', 'true');
-				renderingProfileCard = true;
-				portalProviderAPI.render(
-					() => (
-						<ProfileCardComponent
-							activeMention={node}
-							profilecardProvider={options?.profilecardProvider}
-							dom={dom}
-							closeComponent={removeProfileCard}
-						/>
-					),
-					dom,
-					key,
-				);
-				// If we change the selection we should also remove the profile card. The "deselectNode"
-				// should usually catch this, but it's possible (ie. on triple click) for this not to be called
-				// which means the profile card gets stuck open until you click + change selection
-				cleanupSelection = api?.selection?.sharedState.onChange(({ nextSharedState }) => {
-					const selection = nextSharedState?.selection;
-					if (selection instanceof NodeSelection ? selection.node === node : false) {
+
+				navigatingToProfile = false;
+				options?.profilecardProvider?.then((provider) => {
+					if (!expVal('platform_editor_agent_mentions', 'isEnabled', false)) {
+						renderDefaultProfileCard(userId, provider);
 						return;
 					}
-					removeProfileCard?.();
+
+					if (isAgentMentionType(node.attrs?.userType)) {
+						renderEditorProfileCard();
+					} else {
+						renderDefaultProfileCard(userId, provider);
+					}
 				});
+				return;
+			}
+
+			if (options?.profilecardProvider) {
+				renderEditorProfileCard();
 			}
 		},
 	});

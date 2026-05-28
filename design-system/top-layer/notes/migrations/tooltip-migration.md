@@ -116,8 +116,9 @@ consumer needing to trigger updates.
 
 ### Offset
 
-Tooltip uses a 4px offset (smaller than the default 8px popover offset), passed via the `offset`
-prop on `Popup.Content`.
+The top-layer call site doesn't pass an `offset` to `fromLegacyPlacement`, so `useAnchorPosition`'s
+default `gap` of `token('space.100', '8px')` applies. This matches the legacy popper rendering,
+which also didn't pass an `offset` and therefore picked up popper's `[0, 8]` default.
 
 ### Animation
 
@@ -203,7 +204,7 @@ the only viable approach for this use case.
 - `showPopover()` called when tooltip becomes visible
 - No portal rendering (tooltip is in DOM near trigger)
 - Animation data attribute applied
-- 4px offset used
+- 8px offset used (matches legacy popper default)
 
 ### Visual regression tests
 

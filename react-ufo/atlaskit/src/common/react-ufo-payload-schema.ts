@@ -1,4 +1,5 @@
 import { type createPayloads } from '../create-payload';
+import type { LabelStackTrieLookupTable } from '../create-payload/common/utils/label-stack-registry';
 import type { HiddenTimingItem } from '../hidden-timing';
 import { type LabelStack } from '../interaction-context';
 import { type VCObserver } from '../vc/vc-observer';
@@ -188,6 +189,7 @@ export type ReactUFOPayload = {
 				unknownElementName?: string;
 				unknownElementHierarchy?: string;
 				minorInteractions?: MinorInteraction[];
+				_ls?: LabelStackTrieLookupTable;
 				// TODO: fix typings here - update as necessary for integration tests
 				// marks: [];
 				// redirects: [];

@@ -1,3 +1,4 @@
+import { useIntl } from 'react-intl';
 import React, {
 	useCallback,
 	useEffect,
@@ -41,6 +42,7 @@ import {
 	CategoryHeadingItem,
 	EmojisRowItem,
 	LoadingItem,
+	NoResultsItem,
 	type VirtualItem,
 	virtualItemRenderer,
 } from './EmojiPickerVirtualItems';
@@ -53,6 +55,7 @@ import type { Props as EmojiRowProps } from './EmojiPickerEmojiRow';
 import { type ListRef, VirtualList } from './VirtualList';
 import { EmojiPickerListContextProvider } from '../../context/EmojiPickerListContext';
 import EmojiPickerTabPanel from './EmojiPickerTabPanel';
+import { messages } from '../i18n';
 
 /**
  * Test id for wrapper Emoji Picker List div
@@ -157,6 +160,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 		activeCategoryId,
 	} = props;
 
+	const { formatMessage } = useIntl();
 	const listRef = useRef<ListRef>(null);
 	const [allEmojiGroups, setAllEmojiGroups] = useState<EmojiGroup[]>([]);
 	const [virtualItems, setVirtualItems] = useState<
@@ -307,17 +311,36 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 			items.push(new LoadingItem());
 		} else {
 			if (query) {
-				const search = CategoryDescriptionMap.SEARCH;
-				// Only a single "result" category
-				items = [
-					...items,
-					...buildVirtualItemFromGroup({
-						category: searchCategory,
-						title: search.name,
-						emojis,
-						order: search.order,
-					}),
-				];
+				const search = fg('platform_emoji_picker_refresh')
+					? CategoryDescriptionMapNew.SEARCH
+					: CategoryDescriptionMap.SEARCH;
+				if (emojis.length === 0 && fg('platform_emoji_picker_refresh')) {
+					// Show a "No results" category heading, then a no-results illustration below it
+					items.push(
+						new CategoryHeadingItem({
+							id: searchCategory,
+							title: formatMessage(messages.emojiPickerNoResults),
+							className: categoryClassname,
+						}),
+					);
+					items.push(
+						new NoResultsItem({
+							onOpenUpload,
+							uploadEnabled,
+						}),
+					);
+				} else {
+					// Only a single "result" category
+					items = [
+						...items,
+						...buildVirtualItemFromGroup({
+							category: searchCategory,
+							title: search.name,
+							emojis,
+							order: search.order,
+						}),
+					];
+				}
 			} else {
 				// Group by category
 
@@ -344,7 +367,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 			}
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [allEmojiGroups, loading, query, emojis]);
+	}, [allEmojiGroups, loading, query, emojis, onOpenUpload, uploadEnabled, formatMessage]);
 
 	const findCategoryToActivate = (row: VirtualItem<CategoryHeadingProps | EmojiRowProps | {}>) => {
 		let category: CategoryGroupKey | null = null;
@@ -455,10 +478,14 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 	}, [virtualItems, categoriesChanged]);
 
 	const virtualListHeight = useMemo(() => {
+		if (query && emojis.length === 0 && fg('platform_emoji_picker_refresh')) {
+			// No-results state: expand the list height to fit heading + illustration without scrolling
+			return sizes.categoryHeadingHeight + sizes.noResultsHeight + emojiPickerHeightOffset(size);
+		}
 		return fg('platform_emoji_picker_refresh')
 			? sizes.listHeightNew + emojiPickerHeightOffset(size)
 			: sizes.listHeight + emojiPickerHeightOffset(size);
-	}, [size]);
+	}, [size, query, emojis.length]);
 
 	return (
 		<EmojiPickerTabPanel showSearchResults={!!query}>

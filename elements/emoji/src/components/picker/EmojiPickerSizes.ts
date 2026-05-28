@@ -13,6 +13,7 @@ export const sizes: {
 	listHeightNew: number;
 	listWidth: number;
 	loadingRowHeight: number;
+	noResultsHeight: number;
 	searchHeight: number;
 	uploadActionHeight: number;
 } = {
@@ -24,6 +25,7 @@ export const sizes: {
 	emojiRowHeight: 40, // 32px button height + 4px padding top/bottom
 	addEmojiHeight: 32, // 32px height
 	loadingRowHeight: 150, // Fills remaining space without scrolling when loading.
+	noResultsHeight: 300, // illustration (200px) + button + padding + gap
 	uploadActionHeight: 40, // 40px height
 	emojiPerRow: 8,
 };

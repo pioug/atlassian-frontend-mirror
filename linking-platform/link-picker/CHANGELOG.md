@@ -1,5 +1,18 @@
 # @atlaskit/link-picker
 
+## 5.3.0
+
+### Minor Changes
+
+- [`fbb51c73ed426`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fbb51c73ed426) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- [`cf3ee6a99c051`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf3ee6a99c051) -
+  [ux] NAVX-4104 fixing the error focus state for link picker
+- Updated dependencies
+
 ## 5.2.1
 
 ### Patch Changes

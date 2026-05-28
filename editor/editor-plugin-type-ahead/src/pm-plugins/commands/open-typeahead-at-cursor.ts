@@ -2,6 +2,7 @@ import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { OpenTypeAheadProps } from '../../types';
 import { ACTIONS } from '../actions';
@@ -89,11 +90,17 @@ export const openTypeAheadAtCursor =
 			// being inserted due to composition by checking if we have the trigger
 			// directly before the typeahead. This should not happen unless it has
 			// been eroneously added because we require whitespace/newline for typeahead.
-			if (
-				cursorPos >= 2 &&
-				!!selection?.$head?.parent?.textContent &&
-				selection.$head.parent.textContent.endsWith?.(triggerHandler.trigger)
-			) {
+			// Check if the text ends with the trigger character (or any character matched
+			// by customRegex, to support wide-char variants like fullwidth slash ／)
+			const triggerPattern =
+				expValEquals('platform_editor_wide_slash_trigger', 'isEnabled', true) &&
+				triggerHandler.customRegex
+					? new RegExp(`(${triggerHandler.customRegex})$`, 'u')
+					: null;
+			const endsWithTrigger =
+				selection.$head.parent.textContent.endsWith?.(triggerHandler.trigger) ||
+				(triggerPattern && triggerPattern.test(selection.$head.parent.textContent));
+			if (cursorPos >= 2 && !!selection?.$head?.parent?.textContent && endsWithTrigger) {
 				tr.delete(cursorPos - 1, cursorPos);
 			}
 		}

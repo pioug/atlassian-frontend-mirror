@@ -144,7 +144,7 @@ export default class VCObserverNew {
 		});
 
 		this.windowEventObserver = new WindowEventObserver({
-			onEvent: ({ time, type }) => {
+			onEvent: ({ time, type, event }) => {
 				// Don't abort press interactions on keydown events, as keydown is expected
 				// when users press Enter/Space to activate buttons or other interactive elements
 				if (type === 'keydown' && fg('platform_ufo_keypress_interaction_abort')) {
@@ -153,11 +153,21 @@ export default class VCObserverNew {
 						return;
 					}
 				}
+
+				const abortEventTargetElement =
+					isAbortEventTargetSupported(type) && fg('platform_ufo_abort_event_target')
+						? getAbortEventTargetElement(event.target)
+						: null;
+				const elementName = abortEventTargetElement
+					? this.getElementName(abortEventTargetElement)
+					: undefined;
+
 				this.entriesTimeline.push({
 					time,
 					data: {
 						type: 'window:event',
 						eventType: type,
+						...(elementName ? { elementName } : {}),
 					},
 				});
 			},
@@ -502,4 +512,40 @@ function getLabelStacks(element: HTMLElement): VCObserverLabelStacks | null {
 	}
 	const fiber = (element as any)[reactFiberKey] as ReactFiberType | undefined;
 	return fiber ? traverseFiber(fiber) : null;
+}
+
+const SUPPORTED_ABORT_EVENT_TARGET_TYPES = new Set(['scroll-container', 'scroll', 'wheel']);
+
+function isAbortEventTargetSupported(type: string): boolean {
+	return SUPPORTED_ABORT_EVENT_TARGET_TYPES.has(type);
+}
+
+function getAbortEventTargetElement(target: EventTarget | null): HTMLElement | null {
+	if (target instanceof HTMLElement) {
+		return target;
+	}
+
+	if (target instanceof Document) {
+		const scrollingElement = target.scrollingElement;
+		if (scrollingElement instanceof HTMLElement) {
+			return scrollingElement;
+		}
+
+		return target.documentElement ?? null;
+	}
+
+	if (target instanceof Window) {
+		const scrollingElement = target.document.scrollingElement;
+		if (scrollingElement instanceof HTMLElement) {
+			return scrollingElement;
+		}
+
+		return target.document.documentElement ?? null;
+	}
+
+	if (target instanceof Node) {
+		return target.parentElement;
+	}
+
+	return null;
 }

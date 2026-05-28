@@ -1,5 +1,13 @@
 # @atlaskit/editor-card-provider
 
+## 6.8.4
+
+### Patch Changes
+
+- [`b0378b1a1762f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0378b1a1762f) -
+  Cleanup platform_sl_fix_cache_unresolved
+- Updated dependencies
+
 ## 6.8.3
 
 ### Patch Changes

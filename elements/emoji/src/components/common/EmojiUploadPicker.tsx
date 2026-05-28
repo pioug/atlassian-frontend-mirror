@@ -141,6 +141,9 @@ const uploadChooseFileRowNew = css({
 	minHeight: '250px',
 });
 
+const supportedEmojiUploadMimeTypes = new Set(['image/png', 'image/jpeg', 'image/gif']);
+const supportedEmojiUploadExtensions = ['.png', '.jpg', '.jpeg', '.gif'];
+
 export interface OnUploadEmoji {
 	(upload: EmojiUpload, retry: boolean, onSuccessHandler?: () => void): void;
 }
@@ -185,6 +188,19 @@ const maxNameLength = 50;
 const toEmojiName = (uploadName: string): string => {
 	const name = uploadName.split('_').join(' ');
 	return `${name.substr(0, 1).toLocaleUpperCase()}${name.substr(1)}`;
+};
+
+const isSupportedEmojiUploadFileType = (file: File): boolean => {
+	if (!fg('platform_emoji_picker_refresh')) {
+		return true;
+	}
+
+	if (supportedEmojiUploadMimeTypes.has(file.type)) {
+		return true;
+	}
+
+	const lowerCaseFileName = file.name.toLowerCase();
+	return supportedEmojiUploadExtensions.some((extension) => lowerCaseFileName.endsWith(extension));
 };
 
 interface ChooseEmojiFileProps {
@@ -519,6 +535,12 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 			if (files.length) {
 				const reader = new FileReader();
 				const file: File = files[0];
+
+				if (!isSupportedEmojiUploadFileType(file)) {
+					setChooseEmojiErrorMessage(<FormattedMessage {...messages.emojiUnsupportedFileType} />);
+					cancelChooseFile();
+					return;
+				}
 
 				if (ImageUtil.hasFileExceededSize(file)) {
 					setChooseEmojiErrorMessage(<FormattedMessage {...messages.emojiImageTooBig} />);

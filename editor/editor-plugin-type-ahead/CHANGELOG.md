@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 10.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.3.1
+
+### Patch Changes
+
+- [`cf6977530a136`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf6977530a136) -
+  Support fullwidth slash ／ (U+FF0F) as a quick insert trigger for Japanese/CJK keyboard users.
+  Japanese keyboards produce the fullwidth slash when pressing the / key, which previously did not
+  open the quick insert menu. The fix adds a `customRegex` to the quick-insert typeahead handler
+  that matches both ASCII slash `/` and fullwidth slash `／`, and extends the trigger cleanup logic
+  in `openTypeAheadAtCursor` to handle `customRegex` alternatives.
+- [`cf6977530a136`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf6977530a136) -
+  Add ./commands entry point exposing openTypeAheadAtCursor for test consumption
+- Updated dependencies
+
 ## 10.3.0
 
 ### Minor Changes

@@ -247,6 +247,26 @@ export function addSegmentExtraData(
 	}
 }
 
+/**
+ * Builds a stable cross-segment dedup key for a segment3pTimings entry.
+ *
+ * For `resource-timing` we use only `label|startTime|duration` — the fields that uniquely
+ * identify a network request regardless of which iframe reported it. Excluding `segmentId`
+ * from the key is intentional: shared Forge runtime CDN URLs reported by N iframes are
+ * genuinely the same resource and should be stored only once (B3).
+ *
+ * For all other labels the data objects are small (a handful of fields), so we use a full
+ * JSON fingerprint which is cheap and collision-free.
+ */
+function buildCrossSegmentDedupKey(entry: Segment3pTimingEntry): string {
+	if (entry.label === 'resource-timing') {
+		// Use the url label + timing fields that uniquely identify the request
+		const { label: urlLabel, startTime, duration } = entry.data as Record<string, unknown>;
+		return `resource-timing|${urlLabel}|${startTime}|${duration}`;
+	}
+	return `${entry.label}|${JSON.stringify(entry.data)}`;
+}
+
 export function addIframeSegmentData(
 	interactionId: string,
 	segmentId: string,
@@ -254,6 +274,19 @@ export function addIframeSegmentData(
 ): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null && fg('platform_ufo_3p_segment_timings')) {
+		// B3: dedup by content — drops identical entries within and across iframes.
+		// Abort markers are excluded so every segment's abort is recorded.
+		if (entry.label !== 'segment-timing-abort') {
+			if (!interaction.segment3pCrossSegmentSeen) {
+				interaction.segment3pCrossSegmentSeen = new Set();
+			}
+			const key = buildCrossSegmentDedupKey(entry);
+			if (interaction.segment3pCrossSegmentSeen.has(key)) {
+				return;
+			}
+			interaction.segment3pCrossSegmentSeen.add(key);
+		}
+
 		if (!interaction.segment3pTimings) {
 			interaction.segment3pTimings = {};
 		}
@@ -1403,9 +1436,7 @@ export function addNewInteraction(
 	}
 
 	const priorAccessedFg =
-		type === 'press' && fg('platform_ufo_drop_prior_fg_interactions')
-			? {}
-			: Object.fromEntries(allFeatureFlagsAccessed);
+		type === 'press' ? {} : Object.fromEntries(allFeatureFlagsAccessed);
 
 	const metrics: InteractionMetrics = {
 		id: interactionId,

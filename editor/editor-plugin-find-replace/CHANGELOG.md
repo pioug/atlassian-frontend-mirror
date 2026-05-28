@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 10.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.2.7
 
 ### Patch Changes

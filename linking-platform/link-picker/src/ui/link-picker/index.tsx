@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import {
+import React, {
 	type ChangeEvent,
 	type ComponentType,
 	type FormEvent,
@@ -17,6 +17,7 @@ import {
 
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { useMergeRefs } from 'use-callback-ref';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
@@ -25,6 +26,7 @@ import { cssMap } from '@atlaskit/css';
 import { CardClient } from '@atlaskit/link-provider';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
 import { browser } from '@atlaskit/linking-common/user-agent';
+import { fg } from "@atlaskit/platform-feature-flags";
 import { Box } from '@atlaskit/primitives/compiled';
 import LinkUrl from '@atlaskit/smart-card/link-url';
 import { token } from '@atlaskit/tokens';
@@ -180,6 +182,9 @@ export const LinkPicker: ComponentType<LinkPickerProps> = withLinkPickerAnalytic
 			alwaysShowTabs,
 		}: LinkPickerProps) => {
 			const { createAnalyticsEvent } = useAnalyticsEvents();
+
+			const linkInputRef = React.useRef<HTMLInputElement>(null)
+			const mergedRefs = useMergeRefs(inputRef ? [linkInputRef, inputRef] : [linkInputRef])
 
 			const [state, dispatch] = useReducer(reducer, {
 				...initState,
@@ -367,6 +372,11 @@ export const LinkPicker: ComponentType<LinkPickerProps> = withLinkPickerAnalytic
 							return handleInsert(normalized, null, 'manual');
 						}
 					}
+
+					if (fg('navx-4104-link-picker-a11y-focus-states')) {
+						linkInputRef.current?.focus();
+					}
+
 					return dispatch({
 						invalidUrl: true,
 					});
@@ -531,6 +541,7 @@ export const LinkPicker: ComponentType<LinkPickerProps> = withLinkPickerAnalytic
 					css={[baseRootContainerStyles]}
 					// Use onSubmitCapture instead of onSubmit so that any possible parent form isn't submitted
 					onSubmitCapture={handleSubmit}
+					{...fg('navx-4104-link-picker-a11y-focus-states') ? { noValidate: true} : {}}
 				>
 					<TrackMount />
 					{submitOnInputChange && (
@@ -580,13 +591,14 @@ export const LinkPicker: ComponentType<LinkPickerProps> = withLinkPickerAnalytic
 						autoFocus
 						clearLabel={intl.formatMessage(formMessages.clearLink)}
 						error={errorMessage || additionalError}
+						{...(fg('navx-4104-link-picker-a11y-focus-states') ? { validationMessage: intl.formatMessage(formMessages.linkInvalid) } : {})}
 						spotlightTargetName="link-picker-search-field-spotlight-target"
 						aria-readonly={isSubmitting}
 						{...a11yList}
 						onClear={handleUrlClear}
 						onKeyDown={handleKeyDown}
 						onChange={handleChangeUrl}
-						inputRef={inputRef}
+						inputRef={fg('navx-4104-link-picker-a11y-focus-states') ? mergedRefs : inputRef}
 						isRequired
 					/>
 					{!hideDisplayText && (

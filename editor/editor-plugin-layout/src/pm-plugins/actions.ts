@@ -30,11 +30,13 @@ import {
 } from './consts';
 import { pluginKey } from './plugin-key';
 import type { LayoutState } from './types';
-import { getSelectedLayoutColumns } from './utils/layout-column-selection';
 import {
+	calculateDistribution,
+	isDistributedUniformly,
 	redistributeAfterDeletion,
 	redistributeProportionally,
-} from './utils/redistribute-proportionally';
+} from './utils/layout-column-distribution';
+import { getSelectedLayoutColumns } from './utils/layout-column-selection';
 
 export const ONE_COL_LAYOUTS: PresetLayout[] = ['single'];
 export const TWO_COL_LAYOUTS: PresetLayout[] = [
@@ -208,9 +210,14 @@ export const insertLayoutColumns: Command = (state, dispatch) => {
 	return true;
 };
 
+type InsertLayoutColumnsInputMethod =
+	| TOOLBAR_MENU_TYPE
+	| INPUT_METHOD.QUICK_INSERT
+	| INPUT_METHOD.ELEMENT_BROWSER;
+
 export const insertLayoutColumnsWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	(inputMethod: TOOLBAR_MENU_TYPE): Command =>
+	(inputMethod: InsertLayoutColumnsInputMethod): Command =>
 		withAnalytics(editorAnalyticsAPI, {
 			action: ACTION.INSERTED,
 			actionSubject: ACTION_SUBJECT.DOCUMENT,
@@ -834,27 +841,27 @@ export const distributeLayoutColumns =
 			return null;
 		}
 
-		const { layoutSectionNode, layoutSectionPos, selectedColumnIndices, selectedColumns } =
+		const { layoutSectionNode, selectedColumnIndices, selectedColumns } =
 			selectedLayoutColumns;
 
 		const endIndex = selectedColumnIndices[selectedColumnIndices.length - 1];
 		const selectedColumnCount = selectedColumns.length;
 		const totalColumnCount = layoutSectionNode.childCount;
 
-		// Compute equal width for selected columns
 		const existingWidths = mapChildren(layoutSectionNode, (column) => column.attrs.width as number);
-		const selectedTotal = selectedColumnIndices.reduce((sum, idx) => sum + existingWidths[idx], 0);
-		const equalWidth = selectedTotal / selectedColumnCount;
+		const selectedWidths = selectedColumns.map(({ node }) => node.attrs.width as number);
+		const distribution = calculateDistribution(selectedWidths);
+		if (!distribution) {
+			return null;
+		}
+		const { selectedTotal, equalWidth } = distribution;
 
-		// Early return if selected columns are already uniformly distributed — avoids spurious undo entry.
-		if (
-			selectedColumnIndices.every((idx) => existingWidths[idx] === Number(equalWidth.toFixed(2)))
-		) {
+		if (isDistributedUniformly(selectedWidths, distribution)) {
 			return null;
 		}
 
 		// Build new widths array: selected columns get equal share, unselected unchanged.
-		// Assign truncated (2dp) equal widths to all selected cols except the last, which absorbs
+		// Assign rounded (2dp) equal widths to all selected cols except the last, which absorbs
 		// the rounding remainder so the sum of selected widths equals selectedTotal exactly.
 		const selectedIndexSet = new Set(selectedColumnIndices);
 		let assignedToSelected = 0;
@@ -865,20 +872,18 @@ export const distributeLayoutColumns =
 			}
 			selectedAssignedCount += 1;
 			if (selectedAssignedCount < selectedColumnCount) {
-				const truncated = Number(equalWidth.toFixed(2));
-				assignedToSelected += truncated;
-				return truncated;
+				assignedToSelected += equalWidth;
+				return equalWidth;
 			}
 			// Last selected column: absorb the remainder to avoid drift
 			return Number((selectedTotal - assignedToSelected).toFixed(2));
 		});
 
-		// Apply widths via replaceWith (mirroring forceColumnWidths approach)
-		tr.replaceWith(
-			layoutSectionPos + 1,
-			layoutSectionPos + layoutSectionNode.nodeSize - 1,
-			columnWidth(layoutSectionNode, tr.doc.type.schema, newWidths),
-		);
+		// Apply widths via setNodeMarkup per selected column — keeps nodes in place (preserves identity, marks, decorations)
+		selectedColumns.forEach(({ node, pos }, i) => {
+			const colIdx = selectedColumnIndices[i];
+			tr.setNodeMarkup(pos, node.type, { ...node.attrs, width: newWidths[colIdx] });
+		});
 
 		editorAnalyticsAPI?.attachAnalyticsEvent({
 			action: ACTION.UPDATED,

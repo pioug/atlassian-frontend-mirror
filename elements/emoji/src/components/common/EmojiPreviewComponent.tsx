@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import type { EmojiDescription } from '../../types';
 import CachingEmoji from './CachingEmoji';
@@ -90,10 +91,12 @@ type Props = {
 };
 
 export const EmojiPreviewComponent = ({ emoji }: Props): JSX.Element => {
+	const fitToHeight = fg('platform_twemoji_removal_unicode_emojis') ? 32 : undefined;
+
 	return (
 		<div css={preview}>
 			<span css={previewImg}>
-				<CachingEmoji key={emoji.id || emoji.shortName} emoji={emoji} />
+				<CachingEmoji key={emoji.id || emoji.shortName} emoji={emoji} fitToHeight={fitToHeight}/>
 			</span>
 			<div css={previewText}>
 				{emoji.name && <div css={emojiName}>{emoji.name}</div>}

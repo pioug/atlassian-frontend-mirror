@@ -1,6 +1,7 @@
 import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { EmojiProvider } from '../../../../api/EmojiResource';
 import ResourcedEmoji from '../../../../components/common/ResourcedEmoji';
 import EmojiPicker from '../../../../components/picker/EmojiPicker';
@@ -14,6 +15,10 @@ import {
 import { mockReactDomWarningGlobal, renderWithIntl } from '../../_testing-library';
 import { emojisVisible, findEmojiPreview, setupPicker } from '../picker/_emoji-picker-test-helpers';
 
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn().mockReturnValue(false),
+}));
+
 describe('Media Emoji Handling across components', () => {
 	mockReactDomWarningGlobal();
 
@@ -22,6 +27,8 @@ describe('Media Emoji Handling across components', () => {
 	beforeEach(() => {
 		emojiProvider = getEmojiResourcePromiseFromRepository(newSiteEmojiRepository());
 	});
+
+	afterEach(jest.clearAllMocks);
 
 	describe('<ResourcedEmoji/>', () => {
 		it('ResourcedEmoji renders media emoji via Emoji', async () => {
@@ -47,8 +54,6 @@ describe('Media Emoji Handling across components', () => {
 
 			const emoji = emojis[0];
 			expect(emoji).toHaveAttribute('aria-label', ':media:');
-
-			screen.debug(screen.getByRole('gridcell'));
 
 			// CachingMediaEmoji
 			expect(container.querySelectorAll('img.emoji')).toHaveLength(1);
@@ -83,14 +88,24 @@ describe('Media Emoji Handling across components', () => {
 	});
 
 	describe('<EmojiTypeAhead/>', () => {
-		it('Media emoji rendered in type ahead', async () => {
+		it.each([
+			[false, mediaEmoji.representation.mediaPath],
+			[true, mediaEmoji.altRepresentation!.mediaPath],
+		])(
+			'Media emoji rendered in type ahead when unicode gate is %s',
+			async (gateEnabled, expectedSrc) => {
+				jest.mocked(fg).mockImplementation(
+					(flagName) => flagName === 'platform_twemoji_removal_unicode_emojis' && gateEnabled,
+				);
+
 			renderWithIntl(<EmojiTypeAhead emojiProvider={emojiProvider} />);
 			const emoji = await screen.findByAltText(mediaEmoji.name);
 
 			expect(emoji).toBeInTheDocument();
-			expect(emoji).toHaveAttribute('src', mediaEmoji.representation.mediaPath);
+			expect(emoji).toHaveAttribute('src', expectedSrc);
 			expect(emoji).toHaveAttribute('data-emoji-id', mediaEmojiId.id);
 			expect(emoji).toHaveAttribute('data-emoji-short-name', mediaEmojiId.shortName);
-		});
+			},
+		);
 	});
 });

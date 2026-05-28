@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 8.4.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.4.11
+
+### Patch Changes
+
+- [`3b124b51740be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b124b51740be) -
+  Remove fully rolled out feature gates platform_synced_block_patch_12 and
+  platform_synced_blocks_dogfooding
+- Updated dependencies
+
 ## 8.4.10
 
 ### Patch Changes

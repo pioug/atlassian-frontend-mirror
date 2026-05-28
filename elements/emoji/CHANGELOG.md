@@ -1,5 +1,40 @@
 # @atlaskit/emoji
 
+## 70.11.2
+
+### Patch Changes
+
+- [`73c9a0824c93e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73c9a0824c93e) -
+  Add a new empty state for no results in emoji picker
+
+## 70.11.1
+
+### Patch Changes
+
+- [`f9457ee7bd8fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9457ee7bd8fc) -
+  Add file type validation to emoji picker.
+- Updated dependencies
+
+## 70.11.0
+
+### Minor Changes
+
+- [`447e1bfc88d10`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/447e1bfc88d10) -
+  Add UnicodeEmoji component for rendering emojis using Unicode representation. Update
+  EmojiNodeWrapper to support unicode type. Add fitToHeight support to EmojiPreviewComponent,
+  EmojiRadioButton, TonePreviewButton, and EmojiPickerEmojiRow.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 70.10.14
+
+### Patch Changes
+
+- [`634702b5ec206`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/634702b5ec206) -
+  Fix missing unorder list mark-up
+
 ## 70.10.13
 
 ### Patch Changes

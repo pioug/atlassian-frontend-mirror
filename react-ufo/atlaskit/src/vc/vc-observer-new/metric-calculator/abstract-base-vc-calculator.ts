@@ -18,6 +18,7 @@ import type { VCCalculator, VCCalculatorParam } from './types';
 import { detectLayoutShiftCause } from './utils/detect-layout-shift-cause';
 import getViewportHeight from './utils/get-viewport-height';
 import getViewportWidth from './utils/get-viewport-width';
+import isViewportEntryData from './utils/is-viewport-entry-data';
 
 declare global {
 	interface Window {
@@ -104,7 +105,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 	): VCLabelStacks {
 		const labelStacks: VCLabelStacks = {};
 		for (const entry of filteredEntries) {
-			if ('elementName' in entry.data && entry.data.labelStacks) {
+			if (isViewportEntryData(entry.data) && entry.data.labelStacks) {
 				if (isPostInteraction) {
 					labelStacks[entry.data.elementName] = {
 						segment: entry.data.labelStacks.segment,

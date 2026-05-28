@@ -276,7 +276,8 @@ type InsertLayoutAEP = InsertAEP<
 			| INPUT_METHOD.FLOATING_TB
 			| INPUT_METHOD.INSERT_MENU
 			| INPUT_METHOD.QUICK_INSERT
-			| INPUT_METHOD.DRAG_AND_DROP;
+			| INPUT_METHOD.DRAG_AND_DROP
+			| INPUT_METHOD.ELEMENT_BROWSER;
 		// For DRAG_AND_DROP inputMethod, track distinctive types of source nodes that are dragged to create layout
 		// and whether there are multiple nodes
 		nodeTypes?: string;

@@ -1,6 +1,6 @@
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { LabelStackRegistry } from './label-stack-registry';
+import { LabelStackRegistry, resolveLabelStackFromTrie } from './label-stack-registry';
 
 import {
 	optimizeLabelStack,
@@ -11,7 +11,7 @@ import {
 
 describe('optimizeLabelStackWithRegistry', () => {
 	describe('with registry and v2.0.0', () => {
-		it('should register labelStack and return numeric index', () => {
+		it('should register labelStack and return terminal trie node id', () => {
 			const registry = new LabelStackRegistry();
 			const labelStack = [
 				{ name: 'jira-spa', segmentId: 'abc123' },
@@ -21,10 +21,13 @@ describe('optimizeLabelStackWithRegistry', () => {
 			const result = optimizeLabelStackWithRegistry(labelStack, '2.0.0', registry);
 
 			expect(typeof result).toBe('number');
-			expect(result).toBe(0);
+			expect(result).toBe(1);
+			expect(resolveLabelStackFromTrie(registry.getLookupTable(), result as number)).toBe(
+				'abc123/def456',
+			);
 		});
 
-		it('should return the same index for duplicate labelStacks', () => {
+		it('should return the same terminal node id for duplicate labelStacks', () => {
 			const registry = new LabelStackRegistry();
 			const labelStack = [
 				{ name: 'jira-spa', segmentId: 'abc123' },
@@ -35,10 +38,10 @@ describe('optimizeLabelStackWithRegistry', () => {
 			const result2 = optimizeLabelStackWithRegistry(labelStack, '2.0.0', registry);
 
 			expect(result1).toBe(result2);
-			expect(result1).toBe(0);
+			expect(result1).toBe(1);
 		});
 
-		it('should assign different indices for different labelStacks', () => {
+		it('should assign different terminal node ids for different labelStacks', () => {
 			const registry = new LabelStackRegistry();
 			const labelStack1 = [{ name: 'jira-spa', segmentId: 'abc123' }];
 			const labelStack2 = [{ name: 'jira-spa', segmentId: 'def456' }];
@@ -48,6 +51,8 @@ describe('optimizeLabelStackWithRegistry', () => {
 
 			expect(result1).toBe(0);
 			expect(result2).toBe(1);
+			expect(resolveLabelStackFromTrie(registry.getLookupTable(), result1 as number)).toBe('abc123');
+			expect(resolveLabelStackFromTrie(registry.getLookupTable(), result2 as number)).toBe('def456');
 		});
 
 		it('should populate the registry lookup table correctly', () => {
@@ -58,14 +63,19 @@ describe('optimizeLabelStackWithRegistry', () => {
 				{ name: 'nav4.topNav', segmentId: 'def456' },
 			];
 
-			optimizeLabelStackWithRegistry(labelStack1, '2.0.0', registry);
-			optimizeLabelStackWithRegistry(labelStack2, '2.0.0', registry);
+			const result1 = optimizeLabelStackWithRegistry(labelStack1, '2.0.0', registry);
+			const result2 = optimizeLabelStackWithRegistry(labelStack2, '2.0.0', registry);
 
 			const table = registry.getLookupTable();
 			expect(table).toEqual({
-				'0': 'abc123',
-				'1': 'abc123/def456',
+				v: 2,
+				n: [
+					['abc123', -1],
+					['def456', 0],
+				],
 			});
+			expect(resolveLabelStackFromTrie(table, result1 as number)).toBe('abc123');
+			expect(resolveLabelStackFromTrie(table, result2 as number)).toBe('abc123/def456');
 		});
 	});
 
@@ -152,19 +162,17 @@ describe('optimizeLabelStackWithRegistry', () => {
 				const registry = new LabelStackRegistry();
 				const result = optimizeLabelStackWithRegistry(labelStack, '2.0.0', registry);
 
-				expect(result).toBe(0);
-				expect(registry.getLookupTable()).toEqual({
-					'0': 'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
-				});
+				expect(resolveLabelStackFromTrie(registry.getLookupTable(), result as number)).toBe(
+					'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+				);
 			},
 			() => {
 				const registry = new LabelStackRegistry();
 				const result = optimizeLabelStackWithRegistry(labelStack, '2.0.0', registry);
 
-				expect(result).toBe(0);
-				expect(registry.getLookupTable()).toEqual({
-					'0': 'network//rest/api/3/myself////gateway/api/jsm/ops/web/<uuid>/v1/alerts',
-				});
+				expect(resolveLabelStackFromTrie(registry.getLookupTable(), result as number)).toBe(
+					'network//rest/api/3/myself////gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+				);
 			},
 		);
 	});
@@ -218,19 +226,17 @@ describe('optimizeLabelStackWithRegistry', () => {
 				const registry = new LabelStackRegistry();
 				const result = optimizeLabelStackWithRegistry(labelStack, '2.0.0', registry);
 
-				expect(result).toBe(0);
-				expect(registry.getLookupTable()).toEqual({
-					'0': 'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
-				});
+				expect(resolveLabelStackFromTrie(registry.getLookupTable(), result as number)).toBe(
+					'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+				);
 			},
 			() => {
 				const registry = new LabelStackRegistry();
 				const result = optimizeLabelStackWithRegistry(labelStack, '2.0.0', registry);
 
-				expect(result).toBe(0);
-				expect(registry.getLookupTable()).toEqual({
-					'0': 'network//rest/api/3/myself//gateway/api/jsm/ops/web/<uuid>/v1/alerts///',
-				});
+				expect(resolveLabelStackFromTrie(registry.getLookupTable(), result as number)).toBe(
+					'network//rest/api/3/myself//gateway/api/jsm/ops/web/<uuid>/v1/alerts///',
+				);
 			},
 		);
 	});

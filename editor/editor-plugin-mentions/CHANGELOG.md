@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-mentions
 
+## 12.2.11
+
+### Patch Changes
+
+- [`8a065eba1d509`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a065eba1d509) -
+  Show agent profile cards for agent mentions in the editor.
+
 ## 12.2.10
 
 ### Patch Changes

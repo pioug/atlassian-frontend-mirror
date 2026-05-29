@@ -9,8 +9,9 @@ exports.ViewingConditions = void 0;
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-var utils = _interopRequireWildcard(require("./color-utils"));
 var math = _interopRequireWildcard(require("./math-utils"));
+var _whitePointD = require("./white-point-d65");
+var _yFromLstar = require("./y-from-lstar");
 var _ViewingConditions;
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function _interopRequireWildcard(e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != _typeof(e) && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (var _t in e) "default" !== _t && {}.hasOwnProperty.call(e, _t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, _t)) && (i.get || i.set) ? o(f, _t, i) : f[_t] = e[_t]); return f; })(e, t); }
 var ViewingConditions = exports.ViewingConditions = /*#__PURE__*/function () {
@@ -53,8 +54,8 @@ var ViewingConditions = exports.ViewingConditions = /*#__PURE__*/function () {
      *       self-luminous objects like displays.
      */
     function make() {
-      var whitePoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : utils.whitePointD65();
-      var adaptingLuminance = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 200.0 / Math.PI * utils.yFromLstar(50.0) / 100.0;
+      var whitePoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _whitePointD.whitePointD65)();
+      var adaptingLuminance = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 200.0 / Math.PI * (0, _yFromLstar.yFromLstar)(50.0) / 100.0;
       var backgroundLstar = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 50.0;
       var surround = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 2.0;
       var discountingIlluminant = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
@@ -72,7 +73,7 @@ var ViewingConditions = exports.ViewingConditions = /*#__PURE__*/function () {
       var k4 = k * k * k * k;
       var k4F = 1.0 - k4;
       var fl = k4 * adaptingLuminance + 0.1 * k4F * k4F * Math.cbrt(5.0 * adaptingLuminance);
-      var n = utils.yFromLstar(backgroundLstar) / whitePoint[1];
+      var n = (0, _yFromLstar.yFromLstar)(backgroundLstar) / whitePoint[1];
       var z = 1.48 + Math.sqrt(n);
       var nbb = 0.725 / Math.pow(n, 0.2);
       var ncb = nbb;

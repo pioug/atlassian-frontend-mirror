@@ -258,7 +258,6 @@ The package uses platform feature flags for gradual rollouts. Key flags are defi
 | Flag                                    | Purpose                 |
 | --------------------------------------- | ----------------------- |
 | `platform_ufo_segment_critical_metrics` | Segment-level metrics   |
-| `platform_ufo_enable_terminal_errors`   | Terminal error tracking |
 
 ## Testing
 

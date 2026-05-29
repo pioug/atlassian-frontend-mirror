@@ -15,7 +15,6 @@ import {
 	getEffectiveMaxLayoutColumns,
 	type InsertLayoutColumnSide,
 } from '../../pm-plugins/actions';
-import { getLayoutSectionColumnCount } from '../../pm-plugins/utils/layout-column-selection';
 
 import { useSelectedLayoutColumns } from './useSelectedLayoutColumns';
 
@@ -50,7 +49,7 @@ export const InsertColumnDropdownItem = ({
 	const { formatMessage } = useIntl();
 	const { Icon, label } = INSERT_COLUMN_OPTIONS[side];
 	const selectedLayoutColumns = useSelectedLayoutColumns(api);
-	const columnCount = getLayoutSectionColumnCount(selectedLayoutColumns?.layoutSectionNode);
+	const columnCount = selectedLayoutColumns?.layoutSectionNode?.childCount ?? 0;
 	const maxColumnCount = getEffectiveMaxLayoutColumns();
 	const canInsertColumn = selectedLayoutColumns !== undefined && columnCount < maxColumnCount;
 	const onClick = useCallback(() => {

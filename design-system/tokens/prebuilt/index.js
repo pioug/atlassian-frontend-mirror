@@ -91,13 +91,13 @@ Object.defineProperty(exports, "themeImportMap", {
 Object.defineProperty(exports, "themeObjectToString", {
   enumerable: true,
   get: function get() {
-    return _themeStateTransformer.themeObjectToString;
+    return _themeObjectToString.themeObjectToString;
   }
 });
 Object.defineProperty(exports, "themeStringToObject", {
   enumerable: true,
   get: function get() {
-    return _themeStateTransformer.themeStringToObject;
+    return _themeStringToObject.themeStringToObject;
   }
 });
 Object.defineProperty(exports, "token", {
@@ -123,6 +123,7 @@ var _getSsrAutoScript = _interopRequireDefault(require("./get-ssr-auto-script"))
 var _useThemeObserver = _interopRequireDefault(require("./use-theme-observer"));
 var _themeMutationObserver = _interopRequireDefault(require("./theme-mutation-observer"));
 var _getGlobalTheme = _interopRequireDefault(require("./get-global-theme"));
-var _themeStateTransformer = require("./theme-state-transformer");
+var _themeStringToObject = require("./theme-string-to-object");
+var _themeObjectToString = require("./theme-object-to-string");
 var _themeImportMap = _interopRequireDefault(require("./artifacts/theme-import-map"));
 var _constants = require("./constants");

@@ -1,5 +1,6 @@
 import { type ThemeState } from '../../theme-config';
-import { themeObjectToString, themeStringToObject } from '../../theme-state-transformer';
+import { themeObjectToString } from '../../theme-object-to-string';
+import { themeStringToObject } from '../../theme-string-to-object';
 
 describe('themeObjectToString', () => {
 	it('should convert theme state object to a formatted string', () => {

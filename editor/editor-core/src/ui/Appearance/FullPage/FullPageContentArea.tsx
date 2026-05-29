@@ -88,16 +88,20 @@ const editorContentAreaProsemirrorStyle = css({
 	},
 });
 
+/*
+ EDITOR-7249: Scope to the main editor's ProseMirror (direct child) so nested
+ editors like the footer page-comment composer aren't hidden in Syntax view.
+*/
 const hideEditorContentAreaProsemirrorStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'& .ProseMirror': {
+	'& > .ak-editor-content-area > .ProseMirror': {
 		display: 'none',
 	},
 });
 
 const hideEditorContentAreaProsemirrorWithAttributeStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&[data-markdown-mode-hide-prosemirror="true"] .ProseMirror': {
+	'&[data-markdown-mode-hide-prosemirror="true"] > .ak-editor-content-area > .ProseMirror': {
 		display: 'none',
 	},
 });

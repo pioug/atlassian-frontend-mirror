@@ -44,7 +44,7 @@ export interface Team {
 	 * @private
 	 * @deprecated field has been removed as part of migration to V4
 	 */
-	restriction: TeamRestriction;
+	restriction?: TeamRestriction;
 	creatorId?: string;
 	permission?: TeamPermission;
 	/**

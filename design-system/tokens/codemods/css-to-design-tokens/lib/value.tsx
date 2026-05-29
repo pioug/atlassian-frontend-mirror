@@ -1,13 +1,10 @@
-import {
-	extractBetweenParentheses,
-	isGradient,
-	isKnownCssVariable,
-	isLessFunction,
-	isNamedColor,
-	isRawColor,
-} from './colors';
+import { isGradient, isLessFunction, isNamedColor, isRawColor } from './colors';
 import { extractCssVarName } from './declaration';
-import { getCssVarMeta, getNamedColorMeta, getRawColorMeta } from './meta';
+import { extractBetweenParentheses } from './extract-between-parentheses';
+import { getCssVarMeta } from './get-css-var-meta';
+import { getNamedColorMeta } from './get-named-color-meta';
+import { getRawColorMeta } from './get-raw-color-meta';
+import { isKnownCssVariable } from './is-known-css-variable';
 import findToken from './tokens';
 
 interface Value {

@@ -13,6 +13,7 @@ import VidFullScreenOnIcon from '@atlaskit/icon/core/fullscreen-enter';
 import FullscreenExitIcon from '@atlaskit/icon/core/fullscreen-exit';
 import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { CloseButton, useModal } from '@atlaskit/modal-dialog';
+import { fg } from "@atlaskit/platform-feature-flags";
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -109,16 +110,17 @@ const LinkInfo = ({
 			<LinkInfoButton
 				content={<FormattedMessage {...messages.download} />}
 				icon={() => <DownloadIcon label="" spacing="spacious" color="currentColor" />}
-				label={messages.download}
+				label={formatMessage(messages.download)}
 				onClick={onDownloadButtonClick}
 				testId={`${testId}-download`}
 			/>
 		),
-		[onDownloadButtonClick, testId],
+		[onDownloadButtonClick, testId, formatMessage],
 	);
 
 	const urlButton = useMemo(() => {
 		if (onViewButtonClick) {
+			const label = providerName && fg('navx-4957-sl-embed-modal-a11y-label') ? formatMessage(messages.viewInProvider, { providerName}) : formatMessage(messages.viewOriginal)
 			const content = providerName ? (
 				<React.Fragment>
 					<FormattedMessage {...messages.viewIn} /> {providerName}
@@ -130,15 +132,14 @@ const LinkInfo = ({
 				<LinkInfoButton
 					content={content}
 					icon={() => <ShortcutIcon label="" spacing="spacious" color="currentColor" />}
-					label={messages.viewOriginal}
+					label={label}
 					onClick={onViewButtonClick}
 					testId={`${testId}-url`}
 					role={'link'}
-					aria-label={messages.viewOriginal}
 				/>
 			);
 		}
-	}, [onViewButtonClick, providerName, testId]);
+	}, [onViewButtonClick, providerName, testId, formatMessage]);
 
 	const sizeButton = useMemo(() => {
 		const isFullScreen = size === MAX_MODAL_SIZE;
@@ -153,12 +154,12 @@ const LinkInfo = ({
 			<LinkInfoButton
 				content={<FormattedMessage {...message} />}
 				icon={() => icon}
-				label={message}
+				label={formatMessage(message)}
 				onClick={onResizeButtonClick}
 				testId={`${testId}-resize`}
 			/>
 		);
-	}, [onResizeButtonClick, size, testId]);
+	}, [onResizeButtonClick, size, testId, formatMessage]);
 
 	return (
 		<div css={[containerStyles]}>

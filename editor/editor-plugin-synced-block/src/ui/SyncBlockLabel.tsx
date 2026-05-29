@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { SyncBlockLabelSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import BlockSyncedIcon from '@atlaskit/icon-lab/core/block-synced';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -46,7 +47,34 @@ const SyncBlockLabelComponent = ({
 
 		if (contentUpdatedAt) {
 			const elapsedTime = formatElapsedTime(contentUpdatedAt, intl);
-			tooltipContent = (
+			tooltipContent = fg('platform_synced_block_patch_13') ? (
+				<div>
+					{title ? (
+						<>
+							<Text size="small" color="color.text.inverse" weight="bold">
+								{formatMessage(messages.referenceSyncBlockSyncedFrom)}
+							</Text>
+							<Text size="small" color="color.text.inverse">
+								{' '}
+								{title}
+							</Text>
+						</>
+					) : (
+						<Text size="small" color="color.text.inverse">
+							{tooltipMessage}
+						</Text>
+					)}
+					<br />
+					<br />
+					<Text size="small" color="color.text.inverse" weight="bold">
+						{formatMessage(messages.referenceSyncBlockLastEdited)}
+					</Text>
+					<Text size="small" color="color.text.inverse">
+						{' '}
+						{elapsedTime}
+					</Text>
+				</div>
+			) : (
 				<div>
 					<Text size="small" color="color.text.inverse">
 						{tooltipMessage}
@@ -63,7 +91,7 @@ const SyncBlockLabelComponent = ({
 			);
 		}
 		setTooltipContent(tooltipContent);
-	}, [contentUpdatedAt, formatMessage, intl, tooltipMessage]);
+	}, [contentUpdatedAt, formatMessage, intl, title, tooltipMessage]);
 
 	const ariaDescribedById = `sync-block-label-description-${localId}`;
 

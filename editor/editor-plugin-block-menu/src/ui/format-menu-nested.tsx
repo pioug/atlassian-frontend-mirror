@@ -16,6 +16,15 @@ import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
 import { BLOCK_MENU_ITEM_NAME } from './consts';
 
+const BLOCK_MENU_TRANSFORM_SPOTLIGHT_PORTAL_SELECTOR =
+	'[data-test-id="block-menu-transform-spotlight-portal-container"]';
+
+const shouldIgnoreBlockMenuTransformSpotlightCloseEvent = (
+	event: Event | React.MouseEvent | React.KeyboardEvent,
+) =>
+	event.target instanceof Element &&
+	event.target.closest(BLOCK_MENU_TRANSFORM_SPOTLIGHT_PORTAL_SELECTOR) !== null;
+
 export const FormatMenuComponent = ({
 	api,
 	children,
@@ -56,6 +65,11 @@ export const FormatMenuComponent = ({
 			dropdownTestId="editor-turn-into-menu"
 			testId={fg('cc_blocks_changeboarding') ? 'turn-into-block-menu-btn' : undefined}
 			shouldFitContainer
+			shouldIgnoreCloseEvent={
+				fg('cc_blocks_changeboarding')
+					? shouldIgnoreBlockMenuTransformSpotlightCloseEvent
+					: undefined
+			}
 		>
 			{children}
 		</ToolbarNestedDropdownMenu>

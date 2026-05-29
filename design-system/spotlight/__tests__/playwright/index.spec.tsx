@@ -18,7 +18,7 @@ test.describe('top-layer migration', () => {
 			'spotlight',
 			'single-step',
 			{
-				featureFlag: 'platform-dst-top-layer',
+				featureFlag: 'platform-dst-top-layer-spotlight',
 			},
 		);
 	});

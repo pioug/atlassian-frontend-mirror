@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 219.9.14
+
+### Patch Changes
+
+- [`e8d58a0240934`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8d58a0240934) -
+  EDITOR-7249: Scope the markdown-mode hide-ProseMirror rule to the main editor so the footer
+  page-comment editor is no longer hidden/un-typeable when adding a comment in Syntax view
+- [`4f322a101cf47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f322a101cf47) -
+  Adds a disabledWithoutInteractionLogic prop to the toolbar to selectively enable some buttons
+  before editor interaction
+- Updated dependencies
+
 ## 219.9.13
 
 ### Patch Changes

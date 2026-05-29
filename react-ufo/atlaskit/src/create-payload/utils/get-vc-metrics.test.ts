@@ -62,7 +62,6 @@ describe('getVCMetrics', () => {
 				enabled: true,
 				enabledVCRevisions: ['fy25.01', 'fy25.02'],
 			},
-			experimentalInteractionMetrics: { enabled: false },
 		} as unknown as ReturnType<typeof getConfig>);
 
 		(getInteractionStatus as jest.Mock).mockReturnValue({
@@ -227,28 +226,6 @@ describe('getVCMetrics', () => {
 		await getVCMetrics(interaction);
 		expect(getSSRDoneTimeValue).toHaveBeenCalled();
 	});
-
-	it('should stop VC observer when experimental metrics are enabled', async () => {
-		mockGetConfig.mockReturnValue({
-			product: 'test',
-			region: 'unknown',
-			vc: { enabled: true },
-			experimentalInteractionMetrics: { enabled: true },
-		});
-
-		const mockVCObserver = createMockVCObserver();
-		const interaction: InteractionMetrics = {
-			type: 'page_load',
-			start: 0,
-			end: 100,
-			ufoName: 'test',
-			vcObserver: mockVCObserver,
-		} as unknown as InteractionMetrics;
-
-		await getVCMetrics(interaction);
-		expect(mockVCObserver.stop).toHaveBeenCalledWith('test');
-	});
-
 	it('should handle VC revisions by experience', async () => {
 		const mockGetMostRecentVCRevision = getMostRecentVCRevision as jest.MockedFunction<
 			typeof getMostRecentVCRevision

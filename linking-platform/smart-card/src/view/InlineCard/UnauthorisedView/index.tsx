@@ -153,10 +153,10 @@ const UnauthorisedConnectWithSocialProof = ({
 	);
 
 	// As long as pill is shown it will be one of four messages depending on percent and provider presence:
-	// - 45% of your team previews Figma
-	// - 45% of your team previews this
-	// - Your team is previewing Figma
-	// - Your team is previewing this
+	// - 45% of your team sees Figma previews
+	// - 45% of your team sees richer previews
+	// - Your team sees richer Figma previews
+	// - Your team sees richer previews
 	const socialProofPillContent = isSocialProofUsageHighEnough ? (
 		hasProviderDisplayName ? (
 			<FormattedMessage

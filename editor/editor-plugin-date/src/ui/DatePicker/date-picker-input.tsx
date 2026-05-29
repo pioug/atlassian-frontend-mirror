@@ -18,7 +18,9 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { dateMessages as messages } from '@atlaskit/editor-common/messages';
 import { ErrorMessage } from '@atlaskit/form';
+import { fg } from '@atlaskit/platform-feature-flags';
 import TextField from '@atlaskit/textfield';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { DateType } from '../../types';
@@ -110,14 +112,19 @@ class DatePickerInput extends React.Component<InputProps & WrappedComponentProps
 		);
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate(prevProps: InputProps & WrappedComponentProps) {
 		const setInputSelectionPos = this.setInputSelectionPos;
 		if (this.inputRef && setInputSelectionPos !== undefined) {
 			this.inputRef.setSelectionRange(setInputSelectionPos, setInputSelectionPos);
 			this.setInputSelectionPos = undefined;
 		}
 
-		if (this.inputRef && this.props.autoFocus) {
+		const shouldFocusInput = fg('platform_editor_datepicker_focus_fix') ||
+			expValEquals('create_work_item_modernization_exp', 'isEnabled', true)
+			? !prevProps.autoFocus && this.props.autoFocus
+			: this.props.autoFocus;
+
+		if (this.inputRef && shouldFocusInput) {
 			this.focusInput();
 		}
 
@@ -236,6 +243,14 @@ class DatePickerInput extends React.Component<InputProps & WrappedComponentProps
 		}
 		if (adjustment === undefined) {
 			return;
+		}
+
+		// focus trap for arrow keys in input field
+		if (
+			fg('platform_editor_datepicker_focus_fix') ||
+			expValEquals('create_work_item_modernization_exp', 'isEnabled', true)
+		) {
+			event.stopPropagation();
 		}
 
 		const { dispatchAnalyticsEvent } = this.props;

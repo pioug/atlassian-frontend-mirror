@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-test-helpers",
-	"version": "10.3.0",
+	"version": "10.4.0",
 	"description": "Collection of test helpers used in linking platform examples and specs",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,6 +35,8 @@
 		"./intersection-observer": "./src/entry-points/intersection-observer.ts",
 		"./jest/as-mock": "./src/entry-points/jest-as-mock.ts",
 		"./jest/to-be-fired-with-analytic-event-once": "./src/entry-points/jest-to-be-fired-with-analytic-event-once.ts",
+		"./mocks/accessible-products-result": "./src/entry-points/mocks-accessible-products-result.ts",
+		"./mocks/available-sites-result": "./src/entry-points/mocks-available-sites-result.ts",
 		"./promise/flush-promises": "./src/entry-points/promise-flush-promises.ts",
 		"./promise/manual-promise": "./src/entry-points/promise-manual-promise.ts",
 		"./react-testing-library": "./src/entry-points/react-testing-library.ts",

@@ -24,6 +24,7 @@ import { isReducedMotion } from '../utils/is-reduced-motion';
 import { resolveMotionToken } from '../utils/resolve-motion-token';
 
 import { useExitingPersistence } from './exiting-persistence';
+import { Reanimate } from './reanimate';
 import { useStaggeredEntrance } from './staggered-entrance';
 import { type Transition } from './types';
 
@@ -52,16 +53,6 @@ const styles = cssMap({
 		animationFillMode: 'forwards',
 	},
 });
-
-/**
- * Supported reanimate values.
- * 'enter' will re-enter the animation.
- * 'exit-then-enter' will exit the animation and then enter it again.
- */
-export enum Reanimate {
-	enter = 'enter',
-	exit_then_enter = 'exit_then_enter',
-}
 
 export interface MotionRef {
 	/**
@@ -357,3 +348,4 @@ const Motion: React.ForwardRefExoticComponent<
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default Motion;
+export { Reanimate } from './reanimate';

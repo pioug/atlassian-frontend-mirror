@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/portal",
-	"version": "5.5.5",
+	"version": "5.5.6",
 	"description": "A wrapper for rendering components in React portals.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -114,9 +114,6 @@
 			"type": "boolean"
 		},
 		"import_into_jsm_in_template_gallery_killswitch": {
-			"type": "boolean"
-		},
-		"platform-dst-portal-conditial-theme-provider": {
 			"type": "boolean"
 		}
 	}

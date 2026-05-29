@@ -18,15 +18,16 @@ Object.defineProperty(exports, "Hct", {
 Object.defineProperty(exports, "argbFromRgba", {
   enumerable: true,
   get: function get() {
-    return _colorUtils.argbFromRgba;
+    return _argbFromRgba.argbFromRgba;
   }
 });
 Object.defineProperty(exports, "rgbaFromArgb", {
   enumerable: true,
   get: function get() {
-    return _colorUtils.rgbaFromArgb;
+    return _rgbaFromArgb.rgbaFromArgb;
   }
 });
 var _hct = require("./hct");
 var _contrast = require("./contrast");
-var _colorUtils = require("./color-utils");
+var _argbFromRgba = require("./argb-from-rgba");
+var _rgbaFromArgb = require("./rgba-from-argb");

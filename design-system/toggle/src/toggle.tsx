@@ -11,7 +11,6 @@ import __noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import CloseIcon from '@atlaskit/icon/core/cross';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -138,30 +137,6 @@ const disabledStyles = css({
 	backgroundColor: token('color.background.disabled'),
 	color: token('color.icon.disabled'),
 	cursor: 'not-allowed',
-	'&::before': {
-		zIndex: 1,
-	},
-});
-
-/**
- * Removes the unnecessary zIndex from the disabled toggle handle (legacy selector path)
- * that caused it to render above overlapping elements like select menus.
- */
-const basicDisabledZIndexFixStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'&[data-disabled]::before': {
-		zIndex: 'unset',
-	},
-});
-
-/**
- * Removes the unnecessary zIndex from the disabled toggle handle (atomic path)
- * that caused it to render above overlapping elements like select menus.
- */
-const atomicDisabledZIndexFixStyles = css({
-	'&::before': {
-		zIndex: 'unset',
-	},
 });
 
 const inputStyles = css({
@@ -262,9 +237,6 @@ const Toggle: React.MemoExoticComponent<
 					!isDisabled && !shouldChecked && uncheckedHoveredStyles,
 					// Disabled state: overrides all other styles
 					isDisabled && disabledStyles,
-					// zIndex disabled state fixes
-					fg('platform-toggle-fix-disabled-zindex') && basicDisabledZIndexFixStyles,
-					isDisabled && fg('platform-toggle-fix-disabled-zindex') && atomicDisabledZIndexFixStyles,
 				]}
 			>
 				{label ? (

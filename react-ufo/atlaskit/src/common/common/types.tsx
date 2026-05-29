@@ -152,6 +152,21 @@ export type FlatSegment3pTimingEntry = {
 	data: Record<string, unknown>;
 };
 
+/** Per-segment timing + metadata entry. */
+export type Segment3pEntry = {
+	meta: Record<string, string | undefined>;
+	timings: Segment3pTimingEntry[];
+};
+
+/** Third-party segment data keyed by segmentId. */
+export type Segment3pData = Record<string, Segment3pEntry>;
+
+/** Payload field combining segment data with a trim indicator. */
+export type Segment3pDataPayload = {
+	segments: Segment3pData;
+	trim?: true;
+};
+
 export type MetricVariantCategory = 'third-party' | 'gen-ai';
 export type MetricVariantName = string;
 
@@ -193,10 +208,8 @@ export interface InteractionMetrics {
 	spans: Span[];
 	requestInfo: (RequestInfo & { labelStack: LabelStack })[];
 	holdInfo: HoldInfo[];
-	holdExpInfo: HoldInfo[];
 	holdActive: Map<string, HoldActive>;
 	reactProfilerTimings: ReactProfilerTiming[];
-	holdExpActive: Map<string, HoldActive>;
 	measureStart: number;
 	rate: number;
 	cancelCallbacks: (() => void)[];
@@ -241,11 +254,8 @@ export interface InteractionMetrics {
 	trace: TraceIdContext | null;
 	legacyMetrics?: BM3Event[];
 	vcObserver?: VCObserverInterface;
-	experimentalVCObserver?: VCObserverInterface;
 	vc?: VCRawDataType | null;
 	hydration?: ReactHydrationStats;
-	experimentalTTAI?: number;
-	experimentalVC90?: number;
 	unknownElementName?: string;
 	unknownElementHierarchy?: string;
 	hold3pActive?: Map<string, HoldActive>;
@@ -290,9 +300,11 @@ export interface LazyLoadProfilerContext {
 }
 
 export interface EnhancedUFOInteractionContextType
-	extends UFOInteractionContextType, RelayMetricsRecorder, LazyLoadProfilerContext {
+	extends UFOInteractionContextType,
+		RelayMetricsRecorder,
+		LazyLoadProfilerContext {
 	// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-	_internalHold(labelStack: LabelStack, name: string, experimental?: boolean): void | (() => void);
+	_internalHold(labelStack: LabelStack, name: string): void | (() => void);
 
 	_internalHoldByID(
 		labelStack: LabelStack,
@@ -348,8 +360,6 @@ export type LastInteractionFinishInfo = Pick<
 	| 'abortedByInteractionName'
 	| 'routeName'
 	| 'type'
-	| 'experimentalVC90'
-	| 'experimentalTTAI'
 	| 'errors'
 >;
 

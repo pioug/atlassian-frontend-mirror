@@ -71,6 +71,37 @@ typescriptEslintTester.run(
           export const Grid = () => null;
         `,
 			},
+			{
+				name: 'TypeScript function overloads with two overload signatures and implementation',
+				code: `
+          export function getAllComments(context: string): string[];
+          export function getAllComments(context: number): number[];
+          export function getAllComments(context: string | number): string[] | number[] {
+            return [];
+          }
+        `,
+			},
+			{
+				name: 'TypeScript function overloads alongside type exports',
+				code: `
+          export type Comment = { value: string };
+          export function getAllComments(context: string): Comment[];
+          export function getAllComments(context: number): Comment[];
+          export function getAllComments(context: string | number): Comment[] {
+            return [];
+          }
+        `,
+			},
+			{
+				name: 'TypeScript function overloads with generic type parameters',
+				code: `
+          export function getAllComments(context: string): string[];
+          export function getAllComments<TMessageIds extends string = string>(context: unknown): string[];
+          export function getAllComments(context: unknown): string[] {
+            return [];
+          }
+        `,
+			},
 		],
 		invalid: [
 			{

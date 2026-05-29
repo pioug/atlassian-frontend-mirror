@@ -1,4 +1,4 @@
-export const bidiCharacterRegex: RegExp = /[\u202A-\u202E\u2066-\u2069]/g;
+import { bidiCharacterRegex } from './bidi-character-regex';
 
 /**
  * __Code Bidi Warning Decorator__
@@ -50,3 +50,4 @@ export default function codeBidiWarningDecorator<DecoratorOutput>(
 	// return the mapped children with decorated bidi characters
 	return children;
 }
+export { bidiCharacterRegex } from './bidi-character-regex';

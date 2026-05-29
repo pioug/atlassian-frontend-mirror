@@ -4,14 +4,14 @@
  */
 import { useCallback, type MouseEvent } from 'react';
 import { css, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
+import { token, useThemeObserver } from '@atlaskit/tokens';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { FormattedMessage } from 'react-intl';
 import AkButton from '@atlaskit/button/standard-button';
-import Image from '@atlaskit/image';
 import { messages } from '../i18n';
-import SearchNoResultDark from './assets/spot/search-no-result/dark.svg';
-import SearchNoResultLight from './assets/spot/search-no-result/light.svg';
+import SearchNoResultDark from './assets/spot/search-no-result/SearchNoResultDark';
+import SearchNoResultLight from './assets/spot/search-no-result/SearchNoResultLight';
+
 
 const noResultsContainer = css({
 	display: 'flex',
@@ -36,6 +36,7 @@ export interface Props {
 }
 
 const EmojiPickerNoResults = ({ onOpenUpload, uploadEnabled }: Props): JSX.Element => {
+	const { colorMode } = useThemeObserver();
 	const handleOpenUpload = useCallback(
 		(event: MouseEvent<HTMLElement>) => {
 			if (fg('platform_emoji_keep_picker_open_on_upload')) {
@@ -49,7 +50,7 @@ const EmojiPickerNoResults = ({ onOpenUpload, uploadEnabled }: Props): JSX.Eleme
 
 	return (
 		<div css={noResultsContainer} data-testid={RENDER_EMOJI_PICKER_NO_RESULTS_TESTID}>
-			<Image src={SearchNoResultLight} srcDark={SearchNoResultDark} alt="" width={200} />
+			{colorMode === 'dark' ? <SearchNoResultDark /> : <SearchNoResultLight />}
 			{uploadEnabled && (
 				<FormattedMessage {...messages.emojiPickerAddCustomEmoji}>
 					{(label) => (

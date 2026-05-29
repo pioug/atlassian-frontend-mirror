@@ -9,7 +9,6 @@ import {
 	getDoNotAbortActivePressInteraction,
 	getDoNotAbortActivePressInteractionOnTransition,
 	getEnabledVCRevisions,
-	getExperimentalInteractionRate,
 	getExtraInteractionRate,
 	getInteractionRate,
 	getMostRecentVCRevision,
@@ -416,22 +415,6 @@ describe('UFO Configuration Module', () => {
 			expect(getInteractionRate('testEvent', 'page_load')).toBe(10);
 		});
 	});
-
-	describe('getExperimentalInteractionRate', () => {
-		it('should return the experimental interaction rate based on configuration', () => {
-			const config = {
-				product: 'testProduct',
-				region: 'testRegion',
-				experimentalInteractionMetrics: {
-					enabled: true,
-					rates: { experimentEvent: 0.7 },
-				},
-			};
-			setUFOConfig(config);
-			expect(getExperimentalInteractionRate('experimentEvent', 'transition')).toBe(0.7);
-		});
-	});
-
 	describe('getPostInteractionRate', () => {
 		it('should return the post-interaction rate based on configuration', () => {
 			const config = {

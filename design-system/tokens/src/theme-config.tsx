@@ -1,10 +1,9 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import { type themeColorModes } from './theme-color-modes';
-import { themeIds } from './theme-ids';
 /**
  * This file contains the source of truth for themes and all associated meta data.
  */
+import type { ThemeColorModes } from './theme-color-modes';
+import { themeIds, type ThemeIds } from './theme-ids';
+import type { ThemeState } from './theme-state';
 
 /**
  * Themes: The internal identifier of a theme.
@@ -39,7 +38,6 @@ export type ThemeOverrides = Themes;
  */
 type ThemeKinds = 'color' | 'spacing' | 'typography' | 'shape' | 'motion';
 
-export type ThemeColorModes = (typeof themeColorModes)[number];
 export type DataColorModes = Exclude<ThemeColorModes, 'auto'>;
 
 /**
@@ -48,8 +46,6 @@ export type DataColorModes = Exclude<ThemeColorModes, 'auto'>;
 const themeContrastModes = ['more', 'no-preference', 'auto'] as const;
 export type ThemeContrastModes = (typeof themeContrastModes)[number];
 export type DataContrastModes = 'more' | 'no-preference' | 'auto';
-
-export type ThemeIds = (typeof themeIds)[number];
 
 /**
  * Theme override ids: the equivalent of themeIds for theme overrides.
@@ -233,86 +229,6 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
 	},
 };
 
-type HEX = `#${string}`;
-export type CSSColor = HEX;
-
-/**
- * ThemeOptionsSchema: additional configuration options used to customize Atlassian's themes
- */
-export interface ThemeOptionsSchema {
-	brandColor: CSSColor;
-}
-
-/**
- * ThemeState: the standard representation of an app's current theme and preferences
- */
-export interface ThemeState {
-	light: Extract<
-		ThemeIds,
-		| 'light'
-		| 'light-future'
-		| 'dark'
-		| 'dark-future'
-		| 'light-increased-contrast'
-		| 'dark-increased-contrast'
-	>;
-	dark: Extract<
-		ThemeIds,
-		| 'light'
-		| 'light-future'
-		| 'dark'
-		| 'dark-future'
-		| 'light-increased-contrast'
-		| 'dark-increased-contrast'
-	>;
-	colorMode: ThemeColorModes;
-	contrastMode: ThemeContrastModes;
-	shape?: Extract<ThemeIds, 'shape'>;
-	spacing: Extract<ThemeIds, 'spacing'>;
-	typography: Extract<ThemeIds, 'typography'>;
-	motion?: Extract<ThemeIds, 'motion'>;
-	UNSAFE_themeOptions?: ThemeOptionsSchema;
-}
-
-/**
- * Can't evaluate typography feature flags at the module level,
- * it will always resolve to false when server side rendered or when flags are loaded async.
- */
-interface ThemeStateDefaults extends Omit<ThemeState, 'shape' | 'motion'> {
-	shape: () => ThemeState['shape'];
-	motion: () => ThemeState['motion'];
-}
-
-function getShapeDefault(): ThemeState['shape'] {
-	if (fg('platform-dst-shape-theme-default')) {
-		return 'shape';
-	}
-	return undefined;
-}
-
-function getMotionDefault(): ThemeState['motion'] {
-	if (fg('platform-dst-motion-theme-default')) {
-		return 'motion';
-	}
-	return undefined;
-}
-
-/**
- * themeStateDefaults: the default values for ThemeState used by theming utilities
- */
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export const themeStateDefaults: ThemeStateDefaults = {
-	colorMode: 'auto',
-	contrastMode: 'auto',
-	dark: 'dark',
-	light: 'light',
-	shape: getShapeDefault,
-	spacing: 'spacing',
-	typography: 'typography',
-	motion: getMotionDefault,
-	UNSAFE_themeOptions: undefined,
-};
-
 /**
  * Represents theme state once mounted to the page
  * (the page doesn't have an "auto" color mode, it's either light or dark)
@@ -324,5 +240,8 @@ export interface ActiveThemeState extends ThemeState {
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default themeConfig;
 
-export { themeColorModes } from './theme-color-modes';
-export { themeIds } from './theme-ids';
+export { themeColorModes, type ThemeColorModes } from './theme-color-modes';
+export { themeIds, type ThemeIds } from './theme-ids';
+export { themeStateDefaults } from './theme-state-defaults';
+export { type ThemeOptionsSchema, type CSSColor } from './theme-options-schema';
+export { type ThemeState } from './theme-state';

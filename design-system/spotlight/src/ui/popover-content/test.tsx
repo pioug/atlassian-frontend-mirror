@@ -107,12 +107,12 @@ describe('PopoverContent', () => {
 		expect(screen.getByTestId('spotlight-popover-content')).toHaveAccessibleName('Headline');
 	});
 
-	ffTest.on('platform-dst-top-layer', 'with top-layer positioning enabled', () => {
+	ffTest.on('platform-dst-top-layer-spotlight', 'with top-layer positioning enabled', () => {
 		it('renders a manual top-layer popover with dialog role', () => {
 			// Visual placement wiring (target ↔ popover positioning) is
 			// covered by the `AllPlacements` and `Offset` visual-regression
 			// snapshots in `__tests__/vr-tests/index.vr.tsx` (with
-			// `platform-dst-top-layer: true`). The placement map itself is
+			// `platform-dst-top-layer-spotlight: true`). The placement map itself is
 			// unit-tested in `placement-map.test.tsx`. Here we only assert
 			// the configuration that VR cannot observe — `mode='manual'`
 			// (top-layer stack semantics) and `role='dialog'` (a11y).

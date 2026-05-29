@@ -1,5 +1,12 @@
 # @atlaskit/link-test-helpers
 
+## 10.4.0
+
+### Minor Changes
+
+- [`c3816dafd4629`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3816dafd4629) -
+  Mark mocks from @atlaskit/linking-common as deprecated and move to @atlaskit/link-test-helpers
+
 ## 10.3.0
 
 ### Minor Changes

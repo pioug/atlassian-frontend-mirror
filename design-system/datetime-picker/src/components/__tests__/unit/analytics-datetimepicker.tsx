@@ -39,7 +39,7 @@ describe('DateTimePicker', () => {
 		).getByRole('combobox') as HTMLInputElement;
 		const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
 			payload: {
-				action: 'changed',
+				action: 'selectedDate',
 				actionSubject: 'dateTimePicker',
 				attributes,
 			},

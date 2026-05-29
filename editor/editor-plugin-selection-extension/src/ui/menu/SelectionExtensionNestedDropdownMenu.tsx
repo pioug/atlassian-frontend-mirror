@@ -20,6 +20,15 @@ import { useSelectionExtensionComponentContext } from '../SelectionExtensionComp
 
 import { SelectionExtensionDropdownItem } from './SelectionExtensionDropdownItem';
 
+const BLOCK_MENU_TEMPLATES_SPOTLIGHT_PORTAL_SELECTOR =
+	'[data-test-id="block-menu-templates-spotlight-portal-container"]';
+
+const shouldIgnoreBlockMenuTemplatesSpotlightCloseEvent = (
+	event: Event | React.MouseEvent | React.KeyboardEvent,
+) =>
+	event.target instanceof Element &&
+	event.target.closest(BLOCK_MENU_TEMPLATES_SPOTLIGHT_PORTAL_SELECTOR) !== null;
+
 const styles = cssMap({
 	lozenge: {
 		marginLeft: token('space.075'),
@@ -94,6 +103,11 @@ export const SelectionExtensionNestedDropdownMenu = ({
 			shouldTitleWrap={false}
 			tooltipContent={nestedDropdownMenu.label}
 			data-extension-item-key={nestedDropdownMenu.key}
+			shouldIgnoreCloseEvent={
+				fg('cc_blocks_changeboarding')
+					? shouldIgnoreBlockMenuTemplatesSpotlightCloseEvent
+					: undefined
+			}
 		>
 			<ChildItems nestedDropdownMenu={nestedDropdownMenu} />
 		</ToolbarNestedDropdownMenu>

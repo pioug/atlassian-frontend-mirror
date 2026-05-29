@@ -16,8 +16,6 @@ import {
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as createUUID } from 'uuid';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import coinflip from '../coinflip';
 import type { EnhancedUFOInteractionContextType } from '../common';
 import {
@@ -179,23 +177,13 @@ const UFOSegment: {
 			this: EnhancedUFOInteractionContextType,
 			labelStack: LabelStack,
 			name: string,
-			experimental = false,
 		) {
 			if (interactionId.current != null) {
 				if (parentContext) {
-					return parentContext._internalHold(
-						labelStack,
-						name,
-						fg('platform_ufo_remove_experimental_holds') ? false : experimental,
-					);
+					return parentContext._internalHold(labelStack, name);
 				} else {
 					const capturedInteractionId = interactionId.current;
-					const disposeHold = addHold(
-						interactionId.current,
-						labelStack,
-						name,
-						fg('platform_ufo_remove_experimental_holds') ? false : experimental,
-					);
+					const disposeHold = addHold(interactionId.current, labelStack, name, false);
 					return () => {
 						if (capturedInteractionId === interactionId.current) {
 							disposeHold();
@@ -239,12 +227,6 @@ const UFOSegment: {
 			segmentIdMap: segmentIdMap,
 			hold(this: EnhancedUFOInteractionContextType, name: string | undefined = 'unknown') {
 				return this._internalHold(this.labelStack, name);
-			},
-			holdExperimental(this: EnhancedUFOInteractionContextType, name: string = 'unknown') {
-				if (fg('platform_ufo_remove_experimental_holds')) {
-					return this._internalHold(this.labelStack, name);
-				}
-				return this._internalHold(this.labelStack, name, true);
 			},
 			addHoldByID(
 				this: EnhancedUFOInteractionContextType,

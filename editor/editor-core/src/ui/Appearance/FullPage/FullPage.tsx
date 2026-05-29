@@ -231,6 +231,7 @@ export const FullPageEditor = (props: ComponentProps): jsx.JSX.Element => {
 									(!hasHadInteraction &&
 										expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true))
 								}
+								disabledWithoutInteractionLogic={!!props.disabled}
 								toolbarDockingPosition={toolbarDockingPosition ?? toolbarDocking}
 								beforeIcon={props.primaryToolbarIconBefore}
 								editorAPI={editorAPI}

@@ -23,6 +23,7 @@ import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	copySyncedBlockReferenceToClipboard,
@@ -177,30 +178,52 @@ export const getToolbarConfig = (
 			items.push(editSourceButton);
 		}
 
-		// testId is required to show focus on trigger button on ESC key press
-		// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
-		const testId = isBodiedSyncBlock
-			? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceOverflowTrigger
-			: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceOverflowTrigger;
+		if (fg('platform_synced_block_patch_13')) {
+			const separator: FloatingToolbarItem<Command> = {
+				type: 'separator',
+			};
 
-		const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
-			{
-				type: 'overflow-dropdown',
-				testId,
-				options: [
-					{
-						title: formatMessage(commonMessages.delete),
-						onClick: removeSyncedBlock(api),
-						icon: <DeleteIcon label="" />,
-						testId: isBodiedSyncBlock
-							? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceDelete
-							: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceDelete,
-						...hoverDecorationProps(nodeType),
-					},
-				],
-			},
-		];
-		items.push(...overflowMenuConfig);
+			const deleteButton: FloatingToolbarItem<Command> = {
+				id: 'editor.syncedBlock.delete',
+				type: 'button',
+				appearance: 'danger',
+				title: formatMessage(commonMessages.delete),
+				showTitle: false,
+				tooltipContent: formatMessage(commonMessages.delete),
+				onClick: removeSyncedBlock(api),
+				icon: DeleteIcon,
+				testId: isBodiedSyncBlock
+					? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceDelete
+					: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceDelete,
+				...hoverDecorationProps(nodeType),
+			};
+			items.push(separator, deleteButton);
+		} else {
+			// testId is required to show focus on trigger button on ESC key press
+			// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
+			const testId = isBodiedSyncBlock
+				? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceOverflowTrigger
+				: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceOverflowTrigger;
+
+			const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
+				{
+					type: 'overflow-dropdown',
+					testId,
+					options: [
+						{
+							title: formatMessage(commonMessages.delete),
+							onClick: removeSyncedBlock(api),
+							icon: <DeleteIcon label="" />,
+							testId: isBodiedSyncBlock
+								? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceDelete
+								: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceDelete,
+							...hoverDecorationProps(nodeType),
+						},
+					],
+				},
+			];
+			items.push(...overflowMenuConfig);
+		}
 	}
 
 	const getDomRef = (editorView: EditorView) => {

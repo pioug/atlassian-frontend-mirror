@@ -18,7 +18,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
-import type { ModalDialogProps, WidthNames } from '../../types';
 import { ModalContext } from '../context';
 import useOnMotionFinish from '../hooks/use-on-motion-finish';
 import { disableDraggingToCrossOriginIFramesForElement } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/element';
@@ -26,33 +25,10 @@ import { disableDraggingToCrossOriginIFramesForExternal } from '../pragmatic-dra
 import { disableDraggingToCrossOriginIFramesForTextSelection } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/text-selection';
 import { ScrollContext } from '../scroll-context';
 import type { InternalModalDialogProps } from '../types';
-import { width } from '../width';
 
+import { dialogHeight } from './dialog-height';
+import { dialogWidth } from './dialog-width';
 import Positioner from './positioner';
-
-export const dialogWidth = (input?: ModalDialogProps['width']): string => {
-	if (!input) {
-		return 'auto';
-	}
-
-	const isWidthName = width.values.indexOf(input.toString()) !== -1;
-	const widthName = isWidthName && (input as WidthNames);
-
-	if (widthName) {
-		return `${width.widths[widthName]}px`;
-	}
-
-	return typeof input === 'number' ? `${input}px` : input;
-};
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export const dialogHeight = (input?: ModalDialogProps['height']): string => {
-	if (!input) {
-		return 'auto';
-	}
-
-	return typeof input === 'number' ? `${input}px` : input;
-};
 
 const LOCAL_CURRENT_SURFACE_CSS_VAR: typeof CURRENT_SURFACE_CSS_VAR =
 	'--ds-elevation-surface-current';
@@ -360,3 +336,5 @@ const ModalDialog: React.ForwardRefExoticComponent<
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export default ModalDialog;
+export { dialogWidth } from './dialog-width';
+export { dialogHeight } from './dialog-height';

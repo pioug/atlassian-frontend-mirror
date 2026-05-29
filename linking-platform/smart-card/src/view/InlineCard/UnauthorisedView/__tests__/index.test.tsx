@@ -146,10 +146,10 @@ describe('Unauthorised View', () => {
 						mockGetProviderPctMapSyncLoaded,
 					);
 					expect(getByTestId('inline-card-unauthorized-view-social-proof-tag')).toBeInTheDocument();
-					expect(container).toHaveTextContent('52% of your team previews Figma');
+					expect(container).toHaveTextContent('52% of your team sees Figma previews');
 				});
 
-				it('uses exploratory previewing copy when connected share is below 30%', () => {
+				it('uses exploratory preview copy when connected share is below 30%', () => {
 					const testUrl = 'http://unauthorised-test/';
 					const { getByTestId, container } = renderWithSocialProofDi(
 						<InlineCardUnauthorizedView
@@ -162,7 +162,7 @@ describe('Unauthorised View', () => {
 						mockGetProviderPctMapSyncExploratoryShare,
 					);
 					expect(getByTestId('inline-card-unauthorized-view-social-proof-tag')).toBeInTheDocument();
-					expect(container).toHaveTextContent('Your team is previewing Figma');
+					expect(container).toHaveTextContent('Your team sees richer Figma previews');
 				});
 
 				it('uses no-context exploratory copy when exploratory share has no provider display name', () => {
@@ -177,7 +177,7 @@ describe('Unauthorised View', () => {
 						mockGetProviderPctMapSyncExploratoryShare,
 					);
 					expect(getByTestId('inline-card-unauthorized-view-social-proof-tag')).toBeInTheDocument();
-					expect(container).toHaveTextContent('Your team is previewing this');
+					expect(container).toHaveTextContent('Your team sees richer previews');
 					expect(container).toHaveTextContent('Connect');
 				});
 
@@ -193,7 +193,7 @@ describe('Unauthorised View', () => {
 						/>,
 						mockGetProviderPctMapSyncThirtyPct,
 					);
-					expect(container).toHaveTextContent('30% of your team previews Figma');
+					expect(container).toHaveTextContent('30% of your team sees Figma previews');
 				});
 
 				it('uses exploratory copy at 29% adoption', () => {
@@ -208,7 +208,7 @@ describe('Unauthorised View', () => {
 						/>,
 						mockGetProviderPctMapSyncTwentyNinePct,
 					);
-					expect(container).toHaveTextContent('Your team is previewing Figma');
+					expect(container).toHaveTextContent('Your team sees richer Figma previews');
 				});
 
 				it('uses high-share no-context copy when provider display name is missing', () => {
@@ -222,7 +222,7 @@ describe('Unauthorised View', () => {
 						/>,
 						mockGetProviderPctMapSyncLoaded,
 					);
-					expect(container).toHaveTextContent('52% of your team previews this');
+					expect(container).toHaveTextContent('52% of your team sees richer previews');
 				});
 
 				it('omits the pill when context and personalization are both unavailable before traits load', () => {
@@ -254,7 +254,7 @@ describe('Unauthorised View', () => {
 						mockGetProviderPctMapSyncLoadedNoPercentage,
 					);
 					expect(getByTestId('inline-card-unauthorized-view-social-proof-tag')).toBeInTheDocument();
-					expect(container).toHaveTextContent('Your team is previewing this');
+					expect(container).toHaveTextContent('Your team sees richer previews');
 					expect(container).toHaveTextContent('Connect');
 				});
 
@@ -271,7 +271,7 @@ describe('Unauthorised View', () => {
 						mockGetProviderPctMapSyncLoadedNoPercentage,
 					);
 					expect(getByTestId('inline-card-unauthorized-view-social-proof-tag')).toBeInTheDocument();
-					expect(container).toHaveTextContent('Your team is previewing Figma');
+					expect(container).toHaveTextContent('Your team sees richer Figma previews');
 					expect(container).toHaveTextContent('Connect');
 				});
 			});

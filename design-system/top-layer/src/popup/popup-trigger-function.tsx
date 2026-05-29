@@ -2,7 +2,7 @@ import React, { type ReactNode, type RefCallback, useCallback, useMemo } from 'r
 
 import { type TAriaHasPopupValue } from '../internal/role-types';
 
-import { usePopupContext } from './popup-context';
+import { usePopupContext } from './use-popup-context';
 
 /**
  * Props passed to the `TriggerFunction` render-prop child.

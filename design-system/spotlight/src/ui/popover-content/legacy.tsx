@@ -86,7 +86,7 @@ interface BasePopoverContentProps {
 	 * Defaults to [0, 2] - which means the spotlight will be 2px away from the edge of the target specified
 	 * by the `placement` prop.
 	 *
-	 * @deprecated Has no effect when `platform-dst-top-layer` is enabled.
+	 * @deprecated Has no effect when `platform-dst-top-layer-spotlight` is enabled.
 	 */
 	offset?: Offset;
 
@@ -96,7 +96,7 @@ interface BasePopoverContentProps {
 	 *
 	 * For more details see: https://popper.js.org/docs/v2/constructors/#strategy
 	 *
-	 * @deprecated Has no effect when `platform-dst-top-layer` is enabled.
+	 * @deprecated Has no effect when `platform-dst-top-layer-spotlight` is enabled.
 	 */
 	strategy?: Strategy;
 

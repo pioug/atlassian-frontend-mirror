@@ -27,6 +27,9 @@ export const chooseFileButtonTestId = 'choose-file-button';
 export const fileUploadInputTestId = 'file-upload';
 export const dropzoneTestId = 'file-dropzone';
 
+const hasFilesInTransfer = (dataTransfer: DataTransfer | null): boolean =>
+	!!dataTransfer?.types && Array.from(dataTransfer.types).includes('Files');
+
 const dropzone = css({
 	display: 'flex',
 	flexDirection: 'column',
@@ -108,7 +111,22 @@ const FileChooser = (props: Props): React.JSX.Element => {
 			return;
 		}
 
-		return dropTargetForExternal({
+		const suppressNativeFileDrop = (event: DragEvent) => {
+			if (!hasFilesInTransfer(event.dataTransfer)) {
+				return;
+			}
+			event.preventDefault();
+			event.stopPropagation();
+		};
+
+		// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+		element.addEventListener('dragenter', suppressNativeFileDrop);
+		// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+		element.addEventListener('dragover', suppressNativeFileDrop);
+		// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+		element.addEventListener('drop', suppressNativeFileDrop);
+
+		const cleanupDropTarget = dropTargetForExternal({
 			element,
 			canDrop: containsFiles,
 			onDragEnter: () => {
@@ -125,6 +143,13 @@ const FileChooser = (props: Props): React.JSX.Element => {
 				}
 			},
 		});
+
+		return () => {
+			element.removeEventListener('dragenter', suppressNativeFileDrop);
+			element.removeEventListener('dragover', suppressNativeFileDrop);
+			element.removeEventListener('drop', suppressNativeFileDrop);
+			cleanupDropTarget();
+		};
 	}, [isDropDisabled, handleFileDrop]);
 
 	const hiddenInput = (

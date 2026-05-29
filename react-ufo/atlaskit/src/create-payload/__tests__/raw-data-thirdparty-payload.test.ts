@@ -101,9 +101,7 @@ describe('Payload Creation with Third-Party Holds', () => {
 			requestInfo: [],
 			reactProfilerTimings: [],
 			holdInfo: [],
-			holdExpInfo: [],
 			holdActive: new Map(),
-			holdExpActive: new Map(),
 			hold3pActive: new Map([
 				[
 					'hold-id-1',
@@ -191,9 +189,7 @@ describe('Payload Creation with Third-Party Holds', () => {
 			requestInfo: [],
 			reactProfilerTimings: [],
 			holdInfo: [],
-			holdExpInfo: [],
 			holdActive: new Map(),
-			holdExpActive: new Map(),
 			hold3pActive: new Map(),
 			hold3pInfo: [
 				{

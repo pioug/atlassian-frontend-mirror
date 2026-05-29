@@ -1,3 +1,5 @@
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import {
 	denormaliseEmojiServiceResponse,
 	shouldUseAltRepresentation,
@@ -29,6 +31,7 @@ describe('EmojiUtils', () => {
 		};
 
 		it('denormaliseEmojiServiceResponse emoji with sprite', () => {
+			failGate('platform_twemoji_removal_unicode_emojis');
 			const spriteRef = 'http://spriteref/test.png';
 			const emoji: EmojiServiceDescriptionWithVariations = {
 				id: '1f600',
@@ -107,6 +110,38 @@ describe('EmojiUtils', () => {
 			}
 		});
 
+		it('uses unicode representation for standard emoji when enabled', () => {
+			passGate('platform_twemoji_removal_unicode_emojis');
+
+			const emoji: EmojiServiceDescriptionWithVariations = {
+				id: '1f600',
+				name: 'grinning face',
+				shortName: ':grinning:',
+				type: 'STANDARD',
+				category: 'PEOPLE',
+				order: 1,
+				representation: {
+					spriteRef: 'http://spriteref/test.png',
+					x: 216,
+					y: 2304,
+					height: 72,
+					width: 75,
+					xIndex: 3,
+					yIndex: 32,
+				},
+				searchable: true,
+			};
+
+			const emojiResponse = denormaliseEmojiServiceResponse({
+				emojis: [emoji],
+				meta: {},
+			});
+
+			expect(emojiResponse.emojis[0].representation).toEqual({
+				unicodeEmoji: '😀',
+			});
+		});
+
 		it('denormaliseEmojis emoji with image', () => {
 			const emoji = {
 				id: '13d29267-ff9e-4892-a484-1a1eef3b5ca3',
@@ -156,6 +191,7 @@ describe('EmojiUtils', () => {
 		});
 
 		it('maps out the ascii field when present', () => {
+			failGate('platform_twemoji_removal_unicode_emojis');
 			const emoji = {
 				id: '1f603',
 				name: 'smiling face with open mouth',

@@ -38,6 +38,7 @@ const nodeToReducerMapping: { [key: string]: NodeReducer } = {
 	mention,
 	orderedList,
 	panel,
+	panel_c1: panel,
 	paragraph,
 	rule,
 	status,
@@ -45,3 +46,4 @@ const nodeToReducerMapping: { [key: string]: NodeReducer } = {
 	taskItem,
 	unknown,
 };
+

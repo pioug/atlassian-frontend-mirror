@@ -6,13 +6,14 @@ Object.defineProperty(exports, "__esModule", {
 Object.defineProperty(exports, "themeObjectToString", {
   enumerable: true,
   get: function get() {
-    return _themeStateTransformer.themeObjectToString;
+    return _themeObjectToString.themeObjectToString;
   }
 });
 Object.defineProperty(exports, "themeStringToObject", {
   enumerable: true,
   get: function get() {
-    return _themeStateTransformer.themeStringToObject;
+    return _themeStringToObject.themeStringToObject;
   }
 });
-var _themeStateTransformer = require("../theme-state-transformer");
+var _themeStringToObject = require("../theme-string-to-object");
+var _themeObjectToString = require("../theme-object-to-string");

@@ -57,6 +57,7 @@ type ToolbarButtonProps = Partial<TriggerProps> & {
 	children?: ReactNode;
 	iconBefore: React.ReactNode;
 	id?: string;
+	ignoreInteractionDisabled?: boolean;
 	interactionName?: string;
 	isDisabled?: boolean;
 	isSelected?: boolean;
@@ -88,11 +89,19 @@ export const ToolbarButton: React.ForwardRefExoticComponent<
 			ariaKeyshortcuts,
 			label,
 			interactionName,
+			ignoreInteractionDisabled,
 		}: ToolbarButtonProps,
 		ref: Ref<HTMLButtonElement>,
 	) => {
-		const { preventDefaultOnMouseDown, isDisabled: ctxDisabled } = useToolbarUI();
-		const disabled = Boolean(ctxDisabled || isDisabled);
+		const {
+			preventDefaultOnMouseDown,
+			isDisabled: ctxDisabled,
+			disabledWithoutInteractionLogic,
+		} = useToolbarUI();
+		// When ignoreInteractionDisabled=true, only use the disabled state without the interaction check
+		const disabled = Boolean(
+			(ignoreInteractionDisabled ? disabledWithoutInteractionLogic : ctxDisabled) || isDisabled,
+		);
 
 		return (
 			<Pressable

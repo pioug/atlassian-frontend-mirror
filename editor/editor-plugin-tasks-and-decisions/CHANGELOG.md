@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 13.3.2
+
+### Patch Changes
+
+- [`2c2360f6ef073`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c2360f6ef073) -
+  Move \_MarkdownModePluginStub to @atlaskit/editor-common
+- Updated dependencies
+
 ## 13.3.1
 
 ### Patch Changes

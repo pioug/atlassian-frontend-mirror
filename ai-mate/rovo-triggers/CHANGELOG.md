@@ -1,5 +1,14 @@
 # @atlaskit/rovo-triggers
 
+## 6.5.0
+
+### Minor Changes
+
+- [`c5948348a4e51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5948348a4e51) -
+  TREX-1373 (part 3/3): add @typescript-eslint/no-explicit-any OXLint suppression comments across
+  rovo-\* and misc packages. Includes OXLint override and Mithril ratchet to prevent new
+  suppressions.
+
 ## 6.4.0
 
 ### Minor Changes

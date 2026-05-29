@@ -7,7 +7,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { SpotlightContext } from '../../controllers/context';
 import { PopoverProvider, PopoverTarget } from '../../index';
 
-const TargetRefProbe = ({ onRef }: { onRef: (element: HTMLDivElement | null) => void }) => {
+const TargetRefProbe = ({ onRef }: { onRef: (element: HTMLElement | null) => void }) => {
 	const { target } = useContext(SpotlightContext);
 
 	useLayoutEffect(() => {
@@ -18,7 +18,7 @@ const TargetRefProbe = ({ onRef }: { onRef: (element: HTMLDivElement | null) => 
 };
 
 describe('PopoverTarget', () => {
-	ffTest.on('platform-dst-top-layer', 'with top-layer positioning enabled', () => {
+	ffTest.on('platform-dst-top-layer-spotlight', 'with top-layer positioning enabled', () => {
 		it('stores the target wrapper ref in spotlight context', async () => {
 			const onRef = jest.fn();
 

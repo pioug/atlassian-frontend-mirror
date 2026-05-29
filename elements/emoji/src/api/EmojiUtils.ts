@@ -5,20 +5,22 @@ import {
 	utils as serviceUtils,
 } from '@atlaskit/util-service-support';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import type {
-	AltRepresentations,
-	EmojiDescription,
-	EmojiDescriptionWithVariations,
-	EmojiVariationDescription,
-	EmojiMeta,
-	EmojiRepresentation,
-	EmojiResponse,
-	EmojiServiceDescription,
-	EmojiServiceDescriptionWithVariations,
-	EmojiServiceRepresentation,
-	EmojiServiceResponse,
-	SpriteServiceRepresentation,
-	EmojiId,
+import {
+	type AltRepresentations,
+	type EmojiDescription,
+	type EmojiDescriptionWithVariations,
+	type EmojiVariationDescription,
+	type EmojiMeta,
+	type EmojiRepresentation,
+	type EmojiResponse,
+	type EmojiServiceDescription,
+	type EmojiServiceDescriptionWithVariations,
+	type EmojiServiceRepresentation,
+	type EmojiServiceResponse,
+	type SpriteServiceRepresentation,
+	type EmojiId,
+	ProviderTypes,
+	type UnicodeRepresentation,
 } from '../types';
 import {
 	isImageRepresentation,
@@ -27,6 +29,8 @@ import {
 	buildEmojiDescriptionWithAltRepresentation,
 } from '../util/type-helpers';
 import debug from '../util/logger';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { emojiIdToEmoji } from '../util/emojiIdToEmoji';
 
 export interface EmojiLoaderConfig extends ServiceConfig {
 	getRatio?: () => number;
@@ -172,7 +176,9 @@ export const denormaliseSkinEmoji = (
 export const denormaliseEmojiServiceResponse = (emojiData: EmojiServiceResponse): EmojiResponse => {
 	const emojis: EmojiDescription[] = emojiData.emojis.map(
 		(emoji: EmojiServiceDescriptionWithVariations): EmojiDescriptionWithVariations => {
-			const newRepresentation = denormaliseServiceRepresentation(
+			const unicodeEmoji = emojiIdToEmoji(emoji.id);
+			const useUnicodeRepresentation: boolean = !!(emoji.id && emoji.type === ProviderTypes.STANDARD && unicodeEmoji && fg('platform_twemoji_removal_unicode_emojis'));
+			const newRepresentation = useUnicodeRepresentation ? { unicodeEmoji } as UnicodeRepresentation : denormaliseServiceRepresentation(
 				emoji.representation,
 				emojiData.meta,
 			);

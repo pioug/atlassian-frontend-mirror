@@ -191,6 +191,7 @@ export const nodeToReact: {
 	mediaSingle: MediaSingle,
 	mention: Mention,
 	panel: Panel,
+	panel_c1: Panel,
 	status: Status,
 	taskItem: TaskItem,
 	taskList: TaskList,
@@ -201,3 +202,4 @@ export const nodeToReact: {
 	embedCard: EmbedCard,
 	blockTaskItem: TaskItem,
 };
+

@@ -30,7 +30,6 @@ import {
 	getAwaitBM3TTIList,
 	getCapabilityRate,
 	getConfig,
-	getExperimentalInteractionRate,
 	getExtraInteractionRate,
 	getFinishInteractionOnTransition,
 	getInteractionTimeout,
@@ -39,11 +38,6 @@ import {
 	getSelectorConfig,
 	shouldUseRawDataThirdPartyBehavior,
 } from '../config';
-import {
-	experimentalVC,
-	getExperimentalVCMetrics,
-	onExperimentalInteractionComplete,
-} from '../create-experimental-interaction-metrics-payload';
 import { onSearchPageInteractionComplete } from '../create-extra-search-page-interaction-payload';
 import { sanitizeUfoName, stringifyLabelStackFully } from '../create-payload/common/utils';
 import { clearActiveTrace, type TraceIdContext } from '../experience-trace-id-context';
@@ -574,14 +568,6 @@ export function addHold(
 					interaction.holdActive.delete(id);
 				}
 
-				if (!fg('platform_ufo_remove_experimental_holds')) {
-					const expHold = interaction.holdExpActive.get(id);
-					if (expHold != null) {
-						currentInteraction.holdExpInfo.push({ ...expHold, end });
-						interaction.holdExpActive.delete(id);
-					}
-				}
-
 				if (interaction.hold3pActive) {
 					const current3pHold = interaction.hold3pActive.get(id);
 					if (current3pHold != null) {
@@ -913,19 +899,12 @@ function finishInteraction(
 	if (!coinflip(getExtraInteractionRate(sanitisedUfoName, data.type))) {
 		interactionExtraMetrics.stopAll(id);
 	} else if (!data.hold3pActive || data.hold3pActive.size === 0) {
-		if (
-			fg('platform_ufo_remove_experimental_holds') ||
-			!getConfig()?.experimentalInteractionMetrics?.enabled
-		) {
-			remove(id);
-		}
+		remove(id);
 	}
 
-	if (fg('platform_ufo_enable_terminal_errors')) {
-		PreviousInteractionLog.id = data.id;
-		PreviousInteractionLog.type = data.type;
-		PreviousInteractionLog.timestamp = data.end;
-	}
+	PreviousInteractionLog.id = data.id;
+	PreviousInteractionLog.type = data.type;
+	PreviousInteractionLog.timestamp = data.end;
 	PreviousInteractionLog.name = data.ufoName || 'unknown';
 	PreviousInteractionLog.isAborted = data.abortReason != null;
 	if (data.ufoName) {
@@ -1011,9 +990,6 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		const noMoreActiveHolds = interaction.holdActive.size === 0;
-		const noMoreExpHolds = fg('platform_ufo_remove_experimental_holds')
-			? true
-			: interaction.holdExpActive.size === 0;
 		const shouldUseRawDataThirdParty = shouldUseRawDataThirdPartyBehavior(
 			interaction.ufoName,
 			interaction.type,
@@ -1021,33 +997,7 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 
 		const postInteraction = async () => {
 			if (getConfig()?.postInteractionLog?.enabled) {
-				let experimentalVC90;
-				let experimentalTTAI;
-				if (
-					!fg('platform_ufo_remove_experimental_holds') &&
-					getConfig()?.experimentalInteractionMetrics?.enabled
-				) {
-					experimentalVC90 = (await getExperimentalVCMetrics(interaction))?.[
-						'metric:experimental:vc90'
-					] as number;
-					const { start, end } = interaction;
-					experimentalTTAI = !interaction.abortReason ? Math.round(end - start) : undefined;
-				}
-				postInteractionLog.onInteractionComplete({
-					...interaction,
-					experimentalTTAI,
-					experimentalVC90,
-				});
-			}
-
-			if (interactionExtraMetrics.finishedInteraction?.id !== interactionId) {
-				// If interactionExtraMetrics is not waiting for measuring this interaction
-				if (
-					!fg('platform_ufo_remove_experimental_holds') &&
-					getConfig()?.experimentalInteractionMetrics?.enabled
-				) {
-					remove(interactionId);
-				}
+				postInteractionLog.onInteractionComplete(interaction);
 			}
 			activeSubmitted = false;
 		};
@@ -1096,19 +1046,7 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 					activeSubmitted = true;
 				}
 
-				if (noMoreExpHolds) {
-					if (
-						!fg('platform_ufo_remove_experimental_holds') &&
-						getConfig()?.experimentalInteractionMetrics?.enabled
-					) {
-						onExperimentalInteractionComplete(
-							interactionId,
-							interaction,
-							endTime || interaction.end,
-						);
-					}
-					postInteraction();
-				}
+				postInteraction();
 			}
 			// Send separated third-party event even when feature flag is active
 			if (noMoreActiveHolds && noMoreActive3pHolds) {
@@ -1137,15 +1075,7 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 					activeSubmitted = true;
 				}
 
-				if (noMoreExpHolds) {
-					if (
-						!fg('platform_ufo_remove_experimental_holds') &&
-						getConfig()?.experimentalInteractionMetrics?.enabled
-					) {
-						onExperimentalInteractionComplete(interactionId, interaction, endTime);
-					}
-					postInteraction();
-				}
+				postInteraction();
 			}
 			if (noMoreActiveHolds && noMoreActive3pHolds) {
 				const data = {
@@ -1189,14 +1119,6 @@ export function abort(interactionId: string, abortReason: AbortReasonType): void
 			postInteractionLog.stopVCObserver();
 
 			interactionExtraMetrics.stopAll(interactionId);
-
-			if (
-				!fg('platform_ufo_remove_experimental_holds') &&
-				coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))
-			) {
-				onExperimentalInteractionComplete(interactionId, interaction, endTime);
-				remove(interactionId);
-			}
 			return;
 		}
 
@@ -1212,14 +1134,6 @@ export function abort(interactionId: string, abortReason: AbortReasonType): void
 		postInteractionLog.stopVCObserver();
 
 		interactionExtraMetrics.stopAll(interactionId);
-
-		if (
-			!fg('platform_ufo_remove_experimental_holds') &&
-			coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))
-		) {
-			onExperimentalInteractionComplete(interactionId, interaction);
-			remove(interactionId);
-		}
 	}
 }
 
@@ -1249,14 +1163,6 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 			postInteractionLog.stopVCObserver();
 
 			interactionExtraMetrics.stopAll(interactionId);
-
-			if (
-				!fg('platform_ufo_remove_experimental_holds') &&
-				coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))
-			) {
-				onExperimentalInteractionComplete(interactionId, interaction, endTime);
-				remove(interactionId);
-			}
 			return;
 		}
 
@@ -1273,14 +1179,6 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 		postInteractionLog.stopVCObserver();
 
 		interactionExtraMetrics.stopAll(interactionId);
-
-		if (
-			!fg('platform_ufo_remove_experimental_holds') &&
-			coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))
-		) {
-			onExperimentalInteractionComplete(interactionId, interaction);
-			remove(interactionId);
-		}
 	} else {
 		if (fg('platform_reset_post_interaction_on_new_interaction')) {
 			// post-interaction log is active after interaction is aborted by new one
@@ -1328,14 +1226,6 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 			postInteractionLog.stopVCObserver();
 
 			interactionExtraMetrics.stopAll(interactionId);
-
-			if (
-				!fg('platform_ufo_remove_experimental_holds') &&
-				coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))
-			) {
-				onExperimentalInteractionComplete(interactionId, interaction, endTime);
-				remove(interactionId);
-			}
 			return;
 		}
 
@@ -1357,14 +1247,6 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 		postInteractionLog.stopVCObserver();
 
 		interactionExtraMetrics.stopAll(interactionId);
-
-		if (
-			!fg('platform_ufo_remove_experimental_holds') &&
-			coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))
-		) {
-			onExperimentalInteractionComplete(interactionId, interaction);
-			remove(interactionId);
-		}
 	});
 }
 
@@ -1454,9 +1336,7 @@ export function addNewInteraction(
 		requestInfo: [],
 		reactProfilerTimings: [],
 		holdInfo: [],
-		holdExpInfo: [],
 		holdActive: new Map(),
-		holdExpActive: new Map(),
 		// measure when we execute this code
 		// from this, we can measure the input delay -
 		// how long the browser took to hand execution back to JS)
@@ -1524,13 +1404,6 @@ export function addNewInteraction(
 		// in case ufoName is updated at later time
 		if (getConfig()?.postInteractionLog?.enabled) {
 			postInteractionLog.startVCObserver({ startTime });
-		}
-
-		if (
-			!fg('platform_ufo_remove_experimental_holds') &&
-			coinflip(getExperimentalInteractionRate(ufoName, type))
-		) {
-			experimentalVC.start({ startTime });
 		}
 		if (config?.extraInteractionMetrics?.enabled) {
 			interactionExtraMetrics.startVCObserver({ startTime }, interactionId);

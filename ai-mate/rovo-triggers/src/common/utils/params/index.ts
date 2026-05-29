@@ -33,6 +33,7 @@ const processParams = (
 	rovoParams: Partial<BaseRovoChatParams>;
 	combinedQueryString: string;
 } => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const output: { [key: string]: any } = {};
 	const safeSearchParamsInput =
 		typeof input === 'string'

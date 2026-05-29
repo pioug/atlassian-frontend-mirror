@@ -22,12 +22,11 @@ import Select from '@atlaskit/select';
 import { setGlobalTheme, type ThemeOptionsSchema, token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { getContrastRatio } from '../src/utils/color-utils';
-import {
-	generateColors,
-	generateTokenMapWithContrastCheck,
-	// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-} from '../src/utils/generate-custom-color-ramp';
+import { generateColors } from '../src/utils/generate-colors';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
+import { generateTokenMapWithContrastCheck } from '../src/utils/generate-token-map-with-contrast-check';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
+import { getContrastRatio } from '../src/utils/get-contrast-ratio';
 
 import Accordion from './contrast-checker-utils/components/accordion';
 import ContrastCard from './contrast-checker-utils/components/contrast-card';
@@ -49,10 +48,10 @@ const styles = cssMap({
 		transition: 'all 0.2s',
 		'&:hover': {
 			height: '80px',
-			borderTopLeftRadius: token('radius.small'),
-			borderTopRightRadius: token('radius.small'),
-			borderBottomLeftRadius: '0',
-			borderBottomRightRadius: '0',
+			borderStartStartRadius: token('radius.small'),
+			borderStartEndRadius: token('radius.small'),
+			borderEndStartRadius: '0',
+			borderEndEndRadius: '0',
 			marginBlockStart: '-8px',
 			paddingBlockStart: '8px',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -74,9 +73,9 @@ const styles = cssMap({
 	},
 	brandText: {
 		width: '100%',
-		paddingTop: token('space.100'),
+		paddingBlockStart: token('space.100'),
 		position: 'absolute',
-		top: token('space.0'),
+		insetBlockStart: token('space.0'),
 		transition: 'all 0.2s',
 	},
 	colorText: {

@@ -223,6 +223,7 @@ export type JiraCreateContextPayloadData = {
 				projectIdOrKey: string;
 				issueTypeId: string;
 				summary: string;
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				fields: Record<string, any>;
 		  }[]
 		| null;

@@ -15,8 +15,8 @@ import { useWidthFromAnchor } from '../internal/use-width-from-anchor';
 import { Popover } from '../popover/popover';
 import { type TPopoverForwardedProps } from '../popover/types';
 
-import { useMaybePopupContext } from './popup-context';
 import { type TPopupContentProps } from './types';
+import { useMaybePopupContext } from './use-maybe-popup-context';
 
 /**
  * Thin context wrapper that composes `Popover` + `useAnchorPosition`.

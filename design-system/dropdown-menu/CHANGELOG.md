@@ -1,5 +1,17 @@
 # @atlaskit/dropdown-menu
 
+## 16.10.0
+
+### Minor Changes
+
+- [`f6ef9f1fc7454`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6ef9f1fc7454) -
+  Add an optional close-event ignore predicate to popup and dropdown menu so consumers can treat
+  external overlays as part of popup interactions.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.9.7
 
 ### Patch Changes

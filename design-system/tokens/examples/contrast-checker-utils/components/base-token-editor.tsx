@@ -17,9 +17,9 @@ import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import palettesBrandRefreshRaw from '../../../src/artifacts/palettes-raw/palette-brand-refresh';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { getContrastRatio } from '../../../src/utils/color-utils';
-// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { getAlpha } from '../../../src/utils/get-alpha';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
+import { getContrastRatio } from '../../../src/utils/get-contrast-ratio';
 import { isHex } from '../utils/search-params';
 import { type BaseTokens } from '../utils/types';
 

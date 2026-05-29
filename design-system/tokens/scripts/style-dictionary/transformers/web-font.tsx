@@ -1,10 +1,6 @@
-import type { Transform, TransformedToken } from 'style-dictionary';
+import type { Transform } from 'style-dictionary';
 
-export const fontTokenToCSS = ({
-	value: { fontSize, fontStyle, fontWeight, lineHeight, fontFamily },
-}: TransformedToken) => {
-	return `${fontStyle} ${fontWeight} ${fontSize}/${lineHeight} ${fontFamily}`;
-};
+import { fontTokenToCSS } from './font-token-to-css';
 
 /**
  * Transform a value from a raw number to a pixelised value.
@@ -18,3 +14,4 @@ const fontTransform: Transform = {
 };
 
 export default fontTransform;
+export { fontTokenToCSS } from './font-token-to-css';

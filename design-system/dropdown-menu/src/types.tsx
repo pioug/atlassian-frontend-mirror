@@ -266,6 +266,12 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 	menuLabel?: string;
 
 	/**
+	 * Allows consumers to ignore specific close events, for example when an external overlay
+	 * should be treated as part of the dropdown interaction.
+	 */
+	shouldIgnoreCloseEvent?: (event: Event | MouseEvent | KeyboardEvent) => boolean;
+
+	/**
 	 * When set to true, will call stopPropagation on the ESCAPE key event.
 	 * This prevents the ESCAPE event from bubbling up to parent elements.
 	 *

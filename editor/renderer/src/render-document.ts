@@ -4,6 +4,7 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import {
 	nativeEmbedsFallbackTransform,
+	transformContainerNodes,
 	transformMediaLinkMarks,
 	transformNestedTablesIncomingDocument,
 } from '@atlaskit/adf-utils/transforms';
@@ -70,7 +71,7 @@ const _validation = (
 	useSpecBasedValidator: boolean,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 	skipValidation?: boolean,
-	validationOverrides?: { allowNestedTables?: boolean },
+	validationOverrides?: { allowNestedTables?: boolean; allowTableInPanel?: boolean },
 ) => {
 	let result;
 
@@ -142,6 +143,20 @@ const _validation = (
 		});
 	}
 
+	// Upgrade panel → panel_c1 where the schema allows it
+	if (result && expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
+		try {
+			const { transformedAdf, isTransformed } = transformContainerNodes(result, schema);
+			if (isTransformed && transformedAdf) {
+				// TODO: EDITOR-7175 - Add analytics
+
+				result = transformedAdf;
+			}
+		} catch (e) {
+			// TODO: EDITOR-7175 - Add analytics
+		}
+	}
+
 	if (
 		result &&
 		!expValEquals('cc-maui-experiment', 'isEnabled', true) &&
@@ -173,7 +188,7 @@ const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
 		useSpecValidator: boolean,
 		DispatchAnalyticsEvent?: DispatchAnalyticsEvent | undefined,
 		skipValidation?: boolean | undefined,
-		validationOverrides?: { allowNestedTables?: boolean },
+		validationOverrides?: { allowNestedTables?: boolean; allowTableInPanel?: boolean },
 	];
 
 	const [
@@ -282,7 +297,7 @@ export const renderDocument = <T>(
 	appearance?: RendererAppearance,
 	includeNodesCountInStats?: boolean,
 	skipValidation?: boolean,
-	validationOverrides?: { allowNestedTables?: boolean },
+	validationOverrides?: { allowNestedTables?: boolean; allowTableInPanel?: boolean },
 ): RenderOutput<T | null> => {
 	const stat: RenderOutputStat = { sanitizeTime: 0 };
 

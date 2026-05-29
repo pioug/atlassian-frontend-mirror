@@ -17,12 +17,14 @@ type Props = Pick<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	api: ExtractInjectionAPI<NextEditorPlugin<any, any>> | undefined;
 	children: React.ReactNode;
+	disabledWithoutInteractionLogic?: boolean;
 	isDisabled?: boolean;
 };
 export const EditorToolbarUIProvider = ({
 	children,
 	api,
 	isDisabled,
+	disabledWithoutInteractionLogic,
 	popupsMountPoint,
 	popupsBoundariesElement,
 	popupsScrollableElement,
@@ -58,6 +60,7 @@ export const EditorToolbarUIProvider = ({
 			onDropdownOpenChanged={onDropdownOpenChanged}
 			preventDefaultOnMouseDown
 			isDisabled={isDisabled}
+			disabledWithoutInteractionLogic={disabledWithoutInteractionLogic}
 			popupsMountPoint={popupsMountPoint}
 			popupsBoundariesElement={popupsBoundariesElement}
 			popupsScrollableElement={popupsScrollableElement}

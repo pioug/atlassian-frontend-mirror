@@ -2,15 +2,12 @@ import React, { type ReactElement } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import LinkFilledIcon from '@atlaskit/icon/core/link';
-import CheckCircleIcon from '@atlaskit/icon/core/status-success';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
 import { Box } from '@atlaskit/primitives/compiled';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import { InlineDialogContentWrapper } from './ShareFormWrapper/compiled';
 import Button from './styles';
 
 const Z_INDEX = layers.modal();
@@ -172,8 +169,6 @@ export class CopyLinkButton extends React.Component<Props, State> {
 	render(): React.JSX.Element {
 		const { shouldShowCopiedMessage } = this.state;
 		const { copyTooltipText, copiedToClipboardText } = this.props;
-		const shouldUpdateTooltipCss = fg('jfind-copy-link-modal-invite-tooltip-jira');
-
 		return (
 			<React.Fragment>
 				{/* Added ARIA live region specifically for VoiceOver + Safari since the status */}
@@ -189,25 +184,12 @@ export class CopyLinkButton extends React.Component<Props, State> {
 				<Popup
 					zIndex={Z_INDEX}
 					autoFocus={false}
-					content={() =>
-						shouldUpdateTooltipCss ? null : (
-							<InlineDialogContentWrapper>
-								<Box xcss={cx(styles.messageContainer)} testId="message-container" aria-hidden>
-									<CheckCircleIcon
-										spacing="spacious"
-										label=""
-										color={token('color.icon.success')}
-									/>
-									<Box xcss={cx(styles.messageText)}>{copiedToClipboardText}</Box>
-								</Box>
-							</InlineDialogContentWrapper>
-						)
-					}
+					content={() => null}
 					isOpen={shouldShowCopiedMessage}
 					onClose={this.handleDismissCopiedMessage}
 					placement="top-start"
 					trigger={(triggerProps: TriggerProps) =>
-						copyTooltipText && shouldShowCopiedMessage && shouldUpdateTooltipCss ? (
+						copyTooltipText && shouldShowCopiedMessage ? (
 							<Tooltip content={copyTooltipText} position="bottom">
 								{this.renderTriggerButton(triggerProps)}
 							</Tooltip>

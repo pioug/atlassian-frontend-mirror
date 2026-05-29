@@ -20,6 +20,7 @@ export const useCloseManager = ({
 	autoFocus,
 	shouldDisableFocusTrap,
 	shouldUseCaptureOnOutsideClick: capture,
+	shouldIgnoreCloseEvent,
 	shouldCloseOnTab,
 	shouldRenderToParent,
 }: CloseManagerHook): void => {
@@ -33,6 +34,10 @@ export const useCloseManager = ({
 		}
 
 		const closePopup = (event: Event | React.MouseEvent | React.KeyboardEvent) => {
+			if (shouldIgnoreCloseEvent?.(event) && fg('cc_blocks_changeboarding')) {
+				return;
+			}
+
 			if (onClose) {
 				let currentLevel: string | null = null;
 				if (event.target instanceof HTMLElement) {
@@ -298,6 +303,7 @@ export const useCloseManager = ({
 		autoFocus,
 		shouldDisableFocusTrap,
 		capture,
+		shouldIgnoreCloseEvent,
 		isLayerDisabled,
 		shouldCloseOnTab,
 		currentLevel,

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 9.2.12
+
+### Patch Changes
+
+- [`d3af55fada546`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3af55fada546) -
+  [ux] Adds shouldIgnoreCloseEvent to prevent sub-menus of Block menu from closing when
+  changeboarding spotlights get dismissed.
+
 ## 9.2.11
 
 ### Patch Changes

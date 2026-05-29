@@ -52,6 +52,7 @@ export const Popup: FC<PopupProps> = memo((props: PopupProps) => {
 		autoFocus = true,
 		zIndex = defaultLayer,
 		shouldUseCaptureOnOutsideClick = false,
+		shouldIgnoreCloseEvent,
 		shouldRenderToParent: inShouldRenderToParent = false,
 		shouldFitContainer = false,
 		shouldDisableFocusLock = false,
@@ -123,6 +124,7 @@ export const Popup: FC<PopupProps> = memo((props: PopupProps) => {
 				onClose={onClose}
 				autoFocus={autoFocus}
 				shouldUseCaptureOnOutsideClick={shouldUseCaptureOnOutsideClick}
+				shouldIgnoreCloseEvent={shouldIgnoreCloseEvent}
 				shouldRenderToParent={shouldRenderToParent || shouldFitContainer}
 				shouldFitContainer={shouldFitContainer}
 				shouldDisableFocusLock={shouldDisableFocusLock}

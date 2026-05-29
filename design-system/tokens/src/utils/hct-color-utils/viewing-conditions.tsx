@@ -1,5 +1,6 @@
-import * as utils from './color-utils';
 import * as math from './math-utils';
+import { whitePointD65 } from './white-point-d65';
+import { yFromLstar } from './y-from-lstar';
 
 export class ViewingConditions {
 	/**
@@ -30,8 +31,8 @@ export class ViewingConditions {
 	 *       self-luminous objects like displays.
 	 */
 	static make(
-		whitePoint: number[] = utils.whitePointD65(),
-		adaptingLuminance: number = ((200.0 / Math.PI) * utils.yFromLstar(50.0)) / 100.0,
+		whitePoint: number[] = whitePointD65(),
+		adaptingLuminance: number = ((200.0 / Math.PI) * yFromLstar(50.0)) / 100.0,
 		backgroundLstar = 50.0,
 		surround = 2.0,
 		discountingIlluminant = false,
@@ -57,7 +58,7 @@ export class ViewingConditions {
 		const k4 = k * k * k * k;
 		const k4F = 1.0 - k4;
 		const fl = k4 * adaptingLuminance + 0.1 * k4F * k4F * Math.cbrt(5.0 * adaptingLuminance);
-		const n = utils.yFromLstar(backgroundLstar) / whitePoint[1];
+		const n = yFromLstar(backgroundLstar) / whitePoint[1];
 		const z = 1.48 + Math.sqrt(n);
 		const nbb = 0.725 / Math.pow(n, 0.2);
 		const ncb = nbb;

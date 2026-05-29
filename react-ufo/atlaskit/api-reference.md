@@ -547,12 +547,12 @@ import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
 
 **Props:**
 
-| Prop           | Type        | Required | Default     | Description                                                                                                                                    |
-| -------------- | ----------- | -------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`         | `string`    | Yes      | —           | Unique identifier for this loading state                                                                                                       |
-| `hold`         | `boolean`   | No       | `undefined` | Controls whether the hold is active. When omitted, hold is active while mounted                                                                |
-| `children`     | `ReactNode` | No       | —           | Components wrapped by the hold                                                                                                                 |
-| `experimental` | `boolean`   | No       | `undefined` | **Deprecated** — Ignored when `platform_ufo_remove_experimental_holds` feature gate is enabled. Previously enabled experimental hold behavior. |
+| Prop           | Type        | Required | Default     | Description                                                                     |
+| -------------- | ----------- | -------- | ----------- | ------------------------------------------------------------------------------- |
+| `name`         | `string`    | Yes      | —           | Unique identifier for this loading state                                        |
+| `hold`         | `boolean`   | No       | `undefined` | Controls whether the hold is active. When omitted, hold is active while mounted |
+| `children`     | `ReactNode` | No       | —           | Components wrapped by the hold                                                  |
+| `experimental` | `boolean`   | No       | `undefined` | **Deprecated** — ignored. Previously enabled experimental hold behavior.        |
 
 **Usage Patterns:**
 

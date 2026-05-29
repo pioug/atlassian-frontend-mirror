@@ -1,5 +1,36 @@
 # @atlaskit/editor-common
 
+## 114.51.1
+
+### Patch Changes
+
+- [`c4ae9a3284485`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4ae9a3284485) -
+  Add extra space after 'Last edited:' and bold 'Synced from' heading in synced block tooltip
+- [`4f322a101cf47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f322a101cf47) -
+  Adds a disabledWithoutInteractionLogic prop to the toolbar to selectively enable some buttons
+  before editor interaction
+- Updated dependencies
+
+## 114.51.0
+
+### Minor Changes
+
+- [`2c2360f6ef073`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c2360f6ef073) -
+  Move \_MarkdownModePluginStub to @atlaskit/editor-common
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.50.3
+
+### Patch Changes
+
+- [`fb6b9ed531ae0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb6b9ed531ae0) -
+  [EDITOR-7388] refactored to move remix button code out of block menu plugin and into malleable ui
+  plugin, added remixModalFromBlockMenu for analytics and added more analytics tests
+- Updated dependencies
+
 ## 114.50.2
 
 ### Patch Changes

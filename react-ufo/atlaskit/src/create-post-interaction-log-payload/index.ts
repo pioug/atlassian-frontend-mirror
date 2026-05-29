@@ -189,8 +189,6 @@ function createPostInteractionLogPayload({
 					abortedByInteractionName?: string | undefined;
 					errors: InteractionError[];
 					id: string;
-					experimentalVC90?: number | undefined;
-					experimentalTTAI?: number | undefined;
 				};
 				revisedEndTime: number;
 				revisedTtai: number;

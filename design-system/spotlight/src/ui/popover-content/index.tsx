@@ -87,6 +87,6 @@ const renderPopoverContent = (
 };
 
 export const PopoverContent: typeof Legacy = (props: PopoverContentProps) =>
-	fg('platform-dst-top-layer')
+	fg('platform-dst-top-layer-spotlight')
 		? renderPopoverContent(TopLayer, props)
 		: renderPopoverContent(Legacy, props);

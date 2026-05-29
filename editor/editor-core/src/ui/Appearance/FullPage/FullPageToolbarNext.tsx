@@ -36,6 +36,7 @@ type FullPageToolbarNextProps = {
 	beforeIcon?: React.ReactNode;
 	customPrimaryToolbarComponents?: PrimaryToolbarComponents;
 	disabled: boolean;
+	disabledWithoutInteractionLogic?: boolean;
 	editorAPI?: FullPageToolbarPluginAPI;
 	editorView?: EditorView;
 	popupsBoundariesElement?: HTMLElement;
@@ -191,6 +192,7 @@ export const FullPageToolbarNext = ({
 	showKeyline,
 	customPrimaryToolbarComponents,
 	disabled,
+	disabledWithoutInteractionLogic,
 }: FullPageToolbarNextProps): JSX.Element => {
 	const components = editorAPI?.toolbar?.actions.getComponents();
 	const runtimeOverride = useSharedPluginStateWithSelector(
@@ -286,6 +288,7 @@ export const FullPageToolbarNext = ({
 												popupsMountPoint={mountPoint}
 												editorAppearance="full-page"
 												isDisabled={disabled}
+												disabledWithoutInteractionLogic={disabledWithoutInteractionLogic}
 											/>
 										)
 									) : (
@@ -304,6 +307,7 @@ export const FullPageToolbarNext = ({
 														popupsMountPoint={mountPoint}
 														editorAppearance="full-page"
 														isDisabled={disabled}
+														disabledWithoutInteractionLogic={disabledWithoutInteractionLogic}
 													/>
 												)}
 										</ExcludeFromHydration>

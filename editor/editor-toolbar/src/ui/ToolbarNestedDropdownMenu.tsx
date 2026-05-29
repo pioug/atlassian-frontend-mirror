@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { ReactNode } from 'react';
+import type { KeyboardEvent, MouseEvent, ReactNode } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, cssMap, cx } from '@compiled/react';
@@ -33,8 +33,9 @@ type ToolbarNestedDropdownMenuProps = {
 	 */
 	enableMaxHeight?: boolean;
 	isDisabled?: boolean;
-	onClick?: (e: React.MouseEvent | React.KeyboardEvent) => void;
+	onClick?: (e: MouseEvent | KeyboardEvent) => void;
 	shouldFitContainer?: boolean;
+	shouldIgnoreCloseEvent?: (event: Event | MouseEvent | KeyboardEvent) => boolean;
 	shouldTitleWrap?: boolean;
 	testId?: string;
 	text?: string;
@@ -53,6 +54,7 @@ export const ToolbarNestedDropdownMenu = ({
 	enableMaxHeight = false,
 	onClick,
 	shouldFitContainer = false,
+	shouldIgnoreCloseEvent,
 	shouldTitleWrap,
 	tooltipContent,
 	'data-extension-item-key': dataExtensionItemKey,
@@ -60,6 +62,7 @@ export const ToolbarNestedDropdownMenu = ({
 	return (
 		<DropdownMenu<HTMLButtonElement>
 			shouldFitContainer={shouldFitContainer}
+			shouldIgnoreCloseEvent={fg('cc_blocks_changeboarding') ? shouldIgnoreCloseEvent : undefined}
 			placement="right-start"
 			testId={dropdownTestId}
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)

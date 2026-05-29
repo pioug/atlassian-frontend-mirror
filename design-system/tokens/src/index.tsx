@@ -10,7 +10,8 @@ export { default as getSSRAutoScript } from './get-ssr-auto-script';
 export { default as useThemeObserver } from './use-theme-observer';
 export { default as ThemeMutationObserver } from './theme-mutation-observer';
 export { default as getGlobalTheme } from './get-global-theme';
-export { themeStringToObject, themeObjectToString } from './theme-state-transformer';
+export { themeStringToObject } from './theme-string-to-object';
+export { themeObjectToString } from './theme-object-to-string';
 export { default as themeImportMap } from './artifacts/theme-import-map';
 
 export type { CSSToken } from './artifacts/token-names';

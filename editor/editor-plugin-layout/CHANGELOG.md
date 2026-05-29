@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-layout
 
+## 10.9.0
+
+### Minor Changes
+
+- [`10c5beb57bb0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10c5beb57bb0d) -
+  [ux] Add Distribute columns to the layout floating toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.8.1
 
 ### Patch Changes

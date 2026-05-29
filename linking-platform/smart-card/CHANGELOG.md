@@ -1,5 +1,22 @@
 # @atlaskit/smart-card
 
+## 44.18.0
+
+### Minor Changes
+
+- [`f0c69f3f568d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0c69f3f568d1) -
+  NAVX-4957 Updating a11y labels for embed modal open in product/provider
+
+### Patch Changes
+
+- [`015ffd9a2e349`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/015ffd9a2e349) -
+  Updated unauthorised Smart Link social proof copy for inline and block card prompts.
+
+  All changes behind feature gates: `platform_sl_3p_preauth_soc_proof_inline_killswitch`,
+  `platform_sl_3p_preauth_social_proof_inline_cta`, and `social-proof-3p-unauth-block-fg`.
+
+- Updated dependencies
+
 ## 44.17.0
 
 ### Minor Changes

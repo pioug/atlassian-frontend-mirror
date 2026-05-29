@@ -1,5 +1,25 @@
 # @atlaskit/spotlight
 
+## 0.15.1
+
+### Patch Changes
+
+- [`f7c1be45b8989`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7c1be45b8989) -
+  Split `@atlaskit/top-layer` migration out from main `platform-dst-top-layer` FG to
+  `platform-dst-top-layer-spotlight` FG. This should be a noop for functionality.
+
+## 0.15.0
+
+### Minor Changes
+
+- [`e09d8bc884f22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e09d8bc884f22) -
+  Add a new `@atlaskit/spotlight/spotlight-context-provider` entry point that exports
+  `SpotlightContextProvider`. The provider accepts an optional `targetRef` prop which, when
+  supplied, is used as the anchor element for `PopoverContent`'s positioning — letting
+  `PopoverContent` be rendered in a React subtree that doesn't share a `PopoverProvider` /
+  `PopoverTarget` with its visual anchor (for example, when the content is mounted by an external
+  system but the anchor is owned by the host app).
+
 ## 0.14.14
 
 ### Patch Changes

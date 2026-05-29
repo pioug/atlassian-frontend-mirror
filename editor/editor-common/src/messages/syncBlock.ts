@@ -61,11 +61,6 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
-	syncBlockLabel: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
 	defaultSyncBlockTooltip: {
 		defaultMessage: string;
 		description: string;
@@ -251,6 +246,11 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	referenceSyncBlockSyncedFrom: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	referenceSyncBlockTooltip: {
 		defaultMessage: string;
 		description: string;
@@ -302,6 +302,11 @@ export const syncBlockMessages: {
 		id: string;
 	};
 	syncBlockGroup: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncBlockLabel: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -561,8 +566,14 @@ export const syncBlockMessages: {
 	},
 	referenceSyncBlockLastEdited: {
 		id: 'fabric.editor.referenceSyncBlockLastEdited',
-		defaultMessage: 'Last edited: ',
+		defaultMessage: 'Last edited:',
 		description: 'Tooltip that shows the last edited time of the synced block',
+	},
+	referenceSyncBlockSyncedFrom: {
+		id: 'fabric.editor.referenceSyncBlockSyncedFrom',
+		defaultMessage: 'Synced from:',
+		description:
+			'Bold heading label in the tooltip showing the source page of the synced block',
 	},
 	taskInDestinationSyncedBlockTooltip: {
 		id: 'fabric.editor.taskInDestinationSyncedBlockTooltip',

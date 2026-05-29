@@ -6,15 +6,12 @@ export {
 	useDatasourceClientExtension,
 } from './services/use-data-source-client-extension';
 /** @deprecated use @atlaskit/link-client-extension/data-source-client-extension/mocks */
-export {
-	mockDatasourceDetailsResponse as mockDatasourceResponse,
-	mockDatasourceDetailsResponse,
-	mockDatasourceDataResponse,
-	mockDatasourceDataNoActionsResponse,
-	mockDatasourceDataResponseWithSchema,
-	mockActionsDiscoveryResponse,
-	mockActionsDiscoveryEmptyResponse,
-} from './services/use-data-source-client-extension/mocks';
+export { mockActionsDiscoveryEmptyResponse } from './services/use-data-source-client-extension/mockActionsDiscoveryEmptyResponse';
+export { mockActionsDiscoveryResponse } from './services/use-data-source-client-extension/mockActionsDiscoveryResponse';
+export { mockDatasourceDataNoActionsResponse } from './services/use-data-source-client-extension/mockDatasourceDataNoActionsResponse';
+export { mockDatasourceDataResponse } from './services/use-data-source-client-extension/mockDatasourceDataResponse';
+export { mockDatasourceDetailsResponse as mockDatasourceResponse, mockDatasourceDetailsResponse } from './services/use-data-source-client-extension/mockDatasourceDetailsResponse';
+export { mockDatasourceDataResponseWithSchema } from './services/use-data-source-client-extension/mocks';
 /** @deprecated use @atlaskit/link-client-extension/use-data-source-client-extension/types */
 export type {
 	JsonLdDatasourceResponse,

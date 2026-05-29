@@ -12,7 +12,7 @@ import {
 	type ThemeState,
 	themeStateDefaults,
 } from './theme-config';
-import { themeObjectToString } from './theme-state-transformer';
+import { themeObjectToString } from './theme-object-to-string';
 import { hash } from './utils/hash';
 import { isValidBrandHex } from './utils/is-valid-brand-hex';
 

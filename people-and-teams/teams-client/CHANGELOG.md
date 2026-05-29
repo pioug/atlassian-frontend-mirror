@@ -1,5 +1,13 @@
 # @atlaskit/teams-client
 
+## 4.33.1
+
+### Patch Changes
+
+- [`709a5ce76e72d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/709a5ce76e72d) -
+  Migrated MembershipRole, MembershipState and TeamAvatarImage types to be sourced from
+  @atlaskit/teams-client/types.
+
 ## 4.33.0
 
 ### Minor Changes

@@ -303,6 +303,7 @@ export function processRawValue(
 		if (expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
 			({ transformedAdf, isTransformed } = transformContainerNodes(entity as ADFEntity, schema));
 			if (isTransformed) {
+				// TODO: EDITOR-7175 - Add analytics
 				entity = transformedAdf as ADFEntity;
 			}
 		}

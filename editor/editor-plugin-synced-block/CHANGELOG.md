@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 8.4.13
+
+### Patch Changes
+
+- [`c4ae9a3284485`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4ae9a3284485) -
+  Add extra space after 'Last edited:' and bold 'Synced from' heading in synced block tooltip
+- [`02e2dd6d73009`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02e2dd6d73009) -
+  Move delete button out of overflow menu into direct toolbar button in synced block toolbar
+- Updated dependencies
+
 ## 8.4.12
 
 ### Patch Changes

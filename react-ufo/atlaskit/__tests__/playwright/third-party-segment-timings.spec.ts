@@ -1,12 +1,12 @@
 import { expect, test } from './fixtures';
 
-test.describe('ReactUFO: UFOThirdPartySegment segment3pTimings', () => {
+test.describe('ReactUFO: UFOThirdPartySegment segment3pData', () => {
 	test.use({
 		examplePage: 'third-party-segment-timings',
 		featureFlags: ['platform_ufo_3p_segment_timings', 'platform_ufo_ecosystem_data_in_payload'],
 	});
 
-	test('segment3pTimings from iframe analytics appear as a flat array of label/data rows in interactionMetrics', async ({
+	test('segment3pData from iframe analytics appear grouped by segmentId in interactionMetrics', async ({
 		waitForReactUFOPayload,
 		page,
 	}) => {
@@ -21,22 +21,26 @@ test.describe('ReactUFO: UFOThirdPartySegment segment3pTimings', () => {
 
 		const { interactionMetrics } = ufoProperties;
 
-		// segment3pTimings is now a flat array of { segmentId, label, data } rows
-		const segment3pTimings = (
-			interactionMetrics as {
-				segment3pTimings?: Array<{ segmentId: string; label: string; data: Record<string, unknown> }>;
-			}
-		).segment3pTimings;
-		expect(segment3pTimings).toBeDefined();
-		expect(Array.isArray(segment3pTimings)).toBe(true);
-		expect(segment3pTimings!.length).toBeGreaterThanOrEqual(2);
+		type Segment3pEntry = { meta: Record<string, string | undefined>; timings: Array<{ label: string; data: Record<string, unknown> }> };
+		type Segment3pDataPayload = { segments: Record<string, Segment3pEntry>; trim?: true };
 
-		// All rows must have a segmentId string
-		const segmentIds = new Set(segment3pTimings!.map((r) => r.segmentId));
-		expect(segmentIds.size).toBe(1);
-		expect(typeof [...segmentIds][0]).toBe('string');
+		const segment3pData = (
+			interactionMetrics as { segment3pData?: Segment3pDataPayload }
+		).segment3pData;
+		expect(segment3pData).toBeDefined();
+		expect(typeof segment3pData!.segments).toBe('object');
 
-		const navigationTiming = segment3pTimings!.find((r) => r.label === 'navigation-timing');
+		// There should be exactly one segmentId key
+		const segmentIds = Object.keys(segment3pData!.segments);
+		expect(segmentIds.length).toBe(1);
+		expect(typeof segmentIds[0]).toBe('string');
+
+		const segmentEntry = segment3pData!.segments[segmentIds[0]];
+		expect(segmentEntry).toBeDefined();
+		expect(Array.isArray(segmentEntry.timings)).toBe(true);
+		expect(segmentEntry.timings.length).toBeGreaterThanOrEqual(2);
+
+		const navigationTiming = segmentEntry.timings.find((r) => r.label === 'navigation-timing');
 		expect(navigationTiming).toBeDefined();
 		// After shapeNavigationTimingData, the label is the last path segment of payload.name
 		expect(navigationTiming!.data.label).toBe('iframe');
@@ -48,7 +52,7 @@ test.describe('ReactUFO: UFOThirdPartySegment segment3pTimings', () => {
 		expect(navigationTiming!.data.redirectCount).toBe(0);
 
 		// After shapePaintTimingData: { name, startTime } — no elapsed, no paintType
-		const paintTiming = segment3pTimings!.find((r) => r.label === 'paint-timing');
+		const paintTiming = segmentEntry.timings.find((r) => r.label === 'paint-timing');
 		expect(paintTiming).toBeDefined();
 		expect(paintTiming!.data.name).toBe('first-contentful-paint');
 		expect(typeof paintTiming!.data.startTime).toBe('number');

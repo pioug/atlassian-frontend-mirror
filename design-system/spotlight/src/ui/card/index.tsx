@@ -22,7 +22,7 @@ export const SpotlightCard: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<SpotlightCardProps> & React.RefAttributes<HTMLDivElement>
 > = forwardRef<HTMLDivElement, SpotlightCardProps>(
 	({ children, placement, testId }: SpotlightCardProps, ref) =>
-		fg('platform-dst-top-layer') ? (
+		fg('platform-dst-top-layer-spotlight') ? (
 			<TopLayer ref={ref} placement={placement} testId={testId}>
 				{children}
 			</TopLayer>

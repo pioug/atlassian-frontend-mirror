@@ -1,6 +1,7 @@
 import { type CSSColor } from '../theme-config';
 
-import { deltaE, hexToRgb } from './color-utils';
+import { deltaE } from './delta-e';
+import { hexToRgb } from './hex-to-rgb';
 
 export const getClosestColorIndex = (themeRamp: CSSColor[], brandColor: CSSColor): number => {
 	// Iterate over themeRamp and find whichever color is closest to brandColor

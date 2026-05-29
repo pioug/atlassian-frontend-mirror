@@ -1,7 +1,7 @@
 import { COLOR_MODE_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from './constants';
 import { themeColorModes } from './theme-color-modes';
 import type { ActiveThemeState, DataColorModes } from './theme-config';
-import { themeStringToObject } from './theme-state-transformer';
+import { themeStringToObject } from './theme-string-to-object';
 
 const isThemeColorMode = (colorMode: string): colorMode is DataColorModes => {
 	return themeColorModes.find((mode) => mode === colorMode) !== undefined;

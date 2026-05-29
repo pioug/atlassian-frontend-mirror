@@ -2,7 +2,7 @@ import type { Format } from 'style-dictionary';
 
 import { createSignedArtifact } from '@atlassian/codegen';
 
-import { cssVariableFormatter } from './css-variables';
+import { cssVariableFormatter } from './css-variable-formatter';
 
 const cssVariableAsModuleFormatter: Format['formatter'] = (args) => {
 	const css = cssVariableFormatter(args);

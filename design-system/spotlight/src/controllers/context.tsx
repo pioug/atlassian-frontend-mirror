@@ -44,8 +44,8 @@ export interface SpotlightContextType {
 		setDismiss: (dismissFn: (_event: DismissEvent) => void) => void;
 	};
 	target: {
-		ref: RefObject<HTMLDivElement | null>;
-		setRef: Dispatch<SetStateAction<RefObject<HTMLDivElement | null>>>;
+		ref: RefObject<HTMLElement | null>;
+		setRef: Dispatch<SetStateAction<RefObject<HTMLElement | null>>>;
 	};
 	primaryAction: {
 		action: MutableRefObject<(_event: DoneEvent) => void>;
@@ -95,11 +95,46 @@ export const SpotlightContext: Context<SpotlightContextType> = createContext<Spo
 	},
 });
 
+/**
+ * Props accepted by `SpotlightContextProvider`.
+ */
+// eslint-disable-next-line @repo/internal/react/consistent-types-definitions
+export interface SpotlightContextProviderProps {
+	/**
+	 * The children rendered inside the spotlight context. Typically a
+	 * `PopoverTarget` + `PopoverContent` pair.
+	 */
+	children: ReactNode;
+
+	/**
+	 * Optional caller-supplied anchor ref. When provided, this ref is used as
+	 * the target ref in the spotlight context — `PopoverContent` reads it via
+	 * `target.ref` for `useAnchorPosition`. The ref's element identity may
+	 * change over time (e.g. as a target resolves asynchronously); each new
+	 * ref object is propagated through the context value.
+	 *
+	 * When omitted, the default behaviour is preserved: `PopoverTarget`
+	 * registers its own ref via `target.setRef` and `PopoverContent` consumes
+	 * that.
+	 *
+	 * This prop exists primarily for callers that render their popover
+	 * content in a different React subtree from the target (where a shared
+	 * `PopoverTarget` cannot be used), but still need the spotlight context
+	 * to be wired up. The popover content remains rendered in the React tree
+	 * where the provider lives, while the visual anchor is the DOM node the
+	 * ref points to.
+	 */
+	targetRef?: RefObject<HTMLElement | null>;
+}
+
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export const SpotlightContextProvider = ({ children }: { children: ReactNode }): JSX.Element => {
+export const SpotlightContextProvider = ({
+	children,
+	targetRef,
+}: SpotlightContextProviderProps): JSX.Element => {
 	const id = useId();
-	const defaultTargetRef = useRef<HTMLDivElement>(null);
+	const defaultTargetRef = useRef<HTMLElement>(null);
 	const [motion, setMotion] = useState<React.ComponentType<{ children: ReactNode }>>();
 	const [placement, setPlacement] = useState<Placement>('bottom-end');
 	const [headingId, setHeadingId] = useState<string>(`${id}-heading`);
@@ -109,7 +144,13 @@ export const SpotlightContextProvider = ({ children }: { children: ReactNode }):
 	>();
 	const [positionArea, setPositionArea] = useState<PositionArea | 'none' | undefined>();
 	const [cardRef, setCardRef] = useState<MutableRefObject<HTMLDivElement | null> | null>(null);
-	const [targetRef, setTargetRef] = useState<RefObject<HTMLDivElement | null>>(defaultTargetRef);
+	const [internalTargetRef, setInternalTargetRef] =
+		useState<RefObject<HTMLElement | null>>(defaultTargetRef);
+	// `targetRef` (the prop) takes precedence when provided. Its identity is
+	// allowed to change over time; downstream consumers that depend on
+	// `target.ref` identity (e.g. `useAnchorPosition`'s effect deps) will
+	// re-run accordingly.
+	const effectiveTargetRef = targetRef ?? internalTargetRef;
 
 	const dismissRef = useRef<(_event: DismissEvent) => void>(() => undefined);
 	const setDismiss = (dismissFn: (_event: DismissEvent) => void) => {
@@ -152,8 +193,8 @@ export const SpotlightContextProvider = ({ children }: { children: ReactNode }):
 					setDismiss,
 				},
 				target: {
-					ref: targetRef,
-					setRef: setTargetRef,
+					ref: effectiveTargetRef,
+					setRef: setInternalTargetRef,
 				},
 				primaryAction: {
 					action: primaryActionRef,

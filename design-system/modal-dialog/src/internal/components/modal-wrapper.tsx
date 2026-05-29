@@ -39,7 +39,9 @@ import { disableDraggingToCrossOriginIFramesForExternal } from '../pragmatic-dra
 import { disableDraggingToCrossOriginIFramesForTextSelection } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/text-selection';
 import type { InternalModalWrapperProps } from '../types';
 
-import ModalDialog, { dialogHeight, dialogWidth as getDialogWidth } from './modal-dialog';
+import { dialogHeight } from './dialog-height';
+import { dialogWidth as getDialogWidth } from './dialog-width';
+import ModalDialog from './modal-dialog';
 
 const modalAnimation = dialogSlideUpAndFade();
 

@@ -1,5 +1,29 @@
 # @atlaskit/emoji
 
+## 70.14.0
+
+### Minor Changes
+
+- [`a7e9e78cab75f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7e9e78cab75f) -
+  Prevent native page file drops behind the emoji upload chooser
+- [`6dbd7e73b32c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6dbd7e73b32c7) -
+  Update empty state for search results in emoji picker
+
+## 70.13.0
+
+### Minor Changes
+
+- [`81637ec91afd1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81637ec91afd1) -
+  Represent standard emojis as native Unicode characters instead of images. Updates
+  EmojiNodeDataProvider to support Unicode representations.
+
+## 70.12.0
+
+### Minor Changes
+
+- [`5048d8b2e4dea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5048d8b2e4dea) -
+  Revert emoji empty state changes due to resolution issues
+
 ## 70.11.2
 
 ### Patch Changes

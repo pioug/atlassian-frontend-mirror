@@ -453,8 +453,7 @@ describe('interaction-metrics timeout behavior', () => {
 			PreviousInteractionLog.timestamp = undefined;
 		});
 
-		it('should set id, type, and timestamp when feature flag is enabled', () => {
-			mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_enable_terminal_errors');
+		it('should set id, type, and timestamp', () => {
 			mockPerformanceNow.mockReturnValue(2000);
 
 			const interactionId = 'test-prev-interaction-1';
@@ -478,31 +477,6 @@ describe('interaction-metrics timeout behavior', () => {
 			expect(PreviousInteractionLog.type).toBe('page_load');
 			expect(PreviousInteractionLog.isAborted).toBe(false);
 			expect(PreviousInteractionLog.timestamp).toBe(2000);
-		});
-
-		it('should NOT set id, type, and timestamp when feature flag is disabled', () => {
-			mockFg.mockReturnValue(false);
-			mockPerformanceNow.mockReturnValue(2000);
-
-			const interactionId = 'test-prev-interaction-2';
-			const startTime = 1000;
-
-			addNewInteraction(
-				interactionId,
-				'test-ufo-name',
-				'transition',
-				startTime,
-				1,
-				null,
-				null,
-				null,
-			);
-
-			tryComplete(interactionId, 2000);
-
-			expect(PreviousInteractionLog.id).toBeUndefined();
-			expect(PreviousInteractionLog.type).toBeUndefined();
-			expect(PreviousInteractionLog.timestamp).toBeUndefined();
 		});
 
 		it('should always set name and isAborted', () => {
@@ -542,8 +516,6 @@ describe('interaction-metrics timeout behavior', () => {
 		});
 
 		it('should update PreviousInteractionLog for different interaction types', () => {
-			mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_enable_terminal_errors');
-
 			const transitionId = 'test-prev-interaction-6';
 			mockPerformanceNow.mockReturnValue(3000);
 

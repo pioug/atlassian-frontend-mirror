@@ -6,10 +6,6 @@ import { startLighthouseObserver } from '../additional-payload';
 import { type PostInteractionLogOutput } from '../common';
 import { type VCResult } from '../common/vc/types';
 import { type Config, getSelectorConfig, isUFOEnabled, setUFOConfig } from '../config';
-import {
-	experimentalVC,
-	sinkExperimentalHandler,
-} from '../create-experimental-interaction-metrics-payload';
 import { sinkExtraSearchPageInteractionHandler } from '../create-extra-search-page-interaction-payload';
 import {
 	setContextManager,
@@ -84,35 +80,6 @@ function sinkInteraction(
 	}
 
 	sinkInteractionHandler(sinkFn);
-}
-
-function sinkExperimentalInteractionMetrics(
-	instance: GenericAnalyticWebClientInstance,
-	payloadPackage: {
-		createExperimentalMetricsPayload: (
-			interactionId: string,
-			interaction: InteractionMetrics,
-		) => Promise<any>;
-	},
-) {
-	function experimentalMetricsSinkFn(interactionId: string, interaction: InteractionMetrics) {
-		function experimentalMetricsOnIdle() {
-			const payloadPromise = payloadPackage.createExperimentalMetricsPayload(
-				interactionId,
-				interaction,
-			);
-
-			payloadPromise.then((payload) => {
-				if (payload) {
-					instance.sendOperationalEvent(payload);
-				}
-			});
-		}
-
-		scheduleIdleCallback(experimentalMetricsOnIdle);
-	}
-
-	sinkExperimentalHandler(experimentalMetricsSinkFn);
 }
 
 function sinkPostInteractionLog(
@@ -257,13 +224,6 @@ export function init(
 		};
 
 		postInteractionLog.initializeVCObserver(vcOptions);
-		if (
-			!fg('platform_ufo_remove_experimental_holds') &&
-			config?.experimentalInteractionMetrics?.enabled
-		) {
-			experimentalVC.initialize(vcOptions).start({ startTime: 0 });
-		}
-
 		if (config?.extraInteractionMetrics?.enabled) {
 			interactionExtraMetrics.initializeVCObserver(vcOptions);
 		}
@@ -309,14 +269,8 @@ export function init(
 				(awc as GenericAnalyticWebClientPromise).getAnalyticsWebClientPromise().then((client) => {
 					const instance = client.getInstance();
 					sinkInteraction(instance, payloadPackage);
-					if (config?.terminalErrors?.enabled && fg('platform_ufo_enable_terminal_errors')) {
+					if (config?.terminalErrors?.enabled) {
 						sinkTerminalErrors(instance, createTerminalErrorPayloadPackage.default);
-					}
-					if (
-						!fg('platform_ufo_remove_experimental_holds') &&
-						config?.experimentalInteractionMetrics?.enabled
-					) {
-						sinkExperimentalInteractionMetrics(instance, payloadPackage);
 					}
 					if (config.postInteractionLog?.enabled) {
 						sinkPostInteractionLog(instance, createPostInteractionLogPayloadPackage.default);
@@ -333,19 +287,10 @@ export function init(
 				});
 			} else if ((awc as GenericAnalyticWebClientInstance).sendOperationalEvent) {
 				sinkInteraction(awc as GenericAnalyticWebClientInstance, payloadPackage);
-				if (config?.terminalErrors?.enabled && fg('platform_ufo_enable_terminal_errors')) {
+				if (config?.terminalErrors?.enabled) {
 					sinkTerminalErrors(
 						awc as GenericAnalyticWebClientInstance,
 						createTerminalErrorPayloadPackage.default,
-					);
-				}
-				if (
-					!fg('platform_ufo_remove_experimental_holds') &&
-					config?.experimentalInteractionMetrics?.enabled
-				) {
-					sinkExperimentalInteractionMetrics(
-						awc as GenericAnalyticWebClientInstance,
-						payloadPackage,
 					);
 				}
 				if (config.postInteractionLog?.enabled) {

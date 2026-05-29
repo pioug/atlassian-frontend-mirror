@@ -26,7 +26,7 @@ export const VerticalAlignDropdownItem = ({
 	const { formatMessage } = useIntl();
 	const selectedLayoutColumns = useSelectedLayoutColumns(api);
 	const isSelected =
-		selectedLayoutColumns?.selectedColumns.every(
+		selectedLayoutColumns?.selectedLayoutColumns.every(
 			({ node }) => getLayoutColumnValign(node) === value,
 		) ?? false;
 	const Icon = VERTICAL_ALIGN_ICONS[value];

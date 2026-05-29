@@ -1,10 +1,8 @@
-import tokens from '../artifacts/token-names';
 import { CUSTOM_THEME_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from '../constants';
 import { type ThemeColorModes, type ThemeOptionsSchema } from '../theme-config';
 
 import { hash } from './hash';
 
-type Token = keyof typeof tokens;
 type ThemeAttributeId = 'light' | 'dark';
 
 export function findMissingCustomStyleElements(
@@ -29,18 +27,3 @@ export function findMissingCustomStyleElements(
 
 	return attrOfMissingCustomStyles;
 }
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function reduceTokenMap(
-	tokenMap: { [key in Token]?: number | string },
-	themeRamp: string[],
-): string {
-	return Object.entries(tokenMap).reduce<string>((acc: string, [key, value]) => {
-		const cssVar = tokens[key as Token];
-		return cssVar
-			? `${acc}\n  ${cssVar}: ${typeof value === 'string' ? value : themeRamp[value]};`
-			: acc;
-	}, '');
-}
-
-export { limitSizeOfCustomStyleElements } from './limit-size-of-custom-style-elements';

@@ -1,4 +1,4 @@
-import React, { createContext, type MutableRefObject, type RefObject, useContext } from 'react';
+import React, { createContext, type MutableRefObject, type RefObject } from 'react';
 
 import { type TAriaHasPopupValue } from '../internal/role-types';
 import { type TPopoverCloseReason } from '../popover/types';
@@ -93,39 +93,5 @@ export type TPopupContextValue = {
 	forceFallbackPositioning?: boolean;
 };
 
-const PopupContext: React.Context<TPopupContextValue | null> =
+export const PopupContext: React.Context<TPopupContextValue | null> =
 	createContext<TPopupContextValue | null>(null);
-
-/**
- * __Popup provider__
- *
- * Provides shared popup state (placement, popoverId, triggerRef,
- * isOpen, onClose) to compound child components such as `Popup.Trigger` and
- * `Popup.Content`.
- */
-export const PopupProvider: React.Provider<TPopupContextValue | null> = PopupContext.Provider;
-
-/**
- * Returns the nearest `Popup` context value.
- *
- * Throws if called outside of a `<Popup>` compound component.
- */
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function usePopupContext(): TPopupContextValue {
-	const ctx = useContext(PopupContext);
-	if (ctx === null) {
-		throw new Error('@atlaskit/top-layer: Popup compound components must be used within <Popup>.');
-	}
-	return ctx;
-}
-
-/**
- * Returns the popup context if available, or `null` when used outside `<Popup>`.
- *
- * Used by `PopupContent` to support standalone usage (e.g. tooltip)
- * where values are passed as props instead of coming from a compound component.
- */
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function useMaybePopupContext(): TPopupContextValue | null {
-	return useContext(PopupContext);
-}

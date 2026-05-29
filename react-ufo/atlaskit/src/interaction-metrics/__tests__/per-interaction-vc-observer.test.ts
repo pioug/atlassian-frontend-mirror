@@ -23,7 +23,6 @@ jest.mock('../../config', () => ({
 	getAwaitBM3TTIList: jest.fn(() => []),
 	getInteractionTimeout: jest.fn(() => 60000),
 	getPostInteractionRate: jest.fn(() => 1),
-	getExperimentalInteractionRate: jest.fn(() => 0),
 	// `addNewInteraction` calls `getSelectorConfig()` to obtain the
 	// FedRAMP-aware selectorConfig for the per-interaction VC observer. It
 	// must be present in this mock; returning `undefined` mirrors the

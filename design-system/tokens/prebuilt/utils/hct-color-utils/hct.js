@@ -15,9 +15,15 @@ Object.defineProperty(exports, "ViewingConditions", {
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
-var utils = _interopRequireWildcard(require("./color-utils"));
+var _argbFromLinrgb = require("./argb-from-linrgb");
+var _argbFromLstar = require("./argb-from-lstar");
+var _argbFromXyz = require("./argb-from-xyz");
+var _linearized = require("./linearized");
+var _lstarFromArgb = require("./lstar-from-argb");
+var _lstarFromY = require("./lstar-from-y");
 var math = _interopRequireWildcard(require("./math-utils"));
 var _viewingConditions = require("./viewing-conditions");
+var _yFromLstar = require("./y-from-lstar");
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function _interopRequireWildcard(e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != _typeof(e) && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (var _t in e) "default" !== _t && {}.hasOwnProperty.call(e, _t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, _t)) && (i.get || i.set) ? o(f, _t, i) : f[_t] = e[_t]); return f; })(e, t); }
 /**
  * Below lines are copied from @material/material-color-utilities.
@@ -66,7 +72,7 @@ var Hct = exports.Hct = /*#__PURE__*/function () {
     var cam = Cam16.fromInt(argb);
     this.internalHue = cam.hue;
     this.internalChroma = cam.chroma;
-    this.internalTone = utils.lstarFromArgb(argb);
+    this.internalTone = (0, _lstarFromArgb.lstarFromArgb)(argb);
   }
   return (0, _createClass2.default)(Hct, [{
     key: "toInt",
@@ -130,7 +136,7 @@ var Hct = exports.Hct = /*#__PURE__*/function () {
       var cam = Cam16.fromInt(argb);
       this.internalHue = cam.hue;
       this.internalChroma = cam.chroma;
-      this.internalTone = utils.lstarFromArgb(argb);
+      this.internalTone = (0, _lstarFromArgb.lstarFromArgb)(argb);
       this.argb = argb;
     }
 
@@ -161,7 +167,7 @@ var Hct = exports.Hct = /*#__PURE__*/function () {
       // 3. Create HCT from:
       // - CAM16 using default VC with XYZ coordinates in specified VC.
       // - L* converted from Y in XYZ coordinates in specified VC.
-      var recastHct = Hct.from(recastInVc.hue, recastInVc.chroma, utils.lstarFromY(viewedInVc[1]));
+      var recastHct = Hct.from(recastInVc.hue, recastInVc.chroma, (0, _lstarFromY.lstarFromY)(viewedInVc[1]));
       return recastHct;
     }
   }], [{
@@ -311,7 +317,7 @@ var Cam16 = /*#__PURE__*/function () {
       var x = 1.86206786 * rF - 1.01125463 * gF + 0.14918677 * bF;
       var y = 0.38752654 * rF + 0.62144744 * gF - 0.00897398 * bF;
       var z = -0.0158415 * rF - 0.03412294 * gF + 1.04996444 * bF;
-      var argb = utils.argbFromXyz(x, y, z);
+      var argb = (0, _argbFromXyz.argbFromXyz)(x, y, z);
       return argb;
     }
 
@@ -369,9 +375,9 @@ var Cam16 = /*#__PURE__*/function () {
       var red = (argb & 0x00ff0000) >> 16;
       var green = (argb & 0x0000ff00) >> 8;
       var blue = argb & 0x000000ff;
-      var redL = utils.linearized(red);
-      var greenL = utils.linearized(green);
-      var blueL = utils.linearized(blue);
+      var redL = (0, _linearized.linearized)(red);
+      var greenL = (0, _linearized.linearized)(green);
+      var blueL = (0, _linearized.linearized)(blue);
       var x = 0.41233895 * redL + 0.35762064 * greenL + 0.18051042 * blueL;
       var y = 0.2126 * redL + 0.7152 * greenL + 0.0722 * blueL;
       var z = 0.01932141 * redL + 0.11916382 * greenL + 0.95034478 * blueL;
@@ -892,7 +898,7 @@ var HctSolver = /*#__PURE__*/function () {
           if (linrgb[0] > 100.01 || linrgb[1] > 100.01 || linrgb[2] > 100.01) {
             return 0;
           }
-          return utils.argbFromLinrgb(linrgb);
+          return (0, _argbFromLinrgb.argbFromLinrgb)(linrgb);
         }
         // Iterates with Newton method,
         // Using 2 * fn(j) / j as the approximation of fn'(j)
@@ -917,17 +923,17 @@ var HctSolver = /*#__PURE__*/function () {
     key: "solveToInt",
     value: function solveToInt(hueDegrees, chroma, lstar) {
       if (chroma < 0.0001 || lstar < 0.0001 || lstar > 99.9999) {
-        return utils.argbFromLstar(lstar);
+        return (0, _argbFromLstar.argbFromLstar)(lstar);
       }
       hueDegrees = math.sanitizeDegreesDouble(hueDegrees);
       var hueRadians = hueDegrees / 180 * Math.PI;
-      var y = utils.yFromLstar(lstar);
+      var y = (0, _yFromLstar.yFromLstar)(lstar);
       var exactAnswer = HctSolver.findResultByJ(hueRadians, chroma, y);
       if (exactAnswer !== 0) {
         return exactAnswer;
       }
       var linrgb = HctSolver.bisectToLimit(y, hueRadians);
-      return utils.argbFromLinrgb(linrgb);
+      return (0, _argbFromLinrgb.argbFromLinrgb)(linrgb);
     }
 
     /**

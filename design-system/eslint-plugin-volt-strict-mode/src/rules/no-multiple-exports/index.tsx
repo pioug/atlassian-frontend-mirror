@@ -70,6 +70,10 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		return {
 			Program(node) {
 				const parts: ESTreeNode[] = [];
+				// Track function names already seen so TypeScript overload signatures
+				// (multiple `export function foo(…)` declarations with the same name)
+				// are counted as a single logical export.
+				const exportedFunctionNames = new Set<string>();
 
 				for (const stmt of node.body) {
 					if (stmt.type === AST_NODE_TYPES.ExportDefaultDeclaration) {
@@ -99,6 +103,25 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 							decl.type === AST_NODE_TYPES.TSTypeAliasDeclaration
 						) {
 							continue;
+						}
+
+						// TypeScript overload signatures: `export function foo(…)` with no body
+						// (`TSDeclareFunction`) and the final implementation (`FunctionDeclaration`
+						// with a body) all share the same function name. Treat the entire overload
+						// group as a single logical export.
+						if (
+							decl.type === AST_NODE_TYPES.TSDeclareFunction ||
+							decl.type === AST_NODE_TYPES.FunctionDeclaration
+						) {
+							const fnDecl = decl as TSESTree.TSDeclareFunction | TSESTree.FunctionDeclaration;
+							const fnName = fnDecl.id?.name;
+							if (fnName != null) {
+								if (exportedFunctionNames.has(fnName)) {
+									// Already counted this function name — it's an overload, skip it.
+									continue;
+								}
+								exportedFunctionNames.add(fnName);
+							}
 						}
 
 						if (decl.type === AST_NODE_TYPES.VariableDeclaration) {

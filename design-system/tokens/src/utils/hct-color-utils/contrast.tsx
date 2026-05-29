@@ -26,9 +26,9 @@
 //
 // tslint:disable:class-as-namespace
 
-import * as utils from './color-utils';
-import * as math from './math-utils';
-
+import { clampDouble } from './clamp-double';
+import { lstarFromY } from './lstar-from-y';
+import { yFromLstar } from './y-from-lstar';
 /**
  * Utility methods for calculating contrast given two colors, or calculating a
  * color given one color and a contrast ratio.
@@ -49,9 +49,9 @@ export class Contrast {
 	 * @param toneB Tone between 0 and 100. Values outside will be clamped.
 	 */
 	static ratioOfTones(toneA: number, toneB: number): number {
-		toneA = math.clampDouble(0.0, 100.0, toneA);
-		toneB = math.clampDouble(0.0, 100.0, toneB);
-		return Contrast.ratioOfYs(utils.yFromLstar(toneA), utils.yFromLstar(toneB));
+		toneA = clampDouble(0.0, 100.0, toneA);
+		toneB = clampDouble(0.0, 100.0, toneB);
+		return Contrast.ratioOfYs(yFromLstar(toneA), yFromLstar(toneB));
 	}
 
 	static ratioOfYs(y1: number, y2: number): number {
@@ -75,7 +75,7 @@ export class Contrast {
 			return -1.0;
 		}
 
-		const darkY = utils.yFromLstar(tone);
+		const darkY = yFromLstar(tone);
 		const lightY = ratio * (darkY + 5.0) - 5.0;
 		const realContrast = Contrast.ratioOfYs(lightY, darkY);
 		const delta = Math.abs(realContrast - ratio);
@@ -85,7 +85,7 @@ export class Contrast {
 
 		// Ensure gamut mapping, which requires a 'range' on tone, will still result
 		// the correct ratio by darkening slightly.
-		const returnValue = utils.lstarFromY(lightY) + 0.4;
+		const returnValue = lstarFromY(lightY) + 0.4;
 		if (returnValue < 0 || returnValue > 100) {
 			return -1;
 		}
@@ -107,7 +107,7 @@ export class Contrast {
 			return -1.0;
 		}
 
-		const lightY = utils.yFromLstar(tone);
+		const lightY = yFromLstar(tone);
 		const darkY = (lightY + 5.0) / ratio - 5.0;
 		const realContrast = Contrast.ratioOfYs(lightY, darkY);
 
@@ -118,7 +118,7 @@ export class Contrast {
 
 		// Ensure gamut mapping, which requires a 'range' on tone, will still result
 		// the correct ratio by darkening slightly.
-		const returnValue = utils.lstarFromY(darkY) - 0.4;
+		const returnValue = lstarFromY(darkY) - 0.4;
 		if (returnValue < 0 || returnValue > 100) {
 			return -1;
 		}

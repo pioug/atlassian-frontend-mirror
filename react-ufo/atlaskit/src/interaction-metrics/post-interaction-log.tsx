@@ -167,8 +167,6 @@ export default class PostInteractionLog {
 		abortedByInteractionName,
 		routeName,
 		type,
-		experimentalTTAI,
-		experimentalVC90,
 		errors,
 	}: LastInteractionFinishInfo): void {
 		this.lastInteractionFinish = {
@@ -180,8 +178,6 @@ export default class PostInteractionLog {
 			abortedByInteractionName,
 			routeName,
 			type,
-			experimentalTTAI,
-			experimentalVC90,
 			errors,
 		};
 

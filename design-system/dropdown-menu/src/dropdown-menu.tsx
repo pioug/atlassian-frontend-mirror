@@ -104,6 +104,7 @@ function DropdownMenuLegacy<T extends HTMLElement = any>({
 	strategy,
 	menuLabel,
 	shouldPreventEscapePropagation = false,
+	shouldIgnoreCloseEvent,
 }: DropdownMenuProps<T>): React.JSX.Element {
 	const [isLocalOpen, setLocalIsOpen] = useControlledState(isOpen, () => defaultOpen);
 	const triggerRef = useRef<HTMLElement | null>(null);
@@ -301,6 +302,7 @@ function DropdownMenuLegacy<T extends HTMLElement = any>({
 				fallbackPlacements={fallbackPlacements}
 				testId={testId && `${testId}--content`}
 				shouldUseCaptureOnOutsideClick
+				shouldIgnoreCloseEvent={shouldIgnoreCloseEvent}
 				{...conditionalProps}
 				shouldDisableFocusLock
 				trigger={({

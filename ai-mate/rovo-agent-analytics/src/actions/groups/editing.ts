@@ -11,13 +11,56 @@
  */
 import type { VersionedAgentAttributes } from '../../common/types';
 
+type FieldAttributes =
+	| {
+			field: 'deepResearch';
+			isDeepResearchEnabled: boolean;
+	  }
+	| {
+			field: 'webSearch';
+			isWebSearchEnabled: boolean;
+	  }
+	| {
+			field: 'agenticSkills';
+			skillCount: number;
+	  }
+	| {
+			field: 'tools' | 'actions';
+			toolsCount: number;
+	  }
+	| {
+			field: 'actionsAndMcpServers';
+			toolsCount: number;
+			mcpServersCount: number;
+			mcpToolsCount: number;
+	  }
+	| {
+			field: 'knowledgeSources';
+			knowledgeSourcesCount: number;
+	  }
+	| {
+			field: 'knowledgeScope';
+			isKnowledgeEnabled: boolean;
+	  }
+	| { field: 'name' }
+	| { field: 'description' }
+	| { field: 'instructions' }
+	| { field: 'behaviour' }
+	| { field: 'invocationDescription' }
+	| { field: 'authoringTeam' }
+	| { field: 'authoringTeamId' }
+	| { field: 'creatorId' }
+	| { field: 'isActive' }
+	| { field: 'isDefault' }
+	| { field: 'responseStrategy' }
+	| { field: 'executionConfig' };
+
 export type EditingEventPayload = {
 	// https://data-portal.internal.atlassian.com/analytics/registry/97122
 	actionSubject: 'rovoAgent';
 	action: 'updated';
 	attributes: VersionedAgentAttributes & {
 		agentType?: string;
-		field: string;
 		/**
 		 * Identifies the subagent (formerly "scenario") whose configuration was updated.
 		 * Pass the scenario/subagent id when the analytics event is fired at the
@@ -25,5 +68,5 @@ export type EditingEventPayload = {
 		 * level (i.e. not scoped to any specific subagent).
 		 */
 		subagentId: string | null;
-	};
+	} & FieldAttributes;
 };

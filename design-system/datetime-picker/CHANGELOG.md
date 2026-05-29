@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 17.9.0
+
+### Minor Changes
+
+- [`9dfda6b2ada6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9dfda6b2ada6a) -
+  Clean up flag to move datetime picker to functional component.
+
 ## 17.8.9
 
 ### Patch Changes

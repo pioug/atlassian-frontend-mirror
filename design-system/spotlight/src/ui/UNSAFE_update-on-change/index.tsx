@@ -12,7 +12,7 @@ export const UNSAFE_UpdateOnChange = ({
 	selectors,
 	options,
 }: UpdateOnChangeProps): JSX.Element | null =>
-	fg('platform-dst-top-layer') ? (
+	fg('platform-dst-top-layer-spotlight') ? (
 		<TopLayer selectors={selectors} options={options} />
 	) : (
 		<Legacy selectors={selectors} options={options} />

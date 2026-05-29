@@ -137,6 +137,7 @@ describe('UFOThirdPartySegment', () => {
 				<UFOThirdPartySegment
 					name="test-segment"
 					onRegisterIframeEventListener={onRegisterIframeEventListener}
+					extraData={{ appType: 'CustomUI' }}
 				>
 					<div>Test content</div>
 				</UFOThirdPartySegment>,
@@ -173,6 +174,7 @@ describe('UFOThirdPartySegment', () => {
 				<UFOThirdPartySegment
 					name="test-segment"
 					onRegisterIframeEventListener={onRegisterIframeEventListener}
+					extraData={{ appType: 'CustomUI' }}
 				>
 					<div>Test content</div>
 				</UFOThirdPartySegment>,
@@ -222,6 +224,7 @@ describe('UFOThirdPartySegment', () => {
 					<UFOThirdPartySegment
 						name="test-segment"
 						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
 					>
 						<div>Test content</div>
 					</UFOThirdPartySegment>,
@@ -291,6 +294,7 @@ describe('UFOThirdPartySegment', () => {
 					<UFOThirdPartySegment
 						name="test-segment"
 						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
 					>
 						<div>Test content</div>
 					</UFOThirdPartySegment>,
@@ -353,6 +357,7 @@ describe('UFOThirdPartySegment', () => {
 					<UFOThirdPartySegment
 						name="test-segment"
 						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
 					>
 						<div>Test content</div>
 					</UFOThirdPartySegment>,
@@ -400,6 +405,7 @@ describe('UFOThirdPartySegment', () => {
 					<UFOThirdPartySegment
 						name="test-segment"
 						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
 					>
 						<div>Test content</div>
 					</UFOThirdPartySegment>,
@@ -447,6 +453,7 @@ describe('UFOThirdPartySegment', () => {
 					<UFOThirdPartySegment
 						name="test-segment"
 						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
 					>
 						<div>Test content</div>
 					</UFOThirdPartySegment>,
@@ -536,6 +543,7 @@ describe('UFOThirdPartySegment', () => {
 					<UFOThirdPartySegment
 						name="test-segment"
 						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
 					>
 						<div>Test content</div>
 					</UFOThirdPartySegment>,
@@ -575,6 +583,7 @@ describe('UFOThirdPartySegment', () => {
 					<UFOThirdPartySegment
 						name="test-segment"
 						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
 					>
 						<div>Test content</div>
 					</UFOThirdPartySegment>,
@@ -613,6 +622,7 @@ describe('UFOThirdPartySegment', () => {
 					<UFOThirdPartySegment
 						name="test-segment"
 						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
 					>
 						<div>Test content</div>
 					</UFOThirdPartySegment>,
@@ -653,6 +663,7 @@ describe('UFOThirdPartySegment', () => {
 					<UFOThirdPartySegment
 						name="test-segment"
 						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
 					>
 						<div>Test content</div>
 					</UFOThirdPartySegment>,
@@ -710,6 +721,7 @@ describe('UFOThirdPartySegment', () => {
 					<UFOThirdPartySegment
 						name="test-segment"
 						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
 					>
 						<div>Test content</div>
 					</UFOThirdPartySegment>,
@@ -753,6 +765,7 @@ describe('UFOThirdPartySegment', () => {
 					<UFOThirdPartySegment
 						name="test-segment"
 						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
 					>
 						<div>Test content</div>
 					</UFOThirdPartySegment>,
@@ -826,6 +839,7 @@ describe('UFOThirdPartySegment', () => {
 					<UFOThirdPartySegment
 						name="test-segment"
 						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
 					>
 						<div>Test content</div>
 					</UFOThirdPartySegment>,
@@ -871,6 +885,7 @@ describe('UFOThirdPartySegment', () => {
 				<UFOThirdPartySegment
 					name="test-segment"
 					onRegisterIframeEventListener={onRegisterIframeEventListener}
+					extraData={{ appType: 'CustomUI' }}
 				>
 					<div>Test content</div>
 				</UFOThirdPartySegment>,

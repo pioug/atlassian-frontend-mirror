@@ -549,6 +549,14 @@ type SmartLinkSummarizeButtonClickedAEP = ButtonAEP<
 	}
 >;
 
+type AIRemixButtonClickedAEP = ButtonAEP<
+	ACTION_SUBJECT_ID.AI_REMIX_BUTTON,
+	{
+		entryPoint: string;
+		triggeredFrom: string;
+	}
+>;
+
 type ChangeToneMenuItemClickedAEP = UIAEP<
 	ACTION.CLICKED,
 	ACTION_SUBJECT.TOOLBAR_DROPDOWN_MENU_ITEM,
@@ -622,6 +630,7 @@ export type GeneralEventPayload<T = void> =
 	| AskRovoButtonClickedAEP
 	| SmartLinkRovoButtonClickedAEP
 	| SmartLinkSummarizeButtonClickedAEP
+	| AIRemixButtonClickedAEP
 	| ChangeToneMenuItemClickedAEP
 	| TranslateMenuItemClickedAEP
 	| MediaSingleWidthTransformedAEP;

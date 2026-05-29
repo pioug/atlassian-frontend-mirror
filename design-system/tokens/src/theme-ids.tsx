@@ -1,3 +1,5 @@
+export type ThemeIds = (typeof themeIds)[number];
+
 /**
  * Theme ids: The value that will be mounted to the DOM as a data attr
  * For example: `data-theme="light:light dark:dark spacing:spacing"

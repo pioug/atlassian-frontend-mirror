@@ -114,6 +114,7 @@ export default function Example(): JSX.Element {
 					<UFOThirdPartySegment
 						name="forge-iframe-widget"
 						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'custom', name: 'forge-iframe-widget' }}
 					>
 						<div data-testid="iframe-content">Iframe content placeholder</div>
 					</UFOThirdPartySegment>

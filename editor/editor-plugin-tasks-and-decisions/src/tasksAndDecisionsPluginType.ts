@@ -1,4 +1,5 @@
 import type {
+	_MarkdownModePluginStub,
 	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
@@ -15,28 +16,6 @@ import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 import type { insertTaskDecisionCommand } from './pm-plugins/insert-commands';
 import type { getIndentCommand, getUnindentCommand } from './pm-plugins/keymaps';
 import type { TaskAndDecisionsSharedState, TasksAndDecisionsPluginOptions } from './types';
-
-/**
- * Minimal duck-typed slice of `@atlassian/editor-plugin-markdown-mode`'s
- * `MarkdownModePlugin` covering only the task-list source-view surface this
- * plugin uses. See `editor-plugin-text-formatting/textFormattingPluginType.ts`
- * for the rationale for not importing the real type.
- */
-type _MarkdownModePluginStub = NextEditorPlugin<
-	'markdownMode',
-	{
-		actions: {
-			toggleSourceTaskList: () => boolean;
-		};
-		sharedState:
-			| {
-					sourceBlockFormatState: { inCodeBlock: boolean } | null;
-					sourceListFormatState: { inTaskList: boolean } | null;
-					view: 'syntax' | 'split-view' | 'preview';
-			  }
-			| undefined;
-	}
->;
 
 export type TasksAndDecisionsPluginDependencies = [
 	OptionalPlugin<TypeAheadPlugin>,

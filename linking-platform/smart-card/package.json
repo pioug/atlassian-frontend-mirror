@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "44.17.0",
+	"version": "44.18.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -349,6 +349,9 @@
 			"type": "boolean"
 		},
 		"platform_navx_block_card_footer_spacing": {
+			"type": "boolean"
+		},
+		"navx-4957-sl-embed-modal-a11y-label": {
 			"type": "boolean"
 		}
 	},

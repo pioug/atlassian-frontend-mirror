@@ -1,10 +1,7 @@
 import type { FlatSegment3pTimingEntry } from '../../../common';
 import {
-	SEGMENT_3P_HARD_BUDGET_KB,
 	SEGMENT_3P_SOFT_BUDGET_KB,
 	applySegment3pBudget,
-	flattenAndDeduplicateSegment3pTimings,
-	getSegment3pTimingsSizes,
 } from '../flatten-segment-3p-timings';
 
 // ---------------------------------------------------------------------------
@@ -42,92 +39,6 @@ function buildBigArray(
 }
 
 // ---------------------------------------------------------------------------
-// flattenAndDeduplicateSegment3pTimings
-// ---------------------------------------------------------------------------
-
-describe('flattenAndDeduplicateSegment3pTimings', () => {
-	it('returns undefined when input is undefined', () => {
-		expect(flattenAndDeduplicateSegment3pTimings(undefined)).toBeUndefined();
-	});
-
-	it('flattens entries from multiple segments', () => {
-		const result = flattenAndDeduplicateSegment3pTimings({
-			'seg-a': [{ label: 'paint-timing', data: { startTime: 100 } }],
-			'seg-b': [{ label: 'navigation-timing', data: { fetchStart: 0 } }],
-		});
-		expect(result).toHaveLength(2);
-		expect(result?.map((e) => e.label)).toEqual(
-			expect.arrayContaining(['paint-timing', 'navigation-timing']),
-		);
-	});
-
-	it('deduplicates identical entries within the same segment', () => {
-		const entry = { label: 'resource-timing', data: { duration: 50 } };
-		const result = flattenAndDeduplicateSegment3pTimings({
-			'seg-a': [entry, entry],
-		});
-		expect(result).toHaveLength(1);
-	});
-
-	it('deduplicates identical entries across different segments', () => {
-		const entry = { label: 'resource-timing', data: { duration: 50 } };
-		const result = flattenAndDeduplicateSegment3pTimings({
-			'seg-a': [entry],
-			'seg-b': [entry],
-		});
-		// Different segmentIds → different dedup key → both kept
-		expect(result).toHaveLength(2);
-	});
-
-	it('keeps distinct entries with the same label', () => {
-		const result = flattenAndDeduplicateSegment3pTimings({
-			'seg-a': [
-				{ label: 'resource-timing', data: { duration: 50 } },
-				{ label: 'resource-timing', data: { duration: 200 } },
-			],
-		});
-		expect(result).toHaveLength(2);
-	});
-});
-
-// ---------------------------------------------------------------------------
-// getSegment3pTimingsSizes
-// ---------------------------------------------------------------------------
-
-describe('getSegment3pTimingsSizes', () => {
-	it('returns near-zero sizes for an empty array', () => {
-		const { segment3pPerfTimingsSizeInKb, segment3pDomTimingsSizeInKb } =
-			getSegment3pTimingsSizes([]);
-		// JSON.stringify([]) = "[]" = 2 bytes → ~0.002 KB, so just assert it's negligibly small
-		expect(segment3pPerfTimingsSizeInKb).toBeLessThan(0.01);
-		expect(segment3pDomTimingsSizeInKb).toBeLessThan(0.01);
-	});
-
-	it('classifies resource-timing and navigation-timing as perf timings', () => {
-		const flat = [
-			makeEntry('resource-timing', { duration: 10 }),
-			makeEntry('navigation-timing', { fetchStart: 0 }),
-		];
-		const { segment3pPerfTimingsSizeInKb, segment3pDomTimingsSizeInKb } =
-			getSegment3pTimingsSizes(flat);
-		expect(segment3pPerfTimingsSizeInKb).toBeGreaterThan(0);
-		expect(segment3pDomTimingsSizeInKb).toBeLessThan(0.01);
-	});
-
-	it('classifies frame-mark, layout-shift, dom-mutations as dom timings', () => {
-		const flat = [
-			makeEntry('frame-mark', { startTime: 10 }),
-			makeEntry('layout-shift', { value: 0.1 }),
-			makeEntry('dom-mutations', { totalMutations: 5 }),
-		];
-		const { segment3pPerfTimingsSizeInKb, segment3pDomTimingsSizeInKb } =
-			getSegment3pTimingsSizes(flat);
-		expect(segment3pPerfTimingsSizeInKb).toBeLessThan(0.01);
-		expect(segment3pDomTimingsSizeInKb).toBeGreaterThan(0);
-	});
-});
-
-// ---------------------------------------------------------------------------
 // applySegment3pBudget — under budget
 // ---------------------------------------------------------------------------
 
@@ -157,12 +68,8 @@ describe('applySegment3pBudget — soft budget exceeded', () => {
 		const { result, wasTrimmed } = applySegment3pBudget(flat);
 
 		expect(wasTrimmed).toBe(true);
-		expect(Array.isArray(result)).toBe(true);
-		const trimmedArray = result as FlatSegment3pTimingEntry[];
-		// dom-mutations should have been dropped
-		expect(trimmedArray.some((e) => e.label === 'dom-mutations')).toBe(false);
-		// navigation-timing must always be preserved
-		expect(trimmedArray.some((e) => e.label === 'navigation-timing')).toBe(true);
+		expect(result.some((e) => e.label === 'dom-mutations')).toBe(false);
+		expect(result.some((e) => e.label === 'navigation-timing')).toBe(true);
 	});
 
 	it('drops frame-mark / frame-measure before resource-timing', () => {
@@ -174,10 +81,8 @@ describe('applySegment3pBudget — soft budget exceeded', () => {
 		const { result, wasTrimmed } = applySegment3pBudget(flat);
 
 		expect(wasTrimmed).toBe(true);
-		const trimmedArray = result as FlatSegment3pTimingEntry[];
-		expect(trimmedArray.some((e) => e.label === 'frame-mark')).toBe(false);
-		// resource-timing should survive since frame-mark removal brought us under budget
-		expect(trimmedArray.some((e) => e.label === 'resource-timing')).toBe(true);
+		expect(result.some((e) => e.label === 'frame-mark')).toBe(false);
+		expect(result.some((e) => e.label === 'resource-timing')).toBe(true);
 	});
 
 	it('trims sub-median resource-timing entries by duration before dropping all', () => {
@@ -189,13 +94,10 @@ describe('applySegment3pBudget — soft budget exceeded', () => {
 		const { result, wasTrimmed } = applySegment3pBudget(flat);
 		expect(wasTrimmed).toBe(true);
 
-		if (Array.isArray(result)) {
-			const resourceEntries = result.filter((e) => e.label === 'resource-timing');
-			// All kept entries should have duration >= median (i.e., the long ones were kept)
-			resourceEntries.forEach((e) => {
-				expect(e.data.duration).toBeGreaterThanOrEqual(1000);
-			});
-		}
+		const resourceEntries = result.filter((e) => e.label === 'resource-timing');
+		resourceEntries.forEach((e) => {
+			expect(e.data.duration).toBeGreaterThanOrEqual(1000);
+		});
 	});
 
 	it('never drops navigation-timing or layout-shift entries', () => {
@@ -207,61 +109,8 @@ describe('applySegment3pBudget — soft budget exceeded', () => {
 
 		const { result } = applySegment3pBudget(flat);
 
-		if (Array.isArray(result)) {
-			expect(result.some((e) => e.label === 'navigation-timing')).toBe(true);
-			expect(result.some((e) => e.label === 'layout-shift')).toBe(true);
-		}
-		// If sentinel, navigation-timing is already gone but that's fine — sentinel captures perSuffixCounts
+		expect(result.some((e) => e.label === 'navigation-timing')).toBe(true);
+		expect(result.some((e) => e.label === 'layout-shift')).toBe(true);
 	});
 });
 
-// ---------------------------------------------------------------------------
-// applySegment3pBudget — hard budget sentinel
-// ---------------------------------------------------------------------------
-
-describe('applySegment3pBudget — hard budget sentinel', () => {
-	it('returns a sentinel when payload exceeds hard budget even after trimming', () => {
-		// Build enough navigation-timing entries (un-droppable) to exceed the hard budget.
-		// navigation-timing is never dropped, so if it alone exceeds the hard budget we get a sentinel.
-		const bigNav = buildBigArray('navigation-timing', SEGMENT_3P_HARD_BUDGET_KB + 5);
-		const { result, wasTrimmed } = applySegment3pBudget(bigNav);
-
-		expect(wasTrimmed).toBe(true);
-		expect(Array.isArray(result)).toBe(false);
-
-		const sentinel = result as import('../flatten-segment-3p-timings').Segment3pTimingsTruncatedSentinel;
-		expect(sentinel.truncated).toBe(true);
-		expect(sentinel.droppedBy).toBe('budget');
-		expect(sentinel.originalSizeKb).toBeGreaterThan(SEGMENT_3P_HARD_BUDGET_KB);
-		expect(sentinel.perSuffixCounts).toHaveProperty('navigation-timing');
-	});
-
-	it('sentinel perSuffixCounts reflects counts from the original un-trimmed array', () => {
-		const bigNav = buildBigArray('navigation-timing', SEGMENT_3P_HARD_BUDGET_KB + 5);
-		const bigMarks = buildBigArray('frame-mark', 10); // small, will be trimmed
-		const flat = [...bigNav, ...bigMarks];
-
-		const { result } = applySegment3pBudget(flat);
-
-		const sentinel = result as import('../flatten-segment-3p-timings').Segment3pTimingsTruncatedSentinel;
-		// perSuffixCounts is built from the ORIGINAL flat array before any trimming
-		expect(sentinel.perSuffixCounts['navigation-timing']).toBe(bigNav.length);
-		expect(sentinel.perSuffixCounts['frame-mark']).toBe(bigMarks.length);
-	});
-
-	it('result size stays within hard budget after trimming droppable entries', () => {
-		// Over soft but under hard when dom-mutations are trimmed
-		const bigDomMutations = buildBigArray(
-			'dom-mutations',
-			SEGMENT_3P_SOFT_BUDGET_KB + 10,
-		);
-		const smallNav = [makeEntry('navigation-timing', { fetchStart: 0 })];
-		const flat = [...bigDomMutations, ...smallNav];
-
-		const { result } = applySegment3pBudget(flat);
-		// Should be a trimmed array, not a sentinel
-		expect(Array.isArray(result)).toBe(true);
-		const size = JSON.stringify(result).length / 1024;
-		expect(size).toBeLessThanOrEqual(SEGMENT_3P_HARD_BUDGET_KB);
-	});
-});

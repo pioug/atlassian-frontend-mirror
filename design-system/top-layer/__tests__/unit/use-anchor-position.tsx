@@ -1,7 +1,5 @@
-import {
-	placementToPositionArea,
-	placementToTryFallbacks,
-} from '../../src/internal/use-anchor-position';
+import { placementToPositionArea } from '../../src/internal/placement-to-position-area';
+import { placementToTryFallbacks } from '../../src/internal/placement-to-try-fallbacks';
 import type { TPlacementOptions } from '../../src/popup/types';
 
 describe('placementToPositionArea()', () => {

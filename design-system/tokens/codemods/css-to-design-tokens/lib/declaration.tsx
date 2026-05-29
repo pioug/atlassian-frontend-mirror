@@ -25,19 +25,9 @@ export function isColorRelatedProperty(prop: string): boolean {
 	return COLOR_PROPERTIES.some((property) => property === prop);
 }
 
-export function isCssDeclaration(prop: string): boolean {
-	return prop.startsWith('--');
-}
-
 export function extractCssVarName(prop: string): string {
 	return prop.substring(prop.indexOf('(') + 1).split(/\,|\)/)[0];
 }
-
-export function extractLessVarName(prop: string): string {
-	return prop.substring(1);
-}
-
-export function splitCssValue(value: string): RegExpMatchArray | null {
-	const regex = /(?:[^\s()]+|\((?:[^()]+|\([^()]*\))*\))+/g;
-	return value.match(regex);
-}
+export { isCssDeclaration } from './is-css-declaration';
+export { extractLessVarName } from './extract-less-var-name';
+export { splitCssValue } from './split-css-value';

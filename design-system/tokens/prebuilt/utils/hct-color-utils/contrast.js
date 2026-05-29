@@ -1,16 +1,15 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-var _typeof = require("@babel/runtime/helpers/typeof");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Contrast = void 0;
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
-var utils = _interopRequireWildcard(require("./color-utils"));
-var math = _interopRequireWildcard(require("./math-utils"));
-function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function _interopRequireWildcard(e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != _typeof(e) && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (var _t in e) "default" !== _t && {}.hasOwnProperty.call(e, _t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, _t)) && (i.get || i.set) ? o(f, _t, i) : f[_t] = e[_t]); return f; })(e, t); }
+var _clampDouble = require("./clamp-double");
+var _lstarFromY = require("./lstar-from-y");
+var _yFromLstar = require("./y-from-lstar");
 /**
  * Below lines are copied from @material/material-color-utilities.
  * Do not modify it.
@@ -62,9 +61,9 @@ var Contrast = exports.Contrast = /*#__PURE__*/function () {
      * @param toneB Tone between 0 and 100. Values outside will be clamped.
      */
     function ratioOfTones(toneA, toneB) {
-      toneA = math.clampDouble(0.0, 100.0, toneA);
-      toneB = math.clampDouble(0.0, 100.0, toneB);
-      return Contrast.ratioOfYs(utils.yFromLstar(toneA), utils.yFromLstar(toneB));
+      toneA = (0, _clampDouble.clampDouble)(0.0, 100.0, toneA);
+      toneB = (0, _clampDouble.clampDouble)(0.0, 100.0, toneB);
+      return Contrast.ratioOfYs((0, _yFromLstar.yFromLstar)(toneA), (0, _yFromLstar.yFromLstar)(toneB));
     }
   }, {
     key: "ratioOfYs",
@@ -90,7 +89,7 @@ var Contrast = exports.Contrast = /*#__PURE__*/function () {
       if (tone < 0.0 || tone > 100.0) {
         return -1.0;
       }
-      var darkY = utils.yFromLstar(tone);
+      var darkY = (0, _yFromLstar.yFromLstar)(tone);
       var lightY = ratio * (darkY + 5.0) - 5.0;
       var realContrast = Contrast.ratioOfYs(lightY, darkY);
       var delta = Math.abs(realContrast - ratio);
@@ -100,7 +99,7 @@ var Contrast = exports.Contrast = /*#__PURE__*/function () {
 
       // Ensure gamut mapping, which requires a 'range' on tone, will still result
       // the correct ratio by darkening slightly.
-      var returnValue = utils.lstarFromY(lightY) + 0.4;
+      var returnValue = (0, _lstarFromY.lstarFromY)(lightY) + 0.4;
       if (returnValue < 0 || returnValue > 100) {
         return -1;
       }
@@ -123,7 +122,7 @@ var Contrast = exports.Contrast = /*#__PURE__*/function () {
       if (tone < 0.0 || tone > 100.0) {
         return -1.0;
       }
-      var lightY = utils.yFromLstar(tone);
+      var lightY = (0, _yFromLstar.yFromLstar)(tone);
       var darkY = (lightY + 5.0) / ratio - 5.0;
       var realContrast = Contrast.ratioOfYs(lightY, darkY);
       var delta = Math.abs(realContrast - ratio);
@@ -133,7 +132,7 @@ var Contrast = exports.Contrast = /*#__PURE__*/function () {
 
       // Ensure gamut mapping, which requires a 'range' on tone, will still result
       // the correct ratio by darkening slightly.
-      var returnValue = utils.lstarFromY(darkY) - 0.4;
+      var returnValue = (0, _lstarFromY.lstarFromY)(darkY) - 0.4;
       if (returnValue < 0 || returnValue > 100) {
         return -1;
       }

@@ -1,20 +1,6 @@
-import type { Transform, TransformedToken } from 'style-dictionary';
+import type { Transform } from 'style-dictionary';
 
-export const rawObjectToAnimation = ({
-	duration,
-	curve,
-	keyframes,
-	delay,
-	properties,
-}: TransformedToken): string => {
-	if (keyframes) {
-		return keyframes
-			.map((keyframe: string) => `${duration}ms ${curve} ${keyframe}${delay ? ` ${delay}ms` : ''}`)
-			.join(', ');
-	} else {
-		return `${properties.join(' ')} ${duration}ms ${curve}${delay ? ` ${delay}ms` : ''}`;
-	}
-};
+import { rawObjectToAnimation } from './raw-object-to-animation';
 
 /**
  * transform an object to a keyframe
@@ -30,3 +16,4 @@ const rawObjectToAnimationTransform: Transform = {
 };
 
 export default rawObjectToAnimationTransform;
+export { rawObjectToAnimation } from './raw-object-to-animation';

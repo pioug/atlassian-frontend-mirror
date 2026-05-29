@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 13.3.8
+
+### Patch Changes
+
+- [`d3af55fada546`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3af55fada546) -
+  [ux] Adds shouldIgnoreCloseEvent to prevent sub-menus of Block menu from closing when
+  changeboarding spotlights get dismissed.
+- Updated dependencies
+
 ## 13.3.7
 
 ### Patch Changes

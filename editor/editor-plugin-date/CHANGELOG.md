@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-date
 
+## 12.2.7
+
+### Patch Changes
+
+- [`832b5c12a55e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/832b5c12a55e7) -
+  Improve date picker keyboard behaviour in modal-mounted editor popups behind
+  create_work_item_modernization_exp or platform_editor_datepicker_focus_fix.
+- Updated dependencies
+
 ## 12.2.6
 
 ### Patch Changes

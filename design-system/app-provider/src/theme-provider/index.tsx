@@ -14,7 +14,8 @@ import {
 	type ThemeColorModes,
 } from '@atlaskit/tokens';
 
-import { useIsAppProviderThemingEnabled, useIsInsideAppProvider } from '../context';
+import { useIsAppProviderThemingEnabled } from '../use-is-app-provider-theming-enabled';
+import { useIsInsideAppProvider } from '../use-is-inside-app-provider';
 
 import { ColorModeContext, type ReconciledColorMode } from './context/color-mode';
 import { InsideThemeProviderContext } from './context/inside-theme-provider';

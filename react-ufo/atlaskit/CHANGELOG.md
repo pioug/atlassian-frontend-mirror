@@ -1,5 +1,47 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 6.4.4
+
+### Patch Changes
+
+- [`3a8d099474259`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a8d099474259) -
+  Cleanup feature gate `platform_ufo_trim_labelstack_slashes` so label stack leading slashes are
+  always trimmed.
+
+## 6.4.3
+
+### Patch Changes
+
+- [`f58693dfa6f50`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f58693dfa6f50) -
+  Cleanup feature gate `platform_ufo_remove_experimental_holds`. Experimental holds and experimental
+  interaction metrics are now permanently disabled.
+
+## 6.4.2
+
+### Patch Changes
+
+- [`1eff073587627`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1eff073587627) -
+  Clean up "platform_ufo_enable_terminal_errors" FG
+
+## 6.4.1
+
+### Patch Changes
+
+- [`f9cc858ef97da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9cc858ef97da) -
+  Drop segment3pData when exceeding payload limit
+
+## 6.4.0
+
+### Minor Changes
+
+- [`79d3fbb4ef569`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79d3fbb4ef569) -
+  Encode UFO label stack lookup table as a trie to reduce repeated prefixes
+
+### Patch Changes
+
+- [`573ea344b7579`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/573ea344b7579) -
+  Include abort event targets in UFO VC raw event data
+
 ## 6.3.1
 
 ### Patch Changes
@@ -153,8 +195,7 @@
 ### Minor Changes
 
 - [`d6c4c4f7f3336`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6c4c4f7f3336) -
-  Gate-remove experimental holds and experimental interaction metrics payload behind
-  platform_ufo_remove_experimental_holds feature gate
+  Gate-remove experimental holds and experimental interaction metrics payload.
 
 ## 5.16.3
 

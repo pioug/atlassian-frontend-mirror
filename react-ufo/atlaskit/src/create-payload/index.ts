@@ -6,16 +6,9 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { getLighthouseMetrics } from '../additional-payload';
 import { CHRReporter } from '../assets';
 import * as bundleEvalTiming from '../bundle-eval-timing';
-import coinflip from '../coinflip';
 import type { BM3Event, InteractionMetrics, InteractionType, RevisionPayload } from '../common';
 import { type ResourceTiming } from '../common/react-ufo-payload-schema';
-import {
-	getConfig,
-	getExperimentalInteractionRate,
-	getUfoNameOverrides,
-	shouldUseRawDataThirdPartyBehavior,
-} from '../config';
-import { getExperimentalVCMetrics } from '../create-experimental-interaction-metrics-payload';
+import { getConfig, getUfoNameOverrides, shouldUseRawDataThirdPartyBehavior } from '../config';
 import { getBm3Timings } from '../custom-timings';
 import { getGlobalErrorCount } from '../global-error-handler';
 import {
@@ -51,9 +44,9 @@ import { createCriticalMetricsPayloads } from './critical-metrics-payload';
 import type { CriticalMetricsPayload } from './critical-metrics-payload/types';
 import { addPerformanceMeasures } from './utils/add-performance-measures';
 import {
-	applySegment3pBudget,
-	flattenAndDeduplicateSegment3pTimings,
-	getSegment3pTimingsSizes,
+	applySegment3pDataBudget,
+	buildSegment3pData,
+	getSegment3pDataSizes,
 } from './utils/flatten-segment-3p-timings';
 import { getBatteryInfoToLegacyFormat } from './utils/get-battery-info';
 import { getBrowserMetadataToLegacyFormat } from './utils/get-browser-metadata';
@@ -66,7 +59,6 @@ import getPayloadSize from './utils/get-payload-size';
 import { getReactUFOPayloadVersion } from './utils/get-react-ufo-payload-version';
 import getSSRDoneTimeValue from './utils/get-ssr-done-time-value';
 import getSSRSuccessUtil from './utils/get-ssr-success';
-import getTTAI from './utils/get-ttai';
 import getVCMetrics from './utils/get-vc-metrics';
 import { getVisibilityStateFromPerformance } from './utils/get-visibility-state-from-performance';
 import { optimizeApdex } from './utils/optimize-apdex';
@@ -458,9 +450,6 @@ function getStylesheetMetrics() {
 	}
 }
 
-let regularTTAI: number | undefined;
-let expTTAI: number | undefined;
-
 /**
  * Extracts `segment-timing-abort` entries from segment3pTimings and returns them as a
  * flat array always included in the payload — independent of `platform_ufo_ecosystem_data_in_payload`.
@@ -500,12 +489,10 @@ type PageLoadInitialSSRMetrics = {
 async function createInteractionMetricsPayload(
 	interaction: InteractionMetrics,
 	interactionId: string,
-	experimental?: boolean,
 	criticalPayloadCount?: number,
 	vcMetrics?: Awaited<ReturnType<typeof getVCMetrics>>,
 ): Promise<InteractionMetricsPayloadResult> {
 	const interactionPayloadStart = performance.now();
-	const isExperimental = !fg('platform_ufo_remove_experimental_holds') && experimental;
 	const config = getConfig();
 	if (!config) {
 		throw Error('UFO Configuration not provided');
@@ -583,11 +570,7 @@ async function createInteractionMetricsPayload(
 		const isUFOConfigSSRDoneAsFmp =
 			interaction.metaData.__legacy__bm3ConfigSSRDoneAsFmp || !!config?.ssr?.getSSRDoneTime;
 
-		if (
-			!isExperimental &&
-			(isBM3ConfigSSRDoneAsFmp || isUFOConfigSSRDoneAsFmp) &&
-			SSRDoneTimeValue !== undefined
-		) {
+		if ((isBM3ConfigSSRDoneAsFmp || isUFOConfigSSRDoneAsFmp) && SSRDoneTimeValue !== undefined) {
 			try {
 				performance.mark(`FMP`, {
 					startTime: SSRDoneTimeValue,
@@ -610,7 +593,7 @@ async function createInteractionMetricsPayload(
 
 	// Detailed payload. Page visibility = visible
 	const getDetailedInteractionMetrics = (resourceTimings: ResourceTimings) => {
-		if (isExperimental || window.__UFO_COMPACT_PAYLOAD__ || !isDetailedPayload) {
+		if (window.__UFO_COMPACT_PAYLOAD__ || !isDetailedPayload) {
 			return {};
 		}
 
@@ -655,44 +638,40 @@ async function createInteractionMetricsPayload(
 			})),
 			holdActive: [...interaction.holdActive.values()],
 			redirects: optimizeRedirects(interaction.redirects, start),
-			holdInfo: optimizeHoldInfo(
-				isExperimental ? interaction.holdExpInfo : interaction.holdInfo,
-				start,
-				reactUFOVersion,
-				registry,
-			),
+			holdInfo: optimizeHoldInfo(interaction.holdInfo, start, reactUFOVersion, registry),
 			spans: optimizeSpans(spans, start, reactUFOVersion, registry),
 			requestInfo: optimizeRequestInfo(interaction.requestInfo, start, reactUFOVersion, registry),
 			customTimings: optimizeCustomTimings(interaction.customTimings, start),
 			bundleEvalTimings: objectToArray(getBundleEvalTimings(start)),
 			resourceTimings: objectToArray(resourceTimings) as ResourceTiming[],
 			// Feature-gated: when off, record only the serialized size in Kb to measure payload impact before enabling.
-			...(interaction.segment3pTimings
+			...(interaction.segment3pTimings && interaction.segmentExtraData
 				? fg('platform_ufo_ecosystem_data_in_payload')
 					? (() => {
-							const flat =
-								flattenAndDeduplicateSegment3pTimings(interaction.segment3pTimings) ?? [];
+							const grouped = buildSegment3pData(
+								interaction.segment3pTimings,
+								interaction.segmentExtraData,
+							);
+							if (!grouped) {
+								return {};
+							}
 							// B1+B2: apply soft/hard budget cap with suffix-level drop order
-							const { result, wasTrimmed } = applySegment3pBudget(flat);
-							return {
-								segment3pTimings: result,
-								...(wasTrimmed ? { 'segment3pTimings:wasTrimmed': true } : {}),
-							};
+							return { segment3pData: applySegment3pDataBudget(grouped) };
 						})()
-					: getSegment3pTimingsSizes(
-							flattenAndDeduplicateSegment3pTimings(interaction.segment3pTimings) ?? [],
-						)
+					: (() => {
+							const grouped = buildSegment3pData(
+								interaction.segment3pTimings,
+								interaction.segmentExtraData,
+							);
+							if (!grouped) {
+								return {};
+							}
+							return getSegment3pDataSizes(grouped);
+						})()
 				: {}),
 			// Always include abort markers regardless of the ecosystem data flag so they can be
-			// queried in analytics even when the full segment3pTimings payload is disabled.
+			// queried in analytics even when the full segment3pData payload is disabled.
 			...getSegment3pTimingAbortMarkers(interaction.segment3pTimings),
-			...(interaction.segmentExtraData
-				? fg('platform_ufo_ecosystem_data_in_payload')
-					? { segmentExtraData: interaction.segmentExtraData }
-					: {
-							segmentExtraDataSizeInKb: getPayloadSize(interaction.segmentExtraData),
-						}
-				: {}),
 		};
 
 		// Include third-party holds when feature flag is active
@@ -731,27 +710,18 @@ async function createInteractionMetricsPayload(
 		};
 	};
 
-	if (!fg('platform_ufo_remove_experimental_holds') && experimental) {
-		expTTAI = getTTAI(interaction);
-	} else {
-		regularTTAI = getTTAI(interaction);
-	}
-
 	const newUFOName = sanitizeUfoName(ufoName);
 	const resourceTimings = getResourceTimings(start, end);
 
-	const [finalVCMetrics, experimentalMetrics, paintMetrics, batteryInfo] = await Promise.all([
+	const [finalVCMetrics, paintMetrics, batteryInfo] = await Promise.all([
 		vcMetrics || (await getVCMetrics(interaction)),
-		isExperimental ? getExperimentalVCMetrics(interaction) : Promise.resolve(undefined),
 		getPaintMetricsToLegacyFormat(type, end),
 		getBatteryInfoToLegacyFormat(),
 	]);
 
-	if (!isExperimental) {
-		addPerformanceMeasures(interaction.start, [
-			...((finalVCMetrics?.['ufo:vc:rev'] as RevisionPayload | undefined) || []),
-		]);
-	}
+	addPerformanceMeasures(interaction.start, [
+		...((finalVCMetrics?.['ufo:vc:rev'] as RevisionPayload | undefined) || []),
+	]);
 
 	const getReactHydrationStats = () => {
 		if (!hydration) {
@@ -779,9 +749,7 @@ async function createInteractionMetricsPayload(
 					version: reactUFOVersion,
 				},
 				'event:region': config.region || 'unknown',
-				'experience:key': isExperimental
-					? 'custom.experimental-interaction-metrics'
-					: 'custom.interaction-metrics',
+				'experience:key': 'custom.interaction-metrics',
 				'experience:name': newUFOName,
 
 				// Include CPU usage monitoring data
@@ -824,7 +792,6 @@ async function createInteractionMetricsPayload(
 				...paintMetrics,
 				...getNavigationMetricsToLegacyFormat(type),
 				...finalVCMetrics,
-				...experimentalMetrics,
 				...config.additionalPayloadData?.(interaction),
 				...getTracingContextData(interaction),
 				...getStylesheetMetrics(),
@@ -874,8 +841,7 @@ async function createInteractionMetricsPayload(
 					...getDetailedInteractionMetrics(resourceTimings),
 					...getPageLoadDetailedInteractionMetrics(),
 					...getBm3TrackerTimings(interaction),
-					'metric:ttai': isExperimental ? regularTTAI || expTTAI : undefined,
-					'metric:experimental:ttai': expTTAI,
+					'metric:ttai': undefined,
 					...(unknownElementName ? { unknownElementName } : {}),
 					...(unknownElementHierarchy ? { unknownElementHierarchy } : {}),
 					...(registry && registry.size > 0 ? { _ls: registry.getLookupTable() } : {}),
@@ -884,11 +850,6 @@ async function createInteractionMetricsPayload(
 			},
 		},
 	};
-
-	if (isExperimental) {
-		regularTTAI = undefined;
-		expTTAI = undefined;
-	}
 
 	const size = getPayloadSize(payload.attributes.properties);
 	const vcRev = (payload.attributes.properties as Record<string, any>)['ufo:vc:rev'];
@@ -910,8 +871,8 @@ async function createInteractionMetricsPayload(
 	// in order of importance, first one being least important
 	// we can add more fields as necessary
 	const interactionMetricsFieldsToTrim = fg('ufo_remove_featureflags_from_trimmed_fields')
-		? ['requestInfo', 'resourceTimings']
-		: ['requestInfo', 'featureFlags', 'resourceTimings'];
+		? ['requestInfo', 'resourceTimings', 'segment3pData', 'segment3pTimingAborts']
+		: ['requestInfo', 'featureFlags', 'resourceTimings', 'segment3pData', 'segment3pTimingAborts'];
 
 	// Top-level properties that can be trimmed if payload exceeds size limit
 	const topLevelFieldsToTrim = ['ufo:pageVisibilityTimeline'];
@@ -1054,7 +1015,6 @@ export async function createPayloads(
 	const interactionMetricsPayload = await createInteractionMetricsPayload(
 		modifiedInteraction,
 		interactionId,
-		undefined,
 		criticalPayloadCount,
 		vcMetrics,
 	);
@@ -1062,42 +1022,6 @@ export async function createPayloads(
 
 	return payloads.filter(Boolean) as (CriticalMetricsPayload | InteractionMetricsPayloadResult)[];
 }
-
-export async function createExperimentalMetricsPayload(
-	interactionId: string,
-	interaction: InteractionMetrics,
-): Promise<InteractionMetricsPayloadResult | null> {
-	const config = getConfig();
-
-	if (!config) {
-		throw Error('UFO Configuration not provided');
-	}
-
-	const ufoName = sanitizeUfoName(interaction.ufoName);
-	const rate = getExperimentalInteractionRate(ufoName, interaction.type);
-
-	if (!coinflip(rate)) {
-		return null;
-	}
-
-	if (fg('platform_ufo_disable_ufo_names_config')) {
-		const config = getConfig();
-		if (config?.disabledUfoNames && config?.disabledUfoNames.includes(ufoName)) {
-			return null;
-		}
-	}
-
-	const pageVisibilityState = getPageVisibilityState(interaction.start, interaction.end);
-
-	if (pageVisibilityState !== 'visible') {
-		return null;
-	}
-
-	const result = await createInteractionMetricsPayload(interaction, interactionId, true);
-
-	return result as InteractionMetricsPayloadResult;
-}
-
 export async function createExtraSearchPageInteractionPayload(
 	interactionId: string,
 	interaction: InteractionMetrics,
@@ -1163,7 +1087,6 @@ export async function createExtraSearchPageInteractionPayload(
 	const interactionMetricsPayload = await createInteractionMetricsPayload(
 		modifiedInteraction,
 		newInteractionId,
-		undefined,
 		undefined,
 		vcMetrics,
 	);

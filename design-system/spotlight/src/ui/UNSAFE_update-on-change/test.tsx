@@ -210,7 +210,7 @@ describe('UNSAFE_UpdateOnChange', () => {
 		expect(mockObserver.disconnect).toHaveBeenCalled();
 	});
 
-	ffTest.on('platform-dst-top-layer', 'with top-layer positioning enabled', () => {
+	ffTest.on('platform-dst-top-layer-spotlight', 'with top-layer positioning enabled', () => {
 		it('does not observe mutations or call update', () => {
 			renderWithContext({ selectors: ['body'] });
 

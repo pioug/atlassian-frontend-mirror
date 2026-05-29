@@ -1,10 +1,9 @@
 import React from 'react';
-import type { ReactNode } from 'react';
 
 import type { IntlShape, MessageDescriptor } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import commonMessages, {
 	layoutMessages,
 	layoutMessages as toolbarMessages,
@@ -12,6 +11,7 @@ import commonMessages, {
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
 	Command,
+	CommandDispatch,
 	DropdownOptions,
 	ExtractInjectionAPI,
 	FloatingToolbarButton,
@@ -33,10 +33,18 @@ import LayoutThreeColumnsSidebarsIcon from '@atlaskit/icon/core/layout-three-col
 import LayoutTwoColumnsIcon from '@atlaskit/icon/core/layout-two-columns';
 import LayoutTwoColumnsSidebarLeftIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-left';
 import LayoutTwoColumnsSidebarRightIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-right';
+import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPlugin } from '../index';
-import { deleteActiveLayoutNode, getPresetLayout, setPresetLayout } from '../pm-plugins/actions';
+import {
+	deleteActiveLayoutNode,
+	distributeLayoutColumns,
+	getPresetLayout,
+	setPresetLayout,
+} from '../pm-plugins/actions';
+import { isDistributedUniformly } from '../pm-plugins/utils/layout-column-distribution';
 import type { PresetLayout } from '../types';
 
 import {
@@ -101,7 +109,7 @@ const SIDEBAR_LAYOUT_TYPES: PresetLayoutButtonItem[] = [
 ];
 
 // These are used for advanced layout options
-const LAYOUT_WITH_TWO_COL_DISTRIBUTION = [
+const LAYOUT_WITH_TWO_COL_DISTRIBUTION_OLD = [
 	{
 		id: 'editor.layout.twoEquals',
 		type: 'two_equal',
@@ -122,13 +130,51 @@ const LAYOUT_WITH_TWO_COL_DISTRIBUTION = [
 	},
 ] as const;
 
-const LAYOUT_WITH_THREE_COL_DISTRIBUTION = [
+const LAYOUT_WITH_THREE_COL_DISTRIBUTION_OLD = [
 	{
 		id: 'editor.layout.threeEquals',
 		type: 'three_equal',
 		title: toolbarMessages.threeColumns,
 		icon: LayoutThreeColumnsIcon,
 	},
+	{
+		id: 'editor.layout.threeWithSidebars',
+		type: 'three_with_sidebars',
+		title: toolbarMessages.threeColumnsWithSidebars,
+		icon: LayoutThreeColumnsSidebarsIcon,
+	},
+	{
+		id: 'editor.layout.threeRightSidebars',
+		type: 'three_right_sidebars',
+		title: toolbarMessages.threeColumnsWithRightSidebars,
+		icon: LayoutThreeWithRightSidebarsIcon,
+		iconFallback: LayoutThreeWithRightSidebarsIcon,
+	},
+	{
+		id: 'editor.layout.threeLeftSidebars',
+		type: 'three_left_sidebars',
+		title: toolbarMessages.threeColumnsWithLeftSidebars,
+		icon: LayoutThreeWithLeftSidebarsIcon,
+		iconFallback: LayoutThreeWithLeftSidebarsIcon,
+	},
+] as const;
+
+const LAYOUT_WITH_TWO_COL_DISTRIBUTION = [
+	{
+		id: 'editor.layout.twoRightSidebar',
+		type: 'two_right_sidebar',
+		title: toolbarMessages.rightSidebar,
+		icon: LayoutTwoColumnsSidebarRightIcon,
+	},
+	{
+		id: 'editor.layout.twoLeftSidebar',
+		type: 'two_left_sidebar',
+		title: toolbarMessages.leftSidebar,
+		icon: LayoutTwoColumnsSidebarLeftIcon,
+	},
+] as const;
+
+const LAYOUT_WITH_THREE_COL_DISTRIBUTION = [
 	{
 		id: 'editor.layout.threeWithSidebars',
 		type: 'three_with_sidebars',
@@ -170,7 +216,7 @@ const buildLayoutButton = (
 
 export const layoutToolbarTitle = 'Layout floating controls';
 
-const iconPlaceholder = LayoutTwoColumnsIcon as unknown as ReactNode; // TODO: ED-25466 - Replace with proper icon
+const iconPlaceholder = <LayoutTwoColumnsIcon label="" />; // TODO: ED-25466 - Replace with proper icon
 
 const getLayoutColumnsIcons = (colCount: number) => {
 	if (
@@ -196,11 +242,14 @@ const getLayoutColumnsIcons = (colCount: number) => {
 	}
 };
 
+const getLayoutColumnWidths = (node: PMNode): number[] => {
+	return node.children.map((child) => child.attrs.width);
+};
+
 const getAdvancedLayoutItems = ({
 	addSidebarLayouts,
 	intl,
 	editorAnalyticsAPI,
-	state,
 	node,
 	nodeType,
 	separator,
@@ -217,15 +266,24 @@ const getAdvancedLayoutItems = ({
 	node: PMNode;
 	nodeType: NodeType;
 	separator: FloatingToolbarSeparator;
-	state: EditorState;
 }) => {
 	const numberOfColumns = node.content.childCount || 2;
+	const isLayoutColumnMenuEnabled = expValEqualsNoExposure(
+		'platform_editor_layout_column_menu',
+		'isEnabled',
+		true,
+	);
 
-	const distributionOptions =
-		numberOfColumns === 2
+	const distributionOptions = isLayoutColumnMenuEnabled
+		? numberOfColumns === 2
 			? LAYOUT_WITH_TWO_COL_DISTRIBUTION
 			: numberOfColumns === 3
 				? LAYOUT_WITH_THREE_COL_DISTRIBUTION
+				: []
+		: numberOfColumns === 2
+			? LAYOUT_WITH_TWO_COL_DISTRIBUTION_OLD
+			: numberOfColumns === 3
+				? LAYOUT_WITH_THREE_COL_DISTRIBUTION_OLD
 				: [];
 
 	const columnOptions: DropdownOptions<Command> = [
@@ -255,29 +313,61 @@ const getAdvancedLayoutItems = ({
 		},
 	];
 
-	const singleColumnOption = allowAdvancedSingleColumnLayout
-		? {
-				title: intl.formatMessage(layoutMessages.columnOption, { count: 1 }), //'1-columns',
-				icon: getLayoutColumnsIcons(1) || iconPlaceholder,
-				onClick: setPresetLayout(editorAnalyticsAPI)('single'),
-				selected: numberOfColumns === 1,
-			}
-		: [];
+	const dropdownOptions: DropdownOptions<Command> = [
+		...(allowAdvancedSingleColumnLayout
+			? [
+					{
+						title: intl.formatMessage(layoutMessages.columnOption, { count: 1 }), //'1-columns',
+						icon: getLayoutColumnsIcons(1) || iconPlaceholder,
+						onClick: setPresetLayout(editorAnalyticsAPI)('single'),
+						selected: numberOfColumns === 1,
+					},
+				]
+			: []),
+		...columnOptions,
+	];
+
+	const distributeColumnsButton: FloatingToolbarButton<Command> | undefined =
+		isLayoutColumnMenuEnabled && numberOfColumns > 1
+			? {
+					disabled: isDistributedUniformly(getLayoutColumnWidths(node)),
+					icon: TableColumnsDistributeIcon,
+					onClick: (editorState: EditorState, dispatch: CommandDispatch | undefined) => {
+						const tr = distributeLayoutColumns({
+							editorAnalyticsAPI,
+							inputMethod: INPUT_METHOD.FLOATING_TB,
+							target: 'allColumns',
+						})({ tr: editorState.tr });
+
+						if (!tr) {
+							return false;
+						}
+
+						dispatch?.(tr);
+
+						return true;
+					},
+					testId: 'layout-distribute-columns',
+					title: intl.formatMessage(layoutMessages.distributeColumns),
+					type: 'button',
+				}
+			: undefined;
 
 	return [
 		{
 			type: 'dropdown',
 			title: intl.formatMessage(layoutMessages.columnOption, { count: numberOfColumns }), //`${numberOfColumns}-columns`,
-			options: [singleColumnOption, columnOptions].flat(),
+			options: dropdownOptions,
 			showSelected: true,
 			testId: 'column-options-button',
 		},
-		...(distributionOptions.length > 0 ? [separator] : []),
+		...(distributionOptions.length > 0 || distributeColumnsButton ? [separator] : []),
 		...(addSidebarLayouts
 			? distributionOptions.map((i) =>
 					buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
 				)
 			: []),
+		...(distributeColumnsButton ? [distributeColumnsButton] : []),
 	] as FloatingToolbarItem<Command>[];
 };
 
@@ -387,7 +477,6 @@ export const buildToolbar = (
 							addSidebarLayouts,
 							intl,
 							editorAnalyticsAPI,
-							state,
 							nodeType,
 							node,
 							separator,

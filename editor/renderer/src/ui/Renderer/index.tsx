@@ -27,6 +27,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { css, jsx } from '@emotion/react'; // oxlint-ignore @typescript-eslint/consistent-type-imports -- classic @jsx jsx factory + jsx.JSX.Element types
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { isPanelNestingTableSupported } from '@atlaskit/editor-common/nesting';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import { getDistortedDurationMonitor } from '@atlaskit/editor-common/performance/measure-render';
 import { getResponseEndTime } from '@atlaskit/editor-common/performance/navigation';
@@ -225,7 +226,7 @@ export const RendererFunctionalComponent = (
 	props: RendererProps & {
 		skipValidation?: boolean;
 		startPos?: number;
-		validationOverrides?: { allowNestedTables?: boolean };
+		validationOverrides?: { allowNestedTables?: boolean; };
 	},
 ): jsx.JSX.Element => {
 	const { createAnalyticsEvent } = props;
@@ -558,6 +559,10 @@ export const RendererFunctionalComponent = (
 
 	try {
 		const schema = getSchema(props.schema, props.adfStage);
+		const allowTableInPanel = isPanelNestingTableSupported(schema);
+		const validationOverrides = allowTableInPanel
+			? { ...props.validationOverrides, allowTableInPanel: true }
+			: props.validationOverrides;
 		const { result, stat, pmDoc } = renderDocument(
 			props.shouldRemoveEmptySpaceAroundContent
 				? removeEmptySpaceAroundContent(props.document)
@@ -572,7 +577,7 @@ export const RendererFunctionalComponent = (
 			props.appearance,
 			props.includeNodesCountInStats,
 			props.skipValidation,
-			props.validationOverrides,
+			validationOverrides,
 		);
 
 		if (props.onComplete) {

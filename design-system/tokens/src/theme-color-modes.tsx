@@ -5,3 +5,5 @@
  * The idea is there may exist many color themes, but every theme must either fit into light or dark.
  */
 export const themeColorModes = ['light', 'dark', 'auto'] as const;
+
+export type ThemeColorModes = (typeof themeColorModes)[number];

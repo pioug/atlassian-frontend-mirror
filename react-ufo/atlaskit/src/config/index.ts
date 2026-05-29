@@ -238,11 +238,6 @@ export type Config = {
 		readonly rates?: Rates;
 		readonly kind?: Record<InteractionType, number>;
 	};
-	readonly experimentalInteractionMetrics?: {
-		readonly enabled?: boolean;
-		readonly rates?: Rates;
-		readonly kind?: Record<InteractionType, number>;
-	};
 	/**
 	 * Option to enable terminal error tracking
 	 */
@@ -267,6 +262,11 @@ export type Config = {
 	 * Return {@code null} if hydration was not attempted or if we do not want to report any stats.
 	 */
 	readonly getReactHydrationStats?: (() => ReactHydrationStats | undefined) | undefined;
+	/**
+	 * @deprecated Accepted for backwards compatibility only. Experimental interaction metrics are disabled.
+	 */
+	readonly experimentalInteractionMetrics?: InteractionMetricsConfig;
+
 	/**
 	 * Whether ttvc with 3p measurement is enabled and sent new event for experiences with sample rates
 	 */
@@ -491,42 +491,6 @@ export function getInteractionRate(name: string, interactionKind: InteractionKin
 		return 0;
 	} catch {
 		// Fallback
-		return 0;
-	}
-}
-
-export function getExperimentalInteractionRate(
-	name: string,
-	interactionType: InteractionType,
-): number {
-	try {
-		if (fg('platform_ufo_remove_experimental_holds')) {
-			return 0;
-		}
-		if (!config) {
-			return 0;
-		}
-		const { experimentalInteractionMetrics } = config;
-		if (!experimentalInteractionMetrics?.enabled) {
-			return 0;
-		}
-
-		if (
-			experimentalInteractionMetrics.rates &&
-			typeof experimentalInteractionMetrics.rates[name] === 'number'
-		) {
-			return experimentalInteractionMetrics.rates[name];
-		}
-
-		if (
-			experimentalInteractionMetrics.kind &&
-			typeof experimentalInteractionMetrics.kind[interactionType] === 'number'
-		) {
-			return experimentalInteractionMetrics.kind[interactionType];
-		}
-
-		return 0;
-	} catch {
 		return 0;
 	}
 }

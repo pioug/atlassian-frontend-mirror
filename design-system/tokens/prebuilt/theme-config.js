@@ -17,11 +17,17 @@ Object.defineProperty(exports, "themeIds", {
     return _themeIds.themeIds;
   }
 });
-exports.themeStateDefaults = exports.themeIdsWithOverrides = void 0;
+exports.themeIdsWithOverrides = void 0;
+Object.defineProperty(exports, "themeStateDefaults", {
+  enumerable: true,
+  get: function get() {
+    return _themeStateDefaults.themeStateDefaults;
+  }
+});
 var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
-var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
 var _themeIds = require("./theme-ids");
 var _themeColorModes = require("./theme-color-modes");
+var _themeStateDefaults = require("./theme-state-defaults");
 /**
  * This file contains the source of truth for themes and all associated meta data.
  */
@@ -166,48 +172,6 @@ var themeConfig = {
       type: 'motion'
     }
   }
-};
-
-/**
- * ThemeOptionsSchema: additional configuration options used to customize Atlassian's themes
- */
-
-/**
- * ThemeState: the standard representation of an app's current theme and preferences
- */
-
-/**
- * Can't evaluate typography feature flags at the module level,
- * it will always resolve to false when server side rendered or when flags are loaded async.
- */
-
-function getShapeDefault() {
-  if ((0, _platformFeatureFlags.fg)('platform-dst-shape-theme-default')) {
-    return 'shape';
-  }
-  return undefined;
-}
-function getMotionDefault() {
-  if ((0, _platformFeatureFlags.fg)('platform-dst-motion-theme-default')) {
-    return 'motion';
-  }
-  return undefined;
-}
-
-/**
- * themeStateDefaults: the default values for ThemeState used by theming utilities
- */
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-var themeStateDefaults = exports.themeStateDefaults = {
-  colorMode: 'auto',
-  contrastMode: 'auto',
-  dark: 'dark',
-  light: 'light',
-  shape: getShapeDefault,
-  spacing: 'spacing',
-  typography: 'typography',
-  motion: getMotionDefault,
-  UNSAFE_themeOptions: undefined
 };
 
 /**

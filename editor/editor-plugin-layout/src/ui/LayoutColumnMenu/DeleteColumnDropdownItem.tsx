@@ -38,7 +38,7 @@ const DeleteColumnDropdownItem = ({
 		return null;
 	}
 
-	const selectedColumnCount = selectedLayoutColumns.selectedColumns.length;
+	const selectedColumnCount = selectedLayoutColumns.selectedLayoutColumns.length;
 
 	return (
 		<ToolbarDropdownItem onClick={onClick}>

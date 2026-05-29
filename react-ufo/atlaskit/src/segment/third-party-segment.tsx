@@ -363,13 +363,15 @@ export const UFOThirdPartySegment: {
 	const { children, onRegisterIframeEventListener, extraData, ...otherProps } = props;
 	return (
 		<UFOSegment type="third-party" {...otherProps}>
-			{onRegisterIframeEventListener && (
-				<IframeSegment
-					onRegisterIframeEventListener={onRegisterIframeEventListener}
-					appType={extraData?.appType}
-				/>
+			{onRegisterIframeEventListener && extraData && (
+				<>
+					<IframeSegment
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						appType={extraData.appType}
+					/>
+					<SegmentExtraDataWriter extraData={extraData} />
+				</>
 			)}
-			{extraData && <SegmentExtraDataWriter extraData={extraData} />}
 			{children}
 		</UFOSegment>
 	);

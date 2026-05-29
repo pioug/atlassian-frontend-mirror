@@ -9,7 +9,7 @@ var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/de
 var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
 var _constants = require("./constants");
 var _themeConfig = require("./theme-config");
-var _themeStateTransformer = require("./theme-state-transformer");
+var _themeObjectToString = require("./theme-object-to-string");
 var _hash = require("./utils/hash");
 var _isValidBrandHex = require("./utils/is-valid-brand-hex");
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
@@ -52,7 +52,7 @@ var getThemeHtmlAttrs = function getThemeHtmlAttrs() {
     typography = _ref$typography === void 0 ? _themeConfig.themeStateDefaults['typography'] : _ref$typography,
     _ref$UNSAFE_themeOpti = _ref.UNSAFE_themeOptions,
     UNSAFE_themeOptions = _ref$UNSAFE_themeOpti === void 0 ? _themeConfig.themeStateDefaults['UNSAFE_themeOptions'] : _ref$UNSAFE_themeOpti;
-  var themeAttribute = (0, _themeStateTransformer.themeObjectToString)({
+  var themeAttribute = (0, _themeObjectToString.themeObjectToString)({
     dark: dark,
     light: light,
     motion: motion,

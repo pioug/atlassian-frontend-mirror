@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-emoji
 
+## 11.3.0
+
+### Minor Changes
+
+- [`81637ec91afd1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81637ec91afd1) -
+  Represent standard emojis as native Unicode characters instead of images. Updates
+  EmojiNodeDataProvider to support Unicode representations.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.2.5
 
 ### Patch Changes

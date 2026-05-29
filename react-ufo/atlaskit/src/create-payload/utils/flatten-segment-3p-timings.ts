@@ -1,4 +1,10 @@
-import type { FlatSegment3pTimingEntry, InteractionMetrics } from '../../common';
+import type {
+	FlatSegment3pTimingEntry,
+	InteractionMetrics,
+	Segment3pData,
+	Segment3pDataPayload,
+	Segment3pTimingEntry,
+} from '../../common';
 
 const PERF_TIMING_LABELS = ['resource-timing', 'navigation-timing'];
 const DOM_TIMING_LABELS = [
@@ -31,33 +37,8 @@ const TRIM_ORDER: readonly string[] = [
  */
 export const SEGMENT_3P_SOFT_BUDGET_KB = 60;
 
-/**
- * Hard budget (KB): if entries still exceed this after suffix-level trimming, replace the whole
- * array with a sentinel summary object so the interaction payload never blows the 240 KB limit.
- */
-export const SEGMENT_3P_HARD_BUDGET_KB = 120;
-
-/**
- * The sentinel value written into the payload when the hard budget is exceeded.
- * Consumers can detect `truncated: true` to know that the full data was dropped.
- */
-export type Segment3pTimingsTruncatedSentinel = {
-	truncated: true;
-	droppedBy: 'budget';
-	originalSizeKb: number;
-	perSuffixCounts: Record<string, number>;
-};
-
 function sizeKb(entries: FlatSegment3pTimingEntry[]): number {
 	return JSON.stringify(entries).length / 1024;
-}
-
-function buildPerSuffixCounts(entries: FlatSegment3pTimingEntry[]): Record<string, number> {
-	const counts: Record<string, number> = {};
-	for (const e of entries) {
-		counts[e.label] = (counts[e.label] ?? 0) + 1;
-	}
-	return counts;
 }
 
 /**
@@ -89,26 +70,19 @@ function trimResourceTimingsByDuration(
 }
 
 /**
- * Applies B1 + B2: soft-budget suffix-level trimming followed by a hard-budget sentinel.
- *
- * - If `sizeKb(flat) <= SEGMENT_3P_SOFT_BUDGET_KB`: returned unchanged.
- * - If soft budget exceeded: drops entries in TRIM_ORDER (resource-timing trimmed by sub-median
- *   duration first, then dropped entirely) until within budget or all droppable labels exhausted.
- * - If still over SEGMENT_3P_HARD_BUDGET_KB: replaces the array with a sentinel summary.
- *
+ * Soft-budget trimming: drops entries in TRIM_ORDER until under SEGMENT_3P_SOFT_BUDGET_KB
+ * or all droppable labels are exhausted. Always returns a `FlatSegment3pTimingEntry[]`.
+ * If still over budget after trimming, the payload-level trimmer drops the whole field.
  * navigation-timing and layout-shift are never dropped (most TTAI-relevant signals).
  */
 export function applySegment3pBudget(flat: FlatSegment3pTimingEntry[]): {
-	result: FlatSegment3pTimingEntry[] | Segment3pTimingsTruncatedSentinel;
+	result: FlatSegment3pTimingEntry[];
 	wasTrimmed: boolean;
 } {
 	const initialSizeKb = sizeKb(flat);
 	if (initialSizeKb <= SEGMENT_3P_SOFT_BUDGET_KB) {
 		return { result: flat, wasTrimmed: false };
 	}
-
-	const originalSizeKb = initialSizeKb;
-	const perSuffixCounts = buildPerSuffixCounts(flat);
 
 	let trimmed = flat;
 	let currentSizeKb = initialSizeKb;
@@ -137,57 +111,88 @@ export function applySegment3pBudget(flat: FlatSegment3pTimingEntry[]): {
 		}
 	}
 
-	if (currentSizeKb > SEGMENT_3P_HARD_BUDGET_KB) {
-		// Hard budget exceeded even after trimming — replace with a lightweight sentinel
-		const sentinel: Segment3pTimingsTruncatedSentinel = {
-			truncated: true,
-			droppedBy: 'budget',
-			originalSizeKb: Math.round(originalSizeKb),
-			perSuffixCounts,
-		};
-		return { result: sentinel, wasTrimmed: true };
-	}
-
 	return { result: trimmed, wasTrimmed: trimmed.length < flat.length };
 }
-
-/**
- * Flattens `Record<segmentId, entries[]>` into `FlatSegment3pTimingEntry[]` and removes
- * duplicate entries (multiple Forge iframes can report identical perf timeline data).
- */
-export function flattenAndDeduplicateSegment3pTimings(
+export function buildSegment3pData(
 	segment3pTimings: InteractionMetrics['segment3pTimings'],
-): FlatSegment3pTimingEntry[] | undefined {
-	if (!segment3pTimings) {
+	segmentExtraData: InteractionMetrics['segmentExtraData'],
+): Segment3pData | undefined {
+	if (!segment3pTimings || !segmentExtraData) {
 		return undefined;
 	}
 	const seen = new Set<string>();
-	const result: FlatSegment3pTimingEntry[] = [];
+	const result: Segment3pData = {};
+
 	for (const [segmentId, entries] of Object.entries(segment3pTimings)) {
+		const meta = segmentExtraData[segmentId];
+		if (!meta) {
+			// Skip segments with no extra data — they shouldn't be in the payload.
+			continue;
+		}
+		const timings: Segment3pTimingEntry[] = [];
 		for (const entry of entries) {
+			if (entry.label === 'segment-timing-abort') {
+				// Abort markers are always emitted separately.
+				continue;
+			}
 			const key = `${segmentId}:${entry.label}:${JSON.stringify(entry.data)}`;
 			if (seen.has(key)) {
 				continue;
 			}
 			seen.add(key);
-			result.push({ segmentId, label: entry.label, data: entry.data });
+			timings.push({ label: entry.label, data: entry.data });
+		}
+		if (timings.length > 0) {
+			result[segmentId] = { meta, timings };
 		}
 	}
-	return result;
+
+	return Object.keys(result).length > 0 ? result : undefined;
 }
 
 /**
- * Returns serialized sizes (in KB) of perf timings (resource/navigation) and
- * DOM timings (frame-mark, frame-measure, paint-timing, layout-shift, dom-mutations).
+ * Returns serialized sizes (in KB) of perf timings and DOM timings within a `Segment3pData`
+ * grouped structure. Used when the ecosystem data feature flag is off.
  */
-export function getSegment3pTimingsSizes(flat: FlatSegment3pTimingEntry[]): {
+export function getSegment3pDataSizes(data: Segment3pData): {
 	segment3pPerfTimingsSizeInKb: number;
 	segment3pDomTimingsSizeInKb: number;
+	segment3pExtraDataSizeInKb: number;
 } {
-	const perfTimings = flat.filter((e) => PERF_TIMING_LABELS.includes(e.label));
-	const domTimings = flat.filter((e) => DOM_TIMING_LABELS.includes(e.label));
+	const allTimings = Object.values(data).flatMap((s) => s.timings);
+	const allMetas = Object.values(data).map((s) => s.meta);
+	const perfTimings = allTimings.filter((e) => PERF_TIMING_LABELS.includes(e.label));
+	const domTimings = allTimings.filter((e) => DOM_TIMING_LABELS.includes(e.label));
 	return {
-		segment3pPerfTimingsSizeInKb: Math.round((JSON.stringify(perfTimings).length / 1024) * 100) / 100,
+		segment3pPerfTimingsSizeInKb:
+			Math.round((JSON.stringify(perfTimings).length / 1024) * 100) / 100,
 		segment3pDomTimingsSizeInKb: Math.round((JSON.stringify(domTimings).length / 1024) * 100) / 100,
+		segment3pExtraDataSizeInKb: Math.round((JSON.stringify(allMetas).length / 1024) * 100) / 100,
 	};
+}
+
+/** Applies B1+B2 budget trimming to a `Segment3pData` and returns a `Segment3pDataPayload`. */
+export function applySegment3pDataBudget(data: Segment3pData): Segment3pDataPayload {
+	// Flatten all timings with a temporary segmentId for budget calculation.
+	const flat: FlatSegment3pTimingEntry[] = Object.entries(data).flatMap(
+		([segmentId, { timings }]) => timings.map((t) => ({ segmentId, label: t.label, data: t.data })),
+	);
+
+	const { result, wasTrimmed } = applySegment3pBudget(flat);
+
+	// Fast path: nothing was trimmed, return the original data directly.
+	if (!wasTrimmed) {
+		return { segments: data };
+	}
+
+	// Re-group the trimmed flat array back into Segment3pData.
+	const trimmed: Segment3pData = {};
+	for (const entry of result) {
+		if (!trimmed[entry.segmentId]) {
+			trimmed[entry.segmentId] = { meta: data[entry.segmentId].meta, timings: [] };
+		}
+		trimmed[entry.segmentId].timings.push({ label: entry.label, data: entry.data });
+	}
+
+	return { segments: trimmed, trim: true };
 }

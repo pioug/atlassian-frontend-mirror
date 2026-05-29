@@ -1,5 +1,25 @@
 # @atlaskit/rovo-agent-analytics
 
+## 1.11.0
+
+### Minor Changes
+
+- [`5922ce1f90616`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5922ce1f90616) -
+  RAGE-3548: Type `EditingEventPayload['attributes']` as a discriminated union by `field`, so
+  field-specific data (e.g. `newValue: boolean` for toggle fields, `skillCount: number` for
+  `agenticSkills`) is required at call sites and discoverable to analytics consumers. A
+  `{ field: string }` catch-all is kept for backwards compatibility; prefer adding a typed variant
+  for new fields.
+
+## 1.10.0
+
+### Minor Changes
+
+- [`c5948348a4e51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5948348a4e51) -
+  TREX-1373 (part 3/3): add @typescript-eslint/no-explicit-any OXLint suppression comments across
+  rovo-\* and misc packages. Includes OXLint override and Mithril ratchet to prevent new
+  suppressions.
+
 ## 1.9.0
 
 ### Minor Changes

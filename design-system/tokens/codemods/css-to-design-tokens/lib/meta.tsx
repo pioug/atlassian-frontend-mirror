@@ -2,9 +2,6 @@ import type { Declaration, Node, Rule } from 'postcss';
 
 import { uniqueWordsFromTokens } from '../../utils/unique-words-from-tokens';
 
-import { extractCssVarName } from './declaration';
-import { knownNamedColors, knownRawColors, knownVariables } from './legacy-colors';
-
 function filterDuplicateFoundations(meta: string[]) {
 	const foundations = ['text', 'background', 'shadow', 'border'];
 	let hasFoundation = false;
@@ -140,28 +137,6 @@ function getParentSelectors(node: Node): string {
 
 	return '';
 }
-
-export function getCssVarMeta(cssVariable: string): string[] {
-	const tokenName = extractCssVarName(cssVariable);
-	const meta = knownVariables[tokenName];
-
-	if (!meta || meta.length === 0) {
-		return tokenName.split('-');
-	}
-
-	return meta;
-}
-
-export function getRawColorMeta(rawColor: string): string[] {
-	let cleanColor = rawColor.toLowerCase();
-
-	if (cleanColor.length === 4) {
-		cleanColor = cleanColor + cleanColor.substring(cleanColor.indexOf('#') + 1);
-	}
-
-	return knownRawColors[cleanColor] ?? [];
-}
-
-export function getNamedColorMeta(namedColor: string): string[] {
-	return knownNamedColors[namedColor] ?? [];
-}
+export { getCssVarMeta } from './get-css-var-meta';
+export { getRawColorMeta } from './get-raw-color-meta';
+export { getNamedColorMeta } from './get-named-color-meta';

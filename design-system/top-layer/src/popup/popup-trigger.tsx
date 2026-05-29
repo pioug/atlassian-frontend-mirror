@@ -2,8 +2,8 @@ import React, { isValidElement, type ReactNode, useCallback } from 'react';
 
 import { Slot } from '../internal/slot';
 
-import { usePopupContext } from './popup-context';
 import { type TPopupTriggerProps } from './types';
+import { usePopupContext } from './use-popup-context';
 
 /**
  * Wraps a single trigger element via `cloneElement`. Attaches aria

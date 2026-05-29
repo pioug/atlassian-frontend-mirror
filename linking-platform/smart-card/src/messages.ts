@@ -174,6 +174,7 @@ export type MessageKey =
 	| 'user_attributes'
 	| 'view'
 	| 'viewIn'
+	| 'viewInProvider'
 	| 'viewOriginal'
 	// Cannot find direct usage of the following messages,
 	// but the context indicates it could be used in Smart Links.
@@ -451,25 +452,25 @@ export const messages: Messages = defineMessages({
 	},
 	social_proof_inline_cta_tag_high_with_context: {
 		id: 'fabric.linking.social_proof_inline_cta_tag_high_with_context',
-		defaultMessage: '<b>{connectedPct}%</b> of your team previews {context}',
+		defaultMessage: '<b>{connectedPct}%</b> of your team sees {context} previews',
 		description:
-			'Social-proof tag pill beside the shortcut "Connect" on an unauthorised inline smart link when adoption is not in the exploratory range. {connectedPct} is the approximate share previewing/using the integration; {context} is the provider display name.',
+			'Social-proof tag pill beside the shortcut "Connect" on an unauthorised inline smart link when adoption is not in the exploratory range. {connectedPct} is the approximate share seeing previews for the integration; {context} is the provider display name.',
 	},
 	social_proof_inline_cta_tag_high_no_context: {
 		id: 'fabric.linking.social_proof_inline_cta_tag_high_no_context',
-		defaultMessage: '<b>{connectedPct}%</b> of your team previews this',
+		defaultMessage: '<b>{connectedPct}%</b> of your team sees richer previews',
 		description:
-			'Social-proof tag pill when adoption is above the exploratory threshold and no provider display name is available; {connectedPct} is the approximate share previewing the integration.',
+			'Social-proof tag pill when adoption is above the exploratory threshold and no provider display name is available; {connectedPct} is the approximate share seeing richer previews.',
 	},
 	social_proof_inline_cta_tag_low_with_context: {
 		id: 'fabric.linking.social_proof_inline_cta_tag_low_with_context',
-		defaultMessage: 'Your team is previewing {context}',
+		defaultMessage: 'Your team sees richer {context} previews',
 		description:
 			'Social-proof tag pill when share is below the percentage headline threshold; shown only when a provider display name is available. Omit the pill entirely when personalization is unavailable or the provider name is unknown.',
 	},
 	social_proof_inline_cta_tag_low_no_context: {
 		id: 'fabric.linking.social_proof_inline_cta_tag_low_no_context',
-		defaultMessage: 'Your team is previewing this',
+		defaultMessage: 'Your team sees richer previews',
 		description:
 			'Social-proof tag pill for the case when neither percentage nor provider display name are available.',
 	},
@@ -995,6 +996,12 @@ export const messages: Messages = defineMessages({
 		description:
 			'We have a link in our preview modals to the original document. This text goes before the provider name',
 	},
+	viewInProvider: {
+		id: 'fabric.linking.viewinprovider',
+		defaultMessage: 'View in {providerName}',
+		description:
+			'We have a link in our preview modals to the original document. This text tells the user where it will open',
+	},
 	viewOriginal: {
 		id: 'fabric.linking.srclinkunknown',
 		defaultMessage: 'View Original',
@@ -1464,13 +1471,13 @@ export const messages: Messages = defineMessages({
 	// TODO: remove when social-proof-3p-unauth-block-fg is cleaned up
 	pre_auth_block_social_proof_not_low: {
 		id: 'fabric.linking.pre_auth_block_social_proof_not_low',
-		defaultMessage: '<b>{percentage}%</b> of your team is previewing <b>{provider}</b>.',
+		defaultMessage: '<b>{percentage}%</b> of your team sees <b>{provider}</b> previews.',
 		description:
 			'Social proof message shown on unauthorized 3P block cards when 30% or more of the tenant has connected the provider. {percentage} is a number, {provider} is the 3P app name (e.g. OneDrive).',
 	},
 	pre_auth_block_social_proof_low: {
 		id: 'fabric.linking.pre_auth_block_social_proof_low',
-		defaultMessage: 'Your team is previewing <b>{provider}</b>.',
+		defaultMessage: 'Your team sees richer <b>{provider}</b> previews.',
 		description:
 			'Social proof message shown on unauthorized 3P block cards when less than 30% of the tenant has connected the provider. {provider} is the 3P app name (e.g. OneDrive).',
 	},

@@ -331,6 +331,11 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 				return this.getCodeBlockProps(node);
 			case 'panel':
 				return this.getPanelProps(node);
+			case 'panel_c1':
+				if (expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
+					return this.getPanelProps(node);
+				}
+				return this.getProps(node, path);
 			default:
 				return this.getProps(node, path);
 		}

@@ -106,6 +106,63 @@ const styles = cssMap({
 			},
 		},
 	},
+	// Preset: fullpage updated (410, 476, 1126, 1232)
+	// Gated behind platform_editor_ai_improve_formatting_toolbar experiment
+	fullpageUpdated: {
+		// @ts-expect-error - container queries are not typed in cssMap
+		'@container toolbar-container (max-width: 421px)': {
+			'.show-above-sm': {
+				display: 'none',
+			},
+			'.show-below-sm': {
+				display: 'block',
+			},
+		},
+		'@container toolbar-container (min-width: 422px) and (max-width: 721px)': {
+			'.show-only-sm': {
+				display: 'block',
+			},
+		},
+		'@container toolbar-container (max-width: 721px)': {
+			'.show-above-md': {
+				display: 'none',
+			},
+			'.show-below-md': {
+				display: 'block',
+			},
+		},
+		'@container toolbar-container (min-width: 722px) and (max-width: 1125px)': {
+			'.show-only-md': {
+				display: 'block',
+			},
+		},
+		'@container toolbar-container (max-width: 1125px)': {
+			'.show-above-lg': {
+				display: 'none',
+			},
+			'.show-below-lg': {
+				display: 'block',
+			},
+		},
+		'@container toolbar-container (min-width: 1126px) and (max-width: 1231px)': {
+			'.show-only-lg': {
+				display: 'block',
+			},
+		},
+		'@container toolbar-container (max-width: 1231px)': {
+			'.show-above-xl': {
+				display: 'none',
+			},
+			'.show-below-xl': {
+				display: 'block',
+			},
+		},
+		'@container toolbar-container (min-width: 1232px)': {
+			'.show-only-xl': {
+				display: 'block',
+			},
+		},
+	},
 	// Preset: reduced (210, 408, 575, 1024)
 	// Used for default compact toolbars, constrained layouts, and comment editors
 	reduced: {
@@ -546,6 +603,7 @@ const presetStyleMap: Record<BreakpointPreset, PresetStyle> = {
 };
 
 const updatedPresetStyleMap: Partial<Record<BreakpointPreset, PresetStyle>> = {
+	fullpage: styles.fullpageUpdated,
 	'jira-issue': styles.jiraIssueUpdated,
 	'jsm-comment': styles.jsmCommentUpdated,
 };
@@ -555,7 +613,7 @@ export type ResponsiveContainerProps = {
 	 * Selects the breakpoint preset for the responsive container.
 	 *
 	 * Available presets:
-	 * - 'fullpage': (410, 476, 768, 1024) - Editor full-page experiences
+	 * - 'fullpage': (410, 476, 768, 1024) - Editor full-page experiences (updated to 410, 476, 1126, 1232 when platform_editor_ai_improve_formatting_toolbar is enabled)
 	 * - 'reduced': (210, 408, 575, 1024) - Default compact toolbars, constrained layouts
 	 * - 'jira-issue': (280, 420, 650, 1024) - Jira issue view and similar contexts
 	 * - 'jsm-comment': (365, 500, 630, 1024) - JSM comment editor with canned responses button
@@ -614,9 +672,15 @@ export const ResponsiveContainer = ({
 	children,
 	breakpointPreset,
 }: ResponsiveContainerProps): React.JSX.Element => {
-	const isUpdatedConfig =
-		expValEquals('platform_editor_toolbar_update_jira_config', 'isEnabled', true) &&
-		breakpointPreset in updatedPresetStyleMap;
+	const isUpdatedConfig = (() => {
+		if (breakpointPreset === 'fullpage') {
+			return expValEquals('platform_editor_ai_improve_formatting_toolbar', 'isEnabled', true);
+		}
+		return (
+			expValEquals('platform_editor_toolbar_update_jira_config', 'isEnabled', true) &&
+			breakpointPreset in updatedPresetStyleMap
+		);
+	})();
 
 	return (
 		<Box

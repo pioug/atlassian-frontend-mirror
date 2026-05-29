@@ -5,7 +5,9 @@ import { dark as rawTokensDark, light as rawTokensLight } from '@atlaskit/tokens
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import generatedPairs from '../../../src/artifacts/generated-pairs';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { getContrastRatio, hexToRgbA } from '../../../src/utils/color-utils';
+import { getContrastRatio } from '../../../src/utils/get-contrast-ratio';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
+import { hexToRgbA } from '../../../src/utils/hex-to-rgb-a';
 
 type GeneratedPair = typeof generatedPairs;
 

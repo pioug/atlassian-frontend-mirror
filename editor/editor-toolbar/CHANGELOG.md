@@ -1,5 +1,26 @@
 # @atlaskit/editor-toolbar
 
+## 1.9.1
+
+### Patch Changes
+
+- [`a58a80f7cd055`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a58a80f7cd055) -
+  [ux] increase fullpage editor toolbar viewpoint widths for lg and xl
+
+## 1.9.0
+
+### Minor Changes
+
+- [`450368a4cccf5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/450368a4cccf5) -
+  Support optional shouldIgnoreCloseEvent prop in ToolbarNestedDropdownMenu.
+
+### Patch Changes
+
+- [`4f322a101cf47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f322a101cf47) -
+  Adds a disabledWithoutInteractionLogic prop to the toolbar to selectively enable some buttons
+  before editor interaction
+- Updated dependencies
+
 ## 1.8.1
 
 ### Patch Changes

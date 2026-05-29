@@ -1,4 +1,8 @@
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type {
+	_MarkdownModePluginStub,
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { IndentationPlugin } from '@atlaskit/editor-plugin-indentation';
@@ -14,34 +18,6 @@ export type ToolbarListsIndentationPluginOptions = {
 	allowHeadingAndParagraphIndentation: boolean;
 	showIndentationButtons: boolean;
 };
-
-/**
- * Minimal duck-typed slice of `@atlassian/editor-plugin-markdown-mode`'s
- * `MarkdownModePlugin` covering only the list/task source-view surface this
- * plugin uses. See `editor-plugin-text-formatting/textFormattingPluginType.ts`
- * for the rationale for not importing the real type.
- */
-type _MarkdownModePluginStub = NextEditorPlugin<
-	'markdownMode',
-	{
-		actions: {
-			toggleSourceBulletList: () => boolean;
-			toggleSourceOrderedList: () => boolean;
-			toggleSourceTaskList: () => boolean;
-		};
-		sharedState:
-			| {
-					sourceBlockFormatState: { inCodeBlock: boolean } | null;
-					sourceListFormatState: {
-						inBulletList: boolean;
-						inOrderedList: boolean;
-						inTaskList: boolean;
-					} | null;
-					view: 'syntax' | 'split-view' | 'preview';
-			  }
-			| undefined;
-	}
->;
 
 export type ToolbarListsIndentationPluginDependencies = [
 	OptionalPlugin<_MarkdownModePluginStub>,

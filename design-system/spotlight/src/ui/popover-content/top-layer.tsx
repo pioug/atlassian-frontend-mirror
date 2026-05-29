@@ -48,7 +48,7 @@ export const PopoverContent = (props: PopoverContentProps): JSX.Element => {
 	 *    `KeyboardEvent` / `MouseEvent`, while the top-layer primitive surfaces a
 	 *    structured `{ reason }`. Bridging that contract here (via
 	 *    `createPopoverCloseEvent`) preserves backwards compatibility for existing
-	 *    consumers as we migrate behind the `platform-dst-top-layer` gate.
+	 *    consumers as we migrate behind the `platform-dst-top-layer-spotlight` gate.
 	 */
 	const {
 		children,

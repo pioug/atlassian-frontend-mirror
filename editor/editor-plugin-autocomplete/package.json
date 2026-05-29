@@ -32,7 +32,10 @@
 		"./autocompletePluginType": "./src/entry-points/autocompletePluginType.ts",
 		"./src/pm-plugins/autocomplete-plugin": "./src/entry-points/src-pm-plugins-autocomplete-plugin.ts",
 		"./src/pm-plugins/slow-lane-client": "./src/entry-points/src-pm-plugins-slow-lane-client.ts",
-		"./src/pm-plugins/text-predictor": "./src/entry-points/src-pm-plugins-text-predictor.ts"
+		"./src/pm-plugins/text-predictor": "./src/entry-points/src-pm-plugins-text-predictor.ts",
+		"./CANONICAL_FIX__DO_NOT_USE_ME_A": "./src/pm-plugins/autocomplete-plugin.ts",
+		"./CANONICAL_FIX__DO_NOT_USE_ME_B": "./src/pm-plugins/slow-lane-client.ts",
+		"./CANONICAL_FIX__DO_NOT_USE_ME_C": "./src/pm-plugins/text-predictor.ts"
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",

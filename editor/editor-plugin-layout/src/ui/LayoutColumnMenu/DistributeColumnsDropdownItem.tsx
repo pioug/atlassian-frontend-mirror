@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { layoutMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
@@ -19,11 +20,15 @@ export const DistributeColumnsDropdownItem = ({
 	api,
 }: DistributeColumnsDropdownItemProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
-	const selectedLayoutColumns = useSelectedLayoutColumns(api);
+	const selectedLayoutColumnsResult = useSelectedLayoutColumns(api);
+	const { selectedLayoutColumns } = selectedLayoutColumnsResult ?? {};
 
 	const handleClick = useCallback(() => {
 		api?.core?.actions.execute((props) => {
-			const tr = api?.layout?.commands.distributeLayoutColumns(props);
+			const tr = api?.layout?.commands.distributeLayoutColumns({
+				inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU,
+			})(props);
+
 			if (!tr) {
 				return null;
 			}
@@ -34,16 +39,14 @@ export const DistributeColumnsDropdownItem = ({
 	}, [api]);
 
 	const isAlreadyUniform = useMemo(() => {
-		if (!selectedLayoutColumns || selectedLayoutColumns.selectedColumns.length < 2) {
+		if (!selectedLayoutColumns || selectedLayoutColumns.length < 2) {
 			return false;
 		}
-		const selectedWidths = selectedLayoutColumns.selectedColumns.map(
-			(col) => col.node.attrs.width as number,
-		);
+		const selectedWidths = selectedLayoutColumns.map((col) => col.node.attrs.width as number);
 		return isDistributedUniformly(selectedWidths);
 	}, [selectedLayoutColumns]);
 
-	if (selectedLayoutColumns === undefined || selectedLayoutColumns.selectedColumns.length < 2) {
+	if (selectedLayoutColumns === undefined || selectedLayoutColumns.length < 2) {
 		return null;
 	}
 

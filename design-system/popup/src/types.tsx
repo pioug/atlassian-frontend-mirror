@@ -291,6 +291,12 @@ interface BaseProps {
 	shouldUseCaptureOnOutsideClick?: boolean;
 
 	/**
+	 * Allows consumers to ignore specific close events, for example when an external overlay
+	 * should be treated as part of the popup interaction.
+	 */
+	shouldIgnoreCloseEvent?: (event: Event | React.MouseEvent | React.KeyboardEvent) => boolean;
+
+	/**
 	 * The root element where the popup should be rendered.
 	 * Defaults to `false`.
 	 *
@@ -403,7 +409,7 @@ export interface PopperWrapperProps extends BaseProps {
 	triggerRef: TriggerRef;
 }
 
-export type CloseManagerHook = Pick<PopupProps, 'isOpen' | 'onClose'> & {
+export type CloseManagerHook = Pick<PopupProps, 'isOpen' | 'onClose' | 'shouldIgnoreCloseEvent'> & {
 	popupRef: PopupRef;
 	triggerRef: TriggerRef;
 	shouldUseCaptureOnOutsideClick?: boolean;

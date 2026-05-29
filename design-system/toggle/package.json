@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/toggle",
-	"version": "16.0.0",
+	"version": "16.1.0",
 	"description": "A toggle is used to view or switch between enabled or disabled states.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -104,10 +104,5 @@
 		".": "./src/index.tsx",
 		"./toggle": "./src/entry-points/toggle.tsx"
 	},
-	"homepage": "https://atlassian.design/components/toggle/",
-	"platform-feature-flags": {
-		"platform-toggle-fix-disabled-zindex": {
-			"type": "boolean"
-		}
-	}
+	"homepage": "https://atlassian.design/components/toggle/"
 }

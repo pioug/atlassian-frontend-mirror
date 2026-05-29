@@ -24,7 +24,7 @@ export const VerticalAlignNestedMenu = ({
 	const { formatMessage } = useIntl();
 	const selectedLayoutColumns = useSelectedLayoutColumns(api);
 	const currentValign = useMemo(() => {
-		const selectedColumns = selectedLayoutColumns?.selectedColumns;
+		const selectedColumns = selectedLayoutColumns?.selectedLayoutColumns;
 		const firstColumn = selectedColumns?.[0];
 		const firstValign = getLayoutColumnValign(firstColumn?.node);
 

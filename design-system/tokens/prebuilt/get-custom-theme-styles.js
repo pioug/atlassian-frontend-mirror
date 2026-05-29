@@ -6,9 +6,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.getCustomThemeStyles = getCustomThemeStyles;
 var _constants = require("./constants");
 var _themeConfig = require("./theme-config");
-var _customThemeLoadingUtils = require("./utils/custom-theme-loading-utils");
-var _generateCustomColorRamp = require("./utils/generate-custom-color-ramp");
+var _generateColors = require("./utils/generate-colors");
+var _generateTokenMapWithContrastCheck = require("./utils/generate-token-map-with-contrast-check");
 var _hash = require("./utils/hash");
+var _reduceTokenMap = require("./utils/reduce-token-map");
 /**
  * Takes a color mode and custom branding options, and returns an array of objects for use in applying custom styles to the document head.
  * Only supplies the color themes necessary for initial render, based on the current themeState. I.e. if in light mode, dark mode themes are not returned.
@@ -26,11 +27,11 @@ function getCustomThemeStyles(themeState) {
   var mode = (themeState === null || themeState === void 0 ? void 0 : themeState.colorMode) || _themeConfig.themeStateDefaults['colorMode'];
   var optionString = JSON.stringify(themeState === null || themeState === void 0 ? void 0 : themeState.UNSAFE_themeOptions);
   var uniqueId = (0, _hash.hash)(optionString);
-  var themeRamp = (0, _generateCustomColorRamp.generateColors)(brandColor).ramp;
+  var themeRamp = (0, _generateColors.generateColors)(brandColor).ramp;
 
   // outputs object to generate to CSS from
   var themes = [];
-  var tokenMaps = (0, _generateCustomColorRamp.generateTokenMapWithContrastCheck)(brandColor, mode, themeRamp);
+  var tokenMaps = (0, _generateTokenMapWithContrastCheck.generateTokenMapWithContrastCheck)(brandColor, mode, themeRamp);
   if ((mode === 'light' || mode === 'auto') && tokenMaps.light) {
     // Light mode theming
     themes.push({
@@ -39,7 +40,7 @@ function getCustomThemeStyles(themeState) {
         'data-theme': 'light',
         'data-custom-theme': uniqueId
       },
-      css: "\nhtml[".concat(_constants.CUSTOM_THEME_ATTRIBUTE, "=\"").concat(uniqueId, "\"][").concat(_constants.COLOR_MODE_ATTRIBUTE, "=\"light\"][data-theme~=\"light:light\"] {\n  /* Branded tokens */\n    ").concat((0, _customThemeLoadingUtils.reduceTokenMap)(tokenMaps.light, themeRamp), "\n}")
+      css: "\nhtml[".concat(_constants.CUSTOM_THEME_ATTRIBUTE, "=\"").concat(uniqueId, "\"][").concat(_constants.COLOR_MODE_ATTRIBUTE, "=\"light\"][data-theme~=\"light:light\"] {\n  /* Branded tokens */\n    ").concat((0, _reduceTokenMap.reduceTokenMap)(tokenMaps.light, themeRamp), "\n}")
     });
   }
   if ((mode === 'dark' || mode === 'auto') && tokenMaps.dark) {
@@ -50,7 +51,7 @@ function getCustomThemeStyles(themeState) {
         'data-theme': 'dark',
         'data-custom-theme': uniqueId
       },
-      css: "\nhtml[".concat(_constants.CUSTOM_THEME_ATTRIBUTE, "=\"").concat(uniqueId, "\"][").concat(_constants.COLOR_MODE_ATTRIBUTE, "=\"dark\"][data-theme~=\"dark:dark\"] {\n  /* Branded tokens */\n    ").concat((0, _customThemeLoadingUtils.reduceTokenMap)(tokenMaps.dark, themeRamp), "\n}")
+      css: "\nhtml[".concat(_constants.CUSTOM_THEME_ATTRIBUTE, "=\"").concat(uniqueId, "\"][").concat(_constants.COLOR_MODE_ATTRIBUTE, "=\"dark\"][data-theme~=\"dark:dark\"] {\n  /* Branded tokens */\n    ").concat((0, _reduceTokenMap.reduceTokenMap)(tokenMaps.dark, themeRamp), "\n}")
     });
   }
   return themes;

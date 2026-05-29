@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent, { type UserEvent } from '@testing-library/user-event';
 
 import Select, { type OptionsType } from '@atlaskit/select';
 
 import { type DateTimePickerBaseProps } from '../../../types';
-import { DateTimePickerWithoutAnalytics as DateTimePicker } from '../../date-time-picker-class';
+import DateTimePicker from '../../date-time-picker';
 
 jest.mock('@atlaskit/select', () => {
 	const actual = jest.requireActual('@atlaskit/select');
@@ -75,6 +75,7 @@ describe('DateTimePicker', () => {
 			const options: OptionsType = props.options || [];
 
 			return (
+				// eslint-disable-next-line @atlaskit/design-system/no-html-select
 				<select
 					{...props}
 					onChange={(event) => props.onChange(event.target.value, 'select-option')}
@@ -130,18 +131,30 @@ describe('DateTimePicker', () => {
 		expect(onChangeSpy.mock.calls[0][0]).toEqual(expect.stringContaining(defaultTime));
 	});
 
-	it('should handle a controlled value', () => {
-		const { rerender } = render(createDateTimePicker({ value: todayISO }));
-		let input = screen.getByTestId(`${testId}--input`);
-		expect(input).toHaveValue(todayISO);
+	describe('Controlled', () => {
+		it('should handle a controlled value', () => {
+			const { rerender } = render(createDateTimePicker({ value: todayISO }));
+			let input = screen.getByTestId(`${testId}--input`);
+			expect(input).toHaveValue(todayISO);
 
-		const tomorrow = new Date(today);
-		tomorrow.setDate(today.getDate() + 1);
-		const tomorrowISO = tomorrow.toISOString();
+			const tomorrow = new Date(today);
+			tomorrow.setDate(today.getDate() + 1);
+			const tomorrowISO = tomorrow.toISOString();
 
-		rerender(createDateTimePicker({ value: tomorrowISO }));
-		input = screen.getByTestId(`${testId}--input`);
-		expect(input).toHaveValue(tomorrowISO);
+			rerender(createDateTimePicker({ value: tomorrowISO }));
+			input = screen.getByTestId(`${testId}--input`);
+			expect(input).toHaveValue(tomorrowISO);
+		});
+
+		it('should clear hidden input value when passing in `undefined` after initial value', () => {
+			const { rerender } = render(createDateTimePicker({ value: todayISO }));
+			let input = screen.getByTestId(`${testId}--input`);
+			expect(input).toHaveValue(todayISO);
+
+			rerender(createDateTimePicker({ value: undefined }));
+			input = screen.getByTestId(`${testId}--input`);
+			expect(input).toHaveValue('');
+		});
 	});
 
 	it('should use custom parseValue when accessing state', () => {
@@ -172,7 +185,7 @@ describe('DateTimePicker', () => {
 			'+0800',
 		);
 
-		expect(onChange).toHaveBeenCalledWith('2018-06-08T08:30+0800');
+		expect(onChange.mock.calls[0][0]).toBe('2018-06-08T08:30+0800');
 		expect(onChange).toHaveBeenCalledTimes(1);
 	});
 
@@ -182,7 +195,7 @@ describe('DateTimePicker', () => {
 
 		firePickerEvent.changeDate('02/05/2018');
 
-		expect(onChange).toHaveBeenCalledWith('2018-02-05T00:00+0000');
+		expect(onChange.mock.calls[0][0]).toBe('2018-02-05T00:00+0000');
 	});
 
 	it('should only be fired onChange when a valid date is supplied', async () => {
@@ -196,12 +209,12 @@ describe('DateTimePicker', () => {
 		await firePickerEvent.changeTime('10:30', user);
 		// iso will use current date (build/configs/jest-config/setup/setup-dates.js)
 		// because we triggered date change in incorrect format.
-		expect(onChange).toHaveBeenCalledWith('2017-08-16T10:30+0000');
+		expect(onChange.mock.calls[0][0]).toBe('2017-08-16T10:30+0000');
 
 		onChange.mockClear();
 		firePickerEvent.changeDate('02/05/2018');
 		// iso will use updated date because we triggered date change in correct format.
-		expect(onChange).toHaveBeenCalledWith('2018-02-05T10:30+0000');
+		expect(onChange.mock.calls[0][0]).toBe('2018-02-05T10:30+0000');
 	});
 
 	it('should call onChange with the date, time and zone offset in the correct format', async () => {
@@ -221,7 +234,7 @@ describe('DateTimePicker', () => {
 		firePickerEvent.changeDate('05/02/2018');
 		await firePickerEvent.changeTime('10:30', user);
 
-		expect(onChange).toHaveBeenCalledWith(`2018-05-02T10:30${zoneValue}`);
+		expect(onChange.mock.calls[0][0]).toBe(`2018-05-02T10:30${zoneValue}`);
 		expect(onChange).toHaveBeenCalledTimes(1);
 	});
 
@@ -234,7 +247,23 @@ describe('DateTimePicker', () => {
 
 		await firePickerEvent.changeTime('', user);
 
-		expect(onChange).toHaveBeenCalledWith('');
+		expect(onChange.mock.calls[0][0]).toBe('');
+		expect(onChange).toHaveBeenCalledTimes(1);
+	});
+
+	it('fires onChange with empty string when the time is cleared, and there is a default datetime value', async () => {
+		const user = userEvent.setup();
+		const onChange = jest.fn();
+		const dateTimeValue = '2018-05-02T08:00:00.000+0800';
+
+		render(createDateTimePicker({ value: dateTimeValue, onChange: onChange }));
+
+		await firePickerEvent.changeTime('', user);
+
+		const hiddenInput = screen.getByTestId(`${testId}--input`);
+		expect(hiddenInput).toHaveValue('');
+
+		expect(onChange.mock.calls[0][0]).toBe('');
 		expect(onChange).toHaveBeenCalledTimes(1);
 	});
 
@@ -247,7 +276,7 @@ describe('DateTimePicker', () => {
 
 		await firePickerEvent.changeTime('', user);
 
-		expect(onChange).toHaveBeenCalledWith('');
+		expect(onChange.mock.calls[0][0]).toBe('');
 		expect(onChange).toHaveBeenCalledTimes(1);
 	});
 
@@ -278,9 +307,6 @@ describe('DateTimePicker', () => {
 				timePickerProps: { onChange: timeOnChange },
 			}),
 		);
-
-		expect(parseValue).toHaveBeenCalled();
-		parseValue.mockClear();
 
 		firePickerEvent.changeDate('');
 		expect(dateOnChange).toHaveBeenCalled();
@@ -376,7 +402,7 @@ describe('DateTimePicker', () => {
 		const clearButton = screen.getByRole('button', { name: /clear/ });
 		await user.click(clearButton);
 
-		expect(onChange).toHaveBeenCalledWith('');
+		expect(onChange.mock.calls[0][0]).toBe('');
 		expect(onChange).toHaveBeenCalledTimes(1);
 	});
 
@@ -465,6 +491,90 @@ describe('DateTimePicker', () => {
 			await firePickerEvent.changeTime('10:30', user);
 
 			expect(screen.getByRole('button', { name: clearControlLabel })).toBeInTheDocument();
+		});
+	});
+
+	it('should show calendar button if prop is used in `datePickerProps`', () => {
+		const openCalendarLabel = 'openCalendarLabel';
+		render(
+			createDateTimePicker({
+				datePickerProps: { shouldShowCalendarButton: true, openCalendarLabel },
+			}),
+		);
+
+		const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+		expect(calendarButton).toBeInTheDocument();
+	});
+
+	describe('Calendar button', () => {
+		const openCalendarLabel = 'openCalendarLabel';
+		const getDateInput = () =>
+			within(screen.getByTestId(`${testId}--datepicker--container`)).getByRole('combobox');
+
+		it('should not render a button to open the calendar if prop not provided', () => {
+			render(createDateTimePicker({ datePickerProps: { openCalendarLabel } }));
+
+			const calendarButton = screen.queryByRole('button', {
+				name: new RegExp(openCalendarLabel),
+			});
+			expect(calendarButton).not.toBeInTheDocument();
+		});
+
+		it('should render a button to open the calendar', () => {
+			render(
+				createDateTimePicker({
+					datePickerProps: {
+						shouldShowCalendarButton: true,
+						openCalendarLabel,
+					},
+				}),
+			);
+
+			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			expect(calendarButton).toBeVisible();
+		});
+
+		describe('labeling', () => {
+			const pickerLabel = 'Date of Birth';
+
+			it('should use `label` with calendar button label if provided', () => {
+				render(
+					createDateTimePicker({
+						datePickerProps: {
+							shouldShowCalendarButton: true,
+							openCalendarLabel,
+							label: pickerLabel,
+						},
+					}),
+				);
+				// This tests `label` because we are mocking the select and just spreading
+				// everything in it. Yeah it sucks.
+				expect(getDateInput()).toHaveAttribute('label', pickerLabel);
+				const calendarButton = screen.getByRole('button', {
+					name: new RegExp(`${pickerLabel}.*${openCalendarLabel}`),
+				});
+				// This tests `label` because we are mocking the select and just spreading
+				// everything in it. Yeah it sucks.
+				expect(getDateInput()).toHaveAttribute('label');
+				expect(calendarButton).toBeInTheDocument();
+			});
+		});
+
+		it('should be in the tab order', async () => {
+			const user = userEvent.setup();
+			render(
+				createDateTimePicker({
+					datePickerProps: { shouldShowCalendarButton: true, openCalendarLabel },
+				}),
+			);
+
+			const calendarButton = screen.getByTestId(/open-calendar-button/);
+			// Tab into the picker, close the calendar, tab to the calendar button
+			await user.tab();
+			await user.keyboard('{Escape}');
+			await user.tab();
+
+			expect(calendarButton).toHaveFocus();
 		});
 	});
 });

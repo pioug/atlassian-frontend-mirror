@@ -7,11 +7,11 @@ import { type VCObserver } from '../vc/vc-observer';
 import type {
 	AbortReasonType,
 	ApdexType,
-	FlatSegment3pTimingEntry,
 	HoldActive,
 	InteractionError,
 	InteractionType,
 	MinorInteraction,
+	Segment3pDataPayload,
 	SegmentInfo,
 } from './common/types';
 import type { RevisionPayload } from './vc/types';
@@ -174,7 +174,8 @@ export type ReactUFOPayload = {
 				isBM3ConfigSSRDoneAsFmp: boolean;
 				isUFOConfigSSRDoneAsFmp: boolean;
 				resourceTimings: ResourceTiming[];
-				segment3pTimings?: FlatSegment3pTimingEntry[];
+				/** Third-party segment timing and metadata. */
+				segment3pData?: Segment3pDataPayload;
 				segments: SegmentInfo[] | RootSegment;
 				reactProfilerTimings: ReactProfilerTiming[];
 				holdInfo: OptimizedHoldInfo[];

@@ -30,7 +30,7 @@ const getLayoutColumnMenuTarget = (
 	selection: Selection | undefined,
 	anchorPosFromHandle?: number,
 ): HTMLElement | null | undefined => {
-	const anchorPos = getLayoutColumnMenuAnchorPos(selection, anchorPosFromHandle);
+	const anchorPos = selection && getLayoutColumnMenuAnchorPos(selection, anchorPosFromHandle);
 	if (anchorPos === undefined) {
 		return null;
 	}

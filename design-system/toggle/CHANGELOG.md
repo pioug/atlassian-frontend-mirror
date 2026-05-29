@@ -1,5 +1,12 @@
 # @atlaskit/toggle
 
+## 16.1.0
+
+### Minor Changes
+
+- [`1ae3a82b2561f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ae3a82b2561f) -
+  Cleanup feature gate 'platform-toggle-fix-disabled-zindex'
+
 ## 16.0.0
 
 ### Major Changes

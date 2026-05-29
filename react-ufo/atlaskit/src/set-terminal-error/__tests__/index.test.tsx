@@ -60,7 +60,6 @@ const createMockContext = (
 	addCustomData: jest.fn(),
 	addCustomTimings: jest.fn(),
 	addApdex: jest.fn(),
-	holdExperimental: jest.fn(),
 	...overrides,
 });
 

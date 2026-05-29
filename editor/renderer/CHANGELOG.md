@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 131.2.2
+
+### Patch Changes
+
+- [`67ec466d25801`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67ec466d25801) -
+  Add support for panel_c1 in renderer so tables in panels are displayed in view mode
+- Updated dependencies
+
 ## 131.2.1
 
 ### Patch Changes

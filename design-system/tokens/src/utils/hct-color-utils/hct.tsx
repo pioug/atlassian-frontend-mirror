@@ -20,9 +20,16 @@
  * limitations under the License.
  */
 
-import * as utils from './color-utils';
+import { argbFromLinrgb } from './argb-from-linrgb';
+import { argbFromLstar } from './argb-from-lstar';
+import { argbFromXyz } from './argb-from-xyz';
+import { linearized } from './linearized';
+import { lstarFromArgb } from './lstar-from-argb';
+import { lstarFromY } from './lstar-from-y';
 import * as math from './math-utils';
 import { ViewingConditions } from './viewing-conditions';
+import { yFromLstar } from './y-from-lstar';
+
 /**
  * A color system built using CAM16 hue and chroma, and L* from
  * L*a*b*.
@@ -126,14 +133,14 @@ export class Hct {
 		const cam = Cam16.fromInt(argb);
 		this.internalHue = cam.hue;
 		this.internalChroma = cam.chroma;
-		this.internalTone = utils.lstarFromArgb(argb);
+		this.internalTone = lstarFromArgb(argb);
 	}
 
 	private setInternalState(argb: number) {
 		const cam = Cam16.fromInt(argb);
 		this.internalHue = cam.hue;
 		this.internalChroma = cam.chroma;
-		this.internalTone = utils.lstarFromArgb(argb);
+		this.internalTone = lstarFromArgb(argb);
 		this.argb = argb;
 	}
 
@@ -167,7 +174,7 @@ export class Hct {
 		// 3. Create HCT from:
 		// - CAM16 using default VC with XYZ coordinates in specified VC.
 		// - L* converted from Y in XYZ coordinates in specified VC.
-		const recastHct = Hct.from(recastInVc.hue, recastInVc.chroma, utils.lstarFromY(viewedInVc[1]));
+		const recastHct = Hct.from(recastInVc.hue, recastInVc.chroma, lstarFromY(viewedInVc[1]));
 		return recastHct;
 	}
 }
@@ -275,9 +282,9 @@ class Cam16 {
 		const red = (argb & 0x00ff0000) >> 16;
 		const green = (argb & 0x0000ff00) >> 8;
 		const blue = argb & 0x000000ff;
-		const redL = utils.linearized(red);
-		const greenL = utils.linearized(green);
-		const blueL = utils.linearized(blue);
+		const redL = linearized(red);
+		const greenL = linearized(green);
+		const blueL = linearized(blue);
 		const x = 0.41233895 * redL + 0.35762064 * greenL + 0.18051042 * blueL;
 		const y = 0.2126 * redL + 0.7152 * greenL + 0.0722 * blueL;
 		const z = 0.01932141 * redL + 0.11916382 * greenL + 0.95034478 * blueL;
@@ -468,7 +475,7 @@ class Cam16 {
 		const y = 0.38752654 * rF + 0.62144744 * gF - 0.00897398 * bF;
 		const z = -0.0158415 * rF - 0.03412294 * gF + 1.04996444 * bF;
 
-		const argb = utils.argbFromXyz(x, y, z);
+		const argb = argbFromXyz(x, y, z);
 		return argb;
 	}
 
@@ -998,7 +1005,7 @@ class HctSolver {
 				if (linrgb[0] > 100.01 || linrgb[1] > 100.01 || linrgb[2] > 100.01) {
 					return 0;
 				}
-				return utils.argbFromLinrgb(linrgb);
+				return argbFromLinrgb(linrgb);
 			}
 			// Iterates with Newton method,
 			// Using 2 * fn(j) / j as the approximation of fn'(j)
@@ -1021,17 +1028,17 @@ class HctSolver {
 	 */
 	static solveToInt(hueDegrees: number, chroma: number, lstar: number): number {
 		if (chroma < 0.0001 || lstar < 0.0001 || lstar > 99.9999) {
-			return utils.argbFromLstar(lstar);
+			return argbFromLstar(lstar);
 		}
 		hueDegrees = math.sanitizeDegreesDouble(hueDegrees);
 		const hueRadians = (hueDegrees / 180) * Math.PI;
-		const y = utils.yFromLstar(lstar);
+		const y = yFromLstar(lstar);
 		const exactAnswer = HctSolver.findResultByJ(hueRadians, chroma, y);
 		if (exactAnswer !== 0) {
 			return exactAnswer;
 		}
 		const linrgb = HctSolver.bisectToLimit(y, hueRadians);
-		return utils.argbFromLinrgb(linrgb);
+		return argbFromLinrgb(linrgb);
 	}
 
 	/**

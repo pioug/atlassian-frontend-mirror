@@ -41,6 +41,7 @@ type CommonContentPopupProps = Pick<
 	| 'autoFocus'
 	| 'shouldRenderToParent'
 	| 'shouldUseCaptureOnOutsideClick'
+	| 'shouldIgnoreCloseEvent'
 	| 'shouldDisableFocusLock'
 	| 'strategy'
 	| 'zIndex'
@@ -104,6 +105,7 @@ export const PopupContent = ({
 	autoFocus = true,
 	zIndex = defaultLayer,
 	shouldUseCaptureOnOutsideClick = false,
+	shouldIgnoreCloseEvent,
 	shouldRenderToParent: inShouldRenderToParent,
 	shouldDisableFocusLock = false,
 	shouldFitContainer,
@@ -198,6 +200,7 @@ export const PopupContent = ({
 				autoFocus={autoFocus}
 				shouldFitContainer={shouldFitContainer}
 				shouldUseCaptureOnOutsideClick={shouldUseCaptureOnOutsideClick}
+				shouldIgnoreCloseEvent={shouldIgnoreCloseEvent}
 				shouldRenderToParent={shouldRenderToParent}
 				shouldDisableFocusLock={shouldDisableFocusLock}
 				triggerRef={triggerRef}

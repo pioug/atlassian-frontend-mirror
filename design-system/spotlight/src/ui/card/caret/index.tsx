@@ -34,7 +34,7 @@ export interface CaretProps {
 export const Caret: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<CaretProps> & React.RefAttributes<HTMLDivElement>
 > = forwardRef<HTMLDivElement, CaretProps>(({ placement, testId }: CaretProps, ref) => {
-	return fg('platform-dst-top-layer') ? (
+	return fg('platform-dst-top-layer-spotlight') ? (
 		<TopLayer ref={ref} placement={placement} testId={testId} />
 	) : (
 		<Legacy ref={ref} placement={placement} testId={testId} />

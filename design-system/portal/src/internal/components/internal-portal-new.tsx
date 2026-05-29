@@ -66,7 +66,7 @@ export default function InternalPortalNew(props: InternalPortalProps): React.Rea
 	 */
 	const suspendedChildren = (
 		<Suspense fallback={null}>
-			{(fg('platform-dst-portal-conditial-theme-provider') ? isInsideThemeProvider : colorMode) ? (
+			{isInsideThemeProvider ? (
 				<ThemeProvider defaultColorMode={colorMode}>{children}</ThemeProvider>
 			) : (
 				children

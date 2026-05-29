@@ -9,7 +9,6 @@ import {
 	type EventHandlers,
 } from '@atlaskit/editor-common/ui';
 import { fg } from '@atlaskit/platform-feature-flags';
-
 import Blockquote from './blockquote';
 import BodiedExtension from './bodiedExtension';
 import MultiBodiedExtension from './multiBodiedExtension';
@@ -360,6 +359,7 @@ export const nodeToReact: {
 	mention: Mention,
 	orderedList: OrderedList,
 	panel: Panel,
+	panel_c1: Panel,
 	paragraph: Paragraph,
 	placeholder: Placeholder,
 	rule: Rule,

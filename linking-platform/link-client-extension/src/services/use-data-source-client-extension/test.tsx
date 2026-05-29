@@ -16,13 +16,11 @@ import type {
 	DatasourceDetailsResponse,
 } from '@atlaskit/linking-types';
 
-import {
-	mockActionsDiscoveryResponse,
-	mockDatasourceDataResponse,
-	mockDatasourceDetailsResponse,
-	mockExecuteActionResponse,
-	mockExecuteActionResponseFailure,
-} from './mocks';
+import { mockActionsDiscoveryResponse } from './mockActionsDiscoveryResponse';
+import { mockDatasourceDataResponse } from './mockDatasourceDataResponse';
+import { mockDatasourceDetailsResponse } from './mockDatasourceDetailsResponse';
+import { mockExecuteActionResponse } from './mockExecuteActionResponse';
+import { mockExecuteActionResponseFailure } from './mockExecuteActionResponseFailure';
 
 import {
 	datasourceActionsPermissionsPromiseCache,

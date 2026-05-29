@@ -390,6 +390,7 @@ export enum ACTION_SUBJECT_ID {
 	AI_PROACTIVE_FEEDBACK_DIALOG = 'aiProactiveFeedbackDialog',
 	AI_ASK_ROVO_BUTTON = 'aiAskRovoButton',
 	AI_HERO_PROMPT_BUTTON = 'aiHeroPromptButton',
+	AI_REMIX_BUTTON = 'aiRemixButton',
 	AI_MORE_ROVO_OPTIONS = 'aiMoreRovoOptions',
 	AI_TRANSLATE = 'aiTranslate',
 	AI_CHANGE_TONE = 'aiChangeTone',

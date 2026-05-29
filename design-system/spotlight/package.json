@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/spotlight",
-	"version": "0.14.14",
+	"version": "0.15.1",
 	"description": "A spotlight introduces users to points of interest, from focused messages to multi-step tours.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -57,6 +57,7 @@
 		"./secondary-action": "./src/entry-points/secondary-action.tsx",
 		"./secondary-link": "./src/entry-points/secondary-link.tsx",
 		"./show-more-control": "./src/entry-points/show-more-control.tsx",
+		"./spotlight-context-provider": "./src/entry-points/spotlight-context-provider.tsx",
 		"./step-count": "./src/entry-points/step-count.tsx",
 		"./types": "./src/entry-points/types.tsx",
 		"./update-on-change": "./src/entry-points/update-on-change.tsx",
@@ -112,7 +113,7 @@
 		"platform-dst-motion-uplift-spotlight": {
 			"type": "boolean"
 		},
-		"platform-dst-top-layer": {
+		"platform-dst-top-layer-spotlight": {
 			"type": "boolean"
 		}
 	},

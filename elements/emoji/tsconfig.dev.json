@@ -86,6 +86,9 @@
 			"path": "../../design-system/popup/tsconfig.app.json"
 		},
 		{
+			"path": "../../pragmatic-drag-and-drop/core/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{

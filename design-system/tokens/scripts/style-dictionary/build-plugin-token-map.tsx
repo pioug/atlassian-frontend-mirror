@@ -9,7 +9,7 @@ import json5 from 'json5';
 
 import { createSignedArtifact } from '@atlassian/codegen';
 
-import { rawObjectToAnimation } from './transformers/animation';
+import { rawObjectToAnimation } from './transformers/raw-object-to-animation';
 
 // Type definitions for token structures
 interface ShadowToken {

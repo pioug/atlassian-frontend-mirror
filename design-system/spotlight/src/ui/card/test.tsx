@@ -74,7 +74,7 @@ describe('SpotlightCard', () => {
 		expect(ref.current?.textContent).toEqual('Hello, world!');
 	});
 
-	ffTest.on('platform-dst-top-layer', 'with top-layer card layout enabled', () => {
+	ffTest.on('platform-dst-top-layer-spotlight', 'with top-layer card layout enabled', () => {
 		it.each<Placement>([
 			'top-start',
 			'top-center',

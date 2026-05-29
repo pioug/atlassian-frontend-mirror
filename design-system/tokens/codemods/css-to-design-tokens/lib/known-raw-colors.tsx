@@ -1,0 +1,17 @@
+export const knownRawColors: Record<string, string[]> = {
+	'#cccccc': ['gray'],
+	'#aaaaaa': ['gray', 'subtlest'],
+	'#bbbbbb': ['gray', 'subtle'],
+	'#ffffff': ['elevation', 'surface'],
+	'#f0f0f0': ['elevation', 'surface'],
+	'#eeeeee': ['elevation', 'surface', 'sunken'],
+	'#ff0000': ['danger'],
+	'#d04437': ['danger'],
+	'#c00c00': ['danger'],
+	'#5243aa': ['discovery'],
+	'#ffc712': ['warning'],
+	'#00f00f': ['brand'],
+	'#3b73af': ['brand'],
+	'#326ca6': ['brand'],
+	'#0052cc': ['brand'],
+};

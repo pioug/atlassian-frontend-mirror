@@ -671,8 +671,7 @@ export const messages: {
 	cellAlignment: {
 		id: 'fabric.editor.table.cellAlignment',
 		defaultMessage: 'Alignment',
-		description:
-			'Label for a nested menu that aligns content vertically inside a table cell.',
+		description: 'Label for a nested menu that aligns content vertically inside a table cell.',
 	},
 	cellAlignmentTop: {
 		id: 'fabric.editor.table.cellAlignmentTop',

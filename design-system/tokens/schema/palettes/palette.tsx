@@ -132,6 +132,7 @@ export type PaletteValues =
 	| 'DarkNeutral900'
 	| 'DarkNeutral1000'
 	| 'DarkNeutral1100'
+	| 'DarkNeutral1200'
 	| 'Neutral0'
 	| 'Neutral100'
 	| 'Neutral100A'
@@ -148,7 +149,8 @@ export type PaletteValues =
 	| 'Neutral800'
 	| 'Neutral900'
 	| 'Neutral1000'
-	| 'Neutral1100';
+	| 'Neutral1100'
+	| 'Neutral1200';
 
 export type BaseToken = keyof PaletteColorTokenSchema<PaletteValues>['color']['palette'];
 
@@ -1098,6 +1100,13 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 					category: 'dark mode neutral',
 				},
 			},
+			DarkNeutral1200: {
+				value: '#FFFFFF',
+				attributes: {
+					group: 'palette',
+					category: 'dark mode neutral',
+				},
+			},
 			Neutral0: {
 				value: '#FFFFFF',
 				attributes: {
@@ -1217,6 +1226,13 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 			},
 			Neutral1100: {
 				value: '#1E1F21',
+				attributes: {
+					group: 'palette',
+					category: 'light mode neutral',
+				},
+			},
+			Neutral1200: {
+				value: '#000000',
 				attributes: {
 					group: 'palette',
 					category: 'light mode neutral',

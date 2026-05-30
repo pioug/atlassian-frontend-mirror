@@ -1317,8 +1317,7 @@ export function addNewInteraction(
 		vcObserver = newVCObserver(vcOptions);
 	}
 
-	const priorAccessedFg =
-		type === 'press' ? {} : Object.fromEntries(allFeatureFlagsAccessed);
+	const priorAccessedFg = type === 'press' ? {} : Object.fromEntries(allFeatureFlagsAccessed);
 
 	const metrics: InteractionMetrics = {
 		id: interactionId,

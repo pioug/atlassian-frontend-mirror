@@ -49,7 +49,7 @@ const DeleteButton = (props: ButtonProps): JSX.Element => {
 	return (
 		<span
 			css={[deleteButton, isEmojiPickerRefreshEnabled && refreshedDeleteButton]}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={emojiDeleteButton}
 			data-testid={RENDER_EMOJI_DELETE_BUTTON_TESTID}
 		>
@@ -57,11 +57,7 @@ const DeleteButton = (props: ButtonProps): JSX.Element => {
 				iconBefore={
 					<Box xcss={styles.boxWrapperStyle}>
 						{isEmojiPickerRefreshEnabled ? (
-							<CrossCircleIcon
-								label={deleteEmojiLabel}
-								color={token('color.icon')}
-								size="medium"
-							/>
+							<CrossCircleIcon label={deleteEmojiLabel} color={token('color.icon')} size="medium" />
 						) : (
 							<CrossCircleIcon
 								label={deleteEmojiLabel}

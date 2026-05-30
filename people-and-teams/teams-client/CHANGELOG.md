@@ -1,5 +1,26 @@
 # @atlaskit/teams-client
 
+## 4.33.2
+
+### Patch Changes
+
+- [`3ae085a9629b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ae085a9629b3) -
+  Migrate `Team` type from `ptc-common` to `teams-client` as part of `ptc-common` deprecation.
+  - **`@atlaskit/teams-client`**: Made `restriction` field optional on the `Team` interface
+    (consistent with its `@deprecated` status). Exported `TeamAvatarImage` from the `types` subpath
+    entry point.
+  - **`@atlassian/ptc-common`**: Removed local `Team` and `TeamAvatarImage` interface definitions.
+    Both are now imported from `@atlaskit/teams-client/types` and re-exported for backward
+    compatibility. `Team` is re-exported as `@deprecated` — consumers should migrate to
+    `TeamWithImageUrls` from `@atlaskit/teams-client`. `TeamWithImageUrls` is also now exported
+    directly from `@atlassian/ptc-common`.
+  - **`@atlassian/ptc-embeddable-directory`**: Updated all internal usages of `Team` from
+    `@atlassian/ptc-common` to `TeamWithImageUrls` from `@atlaskit/teams-client/types`.
+  - **`@atlassian/team-profile`**: Updated all internal usages of `Team` from
+    `@atlassian/ptc-common` to `TeamWithImageUrls` from `@atlaskit/teams-client/types`. Defined
+    `TeamListItemUiElement` locally (derived from `TeamWithImageUrls`) to remove the `ptc-common`
+    dependency for that type.
+
 ## 4.33.1
 
 ### Patch Changes

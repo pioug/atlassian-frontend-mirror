@@ -35,7 +35,9 @@ export type AgentIdentityInput = {
 
 /** Derived props ready to forward to AgentAvatar + the visible name slot. */
 export type DerivedAgentIdentity = {
-	/** Non-empty agentId when on the specialist path; undefined otherwise. */
+	/** True when either UUID id or named id selects the specialist path. */
+	hasSpecialistIdentity: boolean;
+	/** Non-empty UUID agentId when available; undefined for namedId-only specialists. */
 	specialistAgentId: string | undefined;
 	/** Visible label to render in the hat's text slot, or undefined to omit. */
 	visibleName: string | undefined;
@@ -56,12 +58,12 @@ export type DerivedAgentIdentity = {
  * Derive `AgentAvatar` inputs and visible/accessible labels from raw identity.
  *
  * Behaviour:
- *  - Specialist path (`agentId` is a non-empty string): visible text is the
- *    supplied `agentName`, omitted entirely if absent (no "Rovo" text next to
- *    a specialist avatar). Accessible label falls back to the agent id so the
- *    avatar is never announced as "Rovo".
- *  - Default Rovo path (no `agentId`): visible and accessible labels are the
- *    localized default name (typically "Rovo").
+ *  - Specialist path (`agentId` or `agentNamedId` is a non-empty string):
+ *    visible text is the supplied `agentName`, omitted entirely if absent (no
+ *    "Rovo" text next to a specialist avatar). Accessible label falls back to
+ *    the UUID id, then named id, so the avatar is never announced as "Rovo".
+ *  - Default Rovo path (no `agentId` or `agentNamedId`): visible and accessible
+ *    labels are the localized default name (typically "Rovo").
  *  - Forge identity props are gated internally via `rovo_agent_support_a2a_avatar`
  *    so callers don't have to.
  */
@@ -79,10 +81,14 @@ export function deriveAgentIdentity({
 	const trimmedAgentId = typeof agentId === 'string' ? agentId.trim() : undefined;
 	const specialistAgentId =
 		trimmedAgentId && trimmedAgentId.length > 0 ? trimmedAgentId : undefined;
+	const trimmedAgentNamedId = typeof agentNamedId === 'string' ? agentNamedId.trim() : undefined;
+	const specialistAgentNamedId =
+		trimmedAgentNamedId && trimmedAgentNamedId.length > 0 ? trimmedAgentNamedId : undefined;
+	const specialistIdentity = specialistAgentId ?? specialistAgentNamedId;
 
 	const trimmedAgentName = agentName?.trim();
-	const visibleName = specialistAgentId ? trimmedAgentName || undefined : defaultName;
-	const accessibleName = specialistAgentId ? trimmedAgentName || specialistAgentId : defaultName;
+	const visibleName = specialistIdentity ? trimmedAgentName || undefined : defaultName;
+	const accessibleName = specialistIdentity ? trimmedAgentName || specialistIdentity : defaultName;
 
 	const a2aGateOn = fg('rovo_agent_support_a2a_avatar');
 
@@ -96,12 +102,13 @@ export function deriveAgentIdentity({
 				: undefined;
 
 	return {
+		hasSpecialistIdentity: Boolean(specialistIdentity),
 		specialistAgentId,
 		visibleName,
 		accessibleName,
 		avatarProps: {
 			agentId: specialistAgentId,
-			agentNamedId,
+			agentNamedId: specialistAgentNamedId,
 			agentIdentityAccountId,
 			imageUrl,
 			isForgeAgent: a2aGateOn ? isForgeAgent : undefined,

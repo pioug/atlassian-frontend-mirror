@@ -96,10 +96,7 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 
 			const { activeTableMenu: currentActiveTableMenu } = getPluginState(state);
 			api.core.actions.execute(({ tr }) => {
-				toggleActiveTableMenu(
-					{ type: 'cell', openedBy: 'mouse' },
-					currentActiveTableMenu,
-				)({ tr });
+				toggleActiveTableMenu({ type: 'cell', openedBy: 'mouse' }, currentActiveTableMenu)({ tr });
 				return tr;
 			});
 

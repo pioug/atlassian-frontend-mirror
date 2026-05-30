@@ -9,17 +9,21 @@ describe('deriveAgentIdentity', () => {
 		it('falls back to defaultName for both visible and accessible labels', () => {
 			expect.hasAssertions();
 			const result = deriveAgentIdentity(baseInput);
+			expect(result.hasSpecialistIdentity).toBe(false);
 			expect(result.specialistAgentId).toBeUndefined();
 			expect(result.visibleName).toBe('Rovo');
 			expect(result.accessibleName).toBe('Rovo');
 			expect(result.avatarProps.agentId).toBeUndefined();
 		});
 
-		it('treats empty / whitespace agentId as no specialist', () => {
+		it('treats empty / whitespace agentId and agentNamedId as no specialist', () => {
 			expect.hasAssertions();
 			expect(deriveAgentIdentity({ ...baseInput, agentId: '' }).specialistAgentId).toBeUndefined();
 			expect(
 				deriveAgentIdentity({ ...baseInput, agentId: '   ' }).specialistAgentId,
+			).toBeUndefined();
+			expect(
+				deriveAgentIdentity({ ...baseInput, agentNamedId: '   ' }).specialistAgentId,
 			).toBeUndefined();
 		});
 	});
@@ -32,6 +36,7 @@ describe('deriveAgentIdentity', () => {
 				agentId: 'agent-1',
 				agentName: 'Release notes agent',
 			});
+			expect(result.hasSpecialistIdentity).toBe(true);
 			expect(result.specialistAgentId).toBe('agent-1');
 			expect(result.visibleName).toBe('Release notes agent');
 			expect(result.accessibleName).toBe('Release notes agent');
@@ -64,6 +69,17 @@ describe('deriveAgentIdentity', () => {
 			const result = deriveAgentIdentity({ ...baseInput, agentId: 'agent-1' });
 			expect(result.visibleName).toBeUndefined();
 			expect(result.accessibleName).toBe('agent-1');
+		});
+
+		it('uses agentNamedId for specialist identity without forwarding it as agentId', () => {
+			expect.hasAssertions();
+			const result = deriveAgentIdentity({ ...baseInput, agentNamedId: '  release_notes_agent  ' });
+			expect(result.hasSpecialistIdentity).toBe(true);
+			expect(result.specialistAgentId).toBeUndefined();
+			expect(result.visibleName).toBeUndefined();
+			expect(result.accessibleName).toBe('release_notes_agent');
+			expect(result.avatarProps.agentId).toBeUndefined();
+			expect(result.avatarProps.agentNamedId).toBe('release_notes_agent');
 		});
 	});
 

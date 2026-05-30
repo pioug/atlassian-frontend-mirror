@@ -16,7 +16,12 @@ export function isCacheableType(url: string, type: string): boolean {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-export function calculateTransferType(name: string, type: string, duration: number, size: number | void): string | null {
+export function calculateTransferType(
+	name: string,
+	type: string,
+	duration: number,
+	size: number | void,
+): string | null {
 	if (!isCacheableType(name, type)) {
 		return CACHE_NETWORK;
 	}

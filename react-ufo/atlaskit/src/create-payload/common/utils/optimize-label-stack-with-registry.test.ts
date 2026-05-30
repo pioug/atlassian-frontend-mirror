@@ -51,8 +51,12 @@ describe('optimizeLabelStackWithRegistry', () => {
 
 			expect(result1).toBe(0);
 			expect(result2).toBe(1);
-			expect(resolveLabelStackFromTrie(registry.getLookupTable(), result1 as number)).toBe('abc123');
-			expect(resolveLabelStackFromTrie(registry.getLookupTable(), result2 as number)).toBe('def456');
+			expect(resolveLabelStackFromTrie(registry.getLookupTable(), result1 as number)).toBe(
+				'abc123',
+			);
+			expect(resolveLabelStackFromTrie(registry.getLookupTable(), result2 as number)).toBe(
+				'def456',
+			);
 		});
 
 		it('should populate the registry lookup table correctly', () => {

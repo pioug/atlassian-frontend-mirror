@@ -102,4 +102,3 @@ test.describe('ReactUFO: Terminal Error Reporting', () => {
 		await expect(page).toBeAccessible();
 	});
 });
-

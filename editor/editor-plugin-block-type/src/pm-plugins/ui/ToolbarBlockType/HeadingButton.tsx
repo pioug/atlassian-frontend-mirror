@@ -178,27 +178,25 @@ export const HeadingButton = ({ blockType, api }: HeadingButtonProps): React.JSX
 			return;
 		}
 
-			// Route to CM6 when in source view.
-			//
-			// - heading1..6: apply/replace via toggleSourceHeading(targetLevel).
-			// - normal (paragraph): if the cursor is currently on a heading line,
-			//   call toggleSourceHeading with the *current* level — toggleHeading
-			//   removes the prefix when invoked with the matching level, so this
-			//   downgrades the heading back to a plain paragraph. No-op when not
-			//   on a heading (already normal) or when smallText is selected (no
-			//   markdown equivalent).
-			if (isMarkdownBridgeActive) {
-				const targetLevel =
-					blockType.name === 'normal' ? sourceFormatState?.headingLevel ?? null : headingLevel;
-				if (targetLevel !== null && targetLevel >= 1 && targetLevel <= 6) {
-					api?.markdownMode?.actions.toggleSourceHeading(
-						targetLevel as 1 | 2 | 3 | 4 | 5 | 6,
-					);
-				}
-				return;
+		// Route to CM6 when in source view.
+		//
+		// - heading1..6: apply/replace via toggleSourceHeading(targetLevel).
+		// - normal (paragraph): if the cursor is currently on a heading line,
+		//   call toggleSourceHeading with the *current* level — toggleHeading
+		//   removes the prefix when invoked with the matching level, so this
+		//   downgrades the heading back to a plain paragraph. No-op when not
+		//   on a heading (already normal) or when smallText is selected (no
+		//   markdown equivalent).
+		if (isMarkdownBridgeActive) {
+			const targetLevel =
+				blockType.name === 'normal' ? (sourceFormatState?.headingLevel ?? null) : headingLevel;
+			if (targetLevel !== null && targetLevel >= 1 && targetLevel <= 6) {
+				api?.markdownMode?.actions.toggleSourceHeading(targetLevel as 1 | 2 | 3 | 4 | 5 | 6);
 			}
+			return;
+		}
 
-			api?.core?.actions.execute(
+		api?.core?.actions.execute(
 			api?.blockType?.commands?.setTextLevel(
 				blockType.name as TextBlockTypes,
 				INPUT_METHOD.TOOLBAR,

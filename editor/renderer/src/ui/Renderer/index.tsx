@@ -226,7 +226,7 @@ export const RendererFunctionalComponent = (
 	props: RendererProps & {
 		skipValidation?: boolean;
 		startPos?: number;
-		validationOverrides?: { allowNestedTables?: boolean; };
+		validationOverrides?: { allowNestedTables?: boolean };
 	},
 ): jsx.JSX.Element => {
 	const { createAnalyticsEvent } = props;

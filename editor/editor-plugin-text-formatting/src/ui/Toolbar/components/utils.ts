@@ -93,7 +93,7 @@ const SOURCE_VIEW_ANALYTICS_ACTION_SUBJECT_ID = {
 	strikethrough: ACTION_SUBJECT_ID.FORMAT_STRIKE,
 } satisfies Record<SourceViewInlineFormat, ACTION_SUBJECT_ID>;
 
-const TEXT_FORMATTING_PLUGIN_STATE_KEYS: ('textFormatting')[] = ['textFormatting'];
+const TEXT_FORMATTING_PLUGIN_STATE_KEYS: 'textFormatting'[] = ['textFormatting'];
 const TEXT_FORMATTING_MARKDOWN_PLUGIN_STATE_KEYS: ('textFormatting' | 'markdownMode')[] = [
 	'textFormatting',
 	'markdownMode',
@@ -154,8 +154,7 @@ export const useComponentInfo = ({
 		sourceFormatState,
 	} = useSharedPluginStateWithSelector(api, pluginStateKeys, (states) => ({
 		isActive: states.textFormattingState?.[`${optionType}Active` as keyof TextFormattingState],
-		isDisabled:
-			states.textFormattingState?.[`${optionType}Disabled` as keyof TextFormattingState],
+		isDisabled: states.textFormattingState?.[`${optionType}Disabled` as keyof TextFormattingState],
 		isHidden: states.textFormattingState?.[`${optionType}Hidden` as keyof TextFormattingState],
 		isPluginInitialised: states.textFormattingState?.isInitialised,
 		markdownModeView: isMarkdownBridgeEnabled ? states.markdownModeState?.view : undefined,

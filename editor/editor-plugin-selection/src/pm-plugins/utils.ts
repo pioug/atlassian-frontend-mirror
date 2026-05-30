@@ -483,10 +483,10 @@ export const isPanelOrExpandNode = (node: PmNode | null | undefined): boolean =>
 	const { panel, panel_c1, expand } = node?.type?.schema?.nodes || {};
 	return Boolean(
 		node &&
-			node.type &&
-			(node.type === panel ||
-				(expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) &&
-					node.type === panel_c1) ||
-				node.type === expand),
+		node.type &&
+		(node.type === panel ||
+			(expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) &&
+				node.type === panel_c1) ||
+			node.type === expand),
 	);
 };

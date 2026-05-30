@@ -1,7 +1,12 @@
 import type { Format } from 'style-dictionary';
 
 import motionPalette from '../../../schema/palettes/motion-palette';
-import { COLOR_MODE_ATTRIBUTE, CONTRAST_MODE_ATTRIBUTE, SUBTREE_THEME_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from '../../../src/constants';
+import {
+	COLOR_MODE_ATTRIBUTE,
+	CONTRAST_MODE_ATTRIBUTE,
+	SUBTREE_THEME_ATTRIBUTE,
+	THEME_DATA_ATTRIBUTE,
+} from '../../../src/constants';
 import themeConfig, { type Themes } from '../../../src/theme-config';
 import { getCSSCustomProperty } from '../../../src/utils/get-css-custom-property';
 import getIncreasedContrastTheme from '../../../src/utils/get-increased-contrast-theme';

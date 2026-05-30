@@ -101,7 +101,7 @@ export const createPlugin = (
 							nodeViewSerializer,
 							colorScheme: config?.colorScheme,
 							intl: getIntl(),
-						activeIndexPos: newPluginState.activeIndexPos,
+							activeIndexPos: newPluginState.activeIndexPos,
 							api,
 							...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
 								? {
@@ -128,9 +128,7 @@ export const createPlugin = (
 								? { isInverted: false, diffType: 'inline', hideDeletedDiffs: false }
 								: {}),
 						};
-					} else if (
-						meta?.action === 'SCROLL_TO_NEXT' || meta?.action === 'SCROLL_TO_PREVIOUS'
-					) {
+					} else if (meta?.action === 'SCROLL_TO_NEXT' || meta?.action === 'SCROLL_TO_PREVIOUS') {
 						// Update the active index in plugin state and recalculate decorations
 						const decorations = getScrollableDecorations(
 							currentPluginState.decorations,
@@ -244,10 +242,7 @@ export const createPlugin = (
 							view.state.doc,
 						);
 						const activeDecoration = scrollableDecorations[pluginState.activeIndex];
-						if (
-							activeDecoration &&
-							api?.expand?.commands?.toggleExpandRange
-						) {
+						if (activeDecoration && api?.expand?.commands?.toggleExpandRange) {
 							api?.core.actions.execute(
 								api.expand.commands.toggleExpandRange(
 									activeDecoration.from,

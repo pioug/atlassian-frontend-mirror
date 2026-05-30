@@ -13,7 +13,7 @@ import VidFullScreenOnIcon from '@atlaskit/icon/core/fullscreen-enter';
 import FullscreenExitIcon from '@atlaskit/icon/core/fullscreen-exit';
 import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { CloseButton, useModal } from '@atlaskit/modal-dialog';
-import { fg } from "@atlaskit/platform-feature-flags";
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -120,7 +120,10 @@ const LinkInfo = ({
 
 	const urlButton = useMemo(() => {
 		if (onViewButtonClick) {
-			const label = providerName && fg('navx-4957-sl-embed-modal-a11y-label') ? formatMessage(messages.viewInProvider, { providerName}) : formatMessage(messages.viewOriginal)
+			const label =
+				providerName && fg('navx-4957-sl-embed-modal-a11y-label')
+					? formatMessage(messages.viewInProvider, { providerName })
+					: formatMessage(messages.viewOriginal);
 			const content = providerName ? (
 				<React.Fragment>
 					<FormattedMessage {...messages.viewIn} /> {providerName}

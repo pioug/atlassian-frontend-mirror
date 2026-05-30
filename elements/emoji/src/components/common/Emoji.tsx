@@ -348,8 +348,9 @@ export const SpriteEmoji = (props: Props): JSX.Element => {
 	const representation = emoji.representation as SpriteRepresentation;
 	const sprite = representation.sprite;
 
-	const classes = `${emojiNodeStyles} ${selected ? commonSelectedStyles : ''} ${selectOnHover ? selectOnHoverStyles : ''
-		} ${className ? className : ''}`;
+	const classes = `${emojiNodeStyles} ${selected ? commonSelectedStyles : ''} ${
+		selectOnHover ? selectOnHoverStyles : ''
+	} ${className ? className : ''}`;
 
 	let sizing = {};
 	if (fitToHeight) {
@@ -389,8 +390,9 @@ export const SpriteEmoji = (props: Props): JSX.Element => {
 export const UnicodeEmoji = (props: Props): JSX.Element => {
 	const { emoji, fitToHeight, selected, selectOnHover, className } = props;
 
-	const classes = `${emojiNodeStyles} ${selected ? commonSelectedStyles : ''} ${selectOnHover ? selectOnHoverStyles : ''
-		} ${className ? className : ''}`;
+	const classes = `${emojiNodeStyles} ${selected ? commonSelectedStyles : ''} ${
+		selectOnHover ? selectOnHoverStyles : ''
+	} ${className ? className : ''}`;
 
 	const emojiText = (emoji.representation as UnicodeRepresentation).unicodeEmoji;
 
@@ -440,9 +442,11 @@ export const ImageEmoji = (props: Props): JSX.Element => {
 
 	const ufoExp = useMemo(() => sampledUfoRenderedEmoji(emoji), [emoji]);
 
-	const classes = `${emojiMainStyle} ${emojiNodeStyles} ${selected ? commonSelectedStyles : ''
-		} ${selectOnHover ? selectOnHoverStyles : ''} ${emojiImage} ${className ? className : ''
-		} ${showDelete ? deletableEmoji : ''}`;
+	const classes = `${emojiMainStyle} ${emojiNodeStyles} ${
+		selected ? commonSelectedStyles : ''
+	} ${selectOnHover ? selectOnHoverStyles : ''} ${emojiImage} ${
+		className ? className : ''
+	} ${showDelete ? deletableEmoji : ''}`;
 
 	let width;
 	let height;
@@ -640,7 +644,7 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 					? emojiSpriteContainer
 					: type === 'unicode'
 						? emojiUnicodeContainer
-						: emojiImageContainer
+						: emojiImageContainer,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
@@ -686,7 +690,7 @@ export const Emoji = (props: Props): JSX.Element => {
 	}, []);
 
 	if (isUnicodeRepresentation(emoji.representation)) {
-		return <UnicodeEmoji {...props} />
+		return <UnicodeEmoji {...props} />;
 	}
 	// TODO: We always prefer render as image as having accessibility issues with sprite representation
 	if (isSpriteRepresentation(emoji.representation)) {

@@ -46,4 +46,3 @@ const nodeToReducerMapping: { [key: string]: NodeReducer } = {
 	taskItem,
 	unknown,
 };
-

@@ -117,7 +117,9 @@ export function isDistributedUniformly(
 	}
 
 	const { selectedTotal, equalWidth } = distribution;
-	const lastColWidth = roundLayoutColumnWidth(selectedTotal - equalWidth * (selectedWidths.length - 1));
+	const lastColWidth = roundLayoutColumnWidth(
+		selectedTotal - equalWidth * (selectedWidths.length - 1),
+	);
 	return (
 		selectedWidths.slice(0, -1).every((width) => width === equalWidth) &&
 		selectedWidths[selectedWidths.length - 1] === lastColWidth

@@ -23,7 +23,7 @@ type AgentCreateAction = CreateFlowEventPayload['action'] | AddToolsPromptEventP
 
 type CommonAnalyticsAttributes = {
 	touchPoint?: string;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 } & Record<string, any>;
 
 const globalEventConfig = getDefaultTrackEventConfig();

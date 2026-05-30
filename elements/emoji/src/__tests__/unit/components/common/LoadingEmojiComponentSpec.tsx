@@ -64,9 +64,9 @@ describe('<LoadingEmojiComponent />', () => {
 			const providerPromise = Promise.resolve({} as EmojiProvider);
 			const component1 = mount(<TestLoadingComponent emojiProvider={providerPromise} />);
 			const component2 = mount(<TestLoadingComponent emojiProvider={providerPromise} />);
-			return waitFor(() =>
-				expect(hasLoaded(component1) && hasLoaded(component2)).toBe(true),
-			).then(() => expect(asyncLoadMock.call.length).toBe(1));
+			return waitFor(() => expect(hasLoaded(component1) && hasLoaded(component2)).toBe(true)).then(
+				() => expect(asyncLoadMock.call.length).toBe(1),
+			);
 		});
 	});
 });

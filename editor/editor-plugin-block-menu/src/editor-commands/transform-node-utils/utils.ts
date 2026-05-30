@@ -83,7 +83,11 @@ export const getTargetNodeTypeNameInContext = (
 		return 'nestedExpand';
 	}
 
-	if (nodeTypeName === 'panel' && schema?.nodes['panel_c1'] && expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
+	if (
+		nodeTypeName === 'panel' &&
+		schema?.nodes['panel_c1'] &&
+		expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+	) {
 		if (!parentNode || isNodeTypeValidChildOf('panel_c1', parentNode, schema)) {
 			return 'panel_c1';
 		}

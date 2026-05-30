@@ -41,4 +41,4 @@ export function isNodeTypeValidChildOf(
 		return false;
 	}
 	return parentNode.type.validContent(Fragment.from(candidate));
-};
+}

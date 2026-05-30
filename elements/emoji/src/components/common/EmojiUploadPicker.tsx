@@ -559,25 +559,28 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 		[cancelChooseFile, errorOnUpload, onFileLoad],
 	);
 
-	const cancelUpload = useCallback((event?: MouseEvent<HTMLElement>) => {
-		if (fg('platform_emoji_keep_picker_open_on_upload')) {
-			event?.preventDefault();
-			event?.stopPropagation();
-		}
-		clearUploadPicker();
-		onUploadCancelled();
+	const cancelUpload = useCallback(
+		(event?: MouseEvent<HTMLElement>) => {
+			if (fg('platform_emoji_keep_picker_open_on_upload')) {
+				event?.preventDefault();
+				event?.stopPropagation();
+			}
+			clearUploadPicker();
+			onUploadCancelled();
 
-		// using setTimeout here to allow the UI to update before setting focus
-		setTimeout(
-			(lastFocus) => {
-				if (lastFocus) {
-					getDocument()?.getElementById(lastFocus)?.focus();
-				}
-			},
-			0,
-			lastFocusedElementId.current,
-		);
-	}, [clearUploadPicker, onUploadCancelled]);
+			// using setTimeout here to allow the UI to update before setting focus
+			setTimeout(
+				(lastFocus) => {
+					if (lastFocus) {
+						getDocument()?.getElementById(lastFocus)?.focus();
+					}
+				},
+				0,
+				lastFocusedElementId.current,
+			);
+		},
+		[clearUploadPicker, onUploadCancelled],
+	);
 
 	const onChooseFileClicked = () => {
 		onFileChooserClicked && onFileChooserClicked();

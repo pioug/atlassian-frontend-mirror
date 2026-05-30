@@ -252,4 +252,5 @@ const createTransformationMatrix = (includePanelC1: boolean): TransformationMatr
 });
 
 export const TRANSFORMATION_MATRIX: TransformationMatrix = createTransformationMatrix(false);
-export const TRANSFORMATION_MATRIX_PANEL_C1: TransformationMatrix = createTransformationMatrix(true);
+export const TRANSFORMATION_MATRIX_PANEL_C1: TransformationMatrix =
+	createTransformationMatrix(true);

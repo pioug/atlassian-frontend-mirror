@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.10.4
+
+### Patch Changes
+
+- [`c2aa6b2ec9080`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2aa6b2ec9080) -
+  adds eslint isGCP rule
+- Updated dependencies
+
 ## 2.10.3
 
 ### Patch Changes

@@ -23,12 +23,16 @@ export const upgradePanelNodesToPanelC1 = (
 	parentNode: PMNode | undefined,
 	schema: Schema,
 ): PMNode[] => {
-	if (!schema.nodes['panel_c1'] || !expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
+	if (
+		!schema.nodes['panel_c1'] ||
+		!expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+	) {
 		return nodes;
 	}
 	return nodes.map((node) => {
 		if (node.type.name === 'panel') {
-			const shouldUsePanelC1 = !parentNode || isNodeTypeValidChildOf('panel_c1', parentNode, schema);
+			const shouldUsePanelC1 =
+				!parentNode || isNodeTypeValidChildOf('panel_c1', parentNode, schema);
 			if (shouldUsePanelC1) {
 				return schema.nodes['panel_c1'].createAndFill(node.attrs, node.content, node.marks) ?? node;
 			}
@@ -80,12 +84,8 @@ export const convertNodesToTargetType = ({
 	}
 
 	const steps = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
-		? TRANSFORMATION_MATRIX_PANEL_C1[selectedNodeTypeName][
-				targetNodeTypeName
-			]
-		: TRANSFORMATION_MATRIX[selectedNodeTypeName][
-				targetNodeTypeName
-			];
+		? TRANSFORMATION_MATRIX_PANEL_C1[selectedNodeTypeName][targetNodeTypeName]
+		: TRANSFORMATION_MATRIX[selectedNodeTypeName][targetNodeTypeName];
 
 	const context: TransformStepContext = {
 		// sourceNode is incorrect now - what to do here?
@@ -111,9 +111,7 @@ export const isTransformDisabledBasedOnStepsConfig = (
 	targetNodeType: NodeTypeName,
 ): boolean => {
 	const steps = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
-		? TRANSFORMATION_MATRIX_PANEL_C1[selectedNodeType][
-				targetNodeType
-			]
+		? TRANSFORMATION_MATRIX_PANEL_C1[selectedNodeType][targetNodeType]
 		: TRANSFORMATION_MATRIX[selectedNodeType][targetNodeType];
 	return !steps || steps.length === 0;
 };

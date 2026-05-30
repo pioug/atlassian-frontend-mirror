@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3ab6d06ceee07a33f01831ba39d1781a>>
+ * @codegen <<SignedSource::53794f446833e9543b9fc09809fc6844>>
  * @codegenCommand yarn build tokens
  */
 
@@ -2051,6 +2051,23 @@ var tokens = [{
   "name": "color.palette.Neutral1100",
   "path": ["color", "palette", "Neutral1100"]
 }, {
+  "value": "#000000",
+  "attributes": {
+    "group": "palette",
+    "category": "light mode neutral"
+  },
+  "filePath": "schema/palettes/palette.tsx",
+  "isSource": true,
+  "original": {
+    "value": "#000000",
+    "attributes": {
+      "group": "palette",
+      "category": "light mode neutral"
+    }
+  },
+  "name": "color.palette.Neutral1200",
+  "path": ["color", "palette", "Neutral1200"]
+}, {
   "value": "#17171708",
   "attributes": {
     "group": "palette",
@@ -2390,6 +2407,23 @@ var tokens = [{
   },
   "name": "color.palette.DarkNeutral1100",
   "path": ["color", "palette", "DarkNeutral1100"]
+}, {
+  "value": "#FFFFFF",
+  "attributes": {
+    "group": "palette",
+    "category": "dark mode neutral"
+  },
+  "filePath": "schema/palettes/palette.tsx",
+  "isSource": true,
+  "original": {
+    "value": "#FFFFFF",
+    "attributes": {
+      "group": "palette",
+      "category": "dark mode neutral"
+    }
+  },
+  "name": "color.palette.DarkNeutral1200",
+  "path": ["color", "palette", "DarkNeutral1200"]
 }, {
   "value": "#01040475",
   "attributes": {

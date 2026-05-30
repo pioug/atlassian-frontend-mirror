@@ -12,7 +12,6 @@ import { messages } from '../i18n';
 import SearchNoResultDark from './assets/spot/search-no-result/SearchNoResultDark';
 import SearchNoResultLight from './assets/spot/search-no-result/SearchNoResultLight';
 
-
 const noResultsContainer = css({
 	display: 'flex',
 	flexDirection: 'column',

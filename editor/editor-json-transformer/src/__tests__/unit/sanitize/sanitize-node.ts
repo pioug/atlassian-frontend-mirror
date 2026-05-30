@@ -494,7 +494,7 @@ describe('@atlaskit/editor-json-transformer', () => {
 				});
 			});
 
-		it('should convert panel_c1 nodes to panel nodes', () => {
+			it('should convert panel_c1 nodes to panel nodes', () => {
 				const jsonDoc = {
 					version: 1,
 					type: 'doc',

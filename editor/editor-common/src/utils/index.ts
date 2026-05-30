@@ -602,4 +602,8 @@ export type { PageElementCounts } from './page-element-counts';
 
 export { withFeatureFlaggedComponent } from './withFeatureFlaggedComponent';
 
-export { isNodeOfSameBaseType, getBaseNodeTypeName, isNodeTypeValidChildOf } from './node-type-utils';
+export {
+	isNodeOfSameBaseType,
+	getBaseNodeTypeName,
+	isNodeTypeValidChildOf,
+} from './node-type-utils';

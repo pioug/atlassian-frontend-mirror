@@ -127,7 +127,7 @@ describe('Link Type', () => {
 
 		await waitFor(() => expect(spyFetchData).toHaveBeenCalled());
 
-		await findByTestId('link-datasource-render-type--link')
+		await findByTestId('link-datasource-render-type--link');
 		const anchor = await findByRole('link');
 
 		expect(anchor).toBeInTheDocument();

@@ -76,6 +76,26 @@ export const aiMessages: {
 		description: string;
 		id: string;
 	};
+	askRovoToolbarImageTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	askRovoToolbarImageTooltipQuickCommand: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	askRovoToolbarRemixAppTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	askRovoToolbarRemixAppTooltipQuickCommand: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	// Prebuilt messages
 	atlasGenerateContentConfigItemDescription: {
 		defaultMessage: string;
@@ -340,6 +360,16 @@ export const aiMessages: {
 		defaultMessage: 'Ask Rovo',
 		description: 'Title for an option to use Atlassian Intellgience',
 	},
+	askRovoToolbarRemixAppTitle: {
+		id: 'fabric.editor.ai.toolbar.askRovo.remixApp.title',
+		defaultMessage: 'Edit',
+		description: 'Title for an option to edit a MAUI app embed with Rovo',
+	},
+	askRovoToolbarImageTitle: {
+		id: 'fabric.editor.ai.toolbar.askRovo.image.title',
+		defaultMessage: 'Edit image',
+		description: 'Title for an option to edit an image with Rovo',
+	},
 	moreRovoOptionsMenuLabel: {
 		id: 'fabric.editor.ai.toolbar.moreRovoOptions.label',
 		defaultMessage: 'More Rovo options',
@@ -365,6 +395,17 @@ export const aiMessages: {
 		id: 'fabric.editor.ai.toolbar.askRovo.tooltip.quickCommand',
 		defaultMessage: "Ask Rovo {key}+'",
 		description: 'Tooltip text for an option to use Rovo AI with quick command',
+	},
+	askRovoToolbarRemixAppTooltipQuickCommand: {
+		id: 'fabric.editor.ai.toolbar.askRovo.remixApp.tooltip.quickCommand',
+		defaultMessage: "Edit {key}+'",
+		description:
+			'Tooltip text for an option to edit a MAUI app embed with Rovo using quick command',
+	},
+	askRovoToolbarImageTooltipQuickCommand: {
+		id: 'fabric.editor.ai.toolbar.askRovo.image.tooltip.quickCommand',
+		defaultMessage: "Edit image {key}+'",
+		description: 'Tooltip text for an option to edit an image with Rovo using quick command',
 	},
 	tryAIToolbarIconTitle: {
 		id: 'fabric.editor.ai.toolbar.tryAI.title',

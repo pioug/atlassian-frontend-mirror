@@ -12,7 +12,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { PanelPlugin } from '../panelPluginType';
 import { pickPanelTypeForInsertion } from '../pm-plugins/utils/utils';
 
-
 type Props = {
 	api: ExtractInjectionAPI<PanelPlugin> | undefined;
 };

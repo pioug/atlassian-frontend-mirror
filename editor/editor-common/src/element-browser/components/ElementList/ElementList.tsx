@@ -590,11 +590,7 @@ export function ElementItem({
 				role={role}
 				// @ts-expect-error -- see A11Y-30538
 				tabIndex={
-					expValEquals(
-						'platform_editor_fix_a11y_tab_focus_insertion_menu',
-						'isEnabled',
-						true,
-					)
+					expValEquals('platform_editor_fix_a11y_tab_focus_insertion_menu', 'isEnabled', true)
 						? -1
 						: undefined
 				}
@@ -603,11 +599,7 @@ export function ElementItem({
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={inlineMode ? null : itemStyleOverrides}
 					tabIndex={
-						expValEquals(
-							'platform_editor_fix_a11y_tab_focus_insertion_menu',
-							'isEnabled',
-							true,
-						)
+						expValEquals('platform_editor_fix_a11y_tab_focus_insertion_menu', 'isEnabled', true)
 							? undefined
 							: 0
 					}

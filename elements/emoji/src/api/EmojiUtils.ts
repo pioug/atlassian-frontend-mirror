@@ -177,11 +177,15 @@ export const denormaliseEmojiServiceResponse = (emojiData: EmojiServiceResponse)
 	const emojis: EmojiDescription[] = emojiData.emojis.map(
 		(emoji: EmojiServiceDescriptionWithVariations): EmojiDescriptionWithVariations => {
 			const unicodeEmoji = emojiIdToEmoji(emoji.id);
-			const useUnicodeRepresentation: boolean = !!(emoji.id && emoji.type === ProviderTypes.STANDARD && unicodeEmoji && fg('platform_twemoji_removal_unicode_emojis'));
-			const newRepresentation = useUnicodeRepresentation ? { unicodeEmoji } as UnicodeRepresentation : denormaliseServiceRepresentation(
-				emoji.representation,
-				emojiData.meta,
+			const useUnicodeRepresentation: boolean = !!(
+				emoji.id &&
+				emoji.type === ProviderTypes.STANDARD &&
+				unicodeEmoji &&
+				fg('platform_twemoji_removal_unicode_emojis')
 			);
+			const newRepresentation = useUnicodeRepresentation
+				? ({ unicodeEmoji } as UnicodeRepresentation)
+				: denormaliseServiceRepresentation(emoji.representation, emojiData.meta);
 			const altRepresentation = denormaliseServiceAltRepresentation(
 				emoji.altRepresentations,
 				emojiData.meta,

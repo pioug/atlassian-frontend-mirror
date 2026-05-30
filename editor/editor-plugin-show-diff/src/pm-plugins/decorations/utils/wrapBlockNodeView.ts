@@ -143,9 +143,7 @@ const getChangedNodeStyle = (
 		case 'expand':
 		case 'decisionList':
 			if (isTraditional) {
-				return isActive
-					? deletedTraditionalBlockOutlineActive
-					: deletedTraditionalBlockOutlineNew;
+				return isActive ? deletedTraditionalBlockOutlineActive : deletedTraditionalBlockOutlineNew;
 			}
 			return isActive ? deletedBlockOutlineActive : deletedBlockOutline;
 		case 'panel':
@@ -203,10 +201,7 @@ const maybeAddDeletedOutlineNewClass = ({
 	if (name !== 'mediaSingle' && name !== 'embedCard') {
 		return;
 	}
-	if (
-		colorScheme === 'traditional' &&
-		!isActive
-	) {
+	if (colorScheme === 'traditional' && !isActive) {
 		nodeView.classList.add('show-diff-deleted-outline-new');
 	}
 };

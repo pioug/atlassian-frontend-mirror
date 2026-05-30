@@ -94,17 +94,19 @@ describe('Media Emoji Handling across components', () => {
 		])(
 			'Media emoji rendered in type ahead when unicode gate is %s',
 			async (gateEnabled, expectedSrc) => {
-				jest.mocked(fg).mockImplementation(
-					(flagName) => flagName === 'platform_twemoji_removal_unicode_emojis' && gateEnabled,
-				);
+				jest
+					.mocked(fg)
+					.mockImplementation(
+						(flagName) => flagName === 'platform_twemoji_removal_unicode_emojis' && gateEnabled,
+					);
 
-			renderWithIntl(<EmojiTypeAhead emojiProvider={emojiProvider} />);
-			const emoji = await screen.findByAltText(mediaEmoji.name);
+				renderWithIntl(<EmojiTypeAhead emojiProvider={emojiProvider} />);
+				const emoji = await screen.findByAltText(mediaEmoji.name);
 
-			expect(emoji).toBeInTheDocument();
-			expect(emoji).toHaveAttribute('src', expectedSrc);
-			expect(emoji).toHaveAttribute('data-emoji-id', mediaEmojiId.id);
-			expect(emoji).toHaveAttribute('data-emoji-short-name', mediaEmojiId.shortName);
+				expect(emoji).toBeInTheDocument();
+				expect(emoji).toHaveAttribute('src', expectedSrc);
+				expect(emoji).toHaveAttribute('data-emoji-id', mediaEmojiId.id);
+				expect(emoji).toHaveAttribute('data-emoji-short-name', mediaEmojiId.shortName);
 			},
 		);
 	});

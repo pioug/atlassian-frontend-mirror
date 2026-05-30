@@ -161,14 +161,15 @@ export function createPlugin({
 					// but we record the matching handler so the next keydown (Enter) can use it.
 					if (expValEquals('platform_editor_wide_slash_trigger', 'isEnabled', true)) {
 						const pendingData = event.data ?? '';
-						pendingWideSlashHandler = typeAheadHandlers.find((handler) => {
-							if (!handler.customRegex) {
-								return false;
-							}
-							// Only match if the entire composition is a trigger character
-							const pattern = new RegExp(`^(${handler.customRegex})$`, 'u');
-							return pattern.test(pendingData);
-						}) ?? null;
+						pendingWideSlashHandler =
+							typeAheadHandlers.find((handler) => {
+								if (!handler.customRegex) {
+									return false;
+								}
+								// Only match if the entire composition is a trigger character
+								const pattern = new RegExp(`^(${handler.customRegex})$`, 'u');
+								return pattern.test(pendingData);
+							}) ?? null;
 					}
 					return false;
 				},

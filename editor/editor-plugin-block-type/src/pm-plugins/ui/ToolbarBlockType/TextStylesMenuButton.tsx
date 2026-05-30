@@ -41,65 +41,65 @@ const usePluginState = (api?: ExtractInjectionAPI<BlockTypePlugin>) => {
 	// inside `toolbarBlockTypesWithRank` doesn't run at module import time —
 	// that breaks downstream tests that import preset-default without
 	// initializing the FeatureGates client.
-	const sourceViewBlockTypeValues = useMemo(
-		() => Object.values(toolbarBlockTypesWithRank({})),
-		[],
-	);
-	const selectPluginState = useCallback((state: BlockTypeSelectorState) => {
-		const pmCurrentBlockType =
-			state.interactionState?.interactionState === 'hasNotHadInteraction' &&
-			expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true)
-				? undefined
-				: state.blockTypeState?.currentBlockType;
+	const sourceViewBlockTypeValues = useMemo(() => Object.values(toolbarBlockTypesWithRank({})), []);
+	const selectPluginState = useCallback(
+		(state: BlockTypeSelectorState) => {
+			const pmCurrentBlockType =
+				state.interactionState?.interactionState === 'hasNotHadInteraction' &&
+				expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true)
+					? undefined
+					: state.blockTypeState?.currentBlockType;
 
-		// When the markdown bridge is active and the source view is mounted,
-		// derive currentBlockType from the CM6 Lezer heading level rather than
-		// PM block type state (which reflects the last WYSIWYG cursor position).
-		const isMarkdownBridgeEnabled =
-			expValEqualsNoExposure('cc-markdown-mode', 'isEnabled', true) &&
-			fg('platform_editor_markdown_compatible_toolbar');
-		const sourceFormatState = isMarkdownBridgeEnabled
-			? state.markdownModeState?.sourceBlockFormatState
-			: null;
-		// markdownView is authoritative for "in source view" — it flips synchronously
-		// on setView. sourceFormatState is null between the view switch and the first
-		// CM6 update listener fire, so we can't rely on it as the sentinel.
-		const isSourceViewActive =
-			isMarkdownBridgeEnabled && state.markdownModeState?.view === 'syntax';
+			// When the markdown bridge is active and the source view is mounted,
+			// derive currentBlockType from the CM6 Lezer heading level rather than
+			// PM block type state (which reflects the last WYSIWYG cursor position).
+			const isMarkdownBridgeEnabled =
+				expValEqualsNoExposure('cc-markdown-mode', 'isEnabled', true) &&
+				fg('platform_editor_markdown_compatible_toolbar');
+			const sourceFormatState = isMarkdownBridgeEnabled
+				? state.markdownModeState?.sourceBlockFormatState
+				: null;
+			// markdownView is authoritative for "in source view" — it flips synchronously
+			// on setView. sourceFormatState is null between the view switch and the first
+			// CM6 update listener fire, so we can't rely on it as the sentinel.
+			const isSourceViewActive =
+				isMarkdownBridgeEnabled && state.markdownModeState?.view === 'syntax';
 
-		// When in source view, derive currentBlockType from CM6 Lezer state
-		// (heading level or blockquote) rather than PM block type state.
-		// Guard on sourceFormatState being available — during the race window
-		// after switching to source view but before CM6 fires its first update,
-		// sourceFormatState is null even though isSourceViewActive is true.
-		const currentBlockType =
-			isSourceViewActive && sourceFormatState
-				? sourceFormatState.headingLevel !== null
-					? // In a heading, look up the full BlockType by name.
-						(sourceViewBlockTypeValues.find(
-							(bt) => bt.name === `heading${sourceFormatState.headingLevel}`,
-						) ?? null)
-					: sourceFormatState.inBlockquote
-						? // In a blockquote, look up the blockquote BlockType.
-							(sourceViewBlockTypeValues.find((bt) => bt.name === 'blockquote') ?? null)
-						: // Plain paragraph — look up the 'normal' BlockType so the trigger
-							// shows "Normal text" (matches WYSIWYG and HeadingButton's
-							// Normal-in-source-view selection logic).
-							(sourceViewBlockTypeValues.find((bt) => bt.name === 'normal') ?? null)
-				: isSourceViewActive
-					? null
-					: pmCurrentBlockType;
-
-		return {
-			blockTypesDisabled:
+			// When in source view, derive currentBlockType from CM6 Lezer state
+			// (heading level or blockquote) rather than PM block type state.
+			// Guard on sourceFormatState being available — during the race window
+			// after switching to source view but before CM6 fires its first update,
+			// sourceFormatState is null even though isSourceViewActive is true.
+			const currentBlockType =
 				isSourceViewActive && sourceFormatState
-					? Boolean(sourceFormatState.inCodeBlock)
+					? sourceFormatState.headingLevel !== null
+						? // In a heading, look up the full BlockType by name.
+							(sourceViewBlockTypeValues.find(
+								(bt) => bt.name === `heading${sourceFormatState.headingLevel}`,
+							) ?? null)
+						: sourceFormatState.inBlockquote
+							? // In a blockquote, look up the blockquote BlockType.
+								(sourceViewBlockTypeValues.find((bt) => bt.name === 'blockquote') ?? null)
+							: // Plain paragraph — look up the 'normal' BlockType so the trigger
+								// shows "Normal text" (matches WYSIWYG and HeadingButton's
+								// Normal-in-source-view selection logic).
+								(sourceViewBlockTypeValues.find((bt) => bt.name === 'normal') ?? null)
 					: isSourceViewActive
-						? false
-						: state.blockTypeState?.blockTypesDisabled,
-			currentBlockType,
-		};
-	}, [sourceViewBlockTypeValues]);
+						? null
+						: pmCurrentBlockType;
+
+			return {
+				blockTypesDisabled:
+					isSourceViewActive && sourceFormatState
+						? Boolean(sourceFormatState.inCodeBlock)
+						: isSourceViewActive
+							? false
+							: state.blockTypeState?.blockTypesDisabled,
+				currentBlockType,
+			};
+		},
+		[sourceViewBlockTypeValues],
+	);
 
 	return useSharedPluginStateWithSelector(
 		api,

@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 114.52.0
+
+### Minor Changes
+
+- [`e72b71ab5144f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e72b71ab5144f) -
+  Add target-specific Ask Rovo floating toolbar labels
+
 ## 114.51.1
 
 ### Patch Changes

@@ -345,16 +345,16 @@ describe('EditorCardProvider', () => {
 				});
 
 				it('should return cached data when cached response status is resolved', async () => {
-						const cachedResponse = createSmartLinkResponse('https://cached.example.com');
-						const asyncResponse = createSmartLinkResponse('https://fresh.example.com');
-						const { callback, setItemSpy } = setupCacheScenario(asyncResponse, cachedResponse);
+					const cachedResponse = createSmartLinkResponse('https://cached.example.com');
+					const asyncResponse = createSmartLinkResponse('https://fresh.example.com');
+					const { callback, setItemSpy } = setupCacheScenario(asyncResponse, cachedResponse);
 
-						expect(setItemSpy).toHaveBeenCalledTimes(1);
-						expect(setItemSpy).toHaveBeenCalledWith(cacheTestUrl, asyncResponse);
-						expect(callback).toHaveBeenCalledTimes(2);
-						expect(callback).toHaveBeenNthCalledWith(1, { data: cachedResponse });
-						expect(callback).toHaveBeenNthCalledWith(2, { data: asyncResponse });
-					});
+					expect(setItemSpy).toHaveBeenCalledTimes(1);
+					expect(setItemSpy).toHaveBeenCalledWith(cacheTestUrl, asyncResponse);
+					expect(callback).toHaveBeenCalledTimes(2);
+					expect(callback).toHaveBeenNthCalledWith(1, { data: cachedResponse });
+					expect(callback).toHaveBeenNthCalledWith(2, { data: asyncResponse });
+				});
 
 				it.each<[JsonLd.Meta.BaseMeta]>([
 					[{ access: 'forbidden', visibility: 'restricted' }],

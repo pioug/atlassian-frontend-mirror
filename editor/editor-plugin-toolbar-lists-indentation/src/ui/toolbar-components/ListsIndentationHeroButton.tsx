@@ -59,16 +59,10 @@ function useListsIndentationHeroButtonInfo({
 				expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true);
 
 			return {
-				pmBulletListActive: useDefaultToolbarState
-					? false
-					: states.listState?.bulletListActive,
+				pmBulletListActive: useDefaultToolbarState ? false : states.listState?.bulletListActive,
 				pmBulletListDisabled: states.listState?.bulletListDisabled,
-				pmOrderedListActive: useDefaultToolbarState
-					? false
-					: states.listState?.orderedListActive,
-				pmTaskListActive: useDefaultToolbarState
-					? false
-					: states.taskDecisionState?.isInsideTask,
+				pmOrderedListActive: useDefaultToolbarState ? false : states.listState?.orderedListActive,
+				pmTaskListActive: useDefaultToolbarState ? false : states.taskDecisionState?.isInsideTask,
 				markdownView: isMarkdownToolbarEnabled ? states.markdownModeState?.view : undefined,
 				sourceBlockFormatState: isMarkdownToolbarEnabled
 					? states.markdownModeState?.sourceBlockFormatState
@@ -77,7 +71,8 @@ function useListsIndentationHeroButtonInfo({
 					? states.markdownModeState?.sourceListFormatState
 					: null,
 			};
-		});
+		},
+	);
 
 	const isInSourceView = isMarkdownToolbarEnabled && markdownView === 'syntax';
 	const isBulletListActive = isInSourceView

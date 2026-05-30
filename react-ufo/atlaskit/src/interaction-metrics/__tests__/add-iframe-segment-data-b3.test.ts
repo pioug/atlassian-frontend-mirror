@@ -28,7 +28,11 @@ global.setTimeout = mockSetTimeout as any;
 global.clearTimeout = mockClearTimeout as any;
 
 function setupInteraction(interactionId: string) {
-	mockSetTimeout.mockImplementation((fn: () => void, delay: number) => ({ id: 'timer', fn, delay }));
+	mockSetTimeout.mockImplementation((fn: () => void, delay: number) => ({
+		id: 'timer',
+		fn,
+		delay,
+	}));
 	mockClearTimeout.mockImplementation(() => {});
 	addNewInteraction(interactionId, 'test-ufo', 'page_load', 1000, 1, null, null, null);
 }
@@ -72,7 +76,10 @@ describe('addIframeSegmentData — B3 cross-segment deduplication', () => {
 		const id = 'b3-test-2';
 		setupInteraction(id);
 
-		const entry = { label: 'resource-timing', data: { label: 'forge-ui-kit.js', startTime: 100, duration: 50 } };
+		const entry = {
+			label: 'resource-timing',
+			data: { label: 'forge-ui-kit.js', startTime: 100, duration: 50 },
+		};
 		addIframeSegmentData(id, 'seg-a', entry);
 		addIframeSegmentData(id, 'seg-a', entry);
 
@@ -205,8 +212,14 @@ describe('addIframeSegmentData — B3 cross-segment deduplication', () => {
 		setupInteraction(id);
 
 		const sharedResources = [
-			{ label: 'resource-timing', data: { label: 'forge-ui-kit.js', startTime: 100, duration: 50 } },
-			{ label: 'resource-timing', data: { label: 'forge-bridge.js', startTime: 110, duration: 30 } },
+			{
+				label: 'resource-timing',
+				data: { label: 'forge-ui-kit.js', startTime: 100, duration: 50 },
+			},
+			{
+				label: 'resource-timing',
+				data: { label: 'forge-bridge.js', startTime: 110, duration: 30 },
+			},
 			{ label: 'resource-timing', data: { label: 'react.js', startTime: 120, duration: 20 } },
 		];
 

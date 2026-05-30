@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 13.1.1
+
+### Patch Changes
+
+- [`e92deb020eae0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e92deb020eae0) -
+  Add `Neutral1200` and `DarkNeutral1200` base palette tokens and update generated raw palette
+  artifacts.
+
 ## 13.1.0
 
 ### Minor Changes

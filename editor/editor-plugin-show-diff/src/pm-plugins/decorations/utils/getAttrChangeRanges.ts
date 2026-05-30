@@ -51,10 +51,7 @@ export const getAttrChangeRanges = (doc: PMNode, steps: ProseMirrorStep[]): Step
 			}
 
 			// taskItem node: state attribute change — highlight the taskItem node
-			if (
-				stepAttrs.some((v) => taskItemAttrs.includes(v)) &&
-				nodeAtPos?.type.name === 'taskItem'
-			) {
+			if (stepAttrs.some((v) => taskItemAttrs.includes(v)) && nodeAtPos?.type.name === 'taskItem') {
 				return { fromB: step.pos, toB: step.pos + nodeAtPos.nodeSize };
 			}
 

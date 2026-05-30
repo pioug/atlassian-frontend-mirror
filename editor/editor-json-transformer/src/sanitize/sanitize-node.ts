@@ -55,7 +55,7 @@ export function sanitizeNode(json: JSONNode, options: SanitizeNodeOptions = {}):
 			}
 			return;
 		},
-		panel_c1: (node) => ({ ...node, type: 'panel' } as JSONNode),
+		panel_c1: (node) => ({ ...node, type: 'panel' }) as JSONNode,
 		emoji: removeNonAnnotationMarks,
 		mention: removeNonAnnotationMarks,
 		date: removeNonAnnotationMarks,

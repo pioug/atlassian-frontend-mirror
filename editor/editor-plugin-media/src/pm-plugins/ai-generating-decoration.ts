@@ -23,7 +23,7 @@ export const aiGeneratingDecorationPluginKey: PluginKey = new PluginKey('aiGener
 export type AIGeneratingSource = 'cwr' | 'maui';
 
 export type AIGeneratingAction =
-	| { mediaId: string; source?: AIGeneratingSource; type: 'SET_GENERATING'; }
+	| { mediaId: string; source?: AIGeneratingSource; type: 'SET_GENERATING' }
 	| { mediaId: string; type: 'CLEAR_GENERATING' }
 	| { type: 'CLEAR_ALL' };
 

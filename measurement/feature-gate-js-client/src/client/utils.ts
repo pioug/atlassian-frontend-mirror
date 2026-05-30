@@ -72,7 +72,7 @@ export const toStatsigUser = (
 	const user: StatsigUser = {
 		customIDs: {
 			...otherIdentifiers,
-			...(stableId !== undefined ? { stableID: stableId } : {})
+			...(stableId !== undefined ? { stableID: stableId } : {}),
 		},
 		custom: customAttributes,
 	};

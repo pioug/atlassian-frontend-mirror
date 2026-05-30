@@ -169,27 +169,27 @@ describe('toStatsigUser', () => {
 		const identifiers = {
 			tenantId: 'myTenantId',
 			atlassianAccountId: 'myAtlassianAccountId',
-			stableId: 'myStableId'
+			stableId: 'myStableId',
 		};
 
 		const statsigUser = toStatsigUser(identifiers);
 		expect(statsigUser.customIDs).toEqual({
 			tenantId: 'myTenantId',
 			atlassianAccountId: 'myAtlassianAccountId',
-			stableID: 'myStableId'
+			stableID: 'myStableId',
 		});
 	});
 
 	test('should not include stableID if it is not set', () => {
 		const identifiers = {
 			tenantId: 'myTenantId',
-			atlassianAccountId: 'myAtlassianAccountId'
+			atlassianAccountId: 'myAtlassianAccountId',
 		};
 
 		const statsigUser = toStatsigUser(identifiers);
 		expect(statsigUser.customIDs).toEqual({
 			tenantId: 'myTenantId',
-			atlassianAccountId: 'myAtlassianAccountId'
+			atlassianAccountId: 'myAtlassianAccountId',
 		});
 	});
 
@@ -197,13 +197,13 @@ describe('toStatsigUser', () => {
 		const identifiers = {
 			tenantId: 'myTenantId',
 			atlassianAccountId: 'myAtlassianAccountId',
-			stableId: undefined
+			stableId: undefined,
 		};
 
 		const statsigUser = toStatsigUser(identifiers);
 		expect(statsigUser.customIDs).toEqual({
 			tenantId: 'myTenantId',
-			atlassianAccountId: 'myAtlassianAccountId'
+			atlassianAccountId: 'myAtlassianAccountId',
 		});
 	});
 });

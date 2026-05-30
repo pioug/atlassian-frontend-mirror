@@ -21,12 +21,14 @@ test.describe('ReactUFO: UFOThirdPartySegment segment3pData', () => {
 
 		const { interactionMetrics } = ufoProperties;
 
-		type Segment3pEntry = { meta: Record<string, string | undefined>; timings: Array<{ label: string; data: Record<string, unknown> }> };
+		type Segment3pEntry = {
+			meta: Record<string, string | undefined>;
+			timings: Array<{ label: string; data: Record<string, unknown> }>;
+		};
 		type Segment3pDataPayload = { segments: Record<string, Segment3pEntry>; trim?: true };
 
-		const segment3pData = (
-			interactionMetrics as { segment3pData?: Segment3pDataPayload }
-		).segment3pData;
+		const segment3pData = (interactionMetrics as { segment3pData?: Segment3pDataPayload })
+			.segment3pData;
 		expect(segment3pData).toBeDefined();
 		expect(typeof segment3pData!.segments).toBe('object');
 

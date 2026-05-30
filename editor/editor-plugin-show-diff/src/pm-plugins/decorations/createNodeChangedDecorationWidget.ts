@@ -292,23 +292,23 @@ export const createNodeChangedDecorationWidget = ({
 		) {
 			// Skip the case where the node is a paragraph or table row that way it can still be rendered and delete the entire table
 			return;
-			} else {
-				const fallbackNode = fallbackSerialization();
-				if (fallbackNode) {
-					if (fallbackNode instanceof HTMLElement) {
-						const injectedNode = injectInnerWrapper({
-							node: fallbackNode,
-							colorScheme,
-							isActive,
-							isInserted,
-						});
-						dom.append(injectedNode);
-					} else {
-						const wrapper = createContentWrapper(colorScheme, isActive, isInserted);
-						wrapper.append(fallbackNode);
-						dom.append(wrapper);
-					}
+		} else {
+			const fallbackNode = fallbackSerialization();
+			if (fallbackNode) {
+				if (fallbackNode instanceof HTMLElement) {
+					const injectedNode = injectInnerWrapper({
+						node: fallbackNode,
+						colorScheme,
+						isActive,
+						isInserted,
+					});
+					dom.append(injectedNode);
+				} else {
+					const wrapper = createContentWrapper(colorScheme, isActive, isInserted);
+					wrapper.append(fallbackNode);
+					dom.append(wrapper);
 				}
+			}
 		}
 	});
 

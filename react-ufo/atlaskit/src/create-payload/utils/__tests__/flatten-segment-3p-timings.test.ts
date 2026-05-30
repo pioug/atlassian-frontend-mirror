@@ -1,8 +1,5 @@
 import type { FlatSegment3pTimingEntry } from '../../../common';
-import {
-	SEGMENT_3P_SOFT_BUDGET_KB,
-	applySegment3pBudget,
-} from '../flatten-segment-3p-timings';
+import { SEGMENT_3P_SOFT_BUDGET_KB, applySegment3pBudget } from '../flatten-segment-3p-timings';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -113,4 +110,3 @@ describe('applySegment3pBudget — soft budget exceeded', () => {
 		expect(result.some((e) => e.label === 'layout-shift')).toBe(true);
 	});
 });
-

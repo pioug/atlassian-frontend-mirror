@@ -13,7 +13,11 @@ import {
 	ToolbarKeyboardShortcutHint,
 } from '@atlaskit/editor-toolbar';
 
-import { clearHoverSelection, closeActiveTableMenu, hoverRows } from '../../../../pm-plugins/commands';
+import {
+	clearHoverSelection,
+	closeActiveTableMenu,
+	hoverRows,
+} from '../../../../pm-plugins/commands';
 import { deleteRowsWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
 import { getSelectedRowIndexes } from '../../../../pm-plugins/utils/selection';
 import type { TableSharedStateInternal } from '../../../../types';

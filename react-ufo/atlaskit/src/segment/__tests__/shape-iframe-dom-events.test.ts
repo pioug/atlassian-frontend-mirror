@@ -74,7 +74,9 @@ describe('shapeFrameMarkData', () => {
 
 describe('shapeFrameMeasureData', () => {
 	it('returns entryName, startTime, and duration from payload', () => {
-		const result = shapeFrameMeasureData(wrap({ entryName: 'my-measure', startTime: 10, duration: 90 }));
+		const result = shapeFrameMeasureData(
+			wrap({ entryName: 'my-measure', startTime: 10, duration: 90 }),
+		);
 		expect(result).toEqual({ entryName: 'my-measure', startTime: 10, duration: 90 });
 	});
 
@@ -126,16 +128,22 @@ describe('shapeLayoutShiftData', () => {
 			}),
 		);
 		expect((result.sources as Array<Record<string, unknown>>)[0]).not.toHaveProperty('currentRect');
-		expect((result.sources as Array<Record<string, unknown>>)[0]).not.toHaveProperty('previousRect');
+		expect((result.sources as Array<Record<string, unknown>>)[0]).not.toHaveProperty(
+			'previousRect',
+		);
 	});
 
 	it('defaults source node to "unknown" when missing', () => {
-		const result = shapeLayoutShiftData(wrap({ value: 0, startTime: 0, cumulativeScore: 0, sessionValue: 0, sources: [{}] }));
+		const result = shapeLayoutShiftData(
+			wrap({ value: 0, startTime: 0, cumulativeScore: 0, sessionValue: 0, sources: [{}] }),
+		);
 		expect((result.sources as Array<Record<string, unknown>>)[0].node).toBe('unknown');
 	});
 
 	it('handles missing sources array gracefully', () => {
-		const result = shapeLayoutShiftData(wrap({ value: 0.1, startTime: 10, cumulativeScore: 0.1, sessionValue: 0.1 }));
+		const result = shapeLayoutShiftData(
+			wrap({ value: 0.1, startTime: 10, cumulativeScore: 0.1, sessionValue: 0.1 }),
+		);
 		expect(result.sources).toEqual([]);
 	});
 });
@@ -179,7 +187,12 @@ describe('shapeDomMutationsData', () => {
 
 	it('drops isFinalBatch, addedNodeDetails, removedNodeDetails from output', () => {
 		const result = shapeDomMutationsData(
-			wrap({ totalMutations: 1, observationDurationMs: 100, stopReason: 'timeout', isFinalBatch: true }),
+			wrap({
+				totalMutations: 1,
+				observationDurationMs: 100,
+				stopReason: 'timeout',
+				isFinalBatch: true,
+			}),
 		);
 		expect(result).not.toHaveProperty('isFinalBatch');
 		expect(result).not.toHaveProperty('addedNodeDetails');
@@ -192,7 +205,9 @@ describe('shapeDomMutationsData', () => {
 	});
 
 	it('rounds observationDurationMs', () => {
-		const result = shapeDomMutationsData(wrap({ totalMutations: 1, observationDurationMs: 99.6, stopReason: null }));
+		const result = shapeDomMutationsData(
+			wrap({ totalMutations: 1, observationDurationMs: 99.6, stopReason: null }),
+		);
 		expect(result.observationDurationMs).toBe(100);
 	});
 });

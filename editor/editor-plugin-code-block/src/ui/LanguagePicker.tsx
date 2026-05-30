@@ -160,10 +160,7 @@ export const LanguagePicker = ({
 			}),
 		[formatMessage, languagePickerOptions, recentlyUsedLanguages],
 	);
-	const searchOptions = useMemo(
-		() => options.flatMap((group) => group.options),
-		[options],
-	);
+	const searchOptions = useMemo(() => options.flatMap((group) => group.options), [options]);
 	const handleChange = useCallback(
 		(option: ValueType<LanguagePickerOption>) => {
 			if (!option) {
@@ -173,7 +170,7 @@ export const LanguagePicker = ({
 			const isSearchSelection = inputValueRef.current.trim().length > 0;
 			const selectionSource: LanguagePickerSelectionSource = isSearchSelection
 				? 'search'
-				: option.selectionSource ?? 'all';
+				: (option.selectionSource ?? 'all');
 			const commandSucceeded = changeLanguage(editorAnalyticsAPI)(option.value, selectionSource)(
 				editorView.state,
 				editorView.dispatch,

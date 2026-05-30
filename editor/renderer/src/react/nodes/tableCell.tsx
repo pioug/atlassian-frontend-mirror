@@ -125,10 +125,7 @@ const getDataAttributes = (
 		attrs['data-cell-background'] = background;
 	}
 
-	if (
-		valign &&
-		expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
-	) {
+	if (valign && expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)) {
 		attrs['data-valign'] = valign;
 	}
 
@@ -209,10 +206,7 @@ const getStyle = ({
 		style.top = offsetTop;
 	}
 
-	if (
-		valign &&
-		expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
-	) {
+	if (valign && expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)) {
 		style.verticalAlign = valign;
 	}
 

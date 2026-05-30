@@ -344,15 +344,11 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 						},
 						{
 							name: 'tableHeader',
-							node: expValEqualsNoExposure(
-								'platform_editor_table_menu_updates',
-								'isEnabled',
-								true,
-							)
+							node: expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
 								? tableHeaderWithNestedTableStage0
 								: fg('platform_editor_adf_with_localid')
-								? tableHeaderWithNestedTableWithLocalId
-								: tableHeaderWithNestedTable,
+									? tableHeaderWithNestedTableWithLocalId
+									: tableHeaderWithNestedTable,
 						},
 						{
 							name: 'tableRow',
@@ -362,15 +358,11 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 						},
 						{
 							name: 'tableCell',
-							node: expValEqualsNoExposure(
-								'platform_editor_table_menu_updates',
-								'isEnabled',
-								true,
-							)
+							node: expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
 								? tableCellWithNestedTableStage0
 								: fg('platform_editor_adf_with_localid')
-								? tableCellWithNestedTableWithLocalId
-								: tableCellWithNestedTable,
+									? tableCellWithNestedTableWithLocalId
+									: tableCellWithNestedTable,
 						},
 					]
 				: [
@@ -389,11 +381,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 						},
 						{
 							name: 'tableHeader',
-							node: expValEqualsNoExposure(
-								'platform_editor_table_menu_updates',
-								'isEnabled',
-								true,
-							)
+							node: expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
 								? tableHeaderStage0
 								: fg('platform_editor_adf_with_localid')
 									? tableHeaderWithLocalId
@@ -405,11 +393,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 						},
 						{
 							name: 'tableCell',
-							node: expValEqualsNoExposure(
-								'platform_editor_table_menu_updates',
-								'isEnabled',
-								true,
-							)
+							node: expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
 								? tableCellStage0
 								: fg('platform_editor_adf_with_localid')
 									? tableCellWithLocalId

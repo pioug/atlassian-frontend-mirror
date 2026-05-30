@@ -22,7 +22,6 @@ import type { TeamMember } from '@atlaskit/mention/team-resource';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-
 import { createSingleMentionFragment } from '../../editor-commands';
 import type { MentionsPlugin } from '../../mentionsPluginType';
 import {
@@ -404,15 +403,13 @@ export const createTypeAheadConfig = ({
 				{
 					id: 'people',
 					title: intl.formatMessage(mentionMessages.typeAheadSectionPeople),
-					filter: (item) =>
-						!isAgentType((item.mention?.userType as string) || ''),
+					filter: (item) => !isAgentType((item.mention?.userType as string) || ''),
 					limit: 6,
 				},
 				{
 					id: 'agents',
 					title: intl.formatMessage(mentionMessages.typeAheadSectionAgents),
-					filter: (item) =>
-						isAgentType((item.mention?.userType as string) || ''),
+					filter: (item) => isAgentType((item.mention?.userType as string) || ''),
 				},
 			];
 		},

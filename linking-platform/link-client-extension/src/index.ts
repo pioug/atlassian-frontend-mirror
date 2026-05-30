@@ -10,7 +10,10 @@ export { mockActionsDiscoveryEmptyResponse } from './services/use-data-source-cl
 export { mockActionsDiscoveryResponse } from './services/use-data-source-client-extension/mockActionsDiscoveryResponse';
 export { mockDatasourceDataNoActionsResponse } from './services/use-data-source-client-extension/mockDatasourceDataNoActionsResponse';
 export { mockDatasourceDataResponse } from './services/use-data-source-client-extension/mockDatasourceDataResponse';
-export { mockDatasourceDetailsResponse as mockDatasourceResponse, mockDatasourceDetailsResponse } from './services/use-data-source-client-extension/mockDatasourceDetailsResponse';
+export {
+	mockDatasourceDetailsResponse as mockDatasourceResponse,
+	mockDatasourceDetailsResponse,
+} from './services/use-data-source-client-extension/mockDatasourceDetailsResponse';
 export { mockDatasourceDataResponseWithSchema } from './services/use-data-source-client-extension/mocks';
 /** @deprecated use @atlaskit/link-client-extension/use-data-source-client-extension/types */
 export type {

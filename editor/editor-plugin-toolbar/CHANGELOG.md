@@ -4,6 +4,14 @@
 
 ### Patch Changes
 
+- [`aae236457e46a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aae236457e46a) -
+  Dismiss the contextual formatting toolbar when the Remix modal is opened from the editor selection
+  toolbar.
+
+## 7.3.8
+
+### Patch Changes
+
 - Updated dependencies
 
 ## 7.3.7

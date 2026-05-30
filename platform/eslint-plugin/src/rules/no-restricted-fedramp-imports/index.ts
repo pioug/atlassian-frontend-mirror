@@ -3,8 +3,8 @@ import type { Rule } from 'eslint';
 
 const RESTRICTED_IMPORTS: Record<string, string[]> = {
 	'@atlassian/atl-context': ['isFedRamp', 'isIsolatedCloud'],
-	'@atlaskit/atlassian-context': ['isFedRamp', 'isIsolatedCloud'],
-	'@atlassian/teams-common': ['isFedramp'],
+	'@atlaskit/atlassian-context': ['isFedRamp', 'isIsolatedCloud', 'isGoogleCloudPlatform'],
+	'@atlaskit/atlassian-context/cloud-provider': ['isGoogleCloudPlatform'],
 };
 
 const rule: Rule.RuleModule = {

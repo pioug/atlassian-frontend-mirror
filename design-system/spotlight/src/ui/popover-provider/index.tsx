@@ -15,4 +15,8 @@ import { PopoverProvider as TopLayer } from './top-layer';
  *
  */
 export const PopoverProvider: typeof Legacy = ({ children }) =>
-	fg('platform-dst-top-layer-spotlight') ? <TopLayer>{children}</TopLayer> : <Legacy>{children}</Legacy>;
+	fg('platform-dst-top-layer-spotlight') ? (
+		<TopLayer>{children}</TopLayer>
+	) : (
+		<Legacy>{children}</Legacy>
+	);

@@ -29,6 +29,7 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
+		"./plugin-key": "./src/entry-points/plugin-key.ts",
 		"./toolbar-plugin": "./src/entry-points/toolbar-plugin.tsx",
 		"./toolbar-plugin-type": "./src/entry-points/toolbar-plugin-type.ts",
 		"./types": "./src/entry-points/types.ts"

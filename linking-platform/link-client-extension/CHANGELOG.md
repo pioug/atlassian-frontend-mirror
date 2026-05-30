@@ -1,5 +1,14 @@
 # @atlaskit/link-client-extension
 
+## 6.1.1
+
+### Patch Changes
+
+- [`5ee16292ec890`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ee16292ec890) -
+  Volt OEPF migration: split multi-export files into one export per file using the volt-codemods
+  crate (volt-no-multi-exports-super-safe + volt-flatten-barrel-files + volt-remove-unused-imports).
+  Mechanical refactor with no intended runtime change.
+
 ## 6.1.0
 
 ### Minor Changes

@@ -16,7 +16,7 @@ type FireAnalyticsEvent = (payload: AnalyticsEventPayload) => void | undefined;
 export type ToolbarUIContextType = {
 	/**
 	 * True only when the toolbar is disabled from isDisabled.
-	 * Excludes disabling under platform_editor_default_toolbar_state, where buttons are 
+	 * Excludes disabling under platform_editor_default_toolbar_state, where buttons are
 	 * disabled by default until the user interacts with the editor.
 	 */
 	disabledWithoutInteractionLogic?: boolean;
@@ -27,7 +27,7 @@ export type ToolbarUIContextType = {
 	 * Indicates whether the toolbar is disabled when the editor is offline.
 	 */
 	isDisabled?: boolean;
-	
+
 	/**
 	 * Configuration for Keyboard Shortcuts/ Navigation
 	 */

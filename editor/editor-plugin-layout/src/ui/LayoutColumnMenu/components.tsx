@@ -36,7 +36,11 @@ type MenuSectionFallbackProps = {
 	children?: React.ReactNode;
 };
 
-const LayoutColumnMenuContainer = ({ children }: { children?: React.ReactNode }): React.JSX.Element => {
+const LayoutColumnMenuContainer = ({
+	children,
+}: {
+	children?: React.ReactNode;
+}): React.JSX.Element => {
 	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
 
 	return <ToolbarMenuContainer ref={setOutsideClickTargetRef}>{children}</ToolbarMenuContainer>;

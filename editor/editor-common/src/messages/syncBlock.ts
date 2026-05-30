@@ -572,8 +572,7 @@ export const syncBlockMessages: {
 	referenceSyncBlockSyncedFrom: {
 		id: 'fabric.editor.referenceSyncBlockSyncedFrom',
 		defaultMessage: 'Synced from:',
-		description:
-			'Bold heading label in the tooltip showing the source page of the synced block',
+		description: 'Bold heading label in the tooltip showing the source page of the synced block',
 	},
 	taskInDestinationSyncedBlockTooltip: {
 		id: 'fabric.editor.taskInDestinationSyncedBlockTooltip',

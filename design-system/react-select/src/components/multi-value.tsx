@@ -201,8 +201,8 @@ const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Opti
 	const selectClassNames = selectProps.classNames;
 	const hasCustomMultiValueClassNames = Boolean(
 		selectClassNames?.multiValue ||
-			selectClassNames?.multiValueLabel ||
-			selectClassNames?.multiValueRemove,
+		selectClassNames?.multiValueLabel ||
+		selectClassNames?.multiValueRemove,
 	);
 	// Detect if getStyles was overridden directly on this component instance (e.g. via the
 	// components prop wrapper passing a custom getStyles). The context holds the original

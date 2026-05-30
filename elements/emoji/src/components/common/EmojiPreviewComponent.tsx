@@ -96,7 +96,7 @@ export const EmojiPreviewComponent = ({ emoji }: Props): JSX.Element => {
 	return (
 		<div css={preview}>
 			<span css={previewImg}>
-				<CachingEmoji key={emoji.id || emoji.shortName} emoji={emoji} fitToHeight={fitToHeight}/>
+				<CachingEmoji key={emoji.id || emoji.shortName} emoji={emoji} fitToHeight={fitToHeight} />
 			</span>
 			<div css={previewText}>
 				{emoji.name && <div css={emojiName}>{emoji.name}</div>}

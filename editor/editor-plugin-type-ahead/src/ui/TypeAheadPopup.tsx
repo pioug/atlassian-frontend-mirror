@@ -39,7 +39,12 @@ import {
 } from '../pm-plugins/constants';
 import { getPluginState } from '../pm-plugins/utils';
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
-import type { OnSelectItem, TypeAheadErrorInfo, TypeAheadInputMethod, TypeAheadResolvedSection } from '../types';
+import type {
+	OnSelectItem,
+	TypeAheadErrorInfo,
+	TypeAheadInputMethod,
+	TypeAheadResolvedSection,
+} from '../types';
 
 import { TypeAheadErrorFallback } from './TypeAheadErrorFallback';
 import { TypeAheadList } from './TypeAheadList';

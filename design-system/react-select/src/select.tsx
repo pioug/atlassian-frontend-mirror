@@ -2697,81 +2697,81 @@ export default class Select<
 		const isCompact = spacing === 'compact';
 		return (
 			<SelectGetStylesContext.Provider value={this.getStyles}>
-			<SelectContainer
-				{...commonProps}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-				className={className}
-				innerProps={{
-					id: id,
-					onKeyDown: this.onKeyDown,
-					...(testId && {
-						'data-testid': testId && `${testId}-select--container`,
-					}),
-				}}
-				isDisabled={isDisabled}
-				isFocused={isFocused}
-			>
-				{this.renderLiveRegion()}
-				{commonProps.isMulti && this.renderMultiselectMessage()}
-				<Control
+				<SelectContainer
 					{...commonProps}
-					innerRef={this.getControlRef}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+					className={className}
 					innerProps={{
-						onMouseDown: this.onControlMouseDown,
-						onTouchEnd: this.onControlTouchEnd,
+						id: id,
+						onKeyDown: this.onKeyDown,
 						...(testId && {
-							'data-testid': `${testId}-select--control`,
+							'data-testid': testId && `${testId}-select--container`,
 						}),
 					}}
-					appearance={appearance}
-					isInvalid={isInvalid}
 					isDisabled={isDisabled}
 					isFocused={isFocused}
-					menuIsOpen={menuIsOpen}
-					isCompact={isCompact}
 				>
-					<ValueContainer
+					{this.renderLiveRegion()}
+					{commonProps.isMulti && this.renderMultiselectMessage()}
+					<Control
 						{...commonProps}
+						innerRef={this.getControlRef}
+						innerProps={{
+							onMouseDown: this.onControlMouseDown,
+							onTouchEnd: this.onControlTouchEnd,
+							...(testId && {
+								'data-testid': `${testId}-select--control`,
+							}),
+						}}
+						appearance={appearance}
+						isInvalid={isInvalid}
 						isDisabled={isDisabled}
+						isFocused={isFocused}
+						menuIsOpen={menuIsOpen}
 						isCompact={isCompact}
-						innerProps={{
-							...(testId && {
-								'data-testid': `${testId}-select--value-container`,
-							}),
-							...(commonProps.isMulti &&
-								commonProps.hasValue &&
-								!isAppleDevice() && {
-									// Required to keep JAWS from popping out of forms mode when using LEFT/RIGHT arrow keys.
-									// This is Jedi Master level ARIA and not taken lightly. Do not modify without consulting
-									// DST Accessibility.
-									role: 'application',
+					>
+						<ValueContainer
+							{...commonProps}
+							isDisabled={isDisabled}
+							isCompact={isCompact}
+							innerProps={{
+								...(testId && {
+									'data-testid': `${testId}-select--value-container`,
 								}),
-						}}
-					>
-						{this.renderPlaceholderOrValue()}
-						{this.renderInput()}
-					</ValueContainer>
-					<IndicatorsContainer
-						{...commonProps}
-						isDisabled={isDisabled}
-						innerProps={{
-							...(testId && {
-								'data-testid': `${testId}-select--indicators-container`,
-							}),
-						}}
-					>
-						{this.renderClearIndicator()}
-						{this.renderLoadingIndicator()}
-						{this.renderDropdownIndicator()}
-					</IndicatorsContainer>
-				</Control>
-				{this.renderMenu()}
-				{this.renderFormField()}
-				<NotifyOpenLayerObserver
-					isOpen={this.props.menuIsOpen}
-					onClose={this.handleOpenLayerObserverCloseSignal}
-				/>
-			</SelectContainer>
+								...(commonProps.isMulti &&
+									commonProps.hasValue &&
+									!isAppleDevice() && {
+										// Required to keep JAWS from popping out of forms mode when using LEFT/RIGHT arrow keys.
+										// This is Jedi Master level ARIA and not taken lightly. Do not modify without consulting
+										// DST Accessibility.
+										role: 'application',
+									}),
+							}}
+						>
+							{this.renderPlaceholderOrValue()}
+							{this.renderInput()}
+						</ValueContainer>
+						<IndicatorsContainer
+							{...commonProps}
+							isDisabled={isDisabled}
+							innerProps={{
+								...(testId && {
+									'data-testid': `${testId}-select--indicators-container`,
+								}),
+							}}
+						>
+							{this.renderClearIndicator()}
+							{this.renderLoadingIndicator()}
+							{this.renderDropdownIndicator()}
+						</IndicatorsContainer>
+					</Control>
+					{this.renderMenu()}
+					{this.renderFormField()}
+					<NotifyOpenLayerObserver
+						isOpen={this.props.menuIsOpen}
+						onClose={this.handleOpenLayerObserverCloseSignal}
+					/>
+				</SelectContainer>
 			</SelectGetStylesContext.Provider>
 		);
 	}

@@ -22,8 +22,11 @@ const getErrorReason = (svgReason: MediaSVGErrorReason): SvgPrimaryReason => {
 	}
 };
 
-const svgRendererStyles = css({
+const svgRendererBaseStyles = css({
 	objectFit: 'contain',
+});
+
+const svgRendererWhiteBgStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	backgroundColor: 'white', // This background color is for transparency
 });
@@ -40,6 +43,7 @@ export const SvgView = ({
 	onError,
 	wrapperRef,
 	alt,
+	backgroundColor,
 }: SvgViewProps): JSX.Element | null => {
 	const [didSvgRender, setDidSvgRender] = useState<boolean>(false);
 	const [svgDimensions, setSvgDimensions] = useState<React.CSSProperties>({});
@@ -83,8 +87,9 @@ export const SvgView = ({
 			data-source={source}
 			src={svgUrl}
 			alt={alt}
-			css={[svgRendererStyles, !width && !height && svgRendererMaxDimensionStyles]}
+			css={[svgRendererBaseStyles, !backgroundColor && svgRendererWhiteBgStyles, !width && !height && svgRendererMaxDimensionStyles]}
 			style={{
+				backgroundColor,
 				visibility: didSvgRender ? 'visible' : 'hidden',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				...svgDimensions,

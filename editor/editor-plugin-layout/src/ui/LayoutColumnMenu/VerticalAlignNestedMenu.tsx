@@ -39,7 +39,7 @@ export const VerticalAlignNestedMenu = ({
 	}, [selectedLayoutColumns]);
 	const TriggerIcon = currentValign
 		? VERTICAL_ALIGN_ICONS[currentValign]
-		: VERTICAL_ALIGN_ICONS.top;
+		: VERTICAL_ALIGN_ICONS.middle;
 
 	return (
 		<ToolbarNestedDropdownMenu

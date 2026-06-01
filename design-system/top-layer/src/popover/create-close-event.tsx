@@ -4,7 +4,7 @@ import type { TPopoverCloseReason } from './types';
  * Creates a synthetic DOM event from a `TPopoverCloseReason`.
  *
  * Useful when bridging the Popover primitive's `onClose({ reason })` callback
- * to a legacy API that expects a native DOM event — for example,
+ * to a legacy API that expects a native DOM event - for example,
  * `@atlaskit/inline-dialog`'s `onClose(event)` contract.
  *
  * - `'escape'` → `KeyboardEvent('keydown', { key: 'Escape' })`

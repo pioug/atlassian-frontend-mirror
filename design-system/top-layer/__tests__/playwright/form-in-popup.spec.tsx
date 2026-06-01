@@ -22,7 +22,7 @@ test.describe('Focus - Tab through form fields in popup', () => {
 		// Dialog auto-focuses the first focusable element (form-input-1)
 		await expect(page.getByTestId('form-input-1')).toBeFocused();
 
-		// Tab through the remaining form fields — they should all be reachable
+		// Tab through the remaining form fields - they should all be reachable
 		await page.keyboard.press('Tab');
 		await expect(page.getByTestId('form-select')).toBeFocused();
 

@@ -581,6 +581,8 @@ export enum ACTION_SUBJECT_ID {
 	SYNCED_BLOCK_CLICK_SYNCED_LOCATION = 'syncedBlockClickSyncedLocation',
 	SYNCED_BLOCK_LABEL = 'syncedBlockLabel',
 	SYNCED_BLOCK_SSR_ERROR = 'syncedBlockSSRError',
+	SYNCED_BLOCK_SOURCE_INFO_ORPHANED = 'syncedBlockSourceInfoOrphaned',
+	SYNCED_BLOCK_CACHE_DELETION_FORCED = 'syncedBlockCacheDeletionForced',
 	TABLE_STICKY_HEADER = 'tableStickyHeader',
 	SNIPPET = 'snippet',
 }

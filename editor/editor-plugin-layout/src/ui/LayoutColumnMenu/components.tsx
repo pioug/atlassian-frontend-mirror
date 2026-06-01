@@ -17,6 +17,8 @@ import {
 	DISTRIBUTE_COLUMNS_MENU_ITEM,
 	INSERT_COLUMN_LEFT_MENU_ITEM,
 	INSERT_COLUMN_RIGHT_MENU_ITEM,
+	LAYOUT_COLUMN_DANGER_SECTION,
+	LAYOUT_COLUMN_DANGER_SECTION_RANK,
 	LAYOUT_COLUMN_MENU,
 	LAYOUT_COLUMN_MENU_RANK,
 	LAYOUT_COLUMN_MENU_SECTION,
@@ -102,16 +104,6 @@ export const getLayoutColumnMenuComponents = ({
 			],
 		},
 		{
-			...DELETE_COLUMN_MENU_ITEM,
-			component: () => <DeleteColumnDropdownItem api={api} />,
-			parents: [
-				{
-					...LAYOUT_COLUMN_MENU_SECTION,
-					rank: LAYOUT_COLUMN_MENU_SECTION_RANK[DELETE_COLUMN_MENU_ITEM.key],
-				},
-			],
-		},
-		{
 			...VERTICAL_ALIGN_MENU,
 			component: ({ children }: { children?: React.ReactNode }) => (
 				<VerticalAlignNestedMenu api={api}>{children}</VerticalAlignNestedMenu>
@@ -173,6 +165,29 @@ export const getLayoutColumnMenuComponents = ({
 				{
 					...LAYOUT_COLUMN_VERTICAL_ALIGN_MENU_SECTION,
 					rank: VERTICAL_ALIGN_MENU_SECTION_RANK[VERTICAL_ALIGN_BOTTOM_MENU_ITEM.key],
+				},
+			],
+		},
+		// --- Danger section (Delete column) ---
+		{
+			...LAYOUT_COLUMN_DANGER_SECTION,
+			component: ({ children }: { children?: React.ReactNode }) => (
+				<ToolbarDropdownItemSection hasSeparator>{children}</ToolbarDropdownItemSection>
+			),
+			parents: [
+				{
+					...LAYOUT_COLUMN_MENU,
+					rank: LAYOUT_COLUMN_MENU_RANK[LAYOUT_COLUMN_DANGER_SECTION.key],
+				},
+			],
+		},
+		{
+			...DELETE_COLUMN_MENU_ITEM,
+			component: () => <DeleteColumnDropdownItem api={api} />,
+			parents: [
+				{
+					...LAYOUT_COLUMN_DANGER_SECTION,
+					rank: LAYOUT_COLUMN_DANGER_SECTION_RANK[DELETE_COLUMN_MENU_ITEM.key],
 				},
 			],
 		},

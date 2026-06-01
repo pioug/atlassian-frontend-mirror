@@ -661,27 +661,24 @@ export const layoutBaseStyles: SerializedStyles = css({
 					},
 				},
 
+				// Keep the editable content wrapper stretched so blank column space remains a text hit area.
+				// Apply vertical alignment to the wrapper contents rather than shrinking the wrapper itself.
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'&[data-valign="middle"], &[data-valign="bottom"]': {
-					display: 'flex',
-					flexDirection: 'column',
-				},
+				'&[data-valign="middle"] > [data-layout-content], &[data-valign="bottom"] > [data-layout-content]':
+					{
+						display: 'flex',
+						flexDirection: 'column',
+					},
 
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'&[data-valign="middle"]': {
+				'&[data-valign="middle"] > [data-layout-content]': {
 					justifyContent: 'center',
 				},
 
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'&[data-valign="bottom"]': {
+				'&[data-valign="bottom"] > [data-layout-content]': {
 					justifyContent: 'flex-end',
 				},
-
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'&[data-valign="middle"] > [data-layout-content], &[data-valign="bottom"] > [data-layout-content]':
-					{
-						height: 'auto',
-					},
 			},
 		},
 	},

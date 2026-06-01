@@ -1,12 +1,6 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import type { ReactElement } from 'react';
 import React, { useEffect, useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
@@ -44,10 +38,10 @@ import {
 	MainToolbarForSecondChildWrapper,
 } from './CustomToolbarWrapper';
 import {
-	customToolbarWrapperStyle,
-	mainToolbarIconBeforeStyle,
+	CustomToolbarWrapperMigration,
+	MainToolbarIconBeforeMigration,
 	MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT,
-	nonCustomToolbarWrapperStyle,
+	NonCustomToolbarWrapperMigration,
 } from './MainToolbar';
 import { MainToolbarWrapper } from './MainToolbarWrapper';
 
@@ -84,8 +78,8 @@ export interface FullPageToolbarProps {
 }
 
 export const EditorToolbar: React.MemoExoticComponent<
-	(props: FullPageToolbarProps & WrappedComponentProps) => jsx.JSX.Element
-> = React.memo((props: FullPageToolbarProps & WrappedComponentProps): jsx.JSX.Element => {
+	(props: FullPageToolbarProps & WrappedComponentProps) => React.JSX.Element
+> = React.memo((props: FullPageToolbarProps & WrappedComponentProps): React.JSX.Element => {
 	const [shouldSplitToolbar, setShouldSplitToolbar] = useState(false);
 	const { editorAPI } = props;
 
@@ -102,10 +96,10 @@ export const EditorToolbar: React.MemoExoticComponent<
 	const popupsMountPoint = hasToolbarPortal ? undefined : props.popupsMountPoint;
 
 	const nonCustomToolbar = (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-		<div css={nonCustomToolbarWrapperStyle}>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			{props.beforeIcon && <div css={mainToolbarIconBeforeStyle}>{props.beforeIcon}</div>}
+		<NonCustomToolbarWrapperMigration>
+			{props.beforeIcon && (
+				<MainToolbarIconBeforeMigration>{props.beforeIcon}</MainToolbarIconBeforeMigration>
+			)}
 			<Toolbar
 				editorView={props.editorView}
 				editorActions={props.editorActions}
@@ -122,12 +116,11 @@ export const EditorToolbar: React.MemoExoticComponent<
 				hasMinWidth={props.hasMinWidth}
 				twoLineEditorToolbar={twoLineEditorToolbar}
 			/>
-		</div>
+		</NonCustomToolbarWrapperMigration>
 	);
 
 	const customToolbar = (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-		<div css={customToolbarWrapperStyle}>
+		<CustomToolbarWrapperMigration>
 			{!!props.customPrimaryToolbarComponents &&
 			'before' in props.customPrimaryToolbarComponents ? (
 				<BeforePrimaryToolbarWrapper
@@ -149,7 +142,7 @@ export const EditorToolbar: React.MemoExoticComponent<
 			{!!props.customPrimaryToolbarComponents && 'after' in props.customPrimaryToolbarComponents
 				? props.customPrimaryToolbarComponents.after
 				: props.customPrimaryToolbarComponents}
-		</div>
+		</CustomToolbarWrapperMigration>
 	);
 
 	useEffect(() => {

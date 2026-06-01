@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 

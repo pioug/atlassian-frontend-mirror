@@ -24,7 +24,6 @@ import {
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Stack } from '@atlaskit/primitives/compiled';
 
 // TODO: consider exposing this type properly, but it isn't needed for normal usage

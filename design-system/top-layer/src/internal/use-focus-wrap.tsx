@@ -2,12 +2,10 @@ import { type RefObject, useEffect } from 'react';
 
 import { bind } from 'bind-event-listener';
 
-import {
-	getFirstFocusable,
-	getLastFocusable,
-	getNextFocusable,
-	isNestedLayerFocused,
-} from '../focus/focus';
+import { getFirstFocusable } from '../focus/get-first-focusable';
+import { getLastFocusable } from '../focus/get-last-focusable';
+import { getNextFocusable } from '../focus/get-next-focusable';
+import { isNestedLayerFocused } from '../focus/is-nested-layer-focused';
 
 /**
  * Roles that require focus wrapping per WAI-ARIA APG.

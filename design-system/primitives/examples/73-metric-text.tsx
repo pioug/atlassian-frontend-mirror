@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { MetricText, Stack } from '@atlaskit/primitives/compiled';
 
 const sizes = ['small', 'medium', 'large'] as const;

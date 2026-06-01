@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client-react",
-	"version": "5.1.2",
+	"version": "5.2.0",
 	"description": "🖼️ Media Client for React",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -94,6 +94,9 @@
 			"type": "boolean"
 		},
 		"dfo_attachments_late_render_fix": {
+			"type": "boolean"
+		},
+		"platform_media_ssr_data_seed": {
 			"type": "boolean"
 		}
 	},

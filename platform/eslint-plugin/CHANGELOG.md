@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.10.5
+
+### Patch Changes
+
+- [`2ba922a9037cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ba922a9037cc) -
+  Fix `no-barrel-entry-imports` autofix silently dropping an aliased default re-export when the file
+  already imports the same subpath default under a different local name. The aliased binding is now
+  preserved by emitting it as `{ default as <alias> }` on the merged subpath import statement.
+
 ## 2.10.4
 
 ### Patch Changes

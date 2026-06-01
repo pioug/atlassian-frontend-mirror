@@ -14,7 +14,7 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 /**
  * Extra DOM/event props are passed through to the cloned child.
  */
-export type SlotProps = {
+export type TSlotProps = {
 	children: ReactNode;
 } & Record<string, unknown>;
 
@@ -37,14 +37,14 @@ function isSlotChild(child: ReactNode): child is TSlotChild {
  * Merges props (including ref) onto a single React element child.
  *
  * A safer alternative to raw `cloneElement` that:
- * 1. Guards with `isValidElement` — non-element children (strings,
+ * 1. Guards with `isValidElement` - non-element children (strings,
  *    fragments, null) are returned as-is instead of crashing.
  * 2. Merges refs via `mergeRefs` so both the caller's ref and the
  *    child's existing ref are honoured.
  * 3. Spreads any additional props (ARIA attributes, event handlers, etc.)
  *    onto the child element.
  *
- * Event handlers (e.g. `onClick`) are **not** auto-merged — the caller's
+ * Event handlers (e.g. `onClick`) are **not** auto-merged - the caller's
  * handler replaces the child's. Compose handlers before passing them in.
  *
  * @example
@@ -54,12 +54,12 @@ function isSlotChild(child: ReactNode): child is TSlotChild {
  * </Slot>
  * ```
  */
-export const Slot: ForwardRefExoticComponent<SlotProps & RefAttributes<HTMLElement>> = forwardRef<
+export const Slot: ForwardRefExoticComponent<TSlotProps & RefAttributes<HTMLElement>> = forwardRef<
 	HTMLElement,
-	SlotProps
+	TSlotProps
 >(function Slot(slotProps, ref): ReactNode {
 	const { children: rawChildren, ...props } = slotProps;
-	// `SlotProps` intersects `Record<string, unknown>`, so `children` is typed as `unknown`.
+	// `TSlotProps` intersects `Record<string, unknown>`, so `children` is typed as `unknown`.
 	const children: ReactNode = rawChildren as ReactNode;
 
 	if (!isSlotChild(children)) {

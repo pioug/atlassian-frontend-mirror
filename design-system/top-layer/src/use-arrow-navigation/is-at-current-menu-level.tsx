@@ -1,6 +1,27 @@
 const menuScope = '[role="menu"]';
 
 /**
+ * Recursively walks from `node` toward `container`, returning `true` when
+ * `container` is reached without crossing another `role="menu"` ancestor.
+ *
+ * Used by `isAtCurrentMenuLevel` (pattern 2) to determine if the
+ * `closestMenu` is owned by the wrapper container directly. Recursion
+ * avoids a mutable `let parent` walk and keeps the function body linear.
+ */
+function reachesContainerWithoutNestedMenu(
+	node: Element | null,
+	container: HTMLElement,
+): boolean {
+	if (!node || node === container) {
+		return node === container;
+	}
+	if (node.getAttribute('role') === 'menu') {
+		return false;
+	}
+	return reachesContainerWithoutNestedMenu(node.parentElement, container);
+}
+
+/**
  * Returns true if the element belongs to the current menu level of the
  * container, i.e. it is NOT inside a nested `role="menu"` sub-container.
  *
@@ -66,16 +87,5 @@ export function isAtCurrentMenuLevel(element: Element, container: HTMLElement): 
 
 	// Walk up from the closest menu to see if it is "owned" by this
 	// container without passing through another role="menu" first.
-	let parent = closestMenu.parentElement;
-	while (parent && parent !== container) {
-		if (parent.getAttribute('role') === 'menu') {
-			// There is a parent menu between the closest menu and the
-			// container, so the element is in a nested sub-menu.
-			return false;
-		}
-		parent = parent.parentElement;
-	}
-
-	// The closest menu is directly inside the container (no nesting).
-	return parent === container;
+	return reachesContainerWithoutNestedMenu(closestMenu.parentElement, container);
 }

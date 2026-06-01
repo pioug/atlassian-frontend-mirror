@@ -2,14 +2,14 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 
 import type { Valign } from '@atlaskit/adf-schema/layout-column';
-import AlignContentBottomIcon from '@atlaskit/icon-lab/core/align-content-bottom';
-import AlignContentCenterVerticalIcon from '@atlaskit/icon-lab/core/align-content-center-vertical';
-import AlignContentTopIcon from '@atlaskit/icon-lab/core/align-content-top';
+import AlignPositionBottomIcon from '@atlaskit/icon-lab/core/align-position-bottom';
+import AlignPositionCenterVerticalIcon from '@atlaskit/icon-lab/core/align-position-center-vertical';
+import AlignPositionTopIcon from '@atlaskit/icon-lab/core/align-position-top';
 
-type VerticalAlignIcon = typeof AlignContentTopIcon;
+type VerticalAlignIcon = typeof AlignPositionTopIcon;
 
 export const VERTICAL_ALIGN_ICONS: Record<Valign, VerticalAlignIcon> = {
-	top: AlignContentTopIcon,
-	middle: AlignContentCenterVerticalIcon,
-	bottom: AlignContentBottomIcon,
+	top: AlignPositionTopIcon,
+	middle: AlignPositionCenterVerticalIcon,
+	bottom: AlignPositionBottomIcon,
 };

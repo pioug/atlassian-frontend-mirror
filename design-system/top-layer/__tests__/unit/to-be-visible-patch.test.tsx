@@ -9,7 +9,7 @@
  * registers all of its matchers via a side-effect call to `expect.extend`
  * at import time. Because `expect.extend` REPLACES matchers by name, any
  * setup file that imports our patch BEFORE `@testing-library/jest-dom`
- * silently has the patch overwritten — and the test author would have
+ * silently has the patch overwritten - and the test author would have
  * no warning that visibility checks for popovers no longer reflect the
  * Popover API state.
  *
@@ -34,7 +34,7 @@ function ClosedPopoverFixture() {
 	const ref = useRef<HTMLDivElement>(null);
 	useEffect(() => {
 		ref.current?.setAttribute('popover', 'auto');
-		// Intentionally do NOT call showPopover — we are asserting the closed state.
+		// Intentionally do NOT call showPopover - we are asserting the closed state.
 	}, []);
 	return (
 		<div data-testid="closed-popover" ref={ref}>
@@ -96,7 +96,7 @@ describe('toBeVisible patch', () => {
 
 	it('reports a CLOSED <dialog> as NOT visible (jest-dom + jsdom already correct, patch must not regress this)', () => {
 		render(
-			// Closed by default — no `open` attribute, no .showModal() / .show() call.
+			// Closed by default - no `open` attribute, no .showModal() / .show() call.
 			<dialog data-testid="closed-dialog">closed dialog content</dialog>,
 		);
 		expect(screen.getByTestId('closed-dialog')).not.toBeVisible();

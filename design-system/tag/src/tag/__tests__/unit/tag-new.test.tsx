@@ -85,6 +85,46 @@ describe('TagNew component (UI uplift)', () => {
 		});
 	});
 
+	describe('trailingMetric', () => {
+		it('should render a badge when trailingMetric is provided', () => {
+			render(<TagNew text="Comments" trailingMetric={24} testId={testId} isRemovable={false} />);
+			expect(screen.getByTestId(`${testId}--metric`)).toBeInTheDocument();
+			expect(screen.getByText('24')).toBeInTheDocument();
+		});
+
+		it('should render a badge with string trailingMetric', () => {
+			render(<TagNew text="Updates" trailingMetric="99+" testId={testId} isRemovable={false} />);
+			expect(screen.getByTestId(`${testId}--metric`)).toBeInTheDocument();
+			expect(screen.getByText('99+')).toBeInTheDocument();
+		});
+
+		it('should not render a badge when trailingMetric is undefined', () => {
+			render(
+				<TagNew text="No Metric" trailingMetric={undefined} testId={testId} isRemovable={false} />,
+			);
+			expect(screen.queryByTestId(`${testId}--metric`)).not.toBeInTheDocument();
+		});
+
+		it('should not render a badge when trailingMetric is an empty string', () => {
+			render(<TagNew text="No Metric" trailingMetric="" testId={testId} isRemovable={false} />);
+			expect(screen.queryByTestId(`${testId}--metric`)).not.toBeInTheDocument();
+		});
+
+		it('should render a badge alongside the remove button when removable', () => {
+			render(
+				<TagNew
+					text="Removable with metric"
+					trailingMetric={5}
+					testId={testId}
+					removeButtonLabel="Remove"
+				/>,
+			);
+			expect(screen.getByTestId(`${testId}--metric`)).toBeInTheDocument();
+			expect(screen.getByText('5')).toBeInTheDocument();
+			expect(screen.getByTestId(`close-button-${testId}`)).toBeInTheDocument();
+		});
+	});
+
 	describe('removable behavior', () => {
 		it('should render with remove button by default', () => {
 			render(<TagNew text="Removable Tag" removeButtonLabel="Remove" testId={testId} />);

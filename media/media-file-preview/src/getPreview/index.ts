@@ -9,6 +9,7 @@ export {
 	isSSRDataPreview,
 	getAndCacheRemotePreview,
 	getAndCacheLocalPreview,
+	extractCdnSigningParams,
 } from './getPreview';
 
 export { isSupportedLocalPreview } from './helpers';

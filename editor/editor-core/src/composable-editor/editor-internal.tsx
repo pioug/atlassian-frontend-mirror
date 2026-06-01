@@ -1,12 +1,5 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { Fragment, memo } from 'react';
+import React, { Fragment, memo } from 'react';
 import type { MemoExoticComponent } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
@@ -21,6 +14,7 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { Transformer } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type EditorActions from '../actions';
@@ -34,7 +28,15 @@ import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
 
 import { BaseThemeWrapper } from './BaseThemeWrapper';
+import { EditorInternalContainerCompiled } from './editor-internal-compiled';
+import { EditorInternalContainerEmotion } from './editor-internal-emotion';
 import { getBaseFontSize } from './utils/getBaseFontSize';
+
+const EditorInternalContainerMigration = componentWithCondition(
+	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
+	EditorInternalContainerCompiled,
+	EditorInternalContainerEmotion,
+);
 
 interface InternalProps {
 	AppearanceComponent: React.ComponentType<
@@ -54,12 +56,6 @@ interface InternalProps {
 	props: EditorNextProps;
 	providerFactory: ProviderFactory;
 }
-
-const editorContainerStyles = css({
-	position: 'relative',
-	width: '100%',
-	height: '100%',
-});
 
 const DEFAULT_VALUE_PROP_TO_IGNORE: Array<keyof EditorNextProps> = ['defaultValue'];
 
@@ -123,7 +119,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 					contextIdentifierProvider={props.contextIdentifierProvider}
 					featureFlags={featureFlags}
 				>
-					<div css={editorContainerStyles}>
+					<EditorInternalContainerMigration>
 						<EditorContext editorActions={editorActions}>
 							<IntlProviderIfMissingWrapper>
 								<Fragment>
@@ -201,7 +197,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 								</Fragment>
 							</IntlProviderIfMissingWrapper>
 						</EditorContext>
-					</div>
+					</EditorInternalContainerMigration>
 				</ErrorBoundary>
 			</Fragment>
 		);

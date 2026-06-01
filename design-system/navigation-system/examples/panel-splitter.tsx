@@ -12,7 +12,6 @@ import {
 	PanelSplitterProvider,
 	type ResizeBounds,
 } from '@atlaskit/navigation-system/layout/panel-splitter';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

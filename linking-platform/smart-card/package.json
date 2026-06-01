@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "44.18.0",
+	"version": "44.19.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -37,6 +37,7 @@
 	"dependencies": {
 		"@atlaskit/adf-utils": "workspace:^",
 		"@atlaskit/afm-i18n-platform-linking-platform-smart-card": "root:*",
+		"@atlaskit/analytics-cross-product": "workspace:^",
 		"@atlaskit/analytics-gas-types": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
@@ -280,6 +281,9 @@
 			"type": "boolean"
 		},
 		"platform_smartlink_3pclick_analytics": {
+			"type": "boolean"
+		},
+		"platform_smartlink_xpc_url_wrapping": {
 			"type": "boolean"
 		},
 		"navx-1895-new-logo-design": {

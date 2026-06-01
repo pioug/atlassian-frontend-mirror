@@ -19,6 +19,7 @@ export type MentionActionAnnounceMentionsInsertion = (
 	mentionIds: {
 		id: string;
 		localId: string;
+		shouldSuppressMentionNotification?: boolean;
 		taskLocalId?: string;
 		type: 'added' | 'deleted';
 	}[],

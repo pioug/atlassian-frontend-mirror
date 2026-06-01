@@ -11,6 +11,8 @@ import type {
 	CustomData,
 	CustomTiming,
 	InteractionError,
+	HoldActive,
+	HoldInfo,
 	InteractionMetrics,
 	InteractionType,
 	LifecycleMarkType,
@@ -529,12 +531,8 @@ export function addHold(
 		const start = performance.now();
 		const holdActive = { labelStack, name, start };
 
-		const is3pHold = labelStack.some((l) => 'type' in l && l.type === 'third-party');
-		if (is3pHold) {
-			if (!interaction.hold3pActive) {
-				interaction.hold3pActive = new Map();
-			}
-			interaction.hold3pActive.set(id, { ...holdActive, start });
+		if (shouldMoveHoldToExtendedBucket(interaction, holdActive)) {
+			ensureExtendedHoldActive(interaction).set(id, { ...holdActive, start });
 		} else {
 			interaction.holdActive.set(id, { ...holdActive, start });
 			addHoldCriterion(id, labelStack, name, start);
@@ -594,14 +592,11 @@ export function addHoldByID(
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		const start = performance.now();
-		const is3pHold = labelStack.some((l) => 'type' in l && l.type === 'third-party');
-		if (is3pHold) {
-			if (!interaction.hold3pActive) {
-				interaction.hold3pActive = new Map();
-			}
-			interaction.hold3pActive.set(id, { labelStack, name, start, ignoreOnSubmit });
+		const holdActive = { labelStack, name, start, ignoreOnSubmit };
+		if (shouldMoveHoldToExtendedBucket(interaction, holdActive)) {
+			ensureExtendedHoldActive(interaction).set(id, holdActive);
 		} else {
-			interaction.holdActive.set(id, { labelStack, name, start, ignoreOnSubmit });
+			interaction.holdActive.set(id, holdActive);
 			addHoldCriterion(id, labelStack, name, start);
 		}
 	}
@@ -622,10 +617,7 @@ export function addCompletedHold(
 ): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
-		if (!interaction.hold3pInfo) {
-			interaction.hold3pInfo = [];
-		}
-		interaction.hold3pInfo.push({ labelStack, name, start, end });
+		ensureExtendedHoldInfo(interaction).push({ labelStack, name, start, end });
 	}
 }
 
@@ -637,7 +629,11 @@ export function removeHoldByID(interactionId: string, id: string): void {
 		const currentInteraction = interactions.get(interactionId);
 		const currentHold = interaction.holdActive.get(id);
 		if (currentInteraction != null && currentHold != null) {
-			currentInteraction.holdInfo.push({ ...currentHold, end });
+			if (shouldMoveHoldToExtendedBucket(currentInteraction, currentHold)) {
+				ensureExtendedHoldInfo(currentInteraction).push({ ...currentHold, end });
+			} else {
+				currentInteraction.holdInfo.push({ ...currentHold, end });
+			}
 			interaction.holdActive.delete(id);
 			removeHoldCriterion(id);
 		}
@@ -800,6 +796,45 @@ function pushToQueue(id: string, data: InteractionMetrics) {
 }
 
 let handleInteraction = pushToQueue;
+
+function shouldMoveHoldToExtendedBucket(
+	interaction: InteractionMetrics,
+	hold: Pick<HoldActive, 'start' | 'labelStack'>,
+): boolean {
+	const isExplicitlyThirdParty = hold.labelStack.some(
+		(label) => 'type' in label && label.type === 'third-party',
+	);
+
+	return (
+		isExplicitlyThirdParty ||
+		(interaction.end !== 0 && hold.start > interaction.end && fg('platform_ufo_metric_variants'))
+	);
+}
+
+function ensureExtendedHoldActive(interaction: InteractionMetrics): Map<string, HoldActive> {
+	interaction.hold3pActive = interaction.hold3pActive ?? new Map();
+	return interaction.hold3pActive;
+}
+
+function ensureExtendedHoldInfo(interaction: InteractionMetrics): HoldInfo[] {
+	interaction.hold3pInfo = interaction.hold3pInfo ?? [];
+	return interaction.hold3pInfo;
+}
+
+function moveLateActiveHoldsToExtendedBucket(interaction: InteractionMetrics): void {
+	if (!fg('platform_ufo_metric_variants') || interaction.end === 0) {
+		return;
+	}
+
+	const holdsToMove = [...interaction.holdActive.entries()].filter(([, hold]) =>
+		shouldMoveHoldToExtendedBucket(interaction, hold),
+	);
+
+	holdsToMove.forEach(([id, hold]) => {
+		ensureExtendedHoldActive(interaction).set(id, hold);
+		interaction.holdActive.delete(id);
+	});
+}
 
 function ensureMetricWindows(interaction: InteractionMetrics): void {
 	if (!fg('platform_ufo_metric_variants')) {
@@ -1014,6 +1049,7 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 				if (endTime !== undefined && interaction.end === 0) {
 					interaction.end = endTime;
 				}
+				moveLateActiveHoldsToExtendedBucket(interaction);
 				ensureMetricWindows(interaction);
 				// Wait for 3p holds to clear before finishing
 				return;
@@ -1351,7 +1387,7 @@ export function addNewInteraction(
 			? {
 					prior: priorAccessedFg,
 					during: {},
-				}
+			  }
 			: undefined,
 		knownSegments: [],
 		cleanupCallbacks: [],

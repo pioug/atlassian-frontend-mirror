@@ -1,6 +1,6 @@
 import { type RefObject, useEffect, useRef } from 'react';
 
-import { getFirstFocusable } from '../focus/focus';
+import { getFirstFocusable } from '../focus/get-first-focusable';
 
 /**
  * Determines the correct element to receive initial focus within a popover,

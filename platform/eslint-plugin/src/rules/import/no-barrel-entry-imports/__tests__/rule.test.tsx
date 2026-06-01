@@ -741,6 +741,41 @@ describe('no-barrel-entry-imports', () => {
 					errors: [{ messageId: 'barrelEntryImport' }],
 					output: `import AP, { useAnalyticsContext as useAC } from '@atlassian/conversation-assistant-instrumentation/components/AnalyticsProvider';`,
 				},
+				// Pre-existing subpath default import + barrel-aliased default of the same subpath.
+				// JS only allows one `default` import per statement, so the second binding must
+				// be emitted as `{ default as <alias> }` on the merged statement. This is the
+				// regression test for the previous behaviour of silently dropping the alias.
+				{
+					code: outdent`
+						import AnalyticsProvider from '${TEST_PACKAGE_NAME}/components/AnalyticsProvider';
+						import { AnalyticsProvider as EmotionAnalyticsProvider } from '${TEST_PACKAGE_NAME}';
+					`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `import AnalyticsProvider, { default as EmotionAnalyticsProvider } from '${TEST_PACKAGE_NAME}/components/AnalyticsProvider';`,
+				},
+				// Same as above but the pre-existing subpath default import already coexists with a
+				// named import — both bindings need to survive the merge.
+				{
+					code: outdent`
+						import AnalyticsProvider, { useAnalyticsContext } from '${TEST_PACKAGE_NAME}/components/AnalyticsProvider';
+						import { AnalyticsProvider as EmotionAnalyticsProvider } from '${TEST_PACKAGE_NAME}';
+					`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `import AnalyticsProvider, { useAnalyticsContext, default as EmotionAnalyticsProvider } from '${TEST_PACKAGE_NAME}/components/AnalyticsProvider';`,
+				},
+				// Idempotency: when the pre-existing default and the barrel-aliased default share
+				// the same local name, the merger should not introduce a duplicate.
+				{
+					code: outdent`
+						import AnalyticsProvider from '${TEST_PACKAGE_NAME}/components/AnalyticsProvider';
+						import { AnalyticsProvider } from '${TEST_PACKAGE_NAME}';
+					`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `import AnalyticsProvider from '${TEST_PACKAGE_NAME}/components/AnalyticsProvider';`,
+				},
 				// Type-only default-as-named import should preserve `import type`
 				{
 					code: `import type { AnalyticsProvider } from '${TEST_PACKAGE_NAME}';`,
@@ -1552,6 +1587,184 @@ describe('no-barrel-entry-imports', () => {
 						filename: TEST_FILE,
 						errors: [{ messageId: 'barrelEntryImport' }],
 						output: `import { SomeComponent } from '@atlassian/package-b/ui/components';`,
+					},
+				],
+			},
+		);
+
+		// Bridge layout where the bridge file re-exports the dependency's symbols as
+		// type-only (`export type { ... } from '@scope/dep'` and
+		// `export { type Foo } from '@scope/dep'`). The barrel subpath should still be
+		// preferred when `preferImportedPackageSubpath` is enabled.
+		const fsWithCrossPackageTypeOnlyBridge = createMockFileSystem({
+			[`${WORKSPACE_ROOT}/package.json`]: '{}',
+			[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+			[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+			[`${PACKAGE_A_DIR}/package.json`]: JSON.stringify({
+				name: '@atlassian/package-a',
+				exports: {
+					'.': './src/index.ts',
+					'./bridge': './src/bridge.ts',
+				},
+			}),
+			[`${PACKAGE_A_DIR}/src/index.ts`]: outdent`
+				export type { SomeType, OtherType } from './bridge';
+				export { type InlineType } from './bridge';
+			`,
+			[`${PACKAGE_A_DIR}/src/bridge.ts`]: outdent`
+				export type { SomeType, OtherType } from '@atlassian/package-b';
+				export { type InlineType } from '@atlassian/package-b';
+			`,
+			[`${PACKAGE_B_DIR}/package.json`]: JSON.stringify({
+				name: '@atlassian/package-b',
+				exports: {
+					'.': './src/index.ts',
+					'./types': './src/types.ts',
+				},
+			}),
+			[`${PACKAGE_B_DIR}/src/index.ts`]: outdent`
+				export type { SomeType, OtherType, InlineType } from './types';
+			`,
+			[`${PACKAGE_B_DIR}/src/types.ts`]: outdent`
+				export type SomeType = string;
+				export type OtherType = number;
+				export type InlineType = boolean;
+			`,
+		});
+
+		runWithFs(
+			'no-barrel-entry-imports - preferImportedPackageSubpath bridges type-only re-exports',
+			fsWithCrossPackageTypeOnlyBridge,
+			{
+				valid: [],
+				invalid: [
+					// `export type { ... } from '@scope/dep'` should be picked as a bridge
+					{
+						code: `import type { SomeType, OtherType } from '@atlassian/package-a';`,
+						filename: TEST_FILE,
+						options: [{ preferImportedPackageSubpath: true }],
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import type { SomeType, OtherType } from '@atlassian/package-a/bridge';`,
+					},
+					// `export { type Foo } from '@scope/dep'` should also be picked as a bridge
+					{
+						code: `import type { InlineType } from '@atlassian/package-a';`,
+						filename: TEST_FILE,
+						options: [{ preferImportedPackageSubpath: true }],
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import type { InlineType } from '@atlassian/package-a/bridge';`,
+					},
+				],
+			},
+		);
+
+		// Barrel that has only `.` and re-exports `*` from the dependency, with no bridge subpath.
+		// preferImportedPackageSubpath should leave the import alone instead of falling through
+		// to the dependency package's subpath.
+		const fsWithStarOnlyBarrel = createMockFileSystem({
+			[`${WORKSPACE_ROOT}/package.json`]: '{}',
+			[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+			[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+			[`${PACKAGE_A_DIR}/package.json`]: JSON.stringify({
+				name: '@atlassian/package-a',
+				exports: {
+					'.': './src/index.ts',
+				},
+			}),
+			[`${PACKAGE_A_DIR}/src/index.ts`]: outdent`
+				export * from '@atlassian/package-b';
+			`,
+			[`${PACKAGE_B_DIR}/package.json`]: JSON.stringify({
+				name: '@atlassian/package-b',
+				exports: {
+					'.': './src/index.ts',
+					'./perimeter': './src/perimeter.ts',
+				},
+			}),
+			[`${PACKAGE_B_DIR}/src/index.ts`]: outdent`
+				export { isIsolatedCloud } from './perimeter';
+			`,
+			[`${PACKAGE_B_DIR}/src/perimeter.ts`]: outdent`
+				export const isIsolatedCloud = () => false;
+			`,
+		});
+
+		runWithFs(
+			'no-barrel-entry-imports - preferImportedPackageSubpath leaves import alone when no bridge subpath exists',
+			fsWithStarOnlyBarrel,
+			{
+				// With prefer, the import stays as-is (no bridge subpath in package-a)
+				valid: [
+					{
+						code: `import { isIsolatedCloud } from '@atlassian/package-a';`,
+						filename: TEST_FILE,
+						options: [{ preferImportedPackageSubpath: true }],
+					},
+				],
+				invalid: [
+					// Without prefer, the rule still falls through to the dependency package
+					{
+						code: `import { isIsolatedCloud } from '@atlassian/package-a';`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import { isIsolatedCloud } from '@atlassian/package-b/perimeter';`,
+					},
+				],
+			},
+		);
+
+		// Mixed case: one specifier has a bridge subpath, another does not. With prefer, only the
+		// bridged one should be rewritten; the unbridged specifier stays in the original import.
+		const fsWithPartialBridge = createMockFileSystem({
+			[`${WORKSPACE_ROOT}/package.json`]: '{}',
+			[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+			[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+			[`${PACKAGE_A_DIR}/package.json`]: JSON.stringify({
+				name: '@atlassian/package-a',
+				exports: {
+					'.': './src/index.ts',
+					'./bridge': './src/bridge.ts',
+				},
+			}),
+			[`${PACKAGE_A_DIR}/src/index.ts`]: outdent`
+				export { Bridged } from './bridge';
+				export { Unbridged } from '@atlassian/package-b';
+			`,
+			[`${PACKAGE_A_DIR}/src/bridge.ts`]: outdent`
+				export { Bridged } from '@atlassian/package-b';
+			`,
+			[`${PACKAGE_B_DIR}/package.json`]: JSON.stringify({
+				name: '@atlassian/package-b',
+				exports: {
+					'.': './src/index.ts',
+					'./other': './src/other.ts',
+				},
+			}),
+			[`${PACKAGE_B_DIR}/src/index.ts`]: outdent`
+				export { Bridged } from './other';
+				export { Unbridged } from './other';
+			`,
+			[`${PACKAGE_B_DIR}/src/other.ts`]: outdent`
+				export const Bridged = 'b';
+				export const Unbridged = 'u';
+			`,
+		});
+
+		runWithFs(
+			'no-barrel-entry-imports - preferImportedPackageSubpath keeps unbridged specifiers in the original import',
+			fsWithPartialBridge,
+			{
+				valid: [],
+				invalid: [
+					{
+						code: `import { Bridged, Unbridged } from '@atlassian/package-a';`,
+						filename: TEST_FILE,
+						options: [{ preferImportedPackageSubpath: true }],
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: tabindent`
+							import { Bridged } from '@atlassian/package-a/bridge';
+							import { Unbridged } from '@atlassian/package-a';
+						`,
 					},
 				],
 			},

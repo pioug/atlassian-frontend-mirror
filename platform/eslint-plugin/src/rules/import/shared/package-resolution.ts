@@ -272,13 +272,31 @@ export function findExportForSourceFile({
 					fs,
 				});
 				for (const reExport of reExports) {
-					if (reExport.sourcePath === sourceFilePath) {
-						let entryPointExportName: string | undefined;
-						if (sourceExportName !== undefined && reExport.nameMap.has(sourceExportName)) {
-							entryPointExportName = reExport.nameMap.get(sourceExportName);
-						}
-						entryPointMatches.push({ exportPath, entryPointExportName });
+					if (reExport.sourcePath !== sourceFilePath) {
+						continue;
 					}
+					// When the wrapper uses explicit named re-exports (nameMap is populated),
+					// the specific symbol we're looking up must actually appear in that list.
+					// Star re-exports (`export * from '../foo'`) keep an empty nameMap and
+					// continue to match because they expose every export of the source file.
+					// Without this guard, a wrapper that re-exports `from '../types'` but
+					// only lists a subset of names would be picked as a valid target for any
+					// symbol that originates from `../types`, producing imports that fail
+					// to resolve at runtime / typecheck (e.g. `@atlaskit/icon/base-new` being
+					// chosen for `GlyphProps` when only `NewIconProps` / `NewCoreIconProps`
+					// are re-exported there).
+					if (
+						sourceExportName !== undefined &&
+						reExport.nameMap.size > 0 &&
+						!reExport.nameMap.has(sourceExportName)
+					) {
+						continue;
+					}
+					let entryPointExportName: string | undefined;
+					if (sourceExportName !== undefined && reExport.nameMap.has(sourceExportName)) {
+						entryPointExportName = reExport.nameMap.get(sourceExportName);
+					}
+					entryPointMatches.push({ exportPath, entryPointExportName });
 				}
 			}
 		}
@@ -297,6 +315,11 @@ export function findExportForSourceFile({
  *
  * This enables rewriting imports to `@scope/barrel/subpath` instead of
  * `@scope/cross-package/...` when the barrel exposes such a subpath (e.g. `@atlaskit/select/react-select`).
+ *
+ * Both value re-exports (`export { Foo } from '@scope/dep'`) and type-only re-exports
+ * (`export type { Foo } from '@scope/dep'`, `export { type Foo } from '@scope/dep'`)
+ * are treated as valid bridges. The barrel's subpath is preferred regardless of
+ * whether the symbol crosses the boundary as a value or as a type.
  */
 export function findCrossPackageBridgeExportPath({
 	exportsMap,
@@ -319,7 +342,7 @@ export function findCrossPackageBridgeExportPath({
 			const sourceFile = ts.createSourceFile(resolvedPath, content, ts.ScriptTarget.Latest, true);
 
 			for (const statement of sourceFile.statements) {
-				if (!ts.isExportDeclaration(statement) || statement.isTypeOnly) {
+				if (!ts.isExportDeclaration(statement)) {
 					continue;
 				}
 				if (!statement.moduleSpecifier || !ts.isStringLiteral(statement.moduleSpecifier)) {
@@ -336,9 +359,6 @@ export function findCrossPackageBridgeExportPath({
 				}
 
 				for (const element of statement.exportClause.elements) {
-					if (element.isTypeOnly) {
-						continue;
-					}
 					const publicName = element.name.text;
 					if (publicName !== exportedName) {
 						continue;

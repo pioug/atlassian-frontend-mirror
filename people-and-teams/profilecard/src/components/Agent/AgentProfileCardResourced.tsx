@@ -44,7 +44,8 @@ export const AgentProfileCardResourced = (
 	// Initialize as true when fix is enabled since we fetch immediately on mount,
 	// avoiding a brief error screen flash before the useEffect fires.
 	const [isLoading, setIsLoading] = useState<boolean>(
-		fg('jira_ai_fix_agent_profile_card_flashing'),
+		fg('jira_ai_fix_agent_profile_card_flashing') ||
+			fg('confluence_fix_agent_profile_card_flash'),
 	);
 	const [error, setError] = useState();
 
@@ -78,11 +79,13 @@ export const AgentProfileCardResourced = (
 		}) => {
 			try {
 				let userCreatorInfo;
-				const currentCreatorUserId = fg('jira_ai_fix_agent_profile_card_flashing')
-					? creator_type === 'CUSTOMER' && creator
-						? getAAIDFromARI(creator)
-						: undefined
-					: creatorUserId;
+				const currentCreatorUserId =
+					fg('jira_ai_fix_agent_profile_card_flashing') ||
+					fg('confluence_fix_agent_profile_card_flash')
+						? creator_type === 'CUSTOMER' && creator
+							? getAAIDFromARI(creator)
+							: undefined
+						: creatorUserId;
 
 				if (currentCreatorUserId && props.cloudId) {
 					userCreatorInfo = await props.resourceClient.getProfile(
@@ -91,7 +94,10 @@ export const AgentProfileCardResourced = (
 						fireEvent,
 					);
 
-					if (fg('jira_ai_fix_agent_profile_card_flashing')) {
+					if (
+						fg('jira_ai_fix_agent_profile_card_flashing') ||
+						fg('confluence_fix_agent_profile_card_flash')
+					) {
 						profileHref = navigateToTeamsApp({
 							type: 'USER',
 							payload: {
@@ -162,7 +168,12 @@ export const AgentProfileCardResourced = (
 	// agentData changes → creatorUserId → getCreator → fetchData ref changes → useEffect re-fires.
 	// Reset state on accountId change so stale data from the previous agent isn't briefly shown.
 	useEffect(() => {
-		if (!fg('jira_ai_fix_agent_profile_card_flashing')) {
+		if (
+			!(
+				fg('jira_ai_fix_agent_profile_card_flashing') ||
+				fg('confluence_fix_agent_profile_card_flash')
+			)
+		) {
 			return;
 		}
 		setAgentData(undefined);
@@ -173,7 +184,10 @@ export const AgentProfileCardResourced = (
 	}, [props.accountId]);
 
 	useEffect(() => {
-		if (fg('jira_ai_fix_agent_profile_card_flashing')) {
+		if (
+			fg('jira_ai_fix_agent_profile_card_flashing') ||
+			fg('confluence_fix_agent_profile_card_flash')
+		) {
 			return;
 		}
 		fetchData();

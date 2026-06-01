@@ -18,7 +18,7 @@ test.describe('Interaction - mouse + keyboard interleaving', () => {
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 		await expect(page.getByTestId('status')).toHaveText('open');
 
-		// Close via keyboard Escape — trial click on trigger (interactive button, always stable)
+		// Close via keyboard Escape - trial click on trigger (interactive button, always stable)
 		await trigger.click({ trial: true });
 		await page.keyboard.press('Escape');
 		await expect(page.getByTestId('popover-content')).toBeHidden();
@@ -32,7 +32,7 @@ test.describe('Interaction - mouse + keyboard interleaving', () => {
 
 		const trigger = page.getByTestId('trigger');
 
-		// Open via keyboard Enter — trigger.focus() guarantees focus; toBeFocused() confirms it
+		// Open via keyboard Enter - trigger.focus() guarantees focus; toBeFocused() confirms it
 		await trigger.focus();
 		await expect(trigger).toBeFocused();
 		await page.keyboard.press('Enter');
@@ -58,7 +58,7 @@ test.describe('Interaction - mouse + keyboard interleaving', () => {
 		await trigger.click();
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 
-		// Tab to inner button — popup has role="dialog" so popover-content gets auto-focus on open
+		// Tab to inner button - popup has role="dialog" so popover-content gets auto-focus on open
 		// trial click on auto-focused content before Tab
 		const popoverContent = page.getByTestId('popover-content');
 		await expect(popoverContent).toBeVisible();
@@ -67,7 +67,7 @@ test.describe('Interaction - mouse + keyboard interleaving', () => {
 		const innerButton = page.getByTestId('inner-button');
 		await expect(innerButton).toBeFocused();
 
-		// Close via Escape — inner button has focus, use it for trial click
+		// Close via Escape - inner button has focus, use it for trial click
 		await innerButton.click({ trial: true });
 		await page.keyboard.press('Escape');
 		await expect(page.getByTestId('popover-content')).toBeHidden();

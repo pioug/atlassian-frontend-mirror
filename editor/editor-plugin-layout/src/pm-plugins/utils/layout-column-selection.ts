@@ -1,10 +1,15 @@
 import type { Valign } from '@atlaskit/adf-schema/layout-column';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
 import { findChildrenByType, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
 const findLayoutSectionFromSelection = (selection: Selection) => {
-	return findParentNodeOfType(selection.$from.doc.type.schema.nodes.layoutSection)(selection);
+	const { layoutSection } = selection.$from.doc.type.schema.nodes;
+	// NodeSelection on the layoutSection node itself
+	if (selection instanceof NodeSelection && selection.node.type === layoutSection) {
+		return { node: selection.node, pos: selection.from };
+	}
+	return findParentNodeOfType(layoutSection)(selection);
 };
 
 const findLayoutColumnsFromLayoutSection = (layoutSectionNode: PMNode, layoutSectionPos = 0) => {

@@ -146,8 +146,12 @@ test.describe('React UFO: Payload integrity - v2.0.0, without TTVC v1 fields', (
 		expectValidNumber(interactionMetrics.end);
 
 		// Testing fields that are iterables
-		expect(Array.isArray(interactionMetrics.resourceTimings)).toBe(true);
-		for (const resourceTiming of interactionMetrics.resourceTimings!) {
+		const resourceTimings = interactionMetrics.resourceTimings;
+		expect(Array.isArray(resourceTimings)).toBe(true);
+		if (!Array.isArray(resourceTimings)) {
+			throw new Error('Expected resourceTimings to be an array');
+		}
+		for (const resourceTiming of resourceTimings) {
 			// Test for deterministic values within the payload
 			expect(resourceTiming.data.serverTime).toBeUndefined();
 			expect(resourceTiming.data.networkTime).toBeUndefined();

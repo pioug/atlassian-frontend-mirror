@@ -1,5 +1,21 @@
 # @atlaskit/editor-synced-block-provider
 
+## 6.7.0
+
+### Minor Changes
+
+- [`608189fcbdca7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/608189fcbdca7) -
+  Harden synced block cache deletion lifecycle: replace the legacy 1-second eager deletion with a
+  guard-checked 30-second grace period that protects against premature cache invalidation when
+  blocks unmount/remount during editor open, block moves, or other React subscribe/unsubscribe
+  churn. Fixes an intermittent issue where the 'Edit at source' button could become disabled and the
+  source link could disappear from the synced locations dropdown. Gated behind
+  platform_synced_block_patch_14.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.6.12
 
 ### Patch Changes

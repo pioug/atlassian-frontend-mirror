@@ -78,6 +78,7 @@ type NonErrorBaseFileState = {
 	preview?: FilePreview | Promise<FilePreview>;
 	createdAt?: number;
 	abuseClassification?: AbuseClassification;
+	previewCdnUrl?: string;
 } & BaseFileState;
 
 export interface FilePreview {

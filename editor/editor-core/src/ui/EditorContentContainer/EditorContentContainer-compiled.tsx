@@ -2944,6 +2944,22 @@ const editorContentStyles = cssMap({
 							clear: 'both',
 						},
 					},
+
+					// Keep the editable content wrapper stretched so blank column space remains a text hit area.
+					// Apply vertical alignment to the wrapper contents rather than shrinking the wrapper itself.
+					'&[data-valign="middle"] > [data-layout-content], &[data-valign="bottom"] > [data-layout-content]':
+						{
+							display: 'flex',
+							flexDirection: 'column',
+						},
+
+					'&[data-valign="middle"] > [data-layout-content]': {
+						justifyContent: 'center',
+					},
+
+					'&[data-valign="bottom"] > [data-layout-content]': {
+						justifyContent: 'flex-end',
+					},
 				},
 			},
 		},

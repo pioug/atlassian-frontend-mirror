@@ -26,6 +26,7 @@ import {
 	isFinalState,
 } from '../../state/helpers';
 import useInlineActionNudgeExperiment from '../../state/hooks/use-inline-action-nudge-experiment';
+import { useSmartLinkCrossProductUrlWrapperGated } from '../../state/hooks/use-smart-link-cross-product-url-wrapper';
 import { SmartLinkModalProvider } from '../../state/modal';
 import { isSpecialClick, isSpecialEvent, isSpecialKey } from '../../utils';
 import { combineActionOptions } from '../../utils/actions/combine-action-options';
@@ -92,6 +93,9 @@ function Component({
 	const services = getServices(state.details);
 	const thirdPartyARI = getThirdPartyARI(state.details);
 	const firstPartyIdentifier = getFirstPartyIdentifier();
+	const wrapUrlWithCrossProductAnalytics = useSmartLinkCrossProductUrlWrapperGated({
+		details: state.details,
+	});
 
 	const actionOptions = combineActionOptions({
 		actionOptions: actionOptionsProp,
@@ -179,7 +183,12 @@ function Component({
 				// If it has been called then only then can `isSpecialEvent` be true.
 				const target = isSpecialEvent(event) ? '_blank' : '_self';
 
-				window.open(clickUrl, target);
+				if (fg('platform_smartlink_xpc_url_wrapping')) {
+					const wrappedUrl = wrapUrlWithCrossProductAnalytics(clickUrl);
+					window.open(wrappedUrl, target);
+				} else {
+					window.open(clickUrl, target);
+				}
 
 				fireLinkClickedEvent(createAnalyticsEvent)(event, {
 					attributes: {
@@ -201,6 +210,7 @@ function Component({
 			definitionId,
 			onClick,
 			url,
+			wrapUrlWithCrossProductAnalytics,
 			state.details,
 			ari,
 			name,

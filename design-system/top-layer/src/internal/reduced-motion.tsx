@@ -7,7 +7,7 @@ import once from '@atlaskit/ds-lib/once';
  *
  * The result is cached after the first call via `once`. This avoids
  * calling `matchMedia` on every render. The trade-off is that if a user
- * toggles the OS reduced-motion setting mid-session, the change won't
+ * toggles the OS reduced-motion setting mid-session, the change will not
  * take effect until the next page load. This is acceptable because
  * toggling this system-level preference mid-session is extremely rare,
  * and a page refresh is a reasonable expectation for system accessibility

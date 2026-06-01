@@ -472,15 +472,16 @@ export const DragHandle = ({
 	const [blockCardWidth, setBlockCardWidth] = useState(768);
 	const [positionStylesOld, setPositionStylesOld] = useState<CSSProperties>({ display: 'none' });
 	const [isFocused, setIsFocused] = useState(Boolean(handleOptions?.isFocused));
-	const { macroInteractionUpdates, selection, isShiftDown, interactionState } =
+	const { macroInteractionUpdates, selection, isShiftDown, interactionState, currentUserIntent } =
 		useSharedPluginStateWithSelector(
 			api,
-			['featureFlags', 'selection', 'blockControls', 'interaction'],
+			['featureFlags', 'selection', 'blockControls', 'interaction', 'userIntent'],
 			(states) => ({
 				macroInteractionUpdates: states.featureFlagsState?.macroInteractionUpdates,
 				selection: states.selectionState?.selection,
 				isShiftDown: states.blockControlsState?.isShiftDown,
 				interactionState: states.interactionState?.interactionState,
+				currentUserIntent: states.userIntentState?.currentUserIntent,
 			}),
 		);
 
@@ -1363,7 +1364,7 @@ export const DragHandle = ({
 				]}
 			>
 				<Tooltip
-					content={<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />}
+					content={tooltipContent}
 					ignoreTooltipPointerEvents={true}
 					position={'top'}
 					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
@@ -1416,7 +1417,7 @@ export const DragHandle = ({
 
 	const buttonWithTooltip = () => (
 		<Tooltip
-			content={<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />}
+			content={tooltipContent}
 			ignoreTooltipPointerEvents={true}
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onShow={() => {
@@ -1426,6 +1427,13 @@ export const DragHandle = ({
 			{renderButton()}
 		</Tooltip>
 	);
+
+	const tooltipContent =
+		isLayoutColumn &&
+		expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true) &&
+		currentUserIntent === 'layoutColumnMenuPopupOpen' ? null : (
+			<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />
+		);
 
 	const isTooltip = !dragHandleDisabled;
 	const stickyRender = isTooltip ? stickyWithTooltip() : stickyWithoutTooltip();

@@ -141,6 +141,20 @@ export default function NewEntrypointTagExample(): JSX.Element {
 						</Inline>
 					</Stack>
 				</div>
+
+				{/* Trailing metric */}
+				<div css={sectionStyles}>
+					<Stack space="space.200">
+						<Text weight="bold">Trailing metric</Text>
+						<Inline space="space.100" alignBlock="center">
+							<Tag text="Comments" trailingMetric={24} isRemovable={false} />
+							<Tag text="Updates" color="blue" trailingMetric="99+" isRemovable={false} />
+							<Tag text="Issues" color="red" trailingMetric={7} isRemovable={false} />
+							<Tag text="Sprints" color="green" trailingMetric={2} isRemovable={false} />
+							<Tag text="Members" color="purple" trailingMetric={12} isRemovable={false} />
+						</Inline>
+					</Stack>
+				</div>
 			</Stack>
 		</div>
 	);

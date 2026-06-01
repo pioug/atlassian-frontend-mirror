@@ -3,7 +3,7 @@ import { type TPlacementOptions } from '../popup/types';
 
 import { type TAnimationPreset } from './types';
 
-// ── slideAndFade ──
+// slideAndFade
 
 type TSlideAndFadeOptions = {
 	/**
@@ -114,7 +114,7 @@ export function slideAndFade(options?: TSlideAndFadeOptions): TAnimationPreset {
 	};
 }
 
-// ── fade ──
+// fade
 
 const FADE_CSS = `
 [data-ds-popover-fade] {
@@ -166,7 +166,7 @@ export function fade(): TAnimationPreset {
 	};
 }
 
-// ── scaleAndFade ──
+// scaleAndFade
 
 const SCALE_AND_FADE_CSS = `
 [data-ds-popover-scale-and-fade] {
@@ -226,7 +226,7 @@ export function scaleAndFade(): TAnimationPreset {
 // Dialog presets
 // ══════════════════════════════════════════════════════════════════════════════
 
-// ── dialogSlideUpAndFade ──
+// dialogSlideUpAndFade
 
 type TDialogSlideUpAndFadeOptions = {
 	/**
@@ -322,7 +322,7 @@ export function dialogSlideUpAndFade(options?: TDialogSlideUpAndFadeOptions): TA
 	};
 }
 
-// ── dialogFade ──
+// dialogFade
 
 const DIALOG_FADE_CSS = `
 [data-ds-dialog-fade] {

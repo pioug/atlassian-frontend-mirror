@@ -1,5 +1,20 @@
 # @atlaskit/top-layer
 
+## 0.12.2
+
+### Patch Changes
+
+- [`7210e88c14f95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7210e88c14f95) -
+  Internal: align package with house authoring rules (style-only refactors).
+
+## 0.12.1
+
+### Patch Changes
+
+- [`c3913985e2415`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3913985e2415) -
+  Internal: remove unused `src/arrow/` module. The `arrow()` preset and `TArrowPreset` type were
+  never exported from `package.json` and had no consumers in the codebase.
+
 ## 0.12.0
 
 ### Minor Changes

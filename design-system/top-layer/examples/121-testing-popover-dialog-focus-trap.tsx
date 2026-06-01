@@ -13,7 +13,7 @@ import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
  * Contains:
  * - A dialog popup with 3 focusable buttons (tests Tab wrapping)
  * - A non-dialog popup with role="note" (tests that Tab is NOT trapped)
- * - Buttons outside the popups (verifies focus doesn't escape to them)
+ * - Buttons outside the popups (verifies focus does not escape to them)
  */
 
 function DialogPopup() {

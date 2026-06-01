@@ -78,7 +78,7 @@ export type TPopupContextValue = {
 	 */
 	ariaHasPopup: TAriaHasPopupValue;
 	/**
-	 * Updates `ariaHasPopup` — called by Content on mount/role change.
+	 * Updates `ariaHasPopup` - called by Content on mount/role change.
 	 */
 	setAriaHasPopup: (value: TAriaHasPopupValue) => void;
 	/**

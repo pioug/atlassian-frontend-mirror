@@ -5,13 +5,13 @@
  *
  * jest-dom's `toBeVisible()` does not know about the Popover API. In real
  * browsers the UA stylesheet hides `[popover]` with `display: none`, but
- * jsdom has no such stylesheet — so closed popovers incorrectly appear visible.
+ * jsdom has no such stylesheet - so closed popovers incorrectly appear visible.
  *
  * Raw jest-dom results in jsdom:
  *
- *   closed popover / child  → true  (WRONG — should be false)
+ *   closed popover / child  → true  (WRONG - should be false)
  *   open popover / child    → true  (correct)
- *   closed dialog / child   → false (correct — jsdom natively hides <dialog>)
+ *   closed dialog / child   → false (correct - jsdom natively hides <dialog>)
  *   open dialog / child     → true  (correct)
  *
  * We correct both false positives and false negatives:
@@ -83,7 +83,7 @@ expect.extend({
 		const topLayerState = nearestTopLayerState(element);
 
 		if (originalResult.pass) {
-			// Original says visible — override if nearest top-layer host is closed.
+			// Original says visible - override if nearest top-layer host is closed.
 			if (topLayerState === 'closed') {
 				return {
 					pass: false,
@@ -94,7 +94,7 @@ expect.extend({
 			return originalResult;
 		}
 
-		// Original says not visible — override if nearest top-layer host is open.
+		// Original says not visible - override if nearest top-layer host is open.
 		// jsdom may hide [popover] elements even when they are logically open.
 		if (topLayerState === 'open') {
 			return {

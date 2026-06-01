@@ -21,6 +21,7 @@ import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 import type { TeamMember } from '@atlaskit/mention/team-resource';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { createSingleMentionFragment } from '../../editor-commands';
 import type { MentionsPlugin } from '../../mentionsPluginType';
@@ -42,8 +43,11 @@ import {
 } from './analytics';
 import { isInviteItem, isTeamStats, isTeamType, shouldKeepInviteItem } from './utils';
 
-const isAgentType = (userType: string | undefined): boolean =>
+const isAgentUserType = (userType: string | undefined): boolean =>
 	userType === 'APP' || userType === 'AGENT';
+
+const isAgentMention = (mention: Pick<MentionDescription, 'appType' | 'userType'>): boolean =>
+	isAgentUserType(mention.userType) || mention.appType === 'agent';
 
 const createInviteItem = ({
 	mentionProvider,
@@ -280,6 +284,7 @@ type Props = {
 			id: string;
 			localId: string;
 			method?: 'pasted' | 'typed';
+			shouldSuppressMentionNotification?: boolean;
 			taskLocalId?: string;
 			type: 'added' | 'deleted';
 		}[],
@@ -403,13 +408,13 @@ export const createTypeAheadConfig = ({
 				{
 					id: 'people',
 					title: intl.formatMessage(mentionMessages.typeAheadSectionPeople),
-					filter: (item) => !isAgentType((item.mention?.userType as string) || ''),
+					filter: (item) => !isAgentUserType((item.mention?.userType as string) || ''),
 					limit: 6,
 				},
 				{
 					id: 'agents',
 					title: intl.formatMessage(mentionMessages.typeAheadSectionAgents),
-					filter: (item) => isAgentType((item.mention?.userType as string) || ''),
+					filter: (item) => isAgentUserType((item.mention?.userType as string) || ''),
 				},
 			];
 		},
@@ -429,6 +434,8 @@ export const createTypeAheadConfig = ({
 				...contextIdentifierProvider,
 				sessionId,
 			};
+			const shouldSuppressInviteForAgentMention =
+				expVal('platform_editor_agent_mentions', 'isEnabled', false) && isAgentMention(item.mention);
 
 			if (mentionProvider && !isInviteItem(item.mention)) {
 				mentionProvider.recordMentionSelection(item.mention, mentionContext);
@@ -498,18 +505,20 @@ export const createTypeAheadConfig = ({
 			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 			const mentionLocalId = uuid();
 			if (handleMentionsChanged) {
+				const mentionChange = {
+					id,
+					localId: mentionLocalId,
+					method: 'typed' as const,
+					type: 'added' as const,
+					...(shouldSuppressInviteForAgentMention
+						? { shouldSuppressMentionNotification: true }
+						: {}),
+				};
+
 				if (taskItemId) {
-					handleMentionsChanged([
-						{
-							type: 'added',
-							localId: mentionLocalId,
-							id,
-							taskLocalId: taskItemId,
-							method: 'typed',
-						},
-					]);
+					handleMentionsChanged([{ ...mentionChange, taskLocalId: taskItemId }]);
 				} else {
-					handleMentionsChanged([{ type: 'added', localId: mentionLocalId, id, method: 'typed' }]);
+					handleMentionsChanged([mentionChange]);
 				}
 			}
 
@@ -539,7 +548,12 @@ export const createTypeAheadConfig = ({
 				);
 			}
 
-			if (isXProductUser && mentionProvider && mentionProvider.inviteXProductUser) {
+			if (
+				!shouldSuppressInviteForAgentMention &&
+				isXProductUser &&
+				mentionProvider &&
+				mentionProvider.inviteXProductUser
+			) {
 				mentionProvider.inviteXProductUser(id, name);
 			}
 
@@ -549,6 +563,7 @@ export const createTypeAheadConfig = ({
 					mentionInsertDisplayName,
 					tr: state.tr,
 					sanitizePrivateContent,
+					suppressInviteXProductUser: shouldSuppressInviteForAgentMention,
 				})({
 					name,
 					id,

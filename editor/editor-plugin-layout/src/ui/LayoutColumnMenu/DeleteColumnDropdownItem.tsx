@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 
 import { layoutMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import { DeleteIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
 
@@ -41,7 +41,10 @@ const DeleteColumnDropdownItem = ({
 	const selectedColumnCount = selectedLayoutColumns.selectedLayoutColumns.length;
 
 	return (
-		<ToolbarDropdownItem onClick={onClick}>
+		<ToolbarDropdownItem
+			onClick={onClick}
+			elemBefore={<DeleteIcon color="currentColor" label="" size="small" />}
+		>
 			{formatMessage(layoutMessages.deleteColumn, { count: selectedColumnCount })}
 		</ToolbarDropdownItem>
 	);

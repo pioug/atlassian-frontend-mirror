@@ -32,6 +32,7 @@ snapshotInformational(RelatedLinksResolvedView, {
 snapshotInformational(RelatedLinksResolvedView, {
 	prepare: async (page: Page, _component: Locator) => {
 		await page.getByTestId('incoming-related-links-list-item-0').first().click();
+		await page.waitForLoadState('networkidle');
 	},
 	drawsOutsideBounds: true,
 	description: 'resolved - selected state',

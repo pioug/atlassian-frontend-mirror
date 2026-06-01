@@ -30,11 +30,18 @@ interface BasicResourceTiming {
 	workerStart: number;
 	fetchStart: number;
 	count?: number;
+	ttfb?: number;
+	requestStart?: number;
+	transferType?: string | null;
+	serverTime?: number;
+	networkTime?: number;
+	encodedSize?: number | null;
+	decodedSize?: number | null;
+	size?: number;
 }
 
 interface CacheableResourceTiming extends BasicResourceTiming {
-	transferType: string;
-	ttfb?: number;
+	transferType: string | null;
 }
 
 interface NonCacheableResourceTiming extends BasicResourceTiming {

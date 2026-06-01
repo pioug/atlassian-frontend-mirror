@@ -32,6 +32,7 @@ export const SvgView = ({
 	onError,
 	wrapperRef,
 	alt,
+	backgroundColor,
 }: SvgViewProps): React.JSX.Element | null => {
 	const onSvgError = (err: MediaSVGError) => {
 		const error = new MediaCardError(getErrorReason(err.primaryReason), err.secondaryError);
@@ -58,7 +59,8 @@ export const SvgView = ({
 			}}
 			wrapperRef={wrapperRef}
 			mediaType="image"
-			useWhiteBackground
+			useWhiteBackground={!backgroundColor}
+			backgroundColor={backgroundColor}
 		/>
 	) : null;
 };

@@ -6,7 +6,6 @@ import LegacyButton from '@atlaskit/button';
 import Checkbox from '@atlaskit/checkbox';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import { type IconSize } from '@atlaskit/icon/types';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples

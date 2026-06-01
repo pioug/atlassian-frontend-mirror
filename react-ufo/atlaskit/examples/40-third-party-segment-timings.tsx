@@ -45,6 +45,14 @@ export default function Example(): JSX.Element {
 					listenersRef.current.forEach((l) => l(event));
 				};
 
+				// ufo-forge-init is the early handshake signal — confirms the iframe is on the new
+				// rollout cohort and extends the abort window from 6s to 60s.
+				emit({
+					type: 'ufo-event',
+					name: 'ufo-forge-init',
+					elapsed: performance.now(),
+				});
+
 				// navigation-timing releases the forge-ui-requests hold and is recorded as a segment3pTimings row.
 				// Uses the real Forge iframe event structure: { name, elapsed, payload: { name, startTime,
 				// duration, type, redirectCount, timing: { fetchStart, responseStart, responseEnd, ... } } }

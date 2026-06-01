@@ -9,7 +9,8 @@ import { jsx } from '@compiled/react';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 
 import { prefersReducedMotion } from '../internal/reduced-motion';
-import { roleToAriaHasPopup, shouldFocusIntoPopover } from '../internal/role-types';
+import { roleToAriaHasPopup } from '../internal/role-to-aria-has-popup';
+import { shouldFocusIntoPopover } from '../internal/should-focus-into-popover';
 import { useAnchorPosition } from '../internal/use-anchor-position';
 import { useWidthFromAnchor } from '../internal/use-width-from-anchor';
 import { Popover } from '../popover/popover';
@@ -105,13 +106,13 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 	// Note: onOpenChange composition is handled by handleOpenChange below,
 	// which also adds nested-popover focus restoration.
 
-	// ── Sync aria-haspopup on the trigger with the content's role ──
+	// Sync aria-haspopup on the trigger with the content's role
 	const setAriaHasPopup = ctx?.setAriaHasPopup;
 	useLayoutEffect(() => {
 		setAriaHasPopup?.(roleToAriaHasPopup({ role }));
 	}, [role, setAriaHasPopup]);
 
-	// ── Focus restoration ──
+	// Focus restoration
 	// The native Popover API handles focus restoration automatically for
 	// popover="auto" and popover="hint":
 	//   - Escape → restores focus to the previously focused element (the trigger)
@@ -140,7 +141,7 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 
 			consumerOnOpenChange?.(args);
 
-			// ── Nested popover focus restoration fallback ──
+			// Nested popover focus restoration fallback
 			// The browser only captures `previouslyFocusedElement` for the
 			// outermost popover="auto" in the stack. Inner (nested) popovers
 			// have shouldRestoreFocus=false, so the browser will not restore
@@ -167,7 +168,7 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 		[consumerOnOpenChange, triggerRef, role, setPopupState, willAnimate],
 	);
 
-	// ── Anchor positioning ──
+	// Anchor positioning
 	// Compose useAnchorPosition with Popover. The hook positions the popover
 	// relative to the trigger element via CSS Anchor Positioning (with JS fallback).
 	// Use ctx.popoverRef when inside the compound (so the trigger can also

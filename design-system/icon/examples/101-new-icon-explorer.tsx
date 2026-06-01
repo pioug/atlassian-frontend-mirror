@@ -13,7 +13,6 @@ import { IconTile } from '@atlaskit/icon';
 import coreIconLabMetadata from '@atlaskit/icon-lab/metadata';
 import { coreIconMetadata } from '@atlaskit/icon/metadata';
 // Legacy metadata / migration map removed - DSP-24516
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';

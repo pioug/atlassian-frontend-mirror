@@ -333,8 +333,7 @@ const getAdvancedLayoutItems = ({
 					disabled: isDistributedUniformly(getLayoutColumnWidths(node)),
 					icon: TableColumnsDistributeIcon,
 					onClick: (editorState: EditorState, dispatch: CommandDispatch | undefined) => {
-						const tr = distributeLayoutColumns({
-							editorAnalyticsAPI,
+						const tr = distributeLayoutColumns(editorAnalyticsAPI)({
 							inputMethod: INPUT_METHOD.FLOATING_TB,
 							target: 'allColumns',
 						})({ tr: editorState.tr });

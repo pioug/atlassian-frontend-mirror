@@ -6,7 +6,7 @@ import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library
 
 import { Dialog } from '../../src/entry-points/dialog';
 
-// ── Observer test helpers ──
+// Observer test helpers
 
 /**
  * Renders the open layer count as text so tests can assert declaratively
@@ -183,7 +183,7 @@ describe('Dialog primitive', () => {
 	});
 });
 
-describe('Dialog primitive — open layer observer', () => {
+describe('Dialog primitive - open layer observer', () => {
 	it('registers with the observer as type "modal" when open', () => {
 		render(
 			<OpenLayerObserver>
@@ -250,7 +250,7 @@ describe('Dialog primitive — open layer observer', () => {
 
 		await user.click(screen.getByRole('button', { name: 'Close layers' }));
 
-		// Modals are intentionally persistent — they should not be dismissed
+		// Modals are intentionally persistent - they should not be dismissed
 		// by closeLayers(). The observer onClose is a no-op.
 		expect(onClose).not.toHaveBeenCalled();
 	});

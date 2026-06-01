@@ -4,19 +4,19 @@
  */
 import { useState } from 'react';
 
-import { jsx } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import Popup, { type ContentProps, type TriggerProps } from '@atlaskit/popup';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 export default function InsidePopupExample(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const renderContent = ({ setInitialFocusRef }: ContentProps) => (
-		<Box xcss={wrapperStyles}>
+		<Box xcss={wrapperStyles.root}>
 			<Tooltip content="Only show on hover or focus-visible">
 				<Button ref={setInitialFocusRef} onClick={() => {}}>
 					Tooltip trigger
@@ -43,9 +43,11 @@ export default function InsidePopupExample(): JSX.Element {
 	);
 }
 
-const wrapperStyles = xcss({
-	paddingBlockEnd: 'space.100',
-	paddingBlockStart: 'space.100',
-	paddingInlineEnd: 'space.100',
-	paddingInlineStart: 'space.100',
+const wrapperStyles = cssMap({
+	root: {
+		paddingBlockEnd: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
+	},
 });

@@ -43,7 +43,7 @@ const roleDemos: Array<{
 	{
 		role: 'tooltip',
 		label: 'Helpful tooltip',
-		description: 'Does not require a label — the content IS the accessible name.',
+		description: 'Does not require a label - the content IS the accessible name.',
 		content: <Text>Tooltip content is the name itself.</Text>,
 	},
 	{
@@ -70,8 +70,8 @@ const roleDemos: Array<{
  * Popup with different ARIA roles.
  *
  * Demonstrates the typed role system on `Popup.Content`:
- * - `'dialog'`, `'alertdialog'`, `'menu'` — require `label` or `labelledBy`
- * - `'tooltip'`, `'listbox'`, `'tree'`, etc. — label is optional
+ * - `'dialog'`, `'alertdialog'`, `'menu'` - require `label` or `labelledBy`
+ * - `'tooltip'`, `'listbox'`, `'tree'`, etc. - label is optional
  */
 export default function PopoverRolesExample(): React.JSX.Element {
 	const handleClose = useCallback(() => {}, []);

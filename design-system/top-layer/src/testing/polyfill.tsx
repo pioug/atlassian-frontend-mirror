@@ -97,7 +97,7 @@ function createToggleScheduler(): (args: { element: Element; newState: TToggleSt
 
 		pending.set(element, { oldState: oppositeState({ state: newState }), newState });
 
-		// Task queue (setTimeout) — browser fires toggle after microtasks drain, not during
+		// Task queue (setTimeout) - browser fires toggle after microtasks drain, not during
 		setTimeout(() => {
 			const entry = pending.get(element);
 			if (!entry) {
@@ -168,7 +168,7 @@ function createDialogToggleScheduler(): (args: {
 	};
 }
 
-// ─── Popover API ────────────────────────────────────────────────────────────
+// Popover API
 // Spec: https://html.spec.whatwg.org/multipage/popover.html
 
 // `popover` attribute valid values. Empty / "auto" -> "auto"; unknown -> "manual".
@@ -500,7 +500,7 @@ if (typeof HTMLElement !== 'undefined') {
 				);
 			}
 			if (isPopoverOpen({ element: this })) {
-				return; // already showing — no-op
+				return; // already showing - no-op
 			}
 
 			// sync, cancelable on show only
@@ -642,7 +642,7 @@ if (typeof HTMLElement !== 'undefined') {
 	}
 }
 
-// ─── HTMLDialogElement ──────────────────────────────────────────────────────
+// HTMLDialogElement
 // Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#the-dialog-element
 
 if (typeof HTMLDialogElement !== 'undefined') {
@@ -663,7 +663,7 @@ if (typeof HTMLDialogElement !== 'undefined') {
 			}
 			if (this.hasAttribute('open')) {
 				if (this._isModal) {
-					return; // already modal — no-op
+					return; // already modal - no-op
 				}
 				throw new DOMException(
 					`Failed to execute 'showModal' on 'HTMLDialogElement': ${describeElement({ element: this })} already has an 'open' attribute, and therefore cannot be opened modally. The dialog was likely opened non-modally with .show(). Call .close() first, then .showModal().`,
@@ -687,7 +687,7 @@ if (typeof HTMLDialogElement !== 'undefined') {
 
 	if (typeof proto.show !== 'function') {
 		proto.show = function show(this: HTMLDialogElement & { _isModal?: boolean }) {
-			// Browser does not throw for disconnected elements on show — just no-op
+			// Browser does not throw for disconnected elements on show - just no-op
 			if (!this.isConnected || this.hasAttribute('open')) {
 				return;
 			}
@@ -712,10 +712,10 @@ if (typeof HTMLDialogElement !== 'undefined') {
 			returnValue?: string,
 		) {
 			if (!this.hasAttribute('open')) {
-				return; // already closed — no-op
+				return; // already closed - no-op
 			}
 
-			// Sync beforetoggle (not cancelable) — matches browser behavior
+			// Sync beforetoggle (not cancelable) - matches browser behavior
 			fireToggleEvent({
 				element: this,
 				type: 'beforetoggle',

@@ -24,9 +24,11 @@ import type {
 	SyncBlockSourceInfo,
 } from '../providers/types';
 import {
+	cacheDeletionForcedPayload,
 	fetchErrorPayload,
 	fetchSuccessPayload,
 	getSourceInfoErrorPayload,
+	sourceInfoOrphanedPayload,
 	updateReferenceErrorPayload,
 } from '../utils/errorHandling';
 import {
@@ -50,6 +52,13 @@ const CACHE_KEY_PREFIX = 'sync-block-data-';
 
 const ENTITY_NOT_FOUND_MAX_RETRIES = 3;
 const ENTITY_NOT_FOUND_INITIAL_DELAY_MS = 2000;
+
+// Grace period before a cache entry is removed after the last subscriber
+// unsubscribes (gated by `platform_synced_block_patch_14`). Guards are
+// re-checked at fire time; if any are positive, the timer is rescheduled.
+const CACHE_DELETION_GRACE_PERIOD_MS = 30_000;
+// Max reschedules before force-deleting with an analytics event (~5 min).
+const CACHE_DELETION_MAX_RESCHEDULES = 10;
 
 // A store manager responsible for the lifecycle and state management of reference sync blocks in an editor instance.
 // Designed to manage local in-memory state and synchronize with an external data provider.
@@ -84,6 +93,14 @@ export class ReferenceSyncBlockStoreManager {
 	private entityNotFoundRetryCount: Map<ResourceId, number> = new Map();
 	private entityNotFoundRetryTimers: Map<ResourceId, ReturnType<typeof setTimeout>> = new Map();
 
+	// Pending cache deletion timers keyed by resourceId (gated by
+	// `platform_synced_block_patch_14`). Cancelled when a subscriber re-attaches.
+	private pendingCacheDeletions: Map<ResourceId, ReturnType<typeof setTimeout>> = new Map();
+	// Reschedule counter per resource — reset on actual deletion or re-subscribe.
+	private cacheDeletionRescheduleCounts: Map<ResourceId, number> = new Map();
+	// Set by destroy() so in-flight timer callbacks can early-return.
+	private isDestroyed = false;
+
 	public fetchExperience: Experience | undefined;
 	private fetchSourceInfoExperience: Experience | undefined;
 	private saveExperience: Experience | undefined;
@@ -110,6 +127,10 @@ export class ReferenceSyncBlockStoreManager {
 			markCacheDirty: () => {
 				this.isCacheDirty = true;
 			},
+			// Delegate cache lifecycle to the store manager so guards can be
+			// checked atomically (gated by `platform_synced_block_patch_14`).
+			scheduleCacheDeletion: (rid) => this.scheduleCacheDeletion(rid),
+			cancelPendingCacheDeletion: (rid) => this.cancelPendingCacheDeletion(rid),
 		});
 
 		this._providerFactoryManager = new SyncBlockProviderFactoryManager({
@@ -659,6 +680,21 @@ export class ReferenceSyncBlockStoreManager {
 
 	private updateCacheWithSourceInfo(resourceId: ResourceId, sourceInfo: SyncBlockSourceInfo) {
 		const existingSyncBlock = this.getFromCache(resourceId);
+		// If the cache entry was deleted while the source-info request was
+		// in flight, fire an analytics event so the race is observable.
+		if (!existingSyncBlock && fg('platform_synced_block_patch_14')) {
+			this.fireAnalyticsEvent?.(
+				sourceInfoOrphanedPayload(resourceId, getSourceProductFromResourceIdSafe(resourceId), {
+					hasPendingDeletion: this.pendingCacheDeletions.has(resourceId),
+					hasSubscribers: this._subscriptionManager.getSubscriptions().has(resourceId),
+				}),
+			);
+			logException(new Error('updateCacheWithSourceInfo: cache entry missing for resource'), {
+				location:
+					'editor-synced-block-provider/referenceSyncBlockStoreManager/orphaned-source-info',
+			});
+			return;
+		}
 		if (existingSyncBlock && existingSyncBlock.data) {
 			existingSyncBlock.data.sourceURL = sourceInfo?.url;
 			existingSyncBlock.data = {
@@ -695,6 +731,140 @@ export class ReferenceSyncBlockStoreManager {
 	private deleteFromCache(resourceId: ResourceId) {
 		this.dataProvider?.removeFromCache([resourceId]);
 		this._providerFactoryManager.deleteFactory(resourceId);
+		// Evict in-flight source-info promise and reset reschedule counter
+		// so a stale resolution can't silently merge into a re-fetched entry.
+		if (fg('platform_synced_block_patch_14')) {
+			this.syncBlockSourceInfoRequests.delete(resourceId);
+			this.cacheDeletionRescheduleCounts.delete(resourceId);
+		}
+	}
+
+	/**
+	 * Returns true if the cache entry for `resourceId` is safe to delete:
+	 * no active subscribers, no in-flight source-info request, and no
+	 * queued/in-flight batch fetch (gated by `platform_synced_block_patch_14`).
+	 */
+	private canDeleteCache(resourceId: ResourceId): boolean {
+		if (this._subscriptionManager.getSubscriptions().has(resourceId)) {
+			return false;
+		}
+		if (this.syncBlockSourceInfoRequests.has(resourceId)) {
+			return false;
+		}
+		if (this._batchFetcher.hasPendingFetch(resourceId)) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Schedules cache deletion for `resourceId` after the grace period
+	 * (gated by `platform_synced_block_patch_14`). Called when the last
+	 * subscriber unsubscribes. Guards are re-checked at fire time; if any
+	 * are positive the timer is rescheduled up to MAX_RESCHEDULES times.
+	 */
+	public scheduleCacheDeletion(resourceId: ResourceId): void {
+		if (!fg('platform_synced_block_patch_14')) {
+			return;
+		}
+		if (this.isDestroyed) {
+			return;
+		}
+		// Cancel any existing timer \u2014 restart the grace period \u2014 but DO NOT
+		// reset the reschedule counter. The counter is reset only by
+		// `cancelPendingCacheDeletion` (called when a real subscriber returns)
+		// or when the cache is actually deleted.
+		const existing = this.pendingCacheDeletions.get(resourceId);
+		if (existing) {
+			clearTimeout(existing);
+			this.pendingCacheDeletions.delete(resourceId);
+		}
+
+		const timer = setTimeout(() => {
+			// Guard against timer callback running after destroy. clearTimeout
+			// is synchronous so this should be unreachable in practice, but
+			// belt-and-braces.
+			if (this.isDestroyed) {
+				return;
+			}
+			this.pendingCacheDeletions.delete(resourceId);
+			this.onCacheDeletionTimerFire(resourceId);
+		}, CACHE_DELETION_GRACE_PERIOD_MS);
+
+		this.pendingCacheDeletions.set(resourceId, timer);
+	}
+
+	/**
+	 * Cancels any pending cache deletion timer for `resourceId` and resets the
+	 * reschedule counter (gated by `platform_synced_block_patch_14`). Called
+	 * when a new subscriber arrives.
+	 */
+	public cancelPendingCacheDeletion(resourceId: ResourceId): void {
+		if (!fg('platform_synced_block_patch_14')) {
+			return;
+		}
+		const existing = this.pendingCacheDeletions.get(resourceId);
+		if (existing) {
+			clearTimeout(existing);
+			this.pendingCacheDeletions.delete(resourceId);
+		}
+		// Subscribers returning resets the reschedule counter \u2014 the resource is
+		// active again.
+		this.cacheDeletionRescheduleCounts.delete(resourceId);
+	}
+
+	/** Returns whether a cache deletion timer is pending for `resourceId`. */
+	public hasPendingCacheDeletion(resourceId: ResourceId): boolean {
+		return this.pendingCacheDeletions.has(resourceId);
+	}
+
+	private onCacheDeletionTimerFire(resourceId: ResourceId): void {
+		if (this.canDeleteCache(resourceId)) {
+			// `deleteFromCache` resets the reschedule counter under the flag.
+			this.deleteFromCache(resourceId);
+			return;
+		}
+
+		const currentCount = this.cacheDeletionRescheduleCounts.get(resourceId) ?? 0;
+		if (currentCount >= CACHE_DELETION_MAX_RESCHEDULES) {
+			// Stuck guard — force deletion to prevent unbounded memory growth and
+			// fire analytics so the stuck state is visible in production telemetry.
+			//
+			// NOTE: If active React subscribers still exist at force-delete time
+			// (e.g. an in-flight batch fetch never settled), the cache entry is
+			// removed without notifying subscribers. Those components will
+			// continue to render with stale data until their next re-render
+			// triggers a new batch fetch — typically within ~1 frame. We accept
+			// this brief stale window in exchange for bounded memory growth.
+			this.fireAnalyticsEvent?.(
+				cacheDeletionForcedPayload(
+					currentCount,
+					resourceId,
+					getSourceProductFromResourceIdSafe(resourceId),
+				),
+			);
+			logException(
+				new Error(
+					`Cache deletion forced after ${currentCount} reschedules — stuck in-flight guard`,
+				),
+				{
+					location:
+						'editor-synced-block-provider/referenceSyncBlockStoreManager/cache-deletion-forced',
+				},
+			);
+			// `deleteFromCache` resets the reschedule counter under the flag.
+			this.deleteFromCache(resourceId);
+			// If subscribers still exist, kick off a fresh fetch so they get
+			// fresh data on the next batch tick instead of holding stale data
+			// indefinitely.
+			if (this._subscriptionManager.getSubscriptions().has(resourceId)) {
+				this.debouncedBatchedFetchSyncBlocks(resourceId);
+			}
+			return;
+		}
+
+		this.cacheDeletionRescheduleCounts.set(resourceId, currentCount + 1);
+		this.scheduleCacheDeletion(resourceId);
 	}
 
 	/**
@@ -803,13 +973,7 @@ export class ReferenceSyncBlockStoreManager {
 	 * @returns
 	 */
 	public getSyncBlockURL(resourceId: ResourceId): string | undefined {
-		const syncBlock = this.getFromCache(resourceId);
-
-		if (!syncBlock) {
-			return undefined;
-		}
-
-		return syncBlock.data?.sourceURL;
+		return this.getFromCache(resourceId)?.data?.sourceURL;
 	}
 
 	public getProviderFactory(resourceId: ResourceId): ProviderFactory | undefined {
@@ -942,6 +1106,9 @@ export class ReferenceSyncBlockStoreManager {
 	}
 
 	public destroy(): void {
+		// Mark destroyed first so in-flight timer callbacks can early-return.
+		this.isDestroyed = true;
+
 		// Cancel any queued flush to prevent it from running after destroy
 		if (this.queuedFlushTimeout) {
 			clearTimeout(this.queuedFlushTimeout);
@@ -952,6 +1119,11 @@ export class ReferenceSyncBlockStoreManager {
 		this.entityNotFoundRetryTimers.forEach((timer) => clearTimeout(timer));
 		this.entityNotFoundRetryTimers.clear();
 		this.entityNotFoundRetryCount.clear();
+
+		// Cancel pending cache deletion timers.
+		this.pendingCacheDeletions.forEach((timer) => clearTimeout(timer));
+		this.pendingCacheDeletions.clear();
+		this.cacheDeletionRescheduleCounts.clear();
 
 		this._subscriptionManager.destroy();
 		this._providerFactoryManager.destroy();
@@ -967,6 +1139,16 @@ export class ReferenceSyncBlockStoreManager {
 		this.fetchSourceInfoExperience?.abort({ reason: 'editorDestroyed' });
 		this.fireAnalyticsEvent = undefined;
 
-		syncBlockInMemorySessionCache.clear();
+		// Under `platform_synced_block_patch_14`, `destroy()` is now wired to
+		// React component unmount via `useMemoizedSyncBlockStoreManager`.
+		// Clearing the module-level singleton on unmount would wipe SSR session
+		// cache data that a sibling/successor manager (e.g. the editor
+		// instance that mounts immediately after the renderer unmounts during
+		// the view-mode transition) is about to read.
+		// Let entries age out naturally instead — the in-memory cache is
+		// naturally bounded by `maxSize` (LRU) and cleared on hard navigation.
+		if (!fg('platform_synced_block_patch_14')) {
+			syncBlockInMemorySessionCache.clear();
+		}
 	}
 }

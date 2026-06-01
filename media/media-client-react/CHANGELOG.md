@@ -1,5 +1,17 @@
 # @atlaskit/media-client-react
 
+## 5.2.0
+
+### Minor Changes
+
+- [`a68f551856a81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a68f551856a81) -
+  Add initialFileState option to useFileState. When provided, it is returned as a local fallback
+  while the remote fetch is in progress, without writing to the shared media store.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.2
 
 ### Patch Changes

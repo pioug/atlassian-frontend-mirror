@@ -4,19 +4,53 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
+import { useCrossProductUrlWrapper } from '@atlaskit/analytics-cross-product/useCrossProductUrlWrapper';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { UnAuthClient } from '@atlaskit/link-test-helpers';
+import { type ProductType } from '@atlaskit/linking-common';
+import { type SmartLinkResponse } from '@atlaskit/linking-types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { fireEvent, render } from '@atlassian/testing-library';
 
+import { useSmartLink } from '../../../state';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { TitleBlock } from '../../FlexibleCard/components/blocks';
 import * as SmartLinkEventsModule from '../../SmartLinkEvents/useSmartLinkEvents';
 import { CardWithUrl } from '../component';
 
+type SmartLinkMetaWithFirstPartySignal = SmartLinkResponse['meta'] & {
+	is1PLink?: boolean;
+};
+
+const createSmartLinkDetails = (isFirstPartyLink?: boolean): SmartLinkResponse => ({
+	meta: {
+		access: 'granted',
+		visibility: 'public',
+		definitionId: 'test-definition-id',
+		...(isFirstPartyLink === undefined ? {} : { is1PLink: isFirstPartyLink }),
+	} as SmartLinkMetaWithFirstPartySignal,
+	data: {
+		'@type': 'Document',
+		'@context': {
+			'@vocab': 'https://www.w3.org/ns/activitystreams#',
+			atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+			schema: 'http://schema.org/',
+		},
+		name: 'Link title',
+		url: 'https://example.com',
+		// `preview` needs to be defined for embed link to not fall back to BlockCard
+		// (the `if (resolvedViewProps.preview)` branch in EmbedCard/index.tsx).
+		preview: { content: 'embed-content' } as JsonLd.Data.BaseData['preview'],
+	},
+});
+
+jest.mock('@atlaskit/analytics-cross-product/useCrossProductUrlWrapper', () => ({
+	useCrossProductUrlWrapper: jest.fn(() => (url: string) => url),
+}));
 jest.mock('../../SmartLinkEvents/useSmartLinkEvents', () => ({
 	useFire3PWorkflowsClickEvent: jest.fn(),
 }));
@@ -34,8 +68,16 @@ jest.mock('../../../state', () => ({
 		state: {
 			status: 'resolved',
 			details: {
-				meta: { definitionId: 'test-definition-id' },
+				meta: {
+					access: 'granted',
+					visibility: 'public',
+					definitionId: 'test-definition-id',
+				},
 				data: {
+					'@type': 'Document',
+					'@context': {
+						'@vocab': 'https://www.w3.org/ns/activitystreams#',
+					},
 					name: 'Link title',
 					url: 'https://example.com',
 					// `preview.content` needs to be defined for embed link to not fall back to BlockCard
@@ -62,6 +104,19 @@ jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure', () => ({
 	expValEqualsNoExposure: jest.fn(() => false),
 }));
 
+const createUseSmartLinkResult = (details: SmartLinkResponse = createSmartLinkDetails()) => ({
+	state: {
+		status: 'resolved',
+		details,
+	},
+	actions: { authorize: jest.fn(), reload: jest.fn(), invoke: jest.fn() },
+	config: {},
+	renderers: undefined,
+	error: undefined,
+	isPreviewPanelAvailable: undefined,
+	openPreviewPanel: undefined,
+});
+
 describe('CardWithUrl', () => {
 	const setup = (CustomClient = UnAuthClient) => {
 		const onEvent = jest.fn();
@@ -85,6 +140,8 @@ describe('CardWithUrl', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
+		(useCrossProductUrlWrapper as jest.Mock).mockReturnValue((url: string) => url);
+		(useSmartLink as jest.Mock).mockImplementation(() => createUseSmartLinkResult());
 	});
 
 	it('should capture and report a11y violations', async () => {
@@ -206,4 +263,107 @@ describe('CardWithUrl', () => {
 			});
 		},
 	);
+
+	describe('cross-product URL wrapping', () => {
+		const SMARTLINK_XPC_FF = 'platform_smartlink_xpc_url_wrapping';
+
+		let openSpy: jest.SpyInstance;
+		let wrapUrl: jest.Mock;
+
+		const renderResolvedLink = ({
+			appearance = 'inline',
+			details,
+			product = 'CONFLUENCE',
+			url = 'https://example.com',
+		}: {
+			appearance?: 'inline' | 'block' | 'embed' | 'flexible';
+			details: SmartLinkResponse;
+			product?: ProductType;
+			url?: string;
+		}) => {
+			(useSmartLink as jest.Mock).mockReturnValue(createUseSmartLinkResult(details));
+
+			return render(
+				<IntlProvider locale="en">
+					<SmartCardProvider client={new CardClient()} product={product}>
+						{appearance === 'flexible' ? (
+							<CardWithUrl appearance="block" id="uid" url={url}>
+								<TitleBlock />
+							</CardWithUrl>
+						) : (
+							<CardWithUrl appearance={appearance} id="uid" url={url} />
+						)}
+					</SmartCardProvider>
+				</IntlProvider>,
+			);
+		};
+
+		beforeEach(() => {
+			openSpy = jest.spyOn(window, 'open').mockImplementation(() => null);
+			wrapUrl = jest.fn((url: string) => `${url}?xpis=wrapped`);
+			(useCrossProductUrlWrapper as jest.Mock).mockReturnValue(wrapUrl);
+		});
+
+		afterEach(() => {
+			openSpy.mockRestore();
+		});
+
+		it('wraps resolved first-party Smart Link click URLs when the gate is enabled', () => {
+			passGate(SMARTLINK_XPC_FF);
+
+			const { container } = renderResolvedLink({
+				details: createSmartLinkDetails(true),
+			});
+
+			fireEvent.click(container.querySelector('a')!);
+
+			expect(useCrossProductUrlWrapper).toHaveBeenCalledWith({
+				bridge: 'smartLinks',
+				product: 'confluence',
+			});
+			expect(wrapUrl).toHaveBeenCalledWith('https://example.com');
+			expect(openSpy).toHaveBeenCalledWith('https://example.com?xpis=wrapped', '_self');
+		});
+
+		it('does not wrap third-party Smart Link click URLs', () => {
+			passGate(SMARTLINK_XPC_FF);
+
+			const { container } = renderResolvedLink({
+				details: createSmartLinkDetails(false),
+			});
+
+			fireEvent.click(container.querySelector('a')!);
+
+			expect(wrapUrl).not.toHaveBeenCalled();
+			expect(openSpy).toHaveBeenCalledWith('https://example.com', '_self');
+		});
+
+		it('does not wrap when the SmartLinks integration gate is disabled', () => {
+			failGate(SMARTLINK_XPC_FF);
+
+			const { container } = renderResolvedLink({
+				details: createSmartLinkDetails(true),
+			});
+
+			fireEvent.click(container.querySelector('a')!);
+
+			expect(useCrossProductUrlWrapper).not.toHaveBeenCalled();
+			expect(wrapUrl).not.toHaveBeenCalled();
+			expect(openSpy).toHaveBeenCalledWith('https://example.com', '_self');
+		});
+
+		it('does not double wrap URLs that already include cross-product interaction params', () => {
+			passGate(SMARTLINK_XPC_FF);
+
+			const { container } = renderResolvedLink({
+				details: createSmartLinkDetails(true),
+				url: 'https://example.com?xpis=existing',
+			});
+
+			fireEvent.click(container.querySelector('a')!);
+
+			expect(wrapUrl).not.toHaveBeenCalled();
+			expect(openSpy).toHaveBeenCalledWith('https://example.com?xpis=existing', '_self');
+		});
+	});
 });

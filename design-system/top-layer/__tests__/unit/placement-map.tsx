@@ -3,7 +3,7 @@ import {
 	type TLegacyPlacement,
 	type TPlacementOptions,
 } from '../../src/placement-map';
-import { placementMapping } from '../../src/placement-map/legacy-placements';
+import { placementMapping } from '../../src/placement-map/placement-mapping';
 
 describe('placement-map', () => {
 	describe('fromLegacyPlacement', () => {

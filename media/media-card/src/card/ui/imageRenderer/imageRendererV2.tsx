@@ -35,6 +35,7 @@ export const ImageRenderer = ({
 	identifier,
 	wrapperRef,
 	useWhiteBackground,
+	backgroundColor,
 	testId,
 }: ImageRendererProps): JSX.Element | null => {
 	const onDisplayImageRef = useCurrentValueRef(onDisplayImage);
@@ -110,6 +111,7 @@ export const ImageRenderer = ({
 				loading={nativeLazyLoad ? 'lazy' : undefined}
 				css={[baseStyles, useWhiteBackground && backgroundStyles]}
 				style={{
+					backgroundColor,
 					visibility: didRender || forceSyncDisplay ? 'visible' : 'hidden',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					...resolvedDimensions,

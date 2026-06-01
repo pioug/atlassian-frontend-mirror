@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import type { FileState } from '@atlaskit/media-state';
 
@@ -16,6 +16,15 @@ export type UseFileStateOptions = {
 	// The default value is `false`
 	skipRemote?: boolean;
 	includeHashForDuplicateFiles?: boolean;
+	/**
+	 * Pre-seeded file state from SSR fragment data. When provided, it is
+	 * forwarded to the file-fetcher which seeds the shared media store so all
+	 * consumers see the SSR state immediately. If the file is already
+	 * `processed`, the fetcher skips the network poll entirely.
+	 * Also used as a synchronous fallback return value (`fileState ?? initialFileState`)
+	 * before the store is populated.
+	 */
+	initialFileState?: FileState;
 };
 
 export function useFileState(id: string, options: UseFileStateOptions = {}): UseFileStateResult {
@@ -24,13 +33,22 @@ export function useFileState(id: string, options: UseFileStateOptions = {}): Use
 		occurrenceKey,
 		skipRemote = false,
 		includeHashForDuplicateFiles,
+		initialFileState,
 	} = options;
 	const mediaClient = useMediaClient();
 	const fileState = useMediaStore((state) => state.files[id]);
+
+	// Capture initialFileState as a ref so it's a stable one-time SSR seed that
+	// doesn't affect the useEffect dependency array. Including it directly would
+	// cause repeated unsubscribe/resubscribe cycles whenever the caller passes a
+	// new (unstabilized) object reference — each cycle fires getFileState before
+	// the store is populated.
+	const initialFileStateRef = useRef(initialFileState);
+
 	useEffect(() => {
-		// No need to resubscribe if there is a fileState already
 		if (!fileState && !skipRemote) {
 			mediaClient.file.getFileState(id, {
+				initialFileState: initialFileStateRef.current,
 				collectionName,
 				occurrenceKey,
 				includeHashForDuplicateFiles,
@@ -46,5 +64,5 @@ export function useFileState(id: string, options: UseFileStateOptions = {}): Use
 		includeHashForDuplicateFiles,
 	]);
 
-	return { fileState };
+	return { fileState: fileState ?? initialFileState };
 }

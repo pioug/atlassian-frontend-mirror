@@ -33,6 +33,7 @@ const SyncBlockRendererWrapperComponent = ({
 	localId,
 	api,
 }: Props): React.JSX.Element => {
+
 	const syncBlockFetchResult = useFetchSyncBlockData(
 		syncBlockStore,
 		resourceId,

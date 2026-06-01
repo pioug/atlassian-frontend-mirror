@@ -93,6 +93,51 @@ export const updateCacheErrorPayload = (
 	sourceProduct?: string,
 ): SyncBlockEventPayload =>
 	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_UPDATE_CACHE, error, resourceId, sourceProduct);
+/**
+ * Payload for `SYNCED_BLOCK_SOURCE_INFO_ORPHANED`. Fired when source-info
+ * resolves into a cache that has already been deleted — should be unreachable
+ * under `platform_synced_block_patch_14`.
+ */
+export const sourceInfoOrphanedPayload = (
+	resourceId?: string,
+	sourceProduct?: string,
+	context?: { hasPendingDeletion?: boolean; hasSubscribers?: boolean },
+): RendererSyncBlockEventPayload => ({
+	action: ACTION.ERROR,
+	actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+	actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_SOURCE_INFO_ORPHANED,
+	eventType: EVENT_TYPE.OPERATIONAL,
+	attributes: {
+		...(resourceId && { resourceId }),
+		...(sourceProduct && { sourceProduct }),
+		...(context?.hasPendingDeletion !== undefined && {
+			hasPendingDeletion: context.hasPendingDeletion,
+		}),
+		...(context?.hasSubscribers !== undefined && { hasSubscribers: context.hasSubscribers }),
+	},
+});
+
+/**
+ * Payload for `SYNCED_BLOCK_CACHE_DELETION_FORCED`. Fired when the cache
+ * deletion timer has been rescheduled `MAX_RESCHEDULE_COUNT` times and we force
+ * the deletion to avoid leaking memory. Indicates a stuck in-flight flag.
+ */
+export const cacheDeletionForcedPayload = (
+	rescheduleCount: number,
+	resourceId?: string,
+	sourceProduct?: string,
+): RendererSyncBlockEventPayload => ({
+	action: ACTION.ERROR,
+	actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+	actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_CACHE_DELETION_FORCED,
+	eventType: EVENT_TYPE.OPERATIONAL,
+	attributes: {
+		rescheduleCount,
+		...(resourceId && { resourceId }),
+		...(sourceProduct && { sourceProduct }),
+	},
+});
+
 export const fetchReferencesErrorPayload = (
 	error: string,
 	resourceId?: string,

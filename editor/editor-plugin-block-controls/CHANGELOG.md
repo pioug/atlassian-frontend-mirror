@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 11.5.5
+
+### Patch Changes
+
+- [`523f77de83059`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/523f77de83059) -
+  Suppress drag handle tooltip while layout column menu is open. Adds layoutColumnMenuPopupOpen user
+  intent and wraps LayoutColumnMenu with UserIntentPopupWrapper.
+- Updated dependencies
+
 ## 11.5.4
 
 ### Patch Changes

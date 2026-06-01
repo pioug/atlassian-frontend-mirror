@@ -67,6 +67,7 @@ export function useFileState(id: string, options?: UseFileStateOptions): UseFile
 // @public (undocumented)
 export type UseFileStateOptions = {
 	collectionName?: string;
+	initialFileState?: FileState;
 	occurrenceKey?: string;
 	skipRemote?: boolean;
 };

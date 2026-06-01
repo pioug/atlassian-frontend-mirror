@@ -84,6 +84,7 @@ export interface CardViewProps {
 	readonly testId?: string;
 	readonly titleBoxBgColor?: string;
 	readonly titleBoxIcon?: TitleBoxIcon;
+	readonly backgroundColor?: React.CSSProperties['backgroundColor'];
 	readonly status: CardStatus;
 	readonly mediaItemType: MediaItemType;
 	readonly mediaCardCursor?: MediaCardCursor;
@@ -175,6 +176,7 @@ export const CardViewBase = ({
 	traceId,
 
 	isAIGenerating,
+	backgroundColor,
 }: CardViewBaseProps): React.JSX.Element => {
 	const intl = useIntl();
 	const [didSvgRender, setDidSvgRender] = useState<boolean>(false);
@@ -417,6 +419,7 @@ export const CardViewBase = ({
 						onError={onSvgError}
 						onLoad={onSvgLoadBase}
 						wrapperRef={divRef}
+						backgroundColor={backgroundColor}
 					/>
 				)}
 				{renderImageRenderer && identifier && (
@@ -432,6 +435,7 @@ export const CardViewBase = ({
 						forceSyncDisplay={forceSyncDisplay}
 						identifier={identifier}
 						wrapperRef={divRef}
+						backgroundColor={backgroundColor}
 					/>
 				)}
 				{renderPlayButton && (

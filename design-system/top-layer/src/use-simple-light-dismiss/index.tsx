@@ -39,7 +39,7 @@ type TUseSimpleLightDismissOptions = {
  * **No stacking awareness:** This hook does not track a popover stack.
  * If multiple manual popovers are open and all use this hook, a single
  * Escape press or outside click will dismiss **all of them simultaneously**.
- * This is by design — the hook is intentionally simple for cases where
+ * This is by design - the hook is intentionally simple for cases where
  * only one manual popover is open at a time.
  *
  * For stacked/nested popovers that should dismiss one-at-a-time, use
@@ -76,7 +76,7 @@ export function useSimpleLightDismiss({
 		// (trigger onClick → setIsOpen(true) → React render → useEffect).
 		// By the time this effect runs, the opening click has finished
 		// bubbling. A capture-phase listener added now cannot retroactively
-		// fire for that event — it only fires for *future* clicks.
+		// fire for that event - it only fires for *future* clicks.
 		//
 		// This avoids the need for timestamp guards or deferred binding.
 		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- binding to document for light dismiss
@@ -88,7 +88,7 @@ export function useSimpleLightDismiss({
 					return;
 				}
 
-				// If the click target is inside the popover, don't dismiss.
+				// If the click target is inside the popover, do not dismiss.
 				if (event.target instanceof Node && el.contains(event.target)) {
 					return;
 				}

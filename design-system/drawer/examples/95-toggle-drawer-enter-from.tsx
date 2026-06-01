@@ -5,7 +5,6 @@ import { Code } from '@atlaskit/code';
 import Drawer, { DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import { Label } from '@atlaskit/form';
 import { type Direction } from '@atlaskit/motion';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 
 const DrawersExample = (): React.JSX.Element => {

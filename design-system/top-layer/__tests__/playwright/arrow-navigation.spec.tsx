@@ -3,7 +3,7 @@ import { expect, test } from '@af/integration-testing';
 
 const exampleName = 'testing-arrow-navigation';
 
-test.describe('useArrowNavigation — Basic menu', () => {
+test.describe('useArrowNavigation - Basic menu', () => {
 	test.describe('ArrowDown navigation', () => {
 		test('ArrowDown moves focus to the next item', async ({ page }) => {
 			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
@@ -204,7 +204,7 @@ test.describe('useArrowNavigation — Basic menu', () => {
 			const trigger = page.getByTestId('basic-trigger');
 			await trigger.focus();
 
-			// Menu is closed — ArrowDown should not be intercepted
+			// Menu is closed - ArrowDown should not be intercepted
 			await page.keyboard.press('ArrowDown');
 
 			// Menu should still be closed (trigger handles its own opening)
@@ -213,7 +213,7 @@ test.describe('useArrowNavigation — Basic menu', () => {
 	});
 });
 
-test.describe('useArrowNavigation — Nested menu with filter', () => {
+test.describe('useArrowNavigation - Nested menu with filter', () => {
 	test.describe('Parent menu navigation stays scoped', () => {
 		test('ArrowDown in parent does not enter nested sub-menu items', async ({ page }) => {
 			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
@@ -364,7 +364,7 @@ test.describe('useArrowNavigation — Nested menu with filter', () => {
 	});
 });
 
-test.describe('useArrowNavigation — Mixed element types', () => {
+test.describe('useArrowNavigation - Mixed element types', () => {
 	test('navigates through buttons', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
 			'design-system',
@@ -440,7 +440,7 @@ test.describe('useArrowNavigation — Mixed element types', () => {
 	});
 });
 
-test.describe('useArrowNavigation — Unhandled keys pass through', () => {
+test.describe('useArrowNavigation - Unhandled keys pass through', () => {
 	test('letter keys are not intercepted', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
 			'design-system',
@@ -469,7 +469,7 @@ test.describe('useArrowNavigation — Unhandled keys pass through', () => {
 		// Escape is not handled by useArrowNavigation
 		await page.keyboard.press('Escape');
 
-		// Focus should still be on item 1 (useArrowNavigation doesn't handle Escape)
+		// Focus should still be on item 1 (useArrowNavigation does not handle Escape)
 		// The menu may still be visible since only Tab triggers onClose
 		await expect(page.getByTestId('basic-item-1')).toBeFocused();
 	});

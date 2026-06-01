@@ -1,5 +1,13 @@
 # @atlaskit/media-state
 
+## 2.2.0
+
+### Minor Changes
+
+- [`a68f551856a81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a68f551856a81) -
+  Thread preview CDN URL from GQL fragment through FileState to useFilePreview (gated by
+  platform_media_ssr_data_seed)
+
 ## 2.1.0
 
 ### Minor Changes

@@ -6,7 +6,6 @@ import SettingsIcon from '@atlaskit/icon/core/settings';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import WhiteboardIcon from '@atlaskit/icon/core/whiteboard';
 import { ButtonItem } from '@atlaskit/menu';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

@@ -82,7 +82,7 @@ const POPUP_ROLES: Set<TRoleRequiringAccessibleName | TRoleWithImplicitName> = n
  * Unopinionated top-layer primitive.
  *
  * Manages only visibility (isOpen) and animation (animate). Has no knowledge
- * of positioning — compose with `useAnchorPosition` for anchor positioning
+ * of positioning - compose with `useAnchorPosition` for anchor positioning
  * and optionally `useWidthFromAnchor` for setting the width of a popover element
  * relative to its anchor trigger.
  *
@@ -138,7 +138,7 @@ export const Popover: React.ForwardRefExoticComponent<
 		onExitFinish,
 	});
 
-	// ── Focus management ──
+	// Focus management
 	// Initial focus: on open, moves focus into the popover (role-dependent).
 	// Focus wrap: Tab/Shift+Tab cycle within the popover for dialog roles.
 	// Focus restoration: handled natively by the Popover API. The browser
@@ -147,7 +147,7 @@ export const Popover: React.ForwardRefExoticComponent<
 	useFocusWrap({ elementRef: ownRef, role });
 	useInitialFocus({ elementRef: ownRef, isOpen, role });
 
-	// ── Open layer observer registration ──
+	// Open layer observer registration
 	// Notifies the open layer observer so app-coordination features
 	// (closeLayers(), open-count subscriptions) work with top-layer popovers.
 	//

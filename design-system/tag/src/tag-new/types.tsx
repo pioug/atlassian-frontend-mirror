@@ -89,6 +89,10 @@ export interface TagNewProps {
 	 * - Pass a design token (e.g. `token('color.background.accent.red.subtle')`)
 	 */
 	swatchBefore?: boolean | TagSwatchBeforeTokenName;
+	/**
+	 * Trailing metric rendered after the tag text. Intended for compact numeric or short status-adjacent values.
+	 */
+	trailingMetric?: string | number;
 }
 
 export type TagSwatchBeforeTokenName =

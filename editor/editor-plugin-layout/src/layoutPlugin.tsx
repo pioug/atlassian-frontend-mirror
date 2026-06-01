@@ -54,9 +54,9 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import type { LayoutPlugin } from './layoutPluginType';
 import {
 	createDefaultLayoutSection,
-	createDistributeLayoutColumnsCommand,
 	createMultiColumnLayoutSection,
 	deleteLayoutColumn,
+	distributeLayoutColumns,
 	insertLayoutColumn,
 	insertLayoutColumnsWithAnalytics,
 	setLayoutColumnValign,
@@ -473,7 +473,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 		},
 		commands: {
 			deleteLayoutColumn: (props) => deleteLayoutColumn(api?.analytics?.actions)(props),
-			distributeLayoutColumns: createDistributeLayoutColumnsCommand(api?.analytics?.actions),
+			distributeLayoutColumns: distributeLayoutColumns(api?.analytics?.actions),
 			insertLayoutColumn: (side) => insertLayoutColumn(side, api?.analytics?.actions),
 			setLayoutColumnValign: (valign) => setLayoutColumnValign(valign, api?.analytics?.actions),
 			toggleLayoutColumnMenu,

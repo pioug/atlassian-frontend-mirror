@@ -182,6 +182,48 @@ export type SyncedBlockSSRErrorAEP = OperationalAEP<
 	SyncedBlockSSRErrorAttributes
 >;
 
+type SyncedBlockSourceInfoOrphanedAttributes = {
+	hasPendingDeletion?: boolean;
+	hasSubscribers?: boolean;
+	resourceId?: string;
+	sourceProduct?: string;
+};
+
+/**
+ * Operational event fired when `updateCacheWithSourceInfo` runs but the
+ * underlying cache entry for the resource has been deleted while the source-info
+ * request was in flight. With the hardened cache deletion guards introduced in
+ * `platform_synced_block_patch_14` this should be unreachable in practice — if
+ * this event fires in production it indicates an unhandled race condition
+ * that needs investigation (e.g. EDITOR-7403).
+ */
+export type SyncedBlockSourceInfoOrphanedAEP = OperationalAEP<
+	ACTION.ERROR,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.SYNCED_BLOCK_SOURCE_INFO_ORPHANED,
+	SyncedBlockSourceInfoOrphanedAttributes
+>;
+
+type SyncedBlockCacheDeletionForcedAttributes = {
+	rescheduleCount: number;
+	resourceId?: string;
+	sourceProduct?: string;
+};
+
+/**
+ * Operational event fired when the cache deletion timer has been rescheduled
+ * the maximum number of times (because some guard — subscribers, in-flight
+ * source-info, in-flight batch fetch — was always positive at fire time) and we
+ * force the deletion to prevent unbounded memory growth. Indicates a stuck
+ * in-flight flag that needs investigation.
+ */
+export type SyncedBlockCacheDeletionForcedAEP = OperationalAEP<
+	ACTION.ERROR,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.SYNCED_BLOCK_CACHE_DELETION_FORCED,
+	SyncedBlockCacheDeletionForcedAttributes
+>;
+
 export type SyncBlockEventPayload =
 	| SyncedBlockSourceURLErrorAEP
 	| SyncedBlockUpdateCacheErrorAEP
@@ -204,6 +246,8 @@ export type SyncBlockEventPayload =
 	| SyncedBlockCopyErrorAEP
 	| SyncedLocationClickAEP
 	| SyncedBlockSSRErrorAEP
+	| SyncedBlockSourceInfoOrphanedAEP
+	| SyncedBlockCacheDeletionForcedAEP
 	| InsertSourceSyncedBlockPayload;
 
 export type RendererSyncBlockEventPayload =
@@ -211,4 +255,6 @@ export type RendererSyncBlockEventPayload =
 	| SyncedBlockFetchErrorAEP
 	| SyncedBlockFetchSuccessAEP
 	| ReferenceSyncedBlockUpdateErrorAEP
+	| SyncedBlockSourceInfoOrphanedAEP
+	| SyncedBlockCacheDeletionForcedAEP
 	| ExperienceEventPayload;

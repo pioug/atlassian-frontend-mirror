@@ -180,12 +180,12 @@ describe('UFOThirdPartySegment', () => {
 				</UFOThirdPartySegment>,
 			);
 
-			// Simulate a recognised event arriving at 3 s — within the initial 6s window.
+			// Simulate the ufo-forge-init early signal arriving at 3 s — within the initial 6s window.
 			act(() => {
 				jest.advanceTimersByTime(3_000);
 				getListener()({
 					type: 'ufo-event',
-					name: 'ufo-forge-app-resource-timing',
+					name: 'ufo-forge-init',
 					elapsed: 3000,
 				});
 			});
@@ -200,11 +200,12 @@ describe('UFOThirdPartySegment', () => {
 				expect.objectContaining({ label: 'segment-timing-abort' }),
 			);
 
-			// Advance to the full 60 s mark from mount (57 s remaining after the extension).
-			// The extended timer runs for ABORT_TIMEOUT_EXTENDED_MS - ABORT_TIMEOUT_INITIAL_MS = 54 s
-			// from when the first event arrived at 3 s, so fires at 3 + 54 = 57 s from mount.
+			// Advance past the full 60 s mark from mount.
+			// The code computes remainingMs = ABORT_TIMEOUT_EXTENDED_MS - elapsed = 60000 - 3000 = 57000 ms
+			// from the moment the event arrived at 3 s, so the abort fires at 3 + 57 = 60 s from mount.
+			// We've already advanced 3000 + 2001 = 5001 ms, so we need at least 54999 ms more.
 			act(() => {
-				jest.advanceTimersByTime(54_000);
+				jest.advanceTimersByTime(55_000);
 			});
 			expect(mockAddIframeSegmentData).toHaveBeenCalledWith(
 				'test-interaction-id',
@@ -525,6 +526,10 @@ describe('UFOThirdPartySegment', () => {
 							requestStart: 8,
 							responseStart: 60,
 							responseEnd: 62,
+							encodedBodySize: 0,
+							decodedBodySize: 0,
+							transferSize: 0,
+							nextHopProtocol: undefined,
 							// Navigation Timing 2 fields
 							redirectCount: 0,
 							type: 'navigate',
@@ -576,7 +581,7 @@ describe('UFOThirdPartySegment', () => {
 				);
 			});
 
-			it('shapes frame-mark to only { entryName, startTime } — dropping elapsed, detail', () => {
+			it('shapes largest-contentful-paint to only { startTime, size } — dropping elapsed and other fields', () => {
 				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
 
 				renderWithContext(
@@ -592,12 +597,11 @@ describe('UFOThirdPartySegment', () => {
 				act(() => {
 					getListener()({
 						type: 'ufo-event',
-						name: 'ufo-forge-frame-mark',
-						elapsed: 50,
+						name: 'ufo-forge-largest-contentful-paint',
+						elapsed: 500,
 						payload: {
-							entryName: 'render-start',
-							startTime: 50.4,
-							detail: { x: 1, largeBlob: 'a'.repeat(500) },
+							startTime: 1234.7,
+							size: 20000,
 						},
 					});
 				});
@@ -606,51 +610,10 @@ describe('UFOThirdPartySegment', () => {
 					'test-interaction-id',
 					expect.anything(),
 					{
-						label: 'frame-mark',
+						label: 'largest-contentful-paint',
 						data: {
-							entryName: 'render-start',
-							startTime: 50,
-						},
-					},
-				);
-			});
-
-			it('shapes frame-measure to only { entryName, startTime, duration } — dropping elapsed, detail', () => {
-				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
-
-				renderWithContext(
-					<UFOThirdPartySegment
-						name="test-segment"
-						onRegisterIframeEventListener={onRegisterIframeEventListener}
-						extraData={{ appType: 'CustomUI' }}
-					>
-						<div>Test content</div>
-					</UFOThirdPartySegment>,
-				);
-
-				act(() => {
-					getListener()({
-						type: 'ufo-event',
-						name: 'ufo-forge-frame-measure',
-						elapsed: 150,
-						payload: {
-							entryName: 'render',
-							startTime: 50.6,
-							duration: 100.3,
-							detail: { y: 2, largeBlob: 'b'.repeat(500) },
-						},
-					});
-				});
-
-				expect(mockAddIframeSegmentData).toHaveBeenCalledWith(
-					'test-interaction-id',
-					expect.anything(),
-					{
-						label: 'frame-measure',
-						data: {
-							entryName: 'render',
-							startTime: 51,
-							duration: 100,
+							startTime: 1235,
+							size: 20000,
 						},
 					},
 				);
@@ -866,14 +829,18 @@ describe('UFOThirdPartySegment', () => {
 					});
 				});
 
-				// Should NOT abort at 6s (timer was extended to 60s by the intermediate batch)
+				// Should abort at 6s — intermediate dom-mutations batch no longer extends the timer.
+				// Only ufo-forge-init extends the abort window.
 				act(() => {
 					jest.advanceTimersByTime(3_001);
 				});
-				expect(mockAddIframeSegmentData).not.toHaveBeenCalledWith(
+				expect(mockAddIframeSegmentData).toHaveBeenCalledWith(
 					expect.anything(),
 					expect.anything(),
-					expect.objectContaining({ label: 'segment-timing-abort' }),
+					expect.objectContaining({
+						label: 'segment-timing-abort',
+						data: expect.objectContaining({ abortAfterMs: 6_000 }),
+					}),
 				);
 			});
 		});

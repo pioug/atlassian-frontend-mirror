@@ -33,7 +33,7 @@ export type TRoleWithImplicitName =
 	| 'alert'
 	| 'log';
 
-// ── Shared ARIA role discrimination types ──
+// Shared ARIA role discrimination types
 //
 // These encode the WCAG 4.1.2 constraint: roles like `dialog`, `alertdialog`,
 // and `menu` MUST have an accessible name (either `label` or `labelledBy`).
@@ -82,64 +82,3 @@ export type TAriaRoleRequired =
 export type TAriaRoleOptional =
 	| ({ role: TRoleRequiringAccessibleName } & TAccessibleNameRequired)
 	| ({ role?: TRoleWithImplicitName } & TAccessibleNameOptional);
-
-/**
- * Maps a popover content role to the correct `aria-haspopup` value
- * for its trigger element.
- *
- * Returns `undefined` for roles that are not popups in the ARIA sense
- * (`tooltip`, `note`, `status`, `alert`, `log`). Triggers for those roles
- * should not announce a popup at all - emitting `aria-haspopup="dialog"`
- * on a tooltip trigger would mislead assistive technology.
- */
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function roleToAriaHasPopup({
-	role,
-}: {
-	role: TRoleRequiringAccessibleName | TRoleWithImplicitName | undefined;
-}): TAriaHasPopupValue {
-	if (role === 'menu') {
-		return 'menu';
-	}
-	if (role === 'listbox') {
-		return 'listbox';
-	}
-	if (role === 'tree') {
-		return 'tree';
-	}
-	if (role === 'grid') {
-		return 'grid';
-	}
-	if (role === 'dialog' || role === 'alertdialog') {
-		return 'dialog';
-	}
-	// Non-popup roles (tooltip, note, status, alert, log) and the
-	// no-role case: omit `aria-haspopup` entirely. React drops the
-	// attribute when the value is `undefined`.
-	return undefined;
-}
-
-const rolesThatMoveFocus = new Set<TRoleRequiringAccessibleName | TRoleWithImplicitName>([
-	'dialog',
-	'alertdialog',
-	'menu',
-	'listbox',
-	'tree',
-	'grid',
-]);
-
-/**
- * Returns `true` when the given popover role moves focus into the popover
- * on open, and `false` otherwise (including when `role` is `undefined`).
- */
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function shouldFocusIntoPopover({
-	role,
-}: {
-	role: TRoleRequiringAccessibleName | TRoleWithImplicitName | undefined;
-}): boolean {
-	if (!role) {
-		return false;
-	}
-	return rolesThatMoveFocus.has(role);
-}

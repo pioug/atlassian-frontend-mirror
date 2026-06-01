@@ -10,6 +10,7 @@ import { cssMap, cx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 import type { MediaQuery } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import type { DesignTokenStyles } from '@atlaskit/tokens/css-type-schema';
 
 const styles = cssMap({
@@ -674,7 +675,7 @@ export const ResponsiveContainer = ({
 }: ResponsiveContainerProps): React.JSX.Element => {
 	const isUpdatedConfig = (() => {
 		if (breakpointPreset === 'fullpage') {
-			return expValEquals('platform_editor_ai_improve_formatting_toolbar', 'isEnabled', true);
+			return expValEqualsNoExposure('platform_editor_ai_improve_formatting_toolbar', 'isEnabled', true);
 		}
 		return (
 			expValEquals('platform_editor_toolbar_update_jira_config', 'isEnabled', true) &&

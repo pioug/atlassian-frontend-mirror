@@ -27,12 +27,12 @@ type InsertColumnOption = {
 const INSERT_COLUMN_OPTIONS: Record<InsertLayoutColumnSide, InsertColumnOption> = {
 	left: {
 		Icon: TableColumnAddLeftIcon,
-		label: layoutMessages.insertColumnLeft,
+		label: layoutMessages.addColumnLeft,
 		side: 'left',
 	},
 	right: {
 		Icon: TableColumnAddRightIcon,
-		label: layoutMessages.insertColumnRight,
+		label: layoutMessages.addColumnRight,
 		side: 'right',
 	},
 };

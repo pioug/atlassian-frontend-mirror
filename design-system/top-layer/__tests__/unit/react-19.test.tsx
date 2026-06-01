@@ -58,7 +58,7 @@ import {
 	useArrowNavigation,
 } from '../../src/entry-points/use-arrow-navigation';
 import { useSimpleLightDismiss } from '../../src/entry-points/use-simple-light-dismiss';
-import { placementMapping } from '../../src/placement-map/legacy-placements';
+import { placementMapping } from '../../src/placement-map/placement-mapping';
 
 // Polyfills are installed by build/configs/jest-config/setup/setup-top-layer.js.
 // The toBeVisible() patch in setup-top-layer-to-be-visible.js understands
@@ -633,7 +633,7 @@ describe('React 19 readiness (top-layer)', () => {
 			);
 			expect(popover).not.toBeVisible();
 
-			// Re-open — the cleanup→setup cycle must leave the component in a valid state
+			// Re-open - the cleanup→setup cycle must leave the component in a valid state
 			rerender(
 				<React.StrictMode>
 					<Popover isOpen={true} onClose={onClose} role="dialog" label="sm-lifecycle">
@@ -814,14 +814,12 @@ describe('React 19 readiness (top-layer)', () => {
 		});
 	});
 
-	// ──────────────────────────────────────────────────────────────────────
 	// Behavioral smoke tests
 	//
-	// The tests above verify that things "don't throw" and "don't crash".
+	// The tests above verify that things do not throw and do not crash.
 	// The tests below verify that the core *behaviors* actually work
 	// correctly under React 19: ARIA wiring, visibility, event handling,
 	// callback invocation, and children rendering.
-	// ──────────────────────────────────────────────────────────────────────
 
 	describe('Popover: core behaviors', () => {
 		it('renders children only when open', () => {
@@ -1108,7 +1106,7 @@ describe('React 19 readiness (top-layer)', () => {
 					<span>not locked</span>
 				</Dialog>,
 			);
-			// Children (including DialogScrollLock) don't mount when dialog is closed
+			// Children (including DialogScrollLock) do not mount when dialog is closed
 			expect(document.body).toHaveStyle({ overflow: 'visible' });
 		});
 	});

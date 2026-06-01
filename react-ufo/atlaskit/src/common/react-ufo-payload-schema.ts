@@ -31,15 +31,55 @@ export type ResourceTiming = {
 		duration: number;
 		workerStart: number;
 		fetchStart: number;
-		type: 'script' | 'link';
-		ttfb: number;
-		transferType: 'network' | 'memory' | 'disk';
+		type: string;
+		count?: number;
+		ttfb?: number;
+		requestStart?: number;
+		transferType?: 'network' | 'memory' | 'disk' | null;
 		serverTime?: number;
 		networkTime?: number;
-		encodedSize?: number;
-		decodedSize?: number;
-		size: number;
+		encodedSize?: number | null;
+		decodedSize?: number | null;
+		size?: number;
 	};
+};
+
+export type CompactResourceTimingEntry = {
+	/** label */
+	l: string;
+	/** resource type */
+	rt: number | string;
+	/** startTime */
+	st: number;
+	/** duration */
+	du: number;
+	/** workerStart */
+	ws: number;
+	/** fetchStart */
+	fs: number;
+	/** ttfb */
+	tb?: number;
+	/** requestStart */
+	rq?: number;
+	/** transferType */
+	tr?: number | string | null;
+	/** serverTime */
+	sv?: number;
+	/** networkTime */
+	nw?: number;
+	/** encodedSize */
+	es?: number | null;
+	/** decodedSize */
+	ds?: number | null;
+	/** size */
+	sz?: number;
+	/** count */
+	ct?: number;
+};
+
+export type CompactResourceTimings = {
+	v: 1;
+	r: CompactResourceTimingEntry[];
 };
 
 export type ReactProfilerTiming = {
@@ -173,7 +213,7 @@ export type ReactUFOPayload = {
 				start: number;
 				isBM3ConfigSSRDoneAsFmp: boolean;
 				isUFOConfigSSRDoneAsFmp: boolean;
-				resourceTimings: ResourceTiming[];
+				resourceTimings: ResourceTiming[] | CompactResourceTimings;
 				/** Third-party segment timing and metadata. */
 				segment3pData?: Segment3pDataPayload;
 				segments: SegmentInfo[] | RootSegment;

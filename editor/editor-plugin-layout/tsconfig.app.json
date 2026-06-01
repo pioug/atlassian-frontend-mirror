@@ -70,6 +70,9 @@
 			"path": "../editor-plugin-ui-control-registry/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-user-intent/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-width/tsconfig.app.json"
 		},
 		{

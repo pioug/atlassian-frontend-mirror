@@ -1,7 +1,6 @@
 import React, { type ReactNode, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { type ProgressDotsProps, ProgressIndicator } from '@atlaskit/progress-indicator';
 

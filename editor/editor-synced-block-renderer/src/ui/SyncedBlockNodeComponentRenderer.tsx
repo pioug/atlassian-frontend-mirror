@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 
+import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import {
 	SyncBlockSharedCssClassName,
@@ -35,10 +36,22 @@ export const SyncedBlockNodeComponentRenderer = ({
 	getAccountId,
 }: SyncedBlockNodeComponentRendererProps): React.JSX.Element => {
 	const { resourceId, localId, fireAnalyticsEvent } = nodeProps;
+	// `fireAnalyticsEvent` from NodeProps is typed as the generic
+	// `AnalyticsEventPayload`. The synced-block consumers below
+	// (`updateFireAnalyticsEvent`, `useFetchSyncBlockData`, `renderSyncedBlockContent`)
+	// only ever invoke it with the narrower `RendererSyncBlockEventPayload`
+	// union, which is a strict subset of `AnalyticsEventPayload`, so the cast
+	// is safe.
+	const syncBlockFireAnalyticsEvent = fireAnalyticsEvent as
+		| ((payload: RendererSyncBlockEventPayload) => void)
+		| undefined;
 
 	useEffect(() => {
 		const timeoutId = setTimeout(() => {
-			handleSSRErrorsAnalytics(fireAnalyticsEvent);
+			// handleSSRErrorsAnalytics expects only `SyncedBlockSSRErrorAEP` — the
+			// generic `fireAnalyticsEvent` from NodeProps is a superset, so the
+			// cast is safe (the handler only ever calls back with that one AEP).
+			handleSSRErrorsAnalytics(fireAnalyticsEvent as Parameters<typeof handleSSRErrorsAnalytics>[0]);
 		}, 0);
 
 		return () => {
@@ -48,11 +61,13 @@ export const SyncedBlockNodeComponentRenderer = ({
 	}, []);
 
 	useEffect(() => {
-		syncBlockStoreManager.referenceManager.updateFireAnalyticsEvent(fireAnalyticsEvent);
-	}, [syncBlockStoreManager.referenceManager, fireAnalyticsEvent]);
+		syncBlockStoreManager.referenceManager.updateFireAnalyticsEvent(
+			syncBlockFireAnalyticsEvent,
+		);
+	}, [syncBlockStoreManager.referenceManager, syncBlockFireAnalyticsEvent]);
 
 	const { syncBlockInstance, isLoading, reloadData, providerFactory, ssrProviders } =
-		useFetchSyncBlockData(syncBlockStoreManager, resourceId, localId, fireAnalyticsEvent);
+		useFetchSyncBlockData(syncBlockStoreManager, resourceId, localId, syncBlockFireAnalyticsEvent);
 
 	const finalRendererOptions = useMemo(() => {
 		if (
@@ -92,7 +107,7 @@ export const SyncedBlockNodeComponentRenderer = ({
 		rendererOptions: finalRendererOptions,
 		providerFactory,
 		reloadData,
-		fireAnalyticsEvent,
+		fireAnalyticsEvent: syncBlockFireAnalyticsEvent,
 		resourceId,
 		error: errorForDisplay,
 		getAccountId,

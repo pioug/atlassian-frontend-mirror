@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { layoutMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import { TableColumnsDistributeIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
 import { isDistributedUniformly } from '../../pm-plugins/utils/layout-column-distribution';
@@ -51,7 +51,11 @@ export const DistributeColumnsDropdownItem = ({
 	}
 
 	return (
-		<ToolbarDropdownItem onClick={handleClick} isDisabled={isAlreadyUniform}>
+		<ToolbarDropdownItem
+			onClick={handleClick}
+			isDisabled={isAlreadyUniform}
+			elemBefore={<TableColumnsDistributeIcon color="currentColor" label="" size="small" />}
+		>
 			{formatMessage(layoutMessages.distributeColumns)}
 		</ToolbarDropdownItem>
 	);

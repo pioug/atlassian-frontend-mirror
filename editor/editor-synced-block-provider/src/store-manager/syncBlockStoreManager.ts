@@ -1,10 +1,11 @@
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getProductFromSourceAri } from '../clients/block-service/ari';
 import { SyncBlockError } from '../common/types';
@@ -25,6 +26,7 @@ import { SourceSyncBlockStoreManager } from './sourceSyncBlockStoreManager';
 // ReferenceSyncBlockStoreManager is responsible for the lifecycle and state management of reference sync blocks in an editor instance.
 // SourceSyncBlockStoreManager is responsible for the lifecycle and state management of source sync blocks in an editor instance.
 // Can be used in both editor and renderer contexts.
+
 export class SyncBlockStoreManager {
 	private referenceSyncBlockStoreManager: ReferenceSyncBlockStoreManager;
 	private sourceSyncBlockStoreManager: SourceSyncBlockStoreManager;
@@ -272,6 +274,24 @@ export const useMemoizedSyncBlockStoreManager = (
 		prevFireAnalyticsEventRef.current = fireAnalyticsEvent;
 		syncBlockStoreManager.setFireAnalyticsEvent(fireAnalyticsEvent);
 	}
+
+	// Gated by platform_synced_block_patch_14:
+	// Destroy the SyncBlockStoreManager when:
+	//   (a) the component unmounts — manager is fully cleaned up, or
+	//   (b) dataProvider changes — the old manager (now orphaned by the
+	//       useMemo recalculation) is destroyed before the new one takes over.
+	//
+	// Without this, orphaned managers leak timers, GQL subscriptions, and
+	// in-flight fetches indefinitely. The effect dep is `syncBlockStoreManager`
+	// (the useMemo result) — it changes identity precisely when dataProvider
+	// changes, triggering the cleanup for the old instance.
+	useEffect(() => {
+		return () => {
+			if (fg('platform_synced_block_patch_14')) {
+				syncBlockStoreManager.destroy();
+			}
+		};
+	}, [syncBlockStoreManager]);
 
 	return syncBlockStoreManager;
 };

@@ -50,6 +50,14 @@ type TDialogBaseProps = {
 	 * Additional inline styles applied to the `<dialog>` element.
 	 *
 	 * Use for custom width, height, transform, or other overrides.
+	 *
+	 * Rule deviation: the house rules ban unbounded `style` props on
+	 * components. `Dialog` is a low-level primitive that intentionally has
+	 * no visual opinions of its own; consumers such as `@atlaskit/modal-dialog`
+	 * must be able to set width, height, and transforms on the native
+	 * `<dialog>` element. Removing this prop would be a breaking change
+	 * and is tracked separately. Keep until an xcss-based replacement
+	 * exists on the primitive.
 	 */
 	style?: CSSProperties;
 	/**

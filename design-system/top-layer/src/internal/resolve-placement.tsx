@@ -43,8 +43,8 @@ export type TPlacement = {
  * CSS length string (e.g. `token('space.100')`).
  *
  * The two offset axes are named for clarity at the call site:
- *   - `gap`     — distance away from the trigger along the placement axis
- *   - `crossAxisShift`  — nudge along the trigger edge (perpendicular to the placement axis)
+ *   - `gap`     - distance away from the trigger along the placement axis
+ *   - `crossAxisShift`  - nudge along the trigger edge (perpendicular to the placement axis)
  */
 export type TPlacementOptions = {
 	axis?: 'block' | 'inline';

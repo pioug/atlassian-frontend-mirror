@@ -5,6 +5,7 @@ import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
+import { UserIntentPopupWrapper } from '@atlaskit/editor-common/user-intent';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
@@ -137,13 +138,15 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 				handleClickOutside={handleClickOutside}
 				handleEscapeKeydown={closeLayoutColumnMenu}
 			>
-				<ToolbarDropdownMenuProvider isOpen={isLayoutColumnMenuOpen} setIsOpen={handleSetIsOpen}>
-					<SurfaceRenderer
-						components={components}
-						fallbacks={LAYOUT_COLUMN_MENU_FALLBACKS}
-						surface={LAYOUT_COLUMN_MENU}
-					/>
-				</ToolbarDropdownMenuProvider>
+				<UserIntentPopupWrapper api={api} userIntent="layoutColumnMenuPopupOpen">
+					<ToolbarDropdownMenuProvider isOpen={isLayoutColumnMenuOpen} setIsOpen={handleSetIsOpen}>
+						<SurfaceRenderer
+							components={components}
+							fallbacks={LAYOUT_COLUMN_MENU_FALLBACKS}
+							surface={LAYOUT_COLUMN_MENU}
+						/>
+					</ToolbarDropdownMenuProvider>
+				</UserIntentPopupWrapper>
 			</PopupWithListeners>
 		);
 	},

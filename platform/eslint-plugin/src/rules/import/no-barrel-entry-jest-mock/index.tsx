@@ -281,7 +281,19 @@ function collectUsedIdentifiers({ node }: { node: TSESTree.Node }): Set<string> 
 }
 
 /**
- * Extract preamble statements (variable declarations) from a block body.
+ * Extract preamble statements from a block body.
+ *
+ * Two kinds of statements are collected (in source order, stopping at the first
+ * `return` statement):
+ *
+ * - **Variable declarations** (`const`/`let`/`var`) — tracked with their
+ *   declared names so `getNeededPreamble` can include them only in the split
+ *   mocks that actually reference those names.
+ * - **Side-effect statements** — any other statement, e.g.
+ *   `(global as any).mockFetchData = mockFetch;`, `console.log(...)`, or a
+ *   plain function call. These have no declared names and are duplicated into
+ *   every split mock so that user-authored setup logic is never silently
+ *   dropped when a single barrel mock is split into multiple subpath mocks.
  */
 function extractPreambleStatements({
 	mockImpl,
@@ -335,6 +347,17 @@ function extractPreambleStatements({
 				text: sourceCode.getText(stmt as unknown as Rule.Node),
 				usedIdentifiers,
 			});
+		} else {
+			// Side-effect statement (e.g. `(global as any).x = y;`, `foo();`, an
+			// `if`/`try` block). We can't statically decide which split mock
+			// "owns" the side-effect, so we preserve it in every split by
+			// modeling it as a preamble entry with no declared names; the
+			// `getNeededPreamble` consumer always includes such entries.
+			preamble.push({
+				declaredNames: [],
+				text: sourceCode.getText(stmt as unknown as Rule.Node),
+				usedIdentifiers: collectUsedIdentifiers({ node: stmt as TSESTree.Node }),
+			});
 		}
 	}
 
@@ -343,7 +366,21 @@ function extractPreambleStatements({
 
 /**
  * Determine which preamble statements are needed for a set of property texts.
- * Returns the preamble statements in order, including any transitively needed ones.
+ * Returns the preamble statements in original source order.
+ *
+ * Inclusion rules:
+ * - **Variable declarations** (e.g. `const mockFn = jest.fn()`) are included
+ *   in a split only when at least one declared name appears in the split's
+ *   property texts — directly, or transitively via another included statement.
+ * - **Side-effect statements** with no declared names (e.g.
+ *   `(global as any).mockFetchData = mockFetch;`, `console.log(...)`) are
+ *   included only in splits that already need at least one of the preamble
+ *   variables the side-effect references. This keeps user-authored setup
+ *   logic with the data it ties to, instead of either dropping it (the old
+ *   behavior) or blindly duplicating it everywhere.
+ * - A side-effect that does **not** reference any preamble-declared name is
+ *   considered independent (e.g. `console.log('mocking')`) and is kept in
+ *   every split as a safe fallback so it is never silently dropped.
  */
 function getNeededPreamble({
 	propertyTexts,
@@ -364,20 +401,71 @@ function getNeededPreamble({
 		}
 	}
 
-	// Build dependency graph and find needed preamble
-	const neededPreamble: PreambleStatement[] = [];
-	const includedNames = new Set<string>();
-	let changed = true;
+	// Index of every identifier declared by any preamble VariableDeclaration —
+	// used to decide whether a side-effect statement is "tied" to preamble
+	// state (and therefore should only appear where that state is needed) or
+	// is independent (and should be preserved in every split).
+	const allPreambleDeclaredNames = new Set<string>();
+	for (const stmt of allPreamble) {
+		for (const name of stmt.declaredNames) {
+			allPreambleDeclaredNames.add(name);
+		}
+	}
 
+	const neededPreamble = new Set<PreambleStatement>();
+	const includedNames = new Set<string>();
+
+	// Independent side-effects (no reference to any preamble-declared name) are
+	// always kept — we can't decide which split "owns" them and dropping them
+	// would silently delete user-authored logic.
+	for (const stmt of allPreamble) {
+		if (stmt.declaredNames.length !== 0) {
+			continue;
+		}
+		const hasPreambleTie = Array.from(stmt.usedIdentifiers).some((id) =>
+			allPreambleDeclaredNames.has(id),
+		);
+		if (!hasPreambleTie) {
+			neededPreamble.add(stmt);
+		}
+	}
+
+	// Iterate to a fixpoint: variable declarations get pulled in when a needed
+	// identifier matches one of their declared names; tied side-effects get
+	// pulled in when at least one of the preamble names they reference is
+	// already needed by this split.
+	let changed = true;
 	while (changed) {
 		changed = false;
 		for (const stmt of allPreamble) {
-			// Check if any declared name is needed
+			if (neededPreamble.has(stmt)) {
+				continue;
+			}
+
+			if (stmt.declaredNames.length === 0) {
+				// Side-effect tied to one or more preamble-declared names.
+				// Include it only if this split already needs one of those names.
+				const tieIsNeeded = Array.from(stmt.usedIdentifiers).some(
+					(id) => allPreambleDeclaredNames.has(id) && neededIdentifiers.has(id),
+				);
+				if (tieIsNeeded) {
+					neededPreamble.add(stmt);
+					for (const id of stmt.usedIdentifiers) {
+						if (!neededIdentifiers.has(id)) {
+							neededIdentifiers.add(id);
+							changed = true;
+						}
+					}
+				}
+				continue;
+			}
+
+			// Variable declaration: include if any declared name is currently needed.
 			const isNeeded = stmt.declaredNames.some((name) => neededIdentifiers.has(name));
 			const alreadyIncluded = stmt.declaredNames.some((name) => includedNames.has(name));
 
 			if (isNeeded && !alreadyIncluded) {
-				neededPreamble.push(stmt);
+				neededPreamble.add(stmt);
 				for (const name of stmt.declaredNames) {
 					includedNames.add(name);
 				}
@@ -393,7 +481,7 @@ function getNeededPreamble({
 	}
 
 	// Return in original order
-	return allPreamble.filter((stmt) => neededPreamble.includes(stmt));
+	return allPreamble.filter((stmt) => neededPreamble.has(stmt));
 }
 
 /**
@@ -686,11 +774,13 @@ function traceSymbolsToExports({
 							bridge.entryPointExportName === symbolName ? undefined : bridge.entryPointExportName;
 					}
 				} else {
-					key = `${exportInfo.crossPackageSource.packageName}${
-						exportInfo.crossPackageSource.exportPath === '.'
-							? ''
-							: exportInfo.crossPackageSource.exportPath.slice(1)
-					}`;
+					// preferImportedPackageSubpath is opt-in to: "rewrite to a subpath of the
+					// mocked package, or leave the mock alone". Falling through to the source
+					// package's subpath would drag the test across the package boundary, which
+					// is exactly what this flag is meant to prevent. Mark the symbol as
+					// unmapped so it stays in a barrel-targeted mock group.
+					unmappedSymbols.push(symbolName);
+					continue;
 				}
 			} else {
 				key = `${exportInfo.crossPackageSource.packageName}${
@@ -714,12 +804,34 @@ function traceSymbolsToExports({
 			continue;
 		}
 
-		// First try to find an export that directly exposes the source file
-		let targetExportPath =
-			findExportForSourceFile({
-				sourceFilePath: exportInfo.path,
-				exportsMap,
-			})?.exportPath ?? null;
+		// First try to find an export that directly exposes the source file.
+		// Passing `fs` enables resolution through entry-point wrapper files
+		// (e.g. `src/entry-points/foo.ts` that re-exports from `../view/Foo`),
+		// which is the common case in packages like `@atlaskit/smart-card`
+		// where the barrel and a sibling subpath both re-export the same
+		// symbol from the source — without `fs`, only direct file-path
+		// matches are considered and the wrapper-backed subpath is missed.
+		const sourceExportName = exportInfo.originalName ?? symbolName;
+		const matchResult = findExportForSourceFile({
+			sourceFilePath: exportInfo.path,
+			exportsMap,
+			fs,
+			sourceExportName,
+		});
+		let targetExportPath = matchResult?.exportPath ?? null;
+
+		// When the match resolved through an entry-point wrapper, the wrapper
+		// may expose the symbol under a different name than the source file
+		// uses. Update `originalName` so `replacePropertyKey` rewrites the
+		// mock property key to the wrapper's exported name (or skips the
+		// rename when names already match).
+		let resolvedOriginalName = exportInfo.originalName;
+		if (matchResult?.entryPointExportName !== undefined) {
+			resolvedOriginalName =
+				matchResult.entryPointExportName === symbolName
+					? undefined
+					: matchResult.entryPointExportName;
+		}
 
 		// If no direct match, check which export can provide this symbol
 		// (handles nested barrels where the symbol is re-exported through intermediate files)
@@ -739,7 +851,7 @@ function traceSymbolsToExports({
 			}
 			groupedByExport.get(targetExportPath)!.push({
 				symbolName,
-				originalName: exportInfo.originalName,
+				originalName: resolvedOriginalName,
 				sourceFilePath: exportInfo.path,
 				isTypeOnly: exportInfo.isTypeOnly,
 			});
@@ -1083,7 +1195,7 @@ const ruleMeta: Rule.RuleMetaData = {
 				preferImportedPackageSubpath: {
 					type: 'boolean',
 					description:
-						'Prefer subpaths on the mocked barrel package when they bridge to the dependency.',
+						'Prefer subpaths on the mocked barrel package when they bridge to the dependency. If no bridge subpath exists, the symbol stays in a mock targeting the original barrel instead of being rewritten to a subpath of the dependency package.',
 				},
 			},
 			additionalProperties: false,

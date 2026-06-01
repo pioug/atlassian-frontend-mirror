@@ -36,6 +36,7 @@ export type MediaFile = {
 	readonly abuseClassification?: AbuseClassification;
 	readonly mediaMetadata?: FileMediaMetadata;
 	readonly failReason?: ProcessingFailReason;
+	readonly previewCdnUrl?: string;
 };
 
 export type MediaItemDetails = {
@@ -52,6 +53,7 @@ export type MediaItemDetails = {
 	readonly abuseClassification?: AbuseClassification;
 	readonly mediaMetadata?: FileMediaMetadata;
 	readonly failReason?: ProcessingFailReason;
+	readonly previewCdnUrl?: string;
 };
 
 export type NotFoundMediaItemDetails = {

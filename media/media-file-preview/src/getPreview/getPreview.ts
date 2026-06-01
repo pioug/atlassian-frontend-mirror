@@ -44,14 +44,74 @@ const extendAndCachePreview = (
 	return { ...preview, dataURI };
 };
 
+/**
+ * Allowlist of CDN signing query-param names that we propagate from a
+ * pre-signed `previewCdnUrl` onto the URL produced by `getImageUrlSync`.
+ * These are the standard CloudFront signed-URL params; if the upstream
+ * adds a new one, this list needs updating.
+ */
+const SIGNING_PARAM_NAMES = [
+	'token',
+	'Policy',
+	'Key-Pair-Id',
+	'Signature',
+	'Expires',
+] as const;
+
+/**
+ * Pull the CDN-signing query params (token / Policy / Key-Pair-Id / Signature
+ * / Expires) out of a pre-signed CDN URL so they can be overlaid on a URL
+ * built independently by `getImageUrlSync` (which constructs path, image
+ * params, pathBased routing, wmv, etc.). Image-shape params from the cdn URL
+ * itself (width/height/mode/...) are intentionally NOT extracted — those come
+ * from `imageURLParams` via `getImageUrlSync`.
+ *
+ * Returns `{}` on parse failure so we degrade rather than throw.
+ */
+export const extractCdnSigningParams = (cdnUrl: string): Record<string, string> => {
+	try {
+		const url = new URL(cdnUrl);
+		const out: Record<string, string> = {};
+		for (const name of SIGNING_PARAM_NAMES) {
+			const value = url.searchParams.get(name);
+			if (value !== null) {
+				out[name] = value;
+			}
+		}
+		return out;
+	} catch {
+		return {};
+	}
+};
+
+const applyCdnSigningParams = (
+	url: string,
+	cdnSigningParams?: Record<string, string>,
+): string => {
+	if (!cdnSigningParams || Object.keys(cdnSigningParams).length === 0) {
+		return url;
+	}
+	try {
+		const parsed = new URL(url);
+		Object.entries(cdnSigningParams).forEach(([key, value]) => {
+			parsed.searchParams.set(key, value);
+		});
+		return parsed.toString();
+	} catch {
+		return url;
+	}
+};
+
 const getDataUri = (
 	mediaClient: MediaClient,
 	id: string,
 	params: MediaStoreGetFileImageParams,
 	mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
+	cdnSigningParams?: Record<string, string>,
 ) => {
 	const rawDataURI = mediaClient.getImageUrlSync(id, params);
-	return mediaBlobUrlAttrs ? addFileAttrsToUrl(rawDataURI, mediaBlobUrlAttrs) : rawDataURI;
+	const signedDataURI = applyCdnSigningParams(rawDataURI, cdnSigningParams);
+	return mediaBlobUrlAttrs ? addFileAttrsToUrl(signedDataURI, mediaBlobUrlAttrs) : signedDataURI;
 };
 
 /**
@@ -87,6 +147,7 @@ export const getSSRPreview = (
 	id: string,
 	params: MediaStoreGetFileImageParams,
 	mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
+	cdnSigningParams?: Record<string, string>,
 ): MediaFilePreview => {
 	try {
 		// Synchronously extract clientId from initialAuth and merge into blob URL attrs
@@ -100,7 +161,7 @@ export const getSSRPreview = (
 			params.collection,
 		);
 
-		const dataURI = getDataUri(mediaClient, id, params, attrsWithClientId);
+		const dataURI = getDataUri(mediaClient, id, params, attrsWithClientId, cdnSigningParams);
 		let srcSet = `${dataURI} 1x`;
 
 		if (params.width) {
@@ -109,6 +170,7 @@ export const getSSRPreview = (
 				id,
 				{ ...params, width: params.width * 2, height: params.height && params.height * 2 },
 				attrsWithClientId,
+				cdnSigningParams,
 			);
 			// We want to embed some meta context into dataURI for Copy/Paste to work.
 			srcSet += `, ${doubleDataURI} 2x`;

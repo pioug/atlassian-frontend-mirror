@@ -456,7 +456,7 @@ export function VrJsFallbackBlockEndShiftBackwards(): JSX.Element {
 }
 
 // JS fallback: align: 'end' + shift forwards. Locks in the per-align sign
-// flip in `applyShift` — without it, the END-anchored popover does not shift.
+// flip in `applyShift` - without it, the END-anchored popover does not shift.
 export function VrJsFallbackBlockEndAlignEndShiftForwards(): JSX.Element {
 	return (
 		<VrPopoverJsFallback

@@ -10,4 +10,7 @@ export type SvgViewProps = {
 	readonly onError?: (error: MediaCardError) => void;
 	readonly wrapperRef: React.RefObject<HTMLDivElement>;
 	readonly alt?: string;
+	// Overrides the default white background used to mask SVG transparency. When provided, the
+	// white background CSS class is dropped and this value is applied as an inline style instead.
+	readonly backgroundColor?: React.CSSProperties['backgroundColor'];
 };

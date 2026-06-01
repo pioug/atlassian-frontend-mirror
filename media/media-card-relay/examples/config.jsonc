@@ -1,0 +1,5 @@
+{
+  // No VR test examples for now — baselines will be added once the AGG MediaItem schema
+  // lands and mock fragment refs are replaced with real useLazyLoadQuery (Phases 1-4 of BMPT-7771).
+  "testExamples": []
+}

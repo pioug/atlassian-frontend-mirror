@@ -16,7 +16,7 @@ import { expect, test } from '@af/integration-testing';
  *   - If no autofocus is present, focus does NOT move
  */
 test.describe('Native popover="manual" focus behavior', () => {
-	// ── Show: without autofocus ──
+	// Show: without autofocus
 
 	test('manual popover WITHOUT autofocus: focus stays on trigger after show', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/133-testing-manual-popover-focus.tsx')>(
@@ -46,7 +46,7 @@ test.describe('Native popover="manual" focus behavior', () => {
 		await expect(trigger).toBeFocused();
 	});
 
-	// ── Show: with native autofocus attribute ──
+	// Show: with native autofocus attribute
 
 	test('manual popover WITH autofocus: browser runs popover focusing steps', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/133-testing-manual-popover-focus.tsx')>(
@@ -84,7 +84,7 @@ test.describe('Native popover="manual" focus behavior', () => {
 		await expect(innerButton).toBeFocused();
 	});
 
-	// ── Hide: focus restoration ──
+	// Hide: focus restoration
 
 	test('manual popover: hidePopover() does NOT restore focus to trigger', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/133-testing-manual-popover-focus.tsx')>(
@@ -108,7 +108,7 @@ test.describe('Native popover="manual" focus behavior', () => {
 
 		await expect(page.getByTestId('manual-restore-content')).toBeHidden();
 
-		// Manual popovers don't participate in the auto/hint stack,
+		// Manual popovers do not participate in the auto/hint stack,
 		// so shouldRestoreFocus is not set. Focus should NOT return to trigger.
 		await expect(trigger).not.toBeFocused();
 	});
@@ -129,7 +129,7 @@ test.describe('Native popover="manual" focus behavior', () => {
 		const innerButton = page.getByTestId('auto-restore-inner');
 		await expect(innerButton).toBeFocused();
 
-		// Dismiss via Escape — close watcher passes focusPreviousElement=true
+		// Dismiss via Escape - close watcher passes focusPreviousElement=true
 		await page.keyboard.press('Escape');
 
 		await expect(page.getByTestId('auto-restore-content')).toBeHidden();

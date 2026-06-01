@@ -17,6 +17,7 @@ export type FileStatus = CommonFileStatus;
 
 export interface PreviewOptions {}
 export interface GetFileOptions {
+	initialFileState?: FileState;
 	preview?: PreviewOptions;
 	collectionName?: string;
 	occurrenceKey?: string;
@@ -89,6 +90,7 @@ export const mapMediaFileToFileState = (mediaFile: MediaStoreResponse<MediaFile>
 		abuseClassification,
 		mediaMetadata,
 		failReason,
+		previewCdnUrl,
 	} = mediaFile.data;
 	const baseState = {
 		id,
@@ -103,6 +105,7 @@ export const mapMediaFileToFileState = (mediaFile: MediaStoreResponse<MediaFile>
 		metadataTraceContext,
 		abuseClassification,
 		mediaMetadata,
+		previewCdnUrl,
 	};
 
 	switch (processingStatus) {

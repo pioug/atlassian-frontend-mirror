@@ -10,6 +10,7 @@ import { css } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import TagIcon from '@atlaskit/icon/core/tag';
 import { AvatarTag, RemovableTag, SimpleTag as Tag, type TagColor } from '@atlaskit/tag';
+import TagNew, { type NewTagColor } from '@atlaskit/tag/new';
 import TeamAvatar from '@atlaskit/teams-avatar';
 import { token } from '@atlaskit/tokens';
 
@@ -240,6 +241,16 @@ const _default: () => JSX.Element = () => (
 				href="https://www.atlassian.com/search?query=Agent"
 				removeButtonLabel="Remove"
 			/>
+		</div>
+
+		{/* Trailing metric — new Tag only */}
+		<Heading size="medium">Trailing metric (new Tag)</Heading>
+		<div css={avatarTagContainerStyles}>
+			{(['gray', 'blue', 'red', 'yellow', 'green', 'teal', 'purple', 'lime', 'orange', 'magenta'] as NewTagColor[]).map(
+				(color) => (
+					<TagNew key={color} text={color} color={color} trailingMetric={4} isRemovable={false} />
+				),
+			)}
 		</div>
 	</div>
 );

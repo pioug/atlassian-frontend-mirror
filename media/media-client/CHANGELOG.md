@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 36.3.2
+
+### Patch Changes
+
+- [`a68f551856a81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a68f551856a81) -
+  Add initialFileState to GetFileOptions interface to support SSR-seeded file state.
+- Updated dependencies
+
 ## 36.3.1
 
 ### Patch Changes

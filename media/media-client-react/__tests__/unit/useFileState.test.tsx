@@ -10,6 +10,10 @@ import { mediaStore } from '@atlaskit/media-state';
 
 import { MediaClientContext, MediaClientProvider, useFileState } from '../../src';
 
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
+}));
+
 disableFetchMocks();
 
 const testFileId = '5e82cf3e-6bc3-4d6d-8830-8e25ac5589de';
@@ -540,6 +544,121 @@ describe('useFileState', () => {
 
 			expect(result.current.fileState).toEqual(undefined);
 			expect(mediaClient.mediaStore.getItems).not.toBeCalled();
+		});
+	});
+
+	describe('initialFileState', () => {
+		const buildClient = () =>
+			new MediaClient({
+				authProvider: () =>
+					Promise.resolve({
+						clientId: 'clientId',
+						token: 'token',
+						baseUrl,
+					}),
+			});
+
+		const buildWrapper =
+			(mediaClient: MediaClient) =>
+			({ children }: any) => (
+				<MediaClientContext.Provider value={mediaClient}>{children}</MediaClientContext.Provider>
+			);
+
+		const processedFileState = {
+			id: testFileId,
+			status: 'processed' as const,
+			name: 'test-image.png',
+			size: 158,
+			mediaType: 'image' as const,
+			mimeType: 'image/png',
+			artifacts: {},
+			representations: {},
+			createdAt: 1692768921463,
+		};
+
+		it('returns initialFileState as a fallback when the store has no entry for the id', () => {
+			const mediaClient = buildClient();
+			jest.spyOn(mediaClient.file, 'getFileState');
+
+			const { result } = renderHook(
+				() => useFileState(testFileId, { collectionName, initialFileState: processedFileState }),
+				{ wrapper: buildWrapper(mediaClient) },
+			);
+
+			expect(result.current.fileState).toEqual(processedFileState);
+		});
+
+		it('seeds initialFileState into the shared media store so all consumers see it immediately', () => {
+			const mediaClient = buildClient();
+			jest.spyOn(mediaClient.file, 'getFileState');
+
+			renderHook(
+				() => useFileState(testFileId, { collectionName, initialFileState: processedFileState }),
+				{ wrapper: buildWrapper(mediaClient) },
+			);
+
+			expect(mediaStore.getState().files[testFileId]).toEqual(processedFileState);
+		});
+
+		it('forwards initialFileState to getFileState so the file-fetcher can skip polling for processed files', () => {
+			const mediaClient = buildClient();
+			jest.spyOn(mediaClient.file, 'getFileState');
+
+			renderHook(
+				() => useFileState(testFileId, { collectionName, initialFileState: processedFileState }),
+				{ wrapper: buildWrapper(mediaClient) },
+			);
+
+			expect(mediaClient.file.getFileState).toHaveBeenCalledWith(testFileId, {
+				initialFileState: processedFileState,
+				collectionName,
+				occurrenceKey: undefined,
+				includeHashForDuplicateFiles: undefined,
+			});
+		});
+
+		it('prefers the store value over initialFileState when both are present', () => {
+			const mediaClient = buildClient();
+			jest.spyOn(mediaClient.file, 'getFileState');
+
+			const storeFileState = {
+				id: testFileId,
+				status: 'processing',
+				name: 'in-store.png',
+				size: 1,
+				mediaType: 'image',
+				mimeType: 'image/png',
+			} as any;
+
+			mediaStore.setState((state) => {
+				state.files[testFileId] = storeFileState;
+			});
+
+			const { result } = renderHook(
+				() => useFileState(testFileId, { collectionName, initialFileState: processedFileState }),
+				{ wrapper: buildWrapper(mediaClient) },
+			);
+
+			expect(result.current.fileState).toBe(storeFileState);
+			expect(mediaClient.file.getFileState).not.toHaveBeenCalled();
+		});
+
+		it('does not call getFileState when skipRemote is true, but still returns initialFileState as a fallback', () => {
+			const mediaClient = buildClient();
+			jest.spyOn(mediaClient.file, 'getFileState');
+
+			const { result } = renderHook(
+				() =>
+					useFileState(testFileId, {
+						collectionName,
+						skipRemote: true,
+						initialFileState: processedFileState,
+					}),
+				{ wrapper: buildWrapper(mediaClient) },
+			);
+
+			expect(result.current.fileState).toEqual(processedFileState);
+			expect(mediaClient.file.getFileState).not.toHaveBeenCalled();
 		});
 	});
 });

@@ -1438,6 +1438,163 @@ describe('no-barrel-entry-jest-mock', () => {
 		});
 	});
 
+	describe('preamble side-effect statements follow their referenced variables', () => {
+		// Regression test: side-effect statements (e.g. `(global as any).x = mockFn;`,
+		// `console.log(...)`) in a barrel mock factory must NOT be dropped when the
+		// mock is split into multiple subpath mocks. Previously, only
+		// VariableDeclaration preamble statements were extracted, which silently
+		// deleted any side-effect code authored by the test owner.
+		//
+		// A tied side-effect is duplicated only into splits whose property texts
+		// actually reference the same preamble-declared variable; an independent
+		// side-effect (no preamble reference) is preserved in every split as a
+		// safe fallback.
+		const fsForSideEffects = createMockFileSystem({
+			// Workspace markers
+			[`${WORKSPACE_ROOT}/package.json`]: '{}',
+			[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+			[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+
+			// Package.json with exports
+			[`${TEST_PACKAGE_DIR}/package.json`]: JSON.stringify({
+				name: '@atlassian/conversation-assistant-store',
+				exports: {
+					'.': './src/index.ts',
+					'./client': './src/client/index.ts',
+					'./provider': './src/provider/index.ts',
+				},
+			}),
+
+			// Barrel file
+			[`${TEST_PACKAGE_DIR}/src/index.ts`]: outdent`
+				export { CardClient } from './client';
+				export { SmartCardProvider } from './provider';
+			`,
+
+			// Client
+			[`${TEST_PACKAGE_DIR}/src/client/index.ts`]: outdent`
+				export class CardClient {}
+			`,
+
+			// Provider
+			[`${TEST_PACKAGE_DIR}/src/provider/index.ts`]: outdent`
+				export function SmartCardProvider() {}
+			`,
+		});
+
+		runWithFs('no-barrel-entry-jest-mock - side-effect placement', fsForSideEffects, {
+			valid: [],
+			invalid: [
+				// A side-effect statement that publishes a preamble variable onto
+				// `global` must follow that variable into whichever split mock(s)
+				// actually use it — and only those.
+				{
+					code: tabindent`
+						jest.mock('@atlassian/conversation-assistant-store', () => {
+							const mockFetch = jest.fn();
+							(global as any).mockFetchData = mockFetch;
+							return {
+								CardClient: jest.fn(() => ({
+									fetchData: mockFetch,
+								})),
+								SmartCardProvider: jest.fn(),
+							};
+						});
+					`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryMock' }],
+					output: tabindent`
+						jest.mock('@atlassian/conversation-assistant-store/client', () => {
+							const mockFetch = jest.fn();
+							(global as any).mockFetchData = mockFetch;
+							return {
+								...jest.requireActual('@atlassian/conversation-assistant-store/client'),
+								CardClient: jest.fn(() => ({
+									fetchData: mockFetch,
+								})),
+							};
+						});
+						jest.mock('@atlassian/conversation-assistant-store/provider', () => ({
+							...jest.requireActual('@atlassian/conversation-assistant-store/provider'),
+							SmartCardProvider: jest.fn(),
+						}));
+					`,
+				},
+				// When the tied preamble variable is referenced by BOTH splits, the
+				// side-effect must be duplicated into both — alongside the variable
+				// declaration it depends on.
+				{
+					code: tabindent`
+						jest.mock('@atlassian/conversation-assistant-store', () => {
+							const sharedMock = jest.fn();
+							(global as any).sharedMockRef = sharedMock;
+							return {
+								CardClient: jest.fn(() => ({
+									fetchData: sharedMock,
+								})),
+								SmartCardProvider: jest.fn(() => sharedMock()),
+							};
+						});
+					`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryMock' }],
+					output: tabindent`
+						jest.mock('@atlassian/conversation-assistant-store/client', () => {
+							const sharedMock = jest.fn();
+							(global as any).sharedMockRef = sharedMock;
+							return {
+								...jest.requireActual('@atlassian/conversation-assistant-store/client'),
+								CardClient: jest.fn(() => ({
+									fetchData: sharedMock,
+								})),
+							};
+						});
+						jest.mock('@atlassian/conversation-assistant-store/provider', () => {
+							const sharedMock = jest.fn();
+							(global as any).sharedMockRef = sharedMock;
+							return {
+								...jest.requireActual('@atlassian/conversation-assistant-store/provider'),
+								SmartCardProvider: jest.fn(() => sharedMock()),
+							};
+						});
+					`,
+				},
+				// An independent side-effect (no reference to any preamble variable)
+				// is kept in every split as a safe fallback so the user's setup
+				// logic is never silently dropped.
+				{
+					code: tabindent`
+						jest.mock('@atlassian/conversation-assistant-store', () => {
+							(global as any).__mockedLinkProvider = true;
+							return {
+								CardClient: jest.fn(),
+								SmartCardProvider: jest.fn(),
+							};
+						});
+					`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryMock' }],
+					output: tabindent`
+						jest.mock('@atlassian/conversation-assistant-store/client', () => {
+							(global as any).__mockedLinkProvider = true;
+							return {
+								...jest.requireActual('@atlassian/conversation-assistant-store/client'),
+								CardClient: jest.fn(),
+							};
+						});
+						jest.mock('@atlassian/conversation-assistant-store/provider', () => {
+							(global as any).__mockedLinkProvider = true;
+							return {
+								...jest.requireActual('@atlassian/conversation-assistant-store/provider'),
+								SmartCardProvider: jest.fn(),
+							};
+						});
+					`,
+				},
+			],
+		});
+	});
+
 	describe('preamble dead code removal across split', () => {
 		// Create a file system for testing preamble variable isolation
 		const fsForPreambleDeadCode = createMockFileSystem({
@@ -2362,6 +2519,148 @@ describe('no-barrel-entry-jest-mock', () => {
 		);
 	});
 
+	describe('preferImportedPackageSubpath', () => {
+		// Barrel package with a bridge subpath that re-exports from the dependency.
+		// preferImportedPackageSubpath should rewrite the mock to target the bridge subpath
+		// rather than the dependency package itself.
+		const fsWithBridge = createMockFileSystem({
+			[`${WORKSPACE_ROOT}/package.json`]: '{}',
+			[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+			[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+
+			[`${AI_MATE_DIR}/package-a/package.json`]: JSON.stringify({
+				name: '@atlassian/package-a',
+				exports: {
+					'.': './src/index.ts',
+					'./bridge': './src/bridge.ts',
+				},
+			}),
+			[`${AI_MATE_DIR}/package-a/src/index.ts`]: outdent`
+				export { SomeUtil } from './bridge';
+			`,
+			[`${AI_MATE_DIR}/package-a/src/bridge.ts`]: outdent`
+				export { SomeUtil } from '@atlassian/package-b';
+			`,
+
+			[`${AI_MATE_DIR}/package-b/package.json`]: JSON.stringify({
+				name: '@atlassian/package-b',
+				exports: {
+					'.': './src/index.ts',
+					'./utils': './src/utils.ts',
+				},
+			}),
+			[`${AI_MATE_DIR}/package-b/src/index.ts`]: outdent`
+				export { SomeUtil } from './utils';
+			`,
+			[`${AI_MATE_DIR}/package-b/src/utils.ts`]: outdent`
+				export const SomeUtil = () => {};
+			`,
+		});
+
+		runWithFs(
+			'no-barrel-entry-jest-mock - preferImportedPackageSubpath retargets mocks to bridge subpath',
+			fsWithBridge,
+			{
+				valid: [],
+				invalid: [
+					{
+						code: outdent`
+							jest.mock('@atlassian/package-a', () => ({
+								...jest.requireActual('@atlassian/package-a'),
+								SomeUtil: jest.fn(),
+							}));
+						`,
+						filename: TEST_FILE,
+						options: [{ preferImportedPackageSubpath: true }],
+						errors: [{ messageId: 'barrelEntryMock' }],
+						output: outdent`
+							jest.mock('@atlassian/package-a/bridge', () => ({
+								...jest.requireActual('@atlassian/package-a/bridge'),
+								SomeUtil: jest.fn(),
+							}));
+						`,
+					},
+				],
+			},
+		);
+
+		// Barrel package whose entry only does `export *` from the dependency, with no bridge
+		// subpath. preferImportedPackageSubpath should leave the mock alone instead of falling
+		// through to a mock targeting the dependency package's subpath.
+		const fsWithStarOnlyBarrel = createMockFileSystem({
+			[`${WORKSPACE_ROOT}/package.json`]: '{}',
+			[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+			[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+
+			[`${AI_MATE_DIR}/package-a/package.json`]: JSON.stringify({
+				name: '@atlassian/package-a',
+				exports: {
+					'.': './src/index.ts',
+				},
+			}),
+			[`${AI_MATE_DIR}/package-a/src/index.ts`]: outdent`
+				export * from '@atlassian/package-b';
+			`,
+
+			[`${AI_MATE_DIR}/package-b/package.json`]: JSON.stringify({
+				name: '@atlassian/package-b',
+				exports: {
+					'.': './src/index.ts',
+					'./perimeter': './src/perimeter.ts',
+				},
+			}),
+			[`${AI_MATE_DIR}/package-b/src/index.ts`]: outdent`
+				export { isIsolatedCloud } from './perimeter';
+			`,
+			[`${AI_MATE_DIR}/package-b/src/perimeter.ts`]: outdent`
+				export const isIsolatedCloud = () => false;
+			`,
+		});
+
+		runWithFs(
+			'no-barrel-entry-jest-mock - preferImportedPackageSubpath leaves mock alone when no bridge subpath exists',
+			fsWithStarOnlyBarrel,
+			{
+				// With prefer, the mock stays as-is (no bridge subpath in package-a). This is the
+				// fix for the user-reported bug where `jest.mock('@atlassian/atl-context', ...)`
+				// was being rewritten to `jest.mock('@atlaskit/atlassian-context/perimeter', ...)`
+				// even though `--prefer-imported-package-subpath` was set.
+				valid: [
+					{
+						code: outdent`
+							jest.mock('@atlassian/package-a', () => ({
+								...jest.requireActual<Record<string, unknown>>('@atlassian/package-a'),
+								isIsolatedCloud: jest.fn(() => false),
+							}));
+						`,
+						filename: TEST_FILE,
+						options: [{ preferImportedPackageSubpath: true }],
+					},
+				],
+				invalid: [
+					// Without prefer, the rule rewrites to the dependency package (the
+					// crossPackageSource.exportPath is '.' here, so the rewrite drops the subpath).
+					{
+						code: outdent`
+							jest.mock('@atlassian/package-a', () => ({
+								...jest.requireActual('@atlassian/package-a'),
+								isIsolatedCloud: jest.fn(() => false),
+							}));
+						`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryMock' }],
+						output: outdent`
+							jest.mock('@atlassian/package-b', () => ({
+								...jest.requireActual('@atlassian/package-b'),
+								isIsolatedCloud: jest.fn(() => false),
+							}));
+						`,
+					},
+				],
+			},
+		);
+	});
+
 	describe('multiple barrel exports re-exporting same symbols - no direct source export', () => {
 		/**
 		 * This test covers the edge case where:
@@ -2849,6 +3148,74 @@ describe('no-barrel-entry-jest-mock', () => {
 									const real = jest.requireActual('@atlassian/conversation-assistant-store/controllers/chat-context/store').useChatContextStoreActions;
 									return real(...args);
 								}),
+							}));
+						`,
+				},
+			],
+		});
+	});
+
+	/**
+	 * Regression: the barrel and a sibling subpath both re-export the same symbol
+	 * directly from the same source file via an entry-point wrapper. This mirrors
+	 * the real shape of `@atlaskit/smart-card`, where:
+	 *
+	 *   src/index.ts                 →  export { Card } from './view/Card';
+	 *   src/entry-points/card-lazy.ts→  export { Card } from '../view/Card';
+	 *
+	 * and `package.json` only lists the wrapper (`./card/lazy`) in `exports`, not
+	 * the source file. Without entry-point wrapper resolution the rule could not
+	 * find a target subpath for `Card` (the source file is not a direct value in
+	 * `exports`, and the wrapper is not on the barrel's re-export chain), so the
+	 * mock was left untouched. With wrapper resolution enabled, the mock should
+	 * be rewritten to the wrapper's subpath.
+	 */
+	describe('entry-point wrapper exposing the same source as the barrel', () => {
+		const PKG_DIR = `${PLATFORM_PACKAGES}/ai-mate/wrapper-pkg`;
+		const fs = createMockFileSystem({
+			[`${WORKSPACE_ROOT}/package.json`]: '{}',
+			[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+			[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+
+			[`${PKG_DIR}/package.json`]: JSON.stringify({
+				name: '@atlassian/wrapper-pkg',
+				exports: {
+					'.': './src/index.ts',
+					'./card/lazy': './src/entry-points/card-lazy.ts',
+				},
+			}),
+
+			// Barrel re-exports `Card` directly from the source file.
+			[`${PKG_DIR}/src/index.ts`]: outdent`
+				export { Card } from './view/Card';
+			`,
+
+			// Entry-point wrapper independently re-exports `Card` from the same source.
+			[`${PKG_DIR}/src/entry-points/card-lazy.ts`]: outdent`
+				export { Card } from '../view/Card';
+			`,
+
+			// The actual source file.
+			[`${PKG_DIR}/src/view/Card.ts`]: outdent`
+				export const Card = () => null;
+			`,
+		});
+
+		runWithFs('no-barrel-entry-jest-mock - resolves through entry-point wrapper subpath', fs, {
+			valid: [],
+			invalid: [
+				{
+					code: outdent`
+							jest.mock('@atlassian/wrapper-pkg', () => ({
+								Card: () => null,
+							}));
+						`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryMock' }],
+					output: tabindent`
+							jest.mock('@atlassian/wrapper-pkg/card/lazy', () => ({
+								...jest.requireActual('@atlassian/wrapper-pkg/card/lazy'),
+								Card: () => null,
 							}));
 						`,
 				},

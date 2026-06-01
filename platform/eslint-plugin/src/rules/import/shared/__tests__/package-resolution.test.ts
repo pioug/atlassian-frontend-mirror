@@ -371,3 +371,137 @@ describe('findExportForSourceFile / kebab-case prioritization', () => {
 		expect(result).toEqual({ exportPath: './MyComponent' });
 	});
 });
+
+describe('findExportForSourceFile / entry-point named-export filtering', () => {
+	// Models the @atlaskit/icon shape that triggered the original bug:
+	//   - `./base-new` is an entry-point wrapper that re-exports a SUBSET of types
+	//     from `../types` (only NewIconProps, NewCoreIconProps).
+	//   - `./types`    is an entry-point wrapper that re-exports the FULL set
+	//     from `../types`, including GlyphProps.
+	// Both wrappers ultimately resolve to the same source file (`src/types.tsx`),
+	// so Phase-1 has no direct match and Phase-2 must pick the right wrapper based
+	// on which one actually re-exports the requested symbol.
+	const PKG_DIR = '/pkg';
+	const TYPES_SOURCE = `${PKG_DIR}/src/types.tsx`;
+	const BASE_NEW_WRAPPER = `${PKG_DIR}/src/entry-points/base-new.tsx`;
+	const TYPES_WRAPPER = `${PKG_DIR}/src/entry-points/types.tsx`;
+
+	function makeIconShapedFs(): FileSystem {
+		const files: Record<string, string> = {
+			[TYPES_SOURCE]: 'export type GlyphProps = any;\nexport type NewCoreIconProps = any;\n',
+			[BASE_NEW_WRAPPER]: `export type { NewIconProps, NewCoreIconProps } from '../types';\n`,
+			[TYPES_WRAPPER]: `export type { GlyphProps, NewCoreIconProps, NewIconProps } from '../types';\n`,
+		};
+		return {
+			existsSync(path: string): boolean {
+				return path in files;
+			},
+			readFileSync(path: string): string {
+				if (!(path in files)) {
+					throw new Error(`ENOENT: ${path}`);
+				}
+				return files[path];
+			},
+			realpathSync(path: string): string {
+				return path;
+			},
+			statSync(path: string): { isFile(): boolean; mtimeMs?: number } {
+				return { isFile: () => path in files, mtimeMs: 1 };
+			},
+			readdirSync(): DirectoryEntry[] {
+				return [];
+			},
+			execSync(): string | null {
+				return null;
+			},
+			cache: {},
+		};
+	}
+
+	const exportsMap = new Map<string, string>([
+		['.', `${PKG_DIR}/src/index.tsx`],
+		['./base-new', BASE_NEW_WRAPPER],
+		['./types', TYPES_WRAPPER],
+	]);
+
+	it('skips a wrapper that re-exports from the same source file but does not list the requested symbol', () => {
+		// `./base-new` re-exports from `../types` but only lists NewIconProps / NewCoreIconProps,
+		// so it must NOT be picked for `GlyphProps` even though it appears first in `exports`.
+		const result = findExportForSourceFile({
+			sourceFilePath: TYPES_SOURCE,
+			exportsMap,
+			fs: makeIconShapedFs(),
+			sourceExportName: 'GlyphProps',
+		});
+
+		expect(result).toEqual({ exportPath: './types', entryPointExportName: 'GlyphProps' });
+	});
+
+	it('still allows a wrapper that explicitly re-exports the requested symbol (first match wins)', () => {
+		// Both wrappers list NewCoreIconProps; iteration order picks `./base-new` first
+		// (kebab-case, in entry-points folder), matching the pre-existing `pickBestMatch`
+		// behaviour. The fix only filters out wrappers that don't list the symbol.
+		const result = findExportForSourceFile({
+			sourceFilePath: TYPES_SOURCE,
+			exportsMap,
+			fs: makeIconShapedFs(),
+			sourceExportName: 'NewCoreIconProps',
+		});
+
+		expect(result).toEqual({
+			exportPath: './base-new',
+			entryPointExportName: 'NewCoreIconProps',
+		});
+	});
+
+	it('treats `export * from "../foo"` wrappers (empty name map) as matching any symbol from that source', () => {
+		const starWrapper = `${PKG_DIR}/src/entry-points/star.tsx`;
+		const fs: FileSystem = {
+			existsSync: (p: string) => p === TYPES_SOURCE || p === starWrapper,
+			readFileSync(path: string): string {
+				if (path === starWrapper) {
+					return `export * from '../types';\n`;
+				}
+				if (path === TYPES_SOURCE) {
+					return 'export type GlyphProps = any;\n';
+				}
+				throw new Error(`ENOENT: ${path}`);
+			},
+			realpathSync: (p: string) => p,
+			statSync: (p: string) => ({
+				isFile: () => p === TYPES_SOURCE || p === starWrapper,
+				mtimeMs: 1,
+			}),
+			readdirSync: () => [],
+			execSync: () => null,
+			cache: {},
+		};
+
+		const result = findExportForSourceFile({
+			sourceFilePath: TYPES_SOURCE,
+			exportsMap: new Map<string, string>([
+				['.', `${PKG_DIR}/src/index.tsx`],
+				['./star', starWrapper],
+			]),
+			fs,
+			sourceExportName: 'GlyphProps',
+		});
+
+		expect(result).toEqual({ exportPath: './star', entryPointExportName: undefined });
+	});
+
+	it('returns null when no wrapper actually re-exports the requested symbol', () => {
+		// Only `./base-new` re-exports from `../types`, and it does not list `GlyphProps`.
+		const result = findExportForSourceFile({
+			sourceFilePath: TYPES_SOURCE,
+			exportsMap: new Map<string, string>([
+				['.', `${PKG_DIR}/src/index.tsx`],
+				['./base-new', BASE_NEW_WRAPPER],
+			]),
+			fs: makeIconShapedFs(),
+			sourceExportName: 'GlyphProps',
+		});
+
+		expect(result).toBeNull();
+	});
+});

@@ -57,6 +57,9 @@
 			"path": "../../editor/adf-utils/tsconfig.app.json"
 		},
 		{
+			"path": "../../atlassian-analytics-pipeline/analytics-cross-product/tsconfig.app.json"
+		},
+		{
 			"path": "../../analytics/analytics-listeners/tsconfig.app.json"
 		},
 		{

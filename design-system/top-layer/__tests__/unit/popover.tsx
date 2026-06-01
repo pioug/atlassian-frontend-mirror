@@ -6,7 +6,7 @@ import { act, render, screen, userEvent } from '@atlassian/testing-library';
 
 import { Popup } from '../../src/entry-points/popup';
 
-// ── Observer test helpers ──
+// Observer test helpers
 
 /**
  * Renders the open layer count as text so tests can assert declaratively
@@ -156,7 +156,7 @@ describe('Popup compound component', () => {
 		);
 
 		// Inside the compound, ctx.isOpen starts false. The browser manages
-		// visibility via togglePopover() from the trigger — PopupContent
+		// visibility via togglePopover() from the trigger - PopupContent
 		// does not auto-show on mount.
 		const popoverEl = getPopoverElement();
 		expect(popoverEl).not.toHaveAttribute('data-popover-open');
@@ -329,7 +329,7 @@ describe('Popup.Content isOpen prop', () => {
 	});
 });
 
-describe('Popover primitive — open layer observer', () => {
+describe('Popover primitive - open layer observer', () => {
 	it('registers as type "popup" for interactive overlay roles (e.g. menu)', () => {
 		render(
 			<OpenLayerObserver>

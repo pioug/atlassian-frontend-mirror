@@ -9,7 +9,6 @@ import Drawer, {
 	type DrawerWidth,
 } from '@atlaskit/drawer';
 import { Label } from '@atlaskit/form';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 
 const widths: DrawerWidth[] = ['narrow', 'medium', 'wide', 'extended', 'full'];

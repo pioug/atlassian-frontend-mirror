@@ -29,7 +29,7 @@ const styles = cssMap({
 });
 
 /**
- * `PopupSurface` is optional — it provides default elevation styling
+ * `PopupSurface` is optional - it provides default elevation styling
  * (background, border-radius, box-shadow) via design tokens. When omitted,
  * consumers have full control over the popup's appearance.
  *
@@ -55,7 +55,7 @@ export default function PopoverSurfaceVariantsExample(): JSX.Element {
 								<div css={styles.customPopup}>
 									<Stack space="space.100">
 										<Heading size="xsmall">Custom styled</Heading>
-										<Text>No PopupSurface — all styling is applied directly by the consumer.</Text>
+										<Text>No PopupSurface - all styling is applied directly by the consumer.</Text>
 									</Stack>
 								</div>
 							</Popup.Content>

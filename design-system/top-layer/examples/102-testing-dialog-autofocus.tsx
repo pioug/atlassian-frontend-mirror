@@ -10,7 +10,7 @@ import { getFirstFocusable } from '@atlaskit/top-layer/focus';
  * a non-first button. The browser's dialog focusing algorithm should focus the
  * element with `autofocus` rather than the first focusable element.
  *
- * Note: React's `autoFocus` prop does not set the HTML `autofocus` attribute —
+ * Note: React's `autoFocus` prop does not set the HTML `autofocus` attribute -
  * it calls `.focus()` imperatively after mount. We use a ref callback to set
  * the native attribute so that `showModal()` respects it during the dialog
  * focusing steps.

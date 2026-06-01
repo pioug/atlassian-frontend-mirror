@@ -92,7 +92,7 @@ export const Dialog: React.ForwardRefExoticComponent<
 	const ownRef = useRef<HTMLDialogElement>(null);
 	const combinedRef = mergeRefs([ownRef, ref as Ref<HTMLDialogElement>]);
 
-	// ── Animation lifecycle ──
+	// Animation lifecycle
 	const { showChildren, preset } = useAnimatedVisibility({
 		isOpen,
 		animate,
@@ -100,13 +100,13 @@ export const Dialog: React.ForwardRefExoticComponent<
 		onExitFinish,
 	});
 
-	// ── Focus wrap ──
+	// Focus wrap
 	// Native <dialog>.showModal() traps focus but wraps through <body> at
 	// the boundary (A → B → C → body → A). This hook intercepts Tab to
 	// wrap directly (A → B → C → A), matching the WAI-ARIA APG pattern.
 	useFocusWrap({ elementRef: ownRef, role: 'dialog' });
 
-	// ── Open layer observer registration ──
+	// Open layer observer registration
 	// Notifies the open layer observer so app-coordination features
 	// (open-count subscriptions) work with top-layer dialogs.
 	useNotifyOpenLayerObserver({
@@ -139,7 +139,7 @@ export const Dialog: React.ForwardRefExoticComponent<
 		}
 	}, [isOpen]);
 
-	// ── Handle native Escape (cancel event) ──
+	// Handle native Escape (cancel event)
 	const handleCancel = useCallback(
 		(event: React.SyntheticEvent<HTMLDialogElement>) => {
 			event.preventDefault();
@@ -148,7 +148,7 @@ export const Dialog: React.ForwardRefExoticComponent<
 		[onClose],
 	);
 
-	// ── Handle backdrop click ──
+	// Handle backdrop click
 	// Attached via bind-event-listener rather than a React prop so we avoid
 	// a11y lint suppressions on the <dialog> element.
 	// Keyboard dismiss is already handled natively (Escape → onCancel above).

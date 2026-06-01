@@ -1,6 +1,16 @@
 import { defineMessages } from 'react-intl';
 
 export const toolbarMessages: {
+	addColumnLeft: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	addColumnRight: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	alignColumn: {
 		defaultMessage: string;
 		description: string;
@@ -237,6 +247,18 @@ export const toolbarMessages: {
 		defaultMessage: 'Distribute columns',
 		description:
 			'The text is shown as a label for an option that distributes layout columns evenly.',
+	},
+	addColumnLeft: {
+		id: 'fabric.editor.layout.addColumnLeft',
+		defaultMessage: 'Add column left',
+		description:
+			'The text is shown as a label for an option that adds a layout column to the left of the selected column.',
+	},
+	addColumnRight: {
+		id: 'fabric.editor.layout.addColumnRight',
+		defaultMessage: 'Add column right',
+		description:
+			'The text is shown as a label for an option that adds a layout column to the right of the selected column.',
 	},
 	insertColumnLeft: {
 		id: 'fabric.editor.layout.insertColumnLeft',

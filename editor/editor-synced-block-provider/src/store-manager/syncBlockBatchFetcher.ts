@@ -21,6 +21,11 @@ export interface SyncBlockBatchFetcherDeps {
  */
 export class SyncBlockBatchFetcher {
 	private pendingFetchRequests = new Set<string>();
+	// Tracks resourceIds whose batched fetch is in flight (after RAF drains
+	// pendingFetchRequests, before the promise settles). Ensures
+	// `hasPendingFetch` remains true during the network window.
+	private inFlightFetches = new Set<string>();
+	private isDestroyed = false;
 	private scheduledBatchFetch: ReturnType<typeof rafSchedule>;
 
 	constructor(private deps: SyncBlockBatchFetcherDeps) {
@@ -39,16 +44,32 @@ export class SyncBlockBatchFetcher {
 
 			this.pendingFetchRequests.clear();
 
-			this.deps.fetchSyncBlocksData(syncBlockNodes).catch((error) => {
-				logException(error, {
-					location: 'editor-synced-block-provider/syncBlockBatchFetcher/batchedFetchSyncBlocks',
+			// Track in-flight before the fetch so guards remain positive.
+			resourceIds.forEach((resId) => this.inFlightFetches.add(resId));
+
+			this.deps
+				.fetchSyncBlocksData(syncBlockNodes)
+				.catch((error) => {
+					logException(error, {
+						location:
+							'editor-synced-block-provider/syncBlockBatchFetcher/batchedFetchSyncBlocks',
+					});
+					resourceIds.forEach((resId) => {
+						this.deps.getFireAnalyticsEvent()?.(
+							fetchErrorPayload(error.message, resId, getSourceProductFromResourceIdSafe(resId)),
+						);
+					});
+				})
+				.finally(() => {
+					// If the fetcher was destroyed while the request was in flight,
+					// skip cleanup — `destroy()` already cleared `inFlightFetches`
+					// and there's nothing observable to update.
+					if (this.isDestroyed) {
+						return;
+					}
+					// Clear in-flight tracking once the fetch settles.
+					resourceIds.forEach((resId) => this.inFlightFetches.delete(resId));
 				});
-				resourceIds.forEach((resId) => {
-					this.deps.getFireAnalyticsEvent()?.(
-						fetchErrorPayload(error.message, resId, getSourceProductFromResourceIdSafe(resId)),
-					);
-				});
-			});
 		});
 	}
 
@@ -65,6 +86,15 @@ export class SyncBlockBatchFetcher {
 		}
 	}
 
+	/**
+	 * Returns true if a batched fetch is queued or in flight for `resourceId`.
+	 * Used by cache deletion guards to prevent deleting while a fetch is
+	 * about to populate the entry.
+	 */
+	public hasPendingFetch(resourceId: string): boolean {
+		return this.pendingFetchRequests.has(resourceId) || this.inFlightFetches.has(resourceId);
+	}
+
 	public cancel(): void {
 		this.scheduledBatchFetch.cancel();
 	}
@@ -74,7 +104,10 @@ export class SyncBlockBatchFetcher {
 	}
 
 	public destroy(): void {
+		this.isDestroyed = true;
 		this.cancel();
 		this.clearPending();
+		// Clear in-flight tracking to prevent stale entries after teardown.
+		this.inFlightFetches.clear();
 	}
 }

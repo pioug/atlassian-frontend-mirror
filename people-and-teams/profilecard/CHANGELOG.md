@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 25.7.8
+
+### Patch Changes
+
+- [`230baf9a1f9fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/230baf9a1f9fb) -
+  Use the stable agent profile card loading path when editor agent mentions are enabled.
+
 ## 25.7.7
 
 ### Patch Changes

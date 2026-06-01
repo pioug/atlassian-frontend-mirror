@@ -8,7 +8,7 @@ type TPresetWithCssAndName = { css: string; name: string };
  * Normalizes a preset prop to a value (or null) and ensures its CSS
  * is injected once into `document.head`.
  *
- * Works with any preset that has `{ css, name }` — animation presets
+ * Works with any preset that has `{ css, name }` - animation presets
  * (TAnimationPreset) satisfies this shape.
  */
 export function usePresetStyles<T extends TPresetWithCssAndName>({

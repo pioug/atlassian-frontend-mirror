@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-mentions
 
+## 12.3.0
+
+### Minor Changes
+
+- [`3b29bddd3f460`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b29bddd3f460) -
+  Suppress human invite flow for agent mentions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.11
 
 ### Patch Changes

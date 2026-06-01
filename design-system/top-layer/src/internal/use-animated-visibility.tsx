@@ -53,19 +53,19 @@ type TUseAnimatedVisibilityResult = {
  *
  * Used by both `Popover` and `Dialog` to share the same animation lifecycle
  * logic. Those components own their own show/hide mechanisms (showPopover /
- * hidePopover vs showModal / close) and event handling — this hook only
+ * hidePopover vs showModal / close) and event handling - this hook only
  * manages the relationship between `isOpen` and when children are rendered.
  *
  * ## Problem
  *
  * We want to delay the unmount of children until a CSS exit transition has
  * finished playing. If we unmount children the moment `isOpen` becomes
- * `false`, the exit animation is never visible — the content just disappears.
+ * `false`, the exit animation is never visible - the content just disappears.
  *
  * ## How it works
  *
  * `showChildren` tracks whether the consumer's children should be in the DOM.
- * It does not mirror `isOpen` exactly — it intentionally lags behind during
+ * It does not mirror `isOpen` exactly - it intentionally lags behind during
  * exit animations:
  *
  * ```
@@ -100,12 +100,12 @@ export function useAnimatedVisibility({
 	// or the user has enabled the "prefers reduced motion" OS setting.
 	const willAnimate = Boolean(animate) && !prefersReducedMotion();
 
-	// ── showChildren state ──
+	// showChildren state
 	//
 	// This is the core of the hook. `showChildren` controls whether the
 	// consumer's children are in the DOM. The two `if` blocks below are
 	// intentionally written as synchronous state updates during render
-	// (React supports this pattern — setState during render is treated as
+	// (React supports this pattern - setState during render is treated as
 	// a synchronous re-render before the browser paints).
 	//
 	// Mount path:  isOpen went true but showChildren is still false → mount.
@@ -131,7 +131,7 @@ export function useAnimatedVisibility({
 	const onExitFinishRef = useRef(onExitFinish);
 	onExitFinishRef.current = onExitFinish;
 
-	// ── Animated entry effect ──
+	// Animated entry effect
 	//
 	// Fires `onEnterFinish` after the entry transition completes.
 	// When there is no animation, fires it immediately via a separate effect.
@@ -180,7 +180,7 @@ export function useAnimatedVisibility({
 		};
 	}, [isOpen, showChildren, willAnimate, preset?.enterDurationMs, elementRef]);
 
-	// ── Non-animated entry callback ──
+	// Non-animated entry callback
 	//
 	// When there is no animation, fire `onEnterFinish` immediately on mount and after `isOpen` goes false->true.
 	// The initial value is false to make sure it fires on mount if the current `isOpen` is true.
@@ -194,7 +194,7 @@ export function useAnimatedVisibility({
 		}
 	}, [isOpen, willAnimate]);
 
-	// ── Animated exit effect ──
+	// Animated exit effect
 	//
 	// Runs when all three conditions are true:
 	//   • `isOpen` is false  (consumer wants to close)
@@ -254,10 +254,10 @@ export function useAnimatedVisibility({
 		};
 	}, [isOpen, showChildren, willAnimate, preset?.exitDurationMs, elementRef]);
 
-	// ── Non-animated exit callback ──
+	// Non-animated exit callback
 	//
 	// When there is no animation, children unmount synchronously (handled
-	// by the `if` block above). But `onExitFinish` still needs to fire —
+	// by the `if` block above). But `onExitFinish` still needs to fire -
 	// we do that in a follow-up effect so the consumer can react to it.
 	//
 	// Uses a previous-value ref (`wasOpenRef`) to detect the exact

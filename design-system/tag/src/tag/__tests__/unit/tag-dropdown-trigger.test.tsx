@@ -49,6 +49,17 @@ describe('TagDropdownTrigger', () => {
 			render(<TagDropdownTrigger text="Colored Tag" color="red" testId={testId} />);
 			expect(screen.getByText('Colored Tag')).toBeInTheDocument();
 		});
+
+		it('should render trailing metric badge when provided', () => {
+			render(<TagDropdownTrigger text="Inbox" trailingMetric={12} testId={testId} />);
+			expect(screen.getByTestId(`${testId}--metric`)).toBeInTheDocument();
+			expect(screen.getByText('12')).toBeInTheDocument();
+		});
+
+		it('should not render trailing metric badge for empty string', () => {
+			render(<TagDropdownTrigger text="Inbox" trailingMetric="" testId={testId} />);
+			expect(screen.queryByTestId(`${testId}--metric`)).not.toBeInTheDocument();
+		});
 	});
 
 	describe('Chevron Behavior', () => {
@@ -338,8 +349,8 @@ describe('TagDropdownTrigger', () => {
 			render(<TagDropdownTrigger text="Test" testId={testId} onClick={handleClick} />);
 			const button = screen.getByRole('button');
 			// eslint-disable-next-line testing-library/prefer-user-event
-			fireEvent.keyDown(button, { key: 'Enter', code: 'Enter' });
-			// Note: fireEvent.keyDown doesn't trigger click, but real keyboard events would
+			fireEvent.click(button);
+			expect(handleClick).toHaveBeenCalledTimes(1);
 		});
 
 		it('should have proper button role semantics', () => {

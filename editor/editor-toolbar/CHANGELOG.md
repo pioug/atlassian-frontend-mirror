@@ -1,5 +1,15 @@
 # @atlaskit/editor-toolbar
 
+## 1.9.2
+
+### Patch Changes
+
+- [`a777e9d5513bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a777e9d5513bb) - -
+  Add exposure event for improve formatting toolbar experiment, fired only when pinned toolbar is
+  visible
+  - Swap render-path gate checks to expValEqualsNoExposure in toolbar.tsx and
+    ResponsiveContainer.tsx
+
 ## 1.9.1
 
 ### Patch Changes

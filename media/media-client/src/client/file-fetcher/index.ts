@@ -212,8 +212,17 @@ export class FileFetcherImpl implements FileFetcher {
 	};
 
 	public getFileState(id: string, options: GetFileOptions = {}): MediaSubscribable {
-		const { collectionName, occurrenceKey, includeHashForDuplicateFiles, forceRefresh } = options;
+		const {
+			collectionName,
+			occurrenceKey,
+			includeHashForDuplicateFiles,
+			forceRefresh,
+			initialFileState,
+		} = options;
 		if (!isValidUuid(id)) {
+			// Do NOT pass initialFileState here — for an invalid UUID the SSR seed
+			// is meaningless and would cause subscribers to briefly see a
+			// valid-looking file state before the error is emitted.
 			const subject = createMediaSubject<FileState>();
 			const err = new FileFetcherError('invalidFileId', { id, collectionName, occurrenceKey });
 
@@ -238,6 +247,7 @@ export class FileFetcherImpl implements FileFetcher {
 					undefined,
 					includeHashForDuplicateFiles,
 					forceRefresh,
+					initialFileState,
 				);
 				subject.subscribe({
 					next: (fileState) => {
@@ -276,14 +286,20 @@ export class FileFetcherImpl implements FileFetcher {
 		occurrenceKey?: string,
 		includeHashForDuplicateFiles?: boolean,
 		forceRefresh?: boolean,
+		initialFileState?: FileState,
 	): ReplaySubject<FileState> => {
-		const subject = createMediaSubject<FileState>();
+		const subject = createMediaSubject<FileState>(initialFileState);
 		const poll = new PollingFunction();
 
 		// ensure subject errors if polling exceeds max iterations or uncaught exception in executor
 		poll.onError = (error: Error) => subject.error(error);
 
 		poll.execute(async () => {
+			if (!forceRefresh && initialFileState?.status === 'processed') {
+				subject.complete();
+				return;
+			}
+
 			if (forceRefresh) {
 				this.dataloader.clear({
 					id,

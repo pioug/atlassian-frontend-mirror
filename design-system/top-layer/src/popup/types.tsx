@@ -195,7 +195,7 @@ type TPopupContentBaseProps = {
 	 */
 	xcss?: StrictXCSSProp<'backgroundColor', never>;
 
-	// ── Standalone props ──
+	// Standalone props
 	// Used when PopupContent is rendered outside the <Popup> compound
 	// component (e.g. tooltip, which has its own trigger lifecycle).
 	// When inside <Popup>, these are supplied by context automatically.

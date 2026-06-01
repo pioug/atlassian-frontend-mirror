@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 import { syncBlock, bodiedSyncBlock } from '@atlaskit/adf-schema';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type {
@@ -9,6 +10,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -230,6 +232,14 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 			};
 			cachedSharedState = nextSharedState;
 			return nextSharedState;
+		},
+
+		// Destroy the SyncBlockStoreManager on editor unmount to cancel
+		// pending timers, subscriptions, and in-flight fetches.
+		destroy() {
+			if (fg('platform_synced_block_patch_14')) {
+				syncBlockStore.destroy();
+			}
 		},
 	};
 };

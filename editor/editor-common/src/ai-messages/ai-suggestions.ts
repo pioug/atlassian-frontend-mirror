@@ -151,6 +151,51 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	thinkingCheckingRelatedSources: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingCompleteClose: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingCompleteReviewComplete: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingCompleteViewSuggestions: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingEscHint: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingIdentifyingImprovements: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingPreparingSuggestions: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingReviewingContent: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingStopLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	titleLabel: {
 		defaultMessage: string;
 		description: string;
@@ -163,7 +208,7 @@ export const aiSuggestionsMessages: {
 	};
 } = defineMessages({
 	suggestEditsButtonLabel: {
-		id: 'fabric.editor.ai.suggestions.suggestEdits.buttonLabel',
+		id: 'fabric.editor.ai.suggestions.suggestEditsButtonLabel',
 		defaultMessage: 'Review',
 		description: 'Label for the Suggest edits button in the editor toolbar',
 	},
@@ -325,5 +370,51 @@ export const aiSuggestionsMessages: {
 		id: 'fabric.editor.ai.suggestions.card.scrollBackToSuggestionLabel.non-final',
 		defaultMessage: 'Back to suggestion',
 		description: 'Label for the scroll back to suggestion button on the AI suggestions card',
+	},
+	thinkingEscHint: {
+		id: 'fabric.editor.ai.suggestions.thinking.escHint.non-final',
+		defaultMessage: 'Esc',
+		description: 'Keyboard hint showing the Esc key can be used to cancel',
+	},
+	thinkingStopLabel: {
+		id: 'fabric.editor.ai.suggestions.thinking.stopLabel.non-final',
+		defaultMessage: 'Stop',
+		description:
+			'Accessible label for the stop button displayed while the AI is thinking. When clicked, it cancels the ongoing action.',
+	},
+	thinkingReviewingContent: {
+		id: 'fabric.editor.ai.suggestions.thinking.reviewingContent.non-final',
+		defaultMessage: 'Reviewing content',
+		description: 'Loading message shown while the AI is reviewing the content',
+	},
+	thinkingCheckingRelatedSources: {
+		id: 'fabric.editor.ai.suggestions.thinking.checkingRelatedSources.non-final',
+		defaultMessage: 'Checking related sources',
+		description: 'Loading message shown while the AI is checking related sources',
+	},
+	thinkingIdentifyingImprovements: {
+		id: 'fabric.editor.ai.suggestions.thinking.identifyingImprovements.non-final',
+		defaultMessage: 'Identifying improvements',
+		description: 'Loading message shown while the AI is identifying improvements',
+	},
+	thinkingPreparingSuggestions: {
+		id: 'fabric.editor.ai.suggestions.thinking.preparingSuggestions.non-final',
+		defaultMessage: 'Preparing suggestions',
+		description: 'Loading message shown while the AI is preparing suggestions',
+	},
+	thinkingCompleteReviewComplete: {
+		id: 'fabric.editor.ai.suggestions.thinkingComplete.reviewComplete.non-final',
+		defaultMessage: 'Suggestions ready',
+		description: 'Text shown when the AI has finished reviewing the content',
+	},
+	thinkingCompleteViewSuggestions: {
+		id: 'fabric.editor.ai.suggestions.thinkingComplete.viewSuggestions.non-final',
+		defaultMessage: 'View',
+		description: 'Label for the button that opens the suggestions panel',
+	},
+	thinkingCompleteClose: {
+		id: 'fabric.editor.ai.suggestions.thinkingComplete.close.non-final',
+		defaultMessage: 'Close',
+		description: 'Accessible label for the close button on the thinking complete bar',
 	},
 });

@@ -25,7 +25,7 @@ test.describe('native popover and dialog API timing', () => {
 		);
 	});
 
-	// ─── showPopover() ────────────────────────────────────────────────────
+	// showPopover()
 
 	test('showPopover: should throw when element has no popover attribute', async ({ page }) => {
 		const threw = await page.evaluate(() => {
@@ -77,7 +77,7 @@ test.describe('native popover and dialog API timing', () => {
 		expect(count).toBe(0);
 	});
 
-	// ─── hidePopover() ────────────────────────────────────────────────────
+	// hidePopover()
 
 	test('hidePopover: should throw when element has no popover attribute', async ({ page }) => {
 		const threw = await page.evaluate(() => {
@@ -113,7 +113,7 @@ test.describe('native popover and dialog API timing', () => {
 		expect(count).toBe(0);
 	});
 
-	// ─── popover beforetoggle event ───────────────────────────────────────
+	// popover beforetoggle event
 
 	test('popover beforetoggle: should fire synchronously during showPopover', async ({ page }) => {
 		const log = await page.evaluate(() => {
@@ -260,7 +260,7 @@ test.describe('native popover and dialog API timing', () => {
 		expect(isVisible).toBe(false);
 	});
 
-	// ─── popover toggle event ─────────────────────────────────────────────
+	// popover toggle event
 
 	test('popover toggle: should fire as a task, after microtasks drain', async ({ page }) => {
 		const log = await page.evaluate(() => {
@@ -357,7 +357,7 @@ test.describe('native popover and dialog API timing', () => {
 		expect(bubbles).toBe(false);
 	});
 
-	// ─── popover toggle event coalescing ──────────────────────────────────
+	// popover toggle event coalescing
 
 	test('popover toggle coalescing: should coalesce show+hide into one toggle event', async ({
 		page,
@@ -438,7 +438,7 @@ test.describe('native popover and dialog API timing', () => {
 		expect(events).toEqual(['closed->open', 'open->closed']);
 	});
 
-	// ─── togglePopover() ──────────────────────────────────────────────────
+	// togglePopover()
 
 	test('togglePopover: should open a closed popover and return true', async ({ page }) => {
 		const result = await page.evaluate(() => {
@@ -527,7 +527,7 @@ test.describe('native popover and dialog API timing', () => {
 		expect(result).toEqual({ returnValue: false, isOpen: false });
 	});
 
-	// ─── dialog.showModal() ───────────────────────────────────────────────
+	// dialog.showModal()
 
 	test('dialog showModal: should throw when dialog is not connected', async ({ page }) => {
 		const threw = await page.evaluate(() => {
@@ -641,7 +641,7 @@ test.describe('native popover and dialog API timing', () => {
 		expect(cancelable).toBe(false);
 	});
 
-	// ─── dialog.show() ────────────────────────────────────────────────────
+	// dialog.show()
 
 	test('dialog show: should fire beforetoggle synchronously with closed→open', async ({ page }) => {
 		const log = await page.evaluate(() => {
@@ -681,7 +681,7 @@ test.describe('native popover and dialog API timing', () => {
 		expect(captured).toEqual({ oldState: 'closed', newState: 'open' });
 	});
 
-	// ─── dialog.close() ───────────────────────────────────────────────────
+	// dialog.close()
 
 	test('dialog close: should be a no-op when already closed', async ({ page }) => {
 		const events = await page.evaluate(() => {
@@ -831,7 +831,7 @@ test.describe('native popover and dialog API timing', () => {
 		expect(cancelable).toBe(false);
 	});
 
-	// ─── dialog.returnValue ───────────────────────────────────────────────
+	// dialog.returnValue
 
 	test('dialog returnValue: should default to empty string', async ({ page }) => {
 		const value = await page.evaluate(() => {

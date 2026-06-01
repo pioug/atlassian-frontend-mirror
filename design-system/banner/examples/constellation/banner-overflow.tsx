@@ -1,13 +1,16 @@
 import React from 'react';
 
+import { cssMap } from '@compiled/react';
+
 import Banner from '@atlaskit/banner';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
-const containerStyles = xcss({
-	maxWidth: '400px',
-	margin: 'auto',
+const containerStyles = cssMap({
+	root: {
+		maxWidth: '400px',
+		margin: 'auto',
+	},
 });
 
 const message =
@@ -15,7 +18,7 @@ const message =
 
 const BannerOverflowExample = (): React.JSX.Element => {
 	return (
-		<Box xcss={containerStyles}>
+		<Box xcss={containerStyles.root}>
 			<Banner icon={<WarningIcon label="Warning" />}>{message}</Banner>
 		</Box>
 	);

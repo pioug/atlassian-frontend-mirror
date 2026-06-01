@@ -1,6 +1,7 @@
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ResourceId, BlockInstanceId } from '../common/types';
 import type {
@@ -16,6 +17,8 @@ import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
 import { getSourceProductFromResourceIdSafe } from '../utils/utils';
 
 export interface SyncBlockSubscriptionManagerDeps {
+	/** Cancels any pending cache deletion timer for `resourceId` (gated). */
+	cancelPendingCacheDeletion: (resourceId: ResourceId) => void;
 	debouncedBatchedFetchSyncBlocks: (resourceId: string) => void;
 	deleteFromCache: (resourceId: ResourceId) => void;
 	fetchSyncBlockSourceInfo: (resourceId: ResourceId) => Promise<SyncBlockSourceInfo | undefined>;
@@ -23,6 +26,8 @@ export interface SyncBlockSubscriptionManagerDeps {
 	getFireAnalyticsEvent: () => ((payload: RendererSyncBlockEventPayload) => void) | undefined;
 	getFromCache: (resourceId: ResourceId) => SyncBlockInstance | undefined;
 	markCacheDirty: () => void;
+	/** Schedules guarded cache deletion for `resourceId` after a grace period (gated). */
+	scheduleCacheDeletion: (resourceId: ResourceId) => void;
 	updateCache: (syncBlockInstance: SyncBlockInstance) => void;
 }
 
@@ -32,6 +37,7 @@ export interface SyncBlockSubscriptionManagerDeps {
  * and provides a listener API so React components can react when the set
  * of subscribed resource IDs changes.
  */
+
 export class SyncBlockSubscriptionManager {
 	private subscriptions = new Map<
 		ResourceId,
@@ -134,8 +140,14 @@ export class SyncBlockSubscriptionManager {
 		// This handles the case where a block is moved - the old component unmounts
 		// (scheduling deletion) but the new component mounts and subscribes before
 		// the deletion timeout fires.
+		//
+		// Under the flag, cache deletion is owned by the store manager.
+		// With the flag off, the legacy 1s timer path is preserved.
 		const pendingDeletion = this.pendingCacheDeletions.get(resourceId);
-		if (pendingDeletion) {
+
+		if (fg('platform_synced_block_patch_14')) {
+			this.deps.cancelPendingCacheDeletion(resourceId);
+		} else if (pendingDeletion) {
 			clearTimeout(pendingDeletion);
 			this.pendingCacheDeletions.delete(resourceId);
 		}
@@ -173,7 +185,9 @@ export class SyncBlockSubscriptionManager {
 				this.deps.markCacheDirty();
 
 				delete resourceSubscriptions[localId];
-				if (Object.keys(resourceSubscriptions).length === 0) {
+				const remainingIds = Object.keys(resourceSubscriptions);
+
+				if (remainingIds.length === 0) {
 					this.subscriptions.delete(resourceId);
 
 					// Clean up GraphQL subscription when no more local subscribers
@@ -182,19 +196,30 @@ export class SyncBlockSubscriptionManager {
 					// Notify listeners that subscription was removed
 					this.notifySubscriptionChangeListeners();
 
-					// Delay cache deletion to handle block moves (unmount/remount).
-					// When a block is moved, the old component unmounts before the new one mounts.
-					// By delaying deletion, we give the new component time to subscribe and
-					// cancel this pending deletion, preserving the cached data.
-					// TODO: EDITOR-4152 - Rework this logic
-					const deletionTimeout = setTimeout(() => {
-						// Only delete if still no subscribers (wasn't re-subscribed)
-						if (!this.subscriptions.has(resourceId)) {
-							this.deps.deleteFromCache(resourceId);
-						}
-						this.pendingCacheDeletions.delete(resourceId);
-					}, 1000);
-					this.pendingCacheDeletions.set(resourceId, deletionTimeout);
+					// Under the flag, delegate cache deletion to the store manager
+					// which uses a 30s grace period with guard re-checks.
+					if (fg('platform_synced_block_patch_14')) {
+						this.deps.scheduleCacheDeletion(resourceId);
+					} else {
+						// Legacy path (unchanged): delay cache deletion to handle
+						// block moves (unmount/remount). When a block is moved, the
+						// old component unmounts before the new one mounts. By
+						// delaying deletion, we give the new component time to
+						// subscribe and cancel this pending deletion, preserving
+						// the cached data.
+						// TODO: EDITOR-4152 - Rework this logic (superseded by
+						// `platform_synced_block_patch_14`).
+						const deletionTimeout = setTimeout(() => {
+							const hasSubscribers = this.subscriptions.has(resourceId);
+
+							// Only delete if still no subscribers (wasn't re-subscribed)
+							if (!hasSubscribers) {
+								this.deps.deleteFromCache(resourceId);
+							}
+							this.pendingCacheDeletions.delete(resourceId);
+						}, 1000);
+						this.pendingCacheDeletions.set(resourceId, deletionTimeout);
+					}
 				} else {
 					this.subscriptions.set(resourceId, resourceSubscriptions);
 				}

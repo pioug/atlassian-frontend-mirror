@@ -85,6 +85,27 @@ const styles = cssMapUnbound({
 		pointerEvents: 'auto',
 		position: 'relative',
 	},
+	trailingMetric: {
+		display: 'inline-flex',
+		boxSizing: 'border-box',
+		minWidth: token('space.300'),
+		justifyContent: 'center',
+		alignItems: 'center',
+		flexShrink: 0,
+		blockSize: 'min-content',
+		borderRadius: token('radius.xsmall', '2px'),
+		paddingInline: token('space.050'),
+		paddingBlock: 0,
+		font: token('font.body.small'),
+		// Use the subtler background accent color (--tag-metric-bg-token is set per color)
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		backgroundColor: 'var(--tag-metric-bg-token)',
+		color: token('color.text'),
+	},
+	// When the metric is the last element (non-removable/no-chevron), reduce end padding so only ~1px gap remains
+	trailingMetricEndPadding: {
+		paddingInlineEnd: '0.0625rem',
+	},
 	focusRingStyles: {
 		// Only show focus ring when keyboard navigating (not mouse clicks)
 		'&:focus-visible': {
@@ -157,46 +178,57 @@ const styles = cssMapUnbound({
 });
 
 // Border and icon color styles - each color sets CSS variables for its token values
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 const colorStyles = cssMapUnbound({
 	gray: {
 		'--tag-border-token': token('color.border.accent.gray'),
 		'--tag-icon-token': token('color.icon.accent.gray'),
+		'--tag-metric-bg-token': token('color.background.accent.gray.subtler'),
 	},
 	blue: {
 		'--tag-border-token': token('color.border.accent.blue'),
 		'--tag-icon-token': token('color.icon.accent.blue'),
+		'--tag-metric-bg-token': token('color.background.accent.blue.subtler'),
 	},
 	green: {
 		'--tag-border-token': token('color.border.accent.green'),
 		'--tag-icon-token': token('color.icon.accent.green'),
+		'--tag-metric-bg-token': token('color.background.accent.green.subtler'),
 	},
 	red: {
 		'--tag-border-token': token('color.border.accent.red'),
 		'--tag-icon-token': token('color.icon.accent.red'),
+		'--tag-metric-bg-token': token('color.background.accent.red.subtler'),
 	},
 	yellow: {
 		'--tag-border-token': token('color.border.accent.yellow'),
 		'--tag-icon-token': token('color.icon.accent.yellow'),
+		'--tag-metric-bg-token': token('color.background.accent.yellow.subtler'),
 	},
 	purple: {
 		'--tag-border-token': token('color.border.accent.purple'),
 		'--tag-icon-token': token('color.icon.accent.purple'),
+		'--tag-metric-bg-token': token('color.background.accent.purple.subtler'),
 	},
 	lime: {
 		'--tag-border-token': token('color.border.accent.lime'),
 		'--tag-icon-token': token('color.icon.accent.lime'),
+		'--tag-metric-bg-token': token('color.background.accent.lime.subtler'),
 	},
 	magenta: {
 		'--tag-border-token': token('color.border.accent.magenta'),
 		'--tag-icon-token': token('color.icon.accent.magenta'),
+		'--tag-metric-bg-token': token('color.background.accent.magenta.subtler'),
 	},
 	orange: {
 		'--tag-border-token': token('color.border.accent.orange'),
 		'--tag-icon-token': token('color.icon.accent.orange'),
+		'--tag-metric-bg-token': token('color.background.accent.orange.subtler'),
 	},
 	teal: {
 		'--tag-border-token': token('color.border.accent.teal'),
 		'--tag-icon-token': token('color.icon.accent.teal'),
+		'--tag-metric-bg-token': token('color.background.accent.teal.subtler'),
 	},
 });
 
@@ -353,6 +385,7 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 		hasMargin = true,
 		onClick,
 		swatchBefore,
+		trailingMetric,
 		...other
 	},
 	ref,
@@ -404,6 +437,8 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 				isRemovable && styles.removableStyles,
 				// Show focus ring when link is focused (but not when button is focused)
 				isLinkFocused && !isButtonFocused && styles.childFocusRingStyles,
+				// Reduce end padding when trailing metric is the last element (non-removable)
+				!isRemovable && trailingMetric != null && trailingMetric !== '' && styles.trailingMetricEndPadding,
 			]}
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
@@ -426,6 +461,14 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 				<span css={styles.textStyles} data-tag-text>
 					{normalizedText}
 				</span>
+				{trailingMetric != null && trailingMetric !== '' && (
+					<span
+						css={styles.trailingMetric}
+						data-testid={testId && `${testId}--metric`}
+					>
+						{trailingMetric}
+					</span>
+				)}
 			</LinkWrapper>
 			{removeButton && <span css={styles.afterStyles}>{removeButton}</span>}
 		</span>
@@ -466,6 +509,7 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 		analyticsContext: _analyticsContext,
 		hasChevron = true,
 		swatchBefore,
+		trailingMetric,
 		...other
 	},
 	ref,
@@ -485,6 +529,8 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 				styles.focusRingStyles,
 				borderIconInteractiveFilterStyles.root,
 				isSelected && dropdownStyles.selected,
+				// Reduce end padding when trailing metric is the last element (no chevron)
+				!hasChevron && trailingMetric != null && trailingMetric !== '' && styles.trailingMetricEndPadding,
 			)}
 			onClick={isLoading ? undefined : onClick}
 			style={{
@@ -506,6 +552,14 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 				<span css={[styles.textStyles, isSelected && styles.textStylesSelected]} data-tag-text>
 					{getTagText(text)}
 				</span>
+				{trailingMetric != null && trailingMetric !== '' && (
+					<span
+						css={styles.trailingMetric}
+						data-testid={testId && `${testId}--metric`}
+					>
+						{trailingMetric}
+					</span>
+				)}
 				{hasChevron && (
 					<ChevronDownIcon
 						label=""

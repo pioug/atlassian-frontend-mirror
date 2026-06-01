@@ -24,8 +24,14 @@ export const LAYOUT_COLUMN_VERTICAL_ALIGN_MENU_SECTION: MenuSectionType = {
 	key: 'layout-column-vertical-align-menu-section',
 };
 
+export const LAYOUT_COLUMN_DANGER_SECTION: MenuSectionType = {
+	type: 'menu-section',
+	key: 'layout-column-danger-section',
+};
+
 export const LAYOUT_COLUMN_MENU_RANK: Record<string, number> = {
 	[LAYOUT_COLUMN_MENU_SECTION.key]: 100,
+	[LAYOUT_COLUMN_DANGER_SECTION.key]: 200,
 };
 
 // --- Menus ---
@@ -79,7 +85,10 @@ export const LAYOUT_COLUMN_MENU_SECTION_RANK: Record<string, number> = {
 	[INSERT_COLUMN_LEFT_MENU_ITEM.key]: 200,
 	[INSERT_COLUMN_RIGHT_MENU_ITEM.key]: 300,
 	[DISTRIBUTE_COLUMNS_MENU_ITEM.key]: 400,
-	[DELETE_COLUMN_MENU_ITEM.key]: 500,
+};
+
+export const LAYOUT_COLUMN_DANGER_SECTION_RANK: Record<string, number> = {
+	[DELETE_COLUMN_MENU_ITEM.key]: 100,
 };
 
 export const VERTICAL_ALIGN_MENU_RANK: Record<string, number> = {

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Link from '@atlaskit/link';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 
 export default (): React.JSX.Element => (

@@ -1,7 +1,6 @@
 import React, { forwardRef, type Ref } from 'react';
 
 import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Anchor, Box } from '@atlaskit/primitives/compiled';
 
 type MyRouterLinkConfig = {

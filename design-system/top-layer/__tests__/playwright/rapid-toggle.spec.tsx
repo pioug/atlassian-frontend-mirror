@@ -1,14 +1,12 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import { expect, test } from '@af/integration-testing';
 
-// ─────────────────────────────────────────────────────────────────────────────
 // Popup - rapid toggle
 //
-// Validates that rapid open/close sequences don't corrupt popover state.
+// Validates that rapid open/close sequences do not corrupt popover state.
 // Two tests:
 //  1. Even/odd clicks produce predictable open state (no stuck state, no ghost)
 //  2. Recovery: popover works normally after rapid toggling
-// ─────────────────────────────────────────────────────────────────────────────
 test.describe('Popup - rapid toggle', () => {
 	// Verifies that the open/closed state matches click parity and that no
 	// ghost popovers accumulate in the DOM during rapid interaction.
@@ -46,7 +44,7 @@ test.describe('Popup - rapid toggle', () => {
 		expect(visiblePopovers).toBeLessThanOrEqual(1);
 	});
 
-	// After a rapid toggle sequence the popover must work normally —
+	// After a rapid toggle sequence the popover must work normally -
 	// open on click, dismiss on Escape, focus returns to trigger.
 	test('popover recovers to normal behaviour after rapid toggling', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/118-testing-popover-rapid-toggle.tsx')>(
@@ -69,7 +67,7 @@ test.describe('Popup - rapid toggle', () => {
 		await trigger.click();
 		await expect(content).toBeVisible();
 
-		// Close via Escape — run trial click on trigger for actionability before keypress
+		// Close via Escape - run trial click on trigger for actionability before keypress
 		await expect(trigger).toBeFocused();
 		await trigger.click({ trial: true });
 		await page.keyboard.press('Escape');

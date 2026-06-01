@@ -45,7 +45,7 @@ function DialogWithAutofocusPopup() {
 	const [isOpen, setIsOpen] = useState(false);
 	// Set the native HTML autofocus attribute via a ref callback.
 	// React 18's autoFocus JSX prop does not set the HTML attribute or
-	// the DOM property — it only calls .focus() imperatively after mount,
+	// the DOM property - it only calls .focus() imperatively after mount,
 	// which has no effect on a hidden popover. Setting the attribute lets
 	// our useInitialFocus hook find and focus this element after the
 	// popover is shown.

@@ -19,13 +19,16 @@ import UFOSegment, { type Props as SegmentProps } from './segment';
 import {
 	isDomMutationsFinalBatch,
 	shapeDomMutationsData,
-	shapeFrameMarkData,
-	shapeFrameMeasureData,
+	shapeLargestContentfulPaintData,
 	shapeLayoutShiftData,
 	shapePaintTimingData,
 } from './shape-iframe-dom-events';
 
 const FORGE_TTAI_EVENT_PREFIX = 'ufo-forge';
+// Early-signal event emitted by the iframe bridge as soon as it wires up its
+// UFO observers. Receiving this within ABORT_TIMEOUT_INITIAL_MS tells us the
+// iframe is on the new rollout cohort and will send data events.
+const FORGE_INIT_EVENT = 'ufo-forge-init';
 
 // Grace period (ms) after the navigation hold releases before finalising.
 const GRACE_PERIOD_MS = 2_000;
@@ -43,9 +46,8 @@ const ABORT_TIMEOUT_EXTENDED_MS = 60_000;
 // Events logged via addIframeSegmentData as they arrive.
 const IFRAME_SEGMENT_DATA_SUFFIXES = [
 	'resource-timing',
-	'frame-mark',
-	'frame-measure',
 	'paint-timing',
+	'largest-contentful-paint',
 	'layout-shift',
 	'dom-mutations',
 	'navigation-timing',
@@ -171,7 +173,7 @@ function IframeSegment({
 			}
 		};
 
-		// Start with the short initial timeout. If no recognised iframe event arrives
+		// Start with the short initial timeout. If no ufo-forge-init signal arrives
 		// within this window, the iframe is likely an old-cohort app that will never
 		// send events — abort early to avoid blocking the interaction indefinitely.
 		abortTimer = setTimeout(() => {
@@ -229,23 +231,13 @@ function IframeSegment({
 					data = shapeNavigationTimingData(restData);
 				} else if (suffix === 'paint-timing') {
 					data = shapePaintTimingData(restData);
-				} else if (suffix === 'frame-mark') {
-					data = shapeFrameMarkData(restData);
-				} else if (suffix === 'frame-measure') {
-					data = shapeFrameMeasureData(restData);
+				} else if (suffix === 'largest-contentful-paint') {
+					data = shapeLargestContentfulPaintData(restData);
 				} else if (suffix === 'layout-shift') {
 					data = shapeLayoutShiftData(restData);
 				} else if (suffix === 'dom-mutations') {
 					// Skip intermediate batches — only record the final summary batch.
 					if (!isDomMutationsFinalBatch(restData)) {
-						// Still update iframeEventsReceived / abort timer below, but don't store.
-						if (!iframeEventsReceived) {
-							iframeEventsReceived = true;
-							clearTimeout(abortTimer);
-							abortTimer = setTimeout(() => {
-								fireAbort(ABORT_TIMEOUT_EXTENDED_MS);
-							}, ABORT_TIMEOUT_EXTENDED_MS - ABORT_TIMEOUT_INITIAL_MS);
-						}
 						return;
 					}
 					data = shapeDomMutationsData(restData);
@@ -256,16 +248,19 @@ function IframeSegment({
 					label: suffix,
 					data,
 				});
+			}
 
-				// First recognised event — the iframe is on the new rollout cohort.
-				// Extend the abort timeout to accommodate legitimately slow-loading apps.
-				if (!iframeEventsReceived) {
-					iframeEventsReceived = true;
-					clearTimeout(abortTimer);
-					abortTimer = setTimeout(() => {
-						fireAbort(ABORT_TIMEOUT_EXTENDED_MS);
-					}, ABORT_TIMEOUT_EXTENDED_MS - ABORT_TIMEOUT_INITIAL_MS);
-				}
+			// ufo-forge-init confirms the iframe is on the new rollout cohort — extend the abort window.
+			if (eventName === FORGE_INIT_EVENT && !iframeEventsReceived) {
+				iframeEventsReceived = true;
+				clearTimeout(abortTimer);
+				const remainingMs = Math.max(
+					ABORT_TIMEOUT_EXTENDED_MS - (performance.now() - mountTime),
+					0,
+				);
+				abortTimer = setTimeout(() => {
+					fireAbort(ABORT_TIMEOUT_EXTENDED_MS);
+				}, remainingMs);
 			}
 
 			if (eventName.endsWith('-navigation-timing') && !navigationHoldReleased) {

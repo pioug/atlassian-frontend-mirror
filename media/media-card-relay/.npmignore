@@ -1,0 +1,13 @@
+**/__tests__
+**/*.spec.ts
+**/*.spec.tsx
+**/*.test.ts
+**/*.test.tsx
+**/*.vr.ts
+**/*.vr.tsx
+**/vr-tests
+examples
+docs
+.storybook
+*.stories.ts
+*.stories.tsx

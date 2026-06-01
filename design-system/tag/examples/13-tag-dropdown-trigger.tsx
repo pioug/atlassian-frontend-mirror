@@ -112,6 +112,23 @@ const MaxWidthExample = () => (
 	</Stack>
 );
 
+const TrailingMetricExample = () => (
+	<Stack space="space.100">
+		<Heading size="xsmall" as="h3">
+			Trailing metric
+		</Heading>
+		<Text as="p" size="small" color="color.text.subtlest">
+			Use <code>trailingMetric</code> to render a trailing metric after the tag text. It matches
+			the tag's border color.
+		</Text>
+		<Inline space="space.100">
+			<TagDropdownTrigger text="Comments" trailingMetric={24} />
+			<TagDropdownTrigger text="Updates" color="blue" trailingMetric="99+" />
+			<TagDropdownTrigger text="Selected" isSelected trailingMetric={3} />
+		</Inline>
+	</Stack>
+);
+
 const SwatchBeforeExample = () => (
 	<Stack space="space.100">
 		<Heading size="xsmall" as="h3">
@@ -249,6 +266,7 @@ export default (): JSX.Element => (
 			<SelectedExample />
 			<LoadingExample />
 			<MaxWidthExample />
+			<TrailingMetricExample />
 		</Stack>
 	</Box>
 );

@@ -59,7 +59,7 @@ test.describe('Nested layers - nested popovers', () => {
 		await page.getByTestId('first-trigger').click();
 		await page.getByTestId('second-trigger').click();
 
-		// second popover uses role="dialog" — content gets auto-focus, use it for trial click
+		// second popover uses role="dialog" - content gets auto-focus, use it for trial click
 		await expect(page.getByTestId('second-popover')).toBeVisible();
 		await page.getByTestId('second-popover').click({ trial: true });
 		await page.keyboard.press('Escape');
@@ -82,7 +82,7 @@ test.describe('Nested layers - nested popovers', () => {
 		await expect(page.getByTestId('first-popover')).toBeVisible();
 
 		await secondTrigger.click();
-		// second popover uses role="dialog" — content gets auto-focus, use it for trial click
+		// second popover uses role="dialog" - content gets auto-focus, use it for trial click
 		await expect(page.getByTestId('second-popover')).toBeVisible();
 		await page.getByTestId('second-popover').click({ trial: true });
 		await page.keyboard.press('Escape');
@@ -173,7 +173,7 @@ test.describe('Nested layers - popover in dialog', () => {
 		await popoverTrigger.click();
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 
-		// Escape closes nested popover — popover-content auto-focused on open (role=dialog),
+		// Escape closes nested popover - popover-content auto-focused on open (role=dialog),
 		// use it for trial actionability check before Escape
 		const popoverContent = page.getByTestId('popover-content');
 		await expect(popoverContent).toBeVisible();

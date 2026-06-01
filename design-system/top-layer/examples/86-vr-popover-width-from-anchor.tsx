@@ -85,21 +85,21 @@ function PopoverWidthFromAnchor({ mode }: { mode: 'none' | 'match-anchor' | 'min
 }
 
 /**
- * `widthFromAnchor="none"` — popover sizes to its own content, ignoring anchor width.
+ * `widthFromAnchor="none"` - popover sizes to its own content, ignoring anchor width.
  */
 export function VrPopoverWidthFromAnchorNone(): JSX.Element {
 	return <PopoverWidthFromAnchor mode="none" />;
 }
 
 /**
- * `widthFromAnchor="match-anchor"` — popover width exactly matches the anchor width.
+ * `widthFromAnchor="match-anchor"` - popover width exactly matches the anchor width.
  */
 export function VrPopoverWidthFromAnchorMatchAnchor(): JSX.Element {
 	return <PopoverWidthFromAnchor mode="match-anchor" />;
 }
 
 /**
- * `widthFromAnchor="min-anchor"` — popover is at least as wide as the anchor, but
+ * `widthFromAnchor="min-anchor"` - popover is at least as wide as the anchor, but
  * can grow wider if its content requires it.
  */
 export function VrPopoverWidthFromAnchorMinAnchor(): JSX.Element {

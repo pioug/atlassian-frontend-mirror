@@ -20,7 +20,13 @@ interface RuleOptions {
 	applyToImportsFrom?: string[];
 	/**
 	 * When a barrel re-exports from another package, prefer `@scope/barrel/subpath` if that
-	 * subpath's entry file directly re-exports from the dependency, instead of importing the dependency package.
+	 * subpath's entry file directly re-exports from the dependency, instead of importing the
+	 * dependency package.
+	 *
+	 * If no such bridge subpath exists in the imported package, the specifier is left in
+	 * the original barrel import unchanged (i.e. the rule will NOT fall through to rewriting
+	 * the import to a subpath of the dependency package). This keeps consumers from being
+	 * dragged across a package boundary they did not opt into.
 	 */
 	preferImportedPackageSubpath?: boolean;
 }
@@ -66,7 +72,7 @@ const ruleMeta: Rule.RuleMetaData = {
 				preferImportedPackageSubpath: {
 					type: 'boolean',
 					description:
-						'Prefer subpaths on the imported barrel package when they bridge to the dependency (e.g. @scope/pkg/subpath instead of @scope/dependency).',
+						'Prefer subpaths on the imported barrel package when they bridge to the dependency (e.g. @scope/pkg/subpath instead of @scope/dependency). If no bridge subpath exists, the import is left unchanged instead of being rewritten to a subpath of the dependency package.',
 				},
 			},
 			additionalProperties: false,
@@ -87,7 +93,16 @@ function getImportedName(spec: TSESTree.ImportSpecifier): string {
 }
 
 /**
- * Build an import statement for a set of specifiers
+ * Build an import statement for a set of specifiers.
+ *
+ * Handles the edge case where multiple `ImportDefaultSpecifier`s with distinct local
+ * names appear in `specs` — which can happen when merging an aliased barrel re-export
+ * into a file that already has a subpath default import (e.g. merging the rewrite of
+ * `import { Pressable as EmotionPressable } from '@atlaskit/primitives'` into an
+ * existing `import Pressable from '@atlaskit/primitives/pressable'`). JavaScript only
+ * allows one `default` import per statement, so we keep the first default as the
+ * canonical binding and rebind the rest via `{ default as <local> }` named imports.
+ * Defaults with duplicate local names are deduplicated (idempotent merges).
  */
 function buildImportStatement({
 	specs,
@@ -100,52 +115,76 @@ function buildImportStatement({
 	quoteChar: string;
 	isTypeImport?: boolean;
 }): string {
-	const importNames = specs
-		.map((spec) => {
-			if (spec.type === 'ImportDefaultSpecifier') {
-				return spec.local.name;
-			} else if (spec.type === 'ImportSpecifier') {
-				const imported = getImportedName(spec);
-				const local = spec.local.name;
-				const isInlineType = spec.importKind === 'type' && !isTypeImport;
-				const prefix = isInlineType ? 'type ' : '';
-				return imported === local ? `${prefix}${imported}` : `${prefix}${imported} as ${local}`;
-			}
-			return '';
-		})
-		.filter((name) => name.length > 0);
+	const defaultSpecs = specs.filter(
+		(spec): spec is AugmentedSpecifier & TSESTree.ImportDefaultSpecifier =>
+			spec.type === 'ImportDefaultSpecifier',
+	);
+	const namedSpecsFromInput = specs.filter(
+		(spec): spec is AugmentedSpecifier & TSESTree.ImportSpecifier =>
+			spec.type === 'ImportSpecifier',
+	);
 
-	if (importNames.length === 0) {
+	// Deduplicate defaults sharing the same local name so repeated merges stay idempotent.
+	const seenDefaultLocals = new Set<string>();
+	const uniqueDefaultSpecs = defaultSpecs.filter((spec) => {
+		if (seenDefaultLocals.has(spec.local.name)) {
+			return false;
+		}
+		seenDefaultLocals.add(spec.local.name);
+		return true;
+	});
+
+	const [primaryDefault, ...extraDefaults] = uniqueDefaultSpecs;
+	const rebindAsNamed: AugmentedSpecifier[] = extraDefaults.map(
+		(spec) =>
+			({
+				type: 'ImportSpecifier',
+				imported: {
+					type: 'Identifier',
+					name: 'default',
+					range: [0, 0],
+					loc: { start: { line: 0, column: 0 }, end: { line: 0, column: 0 } },
+				} as TSESTree.Identifier,
+				local: spec.local,
+				importKind: spec.importKind,
+				range: spec.range,
+				loc: spec.loc,
+				parent: spec.parent,
+			} as TSESTree.ImportSpecifier as AugmentedSpecifier),
+	);
+	const namedSpecs = [...namedSpecsFromInput, ...rebindAsNamed];
+
+	const formatNamed = (spec: AugmentedSpecifier): string => {
+		if (spec.type !== 'ImportSpecifier') {
+			return '';
+		}
+		const imported = getImportedName(spec);
+		const local = spec.local.name;
+		const isInlineType = spec.importKind === 'type' && !isTypeImport;
+		const prefix = isInlineType ? 'type ' : '';
+		return imported === local ? `${prefix}${imported}` : `${prefix}${imported} as ${local}`;
+	};
+
+	const namedImports = namedSpecs
+		.map(formatNamed)
+		.filter((name) => name.length > 0)
+		.join(', ');
+
+	const hasDefault = !!primaryDefault;
+	const hasNamed = namedImports.length > 0;
+
+	if (!hasDefault && !hasNamed) {
 		return '';
 	}
 
 	const typeKeyword = isTypeImport ? 'type ' : '';
-	const hasDefault = specs.some((spec) => spec.type === 'ImportDefaultSpecifier');
-	const hasNamed = specs.some((spec) => spec.type === 'ImportSpecifier');
 
 	if (hasDefault && hasNamed) {
-		const defaultName = specs.find(
-			(spec): spec is TSESTree.ImportDefaultSpecifier => spec.type === 'ImportDefaultSpecifier',
-		)?.local.name;
-		const namedImports = specs
-			.filter((spec): spec is TSESTree.ImportSpecifier => spec.type === 'ImportSpecifier')
-			.map((spec) => {
-				const imported = getImportedName(spec);
-				const local = spec.local.name;
-				const isInlineType = spec.importKind === 'type' && !isTypeImport;
-				const prefix = isInlineType ? 'type ' : '';
-				return imported === local ? `${prefix}${imported}` : `${prefix}${imported} as ${local}`;
-			})
-			.join(', ');
-
-		return `import ${typeKeyword}${defaultName}, { ${namedImports} } from ${quoteChar}${path}${quoteChar};`;
+		return `import ${typeKeyword}${primaryDefault.local.name}, { ${namedImports} } from ${quoteChar}${path}${quoteChar};`;
 	} else if (hasDefault) {
-		const defaultName = specs.find(
-			(spec): spec is TSESTree.ImportDefaultSpecifier => spec.type === 'ImportDefaultSpecifier',
-		)?.local.name;
-		return `import ${typeKeyword}${defaultName} from ${quoteChar}${path}${quoteChar};`;
+		return `import ${typeKeyword}${primaryDefault.local.name} from ${quoteChar}${path}${quoteChar};`;
 	} else {
-		return `import ${typeKeyword}{ ${importNames.join(', ')} } from ${quoteChar}${path}${quoteChar};`;
+		return `import ${typeKeyword}{ ${namedImports} } from ${quoteChar}${path}${quoteChar};`;
 	}
 }
 
@@ -379,6 +418,18 @@ function classifySpecifiers({
 						});
 						continue;
 					}
+
+					// preferImportedPackageSubpath is opt-in to: "rewrite to a subpath of the
+					// imported package, or leave the import alone". Falling through to the source
+					// package's subpath would drag the consumer across the package boundary,
+					// which is exactly what this flag is meant to prevent. Mark this specifier as
+					// unmapped so the original barrel import stays in place.
+					unmappedSpecifiers.push({
+						spec: spec as AugmentedSpecifier,
+						targetExportPath: null,
+						kind: effectiveKind,
+					});
+					continue;
 				}
 
 				// For cross-package re-exports, find the most specific subpath in the source package
@@ -905,14 +956,14 @@ function buildSyntheticImportFromRequireAccess(
 						type: 'ImportDefaultSpecifier',
 						local: { type: 'Identifier', name: '_r' },
 					},
-				] as TSESTree.ImportDefaultSpecifier[])
+			  ] as TSESTree.ImportDefaultSpecifier[])
 			: ([
 					{
 						type: 'ImportSpecifier',
 						imported: { type: 'Identifier', name: exportPropertyName },
 						local: { type: 'Identifier', name: exportPropertyName },
 					},
-				] as TSESTree.ImportSpecifier[]);
+			  ] as TSESTree.ImportSpecifier[]);
 
 	return {
 		type: 'ImportDeclaration',

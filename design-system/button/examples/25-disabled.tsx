@@ -4,7 +4,6 @@ import capitalize from 'lodash/capitalize';
 
 import Checkbox from '@atlaskit/checkbox';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples

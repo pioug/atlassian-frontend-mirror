@@ -8,7 +8,7 @@ import { expect, test } from '@af/integration-testing';
  * ARIA role.
  */
 test.describe('Popover - role-based initial focus', () => {
-	// ── WCAG 2.4.3 Focus Order ──
+	// WCAG 2.4.3 Focus Order
 	// Dialog popovers should auto-focus the first focusable element on open.
 	test('role="dialog": auto-focuses first focusable element on open', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/123-testing-popover-initial-focus.tsx')>(
@@ -24,7 +24,7 @@ test.describe('Popover - role-based initial focus', () => {
 		await expect(page.getByTestId('dialog-first-button')).toBeFocused();
 	});
 
-	// ── WCAG 2.4.3 Focus Order ──
+	// WCAG 2.4.3 Focus Order
 	// When autofocus attribute is present, it should be respected over
 	// the default first-focusable behavior.
 	test('role="dialog": autofocus attribute is respected when present', async ({ page }) => {
@@ -41,7 +41,7 @@ test.describe('Popover - role-based initial focus', () => {
 		await expect(page.getByTestId('autofocus-target')).toBeFocused();
 	});
 
-	// ── WCAG 2.4.3 Focus Order ──
+	// WCAG 2.4.3 Focus Order
 	// Menu popovers should auto-focus the first menu item on open.
 	test('role="menu": auto-focuses first menu item on open', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/123-testing-popover-initial-focus.tsx')>(
@@ -57,8 +57,8 @@ test.describe('Popover - role-based initial focus', () => {
 		await expect(page.getByTestId('menu-first-item')).toBeFocused();
 	});
 
-	// ── WCAG 2.4.3 Focus Order ──
-	// Tooltip popovers should NOT move focus — they are informational overlays.
+	// WCAG 2.4.3 Focus Order
+	// Tooltip popovers should NOT move focus - they are informational overlays.
 	test('role="tooltip": does NOT move focus', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/123-testing-popover-initial-focus.tsx')>(
 			'design-system',
@@ -78,7 +78,7 @@ test.describe('Popover - role-based initial focus', () => {
 		// Wait for tooltip to appear
 		await expect(page.getByTestId('tooltip-popup')).toBeVisible();
 
-		// Focus should NOT have moved — tooltip never moves focus
+		// Focus should NOT have moved - tooltip never moves focus
 		// Focus should still be on the external input
 		await expect(externalInput).toBeFocused();
 	});

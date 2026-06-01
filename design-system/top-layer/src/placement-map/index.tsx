@@ -1,6 +1,7 @@
 import { type TPlacementOptions } from '../internal/resolve-placement';
 
-import { placementMapping, type TLegacyPlacement } from './legacy-placements';
+import type { TLegacyPlacement } from './legacy-placements';
+import { placementMapping } from './placement-mapping';
 
 /**
  * Maps legacy Popper.js placement values to the new object-based

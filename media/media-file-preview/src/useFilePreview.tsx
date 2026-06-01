@@ -11,6 +11,7 @@ import {
 
 import {
 	type FileIdentifier,
+	type FileState,
 	isImageRepresentationReady,
 	type MediaBlobUrlAttrs,
 	type MediaStoreGetFileImageParams,
@@ -28,6 +29,7 @@ import { useInteractionContext } from '@atlaskit/react-ufo/interaction-context';
 import { createFailedSSRObject, extractErrorInfo, type SSRStatus } from './analytics';
 import { ensureMediaFilePreviewError, ImageLoadError, MediaFilePreviewError } from './errors';
 import {
+	extractCdnSigningParams,
 	getAndCacheLocalPreview,
 	getAndCacheRemotePreview,
 	getSSRPreview,
@@ -81,6 +83,8 @@ export interface UseFilePreviewParams {
 	readonly maxAge?: number;
 	/** Defines the source component */
 	readonly source?: string;
+	/** Initial file state to be used for the preview. */
+	readonly initialFileState?: FileState;
 }
 
 export const useFilePreview = ({
@@ -96,6 +100,7 @@ export const useFilePreview = ({
 	upscale,
 	maxAge,
 	source,
+	initialFileState,
 }: UseFilePreviewParams): {
 	preview: MediaFilePreview | undefined;
 	status: MediaFilePreviewStatus;
@@ -176,12 +181,27 @@ export const useFilePreview = ({
 				// where no SSR occurred, so we should skip SSR preview generation entirely.
 				if (ssr === 'server' || ssrData) {
 					try {
+						// When the relay/SSR-seed path provided a pre-signed CDN URL,
+						// overlay its CDN-signing query params on the URL produced by
+						// getImageUrlSync. This makes the SSR-rendered HTML use the
+						// cdn-signed URL directly (no auth-token -> cdn-signed swap on
+						// hydration) and the 'ssr-data' rehydration path inherits it
+						// automatically via globalScope.
+						const seededCdnUrl =
+							initialFileState && initialFileState.status !== 'error'
+								? initialFileState.previewCdnUrl
+								: undefined;
+						const cdnSigningParams =
+							seededCdnUrl && fg('platform_media_ssr_data_seed')
+								? extractCdnSigningParams(seededCdnUrl)
+								: undefined;
 						return getSSRPreview(
 							ssr,
 							mediaClient,
 							identifier.id,
 							imageURLParams,
 							mediaBlobUrlAttrs,
+							cdnSigningParams,
 						);
 					} catch (e: any) {
 						ssrReliabilityRef.current = {
@@ -207,6 +227,7 @@ export const useFilePreview = ({
 	//----------------------------------------------------------------
 
 	const { fileState } = useFileState(identifier.id, {
+		initialFileState,
 		skipRemote,
 		collectionName: identifier.collectionName,
 		occurrenceKey: identifier.occurrenceKey,

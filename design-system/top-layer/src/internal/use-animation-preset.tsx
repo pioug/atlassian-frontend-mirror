@@ -7,7 +7,7 @@ type TPresetWithCssAndName = { css: string; name: string };
 /**
  * Normalizes the `animate` prop to a preset (or null) and ensures its CSS
  * is injected once into document.head. Used by PopupContent, Popover, and
- * DialogContent so they don't duplicate this logic.
+ * DialogContent so they do not duplicate this logic.
  */
 export function useAnimationPreset<T extends TPresetWithCssAndName>(
 	animate: T | false | null | undefined,

@@ -26,7 +26,7 @@ function OnePopoverOnAnchor({
 		anchorRef,
 		popoverRef,
 		placement,
-		// Force JS fallback so the test doesn't depend on CSS.supports
+		// Force JS fallback so the test does not depend on CSS.supports
 		forceFallbackPositioning: true,
 	});
 
@@ -182,7 +182,7 @@ describe('useAnchorPosition', () => {
 			expect(popover.style.getPropertyValue('margin')).toBe('0px');
 			expect(popover.style.getPropertyValue('inset')).toBe('auto');
 
-			// Unmount — cleanup runs synchronously
+			// Unmount - cleanup runs synchronously
 			unmount();
 
 			// Styles should be removed immediately after unmount
@@ -467,7 +467,7 @@ describe('useAnchorPosition', () => {
 			setPropertySpy.mockRestore();
 		});
 
-		it('"just works" when no placement is provided — applies defaults and stays stable across re-renders', () => {
+		it('"just works" when no placement is provided - applies defaults and stays stable across re-renders', () => {
 			const onRender = jest.fn();
 
 			// Calling `useAnchorPosition` without a `placement` prop must
@@ -478,13 +478,13 @@ describe('useAnchorPosition', () => {
 			const popover = screen.getByTestId('popover');
 
 			// The popover must have been positioned (the JS fallback
-			// sets `inset: auto` and `margin: 0` as base styles —
+			// sets `inset: auto` and `margin: 0` as base styles -
 			// JSDom normalises `0` to `0px` for the `margin` shorthand).
 			expect(popover.style.getPropertyValue('margin')).toBe('0px');
 			expect(popover.style.getPropertyValue('inset')).toBe('auto');
 
 			// Re-rendering with still-undefined placement must not
-			// re-run the positioning effect — `undefined` collapses to
+			// re-run the positioning effect - `undefined` collapses to
 			// `{}` which resolves to the same shape as last time.
 			const setPropertySpy = jest.spyOn(popover.style, 'setProperty');
 			rerender(<Probe placement={undefined} onRender={onRender} />);

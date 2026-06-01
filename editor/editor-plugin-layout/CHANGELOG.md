@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-layout
 
+## 10.9.1
+
+### Patch Changes
+
+- [`3b52ed6492f99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b52ed6492f99) -
+  Fix layout column blank-space focus for vertical alignment
+- [`523f77de83059`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/523f77de83059) -
+  Suppress drag handle tooltip while layout column menu is open. Adds layoutColumnMenuPopupOpen user
+  intent and wraps LayoutColumnMenu with UserIntentPopupWrapper.
+- Updated dependencies
+
 ## 10.9.0
 
 ### Minor Changes

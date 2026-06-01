@@ -26,6 +26,9 @@
 			"path": "../../../editor/adf-utils/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../atlassian-analytics-pipeline/analytics-cross-product/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../analytics/analytics-gas-types/afm-products/tsconfig.json"
 		},
 		{

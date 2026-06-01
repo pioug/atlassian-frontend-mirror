@@ -1,6 +1,5 @@
 import { expect, test } from '@af/integration-testing';
 
-// ─────────────────────────────────────────────────────────────────────────────
 // Popup - native popover focus restoration
 //
 // The HTML Popover API handles focus restoration natively:
@@ -12,9 +11,8 @@ import { expect, test } from '@af/integration-testing';
 // reopen, dismiss via click outside.
 //
 // WCAG 2.4.3 Focus Order
-// ─────────────────────────────────────────────────────────────────────────────
 test.describe('Popup - native popover focus restoration', () => {
-	// role="dialog" — Escape restores, light-dismiss does not
+	// role="dialog" - Escape restores, light-dismiss does not
 	test('role="dialog": Escape restores focus to trigger; light-dismiss does not', async ({
 		page,
 	}) => {
@@ -47,7 +45,7 @@ test.describe('Popup - native popover focus restoration', () => {
 		await expect(trigger).not.toBeFocused();
 	});
 
-	// role="menu" — Escape restores, light-dismiss does not
+	// role="menu" - Escape restores, light-dismiss does not
 	test('role="menu": Escape restores focus to trigger; light-dismiss does not', async ({
 		page,
 	}) => {
@@ -78,7 +76,7 @@ test.describe('Popup - native popover focus restoration', () => {
 		await expect(trigger).not.toBeFocused();
 	});
 
-	// role="listbox" — Escape restores, light-dismiss does not
+	// role="listbox" - Escape restores, light-dismiss does not
 	test('role="listbox": Escape restores focus to trigger; light-dismiss does not', async ({
 		page,
 	}) => {
@@ -92,7 +90,7 @@ test.describe('Popup - native popover focus restoration', () => {
 		const popup = page.getByTestId('listbox-popup');
 
 		// Open → Escape → focus returns
-		// listbox trigger is auto-focused on open — trial click for actionability
+		// listbox trigger is auto-focused on open - trial click for actionability
 		await trigger.click();
 		await expect(popup).toBeVisible();
 		await expect(trigger).toBeFocused();
@@ -109,8 +107,8 @@ test.describe('Popup - native popover focus restoration', () => {
 		await expect(trigger).not.toBeFocused();
 	});
 
-	// role="tooltip" — focus must never move (tooltip is an informational overlay)
-	// WCAG 1.4.13 Content on Hover or Focus — tooltip must not steal focus
+	// role="tooltip" - focus must never move (tooltip is an informational overlay)
+	// WCAG 1.4.13 Content on Hover or Focus - tooltip must not steal focus
 	test('role="tooltip": focus does not move when tooltip opens or closes', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/122-testing-popup-focus-restore.tsx')>(
 			'design-system',
@@ -126,10 +124,10 @@ test.describe('Popup - native popover focus restoration', () => {
 		await page.getByTestId('tooltip-trigger').hover();
 		await expect(page.getByTestId('tooltip-popup')).toBeVisible();
 
-		// Focus must remain on the external input — tooltip never steals focus
+		// Focus must remain on the external input - tooltip never steals focus
 		await expect(externalInput).toBeFocused();
 
-		// Move mouse away to hide tooltip — focus still on external input
+		// Move mouse away to hide tooltip - focus still on external input
 		await page.mouse.move(0, 0);
 		await expect(page.getByTestId('tooltip-popup')).toBeHidden();
 		await expect(externalInput).toBeFocused();

@@ -30,27 +30,15 @@ export function shapePaintTimingData(data: Record<string, unknown>): Record<stri
 }
 
 /**
- * frame-mark: keep only entryName + startTime.
- * Drops: elapsed, envelope name, detail (arbitrary/potentially large user data).
+ * largest-contentful-paint: keep only startTime + size.
+ * Mirrors the bridge's own emission shape: { startTime, size }.
+ * Drops: elapsed, envelope name — no other fields are sent by the bridge.
  */
-export function shapeFrameMarkData(data: Record<string, unknown>): Record<string, unknown> {
+export function shapeLargestContentfulPaintData(data: Record<string, unknown>): Record<string, unknown> {
 	const payload = extractPayload(data);
 	return {
-		entryName: typeof payload.entryName === 'string' ? payload.entryName : '',
 		startTime: num(payload.startTime),
-	};
-}
-
-/**
- * frame-measure: keep only entryName + startTime + duration.
- * Drops: elapsed, envelope name, detail (arbitrary/potentially large user data).
- */
-export function shapeFrameMeasureData(data: Record<string, unknown>): Record<string, unknown> {
-	const payload = extractPayload(data);
-	return {
-		entryName: typeof payload.entryName === 'string' ? payload.entryName : '',
-		startTime: num(payload.startTime),
-		duration: num(payload.duration),
+		size: num(payload.size),
 	};
 }
 

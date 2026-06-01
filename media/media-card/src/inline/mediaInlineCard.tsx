@@ -16,6 +16,7 @@ import {
 import { formatDate } from '@atlaskit/media-ui/formatDate';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { MediaViewer, type ViewerOptionsProps } from '@atlaskit/media-viewer';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Tooltip from '@atlaskit/tooltip';
 import React, { type FC, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
@@ -47,6 +48,14 @@ export interface MediaInlineCardProps {
 	 * Receives the file ID and should resolve to the filename string.
 	 */
 	fallbackMediaNameFetcher?: (id: string) => Promise<string>;
+	/**
+	 * Pre-hydrated SSR metadata from a Relay fragment (Media Platform Phase 5b).
+	 * When provided and `fg('platform_media_ssr_data_seed')` is on, the card seeds
+	 * `useFileState` with this data and skips the `items()` API call for files
+	 * whose `processingStatus` is `succeeded`.
+	 * @see https://product-fabric.atlassian.net/browse/BMPT-7914
+	 */
+	readonly ssrFileState?: FileState;
 }
 
 // UI component which renders an inline link in the appropiate state based on a media file
@@ -61,8 +70,15 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 	intl,
 	viewerOptions,
 	fallbackMediaNameFetcher,
+	ssrFileState,
 }) => {
-	const [fileState, setFileState] = useState<FileState | undefined>();
+	const initialFileState = fg('platform_media_ssr_data_seed') ? ssrFileState : undefined;
+	// Capture as a ref so it's a stable one-time SSR seed that doesn't affect
+	// the useEffect dependency array (including it would cause repeated
+	// unsubscribe/resubscribe cycles whenever ssrFileState changes reference).
+	const initialFileStateRef = useRef(initialFileState);
+
+	const [fileState, setFileState] = useState<FileState | undefined>(initialFileState);
 	const [subscribeError, setSubscribeError] = useState<Error>();
 	const [isSucceededEventSent, setIsSucceededEventSent] = useState(false);
 	const [isFailedEventSent, setIsFailedEventSent] = useState(false);
@@ -139,6 +155,9 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 	useEffect(() => {
 		const subscription = mediaClient.file
 			.getFileState(identifier.id, {
+				// Use the ref value so this effect doesn't re-run when ssrFileState
+				// changes object reference — initialFileState is a one-time SSR seed.
+				initialFileState: initialFileStateRef.current,
 				collectionName: identifier.collectionName,
 			})
 			.subscribe({

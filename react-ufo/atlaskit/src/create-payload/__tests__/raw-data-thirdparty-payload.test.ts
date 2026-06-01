@@ -171,7 +171,7 @@ describe('Payload Creation with Third-Party Holds', () => {
 		expect(Array.isArray(interactionMetrics?.hold3pInfo)).toBe(true);
 	});
 
-	it('should include generic metricWindows and lifecycleObservations when metric variants are enabled', async () => {
+	it('should include generic metricWindows, lifecycleObservations, and window-specific profiler timings when metric variants are enabled', async () => {
 		mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_metric_variants');
 
 		const interaction: InteractionMetrics = {
@@ -187,7 +187,32 @@ describe('Payload Creation with Third-Party Holds', () => {
 			customTimings: [],
 			spans: [],
 			requestInfo: [],
-			reactProfilerTimings: [],
+			reactProfilerTimings: [
+				{
+					labelStack: [{ name: 'standard-segment' }],
+					type: 'mount',
+					actualDuration: 10,
+					baseDuration: 10,
+					startTime: 1500,
+					commitTime: 1600,
+				},
+				{
+					labelStack: [{ name: 'crossing-segment' }],
+					type: 'update',
+					actualDuration: 15,
+					baseDuration: 15,
+					startTime: 1900,
+					commitTime: 2100,
+				},
+				{
+					labelStack: [{ name: 'late-segment' }],
+					type: 'update',
+					actualDuration: 20,
+					baseDuration: 20,
+					startTime: 2500,
+					commitTime: 2600,
+				},
+			],
 			holdInfo: [],
 			holdActive: new Map(),
 			hold3pActive: new Map(),
@@ -273,6 +298,36 @@ describe('Payload Creation with Third-Party Holds', () => {
 				excludeCategories: [],
 			},
 		});
+		expect(interactionMetrics.reactProfilerTimings).toEqual([
+			expect.objectContaining({
+				labelStack: 'standard-segment',
+				startTime: 1500,
+				endTime: 1600,
+			}),
+			expect.objectContaining({
+				labelStack: 'crossing-segment',
+				startTime: 1900,
+				endTime: 2100,
+			}),
+		]);
+		expect(interactionMetrics.reactProfilerTimingsByMetricWindow['include-third-party']).toEqual([
+			expect.objectContaining({
+				labelStack: 'standard-segment',
+				startTime: 1500,
+				endTime: 1600,
+			}),
+			expect.objectContaining({
+				labelStack: 'crossing-segment',
+				startTime: 1900,
+				endTime: 2100,
+			}),
+			expect.objectContaining({
+				labelStack: 'late-segment',
+				startTime: 2500,
+				endTime: 2600,
+			}),
+		]);
+
 		expect(interactionMetrics.lifecycleObservations).toEqual([
 			{
 				type: 'new_interaction_started',

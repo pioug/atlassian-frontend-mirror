@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 6.5.1
+
+### Patch Changes
+
+- [`719927ef93dc6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/719927ef93dc6) -
+  Adjust react-ufo to receive updated bridge events from Forge app
+
+## 6.5.0
+
+### Minor Changes
+
+- [`95bf648356347`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95bf648356347) -
+  Add compressed resource timing payload support
+
 ## 6.4.4
 
 ### Patch Changes

@@ -1,6 +1,8 @@
-import { getFirstFocusable, getLastFocusable, getNextFocusable } from '../../src/focus/focus';
+import { getFirstFocusable } from '../../src/focus/get-first-focusable';
+import { getLastFocusable } from '../../src/focus/get-last-focusable';
+import { getNextFocusable } from '../../src/focus/get-next-focusable';
 
-// ── focus helpers unit tests ──
+// focus helpers unit tests
 
 describe('focusable helpers', () => {
 	function createContainer(html: string): HTMLElement {

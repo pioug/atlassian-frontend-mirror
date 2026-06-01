@@ -1,5 +1,13 @@
 # @atlaskit/tag
 
+## 14.15.0
+
+### Minor Changes
+
+- [`5a852801cedf2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a852801cedf2) -
+  Add trailing metric support to the new Tag API and tag dropdown trigger, including neutral metric
+  interaction styling updates for the dropdown trigger and refreshed documentation examples.
+
 ## 14.14.0
 
 ### Minor Changes

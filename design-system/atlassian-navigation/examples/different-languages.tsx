@@ -2,7 +2,6 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { AtlassianNavigation } from '@atlaskit/atlassian-navigation';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 
 import {

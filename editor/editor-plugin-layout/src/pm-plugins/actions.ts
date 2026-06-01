@@ -41,15 +41,6 @@ import {
 	getSelectedLayoutColumnsFromSelection,
 } from './utils/layout-column-selection';
 
-export type DistributeLayoutColumnsOptions = {
-	inputMethod?: INPUT_METHOD.LAYOUT_COLUMN_MENU | INPUT_METHOD.FLOATING_TB;
-	target?: 'selectedColumns' | 'allColumns';
-};
-
-type DistributeLayoutColumnsActionOptions = DistributeLayoutColumnsOptions & {
-	editorAnalyticsAPI?: EditorAnalyticsAPI;
-};
-
 export const ONE_COL_LAYOUTS: PresetLayout[] = ['single'];
 export const TWO_COL_LAYOUTS: PresetLayout[] = [
 	'two_equal',
@@ -836,12 +827,17 @@ export const setLayoutColumnValign =
 		return tr;
 	};
 
+type DistributeLayoutColumnsOptions = {
+	inputMethod?: INPUT_METHOD.LAYOUT_COLUMN_MENU | INPUT_METHOD.FLOATING_TB;
+	target?: 'selectedColumns' | 'allColumns';
+};
+
 export const distributeLayoutColumns =
+	(editorAnalyticsAPI?: EditorAnalyticsAPI) =>
 	({
-		editorAnalyticsAPI,
 		inputMethod = INPUT_METHOD.LAYOUT_COLUMN_MENU,
 		target = 'selectedColumns',
-	}: DistributeLayoutColumnsActionOptions = {}): EditorCommand =>
+	}: DistributeLayoutColumnsOptions = {}): EditorCommand =>
 	({ tr }) => {
 		if (!expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
 			return null;
@@ -915,14 +911,6 @@ export const distributeLayoutColumns =
 
 		return tr;
 	};
-
-export const createDistributeLayoutColumnsCommand =
-	(editorAnalyticsAPI?: EditorAnalyticsAPI) =>
-	(options: DistributeLayoutColumnsOptions = {}): EditorCommand =>
-		distributeLayoutColumns({
-			...options,
-			editorAnalyticsAPI,
-		});
 
 export const toggleLayoutColumnMenu =
 	({ anchorPos, isOpen }: { anchorPos?: number; isOpen?: boolean }): EditorCommand =>

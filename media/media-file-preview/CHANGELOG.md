@@ -1,5 +1,17 @@
 # @atlaskit/media-file-preview
 
+## 0.18.0
+
+### Minor Changes
+
+- [`a68f551856a81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a68f551856a81) -
+  Add initialFileState param to useFilePreview to support SSR-seeded file state for immediate
+  preview rendering.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.17.2
 
 ### Patch Changes

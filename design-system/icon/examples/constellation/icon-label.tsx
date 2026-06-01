@@ -8,7 +8,6 @@ import EpicIcon from '@atlaskit/icon/core/epic';
 import FiltersIcon from '@atlaskit/icon/core/filter';
 import MergeSuccessIcon from '@atlaskit/icon/core/merge-success';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

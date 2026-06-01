@@ -12,7 +12,6 @@ import {
 	SkeletonHeadingItem,
 	SkeletonItem,
 } from '@atlaskit/menu';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -80,7 +79,7 @@ export default (): React.JSX.Element => {
 										borderRadius: 3,
 									}}
 								>
-									<Portfolio color={token('color.icon.brand')} aria-label="" />
+									<Portfolio color={token('color.icon.brand')} />
 								</div>
 							}
 							iconAfter={<StarStarredIcon color={token('color.icon.warning')} label="" />}
@@ -89,19 +88,19 @@ export default (): React.JSX.Element => {
 						</Item>
 						<Item
 							isLoading={isLoading}
-							iconBefore={<Tempo aria-label="" />}
+							iconBefore={<Tempo />}
 							iconAfter={<StarStarredIcon color={token('color.icon.warning')} label="" />}
 						>
 							Tempo timesheets
 						</Item>
 						<Item
 							isLoading={isLoading}
-							iconBefore={<Invision aria-label="" />}
+							iconBefore={<Invision />}
 							iconAfter={<StarUnstarredIcon label="" />}
 						>
 							Invision
 						</Item>
-						<Item isLoading={isLoading} iconBefore={<Slack aria-label="" />}>
+						<Item isLoading={isLoading} iconBefore={<Slack />}>
 							Slack
 						</Item>
 					</Section>

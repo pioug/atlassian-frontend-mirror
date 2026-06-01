@@ -24,6 +24,7 @@ export type MentionsChangedHandler = (
 	changes: {
 		id: string;
 		localId: string;
+		shouldSuppressMentionNotification?: boolean;
 		taskLocalId?: string;
 		type: 'added' | 'deleted';
 	}[],
@@ -31,7 +32,6 @@ export type MentionsChangedHandler = (
 
 export interface MentionsPluginOptions extends MentionPluginConfig {
 	allowZeroWidthSpaceAfter?: boolean;
-	handleMentionsChanged?: MentionsChangedHandler;
 	/**
 	 * User ID to highlight as a self-mention (typically the current user).
 	 *
@@ -40,6 +40,7 @@ export interface MentionsPluginOptions extends MentionPluginConfig {
 	 * Takes priority over `MentionProvider.shouldHighlightMention()` if both are present.
 	 */
 	currentUserId?: string;
+	handleMentionsChanged?: MentionsChangedHandler;
 	mentionProvider?: Providers['mentionProvider'];
 	sanitizePrivateContent?: boolean;
 }

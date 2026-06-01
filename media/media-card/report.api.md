@@ -27,6 +27,7 @@ import { Identifier } from '@atlaskit/media-client';
 import { ImageResizeMode } from '@atlaskit/media-client';
 import { MediaClient } from '@atlaskit/media-client';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { MediaItemSSRData } from '@atlaskit/media-common';
 import { MouseEvent as MouseEvent_2 } from 'react';
 import { NumericalCardDimensions } from '@atlaskit/media-common';
 import { default as React_2 } from 'react';
@@ -156,6 +157,8 @@ export interface CardProps extends SharedCardProps, CardEventProps {
 	readonly shouldOpenMediaViewer?: boolean;
 	// (undocumented)
 	readonly ssr?: SSR;
+	// (undocumented)
+	readonly ssrFileState?: FileState;
 	// (undocumented)
 	readonly useInlinePlayer?: boolean;
 }

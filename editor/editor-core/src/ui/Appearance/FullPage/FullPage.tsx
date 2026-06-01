@@ -1,11 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { jsx } from '@emotion/react';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
@@ -20,20 +13,28 @@ import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { FULL_PAGE_EDITOR_TOOLBAR_HEIGHT } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorAppearanceComponentProps, PrimaryToolbarComponents } from '../../../types';
 import { getPrimaryToolbarComponents } from '../../Toolbar/getPrimaryToolbarComponents';
 
+import { FullPageEditorWrapperCompiled } from './FullPage-compiled';
+import { FullPageEditorWrapperEmotion } from './FullPage-emotion';
 import { FullPageContentArea } from './FullPageContentArea';
 import type { ToolbarEditorPlugins } from './FullPageToolbar';
 import { FullPageToolbar } from './FullPageToolbar';
 import { FullPageToolbarNext } from './FullPageToolbarNext';
-import { fullPageEditorWrapper } from './StyledComponents';
 import type { ScrollContainerRefs } from './types';
 
 const SSR_TRACE_SEGMENT_NAME = 'reactEditorView/fullPageAppearance';
+
+const FullPageEditorWrapperMigration = componentWithCondition(
+	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
+	FullPageEditorWrapperCompiled,
+	FullPageEditorWrapperEmotion,
+);
 
 const useShowKeyline = (contentAreaRef: React.MutableRefObject<ScrollContainerRefs | null>) => {
 	const [showKeyline, setShowKeyline] = useState<boolean>(false);
@@ -99,7 +100,7 @@ const hasCustomComponents = (components?: PrimaryToolbarComponents) => {
 	return true;
 };
 
-export const FullPageEditor = (props: ComponentProps): jsx.JSX.Element => {
+export const FullPageEditor = (props: ComponentProps): React.JSX.Element => {
 	// Should be always the first statement in the component
 	const firstRenderStartTimestampRef = useRef(performance.now());
 
@@ -209,13 +210,13 @@ export const FullPageEditor = (props: ComponentProps): jsx.JSX.Element => {
 			onSSRMeasure={props.onSSRMeasure}
 		>
 			<ContextPanelWidthProvider>
-				<div
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					css={fullPageEditorWrapper}
+				<FullPageEditorWrapperMigration
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className="akEditor"
 					ref={wrapperElementRef}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props
 						{
 							'--ak-editor-fullpage-toolbar-height':
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -297,7 +298,7 @@ export const FullPageEditor = (props: ComponentProps): jsx.JSX.Element => {
 						hasHadInteraction={hasHadInteraction}
 						contentMode={props.contentMode}
 					/>
-				</div>
+				</FullPageEditorWrapperMigration>
 			</ContextPanelWidthProvider>
 		</SSRRenderMeasure>
 	);

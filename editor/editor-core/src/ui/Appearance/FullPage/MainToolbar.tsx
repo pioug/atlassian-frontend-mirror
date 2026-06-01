@@ -1,94 +1,38 @@
-/* eslint-disable @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766 */
-import { css } from '@emotion/react';
-import type { SerializedStyles } from '@emotion/react';
+import type React from 'react';
+
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
-	akEditorMobileMaxWidth,
-	FULL_PAGE_EDITOR_TOOLBAR_HEIGHT,
-} from '@atlaskit/editor-shared-styles';
-import { token } from '@atlaskit/tokens';
+	CustomToolbarWrapperCompiled,
+	MainToolbarIconBeforeCompiled,
+	NonCustomToolbarWrapperCompiled,
+} from './MainToolbar-compiled';
+import {
+	CustomToolbarWrapperEmotion,
+	MainToolbarIconBeforeEmotion,
+	NonCustomToolbarWrapperEmotion,
+} from './MainToolbar-emotion';
 
 export const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 868;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const mainToolbarIconBeforeStyle: SerializedStyles = css({
-	margin: token('space.200'),
-	height: token('space.400'),
-	width: token('space.400'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	[`@media (max-width: ${akEditorMobileMaxWidth}px)`]: {
-		gridColumn: 1,
-		gridRow: 1,
-	},
-});
+export const NonCustomToolbarWrapperMigration: React.ComponentType<{ children: React.ReactNode }> =
+	componentWithCondition(
+		() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
+		NonCustomToolbarWrapperCompiled,
+		NonCustomToolbarWrapperEmotion,
+	);
 
-const mainToolbarFirstChild = css({
-	display: 'flex',
-	flexGrow: 1,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	[`@media (max-width: ${akEditorMobileMaxWidth}px)`]: {
-		gridColumn: 1,
-		gridRow: 1,
-	},
-});
+export const CustomToolbarWrapperMigration: React.ComponentType<{ children: React.ReactNode }> =
+	componentWithCondition(
+		() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
+		CustomToolbarWrapperCompiled,
+		CustomToolbarWrapperEmotion,
+	);
 
-const mainToolbarFirstChildTowLine = () => {
-	const editorToolbarHeight = FULL_PAGE_EDITOR_TOOLBAR_HEIGHT();
-	return css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		[`@media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px)`]: {
-			flex: '1 1 100%',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			height: editorToolbarHeight,
-			justifyContent: 'flex-end',
-			minWidth: 'fit-content',
-		},
-	});
-};
-
-export const mainToolbarFirstChildStyle = (
-	twoLineEditorToolbar: boolean,
-): (false | SerializedStyles | (() => SerializedStyles))[] => [
-	mainToolbarFirstChild,
-	twoLineEditorToolbar && mainToolbarFirstChildTowLine,
-];
-
-const mainToolbarSecondChild = css({
-	minWidth: 'fit-content',
-});
-
-const mainToolbarSecondChildTwoLine = () => {
-	const editorToolbarHeight = FULL_PAGE_EDITOR_TOOLBAR_HEIGHT();
-	return css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		[`@media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px)`]: {
-			display: 'flex',
-			flexGrow: 1,
-			flex: '1 1 100%',
-			margin: 'auto',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			height: editorToolbarHeight,
-			minWidth: 0,
-		},
-	});
-};
-
-export const mainToolbarSecondChildStyle = (
-	twoLineEditorToolbar: boolean,
-): (false | SerializedStyles | (() => SerializedStyles))[] => [
-	mainToolbarSecondChild,
-	twoLineEditorToolbar && mainToolbarSecondChildTwoLine,
-];
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const nonCustomToolbarWrapperStyle: SerializedStyles = css({
-	alignItems: 'center',
-	display: 'flex',
-	flexGrow: 1,
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const customToolbarWrapperStyle: SerializedStyles = css({
-	alignItems: 'center',
-	display: 'flex',
-});
+export const MainToolbarIconBeforeMigration: React.ComponentType<{ children: React.ReactNode }> =
+	componentWithCondition(
+		() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
+		MainToolbarIconBeforeCompiled,
+		MainToolbarIconBeforeEmotion,
+	);

@@ -7,8 +7,8 @@ import { setStyle } from './set-style';
 /**
  * Sets the width of a popover element relative to its anchor element.
  *
- * - `'match-anchor'` → `width: anchor-size(width)` — popover matches anchor width exactly.
- * - `'min-anchor'`   → `min-width: anchor-size(width)` — popover is at least as wide as anchor,
+ * - `'match-anchor'` → `width: anchor-size(width)` - popover matches anchor width exactly.
+ * - `'min-anchor'`   → `min-width: anchor-size(width)` - popover is at least as wide as anchor,
  *   but can grow wider.
  * - `'none'`         → no explicit width is set (default behaviour)
  *
@@ -42,7 +42,7 @@ export function useWidthFromAnchor({
 
 		if (mode === 'match-anchor') {
 			// Set an exact width matching the anchor.
-			// `min-inline-size` is intentionally NOT set here — it would override the
+			// `min-inline-size` is intentionally NOT set here - it would override the
 			// explicit width constraint, allowing the popover to grow past the anchor's width.
 			if (supportsAnchorSize) {
 				return setStyle({ el: node, styles: [{ property: 'width', value: 'anchor-size(width)' }] });
@@ -83,7 +83,7 @@ export function useWidthFromAnchor({
 				});
 			}
 
-			// No anchor available in JS fallback — still apply min-inline-size.
+			// No anchor available in JS fallback - still apply min-inline-size.
 			return setStyle({ el: node, styles: [minInlineSizeStyle] });
 		}
 

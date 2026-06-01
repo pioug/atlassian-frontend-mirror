@@ -54,7 +54,7 @@ const reasonAppearance: Record<TDialogCloseReason, 'moved' | 'inprogress'> = {
 /**
  * Basic dialog using the native `<dialog>` element with `showModal()`.
  *
- * `Dialog` is a bare primitive — it provides the `<dialog>` lifecycle,
+ * `Dialog` is a bare primitive - it provides the `<dialog>` lifecycle,
  * Escape handling, and backdrop click detection. All visual styling
  * is the consumer's responsibility.
  *

@@ -1,5 +1,21 @@
 # @atlaskit/media-card
 
+## 80.7.0
+
+### Minor Changes
+
+- [`2c10000a3bba9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c10000a3bba9) -
+  Adding `backgroundColor` prop to allow overriding background color
+- [`a68f551856a81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a68f551856a81) -
+  Add ssrFileState prop to FileCard and MediaInlineCard for SSR metadata seeding via Relay
+  fragments. Deprecate ssrItemDetails in favour of ssrFileState. Cards now use initialFileState in
+  useFileState to display pre-hydrated data immediately without an items() API call when
+  platform_media_ssr_data_seed gate is on.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 80.6.1
 
 ### Patch Changes

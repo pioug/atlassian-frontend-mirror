@@ -1,5 +1,44 @@
 # @atlaskit/editor-common
 
+## 114.54.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.54.0
+
+### Minor Changes
+
+- [`1c28f6c1b4c20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c28f6c1b4c20) -
+  [EDITOR-7447] follow up pr to address pr(EDITOR-7388) comments on remix on block menu
+  implementation/ added isRemixDisabled guard to component registration
+- [`608189fcbdca7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/608189fcbdca7) -
+  Harden synced block cache deletion lifecycle: replace the legacy 1-second eager deletion with a
+  guard-checked 30-second grace period that protects against premature cache invalidation when
+  blocks unmount/remount during editor open, block moves, or other React subscribe/unsubscribe
+  churn. Fixes an intermittent issue where the 'Edit at source' button could become disabled and the
+  source link could disappear from the synced locations dropdown. Gated behind
+  platform_synced_block_patch_14.
+
+### Patch Changes
+
+- [`523f77de83059`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/523f77de83059) -
+  Suppress drag handle tooltip while layout column menu is open. Adds layoutColumnMenuPopupOpen user
+  intent and wraps LayoutColumnMenu with UserIntentPopupWrapper.
+- Updated dependencies
+
+## 114.53.0
+
+### Minor Changes
+
+- [`9d5523b6e89fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d5523b6e89fc) -
+  EDITOR-7419: Add thinking components and scaffold the new actions (not wired up anywhere yet)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.52.0
 
 ### Minor Changes

@@ -56,6 +56,9 @@
 			"path": "../../editor-plugin-ui-control-registry/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-user-intent/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-width/afm-cc/tsconfig.json"
 		},
 		{

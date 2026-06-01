@@ -1,8 +1,7 @@
 import {
 	isDomMutationsFinalBatch,
 	shapeDomMutationsData,
-	shapeFrameMarkData,
-	shapeFrameMeasureData,
+	shapeLargestContentfulPaintData,
 	shapeLayoutShiftData,
 	shapePaintTimingData,
 } from '../shape-iframe-dom-events';
@@ -52,46 +51,33 @@ describe('shapePaintTimingData', () => {
 	});
 });
 
-describe('shapeFrameMarkData', () => {
-	it('returns entryName and startTime from payload', () => {
-		const result = shapeFrameMarkData(wrap({ entryName: 'my-mark', startTime: 200 }));
-		expect(result).toEqual({ entryName: 'my-mark', startTime: 200 });
+describe('shapeLargestContentfulPaintData', () => {
+	it('returns startTime and size from payload', () => {
+		const result = shapeLargestContentfulPaintData(wrap({ startTime: 1234, size: 20000 }));
+		expect(result).toEqual({ startTime: 1234, size: 20000 });
 	});
 
-	it('drops detail and elapsed', () => {
-		const result = shapeFrameMarkData(
-			wrap({ entryName: 'my-mark', startTime: 200, detail: { foo: 'bar' } }),
-		);
-		expect(result).not.toHaveProperty('detail');
-		expect(result).not.toHaveProperty('elapsed');
+	it('rounds fractional startTime', () => {
+		const result = shapeLargestContentfulPaintData(wrap({ startTime: 1234.7, size: 20000 }));
+		expect(result.startTime).toBe(1235);
 	});
 
-	it('falls back to empty string / 0 when fields are missing', () => {
-		const result = shapeFrameMarkData(wrap({}));
-		expect(result).toEqual({ entryName: '', startTime: 0 });
-	});
-});
-
-describe('shapeFrameMeasureData', () => {
-	it('returns entryName, startTime, and duration from payload', () => {
-		const result = shapeFrameMeasureData(
-			wrap({ entryName: 'my-measure', startTime: 10, duration: 90 }),
-		);
-		expect(result).toEqual({ entryName: 'my-measure', startTime: 10, duration: 90 });
+	it('falls back to 0 for size when missing', () => {
+		const result = shapeLargestContentfulPaintData(wrap({ startTime: 500 }));
+		expect(result.size).toBe(0);
 	});
 
-	it('drops detail and elapsed', () => {
-		const result = shapeFrameMeasureData(
-			wrap({ entryName: 'my-measure', startTime: 10, duration: 90, detail: { x: 1 } }),
-		);
-		expect(result).not.toHaveProperty('detail');
-		expect(result).not.toHaveProperty('elapsed');
+	it('falls back to 0 for startTime when missing', () => {
+		const result = shapeLargestContentfulPaintData(wrap({ size: 5000 }));
+		expect(result.startTime).toBe(0);
 	});
 
-	it('rounds fractional values', () => {
-		const result = shapeFrameMeasureData(wrap({ entryName: 'x', startTime: 1.4, duration: 2.6 }));
-		expect(result.startTime).toBe(1);
-		expect(result.duration).toBe(3);
+	it('returns empty fallbacks when payload is absent', () => {
+		const result = shapeLargestContentfulPaintData({
+			name: 'ufo-forge-largest-contentful-paint',
+			elapsed: 10,
+		});
+		expect(result).toEqual({ startTime: 0, size: 0 });
 	});
 });
 

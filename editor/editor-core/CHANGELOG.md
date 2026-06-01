@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 219.9.17
+
+### Patch Changes
+
+- [`906fe47a3e48f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/906fe47a3e48f) -
+  Migrates MainToolbar and MainToolbarWrapper to compiled CSS
+- [`6d50881d7019e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d50881d7019e) -
+  Migrate composable editor styles
+
+## 219.9.16
+
+### Patch Changes
+
+- [`3b52ed6492f99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b52ed6492f99) -
+  Fix layout column blank-space focus for vertical alignment
+- Updated dependencies
+
+## 219.9.15
+
+### Patch Changes
+
+- [`e9de5e5d2942f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9de5e5d2942f) -
+  Migrate UI appearance fullpage styles
+- Updated dependencies
+
 ## 219.9.14
 
 ### Patch Changes

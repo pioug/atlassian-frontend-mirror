@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "25.7.7",
+	"version": "25.7.8",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -213,6 +213,9 @@
 			"type": "boolean"
 		},
 		"jira_ai_fix_agent_profile_card_flashing": {
+			"type": "boolean"
+		},
+		"confluence_fix_agent_profile_card_flash": {
 			"type": "boolean"
 		},
 		"enable_teams_t26_design_drop_core_experiences": {

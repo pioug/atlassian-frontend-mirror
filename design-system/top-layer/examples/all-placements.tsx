@@ -661,17 +661,17 @@ export default function AllPlacements(): JSX.Element {
 
 	const [forceFallbackPositioning, setForceFallbackPositioning] = useState<boolean>(false);
 
-	function togglePopupAt(index: number): void {
+	function togglePopupAt(index: number) {
 		setPopupVisibility((current) =>
 			current.map((isVisible, currentIndex) => (currentIndex === index ? !isVisible : isVisible)),
 		);
 	}
 
-	function enableAllPopups(): void {
+	function enableAllPopups() {
 		setPopupVisibility(buildAllVisible());
 	}
 
-	function disableAllPopups(): void {
+	function disableAllPopups() {
 		setPopupVisibility(buildAllHidden());
 	}
 

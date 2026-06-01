@@ -36,7 +36,7 @@ const styles = cssMap({
 });
 
 /**
- * Basic menu — flat list of items, no nesting.
+ * Basic menu - flat list of items, no nesting.
  * Tests: ArrowDown, ArrowUp, Home, End, Tab, wrapping.
  */
 function BasicMenu() {
@@ -83,7 +83,7 @@ function BasicMenu() {
 }
 
 /**
- * Nested menu — parent menu with a nested sub-menu.
+ * Nested menu - parent menu with a nested sub-menu.
  * Tests: filter=isAtCurrentMenuLevel, parent navigation scoped to current level.
  */
 function NestedMenu() {
@@ -156,7 +156,7 @@ function NestedMenu() {
 }
 
 /**
- * Menu with mixed focusable elements — buttons and a disabled button.
+ * Menu with mixed focusable elements - buttons and a disabled button.
  * Tests: skips disabled elements.
  */
 function MixedMenu() {

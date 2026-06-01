@@ -47,6 +47,7 @@ export {
 	AI_ASK_ROVO_MENU_ITEM,
 	AI_IMPROVE_WRITING_MENU_ITEM,
 	AI_POLISH_MENU_ITEM,
+	AI_REMIX_MENU_ITEM,
 } from './key';
 
 export {

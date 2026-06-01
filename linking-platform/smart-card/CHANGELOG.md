@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 44.19.0
+
+### Minor Changes
+
+- [`2918b4d7371d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2918b4d7371d7) -
+  Add XPC query parameter to smart links.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.18.0
 
 ### Minor Changes

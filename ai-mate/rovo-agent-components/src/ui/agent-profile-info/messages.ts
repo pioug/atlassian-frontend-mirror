@@ -6,6 +6,11 @@ export const messages: {
 		defaultMessage: string;
 		description: string;
 	};
+	remoteAgentCreatedBy: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 	agentDeactivated: {
 		id: string;
 		defaultMessage: string;
@@ -41,6 +46,12 @@ export const messages: {
 		id: 'ai-mate.agent-profile-info.created-by',
 		defaultMessage: 'Rovo Agent by {creatorNameWithLink}',
 		description: 'Message to show who created this Rovo agent',
+	},
+	remoteAgentCreatedBy: {
+		id: 'ai-mate.agent-profile-info.agent-by',
+		defaultMessage: 'Agent by {creatorNameWithLink}',
+		description:
+			'Message to show who built a remote (third-party) agent, shown without the Rovo logo',
 	},
 	agentDeactivated: {
 		id: 'ai-mate.agent-profile-info.deactivated',

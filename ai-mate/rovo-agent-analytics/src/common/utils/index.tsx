@@ -6,8 +6,7 @@ export const getDefaultTrackEventConfig = (): {
 	tags: ['atlaskit'],
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getAttributesFromContexts = (context: unknown): Record<string, any> => {
+export const getAttributesFromContexts = (context: unknown): Record<string, unknown> => {
 	if (!context || !Array.isArray(context)) {
 		return {};
 	}

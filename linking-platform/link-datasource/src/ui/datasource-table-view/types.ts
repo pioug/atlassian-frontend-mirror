@@ -19,6 +19,8 @@ export type DatasourceTableViewProps = {
 		| 'wrappedColumnKeys'
 		| 'onWrappedColumnChange'
 		| 'onColumnResize'
+		| 'onColumnSort'
+		| 'sortState'
 		| 'columnCustomSizes'
 		| 'scrollableContainerHeight'
 	>

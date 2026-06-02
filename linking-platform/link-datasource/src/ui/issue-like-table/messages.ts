@@ -1,50 +1,60 @@
 import { defineMessages } from 'react-intl';
 
 export const issueLikeTableMessages: {
-	updateError403Description: {
-		id: string;
-		description: string;
-		defaultMessage: string;
-	};
-	updateError403Title: {
-		id: string;
-		description: string;
-		defaultMessage: string;
-	};
-	updateErrorGenericDescription: {
-		id: string;
-		description: string;
-		defaultMessage: string;
-	};
-	updateErrorGenericTitle: {
-		id: string;
-		description: string;
-		defaultMessage: string;
-	};
 	fetchActionErrorGenericDescription: {
-		id: string;
-		description: string;
 		defaultMessage: string;
-	};
-	fetchActionErrorGenericTitle: {
-		id: string;
 		description: string;
-		defaultMessage: string;
-	};
-	wrapText: {
 		id: string;
-		description: string;
-		defaultMessage: string;
-	};
-	unwrapText: {
-		id: string;
-		description: string;
-		defaultMessage: string;
 	};
 	fetchActionErrorGenericDescriptionGalaxia: {
-		id: string;
-		description: string;
 		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	fetchActionErrorGenericTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	sortByColumnAscendingAction: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	sortByColumnDescendingAction: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	unwrapText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	updateError403Description: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	updateError403Title: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	updateErrorGenericDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	updateErrorGenericTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	wrapText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	updateError403Description: {
@@ -91,6 +101,16 @@ export const issueLikeTableMessages: {
 		id: 'linkDataSource.issue-line-table.unwrap-text',
 		description: 'Table header Dropdown item for making whole column to not wrap text',
 		defaultMessage: 'Unwrap text',
+	},
+	sortByColumnAscendingAction: {
+		id: 'linkDataSource.issue-line-table.sort-by-column-ascending-action',
+		description: 'Accessible label for sorting a table column in ascending order',
+		defaultMessage: 'Sort by {column} ascending.',
+	},
+	sortByColumnDescendingAction: {
+		id: 'linkDataSource.issue-line-table.sort-by-column-descending-action',
+		description: 'Accessible label for sorting a table column in descending order',
+		defaultMessage: 'Sort by {column} descending.',
 	},
 	fetchActionErrorGenericDescriptionGalaxia: {
 		id: 'linkDataSource.issue-line-table.fetch-action-error-generic-description-galaxia',

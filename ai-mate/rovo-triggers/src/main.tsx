@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { Callback, Payload, Topic, TopicEventQueue, TopicEvents } from './types';
 
 interface SubscribeOptions {
@@ -30,6 +32,13 @@ const ignoredTriggerLatestEvents = new Set<Payload['type']>([
 	'smartlinks-subscription-changed',
 	'smartlinks-context-payload',
 ]);
+
+const isIgnoredForTriggerLatest = (type: Payload['type']): boolean => {
+	if (ignoredTriggerLatestEvents.has(type)) {
+		return true;
+	}
+	return type === 'set-message-context' && fg('rovo_chat_fix_cold_start_prompt_insertion');
+};
 
 const createPubSub = () => {
 	let subscribedEvents: TopicEvents = {};
@@ -84,7 +93,7 @@ const createPubSub = () => {
 		 * This ensures new subscribers can trigger their callback if `triggerLatest` is true, and the event hasn't already been triggered.
 		 */
 		// This `ignoredTriggerLatestEvents` is a quick fix to prevent triggering the latest event for certain events
-		if (!ignoredTriggerLatestEvents.has(payload.type)) {
+		if (!isIgnoredForTriggerLatest(payload.type)) {
 			publishQueue[topic] = payload;
 		}
 

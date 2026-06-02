@@ -24,6 +24,34 @@ export interface PasteOptionsToolbarSharedState {
 	showToolbar: boolean;
 }
 
+export type PasteOptionsToolbarPasteMenuContext = {
+	getCurrentPastedUrl: () => string | undefined;
+	getCurrentPasteRange: () => { pasteEndPos: number; pasteStartPos: number } | undefined;
+};
+
+export type PasteOptionsToolbarPluginConfiguration = {
+	/**
+	 * Optional factory for composing product-specific paste menu buttons.
+	 * Called with the pre-bound rule factories so products can compose
+	 * `isHidden` callbacks before plugin setup.
+	 *
+	 * @example
+	 * pasteMenuButtonsFactory: (rules) => [
+	 *   {
+	 *     type: 'menu-item',
+	 *     key: 'my-product-button',
+	 *     isHidden: rules.allRules(rules.notProseRule, rules.minCharsRule(100)),
+	 *     component: () => <MyProductButton />,
+	 *   },
+	 * ]
+	 */
+	pasteMenuButtonsFactory?: (
+		rules: PasteMenuRuleFactories,
+		context?: PasteOptionsToolbarPasteMenuContext,
+	) => RegisterComponent[];
+	usePopupBasedPasteActionsMenu?: boolean;
+};
+
 export type PasteOptionsToolbarPlugin = NextEditorPlugin<
 	'pasteOptionsToolbarPlugin',
 	{
@@ -41,25 +69,7 @@ export type PasteOptionsToolbarPlugin = NextEditorPlugin<
 			getPasteMenuRules: () => PasteMenuRuleFactories;
 		};
 		dependencies: PasteOptionsToolbarPluginDependencies;
-		pluginConfiguration?: {
-			/**
-			 * Optional factory for composing product-specific paste menu buttons.
-			 * Called with the pre-bound rule factories so products can compose
-			 * `isHidden` callbacks before plugin setup.
-			 *
-			 * @example
-			 * pasteMenuButtonsFactory: (rules) => [
-			 *   {
-			 *     type: 'menu-item',
-			 *     key: 'my-product-button',
-			 *     isHidden: rules.allRules(rules.notProseRule, rules.minCharsRule(100)),
-			 *     component: () => <MyProductButton />,
-			 *   },
-			 * ]
-			 */
-			pasteMenuButtonsFactory?: (rules: PasteMenuRuleFactories) => RegisterComponent[];
-			usePopupBasedPasteActionsMenu?: boolean;
-		};
+		pluginConfiguration?: PasteOptionsToolbarPluginConfiguration;
 		sharedState: PasteOptionsToolbarSharedState;
 	}
 >;

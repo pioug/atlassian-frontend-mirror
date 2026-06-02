@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "5.5.1",
+	"version": "5.6.0",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -216,6 +216,9 @@
 			"type": "boolean"
 		},
 		"platform_lp_sllv_jira_type_as_link": {
+			"type": "boolean"
+		},
+		"platform_lp_jira_sllv_renderer_column_sorting": {
 			"type": "boolean"
 		},
 		"fallback_to_default_columns_to_display_in_sllv": {

@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-card
 
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.11.0
+
+### Minor Changes
+
+- [`d2be5b45b39b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2be5b45b39b0) -
+  Add Smart Link-aware paste actions for the paste actions menu V2 experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.10.3
 
 ### Patch Changes

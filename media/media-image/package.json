@@ -73,7 +73,6 @@
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@emotion/react": "root:*",
 		"@testing-library/react": "root:*",
-		"enzyme": "root:*",
 		"react": "root:*"
 	},
 	"platform-feature-flags": {

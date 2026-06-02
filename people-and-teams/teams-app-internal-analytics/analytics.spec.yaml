@@ -1165,6 +1165,14 @@ events:
       description: fired when the link picker is successfully submitted
       attributes:
         <<: *PackageMetaDataContext
+  - link clicked (userCollaborator):
+    type: ui
+    description: fired when a user collaborator link is clicked
+    attributes:
+      <<: *PackageMetaDataContext
+      userId:
+        type: string
+        description: the AAID of the clicked user collaborator
   - teamMember clicked:
       type: ui
       description: fired when the link picker is successfully submitted

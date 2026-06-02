@@ -12,6 +12,12 @@ performance = {
 } as unknown as Performance;
 
 jest.doMock('../../../utils/analytics/analytics');
+
+jest.doMock('@atlaskit/platform-feature-flags', () => ({
+	...jest.requireActual<Object>('@atlaskit/platform-feature-flags'),
+	fg: jest.fn().mockReturnValue(false),
+}));
+
 jest.doMock('@atlaskit/outbound-auth-flow-client', () => ({
 	auth: jest.fn(),
 }));
@@ -36,9 +42,20 @@ export const mockGetContext = (): CardContext => ({
 	extractors: {
 		getPreview: jest.fn(),
 	},
+	rovoOptions: {
+		isRovoEnabled: false,
+		isRovoLLMEnabled: false,
+	},
 });
 
 jest.doMock('@atlaskit/link-provider', () => ({
 	...jest.requireActual<Object>('@atlaskit/link-provider'),
 	useSmartLinkContext: jest.fn(() => mockGetContext()),
+}));
+
+jest.doMock('@atlaskit/rovo-triggers/post-message-to-pubsub', () => ({
+	ROVO_POST_MESSAGE_EVENT_TYPE: 'rovo-post-message',
+}));
+jest.doMock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
+	expValEquals: jest.fn().mockReturnValue(true),
 }));

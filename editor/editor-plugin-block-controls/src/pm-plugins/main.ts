@@ -1130,10 +1130,7 @@ export const createPlugin = (
 					// Only process dragenter for block control drags.
 					// Other drag types (e.g. table row) should not create
 					// drop target decorations or emit active anchors.
-					if (
-						!key.getState(view.state)?.isDragging &&
-						expValEquals('platform_editor_fix_table_row_drag_drop_target', 'isEnabled', true)
-					) {
+					if (!key.getState(view.state)?.isDragging) {
 						return;
 					}
 

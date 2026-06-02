@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { AgentProfileCreator, getAgentCreator } from './index';
 
@@ -200,6 +201,21 @@ describe('getAgentCreator', () => {
 			expect(creator).toEqual({ type: 'FORGE', name: '' });
 		});
 	});
+
+	describe('with rovo_agent_support_a2a_avatar and jira_improve_agent_profile_for_a2a on', () => {
+		it('should preserve the REMOTE_A2A creator type instead of collapsing to FORGE', () => {
+			passGate('rovo_agent_support_a2a_avatar');
+			passGate('jira_improve_agent_profile_for_a2a');
+
+			const creator = getAgentCreator({
+				creatorType: 'REMOTE_A2A',
+				userCreator: undefined,
+				forgeCreator: 'Remote App Name',
+				authoringTeam: undefined,
+			});
+			expect(creator).toEqual({ type: 'REMOTE_A2A', name: 'Remote App Name' });
+		});
+	});
 });
 
 describe('AgentProfileCreator', () => {
@@ -319,6 +335,22 @@ describe('AgentProfileCreator', () => {
 
 		expect(screen.getByText('Rovo Agent by John Doe Forge')).toBeInTheDocument();
 		expect(screen.queryByTestId('agent-profile-creator-skeleton')).not.toBeInTheDocument();
+	});
+
+	test('render correctly for REMOTE_A2A: "Agent by" copy without the Rovo logo', () => {
+		passGate('jira_improve_agent_profile_for_a2a');
+
+		render(
+			<AgentProfileCreator
+				creator={{ type: 'REMOTE_A2A', name: 'Cursor' }}
+				isLoading={false}
+				onCreatorLinkClick={() => {}}
+			/>,
+			{ wrapper },
+		);
+
+		expect(screen.getByText('Agent by Cursor')).toBeInTheDocument();
+		expect(screen.queryByTestId('rovo-icon-wrapper')).not.toBeInTheDocument();
 	});
 
 	test('should apply aria-hidden to the decorative rovo icon element', () => {

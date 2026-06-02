@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-save-on-enter
 
+## 11.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.2.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 9.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.3.4
 
 ### Patch Changes

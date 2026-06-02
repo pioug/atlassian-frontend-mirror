@@ -488,4 +488,171 @@ describe('Smart Card: Actions', () => {
 			});
 		});
 	});
+
+	describe('post-auth Chat auto-open', () => {
+		beforeEach(() => {
+			jest.clearAllMocks();
+
+			const { fg } = jest.requireMock('@atlaskit/platform-feature-flags');
+			fg.mockReturnValue(false);
+
+			const { expValEquals } = jest.requireMock('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			expValEquals.mockReturnValue(false);
+		});
+
+		const gdriveMockDetails = {
+			meta: {
+				access: 'unauthorized',
+				visibility: 'restricted',
+				definitionId: 'd1',
+				key: 'google-object-provider',
+				auth: [{ key: 'gdrive-oauth', displayName: 'Connect', url: 'https://outbound-auth/flow' }],
+			},
+			data: { '@context': { '@vocab': 'https://www.w3.org/ns/activitystreams#' }, '@type': 'Object' },
+		};
+
+		const enabledRovoOptions = { isRovoEnabled: true, isRovoLLMEnabled: true };
+
+		const setupPostAuthTest = () => {
+			const fg = jest.requireMock('@atlaskit/platform-feature-flags').fg;
+			fg.mockImplementation((key: string) => key === 'platform_sl_3p_post_auth_chat_open_fg');
+
+			const { expValEquals } = jest.requireMock('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			expValEquals.mockReturnValue(true);
+
+			mockContext.rovoOptions = enabledRovoOptions;
+			const mockPostMessage = jest.spyOn(window, 'postMessage').mockImplementation(jest.fn());
+
+			(mockContext.store.getState as jest.Mock).mockImplementation(() => ({
+				[url]: { status: 'unauthorized', details: gdriveMockDetails },
+			}));
+
+			return { fg, expValEquals, mockPostMessage };
+		};
+
+		it('posts chat-new message after successful GDrive auth when gate on + treatment', async () => {
+			const { mockPostMessage } = setupPostAuthTest();
+			url = 'https://docs.google.com/document/d/abc123/edit';
+			mockFetchData(Promise.resolve(mocks.success));
+
+			const result = renderHook(() => useSmartCardActions(id, url));
+			await result.current.authorize('inline');
+
+			expect(mockPostMessage).toHaveBeenCalledWith(
+				{
+					eventType: 'rovo-post-message',
+					payload: {
+						type: 'chat-new',
+						source: 'smart-link',
+						data: {
+							dialogues: [],
+							mode: {
+								useCurrentPageContext: false,
+							},
+							aiFeatureContext: {
+								projectContext: {
+									projectId: url,
+									projectName: url,
+									projectUrl: url,
+								},
+							},
+						},
+						openChat: true,
+						openChatMode: 'mini-modal',
+					},
+					payloadId: expect.any(String),
+				},
+				'*',
+			);
+		});
+
+		it('does NOT post chat-new message when kill switch is off', async () => {
+			const { fg, mockPostMessage } = setupPostAuthTest();
+			fg.mockReturnValue(false);
+			url = 'https://docs.google.com/document/d/abc123/edit';
+			mockFetchData(Promise.resolve(mocks.success));
+
+			const result = renderHook(() => useSmartCardActions(id, url));
+			await result.current.authorize('inline');
+
+			expect(mockPostMessage).not.toHaveBeenCalled();
+		});
+
+		it('does NOT post chat-new message when in experiment control group', async () => {
+			const { expValEquals, mockPostMessage } = setupPostAuthTest();
+			expValEquals.mockReturnValue(false);
+			url = 'https://docs.google.com/document/d/abc123/edit';
+			mockFetchData(Promise.resolve(mocks.success));
+
+			const result = renderHook(() => useSmartCardActions(id, url));
+			await result.current.authorize('inline');
+
+			expect(expValEquals).toHaveBeenCalledWith('platform_sl_3p_post_auth_chat_open_exp', 'isEnabled', true);
+			expect(mockPostMessage).not.toHaveBeenCalled();
+		});
+
+		it('does NOT post chat-new message for non-GDrive providers', async () => {
+			const { mockPostMessage } = setupPostAuthTest();
+			url = 'https://gitlab.com/project/repo';
+			const gitlabDetails = {
+				...gdriveMockDetails,
+				meta: { ...gdriveMockDetails.meta, key: 'gitlab-object-provider' },
+			};
+			(mockContext.store.getState as jest.Mock).mockImplementation(() => ({
+				[url]: { status: 'unauthorized', details: gitlabDetails },
+			}));
+			mockFetchData(Promise.resolve(mocks.success));
+
+			const result = renderHook(() => useSmartCardActions(id, url));
+			await result.current.authorize('inline');
+
+			expect(mockPostMessage).not.toHaveBeenCalled();
+		});
+
+		it('does NOT post chat-new message on non-AI-enabled tenant', async () => {
+			const { mockPostMessage } = setupPostAuthTest();
+			url = 'https://docs.google.com/document/d/abc123/edit';
+			(mockContext.store.getState as jest.Mock).mockImplementation(() => ({
+				[url]: { status: 'unauthorized', details: gdriveMockDetails },
+			}));
+			mockContext.rovoOptions = { isRovoEnabled: false, isRovoLLMEnabled: false };
+			mockFetchData(Promise.resolve(mocks.success));
+
+			const result = renderHook(() => useSmartCardActions(id, url));
+			await result.current.authorize('inline');
+
+			expect(mockPostMessage).not.toHaveBeenCalled();
+		});
+
+		it('does NOT post chat-new message for forbidden (try another account) status', async () => {
+			const { mockPostMessage } = setupPostAuthTest();
+			url = 'https://docs.google.com/document/d/abc123/edit';
+			const forbiddenDetails = {
+				...gdriveMockDetails,
+				meta: { ...gdriveMockDetails.meta, access: 'forbidden' },
+			};
+			(mockContext.store.getState as jest.Mock).mockImplementation(() => ({
+				[url]: { status: 'forbidden', details: forbiddenDetails },
+			}));
+			mockFetchData(Promise.resolve(mocks.success));
+
+			const result = renderHook(() => useSmartCardActions(id, url));
+			await result.current.authorize('inline');
+
+			expect(mockPostMessage).not.toHaveBeenCalled();
+		});
+
+		it('does NOT post chat-new message on auth failure', async () => {
+			const { mockPostMessage } = setupPostAuthTest();
+			url = 'https://docs.google.com/document/d/abc123/edit';
+			asMockFunction(auth).mockRejectedValue({ type: 'auth_window_closed' });
+			mockFetchData(Promise.resolve(mocks.success));
+
+			const result = renderHook(() => useSmartCardActions(id, url));
+			await result.current.authorize('inline');
+
+			expect(mockPostMessage).not.toHaveBeenCalled();
+		});
+	});
+
 });

@@ -240,6 +240,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-25
+	platform_editor_code_block_auto_detection: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-01-09
 	platform_editor_render_bodied_extension_as_inline: {
 		defaultValue: boolean;
@@ -311,13 +318,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-24
 	platform_editor_paste_actions_menu: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-05-22
-	confluence_editor_paste_3p_link_actions_menu: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -894,6 +894,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-21 — Post-auth GDrive Smart Link to Rovo Chat auto-open (boolean: isEnabled)
+	platform_sl_3p_post_auth_chat_open_exp: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-29 — Social proof inline CTA for unauthorised 3P inline smart links (boolean: isEnabled)
 	platform_sl_3p_preauth_social_proof_inline_cta: {
 		defaultValue: boolean;
@@ -1286,6 +1293,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-26
+	'cc-maui-ai-edit-loading-experiment': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-05
 	'cc-mui-slides-experiment': {
 		defaultValue: boolean;
@@ -1495,13 +1509,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-03-19
-	platform_editor_fix_table_row_drag_drop_target: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	platform_editor_small_font_size: {
 		defaultValue: boolean;
 		param: string;
@@ -1597,13 +1604,6 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	platform_editor_table_fit_to_content_on_demand: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-03-11
-	platform_editor_disable_last_node_para: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2359,14 +2359,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-05-22
-	confluence_editor_paste_3p_link_actions_menu: createBooleanExperiment({
-		productKeys: {
-			confluence: 'confluence_editor_paste_3p_link_actions_menu',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2024-12-05
 	platform_editor_blockquote_in_text_formatting_menu: createBooleanExperiment({
 		productKeys: {
@@ -2504,6 +2496,15 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_code_block_q4_lovability',
 			jira: 'platform_editor_code_block_q4_lovability',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-25
+	platform_editor_code_block_auto_detection: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_code_block_auto_detection',
+			jira: 'platform_editor_code_block_auto_detection',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3001,6 +3002,16 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-05-21 — Post-auth GDrive Smart Link to Rovo Chat auto-open
+	platform_sl_3p_post_auth_chat_open_exp: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_sl_3p_post_auth_chat_open_exp',
+			jira: 'platform_sl_3p_post_auth_chat_open_exp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+
 	// Added 2026-04-29 — Social proof inline CTA for unauthorised 3P inline smart links
 	platform_sl_3p_preauth_social_proof_inline_cta: createBooleanExperiment({
 		productKeys: {
@@ -3349,6 +3360,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-05-26
+	'cc-maui-ai-edit-loading-experiment': createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc-maui-ai-edit-loading-experiment',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-05
 	'cc-mui-slides-experiment': createBooleanExperiment({
 		productKeys: {
@@ -3587,14 +3606,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-19
-	platform_editor_fix_table_row_drag_drop_target: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_table_row_drag_drop_target',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	platform_editor_small_font_size: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_small_font_size',
@@ -3669,15 +3680,6 @@ export const editorExperimentsConfig: {
 	platform_editor_table_fit_to_content_on_demand: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_table_fit_to_content_on_demand',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-03-11
-	platform_editor_disable_last_node_para: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_disable_last_node_para',
-			jira: 'platform_editor_disable_last_node_para',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

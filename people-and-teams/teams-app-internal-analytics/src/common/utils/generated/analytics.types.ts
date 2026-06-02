@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::906db3e448d610002b84510adfaef8cc>>
+ * @codegen <<SignedSource::7ad3e76dd73a38be76ded08eec6229bd>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -349,6 +349,7 @@ export type ButtonClickedContainerRemoveLinkButtonAttributesType = {
 	containerSelected: Record<string, unknown>;
 };
 export type LinkClickedTeamMemberAttributesType = {};
+export type LinkClickedUserCollaboratorAttributesType = undefined;
 export type TeamMemberClickedAttributesType = {};
 export type TeamAgentClickedAttributesType = {};
 export type ConnectedGroupClickedAttributesType = {};
@@ -1932,6 +1933,8 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the link picker is successfully submitted */
 	'ui.link.clicked.teamMember': LinkClickedTeamMemberAttributesType;
+	/** */
+	'link.clicked.userCollaborator': LinkClickedUserCollaboratorAttributesType;
 	/**
 	 * fired when the link picker is successfully submitted */
 	'ui.teamMember.clicked': TeamMemberClickedAttributesType;

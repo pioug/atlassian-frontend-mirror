@@ -311,7 +311,6 @@ export type WithTraceContext = {
 
 ```json
 {
-	"enzyme": ">=3.10.0",
 	"react": "^16.8.0",
 	"react-dom": "^16.8.0"
 }

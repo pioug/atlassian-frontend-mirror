@@ -5,10 +5,12 @@ import type { FloatingToolbarConfig } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { hideToolbar, showToolbar } from './editor-commands/commands';
 import type {
 	PasteOptionsToolbarPlugin,
+	PasteOptionsToolbarPasteMenuContext,
 	PasteOptionsToolbarSharedState,
 } from './pasteOptionsToolbarPluginType';
 import { createPlugin } from './pm-plugins/main';
@@ -19,10 +21,27 @@ import { firePasteActionsMenuV2ExperimentExposure } from './ui/on-paste-actions-
 import { PasteActionsMenu } from './ui/on-paste-actions-menu/PasteActionsMenu';
 import { getPasteMenuComponents } from './ui/on-paste-actions-menu/PasteMenuComponents';
 import { buildToolbar, isToolbarVisible } from './ui/toolbar';
+import { getSingleSmartLinkUrlFromSlice } from './ui/utils/current-pasted-smart-link';
 import { createPasteMenuRuleFactories } from './ui/utils/paste-menu-rules/rules';
 
 export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, api }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
+	const getPasteMenuContext = (): PasteOptionsToolbarPasteMenuContext => ({
+		getCurrentPasteRange: () => {
+			const state = api?.pasteOptionsToolbarPlugin?.sharedState.currentState();
+			if (!state) {
+				return undefined;
+			}
+			return {
+				pasteEndPos: state.pasteEndPos,
+				pasteStartPos: state.pasteStartPos,
+			};
+		},
+		getCurrentPastedUrl: () =>
+			getSingleSmartLinkUrlFromSlice(
+				api?.paste?.sharedState.currentState()?.lastContentPasted?.pastedSlice,
+			),
+	});
 
 	if (
 		config?.usePopupBasedPasteActionsMenu &&
@@ -47,7 +66,7 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 			};
 			return createPasteMenuRuleFactories(getContext);
 		})();
-		const productButtons = config.pasteMenuButtonsFactory(rules);
+		const productButtons = config.pasteMenuButtonsFactory(rules, getPasteMenuContext());
 		api?.uiControlRegistry?.actions.register(productButtons);
 	}
 
@@ -140,7 +159,10 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 			if (
 				!(
 					config?.usePopupBasedPasteActionsMenu &&
-					expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true)
+					(expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true) ||
+						['hasSpellingAndGrammar', 'hasAltAiActions'].includes(
+							expValNoExposure('platform_editor_paste_actions_menu_v2', 'variant', 'control'),
+						))
 				) ||
 				!editorView
 			) {

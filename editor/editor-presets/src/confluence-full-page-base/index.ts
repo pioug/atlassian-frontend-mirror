@@ -314,6 +314,16 @@ export function confluenceFullPageBasePreset(
 			placeholderTextPluginOptions({ options: pluginOptions.placeholderText }),
 		])
 		.add([layoutPlugin, layoutPluginOptions({ options: pluginOptions.layout })])
+		.maybeAdd(
+			// Register uiControlRegistry before cardPlugin so card can register paste menu components at init.
+			// @ts-expect-error - Preserve paste registry order; mutually exclusive with layout insertion.
+			uiControlRegistryPlugin,
+			expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true) &&
+				!(
+					expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true) ||
+					expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
+				),
+		)
 		.add([cardPlugin, cardPluginOptions({ options: pluginOptions.card, providers })])
 		.add([
 			customAutoformatPlugin,
@@ -344,15 +354,6 @@ export function confluenceFullPageBasePreset(
 				usePopupBasedPasteActionsMenu: false,
 			},
 		])
-		.maybeAdd(
-			// @ts-expect-error - Preserve paste registry order; mutually exclusive with layout insertion.
-			uiControlRegistryPlugin,
-			expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true) &&
-				!(
-					expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true) ||
-					expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
-				),
-		)
 		.maybeAdd(
 			[
 				codeBidiWarningPlugin,

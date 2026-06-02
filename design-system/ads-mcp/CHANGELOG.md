@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.21.1
+
+### Patch Changes
+
+- [`0467affd8dd16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0467affd8dd16) -
+  Minor component prop updates from DateTimePicker and DropdownMenu
+
 ## 0.21.0
 
 ### Minor Changes

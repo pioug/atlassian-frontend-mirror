@@ -74,7 +74,6 @@
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/debounce": "root:*",
-		"enzyme": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
 		"rxjs": "root:*",

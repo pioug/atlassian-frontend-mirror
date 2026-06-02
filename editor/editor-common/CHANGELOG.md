@@ -1,5 +1,60 @@
 # @atlaskit/editor-common
 
+## 115.0.0
+
+### Major Changes
+
+- [`e8d5026406906`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8d5026406906) -
+  Renamed PascalCase UI subpath exports to a `./ui-<name>` prefix to avoid conflicts with existing
+  lowercase logic subpaths in case-insensitive environments (e.g. `./toolbar` vs `./Toolbar`). The
+  new names follow the existing `./ui-color`, `./ui-menu`, `./ui-react` convention.
+
+  **Breaking change** — the following subpath exports have been renamed and consumers must update
+  their imports:
+
+  | Old subpath                          | New subpath                             |
+  | ------------------------------------ | --------------------------------------- |
+  | `./Toolbar`                          | `./ui-toolbar`                          |
+  | `./Toolbar/ButtonGroup`              | `./ui-toolbar/ButtonGroup`              |
+  | `./Toolbar/DropdownTriggerWrapper`   | `./ui-toolbar/DropdownTriggerWrapper`   |
+  | `./Toolbar/DropdownWrapper`          | `./ui-toolbar/DropdownWrapper`          |
+  | `./Toolbar/ExpandIcon`               | `./ui-toolbar/ExpandIcon`               |
+  | `./Toolbar/Separator`                | `./ui-toolbar/Separator`                |
+  | `./Emoji`                            | `./ui-emoji`                            |
+  | `./Expand`                           | `./ui-expand`                           |
+  | `./Expand/sharedStyles`              | `./ui-expand/sharedStyles`              |
+  | `./Mention`                          | `./ui-mention`                          |
+  | `./Mention/mention-with-profilecard` | `./ui-mention/mention-with-profilecard` |
+  | `./Messages`                         | `./ui-messages`                         |
+
+### Minor Changes
+
+- [`908d9972eb6cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/908d9972eb6cd) -
+  EDITOR-7417: Wire up thinking transitions based on the thinking state.
+- [`c062600f9940b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c062600f9940b) -
+  EDITOR-7306 Added analytics for accepting a suggestion in suggested edits
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.55.0
+
+### Minor Changes
+
+- [`52a08b0d14e39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52a08b0d14e39) -
+  Add code block language auto-detection experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.54.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.54.1
 
 ### Patch Changes

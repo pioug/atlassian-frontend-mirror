@@ -233,7 +233,7 @@ export const getPasteMenuComponents = ({ api }: PasteMenuComponentsConfig): Regi
 			const hasVisibleAiActions = getHasVisibleAiActions(api);
 
 			if (!hasVisibleAiActions) {
-				return <Box padding="space.050">{props.children as React.ReactNode}</Box>;
+				return <Box padding="space.100">{props.children as React.ReactNode}</Box>;
 			}
 
 			return (

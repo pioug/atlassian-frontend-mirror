@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import Avatar from '@atlaskit/avatar';
-import { LinkButton } from '@atlaskit/button/new';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 import {
@@ -262,7 +261,7 @@ const Actions = ({
 			{regularActions.map((action, index) => {
 				const isKudos = action.id === GIVE_KUDOS_ACTION_ID;
 
-				const button = fg('ptc-links-migrate-atlaskit-link-button') ? (
+				const button = (
 					<TeamsLinkButton
 						appearance="default"
 						key={action.id || index}
@@ -282,26 +281,6 @@ const Actions = ({
 							</AnimationWrapper>
 						)}
 					</TeamsLinkButton>
-				) : (
-					<LinkButton
-						appearance="default"
-						key={action.id || index}
-						onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) =>
-							onActionClick(action, args, event, index)
-						}
-						href={action.link || ''}
-						target={action.target}
-						autoFocus={index === 0 && isTriggeredUsingKeyboard && !isRenderedInPortal}
-						id={`action-button-${action.id}`}
-						aria-labelledby={`action-button-${action.id} profilecard-name-label`}
-					>
-						{action.label}
-						{isKudos && (
-							<AnimationWrapper>
-								<KudosBlobAnimation />
-							</AnimationWrapper>
-						)}
-					</LinkButton>
 				);
 
 				if (isKudos) {

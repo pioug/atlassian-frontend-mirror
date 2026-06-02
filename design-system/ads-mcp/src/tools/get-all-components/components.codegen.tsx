@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::3ab8a33f5d9a961edc6704383dde23c4>>
+ * @codegen <<SignedSource::f011ef2e44bcfe53ddd263aceed05794>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:ads-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -1753,7 +1753,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'onChange',
-				type: '((value: string) => void) & ((value: string) => void)',
+				type: '(value: string) => void',
 				description:
 					'Called when the value changes and the date / time is a complete value, or empty. The only value is an ISO string or empty string.',
 			},
@@ -1764,7 +1764,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'parseValue',
-				type: '((dateTimeValue: string, date: string, time: string, timezone: string) => { dateValue: string; timeValue: string; zoneValue: string; }) & ((dateTimeValue: string, date: string, time: string, timezone: string) => { ...; })',
+				type: '(dateTimeValue: string, date: string, time: string, timezone: string) => { dateValue: string; timeValue: string; zoneValue: string; }',
 				description:
 					'Function used to parse datetime values into their date, time and timezone sub-values. *',
 			},
@@ -2544,6 +2544,12 @@ export const components: ComponentMcpPayload[] = [
 				type: 'boolean',
 				description:
 					"This fits the dropdown menu width to its parent's width.\nWhen set to `true`, the trigger and dropdown menu elements will be wrapped in a `div` with `position: relative`.\nThe dropdown menu will be rendered as a sibling to the trigger element, and will be full width.\nThe default is `false`.\n\nThis fits the dropdown menu width to its parent's width.\nWhen set to `true`, the trigger and dropdown menu elements will be wrapped in a `div` with `position: relative`.\nThe dropdown menu will be rendered as a sibling to the trigger element, and will be full width.\nThe default is `false`.",
+			},
+			{
+				name: 'shouldIgnoreCloseEvent',
+				type: '(event: Event | React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>) => boolean',
+				description:
+					'Allows consumers to ignore specific close events, for example when an external overlay\nshould be treated as part of the dropdown interaction.',
 			},
 			{
 				name: 'spacing',
@@ -5951,6 +5957,12 @@ export const components: ComponentMcpPayload[] = [
 				type: 'boolean',
 				description:
 					'Determines if the popup will have a `max-width` and `max-height` set to\nconstrain it to the viewport.',
+			},
+			{
+				name: 'shouldIgnoreCloseEvent',
+				type: '(event: Event | MouseEvent<Element, globalThis.MouseEvent> | KeyboardEvent<Element>) => boolean',
+				description:
+					'Allows consumers to ignore specific close events, for example when an external overlay\nshould be treated as part of the popup interaction.',
 			},
 			{
 				name: 'shouldReturnFocus',

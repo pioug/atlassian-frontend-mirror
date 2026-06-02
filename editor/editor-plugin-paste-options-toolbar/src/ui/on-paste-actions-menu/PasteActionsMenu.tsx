@@ -415,15 +415,35 @@ export const PasteActionsMenu = ({
 	// Choose positioning strategy based on whether the menu appears inline
 	// (right of cursor for short pastes) or anchored to the block ancestor
 	// (right side of content area for longer pastes / AI actions).
-	const positionCalculator = useInlinePosition
-		? onInlinePositionCalculated(editorView, pasteEndPos, target, popupContentRef)
-		: onPositionCalculated(
-				editorView,
-				pasteStartPos,
-				pasteEndPos,
-				target,
-				effectiveScrollableElement,
-			);
+	let positionCalculator:
+		| ((position: { bottom?: number; left?: number; right?: number; top?: number }) => {
+				bottom?: number;
+				left?: number;
+				right?: number;
+				top: number;
+		  })
+		| undefined;
+	try {
+		positionCalculator = useInlinePosition
+			? onInlinePositionCalculated(editorView, pasteEndPos, target, popupContentRef)
+			: onPositionCalculated(
+					editorView,
+					pasteStartPos,
+					pasteEndPos,
+					target,
+					effectiveScrollableElement,
+				);
+	} catch (error) {
+		positionCalculator = (position: {
+			bottom?: number;
+			left?: number;
+			right?: number;
+			top?: number;
+		}) => ({
+			...position,
+			top: position.top ?? 0,
+		});
+	}
 
 	return (
 		<PopupWithListeners
@@ -442,7 +462,10 @@ export const PasteActionsMenu = ({
 			handleEscapeKeydown={handleDismiss}
 		>
 			<EditorToolbarProvider editorView={editorView}>
-				<ToolbarDropdownMenuProvider isOpen={isToolbarShown} setIsOpen={handleSetIsOpen}>
+				<ToolbarDropdownMenuProvider
+					isOpen={isToolbarShown}
+					setIsOpen={handleSetIsOpen}
+				>
 					<PasteActionsMenuContent
 						onMouseDown={preventEditorFocusLoss}
 						onMouseEnter={handleMouseEnter}

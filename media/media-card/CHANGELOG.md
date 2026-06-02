@@ -1,5 +1,46 @@
 # @atlaskit/media-card
 
+## 80.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 80.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 80.7.2
+
+### Patch Changes
+
+- [`a9b08a7c87017`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9b08a7c87017) -
+  Add `LoadingOverlay` variant (`'simple-bar'`) and `source` prop on `LoadingComponentProps` for
+  AI-edited MAUI embeds.
+
+  Under the new `cc-maui-ai-edit-loading-experiment`, all MAUI chart/viz embeds use the simple
+  bottom progress bar. The blanket overlay is shown only when the embed is being replaced by an AI
+  edit (matching the visual handoff from the Rovo thinking overlay). Normal page-load and insertion
+  show the bar alone.
+
+  `editor-plugin-malleable-ui` adds `aiEditReplacementLocalIds: Set<string>` to plugin state with
+  add/remove meta actions, and exposes `malleableUiPluginKey` via a new `./pm-plugins/plugin-key`
+  subpath export. `native-embeds-editor-extension` reads this state to derive `source: 'ai-edit'`
+  per-node and clears it on iframe load.
+
+  `RainbowProgressBar` gains a new `thickness?: 'default' | 'thick'` prop (default `'default'`,
+  3px). The 4 AI generating overlays (`rovo-platform-ui-components`, `smart-creation`, `media-card`,
+  `native-embeds-core`) opt into `'thick'` (6px) so they visually align with the simple loading bar
+  at the same screen position.
+
+## 80.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 80.7.0
 
 ### Minor Changes

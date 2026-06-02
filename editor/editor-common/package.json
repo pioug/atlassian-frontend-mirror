@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "114.54.1",
+	"version": "115.0.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -192,7 +192,7 @@
 		"./lists/build-replacement-fragment": "./src/lists/build-replacement-fragment.ts",
 		"./preset/builder": "./src/preset/builder.ts",
 		"./FloatingToolbar/Button": "./src/ui/FloatingToolbar/Button.tsx",
-		"./Toolbar/ButtonGroup": "./src/ui/Toolbar/ButtonGroup.tsx",
+		"./ui-toolbar/ButtonGroup": "./src/ui/Toolbar/ButtonGroup.tsx",
 		"./utils/calculate-toolbar-position": "./src/utils/calculate-toolbar-position.ts",
 		"./media/caption": "./src/media/messages/caption.ts",
 		"./Caption": "./src/ui/Caption/index.tsx",
@@ -253,8 +253,8 @@
 		"./DropdownMenuExtensionItems": "./src/floating-toolbar/DropdownMenuExtensionItems.tsx",
 		"./DropdownMenuItem": "./src/floating-toolbar/DropdownMenuItem.tsx",
 		"./DropdownSeparator": "./src/floating-toolbar/DropdownSeparator.tsx",
-		"./Toolbar/DropdownTriggerWrapper": "./src/ui/Toolbar/DropdownTriggerWrapper.tsx",
-		"./Toolbar/DropdownWrapper": "./src/ui/Toolbar/DropdownWrapper.tsx",
+		"./ui-toolbar/DropdownTriggerWrapper": "./src/ui/Toolbar/DropdownTriggerWrapper.tsx",
+		"./ui-toolbar/DropdownWrapper": "./src/ui/Toolbar/DropdownWrapper.tsx",
 		"./DropList": "./src/ui/DropList/index.tsx",
 		"./media/dropPlaceholder": "./src/media/messages/dropPlaceholder.ts",
 		"./guideline/dynamicGuideline": "./src/guideline/dynamicGuideline.ts",
@@ -276,15 +276,15 @@
 		"./element-browser/ElementBrowserLoader": "./src/element-browser/components/ElementBrowserLoader.tsx",
 		"./card/assets/embed": "./src/card/ui/assets/embed.tsx",
 		"./types/emitter": "./src/types/annotation/emitter.ts",
-		"./Emoji": "./src/ui/Emoji/index.tsx",
+		"./ui-emoji": "./src/ui/Emoji/index.tsx",
 		"./emoji/messages": "./src/emoji/messages.ts",
 		"./types/empty-state-handler": "./src/types/empty-state-handler.ts",
 		"./analytics/types/enums": "./src/analytics/types/enums.ts",
 		"./monitoring/error": "./src/monitoring/error.ts",
 		"./EventHandlers": "./src/ui/EventHandlers/index.ts",
 		"./analytics/types/events": "./src/analytics/types/events.ts",
-		"./Expand": "./src/ui/Expand/index.tsx",
-		"./Toolbar/ExpandIcon": "./src/ui/Toolbar/ExpandIcon.tsx",
+		"./ui-expand": "./src/ui/Expand/index.tsx",
+		"./ui-toolbar/ExpandIcon": "./src/ui/Toolbar/ExpandIcon.tsx",
 		"./analytics/types/experience-events": "./src/analytics/types/experience-events.ts",
 		"./experiences/Experience": "./src/experiences/Experience.ts",
 		"./experiences/experience-utils": "./src/experiences/experience-utils.ts",
@@ -419,10 +419,10 @@
 		"./MediaSingle/link": "./src/ui/MediaSingle/link.ts",
 		"./MediaSingle/types": "./src/ui/MediaSingle/types.ts",
 		"./MediaSingle": "./src/ui/MediaSingle/index.tsx",
-		"./Mention": "./src/ui/Mention/index.tsx",
-		"./Mention/mention-with-profilecard": "./src/ui/Mention/mention-with-profilecard.tsx",
+		"./ui-mention": "./src/ui/Mention/index.tsx",
+		"./ui-mention/mention-with-profilecard": "./src/ui/Mention/mention-with-profilecard.tsx",
 		"./messages/mentions": "./src/messages/mentions.ts",
-		"./Messages": "./src/ui/Messages/index.tsx",
+		"./ui-messages": "./src/ui/Messages/index.tsx",
 		"./messages/annotation": "./src/messages/annotation.ts",
 		"./messages/block-menu": "./src/messages/block-menu.ts",
 		"./messages/card": "./src/messages/card.ts",
@@ -535,7 +535,7 @@
 		"./styles/status": "./src/styles/shared/status.ts",
 		"./styles/sync-block": "./src/styles/shared/sync-block.ts",
 		"./styles/table": "./src/styles/shared/table.ts",
-		"./Expand/sharedStyles": "./src/ui/Expand/sharedStyles.ts",
+		"./ui-expand/sharedStyles": "./src/ui/Expand/sharedStyles.ts",
 		"./Shortcut": "./src/ui/Shortcut/index.tsx",
 		"./utils/should-auto-linkify-tld": "./src/utils/should-auto-linkify-tld.ts",
 		"./utils/should-force-tracking": "./src/utils/should-force-tracking.ts",
@@ -567,8 +567,8 @@
 		"./messages/text-color": "./src/messages/text-color.ts",
 		"./types/text-formatting": "./src/types/text-formatting.ts",
 		"./ui-color/ColorPalette/textColorPalette": "./src/ui-color/ColorPalette/Palettes/textColorPalette.ts",
-		"./Toolbar/Separator": "./src/ui/Toolbar/Separator.tsx",
-		"./Toolbar": "./src/ui/Toolbar/index.ts",
+		"./ui-toolbar/Separator": "./src/ui/Toolbar/Separator.tsx",
+		"./ui-toolbar": "./src/ui/Toolbar/index.ts",
 		"./analytics/types/toolbar-button": "./src/analytics/types/toolbar-button.ts",
 		"./toolbar/context": "./src/toolbar/context.tsx",
 		"./toolbar/rank": "./src/toolbar/rank.ts",
@@ -899,6 +899,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_ai_selection_local_ids": {
+			"type": "boolean"
+		},
+		"platform_editor_add_code_block_localid": {
 			"type": "boolean"
 		}
 	}

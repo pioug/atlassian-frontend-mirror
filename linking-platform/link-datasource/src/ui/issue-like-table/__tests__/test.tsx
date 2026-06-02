@@ -33,6 +33,7 @@ import {
 import { type Input } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { type ConcurrentExperience } from '@atlaskit/ufo';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
 import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id';
@@ -1553,6 +1554,33 @@ describe('IssueLikeDataTableView', () => {
 
 			it('should have column titles in table header', async () => {
 				await assertColumnTitles(undefined);
+			});
+
+			ffTest.on('platform_lp_jira_sllv_renderer_column_sorting', '', () => {
+				it('adds aria-sort and accessible sort labels in readonly sortable mode', async () => {
+					const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
+					const onColumnSort = jest.fn();
+
+					const { getByTestId } = setup({
+						items,
+						itemIds,
+						columns,
+						visibleColumnKeys,
+						hasNextPage: false,
+						onVisibleColumnKeysChange: undefined,
+						onColumnResize: undefined,
+						onWrappedColumnChange: undefined,
+						onColumnSort,
+						sortState: { key: 'task', direction: 'ASC' },
+					});
+
+					expect(getByTestId('task-column-heading')).toHaveAttribute('aria-sort', 'ascending');
+					expect(getByTestId('id-column-heading')).not.toHaveAttribute('aria-sort');
+					expect(getByTestId('task-column-sort-button')).toHaveAttribute(
+						'aria-label',
+						'Sort by task descending.',
+					);
+				});
 			});
 		});
 

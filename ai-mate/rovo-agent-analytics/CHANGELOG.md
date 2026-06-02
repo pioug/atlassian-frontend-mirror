@@ -1,5 +1,26 @@
 # @atlaskit/rovo-agent-analytics
 
+## 2.0.0
+
+### Major Changes
+
+- [`b0222d13caefe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0222d13caefe) -
+  Replace `@typescript-eslint/no-explicit-any` suppressions with real types across
+  rovo-content-bridge and rovo-platform packages (TREX-1392).
+
+  Key changes:
+  - `rovo-content-bridge-api`: Replace `any` in `CommandConstructor`, type guards, handlers,
+    debugger, and desktop transport with `unknown`, typed event interfaces, and a new `WebContents`
+    interface.
+  - `rovo-content-bridge-api-commands`: Replace `any` fields with `SerializableValue` in chart,
+    Jira, and content commands.
+  - `rovo-playground`: Replace `any` in plugin config, settings store, and ADF utilities with
+    `unknown` and recursive typed nodes.
+  - `rovo-platform-ui-components`, `rovo-navigation`, `rovo-spaces`, `rovo-triggers`,
+    `rovo-agent-analytics`, `rovo-agent-components`, `rovo-chat-side-by-side-evaluation`,
+    `rovo-agent-debug-modal`: Replace remaining `any` occurrences with `unknown`, typed interfaces,
+    or properly inferred types.
+
 ## 1.11.0
 
 ### Minor Changes

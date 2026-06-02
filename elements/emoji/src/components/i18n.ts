@@ -36,7 +36,7 @@ export const messages: {
 		description: string;
 		id: string;
 	};
-	changeEmojiButtonLabel: {
+	changeEmojiShortnameButtonLabel: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -557,9 +557,9 @@ export const messages: {
 		defaultMessage: 'emoji button',
 		description: `Aria roledescription for emoji button, used in emoji picker.`,
 	},
-	changeEmojiButtonLabel: {
-		id: 'fabric.emoji.change.button.label',
-		defaultMessage: 'Change emoji',
+	changeEmojiShortnameButtonLabel: {
+		id: 'fabric.emoji.change.shortname.button.label',
+		defaultMessage: 'Change emoji, currently {shortName}',
 		description: 'Aria label for the button in page title used to change emoji',
 	},
 	error: {

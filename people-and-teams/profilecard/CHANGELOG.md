@@ -1,5 +1,37 @@
 # @atlaskit/profilecard
 
+## 25.8.0
+
+### Minor Changes
+
+- [`2a6f508e4e6d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a6f508e4e6d2) -
+  Hide Rovo logo, hide behaviour, and show 'Agent by …' for REMOTE_A2A agents on the agent profile
+  card and the browse agents modal view-agent panel.
+
+### Patch Changes
+
+- [`c868d2e1c59f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c868d2e1c59f6) -
+  Cleaned up stale feature flag ptc-links-migrate-atlaskit-link-button
+- Updated dependencies
+
+## 25.7.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.7.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.7.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.7.8
 
 ### Patch Changes

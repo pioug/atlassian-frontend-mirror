@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-card",
-	"version": "80.7.0",
+	"version": "80.7.4",
 	"description": "Includes all media card related components, CardView, CardViewSmall, Card...",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -119,7 +119,6 @@
 		"@testing-library/user-event": "root:*",
 		"@types/classnames": "root:*",
 		"@types/react-loadable": "root:*",
-		"enzyme": "root:*",
 		"exenv": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",

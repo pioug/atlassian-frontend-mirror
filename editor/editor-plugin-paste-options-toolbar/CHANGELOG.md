@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.4.1
+
+### Patch Changes
+
+- [`52a08b0d14e39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52a08b0d14e39) -
+  Add code block language auto-detection experiment
+- Updated dependencies
+
+## 11.4.0
+
+### Minor Changes
+
+- [`d2be5b45b39b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2be5b45b39b0) -
+  Add Smart Link-aware paste actions for the paste actions menu V2 experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.3.3
 
 ### Patch Changes

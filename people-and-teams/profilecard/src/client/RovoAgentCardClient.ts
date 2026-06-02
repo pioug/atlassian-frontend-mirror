@@ -134,9 +134,7 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 	}
 
 	private basePath() {
-		return fg('pt-deprecate-assistance-service')
-			? '/gateway/api/assist/rovo/v1/agents'
-			: '/gateway/api/assist/agents/v1';
+		return '/gateway/api/assist/rovo/v1/agents';
 	}
 
 	private async getActivationId(cloudId: string, product: string): Promise<string | null> {

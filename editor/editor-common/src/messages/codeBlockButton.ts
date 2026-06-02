@@ -16,12 +16,22 @@ export const codeBlockButtonMessages: {
 		description: string;
 		id: string;
 	};
+	detectedLanguage: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	detectLanguage: {
 		defaultMessage: string;
 		description: string;
 		id: string;
 	};
 	hideLineNumbersLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	noneDetected: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -121,6 +131,18 @@ export const codeBlockButtonMessages: {
 		defaultMessage: 'Detect language',
 		description:
 			'Option in the code block language picker that clears the selected language so the editor can detect it automatically.',
+	},
+	detectedLanguage: {
+		id: 'fabric.editor.codeBlock.detectedLanguage',
+		defaultMessage: '{language} (detected)',
+		description:
+			'Label in the code block language picker trigger when the editor detected the code language. The language placeholder is the detected language name, such as JavaScript.',
+	},
+	noneDetected: {
+		id: 'fabric.editor.codeBlock.noneDetected',
+		defaultMessage: '(None detected)',
+		description:
+			'Label in the code block language picker trigger when the editor could not detect a code language.',
 	},
 	recentlyUsed: {
 		id: 'fabric.editor.codeBlock.recentlyUsed',

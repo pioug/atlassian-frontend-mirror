@@ -16,30 +16,33 @@ const isUrlOnlyLinkTextNode = (node: PMNode): boolean => {
 };
 
 /**
- * Returns true if the slice represents a single inline card (smartlink) node.
+ * Returns true if the slice represents a single smart-link card node.
  * Handles two shapes:
- *  - paragraph > inlineCard  (smartlink from editor/renderer, wrapped in a paragraph)
- *  - inlineCard              (top-level inlineCard with no paragraph wrapper)
+ *  - paragraph > inlineCard|blockCard (smartlink from editor/renderer, wrapped in a paragraph)
+ *  - inlineCard|blockCard             (top-level card with no paragraph wrapper)
  */
-const isSingleInlineCard = (slice: Slice): boolean => {
+const isSingleSmartLinkCard = (slice: Slice): boolean => {
+	const isSupportedCard = (node: PMNode): boolean =>
+		node.type.name === 'inlineCard' || node.type.name === 'blockCard';
+
 	if (slice.content.childCount !== 1) {
 		return false;
 	}
 	const topNode = slice.content.child(0);
 
-	// Top-level inlineCard (no paragraph wrapper)
-	if (topNode.type.name === 'inlineCard') {
+	// Top-level inlineCard/blockCard (no paragraph wrapper)
+	if (isSupportedCard(topNode)) {
 		return true;
 	}
 
-	// paragraph > inlineCard
+	// paragraph > inlineCard/blockCard
 	if (topNode.type.name !== 'paragraph') {
 		return false;
 	}
 	if (topNode.childCount !== 1) {
 		return false;
 	}
-	return topNode.child(0).type.name === 'inlineCard';
+	return isSupportedCard(topNode.child(0));
 };
 
 /**
@@ -108,5 +111,5 @@ export const isNotSingleLink = (slice: Slice | undefined): boolean => {
 		return true;
 	}
 
-	return !isSingleBareLink(slice) && !isSingleInlineCard(slice);
+	return !isSingleBareLink(slice) && !isSingleSmartLinkCard(slice);
 };

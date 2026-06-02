@@ -1,5 +1,40 @@
 # @atlaskit/editor-statsig-tmp
 
+## 88.0.0
+
+### Major Changes
+
+- [`02129881d539f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02129881d539f) -
+  FFCLEANUP-112479: Cleanup stale platform_editor_disable_last_node_para flag
+
+## 87.0.0
+
+### Major Changes
+
+- [`fae885a16a206`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fae885a16a206) -
+  FFCLEANUP-97994 clean up experiment platform_editor_fix_table_row_drag_drop_target
+
+### Minor Changes
+
+- [`52a08b0d14e39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52a08b0d14e39) -
+  Add code block language auto-detection experiment
+
+## 86.1.0
+
+### Minor Changes
+
+- [`94ca4284e9ee1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94ca4284e9ee1) -
+  Adds gated post-auth Rovo Chat onboarding for Google Drive SmartLinks. After a successful GDrive
+  SmartLink auth, eligible treatment users see Rovo Chat open as a mini-modal with the authenticated
+  GDrive URL provided as context and no prompt auto-sent.
+
+## 86.0.0
+
+### Major Changes
+
+- [`d2be5b45b39b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2be5b45b39b0) -
+  Add Smart Link-aware paste actions for the paste actions menu V2 experiment.
+
 ## 85.0.0
 
 ### Major Changes

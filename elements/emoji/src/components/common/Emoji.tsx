@@ -5,6 +5,7 @@
 import React, {
 	useEffect,
 	useCallback,
+	useContext,
 	useMemo,
 	type FocusEvent,
 	type MouseEvent,
@@ -12,6 +13,7 @@ import React, {
 	forwardRef,
 	type PropsWithChildren,
 } from 'react';
+import { IntlContext } from 'react-intl';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -61,6 +63,7 @@ import {
 	DeletableEmojiTooltipContentForScreenReader,
 } from './DeletableEmojiTooltipContent';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { getDocument } from '@atlaskit/browser-apis';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { messages } from '../i18n';
 
@@ -174,10 +177,8 @@ const emojiUnicodeContainer = css({
 	},
 });
 
-export interface Props extends Omit<
-	React.HTMLAttributes<HTMLSpanElement>,
-	'onMouseMove' | 'onFocus'
-> {
+export interface Props
+	extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'onMouseMove' | 'onFocus'> {
 	/**
 	 * Auto Width takes the constraint of height and enables native scaling based on the emojis image.
 	 * This is primarily used when rendering emojis for SSR as the component does not know the width and height
@@ -521,7 +522,7 @@ export const ImageEmoji = (props: Props): JSX.Element => {
 
 	const onMouseOver = useCallback((e: React.MouseEvent<HTMLElement>) => {
 		// only disable tooltip when not on focus
-		if (!document.activeElement?.contains(e.target as Node)) {
+		if (!getDocument()?.activeElement?.contains(e.target as Node)) {
 			e.stopPropagation();
 		}
 	}, []);
@@ -617,11 +618,14 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 		...other
 	} = props;
 
-	const ariaLabel = fg('platform_change_emoji_button_label')
-		? messages.changeEmojiButtonLabel.defaultMessage
-		: editorEmoji
-			? undefined
-			: emoji.shortName;
+	const intl = useContext(IntlContext);
+
+	const ariaLabel =
+		intl && fg('platform_change_emoji_button_label')
+			? intl.formatMessage(messages.changeEmojiShortnameButtonLabel, { shortName: emoji.shortName })
+			: editorEmoji
+				? undefined
+				: emoji.shortName;
 
 	return (
 		<span

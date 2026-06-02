@@ -161,6 +161,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	thinkingCompleteNoSuggestions: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	thinkingCompleteReviewComplete: {
 		defaultMessage: string;
 		description: string;
@@ -406,6 +411,12 @@ export const aiSuggestionsMessages: {
 		id: 'fabric.editor.ai.suggestions.thinkingComplete.reviewComplete.non-final',
 		defaultMessage: 'Suggestions ready',
 		description: 'Text shown when the AI has finished reviewing the content',
+	},
+	thinkingCompleteNoSuggestions: {
+		id: 'fabric.editor.ai.suggestions.thinkingComplete.noSuggestions.non-final',
+		defaultMessage: 'No suggestions found',
+		description:
+			'Text shown when the AI has finished reviewing the content and no suggestions were found',
 	},
 	thinkingCompleteViewSuggestions: {
 		id: 'fabric.editor.ai.suggestions.thinkingComplete.viewSuggestions.non-final',

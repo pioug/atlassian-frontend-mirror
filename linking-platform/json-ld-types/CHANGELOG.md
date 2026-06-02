@@ -1,5 +1,12 @@
 # @atlaskit/json-ld-types
 
+## 1.5.1
+
+### Patch Changes
+
+- [`ccbf9b19324a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ccbf9b19324a0) -
+  This adds a new optional prop for the new meta data returned from ORS
+
 ## 1.5.0
 
 ### Minor Changes

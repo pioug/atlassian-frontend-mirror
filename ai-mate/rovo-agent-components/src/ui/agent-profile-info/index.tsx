@@ -66,7 +66,7 @@ type AgentCreator =
 	  }
 	| {
 			// THIRD_PARTY is deprecated in convo-ai, use FORGE instead
-			type: 'THIRD_PARTY' | 'FORGE';
+			type: 'THIRD_PARTY' | 'FORGE' | 'REMOTE_A2A';
 			name: string;
 	  }
 	| {
@@ -93,7 +93,13 @@ export const getAgentCreator = ({
 			? isForgeAgentByCreatorType(creatorType as AgentCreatorType)
 			: creatorType === 'FORGE' || creatorType === 'THIRD_PARTY' // THIRD_PARTY is deprecated in convo-ai, use FORGE instead
 	) {
-		return { type: 'FORGE' as const, name: forgeCreator ?? '' };
+		return {
+			// @todo: remove cast in rovo_agent_support_a2a_avatar cleanup
+			type: fg('jira_improve_agent_profile_for_a2a')
+				? (creatorType as 'THIRD_PARTY' | 'FORGE' | 'REMOTE_A2A')
+				: ('FORGE' as const),
+			name: forgeCreator ?? '',
+		};
 	}
 
 	if (creatorType === 'OOTB') {
@@ -172,17 +178,34 @@ export const AgentProfileCreator = ({
 			});
 		}
 
+		if (creator.type === 'REMOTE_A2A') {
+			return formatMessage(messages.remoteAgentCreatedBy, { creatorNameWithLink: creator.name });
+		}
+
 		// THIRD_PARTY is deprecated in convo-ai, use FORGE instead
 		if (creator.type === 'THIRD_PARTY' || creator.type === 'FORGE') {
-			return formatMessage(messages.agentCreatedBy, {
-				creatorNameWithLink: creator.name,
-			});
+			return formatMessage(messages.agentCreatedBy, { creatorNameWithLink: creator.name });
 		}
 
 		return null;
 	};
 
 	const creatorRender = getCreatorRender();
+
+	if (fg('jira_improve_agent_profile_for_a2a')) {
+		const showRovoIcon = creator?.type !== 'REMOTE_A2A';
+
+		return creatorRender ? (
+			<Box xcss={styles.clickableItem}>
+				{showRovoIcon ? (
+					<Box xcss={styles.rovoIconWrapper} testId="rovo-icon-wrapper" aria-hidden="true">
+						<RovoIcon appearance="brand" size="small" />
+					</Box>
+				) : null}
+				{creatorRender}
+			</Box>
+		) : null;
+	}
 
 	return creatorRender ? (
 		<Box xcss={styles.clickableItem}>

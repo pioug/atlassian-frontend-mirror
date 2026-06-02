@@ -23,12 +23,13 @@ export type {
 	TeamState,
 } from './team';
 
-export type { TeamsClientUser as User, EditableUserFields } from './user';
+export type { TeamsClientUser as User, EditableUserFields, UserStatus } from './user';
 export { isEditableUserField } from './user';
 
 export type { UnlinkContainerMutationError } from '../services/agg-client/utils/mutations/unlink-container-mutation';
 export type {
 	InvitedUser,
+	TeamMember,
 	TeamMembership,
 	TeamAgentMembership,
 	TeamWithMemberships,

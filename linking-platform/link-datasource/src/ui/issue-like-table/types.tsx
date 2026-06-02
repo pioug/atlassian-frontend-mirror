@@ -30,6 +30,13 @@ export interface ColumnSizesMap {
 	[key: string]: number;
 }
 
+export type DatasourceTableSortDirection = 'ASC' | 'DESC';
+
+export type DatasourceTableSortState = {
+	direction: DatasourceTableSortDirection;
+	key: string;
+};
+
 export interface IssueLikeDataTableViewProps {
 	/**
 	 * Map of column key to custom column width
@@ -49,6 +56,10 @@ export interface IssueLikeDataTableViewProps {
 	itemIds: string[];
 	items: DatasourceDataResponseItem[];
 	onColumnResize?: (key: string, width: number) => void;
+	/**
+	 * Callback to be invoked whenever a user sorts a datasource table by a column.
+	 */
+	onColumnSort?: (key: string) => void;
 	onLoadDatasourceDetails: () => Promise<void>;
 	onNextPage: NextPageType;
 	/**
@@ -85,6 +96,7 @@ export interface IssueLikeDataTableViewProps {
 	 */
 	scrollableContainerHeight?: number;
 
+	sortState?: DatasourceTableSortState;
 	status: DatasourceTableStatusType;
 	testId?: string;
 

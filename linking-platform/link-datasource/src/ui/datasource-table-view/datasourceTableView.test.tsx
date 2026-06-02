@@ -26,6 +26,7 @@ import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
 import * as issueLikeModule from '../issue-like-table';
 import { type IssueLikeDataTableViewProps } from '../issue-like-table/types';
 import { useIsOnScreen } from '../issue-like-table/useIsOnScreen';
+import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '../jira-issues-modal';
 
 import { DatasourceTableView } from './datasourceTableView';
 import { type DatasourceTableViewProps } from './types';
@@ -447,6 +448,94 @@ describe('DatasourceTableView', () => {
 					scrollableContainerHeight: 590,
 				}),
 			);
+		});
+	});
+
+	ffTest.off('platform_lp_jira_sllv_renderer_column_sorting', '', () => {
+		it('does not pass sorting props to IssueLikeDataTableView when gate is off', () => {
+			const issueLikeDataTableViewConstructorSpy = jest.spyOn(
+				issueLikeModule,
+				'IssueLikeDataTableView',
+			);
+
+			setup(
+				{
+					onVisibleColumnKeysChange: null,
+					visibleColumnKeys: ['myColumn'],
+					responseItems: defaultMockResponseItems,
+				},
+				{
+					datasourceId: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+				},
+			);
+
+			expect(issueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
+			const issueLikeDataTableViewProps = issueLikeDataTableViewConstructorSpy.mock
+				.calls[0][0] as IssueLikeDataTableViewProps;
+
+			expect(issueLikeDataTableViewProps).not.toHaveProperty('onColumnSort');
+			expect(issueLikeDataTableViewProps).not.toHaveProperty('sortState');
+		});
+	});
+
+	ffTest.on('platform_lp_jira_sllv_renderer_column_sorting', '', () => {
+		it('passes sorting callback to IssueLikeDataTableView for read-only Jira table', () => {
+			const issueLikeDataTableViewConstructorSpy = jest.spyOn(
+				issueLikeModule,
+				'IssueLikeDataTableView',
+			);
+
+			setup(
+				{
+					onVisibleColumnKeysChange: null,
+					visibleColumnKeys: ['myColumn'],
+					responseItems: defaultMockResponseItems,
+				},
+				{
+					datasourceId: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+				},
+			);
+
+			expect(issueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
+			const issueLikeDataTableViewProps = issueLikeDataTableViewConstructorSpy.mock
+				.calls[0][0] as IssueLikeDataTableViewProps;
+
+			expect(issueLikeDataTableViewProps).toEqual(
+				expect.objectContaining({
+					onColumnSort: expect.any(Function),
+					sortState: undefined,
+				}),
+			);
+		});
+
+		it('updates datasource parameters when sorting a jira column', async () => {
+			const { getByTestId } = setup(
+				{
+					onVisibleColumnKeysChange: null,
+					visibleColumnKeys: ['myColumn'],
+					responseItems: defaultMockResponseItems,
+				},
+				{
+					datasourceId: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+					parameters: {
+						cloudId: 'some-cloud-id',
+						jql: 'project = TEST',
+					},
+				},
+			);
+
+			getByTestId('myColumn-column-sort-button').click();
+
+			await waitFor(() => {
+				expect(useDatasourceTableState).toHaveBeenLastCalledWith({
+					datasourceId: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+					parameters: {
+						cloudId: 'some-cloud-id',
+						jql: 'project = TEST ORDER BY myColumn ASC',
+					},
+					fieldKeys: ['myColumn'],
+				});
+			});
 		});
 	});
 

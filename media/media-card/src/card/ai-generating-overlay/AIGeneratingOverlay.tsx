@@ -29,7 +29,7 @@ const overlayStyles = css({
 
 const progressBarTrackStyles = css({
 	width: '95%',
-	height: '3px',
+	height: '6px',
 	position: 'relative',
 	borderRadius: token('radius.xsmall'),
 	overflow: 'hidden',

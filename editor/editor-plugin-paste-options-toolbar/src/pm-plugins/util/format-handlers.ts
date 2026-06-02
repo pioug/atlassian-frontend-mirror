@@ -1,4 +1,4 @@
-import { defaultWrapForMarkdownCodeBlocksInSlice } from '@atlaskit/editor-common/code-block';
+import { normalizeMarkdownCodeBlockAttrsInSlice } from '@atlaskit/editor-common/code-block';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { md } from '@atlaskit/editor-common/paste';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
@@ -244,7 +244,7 @@ export function getMarkdownSlice(
 		const openStart = canMergeOpenStart ? $start.depth : 0;
 		const openEnd = canMergeOpenEnd ? $end.depth : 0;
 
-		return defaultWrapForMarkdownCodeBlocksInSlice(
+		return normalizeMarkdownCodeBlockAttrsInSlice(
 			new Slice(doc.content, openStart, openEnd),
 			schema,
 		);

@@ -1,5 +1,23 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 6.6.1
+
+### Patch Changes
+
+- [`8e02aad1e3b98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e02aad1e3b98) -
+  Accept the new 3-bucket `source` values (`forge-framework` / `forge-app` / `external`) on
+  `ufo-forge-resource-timing` events emitted by forge-cdn bridge PR #775. The legacy `internal`
+  value (PR #769) is also still accepted for rollout compatibility while bridges in the wild
+  transition; `external` remains a first-class value in both schemes. Unknown / malformed values are
+  dropped, preserving the existing safety guarantee.
+
+## 6.6.0
+
+### Minor Changes
+
+- [`e7fca8b60a40b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7fca8b60a40b) -
+  Separate standard and extended UFO breakdown timings behind platform_ufo_metric_variants.
+
 ## 6.5.1
 
 ### Patch Changes

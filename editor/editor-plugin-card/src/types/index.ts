@@ -135,6 +135,7 @@ export type CardPluginOptions = CardOptions & {
 	disableFloatingToolbar?: boolean;
 	editorAppearance?: EditorAppearance;
 	embedCardTransformers?: EmbedCardTransformers;
+	enablePasteDisplayAsMenu?: boolean;
 	fullWidthMode?: boolean;
 	isPageSSRed?: boolean;
 	linkPicker?: LinkPickerOptions;

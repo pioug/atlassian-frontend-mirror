@@ -20,6 +20,7 @@ import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-too
 import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 import type { CardPluginOptions, CardPluginState } from './types';
@@ -51,6 +52,7 @@ export type CardPluginDependencies = [
 	OptionalPlugin<ConnectivityPlugin>,
 	OptionalPlugin<BasePlugin>,
 	OptionalPlugin<ToolbarPlugin>,
+	OptionalPlugin<UiControlRegistryPlugin>,
 ];
 
 export type CardPlugin = NextEditorPlugin<

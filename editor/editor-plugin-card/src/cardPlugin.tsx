@@ -8,11 +8,13 @@ import {
 	IconDatasourceJiraIssue,
 } from '@atlaskit/editor-common/quick-insert';
 import { canRenderDatasource } from '@atlaskit/editor-common/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
 	CONFLUENCE_SEARCH_DATASOURCE_ID,
 } from '@atlaskit/link-datasource';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { CardPlugin } from './cardPluginType';
 import { blockCardSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/blockCard';
@@ -33,12 +35,30 @@ import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import LayoutButton from './ui/LayoutButton';
+import { getPasteDisplayAsMenuComponents } from './ui/PasteDisplayAsMenu';
 import { floatingToolbar, getEndingToolbarItems, getStartingToolbarItems } from './ui/toolbar';
 
 export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptions, api }) => {
 	let previousCardProvider: CardProvider | undefined;
 	const cardPluginEvents = createEventsQueue<CardPluginEvent>();
 	let instanceEmbedCardTransformers = options.embedCardTransformers;
+	let editorViewForPasteMenu: EditorView | undefined;
+
+
+	const pasteMenuVariant = expValNoExposure('platform_editor_paste_actions_menu_v2', 'variant', 'control');
+	const shouldRegisterPasteDisplayAsMenu =
+		options.enablePasteDisplayAsMenu &&
+		['hasSpellingAndGrammar', 'hasAltAiActions'].includes(pasteMenuVariant);
+	if (shouldRegisterPasteDisplayAsMenu) {
+		api?.uiControlRegistry?.actions.register(
+			getPasteDisplayAsMenuComponents({
+				api,
+				allowBlockCards: options.onlyInlineCards ? false : (options.allowBlockCards ?? true),
+				allowEmbeds: options.onlyInlineCards ? false : options.allowEmbeds,
+				getEditorView: () => editorViewForPasteMenu,
+			}),
+		);
+	}
 
 	api?.base?.actions.registerMarks(({ tr, node, pos }) => {
 		const { doc } = tr;
@@ -136,6 +156,7 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 			if (!editorView) {
 				return null;
 			}
+			editorViewForPasteMenu = editorView;
 
 			const breakoutEnabled = options.editorAppearance === 'full-page';
 			return (

@@ -1,5 +1,5 @@
 import type { ACTION, ACTION_SUBJECT } from './enums';
-import type { OperationalAEP } from './utils';
+import type { OperationalAEP, TrackAEP } from './utils';
 
 type NoDiffSuggestionAEP = OperationalAEP<
 	ACTION.NO_DIFF_FOUND,
@@ -15,4 +15,18 @@ type NoDiffSuggestionAEP = OperationalAEP<
 	}
 >;
 
-export type AiSuggestionsEventPayload = NoDiffSuggestionAEP;
+type AcceptSuggestionAEP = TrackAEP<
+	ACTION.ACCEPTED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	undefined,
+	{
+		affectedBlocks: number;
+		charactersAdded: number;
+		charactersRemoved: number;
+		entryPoint: 'sidebar' | 'card';
+		suggestionType: string;
+	},
+	undefined
+>;
+
+export type AiSuggestionsEventPayload = NoDiffSuggestionAEP | AcceptSuggestionAEP;

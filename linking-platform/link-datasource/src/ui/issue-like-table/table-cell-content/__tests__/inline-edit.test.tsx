@@ -256,6 +256,8 @@ describe('InlineEdit', () => {
 		await userEvent.type(screen.getByTestId(testIds.editView), 'FoobarFoobar');
 		await userEvent.type(screen.getByTestId(testIds.editView), '{enter}');
 
+		// Wait for the execute promise to settle and the error flag to appear
+		await expect(execute.mock.results[0].value).rejects.toEqual({});
 		const flag = await screen.findByRole('alert');
 		expect(flag).toBeInTheDocument();
 	});
@@ -583,6 +585,8 @@ describe('InlineEdit', () => {
 			await userEvent.type(screen.getByTestId(testIds.editView), 'FoobarFoobar');
 			await userEvent.type(screen.getByTestId(testIds.editView), '{enter}');
 
+			// Wait for the execute promise to settle before asserting on analytics events
+			await expect(execute.mock.results[0].value).rejects.toEqual({});
 			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
 				{
 					payload: {
@@ -634,6 +638,8 @@ describe('InlineEdit', () => {
 			await userEvent.type(screen.getByTestId(testIds.editView), 'FoobarFoobar');
 			await userEvent.type(screen.getByTestId(testIds.editView), '{enter}');
 
+			// Wait for the execute promise to resolve before asserting on analytics events
+			await expect(execute.mock.results[0].value).resolves.toEqual({});
 			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
 				{
 					payload: {

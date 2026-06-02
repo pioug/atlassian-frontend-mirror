@@ -29,6 +29,12 @@
 			"path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/button/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../custom-steps/afm-cc/tsconfig.json"
 		},
 		{
@@ -65,6 +71,9 @@
 			"path": "../../editor-plugin-toolbar/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-ui-control-registry/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-width/afm-cc/tsconfig.json"
 		},
 		{
@@ -75,6 +84,9 @@
 		},
 		{
 			"path": "../../editor-smart-link-draggable/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../helpers/frontend-utilities/afm-cc/tsconfig.json"

@@ -1,5 +1,14 @@
 # @atlaskit/jql-editor
 
+## 6.4.7
+
+### Patch Changes
+
+- [`87ab60401cc1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87ab60401cc1d) -
+  Cleanup feature gate `empanda_jql-editor_fix_tab_select_in_popup`. The JQL editor input now always
+  sets `tabindex="0"` so it is reliably focusable when rendered inside a popup.
+- Updated dependencies
+
 ## 6.4.6
 
 ### Patch Changes

@@ -6,11 +6,14 @@ import {
 	useCallback,
 	useEffect,
 	useRef,
+	useState,
 	type ForwardRefExoticComponent,
 	type RefAttributes,
 } from 'react';
 
 import { css, jsx } from '@compiled/react';
+import isEqual from 'lodash/isEqual';
+
 
 import { withAnalyticsContext, type WithContextProps } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
@@ -42,6 +45,10 @@ import EmptyState from '../issue-like-table/empty-state';
 import type { IssueLikeDataTableViewProps } from '../issue-like-table/types';
 import { TableFooter } from '../table-footer';
 
+import {
+	getDatasourceColumnSortGetter,
+	type DatasourceTableSortState,
+} from './datasource-column-sort';
 import { type DatasourceTableViewProps } from './types';
 
 const containerStyles = css({
@@ -62,6 +69,37 @@ const DatasourceTableViewWithoutAnalytics = ({
 	onWrappedColumnChange,
 	scrollableContainerHeight = DefaultScrollableContainerHeight,
 }: DatasourceTableViewProps) => {
+	// Local copy lets us apply in-session sort mutations without mutating external parameters.
+	const [sessionParameters, setSessionParameters] = useState(parameters);
+	// Tracks the external parameters that the current session/sort state was derived from.
+	const sessionBaseParametersRef = useRef(parameters);
+	const [sortState, setSortState] = useState<DatasourceTableSortState>();
+	
+	const columnSortGetter = getDatasourceColumnSortGetter(datasourceId);
+	// Sorting is only owned by this view when parent callbacks are absent (read-only rendering mode).
+	const isReadOnlyDatasourceTable =
+		!onVisibleColumnKeysChange && !onColumnResize && !onWrappedColumnChange;
+	// Keep sort UI hidden unless datasource + ownership + feature gate all allow it.
+	const shouldEnableColumnSort =
+		!!columnSortGetter &&
+		isReadOnlyDatasourceTable &&
+		fg('platform_lp_jira_sllv_renderer_column_sorting');
+
+	useDeepEffect(() => {
+		// External parameter updates should always reset local sort/session state back to source-of-truth.
+		sessionBaseParametersRef.current = parameters;
+		setSessionParameters(parameters);
+		setSortState(undefined);
+	}, [parameters]);
+
+	const isSessionBasedOnCurrentParameters = isEqual(sessionBaseParametersRef.current, parameters);
+	// Use session parameters only when they are known to be based on the current external parameters.
+	// This avoids a one-render stale read during the deep-effect update cycle above.
+	const activeParameters =
+		isSessionBasedOnCurrentParameters && fg('platform_lp_jira_sllv_renderer_column_sorting')
+			? sessionParameters
+			: parameters;
+
 	const {
 		reset,
 		status,
@@ -79,7 +117,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 		authDetails,
 	} = useDatasourceTableState({
 		datasourceId,
-		parameters,
+		parameters: activeParameters,
 		fieldKeys: visibleColumnKeys,
 	});
 
@@ -122,7 +160,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 			reset();
 		}
 		isInitialRender.current = false;
-	}, [reset, parameters]);
+	}, [reset, activeParameters]);
 
 	useEffect(() => {
 		if (
@@ -187,6 +225,25 @@ const DatasourceTableViewWithoutAnalytics = ({
 		forcedReset();
 	}, [destinationObjectTypes, extensionKey, fireEvent, forcedReset]);
 
+	const onColumnSort = useCallback(
+		(columnKey: string) => {
+			// Build next params/sort atomically so UI state and query state stay in sync.
+			const result = columnSortGetter?.({
+				parameters: sessionParameters,
+				columnKey,
+				currentSort: sortState,
+			});
+
+			if (!result) {
+				return;
+			}
+
+			setSortState(result.sort);
+			setSessionParameters(result.parameters);
+		},
+		[columnSortGetter, sessionParameters, sortState],
+	);
+
 	const handleErrorRefresh = useCallback(() => {
 		reset({ shouldForceRequest: true });
 	}, [reset]);
@@ -237,6 +294,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 						onVisibleColumnKeysChange={onVisibleColumnKeysChange}
 						columnCustomSizes={columnCustomSizes}
 						onColumnResize={onColumnResize}
+						{...(shouldEnableColumnSort && fg('platform_lp_jira_sllv_renderer_column_sorting') ? { onColumnSort, sortState } : {})}
 						wrappedColumnKeys={wrappedColumnKeys}
 						onWrappedColumnChange={onWrappedColumnChange}
 						scrollableContainerHeight={
@@ -276,6 +334,8 @@ export const DatasourceTableView: ForwardRefExoticComponent<
 			| 'wrappedColumnKeys'
 			| 'onWrappedColumnChange'
 			| 'onColumnResize'
+			| 'onColumnSort'
+			| 'sortState'
 			| 'columnCustomSizes'
 			| 'scrollableContainerHeight'
 		>
@@ -303,6 +363,8 @@ export const DataSourceTableViewNoSuspense: ForwardRefExoticComponent<
 			| 'wrappedColumnKeys'
 			| 'onWrappedColumnChange'
 			| 'onColumnResize'
+			| 'onColumnSort'
+			| 'sortState'
 			| 'columnCustomSizes'
 			| 'scrollableContainerHeight'
 		>

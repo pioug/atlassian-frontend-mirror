@@ -15,5 +15,5 @@
     "**/stories/*.tsx",
     "**/stories/**/*.ts",
     "**/stories/**/*.tsx"
-  ]
+, "../editor-plugin-card-tests/src/__tests__/jest/ui/PasteDisplayAsMenu.test.tsx"  ]
 }

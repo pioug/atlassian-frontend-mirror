@@ -26,6 +26,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CodeBlockPlugin } from './codeBlockPluginType';
 import { createInsertCodeBlockTransaction, insertCodeBlockWithAnalytics } from './editor-commands';
+import { createAutoDetectPlugin } from './pm-plugins/auto-detect';
 import { codeBlockAutoFullStopTransformPlugin } from './pm-plugins/codeBlockAutoFullStopTransformPlugin';
 import {
 	codeBlockCopySelectionPlugin,
@@ -103,6 +104,14 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 						return createCodeBlockInputRule(schema, api?.analytics?.actions);
 					},
 				},
+				...(expValEquals('platform_editor_code_block_auto_detection', 'isEnabled', true)
+					? [
+							{
+								name: 'codeBlockAutoDetect',
+								plugin: () => createAutoDetectPlugin(api),
+							},
+						]
+					: []),
 				{
 					name: 'codeBlockIDEKeyBindings',
 					plugin: () => ideUX(api),

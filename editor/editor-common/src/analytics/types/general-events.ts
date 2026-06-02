@@ -372,8 +372,21 @@ type CodeBlockLanguageSelectedAEP = TrackAEP<
 	ACTION_SUBJECT.CODE_BLOCK,
 	undefined,
 	{
+		autoDetectedLanguage?: string;
+		autoDetectionResult?: 'detected' | 'noneDetected';
 		language: string;
 		selectionSource?: 'all' | 'pinned' | 'recentlyUsed' | 'search';
+	},
+	undefined
+>;
+
+type CodeBlockLanguageAutoDetectedAEP = TrackAEP<
+	ACTION.LANGUAGE_AUTO_DETECTED,
+	ACTION_SUBJECT.CODE_BLOCK,
+	undefined,
+	{
+		detectionResult: 'detected' | 'noneDetected';
+		language: string;
 	},
 	undefined
 >;
@@ -606,6 +619,7 @@ export type GeneralEventPayload<T = void> =
 	| TransactionMutatedAEP
 	| UploadExternalFailedAEP
 	| WithPluginStateCalledAEP
+	| CodeBlockLanguageAutoDetectedAEP
 	| CodeBlockLanguageSelectedAEP
 	| EditorContentRetrievalPerformedAEP
 	| MediaLinkTransformedAEP

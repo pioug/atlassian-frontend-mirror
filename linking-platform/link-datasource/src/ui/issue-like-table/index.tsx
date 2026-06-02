@@ -6,14 +6,19 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { css, jsx, styled } from '@compiled/react';
+import { useIntl } from 'react-intl';
 import invariant from 'tiny-invariant';
 
+import Button from '@atlaskit/button/new';
 import { FlagsProvider } from '@atlaskit/flag';
+import SortAscendingIcon from '@atlaskit/icon/core/sort-ascending';
+import SortDescendingIcon from '@atlaskit/icon/core/sort-descending';
 import { Skeleton } from '@atlaskit/linking-common';
 import {
 	type DatasourceResponseSchemaProperty,
 	type DatasourceType,
 } from '@atlaskit/linking-types/datasource';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
 import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
@@ -28,9 +33,11 @@ import { useDatasourceExperienceId } from '../../contexts/datasource-experience-
 import { useIsInPDFRender } from '../../hooks/useIsInPDFRender';
 
 import { ColumnPicker } from './column-picker';
+import { GlyphPlaceholder } from './custom-icons';
 import { DragColumnPreview } from './drag-column-preview';
 import { DraggableTableHeading } from './draggable-table-heading';
 import TableEmptyState, { type Props } from './empty-state';
+import { issueLikeTableMessages } from './messages';
 import { renderType } from './render-type';
 import { TableCellContent } from './table-cell-content';
 import {
@@ -249,6 +256,21 @@ const headingHoverEffectStyles = css({
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- Matches DraggableTableHeading button normalization.
+const SortableHeaderParent = styled.div({
+	display: 'flex',
+	alignItems: 'center',
+	whiteSpace: 'nowrap',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'& button': {
+		textAlign: 'left',
+		height: 'auto',
+		paddingBlock: token('space.0'),
+		paddingLeft: token('space.0'),
+		paddingRight: token('space.050'),
+	},
+});
+
 function extractIndex(data: Record<string, unknown>) {
 	const { index } = data;
 	invariant(typeof index === 'number');
@@ -322,13 +344,16 @@ export const IssueLikeDataTableView = ({
 	onVisibleColumnKeysChange,
 	columnCustomSizes,
 	onColumnResize,
+	onColumnSort,
 	wrappedColumnKeys,
 	onWrappedColumnChange,
+	sortState,
 	status,
 	hasNextPage,
 	scrollableContainerHeight,
 	extensionKey,
 }: IssueLikeDataTableViewProps): JSX.Element => {
+	const { formatMessage } = useIntl();
 	const tableId = useMemo(() => Symbol('unique-id'), []);
 
 	const experienceId = useDatasourceExperienceId();
@@ -603,6 +628,10 @@ export const IssueLikeDataTableView = ({
 	}, [experienceId, extensionKey, hasFullSchema, onLoadDatasourceDetails]);
 
 	const isEditable = onVisibleColumnKeysChange && hasData;
+	// Sorting is enabled only when the table owns the header interaction (read-only mode).
+	// Editable tables reserve header interactions for drag/resize/wrap controls.
+	const shouldEnableColumnSort =
+		!!onColumnSort && !onVisibleColumnKeysChange && !onColumnResize && !onWrappedColumnChange;
 
 	const orderedColumnsAreUpToDate = orderedColumns.length === columns.length;
 	const shouldDisplayColumnsInPicker = hasFullSchema && orderedColumnsAreUpToDate;
@@ -654,7 +683,40 @@ export const IssueLikeDataTableView = ({
 							);
 
 							const isHeadingOutsideButton = !isEditable || !onWrappedColumnChange;
-							if (isHeadingOutsideButton) {
+							if (shouldEnableColumnSort) {
+								const sortedDirection = sortState?.key === key ? sortState.direction : undefined;
+								// Use directional icon only for the active sort column; keep width stable otherwise.
+								const SortIcon = sortedDirection
+									? sortedDirection === 'ASC'
+										? SortAscendingIcon
+										: SortDescendingIcon
+									: GlyphPlaceholder;
+								const sortLabel = typeof content === 'string' ? content : key;
+								const sortButtonAriaLabel =
+									sortedDirection === 'ASC'
+										? formatMessage(issueLikeTableMessages.sortByColumnDescendingAction, {
+												column: sortLabel,
+											})
+										: formatMessage(issueLikeTableMessages.sortByColumnAscendingAction, {
+												column: sortLabel,
+											});
+
+								heading = (
+									<SortableHeaderParent>
+										<Button
+											appearance="subtle"
+											spacing="compact"
+											shouldFitContainer
+											testId={`${key}-column-sort-button`}
+											aria-label={sortButtonAriaLabel}
+											iconAfter={(iconProps) => <SortIcon {...iconProps} size="small" />}
+											onClick={() => onColumnSort?.(key)}
+										>
+											{heading}
+										</Button>
+									</SortableHeaderParent>
+								);
+							} else if (isHeadingOutsideButton) {
 								heading = <div css={headingHoverEffectStyles}>{heading}</div>;
 							}
 
@@ -693,6 +755,16 @@ export const IssueLikeDataTableView = ({
 									<TableHeading
 										key={key}
 										data-testid={`${key}-column-heading`}
+										{...(fg('platform_lp_jira_sllv_renderer_column_sorting')
+											? {
+													'aria-sort':
+														sortState?.key === key && sortState.direction === 'ASC'
+															? 'ascending'
+															: sortState?.key === key && sortState.direction === 'DESC'
+																? 'descending'
+																: undefined,
+												}
+											: {})}
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 										style={getWidthCss({ shouldUseWidth, width })}
 									>

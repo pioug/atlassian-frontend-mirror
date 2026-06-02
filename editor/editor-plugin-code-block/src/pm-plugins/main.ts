@@ -154,12 +154,11 @@ export const createPlugin = ({
 
 				if (tr.docChanged) {
 					const node = findCodeBlock(newState, tr.selection);
+					const codeBlockNodes = getAllChangedCodeBlocksInTransaction(tr);
 
 					// Updates mapping position of all existing decorations to new positions
 					// specifically used for updating word wrap node decorators (does not cover drag & drop, validateWordWrappedDecorators does).
 					let updatedDecorationSet = pluginState.decorations.map(tr.mapping, tr.doc);
-
-					const codeBlockNodes = getAllChangedCodeBlocksInTransaction(tr);
 
 					if (codeBlockNodes) {
 						updateCodeBlockWrappedStateNodeKeys(codeBlockNodes, _oldState);

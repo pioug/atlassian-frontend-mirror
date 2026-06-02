@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-paste
 
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.9
+
+### Patch Changes
+
+- [`52a08b0d14e39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52a08b0d14e39) -
+  Add code block language auto-detection experiment
+- Updated dependencies
+
+## 11.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.2.7
 
 ### Patch Changes

@@ -81,9 +81,7 @@
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
-		"@types/enzyme": "root:*",
 		"@types/exenv": "root:*",
-		"enzyme": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*"

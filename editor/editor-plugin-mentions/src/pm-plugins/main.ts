@@ -1,3 +1,4 @@
+import type { MentionUserType } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -18,6 +19,7 @@ import { SLI_EVENT_TYPE, SMART_EVENT_TYPE } from '@atlaskit/mention/resource';
 import { ComponentNames } from '@atlaskit/mention/types';
 import type { Actions as MentionActions, SliNames } from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
 import { MentionNodeView } from '../nodeviews/mentionNodeView';
@@ -30,6 +32,11 @@ import { canMentionBeCreatedInRange } from './utils';
 export const ACTIONS = {
 	SET_PROVIDER: 'SET_PROVIDER',
 };
+
+// 'AGENT' is not in the ADF schema UserType enum but is used at runtime.
+const AGENT_USER_TYPES = new Set<MentionUserType | 'AGENT'>(['APP', 'AGENT']);
+
+const AI_STREAMING_TRANSFORMATION_META_KEY = 'isAIStreamingTransformation' as const;
 
 const PACKAGE_NAME = process.env._PACKAGE_NAME_ as string;
 const PACKAGE_VERSION = process.env._PACKAGE_VERSION_ as string;
@@ -134,7 +141,10 @@ export function createMentionPlugin({
 						break;
 				}
 
-				if (hasNewPluginState) {
+				// When the agent mentions experiment is off, dispatch immediately (original behaviour).
+				// When it's on, defer dispatch to after the agent tracking block below so that
+				// agent-mention state changes are included in the notification.
+				if (hasNewPluginState && !editorExperiment('platform_editor_agent_mentions', true)) {
 					pmPluginFactoryParams.dispatch(mentionPluginKey, newPluginState);
 				}
 
@@ -206,6 +216,165 @@ export function createMentionPlugin({
 					}
 
 					insm.session?.endFeature('mentionDeletionDetection');
+				}
+
+				const isAIStreaming = Boolean(tr.getMeta(AI_STREAMING_TRANSFORMATION_META_KEY));
+				if (
+					tr.docChanged &&
+					!tr.getMeta('replaceDocument') &&
+					!isAIStreaming &&
+					editorExperiment('platform_editor_agent_mentions', true)
+				) {
+					const mentionSchema = newState.schema.nodes.mention;
+
+					const newDocRanges: Array<[number, number]> = [];
+					const oldDocRanges: Array<[number, number]> = [];
+					let stepsTouchMentions = false;
+					tr.steps.forEach((step) => {
+						let found = false;
+						// Only merge a step's ranges if it actually touched an agent mention,
+						// so unrelated steps (e.g. mark-only changes) don't inflate the scan area.
+						const stepNewRanges: Array<[number, number]> = [];
+						const stepOldRanges: Array<[number, number]> = [];
+						step.getMap().forEach((oldFrom, oldTo, newFrom, newTo) => {
+							stepOldRanges.push([oldFrom, oldTo]);
+							stepNewRanges.push([newFrom, newTo]);
+							if (!found) {
+								// Clamp positions: delete-only steps can produce newTo > doc.content.size.
+								const clampedNewFrom = Math.min(newFrom, newState.doc.content.size);
+								const clampedNewTo = Math.min(newTo, newState.doc.content.size);
+								if (clampedNewFrom < clampedNewTo) {
+									newState.doc.nodesBetween(clampedNewFrom, clampedNewTo, (node) => {
+										if (node.type === mentionSchema && AGENT_USER_TYPES.has(node.attrs.userType)) {
+											found = true;
+										}
+										return !found;
+									});
+								}
+								if (!found) {
+									const clampedOldFrom = Math.min(oldFrom, oldState.doc.content.size);
+									const clampedOldTo = Math.min(oldTo, oldState.doc.content.size);
+									if (clampedOldFrom < clampedOldTo) {
+										oldState.doc.nodesBetween(clampedOldFrom, clampedOldTo, (node) => {
+											if (
+												node.type === mentionSchema &&
+												AGENT_USER_TYPES.has(node.attrs.userType)
+											) {
+												found = true;
+											}
+											return !found;
+										});
+									}
+								}
+							}
+						});
+						if (found) {
+							stepsTouchMentions = true;
+							newDocRanges.push(...stepNewRanges);
+							oldDocRanges.push(...stepOldRanges);
+						}
+					});
+
+					if (stepsTouchMentions || newPluginState.lastInsertedAgentMentionId) {
+						let agentMentionId: string | null = null;
+						let agentMentionContext: string | null = null;
+						let agentMentionParentNodeType: string | null = null;
+						let newCount = 0;
+						let oldAgentMentionId: string | null = null;
+						let oldCount = 0;
+
+						if (stepsTouchMentions) {
+							for (const [from, to] of newDocRanges) {
+								const clampedTo = Math.min(to, newState.doc.content.size);
+								if (from >= clampedTo) continue;
+								newState.doc.nodesBetween(from, clampedTo, (node, _pos, parent) => {
+									if (node.type !== mentionSchema || !AGENT_USER_TYPES.has(node.attrs.userType)) {
+										return true;
+									}
+									newCount++;
+									if (agentMentionId === null && node.attrs.id) {
+										agentMentionId = node.attrs.id as string;
+										agentMentionParentNodeType = parent?.type.name ?? null;
+										agentMentionContext = parent?.textContent.trim() || null;
+									}
+									return true;
+								});
+							}
+
+							for (const [from, to] of oldDocRanges) {
+								const clampedOldTo = Math.min(to, oldState.doc.content.size);
+								if (from >= clampedOldTo) continue;
+								oldState.doc.nodesBetween(from, clampedOldTo, (node) => {
+									if (node.type !== mentionSchema || !AGENT_USER_TYPES.has(node.attrs.userType)) {
+										return true;
+									}
+									oldCount++;
+									if (oldAgentMentionId === null && node.attrs.id) {
+										oldAgentMentionId = node.attrs.id as string;
+									}
+									return true;
+								});
+							}
+						}
+
+						// When a deletion collapses the new-doc range to a zero-width point, or when
+						// the doc changed but no step covered the tracked mention, the new-doc scan
+						// above finds nothing. Check whether any agent mention survived in the document.
+						let resolvedFromSurvivor = false;
+						if (agentMentionId === null && newPluginState.lastInsertedAgentMentionId) {
+							const prevId = newPluginState.lastInsertedAgentMentionId;
+							let survivorId: string | null = null;
+							let survivorContext: string | null = null;
+							let survivorParentNodeType: string | null = null;
+							newState.doc.descendants((node, _pos, parent) => {
+								if (survivorId === prevId) return false;
+								if (node.type === mentionSchema && AGENT_USER_TYPES.has(node.attrs.userType)) {
+									// Prefer the previously tracked ID; otherwise keep the first found.
+									survivorId = node.attrs.id as string;
+									survivorParentNodeType = parent?.type.name ?? null;
+									survivorContext = parent?.textContent.trim() || null;
+								}
+								return survivorId !== prevId;
+							});
+							if (survivorId !== null) {
+								agentMentionId = survivorId;
+								agentMentionContext = survivorContext;
+								agentMentionParentNodeType = survivorParentNodeType;
+								resolvedFromSurvivor = true;
+							}
+						}
+
+						const isNewInsertion =
+							agentMentionId !== null &&
+							!resolvedFromSurvivor &&
+							(oldAgentMentionId !== agentMentionId || newCount > oldCount);
+						const newInsertionCount = isNewInsertion
+							? (newPluginState.lastAgentMentionInsertionCount ?? 0) + 1
+							: undefined;
+
+						if (
+							agentMentionId !== (newPluginState.lastInsertedAgentMentionId ?? null) ||
+							agentMentionContext !== (newPluginState.lastInsertedAgentMentionContext ?? null) ||
+							agentMentionParentNodeType !==
+								(newPluginState.lastInsertedAgentMentionParentNodeType ?? null) ||
+							newInsertionCount !== undefined
+						) {
+							newPluginState = {
+								...newPluginState,
+								lastInsertedAgentMentionId: agentMentionId,
+								lastInsertedAgentMentionContext: agentMentionContext,
+								lastInsertedAgentMentionParentNodeType: agentMentionParentNodeType,
+								...(newInsertionCount !== undefined
+									? { lastAgentMentionInsertionCount: newInsertionCount }
+									: {}),
+							};
+							hasNewPluginState = true;
+						}
+					}
+				}
+
+				if (hasNewPluginState && editorExperiment('platform_editor_agent_mentions', true)) {
+					pmPluginFactoryParams.dispatch(mentionPluginKey, newPluginState);
 				}
 
 				return newPluginState;

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-mentions
 
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.2
+
+### Patch Changes
+
+- [`fcf5961a91bce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcf5961a91bce) -
+  EDITOR-7322 - mentions plugin agent detection and tracking
+- Updated dependencies
+
+## 12.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.0
 
 ### Minor Changes

@@ -129,6 +129,12 @@ export type ChatNewPayload = PayloadCore<
 		 * Sent as `search_artifact` in `body.context`.
 		 */
 		searchArtifact?: SendMessageSearchArtifact;
+		/**
+		 * Optional conversation-channel tags forwarded to the backend on conversation creation.
+		 * Used by the agent-mention-in-comment feature to pass mention-in-comment, page:<pageId>,
+		 * and comment:<commentId> so the backend can create a SessionAssociationPublic record.
+		 */
+		tags?: string[];
 	} & Partial<TargetAgentParam> &
 		PlaceholderParam
 >;
@@ -223,8 +229,7 @@ export type JiraCreateContextPayloadData = {
 				projectIdOrKey: string;
 				issueTypeId: string;
 				summary: string;
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				fields: Record<string, any>;
+				fields: Record<string, unknown>;
 		  }[]
 		| null;
 };
@@ -605,6 +610,7 @@ export type Payload =
 	| BrowserContextPayload
 	| WhiteboardContextPayload
 	| JiraCreateContextPayload
+	| JiraInlineAgentCreationAgentAssignedPayload
 	| DatabaseContextPayload
 	| ForgeAppAuthSuccess
 	| ForgeAppAuthFailure
@@ -680,6 +686,14 @@ export type TaskModifyPlanRequestedPayload = PayloadCore<
 export type TaskModifyPlanSubmittedPayload = PayloadCore<
 	'task-modify-plan-submitted',
 	{ conversationId: string; invocationId: string; prompt: string }
+>;
+
+export const JIRA_INLINE_AGENT_CREATION_AGENT_ASSIGNED_EVENT =
+	'jira-inline-agent-creation-agent-assigned' as const;
+
+export type JiraInlineAgentCreationAgentAssignedPayload = PayloadCore<
+	typeof JIRA_INLINE_AGENT_CREATION_AGENT_ASSIGNED_EVENT,
+	{ issueId: string }
 >;
 
 export type Callback = (payload: Payload) => void;

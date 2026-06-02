@@ -36,7 +36,8 @@ export const FormatMenuComponent = ({
 
 	// eslint-disable-next-line @atlaskit/platform/no-preconditioning -- gate + experiment layering for MAUI rollout (cc-maui-experiment + cc-maui-phase-3); will simplify post-rollout
 	const formatMenuLabel =
-		expValEquals('cc-maui-experiment', 'isEnabled', true) && fg('cc-maui-phase-3')
+		(expValEquals('cc-maui-experiment', 'isEnabled', true) && fg('cc-maui-phase-3')) ||
+		fg('platform_editor_block_menu_jira_patch_3')
 			? blockMenuMessages.changeFormat
 			: blockMenuMessages.turnInto;
 

@@ -24,7 +24,6 @@ export type MentionsChangedHandler = (
 	changes: {
 		id: string;
 		localId: string;
-		shouldSuppressMentionNotification?: boolean;
 		taskLocalId?: string;
 		type: 'added' | 'deleted';
 	}[],
@@ -54,6 +53,26 @@ export type MentionPluginOptions = MentionsPluginOptions;
 
 export type MentionPluginState = {
 	canInsertMention?: boolean;
+	/**
+	 * Increments on each new agent mention insertion (including re-mentions of the same agent).
+	 * Used to trigger re-renders when the same agent is mentioned again.
+	 */
+	lastAgentMentionInsertionCount?: number;
+	/**
+	 * Plain-text content of the block node containing the agent mention.
+	 * Used as a prompt context for Rovo chat.
+	 */
+	lastInsertedAgentMentionContext?: string | null;
+	/**
+	 * The ID of the most recently inserted agent (APP | AGENT userType) mention.
+	 * Null when no agent mention is present in the document.
+	 */
+	lastInsertedAgentMentionId?: string | null;
+	/**
+	 * ProseMirror node type of the direct parent of the agent mention
+	 * (e.g. 'taskItem', 'paragraph'). Determines auto-send vs. draft behaviour.
+	 */
+	lastInsertedAgentMentionParentNodeType?: string | null;
 	mentionProvider?: MentionProvider;
 	mentions?: Array<MentionDescription>;
 };

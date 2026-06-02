@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.5.7
+
+### Patch Changes
+
+- [`fae885a16a206`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fae885a16a206) -
+  FFCLEANUP-97994 clean up experiment platform_editor_fix_table_row_drag_drop_target
+- Updated dependencies
+
+## 11.5.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.5.5
 
 ### Patch Changes

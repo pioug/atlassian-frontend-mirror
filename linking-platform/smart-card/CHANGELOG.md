@@ -1,5 +1,36 @@
 # @atlaskit/smart-card
 
+## 44.20.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.20.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.20.0
+
+### Minor Changes
+
+- [`94ca4284e9ee1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94ca4284e9ee1) -
+  Adds gated post-auth Rovo Chat onboarding for Google Drive SmartLinks. After a successful GDrive
+  SmartLink auth, eligible treatment users see Rovo Chat open as a mini-modal with the authenticated
+  GDrive URL provided as context and no prompt auto-sent.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.19.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.19.0
 
 ### Minor Changes

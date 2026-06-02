@@ -196,6 +196,7 @@ function FullPageDiffEditor(): React.JSX.Element {
 					mentions: {
 						handleMentionsChanged: () => {},
 					},
+					pasteOptionsToolbar: undefined,
 					table: {
 						editorAppearance: 'full-page',
 						prevEditorAppearance: 'full-page',

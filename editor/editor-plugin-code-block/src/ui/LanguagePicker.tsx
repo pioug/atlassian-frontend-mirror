@@ -9,8 +9,7 @@ import type { IntlShape } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI, SelectOption } from '@atlaskit/editor-common/types';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { SelectOption } from '@atlaskit/editor-common/types';
 import { akEditorLineHeight } from '@atlaskit/editor-shared-styles';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -24,25 +23,23 @@ import {
 } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
-import { changeLanguage } from '../editor-commands';
-import type { CodeBlockPlugin } from '../index';
-
-import type {
-	LanguagePickerOption,
-	LanguagePickerOptionGroup,
-	LanguagePickerSelectionSource,
+import {
+	createGroupedLanguageOptions,
+	type LanguagePickerOption,
+	type LanguagePickerOptionGroup,
+	type LanguagePickerSelectionSource,
 } from './language-picker-options';
-import { createGroupedLanguageOptions } from './language-picker-options';
 
 export type LanguagePickerProps = {
-	api: ExtractInjectionAPI<CodeBlockPlugin> | undefined;
 	defaultValue?: LanguagePickerOption;
-	editorView: EditorView;
 	filterOption: (option: SelectOption<LanguagePickerOption>, rawInput: string) => boolean;
 	formatMessage: IntlShape['formatMessage'];
 	languagePickerOptions: LanguagePickerOption[];
-	onLanguageSelect?: (language: string) => void;
 	onMenuOpen?: () => void;
+	onSelection: (
+		option: LanguagePickerOption,
+		selectionSource: LanguagePickerSelectionSource,
+	) => void;
 	recentLanguageValues?: string[];
 };
 
@@ -128,17 +125,14 @@ const getRecentlyUsedLanguages = (
 };
 
 export const LanguagePicker = ({
-	api,
 	defaultValue,
-	editorView,
 	filterOption,
 	formatMessage,
 	languagePickerOptions,
 	recentLanguageValues = [],
-	onLanguageSelect,
 	onMenuOpen,
+	onSelection,
 }: LanguagePickerProps): React.JSX.Element => {
-	const editorAnalyticsAPI = api?.analytics?.actions;
 	const label = defaultValue?.label ?? formatMessage(codeBlockButtonMessages.selectLanguage);
 	const selectLanguageLabel = formatMessage(codeBlockButtonMessages.selectLanguage);
 	const [hasSearchQuery, setHasSearchQuery] = useState(false);
@@ -171,16 +165,10 @@ export const LanguagePicker = ({
 			const selectionSource: LanguagePickerSelectionSource = isSearchSelection
 				? 'search'
 				: (option.selectionSource ?? 'all');
-			const commandSucceeded = changeLanguage(editorAnalyticsAPI)(option.value, selectionSource)(
-				editorView.state,
-				editorView.dispatch,
-			);
 
-			if (commandSucceeded) {
-				onLanguageSelect?.(option.value);
-			}
+			onSelection(option, selectionSource);
 		},
-		[editorAnalyticsAPI, editorView, onLanguageSelect],
+		[onSelection],
 	);
 	const handleInputChange = useCallback(
 		(newInputValue: string, actionMeta?: { action?: string }) => {
@@ -205,14 +193,13 @@ export const LanguagePicker = ({
 					appearance="subtle"
 					isSelected={isOpen}
 					aria-controls={ariaControls}
-					aria-label={selectLanguageLabel}
 					testId="code-block-language-picker-trigger"
 				>
 					{label}
 				</Button>
 			</div>
 		),
-		[label, selectLanguageLabel],
+		[label],
 	);
 
 	return (

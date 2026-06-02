@@ -1,5 +1,7 @@
 import { renderHook } from '@testing-library/react';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { usePublish, useSubscribe, useSubscribeAll } from './main';
 import type { Payload, Topic } from './types';
 
@@ -123,6 +125,63 @@ describe('PubSub', () => {
 				);
 
 				expect(callback).not.toHaveBeenCalled();
+				unmount();
+			});
+
+			it('does not let `set-message-context` overwrite a queued action event when the gate is on', () => {
+				passGate('rovo_chat_fix_cold_start_prompt_insertion');
+				const insertPrompt: Payload = {
+					type: 'insert-prompt',
+					data: { prompt: '/create-work-items', overrideAutoSend: true },
+					source: 'rovo-action-trigger',
+				};
+				const setMessageContext: Payload = {
+					type: 'set-message-context',
+					data: { contextKey: 'agents_and_mcps_in_jira', setContext: (ctx) => ctx },
+					source: 'rovo-for-jira-onboarding',
+				};
+
+				const { result } = renderHook(() => usePublish(topic));
+				const callback = jest.fn();
+
+				result.current(insertPrompt);
+				result.current(setMessageContext);
+
+				const { unmount } = renderHook(() =>
+					useSubscribe({ topic, triggerLatest: true }, callback),
+				);
+
+				expect(callback).toHaveBeenCalledTimes(1);
+				expect(callback).toHaveBeenCalledWith(insertPrompt);
+				unmount();
+			});
+
+			it('lets `set-message-context` overwrite the replay slot when the gate is off', () => {
+				failGate('rovo_chat_fix_cold_start_prompt_insertion');
+
+				const insertPrompt: Payload = {
+					type: 'insert-prompt',
+					data: { prompt: '/create-work-items', overrideAutoSend: true },
+					source: 'rovo-action-trigger',
+				};
+				const setMessageContext: Payload = {
+					type: 'set-message-context',
+					data: { contextKey: 'agents_and_mcps_in_jira', setContext: (ctx) => ctx },
+					source: 'rovo-for-jira-onboarding',
+				};
+
+				const { result } = renderHook(() => usePublish(topic));
+				const callback = jest.fn();
+
+				result.current(insertPrompt);
+				result.current(setMessageContext);
+
+				const { unmount } = renderHook(() =>
+					useSubscribe({ topic, triggerLatest: true }, callback),
+				);
+
+				expect(callback).toHaveBeenCalledTimes(1);
+				expect(callback).toHaveBeenCalledWith(setMessageContext);
 				unmount();
 			});
 		});

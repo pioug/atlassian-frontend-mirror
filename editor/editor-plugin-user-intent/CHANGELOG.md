@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-user-intent
 
+## 9.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.0
 
 ### Minor Changes

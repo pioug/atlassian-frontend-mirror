@@ -36,11 +36,17 @@ import {
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ACTIONS } from '../pm-plugins/actions';
+import { autoDetectPluginKey, type AutoDetectEntry } from '../pm-plugins/auto-detect-state';
 import { copySelectionPluginKey } from '../pm-plugins/codeBlockCopySelectionPlugin';
 import type { CodeBlockState } from '../pm-plugins/main-state';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { transformToCodeBlockAction } from '../pm-plugins/transform-to-code-block';
 import type { LanguagePickerSelectionSource } from '../ui/language-picker-options';
+import {
+	createAutoDetectEntry,
+	getLocalId,
+	hasEnoughTextForAutoDetection,
+} from '../utils/auto-detect-state';
 
 export const removeCodeBlockWithAnalytics = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
@@ -83,9 +89,24 @@ export const changeLanguage =
 		}
 
 		const node = state.doc.nodeAt(pos);
+		const localId = node?.attrs.localId;
+		const previousAutoDetectEntry: AutoDetectEntry | undefined = expValEquals(
+			'platform_editor_code_block_auto_detection',
+			'isEnabled',
+			true,
+		)
+			? autoDetectPluginKey.getState(state)?.languageDetectionMap[localId]
+			: undefined;
 		const tr = state.tr
 			.setNodeMarkup(pos, codeBlock, { ...node?.attrs, language })
 			.setMeta('scrollIntoView', false);
+
+		if (expValEquals('platform_editor_code_block_auto_detection', 'isEnabled', true)) {
+			tr.setMeta(autoDetectPluginKey, {
+				type: ACTIONS.REMOVE_AUTO_DETECT_ENTRY,
+				data: { localId },
+			});
+		}
 
 		const selection = isNodeSelection(state.selection)
 			? NodeSelection.create(tr.doc, pos)
@@ -100,6 +121,8 @@ export const changeLanguage =
 				attributes: {
 					language: language ?? 'none',
 					...(selectionSource ? { selectionSource } : {}),
+					autoDetectionResult: previousAutoDetectEntry?.detectionResult,
+					autoDetectedLanguage: previousAutoDetectEntry?.autoDetectedLanguage,
 				},
 				eventType: EVENT_TYPE.TRACK,
 			})(result);
@@ -108,6 +131,52 @@ export const changeLanguage =
 
 		return true;
 	};
+
+/** Queue auto-detection for selected code block. */
+export const detectLanguage = (): Command => (state, dispatch) => {
+	const pos = pluginKey.getState(state)?.pos;
+
+	if (typeof pos !== 'number') {
+		return false;
+	}
+
+	const node = state.doc.nodeAt(pos);
+
+	if (!node) {
+		return false;
+	}
+
+	const localId = getLocalId(node);
+	if (!localId) {
+		return false;
+	}
+
+	const autoDetectState = autoDetectPluginKey.getState(state);
+	const previousEntry = autoDetectState?.languageDetectionMap[localId];
+	const entry = createAutoDetectEntry(
+		node,
+		pos,
+		hasEnoughTextForAutoDetection(node.textContent),
+		previousEntry,
+	);
+	const tr = state.tr
+		.setNodeMarkup(pos, state.schema.nodes.codeBlock, { ...node.attrs, language: null })
+		.setMeta(autoDetectPluginKey, {
+			type: ACTIONS.SET_AUTO_DETECT_ENTRY,
+			data: { localId, entry },
+		})
+		.setMeta('scrollIntoView', false);
+	const selection = isNodeSelection(state.selection)
+		? NodeSelection.create(tr.doc, pos)
+		: tr.selection;
+	const result = tr.setSelection(selection);
+
+	if (dispatch) {
+		dispatch(result);
+	}
+
+	return true;
+};
 
 export const copyContentToClipboardWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>

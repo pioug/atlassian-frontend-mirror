@@ -1,5 +1,30 @@
 # @atlaskit/emoji
 
+## 70.15.0
+
+### Minor Changes
+
+- [`d35341f95a68e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d35341f95a68e) -
+  The label for the change emoji button includes emoji shortname
+
+## 70.14.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 70.14.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 70.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 70.14.0
 
 ### Minor Changes

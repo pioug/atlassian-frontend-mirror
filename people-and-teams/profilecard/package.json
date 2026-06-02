@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "25.7.8",
+	"version": "25.8.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -86,6 +86,7 @@
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/empty-state": "workspace:^",
+		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/give-kudos": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
@@ -126,7 +127,6 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
-		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-storybook-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
@@ -170,16 +170,10 @@
 		"ptc-links-migrate-atlaskit-link": {
 			"type": "boolean"
 		},
-		"ptc-links-migrate-atlaskit-link-button": {
-			"type": "boolean"
-		},
 		"enable_ptc_townsquare_reporting_lines_unsharded": {
 			"type": "boolean"
 		},
 		"platform_agg_user_query_doc_change": {
-			"type": "boolean"
-		},
-		"pt-deprecate-assistance-service": {
 			"type": "boolean"
 		},
 		"platform-adopt-teams-nav-config": {
@@ -207,6 +201,9 @@
 			"type": "boolean"
 		},
 		"rovo_agent_support_a2a_avatar": {
+			"type": "boolean"
+		},
+		"jira_improve_agent_profile_for_a2a": {
 			"type": "boolean"
 		},
 		"jira_ai_hide_conversation_starters_profilecard": {

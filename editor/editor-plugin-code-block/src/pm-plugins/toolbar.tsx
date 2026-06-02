@@ -1,5 +1,7 @@
 import React from 'react';
 
+import type { IntlShape } from 'react-intl';
+
 import {
 	areCodeBlockLineNumbersVisible,
 	isCodeBlockWordWrapEnabled,
@@ -43,6 +45,7 @@ import {
 	type LanguagePickerOption,
 } from '../ui/language-picker-options';
 
+import { autoDetectPluginKey, type AutoDetectEntry } from './auto-detect-state';
 import {
 	provideVisualFeedbackForCopyButton,
 	removeVisualFeedbackForCopyButton,
@@ -51,6 +54,53 @@ import { createLanguageList, DEFAULT_LANGUAGES, getLanguageIdentifier } from './
 import type { Language } from './language-list';
 import type { CodeBlockState } from './main-state';
 import { pluginKey } from './plugin-key';
+
+const getAutoDetectPickerValue = ({
+	autoDetectEntry,
+	formatMessage,
+	language,
+	languagePickerOptions,
+}: {
+	autoDetectEntry?: AutoDetectEntry;
+	formatMessage: IntlShape['formatMessage'];
+	language: string | undefined;
+	languagePickerOptions: LanguagePickerOption[];
+}): LanguagePickerOption | undefined => {
+	const defaultPickerValue = language
+		? languagePickerOptions.find((option) =>
+				language === NONE_LANGUAGE_VALUE
+					? option.value === PLAIN_TEXT_LANGUAGE_VALUE
+					: option.value === language || option.alias.includes(language),
+			)
+		: undefined;
+
+	// A weak re-detection records noneDetected but can leave a previously auto-detected
+	// language on the node. Keep showing "(detected)" only while that preserved language
+	// still matches the node language, so manual language changes do not inherit the label.
+	if (
+		defaultPickerValue &&
+		(autoDetectEntry?.detectionResult === 'detected' ||
+			(autoDetectEntry?.detectionResult === 'noneDetected' &&
+				autoDetectEntry.autoDetectedLanguage === language))
+	) {
+		return {
+			...defaultPickerValue,
+			label: formatMessage(codeBlockButtonMessages.detectedLanguage, {
+				language: defaultPickerValue.label,
+			}) as string,
+		};
+	}
+
+	if (autoDetectEntry?.detectionResult === 'noneDetected' && !language) {
+		return {
+			alias: [],
+			label: formatMessage(codeBlockButtonMessages.noneDetected),
+			value: NONE_LANGUAGE_VALUE,
+		};
+	}
+
+	return defaultPickerValue;
+};
 
 export const getToolbarConfig = (
 	allowCopyToClipboard: boolean = false,
@@ -96,6 +146,14 @@ export const getToolbarConfig = (
 		const isWrapped = isCodeBlockWordWrapEnabled(node);
 		const areLineNumbersVisible = areCodeBlockLineNumbersVisible(node);
 		const language = node?.attrs?.language;
+		const localId = node?.attrs?.localId;
+		const autoDetectState = autoDetectPluginKey.getState(state);
+		const autoDetectEntry =
+			expValEquals('platform_editor_code_block_auto_detection', 'isEnabled', true) &&
+			typeof localId === 'string'
+				? autoDetectState?.languageDetectionMap[localId]
+				: undefined;
+
 		// Keep fresh option objects for the legacy toolbar select so reopening it
 		// continues to start from the top rather than preserving the previously
 		// focused option by reference.
@@ -124,13 +182,12 @@ export const getToolbarConfig = (
 			expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
 			fg('platform_editor_code_block_add_line_number_button')
 		) {
-			const defaultPickerValue = language
-				? languagePickerOptions.find((option) =>
-						language === NONE_LANGUAGE_VALUE
-							? option.value === PLAIN_TEXT_LANGUAGE_VALUE
-							: option.value === language || option.alias.includes(language),
-					)
-				: undefined;
+			const autoDetectPickerValue = getAutoDetectPickerValue({
+				autoDetectEntry,
+				formatMessage,
+				language,
+				languagePickerOptions,
+			});
 
 			languagePicker = {
 				type: 'custom',
@@ -143,7 +200,7 @@ export const getToolbarConfig = (
 					return (
 						<CodeBlockLanguagePicker
 							api={api}
-							defaultValue={defaultPickerValue}
+							defaultValue={autoDetectPickerValue}
 							editorView={view}
 							filterOption={languageListFilter}
 							formatMessage={formatMessage}

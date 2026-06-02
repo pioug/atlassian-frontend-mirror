@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 10.0.0
+
+### Patch Changes
+
+- [`98b3fa19212bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98b3fa19212bf) -
+  Gate the block menu format title update behind platform_editor_block_menu_jira_patch_3.
+- Updated dependencies
+
+## 9.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.2.12
 
 ### Patch Changes

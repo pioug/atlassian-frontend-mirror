@@ -1,5 +1,50 @@
 # @atlaskit/rovo-triggers
 
+## 7.1.0
+
+### Minor Changes
+
+- [`3813de687aea3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3813de687aea3) -
+  Fix Rovo nudge prompt not being inserted into chat on the first cold-start open of the chat.
+  Guarded by `rovo_chat_fix_cold_start_prompt_insertion`.
+
+  Stop `set-message-context` from overwriting the single-slot `triggerLatest` replay queue, which
+  could displace a queued action event (e.g. a nudge's `insert-prompt`) before a late subscriber
+  (PubSubListener) mounts on cold start.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.0
+
+### Major Changes
+
+- [`b0222d13caefe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0222d13caefe) -
+  Replace `@typescript-eslint/no-explicit-any` suppressions with real types across
+  rovo-content-bridge and rovo-platform packages (TREX-1392).
+
+  Key changes:
+  - `rovo-content-bridge-api`: Replace `any` in `CommandConstructor`, type guards, handlers,
+    debugger, and desktop transport with `unknown`, typed event interfaces, and a new `WebContents`
+    interface.
+  - `rovo-content-bridge-api-commands`: Replace `any` fields with `SerializableValue` in chart,
+    Jira, and content commands.
+  - `rovo-playground`: Replace `any` in plugin config, settings store, and ADF utilities with
+    `unknown` and recursive typed nodes.
+  - `rovo-platform-ui-components`, `rovo-navigation`, `rovo-spaces`, `rovo-triggers`,
+    `rovo-agent-analytics`, `rovo-agent-components`, `rovo-chat-side-by-side-evaluation`,
+    `rovo-agent-debug-modal`: Replace remaining `any` occurrences with `unknown`, typed interfaces,
+    or properly inferred types.
+
+### Patch Changes
+
+- [`18aff6350fd6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18aff6350fd6a) -
+  Add optional `tags` field to `ChatNewPayload` and forward conversation-channel tags through the
+  `chat-new` bridge to `createSeededConversation`. Used by the Confluence @ Mention Agents feature
+  to pass `mention-in-comment`, `page:<pageId>`, and `comment:<commentId>` tags so the backend can
+  create a `SessionAssociationPublic` record and initialize conversation state.
+
 ## 6.5.0
 
 ### Minor Changes

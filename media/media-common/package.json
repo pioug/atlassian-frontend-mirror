@@ -84,19 +84,12 @@
 		"immer": "root:*"
 	},
 	"peerDependencies": {
-		"enzyme": ">=3.10.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
-	},
-	"peerDependenciesMeta": {
-		"enzyme": {
-			"optional": true
-		}
 	},
 	"devDependencies": {
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
-		"enzyme": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*"
 	}

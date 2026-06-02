@@ -207,6 +207,7 @@ const AgentProfileCard = ({
 					height={48}
 					agentIdentityAccountId={agent.identity_account_id}
 					isRovoDev={isRovoDev}
+					creatorType={fg('jira_improve_agent_profile_for_a2a') ? agent.creator_type : undefined}
 				/>
 				<Box xcss={styles.avatarStyles}>
 					<AgentAvatar

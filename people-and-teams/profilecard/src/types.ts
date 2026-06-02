@@ -83,7 +83,7 @@ export interface RovoAgent {
 	name: string;
 	description: string | null;
 	system_prompt_template?: string | null;
-	creator_type: 'SYSTEM' | 'CUSTOMER' | 'THIRD_PARTY' | 'FORGE' | 'ROVO_DEV';
+	creator_type: 'SYSTEM' | 'CUSTOMER' | 'THIRD_PARTY' | 'FORGE' | 'REMOTE_A2A' | 'ROVO_DEV';
 	creator?: string | null;
 	visibility?: 'PUBLIC' | 'PRIVATE' | null;
 	is_default: boolean;
@@ -114,7 +114,7 @@ export type RovoAgentCardClientResult = {
 };
 
 export interface RovoAgentCreatorInfo {
-	type: 'CUSTOMER' | 'SYSTEM' | 'THIRD_PARTY' | 'FORGE' | 'OOTB';
+	type: 'CUSTOMER' | 'SYSTEM' | 'THIRD_PARTY' | 'FORGE' | 'OOTB' | 'REMOTE_A2A';
 	name?: string;
 	profileLink?: string;
 	id?: string;

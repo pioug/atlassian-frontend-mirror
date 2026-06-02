@@ -87,10 +87,12 @@ export enum ACTION {
 	/** used in @atlassian/editor-referentiality */
 	GOT_CONNECTIONS = 'gotConnections',
 	LANGUAGE_SELECTED = 'languageSelected',
+	LANGUAGE_AUTO_DETECTED = 'languageAutoDetected',
 	LIST_ITEM_JOINED = 'listItemJoined',
 	MATCHED = 'matched',
 	MEDIA_LINK_TRANSFORMED = 'mediaLinkTransformed',
 	NODE_CONTENT_SANITIZED = 'nodeContentSanitized',
+	ACCEPTED = 'accepted',
 	NO_DIFF_FOUND = 'noDiffFound',
 	OFFLINE_STORAGE_TOO_MANY_RETRIES_ERROR = 'offlineStorageTooManyRetriesError',
 	OFFLINE_STORAGE_FAILED_STEPS = 'offlineStorageFailedSteps',

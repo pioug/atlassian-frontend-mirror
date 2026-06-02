@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 5.6.0
+
+### Minor Changes
+
+- [`5700d1a0bb7b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5700d1a0bb7b0) -
+  [ux] Add sortable columns to read only (Renderer) view without persistance
+
 ## 5.5.1
 
 ### Patch Changes

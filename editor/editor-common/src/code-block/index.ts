@@ -1,7 +1,9 @@
-import type { CodeBlockAttrs } from '@atlaskit/adf-schema';
-import type { Node as PmNode, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { uuid, type CodeBlockAttrs } from '@atlaskit/adf-schema';
+import type { Node as PmNode, NodeType, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { mapSlice } from '../utils/slice';
@@ -14,22 +16,35 @@ export const codeBlockWrappedStates: WeakMap<PmNode, boolean | undefined> = new 
 type OptionalCodeBlockAttrs = CodeBlockAttrs | undefined;
 
 export const getDefaultCodeBlockAttrs = (attrs?: CodeBlockAttrs): OptionalCodeBlockAttrs => {
+	const localId =
+		attrs?.localId ??
+		(expValEquals('platform_editor_code_block_auto_detection', 'isEnabled', true) &&
+		fg('platform_editor_add_code_block_localid')
+			? uuid.generate()
+			: undefined);
+	const attrsWithLocalId = localId
+		? {
+				...attrs,
+				localId,
+			}
+		: attrs;
+
 	if (!expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
-		return attrs;
+		return attrsWithLocalId;
 	}
 
 	// Only boolean wrap values represent caller intent. null/undefined means unset.
 	if (attrs?.wrap === true || attrs?.wrap === false) {
-		return attrs;
+		return attrsWithLocalId;
 	}
 
 	return {
-		...attrs,
+		...attrsWithLocalId,
 		wrap: true,
 	};
 };
 
-export const defaultWrapForMarkdownCodeBlocksInSlice = (slice: Slice, schema: Schema): Slice => {
+export const normalizeMarkdownCodeBlockAttrsInSlice = (slice: Slice, schema: Schema): Slice => {
 	if (!expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
 		return slice;
 	}
@@ -42,8 +57,109 @@ export const defaultWrapForMarkdownCodeBlocksInSlice = (slice: Slice, schema: Sc
 		// Markdown conversion uses MarkdownParser token mappings and creates code block nodes
 		// with the schema-default wrap:false. Since Markdown has no wrap syntax, treat that
 		// default as missing user intent and change it to wrap:true.
-		return node.type.create({ ...node.attrs, wrap: true }, node.content, node.marks);
+		return node.type.create(getDefaultCodeBlockAttrs(node.attrs), node.content, node.marks);
 	});
+};
+
+type InsertedCodeBlock = {
+	node: PmNode;
+	pos: number;
+};
+
+type GetInsertedCodeBlocksOptions = {
+	filter?: (node: PmNode) => boolean;
+};
+
+type InsertedCodeBlockTransaction = Pick<Transaction, 'doc' | 'mapping' | 'steps'>;
+
+const isReplaceStep = (step: unknown): step is ReplaceStep | ReplaceAroundStep =>
+	step instanceof ReplaceStep || step instanceof ReplaceAroundStep;
+
+const hasInsertedCodeBlockInStep = (
+	step: ReplaceStep | ReplaceAroundStep,
+	codeBlockType: NodeType,
+	filter?: (node: PmNode) => boolean,
+): boolean => {
+	let hasInsertedCodeBlock = false;
+
+	step.slice.content.descendants((node) => {
+		if (node.type === codeBlockType && (!filter || filter(node))) {
+			hasInsertedCodeBlock = true;
+			return false;
+		}
+
+		return !hasInsertedCodeBlock;
+	});
+
+	return hasInsertedCodeBlock;
+};
+
+const collectMappedInsertedRanges = (
+	tr: InsertedCodeBlockTransaction,
+	stepIndex: number,
+): Array<[number, number]> => {
+	const ranges: Array<[number, number]> = [];
+	const stepMap = tr.mapping.maps[stepIndex];
+	const remainingMaps = tr.mapping.slice(stepIndex + 1);
+
+	stepMap.forEach((_oldStart, _oldEnd, newStart, newEnd) => {
+		if (newStart === newEnd) {
+			return;
+		}
+
+		const finalFrom = remainingMaps.map(newStart, 1);
+		const finalTo = remainingMaps.map(newEnd, -1);
+
+		if (finalFrom < finalTo) {
+			ranges.push([finalFrom, finalTo]);
+		}
+	});
+
+	return ranges;
+};
+
+export const getInsertedCodeBlocksInTransaction = (
+	tr: InsertedCodeBlockTransaction,
+	codeBlockType: NodeType,
+	options: GetInsertedCodeBlocksOptions = {},
+): InsertedCodeBlock[] => {
+	const insertedCodeBlocks: InsertedCodeBlock[] = [];
+	const seenPositions = new Set<number>();
+
+	tr.steps.forEach((step, stepIndex) => {
+		if (!isReplaceStep(step)) {
+			return;
+		}
+
+		const insertedCodeBlockByStep = hasInsertedCodeBlockInStep(
+			step,
+			codeBlockType,
+			options.filter,
+		);
+
+		if (!insertedCodeBlockByStep) {
+			return;
+		}
+
+		collectMappedInsertedRanges(tr, stepIndex).forEach(([from, to]) => {
+			tr.doc.nodesBetween(from, to, (node, pos) => {
+				if (
+					pos >= from &&
+					node.type === codeBlockType &&
+					(!options.filter || options.filter(node)) &&
+					!seenPositions.has(pos)
+				) {
+					seenPositions.add(pos);
+					insertedCodeBlocks.push({ node, pos });
+					return false;
+				}
+
+				return true;
+			});
+		});
+	});
+
+	return insertedCodeBlocks;
 };
 
 // Code folding state management - similar to word wrapping

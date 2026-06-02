@@ -92,13 +92,6 @@ const editorContentAreaProsemirrorStyle = css({
  EDITOR-7249: Scope to the main editor's ProseMirror (direct child) so nested
  editors like the footer page-comment composer aren't hidden in Syntax view.
 */
-const hideEditorContentAreaProsemirrorStyle = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'& > .ak-editor-content-area > .ProseMirror': {
-		display: 'none',
-	},
-});
-
 const hideEditorContentAreaProsemirrorWithAttributeStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&[data-markdown-mode-hide-prosemirror="true"] > .ak-editor-content-area > .ProseMirror': {
@@ -388,8 +381,7 @@ const Content = React.forwardRef<
 					<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
 						<div
 							data-markdown-mode-hide-prosemirror={
-								shouldHideProseMirrorForMarkdownMode &&
-								fg('platform_editor_delay_markdown_view_mode_eval')
+								shouldHideProseMirrorForMarkdownMode
 									? 'true'
 									: undefined
 							}
@@ -399,9 +391,7 @@ const Content = React.forwardRef<
 								// EDITOR-6558: hide ProseMirror when the markdown-mode plugin
 								// reports a non-WYSIWYG view.
 								shouldHideProseMirrorForMarkdownMode &&
-									(fg('platform_editor_delay_markdown_view_mode_eval')
-										? hideEditorContentAreaProsemirrorWithAttributeStyle
-										: hideEditorContentAreaProsemirrorStyle),
+									hideEditorContentAreaProsemirrorWithAttributeStyle,
 								tableFullPageEditorStylesNew,
 								fullWidthNonChromelessBreakoutBlockTableStyle,
 								// for breakout resizing, there's no need to restrict the width of codeblocks as they're always wrapped in a breakout mark

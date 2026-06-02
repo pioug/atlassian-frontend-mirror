@@ -4,6 +4,22 @@ import { calculateTransferType, isCacheableType } from './transfer-type';
 
 const num = (v: unknown): number => (typeof v === 'number' ? Math.round(v) : 0);
 
+// Accepted source values from forge-cdn bridge:
+//   - 'forge-framework' (PR #775+) — Forge runtime assets (bridge.js, iframeResizer*, etc.)
+//   - 'forge-app'       (PR #775+) — app-author assets on installation-scoped subdomain
+//   - 'external'        (both schemes) — anything outside Atlassian-controlled domains
+//   - 'internal'        (PR #769 only, LEGACY) — bridges still emit this until PR #775
+//                       rolls out everywhere; safe to remove from this allowlist after
+//                       the rollout has been stable for a release cycle. Do NOT remove
+//                       'external' during that cleanup — it's a first-class value in
+//                       both the old and new schemes.
+const ACCEPTED_SOURCES: ReadonlyArray<unknown> = [
+	'forge-framework',
+	'forge-app',
+	'external',
+	'internal',
+];
+
 /**
  * Shapes a raw iframe navigation-timing event data object into the same field set
  * produced by getNavigationMetrics() in create-payload/utils/get-navigation-metrics.ts,
@@ -90,8 +106,7 @@ export function shapeResourceTimingData(data: Record<string, unknown>): Record<s
 	// serverTime / networkTime are not in the current iframe payload but kept for forward-compat
 	const serverTime = typeof payload.serverTime === 'number' ? payload.serverTime : undefined;
 	const networkTime = typeof payload.networkTime === 'number' ? payload.networkTime : undefined;
-	const source =
-		payload.source === 'internal' || payload.source === 'external' ? payload.source : undefined;
+	const source = ACCEPTED_SOURCES.includes(payload.source) ? (payload.source as string) : undefined;
 
 	// Base fields — always present (times are relative to interaction start from the iframe)
 	const shaped: Record<string, unknown> = {

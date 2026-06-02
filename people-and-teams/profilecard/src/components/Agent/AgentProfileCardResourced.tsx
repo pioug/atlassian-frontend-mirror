@@ -109,7 +109,7 @@ export const AgentProfileCardResourced = (
 				}
 
 				const creatorInfo = getAgentCreator({
-					creatorType: creator_type ?? '',
+					creatorType: creator_type,
 					authoringTeam: authoringTeam
 						? {
 								displayName: authoringTeam.displayName ?? '',

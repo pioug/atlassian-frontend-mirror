@@ -530,7 +530,7 @@ export const changeSelectedCardToLink =
 			state.selection instanceof NodeSelection ? state.selection.node : undefined;
 
 		let tr;
-		if (node && pos) {
+		if (node && pos !== undefined) {
 			tr = cardNodeToLinkWithTransaction(state, text, href, node, pos);
 		} else {
 			tr = cardToLinkWithTransaction(state, text, href);
@@ -570,7 +570,7 @@ export const changeSelectedCardToLinkFallback =
 	): Command =>
 	(state, dispatch) => {
 		let tr;
-		if (node && pos) {
+		if (node && pos !== undefined) {
 			tr = cardNodeToLinkWithTransaction(state, text, href, node, pos);
 		} else {
 			tr = cardToLinkWithTransaction(state, text, href);

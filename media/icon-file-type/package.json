@@ -60,7 +60,6 @@
 		"@af/icon-build-process": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@emotion/styled": "root:*",
-		"enzyme": "root:*",
 		"fs-extra": "root:*",
 		"jscodeshift": "root:*",
 		"pkg-dir": "root:*",

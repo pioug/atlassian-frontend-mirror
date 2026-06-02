@@ -2,8 +2,6 @@ import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef } f
 
 import throttle from 'lodash/throttle';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import {
 	JQL_EDITOR_AUTOCOMPLETE_ID,
 	JQL_EDITOR_HELP_CONTENT_ID,
@@ -124,9 +122,7 @@ const JQLEditorView = ({
 			...(editorViewIsInvalid && {
 				'aria-invalid': 'true',
 			}),
-			...(fg('empanda_jql-editor_fix_tab_select_in_popup') && {
-				tabindex: '0',
-			}),
+			tabindex: '0',
 		};
 	}, [
 		editorId,

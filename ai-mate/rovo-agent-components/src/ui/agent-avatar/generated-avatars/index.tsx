@@ -8,6 +8,9 @@ import { AVATAR_SIZES, type SizeType } from '@atlaskit/avatar';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+import type { AgentCreatorType } from '../../../common/types';
 
 const styles = cssMap({
 	image: {
@@ -27,6 +30,10 @@ const styles = cssMap({
 		width: '100%',
 		height: '100%',
 		objectFit: 'cover',
+	},
+
+	bannerRemoteA2A: {
+		backgroundColor: token('color.background.accent.gray.subtler'),
 	},
 });
 
@@ -637,20 +644,26 @@ const getAvatarRender = ({
 	};
 };
 
+type AgentBannerCreatorType = AgentCreatorType | 'ROVO_DEV';
+
+type AgentBannerProps = Pick<
+	GeneratedAvatarProps,
+	'agentId' | 'agentNamedId' | 'agentIdentityAccountId' | 'isRovoDev'
+> & {
+	creatorType?: AgentBannerCreatorType | null;
+	height?: number;
+	fillSpace?: boolean;
+};
+
 export const AgentBanner = ({
 	agentNamedId,
 	agentId,
 	agentIdentityAccountId,
 	isRovoDev,
+	creatorType,
 	height,
 	fillSpace,
-}: Pick<
-	GeneratedAvatarProps,
-	'agentId' | 'agentNamedId' | 'agentIdentityAccountId' | 'isRovoDev'
-> & {
-	height?: number;
-	fillSpace?: boolean;
-}): JSX.Element => {
+}: AgentBannerProps): JSX.Element => {
 	const { color } = getAvatarRender({
 		agentNamedId,
 		agentId,
@@ -659,10 +672,19 @@ export const AgentBanner = ({
 		size: 'medium',
 	});
 
+	const isRemoteA2A = fg('jira_improve_agent_profile_for_a2a') && creatorType === 'REMOTE_A2A';
+
 	return (
 		<Box
-			xcss={cx(styles.banner, fillSpace ? styles.bannerFillSpace : undefined)}
-			style={{ backgroundColor: color.primary, height: height ? `${height}px` : undefined }}
+			xcss={cx(
+				styles.banner,
+				fillSpace ? styles.bannerFillSpace : undefined,
+				isRemoteA2A ? styles.bannerRemoteA2A : undefined,
+			)}
+			style={{
+				backgroundColor: isRemoteA2A ? undefined : color.primary,
+				height: height ? `${height}px` : undefined,
+			}}
 		/>
 	);
 };

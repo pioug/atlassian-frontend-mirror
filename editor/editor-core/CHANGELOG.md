@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 220.0.0
+
+### Patch Changes
+
+- [`bb770e21fd25c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb770e21fd25c) -
+  Clean up feature gate platform_editor_delay_markdown_view_mode_eval, keeping the enabled path.
+- Updated dependencies
+
+## 219.9.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 219.9.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 219.9.17
 
 ### Patch Changes

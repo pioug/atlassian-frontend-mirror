@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "219.9.17",
+	"version": "220.0.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -335,9 +335,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_chromeless_akeditor_class": {
-			"type": "boolean"
-		},
-		"platform_editor_delay_markdown_view_mode_eval": {
 			"type": "boolean"
 		}
 	},

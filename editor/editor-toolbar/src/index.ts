@@ -76,6 +76,8 @@ export { ImageIcon } from './ui/icons/ImageIcon';
 export { MentionIcon } from './ui/icons/MentionIcon';
 export { ArrowDownIcon } from './ui/icons/ArrowDownIcon';
 export { ArrowUpIcon } from './ui/icons/ArrowUpIcon';
+export { SortAscendingIcon } from './ui/icons/SortAscendingIcon';
+export { SortDescendingIcon } from './ui/icons/SortDescendingIcon';
 export { TableIcon } from './ui/icons/TableIcon';
 export { TableColumnAddLeftIcon } from './ui/icons/TableColumnAddLeftIcon';
 export { TableColumnAddRightIcon } from './ui/icons/TableColumnAddRightIcon';

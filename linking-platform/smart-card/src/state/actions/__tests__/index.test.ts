@@ -493,9 +493,6 @@ describe('Smart Card: Actions', () => {
 		beforeEach(() => {
 			jest.clearAllMocks();
 
-			const { fg } = jest.requireMock('@atlaskit/platform-feature-flags');
-			fg.mockReturnValue(false);
-
 			const { expValEquals } = jest.requireMock('@atlaskit/tmp-editor-statsig/exp-val-equals');
 			expValEquals.mockReturnValue(false);
 		});
@@ -508,124 +505,151 @@ describe('Smart Card: Actions', () => {
 				key: 'google-object-provider',
 				auth: [{ key: 'gdrive-oauth', displayName: 'Connect', url: 'https://outbound-auth/flow' }],
 			},
-			data: { '@context': { '@vocab': 'https://www.w3.org/ns/activitystreams#' }, '@type': 'Object' },
+			data: {
+				'@context': { '@vocab': 'https://www.w3.org/ns/activitystreams#' },
+				'@type': 'Object',
+			},
 		};
 
 		const enabledRovoOptions = { isRovoEnabled: true, isRovoLLMEnabled: true };
 
 		const setupPostAuthTest = () => {
-			const fg = jest.requireMock('@atlaskit/platform-feature-flags').fg;
-			fg.mockImplementation((key: string) => key === 'platform_sl_3p_post_auth_chat_open_fg');
-
 			const { expValEquals } = jest.requireMock('@atlaskit/tmp-editor-statsig/exp-val-equals');
 			expValEquals.mockReturnValue(true);
 
 			mockContext.rovoOptions = enabledRovoOptions;
 			const mockPostMessage = jest.spyOn(window, 'postMessage').mockImplementation(jest.fn());
+			const mockShowConnectFlag = jest.fn();
+			jest.spyOn(useActionFlags, 'default').mockImplementation(() => ({
+				showConnectFlag: mockShowConnectFlag,
+			}));
 
 			(mockContext.store.getState as jest.Mock).mockImplementation(() => ({
 				[url]: { status: 'unauthorized', details: gdriveMockDetails },
 			}));
 
-			return { fg, expValEquals, mockPostMessage };
+			return { expValEquals, mockPostMessage, mockShowConnectFlag };
 		};
 
-		it('posts chat-new message after successful GDrive auth when gate on + treatment', async () => {
-			const { mockPostMessage } = setupPostAuthTest();
-			url = 'https://docs.google.com/document/d/abc123/edit';
-			mockFetchData(Promise.resolve(mocks.success));
+		ffTest.on('platform_sl_3p_post_auth_chat_open_fg', '', () => {
+			it('posts chat-new message after successful GDrive auth when gate on + treatment', async () => {
+				const { mockPostMessage, mockShowConnectFlag } = setupPostAuthTest();
+				url = 'https://docs.google.com/document/d/abc123/edit';
+				mockFetchData(Promise.resolve(mocks.success));
 
-			const result = renderHook(() => useSmartCardActions(id, url));
-			await result.current.authorize('inline');
+				const result = renderHook(() => useSmartCardActions(id, url));
+				await result.current.authorize('inline');
 
-			expect(mockPostMessage).toHaveBeenCalledWith(
-				{
-					eventType: 'rovo-post-message',
-					payload: {
-						type: 'chat-new',
-						source: 'smart-link',
-						data: {
-							dialogues: [],
-							mode: {
-								useCurrentPageContext: false,
-							},
-							aiFeatureContext: {
-								projectContext: {
-									projectId: url,
-									projectName: url,
-									projectUrl: url,
+				expect(mockPostMessage).toHaveBeenCalledWith(
+					{
+						eventType: 'rovo-post-message',
+						payload: {
+							type: 'chat-new',
+							source: 'smart-link',
+							data: {
+								dialogues: [],
+								mode: {
+									useCurrentPageContext: false,
+								},
+								aiFeatureContext: {
+									projectContext: {
+										projectId: url,
+										projectName: url,
+										projectUrl: url,
+									},
 								},
 							},
+							openChat: true,
+							openChatMode: 'mini-modal',
 						},
-						openChat: true,
-						openChatMode: 'mini-modal',
+						payloadId: expect.any(String),
 					},
-					payloadId: expect.any(String),
-				},
-				'*',
-			);
+					'*',
+				);
+
+				expect(mockShowConnectFlag).not.toHaveBeenCalled();
+			});
 		});
 
-		it('does NOT post chat-new message when kill switch is off', async () => {
-			const { fg, mockPostMessage } = setupPostAuthTest();
-			fg.mockReturnValue(false);
-			url = 'https://docs.google.com/document/d/abc123/edit';
-			mockFetchData(Promise.resolve(mocks.success));
+		ffTest.on('platform_sl_connect_account_flag', '', () => {
+			it('does NOT post chat-new message when kill switch is off', async () => {
+				const { mockPostMessage, mockShowConnectFlag } = setupPostAuthTest();
+				url = 'https://docs.google.com/document/d/abc123/edit';
+				mockFetchData(Promise.resolve(mocks.success));
 
-			const result = renderHook(() => useSmartCardActions(id, url));
-			await result.current.authorize('inline');
+				const result = renderHook(() => useSmartCardActions(id, url));
+				await result.current.authorize('inline');
 
-			expect(mockPostMessage).not.toHaveBeenCalled();
+				expect(mockPostMessage).not.toHaveBeenCalled();
+				expect(mockShowConnectFlag).toHaveBeenCalled();
+			});
 		});
 
-		it('does NOT post chat-new message when in experiment control group', async () => {
-			const { expValEquals, mockPostMessage } = setupPostAuthTest();
-			expValEquals.mockReturnValue(false);
-			url = 'https://docs.google.com/document/d/abc123/edit';
-			mockFetchData(Promise.resolve(mocks.success));
+		ffTest.on('platform_sl_3p_post_auth_chat_open_fg', '', () => {
+			ffTest.on('platform_sl_connect_account_flag', '', () => {
+				it('does NOT post chat-new message when in experiment control group', async () => {
+					const { expValEquals, mockPostMessage, mockShowConnectFlag } = setupPostAuthTest();
+					expValEquals.mockReturnValue(false);
+					url = 'https://docs.google.com/document/d/abc123/edit';
+					mockFetchData(Promise.resolve(mocks.success));
 
-			const result = renderHook(() => useSmartCardActions(id, url));
-			await result.current.authorize('inline');
+					const result = renderHook(() => useSmartCardActions(id, url));
+					await result.current.authorize('inline');
 
-			expect(expValEquals).toHaveBeenCalledWith('platform_sl_3p_post_auth_chat_open_exp', 'isEnabled', true);
-			expect(mockPostMessage).not.toHaveBeenCalled();
+					expect(expValEquals).toHaveBeenCalledWith(
+						'platform_sl_3p_post_auth_chat_open_exp',
+						'isEnabled',
+						true,
+					);
+					expect(mockPostMessage).not.toHaveBeenCalled();
+					expect(mockShowConnectFlag).toHaveBeenCalled();
+				});
+			});
 		});
 
-		it('does NOT post chat-new message for non-GDrive providers', async () => {
-			const { mockPostMessage } = setupPostAuthTest();
-			url = 'https://gitlab.com/project/repo';
-			const gitlabDetails = {
-				...gdriveMockDetails,
-				meta: { ...gdriveMockDetails.meta, key: 'gitlab-object-provider' },
-			};
-			(mockContext.store.getState as jest.Mock).mockImplementation(() => ({
-				[url]: { status: 'unauthorized', details: gitlabDetails },
-			}));
-			mockFetchData(Promise.resolve(mocks.success));
+		ffTest.on('platform_sl_connect_account_flag', '', () => {
+			it('does NOT post chat-new message for non-GDrive providers', async () => {
+				const { mockPostMessage, mockShowConnectFlag } = setupPostAuthTest();
+				url = 'https://gitlab.com/project/repo';
+				const gitlabDetails = {
+					...gdriveMockDetails,
+					meta: { ...gdriveMockDetails.meta, key: 'gitlab-object-provider' },
+				};
+				(mockContext.store.getState as jest.Mock).mockImplementation(() => ({
+					[url]: { status: 'unauthorized', details: gitlabDetails },
+				}));
+				mockFetchData(Promise.resolve(mocks.success));
 
-			const result = renderHook(() => useSmartCardActions(id, url));
-			await result.current.authorize('inline');
+				const result = renderHook(() => useSmartCardActions(id, url));
+				await result.current.authorize('inline');
 
-			expect(mockPostMessage).not.toHaveBeenCalled();
+				expect(mockPostMessage).not.toHaveBeenCalled();
+				expect(mockShowConnectFlag).toHaveBeenCalled();
+			});
 		});
 
-		it('does NOT post chat-new message on non-AI-enabled tenant', async () => {
-			const { mockPostMessage } = setupPostAuthTest();
-			url = 'https://docs.google.com/document/d/abc123/edit';
-			(mockContext.store.getState as jest.Mock).mockImplementation(() => ({
-				[url]: { status: 'unauthorized', details: gdriveMockDetails },
-			}));
-			mockContext.rovoOptions = { isRovoEnabled: false, isRovoLLMEnabled: false };
-			mockFetchData(Promise.resolve(mocks.success));
+		ffTest.on('platform_sl_3p_post_auth_chat_open_fg', '', () => {
+			ffTest.on('platform_sl_connect_account_flag', '', () => {
+				it('does NOT post chat-new message on non-AI-enabled tenant', async () => {
+					const { mockPostMessage, mockShowConnectFlag } = setupPostAuthTest();
+					url = 'https://docs.google.com/document/d/abc123/edit';
+					(mockContext.store.getState as jest.Mock).mockImplementation(() => ({
+						[url]: { status: 'unauthorized', details: gdriveMockDetails },
+					}));
+					mockContext.rovoOptions = { isRovoEnabled: false, isRovoLLMEnabled: false };
+					mockFetchData(Promise.resolve(mocks.success));
 
-			const result = renderHook(() => useSmartCardActions(id, url));
-			await result.current.authorize('inline');
+					const result = renderHook(() => useSmartCardActions(id, url));
+					await result.current.authorize('inline');
 
-			expect(mockPostMessage).not.toHaveBeenCalled();
+					expect(mockPostMessage).not.toHaveBeenCalled();
+					expect(mockShowConnectFlag).toHaveBeenCalled();
+				});
+			});
 		});
 
 		it('does NOT post chat-new message for forbidden (try another account) status', async () => {
-			const { mockPostMessage } = setupPostAuthTest();
+			const { mockPostMessage, mockShowConnectFlag } = setupPostAuthTest();
 			url = 'https://docs.google.com/document/d/abc123/edit';
 			const forbiddenDetails = {
 				...gdriveMockDetails,
@@ -640,6 +664,7 @@ describe('Smart Card: Actions', () => {
 			await result.current.authorize('inline');
 
 			expect(mockPostMessage).not.toHaveBeenCalled();
+			expect(mockShowConnectFlag).not.toHaveBeenCalled();
 		});
 
 		it('does NOT post chat-new message on auth failure', async () => {
@@ -654,5 +679,4 @@ describe('Smart Card: Actions', () => {
 			expect(mockPostMessage).not.toHaveBeenCalled();
 		});
 	});
-
 });

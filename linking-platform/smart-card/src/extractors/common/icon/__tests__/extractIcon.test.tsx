@@ -135,7 +135,10 @@ describe('extractors.icon', () => {
 					'schema:fileFormat': 'image/png',
 				} as JsonLd.Data.Document);
 				render(withIntl(icon));
-				expect(await screen.findByTestId('document-file-format-icon')).toBeVisible();
+				const iconEl = await screen.findByTestId('document-file-format-icon');
+				expect(iconEl).toBeVisible();
+				// Wait for the icon element to be visible before querying the accessible role,
+				// preventing race conditions between async rendering and assertion.
 				expect(await screen.findByRole('img', { name: 'image' })).toBeVisible();
 			});
 		});

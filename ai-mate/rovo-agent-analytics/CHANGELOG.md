@@ -1,5 +1,22 @@
 # @atlaskit/rovo-agent-analytics
 
+## 2.1.1
+
+### Patch Changes
+
+- [`026beed942749`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/026beed942749) -
+  Fix resumption flow analytics: fire toolsExecutionCancelled on cancel and include actionKey in
+  aiResult actioned event
+- Updated dependencies
+
+## 2.1.0
+
+### Minor Changes
+
+- [`b4a8990eab900`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4a8990eab900) -
+  Add createFlowPlanGenerated and createFlowPlanViewed analytics events for inline create-agent plan
+  card
+
 ## 2.0.0
 
 ### Major Changes

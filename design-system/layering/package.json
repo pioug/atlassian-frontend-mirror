@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/layering",
-	"version": "3.7.0",
+	"version": "3.8.0",
 	"description": "Layering provides consistent and accessible layered experience",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,6 +50,7 @@
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"react": "root:*"

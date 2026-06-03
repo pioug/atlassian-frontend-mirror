@@ -15,7 +15,11 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { MentionStats } from '@atlaskit/mention';
-import { MENTION_ITEM_HEIGHT, MentionItem } from '@atlaskit/mention/item';
+import {
+	MENTION_ITEM_HEIGHT,
+	MENTION_ITEM_HEIGHT_REFRESHED,
+	MentionItem,
+} from '@atlaskit/mention/item';
 import type { MentionDescription, MentionProvider } from '@atlaskit/mention/resource';
 import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 import type { TeamMember } from '@atlaskit/mention/team-resource';
@@ -122,6 +126,9 @@ const withInviteItem =
 	};
 
 export const mentionToTypeaheadItem = (mention: MentionDescription): TypeAheadItem => {
+	const itemHeight = expVal('platform_editor_agent_mentions', 'isEnabled', false)
+		? MENTION_ITEM_HEIGHT_REFRESHED
+		: MENTION_ITEM_HEIGHT;
 	return {
 		title: mention.id,
 		render: ({ isSelected, onClick, onHover }) => (
@@ -130,10 +137,11 @@ export const mentionToTypeaheadItem = (mention: MentionDescription): TypeAheadIt
 				selected={isSelected}
 				onMouseEnter={onHover}
 				onSelection={onClick}
+				height={itemHeight}
 			/>
 		),
 		getCustomComponentHeight: () => {
-			return MENTION_ITEM_HEIGHT;
+			return itemHeight;
 		},
 		mention,
 	};
@@ -409,12 +417,13 @@ export const createTypeAheadConfig = ({
 					id: 'people',
 					title: intl.formatMessage(mentionMessages.typeAheadSectionPeople),
 					filter: (item) => !isAgentUserType((item.mention?.userType as string) || ''),
-					limit: 6,
+					limit: expVal('platform_editor_agent_mentions', 'isEnabled', false) ? 5 : 6,
 				},
 				{
 					id: 'agents',
 					title: intl.formatMessage(mentionMessages.typeAheadSectionAgents),
 					filter: (item) => isAgentUserType((item.mention?.userType as string) || ''),
+					limit: expVal('platform_editor_agent_mentions', 'isEnabled', false) ? 5 : undefined,
 				},
 			];
 		},
@@ -435,7 +444,8 @@ export const createTypeAheadConfig = ({
 				sessionId,
 			};
 			const shouldSuppressInviteForAgentMention =
-				expVal('platform_editor_agent_mentions', 'isEnabled', false) && isAgentMention(item.mention);
+				expVal('platform_editor_agent_mentions', 'isEnabled', false) &&
+				isAgentMention(item.mention);
 
 			if (mentionProvider && !isInviteItem(item.mention)) {
 				mentionProvider.recordMentionSelection(item.mention, mentionContext);

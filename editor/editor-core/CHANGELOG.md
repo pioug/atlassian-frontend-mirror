@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 220.0.1
+
+### Patch Changes
+
+- [`95d58f9a4927c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95d58f9a4927c) -
+  Removing unreferenced ui/addon/dropdown component styles
+- Updated dependencies
+
 ## 220.0.0
 
 ### Patch Changes

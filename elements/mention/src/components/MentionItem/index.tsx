@@ -31,7 +31,7 @@ import MentionDescriptionByline from '../MentionDescriptionByline';
 import MessagesIntlProvider from '../MessagesIntlProvider';
 import { MentionAvatar } from '../MentionAvatar';
 
-export { MENTION_ITEM_HEIGHT } from './styles';
+export { MENTION_ITEM_HEIGHT, MENTION_ITEM_HEIGHT_REFRESHED } from './styles';
 
 const lozengeAppearanceToTagColor: Record<LozengeColor, TagColor> = {
 	default: 'standard',
@@ -76,6 +76,7 @@ function renderTime(time?: string) {
 
 export interface Props {
 	forwardedRef?: React.Ref<HTMLDivElement>;
+	height?: number;
 	mention: MentionDescription;
 	onMouseEnter?: OnMentionEvent;
 	// TODO: Remove onMouseMove -> https://product-fabric.atlassian.net/browse/FS-3897
@@ -106,7 +107,7 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 	};
 
 	render(): React.JSX.Element {
-		const { mention, selected, forwardedRef } = this.props;
+		const { mention, selected, forwardedRef, height } = this.props;
 		const { id, highlight, presence, name, mentionName, lozenge, accessLevel, isXProductUser } =
 			mention;
 		const { time } = presence || ({} as Presence);
@@ -120,6 +121,7 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 			<MessagesIntlProvider>
 				<MentionItemStyle
 					selected={selected}
+					height={height}
 					onMouseDown={this.onMentionSelected}
 					onMouseMove={this.onMentionMenuItemMouseMove}
 					onMouseEnter={this.onMentionMenuItemMouseEnter}

@@ -19,6 +19,7 @@ import {
 } from '@atlaskit/media-picker';
 import { Stack } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { InsertFile } from '../types';
 
@@ -74,6 +75,7 @@ export const LocalMedia: React.ForwardRefExoticComponent<
 		const intl = useIntl();
 		const strings = {
 			upload: intl.formatMessage(mediaInsertMessages.upload),
+			chooseFile: intl.formatMessage(mediaInsertMessages.chooseFile),
 			networkError: intl.formatMessage(mediaInsertMessages.localFileNetworkErrorMessage),
 			genericError: intl.formatMessage(mediaInsertMessages.localFileErrorMessage),
 		};
@@ -170,6 +172,8 @@ export const LocalMedia: React.ForwardRefExoticComponent<
 			[erroredFileIds, onUploadFailureAnalytics],
 		);
 
+		const buttonText = expValEqualsNoExposure('cc_page_experiences_editor_image_generation', 'isEnabled', true) ? strings.chooseFile : strings.upload;
+
 		return (
 			<Stack grow="fill" space="space.200">
 				{uploadState.error && (
@@ -190,7 +194,7 @@ export const LocalMedia: React.ForwardRefExoticComponent<
 						dispatch({ type: 'open' });
 					}}
 				>
-					{strings.upload}
+					{buttonText}
 				</Button>
 				{uploadMediaClientConfig && uploadParams && (
 					<Browser

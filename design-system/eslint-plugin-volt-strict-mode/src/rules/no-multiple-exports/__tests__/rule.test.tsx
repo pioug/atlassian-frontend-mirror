@@ -64,6 +64,53 @@ typescriptEslintTester.run(
         `,
 			},
 			{
+				name: 'multiple export enums are allowed',
+				code: `
+          export enum Direction {
+            Up = 'UP',
+            Down = 'DOWN',
+          }
+          export enum Status {
+            Active = 'ACTIVE',
+            Inactive = 'INACTIVE',
+          }
+        `,
+			},
+			{
+				name: 'enum exports alongside type exports are allowed',
+				code: `
+          export type Id = string;
+          export enum Color {
+            Red = 'red',
+            Blue = 'blue',
+          }
+          export enum Size {
+            Small = 'small',
+            Large = 'large',
+          }
+        `,
+			},
+			{
+				name: 'enum alongside single runtime export is allowed',
+				code: `
+          export enum Status {
+            Active = 'ACTIVE',
+            Inactive = 'INACTIVE',
+          }
+          export const getStatus = () => Status.Active;
+        `,
+			},
+			{
+				name: 'enum alongside single runtime export is allowed but runtime export should be first',
+				code: `
+					export const getStatus = () => Status.Active;
+          export enum Status {
+            Active = 'ACTIVE',
+            Inactive = 'INACTIVE',
+          }
+        `,
+			},
+			{
 				name: 'single export with two type aliases',
 				code: `
           export type RowId = string;
@@ -232,6 +279,23 @@ typescriptEslintTester.run(
 				code: `
           export const A = \`hello\`;
           export const B = \`world\`;
+        `,
+				options: [{ allowPrimitiveExports: true }],
+			},
+			{
+				name: 'allowPrimitiveExports: string constants with as const',
+				code: `
+          export const FOO = 'foo' as const;
+          export const BAR = 'bar' as const;
+        `,
+				options: [{ allowPrimitiveExports: true }],
+			},
+			{
+				name: 'allowPrimitiveExports: mixed as const and plain primitives',
+				code: `
+          export const SELECTOR = '[data-my-attr]' as const;
+          export const SIZE = 32;
+          export const NAME = 'button' as const;
         `,
 				options: [{ allowPrimitiveExports: true }],
 			},

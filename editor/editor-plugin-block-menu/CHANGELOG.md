@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 10.1.0
+
+### Minor Changes
+
+- [`06e26bd93de31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06e26bd93de31) -
+  [ux] Close the block menu when its positioning containers resize.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.0
 
 ### Patch Changes

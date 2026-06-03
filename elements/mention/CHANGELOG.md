@@ -1,5 +1,12 @@
 # @atlaskit/mention
 
+## 26.1.0
+
+### Minor Changes
+
+- [`7567557c596c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7567557c596c7) -
+  [ux] Update mention item styling platform_editor_agent_mentions
+
 ## 26.0.4
 
 ### Patch Changes

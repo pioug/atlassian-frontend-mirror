@@ -1,5 +1,53 @@
 # @atlaskit/editor-statsig-tmp
 
+## 88.4.0
+
+### Minor Changes
+
+- [`f53b4391ccd54`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f53b4391ccd54) -
+  Fix table menu popup placement near viewport edges
+
+  Add new editor experiment platform_editor_table_close_cell_menu_on_move_exp to fix legacy menu
+  staying open when changing cells.
+
+## 88.3.0
+
+### Minor Changes
+
+- [`8bf2ab100a93d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bf2ab100a93d) -
+  Add col to layout keywords
+- [`f7fc6c3bcc4e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7fc6c3bcc4e3) -
+  [ux] EDITOR-7242 add paste logic to support table in panel nesting
+
+## 88.2.0
+
+### Minor Changes
+
+- [`64a45bf9306e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64a45bf9306e9) -
+  [ux] [EDITOR-7024] update the ADF schema behind platform_editor_lovability_text_bg_color
+  experiment such that textColor and backgroundColor can coexist
+- [`8cb3cdbbc5467`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cb3cdbbc5467) -
+  Fix TypeError in getExtensionLozengeData when macroMetadata.placeholder is not an array
+
+## 88.1.1
+
+### Patch Changes
+
+- [`651a44bb98f89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/651a44bb98f89) -
+  Register `confluence_3p_in_cwr_ghost_icons` experiment for use by the `GhostIconWave` primitive.
+
+## 88.1.0
+
+### Minor Changes
+
+- [`d094dc6670513`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d094dc6670513) -
+  [CCI-16870] feat(aifc): spike Post Stream Review toolbar for the New AIFC Editor Experience. Adds
+  the new `platform_editor_ai_new_aifc_editor_experience` umbrella gate (renamed from
+  `confluence_editor_ai_full_page_staging`) and ships the in-editor Post Stream Review toolbar that
+  auto-opens after an AI streaming session ends, with undo / redo / view-changes / segment
+  navigation / Ask Rovo / feedback controls. The Take to Staging button is rendered but disabled in
+  this spike — full staging-area wiring lands in a follow-up PR (CCI-15904).
+
 ## 88.0.0
 
 ### Major Changes

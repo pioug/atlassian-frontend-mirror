@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-paste
 
+## 12.1.0
+
+### Minor Changes
+
+- [`f7fc6c3bcc4e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7fc6c3bcc4e3) -
+  [ux] EDITOR-7242 add paste logic to support table in panel nesting
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.0
 
 ### Patch Changes

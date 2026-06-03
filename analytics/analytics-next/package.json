@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics-next",
-	"version": "11.2.2",
+	"version": "11.3.0",
 	"description": "React components, HOCs and hooks to assist with tracking user activity with React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -73,6 +73,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",

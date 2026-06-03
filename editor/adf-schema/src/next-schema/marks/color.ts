@@ -8,7 +8,6 @@ export const colorGroup: ADFMarkGroup = adfMarkGroup('color', [textColor, backgr
 
 backgroundColor.define({
 	inclusive: true,
-	excludes: [colorGroup],
 	attrs: {
 		color: {
 			pattern: '^#[0-9a-fA-F]{6}$',

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-analytics",
-	"version": "2.0.0",
+	"version": "2.1.1",
 	"description": "Rovo Agents analytics",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
@@ -39,6 +39,7 @@
 		"*.compiled.css"
 	],
 	"exports": {
+		"./actions/groups/create-flow": "./src/actions/groups/create-flow.ts",
 		"./actions": "./src/actions/index.tsx",
 		"./create": "./src/create/index.tsx",
 		".": "./src/index.ts"

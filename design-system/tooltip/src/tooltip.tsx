@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 
 import type { VirtualElement } from '@popperjs/core';
 import { bind } from 'bind-event-listener';
@@ -13,16 +13,19 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { type Placement, Popper } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
-import { slideAndFade } from '@atlaskit/top-layer/animations';
+import { fade, slideAndFade } from '@atlaskit/top-layer/animations';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map';
 import { Popover } from '@atlaskit/top-layer/popover';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { useAnchorPositionAtPoint } from '@atlaskit/top-layer/use-anchor-position-at-point';
 
 import { register } from './internal/drag-manager';
+import { getAnchorPoint } from './internal/get-anchor-point';
 import { getVirtualElementFromMousePos } from './internal/get-virtual-element-from-mouse-pos';
 import { type API, type Entry, show, type Source } from './internal/tooltip-manager';
 import useUniqueId from './internal/use-unique-id';
 import TooltipContainer from './tooltip-container';
+import { type PositionType } from './types';
 import { type TooltipProps, type TriggerProps } from './types';
 
 const tooltipZIndex = layers.tooltip();
@@ -584,7 +587,6 @@ function Tooltip({
 					<TopLayerTooltipPopup
 						targetRef={targetRef}
 						tooltipPosition={tooltipPosition}
-						isMousePosition={isMousePosition}
 						mousePos={apiRef.current?.mousePos ?? undefined}
 						position={position}
 						onMouseOut={onMouseOut}
@@ -677,50 +679,35 @@ const TooltipPortal = ({ children }: { children: React.ReactNode }) => {
 };
 
 // Module-level preset instance, stable reference, no re-allocation per render.
+// Non-mouse tooltips slide in from the direction of the trigger — slide + fade.
 const tooltipAnimation = slideAndFade();
-
-/**
- * Computes the clamped viewport position for a mouse-tracking tooltip.
- *
- * For `mouse-x`: positions to the right of the cursor, vertically centered.
- * For `mouse-y` and `mouse`: positions below the cursor.
- */
-function computeMouseTooltipPosition({
-	mousePos,
-	position,
-	popoverRect,
-	viewport,
-}: {
-	mousePos: { clientX: number; clientY: number };
-	position: string;
-	popoverRect: { height: number; width: number };
-	viewport: { width: number; height: number };
-}): { top: number; left: number } {
-	if (position === 'mouse-x') {
-		return {
-			top: Math.max(
-				0,
-				Math.min(mousePos.clientY - popoverRect.height / 2, viewport.height - popoverRect.height),
-			),
-			left: Math.max(0, Math.min(mousePos.clientX + 16, viewport.width - popoverRect.width)),
-		};
-	}
-
-	// Default: mouse-y and mouse. Position below cursor.
-	return {
-		top: Math.max(0, Math.min(mousePos.clientY + 16, viewport.height - popoverRect.height)),
-		left: Math.max(0, Math.min(mousePos.clientX, viewport.width - popoverRect.width)),
-	};
-}
+// Mouse-position tooltips follow the cursor and have no fixed direction — fade only.
+const tooltipMouseAnimation = fade();
 
 /**
  * Top-layer tooltip popup component.
  *
- * Composes `Popover` (top-layer visibility + animation) with
- * `useAnchorPosition` (CSS anchor positioning with JS fallback).
+ * Composes `Popover` (top-layer visibility + animation) with one of two
+ * positioning hooks:
  *
- * For mouse-tracking positions, uses `position: fixed` with JS positioning
- * since there is no stable anchor element — `useAnchorPosition` is skipped.
+ *   - `useAnchorPositionAtPoint` — for cursor-tracking positions
+ *     (`mouse`, `mouse-x`, `mouse-y`) when a cursor position is
+ *     available (i.e. the popup was activated by a pointer). Positions
+ *     the popover relative to a hidden synthetic anchor that follows
+ *     the cursor according to the `position` / `mousePosition`
+ *     semantics. The synthetic anchor element is rendered as a sibling
+ *     of the popover.
+ *   - `useAnchorPosition` directly — for non-cursor positions, AND
+ *     for cursor positions activated via keyboard focus (where there
+ *     is no cursor to track). Anchoring directly to the trigger keeps
+ *     keyboard-activated tooltips correctly placed next to the target
+ *     instead of rendering in the top-left of the viewport.
+ *
+ * Exactly one positioning strategy is active at a time: `useAnchorPosition`
+ * is wired to the trigger only when the mouse strategy is inactive, and
+ * `useAnchorPositionAtPoint` is told `isActive: false` when the direct
+ * anchor strategy is active. The other hook is still called (Rules of
+ * Hooks) but does no work.
  *
  * Exit animation is handled by `Popover`'s `isOpen` prop. When `isOpen`
  * transitions to `false`, the primitive calls `hidePopover()` internally and
@@ -729,7 +716,6 @@ function computeMouseTooltipPosition({
 function TopLayerTooltipPopup({
 	targetRef,
 	tooltipPosition,
-	isMousePosition,
 	mousePos,
 	position,
 	onMouseOut,
@@ -746,9 +732,8 @@ function TopLayerTooltipPopup({
 }: {
 	targetRef: React.RefObject<HTMLElement | null>;
 	tooltipPosition: Placement;
-	isMousePosition: boolean;
 	mousePos: { clientX: number; clientY: number } | undefined;
-	position: string;
+	position: PositionType;
 	onMouseOut: React.MouseEventHandler;
 	onMouseOverTooltip: React.MouseEventHandler;
 	ignoreTooltipPointerEvents: boolean;
@@ -763,47 +748,52 @@ function TopLayerTooltipPopup({
 }) {
 	const popoverRef = useRef<HTMLDivElement>(null);
 
-	// Anchor positioning: only for non-mouse positions.
-	// Mouse positions use JS-based fixed positioning below.
+	// Translate the legacy Popper-style placement string ("right",
+	// "bottom-start", etc.) once and pass the same object to both hooks.
+	const placement = fromLegacyPlacement({ legacy: tooltipPosition });
 
-	// This will offset the tooltip away by the standard "space.100"
-	// Which matches the legacy path
-	// (@atlaskit/popper used 8px as its default offset)
+	const isMousePosition = position === 'mouse' || position === 'mouse-x' || position === 'mouse-y';
+	const isMouseStrategyActive = isMousePosition && Boolean(mousePos);
+
+	// Direct anchor strategy: anchors to the trigger element.
+	// Disabled when the mouse strategy is active — both hooks writing
+	// to the same popover would fight for positioning ownership.
 	useAnchorPosition({
-		anchorRef: isMousePosition ? { current: null } : targetRef,
+		anchorRef: targetRef,
 		popoverRef,
-		placement: fromLegacyPlacement({ legacy: tooltipPosition }),
+		placement,
+		isEnabled: !isMouseStrategyActive,
 	});
 
-	// Mouse position: JS positioning only (no anchor).
-	useLayoutEffect(() => {
-		const popover = popoverRef.current;
+	// Mouse anchor strategy: the hook calls `getPoint()` exactly once
+	// per activation and latches the resulting coordinate. The latch is
+	// per-show because `TopLayerTooltipPopup` mounts fresh on every
+	// show.
+	//
+	// `getPoint()` returns `null` for keyboard-activated shows (where
+	// `mousePos` is undefined) or before the trigger has mounted —
+	// leaving the direct strategy above to own positioning.
+	//
+	// SSR note: `getBoundingClientRect()` is only called here because
+	// `TopLayerTooltipPopup` is gated behind client-only state
+	// transitions.
+	useAnchorPositionAtPoint({
+		popoverRef,
+		placement,
+		isEnabled: isMouseStrategyActive,
+		getPoint: () => {
+			if (!mousePos || !targetRef.current || !isMousePosition) {
+				return null;
+			}
 
-		if (!popover || !isMousePosition || !mousePos) {
-			return;
-		}
-
-		// Override directional slide: mouse positions should fade only
-		popover.style.setProperty('--ds-popover-tx', '0');
-		popover.style.setProperty('--ds-popover-ty', '0');
-
-		// The popover is already in the top layer via popover="auto",
-		// so it does not need position:fixed. Reset UA margin only.
-		popover.style.margin = '0';
-
-		const popoverRect = popover.getBoundingClientRect();
-		const { top, left } = computeMouseTooltipPosition({
-			mousePos,
-			position,
-			popoverRect,
-			viewport: { width: window.innerWidth, height: window.innerHeight },
-		});
-
-		popover.style.top = `${top}px`;
-		popover.style.left = `${left}px`;
-	}, [isMousePosition, mousePos, position]);
-
-	const updateNoop = useCallback(noop, []);
+			return getAnchorPoint({
+				cursor: mousePos,
+				triggerRect: targetRef.current.getBoundingClientRect(),
+				tooltipPosition: position,
+				placement,
+			});
+		},
+	});
 
 	return (
 		<Popover
@@ -814,8 +804,9 @@ function TopLayerTooltipPopup({
 			onClose={onClose}
 			onExitFinish={onExitFinish}
 			testId={testId ? `${testId}--popover` : undefined}
-			animate={tooltipAnimation}
-			placement={fromLegacyPlacement({ legacy: tooltipPosition })}
+			// Override directional slide: mouse positions should fade only
+			animate={isMouseStrategyActive ? tooltipMouseAnimation : tooltipAnimation}
+			placement={placement}
 		>
 			{/* Popover already has role="tooltip", so the inner container uses "presentation" to avoid duplicate roles */}
 			<Container
@@ -831,7 +822,7 @@ function TopLayerTooltipPopup({
 				shortcut={shortcut}
 				role="presentation"
 			>
-				{typeof content === 'function' ? content({ update: updateNoop }) : content}
+				{typeof content === 'function' ? content({ update: noop }) : content}
 			</Container>
 		</Popover>
 	);

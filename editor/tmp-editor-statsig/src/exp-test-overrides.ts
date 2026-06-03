@@ -78,4 +78,13 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_table_menu_updates: false,
 	platform_editor_core_static_css: false,
 	'cwr-modal-ui-refresh': false,
+	// [CCI-15904] New AIFC Editor Experience — AND-gated with
+	// `platform_editor_ai_xstate_migration` (see `isNewAifcExperienceEnabled`
+	// in `editor-plugin-ai/src/ui/utils/new-aifc-experience-enabled.ts`).
+	// (afm-ai-pr-review-bot #2) The previous comment incorrectly referenced
+	// `platform_editor_ai_replace_doc` as the AND partner; the unrelated
+	// `platform_editor_ai_replace_doc: false` override has been removed since
+	// it does not gate this feature.
+	platform_editor_ai_new_aifc_editor_experience: false,
+	cc_page_experiences_editor_image_generation: false,
 };

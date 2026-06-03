@@ -73,7 +73,6 @@ export const backgroundColor: PMMarkSpecFactoryInstance<BackgroundColorMark> =
   createPMMarkSpecFactory<BackgroundColorMark>({
     attrs: { color: {} },
     inclusive: true,
-    excludes: 'color',
     group: 'color',
   });
 

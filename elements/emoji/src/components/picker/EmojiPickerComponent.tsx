@@ -60,8 +60,6 @@ import { createRecordSelectionDefault } from '../common/RecordSelectionDefault';
 import type { CategoryId } from './categories';
 import CategorySelector from './CategorySelector';
 import EmojiPickerFooter from './EmojiPickerFooter';
-import EmojiUploadPicker from '../common/EmojiUploadPicker';
-import EmojiDeletePreviewComponent from '../common/EmojiDeletePreview';
 import {
 	EmojiPickerVirtualListInternal as EmojiPickerList,
 	type PickerListRef,
@@ -125,18 +123,6 @@ const emojiPickerNew = css({
 	minWidth: `${emojiPickerWidth}px`,
 	maxHeight: 'calc(80vh - 86px)',
 	position: 'relative',
-});
-
-const uploadOverlay = css({
-	position: 'absolute',
-	top: 0,
-	left: 0,
-	right: 0,
-	bottom: 0,
-	backgroundColor: token('elevation.surface.overlay'),
-	borderRadius: token('radius.large', '8px'),
-	zIndex: 1,
-	overflowY: 'auto',
 });
 
 const emojiPickerWrapper = css({
@@ -856,90 +842,7 @@ const EmojiPickerComponent = ({
 		? !uploading
 		: selectedEmoji && !uploading;
 
-	if (fg('platform_no_noninteractive_emojis_reactions')) {
-		return (
-			<div
-				css={[
-					fg('platform_emoji_picker_refresh') ? emojiPickerNew : emojiPicker,
-					!!emojiToDelete && fg('platform_emoji_picker_refresh')
-						? withDeleteRefreshHeight[size]
-						: uploading && fg('platform_emoji_picker_refresh')
-							? withUploadRefreshHeight[size]
-							: query && filteredEmojis.length === 0 && fg('platform_emoji_picker_refresh')
-								? withNoResultsRefreshHeight[size]
-								: showPreview
-									? withPreviewHeight[size]
-									: withoutPreviewHeight[size],
-				]}
-				ref={setPickerRef}
-				data-emoji-picker-container
-				role="dialog"
-				aria-label={formatMessage(messages.emojiPickerTitle)}
-				aria-modal={true}
-			>
-				<div
-					role="presentation"
-					onKeyPress={suppressKeyPress}
-					onKeyUp={suppressKeyPress}
-					onKeyDown={suppressKeyPress}
-					css={emojiPickerWrapper}
-				>
-					<CategorySelector
-						activeCategoryId={
-							(uploading || emojiToDelete) && fg('platform_emoji_picker_refresh')
-								? null
-								: activeCategory
-						}
-						dynamicCategories={dynamicCategories}
-						disableCategories={disableCategories}
-						onCategorySelected={onCategorySelected}
-					/>
-					<EmojiPickerList
-						emojis={filteredEmojis}
-						currentUser={currentUser}
-						onEmojiSelected={recordUsageOnSelection}
-						onEmojiActive={onEmojiActive}
-						onEmojiLeave={onEmojiLeave}
-						onEmojiDelete={onTriggerDelete}
-						onCategoryActivated={onCategoryActivated}
-						onSearch={onSearch}
-						query={query}
-						selectedTone={selectedTone}
-						loading={loading}
-						ref={emojiPickerList}
-						initialUploadName={query}
-						onToneSelected={onToneSelected}
-						onToneSelectorCancelled={onToneSelectorCancelled}
-						toneEmoji={toneEmoji}
-						uploading={uploading}
-						emojiToDelete={emojiToDelete}
-						uploadErrorMessage={formattedErrorMessage}
-						uploadEnabled={isUploadSupported && !uploading}
-						onUploadEmoji={onUploadEmoji}
-						onUploadCancelled={onUploadCancelled}
-						onDeleteEmoji={onDeleteEmoji}
-						onCloseDelete={onCloseDelete}
-						onFileChooserClicked={onFileChooserClicked}
-						onOpenUpload={onOpenUpload}
-						size={size}
-						activeCategoryId={activeCategory}
-					/>
-					{showPreview &&
-						!(emojiToDelete && fg('platform_emoji_picker_refresh')) &&
-						!(query && filteredEmojis.length === 0 && fg('platform_emoji_picker_refresh')) && (
-							<EmojiPickerFooter
-								selectedEmoji={selectedEmoji}
-								uploadEnabled={isUploadSupported && !uploading}
-								onOpenUpload={onOpenUpload}
-							/>
-						)}
-				</div>
-			</div>
-		);
-	}
-
 	return (
-		// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions
 		<div
 			css={[
 				fg('platform_emoji_picker_refresh') ? emojiPickerNew : emojiPicker,
@@ -958,79 +861,64 @@ const EmojiPickerComponent = ({
 			role="dialog"
 			aria-label={formatMessage(messages.emojiPickerTitle)}
 			aria-modal={true}
-			onKeyPress={suppressKeyPress}
-			onKeyUp={suppressKeyPress}
-			onKeyDown={suppressKeyPress}
 		>
-			<CategorySelector
-				activeCategoryId={
-					(uploading || emojiToDelete) && fg('platform_emoji_picker_refresh')
-						? null
-						: activeCategory
-				}
-				dynamicCategories={dynamicCategories}
-				disableCategories={disableCategories}
-				onCategorySelected={onCategorySelected}
-			/>
-			<EmojiPickerList
-				emojis={filteredEmojis}
-				currentUser={currentUser}
-				onEmojiSelected={recordUsageOnSelection}
-				onEmojiActive={onEmojiActive}
-				onEmojiLeave={onEmojiLeave}
-				onEmojiDelete={onTriggerDelete}
-				onCategoryActivated={onCategoryActivated}
-				onSearch={onSearch}
-				query={query}
-				selectedTone={selectedTone}
-				loading={loading}
-				ref={emojiPickerList}
-				initialUploadName={query}
-				onToneSelected={onToneSelected}
-				onToneSelectorCancelled={onToneSelectorCancelled}
-				toneEmoji={toneEmoji}
-				uploading={uploading}
-				emojiToDelete={emojiToDelete}
-				uploadErrorMessage={formattedErrorMessage}
-				uploadEnabled={isUploadSupported && !uploading}
-				onUploadEmoji={onUploadEmoji}
-				onUploadCancelled={onUploadCancelled}
-				onDeleteEmoji={onDeleteEmoji}
-				onCloseDelete={onCloseDelete}
-				onFileChooserClicked={onFileChooserClicked}
-				onOpenUpload={onOpenUpload}
-				size={size}
-				activeCategoryId={activeCategory}
-			/>
-			{showPreview &&
-				!(emojiToDelete && fg('platform_emoji_picker_refresh')) &&
-				!(query && filteredEmojis.length === 0 && fg('platform_emoji_picker_refresh')) && (
-					<EmojiPickerFooter
-						selectedEmoji={selectedEmoji}
-						uploadEnabled={isUploadSupported && !uploading}
-						onOpenUpload={onOpenUpload}
-					/>
-				)}
-			{uploading && fg('platform_emoji_picker_refresh') && (
-				<div css={uploadOverlay}>
-					<EmojiUploadPicker
-						onUploadEmoji={onUploadEmoji}
-						onUploadCancelled={onUploadCancelled}
-						onFileChooserClicked={onFileChooserClicked}
-						errorMessage={formattedErrorMessage}
-						initialUploadName={query}
-					/>
-				</div>
-			)}
-			{emojiToDelete && fg('platform_emoji_picker_refresh') && (
-				<div css={uploadOverlay}>
-					<EmojiDeletePreviewComponent
-						emoji={emojiToDelete}
-						onDeleteEmoji={onDeleteEmoji}
-						onCloseDelete={onCloseDelete}
-					/>
-				</div>
-			)}
+			<div
+				role="presentation"
+				onKeyPress={suppressKeyPress}
+				onKeyUp={suppressKeyPress}
+				onKeyDown={suppressKeyPress}
+				css={emojiPickerWrapper}
+			>
+				<CategorySelector
+					activeCategoryId={
+						(uploading || emojiToDelete) && fg('platform_emoji_picker_refresh')
+							? null
+							: activeCategory
+					}
+					dynamicCategories={dynamicCategories}
+					disableCategories={disableCategories}
+					onCategorySelected={onCategorySelected}
+				/>
+				<EmojiPickerList
+					emojis={filteredEmojis}
+					currentUser={currentUser}
+					onEmojiSelected={recordUsageOnSelection}
+					onEmojiActive={onEmojiActive}
+					onEmojiLeave={onEmojiLeave}
+					onEmojiDelete={onTriggerDelete}
+					onCategoryActivated={onCategoryActivated}
+					onSearch={onSearch}
+					query={query}
+					selectedTone={selectedTone}
+					loading={loading}
+					ref={emojiPickerList}
+					initialUploadName={query}
+					onToneSelected={onToneSelected}
+					onToneSelectorCancelled={onToneSelectorCancelled}
+					toneEmoji={toneEmoji}
+					uploading={uploading}
+					emojiToDelete={emojiToDelete}
+					uploadErrorMessage={formattedErrorMessage}
+					uploadEnabled={isUploadSupported && !uploading}
+					onUploadEmoji={onUploadEmoji}
+					onUploadCancelled={onUploadCancelled}
+					onDeleteEmoji={onDeleteEmoji}
+					onCloseDelete={onCloseDelete}
+					onFileChooserClicked={onFileChooserClicked}
+					onOpenUpload={onOpenUpload}
+					size={size}
+					activeCategoryId={activeCategory}
+				/>
+				{showPreview &&
+					!(emojiToDelete && fg('platform_emoji_picker_refresh')) &&
+					!(query && filteredEmojis.length === 0 && fg('platform_emoji_picker_refresh')) && (
+						<EmojiPickerFooter
+							selectedEmoji={selectedEmoji}
+							uploadEnabled={isUploadSupported && !uploading}
+							onOpenUpload={onOpenUpload}
+						/>
+					)}
+			</div>
 		</div>
 	);
 };

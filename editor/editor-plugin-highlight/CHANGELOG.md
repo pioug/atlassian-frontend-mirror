@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-highlight
 
+## 11.0.1
+
+### Patch Changes
+
+- [`64a45bf9306e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64a45bf9306e9) -
+  [ux] [EDITOR-7024] update the ADF schema behind platform_editor_lovability_text_bg_color
+  experiment such that textColor and backgroundColor can coexist
+- Updated dependencies
+
 ## 11.0.0
 
 ### Patch Changes

@@ -1,9 +1,12 @@
+import type { Valign } from '@atlaskit/adf-schema/layout-column';
 import type {
+	Command,
 	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
 import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
@@ -16,12 +19,9 @@ import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 import type {
-	deleteLayoutColumn,
-	distributeLayoutColumns,
+	DistributeLayoutColumnsOptions,
+	InsertLayoutColumnsInputMethod,
 	InsertLayoutColumnSide,
-	insertLayoutColumnsWithAnalytics,
-	setLayoutColumnValign,
-	toggleLayoutColumnMenu,
 } from './pm-plugins/actions';
 import type { LayoutState } from './pm-plugins/types';
 import type { LayoutPluginOptions } from './types';
@@ -34,6 +34,7 @@ export type LayoutPluginDependencies = [
 	OptionalPlugin<EditorDisabledPlugin>,
 	OptionalPlugin<GuidelinePlugin>,
 	OptionalPlugin<InteractionPlugin>,
+	OptionalPlugin<BlockControlsPlugin>,
 	OptionalPlugin<BlockMenuPlugin>,
 	OptionalPlugin<ToolbarPlugin>,
 	OptionalPlugin<UiControlRegistryPlugin>,
@@ -44,14 +45,14 @@ export type LayoutPlugin = NextEditorPlugin<
 	'layout',
 	{
 		actions: {
-			insertLayoutColumns: ReturnType<typeof insertLayoutColumnsWithAnalytics>;
+			insertLayoutColumns: (inputMethod: InsertLayoutColumnsInputMethod) => Command;
 		};
 		commands: {
-			deleteLayoutColumn: ReturnType<typeof deleteLayoutColumn>;
-			distributeLayoutColumns: ReturnType<typeof distributeLayoutColumns>;
+			deleteLayoutColumn: EditorCommand;
+			distributeLayoutColumns: (options?: DistributeLayoutColumnsOptions) => EditorCommand;
 			insertLayoutColumn: (side: InsertLayoutColumnSide) => EditorCommand;
-			setLayoutColumnValign: (valign: Parameters<typeof setLayoutColumnValign>[0]) => EditorCommand;
-			toggleLayoutColumnMenu: typeof toggleLayoutColumnMenu;
+			setLayoutColumnValign: (valign: Valign) => EditorCommand;
+			toggleLayoutColumnMenu: (options: { anchorPos?: number; isOpen?: boolean }) => EditorCommand;
 		};
 		dependencies: LayoutPluginDependencies;
 		pluginConfiguration: LayoutPluginOptions | undefined;

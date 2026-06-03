@@ -49,6 +49,26 @@
 import type { VersionedAgentAttributes } from '../../common/types';
 
 /**
+ * Derives analytics attributes from a `StudioCreateAgentPlan`, mirroring
+ * the shape produced by `getAgentPublishAnalytics` in agent-studio.
+ */
+export type PlanAnalyticsAttributes = {
+	agentToolCount: number;
+	agentToolsList: string;
+	agentMcpServerCount: number;
+	agentKnowledge: Record<string, { enabled: boolean }> | null;
+	scenarioList: ScenarioAnalytics[];
+};
+
+export type ScenarioAnalytics = {
+	toolCount: number;
+	toolsList: string;
+	mcpServerCount: number;
+	knowledgeType: 'custom' | 'disabled' | 'all';
+	knowledge: string[] | null;
+};
+
+/**
  * Discriminated union payload type for create flow events.
  * Use with `trackAgentEvent()`.
  */
@@ -153,4 +173,22 @@ export type CreateFlowEventPayload =
 			actionSubject: 'rovoAgent';
 			action: 'published';
 			attributes: VersionedAgentAttributes & Record<string, unknown>;
+	  }
+	| {
+			// https://data-portal.internal.atlassian.com/analytics/registry/102957
+			//
+			// Fires when a plan is generated for the first time (non-historical
+			// message). Used to measure plan generation volume.
+			actionSubject: 'rovoAgent';
+			action: 'createFlowPlanGenerated';
+			attributes: PlanAnalyticsAttributes & Record<string, unknown>;
+	  }
+	| {
+			// https://data-portal.internal.atlassian.com/analytics/registry/102958
+			//
+			// Fires every time a plan card is viewed (including historical
+			// re-views). Used to measure plan impression volume.
+			actionSubject: 'rovoAgent';
+			action: 'createFlowPlanViewed';
+			attributes: PlanAnalyticsAttributes & Record<string, unknown>;
 	  };

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-table
 
+## 23.0.2
+
+### Patch Changes
+
+- [`84066f0a13142`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84066f0a13142) -
+  Update table sort icons
+- Updated dependencies
+
+## 23.0.1
+
+### Patch Changes
+
+- [`f53b4391ccd54`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f53b4391ccd54) -
+  Fix table menu popup placement near viewport edges
+
+  Add new editor experiment platform_editor_table_close_cell_menu_on_move_exp to fix legacy menu
+  staying open when changing cells.
+
+- Updated dependencies
+
 ## 23.0.0
 
 ### Patch Changes

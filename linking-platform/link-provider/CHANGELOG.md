@@ -1,5 +1,17 @@
 # @atlaskit/link-provider
 
+## 4.5.0
+
+### Minor Changes
+
+- [`7577685ccfaf2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7577685ccfaf2) -
+  Add `bridgeProduct` prop to `SmartCardProvider` for cross-product URL wrapping analytics.
+
+  `bridgeProduct` allows consumers to override the bridge identifier used when wrapping smart link
+  URLs for XPC analytics. When omitted, defaults to `'smartLinks'`. The
+  `useSmartLinkCrossProductUrlWrapper` hook now reads `bridgeProduct` from context and passes it
+  through to `useCrossProductUrlWrapper`.
+
 ## 4.4.1
 
 ### Patch Changes

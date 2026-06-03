@@ -122,7 +122,11 @@ export const syncBlockStylesBase: SerializedStyles = css({
 					to: { '--angle': '360deg' },
 				})} 2s linear infinite`,
 				border: '1px solid transparent',
-				background: `linear-gradient(${token('elevation.surface')}, ${token('elevation.surface')}) padding-box, conic-gradient(from var(--angle), #1868DB, ${token('color.background.accent.purple.subtlest.pressed')}, #3279E0, #1868DB) border-box`,
+				background: `linear-gradient(${token('elevation.surface')}, ${token(
+					'elevation.surface',
+				)}) padding-box, conic-gradient(from var(--angle), #1868DB, ${token(
+					'color.background.accent.purple.subtlest.pressed',
+				)}, #3279E0, #1868DB) border-box`,
 				backgroundClip: 'padding-box, border-box',
 
 				boxShadow: 'none',
@@ -268,6 +272,47 @@ export const syncBlockOverflowStyles: SerializedStyles = css({
 			// Contain floated elements (wrap-left/wrap-right) within synced block borders
 			// Use display: flow-root to create a block formatting context without clipping other content e.g. telepointers
 			display: 'flow-root',
+		},
+	},
+});
+
+// Styles for text selection in reference sync blocks.
+// Gated behind platform_synced_block_patch_14.
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const syncBlockTextSelectionStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`.${SyncBlockSharedCssClassName.renderer}`]: {
+		// Show text cursor to indicate content is selectable
+		cursor: 'text',
+		// Remove browser focus outline on the contentEditable renderer wrapper
+		outline: 'none',
+		// Hide the blinking insertion caret. contentEditable="true" is set on
+		// the renderer to enable text selection, but the content is read-only.
+		caretColor: 'transparent',
+		// Override cursor: pointer set by the editor's layout styles on
+		// [data-layout-section] elements rendered inside the sync block content.
+		// Without this, layout nodes inside reference sync blocks show a pointer
+		// cursor instead of a text cursor.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-layout-section]': {
+			cursor: 'text',
+		},
+	},
+	// Suppress ProseMirror's selected-node box-shadow and backgroundColor on emojis inside
+	// the contentEditable renderer wrapper. PM applies .ak-editor-selected-node
+	// to inline nodes within contentEditable regions.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`.ProseMirror .ak-editor-selected-node .${SyncBlockSharedCssClassName.renderer}`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'span[data-emoji-id], span[data-emoji-id] span': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			boxShadow: 'none !important',
+
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'&::before': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				backgroundColor: 'transparent !important',
+			},
 		},
 	},
 });

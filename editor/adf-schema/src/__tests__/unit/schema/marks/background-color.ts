@@ -18,7 +18,6 @@ describe(`${packageName}/schema backgroundColor mark`, () => {
 			attrs: {
 				color: {},
 			},
-			excludes: 'color',
 			group: 'color',
 			inclusive: true,
 			parseDOM: [
@@ -75,8 +74,8 @@ describe(`${packageName}/schema backgroundColor mark`, () => {
 		});
 	});
 
-	describe('mark exclusions', () => {
-		it('removes textColor mark if applied to a range that already has it applied', () => {
+	describe('mark coexistence', () => {
+		it('allows backgroundColor to coexist with textColor when applied to the same range', () => {
 			const originalDocument = doc(p(textColor({ color: 'red' })('lol')))(defaultSchema);
 
 			const tr = new Transform(originalDocument);
@@ -84,12 +83,13 @@ describe(`${packageName}/schema backgroundColor mark`, () => {
 
 			tr.addMark(1, 5, defaultSchema.mark('backgroundColor', { color: 'blue' }));
 
-			expect(tr.doc.firstChild!.firstChild!.marks.length).toEqual(1);
-			expect(tr.doc.firstChild!.firstChild!.marks[0].type.name).toEqual('backgroundColor');
-			expect(tr.doc.firstChild!.firstChild!.marks[0].attrs.color).toEqual('blue');
+			expect(tr.doc.firstChild!.firstChild!.marks.map((mark) => mark.type.name)).toEqual([
+				'textColor',
+				'backgroundColor',
+			]);
 		});
 
-		it('does not allow the textColor mark to be applied to a range with the backgroundColor mark applied', () => {
+		it('allows textColor to coexist with backgroundColor when applied to the same range', () => {
 			const originalDocument = doc(p(backgroundColor({ color: 'blue' })('lol')))(defaultSchema);
 
 			const tr = new Transform(originalDocument);
@@ -97,9 +97,10 @@ describe(`${packageName}/schema backgroundColor mark`, () => {
 
 			tr.addMark(1, 5, defaultSchema.mark('textColor', { color: 'red' }));
 
-			expect(tr.doc.firstChild!.firstChild!.marks.length).toEqual(1);
-			expect(tr.doc.firstChild!.firstChild!.marks[0].type.name).toEqual('backgroundColor');
-			expect(tr.doc.firstChild!.firstChild!.marks[0].attrs.color).toEqual('blue');
+			expect(tr.doc.firstChild!.firstChild!.marks.map((mark) => mark.type.name)).toEqual([
+				'textColor',
+				'backgroundColor',
+			]);
 		});
 	});
 });

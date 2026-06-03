@@ -13,8 +13,9 @@ import { removeMark, toggleMark } from '@atlaskit/editor-common/mark';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import { highlightColorPalette, REMOVE_HIGHLIGHT_COLOR } from '@atlaskit/editor-common/ui-color';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { HighlightPluginAction, highlightPluginKey } from '../pm-plugins/main';
+import { HighlightPluginAction, highlightPluginKey, overrideMarks } from '../pm-plugins/main';
 
 import { getActiveColor } from './color';
 
@@ -39,6 +40,15 @@ export const changeColor =
 				type: HighlightPluginAction.CHANGE_COLOR,
 				color,
 			});
+
+			const { marks } = tr.doc.type.schema;
+			if (expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
+				overrideMarks.forEach((mark) => {
+					if (marks[mark]) {
+						removeMark(marks[mark])({ tr });
+					}
+				});
+			}
 
 			toggleMark(backgroundColor, { color })({ tr });
 		}

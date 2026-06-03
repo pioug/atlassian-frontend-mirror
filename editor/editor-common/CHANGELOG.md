@@ -1,5 +1,40 @@
 # @atlaskit/editor-common
 
+## 115.1.0
+
+### Minor Changes
+
+- [`84066f0a13142`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84066f0a13142) -
+  Update table sort icons
+
+### Patch Changes
+
+- Updated dependencies
+
+## 115.0.3
+
+### Patch Changes
+
+- [`883d14f6d3052`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/883d14f6d3052) -
+  [EDITOR-7439] [M0] Update `upload` tab copy
+- Updated dependencies
+
+## 115.0.2
+
+### Patch Changes
+
+- [`4b34930cbb801`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b34930cbb801) -
+  [EDITOR-6813] analytics implemented for remix from insertion
+- Updated dependencies
+
+## 115.0.1
+
+### Patch Changes
+
+- [`8cb3cdbbc5467`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cb3cdbbc5467) -
+  Fix TypeError in getExtensionLozengeData when macroMetadata.placeholder is not an array
+- Updated dependencies
+
 ## 115.0.0
 
 ### Major Changes

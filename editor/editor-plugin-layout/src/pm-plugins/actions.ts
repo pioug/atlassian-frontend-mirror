@@ -9,17 +9,24 @@ import {
 	LAYOUT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import type { Command, EditorCommand, TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	EditorCommand,
+	ExtractInjectionAPI,
+	TOOLBAR_MENU_TYPE,
+} from '@atlaskit/editor-common/types';
 import { flatmap, getStepRange, isEmptyDocument, mapChildren } from '@atlaskit/editor-common/utils';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { Mapping, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import type { LayoutPlugin } from '../layoutPluginType';
 import type { Change, PresetLayout } from '../types';
 
 import {
@@ -213,7 +220,7 @@ export const insertLayoutColumns: Command = (state, dispatch) => {
 	return true;
 };
 
-type InsertLayoutColumnsInputMethod =
+export type InsertLayoutColumnsInputMethod =
 	| TOOLBAR_MENU_TYPE
 	| INPUT_METHOD.QUICK_INSERT
 	| INPUT_METHOD.ELEMENT_BROWSER;
@@ -689,6 +696,34 @@ const formatLayoutName = (layout: PresetLayout): LAYOUT_TYPE | undefined => {
 
 export type InsertLayoutColumnSide = 'left' | 'right';
 
+export const LAYOUT_COLUMN_INSERT_META = 'layoutColumnInsert';
+export type LayoutColumnInsertMeta = {
+	insertedColumnNodeSize: number;
+	insertedColumnPos: number;
+	side: InsertLayoutColumnSide;
+};
+
+type LayoutPluginAPI = ExtractInjectionAPI<LayoutPlugin> | undefined;
+
+const mapLayoutColumnPreservedSelection = (tr: Transaction, api: LayoutPluginAPI) => {
+	const insertMeta = tr.getMeta(LAYOUT_COLUMN_INSERT_META) as LayoutColumnInsertMeta | undefined;
+	if (insertMeta) {
+		const mapping =
+			insertMeta.side === 'left'
+				? new Mapping([
+						new StepMap([insertMeta.insertedColumnPos, 0, insertMeta.insertedColumnNodeSize]),
+					])
+				: new Mapping();
+		api?.blockControls?.commands.mapPreservedSelection(mapping)({ tr });
+		return;
+	}
+
+	// Width and alignment updates should keep original layout column selection unchanged.
+	if (tr.getMeta('scrollIntoView') === false && tr.docChanged) {
+		api?.blockControls?.commands.mapPreservedSelection(new Mapping())({ tr });
+	}
+};
+
 /**
  * Returns the active maximum layout column count for the current advanced layouts experiment state.
  */
@@ -751,6 +786,18 @@ const insertLayoutColumnAt =
 		}
 
 		const updatedLayoutSectionNode = layoutSectionNode.copy(Fragment.fromArray(updatedColumns));
+		let insertedColumnOffset = 0;
+		layoutSectionNode.forEach((column, _offset, index) => {
+			if (index < insertIndex) {
+				insertedColumnOffset += column.nodeSize;
+			}
+		});
+		const insertedColumnPos = layoutSectionPos + 1 + insertedColumnOffset;
+		tr.setMeta(LAYOUT_COLUMN_INSERT_META, {
+			insertedColumnNodeSize: newColumn.nodeSize,
+			insertedColumnPos,
+			side,
+		} satisfies LayoutColumnInsertMeta);
 
 		tr.replaceWith(
 			layoutSectionPos + 1,
@@ -779,10 +826,18 @@ const insertLayoutColumnAt =
 export const insertLayoutColumn = (
 	side: InsertLayoutColumnSide,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
-): EditorCommand => insertLayoutColumnAt(side, editorAnalyticsAPI);
+	api?: LayoutPluginAPI,
+): EditorCommand =>
+	({ tr }) => {
+		const result = insertLayoutColumnAt(side, editorAnalyticsAPI)({ tr });
+		if (result) {
+			mapLayoutColumnPreservedSelection(tr, api);
+		}
+		return result;
+	};
 
 export const setLayoutColumnValign =
-	(valign: Valign, editorAnalyticsAPI?: EditorAnalyticsAPI): EditorCommand =>
+	(valign: Valign, editorAnalyticsAPI?: EditorAnalyticsAPI, api?: LayoutPluginAPI): EditorCommand =>
 	({ tr }) => {
 		if (!expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
 			return null;
@@ -823,17 +878,18 @@ export const setLayoutColumnValign =
 			eventType: EVENT_TYPE.TRACK,
 		})(tr);
 		tr.setMeta('scrollIntoView', false);
+		mapLayoutColumnPreservedSelection(tr, api);
 
 		return tr;
 	};
 
-type DistributeLayoutColumnsOptions = {
+export type DistributeLayoutColumnsOptions = {
 	inputMethod?: INPUT_METHOD.LAYOUT_COLUMN_MENU | INPUT_METHOD.FLOATING_TB;
 	target?: 'selectedColumns' | 'allColumns';
 };
 
 export const distributeLayoutColumns =
-	(editorAnalyticsAPI?: EditorAnalyticsAPI) =>
+	(editorAnalyticsAPI?: EditorAnalyticsAPI, api?: LayoutPluginAPI) =>
 	({
 		inputMethod = INPUT_METHOD.LAYOUT_COLUMN_MENU,
 		target = 'selectedColumns',
@@ -908,6 +964,7 @@ export const distributeLayoutColumns =
 			eventType: EVENT_TYPE.TRACK,
 		})(tr);
 		tr.setMeta('scrollIntoView', false);
+		mapLayoutColumnPreservedSelection(tr, api);
 
 		return tr;
 	};
@@ -922,7 +979,7 @@ export const toggleLayoutColumnMenu =
 	};
 
 export const deleteLayoutColumn =
-	(editorAnalyticsAPI?: EditorAnalyticsAPI): EditorCommand =>
+	(editorAnalyticsAPI?: EditorAnalyticsAPI, api?: LayoutPluginAPI): EditorCommand =>
 	({ tr }) => {
 		if (!expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
 			return null;
@@ -960,6 +1017,7 @@ export const deleteLayoutColumn =
 			tr.delete(layoutSectionPos, layoutSectionPos + layoutSectionNode.nodeSize);
 			emitDeleteColumnAnalytics(0);
 			tr.setMeta('scrollIntoView', false);
+			api?.blockControls?.commands.stopPreservingSelection()({ tr });
 			return tr;
 		}
 
@@ -994,6 +1052,7 @@ export const deleteLayoutColumn =
 
 		emitDeleteColumnAnalytics(redistributed.length);
 		tr.setMeta('scrollIntoView', false);
+		api?.blockControls?.commands.stopPreservingSelection()({ tr });
 
 		return tr;
 	};

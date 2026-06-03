@@ -1,5 +1,7 @@
 import type { VirtualElement } from '@popperjs/core';
 
+import { type PositionMouseOptions } from '../types';
+
 export function getVirtualElementFromMousePos(
 	mousePos: {
 		clientX: number;
@@ -8,7 +10,7 @@ export function getVirtualElementFromMousePos(
 	{
 		targetElement,
 		tooltipPosition,
-	}: { targetElement: HTMLElement; tooltipPosition: 'mouse' | 'mouse-x' | 'mouse-y' },
+	}: { targetElement: HTMLElement; tooltipPosition: PositionMouseOptions },
 ): VirtualElement {
 	if (tooltipPosition === 'mouse') {
 		return {

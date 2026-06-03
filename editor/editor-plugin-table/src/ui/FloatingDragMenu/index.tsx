@@ -160,6 +160,11 @@ const FloatingDragMenu: FloatingDragMenuFunction = ({
 			// In sticky mode, we want to show the menu above the sticky header
 			zIndex={inStickyMode ? akEditorFloatingDialogZIndex : akEditorFloatingOverlapPanelZIndex}
 			forcePlacement={true}
+			preventOverflow={
+				expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)
+					? dragMenuDirection === 'row'
+					: undefined
+			}
 			offset={
 				expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)
 					? [TABLE_MENU_OFFSET, 0]

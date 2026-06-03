@@ -21,6 +21,7 @@ import {
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { Box } from '@atlaskit/primitives/compiled';
 import Tabs, { Tab, TabList, useTabPanel } from '@atlaskit/tabs';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { MediaInsertPickerProps } from '../types';
 
@@ -132,6 +133,15 @@ export const MediaInsertPicker = ({
 			closeMediaInsertPicker();
 			focusEditor();
 		};
+
+	const fileTabTitle = expValEqualsNoExposure(
+		'cc_page_experiences_editor_image_generation',
+		'isEnabled',
+		true,
+	)
+		? intl.formatMessage(mediaInsertMessages.uploadTabTitle)
+		: intl.formatMessage(mediaInsertMessages.fileTabTitle);
+		
 	return (
 		<PopupWithListeners
 			ariaLabel={intl.formatMessage(mediaInsertMessages.mediaPickerPopupAriaLabel)}
@@ -159,9 +169,7 @@ export const MediaInsertPicker = ({
 									{registeredTabs.map((tab) => (
 										<Tab key={tab.key}>{tab.label}</Tab>
 									))}
-									{!isOnlyExternalLinks && (
-										<Tab>{intl.formatMessage(mediaInsertMessages.fileTabTitle)}</Tab>
-									)}
+									{!isOnlyExternalLinks && <Tab>{fileTabTitle}</Tab>}
 									<Tab>{intl.formatMessage(mediaInsertMessages.linkTabTitle)}</Tab>
 								</TabList>
 							</Box>

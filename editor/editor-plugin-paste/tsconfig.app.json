@@ -37,6 +37,9 @@
 			"path": "../adf-schema/tsconfig.app.json"
 		},
 		{
+			"path": "../adf-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/code/tsconfig.app.json"
 		},
 		{

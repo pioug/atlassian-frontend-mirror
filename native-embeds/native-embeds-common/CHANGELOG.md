@@ -1,5 +1,16 @@
 # @atlaskit/native-embeds-common
 
+## 1.5.0
+
+### Minor Changes
+
+- [`e7c06cfc71b06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7c06cfc71b06) -
+  MAUI-590 execute remix update
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.4.1
 
 ### Patch Changes

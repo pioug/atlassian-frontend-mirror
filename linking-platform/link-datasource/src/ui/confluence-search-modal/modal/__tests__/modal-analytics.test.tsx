@@ -257,7 +257,7 @@ describe('Analytics: ConfluenceSearchConfigModal', () => {
 
 					const { visibleColumnKeys } = getLatestIssueLikeTableProps();
 
-					act(() => {
+					await act(async () => {
 						updateVisibleColumnList([...visibleColumnKeys, 'additionalColumn']);
 					});
 
@@ -419,7 +419,7 @@ describe('Analytics: ConfluenceSearchConfigModal', () => {
 
 					const { assertAnalyticsAfterButtonClick, searchWithNewBasic } = await setup();
 
-					act(() => {
+					await act(async () => {
 						searchWithNewBasic('new_search');
 					});
 					await assertAnalyticsAfterButtonClick(INSERT_BUTTON_NAME, expectedPayload);

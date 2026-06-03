@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 70.15.1
+
+### Patch Changes
+
+- [`9cf3c68ce80d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cf3c68ce80d0) -
+  Clean up platform_no_noninteractive_emojis_reactions FG
+- Updated dependencies
+
 ## 70.15.0
 
 ### Minor Changes

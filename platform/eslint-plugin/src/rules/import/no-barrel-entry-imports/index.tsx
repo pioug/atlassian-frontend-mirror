@@ -400,11 +400,38 @@ function classifySpecifiers({
 					});
 					if (bridge) {
 						targetKey = importedPackageName + bridge.exportPath.slice(1);
+
+						// If the bridge resolves back to the same subpath the consumer
+						// is already importing from, the import is already optimal.
+						// Leave it alone instead of rewriting in place — otherwise we'd
+						// emit a no-op (or, combined with the originalName logic below,
+						// a destructive) rewrite of an import that didn't need to change.
+						if (targetKey === importContext.importPath) {
+							unmappedSpecifiers.push({
+								spec: spec as AugmentedSpecifier,
+								targetExportPath: null,
+								kind: effectiveKind,
+							});
+							continue;
+						}
+
 						if (bridge.entryPointExportName !== undefined) {
 							resolvedOriginalName =
 								bridge.entryPointExportName === nameInSource
 									? undefined
 									: bridge.entryPointExportName;
+						} else {
+							// The bridge re-exports `nameInSource` without aliasing
+							// (e.g. `export { panelPlugin } from '@scope/dep'`), so the
+							// public name at the bridge subpath matches `nameInSource`.
+							// The deep `originalName` (e.g. `'default'` coming from a
+							// further-upstream `export { default as panelPlugin }`)
+							// describes the dependency's internal shape, NOT the bridge
+							// subpath's shape. Clear it so the rewrite stays a named
+							// import using the bridge's public name, instead of being
+							// turned into a default import that the bridge does not
+							// actually expose.
+							resolvedOriginalName = undefined;
 						}
 						if (!specifiersByTarget.has(targetKey)) {
 							specifiersByTarget.set(targetKey, []);

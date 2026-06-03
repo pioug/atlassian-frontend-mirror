@@ -1,5 +1,18 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.10.6
+
+### Patch Changes
+
+- [`e5fbe8f03cdbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5fbe8f03cdbf) -
+  Fix `no-barrel-entry-imports` and `no-barrel-entry-jest-mock` rules under
+  `preferImportedPackageSubpath`: when a barrel bridge subpath re-exports a cross-package symbol
+  whose deepest source is a `default` export (e.g. `export { panelPlugin } from '@pkg/dep'` where
+  `@pkg/dep` does `export { default as panelPlugin } from './panelPlugin'`), the autofix no longer
+  carries the deep `originalName: 'default'` across the bridge and corrupts the consumer's named
+  import into a default import. Also short-circuit when the bridge resolves back to the exact
+  subpath already in use so the rule no longer rewrites an already-optimal import in place.
+
 ## 2.10.5
 
 ### Patch Changes

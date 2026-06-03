@@ -17,7 +17,12 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPluginOptions } from '../types';
 
-import { fixColumnSizes, fixColumnStructure, getSelectedLayout } from './actions';
+import {
+	fixColumnSizes,
+	fixColumnStructure,
+	getSelectedLayout,
+	LAYOUT_COLUMN_INSERT_META,
+} from './actions';
 import { getColumnDividerDecorations } from './column-resize-divider';
 import { EVEN_DISTRIBUTED_COL_WIDTHS } from './consts';
 import { pluginKey } from './plugin-key';
@@ -262,6 +267,13 @@ export default (options: LayoutPluginOptions): SafePlugin<LayoutState> => {
 				) {
 					return;
 				}
+
+				// Layout column insert actions already recalculate column widths and need their own
+				// selection mapping; avoid a follow-up normalisation transaction that can remap it.
+				if (prevTr.getMeta(LAYOUT_COLUMN_INSERT_META)) {
+					return;
+				}
+
 
 				const change = fixColumnSizes(prevTr, newState);
 				if (change) {

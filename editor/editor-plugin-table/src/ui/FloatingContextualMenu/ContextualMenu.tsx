@@ -766,6 +766,15 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			isOpen,
 			editorView: { state, dispatch },
 		} = this.props;
+
+		if (expValEquals('platform_editor_table_close_cell_menu_on_move_exp', 'isEnabled', true)) {
+			if (getPluginState(state).isContextualMenuOpen) {
+				toggleContextualMenu()(state, dispatch);
+			}
+			this.closeSubmenu();
+			return;
+		}
+
 		toggleContextualMenu()(state, dispatch);
 		if (!isOpen) {
 			this.setState({
@@ -875,6 +884,12 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		setColorWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.CONTEXT_MENU, color)(state, dispatch);
 		if (!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)) {
 			this.toggleOpen();
+		} else if (expValEquals('platform_editor_table_close_cell_menu_on_move_exp', 'isEnabled',true)) {
+			this.toggleOpen();
+			if (isCellMenuOpenByKeyboard) {
+				setFocusToCellMenu(false)(editorView.state, dispatch);
+				dom.focus();
+			}
 		} else {
 			toggleContextualMenu()(state, dispatch);
 			this.setState({ isSubmenuOpen: false });

@@ -70,6 +70,42 @@ const YourComponent = () => {
 }
 ```
 
+#### Consume once
+
+Publishers can mark an event as `consumeOnce: true` when only one mounted instance of a
+consumer should process that event. Subscribers opt into this behavior with a stable
+`consumeOnceKey`; subscribers sharing the same key will process a `consumeOnce` event once total.
+Subscribers without a `consumeOnceKey` continue to observe the event normally.
+
+The delivery id used to deduplicate a publish is generated internally by `rovo-triggers` and is not
+exposed in the event payload. This deduplicates one publish fanout across multiple mounted
+subscribers; separate publish calls are treated as separate events.
+
+```ts
+const YourComponent = () => {
+    useSubscribe({ topic: 'ai-mate', consumeOnceKey: 'your-consumer' }, ({ type, data }) => {
+        if(type === 'message-send') {
+            sendMessage(data)
+        }
+    });
+}
+```
+
+```ts
+const AnotherComponent = () => {
+    const publish = usePublish('ai-mate');
+
+    const handleClick = () => {
+        publish({
+            type: 'message-send',
+            source: 'my-source',
+            consumeOnce: true,
+            data: { prompt: 'hello Rovo Chat' },
+        })
+    }
+}
+```
+
 ### Subscribe All
 
 **Note** - Avoid using this. Right now it's only intended to be a proxy for Rovo Chat to trigger

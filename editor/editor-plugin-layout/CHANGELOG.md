@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-layout
 
+## 11.0.1
+
+### Patch Changes
+
+- [`8bf2ab100a93d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bf2ab100a93d) -
+  Add col to layout keywords
+- [`91c01182107f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/91c01182107f2) -
+  Preserve layout column selection after menu actions and delay editor-ai-dev Bitbucket credential
+  checks until after CLI command validation.
+- Updated dependencies
+
 ## 11.0.0
 
 ### Patch Changes

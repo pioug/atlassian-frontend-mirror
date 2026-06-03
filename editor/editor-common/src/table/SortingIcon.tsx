@@ -10,6 +10,7 @@ import { css, jsx } from '@emotion/react';
 import type { IntlShape, WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -17,6 +18,7 @@ import { SortOrder } from '../types';
 
 import { SORTABLE_COLUMN_ICON_CLASSNAME } from './consts';
 import { sortingAriaLabelMessages, sortingIconMessages } from './messages';
+import { NewSortingIcon } from './NewSortingIcon';
 
 export enum StatusClassNames {
 	ASC = 'sorting-icon-svg__asc',
@@ -211,13 +213,17 @@ const SortingIcon = ({
 				onClick={handleClick}
 				onKeyDown={handleKeyDown}
 			>
-				<div
-					css={iconWrapperStyles}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={getIconClassName(isSortingAllowed, sortOrdered)}
-				>
-					<div css={[iconStyles]} />
-				</div>
+				{expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) ? (
+					<NewSortingIcon sortOrdered={sortOrdered} />
+				) : (
+					<div
+						css={iconWrapperStyles}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+						className={getIconClassName(isSortingAllowed, sortOrdered)}
+					>
+						<div css={[iconStyles]} />
+					</div>
+				)}
 			</div>
 		</Tooltip>
 	);

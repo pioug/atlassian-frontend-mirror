@@ -28,9 +28,9 @@ const useSmartLinkCrossProductUrlWrapperFallback = (
 const useSmartLinkCrossProductUrlWrapper = ({
 	details,
 }: UseSmartLinkCrossProductUrlWrapperArgs): ((url: string) => string) => {
-	const { product } = useSmartLinkContext();
+	const { product, bridgeProduct } = useSmartLinkContext();
 	const wrapUrl = useCrossProductUrlWrapper({
-		bridge: SMART_LINKS_XPC_BRIDGE,
+		bridge: bridgeProduct ?? SMART_LINKS_XPC_BRIDGE,
 		product: product?.toLowerCase() ?? 'unknown',
 	});
 

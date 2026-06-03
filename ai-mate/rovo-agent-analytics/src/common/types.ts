@@ -1,4 +1,5 @@
 import type { AgentInteractionsEventPayload } from '../actions/groups/agent-interactions';
+import type { CreateFlowEventPayload } from '../actions/groups/create-flow';
 import type { DebugEventPayload } from '../actions/groups/debug';
 import type { EditingEventPayload } from '../actions/groups/editing';
 import type { EvaluationEventPayload } from '../actions/groups/evaluation';
@@ -66,4 +67,5 @@ export type EventPayload =
 	| InsightsEventPayload
 	| ErrorEventPayload
 	| KnowledgeFiltersEventPayload
-	| ModelPreferencesEventPayload;
+	| ModelPreferencesEventPayload
+	| CreateFlowEventPayload;

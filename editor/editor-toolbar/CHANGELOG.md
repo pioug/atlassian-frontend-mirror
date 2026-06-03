@@ -1,5 +1,12 @@
 # @atlaskit/editor-toolbar
 
+## 1.10.0
+
+### Minor Changes
+
+- [`84066f0a13142`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84066f0a13142) -
+  Update table sort icons
+
 ## 1.9.5
 
 ### Patch Changes

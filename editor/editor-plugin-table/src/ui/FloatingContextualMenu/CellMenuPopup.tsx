@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useRef } from 'react';
 
-import { Popup } from '@atlaskit/editor-common/ui';
+import { Popup, type PopupPosition } from '@atlaskit/editor-common/ui';
 import {
 	OutsideClickTargetRefContext,
 	withReactEditorViewOuterListeners,
@@ -20,6 +20,7 @@ const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
 
 const NESTED_DROPDOWN_SELECTOR = '[data-toolbar-nested-dropdown-menu]';
 const CELL_MENU_TRIGGER_SELECTOR = `.${ClassName.CONTEXTUAL_MENU_BUTTON}`;
+const CELL_MENU_TRIGGER_CLEARANCE = [6, 0];
 
 type CellMenuPopupProps = {
 	api: PluginInjectionAPI | undefined | null;
@@ -27,7 +28,7 @@ type CellMenuPopupProps = {
 	editorView: EditorView;
 	mountPoint?: HTMLElement;
 	scrollableElement?: HTMLElement;
-	targetCellRef: HTMLElement;
+	target: HTMLElement;
 	zIndex: number;
 };
 
@@ -37,7 +38,7 @@ export const CellMenuPopup = ({
 	editorView,
 	mountPoint,
 	scrollableElement,
-	targetCellRef,
+	target,
 	zIndex,
 }: CellMenuPopupProps): React.JSX.Element => {
 	const popupContentRef = useRef<HTMLDivElement | null>(null);
@@ -76,6 +77,24 @@ export const CellMenuPopup = ({
 		);
 	}, []);
 
+	const horizontalPlacementRef = useRef<string | undefined>(undefined);
+	const handlePlacementChanged = useCallback(([, horizontalPlacement]: [string, string]) => {
+		horizontalPlacementRef.current = horizontalPlacement;
+	}, []);
+
+	const handlePositionCalculated = useCallback(
+		(position: PopupPosition): PopupPosition => {
+			if (horizontalPlacementRef.current !== 'left' || position.left === undefined) {
+				return position;
+			}
+
+			return {
+				...position,
+				left: position.left + target.getBoundingClientRect().width,
+			};
+		},
+		[target],
+	);
 	const handleCellMenuClickOutside = useCallback(
 		(event: MouseEvent) => {
 			if (isEventInsideCellMenu(event)) {
@@ -88,9 +107,9 @@ export const CellMenuPopup = ({
 	);
 	return (
 		<PopupWithListeners
-			alignX="right"
-			alignY="top"
-			target={targetCellRef}
+			alignX="end"
+			alignY="start"
+			target={target}
 			mountTo={mountPoint}
 			boundariesElement={boundariesElement}
 			scrollableElement={scrollableElement}
@@ -98,8 +117,10 @@ export const CellMenuPopup = ({
 			fitWidth={TABLE_MENU_WIDTH}
 			zIndex={zIndex}
 			forcePlacement={true}
-			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			offset={[-7, 0]}
+			preventOverflow={true}
+			onPlacementChanged={handlePlacementChanged}
+			onPositionCalculated={handlePositionCalculated}
+			offset={CELL_MENU_TRIGGER_CLEARANCE}
 			stick={true}
 			handleClickOutside={handleCellMenuClickOutside}
 			handleEscapeKeydown={closeCellMenu}

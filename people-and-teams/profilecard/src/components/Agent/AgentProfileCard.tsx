@@ -4,7 +4,6 @@ import { useIntl } from 'react-intl';
 
 import { cssMap } from '@atlaskit/css';
 import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
-import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 import type { AgentCreatorType } from '@atlaskit/rovo-agent-components/common/types';
@@ -257,40 +256,21 @@ const AgentProfileCard = ({
 							gap="space.050"
 							xcss={styles.disclosureWrapper}
 						>
-							{fg('ptc-links-migrate-atlaskit-link') ? (
-								<TeamsLink
-									href="https://www.atlassian.com/trust/atlassian-intelligence"
-									intent="reference"
-									appearance="subtle"
-								>
-									<InformationCircleIcon
-										color={token('color.icon.subtlest')}
-										label=""
-										size="small"
-									/>
-									{` `}
-									<Text size="small" color="color.text.subtlest">
-										{formatMessage(messages.aiDisclaimer)}
-									</Text>
-								</TeamsLink>
-							) : (
-								<Link
-									href="https://www.atlassian.com/trust/atlassian-intelligence"
-									target="_blank"
-									rel="noopener noreferrer"
-									appearance="subtle"
-								>
-									<InformationCircleIcon
-										color={token('color.icon.subtlest')}
-										label=""
-										size="small"
-									/>
-									{` `}
-									<Text size="small" color="color.text.subtlest">
-										{formatMessage(messages.aiDisclaimer)}
-									</Text>
-								</Link>
-							)}
+							<TeamsLink
+								href="https://www.atlassian.com/trust/atlassian-intelligence"
+								intent="reference"
+								appearance="subtle"
+							>
+								<InformationCircleIcon
+									color={token('color.icon.subtlest')}
+									label=""
+									size="small"
+								/>
+								{` `}
+								<Text size="small" color="color.text.subtlest">
+									{formatMessage(messages.aiDisclaimer)}
+								</Text>
+							</TeamsLink>
 						</Flex>
 					)}
 					{shouldShowConversationStarters && (

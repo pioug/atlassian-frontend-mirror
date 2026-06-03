@@ -2,12 +2,14 @@ import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import type { Callback, Payload, Topic, TopicEventQueue, TopicEvents } from './types';
+import type { Callback, Payload, Topic } from './types';
 
 interface SubscribeOptions {
 	topic: Topic;
 	// Trigger the latest event for the topic when subscribing if it hasn't already been triggered
 	triggerLatest?: boolean;
+	// When provided, consumeOnce events are processed once across subscribers sharing this key.
+	consumeOnceKey?: string;
 }
 
 interface Subscribe {
@@ -21,6 +23,26 @@ interface Publish {
 interface SubscribeAll {
 	(callback: Callback): () => void;
 }
+
+type PubSubEvent = {
+	id: string;
+	payload: Payload;
+};
+
+type PubSubEventCallback = (event: PubSubEvent) => void;
+
+type TopicEvents = {
+	[key in Topic]?: Array<{
+		id: string;
+		callback: PubSubEventCallback;
+	}>;
+};
+
+type TopicEventQueue = {
+	[key in Topic]?: PubSubEvent;
+};
+
+const MAX_CONSUMED_EVENT_KEYS = 5000;
 
 const ignoredTriggerLatestEvents = new Set<Payload['type']>([
 	'editor-context-payload',
@@ -44,28 +66,79 @@ const createPubSub = () => {
 	let subscribedEvents: TopicEvents = {};
 	let publishQueue: TopicEventQueue = {};
 	let wildcardEvents: Array<{ callback: Callback; id: string }> = [];
+	let consumedEventKeys = new Set<string>();
+	let consumedEventKeyQueue: string[] = [];
 	let subIdCounter = 0;
+	let eventIdCounter = 0;
 
 	const generateSubId = () => {
 		subIdCounter += 1;
 		return subIdCounter.toString();
 	};
 
-	const subscribe: Subscribe = ({ topic, triggerLatest }, callback) => {
+	const createEvent = (payload: Payload): PubSubEvent => {
+		eventIdCounter += 1;
+		return {
+			id: eventIdCounter.toString(),
+			payload,
+		};
+	};
+
+	const rememberConsumedEventKey = (claimKey: string) => {
+		consumedEventKeys.add(claimKey);
+		consumedEventKeyQueue = [...consumedEventKeyQueue, claimKey];
+
+		if (consumedEventKeyQueue.length > MAX_CONSUMED_EVENT_KEYS) {
+			const [oldestClaimKey, ...remainingClaimKeys] = consumedEventKeyQueue;
+			consumedEventKeyQueue = remainingClaimKeys;
+			if (oldestClaimKey) {
+				consumedEventKeys.delete(oldestClaimKey);
+			}
+		}
+	};
+
+	const claimConsumeOnceEvent = ({
+		event,
+		consumeOnceKey,
+	}: {
+		event: PubSubEvent;
+		consumeOnceKey?: string;
+	}) => {
+		if (!event.payload.consumeOnce || !consumeOnceKey) {
+			return true;
+		}
+
+		const claimKey = `${consumeOnceKey}:${event.id}`;
+		if (consumedEventKeys.has(claimKey)) {
+			return false;
+		}
+
+		rememberConsumedEventKey(claimKey);
+		return true;
+	};
+
+	const subscribe: Subscribe = ({ topic, triggerLatest, consumeOnceKey }, callback) => {
 		const events = subscribedEvents[topic] ?? [];
 		const subId = generateSubId();
 		const subExists = events.some(({ id }) => id === subId);
+		const callbackWithConsumption = (event: PubSubEvent) => {
+			if (!claimConsumeOnceEvent({ event, consumeOnceKey })) {
+				return;
+			}
+
+			callback(event.payload);
+		};
 
 		// Push to Topic stack if not already there
 		if (!subExists) {
 			subscribedEvents = {
 				...subscribedEvents,
-				[topic]: [...events, { callback, id: subId }],
+				[topic]: [...events, { callback: callbackWithConsumption, id: subId }],
 			};
 			// If this Topic already has a published event and `triggerLatest` is true, trigger the callback then clear the publishQueue for that Topic
 			if (triggerLatest && !!publishQueue[topic]) {
-				const payload = publishQueue[topic] as Payload;
-				callback(payload);
+				const event = publishQueue[topic] as PubSubEvent;
+				callbackWithConsumption(event);
 				delete publishQueue[topic];
 			}
 		}
@@ -88,17 +161,19 @@ const createPubSub = () => {
 	};
 
 	const publish: Publish = (topic: Topic, payload: Payload) => {
+		const event = createEvent(payload);
+
 		/**
 		 * Log that this Topic received a published event, regardless of whether it has subscribers or not.
 		 * This ensures new subscribers can trigger their callback if `triggerLatest` is true, and the event hasn't already been triggered.
 		 */
 		// This `ignoredTriggerLatestEvents` is a quick fix to prevent triggering the latest event for certain events
 		if (!isIgnoredForTriggerLatest(payload.type)) {
-			publishQueue[topic] = payload;
+			publishQueue[topic] = event;
 		}
 
 		// Notify `subscribeAll` subscribers as they are Topic agnostic
-		wildcardEvents.forEach(({ callback }) => callback(payload));
+		wildcardEvents.forEach(({ callback }) => callback(event.payload));
 
 		const topicSubs = subscribedEvents[topic] || [];
 
@@ -108,7 +183,7 @@ const createPubSub = () => {
 		}
 
 		// Notify all Topic subscribers of this event
-		topicSubs.forEach(({ callback }) => callback(payload));
+		topicSubs.forEach(({ callback }) => callback(event));
 	};
 
 	const flushQueue = () => {
@@ -125,7 +200,7 @@ const usePubSub = () => {
 };
 
 export const useSubscribe = (
-	{ topic, triggerLatest }: SubscribeOptions,
+	{ topic, triggerLatest, consumeOnceKey }: SubscribeOptions,
 	callback: Callback,
 ): void => {
 	const { subscribe } = usePubSub();
@@ -134,13 +209,13 @@ export const useSubscribe = (
 
 	useEffect(
 		() => {
-			const unsubscribe = subscribe({ topic, triggerLatest }, (...args) =>
+			const unsubscribe = subscribe({ topic, triggerLatest, consumeOnceKey }, (...args) =>
 				callbackRef.current(...args),
 			);
 			return unsubscribe;
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[topic],
+		[topic, consumeOnceKey],
 	);
 };
 
@@ -181,13 +256,15 @@ export const Subscriber = ({
 	triggerLatest,
 	onEvent,
 	flushQueueOnUnmount,
+	consumeOnceKey,
 }: {
 	topic: Topic;
 	triggerLatest?: boolean;
 	onEvent: Callback;
 	flushQueueOnUnmount?: boolean;
+	consumeOnceKey?: string;
 }) => {
-	useSubscribe({ topic, triggerLatest }, onEvent);
+	useSubscribe({ topic, triggerLatest, consumeOnceKey }, onEvent);
 	useFlushOnUnmount(flushQueueOnUnmount);
 	return null;
 };

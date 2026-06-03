@@ -27,6 +27,7 @@ export const SMART_CARD_EXTERNAL_AUTH_EVENT = 'atlaskit-smart-card:external-auth
 
 export function SmartCardProvider({
 	storeOptions,
+	bridgeProduct,
 	client: customClient,
 	authFlow: customAuthFlow,
 	children,
@@ -124,6 +125,7 @@ export function SmartCardProvider({
 			extractors: {
 				getPreview,
 			},
+			bridgeProduct,
 			isAdminHubAIEnabled,
 			product,
 			shouldControlDataExport,
@@ -133,6 +135,7 @@ export function SmartCardProvider({
 		};
 	}, [
 		customAuthFlow,
+		bridgeProduct,
 		client,
 		isAdminHubAIEnabled,
 		isPreviewPanelAvailable,

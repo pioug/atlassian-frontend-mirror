@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -9,6 +9,7 @@ import {
 	useFetchSyncBlockTitle,
 } from '@atlaskit/editor-synced-block-provider';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncedBlockPlugin, SyncedBlockRendererProps } from '../syncedBlockPluginType';
 
@@ -48,12 +49,37 @@ const SyncBlockRendererWrapperComponent = ({
 		isUnpublishedBlock ||
 		syncBlockFetchResult?.syncBlockInstance?.error?.type === SyncBlockError.NotFound;
 
+	const isTextSelectionEnabled = fg('platform_synced_block_patch_14');
+
+	// Prevent editing in the contentEditable renderer wrapper. We set
+	// contentEditable="true" to enable text selection (creating an editable
+	// island inside ProseMirror's contentEditable="false" nodeview wrapper),
+	// but users must not be able to type into or modify the renderer content.
+	const preventInput = useCallback((e: React.SyntheticEvent) => {
+		e.preventDefault();
+	}, []);
+
 	return (
 		<div>
+			{/* contentEditable creates a re-editable island inside the nodeview's
+			    contentEditable="false" wrapper (set by ProseMirror for nodeviews
+			    without contentDOM). This enables native text selection and prevents
+			    the browser from treating click-drag as a drag operation on the
+			    non-editable block. */}
 			<div
 				data-testid={SyncBlockRendererWrapperDataId}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				className={SyncBlockSharedCssClassName.renderer}
+				contentEditable={isTextSelectionEnabled || undefined}
+				suppressContentEditableWarning
+				// Prevent the contentEditable div from being keyboard-focusable.
+				// It is only used to enable text selection, not as an input target.
+				// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+				tabIndex={isTextSelectionEnabled ? -1 : undefined}
+				onBeforeInput={isTextSelectionEnabled ? preventInput : undefined}
+				onPaste={isTextSelectionEnabled ? preventInput : undefined}
+				// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+				onDrop={isTextSelectionEnabled ? preventInput : undefined}
 			>
 				{syncedBlockRenderer({
 					syncBlockFetchResult,

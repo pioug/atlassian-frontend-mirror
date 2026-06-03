@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 1.7.0
+
+### Minor Changes
+
+- [`ab5703fe34009`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab5703fe34009) -
+  Adding resizable and custom dimension type to UI Kit Modal
+
 ## 1.6.2
 
 ### Patch Changes

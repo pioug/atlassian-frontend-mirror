@@ -7,6 +7,7 @@ import type {
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { changeColor } from './editor-commands/change-color';
@@ -60,7 +61,14 @@ export const highlightPlugin: HighlightPlugin = ({ api }) => {
 		name: 'highlight',
 
 		marks() {
-			return [{ name: 'backgroundColor', mark: backgroundColor }];
+			if (expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
+				return [{ name: 'backgroundColor', mark: backgroundColor }];
+			}
+			// color is defined in platform/packages/editor/adf-schema/src/next-schema/marks/color.ts
+			return [{ name: 'backgroundColor', mark: {
+				...backgroundColor,
+				excludes: 'color'
+			} }];
 		},
 
 		commands: {

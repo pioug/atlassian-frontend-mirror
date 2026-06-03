@@ -7,12 +7,17 @@ type Options = [{ allowPrimitiveExports?: boolean }?];
 
 /**
  * Returns true if the variable declarator's initializer is a primitive literal
- * (string, number, boolean, template literal, or null/undefined).
+ * (string, number, boolean, template literal, or null/undefined), including
+ * when the value is annotated with `as const`.
  */
 function isPrimitiveLiteral(declarator: TSESTree.VariableDeclarator): boolean {
-	const init = declarator.init;
+	let init = declarator.init;
 	if (init == null) {
 		return false;
+	}
+	// Unwrap `as const` (and any other `as X`) to get at the underlying value.
+	if (init.type === AST_NODE_TYPES.TSAsExpression) {
+		init = (init as TSESTree.TSAsExpression).expression;
 	}
 	if (init.type === AST_NODE_TYPES.Literal) {
 		return (
@@ -46,7 +51,7 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			'no-multiple-exports':
-				'Volt Strict Mode: this file has more than one runtime export, but only one is allowed per file (this is the extra export). Fix it by moving each additional runtime export (component, function, class, non-primitive value) into its own file and importing it where needed. Exempt from this rule: `export type`, `export interface`, and `type`-only `export { ... }` specifiers; primitive value exports (string/number/boolean/null/undefined/template literal) are also allowed when the `allowPrimitiveExports` option is enabled. See go/volt-one-export-per-file for rationale and migration guidance.',
+				'Volt Strict Mode: this file has more than one runtime export, but only one is allowed per file (this is the extra export). Fix it by moving each additional runtime export (component, function, class, non-primitive value) into its own file and importing it where needed. Exempt from this rule: `export type`, `export interface`, `export enum`, and `type`-only `export { ... }` specifiers; primitive value exports (string/number/boolean/null/undefined/template literal) are also allowed when the `allowPrimitiveExports` option is enabled. See go/volt-one-export-per-file for rationale and migration guidance.',
 		},
 		schema: [
 			{
@@ -100,7 +105,8 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 						const decl = named.declaration;
 						if (
 							decl.type === AST_NODE_TYPES.TSInterfaceDeclaration ||
-							decl.type === AST_NODE_TYPES.TSTypeAliasDeclaration
+							decl.type === AST_NODE_TYPES.TSTypeAliasDeclaration ||
+							decl.type === AST_NODE_TYPES.TSEnumDeclaration
 						) {
 							continue;
 						}

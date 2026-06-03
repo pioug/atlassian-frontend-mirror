@@ -29,6 +29,12 @@ export type ToolsEventPayload =
 			attributes: ToolsExecutionAttributesBase;
 	  }
 	| {
+			// https://data-portal.internal.atlassian.com/analytics/registry/TODO
+			actionSubject: 'rovoAgent';
+			action: 'toolsExecutionCancelled';
+			attributes: ToolsExecutionAttributesBase;
+	  }
+	| {
 			// https://data-portal.internal.atlassian.com/analytics/registry/97750
 			actionSubject: 'rovoAgent';
 			action: 'toolsExecutionStreamStopped';

@@ -6,6 +6,11 @@ export const mediaInsertMessages: {
 		description: string;
 		id: string;
 	};
+	chooseFile: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	fileTabTitle: {
 		defaultMessage: string;
 		description: string;
@@ -72,6 +77,11 @@ export const mediaInsertMessages: {
 		id: string;
 	};
 	upload: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	uploadTabTitle: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -160,5 +170,15 @@ export const mediaInsertMessages: {
 		id: 'fabric.editor.media.insert.invalidUrlErrorMessage',
 		defaultMessage: 'Invalid link',
 		description: 'Error message displayed when a user tries to insert media from an invalid URL',
+	}, 
+	uploadTabTitle: {
+		id: 'fabric.editor.media.insert.uploadTabTitle',
+		defaultMessage: 'Upload',
+		description: 'Title of the navigation tab that allows users to upload local media files'
 	},
+	chooseFile: {
+		id: 'fabric.editor.media.insert.chooseFile',
+		defaultMessage: 'Choose a file',
+		description: 'Text on a button that opens a file picker dialog to choose a local media file',
+	}
 });

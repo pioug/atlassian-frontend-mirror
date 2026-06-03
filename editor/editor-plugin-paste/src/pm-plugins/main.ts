@@ -84,6 +84,7 @@ import {
 	handleSelectedTableWithAnalytics,
 	sendPasteAnalyticsEvent,
 } from './analytics';
+import { createClipboardParser } from './clipboard-parser';
 import { createClipboardTextSerializer } from './create-clipboard-text-serializer';
 import { createPluginState, pluginKey as stateKey } from './plugin-factory';
 import {
@@ -98,6 +99,8 @@ import {
 } from './util';
 import { handleVSCodeBlock } from './util/edge-cases/handleVSCodeBlock';
 import {
+	applyContainerNodeTransformToSlice,
+	splitTablesOutOfPanelHtml,
 	handleMacroAutoConvert,
 	handleMention,
 	handleParagraphBlockMarks,
@@ -226,6 +229,7 @@ export function createPlugin(
 		props: {
 			// For serialising to plain text
 			clipboardTextSerializer: createClipboardTextSerializer(getIntl()),
+			clipboardParser: createClipboardParser(schema),
 			handleDOMEvents: {
 				// note
 				paste: (view, event) => {
@@ -462,6 +466,12 @@ export function createPlugin(
 				};
 
 				slice = handleParagraphBlockMarks(state, slice);
+
+				if (expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
+					const destinationParentType =
+						view.state.selection.$from.node(-1)?.type.name ?? view.state.doc.type.name;
+					slice = applyContainerNodeTransformToSlice(slice, schema, destinationParentType);
+				}
 
 				slice = handleVSCodeBlock({ state, slice, event, text });
 
@@ -938,6 +948,16 @@ export function createPlugin(
 					editorExperiment('platform_synced_block', true)
 				) {
 					html = removeBreakoutFromRendererSyncBlockHTML(html);
+				}
+
+				// When platform_editor_nest_table_in_panel is OFF,
+				// move tables out of panel divs in the HTML before ProseMirror
+				// parses it — otherwise the panel schema drops the table content.
+				if (
+					expValEquals('platform_editor_table_in_panel_paste_fallback', 'isEnabled', true) &&
+					!expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+				) {
+					html = splitTablesOutOfPanelHtml(html);
 				}
 
 				mostRecentPasteEvent = null;

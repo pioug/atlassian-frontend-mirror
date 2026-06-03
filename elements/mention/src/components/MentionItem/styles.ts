@@ -7,6 +7,7 @@ import { token } from '@atlaskit/tokens';
 import type { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 export interface MentionItemStyleProps {
+	height?: number;
 	selected?: boolean;
 }
 
@@ -139,6 +140,7 @@ export const TimeStyle: StyledComponent<
 });
 
 export const MENTION_ITEM_HEIGHT = 48;
+export const MENTION_ITEM_HEIGHT_REFRESHED = 44;
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const MentionItemStyle: StyledComponent<
 	{
@@ -154,7 +156,8 @@ export const MentionItemStyle: StyledComponent<
 	display: 'block',
 	overflow: 'hidden',
 	listStyleType: 'none',
-	height: `${MENTION_ITEM_HEIGHT}px`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	height: `${props.height ?? MENTION_ITEM_HEIGHT}px`,
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1.2,
 	cursor: 'pointer',

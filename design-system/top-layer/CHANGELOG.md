@@ -1,5 +1,21 @@
 # @atlaskit/top-layer
 
+## 0.13.0
+
+### Minor Changes
+
+- [`cf4af9aa9a2fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf4af9aa9a2fe) -
+  Fix tooltip with `position="mouse-x"` / `position="mouse-y"` not respecting the `mousePosition`
+  prop when the `platform-dst-top-layer` feature flag is enabled.
+
+  The cursor-anchored tooltip is now positioned via a new `useAnchorPositionAtPoint` hook in
+  `@atlaskit/top-layer`, which delegates to `useAnchorPosition` against a hidden anchor element
+  placed once at the cursor location at show time. The popover stays anchored at that location and
+  does not follow subsequent pointer movement.
+
+  `useAnchorPosition` now also accepts an optional `isEnabled` prop (defaults to `true`); when
+  `false`, the hook is a no-op.
+
 ## 0.12.2
 
 ### Patch Changes

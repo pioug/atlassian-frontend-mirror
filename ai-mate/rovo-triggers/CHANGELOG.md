@@ -1,5 +1,24 @@
 # @atlaskit/rovo-triggers
 
+## 7.3.0
+
+### Minor Changes
+
+- [`8740b2dde71e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8740b2dde71e7) -
+  Add opt-in consume-once pubsub delivery so mounted Rovo Chat listeners can deduplicate action
+  events from a single publish.
+- [`925c8d1b15bba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/925c8d1b15bba) -
+  Add optional parameter to exported API: Optional `projectContext` when `chat-open` is emitted in
+  the conversation assistant package.
+
+## 7.2.0
+
+### Minor Changes
+
+- [`ce0bb4cdbafcd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce0bb4cdbafcd) -
+  Publishes an event `jira-inline-agent-creation-agent-assigned` when an agent is created and
+  assigned
+
 ## 7.1.0
 
 ### Minor Changes

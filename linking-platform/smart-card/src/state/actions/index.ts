@@ -32,7 +32,30 @@ const POST_AUTH_CHAT_EXTENSION_KEY = 'google-object-provider';
 
 const SMART_LINK_TO_ROVO_SOURCE = 'smart-link';
 
+const getPostAuthChatPayloadId = () => {
+	if (typeof crypto !== 'undefined') {
+		if (typeof crypto.randomUUID === 'function') {
+			return crypto.randomUUID();
+		}
+
+		if (typeof crypto.getRandomValues === 'function') {
+			const values = new Uint32Array(4);
+			crypto.getRandomValues(values);
+
+			return `smart-link-post-auth-chat-${Array.from(values, (value) => value.toString(16)).join(
+				'-',
+			)}`;
+		}
+	}
+
+	return `smart-link-post-auth-chat-${Date.now()}`;
+};
+
 const sendPostAuthChatOpenMessage = (url: string) => {
+	if (typeof window === 'undefined' || typeof window.parent?.postMessage !== 'function') {
+		return;
+	}
+
 	const payload: ChatNewPayload = {
 		type: 'chat-new',
 		source: SMART_LINK_TO_ROVO_SOURCE,
@@ -59,7 +82,7 @@ const sendPostAuthChatOpenMessage = (url: string) => {
 		{
 			eventType: ROVO_POST_MESSAGE_EVENT_TYPE,
 			payload,
-			payloadId: crypto.randomUUID(),
+			payloadId: getPostAuthChatPayloadId(),
 		},
 		'*',
 	);
@@ -183,16 +206,6 @@ export const useSmartCardActions = (
 							definitionId: definitionId ?? null,
 						});
 
-						if (status === 'unauthorized' && fg('platform_sl_connect_account_flag')) {
-							const provider = extractSmartLinkProvider(details);
-							flags?.showConnectFlag({
-								id: `smart-link-connect-success-${extensionKey}`,
-								provider,
-							});
-						}
-
-						reload();
-
 						// Post-auth Chat onboarding: auto-open Rovo Chat mini-modal with the
 						// authed 3P link as context, for supported providers (e.g. Google Drive).
 						// Provider eligibility is derived from the pre-auth SmartLink state.
@@ -202,15 +215,27 @@ export const useSmartCardActions = (
 							fg('platform_sl_3p_post_auth_chat_open_fg') &&
 							getIsRovoChatEnabled(rovoOptionsRef.current);
 
-						if (isEligibleForPostAuthChat) {
-							// Experiment check: fires exposure for both control and treatment.
-							// Only reached after eligibility preconditions + kill switch pass, so
-							// exposure is counted for the triggered eligible pool.
-							const isEnabled = expValEquals('platform_sl_3p_post_auth_chat_open_exp', 'isEnabled', true);
+						// Experiment check: fires exposure for both control and treatment.
+						// Only reached after eligibility preconditions + kill switch pass, so
+						// exposure is counted for the triggered eligible pool.
+						const isPostAuthChatTreatment =
+							isEligibleForPostAuthChat &&
+							expValEquals('platform_sl_3p_post_auth_chat_open_exp', 'isEnabled', true);
 
-							if (isEnabled) {
-								sendPostAuthChatOpenMessage(url);
+						if (status === 'unauthorized' && !isPostAuthChatTreatment) {
+							if (fg('platform_sl_connect_account_flag')) {
+								const provider = extractSmartLinkProvider(details);
+								flags?.showConnectFlag({
+									id: `smart-link-connect-success-${extensionKey}`,
+									provider,
+								});
 							}
+						}
+
+						reload();
+
+						if (isPostAuthChatTreatment) {
+							sendPostAuthChatOpenMessage(url);
 						}
 					},
 					(err: AuthError) => {

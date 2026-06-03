@@ -4,8 +4,6 @@ import TooltipCustom from '../../../examples/component-prop';
 import TooltipBasic from '../../../examples/default-tooltip';
 import KeyboardShortcutsExample from '../../../examples/keyboard-shortcut';
 import KeyboardShortcutGlobalStylesExample from '../../../examples/keyboard-shortcut-global-styles';
-import TooltipPosition from '../../../examples/position';
-import TooltipPositionMouseExample from '../../../examples/position-mouse';
 import TooltipTruncateExample from '../../../examples/truncate';
 import VrPositionAllExample from '../../../examples/vr-position-all';
 
@@ -46,57 +44,6 @@ snapshot(TooltipCustom, {
 	variants: lightModeVariant,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer': [true, false],
-	},
-});
-
-snapshot(TooltipPosition, {
-	description: 'tooltip with dynamic mouse position',
-	states: [
-		{
-			selector: {
-				byRole: 'button',
-			},
-			state: 'hovered',
-		},
-	],
-	drawsOutsideBounds: true,
-	featureFlags: {
-		platform_dst_nav4_side_nav_resize_tooltip_feedback: [true, false],
-		'platform-dst-top-layer': [true, false],
-	},
-});
-
-snapshot(TooltipPositionMouseExample, {
-	description: 'tooltip with dynamic mouse X position but target Y position',
-	states: [
-		{
-			selector: {
-				byTestId: 'trigger-mouse-x',
-			},
-			state: 'hovered',
-		},
-	],
-	drawsOutsideBounds: true,
-	featureFlags: {
-		platform_dst_nav4_side_nav_resize_tooltip_feedback: [true, false],
-		'platform-dst-top-layer': [true, false],
-	},
-});
-
-snapshot(TooltipPositionMouseExample, {
-	description: 'tooltip with dynamic mouse Y position but target X position',
-	states: [
-		{
-			selector: {
-				byTestId: 'trigger-mouse-y',
-			},
-			state: 'hovered',
-		},
-	],
-	drawsOutsideBounds: true,
-	featureFlags: {
-		platform_dst_nav4_side_nav_resize_tooltip_feedback: [true, false],
 		'platform-dst-top-layer': [true, false],
 	},
 });

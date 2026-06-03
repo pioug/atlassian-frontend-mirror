@@ -215,6 +215,7 @@ import {
 	syncBlockStylesBase,
 	syncBlockFirstNodeStyles,
 	syncBlockOverflowStyles,
+	syncBlockTextSelectionStyles,
 } from './styles/syncBlockStyles';
 import {
 	tableCommentEditorStyles,
@@ -646,6 +647,10 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 					syncBlockStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				editorExperiment('platform_synced_block', true) && syncBlockOverflowStyles,
+				editorExperiment('platform_synced_block', true) &&
+					fg('platform_synced_block_patch_14') &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					syncBlockTextSelectionStyles,
 				editorExperiment('platform_synced_block', true) &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					syncBlockFirstNodeStyles,

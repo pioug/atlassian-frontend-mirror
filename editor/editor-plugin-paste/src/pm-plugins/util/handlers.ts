@@ -2,6 +2,7 @@
 import uuid from 'uuid/v4';
 
 import type { MentionAttributes } from '@atlaskit/adf-schema';
+import { transformContainerNodes } from '@atlaskit/adf-utils/transforms';
 import type { EditorAnalyticsAPI, InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { CardOptions, QueueCardsFromTransactionAction } from '@atlaskit/editor-common/card';
@@ -1757,7 +1758,7 @@ export const handleSelectedTable =
 export function checkTaskListInList(state: EditorState, slice: Slice): boolean {
 	return Boolean(
 		isInListItem(state) &&
-		['taskList', 'taskItem'].includes(slice.content.firstChild?.type?.name || ''),
+			['taskList', 'taskItem'].includes(slice.content.firstChild?.type?.name || ''),
 	);
 }
 
@@ -1804,4 +1805,64 @@ export function handlePasteExpand(slice: Slice): Slice {
 		}
 		return node;
 	});
+}
+
+/*
+ * Transform container nodes promoting them to _c1 if required as per
+ * transformContainerNodes from adf-utils
+ */
+export function applyContainerNodeTransformToSlice(
+	slice: Slice,
+	schema: Schema,
+	destinationParentType: string,
+): Slice {
+	const sliceJson = slice.toJSON();
+	if (!sliceJson) {
+		return slice;
+	}
+
+	const wrappedAdf = { type: destinationParentType, content: sliceJson.content ?? [] };
+
+	try {
+		const { transformedAdf, isTransformed } = transformContainerNodes(wrappedAdf, schema);
+
+		return isTransformed &&
+			transformedAdf &&
+			transformedAdf.content &&
+			transformedAdf.content.length > 0
+			? Slice.fromJSON(schema, { ...sliceJson, content: transformedAdf.content })
+			: slice;
+	} catch {
+		return slice;
+	}
+}
+
+/*
+ * When platform_editor_nest_table_in_panel is OFF, move table elements out of panel divs in the
+ * clipboard HTML before ProseMirror parses it. This prevents the panel schema from
+ * dropping table content entirely.
+ */
+export function splitTablesOutOfPanelHtml(html: string): string {
+	if (!html.includes('data-panel-type')) {
+		return html;
+	}
+	const doc = new DOMParser().parseFromString(html, 'text/html');
+	const panelDivs = Array.from(doc.querySelectorAll('div[data-panel-type]'));
+	let changed = false;
+	for (const panelDiv of panelDivs) {
+		const tableWrappers = Array.from(
+			panelDiv.querySelectorAll('[data-prosemirror-node-name="table"]'),
+		);
+		if (tableWrappers.length === 0) {
+			continue;
+		}
+		changed = true;
+		let anchor: Element = panelDiv;
+		for (const tableWrapper of tableWrappers) {
+			tableWrapper.parentNode?.removeChild(tableWrapper);
+			anchor.parentNode?.insertBefore(tableWrapper, anchor.nextSibling);
+			anchor = tableWrapper;
+		}
+	}
+	return changed ? doc.body.innerHTML : html;
 }

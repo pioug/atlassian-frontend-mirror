@@ -7,6 +7,7 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -48,10 +49,54 @@ type BuilderTablePluginState = (props: {
 	tr: Transaction | ReadonlyTransaction;
 }) => (pluginState: TablePluginState) => TablePluginState;
 
+const shouldCloseLegacyContextualMenu = ({
+	pluginState,
+	targetCellPositionChanged,
+	tr,
+}: {
+	pluginState: TablePluginState;
+	targetCellPositionChanged: boolean;
+	tr: Transaction | ReadonlyTransaction;
+}): boolean =>
+	Boolean(
+		pluginState.isContextualMenuOpen &&
+			(targetCellPositionChanged || (tr.selectionSet && !(tr.selection instanceof CellSelection))),
+	);
+
 const updateTargetCellPosition: BuilderTablePluginState =
 	({ tr, table }) =>
 	(pluginState: TablePluginState) => {
 		const tableNode = table && table.node;
+		if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+			let targetCellPosition: number | undefined;
+
+			if (tableNode) {
+				const { tableCell, tableHeader } = tr.doc.type.schema.nodes;
+				const cell = findParentNodeOfType([tableCell, tableHeader])(tr.selection);
+				targetCellPosition = cell ? cell.pos : undefined;
+			}
+
+			const hasTargetCellChanged = pluginState.targetCellPosition !== targetCellPosition;
+			const hasActiveTableMenu =
+				pluginState.activeTableMenu != null && pluginState.activeTableMenu.type !== 'none';
+			const shouldCloseMenu =
+				hasActiveTableMenu &&
+				(!tableNode || hasTargetCellChanged || !(tr.selection instanceof CellSelection));
+
+			if (!hasTargetCellChanged && !shouldCloseMenu) {
+				return pluginState;
+			}
+
+			// The updated table menu is anchored to a table selection. When selection moves
+			// to another cell, leaves the table, or changes from a CellSelection to a text cursor,
+			// close the active menu so render state cannot point at a stale anchor.
+			return {
+				...pluginState,
+				targetCellPosition,
+				activeTableMenu: shouldCloseMenu ? { type: 'none' } : pluginState.activeTableMenu,
+			};
+		}
+
 		if (!tableNode) {
 			return {
 				...pluginState,
@@ -63,21 +108,34 @@ const updateTargetCellPosition: BuilderTablePluginState =
 		const cell = findParentNodeOfType([tableCell, tableHeader])(tr.selection);
 		const targetCellPosition = cell ? cell.pos : undefined;
 
+		if (expValEquals('platform_editor_table_close_cell_menu_on_move_exp', 'isEnabled', true)) {
+			const targetCellPositionChanged = pluginState.targetCellPosition !== targetCellPosition;
+			const closeContextualMenu = shouldCloseLegacyContextualMenu({
+				pluginState,
+				targetCellPositionChanged,
+				tr,
+			});
+
+			if (!targetCellPositionChanged && !closeContextualMenu) {
+				return pluginState;
+			}
+
+			// Close the legacy contextual menu when moving cells because the cell background
+			// color submenu can otherwise remain open against the previous cell selection.
+			return {
+				...pluginState,
+				...(closeContextualMenu ? { isContextualMenuOpen: false } : {}),
+				targetCellPosition,
+			};
+		}
+
 		if (pluginState.targetCellPosition === targetCellPosition) {
 			return pluginState;
 		}
 
-		// The updated table menu is anchored to the current target cell. When selection moves
-		// to another cell, close the active menu so render state cannot point at a stale anchor.
 		return {
 			...pluginState,
 			targetCellPosition,
-			activeTableMenu:
-				pluginState.activeTableMenu != null &&
-				pluginState.activeTableMenu.type !== 'none' &&
-				expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)
-					? { type: 'none' }
-					: pluginState.activeTableMenu,
 		};
 	};
 
@@ -150,6 +208,22 @@ const buildPluginState =
 	(props) =>
 	(pluginState) => {
 		if (!props.table) {
+			if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+				const shouldClearTargetCellPosition = pluginState.targetCellPosition !== undefined;
+				const hasActiveTableMenu =
+					pluginState.activeTableMenu != null && pluginState.activeTableMenu.type !== 'none';
+
+				if (!shouldClearTargetCellPosition && !hasActiveTableMenu) {
+					return pluginState;
+				}
+
+				return {
+					...pluginState,
+					targetCellPosition: undefined,
+					activeTableMenu: hasActiveTableMenu ? { type: 'none' } : pluginState.activeTableMenu,
+				};
+			}
+
 			return pluginState.targetCellPosition
 				? { ...pluginState, targetCellPosition: undefined }
 				: pluginState;

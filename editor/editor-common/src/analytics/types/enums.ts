@@ -269,6 +269,7 @@ export enum INPUT_METHOD {
 	ELEMENT_BROWSER = 'elementBrowser',
 	LAYOUT_COLUMN_MENU = 'layoutColumnMenu',
 	REMIX = 'remix',
+	REMIX_FROM_MEDIA_INSERTS = 'remixFromMediaInserts',
 }
 
 export enum INSERT_MEDIA_VIA {

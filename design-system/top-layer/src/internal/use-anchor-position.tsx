@@ -196,6 +196,7 @@ export function useAnchorPosition({
 	popoverRef,
 	placement = {},
 	forceFallbackPositioning = false,
+	isEnabled = true,
 }: {
 	/**
 	 * Element to position relative to.
@@ -232,6 +233,11 @@ export function useAnchorPosition({
 	 * behavior in any environment, including production.
 	 */
 	forceFallbackPositioning?: boolean;
+	/**
+	 * When `false`, the hook is a no-op and applies no positioning.
+	 * Defaults to `true`.
+	 */
+	isEnabled?: boolean;
 }): void {
 	const id = useId();
 	// Stabilize `placement` object so the same object literal
@@ -239,6 +245,10 @@ export function useAnchorPosition({
 	const stablePlacement = useStablePlacement(placement);
 
 	useLayoutEffect(() => {
+		if (!isEnabled) {
+			return;
+		}
+
 		const trigger = anchorRef.current;
 		const popover = popoverRef.current;
 
@@ -477,5 +487,5 @@ export function useAnchorPosition({
 		);
 
 		return undoPositioning;
-	}, [anchorRef, popoverRef, stablePlacement, forceFallbackPositioning, id]);
+	}, [anchorRef, popoverRef, stablePlacement, forceFallbackPositioning, isEnabled, id]);
 }

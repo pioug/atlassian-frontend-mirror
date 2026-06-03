@@ -30,6 +30,12 @@ export type PayloadCore<TKey extends string, TData = void> = {
 	openChatMode?: 'sidebar' | 'mini-modal';
 	product?: string;
 	interactionSource?: string;
+	/**
+	 * When true, subscribers that opt into the same consumeOnceKey should process this
+	 * logical event once total. The delivery id used for deduplication is internal to
+	 * rovo-triggers and is generated for each publish call.
+	 */
+	consumeOnce?: boolean;
 } & (TData extends void ? {} : { data: TData });
 
 export type MessageSendPayload = PayloadCore<
@@ -306,6 +312,8 @@ export type ChatOpenPayload = PayloadCore<
 		resetActiveMenu?: boolean;
 		// Open the agent selector menu when chat is opened
 		openAgentSelector?: boolean;
+		// Optional AI feature context applied when the chat is opened
+		aiFeatureContext?: Record<string, unknown>;
 	}
 >;
 

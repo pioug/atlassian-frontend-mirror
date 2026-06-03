@@ -1,5 +1,13 @@
 # @atlaskit/teams-client
 
+## 4.33.3
+
+### Patch Changes
+
+- [`58ca65317cf75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58ca65317cf75) -
+  Migrated TeamMember, TeamMembership, TeamWithMemberships, TeamSearchMember and InvitedUser types
+  to be sourced from @atlaskit/teams-client/types.
+
 ## 4.33.2
 
 ### Patch Changes

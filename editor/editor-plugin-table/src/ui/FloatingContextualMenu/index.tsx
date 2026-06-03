@@ -125,6 +125,10 @@ const FloatingContextualMenu: {
 		targetCellRef.parentElement && targetCellRef.parentElement.className.indexOf('sticky') > -1;
 
 	if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+		if (!(targetCellRef instanceof HTMLElement)) {
+			return null;
+		}
+
 		return (
 			<CellMenuPopup
 				api={api}
@@ -132,9 +136,7 @@ const FloatingContextualMenu: {
 				editorView={editorView}
 				mountPoint={mountPoint}
 				scrollableElement={scrollableElement}
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				targetCellRef={targetCellRef as HTMLElement}
+				target={targetCellRef}
 				zIndex={parentSticky ? akEditorFloatingDialogZIndex : akEditorFloatingOverlapPanelZIndex}
 			/>
 		);

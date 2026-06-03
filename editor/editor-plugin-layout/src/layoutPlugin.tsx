@@ -242,7 +242,9 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 									id: 'onecolumnlayout',
 									title: formatMessage(layoutMessages.singleColumnAdvancedLayout),
 									description: formatMessage(messages.singleColumnsDescriptionAdvancedLayout),
-									keywords: ['layout', 'column', 'section', 'single column'],
+									keywords: expValEquals('platform_editor_layout_keywords', 'isEnabled', true)
+										? ['layout', 'column', 'section', 'col', 'single column']
+										: ['layout', 'column', 'section', 'single column'],
 									priority: 1100,
 									icon: () => <IconOneColumnLayout />,
 									action(insert, state) {
@@ -281,7 +283,9 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 							description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
 								numberOfColumns: descriptionColumnCount,
 							}),
-							keywords: ['layout', 'column', 'section', keyword],
+							keywords: expValEquals('platform_editor_layout_keywords', 'isEnabled', true)
+								? ['layout', 'column', 'section', 'col', keyword]
+								: ['layout', 'column', 'section', keyword],
 							priority: 1100,
 							icon: Icon,
 							action(insert, state) {
@@ -341,7 +345,9 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 							description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
 								numberOfColumns: 'two',
 							}),
-							keywords: ['layout', 'column', 'section', 'two column'],
+							keywords: expValEquals('platform_editor_layout_keywords', 'isEnabled', true)
+								? ['layout', 'column', 'section', 'col', 'two column']
+								: ['layout', 'column', 'section', 'two column'],
 							priority: 1100,
 							icon: () => <IconTwoColumnLayout />,
 							action(insert, state) {
@@ -361,7 +367,9 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 							description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
 								numberOfColumns: 'three',
 							}),
-							keywords: ['layout', 'column', 'section', 'three column'],
+							keywords: expValEquals('platform_editor_layout_keywords', 'isEnabled', true)
+								? ['layout', 'column', 'section', 'col', 'three column']
+								: ['layout', 'column', 'section', 'three column'],
 							priority: 1100,
 							icon: () => <IconThreeColumnLayout />,
 							action(insert, state) {
@@ -381,7 +389,9 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 							description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
 								numberOfColumns: 'four',
 							}),
-							keywords: ['layout', 'column', 'section', 'four column'],
+							keywords: expValEquals('platform_editor_layout_keywords', 'isEnabled', true)
+								? ['layout', 'column', 'section', 'col', 'four column']
+								: ['layout', 'column', 'section', 'four column'],
 							priority: 1100,
 							icon: () => <IconFourColumnLayout />,
 							action(insert, state) {
@@ -401,7 +411,9 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 							description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
 								numberOfColumns: 'five',
 							}),
-							keywords: ['layout', 'column', 'section', 'five column'],
+							keywords: expValEquals('platform_editor_layout_keywords', 'isEnabled', true)
+								? ['layout', 'column', 'section', 'col', 'five column']
+								: ['layout', 'column', 'section', 'five column'],
 							priority: 1100,
 							icon: () => <IconFiveColumnLayout />,
 							action(insert, state) {
@@ -472,10 +484,12 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 			return pluginKey.getState(editorState);
 		},
 		commands: {
-			deleteLayoutColumn: (props) => deleteLayoutColumn(api?.analytics?.actions)(props),
-			distributeLayoutColumns: distributeLayoutColumns(api?.analytics?.actions),
-			insertLayoutColumn: (side) => insertLayoutColumn(side, api?.analytics?.actions),
-			setLayoutColumnValign: (valign) => setLayoutColumnValign(valign, api?.analytics?.actions),
+			deleteLayoutColumn: deleteLayoutColumn(api?.analytics?.actions, api),
+			distributeLayoutColumns: (options) =>
+				distributeLayoutColumns(api?.analytics?.actions, api)(options),
+			insertLayoutColumn: (side) => insertLayoutColumn(side, api?.analytics?.actions, api),
+			setLayoutColumnValign: (valign) =>
+				setLayoutColumnValign(valign, api?.analytics?.actions, api),
 			toggleLayoutColumnMenu,
 		},
 	};

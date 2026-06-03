@@ -5,9 +5,10 @@ import { type Placement } from '@atlaskit/popper';
 
 import { type TooltipPrimitiveProps } from './tooltip-primitive';
 
+export type PositionMouseOptions = 'mouse' | 'mouse-x' | 'mouse-y';
 export type PositionTypeBase = Placement;
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
-export type PositionType = PositionTypeBase | 'mouse' | 'mouse-y' | 'mouse-x';
+export type PositionType = PositionTypeBase | PositionMouseOptions;
 
 export interface TriggerProps {
 	onMouseOver: (event: React.MouseEvent<HTMLElement>) => void;

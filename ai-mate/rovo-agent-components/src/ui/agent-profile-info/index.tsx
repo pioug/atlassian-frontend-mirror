@@ -56,22 +56,22 @@ const styles = cssMap({
 
 type AgentCreator =
 	| {
-			type: 'CUSTOMER';
-			name: string;
-			profileLink: string;
-			status?: 'active' | 'inactive' | 'closed' | string;
-	  }
+		type: 'CUSTOMER';
+		name: string;
+		profileLink: string;
+		status?: 'active' | 'inactive' | 'closed' | string;
+	}
 	| {
-			type: 'SYSTEM';
-	  }
+		type: 'SYSTEM';
+	}
 	| {
-			// THIRD_PARTY is deprecated in convo-ai, use FORGE instead
-			type: 'THIRD_PARTY' | 'FORGE' | 'REMOTE_A2A';
-			name: string;
-	  }
+		// THIRD_PARTY is deprecated in convo-ai, use FORGE instead
+		type: 'THIRD_PARTY' | 'FORGE' | 'REMOTE_A2A';
+		name: string;
+	}
 	| {
-			type: 'OOTB';
-	  };
+		type: 'OOTB';
+	};
 
 export const getAgentCreator = ({
 	creatorType,

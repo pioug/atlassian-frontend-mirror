@@ -6,7 +6,7 @@ import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { ArrowUpIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import { SortAscendingIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 
 import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { sortColumnWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
@@ -40,7 +40,7 @@ export const SortIncreasingItem = ({ api }: TableMenuComponentsParams): React.JS
 		<ToolbarDropdownItem
 			onClick={handleClick}
 			isDisabled={Boolean(tableMenuContext?.hasMergedCellsInTable)}
-			elemBefore={<ArrowUpIcon color="currentColor" label="" size="small" />}
+			elemBefore={<SortAscendingIcon label="" size="small" />}
 		>
 			{formatMessage(messages.sortColumnIncreasing)}
 		</ToolbarDropdownItem>

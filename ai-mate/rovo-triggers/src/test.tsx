@@ -209,4 +209,138 @@ describe('PubSub', () => {
 			unmount3();
 		});
 	});
+	describe('consumeOnce', () => {
+		it('should continue broadcasting events that are not marked as consumeOnce', () => {
+			const callbackA = jest.fn();
+			const callbackB = jest.fn();
+
+			const { unmount: unmountA } = renderHook(() =>
+				useSubscribe({ topic, consumeOnceKey: 'same-key' }, callbackA),
+			);
+			const { unmount: unmountB } = renderHook(() =>
+				useSubscribe({ topic, consumeOnceKey: 'same-key' }, callbackB),
+			);
+			const { result } = renderHook(() => usePublish(topic));
+
+			result.current(payload);
+
+			expect(callbackA).toHaveBeenCalledWith(payload);
+			expect(callbackB).toHaveBeenCalledWith(payload);
+			unmountA();
+			unmountB();
+		});
+
+		it('should process consumeOnce events once for subscribers sharing the same key', () => {
+			const callbackA = jest.fn();
+			const callbackB = jest.fn();
+			const consumeOncePayload: Payload = { ...payload, consumeOnce: true };
+
+			const { unmount: unmountA } = renderHook(() =>
+				useSubscribe({ topic, consumeOnceKey: 'same-key' }, callbackA),
+			);
+			const { unmount: unmountB } = renderHook(() =>
+				useSubscribe({ topic, consumeOnceKey: 'same-key' }, callbackB),
+			);
+			const { result } = renderHook(() => usePublish(topic));
+
+			result.current(consumeOncePayload);
+
+			expect(callbackA).toHaveBeenCalledWith(consumeOncePayload);
+			expect(callbackB).not.toHaveBeenCalled();
+			unmountA();
+			unmountB();
+		});
+
+		it('should process consumeOnce events once per consumeOnceKey', () => {
+			const callbackA = jest.fn();
+			const callbackB = jest.fn();
+			const consumeOncePayload: Payload = { ...payload, consumeOnce: true };
+
+			const { unmount: unmountA } = renderHook(() =>
+				useSubscribe({ topic, consumeOnceKey: 'first-key' }, callbackA),
+			);
+			const { unmount: unmountB } = renderHook(() =>
+				useSubscribe({ topic, consumeOnceKey: 'second-key' }, callbackB),
+			);
+			const { result } = renderHook(() => usePublish(topic));
+
+			result.current(consumeOncePayload);
+
+			expect(callbackA).toHaveBeenCalledWith(consumeOncePayload);
+			expect(callbackB).toHaveBeenCalledWith(consumeOncePayload);
+			unmountA();
+			unmountB();
+		});
+
+		it('should let subscribers without consumeOnceKey observe consumeOnce events', () => {
+			const observerCallback = jest.fn();
+			const consumingCallback = jest.fn();
+			const consumeOncePayload: Payload = { ...payload, consumeOnce: true };
+
+			const { unmount: unmountObserver } = renderHook(() =>
+				useSubscribe({ topic }, observerCallback),
+			);
+			const { unmount: unmountConsuming } = renderHook(() =>
+				useSubscribe({ topic, consumeOnceKey: 'consuming-key' }, consumingCallback),
+			);
+			const { result } = renderHook(() => usePublish(topic));
+
+			result.current(consumeOncePayload);
+
+			expect(observerCallback).toHaveBeenCalledWith(consumeOncePayload);
+			expect(consumingCallback).toHaveBeenCalledWith(consumeOncePayload);
+			unmountObserver();
+			unmountConsuming();
+		});
+
+		it('should not replay consumed consumeOnce events to triggerLatest subscribers with the same key', () => {
+			const callbackA = jest.fn();
+			const callbackB = jest.fn();
+			const consumeOncePayload: Payload = { ...payload, consumeOnce: true };
+
+			const { unmount: unmountA } = renderHook(() =>
+				useSubscribe({ topic, consumeOnceKey: 'trigger-latest-key' }, callbackA),
+			);
+			const { result } = renderHook(() => usePublish(topic));
+			result.current(consumeOncePayload);
+
+			const { unmount: unmountB } = renderHook(() =>
+				useSubscribe(
+					{ topic, triggerLatest: true, consumeOnceKey: 'trigger-latest-key' },
+					callbackB,
+				),
+			);
+
+			expect(callbackA).toHaveBeenCalledWith(consumeOncePayload);
+			expect(callbackB).not.toHaveBeenCalled();
+			unmountA();
+			unmountB();
+		});
+
+		it('should allow useSubscribeAll observers to receive consumeOnce events without consuming them', () => {
+			const callbackA = jest.fn();
+			const callbackB = jest.fn();
+			const callbackAll = jest.fn();
+			const consumeOncePayload: Payload = { ...payload, consumeOnce: true };
+
+			const { unmount: unmountAll } = renderHook(() => useSubscribeAll(callbackAll));
+			const { unmount: unmountA } = renderHook(() =>
+				useSubscribe({ topic, consumeOnceKey: 'same-key-with-observer' }, callbackA),
+			);
+			const { unmount: unmountB } = renderHook(() =>
+				useSubscribe({ topic, consumeOnceKey: 'same-key-with-observer' }, callbackB),
+			);
+			const { result } = renderHook(() => usePublish(topic));
+
+			result.current(consumeOncePayload);
+
+			expect(callbackAll).toHaveBeenCalledWith(consumeOncePayload);
+			expect(callbackA).toHaveBeenCalledWith(consumeOncePayload);
+			expect(callbackB).not.toHaveBeenCalled();
+			unmountAll();
+			unmountA();
+			unmountB();
+		});
+	});
+
 });

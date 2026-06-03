@@ -35,8 +35,8 @@ export const disallowsProductKeys: (keyof EditorExperimentsConfig)[] = [
  */
 export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-		? true // Boolean: only 'true' is allowed as expected value
-		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+	? true // Boolean: only 'true' is allowed as expected value
+	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * Extract valid default values.
@@ -45,8 +45,8 @@ export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimen
  */
 export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-		? false // Boolean: only 'false' is allowed as default value
-		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+	? false // Boolean: only 'false' is allowed as default value
+	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * When adding a new experiment, you need to add it here.
@@ -346,6 +346,12 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-01-15
 	confluence_max_width_breakout_extension_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	platform_editor_layout_keywords:{
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1812,6 +1818,19 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-02
+	platform_editor_macro_placeholder_array_guard: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	platform_editor_table_close_cell_menu_on_move_exp: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-14
 	platform_editor_ai_rename_add_polish: {
 		defaultValue: boolean;
@@ -1945,6 +1964,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-01
+	platform_editor_table_in_panel_paste_fallback: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-05-20
 	platform_rovo_support_create_inline_comment: {
 		defaultValue: boolean;
@@ -1975,6 +2001,27 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-05-26
 	platform_editor_wide_slash_trigger: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-05-11 — [CCI-15904] New AIFC Editor Experience (Full Page Staging + Post Stream Review)
+	platform_editor_ai_new_aifc_editor_experience: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-06-01
+	confluence_3p_in_cwr_ghost_icons: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-06-01
+	platform_editor_lovability_text_bg_color: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2432,6 +2479,15 @@ export const editorExperimentsConfig: {
 	platform_editor_tables_drag_and_drop: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_tables_drag_and_drop',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-02
+	platform_editor_layout_keywords: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_layout_keywords',
+			jira: 'platform_editor_layout_keywords',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -4042,6 +4098,23 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-06-02
+	platform_editor_macro_placeholder_array_guard: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_macro_placeholder_array_guard',
+			jira: 'platform_editor_macro_placeholder_array_guard',
+		},
+		param: 'isEnabled',
+		defaultValue: true,
+	}),
+	platform_editor_table_close_cell_menu_on_move_exp: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_close_cell_menu_on_move_exp',
+			jira: 'platform_editor_table_close_cell_menu_on_move_exp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-04-14
 	platform_editor_ai_rename_add_polish: createBooleanExperiment({
 		productKeys: {
@@ -4191,6 +4264,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-06-01
+	platform_editor_table_in_panel_paste_fallback: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_in_panel_paste_fallback',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-05-20
 	platform_editor_default_toolbar_state: createBooleanExperiment({
 		productKeys: {
@@ -4246,6 +4327,36 @@ export const editorExperimentsConfig: {
 	platform_editor_wide_slash_trigger: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_wide_slash_trigger',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-11 — [CCI-15904] New AIFC Editor Experience (Full Page Staging Area + Post Stream Review Toolbar)
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_ai_new_aifc_editor_experience/setup
+	platform_editor_ai_new_aifc_editor_experience: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_new_aifc_editor_experience',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-01
+	// Gates the `GhostIconWave` animation primitive in
+	// `@atlassian/rovo-platform-ui-components` — rendered as a loading cue on
+	// Confluence's 3p-in-CWR (Rovo) surfaces. When off the primitive renders
+	// nothing.
+	confluence_3p_in_cwr_ghost_icons: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_3p_in_cwr_ghost_icons',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-01
+	platform_editor_lovability_text_bg_color: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_lovability_text_bg_color',
+			jira: 'platform_editor_lovability_text_bg_color',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

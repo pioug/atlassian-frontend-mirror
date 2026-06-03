@@ -1658,6 +1658,149 @@ describe('no-barrel-entry-imports', () => {
 			},
 		);
 
+		// Repro for editor-plugins/panel regression: the bridge subpath re-exports a
+		// dependency symbol whose deepest source is a default export
+		// (`export { default as panelPlugin } from './panelPlugin'` inside the
+		// dependency). The bridge file itself re-exports it as a *named* export
+		// without an `as` clause (`export { panelPlugin } from '@scope/dep'`), so
+		// consumers MUST import it as a named import from the bridge subpath. The
+		// rule used to (a) propagate the deep `originalName: 'default'` and rewrite
+		// the consumer to a default import, and (b) "rewrite" the import even when
+		// the bridge resolved back to the exact subpath already in use.
+		const fsWithDefaultBackedBridge = createMockFileSystem({
+			[`${WORKSPACE_ROOT}/package.json`]: '{}',
+			[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+			[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+			[`${PACKAGE_A_DIR}/package.json`]: JSON.stringify({
+				name: '@atlassian/package-a',
+				exports: {
+					'.': './src/index.ts',
+					'./bridge': './src/bridge.ts',
+				},
+			}),
+			[`${PACKAGE_A_DIR}/src/index.ts`]: outdent`
+				export { panelPlugin } from './bridge';
+			`,
+			[`${PACKAGE_A_DIR}/src/bridge.ts`]: outdent`
+				export { panelPlugin } from '@atlassian/package-b';
+			`,
+			[`${PACKAGE_B_DIR}/package.json`]: JSON.stringify({
+				name: '@atlassian/package-b',
+				exports: {
+					'.': './src/index.ts',
+				},
+			}),
+			[`${PACKAGE_B_DIR}/src/index.ts`]: outdent`
+				export { default as panelPlugin } from './panelPlugin';
+			`,
+			[`${PACKAGE_B_DIR}/src/panelPlugin.ts`]: outdent`
+				const panelPlugin = () => null;
+				export default panelPlugin;
+			`,
+		});
+
+		runWithFs(
+			'no-barrel-entry-imports - preferImportedPackageSubpath keeps named import when bridge re-exports a default upstream symbol',
+			fsWithDefaultBackedBridge,
+			{
+				// Importing from the bridge subpath that is already optimal should
+				// be a no-op — even though the upstream symbol is a default export.
+				valid: [
+					{
+						code: `import { panelPlugin } from '@atlassian/package-a/bridge';`,
+						filename: TEST_FILE,
+						options: [{ preferImportedPackageSubpath: true }],
+					},
+				],
+				invalid: [
+					// Importing from the package root should be rewritten to the
+					// bridge subpath as a NAMED import (not a default import), since
+					// the bridge re-exports `panelPlugin` without `as default`.
+					{
+						code: `import { panelPlugin } from '@atlassian/package-a';`,
+						filename: TEST_FILE,
+						options: [{ preferImportedPackageSubpath: true }],
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import { panelPlugin } from '@atlassian/package-a/bridge';`,
+					},
+				],
+			},
+		);
+
+		// Same default-backed bridge as above, but combined with a sibling
+		// LOCAL export that owns its own subpath. Mirrors the
+		// `import { a, c } from '@atlaskit/pkg'` mixed-specifier case where
+		// `a` reaches the consumer via a default-backed cross-package bridge
+		// and `c` is a local export with its own subpath. The autofix should
+		// split into two named-import statements — the bridged one must NOT
+		// regress to a default import.
+		const fsWithDefaultBackedBridgeAndLocalSubpath = createMockFileSystem({
+			[`${WORKSPACE_ROOT}/package.json`]: '{}',
+			[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+			[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+			[`${PACKAGE_A_DIR}/package.json`]: JSON.stringify({
+				name: '@atlassian/package-a',
+				exports: {
+					'.': './src/index.ts',
+					'./a': './src/a.ts',
+					'./c': './src/c.ts',
+				},
+			}),
+			[`${PACKAGE_A_DIR}/src/index.ts`]: outdent`
+				export { a } from './a';
+				export { c } from './c';
+			`,
+			[`${PACKAGE_A_DIR}/src/a.ts`]: outdent`
+				export { a } from '@atlassian/package-b';
+			`,
+			[`${PACKAGE_A_DIR}/src/c.ts`]: outdent`
+				export const c = 'c';
+			`,
+			[`${PACKAGE_B_DIR}/package.json`]: JSON.stringify({
+				name: '@atlassian/package-b',
+				exports: {
+					'.': './src/index.ts',
+				},
+			}),
+			[`${PACKAGE_B_DIR}/src/index.ts`]: outdent`
+				export { default as a } from './aImpl';
+			`,
+			[`${PACKAGE_B_DIR}/src/aImpl.ts`]: outdent`
+				const a = () => null;
+				export default a;
+			`,
+		});
+
+		runWithFs(
+			'no-barrel-entry-imports - preferImportedPackageSubpath splits mixed default-backed bridge + local subpath into named imports',
+			fsWithDefaultBackedBridgeAndLocalSubpath,
+			{
+				// Already-optimal form should be left alone.
+				valid: [
+					{
+						code: tabindent`
+							import { a } from '@atlassian/package-a/a';
+							import { c } from '@atlassian/package-a/c';
+						`,
+						filename: TEST_FILE,
+						options: [{ preferImportedPackageSubpath: true }],
+					},
+				],
+				invalid: [
+					{
+						code: `import { a, c } from '@atlassian/package-a';`,
+						filename: TEST_FILE,
+						options: [{ preferImportedPackageSubpath: true }],
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: tabindent`
+							import { a } from '@atlassian/package-a/a';
+							import { c } from '@atlassian/package-a/c';
+						`,
+					},
+				],
+			},
+		);
+
 		// Barrel that has only `.` and re-exports `*` from the dependency, with no bridge subpath.
 		// preferImportedPackageSubpath should leave the import alone instead of falling through
 		// to the dependency package's subpath.

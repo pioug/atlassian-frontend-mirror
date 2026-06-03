@@ -767,11 +767,32 @@ function traceSymbolsToExports({
 					fs,
 				});
 				if (bridge) {
+					// If the bridge resolves back to the same subpath this mock is
+					// already targeting, the mock is already optimal. Marking the
+					// symbol as unmapped keeps it in the original barrel-targeted
+					// mock group instead of triggering a no-op (or, combined with
+					// the originalName logic below, a destructive) rewrite.
+					if (bridge.exportPath === currentExportPath) {
+						unmappedSymbols.push(symbolName);
+						continue;
+					}
+
 					key = `${barrelPackageName}${bridge.exportPath.slice(1)}`;
 					barrelBridgeExportPath = bridge.exportPath;
 					if (bridge.entryPointExportName !== undefined) {
 						tracedOriginalName =
 							bridge.entryPointExportName === symbolName ? undefined : bridge.entryPointExportName;
+					} else {
+						// The bridge re-exports `symbolName` without aliasing
+						// (e.g. `export { panelPlugin } from '@scope/dep'`), so
+						// the public name at the bridge subpath matches
+						// `symbolName`. The deep `originalName` (e.g. `'default'`
+						// coming from a further-upstream
+						// `export { default as panelPlugin }`) describes the
+						// dependency's internal shape, NOT the bridge subpath's
+						// shape. Clear it so the rewritten mock factory keys the
+						// symbol by its bridge-public name instead of `default`.
+						tracedOriginalName = undefined;
 					}
 				} else {
 					// preferImportedPackageSubpath is opt-in to: "rewrite to a subpath of the

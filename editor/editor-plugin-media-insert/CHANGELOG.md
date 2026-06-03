@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 24.0.1
+
+### Patch Changes
+
+- [`883d14f6d3052`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/883d14f6d3052) -
+  [EDITOR-7439] [M0] Update `upload` tab copy
+- Updated dependencies
+
 ## 24.0.0
 
 ### Patch Changes

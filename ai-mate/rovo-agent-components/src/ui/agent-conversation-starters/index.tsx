@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { type MessageDescriptor, useIntl } from 'react-intl';
 
 import { IconButton } from '@atlaskit/button/new';
-import { cssMap } from '@atlaskit/css';
+import { cssMap, cx } from '@atlaskit/css';
 import RetryIcon from '@atlaskit/icon/core/retry';
 import { Box, Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -18,6 +18,12 @@ const styles = cssMap({
 		listStyle: 'none',
 		padding: 0,
 		width: '100%',
+	},
+	conversationStartersListWithRefreshDesign: {
+		marginTop: token('space.0'),
+	},
+	conversationStaterItem: {
+		paddingTop: token('space.0'),
 	},
 	conversationStarterIcon: {
 		flexShrink: 0,
@@ -142,6 +148,7 @@ export const AgentConversationStarters = ({
 };
 
 export type ConversationStartersProps = {
+	refreshDesignEnabled?: boolean;
 	starters: ConversationStarter[];
 	onConversationStarterClick: (conversationStarter: ConversationStarter) => void;
 	showReloadButton?: boolean;
@@ -153,16 +160,24 @@ export const ConversationStarters = ({
 	starters,
 	onConversationStarterClick,
 	showReloadButton = false,
-	onReloadButtonClick = () => {},
+	onReloadButtonClick = () => { },
 	onBrowseAgentsClick,
+	refreshDesignEnabled = false,
 }: ConversationStartersProps): React.JSX.Element => {
 	return (
-		<Stack as="ul" space="space.050" xcss={styles.conversationStartersList}>
+		<Stack
+			as="ul"
+			space="space.050"
+			xcss={cx(
+				styles.conversationStartersList,
+				refreshDesignEnabled && styles.conversationStartersListWithRefreshDesign,
+			)}
+		>
 			{starters.map((starter, index) => {
 				const isLastStarter = index === starters.length - 1;
 
 				const chatPill = (
-					<Box as="li" key={starter.message}>
+					<Box as="li" key={starter.message} xcss={refreshDesignEnabled && styles.conversationStaterItem}>
 						<Pressable
 							xcss={styles.button}
 							onClick={() => onConversationStarterClick(starter)}

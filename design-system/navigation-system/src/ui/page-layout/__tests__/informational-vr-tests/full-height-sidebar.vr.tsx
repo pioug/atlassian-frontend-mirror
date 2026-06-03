@@ -337,6 +337,40 @@ snapshotInformational(CompositionNoBannerVR, {
 });
 
 snapshotInformational(CompositionVR, {
+	description: 'side nav panel splitter tooltip - hovered over top nav',
+	drawsOutsideBounds: true,
+	variants: [variants.desktop],
+	featureFlags: {
+		'navx-full-height-sidebar': true,
+		'platform-dst-top-layer': [true, false],
+	},
+	prepare: async (page) => {
+		// Hover at the splitter's top edge, over the top nav.
+		await page.getByTestId('side-nav-panel-splitter').hover({ position: { x: 1, y: 5 } });
+
+		// Explicitly wait for tooltip to appear to avoid flake
+		await page.getByRole('tooltip').waitFor();
+	},
+});
+
+snapshotInformational(CompositionNoBannerVR, {
+	description: 'side nav panel splitter tooltip - hovered over top nav - no banner',
+	drawsOutsideBounds: true,
+	variants: [variants.desktop],
+	featureFlags: {
+		'navx-full-height-sidebar': true,
+		'platform-dst-top-layer': [true, false],
+	},
+	prepare: async (page) => {
+		// Hover at the splitter's top edge, over the top nav.
+		await page.getByTestId('side-nav-panel-splitter').hover({ position: { x: 1, y: 5 } });
+
+		// Explicitly wait for tooltip to appear to avoid flake
+		await page.getByRole('tooltip').waitFor();
+	},
+});
+
+snapshotInformational(CompositionVR, {
 	// The side nav is an overlay below 64rem, but is still resizable until 48rem.
 	description: 'side nav panel splitter hovered - sm (tablet) size',
 	drawsOutsideBounds: true,

@@ -3,9 +3,9 @@
  *
  * Shared tokens file for UI Kit components. Contains design token maps for xcss support. Source: `packages/forge/forge-ui/src/components/UIKit/tokens.partial.tsx`
  *
- * @codegen <<SignedSource::d9e8b7d1955fcb807a242c9755da687d>>
+ * @codegen <<SignedSource::49085469da38c9c4704acba13ae93dbf>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/tokens.partial.tsx <<SignedSource::4f74775e6ce25bd32ff0e46a6a155a8c>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/tokens.partial.tsx <<SignedSource::48637863f57b9b72e665d930ae51c1db>>
  */
 /* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766 */
@@ -27,12 +27,12 @@ import type { SerializedStyles } from '@emotion/serialize';
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cca172e91b088c7d75272f9a1cc0a52f>>
+ * @codegen <<SignedSource::10d52b215acfc66f900649d6556fd7dd>>
  * @codegenId forge-tokens
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../../../design-system/primitives/scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
  * @codegenDependency ../../../../../design-system/primitives/scripts/codegen-file-templates/layer.tsx <<SignedSource::92793ca02dbfdad66e53ffbe9f0baa0a>>
- * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::38a7d4716f6999a6bdda9e4fe2bca6a1>>
+ * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d72fd27108df4e10dac48aef4303f36e>>
  * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::535518e7add48ef24f526d0904f70060>>
  * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::8817f4073995e5dc9c2bb766316632d6>>
  */
@@ -865,7 +865,7 @@ export const backgroundColorMap: {
 		'color.background.accent.gray.bolder.pressed',
 		'#3B3D42',
 	),
-	'color.background.disabled': token('color.background.disabled', '#17171708'),
+	'color.background.disabled': token('color.background.disabled', '#0515240F'),
 	'color.background.input': token('color.background.input', '#FFFFFF'),
 	'color.background.input.hovered': token('color.background.input.hovered', '#F8F8F8'),
 	'color.background.input.pressed': token('color.background.input.pressed', '#FFFFFF'),

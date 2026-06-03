@@ -34,6 +34,7 @@ export type CardContext = {
 } & Pick<
 	// Most of the values are coming directly from Props given to CardProvider
 	CardProviderProps,
+	| 'bridgeProduct'
 	| 'rovoOptions'
 	| 'isAdminHubAIEnabled'
 	| 'isPreviewPanelAvailable'
@@ -62,6 +63,11 @@ export type CardProviderProps = {
 	 * Any React components contains linking components.
 	 */
 	children: React.ReactNode;
+	/**
+	 * Optional override for the bridge value used when wrapping smart link URLs for
+	 * cross-product analytics. When omitted, defaults to `'smartLinks'`.
+	 */
+	bridgeProduct?: string;
 	/**
 	 * A client that make request to Object Resolver Service to resolve url for linking components.
 	 * See `CardClient` for more details.

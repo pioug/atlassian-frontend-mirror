@@ -25,6 +25,7 @@ import noAlias from './rules/feature-gating/no-alias';
 import useEntrypointsInExamples from './rules/use-entrypoints-in-examples';
 import useRecommendedUtils from './rules/feature-gating/use-recommended-utils';
 import validGateName from './rules/feature-gating/valid-gate-name';
+import noUnsafeNoExposure from './rules/feature-gating/no-unsafe-no-exposure';
 import expandBackgroundShorthand from './rules/compiled/expand-background-shorthand';
 import expandSpacingShorthand from './rules/compiled/expand-spacing-shorthand';
 import noCssPropInObjectSpread from './rules/compiled/no-css-prop-in-object-spread';
@@ -102,6 +103,7 @@ const rules: {
 	'use-entrypoints-in-examples': Rule.RuleModule;
 	'use-recommended-utils': Rule.RuleModule;
 	'valid-gate-name': Rule.RuleModule;
+		'no-unsafe-no-exposure': Rule.RuleModule;
 	'no-sparse-checkout': Rule.RuleModule;
 	'no-direct-document-usage': Rule.RuleModule;
 	'no-set-immediate': Rule.RuleModule;
@@ -147,6 +149,7 @@ const rules: {
 	'use-entrypoints-in-examples': useEntrypointsInExamples,
 	'use-recommended-utils': useRecommendedUtils,
 	'valid-gate-name': validGateName,
+	'no-unsafe-no-exposure': noUnsafeNoExposure,
 	'no-sparse-checkout': noSparseCheckout,
 	'no-direct-document-usage': noDirectDocumentUsage,
 	'no-set-immediate': noSetImmediate,
@@ -203,6 +206,7 @@ const recommendedRules = {
 	'@atlaskit/platform/prefer-fg': 'error',
 	'@atlaskit/platform/no-alias': 'error',
 	'@atlaskit/platform/valid-gate-name': 'error',
+	'@atlaskit/platform/no-unsafe-no-exposure': 'warn',
 	// end: feature-gating rules
 	'@atlaskit/platform/ensure-feature-flag-registration': 'error',
 } satisfies Linter.RulesRecord;
@@ -251,6 +255,7 @@ const plugin: {
 		'use-entrypoints-in-examples': Rule.RuleModule;
 		'use-recommended-utils': Rule.RuleModule;
 		'valid-gate-name': Rule.RuleModule;
+	'no-unsafe-no-exposure': Rule.RuleModule;
 		'no-sparse-checkout': Rule.RuleModule;
 		'no-direct-document-usage': Rule.RuleModule;
 		'no-set-immediate': Rule.RuleModule;

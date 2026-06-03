@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 25.8.1
+
+### Patch Changes
+
+- [`5917ce672b7ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5917ce672b7ce) -
+  Cleaned up feature gate ptc-links-migrate-atlaskit-link and updated failing VR tests
+- Updated dependencies
+
 ## 25.8.0
 
 ### Minor Changes

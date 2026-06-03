@@ -1,5 +1,17 @@
 # @atlaskit/adf-schema
 
+## 52.16.0
+
+### Minor Changes
+
+- [`64a45bf9306e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64a45bf9306e9) -
+  [ux] [EDITOR-7024] update the ADF schema behind platform_editor_lovability_text_bg_color
+  experiment such that textColor and backgroundColor can coexist
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.15.5
 
 ### Patch Changes

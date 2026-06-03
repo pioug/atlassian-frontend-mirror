@@ -27,6 +27,7 @@ import {
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { redo, undo } from '@atlaskit/prosemirror-history';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -140,6 +141,60 @@ const isSelectionWithinCodeBlock = (state: EditorState) => {
 	const { $from, $to } = state.selection;
 	return $from.sameParent($to) && $from.parent.type === state.schema.nodes.codeBlock;
 };
+const useCloseBlockMenuOnResize = ({
+	isEnabled,
+	mountTo,
+	boundariesElement,
+	scrollableElement,
+	closeMenu,
+}: {
+	boundariesElement?: HTMLElement;
+	closeMenu: () => void;
+	isEnabled: boolean;
+	mountTo?: HTMLElement;
+	scrollableElement?: HTMLElement;
+}) => {
+	useEffect(() => {
+		if (!isEnabled || typeof ResizeObserver === 'undefined') {
+			return;
+		}
+
+		const observedElements = Array.from(
+			new Set(
+				[mountTo, boundariesElement, scrollableElement].filter((element): element is HTMLElement =>
+					Boolean(element),
+				),
+			),
+		);
+
+		if (observedElements.length === 0) {
+			return;
+		}
+
+		const pendingInitialResizeElements = new Set<HTMLElement>(observedElements);
+		const resizeObserver = new ResizeObserver((entries) => {
+			const hasResizeAfterInitialObservation = entries.some(({ target }) => {
+				if (target instanceof HTMLElement && pendingInitialResizeElements.has(target)) {
+					pendingInitialResizeElements.delete(target);
+					return false;
+				}
+
+				return true;
+			});
+
+			if (hasResizeAfterInitialObservation) {
+				closeMenu();
+			}
+		});
+
+		observedElements.forEach((element) => resizeObserver.observe(element));
+
+		return () => {
+			resizeObserver.disconnect();
+		};
+	}, [boundariesElement, closeMenu, isEnabled, mountTo, scrollableElement]);
+};
+
 const BlockMenuContent = ({
 	api,
 	setRef,
@@ -215,6 +270,26 @@ const BlockMenu = ({
 	}));
 	const { onDropdownOpenChanged } = useBlockMenu();
 	const targetHandleRef = editorView?.dom?.querySelector<HTMLElement>(DRAG_HANDLE_SELECTOR);
+	const shouldCloseBlockMenuOnResize = fg('platform_editor_block_menu_jira_patch_4');
+	const closeMenu = React.useCallback(() => {
+		api?.core.actions.execute(({ tr }) => {
+			api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
+			onDropdownOpenChanged(false);
+			api?.userIntent?.commands.setCurrentUserIntent(
+				currentUserIntent === 'blockMenuOpen' ? 'default' : currentUserIntent || 'default',
+			)({ tr });
+
+			return tr;
+		});
+	}, [api, currentUserIntent, onDropdownOpenChanged]);
+
+	useCloseBlockMenuOnResize({
+		isEnabled: Boolean(isMenuOpen && shouldCloseBlockMenuOnResize),
+		mountTo,
+		boundariesElement,
+		scrollableElement,
+		closeMenu,
+	});
 	const prevIsMenuOpenRef = useRef(false);
 	const popupRef = useRef<HTMLElement | undefined>(undefined);
 
@@ -295,18 +370,6 @@ const BlockMenu = ({
 		}
 
 		closeMenu();
-	};
-
-	const closeMenu = () => {
-		api?.core.actions.execute(({ tr }) => {
-			api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
-			onDropdownOpenChanged(false);
-			api?.userIntent?.commands.setCurrentUserIntent(
-				currentUserIntent === 'blockMenuOpen' ? 'default' : currentUserIntent || 'default',
-			)({ tr });
-
-			return tr;
-		});
 	};
 
 	if (

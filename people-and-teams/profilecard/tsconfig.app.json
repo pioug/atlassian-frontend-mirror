@@ -66,9 +66,6 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/link/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/lozenge/tsconfig.app.json"
 		},
 		{

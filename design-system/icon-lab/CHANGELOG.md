@@ -1,5 +1,22 @@
 # @atlaskit/icon-lab
 
+## 6.13.0
+
+### Minor Changes
+
+- [`9c0155c00d835`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c0155c00d835) -
+  This release updates icons in `@atlaskit/icon-lab`.
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+  - `playlist-added`
+  - `teamwork-graph`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.12.0
 
 ### Minor Changes

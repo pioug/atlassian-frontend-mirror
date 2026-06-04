@@ -25,7 +25,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
-import type { PrimaryToolbarComponents } from '../../../types';
+import type { PrimaryToolbarComponents } from '../../../types/editor-props';
 import type { MarkdownModePlugin, MarkdownModeView } from '../../../types/markdown-mode';
 import { isToolbar } from '../../../utils/toolbar';
 import ExcludeFromHydration from '../../ExcludeFromHydration';

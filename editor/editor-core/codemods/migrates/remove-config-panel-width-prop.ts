@@ -1,7 +1,7 @@
 import type core from 'jscodeshift';
 import type { Collection } from 'jscodeshift/src/Collection';
 
-import { findImportFromPackage } from '../utils';
+import { findImportFromPackage } from '../findImportFromPackage';
 
 const createRemoveComponentPropTransform = (pkg: string, component: string, propName: string) => {
 	return (j: core.JSCodeshift, source: Collection<unknown>): void => {

@@ -164,7 +164,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 			const plugins = [
 				{
 					name: 'layout',
-					plugin: () => createLayoutPlugin(options),
+					plugin: () => createLayoutPlugin(options, api?.analytics?.actions),
 				},
 			] as Array<PMPlugin>;
 

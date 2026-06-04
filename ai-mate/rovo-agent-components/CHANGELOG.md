@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 5.2.1
+
+### Patch Changes
+
+- [`704255fb1bd8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/704255fb1bd8d) -
+  Adding avatar for triage agent
+
 ## 5.2.0
 
 ### Minor Changes

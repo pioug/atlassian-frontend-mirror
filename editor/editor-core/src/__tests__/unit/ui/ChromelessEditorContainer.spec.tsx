@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { ChromelessEditorContainer } from '../../../ui/Appearance/Chromeless';
+import { ChromelessEditorContainer } from '../../../ui/Appearance/ChromelessEditorContainer';
 
 // this test is mainly to check if dev only updated legacy styles, and forget to update in the new styles
 // if the new styles are not updated, we will see a difference in the snapshot

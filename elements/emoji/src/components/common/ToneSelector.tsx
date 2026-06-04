@@ -13,7 +13,7 @@ import React, {
 	type MemoExoticComponent,
 	type RefAttributes,
 } from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import type {
 	EmojiDescription,
 	EmojiDescriptionWithVariations,
@@ -141,7 +141,7 @@ export const ToneSelectorInternal = (props: PropsWithAnalyticsEventsPropsType): 
 			css={!isVisible && hidden}
 		>
 			{emojiToneCollection.map((tone, renderIndex) => {
-				return fg('platform_emoji_picker_refresh') ? (
+				return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
 					<EmojiRadioButton
 						ref={(el) => {
 							radioRefs.current[renderIndex] = el;

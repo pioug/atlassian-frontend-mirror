@@ -537,6 +537,39 @@ describe('DatasourceTableView', () => {
 				});
 			});
 		});
+
+		it('restores original parameters after cycling ASC -> DESC -> default', async () => {
+			const { getByTestId } = setup(
+				{
+					onVisibleColumnKeysChange: null,
+					visibleColumnKeys: ['myColumn'],
+					responseItems: defaultMockResponseItems,
+				},
+				{
+					datasourceId: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+					parameters: {
+						cloudId: 'some-cloud-id',
+						jql: 'project = TEST ORDER BY priority ASC',
+					},
+				},
+			);
+
+			const sortButton = getByTestId('myColumn-column-sort-button');
+			sortButton.click();
+			sortButton.click();
+			sortButton.click();
+
+			await waitFor(() => {
+				expect(useDatasourceTableState).toHaveBeenLastCalledWith({
+					datasourceId: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+					parameters: {
+						cloudId: 'some-cloud-id',
+						jql: 'project = TEST ORDER BY priority ASC',
+					},
+					fieldKeys: ['myColumn'],
+				});
+			});
+		});
 	});
 
 	it('should render IssueLikeDataTableView with undefined height when shouldControlDataExport is true and feature gate is enabled', () => {

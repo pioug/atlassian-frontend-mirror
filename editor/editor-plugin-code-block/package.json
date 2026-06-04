@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-block",
-	"version": "13.0.0",
+	"version": "13.1.0",
 	"description": "Code block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -49,6 +49,7 @@
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
+		"@atlaskit/flag": "workspace:^",
 		"@atlaskit/frontend-utilities": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
@@ -114,6 +115,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_code_block_add_line_number_button": {
+			"type": "boolean"
+		},
+		"platform_editor_code_block_language_detection_flow": {
 			"type": "boolean"
 		}
 	},

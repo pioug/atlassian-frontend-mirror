@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { changeLanguage, detectLanguage } from '../editor-commands';
 import type { CodeBlockPlugin } from '../index';
@@ -44,7 +44,7 @@ export const CodeBlockLanguagePicker = ({
 		(option: LanguagePickerOption, selectionSource: LanguagePickerSelectionSource) => {
 			const command: Command =
 				option.value === DETECT_LANGUAGE_VALUE &&
-				expValEquals('platform_editor_code_block_auto_detection', 'isEnabled', true)
+				fg('platform_editor_code_block_language_detection_flow')
 					? detectLanguage()
 					: changeLanguage(api?.analytics?.actions)(option.value, selectionSource);
 			const commandSucceeded = command(editorView.state, editorView.dispatch);

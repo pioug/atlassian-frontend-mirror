@@ -6,10 +6,10 @@ import { memo, type MemoExoticComponent } from 'react';
 import { useIntl } from 'react-intl';
 import { css, jsx } from '@compiled/react';
 import { cssMap } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { Box } from '@atlaskit/primitives/compiled';
 import type { EmojiDescription } from '../../types';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
 import { AddOwnEmoji } from '../common/AddEmoji';
 
@@ -45,7 +45,7 @@ export const emojiPickerFooterTestId = 'emoji-picker-footer';
 
 const EmojiPickerFooter = ({ selectedEmoji, onOpenUpload, uploadEnabled }: Props): JSX.Element => {
 	const intl = useIntl();
-	return fg('platform_emoji_picker_refresh') ? (
+	return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
 		<div
 			css={[emojiPickerFooter, emojiPickerFooterWithTopShadowNew]}
 			data-testid={emojiPickerFooterTestId}

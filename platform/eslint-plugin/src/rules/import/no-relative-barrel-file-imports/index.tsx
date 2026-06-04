@@ -173,7 +173,13 @@ function getRelativeImportPath({
 }
 
 /**
- * Build an import statement for a set of specifiers
+ * Build an import statement for a set of specifiers.
+ *
+ * Handles the type-only-import edge case: TypeScript forbids combining a default
+ * import with named bindings under `import type` (TS1363
+ * "A type-only import can specify a default import or named bindings, but not both").
+ * When emitting an `import type` that has both, the default is rebound as
+ * `{ default as <local> }` named import so the resulting statement is legal TS.
  */
 function buildImportStatement({
 	specs,
@@ -186,16 +192,20 @@ function buildImportStatement({
 	quoteChar: string;
 	isTypeImport?: boolean;
 }): string {
+	const formatNamed = (spec: TSESTree.ImportSpecifier): string => {
+		const imported = getImportedName(spec);
+		const local = spec.local.name;
+		const isInlineType = spec.importKind === 'type' && !isTypeImport;
+		const prefix = isInlineType ? 'type ' : '';
+		return imported === local ? `${prefix}${imported}` : `${prefix}${imported} as ${local}`;
+	};
+
 	const importNames = specs
 		.map((spec) => {
 			if (spec.type === 'ImportDefaultSpecifier') {
 				return spec.local.name;
 			} else if (spec.type === 'ImportSpecifier') {
-				const imported = getImportedName(spec);
-				const local = spec.local.name;
-				const isInlineType = spec.importKind === 'type' && !isTypeImport;
-				const prefix = isInlineType ? 'type ' : '';
-				return imported === local ? `${prefix}${imported}` : `${prefix}${imported} as ${local}`;
+				return formatNamed(spec);
 			}
 			return '';
 		})
@@ -215,14 +225,17 @@ function buildImportStatement({
 		)?.local.name;
 		const namedImports = specs
 			.filter((spec): spec is TSESTree.ImportSpecifier => spec.type === 'ImportSpecifier')
-			.map((spec) => {
-				const imported = getImportedName(spec);
-				const local = spec.local.name;
-				const isInlineType = spec.importKind === 'type' && !isTypeImport;
-				const prefix = isInlineType ? 'type ' : '';
-				return imported === local ? `${prefix}${imported}` : `${prefix}${imported} as ${local}`;
-			})
+			.map(formatNamed)
 			.join(', ');
+
+		// Under `import type`, mixing a default import with named bindings is a TS
+		// syntax error (TS1363). Rebind the default as `{ default as <local> }` so
+		// the type-only import is legal.
+		if (isTypeImport && defaultName !== undefined) {
+			const defaultAsNamed =
+				defaultName === 'default' ? 'default' : `default as ${defaultName}`;
+			return `import ${typeKeyword}{ ${namedImports}, ${defaultAsNamed} } from ${quoteChar}${path}${quoteChar};`;
+		}
 
 		return `import ${typeKeyword}${defaultName}, { ${namedImports} } from ${quoteChar}${path}${quoteChar};`;
 	} else if (hasDefault) {

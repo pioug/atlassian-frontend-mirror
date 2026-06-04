@@ -4,7 +4,8 @@ import type {
 	Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 
-import { addMetadataAttributes, wrapNodeSpecProxy, wrapToDOMProxy } from './create-schema'; // Replace with the correct file path
+import { addMetadataAttributes } from './addMetadataAttributes'; // Replace with the correct file path
+import { wrapNodeSpecProxy, wrapToDOMProxy } from './create-schema';
 
 describe('addMetadataAttributes', () => {
 	it('should add metadata to a DOMOutputSpec array', () => {

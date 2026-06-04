@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import coinflip from '../../coinflip';
 import { type InteractionMetrics } from '../../common';
 import type { RevisionPayload, VCResult } from '../../common/vc/types';
@@ -38,9 +40,9 @@ async function getVCMetrics(
 		return {};
 	}
 
-	const includeRawData = coinflip(
-		getVCRawDataInteractionRate(interaction.ufoName, interaction.type),
-	);
+	const includeRawData =
+		coinflip(getVCRawDataInteractionRate(interaction.ufoName, interaction.type)) ||
+		fg('platform_ufo_always_emit_raw_handler');
 
 	const isSSREnabled =
 		interaction.type === 'page_load' &&

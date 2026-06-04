@@ -1,5 +1,78 @@
 # @atlaskit/editor-common
 
+## 115.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 115.5.0
+
+### Minor Changes
+
+- [`75daf19dd12b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75daf19dd12b0) -
+  Add format code control for code blocks
+
+### Patch Changes
+
+- Updated dependencies
+
+## 115.4.0
+
+### Minor Changes
+
+- [`055a9e03db491`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/055a9e03db491) -
+  EDITOR-7306 Added analytics for accepting a suggestion in suggested edits
+- [`055a9e03db491`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/055a9e03db491) -
+  EDITOR-7306 Added analytics for rejecting/discarding a suggestion in suggested edits
+
+### Patch Changes
+
+- Updated dependencies
+
+## 115.3.0
+
+### Minor Changes
+
+- [`3bb54917f1df6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3bb54917f1df6) -
+  Add a gated API for updating mention typeahead section metadata.
+
+### Patch Changes
+
+- [`795424ce08dae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/795424ce08dae) -
+  Add analytics for layout column resizing
+- Updated dependencies
+
+## 115.2.2
+
+### Patch Changes
+
+- [`3e2877f105afc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e2877f105afc) -
+  Gate code block auto-detection behind the q4 lovability experiment and
+  platform_editor_code_block_language_detection_flow kill switch.
+- Updated dependencies
+
+## 115.2.1
+
+### Patch Changes
+
+- [`0d8f232a9fc98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d8f232a9fc98) -
+  Add selection options to MBE changeActive API and prevent unwanted node selection when clicking
+  extension UI elements
+- [`f3f55d3ebf702`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3f55d3ebf702) -
+  Gate MBE style and gap cursor changes behind confluence_frontend_native_tabs_extension feature
+  flag
+
+## 115.2.0
+
+### Minor Changes
+
+- [`d0aecc7277414`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0aecc7277414) -
+  EDITOR-7417: Link up the thinking components with Rovo chat state. Plugin now takes in a
+  ConversationAssistant provider that enables all the thinking actions to function, and will enable
+  showing thinking components too. onOpenRovoChatWithSkill has been removed as it is succeeded by
+  .startThinking.
+
 ## 115.1.0
 
 ### Minor Changes

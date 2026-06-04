@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-mentions
 
+## 13.2.0
+
+### Minor Changes
+
+- [`3bb54917f1df6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3bb54917f1df6) -
+  Add a gated API for updating mention typeahead section metadata.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.1.0
 
 ### Minor Changes

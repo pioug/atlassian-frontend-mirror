@@ -623,7 +623,10 @@ const LozengeBase: import('react').MemoExoticComponent<
 
 			const commonStyleOverrides = {
 				backgroundColor: style?.backgroundColor,
-				maxWidth: maxWidthIsPc ? maxWidth : '100%',
+				// Constrain the container to the smaller of the explicit maxWidth and 100% of
+				// the parent. Using min(...) means the lozenge never overflows its parent,
+				// while still honouring the explicit maxWidth prop when the parent is wider.
+				maxWidth: maxWidthIsPc ? maxWidth : `min(${maxWidthValue}, 100%)`,
 			};
 			const hasTrailingMetric = trailingMetric != null && trailingMetric !== '';
 
@@ -645,9 +648,11 @@ const LozengeBase: import('react').MemoExoticComponent<
 						styles.content,
 						spacing === 'spacious' && styles.contentSpacious,
 						isLoading && styles.loadingContent,
-						// When maxWidth is a percentage, constrain the content wrapper
-						// so text truncation works correctly within the flex layout
-						maxWidthIsPc && styles.maxWidth,
+						// Constrain the content wrapper to its container so text truncation
+						// works correctly within the flex layout, regardless of whether maxWidth
+						// is a percentage, fixed value, or the parent container is narrower than
+						// the explicit maxWidth.
+						styles.maxWidth,
 					]}
 					{...(enableMotionFG ? resizingWidth : undefined)}
 				>
@@ -667,7 +672,11 @@ const LozengeBase: import('react').MemoExoticComponent<
 							spacing === 'spacious' && styles.textSpacious,
 						]}
 						style={{
-							maxWidth: maxWidthIsPc ? undefined : `calc(${maxWidthValue} - ${token('space.100')})`,
+							// The text fills 100% of the inner content wrapper. The container's
+							// own max-width (set on the container via commonStyleOverrides) handles
+							// the actual size constraint, so the text just needs to fill the available
+							// space and truncate when it overflows.
+							maxWidth: maxWidthIsPc ? '100%' : `calc(${maxWidthValue} - ${token('space.100')})`,
 							color: style?.color,
 						}}
 						data-testid={testId && `${testId}--text`}

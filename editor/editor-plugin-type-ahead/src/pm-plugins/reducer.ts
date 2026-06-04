@@ -4,12 +4,14 @@ import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { insm } from '@atlaskit/insm';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type {
 	CreateTypeAheadDecorations,
 	PopupMountPointReference,
 	RemoveTypeAheadDecorations,
 	TypeAheadHandler,
+	TypeAheadResolvedSection,
 	TypeAheadInputMethod,
 	TypeAheadPluginState,
 } from '../types';
@@ -49,6 +51,34 @@ const shouldForceClose = (step: InsertTypeAheadStep | null): boolean => {
 		step.isUndoingStep() && step.stage === InsertTypeAheadStages.DELETING_RAW_QUERY;
 
 	return isInsertingItem || isUndoingDeletionRawQuery;
+};
+
+const applySectionTitleUpdates = ({
+	sections,
+	sectionTitleUpdates,
+}: {
+	sections: TypeAheadResolvedSection[];
+	sectionTitleUpdates: TypeAheadPluginState['sectionTitleUpdates'];
+}): TypeAheadResolvedSection[] => {
+	if (!expVal('platform_editor_agent_mentions', 'isEnabled', false)) {
+		return sections;
+	}
+
+	const updatedSections = sections.map((section) => {
+		const update = sectionTitleUpdates[section.id];
+
+		if (!update) {
+			return section;
+		}
+
+		return {
+			...section,
+			...update,
+		};
+	});
+
+
+	return updatedSections;
 };
 
 const createFindHandler =
@@ -106,6 +136,7 @@ export const createReducer = ({
 			inputMethod,
 			selectedIndex: typeof selectedIndex === 'number' ? selectedIndex : -1,
 			items: [],
+			sectionTitleUpdates: {},
 			sections: [],
 			query: reopenQuery || '',
 			removePrefixTriggerOnCancel,
@@ -127,6 +158,7 @@ export const createReducer = ({
 			triggerHandler: undefined,
 			items: [],
 			sections: [],
+			sectionTitleUpdates: {},
 			removePrefixTriggerOnCancel: undefined,
 		};
 	};
@@ -165,6 +197,7 @@ export const createReducer = ({
 		const shouldUpdateListItems = action === ACTIONS.UPDATE_LIST_ITEMS;
 		const shouldUpdateListError = action === ACTIONS.UPDATE_LIST_ERROR;
 		const shouldUpdateSelectedIndex = action === ACTIONS.UPDATE_SELECTED_INDEX;
+		const shouldUpdateSectionTitleState = action === ACTIONS.UPDATE_SECTION_TITLE;
 		const shouldClearListError = action === ACTIONS.CLEAR_LIST_ERROR;
 
 		if (shouldOpenMenu) {
@@ -199,11 +232,36 @@ export const createReducer = ({
 			return {
 				...currentPluginState,
 				items,
-				sections,
+				sections: applySectionTitleUpdates({
+					sections,
+					sectionTitleUpdates: currentPluginState.sectionTitleUpdates,
+				}),
 				selectedIndex: Math.max(
 					selectedIndex >= items.length ? items.length - 1 : selectedIndex,
 					-1,
 				),
+			};
+		} else if (shouldUpdateSectionTitleState) {
+			if (!expVal('platform_editor_agent_mentions', 'isEnabled', false)) {
+				return currentPluginState;
+			}
+
+			const { id, update } = params;
+			const sectionTitleUpdates = {
+				...currentPluginState.sectionTitleUpdates,
+				[id]: {
+					...currentPluginState.sectionTitleUpdates[id],
+					...update,
+				},
+			};
+
+			return {
+				...currentPluginState,
+				sectionTitleUpdates,
+				sections: applySectionTitleUpdates({
+					sections: currentPluginState.sections,
+					sectionTitleUpdates,
+				}),
 			};
 		} else if (shouldUpdateSelectedIndex) {
 			return {

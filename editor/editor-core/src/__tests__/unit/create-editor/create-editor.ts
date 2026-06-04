@@ -5,13 +5,11 @@ import { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
-import {
-	createPMPlugins,
-	fixExcludes,
-	processPluginsList,
-	sortByRank,
-} from '../../../create-editor/create-editor';
-import type { EditorConfig } from '../../../types';
+import { processPluginsList } from '../../../create-editor/create-editor';
+import { createPMPlugins } from '../../../create-editor/createPMPlugins';
+import { fixExcludes } from '../../../create-editor/fixExcludes';
+import { sortByRank } from '../../../create-editor/sortByRank';
+import type { EditorConfig } from '../../../types/editor-config';
 import { name } from '../../../version-wrapper';
 
 describe(name, () => {

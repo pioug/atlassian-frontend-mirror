@@ -1,4 +1,4 @@
-import type { EditorProps } from '../../../types';
+import type { EditorProps } from '../../../types/editor-props';
 import { shouldRecreatePreset } from '../../preset-utils';
 
 describe('shouldRecreatePreset', () => {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection",
-	"version": "11.0.0",
+	"version": "11.0.2",
 	"description": "Selection plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -82,5 +82,10 @@
 	},
 	"devDependencies": {
 		"react": "root:*"
+	},
+	"platform-feature-flags": {
+		"confluence_frontend_native_tabs_extension": {
+			"type": "boolean"
+		}
 	}
 }

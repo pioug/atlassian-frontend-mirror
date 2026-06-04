@@ -944,6 +944,108 @@ describe('IssueLikeDataTableView', () => {
 			expect(queryByTestId('sometable--row-loading-14')).toBeNull();
 		});
 
+		ffTest.off('platform_lp_jira_sllv_renderer_column_sorting', '', () => {
+			it('does not treat empty status as loading in legacy mode', () => {
+				const items: DatasourceDataResponseItem[] = [];
+				const itemIds = setupItemIds(items);
+				const columns: DatasourceResponseSchemaProperty[] = [];
+
+				const { queryByTestId } = setup({
+					items,
+					itemIds,
+					columns,
+					status: 'empty',
+					hasNextPage: false,
+				});
+
+				expect(queryByTestId('sometable--row-loading-0')).toBeNull();
+			});
+		});
+
+		ffTest.on('platform_lp_jira_sllv_renderer_column_sorting', '', () => {
+			it('does not treat empty status as loading when there were no previous real rows', () => {
+				const items: DatasourceDataResponseItem[] = [];
+				const itemIds = setupItemIds(items);
+				const columns: DatasourceResponseSchemaProperty[] = [];
+
+				const { queryByTestId } = setup({
+					items,
+					itemIds,
+					columns,
+					status: 'empty',
+					hasNextPage: false,
+				});
+
+				expect(queryByTestId('sometable--row-loading-0')).toBeNull();
+			});
+
+			it('treats empty status as loading when there were previous real rows and reuses smaller row count', async () => {
+				const initialItems = getSimpleItems(3);
+				const initialItemIds = setupItemIds(initialItems);
+				const columns = getSimpleColumns();
+				const onAnalyticsEvent = jest.fn();
+				const onNextPage = jest.fn(() => {});
+				const onLoadDatasourceDetails = jest.fn(() => Promise.resolve());
+				const onVisibleColumnKeysChange = jest.fn(() => {});
+				const onColumnResize = jest.fn(() => {});
+				const onWrappedColumnChange = jest.fn(() => {});
+				const smartLinkClient = new SmartLinkClient();
+
+				const renderTable = (props: Partial<IssueLikeDataTableViewProps>) => (
+					<AnalyticsListener channel="media" onEvent={onAnalyticsEvent}>
+						<DatasourceExperienceIdProvider>
+							<IntlProvider locale="en">
+								<SmartCardProvider client={smartLinkClient}>
+									<IssueLikeDataTableView
+										testId="sometable"
+										status={'resolved'}
+										onNextPage={onNextPage}
+										onLoadDatasourceDetails={onLoadDatasourceDetails}
+										hasNextPage={false}
+										onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+										onColumnResize={onColumnResize}
+										onWrappedColumnChange={onWrappedColumnChange}
+										items={[]}
+										itemIds={[]}
+										columns={[]}
+										visibleColumnKeys={['id']}
+										{...props}
+									/>
+								</SmartCardProvider>
+							</IntlProvider>
+						</DatasourceExperienceIdProvider>
+					</AnalyticsListener>
+				);
+
+				const { rerender, findByTestId, getByTestId, queryByTestId } = render(
+					renderTable({
+						status: 'resolved',
+						items: initialItems,
+						itemIds: initialItemIds,
+						columns,
+						visibleColumnKeys: ['id'],
+					}),
+				);
+
+				await findByTestId(`sometable--row-${initialItemIds[0]}`);
+
+				rerender(
+					renderTable({
+						status: 'empty',
+						items: [],
+						itemIds: [],
+						columns,
+						visibleColumnKeys: ['id'],
+					}),
+				);
+
+				expect(getByTestId('sometable--row-loading-0')).toBeInTheDocument();
+				expect(getByTestId('sometable--row-loading-1')).toBeInTheDocument();
+				expect(getByTestId('sometable--row-loading-2')).toBeInTheDocument();
+				expect(queryByTestId('sometable--row-loading-3')).toBeNull();
+			});
+		});
+
 		it('should show 1 loading row when new page is loading', async () => {
 			jest.useFakeTimers();
 			const items = getSimpleItems();

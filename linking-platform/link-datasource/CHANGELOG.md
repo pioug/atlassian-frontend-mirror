@@ -1,5 +1,19 @@
 # @atlaskit/link-datasource
 
+## 5.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.6.1
+
+### Patch Changes
+
+- [`c7fb26d1c5d03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7fb26d1c5d03) -
+  Fixing read-only SLLV sorting problems with default type losing the label visually and introducing
+  third state of sorting - going back to default
+
 ## 5.6.0
 
 ### Minor Changes

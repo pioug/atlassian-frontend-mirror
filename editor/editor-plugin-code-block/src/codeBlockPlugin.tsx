@@ -22,6 +22,7 @@ import { IconCode } from '@atlaskit/editor-common/quick-insert';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CodeBlockPlugin } from './codeBlockPluginType';
@@ -36,9 +37,11 @@ import ideUX from './pm-plugins/ide-ux';
 import { createCodeBlockInputRule } from './pm-plugins/input-rule';
 import keymap from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
+import { pluginKey } from './pm-plugins/plugin-key';
 import refreshBrowserSelectionOnChange from './pm-plugins/refresh-browser-selection';
 import { getToolbarConfig } from './pm-plugins/toolbar';
 import { createCodeBlockMenuItem } from './ui/CodeBlockMenuItem';
+import { FormatCodeErrorFlag } from './ui/FormatCodeErrorFlag';
 
 const CODE_BLOCK_NODE_NAME = 'codeBlock';
 
@@ -82,8 +85,11 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 			if (!state) {
 				return undefined;
 			}
+			const codeBlockState = pluginKey.getState(state);
 			return {
 				copyButtonHoverNode: copySelectionPluginKey.getState(state).codeBlockNode,
+				formatCodeErrors: codeBlockState?.formatCodeErrors ?? {},
+				pendingFormats: codeBlockState?.pendingFormats ?? {},
 			};
 		},
 
@@ -104,7 +110,8 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 						return createCodeBlockInputRule(schema, api?.analytics?.actions);
 					},
 				},
-				...(expValEquals('platform_editor_code_block_auto_detection', 'isEnabled', true)
+				...(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
+				fg('platform_editor_code_block_language_detection_flow')
 					? [
 							{
 								name: 'codeBlockAutoDetect',
@@ -176,6 +183,11 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 				options?.overrideLanguageName,
 			),
 		},
+
+		contentComponent: () =>
+			expValEqualsNoExposure('platform_editor_code_block_q4_lovability', 'isEnabled', true) ? (
+				<FormatCodeErrorFlag api={api} />
+			) : null,
 	};
 };
 

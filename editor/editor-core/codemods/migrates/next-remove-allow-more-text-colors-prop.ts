@@ -1,7 +1,7 @@
 import type core from 'jscodeshift';
 import type { Collection } from 'jscodeshift/src/Collection';
 
-import { findImportFromPackage } from '../utils';
+import { findImportFromPackage } from '../findImportFromPackage';
 /**
  * Generate a codemod to remove `allowMoreTextColors` field
  * from `allowTextColor` Editor prop.

@@ -1,5 +1,24 @@
 # @atlaskit/profilecard
 
+## 25.8.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.8.3
+
+### Patch Changes
+
+- [`efc354ccc3f83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/efc354ccc3f83) -
+  Render agent profile cards on an opaque overlay surface.
+
+## 25.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.8.1
 
 ### Patch Changes

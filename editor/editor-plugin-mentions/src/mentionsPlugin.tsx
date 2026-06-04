@@ -20,6 +20,7 @@ import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 import type { MentionNameDetails, MentionProvider } from '@atlaskit/mention/resource';
 import { MentionNameStatus, isPromise } from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { insertMention } from './editor-commands';
 import type { MentionsPlugin } from './mentionsPluginType';
@@ -212,6 +213,13 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 				if (options?.handleMentionsChanged) {
 					options.handleMentionsChanged(mentionChanges);
 				}
+			},
+			updateSectionTitle: (props) => {
+				if (!expVal('platform_editor_agent_mentions', 'isEnabled', false)) {
+					return false;
+				}
+
+				return api?.typeAhead?.actions?.updateSectionTitle?.(props) ?? false;
 			},
 			setProvider: async (providerPromise) => {
 				if (!fg('platform_editor_mention_provider_via_plugin_config')) {

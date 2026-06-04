@@ -103,6 +103,12 @@ function getImportedName(spec: TSESTree.ImportSpecifier): string {
  * allows one `default` import per statement, so we keep the first default as the
  * canonical binding and rebind the rest via `{ default as <local> }` named imports.
  * Defaults with duplicate local names are deduplicated (idempotent merges).
+ *
+ * Also handles the type-only-import edge case: TypeScript forbids combining a default
+ * import with named bindings under `import type` (TS1363
+ * "A type-only import can specify a default import or named bindings, but not both").
+ * When emitting an `import type` that has both, all defaults are rebound as
+ * `{ default as <local> }` named imports so the resulting statement is legal TS.
  */
 function buildImportStatement({
 	specs,
@@ -134,8 +140,19 @@ function buildImportStatement({
 		return true;
 	});
 
-	const [primaryDefault, ...extraDefaults] = uniqueDefaultSpecs;
-	const rebindAsNamed: AugmentedSpecifier[] = extraDefaults.map(
+	// Under `import type`, mixing a default import with named bindings is a TS syntax
+	// error (TS1363). When we already have named specifiers in the same statement,
+	// rebind every default as `{ default as <local> }` so the type-only import is legal.
+	const mustRebindAllDefaultsAsNamed =
+		isTypeImport && uniqueDefaultSpecs.length > 0 && namedSpecsFromInput.length > 0;
+
+	const [primaryDefaultCandidate, ...extraDefaults] = uniqueDefaultSpecs;
+	const primaryDefault = mustRebindAllDefaultsAsNamed ? undefined : primaryDefaultCandidate;
+	const defaultsToRebind: typeof uniqueDefaultSpecs = mustRebindAllDefaultsAsNamed
+		? uniqueDefaultSpecs
+		: extraDefaults;
+
+	const rebindAsNamed: AugmentedSpecifier[] = defaultsToRebind.map(
 		(spec) =>
 			({
 				type: 'ImportSpecifier',

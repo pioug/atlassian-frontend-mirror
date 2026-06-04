@@ -1,5 +1,18 @@
 # @atlaskit/emoji
 
+## 70.15.3
+
+### Patch Changes
+
+- [`53b0462fc49f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53b0462fc49f7) -
+  Swap FG usage to an experiment
+
+## 70.15.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 70.15.1
 
 ### Patch Changes

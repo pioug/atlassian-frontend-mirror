@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-code-block
 
+## 13.1.0
+
+### Minor Changes
+
+- [`75daf19dd12b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75daf19dd12b0) -
+  Add format code control for code blocks
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.1
+
+### Patch Changes
+
+- [`3e2877f105afc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e2877f105afc) -
+  Gate code block auto-detection behind the q4 lovability experiment and
+  platform_editor_code_block_language_detection_flow kill switch.
+- Updated dependencies
+
 ## 13.0.0
 
 ### Patch Changes

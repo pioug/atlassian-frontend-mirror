@@ -44,7 +44,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type EditorActions from '../../../actions';
-import type { ContentComponents, ReactComponents } from '../../../types';
+import type { ContentComponents, ReactComponents } from '../../../types/editor-props';
 import type { MarkdownModePlugin } from '../../../types/markdown-mode';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
@@ -381,9 +381,7 @@ const Content = React.forwardRef<
 					<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
 						<div
 							data-markdown-mode-hide-prosemirror={
-								shouldHideProseMirrorForMarkdownMode
-									? 'true'
-									: undefined
+								shouldHideProseMirrorForMarkdownMode ? 'true' : undefined
 							}
 							css={[
 								editorContentAreaNew,

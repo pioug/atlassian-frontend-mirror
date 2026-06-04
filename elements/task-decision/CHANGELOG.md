@@ -1,5 +1,18 @@
 # @atlaskit/task-decision
 
+## 20.1.13
+
+### Patch Changes
+
+- [`a66bb82913543`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a66bb82913543) -
+  FF platform_editor_fix_missing_task_id cleanup
+
+## 20.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.1.11
 
 ### Patch Changes

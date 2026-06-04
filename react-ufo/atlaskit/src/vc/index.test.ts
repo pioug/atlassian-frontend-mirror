@@ -80,10 +80,10 @@ describe('VCObserverWrapper', () => {
 		// No exceptions should be thrown
 	});
 
-	describe('raw-handler-only mode (ufo_disable_ttvc_v4)', () => {
-		it('should create VCObserverNew when no revisions enabled but raw-handler-only gate is on', () => {
+	describe('VCObserverNew lifecycle without client-side revisions', () => {
+		it('should create VCObserverNew when no revisions are enabled', () => {
 			(configModule.isVCRevisionEnabled as jest.Mock).mockImplementation(() => false);
-			(fg as jest.Mock).mockImplementation((flag: string) => flag === 'ufo_disable_ttvc_v4');
+			(fg as jest.Mock).mockImplementation(() => false);
 
 			const wrapper = new VCObserverWrapper();
 			wrapper.start({ startTime: 100, experienceKey: 'test' });
@@ -92,20 +92,9 @@ describe('VCObserverWrapper', () => {
 			expect(VCObserver.prototype.start).not.toHaveBeenCalled();
 		});
 
-		it('should not create VCObserverNew when no revisions enabled and raw-handler-only gate is off', () => {
+		it('should call getVCResult on VCObserverNew when no revisions are enabled', async () => {
 			(configModule.isVCRevisionEnabled as jest.Mock).mockImplementation(() => false);
 			(fg as jest.Mock).mockImplementation(() => false);
-
-			const wrapper = new VCObserverWrapper();
-			wrapper.start({ startTime: 100, experienceKey: 'test' });
-
-			expect(VCObserverNew.prototype.start).not.toHaveBeenCalled();
-			expect(VCObserver.prototype.start).not.toHaveBeenCalled();
-		});
-
-		it('should call getVCResult on VCObserverNew in raw-handler-only mode', async () => {
-			(configModule.isVCRevisionEnabled as jest.Mock).mockImplementation(() => false);
-			(fg as jest.Mock).mockImplementation((flag: string) => flag === 'ufo_disable_ttvc_v4');
 
 			const mockRawResult = [
 				{
@@ -132,9 +121,9 @@ describe('VCObserverWrapper', () => {
 			expect(result['ufo:vc:rev']).toEqual(mockRawResult);
 		});
 
-		it('should stop VCObserverNew in raw-handler-only mode', () => {
+		it('should stop VCObserverNew when no revisions are enabled', () => {
 			(configModule.isVCRevisionEnabled as jest.Mock).mockImplementation(() => false);
-			(fg as jest.Mock).mockImplementation((flag: string) => flag === 'ufo_disable_ttvc_v4');
+			(fg as jest.Mock).mockImplementation(() => false);
 
 			const wrapper = new VCObserverWrapper();
 			wrapper.stop('test');
@@ -153,7 +142,7 @@ describe('VCObserverWrapper', () => {
 			},
 		};
 
-		// Mock isVCRevisionEnabled to only enable fy25.01 and fy25.02 (VCObserverNew)
+		// Mock isVCRevisionEnabled to only enable fy25.01 and fy25.02.
 		(configModule.isVCRevisionEnabled as jest.Mock).mockImplementation((revision) => {
 			return revision === 'fy25.01' || revision === 'fy25.02';
 		});
@@ -162,9 +151,9 @@ describe('VCObserverWrapper', () => {
 		const wrapper = new VCObserverWrapper();
 		wrapper.start({ startTime: 100, experienceKey: 'test' });
 
-		// Verify that only VCObserver.start was called
+		// VCObserverNew always starts so it can collect raw-handler observations.
 		expect(VCObserver.prototype.start).toHaveBeenCalled();
-		expect(VCObserverNew.prototype.start).not.toHaveBeenCalled();
+		expect(VCObserverNew.prototype.start).toHaveBeenCalled();
 
 		// Verify that the unbind function was still called
 		expect(mockUnbind).toHaveBeenCalled();

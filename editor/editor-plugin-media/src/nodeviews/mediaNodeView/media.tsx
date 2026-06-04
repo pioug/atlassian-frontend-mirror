@@ -271,7 +271,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	);
 
 	private onPreviewRender = (fileId: string) => {
-		if (fg('aifc_page_create_with_rovo_include_infographics')) {
+		if (expValEquals('aifc_page_create_with_rovo_include_infographics', 'isEnabled', true)) {
 			this.props.pluginInjectionApi?.core?.actions.execute(({ tr }) =>
 				tr.setMeta(mediaStateKey, { type: 'PREVIEW_RENDERED', fileId }),
 			);

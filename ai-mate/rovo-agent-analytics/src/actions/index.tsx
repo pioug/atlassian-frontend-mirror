@@ -6,9 +6,10 @@ import {
 	useAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 
-import { ANALYTICS_CHANNEL } from '../common/constants';
+import { ANALYTICS_CHANNEL } from '../common/ANALYTICS_CHANNEL';
 import { LIBRARY_ATTRIBUTE, type EventPayload } from '../common/types';
-import { getAttributesFromContexts, getDefaultTrackEventConfig } from '../common/utils';
+import { getAttributesFromContexts } from '../common/utils/getAttributesFromContexts';
+import { getDefaultTrackEventConfig } from '../common/utils/getDefaultTrackEventConfig';
 
 const globalEventConfig = getDefaultTrackEventConfig();
 

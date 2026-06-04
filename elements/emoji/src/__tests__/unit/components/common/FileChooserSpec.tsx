@@ -2,14 +2,10 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { fg } from '@atlaskit/platform-feature-flags';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/external/adapter';
 import { getFiles } from '@atlaskit/pragmatic-drag-and-drop/external/file';
 import FileChooser, { dropzoneTestId } from '../../../../components/common/FileChooser';
-
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn().mockReturnValue(false),
-}));
 
 jest.mock('@atlaskit/pragmatic-drag-and-drop/external/adapter', () => ({
 	dropTargetForExternal: jest.fn().mockReturnValue(jest.fn()),
@@ -23,11 +19,18 @@ jest.mock('@atlaskit/pragmatic-drag-and-drop/external/file', () => ({
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('File Chooser', () => {
 	let user: ReturnType<typeof userEvent.setup>;
+	let getExperimentValueSpy: jest.SpiedFunction<typeof FeatureGates.getExperimentValue>;
 
 	beforeEach(() => {
 		user = userEvent.setup();
 		jest.clearAllMocks();
-		jest.mocked(fg).mockReturnValue(false);
+		getExperimentValueSpy = jest.spyOn(FeatureGates, 'getExperimentValue').mockImplementation(
+			(_experimentName, _parameterName, defaultValue) => defaultValue,
+		);
+	});
+
+	afterEach(() => {
+		getExperimentValueSpy.mockRestore();
 	});
 
 	it('is displayed to the user', async () => {
@@ -59,7 +62,10 @@ describe('File Chooser', () => {
 	});
 
 	it('cancels native file drag events on the dropzone', async () => {
-		jest.mocked(fg).mockImplementation((flagName) => flagName === 'platform_emoji_picker_refresh');
+		jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
+			(experimentName, _parameterName, defaultValue) =>
+				experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
+		);
 
 		render(<FileChooser label="drop a file" />);
 
@@ -80,7 +86,10 @@ describe('File Chooser', () => {
 	});
 
 	it('passes dropped files to onChange via the existing synthetic input event shape', async () => {
-		jest.mocked(fg).mockImplementation((flagName) => flagName === 'platform_emoji_picker_refresh');
+		jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
+			(experimentName, _parameterName, defaultValue) =>
+				experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
+		);
 
 		const file = new File(['hello'], 'emoji.png', { type: 'image/png' });
 		const onChange = jest.fn();

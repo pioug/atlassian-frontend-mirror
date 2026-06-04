@@ -7,6 +7,7 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import type { EmojiDescription } from '../../types';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import Emoji from './Emoji';
 import { TONESELECTOR_KEYBOARD_KEYS_SUPPORTED } from '../../util/constants';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -83,7 +84,7 @@ export interface Props {
 const handleKeyDown = (props: Props, event: React.KeyboardEvent) => {
 	if (
 		(event.key === 'ArrowLeft' || event.key === 'ArrowRight') &&
-		fg('platform_emoji_picker_refresh')
+		FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
 	) {
 		event.preventDefault();
 		event.stopPropagation();
@@ -121,7 +122,7 @@ export const EmojiRadioButton: React.ForwardRefExoticComponent<
 				defaultChecked={defaultChecked}
 				onClick={() => props.onSelected?.()}
 				onKeyDown={(event) => handleKeyDown(props, event)}
-				onChange={fg('platform_emoji_picker_refresh') ? (e) => e.preventDefault() : undefined}
+				onChange={FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (e) => e.preventDefault() : undefined}
 			/>
 			<Emoji
 				emoji={emoji}

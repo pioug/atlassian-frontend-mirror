@@ -375,6 +375,45 @@ describe('getVCMetrics', () => {
 		expect(result).toEqual(expectedVCResult);
 	});
 
+	it('should pass includeRawData as false when raw data sampling is disabled and always emit raw-handler gate is off', async () => {
+		const mockVCObserver = createMockVCObserver();
+		const interaction: InteractionMetrics = {
+			type: 'page_load',
+			start: 0,
+			end: 100,
+			ufoName: 'test',
+			vcObserver: mockVCObserver,
+		} as unknown as InteractionMetrics;
+
+		await getVCMetrics(interaction);
+
+		expect(mockVCObserver.getVCResult).toHaveBeenCalledWith(
+			expect.objectContaining({
+				includeRawData: false,
+			}),
+		);
+	});
+
+	it('should force includeRawData when always emit raw-handler gate is enabled', async () => {
+		enabledFg.add('platform_ufo_always_emit_raw_handler');
+		const mockVCObserver = createMockVCObserver();
+		const interaction: InteractionMetrics = {
+			type: 'page_load',
+			start: 0,
+			end: 100,
+			ufoName: 'test',
+			vcObserver: mockVCObserver,
+		} as unknown as InteractionMetrics;
+
+		await getVCMetrics(interaction);
+
+		expect(mockVCObserver.getVCResult).toHaveBeenCalledWith(
+			expect.objectContaining({
+				includeRawData: true,
+			}),
+		);
+	});
+
 	it('should pass rawDataStopTime when end3p is set on interaction', async () => {
 		const mockVCObserver = createMockVCObserver();
 		const interaction: InteractionMetrics = {

@@ -1,6 +1,6 @@
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 
-import type { EditorAppearanceComponentProps } from '../types';
+import type { EditorAppearanceComponentProps } from '../types/editor-appearance-component';
 import Chromeless from '../ui/Appearance/Chromeless';
 import { CommentEditorWithIntl as Comment } from '../ui/Appearance/Comment/Comment';
 import { FullPageEditor as FullPage } from '../ui/Appearance/FullPage/FullPage';

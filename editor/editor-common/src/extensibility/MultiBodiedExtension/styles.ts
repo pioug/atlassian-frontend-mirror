@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled -- Pre-existing lint debt surfaced by this mechanical type-import-only PR. */
+/* eslint-disable @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766 */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
@@ -12,6 +13,45 @@ import { wrapperDefault } from '../Extension/styles';
 export const mbeExtensionWrapperCSSStyles: SerializedStyles = css(wrapperDefault, {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-margin-styles': {
+		marginTop: token('space.300'),
+		marginLeft: token('space.negative.250'),
+		marginRight: token('space.negative.250'),
+	},
+	cursor: 'pointer',
+	marginTop: token('space.250'),
+	marginBottom: token('space.200'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.extension-title': {
+		display: 'flex',
+		alignItems: 'center',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+		lineHeight: '16px !important',
+		marginBottom: token('space.100'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+		marginLeft: `${token('space.050')} !important`,
+		marginRight: token('space.100'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+		paddingTop: `${token('space.100')} !important`,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.with-border': {
+		boxShadow: `0 0 0 1px ${token('color.border')}`,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.with-hover-border': {
+		boxShadow: `0 0 0 1px ${token('color.border.input')}`,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.with-padding-background-styles': {
+		padding: `${token('space.100')} ${token('space.250')}`,
+		background: 'transparent',
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+export const mbeExtensionWrapperCSSStylesOld: SerializedStyles = css(wrapperDefault, {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.with-margin-styles': {
 		marginTop: 0,
 		marginLeft: token('space.negative.150'),
 		marginRight: token('space.negative.150'),
@@ -23,7 +63,7 @@ export const mbeExtensionWrapperCSSStyles: SerializedStyles = css(wrapperDefault
 	'.extension-title': {
 		display: 'flex',
 		alignItems: 'center',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		lineHeight: '16px !important',
 		marginBottom: token('space.100'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
@@ -49,6 +89,23 @@ export const mbeExtensionWrapperCSSStyles: SerializedStyles = css(wrapperDefault
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const overlayStyles: SerializedStyles = css({
+	borderRadius: token('radius.small', '3px'),
+	position: 'absolute',
+	width: '100%',
+	height: '100%',
+	opacity: 0,
+	pointerEvents: 'none',
+	transition: 'opacity 0.3s',
+	zIndex: 1,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.with-margin': {
+		marginTop: token('space.negative.100'),
+		marginLeft: token('space.negative.250'),
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const overlayStylesOld: SerializedStyles = css({
 	borderRadius: token('radius.small', '3px'),
 	position: 'absolute',
 	width: '100%',

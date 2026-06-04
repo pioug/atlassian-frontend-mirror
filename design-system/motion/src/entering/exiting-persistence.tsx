@@ -202,10 +202,12 @@ const ExitingPersistence: React.MemoExoticComponent<
 		setChildren([currentChildren as any, children]);
 	}
 
-	const missingKeys = getMissingKeys(current, previous);
+	const nextChildren = currentChildren !== children ? childrenToArray(children) : current;
+	const missingKeys = getMissingKeys(nextChildren, previous);
 	const isSomeChildRemoved = !!missingKeys.size;
 
-	let visibleChildren = current;
+	let visibleChildren =
+		!isSomeChildRemoved && currentChildren !== children ? nextChildren : current;
 
 	if (isSomeChildRemoved) {
 		visibleChildren = spliceNewElementsIntoPrevious(current, previous);
@@ -235,7 +237,7 @@ const ExitingPersistence: React.MemoExoticComponent<
 								setChildren([null, children]);
 								setExitingChildren([]);
 							}
-						}
+					  }
 					: undefined,
 			});
 		}) as ElementWithKey[];

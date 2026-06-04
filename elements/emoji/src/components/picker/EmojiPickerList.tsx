@@ -8,7 +8,7 @@ import React, {
 	useState,
 } from 'react';
 import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
-import { fg } from '@atlaskit/platform-feature-flags';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import {
 	customCategory,
 	defaultEmojiPickerSize,
@@ -249,7 +249,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 		category: CategoryGroupKey,
 	) => {
 		if (!categoryToGroupMap[category]) {
-			const categoryDefinition = fg('platform_emoji_picker_refresh')
+			const categoryDefinition = FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
 				? CategoryDescriptionMapNew[category]
 				: CategoryDescriptionMap[category];
 			categoryToGroupMap[category] = {
@@ -290,7 +290,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 						onDelete: onEmojiDelete,
 						onMouseMove: onEmojiActive,
 						onFocus: onEmojiActive,
-						onMouseLeave: fg('platform_emoji_picker_refresh') ? onEmojiLeave : undefined,
+						onMouseLeave: FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? onEmojiLeave : undefined,
 					}),
 				);
 			}
@@ -311,10 +311,10 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 			items.push(new LoadingItem());
 		} else {
 			if (query) {
-				const search = fg('platform_emoji_picker_refresh')
+				const search = FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
 					? CategoryDescriptionMapNew.SEARCH
 					: CategoryDescriptionMap.SEARCH;
-				if (emojis.length === 0 && fg('platform_emoji_picker_refresh')) {
+				if (emojis.length === 0 && FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
 					// Show a "No results" category heading, then a no-results illustration below it
 					items.push(
 						new CategoryHeadingItem({
@@ -478,11 +478,11 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 	}, [virtualItems, categoriesChanged]);
 
 	const virtualListHeight = useMemo(() => {
-		if (query && emojis.length === 0 && fg('platform_emoji_picker_refresh')) {
+		if (query && emojis.length === 0 && FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
 			// No-results state: expand the list height to fit heading + illustration without scrolling
 			return sizes.categoryHeadingHeight + sizes.noResultsHeight + emojiPickerHeightOffset(size);
 		}
-		return fg('platform_emoji_picker_refresh')
+		return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
 			? sizes.listHeightNew + emojiPickerHeightOffset(size)
 			: sizes.listHeight + emojiPickerHeightOffset(size);
 	}, [size, query, emojis.length]);

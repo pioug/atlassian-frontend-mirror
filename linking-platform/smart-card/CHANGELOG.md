@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 44.23.0
+
+### Minor Changes
+
+- [`d890e9e688ce5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d890e9e688ce5) -
+  Exposed subproduct and product for jira and townsquare
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.22.0
+
+### Minor Changes
+
+- [`be7cb592d8951`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be7cb592d8951) -
+  NAVX-5108 Implementing UI for new inline tailored rovo cta
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.21.0
 
 ### Minor Changes

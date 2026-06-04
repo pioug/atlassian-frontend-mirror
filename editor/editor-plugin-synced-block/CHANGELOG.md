@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 9.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.2
+
+### Patch Changes
+
+- [`ed89ab85318b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed89ab85318b9) -
+  [ux] Allow text selection and copying within reference synced blocks in the editor
+
 ## 9.0.1
 
 ### Patch Changes

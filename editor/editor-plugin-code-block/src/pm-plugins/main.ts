@@ -22,6 +22,10 @@ import { ignoreFollowingMutations, resetShouldIgnoreFollowingMutations } from '.
 import type { CodeBlockPlugin } from '../index';
 import { codeBlockNodeView } from '../nodeviews/code-block';
 import { codeBlockClassNames } from '../ui/class-names';
+import {
+	applyFormatCodeMeta,
+	mapPendingFormats,
+} from '../utils/format-code/format-code-state';
 
 import { ACTIONS } from './actions';
 import {
@@ -132,7 +136,9 @@ export const createPlugin = ({
 				return {
 					pos: node ? node.pos : null,
 					contentCopied: false,
+					formatCodeErrors: {},
 					isNodeSelected: false,
+					pendingFormats: {},
 					shouldIgnoreFollowingMutations: false,
 					decorations: DecorationSet.create(state.doc, initialDecorations),
 				};
@@ -179,7 +185,23 @@ export const createPlugin = ({
 						isNodeSelected: tr.selection instanceof NodeSelection,
 						decorations: updatedDecorationSet,
 					};
-					return newPluginState;
+
+					if (!expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
+						return newPluginState;
+					}
+
+					// Successful format results change the doc and carry format meta.
+					const formatCodePluginState = applyFormatCodeMeta(newPluginState, meta);
+
+					return {
+						...formatCodePluginState,
+						// Pending format requests can outlive unrelated document edits.
+						pendingFormats: mapPendingFormats(
+							formatCodePluginState.pendingFormats,
+							tr,
+							newState,
+						),
+					};
 				}
 
 				if (tr.selectionSet) {
@@ -203,6 +225,12 @@ export const createPlugin = ({
 						shouldIgnoreFollowingMutations: meta.data,
 					};
 				}
+
+				if (expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
+					// Failed/unchanged format results and dismissals are meta-only.
+					return applyFormatCodeMeta(pluginState, meta);
+				}
+
 				return pluginState;
 			},
 		},

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 
-import { CSID_QUERY_PARAM } from '../constants';
+import { CSID_QUERY_PARAM } from '../CSID_QUERY_PARAM';
 
 let CACHED_CSID: string | null = null;
 

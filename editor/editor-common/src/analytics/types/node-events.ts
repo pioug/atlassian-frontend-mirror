@@ -169,6 +169,24 @@ type DistributedLayoutColumnAEP = TrackAEP<
 	undefined
 >;
 
+type ResizedLayoutColumnAEP = TrackAEP<
+	ACTION.DRAGGED,
+	ACTION_SUBJECT.DOCUMENT,
+	ACTION_SUBJECT_ID.LAYOUT_COLUMN,
+	{
+		/** Total number of columns in the layout section */
+		columnCount: number;
+		inputMethod: INPUT_METHOD.DRAG;
+		/** 0-based index of the left column involved in the resize */
+		leftColumnIndex: number;
+		/** Final width percentage of the left column after resize */
+		leftColumnWidth: number;
+		/** Final width percentage of the right column after resize */
+		rightColumnWidth: number;
+	},
+	undefined
+>;
+
 type DeletedExpandAEP = TrackAEP<
 	ACTION.DELETED,
 	ACTION_SUBJECT.EXPAND | ACTION_SUBJECT.NESTED_EXPAND,
@@ -206,6 +224,7 @@ export type NodeEventPayload =
 	| DeletedLayoutColumnAEP
 	| UpdatedLayoutColumnVerticalAlignmentAEP
 	| DistributedLayoutColumnAEP
+	| ResizedLayoutColumnAEP
 	| DeletedExpandAEP
 	| NodeDeletedAEP
 	| ChangeSmartLinkAEP

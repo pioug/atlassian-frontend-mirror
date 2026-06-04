@@ -15,7 +15,8 @@ import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 import Modal, { ModalHeader } from '@atlaskit/modal-dialog';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
-import { checkForModal, clickAreaClickHandler } from '../../../../ui/Addon/click-area-helper';
+import { checkForModal } from '../../../../ui/Addon/checkForModal';
+import { clickAreaClickHandler } from '../../../../ui/Addon/click-area-helper';
 
 jest.mock('@atlaskit/editor-common/selection', () => ({
 	__esModule: true,

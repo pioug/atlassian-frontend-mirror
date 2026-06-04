@@ -1,15 +1,13 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { EditorPluginInjectionAPI, EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type { EditorPlugin } from '@atlaskit/editor-common/types';
-import type { ScrollGutterPluginOptions } from '@atlaskit/editor-plugins/base';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type';
 
 import type { DefaultPresetPluginOptions } from '../../src/presets/default';
-import type { EditorProps } from '../types';
-import type { EditorPluginFeatureProps } from '../types/editor-props';
+import type { EditorPluginFeatureProps, EditorProps } from '../types/editor-props';
 import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
-import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 
+import { getScrollGutterOptions } from './getScrollGutterOptions';
 const isCodeBlockAllowed = (options?: Pick<BlockTypePluginOptions, 'allowBlockType'>) => {
 	const exclude =
 		options && options.allowBlockType && options.allowBlockType.exclude
@@ -18,18 +16,6 @@ const isCodeBlockAllowed = (options?: Pick<BlockTypePluginOptions, 'allowBlockTy
 
 	return exclude.indexOf('codeBlock') === -1;
 };
-
-export function getScrollGutterOptions(props: EditorProps): ScrollGutterPluginOptions | undefined {
-	const { appearance } = props;
-
-	if (fullPageCheck(appearance)) {
-		// Full Page appearance uses a scrollable div wrapper.
-		return {
-			getScrollElement: () => document.querySelector('.fabric-editor-popup-scroll-parent'),
-		};
-	}
-	return undefined;
-}
 
 export function getDefaultPresetOptionsFromEditorProps(
 	props: EditorProps,

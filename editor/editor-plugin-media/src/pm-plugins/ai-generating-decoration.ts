@@ -152,7 +152,7 @@ export function createAIGeneratingDecorationPlugin(): SafePlugin {
 							const ids = new Map(pluginState.generatingMediaIds);
 							ids.set(meta.mediaId, meta.source ?? 'maui');
 							const hasCwrIds =
-								fg('aifc_page_create_with_rovo_include_infographics') &&
+								expValEquals('aifc_page_create_with_rovo_include_infographics', 'isEnabled', true) &&
 								[...ids.values()].some((s) => s === 'cwr');
 							const newDecoSet = buildDecorationSet(newState.doc, ids);
 
@@ -168,7 +168,7 @@ export function createAIGeneratingDecorationPlugin(): SafePlugin {
 							ids.delete(meta.mediaId);
 
 							const hasCwrIds =
-								fg('aifc_page_create_with_rovo_include_infographics') &&
+								expValEquals('aifc_page_create_with_rovo_include_infographics', 'isEnabled', true) &&
 								[...ids.values()].some((s) => s === 'cwr');
 							const newDecoSet = buildDecorationSet(newState.doc, ids);
 
@@ -192,7 +192,7 @@ export function createAIGeneratingDecorationPlugin(): SafePlugin {
 				// entire document on every chunk and map() drops decorations whose
 				// positions can't be mapped.
 				const hasCwrIds =
-					fg('aifc_page_create_with_rovo_include_infographics') &&
+					expValEquals('aifc_page_create_with_rovo_include_infographics', 'isEnabled', true) &&
 					[...pluginState.generatingMediaIds.values()].some((s) => s === 'cwr');
 				if (tr.docChanged && hasCwrIds) {
 					const rebuilt = buildDecorationSet(newState.doc, pluginState.generatingMediaIds);

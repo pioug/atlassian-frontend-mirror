@@ -28,7 +28,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorActions } from '../../../index';
-import type { PrimaryToolbarComponents } from '../../../types';
+import type { PrimaryToolbarComponents } from '../../../types/editor-props';
 import { ToolbarPortalMountPoint, useToolbarPortal } from '../../Toolbar/ToolbarPortal';
 import { ToolbarWithSizeDetector as Toolbar } from '../../Toolbar/ToolbarWithSizeDetector';
 
@@ -37,13 +37,11 @@ import {
 	MainToolbarForFirstChildWrapper,
 	MainToolbarForSecondChildWrapper,
 } from './CustomToolbarWrapper';
-import {
-	CustomToolbarWrapperMigration,
-	MainToolbarIconBeforeMigration,
-	MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT,
-	NonCustomToolbarWrapperMigration,
-} from './MainToolbar';
+import { CustomToolbarWrapperMigration } from './CustomToolbarWrapperMigration';
+import { MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT } from './MainToolbar';
+import { MainToolbarIconBeforeMigration } from './MainToolbarIconBeforeMigration';
 import { MainToolbarWrapper } from './MainToolbarWrapper';
+import { NonCustomToolbarWrapperMigration } from './NonCustomToolbarWrapperMigration';
 
 export type ToolbarEditorPlugins = [
 	OptionalPlugin<AnalyticsPlugin>,

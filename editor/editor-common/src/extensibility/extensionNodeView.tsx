@@ -263,14 +263,28 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 	}
 
 	/**
-	 * When interacting with input elements inside an extension's body, the events
-	 * bubble up to the editor and get handled by it. This almost always gets in the way
-	 * of being able to actually interact with said input in the extension, i.e.
-	 * typing inside a text field (in an extension body) will print the text in the editor
-	 * content area instead. This change prevents the editor view from trying to handle these events,
-	 * when the target of the event is an input element, so the extension can.
+	 * Prevents ProseMirror from handling events that belong to the extension's React UI.
+	 *
+	 * For multibodied extensions: the node consists of a React app (e.g. tab bar) that controls
+	 * frames, and the editable frames themselves. Events inside frames must reach ProseMirror
+	 * for normal editing; events in the surrounding React app (buttons, navigation) are stopped
+	 * so ProseMirror doesn't create a NodeSelection on the entire node.
+	 *
+	 * For other extensions: input/textarea events are stopped so users can interact
+	 * with form elements inside the extension body without the editor intercepting them.
 	 */
 	stopEvent(event: Event): boolean {
+		if (this.node.type.name === 'multiBodiedExtension') {
+			const target = event.target;
+			if (target instanceof Element) {
+				if (target.closest('[data-multibodiedextension-frames]')) {
+					return false;
+				}
+				return !!target.closest('[data-multiBodiedExtension-container]');
+			}
+			return false;
+		}
+
 		if (fg('forge-ui-extensionnodeview-stop-event-for-textarea')) {
 			return (
 				event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement

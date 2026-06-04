@@ -16,20 +16,6 @@ import useUniversalPreset from './presets/useUniversalPreset';
 import type { EditorProps } from './types/editor-props';
 import editorDeprecationWarnings from './utils/editorDeprecationWarnings';
 
-export type {
-	Command,
-	CommandDispatch,
-	DomAtPos,
-	EditorAppearanceComponentProps,
-	EditorConfig,
-	EditorInstance,
-	EditorProps,
-	ExtensionConfig,
-	ExtensionProvidersProp,
-	MessageDescriptor,
-	PMPluginCreateConfig,
-} from './types';
-
 interface WrapperProps {
 	initialPluginConfiguration?: InitialPluginConfiguration;
 	props: EditorProps;

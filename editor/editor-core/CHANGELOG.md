@@ -1,5 +1,19 @@
 # @atlaskit/editor-core
 
+## 220.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 220.0.2
+
+### Patch Changes
+
+- [`ed89ab85318b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed89ab85318b9) -
+  [ux] Allow text selection and copying within reference synced blocks in the editor
+- Updated dependencies
+
 ## 220.0.1
 
 ### Patch Changes

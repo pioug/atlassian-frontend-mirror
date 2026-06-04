@@ -1,5 +1,12 @@
 # @atlaskit/link-provider
 
+## 4.6.0
+
+### Minor Changes
+
+- [`d890e9e688ce5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d890e9e688ce5) -
+  Exposed subproduct and product for jira and townsquare
+
 ## 4.5.0
 
 ### Minor Changes

@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 132.0.2
+
+### Patch Changes
+
+- [`a66bb82913543`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a66bb82913543) -
+  FF platform_editor_fix_missing_task_id cleanup
+- Updated dependencies
+
+## 132.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 132.0.0
 
 ### Patch Changes

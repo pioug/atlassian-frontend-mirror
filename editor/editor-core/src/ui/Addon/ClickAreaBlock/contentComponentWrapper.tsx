@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { ReactComponents } from '../../../types';
+import type { ReactComponents } from '../../../types/editor-props';
 
 export const ignoreAttribute = 'data-editor-content-component';
 

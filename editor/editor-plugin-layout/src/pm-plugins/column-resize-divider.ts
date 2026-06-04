@@ -1,10 +1,19 @@
 import { bind } from 'bind-event-listener';
 
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { MIN_LAYOUT_COLUMN_WIDTH_PERCENT } from './consts';
 
@@ -19,6 +28,7 @@ let dragState: {
 	 *  divider widgets and flex gaps). This is the correct denominator when converting
 	 *  a pixel delta into a percentage-point delta. */
 	columnsWidth: number;
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	hasDragged: boolean;
 	lastClientX: number;
 	leftColEl: HTMLElement;
@@ -44,6 +54,7 @@ const dispatchColumnWidths = (
 	leftColIndex: number,
 	leftWidth: number,
 	rightWidth: number,
+	editorAnalyticsAPI?: EditorAnalyticsAPI,
 ) => {
 	const { state } = view;
 	const sectionNode = state.doc.nodeAt(sectionPos);
@@ -74,6 +85,23 @@ const dispatchColumnWidths = (
 	tr.replaceWith(sectionPos + 1, sectionPos + sectionNode.nodeSize - 1, Fragment.from(newColumns));
 	tr.setMeta('layoutColumnResize', true);
 	tr.setMeta('scrollIntoView', false);
+
+	if (fg('platform_editor_layout_resize_analytics')) {
+		editorAnalyticsAPI?.attachAnalyticsEvent({
+			action: ACTION.DRAGGED,
+			actionSubject: ACTION_SUBJECT.DOCUMENT,
+			actionSubjectId: ACTION_SUBJECT_ID.LAYOUT_COLUMN,
+			attributes: {
+				columnCount: sectionNode.childCount,
+				leftColumnIndex: leftColIndex,
+				leftColumnWidth: Number(leftWidth.toFixed(2)),
+				rightColumnWidth: Number(rightWidth.toFixed(2)),
+				inputMethod: INPUT_METHOD.DRAG,
+			},
+			eventType: EVENT_TYPE.TRACK,
+		})(tr);
+	}
+
 	view.dispatch(tr);
 };
 
@@ -181,6 +209,7 @@ const onDragEnd = (clientX: number) => {
 		startLeftWidth,
 		startRightWidth,
 		unbindListeners,
+		editorAnalyticsAPI,
 	} = dragState;
 
 	unbindListeners();
@@ -209,7 +238,14 @@ const onDragEnd = (clientX: number) => {
 	rightColEl.style.flexBasis = '';
 
 	if (widths && (widths.leftWidth !== startLeftWidth || widths.rightWidth !== startRightWidth)) {
-		dispatchColumnWidths(view, sectionPos, leftColIndex, widths.leftWidth, widths.rightWidth);
+		dispatchColumnWidths(
+			view,
+			sectionPos,
+			leftColIndex,
+			widths.leftWidth,
+			widths.rightWidth,
+			editorAnalyticsAPI,
+		);
 	}
 };
 
@@ -241,6 +277,7 @@ const createColumnDividerWidget = (
 	view: EditorView,
 	sectionPos: number,
 	columnIndex: number, // index of the column to the RIGHT of this divider
+	editorAnalyticsAPI?: EditorAnalyticsAPI,
 ): HTMLElement => {
 	const ownerDoc = view.dom.ownerDocument;
 
@@ -348,6 +385,7 @@ const createColumnDividerWidget = (
 			const columnsWidth = sectionRect.width - dividersWidth - totalGap;
 
 			dragState = {
+				editorAnalyticsAPI,
 				hasDragged: false,
 				lastClientX: e.clientX,
 				rafId: null,
@@ -384,6 +422,7 @@ const createColumnDividerWidget = (
 export const getColumnDividerDecorations = (
 	state: EditorState,
 	view?: EditorView,
+	editorAnalyticsAPI?: EditorAnalyticsAPI,
 ): Decoration[] => {
 	const decorations: Decoration[] = [];
 	if (!view) {
@@ -403,7 +442,7 @@ export const getColumnDividerDecorations = (
 					decorations.push(
 						Decoration.widget(
 							widgetPos,
-							() => createColumnDividerWidget(view, sectionPos, colIndex),
+							() => createColumnDividerWidget(view, sectionPos, colIndex, editorAnalyticsAPI),
 							{
 								side: -1, // place before the position
 								key: `layout-col-divider-${pos}-${index}`,

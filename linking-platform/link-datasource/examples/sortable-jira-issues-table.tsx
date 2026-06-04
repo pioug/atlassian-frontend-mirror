@@ -10,13 +10,12 @@ import fetchMock from 'fetch-mock/cjs/client';
 
 import { DatasourceTableView, JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { bug, story, task } from '@atlaskit/link-test-helpers/images';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { FakeModalDialogContainer } from '../examples-helpers/fakeModalDialogContainer';
 import SmartLinkClient from '../examples-helpers/smartLinkCustomClient';
 import { DatasourceExperienceIdProvider } from '../src/contexts/datasource-experience-id';
-
-const mockDataRequestLatencyMs = 800;
 
 const delay = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
 
@@ -30,17 +29,21 @@ const columnCustomSizes = {
 
 const schema = {
 	properties: [
+		{ key: 'issuetype', title: 'Type', type: 'icon' as const },
 		{ key: 'key', title: 'Key', type: 'link' as const },
 		{ key: 'summary', title: 'Summary', type: 'string' as const },
 		{ key: 'status', title: 'Status', type: 'status' as const },
 		{ key: 'assignee', title: 'Assignee', type: 'user' as const },
 		{ key: 'priority', title: 'Priority', type: 'string' as const },
 	],
-	defaultProperties: ['key', 'summary', 'status', 'assignee', 'priority'],
+	defaultProperties: ['issuetype', 'key', 'summary', 'status', 'assignee', 'priority'],
 };
+
+const visibleColumnKeys = ['issuetype', 'key', 'summary', 'status', 'assignee', 'priority'];
 
 type MockIssue = {
 	assignee?: string;
+	issuetype: 'Bug' | 'Story' | 'Task';
 	key: string;
 	priority: 'High' | 'Low' | 'Medium';
 	status: 'Done' | 'In Progress' | 'To do';
@@ -49,6 +52,7 @@ type MockIssue = {
 
 const issues: MockIssue[] = [
 	{
+		issuetype: 'Story',
 		key: 'SORT-103',
 		summary: 'Write migration guide for Jira list sorting',
 		status: 'In Progress',
@@ -56,6 +60,7 @@ const issues: MockIssue[] = [
 		priority: 'High',
 	},
 	{
+		issuetype: 'Task',
 		key: 'SORT-101',
 		summary: 'Add renderer-only column sort affordance',
 		status: 'To do',
@@ -63,6 +68,7 @@ const issues: MockIssue[] = [
 		priority: 'Medium',
 	},
 	{
+		issuetype: 'Bug',
 		key: 'SORT-104',
 		summary: 'Verify JQL ORDER BY update on header click',
 		status: 'Done',
@@ -70,6 +76,7 @@ const issues: MockIssue[] = [
 		priority: 'Low',
 	},
 	{
+		issuetype: 'Task',
 		key: 'SORT-102',
 		summary: 'Keep sorting state non-persistent in renderer',
 		status: 'To do',
@@ -82,7 +89,7 @@ const getOrderBy = (jql: unknown): { direction: 'ASC' | 'DESC'; field: keyof Moc
 		return undefined;
 	}
 
-	const match = jql.match(/ORDER\s+BY\s+(key|summary|status|assignee|priority)\s+(ASC|DESC)/i);
+	const match = jql.match(/ORDER\s+BY\s+(issuetype|key|summary|status|assignee|priority)\s+(ASC|DESC)/i);
 	if (!match) {
 		return undefined;
 	}
@@ -118,7 +125,17 @@ const getStatusAppearance = (status: MockIssue['status']) => {
 	return 'default';
 };
 
-const installMocks = () => {
+const getIssueTypeIcon = (issueType: MockIssue['issuetype']) => {
+	if (issueType === 'Bug') {
+		return bug;
+	}
+	if (issueType === 'Task') {
+		return task;
+	}
+	return story;
+};
+
+const installMocks = (mockDataRequestLatencyMs: number) => {
 	fetchMock.restore();
 
 	fetchMock.post(/object-resolver\/datasource\/[^/]+\/fetch\/details/, async () => ({
@@ -142,7 +159,9 @@ const installMocks = () => {
 			const body = request.body ? JSON.parse(request.body) : {};
 			const sortedIssues = getSortedIssues(body.parameters?.jql);
 
-			await delay(mockDataRequestLatencyMs);
+			if (mockDataRequestLatencyMs > 0) {
+				await delay(mockDataRequestLatencyMs);
+			}
 
 			return {
 				meta: {
@@ -159,6 +178,12 @@ const installMocks = () => {
 				data: {
 					items: sortedIssues.map((issue) => ({
 						ari: { data: `ari:cloud:jira:example:issue/${issue.key}` },
+						issuetype: {
+							data: {
+								label: issue.issuetype,
+								source: getIssueTypeIcon(issue.issuetype),
+							},
+						},
 						key: {
 							data: {
 								style: { appearance: 'key' },
@@ -188,19 +213,31 @@ const installMocks = () => {
 	);
 };
 
-const useInstallMocks = () => {
+const useInstallMocks = (mockDataRequestLatencyMs: number) => {
 	const [ready, setReady] = useState(false);
 
 	useEffect(() => {
-		installMocks();
+		installMocks(mockDataRequestLatencyMs);
 		setReady(true);
-	}, []);
+	}, [mockDataRequestLatencyMs]);
 
 	return ready;
 };
 
 export default (): React.JSX.Element => {
-	const ready = useInstallMocks();
+	return <SortableJiraIssuesTable />;
+};
+
+type SortableJiraIssuesTableProps = {
+	jql?: string;
+	mockDataRequestLatencyMs?: number;
+};
+
+export const SortableJiraIssuesTable = ({
+	jql = 'project = SORT',
+	mockDataRequestLatencyMs = 800,
+}: SortableJiraIssuesTableProps = {}): React.JSX.Element => {
+	const ready = useInstallMocks(mockDataRequestLatencyMs);
 
 	if (!ready) {
 		return <Box padding="space.200">Installing mocks…</Box>;
@@ -214,13 +251,19 @@ export default (): React.JSX.Element => {
 						datasourceId={JIRA_LIST_OF_LINKS_DATASOURCE_ID}
 						parameters={{
 							cloudId: 'sortable-jira-example-cloud-id',
-							jql: 'project = SORT',
+							jql,
 						}}
-						visibleColumnKeys={['key', 'summary', 'status', 'assignee', 'priority']}
+						visibleColumnKeys={visibleColumnKeys}
 						columnCustomSizes={columnCustomSizes}
 					/>
 				</FakeModalDialogContainer>
 			</SmartCardProvider>
 		</DatasourceExperienceIdProvider>
 	);
+};
+
+export const SortableJiraIssuesTableNoLatency = ({
+	jql = 'project = SORT',
+}: SortableJiraIssuesTableProps = {}): React.JSX.Element => {
+	return <SortableJiraIssuesTable jql={jql} mockDataRequestLatencyMs={0} />;
 };

@@ -65,7 +65,7 @@ type TypeAheadRowEntry =
 	| { section: TypeAheadResolvedSection; type: 'section' }
 	| { itemIndex: number; type: 'item' };
 
-const buildTypeAheadRows = ({
+export const buildTypeAheadRows = ({
 	itemsLength,
 	sections,
 }: {
@@ -176,13 +176,13 @@ const TypeAheadListComponent = React.memo(
 			return rowIndexByItemIndex;
 		}, [listRows]);
 
+		const selectedItemRowIndex =
+			selectedIndex >= 0 ? (itemRowIndexByItemIndex.get(selectedIndex) ?? -1) : -1;
+
 		const populatedSectionCount = useMemo(
 			() => listRows.filter((row) => row.type === 'section').length,
 			[listRows],
 		);
-
-		const selectedItemRowIndex =
-			selectedIndex >= 0 ? (itemRowIndexByItemIndex.get(selectedIndex) ?? -1) : -1;
 
 		const onItemsRendered = useCallback(
 			(props: {
@@ -450,9 +450,15 @@ const TypeAheadListComponent = React.memo(
 
 		const renderRow: ListRowRenderer = ({ index, key, style, parent, isScrolling, isVisible }) => {
 			const currentRow = listRows[index];
+
 			if (!currentRow) {
 				return null;
 			}
+
+			const shouldHideSingleSectionTitle =
+				currentRow.type === 'section' &&
+				populatedSectionCount === 1 &&
+				!currentRow.section.showTitleWhenOnlySection;
 			return (
 				<CellMeasurer key={key} cache={cache} parent={parent} columnIndex={0} rowIndex={index}>
 					{({ measure }) => (
@@ -467,7 +473,9 @@ const TypeAheadListComponent = React.memo(
 							onMouseMove={(e) => onMouseMove(e, currentRow)}
 						>
 							{currentRow.type === 'section' ? (
-								populatedSectionCount === 1 ? null : (
+								// Preserve the existing collapsed-title behaviour for single-section results unless
+								// the gated section title API explicitly asks for the title to remain visible.
+								shouldHideSingleSectionTitle ? null : (
 									<Box paddingInline="space.150" paddingBlock="space.050">
 										<Text as="span" size="small" color="color.text.subtle" weight="medium">
 											{currentRow.section.title}

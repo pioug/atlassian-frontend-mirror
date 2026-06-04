@@ -473,6 +473,22 @@ describe('<ExitingPersistence />', () => {
 		expect(screen.getByTestId('element2')).toBeInTheDocument();
 	});
 
+	it('should immediately show updated content when same-key child changes while persisted', () => {
+		const { rerender } = render(
+			<ExitingPersistence>
+				<Motion id="target" color="red" />
+			</ExitingPersistence>,
+		);
+
+		rerender(
+			<ExitingPersistence>
+				<Motion id="target" color="blue" />
+			</ExitingPersistence>,
+		);
+
+		expect(screen.getByTestId('target')).toHaveAttribute('data-color', 'blue');
+	});
+
 	it('should re-render once', () => {
 		const onRender = jest.fn();
 		const { rerender } = render(

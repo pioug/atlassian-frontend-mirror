@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-card
 
+## 17.2.0
+
+### Minor Changes
+
+- [`aa0f628e5ad3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa0f628e5ad3c) -
+  Adds tooltips to the paste menu "Display link as" buttons (URL, Inline, Card, Embed) and renames
+  the section title from "Display as" to "Display link as".
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.0
+
+### Minor Changes
+
+- [`9b4d6873a7ed0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b4d6873a7ed0) -
+  Delegate the paste-display-as menu's single-link check to the paste-options-toolbar plugin's
+  shared `notSingleLinkRule` via its `actions.getPasteMenuRules()` API, reached through the existing
+  structural-cast pattern. Keeps the predicate in one place and avoids duplicating it across the
+  package cycle.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.0
 
 ### Patch Changes

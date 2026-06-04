@@ -6,13 +6,13 @@ import SearchIcon from '@atlaskit/icon/core/search';
 import TextField from '@atlaskit/textfield';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 import { css, jsx } from '@compiled/react';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDebouncedCallback } from 'use-debounce';
 import type { Styles } from '../../types';
 import { EMOJI_SEARCH_DEBOUNCE } from '../../util/constants';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { messages } from '../i18n';
 
 const input = css({
@@ -144,7 +144,7 @@ export const EmojiPickerListSearch = (props: Props): JSX.Element => {
 							})
 					: null}
 			</VisuallyHidden>
-			{fg('platform_emoji_picker_refresh') ? (
+			{FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
 				<div css={textFieldWrapperNew}>
 					<TextField
 						role="searchbox"

@@ -1,9 +1,11 @@
 import React from 'react';
 
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge, { LozengeDropdownTrigger } from '@atlaskit/lozenge';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
+
+const __noop = () => {};
 
 const fixedWidthStyles = xcss({
 	width: '400px',
@@ -86,6 +88,45 @@ export default (): React.JSX.Element => (
 			<Lozenge appearance="success" testId="lozenge-truncated-by-container-pc">
 				very very very wide text which truncates
 			</Lozenge>
+		</Box>
+
+		<Text weight="medium" as="p">
+			LozengeDropdownTrigger — Constrained by maxWidth
+		</Text>
+		<LozengeDropdownTrigger
+			appearance="success"
+			isSelected={false}
+			onClick={__noop}
+			maxWidth={150}
+			testId="trigger-truncated-by-maxWidth"
+		>
+			very very very wide text which truncates
+		</LozengeDropdownTrigger>
+
+		<Text weight="medium">LozengeDropdownTrigger — Constrained by container size</Text>
+		<Box xcss={fixedContainerStyles}>
+			<LozengeDropdownTrigger
+				appearance="success"
+				isSelected={false}
+				onClick={__noop}
+				testId="trigger-truncated-by-container-size"
+			>
+				very very very wide text which truncates
+			</LozengeDropdownTrigger>
+		</Box>
+
+		<Text weight="medium">
+			LozengeDropdownTrigger — In a % width context truncates at lowest of % and maxWidth
+		</Text>
+		<Box xcss={percentageWidthStyles}>
+			<LozengeDropdownTrigger
+				appearance="success"
+				isSelected={false}
+				onClick={__noop}
+				testId="trigger-truncated-by-container-pc"
+			>
+				very very very wide text which truncates
+			</LozengeDropdownTrigger>
 		</Box>
 	</Stack>
 );

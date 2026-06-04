@@ -17,7 +17,8 @@ import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import type { EditorAppearanceComponentProps, PrimaryToolbarComponents } from '../../../types';
+import type { EditorAppearanceComponentProps } from '../../../types/editor-appearance-component';
+import type { PrimaryToolbarComponents } from '../../../types/editor-props';
 import { getPrimaryToolbarComponents } from '../../Toolbar/getPrimaryToolbarComponents';
 
 import { FullPageEditorWrapperCompiled } from './FullPage-compiled';

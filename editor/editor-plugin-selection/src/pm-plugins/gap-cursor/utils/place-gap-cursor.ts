@@ -1,6 +1,7 @@
 import type { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { Side } from '@atlaskit/editor-common/selection';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getComputedStyleForLayoutMode, getLayoutModeFromTargetNode, isLeftCursor } from '../utils';
 
@@ -18,9 +19,19 @@ const nestedCases: Record<string, string> = {
 	'datasourceView-content-wrap': '.datasourceView-content-inner-wrap',
 };
 
+const getNestedSelector = (key: string): string => {
+	if (
+		key === 'multiBodiedExtensionView-content-wrap' &&
+		fg('confluence_frontend_native_tabs_extension')
+	) {
+		return '.multiBodiedExtension--wrapper';
+	}
+	return nestedCases[key];
+};
+
 const computeNestedStyle = (dom: HTMLElement) => {
 	const foundKey = Object.keys(nestedCases).find((className) => dom.classList.contains(className));
-	const nestedSelector = foundKey && nestedCases[foundKey];
+	const nestedSelector = foundKey && getNestedSelector(foundKey);
 
 	if (nestedSelector) {
 		const nestedElement = dom.querySelector(nestedSelector);

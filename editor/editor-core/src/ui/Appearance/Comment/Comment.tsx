@@ -29,7 +29,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
-import type { EditorAppearanceComponentProps } from '../../../types';
+import type { EditorAppearanceComponentProps } from '../../../types/editor-appearance-component';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import ClickAreaBlock from '../../Addon/ClickAreaBlock';

@@ -74,6 +74,16 @@ export type TypeAheadSection = {
 	title: string;
 };
 
+export type TypeAheadSectionTitleUpdate = {
+	id: string;
+	/**
+	 * Keeps this section's title visible when it is the only section with matching items.
+	 * Does not render the title for an empty section.
+	 */
+	showTitleWhenOnlySection?: boolean;
+	title: string;
+};
+
 export type TypeAheadForceSelect = (props: TypeAheadForceSelectProps) => TypeAheadItem | undefined;
 
 export type MoreOptionsButtonConfig = {
@@ -110,10 +120,10 @@ export type TypeAheadHandler = {
 	/** Handler returns an array of TypeAheadItem based on query to be displayed in the TypeAhead */
 	getItems: (props: { editorState: EditorState; query: string }) => Promise<Array<TypeAheadItem>>;
 
+	getMoreOptionsButtonConfig?: (intl: IntlShape) => MoreOptionsButtonConfig;
+
 	/** Optional section definitions used by type-ahead menu to group items */
 	getSections?: (props: { intl: IntlShape }) => Array<TypeAheadSection>;
-
-	getMoreOptionsButtonConfig?: (intl: IntlShape) => MoreOptionsButtonConfig;
 
 	headless?: boolean;
 

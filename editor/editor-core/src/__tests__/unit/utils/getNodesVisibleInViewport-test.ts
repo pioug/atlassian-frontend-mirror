@@ -1,4 +1,5 @@
-import { isNodeVisible, getNodesVisibleInViewport } from '../../../utils/getNodesVisibleInViewport';
+import { getNodesVisibleInViewport } from '../../../utils/getNodesVisibleInViewport';
+import { isNodeVisible } from '../../../utils/isNodeVisible';
 
 // Mock getBoundingClientRect and window dimensions
 const mockGetBoundingClientRect = (x: number, y: number, width: number, height: number) => ({

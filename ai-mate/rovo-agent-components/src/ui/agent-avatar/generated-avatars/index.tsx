@@ -238,6 +238,13 @@ const JiraWorkAgentAvatar = lazy(
 			/* webpackChunkName: "@atlaskit-rovo-avatar-JiraWorkAgentAvatar"*/ './assets/jira-work-agent'
 		),
 );
+
+const JiraIntelligentTriageAgentAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-JiraIntelligentTriageAgentAvatar"*/ './assets/jira-intelligent-triage-agent'
+		),
+);
 /**
  * OOTB Agents avatars - end
  */
@@ -534,6 +541,12 @@ const outOfTheBoxAgentAvatar: {
 	jira_work_agent: {
 		getRender: (size: SizeType) => (
 			<JiraWorkAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
+		color: blueColor,
+	},
+	jira_intelligent_triage_agent: {
+		getRender: (size: SizeType) => (
+			<JiraIntelligentTriageAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
 		color: blueColor,
 	},

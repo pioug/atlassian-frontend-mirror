@@ -48,25 +48,52 @@
 
 import type { VersionedAgentAttributes } from '../../common/types';
 
-/**
- * Derives analytics attributes from a `StudioCreateAgentPlan`, mirroring
- * the shape produced by `getAgentPublishAnalytics` in agent-studio.
- */
-export type PlanAnalyticsAttributes = {
-	agentToolCount: number;
-	agentToolsList: string;
+export type AgentPublishAnalyticsAttributes = {
+	agentId?: string;
+	/**
+	 * Per-source knowledge map: keys are source identifiers (e.g. 'CONFLUENCE'),
+	 * values carry `enabled` flag and a comma-joined list of active 3P filter keys.
+	 */
+	agentKnowledge: Record<string, { enabled: boolean; filters: string }> | null;
+	/**
+	 * This is the total of mcpServerCount only in the base agent
+	 */
 	agentMcpServerCount: number;
-	agentKnowledge: Record<string, { enabled: boolean }> | null;
-	scenarioList: ScenarioAnalytics[];
+	/**
+	 * This is the total of agenticSkillCount only in the base agent
+	 */
+	agentSkillCount: number;
+	/**
+	 * This is the list of agenticSkillIds only in the base agent
+	 */
+	agentSkillsList: string;
+	/**
+	 * This is the total of toolCount only in the base agent
+	 */
+	agentToolCount: number;
+	/**
+	 * This is the list of toolIds only in the base agent
+	 */
+	agentToolsList: string;
+	agentType: 'AgentStudioAssistant';
+	agentVersionNumber: number | null;
+	isFirstPublish: boolean | null;
+	scenarioList: ReadonlyArray<{
+		knowledge: string[] | null | undefined;
+		knowledgeType: 'custom' | 'disabled' | 'all';
+		mcpServerCount: number;
+		skillCount: number;
+		skillsList: string;
+		toolCount: number;
+		toolsList: string;
+	}>;
+	source?: string;
 };
 
-export type ScenarioAnalytics = {
-	toolCount: number;
-	toolsList: string;
-	mcpServerCount: number;
-	knowledgeType: 'custom' | 'disabled' | 'all';
-	knowledge: string[] | null;
-};
+export type AgentPlanAnalyticsAttributes = Omit<
+	AgentPublishAnalyticsAttributes,
+	'agentId' | 'agentVersionNumber' | 'isFirstPublish'
+>;
 
 /**
  * Discriminated union payload type for create flow events.
@@ -172,7 +199,7 @@ export type CreateFlowEventPayload =
 			// `agentVersionNumber` is the version that was just published.
 			actionSubject: 'rovoAgent';
 			action: 'published';
-			attributes: VersionedAgentAttributes & Record<string, unknown>;
+			attributes: AgentPublishAnalyticsAttributes & Record<string, unknown>;
 	  }
 	| {
 			// https://data-portal.internal.atlassian.com/analytics/registry/102957
@@ -181,7 +208,7 @@ export type CreateFlowEventPayload =
 			// message). Used to measure plan generation volume.
 			actionSubject: 'rovoAgent';
 			action: 'createFlowPlanGenerated';
-			attributes: PlanAnalyticsAttributes & Record<string, unknown>;
+			attributes: AgentPlanAnalyticsAttributes & Record<string, unknown>;
 	  }
 	| {
 			// https://data-portal.internal.atlassian.com/analytics/registry/102958
@@ -190,5 +217,13 @@ export type CreateFlowEventPayload =
 			// re-views). Used to measure plan impression volume.
 			actionSubject: 'rovoAgent';
 			action: 'createFlowPlanViewed';
-			attributes: PlanAnalyticsAttributes & Record<string, unknown>;
+			attributes: AgentPlanAnalyticsAttributes & Record<string, unknown>;
+	  }
+	| {
+			// Fires when a newly created agent has the work-item surface
+			// enabled (i.e. `workItemSurfaceEnabled` is true in the BE
+			// response), making the agent assignable to Jira issues.
+			actionSubject: 'setIsAgentAssignable';
+			action: 'success';
+			attributes: Record<string, unknown>;
 	  };

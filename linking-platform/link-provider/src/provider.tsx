@@ -38,6 +38,8 @@ export function SmartCardProvider({
 	isPreviewPanelAvailable,
 	openPreviewPanel,
 	rovoOptions,
+	xpcProduct,
+	xpcSubProduct,
 }: CardProviderProps): React.JSX.Element {
 	const parentContext = useContext(SmartCardContext);
 
@@ -132,6 +134,8 @@ export function SmartCardProvider({
 			isPreviewPanelAvailable,
 			openPreviewPanel,
 			rovoOptions,
+			xpcProduct,
+			xpcSubProduct,
 		};
 	}, [
 		customAuthFlow,
@@ -145,6 +149,8 @@ export function SmartCardProvider({
 		shouldControlDataExport,
 		rovoOptions,
 		store,
+		xpcProduct,
+		xpcSubProduct,
 	]);
 
 	const value = useMemo(

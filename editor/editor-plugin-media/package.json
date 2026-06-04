@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "13.0.0",
+	"version": "13.2.0",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -127,9 +127,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"aifc_page_create_with_rovo_include_infographics": {
-			"type": "boolean"
-		},
 		"platform_media_cross_client_copy": {
 			"type": "boolean"
 		},

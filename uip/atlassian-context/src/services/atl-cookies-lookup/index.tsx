@@ -2,36 +2,15 @@ import {
 	ATL_CTX_ISOLATION_CONTEXT_DOMAIN,
 	ATL_CTX_ISOLATION_CONTEXT_ID,
 	ATL_CTX_PERIMETER,
-	type AtlCtxCookieName,
 	type GeneralizedPerimeterType,
 } from '../../common/constants';
+import { getRawCookieValue } from '../../common/utils/cookies';
 
 export type AtlCtxCookieValues = {
 	perimeter: GeneralizedPerimeterType;
 	icDomain: string | undefined; // undefined when not in Isolated Cloud
 	icId: string | undefined; // undefined when not in Isolated Cloud
 };
-
-/**
- * Internal helper function used to parse cookie values and extract value of provided cookie name
- * @param {AtlCtxCookieName} cookieName - The name of the cookie to extract
- * @param {string} cookieString - The full cookie string
- * @returns {string | undefined} - The cookie value if present, undefined otherwise
- */
-function getRawCookieValue(cookieName: string, cookieString: AtlCtxCookieName): string | undefined {
-	if (!cookieString) {
-		return undefined;
-	}
-
-	const cookies = cookieString.split(';');
-	for (const cookie of cookies) {
-		const [name, value] = cookie.trim().split('=');
-		if (name === cookieName) {
-			return value;
-		}
-	}
-	return undefined;
-}
 
 /**
  * Internal helper function used to return the atl-ctx cookies for browser (which contains perimeter and ic_domain information).

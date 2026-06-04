@@ -630,9 +630,11 @@ describe('no-barrel-entry-imports', () => {
 				},
 			}),
 
-			// Barrel file re-exports defaults as named, plus a local symbol
+			// Barrel file re-exports defaults as named, plus a local symbol.
+			// Also re-exports a regular named symbol from the same source as a default-aliased
+			// re-export so we can exercise "default + named both resolve to the same subpath".
 			[`${TEST_PACKAGE_DIR}/src/index.ts`]: outdent`
-				export { default as AnalyticsProvider } from './components/AnalyticsProvider';
+				export { default as AnalyticsProvider, useAnalyticsContext } from './components/AnalyticsProvider';
 				export { default as TrackerProvider } from './components/TrackerProvider';
 				export const PROVIDER_VERSION = '1.0.0';
 			`,
@@ -789,6 +791,24 @@ describe('no-barrel-entry-imports', () => {
 					filename: TEST_FILE,
 					errors: [{ messageId: 'barrelEntryImport' }],
 					output: `import type AP from '${TEST_PACKAGE_NAME}/components/AnalyticsProvider';`,
+				},
+				// Type-only import that resolves to BOTH a default-aliased re-export and a
+				// regular named re-export from the same subpath. TypeScript forbids combining
+				// `import type Default, { Named }` (TS1363 "A type-only import can specify a
+				// default import or named bindings, but not both"), so the default must be
+				// rebound as `{ default as <local> }` instead of being placed before the brace.
+				{
+					code: `import type { AnalyticsProvider, useAnalyticsContext } from '${TEST_PACKAGE_NAME}';`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `import type { useAnalyticsContext, default as AnalyticsProvider } from '${TEST_PACKAGE_NAME}/components/AnalyticsProvider';`,
+				},
+				// Same as above but with a consumer-side alias on the default-aliased re-export.
+				{
+					code: `import type { AnalyticsProvider as AP, useAnalyticsContext } from '${TEST_PACKAGE_NAME}';`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `import type { useAnalyticsContext, default as AP } from '${TEST_PACKAGE_NAME}/components/AnalyticsProvider';`,
 				},
 			],
 		});

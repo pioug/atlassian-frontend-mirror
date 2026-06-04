@@ -20,7 +20,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type EditorActions from '../actions';
 import ErrorBoundary from '../create-editor/ErrorBoundary';
 import ReactEditorViewNext from '../create-editor/ReactEditorView';
-import type { EditorAppearanceComponentProps } from '../types';
+import type { EditorAppearanceComponentProps } from '../types/editor-appearance-component';
 import type { EditorNextProps } from '../types/editor-props';
 import EditorContext from '../ui/EditorContext';
 import { IntlProviderIfMissingWrapper } from '../ui/IntlProviderIfMissingWrapper/IntlProviderIfMissingWrapper';

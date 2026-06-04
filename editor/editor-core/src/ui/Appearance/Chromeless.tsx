@@ -1,4 +1,4 @@
-import React, { Fragment, type FC } from 'react';
+import React, { Fragment } from 'react';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { EditorAppearance, OptionalPlugin } from '@atlaskit/editor-common/types';
@@ -7,20 +7,14 @@ import type {
 	MaxContentSizePlugin,
 	MaxContentSizePluginState,
 } from '@atlaskit/editor-plugins/max-content-size';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type { EditorAppearanceComponentProps } from '../../types';
+import type { EditorAppearanceComponentProps } from '../../types/editor-appearance-component';
 import EditorContentContainer from '../EditorContentContainer/EditorContentContainer';
 import PluginSlot from '../PluginSlot';
 import WithFlash from '../WithFlash';
 
-import { ChromelessEditorContainerCompiled } from './Chromeless-compiled';
-import {
-	ChromelessEditorContainerEmotion,
-	type ChromelessEditorContainerProps,
-} from './Chromeless-emotion';
-
+import { ChromelessEditorContainer } from './ChromelessEditorContainer';
 type AppearanceProps = EditorAppearanceComponentProps<
 	[OptionalPlugin<MaxContentSizePlugin>, OptionalPlugin<EditorViewModePlugin>]
 >;
@@ -142,17 +136,3 @@ function RenderWithPluginState({ renderChrome, editorAPI }: RenderChromeProps) {
 
 	return <Fragment>{renderChrome({ maxContentSize })}</Fragment>;
 }
-
-/**
- * Container for the chromeless editor appearance. This is used to set the max and min height
- * of the editor content area, and to provide a ref to the container element for the popups.
- * @param param0 props for the chromeless editor container
- * @returns JSX element representing the chromeless editor container
- */
-export const ChromelessEditorContainer: FC<
-	ChromelessEditorContainerProps & ChromelessEditorContainerProps
-> = componentWithCondition(
-	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
-	ChromelessEditorContainerCompiled,
-	ChromelessEditorContainerEmotion,
-);

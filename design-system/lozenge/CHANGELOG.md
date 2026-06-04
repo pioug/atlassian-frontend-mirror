@@ -1,5 +1,16 @@
 # @atlaskit/lozenge
 
+## 13.8.4
+
+### Patch Changes
+
+- [`9ef96548c3d31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ef96548c3d31) -
+  Fixed the new Lozenge component (behind the `platform-dst-lozenge-tag-badge-visual-uplifts`
+  feature gate) not truncating text correctly when placed inside a parent container narrower than
+  the lozenge's `maxWidth` prop (e.g. a fixed-width or percentage-width container). The inner
+  content wrapper now has `max-width: 100%` applied unconditionally so it inherits the container's
+  width constraint, allowing the text to truncate at the visible edge of its parent.
+
 ## 13.8.3
 
 ### Patch Changes

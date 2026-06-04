@@ -69,9 +69,8 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { useProviders } from '../composable-editor/hooks/useProviders';
-import type { EditorConfig, EditorProps } from '../types';
-import type { EditorViewStateUpdatedCallbackProps } from '../types/editor-config';
-import type { EditorNextProps } from '../types/editor-props';
+import type { EditorConfig, EditorViewStateUpdatedCallbackProps } from '../types/editor-config';
+import type { EditorNextProps, EditorProps } from '../types/editor-props';
 import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 import { getNodesCount } from '../utils/getNodesCount';
 import { getNodesCountWithExtensionKeys } from '../utils/getNodesCountWithExtensionKeys';
@@ -85,9 +84,11 @@ import {
 	PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
 	PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
 } from './consts';
-import { createErrorReporter, createPMPlugins, processPluginsList } from './create-editor';
+import { processPluginsList } from './create-editor';
 import createPluginsList from './create-plugins-list';
 import { createSchema } from './create-schema';
+import { createErrorReporter } from './createErrorReporter';
+import { createPMPlugins } from './createPMPlugins';
 import { filterPluginsForReconfigure } from './filter-plugins-for-reconfigure';
 import { editorMessages } from './messages';
 import { focusEditorElement } from './ReactEditorView/focusEditorElement';
@@ -778,7 +779,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			oldEditorState,
 			newEditorState,
 		}: EditorViewStateUpdatedCallbackProps) => {
-			config.current?.onEditorViewStateUpdatedCallbacks.forEach((entry) => {
+			config.current?.onEditorViewStateUpdatedCallbacks.forEach((entry: EditorConfig['onEditorViewStateUpdatedCallbacks'][number]) => {
 				entry.callback({
 					originalTransaction,
 					transactions,

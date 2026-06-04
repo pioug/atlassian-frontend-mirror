@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { RevisionPayload, VCRawDataType, VCResult } from '../common/vc/types';
 import { isVCRevisionEnabled } from '../config';
 
@@ -21,20 +19,6 @@ export class VCObserverWrapper implements VCObserverInterface {
 	private newVCObserver: VCObserverNew | null;
 	private ssrPlaceholderHandler: SSRPlaceholderHandlers;
 
-	/**
-	 * Returns true if the new VC observer pipeline should be active.
-	 * This is needed even when no client-side revisions are enabled, because
-	 * the raw-handler must still collect observations for server-side TTVC
-	 * recalculation when the server-side sync gate is on.
-	 */
-	private static shouldUseNewVCObserver(experienceKey?: string): boolean {
-		return (
-			isVCRevisionEnabled('fy25.03', experienceKey) ||
-			isVCRevisionEnabled('fy26.04', experienceKey) ||
-			fg('ufo_disable_ttvc_v4')
-		);
-	}
-
 	constructor(opts: VCObserverOptions = {}) {
 		this.newVCObserver = null;
 		this.oldVCObserver = null;
@@ -44,18 +28,16 @@ export class VCObserverWrapper implements VCObserverInterface {
 			enablePageLayoutPlaceholder: opts.ssrEnablePageLayoutPlaceholder ?? false,
 		});
 
-		if (VCObserverWrapper.shouldUseNewVCObserver()) {
-			this.newVCObserver = new VCObserverNew({
-				selectorConfig: opts.selectorConfig,
-				isPostInteraction: opts.isPostInteraction,
-				SSRConfig: {
-					enablePageLayoutPlaceholder: opts.ssrEnablePageLayoutPlaceholder ?? false,
-				},
-				ssrPlaceholderHandler: this.ssrPlaceholderHandler,
-				trackLayoutShiftOffenders: opts.trackLayoutShiftOffenders ?? false,
-				searchPageConfig: opts.searchPageConfig,
-			});
-		}
+		this.newVCObserver = new VCObserverNew({
+			selectorConfig: opts.selectorConfig,
+			isPostInteraction: opts.isPostInteraction,
+			SSRConfig: {
+				enablePageLayoutPlaceholder: opts.ssrEnablePageLayoutPlaceholder ?? false,
+			},
+			ssrPlaceholderHandler: this.ssrPlaceholderHandler,
+			trackLayoutShiftOffenders: opts.trackLayoutShiftOffenders ?? false,
+			searchPageConfig: opts.searchPageConfig,
+		});
 
 		if (isVCRevisionEnabled('fy25.01') || isVCRevisionEnabled('fy25.02')) {
 			this.oldVCObserver = new VCObserver({
@@ -96,9 +78,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 			this.oldVCObserver?.start({ startTime });
 		}
 
-		if (VCObserverWrapper.shouldUseNewVCObserver(experienceKey)) {
-			this.newVCObserver?.start({ startTime });
-		}
+		this.newVCObserver?.start({ startTime });
 
 		// Clean up any remaining SSR abort listeners after all observers have been started
 		this.processSsrAbortListeners();
@@ -112,9 +92,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 			this.oldVCObserver?.stop();
 		}
 
-		if (VCObserverWrapper.shouldUseNewVCObserver(experienceKey)) {
-			this.newVCObserver?.stop();
-		}
+		this.newVCObserver?.stop();
 
 		RLLPlaceholderHandlers.getInstance().reset();
 		// Clear shared SSR placeholder handler
@@ -139,24 +117,22 @@ export class VCObserverWrapper implements VCObserverInterface {
 				? await this.oldVCObserver?.getVCResult(param)
 				: {};
 
-		const v3v4Result = VCObserverWrapper.shouldUseNewVCObserver(experienceKey)
-			? await this.newVCObserver?.getVCResult({
-					start: param.start,
-					stop: param.stop,
-					interactionId: param.interactionId,
-					ssr: param.ssr,
-					include3p,
-					excludeSmartAnswersInSearch,
-					includeSSRRatio,
-					interactionType: param.interactionType,
-					isPageVisible: param.isPageVisible,
-					interactionAbortReason: param.interactionAbortReason,
-					includeRawData,
-					includeSSRInV3: param.includeSSRInV3,
-					rawDataStopTime: param.rawDataStopTime,
-					reportLayoutShiftOffenders: param.reportLayoutShiftOffenders,
-				})
-			: [];
+		const v3v4Result = await this.newVCObserver?.getVCResult({
+			start: param.start,
+			stop: param.stop,
+			interactionId: param.interactionId,
+			ssr: param.ssr,
+			include3p,
+			excludeSmartAnswersInSearch,
+			includeSSRRatio,
+			interactionType: param.interactionType,
+			isPageVisible: param.isPageVisible,
+			interactionAbortReason: param.interactionAbortReason,
+			includeRawData,
+			includeSSRInV3: param.includeSSRInV3,
+			rawDataStopTime: param.rawDataStopTime,
+			reportLayoutShiftOffenders: param.reportLayoutShiftOffenders,
+		});
 
 		if (!v3v4Result || v3v4Result.length === 0) {
 			return v1v2Result ?? {};

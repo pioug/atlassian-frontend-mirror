@@ -8,7 +8,7 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { ChromelessEditorContainer } from '../../../Appearance/Chromeless';
+import { ChromelessEditorContainer } from '../../ChromelessEditorContainer';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Chromeless editor', () => {

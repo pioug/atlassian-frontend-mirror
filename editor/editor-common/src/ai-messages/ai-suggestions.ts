@@ -121,6 +121,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	suggestEditsPromptPrefix: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	suggestedLabel: {
 		defaultMessage: string;
 		description: string;
@@ -216,6 +221,12 @@ export const aiSuggestionsMessages: {
 		id: 'fabric.editor.ai.suggestions.suggestEditsButtonLabel',
 		defaultMessage: 'Review',
 		description: 'Label for the Suggest edits button in the editor toolbar',
+	},
+	suggestEditsPromptPrefix: {
+		id: 'fabric.editor.ai.suggestions.suggestEditsPromptPrefix.non-final',
+		defaultMessage: 'Review my content with ',
+		description:
+			'Localised text that precedes the suggest-edits skill tag in the prompt sent to the AI service. The trailing space is intentional — it separates this text from the skill tag that follows. Localise it in a way where the prompt ends with the skill tag. (With the skill tag it will look like e.g. "Review my content with /suggest-edits")',
 	},
 	suggestionsToolbarButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.toolbarButton.label.non-final',

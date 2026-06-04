@@ -16,7 +16,6 @@ import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type EditorActions from '../../actions';
-import type {} from '../../types';
 import { ErrorBoundary } from '../ErrorBoundary';
 
 import { MountPluginHooks } from './mount-plugin-hooks';

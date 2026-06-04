@@ -2,8 +2,8 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import type { EditorProps } from '../editor';
 import Editor from '../editor';
+import type { EditorProps } from '../types/editor-props';
 import EditorContext from '../ui/EditorContext';
 
 const groupId = 'GROUP-ID1';

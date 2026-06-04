@@ -1,42 +1,10 @@
-import type { ErrorReportingHandler } from '@atlaskit/editor-common/error-reporter';
-import { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
-import { sortByOrder } from '@atlaskit/editor-common/legacy-rank-plugins';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	EditorPlugin,
 	NamedReactHookFactory,
 	PluginsOptions,
 } from '@atlaskit/editor-common/types';
-import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type { EditorConfig, PMPluginCreateConfig } from '../types';
-
-import { createEditorNativeAnchorSupportPlugin } from './editorNativeAnchorSupportPlugin';
-import { createEditorStateNotificationPlugin } from './editorStateNotificationPlugin';
-
-export function sortByRank(a: { rank: number }, b: { rank: number }): number {
-	return a.rank - b.rank;
-}
-
-export function fixExcludes(marks: { [key: string]: MarkSpec }): {
-	[key: string]: MarkSpec;
-} {
-	const markKeys = Object.keys(marks);
-	const markGroups = new Set(markKeys.map((mark) => marks[mark].group));
-
-	markKeys.forEach((markKey) => {
-		const mark = marks[markKey];
-		if (mark.excludes) {
-			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
-			mark.excludes = mark.excludes
-				.split(' ')
-				.filter((group) => markGroups.has(group))
-				.join(' ');
-		}
-	});
-	return marks;
-}
+import type { EditorConfig } from '../types/editor-config';
 
 export function processPluginsList(plugins: EditorPlugin[]): EditorConfig {
 	/**
@@ -117,50 +85,4 @@ export function processPluginsList(plugins: EditorPlugin[]): EditorConfig {
 			onEditorViewStateUpdatedCallbacks: [],
 		},
 	);
-}
-
-export function createPMPlugins(config: PMPluginCreateConfig): SafePlugin[] {
-	const { editorConfig } = config;
-
-	const pmPlugins = editorConfig.pmPlugins
-		.sort(sortByOrder('plugins'))
-		.map(({ plugin }) =>
-			plugin({
-				schema: config.schema,
-				dispatch: config.dispatch,
-				eventDispatcher: config.eventDispatcher,
-				providerFactory: config.providerFactory,
-				errorReporter: config.errorReporter,
-				portalProviderAPI: config.portalProviderAPI,
-				nodeViewPortalProviderAPI: config.nodeViewPortalProviderAPI,
-				dispatchAnalyticsEvent: config.dispatchAnalyticsEvent,
-				featureFlags: config.featureFlags || {},
-				getIntl: config.getIntl,
-			}),
-		)
-		.filter((plugin): plugin is SafePlugin => typeof plugin !== 'undefined');
-
-	if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
-		pmPlugins.push(createEditorNativeAnchorSupportPlugin(config.schema));
-	}
-
-	if (config.onEditorStateUpdated !== undefined) {
-		return [
-			createEditorStateNotificationPlugin(
-				config.onEditorStateUpdated,
-				config.editorConfig.onEditorViewStateUpdatedCallbacks,
-			),
-			...pmPlugins,
-		];
-	}
-
-	return pmPlugins;
-}
-
-export function createErrorReporter(errorReporterHandler?: ErrorReportingHandler): ErrorReporter {
-	const errorReporter = new ErrorReporter();
-	if (errorReporterHandler) {
-		errorReporter.handler = errorReporterHandler;
-	}
-	return errorReporter;
 }

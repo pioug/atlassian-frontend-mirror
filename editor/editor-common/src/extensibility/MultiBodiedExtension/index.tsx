@@ -13,6 +13,7 @@ import classnames from 'classnames';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditorFileIcon from '@atlaskit/icon/core/file';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -31,7 +32,12 @@ import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags }
 import { shouldExtensionBreakout } from '../utils/should-extension-breakout';
 
 import { useMultiBodiedExtensionActions } from './action-api';
-import { mbeExtensionWrapperCSSStyles, overlayStyles } from './styles';
+import {
+	mbeExtensionWrapperCSSStyles,
+	mbeExtensionWrapperCSSStylesOld,
+	overlayStyles,
+	overlayStylesOld,
+} from './styles';
 
 const getContainerCssExtendedStyles = (
 	activeChildIndex: number,
@@ -105,6 +111,7 @@ const MultiBodiedExtensionFrames = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className="multiBodiedExtension--frames"
 			data-testid="multiBodiedExtension--frames"
+			data-multibodiedextension-frames
 			ref={articleRef}
 		/>
 	);
@@ -306,8 +313,11 @@ const MultiBodiedExtensionWithWidth = ({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={wrapperClassNames}
 				css={[
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					mbeExtensionWrapperCSSStyles,
+					/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
+					fg('confluence_frontend_native_tabs_extension')
+						? mbeExtensionWrapperCSSStyles
+						: mbeExtensionWrapperCSSStylesOld,
+					/* eslint-enable @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage */
 					showMacroInteractionDesignUpdates &&
 						!isLivePageViewMode &&
 						expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true) &&
@@ -334,7 +344,7 @@ const MultiBodiedExtensionWithWidth = ({
 			>
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					css={overlayStyles}
+					css={fg('confluence_frontend_native_tabs_extension') ? overlayStyles : overlayStylesOld}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={overlayClassNames}
 					data-testid="multiBodiedExtension--overlay"
@@ -346,6 +356,7 @@ const MultiBodiedExtensionWithWidth = ({
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={getContainerCssExtendedStyles(activeChildIndex, showMacroInteractionDesignUpdates)}
 					data-testid="multiBodiedExtension--container"
+					data-multiBodiedExtension-container
 					data-active-child-index={activeChildIndex}
 				>
 					{allowBodiedOverride ? (

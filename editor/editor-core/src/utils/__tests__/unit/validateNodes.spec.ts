@@ -1,7 +1,8 @@
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import { validateNodes, validNode } from '../../validateNodes';
+import { validateNodes } from '../../validateNodes';
+import { validNode } from '../../validNode';
 
 function createNode(): PMNode {
 	return schema.nodeFromJSON({

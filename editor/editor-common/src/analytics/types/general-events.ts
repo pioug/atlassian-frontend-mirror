@@ -391,6 +391,30 @@ type CodeBlockLanguageAutoDetectedAEP = TrackAEP<
 	undefined
 >;
 
+type CodeBlockFormatCodeSuccessAEP = TrackAEP<
+	ACTION.FORMATTED,
+	ACTION_SUBJECT.CODE_BLOCK,
+	undefined,
+	{
+		language: string;
+		languageSource: 'auto-detected' | 'selected';
+		outcome: 'formatted' | 'unchanged';
+	},
+	undefined
+>;
+
+type CodeBlockFormatCodeFailedAEP = TrackAEP<
+	ACTION.ERRORED,
+	ACTION_SUBJECT.CODE_BLOCK,
+	undefined,
+	{
+		errorType: 'formatter-execution-failed' | 'formatter-load-failed';
+		language: string;
+		languageSource: 'auto-detected' | 'selected';
+	},
+	undefined
+>;
+
 type MediaLinkTransformedAEP = OperationalAEP<
 	ACTION.MEDIA_LINK_TRANSFORMED,
 	ACTION_SUBJECT.EDITOR,
@@ -621,6 +645,8 @@ export type GeneralEventPayload<T = void> =
 	| WithPluginStateCalledAEP
 	| CodeBlockLanguageAutoDetectedAEP
 	| CodeBlockLanguageSelectedAEP
+	| CodeBlockFormatCodeSuccessAEP
+	| CodeBlockFormatCodeFailedAEP
 	| EditorContentRetrievalPerformedAEP
 	| MediaLinkTransformedAEP
 	| TextLinkCodeMarkTransformedAEP

@@ -8,6 +8,7 @@
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 // Wraps the navigation bar and extensionFrames
@@ -69,6 +70,34 @@ const mbeNavigation = css({
 });
 
 const extensionFrameContent = css({
+	display: 'block',
+	minHeight: '100px',
+	background: 'transparent',
+	borderBottomLeftRadius: token('radius.small', '3px'),
+	borderBottomRightRadius: token('radius.small', '3px'),
+	marginLeft: token('space.100'),
+	marginRight: token('space.100'),
+	cursor: 'initial',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.pm-table-with-controls': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+		marginLeft: `${token('space.150')} !important`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+		paddingRight: `${token('space.150')} !important`,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.bodiedExtensionView-content-wrap': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+		marginTop: `${token('space.150')} !important`,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.extensionView-content-wrap': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+		marginTop: `${token('space.100')} !important`,
+	},
+});
+
+const extensionFrameContentOld = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	padding: `${token('space.100')} !important`,
 	display: 'block',
@@ -107,11 +136,15 @@ export const removeMarginsAndBorder: SerializedStyles = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const sharedMultiBodiedExtensionStyles: {
+	extensionFrameContent: SerializedStyles;
 	mbeExtensionContainer: SerializedStyles;
 	mbeNavigation: SerializedStyles;
-	extensionFrameContent: SerializedStyles;
 } = {
 	mbeExtensionContainer,
 	mbeNavigation,
-	extensionFrameContent,
+	get extensionFrameContent() {
+		return fg('confluence_frontend_native_tabs_extension')
+			? extensionFrameContent
+			: extensionFrameContentOld;
+	},
 };

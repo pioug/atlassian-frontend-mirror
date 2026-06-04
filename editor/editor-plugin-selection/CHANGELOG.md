@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-selection
 
+## 11.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.1
+
+### Patch Changes
+
+- [`f3f55d3ebf702`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3f55d3ebf702) -
+  Gate MBE style and gap cursor changes behind confluence_frontend_native_tabs_extension feature
+  flag
+- Updated dependencies
+
 ## 11.0.0
 
 ### Patch Changes

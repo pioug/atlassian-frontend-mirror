@@ -1,4 +1,4 @@
-import type { EditorProps } from '../../../types';
+import type { EditorProps } from '../../../types/editor-props';
 import createPluginsListBase from '../../create-plugins-list';
 import { createUniversalPreset } from '../../create-universal-preset';
 

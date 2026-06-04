@@ -240,13 +240,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-05-25
-	platform_editor_code_block_auto_detection: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-01-09
 	platform_editor_render_bodied_extension_as_inline: {
 		defaultValue: boolean;
@@ -935,6 +928,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-29 — Inline rovo action experiment for resolved inline smart links (boolean: isEnabled)
+	platform_sl_3p_auth_inline_tailored_cta: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-08-10
 	platform_synced_block: {
 		defaultValue: boolean;
@@ -1287,6 +1287,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-17
 	cc_page_experiences_premium_macros_img_generation: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-06-02
+	aifc_page_create_with_rovo_include_infographics: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2556,15 +2563,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-05-25
-	platform_editor_code_block_auto_detection: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_code_block_auto_detection',
-			jira: 'platform_editor_code_block_auto_detection',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-07-14
 	platform_editor_debounce_portal_provider: createBooleanExperiment({
 		productKeys: {
@@ -3058,6 +3056,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-05-29 — Inline rovo action on resolved inline smart links
+	platform_sl_3p_auth_inline_tailored_cta: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_sl_3p_auth_inline_tailored_cta',
+			jira: 'platform_sl_3p_auth_inline_tailored_cta',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-05-21 — Post-auth GDrive Smart Link to Rovo Chat auto-open
 	platform_sl_3p_post_auth_chat_open_exp: createBooleanExperiment({
 		productKeys: {
@@ -3403,6 +3410,14 @@ export const editorExperimentsConfig: {
 	cc_page_experiences_premium_macros_img_generation: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_page_experiences_premium_macros_img_generation',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-02
+	aifc_page_create_with_rovo_include_infographics: createBooleanExperiment({
+		productKeys: {
+			confluence: 'aifc_page_create_with_rovo_include_infographics',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

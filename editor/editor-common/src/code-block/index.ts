@@ -18,7 +18,9 @@ type OptionalCodeBlockAttrs = CodeBlockAttrs | undefined;
 export const getDefaultCodeBlockAttrs = (attrs?: CodeBlockAttrs): OptionalCodeBlockAttrs => {
 	const localId =
 		attrs?.localId ??
-		(expValEquals('platform_editor_code_block_auto_detection', 'isEnabled', true) &&
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning -- Auto-detection uses the q4 experiment, a kill switch, and the existing localId gate.
+		(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
+		fg('platform_editor_code_block_language_detection_flow') &&
 		fg('platform_editor_add_code_block_localid')
 			? uuid.generate()
 			: undefined);

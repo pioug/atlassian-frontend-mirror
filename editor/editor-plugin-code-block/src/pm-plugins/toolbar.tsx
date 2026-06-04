@@ -21,6 +21,7 @@ import type {
 	SelectOption,
 } from '@atlaskit/editor-common/types';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import ListNumberedIcon from '@atlaskit/icon/core/list-numbered';
@@ -31,6 +32,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import {
 	changeLanguage,
 	copyContentToClipboardWithAnalytics,
+	createFormatCodeOnClick,
 	removeCodeBlockWithAnalytics,
 	resetCopiedState,
 	toggleLineNumbersForCodeBlockNode,
@@ -44,6 +46,10 @@ import {
 	PLAIN_TEXT_LANGUAGE_VALUE,
 	type LanguagePickerOption,
 } from '../ui/language-picker-options';
+import {
+	isSupportedFormatLanguage,
+	preloadFormatterOnIntent,
+} from '../utils/format-code/formatter';
 
 import { autoDetectPluginKey, type AutoDetectEntry } from './auto-detect-state';
 import {
@@ -148,12 +154,9 @@ export const getToolbarConfig = (
 		const language = node?.attrs?.language;
 		const localId = node?.attrs?.localId;
 		const autoDetectState = autoDetectPluginKey.getState(state);
-		const autoDetectEntry =
-			expValEquals('platform_editor_code_block_auto_detection', 'isEnabled', true) &&
-			typeof localId === 'string'
-				? autoDetectState?.languageDetectionMap[localId]
-				: undefined;
 
+		const isFormatCodePending =
+			typeof localId === 'string' && Boolean(codeBlockState.pendingFormats[localId]);
 		// Keep fresh option objects for the legacy toolbar select so reopening it
 		// continues to start from the top rather than preserving the previously
 		// focused option by reference.
@@ -182,6 +185,10 @@ export const getToolbarConfig = (
 			expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
 			fg('platform_editor_code_block_add_line_number_button')
 		) {
+			const autoDetectEntry =
+				typeof localId === 'string' && fg('platform_editor_code_block_language_detection_flow')
+					? autoDetectState?.languageDetectionMap[localId]
+					: undefined;
 			const autoDetectPickerValue = getAutoDetectPickerValue({
 				autoDetectEntry,
 				formatMessage,
@@ -346,6 +353,22 @@ export const getToolbarConfig = (
 			selected: areLineNumbersVisible,
 		};
 
+		const canFormatCode = node.textContent.length > 0 && isSupportedFormatLanguage(language);
+		const formatCodeButton: FloatingToolbarButton<Command> = {
+			id: 'editor.codeBlock.formatCode',
+			type: 'button',
+			supportsViewMode: false,
+			disabled: !canFormatCode || isFormatCodePending,
+			icon: AngleBracketsIcon,
+			onClick: createFormatCodeOnClick({ api, editorAnalyticsAPI }),
+			onFocus: preloadFormatterOnIntent(),
+			onMouseEnter: preloadFormatterOnIntent(),
+			title: formatMessage(
+				canFormatCode
+					? codeBlockButtonMessages.formatCode
+					: codeBlockButtonMessages.formatCodeUnavailable,
+			),
+		};
 		return {
 			title: 'CodeBlock floating controls',
 			// Ignored via go/ees005
@@ -358,7 +381,7 @@ export const getToolbarConfig = (
 				codeBlockWrapButton,
 				...(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
 				fg('platform_editor_code_block_add_line_number_button')
-					? [codeBlockLineNumbersButton]
+					? [codeBlockLineNumbersButton, formatCodeButton]
 					: []),
 				...copyAndDeleteButtonMenuItems,
 			],

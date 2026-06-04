@@ -229,7 +229,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 		(columnKey: string) => {
 			// Build next params/sort atomically so UI state and query state stay in sync.
 			const result = columnSortGetter?.({
-				parameters: sessionParameters,
+				parameters: sessionBaseParametersRef.current,
 				columnKey,
 				currentSort: sortState,
 			});
@@ -241,7 +241,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 			setSortState(result.sort);
 			setSessionParameters(result.parameters);
 		},
-		[columnSortGetter, sessionParameters, sortState],
+		[columnSortGetter, sortState],
 	);
 
 	const handleErrorRefresh = useCallback(() => {

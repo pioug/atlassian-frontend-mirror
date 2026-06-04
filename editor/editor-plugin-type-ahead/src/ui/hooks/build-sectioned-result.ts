@@ -14,9 +14,9 @@ export const buildSectionedResult = ({
 	triggerHandler,
 	intl,
 }: {
+	intl: IntlShape | null;
 	items: Array<TypeAheadItem>;
 	triggerHandler: TypeAheadHandler;
-	intl: IntlShape | null;
 }): { items: Array<TypeAheadItem>; sections: Array<TypeAheadResolvedSection> } => {
 	if (!editorExperiment('platform_editor_agent_mentions', true) || !intl) {
 		return { items, sections: [] };

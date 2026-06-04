@@ -80,10 +80,15 @@ export type ReferenceEntity = {
 	[prop: string]: ADFEntity | Object;
 };
 
+export type ChangeActiveOptions = {
+	/** Controls cursor placement after switching frames. Defaults to 'none'. */
+	selection?: 'none' | 'start' | 'end';
+};
+
 //Update action api once finalised
 export type MultiBodiedExtensionActions = {
 	addChild: () => boolean;
-	changeActive: (index: number) => boolean;
+	changeActive: (index: number, options?: ChangeActiveOptions) => boolean;
 	getChildren: () => Array<ADFEntity>;
 	getChildrenContainer: () => React.ReactNode;
 	getChildrenCount: () => number;

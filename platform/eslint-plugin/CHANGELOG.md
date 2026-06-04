@@ -1,5 +1,16 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.10.7
+
+### Patch Changes
+
+- [`f1a0e418f9f72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1a0e418f9f72) -
+  Fix `no-barrel-entry-imports` and `no-relative-barrel-file-imports` autofixes emitting invalid
+  TypeScript when a type-only import resolves to both a default export and a named export from the
+  same subpath. Previously the rules produced `import type Default, { Named } from '...';` which TS
+  rejects with TS1363. The default is now rebound as `{ default as <local> }` so the resulting
+  type-only import is legal.
+
 ## 2.10.6
 
 ### Patch Changes

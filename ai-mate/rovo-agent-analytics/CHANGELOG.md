@@ -1,5 +1,19 @@
 # @atlaskit/rovo-agent-analytics
 
+## 2.3.0
+
+### Minor Changes
+
+- [`c393ca269974b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c393ca269974b) -
+  Migrate source files to one value export per file.
+
+## 2.2.0
+
+### Minor Changes
+
+- [`573b49ec9d02b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/573b49ec9d02b) -
+  Add create/publish/assignable/error analytics events to inline agent creation flow
+
 ## 2.1.1
 
 ### Patch Changes

@@ -25,7 +25,7 @@ import {
 } from '../../../../../state/flexible-ui-context';
 import { isBlockCardRovoActionExperimentEnabled } from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import useRovoConfig from '../../../../../state/hooks/use-rovo-config';
-import { RovoChatPromptKey } from '../../actions/rovo-chat-action';
+import { RovoChatPromptKey } from '../../../../common/rovo-chat-utils';
 import { sizeToButtonSpacing } from '../../utils';
 import type { ActionItem } from '../types';
 import { filterActionItems } from '../utils';

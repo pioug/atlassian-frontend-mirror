@@ -9,12 +9,16 @@ export type { DatasourceTableSortState } from '../issue-like-table/types';
 const getNextSortDirection = (
 	columnKey: string,
 	currentSort?: DatasourceTableSortState,
-): DatasourceTableSortDirection => {
-	if (currentSort?.key === columnKey) {
-		return currentSort.direction === 'ASC' ? 'DESC' : 'ASC';
+): DatasourceTableSortDirection | undefined => {
+	if (currentSort?.key !== columnKey) {
+		return 'ASC';
 	}
 
-	return 'ASC';
+	if (currentSort.direction === 'ASC') {
+		return 'DESC';
+	}
+
+	return undefined;
 };
 
 export type DatasourceColumnSortGetter = ({
@@ -25,7 +29,7 @@ export type DatasourceColumnSortGetter = ({
 	columnKey: string;
 	currentSort?: DatasourceTableSortState;
 	parameters: DatasourceParameters;
-}) => { parameters: DatasourceParameters; sort: DatasourceTableSortState } | undefined;
+}) => { parameters: DatasourceParameters; sort?: DatasourceTableSortState } | undefined;
 
 // Match and remove an existing trailing ORDER BY clause before appending the next sort:
 // - (?:^|\\s+) allows ORDER BY at the start of the JQL or after whitespace.
@@ -41,18 +45,25 @@ const getJiraColumnSortParameters: DatasourceColumnSortGetter = ({
 	columnKey,
 	currentSort,
 }) => {
+	const direction = getNextSortDirection(columnKey, currentSort);
+	if (!direction) {
+		return {
+			parameters,
+			sort: undefined,
+		};
+	}
+
 	if (typeof parameters.jql !== 'string') {
 		return undefined;
 	}
 
-	const direction = getNextSortDirection(columnKey, currentSort);
 	const jqlWithoutOrder = parameters.jql.replace(JIRA_ORDER_BY_PATTERN, '').trim();
 	const nextOrderByClause = `ORDER BY ${columnKey} ${direction}`;
 
 	return {
 		parameters: {
 			...parameters,
-			jql: `${jqlWithoutOrder} ${nextOrderByClause}`,
+			jql: [jqlWithoutOrder, nextOrderByClause].filter(Boolean).join(' '),
 		},
 		sort: {
 			key: columnKey,

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-layout
 
+## 11.0.3
+
+### Patch Changes
+
+- [`795424ce08dae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/795424ce08dae) -
+  Add analytics for layout column resizing
+- Updated dependencies
+
+## 11.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.1
 
 ### Patch Changes

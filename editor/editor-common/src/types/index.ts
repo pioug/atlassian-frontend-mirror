@@ -39,6 +39,7 @@ export type {
 	TypeAheadForceSelect,
 	TypeAheadHandler,
 	TypeAheadSection,
+	TypeAheadSectionTitleUpdate,
 } from './type-ahead';
 
 export type { CommandDispatch, Command, HigherOrderCommand, Predicate } from './command';

@@ -13,6 +13,7 @@ import { css, jsx } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import type { EmojiDescription } from '../../types';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import Emoji from './Emoji';
 
 export const tonePreviewTestId = 'tone-preview';
@@ -87,7 +88,7 @@ export const TonePreviewButton: ForwardRefExoticComponent<
 	const { emoji, selectOnHover, ariaLabelText, ariaExpanded, onSelected, isVisible = true } = props;
 	const fitToHeight = fg('platform_twemoji_removal_unicode_emojis') ? 24 : undefined;
 
-	return fg('platform_emoji_picker_refresh') ? (
+	return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
 		<button
 			ref={ref}
 			css={[emojiButton, !isVisible && hidden, emojiButtonOutline]}

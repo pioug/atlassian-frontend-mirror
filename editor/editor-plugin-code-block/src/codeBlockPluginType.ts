@@ -12,6 +12,7 @@ import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
+import type { CodeBlockState } from './pm-plugins/main-state';
 import type { CodeBlockPluginOptions } from './types';
 
 type CodeBlockDependencies = [
@@ -38,6 +39,8 @@ export type CodeBlockPlugin = NextEditorPlugin<
 		sharedState:
 			| {
 					copyButtonHoverNode: PMNode;
+					formatCodeErrors: CodeBlockState['formatCodeErrors'];
+					pendingFormats: CodeBlockState['pendingFormats'];
 			  }
 			| undefined;
 	}

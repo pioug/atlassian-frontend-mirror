@@ -37,7 +37,9 @@ export {
 export { getNodesCount } from './utils/getNodesCount';
 export { default as measurements } from './utils/performance/measure-enum';
 export { createFeatureFlagsFromProps } from './utils/feature-flags-from-props';
-export type { Command, EditorProps, EditorInstance, CommandDispatch } from './types';
+export type { EditorInstance } from './types/editor-instance';
+export type { Command, CommandDispatch } from './types/command';
+export type { EditorProps } from './types/editor-props';
 export { default as EditorActions } from './actions';
 
 export { getDefaultPresetOptionsFromEditorProps } from './create-editor/create-plugins-list';

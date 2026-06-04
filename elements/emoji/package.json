@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "70.15.1",
+	"version": "70.15.3",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -42,6 +42,7 @@
 		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
+		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
@@ -180,9 +181,6 @@
 		"increase-emoji-client-upload-timeout": {
 			"type": "boolean"
 		},
-		"platform_emoji_picker_refresh": {
-			"type": "boolean"
-		},
 		"platform_emoji_keep_picker_open_on_upload": {
 			"type": "boolean"
 		},
@@ -194,6 +192,12 @@
 		},
 		"platform_a11y_fixes_reaction_emoji": {
 			"type": "boolean"
+		}
+	},
+	"platform-experiments": {
+		"platform_teamoji_26_refresh_emoji_picker": {
+			"param": "isEnabled",
+			"defaultValue": false
 		}
 	},
 	"scripts": {

@@ -5,6 +5,7 @@ import type {
 	OptionalPlugin,
 	TypeAheadHandler,
 	TypeAheadItem,
+	TypeAheadSectionTitleUpdate,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
@@ -47,6 +48,13 @@ export type TypeAheadPlugin = NextEditorPlugin<
 			isOpen: (editorState: EditorState) => boolean;
 			open: (props: OpenTypeAheadProps) => boolean;
 			openAtTransaction: (props: OpenTypeAheadProps) => (tr: Transaction) => boolean;
+			/**
+			 * Updates the display title for an existing typeahead section in the current typeahead session.
+			 *
+			 * The optional `showTitleWhenOnlySection` flag keeps the title visible when this section is
+			 * the only populated section. It does not render titles for empty sections.
+			 */
+			updateSectionTitle?: (props: TypeAheadSectionTitleUpdate) => boolean;
 		};
 		dependencies: [
 			OptionalPlugin<AnalyticsPlugin>,

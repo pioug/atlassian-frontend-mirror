@@ -221,6 +221,48 @@ describe('no-relative-barrel-file-imports', () => {
 		});
 	});
 
+	describe('type-only imports with default + named from the same source', () => {
+		// Mirrors @atlaskit/analytics-next's UIAnalyticsEvent shape: a barrel that
+		// re-exports `default as <Name>` and a regular named symbol from the same
+		// source file. A consumer's `import type { ... }` resolves both to the same
+		// subpath, which used to produce the invalid TS form
+		// `import type Default, { Named } from '...'` (TS1363). The autofix must
+		// instead emit `import type { ..., default as <Name> } from '...'`.
+		const PKG = `${BASE}/pkg-type-default-named`;
+		const CONSUMER = `${PKG}/src/consumer.ts`;
+		const fs = createMockFs({
+			[`${W}/.git/config`]: '',
+			[`${PKG}/src/events/index.ts`]: outdent`
+				export { default as UIAnalyticsEvent } from './UIAnalyticsEvent';
+				export type { UIAnalyticsEventHandler } from './UIAnalyticsEvent';
+			`,
+			[`${PKG}/src/events/UIAnalyticsEvent.ts`]: outdent`
+				export type UIAnalyticsEventHandler = (event: UIAnalyticsEvent) => void;
+				export default class UIAnalyticsEvent {}
+			`,
+			[CONSUMER]: '',
+		});
+
+		runWithFs('type-imports-default-and-named', fs, {
+			valid: [],
+			invalid: [
+				{
+					code: `import type { UIAnalyticsEventHandler, UIAnalyticsEvent } from './events';`,
+					filename: CONSUMER,
+					errors: [{ messageId: 'barrelImport' }],
+					output: `import type { UIAnalyticsEventHandler, default as UIAnalyticsEvent } from './events/UIAnalyticsEvent';`,
+				},
+				// With a consumer-side alias on the default-aliased re-export.
+				{
+					code: `import type { UIAnalyticsEventHandler, UIAnalyticsEvent as UIAE } from './events';`,
+					filename: CONSUMER,
+					errors: [{ messageId: 'barrelImport' }],
+					output: `import type { UIAnalyticsEventHandler, default as UIAE } from './events/UIAnalyticsEvent';`,
+				},
+			],
+		});
+	});
+
 	describe('aliased imports', () => {
 		const PKG = `${BASE}/pkg-alias`;
 		const CONSUMER = `${PKG}/src/consumer.ts`;

@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-media
 
+## 13.2.0
+
+### Minor Changes
+
+- [`220363acedb01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/220363acedb01) -
+  MAUI-590 in-editor remix image update - use saved positions to insert the image
+
+## 13.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.0
+
+### Minor Changes
+
+- [`e52fe1a335508`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e52fe1a335508) -
+  [ux] Fixed evaluating experiment as FG instead of experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.0
 
 ### Patch Changes

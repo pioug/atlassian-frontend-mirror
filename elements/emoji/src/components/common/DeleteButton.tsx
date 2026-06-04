@@ -7,9 +7,9 @@ import Button, { type ButtonProps } from '@atlaskit/button/standard-button';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import { token } from '@atlaskit/tokens';
 import { deleteEmojiLabel } from '../../util/constants';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { emojiDeleteButton } from './styles';
 import { Box } from '@atlaskit/primitives/compiled';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const styles = cssMap({
 	boxWrapperStyle: {
@@ -44,11 +44,11 @@ const refreshedDeleteButton = css({
 export const RENDER_EMOJI_DELETE_BUTTON_TESTID = 'render-emoji-delete-button';
 
 const DeleteButton = (props: ButtonProps): JSX.Element => {
-	const isEmojiPickerRefreshEnabled = fg('platform_emoji_picker_refresh');
+	const isRefreshEnabled = FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false);
 
 	return (
 		<span
-			css={[deleteButton, isEmojiPickerRefreshEnabled && refreshedDeleteButton]}
+			css={[deleteButton, isRefreshEnabled && refreshedDeleteButton]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={emojiDeleteButton}
 			data-testid={RENDER_EMOJI_DELETE_BUTTON_TESTID}
@@ -56,7 +56,7 @@ const DeleteButton = (props: ButtonProps): JSX.Element => {
 			<Button
 				iconBefore={
 					<Box xcss={styles.boxWrapperStyle}>
-						{isEmojiPickerRefreshEnabled ? (
+						{isRefreshEnabled ? (
 							<CrossCircleIcon label={deleteEmojiLabel} color={token('color.icon')} size="medium" />
 						) : (
 							<CrossCircleIcon

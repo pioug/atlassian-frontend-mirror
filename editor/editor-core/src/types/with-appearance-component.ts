@@ -1,6 +1,6 @@
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 
-import type { EditorAppearanceComponentProps } from '../types';
+import type { EditorAppearanceComponentProps } from '../types/editor-appearance-component';
 
 export type WithAppearanceComponent = {
 	AppearanceComponent: React.ComponentType<

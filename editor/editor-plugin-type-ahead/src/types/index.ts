@@ -46,6 +46,11 @@ export interface TypeAheadStatsMobileModifier extends TypeAheadStatsSerializable
 	resetTime: () => void;
 }
 
+export type TypeAheadSectionTitleUpdateState = Pick<
+	TypeAheadResolvedSection,
+	'showTitleWhenOnlySection' | 'title'
+>;
+
 export type TypeAheadPluginState = {
 	decorationElement: HTMLElement | null;
 	decorationSet: DecorationSet;
@@ -58,6 +63,7 @@ export type TypeAheadPluginState = {
 	 */
 	removePrefixTriggerOnCancel?: boolean;
 	sections: Array<TypeAheadResolvedSection>;
+	sectionTitleUpdates: Record<string, TypeAheadSectionTitleUpdateState>;
 	selectedIndex: number;
 	stats: TypeAheadStatsSerializable | null;
 	triggerHandler?: TypeAheadHandler;
@@ -67,6 +73,11 @@ export type TypeAheadPluginState = {
 export type TypeAheadResolvedSection = {
 	endIndex: number;
 	id: string;
+	/**
+	 * Keeps this section's title visible when it is the only section with matching items.
+	 * Does not render the title for an empty section.
+	 */
+	showTitleWhenOnlySection?: boolean;
 	startIndex: number;
 	title: string;
 };

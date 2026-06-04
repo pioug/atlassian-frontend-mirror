@@ -28,15 +28,19 @@ const useSmartLinkCrossProductUrlWrapperFallback = (
 const useSmartLinkCrossProductUrlWrapper = ({
 	details,
 }: UseSmartLinkCrossProductUrlWrapperArgs): ((url: string) => string) => {
-	const { product, bridgeProduct } = useSmartLinkContext();
+	const { product, bridgeProduct, xpcProduct, xpcSubProduct } = useSmartLinkContext();
+	// xpcProduct takes precedence over product — it identifies the host product for XPC analytics
+	// without affecting link resolution (which uses the `product` prop separately).
+	const effectiveProduct = xpcProduct ?? product;
 	const wrapUrl = useCrossProductUrlWrapper({
 		bridge: bridgeProduct ?? SMART_LINKS_XPC_BRIDGE,
-		product: product?.toLowerCase() ?? 'unknown',
+		product: effectiveProduct?.toLowerCase() ?? 'unknown',
+		...(xpcSubProduct ? { subProduct: xpcSubProduct } : {}),
 	});
-
+	
 	return useCallback(
 		(url: string) => {
-			if (!getIsFirstPartyLink(details) || !product) {
+			if (!getIsFirstPartyLink(details) || !effectiveProduct) {
 				return url;
 			}
 
@@ -52,7 +56,7 @@ const useSmartLinkCrossProductUrlWrapper = ({
 
 			return wrapUrl(url);
 		},
-		[details, product, wrapUrl],
+		[details, effectiveProduct, wrapUrl],
 	);
 };
 

@@ -1,5 +1,12 @@
 # @atlaskit/motion
 
+## 6.2.5
+
+### Patch Changes
+
+- [`c1d2cea81ac8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1d2cea81ac8c) -
+  Fix exiting presence showing stale popup value when key is not provided
+
 ## 6.2.4
 
 ### Patch Changes

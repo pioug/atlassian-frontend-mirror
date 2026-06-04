@@ -63,6 +63,25 @@ describe('getDatasourceColumnSortGetter', () => {
 		});
 	});
 
+	it('clears sorting when sorting the same column after DESC', () => {
+		const getter = getDatasourceColumnSortGetter(JIRA_LIST_OF_LINKS_DATASOURCE_ID);
+
+		const result = getter?.({
+			columnKey: 'created',
+			currentSort: { key: 'created', direction: 'DESC' },
+			parameters: {
+				jql: 'project = TEST ORDER BY priority ASC',
+			},
+		});
+
+		expect(result).toEqual({
+			parameters: {
+				jql: 'project = TEST ORDER BY priority ASC',
+			},
+			sort: undefined,
+		});
+	});
+
 	it('resets to ASC when sorting a different column', () => {
 		const getter = getDatasourceColumnSortGetter(JIRA_LIST_OF_LINKS_DATASOURCE_ID);
 

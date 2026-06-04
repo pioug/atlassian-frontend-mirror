@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
-
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
 import Lozenge, { LozengeDropdownTrigger } from '@atlaskit/lozenge';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -166,6 +165,28 @@ describe('Lozenge', () => {
 
 			const trigger = screen.getByTestId('trigger-max-width');
 			expect(trigger).toBeInTheDocument();
+		});
+
+		// Regression test: the container must use min(maxWidth, 100%) so it
+		// never overflows its parent even when the parent is narrower than
+		// the explicit maxWidth prop, while still honouring the explicit
+		// maxWidth when the parent is wide enough.
+		it('should apply min(maxWidth, 100%) to the container so it never overflows its parent', () => {
+			render(
+				<LozengeDropdownTrigger
+					appearance="success"
+					isSelected={false}
+					onClick={__noop}
+					maxWidth={200}
+					testId="trigger-constrained"
+				>
+					Very Long Status Label That Should Truncate
+				</LozengeDropdownTrigger>,
+			);
+
+			const trigger = screen.getByTestId('trigger-constrained');
+			// The container's inline maxWidth should be min(200px, 100%)
+			expect(trigger).toHaveStyle({ maxWidth: 'min(200px, 100%)' });
 		});
 
 		it('should support custom style prop', () => {

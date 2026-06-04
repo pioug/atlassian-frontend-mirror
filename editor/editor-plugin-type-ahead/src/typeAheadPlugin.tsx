@@ -27,6 +27,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { closeTypeAhead } from './pm-plugins/commands/close-type-ahead';
 import { insertTypeAheadItem } from './pm-plugins/commands/insert-type-ahead-item';
 import { openTypeAheadAtCursor } from './pm-plugins/commands/open-typeahead-at-cursor';
+import { updateSectionTitle } from './pm-plugins/commands/update-section-title';
 import { inputRulePlugin } from './pm-plugins/input-rules';
 import { createPlugin as createInsertItemPlugin } from './pm-plugins/insert-item-plugin';
 import { pluginKey as typeAheadPluginKey } from './pm-plugins/key';
@@ -131,6 +132,18 @@ const createFindHandlerByTrigger =
 		const { current: view } = editorViewRef;
 
 		return findHandler(trigger, view.state);
+	};
+
+const createUpdateSectionTitle =
+	(editorViewRef: EditorViewRef) =>
+	(props: Parameters<typeof updateSectionTitle>[0]): boolean => {
+		if (!editorViewRef.current) {
+			return false;
+		}
+
+		const { current: view } = editorViewRef;
+
+		return updateSectionTitle(props)(view.state, view.dispatch);
 	};
 
 type CloseTypeAheadProps = {
@@ -284,6 +297,7 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ api }) => {
 			findHandlerByTrigger: createFindHandlerByTrigger(editorViewRef),
 			insert: createInsertTypeAheadItem(editorViewRef),
 			close: createCloseTypeAhead(editorViewRef),
+			updateSectionTitle: createUpdateSectionTitle(editorViewRef),
 		},
 
 		contentComponent({

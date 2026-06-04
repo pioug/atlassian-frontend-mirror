@@ -59,12 +59,10 @@ describe('<TaskList/>', () => {
 			</IntlProvider>,
 		);
 		const divs = component.find('div');
-		expect(divs.length).toEqual(4);
+		expect(divs.length).toEqual(3);
 		expect(divs.first().prop('data-task-list-local-id')).toEqual('');
 
-		expect(component.find('div[data-task-local-id]').length).toEqual(1);
-
-		expect(component.find('div[data-task-local-id]').prop('data-task-local-id')).toEqual('');
+		expect(component.find('div[data-task-local-id]').length).toEqual(0);
 	});
 
 	describe('analytics', () => {

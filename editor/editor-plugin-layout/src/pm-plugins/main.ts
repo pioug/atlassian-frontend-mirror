@@ -1,3 +1,4 @@
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import type { Command } from '@atlaskit/editor-common/types';
@@ -138,7 +139,10 @@ const handleDeleteLayoutColumn: Command = (state, dispatch) => {
 	return false;
 };
 
-export default (options: LayoutPluginOptions): SafePlugin<LayoutState> => {
+export default (
+	options: LayoutPluginOptions,
+	editorAnalyticsAPI?: EditorAnalyticsAPI,
+): SafePlugin<LayoutState> => {
 	// Store a reference to the EditorView so widget decorations can dispatch transactions
 	let editorViewRef: EditorView | undefined;
 
@@ -205,7 +209,7 @@ export default (options: LayoutPluginOptions): SafePlugin<LayoutState> => {
 					editorExperiment('platform_editor_layout_column_resize_handle', true) &&
 					isLayoutResizingPluginAvailable
 				) {
-					const dividerDecorations = getColumnDividerDecorations(state, editorViewRef);
+					const dividerDecorations = getColumnDividerDecorations(state, editorViewRef, editorAnalyticsAPI);
 					const selectedDecorations =
 						layoutState.pos !== null
 							? getNodeDecoration(layoutState.pos, state.doc.nodeAt(layoutState.pos) as Node)

@@ -47,7 +47,7 @@ import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decis
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import type { EditorActions } from '../src';
 import { Editor } from '../src';
-import type { EditorProps } from '../src/editor';
+import type { EditorProps } from '../src/types/editor-props';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
 

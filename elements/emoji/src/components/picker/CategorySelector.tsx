@@ -5,7 +5,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 import { cssMap, cx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { useIntl } from 'react-intl';
 import { Pressable } from '@atlaskit/primitives/compiled';
@@ -16,6 +15,7 @@ import {
 	KeyboardKeys,
 } from '../../util/constants';
 import type { CategoryDescription, OnCategory } from '../../types';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { messages } from '../i18n';
 import {
 	CategoryDescriptionMap,
@@ -172,11 +172,11 @@ const addNewCategories = (
 			newCategories.filter(
 				(category) =>
 					!!(
-						fg('platform_emoji_picker_refresh') ? CategoryDescriptionMapNew : CategoryDescriptionMap
+						FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? CategoryDescriptionMapNew : CategoryDescriptionMap
 					)[category],
 			),
 		)
-		.sort(fg('platform_emoji_picker_refresh') ? sortCategoriesNew : sortCategories);
+		.sort(FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? sortCategoriesNew : sortCategories);
 };
 
 export const categorySelectorComponentTestId = 'category-selector-component';
@@ -254,7 +254,7 @@ const CategorySelector = (props: Props): JSX.Element => {
 
 	let categoriesSection;
 	if (categories) {
-		categoriesSection = fg('platform_emoji_picker_refresh') ? (
+		categoriesSection = FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
 			<div
 				role="tablist"
 				aria-label={formatMessage(messages.categoriesSelectorLabel)}
@@ -263,7 +263,7 @@ const CategorySelector = (props: Props): JSX.Element => {
 				css={categorySelectorTablistNew}
 			>
 				{categories.map((categoryId: CategoryId, index: number) => {
-					const category = fg('platform_emoji_picker_refresh')
+					const category = FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
 						? CategoryDescriptionMapNew[categoryId]
 						: CategoryDescriptionMap[categoryId];
 
@@ -305,7 +305,7 @@ const CategorySelector = (props: Props): JSX.Element => {
 				css={categorySelectorTablist}
 			>
 				{categories.map((categoryId: CategoryId, index: number) => {
-					const category = fg('platform_emoji_picker_refresh')
+					const category = FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
 						? CategoryDescriptionMapNew[categoryId]
 						: CategoryDescriptionMap[categoryId];
 
@@ -340,7 +340,7 @@ const CategorySelector = (props: Props): JSX.Element => {
 			</div>
 		);
 	}
-	return fg('platform_emoji_picker_refresh') ? (
+	return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
 		<div css={categorySelectorNew}>{categoriesSection}</div>
 	) : (
 		<div css={categorySelector}>{categoriesSection}</div>

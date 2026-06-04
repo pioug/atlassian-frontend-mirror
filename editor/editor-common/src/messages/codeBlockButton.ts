@@ -26,6 +26,31 @@ export const codeBlockButtonMessages: {
 		description: string;
 		id: string;
 	};
+	formatCode: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	formatCodeFailed: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	formatCodeFailedAutoDetectedDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	formatCodeFailedDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	formatCodeUnavailable: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	hideLineNumbersLabel: {
 		defaultMessage: string;
 		description: string;
@@ -119,6 +144,34 @@ export const codeBlockButtonMessages: {
 		defaultMessage: 'Hide line numbers',
 		description:
 			'Tooltip for a code block toolbar button that hides line numbers. This is shown when line numbers are visible.',
+	},
+	formatCode: {
+		id: 'fabric.editor.codeBlockFormatButton.formatCode',
+		defaultMessage: 'Format code',
+		description: 'Tooltip for a code block toolbar button that formats code block content.',
+	},
+	formatCodeUnavailable: {
+		id: 'fabric.editor.codeBlockFormatButton.formatCodeUnavailable',
+		defaultMessage: 'Formatting not available for this language',
+		description:
+			'Tooltip for a disabled code block toolbar button when formatting is not available for the selected language.',
+	},
+	formatCodeFailed: {
+		id: 'fabric.editor.codeBlockFormatButton.formatCodeFailed',
+		defaultMessage: 'Code formatting failed',
+		description: 'Title for an error flag shown when code formatting fails.',
+	},
+	formatCodeFailedDescription: {
+		id: 'fabric.editor.codeBlockFormatButton.formatCodeFailedDescription',
+		defaultMessage: 'Review the content or change the selected language.',
+		description:
+			'Description for an error flag shown when code formatting fails for a selected language.',
+	},
+	formatCodeFailedAutoDetectedDescription: {
+		id: 'fabric.editor.codeBlockFormatButton.formatCodeFailedAutoDetectedDescription',
+		defaultMessage: 'Review the content or select a specific language.',
+		description:
+			'Description for an error flag shown when code formatting fails for an automatically detected language.',
 	},
 	selectLanguage: {
 		id: 'fabric.editor.selectLanguage',

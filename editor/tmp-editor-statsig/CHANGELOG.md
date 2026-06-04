@@ -1,5 +1,24 @@
 # @atlaskit/editor-statsig-tmp
 
+## 89.0.0
+
+### Major Changes
+
+- [`3e2877f105afc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e2877f105afc) -
+  Remove code block auto-detection experiment from editor statsig catalog.
+
+### Minor Changes
+
+- [`be7cb592d8951`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be7cb592d8951) -
+  NAVX-5108 Implementing UI for new inline tailored rovo cta
+
+## 88.5.0
+
+### Minor Changes
+
+- [`e52fe1a335508`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e52fe1a335508) -
+  [ux] Fixed evaluating experiment as FG instead of experiment
+
 ## 88.4.0
 
 ### Minor Changes

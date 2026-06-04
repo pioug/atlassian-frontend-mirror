@@ -31,6 +31,14 @@ export type CloudEnvironment =
 export const ATL_CTX_PERIMETER = 'Atl-Ctx-Perimeter';
 export const ATL_CTX_ISOLATION_CONTEXT_DOMAIN = 'Atl-Ctx-Isolation-Context-Domain';
 export const ATL_CTX_ISOLATION_CONTEXT_ID = 'Atl-Ctx-Isolation-Context-Id';
+export const BIFROST_ATL_CTX_CLOUD_SERVICE_PROVIDER = 'Bifrost-Atl-Ctx-Cloud-Service-Provider';
+
+export const CLOUD_SERVICE_PROVIDER_GCP = 'GCP';
+export const CLOUD_SERVICE_PROVIDER_AWS = 'AWS';
+
+export type CloudServiceProvider =
+	| typeof CLOUD_SERVICE_PROVIDER_GCP
+	| typeof CLOUD_SERVICE_PROVIDER_AWS;
 
 export type AtlCtxCookieName =
 	| typeof ATL_CTX_PERIMETER

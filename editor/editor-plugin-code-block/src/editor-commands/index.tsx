@@ -21,7 +21,11 @@ import {
 } from '@atlaskit/editor-common/insert';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import { findCodeBlock } from '@atlaskit/editor-common/transforms';
-import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	EditorCommand,
+	ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
@@ -33,12 +37,18 @@ import {
 	removeSelectedNode,
 	safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
+import type { CodeBlockPlugin } from '../codeBlockPluginType';
 import { ACTIONS } from '../pm-plugins/actions';
 import { autoDetectPluginKey, type AutoDetectEntry } from '../pm-plugins/auto-detect-state';
 import { copySelectionPluginKey } from '../pm-plugins/codeBlockCopySelectionPlugin';
-import type { CodeBlockState } from '../pm-plugins/main-state';
+import type {
+	CodeBlockState,
+	PendingFormatRequest,
+	ResolveFormatCodeOutcome,
+} from '../pm-plugins/main-state';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { transformToCodeBlockAction } from '../pm-plugins/transform-to-code-block';
 import type { LanguagePickerSelectionSource } from '../ui/language-picker-options';
@@ -47,6 +57,14 @@ import {
 	getLocalId,
 	hasEnoughTextForAutoDetection,
 } from '../utils/auto-detect-state';
+import {
+	formatCode,
+	isSupportedFormatLanguage,
+} from '../utils/format-code/formatter';
+import type {
+	FormatCodeResult,
+	LanguageSource,
+} from '../utils/format-code/formatter';
 
 export const removeCodeBlockWithAnalytics = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
@@ -90,18 +108,19 @@ export const changeLanguage =
 
 		const node = state.doc.nodeAt(pos);
 		const localId = node?.attrs.localId;
-		const previousAutoDetectEntry: AutoDetectEntry | undefined = expValEquals(
-			'platform_editor_code_block_auto_detection',
-			'isEnabled',
-			true,
-		)
-			? autoDetectPluginKey.getState(state)?.languageDetectionMap[localId]
-			: undefined;
+		const previousAutoDetectEntry: AutoDetectEntry | undefined =
+			expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
+			fg('platform_editor_code_block_language_detection_flow')
+				? autoDetectPluginKey.getState(state)?.languageDetectionMap[localId]
+				: undefined;
 		const tr = state.tr
 			.setNodeMarkup(pos, codeBlock, { ...node?.attrs, language })
 			.setMeta('scrollIntoView', false);
 
-		if (expValEquals('platform_editor_code_block_auto_detection', 'isEnabled', true)) {
+		if (
+			expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
+			fg('platform_editor_code_block_language_detection_flow')
+		) {
 			tr.setMeta(autoDetectPluginKey, {
 				type: ACTIONS.REMOVE_AUTO_DETECT_ENTRY,
 				data: { localId },
@@ -177,6 +196,233 @@ export const detectLanguage = (): Command => (state, dispatch) => {
 
 	return true;
 };
+
+const setResolveFormatCodeMeta = (
+	tr: Transaction,
+	{
+		languageSource,
+		localId,
+		outcome,
+		requestId,
+		errorType,
+	}: {
+		errorType?: Extract<FormatCodeResult, { status: 'failed' }>['errorType'];
+		languageSource: LanguageSource;
+		localId: string;
+		outcome: ResolveFormatCodeOutcome;
+		requestId: string;
+	},
+): Transaction =>
+	tr.setMeta(pluginKey, {
+		type: ACTIONS.RESOLVE_FORMAT_CODE,
+		data: {
+			languageSource,
+			localId,
+			outcome,
+			requestId,
+			...(errorType ? { errorType } : {}),
+		},
+	});
+
+const replaceCodeBlockText = ({
+	codeBlockNode,
+	content,
+	pos,
+	tr,
+}: {
+	codeBlockNode: PMNode;
+	content: string;
+	pos: number;
+	tr: Transaction;
+}): Transaction => {
+	const from = pos + 1;
+	const to = pos + codeBlockNode.nodeSize - 1;
+	tr.delete(from, to);
+
+	if (content) {
+		tr.insertText(content, from);
+	}
+
+	// The editor scroll plugin scrolls doc-changing transactions by default.
+	return tr.setMeta('scrollIntoView', false);
+};
+
+const attachFormatCodeAnalytics = ({
+	editorAnalyticsAPI,
+	languageSource,
+	result,
+	tr,
+}: {
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+	languageSource: LanguageSource;
+	result: FormatCodeResult;
+	tr: Transaction;
+}): void => {
+	if (result.status === 'failed') {
+		editorAnalyticsAPI?.attachAnalyticsEvent({
+			action: ACTION.ERRORED,
+			actionSubject: ACTION_SUBJECT.CODE_BLOCK,
+			attributes: {
+				errorType: result.errorType,
+				language: result.language,
+				languageSource,
+			},
+			eventType: EVENT_TYPE.TRACK,
+		})(tr);
+		return;
+	}
+
+	editorAnalyticsAPI?.attachAnalyticsEvent({
+		action: ACTION.FORMATTED,
+		actionSubject: ACTION_SUBJECT.CODE_BLOCK,
+		attributes: {
+			language: result.language,
+			languageSource,
+			outcome: result.status,
+		},
+		eventType: EVENT_TYPE.TRACK,
+	})(tr);
+};
+
+const createResolveFormatCodeTransaction = ({
+	editorAnalyticsAPI,
+	localId,
+	pendingFormat,
+	result,
+	tr,
+}: {
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+	localId: string;
+	pendingFormat: PendingFormatRequest;
+	result: FormatCodeResult;
+	tr: Transaction;
+}): Transaction => {
+	const { languageSource, requestId } = pendingFormat;
+	const codeBlockNode = tr.doc.nodeAt(pendingFormat.pos);
+	const hasMatchingCodeBlock =
+		codeBlockNode?.type === tr.doc.type.schema.nodes.codeBlock &&
+		codeBlockNode?.attrs.localId === localId;
+
+	if (!hasMatchingCodeBlock) {
+		// Keep failure telemetry even when the target block is no longer available.
+		if (result.status === 'failed') {
+			attachFormatCodeAnalytics({
+				editorAnalyticsAPI,
+				languageSource,
+				result,
+				tr,
+			});
+		}
+
+		return setResolveFormatCodeMeta(tr, {
+			languageSource,
+			localId,
+			outcome: 'unchanged',
+			requestId,
+		});
+	}
+
+	let resultTransaction = tr;
+
+	if (result.status === 'formatted') {
+		resultTransaction = replaceCodeBlockText({
+			codeBlockNode,
+			content: result.content,
+			pos: pendingFormat.pos,
+			tr,
+		});
+	}
+
+	attachFormatCodeAnalytics({
+		editorAnalyticsAPI,
+		languageSource,
+		result,
+		tr: resultTransaction,
+	});
+
+	return setResolveFormatCodeMeta(resultTransaction, {
+		errorType: result.status === 'failed' ? result.errorType : undefined,
+		languageSource,
+		localId,
+		outcome: result.status,
+		requestId,
+	});
+};
+
+export const createFormatCodeOnClick =
+	(
+		{
+			api,
+			editorAnalyticsAPI,
+		}: {
+			api?: ExtractInjectionAPI<CodeBlockPlugin>;
+			editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+		},
+	): Command =>
+	(state, dispatch) => {
+		const currentCodeBlockState = pluginKey.getState(state);
+		const currentPos = currentCodeBlockState?.pos;
+
+		if (!currentCodeBlockState || typeof currentPos !== 'number') {
+			return false;
+		}
+
+		const currentNode = state.doc.nodeAt(currentPos);
+		if (!currentNode || currentNode.type !== state.schema.nodes.codeBlock) {
+			return false;
+		}
+
+		const currentLanguage = currentNode.attrs.language;
+		if (!isSupportedFormatLanguage(currentLanguage)) {
+			return true;
+		}
+
+		const currentLocalId = currentNode.attrs.localId;
+		if (currentCodeBlockState.pendingFormats[currentLocalId]) {
+			return true;
+		}
+
+		const autoDetectEntry =
+			autoDetectPluginKey.getState(state)?.languageDetectionMap[currentLocalId];
+		const languageSource = autoDetectEntry?.autoDetectedLanguage === currentLanguage
+			? 'auto-detected'
+			: 'selected';
+		const content = currentNode.textContent;
+		const requestId = crypto.randomUUID();
+
+		api?.core?.actions.execute(({ tr }) =>
+			tr.setMeta(pluginKey, {
+				type: ACTIONS.START_FORMAT_CODE,
+				data: {
+					languageSource,
+					localId: currentLocalId,
+					pos: currentPos,
+					requestId,
+				},
+			}),
+		);
+
+		void formatCode({ content, language: currentLanguage }).then((result) => {
+			const pendingFormat =
+				api?.codeBlock?.sharedState.currentState()?.pendingFormats[currentLocalId];
+
+			if (!pendingFormat || pendingFormat.requestId !== requestId) {
+				return;
+			}
+
+			api?.core?.actions.execute(({ tr }) =>
+				createResolveFormatCodeTransaction({
+					editorAnalyticsAPI,
+					localId: currentLocalId,
+					pendingFormat,
+					result,
+					tr,
+				}),
+			);
+		});
+
+		return true;
+	};
 
 export const copyContentToClipboardWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>

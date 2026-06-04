@@ -6,7 +6,7 @@ import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 
-import * as clickAreaHelper from '../../../../ui/Addon/click-area-helper';
+import * as clickAreaHelper from '../../../../ui/Addon/outsideProsemirrorEditorClickHandler';
 
 it('should not call the click handler on content components', async () => {
 	const Editor = () => {

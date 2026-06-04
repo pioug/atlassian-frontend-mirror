@@ -1,11 +1,3 @@
-export const getDefaultTrackEventConfig = (): {
-	eventType: string;
-	tags: string[];
-} => ({
-	eventType: 'track',
-	tags: ['atlaskit'],
-});
-
 export const getAttributesFromContexts = (context: unknown): Record<string, unknown> => {
 	if (!context || !Array.isArray(context)) {
 		return {};

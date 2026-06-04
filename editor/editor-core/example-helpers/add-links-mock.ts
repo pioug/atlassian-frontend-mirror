@@ -1,23 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/**
- * Helper function to create a mock inline card ADF node
- */
-export const createMockInlineCard = (
-	url: string,
-): {
-	type: string;
-	attrs: {
-		url: string;
-	};
-} => ({
-	type: 'inlineCard',
-	attrs: { url },
-});
+import { createMockInlineCard } from './createMockInlineCard';
 
 /**
  * Helper function to add an inline card to the last paragraph of content,
  * or create a new paragraph with the card if needed
  */
+// oxlint-disable-next-line typescript-eslint/no-explicit-any
 function addInlineCardToContent(content: any[], url: string) {
 	if (content.length > 0) {
 		const lastChild = content[content.length - 1];
@@ -43,6 +30,7 @@ function addInlineCardToContent(content: any[], url: string) {
 /**
  * Helper function to add mock inline cards to table rows
  */
+// oxlint-disable-next-line typescript-eslint/no-explicit-any
 export function addLinksToTable(tableAdf: any): void {
 	for (const content of tableAdf.content) {
 		if (content.type === 'tableRow' && content.content.length > 0) {
@@ -60,6 +48,7 @@ export function addLinksToTable(tableAdf: any): void {
 /**
  * Helper function to add mock inline cards to task list items
  */
+// oxlint-disable-next-line typescript-eslint/no-explicit-any
 export function addLinksToTaskList(taskListAdf: any): void {
 	if (taskListAdf.content) {
 		for (const item of taskListAdf.content) {

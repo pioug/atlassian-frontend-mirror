@@ -9,6 +9,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { ACTION } from '../../analytics';
 import type { EventDispatcher } from '../../event-dispatcher';
 import type { MultiBodiedExtensionActions } from '../../extensions';
+import type { ChangeActiveOptions } from '../../extensions/types/extension-handler';
 
 import { sendMBEAnalyticsEvent } from './utils';
 
@@ -34,19 +35,23 @@ export const useMultiBodiedExtensionActions = ({
 }: ActionsProps): MultiBodiedExtensionActions => {
 	const actions: MultiBodiedExtensionActions = React.useMemo(() => {
 		return {
-			changeActive(index: number): boolean {
+			changeActive(index: number, options?: ChangeActiveOptions): boolean {
 				const { state, dispatch } = editorView;
 				const updateActiveChildResult = updateActiveChild(index);
 				if (eventDispatcher) {
 					sendMBEAnalyticsEvent(ACTION.CHANGE_ACTIVE, node, eventDispatcher);
 				}
-				// On selection of a childFrame, we need to change the focus/selection to the end of the target child Frame
+
+				const selection = options?.selection ?? 'none';
+				if (selection === 'none') {
+					return updateActiveChildResult;
+				}
+
 				const pos = getPos();
 				if (typeof pos !== 'number') {
 					return updateActiveChildResult;
 				}
 				const possiblyMbeNode = state.doc.nodeAt(pos);
-				let desiredPos = pos;
 
 				if (
 					possiblyMbeNode &&
@@ -61,13 +66,26 @@ export const useMultiBodiedExtensionActions = ({
 						);
 					}
 
-					for (let i = 0; i <= index && i < possiblyMbeNode?.content?.childCount; i++) {
+					let desiredPos = pos;
+					for (let i = 0; i < index && i < possiblyMbeNode?.content?.childCount; i++) {
 						desiredPos += possiblyMbeNode?.content?.child(i)?.nodeSize || 0;
 					}
-					/* desiredPos gives the cursor at the end of last child of the current frame, in case of paragraph nodes, this will be the end of the paragraph
-					 * Performing -1 brings the cursor inside the paragraph, similar to a user click, so any pasted text will be inside the last paragraph rather than a new line
-					 */
-					dispatch(state.tr.setSelection(new TextSelection(state.doc.resolve(desiredPos - 1))));
+
+					const targetFrame = possiblyMbeNode.content.child(index);
+					if (selection === 'start') {
+						// +1 moves past the extensionFrame opening token; TextSelection.near() finds
+						// the nearest valid text cursor position from there.
+						dispatch(state.tr.setSelection(TextSelection.near(state.doc.resolve(desiredPos + 1))));
+					} else {
+						// Place cursor at the end of the target frame's content.
+						// -1 bias searches backward from the frame's closing token.
+						dispatch(
+							state.tr.setSelection(
+								TextSelection.near(state.doc.resolve(desiredPos + targetFrame.nodeSize), -1),
+							),
+						);
+					}
+					editorView.focus();
 				}
 				return updateActiveChildResult;
 			},

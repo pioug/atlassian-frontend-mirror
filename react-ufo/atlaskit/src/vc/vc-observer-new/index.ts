@@ -386,7 +386,8 @@ export default class VCObserverNew {
 
 		// Always include raw data when fy26.04 is not in the client config so the server
 		// can recalculate fy26.04 metrics (ssrRatio, labelStacks, speedIndex) from raw observations.
-		const shouldIncludeRawData = includeRawData || !isFy2604Enabled;
+		const shouldIncludeRawData =
+			includeRawData || !isFy2604Enabled || fg('platform_ufo_always_emit_raw_handler');
 
 		if (shouldIncludeRawData) {
 			const rawVCCalculationStartTime = performance.now();

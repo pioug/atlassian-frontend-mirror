@@ -95,11 +95,13 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 			 * @param attrs - The media node attributes of the node to insert
 			 * @param inputMethod - The method used to input the media
 			 * @param insertMediaVia - Optional parameter indicating how the media was inserted
+			 * @param positions - Optional parameter indicating the positions for the insertion
 			 */
 			insertMediaSingle: (
 				attrs: MediaADFAttrs,
 				inputMethod: InputMethodInsertMedia,
 				insertMediaVia?: InsertMediaVia,
+				positions?: [number, number],
 			) => EditorCommand;
 			/**
 			 * Sets the AI-generating decoration on a media node identified by `mediaId`.

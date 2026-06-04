@@ -70,6 +70,12 @@ describe('Payload Creation with Third-Party Holds', () => {
 			enabled: true,
 			product: 'test-product',
 			region: 'test-region',
+			vc: {
+				enabled: true,
+				enabledVCRevisions: {
+					all: ['fy26.04'],
+				},
+			},
 			enableVCRawDataRates: {
 				enabled: true,
 				rates: { 'test-ufo-name': 0.5 },
@@ -335,5 +341,109 @@ describe('Payload Creation with Third-Party Holds', () => {
 				triggerName: 'next-interaction',
 			},
 		]);
+	});
+
+	describe('raw-handler payload size preservation', () => {
+		const createLargeInteraction = (): InteractionMetrics =>
+			({
+				id: 'test-interaction',
+				start: 1000,
+				end: 2000,
+				ufoName: 'test-ufo-name',
+				type: 'page_load',
+				marks: [],
+				customData: [
+					{
+						labelStack: [],
+						data: {
+							large: 'x'.repeat(260 * 1024),
+						},
+					},
+				],
+				cohortingCustomData: new Map(),
+				customTimings: [],
+				spans: [],
+				requestInfo: [],
+				reactProfilerTimings: [],
+				holdInfo: [],
+				holdActive: new Map(),
+				hold3pActive: new Map(),
+				hold3pInfo: [],
+				measureStart: 1000,
+				rate: 1,
+				cancelCallbacks: [],
+				metaData: {},
+				errors: [],
+				apdex: [],
+				labelStack: null,
+				routeName: 'test-route',
+				knownSegments: [],
+				cleanupCallbacks: [],
+				awaitReactProfilerCount: 0,
+				redirects: [],
+				timerID: undefined,
+				changeTimeout: jest.fn(),
+				trace: null,
+				previousInteractionName: undefined,
+				isPreviousInteractionAborted: false,
+				abortReason: undefined,
+				minorInteractions: [],
+				vcObserver: {
+					start: jest.fn(),
+					stop: jest.fn(),
+					getVCRawData: jest.fn().mockReturnValue(null),
+					getVCResult: jest.fn().mockResolvedValue({
+						'ufo:vc:rev': [
+							{
+								revision: 'raw-handler',
+								clean: true,
+								'metric:vc90': null,
+								rawData: {
+									obs: [{ t: 0, r: [0, 0, 100, 100], eid: 1, chg: 1 }],
+									eid: { 1: 'div.test' },
+									chg: { 1: 'mutation:element' },
+								},
+								viewport: { w: 100, h: 100 },
+							},
+						],
+					}),
+					setSSRElement: jest.fn(),
+					setReactRootRenderStart: jest.fn(),
+					setReactRootRenderStop: jest.fn(),
+					collectSSRPlaceholders: jest.fn(),
+				},
+			}) as unknown as InteractionMetrics;
+
+		it('should remove raw-handler when payload is over budget and always emit raw-handler gate is off', async () => {
+			const payloads = await createPayloads('test-interaction', createLargeInteraction());
+			const mainPayload = payloads.find(
+				(payload: any) =>
+					payload.actionSubject === 'experience' &&
+					payload.action === 'measured' &&
+					payload.attributes?.properties?.interactionMetrics,
+			);
+			const properties = mainPayload?.attributes?.properties as any;
+
+			expect(properties?.['ufo:vc:raw:removed']).toBe(true);
+			expect(properties?.['ufo:vc:raw:preservedOverBudget']).toBeUndefined();
+			expect(properties?.['ufo:vc:rev']?.find((rev: any) => rev.revision === 'raw-handler')).toBeUndefined();
+		});
+
+		it('should preserve raw-handler when payload is over budget and always emit raw-handler gate is on', async () => {
+			mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_always_emit_raw_handler');
+
+			const payloads = await createPayloads('test-interaction', createLargeInteraction());
+			const mainPayload = payloads.find(
+				(payload: any) =>
+					payload.actionSubject === 'experience' &&
+					payload.action === 'measured' &&
+					payload.attributes?.properties?.interactionMetrics,
+			);
+			const properties = mainPayload?.attributes?.properties as any;
+
+			expect(properties?.['ufo:vc:raw:removed']).toBeUndefined();
+			expect(properties?.['ufo:vc:raw:preservedOverBudget']).toBe(true);
+			expect(properties?.['ufo:vc:rev']?.find((rev: any) => rev.revision === 'raw-handler')).toBeDefined();
+		});
 	});
 });

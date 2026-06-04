@@ -5,7 +5,7 @@ import type { QuickInsertProvider } from '@atlaskit/editor-common/provider-facto
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 
 import EditorActions from '../../../actions';
-import * as extensionUtils from '../../extensions';
+import * as extensionUtils from '../../combineQuickInsertProviders';
 import prepareQuickInsertProvider from '../../prepare-quick-insert-provider';
 
 describe('providers', () => {

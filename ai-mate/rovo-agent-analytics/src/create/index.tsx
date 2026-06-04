@@ -8,9 +8,10 @@ import {
 
 import type { AddToolsPromptEventPayload } from '../actions/groups/add-tools-prompt';
 import type { CreateFlowEventPayload } from '../actions/groups/create-flow';
-import { ANALYTICS_CHANNEL } from '../common/constants';
+import { ANALYTICS_CHANNEL } from '../common/ANALYTICS_CHANNEL';
 import { useRovoAgentCSID } from '../common/csid';
-import { getAttributesFromContexts, getDefaultTrackEventConfig } from '../common/utils';
+import { getAttributesFromContexts } from '../common/utils/getAttributesFromContexts';
+import { getDefaultTrackEventConfig } from '../common/utils/getDefaultTrackEventConfig';
 
 const DefaultActionSubject = 'rovoAgent';
 

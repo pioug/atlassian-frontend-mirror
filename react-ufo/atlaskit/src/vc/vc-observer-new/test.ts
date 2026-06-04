@@ -834,6 +834,28 @@ describe('VCObserverNew', () => {
 			expect(result.find((r) => r.revision === 'raw-handler')).toBeDefined();
 		});
 
+		it('should include raw data when always emit raw-handler gate is enabled even if fy26.04 is enabled', async () => {
+			// Only enable fy26.04
+			(isVCRevisionEnabled as jest.Mock).mockImplementation((revision: string) => {
+				return revision === 'fy26.04';
+			});
+			(fg as jest.Mock).mockImplementation(
+				(flag: string) => flag === 'platform_ufo_always_emit_raw_handler',
+			);
+
+			const result = await vcObserver.getVCResult({
+				start: 0,
+				stop: 1000,
+				interactionId: 'test-interaction-id',
+				interactionType: 'page_load',
+				isPageVisible: true,
+				includeRawData: false,
+			});
+
+			expect(RawDataHandler.prototype.getRawData).toHaveBeenCalled();
+			expect(result.find((r) => r.revision === 'raw-handler')).toBeDefined();
+		});
+
 		it('should not include raw data when fy26.04 is enabled and includeRawData is false', async () => {
 			// Only enable fy26.04
 			(isVCRevisionEnabled as jest.Mock).mockImplementation((revision: string) => {

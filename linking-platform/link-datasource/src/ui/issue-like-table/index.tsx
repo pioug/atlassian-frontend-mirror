@@ -33,7 +33,6 @@ import { useDatasourceExperienceId } from '../../contexts/datasource-experience-
 import { useIsInPDFRender } from '../../hooks/useIsInPDFRender';
 
 import { ColumnPicker } from './column-picker';
-import { GlyphPlaceholder } from './custom-icons';
 import { DragColumnPreview } from './drag-column-preview';
 import { DraggableTableHeading } from './draggable-table-heading';
 import TableEmptyState, { type Props } from './empty-state';
@@ -450,6 +449,7 @@ export const IssueLikeDataTableView = ({
 					</Box>
 				),
 				key: column.key,
+				width: column.width,
 			})),
 		}),
 		[headerColumns],
@@ -580,17 +580,44 @@ export const IssueLikeDataTableView = ({
 		[items, itemIds, renderItem, wrappedColumnKeys, visibleSortedColumns, getColumnWidth],
 	);
 
-	const rows = useMemo(() => {
-		if (status !== 'loading') {
-			return tableRows;
+	const previousRealRowsCountRef = useRef<number | undefined>(undefined);
+	useEffect(() => {
+		if (tableRows.length > 0) {
+			previousRealRowsCountRef.current = tableRows.length;
 		}
+	}, [tableRows.length]);
+
+	const rows = useMemo(() => {
+		if (fg('platform_lp_jira_sllv_renderer_column_sorting')) {
+			const hasPreviousRealRows = !!previousRealRowsCountRef.current;
+			const isLoadingState =
+				status === 'loading' ||
+				(status === 'empty' && hasPreviousRealRows);
+			if (!isLoadingState) {
+				return tableRows;
+			}
+		} else {
+			if (status !== 'loading') {
+				return tableRows;
+			}
+		}
+
 		// if there are table rows, only add 1 loading row
 		if (tableRows.length > 0) {
 			return [...tableRows, { ...loadingRow, key: `loading-${tableRows.length}` }];
 		}
 		// if there are no table rows add 14 rows if it is compact (has scrollableContainerHeight or non-modal)
 		// add 10 rows if it is modal (no scrollableContainerHeight)
-		const loadingRowsCount = scrollableContainerHeight ? 14 : 10;
+		let loadingRowsCount = scrollableContainerHeight ? 14 : 10;
+		if (fg('platform_lp_jira_sllv_renderer_column_sorting')) {
+			const defaultLoadingRowsCount = scrollableContainerHeight ? 14 : 10;
+			const previousRealRowsCount = previousRealRowsCountRef.current;
+			loadingRowsCount = defaultLoadingRowsCount;
+			if (previousRealRowsCount && previousRealRowsCount < defaultLoadingRowsCount) {
+				loadingRowsCount = previousRealRowsCount;
+			}
+		}
+
 		return [...Array(loadingRowsCount)].map((_, index) => ({
 			...loadingRow,
 			key: `loading-${index}`,
@@ -690,7 +717,7 @@ export const IssueLikeDataTableView = ({
 									? sortedDirection === 'ASC'
 										? SortAscendingIcon
 										: SortDescendingIcon
-									: GlyphPlaceholder;
+									: null;
 								const sortLabel = typeof content === 'string' ? content : key;
 								const sortButtonAriaLabel =
 									sortedDirection === 'ASC'
@@ -709,7 +736,7 @@ export const IssueLikeDataTableView = ({
 											shouldFitContainer
 											testId={`${key}-column-sort-button`}
 											aria-label={sortButtonAriaLabel}
-											iconAfter={(iconProps) => <SortIcon {...iconProps} size="small" />}
+											{...(SortIcon ? { iconAfter: (iconProps) => <SortIcon {...iconProps} size="small" /> } : {})}
 											onClick={() => onColumnSort?.(key)}
 										>
 											{heading}

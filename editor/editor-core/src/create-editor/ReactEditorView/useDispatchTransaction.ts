@@ -19,7 +19,8 @@ import type { EditorOnChangeHandler } from '../../types/editor-onchange';
 import { findChangedNodesFromTransaction } from '../../utils/findChangedNodesFromTransaction';
 import { freezeUnsafeTransactionProperties } from '../../utils/performance/safer-transactions';
 import { EVENT_NAME_ON_CHANGE } from '../../utils/performance/track-transactions';
-import { validateNodes, validNode } from '../../utils/validateNodes';
+import { validateNodes } from '../../utils/validateNodes';
+import { validNode } from '../../utils/validNode';
 
 type DispatchTransaction = (view: EditorView | undefined, tr: Transaction) => void;
 

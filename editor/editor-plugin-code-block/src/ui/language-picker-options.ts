@@ -1,8 +1,8 @@
 import type { IntlShape } from 'react-intl';
 
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { GroupType } from '@atlaskit/select';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export const NONE_LANGUAGE_VALUE = 'none';
 export const DETECT_LANGUAGE_VALUE = 'autodetect';
@@ -52,7 +52,7 @@ export const createGroupedLanguageOptions = ({
 	const plainTextOption = languages.find(
 		(language) => language.value === PLAIN_TEXT_LANGUAGE_VALUE,
 	);
-	const pinnedOptions = expValEquals('platform_editor_code_block_auto_detection', 'isEnabled', true)
+	const pinnedOptions = fg('platform_editor_code_block_language_detection_flow')
 		? [getDetectLanguageOption(formatMessage)]
 		: [];
 	if (plainTextOption) {

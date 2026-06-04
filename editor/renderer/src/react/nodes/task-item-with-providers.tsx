@@ -3,7 +3,6 @@ import type { ReactNode } from 'react';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { ResourcedTaskItem } from '@atlaskit/task-decision';
 import type { ContentRef, TaskDecisionProvider } from '@atlaskit/task-decision';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 interface Props {
 	children?: ReactNode;
@@ -50,13 +49,10 @@ export default function TaskItemWithProviders(props: Props): React.JSX.Element {
 	const resolvedObjectId =
 		(resolvedContextProvider && resolvedContextProvider.objectId) || objectAri;
 
-	return fg('platform_editor_fix_missing_task_id') ? (
+	return (
 		<div data-task-local-id={props.taskId || ''}>
 			{/* eslint-disable-next-line react/jsx-props-no-spreading */}
 			<ResourcedTaskItem {...otherProps} objectAri={resolvedObjectId} isRenderer={isRenderer} />
 		</div>
-	) : (
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<ResourcedTaskItem {...otherProps} objectAri={resolvedObjectId} isRenderer={isRenderer} />
 	);
 }

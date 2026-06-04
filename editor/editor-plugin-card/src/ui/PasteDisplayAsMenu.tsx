@@ -21,6 +21,7 @@ import SmartLinkInlineIcon from '@atlaskit/icon/core/smart-link-inline';
 import { useSmartCardContext } from '@atlaskit/link-provider';
 import { Box, Flex, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 import type { CardPlugin } from '../cardPluginType';
 import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
@@ -53,14 +54,22 @@ type PasteSharedStateApi = {
 	};
 };
 
+// Subset of `PasteMenuRuleFactories` we structurally consume here — kept local
+// to avoid importing the toolbar package (see cycle note below).
+type PasteMenuRulesSubset = {
+	notSingleLinkRule: () => boolean;
+};
+
 // `pasteOptionsToolbarPlugin` is intentionally NOT declared in `CardPluginDependencies`
 // because doing so introduces a runtime package cycle
 // (editor-plugin-card -> editor-plugin-paste-options-toolbar -> editor-plugin-paste
 // -> editor-plugin-card) AND a TS2719 "two different types with this name exist" error
-// at downstream consumers (e.g. Jira's `EditorAfterBanner.tsx`). We instead augment the
-// `api` shape locally at the call sites that need to read the plugin's shared state.
+// at downstream consumers (e.g. Jira's `EditorAfterBanner.tsx`). The `api` shape is augmented locally instead.
 type PasteOptionsToolbarApi = {
 	pasteOptionsToolbarPlugin: {
+		actions: {
+			getPasteMenuRules: () => PasteMenuRulesSubset;
+		};
 		sharedState: {
 			currentState: () => PasteOptionsToolbarSharedState | undefined;
 		};
@@ -170,19 +179,21 @@ const AppearanceOptionIconButton = ({
 }: AppearanceOptionIconButtonProps) => {
 	return (
 		<Box xcss={styles.iconWrapper}>
-			<Pressable
-				xcss={cx(
-					styles.iconButton,
-					isDisabled && styles.iconButtonDisabled,
-					!isDisabled && currentAppearance === appearance && styles.iconButtonSelected,
-				)}
-				aria-label={label}
-				aria-pressed={currentAppearance === appearance}
-				isDisabled={isDisabled}
-				onClick={onClick}
-			>
-				<Icon label={label} />
-			</Pressable>
+			<Tooltip content={label} position="bottom">
+				<Pressable
+					xcss={cx(
+						styles.iconButton,
+						isDisabled && styles.iconButtonDisabled,
+						!isDisabled && currentAppearance === appearance && styles.iconButtonSelected,
+					)}
+					aria-label={label}
+					aria-pressed={currentAppearance === appearance}
+					isDisabled={isDisabled}
+					onClick={onClick}
+				>
+					<Icon label={label} />
+				</Pressable>
+			</Tooltip>
 		</Box>
 	);
 };
@@ -576,9 +587,10 @@ const PasteDisplayAsMenuSection = ({
 	return (
 		<ToolbarDropdownItemSection
 			title={intl.formatMessage({
-				defaultMessage: 'Display as',
-				description: 'Section title for Smart Link display options in the paste actions menu.',
-				id: 'fabric.editor.pasteDisplayAsMenu.displayAs',
+				defaultMessage: 'Display link as',
+				description:
+					'Section title in the paste actions menu for choosing how a pasted link is displayed (URL, Inline, Card, or Embed).',
+				id: 'fabric.editor.pasteDisplayAsMenu.displayLinkAs',
 			})}
 		>
 			<PasteDisplayAsMenuHorizontalView
@@ -623,14 +635,21 @@ export const getPasteDisplayAsMenuComponents = ({
 				return true;
 			}
 
-			const pastedSlice = getCurrentPastedSlice(api);
-			const urlFromSlice = getSingleSmartLinkUrlFromSlice(pastedSlice);
+			// Slice-shape check — delegated to the toolbar plugin's shared
+			// `notSingleLinkRule` via the structural cast (see note above).
+			const rules =
+				apiWithPasteOptionsToolbar?.pasteOptionsToolbarPlugin?.actions.getPasteMenuRules();
+			if (!rules || rules.notSingleLinkRule()) {
+				return true;
+			}
+
+			// Fallback: plain-text URL paste that the card plugin already resolved into a card node in the doc.
 			const urlFromCard = getCardUrlAtPasteRange({
 				editorView,
 				pasteStartPos: pasteRange.pasteStartPos,
 				pasteEndPos: pasteRange.pasteEndPos,
-			})
-			return !urlFromSlice && !urlFromCard;
+			});
+			return !urlFromCard;
 		},
 		component: () => (
 			<PasteDisplayAsMenuSection

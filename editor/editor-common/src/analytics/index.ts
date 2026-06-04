@@ -247,3 +247,5 @@ export type {
 	SyncBlockEventPayload,
 	SyncedBlockSSRErrorAEP,
 } from './types/sync-block-events';
+
+export type { AiSuggestionsEventPayload } from './types/ai-suggestions-events';

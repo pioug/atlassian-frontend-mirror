@@ -915,10 +915,16 @@ async function createInteractionMetricsPayload(
 			const rawDataSize = getPayloadSize(rawData);
 			(payload.attributes.properties as Record<string, unknown>)['ufo:vc:raw:size'] = rawDataSize;
 			if (size > MAX_PAYLOAD_SIZE && vcRev.length > 0) {
-				(payload.attributes.properties as Record<string, any>)['ufo:vc:rev'] = vcRev.filter(
-					(item: { revision: string }) => item.revision !== 'raw-handler',
-				);
-				(payload.attributes.properties as Record<string, unknown>)['ufo:vc:raw:removed'] = true;
+				if (fg('platform_ufo_always_emit_raw_handler')) {
+					(payload.attributes.properties as Record<string, unknown>)[
+						'ufo:vc:raw:preservedOverBudget'
+					] = true;
+				} else {
+					(payload.attributes.properties as Record<string, any>)['ufo:vc:rev'] = vcRev.filter(
+						(item: { revision: string }) => item.revision !== 'raw-handler',
+					);
+					(payload.attributes.properties as Record<string, unknown>)['ufo:vc:raw:removed'] = true;
+				}
 			}
 		}
 	}

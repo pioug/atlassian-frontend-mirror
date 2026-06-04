@@ -36,7 +36,7 @@ import { statusPlugin } from '@atlaskit/editor-plugins/status';
 import { submitEditorPlugin } from '@atlaskit/editor-plugins/submit-editor';
 import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 
-import type { EditorProps } from '../../../types';
+import type { EditorProps } from '../../../types/editor-props';
 import createPluginsListBase from '../../create-plugins-list';
 import { createUniversalPreset } from '../../create-universal-preset';
 

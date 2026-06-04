@@ -25,6 +25,7 @@ import {
 import {
 	atTheBeginningOfBlock,
 	selectionIsAtTheBeginningOfBlock,
+	startPositionOfParent,
 } from '@atlaskit/editor-common/selection';
 import type {
 	Command,
@@ -147,6 +148,7 @@ function insertNodesWithOptionalParagraph({
 
 function insertNodesWithOptionalParagraphCommand({
 	nodes,
+	positions,
 	analyticsAttributes = {},
 	editorAnalyticsAPI,
 	insertMediaVia,
@@ -160,6 +162,7 @@ function insertNodesWithOptionalParagraphCommand({
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	insertMediaVia?: InsertMediaVia;
 	nodes: PMNode[];
+	positions?: [number, number];
 }): EditorCommand {
 	return ({ tr }) => {
 		const { inputMethod, fileExtension, newType, previousType } = analyticsAttributes;
@@ -167,10 +170,17 @@ function insertNodesWithOptionalParagraphCommand({
 		let updatedTr = tr;
 		const openEnd = 0;
 
-		if (tr.selection.empty) {
-			const insertFrom = selectionIsAtTheBeginningOfBlock(tr.selection)
-				? tr.selection.$from.before()
-				: tr.selection.from;
+		const { selection } = tr;
+		const from = positions ? positions[0] : selection.from;
+		const to = positions ? positions[1] : selection.to;
+		const $from = positions ? tr.doc.resolve(from) : selection.$from;
+		const isEmpty = positions ? from === to : selection.empty;
+
+		if (isEmpty) {
+			const isAtTheBeginningOfBlock = positions
+				? startPositionOfParent($from) === $from.pos
+				: selectionIsAtTheBeginningOfBlock(selection);
+			const insertFrom = isAtTheBeginningOfBlock ? $from.before() : from;
 
 			// the use of pmSafeInsert causes the node selection to media single node.
 			// It leads to discrepancy between the full-page and comment editor - not sure why :shrug:
@@ -181,7 +191,10 @@ function insertNodesWithOptionalParagraphCommand({
 			// so we revert to use tr.insert instead. No extra paragraph is added.
 			updatedTr = updatedTr.insert(insertFrom, nodes);
 		} else {
-			updatedTr.replaceSelection(new Slice(Fragment.from(nodes), 0, openEnd));
+			const slice = new Slice(Fragment.from(nodes), 0, openEnd);
+			updatedTr = positions
+				? updatedTr.replaceRange(from, to, slice)
+				: updatedTr.replaceSelection(slice);
 		}
 
 		if (inputMethod) {
@@ -252,7 +265,7 @@ export const insertMediaAsMediaSingle = (
 				widthType: 'pixel',
 				width: getMediaSingleInitialWidth(node.attrs.width ?? DEFAULT_IMAGE_WIDTH),
 				layout: 'center',
-			}
+		  }
 		: {};
 
 	const mediaSingleNode = mediaSingle.create(mediaSingleAttrs, node);
@@ -275,6 +288,7 @@ export const createInsertMediaAsMediaSingleCommand = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	insertMediaVia?: InsertMediaVia,
 	allowPixelResizing?: boolean,
+	positions?: [number, number],
 ): EditorCommand => {
 	return ({ tr }) => {
 		const { mediaSingle, media } = tr.doc.type.schema.nodes;
@@ -292,7 +306,7 @@ export const createInsertMediaAsMediaSingleCommand = (
 					widthType: 'pixel',
 					width: getMediaSingleInitialWidth(mediaAttrs.width ?? DEFAULT_IMAGE_WIDTH),
 					layout: 'center',
-				}
+			  }
 			: {};
 		const mediaNode = media.create(mediaAttrs);
 
@@ -303,11 +317,12 @@ export const createInsertMediaAsMediaSingleCommand = (
 			// External images have no file extension
 			fileExtension:
 				mediaAttrs.type !== 'external' && mediaAttrs.__fileMimeType
-					? (mediaAttrs.__fileMimeType ?? undefined)
+					? mediaAttrs.__fileMimeType ?? undefined
 					: undefined,
 		};
 		return insertNodesWithOptionalParagraphCommand({
 			nodes,
+			positions,
 			analyticsAttributes,
 			editorAnalyticsAPI,
 			insertMediaVia,
@@ -513,7 +528,7 @@ const createMediaSingleNode =
 					width: getMediaSingleInitialWidth(scaledWidth, maxWidth, minWidth),
 					// TODO: ED-26962 - change to use enum
 					widthType: 'pixel',
-				}
+			  }
 			: mediaSingleAttrs;
 
 		copyOptionalAttrsFromMediaState(mediaState, mediaNode);
@@ -538,7 +553,7 @@ const replaceWithMediaSingleNode =
 			? {
 					width: getMediaSingleInitialWidth(width, maxWidth, minWidth),
 					widthType: 'pixel',
-				}
+			  }
 			: {};
 		return mediaSingle.createChecked(extendedMediaSingleAttrs, copiedMediaNode);
 	};

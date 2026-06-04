@@ -41,6 +41,8 @@ export type CardContext = {
 	| 'product'
 	| 'renderers'
 	| 'shouldControlDataExport'
+	| 'xpcProduct'
+	| 'xpcSubProduct'
 >;
 
 export interface CardProviderStoreOpts {
@@ -109,6 +111,17 @@ export type CardProviderProps = {
 	 * This controls whether or not the link data should be blocked for data export during certain features, such as PDF export in Confluence.
 	 */
 	shouldControlDataExport?: boolean;
+	/**
+	 * The product identifier used exclusively for cross-product (XPC) URL wrapping analytics
+	 * (e.g. 'confluence', 'jira'). Does not affect link resolution.
+	 * Takes precedence over `product` when determining the source product for XPC URL wrapping.
+	 */
+	xpcProduct?: string;
+	/**
+	 * The sub-product identifier used exclusively for cross-product (XPC) URL wrapping analytics
+	 * (e.g. 'jsw', 'jsm'). Does not affect link resolution.
+	 */
+	xpcSubProduct?: string;
 	/**
 	 * The options for redux store that contains linking data.
 	 * `initialState` can be used to set linking data and prevent card client to make a request to resolve the url.

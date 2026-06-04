@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-context
 
+## 0.10.0
+
+### Minor Changes
+
+- [`f07546acf4fbb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f07546acf4fbb) -
+  Add isGoogleCloudPlatform function to detect GCP cloud environment via
+  Bifrost-Atl-Ctx-Cloud-Service-Provider cookie, with SSR support via globalThis.ssrContext.isInGCP
+
 ## 0.9.0
 
 ### Minor Changes

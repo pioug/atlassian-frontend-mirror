@@ -42,6 +42,7 @@ import AddIcon from '@atlaskit/icon/core/add';
 import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
 import { emojiPickerAddEmoji } from './styles';
 import { DEFAULT_TONE } from '../../util/constants';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { Box } from '@atlaskit/primitives/compiled';
 
 const styles = cssMap({
@@ -225,7 +226,7 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 };
 
 type EmojiActionsProps = PropsWithWrappedComponentPropsType;
-// TODO: remove this on cleanup of platform_emoji_picker_refresh
+// TODO: remove this on cleanup of platform_teamoji_26_refresh_emoji_picker
 export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	const {
 		onToneSelected,
@@ -267,7 +268,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	}, [showToneSelector, onToneSelectorCancelled]);
 
 	if (uploading) {
-		return fg('platform_emoji_picker_refresh') ? (
+		return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
 			<div css={previewFooterNew}>
 				<EmojiUploadPicker
 					onUploadCancelled={onUploadCancelled}
@@ -291,7 +292,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	}
 
 	if (emojiToDelete) {
-		return fg('platform_emoji_picker_refresh') ? (
+		return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
 			<div css={previewFooterNew}>
 				<EmojiDeletePreview
 					emoji={emojiToDelete}
@@ -310,7 +311,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 		);
 	}
 
-	return fg('platform_emoji_picker_refresh') ? (
+	return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
 		<div
 			data-testid={emojiActionsTestId}
 			css={previewFooterNew}

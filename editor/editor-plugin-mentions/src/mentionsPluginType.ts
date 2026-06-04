@@ -2,6 +2,7 @@ import type {
 	NextEditorPlugin,
 	OptionalPlugin,
 	EditorCommand,
+	TypeAheadSectionTitleUpdate,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BasePlugin } from '@atlaskit/editor-plugin-base';
@@ -27,10 +28,13 @@ export type MentionActionAnnounceMentionsInsertion = (
 
 export type MentionActionSetProvider = (provider: Promise<MentionProvider>) => Promise<boolean>;
 
+export type MentionActionUpdateSectionTitle = (props: TypeAheadSectionTitleUpdate) => boolean;
+
 export type MentionActions = {
 	announceMentionsInsertion: MentionActionAnnounceMentionsInsertion;
 	openTypeAhead: MentionActionOpenTypeAhead;
 	setProvider: MentionActionSetProvider;
+	updateSectionTitle: MentionActionUpdateSectionTitle;
 };
 
 export type MentionPluginDependencies = [

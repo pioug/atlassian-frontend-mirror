@@ -196,7 +196,8 @@ export type { ExperienceEventPayload } from './types/experience-events';
 
 export type { EditorAnalyticsAPI, FireAnalyticsEventOptions, BaseEventPayload } from './api';
 
-export { editorAnalyticsChannel, fireAnalyticsEvent } from './fire-analytics-event';
+export { editorAnalyticsChannel } from './editorAnalyticsChannel';
+export { fireAnalyticsEvent } from './fire-analytics-event';
 
 export { getAnalyticsEventsFromTransaction } from './utils';
 

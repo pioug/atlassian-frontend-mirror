@@ -1,3 +1,4 @@
+import { isPerformanceObserverAvailable } from './isPerformanceObserverAvailable';
 let hasRequiredPerformanceAPIs: boolean | undefined;
 
 export function isPerformanceAPIAvailable(): boolean {
@@ -20,9 +21,6 @@ export function isPerformanceAPIAvailable(): boolean {
 	return hasRequiredPerformanceAPIs;
 }
 
-export function isPerformanceObserverAvailable(): boolean {
-	return !!(typeof window !== 'undefined' && 'PerformanceObserver' in window);
-}
 
 export function isPerformanceObserverLongTaskAvailable(): boolean {
 	return (
@@ -31,3 +29,5 @@ export function isPerformanceObserverLongTaskAvailable(): boolean {
 		PerformanceObserver.supportedEntryTypes.includes('longtask')
 	);
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { isPerformanceObserverAvailable } from './isPerformanceObserverAvailable';

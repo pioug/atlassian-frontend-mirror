@@ -12,11 +12,8 @@ import type {
 	Transformer,
 	TransformerResult,
 } from '../../types';
-import {
-	processRawFragmentValue,
-	processRawValue,
-	processRawValueWithoutValidation,
-} from '../../utils/processRawValue';
+import { processRawFragmentValue } from '../../utils/processRawFragmentValue';
+import { processRawValue, processRawValueWithoutValidation } from '../../utils/processRawValue';
 import { editorCommandToPMCommand } from '../editor-commands';
 
 import { appearancePluginKey, createAppearancePlugin } from './pm-plugins/appearance-plugin';

@@ -342,6 +342,12 @@ export type InsertPromptPayload = PayloadCore<
 	{
 		prompt: string;
 		/**
+		 * Optional complete ADF document to seed the chat input with instead of the plain-string
+		 * `prompt`. When provided, rich nodes (skill pills, links, inline cards, mentions) are
+		 * preserved rather than being flattened to text. `prompt` is still used as a fallback.
+		 */
+		promptAdf?: DocNode;
+		/**
 		 * Overrides the default auto-send behavior for prompts.
 		 * By default, prompts with backticks (`) are inserted as placeholders into the chat input
 		 * (backticks indicate a placeholder), while prompts without backticks are sent immediately.

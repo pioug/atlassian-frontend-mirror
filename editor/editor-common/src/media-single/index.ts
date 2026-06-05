@@ -15,18 +15,15 @@ export {
 	CAPTION_PLACEHOLDER_ID,
 	MEDIA_SINGLE_ADJACENT_HANDLE_MARGIN,
 } from './constants';
-export {
-	getMediaSinglePixelWidth,
-	calcMediaSinglePixelWidth,
-	calcMediaSingleMaxWidth,
-	getMediaSingleInitialWidth,
-	calculateOffsetLeft,
-	roundToNearest,
-	calcMinWidth,
-	getMaxWidthForNestedNode,
-	getMaxWidthForNestedNodeNext,
-	currentMediaNodeWithPos,
-} from './utils';
+export { calcMediaSingleMaxWidth } from './calcMediaSingleMaxWidth';
+export { calcMinWidth } from './calcMinWidth';
+export { calculateOffsetLeft } from './calculateOffsetLeft';
+export { currentMediaNodeWithPos } from './currentMediaNodeWithPos';
+export { getMaxWidthForNestedNode } from './getMaxWidthForNestedNode';
+export { getMediaSingleInitialWidth } from './getMediaSingleInitialWidth';
+export { getMediaSinglePixelWidth } from './getMediaSinglePixelWidth';
+export { roundToNearest } from './roundToNearest';
+export { calcMediaSinglePixelWidth, getMaxWidthForNestedNodeNext } from './utils';
 export { CommentBadge } from './CommentBadge';
 export { CommentBadgeNext } from './CommentBadgeNext';
 export { ExternalImageBadge } from './ExternalImageBadge';

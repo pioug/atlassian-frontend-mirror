@@ -1,24 +1,7 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
-/**
- * Returns true if any cell in the first row of the table has a colwidth attribute set.
- *
- * Used by both the editor (as `hasTableColumnBeenResized`) and the renderer (as `hasColWidths`)
- * to determine whether a table has had its columns manually resized.
- */
-export const hasTableColumnBeenResized = (tableNode: PMNode): boolean => {
-	const firstRow = tableNode.content.firstChild;
-	if (!firstRow) {
-		return false;
-	}
-	for (let i = 0; i < firstRow.childCount; i++) {
-		if (firstRow.child(i).attrs.colwidth) {
-			return true;
-		}
-	}
-	return false;
-};
+import { hasTableColumnBeenResized } from './hasTableColumnBeenResized';
 
 /**
  * Returns true if the table has been explicitly resized — either the table itself has a width
@@ -65,3 +48,5 @@ export const isTableInContentMode = ({
 
 	return isSupported && !hasTableBeenResized(tableNode) && tableNode.attrs.layout === 'align-start';
 };
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { hasTableColumnBeenResized } from './hasTableColumnBeenResized';

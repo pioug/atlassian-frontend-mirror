@@ -1,5 +1,33 @@
 # @atlaskit/primitives
 
+## 19.0.2
+
+### Patch Changes
+
+- [`71fee8de88abc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71fee8de88abc) -
+  Added new design tokens to support the Lozenge / Tag / Badge visual uplift:
+
+  **15 new `color.border.*.subtle` tokens** for decorative borders that do not need to meet 3:1
+  contrast requirements:
+  - 5 semantic: `danger`, `warning`, `success`, `discovery`, `information` (no `neutral.subtle` —
+    the default `color.border` already serves this case)
+  - 10 accent: `red`, `orange`, `yellow`, `lime`, `green`, `teal`, `blue`, `purple`, `magenta`,
+    `gray`
+  - Light theme maps to Color300; dark theme maps to Color800 (DarkNeutral400 for `accent.gray`)
+
+  **5 new `color.background.*.subtle` tokens** for non-interactive elements (e.g. semantic badges,
+  status pills, callout chips):
+  - `danger`, `success`, `discovery`, `information` — light theme maps to Color300, dark theme maps
+    to Color800
+  - `warning` — light theme maps to Orange250, dark theme maps to Orange850 (different stops because
+    Orange300 is already used by `warning.bold`)
+
+  Note: `color.background.*.subtle` is intentionally non-interactive only — no `.hovered` or
+  `.pressed` variants are provided. For interactive surfaces, use `color.background.<semantic>.bold`
+  or `color.background.<semantic>.subtler` instead.
+
+- Updated dependencies
+
 ## 19.0.1
 
 ### Patch Changes

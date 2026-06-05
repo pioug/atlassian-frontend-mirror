@@ -10,6 +10,7 @@ import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import { isConfluenceSlideUrl } from '@atlaskit/editor-card-provider/url-checkers';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
@@ -48,7 +49,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { EmbedResizeMessageListener, Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -756,12 +756,8 @@ export const embedCardNodeView =
 			CompetitorPrompt,
 			isPageSSRed,
 			provider,
-			intl: expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
-				? intl
-				: undefined,
-			smartCardContext: expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
-				? smartCardContext
-				: undefined,
+			intl: isSSRStreaming() ? intl : undefined,
+			smartCardContext: isSSRStreaming() ? smartCardContext : undefined,
 		};
 
 		return new EmbedCard(

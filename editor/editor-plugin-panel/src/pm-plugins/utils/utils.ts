@@ -10,6 +10,7 @@ import {
 	findParentNodeOfType,
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
+import { akEditorTableContainerBg } from '@atlaskit/editor-shared-styles/consts';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -81,16 +82,20 @@ export const panelAttrsToDom = (
 		: panelColor && hexToEditorBackgroundPaletteColor(panelColor);
 	const panelBackgroundColor = tokenColor || panelColor;
 
+	const isCustomPanelWithColor = expValEquals(
+		'platform_editor_stricter_panelcolor_typecheck',
+		'isEnabled',
+		true,
+	)
+		? typeof panelColor === 'string' && isCustomPanel
+		: panelColor && isCustomPanel;
+
 	const style = [
-		`${
-			(
-				expValEquals('platform_editor_stricter_panelcolor_typecheck', 'isEnabled', true)
-					? typeof panelColor === 'string' && isCustomPanel
-					: panelColor && isCustomPanel
-			)
-				? `background-color: ${panelBackgroundColor};`
-				: ''
-		}`,
+		`${isCustomPanelWithColor ? `background-color: ${panelBackgroundColor};` : ''}`,
+		// When table-in-panel is enabled, set --table-container-bg so that table
+		// masking elements (sticky-header mask, column-controls wrapper) blend with
+		// the custom panel background instead of showing opaque white.
+		`${isCustomPanelWithColor && expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `${akEditorTableContainerBg}: ${panelBackgroundColor};` : ''}`,
 		`${
 			!hasIcon && !fg('platform_editor_nested_dnd_styles_changes')
 				? `padding-left: 12px;padding-right: 12px;`

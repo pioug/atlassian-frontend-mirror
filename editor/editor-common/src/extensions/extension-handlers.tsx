@@ -6,8 +6,9 @@ import Loadable from 'react-loadable';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { getExtensionKeyAndNodeKey, resolveImport, resolveImportSync } from './manifest-helpers';
+import { getExtensionKeyAndNodeKey, resolveImport } from './manifest-helpers';
 import { messages } from './messages';
+import { resolveImportSync } from './resolveImportSync';
 import type {
 	ExtensionParams,
 	MultiBodiedExtensionActions,
@@ -50,15 +51,6 @@ function getNodeFromManifest(
 	return node;
 }
 
-export function getExtensionManifest(
-	extensionProvider: ExtensionProvider,
-	extensionType: ExtensionType,
-	extensionKey: ExtensionKey,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Generic extension types; any required for provider compatibility
-): Promise<ExtensionManifest<any> | undefined> {
-	const [extKey] = getExtensionKeyAndNodeKey(extensionKey, extensionType);
-	return extensionProvider.getExtension(extensionType, extKey);
-}
 
 export async function getExtensionModuleNode(
 	extensionProvider: ExtensionProvider,
@@ -208,3 +200,5 @@ export function getNodeRenderer<T extends Parameters>(
 		loading: ExtensionLoading as React.ComponentType<LoadingComponentProps>,
 	});
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getExtensionManifest } from './getExtensionManifest';

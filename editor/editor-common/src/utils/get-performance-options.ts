@@ -3,7 +3,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
 import type { AnalyticsEventPayload } from '../analytics';
-import { startMeasure, stopMeasure } from '../performance-measures';
+import { stopMeasure } from '../performance-measures';
 
 // This was existing logic when converting from ReactNodeView
 // our current sampling for this event is not bound by node.type
@@ -45,14 +45,6 @@ export function getPerformanceOptions(view: EditorView): {
 	};
 }
 
-export function startMeasureReactNodeViewRendered({
-	nodeTypeName,
-}: {
-	nodeTypeName: string;
-}): void {
-	startMeasure(`🦉${nodeTypeName}::ReactNodeView`);
-}
-
 export function stopMeasureReactNodeViewRendered({
 	nodeTypeName,
 	dispatchAnalyticsEvent,
@@ -83,3 +75,5 @@ export function stopMeasureReactNodeViewRendered({
 		}
 	});
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { startMeasureReactNodeViewRendered } from './startMeasureReactNodeViewRendered';

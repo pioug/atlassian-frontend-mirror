@@ -18,13 +18,14 @@ import { useAnalyticsEvents } from '../../../common/analytics/generated/use-anal
 import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
 import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
 import { getDefinitionId, getExtensionKey, getServices } from '../../../state/helpers';
-import useInlineActionNudgeExperiment from '../../../state/hooks/use-inline-action-nudge-experiment';
 import useRovoConfig from '../../../state/hooks/use-rovo-config';
+import { useSmartLinkCrossProductUrlWrapperGated } from '../../../state/hooks/use-smart-link-cross-product-url-wrapper';
 import { useSmartCardState } from '../../../state/store';
 import { type CardState } from '../../../state/types';
 import { isSpecialEvent } from '../../../utils';
 import { getIsAISummaryEnabled } from '../../../utils/ai-summary';
 import { fireLinkClickedEvent } from '../../../utils/analytics/click';
+import { getAnchorAttributesFromEvent } from '../../../utils/click-helpers';
 import { type TitleBlockProps } from '../../FlexibleCard/components/blocks/title-block/types';
 import { type FlexibleCardProps } from '../../FlexibleCard/types';
 import { flexibleUiOptions } from '../styled';
@@ -72,8 +73,8 @@ const useIsShowPreauthBetterHovercard = (
 	const { rovoOptions: rovoConfig } = useRovoConfig();
 	return Boolean(
 		useIsUnauthorisedView(props) &&
-		rovoConfig?.isRovoEnabled &&
-		expValEquals('platform_sl_3p_preauth_better_hovercard', 'isEnabled', true),
+			rovoConfig?.isRovoEnabled &&
+			expValEquals('platform_sl_3p_preauth_better_hovercard', 'isEnabled', true),
 	);
 };
 
@@ -102,6 +103,10 @@ const HoverCardContent = ({
 	const isAISummaryEnabled = getIsAISummaryEnabled(isAdminHubAIEnabled, cardState.details);
 
 	const services = getServices(linkState.details);
+
+	const appendCrossProductAnalyticsParams = useSmartLinkCrossProductUrlWrapperGated({
+		details: linkState.details,
+	});
 
 	const statusRef = useRef(linkStatus);
 	const fireEventRef = useRef(fireEvent);
@@ -148,6 +153,24 @@ const HoverCardContent = ({
 
 	const onClick = useCallback(
 		(event: React.MouseEvent) => {
+			if (fg('platform_smartlink_xpc_url_wrapping')) {
+				// Prevent the anchor's native navigation so we can open the destination URL
+				// with cross-product analytics query parameters appended.
+				// The href is read from the anchor element at click time rather than at render
+				// time because the URL for the anchor may be different from original URL.
+				// The component may use the URL from the resolved response which can be a redirect URL
+				// or other preferred URL based on link extractor.
+				// The cross-product params are client-only and cannot be rendered
+				// server-side. Falls back to the original `url` prop if the event target is
+				// not an anchor element.
+				event.preventDefault();
+
+				const { href = url, target } = getAnchorAttributesFromEvent(event);
+				const destinationUrl = appendCrossProductAnalyticsParams(href);
+
+				window.open(destinationUrl, target);
+			}
+
 			const isModifierKeyPressed = isSpecialEvent(event);
 			fireEvent('ui.smartLink.clicked.titleGoToLink', {
 				id,
@@ -157,7 +180,7 @@ const HoverCardContent = ({
 			});
 			fireLinkClickedEvent(createAnalyticsEvent)(event);
 		},
-		[createAnalyticsEvent, id, fireEvent, definitionId],
+		[createAnalyticsEvent, appendCrossProductAnalyticsParams, id, fireEvent, definitionId, url],
 	);
 
 	const data = cardState.details?.data as JsonLd.Data.BaseData;
@@ -267,15 +290,11 @@ const HoverCardContent = ({
 				return <HoverCardForbiddenView flexibleCardProps={flexibleCardProps} />;
 			}
 
-			const is3PInlinePostAuthActionsEnabled =
-				fg('rovogrowth-640-inline-action-nudge-fg') &&
-				expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true);
 
 			if (isResolved) {
 				return (
 					<HoverCardResolvedView
-						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-						is3PInlinePostAuthActionsEnabled
+						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
 							? { actionOptions, showRovoResolvedView }
 							: undefined)}
 						cardState={cardState}
@@ -337,15 +356,11 @@ const HoverCardContent = ({
 				return <HoverCardForbiddenView flexibleCardProps={flexibleCardProps} />;
 			}
 
-			const is3PInlinePostAuthActionsEnabled =
-				fg('rovogrowth-640-inline-action-nudge-fg') &&
-				expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true);
 
 			if (cardState.status === 'resolved') {
 				return (
 					<HoverCardResolvedView
-						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-						is3PInlinePostAuthActionsEnabled
+						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
 							? { actionOptions, showRovoResolvedView }
 							: undefined)}
 						cardState={cardState}
@@ -375,7 +390,7 @@ const HoverCardContent = ({
 };
 
 const HoverCardContentWithViewVariant = (props: HoverCardContentProps): React.JSX.Element => {
-	const { cardState, actionOptions, url } = props;
+	const { cardState, actionOptions } = props;
 	const rovoConfig = useRovoConfig();
 	const isResolved = useIsResolvedView(props);
 	const showPreauthBetterHovercard = useIsShowPreauthBetterHovercard(props);
@@ -392,27 +407,21 @@ const HoverCardContentWithViewVariant = (props: HoverCardContentProps): React.JS
 		[actionOptions, cardState.details, rovoConfig, isResolved],
 	);
 
-	const { isEnabled: rovoActionsCtaShown } = useInlineActionNudgeExperiment(
-		url,
-		true,
-		actionOptions,
-	);
 
 	const data = useMemo(() => {
 		let viewVariant = 'default';
 		if (
 			showRovoResolvedView &&
-			(expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true) ||
-				expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true))
+			(expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true))
 		) {
 			viewVariant = 'rovo-resolved-view';
 		} else if (showPreauthBetterHovercard) {
 			viewVariant = 'rovo-unauthorised-view';
 		}
 		return {
-			attributes: { viewVariant, rovoActionsCtaShown },
+			attributes: { viewVariant },
 		};
-	}, [showRovoResolvedView, showPreauthBetterHovercard, rovoActionsCtaShown]);
+	}, [showRovoResolvedView, showPreauthBetterHovercard]);
 
 	return (
 		<AnalyticsContext data={data}>
@@ -426,8 +435,7 @@ const _default_1: React.FC<HoverCardContentProps> = componentWithCondition(
 		// We need to read both of them to sutisfy some of the tests that expect both to be checked.
 		const flagA = fg('platform_sl_3p_preauth_better_hovercard_killswitch');
 		const flagB = fg('platform_sl_3p_auth_rovo_action_kill_switch');
-		const flagC = fg('rovogrowth-640-inline-action-nudge-fg');
-		return flagA || flagB || flagC;
+		return flagA || flagB;
 	},
 	HoverCardContentWithViewVariant,
 	HoverCardContent,

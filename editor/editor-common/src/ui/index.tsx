@@ -10,16 +10,12 @@ export type { MediaSingleWidthType, MediaSingleSize } from './MediaSingle/types'
 export { MediaSingleDimensionHelper, MediaBorderGapFiller } from './MediaSingle/styled';
 export type { MediaSingleWrapperProps as MediaSingleDimensionHelperProps } from './MediaSingle/styled';
 
-export {
-	layoutSupportsWidth,
-	calcPxFromColumns,
-	calcPctFromPx,
-	calcPxFromPct,
-	calcColumnsFromPx,
-	snapToGrid,
-	calcMediaPxWidth,
-	wrappedLayouts,
-} from './MediaSingle/grid';
+export { calcColumnsFromPx } from './MediaSingle/calcColumnsFromPx';
+export { calcPctFromPx } from './MediaSingle/calcPctFromPx';
+export { calcPxFromColumns } from './MediaSingle/calcPxFromColumns';
+export { calcPxFromPct } from './MediaSingle/calcPxFromPct';
+export { layoutSupportsWidth, snapToGrid, calcMediaPxWidth } from './MediaSingle/grid';
+export { wrappedLayouts } from './MediaSingle/wrappedLayouts';
 
 export { mediaLinkStyle } from './MediaSingle/link';
 export { default as Popup } from './Popup';
@@ -30,10 +26,8 @@ export { default as UnsupportedBlock } from './UnsupportedBlock';
 export { default as UnsupportedInline } from './UnsupportedInline';
 export { BaseTheme, mapBreakpointToLayoutMaxWidth } from './BaseTheme';
 
-export {
-	default as withOuterListeners,
-	PlainOutsideClickTargetRefContext,
-} from './with-outer-listeners';
+export { PlainOutsideClickTargetRefContext } from './PlainOutsideClickTargetRefContext';
+export { default as withOuterListeners } from './with-outer-listeners';
 export type { WithOutsideClickProps } from './with-outer-listeners';
 export type {
 	CardEventClickHandler,
@@ -60,7 +54,8 @@ export type {
 	OverflowShadowState,
 } from './OverflowShadow';
 
-export { shadowObserverClassNames, ShadowObserver } from './OverflowShadow/shadowObserver';
+export { ShadowObserver } from './OverflowShadow/shadowObserver';
+export { shadowObserverClassNames } from './OverflowShadow/shadowObserverClassNames';
 
 export { WithCreateAnalyticsEvent } from './WithCreateAnalyticsEvent';
 
@@ -102,7 +97,9 @@ export type { ResizerState } from './ResizerLegacy';
 
 export type { EnabledHandles, Props as ResizerProps } from './ResizerLegacy/types';
 
-export { snapTo, handleSides, imageAlignmentMap } from './ResizerLegacy/utils';
+export { handleSides } from './ResizerLegacy/handleSides';
+export { imageAlignmentMap } from './ResizerLegacy/imageAlignmentMap';
+export { snapTo } from './ResizerLegacy/snapTo';
 
 export { wrapperStyle } from './ResizerLegacy/styled';
 export { panelTextInput } from './PanelTextInput/styles';

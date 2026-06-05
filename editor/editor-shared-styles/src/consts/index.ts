@@ -50,6 +50,7 @@ export {
 	akEditorTableBorder,
 	akEditorTableBorderRadius,
 	akEditorTableBorderSelected,
+	akEditorTableContainerBg,
 	akEditorTableCellBackgroundOpacity,
 	akEditorTableCellMinWidth,
 	akEditorTableCellOnStickyHeaderZIndex,

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c784857013a6f31c328919bcfc1862e5>>
+ * @codegen <<SignedSource::b916b382d443b694c70482ec980866ec>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 export const adminIcon =
@@ -49,6 +49,8 @@ export const homeIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23dddee1' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' d='M5.875 10.688v7.437h4.375V13.75h3.5v4.375h4.375v-7.437L12 5z'/> </svg> ";
 export const hubIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 32 32'> <g clip-path='url(%23clip0_95164_16219)'> <path fill='%23dddee1' d='M0 8a8 8 0 0 1 8-8h16a8 8 0 0 1 8 8v16a8 8 0 0 1-8 8H8a8 8 0 0 1-8-8z'/> <g clip-path='url(%23clip1_95164_16219)'> <path fill='%23101214' fill-rule='evenodd' d='M9 25.333V6.667h14v18.666h-5.25V21.25h-3.5v4.083zm3.5-14.583h2.333V9H12.5zm4.667 0H19.5V9h-2.333zm-2.334 4.083H12.5v-1.75h2.333zM12.5 18.916h2.333v-1.75H12.5zm7-4.083h-2.333v-1.75H19.5zm-2.333 4.083H19.5v-1.75h-2.333z' clip-rule='evenodd'/> </g> </g> <defs> <clipPath id='clip0_95164_16219'> <path fill='%23fff' d='M0 0h32v32H0z'/> </clipPath> <clipPath id='clip1_95164_16219'> <path fill='%23fff' d='M2 2h28v28H2z'/> </clipPath> </defs> </svg> ";
+export const jiraCodingAgentIcon =
+	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 55 55'> <path fill='%231868db' d='M24.519.844a6.3 6.3 0 0 1 6.3 0l18.37 10.601a6.3 6.3 0 0 1 3.15 5.454V38.1c0 2.25-1.2 4.33-3.15 5.454l-18.37 10.601a6.3 6.3 0 0 1-6.3 0l-18.37-10.6a6.3 6.3 0 0 1-3.15-5.454V16.9c0-2.25 1.2-4.33 3.15-5.454z'/> <path fill='%23fff' d='M20.71 34.657h-2.705C13.926 34.657 11 32.16 11 28.5h14.543c.754 0 1.241.536 1.241 1.294v14.634c-3.635 0-6.074-2.944-6.074-7.05zm7.183-7.272h-2.705c-4.079 0-7.005-2.454-7.005-6.113h14.542c.754 0 1.286.491 1.286 1.25v14.634c-3.635 0-6.118-2.945-6.118-7.05zm7.227-7.228h-2.705c-4.079 0-7.005-2.498-7.005-6.157h14.543c.753 0 1.241.535 1.241 1.25v14.633c-3.636 0-6.074-2.944-6.074-7.049z'/> </svg> ";
 export const jiraDataCenterIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23fff' d='M6 .5h12A5.5 5.5 0 0 1 23.5 6v12a5.5 5.5 0 0 1-5.5 5.5H6A5.5 5.5 0 0 1 .5 18V6A5.5 5.5 0 0 1 6 .5'/> <path stroke='%23dddee1' d='M6 .5h12A5.5 5.5 0 0 1 23.5 6v12a5.5 5.5 0 0 1-5.5 5.5H6A5.5 5.5 0 0 1 .5 18V6A5.5 5.5 0 0 1 6 .5Z'/> <path fill='%231868db' d='M8.974 15.523H7.62c-2.04 0-3.502-1.249-3.502-3.078h7.271c.377 0 .62.268.62.647v7.317c-1.817 0-3.036-1.472-3.036-3.525zm3.591-3.636h-1.352c-2.04 0-3.503-1.227-3.503-3.056h7.272c.376 0 .642.245.642.625v7.317c-1.817 0-3.059-1.473-3.059-3.525zm3.614-3.614h-1.353c-2.04 0-3.502-1.249-3.502-3.078h7.271c.377 0 .62.268.62.624v7.318c-1.817 0-3.036-1.473-3.036-3.525z'/> </svg> ";
 export const jiraProductDiscoveryIcon =
@@ -114,6 +116,7 @@ export const rawIcons: Record<string, string> = {
 	guard: guardIcon,
 	home: homeIcon,
 	hub: hubIcon,
+	jiraCodingAgent: jiraCodingAgentIcon,
 	jiraDataCenter: jiraDataCenterIcon,
 	jiraProductDiscovery: jiraProductDiscoveryIcon,
 	jiraServiceManagementDataCenter: jiraServiceManagementDataCenterIcon,

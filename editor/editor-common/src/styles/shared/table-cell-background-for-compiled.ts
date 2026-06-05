@@ -1,4 +1,4 @@
-import { mapBackgroundColors } from './tableCell';
+import { mapBackgroundColors } from './mapBackgroundColors';
 
 /**
  * Pre-built CSS string with `background-color` rules for every named table cell

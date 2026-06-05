@@ -3,7 +3,7 @@ import React from 'react';
 import { RawIntlProvider, type IntlShape } from 'react-intl';
 
 import { getDocument } from '@atlaskit/browser-apis';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { isSSR, isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type {
@@ -21,7 +21,6 @@ import type {
 import { Caption } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { CaptionPlugin } from '../captionPluginType';
 
@@ -110,11 +109,7 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 			</Caption>
 		);
 
-		if (
-			!this.intl ||
-			!isSSR() ||
-			!expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
-		) {
+		if (!this.intl || !isSSR() || !isSSRStreaming()) {
 			return children;
 		}
 

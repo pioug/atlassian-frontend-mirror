@@ -4,6 +4,7 @@ import FocusRing from '@atlaskit/focus-ring';
 import MessagesIntlProvider from '../MessagesIntlProvider';
 import PrimitiveMention from './PrimitiveMention';
 import AsyncNoAccessTooltip from '../NoAccessTooltip';
+import AsyncDisabledMentionTooltip from '../DisabledMentionTooltip';
 import { isRestricted, MentionType, type MentionEventHandler } from '../../types';
 import { fireAnalyticsMentionEvent } from '../../util/analytics';
 
@@ -21,7 +22,19 @@ export const UNKNOWN_USER_ID = '_|unknown|_';
 
 export type OwnProps = {
 	accessLevel?: string;
+	/**
+	 * Tooltip text shown on hover when the chip is disabled. Ignored when
+	 * `isDisabled` is false. When omitted, no tooltip is rendered even if
+	 * `isDisabled` is true.
+	 */
+	disabledTooltip?: string;
 	id: string;
+	/**
+	 * When true, the mention chip is rendered in its disabled visual state
+	 * (`MentionType.DISABLED`) and click handlers are not invoked. Takes
+	 * precedence over `isHighlighted` and the restricted state.
+	 */
+	isDisabled?: boolean;
 	isHighlighted?: boolean;
 	localId?: string;
 	onClick?: MentionEventHandler;
@@ -47,7 +60,11 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 	}
 
 	private handleOnClick = (e: React.MouseEvent<HTMLSpanElement>) => {
-		const { id, text, onClick } = this.props;
+		const { id, text, onClick, isDisabled } = this.props;
+		if (isDisabled) {
+			// Disabled chips do not invoke their click handler.
+			return;
+		}
 		if (onClick) {
 			onClick(id, text, e);
 		}
@@ -77,7 +94,10 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 	};
 
 	private getMentionType = (): MentionType => {
-		const { accessLevel, isHighlighted } = this.props;
+		const { accessLevel, isHighlighted, isDisabled } = this.props;
+		if (isDisabled) {
+			return MentionType.DISABLED;
+		}
 		if (isHighlighted) {
 			return MentionType.SELF;
 		}
@@ -110,12 +130,28 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 
 	render(): React.JSX.Element {
 		const { handleOnClick, handleOnMouseEnter, handleOnMouseLeave, props } = this;
-		const { text, id, accessLevel, localId } = props;
+		const { text, id, accessLevel, localId, disabledTooltip } = props;
 		const mentionType: MentionType = this.getMentionType();
 
 		const failedMention = text === `@${UNKNOWN_USER_ID}`;
 
-		const showTooltip = mentionType === MentionType.RESTRICTED;
+		const showRestrictedTooltip = mentionType === MentionType.RESTRICTED;
+		const showDisabledTooltip = mentionType === MentionType.DISABLED && !!disabledTooltip;
+
+		// A11y: when the chip is in the disabled visual state, expose
+		// `aria-disabled` so assistive tech announces it as such. The
+		// disabled-tooltip text is mirrored into `aria-label` so the
+		// announcement carries the reason even without portal-id wiring for
+		// `aria-describedby`.
+		const isDisabledChip = mentionType === MentionType.DISABLED;
+		const disabledA11yProps = isDisabledChip
+			? {
+					'aria-disabled': true as const,
+					...(disabledTooltip
+						? { 'aria-label': `${text || '@...'} — ${disabledTooltip}` }
+						: {}),
+				}
+			: {};
 
 		const mentionComponent = (
 			<FocusRing>
@@ -127,7 +163,8 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 					spellCheck={false}
 					data-testid={`mention-${id}`}
 					data-mention-type={mentionType}
-					data-mention-tooltip={showTooltip}
+					data-mention-tooltip={showRestrictedTooltip || showDisabledTooltip}
+					{...disabledA11yProps}
 				>
 					{failedMention ? this.renderUnknownUserError(id) : text || '@...'}
 				</PrimitiveMention>
@@ -137,6 +174,26 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 		const ssrPlaceholderProp = props.ssrPlaceholderId
 			? { 'data-ssr-placeholder': props.ssrPlaceholderId }
 			: {};
+
+		const wrappedMention = (() => {
+			if (showRestrictedTooltip) {
+				return (
+					<React.Suspense fallback={mentionComponent}>
+						<AsyncNoAccessTooltip name={text}>{mentionComponent}</AsyncNoAccessTooltip>
+					</React.Suspense>
+				);
+			}
+			if (showDisabledTooltip) {
+				return (
+					<React.Suspense fallback={mentionComponent}>
+						<AsyncDisabledMentionTooltip tooltip={disabledTooltip!}>
+							{mentionComponent}
+						</AsyncDisabledMentionTooltip>
+					</React.Suspense>
+				);
+			}
+			return mentionComponent;
+		})();
 
 		return (
 			<UfoErrorBoundary id={id}>
@@ -148,15 +205,7 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 					spellCheck={false}
 					{...ssrPlaceholderProp}
 				>
-					<MessagesIntlProvider>
-						{showTooltip ? (
-							<React.Suspense fallback={mentionComponent}>
-								<AsyncNoAccessTooltip name={text}>{mentionComponent}</AsyncNoAccessTooltip>
-							</React.Suspense>
-						) : (
-							mentionComponent
-						)}
-					</MessagesIntlProvider>
+					<MessagesIntlProvider>{wrappedMention}</MessagesIntlProvider>
 				</span>
 			</UfoErrorBoundary>
 		);

@@ -1,22 +1,9 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 
-export {
-	tableSharedStyle,
-	tableMarginTop,
-	tableMarginBottom,
-	tableMarginSides,
-	tableCellMinWidth,
-	tableNewColumnMinWidth,
-	tableCellBorderWidth,
-	calcTableWidth,
-	TableSharedCssClassName,
-	tableResizeHandleWidth,
-	tableCellPadding,
-	tableMarginTopWithControl,
-	tableControlsSpacing,
-	tablePadding,
-} from './shared/table';
+export { TableSharedCssClassName } from './shared/TableSharedCssClassName';
+export { calcTableWidth } from './shared/calcTableWidth';
+export { tableSharedStyle, tableMarginTop, tableMarginBottom, tableMarginSides, tableCellMinWidth, tableNewColumnMinWidth, tableCellBorderWidth, tableResizeHandleWidth, tableCellPadding, tableMarginTopWithControl, tableControlsSpacing, tablePadding } from './shared/table';
 
 export { AnnotationSharedClassNames, BlockAnnotationSharedClassNames } from './shared/annotation';
 export {

@@ -1,68 +1,3 @@
-/**
- * Walks a DOM tree up to the provided `stopElement`, or if falsy before.
- * @param element
- * @param stopElement
- */
-export function walkUpTreeUntil(
-	element: HTMLElement,
-	shouldStop: (element: HTMLElement) => boolean,
-): HTMLElement {
-	let rootElement = element;
-	while (rootElement && rootElement.parentElement && !shouldStop(rootElement)) {
-		rootElement = rootElement.parentElement;
-	}
-
-	return rootElement;
-}
-
-/**
- * Takes all children out from wrapped el and puts them directly inside
- * the parent el, at the wrapped el's position
- */
-export function unwrap(parent: HTMLElement, wrapped: HTMLElement): void {
-	const docsFragment = document.createDocumentFragment();
-	Array.from(wrapped.children).forEach((child: Node) => {
-		docsFragment.appendChild(child);
-	});
-	parent.replaceChild(docsFragment, wrapped);
-}
-
-/**
- * Walks up DOM removing elements if they are empty until it finds
- * one that is not
- */
-export function removeNestedEmptyEls(el: HTMLElement): void {
-	while (el.parentElement && el.childElementCount === 0 && el.textContent === '') {
-		const parentEl = el.parentElement;
-		parentEl.removeChild(el);
-		el = parentEl;
-	}
-}
-
-/**
- * IE11 doesn't support classList to SVGElements
- **/
-export const containsClassName = (
-	node: HTMLElement | SVGElement | null,
-	className: string,
-): boolean => {
-	if (!node) {
-		return false;
-	}
-
-	if (node.classList && node.classList.contains) {
-		return node.classList.contains(className);
-	}
-
-	if (!node.className) {
-		return false;
-	}
-
-	const classNames =
-		typeof node.className.baseVal === 'string' ? node.className.baseVal : node.className;
-	return classNames.split(' ').indexOf(className) !== -1;
-};
-
 type HTMLElementIE9 = Omit<HTMLElement, 'matches'> & {
 	matches?: HTMLElement['matches']; // WARNING: 'matches' is optional in IE9
 	msMatchesSelector?: (selectors: string) => boolean;
@@ -106,32 +41,6 @@ export function closestElement(
 	return closest(node, s);
 }
 
-/**
- * Util for converting a css pixel size value to a number (of pixels).
- *
- * ie.
- * ```ts
- * const pixels = parsePx('10px')
- * //    ^$ const pixels: number
- * ```
- * * ```ts
- * const pixels = parsePx('10')
- * //    ^$ const pixels: number | undefined
- * ```
- */
-// At time of writting prettier would strip the extend here.
-// prettier-ignore
-export function parsePx<PXString extends `${number}px`>(pxStr: PXString): number;
-export function parsePx<PXString extends string>(pxStr: PXString): number | undefined;
-export function parsePx(pxStr: string): number | undefined {
-	if (!pxStr.endsWith('px')) {
-		return undefined;
-	}
-
-	const maybeNumber = parseInt(pxStr, 10);
-	return !Number.isNaN(maybeNumber) ? maybeNumber : undefined;
-}
-
 export type MapCallback<T, S> = (elem: S, idx: number, parent: Element) => T;
 
 // does typescript have function templates yet?
@@ -149,3 +58,13 @@ export function mapElem<T>(elem: Element, callback: MapCallback<T, Element>): Ar
 export function maphElem<T, U extends HTMLElement>(elem: U, callback: MapCallback<T, U>): Array<T> {
 	return mapElem(elem, callback as MapCallback<T, Element>) as Array<T>;
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { walkUpTreeUntil } from './walkUpTreeUntil';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { unwrap } from './unwrap';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { removeNestedEmptyEls } from './removeNestedEmptyEls';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { containsClassName } from './containsClassName';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { parsePx } from './parsePx';

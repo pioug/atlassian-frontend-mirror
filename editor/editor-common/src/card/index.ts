@@ -2,7 +2,9 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 
 export type { CardOptions, OnClickCallback } from './cardOptions';
-export { addLinkMetadata, getLinkMetadataFromTransaction, commandWithMetadata } from './utils';
+export { addLinkMetadata } from './addLinkMetadata';
+export { getLinkMetadataFromTransaction } from './getLinkMetadataFromTransaction';
+export { commandWithMetadata } from './utils';
 export {
 	default as buildLayoutButtons,
 	alignmentIcons,
@@ -27,7 +29,8 @@ export type {
 	EmbedCardTransformers,
 } from './types';
 export { LinkToolbarButtonGroup } from './LinkToolbarButtonGroup';
-export { appearancePropsMap, getButtonGroupOption } from './link-toolbar-button-group-options';
+export { appearancePropsMap } from './appearancePropsMap';
+export { getButtonGroupOption } from './link-toolbar-button-group-options';
 export { getDropdownOption } from './link-toolbar-dropdown-options';
 export const DATASOURCE_INNER_CONTAINER_CLASSNAME = 'datasourceView-content-inner-wrap';
 export { IconCard } from './ui/assets/card';

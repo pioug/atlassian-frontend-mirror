@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-panel
 
+## 13.0.2
+
+### Patch Changes
+
+- [`ae8f78f39a5d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae8f78f39a5d2) -
+  Fix white masking wrapper (from sticky headers) visible when tables are nested inside coloured
+  panels
+- Updated dependencies
+
 ## 13.0.1
 
 ### Patch Changes

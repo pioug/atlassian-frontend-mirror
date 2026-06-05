@@ -114,15 +114,11 @@ export {
 	isBlockLinkHash,
 } from './block-link';
 
-export {
-	expandAllParentsThenScroll,
-	findParentExpands,
-	isExpandCollapsed,
-	expandElement,
-	findNodeWithExpandParents,
-	SCROLL_TO_BLOCK_TIMING,
-	getLocalIdSelector,
-} from './scroll-to-block-utils';
+export { SCROLL_TO_BLOCK_TIMING } from './SCROLL_TO_BLOCK_TIMING';
+export { expandElement } from './expandElement';
+export { getLocalIdSelector } from './getLocalIdSelector';
+export { isExpandCollapsed } from './isExpandCollapsed';
+export { expandAllParentsThenScroll, findParentExpands, findNodeWithExpandParents } from './scroll-to-block-utils';
 
 export type { NodeWithExpandParents } from './scroll-to-block-utils';
 

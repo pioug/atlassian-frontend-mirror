@@ -10,55 +10,10 @@ import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 
 import { isListNode } from '../utils';
 
+import { endPositionOfParent } from './endPositionOfParent';
 import { GapCursorSelection } from './gap-cursor/selection';
-
-export const isSelectionAtStartOfNode = ($pos: ResolvedPos, parentNode?: PMNode): boolean => {
-	if (!parentNode) {
-		return false;
-	}
-
-	for (let i = $pos.depth + 1; i > 0; i--) {
-		const node = $pos.node(i);
-		if (node && node.eq(parentNode)) {
-			break;
-		}
-
-		if (i > 1 && $pos.before(i) !== $pos.before(i - 1) + 1) {
-			return false;
-		}
-	}
-
-	return true;
-};
-
-export const isSelectionAtEndOfNode = ($pos: ResolvedPos, parentNode?: PMNode): boolean => {
-	if (!parentNode) {
-		return false;
-	}
-
-	for (let i = $pos.depth + 1; i > 0; i--) {
-		const node = $pos.node(i);
-		if (node && node.eq(parentNode)) {
-			break;
-		}
-
-		if (i > 1 && $pos.after(i) !== $pos.after(i - 1) - 1) {
-			return false;
-		}
-	}
-
-	return true;
-};
-
-export function atTheEndOfDoc(state: EditorState): boolean {
-	const { selection, doc } = state;
-	return doc.nodeSize - selection.$to.pos - 2 === selection.$to.depth;
-}
-
-export function atTheBeginningOfDoc(state: EditorState): boolean {
-	const { selection } = state;
-	return selection.$from.pos === selection.$from.depth;
-}
+import { isMultiBlockRange } from './isMultiBlockRange';
+import { startPositionOfParent } from './startPositionOfParent';
 
 export function atTheEndOfBlock(state: EditorState): boolean {
 	const { selection } = state;
@@ -87,68 +42,6 @@ export function selectionIsAtTheBeginningOfBlock(selection: Selection): boolean 
 	}
 	return startPositionOfParent($from) === $from.pos;
 }
-
-export function startPositionOfParent(resolvedPos: ResolvedPos): number {
-	return resolvedPos.start(resolvedPos.depth);
-}
-
-export function endPositionOfParent(resolvedPos: ResolvedPos): number {
-	return resolvedPos.end(resolvedPos.depth) + 1;
-}
-
-/**
- *
- * @param $anchor Resolved selection anchor position
- * @param $head Resolved selection head position
- * @returns An expanded selection encompassing surrounding nodes. Hoists up to the shared depth anchor/head depths differ.
- */
-export const expandSelectionBounds = (
-	$anchor: ResolvedPos,
-	$head: ResolvedPos,
-): { $anchor: ResolvedPos; $head: ResolvedPos } => {
-	const sharedDepth = $anchor.sharedDepth($head.pos) + 1;
-	const $from = $anchor.min($head);
-	const $to = $anchor.max($head);
-	const fromDepth = $from.depth;
-	const toDepth = $to.depth;
-
-	let selectionStart: number;
-	let selectionEnd: number;
-
-	const selectionHasGrandparent = toDepth > 1 && fromDepth > 1;
-	const selectionIsAcrossDiffParents =
-		selectionHasGrandparent && !$to.parent.isTextblock && !$to.sameParent($from);
-	const selectionIsAcrossTextBlocksWithDiffParents =
-		selectionHasGrandparent &&
-		$to.parent.isTextblock &&
-		$to.before(toDepth - 1) !== $from.before(fromDepth - 1);
-
-	if (toDepth > fromDepth) {
-		selectionStart = $from.before(sharedDepth);
-		selectionEnd = $to.after(sharedDepth);
-	} else if (toDepth < fromDepth) {
-		selectionStart = $from.before(sharedDepth);
-		selectionEnd = $to.after(sharedDepth);
-	} else if (selectionIsAcrossDiffParents || selectionIsAcrossTextBlocksWithDiffParents) {
-		// when selection from/to share same depth with different parents, hoist up the selection to the parent of the highest depth in the selection
-		selectionStart = $from.before(sharedDepth);
-		selectionEnd = $to.after(sharedDepth);
-	} else if (!$from.node().inlineContent) {
-		// when selection might be a Node selection, return what was passed in
-		return { $anchor, $head };
-	} else {
-		selectionStart = fromDepth ? $from.before() : $from.pos;
-		selectionEnd = toDepth ? $to.after() : $to.pos;
-	}
-
-	const $expandedFrom = $anchor.doc.resolve(selectionStart);
-	const $expandedTo = $anchor.doc.resolve(selectionEnd);
-
-	return {
-		$anchor: $anchor === $from ? $expandedFrom : $expandedTo,
-		$head: $head === $to ? $expandedTo : $expandedFrom,
-	};
-};
 
 /**
  * Delete what is selected in the given transaction.
@@ -270,25 +163,6 @@ export const expandSelectionToBlockRange = ({
 	return expandToBlockRange($from, $to);
 };
 
-export const isMultiBlockRange = (range: NodeRange): boolean => {
-	if (range.endIndex - range.startIndex <= 1) {
-		return false; // At most one child
-	}
-
-	// Count block nodes in the range, return true if more than one
-	let blockCount = 0;
-	for (let i = range.startIndex; i < range.endIndex; i++) {
-		if (range.parent.child(i).isBlock) {
-			blockCount++;
-		}
-		if (blockCount > 1) {
-			return true;
-		}
-	}
-
-	return false;
-};
-
 /**
  * Determines if a selection contains multiple block nodes.
  */
@@ -330,3 +204,19 @@ export function getSourceNodesFromSelectionRange(tr: Transaction, selection: Sel
 
 	return [...slice.content.content];
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { isSelectionAtStartOfNode } from './isSelectionAtStartOfNode';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { isSelectionAtEndOfNode } from './isSelectionAtEndOfNode';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { atTheEndOfDoc } from './atTheEndOfDoc';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { atTheBeginningOfDoc } from './atTheBeginningOfDoc';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { startPositionOfParent } from './startPositionOfParent';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { endPositionOfParent } from './endPositionOfParent';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { expandSelectionBounds } from './expandSelectionBounds';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { isMultiBlockRange } from './isMultiBlockRange';

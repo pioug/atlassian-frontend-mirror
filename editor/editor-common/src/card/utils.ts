@@ -1,49 +1,8 @@
 import type { LinkStepMetadata } from '@atlaskit/adf-schema/steps';
-import { LinkMetaStep } from '@atlaskit/adf-schema/steps';
-import type {
-	EditorState,
-	ReadonlyTransaction,
-	Selection,
-	Transaction,
-} from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-/**
- * Records metadata about the user action and input method relating to a transaction
- * as a custom LinkStepMetadata prosemirror step so that it is preserved in
- * the history for undo/redo.
- */
-export function addLinkMetadata(
-	initialSelection: Selection,
-	tr: Transaction,
-	metadata: LinkStepMetadata,
-): Transaction {
-	const { storedMarks } = tr;
-	const pos = tr.mapping.map(initialSelection.$from.pos);
-	tr.step(new LinkMetaStep(pos, metadata));
-
-	// When you add a new step all the storedMarks are removed it
-	if (storedMarks) {
-		tr.setStoredMarks(storedMarks);
-	}
-
-	return tr;
-}
-
-export function getLinkMetadataFromTransaction(
-	tr: Transaction | ReadonlyTransaction,
-): LinkStepMetadata {
-	return tr.steps.reduce<LinkStepMetadata>((metadata, step) => {
-		if (!(step instanceof LinkMetaStep)) {
-			return metadata;
-		}
-
-		return {
-			...metadata,
-			...step.getMetadata(),
-		};
-	}, {});
-}
+import { addLinkMetadata } from './addLinkMetadata';
 
 export type CommandDispatch = (tr: Transaction) => void;
 
@@ -74,3 +33,7 @@ export const commandWithMetadata = (command: Command, metadata: LinkStepMetadata
 		);
 	};
 };
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { addLinkMetadata } from './addLinkMetadata';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getLinkMetadataFromTransaction } from './getLinkMetadataFromTransaction';

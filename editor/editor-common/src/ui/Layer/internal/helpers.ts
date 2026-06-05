@@ -1,5 +1,6 @@
 import type { Placement } from 'popper.js';
 
+import { POSITION_ATTRIBUTE_ENUM } from './POSITION_ATTRIBUTE_ENUM';
 type PositionMap = {
 	[key: string]: {
 		animation: 'top' | 'bottom' | 'left' | 'right';
@@ -22,27 +23,6 @@ const positionMap: PositionMap = {
 	'left bottom': { position: 'left-end', animation: 'left' },
 };
 
-export const POSITION_ATTRIBUTE_ENUM: {
-	values: string[];
-	default: string;
-} = {
-	values: [
-		'top left',
-		'top center',
-		'top right',
-		'right top',
-		'right middle',
-		'right bottom',
-		'bottom left',
-		'bottom center',
-		'bottom right',
-		'left top',
-		'left middle',
-		'left bottom',
-	],
-	default: 'right middle',
-};
-
 function positionToPopper(position: string) {
 	return position && positionMap[position] ? positionMap[position].position : null;
 }
@@ -50,3 +30,4 @@ function positionToPopper(position: string) {
 export function positionPropToPopperPosition(position: string): Placement {
 	return positionToPopper(position) || positionMap[POSITION_ATTRIBUTE_ENUM.default].position;
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export

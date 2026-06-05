@@ -5,22 +5,10 @@
 
 import type { DocNode } from '@atlaskit/adf-schema';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
-/**
- * Timing constants for expand animation and DOM update delays.
- * These values are tuned for the expand component's behavior and React's update cycle.
- */
-export const SCROLL_TO_BLOCK_TIMING = {
-	/** Minimal delay for DOM/React updates after expanding (no animation in expand component). */
-	DOM_UPDATE_DELAY: 50,
-	/** Delay when expand operation fails and needs retry. */
-	RETRY_DELAY: 100,
-	/** Maximum number of retry attempts before giving up and scrolling anyway. */
-	MAX_ATTEMPTS: 5,
-	/** Maximum depth of nested expands to search (prevents infinite loops). */
-	MAX_EXPAND_DEPTH: 2,
-} as const;
+import { expandElement } from './expandElement';
+import { isExpandCollapsed } from './isExpandCollapsed';
+import { SCROLL_TO_BLOCK_TIMING } from './SCROLL_TO_BLOCK_TIMING';
 
 export type NodeWithExpandParents = {
 	/** Array of expand parent localIds (empty if no expand parents, ordered from outermost to innermost). */
@@ -125,56 +113,6 @@ export const findParentExpands = (
 
 	// Return in reverse order so we expand from outermost to innermost
 	return expands.reverse();
-};
-
-/**
- * Check if an expand node is currently collapsed.
- *
- * Uses two methods to determine collapse state:
- * 1. First checks aria-expanded attribute on the toggle button (most reliable).
- * 2. Falls back to checking content div visibility via computed styles.
- *
- * @param expandContainer - The expand container element.
- * @returns True if the expand is collapsed, false if expanded or state cannot be determined.
- */
-export const isExpandCollapsed = (expandContainer: HTMLElement): boolean => {
-	// Check for aria-expanded attribute on the toggle button
-	const toggleButton = expandContainer.querySelector('[aria-expanded]');
-	if (toggleButton && toggleButton instanceof HTMLElement) {
-		return toggleButton.getAttribute('aria-expanded') === 'false';
-	}
-
-	// Fallback: check if content div is hidden using the actual class name
-	const contentDiv = expandContainer.querySelector('.ak-editor-expand__content');
-	if (contentDiv && contentDiv instanceof HTMLElement) {
-		const computedStyle = window.getComputedStyle(contentDiv);
-		return (
-			computedStyle.display === 'none' || computedStyle.visibility === 'hidden' || contentDiv.hidden
-		);
-	}
-
-	return false;
-};
-
-/**
- * Expand a collapsed expand node by clicking its toggle button.
- *
- * This function finds the toggle button with aria-expanded="false" and programmatically
- * clicks it to expand the node. It does not wait for the expansion to complete.
- *
- * @param expandContainer - The expand container element.
- * @returns True if the toggle button was found and clicked, false otherwise.
- */
-export const expandElement = (expandContainer: HTMLElement): boolean => {
-	// Find and click the toggle button
-	const toggleButton = expandContainer.querySelector('[aria-expanded="false"]');
-
-	if (toggleButton && toggleButton instanceof HTMLElement) {
-		toggleButton.click();
-		return true;
-	}
-
-	return false;
 };
 
 /**
@@ -297,40 +235,11 @@ export const expandAllParentsThenScroll = (
 
 	return cleanup;
 };
-
-export const getLocalIdSelector = (localId: string, container: HTMLElement): HTMLElement | null => {
-	// Check if the element with data-local-id exists
-	let element = container.querySelector(`[data-local-id="${localId}"]`) as HTMLElement | null;
-
-	if (element) {
-		return element;
-	}
-
-	// Special case for decision lists and task lists which already have localId
-	element = container.querySelector(`[data-decision-list-local-id="${localId}"]`);
-	if (element) {
-		return element;
-	}
-
-	element = container.querySelector(`[data-task-list-local-id="${localId}"]`);
-	if (element) {
-		return element;
-	}
-
-	// Special case for tables which use data-table-local-id
-	element = container.querySelector(`[data-table-local-id="${localId}"]`);
-	if (element) {
-		if (fg('platform_editor_block_menu_v2_patch_4')) {
-			return element.parentElement; // return table wrapper instead of table div, so the height calculation is correct
-		}
-		return element;
-	}
-
-	// Special case for extension, smart cards and media which use lowercase localid
-	element = container.querySelector(`[localid="${localId}"]`);
-	if (element) {
-		return element;
-	}
-
-	return null;
-};
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { SCROLL_TO_BLOCK_TIMING } from './SCROLL_TO_BLOCK_TIMING';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { isExpandCollapsed } from './isExpandCollapsed';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { expandElement } from './expandElement';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getLocalIdSelector } from './getLocalIdSelector';

@@ -8,7 +8,7 @@ import {
 	safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
 
-import { isListNode } from './list';
+import { isListNode } from './isListNode';
 
 // Taken from `editor-plugin-content-insertion`
 function setSelectionToValidTextNode(tr: Transaction, node: PMNode, from: number) {

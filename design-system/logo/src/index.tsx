@@ -76,6 +76,7 @@ import {
 	JiraIcon as NewJiraIcon,
 	JiraLogoCS as NewJiraLogo,
 } from './artifacts/logo-components/jira';
+import { JiraCodingAgentIcon as NewJiraCodingAgentIcon } from './artifacts/logo-components/jira-coding-agent';
 import {
 	JiraDataCenterIcon as NewJiraDataCenterIcon,
 	JiraDataCenterLogoCS as NewJiraDataCenterLogo,
@@ -501,6 +502,19 @@ export const RovoDevAgentLogo: ({
 	size,
 	...props
 }: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewRovoDevAgentLogo);
+/**
+ * __Jira Coding Agent icon__
+ *
+ * The Jira Coding Agent icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const JiraCodingAgentIcon: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewJiraCodingAgentIcon);
 /**
  * __Search icon__
  *

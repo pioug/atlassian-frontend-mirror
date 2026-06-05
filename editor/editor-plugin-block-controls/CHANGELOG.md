@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 12.0.2
+
+### Patch Changes
+
+- [`4c8035c5703fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c8035c5703fd) -
+  Add multiBodiedExtension support to block controls
+
 ## 12.0.1
 
 ### Patch Changes

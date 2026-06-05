@@ -61,39 +61,37 @@ const AtlaskitIcon = ({
 	size = SmartLinkSize.Medium,
 	isTiledIcon,
 }: AtlaskitIconProps): React.JSX.Element | null => {
-	if (!fg('platform_sl_icons_refactor')) {
-		// Check for synchronously loaded icons first for SSR purposes.
-		// Require these icons only inside this branch to avoid evaluating legacy icon
-		// wrapper modules when the icon refactor is enabled.
-		switch (icon) {
-			case IconType.Document: {
-				const DocumentIcon = getDocumentIcon();
-				return (
-					<DocumentIcon
-						label={label ?? 'document'}
-						testId={testId}
-						size={size}
-						isTiledIcon={isTiledIcon}
-					/>
-				);
-			}
-			case IconType.Blog: {
-				const BlogIcon = getBlogIcon();
-				return (
-					<BlogIcon label={label ?? 'blog'} testId={testId} size={size} isTiledIcon={isTiledIcon} />
-				);
-			}
-			case IconType.LiveDocument: {
-				const LiveDocumentIcon = getLiveDocumentIcon();
-				return (
-					<LiveDocumentIcon
-						label={label ?? 'live-doc'}
-						testId={testId}
-						size={size}
-						isTiledIcon={isTiledIcon}
-					/>
-				);
-			}
+	// Intentionally keep these three icon types synchronous and outside lazy imports.
+	// These icons should be present in SSR markup so hydration does not cause a
+	// visible empty-state-then-pop-in transition in Smart Link consumers.
+	switch (icon) {
+		case IconType.Document: {
+			const DocumentIcon = getDocumentIcon();
+			return (
+				<DocumentIcon
+					label={label ?? 'document'}
+					testId={testId}
+					size={size}
+					isTiledIcon={isTiledIcon}
+				/>
+			);
+		}
+		case IconType.Blog: {
+			const BlogIcon = getBlogIcon();
+			return (
+				<BlogIcon label={label ?? 'blog'} testId={testId} size={size} isTiledIcon={isTiledIcon} />
+			);
+		}
+		case IconType.LiveDocument: {
+			const LiveDocumentIcon = getLiveDocumentIcon();
+			return (
+				<LiveDocumentIcon
+					label={label ?? 'live-doc'}
+					testId={testId}
+					size={size}
+					isTiledIcon={isTiledIcon}
+				/>
+			);
 		}
 	}
 

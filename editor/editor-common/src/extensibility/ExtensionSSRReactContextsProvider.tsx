@@ -2,9 +2,8 @@ import React, { type ReactNode } from 'react';
 
 import { RawIntlProvider, type IntlShape } from 'react-intl';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 import { isSSR } from '../core-utils/is-ssr';
+import { isSSRStreaming } from '../core-utils/is-ssr-streaming';
 
 interface Props {
 	children: ReactNode;
@@ -12,7 +11,7 @@ interface Props {
 }
 
 export function ExtensionSSRReactContextsProvider({ children, intl }: Props): ReactNode {
-	if (!expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true) || !isSSR()) {
+	if (!isSSR() || !isSSRStreaming()) {
 		return children;
 	}
 

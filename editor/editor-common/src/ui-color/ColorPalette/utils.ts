@@ -1,3 +1,4 @@
+import { getSelectedRowAndColumn } from './getSelectedRowAndColumn';
 import type { PaletteColor } from './Palettes/type';
 
 export const DEFAULT_COLOR_PICKER_COLUMNS = 7;
@@ -14,31 +15,6 @@ export function getColorsPerRowFromPalette(
 
 		return resultArray;
 	}, []);
-}
-
-export function getSelectedRowAndColumn(
-	colorsPerRow: PaletteColor[][],
-	selectedColor: string | null,
-): {
-	selectedRowIndex: number;
-	selectedColumnIndex: number;
-} {
-	let selectedRowIndex = -1;
-	let selectedColumnIndex = -1;
-
-	colorsPerRow.forEach((row, rowIndex) => {
-		row.forEach(({ value }, columnIndex) => {
-			if (value === selectedColor) {
-				selectedRowIndex = rowIndex;
-				selectedColumnIndex = columnIndex;
-			}
-		});
-	});
-
-	return {
-		selectedRowIndex,
-		selectedColumnIndex,
-	};
 }
 
 export function getSelectedRowAndColumnFromPalette(
@@ -73,3 +49,5 @@ export const getTokenCSSVariableValue = (variableExpression: string): string => 
 
 	return '';
 };
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getSelectedRowAndColumn } from './getSelectedRowAndColumn';

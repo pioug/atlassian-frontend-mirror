@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { getKeys } from './getKeys';
+import { serializeValue } from './serializeValue';
 type ChangedData<T> = {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -28,7 +30,6 @@ export type ShallowPropsDifference<T> = {
 	removed: Array<keyof T>;
 };
 
-export const getKeys = Object.keys as <T>(obj: T) => Array<keyof T>;
 
 export const getKeysAddedRemovedCommon = <T>(
 	object1: T,
@@ -52,37 +53,6 @@ export const getKeysAddedRemovedCommon = <T>(
 	};
 };
 
-export const serializeValue = <T>(
-	value: T[keyof T],
-):
-	| string
-	| (T[keyof T] & {})
-	| {
-			type: string;
-			keys: string[];
-	  }
-	| undefined => {
-	const valueType = typeof value;
-	if (value === null) {
-		return 'null';
-	} else if (value === undefined) {
-		return 'undefined';
-	} else if (valueType === 'string' || valueType === 'number') {
-		return value;
-	} else if (valueType === 'symbol') {
-		return (value as unknown as symbol).toString();
-	}
-	// Calling toString of function returns whole function text with body.
-	// So, just return function with name.
-	else if (valueType === 'function') {
-		return `function:${(value as unknown as Function).name}`;
-	} else if (valueType === 'object') {
-		return {
-			type: 'object',
-			keys: Object.keys(value),
-		};
-	}
-};
 
 export const getPropsDifference = <T>(
 	object1: T,
@@ -151,3 +121,7 @@ export const getShallowPropsDifference = <T>(object1: T, object2: T): ShallowPro
 		removed,
 	};
 };
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getKeys } from './getKeys';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { serializeValue } from './serializeValue';

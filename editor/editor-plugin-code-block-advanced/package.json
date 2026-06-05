@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-block-advanced",
-	"version": "11.0.1",
+	"version": "11.0.2",
 	"description": "CodeBlockAdvanced plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -56,6 +56,7 @@
 		"@lezer/highlight": "root:*",
 		"@lezer/lr": "root:*",
 		"@xiechao/codemirror-lang-handlebars": "root:*",
+		"bind-event-listener": "root:*",
 		"cm6-graphql": "root:*",
 		"codemirror-lang-elixir": "root:*"
 	},

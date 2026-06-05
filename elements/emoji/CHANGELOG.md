@@ -1,5 +1,20 @@
 # @atlaskit/emoji
 
+## 70.16.1
+
+### Patch Changes
+
+- [`0cc0348368042`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cc0348368042) -
+  Update Atlassian emoji types to include color, color group data, subcategories + hidden properties
+
+## 70.16.0
+
+### Minor Changes
+
+- [`7632f5a6d78a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7632f5a6d78a3) -
+  [ux] Adds automatically generated emojis to the Create with Rovo flow. These are based on the
+  user's CWR content.
+
 ## 70.15.3
 
 ### Patch Changes

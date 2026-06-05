@@ -30,6 +30,7 @@ import {
 	relativeFontSizeToBase16,
 	akEditorSelectedBorderColor,
 } from '@atlaskit/editor-shared-styles';
+import { akEditorTableContainerBg } from '@atlaskit/editor-shared-styles/consts';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { hideNativeBrowserTextSelectionStyles } from '@atlaskit/editor-shared-styles/selection';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -762,6 +763,28 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	${rangeSelectionStyles};
 	${rangeSelectionStylesForFakeBorders};
 	${viewModeSortStyles()};
+
+	${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `
+		.ak-editor-panel:not([data-panel-type="custom"]) .${ClassName.TABLE_CONTAINER} {
+			${akEditorTableContainerBg}: ${token('color.background.accent.blue.subtlest')};
+		}
+		.ak-editor-panel[data-panel-type="note"] .${ClassName.TABLE_CONTAINER} {
+			${akEditorTableContainerBg}: ${token('color.background.accent.purple.subtlest')};
+		}
+		.ak-editor-panel[data-panel-type="tip"] .${ClassName.TABLE_CONTAINER} {
+			${akEditorTableContainerBg}: ${token('color.background.accent.green.subtlest')};
+		}
+		.ak-editor-panel[data-panel-type="warning"] .${ClassName.TABLE_CONTAINER} {
+			${akEditorTableContainerBg}: ${token('color.background.accent.yellow.subtlest')};
+		}
+		.ak-editor-panel[data-panel-type="error"] .${ClassName.TABLE_CONTAINER} {
+			${akEditorTableContainerBg}: ${token('color.background.accent.red.subtlest')};
+		}
+		.ak-editor-panel[data-panel-type="success"] .${ClassName.TABLE_CONTAINER} {
+			${akEditorTableContainerBg}: ${token('color.background.accent.green.subtlest')};
+		}
+	` : ''}
+
 	${expValEquals(
 		'platform_editor_table_sticky_header_improvements',
 		'cohort',
@@ -817,7 +840,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 
 		position: fixed !important;
 		z-index: ${akEditorStickyHeaderZIndex} !important;
-		box-shadow: 0px -${stickyRowOffsetTop}px ${token('elevation.surface')};
+		box-shadow: 0px -${stickyRowOffsetTop}px ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
 		border-right: 0 none;
 		/* top set by NumberColumn component */
 	}
@@ -826,7 +849,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		position: fixed !important;
 		/* needs to be above row controls */
 		z-index: ${akEditorSmallZIndex} !important;
-		background: ${token('elevation.surface')};
+		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
 
 		width: ${tableToolbarSize}px;
 		height: ${tableToolbarSize}px;
@@ -850,13 +873,13 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		position: fixed !important;
 		z-index: ${akEditorStickyHeaderZIndex} !important;
 		display: flex;
-		border-left: ${tableToolbarSize}px solid ${token('elevation.surface')};
+		border-left: ${tableToolbarSize}px solid ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
 		margin-left: -${tableToolbarSize}px;
 	}
 
 	.${ClassName.TABLE_STICKY} col:first-of-type {
 		/* moving rows out of a table layout does weird things in Chrome */
-		border-right: 1px solid ${token('elevation.surface')};
+		border-right: 1px solid ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
 	}
 
 	tr.sticky {
@@ -873,7 +896,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		grid-auto-flow: column;
 
 		/* background for where controls apply */
-		background: ${token('elevation.surface')};
+		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
 		box-sizing: content-box;
 		box-shadow: 0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter')};
 
@@ -995,7 +1018,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		height: 0;
 		margin-bottom: -${tableMarginTop}px;
 		position: sticky;
-		border-top: ${tableMarginTop}px solid ${token('elevation.surface')};
+		border-top: ${tableMarginTop}px solid ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
 		z-index: ${stickyRowZIndex};
 	}
 
@@ -1007,7 +1030,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		}
 
 		.${ClassName.TABLE_NODE_WRAPPER}:has(tr.${ClassName.NATIVE_STICKY_ACTIVE})::before {
-			border-top: ${tableMarginTop}px solid ${token('elevation.surface')};
+			border-top: ${tableMarginTop}px solid ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
 		}`
 		: fg('platform_editor_table_sticky_header_patch_1')
 			? `
@@ -1089,7 +1112,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	}
 
 	.${ClassName.CORNER_CONTROLS}.sticky {
-		border-top: ${tableControlsSpacing - tableToolbarSize}px solid ${token('elevation.surface')};
+		border-top: ${tableControlsSpacing - tableToolbarSize}px solid ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
 	}
 
 	${sentinelStyles}
@@ -1741,7 +1764,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		/* +2px is to overlap the table border on the sides */
 		width: calc(anchor-size(width) + 2px);
 		height: ${tableMarginTop}px;
-		background: ${token('elevation.surface')};
+		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
 		top: unset;
 		position: fixed;
 		position-area: top center;
@@ -1752,7 +1775,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		/* +2px is to overlap the table border on the sides */
 		width: calc(anchor-size(width) + 2px);
 		height: ${tableMarginTop}px;
-		background: ${token('elevation.surface')};
+		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
 		position: fixed;
 		position-area: top center;
 		position-visibility: anchors-visible;
@@ -1768,7 +1791,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		margin-left: -${akEditorTableNumberColumnWidth + dragRowControlsWidth}px;
 		width: ${akEditorTableNumberColumnWidth + dragRowControlsWidth}px;
 		height: ${tableMarginTop}px;
-		background: ${token('elevation.surface')};
+		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
 		z-index: ${nativeStickyHeaderZIndex - 1};
 	}
 

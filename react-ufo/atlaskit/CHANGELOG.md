@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 6.7.0
+
+### Minor Changes
+
+- [`e930ff988376f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e930ff988376f) -
+  Add a gated option to always emit raw-handler VC observations for server-side TTVC recalculation
+
 ## 6.6.2
 
 ### Patch Changes

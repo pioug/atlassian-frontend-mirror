@@ -6,6 +6,7 @@ import type { IntlShape } from 'react-intl';
 import uuid from 'uuid/v4';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import type { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
@@ -28,7 +29,6 @@ import type { CardContext } from '@atlaskit/link-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { Datasource } from '../nodeviews/datasource';
 import { registerCard, removeCard } from '../pm-plugins/actions';
@@ -332,12 +332,14 @@ export const blockCardNodeView =
 			CompetitorPrompt,
 			isPageSSRed,
 			provider,
-			intl: expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
-				? intl
-				: undefined,
-			smartCardContext: expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
-				? smartCardContext
-				: undefined,
+			intl:
+				isSSRStreaming()
+					? intl
+					: undefined,
+			smartCardContext:
+				isSSRStreaming()
+					? smartCardContext
+					: undefined,
 		};
 		const isDatasource = isDatasourceNode(node);
 

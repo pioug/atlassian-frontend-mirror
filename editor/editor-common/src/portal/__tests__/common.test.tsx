@@ -3,16 +3,16 @@ import React from 'react';
 import { getPortalProviderAPI } from '../common';
 import type { PortalManager } from '../PortalManager';
 
-jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
-	expValEquals: jest.fn(),
-}));
-
 jest.mock('../../core-utils/is-ssr', () => ({
 	isSSR: jest.fn(),
 }));
 
-const { expValEquals } = jest.requireMock('@atlaskit/tmp-editor-statsig/exp-val-equals');
+jest.mock('../../core-utils/is-ssr-streaming', () => ({
+	isSSRStreaming: jest.fn(),
+}));
+
 const { isSSR } = jest.requireMock('../../core-utils/is-ssr');
+const { isSSRStreaming } = jest.requireMock('../../core-utils/is-ssr-streaming');
 
 function createMockPortalManager(): PortalManager {
 	return {
@@ -32,7 +32,7 @@ describe('getPortalProviderAPI', () => {
 	describe('render() in non-SSR environment', () => {
 		beforeEach(() => {
 			isSSR.mockReturnValue(false);
-			expValEquals.mockReturnValue(true);
+			isSSRStreaming.mockReturnValue(false);
 		});
 
 		it('creates a portal using createPortal when no onBeforeReactDomRender callback is given', () => {
@@ -68,10 +68,10 @@ describe('getPortalProviderAPI', () => {
 		});
 	});
 
-	describe('render() in SSR environment with experiment enabled', () => {
+	describe('render() in SSR streaming environment', () => {
 		beforeEach(() => {
 			isSSR.mockReturnValue(true);
-			expValEquals.mockReturnValue(true);
+			isSSRStreaming.mockReturnValue(true);
 		});
 
 		it('sets container.innerHTML and does NOT call portalManager.registerPortal', () => {
@@ -92,7 +92,7 @@ describe('getPortalProviderAPI', () => {
 	describe('remove()', () => {
 		it('calls the portal disposer and removes from map in non-SSR mode', () => {
 			isSSR.mockReturnValue(false);
-			expValEquals.mockReturnValue(true);
+			isSSRStreaming.mockReturnValue(false);
 
 			const disposer = jest.fn();
 			const portalManager = createMockPortalManager();
@@ -111,9 +111,9 @@ describe('getPortalProviderAPI', () => {
 			document.body.removeChild(container);
 		});
 
-		it('does nothing (returns early) in SSR mode with experiment enabled', () => {
+		it('does nothing (returns early) in SSR streaming mode', () => {
 			isSSR.mockReturnValue(true);
-			expValEquals.mockReturnValue(true);
+			isSSRStreaming.mockReturnValue(true);
 
 			const disposer = jest.fn();
 			const portalManager = createMockPortalManager();
@@ -125,8 +125,6 @@ describe('getPortalProviderAPI', () => {
 			const children = jest.fn().mockReturnValue(<span>x</span>);
 			api.render(children, container, 'key-ssr-remove');
 
-			// Now switch to non-SSR to test remove doesn't call disposer
-			isSSR.mockReturnValue(true);
 			api.remove('key-ssr-remove');
 
 			expect(disposer).not.toHaveBeenCalled();
@@ -136,7 +134,7 @@ describe('getPortalProviderAPI', () => {
 	describe('destroy()', () => {
 		it('clears portals and calls portalManager.destroy', () => {
 			isSSR.mockReturnValue(false);
-			expValEquals.mockReturnValue(true);
+			isSSRStreaming.mockReturnValue(false);
 
 			const portalManager = createMockPortalManager();
 			const api = getPortalProviderAPI(portalManager);

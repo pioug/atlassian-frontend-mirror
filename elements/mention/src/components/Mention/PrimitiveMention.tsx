@@ -40,6 +40,14 @@ const mentionStyle = {
 		hoveredBackground: token('color.background.neutral.hovered'),
 		pressedBackground: token('color.background.neutral.pressed'),
 	},
+	[MentionType.DISABLED]: {
+		background: token('color.background.disabled'),
+		borderColor: 'transparent',
+		text: token('color.text.disabled'),
+		// Disabled chips do not change on hover / press.
+		hoveredBackground: token('color.background.disabled'),
+		pressedBackground: token('color.background.disabled'),
+	},
 } as const;
 
 const getStyle = (

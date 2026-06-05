@@ -86,6 +86,9 @@
 			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/tooltip/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../elements/user-picker/afm-products/tsconfig.json"
 		},
 		{

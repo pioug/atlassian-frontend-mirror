@@ -14,8 +14,9 @@ import type { HandleStyles } from '../../resizer/types';
 import { richMediaClassName } from '../../styles';
 import { gridTypeForLayout } from '../../utils';
 
+import { handleSides } from './handleSides';
+import { snapTo } from './snapTo';
 import type { EnabledHandles, Props as ResizableMediaSingleProps } from './types';
-import { handleSides, snapTo } from './utils';
 
 const getResizeAnalyticsEvent = (
 	type: string | undefined,

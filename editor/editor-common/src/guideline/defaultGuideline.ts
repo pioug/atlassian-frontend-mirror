@@ -4,8 +4,8 @@ import { breakoutWideScaleRatio } from '@atlaskit/editor-shared-styles';
 
 import { roundToNearest } from '../media-single';
 
+import { getContainerWidthOrFullEditorWidth } from './getContainerWidthOrFullEditorWidth';
 import type { GuidelineConfig } from './types';
-import { getContainerWidthOrFullEditorWidth } from './utils';
 
 const getDefaultGuidelines = memoizeOne((editorWidth) => {
 	return [-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6].map((val, index) => ({

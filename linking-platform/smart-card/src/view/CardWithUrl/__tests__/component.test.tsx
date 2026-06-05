@@ -13,6 +13,7 @@ import { type ProductType } from '@atlaskit/linking-common';
 import { type SmartLinkResponse } from '@atlaskit/linking-types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { fireEvent, render } from '@atlassian/testing-library';
 
@@ -264,40 +265,25 @@ describe('CardWithUrl', () => {
 		},
 	);
 
-	describe('cross-product URL wrapping', () => {
-		const SMARTLINK_XPC_FF = 'platform_smartlink_xpc_url_wrapping';
-
+	describe('link click behaviour', () => {
 		let openSpy: jest.SpyInstance;
 		let wrapUrl: jest.Mock;
 
-		const renderResolvedLink = ({
-			appearance = 'inline',
-			details,
-			product = 'CONFLUENCE',
-			url = 'https://example.com',
-		}: {
-			appearance?: 'inline' | 'block' | 'embed' | 'flexible';
-			details: SmartLinkResponse;
-			product?: ProductType;
-			url?: string;
-		}) => {
-			(useSmartLink as jest.Mock).mockReturnValue(createUseSmartLinkResult(details));
+		const renderInlineCard = ({ onClick }: { onClick?: (e: React.MouseEvent) => void } = {}) => {
+			(useSmartLink as jest.Mock).mockReturnValue(
+				createUseSmartLinkResult(createSmartLinkDetails()),
+			);
+			// Reset wrapUrl to identity so URL decoration does not affect navigation assertions
+			(useCrossProductUrlWrapper as jest.Mock).mockReturnValue((url: string) => url);
 
 			return render(
 				<IntlProvider locale="en">
-					<SmartCardProvider client={new CardClient()} product={product}>
-						{appearance === 'flexible' ? (
-							<CardWithUrl appearance="block" id="uid" url={url}>
-								<TitleBlock />
-							</CardWithUrl>
-						) : (
-							<CardWithUrl appearance={appearance} id="uid" url={url} />
-						)}
+					<SmartCardProvider client={new CardClient()} product="CONFLUENCE">
+						<CardWithUrl appearance="inline" id="uid" url="https://example.com" onClick={onClick} />
 					</SmartCardProvider>
 				</IntlProvider>,
 			);
 		};
-
 		beforeEach(() => {
 			openSpy = jest.spyOn(window, 'open').mockImplementation(() => null);
 			wrapUrl = jest.fn((url: string) => `${url}?xpis=wrapped`);
@@ -308,62 +294,153 @@ describe('CardWithUrl', () => {
 			openSpy.mockRestore();
 		});
 
-		it('wraps resolved first-party Smart Link click URLs when the gate is enabled', () => {
-			passGate(SMARTLINK_XPC_FF);
+		ffTest.on('platform_smartlink_xpc_url_wrapping', 'when gate is on', () => {
+			it('opens the link in the same tab on a regular left click', () => {
+				renderInlineCard();
 
-			const { container } = renderResolvedLink({
-				details: createSmartLinkDetails(true),
+				fireEvent.click(document.querySelector('a')!);
+
+				expect(openSpy).toHaveBeenCalledWith('https://example.com', '_self');
 			});
 
-			fireEvent.click(container.querySelector('a')!);
+			it('opens the link in a new tab on modifier+click', () => {
+				renderInlineCard();
 
-			expect(useCrossProductUrlWrapper).toHaveBeenCalledWith({
-				bridge: 'smartLinks',
-				product: 'confluence',
+				fireEvent.click(document.querySelector('a')!, { metaKey: true });
+
+				expect(openSpy).toHaveBeenCalledWith('https://example.com', '_blank');
 			});
-			expect(wrapUrl).toHaveBeenCalledWith('https://example.com');
-			expect(openSpy).toHaveBeenCalledWith('https://example.com?xpis=wrapped', '_self');
+
+			it('calls onClick and does not call window.open when onClick is provided', () => {
+				const onClick = jest.fn();
+				renderInlineCard({ onClick });
+
+				fireEvent.click(document.querySelector('a')!);
+
+				expect(onClick).toHaveBeenCalled();
+				expect(openSpy).not.toHaveBeenCalled();
+			});
+
+			it('does not open the link when onClick calls preventDefault', () => {
+				const onClick = jest.fn((e: React.MouseEvent) => e.preventDefault());
+				renderInlineCard({ onClick });
+
+				fireEvent.click(document.querySelector('a')!);
+
+				expect(onClick).toHaveBeenCalled();
+				expect(openSpy).not.toHaveBeenCalled();
+			});
 		});
 
-		it('does not wrap third-party Smart Link click URLs', () => {
-			passGate(SMARTLINK_XPC_FF);
+		ffTest.off('platform_smartlink_xpc_url_wrapping', 'when gate is off', () => {
+			it('opens the link via window.open with the original URL (no decoration)', () => {
+				renderInlineCard();
 
-			const { container } = renderResolvedLink({
-				details: createSmartLinkDetails(false),
+				fireEvent.click(document.querySelector('a')!);
+
+				expect(openSpy).toHaveBeenCalledWith('https://example.com', '_self');
 			});
 
-			fireEvent.click(container.querySelector('a')!);
+			it('calls onClick and does not call window.open when onClick is provided', () => {
+				const onClick = jest.fn();
+				renderInlineCard({ onClick });
 
-			expect(wrapUrl).not.toHaveBeenCalled();
-			expect(openSpy).toHaveBeenCalledWith('https://example.com', '_self');
+				fireEvent.click(document.querySelector('a')!);
+
+				expect(onClick).toHaveBeenCalled();
+				expect(openSpy).not.toHaveBeenCalled();
+			});
 		});
 
-		it('does not wrap when the SmartLinks integration gate is disabled', () => {
-			failGate(SMARTLINK_XPC_FF);
+		describe('cross-product URL wrapping', () => {
+			const SMARTLINK_XPC_FF = 'platform_smartlink_xpc_url_wrapping';
 
-			const { container } = renderResolvedLink({
-				details: createSmartLinkDetails(true),
+			const renderResolvedLink = ({
+				appearance = 'inline',
+				details,
+				product = 'CONFLUENCE',
+				url = 'https://example.com',
+			}: {
+				appearance?: 'inline' | 'block' | 'embed' | 'flexible';
+				details: SmartLinkResponse;
+				product?: ProductType;
+				url?: string;
+			}) => {
+				(useSmartLink as jest.Mock).mockReturnValue(createUseSmartLinkResult(details));
+
+				return render(
+					<IntlProvider locale="en">
+						<SmartCardProvider client={new CardClient()} product={product}>
+							{appearance === 'flexible' ? (
+								<CardWithUrl appearance="block" id="uid" url={url}>
+									<TitleBlock />
+								</CardWithUrl>
+							) : (
+								<CardWithUrl appearance={appearance} id="uid" url={url} />
+							)}
+						</SmartCardProvider>
+					</IntlProvider>,
+				);
+			};
+
+			it('wraps resolved first-party Smart Link click URLs when the gate is enabled', () => {
+				passGate(SMARTLINK_XPC_FF);
+
+				const { container } = renderResolvedLink({
+					details: createSmartLinkDetails(true),
+				});
+
+				fireEvent.click(container.querySelector('a')!);
+
+				expect(useCrossProductUrlWrapper).toHaveBeenCalledWith({
+					bridge: 'smartLinks',
+					product: 'confluence',
+				});
+				expect(wrapUrl).toHaveBeenCalledWith('https://example.com');
+				expect(openSpy).toHaveBeenCalledWith('https://example.com?xpis=wrapped', '_self');
 			});
 
-			fireEvent.click(container.querySelector('a')!);
+			it('does not wrap third-party Smart Link click URLs', () => {
+				passGate(SMARTLINK_XPC_FF);
 
-			expect(useCrossProductUrlWrapper).not.toHaveBeenCalled();
-			expect(wrapUrl).not.toHaveBeenCalled();
-			expect(openSpy).toHaveBeenCalledWith('https://example.com', '_self');
-		});
+				const { container } = renderResolvedLink({
+					details: createSmartLinkDetails(false),
+				});
 
-		it('does not double wrap URLs that already include cross-product interaction params', () => {
-			passGate(SMARTLINK_XPC_FF);
+				fireEvent.click(container.querySelector('a')!);
 
-			const { container } = renderResolvedLink({
-				details: createSmartLinkDetails(true),
-				url: 'https://example.com?xpis=existing',
+				expect(wrapUrl).not.toHaveBeenCalled();
+				expect(openSpy).toHaveBeenCalledWith('https://example.com', '_self');
 			});
 
-			fireEvent.click(container.querySelector('a')!);
+			it('does not wrap when the SmartLinks integration gate is disabled', () => {
+				failGate(SMARTLINK_XPC_FF);
 
-			expect(wrapUrl).not.toHaveBeenCalled();
-			expect(openSpy).toHaveBeenCalledWith('https://example.com?xpis=existing', '_self');
+				const { container } = renderResolvedLink({
+					details: createSmartLinkDetails(true),
+				});
+
+				fireEvent.click(container.querySelector('a')!);
+
+				// wrapUrl should not be called since gated hook is disabled.
+				// The legacy path still opens the link via window.open, but with the original URL.
+				expect(wrapUrl).not.toHaveBeenCalled();
+				expect(openSpy).toHaveBeenCalledWith('https://example.com', '_self');
+			});
+
+			it('does not double wrap URLs that already include cross-product interaction params', () => {
+				passGate(SMARTLINK_XPC_FF);
+
+				const { container } = renderResolvedLink({
+					details: createSmartLinkDetails(true),
+					url: 'https://example.com?xpis=existing',
+				});
+
+				fireEvent.click(container.querySelector('a')!);
+
+				expect(wrapUrl).not.toHaveBeenCalled();
+				expect(openSpy).toHaveBeenCalledWith('https://example.com?xpis=existing', '_self');
+			});
 		});
 	});
 });

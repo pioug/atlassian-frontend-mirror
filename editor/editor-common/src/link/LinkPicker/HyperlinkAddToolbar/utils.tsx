@@ -2,7 +2,6 @@ import React from 'react';
 
 import { injectIntl } from 'react-intl';
 import type { WrappedComponentProps } from 'react-intl';
-import Rusha from 'rusha';
 
 import BlogObject from '@atlaskit/object/blog';
 import BugObject from '@atlaskit/object/bug';
@@ -14,20 +13,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { LinkContentType } from '../../../provider-factory';
 
-import { utilMessages } from './messages';
-
-export function filterUniqueItems<T>(
-	arr: Array<T>,
-	comparator?: (firstItem: T, secondItem: T) => boolean,
-): Array<T> {
-	return arr.filter((firstItem, index, self) => {
-		return (
-			self.findIndex((secondItem) =>
-				comparator ? comparator(firstItem, secondItem) : firstItem === secondItem,
-			) === index
-		);
-	});
-}
+import { utilMessages } from './utilMessages';
 
 const Issue16 = (props: WrappedComponentProps) => {
 	const { intl } = props;
@@ -84,11 +70,9 @@ export const mapContentTypeToIcon: {
 	'confluence.page': <IntlPage16Icon />,
 	'confluence.blogpost': <IntlBlog16Icon />,
 };
-
-export const sha1 = (input: string): string => {
-	return Rusha.createHash().update(input).digest('hex');
-};
-
-export const wordCount = (input: string): number => {
-	return input.split(' ').length;
-};
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { filterUniqueItems } from './filterUniqueItems';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { sha1 } from './sha1';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { wordCount } from './wordCount';

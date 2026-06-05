@@ -1877,6 +1877,72 @@ describe('IssueLikeDataTableView', () => {
 				const styles = getComputedStyle(tableCell!);
 				expect(styles.textOverflow).toBe('ellipsis');
 			});
+
+			const getRichTextItems = (): DatasourceDataResponseItem[] => [
+				{
+					ari: { data: 'ari/blah' },
+					description: {
+						data: {
+							type: 'adf',
+							text: JSON.stringify({ type: 'doc', version: 1, content: [] }),
+						},
+					},
+				},
+			];
+
+			const getRichTextColumns = (): DatasourceResponseSchemaProperty[] => [
+				{
+					key: 'description',
+					title: 'Description',
+					type: 'richtext',
+				},
+			];
+
+			ffTest.on(
+				'platform_lp_sllv_richtext_margin_reset',
+				'when richtext margin reset gate is ON',
+				() => {
+					it('should apply vertical-align top to richtext table cells', () => {
+						const items = getRichTextItems();
+						const itemIds = setupItemIds(items);
+						const columns = getRichTextColumns();
+
+						const { queryByTestId } = setup({
+							items,
+							itemIds,
+							columns,
+							visibleColumnKeys: ['description'],
+							hasNextPage: false,
+						});
+
+						const tableCell = queryByTestId('sometable--cell-0');
+						expect(tableCell).toHaveStyle({ verticalAlign: 'top' });
+					});
+				},
+			);
+
+			ffTest.off(
+				'platform_lp_sllv_richtext_margin_reset',
+				'when richtext margin reset gate is OFF',
+				() => {
+					it('should not apply vertical-align top to richtext table cells', () => {
+						const items = getRichTextItems();
+						const itemIds = setupItemIds(items);
+						const columns = getRichTextColumns();
+
+						const { queryByTestId } = setup({
+							items,
+							itemIds,
+							columns,
+							visibleColumnKeys: ['description'],
+							hasNextPage: false,
+						});
+
+						const tableCell = queryByTestId('sometable--cell-0');
+						expect(tableCell).not.toHaveStyle({ verticalAlign: 'top' });
+					});
+				},
+			);
 		});
 
 		describe('header dropdown', () => {

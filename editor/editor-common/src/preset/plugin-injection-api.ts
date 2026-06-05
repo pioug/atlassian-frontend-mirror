@@ -163,7 +163,6 @@ const notifyListenersThrottled = throttle(
 	THROTTLE_CALLS_FOR_MILLISECONDS,
 );
 
-export class PluginsData {}
 
 class ActionsAPI {
 	createAPI(
@@ -473,3 +472,5 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 		return plugin;
 	};
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { PluginsData } from './PluginsData';

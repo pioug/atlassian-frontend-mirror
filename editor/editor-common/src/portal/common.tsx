@@ -1,14 +1,12 @@
-import React, { memo, useLayoutEffect, useMemo, useState } from 'react';
+import React, { memo } from 'react';
 
 import { createPortal } from 'react-dom';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 import { isSSR } from '../core-utils/is-ssr';
+import { isSSRStreaming } from '../core-utils/is-ssr-streaming';
 
-import { PortalBucket } from './PortalBucket';
 import type { PortalManager } from './PortalManager';
-
+import { PortalRenderWrapperInner } from './PortalRenderWrapperInner';
 type RenderFn = (
 	children: () => React.ReactChild | JSX.Element | null,
 	container: HTMLElement,
@@ -28,44 +26,6 @@ export interface PortalProviderAPI {
 export type PortalRendererComponent = () => JSX.Element;
 
 export type UsePortalProviderReturnType = [PortalProviderAPI, PortalRendererComponent];
-
-export function createPortalRendererComponent(portalManager: PortalManager) {
-	return function PortalRenderer(): React.JSX.Element {
-		const [buckets, setBuckets] = useState(portalManager.getBuckets());
-		useLayoutEffect(() => {
-			portalManager.registerPortalRenderer(setBuckets);
-			return () => {
-				portalManager.unregisterPortalRenderer();
-			};
-		}, []);
-		const portalsElements = useMemo(
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/no-array-index-key
-			() => buckets.map((_, i) => <PortalBucket key={i} id={i} portalManager={portalManager} />),
-			[buckets],
-		);
-		return <>{portalsElements}</>;
-	};
-}
-
-/**
- * Wraps the children of a portal to allow for React rendering
- * lifecycle hook to be exposed, primarily for node virtualization.
- */
-export const PortalRenderWrapperInner = ({
-	getChildren,
-	onBeforeRender,
-}: {
-	getChildren: () => React.ReactNode;
-	onBeforeRender: () => void;
-}): React.JSX.Element => {
-	useLayoutEffect(() => {
-		if (onBeforeRender) {
-			onBeforeRender();
-		}
-	}, [onBeforeRender]);
-	return <>{getChildren()}</>;
-};
 
 const PortalRenderWrapper = memo(PortalRenderWrapperInner);
 PortalRenderWrapper.displayName = 'PortalRenderWrapper';
@@ -101,7 +61,7 @@ export const getPortalProviderAPI = (portalManager: PortalManager): PortalProvid
 	const portalsMap = new Map();
 	return {
 		render: (children, container, key, onBeforeReactDomRender, immediate = false) => {
-			if (isSSR() && expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)) {
+			if (isSSR() && isSSRStreaming()) {
 				let html = '';
 
 				try {
@@ -143,7 +103,7 @@ export const getPortalProviderAPI = (portalManager: PortalManager): PortalProvid
 			}
 		},
 		remove: (key) => {
-			if (isSSR() && expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)) {
+			if (isSSR() && isSSRStreaming()) {
 				return;
 			}
 
@@ -156,3 +116,7 @@ export const getPortalProviderAPI = (portalManager: PortalManager): PortalProvid
 		},
 	};
 };
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { createPortalRendererComponent } from './createPortalRendererComponent';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { PortalRenderWrapperInner } from './PortalRenderWrapperInner';

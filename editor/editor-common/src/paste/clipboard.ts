@@ -1,12 +1,4 @@
-export function checkClipboardTypes(
-	type: DOMStringList | ReadonlyArray<string>,
-	item: string,
-): boolean {
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const isDOMStringList = (t: any): t is DOMStringList => !t.indexOf && !!t.contains;
-	return isDOMStringList(type) ? type.contains(item) : type.indexOf(item) > -1;
-}
+import { checkClipboardTypes } from './checkClipboardTypes';
 
 export function isPastedFile(rawEvent: ClipboardEvent): boolean {
 	const { clipboardData } = rawEvent;
@@ -15,3 +7,5 @@ export function isPastedFile(rawEvent: ClipboardEvent): boolean {
 	}
 	return checkClipboardTypes(clipboardData.types, 'Files');
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { checkClipboardTypes } from './checkClipboardTypes';

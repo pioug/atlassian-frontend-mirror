@@ -20,7 +20,8 @@ export type {
 	LinkToolbarState,
 	HyperlinkState,
 } from './types';
-export { InsertStatus, LinkAction } from './types';
+export { InsertStatus } from './InsertStatus';
+export { LinkAction } from './LinkAction';
 export { EditorLinkPicker } from './LinkPicker/EditorLinkPicker';
 export type { EditorLinkPickerProps } from './LinkPicker/EditorLinkPicker';
 export { HyperlinkAddToolbar } from './LinkPicker/HyperlinkAddToolbar';
@@ -31,8 +32,10 @@ export {
 } from './LinkPicker/HyperlinkAddToolbar/HyperlinkAddToolbar';
 export type { Props as HyperlinkLinkAddToolbarProps } from './LinkPicker/HyperlinkAddToolbar/HyperlinkAddToolbar';
 export type { HyperlinkAddToolbarProps } from './LinkPicker/HyperlinkAddToolbar';
-export { sha1 } from './LinkPicker/HyperlinkAddToolbar/utils';
-export { isLinkAtPos, isTextAtPos, getLinkPreferencesURLFromENV, getActiveLinkMark } from './utils';
+export { sha1 } from './LinkPicker/HyperlinkAddToolbar/sha1';
+export { isLinkAtPos } from './isLinkAtPos';
+export { isTextAtPos } from './isTextAtPos';
+export { getLinkPreferencesURLFromENV, getActiveLinkMark } from './utils';
 export { OverlayButton } from './ConfigureLinkOverlay';
 export type { OverlayButtonProps } from './ConfigureLinkOverlay';
 export { handleNavigation } from './ConfigureLinkOverlay/handleNavigation';

@@ -194,16 +194,15 @@ function applyGrammarFilter(
 		}
 	}
 
-	const finalFiltered = filtered.length > 0 ? filtered : candidates;
-
+	// Grammar is authoritative.
 	return {
-		filtered: finalFiltered,
+		filtered: filtered,
 		grammarMeta: {
 			prevWord: lowerPrev,
 			prevTags,
 			before: candidates.length,
-			after: finalFiltered.length,
-			dropped: filtered.length > 0 ? dropped : [],
+			after: filtered.length,
+			dropped: dropped,
 		},
 	};
 }

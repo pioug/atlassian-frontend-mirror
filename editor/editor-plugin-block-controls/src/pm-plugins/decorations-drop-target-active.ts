@@ -1,3 +1,4 @@
+import memoizeOne from 'memoize-one';
 import type { IntlShape } from 'react-intl';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -9,6 +10,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -42,8 +44,6 @@ const PARENT_WITH_END_DROP_TARGET = [
 	'bodiedExtension',
 ];
 
-const PARENT_WITH_END_DROP_TARGET_SYNC_BLOCK = [...PARENT_WITH_END_DROP_TARGET, 'bodiedSyncBlock'];
-
 /**
  * List of node types that does not allow drop targets at before or after the node.
  */
@@ -51,12 +51,14 @@ const NODE_WITH_NO_PARENT_POS = ['tableCell', 'tableHeader', 'layoutColumn'];
 
 const UNSUPPORTED_LAYOUT_CONTENT = ['syncBlock', 'bodiedSyncBlock'];
 
-const isContainerNode = (node: PMNode) => {
-	if (editorExperiment('platform_synced_block', true)) {
-		return PARENT_WITH_END_DROP_TARGET_SYNC_BLOCK.includes(node.type.name);
-	}
+const getContainerNodeTypes = memoizeOne(() => [
+	...PARENT_WITH_END_DROP_TARGET,
+	...(fg('confluence_frontend_native_tabs_extension') ? ['multiBodiedExtension'] : []),
+	...(editorExperiment('platform_synced_block', true) ? ['bodiedSyncBlock'] : []),
+]);
 
-	return PARENT_WITH_END_DROP_TARGET.includes(node.type.name);
+const isContainerNode = (node: PMNode) => {
+	return getContainerNodeTypes().includes(node.type.name);
 };
 
 export const canMoveNodeOrSliceToPos = (

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "12.0.1",
+	"version": "12.0.2",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -157,6 +157,9 @@
 			"type": "boolean"
 		},
 		"confluence_remix_button_right_side_block_fg": {
+			"type": "boolean"
+		},
+		"confluence_frontend_native_tabs_extension": {
 			"type": "boolean"
 		}
 	},

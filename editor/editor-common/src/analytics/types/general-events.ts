@@ -2,7 +2,7 @@ import type { RichMediaLayout } from '@atlaskit/adf-schema';
 
 import type { FeatureFlagKey } from '../../types/feature-flags';
 import type { PropsDifference, ShallowPropsDifference } from '../../utils';
-import type { SEVERITY } from '../../utils/analytics';
+import type { SEVERITY } from '../../utils/SEVERITY';
 
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
 import type { AnnotationAEP, AnnotationErrorAEP } from './inline-comment-events';

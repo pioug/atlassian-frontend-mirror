@@ -1,5 +1,20 @@
 # @atlaskit/editor-statsig-tmp
 
+## 89.1.1
+
+### Patch Changes
+
+- [`4b9e6f370d855`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b9e6f370d855) -
+  Remove feature flag and experiment
+
+## 89.1.0
+
+### Minor Changes
+
+- [`0f434033d49b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f434033d49b4) -
+  Add remix, remix_edit, and inline_edit experience values to creation context payloads so frontend
+  requests can be logged and routed by experience.
+
 ## 89.0.0
 
 ### Major Changes

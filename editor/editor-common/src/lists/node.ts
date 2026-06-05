@@ -1,26 +1,11 @@
 import type { NodeType, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { isListItemNode, isListNode } from '../utils';
 
-import { wrapTaskListIntoListAbove } from './replace-content';
-
-export function isListNodeValidContent(node: PMNode): boolean {
-	const { bulletList } = node.type.schema.nodes;
-	if (!bulletList) {
-		return false;
-	}
-
-	const listFragment = Fragment.from(bulletList.createAndFill());
-
-	return !isListItemNode(node) && node.type.validContent(listFragment);
-}
-
-export enum JoinDirection {
-	LEFT = 1,
-	RIGHT = -1,
-}
+import { isListNodeValidContent } from './isListNodeValidContent';
+import { JoinDirection } from './JoinDirection';
+import { wrapTaskListIntoListAbove } from './wrapTaskListIntoListAbove';
 
 type JoinSiblingListsProps = {
 	direction?: JoinDirection;
@@ -214,3 +199,7 @@ export const processNestedTaskListsInSameLevel = (tr: Transaction): void => {
 	}
 	return;
 };
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { isListNodeValidContent } from './isListNodeValidContent';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { JoinDirection } from './JoinDirection';

@@ -307,16 +307,22 @@ export interface EmojiServiceDescription {
 	altRepresentations?: AltRepresentations;
 	ascii?: string[];
 	category: string;
+	color?: string;
 	createdDate?: string;
 	creatorUserId?: string;
 	fallback?: string;
+	hidden?: boolean;
 	id: string;
+	keywords?: string[];
 	name?: string;
 	order?: number;
 	representation: EmojiServiceRepresentation;
 	searchable: boolean;
 	shortName: string;
 	type: string;
+	variantBase?: boolean;
+	variantChildren?: string[];
+	variantParent?: string;
 }
 
 export interface EmojiServiceDescriptionWithVariations extends EmojiServiceDescription {

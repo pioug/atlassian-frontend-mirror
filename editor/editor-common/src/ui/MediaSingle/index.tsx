@@ -17,9 +17,9 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 
 import { MEDIA_SINGLE_GUTTER_SIZE } from '../../media-single/constants';
-import { getMediaSinglePixelWidth } from '../../media-single/utils';
+import { getMediaSinglePixelWidth } from '../../media-single/getMediaSinglePixelWidth';
 import type { EditorAppearance } from '../../types';
-import { shouldAddDefaultWrappedWidth } from '../../utils/rich-media-utils';
+import { shouldAddDefaultWrappedWidth } from '../../utils/shouldAddDefaultWrappedWidth';
 
 import { MediaSingleDimensionHelper, MediaWrapper } from './styled';
 import type { MediaSingleSize } from './types';

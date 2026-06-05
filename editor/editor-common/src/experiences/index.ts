@@ -27,10 +27,8 @@ export type {
 	ExperienceDomMutationCheckOptions,
 } from './ExperienceCheckDomMutation';
 
-export {
-	containsPopupWithNestedElement,
-	popupWithNestedElement,
-	getPopupContainerFromEditorView,
-	getNodeQuery,
-	getSelectionAncestorDOM,
-} from './experience-utils';
+export { containsPopupWithNestedElement } from './containsPopupWithNestedElement';
+export { getNodeQuery } from './getNodeQuery';
+export { getPopupContainerFromEditorView } from './getPopupContainerFromEditorView';
+export { getSelectionAncestorDOM } from './getSelectionAncestorDOM';
+export { popupWithNestedElement } from './popupWithNestedElement';

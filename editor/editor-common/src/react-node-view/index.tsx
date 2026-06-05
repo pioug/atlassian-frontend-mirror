@@ -11,11 +11,10 @@ import type {
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { AnalyticsDispatch, AnalyticsEventPayload } from '../analytics';
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
-import { isSSR } from '../core-utils';
+import { isSSR, isSSRStreaming } from '../core-utils';
 import type { EventDispatcher } from '../event-dispatcher';
 import { createDispatch } from '../event-dispatcher';
 import type { PortalProviderAPI } from '../portal';
@@ -135,11 +134,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 			// contentDOMWrapper that was appended above. The React ref callback
 			// (forwardRef) never fires in renderToStaticMarkup, so contentDOM is
 			// left detached. Re-attach it by finding the marked SSR ref target.
-			if (
-				isSSR() &&
-				this.domRef &&
-				expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
-			) {
+			if (isSSR() && isSSRStreaming() && this.domRef) {
 				const refTarget = this.domRef.querySelector('[data-ssr-content-dom-ref]');
 				if (refTarget) {
 					this.handleRef(refTarget);

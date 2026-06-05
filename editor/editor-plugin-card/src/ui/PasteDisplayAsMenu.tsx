@@ -21,7 +21,6 @@ import SmartLinkInlineIcon from '@atlaskit/icon/core/smart-link-inline';
 import { useSmartCardContext } from '@atlaskit/link-provider';
 import { Box, Flex, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
 
 import type { CardPlugin } from '../cardPluginType';
 import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
@@ -179,21 +178,19 @@ const AppearanceOptionIconButton = ({
 }: AppearanceOptionIconButtonProps) => {
 	return (
 		<Box xcss={styles.iconWrapper}>
-			<Tooltip content={label} position="bottom">
-				<Pressable
-					xcss={cx(
-						styles.iconButton,
-						isDisabled && styles.iconButtonDisabled,
-						!isDisabled && currentAppearance === appearance && styles.iconButtonSelected,
-					)}
-					aria-label={label}
-					aria-pressed={currentAppearance === appearance}
-					isDisabled={isDisabled}
-					onClick={onClick}
-				>
-					<Icon label={label} />
-				</Pressable>
-			</Tooltip>
+			<Pressable
+				xcss={cx(
+					styles.iconButton,
+					isDisabled && styles.iconButtonDisabled,
+					!isDisabled && currentAppearance === appearance && styles.iconButtonSelected,
+				)}
+				aria-label={label}
+				aria-pressed={currentAppearance === appearance}
+				isDisabled={isDisabled}
+				onClick={onClick}
+			>
+				<Icon label={label} />
+			</Pressable>
 		</Box>
 	);
 };
@@ -587,10 +584,9 @@ const PasteDisplayAsMenuSection = ({
 	return (
 		<ToolbarDropdownItemSection
 			title={intl.formatMessage({
-				defaultMessage: 'Display link as',
-				description:
-					'Section title in the paste actions menu for choosing how a pasted link is displayed (URL, Inline, Card, or Embed).',
-				id: 'fabric.editor.pasteDisplayAsMenu.displayLinkAs',
+				defaultMessage: 'Display as',
+				description: 'Section title for Smart Link display options in the paste actions menu.',
+				id: 'fabric.editor.pasteDisplayAsMenu.displayAs',
 			})}
 		>
 			<PasteDisplayAsMenuHorizontalView

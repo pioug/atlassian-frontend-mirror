@@ -3,14 +3,10 @@ import React, { PureComponent, useCallback, useEffect, useRef, useState } from '
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import { OutsideClickTargetRefContext } from './OutsideClickTargetRefContext';
 import ReactEditorViewContext from './ReactEditorViewContext';
 
 type SimpleEventHandler<T> = (event: T) => void;
-
-// Use this context to pass in the reference of the element that should be considered as the outside click target
-// The outside click target is the element that should be clicked outside of to trigger the `handleClickOutside` event
-export const OutsideClickTargetRefContext: React.Context<(el: HTMLElement | null) => void> =
-	React.createContext<(el: HTMLElement | null) => void>(() => Object);
 
 // This needs exporting to be used alongside `withReactEditorViewOuterListeners`
 export interface WithOutsideClickProps {
@@ -224,3 +220,5 @@ export default function withReactEditorViewOuterListeners<P extends Object>(
 		);
 	};
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { OutsideClickTargetRefContext } from './OutsideClickTargetRefContext';

@@ -1,6 +1,5 @@
-import clamp from 'lodash/clamp';
 
-import type { Node, ResolvedPos, Fragment, Mark } from '@atlaskit/editor-prosemirror/model';
+import type { Node, Fragment, Mark } from '@atlaskit/editor-prosemirror/model';
 import type {
 	EditorState,
 	ReadonlyTransaction,
@@ -10,49 +9,9 @@ import type {
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { isEmptyParagraph } from './editor-core-utils';
-
+import { getStepRange } from './getStepRange';
+import { hasDocAsParent } from './hasDocAsParent';
 type ChangedFn = (node: Node, pos: number, parent: Node | null, index: number) => boolean | void;
-
-export const getStepRange = (
-	transaction: Transaction | ReadonlyTransaction,
-): { from: number; to: number } | null => {
-	let from = -1;
-	let to = -1;
-
-	transaction.mapping.maps.forEach((stepMap, index) => {
-		stepMap.forEach((oldStart, oldEnd) => {
-			const newStart = transaction.mapping.slice(index).map(oldStart, -1);
-			const newEnd = transaction.mapping.slice(index).map(oldEnd);
-
-			const docSize = transaction.doc.content.size;
-			from = clamp(newStart < from || from === -1 ? newStart : from, 0, docSize);
-			to = clamp(newEnd > to || to === -1 ? newEnd : to, 0, docSize);
-		});
-	});
-
-	if (from !== -1) {
-		return { from, to };
-	}
-
-	return null;
-};
-
-// Checks to see if the parent node is the document, ie not contained within another entity
-export function hasDocAsParent($anchor: ResolvedPos): boolean {
-	return $anchor.depth === 1;
-}
-
-/**
- * Checks if a node looks like an empty document
- */
-export function isEmptyDocument(node: Node): boolean {
-	const nodeChild = node.content.firstChild;
-	if (node.childCount !== 1 || !nodeChild) {
-		return false;
-	}
-	return isEmptyParagraph(nodeChild);
-}
 
 export function bracketTyped(state: EditorState): boolean {
 	const { selection } = state;
@@ -87,40 +46,6 @@ export function nodesBetweenChanged(
 
 	tr.doc.nodesBetween(stepRange.from, stepRange.to, f, startPos);
 }
-
-/**
- * Returns false if node contains only empty inline nodes and hardBreaks.
- */
-export function hasVisibleContent(node: Node): boolean {
-	const isInlineNodeHasVisibleContent = (inlineNode: Node) => {
-		return inlineNode.isText
-			? !!inlineNode.textContent.trim()
-			: inlineNode.type.name !== 'hardBreak';
-	};
-
-	if (node.isInline) {
-		return isInlineNodeHasVisibleContent(node);
-	} else if (node.isBlock && (node.isLeaf || node.isAtom)) {
-		return true;
-	} else if (!node.childCount) {
-		return false;
-	}
-
-	for (let index = 0; index < node.childCount; index++) {
-		const child = node.child(index);
-		const invisibleNodeTypes = ['paragraph', 'text', 'hardBreak'];
-
-		if (!invisibleNodeTypes.includes(child.type.name) || hasVisibleContent(child)) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
-export const isSelectionEndOfParagraph = (state: EditorState): boolean =>
-	state.selection.$to.parent.type === state.schema.nodes.paragraph &&
-	state.selection.$to.pos === state.doc.resolve(state.selection.$to.pos).end();
 
 function getChangedNodesIn({
 	tr,
@@ -300,3 +225,13 @@ function areFragmentsEqual(
 	});
 	return childrenEqual;
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getStepRange } from './getStepRange';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { hasDocAsParent } from './hasDocAsParent';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { isEmptyDocument } from './isEmptyDocument';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { hasVisibleContent } from './hasVisibleContent';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { isSelectionEndOfParagraph } from './isSelectionEndOfParagraph';

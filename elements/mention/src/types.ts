@@ -52,6 +52,27 @@ export interface MentionResourceConfig extends ServiceConfig {
 	debounceTime?: number;
 
 	/**
+	 * A function to determine whether a given mention should be rendered in
+	 * its disabled visual state (`MentionType.DISABLED`), and what tooltip
+	 * (if any) to display when the disabled chip is hovered.
+	 *
+	 * Returning `{ disabled: false }` (or `undefined`) leaves the mention in
+	 * whatever state the other predicates resolve to.
+	 *
+	 * The input deliberately exposes only the mention's `id` because the
+	 * canonical caller (the editor mentions `NodeView`) does not have the
+	 * full `MentionDescription` in scope. Implementations should look the
+	 * additional context they need (e.g. agent metadata) up via the `id`.
+	 *
+	 * @param mention - The minimal mention identifier to evaluate.
+	 * @returns `{ disabled, tooltip? }` describing the disabled visual state,
+	 * or `undefined` to leave it unchanged.
+	 */
+	getMentionDisabledState?: (
+		mention: MentionDisabledStateInput,
+	) => MentionDisabledState | undefined;
+
+	/**
 	 * Custom HTTP headers to include in mention service requests.
 	 */
 	headers?: Record<string, string>;
@@ -115,6 +136,24 @@ export interface MentionResourceConfig extends ServiceConfig {
 	userRole?: UserRole;
 }
 
+/**
+ * Describes whether a mention should be rendered in its disabled visual
+ * state and what tooltip (if any) should be shown on hover.
+ */
+export interface MentionDisabledState {
+	disabled: boolean;
+	tooltip?: string;
+}
+
+/**
+ * The minimal input shape used by `getMentionDisabledState`. Kept as a named
+ * type so the config callback and the provider method share the same input
+ * surface, and so callers do not have to fabricate fields they do not have.
+ */
+export interface MentionDisabledStateInput {
+	id: string;
+}
+
 export interface ResourceProvider<Result> {
 	/**
 	 * Subscribe to ResourceProvider results
@@ -149,17 +188,45 @@ export type MentionContextIdentifier = {
 };
 
 export interface MentionProvider
-	extends
-		ResourceProvider<MentionDescription[]>,
+	extends ResourceProvider<MentionDescription[]>,
 		InviteFromMentionProvider,
 		XProductInviteMentionProvider {
 	filter(query?: string, contextIdentifier?: MentionContextIdentifier): void;
+	/**
+	 * Optional. When implemented, lets the rendering surface ask whether a
+	 * mention should be displayed in its disabled visual state, and what
+	 * tooltip to surface on hover. Returning `undefined` (or omitting the
+	 * method entirely) is equivalent to "not disabled".
+	 */
+	getMentionDisabledState?(mention: MentionDisabledStateInput): MentionDisabledState | undefined;
 	isFiltering(query: string): boolean;
+	/**
+	 * Optional. Called by the rendering surface (e.g. the editor NodeView)
+	 * when a mention chip is destroyed (removed from the doc). This is the
+	 * lowest-level deletion signal — it fires regardless of how the chip was
+	 * removed (backspace, select-and-delete, programmatic replace, …) and
+	 * does not depend on the editor's debounced `onChange` callback.
+	 *
+	 * Implementations typically forward the call to consumers via the chat
+	 * layer so they can react (e.g. update `selectedAgentIds`).
+	 */
+	notifyMentionDestroyed?(mention: { id: string }): void;
 	recordMentionSelection(
 		mention: MentionDescription,
 		contextIdentifier?: MentionContextIdentifier,
 	): void;
 	shouldHighlightMention(mention: MentionDescription): boolean;
+	/**
+	 * Optional. When implemented, lets the rendering surface subscribe to
+	 * changes in the disabled-state predicate so already-rendered chips can
+	 * re-evaluate themselves when the external state that drives
+	 * `getMentionDisabledState` changes (e.g. the active agent selection in
+	 * Rovo Chat). Implementations should invoke the listener after their
+	 * own state changes.
+	 *
+	 * Returns an unsubscribe function. Callers MUST invoke it on teardown.
+	 */
+	subscribeToDisabledStateChanges?(listener: () => void): () => void;
 }
 
 export interface HighlightDetail {
@@ -246,6 +313,7 @@ export enum MentionType {
 	SELF,
 	RESTRICTED,
 	DEFAULT,
+	DISABLED,
 }
 
 export enum UserAccessLevel {

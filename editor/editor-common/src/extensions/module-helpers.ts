@@ -1,15 +1,11 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { Command, FloatingToolbarDropdown } from '../types';
 
-import { buildAction } from './manifest-helpers';
+import { buildMenuItem } from './buildMenuItem';
+import { createAutoConverterRunner } from './createAutoConverterRunner';
 import type { ExtensionAPI } from './types/extension-handler';
-import type {
-	ExtensionAutoConvertHandler,
-	ExtensionManifest,
-	ExtensionModule,
-} from './types/extension-manifest';
+import type { ExtensionAutoConvertHandler, ExtensionManifest } from './types/extension-manifest';
 import type {
 	ContextualToolbar,
 	ExtensionToolbarButton,
@@ -21,51 +17,6 @@ import type {
 import type { Parameters } from './types/extension-parameters';
 import type { ExtensionProvider } from './types/extension-provider';
 import type { MenuItem } from './types/utils';
-
-export const groupBy = <T>(
-	arr: T[],
-	attr: keyof T,
-	keyRenamer: (key: T[keyof T]) => string,
-): {
-	[k: string]: T;
-} =>
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	arr.reduce<any>((acc, item) => {
-		acc[keyRenamer(item[attr])] = item;
-		return acc;
-	}, {});
-
-export function buildMenuItem<T extends Parameters>(
-	manifest: ExtensionManifest<T>,
-	extensionModule: ExtensionModule<T>,
-): MenuItem {
-	const title = extensionModule.title || manifest.title;
-	const key = `${manifest.key}:${extensionModule.key}`;
-	const node = buildAction(extensionModule.action, manifest);
-	if (!node) {
-		throw new Error(`Couldn't find any action for ${title} (${key})`);
-	}
-	return {
-		key,
-		title,
-		extensionType: manifest.type,
-		extensionKey: manifest.key,
-		keywords: extensionModule.keywords || manifest.keywords || [],
-		featured: extensionModule.featured || false,
-		categories: extensionModule.categories || manifest.categories || [],
-		description: extensionModule.description || manifest.description,
-		summary: manifest.summary,
-		documentationUrl: manifest.documentationUrl,
-		...((fg('cc_fd_wb_create_priority_in_slash_menu_enabled') ||
-			fg('rovo_chat_enable_skills_ui_m1')) && {
-			priority: extensionModule.priority,
-		}),
-		...(extensionModule.lozenge != null && { lozenge: extensionModule.lozenge }),
-		icon: extensionModule.icon || manifest.icons['48'],
-		node,
-	};
-}
 
 export const getQuickInsertItemsFromModule = <T extends Parameters>(
 	extensions: ExtensionManifest<T>[],
@@ -81,34 +32,6 @@ export const getQuickInsertItemsFromModule = <T extends Parameters>(
 
 	return flatItems.map(transformFunction);
 };
-
-export async function getAutoConvertPatternsFromModule<T extends Parameters>(
-	extensions: ExtensionManifest<T>[],
-): Promise<ExtensionAutoConvertHandler[]> {
-	const items = await Promise.all(
-		extensions.map((manifest) => {
-			if (manifest.modules.autoConvert && manifest.modules.autoConvert.url) {
-				return manifest.modules.autoConvert.url;
-			}
-
-			return [];
-		}),
-	);
-
-	return ([] as ExtensionAutoConvertHandler[]).concat(...items);
-}
-
-export const createAutoConverterRunner =
-	(autoConvertHandlers: ExtensionAutoConvertHandler[]): ExtensionAutoConvertHandler =>
-	(text: string) => {
-		for (const handler of autoConvertHandlers) {
-			const result = handler(text);
-
-			if (result) {
-				return result;
-			}
-		}
-	};
 
 export async function getExtensionAutoConvertersFromProvider(
 	extensionProviderPromise: Promise<ExtensionProvider>,
@@ -291,3 +214,11 @@ function shouldAddExtensionItemForNode(item: ContextualToolbar, node: ADFEntity)
 	}
 	return false;
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { groupBy } from './groupBy';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { buildMenuItem } from './buildMenuItem';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getAutoConvertPatternsFromModule } from './getAutoConvertPatternsFromModule';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { createAutoConverterRunner } from './createAutoConverterRunner';

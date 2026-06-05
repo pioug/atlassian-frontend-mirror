@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-card
 
+## 17.3.0
+
+### Minor Changes
+
+- [`6e3b4e2317b34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e3b4e2317b34) -
+  [EDITOR-7476](https://hello.jira.atlassian.cloud/browse/EDITOR-7476) - centralize SSR streaming
+  checks behind `isSSRStreaming()` so SSR eligibility is checked before emitting exposure for the
+  `platform_editor_editor_ssr_streaming` experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.1
+
+### Patch Changes
+
+- [`d5309f5ee468b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5309f5ee468b) -
+  Reverts changes from PR #383977 ("Add tooltips to paste menu display buttons and rename section to
+  Display link as").
+
 ## 17.2.0
 
 ### Minor Changes

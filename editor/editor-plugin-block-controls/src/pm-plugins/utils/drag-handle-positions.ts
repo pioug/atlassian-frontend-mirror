@@ -1,4 +1,7 @@
+import memoizeOne from 'memoize-one';
+
 import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -88,10 +91,13 @@ export const getNodeHeight = (
 	anchorRectCache?: AnchorRectCache,
 ): number | undefined => anchorRectCache?.getHeight(anchor) || dom?.offsetHeight;
 
+const getStickyNodes = memoizeOne(() => [
+	...STICKY_NODES,
+	...(fg('confluence_frontend_native_tabs_extension') ? ['multiBodiedExtension'] : []),
+]);
+
 export const shouldBeSticky = (nodeType: string): boolean => {
-	return (
-		editorExperiment('platform_editor_controls', 'variant1') && STICKY_NODES.includes(nodeType)
-	);
+	return editorExperiment('platform_editor_controls', 'variant1') && getStickyNodes().includes(nodeType);
 };
 
 export const getControlBottomCSSValue = (

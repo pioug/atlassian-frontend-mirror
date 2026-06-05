@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0c49cd7b99ff49fecf0ecfa056c603c4>>
+ * @codegen <<SignedSource::c9806433eb5f20f1291768b3b482aff0>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -76,15 +76,25 @@ html[data-color-mode="dark"][data-contrast-mode="more"][data-theme~="dark:dark"]
   --ds-icon-subtle: #BFC1C4;
   --ds-border: #E9F0FB5C;
   --ds-border-accent-lime: #B3DF72;
+  --ds-border-accent-lime-subtle: #4C6B1F;
   --ds-border-accent-red: #FD9891;
+  --ds-border-accent-red-subtle: #AE2E24;
   --ds-border-accent-orange: #FBC828;
+  --ds-border-accent-orange-subtle: #9E4C00;
   --ds-border-accent-yellow: #EED12B;
+  --ds-border-accent-yellow-subtle: #7F5F01;
   --ds-border-accent-green: #7EE2B8;
+  --ds-border-accent-green-subtle: #216E4E;
   --ds-border-accent-teal: #9DD9EE;
+  --ds-border-accent-teal-subtle: #206A83;
   --ds-border-accent-blue: #8FB8F6;
+  --ds-border-accent-blue-subtle: #1558BC;
   --ds-border-accent-purple: #D8A0F7;
+  --ds-border-accent-purple-subtle: #803FA5;
   --ds-border-accent-magenta: #F797D2;
+  --ds-border-accent-magenta-subtle: #943D73;
   --ds-border-accent-gray: #A9ABAF;
+  --ds-border-accent-gray-subtle: #4B4D51;
   --ds-border-disabled: #E3E4F21F;
   --ds-border-focused: #8FB8F6;
   --ds-border-input: #A9ABAF;
@@ -92,10 +102,15 @@ html[data-color-mode="dark"][data-contrast-mode="more"][data-theme~="dark:dark"]
   --ds-border-selected: #8FB8F6;
   --ds-border-brand: #8FB8F6;
   --ds-border-danger: #F87168;
+  --ds-border-danger-subtle: #AE2E24;
   --ds-border-warning: #FBC828;
+  --ds-border-warning-subtle: #9E4C00;
   --ds-border-success: #7EE2B8;
+  --ds-border-success-subtle: #4C6B1F;
   --ds-border-discovery: #C97CF4;
+  --ds-border-discovery-subtle: #803FA5;
   --ds-border-information: #8FB8F6;
+  --ds-border-information-subtle: #1558BC;
   --ds-border-bold: #A9ABAF;
   --ds-background-accent-lime-subtlest: #28311B;
   --ds-background-accent-lime-subtlest-hovered: #37471F;
@@ -254,6 +269,7 @@ html[data-color-mode="dark"][data-contrast-mode="more"][data-theme~="dark:dark"]
   --ds-background-danger-subtler: #5D1F1A;
   --ds-background-danger-subtler-hovered: #872821;
   --ds-background-danger-subtler-pressed: #AE2E24;
+  --ds-background-danger-subtle: #AE2E24;
   --ds-background-danger-bold: #FFD5D2;
   --ds-background-danger-bold-hovered: #FFECEB;
   --ds-background-danger-bold-pressed: #E2E3E4;
@@ -263,6 +279,7 @@ html[data-color-mode="dark"][data-contrast-mode="more"][data-theme~="dark:dark"]
   --ds-background-warning-subtler: #693200;
   --ds-background-warning-subtler-hovered: #7A3B00;
   --ds-background-warning-subtler-pressed: #9E4C00;
+  --ds-background-warning-subtle: #9E4C00;
   --ds-background-warning-bold: #F5E989;
   --ds-background-warning-bold-hovered: #FEF7C8;
   --ds-background-warning-bold-pressed: #E2E3E4;
@@ -272,6 +289,7 @@ html[data-color-mode="dark"][data-contrast-mode="more"][data-theme~="dark:dark"]
   --ds-background-success-subtler: #37471F;
   --ds-background-success-subtler-hovered: #3F5224;
   --ds-background-success-subtler-pressed: #4C6B1F;
+  --ds-background-success-subtle: #4C6B1F;
   --ds-background-success-bold: #BAF3DB;
   --ds-background-success-bold-hovered: #DCFFF1;
   --ds-background-success-bold-pressed: #E2E3E4;
@@ -281,6 +299,7 @@ html[data-color-mode="dark"][data-contrast-mode="more"][data-theme~="dark:dark"]
   --ds-background-discovery-subtler: #48245D;
   --ds-background-discovery-subtler-hovered: #673286;
   --ds-background-discovery-subtler-pressed: #803FA5;
+  --ds-background-discovery-subtle: #803FA5;
   --ds-background-discovery-bold: #EED7FC;
   --ds-background-discovery-bold-hovered: #F8EEFE;
   --ds-background-discovery-bold-pressed: #E2E3E4;
@@ -290,6 +309,7 @@ html[data-color-mode="dark"][data-contrast-mode="more"][data-theme~="dark:dark"]
   --ds-background-information-subtler: #123263;
   --ds-background-information-subtler-hovered: #144794;
   --ds-background-information-subtler-pressed: #1558BC;
+  --ds-background-information-subtle: #1558BC;
   --ds-background-information-bold: #CFE1FD;
   --ds-background-information-bold-hovered: #E9F2FE;
   --ds-background-information-bold-pressed: #E2E3E4;

@@ -1,8 +1,8 @@
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { Command } from '../types/command';
 import type { EditorCommand } from '../types/editor-command';
-/**
+
+import { PassiveTransaction } from './PassiveTransaction';/**
  * Convert a EditorCommand to a standard Prosemirror Command.
  * The preferred approach to dispatching a `EditorCommand` is via the
  * `core.actions.execute` on `pluginInjectionAPI`. In some cases
@@ -25,17 +25,5 @@ export function editorCommandToPMCommand(command: EditorCommand | undefined): Co
 		return true;
 	};
 }
-
-/**
- * PassiveTransaction is used only to indicate that
- * an `EditorCommand` should return `true` but should not dispatch.
- */
-export class PassiveTransaction extends Transaction {
-	// This is very cheeky but this should never be used outside its intended
-	// purpose - it will likely crash the editor so we should get an early warning
-	// signal
-	constructor() {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		super({} as any);
-	}
-}
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { PassiveTransaction } from './PassiveTransaction';

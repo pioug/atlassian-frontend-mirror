@@ -1,6 +1,7 @@
 import type { ComponentClass, MutableRefObject } from 'react';
 import React, { PureComponent } from 'react';
 
+import { PlainOutsideClickTargetRefContext } from './PlainOutsideClickTargetRefContext';
 type SimpleEventHandler<T> = (event: T) => void;
 
 export interface WithOutsideClickProps {
@@ -8,10 +9,6 @@ export interface WithOutsideClickProps {
 	handleEscapeKeydown?: SimpleEventHandler<KeyboardEvent>;
 }
 
-// Use this context to pass in the reference of the element that should be considered as the outside click target
-// The outside click target is the element that should be clicked outside of to trigger the `handleClickOutside` event
-export const PlainOutsideClickTargetRefContext: React.Context<(el: HTMLElement | null) => void> =
-	React.createContext<(el: HTMLElement | null) => void>(() => {});
 
 export default function withOuterListeners<P>(
 	Component: React.ComponentType<React.PropsWithChildren<P>>,
@@ -79,3 +76,5 @@ export default function withOuterListeners<P>(
 		}
 	};
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { PlainOutsideClickTargetRefContext } from './PlainOutsideClickTargetRefContext';

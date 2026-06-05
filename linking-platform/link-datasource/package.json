@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "5.6.2",
+	"version": "5.6.3",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -231,6 +231,9 @@
 			"type": "boolean"
 		},
 		"navx-4870-adding-keyboard-focus-for-sllv-columns": {
+			"type": "boolean"
+		},
+		"platform_lp_sllv_richtext_margin_reset": {
 			"type": "boolean"
 		}
 	},

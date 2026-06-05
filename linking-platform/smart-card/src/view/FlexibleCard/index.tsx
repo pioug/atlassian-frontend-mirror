@@ -49,11 +49,10 @@ const FlexibleCard = ({
 	const resolve = useResolve();
 	const { isPreviewPanelAvailable, openPreviewPanel, product } = useSmartLinkContext();
 
-	const rovoConfig =
-		fg('platform_sl_3p_auth_rovo_action_kill_switch') || fg('rovogrowth-640-inline-action-nudge-fg')
-			? // eslint-disable-next-line react-hooks/rules-of-hooks
-				useRovoConfig()
-			: undefined;
+	const rovoConfig = fg('platform_sl_3p_auth_rovo_action_kill_switch')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useRovoConfig()
+		: undefined;
 
 	const { fireEvent } = useAnalyticsEvents();
 
@@ -88,8 +87,7 @@ const FlexibleCard = ({
 				origin,
 				renderers,
 				resolve,
-				...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-				fg('rovogrowth-640-inline-action-nudge-fg')
+				...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
 					? { product, rovoConfig }
 					: undefined),
 				actionOptions,

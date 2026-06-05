@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { di } from 'react-magnetic-di';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { AISummaryActionData } from '../../../../../state/flexible-ui-context/types';
 import useAISummaryAction from '../../../../../state/hooks/use-ai-summary-action';
@@ -29,8 +28,7 @@ export const AISummaryActionComponent = (
 	}, [onLoadingChange, status]);
 
 	return status === 'done' ? (
-		fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-		expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true) ? (
+		fg('platform_sl_3p_auth_rovo_action_kill_switch') ? (
 			<CopySummaryActionNew {...props} summary={content} testId={testId} />
 		) : (
 			<CopySummaryAction {...props} testId={testId} content={content} />

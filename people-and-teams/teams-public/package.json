@@ -152,7 +152,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "1.4.1",
+	"version": "1.4.2",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -180,9 +180,6 @@
 			"type": "boolean"
 		},
 		"workforce_optimization_team_modal_update": {
-			"type": "boolean"
-		},
-		"ptc-links-migrate-atlaskit-anchor-to-teams-anchor": {
 			"type": "boolean"
 		},
 		"enable_teams_t26_design_drop_core_experiences": {

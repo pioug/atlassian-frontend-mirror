@@ -1,14 +1,7 @@
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 
-/**
- * A helper to get the underlying array of a fragment.
- */
-export function getFragmentBackingArray(fragment: Fragment): ReadonlyArray<Node> {
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	return (fragment as any).content as Node[];
-}
+import { getFragmentBackingArray } from './getFragmentBackingArray';
 
 export function mapFragment(
 	content: Fragment,
@@ -87,3 +80,5 @@ export const hasNode =
 	(slice: Slice): boolean => {
 		return !!findNode(predicate)(slice);
 	};
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getFragmentBackingArray } from './getFragmentBackingArray';

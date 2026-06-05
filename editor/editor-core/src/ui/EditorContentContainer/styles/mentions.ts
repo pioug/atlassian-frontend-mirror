@@ -110,6 +110,27 @@ export const mentionNodeStyles: SerializedStyles = css({
 			background: token('color.background.brand.bold.pressed'),
 		},
 	},
+
+	// Disabled variant — mirrors `MentionType.DISABLED` in
+	// `packages/elements/mention/src/components/Mention/PrimitiveMention.tsx`.
+	// Hover / active states are intentionally flat: a disabled chip should
+	// not respond to mouse interaction. The chip is still keyboard-focusable
+	// (see `MentionNodeView.setClassList`) so the focus ring is still
+	// allowed to render via `:focus-visible`.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.editor-mention-primitive.mention-disabled': {
+		background: token('color.background.disabled'),
+		border: '1px solid transparent',
+		color: token('color.text.disabled'),
+		cursor: 'default',
+
+		'&:hover': {
+			background: token('color.background.disabled'),
+		},
+		'&:active': {
+			background: token('color.background.disabled'),
+		},
+	},
 });
 
 // This is mentions styles for mentions selection styles based on the vanilla node view

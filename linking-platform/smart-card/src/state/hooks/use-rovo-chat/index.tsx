@@ -38,9 +38,7 @@ const useRovoChat = (): {
 					},
 					openChat: true,
 					openChatMode:
-						isJiraProduct &&
-						(fg('platform_sl_3p_auth_rovo_block_jira_kill_switch') ||
-							fg('rovogrowth-640-inline-action-nudge-fg'))
+						isJiraProduct && fg('platform_sl_3p_auth_rovo_block_jira_kill_switch')
 							? 'mini-modal'
 							: 'sidebar',
 				},

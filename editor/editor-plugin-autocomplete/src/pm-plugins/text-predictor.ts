@@ -32,10 +32,10 @@ import { getStoredContextVector, getStoredLmLogits } from './slow-lane-client';
 // eslint-disable-next-line require-unicode-regexp
 const PUNCTUATION_BOUNDARY_REGEX = /^[.,;:!?()\[\]{}"'`]+|[.,;:!?()\[\]{}"'`]+$/g;
 
-const MIN_PREFIX_LENGTH = 3;
+const MIN_PREFIX_LENGTH = 4;
 const MAX_CANDIDATES = 200;
 const CONTEXT_WORDS = 10;
-const MIN_SCORE_THRESHOLD = 0.2;
+const MIN_SCORE_THRESHOLD = 0.35;
 const L3_BASELINE_FREQ = 0.001;
 
 // ─── Types ───────────────────────────────────────────────────────────────────

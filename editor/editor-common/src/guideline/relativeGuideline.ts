@@ -1,10 +1,8 @@
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { roundToNearest } from '../media-single';
-
+import { getMediaSingleDimensions } from './getMediaSingleDimensions';
 import type { GuidelineConfig, RelativeGuides } from './types';
-import { getMediaSingleDimensions } from './utils';
 
 const RELATIVE_GUIDES_GAP = 6;
 
@@ -131,22 +129,6 @@ const getHeightRelativeGuideline = (
 	};
 };
 
-export const getRelativeGuideSnaps = (
-	relativeGuides: RelativeGuides,
-	aspectRatio: number,
-): number[] => {
-	const snapsWidthFromMatchingHeight = Object.keys(relativeGuides.height || {}).map((heightKey) => {
-		const height = Number.parseInt(heightKey);
-		return roundToNearest(height * aspectRatio);
-	});
-
-	const snapsWidthFromMatchingWidth = Object.keys(relativeGuides.width || {}).map((widthKey) => {
-		return Number.parseInt(widthKey);
-	});
-
-	return [...snapsWidthFromMatchingWidth, ...snapsWidthFromMatchingHeight];
-};
-
 export const getRelativeGuidelines = (
 	relativeGuides: RelativeGuides,
 	nodeWithPos: NodeWithPos,
@@ -188,3 +170,5 @@ export const getRelativeGuidelines = (
 
 	return [];
 };
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getRelativeGuideSnaps } from './getRelativeGuideSnaps';

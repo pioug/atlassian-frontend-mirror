@@ -56,6 +56,7 @@ import {
 	HubLogo,
 	JiraAlignIcon,
 	JiraAlignLogo,
+	JiraCodingAgentIcon,
 	JiraDataCenterIcon,
 	JiraDataCenterLogo,
 	JiraIcon,
@@ -139,6 +140,7 @@ const logoMap: {
 		logo: RovoDevAgentLogo,
 		icon: RovoDevAgentIcon,
 	},
+	{ name: 'jira-coding-agent', logo: JiraCodingAgentIcon, icon: JiraCodingAgentIcon },
 	{
 		name: 'jira-service-management',
 		logo: JiraServiceManagementLogo,

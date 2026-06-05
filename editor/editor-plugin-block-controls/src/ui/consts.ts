@@ -1,6 +1,7 @@
 import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
 import { breakoutResizableNodes as breakoutResizableNodesNew } from '@atlaskit/editor-common/utils';
 import { akEditorUnitZIndex, akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -112,6 +113,11 @@ export const getNestedNodeLeftPaddingMargin = (
 	switch (nodeType) {
 		case 'bodiedExtension':
 			return '28px';
+		case 'multiBodiedExtension':
+			if (fg('confluence_frontend_native_tabs_extension')) {
+				return '28px';
+			}
+			return `${DRAG_HANDLE_WIDTH + DRAG_HANDLE_NARROW_GAP}px`;
 		case 'expand':
 		case 'nestedExpand':
 			return '24px';
@@ -231,6 +237,7 @@ export const spacingBetweenNodesForPreview: { [key: string]: { bottom: string; t
 	mediaSingle: { top: '24px', bottom: '24px' },
 	media: { top: '24px', bottom: '24px' },
 	bodiedExtension: { top: '0', bottom: '0' },
+	multiBodiedExtension: { top: '0', bottom: '0' },
 	extension: { top: '0', bottom: '0' },
 	layoutSection: { top: '0', bottom: '0' },
 	blockquote: { top: '0', bottom: '0' },
@@ -256,6 +263,7 @@ export const nodeMargins: { [key: string]: { bottom: number; top: number } } = {
 	mediaSingle: { top: 24, bottom: 24 },
 	media: { top: 24, bottom: 24 },
 	bodiedExtension: { top: 0, bottom: 0 },
+	multiBodiedExtension: { top: 0, bottom: 0 },
 	extension: { top: 12, bottom: 12 },
 	heading1: { top: 40, bottom: 0 },
 	heading2: { top: 40, bottom: 0 },

@@ -73,46 +73,101 @@ const color: AttributeSchema<BorderColorTokenSchema<BaseToken>> = {
 				},
 			},
 			danger: {
-				attributes: {
-					group: 'paint',
-					state: 'active',
-					introduced: '0.6.0',
-					description:
-						'Use for borders communicating critical information, such as the borders on invalid text fields.',
+				'[default]': {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '0.6.0',
+						description:
+							'Use for borders communicating critical information, such as the borders on invalid text fields.',
+					},
+				},
+				subtle: {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '13.2.0',
+						description:
+							'Use for decorative danger borders that do not need to meet 3:1 contrast requirements.',
+					},
 				},
 			},
 			warning: {
-				attributes: {
-					group: 'paint',
-					state: 'active',
-					introduced: '0.6.0',
-					description: 'Use for borders communicating caution.',
+				'[default]': {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '0.6.0',
+						description: 'Use for borders communicating caution.',
+					},
+				},
+				subtle: {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '13.2.0',
+						description:
+							'Use for decorative warning borders that do not need to meet 3:1 contrast requirements.',
+					},
 				},
 			},
 			success: {
-				attributes: {
-					group: 'paint',
-					state: 'active',
-					introduced: '0.6.0',
-					description:
-						'Use for borders communicating a favorable outcome, such as the borders on validated text fields.',
+				'[default]': {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '0.6.0',
+						description:
+							'Use for borders communicating a favorable outcome, such as the borders on validated text fields.',
+					},
+				},
+				subtle: {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '13.2.0',
+						description:
+							'Use for decorative success borders that do not need to meet 3:1 contrast requirements.',
+					},
 				},
 			},
 			discovery: {
-				attributes: {
-					group: 'paint',
-					state: 'active',
-					introduced: '0.6.0',
-					description:
-						'Use for borders communicating change or something new, such as the borders in onboarding spotlights.',
+				'[default]': {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '0.6.0',
+						description:
+							'Use for borders communicating change or something new, such as the borders in onboarding spotlights.',
+					},
+				},
+				subtle: {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '13.2.0',
+						description:
+							'Use for decorative discovery borders that do not need to meet 3:1 contrast requirements.',
+					},
 				},
 			},
 			information: {
-				attributes: {
-					group: 'paint',
-					state: 'active',
-					introduced: '0.6.0',
-					description: 'Use for borders communicating information or something in-progress.',
+				'[default]': {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '0.6.0',
+						description: 'Use for borders communicating information or something in-progress.',
+					},
+				},
+				subtle: {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '13.2.0',
+						description:
+							'Use for decorative information borders that do not need to meet 3:1 contrast requirements.',
+					},
 				},
 			},
 		},

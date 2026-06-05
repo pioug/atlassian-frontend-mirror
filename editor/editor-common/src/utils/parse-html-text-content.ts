@@ -7,43 +7,12 @@ import type {
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { DOMParser } from '@atlaskit/editor-prosemirror/model';
 
+import { getNestingRulesFromSchema } from './getNestingRulesFromSchema';
 const domParser = DOMParser.fromSchema(defaultSchema);
 
 type NestedContainer = {
 	children: BlockContent[];
 	parentType: BlockContent['type'];
-};
-
-export const getNestingRulesFromSchema = (): Record<string, string[]> => {
-	const KEYWORDS = [
-		'inline',
-		'block',
-		'text',
-		'leaf',
-		'group',
-		'unsupportedBlock',
-		'unsupportedInline',
-	];
-	const rules: Record<string, string[]> = {};
-
-	for (const nodeType of Object.keys(defaultSchema.nodes)) {
-		const contentStr = defaultSchema.nodes[nodeType]?.spec.content;
-		if (!contentStr) {
-			continue;
-		}
-
-		const allowedChildren = // eslint-disable-next-line require-unicode-regexp
-			(String(contentStr).match(/\b([a-zA-Z_][a-zA-Z0-9_]*)\b/g) || []).filter(
-				(match, index, arr) =>
-					!KEYWORDS.includes(match) && defaultSchema.nodes[match] && arr.indexOf(match) === index,
-			);
-
-		if (allowedChildren.length > 0) {
-			rules[nodeType] = allowedChildren;
-		}
-	}
-
-	return rules;
 };
 
 const NESTING_RULES = getNestingRulesFromSchema();
@@ -238,3 +207,4 @@ export const parseHTMLTextContent = (html: string): DocNode => {
 		content: blocks.length > 0 ? blocks : [createParagraph()],
 	};
 };
+// eslint-disable-next-line @atlaskit/editor/no-re-export

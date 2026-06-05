@@ -96,13 +96,11 @@ export type { EditorAppearance, EditorContentMode } from './editor-appearance';
 
 export type { ToolbarUiComponentFactoryParams, ToolbarUIComponentFactory } from './toolbar';
 
-export {
-	ToolbarSize,
-	ToolbarWidths,
-	ToolbarWidthsNext,
-	ToolbarWidthsFullPage,
-	ToolbarWidthsFullPageNext,
-} from './toolbar';
+export { ToolbarSize } from './ToolbarSize';
+export { ToolbarWidths } from './ToolbarWidths';
+export { ToolbarWidthsFullPage } from './ToolbarWidthsFullPage';
+export { ToolbarWidthsFullPageNext } from './ToolbarWidthsFullPageNext';
+export { ToolbarWidthsNext } from './ToolbarWidthsNext';
 
 export type {
 	UiComponentFactoryParams,

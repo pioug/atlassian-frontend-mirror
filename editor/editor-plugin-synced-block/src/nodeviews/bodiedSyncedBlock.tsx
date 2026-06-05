@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { isSSR, isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -24,7 +24,6 @@ import {
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { BodiedSyncBlockWrapper } from '../ui/BodiedSyncBlockWrapper';
@@ -258,7 +257,7 @@ export class BodiedSyncBlock implements NodeView {
 		// contentDOM. Render the label into a separate container to prevent this.
 		// On client, render directly into this.dom as before.
 		let labelContainer: HTMLElement;
-		if (isSSR() && expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)) {
+		if (isSSR() && isSSRStreaming()) {
 			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- NodeView DOM must be created against active runtime document
 			labelContainer = document.createElement('div');
 			this.dom.appendChild(labelContainer);

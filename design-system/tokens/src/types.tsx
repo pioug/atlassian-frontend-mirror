@@ -326,6 +326,9 @@ export interface BackgroundColorTokenSchema<BaseToken> {
 					hovered: PaintToken<BaseToken>;
 					pressed: PaintToken<BaseToken>;
 				};
+				subtle: {
+					'[default]': PaintToken<BaseToken>;
+				};
 			};
 			warning: {
 				'[default]': {
@@ -342,6 +345,9 @@ export interface BackgroundColorTokenSchema<BaseToken> {
 					'[default]': PaintToken<BaseToken>;
 					hovered: PaintToken<BaseToken>;
 					pressed: PaintToken<BaseToken>;
+				};
+				subtle: {
+					'[default]': PaintToken<BaseToken>;
 				};
 			};
 			success: {
@@ -360,6 +366,9 @@ export interface BackgroundColorTokenSchema<BaseToken> {
 					hovered: PaintToken<BaseToken>;
 					pressed: PaintToken<BaseToken>;
 				};
+				subtle: {
+					'[default]': PaintToken<BaseToken>;
+				};
 			};
 			discovery: {
 				'[default]': {
@@ -376,6 +385,9 @@ export interface BackgroundColorTokenSchema<BaseToken> {
 					'[default]': PaintToken<BaseToken>;
 					hovered: PaintToken<BaseToken>;
 					pressed: PaintToken<BaseToken>;
+				};
+				subtle: {
+					'[default]': PaintToken<BaseToken>;
 				};
 			};
 			information: {
@@ -394,6 +406,9 @@ export interface BackgroundColorTokenSchema<BaseToken> {
 					hovered: PaintToken<BaseToken>;
 					pressed: PaintToken<BaseToken>;
 				};
+				subtle: {
+					'[default]': PaintToken<BaseToken>;
+				};
 			};
 		};
 	};
@@ -410,11 +425,26 @@ export interface BorderColorTokenSchema<BaseToken> {
 			disabled: PaintToken<BaseToken>;
 			brand: PaintToken<BaseToken>;
 			selected: PaintToken<BaseToken>;
-			danger: PaintToken<BaseToken>;
-			warning: PaintToken<BaseToken>;
-			success: PaintToken<BaseToken>;
-			discovery: PaintToken<BaseToken>;
-			information: PaintToken<BaseToken>;
+			danger: {
+				'[default]': PaintToken<BaseToken>;
+				subtle: PaintToken<BaseToken>;
+			};
+			warning: {
+				'[default]': PaintToken<BaseToken>;
+				subtle: PaintToken<BaseToken>;
+			};
+			success: {
+				'[default]': PaintToken<BaseToken>;
+				subtle: PaintToken<BaseToken>;
+			};
+			discovery: {
+				'[default]': PaintToken<BaseToken>;
+				subtle: PaintToken<BaseToken>;
+			};
+			information: {
+				'[default]': PaintToken<BaseToken>;
+				subtle: PaintToken<BaseToken>;
+			};
 		};
 	};
 }
@@ -546,16 +576,46 @@ export interface AccentColorTokenSchema<BaseToken> {
 		};
 		border: {
 			accent: {
-				blue: PaintToken<BaseToken>;
-				red: PaintToken<BaseToken>;
-				orange: PaintToken<BaseToken>;
-				yellow: PaintToken<BaseToken>;
-				green: PaintToken<BaseToken>;
-				purple: PaintToken<BaseToken>;
-				teal: PaintToken<BaseToken>;
-				magenta: PaintToken<BaseToken>;
-				lime: PaintToken<BaseToken>;
-				gray: PaintToken<BaseToken>;
+				blue: {
+					'[default]': PaintToken<BaseToken>;
+					subtle: PaintToken<BaseToken>;
+				};
+				red: {
+					'[default]': PaintToken<BaseToken>;
+					subtle: PaintToken<BaseToken>;
+				};
+				orange: {
+					'[default]': PaintToken<BaseToken>;
+					subtle: PaintToken<BaseToken>;
+				};
+				yellow: {
+					'[default]': PaintToken<BaseToken>;
+					subtle: PaintToken<BaseToken>;
+				};
+				green: {
+					'[default]': PaintToken<BaseToken>;
+					subtle: PaintToken<BaseToken>;
+				};
+				purple: {
+					'[default]': PaintToken<BaseToken>;
+					subtle: PaintToken<BaseToken>;
+				};
+				teal: {
+					'[default]': PaintToken<BaseToken>;
+					subtle: PaintToken<BaseToken>;
+				};
+				magenta: {
+					'[default]': PaintToken<BaseToken>;
+					subtle: PaintToken<BaseToken>;
+				};
+				lime: {
+					'[default]': PaintToken<BaseToken>;
+					subtle: PaintToken<BaseToken>;
+				};
+				gray: {
+					'[default]': PaintToken<BaseToken>;
+					subtle: PaintToken<BaseToken>;
+				};
 			};
 		};
 		background: {

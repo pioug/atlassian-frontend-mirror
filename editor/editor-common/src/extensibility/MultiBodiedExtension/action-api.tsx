@@ -153,6 +153,47 @@ export const useMultiBodiedExtensionActions = ({
 				}
 				return true;
 			},
+			reorderChildren(fromIndex: number, toIndex: number): boolean {
+				const pos = getPos();
+				if (typeof pos !== 'number' || typeof fromIndex !== 'number' || typeof toIndex !== 'number') {
+					throw new Error('Position or index not valid');
+				}
+				if (fromIndex === toIndex) {
+					return true;
+				}
+				const { state, dispatch } = editorView;
+
+				// Use current node from state (not stale closure)
+				const currentNode = state.doc.nodeAt(pos);
+				if (!currentNode) {
+					throw new Error('Could not find extension node');
+				}
+
+				const $pos = state.doc.resolve(pos);
+				const $startNodePos = state.doc.resolve($pos.start($pos.depth + 1));
+
+				// Collect all current frame nodes
+				const frames: PmNode[] = [];
+				currentNode.content.forEach((child) => {
+					frames.push(child);
+				});
+
+				if (fromIndex >= frames.length || toIndex >= frames.length) {
+					throw new Error('Index out of bounds');
+				}
+
+				// Reorder the frames array in memory
+				const [removed] = frames.splice(fromIndex, 1);
+				frames.splice(toIndex, 0, removed);
+
+				// Atomically replace the entire MBE content with reordered frames
+				const tr = state.tr;
+				const containerStart = $startNodePos.pos;
+				const containerEnd = containerStart + currentNode.content.size;
+				tr.replaceWith(containerStart, containerEnd, frames);
+				dispatch(tr);
+				return true;
+			},
 			updateParameters(parameters): boolean {
 				const { state, dispatch } = editorView;
 				const pos = getPos();

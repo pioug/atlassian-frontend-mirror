@@ -7,7 +7,7 @@ jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: jest.fn().mockReturnValue(true),
 }));
 
-import { getLocalIdsFromSelection } from '../context-helpers';
+import { getLocalIdsFromSelection } from '../getLocalIdsFromSelection';
 
 const createEditorState = (doc: any) =>
 	EditorState.create({

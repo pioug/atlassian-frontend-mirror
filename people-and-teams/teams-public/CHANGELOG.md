@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 1.4.2
+
+### Patch Changes
+
+- [`b97b0f02591fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b97b0f02591fc) -
+  Cleanup feature gate ptc-links-migrate-atlaskit-anchor-to-teams-anchor. TeamsAnchor is now the
+  permanent link rendering path.
+
 ## 1.4.1
 
 ### Patch Changes

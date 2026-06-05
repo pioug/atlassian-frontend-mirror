@@ -1,8 +1,6 @@
 import camelCase from 'lodash/camelCase';
 import kebabCase from 'lodash/kebabCase';
 
-import type { FeatureFlagKey, FeatureFlags } from './types/feature-flags';
-
 type BooleanFlags = Record<string, boolean>;
 
 type NormalizedFeatureFlags<ObjectFlags> = Partial<ObjectFlags & BooleanFlags>;
@@ -80,14 +78,5 @@ export function normalizeFeatureFlags<ObjectFlags>(
 			return flags;
 		}, {});
 }
-
-/**
- * Transforms FeatureFlags to a type safe string array of the enabled feature flags.
- *
- * Useful for analytics and analysis purposes.
- */
-export function getEnabledFeatureFlagKeys(featureFlags: FeatureFlags): (keyof FeatureFlags)[] {
-	return (Object.keys(featureFlags) as FeatureFlagKey[]).filter(
-		(key) => featureFlags[key] === true,
-	);
-}
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getEnabledFeatureFlagKeys } from './getEnabledFeatureFlagKeys';

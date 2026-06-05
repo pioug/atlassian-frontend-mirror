@@ -1,5 +1,14 @@
 # @atlaskit/rovo-triggers
 
+## 7.4.0
+
+### Minor Changes
+
+- [`d2eb72209de52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2eb72209de52) -
+  Thread ADF through the insert-prompt path so Rovo nudges can seed the chat input with full rich
+  content (skill pill, links, inline cards) instead of plain text. Adds optional dynamicPromptAdf on
+  ChatAction and promptAdf on InsertPromptPayload, gated behind rovo_insert_prompt_adf.
+
 ## 7.3.0
 
 ### Minor Changes

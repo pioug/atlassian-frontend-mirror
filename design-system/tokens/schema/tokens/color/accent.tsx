@@ -303,92 +303,202 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
 		border: {
 			accent: {
 				blue: {
-					attributes: {
-						group: 'paint',
-						state: 'active',
-						introduced: '0.6.0',
-						description:
-							'Use for blue borders on non-bold backgrounds when there is no meaning tied to the color.',
+					'[default]': {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '0.6.0',
+							description:
+								'Use for blue borders on non-bold backgrounds when there is no meaning tied to the color.',
+						},
+					},
+					subtle: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '13.2.0',
+							description:
+								'Use for decorative blue borders that do not need to meet 3:1 contrast requirements.',
+						},
 					},
 				},
 				red: {
-					attributes: {
-						group: 'paint',
-						state: 'active',
-						introduced: '0.6.0',
-						description:
-							'Use for red borders on non-bold backgrounds when there is no meaning tied to the color.',
+					'[default]': {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '0.6.0',
+							description:
+								'Use for red borders on non-bold backgrounds when there is no meaning tied to the color.',
+						},
+					},
+					subtle: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '13.2.0',
+							description:
+								'Use for decorative red borders that do not need to meet 3:1 contrast requirements.',
+						},
 					},
 				},
 				orange: {
-					attributes: {
-						group: 'paint',
-						state: 'active',
-						introduced: '0.6.0',
-						description:
-							'Use for orange borders on non-bold backgrounds when there is no meaning tied to the color.',
+					'[default]': {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '0.6.0',
+							description:
+								'Use for orange borders on non-bold backgrounds when there is no meaning tied to the color.',
+						},
+					},
+					subtle: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '13.2.0',
+							description:
+								'Use for decorative orange borders that do not need to meet 3:1 contrast requirements.',
+						},
 					},
 				},
 				yellow: {
-					attributes: {
-						group: 'paint',
-						state: 'active',
-						introduced: '0.6.0',
-						description:
-							'Use for yellow borders on non-bold backgrounds when there is no meaning tied to the color.',
+					'[default]': {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '0.6.0',
+							description:
+								'Use for yellow borders on non-bold backgrounds when there is no meaning tied to the color.',
+						},
+					},
+					subtle: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '13.2.0',
+							description:
+								'Use for decorative yellow borders that do not need to meet 3:1 contrast requirements.',
+						},
 					},
 				},
 				green: {
-					attributes: {
-						group: 'paint',
-						state: 'active',
-						introduced: '0.6.0',
-						description:
-							'Use for green borders on non-bold backgrounds when there is no meaning tied to the color.',
+					'[default]': {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '0.6.0',
+							description:
+								'Use for green borders on non-bold backgrounds when there is no meaning tied to the color.',
+						},
+					},
+					subtle: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '13.2.0',
+							description:
+								'Use for decorative green borders that do not need to meet 3:1 contrast requirements.',
+						},
 					},
 				},
 				purple: {
-					attributes: {
-						group: 'paint',
-						state: 'active',
-						introduced: '0.6.0',
-						description:
-							'Use for purple borders on non-bold backgrounds when there is no meaning tied to the color.',
+					'[default]': {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '0.6.0',
+							description:
+								'Use for purple borders on non-bold backgrounds when there is no meaning tied to the color.',
+						},
+					},
+					subtle: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '13.2.0',
+							description:
+								'Use for decorative purple borders that do not need to meet 3:1 contrast requirements.',
+						},
 					},
 				},
 				teal: {
-					attributes: {
-						group: 'paint',
-						state: 'active',
-						introduced: '0.6.0',
-						description:
-							'Use for teal borders on non-bold backgrounds when there is no meaning tied to the color.',
+					'[default]': {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '0.6.0',
+							description:
+								'Use for teal borders on non-bold backgrounds when there is no meaning tied to the color.',
+						},
+					},
+					subtle: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '13.2.0',
+							description:
+								'Use for decorative teal borders that do not need to meet 3:1 contrast requirements.',
+						},
 					},
 				},
 				lime: {
-					attributes: {
-						group: 'paint',
-						state: 'active',
-						introduced: '1.6.0',
-						description:
-							'Use for lime borders on non-bold backgrounds when there is no meaning tied to the color.',
+					'[default]': {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '1.6.0',
+							description:
+								'Use for lime borders on non-bold backgrounds when there is no meaning tied to the color.',
+						},
+					},
+					subtle: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '13.2.0',
+							description:
+								'Use for decorative lime borders that do not need to meet 3:1 contrast requirements.',
+						},
 					},
 				},
 				magenta: {
-					attributes: {
-						group: 'paint',
-						state: 'active',
-						introduced: '0.6.0',
-						description:
-							'Use for magenta borders on non-bold backgrounds when there is no meaning tied to the color.',
+					'[default]': {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '0.6.0',
+							description:
+								'Use for magenta borders on non-bold backgrounds when there is no meaning tied to the color.',
+						},
+					},
+					subtle: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '13.2.0',
+							description:
+								'Use for decorative magenta borders that do not need to meet 3:1 contrast requirements.',
+						},
 					},
 				},
 				gray: {
-					attributes: {
-						group: 'paint',
-						state: 'active',
-						introduced: '0.10.5',
-						description: 'Use for borders on non-bold gray accent backgrounds.',
+					'[default]': {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '0.10.5',
+							description: 'Use for borders on non-bold gray accent backgrounds.',
+						},
+					},
+					subtle: {
+						attributes: {
+							group: 'paint',
+							state: 'active',
+							introduced: '13.2.0',
+							description:
+								'Use for decorative gray borders that do not need to meet 3:1 contrast requirements.',
+						},
 					},
 				},
 			},

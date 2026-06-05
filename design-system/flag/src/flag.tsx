@@ -80,6 +80,11 @@ const transitionStyles = css({
 	transition: `gap 0.3s`,
 });
 
+// jpo-41318-fix-flag-overflow-fg TODO: Merge into base after rollout
+const minWidthStyles = css({
+	minWidth: 0,
+});
+
 /**
  * __Flag__
  *
@@ -212,7 +217,7 @@ const Flag: FC<FlagProps> = (props) => {
 					>
 						{icon || iconGlyph}
 					</div>
-					<span css={transitionStyles}>
+					<span css={[transitionStyles, fg('jpo-41318-fix-flag-overflow-fg') && minWidthStyles]}>
 						<Stack
 							space={shouldRenderGap ? 'space.100' : 'space.0'} // Gap exists even when not expanded due to Expander internals always being in the DOM
 						>

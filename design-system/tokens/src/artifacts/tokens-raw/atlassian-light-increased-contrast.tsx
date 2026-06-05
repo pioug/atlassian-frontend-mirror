@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8a1fd8b52d543897e21443d4368692c4>>
+ * @codegen <<SignedSource::d7dc2c6d6f1a39dc66f68a2536438257>>
  * @codegenCommand yarn build tokens
  */
 
@@ -1925,14 +1925,44 @@ const tokens: Token[] = [
         "description": "Use for lime borders on non-bold backgrounds when there is no meaning tied to the color."
       }
     },
-    "name": "color.border.accent.lime",
+    "name": "color.border.accent.lime.[default]",
     "path": [
       "color",
       "border",
       "accent",
-      "lime"
+      "lime",
+      "[default]"
     ],
     "cleanName": "color.border.accent.lime"
+  },
+  {
+    "value": "#B3DF72",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Use for decorative lime borders that do not need to meet 3:1 contrast requirements."
+    },
+    "original": {
+      "value": "Lime300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative lime borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "name": "color.border.accent.lime.subtle",
+    "path": [
+      "color",
+      "border",
+      "accent",
+      "lime",
+      "subtle"
+    ],
+    "cleanName": "color.border.accent.lime.subtle"
   },
   {
     "value": "#AE2E24",
@@ -1953,14 +1983,44 @@ const tokens: Token[] = [
         "description": "Use for red borders on non-bold backgrounds when there is no meaning tied to the color."
       }
     },
-    "name": "color.border.accent.red",
+    "name": "color.border.accent.red.[default]",
     "path": [
       "color",
       "border",
       "accent",
-      "red"
+      "red",
+      "[default]"
     ],
     "cleanName": "color.border.accent.red"
+  },
+  {
+    "value": "#FD9891",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Use for decorative red borders that do not need to meet 3:1 contrast requirements."
+    },
+    "original": {
+      "value": "Red300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative red borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "name": "color.border.accent.red.subtle",
+    "path": [
+      "color",
+      "border",
+      "accent",
+      "red",
+      "subtle"
+    ],
+    "cleanName": "color.border.accent.red.subtle"
   },
   {
     "value": "#9E4C00",
@@ -1981,14 +2041,44 @@ const tokens: Token[] = [
         "description": "Use for orange borders on non-bold backgrounds when there is no meaning tied to the color."
       }
     },
-    "name": "color.border.accent.orange",
+    "name": "color.border.accent.orange.[default]",
     "path": [
       "color",
       "border",
       "accent",
-      "orange"
+      "orange",
+      "[default]"
     ],
     "cleanName": "color.border.accent.orange"
+  },
+  {
+    "value": "#FBC828",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Use for decorative orange borders that do not need to meet 3:1 contrast requirements."
+    },
+    "original": {
+      "value": "Orange300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative orange borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "name": "color.border.accent.orange.subtle",
+    "path": [
+      "color",
+      "border",
+      "accent",
+      "orange",
+      "subtle"
+    ],
+    "cleanName": "color.border.accent.orange.subtle"
   },
   {
     "value": "#7F5F01",
@@ -2009,14 +2099,44 @@ const tokens: Token[] = [
         "description": "Use for yellow borders on non-bold backgrounds when there is no meaning tied to the color."
       }
     },
-    "name": "color.border.accent.yellow",
+    "name": "color.border.accent.yellow.[default]",
     "path": [
       "color",
       "border",
       "accent",
-      "yellow"
+      "yellow",
+      "[default]"
     ],
     "cleanName": "color.border.accent.yellow"
+  },
+  {
+    "value": "#EED12B",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Use for decorative yellow borders that do not need to meet 3:1 contrast requirements."
+    },
+    "original": {
+      "value": "Yellow300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative yellow borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "name": "color.border.accent.yellow.subtle",
+    "path": [
+      "color",
+      "border",
+      "accent",
+      "yellow",
+      "subtle"
+    ],
+    "cleanName": "color.border.accent.yellow.subtle"
   },
   {
     "value": "#216E4E",
@@ -2037,14 +2157,44 @@ const tokens: Token[] = [
         "description": "Use for green borders on non-bold backgrounds when there is no meaning tied to the color."
       }
     },
-    "name": "color.border.accent.green",
+    "name": "color.border.accent.green.[default]",
     "path": [
       "color",
       "border",
       "accent",
-      "green"
+      "green",
+      "[default]"
     ],
     "cleanName": "color.border.accent.green"
+  },
+  {
+    "value": "#7EE2B8",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Use for decorative green borders that do not need to meet 3:1 contrast requirements."
+    },
+    "original": {
+      "value": "Green300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative green borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "name": "color.border.accent.green.subtle",
+    "path": [
+      "color",
+      "border",
+      "accent",
+      "green",
+      "subtle"
+    ],
+    "cleanName": "color.border.accent.green.subtle"
   },
   {
     "value": "#206A83",
@@ -2065,14 +2215,44 @@ const tokens: Token[] = [
         "description": "Use for teal borders on non-bold backgrounds when there is no meaning tied to the color."
       }
     },
-    "name": "color.border.accent.teal",
+    "name": "color.border.accent.teal.[default]",
     "path": [
       "color",
       "border",
       "accent",
-      "teal"
+      "teal",
+      "[default]"
     ],
     "cleanName": "color.border.accent.teal"
+  },
+  {
+    "value": "#9DD9EE",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Use for decorative teal borders that do not need to meet 3:1 contrast requirements."
+    },
+    "original": {
+      "value": "Teal300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative teal borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "name": "color.border.accent.teal.subtle",
+    "path": [
+      "color",
+      "border",
+      "accent",
+      "teal",
+      "subtle"
+    ],
+    "cleanName": "color.border.accent.teal.subtle"
   },
   {
     "value": "#1558BC",
@@ -2093,14 +2273,44 @@ const tokens: Token[] = [
         "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color."
       }
     },
-    "name": "color.border.accent.blue",
+    "name": "color.border.accent.blue.[default]",
     "path": [
       "color",
       "border",
       "accent",
-      "blue"
+      "blue",
+      "[default]"
     ],
     "cleanName": "color.border.accent.blue"
+  },
+  {
+    "value": "#8FB8F6",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Use for decorative blue borders that do not need to meet 3:1 contrast requirements."
+    },
+    "original": {
+      "value": "Blue300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative blue borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "name": "color.border.accent.blue.subtle",
+    "path": [
+      "color",
+      "border",
+      "accent",
+      "blue",
+      "subtle"
+    ],
+    "cleanName": "color.border.accent.blue.subtle"
   },
   {
     "value": "#803FA5",
@@ -2121,14 +2331,44 @@ const tokens: Token[] = [
         "description": "Use for purple borders on non-bold backgrounds when there is no meaning tied to the color."
       }
     },
-    "name": "color.border.accent.purple",
+    "name": "color.border.accent.purple.[default]",
     "path": [
       "color",
       "border",
       "accent",
-      "purple"
+      "purple",
+      "[default]"
     ],
     "cleanName": "color.border.accent.purple"
+  },
+  {
+    "value": "#D8A0F7",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Use for decorative purple borders that do not need to meet 3:1 contrast requirements."
+    },
+    "original": {
+      "value": "Purple300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative purple borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "name": "color.border.accent.purple.subtle",
+    "path": [
+      "color",
+      "border",
+      "accent",
+      "purple",
+      "subtle"
+    ],
+    "cleanName": "color.border.accent.purple.subtle"
   },
   {
     "value": "#943D73",
@@ -2149,14 +2389,44 @@ const tokens: Token[] = [
         "description": "Use for magenta borders on non-bold backgrounds when there is no meaning tied to the color."
       }
     },
-    "name": "color.border.accent.magenta",
+    "name": "color.border.accent.magenta.[default]",
     "path": [
       "color",
       "border",
       "accent",
-      "magenta"
+      "magenta",
+      "[default]"
     ],
     "cleanName": "color.border.accent.magenta"
+  },
+  {
+    "value": "#F797D2",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Use for decorative magenta borders that do not need to meet 3:1 contrast requirements."
+    },
+    "original": {
+      "value": "Magenta300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative magenta borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "name": "color.border.accent.magenta.subtle",
+    "path": [
+      "color",
+      "border",
+      "accent",
+      "magenta",
+      "subtle"
+    ],
+    "cleanName": "color.border.accent.magenta.subtle"
   },
   {
     "value": "#505258",
@@ -2177,14 +2447,44 @@ const tokens: Token[] = [
         "description": "Use for borders on non-bold gray accent backgrounds."
       }
     },
-    "name": "color.border.accent.gray",
+    "name": "color.border.accent.gray.[default]",
     "path": [
       "color",
       "border",
       "accent",
-      "gray"
+      "gray",
+      "[default]"
     ],
     "cleanName": "color.border.accent.gray"
+  },
+  {
+    "value": "#DDDEE1",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Use for decorative gray borders that do not need to meet 3:1 contrast requirements."
+    },
+    "original": {
+      "value": "Neutral300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative gray borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "name": "color.border.accent.gray.subtle",
+    "path": [
+      "color",
+      "border",
+      "accent",
+      "gray",
+      "subtle"
+    ],
+    "cleanName": "color.border.accent.gray.subtle"
   },
   {
     "value": "#0B120E24",
@@ -2367,13 +2667,42 @@ const tokens: Token[] = [
         "description": "Use for borders communicating critical information, such as the borders on invalid text fields."
       }
     },
-    "name": "color.border.danger",
+    "name": "color.border.danger.[default]",
     "path": [
       "color",
       "border",
-      "danger"
+      "danger",
+      "[default]"
     ],
     "cleanName": "color.border.danger"
+  },
+  {
+    "value": "#FD9891",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Use for decorative danger borders that do not need to meet 3:1 contrast requirements."
+    },
+    "original": {
+      "value": "Red300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative danger borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "name": "color.border.danger.subtle",
+    "path": [
+      "color",
+      "border",
+      "danger",
+      "subtle"
+    ],
+    "cleanName": "color.border.danger.subtle"
   },
   {
     "value": "#9E4C00",
@@ -2394,13 +2723,42 @@ const tokens: Token[] = [
         "description": "Use for borders communicating caution."
       }
     },
-    "name": "color.border.warning",
+    "name": "color.border.warning.[default]",
     "path": [
       "color",
       "border",
-      "warning"
+      "warning",
+      "[default]"
     ],
     "cleanName": "color.border.warning"
+  },
+  {
+    "value": "#FBC828",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Use for decorative warning borders that do not need to meet 3:1 contrast requirements."
+    },
+    "original": {
+      "value": "Orange300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative warning borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "name": "color.border.warning.subtle",
+    "path": [
+      "color",
+      "border",
+      "warning",
+      "subtle"
+    ],
+    "cleanName": "color.border.warning.subtle"
   },
   {
     "value": "#216E4E",
@@ -2421,13 +2779,42 @@ const tokens: Token[] = [
         "description": "Use for borders communicating a favorable outcome, such as the borders on validated text fields."
       }
     },
-    "name": "color.border.success",
+    "name": "color.border.success.[default]",
     "path": [
       "color",
       "border",
-      "success"
+      "success",
+      "[default]"
     ],
     "cleanName": "color.border.success"
+  },
+  {
+    "value": "#B3DF72",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Use for decorative success borders that do not need to meet 3:1 contrast requirements."
+    },
+    "original": {
+      "value": "Lime300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative success borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "name": "color.border.success.subtle",
+    "path": [
+      "color",
+      "border",
+      "success",
+      "subtle"
+    ],
+    "cleanName": "color.border.success.subtle"
   },
   {
     "value": "#964AC0",
@@ -2448,13 +2835,42 @@ const tokens: Token[] = [
         "description": "Use for borders communicating change or something new, such as the borders in onboarding spotlights."
       }
     },
-    "name": "color.border.discovery",
+    "name": "color.border.discovery.[default]",
     "path": [
       "color",
       "border",
-      "discovery"
+      "discovery",
+      "[default]"
     ],
     "cleanName": "color.border.discovery"
+  },
+  {
+    "value": "#D8A0F7",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Use for decorative discovery borders that do not need to meet 3:1 contrast requirements."
+    },
+    "original": {
+      "value": "Purple300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative discovery borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "name": "color.border.discovery.subtle",
+    "path": [
+      "color",
+      "border",
+      "discovery",
+      "subtle"
+    ],
+    "cleanName": "color.border.discovery.subtle"
   },
   {
     "value": "#1558BC",
@@ -2475,13 +2891,42 @@ const tokens: Token[] = [
         "description": "Use for borders communicating information or something in-progress."
       }
     },
-    "name": "color.border.information",
+    "name": "color.border.information.[default]",
     "path": [
       "color",
       "border",
-      "information"
+      "information",
+      "[default]"
     ],
     "cleanName": "color.border.information"
+  },
+  {
+    "value": "#8FB8F6",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Use for decorative information borders that do not need to meet 3:1 contrast requirements."
+    },
+    "original": {
+      "value": "Blue300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative information borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "name": "color.border.information.subtle",
+    "path": [
+      "color",
+      "border",
+      "information",
+      "subtle"
+    ],
+    "cleanName": "color.border.information.subtle"
   },
   {
     "value": "#505258",
@@ -7179,6 +7624,35 @@ const tokens: Token[] = [
     "cleanName": "color.background.danger.subtler.pressed"
   },
   {
+    "value": "#FD9891",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Background colour for non-interactive elements communicating critical danger information (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.danger.bold or color.background.danger.subtler for interactive states."
+    },
+    "original": {
+      "value": "Red300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Background colour for non-interactive elements communicating critical danger information (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.danger.bold or color.background.danger.subtler for interactive states."
+      }
+    },
+    "name": "color.background.danger.subtle.[default]",
+    "path": [
+      "color",
+      "background",
+      "danger",
+      "subtle",
+      "[default]"
+    ],
+    "cleanName": "color.background.danger.subtle"
+  },
+  {
     "value": "#5D1F1A",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
@@ -7438,6 +7912,35 @@ const tokens: Token[] = [
       "pressed"
     ],
     "cleanName": "color.background.warning.subtler.pressed"
+  },
+  {
+    "value": "#FBD779",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Background colour for non-interactive elements communicating caution (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.warning.bold or color.background.warning.subtler for interactive states."
+    },
+    "original": {
+      "value": "Orange250",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Background colour for non-interactive elements communicating caution (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.warning.bold or color.background.warning.subtler for interactive states."
+      }
+    },
+    "name": "color.background.warning.subtle.[default]",
+    "path": [
+      "color",
+      "background",
+      "warning",
+      "subtle",
+      "[default]"
+    ],
+    "cleanName": "color.background.warning.subtle"
   },
   {
     "value": "#533F04",
@@ -7701,6 +8204,35 @@ const tokens: Token[] = [
     "cleanName": "color.background.success.subtler.pressed"
   },
   {
+    "value": "#B3DF72",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Background colour for non-interactive elements communicating success (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.success.bold or color.background.success.subtler for interactive states."
+    },
+    "original": {
+      "value": "Lime300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Background colour for non-interactive elements communicating success (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.success.bold or color.background.success.subtler for interactive states."
+      }
+    },
+    "name": "color.background.success.subtle.[default]",
+    "path": [
+      "color",
+      "background",
+      "success",
+      "subtle",
+      "[default]"
+    ],
+    "cleanName": "color.background.success.subtle"
+  },
+  {
     "value": "#164B35",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
@@ -7962,6 +8494,35 @@ const tokens: Token[] = [
     "cleanName": "color.background.discovery.subtler.pressed"
   },
   {
+    "value": "#D8A0F7",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Background colour for non-interactive elements communicating discovery (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.discovery.bold or color.background.discovery.subtler for interactive states."
+    },
+    "original": {
+      "value": "Purple300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Background colour for non-interactive elements communicating discovery (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.discovery.bold or color.background.discovery.subtler for interactive states."
+      }
+    },
+    "name": "color.background.discovery.subtle.[default]",
+    "path": [
+      "color",
+      "background",
+      "discovery",
+      "subtle",
+      "[default]"
+    ],
+    "cleanName": "color.background.discovery.subtle"
+  },
+  {
     "value": "#48245D",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
@@ -8221,6 +8782,35 @@ const tokens: Token[] = [
       "pressed"
     ],
     "cleanName": "color.background.information.subtler.pressed"
+  },
+  {
+    "value": "#8FB8F6",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.2.0",
+      "description": "Background colour for non-interactive elements communicating information (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.information.bold or color.background.information.subtler for interactive states."
+    },
+    "original": {
+      "value": "Blue300",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Background colour for non-interactive elements communicating information (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.information.bold or color.background.information.subtler for interactive states."
+      }
+    },
+    "name": "color.background.information.subtle.[default]",
+    "path": [
+      "color",
+      "background",
+      "information",
+      "subtle",
+      "[default]"
+    ],
+    "cleanName": "color.background.information.subtle"
   },
   {
     "value": "#123263",

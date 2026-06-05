@@ -1,5 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
+import { isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
 import type {
@@ -31,7 +32,6 @@ import {
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { clearEditingContext, updateState } from '../editor-commands/commands';
 import type {
@@ -357,7 +357,7 @@ export const createPlugin = (
 					undefined,
 					undefined,
 					undefined,
-					expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+					isSSRStreaming()
 						? intl
 						: undefined,
 				),
@@ -374,7 +374,7 @@ export const createPlugin = (
 					showLivePagesBodiedMacrosRendererView,
 					__rendererExtensionOptions?.showUpdated1PBodiedExtensionUI,
 					__rendererExtensionOptions?.rendererExtensionHandlers,
-					expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+					isSSRStreaming()
 						? intl
 						: undefined,
 				),
@@ -391,7 +391,7 @@ export const createPlugin = (
 					undefined,
 					undefined,
 					undefined,
-					expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+					isSSRStreaming()
 						? intl
 						: undefined,
 				),

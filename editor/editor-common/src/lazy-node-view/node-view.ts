@@ -4,6 +4,7 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 
+import { makeNodePlaceholderId } from './makeNodePlaceholderId';
 import type { LazyNodeViewToDOMConfiguration } from './types';
 
 const getEditorLineWidth = memoize((view: EditorView): number => {
@@ -29,10 +30,6 @@ function sameOuterDeco(a: readonly Decoration[], b: readonly Decoration[]) {
 		}
 	}
 	return true;
-}
-
-export function makeNodePlaceholderId(nodeType: string, pos: number): string {
-	return `${nodeType}:${pos}`;
 }
 
 /**
@@ -121,3 +118,5 @@ export class LazyNodeView implements NodeView {
 		return true;
 	}
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { makeNodePlaceholderId } from './makeNodePlaceholderId';

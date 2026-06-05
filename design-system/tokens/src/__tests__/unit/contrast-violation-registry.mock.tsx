@@ -366,7 +366,31 @@ export const lightViolationsVisualRefresh: {
 		background: 'color.background.accent.lime.subtler',
 	},
 	{
+		foreground: 'color.border.accent.lime.subtle',
+		background: 'color.background.accent.lime.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.lime.subtle',
+		background: 'color.background.accent.lime.subtler',
+	},
+	{
+		foreground: 'color.border.accent.red.subtle',
+		background: 'color.background.accent.red.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.red.subtle',
+		background: 'color.background.accent.red.subtler',
+	},
+	{
 		foreground: 'color.border.accent.orange',
+		background: 'color.background.accent.orange.subtler',
+	},
+	{
+		foreground: 'color.border.accent.orange.subtle',
+		background: 'color.background.accent.orange.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.orange.subtle',
 		background: 'color.background.accent.orange.subtler',
 	},
 	{
@@ -374,7 +398,23 @@ export const lightViolationsVisualRefresh: {
 		background: 'color.background.accent.yellow.subtler',
 	},
 	{
+		foreground: 'color.border.accent.yellow.subtle',
+		background: 'color.background.accent.yellow.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.yellow.subtle',
+		background: 'color.background.accent.yellow.subtler',
+	},
+	{
 		foreground: 'color.border.accent.green',
+		background: 'color.background.accent.green.subtler',
+	},
+	{
+		foreground: 'color.border.accent.green.subtle',
+		background: 'color.background.accent.green.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.green.subtle',
 		background: 'color.background.accent.green.subtler',
 	},
 	{
@@ -382,7 +422,31 @@ export const lightViolationsVisualRefresh: {
 		background: 'color.background.accent.teal.subtler',
 	},
 	{
+		foreground: 'color.border.accent.teal.subtle',
+		background: 'color.background.accent.teal.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.teal.subtle',
+		background: 'color.background.accent.teal.subtler',
+	},
+	{
+		foreground: 'color.border.accent.blue.subtle',
+		background: 'color.background.accent.blue.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.blue.subtle',
+		background: 'color.background.accent.blue.subtler',
+	},
+	{
 		foreground: 'color.border.accent.purple',
+		background: 'color.background.accent.purple.subtler',
+	},
+	{
+		foreground: 'color.border.accent.purple.subtle',
+		background: 'color.background.accent.purple.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.purple.subtle',
 		background: 'color.background.accent.purple.subtler',
 	},
 	{
@@ -390,11 +454,43 @@ export const lightViolationsVisualRefresh: {
 		background: 'color.background.accent.magenta.subtler',
 	},
 	{
+		foreground: 'color.border.accent.magenta.subtle',
+		background: 'color.background.accent.magenta.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.magenta.subtle',
+		background: 'color.background.accent.magenta.subtler',
+	},
+	{
 		foreground: 'color.border.accent.gray',
 		background: 'color.background.accent.gray.subtler',
 	},
 	{
+		foreground: 'color.border.accent.gray.subtle',
+		background: 'color.background.accent.gray.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.gray.subtle',
+		background: 'color.background.accent.gray.subtler',
+	},
+	{
+		foreground: 'color.border.danger.subtle',
+		background: 'color.background.danger',
+	},
+	{
+		foreground: 'color.border.danger.subtle',
+		background: 'color.background.danger.subtler',
+	},
+	{
 		foreground: 'color.border.warning',
+		background: 'color.background.warning.subtler',
+	},
+	{
+		foreground: 'color.border.warning.subtle',
+		background: 'color.background.warning',
+	},
+	{
+		foreground: 'color.border.warning.subtle',
 		background: 'color.background.warning.subtler',
 	},
 	{
@@ -402,8 +498,32 @@ export const lightViolationsVisualRefresh: {
 		background: 'color.background.success.subtler',
 	},
 	{
+		foreground: 'color.border.success.subtle',
+		background: 'color.background.success',
+	},
+	{
+		foreground: 'color.border.success.subtle',
+		background: 'color.background.success.subtler',
+	},
+	{
 		foreground: 'color.border.discovery',
 		background: 'color.background.discovery.subtler',
+	},
+	{
+		foreground: 'color.border.discovery.subtle',
+		background: 'color.background.discovery',
+	},
+	{
+		foreground: 'color.border.discovery.subtle',
+		background: 'color.background.discovery.subtler',
+	},
+	{
+		foreground: 'color.border.information.subtle',
+		background: 'color.background.information',
+	},
+	{
+		foreground: 'color.border.information.subtle',
+		background: 'color.background.information.subtler',
 	},
 	{
 		foreground: 'color.border.bold',
@@ -459,6 +579,246 @@ export const lightViolationsVisualRefresh: {
 	},
 	{
 		foreground: 'color.background.warning.bold',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.lime.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.lime.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.lime.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.lime.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.red.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.red.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.red.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.red.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.orange.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.orange.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.orange.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.orange.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.yellow.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.yellow.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.yellow.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.yellow.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.green.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.green.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.green.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.green.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.teal.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.teal.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.teal.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.teal.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.blue.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.blue.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.blue.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.blue.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.purple.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.purple.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.purple.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.purple.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.magenta.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.magenta.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.magenta.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.magenta.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.gray.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.gray.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.gray.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.gray.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.danger.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.danger.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.danger.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.danger.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.warning.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.warning.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.warning.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.warning.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.success.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.success.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.success.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.success.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.discovery.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.discovery.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.discovery.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.discovery.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.information.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.information.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.information.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.information.subtle',
 		background: 'elevation.surface.sunken',
 	},
 ];
@@ -671,8 +1031,128 @@ export const darkViolationsVisualRefresh: {
 		background: 'color.background.accent.gray.subtler',
 	},
 	{
+		foreground: 'color.border.accent.lime.subtle',
+		background: 'color.background.accent.lime.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.lime.subtle',
+		background: 'color.background.accent.lime.subtler',
+	},
+	{
+		foreground: 'color.border.accent.red.subtle',
+		background: 'color.background.accent.red.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.red.subtle',
+		background: 'color.background.accent.red.subtler',
+	},
+	{
+		foreground: 'color.border.accent.orange.subtle',
+		background: 'color.background.accent.orange.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.orange.subtle',
+		background: 'color.background.accent.orange.subtler',
+	},
+	{
+		foreground: 'color.border.accent.yellow.subtle',
+		background: 'color.background.accent.yellow.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.yellow.subtle',
+		background: 'color.background.accent.yellow.subtler',
+	},
+	{
+		foreground: 'color.border.accent.green.subtle',
+		background: 'color.background.accent.green.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.green.subtle',
+		background: 'color.background.accent.green.subtler',
+	},
+	{
+		foreground: 'color.border.accent.teal.subtle',
+		background: 'color.background.accent.teal.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.teal.subtle',
+		background: 'color.background.accent.teal.subtler',
+	},
+	{
+		foreground: 'color.border.accent.blue.subtle',
+		background: 'color.background.accent.blue.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.blue.subtle',
+		background: 'color.background.accent.blue.subtler',
+	},
+	{
+		foreground: 'color.border.accent.purple.subtle',
+		background: 'color.background.accent.purple.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.purple.subtle',
+		background: 'color.background.accent.purple.subtler',
+	},
+	{
+		foreground: 'color.border.accent.magenta.subtle',
+		background: 'color.background.accent.magenta.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.magenta.subtle',
+		background: 'color.background.accent.magenta.subtler',
+	},
+	{
 		foreground: 'color.border.accent.gray',
 		background: 'color.background.accent.gray.subtler',
+	},
+	{
+		foreground: 'color.border.accent.gray.subtle',
+		background: 'color.background.accent.gray.subtlest',
+	},
+	{
+		foreground: 'color.border.accent.gray.subtle',
+		background: 'color.background.accent.gray.subtler',
+	},
+	{
+		foreground: 'color.border.danger.subtle',
+		background: 'color.background.danger',
+	},
+	{
+		foreground: 'color.border.danger.subtle',
+		background: 'color.background.danger.subtler',
+	},
+	{
+		foreground: 'color.border.warning.subtle',
+		background: 'color.background.warning',
+	},
+	{
+		foreground: 'color.border.warning.subtle',
+		background: 'color.background.warning.subtler',
+	},
+	{
+		foreground: 'color.border.success.subtle',
+		background: 'color.background.success',
+	},
+	{
+		foreground: 'color.border.success.subtle',
+		background: 'color.background.success.subtler',
+	},
+	{
+		foreground: 'color.border.discovery.subtle',
+		background: 'color.background.discovery',
+	},
+	{
+		foreground: 'color.border.discovery.subtle',
+		background: 'color.background.discovery.subtler',
+	},
+	{
+		foreground: 'color.border.information.subtle',
+		background: 'color.background.information',
+	},
+	{
+		foreground: 'color.border.information.subtle',
+		background: 'color.background.information.subtler',
 	},
 	{
 		foreground: 'color.border.bold',
@@ -710,9 +1190,248 @@ export const darkViolationsVisualRefresh: {
 		foreground: 'color.background.accent.gray.bolder',
 		background: 'color.background.accent.gray.subtler',
 	},
-	// Color chart token exception
 	{
+		foreground: 'color.border.accent.lime.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.lime.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.lime.subtle',
 		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.lime.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.red.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.red.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.red.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.red.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.orange.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.orange.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.orange.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.orange.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.yellow.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.yellow.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.yellow.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.yellow.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.green.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.green.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.green.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.green.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.teal.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.teal.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.teal.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.teal.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.blue.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.blue.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.blue.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.blue.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.purple.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.purple.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.purple.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.purple.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.magenta.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.magenta.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.magenta.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.magenta.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.gray.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.gray.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.accent.gray.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.accent.gray.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.danger.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.danger.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.danger.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.danger.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.warning.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.warning.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.warning.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.warning.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.success.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.success.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.success.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.success.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.discovery.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.discovery.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.discovery.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.discovery.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.information.subtle',
+		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.information.subtle',
+		background: 'elevation.surface.overlay',
+	},
+	{
+		foreground: 'color.border.information.subtle',
+		background: 'elevation.surface.raised',
+	},
+	{
+		foreground: 'color.border.information.subtle',
+		background: 'elevation.surface.sunken',
+	},
+	{
 		foreground: 'color.chart.categorical.5',
+		background: 'elevation.surface.raised',
 	},
 ];

@@ -9,6 +9,8 @@ import {
 	isTeamMention,
 	type MentionContextIdentifier,
 	type MentionDescription,
+	type MentionDisabledState,
+	type MentionDisabledStateInput,
 	type MentionNameDetails,
 	MentionNameStatus,
 	type MentionProvider,
@@ -263,6 +265,10 @@ export class MentionResource extends AbstractMentionResource implements Resolvin
 		}
 
 		return false;
+	}
+
+	getMentionDisabledState(mention: MentionDisabledStateInput): MentionDisabledState | undefined {
+		return this.config.getMentionDisabledState?.(mention);
 	}
 
 	notify(searchTime: number, mentionResult: MentionsResult, query?: string): void {

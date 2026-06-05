@@ -1,29 +1,4 @@
-import { isPerformanceAPIAvailable } from './is-performance-api-available';
-
-export function getResponseEndTime(): number | undefined {
-	if (!isPerformanceAPIAvailable()) {
-		return;
-	}
-
-	const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-
-	if (nav) {
-		return nav.responseEnd;
-	}
-
-	return;
-}
-
-export function getRequestToResponseTime(): number | undefined {
-	if (!isPerformanceAPIAvailable()) {
-		return;
-	}
-
-	const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-
-	if (nav) {
-		return nav.responseEnd - nav.requestStart;
-	}
-
-	return;
-}
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getResponseEndTime } from './getResponseEndTime';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getRequestToResponseTime } from './getRequestToResponseTime';

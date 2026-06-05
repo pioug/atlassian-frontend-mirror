@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 115.6.0
+
+### Minor Changes
+
+- [`6e3b4e2317b34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e3b4e2317b34) -
+  [EDITOR-7476](https://hello.jira.atlassian.cloud/browse/EDITOR-7476) - centralize SSR streaming
+  checks behind `isSSRStreaming()` so SSR eligibility is checked before emitting exposure for the
+  `platform_editor_editor_ssr_streaming` experiment.
+- [`56d817304449f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56d817304449f) -
+  Add `reorderChildren(fromIndex, toIndex)` action to `MultiBodiedExtensionActions` API to support
+  drag-and-drop reordering of MBE body frames alongside their corresponding parameters.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 115.5.1
 
 ### Patch Changes

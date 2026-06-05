@@ -63,16 +63,46 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 		},
 		border: {
 			accent: {
-				blue: { value: 'Blue600' },
-				red: { value: 'Red600' },
-				orange: { value: 'Orange600' },
-				yellow: { value: 'Yellow600' },
-				green: { value: 'Green600' },
-				purple: { value: 'Purple600' },
-				teal: { value: 'Teal600' },
-				magenta: { value: 'Magenta600' },
-				lime: { value: 'Lime600' },
-				gray: { value: 'Neutral600' },
+				blue: {
+					'[default]': { value: 'Blue600' },
+					subtle: { value: 'Blue300' },
+				},
+				red: {
+					'[default]': { value: 'Red600' },
+					subtle: { value: 'Red300' },
+				},
+				orange: {
+					'[default]': { value: 'Orange600' },
+					subtle: { value: 'Orange300' },
+				},
+				yellow: {
+					'[default]': { value: 'Yellow600' },
+					subtle: { value: 'Yellow300' },
+				},
+				green: {
+					'[default]': { value: 'Green600' },
+					subtle: { value: 'Green300' },
+				},
+				purple: {
+					'[default]': { value: 'Purple600' },
+					subtle: { value: 'Purple300' },
+				},
+				teal: {
+					'[default]': { value: 'Teal600' },
+					subtle: { value: 'Teal300' },
+				},
+				magenta: {
+					'[default]': { value: 'Magenta600' },
+					subtle: { value: 'Magenta300' },
+				},
+				lime: {
+					'[default]': { value: 'Lime600' },
+					subtle: { value: 'Lime300' },
+				},
+				gray: {
+					'[default]': { value: 'Neutral600' },
+					subtle: { value: 'Neutral300' },
+				},
 			},
 		},
 		background: {

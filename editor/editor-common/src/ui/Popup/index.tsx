@@ -12,12 +12,8 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { Position } from './utils';
-import {
-	calculatePlacement,
-	calculatePosition,
-	findOverflowScrollParent,
-	validatePosition,
-} from './utils';
+import { calculatePlacement, calculatePosition, findOverflowScrollParent } from './utils';
+import { validatePosition } from './validatePosition';
 
 export interface Props {
 	absoluteOffset?: Position;

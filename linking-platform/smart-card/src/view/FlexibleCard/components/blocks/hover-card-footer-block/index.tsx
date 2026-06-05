@@ -6,8 +6,6 @@ import { useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import { ActionName, type FlexibleUiActionName } from '../../../../../constants';
@@ -34,10 +32,6 @@ const ignoreContainerMarginStyles = css({
 	height: token('space.600'),
 	paddingInline: token('space.200'),
 	paddingBlock: token('space.150'),
-});
-
-const inlineActionNudgeFooterMarginStyles = css({
-	marginTop: token('space.150'),
 });
 
 const elevatedFooterStyles = css({
@@ -130,14 +124,7 @@ const ResolvedHoverCardFooterBlock = ({
 			{...props}
 			size={size}
 			testId={`${testId}-resolved-view`}
-			css={[
-				ignoreContainerMarginStyles,
-				elevatedFooterStyles,
-				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-				fg('rovogrowth-640-inline-action-nudge-fg') &&
-					expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true) &&
-					inlineActionNudgeFooterMarginStyles,
-			]}
+			css={[ignoreContainerMarginStyles, elevatedFooterStyles]}
 		>
 			{!hideProvider && (
 				<div css={providerStyles}>

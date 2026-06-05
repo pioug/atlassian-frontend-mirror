@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -55,7 +56,10 @@ export const calculatePosition = ({
 	);
 
 	const hasResizer = rootNodeType === 'table' || rootNodeType === 'mediaSingle';
-	const isExtension = rootNodeType === 'extension' || rootNodeType === 'bodiedExtension';
+	const isExtension =
+		rootNodeType === 'extension' ||
+		rootNodeType === 'bodiedExtension' ||
+		(rootNodeType === 'multiBodiedExtension' && fg('confluence_frontend_native_tabs_extension'));
 	const isBlockCard = rootNodeType === 'blockCard';
 	const isEmbedCard = rootNodeType === 'embedCard';
 

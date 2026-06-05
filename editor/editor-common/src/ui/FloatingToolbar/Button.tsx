@@ -12,7 +12,8 @@ import type { TooltipProps } from '@atlaskit/tooltip';
 import type { ButtonAppearance } from '../../types';
 import { Pulse } from '../Pulse/Pulse';
 
-import { getButtonStyles, iconOnlySpacing } from './styles';
+import { iconOnlySpacing } from './iconOnlySpacing';
+import { getButtonStyles } from './styles';
 
 const customSizeAndPadding = {
 	minWidth: token('space.400'),

@@ -1,6 +1,6 @@
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import { numberNestedLists } from './selection';
+import { numberNestedLists } from './numberNestedLists';
 
 export const hasValidListIndentationLevel = ({
 	tr,

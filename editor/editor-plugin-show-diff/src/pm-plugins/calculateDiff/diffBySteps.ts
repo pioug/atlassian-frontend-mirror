@@ -10,14 +10,46 @@ import { optimizeChanges } from './optimizeChanges';
 const mapPosition = (mapping: Mapping, pos: number): number => mapping.map(pos);
 
 /**
+ * Build a per-content-offset view of the textblock's characters.
+ *
+ * Returns an array `chars` whose length is `parent.content.size`. For every
+ * offset that lies inside a text node, `chars[offset]` is the character at
+ * that offset; for every offset that lies inside (or on the edge of) a
+ * non-text inline node — hardBreak, mention, emoji, date, etc. — the entry
+ * is `null`.
+ *
+ * Using doc positions to index `parent.textContent` is wrong because
+ * `textContent` strips non-text inline nodes, so every such node shifts the
+ * lookup off by its size. This per-offset view restores a 1:1 mapping between
+ * doc positions inside the textblock and the character (or "no character",
+ * i.e. a hard word boundary) at that position.
+ */
+const buildCharsByOffset = (parent: PMNode): Array<string | null> => {
+	const chars: Array<string | null> = new Array(parent.content.size).fill(null);
+	parent.content.forEach((child, offset) => {
+		if (!child.isText) {
+			return;
+		}
+		const text = child.text ?? '';
+		for (let i = 0; i < text.length; i++) {
+			chars[offset + i] = text[i];
+		}
+	});
+	return chars;
+};
+
+/**
  * Given a ProseMirror doc and a position range [from, to], expand
  * both endpoints outward to the nearest word boundaries.
  *
- * A "word character" is any non-whitespace, non-punctuation character, plus hyphen.
- * This covers accented/Unicode letters (e.g. é, ñ, ü) while still stopping at
- * commas, periods, and other punctuation. Hyphens are explicitly included so that
- * hyphenated words (e.g. "deep-sea") are treated as a single word.
- * Expansion stops at whitespace, punctuation (excluding hyphen), or the textblock edges.
+ * A "word character" is any Unicode letter/number or underscore. Punctuation is
+ * treated as part of the same token only when it is sandwiched between two
+ * non-whitespace characters, so contractions like "You'll", accented words like
+ * "l'été", and punctuation-joined tokens like "deep-sea" or "foo/bar" stay
+ * intact without treating standalone punctuation as a general word character.
+ * Expansion stops at whitespace, standalone punctuation, the boundary of any
+ * non-text inline node (hardBreak, mention, emoji, date, etc.), or the
+ * textblock edges.
  *
  * If `from` and `to` resolve into different parent nodes, or if the
  * parent is not a textblock, the range is returned unchanged.
@@ -43,22 +75,52 @@ const expandToWordBoundaries = (
 	}
 
 	const parent = $from.parent;
-	const text = parent.textContent;
 	const parentStart = $from.start(); // absolute position of the first character in the textblock
 
-	// Convert absolute doc positions to zero-based string indices.
+	// Per-offset view of the textblock so we don't conflate the inline
+	// positions of non-text nodes (hardBreak, mention, emoji, date, etc.)
+	// with the characters returned by `parent.textContent`.
+	const chars = buildCharsByOffset(parent);
+
+	// Convert absolute doc positions to zero-based content offsets.
 	let fromIdx = from - parentStart;
 	let toIdx = to - parentStart;
 
-	// any non whitespace and non punctuation chars
-	// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
-	const isWordChar = (ch: string) => /[\p{L}\p{N}_-]/u.test(ch);
+	// Base word chars are Unicode letters/numbers/underscore. Punctuation only
+	// counts when it is surrounded by non-whitespace characters, e.g. in
+	// "You'll", "deep-sea", or "foo/bar". `null` still behaves like a hard
+	// boundary because only string neighbors qualify.
+	const isWordCharAt = (idx: number): boolean => {
+		if (idx < 0 || idx >= chars.length) {
+			return false;
+		}
+
+		const ch = chars[idx];
+		if (typeof ch !== 'string') {
+			return false;
+		}
+		const prev = chars[idx - 1];
+		const next = chars[idx + 1];
+
+		return (
+			// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+			/[\p{L}\p{N}_]/u.test(ch) ||
+			// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+			(/\p{P}/u.test(ch) &&
+				typeof prev === 'string' &&
+				typeof next === 'string' &&
+				// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+				!/\s/u.test(prev) &&
+				// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+				!/\s/u.test(next))
+		);
+	};
 
 	// Detect whether the position sits mid-word: there is a word character
 	// on both sides of the position (or, for a non-empty range, on the
 	// outer side of each endpoint).
 	const isMidWord = (idx: number) =>
-		idx > 0 && idx < text.length && isWordChar(text[idx - 1]) && isWordChar(text[idx]);
+		idx > 0 && idx < chars.length && isWordCharAt(idx - 1) && isWordCharAt(idx);
 
 	// For a zero-width range (pure insertion / deletion point), only expand
 	// if the point is mid-word — i.e. both the char before and after are
@@ -68,10 +130,10 @@ const expandToWordBoundaries = (
 			return { from, to };
 		}
 		// Expand both directions from the mid-word point.
-		while (fromIdx > 0 && isWordChar(text[fromIdx - 1])) {
+		while (fromIdx > 0 && isWordCharAt(fromIdx - 1)) {
 			fromIdx--;
 		}
-		while (toIdx < text.length && isWordChar(text[toIdx])) {
+		while (toIdx < chars.length && isWordCharAt(toIdx)) {
 			toIdx++;
 		}
 		return { from: parentStart + fromIdx, to: parentStart + toIdx };
@@ -81,21 +143,16 @@ const expandToWordBoundaries = (
 
 	// Expand left only if `from` is truly mid-word: the character at `from`
 	// (inside the range) and the character before `from` are both word chars.
-	if (
-		fromIdx > 0 &&
-		fromIdx < text.length &&
-		isWordChar(text[fromIdx]) &&
-		isWordChar(text[fromIdx - 1])
-	) {
-		while (fromIdx > 0 && isWordChar(text[fromIdx - 1])) {
+	if (fromIdx > 0 && fromIdx < chars.length && isWordCharAt(fromIdx) && isWordCharAt(fromIdx - 1)) {
+		while (fromIdx > 0 && isWordCharAt(fromIdx - 1)) {
 			fromIdx--;
 		}
 	}
 
 	// Expand right only if `to` is truly mid-word: the character just before
 	// `to` (last char of the range) and the character at `to` are both word chars.
-	if (toIdx > 0 && toIdx < text.length && isWordChar(text[toIdx - 1]) && isWordChar(text[toIdx])) {
-		while (toIdx < text.length && isWordChar(text[toIdx])) {
+	if (toIdx > 0 && toIdx < chars.length && isWordCharAt(toIdx - 1) && isWordCharAt(toIdx)) {
+		while (toIdx < chars.length && isWordCharAt(toIdx)) {
 			toIdx++;
 		}
 	}
@@ -136,7 +193,7 @@ const createSpans = (length: number) =>
 					length,
 					data: null,
 				},
-			]
+		  ]
 		: [];
 
 const mergeOverlappingByNewDocRange = (changes: Change[]): Change[] => {

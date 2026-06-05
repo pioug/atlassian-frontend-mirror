@@ -4,7 +4,6 @@ import HoverCardActions from '../../../examples/vr-hover-card/vr-hover-card-acti
 import HoverCardPositioning from '../../../examples/vr-hover-card/vr-hover-card-can-open-positioning';
 import {
 	HoverCardRovoChatActionGoogle,
-	HoverCardRovoChatActionSlack,
 } from '../../../examples/vr-hover-card/vr-hover-card-rovo-chat-action';
 import HoverCard from '../../../examples/vr-hover-card/vr-hover-cards';
 import HoverCardWithEntities from '../../../examples/vr-hover-card/vr-hover-cards-entities';
@@ -96,23 +95,6 @@ snapshot(HoverCardRovoChatActionGoogle, {
 	featureFlags: {
 		platform_sl_3p_auth_rovo_action_kill_switch: true,
 		platform_sl_3p_auth_rovo_action: true,
-		'rovogrowth-640-inline-action-nudge-fg': true,
-		'rovogrowth-640-inline-action-nudge-exp': [true, false],
-	},
-	waitForReactLazy: true,
-});
-
-snapshot(HoverCardRovoChatActionSlack, {
-	description: 'hover card with generic 3P rovo chat action',
-	drawsOutsideBounds: true,
-	states: [
-		{
-			state: 'hovered',
-			selector: { byTestId: 'hover-card-trigger-wrapper' },
-		},
-	],
-	featureFlags: {
-		'rovogrowth-640-inline-action-nudge-fg': true,
 	},
 	waitForReactLazy: true,
 });

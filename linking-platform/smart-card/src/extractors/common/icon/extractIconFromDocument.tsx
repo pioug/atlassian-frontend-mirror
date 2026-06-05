@@ -2,8 +2,6 @@ import React from 'react';
 
 import DocumentFilledIcon from '@atlaskit/icon/core/file';
 import { isConfluenceGenerator } from '@atlaskit/link-extractors';
-import BlogIconObject from '@atlaskit/object/blog';
-import LiveDocumentIconObject from '@atlaskit/object/page-live-doc';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getIconForFileType } from '../../../utils';
@@ -71,9 +69,9 @@ const documentLabel = (opts: IconOpts, label: string) => {
 const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode | undefined => {
 	switch (type) {
 		case 'schema:BlogPosting': {
-			if (fg('platform_sl_icons_refactor')) {
-				return <BlogIconObject label={documentLabel(opts, 'blog')} testId="blog-icon" />;
-			}
+			// Intentionally keep this icon on a synchronous require()-based path.
+			// This icon must be present in SSR markup so hydration does not cause a
+			// visible empty-state-then-pop-in transition for Smart Links.
 			const BlogIconWrapped = getBlogIconWrapped();
 			return <BlogIconWrapped label={documentLabel(opts, 'blog')} testId="blog-icon" />;
 		}
@@ -120,14 +118,9 @@ const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode
  */
 const digitalDocumentToIcon = (opts: IconOpts): React.ReactNode => {
 	if (opts.provider?.id && isConfluenceGenerator(opts.provider.id)) {
-		if (fg('platform_sl_icons_refactor')) {
-			return (
-				<LiveDocumentIconObject
-					label={documentLabel(opts, 'live document')}
-					testId="live-doc-icon"
-				/>
-			);
-		}
+		// Intentionally keep this icon on a synchronous require()-based path.
+		// This icon must be present in SSR markup so hydration does not cause a
+		// visible empty-state-then-pop-in transition for Smart Links.
 		const LiveDocumentIconWrapped = getLiveDocumentIconWrapped();
 		return (
 			<LiveDocumentIconWrapped

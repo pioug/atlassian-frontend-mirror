@@ -1,15 +1,7 @@
-export const snapTo = (target: number, points: number[]): number => {
-	return points.length === 0
-		? // extreme last case if there are no points somehow
-			target
-		: points.reduce((point, closest) => {
-				return Math.abs(closest - target) < Math.abs(point - target) ? closest : point;
-			});
-};
 
-export const handleSides: Array<'left' | 'right'> = ['left', 'right'];
-
-export const imageAlignmentMap = {
-	left: 'start',
-	right: 'end',
-};
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { snapTo } from './snapTo';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { handleSides } from './handleSides';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { imageAlignmentMap } from './imageAlignmentMap';

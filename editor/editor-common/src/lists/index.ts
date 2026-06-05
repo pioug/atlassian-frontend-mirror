@@ -3,13 +3,11 @@
 
 export { getListItemAttributes, normalizeListItemsSelection } from './selection';
 export { moveTargetIntoList } from './replace-content';
-export {
-	JoinDirection,
-	isListNodeValidContent,
-	joinSiblingLists,
-	processNestedTaskListsInSameLevel,
-} from './node';
-export { getCommonListAnalyticsAttributes, countListItemsInSelection } from './analytics';
+export { JoinDirection } from './JoinDirection';
+export { isListNodeValidContent } from './isListNodeValidContent';
+export { joinSiblingLists, processNestedTaskListsInSameLevel } from './node';
+export { getCommonListAnalyticsAttributes } from './analytics';
+export { countListItemsInSelection } from './countListItemsInSelection';
 export { hasValidListIndentationLevel } from './indentation';
 export { restoreSelection, computeSelectionOffsets } from './restore-selection';
 export { buildReplacementFragment } from './build-replacement-fragment';

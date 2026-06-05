@@ -11,6 +11,7 @@ export const appOrder: string[] = [
 	'Confluence',
 	'Loom',
 	'Loom Internal',
+	'Jira Coding Agent',
 	'Rovo',
 	'Rovo Hex',
 	'Focus',

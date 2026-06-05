@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import { type FlexibleUiActionName, ActionName, SmartLinkSize } from '../../../../../constants';
@@ -20,7 +19,6 @@ import * as Actions from '../../actions';
 import type { ActionMessage } from '../../actions/action/types';
 
 import { ActionFooter } from './action-footer';
-import AskRovoSectionHeader from './ask-rovo-section-header';
 import type { ActionBlockProps } from './types';
 
 const ignoreContainerPaddingStyles = css({
@@ -33,19 +31,6 @@ const ignoreContainerPaddingStyles = css({
 	// This has become more and more of a common use case.
 	marginLeft: 'calc(var(--container-gap-left)  * -1)',
 	marginRight: 'calc(var(--container-gap-right) * -1)',
-});
-
-const inlineActionNudgePillWrapperStyles = css({
-	display: 'flex',
-	flexDirection: 'column',
-	boxSizing: 'border-box',
-	width: '100%',
-});
-
-const inlineActionNudgeColumnStyles = css({
-	display: 'grid',
-	gridTemplateColumns: 'max-content',
-	gap: token('space.100'),
 });
 
 const DEFAULT_SORT_ORDER = ['PreviewAction', 'CopyLinkAction', 'AISummaryAction'];
@@ -104,16 +89,9 @@ const ActionBlock = ({
 	const ui = useFlexibleUiOptionContext();
 
 	const isRovoChatActionAvailable =
-		(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-			fg('rovogrowth-640-inline-action-nudge-fg')) &&
-		isAny3pRovoActionsExperimentOn
+		isAny3pRovoActionsExperimentOn && fg('platform_sl_3p_auth_rovo_action_kill_switch')
 			? context?.actions?.[ActionName.RovoChatAction] !== undefined
 			: undefined;
-
-	// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-	const isInlineActionNudgeExperiment =
-		fg('rovogrowth-640-inline-action-nudge-fg') &&
-		expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true);
 
 	const [message, setMessage] = useState<ActionMessage>();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -146,15 +124,13 @@ const ActionBlock = ({
 			return;
 		}
 
-		const arr =
-			fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-			fg('rovogrowth-640-inline-action-nudge-fg')
-				? isRovoChatActionAvailable
-					? [ActionName.RovoChatAction]
-					: (Object.keys(context.actions) as FlexibleUiActionName[]).filter(
-							(name) => name !== ActionName.RovoChatAction,
-						)
-				: (Object.keys(context.actions) as FlexibleUiActionName[]);
+		const arr = fg('platform_sl_3p_auth_rovo_action_kill_switch')
+			? isRovoChatActionAvailable
+				? [ActionName.RovoChatAction]
+				: (Object.keys(context.actions) as FlexibleUiActionName[]).filter(
+						(name) => name !== ActionName.RovoChatAction,
+					)
+			: (Object.keys(context.actions) as FlexibleUiActionName[]);
 
 		arr.sort(sort);
 
@@ -173,11 +149,7 @@ const ActionBlock = ({
 					onLoadingChange={onLoadingChange}
 					size={size || ui?.size}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					style={
-						!(isInlineActionNudgeExperiment && isRovoChatActionAvailable) && padding
-							? { paddingInline: padding }
-							: undefined
-					}
+					style={padding ? { paddingInline: padding } : undefined}
 					hideTooltip={isLoading}
 				/>
 			);
@@ -195,25 +167,10 @@ const ActionBlock = ({
 		padding,
 		isLoading,
 		onClick,
-		isInlineActionNudgeExperiment,
 	]);
-
-	const showRovoSectionHeader = isInlineActionNudgeExperiment && isRovoChatActionAvailable;
 
 	if (!actions) {
 		return null;
-	}
-
-	if (isInlineActionNudgeExperiment && isRovoChatActionAvailable) {
-		return (
-			<div css={inlineActionNudgePillWrapperStyles} ref={blockRef} data-testid={testId}>
-				{showRovoSectionHeader && (
-					<AskRovoSectionHeader testId={testId ? `${testId}-rovo-section-header` : undefined} />
-				)}
-				<div css={inlineActionNudgeColumnStyles}>{actions}</div>
-				<ActionFooter message={message} testId={testId} />
-			</div>
-		);
 	}
 
 	return (

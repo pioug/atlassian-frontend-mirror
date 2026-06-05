@@ -12,8 +12,8 @@ import { backgroundColorPalette } from '@atlaskit/adf-schema';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import getColorMessage from './getColorMessage';
+import { mapPaletteColor } from './mapPaletteColor';
 import paletteMessages from './paletteMessages';
-import { mapPaletteColor } from './textColorPalette';
 import type { PaletteColor } from './type';
 
 export const REMOVE_HIGHLIGHT_COLOR = '#00000000';
@@ -48,7 +48,7 @@ export const EditorDiagonalLineIcon = (): jsx.JSX.Element => {
 			: token('color.background.accent.gray.subtle');
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-		<DiagonalLineGlyph aria-label="" style={{ color: primaryColor }} />
+		<DiagonalLineGlyph style={{ color: primaryColor }} />
 	);
 };
 

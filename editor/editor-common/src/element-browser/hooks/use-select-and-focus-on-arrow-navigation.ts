@@ -2,7 +2,9 @@ import type React from 'react';
 import { useCallback, useEffect, useReducer, useRef } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-/**
+
+import { ACTIONS } from './ACTIONS';
+import { ensureSafeIndex } from './ensureSafeIndex';/**
  * a custom hook that handles keyboard navigation for Arrow keys based on a
  * given listSize, and a step (for up and down arrows).
  *
@@ -52,12 +54,6 @@ type ReducerState = {
 	listSize: number;
 	selectedItemIndex?: number;
 };
-
-export enum ACTIONS {
-	FOCUS_SEARCH = 'focusOnSearch',
-	UPDATE_STATE = 'updateState',
-	MOVE = 'move',
-}
 
 export type ReducerAction = {
 	payload: Partial<ReducerState> & {
@@ -530,16 +526,6 @@ function useSelectAndFocusOnArrowNavigation(
 	};
 }
 
-export const ensureSafeIndex = (index: number, listSize: number): number => {
-	if (index < 0) {
-		return 0;
-	}
-
-	if (index > listSize) {
-		return listSize;
-	}
-
-	return index;
-};
-
 export default useSelectAndFocusOnArrowNavigation;
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+// eslint-disable-next-line @atlaskit/editor/no-re-export

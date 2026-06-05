@@ -1,8 +1,8 @@
 import { getDocument } from '@atlaskit/browser-apis';
 
 import { EXPERIENCE_FAILURE_REASON } from './consts';
-import { popupWithNestedElement } from './experience-utils';
 import type { ExperienceCheck, ExperienceCheckCallback } from './ExperienceCheck';
+import { popupWithNestedElement } from './popupWithNestedElement';
 
 const PORTAL_CONTAINER_SELECTOR = 'body > .atlaskit-portal-container';
 

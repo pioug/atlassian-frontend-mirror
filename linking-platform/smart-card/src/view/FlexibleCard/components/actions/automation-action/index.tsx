@@ -5,7 +5,6 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import AutomationIcon from '@atlaskit/icon/core/automation';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { ActionName } from '../../../../../constants';
@@ -101,8 +100,7 @@ const AutomationAction = (props: LinkActionProps): React.JSX.Element | null => {
 						color="currentColor"
 						label={automationActionIconLabel}
 						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-						isRovoBlockCardExperimentEnabled ||
-						expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
+						isRovoBlockCardExperimentEnabled
 							? { size: props.iconSize }
 							: {})}
 					/>

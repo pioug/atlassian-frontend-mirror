@@ -9,8 +9,9 @@ import {
 	SingleFlag,
 } from '../../../examples/vr-flag-group-top-layer';
 
-const topLayerFlag = {
+const featureFlagVariants = {
 	'platform-dst-top-layer': [true, false],
+	'jpo-41318-fix-flag-overflow-fg': true,
 } as const;
 
 const defaultLightVariants = [
@@ -31,7 +32,7 @@ const mobileLightVariants = [
 snapshotInformational(SingleFlag, {
 	description: 'single flag',
 	drawsOutsideBounds: true,
-	featureFlags: topLayerFlag,
+	featureFlags: featureFlagVariants,
 	variants: defaultLightVariants,
 });
 
@@ -39,27 +40,27 @@ snapshotInformational(SingleFlag, {
 	description: 'single flag mobile',
 	variants: mobileLightVariants,
 	drawsOutsideBounds: true,
-	featureFlags: topLayerFlag,
+	featureFlags: featureFlagVariants,
 });
 
 snapshotInformational(MultipleFlags, {
 	description: 'multiple flags stacked',
 	drawsOutsideBounds: true,
-	featureFlags: topLayerFlag,
+	featureFlags: featureFlagVariants,
 	variants: defaultLightVariants,
 });
 
 snapshotInformational(AppearanceFlags, {
 	description: 'appearance normal',
 	drawsOutsideBounds: true,
-	featureFlags: topLayerFlag,
+	featureFlags: featureFlagVariants,
 	variants: defaultLightVariants,
 });
 
 snapshotInformational(SingleFlag, {
 	description: 'single flag action hovered',
 	drawsOutsideBounds: true,
-	featureFlags: topLayerFlag,
+	featureFlags: featureFlagVariants,
 	variants: defaultLightVariants,
 	states: [
 		{
@@ -75,7 +76,7 @@ snapshotInformational(SingleFlag, {
 snapshotInformational(SingleFlag, {
 	description: 'single flag action focused',
 	drawsOutsideBounds: true,
-	featureFlags: topLayerFlag,
+	featureFlags: featureFlagVariants,
 	variants: defaultLightVariants,
 	states: [
 		{
@@ -91,21 +92,21 @@ snapshotInformational(SingleFlag, {
 snapshotInformational(LongTitle, {
 	description: 'long title',
 	drawsOutsideBounds: true,
-	featureFlags: topLayerFlag,
+	featureFlags: featureFlagVariants,
 	variants: defaultLightVariants,
 });
 
 snapshotInformational(LongContent, {
 	description: 'long content',
 	drawsOutsideBounds: true,
-	featureFlags: topLayerFlag,
+	featureFlags: featureFlagVariants,
 	variants: defaultLightVariants,
 });
 
 snapshotInformational(FlagGroupInModal, {
 	description: 'flag in modal with shouldRenderToParent',
 	drawsOutsideBounds: true,
-	featureFlags: topLayerFlag,
+	featureFlags: featureFlagVariants,
 	variants: defaultLightVariants,
 	prepare: async (page) => {
 		await page.getByRole('button', { name: 'Open modal' }).first().click();

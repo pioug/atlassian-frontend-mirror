@@ -93,6 +93,7 @@ export type MultiBodiedExtensionActions = {
 	getChildrenContainer: () => React.ReactNode;
 	getChildrenCount: () => number;
 	removeChild: (index: number) => boolean;
+	reorderChildren: (fromIndex: number, toIndex: number) => boolean;
 	updateParameters: (parameters: Parameters) => boolean;
 };
 

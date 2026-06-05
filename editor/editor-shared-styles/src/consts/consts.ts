@@ -66,6 +66,8 @@ export const akEditorTableHeaderCellBackgroundDark = '#2C333A';
 export const akEditorTableBorderSelected: 'var(--ds-border-focused)' =
 	token('color.border.focused');
 export const akEditorTableBorderRadius = '3px';
+// CSS custom property for table container background. Set on panels so nested table masking elements blend in
+export const akEditorTableContainerBg = '--table-container-bg';
 export const akEditorTableCellBackgroundOpacity = 0.5;
 export const akEditorFullPageMaxWidth = 680;
 export const akEditorDefaultLayoutWidth = 760;

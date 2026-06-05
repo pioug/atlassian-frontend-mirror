@@ -1,5 +1,5 @@
 import type { CellAttributes } from '@atlaskit/adf-schema';
-import type { Node as PmNode, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * Returns an array of column widths (0 if column width is undefined) of a given table node by scanning the **entire table**.
@@ -74,82 +74,9 @@ export function calcTableColumnWidths(node: PmNode): number[] {
 	}
 	return tableColumnWidths;
 }
-
-/**
- *
- * @param tableNode
- * @example
- */
-export function hasMergedCell(tableNode: PmNode): boolean {
-	let hasSpan = false;
-
-	tableNode.descendants((node) => {
-		if (node.type.name === 'tableRow') {
-			return true;
-		}
-
-		const { colspan, rowspan } = node.attrs;
-
-		if (colspan > 1 || rowspan > 1) {
-			hasSpan = true;
-		}
-
-		return false;
-	});
-
-	return hasSpan;
-}
-
-/**
- *
- * @param tableNode
- * @example
- */
-export function convertProsemirrorTableNodeToArrayOfRows(
-	tableNode: PmNode,
-): Array<Array<PmNode | null>> {
-	const result: Array<Array<PmNode>> = [];
-
-	tableNode.forEach((rowNode) => {
-		if (rowNode.type.name === 'tableRow') {
-			const row: Array<PmNode> = [];
-			rowNode.forEach((n) => row.push(n));
-			result.push(row);
-		}
-	});
-
-	return result;
-}
-
-/*
-  isPositionNearTableRow()
-  Returns true when a sibling node, or any  of the parent's sibling
-  nodes are a tableRow
- */
-/**
- *
- * @param pos
- * @param schema
- * @param direction
- * @example
- */
-export function isPositionNearTableRow(
-	pos: ResolvedPos,
-	schema: Schema,
-	direction: 'before' | 'after',
-): boolean {
-	if (!schema.nodes.tableRow) {
-		return false;
-	}
-	const doc = pos.doc;
-	let resolved = pos;
-	const sibling = direction === 'before' ? 'nodeBefore' : 'nodeAfter';
-	while (resolved.depth > 0) {
-		const siblingType = resolved[sibling]?.type;
-		if (siblingType === schema.nodes.tableRow) {
-			return true;
-		}
-		resolved = doc.resolve(resolved[direction]());
-	}
-	return false;
-}
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { hasMergedCell } from './hasMergedCell';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { convertProsemirrorTableNodeToArrayOfRows } from './convertProsemirrorTableNodeToArrayOfRows';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { isPositionNearTableRow } from './isPositionNearTableRow';

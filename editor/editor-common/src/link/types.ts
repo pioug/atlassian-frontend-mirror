@@ -4,21 +4,7 @@ import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { INPUT_METHOD } from '../analytics';
 import type { EditorAppearance } from '../types';
 
-export enum LinkAction {
-	SHOW_INSERT_TOOLBAR = 'SHOW_INSERT_TOOLBAR',
-	HIDE_TOOLBAR = 'HIDE_TOOLBAR',
-	SELECTION_CHANGE = 'SELECTION_CHANGE',
-	INSERT_LINK_TOOLBAR = 'INSERT',
-	EDIT_INSERTED_TOOLBAR = 'EDIT_INSERTED_TOOLBAR',
-	SET_CONFIGURE_BUTTON_TARGET_POS = 'SET_CONFIGURE_BUTTON_TARGET_POS',
-	SET_CONFIGURE_DROPDOWN_OPEN = 'SET_CONFIGURE_DROPDOWN_OPEN',
-}
-
-export enum InsertStatus {
-	EDIT_LINK_TOOLBAR = 'EDIT',
-	INSERT_LINK_TOOLBAR = 'INSERT',
-	EDIT_INSERTED_TOOLBAR = 'EDIT_INSERTED',
-}
+import type { InsertStatus } from './InsertStatus';
 
 export type InsertState = {
 	from: number;
@@ -52,3 +38,7 @@ export interface HyperlinkState {
 	searchSessionId?: string;
 	timesViewed: number;
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { LinkAction } from './LinkAction';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { InsertStatus } from './InsertStatus';

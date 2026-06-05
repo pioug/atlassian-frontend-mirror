@@ -161,26 +161,9 @@ export const getLazyIcons = (): Partial<
 			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphSketch" */ '@atlaskit/icon-file-type/glyph/sketch/24'),
 		},
 
-		// @atlaskit/object/* (object icons with 16/24 size variants)
-		...(fg('platform_sl_icons_refactor')
-			? {
-					[IconType.Blog]: {
-						default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBlog" */ '@atlaskit/object/blog'),
-						large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBlog" */ '@atlaskit/object/tile/blog').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),
-					},
-					[IconType.LiveDocument]: {
-						default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPageLiveDoc" */ '@atlaskit/object/page-live-doc'),
-						large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPageLiveDoc" */ '@atlaskit/object/tile/page-live-doc').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),
-					},
-				}
-			: {
-					[IconType.Blog]: {
-						default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBlock" */ '../common/ui/icons/blog-icon'),
-					},
-					[IconType.LiveDocument]: {
-						default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPageLiveDoc" */ '../common/ui/icons/live-document-icon'),
-					},
-				}),
+		// Keep blog/live-document out of the lazy map on purpose.
+		// These icons should be present in SSR markup so hydration does not cause
+		// a visible empty-state-then-pop-in transition in Smart Link consumers.
 		[IconType.Branch]: {
 			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBranch" */ '@atlaskit/object/branch'),
 			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBranch" */ '@atlaskit/object/tile/branch').then((module) => ({ default: (props: any) => <module.default {...props} size="small" /> })),

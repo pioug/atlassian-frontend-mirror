@@ -296,7 +296,5 @@ const getSelectedLocalIds = (state: EditorState, node?: PMNode): Set<string> => 
 	);
 	return localIds;
 };
-
-export const getNodeName = (state: EditorState, node?: PMNode): string => {
-	return node?.marks?.find((mark) => mark.type === state.schema.marks.fragment)?.attrs?.name ?? '';
-};
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getNodeName } from './getNodeName';

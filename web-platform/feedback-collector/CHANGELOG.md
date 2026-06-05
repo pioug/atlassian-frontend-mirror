@@ -1,5 +1,17 @@
 # @atlaskit/feedback-collector
 
+## 15.3.0
+
+### Minor Changes
+
+- [`ffa7b21ccc11b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffa7b21ccc11b) -
+  A11Y fix (A11Y-31065): Remove inappropriate `aria-hidden={false}` and `hidden` attributes from
+  `<legend>` elements inside the opt-in options `<fieldset>` in FeedbackForm. The `hidden` HTML
+  attribute removes elements from the accessibility tree regardless of `aria-hidden`, causing screen
+  readers to miss the fieldset group label "Atlassian opt-in options". Replaced with a standard
+  visually-hidden CSS pattern so the legend is accessible to screen readers but not visible on
+  screen.
+
 ## 15.2.1
 
 ### Patch Changes

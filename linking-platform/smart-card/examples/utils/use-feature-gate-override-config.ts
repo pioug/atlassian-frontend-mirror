@@ -12,9 +12,6 @@ const experimentConfig: Record<string, FeatureGateConfig> = {
 	platform_sl_3p_auth_rovo_action: {
 		isEnabled: true,
 	},
-	'rovogrowth-640-inline-action-nudge-exp': {
-		isEnabled: true,
-	},
 	platform_sl_3p_preauth_social_proof_inline_cta: {
 		isEnabled: true,
 	},
@@ -29,7 +26,6 @@ const experimentConfig: Record<string, FeatureGateConfig> = {
 const enabledGates = [
 	'platform_sl_3p_preauth_better_hovercard_killswitch',
 	'platform_sl_3p_auth_rovo_action_kill_switch',
-	'rovogrowth-640-inline-action-nudge-fg',
 	'smart-card-inline-resolved-view-refactor',
 	'platform_sl_3p_preauth_soc_proof_inline_killswitch',
 	'platform_sl_3p_auth_rovo_block_card_kill_switch',

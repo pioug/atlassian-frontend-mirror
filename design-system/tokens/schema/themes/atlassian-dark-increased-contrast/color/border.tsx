@@ -23,19 +23,29 @@ const color: ExtendedValueSchema<BorderColorTokenSchema<BaseToken>> = {
 				value: 'Blue300',
 			},
 			danger: {
-				value: 'Red400',
+				'[default]': {
+					value: 'Red400',
+				},
 			},
 			warning: {
-				value: 'Orange300',
+				'[default]': {
+					value: 'Orange300',
+				},
 			},
 			success: {
-				value: 'Green300',
+				'[default]': {
+					value: 'Green300',
+				},
 			},
 			discovery: {
-				value: 'Purple400',
+				'[default]': {
+					value: 'Purple400',
+				},
 			},
 			information: {
-				value: 'Blue300',
+				'[default]': {
+					value: 'Blue300',
+				},
 			},
 		},
 	},

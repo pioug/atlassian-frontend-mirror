@@ -69,6 +69,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-01
+	rovo_remix_experience_context: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-05-05
 	'databases-native-embeds-v2': {
 		defaultValue: boolean;
@@ -881,13 +888,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-27 — Pre-auth inline smart link: improved unauthorised hover card (boolean: isEnabled)
 	platform_sl_3p_preauth_better_hovercard: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-04-09 — Inline action nudge experiment for resolved inline smart links (boolean: isEnabled)
-	'rovogrowth-640-inline-action-nudge-exp': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2175,6 +2175,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-06-01
+	rovo_remix_experience_context: createBooleanExperiment({
+		productKeys: {
+			confluence: 'rovo_remix_experience_context',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-04-28
 	'agent-managed_blocks_mvp': createBooleanExperiment({
 		productKeys: {
@@ -3047,15 +3055,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-04-09 — Inline action nudge on resolved inline smart links
-	'rovogrowth-640-inline-action-nudge-exp': createBooleanExperiment({
-		productKeys: {
-			confluence: 'rovogrowth-640-inline-action-nudge-exp',
-			jira: 'rovogrowth-640-inline-action-nudge-exp',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-05-29 — Inline rovo action on resolved inline smart links
 	platform_sl_3p_auth_inline_tailored_cta: createBooleanExperiment({
 		productKeys: {
@@ -3074,7 +3073,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-
 	// Added 2026-04-29 — Social proof inline CTA for unauthorised 3P inline smart links
 	platform_sl_3p_preauth_social_proof_inline_cta: createBooleanExperiment({
 		productKeys: {

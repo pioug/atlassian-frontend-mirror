@@ -1,5 +1,28 @@
 # @atlaskit/smart-card
 
+## 44.23.3
+
+### Patch Changes
+
+- [`6cb1e43229040`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cb1e43229040) -
+  Append url with cross-product analytics params on link click
+
+## 44.23.2
+
+### Patch Changes
+
+- [`4b9e6f370d855`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b9e6f370d855) -
+  Remove feature flag and experiment
+- Updated dependencies
+
+## 44.23.1
+
+### Patch Changes
+
+- [`ade405aaaa7a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ade405aaaa7a6) -
+  Allow for sync icon loading for some types to keep SSR non-pop-in functionality
+- Updated dependencies
+
 ## 44.23.0
 
 ### Minor Changes

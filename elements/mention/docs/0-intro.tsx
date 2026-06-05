@@ -79,6 +79,27 @@ const _default_1: any = md`
 		/>
 	)}
 
+  ## Mention chip variants
+
+  The \`<Mention>\` chip has four visual variants:
+
+  - **Default** — a neutral chip rendered for any in-scope mention.
+  - **Self** — emphasised brand-coloured chip rendered when \`isHighlighted\`
+    is set, typically used to highlight a mention of the current user.
+  - **Restricted** — outlined chip rendered when the mention's
+    \`accessLevel\` indicates the referenced user does not have access; on
+    hover the chip surfaces a "no access" tooltip.
+  - **Disabled** — muted grey chip rendered when \`isDisabled\` is set.
+    Click handlers are suppressed, the chip exposes
+    \`aria-disabled="true"\`, and (with a \`disabledTooltip\` set) hover or
+    keyboard focus surfaces an ADS tooltip explaining why the chip is
+    disabled. The disabled chip remains keyboard-focusable so screen-reader
+    users encounter it and hear the reason.
+
+  Inside the editor, the disabled state is driven by
+  \`MentionProvider.getMentionDisabledState({ id })\` so rendering surfaces
+  don't need to thread per-chip props through ProseMirror node views.
+
   ${(<Props props={MentionProps} />)}
 
 `;

@@ -2,9 +2,12 @@ import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema'
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { akEditorBreakoutPadding, breakoutWideScaleRatio } from '@atlaskit/editor-shared-styles';
 
-import { MEDIA_SINGLE_GUTTER_SIZE } from '../../media-single/constants';
 import type { EditorContainerWidth } from '../../types';
 
+import { calcColumnsFromPx } from './calcColumnsFromPx';
+import { calcPxFromColumns } from './calcPxFromColumns';
+import { calcPxFromPct } from './calcPxFromPct';
+import { wrappedLayouts } from './wrappedLayouts';
 const validWidthModes: MediaSingleLayout[] = [
 	'center',
 	'wrap-left',
@@ -15,33 +18,6 @@ const validWidthModes: MediaSingleLayout[] = [
 
 export const layoutSupportsWidth = (layout: MediaSingleLayout): boolean =>
 	validWidthModes.indexOf(layout) > -1;
-
-export function calcPxFromColumns(columns: number, lineLength: number, gridSize: number): number {
-	const maxWidth = lineLength + MEDIA_SINGLE_GUTTER_SIZE;
-	return (maxWidth / gridSize) * columns - MEDIA_SINGLE_GUTTER_SIZE;
-}
-
-export function calcColumnsFromPx(width: number, lineLength: number, gridSize: number): number {
-	const maxWidth = lineLength + MEDIA_SINGLE_GUTTER_SIZE;
-	return ((width + MEDIA_SINGLE_GUTTER_SIZE) * gridSize) / maxWidth;
-}
-
-export function calcPxFromPct(pct: number, lineLength: number): number {
-	const maxWidth = lineLength + MEDIA_SINGLE_GUTTER_SIZE;
-	return maxWidth * pct - MEDIA_SINGLE_GUTTER_SIZE;
-}
-
-export function calcPctFromPx(width: number, lineLength: number): number {
-	const maxWidth = lineLength + MEDIA_SINGLE_GUTTER_SIZE;
-	return (width + MEDIA_SINGLE_GUTTER_SIZE) / maxWidth;
-}
-
-export const wrappedLayouts: MediaSingleLayout[] = [
-	'wrap-left',
-	'wrap-right',
-	'align-end',
-	'align-start',
-];
 
 export const calcPctWidth = (
 	containerWidth: EditorContainerWidth,
@@ -135,3 +111,13 @@ export const snapToGrid = (
 		width: alignedWidth,
 	};
 };
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { calcPxFromColumns } from './calcPxFromColumns';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { calcColumnsFromPx } from './calcColumnsFromPx';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { calcPxFromPct } from './calcPxFromPct';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { calcPctFromPx } from './calcPctFromPx';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { wrappedLayouts } from './wrappedLayouts';

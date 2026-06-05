@@ -1,3 +1,5 @@
+import { isBody } from './isBody';
+import { isTextNode } from './isTextNode';
 export interface Position {
 	bottom?: number;
 	left?: number;
@@ -20,13 +22,7 @@ export interface CalculatePositionParams {
 	scrollableElement?: HTMLElement | false;
 }
 
-export function isBody(elem: HTMLElement | Element): boolean {
-	return elem === document.body;
-}
 
-export function isTextNode(elem: HTMLElement | Element): boolean {
-	return elem && elem.nodeType === 3;
-}
 
 /**
  * Decides if given fitHeight fits below or above the target taking boundaries into account.
@@ -533,14 +529,6 @@ export function calculatePosition({
 	return position;
 }
 
-export function validatePosition(popup: HTMLElement): boolean {
-	// popup.offsetParent does not exist if the popup element is not mounted
-	if (!popup || !popup.offsetParent) {
-		return false;
-	}
-
-	return true;
-}
 
 /**
  * Traverse DOM Tree upwards looking for popup parents with "overflow: scroll".
@@ -579,3 +567,9 @@ function isElementNode(node: Node): node is Element {
 function isHTMLElementNode(node: Node): node is HTMLElement {
 	return isElementNode(node) && node.namespaceURI === 'http://www.w3.org/1999/xhtml';
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { isBody } from './isBody';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { isTextNode } from './isTextNode';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { validatePosition } from './validatePosition';

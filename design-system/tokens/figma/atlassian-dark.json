@@ -604,6 +604,15 @@
       },
       "value": "#82B536"
     },
+    "Dark/color.border.accent.lime.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative lime borders that do not need to meet 3:1 contrast requirements."
+      },
+      "value": "#4C6B1F"
+    },
     "Dark/color.border.accent.red": {
       "attributes": {
         "group": "paint",
@@ -612,6 +621,15 @@
         "description": "Use for red borders on non-bold backgrounds when there is no meaning tied to the color."
       },
       "value": "#F15B50"
+    },
+    "Dark/color.border.accent.red.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative red borders that do not need to meet 3:1 contrast requirements."
+      },
+      "value": "#AE2E24"
     },
     "Dark/color.border.accent.orange": {
       "attributes": {
@@ -622,6 +640,15 @@
       },
       "value": "#F68909"
     },
+    "Dark/color.border.accent.orange.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative orange borders that do not need to meet 3:1 contrast requirements."
+      },
+      "value": "#9E4C00"
+    },
     "Dark/color.border.accent.yellow": {
       "attributes": {
         "group": "paint",
@@ -630,6 +657,15 @@
         "description": "Use for yellow borders on non-bold backgrounds when there is no meaning tied to the color."
       },
       "value": "#CF9F02"
+    },
+    "Dark/color.border.accent.yellow.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative yellow borders that do not need to meet 3:1 contrast requirements."
+      },
+      "value": "#7F5F01"
     },
     "Dark/color.border.accent.green": {
       "attributes": {
@@ -640,6 +676,15 @@
       },
       "value": "#2ABB7F"
     },
+    "Dark/color.border.accent.green.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative green borders that do not need to meet 3:1 contrast requirements."
+      },
+      "value": "#216E4E"
+    },
     "Dark/color.border.accent.teal": {
       "attributes": {
         "group": "paint",
@@ -648,6 +693,15 @@
         "description": "Use for teal borders on non-bold backgrounds when there is no meaning tied to the color."
       },
       "value": "#42B2D7"
+    },
+    "Dark/color.border.accent.teal.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative teal borders that do not need to meet 3:1 contrast requirements."
+      },
+      "value": "#206A83"
     },
     "Dark/color.border.accent.blue": {
       "attributes": {
@@ -658,6 +712,15 @@
       },
       "value": "#4688EC"
     },
+    "Dark/color.border.accent.blue.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative blue borders that do not need to meet 3:1 contrast requirements."
+      },
+      "value": "#1558BC"
+    },
     "Dark/color.border.accent.purple": {
       "attributes": {
         "group": "paint",
@@ -666,6 +729,15 @@
         "description": "Use for purple borders on non-bold backgrounds when there is no meaning tied to the color."
       },
       "value": "#BF63F3"
+    },
+    "Dark/color.border.accent.purple.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative purple borders that do not need to meet 3:1 contrast requirements."
+      },
+      "value": "#803FA5"
     },
     "Dark/color.border.accent.magenta": {
       "attributes": {
@@ -676,6 +748,15 @@
       },
       "value": "#DA62AC"
     },
+    "Dark/color.border.accent.magenta.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative magenta borders that do not need to meet 3:1 contrast requirements."
+      },
+      "value": "#943D73"
+    },
     "Dark/color.border.accent.gray": {
       "attributes": {
         "group": "paint",
@@ -684,6 +765,15 @@
         "description": "Use for borders on non-bold gray accent backgrounds."
       },
       "value": "#7E8188"
+    },
+    "Dark/color.border.accent.gray.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative gray borders that do not need to meet 3:1 contrast requirements."
+      },
+      "value": "#4B4D51"
     },
     "Dark/color.border.disabled": {
       "attributes": {
@@ -748,6 +838,15 @@
       },
       "value": "#F15B50"
     },
+    "Dark/color.border.danger.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative danger borders that do not need to meet 3:1 contrast requirements."
+      },
+      "value": "#AE2E24"
+    },
     "Dark/color.border.warning": {
       "attributes": {
         "group": "paint",
@@ -756,6 +855,15 @@
         "description": "Use for borders communicating caution."
       },
       "value": "#F68909"
+    },
+    "Dark/color.border.warning.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative warning borders that do not need to meet 3:1 contrast requirements."
+      },
+      "value": "#9E4C00"
     },
     "Dark/color.border.success": {
       "attributes": {
@@ -766,6 +874,15 @@
       },
       "value": "#82B536"
     },
+    "Dark/color.border.success.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative success borders that do not need to meet 3:1 contrast requirements."
+      },
+      "value": "#4C6B1F"
+    },
     "Dark/color.border.discovery": {
       "attributes": {
         "group": "paint",
@@ -775,6 +892,15 @@
       },
       "value": "#BF63F3"
     },
+    "Dark/color.border.discovery.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative discovery borders that do not need to meet 3:1 contrast requirements."
+      },
+      "value": "#803FA5"
+    },
     "Dark/color.border.information": {
       "attributes": {
         "group": "paint",
@@ -783,6 +909,15 @@
         "description": "Use for borders communicating information or something in-progress."
       },
       "value": "#4688EC"
+    },
+    "Dark/color.border.information.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative information borders that do not need to meet 3:1 contrast requirements."
+      },
+      "value": "#1558BC"
     },
     "Dark/color.border.bold": {
       "attributes": {
@@ -2206,6 +2341,15 @@
       },
       "value": "#AE2E24"
     },
+    "Dark/color.background.danger.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Background colour for non-interactive elements communicating critical danger information (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.danger.bold or color.background.danger.subtler for interactive states."
+      },
+      "value": "#AE2E24"
+    },
     "Dark/color.background.danger.bold": {
       "attributes": {
         "group": "paint",
@@ -2284,6 +2428,15 @@
         "state": "active",
         "introduced": "8.1.0",
         "description": "Pressed state of color.background.warning.subtler"
+      },
+      "value": "#9E4C00"
+    },
+    "Dark/color.background.warning.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Background colour for non-interactive elements communicating caution (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.warning.bold or color.background.warning.subtler for interactive states."
       },
       "value": "#9E4C00"
     },
@@ -2368,6 +2521,15 @@
       },
       "value": "#4C6B1F"
     },
+    "Dark/color.background.success.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Background colour for non-interactive elements communicating success (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.success.bold or color.background.success.subtler for interactive states."
+      },
+      "value": "#4C6B1F"
+    },
     "Dark/color.background.success.bold": {
       "attributes": {
         "group": "paint",
@@ -2449,6 +2611,15 @@
       },
       "value": "#803FA5"
     },
+    "Dark/color.background.discovery.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Background colour for non-interactive elements communicating discovery (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.discovery.bold or color.background.discovery.subtler for interactive states."
+      },
+      "value": "#803FA5"
+    },
     "Dark/color.background.discovery.bold": {
       "attributes": {
         "group": "paint",
@@ -2527,6 +2698,15 @@
         "state": "active",
         "introduced": "8.1.0",
         "description": "Pressed state of color.background.information.subtler"
+      },
+      "value": "#1558BC"
+    },
+    "Dark/color.background.information.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Background colour for non-interactive elements communicating information (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.information.bold or color.background.information.subtler for interactive states."
       },
       "value": "#1558BC"
     },

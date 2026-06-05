@@ -1,5 +1,12 @@
 # @atlaskit/logo
 
+## 20.2.0
+
+### Minor Changes
+
+- [`19bdb9d9991c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19bdb9d9991c1) -
+  [ux] Add JiraCodingAgentIcon to @atlaskit/logo
+
 ## 20.1.2
 
 ### Patch Changes

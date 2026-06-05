@@ -6,8 +6,8 @@ import type { EditorState, Selection, TextSelection } from '@atlaskit/editor-pro
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
-import { hasDocAsParent } from './document';
-import { isEmptyParagraph } from './editor-core-utils';
+import { hasDocAsParent } from './hasDocAsParent';
+import { isEmptyParagraph } from './isEmptyParagraph';
 
 export { shouldAutoLinkifyMatch } from './should-auto-linkify-tld';
 
@@ -44,101 +44,51 @@ export {
 	todayTimestampInUTC,
 } from './date';
 export type { Date } from './date';
-export {
-	isElementInTableCell,
-	isTextSelection,
-	isLastItemMediaGroup,
-	setNodeSelection,
-	setTextSelection,
-	setAllSelection,
-	setCellSelection,
-	nonNullable,
-	stepAddsOneOf,
-	stepHasSlice,
-	extractSliceFromStep,
-	isValidPosition,
-	isEmptyParagraph,
-	isInLayoutColumn,
-	removeBlockMarks,
-	filterChildrenBetween,
-} from './editor-core-utils';
+export { stepAddsOneOf, removeBlockMarks } from './editor-core-utils';
+export { extractSliceFromStep } from './extractSliceFromStep';
+export { filterChildrenBetween } from './filterChildrenBetween';
+export { isElementInTableCell } from './isElementInTableCell';
+export { isEmptyParagraph } from './isEmptyParagraph';
+export { isInLayoutColumn } from './isInLayoutColumn';
+export { isLastItemMediaGroup } from './isLastItemMediaGroup';
+export { isTextSelection } from './isTextSelection';
+export { isValidPosition } from './isValidPosition';
+export { nonNullable } from './nonNullable';
+export { setAllSelection } from './setAllSelection';
+export { setCellSelection } from './setCellSelection';
+export { setNodeSelection } from './setNodeSelection';
+export { setTextSelection } from './setTextSelection';
+export { stepHasSlice } from './stepHasSlice';
 export { withImageLoader } from './imageLoader';
 export type { ImageLoaderProps, ImageLoaderState, ImageStatus } from './imageLoader';
-export {
-	breakoutResizableNodes,
-	getBreakoutResizableNodeTypes,
-	absoluteBreakoutWidth,
-	calcBreakoutWidth,
-	calcWideWidth,
-	breakoutConsts,
-	calculateBreakoutStyles,
-	calcBreakoutWidthPx,
-	getNextBreakoutMode,
-	getTitle,
-	calcBreakoutWithCustomWidth,
-} from './breakout';
+export { absoluteBreakoutWidth, calcBreakoutWidth, calcWideWidth, breakoutConsts, calculateBreakoutStyles, calcBreakoutWidthPx, calcBreakoutWithCustomWidth } from './breakout';
+export { breakoutResizableNodes } from './breakoutResizableNodes';
+export { getBreakoutResizableNodeTypes } from './getBreakoutResizableNodeTypes';
+export { getNextBreakoutMode } from './getNextBreakoutMode';
+export { getTitle } from './getTitle';
 export type { BreakoutConstsType } from './breakout';
 
-export {
-	/**
-	 * @private
-	 * @deprecated
-	 *
-	 * This is only used in editor-core and shouldn't be used anywhere else.
-	 * If you do need it please reach out to #cc-editor-lego
-	 */
-	findChangedNodesFromTransaction,
-	/**
-	 * @private
-	 * @deprecated
-	 *
-	 * This is only used in editor-core and shouldn't be used anywhere else.
-	 * If you do need it please reach out to #cc-editor-lego
-	 */
-	validNode,
-	/**
-	 * @private
-	 * @deprecated
-	 *
-	 * This is only used in editor-core and shouldn't be used anywhere else.
-	 * If you do need it please reach out to #cc-editor-lego
-	 */
-	validateNodes,
-	isType,
-	isParagraph,
-	isText,
-	isLinkMark,
-	SelectedState,
-	isNodeSelectedOrInRange,
-	isSupportedInParent,
-	isMediaNode,
-	isNodeBeforeMediaNode,
-} from './nodes';
+export { SelectedState } from './SelectedState';
+export { findChangedNodesFromTransaction } from './findChangedNodesFromTransaction';
+export { isMediaNode } from './isMediaNode';
+export { isNodeBeforeMediaNode } from './isNodeBeforeMediaNode';
+export { isSupportedInParent } from './isSupportedInParent';
+export { validateNodes, isType, isParagraph, isText, isLinkMark, isNodeSelectedOrInRange } from './nodes';
+export { validNode } from './validNode';
 
 export type { Reducer } from './plugin-state-factory';
 export { pluginFactory } from './plugin-state-factory';
 
-export {
-	getFragmentBackingArray,
-	mapFragment,
-	mapSlice,
-	flatmap,
-	mapChildren,
-	hasNode,
-} from './slice';
+export { getFragmentBackingArray } from './getFragmentBackingArray';
+export { mapFragment, mapSlice, flatmap, mapChildren, hasNode } from './slice';
 export type { FlatMapCallback, MapWithCallback } from './slice';
 
-export {
-	walkUpTreeUntil,
-	unwrap,
-	removeNestedEmptyEls,
-	containsClassName,
-	closest,
-	closestElement,
-	parsePx,
-	mapElem,
-	maphElem,
-} from './dom';
+export { containsClassName } from './containsClassName';
+export { closest, closestElement, mapElem, maphElem } from './dom';
+export { parsePx } from './parsePx';
+export { removeNestedEmptyEls } from './removeNestedEmptyEls';
+export { unwrap } from './unwrap';
+export { walkUpTreeUntil } from './walkUpTreeUntil';
 export type { MapCallback } from './dom';
 
 export { default as ADFTraversor } from './traversor';
@@ -148,19 +98,12 @@ export { default as ADFTraversor } from './traversor';
  *
  * Use entry-point `@atlaskit/editor-common/utils/analytics` instead
  */
-export {
-	analyticsEventKey,
-	getAnalyticsAppearance,
-	getAnalyticsEditorAppearance,
-	getAnalyticsEventSeverity,
-	SEVERITY,
-} from './analytics';
-export {
-	getUnsupportedContentLevelData,
-	UNSUPPORTED_CONTENT_LEVEL_SEVERITY,
-	UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS,
-	type UnsupportedContentLevelsTracking,
-} from './unsupportedContent/get-unsupported-content-level-data';
+export { SEVERITY } from './SEVERITY';
+export { analyticsEventKey, getAnalyticsEditorAppearance, getAnalyticsEventSeverity } from './analytics';
+export { getAnalyticsAppearance } from './getAnalyticsAppearance';
+export { UNSUPPORTED_CONTENT_LEVEL_SEVERITY } from './unsupportedContent/UNSUPPORTED_CONTENT_LEVEL_SEVERITY';
+export { UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS } from './unsupportedContent/UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS';
+export { getUnsupportedContentLevelData, type UnsupportedContentLevelsTracking } from './unsupportedContent/get-unsupported-content-level-data';
 export type {
 	UnsupportedContentTooltipPayload,
 	UnsupportedContentPayload,
@@ -183,32 +126,9 @@ export {
 	measureRender,
 } from './performance/measure-render';
 export { startMeasure, stopMeasure, clearMeasure } from './performance/measure';
-export {
-	/**
-	 * @private
-	 * @deprecated
-	 * Private API - should not be used. Use `@atlaskit/editor-common/performance/measure-tti` if required.
-	 */
-	measureTTI,
-	/**
-	 * @private
-	 * @deprecated
-	 * Private API - should not be used. Use `@atlaskit/editor-common/performance/measure-tti` if required.
-	 */
-	getTTISeverity,
-	/**
-	 * @private
-	 * @deprecated
-	 * Private API - should not be used. Use `@atlaskit/editor-common/performance/measure-tti` if required.
-	 */
-	TTI_SEVERITY_THRESHOLD_DEFAULTS,
-	/**
-	 * @private
-	 * @deprecated
-	 * Private API - should not be used. Use `@atlaskit/editor-common/performance/measure-tti` if required.
-	 */
-	TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS,
-} from './performance/measure-tti';
+export { TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS } from './performance/TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS';
+export { TTI_SEVERITY_THRESHOLD_DEFAULTS } from './performance/TTI_SEVERITY_THRESHOLD_DEFAULTS';
+export { measureTTI, getTTISeverity } from './performance/measure-tti';
 /**
  * @private
  * @deprecated
@@ -216,26 +136,22 @@ export {
  * Private API - should not be used. Use `@atlaskit/editor-common/is-performance-api-available` if required.
  *
  */
-export {
-	isPerformanceAPIAvailable,
-	isPerformanceObserverAvailable,
-} from './performance/is-performance-api-available';
+export { isPerformanceAPIAvailable } from './performance/is-performance-api-available';
+export { isPerformanceObserverAvailable } from './performance/isPerformanceObserverAvailable';
 /**
  * @private
  * @deprecated
  *
  * Private API - should not be used. Use `@atlaskit/editor-common/performance/navigation` if required.
  */
-export { getRequestToResponseTime, getResponseEndTime } from './performance/navigation';
+export { getRequestToResponseTime } from './performance/getRequestToResponseTime';
+export { getResponseEndTime } from './performance/getResponseEndTime';
 export { getExtensionRenderer } from './extension-handler';
 
-export {
-	hasMergedCell,
-	getColumnWidths,
-	calcTableColumnWidths,
-	convertProsemirrorTableNodeToArrayOfRows,
-	isPositionNearTableRow,
-} from './table';
+export { convertProsemirrorTableNodeToArrayOfRows } from './convertProsemirrorTableNodeToArrayOfRows';
+export { hasMergedCell } from './hasMergedCell';
+export { isPositionNearTableRow } from './isPositionNearTableRow';
+export { getColumnWidths, calcTableColumnWidths } from './table';
 export { createCompareNodes } from './compareNodes';
 export { compose } from './compose';
 export { isTextInput } from './is-text-input';
@@ -247,11 +163,8 @@ export { ZERO_WIDTH_SPACE, ZERO_WIDTH_JOINER } from '../whitespace';
 export type { Diff } from './types';
 export { shouldForceTracking } from './should-force-tracking';
 export { getModeFromTheme } from './getModeFromTheme';
-export {
-	getPerformanceOptions,
-	startMeasureReactNodeViewRendered,
-	stopMeasureReactNodeViewRendered,
-} from './get-performance-options';
+export { getPerformanceOptions, stopMeasureReactNodeViewRendered } from './get-performance-options';
+export { startMeasureReactNodeViewRendered } from './startMeasureReactNodeViewRendered';
 export type { UserBrowserExtensionResults } from './browser-extensions';
 export { sniffUserBrowserExtensions } from './browser-extensions';
 export { RenderCountProfiler, PROFILER_KEY } from './profiler/render-count';
@@ -276,36 +189,22 @@ export type { UseComponentRenderTrackingArgs } from './performance/hooks/use-com
  */
 export { autoJoinTr } from './prosemirror/autojoin';
 
-export {
-	isReferencedSource,
-	removeConnectedNodes,
-	getChildrenInfo,
-	getNodeName,
-} from './referentiality';
+export { getNodeName } from './getNodeName';
+export { isReferencedSource, removeConnectedNodes, getChildrenInfo } from './referentiality';
 
-export {
-	getItemCounterDigitsSize,
-	getOrderFromOrderedListNode,
-	resolveOrder,
-	isListNode,
-	isParagraphNode,
-	isListItemNode,
-	isBulletList,
-} from './list';
+export { isBulletList } from './isBulletList';
+export { isListItemNode } from './isListItemNode';
+export { isListNode } from './isListNode';
+export { isParagraphNode } from './isParagraphNode';
+export { getItemCounterDigitsSize, getOrderFromOrderedListNode } from './list';
+export { resolveOrder } from './resolveOrder';
 
-export {
-	isFromCurrentDomain,
-	LinkMatcher,
-	normalizeUrl,
-	linkifyContent,
-	getLinkDomain,
-	findFilepaths,
-	isLinkInMatches,
-	FILEPATH_REGEXP,
-	DONTLINKIFY_REGEXP,
-	getLinkCreationAnalyticsEvent,
-	canLinkBeCreatedInRange,
-} from './hyperlink';
+export { FILEPATH_REGEXP } from './FILEPATH_REGEXP';
+export { LinkMatcher } from './LinkMatcher';
+export { canLinkBeCreatedInRange } from './canLinkBeCreatedInRange';
+export { getLinkDomain } from './getLinkDomain';
+export { isFromCurrentDomain, linkifyContent, findFilepaths, isLinkInMatches, DONTLINKIFY_REGEXP, getLinkCreationAnalyticsEvent } from './hyperlink';
+export { normalizeUrl } from './normalizeUrl';
 
 // prosemirror-history does not export its plugin key
 export const pmHistoryPluginKey = 'history$';
@@ -317,16 +216,12 @@ export { gridTypeForLayout } from './grid';
  *
  * Use `@atlaskit/editor-common/utils/document` entry-point instead.
  */
-export {
-	nodesBetweenChanged,
-	getStepRange,
-	isEmptyDocument,
-	hasDocAsParent,
-	bracketTyped,
-	hasVisibleContent,
-	isSelectionEndOfParagraph,
-	getChangedNodes,
-} from './document';
+export { nodesBetweenChanged, bracketTyped, getChangedNodes } from './document';
+export { getStepRange } from './getStepRange';
+export { hasDocAsParent } from './hasDocAsParent';
+export { hasVisibleContent } from './hasVisibleContent';
+export { isEmptyDocument } from './isEmptyDocument';
+export { isSelectionEndOfParagraph } from './isSelectionEndOfParagraph';
 
 /**
  * @private
@@ -336,30 +231,18 @@ export {
  */
 export { processRawValue } from './processRawValue';
 
-export {
-	floatingLayouts,
-	isRichMediaInsideOfBlockNode,
-	calculateSnapPoints,
-	alignAttributes,
-	nonWrappedLayouts,
-} from './rich-media-utils';
+export { calculateSnapPoints } from './calculateSnapPoints';
+export { floatingLayouts } from './floatingLayouts';
+export { isRichMediaInsideOfBlockNode } from './isRichMediaInsideOfBlockNode';
+export { nonWrappedLayouts } from './nonWrappedLayouts';
+export { alignAttributes } from './rich-media-utils';
 
 export { sanitizeNodeForPrivacy } from './filter/privacy-filter';
 
-export { canRenderDatasource, getDatasourceType } from './datasource';
-export {
-	filterCommand,
-	isEmptySelectionAtStart,
-	isEmptySelectionAtEnd,
-	insertContentDeleteRange,
-	deleteEmptyParagraphAndMoveBlockUp,
-	insertNewLineWithAnalytics,
-	createNewParagraphAbove,
-	createNewParagraphBelow,
-	createParagraphNear,
-	walkNextNode,
-	walkPrevNode,
-} from './commands';
+export { canRenderDatasource } from './datasource';
+export { getDatasourceType } from './getDatasourceType';
+export { filterCommand, isEmptySelectionAtStart, isEmptySelectionAtEnd, deleteEmptyParagraphAndMoveBlockUp, insertNewLineWithAnalytics, createNewParagraphAbove, createNewParagraphBelow, createParagraphNear, walkNextNode, walkPrevNode } from './commands';
+export { insertContentDeleteRange } from './insertContentDeleteRange';
 export type { WalkNode } from './commands';
 
 export { GUTTER_SELECTOR, GUTTER_SIZE_IN_PX, GUTTER_SIZE_MOBILE_IN_PX } from './scroll-gutter';
@@ -386,7 +269,8 @@ export function shallowEqual(obj1: any = {}, obj2: any = {}): boolean {
 	);
 }
 
-export { inputRuleWithAnalytics, createWrappingJoinRule, createRule } from './input-rules';
+export { createRule } from './createRule';
+export { inputRuleWithAnalytics, createWrappingJoinRule } from './input-rules';
 
 export function isSelectionInsideLastNodeInDocument(selection: Selection): boolean {
 	const docNode = selection.$anchor.node(0);
@@ -602,8 +486,5 @@ export type { PageElementCounts } from './page-element-counts';
 
 export { withFeatureFlaggedComponent } from './withFeatureFlaggedComponent';
 
-export {
-	isNodeOfSameBaseType,
-	getBaseNodeTypeName,
-	isNodeTypeValidChildOf,
-} from './node-type-utils';
+export { isNodeTypeValidChildOf } from './isNodeTypeValidChildOf';
+export { isNodeOfSameBaseType, getBaseNodeTypeName } from './node-type-utils';

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a727368cfb18b24d47310dc3c4008c75>>
+ * @codegen <<SignedSource::181ed98a5f824ea5b6aa157718bc5722>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -67,6 +67,7 @@ import {
 import { HomeIcon, HomeLogo, HomeLogoCS } from '../../../src/artifacts/logo-components/home';
 import { HubIcon, HubLogoCS } from '../../../src/artifacts/logo-components/hub';
 import { JiraIcon, JiraLogo, JiraLogoCS } from '../../../src/artifacts/logo-components/jira';
+import { JiraCodingAgentIcon } from '../../../src/artifacts/logo-components/jira-coding-agent';
 import {
 	JiraDataCenterIcon,
 	JiraDataCenterLogoCS,
@@ -576,6 +577,16 @@ export const rows: Array<{
 		Icon20: (props) => <DxIcon {...props} size="20" />,
 		Icon24: (props) => <DxIcon {...props} size="24" />,
 		Icon32: (props) => <DxIcon {...props} size="32" />,
+		Logo: null,
+		LogoCS: null,
+	},
+	{
+		name: 'Jira Coding Agent',
+		Icon12: (props) => <JiraCodingAgentIcon {...props} size="12" />,
+		Icon16: (props) => <JiraCodingAgentIcon {...props} size="16" />,
+		Icon20: (props) => <JiraCodingAgentIcon {...props} size="20" />,
+		Icon24: (props) => <JiraCodingAgentIcon {...props} size="24" />,
+		Icon32: (props) => <JiraCodingAgentIcon {...props} size="32" />,
 		Logo: null,
 		LogoCS: null,
 	},

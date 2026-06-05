@@ -1,3 +1,4 @@
+import type { ConfluencePageAri } from '@atlassian/ari';
 import type { AgentManagedExtensionPluginOptions } from '@atlassian/editor-plugin-agent-managed-extension';
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
 		 * Defaults to `com.atlassian.confluence.macro.core`.
 		 */
 		extensionType?: string;
+		referenceObjectAri?: ConfluencePageAri;
 	};
 }
 
@@ -23,5 +25,6 @@ export function agentManagedExtensionPluginOptions({
 }: Props): AgentManagedExtensionPluginOptions {
 	return {
 		extensionType: options?.extensionType,
+		referenceObjectAri: options?.referenceObjectAri,
 	};
 }

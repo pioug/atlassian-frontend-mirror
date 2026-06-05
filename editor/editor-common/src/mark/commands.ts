@@ -7,6 +7,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { EditorCommand } from '../types';
 
+import { entireSelectionContainsMark } from './entireSelectionContainsMark';
+
 const SMART_TO_ASCII: { [char: string]: string } = {
 	'…': '...',
 	'→': '->',
@@ -21,24 +23,6 @@ const SMART_TO_ASCII: { [char: string]: string } = {
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp
 const FIND_SMART_CHAR = new RegExp(`[${Object.keys(SMART_TO_ASCII).join('')}]`, 'g');
-
-export function filterChildrenBetween(
-	doc: PMNode,
-	from: number,
-	to: number,
-	predicate: (node: PMNode, pos: number, parent: PMNode | null) => boolean | undefined,
-): {
-	node: PMNode;
-	pos: number;
-}[] {
-	const results = [] as { node: PMNode; pos: number }[];
-	doc.nodesBetween(from, to, (node, pos, _parent) => {
-		if (predicate(node, pos, _parent)) {
-			results.push({ node, pos });
-		}
-	});
-	return results;
-}
 
 export function transformNonTextNodesToText(from: number, to: number, tr: Transaction): void {
 	const { doc } = tr;
@@ -136,26 +120,6 @@ export const applyMarkOnRange = (
 	return tr;
 };
 
-export const entireSelectionContainsMark = (
-	mark: Mark | MarkType,
-	doc: PMNode,
-	fromPos: number,
-	toPos: number,
-): boolean => {
-	let onlyContainsMark = true;
-
-	doc.nodesBetween(fromPos, toPos, (node) => {
-		// Skip recursion once we've found text which doesn't include the mark
-		if (!onlyContainsMark) {
-			return false;
-		}
-		if (node.isText) {
-			onlyContainsMark && (onlyContainsMark = !!mark?.isInSet(node.marks));
-		}
-	});
-	return onlyContainsMark;
-};
-
 const toggleMarkInRange =
 	(mark: Mark): EditorCommand =>
 	({ tr }) => {
@@ -225,27 +189,9 @@ export const toggleMark =
 
 		return toggleMarkInRange(mark)({ tr });
 	};
-
-/**
- * A wrapper around ProseMirror removeMark and removeStoredMark, which handles mark removal in text, CellSelections and cursor stored marks.
- */
-export const removeMark =
-	(mark: MarkType | Mark): EditorCommand =>
-	({ tr }) => {
-		const { selection } = tr;
-
-		if (selection instanceof CellSelection) {
-			selection.forEachCell((cell, cellPos) => {
-				const from = cellPos;
-				const to = cellPos + cell.nodeSize;
-				tr.removeMark(from, to, mark);
-			});
-		} else if (selection instanceof TextSelection && selection.$cursor) {
-			tr.removeStoredMark(mark);
-		} else {
-			const { from, to } = selection;
-			tr.removeMark(from, to, mark);
-		}
-
-		return tr;
-	};
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { filterChildrenBetween } from './filterChildrenBetween';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { entireSelectionContainsMark } from './entireSelectionContainsMark';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { removeMark } from './removeMark';

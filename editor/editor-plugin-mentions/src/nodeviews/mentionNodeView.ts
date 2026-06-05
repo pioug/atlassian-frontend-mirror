@@ -9,6 +9,7 @@ import type { NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { MentionProvider } from '@atlaskit/mention';
 import { isResolvingMentionProvider, MentionNameStatus } from '@atlaskit/mention/resource';
 import type { MentionNameDetails } from '@atlaskit/mention/resource';
+import type { MentionDisabledState, MentionDisabledStateInput } from '@atlaskit/mention/types';
 import { isRestricted } from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -16,6 +17,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { MentionsPlugin } from '../mentionsPluginType';
 import type { MentionPluginOptions } from '../types';
 
+import { disabledTooltipRenderer } from './disabledTooltipRenderer';
 import { profileCardRenderer } from './profileCardRenderer';
 
 const primitiveClassName = 'editor-mention-primitive';
@@ -94,9 +96,16 @@ const handleProviderName = async (
 	}
 };
 
-type MentionState = 'self' | 'default' | 'restricted';
+type MentionState = 'self' | 'default' | 'restricted' | 'disabled';
 
-const getNewState = (isHighlighted: boolean, isRestricted: boolean): MentionState => {
+const getNewState = (
+	isHighlighted: boolean,
+	isRestricted: boolean,
+	isDisabled: boolean,
+): MentionState => {
+	if (isDisabled) {
+		return 'disabled';
+	}
 	if (isHighlighted) {
 		return 'self';
 	}
@@ -107,7 +116,6 @@ const getNewState = (isHighlighted: boolean, isRestricted: boolean): MentionStat
 };
 
 export class MentionNodeView implements NodeView {
-	private state: MentionState = 'default';
 	dom: Node;
 	domElement: HTMLElement | undefined;
 	contentDOM: HTMLElement | undefined;
@@ -117,6 +125,14 @@ export class MentionNodeView implements NodeView {
 	private destroyProfileCard: (() => void) | undefined;
 	private removeProfileCard: (() => void) | undefined;
 	private mentionPrimitiveElement: HTMLElement | undefined;
+	private disabledTooltip:
+		| {
+				destroy: () => void;
+				setTooltip: (text: string | undefined) => void;
+		  }
+		| undefined;
+	private unsubscribeFromDisabledStateChanges: (() => void) | undefined;
+	private subscribedProvider: MentionProvider | undefined;
 
 	constructor(node: PMNode, config: MentionNodeViewProps) {
 		const { options, api, portalProviderAPI } = config;
@@ -132,9 +148,11 @@ export class MentionNodeView implements NodeView {
 
 		const { mentionProvider } = api?.mention.sharedState.currentState() ?? {};
 		this.updateState(mentionProvider);
+		this.subscribeToProviderDisabledStateChanges(mentionProvider);
 
 		this.cleanup = api?.mention.sharedState.onChange(({ nextSharedState }) => {
 			this.updateState(nextSharedState?.mentionProvider);
+			this.subscribeToProviderDisabledStateChanges(nextSharedState?.mentionProvider);
 		});
 
 		const { destroyProfileCard, removeProfileCard } = profileCardRenderer({
@@ -158,9 +176,91 @@ export class MentionNodeView implements NodeView {
 		this.removeProfileCard = removeProfileCard;
 	}
 
-	private setClassList(state: MentionState): void {
+	private setClassList(state: MentionState, disabledTooltip: string | undefined): void {
 		this.mentionPrimitiveElement?.classList.toggle('mention-self', state === 'self');
 		this.mentionPrimitiveElement?.classList.toggle('mention-restricted', state === 'restricted');
+		this.mentionPrimitiveElement?.classList.toggle('mention-disabled', state === 'disabled');
+		// Mirror the React `<Mention>` a11y behaviour: when the chip is
+		// disabled, expose `aria-disabled` so assistive tech announces it as
+		// such. Also surface the tooltip text via `aria-label` so screen-reader
+		// users hear *why* the chip is disabled, matching the React `<Mention>`
+		// behaviour at `Mention/index.tsx` line 152.
+		if (this.domElement) {
+			if (state === 'disabled') {
+				this.domElement.setAttribute('aria-disabled', 'true');
+				if (disabledTooltip) {
+					const text = this.node.attrs.text || '@...';
+					this.domElement.setAttribute('aria-label', `${text} — ${disabledTooltip}`);
+				}
+			} else {
+				this.domElement.removeAttribute('aria-disabled');
+				this.domElement.removeAttribute('aria-label');
+			}
+		}
+	}
+
+	private getDisabledState(
+		mentionProvider: MentionProvider | undefined,
+	): MentionDisabledState | undefined {
+		const input: MentionDisabledStateInput = { id: this.node.attrs.id };
+		return mentionProvider?.getMentionDisabledState?.(input);
+	}
+
+	/**
+	 * Subscribes this NodeView to disabled-state-change notifications on the
+	 * supplied provider so already-rendered chips can re-evaluate themselves
+	 * when the consumer's predicate inputs change (e.g. the active agent
+	 * selection toggling in Rovo Chat). No-op for providers that don't
+	 * implement `subscribeToDisabledStateChanges`.
+	 *
+	 * Idempotent: re-calling with the same provider keeps the existing
+	 * subscription; passing a different provider tears the old subscription
+	 * down before attaching the new one. Safe to call from the sharedState
+	 * `onChange` handler when the editor swaps providers.
+	 */
+	private subscribeToProviderDisabledStateChanges(
+		mentionProvider: MentionProvider | undefined,
+	): void {
+		if (this.subscribedProvider === mentionProvider) {
+			return;
+		}
+		this.unsubscribeFromDisabledStateChanges?.();
+		this.unsubscribeFromDisabledStateChanges = undefined;
+		this.subscribedProvider = mentionProvider;
+		if (!mentionProvider?.subscribeToDisabledStateChanges) {
+			return;
+		}
+		this.unsubscribeFromDisabledStateChanges = mentionProvider.subscribeToDisabledStateChanges(
+			() => {
+				this.updateState(this.subscribedProvider);
+			},
+		);
+	}
+
+	private syncDisabledTooltip(disabledState: MentionDisabledState | undefined): void {
+		// Capture the tooltip text into a local so the rest of the method can
+		// branch on a truthy string instead of re-asserting non-null fields
+		// off of `disabledState`.
+		const tooltipText: string | undefined = disabledState?.disabled
+			? disabledState.tooltip
+			: undefined;
+		const chip = this.mentionPrimitiveElement;
+		const { portalProviderAPI } = this.config;
+		if (!chip || !portalProviderAPI) {
+			return;
+		}
+		if (tooltipText) {
+			if (!this.disabledTooltip) {
+				this.disabledTooltip = disabledTooltipRenderer({
+					chipElement: chip,
+					portalProviderAPI,
+				});
+			}
+			this.disabledTooltip.setTooltip(tooltipText);
+		} else if (this.disabledTooltip) {
+			this.disabledTooltip.destroy();
+			this.disabledTooltip = undefined;
+		}
 	}
 
 	private setTextContent(name: string | undefined) {
@@ -188,14 +288,36 @@ export class MentionNodeView implements NodeView {
 			? this.shouldHighlightMention(mentionProvider)
 			: (mentionProvider?.shouldHighlightMention({ id: this.node.attrs.id }) ?? false);
 
-		const newState = getNewState(isHighlighted, isRestricted(this.node.attrs.accessLevel));
-		if (newState !== this.state) {
-			this.setClassList(newState);
-			this.state = newState;
-		}
+		const disabledState = this.getDisabledState(mentionProvider);
+		const isDisabled = !!disabledState?.disabled;
+
+		const newState = getNewState(
+			isHighlighted,
+			isRestricted(this.node.attrs.accessLevel),
+			isDisabled,
+		);
+		const disabledTooltip = disabledState?.disabled ? disabledState.tooltip : undefined;
+		// `setClassList` always runs so the aria-label (which depends on the
+		// tooltip text) stays in sync when the tooltip reason changes while
+		// the chip remains disabled. State-change-only writes would leave a
+		// stale aria-label after a tooltip-text-only update.
+		this.setClassList(newState, disabledTooltip);
+		// Tooltip wiring runs every update (not just on state change) so that
+		// the tooltip text stays in sync if the disabled reason changes while
+		// the chip is already disabled.
+		this.syncDisabledTooltip(disabledState);
+
 		const name = await handleProviderName(mentionProvider, this.node);
 		this.setTextContent(name);
-		if (name && this.domElement && this.config.options?.profilecardProvider) {
+		// Only overwrite the disabled-state aria-label with the name-based one
+		// when the chip is NOT disabled; otherwise the disabled reason set in
+		// `setClassList` would be silently clobbered, regressing a11y.
+		if (
+			name &&
+			this.domElement &&
+			this.config.options?.profilecardProvider &&
+			newState !== 'disabled'
+		) {
 			this.domElement.setAttribute('aria-label', getAccessibilityLabelFromName(name));
 		}
 	}
@@ -219,8 +341,23 @@ export class MentionNodeView implements NodeView {
 	}
 
 	destroy(): void {
+		// Surface the destruction to the provider before tearing down so the
+		// chat layer can react (e.g. drop the agent id from `selectedAgentIds`).
+		// This is the lowest-level deletion signal — fires for backspace,
+		// select-and-delete, programmatic doc replaces, and editor unmount.
+		try {
+			this.subscribedProvider?.notifyMentionDestroyed?.({ id: this.node.attrs.id });
+		} catch (_error) {
+			// Defensive: never let consumer-side notification errors prevent
+			// the NodeView from cleaning up its own resources below.
+		}
 		this.cleanup?.();
 		this.destroyProfileCard?.();
+		this.disabledTooltip?.destroy();
+		this.disabledTooltip = undefined;
+		this.unsubscribeFromDisabledStateChanges?.();
+		this.unsubscribeFromDisabledStateChanges = undefined;
+		this.subscribedProvider = undefined;
 	}
 
 	deselectNode(): void {

@@ -13,7 +13,8 @@ import type {
 import type { DispatchAnalyticsEvent } from '../analytics';
 
 import { cancelCallback, scheduleCallback } from './lazy-scheduler';
-import { LazyNodeView, makeNodePlaceholderId } from './node-view';
+import { makeNodePlaceholderId } from './makeNodePlaceholderId';
+import { LazyNodeView } from './node-view';
 import type { LazyNodeViewToDOMConfiguration, NodeViewConstructor } from './types';
 
 export { convertToInlineCss } from './css-helper';

@@ -3,7 +3,7 @@
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::ecdf4f84ae7b36849943b200af52ee54>>
+ * @codegen <<SignedSource::620de1bdd9882e214dcc9ae141009ae7>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -1143,7 +1143,7 @@ export const tokens: Token[] = [
 	},
 	{
 		name: 'color.border.accent.lime',
-		path: ['color', 'border', 'accent', 'lime'],
+		path: ['color', 'border', 'accent', 'lime', '[default]'],
 		description:
 			'Use for lime borders on non-bold backgrounds when there is no meaning tied to the color.',
 		exampleValue: '#6A9A23',
@@ -1154,8 +1154,20 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.border.accent.lime.subtle',
+		path: ['color', 'border', 'accent', 'lime', 'subtle'],
+		description:
+			'Use for decorative lime borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#B3DF72',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
 		name: 'color.border.accent.red',
-		path: ['color', 'border', 'accent', 'red'],
+		path: ['color', 'border', 'accent', 'red', '[default]'],
 		description:
 			'Use for red borders on non-bold backgrounds when there is no meaning tied to the color.',
 		exampleValue: '#E2483D',
@@ -1166,8 +1178,20 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.border.accent.red.subtle',
+		path: ['color', 'border', 'accent', 'red', 'subtle'],
+		description:
+			'Use for decorative red borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#FD9891',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
 		name: 'color.border.accent.orange',
-		path: ['color', 'border', 'accent', 'orange'],
+		path: ['color', 'border', 'accent', 'orange', '[default]'],
 		description:
 			'Use for orange borders on non-bold backgrounds when there is no meaning tied to the color.',
 		exampleValue: '#E06C00',
@@ -1178,8 +1202,20 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.border.accent.orange.subtle',
+		path: ['color', 'border', 'accent', 'orange', 'subtle'],
+		description:
+			'Use for decorative orange borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#FBC828',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
 		name: 'color.border.accent.yellow',
-		path: ['color', 'border', 'accent', 'yellow'],
+		path: ['color', 'border', 'accent', 'yellow', '[default]'],
 		description:
 			'Use for yellow borders on non-bold backgrounds when there is no meaning tied to the color.',
 		exampleValue: '#B38600',
@@ -1190,8 +1226,20 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.border.accent.yellow.subtle',
+		path: ['color', 'border', 'accent', 'yellow', 'subtle'],
+		description:
+			'Use for decorative yellow borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#EED12B',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
 		name: 'color.border.accent.green',
-		path: ['color', 'border', 'accent', 'green'],
+		path: ['color', 'border', 'accent', 'green', '[default]'],
 		description:
 			'Use for green borders on non-bold backgrounds when there is no meaning tied to the color.',
 		exampleValue: '#22A06B',
@@ -1202,8 +1250,20 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.border.accent.green.subtle',
+		path: ['color', 'border', 'accent', 'green', 'subtle'],
+		description:
+			'Use for decorative green borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#7EE2B8',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
 		name: 'color.border.accent.teal',
-		path: ['color', 'border', 'accent', 'teal'],
+		path: ['color', 'border', 'accent', 'teal', '[default]'],
 		description:
 			'Use for teal borders on non-bold backgrounds when there is no meaning tied to the color.',
 		exampleValue: '#2898BD',
@@ -1214,8 +1274,20 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.border.accent.teal.subtle',
+		path: ['color', 'border', 'accent', 'teal', 'subtle'],
+		description:
+			'Use for decorative teal borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#9DD9EE',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
 		name: 'color.border.accent.blue',
-		path: ['color', 'border', 'accent', 'blue'],
+		path: ['color', 'border', 'accent', 'blue', '[default]'],
 		description:
 			'Use for blue borders on non-bold backgrounds when there is no meaning tied to the color.',
 		exampleValue: '#357DE8',
@@ -1226,8 +1298,20 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.border.accent.blue.subtle',
+		path: ['color', 'border', 'accent', 'blue', 'subtle'],
+		description:
+			'Use for decorative blue borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#8FB8F6',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
 		name: 'color.border.accent.purple',
-		path: ['color', 'border', 'accent', 'purple'],
+		path: ['color', 'border', 'accent', 'purple', '[default]'],
 		description:
 			'Use for purple borders on non-bold backgrounds when there is no meaning tied to the color.',
 		exampleValue: '#AF59E1',
@@ -1238,8 +1322,20 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.border.accent.purple.subtle',
+		path: ['color', 'border', 'accent', 'purple', 'subtle'],
+		description:
+			'Use for decorative purple borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#D8A0F7',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
 		name: 'color.border.accent.magenta',
-		path: ['color', 'border', 'accent', 'magenta'],
+		path: ['color', 'border', 'accent', 'magenta', '[default]'],
 		description:
 			'Use for magenta borders on non-bold backgrounds when there is no meaning tied to the color.',
 		exampleValue: '#CD519D',
@@ -1250,10 +1346,34 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.border.accent.magenta.subtle',
+		path: ['color', 'border', 'accent', 'magenta', 'subtle'],
+		description:
+			'Use for decorative magenta borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#F797D2',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
 		name: 'color.border.accent.gray',
-		path: ['color', 'border', 'accent', 'gray'],
+		path: ['color', 'border', 'accent', 'gray', '[default]'],
 		description: 'Use for borders on non-bold gray accent backgrounds.',
 		exampleValue: '#7D818A',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.gray.subtle',
+		path: ['color', 'border', 'accent', 'gray', 'subtle'],
+		description:
+			'Use for decorative gray borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#DDDEE1',
 		usageGuidelines: {
 			usage:
 				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
@@ -1331,7 +1451,7 @@ export const tokens: Token[] = [
 	},
 	{
 		name: 'color.border.danger',
-		path: ['color', 'border', 'danger'],
+		path: ['color', 'border', 'danger', '[default]'],
 		description:
 			'Use for borders communicating critical information, such as the borders on invalid text fields.',
 		exampleValue: '#E2483D',
@@ -1342,8 +1462,20 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.border.danger.subtle',
+		path: ['color', 'border', 'danger', 'subtle'],
+		description:
+			'Use for decorative danger borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#FD9891',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
 		name: 'color.border.warning',
-		path: ['color', 'border', 'warning'],
+		path: ['color', 'border', 'warning', '[default]'],
 		description: 'Use for borders communicating caution.',
 		exampleValue: '#E06C00',
 		usageGuidelines: {
@@ -1353,8 +1485,20 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.border.warning.subtle',
+		path: ['color', 'border', 'warning', 'subtle'],
+		description:
+			'Use for decorative warning borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#FBC828',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
 		name: 'color.border.success',
-		path: ['color', 'border', 'success'],
+		path: ['color', 'border', 'success', '[default]'],
 		description:
 			'Use for borders communicating a favorable outcome, such as the borders on validated text fields.',
 		exampleValue: '#6A9A23',
@@ -1365,8 +1509,20 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.border.success.subtle',
+		path: ['color', 'border', 'success', 'subtle'],
+		description:
+			'Use for decorative success borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#B3DF72',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
 		name: 'color.border.discovery',
-		path: ['color', 'border', 'discovery'],
+		path: ['color', 'border', 'discovery', '[default]'],
 		description:
 			'Use for borders communicating change or something new, such as the borders in onboarding spotlights.',
 		exampleValue: '#AF59E1',
@@ -1377,10 +1533,34 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.border.discovery.subtle',
+		path: ['color', 'border', 'discovery', 'subtle'],
+		description:
+			'Use for decorative discovery borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#D8A0F7',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
 		name: 'color.border.information',
-		path: ['color', 'border', 'information'],
+		path: ['color', 'border', 'information', '[default]'],
 		description: 'Use for borders communicating information or something in-progress.',
 		exampleValue: '#357DE8',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.information.subtle',
+		path: ['color', 'border', 'information', 'subtle'],
+		description:
+			'Use for decorative information borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#8FB8F6',
 		usageGuidelines: {
 			usage:
 				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
@@ -3177,6 +3357,18 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.background.danger.subtle',
+		path: ['color', 'background', 'danger', 'subtle', '[default]'],
+		description:
+			'Background colour for non-interactive elements communicating critical danger information (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.danger.bold or color.background.danger.subtler for interactive states.',
+		exampleValue: '#FD9891',
+		usageGuidelines: {
+			usage:
+				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
 		name: 'color.background.danger.bold',
 		path: ['color', 'background', 'danger', 'bold', '[default]'],
 		description:
@@ -3278,6 +3470,18 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.background.warning.subtle',
+		path: ['color', 'background', 'warning', 'subtle', '[default]'],
+		description:
+			'Background colour for non-interactive elements communicating caution (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.warning.bold or color.background.warning.subtler for interactive states.',
+		exampleValue: '#FBD779',
+		usageGuidelines: {
+			usage:
+				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
 		name: 'color.background.warning.bold',
 		path: ['color', 'background', 'warning', 'bold', '[default]'],
 		description:
@@ -3372,6 +3576,18 @@ export const tokens: Token[] = [
 		name: 'color.background.success.subtler.pressed',
 		path: ['color', 'background', 'success', 'subtler', 'pressed'],
 		description: 'Pressed state of color.background.success.subtler',
+		exampleValue: '#B3DF72',
+		usageGuidelines: {
+			usage:
+				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
+		name: 'color.background.success.subtle',
+		path: ['color', 'background', 'success', 'subtle', '[default]'],
+		description:
+			'Background colour for non-interactive elements communicating success (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.success.bold or color.background.success.subtler for interactive states.',
 		exampleValue: '#B3DF72',
 		usageGuidelines: {
 			usage:
@@ -3482,6 +3698,18 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.background.discovery.subtle',
+		path: ['color', 'background', 'discovery', 'subtle', '[default]'],
+		description:
+			'Background colour for non-interactive elements communicating discovery (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.discovery.bold or color.background.discovery.subtler for interactive states.',
+		exampleValue: '#D8A0F7',
+		usageGuidelines: {
+			usage:
+				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
 		name: 'color.background.discovery.bold',
 		path: ['color', 'background', 'discovery', 'bold', '[default]'],
 		description:
@@ -3576,6 +3804,18 @@ export const tokens: Token[] = [
 		name: 'color.background.information.subtler.pressed',
 		path: ['color', 'background', 'information', 'subtler', 'pressed'],
 		description: 'Pressed state of color.background.information.subtler',
+		exampleValue: '#8FB8F6',
+		usageGuidelines: {
+			usage:
+				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
+		name: 'color.background.information.subtle',
+		path: ['color', 'background', 'information', 'subtle', '[default]'],
+		description:
+			'Background colour for non-interactive elements communicating information (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.information.bold or color.background.information.subtler for interactive states.',
 		exampleValue: '#8FB8F6',
 		usageGuidelines: {
 			usage:

@@ -25,14 +25,13 @@ import {
 	getThirdPartyARI,
 	isFinalState,
 } from '../../state/helpers';
-import useInlineActionNudgeExperiment from '../../state/hooks/use-inline-action-nudge-experiment';
 import { useSmartLinkCrossProductUrlWrapperGated } from '../../state/hooks/use-smart-link-cross-product-url-wrapper';
 import { SmartLinkModalProvider } from '../../state/modal';
 import { isSpecialClick, isSpecialEvent, isSpecialKey } from '../../utils';
 import { combineActionOptions } from '../../utils/actions/combine-action-options';
 import { fireLinkClickedEvent } from '../../utils/analytics/click';
 import { SmartLinkAnalyticsContext } from '../../utils/analytics/SmartLinkAnalyticsContext';
-import { isAuxClick } from '../../utils/click-helpers';
+import { getAnchorAttributesFromEvent, isAuxClick } from '../../utils/click-helpers';
 import { isFlexibleUiCard } from '../../utils/flexible';
 import * as measure from '../../utils/performance';
 import { BlockCard } from '../BlockCard';
@@ -93,7 +92,7 @@ function Component({
 	const services = getServices(state.details);
 	const thirdPartyARI = getThirdPartyARI(state.details);
 	const firstPartyIdentifier = getFirstPartyIdentifier();
-	const wrapUrlWithCrossProductAnalytics = useSmartLinkCrossProductUrlWrapperGated({
+	const appendCrossProductAnalyticsParams = useSmartLinkCrossProductUrlWrapperGated({
 		details: state.details,
 	});
 
@@ -102,15 +101,12 @@ function Component({
 		platform,
 	});
 
-	const { isEnabled: rovoActionsCtaShown } = useInlineActionNudgeExperiment(
-		url,
-		showHoverPreview,
-		actionOptions,
-	);
+	// TODO: [ZS] Add new experiment flag to determine if the Rovo Actions CTA should be shown
+	const rovoActionsCtaShown = false;
 
 	const fire3PClickEvent = fg('platform_smartlink_3pclick_analytics')
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useFire3PWorkflowsClickEvent(firstPartyIdentifier, thirdPartyARI)
+		useFire3PWorkflowsClickEvent(firstPartyIdentifier, thirdPartyARI)
 		: undefined;
 
 	// Shared scope guard for all 3P-click handlers.
@@ -143,63 +139,140 @@ function Component({
 				disablePreviewPanel &&
 				editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true });
 
-			// If preview panel is available and the user clicked on the link,
-			// delegate the click to the preview panel handler
-			if (
-				!isModifierKeyPressed &&
-				ari &&
-				name &&
-				openPreviewPanel &&
-				isPreviewPanelAvailable?.({ ari }) &&
-				!isDisablePreviewPanel
-			) {
-				event.preventDefault();
-				event.stopPropagation();
+			if (fg('platform_smartlink_xpc_url_wrapping')) {
+				// FIXME: InlineCard, BlockCard and EmbedCard call event.preventDefault() internally
+				// before the event bubbles up to this handler. This forces us to snapshot
+				// event.defaultPrevented before calling onClick to detect whether the consumer
+				// specifically prevented navigation. Ideally those components should not call
+				// preventDefault so this workaround can be removed.
+				const isEventDefaultPrevented = event.defaultPrevented;
 
-				openPreviewPanel({
-					url,
-					ari,
-					name,
-					iconUrl: getObjectIconUrl(state.details),
-					panelData: {
-						embedUrl: expValEquals('platform_hover_card_preview_panel', 'cohort', 'test')
-							? extractSmartLinkEmbed(state.details)?.src
-							: undefined,
-					},
-				});
+				const canOpenPreviewPanel =
+					!isModifierKeyPressed &&
+					ari &&
+					name &&
+					openPreviewPanel &&
+					isPreviewPanelAvailable?.({ ari }) &&
+					!isDisablePreviewPanel;
 
-				fireLinkClickedEvent(createAnalyticsEvent)(event, {
-					attributes: {
-						clickOutcome: 'previewPanel',
-					},
-				});
-				return;
-			} else if (!onClick && !isFlexibleUi) {
-				const clickUrl = getClickUrl(url, state.details);
+				// Preview panel takes priority over link navigation when available.
+				if (canOpenPreviewPanel) {
+					event.preventDefault();
+					event.stopPropagation();
 
-				// Ctrl+left click on mac typically doesn't trigger onClick
-				// The event could have potentially had `e.preventDefault()` called on it by now
-				// event by smart card internally
-				// If it has been called then only then can `isSpecialEvent` be true.
-				const target = isSpecialEvent(event) ? '_blank' : '_self';
+					openPreviewPanel({
+						url,
+						ari,
+						name,
+						iconUrl: getObjectIconUrl(state.details),
+						panelData: {
+							embedUrl: expValEquals('platform_hover_card_preview_panel', 'cohort', 'test')
+								? extractSmartLinkEmbed(state.details)?.src
+								: undefined,
+						},
+					});
 
-				if (fg('platform_smartlink_xpc_url_wrapping')) {
-					const wrappedUrl = wrapUrlWithCrossProductAnalytics(clickUrl);
-					window.open(wrappedUrl, target);
-				} else {
-					window.open(clickUrl, target);
+					fireLinkClickedEvent(createAnalyticsEvent)(event, {
+						attributes: {
+							clickOutcome: 'previewPanel',
+						},
+					});
+
+					return;
 				}
 
-				fireLinkClickedEvent(createAnalyticsEvent)(event, {
-					attributes: {
-						clickOutcome: target === '_blank' ? 'clickThroughNewTabOrWindow' : 'clickThrough',
-					},
-				});
+				// For FlexibleCard, read target from the clicked anchor element (e.g. _blank for links
+				// rendered with explicit target). For classic cards, default to _self
+				const { target: anchorTarget } = getAnchorAttributesFromEvent(event);
+				const target = isSpecialEvent(event) ? '_blank' : isFlexibleUi ? anchorTarget : '_self';
+
+				// FIXME: preferredUrl should be rendered in the DOM anchor href instead of derived at click time
+				const preferredUrl = getClickUrl(url, state.details);
+				const destinationUrl = appendCrossProductAnalyticsParams(preferredUrl) ?? preferredUrl;
+
+				// FIXME: Consumer that handle click even themselves via callback won't have the decorated URL
+				onClick?.(event);
+
+				// Check if the event is prevented via onClick callback
+				const consumerPreventedNavigation = event.defaultPrevented && !isEventDefaultPrevented;
+
+				// Classic cards (InlineCard, BlockCard, EmbedCard) rely on their own anchor navigation
+				// when onClick is provided, so this handler should not open the link for them.
+				// FlexibleCard's anchor is prevented from native navigation, so this handler always
+				// opens the link for FlexibleCard unless the consumer's onClick called preventDefault.
+				const shouldOpenLink = isFlexibleUi || !onClick;
+				const doOpenLink = shouldOpenLink && !consumerPreventedNavigation;
+				if (doOpenLink) {
+					event.preventDefault();
+					window.open(destinationUrl, target);
+				}
+
+				// Only set clickOutcome when this handler actually opened the link.
+				// If a parent onClick handled navigation, fire a generic click event instead.
+				fireLinkClickedEvent(createAnalyticsEvent)(
+					event,
+					doOpenLink
+						? {
+								attributes: {
+									clickOutcome: target === '_blank' ? 'clickThroughNewTabOrWindow' : 'clickThrough',
+								},
+							}
+						: undefined,
+				);
 			} else {
-				if (onClick) {
-					onClick(event);
+				// If preview panel is available and the user clicked on the link,
+				// delegate the click to the preview panel handler
+				if (
+					!isModifierKeyPressed &&
+					ari &&
+					name &&
+					openPreviewPanel &&
+					isPreviewPanelAvailable?.({ ari }) &&
+					!isDisablePreviewPanel
+				) {
+					event.preventDefault();
+					event.stopPropagation();
+
+					openPreviewPanel({
+						url,
+						ari,
+						name,
+						iconUrl: getObjectIconUrl(state.details),
+						panelData: {
+							embedUrl: expValEquals('platform_hover_card_preview_panel', 'cohort', 'test')
+								? extractSmartLinkEmbed(state.details)?.src
+								: undefined,
+						},
+					});
+
+					fireLinkClickedEvent(createAnalyticsEvent)(event, {
+						attributes: {
+							clickOutcome: 'previewPanel',
+						},
+					});
+					return;
+				} else if (!onClick && !isFlexibleUi) {
+					const clickUrl = getClickUrl(url, state.details);
+
+					// Ctrl+left click on mac typically doesn't trigger onClick
+					// The event could have potentially had `e.preventDefault()` called on it by now
+					// event by smart card internally
+					// If it has been called then only then can `isSpecialEvent` be true.
+					const target = isSpecialEvent(event) ? '_blank' : '_self';
+
+					window.open(clickUrl, target);
+
+					fireLinkClickedEvent(createAnalyticsEvent)(event, {
+						attributes: {
+							clickOutcome: target === '_blank' ? 'clickThroughNewTabOrWindow' : 'clickThrough',
+						},
+					});
+				} else {
+					if (onClick) {
+						onClick(event);
+					}
+					fireLinkClickedEvent(createAnalyticsEvent)(event);
 				}
-				fireLinkClickedEvent(createAnalyticsEvent)(event);
 			}
 		},
 		[
@@ -210,7 +283,7 @@ function Component({
 			definitionId,
 			onClick,
 			url,
-			wrapUrlWithCrossProductAnalytics,
+			appendCrossProductAnalyticsParams,
 			state.details,
 			ari,
 			name,
@@ -297,10 +370,10 @@ function Component({
 						state.error === undefined
 							? null
 							: {
-									name: state.error.name,
-									kind: state.error.kind,
-									type: state.error.type,
-								},
+								name: state.error.name,
+								kind: state.error.kind,
+								type: state.error.type,
+							},
 				});
 			}
 		}

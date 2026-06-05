@@ -17,15 +17,10 @@ import Tooltip from '@atlaskit/tooltip';
 import { SortOrder } from '../types';
 
 import { SORTABLE_COLUMN_ICON_CLASSNAME } from './consts';
-import { sortingAriaLabelMessages, sortingIconMessages } from './messages';
 import { NewSortingIcon } from './NewSortingIcon';
-
-export enum StatusClassNames {
-	ASC = 'sorting-icon-svg__asc',
-	DESC = 'sorting-icon-svg__desc',
-	NO_ORDER = 'sorting-icon-svg__no_order',
-	SORTING_NOT_ALLOWED = 'sorting-icon-svg__not-allowed',
-}
+import { sortingAriaLabelMessages } from './sortingAriaLabelMessages';
+import { sortingIconMessages } from './sortingIconMessages';
+import { StatusClassNames } from './StatusClassNames';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const buttonStyles = css`
@@ -233,3 +228,5 @@ const _default_1: FC<WithIntlProps<SortingIconProps>> & {
 	WrappedComponent: ComponentType<SortingIconProps>;
 } = injectIntl(SortingIcon);
 export default _default_1;
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { StatusClassNames } from './StatusClassNames';

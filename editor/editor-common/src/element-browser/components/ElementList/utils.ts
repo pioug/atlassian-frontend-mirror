@@ -1,22 +1,6 @@
-import {
-	ELEMENT_LIST_PADDING,
-	FLEX_ITEMS_CONTAINER_BREAKPOINT_NUMBERS,
-	SCROLLBAR_WIDTH,
-} from '../../constants';
+import { ELEMENT_LIST_PADDING, SCROLLBAR_WIDTH } from '../../constants';
 
-export function getColumnCount(clientWidth: number): number {
-	const { small, medium, large } = FLEX_ITEMS_CONTAINER_BREAKPOINT_NUMBERS;
-	switch (true) {
-		case clientWidth < small:
-			return 1;
-		case clientWidth >= small && clientWidth < medium:
-			return Math.floor(clientWidth / 200);
-		case clientWidth >= large:
-			return Math.floor(clientWidth / 248);
-		default:
-			return Math.floor(clientWidth / 220);
-	}
-}
+import { getColumnCount } from './getColumnCount';
 
 type DatumReturnType = {
 	availableWidth: number;
@@ -67,3 +51,4 @@ export function getScrollbarWidth(): number {
 		return CALCULATED_SCROLLBAR_WIDTH;
 	}
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export

@@ -1,11 +1,8 @@
 import { traverse } from '@atlaskit/adf-utils/traverse';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
-export enum UNSUPPORTED_CONTENT_LEVEL_SEVERITY {
-	NORMAL = 'normal',
-	DEGRADED = 'degraded',
-	BLOCKING = 'blocking',
-}
+import { UNSUPPORTED_CONTENT_LEVEL_SEVERITY } from './UNSUPPORTED_CONTENT_LEVEL_SEVERITY';
+import { UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS } from './UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS';
 
 type UnsupportedContentLevelThresholds = {
 	blocking: number;
@@ -20,10 +17,6 @@ export type UnsupportedContentLevelsTracking = {
 	thresholds?: Partial<UnsupportedContentLevelThresholds>;
 };
 
-export const UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS = {
-	DEGRADED: 10,
-	BLOCKING: 25,
-};
 
 const buildUnsupportedContentLevelThresholds = (
 	customThresholds?: UnsupportedContentLevelsTracking['thresholds'],
@@ -152,3 +145,7 @@ export const getUnsupportedContentLevelData = (
 		},
 	};
 };
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { UNSUPPORTED_CONTENT_LEVEL_SEVERITY } from './UNSUPPORTED_CONTENT_LEVEL_SEVERITY';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS } from './UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS';

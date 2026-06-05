@@ -9,8 +9,8 @@ export type AISummaryBlockProps = {
 	aiSummaryMinHeight?: number;
 
 	/**
-	 * Whether platform_sl_3p_auth_rovo_action or rovogrowth-640-inline-action-nudge-exp experiment value is ON for current runtime
-	 */
+	 * Whether the platform_sl_3p_auth_rovo_action experiment value is ON for current runtime
+	*/
 	isAny3pRovoActionsExperimentOn?: boolean;
 
 	/**

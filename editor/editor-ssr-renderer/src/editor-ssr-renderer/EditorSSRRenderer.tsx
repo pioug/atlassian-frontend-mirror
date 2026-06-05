@@ -11,11 +11,11 @@ import type { PMPluginFactoryParams, EditorPlugin } from '@atlaskit/editor-commo
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { EventDispatcher, createDispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import {
 	profileSSROperation,
 	SSRRenderMeasure,
 } from '@atlaskit/editor-common/performance/ssr-measures';
+import { isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 
 const SSR_TRACE_SEGMENT_NAME = 'reactEditorView/editorSSRRenderer';
 
@@ -412,7 +412,7 @@ export function EditorSSRRenderer({
 				nodePositions.set(node, pos);
 			});
 
-			if (expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)) {
+			if (isSSRStreaming()) {
 				const fragment = serializer.serializeFragment(doc.content);
 				const wrapper = document.createElement('div');
 				wrapper.appendChild(fragment);
@@ -441,7 +441,7 @@ export function EditorSSRRenderer({
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	useLayoutEffect(() => {
-		if (!expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)) {
+		if (!isSSRStreaming()) {
 			if (containerRef.current && editorHTML && typeof editorHTML !== 'string') {
 				containerRef.current.innerHTML = '';
 				containerRef.current.appendChild(editorHTML);
@@ -460,10 +460,7 @@ export function EditorSSRRenderer({
 				id={divProps.id}
 				// eslint-disable-next-line react/no-danger -- It's intentional by design
 				dangerouslySetInnerHTML={
-					typeof editorHTML === 'string' &&
-					expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
-						? { __html: editorHTML }
-						: undefined
+					typeof editorHTML === 'string' && isSSRStreaming() ? { __html: editorHTML } : undefined
 				}
 				// For some reason on SSR, the result `class` has a trailing space, that broke UFO,
 				// because ReactEditorView produces a div with `class` without space.

@@ -128,6 +128,7 @@
 		"@atlaskit/editor-plugin-width": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
+		"@atlassian/ari": "root:*",
 		"@atlassian/editor-plugin-agent-managed-extension": "workspace:^",
 		"@babel/runtime": "root:*"
 	},

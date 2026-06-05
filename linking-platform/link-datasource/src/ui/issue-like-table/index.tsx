@@ -90,6 +90,13 @@ const wrappedStyles = css({
 	whiteSpace: 'normal',
 });
 
+const richTextCellStyles = css({
+	// Richtext cells can inflate row height via large HTML content.
+	// verticalAlign 'top' ensures content aligns to the top of the cell
+	// instead of being centered in the middle of the tall row.
+	verticalAlign: 'top',
+});
+
 const tableContainerStyles = css({
 	borderBottomLeftRadius: 0,
 	borderBottomRightRadius: 0,
@@ -561,6 +568,7 @@ export const IssueLikeDataTableView = ({
 						return {
 							key,
 							columnKey: key,
+							type,
 							content: (
 								<TableCellContent
 									id={id}
@@ -815,7 +823,7 @@ export const IssueLikeDataTableView = ({
 				<tbody css={noDefaultBorderStyles} data-testid={testId && `${testId}--body`}>
 					{rows.map(({ key, cells, ref }) => (
 						<tr key={key} data-testid={testId && `${testId}--row-${key}`} ref={ref}>
-							{cells.map(({ key: cellKey, content, width }, cellIndex) => {
+							{cells.map(({ key: cellKey, type: cellType, content, width }, cellIndex) => {
 								const isLastCell = cellIndex === cells.length - 1;
 								let loadingRowStyle: React.CSSProperties = getWidthCss({
 									shouldUseWidth,
@@ -828,7 +836,14 @@ export const IssueLikeDataTableView = ({
 										colSpan={isEditable && isLastCell ? 2 : undefined}
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 										style={loadingRowStyle}
-										css={[wrappedColumnKeys?.includes(cellKey) ? wrappedStyles : truncateStyles]}
+										css={[
+											wrappedColumnKeys?.includes(cellKey)
+												? wrappedStyles
+												: truncateStyles,
+											cellType === 'richtext' &&
+												fg('platform_lp_sllv_richtext_margin_reset') &&
+												richTextCellStyles,
+										]}
 									>
 										{content}
 									</InlineEditableTableCell>

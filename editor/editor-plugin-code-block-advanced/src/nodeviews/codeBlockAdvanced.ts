@@ -4,6 +4,7 @@ import { Compartment, Facet, EditorState as CodeMirrorState } from '@codemirror/
 import type { Extension, StateEffect } from '@codemirror/state';
 import { EditorView as CodeMirror, lineNumbers, gutters } from '@codemirror/view';
 import type { ViewUpdate } from '@codemirror/view';
+import { bind } from 'bind-event-listener';
 import type { IntlShape } from 'react-intl';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
@@ -89,6 +90,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private unsubscribeContentFormat: (() => void) | undefined;
 	private invisibleAriaDescription?: HTMLSpanElement;
 	private config: ConfigProps;
+	private cleanupBorderAreaClick: (() => void) | undefined;
 
 	constructor(
 		node: PMNode,
@@ -265,6 +267,13 @@ class CodeBlockAdvancedNodeView implements NodeView {
 			this.ro.observe(this.cm.contentDOM);
 		}
 
+		if (expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
+			this.cleanupBorderAreaClick = bind(this.cm.scrollDOM, {
+				type: 'click',
+				listener: this.handleBorderAreaClick,
+			});
+		}
+
 		// We append an additional element that fixes a selection bug on chrome if the code block
 		// is the first element followed by subsequent code blocks
 		const spaceContainer = document.createElement('span');
@@ -305,6 +314,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		// decorations. When we change the breakout we destroy the node and cleanup these decorations from
 		// codemirror
 		this.clearProseMirrorDecorations();
+		this.cleanupBorderAreaClick?.();
 		this.cleanupDisabledState?.();
 		if (expValEquals('confluence_compact_text_format', 'isEnabled', true)) {
 			this.unsubscribeContentFormat?.();
@@ -531,6 +541,31 @@ class CodeBlockAdvancedNodeView implements NodeView {
 			effects: this.pmDecorationsCompartment.reconfigure(computedFacet),
 		});
 		this.updating = false;
+	}
+
+	private handleBorderAreaClick = (event: MouseEvent) => {
+		if (!this.isBorderAreaClick(event)) {
+			return;
+		}
+
+		// Prevent CodeMirror from restoring its inner selection after we hand focus and selection
+		// back to ProseMirror
+		event.preventDefault();
+		this.maybeTryingToReachNodeSelection = true;
+
+		this.view.focus();
+		this.selectCodeBlockNode(undefined);
+	};
+
+	private isBorderAreaClick(event: MouseEvent): boolean {
+		const target = event.target;
+		if (!(target instanceof HTMLElement)) {
+			return false;
+		}
+
+		// CodeMirror does not expose a stable gutter DOM handle, so this relies on its
+		// class names to distinguish interactive content/gutters from border-area clicks.
+		return !target.closest('.cm-gutters') && !target.closest('.cm-line');
 	}
 
 	stopEvent(e: Event): boolean {

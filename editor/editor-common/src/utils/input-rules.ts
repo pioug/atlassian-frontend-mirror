@@ -1,12 +1,12 @@
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { canJoin, findWrapping } from '@atlaskit/editor-prosemirror/transform';
-import { closeHistory } from '@atlaskit/prosemirror-history';
 
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '../analytics';
 import { JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST } from '../analytics';
 import type { InputRuleHandler, InputRuleWrapper } from '../types';
 
+import { createRule } from './createRule';
 type GetPayload =
 	| AnalyticsEventPayload
 	| ((state: EditorState, matchResult: RegExpExecArray) => AnalyticsEventPayload);
@@ -109,18 +109,5 @@ export const createWrappingJoinRule = ({
 
 	return createRule(match, handler);
 };
-
-export const createRule = (
-	match: RegExp,
-	handler: InputRuleHandler,
-	allowsBackwardMatch: boolean = false,
-): InputRuleWrapper => {
-	return {
-		match,
-		handler,
-		onHandlerApply: (_state, tr) => {
-			closeHistory(tr);
-		},
-		allowsBackwardMatch,
-	};
-};
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { createRule } from './createRule';

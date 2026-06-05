@@ -1,4 +1,4 @@
-import { getAutoConvertPatternsFromModule } from './module-helpers';
+import { getAutoConvertPatternsFromModule } from './getAutoConvertPatternsFromModule';
 import type {
 	ExtensionAutoConvertHandler,
 	ExtensionKey,

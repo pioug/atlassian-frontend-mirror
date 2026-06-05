@@ -2,8 +2,6 @@ import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-
 import { ActionName } from '../../../../../constants';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
@@ -18,12 +16,6 @@ const GOOGLE_PROMPTS = [
 	RovoChatPromptKey.SUGGEST_IMPROVEMENT,
 ];
 
-const GENERIC_3P_PROMPTS = [
-	// For rovogrowth-640-inline-action-nudge-exp only
-	RovoChatPromptKey.SHOW_ME_WHATS_RELEVANT,
-	RovoChatPromptKey.SUMMARIZE_THIS_FOR_ME,
-	RovoChatPromptKey.ASK_A_SPECIFIC_QUESTION,
-];
 
 const DEFAULT_PROMPTS = GOOGLE_PROMPTS;
 
@@ -44,9 +36,6 @@ const RovoChatAction = ({
 	const resolvedPrompts = useMemo(() => {
 		if (prompts) {
 			return prompts;
-		}
-		if (expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)) {
-			return GENERIC_3P_PROMPTS;
 		}
 		return DEFAULT_PROMPTS;
 	}, [prompts]);

@@ -82,6 +82,7 @@ export const logoDocsSchema: LogoDocsSchema[] = [
 	{ name: 'loom', type: 'migration', category: 'app' },
 	{ name: 'loom-blurple', type: 'new', category: 'app', skipExample: true },
 	{ name: 'loom-attribution', type: 'migration', category: 'app' },
+	{ name: 'jira-coding-agent', type: 'new', category: 'agent', skipLogo: true },
 	{ name: 'rovo', type: 'rovo-hex', category: 'app' },
 	// Strategy collection
 	{ name: 'align', type: 'new', category: 'app' },

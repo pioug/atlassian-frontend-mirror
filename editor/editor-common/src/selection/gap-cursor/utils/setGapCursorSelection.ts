@@ -1,7 +1,7 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { Side } from '../selection';
 import { GapCursorSelection } from '../selection';
+import type { Side } from '../Side';
 
 export function setGapCursorSelection(view: EditorView, pos: number, side: Side): void {
 	const { state } = view;

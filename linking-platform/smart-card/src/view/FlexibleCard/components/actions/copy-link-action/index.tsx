@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 
 import LinkIcon from '@atlaskit/icon/core/link';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
@@ -49,8 +48,7 @@ const CopyLinkAction = ({
 					label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'copy url'}
 					spacing="spacious"
 					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-					isRovoBlockCardExperimentEnabled ||
-					expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
+					isRovoBlockCardExperimentEnabled
 						? { size: props.iconSize }
 						: {})}
 				/>

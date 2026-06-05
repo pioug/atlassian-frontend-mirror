@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a1de8a9439d40392e3e4945ecf9d9214>>
+ * @codegen <<SignedSource::1db5eee8d8c450108c066b819290d824>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -120,15 +120,25 @@ const tokens = {
 	'color.icon.subtle': '--ds-icon-subtle',
 	'color.border': '--ds-border',
 	'color.border.accent.lime': '--ds-border-accent-lime',
+	'color.border.accent.lime.subtle': '--ds-border-accent-lime-subtle',
 	'color.border.accent.red': '--ds-border-accent-red',
+	'color.border.accent.red.subtle': '--ds-border-accent-red-subtle',
 	'color.border.accent.orange': '--ds-border-accent-orange',
+	'color.border.accent.orange.subtle': '--ds-border-accent-orange-subtle',
 	'color.border.accent.yellow': '--ds-border-accent-yellow',
+	'color.border.accent.yellow.subtle': '--ds-border-accent-yellow-subtle',
 	'color.border.accent.green': '--ds-border-accent-green',
+	'color.border.accent.green.subtle': '--ds-border-accent-green-subtle',
 	'color.border.accent.teal': '--ds-border-accent-teal',
+	'color.border.accent.teal.subtle': '--ds-border-accent-teal-subtle',
 	'color.border.accent.blue': '--ds-border-accent-blue',
+	'color.border.accent.blue.subtle': '--ds-border-accent-blue-subtle',
 	'color.border.accent.purple': '--ds-border-accent-purple',
+	'color.border.accent.purple.subtle': '--ds-border-accent-purple-subtle',
 	'color.border.accent.magenta': '--ds-border-accent-magenta',
+	'color.border.accent.magenta.subtle': '--ds-border-accent-magenta-subtle',
 	'color.border.accent.gray': '--ds-border-accent-gray',
+	'color.border.accent.gray.subtle': '--ds-border-accent-gray-subtle',
 	'color.border.disabled': '--ds-border-disabled',
 	'color.border.focused': '--ds-border-focused',
 	'color.border.input': '--ds-border-input',
@@ -136,10 +146,15 @@ const tokens = {
 	'color.border.selected': '--ds-border-selected',
 	'color.border.brand': '--ds-border-brand',
 	'color.border.danger': '--ds-border-danger',
+	'color.border.danger.subtle': '--ds-border-danger-subtle',
 	'color.border.warning': '--ds-border-warning',
+	'color.border.warning.subtle': '--ds-border-warning-subtle',
 	'color.border.success': '--ds-border-success',
+	'color.border.success.subtle': '--ds-border-success-subtle',
 	'color.border.discovery': '--ds-border-discovery',
+	'color.border.discovery.subtle': '--ds-border-discovery-subtle',
 	'color.border.information': '--ds-border-information',
+	'color.border.information.subtle': '--ds-border-information-subtle',
 	'color.border.bold': '--ds-border-bold',
 	'color.background.accent.lime.subtlest': '--ds-background-accent-lime-subtlest',
 	'color.background.accent.lime.subtlest.hovered': '--ds-background-accent-lime-subtlest-hovered',
@@ -308,6 +323,7 @@ const tokens = {
 	'color.background.danger.subtler': '--ds-background-danger-subtler',
 	'color.background.danger.subtler.hovered': '--ds-background-danger-subtler-hovered',
 	'color.background.danger.subtler.pressed': '--ds-background-danger-subtler-pressed',
+	'color.background.danger.subtle': '--ds-background-danger-subtle',
 	'color.background.danger.bold': '--ds-background-danger-bold',
 	'color.background.danger.bold.hovered': '--ds-background-danger-bold-hovered',
 	'color.background.danger.bold.pressed': '--ds-background-danger-bold-pressed',
@@ -317,6 +333,7 @@ const tokens = {
 	'color.background.warning.subtler': '--ds-background-warning-subtler',
 	'color.background.warning.subtler.hovered': '--ds-background-warning-subtler-hovered',
 	'color.background.warning.subtler.pressed': '--ds-background-warning-subtler-pressed',
+	'color.background.warning.subtle': '--ds-background-warning-subtle',
 	'color.background.warning.bold': '--ds-background-warning-bold',
 	'color.background.warning.bold.hovered': '--ds-background-warning-bold-hovered',
 	'color.background.warning.bold.pressed': '--ds-background-warning-bold-pressed',
@@ -326,6 +343,7 @@ const tokens = {
 	'color.background.success.subtler': '--ds-background-success-subtler',
 	'color.background.success.subtler.hovered': '--ds-background-success-subtler-hovered',
 	'color.background.success.subtler.pressed': '--ds-background-success-subtler-pressed',
+	'color.background.success.subtle': '--ds-background-success-subtle',
 	'color.background.success.bold': '--ds-background-success-bold',
 	'color.background.success.bold.hovered': '--ds-background-success-bold-hovered',
 	'color.background.success.bold.pressed': '--ds-background-success-bold-pressed',
@@ -335,6 +353,7 @@ const tokens = {
 	'color.background.discovery.subtler': '--ds-background-discovery-subtler',
 	'color.background.discovery.subtler.hovered': '--ds-background-discovery-subtler-hovered',
 	'color.background.discovery.subtler.pressed': '--ds-background-discovery-subtler-pressed',
+	'color.background.discovery.subtle': '--ds-background-discovery-subtle',
 	'color.background.discovery.bold': '--ds-background-discovery-bold',
 	'color.background.discovery.bold.hovered': '--ds-background-discovery-bold-hovered',
 	'color.background.discovery.bold.pressed': '--ds-background-discovery-bold-pressed',
@@ -344,6 +363,7 @@ const tokens = {
 	'color.background.information.subtler': '--ds-background-information-subtler',
 	'color.background.information.subtler.hovered': '--ds-background-information-subtler-hovered',
 	'color.background.information.subtler.pressed': '--ds-background-information-subtler-pressed',
+	'color.background.information.subtle': '--ds-background-information-subtle',
 	'color.background.information.bold': '--ds-background-information-bold',
 	'color.background.information.bold.hovered': '--ds-background-information-bold-hovered',
 	'color.background.information.bold.pressed': '--ds-background-information-bold-pressed',
@@ -649,15 +669,25 @@ export type CSSTokenMap = {
 	'color.icon.subtle': 'var(--ds-icon-subtle)';
 	'color.border': 'var(--ds-border)';
 	'color.border.accent.lime': 'var(--ds-border-accent-lime)';
+	'color.border.accent.lime.subtle': 'var(--ds-border-accent-lime-subtle)';
 	'color.border.accent.red': 'var(--ds-border-accent-red)';
+	'color.border.accent.red.subtle': 'var(--ds-border-accent-red-subtle)';
 	'color.border.accent.orange': 'var(--ds-border-accent-orange)';
+	'color.border.accent.orange.subtle': 'var(--ds-border-accent-orange-subtle)';
 	'color.border.accent.yellow': 'var(--ds-border-accent-yellow)';
+	'color.border.accent.yellow.subtle': 'var(--ds-border-accent-yellow-subtle)';
 	'color.border.accent.green': 'var(--ds-border-accent-green)';
+	'color.border.accent.green.subtle': 'var(--ds-border-accent-green-subtle)';
 	'color.border.accent.teal': 'var(--ds-border-accent-teal)';
+	'color.border.accent.teal.subtle': 'var(--ds-border-accent-teal-subtle)';
 	'color.border.accent.blue': 'var(--ds-border-accent-blue)';
+	'color.border.accent.blue.subtle': 'var(--ds-border-accent-blue-subtle)';
 	'color.border.accent.purple': 'var(--ds-border-accent-purple)';
+	'color.border.accent.purple.subtle': 'var(--ds-border-accent-purple-subtle)';
 	'color.border.accent.magenta': 'var(--ds-border-accent-magenta)';
+	'color.border.accent.magenta.subtle': 'var(--ds-border-accent-magenta-subtle)';
 	'color.border.accent.gray': 'var(--ds-border-accent-gray)';
+	'color.border.accent.gray.subtle': 'var(--ds-border-accent-gray-subtle)';
 	'color.border.disabled': 'var(--ds-border-disabled)';
 	'color.border.focused': 'var(--ds-border-focused)';
 	'color.border.input': 'var(--ds-border-input)';
@@ -665,10 +695,15 @@ export type CSSTokenMap = {
 	'color.border.selected': 'var(--ds-border-selected)';
 	'color.border.brand': 'var(--ds-border-brand)';
 	'color.border.danger': 'var(--ds-border-danger)';
+	'color.border.danger.subtle': 'var(--ds-border-danger-subtle)';
 	'color.border.warning': 'var(--ds-border-warning)';
+	'color.border.warning.subtle': 'var(--ds-border-warning-subtle)';
 	'color.border.success': 'var(--ds-border-success)';
+	'color.border.success.subtle': 'var(--ds-border-success-subtle)';
 	'color.border.discovery': 'var(--ds-border-discovery)';
+	'color.border.discovery.subtle': 'var(--ds-border-discovery-subtle)';
 	'color.border.information': 'var(--ds-border-information)';
+	'color.border.information.subtle': 'var(--ds-border-information-subtle)';
 	'color.border.bold': 'var(--ds-border-bold)';
 	'color.background.accent.lime.subtlest': 'var(--ds-background-accent-lime-subtlest)';
 	'color.background.accent.lime.subtlest.hovered': 'var(--ds-background-accent-lime-subtlest-hovered)';
@@ -827,6 +862,7 @@ export type CSSTokenMap = {
 	'color.background.danger.subtler': 'var(--ds-background-danger-subtler)';
 	'color.background.danger.subtler.hovered': 'var(--ds-background-danger-subtler-hovered)';
 	'color.background.danger.subtler.pressed': 'var(--ds-background-danger-subtler-pressed)';
+	'color.background.danger.subtle': 'var(--ds-background-danger-subtle)';
 	'color.background.danger.bold': 'var(--ds-background-danger-bold)';
 	'color.background.danger.bold.hovered': 'var(--ds-background-danger-bold-hovered)';
 	'color.background.danger.bold.pressed': 'var(--ds-background-danger-bold-pressed)';
@@ -836,6 +872,7 @@ export type CSSTokenMap = {
 	'color.background.warning.subtler': 'var(--ds-background-warning-subtler)';
 	'color.background.warning.subtler.hovered': 'var(--ds-background-warning-subtler-hovered)';
 	'color.background.warning.subtler.pressed': 'var(--ds-background-warning-subtler-pressed)';
+	'color.background.warning.subtle': 'var(--ds-background-warning-subtle)';
 	'color.background.warning.bold': 'var(--ds-background-warning-bold)';
 	'color.background.warning.bold.hovered': 'var(--ds-background-warning-bold-hovered)';
 	'color.background.warning.bold.pressed': 'var(--ds-background-warning-bold-pressed)';
@@ -845,6 +882,7 @@ export type CSSTokenMap = {
 	'color.background.success.subtler': 'var(--ds-background-success-subtler)';
 	'color.background.success.subtler.hovered': 'var(--ds-background-success-subtler-hovered)';
 	'color.background.success.subtler.pressed': 'var(--ds-background-success-subtler-pressed)';
+	'color.background.success.subtle': 'var(--ds-background-success-subtle)';
 	'color.background.success.bold': 'var(--ds-background-success-bold)';
 	'color.background.success.bold.hovered': 'var(--ds-background-success-bold-hovered)';
 	'color.background.success.bold.pressed': 'var(--ds-background-success-bold-pressed)';
@@ -854,6 +892,7 @@ export type CSSTokenMap = {
 	'color.background.discovery.subtler': 'var(--ds-background-discovery-subtler)';
 	'color.background.discovery.subtler.hovered': 'var(--ds-background-discovery-subtler-hovered)';
 	'color.background.discovery.subtler.pressed': 'var(--ds-background-discovery-subtler-pressed)';
+	'color.background.discovery.subtle': 'var(--ds-background-discovery-subtle)';
 	'color.background.discovery.bold': 'var(--ds-background-discovery-bold)';
 	'color.background.discovery.bold.hovered': 'var(--ds-background-discovery-bold-hovered)';
 	'color.background.discovery.bold.pressed': 'var(--ds-background-discovery-bold-pressed)';
@@ -863,6 +902,7 @@ export type CSSTokenMap = {
 	'color.background.information.subtler': 'var(--ds-background-information-subtler)';
 	'color.background.information.subtler.hovered': 'var(--ds-background-information-subtler-hovered)';
 	'color.background.information.subtler.pressed': 'var(--ds-background-information-subtler-pressed)';
+	'color.background.information.subtle': 'var(--ds-background-information-subtle)';
 	'color.background.information.bold': 'var(--ds-background-information-bold)';
 	'color.background.information.bold.hovered': 'var(--ds-background-information-bold-hovered)';
 	'color.background.information.bold.pressed': 'var(--ds-background-information-bold-pressed)';

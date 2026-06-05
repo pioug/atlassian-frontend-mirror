@@ -1,5 +1,14 @@
 # @atlaskit/editor-shared-styles
 
+## 3.11.10
+
+### Patch Changes
+
+- [`ae8f78f39a5d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae8f78f39a5d2) -
+  Fix white masking wrapper (from sticky headers) visible when tables are nested inside coloured
+  panels
+- Updated dependencies
+
 ## 3.11.9
 
 ### Patch Changes

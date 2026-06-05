@@ -1,9 +1,6 @@
-import { FabricChannel } from '@atlaskit/analytics-listeners/types';
-
 import { AnalyticsQueue } from './analytics-queue';
+import { editorAnalyticsChannel } from './editorAnalyticsChannel';
 import type { FireAnalyticsEvent } from './types/events';
-
-export const editorAnalyticsChannel: FabricChannel.editor = FabricChannel.editor;
 
 export const fireAnalyticsEvent: FireAnalyticsEvent =
 	(createAnalyticsEvent, options) =>
@@ -20,3 +17,5 @@ export const fireAnalyticsEvent: FireAnalyticsEvent =
 		const queue = AnalyticsQueue.get();
 		queue.schedule(() => createAnalyticsEvent(payload)?.fire(channel));
 	};
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { editorAnalyticsChannel } from './editorAnalyticsChannel';

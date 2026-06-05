@@ -1,5 +1,80 @@
 # @atlaskit/editor-plugin-mentions
 
+## 13.3.0
+
+### Minor Changes
+
+- [`971e92e232624`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/971e92e232624) -
+  Added a new `DISABLED` visual variant for mention chips so rendering surfaces (such as the editor
+  mentions plugin) can render a chip in a non-interactive disabled state with an explanatory
+  tooltip. Includes optional `MentionProvider` hooks that let consumers drive the disabled state
+  reactively and observe mention deletions.
+
+  **`@atlaskit/mention`**
+  - New `MentionType.DISABLED` enum value and matching style on `PrimitiveMention`.
+  - New optional `isDisabled` and `disabledTooltip` props on the React `<Mention>` component. When
+    `isDisabled` is set the chip becomes non-clickable, exposes `aria-disabled="true"`, remains
+    keyboard-focusable (`tabindex="0"`), and — when `disabledTooltip` is also set — is wrapped in an
+    ADS `<Tooltip>` whose content is mirrored into `aria-label` for screen readers.
+  - New `MentionDisabledState` (`{ disabled: boolean; tooltip?: string }`) and
+    `MentionDisabledStateInput` (`{ id: string }`) types, re-exported from `@atlaskit/mention` and
+    `@atlaskit/mention/resource`.
+  - New optional `MentionResource` config option `getMentionDisabledState` (forwarded by
+    `ContextMentionResource`) that surfaces through three new optional methods on the
+    `MentionProvider` interface:
+    - `getMentionDisabledState?(mention)` — predicate the editor calls to determine whether a chip
+      should render disabled.
+    - `subscribeToDisabledStateChanges?(listener)` — lets the editor re-evaluate the predicate when
+      the consumer's inputs change.
+    - `notifyMentionDestroyed?(mention)` — lets the consumer observe chip removals (e.g. to update
+      its source of truth).
+
+    All three methods are optional so existing `MentionProvider` implementations continue to compile
+    and behave identically.
+
+  **`@atlaskit/editor-plugin-mentions` + `@atlaskit/editor-core`**
+  - The mention `NodeView` now reads `MentionProvider.getMentionDisabledState?.({ id })` on every
+    state update and re-evaluates whenever `subscribeToDisabledStateChanges` notifies. When the
+    predicate returns `{ disabled: true }` the chip gets a new `.mention-disabled` class,
+    `aria-disabled="true"`, and an ADS `<Tooltip>` (anchored to the chip via `portalProviderAPI`)
+    carrying the `tooltip` text. The chip remains keyboard-focusable.
+  - The mention `NodeView.destroy()` calls `notifyMentionDestroyed?.({ id })` on the subscribed
+    provider so consumers can react to chip removals without depending on the editor's `onChange`.
+  - Added a matching `.editor-mention-primitive.mention-disabled` style in `@atlaskit/editor-core`
+    so the new class renders correctly inside the editor content container.
+  - Providers that don't implement the new optional methods are entirely unaffected.
+
+  **`@atlassian/conversation-assistant`, `@atlassian/conversation-assistant-widget` (chat store)**
+  - New `addSelectedAgentId({ conversationId, agentId })` action — append-only, no-dedup push onto
+    the conversation's `selectedAgentIds` history. Each call adds exactly one entry; duplicates are
+    preserved so the history is a 1-to-1 log of every agent chip currently in the editor.
+  - New `removeSelectedAgentId({ conversationId, agentId })` action — removes the **rightmost**
+    occurrence of an id (preserving order of other entries) for use when a single agent chip is
+    deleted from the editor.
+  - `setSelectedAgentIds` retains its wholesale-replace semantics (unchanged externally).
+  - The picker callback in `chat-input-refresh` is now wired to `addSelectedAgentId`; chip-deletion
+    is wired to `removeSelectedAgentId`. The active agent is always `selectedAgentIds.at(-1)`.
+
+  **`@atlassian/conversation-assistant-chat-prompt-input`**
+  - `useChatMentionResource` accepts new options `getSelectedAgentIds`, `disabledAgentTooltip`, and
+    `onAgentMentionDestroyed` that wire the new `MentionProvider` capabilities described above.
+  - `withAgentSupport` extended with the same options, plus a `notifyMentionDestroyed`
+    implementation that forwards to the consumer when a known agent chip is destroyed (sourced from
+    the editor `NodeView` rather than from `onChange`, which is not reliably called on every chat
+    surface).
+  - `<RovoChatPromptInput>` exposes new optional `selectedAgentIds`, `disabledAgentTooltip`, and
+    `onAgentMentionDeleted` props for consumers that want to drive the disabled-agent chip state
+    from their own store.
+
+  **`@atlassian/conversation-assistant-store`**
+  - JSDoc on the `selectedAgentIds` conversation field updated to document the new append-only /
+    rightmost-remove semantics and the canonical read pattern (`.at(-1)` for the active agent). No
+    runtime or type-shape change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.2.0
 
 ### Minor Changes

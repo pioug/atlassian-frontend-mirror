@@ -106,20 +106,15 @@ describe('ExpandedFrame', () => {
 	});
 
 	it('Tooltip is rendered when hovered', async () => {
+		const user = userEvent.setup();
 		render(<ExpandedFrame text="foobar" isPlaceholder={false} />);
 		const header = await screen.findByText('foobar');
 
-		await userEvent.hover(header);
+		await user.hover(header);
 
-		const tooltip = await waitFor(
-			() =>
-				screen.findByRole('tooltip', {
-					name: 'foobar',
-				}),
-			{ timeout: 2000 },
-		);
-
-		expect(tooltip).toBeVisible();
+		await waitFor(() => {
+			expect(screen.getByRole('tooltip', { name: 'foobar' })).toBeInTheDocument();
+		});
 	});
 
 	it('Tooltip is not rendered when not hovered', async () => {

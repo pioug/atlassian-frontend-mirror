@@ -22,6 +22,8 @@ import { token } from '@atlaskit/tokens';
 import { nonWrappedLayouts } from '../../utils';
 import { calcBreakoutWidth, calcWideWidth } from '../../utils/breakout';
 
+import { calcResizedWidth } from './calcResizedWidth';
+import { roundToClosestEvenPxValue } from './roundToClosestEvenPxValue';
 function float(layout: MediaSingleLayout): string {
 	switch (layout) {
 		case 'wrap-right':
@@ -141,32 +143,6 @@ export function calcLegacyWidthForInline(
 	}
 }
 
-/**
- * Calculates the image width for previously resized images.
- *
- * Wide and full-width images are always that size (960px and 100%); there is
- * no distinction between max-width and width.
- * @param layout
- * @param width
- * @param containerWidth
- * @example
- */
-export function calcResizedWidth(
-	layout: MediaSingleLayout,
-	width: number,
-	containerWidth: number = 0,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-): any {
-	switch (layout) {
-		case 'wide':
-			return calcWideWidth(containerWidth);
-		case 'full-width':
-			return calcBreakoutWidth(layout, containerWidth);
-		default:
-			return `${width}px`;
-	}
-}
-
 function calcMargin(layout: MediaSingleLayout): string {
 	switch (layout) {
 		case 'wrap-right':
@@ -197,30 +173,6 @@ function isImageAligned(layout: MediaSingleLayout): string {
 			return 'margin-left: 0';
 		default:
 			return '';
-	}
-}
-
-/**
- * Reduces the given CSS width value to the next lowest even pixel value if the value is in px.
- * This is to mitigate subpixel rendering issues of embedded smart links.
- *
- * @param widthValue CSS width value to be rounded
- * @returns Reduced CSS width value where px value given, or otherwise the original value
- * @example
- */
-
-// widthValue could be a string in px, rem or percentage, e.g. "800px", "100%", etc.
-export function roundToClosestEvenPxValue(widthValue: string): string {
-	try {
-		if (widthValue.endsWith('px')) {
-			const pxWidth = parseInt(widthValue.slice(0, -2));
-
-			return `${pxWidth - (pxWidth % 2)}px`;
-		}
-
-		return widthValue;
-	} catch {
-		return widthValue;
 	}
 }
 
@@ -481,3 +433,7 @@ export const MediaBorderGapFiller = ({
 		/>
 	);
 };
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { calcResizedWidth } from './calcResizedWidth';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { roundToClosestEvenPxValue } from './roundToClosestEvenPxValue';

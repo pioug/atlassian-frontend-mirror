@@ -1,8 +1,5 @@
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
-import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
-import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 
 import { mapSlice } from '../utils/slice';
 
@@ -40,30 +37,7 @@ export function transformSliceToJoinAdjacentCodeBlocks(slice: Slice): Slice {
 	// mapSlice won't be able to merge adjacent top-level code-blocks
 	return new Slice(mergeAdjacentCodeBlocks(slice.content), slice.openStart, slice.openEnd);
 }
-
-export const transformSingleLineCodeBlockToCodeMark = (slice: Slice, schema: Schema): Slice => {
-	if (slice.content.childCount === 1 && (slice.openStart || slice.openEnd)) {
-		const maybeCodeBlock = slice.content.firstChild;
-		if (maybeCodeBlock && maybeCodeBlock.type === schema.nodes.codeBlock) {
-			if (maybeCodeBlock.textContent && maybeCodeBlock.textContent.indexOf('\n') === -1) {
-				return new Slice(
-					Fragment.from(schema.text(maybeCodeBlock.textContent, [schema.marks.code.create()])),
-					0,
-					0,
-				);
-			}
-		}
-	}
-	return slice;
-};
-
-export const findCodeBlock = (
-	state: EditorState,
-	selection?: Selection | null,
-): ContentNodeWithPos | undefined => {
-	const { codeBlock } = state.schema.nodes;
-	return (
-		findSelectedNodeOfType(codeBlock)(selection || state.selection) ||
-		findParentNodeOfType(codeBlock)(selection || state.selection)
-	);
-};
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { transformSingleLineCodeBlockToCodeMark } from './transformSingleLineCodeBlockToCodeMark';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { findCodeBlock } from './findCodeBlock';

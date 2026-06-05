@@ -973,7 +973,7 @@ export const DragHandle = ({
 		const isExtension =
 			nodeType === 'extension' ||
 			nodeType === 'bodiedExtension' ||
-			nodeType === 'multiBodiedExtension';
+			(nodeType === 'multiBodiedExtension' && fg('confluence_frontend_native_tabs_extension'));
 		const isBlockCard = nodeType === 'blockCard' && !!blockCardWidth;
 		const isEmbedCard = nodeType === 'embedCard';
 

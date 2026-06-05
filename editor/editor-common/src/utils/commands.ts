@@ -1,35 +1,23 @@
-import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics';
 import type { EditorAnalyticsAPI } from '../analytics';
 import { withAnalytics } from '../editor-analytics';
 import { GapCursorSelection } from '../selection';
-import type { Command, Predicate } from '../types';
+import type { Command } from '../types';
 
-import { isEmptyParagraph } from './editor-core-utils';
-import { isMediaNode } from './nodes';
-
+import { atTheBeginningOfDoc } from './atTheBeginningOfDoc';
+import { atTheEndOfDoc } from './atTheEndOfDoc';
+import { filter } from './filter';
+import { insertNewLine } from './insertNewLine';
+import { isEmptyParagraph } from './isEmptyParagraph';
+import { isMediaNode } from './isMediaNode';
 export type WalkNode = {
 	$pos: ResolvedPos;
 	foundNode: boolean;
-};
-
-export const filter = (predicates: Predicate[] | Predicate, cmd: Command): Command => {
-	return function (state, dispatch, view): boolean {
-		if (!Array.isArray(predicates)) {
-			predicates = [predicates];
-		}
-
-		if (predicates.some((pred) => !pred(state, view))) {
-			return false;
-		}
-
-		return cmd(state, dispatch, view) || false;
-	};
 };
 
 /**
@@ -79,34 +67,6 @@ export const walkPrevNode = ($startPos: ResolvedPos): WalkNode => {
 		foundNode: $pos.pos > 0,
 	};
 };
-
-export function insertNewLine(): Command {
-	return function (state, dispatch) {
-		const { $from } = state.selection;
-		const parent = $from.parent;
-		const { hardBreak } = state.schema.nodes;
-
-		if (hardBreak) {
-			const hardBreakNode = hardBreak.createChecked();
-
-			if (parent && parent.type.validContent(Fragment.from(hardBreakNode))) {
-				if (dispatch) {
-					dispatch(state.tr.replaceSelectionWith(hardBreakNode, false));
-				}
-				return true;
-			}
-		}
-
-		if (state.selection instanceof TextSelection) {
-			if (dispatch) {
-				dispatch(state.tr.insertText('\n'));
-			}
-			return true;
-		}
-
-		return false;
-	};
-}
 
 export const insertNewLineWithAnalytics = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
@@ -254,16 +214,6 @@ function canMoveDown(state: EditorState): boolean {
 	return !atTheEndOfDoc(state);
 }
 
-export function atTheEndOfDoc(state: EditorState): boolean {
-	const { selection, doc } = state;
-	return doc.nodeSize - selection.$to.pos - 2 === selection.$to.depth;
-}
-
-export function atTheBeginningOfDoc(state: EditorState): boolean {
-	const { selection } = state;
-	return selection.$from.pos === selection.$from.depth;
-}
-
 /**
  * If the selection is empty, is inside a paragraph node and `canNextNodeMoveUp` is true then delete current paragraph
  * and move the node below it up. The selection will be retained, to be placed in the moved node.
@@ -304,27 +254,6 @@ export const deleteEmptyParagraphAndMoveBlockUp = (
 
 		return false;
 	};
-};
-
-export const insertContentDeleteRange = (
-	tr: Transaction,
-	getSelectionResolvedPos: (tr: Transaction) => ResolvedPos,
-	insertions: [Fragment, number][],
-	deletions: [number, number][],
-): void => {
-	insertions.forEach((contentInsert) => {
-		const [content, pos] = contentInsert;
-
-		tr.insert(tr.mapping.map(pos), content);
-	});
-
-	deletions.forEach((deleteRange) => {
-		const [firstPos, lastPos] = deleteRange;
-
-		tr.delete(tr.mapping.map(firstPos), tr.mapping.map(lastPos));
-	});
-
-	tr.setSelection(new TextSelection(getSelectionResolvedPos(tr)));
 };
 
 /**
@@ -412,4 +341,15 @@ export const isEmptySelectionAtEnd = (state: EditorState): boolean => {
 	return empty && ($from.end() === $from.pos || state.selection instanceof GapCursorSelection);
 };
 
+// eslint-disable-next-line @atlaskit/editor/no-re-export
 export { filter as filterCommand };
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { filter } from './filter';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { insertNewLine } from './insertNewLine';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { atTheEndOfDoc } from './atTheEndOfDoc';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { atTheBeginningOfDoc } from './atTheBeginningOfDoc';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { insertContentDeleteRange } from './insertContentDeleteRange';

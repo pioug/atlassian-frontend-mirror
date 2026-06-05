@@ -2,18 +2,9 @@ import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/m
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 
-import { isListItemNode, isListNode } from '../utils';
+import { isListItemNode } from '../utils';
 
-export const numberNestedLists = (resolvedPos: ResolvedPos): number => {
-	let count = 0;
-	for (let i = resolvedPos.depth - 1; i > 0; i--) {
-		const node = resolvedPos.node(i);
-		if (isListNode(node)) {
-			count += 1;
-		}
-	}
-	return count;
-};
+import { numberNestedLists } from './numberNestedLists';
 
 export const getListItemAttributes = (
 	$pos: ResolvedPos,
@@ -69,3 +60,5 @@ const resolvePositionToEndOfListItem = ($pos: ResolvedPos): ResolvedPos => {
 
 	return toPosition;
 };
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { numberNestedLists } from './numberNestedLists';

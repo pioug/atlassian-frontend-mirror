@@ -1,5 +1,6 @@
 import { createElement } from 'react';
 
+import memoizeOne from 'memoize-one';
 import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
@@ -12,6 +13,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -49,18 +51,13 @@ const PARENT_WITH_END_DROP_TARGET = [
 	'nestedExpand',
 	'bodiedExtension',
 ];
-
-const PARENT_WITH_END_DROP_TARGET_NEXT = [
-	'tableCell',
-	'tableHeader',
-	'panel',
-	'layoutColumn',
-	'expand',
-	'nestedExpand',
-	'bodiedExtension',
-	'bodiedSyncBlock',
-];
 const DISABLE_CHILD_DROP_TARGET = ['orderedList', 'bulletList'];
+
+const getParentTypesWithEndDropTarget = memoizeOne(() => [
+	...PARENT_WITH_END_DROP_TARGET,
+	...(fg('confluence_frontend_native_tabs_extension') ? ['multiBodiedExtension'] : []),
+	...(editorExperiment('platform_synced_block', true) ? ['bodiedSyncBlock'] : []),
+]);
 
 const shouldDescend = (node: PMNode) => {
 	return !['mediaSingle', 'paragraph', 'heading'].includes(node.type.name);
@@ -295,6 +292,8 @@ export const dropTargetDecorations = (
 	const handleInsideSelection =
 		activeNodePos !== undefined && activeNodePos >= selectionFrom && activeNodePos <= selectionTo;
 
+	const parentTypesWithEndDropTarget = getParentTypesWithEndDropTarget();
+
 	newState.doc.nodesBetween(docFrom, docTo, (node, pos, parent, index) => {
 		let depth = 0;
 		// drop target deco at the end position
@@ -365,10 +364,6 @@ export const dropTargetDecorations = (
 			pushNodeStack(node, depth);
 			return false; //not valid pos, so nested not valid either
 		}
-
-		const parentTypesWithEndDropTarget = editorExperiment('platform_synced_block', true)
-			? PARENT_WITH_END_DROP_TARGET_NEXT
-			: PARENT_WITH_END_DROP_TARGET;
 
 		const parentTypeName = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
 			? getBaseNodeTypeName(parent.type)

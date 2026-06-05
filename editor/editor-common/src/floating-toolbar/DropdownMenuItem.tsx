@@ -21,10 +21,6 @@ import type { ExtensionAPI, ExtensionProvider } from '../extensions';
 import { messages } from '../floating-toolbar';
 import type { DropdownOptionT, FloatingToolbarOverflowDropdownOptions } from '../types';
 
-export const menuItemDimensions = {
-	width: 175,
-	height: 32,
-};
 
 const labelStyles = css({
 	display: 'inline-block',
@@ -258,3 +254,5 @@ export const DropdownMenuItem = (props: DropdownMenuItemProps): jsx.JSX.Element 
 
 	return itemContent;
 };
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { menuItemDimensions } from './menuItemDimensions';

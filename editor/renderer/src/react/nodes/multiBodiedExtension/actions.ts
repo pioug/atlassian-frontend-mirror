@@ -37,6 +37,10 @@ export const useMultiBodiedExtensionActions = ({
 				return false;
 			},
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			reorderChildren(_fromIndex: number, _toIndex: number) {
+				return false;
+			},
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			updateParameters(_parameters): boolean {
 				return false;
 			},

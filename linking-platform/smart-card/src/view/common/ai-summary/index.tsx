@@ -48,11 +48,8 @@ const AISummary = ({
 
 	const is3pExperimentEnabled =
 		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		(fg('platform_sl_3p_auth_rovo_action_kill_switch') &&
-			expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true)) ||
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		(fg('rovogrowth-640-inline-action-nudge-fg') &&
-			expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true));
+		fg('platform_sl_3p_auth_rovo_action_kill_switch') &&
+		expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true);
 	return (
 		<Markdown
 			data-testid={testId}

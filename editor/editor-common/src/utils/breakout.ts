@@ -1,5 +1,4 @@
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
-import type { NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorBreakoutPadding,
 	akEditorDefaultLayoutWidth,
@@ -9,26 +8,10 @@ import {
 	breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
 
-import commonMessages from '../messages';
-import type { BreakoutMode } from '../types/breakout';
 import { mapBreakpointToLayoutMaxWidth } from '../ui/BaseTheme';
 import { getBreakpoint } from '../ui/WidthProvider';
 
-import { parsePx } from './dom';
-
-export const breakoutResizableNodes: string[] = [
-	'expand',
-	'layoutSection',
-	'codeBlock',
-	'syncBlock',
-	'bodiedSyncBlock',
-];
-
-export const getBreakoutResizableNodeTypes = (schema: Schema): Set<NodeType> => {
-	const { expand, codeBlock, layoutSection, syncBlock, bodiedSyncBlock } = schema.nodes;
-
-	return new Set([expand, codeBlock, layoutSection, syncBlock, bodiedSyncBlock]);
-};
+import { parsePx } from './parsePx';
 
 /**
  * Variables required to construct a context for breakout ssr inline script.
@@ -250,30 +233,11 @@ export function calcBreakoutWidthPx(
 ): number {
 	return parsePx(calcBreakoutWidth(mode, widthStateWidth, padding));
 }
-
-export const getNextBreakoutMode = (currentMode?: BreakoutMode): Exclude<BreakoutMode, 'max'> => {
-	if (currentMode === 'full-width') {
-		return 'center';
-	} else if (currentMode === 'wide') {
-		return 'full-width';
-	}
-
-	return 'wide';
-};
-
-export const getTitle = (
-	layout?: BreakoutMode,
-): {
-	id: string;
-	defaultMessage: string;
-	description: string;
-} => {
-	switch (layout) {
-		case 'full-width':
-			return commonMessages.layoutFixedWidth;
-		case 'wide':
-			return commonMessages.layoutFullWidth;
-		default:
-			return commonMessages.layoutWide;
-	}
-};
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { breakoutResizableNodes } from './breakoutResizableNodes';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getBreakoutResizableNodeTypes } from './getBreakoutResizableNodeTypes';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getNextBreakoutMode } from './getNextBreakoutMode';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getTitle } from './getTitle';

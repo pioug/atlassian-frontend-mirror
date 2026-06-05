@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 9.0.3
+
+### Patch Changes
+
+- [`9301f162e76d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9301f162e76d2) -
+  EDITOR-7470: Fix mid-word punctuation in diffs splitting word boundaries.
+- Updated dependencies
+
+## 9.0.2
+
+### Patch Changes
+
+- [`b3d1adf5a46c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3d1adf5a46c7) -
+  Fix word-boundary diff cutoff when a granular textblock diff runs inside a paragraph that contains
+  non-text inline nodes (hardBreak, mention, emoji, date, etc.). Previously the expansion logic
+  indexed into `parent.textContent`, which strips those nodes, so doc positions in the body could
+  land mid-word and pull untouched neighbouring words into the diff range.
+
 ## 9.0.1
 
 ### Patch Changes

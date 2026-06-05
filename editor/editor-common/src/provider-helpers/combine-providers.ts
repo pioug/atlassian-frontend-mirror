@@ -1,8 +1,5 @@
-import {
-	getOnlyFulfilled,
-	waitForAllPromises,
-	waitForFirstFulfilledPromise,
-} from './promise-helpers';
+import { getOnlyFulfilled, waitForAllPromises } from './promise-helpers';
+import { waitForFirstFulfilledPromise } from './waitForFirstFulfilledPromise';
 
 const flatten = <T>(arr: T[][]): T[] => ([] as T[]).concat(...arr);
 

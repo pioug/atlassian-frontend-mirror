@@ -1,16 +1,16 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
+import { buildExtensionKeyAndNodeKey } from './buildExtensionKeyAndNodeKey';
+import { resolveImportSync } from './resolveImportSync';
 import type {
 	ExtensionKey,
 	ExtensionManifest,
 	ExtensionModuleAction,
 	ExtensionModuleActionHandler,
 	ExtensionModuleActionObject,
-	ExtensionModuleKey,
 	ExtensionType,
 	Module,
 } from './types/extension-manifest';
-import type { ESModule } from './types/extension-manifest-common';
 import type { Parameters } from './types/extension-parameters';
 
 export const FORGE_EXTENSION_TYPE = 'com.atlassian.ecosystem';
@@ -35,17 +35,6 @@ export const getExtensionKeyAndNodeKey = (
 	return [extKey, nodeKey];
 };
 
-export const buildExtensionKeyAndNodeKey = (
-	extensionKey: ExtensionKey,
-	nodeKey?: ExtensionModuleKey,
-): string => {
-	if (!nodeKey || nodeKey === 'default') {
-		return extensionKey;
-	}
-
-	return `${extensionKey}:${nodeKey}`;
-};
-
 export function buildAction<T extends Parameters>(
 	action: ExtensionModuleAction<T>,
 	manifest: ExtensionManifest<T>,
@@ -67,12 +56,6 @@ type Extension = {
 		parameters: unknown;
 	};
 	type: ExtensionType;
-};
-
-export const resolveImportSync = <T extends Parameters>(importedModule: Module<T>): T => {
-	return importedModule && (importedModule as ESModule<T>).__esModule
-		? (importedModule as ESModule<T>).default
-		: (importedModule as T);
 };
 
 export const resolveImport = async <T extends Parameters>(
@@ -129,3 +112,7 @@ export function buildNode<T extends Parameters>(
 
 	return extension;
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { buildExtensionKeyAndNodeKey } from './buildExtensionKeyAndNodeKey';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { resolveImportSync } from './resolveImportSync';

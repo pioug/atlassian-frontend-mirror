@@ -1,14 +1,5 @@
 import { token } from '@atlaskit/tokens';
 
-export const iconOnlySpacing = {
-	'&&': {
-		padding: '0px',
-	},
-	'& > span': {
-		margin: '0px',
-	},
-};
-
 interface Property {
 	[key: string]: {
 		// Ignored via go/ees005
@@ -72,3 +63,4 @@ export const getButtonStyles = (
 	background: getStyles(backgroundVisualRefresh, props),
 	color: getStyles(colorVisualRefresh, props),
 });
+// eslint-disable-next-line @atlaskit/editor/no-re-export

@@ -1,4 +1,4 @@
-import React, { type FunctionComponent, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -74,7 +74,7 @@ export interface OptionType {
 	value: SelectValue;
 }
 
-const LinkWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const LinkWrapper = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<span
 			style={{
@@ -89,7 +89,7 @@ const LinkWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	);
 };
 
-const FeedbackForm: React.FunctionComponent<Props> = ({
+const FeedbackForm = ({
 	showTypeField = true,
 	showDefaultTextFields = true,
 	customContent,
@@ -113,7 +113,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 	shouldReturnFocusRef,
 	disableSubmitButton,
 	showRequiredFieldsSummary = true,
-}) => {
+}: Props) => {
 	const [canBeContacted, setCanBeContacted] = useState<FormFields['canBeContacted']>(false);
 	const [description, setDescription] = useState<FormFields['description']>('');
 	const [enrollInResearchGroup, setEnrollInResearchGroup] =
@@ -343,7 +343,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 								</Field>
 								{(!anonymousFeedback && (
 									<Fieldset>
-										<legend aria-hidden={false} hidden>
+										<legend>
 											<FormattedMessage {...messages.optInOptionsLegend} />
 										</legend>
 										<Field name="can-be-contacted">
@@ -552,7 +552,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 										</Field>
 										{(!anonymousFeedback && (
 											<Fieldset>
-												<legend aria-hidden={false} hidden>
+												<legend>
 													<FormattedMessage {...messages.optInOptionsLegend} />
 												</legend>
 												<Field name="can-be-contacted">
@@ -664,10 +664,10 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 	);
 };
 
-const FeedbackFormWithIntl: FunctionComponent<Props & { locale: string }> = ({
+const FeedbackFormWithIntl = ({
 	locale,
 	...props
-}) => {
+}: Props & { locale: string }): React.ReactElement => {
 	return (
 		<IntlProviderWithResolvedMessages locale={locale}>
 			<FeedbackForm {...props} />

@@ -2,7 +2,7 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 
 export { PortalManager } from './PortalManager';
-export { PortalRenderWrapperInner } from './common';
+export { PortalRenderWrapperInner } from './PortalRenderWrapperInner';
 
 export { PortalBucket } from './PortalBucket';
 export { usePortalProvider } from './usePortalProvider';

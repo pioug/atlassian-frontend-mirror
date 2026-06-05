@@ -2,7 +2,6 @@ import type { JsonLd } from '@atlaskit/json-ld-types';
 import { extractSmartLinkUrl } from '@atlaskit/link-extractors';
 import type { ProductType } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { ActionName, CardAction } from '../../../constants';
 import type { RovoChatActionData } from '../../../state/flexible-ui-context/types';
@@ -23,7 +22,7 @@ type ExtractInvokeRovoChatActionParam = {
 	rovoConfig?: RovoConfig;
 };
 
-// For rovogrowth-640 post auth inline experiment and block card experiment (NAVX-4814)
+// For block card experiment (NAVX-4814)
 const ELIGIBLE_EXTENSION_KEYS = new Set([
 	'slack-object-provider',
 	'google-object-provider',
@@ -59,20 +58,12 @@ const extractRovoChatAction = ({
 
 	const is3PAuthRovoActionEnabled =
 		isGoogleProvider && fg('platform_sl_3p_auth_rovo_action_kill_switch');
-	const is3PInlinePostAuthActionsEnabled =
-		extensionKey !== undefined &&
-		ELIGIBLE_EXTENSION_KEYS.has(extensionKey) &&
-		fg('rovogrowth-640-inline-action-nudge-fg') &&
-		expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true);
 	const is3PBlockPostAuthActionsEnabled =
 		extensionKey !== undefined &&
 		ELIGIBLE_EXTENSION_KEYS.has(extensionKey) &&
 		is3PBlockExperimentEnabled;
 
-	const isSupportedFeature =
-		is3PInlinePostAuthActionsEnabled ||
-		is3PAuthRovoActionEnabled ||
-		is3PBlockPostAuthActionsEnabled;
+	const isSupportedFeature = is3PAuthRovoActionEnabled || is3PBlockPostAuthActionsEnabled;
 	const isOptIn = actionOptions?.rovoChatAction?.optIn === true;
 
 	const url = extractSmartLinkUrl(response);

@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 import RovoIcon from '@atlaskit/icon-lab/core/rovo';
 import AiIcon from '@atlaskit/icon/core/atlassian-intelligence';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../../messages';
@@ -75,8 +74,7 @@ export function AISummariseAction({
 					color="currentColor"
 					label="Summarise with AI"
 					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-					isRovoBlockCardExperimentEnabled ||
-					expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
+					isRovoBlockCardExperimentEnabled
 						? { size: props.iconSize }
 						: {})}
 				/>

@@ -3,12 +3,8 @@ import { Slice } from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Mapping } from '@atlaskit/editor-prosemirror/transform';
 
+import { Side } from './Side';
 import { isValidTargetNode } from './utils/is-valid-target-node';
-
-export enum Side {
-	LEFT = 'left',
-	RIGHT = 'right',
-}
 
 export const JSON_ID = 'gapcursor';
 
@@ -126,8 +122,8 @@ export class GapCursorSelection extends Selection {
 
 	toJSON(): {
 		pos: number;
-		type: string;
 		side: Side;
+		type: string;
 	} {
 		return { pos: this.head, type: JSON_ID, side: this.side };
 	}
@@ -149,3 +145,5 @@ export class GapBookmark {
 		return GapCursorSelection.valid($pos) ? new GapCursorSelection($pos) : Selection.near($pos);
 	}
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { Side } from './Side';

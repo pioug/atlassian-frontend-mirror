@@ -1,19 +1,12 @@
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-export enum ShadowKeys {
-	SHOW_LEFT_SHADOW = 'showLeftShadow',
-	SHOW_RIGHT_SHADOW = 'showRightShadow',
-}
+import { ShadowKeys } from './ShadowKeys';
+import { shadowObserverClassNames } from './shadowObserverClassNames';
 
 export type ShadowsStates = {
 	[ShadowKey in ShadowKeys]: boolean;
 };
 
-export const shadowObserverClassNames = {
-	SENTINEL_LEFT: 'sentinel-left',
-	SENTINEL_RIGHT: 'sentinel-right',
-	SHADOW_CONTAINER: 'with-shadow-observer',
-};
 
 const requestIdleCallback = (fn: FrameRequestCallback) => {
 	// Ignored via go/ees005
@@ -115,3 +108,7 @@ export class ShadowObserver {
 		}
 	}
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { ShadowKeys } from './ShadowKeys';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { shadowObserverClassNames } from './shadowObserverClassNames';

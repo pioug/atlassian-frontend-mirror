@@ -6,7 +6,6 @@ import MediaServicesActualSizeIcon from '@atlaskit/icon/core/grow-diagonal';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
@@ -48,8 +47,7 @@ const PreviewAction = ({
 					spacing="spacious"
 					label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'Open preview panel'}
 					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-					isRovoBlockCardExperimentEnabled ||
-					expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
+					isRovoBlockCardExperimentEnabled
 						? { size: props.iconSize }
 						: {})}
 				/>
@@ -61,8 +59,7 @@ const PreviewAction = ({
 				spacing="spacious"
 				label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'Open preview'}
 				{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-				isRovoBlockCardExperimentEnabled ||
-				expValEqualsNoExposure('rovogrowth-640-inline-action-nudge-exp', 'isEnabled', true)
+				isRovoBlockCardExperimentEnabled
 					? { size: props.iconSize }
 					: {})}
 			/>

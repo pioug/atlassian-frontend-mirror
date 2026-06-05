@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render } from '@atlassian/testing-library';
 
 import { IconType, SmartLinkSize } from '../../../../../constants';
@@ -47,74 +46,41 @@ jest.mock('../../../../../common/ui/icons/live-document-icon', () => {
 
 describe('AtlaskitIcon', () => {
 	beforeEach(() => {
-		mockDocumentIconModuleLoaded.mockClear();
 		mockDocumentIcon.mockClear();
-		mockBlogIconModuleLoaded.mockClear();
-		mockLiveDocumentIconModuleLoaded.mockClear();
 		mockBlogIcon.mockClear();
 		mockLiveDocumentIcon.mockClear();
 	});
 
-	ffTest.on('platform_sl_icons_refactor', 'when icon refactor is enabled', () => {
-		it('does not load synchronous fallback icon modules', () => {
-			render(
-				<AtlaskitIcon
-					icon={IconType.Document}
-					testId="document-icon"
-					size={SmartLinkSize.Medium}
-				/>,
-			);
-			render(<AtlaskitIcon icon={IconType.Blog} testId="blog-icon" size={SmartLinkSize.Medium} />);
-			render(
-				<AtlaskitIcon
-					icon={IconType.LiveDocument}
-					testId="live-document-icon"
-					size={SmartLinkSize.Medium}
-				/>,
-			);
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<AtlaskitIcon icon={IconType.Document} testId="document-icon" size={SmartLinkSize.Medium} />,
+		);
 
-			expect(mockDocumentIconModuleLoaded).not.toHaveBeenCalled();
-			expect(mockBlogIconModuleLoaded).not.toHaveBeenCalled();
-			expect(mockLiveDocumentIconModuleLoaded).not.toHaveBeenCalled();
-			expect(mockDocumentIcon).not.toHaveBeenCalled();
-			expect(mockBlogIcon).not.toHaveBeenCalled();
-			expect(mockLiveDocumentIcon).not.toHaveBeenCalled();
-		});
+		await expect(container).toBeAccessible();
 	});
 
-	ffTest.off('platform_sl_icons_refactor', 'when icon refactor is disabled', () => {
-		it('keeps synchronous fallback rendering', () => {
-			render(
-				<AtlaskitIcon
-					icon={IconType.Document}
-					testId="document-icon"
-					size={SmartLinkSize.Medium}
-				/>,
-			);
-			render(<AtlaskitIcon icon={IconType.Blog} testId="blog-icon" size={SmartLinkSize.Medium} />);
-			render(
-				<AtlaskitIcon
-					icon={IconType.LiveDocument}
-					testId="live-document-icon"
-					size={SmartLinkSize.Medium}
-				/>,
-			);
+	it('keeps synchronous rendering for document-like icon types', () => {
+		render(<AtlaskitIcon icon={IconType.Document} testId="document-icon" size={SmartLinkSize.Medium} />);
+		render(<AtlaskitIcon icon={IconType.Blog} testId="blog-icon" size={SmartLinkSize.Medium} />);
+		render(
+			<AtlaskitIcon
+				icon={IconType.LiveDocument}
+				testId="live-document-icon"
+				size={SmartLinkSize.Medium}
+			/>,
+		);
 
-			expect(mockDocumentIconModuleLoaded).toHaveBeenCalledTimes(1);
-			expect(mockBlogIconModuleLoaded).toHaveBeenCalledTimes(1);
-			expect(mockLiveDocumentIconModuleLoaded).toHaveBeenCalledTimes(1);
-			expect(mockDocumentIcon).toHaveBeenCalledWith(
-				expect.objectContaining({ testId: 'document-icon', size: SmartLinkSize.Medium }),
-				expect.anything(),
-			);
-			expect(mockBlogIcon).toHaveBeenCalledWith(
-				expect.objectContaining({ testId: 'blog-icon', size: SmartLinkSize.Medium }),
-				expect.anything(),
-			);
-			expect(mockLiveDocumentIcon).toHaveBeenCalledWith(
-				expect.objectContaining({ testId: 'live-document-icon', size: SmartLinkSize.Medium }),
-				expect.anything(),
-			);
-		});
+		expect(mockDocumentIcon).toHaveBeenCalledWith(
+			expect.objectContaining({ testId: 'document-icon', size: SmartLinkSize.Medium }),
+			expect.anything(),
+		);
+		expect(mockBlogIcon).toHaveBeenCalledWith(
+			expect.objectContaining({ testId: 'blog-icon', size: SmartLinkSize.Medium }),
+			expect.anything(),
+		);
+		expect(mockLiveDocumentIcon).toHaveBeenCalledWith(
+			expect.objectContaining({ testId: 'live-document-icon', size: SmartLinkSize.Medium }),
+			expect.anything(),
+		);
 	});
 });

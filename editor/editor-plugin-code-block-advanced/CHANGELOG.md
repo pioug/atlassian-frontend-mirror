@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 11.0.2
+
+### Patch Changes
+
+- [`10408fdb0f64b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10408fdb0f64b) -
+  [ux] [EDITOR-7563] Select the whole node when clicking the border area of a code block
+- Updated dependencies
+
 ## 11.0.1
 
 ### Patch Changes

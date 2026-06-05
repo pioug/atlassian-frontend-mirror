@@ -1,46 +1,15 @@
-import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 
-// List type utilities
-export const isBulletOrOrderedList = (nodeType: NodeType): boolean => {
-	return nodeType.name === 'bulletList' || nodeType.name === 'orderedList';
-};
-
-export const isTaskList = (nodeType: NodeType): boolean => {
-	return nodeType.name === 'taskList';
-};
-
-export const getSupportedListTypes = (nodes: Record<string, NodeType>): NodeType[] => {
-	return [nodes.bulletList, nodes.orderedList, nodes.taskList].filter(Boolean);
-};
+import { getSupportedListTypes } from './getSupportedListTypes';
 
 export const getSupportedListTypesSet = (nodes: Record<string, NodeType>): Set<NodeType> => {
 	return new Set(getSupportedListTypes(nodes));
 };
-
-/**
- * Convert a block node to inline content suitable for task items
- */
-export const convertBlockToInlineContent = (node: PMNode, schema: Schema): PMNode[] => {
-	const { paragraph, hardBreak } = schema.nodes;
-
-	if (node.type === paragraph) {
-		return [...node.content.content];
-	}
-
-	if (node.isBlock) {
-		const textContent = node.textContent;
-		const lines = textContent.split('\n');
-		const newText: PMNode[] = [];
-		lines.forEach((line, index) => {
-			if (line !== '') {
-				newText.push(line ? schema.text(line) : schema.text(' '));
-			}
-			if (lines.length > 1 && index !== lines.length - 1) {
-				newText.push(hardBreak.create());
-			}
-		});
-		return newText;
-	}
-
-	return [node];
-};
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { isBulletOrOrderedList } from './isBulletOrOrderedList';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { isTaskList } from './isTaskList';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getSupportedListTypes } from './getSupportedListTypes';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { convertBlockToInlineContent } from './convertBlockToInlineContent';

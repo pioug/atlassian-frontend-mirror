@@ -14,7 +14,7 @@ export const UNSUPPORTED_NODE_ATTRIBUTE = 'unsupportedNodeAttribute';
 
 import { fireUnsupportedEvent } from './track-unsupported-content';
 import type { UnsupportedContentPayload } from './unsupportedContent/types';
-
+import { wrapWithUnsupported } from './wrapWithUnsupported';
 export type DispatchAnalyticsEvent = (event: UnsupportedContentPayload) => void;
 
 const errorCallbackFor = (
@@ -234,32 +234,5 @@ export const validateADFEntity = (
 
 	return entity;
 };
-
-export function wrapWithUnsupported(
-	originalValue: ADFEntity,
-	type: 'block' | 'inline' | 'mark' = 'block',
-): {
-	attrs: {
-		originalValue: ADFEntity;
-	};
-	type: string;
-} {
-	let unsupportedNodeType: string;
-	switch (type) {
-		case 'inline':
-			unsupportedNodeType = 'unsupportedInline';
-			break;
-
-		case 'mark':
-			unsupportedNodeType = 'unsupportedMark';
-			break;
-
-		default:
-			unsupportedNodeType = 'unsupportedBlock';
-	}
-
-	return {
-		type: unsupportedNodeType,
-		attrs: { originalValue },
-	};
-}
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { wrapWithUnsupported } from './wrapWithUnsupported';

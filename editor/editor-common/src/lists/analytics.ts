@@ -1,8 +1,8 @@
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { CommonListAnalyticsAttributes } from '../analytics';
-import { isListItemNode, isListNode } from '../utils';
 
+import { countListItemsInSelection } from './countListItemsInSelection';
 import { getListItemAttributes } from './selection';
 
 export const getCommonListAnalyticsAttributes = (
@@ -22,18 +22,5 @@ export const getCommonListAnalyticsAttributes = (
 		itemsInSelection: countListItemsInSelection(tr),
 	};
 };
-
-export const countListItemsInSelection = (tr: Transaction): number => {
-	const { from, to } = tr.selection;
-	if (from === to) {
-		return 1;
-	}
-	let count = 0;
-	const listSlice = tr.doc.cut(from, to);
-	listSlice.content.nodesBetween(0, listSlice.content.size, (node, pos, parent, index) => {
-		if (parent && isListItemNode(parent) && !isListNode(node) && index === 0) {
-			count++;
-		}
-	});
-	return count;
-};
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { countListItemsInSelection } from './countListItemsInSelection';

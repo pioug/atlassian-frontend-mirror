@@ -12,14 +12,15 @@ import {
 } from '@atlaskit/adf-utils/transforms';
 import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { Fragment, Node } from '@atlaskit/editor-prosemirror/model';
+import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
-import { isNestedTablesSupported, isPanelNestingTableSupported } from '../nesting/utilities';
+import { isNestedTablesSupported } from '../nesting/isNestedTablesSupported';
+import { isPanelNestingTableSupported } from '../nesting/isPanelNestingTableSupported';
 import type { ProviderFactory } from '../provider-factory';
 import type { ReplaceRawValue, Transformer } from '../types';
 
@@ -358,38 +359,6 @@ export function processRawValue(
 	}
 }
 
-export function processRawFragmentValue(
-	schema: Schema,
-	value?: ReplaceRawValue[],
-	providerFactory?: ProviderFactory,
-	sanitizePrivateContent?: boolean,
-	contentTransformer?: Transformer<string>,
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-): Fragment | undefined {
-	if (!value) {
-		return;
-	}
-
-	const adfEntities = value
-		.map((item) =>
-			processRawValue(
-				schema,
-				item,
-				providerFactory,
-				sanitizePrivateContent,
-				contentTransformer,
-				dispatchAnalyticsEvent,
-			),
-		)
-		.filter((item) => Boolean(item)) as Node[];
-
-	if (adfEntities.length === 0) {
-		return;
-	}
-
-	return Fragment.from(adfEntities);
-}
-
 function isProseMirrorSchemaCheckError(error: unknown): boolean {
 	return (
 		error instanceof RangeError &&
@@ -412,3 +381,5 @@ const maySanitizePrivateContent = (
 	}
 	return entity;
 };
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { processRawFragmentValue } from './processRawFragmentValue';

@@ -10,14 +10,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SortOrder } from '../types';
 
-export enum ContentType {
-	NUMBER = 0,
-	TEXT = 5,
-	MENTION = 10,
-	DATE = 15,
-	STATUS = 20,
-	LINK = 25,
-}
+import { ContentType } from './ContentType';
 
 interface CompareOptions {
 	getInlineCardTextFromStore: (attrs: CardAttributes) => string | null; // null means that could not find the title
@@ -318,3 +311,5 @@ function compareMetaFromNode(metaNodeA: NodeMeta | null, metaNodeB: NodeMeta | n
 
 	return compareValue(metaNodeA.value, metaNodeB.value);
 }
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { ContentType } from './ContentType';

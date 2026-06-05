@@ -72,6 +72,31 @@ export default function Example(): React.JSX.Element {
 						onMouseLeave={onMentionEvent}
 					/>
 				</div>
+				{/* Disabled variant (with tooltip). The chip is automatically kept tab-focusable
+				    and gets aria-disabled + aria-label by the component itself. */}
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<div style={padding}>
+					<Mention
+						{...mentionData}
+						isDisabled
+						disabledTooltip="Only one agent can be active at a time"
+						onClick={onMentionEvent}
+						onMouseEnter={onMentionEvent}
+						onMouseLeave={onMentionEvent}
+					/>
+				</div>
+				{/* Disabled variant without a tooltip — chip is still in the DISABLED visual state
+				    but has no on-hover affordance. */}
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<div style={padding}>
+					<Mention
+						{...mentionData}
+						isDisabled
+						onClick={onMentionEvent}
+						onMouseEnter={onMentionEvent}
+						onMouseLeave={onMentionEvent}
+					/>
+				</div>
 			</div>
 		</IntlProvider>
 	);

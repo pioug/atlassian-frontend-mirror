@@ -1,53 +1,13 @@
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
-import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import {
-	akEditorDefaultLayoutWidth,
-	akEditorFullWidthLayoutWidth,
-	akEditorGutterPadding,
-	akEditorGutterPaddingDynamic,
-	akEditorGutterPaddingReduced,
-	akEditorFullPageNarrowBreakout,
-	breakoutWideScaleRatio,
-} from '@atlaskit/editor-shared-styles';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { breakoutWideScaleRatio } from '@atlaskit/editor-shared-styles';
 
-import type { EditorAppearance } from '../types';
-import { floatingLayouts, isRichMediaInsideOfBlockNode } from '../utils/rich-media-utils';
+import { floatingLayouts } from '../utils/floatingLayouts';
 
-import {
-	DEFAULT_IMAGE_WIDTH,
-	DEFAULT_ROUNDING_INTERVAL,
-	MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
-	MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
-	wrappedLayouts,
-} from './constants';
-
-/**
- * Convert media node width to pixel
- *
- * for legacy experience, image is aligned inside resize handle bar with a gap. So gutterOffset is used to for this use case.
- * for new experience, image is aligned with resize handle bar, so gutterOffset is 0
- *
- * @param width - media single node width
- * @param editorWidth - width of editor
- * @param widthType - width type is defined in the adf document for mediaSingle node, and it is associated with the `width`
- * @param gutterOffset - resize handle bar offset, determines whether align with resize handle bar
- * @returns pixel number for media single node
- */
-export function getMediaSinglePixelWidth(
-	width: number,
-	editorWidth: number,
-	widthType = 'percentage',
-	gutterOffset = 0,
-): number {
-	if (widthType === 'pixel') {
-		return width;
-	}
-	return Math.ceil((editorWidth + gutterOffset) * (width / 100) - gutterOffset);
-}
+import { calcMediaSingleMaxWidth } from './calcMediaSingleMaxWidth';
+import { wrappedLayouts } from './constants';
+import { getMediaSingleInitialWidth } from './getMediaSingleInitialWidth';
 
 export interface calcMediaSinglePixelWidthProps {
 	containerWidth: number;
@@ -125,114 +85,6 @@ const calcLegacyWideWidth = (containerWidth: number, origWidth: number, contentW
 		return wideWidth > containerWidth ? contentWidth : wideWidth;
 	}
 	return origWidth;
-};
-
-/**
- * Calculate maximum width allowed for media single node in fix-width editor in new experience
- * @param containerWidth width of editor container
- */
-export const calcMediaSingleMaxWidth = (
-	containerWidth: number,
-	editorAppearance?: EditorAppearance,
-): number => {
-	const fullPagePadding =
-		editorAppearance === 'full-page' &&
-		containerWidth <= akEditorFullPageNarrowBreakout &&
-		editorExperiment('platform_editor_preview_panel_responsiveness', true, {
-			exposure: true,
-		})
-			? akEditorGutterPaddingReduced
-			: akEditorGutterPaddingDynamic();
-
-	const fullWidthPadding =
-		editorAppearance === 'full-page' ? fullPagePadding * 2 : akEditorGutterPadding * 2;
-	return Math.min(containerWidth - fullWidthPadding, akEditorFullWidthLayoutWidth);
-};
-
-/**
- * Calculate initial media single pixel width.
- * Make it fall between max width and min width
- * @param origWidth original width of image (media node width)
- * @param maxWidth default to akEditorDefaultLayoutWidth (760)
- * @param minWidth default to MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH (24)
- */
-export const getMediaSingleInitialWidth = (
-	origWidth: number = DEFAULT_IMAGE_WIDTH,
-	maxWidth: number = akEditorDefaultLayoutWidth,
-	minWidth: number = MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
-): number => {
-	return Math.max(Math.min(origWidth, maxWidth), minWidth);
-};
-
-export function calculateOffsetLeft(
-	insideInlineLike: boolean,
-	insideLayout: boolean,
-	pmViewDom: Element,
-	wrapper?: HTMLElement,
-): number {
-	let offsetLeft = 0;
-	if (wrapper && insideInlineLike && !insideLayout) {
-		const currentNode: HTMLElement = wrapper;
-		const boundingRect = currentNode.getBoundingClientRect();
-		offsetLeft = boundingRect.left - pmViewDom.getBoundingClientRect().left;
-	}
-	return offsetLeft;
-}
-
-/**
- * Returns the number rounded to the nearest interval.
- * @param {number} value    The number to round
- * @param {number} interval The numeric interval to round to, default to 0.5
- * @returns {number} the rounded number
- */
-export const roundToNearest = (
-	value: number,
-	interval: number = DEFAULT_ROUNDING_INTERVAL,
-): number => Math.round(value / interval) * interval;
-
-/**
- * Retuns minimum value for media single node
- * @param isVideoFile is child media of video type
- * @param contentWidth parent content width
- */
-export const calcMinWidth = (isVideoFile: boolean, contentWidth: number): number => {
-	return Math.min(
-		contentWidth,
-		isVideoFile ? MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH : MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
-	);
-};
-
-/**
- * Get parent width for a nested media single node
- * @param view Editor view
- * @param pos node position
- */
-export const getMaxWidthForNestedNode = (
-	view: EditorView,
-	pos: number | undefined,
-): number | null => {
-	if (typeof pos !== 'number') {
-		return null;
-	}
-	if (isRichMediaInsideOfBlockNode(view, pos)) {
-		const $pos = view.state.doc.resolve(pos);
-		const domNode = view.nodeDOM($pos.pos);
-
-		if (
-			$pos.nodeAfter &&
-			floatingLayouts.indexOf($pos.nodeAfter.attrs.layout) > -1 &&
-			domNode &&
-			domNode.parentElement
-		) {
-			return domNode.parentElement.offsetWidth;
-		}
-
-		if (domNode instanceof HTMLElement) {
-			return domNode.offsetWidth;
-		}
-	}
-
-	return null;
 };
 
 const calcParentPadding = (view: EditorView, resolvedPos: ResolvedPos) => {
@@ -317,41 +169,19 @@ export const getParentWidthForNestedMediaSingleNodeForInsertion = (
 	}
 	return null;
 };
-
-/**
- *
- * @param editorState current editor state
- * @returns selected media node (child of mediaSingle only) with position
- */
-export const currentMediaNodeWithPos = (
-	editorState: EditorState,
-):
-	| {
-			node: PMNode;
-			pos: number;
-	  }
-	| undefined => {
-	const { doc, selection, schema } = editorState;
-
-	if (
-		!doc ||
-		!selection ||
-		!(selection instanceof NodeSelection) ||
-		selection.node.type !== schema.nodes.mediaSingle
-	) {
-		return;
-	}
-
-	const pos = selection.$anchor.pos + 1;
-
-	const node = doc.nodeAt(pos);
-
-	if (!node || node.type !== schema.nodes.media) {
-		return;
-	}
-
-	return {
-		node,
-		pos,
-	};
-};
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getMediaSinglePixelWidth } from './getMediaSinglePixelWidth';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { calcMediaSingleMaxWidth } from './calcMediaSingleMaxWidth';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getMediaSingleInitialWidth } from './getMediaSingleInitialWidth';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { calculateOffsetLeft } from './calculateOffsetLeft';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { roundToNearest } from './roundToNearest';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { calcMinWidth } from './calcMinWidth';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getMaxWidthForNestedNode } from './getMaxWidthForNestedNode';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { currentMediaNodeWithPos } from './currentMediaNodeWithPos';

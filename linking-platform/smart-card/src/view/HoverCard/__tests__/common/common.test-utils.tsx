@@ -2,6 +2,7 @@ import type { JsonLd } from '@atlaskit/json-ld-types';
 import { mocks } from '@atlaskit/link-test-helpers';
 import type { CardStore, CardType } from '@atlaskit/linking-common';
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { act, fireEvent, screen, within } from '@atlassian/testing-library';
 
 import { closeEmbedModal } from '../../../../__tests__/__utils__/unit-helpers';
@@ -667,5 +668,84 @@ export const runCommonHoverCardTests = (
 			});
 			expect(screen.queryByTestId('hover-card-loading-view')).not.toBeInTheDocument();
 		});
+	});
+
+	describe('link click behaviour', () => {
+
+		let openSpy: jest.SpyInstance;
+
+		beforeEach(() => {
+			openSpy = jest.spyOn(window, 'open').mockImplementation(() => null);
+		});
+
+		afterEach(() => {
+			openSpy.mockRestore();
+		});
+
+		ffTest.on(
+			'platform_smartlink_xpc_url_wrapping',
+			'when gate is on',
+			() => {
+				it('opens the link via window.open when the title link is clicked', async () => {
+					const { event } = await setup();
+
+					const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
+					const titleLink = titleBlock.querySelector('a');
+
+					expect(titleLink).not.toBeNull();
+
+					await act(async () => {
+						await event.click(titleLink!);
+					});
+
+					expect(openSpy).toHaveBeenCalledWith(
+						expect.stringContaining('some.url'),
+						expect.any(String),
+					);
+				});
+
+				it('opens in a new tab on modifier+click', async () => {
+					const { event } = await setup();
+
+					const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
+					const titleLink = titleBlock.querySelector('a');
+
+					expect(titleLink).not.toBeNull();
+
+					await act(async () => {
+						await event.keyboard('{Meta>}');
+						await event.click(titleLink!);
+						await event.keyboard('{/Meta}');
+					});
+
+					expect(openSpy).toHaveBeenCalledWith(
+						expect.stringContaining('some.url'),
+						'_blank',
+					);
+				});
+			},
+		);
+
+		ffTest.off(
+			'platform_smartlink_xpc_url_wrapping',
+			'when gate is off',
+			() => {
+				it('does not call window.open when the title link is clicked (native anchor navigation)', async () => {
+					const { event } = await setup();
+
+					const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
+					const titleLink = titleBlock.querySelector('a');
+
+					expect(titleLink).not.toBeNull();
+
+					await act(async () => {
+						await event.click(titleLink!);
+					});
+
+					// Legacy path: window.open is not called; native anchor navigation is used
+					expect(openSpy).not.toHaveBeenCalled();
+				});
+			},
+		);
 	});
 };

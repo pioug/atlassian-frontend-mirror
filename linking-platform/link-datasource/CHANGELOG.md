@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 5.6.3
+
+### Patch Changes
+
+- [`c949c4c098a1a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c949c4c098a1a) -
+  Fix vertical alignment gap in SLLV for rich textfields
+- Updated dependencies
+
 ## 5.6.2
 
 ### Patch Changes

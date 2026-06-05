@@ -275,6 +275,10 @@ function FullPageDiffEditor(): React.JSX.Element {
 					ai: editorPluginAIOptions,
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					aiDefinitions: {} as any,
+					aiImageGeneration: {
+						isRemixHidden: false,
+						isRovoLLMEnabled: false,
+					},
 					referentiality: {
 						referentialityContext: {
 							api: null,

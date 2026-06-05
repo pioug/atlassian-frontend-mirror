@@ -15,7 +15,6 @@ import { useAnalyticsEvents } from '../../../../../common/analytics/generated/us
 import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../../../constants';
 import { succeedUfoExperience } from '../../../../../state/analytics';
 import useAISummaryAction from '../../../../../state/hooks/use-ai-summary-action';
-import useInlineActionNudgeExperiment from '../../../../../state/hooks/use-inline-action-nudge-experiment';
 import FlexibleCard from '../../../../FlexibleCard';
 import {
 	ActionBlock,
@@ -58,7 +57,6 @@ const actionBlockCss = css({
 });
 
 const HoverCardResolvedView = ({
-	actionOptions,
 	cardState,
 	extensionKey,
 	flexibleCardProps,
@@ -71,20 +69,10 @@ const HoverCardResolvedView = ({
 	di(useAISummaryAction);
 
 	const { fireEvent } = useAnalyticsEvents();
-	const { isEnabled: InlineActionNudgeExperimentValue } = useInlineActionNudgeExperiment(
-		flexibleCardProps.url,
-		true,
-		actionOptions,
-	);
-
 	// We want to fire exposure event only for those cases when user otherwise can see the experiment which would be controlled
 	// by all the other condition defined above as a result of what was defined in actionOptions as well as in CardContext.
 	const is3PAuthRovoActionsExperimentOn =
 		showRovoResolvedView && expValEquals('platform_sl_3p_auth_rovo_action', 'isEnabled', true);
-	const is3PInlinePostAuthActionsExperimentOn =
-		showRovoResolvedView && InlineActionNudgeExperimentValue;
-	const isAny3pRovoActionsExperimentOn =
-		is3PAuthRovoActionsExperimentOn || is3PInlinePostAuthActionsExperimentOn;
 
 	useEffect(() => {
 		// Since this hover view is only rendered on resolved status,
@@ -142,7 +130,7 @@ const HoverCardResolvedView = ({
 				<AISummaryBlock
 					aiSummaryMinHeight={aiSummaryMinHeight}
 					placeholder={snippet}
-					isAny3pRovoActionsExperimentOn={isAny3pRovoActionsExperimentOn}
+					isAny3pRovoActionsExperimentOn={is3PAuthRovoActionsExperimentOn}
 				/>
 			) : (
 				snippet
@@ -158,9 +146,9 @@ const HoverCardResolvedView = ({
 				onClick={onActionClick}
 				spaceInline="space.100"
 				css={[actionBlockCss]}
-				isAny3pRovoActionsExperimentOn={isAny3pRovoActionsExperimentOn}
+				isAny3pRovoActionsExperimentOn={is3PAuthRovoActionsExperimentOn}
 			/>
-			{isAny3pRovoActionsExperimentOn ? (
+			{is3PAuthRovoActionsExperimentOn ? (
 				<ResolvedHoverCardFooterBlock onActionClick={onActionClick} />
 			) : (
 				<AIFooterBlock />

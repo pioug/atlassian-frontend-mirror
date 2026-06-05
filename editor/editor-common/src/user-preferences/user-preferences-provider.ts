@@ -1,6 +1,7 @@
+import { areUserPreferencesEqual } from './areUserPreferencesEqual';
+import { mergeUserPreferences } from './mergeUserPreferences';
 import type { PersistenceAPI } from './persistence-api';
 import type { ResolvedUserPreferences, UserPreferences } from './user-preferences';
-import { areUserPreferencesEqual, mergeUserPreferences } from './utils';
 
 type UpdateCallback = (userPreferences: UserPreferences) => void;
 

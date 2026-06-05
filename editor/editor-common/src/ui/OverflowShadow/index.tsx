@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { ShadowObserver, shadowObserverClassNames } from './shadowObserver';
+import { ShadowObserver } from './shadowObserver';
+import { shadowObserverClassNames } from './shadowObserverClassNames';
 
 export const shadowClassNames = {
 	RIGHT_SHADOW: 'right-shadow',

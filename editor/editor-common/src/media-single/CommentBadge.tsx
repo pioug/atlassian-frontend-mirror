@@ -19,6 +19,7 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { commentMessages as messages } from '../media';
 
+import { getBadgeSize } from './getBadgeSize';
 const commentBadgeWrapper = css({
 	position: 'absolute',
 	// closest parent element with position relative is .resizer-hover-zone, which includes 10px padding
@@ -37,10 +38,6 @@ const commentBadgeEditorOverrides = (badgeOffsetRight?: string) =>
 		zIndex: 100,
 	});
 
-export const getBadgeSize = (width?: number, height?: number): 'medium' | 'small' => {
-	// width is the original width of image, not resized or currently rendered to user. Defaulting to medium for now
-	return (width && width < 70) || (height && height < 70) ? 'small' : 'medium';
-};
 
 export type CommentBadgeProps = {
 	badgeOffsetRight?: string;
@@ -158,3 +155,5 @@ export const CommentBadge: ForwardRefExoticComponent<
 		);
 	},
 );
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { getBadgeSize } from './getBadgeSize';

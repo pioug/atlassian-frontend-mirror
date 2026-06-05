@@ -6,8 +6,8 @@ import { findChildren } from '@atlaskit/editor-prosemirror/utils';
 import { roundToNearest } from '../media-single';
 
 import { MEDIA_DYNAMIC_GUIDELINE_PREFIX } from './constants';
+import { getMediaSingleDimensions } from './getMediaSingleDimensions';
 import type { GuidelineConfig, GuidelineStyles, RelativeGuides } from './types';
-import { getMediaSingleDimensions } from './utils';
 
 export const generateDynamicGuidelines = (
 	state: EditorState,

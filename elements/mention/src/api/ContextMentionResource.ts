@@ -12,6 +12,8 @@ import {
 import { padArray } from '../util';
 import {
 	type MentionDescription,
+	type MentionDisabledState,
+	type MentionDisabledStateInput,
 	type InviteFromMentionProvider,
 	type XProductInviteMentionProvider,
 	type AnalyticsCallback,
@@ -80,6 +82,16 @@ export default class ContextMentionResource implements MentionProvider {
 
 	shouldHighlightMention: (mention: MentionDescription) => boolean =
 		this.callDefault('shouldHighlightMention');
+
+	getMentionDisabledState = (
+		mention: MentionDisabledStateInput,
+	): MentionDisabledState | undefined => this.mentionProvider.getMentionDisabledState?.(mention);
+
+	subscribeToDisabledStateChanges = (listener: () => void): (() => void) =>
+		this.mentionProvider.subscribeToDisabledStateChanges?.(listener) ?? (() => undefined);
+
+	notifyMentionDestroyed = (mention: { id: string }): void =>
+		this.mentionProvider.notifyMentionDestroyed?.(mention);
 
 	isFiltering: (query: string) => boolean = this.callDefault('isFiltering');
 }

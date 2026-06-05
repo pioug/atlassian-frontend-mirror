@@ -1,5 +1,12 @@
 # @atlaskit/flag
 
+## 17.12.8
+
+### Patch Changes
+
+- [`a7925184f55e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7925184f55e1) -
+  Fixes min-width issue in flags causing content to exceed container's width
+
 ## 17.12.7
 
 ### Patch Changes

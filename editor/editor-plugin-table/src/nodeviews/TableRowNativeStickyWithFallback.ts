@@ -111,9 +111,25 @@ export default class TableRowNativeStickyWithFallback
 
 		const pos = this.getPos();
 		this.isInNestedTable = false;
-		if (pos) {
-			this.isInNestedTable =
-				getParentOfTypeCount(view.state.schema.nodes.table)(view.state.doc.resolve(pos)) > 1;
+
+		if (fg('platform_editor_ai_table_ai_streaming_pos_fix')) {
+			try {
+				// We cannot trust that the value from getPos will be defined
+				// https://discuss.prosemirror.net/t/getpos-is-undefined-in-nodeview-constructor/1246/4
+				// There are also scenarios where the value it brings back does not tally with the current doc
+				// E.g. when AI streaming brings in new content, this position brings back incorrect values that cannot be resolved
+				if (pos) {
+					this.isInNestedTable =
+						getParentOfTypeCount(view.state.schema.nodes.table)(view.state.doc.resolve(pos)) > 1;
+				}
+			} catch {
+				// Intentionally swallowed — getPos can return stale positions during AI streaming
+			}
+		} else {
+			if (pos) {
+				this.isInNestedTable =
+					getParentOfTypeCount(view.state.schema.nodes.table)(view.state.doc.resolve(pos)) > 1;
+			}
 		}
 
 		if (this.isHeaderRow) {
@@ -796,16 +812,37 @@ export default class TableRowNativeStickyWithFallback
 		) {
 			const pos = this.getPos();
 			if (typeof pos === 'number') {
-				const $tableRowPos = this.view.state.doc.resolve(pos);
+				if (fg('platform_editor_ai_table_ai_streaming_pos_fix')) {
+					try {
+						// getPos can return stale positions during AI streaming which cannot be resolved
+						const $tableRowPos = this.view.state.doc.resolve(pos);
 
-				// layout -> layout column -> table -> table row
-				if ($tableRowPos.depth >= 3) {
-					const isInsideLayout = findParentNodeClosestToPos($tableRowPos, (node) => {
-						return node.type.name === 'layoutColumn';
-					})?.node;
+						// layout -> layout column -> table -> table row
+						if ($tableRowPos.depth >= 3) {
+							const isInsideLayout = findParentNodeClosestToPos($tableRowPos, (node) => {
+								return node.type.name === 'layoutColumn';
+							})?.node;
 
-					if (isInsideLayout) {
+							if (isInsideLayout) {
+								return false;
+							}
+						}
+					} catch {
+						// getPos can return stale positions during AI streaming — fall back to non-sticky
 						return false;
+					}
+				} else {
+					const $tableRowPos = this.view.state.doc.resolve(pos);
+
+					// layout -> layout column -> table -> table row
+					if ($tableRowPos.depth >= 3) {
+						const isInsideLayout = findParentNodeClosestToPos($tableRowPos, (node) => {
+							return node.type.name === 'layoutColumn';
+						})?.node;
+
+						if (isInsideLayout) {
+							return false;
+						}
 					}
 				}
 			}

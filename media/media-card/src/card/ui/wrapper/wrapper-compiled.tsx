@@ -52,7 +52,7 @@ const wrapperStyles = cssMap({
 });
 
 const backgroundStyle = css({
-	backgroundColor: token('color.background.neutral'),
+	backgroundColor: token('elevation.surface.sunken'),
 });
 
 const shadowStyleMap = cssMap({

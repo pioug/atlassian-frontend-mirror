@@ -31,7 +31,7 @@ const progressBarTrackStyles = css({
 	width: '95%',
 	height: '6px',
 	position: 'relative',
-	borderRadius: token('radius.xsmall'),
+	borderRadius: token('radius.full'),
 	overflow: 'hidden',
 	backgroundColor: token('color.background.neutral', 'rgba(255, 255, 255, 0.3)'),
 });

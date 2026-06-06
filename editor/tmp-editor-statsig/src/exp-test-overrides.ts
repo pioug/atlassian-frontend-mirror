@@ -35,6 +35,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
+	'cc-maui-ai-edit-loading-experiment': true,
 	social_proof_3p_unauth_block_exp: false,
 	linking_platform_track_non_primary_3p_clicks: false,
 	platform_sl_3p_auth_rovo_action: false,

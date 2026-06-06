@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 7.4.1
+
+### Patch Changes
+
+- [`cbc15c465e006`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cbc15c465e006) -
+  Add trusted reviewer team for the ai-mate packages
+
 ## 7.4.0
 
 ### Minor Changes

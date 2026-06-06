@@ -9,7 +9,8 @@ export const wrapperStyles = ({ dimensions }: WrapperProps): SerializedStyles =>
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		center,
 		{
-			background: token('color.background.neutral'),
+			position: 'relative',
+			background: token('elevation.surface.sunken'),
 			color: token('color.icon'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

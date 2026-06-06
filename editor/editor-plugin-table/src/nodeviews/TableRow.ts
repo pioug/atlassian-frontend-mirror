@@ -8,6 +8,7 @@ import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tablePluginKey } from '../pm-plugins/plugin-key';
@@ -535,16 +536,37 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		) {
 			const pos = this.getPos();
 			if (typeof pos === 'number') {
-				const $tableRowPos = this.view.state.doc.resolve(pos);
+				if (fg('platform_editor_ai_table_ai_streaming_pos_fix')) {
+					try {
+						// getPos can return stale positions during AI streaming which cannot be resolved
+						const $tableRowPos = this.view.state.doc.resolve(pos);
 
-				// layout -> layout column -> table -> table row
-				if ($tableRowPos.depth >= 3) {
-					const isInsideLayout = findParentNodeClosestToPos($tableRowPos, (node) => {
-						return node.type.name === 'layoutColumn';
-					})?.node;
+						// layout -> layout column -> table -> table row
+						if ($tableRowPos.depth >= 3) {
+							const isInsideLayout = findParentNodeClosestToPos($tableRowPos, (node) => {
+								return node.type.name === 'layoutColumn';
+							})?.node;
 
-					if (isInsideLayout) {
+							if (isInsideLayout) {
+								return false;
+							}
+						}
+					} catch {
+						// getPos can return stale positions during AI streaming — fall back to non-sticky
 						return false;
+					}
+				} else {
+					const $tableRowPos = this.view.state.doc.resolve(pos);
+
+					// layout -> layout column -> table -> table row
+					if ($tableRowPos.depth >= 3) {
+						const isInsideLayout = findParentNodeClosestToPos($tableRowPos, (node) => {
+							return node.type.name === 'layoutColumn';
+						})?.node;
+
+						if (isInsideLayout) {
+							return false;
+						}
 					}
 				}
 			}

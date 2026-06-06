@@ -36,6 +36,9 @@
 			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../observability/interaction-context/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/link/afm-cc/tsconfig.json"
 		},
 		{

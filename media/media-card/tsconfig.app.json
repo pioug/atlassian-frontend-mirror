@@ -46,6 +46,9 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
+			"path": "../../observability/interaction-context/tsconfig.app.json"
+		},
+		{
 			"path": "../media-client/tsconfig.app.json"
 		},
 		{

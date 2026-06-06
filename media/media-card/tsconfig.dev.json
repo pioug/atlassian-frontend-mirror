@@ -73,6 +73,9 @@
 			"path": "../../design-system/inline-message/tsconfig.app.json"
 		},
 		{
+			"path": "../../observability/interaction-context/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/link/tsconfig.app.json"
 		},
 		{

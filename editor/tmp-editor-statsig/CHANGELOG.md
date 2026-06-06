@@ -1,5 +1,22 @@
 # @atlaskit/editor-statsig-tmp
 
+## 89.2.0
+
+### Minor Changes
+
+- [`a826d67f22cc9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a826d67f22cc9) -
+  Replace the legacy circular spinner in `CardView` and `CardLoading` with a bottom-aligned grey
+  loading bar when `cc-maui-ai-edit-loading-experiment.isEnabled` is on. The bar is 6px to match the
+  native-embed loading bar, and the media card loading/placeholder background now uses
+  `elevation.surface.sunken`. Registers `cc-maui-ai-edit-loading-experiment` in
+  `@atlaskit/tmp-editor-statsig`.
+
+  Round the ends (pill radius) of the MAUI loading bars so the media-card loading bar, native-embed
+  loading bar, and AI generating overlay bars are visually consistent.
+
+  The loading bar now holds a named UFO interaction while shown (matching the spinner's
+  `interactionName`) so media loading stays attributed in performance metrics.
+
 ## 89.1.1
 
 ### Patch Changes

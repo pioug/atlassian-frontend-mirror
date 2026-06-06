@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 3.1.0
+
+### Minor Changes
+
+- [`f003833231999`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f003833231999) -
+  Code-split the autocomplete vocabulary, L3 word list and word-index JSON via dynamic import so
+  they load on autocomplete initialisation instead of being bundled into the editor's main chunk.
+
 ## 3.0.0
 
 ### Patch Changes

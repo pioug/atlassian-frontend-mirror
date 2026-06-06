@@ -56,7 +56,6 @@ const getTextBeforeCursor = (state: EditorState): string => {
 	const { $from } = state.selection;
 	const maxChars = 200;
 
-	// 1. Get the perfectly flattened text of the current block up to the cursor
 	const blockNode = $from.parent;
 	const offsetInBlock = $from.parentOffset;
 	const blockText = blockNode.textContent.slice(0, offsetInBlock);
@@ -67,7 +66,7 @@ const getTextBeforeCursor = (state: EditorState): string => {
 
 	let fullText = blockText;
 
-	// 2. Walk backwards through previous blocks
+	// Walk backwards through previous blocks until we have enough context.
 	let depth = $from.depth - 1;
 
 	while (fullText.length < maxChars && depth >= 0) {
@@ -309,7 +308,6 @@ export const createAutocompletePlugin = (
 				const { state } = view;
 				const { selection } = state;
 
-				// Only predict for cursor selections (not range selections)
 				if (!selection.empty) {
 					return;
 				}
@@ -323,12 +321,10 @@ export const createAutocompletePlugin = (
 				}
 				dismissedContext = null;
 
-				// Don't predict if there's not enough context
 				if (textBefore.trim().length < 3) {
 					return;
 				}
 
-				// Tier 1 prediction is synchronous -- no async needed
 				const prediction = predict(textBefore);
 
 				if (prediction && prediction.length > 0) {
@@ -402,8 +398,7 @@ export const createAutocompletePlugin = (
 					return { ...pluginState, ...meta };
 				}
 
-				// If the document changed, clear the ghost text
-				// (new prediction will be scheduled from view.update)
+				// A new prediction is scheduled from view.update.
 				if (tr.docChanged) {
 					return {
 						...pluginState,
@@ -413,7 +408,6 @@ export const createAutocompletePlugin = (
 					};
 				}
 
-				// If selection changed without doc change, clear ghost text
 				if (tr.selectionSet && pluginState.ghostText) {
 					return {
 						...pluginState,
@@ -484,13 +478,11 @@ export const createAutocompletePlugin = (
 					return false;
 				},
 				focus: () => {
-					try {
-						loadDefaultVocabulary();
-					} catch (error) {
+					loadDefaultVocabulary().catch((error) => {
 						logException(error as Error, {
 							location: 'editor-plugin-autocomplete/loadDefaultVocabulary',
 						});
-					}
+					});
 					loadVectorsAsync({ getBinaryUrl: options?.getVectorsBinaryUrl }).catch((error) => {
 						logException(error as Error, {
 							location: 'editor-plugin-autocomplete/loadVectorsAsync',
@@ -533,12 +525,10 @@ export const createAutocompletePlugin = (
 					if (justAccepted) {
 						justAccepted = false;
 
-						// ✨ THE FIX: Memorize the text state right after acceptance.
-						// Any follow-up transactions will hit the 'dismissedContext'
-						// block and abort until the user actually types a new character!
+						// Snapshot the post-acceptance text so follow-up transactions hit
+						// the dismissedContext guard and abort until the user types again.
 						dismissedContext = getTextBeforeCursor(view.state);
 
-						// Also clear any pending debounce timers from before the acceptance
 						if (debounceTimer) {
 							clearTimeout(debounceTimer);
 						}

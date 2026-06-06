@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 23.1.2
+
+### Patch Changes
+
+- [`cac6bd11a2e56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cac6bd11a2e56) -
+  CCI-16976 Fixed position out of range error coming from table behind feature gate
+  platform_editor_ai_table_ai_streaming_pos_fix
+
 ## 23.1.1
 
 ### Patch Changes

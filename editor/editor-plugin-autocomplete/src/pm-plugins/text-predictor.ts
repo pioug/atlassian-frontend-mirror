@@ -17,11 +17,9 @@
 
 import { EXPERIENCE_NAME, failExp, startExp, succeedExp } from '../analytics/ufo';
 
-// import bigramsData from './data/bigrams.json';
-import l3VocabularyData from './data/l3_vocabulary.json';
-import vocabularyData from './data/vocabulary_10k.json';
-import wordIndexData from './data/word_index_10k.json';
-// import { rankCandidates, isGrammarAllowed } from './scoring-pipeline';
+// The vocabulary, L3 and word-index JSON payloads are dynamically imported in
+// loadDefaultVocabulary / loadVectorsAsync so their (large) contents stay out of
+// the editor's main chunk and only load when autocomplete is initialised.
 import { isAutocompleteDebugEnabled } from './debug-mode';
 import { rankCandidates, STAGE1_WEIGHT, STAGE2_WEIGHT, MIN_STAGE1_SCORE } from './scoring-pipeline';
 import type { ScoringCandidate } from './scoring-pipeline';
@@ -32,7 +30,7 @@ import { getStoredContextVector, getStoredLmLogits } from './slow-lane-client';
 // eslint-disable-next-line require-unicode-regexp
 const PUNCTUATION_BOUNDARY_REGEX = /^[.,;:!?()\[\]{}"'`]+|[.,;:!?()\[\]{}"'`]+$/g;
 
-const MIN_PREFIX_LENGTH = 4;
+const MIN_PREFIX_LENGTH = 3;
 const MAX_CANDIDATES = 200;
 const CONTEXT_WORDS = 10;
 const MIN_SCORE_THRESHOLD = 0.35;
@@ -175,7 +173,6 @@ const wordTrie = new WeightedWordTrie();
 // L3 Trie (General English Fallback)
 const l3Trie = new WeightedWordTrie();
 
-// --- Initialization Function ---
 /**
  * Loads the General English vocabulary.
  * expects a simple array of strings: ["about", "above", "actually", ...]
@@ -290,14 +287,11 @@ const tokenize = (text: string): string[] => {
 };
 
 const extractPreviousWord = (text: string): string => {
-	// 1. Split the text by newlines or punctuation (. ? !)
+	// Only consider the current sentence/line the user is typing in.
 	// eslint-disable-next-line require-unicode-regexp
 	const sentences = text.split(/[\n.?!]+/);
-
-	// 2. Only look at the current sentence/line the user is typing in
 	const currentSentence = sentences[sentences.length - 1];
 
-	// 3. Extract the previous word as normal
 	// eslint-disable-next-line require-unicode-regexp
 	const words = currentSentence.trimEnd().split(/\s+/);
 	return words.length >= 2 ? words[words.length - 2] : '';
@@ -370,7 +364,6 @@ export const incrementSessionFreq = (word: string): void => {
  * Pass `undefined` (or omit the argument) to skip priming — useful when the
  * calling context does not yet have a page value available.
  */
-// NOTE: We ingest full page context here
 export const ingestDocumentPage = (pageContent: string | undefined): void => {
 	if (!pageContent) {
 		return;
@@ -402,7 +395,11 @@ export const ingestDocumentPage = (pageContent: string | undefined): void => {
 
 export const predict = (textBefore: string): string | null => {
 	if (!isInitialized) {
-		loadDefaultVocabulary();
+		// Vocabulary JSON is code-split and loads asynchronously. Kick off the load
+		// and skip this keystroke; the plugin also primes it on focus, so the tries
+		// are usually ready before the user types.
+		void loadDefaultVocabulary().catch(() => {});
+		return null;
 	}
 
 	const t0 = performance.now();
@@ -458,19 +455,17 @@ export const predict = (textBefore: string): string | null => {
 		return null;
 	}
 
-	// 1. Primary Query: Ask the L2 Domain Trie
 	const candidates = wordTrie.getCandidates(currentWord, MAX_CANDIDATES);
 
-	// 2. Fallback Query: Gap-fill with the L3 General English Trie
+	// Gap-fill from the L3 general-English trie, requesting a full buffer so
+	// enough survive de-duplication against the L2 results.
 	if (candidates.length < MAX_CANDIDATES) {
-		// Ask L3 for MAX_CANDIDATES to guarantee we have enough buffer
-		// to survive the deduplication process.
 		const l3Candidates = l3Trie.getCandidates(currentWord, MAX_CANDIDATES);
 
 		const existingWords = new Set(candidates.map((c) => c.word));
 
 		for (const l3c of l3Candidates) {
-			if (candidates.length >= MAX_CANDIDATES) break; // Stop exactly at the limit
+			if (candidates.length >= MAX_CANDIDATES) break;
 
 			if (!existingWords.has(l3c.word)) {
 				candidates.push(l3c);
@@ -711,6 +706,45 @@ interface VocabularyJson {
 	>;
 }
 
+/**
+ * Unwrap a dynamically imported JSON module to its parsed value, handling both
+ * interop modes AFM's bundler chain emits: a `.default`-wrapped namespace
+ * (classic webpack) and a named-exports namespace (webpack 5 / atlaspack JSON
+ * modules, where `default` can be a misleading scalar). Named exports are
+ * preferred when present. The caller declares the JSON `shape` because a dense
+ * array and a sparse numeric-keyed object are emitted identically as named
+ * exports. Kept in lock-step with the matching helper in local-slow-lane-client.ts.
+ */
+const unwrapJsonModule = <T>(mod: unknown, shape: 'object' | 'array'): T | null => {
+	if (mod == null || typeof mod !== 'object') {
+		return null;
+	}
+	const namespace = mod as Record<string, unknown> & { default?: unknown };
+	const ownKeys = Object.keys(namespace).filter((k) => k !== 'default' && k !== '__esModule');
+
+	if (ownKeys.length > 0) {
+		if (shape === 'array') {
+			const len = ownKeys.length;
+			const arr = new Array(len);
+			for (let i = 0; i < len; i++) {
+				arr[i] = namespace[String(i)];
+			}
+			return arr as T;
+		}
+		const obj: Record<string, unknown> = {};
+		for (const k of ownKeys) {
+			obj[k] = namespace[k];
+		}
+		return obj as T;
+	}
+
+	if ('default' in namespace && namespace.default != null) {
+		return namespace.default as T;
+	}
+
+	return null;
+};
+
 export const loadVectorsAsync = async (options?: {
 	getBinaryUrl?: () => Promise<string>;
 }): Promise<void> => {
@@ -752,8 +786,25 @@ export const loadVectorsAsync = async (options?: {
 		}
 		const buffer = await res.arrayBuffer();
 		const float32 = new Float32Array(buffer);
-		const wordIndex = wordIndexData as Record<string, number>;
+
+		// word_index_10k.json is wrapped as `{ "index": {…} }` so no real entry
+		// (e.g. the word "default") can shadow the synthetic ESM `default` export
+		// the bundler creates for dynamically-imported JSON.
+		const wordIndexModule = await import(
+			/* webpackChunkName: "@atlaskit-internal_editor-plugin-autocomplete-word-index-10k" */ './data/word_index_10k.json'
+		);
+		const wordIndexOuter = unwrapJsonModule<{ index?: Record<string, number> }>(
+			wordIndexModule,
+			'object',
+		);
+		const wordIndex = wordIndexOuter?.index ?? {};
 		const nWords = Object.keys(wordIndex).length;
+		if (nWords === 0) {
+			// eslint-disable-next-line no-console
+			console.warn(
+				'[text-predictor] word_index_10k.json missing its `index` wrapper — wordIndex is empty, semantic scoring will be a no-op.',
+			);
+		}
 		const dim = float32.length / nWords;
 
 		vectorStore = { float32, wordIndex, dim };
@@ -782,34 +833,62 @@ export const initVectors = (store: VectorStore): void => {
 	vectorStore = store;
 };
 
-export const loadDefaultVocabulary = (): void => {
+let vocabularyLoadPromise: Promise<void> | undefined;
+
+export const loadDefaultVocabulary = (): Promise<void> => {
 	if (isInitialized) {
-		return;
+		return Promise.resolve();
+	}
+	if (vocabularyLoadPromise) {
+		return vocabularyLoadPromise;
 	}
 
-	startExp(EXPERIENCE_NAME.LOAD_VOCABULARY, 'singleton');
+	vocabularyLoadPromise = (async () => {
+		startExp(EXPERIENCE_NAME.LOAD_VOCABULARY, 'singleton');
 
-	try {
-		// 1. Load the Atlassian Domain (L2)
-		const data = vocabularyData as VocabularyJson;
-		const terms = Object.entries(data.words).map(([word, stats]) => ({
-			word,
-			freq: stats.freq,
-			docFreq: stats.doc_freq,
-			authorFreq: stats.author_freq,
-		}));
-		initVocabulary({ terms });
+		try {
+			// The L2 vocabulary and L3 word list are code-split into their own async
+			// chunks so they stay out of the editor's main bundle.
+			const [vocabularyModule, l3VocabularyModule] = await Promise.all([
+				import(
+					/* webpackChunkName: "@atlaskit-internal_editor-plugin-autocomplete-vocabulary-10k" */ './data/vocabulary_10k.json'
+				),
+				import(
+					/* webpackChunkName: "@atlaskit-internal_editor-plugin-autocomplete-l3-vocabulary" */ './data/l3_vocabulary.json'
+				),
+			]);
 
-		// 2. Load General English (L3)
-		const l3Words = l3VocabularyData as string[];
-		initL3Vocabulary(l3Words);
+			const vocabularyData = unwrapJsonModule<VocabularyJson>(vocabularyModule, 'object');
+			const l3VocabularyData = unwrapJsonModule<string[]>(l3VocabularyModule, 'array');
 
-		succeedExp(EXPERIENCE_NAME.LOAD_VOCABULARY, 'singleton', {
-			l2WordCount: terms.length,
-			l3WordCount: l3Words.length,
-		});
-	} catch (e) {
-		failExp(EXPERIENCE_NAME.LOAD_VOCABULARY, 'singleton', { errorType: 'parse_error' });
-		throw e;
-	}
+			if (vocabularyData?.words == null || !Array.isArray(l3VocabularyData)) {
+				throw new Error('[text-predictor] vocabulary JSON modules could not be unwrapped');
+			}
+
+			const terms = Object.entries(vocabularyData.words).map(([word, stats]) => ({
+				word,
+				freq: stats.freq,
+				docFreq: stats.doc_freq,
+				authorFreq: stats.author_freq,
+			}));
+
+			// Load L3 before L2: initVocabulary flips `isInitialized = true`, so it
+			// must run last — otherwise a throw in initL3Vocabulary would strand
+			// `isInitialized` true and the retry path could never reload L3.
+			initL3Vocabulary(l3VocabularyData);
+			initVocabulary({ terms });
+
+			succeedExp(EXPERIENCE_NAME.LOAD_VOCABULARY, 'singleton', {
+				l2WordCount: terms.length,
+				l3WordCount: l3VocabularyData.length,
+			});
+		} catch (e) {
+			failExp(EXPERIENCE_NAME.LOAD_VOCABULARY, 'singleton', { errorType: 'parse_error' });
+			// Allow a later call to retry the load rather than caching the failure.
+			vocabularyLoadPromise = undefined;
+			throw e;
+		}
+	})();
+
+	return vocabularyLoadPromise;
 };

@@ -32,6 +32,7 @@ import { type CardAction } from './actions';
 import { ImageRenderer } from './ui/imageRenderer';
 import { TitleBox } from './ui/titleBox/titleBox';
 import { FailedTitleBox } from './ui/titleBox/failedTitleBox';
+import { LoadingBar } from './ui/loadingBar/loadingBar';
 import { ProgressBar } from './ui/progressBar/progressBar';
 import { PlayButton } from './ui/playButton/playButton';
 import { TickBox } from './ui/tickBox/tickBox';
@@ -407,11 +408,18 @@ export const CardViewBase = ({
 						{iconMessage}
 					</IconWrapper>
 				)}
-				{renderSpinner && (
-					<IconWrapper breakpoint={breakpoint} hasTitleBox={hasVisibleTitleBox}>
-						<SpinnerIcon testId="media-card-loading" interactionName="media-card-loading" />
-					</IconWrapper>
-				)}
+				{renderSpinner &&
+					(expValEquals('cc-maui-ai-edit-loading-experiment', 'isEnabled', true) ? (
+						<LoadingBar
+							animationDisabled={disableAnimation}
+							testId="media-card-loading"
+							interactionName="media-card-loading"
+						/>
+					) : (
+						<IconWrapper breakpoint={breakpoint} hasTitleBox={hasVisibleTitleBox}>
+							<SpinnerIcon testId="media-card-loading" interactionName="media-card-loading" />
+						</IconWrapper>
+					))}
 				{renderSvgView && identifier && isFileIdentifier(identifier) && (
 					<SvgView
 						identifier={identifier}

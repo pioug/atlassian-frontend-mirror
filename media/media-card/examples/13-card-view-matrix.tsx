@@ -7,6 +7,7 @@ import { css, jsx } from '@emotion/react';
 // eslint-disable-line no-console
 import React from 'react';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 // eslint-disable-next-line @atlaskit/platform/no-module-level-eval
 setBooleanFeatureFlagResolver((flag) => {
@@ -15,6 +16,18 @@ setBooleanFeatureFlagResolver((flag) => {
 	}
 	return false;
 });
+
+const applyMauiLoadingBarOverride = (enabled: boolean) => {
+	setupEditorExperiments(
+		'confluence',
+		{ 'cc-maui-ai-edit-loading-experiment': enabled },
+		undefined,
+		{ disableTestOverrides: true },
+	);
+};
+
+// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
+applyMauiLoadingBarOverride(true);
 import { atlassianLogoUrl, tallImage, wideTransparentImage } from '@atlaskit/media-test-helpers';
 import { token } from '@atlaskit/tokens';
 import { Checkbox } from '@atlaskit/checkbox';
@@ -80,6 +93,7 @@ interface State {
 	withBgColorAndIcon: boolean;
 	withTransparency: boolean;
 	isAIGenerating: boolean;
+	useMauiLoadingBar: boolean;
 	error: string;
 }
 
@@ -99,6 +113,7 @@ class Example extends React.Component<{}, State> {
 		withBgColorAndIcon: false,
 		withTransparency: false,
 		isAIGenerating: false,
+		useMauiLoadingBar: true,
 		error: '',
 	};
 
@@ -231,6 +246,19 @@ class Example extends React.Component<{}, State> {
 							isChecked={this.state.isAIGenerating}
 							onChange={this.onCheckboxChange}
 							name="isAIGenerating"
+						/>
+						<Checkbox
+							value="useMauiLoadingBar"
+							label="Use new MAUI loading bar?"
+							isChecked={this.state.useMauiLoadingBar}
+							onChange={(event) => {
+								applyMauiLoadingBarOverride(event.currentTarget.checked);
+								this.setState({ shouldRenderCard: false }, () =>
+									this.setState({ shouldRenderCard: true }),
+								);
+								this.onCheckboxChange(event);
+							}}
+							name="useMauiLoadingBar"
 						/>
 					</div>
 					<table css={styledTableStyles}>

@@ -8,7 +8,7 @@
  *
  * Cleanup: delete this file once the experiment has shipped.
  */
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
@@ -17,11 +17,24 @@ const editorContainerCompiledStyles = cssMap({
 		position: 'relative',
 		width: '100%',
 		height: '100%',
-	}
+	},
 });
 
-export const EditorInternalContainerCompiled = ({ children }: { children?: ReactNode }): React.JSX.Element => (
-	<div css={editorContainerCompiledStyles.root}>
+export const EditorInternalContainerCompiled = ({
+	children,
+	fontSize,
+}: {
+	children?: ReactNode;
+	fontSize?: number;
+}): React.JSX.Element => (
+	<div
+		css={editorContainerCompiledStyles.root}
+		style={
+			{
+				'--ak-editor-base-font-size': `${fontSize}px`,
+			} as CSSProperties
+		}
+	>
 		{children}
 	</div>
 );

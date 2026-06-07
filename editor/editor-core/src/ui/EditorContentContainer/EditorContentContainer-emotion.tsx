@@ -329,19 +329,21 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 
 	const baseFontSize = getBaseFontSize(appearance, contentMode);
 
-	const style = editorExperiment('platform_editor_preview_panel_responsiveness', true, {
-		exposure: true,
-	})
-		? {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				'--ak-editor-base-font-size': `${editorFontSize({ theme })}px`,
-			}
-		: {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				'--ak-editor-base-font-size': `${editorFontSize({ theme })}px`,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingDynamic()}px`,
-			};
+	// Under the static-CSS experiment, --ak-editor-base-font-size is set earlier on the
+	// root div in editor-internal.tsx and inherited via the CSS cascade — do not set it here.
+	// For the legacy path, compute it from the Emotion theme as before.
+	const style = {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+		...(!expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true) && {
+			'--ak-editor-base-font-size': `${editorFontSize({ theme })}px`,
+		}),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+		...(!editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+			exposure: true,
+		}) && {
+			'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingDynamic()}px`,
+		}),
+	};
 
 	const browser = getBrowserInfo();
 

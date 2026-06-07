@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 3.3.0
+
+### Minor Changes
+
+- [`4c8cf60a51e1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c8cf60a51e1d) -
+  Fix local slow lane client declaration builds
+
+## 3.2.0
+
+### Minor Changes
+
+- [`3fb8d945f6f22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3fb8d945f6f22) -
+  Update local only client setup for contextual typeahead completion to use Snowflake embedding
+  model
+
 ## 3.1.0
 
 ### Minor Changes

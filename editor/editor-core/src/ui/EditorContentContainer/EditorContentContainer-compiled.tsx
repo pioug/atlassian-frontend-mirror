@@ -44,7 +44,6 @@ import {
 	akEditorGutterPaddingDynamic,
 	akEditorSwoopCubicBezier,
 	akEditorTableNumberColumnWidth,
-	editorFontSize,
 } from '@atlaskit/editor-shared-styles';
 import { overflowShadowForCompiled } from '@atlaskit/editor-shared-styles/overflow-shadow-for-compiled';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -7484,18 +7483,18 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 		leftCoverWidth: token('space.300'),
 	});
 
-	const style = editorExperiment('platform_editor_preview_panel_responsiveness', true, {
-		exposure: true,
-	})
-		? {
-				'--ak-editor-base-font-size': `${editorFontSize({ theme: { baseFontSize } })}px`,
-				'--ak-editor--table-overflow-shadow': tableOverflowShadow,
-			}
-		: {
-				'--ak-editor-base-font-size': `${editorFontSize({ theme: { baseFontSize } })}px`,
-				'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingDynamic()}px`,
-				'--ak-editor--table-overflow-shadow': tableOverflowShadow,
-			};
+	// Under the static-CSS experiment, --ak-editor-base-font-size is set earlier on the
+	// root div in editor-internal.tsx and inherited via the CSS cascade — do not set it here.
+	// For the legacy path, compute it from the Emotion theme as before.
+	const style = {
+		'--ak-editor--table-overflow-shadow': tableOverflowShadow,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+		...(!editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+			exposure: true,
+		}) && {
+			'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingDynamic()}px`,
+		}),
+	};
 
 	const browser = getBrowserInfo();
 
@@ -7765,14 +7764,14 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				browser.safari && editorContentStyles.listsStylesSafariFix,
 				editorExperiment('platform_synced_block', true) &&
 					editorContentStyles.pragmaticResizerStylesSyncedBlock,
-				expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)
-					? editorContentStyles.pragmaticResizerStyles
-					: undefined,
-				expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)
-					? editorExperiment('platform_synced_block', true)
-						? editorContentStyles.pragmaticResizerStylesCodeBlockSyncedBlockPatch
-						: editorContentStyles.pragmaticResizerStylesCodeBlockLegacy
-					: undefined,
+				expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
+					editorContentStyles.pragmaticResizerStyles,
+				expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
+					editorExperiment('platform_synced_block', true) &&
+					editorContentStyles.pragmaticResizerStylesCodeBlockSyncedBlockPatch,
+				expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
+					!editorExperiment('platform_synced_block', true) &&
+					editorContentStyles.pragmaticResizerStylesCodeBlockLegacy,
 				editorExperiment('advanced_layouts', true) &&
 					expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
 					editorContentStyles.pragmaticStylesLayoutFirstNodeResizeHandleFix,

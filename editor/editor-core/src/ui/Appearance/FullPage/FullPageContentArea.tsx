@@ -36,9 +36,11 @@ import {
 	akEditorFullPageNarrowBreakout,
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPaddingReduced,
+	akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -312,7 +314,10 @@ const Content = React.forwardRef<
 		(!fullWidthMode
 			? maxWidthMode
 				? akEditorUltraWideLayoutWidth
-				: theme.layoutMaxWidth
+				: expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true) ||
+					  expValEquals('platform_editor_core_static_css', 'isEnabled', true)
+					? akEditorDefaultLayoutWidth
+					: theme.layoutMaxWidth
 			: akEditorFullWidthLayoutWidth);
 
 	// Get useStandardNodeWidth from block menu plugin shared state

@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-grid
 
+## 11.0.2
+
+### Patch Changes
+
+- [`4c44277d90774`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c44277d90774) -
+  depreciate theme in editor
+
 ## 11.0.1
 
 ### Patch Changes

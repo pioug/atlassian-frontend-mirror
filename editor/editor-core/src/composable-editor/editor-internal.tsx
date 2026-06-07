@@ -13,6 +13,7 @@ import type {
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { Transformer } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { editorFontSize } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -101,6 +102,14 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 		)
 			? DEFAULT_VALUE_PROP_TO_IGNORE
 			: ['defaultValue'];
+
+		const baseFontSize = getBaseFontSize(props.appearance, props.contentMode);
+		const fontSize =
+			expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true) ||
+			expValEquals('platform_editor_core_static_css', 'isEnabled', true)
+				? editorFontSize({ theme: { baseFontSize } })
+				: undefined;
+
 		return (
 			<Fragment>
 				{renderTrackingEnabled && (
@@ -119,7 +128,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 					contextIdentifierProvider={props.contextIdentifierProvider}
 					featureFlags={featureFlags}
 				>
-					<EditorInternalContainerMigration>
+					<EditorInternalContainerMigration fontSize={fontSize}>
 						<EditorContext editorActions={editorActions}>
 							<IntlProviderIfMissingWrapper>
 								<Fragment>
@@ -143,9 +152,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 											editorRef,
 											editorAPI,
 										}) => (
-											<BaseThemeWrapper
-												baseFontSize={getBaseFontSize(props.appearance, props.contentMode)}
-											>
+											<BaseThemeWrapper baseFontSize={baseFontSize}>
 												<AppearanceComponent
 													innerRef={editorRef}
 													editorAPI={editorAPI}

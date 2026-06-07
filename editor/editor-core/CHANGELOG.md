@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 220.1.1
+
+### Patch Changes
+
+- [`4c44277d90774`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c44277d90774) -
+  depreciate theme in editor
+- Updated dependencies
+
 ## 220.1.0
 
 ### Minor Changes

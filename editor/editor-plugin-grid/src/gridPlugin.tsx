@@ -15,9 +15,12 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorBreakoutPadding,
+	akEditorDefaultLayoutWidth,
 	akEditorFullPageMaxWidth,
 	breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { GridPlugin } from './gridPluginType';
 import type { CreateDisplayGrid, GridPluginOptions, GridPluginState, Highlights } from './types';
@@ -140,11 +143,11 @@ type Props = {
 	shouldCalcBreakoutGridLines?: boolean;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	theme: any;
+	theme?: any;
 	visible: boolean;
 };
 
-const Grid = ({
+const GridLegacy = ({
 	highlight,
 	shouldCalcBreakoutGridLines,
 	theme,
@@ -154,7 +157,6 @@ const Grid = ({
 	visible,
 }: Props) => {
 	const editorMaxWidth = theme.layoutMaxWidth;
-
 	const gridLines = [
 		...lineLengthGridLines(highlight),
 		...gutterGridLines(editorMaxWidth, editorWidth, highlight, shouldCalcBreakoutGridLines),
@@ -178,7 +180,46 @@ const Grid = ({
 	);
 };
 
-const ThemedGrid = withTheme(Grid);
+const GridNext = ({
+	highlight,
+	shouldCalcBreakoutGridLines,
+	containerElement,
+	editorWidth,
+	gridType,
+	visible,
+}: Props) => {
+	const editorMaxWidth = akEditorDefaultLayoutWidth;
+	const gridLines = [
+		...lineLengthGridLines(highlight),
+		...gutterGridLines(editorMaxWidth, editorWidth, highlight, shouldCalcBreakoutGridLines),
+	];
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+		<div className="gridParent">
+			<div
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={classnames('gridContainer', gridType)}
+				style={{
+					height: `${containerElement.scrollHeight}px`,
+					display: visible ? 'block' : 'none',
+				}}
+				data-testid="gridContainer"
+			>
+				{gridLines}
+			</div>
+		</div>
+	);
+};
+
+const ThemedGridLegacy = withTheme(GridLegacy);
+
+const ThemedGrid = componentWithCondition(
+	() =>
+		expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true) ||
+		expValEquals('platform_editor_core_static_css', 'isEnabled', true),
+	GridNext,
+	ThemedGridLegacy,
+);
 
 const selector = (
 	states: NamedPluginStatesFromInjectionAPI<

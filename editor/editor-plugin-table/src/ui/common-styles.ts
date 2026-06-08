@@ -764,7 +764,8 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	${rangeSelectionStylesForFakeBorders};
 	${viewModeSortStyles()};
 
-	${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `
+	${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+		? `
 		.ak-editor-panel:not([data-panel-type="custom"]) .${ClassName.TABLE_CONTAINER} {
 			${akEditorTableContainerBg}: ${token('color.background.accent.blue.subtlest')};
 		}
@@ -783,7 +784,8 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		.ak-editor-panel[data-panel-type="success"] .${ClassName.TABLE_CONTAINER} {
 			${akEditorTableContainerBg}: ${token('color.background.accent.green.subtlest')};
 		}
-	` : ''}
+	`
+		: ''}
 
 	${expValEquals(
 		'platform_editor_table_sticky_header_improvements',
@@ -840,7 +842,10 @@ const baseTableStylesWithoutSharedStyle = (props: {
 
 		position: fixed !important;
 		z-index: ${akEditorStickyHeaderZIndex} !important;
-		box-shadow: 0px -${stickyRowOffsetTop}px ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
+		box-shadow: 0px -${stickyRowOffsetTop}px
+			${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+				? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
+				: token('elevation.surface')};
 		border-right: 0 none;
 		/* top set by NumberColumn component */
 	}
@@ -849,7 +854,9 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		position: fixed !important;
 		/* needs to be above row controls */
 		z-index: ${akEditorSmallZIndex} !important;
-		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
+		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+			? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
+			: token('elevation.surface')};
 
 		width: ${tableToolbarSize}px;
 		height: ${tableToolbarSize}px;
@@ -873,13 +880,19 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		position: fixed !important;
 		z-index: ${akEditorStickyHeaderZIndex} !important;
 		display: flex;
-		border-left: ${tableToolbarSize}px solid ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
+		border-left: ${tableToolbarSize}px solid
+			${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+				? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
+				: token('elevation.surface')};
 		margin-left: -${tableToolbarSize}px;
 	}
 
 	.${ClassName.TABLE_STICKY} col:first-of-type {
 		/* moving rows out of a table layout does weird things in Chrome */
-		border-right: 1px solid ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
+		border-right: 1px solid
+			${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+				? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
+				: token('elevation.surface')};
 	}
 
 	tr.sticky {
@@ -896,7 +909,9 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		grid-auto-flow: column;
 
 		/* background for where controls apply */
-		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
+		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+			? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
+			: token('elevation.surface')};
 		box-sizing: content-box;
 		box-shadow: 0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter')};
 
@@ -1018,7 +1033,10 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		height: 0;
 		margin-bottom: -${tableMarginTop}px;
 		position: sticky;
-		border-top: ${tableMarginTop}px solid ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
+		border-top: ${tableMarginTop}px solid
+			${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+				? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
+				: token('elevation.surface')};
 		z-index: ${stickyRowZIndex};
 	}
 
@@ -1112,7 +1130,10 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	}
 
 	.${ClassName.CORNER_CONTROLS}.sticky {
-		border-top: ${tableControlsSpacing - tableToolbarSize}px solid ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
+		border-top: ${tableControlsSpacing - tableToolbarSize}px solid
+			${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+				? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
+				: token('elevation.surface')};
 	}
 
 	${sentinelStyles}
@@ -1791,7 +1812,9 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		margin-left: -${akEditorTableNumberColumnWidth + dragRowControlsWidth}px;
 		width: ${akEditorTableNumberColumnWidth + dragRowControlsWidth}px;
 		height: ${tableMarginTop}px;
-		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
+		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+			? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
+			: token('elevation.surface')};
 		z-index: ${nativeStickyHeaderZIndex - 1};
 	}
 
@@ -1915,6 +1938,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	}
 `;
 
+// TODO: EDITOR-7593 - No usage found accross AFM, deprecate when EditorContentContainer in editor-core has finished compiled css migration under experiment 'platform_editor_core_static_css'
 // re-exporting these styles to use in Gemini test when table node view is rendered outside of PM
 export const baseTableStyles = (props: {
 	featureFlags?: FeatureFlags;

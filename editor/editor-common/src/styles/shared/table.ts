@@ -58,6 +58,21 @@ const firstNodeWithNotMarginTop = () =>
 				}
 			`;
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
+/**
+ * The style is mirrored in:
+ * - packages/editor/renderer/src/ui/Renderer/RendererStyleContainer.tsx ( seems outdated )
+ * - packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ *
+ * If you are updating this, please also update the above files.
+ *
+ * @deprecated This Emotion-based style function is being phased out as part of the
+ * `platform_editor_core_static_css` experiment migration to Compiled CSS. While the experiment
+ * is running, any changes here MUST also be reflected in `EditorContentContainer-compiled.tsx`
+ * (look for `tableSharedStyle`, `tableSharedStyle_with_*`, `tableSharedStyle_without_*` entries
+ * in the `editorContentStyles` cssMap). Failure to do so will cause visual regressions when the
+ * compiled version is active.
+ */
 const tableSharedStyle = (): SerializedStyles => {
 	const browser = getBrowserInfo();
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Appears safe to auto-fix, but leaving it up to the team to remediate as the readability only gets worse with autofixing

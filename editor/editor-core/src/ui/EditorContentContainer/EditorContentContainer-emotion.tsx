@@ -294,13 +294,16 @@ const firstWrappedMediaStyles = {
 	},
 };
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 /**
  * EditorContentStyles is a wrapper component that applies styles to its children
  * based on the provided feature flags, view mode, and other props.
  * It uses Emotion for styling and supports scrollable content.
  *
+ * @deprecated
  * Migration WIP
- * If you are touching EditorContentContainerEmotion, please contact with #proj-cc-editor-full-compiled-css-migration
+ * If you are touching EditorContentContainer-emotion.tsx, please also updated in EditorContentContainer-compiled.tsx,
+ * If you are not sure, please contact with #proj-cc-editor-full-compiled-css-migration
  * https://home.atlassian.com/o/2346a038-3c8c-498b-a79b-e7847859868d/s/a436116f-02ce-4520-8fbb-7301462a1674/project/ATLAS-120555
  */
 export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<

@@ -1,5 +1,12 @@
 # @atlaskit/feedback-collector
 
+## 15.4.0
+
+### Minor Changes
+
+- [`4cffc70fa1cfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cffc70fa1cfe) -
+  Add onCancel callback to FeedbackCollector and FeedbackForm
+
 ## 15.3.0
 
 ### Minor Changes

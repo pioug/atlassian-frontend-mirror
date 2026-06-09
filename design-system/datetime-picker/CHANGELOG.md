@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 17.9.2
+
+### Patch Changes
+
+- [`021a645c6f39a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/021a645c6f39a) -
+  Update internal top-layer adopter code paths behind `platform-dst-top-layer`.
+- Updated dependencies
+
 ## 17.9.1
 
 ### Patch Changes

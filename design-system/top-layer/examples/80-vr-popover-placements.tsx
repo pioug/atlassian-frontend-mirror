@@ -2,15 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useRef } from 'react';
+import { Fragment, type ReactNode, useEffect, useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import { Popup, type TPlacementOptions } from '@atlaskit/top-layer/popup';
-import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
+import { Popover, type TPlacementOptions } from '@atlaskit/top-layer/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 
 const styles = cssMap({
 	center: {
@@ -25,85 +26,91 @@ const styles = cssMap({
 	},
 });
 
-function placementLabel(p: TPlacementOptions): string {
-	const axis = p.axis ?? 'block';
-	const edge = p.edge ?? 'end';
-	const align = p.align ?? 'center';
+function placementLabel(placement: TPlacementOptions): string {
+	const axis = placement.axis ?? 'block';
+	const edge = placement.edge ?? 'end';
+	const align = placement.align ?? 'center';
 	return align === 'center' ? `${axis}-${edge}` : `${axis}-${edge} align-${align}`;
 }
 
 function VrPopover({ placement }: { placement: TPlacementOptions }) {
 	const label = placementLabel(placement);
 	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const [isOpen, setIsOpen] = useState(false);
 
-	// Auto-open the popup on mount so the VR snapshot captures the
+	useAnchorPosition({ anchorRef: triggerRef, popoverRef, placement });
+
+	// Auto-open the popover on mount so the VR snapshot captures the
 	// positioned popover rather than just the closed trigger button.
 	useEffect(() => {
-		triggerRef.current?.click();
+		setIsOpen(true);
 	}, []);
 
 	return (
 		<div css={styles.center}>
-			<Popup placement={placement} onClose={() => {}}>
-				<Popup.Trigger>
-					<button ref={triggerRef} type="button">
-						{label}
-					</button>
-				</Popup.Trigger>
-				<Popup.Content role="dialog" label={`Popup at ${label}`}>
-					<PopupSurface>
+			<Fragment>
+				<button ref={triggerRef} type="button">
+					{label}
+				</button>
+				<Popover
+					ref={popoverRef}
+					role="dialog"
+					label={`Popover at ${label}`}
+					isOpen={isOpen}
+					onClose={() => setIsOpen(false)}
+				>
+					<PopoverSurface>
 						<Box padding="space.200">
 							<Text>{label}</Text>
 						</Box>
-					</PopupSurface>
-				</Popup.Content>
-			</Popup>
+					</PopoverSurface>
+				</Popover>
+			</Fragment>
 		</div>
 	);
 }
 
 // Single-axis placements
-export function VrBlockStart(): JSX.Element {
+export function VrBlockStart(): ReactNode {
 	return <VrPopover placement={{ axis: 'block', edge: 'start' }} />;
 }
-export function VrBlockEnd(): JSX.Element {
+export function VrBlockEnd(): ReactNode {
 	return <VrPopover placement={{ edge: 'end' }} />;
 }
-export function VrInlineStart(): JSX.Element {
+export function VrInlineStart(): ReactNode {
 	return <VrPopover placement={{ axis: 'inline', edge: 'start' }} />;
 }
-export function VrInlineEnd(): JSX.Element {
+export function VrInlineEnd(): ReactNode {
 	return <VrPopover placement={{ axis: 'inline', edge: 'end' }} />;
 }
 
 // Compound placements
-// Note: Function names preserved for VR snapshot references.
-// Old string names used CSS span-direction; new objects use visual alignment.
-export function VrBlockStartInlineStart(): JSX.Element {
+export function VrBlockStartInlineStart(): ReactNode {
 	return <VrPopover placement={{ axis: 'block', edge: 'start', align: 'end' }} />;
 }
-export function VrBlockStartInlineEnd(): JSX.Element {
+export function VrBlockStartInlineEnd(): ReactNode {
 	return <VrPopover placement={{ axis: 'block', edge: 'start', align: 'start' }} />;
 }
-export function VrBlockEndInlineStart(): JSX.Element {
+export function VrBlockEndInlineStart(): ReactNode {
 	return <VrPopover placement={{ axis: 'block', edge: 'end', align: 'end' }} />;
 }
-export function VrBlockEndInlineEnd(): JSX.Element {
+export function VrBlockEndInlineEnd(): ReactNode {
 	return <VrPopover placement={{ axis: 'block', edge: 'end', align: 'start' }} />;
 }
-export function VrInlineStartBlockStart(): JSX.Element {
+export function VrInlineStartBlockStart(): ReactNode {
 	return <VrPopover placement={{ axis: 'inline', edge: 'start', align: 'end' }} />;
 }
-export function VrInlineStartBlockEnd(): JSX.Element {
+export function VrInlineStartBlockEnd(): ReactNode {
 	return <VrPopover placement={{ axis: 'inline', edge: 'start', align: 'start' }} />;
 }
-export function VrInlineEndBlockStart(): JSX.Element {
+export function VrInlineEndBlockStart(): ReactNode {
 	return <VrPopover placement={{ axis: 'inline', edge: 'end', align: 'end' }} />;
 }
-export function VrInlineEndBlockEnd(): JSX.Element {
+export function VrInlineEndBlockEnd(): ReactNode {
 	return <VrPopover placement={{ axis: 'inline', edge: 'end', align: 'start' }} />;
 }
 
-export default function VrPopoverPlacements(): JSX.Element {
+export default function VrPopoverPlacements(): ReactNode {
 	return <VrBlockEnd />;
 }

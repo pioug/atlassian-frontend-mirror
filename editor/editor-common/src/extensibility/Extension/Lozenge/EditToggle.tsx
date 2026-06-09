@@ -48,10 +48,6 @@ const buttonStyles = css({
 	color: token('color.text.subtle'),
 });
 
-const showButtonContainerStyle = css({
-	opacity: 1,
-});
-
 const iconStyles = xcss({
 	marginRight: 'space.075',
 });
@@ -79,7 +75,6 @@ type EditToggleProps = {
 
 // Used to toggle between edit and renderer mode for bodied macros in live pages
 export const EditToggle = ({
-	isNodeHovered,
 	customContainerStyles,
 	setIsNodeHovered,
 	showBodiedExtensionRendererView,
@@ -113,12 +108,7 @@ export const EditToggle = ({
 		<div
 			data-testid="extension-edit-toggle-container"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			css={[
-				buttonContainerStyles,
-				expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true)
-					? null
-					: isNodeHovered && showButtonContainerStyle,
-			]}
+			css={[buttonContainerStyles]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={customContainerStyles}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

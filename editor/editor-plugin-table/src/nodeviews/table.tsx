@@ -1,6 +1,7 @@
 import React from 'react';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { isSSR, isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -552,6 +553,24 @@ export const createTableView = (
 
 	const shouldUseIncreasedScalingPercent =
 		isTableScalingEnabled && (isTableFixedColumnWidthsOptionEnabled || isCommentEditor);
+
+	// In SSR use native ProseMirror spec-based render for table nodes
+	if (isSSR() && isSSRStreaming()) {
+		const isNested = isTableNested(view.state, typeof getPos === 'function' ? getPos() : undefined);
+
+		const tableDOMStructure = tableNodeSpecWithFixedToDOM({
+			allowColumnResizing: allowColumnResizing ?? false,
+			tableResizingEnabled: allowTableResizing ?? false,
+			getEditorContainerWidth,
+			isTableScalingEnabled,
+			shouldUseIncreasedScalingPercent,
+			isCommentEditor,
+			isChromelessEditor,
+			isNested,
+		}).toDOM(node);
+
+		return DOMSerializer.renderSpec(document, tableDOMStructure);
+	}
 
 	return new TableView({
 		node,

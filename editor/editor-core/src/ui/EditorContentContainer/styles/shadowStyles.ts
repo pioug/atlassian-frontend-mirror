@@ -1,21 +1,39 @@
-/* eslint-disable @atlaskit/ui-styling-standard/use-compiled */
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled,
+	@repo/internal/deprecations/deprecation-ticket-required,
+	@atlaskit/ui-styling-standard/no-exported-styles */
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const shadowClassNames = {
 	RIGHT_SHADOW: 'right-shadow',
 	LEFT_SHADOW: 'left-shadow',
 };
 
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const shadowObserverClassNames = {
 	SENTINEL_LEFT: 'sentinel-left',
 	SENTINEL_RIGHT: 'sentinel-right',
 	SHADOW_CONTAINER: 'with-shadow-observer',
 };
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const shadowStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {

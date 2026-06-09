@@ -60,7 +60,7 @@ export const messages: {
 	disconnectDialogDescription: {
 		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description',
 		defaultMessage: `This team will no longer be connected to the {containerName} {containerType, select,
-			JiraProject {Jira project}
+			JiraProject {Jira space}
 			ConfluenceSpace {Confluence space}
 			LoomSpace {Loom space}
 			other {link}
@@ -70,12 +70,12 @@ export const messages: {
 	disconnectDialogDisclaimer: {
 		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer',
 		defaultMessage: `Disconnecting the team from the {containerType, select,
-			JiraProject {project}
+			JiraProject {space}
 			ConfluenceSpace {space}
 			LoomSpace {space}
 			other {link}
 		} will not affect any work connected to the team within the {containerType, select,
-			JiraProject {project}
+			JiraProject {space}
 			ConfluenceSpace {space}
 			LoomSpace {space}
 			other {link}
@@ -86,7 +86,7 @@ export const messages: {
 		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer',
 		// eslint-disable-next-line @atlassian/i18n/no-complex-selectors
 		defaultMessage: `{containerType, select,
-			JiraProject {Disconnecting the team from the project might affect work connected to the team within the project.}
+			JiraProject {Disconnecting the team from the space might affect work connected to the team within the space.}
 			ConfluenceSpace {Disconnecting the team from the space will not affect any work connected to the team within the space.}
 			LoomSpace {Disconnecting the team from the space will not affect any work connected to the team within the space.}
 			other {Disconnecting the team from the link will not affect any work connected to the team within the link.}

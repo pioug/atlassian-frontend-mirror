@@ -33,14 +33,14 @@ import { setStyle } from './set-style';
 // from `./resolve-placement` so search-and-jump lands at the source of truth.
 
 /**
- * Module-scope no-op `ResizeObserver` stub used in non-DOM jest environments where
+ * Module-scope no-op `ResizeObserver` used in non-DOM jest environments where
  * `ResizeObserver` is `undefined`. Hoisted out of the effect to avoid
- * re-allocating on every run.
+ * allocating a new class declaration on every run.
  */
-const noopResizeObserver = {
-	observe() {},
-	unobserve() {},
-	disconnect() {},
+const NoopResizeObserver = class {
+	observe() {}
+	unobserve() {}
+	disconnect() {}
 };
 
 /**
@@ -191,6 +191,7 @@ function useStablePlacement(placement: TPlacementOptions): TPlacement {
  * comparison is used internally so re-runs are skipped when the resolved
  * placement shape is unchanged.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function useAnchorPosition({
 	anchorRef,
 	popoverRef,
@@ -424,20 +425,21 @@ export function useAnchorPosition({
 		// Self-disconnects after one valid measurement; ongoing
 		// scroll/resize is handled by the window listeners below.
 		// `ResizeObserver` is missing in some non-DOM jest environments
-		// (e.g. post-office's `node` environment). Fall back to the
-		// module-scope `noopResizeObserver` stub there. The scroll/resize
-		// listeners below still keep the popover positioned in the rare
-		// case the consumer also polyfilled `showPopover` but not
-		// `ResizeObserver`. Real browsers always have it.
-		const resizeObserver =
-			typeof ResizeObserver !== 'undefined'
-				? new ResizeObserver(() => {
-						if (popover.offsetWidth > 0 && popover.offsetHeight > 0) {
-							update();
-							resizeObserver.disconnect();
-						}
-					})
-				: noopResizeObserver;
+		// (e.g. post-office's `node` environment). Fall back to a no-op
+		// observer there. The scroll/resize listeners below still keep
+		// the popover positioned in the rare case the consumer also
+		// polyfilled `showPopover` but not `ResizeObserver`. Real
+		// browsers always have it. The `NoopResizeObserver` class is
+		// hoisted to module scope (see top of file) so we do not allocate
+		// a new constructor on every effect run.
+		const ResizeObserverImpl =
+			typeof ResizeObserver !== 'undefined' ? ResizeObserver : NoopResizeObserver;
+		const resizeObserver = new ResizeObserverImpl(() => {
+			if (popover.offsetWidth > 0 && popover.offsetHeight > 0) {
+				update();
+				resizeObserver.disconnect();
+			}
+		});
 
 		// If the popover is already open by the time this effect runs (for
 		// example, the parent `useAnchorPosition` effect runs after the child

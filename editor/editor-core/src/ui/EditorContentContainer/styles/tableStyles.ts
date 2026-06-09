@@ -1,10 +1,16 @@
-/* eslint-disable @atlaskit/ui-styling-standard/use-compiled */
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled,
+	@repo/internal/deprecations/deprecation-ticket-required,
+	@atlaskit/ui-styling-standard/no-exported-styles */
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
 import { scrollbarStyles } from './scrollbarStyles';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const tableLayoutFixes: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.pm-table-header-content-wrap :not(.fabric-editor-alignment), .pm-table-header-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark, .pm-table-cell-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark':
@@ -19,8 +25,12 @@ export const tableLayoutFixes: SerializedStyles = css({
 		clear: 'both',
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const tableLayoutFixesWithFontSize: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.pm-table-header-content-wrap :not(.fabric-editor-alignment, .fabric-editor-font-size), .pm-table-header-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark, .pm-table-cell-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark':
@@ -35,21 +45,33 @@ export const tableLayoutFixesWithFontSize: SerializedStyles = css({
 		clear: 'both',
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const tableCommentEditorMarginOverride: SerializedStyles = css({
 	marginLeft: 0,
 	marginRight: 0,
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const tableCommentEditorStyles: SerializedStyles = css({
 	// TODO: ED-28075 - refactor array include to unblock Compiled CSS migration
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.ProseMirror .pm-table-wrapper > table`]: [tableCommentEditorMarginOverride, scrollbarStyles],
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const tableContainerStyles: SerializedStyles = css({
 	/* Fix for HOT-119925: Ensure table containers have proper width constraints and overflow handling */
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -76,8 +98,12 @@ export const tableContainerStyles: SerializedStyles = css({
 		minWidth: 'auto',
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const tableEmptyRowStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror .pm-table-wrapper': {
@@ -91,8 +117,12 @@ export const tableEmptyRowStyles: SerializedStyles = css({
 		},
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const tableContentModeStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.pm-table-resizer-container:has(table[data-initial-width-mode="content"])': {

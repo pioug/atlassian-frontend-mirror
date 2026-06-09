@@ -1,4 +1,6 @@
-/* eslint-disable @atlaskit/ui-styling-standard/use-compiled */
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled,
+	@repo/internal/deprecations/deprecation-ticket-required,
+	@atlaskit/ui-styling-standard/no-exported-styles */
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
@@ -17,7 +19,12 @@ const akEditorFullPageNarrowBreakout = 600;
 const akEditorUltraWideLayoutWidth = 4000;
 
 // jest warning: JSDOM version (22) doesn't support the new @container CSS rule
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const baseStyles: SerializedStyles = css({
 	'--ak-editor--default-gutter-padding': `${akEditorGutterPadding}px`,
 	'--ak-editor--default-layout-width': `${akEditorDefaultLayoutWidth}px`,
@@ -67,8 +74,12 @@ export const baseStyles: SerializedStyles = css({
 		},
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const maxModeReizeFixStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.fabric-editor--max-width-mode': {
@@ -79,8 +90,12 @@ export const maxModeReizeFixStyles: SerializedStyles = css({
 		'--ak-editor--breakout-min-width': '0px',
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const baseStylesMaxContainerWidthFixes: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
@@ -89,18 +104,32 @@ export const baseStylesMaxContainerWidthFixes: SerializedStyles = css({
 });
 
 // This is to avoid using akEditorGutterPaddingDynamic()
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const editorLargeGutterPuddingBaseStyles: SerializedStyles = css({
 	'--ak-editor--large-gutter-padding': '52px',
 });
 
 // This is to avoid using akEditorGutterPaddingDynamic
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const editorLargeGutterPuddingBaseStylesEditorControls: SerializedStyles = css({
 	'--ak-editor--large-gutter-padding': '72px',
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const editorLargeGutterPuddingReducedBaseStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-unsafe-values
 	[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {

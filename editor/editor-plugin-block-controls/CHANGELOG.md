@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 12.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.0
+
+### Minor Changes
+
+- [`5182f0ffac22f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5182f0ffac22f) -
+  Add keyboard shortcuts and danger preview to layout column menu actions.
+
+  Fix keyboard navigation in the layout column menu.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.2
 
 ### Patch Changes

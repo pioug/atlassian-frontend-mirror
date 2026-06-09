@@ -10,6 +10,7 @@ import EmojiIcon from '@atlaskit/icon/core/emoji';
 import HeartIcon from '@atlaskit/icon/core/heart';
 import VehicleCarIcon from '@atlaskit/icon/core/vehicle-car';
 import CheckCircleIcon from '@atlaskit/icon/core/check-circle';
+import AtlassianIcon from '@atlaskit/icon-lab/core/atlassian';
 
 import type { CategoryDescription } from '../../types';
 import { customCategory, userCustomTitle, customTitle } from '../../util/constants';
@@ -130,7 +131,7 @@ export const CategoryDescriptionMapNew: CategoryDescriptionRecord = {
 	ATLASSIAN: {
 		id: 'ATLASSIAN',
 		name: 'productivityCategory',
-		icon: CheckCircleIcon,
+		icon: AtlassianIcon,
 		order: 2,
 	},
 	PEOPLE: {

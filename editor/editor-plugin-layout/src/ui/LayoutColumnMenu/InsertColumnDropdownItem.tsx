@@ -2,12 +2,19 @@ import React, { useCallback } from 'react';
 
 import { useIntl, type MessageDescriptor } from 'react-intl';
 
+import {
+	addColumnAfter,
+	addColumnBefore,
+	getAriaKeyshortcuts,
+	tooltip,
+} from '@atlaskit/editor-common/keymaps';
 import { layoutMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
 	TableColumnAddLeftIcon,
 	TableColumnAddRightIcon,
 	ToolbarDropdownItem,
+	ToolbarKeyboardShortcutHint,
 } from '@atlaskit/editor-toolbar';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
@@ -48,6 +55,7 @@ export const InsertColumnDropdownItem = ({
 }: InsertColumnDropdownItemProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 	const { Icon, label } = INSERT_COLUMN_OPTIONS[side];
+	const shortcut = side === 'left' ? addColumnBefore : addColumnAfter;
 	const selectedLayoutColumns = useSelectedLayoutColumns(api);
 	const columnCount = selectedLayoutColumns?.layoutSectionNode?.childCount ?? 0;
 	const maxColumnCount = getEffectiveMaxLayoutColumns();
@@ -72,7 +80,9 @@ export const InsertColumnDropdownItem = ({
 
 	return (
 		<ToolbarDropdownItem
+			ariaKeyshortcuts={getAriaKeyshortcuts(shortcut)}
 			elemBefore={<Icon color="currentColor" label="" size="small" />}
+			elemAfter={<ToolbarKeyboardShortcutHint shortcut={tooltip(shortcut) ?? ''} />}
 			onClick={onClick}
 		>
 			{formatMessage(label)}

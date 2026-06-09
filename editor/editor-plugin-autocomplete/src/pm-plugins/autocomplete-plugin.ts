@@ -14,6 +14,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { AutocompletePlugin } from '../autocompletePluginType';
 
+import { isAutocompleteDebugEnabled } from './debug-mode';
 import { createGhostTextDecorationSet } from './ghost-text-decoration';
 import { createLocalSlowLaneClient, type LocalSlowLaneClient } from './local-slow-lane-client';
 import { createSlowLaneClient, setDefaultSlowLaneClient, isWordBoundary } from './slow-lane-client';
@@ -28,6 +29,17 @@ import {
 export const autocompletePluginKey: PluginKey = new PluginKey('autocomplete');
 
 const DEBOUNCE_MS = 150;
+const CONTEXT_REFRESH_THROTTLE_MS = 1000;
+// Caps the dedup Set so long editing sessions don't retain every distinct
+// version of the (potentially hundreds-of-KB) page content for the plugin's
+// lifetime. Eviction is FIFO; a re-ingest of an evicted text is harmless.
+const MAX_INGESTED_CONTEXT_TEXTS = 50;
+// Caps how many times the word-boundary path will retry getContext() while the
+// parent comment is still missing. Combined with the 1s throttle this gives a
+// ~5s window to cover a still-loading comment thread, then stops permanently so
+// non-comment editors (where parentCommentContent never arrives) don't refetch
+// on every word boundary for the plugin's lifetime.
+const MAX_CONTEXT_REFRESH_ATTEMPTS = 5;
 
 const hasDestroy = (
 	client: ReturnType<typeof createSlowLaneClient> | LocalSlowLaneClient,
@@ -242,6 +254,12 @@ export const createAutocompletePlugin = (
 	let hasIngestedPage = false;
 	let resolvedContext: AutocompleteContext | undefined;
 	/**
+	 * Kept in sync with the live EditorView so the async getContext() promise
+	 * can re-trigger a slow-lane update the moment context arrives, even if the
+	 * user has already typed several words before the promise resolved.
+	 */
+	let currentView: EditorView | null = null;
+	/**
 	 * Set after accepting a suggestion so the next doc-change update
 	 * skips scheduling a new prediction for the just-inserted text.
 	 * Scoped to the factory so multiple editor instances don't share state.
@@ -292,6 +310,131 @@ export const createAutocompletePlugin = (
 				debounceMs: 300,
 			});
 	setDefaultSlowLaneClient(slowLaneClient);
+
+	let contextRequestInFlight = false;
+	let lastContextRefreshAt = 0;
+	// Bounds the word-boundary retry loop so it terminates even when the editor is
+	// not in a comment thread (parentCommentContent never resolves).
+	let wordBoundaryRefreshAttempts = 0;
+	// Set when the plugin is torn down so in-flight getContext() resolutions don't
+	// mutate the global text-predictor state after destruction.
+	let destroyed = false;
+	const ingestedContextTexts = new Set<string>();
+
+	const logContextResolved = (source: string, context?: AutocompleteContext): void => {
+		if (!isAutocompleteDebugEnabled()) {
+			return;
+		}
+
+		// eslint-disable-next-line no-console
+		console.log(
+			'%c[Autocomplete] %cgetContext resolved',
+			'color: #00b8d9; font-weight: bold;',
+			'color: inherit;',
+			{
+				source,
+				hasParentComment: !!context?.parentCommentContent,
+				parentCommentPreview: context?.parentCommentContent?.slice(0, 80),
+				siblingCount: context?.siblingCommentsContents?.length ?? 0,
+				hasFullPage: !!context?.fullPageContent,
+			},
+		);
+	};
+
+	const applyContext = (context: AutocompleteContext): void => {
+		// Merge rather than replace: the word-boundary retry may resolve only a
+		// late-arriving field (e.g. parentCommentContent) without re-sending
+		// fullPageContent, so replacing would drop previously resolved context.
+		// Strip undefined values first so a field explicitly set to undefined by
+		// getContext doesn't overwrite a previously resolved value.
+		const definedContext = Object.fromEntries(
+			Object.entries(context).filter(([, value]) => value !== undefined),
+		);
+		resolvedContext = { ...resolvedContext, ...definedContext };
+
+		const ingestContextText = (text?: string): void => {
+			if (!text || ingestedContextTexts.has(text)) {
+				return;
+			}
+
+			ingestedContextTexts.add(text);
+			// Evict oldest entries (Set preserves insertion order) to bound memory.
+			while (ingestedContextTexts.size > MAX_INGESTED_CONTEXT_TEXTS) {
+				const oldest = ingestedContextTexts.values().next().value;
+				if (oldest === undefined) {
+					break;
+				}
+				ingestedContextTexts.delete(oldest);
+			}
+			ingestDocumentPage(text);
+		};
+
+		ingestContextText(context.fullPageContent);
+		ingestContextText(context.parentCommentContent);
+		for (const siblingCommentContent of context.siblingCommentsContents ?? []) {
+			ingestContextText(siblingCommentContent);
+		}
+
+		// Context arrived after word boundaries may already have fired. Re-send
+		// slow-lane context immediately so the next inference includes the thread.
+		if (currentView) {
+			slowLaneClient.updateContext(
+				buildSlowLaneText(currentView.state.doc.textContent, resolvedContext),
+			);
+		}
+	};
+
+	/**
+	 * Returns true when a fetch was actually started, false when it was skipped
+	 * (no getContext, a request already in flight, or throttled). Callers that
+	 * track a retry budget should only count attempts where this returns true.
+	 */
+	const refreshContext = ({
+		source,
+		allowThrottle = true,
+	}: {
+		allowThrottle?: boolean;
+		source: string;
+	}): boolean => {
+		if (!options?.getContext || contextRequestInFlight) {
+			return false;
+		}
+
+		const now = Date.now();
+		if (allowThrottle && now - lastContextRefreshAt < CONTEXT_REFRESH_THROTTLE_MS) {
+			return false;
+		}
+
+		contextRequestInFlight = true;
+		lastContextRefreshAt = now;
+
+		options
+			.getContext()
+			.then((context) => {
+				// Bail if the plugin was destroyed while the fetch was in flight —
+				// applyContext mutates global text-predictor state we must not touch
+				// after teardown.
+				if (destroyed) {
+					return;
+				}
+				logContextResolved(source, context);
+				if (!context) {
+					return;
+				}
+
+				applyContext(context);
+			})
+			.catch((error) => {
+				logException(error as Error, {
+					location: 'editor-plugin-autocomplete/getContext',
+				});
+			})
+			.finally(() => {
+				contextRequestInFlight = false;
+			});
+
+		return true;
+	};
 
 	/**
 	 * Schedule a prediction after a short debounce.
@@ -490,29 +633,10 @@ export const createAutocompletePlugin = (
 					});
 					if (!hasIngestedPage) {
 						hasIngestedPage = true;
-						if (options?.getContext) {
-							options
-								.getContext()
-								.then((context) => {
-									if (!context) {
-										return;
-									}
-									resolvedContext = context;
-
-									if (context.fullPageContent) {
-										ingestDocumentPage(context.fullPageContent);
-									}
-									if (context.parentCommentContent) {
-										ingestDocumentPage(context.parentCommentContent);
-									}
-									context.siblingCommentsContents?.forEach(ingestDocumentPage);
-								})
-								.catch((error) => {
-									logException(error as Error, {
-										location: 'editor-plugin-autocomplete/getContext',
-									});
-								});
-						}
+						refreshContext({
+							source: 'focus',
+							allowThrottle: false,
+						});
 					}
 					return false;
 				},
@@ -521,6 +645,7 @@ export const createAutocompletePlugin = (
 
 		view: () => ({
 			update: (view: EditorView, prevState: EditorState) => {
+				currentView = view;
 				if (!prevState.doc.eq(view.state.doc)) {
 					if (justAccepted) {
 						justAccepted = false;
@@ -542,18 +667,36 @@ export const createAutocompletePlugin = (
 						slowLaneClient.updateContext(
 							buildSlowLaneText(view.state.doc.textContent, resolvedContext),
 						);
+
+						// Context may not have resolved on first focus (e.g. comment
+						// thread still loading). Retry on word boundaries until we have
+						// the parent comment, throttled so we don't refetch constantly
+						// and capped so non-comment editors stop retrying entirely.
+						if (
+							!resolvedContext?.parentCommentContent &&
+							wordBoundaryRefreshAttempts < MAX_CONTEXT_REFRESH_ATTEMPTS
+						) {
+							// Only count the attempt when a fetch actually started, so an
+							// in-flight or throttled no-op doesn't burn the retry budget.
+							if (refreshContext({ source: 'word-boundary' })) {
+								wordBoundaryRefreshAttempts++;
+							}
+						}
 					}
 
 					schedulePrediction(view);
 				}
 			},
 			destroy: () => {
+				destroyed = true;
+				currentView = null;
 				if (debounceTimer) {
 					clearTimeout(debounceTimer);
 				}
 				if (hasDestroy(slowLaneClient)) {
 					slowLaneClient.destroy();
 				}
+				ingestedContextTexts.clear();
 				setDefaultSlowLaneClient(null);
 			},
 		}),

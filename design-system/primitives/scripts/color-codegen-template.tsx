@@ -29,7 +29,8 @@ const tokenStyles = {
 			t.token.startsWith('elevation.surface') ||
 			t.token.startsWith('utility.elevation.surface') ||
 			t.token.startsWith('color.blanket') ||
-			t.token.startsWith('color.skeleton'),
+			t.token.startsWith('color.skeleton') ||
+			t.token.startsWith('color.rovo.background.'),
 	},
 	border: {
 		objectName: 'borderColor',

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 23.2.0
+
+### Minor Changes
+
+- [`237c62eb113fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/237c62eb113fd) -
+  [EDITOR-6188](https://hello.jira.atlassian.cloud/browse/EDITOR-6188) - fix nested tables in SSR
+  streaming mode
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.1.2
 
 ### Patch Changes

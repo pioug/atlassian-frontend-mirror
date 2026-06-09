@@ -2,22 +2,24 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-export const appearanceMappingToOld: Record<
+import type { NewAppearance } from './types';
+
+type OldAppearance =
 	| 'added'
 	| 'removed'
 	| 'default'
 	| 'primary'
 	| 'primaryInverted'
-	| 'important'
-	| 'warning'
-	| 'discovery'
-	| 'danger'
-	| 'success'
-	| 'information'
-	| 'inverse'
-	| 'neutral',
-	'added' | 'removed' | 'default' | 'primary' | 'primaryInverted' | 'important'
-> = {
+	| 'important';
+
+export const appearanceMappingToOld: Record<NewAppearance, OldAppearance> & {
+	added: OldAppearance;
+	removed: OldAppearance;
+	default: OldAppearance;
+	primary: OldAppearance;
+	primaryInverted: OldAppearance;
+	important: OldAppearance;
+} = {
 	added: 'added',
 	removed: 'removed',
 	default: 'default',
@@ -31,4 +33,9 @@ export const appearanceMappingToOld: Record<
 	neutral: 'default',
 	warning: 'default',
 	discovery: 'default',
+	informationBold: 'primary',
+	successBold: 'added',
+	dangerBold: 'removed',
+	warningBold: 'default',
+	discoveryBold: 'default',
 };

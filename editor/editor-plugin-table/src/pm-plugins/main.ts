@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { insideTable, isSSR, isSSRStreaming } from '@atlaskit/editor-common/core-utils';
+import { insideTable } from '@atlaskit/editor-common/core-utils';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { isNestedTablesSupported } from '@atlaskit/editor-common/nesting';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -142,22 +142,17 @@ export const createPlugin = (
 
 	const getNodeView = () => {
 		return {
-			// In SSR use native ProseMirror spec-based render for table nodes
-			...(isSSR() && isSSRStreaming()
-				? {}
-				: {
-						table: tableView({
-							portalProviderAPI,
-							eventDispatcher,
-							getEditorContainerWidth,
-							getEditorFeatureFlags,
-							dispatchAnalyticsEvent,
-							pluginInjectionApi,
-							isCommentEditor,
-							isChromelessEditor,
-							allowFixedColumnWidthOption,
-						}),
-					}),
+			table: tableView({
+				portalProviderAPI,
+				eventDispatcher,
+				getEditorContainerWidth,
+				getEditorFeatureFlags,
+				dispatchAnalyticsEvent,
+				pluginInjectionApi,
+				isCommentEditor,
+				isChromelessEditor,
+				allowFixedColumnWidthOption,
+			}),
 			tableRow: tableRowView({
 				eventDispatcher,
 				pluginInjectionApi,

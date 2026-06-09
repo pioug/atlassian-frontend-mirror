@@ -27,7 +27,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
-import { DRAG_HANDLE_MAX_WIDTH_PLUS_GAP } from './consts';
+import { ACTIVE_DRAG_HANDLE_ATTR, ACTIVE_QUICK_INSERT_ATTR, DRAG_HANDLE_MAX_WIDTH_PLUS_GAP } from './consts';
 import { NODE_ANCHOR_ATTR_NAME } from './utils/dom-attr-name';
 
 /**
@@ -543,6 +543,22 @@ const dragHandlerAnchorStyles = css({
 	},
 });
 
+const activeControlsSelector = `[${ACTIVE_DRAG_HANDLE_ATTR}], [${ACTIVE_QUICK_INSERT_ATTR}]`;
+
+// Applies anchor-name via node decoration attributes rather than adjacency CSS selectors.
+// This is more reliable than dragHandlerAnchorStyles which depends on DOM structure.
+// Only nodes decorated with data-active-drag-handle / data-active-quick-insert get anchor-name.
+const staticControlsAnchorStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[activeControlsSelector]: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			anchorName: `var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)))`,
+		},
+	},
+});
+
 // Styles applied to nodes with anchors when dragging
 const dragAnchorStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -643,6 +659,9 @@ export const GlobalStylesWrapper = ({
 					? layoutColumnExtendedHoverZone
 					: layoutColumnWithoutHoverZone,
 				shouldRenderAnchors && (isDragging ? dragAnchorStyles : dragHandlerAnchorStyles),
+				expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true)
+					? staticControlsAnchorStyles
+					: undefined,
 			]}
 		/>
 	);

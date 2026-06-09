@@ -1051,4 +1051,130 @@ We have some formatting here
 			expect(mockOnSubmit).not.toHaveBeenCalled();
 		});
 	});
+
+	describe('onCancel callback', () => {
+		describe('FeedbackForm', () => {
+			it('should call onClose when cancel button is clicked and onCancel is not provided', () => {
+				const mockOnClose = jest.fn();
+
+				render(
+					<FeedbackForm
+						locale={'en'}
+						onClose={mockOnClose}
+						onSubmit={async () => {}}
+					/>,
+				);
+
+				const cancelBtn = screen.getByRole('button', { name: /cancel/i });
+				fireEvent.click(cancelBtn);
+
+				expect(mockOnClose).toHaveBeenCalledTimes(1);
+			});
+
+			it('should call both onCancel and onClose when cancel button is clicked and onCancel is provided', () => {
+				const mockOnClose = jest.fn();
+				const mockOnCancel = jest.fn();
+
+				render(
+					<FeedbackForm
+						locale={'en'}
+						onClose={mockOnClose}
+						onCancel={mockOnCancel}
+						onSubmit={async () => {}}
+					/>,
+				);
+
+				const cancelBtn = screen.getByRole('button', { name: /cancel/i });
+				fireEvent.click(cancelBtn);
+
+				expect(mockOnCancel).toHaveBeenCalledTimes(1);
+				expect(mockOnClose).toHaveBeenCalledTimes(1);
+			});
+
+			it('should call onCancel before onClose when cancel button is clicked', () => {
+				const callOrder: string[] = [];
+				const mockOnClose = jest.fn(() => callOrder.push('onClose'));
+				const mockOnCancel = jest.fn(() => callOrder.push('onCancel'));
+
+				render(
+					<FeedbackForm
+						locale={'en'}
+						onClose={mockOnClose}
+						onCancel={mockOnCancel}
+						onSubmit={async () => {}}
+					/>,
+				);
+
+				const cancelBtn = screen.getByRole('button', { name: /cancel/i });
+				fireEvent.click(cancelBtn);
+
+				expect(callOrder).toEqual(['onCancel', 'onClose']);
+			});
+
+			it('should not call onCancel when the form is submitted', async () => {
+				const mockOnCancel = jest.fn();
+				const mockOnClose = jest.fn();
+				const mockOnSubmit = jest.fn().mockResolvedValue(undefined);
+
+				render(
+					<FeedbackForm
+						locale={'en'}
+						onClose={mockOnClose}
+						onCancel={mockOnCancel}
+						onSubmit={mockOnSubmit}
+						showTypeField={false}
+						showDefaultTextFields={false}
+					/>,
+				);
+
+				const submitBtn = screen.getByTestId('feedbackCollectorSubmitBtn');
+				fireEvent.click(submitBtn);
+
+				await waitFor(() => {
+					expect(mockOnSubmit).toHaveBeenCalledTimes(1);
+				});
+
+				expect(mockOnCancel).not.toHaveBeenCalled();
+			});
+		});
+
+		describe('FeedbackCollector', () => {
+			it('should work without onCancel prop (backward compatibility)', () => {
+				const mockOnClose = jest.fn();
+
+				renderFeedbackCollector({ onClose: mockOnClose });
+
+				const cancelBtn = screen.getByRole('button', { name: /cancel/i });
+				fireEvent.click(cancelBtn);
+
+				expect(mockOnClose).toHaveBeenCalledTimes(1);
+			});
+
+			it('should call both onCancel and onClose when cancel button is clicked', () => {
+				const mockOnClose = jest.fn();
+				const mockOnCancel = jest.fn();
+
+				renderFeedbackCollector({ onClose: mockOnClose, onCancel: mockOnCancel });
+
+				const cancelBtn = screen.getByRole('button', { name: /cancel/i });
+				fireEvent.click(cancelBtn);
+
+				expect(mockOnCancel).toHaveBeenCalledTimes(1);
+				expect(mockOnClose).toHaveBeenCalledTimes(1);
+			});
+
+			it('should call onCancel before onClose when cancel button is clicked', () => {
+				const callOrder: string[] = [];
+				const mockOnClose = jest.fn(() => callOrder.push('onClose'));
+				const mockOnCancel = jest.fn(() => callOrder.push('onCancel'));
+
+				renderFeedbackCollector({ onClose: mockOnClose, onCancel: mockOnCancel });
+
+				const cancelBtn = screen.getByRole('button', { name: /cancel/i });
+				fireEvent.click(cancelBtn);
+
+				expect(callOrder).toEqual(['onCancel', 'onClose']);
+			});
+		});
+	});
 });

@@ -2,15 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useRef } from 'react';
+import { Fragment, type ReactNode, useEffect, useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import { Popup, type TPlacementOptions } from '@atlaskit/top-layer/popup';
-import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
+import { Popover, type TPlacementOptions } from '@atlaskit/top-layer/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 
 const styles = cssMap({
 	center: {
@@ -25,91 +26,102 @@ const styles = cssMap({
 	},
 });
 
-function placementLabel(p: TPlacementOptions): string {
-	const axis = p.axis ?? 'block';
-	const edge = p.edge ?? 'end';
-	const align = p.align ?? 'center';
+function placementLabel(placement: TPlacementOptions): string {
+	const axis = placement.axis ?? 'block';
+	const edge = placement.edge ?? 'end';
+	const align = placement.align ?? 'center';
 	return align === 'center' ? `${axis}-${edge}` : `${axis}-${edge} align-${align}`;
 }
 
 function VrPopupFallback({ placement }: { placement: TPlacementOptions }) {
 	const label = placementLabel(placement);
 	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const [isOpen, setIsOpen] = useState(false);
 
-	// Auto-open the popup on mount so the VR snapshot captures the
-	// positioned popover rather than just the closed trigger button.
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement,
+		forceFallbackPositioning: true,
+	});
+
 	useEffect(() => {
-		triggerRef.current?.click();
+		setIsOpen(true);
 	}, []);
 
 	return (
 		<div css={styles.center}>
-			<Popup placement={placement} onClose={() => {}} forceFallbackPositioning>
-				<Popup.Trigger>
-					<button ref={triggerRef} type="button">
-						{label}
-					</button>
-				</Popup.Trigger>
-				<Popup.Content role="dialog" label={`JS fallback ${label}`}>
-					<PopupSurface>
+			<Fragment>
+				<button ref={triggerRef} type="button">
+					{label}
+				</button>
+				<Popover
+					ref={popoverRef}
+					role="dialog"
+					label={`JS fallback ${label}`}
+					isOpen={isOpen}
+					onClose={() => setIsOpen(false)}
+				>
+					<PopoverSurface>
 						<Box padding="space.200">
 							<Text>{label} (JS fallback)</Text>
 						</Box>
-					</PopupSurface>
-				</Popup.Content>
-			</Popup>
+					</PopoverSurface>
+				</Popover>
+			</Fragment>
 		</div>
 	);
 }
 
-export function VrJsFallbackBlockEnd(): JSX.Element {
+export function VrJsFallbackBlockEnd(): ReactNode {
 	return <VrPopupFallback placement={{ edge: 'end' }} />;
 }
 
-export function VrJsFallbackInlineEnd(): JSX.Element {
+export function VrJsFallbackInlineEnd(): ReactNode {
 	return <VrPopupFallback placement={{ axis: 'inline', edge: 'end' }} />;
 }
 
-export function VrJsFallbackBlockStart(): JSX.Element {
+export function VrJsFallbackBlockStart(): ReactNode {
 	return <VrPopupFallback placement={{ edge: 'start' }} />;
 }
 
-export function VrJsFallbackInlineStart(): JSX.Element {
+export function VrJsFallbackInlineStart(): ReactNode {
 	return <VrPopupFallback placement={{ axis: 'inline', edge: 'start' }} />;
 }
 
-export function VrJsFallbackBlockEndAlignStart(): JSX.Element {
+export function VrJsFallbackBlockEndAlignStart(): ReactNode {
 	return <VrPopupFallback placement={{ axis: 'block', edge: 'end', align: 'start' }} />;
 }
 
-export function VrJsFallbackBlockEndAlignEnd(): JSX.Element {
+export function VrJsFallbackBlockEndAlignEnd(): ReactNode {
 	return <VrPopupFallback placement={{ axis: 'block', edge: 'end', align: 'end' }} />;
 }
 
-export function VrJsFallbackInlineEndAlignStart(): JSX.Element {
+export function VrJsFallbackInlineEndAlignStart(): ReactNode {
 	return <VrPopupFallback placement={{ axis: 'inline', edge: 'end', align: 'start' }} />;
 }
 
-export function VrJsFallbackInlineEndAlignEnd(): JSX.Element {
+export function VrJsFallbackInlineEndAlignEnd(): ReactNode {
 	return <VrPopupFallback placement={{ axis: 'inline', edge: 'end', align: 'end' }} />;
 }
 
-export function VrJsFallbackBlockStartAlignStart(): JSX.Element {
+export function VrJsFallbackBlockStartAlignStart(): ReactNode {
 	return <VrPopupFallback placement={{ axis: 'block', edge: 'start', align: 'start' }} />;
 }
 
-export function VrJsFallbackBlockStartAlignEnd(): JSX.Element {
+export function VrJsFallbackBlockStartAlignEnd(): ReactNode {
 	return <VrPopupFallback placement={{ axis: 'block', edge: 'start', align: 'end' }} />;
 }
 
-export function VrJsFallbackInlineStartAlignStart(): JSX.Element {
+export function VrJsFallbackInlineStartAlignStart(): ReactNode {
 	return <VrPopupFallback placement={{ axis: 'inline', edge: 'start', align: 'start' }} />;
 }
 
-export function VrJsFallbackInlineStartAlignEnd(): JSX.Element {
+export function VrJsFallbackInlineStartAlignEnd(): ReactNode {
 	return <VrPopupFallback placement={{ axis: 'inline', edge: 'start', align: 'end' }} />;
 }
 
-export default function VrPopupJsFallback(): JSX.Element {
+export default function VrPopupJsFallback(): ReactNode {
 	return <VrJsFallbackBlockEnd />;
 }

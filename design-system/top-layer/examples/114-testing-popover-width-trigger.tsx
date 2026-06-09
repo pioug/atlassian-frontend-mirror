@@ -2,11 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { type ReactNode, useCallback, useRef, useState } from 'react';
+
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { Popup } from '@atlaskit/top-layer/popup';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
+import { Popover } from '@atlaskit/top-layer/popover';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
+import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';
 
 const styles = cssMap({
 	wrapper: {
@@ -20,25 +26,51 @@ const styles = cssMap({
 });
 
 /**
- * Test fixture for `widthFromAnchor="match-anchor"` behavior.
+ * Test fixture for `useWidthFromAnchor` with mode `'match-anchor'`.
  * The trigger is an element with a known width so we can verify the
  * popover matches it.
  */
-export default function TestingPopoverWidthTrigger(): JSX.Element {
+export default function TestingPopoverWidthTrigger(): ReactNode {
+	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLDivElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: { edge: 'end' },
+	});
+
+	useWidthFromAnchor({
+		anchorRef: triggerRef,
+		popoverRef,
+		mode: 'match-anchor',
+	});
+
 	return (
 		<div css={styles.wrapper}>
-			<Popup placement={{ edge: 'end' }} onClose={() => {}}>
-				<Popup.Trigger>
-					<div data-testid="popover-trigger" role="button" tabIndex={0}>
-						Wide trigger element
-					</div>
-				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Width test" widthFromAnchor="match-anchor">
-					<div data-testid="popover-content" css={styles.content}>
-						This popover should match the trigger width
-					</div>
-				</Popup.Content>
-			</Popup>
+			<div
+				ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+				role="button"
+				tabIndex={0}
+				data-testid="popover-trigger"
+				onKeyDown={(event) => {
+					if (event.key === 'Enter' || event.key === ' ') {
+						event.preventDefault();
+						toggle();
+					}
+				}}
+			>
+				Wide trigger element
+			</div>
+			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="dialog" label="Width test">
+				<div data-testid="popover-content" css={styles.content}>
+					This popover should match the trigger width
+				</div>
+			</Popover>
 		</div>
 	);
 }

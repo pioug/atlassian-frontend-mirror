@@ -1,5 +1,24 @@
 # @atlaskit/badge
 
+## 18.7.0
+
+### Minor Changes
+
+- [`bb9a7cf0620fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb9a7cf0620fa) -
+  Added 5 new bold semantic Badge appearances behind the
+  `platform-dst-lozenge-tag-badge-visual-uplifts` feature gate: `successBold`, `dangerBold`,
+  `warningBold`, `informationBold`, and `discoveryBold`.
+
+  These bold appearances use the new `color.background.<semantic>.subtle` tokens (introduced in
+  `@atlaskit/tokens@13.2.0`) as the background and pair with `color.text.<semantic>.bolder` text for
+  stronger visual prominence than the existing subtle semantic appearances. The legacy
+  `appearanceMapping` and `appearanceMappingToOld` helpers route the new appearances correctly when
+  the feature gate is off.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.6.0
 
 ### Minor Changes

@@ -14,12 +14,14 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
+import { ACTIVE_QUICK_INSERT_ATTR } from '../ui/consts';
 import { QuickInsertWithVisibility } from '../ui/quick-insert-button';
 
 import type { AnchorRectCache } from './utils/anchor-utils';
 import { getActiveBlockMarks, getMatchingBlockMarks } from './utils/marks';
 
 const TYPE_QUICK_INSERT = 'INSERT_BUTTON';
+const TYPE_ACTIVE_QUICK_INSERT_NODE = 'active-quick-insert-node';
 
 export const findQuickInsertInsertButtonDecoration = (
 	decorations: DecorationSet,
@@ -41,6 +43,28 @@ type QuickInsertButtonDecorationParams = {
 	rootNodeType?: string;
 	rootPos: number;
 };
+
+/**
+ * Creates a Decoration.node that marks the active node with `data-active-quick-insert="true"`.
+ * The CSS in staticControlsAnchorStyles applies `anchor-name` to this attribute directly,
+ * replacing the unreliable adjacency selector `[block-ctrl-quick-insert-button] + *`.
+ */
+export const createActiveQuickInsertNodeDecoration = (
+	pos: number,
+	nodeSize: number,
+): Decoration =>
+	Decoration.node(
+		pos,
+		pos + nodeSize,
+		{ [ACTIVE_QUICK_INSERT_ATTR]: 'true' },
+		{ type: TYPE_ACTIVE_QUICK_INSERT_NODE },
+	);
+
+export const findActiveQuickInsertNodeDec = (
+	decorations: DecorationSet,
+	from?: number,
+	to?: number,
+): Decoration[] => decorations.find(from, to, (spec) => spec.type === TYPE_ACTIVE_QUICK_INSERT_NODE);
 
 export const quickInsertButtonDecoration = ({
 	api,

@@ -1,7 +1,7 @@
 import React, {
 	type ComponentType,
-	forwardRef,
 	type Ref,
+	forwardRef,
 	useImperativeHandle,
 	useRef,
 } from 'react';

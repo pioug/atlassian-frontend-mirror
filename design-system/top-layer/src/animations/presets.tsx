@@ -1,5 +1,4 @@
-import { getPlacement } from '../internal/resolve-placement';
-import { type TPlacementOptions } from '../popup/types';
+import { getPlacement, type TPlacementOptions } from '../internal/resolve-placement';
 
 import { type TAnimationPreset } from './types';
 
@@ -95,10 +94,10 @@ const SLIDE_AND_FADE_CSS = `
  * import { slideAndFade } from '@atlaskit/top-layer/animations';
  *
  * // Default 4px slide (tooltip)
- * <Popup.Content animate={slideAndFade()} />
+ * <Popover animate={slideAndFade()} />
  *
  * // Custom 8px slide (popup / dropdown)
- * <Popup.Content animate={slideAndFade({ distance: 8 })} />
+ * <Popover animate={slideAndFade({ distance: 8 })} />
  * ```
  */
 export function slideAndFade(options?: TSlideAndFadeOptions): TAnimationPreset {
@@ -153,7 +152,7 @@ const FADE_CSS = `
  * ```tsx
  * import { fade } from '@atlaskit/top-layer/animations';
  *
- * <Popup.Content animate={fade()} />
+ * <Popover animate={fade()} />
  * ```
  */
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
@@ -209,7 +208,7 @@ const SCALE_AND_FADE_CSS = `
  * ```tsx
  * import { scaleAndFade } from '@atlaskit/top-layer/animations';
  *
- * <Popup.Content animate={scaleAndFade()} />
+ * <Popover animate={scaleAndFade()} />
  * ```
  */
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports

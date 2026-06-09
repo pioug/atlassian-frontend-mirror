@@ -9,6 +9,7 @@ import { createPortal, flushSync } from 'react-dom';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { Position } from './utils';
@@ -113,6 +114,7 @@ export default class Popup extends React.Component<Props, State> {
 
 		const placement = calculatePlacement(
 			target,
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- Existing Popup positioning fallback; keep unchanged for safety.
 			boundariesElement || document.body,
 			fitWidth,
 			fitHeight,
@@ -137,6 +139,7 @@ export default class Popup extends React.Component<Props, State> {
 			offset: offset!,
 			allowOutOfBounds,
 			rect,
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- Existing Popup positioning fallback; keep unchanged for safety.
 			boundariesElement: boundariesElement || document.body,
 			minPopupMargin,
 			scrollableElement:
@@ -199,6 +202,7 @@ export default class Popup extends React.Component<Props, State> {
 		 */
 		return (
 			!target ||
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- Existing Popup containment check; keep unchanged for safety.
 			(document.body.contains(target) &&
 				popup.offsetParent &&
 				// Ignored via go/ees005
@@ -295,7 +299,10 @@ export default class Popup extends React.Component<Props, State> {
 
 		this.focusTrap = createFocusTrap(
 			popup,
-			editorExperiment('platform_editor_block_menu', true) ? trapConfig : defaultTrapConfig,
+			editorExperiment('platform_editor_block_menu', true) ||
+				expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)
+				? trapConfig
+				: defaultTrapConfig,
 		);
 		this.focusTrap.activate();
 	});

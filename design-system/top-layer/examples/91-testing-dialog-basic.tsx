@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { Dialog } from '@atlaskit/top-layer/dialog';
 
-export default function TestingDialogBasic(): React.JSX.Element {
+export default function TestingDialogBasic(): React.ReactNode {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const handleClose = useCallback(() => {

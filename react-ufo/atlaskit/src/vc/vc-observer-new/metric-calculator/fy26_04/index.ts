@@ -43,9 +43,7 @@ export default class VCCalculator_FY26_04 extends VCCalculator_FY25_03 {
 		include3p?: boolean,
 		excludeSmartAnswersInSearch?: boolean,
 	): boolean {
-		const extra_fy26_04_excluded_attributes = fg('platform_ufo_ignore_data_fabric_mode')
-			? ['data-fabric-mode']
-			: [];
+		const extra_fy26_04_excluded_attributes = ['data-fabric-mode'];
 
 		const entryData = entry.data as ViewportEntryData;
 		const { attributeName } = entryData;

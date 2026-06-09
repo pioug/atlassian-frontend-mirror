@@ -14,7 +14,7 @@ import { expect, test } from '@af/integration-testing';
  */
 test.describe('Popup - nested top-layer focus scope', () => {
 	test('outer Tab cycle excludes nested popover focusables', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/132-testing-nested-focus-scope.tsx')>(
+		await page.visitExample<typeof import('../../examples/135-testing-nested-focus-scope.tsx')>(
 			'design-system',
 			'top-layer',
 			'testing-nested-focus-scope',
@@ -47,7 +47,7 @@ test.describe('Popup - nested top-layer focus scope', () => {
 		// Tab through the outer cycle several times and collect what gets
 		// focused. inner-button MUST NEVER appear.
 		const visited: Array<string | null> = [];
-		for (let step = 0; step < 6; step++) {
+		for (const _ of Array.from({ length: 6 })) {
 			await page.keyboard.press('Tab');
 			const id = await page.evaluate(
 				() => document.activeElement?.getAttribute('data-testid') ?? null,

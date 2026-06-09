@@ -2,6 +2,7 @@ import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
 import { getListItemAttributes } from '@atlaskit/editor-common/lists';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 export type IndentationButtonNode = null | 'paragraph_heading' | 'list' | 'taskList';
 
@@ -44,10 +45,17 @@ export function getIndentationButtonsState(
 	// the selection is in a list nested in a layout column.
 	if (isInsideListItem?.(editorState.tr)) {
 		const { indentLevel, itemIndex } = getListItemAttributes(selection.$head);
+		const isFlexibleListIndentationEnabled = expValEqualsNoExposure(
+			'platform_editor_flexible_list_indentation',
+			'isEnabled',
+			true,
+		);
 
 		return {
 			// List indent levels are zero indexed so we need to subtract 1
-			indentDisabled: itemIndex === 0 || indentLevel >= MAX_INDENTATION_LEVEL - 1,
+			indentDisabled:
+				(!isFlexibleListIndentationEnabled && itemIndex === 0) ||
+				indentLevel >= MAX_INDENTATION_LEVEL - 1,
 			outdentDisabled: false,
 			node: 'list',
 		};

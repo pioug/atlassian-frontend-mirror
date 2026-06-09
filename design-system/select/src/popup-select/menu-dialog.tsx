@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, forwardRef, type ReactNode } from 'react';
+import { type CSSProperties, type ReactNode, forwardRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 

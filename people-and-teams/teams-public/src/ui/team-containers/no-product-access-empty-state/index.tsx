@@ -53,7 +53,7 @@ const messages = defineMessages({
 	teamContainerEmptyStateDescription: {
 		id: 'ptc.team-profile-page.team-containers.empty-state.description',
 		defaultMessage:
-			'Your team can link their Jira projects, Confluence spaces here to show where they work',
+			'Your team can link their Jira spaces, Confluence spaces here to show where they work',
 		description: 'Empty state description when user has no product access',
 	},
 });

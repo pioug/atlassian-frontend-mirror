@@ -1,4 +1,6 @@
-/* eslint-disable @atlaskit/ui-styling-standard/use-compiled */
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled,
+	@repo/internal/deprecations/deprecation-ticket-required,
+	@atlaskit/ui-styling-standard/no-exported-styles */
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
@@ -9,7 +11,12 @@ const scaledBlockNodesVerticalMargin = '0.75em';
 
 // When both platform_editor_content_mode_button_mvp & confluence_compact_text_format are cleaned up,
 // simplify the name/ use the other paragraph style name
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const paragraphStylesWithScaledMargin: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror p': {
@@ -25,7 +32,12 @@ export const paragraphStylesWithScaledMargin: SerializedStyles = css({
 
 // When both platform_editor_content_mode_button_mvp & confluence_compact_text_format are cleaned up,
 // simplify the name/ use the other paragraph style name
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const paragraphStylesOldWithScaledMargin: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror p': {
@@ -40,8 +52,12 @@ export const paragraphStylesOldWithScaledMargin: SerializedStyles = css({
 		letterSpacing: '-0.005em',
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const paragraphStylesUGCRefreshed: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror p': {
@@ -54,8 +70,12 @@ export const paragraphStylesUGCRefreshed: SerializedStyles = css({
 		marginBottom: 0,
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const paragraphStylesUGCModernized: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror p': {
@@ -68,8 +88,12 @@ export const paragraphStylesUGCModernized: SerializedStyles = css({
 		marginBottom: 0,
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const paragraphStylesOld: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror p': {

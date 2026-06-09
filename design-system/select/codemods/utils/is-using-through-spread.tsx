@@ -1,5 +1,5 @@
 import { type NodePath } from 'ast-types/lib/node-path';
-import { type default as core, type JSXElement } from 'jscodeshift';
+import { type JSXElement, type default as core } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 
 import { isUsingSupportedSpread } from './is-using-supported-spread';

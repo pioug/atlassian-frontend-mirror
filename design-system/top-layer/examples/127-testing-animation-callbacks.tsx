@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useState } from 'react';
+import { type ReactNode, useCallback, useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
@@ -10,8 +10,11 @@ import { cssMap } from '@atlaskit/css';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import { slideAndFade } from '@atlaskit/top-layer/animations';
-import { Popup } from '@atlaskit/top-layer/popup';
-import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
+import { Popover } from '@atlaskit/top-layer/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 const animation = slideAndFade();
 
@@ -37,10 +40,30 @@ const styles = cssMap({
  * so Playwright tests can assert that callbacks fire at the right point in the
  * animation lifecycle — after real CSS `transitionend` events in a real browser.
  */
-export default function TestingAnimationCallbacks(): JSX.Element {
-	const [isOpen, setIsOpen] = useState(false);
+export default function TestingAnimationCallbacks(): ReactNode {
 	const [enterCount, setEnterCount] = useState(0);
 	const [exitCount, setExitCount] = useState(0);
+
+	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: { edge: 'end' },
+	});
+
+	const handleEnterFinish = useCallback(() => {
+		setEnterCount((previous) => previous + 1);
+	}, []);
+
+	const handleExitFinish = useCallback(() => {
+		setExitCount((previous) => previous + 1);
+	}, []);
 
 	return (
 		<div css={styles.wrapper}>
@@ -52,36 +75,24 @@ export default function TestingAnimationCallbacks(): JSX.Element {
 					Exit count: <span data-testid="exit-count">{exitCount}</span>
 				</Text>
 			</div>
-			<Popup
+			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="popover-trigger">
+				Toggle
+			</button>
+			<Popover
+				ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close}
+				role="dialog"
+				label="Animation callback test"
+				animate={animation}
 				placement={{ edge: 'end' }}
-				onClose={() => {
-					setIsOpen(false);
-				}}
+				onEnterFinish={handleEnterFinish}
+				onExitFinish={handleExitFinish}
 			>
-				<Popup.Trigger>
-					<button
-						type="button"
-						data-testid="popover-trigger"
-						onClick={() => setIsOpen((prev) => !prev)}
-					>
-						Toggle
-					</button>
-				</Popup.Trigger>
-				<Popup.Content
-					isOpen={isOpen}
-					role="dialog"
-					label="Animation callback test"
-					animate={animation}
-					onEnterFinish={() => setEnterCount((c) => c + 1)}
-					onExitFinish={() => setExitCount((c) => c + 1)}
-				>
-					<PopupSurface>
-						<div data-testid="popover-content" css={styles.content}>
-							Animated content
-						</div>
-					</PopupSurface>
-				</Popup.Content>
-			</Popup>
+				<PopoverSurface>
+					<div data-testid="popover-content" css={styles.content}>
+						Animated content
+					</div>
+				</PopoverSurface>
+			</Popover>
 		</div>
 	);
 }

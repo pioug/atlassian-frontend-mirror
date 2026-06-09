@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useState } from 'react';
+import { type ReactNode, useCallback, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
@@ -20,7 +20,7 @@ const tallContentStyles = css({
  * Renders a tall page (scrollable body) with a dialog trigger.
  * When the dialog is open, DialogScrollLock should prevent body scrolling.
  */
-export default function TestingDialogScrollLock(): JSX.Element {
+export default function TestingDialogScrollLock(): ReactNode {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const handleClose = useCallback(() => {
@@ -43,7 +43,7 @@ export default function TestingDialogScrollLock(): JSX.Element {
 				<Heading size="large" id="dialog-title">
 					Scroll lock test
 				</Heading>
-				<div data-testid="dialog-body">Dialog is open - body should not scroll.</div>
+				<div data-testid="dialog-body">Dialog is open — body should not scroll.</div>
 				<button type="button" aria-label="Close" onClick={handleClose}>
 					&#x2715;
 				</button>

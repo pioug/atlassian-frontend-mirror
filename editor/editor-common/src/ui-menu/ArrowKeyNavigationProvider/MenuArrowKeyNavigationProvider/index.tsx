@@ -1,5 +1,8 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
+import { getDocument } from '@atlaskit/browser-apis';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+
 import type { MenuArrowKeyNavigationProviderProps } from '../types';
 
 const hasEnabledItems = (list: HTMLElement[]) =>
@@ -27,9 +30,28 @@ export const MenuArrowKeyNavigationProvider = ({
 	const element = popupsMountPoint ? [popupsMountPoint, editorRef.current] : [editorRef.current];
 	const [listenerTargetElement] = useState<(HTMLElement | null)[]>(element);
 
+	const getCurrentIndex = useCallback(
+		(list: HTMLElement[]) => {
+			if (!expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
+				return currentSelectedItemIndex;
+			}
+
+			const activeElement = getDocument()?.activeElement;
+
+			if (!(activeElement instanceof HTMLElement)) {
+				return currentSelectedItemIndex;
+			}
+
+			const activeElementIndex = list.indexOf(activeElement);
+
+			return activeElementIndex >= 0 ? activeElementIndex : currentSelectedItemIndex;
+		},
+		[currentSelectedItemIndex],
+	);
+
 	const incrementIndex = useCallback(
 		(list: HTMLElement[]) => {
-			const currentIndex = currentSelectedItemIndex;
+			const currentIndex = getCurrentIndex(list);
 
 			let nextIndex = (currentIndex + 1) % list.length;
 			// Skips disabled items. Previously this function relied on a list of enabled elements which caused a
@@ -43,12 +65,12 @@ export const MenuArrowKeyNavigationProvider = ({
 			setCurrentSelectedItemIndex(nextIndex);
 			return nextIndex;
 		},
-		[currentSelectedItemIndex],
+		[getCurrentIndex],
 	);
 
 	const decrementIndex = useCallback(
 		(list: HTMLElement[]) => {
-			const currentIndex = currentSelectedItemIndex;
+			const currentIndex = getCurrentIndex(list);
 
 			let nextIndex = (list.length + currentIndex - 1) % list.length;
 			while (
@@ -60,7 +82,7 @@ export const MenuArrowKeyNavigationProvider = ({
 			setCurrentSelectedItemIndex(nextIndex);
 			return nextIndex;
 		},
-		[currentSelectedItemIndex],
+		[getCurrentIndex],
 	);
 
 	// this useEffect uses onSelection in it's dependency list which gets

@@ -1,5 +1,17 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 6.7.1
+
+### Patch Changes
+
+- [`7cc6d0c282156`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7cc6d0c282156) -
+  Cleanup feature gate `platform_ufo_abort_event_target` by always recording element names for
+  supported abort event targets.
+- [`08b18c01f9f45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08b18c01f9f45) -
+  Reduce viewport observer recursion cost
+- [`ff29f0391c994`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff29f0391c994) -
+  cleanup platform_ufo_ignore_data_fabric_mode feature gate
+
 ## 6.7.0
 
 ### Minor Changes

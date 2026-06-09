@@ -28,7 +28,10 @@ const findThirdPartySegment = (node: SegmentItem, targetName: string): SegmentIt
 
 test.describe('ReactUFO: Third Party Segment', () => {
 	const requiredFeatureFlags: string[] = [];
-	const featureFlagsCombos = [[...requiredFeatureFlags]];
+	const featureFlagsCombos = [
+		[...requiredFeatureFlags],
+		[...requiredFeatureFlags, 'ufo-bump-walk-levels'],
+	];
 	for (const featureFlags of featureFlagsCombos) {
 		test.describe(`with feature flags ${featureFlags.join(', ')}`, () => {
 			test.use({

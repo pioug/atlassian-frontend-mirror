@@ -26,7 +26,6 @@ test.describe('native popover and dialog API timing', () => {
 	});
 
 	// showPopover()
-
 	test('showPopover: should throw when element has no popover attribute', async ({ page }) => {
 		const threw = await page.evaluate(() => {
 			const element = document.createElement('div');
@@ -65,20 +64,19 @@ test.describe('native popover and dialog API timing', () => {
 			element.setAttribute('popover', 'manual');
 			document.body.appendChild(element);
 			element.showPopover();
-			let eventCount = 0;
+			const events: string[] = [];
 			element.addEventListener('beforetoggle', () => {
-				eventCount++;
+				events.push('beforetoggle');
 			});
 			element.showPopover();
 			element.remove();
-			return eventCount;
+			return events.length;
 		});
 
 		expect(count).toBe(0);
 	});
 
 	// hidePopover()
-
 	test('hidePopover: should throw when element has no popover attribute', async ({ page }) => {
 		const threw = await page.evaluate(() => {
 			const element = document.createElement('div');
@@ -101,20 +99,19 @@ test.describe('native popover and dialog API timing', () => {
 			const element = document.createElement('div');
 			element.setAttribute('popover', 'manual');
 			document.body.appendChild(element);
-			let eventCount = 0;
+			const events: string[] = [];
 			element.addEventListener('beforetoggle', () => {
-				eventCount++;
+				events.push('beforetoggle');
 			});
 			element.hidePopover();
 			element.remove();
-			return eventCount;
+			return events.length;
 		});
 
 		expect(count).toBe(0);
 	});
 
 	// popover beforetoggle event
-
 	test('popover beforetoggle: should fire synchronously during showPopover', async ({ page }) => {
 		const log = await page.evaluate(() => {
 			const element = document.createElement('div');
@@ -155,88 +152,93 @@ test.describe('native popover and dialog API timing', () => {
 	});
 
 	test('popover beforetoggle: should report closed→open on show', async ({ page }) => {
-		const captured = await page.evaluate(() => {
-			const element = document.createElement('div');
-			element.setAttribute('popover', 'manual');
-			document.body.appendChild(element);
-			let result: { oldState: string; newState: string } | null = null;
-			element.addEventListener('beforetoggle', ((event: ToggleEvent) => {
-				result = { oldState: event.oldState, newState: event.newState };
-			}) as EventListener);
-			element.showPopover();
-			element.remove();
-			return result;
-		});
+		const captured = await page.evaluate(
+			() =>
+				new Promise<{ oldState: string; newState: string }>((resolve) => {
+					const element = document.createElement('div');
+					element.setAttribute('popover', 'manual');
+					document.body.appendChild(element);
+					element.addEventListener('beforetoggle', ((event: ToggleEvent) => {
+						resolve({ oldState: event.oldState, newState: event.newState });
+						element.remove();
+					}) as EventListener);
+					element.showPopover();
+				}),
+		);
 
 		expect(captured).toEqual({ oldState: 'closed', newState: 'open' });
 	});
 
 	test('popover beforetoggle: should report open→closed on hide', async ({ page }) => {
-		const captured = await page.evaluate(() => {
-			const element = document.createElement('div');
-			element.setAttribute('popover', 'manual');
-			document.body.appendChild(element);
-			element.showPopover();
-			let result: { oldState: string; newState: string } | null = null;
-			element.addEventListener('beforetoggle', ((event: ToggleEvent) => {
-				result = { oldState: event.oldState, newState: event.newState };
-			}) as EventListener);
-			element.hidePopover();
-			element.remove();
-			return result;
-		});
+		const captured = await page.evaluate(
+			() =>
+				new Promise<{ oldState: string; newState: string }>((resolve) => {
+					const element = document.createElement('div');
+					element.setAttribute('popover', 'manual');
+					document.body.appendChild(element);
+					element.showPopover();
+					element.addEventListener('beforetoggle', ((event: ToggleEvent) => {
+						resolve({ oldState: event.oldState, newState: event.newState });
+						element.remove();
+					}) as EventListener);
+					element.hidePopover();
+				}),
+		);
 
 		expect(captured).toEqual({ oldState: 'open', newState: 'closed' });
 	});
 
 	test('popover beforetoggle: should be cancelable on show (auto popover)', async ({ page }) => {
-		const cancelable = await page.evaluate(() => {
-			const element = document.createElement('div');
-			element.setAttribute('popover', 'auto');
-			document.body.appendChild(element);
-			let result: boolean | null = null;
-			element.addEventListener('beforetoggle', ((event: ToggleEvent) => {
-				result = event.cancelable;
-			}) as EventListener);
-			element.showPopover();
-			element.remove();
-			return result;
-		});
+		const cancelable = await page.evaluate(
+			() =>
+				new Promise<boolean>((resolve) => {
+					const element = document.createElement('div');
+					element.setAttribute('popover', 'auto');
+					document.body.appendChild(element);
+					element.addEventListener('beforetoggle', ((event: ToggleEvent) => {
+						resolve(event.cancelable);
+						element.remove();
+					}) as EventListener);
+					element.showPopover();
+				}),
+		);
 
 		expect(cancelable).toBe(true);
 	});
 
 	test('popover beforetoggle: should not be cancelable on hide', async ({ page }) => {
-		const cancelable = await page.evaluate(() => {
-			const element = document.createElement('div');
-			element.setAttribute('popover', 'manual');
-			document.body.appendChild(element);
-			element.showPopover();
-			let result: boolean | null = null;
-			element.addEventListener('beforetoggle', ((event: ToggleEvent) => {
-				result = event.cancelable;
-			}) as EventListener);
-			element.hidePopover();
-			element.remove();
-			return result;
-		});
+		const cancelable = await page.evaluate(
+			() =>
+				new Promise<boolean>((resolve) => {
+					const element = document.createElement('div');
+					element.setAttribute('popover', 'manual');
+					document.body.appendChild(element);
+					element.showPopover();
+					element.addEventListener('beforetoggle', ((event: ToggleEvent) => {
+						resolve(event.cancelable);
+						element.remove();
+					}) as EventListener);
+					element.hidePopover();
+				}),
+		);
 
 		expect(cancelable).toBe(false);
 	});
 
 	test('popover beforetoggle: should not bubble', async ({ page }) => {
-		const bubbles = await page.evaluate(() => {
-			const element = document.createElement('div');
-			element.setAttribute('popover', 'manual');
-			document.body.appendChild(element);
-			let result: boolean | null = null;
-			element.addEventListener('beforetoggle', ((event: ToggleEvent) => {
-				result = event.bubbles;
-			}) as EventListener);
-			element.showPopover();
-			element.remove();
-			return result;
-		});
+		const bubbles = await page.evaluate(
+			() =>
+				new Promise<boolean>((resolve) => {
+					const element = document.createElement('div');
+					element.setAttribute('popover', 'manual');
+					document.body.appendChild(element);
+					element.addEventListener('beforetoggle', ((event: ToggleEvent) => {
+						resolve(event.bubbles);
+						element.remove();
+					}) as EventListener);
+					element.showPopover();
+				}),
+		);
 
 		expect(bubbles).toBe(false);
 	});
@@ -261,7 +263,6 @@ test.describe('native popover and dialog API timing', () => {
 	});
 
 	// popover toggle event
-
 	test('popover toggle: should fire as a task, after microtasks drain', async ({ page }) => {
 		const log = await page.evaluate(() => {
 			return new Promise<string[]>((resolve) => {
@@ -358,7 +359,6 @@ test.describe('native popover and dialog API timing', () => {
 	});
 
 	// popover toggle event coalescing
-
 	test('popover toggle coalescing: should coalesce show+hide into one toggle event', async ({
 		page,
 	}) => {
@@ -439,7 +439,6 @@ test.describe('native popover and dialog API timing', () => {
 	});
 
 	// togglePopover()
-
 	test('togglePopover: should open a closed popover and return true', async ({ page }) => {
 		const result = await page.evaluate(() => {
 			const element = document.createElement('div');
@@ -528,7 +527,6 @@ test.describe('native popover and dialog API timing', () => {
 	});
 
 	// dialog.showModal()
-
 	test('dialog showModal: should throw when dialog is not connected', async ({ page }) => {
 		const threw = await page.evaluate(() => {
 			const dialog = document.createElement('dialog');
@@ -625,24 +623,28 @@ test.describe('native popover and dialog API timing', () => {
 	});
 
 	test('dialog showModal: should fire beforetoggle that is not cancelable', async ({ page }) => {
+		// Captures the LAST observed beforetoggle. showModal fires a cancelable
+		// open-side beforetoggle (closed→open), and close() fires the
+		// non-cancelable open→closed beforetoggle. We assert against the close
+		// side via `.at(-1)` so that semantics match the original intent of the
+		// test, without relying on a mutable `let` accumulator.
 		const cancelable = await page.evaluate(() => {
 			const dialog = document.createElement('dialog');
 			document.body.appendChild(dialog);
-			let result: boolean | null = null;
+			const captured: boolean[] = [];
 			dialog.addEventListener('beforetoggle', ((event: ToggleEvent) => {
-				result = event.cancelable;
+				captured.push(event.cancelable);
 			}) as EventListener);
 			dialog.showModal();
 			dialog.close();
 			dialog.remove();
-			return result;
+			return captured.at(-1) ?? null;
 		});
 
 		expect(cancelable).toBe(false);
 	});
 
 	// dialog.show()
-
 	test('dialog show: should fire beforetoggle synchronously with closed→open', async ({ page }) => {
 		const log = await page.evaluate(() => {
 			const dialog = document.createElement('dialog');
@@ -682,7 +684,6 @@ test.describe('native popover and dialog API timing', () => {
 	});
 
 	// dialog.close()
-
 	test('dialog close: should be a no-op when already closed', async ({ page }) => {
 		const events = await page.evaluate(() => {
 			return new Promise<string[]>((resolve) => {
@@ -715,7 +716,10 @@ test.describe('native popover and dialog API timing', () => {
 				const dialog = document.createElement('dialog');
 				document.body.appendChild(dialog);
 				dialog.showModal();
-				// Wait for the open toggle event to fire before adding close listeners
+				// Poll for the initial open toggle event before attaching close
+				// listeners so we only observe close-side events. We have to wait
+				// past the task boundary that delivers the open toggle.
+				// eslint-disable-next-line no-restricted-syntax -- async polling flag has no clean replacement here
 				let openToggleFired = false;
 				dialog.addEventListener('toggle', () => {
 					openToggleFired = true;
@@ -732,9 +736,9 @@ test.describe('native popover and dialog API timing', () => {
 							resolve(entries);
 						});
 						dialog.close();
-					} else {
-						requestAnimationFrame(waitForOpenToggle);
+						return;
 					}
+					requestAnimationFrame(waitForOpenToggle);
 				};
 				requestAnimationFrame(waitForOpenToggle);
 			});
@@ -819,20 +823,19 @@ test.describe('native popover and dialog API timing', () => {
 			const dialog = document.createElement('dialog');
 			document.body.appendChild(dialog);
 			dialog.showModal();
-			let result: boolean | null = null;
+			const captured: boolean[] = [];
 			dialog.addEventListener('beforetoggle', ((event: ToggleEvent) => {
-				result = event.cancelable;
+				captured.push(event.cancelable);
 			}) as EventListener);
 			dialog.close();
 			dialog.remove();
-			return result;
+			return captured.at(-1) ?? null;
 		});
 
 		expect(cancelable).toBe(false);
 	});
 
 	// dialog.returnValue
-
 	test('dialog returnValue: should default to empty string', async ({ page }) => {
 		const value = await page.evaluate(() => {
 			const dialog = document.createElement('dialog');

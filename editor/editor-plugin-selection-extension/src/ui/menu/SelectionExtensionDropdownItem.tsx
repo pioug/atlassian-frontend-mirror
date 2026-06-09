@@ -33,15 +33,6 @@ const styles = cssMap({
 	contentWrapper: {
 		display: 'flex',
 		alignItems: 'center',
-		minWidth: '0px',
-	},
-	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_5]
-	// Fixes layout when lozenge is present - justifyContent: 'space-between' ensures the lozenge
-	// is properly positioned on the right side instead of being squeezed next to the label.
-	// To clean up: merge this with contentWrapper above, keep only the flag-on version.
-	contentWrapperWithJustifyContent: {
-		display: 'flex',
-		alignItems: 'center',
 		justifyContent: 'space-between',
 		minWidth: '0px',
 	},
@@ -158,15 +149,7 @@ export const SelectionExtensionDropdownItem = ({
 					testId={EXTENSION_MENU_ITEM_TEST_ID}
 					data-extension-item-key={dropdownItem.key}
 				>
-					<Box
-						as="span"
-						xcss={
-							!elemAfterText && fg('platform_editor_block_menu_v2_patch_5')
-								? styles.contentWrapperWithJustifyContent
-								: styles.contentWrapper
-						}
-						onMouseOver={handleMouseEnter}
-					>
+					<Box as="span" xcss={styles.contentWrapper} onMouseOver={handleMouseEnter}>
 						<Box as="span" xcss={styles.label} ref={labelRef}>
 							{dropdownItem.label}
 						</Box>
@@ -185,15 +168,7 @@ export const SelectionExtensionDropdownItem = ({
 				testId={EXTENSION_MENU_ITEM_TEST_ID}
 				data-extension-item-key={dropdownItem.key}
 			>
-				<Box
-					as="span"
-					xcss={
-						fg('platform_editor_block_menu_v2_patch_5')
-							? styles.contentWrapperWithJustifyContent
-							: styles.contentWrapper
-					}
-					onMouseOver={handleMouseEnter}
-				>
+				<Box as="span" xcss={styles.contentWrapper} onMouseOver={handleMouseEnter}>
 					<Box as="span" xcss={styles.label} ref={labelRef}>
 						{dropdownItem.label}
 					</Box>

@@ -1,4 +1,6 @@
-/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
+/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors,
+	@repo/internal/deprecations/deprecation-ticket-required,
+	@atlaskit/ui-styling-standard/no-exported-styles */
 /* eslint-disable @atlaskit/ui-styling-standard/no-exported-styles */
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled */
 import { css, keyframes } from '@emotion/react';
@@ -54,6 +56,12 @@ const pulseOutDuringTr = keyframes({
 	},
 });
 
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const telepointerColorAndCommonStyle: SerializedStyles = css({
 	'.ProseMirror .telepointer': {
 		position: 'relative',
@@ -162,6 +170,12 @@ export const telepointerColorAndCommonStyle: SerializedStyles = css({
 	},
 });
 
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const telepointerStyle: SerializedStyles = css({
 	'.ProseMirror .telepointer': {
 		'&.telepointer-selection-badge': {

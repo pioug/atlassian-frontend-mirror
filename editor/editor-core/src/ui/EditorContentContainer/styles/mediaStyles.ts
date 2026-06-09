@@ -1,4 +1,6 @@
-/* eslint-disable @atlaskit/ui-styling-standard/use-compiled */
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled,
+	@repo/internal/deprecations/deprecation-ticket-required,
+	@atlaskit/ui-styling-standard/no-exported-styles */
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
@@ -48,7 +50,13 @@ const referenceHeights = {
 
 const inlineImageSelector = `> .mediaInlineView-content-wrap > .${INLINE_IMAGE_WRAPPER_CLASS_NAME}, > :is(a, span[data-mark-type='border']) .mediaInlineView-content-wrap > .${INLINE_IMAGE_WRAPPER_CLASS_NAME}, > .${INLINE_IMAGE_WRAPPER_CLASS_NAME}, > :is(a, span[data-mark-type='border']) .${INLINE_IMAGE_WRAPPER_CLASS_NAME}`;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles,@atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const mediaStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
@@ -431,8 +439,12 @@ export const mediaStyles: SerializedStyles = css({
 		boxShadow: 'none',
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const mediaDangerStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
@@ -450,16 +462,24 @@ export const mediaDangerStyles: SerializedStyles = css({
 			[dangerBorderStyles],
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const mediaGroupStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.mediaGroupView-content-wrap ul': {
 		padding: 0,
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const mediaAlignmentStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.fabric-editor-block-mark[class^="fabric-editor-align"]': {
@@ -494,7 +514,12 @@ export const mediaAlignmentStyles: SerializedStyles = css({
 
 // When both platform_editor_content_mode_button_mvp & confluence_compact_text_format are cleaned up,
 // move this style into mediaStyles variable ⬆️
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const mediaCaptionStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.mediaSingleView-content-wrap': {

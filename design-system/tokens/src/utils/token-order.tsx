@@ -8,15 +8,16 @@ export const tokenOrder: {
 	{
 		path: 'color',
 		subpaths: [
-			'text',
-			'link',
-			'icon',
-			'border',
 			'background',
-			'blanket',
+			'border',
+			'text',
+			'icon',
+			'link',
 			'interaction',
 			'skeleton',
+			'blanket',
 			'chart',
+			'rovo',
 			// deleted ↓
 			'accent',
 			'iconBorder',

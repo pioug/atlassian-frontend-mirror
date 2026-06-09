@@ -158,13 +158,6 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 			show1PBodiedExtensionBorder,
 		'with-margin-styles':
 			showMacroInteractionDesignUpdates && !isNodeNested && !showBodiedExtensionRendererView,
-		'with-hover-border': expValEquals(
-			'cc_editor_ttvc_release_bundle_one',
-			'extensionHoverRefactor',
-			true,
-		)
-			? false
-			: showMacroInteractionDesignUpdates && isNodeHovered,
 		'with-danger-overlay': showMacroInteractionDesignUpdates,
 		'without-frame': removeBorder,
 		[widerLayoutClassName]: shouldBreakout,
@@ -251,10 +244,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 				css={[
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					wrapperStyleInheritedCursor,
-					showMacroInteractionDesignUpdates &&
-						!isLivePageViewMode &&
-						expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true) &&
-						hoverStyles,
+					showMacroInteractionDesignUpdates && !isLivePageViewMode && hoverStyles,
 				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={customContainerStyles}

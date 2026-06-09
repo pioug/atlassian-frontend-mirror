@@ -1,9 +1,12 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
-import { Popup } from '@atlaskit/top-layer/popup';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
+import { Popover } from '@atlaskit/top-layer/popover';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 /**
- * Test fixture for native Popover API focus restoration.
+ * Test fixture for native Popover API focus restoration (WCAG 2.4.3 Focus Order).
  *
  * The browser handles focus restoration automatically for popover="auto":
  *   - Escape → restores focus to the previously focused element (the trigger)
@@ -14,7 +17,7 @@ import { Popup } from '@atlaskit/top-layer/popup';
  * `previouslyFocusedElement` when the popover opens and restores it
  * synchronously during the hide algorithm.
  */
-export default function TestingNativeFocusRestoration(): React.JSX.Element {
+export default function TestingNativeFocusRestoration(): React.ReactNode {
 	return (
 		<div>
 			<PopoverAutoDialog />
@@ -26,65 +29,95 @@ export default function TestingNativeFocusRestoration(): React.JSX.Element {
 }
 
 function PopoverAutoDialog() {
-	const handleClose = useCallback(() => {}, []);
+	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: { edge: 'end' },
+	});
 
 	return (
-		<Popup placement={{ edge: 'end' }} onClose={handleClose}>
-			<Popup.Trigger>
-				<button type="button" data-testid="auto-dialog-trigger">
-					Open auto dialog
-				</button>
-			</Popup.Trigger>
-			<Popup.Content role="dialog" label="Auto dialog popup" testId="auto-dialog-popup">
+		<>
+			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="auto-dialog-trigger">
+				Open auto dialog
+			</button>
+			<Popover
+				ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close}
+				role="dialog"
+				label="Auto dialog popup"
+				testId="auto-dialog-popup"
+			>
 				<div>
 					<button type="button" data-testid="auto-dialog-inner-button">
 						Button inside dialog
 					</button>
 				</div>
-			</Popup.Content>
-		</Popup>
+			</Popover>
+		</>
 	);
 }
 
 function PopoverAutoMenu() {
-	const handleClose = useCallback(() => {}, []);
+	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: { edge: 'end' },
+	});
 
 	return (
-		<Popup placement={{ edge: 'end' }} onClose={handleClose}>
-			<Popup.Trigger>
-				<button type="button" data-testid="auto-menu-trigger">
-					Open auto menu
-				</button>
-			</Popup.Trigger>
-			<Popup.Content role="menu" label="Auto menu popup" testId="auto-menu-popup">
+		<>
+			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'menu', isOpen, popoverId: popoverId })} type="button" data-testid="auto-menu-trigger">
+				Open auto menu
+			</button>
+			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="menu" label="Auto menu popup" testId="auto-menu-popup">
 				<div>
 					<button type="button" role="menuitem" data-testid="auto-menu-item">
 						Menu item
 					</button>
 				</div>
-			</Popup.Content>
-		</Popup>
+			</Popover>
+		</>
 	);
 }
 
 function ProgrammaticClose() {
-	const popoverRef = useRef<HTMLDivElement | null>(null);
+	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
 
-	const handleClose = useCallback(() => {}, []);
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: { edge: 'end' },
+	});
 
 	const handleProgrammaticClose = useCallback(() => {
 		popoverRef.current?.hidePopover();
 	}, []);
 
 	return (
-		<Popup placement={{ edge: 'end' }} onClose={handleClose}>
-			<Popup.Trigger>
-				<button type="button" data-testid="programmatic-trigger">
-					Open programmatic popup
-				</button>
-			</Popup.Trigger>
-			<Popup.Content
-				ref={popoverRef}
+		<>
+			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="programmatic-trigger">
+				Open programmatic popup
+			</button>
+			<Popover
+				ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close}
 				role="dialog"
 				label="Programmatic close popup"
 				testId="programmatic-popup"
@@ -101,7 +134,7 @@ function ProgrammaticClose() {
 						Close programmatically
 					</button>
 				</div>
-			</Popup.Content>
-		</Popup>
+			</Popover>
+		</>
 	);
 }

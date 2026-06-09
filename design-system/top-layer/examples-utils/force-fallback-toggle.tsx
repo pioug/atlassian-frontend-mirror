@@ -18,7 +18,7 @@ export function useForceFallback(): boolean {
  * lets you force the JavaScript fallback for anchor positioning.
  *
  * Children receive the `forceFallbackPositioning` value through context, which can
- * be read with `useForceFallback()` or passed directly to `<Popup>`.
+ * be read with `useForceFallback()` or passed directly to `<Popover>`.
  *
  * Uses `<Popover mode="manual" isOpen>` so the toggle lives in the top layer
  * rather than relying on `position: fixed` and `z-index`.
@@ -41,8 +41,8 @@ export function useForceFallback(): boolean {
 export function ForceFallbackToggle({
 	children,
 }: {
-	children: ReactNode | ((forceFallbackPositioning: boolean) => ReactNode);
-}): React.JSX.Element {
+	children: React.ReactNode | ((forceFallbackPositioning: boolean) => ReactNode);
+}): React.ReactNode {
 	const [forceFallbackPositioning, setForceFallback] = useState(false);
 
 	return (

@@ -10,7 +10,7 @@ test.describe('Interaction - click outside passthrough', () => {
 		page,
 	}) => {
 		await page.visitExample<
-			typeof import('../../examples/127-testing-click-outside-passthrough.tsx')
+			typeof import('../../examples/138-testing-click-outside-passthrough.tsx')
 		>('design-system', 'top-layer', 'testing-click-outside-passthrough');
 
 		const trigger = page.getByTestId('popover-trigger');
@@ -18,7 +18,7 @@ test.describe('Interaction - click outside passthrough', () => {
 
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 
-		// Click the outside button - this should BOTH close the popover
+		// Click the outside button — this should BOTH close the popover
 		// AND increment the outside button's click counter.
 		await page.getByTestId('outside-button').click();
 
@@ -28,7 +28,7 @@ test.describe('Interaction - click outside passthrough', () => {
 		// The popover's onClose should have fired
 		await expect(page.getByTestId('close-count')).toHaveText('1');
 
-		// The outside button's onClick should ALSO have fired -
+		// The outside button's onClick should ALSO have fired —
 		// the light-dismiss must not swallow the event.
 		await expect(page.getByTestId('outside-click-count')).toHaveText('1');
 	});
@@ -36,11 +36,11 @@ test.describe('Interaction - click outside passthrough', () => {
 	// Verify that multiple click-outside events work consistently
 	test('repeated click-outside events are all received by target elements', async ({ page }) => {
 		await page.visitExample<
-			typeof import('../../examples/127-testing-click-outside-passthrough.tsx')
+			typeof import('../../examples/138-testing-click-outside-passthrough.tsx')
 		>('design-system', 'top-layer', 'testing-click-outside-passthrough');
 
-		// Open and close via outside click - 3 times
-		for (let i = 0; i < 3; i++) {
+		// Open and close via outside click — 3 times
+		for (const _ of Array.from({ length: 3 })) {
 			await page.getByTestId('popover-trigger').click();
 			await expect(page.getByTestId('popover-content')).toBeVisible();
 			await page.getByTestId('outside-button').click();

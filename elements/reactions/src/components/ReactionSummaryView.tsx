@@ -6,6 +6,7 @@ import { useCallback, useState } from 'react';
 
 import { type Placement } from '@atlaskit/popper';
 import Popup from '@atlaskit/popup';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { type OnEmojiEvent } from '@atlaskit/emoji/types';
 import { EmojiPicker } from '@atlaskit/emoji/picker';
 
@@ -353,6 +354,7 @@ export const ReactionSummaryView = ({
 			}
 			isOpen={isSummaryPopupOpen || isEmojiPickerOpen}
 			onClose={handlePopupClose}
+			shouldRenderToParent={expValEquals('a11y-fixes-week4-may-2026', 'isEnabled', true)}
 			trigger={(triggerProps) => (
 				<ReactionSummaryButton
 					{...triggerProps}

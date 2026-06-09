@@ -45,8 +45,18 @@ interface Props {
 	cancelButtonLabel?: string;
 	/**  Message for select option labels and field labels **/
 	feedbackGroupLabels?: Partial<Record<SelectValue, SelectOptionDetails>>;
-	/** Function that will be called to initiate the exit transition. */
-	onClose: () => void;
+	/**
+	 * Function that will be called to initiate the exit transition.
+	 * When triggered by the cancel button the originating event and Atlaskit UI analytics
+	 * event are forwarded; programmatic close paths (e.g. after submit) invoke it with no
+	 * arguments. Typed as a variadic `any[]` to maximise backward compatibility with
+	 * consumers that declared any conceivable signature for this callback.
+	 */
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	onClose: (...args: any[]) => void;
+	/** Optional function that will be called when the cancel button is clicked, in addition to onClose. */
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	onCancel?: (...args: any[]) => void;
 	/** Function that will be called immediately after the submit action  */
 	onSubmit: (formValues: FormFields) => Promise<void>;
 	/**  Optional locale for i18n **/
@@ -94,6 +104,7 @@ const FeedbackForm = ({
 	showDefaultTextFields = true,
 	customContent,
 	onClose,
+	onCancel,
 	onSubmit,
 	feedbackTitle,
 	feedbackTitleDetails,
@@ -126,6 +137,14 @@ const FeedbackForm = ({
 	}>({});
 	const { formatMessage } = useIntl();
 	const isTypeSelected = () => type !== 'empty';
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const handleCancel = (...args: any[]) => {
+		onCancel?.(...args);
+		// Forward every arg the click handler received so consumers retain the full
+		// pre-change runtime contract (originating event + Atlaskit UI analytics event).
+		onClose(...args);
+	};
 
 	const canShowTextField = isTypeSelected() || !showTypeField;
 
@@ -432,7 +451,10 @@ const FeedbackForm = ({
 						)}
 					</ModalBody>
 					<ModalFooter>
-						<Button appearance="subtle" onClick={onClose}>
+						<Button
+							appearance="subtle"
+							onClick={handleCancel}
+						>
 							{cancelButtonLabel || <FormattedMessage {...messages.cancelButtonLabel} />}
 						</Button>
 						<Button
@@ -644,7 +666,10 @@ const FeedbackForm = ({
 								)}
 							</ModalBody>
 							<ModalFooter>
-								<Button appearance="subtle" onClick={onClose}>
+								<Button
+									appearance="subtle"
+									onClick={handleCancel}
+								>
 									{cancelButtonLabel || <FormattedMessage {...messages.cancelButtonLabel} />}
 								</Button>
 								<Button

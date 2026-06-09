@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-analytics
 
+## 2.3.1
+
+### Patch Changes
+
+- [`991f688d99805`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/991f688d99805) -
+  Remove workItemSurfaceEnabled usage; fire setIsAgentAssignable analytics on isPublished instead
+
 ## 2.3.0
 
 ### Minor Changes

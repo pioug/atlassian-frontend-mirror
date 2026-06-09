@@ -1,8 +1,25 @@
+const getTokenCategoryId = (tokenId: string): string => {
+	if (tokenId.startsWith('color.rovo.background.')) {
+		return tokenId.replace('color.rovo.background.', 'color.background.');
+	}
+
+	if (tokenId.startsWith('color.rovo.border.')) {
+		return tokenId.replace('color.rovo.border.', 'color.border.');
+	}
+
+	if (tokenId.startsWith('color.rovo.icon.')) {
+		return tokenId.replace('color.rovo.icon.', 'color.icon.');
+	}
+
+	return tokenId;
+};
+
 export const getTokenUsageGuidelines = (
 	tokenId: string,
 ): { usage: string; cssProperties: string[] } => {
+	const tokenCategoryId = getTokenCategoryId(tokenId);
 	const tokenTypes = Object.keys(usageMappings) as TokenCategory[];
-	const foundType = tokenTypes.find((type) => tokenId.startsWith(type));
+	const foundType = tokenTypes.find((type) => tokenCategoryId.startsWith(type));
 	if (foundType && usageMappings[foundType]) {
 		return usageMappings[foundType];
 	}

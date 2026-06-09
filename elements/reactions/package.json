@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "34.2.8",
+	"version": "34.3.1",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -60,6 +60,7 @@
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/tabs": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",

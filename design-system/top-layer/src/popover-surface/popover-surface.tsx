@@ -2,14 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React from 'react';
+import React, { type ReactNode } from 'react';
 
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
-import { type TPopupSurfaceProps } from './types';
+export type TPopoverSurfaceProps = {
+	children: ReactNode;
+};
 
 const styles = cssMap({
 	root: {
@@ -21,20 +23,17 @@ const styles = cssMap({
 });
 
 /**
- * Optional styled wrapper for popup content.
+ * Optional styled wrapper for popover content.
  *
  * Adds default visual styling (background, border-radius, box-shadow)
- * using design tokens. Consumers who want fully custom styling
- * should use `Popup.Content` without wrapping in `PopupSurface`.
+ * using design tokens.
  *
- * Exposed as `Popup.Surface` on the compound component.
- *
- * **Presentational primitive - `children`-only by design.** This component
+ * Presentational primitive - `children`-only by design. This component
  * intentionally exposes no `style`, `className`, `xcss`, `id`, or `ref`
  * props. If you need any of those, render your own wrapper element inside
- * `Popup.Content` instead - `PopupSurface` is the no-config "give me the
- * default ADS overlay look" surface, nothing more.
+ * `Popover` instead. `PopoverSurface` is the no-config "give me the default
+ * ADS overlay look" surface, nothing more.
  */
-export function PopupSurface({ children }: TPopupSurfaceProps): React.ReactElement {
+export function PopoverSurface({ children }: TPopoverSurfaceProps): React.ReactElement {
 	return <div css={styles.root}>{children}</div>;
 }

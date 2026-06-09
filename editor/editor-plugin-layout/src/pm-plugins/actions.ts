@@ -45,6 +45,7 @@ import {
 } from './utils/layout-column-distribution';
 import {
 	getAllLayoutColumnsFromSelection,
+	getLayoutColumnsFromContentSelection,
 	getSelectedLayoutColumnsFromSelection,
 } from './utils/layout-column-selection';
 
@@ -704,6 +705,7 @@ export type LayoutColumnInsertMeta = {
 };
 
 type LayoutPluginAPI = ExtractInjectionAPI<LayoutPlugin> | undefined;
+export type LayoutColumnActionInputMethod = INPUT_METHOD.LAYOUT_COLUMN_MENU | INPUT_METHOD.KEYBOARD;
 
 const mapLayoutColumnPreservedSelection = (tr: Transaction, api: LayoutPluginAPI) => {
 	const insertMeta = tr.getMeta(LAYOUT_COLUMN_INSERT_META) as LayoutColumnInsertMeta | undefined;
@@ -734,13 +736,17 @@ export function getEffectiveMaxLayoutColumns(): number {
 }
 
 const insertLayoutColumnAt =
-	(side: InsertLayoutColumnSide, editorAnalyticsAPI?: EditorAnalyticsAPI): EditorCommand =>
+	(
+		side: InsertLayoutColumnSide,
+		editorAnalyticsAPI?: EditorAnalyticsAPI,
+		inputMethod: LayoutColumnActionInputMethod = INPUT_METHOD.LAYOUT_COLUMN_MENU,
+	): EditorCommand =>
 	({ tr }) => {
 		if (!expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
 			return null;
 		}
 
-		const selectedLayoutColumnsResult = getSelectedLayoutColumnsFromSelection(tr.selection);
+		const selectedLayoutColumnsResult = getLayoutColumnsFromContentSelection(tr.selection);
 		if (
 			!selectedLayoutColumnsResult ||
 			selectedLayoutColumnsResult.selectedLayoutColumns.length === 0
@@ -811,7 +817,7 @@ const insertLayoutColumnAt =
 			attributes: {
 				columnCount: redistributedWidths.length,
 				endIndex,
-				inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU,
+				inputMethod,
 				selectedCount: selectedColumnCount,
 				side,
 				startIndex,
@@ -823,13 +829,15 @@ const insertLayoutColumnAt =
 		return tr;
 	};
 
-export const insertLayoutColumn = (
-	side: InsertLayoutColumnSide,
-	editorAnalyticsAPI?: EditorAnalyticsAPI,
-	api?: LayoutPluginAPI,
-): EditorCommand =>
+export const insertLayoutColumn =
+	(
+		side: InsertLayoutColumnSide,
+		editorAnalyticsAPI?: EditorAnalyticsAPI,
+		api?: LayoutPluginAPI,
+		inputMethod: LayoutColumnActionInputMethod = INPUT_METHOD.LAYOUT_COLUMN_MENU,
+	): EditorCommand =>
 	({ tr }) => {
-		const result = insertLayoutColumnAt(side, editorAnalyticsAPI)({ tr });
+		const result = insertLayoutColumnAt(side, editorAnalyticsAPI, inputMethod)({ tr });
 		if (result) {
 			mapLayoutColumnPreservedSelection(tr, api);
 		}
@@ -969,23 +977,48 @@ export const distributeLayoutColumns =
 		return tr;
 	};
 
+export type ToggleLayoutColumnMenuOptions = {
+	anchorPos?: number;
+	isOpen?: boolean;
+	openedViaKeyboard?: boolean;
+};
+
 export const toggleLayoutColumnMenu =
-	({ anchorPos, isOpen }: { anchorPos?: number; isOpen?: boolean }): EditorCommand =>
+	({ anchorPos, isOpen, openedViaKeyboard }: ToggleLayoutColumnMenuOptions): EditorCommand =>
 	({ tr }) => {
-		tr.setMeta('toggleLayoutColumnMenu', { anchorPos, isOpen });
+		tr.setMeta('toggleLayoutColumnMenu', { anchorPos, isOpen, openedViaKeyboard });
+		tr.setMeta('scrollIntoView', false);
+
+		return tr;
+	};
+
+export const setLayoutColumnDangerPreview =
+	(show: boolean): EditorCommand =>
+	({ tr }) => {
+		const selectedLayoutColumnsResult = getSelectedLayoutColumnsFromSelection(tr.selection);
+		const positions = show
+			? (selectedLayoutColumnsResult?.selectedLayoutColumns.map(({ pos }) => pos) ?? [])
+			: null;
+
+		tr.setMeta('layoutColumnDangerPreview', positions);
+		tr.setMeta('addToHistory', false);
 		tr.setMeta('scrollIntoView', false);
 
 		return tr;
 	};
 
 export const deleteLayoutColumn =
-	(editorAnalyticsAPI?: EditorAnalyticsAPI, api?: LayoutPluginAPI): EditorCommand =>
+	(
+		editorAnalyticsAPI?: EditorAnalyticsAPI,
+		api?: LayoutPluginAPI,
+		inputMethod: LayoutColumnActionInputMethod = INPUT_METHOD.LAYOUT_COLUMN_MENU,
+	): EditorCommand =>
 	({ tr }) => {
 		if (!expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
 			return null;
 		}
 
-		const selectedLayoutColumnsResult = getSelectedLayoutColumnsFromSelection(tr.selection);
+		const selectedLayoutColumnsResult = getLayoutColumnsFromContentSelection(tr.selection);
 		if (
 			!selectedLayoutColumnsResult ||
 			selectedLayoutColumnsResult.selectedLayoutColumns.length === 0
@@ -1004,7 +1037,7 @@ export const deleteLayoutColumn =
 				attributes: {
 					columnCount,
 					endIndex,
-					inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU,
+					inputMethod,
 					selectedCount: selectedLayoutColumns.length,
 					startIndex,
 				},

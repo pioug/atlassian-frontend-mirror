@@ -220,9 +220,9 @@ export type CreateFlowEventPayload =
 			attributes: AgentPlanAnalyticsAttributes & Record<string, unknown>;
 	  }
 	| {
-			// Fires when a newly created agent has the work-item surface
-			// enabled (i.e. `workItemSurfaceEnabled` is true in the BE
-			// response), making the agent assignable to Jira issues.
+			// Fires when a newly created agent is published (i.e.
+			// `isPublished` is true in the BE response). Work-item surface
+			// is now enabled by default on publish.
 			actionSubject: 'setIsAgentAssignable';
 			action: 'success';
 			attributes: Record<string, unknown>;

@@ -11,6 +11,29 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 			// @ts-ignore temporary value (Red600 8% opacity)
 			danger: { value: '#E3493514' },
 		},
+		rovo: {
+			background: {
+				brand: {
+					bold: {
+						'[default]': { value: 'DarkNeutral1200' },
+						hovered: { value: 'DarkNeutral1100' },
+						pressed: { value: 'DarkNeutral1000' },
+					},
+				},
+			},
+			border: {
+				blue: { value: 'Blue600' },
+				lime: { value: 'Lime500' },
+				purple: { value: 'Purple500' },
+				saffron: { value: 'Orange400' },
+			},
+			icon: {
+				blue: { value: 'Blue600' },
+				lime: { value: 'Lime500' },
+				purple: { value: 'Purple500' },
+				saffron: { value: 'Orange400' },
+			},
+		},
 		background: {
 			disabled: { value: 'DarkNeutral300A' },
 			inverse: {

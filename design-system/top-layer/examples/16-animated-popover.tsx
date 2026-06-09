@@ -1,12 +1,15 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { fade, scaleAndFade, slideAndFade } from '@atlaskit/top-layer/animations';
-import { Popup } from '@atlaskit/top-layer/popup';
-import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
+import { Popover } from '@atlaskit/top-layer/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';
 
@@ -18,17 +21,17 @@ const presets = [
 ] as const;
 
 /**
- * Animated popup demonstrating all three animation presets.
+ * Animated popover demonstrating all three animation presets.
  *
  * Each preset uses CSS `@starting-style` + `allow-discrete` for
  * progressive-enhancement entry/exit animations.
  *
  * - **slideAndFade**: Directional slide + opacity. Slide direction adapts
- *   to the popup's placement edge.
+ *   to the popover's placement edge.
  * - **fade**: Simple opacity transition (no transform).
  * - **scaleAndFade**: Scale from 0.95 + opacity.
  */
-export default function AnimatedPopoverExample(): React.JSX.Element {
+export default function AnimatedPopoverExample(): React.ReactNode {
 	return (
 		<ForceFallbackToggle>
 			{(forceFallbackPositioning) => (
@@ -60,28 +63,47 @@ function AnimatedPopoverDemo({
 	label: string;
 	preset: ReturnType<typeof slideAndFade>;
 	forceFallbackPositioning: boolean;
-}) {
-	const handleClose = useCallback(() => {}, []);
+}): React.ReactNode {
+	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: { edge: 'end' },
+		forceFallbackPositioning,
+	});
 
 	return (
-		<Popup
-			placement={{ edge: 'end' }}
-			onClose={handleClose}
-			forceFallbackPositioning={forceFallbackPositioning}
-		>
-			<Popup.Trigger>
-				<Button>
-					<Lozenge appearance="new">{label}</Lozenge>
-				</Button>
-			</Popup.Trigger>
-			<Popup.Content role="dialog" label={`${label} popup`} animate={preset}>
-				<PopupSurface>
+		<>
+			<Button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+			>
+				<Lozenge appearance="new">{label}</Lozenge>
+			</Button>
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				role="dialog"
+				label={`${label} popover`}
+				isOpen={isOpen}
+				onClose={close}
+				animate={preset}
+			>
+				<PopoverSurface>
 					<Stack space="space.100">
 						<Heading size="xsmall">{label}</Heading>
-						<Text>This popup uses the {label} animation preset.</Text>
+						<Text>This popover uses the {label} animation preset.</Text>
 					</Stack>
-				</PopupSurface>
-			</Popup.Content>
-		</Popup>
+				</PopoverSurface>
+			</Popover>
+		</>
 	);
 }

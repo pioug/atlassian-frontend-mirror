@@ -7,6 +7,6 @@ import React from 'react';
  * which creates native elements directly in the browser DOM.
  * This example simply provides a page to load.
  */
-export default function TestingNativeApiTiming(): React.JSX.Element {
+export default function TestingNativeApiTiming(): React.ReactNode {
 	return <div data-testid="container">Native API timing test fixture</div>;
 }

@@ -80,13 +80,6 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 		'with-overlay': !showMacroInteractionDesignUpdates,
 		'with-children': hasChildren,
 		'with-danger-overlay': showMacroInteractionDesignUpdates,
-		'with-hover-border': expValEquals(
-			'cc_editor_ttvc_release_bundle_one',
-			'extensionHoverRefactor',
-			true,
-		)
-			? false
-			: showMacroInteractionDesignUpdates && isNodeHovered,
 	});
 
 	let rendererContainerWidth = 0;
@@ -131,10 +124,7 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					wrapperStyle,
 					inlineWrapperStyles,
-					showMacroInteractionDesignUpdates &&
-						!isLivePageViewMode &&
-						expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true) &&
-						hoverStyles,
+					showMacroInteractionDesignUpdates && !isLivePageViewMode && hoverStyles,
 				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={classNames}

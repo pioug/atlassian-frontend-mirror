@@ -6,10 +6,13 @@ import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import { MenuGroup, Section } from '@atlaskit/menu';
 import { slideAndFade } from '@atlaskit/top-layer/animations';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import { type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
-import { Popup } from '@atlaskit/top-layer/popup';
+import { Popover, type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { useArrowNavigation } from '@atlaskit/top-layer/use-arrow-navigation';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import AvatarGroupItem from './avatar-group-item';
 import {
@@ -105,8 +108,18 @@ export function MoreDropdownTopLayer({
 		[onClose],
 	);
 
+	const triggerRef = useRef<HTMLElement | null>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
 	const menuRef = useRef<HTMLDivElement>(null);
 	const overflowMenuTestId = testId ? `${testId}--overflow-menu` : undefined;
+
+	const popoverId = usePopoverId();
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: topLayerPlacement,
+	});
 
 	// Arrow key navigation inside the open menu
 	useArrowNavigation({
@@ -138,49 +151,55 @@ export function MoreDropdownTopLayer({
 		});
 	}, [isFocused, isOpen, handleTriggerClicked]);
 
+	const triggerAria = getAriaForTrigger({ role: 'menu', isOpen, popoverId });
+
+	const setTriggerRef = useCallback((node: HTMLElement | null) => {
+		triggerRef.current = node;
+	}, []);
+
 	return (
-		<Popup placement={topLayerPlacement} onClose={handleOnClose} testId={overflowMenuTestId}>
-			<Popup.TriggerFunction>
-				{({ ref, ariaAttributes }) => (
-					// Workaround: wrapping span to track trigger focus for ArrowDown-to-open.
-					//
-					// The `useFocus` hook needs onFocus/onBlur on the trigger element,
-					// but we cannot thread those through the renderMoreButton → MoreIndicator
-					// prop plumbing without changing those APIs (onFocus/onBlur would need
-					// to go into MoreIndicator's `buttonProps`, but renderMoreButton does not
-					// expose that).
-					//
-					// Using `display: contents` so the span does not affect layout — the
-					// button renders as if the span were not there. Focus events from the
-					// button bubble up to this span, allowing useFocus to track state.
-					//
-					// If MoreIndicator's API is refactored to accept focus handlers via
-					// buttonProps, this wrapper can be removed.
-					<span
-						ref={triggerWrapperRef}
-						onFocus={triggerFocusBind.onFocus}
-						onBlur={triggerFocusBind.onBlur}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- display: contents is a layout-neutral wrapper; it cannot affect visual output.
-						style={{ display: 'contents' }}
-					>
-						{renderMoreButton({
-							ref,
-							'aria-controls': isOpen ? ariaAttributes['aria-controls'] : undefined,
-							'aria-expanded': isOpen,
-							'aria-haspopup': true,
-							onClick: handleTriggerClicked,
-						})}
-					</span>
-				)}
-			</Popup.TriggerFunction>
-			<Popup.Content
+		<>
+			{/*
+			 * Workaround: wrapping span to track trigger focus for ArrowDown-to-open.
+			 *
+			 * The `useFocus` hook needs onFocus/onBlur on the trigger element,
+			 * but we cannot thread those through the renderMoreButton → MoreIndicator
+			 * prop plumbing without changing those APIs (onFocus/onBlur would need
+			 * to go into MoreIndicator's `buttonProps`, but renderMoreButton does not
+			 * expose that).
+			 *
+			 * Using `display: contents` so the span does not affect layout — the
+			 * button renders as if the span were not there. Focus events from the
+			 * button bubble up to this span, allowing useFocus to track state.
+			 *
+			 * If MoreIndicator's API is refactored to accept focus handlers via
+			 * buttonProps, this wrapper can be removed.
+			 */}
+			<span
+				ref={triggerWrapperRef}
+				onFocus={triggerFocusBind.onFocus}
+				onBlur={triggerFocusBind.onBlur}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- display: contents is a layout-neutral wrapper; it cannot affect visual output.
+				style={{ display: 'contents' }}
+			>
+				{renderMoreButton({
+					ref: setTriggerRef,
+					...triggerAria,
+					onClick: handleTriggerClicked,
+				})}
+			</span>
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
 				role="menu"
 				label="avatar group"
 				isOpen={isOpen}
+				onClose={handleOnClose}
 				animate={animation}
+				placement={topLayerPlacement}
 				testId={overflowMenuTestId ? `${overflowMenuTestId}--content` : undefined}
 			>
-				<Popup.Surface>
+				<PopoverSurface>
 					<div ref={menuRef}>
 						<MenuGroup minWidth={250} maxHeight={300}>
 							<Section titleId={labelId} testId={testId ? `${testId}--section` : undefined}>
@@ -200,8 +219,8 @@ export function MoreDropdownTopLayer({
 							</Section>
 						</MenuGroup>
 					</div>
-				</Popup.Surface>
-			</Popup.Content>
-		</Popup>
+				</PopoverSurface>
+			</Popover>
+		</>
 	);
 }

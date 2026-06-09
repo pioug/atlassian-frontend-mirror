@@ -37,7 +37,7 @@ const useSmartLinkCrossProductUrlWrapper = ({
 		product: effectiveProduct?.toLowerCase() ?? 'unknown',
 		...(xpcSubProduct ? { subProduct: xpcSubProduct } : {}),
 	});
-	
+
 	return useCallback(
 		(url: string) => {
 			if (!getIsFirstPartyLink(details) || !effectiveProduct) {

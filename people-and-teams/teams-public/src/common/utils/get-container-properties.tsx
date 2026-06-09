@@ -129,7 +129,7 @@ export const messages: {
 } = defineMessages({
 	addConfluenceContainerTitle: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-confluence-space-title',
-		defaultMessage: 'Add space',
+		defaultMessage: 'Add Confluence space',
 		description: 'Title of the card to add a Confluence space to a team',
 	},
 	confluenceContainerDescription: {
@@ -139,18 +139,18 @@ export const messages: {
 	},
 	addLoomSpace: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space',
-		defaultMessage: 'Add Loom Space',
+		defaultMessage: 'Add Loom space',
 		description: 'Title of the card to add a Loom space to a team',
 	},
 	addJiraProject: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-jira-project',
-		defaultMessage: 'Add Jira Project',
-		description: 'Title of the card to add a Jira project to a team',
+		defaultMessage: 'Add Jira space',
+		description: 'Title of the card to add a Jira space to a team',
 	},
 	jiraProjectDescription: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-jira-project-description',
 		defaultMessage: 'Jira',
-		description: 'Description of the card to add a Jira project to a team',
+		description: 'Description of the card to add a Jira space to a team',
 	},
 	loomSpaceDescription: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-description',

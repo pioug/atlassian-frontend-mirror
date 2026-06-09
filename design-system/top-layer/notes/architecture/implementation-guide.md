@@ -1,5 +1,28 @@
 # @atlaskit/top-layer — Complete Rebuild Guide
 
+> **⚠️ Historical snapshot:** This document captures the package as it stood before two
+> structural cleanups. It is preserved verbatim because the lower-level mechanics it
+> describes (anchor positioning, animation, focus, ARIA) are still accurate. Two top-level
+> concerns have since moved:
+>
+> 1. **`Popup` compound removed.** Sections 3 (`./popup`, `./popup-surface` entry points),
+>    6 (Popup compound component), and 11 (the `Popup.Trigger` ARIA wiring discussion)
+>    no longer reflect the public API. Use `Popover` + `useAnchorPosition`
+>    (+ `PopoverSurface` / `getAriaForTrigger` / `usePopoverId`) directly. See
+>    `notes/decisions/delete-popup-compound.md` (status: **Executed**) and the package
+>    `README.md` for the current story.
+> 2. **Arrow moved to `@atlaskit/spotlight`.** Section 12 (Arrow System) and the
+>    `./arrow` entry point in section 3 no longer live in `@atlaskit/top-layer`. The
+>    arrow was only ever consumed by Spotlight and shipped a Spotlight-specific
+>    experience (the named `@position-try` rules and CSS variables described in
+>    section 12 are tightly coupled to Spotlight's visual semantics). Co-locating it
+>    with its only adopter removes a public surface from `top-layer` that no other
+>    package needed and lets Spotlight evolve the arrow without coordinating a
+>    cross-package change.
+>
+> Treat sections covering still-shipping primitives (Popover, Dialog, animation, focus,
+> anchor positioning, light dismiss, scroll lock, placement) as authoritative.
+
 > **Purpose:** This document contains every detail needed to recreate the `@atlaskit/top-layer`
 > package from scratch. It covers architecture, APIs, props, event flows, animation timings,
 > positioning, accessibility, focus management, type system design, and legacy compatibility

@@ -17,11 +17,33 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginType';
+import { ACTIVE_DRAG_HANDLE_ATTR } from '../ui/consts';
 import { DragHandle, DragHandleWithVisibility } from '../ui/drag-handle';
 
 import { TYPE_HANDLE_DEC, TYPE_NODE_DEC, unmountDecorations } from './decorations-common';
 import type { AnchorRectCache } from './utils/anchor-utils';
 import { getActiveBlockMarks, getMatchingBlockMarks } from './utils/marks';
+
+const TYPE_ACTIVE_HANDLE_DEC = 'active-drag-handle-node';
+
+/**
+ * Creates a Decoration.node that marks the active node with `data-active-drag-handle="true"`.
+ * The CSS in staticControlsAnchorStyles then applies `anchor-name` to this attribute,
+ * which is more reliable than the adjacency-selector approach in dragHandlerAnchorStyles.
+ */
+export const createActiveDragHandleNodeDecoration = (pos: number, nodeSize: number): Decoration =>
+	Decoration.node(
+		pos,
+		pos + nodeSize,
+		{ [ACTIVE_DRAG_HANDLE_ATTR]: 'true' },
+		{ type: TYPE_ACTIVE_HANDLE_DEC },
+	);
+
+export const findActiveDragHandleNodeDec = (
+	decorations: DecorationSet,
+	from?: number,
+	to?: number,
+): Decoration[] => decorations.find(from, to, (spec) => spec.type === TYPE_ACTIVE_HANDLE_DEC);
 
 export const emptyParagraphNodeDecorations = (): Decoration => {
 	const anchorName = `--node-anchor-paragraph-0`;

@@ -25,7 +25,7 @@ import { extractLinkIcon } from '../flexible/icon';
 
 import { extractInvokeDownloadAction } from './extract-invoke-download-action';
 import { extractInvokeViewAction } from './extract-invoke-view-action';
-import { type ExtractClientActionsParam } from './types';
+import { type ExtractClientActionsParam, type TransformUrlFn } from './types';
 
 export type ExtractInvokePreviewActionParam = ExtractClientActionsParam & {
 	fireEvent?: FireEventFunction;
@@ -39,6 +39,7 @@ export type ExtractInvokePreviewActionParam = ExtractClientActionsParam & {
 		url: string;
 	}) => void;
 	origin?: AnalyticsOrigin;
+	transformUrl?: TransformUrlFn;
 };
 
 type ExtractInvokePreviewActionReturn = {
@@ -67,11 +68,11 @@ export const extractInvokePreviewAction = (
 
 	const hasPreviewPanelParams = Boolean(
 		expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') &&
-		isPreviewPanelAvailable &&
-		openPreviewPanel &&
-		ari &&
-		url &&
-		name,
+			isPreviewPanelAvailable &&
+			openPreviewPanel &&
+			ari &&
+			url &&
+			name,
 	);
 
 	const hasPreviewPanel = hasPreviewPanelParams && isPreviewPanelAvailable!({ ari: ari! });

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
@@ -17,8 +17,10 @@ import {
 	LEGACY_PLACEMENTS,
 	type TLegacyPlacement,
 } from '@atlaskit/top-layer/placement-map';
-import { Popup, type TPlacementOptions } from '@atlaskit/top-layer/popup';
-import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
+import { Popover, type TPlacementOptions } from '@atlaskit/top-layer/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';
 
@@ -54,7 +56,7 @@ const styles = cssMap({
 	},
 });
 
-export default function PlacementExample(): JSX.Element {
+export default function PlacementExample(): React.ReactNode {
 	const [axis, setAxis] = useState<NonNullable<TPlacementOptions['axis']>>('block');
 	const [edge, setEdge] = useState<NonNullable<TPlacementOptions['edge']>>('end');
 	const [align, setAlign] = useState<NonNullable<TPlacementOptions['align']>>('center');
@@ -69,6 +71,11 @@ export default function PlacementExample(): JSX.Element {
 
 	const [useLegacy, setUseLegacy] = useState(false);
 	const [legacyPlacement, setTLegacyPlacement] = useState<TLegacyPlacement>('bottom');
+	const [isOpen, setIsOpen] = useState(false);
+
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
 
 	const placement: TPlacementOptions = {
 		axis,
@@ -103,9 +110,17 @@ export default function PlacementExample(): JSX.Element {
 		setAlign(mapped.align ?? 'center');
 	}, []);
 
+	const close = useCallback(() => setIsOpen(false), []);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement,
+	});
+
 	return (
 		<ForceFallbackToggle>
-			{(forceFallbackPositioning) => (
+			{(_forceFallbackPositioning) => (
 				<Box padding="space.400">
 					<Stack space="space.300">
 						<Stack space="space.200">
@@ -222,24 +237,29 @@ export default function PlacementExample(): JSX.Element {
 						</Stack>
 
 						<div css={styles.demoArea}>
-							<Popup placement={placement} forceFallbackPositioning={forceFallbackPositioning}>
-								<Popup.Trigger>
-									<Button>Trigger</Button>
-								</Popup.Trigger>
-								<Popup.Content role="dialog" label="Placement demo">
-									<PopupSurface>
-										<Stack space="space.050">
-											<Text size="small">axis: {axis}</Text>
-											<Text size="small">edge: {edge}</Text>
-											<Text size="small">align: {align}</Text>
-											<Text size="small">offset.gap: {gap}px</Text>
-											<Text size="small">
-												offset.crossAxisShift: {crossAxisShiftValue}px {crossAxisShiftDirection}
-											</Text>
-										</Stack>
-									</PopupSurface>
-								</Popup.Content>
-							</Popup>
+							<Button ref={triggerRef} onClick={() => setIsOpen(!isOpen)}>
+								Trigger
+							</Button>
+							<Popover
+								ref={popoverRef}
+								id={popoverId}
+								role="dialog"
+								label="Placement demo"
+								isOpen={isOpen}
+								onClose={close}
+							>
+								<PopoverSurface>
+									<Stack space="space.050">
+										<Text size="small">axis: {axis}</Text>
+										<Text size="small">edge: {edge}</Text>
+										<Text size="small">align: {align}</Text>
+										<Text size="small">offset.gap: {gap}px</Text>
+										<Text size="small">
+											offset.crossAxisShift: {crossAxisShiftValue}px {crossAxisShiftDirection}
+										</Text>
+									</Stack>
+								</PopoverSurface>
+							</Popover>
 						</div>
 					</Stack>
 				</Box>

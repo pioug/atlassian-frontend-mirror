@@ -17,7 +17,7 @@ and branches on the flag). It is not the same as “every example in the package
 | `dropdown-menu`     | `@atlaskit/dropdown-menu`     | Forms      | ✅ Yes         | `Popup` + menu keyboard via `useArrowNavigation`                                                                 |
 | `flag`              | `@atlaskit/flag`              | Messaging  | ✅ Yes         | `Popover` `manual` for stacking; motion unchanged                                                                |
 | `spotlight`         | `@atlaskit/spotlight`         | Messaging  | ✅ Yes         | `Popover` + `useAnchorPosition` + `useSimpleLightDismiss`                                                        |
-| `select`            | `@atlaskit/select`            | Forms      | ✅ Partial     | **`PopupSelect` only** — `popup-select-top-layer.tsx`                                                            |
+| `select`            | `@atlaskit/select`            | Forms      | ✅ Yes         | `PopupSelect` via `popup-select-top-layer.tsx`                                                                   |
 | `datetime-picker`   | `@atlaskit/datetime-picker`   | Forms      | ✅ Yes         | Calendar menu: `menu-top-layer.tsx`, `fixed-layer-menu-top-layer.tsx`                                            |
 | `inline-dialog`     | `@atlaskit/inline-dialog`     | Overlays   | ✅ Yes         | `inline-dialog-top-layer.tsx` — deprecate-in-favor-of-popup still applies to product direction                   |
 | `avatar-group`      | `@atlaskit/avatar-group`      | Display    | ✅ Yes         | Overflow dropdown: `avatar-group-top-layer.tsx`                                                                  |
@@ -42,7 +42,6 @@ and branches on the flag). It is not the same as “every example in the package
 | `layering`     | Legacy coordination; browser handles nesting for native popovers / dialog                                                                                       |
 | `popper`       | Legacy positioning; replaced by CSS Anchor Positioning (+ JS fallback in top-layer). Deprecation plan: [popper-migration.md](../migrations/popper-migration.md) |
 | `top-layer`    | **Target primitive** — Popover API, `<dialog>`, hooks, placement map, animations                                                                                |
-| `react-select` | Internal fork for `@atlaskit/select` — consumed via select migrations                                                                                           |
 
 ## Open API decisions deferred to a follow-up PR
 

@@ -3,7 +3,7 @@
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::620de1bdd9882e214dcc9ae141009ae7>>
+ * @codegen <<SignedSource::b26e4203c4b2d7818ff4ff30fb0f40cf>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -393,1190 +393,6 @@ export const tokens: Token[] = [
 		exampleValue:
 			'200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
 		usageGuidelines: { usage: '', cssProperties: [] },
-	},
-	{
-		name: 'color.text',
-		path: ['color', 'text', '[default]'],
-		description: 'Use for primary text, such as body copy, sentence case headers, and buttons.',
-		exampleValue: '#292A2E',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.lime',
-		path: ['color', 'text', 'accent', 'lime', '[default]'],
-		description:
-			'Use for lime text on subtlest and subtler lime accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#4C6B1F',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.lime.bolder',
-		path: ['color', 'text', 'accent', 'lime', 'bolder'],
-		description:
-			'Use for lime text on subtle lime accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#37471F',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.red',
-		path: ['color', 'text', 'accent', 'red', '[default]'],
-		description:
-			'Use for red text on subtlest and subtler red accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#AE2E24',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.red.bolder',
-		path: ['color', 'text', 'accent', 'red', 'bolder'],
-		description:
-			'Use for red text on subtle red accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#5D1F1A',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.orange',
-		path: ['color', 'text', 'accent', 'orange', '[default]'],
-		description:
-			'Use for orange text on subtlest and subtler orange accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#9E4C00',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.orange.bolder',
-		path: ['color', 'text', 'accent', 'orange', 'bolder'],
-		description:
-			'Use for orange text on subtle orange accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#693200',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.yellow',
-		path: ['color', 'text', 'accent', 'yellow', '[default]'],
-		description:
-			'Use for yellow text on subtlest and subtler yellow accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#7F5F01',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.yellow.bolder',
-		path: ['color', 'text', 'accent', 'yellow', 'bolder'],
-		description:
-			'Use for yellow text on subtle yellow accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#533F04',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.green',
-		path: ['color', 'text', 'accent', 'green', '[default]'],
-		description:
-			'Use for green text on subtlest and subtler green accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#216E4E',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.green.bolder',
-		path: ['color', 'text', 'accent', 'green', 'bolder'],
-		description:
-			'Use for green text on subtle green accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#164B35',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.teal',
-		path: ['color', 'text', 'accent', 'teal', '[default]'],
-		description:
-			'Use for teal text on subtlest and subtler teal accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#206A83',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.teal.bolder',
-		path: ['color', 'text', 'accent', 'teal', 'bolder'],
-		description:
-			'Use for teal text on subtle teal accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#164555',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.blue',
-		path: ['color', 'text', 'accent', 'blue', '[default]'],
-		description:
-			'Use for blue text on subtlest and subtler blue accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#1558BC',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.blue.bolder',
-		path: ['color', 'text', 'accent', 'blue', 'bolder'],
-		description:
-			'Use for blue text on subtle blue accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#123263',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.purple',
-		path: ['color', 'text', 'accent', 'purple', '[default]'],
-		description:
-			'Use for purple text on subtlest and subtler purple accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#803FA5',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.purple.bolder',
-		path: ['color', 'text', 'accent', 'purple', 'bolder'],
-		description:
-			'Use for purple text on subtle purple accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#48245D',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.magenta',
-		path: ['color', 'text', 'accent', 'magenta', '[default]'],
-		description:
-			'Use for magenta text on subtlest and subtler magenta accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#943D73',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.magenta.bolder',
-		path: ['color', 'text', 'accent', 'magenta', 'bolder'],
-		description:
-			'Use for magenta text on subtle magenta accent backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#50253F',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.gray',
-		path: ['color', 'text', 'accent', 'gray', '[default]'],
-		description: 'Use for text on non-bold gray accent backgrounds, such as colored tags.',
-		exampleValue: '#505258',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.accent.gray.bolder',
-		path: ['color', 'text', 'accent', 'gray', 'bolder'],
-		description: 'Use for text and icons on gray subtle accent backgrounds.',
-		exampleValue: '#1E1F21',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.disabled',
-		path: ['color', 'text', 'disabled'],
-		description: 'Use for text in a disabled state.',
-		exampleValue: '#080F214A',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.inverse',
-		path: ['color', 'text', 'inverse'],
-		description: 'Use for text on bold backgrounds.',
-		exampleValue: '#FFFFFF',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.selected',
-		path: ['color', 'text', 'selected'],
-		description: 'Use for text in selected or opened states, such as tabs and dropdown buttons.',
-		exampleValue: '#1868DB',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.brand',
-		path: ['color', 'text', 'brand'],
-		description: 'Use for text that reinforces our brand.',
-		exampleValue: '#1868DB',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.danger',
-		path: ['color', 'text', 'danger', '[default]'],
-		description: 'Use for critical text, such as input field error messaging.',
-		exampleValue: '#AE2E24',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.danger.bolder',
-		path: ['color', 'text', 'danger', 'bolder'],
-		description:
-			'Use for text on top of danger semantic labels to ensure accessibility and desired visual appearance.',
-		exampleValue: '#5D1F1A',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.warning',
-		path: ['color', 'text', 'warning', '[default]'],
-		description: 'Use for text to emphasize caution, such as in moved lozenges.',
-		exampleValue: '#9E4C00',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.warning.inverse',
-		path: ['color', 'text', 'warning', 'inverse'],
-		description: 'Use for text when on bold warning backgrounds.',
-		exampleValue: '#292A2E',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.warning.bolder',
-		path: ['color', 'text', 'warning', 'bolder'],
-		description:
-			'Use for text on top of warning semantic labels to ensure accessibility and desired visual appearance.',
-		exampleValue: '#693200',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.success',
-		path: ['color', 'text', 'success', '[default]'],
-		description:
-			'Use for text to communicate a favorable outcome, such as input field success messaging.',
-		exampleValue: '#4C6B1F',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.success.bolder',
-		path: ['color', 'text', 'success', 'bolder'],
-		description:
-			'Use for text on top of success semantic labels to ensure accessibility and desired visual appearance.',
-		exampleValue: '#37471F',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.discovery',
-		path: ['color', 'text', 'discovery', '[default]'],
-		description: 'Use for text to emphasize change or something new, such as in new lozenges.',
-		exampleValue: '#803FA5',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.discovery.bolder',
-		path: ['color', 'text', 'discovery', 'bolder'],
-		description:
-			'Use for text on top of discovery semantic labels to ensure accessibility and desired visual appearance.',
-		exampleValue: '#48245D',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.information',
-		path: ['color', 'text', 'information', '[default]'],
-		description:
-			'Use for informative text or to communicate something is in progress, such as in-progress lozenges.',
-		exampleValue: '#1558BC',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.information.bolder',
-		path: ['color', 'text', 'information', 'bolder'],
-		description:
-			'Use for text on top of information semantic labels to ensure accessibility and desired visual appearance.',
-		exampleValue: '#123263',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.subtlest',
-		path: ['color', 'text', 'subtlest'],
-		description:
-			'Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text.',
-		exampleValue: '#6B6E76',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.text.subtle',
-		path: ['color', 'text', 'subtle'],
-		description:
-			'Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings.',
-		exampleValue: '#505258',
-		usageGuidelines: {
-			usage:
-				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.link',
-		path: ['color', 'link', '[default]'],
-		description:
-			'Use for links in a default or hovered state. Add an underline for hovered states.',
-		exampleValue: '#1868DB',
-		usageGuidelines: {
-			usage:
-				'The color for hyperlinks. Use for elements that are links to external resources or navigation (e.g. color.link)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.link.pressed',
-		path: ['color', 'link', 'pressed'],
-		description: 'Use for links in a pressed state.',
-		exampleValue: '#1558BC',
-		usageGuidelines: {
-			usage:
-				'The color for hyperlinks. Use for elements that are links to external resources or navigation (e.g. color.link)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.link.visited',
-		path: ['color', 'link', 'visited', '[default]'],
-		description: 'Use for visited links.',
-		exampleValue: '#803FA5',
-		usageGuidelines: {
-			usage:
-				'The color for hyperlinks. Use for elements that are links to external resources or navigation (e.g. color.link)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.link.visited.pressed',
-		path: ['color', 'link', 'visited', 'pressed'],
-		description: 'Use for visited links in a pressed state.',
-		exampleValue: '#48245D',
-		usageGuidelines: {
-			usage:
-				'The color for hyperlinks. Use for elements that are links to external resources or navigation (e.g. color.link)',
-			cssProperties: ['color'],
-		},
-	},
-	{
-		name: 'color.icon',
-		path: ['color', 'icon', '[default]'],
-		description: 'Use for icon-only buttons, or icons paired with color.text',
-		exampleValue: '#292A2E',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.accent.lime',
-		path: ['color', 'icon', 'accent', 'lime'],
-		description:
-			'Use for lime icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
-		exampleValue: '#6A9A23',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.accent.red',
-		path: ['color', 'icon', 'accent', 'red'],
-		description:
-			'Use for red icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
-		exampleValue: '#C9372C',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.accent.orange',
-		path: ['color', 'icon', 'accent', 'orange'],
-		description:
-			'Use for orange icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
-		exampleValue: '#E06C00',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.accent.yellow',
-		path: ['color', 'icon', 'accent', 'yellow'],
-		description:
-			'Use for yellow icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
-		exampleValue: '#B38600',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.accent.green',
-		path: ['color', 'icon', 'accent', 'green'],
-		description:
-			'Use for green icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
-		exampleValue: '#22A06B',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.accent.teal',
-		path: ['color', 'icon', 'accent', 'teal'],
-		description:
-			'Use for teal icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
-		exampleValue: '#2898BD',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.accent.blue',
-		path: ['color', 'icon', 'accent', 'blue'],
-		description:
-			'Use for blue icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
-		exampleValue: '#357DE8',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.accent.purple',
-		path: ['color', 'icon', 'accent', 'purple'],
-		description:
-			'Use for purple icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
-		exampleValue: '#AF59E1',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.accent.magenta',
-		path: ['color', 'icon', 'accent', 'magenta'],
-		description:
-			'Use for magenta icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
-		exampleValue: '#CD519D',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.accent.gray',
-		path: ['color', 'icon', 'accent', 'gray'],
-		description: 'Use for icons on non-bold gray accent backgrounds, such as file type icons.',
-		exampleValue: '#7D818A',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.disabled',
-		path: ['color', 'icon', 'disabled'],
-		description: 'Use for icons in a disabled state.',
-		exampleValue: '#080F214A',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.inverse',
-		path: ['color', 'icon', 'inverse'],
-		description: 'Use for icons on bold backgrounds.',
-		exampleValue: '#FFFFFF',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.selected',
-		path: ['color', 'icon', 'selected'],
-		description:
-			'Use for icons in selected or opened states, such as those used in dropdown buttons.',
-		exampleValue: '#1868DB',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.brand',
-		path: ['color', 'icon', 'brand'],
-		description: 'Use for icons that reinforce our brand.',
-		exampleValue: '#1868DB',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.danger',
-		path: ['color', 'icon', 'danger'],
-		description:
-			'Use for icons communicating critical information, such as those used in error handing.',
-		exampleValue: '#C9372C',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.warning',
-		path: ['color', 'icon', 'warning', '[default]'],
-		description:
-			'Use for icons communicating caution, such as those used in warning section messages.',
-		exampleValue: '#E06C00',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.warning.inverse',
-		path: ['color', 'icon', 'warning', 'inverse'],
-		description: 'Use for icons when on bold warning backgrounds.',
-		exampleValue: '#292A2E',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.success',
-		path: ['color', 'icon', 'success'],
-		description:
-			'Use for icons communicating a favorable outcome, such as those used in success section messaged.',
-		exampleValue: '#6A9A23',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.discovery',
-		path: ['color', 'icon', 'discovery'],
-		description:
-			'Use for icons communicating change or something new, such as discovery section messages.',
-		exampleValue: '#AF59E1',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.information',
-		path: ['color', 'icon', 'information'],
-		description:
-			'Use for icons communicating information or something in-progress, such as information section messages.',
-		exampleValue: '#357DE8',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.subtlest',
-		path: ['color', 'icon', 'subtlest'],
-		description: 'Use for icons paired with color.text.subtlest',
-		exampleValue: '#6B6E76',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.icon.subtle',
-		path: ['color', 'icon', 'subtle'],
-		description: 'Use for icons paired with color.text.subtle',
-		exampleValue: '#505258',
-		usageGuidelines: {
-			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
-			cssProperties: ['color', 'fill', 'stroke'],
-		},
-	},
-	{
-		name: 'color.border',
-		path: ['color', 'border', '[default]'],
-		description:
-			'Use to visually group or separate UI elements, such as flat cards or side panel dividers.',
-		exampleValue: '#0B120E24',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.lime',
-		path: ['color', 'border', 'accent', 'lime', '[default]'],
-		description:
-			'Use for lime borders on non-bold backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#6A9A23',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.lime.subtle',
-		path: ['color', 'border', 'accent', 'lime', 'subtle'],
-		description:
-			'Use for decorative lime borders that do not need to meet 3:1 contrast requirements.',
-		exampleValue: '#B3DF72',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.red',
-		path: ['color', 'border', 'accent', 'red', '[default]'],
-		description:
-			'Use for red borders on non-bold backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#E2483D',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.red.subtle',
-		path: ['color', 'border', 'accent', 'red', 'subtle'],
-		description:
-			'Use for decorative red borders that do not need to meet 3:1 contrast requirements.',
-		exampleValue: '#FD9891',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.orange',
-		path: ['color', 'border', 'accent', 'orange', '[default]'],
-		description:
-			'Use for orange borders on non-bold backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#E06C00',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.orange.subtle',
-		path: ['color', 'border', 'accent', 'orange', 'subtle'],
-		description:
-			'Use for decorative orange borders that do not need to meet 3:1 contrast requirements.',
-		exampleValue: '#FBC828',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.yellow',
-		path: ['color', 'border', 'accent', 'yellow', '[default]'],
-		description:
-			'Use for yellow borders on non-bold backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#B38600',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.yellow.subtle',
-		path: ['color', 'border', 'accent', 'yellow', 'subtle'],
-		description:
-			'Use for decorative yellow borders that do not need to meet 3:1 contrast requirements.',
-		exampleValue: '#EED12B',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.green',
-		path: ['color', 'border', 'accent', 'green', '[default]'],
-		description:
-			'Use for green borders on non-bold backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#22A06B',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.green.subtle',
-		path: ['color', 'border', 'accent', 'green', 'subtle'],
-		description:
-			'Use for decorative green borders that do not need to meet 3:1 contrast requirements.',
-		exampleValue: '#7EE2B8',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.teal',
-		path: ['color', 'border', 'accent', 'teal', '[default]'],
-		description:
-			'Use for teal borders on non-bold backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#2898BD',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.teal.subtle',
-		path: ['color', 'border', 'accent', 'teal', 'subtle'],
-		description:
-			'Use for decorative teal borders that do not need to meet 3:1 contrast requirements.',
-		exampleValue: '#9DD9EE',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.blue',
-		path: ['color', 'border', 'accent', 'blue', '[default]'],
-		description:
-			'Use for blue borders on non-bold backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#357DE8',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.blue.subtle',
-		path: ['color', 'border', 'accent', 'blue', 'subtle'],
-		description:
-			'Use for decorative blue borders that do not need to meet 3:1 contrast requirements.',
-		exampleValue: '#8FB8F6',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.purple',
-		path: ['color', 'border', 'accent', 'purple', '[default]'],
-		description:
-			'Use for purple borders on non-bold backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#AF59E1',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.purple.subtle',
-		path: ['color', 'border', 'accent', 'purple', 'subtle'],
-		description:
-			'Use for decorative purple borders that do not need to meet 3:1 contrast requirements.',
-		exampleValue: '#D8A0F7',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.magenta',
-		path: ['color', 'border', 'accent', 'magenta', '[default]'],
-		description:
-			'Use for magenta borders on non-bold backgrounds when there is no meaning tied to the color.',
-		exampleValue: '#CD519D',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.magenta.subtle',
-		path: ['color', 'border', 'accent', 'magenta', 'subtle'],
-		description:
-			'Use for decorative magenta borders that do not need to meet 3:1 contrast requirements.',
-		exampleValue: '#F797D2',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.gray',
-		path: ['color', 'border', 'accent', 'gray', '[default]'],
-		description: 'Use for borders on non-bold gray accent backgrounds.',
-		exampleValue: '#7D818A',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.accent.gray.subtle',
-		path: ['color', 'border', 'accent', 'gray', 'subtle'],
-		description:
-			'Use for decorative gray borders that do not need to meet 3:1 contrast requirements.',
-		exampleValue: '#DDDEE1',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.disabled',
-		path: ['color', 'border', 'disabled'],
-		description: 'Use for borders of elements in a disabled state.',
-		exampleValue: '#0515240F',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.focused',
-		path: ['color', 'border', 'focused'],
-		description: 'Use for focus rings of elements in a focus state.',
-		exampleValue: '#4688EC',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.input',
-		path: ['color', 'border', 'input'],
-		description:
-			'Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons.',
-		exampleValue: '#8C8F97',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.inverse',
-		path: ['color', 'border', 'inverse'],
-		description: 'Use for borders on bold backgrounds.',
-		exampleValue: '#FFFFFF',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.selected',
-		path: ['color', 'border', 'selected'],
-		description:
-			'Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items.',
-		exampleValue: '#1868DB',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.brand',
-		path: ['color', 'border', 'brand'],
-		description:
-			'Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons.',
-		exampleValue: '#1868DB',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.danger',
-		path: ['color', 'border', 'danger', '[default]'],
-		description:
-			'Use for borders communicating critical information, such as the borders on invalid text fields.',
-		exampleValue: '#E2483D',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.danger.subtle',
-		path: ['color', 'border', 'danger', 'subtle'],
-		description:
-			'Use for decorative danger borders that do not need to meet 3:1 contrast requirements.',
-		exampleValue: '#FD9891',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.warning',
-		path: ['color', 'border', 'warning', '[default]'],
-		description: 'Use for borders communicating caution.',
-		exampleValue: '#E06C00',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.warning.subtle',
-		path: ['color', 'border', 'warning', 'subtle'],
-		description:
-			'Use for decorative warning borders that do not need to meet 3:1 contrast requirements.',
-		exampleValue: '#FBC828',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.success',
-		path: ['color', 'border', 'success', '[default]'],
-		description:
-			'Use for borders communicating a favorable outcome, such as the borders on validated text fields.',
-		exampleValue: '#6A9A23',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.success.subtle',
-		path: ['color', 'border', 'success', 'subtle'],
-		description:
-			'Use for decorative success borders that do not need to meet 3:1 contrast requirements.',
-		exampleValue: '#B3DF72',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.discovery',
-		path: ['color', 'border', 'discovery', '[default]'],
-		description:
-			'Use for borders communicating change or something new, such as the borders in onboarding spotlights.',
-		exampleValue: '#AF59E1',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.discovery.subtle',
-		path: ['color', 'border', 'discovery', 'subtle'],
-		description:
-			'Use for decorative discovery borders that do not need to meet 3:1 contrast requirements.',
-		exampleValue: '#D8A0F7',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.information',
-		path: ['color', 'border', 'information', '[default]'],
-		description: 'Use for borders communicating information or something in-progress.',
-		exampleValue: '#357DE8',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.information.subtle',
-		path: ['color', 'border', 'information', 'subtle'],
-		description:
-			'Use for decorative information borders that do not need to meet 3:1 contrast requirements.',
-		exampleValue: '#8FB8F6',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
-	},
-	{
-		name: 'color.border.bold',
-		path: ['color', 'border', 'bold'],
-		description: 'A neutral border option that passes min 3:1 contrast ratios.',
-		exampleValue: '#7D818A',
-		usageGuidelines: {
-			usage:
-				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
-			cssProperties: ['border-color', 'outline-color'],
-		},
 	},
 	{
 		name: 'color.background.accent.lime.subtlest',
@@ -3473,7 +2289,7 @@ export const tokens: Token[] = [
 		name: 'color.background.warning.subtle',
 		path: ['color', 'background', 'warning', 'subtle', '[default]'],
 		description:
-			'Background colour for non-interactive elements communicating caution (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.warning.bold or color.background.warning.subtler for interactive states.',
+			'Background colour for non-interactive elements communicating caution (e.g. status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.warning.bold or color.background.warning.subtler for interactive states.',
 		exampleValue: '#FBD779',
 		usageGuidelines: {
 			usage:
@@ -3858,38 +2674,1187 @@ export const tokens: Token[] = [
 		},
 	},
 	{
-		name: 'color.blanket',
-		path: ['color', 'blanket', '[default]'],
-		description: 'Use for the screen overlay that appears with modal dialogs',
-		exampleValue: '#050C1F75',
+		name: 'color.border',
+		path: ['color', 'border', '[default]'],
+		description:
+			'Use to visually group or separate UI elements, such as flat cards or side panel dividers.',
+		exampleValue: '#0B120E24',
 		usageGuidelines: {
 			usage:
-				'The color for overlay "blankets" such as modals/dimmers/overlays (e.g. color.blanket)',
-			cssProperties: ['background-color'],
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
 		},
 	},
 	{
-		name: 'color.blanket.selected',
-		path: ['color', 'blanket', 'selected'],
+		name: 'color.border.accent.lime',
+		path: ['color', 'border', 'accent', 'lime', '[default]'],
 		description:
-			"Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements",
-		exampleValue: '#388BFF14',
+			'Use for lime borders on non-bold backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#6A9A23',
 		usageGuidelines: {
 			usage:
-				'The color for overlay "blankets" such as modals/dimmers/overlays (e.g. color.blanket)',
-			cssProperties: ['background-color'],
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
 		},
 	},
 	{
-		name: 'color.blanket.danger',
-		path: ['color', 'blanket', 'danger'],
+		name: 'color.border.accent.lime.subtle',
+		path: ['color', 'border', 'accent', 'lime', 'subtle'],
 		description:
-			"Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements",
-		exampleValue: '#EF5C4814',
+			'Use for decorative lime borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#B3DF72',
 		usageGuidelines: {
 			usage:
-				'The color for overlay "blankets" such as modals/dimmers/overlays (e.g. color.blanket)',
-			cssProperties: ['background-color'],
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.red',
+		path: ['color', 'border', 'accent', 'red', '[default]'],
+		description:
+			'Use for red borders on non-bold backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#E2483D',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.red.subtle',
+		path: ['color', 'border', 'accent', 'red', 'subtle'],
+		description:
+			'Use for decorative red borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#FD9891',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.orange',
+		path: ['color', 'border', 'accent', 'orange', '[default]'],
+		description:
+			'Use for orange borders on non-bold backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#E06C00',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.orange.subtle',
+		path: ['color', 'border', 'accent', 'orange', 'subtle'],
+		description:
+			'Use for decorative orange borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#FBC828',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.yellow',
+		path: ['color', 'border', 'accent', 'yellow', '[default]'],
+		description:
+			'Use for yellow borders on non-bold backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#B38600',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.yellow.subtle',
+		path: ['color', 'border', 'accent', 'yellow', 'subtle'],
+		description:
+			'Use for decorative yellow borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#EED12B',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.green',
+		path: ['color', 'border', 'accent', 'green', '[default]'],
+		description:
+			'Use for green borders on non-bold backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#22A06B',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.green.subtle',
+		path: ['color', 'border', 'accent', 'green', 'subtle'],
+		description:
+			'Use for decorative green borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#7EE2B8',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.teal',
+		path: ['color', 'border', 'accent', 'teal', '[default]'],
+		description:
+			'Use for teal borders on non-bold backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#2898BD',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.teal.subtle',
+		path: ['color', 'border', 'accent', 'teal', 'subtle'],
+		description:
+			'Use for decorative teal borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#9DD9EE',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.blue',
+		path: ['color', 'border', 'accent', 'blue', '[default]'],
+		description:
+			'Use for blue borders on non-bold backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#357DE8',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.blue.subtle',
+		path: ['color', 'border', 'accent', 'blue', 'subtle'],
+		description:
+			'Use for decorative blue borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#8FB8F6',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.purple',
+		path: ['color', 'border', 'accent', 'purple', '[default]'],
+		description:
+			'Use for purple borders on non-bold backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#AF59E1',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.purple.subtle',
+		path: ['color', 'border', 'accent', 'purple', 'subtle'],
+		description:
+			'Use for decorative purple borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#D8A0F7',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.magenta',
+		path: ['color', 'border', 'accent', 'magenta', '[default]'],
+		description:
+			'Use for magenta borders on non-bold backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#CD519D',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.magenta.subtle',
+		path: ['color', 'border', 'accent', 'magenta', 'subtle'],
+		description:
+			'Use for decorative magenta borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#F797D2',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.gray',
+		path: ['color', 'border', 'accent', 'gray', '[default]'],
+		description: 'Use for borders on non-bold gray accent backgrounds.',
+		exampleValue: '#7D818A',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.accent.gray.subtle',
+		path: ['color', 'border', 'accent', 'gray', 'subtle'],
+		description:
+			'Use for decorative gray borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#B7B9BE',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.disabled',
+		path: ['color', 'border', 'disabled'],
+		description: 'Use for borders of elements in a disabled state.',
+		exampleValue: '#0515240F',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.focused',
+		path: ['color', 'border', 'focused'],
+		description: 'Use for focus rings of elements in a focus state.',
+		exampleValue: '#4688EC',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.input',
+		path: ['color', 'border', 'input'],
+		description:
+			'Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons.',
+		exampleValue: '#8C8F97',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.inverse',
+		path: ['color', 'border', 'inverse'],
+		description: 'Use for borders on bold backgrounds.',
+		exampleValue: '#FFFFFF',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.selected',
+		path: ['color', 'border', 'selected'],
+		description:
+			'Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items.',
+		exampleValue: '#1868DB',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.brand',
+		path: ['color', 'border', 'brand'],
+		description:
+			'Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons.',
+		exampleValue: '#1868DB',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.danger',
+		path: ['color', 'border', 'danger', '[default]'],
+		description:
+			'Use for borders communicating critical information, such as the borders on invalid text fields.',
+		exampleValue: '#E2483D',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.danger.subtle',
+		path: ['color', 'border', 'danger', 'subtle'],
+		description:
+			'Use for decorative danger borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#FD9891',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.warning',
+		path: ['color', 'border', 'warning', '[default]'],
+		description: 'Use for borders communicating caution.',
+		exampleValue: '#E06C00',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.warning.subtle',
+		path: ['color', 'border', 'warning', 'subtle'],
+		description:
+			'Use for decorative warning borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#FBC828',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.success',
+		path: ['color', 'border', 'success', '[default]'],
+		description:
+			'Use for borders communicating a favorable outcome, such as the borders on validated text fields.',
+		exampleValue: '#6A9A23',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.success.subtle',
+		path: ['color', 'border', 'success', 'subtle'],
+		description:
+			'Use for decorative success borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#B3DF72',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.discovery',
+		path: ['color', 'border', 'discovery', '[default]'],
+		description:
+			'Use for borders communicating change or something new, such as the borders in onboarding spotlights.',
+		exampleValue: '#AF59E1',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.discovery.subtle',
+		path: ['color', 'border', 'discovery', 'subtle'],
+		description:
+			'Use for decorative discovery borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#D8A0F7',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.information',
+		path: ['color', 'border', 'information', '[default]'],
+		description: 'Use for borders communicating information or something in-progress.',
+		exampleValue: '#357DE8',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.information.subtle',
+		path: ['color', 'border', 'information', 'subtle'],
+		description:
+			'Use for decorative information borders that do not need to meet 3:1 contrast requirements.',
+		exampleValue: '#8FB8F6',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.bold',
+		path: ['color', 'border', 'bold'],
+		description: 'A neutral border option that passes min 3:1 contrast ratios.',
+		exampleValue: '#7D818A',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.text',
+		path: ['color', 'text', '[default]'],
+		description: 'Use for primary text, such as body copy, sentence case headers, and buttons.',
+		exampleValue: '#292A2E',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.lime',
+		path: ['color', 'text', 'accent', 'lime', '[default]'],
+		description:
+			'Use for lime text on subtlest and subtler lime accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#4C6B1F',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.lime.bolder',
+		path: ['color', 'text', 'accent', 'lime', 'bolder'],
+		description:
+			'Use for lime text on subtle lime accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#37471F',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.red',
+		path: ['color', 'text', 'accent', 'red', '[default]'],
+		description:
+			'Use for red text on subtlest and subtler red accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#AE2E24',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.red.bolder',
+		path: ['color', 'text', 'accent', 'red', 'bolder'],
+		description:
+			'Use for red text on subtle red accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#5D1F1A',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.orange',
+		path: ['color', 'text', 'accent', 'orange', '[default]'],
+		description:
+			'Use for orange text on subtlest and subtler orange accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#9E4C00',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.orange.bolder',
+		path: ['color', 'text', 'accent', 'orange', 'bolder'],
+		description:
+			'Use for orange text on subtle orange accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#693200',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.yellow',
+		path: ['color', 'text', 'accent', 'yellow', '[default]'],
+		description:
+			'Use for yellow text on subtlest and subtler yellow accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#7F5F01',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.yellow.bolder',
+		path: ['color', 'text', 'accent', 'yellow', 'bolder'],
+		description:
+			'Use for yellow text on subtle yellow accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#533F04',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.green',
+		path: ['color', 'text', 'accent', 'green', '[default]'],
+		description:
+			'Use for green text on subtlest and subtler green accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#216E4E',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.green.bolder',
+		path: ['color', 'text', 'accent', 'green', 'bolder'],
+		description:
+			'Use for green text on subtle green accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#164B35',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.teal',
+		path: ['color', 'text', 'accent', 'teal', '[default]'],
+		description:
+			'Use for teal text on subtlest and subtler teal accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#206A83',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.teal.bolder',
+		path: ['color', 'text', 'accent', 'teal', 'bolder'],
+		description:
+			'Use for teal text on subtle teal accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#164555',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.blue',
+		path: ['color', 'text', 'accent', 'blue', '[default]'],
+		description:
+			'Use for blue text on subtlest and subtler blue accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#1558BC',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.blue.bolder',
+		path: ['color', 'text', 'accent', 'blue', 'bolder'],
+		description:
+			'Use for blue text on subtle blue accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#123263',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.purple',
+		path: ['color', 'text', 'accent', 'purple', '[default]'],
+		description:
+			'Use for purple text on subtlest and subtler purple accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#803FA5',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.purple.bolder',
+		path: ['color', 'text', 'accent', 'purple', 'bolder'],
+		description:
+			'Use for purple text on subtle purple accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#48245D',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.magenta',
+		path: ['color', 'text', 'accent', 'magenta', '[default]'],
+		description:
+			'Use for magenta text on subtlest and subtler magenta accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#943D73',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.magenta.bolder',
+		path: ['color', 'text', 'accent', 'magenta', 'bolder'],
+		description:
+			'Use for magenta text on subtle magenta accent backgrounds when there is no meaning tied to the color.',
+		exampleValue: '#50253F',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.gray',
+		path: ['color', 'text', 'accent', 'gray', '[default]'],
+		description: 'Use for text on non-bold gray accent backgrounds, such as colored tags.',
+		exampleValue: '#505258',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.accent.gray.bolder',
+		path: ['color', 'text', 'accent', 'gray', 'bolder'],
+		description: 'Use for text and icons on gray subtle accent backgrounds.',
+		exampleValue: '#1E1F21',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.disabled',
+		path: ['color', 'text', 'disabled'],
+		description: 'Use for text in a disabled state.',
+		exampleValue: '#080F214A',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.inverse',
+		path: ['color', 'text', 'inverse'],
+		description: 'Use for text on bold backgrounds.',
+		exampleValue: '#FFFFFF',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.selected',
+		path: ['color', 'text', 'selected'],
+		description: 'Use for text in selected or opened states, such as tabs and dropdown buttons.',
+		exampleValue: '#1868DB',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.brand',
+		path: ['color', 'text', 'brand'],
+		description: 'Use for text that reinforces our brand.',
+		exampleValue: '#1868DB',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.danger',
+		path: ['color', 'text', 'danger', '[default]'],
+		description: 'Use for critical text, such as input field error messaging.',
+		exampleValue: '#AE2E24',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.danger.bolder',
+		path: ['color', 'text', 'danger', 'bolder'],
+		description:
+			'Use for text on top of danger semantic labels to ensure accessibility and desired visual appearance.',
+		exampleValue: '#5D1F1A',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.warning',
+		path: ['color', 'text', 'warning', '[default]'],
+		description: 'Use for text to emphasize caution, such as in moved lozenges.',
+		exampleValue: '#9E4C00',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.warning.inverse',
+		path: ['color', 'text', 'warning', 'inverse'],
+		description: 'Use for text when on bold warning backgrounds.',
+		exampleValue: '#292A2E',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.warning.bolder',
+		path: ['color', 'text', 'warning', 'bolder'],
+		description:
+			'Use for text on top of warning semantic labels to ensure accessibility and desired visual appearance.',
+		exampleValue: '#693200',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.success',
+		path: ['color', 'text', 'success', '[default]'],
+		description:
+			'Use for text to communicate a favorable outcome, such as input field success messaging.',
+		exampleValue: '#4C6B1F',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.success.bolder',
+		path: ['color', 'text', 'success', 'bolder'],
+		description:
+			'Use for text on top of success semantic labels to ensure accessibility and desired visual appearance.',
+		exampleValue: '#37471F',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.discovery',
+		path: ['color', 'text', 'discovery', '[default]'],
+		description: 'Use for text to emphasize change or something new, such as in new lozenges.',
+		exampleValue: '#803FA5',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.discovery.bolder',
+		path: ['color', 'text', 'discovery', 'bolder'],
+		description:
+			'Use for text on top of discovery semantic labels to ensure accessibility and desired visual appearance.',
+		exampleValue: '#48245D',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.information',
+		path: ['color', 'text', 'information', '[default]'],
+		description:
+			'Use for informative text or to communicate something is in progress, such as in-progress lozenges.',
+		exampleValue: '#1558BC',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.information.bolder',
+		path: ['color', 'text', 'information', 'bolder'],
+		description:
+			'Use for text on top of information semantic labels to ensure accessibility and desired visual appearance.',
+		exampleValue: '#123263',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.subtlest',
+		path: ['color', 'text', 'subtlest'],
+		description:
+			'Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text.',
+		exampleValue: '#6B6E76',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.subtle',
+		path: ['color', 'text', 'subtle'],
+		description:
+			'Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings.',
+		exampleValue: '#505258',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.icon',
+		path: ['color', 'icon', '[default]'],
+		description: 'Use for icon-only buttons, or icons paired with color.text',
+		exampleValue: '#292A2E',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.accent.lime',
+		path: ['color', 'icon', 'accent', 'lime'],
+		description:
+			'Use for lime icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
+		exampleValue: '#6A9A23',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.accent.red',
+		path: ['color', 'icon', 'accent', 'red'],
+		description:
+			'Use for red icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
+		exampleValue: '#C9372C',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.accent.orange',
+		path: ['color', 'icon', 'accent', 'orange'],
+		description:
+			'Use for orange icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
+		exampleValue: '#E06C00',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.accent.yellow',
+		path: ['color', 'icon', 'accent', 'yellow'],
+		description:
+			'Use for yellow icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
+		exampleValue: '#B38600',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.accent.green',
+		path: ['color', 'icon', 'accent', 'green'],
+		description:
+			'Use for green icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
+		exampleValue: '#22A06B',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.accent.teal',
+		path: ['color', 'icon', 'accent', 'teal'],
+		description:
+			'Use for teal icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
+		exampleValue: '#2898BD',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.accent.blue',
+		path: ['color', 'icon', 'accent', 'blue'],
+		description:
+			'Use for blue icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
+		exampleValue: '#357DE8',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.accent.purple',
+		path: ['color', 'icon', 'accent', 'purple'],
+		description:
+			'Use for purple icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
+		exampleValue: '#AF59E1',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.accent.magenta',
+		path: ['color', 'icon', 'accent', 'magenta'],
+		description:
+			'Use for magenta icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
+		exampleValue: '#CD519D',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.accent.gray',
+		path: ['color', 'icon', 'accent', 'gray'],
+		description: 'Use for icons on non-bold gray accent backgrounds, such as file type icons.',
+		exampleValue: '#7D818A',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.disabled',
+		path: ['color', 'icon', 'disabled'],
+		description: 'Use for icons in a disabled state.',
+		exampleValue: '#080F214A',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.inverse',
+		path: ['color', 'icon', 'inverse'],
+		description: 'Use for icons on bold backgrounds.',
+		exampleValue: '#FFFFFF',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.selected',
+		path: ['color', 'icon', 'selected'],
+		description:
+			'Use for icons in selected or opened states, such as those used in dropdown buttons.',
+		exampleValue: '#1868DB',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.brand',
+		path: ['color', 'icon', 'brand'],
+		description: 'Use for icons that reinforce our brand.',
+		exampleValue: '#1868DB',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.danger',
+		path: ['color', 'icon', 'danger'],
+		description:
+			'Use for icons communicating critical information, such as those used in error handing.',
+		exampleValue: '#C9372C',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.warning',
+		path: ['color', 'icon', 'warning', '[default]'],
+		description:
+			'Use for icons communicating caution, such as those used in warning section messages.',
+		exampleValue: '#E06C00',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.warning.inverse',
+		path: ['color', 'icon', 'warning', 'inverse'],
+		description: 'Use for icons when on bold warning backgrounds.',
+		exampleValue: '#292A2E',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.success',
+		path: ['color', 'icon', 'success'],
+		description:
+			'Use for icons communicating a favorable outcome, such as those used in success section messaged.',
+		exampleValue: '#6A9A23',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.discovery',
+		path: ['color', 'icon', 'discovery'],
+		description:
+			'Use for icons communicating change or something new, such as discovery section messages.',
+		exampleValue: '#AF59E1',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.information',
+		path: ['color', 'icon', 'information'],
+		description:
+			'Use for icons communicating information or something in-progress, such as information section messages.',
+		exampleValue: '#357DE8',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.subtlest',
+		path: ['color', 'icon', 'subtlest'],
+		description: 'Use for icons paired with color.text.subtlest',
+		exampleValue: '#6B6E76',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.icon.subtle',
+		path: ['color', 'icon', 'subtle'],
+		description: 'Use for icons paired with color.text.subtle',
+		exampleValue: '#505258',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.link',
+		path: ['color', 'link', '[default]'],
+		description:
+			'Use for links in a default or hovered state. Add an underline for hovered states.',
+		exampleValue: '#1868DB',
+		usageGuidelines: {
+			usage:
+				'The color for hyperlinks. Use for elements that are links to external resources or navigation (e.g. color.link)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.link.pressed',
+		path: ['color', 'link', 'pressed'],
+		description: 'Use for links in a pressed state.',
+		exampleValue: '#1558BC',
+		usageGuidelines: {
+			usage:
+				'The color for hyperlinks. Use for elements that are links to external resources or navigation (e.g. color.link)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.link.visited',
+		path: ['color', 'link', 'visited', '[default]'],
+		description: 'Use for visited links.',
+		exampleValue: '#803FA5',
+		usageGuidelines: {
+			usage:
+				'The color for hyperlinks. Use for elements that are links to external resources or navigation (e.g. color.link)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.link.visited.pressed',
+		path: ['color', 'link', 'visited', 'pressed'],
+		description: 'Use for visited links in a pressed state.',
+		exampleValue: '#48245D',
+		usageGuidelines: {
+			usage:
+				'The color for hyperlinks. Use for elements that are links to external resources or navigation (e.g. color.link)',
+			cssProperties: ['color'],
 		},
 	},
 	{
@@ -3933,6 +3898,41 @@ export const tokens: Token[] = [
 		exampleValue: '#17171708',
 		usageGuidelines: {
 			usage: 'The color for skeleton/loading placeholders (e.g. color.skeleton)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
+		name: 'color.blanket',
+		path: ['color', 'blanket', '[default]'],
+		description: 'Use for the screen overlay that appears with modal dialogs',
+		exampleValue: '#050C1F75',
+		usageGuidelines: {
+			usage:
+				'The color for overlay "blankets" such as modals/dimmers/overlays (e.g. color.blanket)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
+		name: 'color.blanket.selected',
+		path: ['color', 'blanket', 'selected'],
+		description:
+			"Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements",
+		exampleValue: '#388BFF14',
+		usageGuidelines: {
+			usage:
+				'The color for overlay "blankets" such as modals/dimmers/overlays (e.g. color.blanket)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
+		name: 'color.blanket.danger',
+		path: ['color', 'blanket', 'danger'],
+		description:
+			"Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements",
+		exampleValue: '#EF5C4814',
+		usageGuidelines: {
+			usage:
+				'The color for overlay "blankets" such as modals/dimmers/overlays (e.g. color.blanket)',
 			cssProperties: ['background-color'],
 		},
 	},
@@ -4934,6 +4934,123 @@ export const tokens: Token[] = [
 		usageGuidelines: {
 			usage: 'The color for chart and data visualization elements (e.g. color.chart)',
 			cssProperties: ['fill', 'stroke', 'background-color', 'color'],
+		},
+	},
+	{
+		name: 'color.rovo.background.brand.bold',
+		path: ['color', 'rovo', 'background', 'brand', 'bold', '[default]'],
+		description: 'Background color for Rovo brand emphasis.',
+		exampleValue: '#000000',
+		usageGuidelines: {
+			usage:
+				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
+		name: 'color.rovo.background.brand.bold.hovered',
+		path: ['color', 'rovo', 'background', 'brand', 'bold', 'hovered'],
+		description: 'Hovered state of color.rovo.background.brand.bold.',
+		exampleValue: '#1E1F21',
+		usageGuidelines: {
+			usage:
+				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
+		name: 'color.rovo.background.brand.bold.pressed',
+		path: ['color', 'rovo', 'background', 'brand', 'bold', 'pressed'],
+		description: 'Pressed state of color.rovo.background.brand.bold.',
+		exampleValue: '#292A2E',
+		usageGuidelines: {
+			usage:
+				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
+		name: 'color.rovo.border.lime',
+		path: ['color', 'rovo', 'border', 'lime'],
+		description: 'Use for Rovo lime borders.',
+		exampleValue: '#6A9A23',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.rovo.border.saffron',
+		path: ['color', 'rovo', 'border', 'saffron'],
+		description: 'Use for Rovo saffron borders.',
+		exampleValue: '#FCA700',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.rovo.border.blue',
+		path: ['color', 'rovo', 'border', 'blue'],
+		description: 'Use for Rovo blue borders.',
+		exampleValue: '#1868DB',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.rovo.border.purple',
+		path: ['color', 'rovo', 'border', 'purple'],
+		description: 'Use for Rovo purple borders.',
+		exampleValue: '#AF59E1',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.rovo.icon.lime',
+		path: ['color', 'rovo', 'icon', 'lime'],
+		description: 'Use for Rovo lime icons.',
+		exampleValue: '#6A9A23',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.rovo.icon.saffron',
+		path: ['color', 'rovo', 'icon', 'saffron'],
+		description: 'Use for Rovo saffron icons.',
+		exampleValue: '#FCA700',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.rovo.icon.blue',
+		path: ['color', 'rovo', 'icon', 'blue'],
+		description: 'Use for Rovo blue icons.',
+		exampleValue: '#1868DB',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
+		},
+	},
+	{
+		name: 'color.rovo.icon.purple',
+		path: ['color', 'rovo', 'icon', 'purple'],
+		description: 'Use for Rovo purple icons.',
+		exampleValue: '#AF59E1',
+		usageGuidelines: {
+			usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
+			cssProperties: ['color', 'fill', 'stroke'],
 		},
 	},
 	{

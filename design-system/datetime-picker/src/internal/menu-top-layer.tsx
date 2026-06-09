@@ -12,7 +12,9 @@ import Calendar from '@atlaskit/calendar';
 import { type MenuProps, type OptionType } from '@atlaskit/select';
 import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import { Popup } from '@atlaskit/top-layer/popup';
+import { Popover } from '@atlaskit/top-layer/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 
 const animation = slideAndFade();
 
@@ -46,10 +48,10 @@ function getValidDate(isos: string[]): {
 /**
  * Top-layer version of the date picker menu.
  *
- * Uses `@atlaskit/top-layer/popup` (Popup.Content + Popup.Surface) so the
- * calendar renders in the browser's top layer via the native Popover API
- * and is positioned via CSS Anchor Positioning. This avoids overflow clipping,
- * z-index wars, and portal-based layering.
+ * Uses `Popover` + `useAnchorPosition` so the calendar renders in the
+ * browser's top layer via the native Popover API and is positioned via
+ * CSS Anchor Positioning. This avoids overflow clipping, z-index wars,
+ * and portal-based layering.
  *
  * Gated behind the `platform-dst-top-layer` feature flag.
  */
@@ -64,6 +66,14 @@ export const MenuTopLayer: ({ selectProps, innerProps }: MenuProps<OptionType>) 
 	const triggerRef = useRef<HTMLElement | null>(selectProps.calendarContainerRef ?? null);
 	triggerRef.current = selectProps.calendarContainerRef ?? null;
 
+	const popoverRef = useRef<HTMLDivElement>(null);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: popupPlacement,
+	});
+
 	const onMenuMouseDown: MouseEventHandler<HTMLDivElement> = (event) => {
 		if (event.button !== 0) {
 			return;
@@ -75,7 +85,8 @@ export const MenuTopLayer: ({ selectProps, innerProps }: MenuProps<OptionType>) 
 	const Wrapper = typeof MenuInnerWrapper === 'function' ? MenuInnerWrapper : Fragment;
 
 	return (
-		<Popup.Content
+		<Popover
+			ref={popoverRef}
 			role="dialog"
 			label="calendar"
 			isOpen
@@ -87,14 +98,13 @@ export const MenuTopLayer: ({ selectProps, innerProps }: MenuProps<OptionType>) 
 			// immediately closes the popover.
 			mode="manual"
 			placement={popupPlacement}
-			triggerRef={triggerRef}
 			animate={animation}
 			testId={selectProps.testId && `${selectProps.testId}--popup`}
 		>
-			<Popup.Surface>
+			<PopoverSurface>
 				{/*
 				 * `role="presentation"` (a.k.a. `role="none"`) tells AT to ignore
-				 * this wrapper — it has a non-user mousedown handler whose only
+				 * this wrapper. It has a non-user mousedown handler whose only
 				 * job is to swallow the bubbled click that would otherwise close
 				 * the menu, so it must stay in the layout box without becoming
 				 * a focusable / announced control.
@@ -122,7 +132,7 @@ export const MenuTopLayer: ({ selectProps, innerProps }: MenuProps<OptionType>) 
 						/>
 					</Wrapper>
 				</div>
-			</Popup.Surface>
-		</Popup.Content>
+			</PopoverSurface>
+		</Popover>
 	);
 };

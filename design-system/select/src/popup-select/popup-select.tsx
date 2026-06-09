@@ -1,7 +1,7 @@
 import React, { type KeyboardEventHandler, PureComponent, type ReactNode } from 'react';
 
 import { type Placement } from '@popperjs/core';
-import { bind, type UnbindFn } from 'bind-event-listener';
+import { type UnbindFn, bind } from 'bind-event-listener';
 import { createPortal } from 'react-dom';
 import FocusLock from 'react-focus-lock';
 import { Manager, type Modifier, Popper, type PopperProps, Reference } from 'react-popper';
@@ -11,8 +11,8 @@ import { IdProvider } from '@atlaskit/ds-lib/id-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	type GroupBase,
-	mergeStyles,
 	type components as RSComponents,
+	mergeStyles,
 } from '@atlaskit/react-select';
 import { token } from '@atlaskit/tokens';
 
@@ -161,7 +161,7 @@ export interface PopupSelectProps<
 interface State<Modifiers = string> {
 	focusLockEnabled: boolean;
 	isOpen: boolean;
-	mergedComponents: Object; // This really should be `SelectComponentsConfig<…>`, but generics aren't compatible across all Selects as structured
+	mergedComponents: object; // This really should be `SelectComponentsConfig<…>`, but generics aren't compatible across all Selects as structured
 	mergedPopperProps: PopperPropsNoChildren<defaultModifiers | Modifiers>;
 }
 
@@ -188,7 +188,7 @@ const defaultPopperProps: PopperPropsNoChildren<defaultModifiers> = {
 	placement: 'bottom-start' as Placement,
 };
 
-const isEmpty = (obj: Object) => Object.keys(obj).length === 0;
+const isEmpty = (obj: object) => Object.keys(obj).length === 0;
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class PopupSelect<

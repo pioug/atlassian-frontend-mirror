@@ -1,9 +1,15 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+
+import { bind } from 'bind-event-listener';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
+import {
+	ArrowKeyNavigationProvider,
+	ArrowKeyNavigationType,
+} from '@atlaskit/editor-common/ui-menu';
 import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
 import { UserIntentPopupWrapper } from '@atlaskit/editor-common/user-intent';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
@@ -22,6 +28,7 @@ const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
 
 const LAYOUT_COLUMN_MENU_POPUP_OFFSET: [number, number] = [0, 4];
 const TOOLBAR_MENU_SELECTOR = '[data-toolbar-component="menu"]';
+const NESTED_DROPDOWN_MENU_SELECTOR = '[data-toolbar-nested-dropdown-menu]';
 
 /**
  * Returns the drag handle button for the selected layout column.
@@ -45,6 +52,8 @@ const getLayoutColumnMenuTarget = (
 	return dragHandleContainer?.querySelector<HTMLElement>(DRAG_HANDLE_SELECTOR);
 };
 
+const focusTrap = { initialFocus: undefined };
+
 type LayoutColumnMenuProps = {
 	api: ExtractInjectionAPI<LayoutPlugin> | undefined;
 	boundariesElement?: HTMLElement;
@@ -61,10 +70,11 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 		boundariesElement,
 		scrollableElement,
 	}: LayoutColumnMenuProps): React.JSX.Element | null {
-		const { isLayoutColumnMenuOpen, layoutColumnMenuAnchorPos, selection } =
+		const { isLayoutColumnMenuOpen, layoutColumnMenuAnchorPos, openedViaKeyboard, selection } =
 			useSharedPluginStateWithSelector(api, ['layout', 'selection'], (states) => ({
 				isLayoutColumnMenuOpen: states.layoutState?.isLayoutColumnMenuOpen ?? false,
 				layoutColumnMenuAnchorPos: states.layoutState?.layoutColumnMenuAnchorPos,
+				openedViaKeyboard: states.layoutState?.layoutColumnMenuOpenedViaKeyboard ?? false,
 				selection: states.selectionState?.selection,
 			}));
 		const closeLayoutColumnMenu = useCallback(() => {
@@ -76,7 +86,7 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 				if (
 					event.target instanceof Element &&
 					(event.target.closest(TOOLBAR_MENU_SELECTOR) ||
-						event.target.closest('[data-toolbar-nested-dropdown-menu]'))
+						event.target.closest(NESTED_DROPDOWN_MENU_SELECTOR))
 				) {
 					return;
 				}
@@ -101,6 +111,49 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 			},
 			[closeLayoutColumnMenu],
 		);
+
+		const handleArrowKeyNavigationClose = useCallback(
+			(event: KeyboardEvent) => {
+				event.preventDefault();
+				closeLayoutColumnMenu();
+			},
+			[closeLayoutColumnMenu],
+		);
+
+		const shouldDisableArrowKeyNavigation = useCallback((event: KeyboardEvent) => {
+			if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') {
+				return false;
+			}
+
+			const target = event.target;
+			if (!(target instanceof HTMLElement)) {
+				return false;
+			}
+
+			return target.closest(NESTED_DROPDOWN_MENU_SELECTOR) !== null;
+		}, []);
+
+		const menuWrapperRef = useRef<HTMLDivElement>(null);
+
+		const handleMenuKeyDown = useCallback((event: KeyboardEvent) => {
+			// Keep menu keyboard events scoped to the menu while preserving Escape and
+			// ArrowUp/ArrowDown handling from Popup and ArrowKeyNavigationProvider.
+			if (event.key !== 'Escape' && event.key !== 'ArrowUp' && event.key !== 'ArrowDown') {
+				event.stopPropagation();
+			}
+		}, []);
+
+		useEffect(() => {
+			const menuWrapper = menuWrapperRef.current;
+			if (!isLayoutColumnMenuOpen || !menuWrapper) {
+				return;
+			}
+
+			return bind(menuWrapper, {
+				type: 'keydown',
+				listener: handleMenuKeyDown,
+			});
+		}, [handleMenuKeyDown, isLayoutColumnMenuOpen]);
 
 		const components = api?.uiControlRegistry?.actions.getComponents(LAYOUT_COLUMN_MENU.key) ?? [];
 
@@ -137,16 +190,28 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 				offset={LAYOUT_COLUMN_MENU_POPUP_OFFSET}
 				handleClickOutside={handleClickOutside}
 				handleEscapeKeydown={closeLayoutColumnMenu}
+				focusTrap={openedViaKeyboard ? focusTrap : undefined}
 			>
-				<UserIntentPopupWrapper api={api} userIntent="layoutColumnMenuPopupOpen">
-					<ToolbarDropdownMenuProvider isOpen={isLayoutColumnMenuOpen} setIsOpen={handleSetIsOpen}>
-						<SurfaceRenderer
-							components={components}
-							fallbacks={LAYOUT_COLUMN_MENU_FALLBACKS}
-							surface={LAYOUT_COLUMN_MENU}
-						/>
-					</ToolbarDropdownMenuProvider>
-				</UserIntentPopupWrapper>
+				<div ref={menuWrapperRef}>
+					<UserIntentPopupWrapper api={api} userIntent="layoutColumnMenuPopupOpen">
+						<ToolbarDropdownMenuProvider
+							isOpen={isLayoutColumnMenuOpen}
+							setIsOpen={handleSetIsOpen}
+						>
+							<ArrowKeyNavigationProvider
+								type={ArrowKeyNavigationType.MENU}
+								handleClose={handleArrowKeyNavigationClose}
+								disableArrowKeyNavigation={shouldDisableArrowKeyNavigation}
+							>
+								<SurfaceRenderer
+									components={components}
+									fallbacks={LAYOUT_COLUMN_MENU_FALLBACKS}
+									surface={LAYOUT_COLUMN_MENU}
+								/>
+							</ArrowKeyNavigationProvider>
+						</ToolbarDropdownMenuProvider>
+					</UserIntentPopupWrapper>
+				</div>
 			</PopupWithListeners>
 		);
 	},

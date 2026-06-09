@@ -1,5 +1,15 @@
 # @atlaskit/forge-react-types
 
+## 1.7.1
+
+### Patch Changes
+
+- [`6e1f2974a7d54`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e1f2974a7d54) -
+  Enable isolatedDeclarations for forge-ui by giving makeXCSSValidator an explicit (hoisted,
+  generic) return type instead of an inferred one; regenerate forge-react-types Box/Pressable prop
+  types and adjust the codegen to emit the xcssValidator initializer without its source-local type
+  annotation/cast.
+
 ## 1.7.0
 
 ### Minor Changes

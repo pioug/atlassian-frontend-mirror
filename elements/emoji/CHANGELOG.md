@@ -1,5 +1,18 @@
 # @atlaskit/emoji
 
+## 70.16.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 70.16.2
+
+### Patch Changes
+
+- [`3480b659bfe0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3480b659bfe0a) -
+  CEPS-7849: Add the Atlassian icon to emoji picker categories.
+
 ## 70.16.1
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/teams-public
 
+## 1.4.3
+
+### Patch Changes
+
+- [`2e067adb30e59`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e067adb30e59) -
+  Update missing terminology refresh updates
+
 ## 1.4.2
 
 ### Patch Changes

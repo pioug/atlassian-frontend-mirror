@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 220.1.3
+
+### Patch Changes
+
+- [`54136b334c25a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54136b334c25a) -
+  Clean up experiment cc_editor_ttvc_release_bundle_one
+- Updated dependencies
+
+## 220.1.2
+
+### Patch Changes
+
+- [`76d9dbbc58730`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76d9dbbc58730) -
+  fix compiled migrations for status, task item, sync block, native embed, and table styles
+- Updated dependencies
+
 ## 220.1.1
 
 ### Patch Changes

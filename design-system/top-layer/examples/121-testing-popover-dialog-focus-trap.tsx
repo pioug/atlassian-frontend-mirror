@@ -1,31 +1,35 @@
 import React, { useCallback, useRef, useState } from 'react';
 
 import { getFirstFocusable } from '@atlaskit/top-layer/focus';
-import { Popup } from '@atlaskit/top-layer/popup';
-import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
+import { Popover } from '@atlaskit/top-layer/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 /**
  * Test fixture for verifying Tab focus trapping within a popover with role="dialog".
  *
  * WCAG 2.4.3 Focus Order: Tab should cycle (trap) within role="dialog" popovers.
  * WCAG 2.1.2 No Keyboard Trap: Escape should always dismiss via light dismiss.
- *
- * Contains:
- * - A dialog popup with 3 focusable buttons (tests Tab wrapping)
- * - A non-dialog popup with role="note" (tests that Tab is NOT trapped)
- * - Buttons outside the popups (verifies focus does not escape to them)
  */
-
-function DialogPopup() {
+function DialogPopover() {
 	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
 
-	const handleClose = useCallback(() => {
-		setIsOpen(false);
-	}, []);
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: {},
+	});
 
 	const handleOpenChange = useCallback(
-		({ isOpen: open, element }: { isOpen: boolean; element: HTMLDivElement }) => {
-			if (open) {
+		({ isOpen: nextOpen, element }: { isOpen: boolean; element: HTMLDivElement }) => {
+			if (nextOpen) {
 				getFirstFocusable({ container: element })?.focus();
 			}
 		},
@@ -33,19 +37,27 @@ function DialogPopup() {
 	);
 
 	return (
-		<Popup
-			placement={{}}
-			onClose={handleClose}
-			onOpenChange={handleOpenChange}
-			testId="dialog-popup"
-		>
-			<Popup.Trigger>
-				<button type="button" data-testid="dialog-trigger" onClick={() => setIsOpen(true)}>
-					Open dialog popup
-				</button>
-			</Popup.Trigger>
-			<Popup.Content role="dialog" label="Focus trap test" isOpen={isOpen}>
-				<PopupSurface>
+		<>
+			<button
+				ref={triggerRef}
+				type="button"
+				data-testid="dialog-trigger"
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+			>
+				Open dialog popover
+			</button>
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				role="dialog"
+				label="Focus trap test"
+				testId="dialog-popup"
+				isOpen={isOpen}
+				onClose={close}
+				onOpenChange={handleOpenChange}
+			>
+				<PopoverSurface>
 					<button type="button" data-testid="dialog-button-a">
 						Button A
 					</button>
@@ -55,56 +67,70 @@ function DialogPopup() {
 					<button type="button" data-testid="dialog-button-c">
 						Button C
 					</button>
-				</PopupSurface>
-			</Popup.Content>
-		</Popup>
+				</PopoverSurface>
+			</Popover>
+		</>
 	);
 }
 
-function NotePopup() {
+function NotePopover() {
 	const [isOpen, setIsOpen] = useState(false);
 	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
 
-	const handleClose = useCallback(() => {
-		setIsOpen(false);
-	}, []);
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: {},
+	});
 
 	return (
-		<Popup placement={{}} onClose={handleClose} testId="note-popup">
-			<Popup.Trigger>
-				<button
-					ref={triggerRef}
-					type="button"
-					data-testid="note-trigger"
-					onClick={() => setIsOpen(true)}
-				>
-					Open note popup
-				</button>
-			</Popup.Trigger>
-			<Popup.Content role="note" isOpen={isOpen}>
-				<PopupSurface>
+		<>
+			<button
+				ref={triggerRef}
+				type="button"
+				data-testid="note-trigger"
+				onClick={toggle}
+				// role="note" is informational — no aria-haspopup or aria-expanded on the trigger.
+				// aria-controls links the trigger to the note content.
+				aria-controls={popoverId}
+			>
+				Open note popover
+			</button>
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				role="note"
+				testId="note-popup"
+				isOpen={isOpen}
+				onClose={close}
+			>
+				<PopoverSurface>
 					<button type="button" data-testid="note-button-a">
 						Note Button A
 					</button>
 					<button type="button" data-testid="note-button-b">
 						Note Button B
 					</button>
-				</PopupSurface>
-			</Popup.Content>
-		</Popup>
+				</PopoverSurface>
+			</Popover>
+		</>
 	);
 }
 
-export default function TestingPopoverDialogFocusTrap(): React.JSX.Element {
+export default function TestingPopoverDialogFocusTrap(): React.ReactNode {
 	return (
 		<div>
 			<button type="button" data-testid="outside-before">
-				Outside before
+				Before
 			</button>
-			<DialogPopup />
-			<NotePopup />
+			<DialogPopover />
+			<NotePopover />
 			<button type="button" data-testid="outside-after">
-				Outside after
+				After
 			</button>
 		</div>
 	);

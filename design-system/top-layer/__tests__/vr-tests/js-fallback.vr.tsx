@@ -23,7 +23,7 @@ snapshot(VrJsFallbackBlockStart, { ...opts, description: 'js-fallback-block-star
 snapshot(VrJsFallbackInlineEnd, { ...opts, description: 'js-fallback-inline-end' });
 snapshot(VrJsFallbackInlineStart, { ...opts, description: 'js-fallback-inline-start' });
 
-// Compound - block axis
+// Compound — block axis
 snapshot(VrJsFallbackBlockEndAlignStart, {
 	...opts,
 	description: 'js-fallback-block-end-align-start',
@@ -38,7 +38,7 @@ snapshot(VrJsFallbackBlockStartAlignEnd, {
 	description: 'js-fallback-block-start-align-end',
 });
 
-// Compound - inline axis
+// Compound — inline axis
 snapshot(VrJsFallbackInlineEndAlignStart, {
 	...opts,
 	description: 'js-fallback-inline-end-align-start',

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-floating-toolbar",
-	"version": "13.0.1",
+	"version": "13.0.3",
 	"description": "Floating toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -115,5 +115,9 @@
 			]
 		}
 	},
-	"platform-feature-flags": {}
+	"platform-feature-flags": {
+		"platform_editor_ai_remix_toolbar": {
+			"type": "boolean"
+		}
+	}
 }

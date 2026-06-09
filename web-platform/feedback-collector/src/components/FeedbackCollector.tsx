@@ -98,8 +98,18 @@ export interface Props {
 	cancelButtonLabel?: string;
 	/**  Message for select option labels and field labels */
 	feedbackGroupLabels?: Partial<Record<SelectValue, SelectOptionDetails>>;
-	/** Function that will be called to initiate the exit transition. */
-	onClose: () => void;
+	/**
+	 * Function that will be called to initiate the exit transition.
+	 * When triggered by the cancel button the originating event and Atlaskit UI analytics
+	 * event are forwarded; programmatic close paths (e.g. after submit) invoke it with no
+	 * arguments. Typed as a variadic `any[]` to maximise backward compatibility with
+	 * consumers that declared any conceivable signature for this callback.
+	 */
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	onClose: (...args: any[]) => void;
+	/** Optional function that will be called when the cancel button is clicked, in addition to onClose. */
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	onCancel?: (...args: any[]) => void;
 	/** Function that will be called optimistically after a delay when the feedback is submitted. */
 	onSubmit: (formFields: FormFields) => void;
 	/**  Locale for i18n */
@@ -191,7 +201,8 @@ export default class FeedbackCollector extends Component<Props> {
 		showTypeField: boolean;
 		showDefaultTextFields: boolean;
 		anonymousFeedback: boolean;
-		onClose: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		onClose: (...args: any[]) => void;
 		onSubmit: () => void;
 	} = {
 		locale: 'en',
@@ -569,6 +580,7 @@ export default class FeedbackCollector extends Component<Props> {
 				feedbackGroupLabels={this.props.feedbackGroupLabels}
 				onSubmit={this.postFeedback}
 				onClose={this.props.onClose}
+				onCancel={this.props.onCancel}
 				locale={this.props.locale}
 				anonymousFeedback={
 					fg('platform.proforma-form-builder-feedback_hupaz')

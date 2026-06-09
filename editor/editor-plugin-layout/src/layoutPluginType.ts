@@ -20,8 +20,10 @@ import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 import type {
 	DistributeLayoutColumnsOptions,
-	InsertLayoutColumnsInputMethod,
 	InsertLayoutColumnSide,
+	InsertLayoutColumnsInputMethod,
+	LayoutColumnActionInputMethod,
+	ToggleLayoutColumnMenuOptions,
 } from './pm-plugins/actions';
 import type { LayoutState } from './pm-plugins/types';
 import type { LayoutPluginOptions } from './types';
@@ -48,11 +50,15 @@ export type LayoutPlugin = NextEditorPlugin<
 			insertLayoutColumns: (inputMethod: InsertLayoutColumnsInputMethod) => Command;
 		};
 		commands: {
-			deleteLayoutColumn: EditorCommand;
+			deleteLayoutColumn: (inputMethod?: LayoutColumnActionInputMethod) => EditorCommand;
 			distributeLayoutColumns: (options?: DistributeLayoutColumnsOptions) => EditorCommand;
-			insertLayoutColumn: (side: InsertLayoutColumnSide) => EditorCommand;
+			insertLayoutColumn: (
+				side: InsertLayoutColumnSide,
+				inputMethod?: LayoutColumnActionInputMethod,
+			) => EditorCommand;
+			setLayoutColumnDangerPreview: (show: boolean) => EditorCommand;
 			setLayoutColumnValign: (valign: Valign) => EditorCommand;
-			toggleLayoutColumnMenu: (options: { anchorPos?: number; isOpen?: boolean }) => EditorCommand;
+			toggleLayoutColumnMenu: (options: ToggleLayoutColumnMenuOptions) => EditorCommand;
 		};
 		dependencies: LayoutPluginDependencies;
 		pluginConfiguration: LayoutPluginOptions | undefined;

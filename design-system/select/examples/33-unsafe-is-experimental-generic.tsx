@@ -10,10 +10,10 @@ import Lozenge, { type LozengeProps } from '@atlaskit/lozenge';
 import { Inline, Stack, Text, xcss } from '@atlaskit/primitives';
 import Pressable from '@atlaskit/primitives/pressable';
 import Select, {
-	components,
 	type MenuProps,
 	type OptionProps,
 	type ValueType,
+	components,
 } from '@atlaskit/select';
 
 interface Option {

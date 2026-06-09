@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 14.1.0
+
+### Minor Changes
+
+- [`a8eec0c22a676`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8eec0c22a676) -
+  [ux] Clean up enabled block menu layout gate.
+
+## 14.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.1
 
 ### Patch Changes

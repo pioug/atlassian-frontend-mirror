@@ -1,4 +1,4 @@
-import type { TPlacementOptions } from '../popup/types';
+import type { TPlacementOptions } from '../internal/resolve-placement';
 
 /**
  * A self-contained animation preset for top-layer elements (popovers and dialogs).

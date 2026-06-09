@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useRef } from 'react';
+import { type ReactNode, useEffect, useRef } from 'react';
 
 import { jsx } from '@compiled/react';
 
@@ -36,7 +36,7 @@ const styles = cssMap({
  *
  * We use the native `autofocus` attribute (set via ref) instead of React's
  * `autoFocus` prop. React's autoFocus calls .focus() at mount time, not
- * at showPopover() time, so it does not participate in the browser's
+ * at showPopover() time, so it doesn't participate in the browser's
  * "popover focusing steps" algorithm.
  *
  * Scenarios:
@@ -47,7 +47,7 @@ const styles = cssMap({
  * 5. Manual, hide via hidePopover() → does focus restore?
  * 6. Auto, hide via Escape → does focus restore?
  */
-export default function TestingManualPopoverFocus(): JSX.Element {
+export default function TestingManualPopoverFocus(): ReactNode {
 	return (
 		<div css={styles.wrapper}>
 			<ManualNoAutofocus />
@@ -81,7 +81,7 @@ function ManualNoAutofocus() {
 				popover="manual"
 				css={styles.content}
 			>
-				<span data-testid="manual-no-af-content">Manual popover - no autofocus</span>
+				<span data-testid="manual-no-af-content">Manual popover — no autofocus</span>
 				<br />
 				<button type="button" data-testid="manual-no-af-inner">
 					Inner button
@@ -112,7 +112,7 @@ function AutoNoAutofocus() {
 				popover="auto"
 				css={styles.content}
 			>
-				<span data-testid="auto-no-af-content">Auto popover - no autofocus</span>
+				<span data-testid="auto-no-af-content">Auto popover — no autofocus</span>
 				<br />
 				<button type="button" data-testid="auto-no-af-inner">
 					Inner button
@@ -153,7 +153,7 @@ function ManualWithNativeAutofocus() {
 				popover="manual"
 				css={styles.content}
 			>
-				<span data-testid="manual-af-content">Manual popover - with autofocus</span>
+				<span data-testid="manual-af-content">Manual popover — with autofocus</span>
 				<br />
 				<button type="button" ref={innerRef} data-testid="manual-af-inner">
 					Inner button (autofocus)
@@ -189,7 +189,7 @@ function AutoWithNativeAutofocus() {
 				popover="auto"
 				css={styles.content}
 			>
-				<span data-testid="auto-af-content">Auto popover - with autofocus</span>
+				<span data-testid="auto-af-content">Auto popover — with autofocus</span>
 				<br />
 				<button type="button" ref={innerRef} data-testid="auto-af-inner">
 					Inner button (autofocus)
@@ -225,7 +225,7 @@ function ManualFocusRestore() {
 				popover="manual"
 				css={styles.content}
 			>
-				<span data-testid="manual-restore-content">Manual popover - focus restore test</span>
+				<span data-testid="manual-restore-content">Manual popover — focus restore test</span>
 				<br />
 				<button type="button" ref={innerRef} data-testid="manual-restore-inner">
 					Inner button (autofocus)
@@ -270,7 +270,7 @@ function AutoFocusRestore() {
 				popover="auto"
 				css={styles.content}
 			>
-				<span data-testid="auto-restore-content">Auto popover - focus restore test</span>
+				<span data-testid="auto-restore-content">Auto popover — focus restore test</span>
 				<br />
 				<button type="button" ref={innerRef} data-testid="auto-restore-inner">
 					Inner button (autofocus)

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { type ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
@@ -35,7 +35,7 @@ const styles = cssMap({
  * Uses `mousedown` (not `click`) for outside-click detection to avoid the race
  * condition where the trigger click immediately dismisses the popover.
  */
-export default function TestingManualPopoverA11y(): JSX.Element {
+export default function TestingManualPopoverA11y(): ReactNode {
 	const [isOpen, setIsOpen] = useState(false);
 	const [closeReason, setCloseReason] = useState<string | null>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);

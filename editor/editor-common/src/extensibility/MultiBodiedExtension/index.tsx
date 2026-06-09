@@ -263,13 +263,6 @@ const MultiBodiedExtensionWithWidth = ({
 			'with-danger-overlay': showMacroInteractionDesignUpdates,
 			'with-padding-background-styles': showMacroInteractionDesignUpdates,
 			'with-margin-styles': showMacroInteractionDesignUpdates && !isNodeNested,
-			'with-hover-border': expValEquals(
-				'cc_editor_ttvc_release_bundle_one',
-				'extensionHoverRefactor',
-				true,
-			)
-				? false
-				: showMacroInteractionDesignUpdates && isNodeHovered,
 		},
 	);
 
@@ -318,10 +311,7 @@ const MultiBodiedExtensionWithWidth = ({
 						? mbeExtensionWrapperCSSStyles
 						: mbeExtensionWrapperCSSStylesOld,
 					/* eslint-enable @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage */
-					showMacroInteractionDesignUpdates &&
-						!isLivePageViewMode &&
-						expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true) &&
-						hoverStyles,
+					showMacroInteractionDesignUpdates && !isLivePageViewMode && hoverStyles,
 				]}
 				data-testid="multiBodiedExtension--wrapper-editor"
 				data-layout={node.attrs.layout}

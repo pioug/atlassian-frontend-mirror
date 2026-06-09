@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block
 
+## 13.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.1
+
+### Patch Changes
+
+- [`44ba0da4e85d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44ba0da4e85d7) -
+  Gate the code block formatting button behind platform_editor_code_block_formatting
+- Updated dependencies
+
 ## 13.1.0
 
 ### Minor Changes

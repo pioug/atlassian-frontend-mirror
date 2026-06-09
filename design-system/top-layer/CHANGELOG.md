@@ -1,5 +1,20 @@
 # @atlaskit/top-layer
 
+## 0.14.0
+
+### Minor Changes
+
+- [`021a645c6f39a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/021a645c6f39a) -
+  Remove the `Popup` compound and `PopupSurface`; use `Popover`, `PopoverSurface`,
+  `useAnchorPosition`, `useWidthFromAnchor`, `usePopoverId`, and `getAriaForTrigger` instead.
+
+  Nested-popover focus restoration is now automatic: `Popover` snapshots `document.activeElement` in
+  `beforetoggle` (newState='open') and restores it on close for focus-capturing roles (`dialog`,
+  `alertdialog`, `menu`, `listbox`, `tree`, `grid`) when the close reason is Escape or programmatic.
+  Click-outside (light dismiss) intentionally does not restore focus, matching the HTML Popover
+  spec's `focusPreviousElement=false` rule. This fixes a Firefox bug where nested popovers left
+  focus on `<body>` after dismiss.
+
 ## 0.13.0
 
 ### Minor Changes

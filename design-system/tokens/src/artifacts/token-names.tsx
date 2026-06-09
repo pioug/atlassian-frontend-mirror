@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1db5eee8d8c450108c066b819290d824>>
+ * @codegen <<SignedSource::21f6b05cf2f9de04ab13466ff1436ddb>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -53,109 +53,6 @@ const tokens = {
 	'motion.popup.exit.top': '--ds-popup-exit-top',
 	'motion.spotlight.enter': '--ds-spotlight-enter',
 	'motion.spotlight.exit': '--ds-spotlight-exit',
-	'color.text': '--ds-text',
-	'color.text.accent.lime': '--ds-text-accent-lime',
-	'color.text.accent.lime.bolder': '--ds-text-accent-lime-bolder',
-	'color.text.accent.red': '--ds-text-accent-red',
-	'color.text.accent.red.bolder': '--ds-text-accent-red-bolder',
-	'color.text.accent.orange': '--ds-text-accent-orange',
-	'color.text.accent.orange.bolder': '--ds-text-accent-orange-bolder',
-	'color.text.accent.yellow': '--ds-text-accent-yellow',
-	'color.text.accent.yellow.bolder': '--ds-text-accent-yellow-bolder',
-	'color.text.accent.green': '--ds-text-accent-green',
-	'color.text.accent.green.bolder': '--ds-text-accent-green-bolder',
-	'color.text.accent.teal': '--ds-text-accent-teal',
-	'color.text.accent.teal.bolder': '--ds-text-accent-teal-bolder',
-	'color.text.accent.blue': '--ds-text-accent-blue',
-	'color.text.accent.blue.bolder': '--ds-text-accent-blue-bolder',
-	'color.text.accent.purple': '--ds-text-accent-purple',
-	'color.text.accent.purple.bolder': '--ds-text-accent-purple-bolder',
-	'color.text.accent.magenta': '--ds-text-accent-magenta',
-	'color.text.accent.magenta.bolder': '--ds-text-accent-magenta-bolder',
-	'color.text.accent.gray': '--ds-text-accent-gray',
-	'color.text.accent.gray.bolder': '--ds-text-accent-gray-bolder',
-	'color.text.disabled': '--ds-text-disabled',
-	'color.text.inverse': '--ds-text-inverse',
-	'color.text.selected': '--ds-text-selected',
-	'color.text.brand': '--ds-text-brand',
-	'color.text.danger': '--ds-text-danger',
-	'color.text.danger.bolder': '--ds-text-danger-bolder',
-	'color.text.warning': '--ds-text-warning',
-	'color.text.warning.inverse': '--ds-text-warning-inverse',
-	'color.text.warning.bolder': '--ds-text-warning-bolder',
-	'color.text.success': '--ds-text-success',
-	'color.text.success.bolder': '--ds-text-success-bolder',
-	'color.text.discovery': '--ds-text-discovery',
-	'color.text.discovery.bolder': '--ds-text-discovery-bolder',
-	'color.text.information': '--ds-text-information',
-	'color.text.information.bolder': '--ds-text-information-bolder',
-	'color.text.subtlest': '--ds-text-subtlest',
-	'color.text.subtle': '--ds-text-subtle',
-	'color.link': '--ds-link',
-	'color.link.pressed': '--ds-link-pressed',
-	'color.link.visited': '--ds-link-visited',
-	'color.link.visited.pressed': '--ds-link-visited-pressed',
-	'color.icon': '--ds-icon',
-	'color.icon.accent.lime': '--ds-icon-accent-lime',
-	'color.icon.accent.red': '--ds-icon-accent-red',
-	'color.icon.accent.orange': '--ds-icon-accent-orange',
-	'color.icon.accent.yellow': '--ds-icon-accent-yellow',
-	'color.icon.accent.green': '--ds-icon-accent-green',
-	'color.icon.accent.teal': '--ds-icon-accent-teal',
-	'color.icon.accent.blue': '--ds-icon-accent-blue',
-	'color.icon.accent.purple': '--ds-icon-accent-purple',
-	'color.icon.accent.magenta': '--ds-icon-accent-magenta',
-	'color.icon.accent.gray': '--ds-icon-accent-gray',
-	'color.icon.disabled': '--ds-icon-disabled',
-	'color.icon.inverse': '--ds-icon-inverse',
-	'color.icon.selected': '--ds-icon-selected',
-	'color.icon.brand': '--ds-icon-brand',
-	'color.icon.danger': '--ds-icon-danger',
-	'color.icon.warning': '--ds-icon-warning',
-	'color.icon.warning.inverse': '--ds-icon-warning-inverse',
-	'color.icon.success': '--ds-icon-success',
-	'color.icon.discovery': '--ds-icon-discovery',
-	'color.icon.information': '--ds-icon-information',
-	'color.icon.subtlest': '--ds-icon-subtlest',
-	'color.icon.subtle': '--ds-icon-subtle',
-	'color.border': '--ds-border',
-	'color.border.accent.lime': '--ds-border-accent-lime',
-	'color.border.accent.lime.subtle': '--ds-border-accent-lime-subtle',
-	'color.border.accent.red': '--ds-border-accent-red',
-	'color.border.accent.red.subtle': '--ds-border-accent-red-subtle',
-	'color.border.accent.orange': '--ds-border-accent-orange',
-	'color.border.accent.orange.subtle': '--ds-border-accent-orange-subtle',
-	'color.border.accent.yellow': '--ds-border-accent-yellow',
-	'color.border.accent.yellow.subtle': '--ds-border-accent-yellow-subtle',
-	'color.border.accent.green': '--ds-border-accent-green',
-	'color.border.accent.green.subtle': '--ds-border-accent-green-subtle',
-	'color.border.accent.teal': '--ds-border-accent-teal',
-	'color.border.accent.teal.subtle': '--ds-border-accent-teal-subtle',
-	'color.border.accent.blue': '--ds-border-accent-blue',
-	'color.border.accent.blue.subtle': '--ds-border-accent-blue-subtle',
-	'color.border.accent.purple': '--ds-border-accent-purple',
-	'color.border.accent.purple.subtle': '--ds-border-accent-purple-subtle',
-	'color.border.accent.magenta': '--ds-border-accent-magenta',
-	'color.border.accent.magenta.subtle': '--ds-border-accent-magenta-subtle',
-	'color.border.accent.gray': '--ds-border-accent-gray',
-	'color.border.accent.gray.subtle': '--ds-border-accent-gray-subtle',
-	'color.border.disabled': '--ds-border-disabled',
-	'color.border.focused': '--ds-border-focused',
-	'color.border.input': '--ds-border-input',
-	'color.border.inverse': '--ds-border-inverse',
-	'color.border.selected': '--ds-border-selected',
-	'color.border.brand': '--ds-border-brand',
-	'color.border.danger': '--ds-border-danger',
-	'color.border.danger.subtle': '--ds-border-danger-subtle',
-	'color.border.warning': '--ds-border-warning',
-	'color.border.warning.subtle': '--ds-border-warning-subtle',
-	'color.border.success': '--ds-border-success',
-	'color.border.success.subtle': '--ds-border-success-subtle',
-	'color.border.discovery': '--ds-border-discovery',
-	'color.border.discovery.subtle': '--ds-border-discovery-subtle',
-	'color.border.information': '--ds-border-information',
-	'color.border.information.subtle': '--ds-border-information-subtle',
-	'color.border.bold': '--ds-border-bold',
 	'color.background.accent.lime.subtlest': '--ds-background-accent-lime-subtlest',
 	'color.background.accent.lime.subtlest.hovered': '--ds-background-accent-lime-subtlest-hovered',
 	'color.background.accent.lime.subtlest.pressed': '--ds-background-accent-lime-subtlest-pressed',
@@ -367,13 +264,116 @@ const tokens = {
 	'color.background.information.bold': '--ds-background-information-bold',
 	'color.background.information.bold.hovered': '--ds-background-information-bold-hovered',
 	'color.background.information.bold.pressed': '--ds-background-information-bold-pressed',
-	'color.blanket': '--ds-blanket',
-	'color.blanket.selected': '--ds-blanket-selected',
-	'color.blanket.danger': '--ds-blanket-danger',
+	'color.border': '--ds-border',
+	'color.border.accent.lime': '--ds-border-accent-lime',
+	'color.border.accent.lime.subtle': '--ds-border-accent-lime-subtle',
+	'color.border.accent.red': '--ds-border-accent-red',
+	'color.border.accent.red.subtle': '--ds-border-accent-red-subtle',
+	'color.border.accent.orange': '--ds-border-accent-orange',
+	'color.border.accent.orange.subtle': '--ds-border-accent-orange-subtle',
+	'color.border.accent.yellow': '--ds-border-accent-yellow',
+	'color.border.accent.yellow.subtle': '--ds-border-accent-yellow-subtle',
+	'color.border.accent.green': '--ds-border-accent-green',
+	'color.border.accent.green.subtle': '--ds-border-accent-green-subtle',
+	'color.border.accent.teal': '--ds-border-accent-teal',
+	'color.border.accent.teal.subtle': '--ds-border-accent-teal-subtle',
+	'color.border.accent.blue': '--ds-border-accent-blue',
+	'color.border.accent.blue.subtle': '--ds-border-accent-blue-subtle',
+	'color.border.accent.purple': '--ds-border-accent-purple',
+	'color.border.accent.purple.subtle': '--ds-border-accent-purple-subtle',
+	'color.border.accent.magenta': '--ds-border-accent-magenta',
+	'color.border.accent.magenta.subtle': '--ds-border-accent-magenta-subtle',
+	'color.border.accent.gray': '--ds-border-accent-gray',
+	'color.border.accent.gray.subtle': '--ds-border-accent-gray-subtle',
+	'color.border.disabled': '--ds-border-disabled',
+	'color.border.focused': '--ds-border-focused',
+	'color.border.input': '--ds-border-input',
+	'color.border.inverse': '--ds-border-inverse',
+	'color.border.selected': '--ds-border-selected',
+	'color.border.brand': '--ds-border-brand',
+	'color.border.danger': '--ds-border-danger',
+	'color.border.danger.subtle': '--ds-border-danger-subtle',
+	'color.border.warning': '--ds-border-warning',
+	'color.border.warning.subtle': '--ds-border-warning-subtle',
+	'color.border.success': '--ds-border-success',
+	'color.border.success.subtle': '--ds-border-success-subtle',
+	'color.border.discovery': '--ds-border-discovery',
+	'color.border.discovery.subtle': '--ds-border-discovery-subtle',
+	'color.border.information': '--ds-border-information',
+	'color.border.information.subtle': '--ds-border-information-subtle',
+	'color.border.bold': '--ds-border-bold',
+	'color.text': '--ds-text',
+	'color.text.accent.lime': '--ds-text-accent-lime',
+	'color.text.accent.lime.bolder': '--ds-text-accent-lime-bolder',
+	'color.text.accent.red': '--ds-text-accent-red',
+	'color.text.accent.red.bolder': '--ds-text-accent-red-bolder',
+	'color.text.accent.orange': '--ds-text-accent-orange',
+	'color.text.accent.orange.bolder': '--ds-text-accent-orange-bolder',
+	'color.text.accent.yellow': '--ds-text-accent-yellow',
+	'color.text.accent.yellow.bolder': '--ds-text-accent-yellow-bolder',
+	'color.text.accent.green': '--ds-text-accent-green',
+	'color.text.accent.green.bolder': '--ds-text-accent-green-bolder',
+	'color.text.accent.teal': '--ds-text-accent-teal',
+	'color.text.accent.teal.bolder': '--ds-text-accent-teal-bolder',
+	'color.text.accent.blue': '--ds-text-accent-blue',
+	'color.text.accent.blue.bolder': '--ds-text-accent-blue-bolder',
+	'color.text.accent.purple': '--ds-text-accent-purple',
+	'color.text.accent.purple.bolder': '--ds-text-accent-purple-bolder',
+	'color.text.accent.magenta': '--ds-text-accent-magenta',
+	'color.text.accent.magenta.bolder': '--ds-text-accent-magenta-bolder',
+	'color.text.accent.gray': '--ds-text-accent-gray',
+	'color.text.accent.gray.bolder': '--ds-text-accent-gray-bolder',
+	'color.text.disabled': '--ds-text-disabled',
+	'color.text.inverse': '--ds-text-inverse',
+	'color.text.selected': '--ds-text-selected',
+	'color.text.brand': '--ds-text-brand',
+	'color.text.danger': '--ds-text-danger',
+	'color.text.danger.bolder': '--ds-text-danger-bolder',
+	'color.text.warning': '--ds-text-warning',
+	'color.text.warning.inverse': '--ds-text-warning-inverse',
+	'color.text.warning.bolder': '--ds-text-warning-bolder',
+	'color.text.success': '--ds-text-success',
+	'color.text.success.bolder': '--ds-text-success-bolder',
+	'color.text.discovery': '--ds-text-discovery',
+	'color.text.discovery.bolder': '--ds-text-discovery-bolder',
+	'color.text.information': '--ds-text-information',
+	'color.text.information.bolder': '--ds-text-information-bolder',
+	'color.text.subtlest': '--ds-text-subtlest',
+	'color.text.subtle': '--ds-text-subtle',
+	'color.icon': '--ds-icon',
+	'color.icon.accent.lime': '--ds-icon-accent-lime',
+	'color.icon.accent.red': '--ds-icon-accent-red',
+	'color.icon.accent.orange': '--ds-icon-accent-orange',
+	'color.icon.accent.yellow': '--ds-icon-accent-yellow',
+	'color.icon.accent.green': '--ds-icon-accent-green',
+	'color.icon.accent.teal': '--ds-icon-accent-teal',
+	'color.icon.accent.blue': '--ds-icon-accent-blue',
+	'color.icon.accent.purple': '--ds-icon-accent-purple',
+	'color.icon.accent.magenta': '--ds-icon-accent-magenta',
+	'color.icon.accent.gray': '--ds-icon-accent-gray',
+	'color.icon.disabled': '--ds-icon-disabled',
+	'color.icon.inverse': '--ds-icon-inverse',
+	'color.icon.selected': '--ds-icon-selected',
+	'color.icon.brand': '--ds-icon-brand',
+	'color.icon.danger': '--ds-icon-danger',
+	'color.icon.warning': '--ds-icon-warning',
+	'color.icon.warning.inverse': '--ds-icon-warning-inverse',
+	'color.icon.success': '--ds-icon-success',
+	'color.icon.discovery': '--ds-icon-discovery',
+	'color.icon.information': '--ds-icon-information',
+	'color.icon.subtlest': '--ds-icon-subtlest',
+	'color.icon.subtle': '--ds-icon-subtle',
+	'color.link': '--ds-link',
+	'color.link.pressed': '--ds-link-pressed',
+	'color.link.visited': '--ds-link-visited',
+	'color.link.visited.pressed': '--ds-link-visited-pressed',
 	'color.interaction.hovered': '--ds-interaction-hovered',
 	'color.interaction.pressed': '--ds-interaction-pressed',
 	'color.skeleton': '--ds-skeleton',
 	'color.skeleton.subtle': '--ds-skeleton-subtle',
+	'color.blanket': '--ds-blanket',
+	'color.blanket.selected': '--ds-blanket-selected',
+	'color.blanket.danger': '--ds-blanket-danger',
 	'color.chart.categorical.1': '--ds-chart-categorical-1',
 	'color.chart.categorical.1.hovered': '--ds-chart-categorical-1-hovered',
 	'color.chart.categorical.2': '--ds-chart-categorical-2',
@@ -474,6 +474,17 @@ const tokens = {
 	'color.chart.information.hovered': '--ds-chart-information-hovered',
 	'color.chart.information.bold': '--ds-chart-information-bold',
 	'color.chart.information.bold.hovered': '--ds-chart-information-bold-hovered',
+	'color.rovo.background.brand.bold': '--ds-rovo-background-brand-bold',
+	'color.rovo.background.brand.bold.hovered': '--ds-rovo-background-brand-bold-hovered',
+	'color.rovo.background.brand.bold.pressed': '--ds-rovo-background-brand-bold-pressed',
+	'color.rovo.border.lime': '--ds-rovo-border-lime',
+	'color.rovo.border.saffron': '--ds-rovo-border-saffron',
+	'color.rovo.border.blue': '--ds-rovo-border-blue',
+	'color.rovo.border.purple': '--ds-rovo-border-purple',
+	'color.rovo.icon.lime': '--ds-rovo-icon-lime',
+	'color.rovo.icon.saffron': '--ds-rovo-icon-saffron',
+	'color.rovo.icon.blue': '--ds-rovo-icon-blue',
+	'color.rovo.icon.purple': '--ds-rovo-icon-purple',
 	'elevation.surface': '--ds-surface',
 	'elevation.surface.hovered': '--ds-surface-hovered',
 	'elevation.surface.pressed': '--ds-surface-pressed',
@@ -602,109 +613,6 @@ export type CSSTokenMap = {
 	'motion.popup.exit.top': 'var(--ds-popup-exit-top)';
 	'motion.spotlight.enter': 'var(--ds-spotlight-enter)';
 	'motion.spotlight.exit': 'var(--ds-spotlight-exit)';
-	'color.text': 'var(--ds-text)';
-	'color.text.accent.lime': 'var(--ds-text-accent-lime)';
-	'color.text.accent.lime.bolder': 'var(--ds-text-accent-lime-bolder)';
-	'color.text.accent.red': 'var(--ds-text-accent-red)';
-	'color.text.accent.red.bolder': 'var(--ds-text-accent-red-bolder)';
-	'color.text.accent.orange': 'var(--ds-text-accent-orange)';
-	'color.text.accent.orange.bolder': 'var(--ds-text-accent-orange-bolder)';
-	'color.text.accent.yellow': 'var(--ds-text-accent-yellow)';
-	'color.text.accent.yellow.bolder': 'var(--ds-text-accent-yellow-bolder)';
-	'color.text.accent.green': 'var(--ds-text-accent-green)';
-	'color.text.accent.green.bolder': 'var(--ds-text-accent-green-bolder)';
-	'color.text.accent.teal': 'var(--ds-text-accent-teal)';
-	'color.text.accent.teal.bolder': 'var(--ds-text-accent-teal-bolder)';
-	'color.text.accent.blue': 'var(--ds-text-accent-blue)';
-	'color.text.accent.blue.bolder': 'var(--ds-text-accent-blue-bolder)';
-	'color.text.accent.purple': 'var(--ds-text-accent-purple)';
-	'color.text.accent.purple.bolder': 'var(--ds-text-accent-purple-bolder)';
-	'color.text.accent.magenta': 'var(--ds-text-accent-magenta)';
-	'color.text.accent.magenta.bolder': 'var(--ds-text-accent-magenta-bolder)';
-	'color.text.accent.gray': 'var(--ds-text-accent-gray)';
-	'color.text.accent.gray.bolder': 'var(--ds-text-accent-gray-bolder)';
-	'color.text.disabled': 'var(--ds-text-disabled)';
-	'color.text.inverse': 'var(--ds-text-inverse)';
-	'color.text.selected': 'var(--ds-text-selected)';
-	'color.text.brand': 'var(--ds-text-brand)';
-	'color.text.danger': 'var(--ds-text-danger)';
-	'color.text.danger.bolder': 'var(--ds-text-danger-bolder)';
-	'color.text.warning': 'var(--ds-text-warning)';
-	'color.text.warning.inverse': 'var(--ds-text-warning-inverse)';
-	'color.text.warning.bolder': 'var(--ds-text-warning-bolder)';
-	'color.text.success': 'var(--ds-text-success)';
-	'color.text.success.bolder': 'var(--ds-text-success-bolder)';
-	'color.text.discovery': 'var(--ds-text-discovery)';
-	'color.text.discovery.bolder': 'var(--ds-text-discovery-bolder)';
-	'color.text.information': 'var(--ds-text-information)';
-	'color.text.information.bolder': 'var(--ds-text-information-bolder)';
-	'color.text.subtlest': 'var(--ds-text-subtlest)';
-	'color.text.subtle': 'var(--ds-text-subtle)';
-	'color.link': 'var(--ds-link)';
-	'color.link.pressed': 'var(--ds-link-pressed)';
-	'color.link.visited': 'var(--ds-link-visited)';
-	'color.link.visited.pressed': 'var(--ds-link-visited-pressed)';
-	'color.icon': 'var(--ds-icon)';
-	'color.icon.accent.lime': 'var(--ds-icon-accent-lime)';
-	'color.icon.accent.red': 'var(--ds-icon-accent-red)';
-	'color.icon.accent.orange': 'var(--ds-icon-accent-orange)';
-	'color.icon.accent.yellow': 'var(--ds-icon-accent-yellow)';
-	'color.icon.accent.green': 'var(--ds-icon-accent-green)';
-	'color.icon.accent.teal': 'var(--ds-icon-accent-teal)';
-	'color.icon.accent.blue': 'var(--ds-icon-accent-blue)';
-	'color.icon.accent.purple': 'var(--ds-icon-accent-purple)';
-	'color.icon.accent.magenta': 'var(--ds-icon-accent-magenta)';
-	'color.icon.accent.gray': 'var(--ds-icon-accent-gray)';
-	'color.icon.disabled': 'var(--ds-icon-disabled)';
-	'color.icon.inverse': 'var(--ds-icon-inverse)';
-	'color.icon.selected': 'var(--ds-icon-selected)';
-	'color.icon.brand': 'var(--ds-icon-brand)';
-	'color.icon.danger': 'var(--ds-icon-danger)';
-	'color.icon.warning': 'var(--ds-icon-warning)';
-	'color.icon.warning.inverse': 'var(--ds-icon-warning-inverse)';
-	'color.icon.success': 'var(--ds-icon-success)';
-	'color.icon.discovery': 'var(--ds-icon-discovery)';
-	'color.icon.information': 'var(--ds-icon-information)';
-	'color.icon.subtlest': 'var(--ds-icon-subtlest)';
-	'color.icon.subtle': 'var(--ds-icon-subtle)';
-	'color.border': 'var(--ds-border)';
-	'color.border.accent.lime': 'var(--ds-border-accent-lime)';
-	'color.border.accent.lime.subtle': 'var(--ds-border-accent-lime-subtle)';
-	'color.border.accent.red': 'var(--ds-border-accent-red)';
-	'color.border.accent.red.subtle': 'var(--ds-border-accent-red-subtle)';
-	'color.border.accent.orange': 'var(--ds-border-accent-orange)';
-	'color.border.accent.orange.subtle': 'var(--ds-border-accent-orange-subtle)';
-	'color.border.accent.yellow': 'var(--ds-border-accent-yellow)';
-	'color.border.accent.yellow.subtle': 'var(--ds-border-accent-yellow-subtle)';
-	'color.border.accent.green': 'var(--ds-border-accent-green)';
-	'color.border.accent.green.subtle': 'var(--ds-border-accent-green-subtle)';
-	'color.border.accent.teal': 'var(--ds-border-accent-teal)';
-	'color.border.accent.teal.subtle': 'var(--ds-border-accent-teal-subtle)';
-	'color.border.accent.blue': 'var(--ds-border-accent-blue)';
-	'color.border.accent.blue.subtle': 'var(--ds-border-accent-blue-subtle)';
-	'color.border.accent.purple': 'var(--ds-border-accent-purple)';
-	'color.border.accent.purple.subtle': 'var(--ds-border-accent-purple-subtle)';
-	'color.border.accent.magenta': 'var(--ds-border-accent-magenta)';
-	'color.border.accent.magenta.subtle': 'var(--ds-border-accent-magenta-subtle)';
-	'color.border.accent.gray': 'var(--ds-border-accent-gray)';
-	'color.border.accent.gray.subtle': 'var(--ds-border-accent-gray-subtle)';
-	'color.border.disabled': 'var(--ds-border-disabled)';
-	'color.border.focused': 'var(--ds-border-focused)';
-	'color.border.input': 'var(--ds-border-input)';
-	'color.border.inverse': 'var(--ds-border-inverse)';
-	'color.border.selected': 'var(--ds-border-selected)';
-	'color.border.brand': 'var(--ds-border-brand)';
-	'color.border.danger': 'var(--ds-border-danger)';
-	'color.border.danger.subtle': 'var(--ds-border-danger-subtle)';
-	'color.border.warning': 'var(--ds-border-warning)';
-	'color.border.warning.subtle': 'var(--ds-border-warning-subtle)';
-	'color.border.success': 'var(--ds-border-success)';
-	'color.border.success.subtle': 'var(--ds-border-success-subtle)';
-	'color.border.discovery': 'var(--ds-border-discovery)';
-	'color.border.discovery.subtle': 'var(--ds-border-discovery-subtle)';
-	'color.border.information': 'var(--ds-border-information)';
-	'color.border.information.subtle': 'var(--ds-border-information-subtle)';
-	'color.border.bold': 'var(--ds-border-bold)';
 	'color.background.accent.lime.subtlest': 'var(--ds-background-accent-lime-subtlest)';
 	'color.background.accent.lime.subtlest.hovered': 'var(--ds-background-accent-lime-subtlest-hovered)';
 	'color.background.accent.lime.subtlest.pressed': 'var(--ds-background-accent-lime-subtlest-pressed)';
@@ -906,13 +814,116 @@ export type CSSTokenMap = {
 	'color.background.information.bold': 'var(--ds-background-information-bold)';
 	'color.background.information.bold.hovered': 'var(--ds-background-information-bold-hovered)';
 	'color.background.information.bold.pressed': 'var(--ds-background-information-bold-pressed)';
-	'color.blanket': 'var(--ds-blanket)';
-	'color.blanket.selected': 'var(--ds-blanket-selected)';
-	'color.blanket.danger': 'var(--ds-blanket-danger)';
+	'color.border': 'var(--ds-border)';
+	'color.border.accent.lime': 'var(--ds-border-accent-lime)';
+	'color.border.accent.lime.subtle': 'var(--ds-border-accent-lime-subtle)';
+	'color.border.accent.red': 'var(--ds-border-accent-red)';
+	'color.border.accent.red.subtle': 'var(--ds-border-accent-red-subtle)';
+	'color.border.accent.orange': 'var(--ds-border-accent-orange)';
+	'color.border.accent.orange.subtle': 'var(--ds-border-accent-orange-subtle)';
+	'color.border.accent.yellow': 'var(--ds-border-accent-yellow)';
+	'color.border.accent.yellow.subtle': 'var(--ds-border-accent-yellow-subtle)';
+	'color.border.accent.green': 'var(--ds-border-accent-green)';
+	'color.border.accent.green.subtle': 'var(--ds-border-accent-green-subtle)';
+	'color.border.accent.teal': 'var(--ds-border-accent-teal)';
+	'color.border.accent.teal.subtle': 'var(--ds-border-accent-teal-subtle)';
+	'color.border.accent.blue': 'var(--ds-border-accent-blue)';
+	'color.border.accent.blue.subtle': 'var(--ds-border-accent-blue-subtle)';
+	'color.border.accent.purple': 'var(--ds-border-accent-purple)';
+	'color.border.accent.purple.subtle': 'var(--ds-border-accent-purple-subtle)';
+	'color.border.accent.magenta': 'var(--ds-border-accent-magenta)';
+	'color.border.accent.magenta.subtle': 'var(--ds-border-accent-magenta-subtle)';
+	'color.border.accent.gray': 'var(--ds-border-accent-gray)';
+	'color.border.accent.gray.subtle': 'var(--ds-border-accent-gray-subtle)';
+	'color.border.disabled': 'var(--ds-border-disabled)';
+	'color.border.focused': 'var(--ds-border-focused)';
+	'color.border.input': 'var(--ds-border-input)';
+	'color.border.inverse': 'var(--ds-border-inverse)';
+	'color.border.selected': 'var(--ds-border-selected)';
+	'color.border.brand': 'var(--ds-border-brand)';
+	'color.border.danger': 'var(--ds-border-danger)';
+	'color.border.danger.subtle': 'var(--ds-border-danger-subtle)';
+	'color.border.warning': 'var(--ds-border-warning)';
+	'color.border.warning.subtle': 'var(--ds-border-warning-subtle)';
+	'color.border.success': 'var(--ds-border-success)';
+	'color.border.success.subtle': 'var(--ds-border-success-subtle)';
+	'color.border.discovery': 'var(--ds-border-discovery)';
+	'color.border.discovery.subtle': 'var(--ds-border-discovery-subtle)';
+	'color.border.information': 'var(--ds-border-information)';
+	'color.border.information.subtle': 'var(--ds-border-information-subtle)';
+	'color.border.bold': 'var(--ds-border-bold)';
+	'color.text': 'var(--ds-text)';
+	'color.text.accent.lime': 'var(--ds-text-accent-lime)';
+	'color.text.accent.lime.bolder': 'var(--ds-text-accent-lime-bolder)';
+	'color.text.accent.red': 'var(--ds-text-accent-red)';
+	'color.text.accent.red.bolder': 'var(--ds-text-accent-red-bolder)';
+	'color.text.accent.orange': 'var(--ds-text-accent-orange)';
+	'color.text.accent.orange.bolder': 'var(--ds-text-accent-orange-bolder)';
+	'color.text.accent.yellow': 'var(--ds-text-accent-yellow)';
+	'color.text.accent.yellow.bolder': 'var(--ds-text-accent-yellow-bolder)';
+	'color.text.accent.green': 'var(--ds-text-accent-green)';
+	'color.text.accent.green.bolder': 'var(--ds-text-accent-green-bolder)';
+	'color.text.accent.teal': 'var(--ds-text-accent-teal)';
+	'color.text.accent.teal.bolder': 'var(--ds-text-accent-teal-bolder)';
+	'color.text.accent.blue': 'var(--ds-text-accent-blue)';
+	'color.text.accent.blue.bolder': 'var(--ds-text-accent-blue-bolder)';
+	'color.text.accent.purple': 'var(--ds-text-accent-purple)';
+	'color.text.accent.purple.bolder': 'var(--ds-text-accent-purple-bolder)';
+	'color.text.accent.magenta': 'var(--ds-text-accent-magenta)';
+	'color.text.accent.magenta.bolder': 'var(--ds-text-accent-magenta-bolder)';
+	'color.text.accent.gray': 'var(--ds-text-accent-gray)';
+	'color.text.accent.gray.bolder': 'var(--ds-text-accent-gray-bolder)';
+	'color.text.disabled': 'var(--ds-text-disabled)';
+	'color.text.inverse': 'var(--ds-text-inverse)';
+	'color.text.selected': 'var(--ds-text-selected)';
+	'color.text.brand': 'var(--ds-text-brand)';
+	'color.text.danger': 'var(--ds-text-danger)';
+	'color.text.danger.bolder': 'var(--ds-text-danger-bolder)';
+	'color.text.warning': 'var(--ds-text-warning)';
+	'color.text.warning.inverse': 'var(--ds-text-warning-inverse)';
+	'color.text.warning.bolder': 'var(--ds-text-warning-bolder)';
+	'color.text.success': 'var(--ds-text-success)';
+	'color.text.success.bolder': 'var(--ds-text-success-bolder)';
+	'color.text.discovery': 'var(--ds-text-discovery)';
+	'color.text.discovery.bolder': 'var(--ds-text-discovery-bolder)';
+	'color.text.information': 'var(--ds-text-information)';
+	'color.text.information.bolder': 'var(--ds-text-information-bolder)';
+	'color.text.subtlest': 'var(--ds-text-subtlest)';
+	'color.text.subtle': 'var(--ds-text-subtle)';
+	'color.icon': 'var(--ds-icon)';
+	'color.icon.accent.lime': 'var(--ds-icon-accent-lime)';
+	'color.icon.accent.red': 'var(--ds-icon-accent-red)';
+	'color.icon.accent.orange': 'var(--ds-icon-accent-orange)';
+	'color.icon.accent.yellow': 'var(--ds-icon-accent-yellow)';
+	'color.icon.accent.green': 'var(--ds-icon-accent-green)';
+	'color.icon.accent.teal': 'var(--ds-icon-accent-teal)';
+	'color.icon.accent.blue': 'var(--ds-icon-accent-blue)';
+	'color.icon.accent.purple': 'var(--ds-icon-accent-purple)';
+	'color.icon.accent.magenta': 'var(--ds-icon-accent-magenta)';
+	'color.icon.accent.gray': 'var(--ds-icon-accent-gray)';
+	'color.icon.disabled': 'var(--ds-icon-disabled)';
+	'color.icon.inverse': 'var(--ds-icon-inverse)';
+	'color.icon.selected': 'var(--ds-icon-selected)';
+	'color.icon.brand': 'var(--ds-icon-brand)';
+	'color.icon.danger': 'var(--ds-icon-danger)';
+	'color.icon.warning': 'var(--ds-icon-warning)';
+	'color.icon.warning.inverse': 'var(--ds-icon-warning-inverse)';
+	'color.icon.success': 'var(--ds-icon-success)';
+	'color.icon.discovery': 'var(--ds-icon-discovery)';
+	'color.icon.information': 'var(--ds-icon-information)';
+	'color.icon.subtlest': 'var(--ds-icon-subtlest)';
+	'color.icon.subtle': 'var(--ds-icon-subtle)';
+	'color.link': 'var(--ds-link)';
+	'color.link.pressed': 'var(--ds-link-pressed)';
+	'color.link.visited': 'var(--ds-link-visited)';
+	'color.link.visited.pressed': 'var(--ds-link-visited-pressed)';
 	'color.interaction.hovered': 'var(--ds-interaction-hovered)';
 	'color.interaction.pressed': 'var(--ds-interaction-pressed)';
 	'color.skeleton': 'var(--ds-skeleton)';
 	'color.skeleton.subtle': 'var(--ds-skeleton-subtle)';
+	'color.blanket': 'var(--ds-blanket)';
+	'color.blanket.selected': 'var(--ds-blanket-selected)';
+	'color.blanket.danger': 'var(--ds-blanket-danger)';
 	'color.chart.categorical.1': 'var(--ds-chart-categorical-1)';
 	'color.chart.categorical.1.hovered': 'var(--ds-chart-categorical-1-hovered)';
 	'color.chart.categorical.2': 'var(--ds-chart-categorical-2)';
@@ -1013,6 +1024,17 @@ export type CSSTokenMap = {
 	'color.chart.information.hovered': 'var(--ds-chart-information-hovered)';
 	'color.chart.information.bold': 'var(--ds-chart-information-bold)';
 	'color.chart.information.bold.hovered': 'var(--ds-chart-information-bold-hovered)';
+	'color.rovo.background.brand.bold': 'var(--ds-rovo-background-brand-bold)';
+	'color.rovo.background.brand.bold.hovered': 'var(--ds-rovo-background-brand-bold-hovered)';
+	'color.rovo.background.brand.bold.pressed': 'var(--ds-rovo-background-brand-bold-pressed)';
+	'color.rovo.border.lime': 'var(--ds-rovo-border-lime)';
+	'color.rovo.border.saffron': 'var(--ds-rovo-border-saffron)';
+	'color.rovo.border.blue': 'var(--ds-rovo-border-blue)';
+	'color.rovo.border.purple': 'var(--ds-rovo-border-purple)';
+	'color.rovo.icon.lime': 'var(--ds-rovo-icon-lime)';
+	'color.rovo.icon.saffron': 'var(--ds-rovo-icon-saffron)';
+	'color.rovo.icon.blue': 'var(--ds-rovo-icon-blue)';
+	'color.rovo.icon.purple': 'var(--ds-rovo-icon-purple)';
 	'elevation.surface': 'var(--ds-surface)';
 	'elevation.surface.hovered': 'var(--ds-surface-hovered)';
 	'elevation.surface.pressed': 'var(--ds-surface-pressed)';

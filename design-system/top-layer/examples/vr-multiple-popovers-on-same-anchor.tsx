@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useRef } from 'react';
+import { type ReactNode, useRef } from 'react';
 
 import { jsx } from '@compiled/react';
 
@@ -46,7 +46,7 @@ const styles = cssMap({
  * call on the same trigger would overwrite the first call's
  * `anchor-name` style, leaving subsequent popovers unpositioned.
  */
-export default function VrMultiplePopoversOnSameAnchor(): JSX.Element {
+export default function VrMultiplePopoversOnSameAnchor(): ReactNode {
 	const triggerRef = useRef<HTMLButtonElement | null>(null);
 	const popoverAboveRef = useRef<HTMLDivElement | null>(null);
 	const popoverBelowRef = useRef<HTMLDivElement | null>(null);

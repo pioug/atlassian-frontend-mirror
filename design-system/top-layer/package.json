@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/top-layer",
-	"version": "0.13.0",
+	"version": "0.14.0",
 	"description": "Low-level layering primitives based on popover and dialog",
 	"homepage": "https://atlassian.design/components/top-layer",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
@@ -36,8 +36,7 @@
 	"exports": {
 		".": "./src/index.tsx",
 		"./popover": "./src/entry-points/popover.tsx",
-		"./popup": "./src/entry-points/popup.tsx",
-		"./popup-surface": "./src/entry-points/popup-surface.tsx",
+		"./popover-surface": "./src/entry-points/popover-surface.tsx",
 		"./dialog": "./src/entry-points/dialog.tsx",
 		"./create-close-event": "./src/entry-points/create-close-event.tsx",
 		"./dialog/create-close-event": "./src/entry-points/dialog/create-close-event.tsx",
@@ -48,6 +47,8 @@
 		"./focus": "./src/entry-points/focus.tsx",
 		"./use-anchor-position": "./src/entry-points/use-anchor-position.tsx",
 		"./use-anchor-position-at-point": "./src/entry-points/use-anchor-position-at-point.tsx",
+		"./use-popover-id": "./src/entry-points/use-popover-id.tsx",
+		"./get-aria-for-trigger": "./src/entry-points/get-aria-for-trigger.tsx",
 		"./use-width-from-anchor": "./src/entry-points/use-width-from-anchor.tsx",
 		"./use-arrow-navigation": "./src/entry-points/use-arrow-navigation.tsx",
 		"./use-simple-light-dismiss": "./src/entry-points/use-simple-light-dismiss.tsx",

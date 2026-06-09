@@ -344,6 +344,54 @@ describe('extractInvokePreviewAction', () => {
 		);
 	});
 
+	describe('platform_smartlink_xpc_url_wrapping', () => {
+		it('passes transformUrl to invokeViewAction inside openEmbedModal', async () => {
+			const openEmbedModal = jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
+			const transformUrl = jest.fn().mockReturnValue(`${TEST_URL}?xpc=1`);
+
+			const action = extractInvokePreviewAction({
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE_WITH_PREVIEW,
+				transformUrl,
+			});
+
+			await action?.invokeAction.actionFn();
+
+			// transformUrl is forwarded to invokeViewAction inside the embed modal
+			expect(openEmbedModal).toHaveBeenCalledWith(
+				expect.objectContaining({
+					invokeViewAction: expect.objectContaining({
+						actionFn: expect.any(Function),
+					}),
+				}),
+			);
+		});
+
+		it('passes transformUrl to openPreviewPanel path when gate is on and preview panel is available', async () => {
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			expValEquals.mockReturnValue(true);
+
+			const transformUrl = jest.fn().mockReturnValue(`${TEST_URL}?xpc=1`);
+			const mockOpenPreviewPanel = jest.fn();
+			const mockIsPreviewPanelAvailable = jest.fn().mockReturnValue(true);
+
+			const action = extractInvokePreviewAction({
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE_WITH_PREVIEW_AND_ARI,
+				isPreviewPanelAvailable: mockIsPreviewPanelAvailable,
+				openPreviewPanel: mockOpenPreviewPanel,
+				transformUrl,
+			});
+
+			await action?.invokeAction.actionFn();
+
+			// openPreviewPanel is called (transformUrl is carried via param for use in invokeViewAction)
+			expect(mockOpenPreviewPanel).toHaveBeenCalled();
+		});
+	});
+
 	describe('Analytics tracking for preview actions', () => {
 		it('should fire analytics event when preview panel is used with correct conditions', async () => {
 			// Enable the experiment for this test

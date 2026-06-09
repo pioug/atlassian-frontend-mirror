@@ -381,7 +381,13 @@ export const getToolbarConfig = (
 				codeBlockWrapButton,
 				...(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
 				fg('platform_editor_code_block_add_line_number_button')
-					? [codeBlockLineNumbersButton, formatCodeButton]
+					? [codeBlockLineNumbersButton]
+					: []),
+				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+				...(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
+				fg('platform_editor_code_block_add_line_number_button') &&
+				fg('platform_editor_code_block_formatting')
+					? [formatCodeButton]
 					: []),
 				...copyAndDeleteButtonMenuItems,
 			],

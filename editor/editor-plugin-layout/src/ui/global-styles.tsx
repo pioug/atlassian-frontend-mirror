@@ -15,6 +15,14 @@ import { token } from '@atlaskit/tokens';
 const PLACEHOLDER_SELECTOR =
 	'.ProseMirror-focused .layoutSectionView-content-wrap.selected [data-layout-column] > [data-layout-content] > p:only-child:has(.ProseMirror-trailingBreak:only-child)';
 
+const layoutColumnDangerPreviewStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.ProseMirror [data-layout-column].layout-column-danger-preview': {
+		backgroundColor: token('color.background.danger'),
+		boxShadow: `inset 0 0 0 2px ${token('color.border.danger')}`,
+	},
+});
+
 const getPlaceholderStyle = (message: string) => {
 	if (editorExperiment('platform_editor_controls', 'variant1')) {
 		return css({
@@ -62,5 +70,10 @@ export const GlobalStylesWrapper = (): jsx.JSX.Element => {
 		return getPlaceholderStyle(formatMessage(placeholderText));
 	}, [formatMessage]);
 
-	return <Global styles={placeholderStyle} />;
+	const globalStyles = useMemo(
+		() => [placeholderStyle, layoutColumnDangerPreviewStyle],
+		[placeholderStyle],
+	);
+
+	return <Global styles={globalStyles} />;
 };

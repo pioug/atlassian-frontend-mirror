@@ -1,5 +1,13 @@
 # @atlaskit/avatar-group
 
+## 12.10.8
+
+### Patch Changes
+
+- [`021a645c6f39a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/021a645c6f39a) -
+  Update internal top-layer adopter code paths behind `platform-dst-top-layer`.
+- Updated dependencies
+
 ## 12.10.7
 
 ### Patch Changes

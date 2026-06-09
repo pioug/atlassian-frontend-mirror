@@ -6,7 +6,7 @@ import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { getFirstFocusable } from '@atlaskit/top-layer/focus';
 import { Popover } from '@atlaskit/top-layer/popover';
-import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 
 import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';
@@ -23,7 +23,7 @@ const animation = slideAndFade();
  * 2. `Popover` for top-layer visibility and animation
  * 3. Conditional rendering to keep the DOM lean (element only exists when open)
  */
-export default function StandalonePopoverContentExample(): React.JSX.Element {
+export default function StandalonePopoverContentExample(): React.ReactNode {
 	return (
 		<ForceFallbackToggle>
 			{(forceFallbackPositioning) => (
@@ -64,13 +64,13 @@ function StandalonePopover({ forceFallbackPositioning }: { forceFallbackPosition
 						aria-expanded={isOpen}
 						aria-haspopup="dialog"
 					>
-						{isOpen ? 'Close' : 'Open'} standalone popup
+						{isOpen ? 'Close' : 'Open'} standalone popover
 					</Button>
 					{isOpen && (
 						<Popover
 							ref={popoverRef}
 							role="dialog"
-							label="Standalone popup"
+							label="Standalone popover"
 							onClose={handleClose}
 							onOpenChange={({ isOpen: popoverIsOpen, element }) => {
 								if (popoverIsOpen) {
@@ -80,7 +80,7 @@ function StandalonePopover({ forceFallbackPositioning }: { forceFallbackPosition
 							animate={animation}
 							isOpen={true}
 						>
-							<PopupSurface>
+							<PopoverSurface>
 								<Stack space="space.100">
 									<Heading size="xsmall">Standalone mode</Heading>
 									<Text>
@@ -93,7 +93,7 @@ function StandalonePopover({ forceFallbackPositioning }: { forceFallbackPosition
 										</Button>
 									</Box>
 								</Stack>
-							</PopupSurface>
+							</PopoverSurface>
 						</Popover>
 					)}
 				</Box>

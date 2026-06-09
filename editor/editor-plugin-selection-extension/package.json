@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-extension",
-	"version": "14.0.1",
+	"version": "14.1.0",
 	"description": "editor-plugin-selection-extension plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -122,9 +122,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_selection_extension_improvement": {
-			"type": "boolean"
-		},
-		"platform_editor_block_menu_v2_patch_5": {
 			"type": "boolean"
 		},
 		"platform_editor_block_menu_v2_patch_2": {

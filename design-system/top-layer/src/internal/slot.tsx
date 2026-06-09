@@ -14,7 +14,7 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 /**
  * Extra DOM/event props are passed through to the cloned child.
  */
-export type TSlotProps = {
+export type SlotProps = {
 	children: ReactNode;
 } & Record<string, unknown>;
 
@@ -54,12 +54,12 @@ function isSlotChild(child: ReactNode): child is TSlotChild {
  * </Slot>
  * ```
  */
-export const Slot: ForwardRefExoticComponent<TSlotProps & RefAttributes<HTMLElement>> = forwardRef<
+export const Slot: ForwardRefExoticComponent<SlotProps & RefAttributes<HTMLElement>> = forwardRef<
 	HTMLElement,
-	TSlotProps
+	SlotProps
 >(function Slot(slotProps, ref): ReactNode {
 	const { children: rawChildren, ...props } = slotProps;
-	// `TSlotProps` intersects `Record<string, unknown>`, so `children` is typed as `unknown`.
+	// `SlotProps` intersects `Record<string, unknown>`, so `children` is typed as `unknown`.
 	const children: ReactNode = rawChildren as ReactNode;
 
 	if (!isSlotChild(children)) {

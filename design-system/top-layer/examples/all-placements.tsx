@@ -2,16 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, type ReactNode, useRef, useState } from 'react';
+import { type CSSProperties, type ReactNode, useCallback, useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import { Popover } from '@atlaskit/top-layer/popover';
-import { type TPlacementOptions } from '@atlaskit/top-layer/popup';
+import { Popover, type TPlacementOptions } from '@atlaskit/top-layer/popover';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 type TAxis = NonNullable<TPlacementOptions['axis']>;
 type TEdge = NonNullable<TPlacementOptions['edge']>;
@@ -439,8 +439,13 @@ function PlacementCell({
 }) {
 	const triggerRef = useRef<HTMLDivElement>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
 	const label = placementLabel(cell);
 	const decoration = getTargetDecoration(cell);
+
+	const close = useCallback(() => {
+		// note: this is a controlled component, so onClose is handled by the parent
+	}, []);
 
 	const placement: TPlacementOptions = {
 		axis: cell.axis,
@@ -491,11 +496,13 @@ function PlacementCell({
 			</div>
 			<Popover
 				ref={popoverRef}
+				id={popoverId}
 				role="note"
 				mode="manual"
+				label={label}
 				isOpen={isPopupOpen}
 				placement={placement}
-				label={label}
+				onClose={close}
 			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- dynamic color */}
 				<div css={[styles.cellBox, styles.popoverContent]} style={{ backgroundColor: color }}>
@@ -646,7 +653,7 @@ function buildAllHidden(): ReadonlyArray<boolean> {
 	return placements.map(() => false);
 }
 
-export default function AllPlacements(): JSX.Element {
+export default function AllPlacements(): ReactNode {
 	const [gapMode, setGapMode] = useState<TOffsetMode>('token');
 	const [gapPixels, setGapPixels] = useState<number>(8);
 	const [gapTokenLabel, setGapTokenLabel] = useState<string>('space.100');

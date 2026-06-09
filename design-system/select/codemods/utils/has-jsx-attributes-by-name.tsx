@@ -1,4 +1,4 @@
-import { type default as core, type JSXElement } from 'jscodeshift';
+import { type JSXElement, type default as core } from 'jscodeshift';
 
 import { getJSXAttributesByName } from './get-jsx-attributes-by-name';
 

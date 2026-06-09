@@ -427,10 +427,14 @@ const overflowShadowStyles = css({
 });
 
 /**
- * editorContentStyles is WIP to migrate styles from EditorContentContainer/styles
+ * editorContentStyles migrated styles from EditorContentContainer/styles,
+ * the styles migration is under `platform_editor_core_static_css`,
+ * this FF has a global tests override atm, while waiting for some fixes from compiled and atlaspack,
+ * if you are making changes, please do VR/Integration test locally and individually by temporarily removing FF overrides from
+ * packages/editor/editor-test-overrides/src/gemini-platform-feature-gate-overrides.ts, and
+ * packages/editor/tmp-editor-statsig/src/exp-test-overrides.ts.
  *
- * The value {} is placeholder, fill in styles when migrating each style file
- * Add/Delete/Re-order keys are discouraged during incremental migration due to potential merge conflicts.
+ * If you are not sure, please contact #proj-cc-editor-full-compiled-css-migration
  */
 const editorContentStyles = cssMap({
 	aiPanelBaseFirefoxStyles: {
@@ -464,7 +468,7 @@ const editorContentStyles = cssMap({
 				display: 'none',
 			},
 			/* This styles the ai panel correctly when its just sitting on the page and there
-			is no user interaction */
+		is no user interaction */
 			'.extension-container': {
 				position: 'relative',
 				boxShadow: 'none',
@@ -1054,21 +1058,21 @@ const editorContentStyles = cssMap({
 					backgroundRepeat: 'no-repeat',
 					backgroundAttachment: 'local, local, local, local, scroll, scroll, scroll, scroll',
 					backgroundSize: `${token('space.300')} 100%,
-	                         ${token('space.300')} 100%,
-	                         ${token('space.100')} 100%,
-	                         ${token('space.100')} 100%,
-	                         ${token('space.100')} 100%,
-	                         1px 100%,
-	                         ${token('space.100')} 100%,
-	                         1px 100%`,
+							${token('space.300')} 100%,
+							${token('space.100')} 100%,
+							${token('space.100')} 100%,
+							${token('space.100')} 100%,
+							1px 100%,
+							${token('space.100')} 100%,
+							1px 100%`,
 					backgroundPosition: `0 0,
-	                             0 0,
-                               100% 0,
-                               100% 0,
-                               100% 0,
-                               100% 0,
-	                             0 0,
-	                             0 0`,
+								0 0,
+							100% 0,
+							100% 0,
+							100% 0,
+							100% 0,
+								0 0,
+								0 0`,
 					// Be careful if refactoring this; it is needed to keep arrow key navigation in Firefox consistent with other browsers.
 					overflowY: 'hidden',
 				},
@@ -1701,8 +1705,8 @@ const editorContentStyles = cssMap({
 			marginLeft: token('space.050', '4px'),
 			display: 'flow-root',
 			/* The follow rules inside @supports block are added as a part of ED-8893
-				The fix is targeting mobile bridge on iOS 12 or below,
-				We should consider remove this fix when we no longer support iOS 12 */
+			The fix is targeting mobile bridge on iOS 12 or below,
+			We should consider remove this fix when we no longer support iOS 12 */
 			'@supports not (display: flow-root)': {
 				width: '100%',
 				boxSizing: 'border-box',
@@ -2003,7 +2007,7 @@ const editorContentStyles = cssMap({
 
 			'&.danger > span > .with-danger-overlay': {
 				/* If the macro turned used to red before, not setting the background to be transparent will cause the
-			danger state to have two layers of red which we don't want. */
+		danger state to have two layers of red which we don't want. */
 				backgroundColor: 'transparent',
 				'.extension-overlay': {
 					// ...dangerOverlayStyles
@@ -2073,9 +2077,9 @@ const editorContentStyles = cssMap({
 		},
 
 		/* This is referenced in the toDOM of a bodied extension and is used to put
-		label content into the bodied extension.
-		We do this so that we don't serialise the label (which causes the label to be
-		copied to the clipboard causing copy-paste issues). */
+	label content into the bodied extension.
+	We do this so that we don't serialise the label (which causes the label to be
+	copied to the clipboard causing copy-paste issues). */
 		'.bodied-extension-to-dom-label::after': {
 			content: 'attr(data-bodied-extension-label)',
 		},
@@ -2307,9 +2311,9 @@ const editorContentStyles = cssMap({
 		'.search-match-text': {
 			borderRadius: token('space.050'),
 			boxShadow: `
-			inset 0 0 0 1px ${token('color.border.accent.magenta')},
-			inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}
-			`,
+		inset 0 0 0 1px ${token('color.border.accent.magenta')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}
+		`,
 			// we need to use !important here as we need to override inline selection styles
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			backgroundColor: `${token('color.background.accent.magenta.subtler')} !important`,
@@ -2319,9 +2323,9 @@ const editorContentStyles = cssMap({
 		// text - active match - light mode
 		'.search-match-text.selected-search-match': {
 			boxShadow: `
-			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')},
-			inset 0 0 0 5px ${token('color.background.accent.magenta.subtlest.pressed')}
-			`,
+		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.subtlest.pressed')}
+		`,
 			// we need to use !important here as we need to override inline selection styles
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			backgroundColor: `${token('color.background.accent.magenta.subtlest.pressed')} !important`,
@@ -2330,9 +2334,9 @@ const editorContentStyles = cssMap({
 		// text - inactive match - dark mode
 		'.search-match-text.search-match-dark': {
 			boxShadow: `
-			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
-			inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}
-			`,
+		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}
+		`,
 			// we need to use !important here as we need to override inline selection styles
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			backgroundColor: `${token('color.background.accent.magenta.bolder.pressed')} !important`,
@@ -2342,9 +2346,9 @@ const editorContentStyles = cssMap({
 		// text - active match - dark mode
 		'.search-match-text.selected-search-match.search-match-dark': {
 			boxShadow: `
-			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
-			inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.hovered')}
-			`,
+		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.hovered')}
+		`,
 			// we need to use !important here as we need to override inline selection styles
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			backgroundColor: `${token('color.background.accent.magenta.bolder.hovered')} !important`,
@@ -2354,16 +2358,16 @@ const editorContentStyles = cssMap({
 		'.search-match-block': {
 			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
 				boxShadow: `
-				inset 0 0 0 1px ${token('color.border.accent.magenta')},
-				inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}
-				`,
+			inset 0 0 0 1px ${token('color.border.accent.magenta')},
+			inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}
+			`,
 			},
 			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 				{
 					boxShadow: `
-				0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')},
-				0px 0px 0px 5px ${token('color.border.accent.magenta')}
-				`,
+			0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')},
+			0px 0px 0px 5px ${token('color.border.accent.magenta')}
+			`,
 				},
 		},
 
@@ -2371,16 +2375,16 @@ const editorContentStyles = cssMap({
 		'.search-match-block.search-match-block-selected': {
 			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
 				boxShadow: `
-				inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')},
-				inset 0 0 0 4px ${token('color.background.accent.magenta.subtlest.pressed')}
-				`,
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')},
+			inset 0 0 0 4px ${token('color.background.accent.magenta.subtlest.pressed')}
+			`,
 			},
 			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 				{
 					boxShadow: `
-				0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')},
-				0px 0px 0px 5px ${token('color.background.accent.magenta.bolder.hovered')}
-				`,
+			0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')},
+			0px 0px 0px 5px ${token('color.background.accent.magenta.bolder.hovered')}
+			`,
 				},
 		},
 
@@ -2388,18 +2392,18 @@ const editorContentStyles = cssMap({
 		'.search-match-block.ak-editor-selected-node': {
 			'.loader-wrapper>div::after': {
 				boxShadow: `
-				inset 0 0 0 1px ${token('color.border.accent.magenta')},
-				inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')},
-				0 0 0 1px ${token('color.border.selected')}
-				`,
+			inset 0 0 0 1px ${token('color.border.accent.magenta')},
+			inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')},
+			0 0 0 1px ${token('color.border.selected')}
+			`,
 			},
 			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 				{
 					boxShadow: `
-				0 0 0 1px ${token('color.border.selected')},
-				0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')},
-				0px 0px 0px 5px ${token('color.border.accent.magenta')}
-				`,
+			0 0 0 1px ${token('color.border.selected')},
+			0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')},
+			0px 0px 0px 5px ${token('color.border.accent.magenta')}
+			`,
 				},
 		},
 
@@ -2407,18 +2411,18 @@ const editorContentStyles = cssMap({
 		'.search-match-block.search-match-block-selected.ak-editor-selected-node': {
 			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
 				boxShadow: `
-				inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')},
-				inset 0 0 0 4px ${token('color.background.accent.magenta.subtlest.pressed')},
-				0 0 0 1px ${token('color.border.selected')}
-				`,
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')},
+			inset 0 0 0 4px ${token('color.background.accent.magenta.subtlest.pressed')},
+			0 0 0 1px ${token('color.border.selected')}
+			`,
 			},
 			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 				{
 					boxShadow: `
-				0 0 0 1px ${token('color.border.selected')},
-				0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')},
-				0px 0px 0px 5px ${token('color.background.accent.magenta.bolder.hovered')}
-				`,
+			0 0 0 1px ${token('color.border.selected')},
+			0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')},
+			0px 0px 0px 5px ${token('color.background.accent.magenta.bolder.hovered')}
+			`,
 				},
 		},
 
@@ -2426,16 +2430,16 @@ const editorContentStyles = cssMap({
 		'.search-match-block.search-match-dark': {
 			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
 				boxShadow: `
-				inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
-				inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}
-				`,
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+			inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}
+			`,
 			},
 			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 				{
 					boxShadow: `
-				0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')},
-				0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}
-				`,
+			0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')},
+			0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}
+			`,
 				},
 		},
 
@@ -2443,16 +2447,16 @@ const editorContentStyles = cssMap({
 		'.search-match-block.search-match-block-selected.search-match-dark': {
 			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
 				boxShadow: `
-				inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
-				inset 0 0 0 4px ${token('color.background.accent.magenta.bolder.hovered')}
-				`,
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+			inset 0 0 0 4px ${token('color.background.accent.magenta.bolder.hovered')}
+			`,
 			},
 			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 				{
 					boxShadow: `
-				0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')},
-				0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}
-				`,
+			0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')},
+			0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}
+			`,
 				},
 		},
 
@@ -2460,18 +2464,18 @@ const editorContentStyles = cssMap({
 		'.search-match-block.search-match-dark.ak-editor-selected-node': {
 			'.loader-wrapper>div::after': {
 				boxShadow: `
-				inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
-				inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')},
-				0 0 0 1px ${token('color.border.selected')}
-				`,
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+			inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')},
+			0 0 0 1px ${token('color.border.selected')}
+			`,
 			},
 			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 				{
 					boxShadow: `
-				0 0 0 1px ${token('color.border.selected')},
-				0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')},
-				0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}
-				`,
+			0 0 0 1px ${token('color.border.selected')},
+			0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')},
+			0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}
+			`,
 				},
 		},
 
@@ -2479,18 +2483,18 @@ const editorContentStyles = cssMap({
 		'.search-match-block.search-match-block-selected.search-match-dark.ak-editor-selected-node': {
 			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
 				boxShadow: `
-				inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
-				inset 0 0 0 4px ${token('color.background.accent.magenta.bolder.hovered')},
-				0 0 0 1px ${token('color.border.selected')}
-				`,
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+			inset 0 0 0 4px ${token('color.background.accent.magenta.bolder.hovered')},
+			0 0 0 1px ${token('color.border.selected')}
+			`,
 			},
 			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
 				{
 					boxShadow: `
-				0 0 0 1px ${token('color.border.selected')},
-				0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')},
-				0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}
-				`,
+			0 0 0 1px ${token('color.border.selected')},
+			0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')},
+			0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}
+			`,
 				},
 		},
 
@@ -2499,9 +2503,9 @@ const editorContentStyles = cssMap({
 			{
 				borderRadius: token('space.050'),
 				boxShadow: `
-			inset 0 0 0 1px ${token('color.border.accent.magenta')},
-			inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}
-			`,
+		inset 0 0 0 1px ${token('color.border.accent.magenta')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}
+		`,
 				backgroundColor: token('color.background.accent.magenta.subtler'),
 				'.ak-editor-expand__title-input': {
 					color: token('color.text'),
@@ -2512,9 +2516,9 @@ const editorContentStyles = cssMap({
 		'.search-match-expand-title.selected-search-match > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
 			{
 				boxShadow: `
-			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')},
-			inset 0 0 0 5px ${token('color.background.accent.magenta.subtlest.pressed')}
-			`,
+		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.subtlest.pressed')}
+		`,
 				backgroundColor: token('color.background.accent.magenta.subtlest.pressed'),
 			},
 
@@ -2522,9 +2526,9 @@ const editorContentStyles = cssMap({
 		'.search-match-expand-title.search-match-dark > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
 			{
 				boxShadow: `
-			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
-			inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}
-			`,
+		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}
+		`,
 				backgroundColor: token('color.background.accent.magenta.bolder.pressed'),
 				'.ak-editor-expand__title-input': {
 					color: token('color.text.inverse'),
@@ -2535,9 +2539,9 @@ const editorContentStyles = cssMap({
 		'.search-match-expand-title.selected-search-match.search-match-dark > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
 			{
 				boxShadow: `
-			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
-			inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.hovered')}
-			`,
+		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.hovered')}
+		`,
 				backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
 			},
 	},
@@ -2560,6 +2564,51 @@ const editorContentStyles = cssMap({
 				color: `${token('color.text')} !important`,
 			},
 		},
+	},
+	findReplaceStylesWithRefSyncBlock: {
+		// sync block (reference) - inactive match - light mode - without node selection
+		'.search-match-block.ak-editor-sync-block': {
+			borderRadius: token('space.050'),
+			boxShadow: `inset 0 0 0 1px ${token('color.border.accent.magenta')}, inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}`,
+			backgroundColor: token('color.background.accent.magenta.subtler'),
+		},
+		// sync block (reference) - active match - light mode - without node selection
+		'.search-match-block.search-match-block-selected.ak-editor-sync-block': {
+			boxShadow: `inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')}, inset 0 0 0 5px ${token('color.background.accent.magenta.subtlest.pressed')}`,
+			backgroundColor: token('color.background.accent.magenta.subtlest.pressed'),
+		},
+		// sync block (reference) - inactive match - light mode - with node selection
+		'.search-match-block.ak-editor-sync-block.ak-editor-selected-node': {
+			boxShadow: `inset 0 0 0 1px ${token('color.border.accent.magenta')}, inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}, 0 0 0 1px ${token('color.border.selected')}`,
+			backgroundColor: token('color.background.accent.magenta.subtler'),
+		},
+		// sync block (reference) - active match - light mode - with node selection
+		'.search-match-block.search-match-block-selected.ak-editor-sync-block.ak-editor-selected-node':
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.focused')}`,
+				backgroundColor: token('color.background.accent.magenta.subtlest.pressed'),
+			},
+		// sync block (reference) - inactive match - dark mode - without node selection
+		'.search-match-block.search-match-dark.ak-editor-sync-block': {
+			boxShadow: `inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')}, inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}`,
+			backgroundColor: token('color.background.accent.magenta.bolder.pressed'),
+		},
+		// sync block (reference) - active match - dark mode - without node selection
+		'.search-match-block.search-match-block-selected.search-match-dark.ak-editor-sync-block': {
+			boxShadow: `inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')}, inset 0 0 0 4px ${token('color.background.accent.magenta.bolder.hovered')}`,
+			backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
+		},
+		// sync block (reference) - inactive match - dark mode - with node selection
+		'.search-match-block.search-match-dark.ak-editor-sync-block.ak-editor-selected-node': {
+			boxShadow: `inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')}, inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}, 0 0 0 1px ${token('color.border.selected')}`,
+			backgroundColor: token('color.background.accent.magenta.bolder.pressed'),
+		},
+		// sync block (reference) - active match - dark mode - with node selection
+		'.search-match-block.search-match-block-selected.search-match-dark.ak-editor-sync-block.ak-editor-selected-node':
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.focused')}`,
+				backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
+			},
 	},
 	firstBlockNodeStyles: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -3756,8 +3805,8 @@ const editorContentStyles = cssMap({
 					margin: `${token('space.050')} 0 0 0`,
 				},
 				/* In SSR the above rule will apply to all p tags because first-child would be a style tag.
-					The following rule resets the first p tag back to its original margin
-					defined in packages/editor/editor-common/src/styles/shared/paragraph.ts */
+				The following rule resets the first p tag back to its original margin
+				defined in packages/editor/editor-common/src/styles/shared/paragraph.ts */
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 				'& > style:first-child + p': {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
@@ -4439,11 +4488,11 @@ const editorContentStyles = cssMap({
 					margin: `${token('space.025')} 0 ${token('space.025')}`,
 					flex: '1 0 0',
 					/*
-						https://ishadeed.com/article/min-max-css/#setting-min-width-to-zero-with-flexbox
-						The default value for min-width is auto, which is computed to zero.
-						When an element is a flex item, the value of min-width doesn’t compute to zero.
-						The minimum size of a flex item is equal to the size of its contents.
-					*/
+					https://ishadeed.com/article/min-max-css/#setting-min-width-to-zero-with-flexbox
+					The default value for min-width is auto, which is computed to zero.
+					When an element is a flex item, the value of min-width doesn’t compute to zero.
+					The minimum size of a flex item is equal to the size of its contents.
+				*/
 					minWidth: 0,
 				},
 
@@ -5082,6 +5131,57 @@ const editorContentStyles = cssMap({
 		'table .resizer-hover-zone, table .resizer-hover-zone.resizer-is-extended': {
 			padding: 'unset',
 			left: 'unset',
+		},
+	},
+	/**
+	 * Bottom-handle styles for the vertical-resize feature shipped under the
+	 * `databases-native-embeds-v2` experiment
+	 */
+	resizerBottomHandleStyles: {
+		'.resizer-handle.bottom': {
+			flexDirection: 'row',
+			alignItems: 'flex-end',
+			width: '100%',
+			height: 7,
+			'& .resizer-handle-thumb': {
+				width: 64,
+				height: 3,
+				minWidth: 24,
+				minHeight: 0,
+				marginTop: token('space.025'),
+				marginRight: 0,
+				marginBottom: token('space.025'),
+				marginLeft: 0,
+				'&:hover': {
+					cursor: 'row-resize',
+				},
+			},
+			'& .resizer-handle-track': {
+				width: 'calc(100% - 40px)',
+				height: 7,
+			},
+			'& .resizer-handle-track.full-height': {
+				width: '100%',
+				height: 7,
+				minWidth: 36,
+				minHeight: 0,
+			},
+		},
+		'.resizer-handle.small.bottom .resizer-handle-thumb': {
+			width: 43,
+			height: 3,
+		},
+		'.resizer-handle.medium.bottom .resizer-handle-thumb': {
+			width: 64,
+			height: 3,
+		},
+		'.resizer-handle.large.bottom .resizer-handle-thumb': {
+			width: 96,
+			height: 3,
+		},
+		'.resizer-handle.clamped.bottom .resizer-handle-thumb': {
+			width: 'clamp(43px, calc(100% - 32px), 96px)',
+			height: 3,
 		},
 	},
 	ruleStyles: {
@@ -6021,6 +6121,34 @@ const editorContentStyles = cssMap({
 			},
 		},
 	},
+	syncBlockTextSelectionStyles: {
+		'.ak-editor-sync-block__renderer': {
+			// Show text cursor to indicate content is selectable
+			cursor: 'text',
+			// Remove browser focus outline on the contentEditable renderer wrapper
+			outline: 'none',
+			// Hide the blinking insertion caret. contentEditable="true" is set on
+			// the renderer to enable text selection, but the content is read-only.
+			caretColor: 'transparent',
+			// Override cursor: pointer set by the editor's layout styles on
+			// [data-layout-section] elements rendered inside the sync block content.
+			'[data-layout-section]': {
+				cursor: 'text',
+			},
+		},
+		// Suppress ProseMirror's selected-node box-shadow and backgroundColor on emojis inside
+		// the contentEditable renderer wrapper.
+		'.ProseMirror .ak-editor-selected-node .ak-editor-sync-block__renderer': {
+			'span[data-emoji-id], span[data-emoji-id] span': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				boxShadow: 'none !important',
+				'&::before': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+					backgroundColor: 'transparent !important',
+				},
+			},
+		},
+	},
 	syncBlockOverflowStyles: {
 		'.ProseMirror': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
@@ -6420,16 +6548,6 @@ const editorContentStyles = cssMap({
 				position: 'absolute',
 				top: token('space.300'),
 			},
-			'.pm-table-right-border': {
-				right: 0,
-			},
-			'.pm-table-left-border': {
-				left: 0,
-			},
-			'.pm-table-left-border[data-with-numbered-table="true"]': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-				left: `${akEditorTableNumberColumnWidth - 1}px`,
-			},
 		},
 		'.pm-table-container[data-number-column="true"]': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -6448,18 +6566,9 @@ const editorContentStyles = cssMap({
 		'.pm-table-container > table, .pm-table-sticky-wrapper > table': {
 			margin: `${token('space.300')} ${token('space.100')} 0 0`,
 		},
-		/* support panel nested in table */
-		// platform_editor_bordered_panel_nested_in_table fg is in tidying phase, so didn't consider styles when it's off
-		'.pm-table-wrapper .ak-editor-panel': {
-			border: `${token('border.width')} solid ${token('color.border')}`,
-		},
 		/* avoid applying styles to nested tables (possible via extensions) */
 		'.pm-table-container > table, .pm-table-wrapper > table, .pm-table-sticky-wrapper > table': {
 			borderCollapse: 'collapse',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			border: `${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')}`,
-			borderLeftColor: 'transparent',
-			borderRightColor: 'transparent',
 			tableLayout: 'fixed',
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			fontSize: '1em',
@@ -6486,12 +6595,6 @@ const editorContentStyles = cssMap({
 				minWidth: `${tableCellMinWidth}px`,
 				fontWeight: token('font.weight.regular'),
 				verticalAlign: 'top',
-				'&[data-valign="middle"]': {
-					verticalAlign: 'middle',
-				},
-				'&[data-valign="bottom"]': {
-					verticalAlign: 'bottom',
-				},
 				border: `1px solid ${token('color.background.accent.gray.subtler')}`,
 				borderRightWidth: 0,
 				borderBottomWidth: 0,
@@ -6546,6 +6649,105 @@ const editorContentStyles = cssMap({
 			'& > tbody > tr > th, & > tbody > tr > td': {
 				backgroundClip: 'padding-box',
 			},
+		},
+	},
+	tableSharedStyle_with_platform_editor_table_q4_loveability: {
+		'.pm-table-container': {
+			'.pm-table-right-border, .pm-table-left-border': {
+				display: 'none',
+			},
+		},
+		'.pm-table-container > table, .pm-table-wrapper > table, .pm-table-sticky-wrapper > table': {
+			border: `${tableCellBorderWidth}px solid transparent`,
+			position: 'relative',
+			'&::after': {
+				content: "''",
+				position: 'absolute',
+				inset: 0,
+				border: `${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')}`,
+				borderRadius: token('radius.medium'),
+				pointerEvents: 'none',
+				zIndex: 1,
+			},
+
+			/* Let the wrapper overlay own the outer table perimeter.
+				data-reaches-* attributes are set by the TableCell node view. */
+			'& > tbody > tr > th[data-reaches-top], & > tbody > tr > td[data-reaches-top]': {
+				borderTopColor: 'transparent',
+			},
+
+			'& > tbody > tr > th[data-reaches-left], & > tbody > tr > td[data-reaches-left]': {
+				borderLeftColor: 'transparent',
+			},
+
+			'& > tbody > tr > td[data-reaches-left]::after': {
+				borderLeftColor: 'transparent',
+			},
+
+			'& > tbody > tr > th[data-reaches-bottom]::after, & > tbody > tr > td[data-reaches-bottom]::after':
+				{
+					borderBottomColor: 'transparent',
+				},
+		},
+		/* When the number column is enabled, the left visual edge belongs to the number column.
+		Remove the left border-radius and left border from the table's ::after overlay
+		so it doesn't double-up or round where the number column already provides that edge. */
+		'.pm-table-container[data-number-column="true"]': {
+			'> .pm-table-wrapper > table::after, > .pm-table-sticky-wrapper > table::after': {
+				borderTopLeftRadius: 0,
+				borderBottomLeftRadius: 0,
+				borderLeftColor: 'transparent',
+			},
+		},
+	},
+	tableSharedStyle_without_platform_editor_table_q4_loveability: {
+		'.pm-table-container': {
+			'.pm-table-right-border, .pm-table-left-border': {
+				display: 'block',
+
+				width: 1,
+				height: `calc(100% - ${token('space.300')})`,
+				background: token('color.background.accent.gray.subtler'),
+				position: 'absolute',
+				top: token('space.300'),
+			},
+
+			'.pm-table-right-border': {
+				right: 0,
+			},
+			'.pm-table-left-border': {
+				left: 0,
+			},
+			'.pm-table-left-border[data-with-numbered-table="true"]': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+				left: `${akEditorTableNumberColumnWidth - 1}px`,
+			},
+		},
+		'.pm-table-container > table, .pm-table-wrapper > table, .pm-table-sticky-wrapper > table': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			border: `${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')}`,
+			borderLeftColor: 'transparent',
+			borderRightColor: 'transparent',
+		},
+	},
+	tableSharedStyle_with_platform_editor_table_menu_updates: {
+		'.pm-table-container > table, .pm-table-wrapper > table, .pm-table-sticky-wrapper > table': {
+			'& > tbody > tr > th, & > tbody > tr > td': {
+				'&[data-valign="middle"]': {
+					verticalAlign: 'middle',
+				},
+				'&[data-valign="bottom"]': {
+					verticalAlign: 'bottom',
+				},
+			},
+		},
+	},
+	/* support panel nested in table, only when platform_editor_bordered_panel_nested_in_table fg is on */
+	tableSharedStyle_with_platform_editor_bordered_panel_nested_in_table: {
+		'.pm-table-wrapper .ak-editor-panel': {
+			borderWidth: token('border.width'),
+			borderStyle: 'solid',
+			borderColor: token('color.border'),
 		},
 	},
 	taskItemCheckboxStyles: {
@@ -6845,12 +7047,7 @@ const editorContentStyles = cssMap({
 
 		'[data-prosemirror-node-name="status"] .lozenge-text': {
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			fontSize: '11px',
-			fontStyle: 'normal',
-			fontFamily: token('font.family.body'),
-			fontWeight: token('font.weight.bold'),
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			lineHeight: '16px',
+			font: `normal ${token('font.weight.bold')} 11px/16px ${token('font.family.body')}`,
 			overflow: 'hidden',
 			textOverflow: 'ellipsis',
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -7054,7 +7251,6 @@ const editorContentStyles = cssMap({
 		'[data-prosemirror-node-name="status"] .lozenge-text': {
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			textTransform: 'none',
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			font: token('font.body.small'),
 		},
 
@@ -7065,84 +7261,48 @@ const editorContentStyles = cssMap({
 		 */
 		'[data-prosemirror-node-name="status"] > [data-color=neutral] > .lozenge-wrapper': {
 			backgroundColor: token('color.background.neutral'),
-			'html:not([data-color-mode=dark]) &': {
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				borderColor: '#CACBCF',
-			},
-			'html[data-color-mode=dark] &': {
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				borderColor: '#63666B',
-			},
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#CACBCF',
 		},
 		'[data-prosemirror-node-name="status"] > [data-color=neutral] .lozenge-text': {
 			color: token('color.text'),
 		},
 		'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
 			backgroundColor: token('color.background.discovery.subtler'),
-			'html:not([data-color-mode=dark]) &': {
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				borderColor: '#D8A0F7',
-			},
-			'html[data-color-mode=dark] &': {
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				borderColor: '#803FA5',
-			},
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#D8A0F7',
 		},
 		'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-text': {
 			color: token('color.text.discovery.bolder'),
 		},
 		'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
 			backgroundColor: token('color.background.information.subtler'),
-			'html:not([data-color-mode=dark]) &': {
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				borderColor: '#8FB8F6',
-			},
-			'html[data-color-mode=dark] &': {
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				borderColor: '#1558BC',
-			},
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#8FB8F6',
 		},
 		'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-text': {
 			color: token('color.text.information.bolder'),
 		},
 		'[data-prosemirror-node-name="status"] > [data-color=red] > .lozenge-wrapper': {
 			backgroundColor: token('color.background.danger.subtler'),
-			'html:not([data-color-mode=dark]) &': {
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				borderColor: '#FD9891',
-			},
-			'html[data-color-mode=dark] &': {
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				borderColor: '#AE2E24',
-			},
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#FD9891',
 		},
 		'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-text': {
 			color: token('color.text.danger.bolder'),
 		},
 		'[data-prosemirror-node-name="status"] > [data-color=yellow] > .lozenge-wrapper': {
 			backgroundColor: token('color.background.warning.subtler'),
-			'html:not([data-color-mode=dark]) &': {
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				borderColor: '#FBC828',
-			},
-			'html[data-color-mode=dark] &': {
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				borderColor: '#9E4C00',
-			},
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#FBC828',
 		},
 		'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-text': {
 			color: token('color.text.warning.bolder'),
 		},
 		'[data-prosemirror-node-name="status"] > [data-color=green] > .lozenge-wrapper': {
 			backgroundColor: token('color.background.success.subtler'),
-			'html:not([data-color-mode=dark]) &': {
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				borderColor: '#B3DF72',
-			},
-			'html[data-color-mode=dark] &': {
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				borderColor: '#4C6B1F',
-			},
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#B3DF72',
 		},
 		'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-text': {
 			color: token('color.text.success.bolder'),
@@ -7160,6 +7320,32 @@ const editorContentStyles = cssMap({
 				{
 					boxShadow: `0 0 0 2px ${token('color.border.danger')}`,
 				},
+		},
+	},
+	statusStylesTeam26DarkMode: {
+		'[data-prosemirror-node-name="status"] > [data-color=neutral] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#63666B',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#803FA5',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#1558BC',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#AE2E24',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#9E4C00',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#4C6B1F',
 		},
 	},
 	telepointerColorAndCommonStyle: {
@@ -7574,9 +7760,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 							fg('platform_editor_content_mode_button_mvp'))) &&
 					isDense &&
 					editorContentStyles.listsDenseStyles,
-				expValEquals('cc_editor_ttvc_release_bundle_one', 'listLayoutShiftFix', true) &&
-					isFullPage &&
-					editorContentStyles.listsStylesMarginLayoutShiftFix,
+				isFullPage && editorContentStyles.listsStylesMarginLayoutShiftFix,
 				editorContentStyles.ruleStyles,
 				editorContentStyles.smartCardDiffStyles,
 				expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
@@ -7653,6 +7837,8 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					editorContentStyles.findReplaceStylesNewWithCodeblockColorContrastFix,
 				!expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
 					editorContentStyles.findReplaceStylesWithCodeblockColorContrastFix,
+				editorExperiment('platform_synced_block', true) &&
+					editorContentStyles.findReplaceStylesWithRefSyncBlock,
 				editorContentStyles.textHighlightStyle,
 				editorContentStyles.decisionStyles,
 				expValEqualsNoExposure('platform_editor_blocktaskitem_node_tenantid', 'isEnabled', true)
@@ -7678,6 +7864,9 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 							  )
 							? editorContentStyles.statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match
 							: editorContentStyles.statusStylesMixin_without_fg_platform_component_visual_refresh,
+				colorMode === 'dark' &&
+					fg('platform-dst-lozenge-tag-badge-visual-uplifts') &&
+					editorContentStyles.statusStylesTeam26DarkMode,
 				editorContentStyles.annotationStyles,
 				expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 					? editorExperiment('platform_editor_block_menu', true)
@@ -7692,6 +7881,9 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.embedCardStyles,
 				editorContentStyles.unsupportedStyles,
 				editorContentStyles.resizerStyles,
+				expValEqualsNoExposure('cc-maui-experiment', 'isEnabled', true) &&
+					expValEquals('databases-native-embeds-v2', 'isEnabled', true) &&
+					editorContentStyles.resizerBottomHandleStyles,
 				editorContentStyles.layoutBaseStyles,
 				expValEquals('platform_editor_table_excerpts_fix', 'isEnabled', true) &&
 					editorContentStyles.layoutBaseStylesWithTableExcerptsFix,
@@ -7707,6 +7899,9 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					editorContentStyles.syncBlockOverflowStyles,
 				editorExperiment('platform_synced_block', true) &&
 					editorContentStyles.syncBlockFirstNodeStyles,
+				editorExperiment('platform_synced_block', true) &&
+					fg('platform_synced_block_patch_14') &&
+					editorContentStyles.syncBlockTextSelectionStyles,
 				editorExperiment('advanced_layouts', true) && editorContentStyles.layoutBaseStylesAdvanced,
 				editorExperiment('advanced_layouts', true)
 					? editorContentStyles.layoutSectionStylesAdvanced
@@ -7835,6 +8030,13 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				/* https://stackoverflow.com/questions/7517127/borders-not-shown-in-firefox-with-border-collapse-on-table-position-relative-o */
 				(browser.gecko || browser.ie || (browser.mac && browser.chrome)) &&
 					editorContentStyles.tableSharedStyleBackgroundClipFix,
+				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+					? editorContentStyles.tableSharedStyle_with_platform_editor_table_q4_loveability
+					: editorContentStyles.tableSharedStyle_without_platform_editor_table_q4_loveability,
+				expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) &&
+					editorContentStyles.tableSharedStyle_with_platform_editor_table_menu_updates,
+				fg('platform_editor_bordered_panel_nested_in_table') &&
+					editorContentStyles.tableSharedStyle_with_platform_editor_bordered_panel_nested_in_table,
 				editorContentStyles.tableEmptyRowStyles,
 				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
 					editorContentStyles.tableContentModeStyles,

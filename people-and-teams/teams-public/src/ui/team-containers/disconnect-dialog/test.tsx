@@ -55,7 +55,7 @@ describe('DisconnectDialog', () => {
 			it('should show "might affect" wording for JiraProject', () => {
 				renderComponent({ containerType: 'JiraProject' });
 				expect(
-					screen.getByText(/might affect work connected to the team within the project/),
+					screen.getByText(/might affect work connected to the team within the space/),
 				).toBeInTheDocument();
 			});
 

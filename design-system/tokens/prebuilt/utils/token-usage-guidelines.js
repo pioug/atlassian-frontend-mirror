@@ -4,10 +4,23 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getTokenUsageGuidelines = void 0;
+var getTokenCategoryId = function getTokenCategoryId(tokenId) {
+  if (tokenId.startsWith('color.rovo.background.')) {
+    return tokenId.replace('color.rovo.background.', 'color.background.');
+  }
+  if (tokenId.startsWith('color.rovo.border.')) {
+    return tokenId.replace('color.rovo.border.', 'color.border.');
+  }
+  if (tokenId.startsWith('color.rovo.icon.')) {
+    return tokenId.replace('color.rovo.icon.', 'color.icon.');
+  }
+  return tokenId;
+};
 var getTokenUsageGuidelines = exports.getTokenUsageGuidelines = function getTokenUsageGuidelines(tokenId) {
+  var tokenCategoryId = getTokenCategoryId(tokenId);
   var tokenTypes = Object.keys(usageMappings);
   var foundType = tokenTypes.find(function (type) {
-    return tokenId.startsWith(type);
+    return tokenCategoryId.startsWith(type);
   });
   if (foundType && usageMappings[foundType]) {
     return usageMappings[foundType];

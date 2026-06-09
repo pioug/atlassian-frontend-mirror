@@ -1,8 +1,8 @@
 import {
 	type ASTPath,
-	type default as core,
 	type JSXAttribute,
 	type JSXElement,
+	type default as core,
 } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 

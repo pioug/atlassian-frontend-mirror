@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-layout
 
+## 11.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.0
+
+### Minor Changes
+
+- [`5182f0ffac22f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5182f0ffac22f) -
+  Add keyboard shortcuts and danger preview to layout column menu actions.
+
+  Fix keyboard navigation in the layout column menu.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.4
+
+### Patch Changes
+
+- [`1f5c61250d103`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f5c61250d103) -
+  Updating layout plugin to support ssr streaming
+
 ## 11.0.3
 
 ### Patch Changes

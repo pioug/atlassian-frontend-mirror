@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useState } from 'react';
+import { type ReactNode, useCallback, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
@@ -54,7 +54,7 @@ const reasonAppearance: Record<TDialogCloseReason, 'moved' | 'inprogress'> = {
 /**
  * Basic dialog using the native `<dialog>` element with `showModal()`.
  *
- * `Dialog` is a bare primitive - it provides the `<dialog>` lifecycle,
+ * `Dialog` is a bare primitive — it provides the `<dialog>` lifecycle,
  * Escape handling, and backdrop click detection. All visual styling
  * is the consumer's responsibility.
  *
@@ -62,7 +62,7 @@ const reasonAppearance: Record<TDialogCloseReason, 'moved' | 'inprogress'> = {
  * - `'escape'`: user pressed Escape
  * - `'overlay-click'`: user clicked the backdrop
  */
-export default function BasicDialogExample(): JSX.Element {
+export default function BasicDialogExample(): ReactNode {
 	const [isOpen, setIsOpen] = useState(false);
 	const [closeLog, setCloseLog] = useState<TDialogCloseReason[]>([]);
 

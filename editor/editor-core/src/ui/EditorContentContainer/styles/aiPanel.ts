@@ -1,4 +1,5 @@
-/* eslint-disable @atlaskit/ui-styling-standard/use-compiled */
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled,
+	@repo/internal/deprecations/deprecation-ticket-required, @atlaskit/ui-styling-standard/no-exported-styles */
 import { css, keyframes } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
@@ -70,7 +71,12 @@ const prismBorderDarkBackgroundFirefox = `linear-gradient(90deg, ${aiPrismColorS
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 const prismBorderDarkBackground = `conic-gradient(from var(--panel-gradient-angle, 270deg), ${aiPrismColorStep1Dark} 0%, ${aiPrismColorStep2Dark} 20%, ${aiPrismColorStep3Dark} 50%, ${aiPrismColorStep4Dark} 56%, ${aiPrismColorStep1Dark} 100%)`;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const aiPanelBaseStyles: SerializedStyles = css({
 	'@property --panel-gradient-angle': {
 		syntax: '<angle>',
@@ -161,7 +167,12 @@ export const aiPanelBaseStyles: SerializedStyles = css({
 		},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const aiPanelBaseFirefoxStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'div[extensionType="com.atlassian.ai-blocks"]': {
@@ -183,7 +194,13 @@ export const aiPanelBaseFirefoxStyles: SerializedStyles = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const aiPanelDarkStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'div[extensionType="com.atlassian.ai-blocks"]': {
@@ -196,7 +213,12 @@ export const aiPanelDarkStyles: SerializedStyles = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const aiPanelDarkFirefoxStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'div[extensionType="com.atlassian.ai-blocks"]': {

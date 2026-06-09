@@ -124,6 +124,16 @@ snapshotInformational(BodiedExtensionWithSmartLink, {
 });
 
 snapshotInformational(BodiedExtensionWithSmartLink, {
+	description: 'Bodied extension edit toggle hovered state',
+	selector: {
+		byTestId: CONTENT_AREA_TEST_ID,
+	},
+	prepare: async (page) => {
+		await page.getByTestId('extension-edit-toggle-container').hover();
+	},
+});
+
+snapshotInformational(BodiedExtensionWithSmartLink, {
 	description: 'Bodied extension danger state',
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,

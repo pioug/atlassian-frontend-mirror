@@ -1,6 +1,6 @@
 import { placementToPositionArea } from '../../src/internal/placement-to-position-area';
 import { placementToTryFallbacks } from '../../src/internal/placement-to-try-fallbacks';
-import type { TPlacementOptions } from '../../src/popup/types';
+import type { TPlacementOptions } from '../../src/internal/resolve-placement';
 
 describe('placementToPositionArea()', () => {
 	describe('single-axis (centered) placements', () => {

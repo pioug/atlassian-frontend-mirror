@@ -250,6 +250,29 @@ export interface BackgroundColorTokenSchema<BaseToken> {
 			selected: PaintToken<BaseToken>;
 			danger: PaintToken<BaseToken>;
 		};
+		rovo: {
+			background: {
+				brand: {
+					bold: {
+						'[default]': PaintToken<BaseToken>;
+						hovered: PaintToken<BaseToken>;
+						pressed: PaintToken<BaseToken>;
+					};
+				};
+			};
+			border: {
+				blue: PaintToken<BaseToken>;
+				lime: PaintToken<BaseToken>;
+				purple: PaintToken<BaseToken>;
+				saffron: PaintToken<BaseToken>;
+			};
+			icon: {
+				blue: PaintToken<BaseToken>;
+				lime: PaintToken<BaseToken>;
+				purple: PaintToken<BaseToken>;
+				saffron: PaintToken<BaseToken>;
+			};
+		};
 		background: {
 			disabled: PaintToken<BaseToken>;
 			inverse: {

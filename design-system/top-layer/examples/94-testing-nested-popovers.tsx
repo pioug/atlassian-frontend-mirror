@@ -1,32 +1,61 @@
-import React from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
-import { Popup } from '@atlaskit/top-layer/popup';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
+import { Popover } from '@atlaskit/top-layer/popover';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
-export default function TestingNestedPopups(): React.JSX.Element {
+function SecondPopover(): React.ReactNode {
+	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: { axis: 'inline', edge: 'end' },
+	});
+
+	return (
+		<>
+			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen: isOpen, popoverId: popoverId })} type="button" data-testid="second-trigger">
+				Open second
+			</button>
+			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="dialog" label="Second">
+				<div data-testid="second-popover">Second popover</div>
+			</Popover>
+		</>
+	);
+}
+
+export default function TestingNestedPopovers(): React.ReactNode {
+	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: { edge: 'end' },
+	});
+
 	return (
 		<div>
-			<Popup placement={{ edge: 'end' }} onClose={() => {}}>
-				<Popup.Trigger>
-					<button type="button" data-testid="first-trigger">
-						Open first
-					</button>
-				</Popup.Trigger>
-				<Popup.Content role="dialog" label="First">
-					<div data-testid="first-popover">
-						First popover
-						<Popup placement={{ axis: 'inline', edge: 'end' }} onClose={() => {}}>
-							<Popup.Trigger>
-								<button type="button" data-testid="second-trigger">
-									Open second
-								</button>
-							</Popup.Trigger>
-							<Popup.Content role="dialog" label="Second">
-								<div data-testid="second-popover">Second popover</div>
-							</Popup.Content>
-						</Popup>
-					</div>
-				</Popup.Content>
-			</Popup>
+			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen: isOpen, popoverId: popoverId })} type="button" data-testid="first-trigger">
+				Open first
+			</button>
+			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="dialog" label="First">
+				<div data-testid="first-popover">
+					First popover
+					<SecondPopover />
+				</div>
+			</Popover>
 		</div>
 	);
 }

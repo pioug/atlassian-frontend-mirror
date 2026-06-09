@@ -50,13 +50,17 @@ import { getAnchorAttrName } from '../ui/utils/dom-attr-name';
 
 import { findNodeDecs, nodeDecorations } from './decorations-anchor';
 import {
+	createActiveDragHandleNodeDecoration,
 	dragHandleDecoration,
 	emptyParagraphNodeDecorations,
+	findActiveDragHandleNodeDec,
 	findHandleDec,
 } from './decorations-drag-handle';
 import { dropTargetDecorations, findDropTargetDecs } from './decorations-drop-target';
 import { getActiveDropTargetDecorations } from './decorations-drop-target-active';
 import {
+	createActiveQuickInsertNodeDecoration,
+	findActiveQuickInsertNodeDec,
 	findQuickInsertInsertButtonDecoration,
 	quickInsertButtonDecoration,
 } from './decorations-quick-insert-button';
@@ -598,6 +602,28 @@ export const apply = (
 	if (shouldRemoveHandle) {
 		const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
 		decorations = decorations.remove(oldHandle);
+		// When removing the handle, also remove the anchor-marker node decorations
+		// (data-active-drag-handle / data-active-quick-insert) so the DOM attributes
+		// don't linger on nodes that are no longer active.
+		if (
+			expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true) &&
+			activeNode?.pos !== undefined
+		) {
+			const oldActiveNodeDec = findActiveDragHandleNodeDec(
+				decorations,
+				activeNode.pos,
+				activeNode.pos,
+			);
+			decorations = decorations.remove(oldActiveNodeDec);
+			if (activeNode.rootPos !== undefined) {
+				const oldActiveQuickInsertDec = findActiveQuickInsertNodeDec(
+					decorations,
+					activeNode.rootPos,
+					activeNode.rootPos,
+				);
+				decorations = decorations.remove(oldActiveQuickInsertDec);
+			}
+		}
 		// platform_editor_controls note: enables quick insert
 		if (flags.toolbarFlagsEnabled && quickInsertButtonEnabled) {
 			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
@@ -649,6 +675,48 @@ export const apply = (
 			});
 
 			decorations = decorations.add(newState.doc, [handleDec]);
+
+			if (expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true)) {
+				// Recreate the drag handle node decoration when the edit-mode node itself changed
+				// or its content was modified. Other triggers (editorSizeChanged, handleNeedsRedraw)
+				// don't move the decoration — DecorationSet.map() already remaps it correctly.
+				const needsNodeDecUpdate = activeNodeChanged || isActiveNodeModified;
+				if (needsNodeDecUpdate) {
+					const nodeSize = newState.doc.nodeAt(latestActiveNode.pos)?.nodeSize;
+					if (nodeSize !== undefined) {
+						const oldActiveNodeDec = findActiveDragHandleNodeDec(
+							decorations,
+							activeNode?.pos,
+							activeNode?.pos,
+						);
+						decorations = decorations.remove(oldActiveNodeDec);
+						decorations = decorations.add(newState.doc, [
+							createActiveDragHandleNodeDecoration(latestActiveNode.pos, nodeSize),
+						]);
+					}
+				}
+
+				// The quick-insert decoration lives on the root node (rootPos), which can change
+				// independently of the edit-mode node — e.g. when only editorSizeChanged fires but
+				// rootActiveNodeChanged is also true. So we use a separate, broader guard that
+				// includes rootActiveNodeChanged to avoid leaving the attribute on a stale root node.
+				const needsQuickInsertDecUpdate =
+					activeNodeChanged || isActiveNodeModified || rootActiveNodeChanged;
+				if (needsQuickInsertDecUpdate && latestActiveNode.rootPos !== undefined) {
+					const rootNodeSize = newState.doc.nodeAt(latestActiveNode.rootPos)?.nodeSize;
+					if (rootNodeSize !== undefined) {
+						const oldActiveQuickInsertDec = findActiveQuickInsertNodeDec(
+							decorations,
+							activeNode?.rootPos,
+							activeNode?.rootPos,
+						);
+						decorations = decorations.remove(oldActiveQuickInsertDec);
+						decorations = decorations.add(newState.doc, [
+							createActiveQuickInsertNodeDecoration(latestActiveNode.rootPos, rootNodeSize),
+						]);
+					}
+				}
+			}
 		}
 
 		if (
@@ -679,6 +747,30 @@ export const apply = (
 				editorState: newState,
 			});
 			decorations = decorations.add(newState.doc, [quickInsertButton]);
+
+			// Update quick insert node decoration when the quick insert button is recreated but
+			// the drag handle was NOT recreated (shouldRecreateHandle was false). When
+			// shouldRecreateHandle is true, the block above already handles this.
+			if (
+				expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true) &&
+				!shouldRecreateHandle &&
+				latestActiveNode?.rootPos !== undefined
+			) {
+				if (activeNode?.rootPos !== undefined) {
+					const oldActiveQuickInsertDec = findActiveQuickInsertNodeDec(
+						decorations,
+						activeNode.rootPos,
+						activeNode.rootPos,
+					);
+					decorations = decorations.remove(oldActiveQuickInsertDec);
+				}
+				const rootNodeSize = newState.doc.nodeAt(latestActiveNode.rootPos)?.nodeSize;
+				if (rootNodeSize !== undefined) {
+					decorations = decorations.add(newState.doc, [
+						createActiveQuickInsertNodeDecoration(latestActiveNode.rootPos, rootNodeSize),
+					]);
+				}
+			}
 
 			if (rightSideControlsEnabled) {
 				for (const factory of nodeDecorationRegistry) {

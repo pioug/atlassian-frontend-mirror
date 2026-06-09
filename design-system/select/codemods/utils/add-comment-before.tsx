@@ -1,4 +1,4 @@
-import { type default as core, type Node } from 'jscodeshift';
+import { type Node, type default as core } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 
 // not replacing newlines (which \s does)

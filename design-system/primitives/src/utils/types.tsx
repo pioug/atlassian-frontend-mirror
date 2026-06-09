@@ -63,6 +63,9 @@ export type SVGElements =
 	| 'view';
 
 export type BackgroundColorToken =
+	| 'color.rovo.background.brand.bold'
+	| 'color.rovo.background.brand.bold.hovered'
+	| 'color.rovo.background.brand.bold.pressed'
 	| 'color.background.accent.lime.subtlest'
 	| 'color.background.accent.lime.subtlest.hovered'
 	| 'color.background.accent.lime.subtlest.pressed'

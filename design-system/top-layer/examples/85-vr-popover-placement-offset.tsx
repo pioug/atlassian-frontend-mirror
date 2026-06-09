@@ -2,15 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useRef } from 'react';
+import { Fragment, type ReactNode, useEffect, useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import { Popup, type TPlacementOptions } from '@atlaskit/top-layer/popup';
-import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
+import { Popover, type TPlacementOptions } from '@atlaskit/top-layer/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 
 const styles = cssMap({
 	center: {
@@ -71,29 +72,37 @@ function offsetLabel(placement: TPlacementOptions): string {
 function VrPopover({ placement }: { placement: TPlacementOptions }) {
 	const label = offsetLabel(placement);
 	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const [isOpen, setIsOpen] = useState(false);
 
-	// Auto-open the popup on mount so the VR snapshot captures the
+	useAnchorPosition({ anchorRef: triggerRef, popoverRef, placement });
+
+	// Auto-open the popover on mount so the VR snapshot captures the
 	// positioned popover rather than just the closed trigger button.
 	useEffect(() => {
-		triggerRef.current?.click();
+		setIsOpen(true);
 	}, []);
 
 	return (
 		<div css={styles.center}>
-			<Popup placement={placement} onClose={() => {}}>
-				<Popup.Trigger>
-					<button ref={triggerRef} type="button">
-						{label}
-					</button>
-				</Popup.Trigger>
-				<Popup.Content role="dialog" label={`Popup at ${label}`}>
-					<PopupSurface>
+			<Fragment>
+				<button ref={triggerRef} type="button">
+					{label}
+				</button>
+				<Popover
+					ref={popoverRef}
+					role="dialog"
+					label={`Popover at ${label}`}
+					isOpen={isOpen}
+					onClose={() => setIsOpen(false)}
+				>
+					<PopoverSurface>
 						<Box padding="space.200">
 							<Text>{label}</Text>
 						</Box>
-					</PopupSurface>
-				</Popup.Content>
-			</Popup>
+					</PopoverSurface>
+				</Popover>
+			</Fragment>
 		</div>
 	);
 }
@@ -102,27 +111,40 @@ function VrPopover({ placement }: { placement: TPlacementOptions }) {
 function VrPopoverJsFallback({ placement }: { placement: TPlacementOptions }) {
 	const label = offsetLabel(placement);
 	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const [isOpen, setIsOpen] = useState(false);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement,
+		forceFallbackPositioning: true,
+	});
 
 	useEffect(() => {
-		triggerRef.current?.click();
+		setIsOpen(true);
 	}, []);
 
 	return (
 		<div css={styles.center}>
-			<Popup placement={placement} onClose={() => {}} forceFallbackPositioning>
-				<Popup.Trigger>
-					<button ref={triggerRef} type="button">
-						{label}
-					</button>
-				</Popup.Trigger>
-				<Popup.Content role="dialog" label={`JS fallback ${label}`}>
-					<PopupSurface>
+			<Fragment>
+				<button ref={triggerRef} type="button">
+					{label}
+				</button>
+				<Popover
+					ref={popoverRef}
+					role="dialog"
+					label={`JS fallback ${label}`}
+					isOpen={isOpen}
+					onClose={() => setIsOpen(false)}
+				>
+					<PopoverSurface>
 						<Box padding="space.200">
 							<Text>{label} (JS fallback)</Text>
 						</Box>
-					</PopupSurface>
-				</Popup.Content>
-			</Popup>
+					</PopoverSurface>
+				</Popover>
+			</Fragment>
 		</div>
 	);
 }
@@ -132,31 +154,39 @@ function VrPopoverJsFallback({ placement }: { placement: TPlacementOptions }) {
 function PopupAtEdge({ placement }: { placement: TPlacementOptions }) {
 	const label = offsetLabel(placement);
 	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const [isOpen, setIsOpen] = useState(false);
+
+	useAnchorPosition({ anchorRef: triggerRef, popoverRef, placement });
 
 	useEffect(() => {
-		triggerRef.current?.click();
+		setIsOpen(true);
 	}, []);
 
 	return (
-		<Popup placement={placement} onClose={() => {}}>
-			<Popup.Trigger>
-				<button ref={triggerRef} type="button">
-					{label}
-				</button>
-			</Popup.Trigger>
-			<Popup.Content role="dialog" label={`Edge ${label}`}>
-				<PopupSurface>
+		<Fragment>
+			<button ref={triggerRef} type="button">
+				{label}
+			</button>
+			<Popover
+				ref={popoverRef}
+				role="dialog"
+				label={`Edge ${label}`}
+				isOpen={isOpen}
+				onClose={() => setIsOpen(false)}
+			>
+				<PopoverSurface>
 					<Box padding="space.200">
 						<Text>{label}</Text>
 					</Box>
-				</PopupSurface>
-			</Popup.Content>
-		</Popup>
+				</PopoverSurface>
+			</Popover>
+		</Fragment>
 	);
 }
 
 // Block-axis shift forwards (cross axis is inline; forwards = inline-end)
-export function VrBlockEndShiftForwards(): JSX.Element {
+export function VrBlockEndShiftForwards(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -169,7 +199,7 @@ export function VrBlockEndShiftForwards(): JSX.Element {
 }
 
 // Block-axis shift backwards (forwards = inline-start)
-export function VrBlockEndShiftBackwards(): JSX.Element {
+export function VrBlockEndShiftBackwards(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -181,7 +211,7 @@ export function VrBlockEndShiftBackwards(): JSX.Element {
 	);
 }
 
-export function VrBlockStartShiftForwards(): JSX.Element {
+export function VrBlockStartShiftForwards(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -193,7 +223,7 @@ export function VrBlockStartShiftForwards(): JSX.Element {
 	);
 }
 
-export function VrBlockStartShiftBackwards(): JSX.Element {
+export function VrBlockStartShiftBackwards(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -206,7 +236,7 @@ export function VrBlockStartShiftBackwards(): JSX.Element {
 }
 
 // Inline-axis shift forwards (cross axis is block; forwards = block-end)
-export function VrInlineEndShiftForwards(): JSX.Element {
+export function VrInlineEndShiftForwards(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -218,7 +248,7 @@ export function VrInlineEndShiftForwards(): JSX.Element {
 	);
 }
 
-export function VrInlineEndShiftBackwards(): JSX.Element {
+export function VrInlineEndShiftBackwards(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -230,7 +260,7 @@ export function VrInlineEndShiftBackwards(): JSX.Element {
 	);
 }
 
-export function VrInlineStartShiftForwards(): JSX.Element {
+export function VrInlineStartShiftForwards(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -242,7 +272,7 @@ export function VrInlineStartShiftForwards(): JSX.Element {
 	);
 }
 
-export function VrInlineStartShiftBackwards(): JSX.Element {
+export function VrInlineStartShiftBackwards(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -255,7 +285,7 @@ export function VrInlineStartShiftBackwards(): JSX.Element {
 }
 
 // Shift combined with non-default align
-export function VrBlockEndAlignStartShiftForwards(): JSX.Element {
+export function VrBlockEndAlignStartShiftForwards(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -268,7 +298,7 @@ export function VrBlockEndAlignStartShiftForwards(): JSX.Element {
 	);
 }
 
-export function VrBlockEndAlignEndShiftBackwards(): JSX.Element {
+export function VrBlockEndAlignEndShiftBackwards(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -283,7 +313,7 @@ export function VrBlockEndAlignEndShiftBackwards(): JSX.Element {
 
 // Align: 'end' + shift forwards. Locks in the per-align margin SIDE fix:
 // without it, the END-anchored popover does not shift.
-export function VrBlockEndAlignEndShiftForwards(): JSX.Element {
+export function VrBlockEndAlignEndShiftForwards(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -296,7 +326,7 @@ export function VrBlockEndAlignEndShiftForwards(): JSX.Element {
 	);
 }
 
-export function VrBlockStartAlignEndShiftForwards(): JSX.Element {
+export function VrBlockStartAlignEndShiftForwards(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -309,7 +339,7 @@ export function VrBlockStartAlignEndShiftForwards(): JSX.Element {
 	);
 }
 
-export function VrInlineEndAlignEndShiftForwards(): JSX.Element {
+export function VrInlineEndAlignEndShiftForwards(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -322,7 +352,7 @@ export function VrInlineEndAlignEndShiftForwards(): JSX.Element {
 	);
 }
 
-export function VrInlineStartAlignEndShiftForwards(): JSX.Element {
+export function VrInlineStartAlignEndShiftForwards(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -336,7 +366,7 @@ export function VrInlineStartAlignEndShiftForwards(): JSX.Element {
 }
 
 // Custom gap (overrides default 8 from a placement-level path)
-export function VrBlockEndGapLarge(): JSX.Element {
+export function VrBlockEndGapLarge(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -349,7 +379,7 @@ export function VrBlockEndGapLarge(): JSX.Element {
 }
 
 // Combined gap and shift
-export function VrBlockEndGapAndShift(): JSX.Element {
+export function VrBlockEndGapAndShift(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -365,7 +395,7 @@ export function VrBlockEndGapAndShift(): JSX.Element {
 }
 
 // Token string for gap (verifies the probe + cache resolves design tokens)
-export function VrBlockEndGapToken(): JSX.Element {
+export function VrBlockEndGapToken(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -378,7 +408,7 @@ export function VrBlockEndGapToken(): JSX.Element {
 }
 
 // Token string for shift.value
-export function VrBlockEndShiftToken(): JSX.Element {
+export function VrBlockEndShiftToken(): ReactNode {
 	return (
 		<VrPopover
 			placement={{
@@ -393,7 +423,7 @@ export function VrBlockEndShiftToken(): JSX.Element {
 // Section A: JS fallback path with non-default offset.
 // Confirms the JS fallback resolves and applies both `gap` and `shift`.
 
-export function VrJsFallbackBlockEndGap(): JSX.Element {
+export function VrJsFallbackBlockEndGap(): ReactNode {
 	return (
 		<VrPopoverJsFallback
 			placement={{
@@ -405,7 +435,7 @@ export function VrJsFallbackBlockEndGap(): JSX.Element {
 	);
 }
 
-export function VrJsFallbackBlockEndShift(): JSX.Element {
+export function VrJsFallbackBlockEndShift(): ReactNode {
 	return (
 		<VrPopoverJsFallback
 			placement={{
@@ -417,7 +447,7 @@ export function VrJsFallbackBlockEndShift(): JSX.Element {
 	);
 }
 
-export function VrJsFallbackInlineEndGap(): JSX.Element {
+export function VrJsFallbackInlineEndGap(): ReactNode {
 	return (
 		<VrPopoverJsFallback
 			placement={{
@@ -429,7 +459,7 @@ export function VrJsFallbackInlineEndGap(): JSX.Element {
 	);
 }
 
-export function VrJsFallbackInlineEndShift(): JSX.Element {
+export function VrJsFallbackInlineEndShift(): ReactNode {
 	return (
 		<VrPopoverJsFallback
 			placement={{
@@ -443,7 +473,7 @@ export function VrJsFallbackInlineEndShift(): JSX.Element {
 
 // JS fallback: shift backwards. Locks in the signed-pixel resolution path
 // (consumer values can be negative once the direction is applied).
-export function VrJsFallbackBlockEndShiftBackwards(): JSX.Element {
+export function VrJsFallbackBlockEndShiftBackwards(): ReactNode {
 	return (
 		<VrPopoverJsFallback
 			placement={{
@@ -456,8 +486,8 @@ export function VrJsFallbackBlockEndShiftBackwards(): JSX.Element {
 }
 
 // JS fallback: align: 'end' + shift forwards. Locks in the per-align sign
-// flip in `applyShift` - without it, the END-anchored popover does not shift.
-export function VrJsFallbackBlockEndAlignEndShiftForwards(): JSX.Element {
+// flip in `applyShift` — without it, the END-anchored popover does not shift.
+export function VrJsFallbackBlockEndAlignEndShiftForwards(): ReactNode {
 	return (
 		<VrPopoverJsFallback
 			placement={{
@@ -471,7 +501,7 @@ export function VrJsFallbackBlockEndAlignEndShiftForwards(): JSX.Element {
 }
 
 // JS fallback: combined custom gap and shift in one placement.
-export function VrJsFallbackBlockEndGapAndShift(): JSX.Element {
+export function VrJsFallbackBlockEndGapAndShift(): ReactNode {
 	return (
 		<VrPopoverJsFallback
 			placement={{
@@ -485,7 +515,7 @@ export function VrJsFallbackBlockEndGapAndShift(): JSX.Element {
 
 // JS fallback: token string for gap. Verifies the DOM-probe resolves design
 // tokens to pixels in the JS path (not just the CSS path).
-export function VrJsFallbackBlockEndGapToken(): JSX.Element {
+export function VrJsFallbackBlockEndGapToken(): ReactNode {
 	return (
 		<VrPopoverJsFallback
 			placement={{
@@ -498,7 +528,7 @@ export function VrJsFallbackBlockEndGapToken(): JSX.Element {
 }
 
 // JS fallback: token string for shift.value. Verifies signed token resolution.
-export function VrJsFallbackBlockEndShiftToken(): JSX.Element {
+export function VrJsFallbackBlockEndShiftToken(): ReactNode {
 	return (
 		<VrPopoverJsFallback
 			placement={{
@@ -516,7 +546,7 @@ export function VrJsFallbackBlockEndShiftToken(): JSX.Element {
 // Trigger pinned to each viewport edge so CSS Anchor Positioning must flip.
 // The cross-axis margin should remain correct through the flip.
 
-export function VrFlipBlockEndShift(): JSX.Element {
+export function VrFlipBlockEndShift(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipBlockEnd]}>
@@ -532,7 +562,7 @@ export function VrFlipBlockEndShift(): JSX.Element {
 	);
 }
 
-export function VrFlipBlockStartGapAndShift(): JSX.Element {
+export function VrFlipBlockStartGapAndShift(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipBlockStart]}>
@@ -551,7 +581,7 @@ export function VrFlipBlockStartGapAndShift(): JSX.Element {
 	);
 }
 
-export function VrFlipInlineEndShift(): JSX.Element {
+export function VrFlipInlineEndShift(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipInlineEnd]}>
@@ -567,7 +597,7 @@ export function VrFlipInlineEndShift(): JSX.Element {
 	);
 }
 
-export function VrFlipInlineStartGapAndShift(): JSX.Element {
+export function VrFlipInlineStartGapAndShift(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipInlineStart]}>
@@ -588,7 +618,7 @@ export function VrFlipInlineStartGapAndShift(): JSX.Element {
 
 // Section B (continued): backwards-shift through a flip. Verifies the
 // signed-margin fix still applies after a CSS edge flip.
-export function VrFlipBlockEndShiftBackwards(): JSX.Element {
+export function VrFlipBlockEndShiftBackwards(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipBlockEnd]}>
@@ -604,7 +634,7 @@ export function VrFlipBlockEndShiftBackwards(): JSX.Element {
 	);
 }
 
-export function VrFlipBlockStartShiftBackwards(): JSX.Element {
+export function VrFlipBlockStartShiftBackwards(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipBlockStart]}>
@@ -623,7 +653,7 @@ export function VrFlipBlockStartShiftBackwards(): JSX.Element {
 	);
 }
 
-export function VrFlipInlineEndShiftBackwards(): JSX.Element {
+export function VrFlipInlineEndShiftBackwards(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipInlineEnd]}>
@@ -639,7 +669,7 @@ export function VrFlipInlineEndShiftBackwards(): JSX.Element {
 	);
 }
 
-export function VrFlipInlineStartShiftBackwards(): JSX.Element {
+export function VrFlipInlineStartShiftBackwards(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipInlineStart]}>
@@ -658,6 +688,6 @@ export function VrFlipInlineStartShiftBackwards(): JSX.Element {
 	);
 }
 
-export default function VrPopoverPlacementOffset(): JSX.Element {
+export default function VrPopoverPlacementOffset(): ReactNode {
 	return <VrBlockEndShiftForwards />;
 }

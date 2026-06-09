@@ -32,7 +32,7 @@ export default {
   ${activeTokens
 		.map((t) => {
 			// handle the default case eg color.border or color.text
-			const propName = t.token.replace('color.background.', '');
+			const propName = t.token.replace('color.background.', '').replace('color.', '');
 			return `'${propName}': '${propName.includes('warning') ? 'warning.inverse' : 'inverse'}'`;
 		})
 		.join(',\n\t')}

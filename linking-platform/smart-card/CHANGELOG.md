@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 44.23.4
+
+### Patch Changes
+
+- [`36b77f485aef1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36b77f485aef1) -
+  Append url with cross-product analytics params on go to link via embed modal and action hook
+- Updated dependencies
+
 ## 44.23.3
 
 ### Patch Changes

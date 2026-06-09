@@ -42,6 +42,7 @@ import {
 import { getLeftPositionForRootElement } from '../pm-plugins/utils/widget-positions';
 
 import {
+	ACTIVE_QUICK_INSERT_ATTR,
 	QUICK_INSERT_DIMENSIONS,
 	QUICK_INSERT_HEIGHT,
 	QUICK_INSERT_LEFT_OFFSET,
@@ -239,6 +240,15 @@ export const TypeAheadControl = ({
 		const dom: HTMLElement | null = view.dom.querySelector(
 			`[${getAnchorAttrName()}="${safeAnchorName}"]`,
 		);
+
+		// Defence-in-depth guard: the node decoration sets data-active-quick-insert on the
+		// active root node. Check for it directly — cheap DOM attribute read, no reflow.
+		if (
+			expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true) &&
+			!dom?.hasAttribute(ACTIVE_QUICK_INSERT_ATTR)
+		) {
+			return { display: 'none' };
+		}
 
 		const hasResizer = rootNodeType === 'table' || rootNodeType === 'mediaSingle';
 		const isExtension =

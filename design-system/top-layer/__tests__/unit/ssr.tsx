@@ -8,7 +8,7 @@ afterEach(() => {
 });
 
 test('should ssr then hydrate popover example correctly', async () => {
-	const examplePath = require.resolve('../../examples/01-basic-popover');
+	const examplePath = require.resolve('../../examples/119-testing-simple-light-dismiss');
 	const elem = document.createElement('div');
 	const { html, styles } = await ssr(examplePath);
 	elem.innerHTML = html;
@@ -19,8 +19,8 @@ test('should ssr then hydrate popover example correctly', async () => {
 	// `onToggle` event handler, which React does not fully support in SSR yet.
 	// These are expected and will resolve when React adds native popover support.
 	const mockCalls = (console.error as jest.Mock).mock.calls.filter((call: unknown[]) => {
-		const msg = call.map(String).join(' ');
-		return !msg.includes('popover') && !msg.includes('onToggle');
+		const message = call.map(String).join(' ');
+		return !message.includes('popover') && !message.includes('onToggle');
 	});
 	expect(mockCalls.length).toBe(0);
 
@@ -38,8 +38,8 @@ test('should ssr then hydrate dialog example correctly', async () => {
 	// Filter out known React warnings about the native `<dialog>` element,
 	// which React does not fully support in SSR yet (similar to `popover`).
 	const mockCalls = (console.error as jest.Mock).mock.calls.filter((call: unknown[]) => {
-		const msg = call.map(String).join(' ');
-		return !msg.includes('dialog');
+		const message = call.map(String).join(' ');
+		return !message.includes('dialog');
 	});
 	expect(mockCalls.length).toBe(0);
 

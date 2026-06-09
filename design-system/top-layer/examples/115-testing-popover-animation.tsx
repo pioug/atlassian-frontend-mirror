@@ -2,14 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useState } from 'react';
+import { type ReactNode, useCallback, useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 import { slideAndFade } from '@atlaskit/top-layer/animations';
-import { Popup } from '@atlaskit/top-layer/popup';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
+import { Popover } from '@atlaskit/top-layer/popover';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 const animation = slideAndFade();
 
@@ -28,33 +31,47 @@ const styles = cssMap({
  * Test fixture for animation lifecycle.
  * Includes a status indicator that reflects whether the popover is open or closed.
  */
-export default function TestingPopoverAnimation(): JSX.Element {
+export default function TestingPopoverAnimation(): ReactNode {
 	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: { edge: 'end' },
+	});
 
 	return (
 		<div css={styles.wrapper}>
 			<div data-testid="status">{isOpen ? 'open' : 'closed'}</div>
-			<Popup
-				placement={{ edge: 'end' }}
-				onClose={() => {
-					setIsOpen(false);
-				}}
+			<button
+				ref={triggerRef}
+				type="button"
+				data-testid="popover-trigger"
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId })}
 			>
-				<Popup.Trigger>
-					<button
-						type="button"
-						data-testid="popover-trigger"
-						onClick={() => setIsOpen((prev) => !prev)}
-					>
-						Toggle
-					</button>
-				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Animated popup" animate={animation}>
-					<div data-testid="popover-content" css={styles.content}>
-						Animated content
-					</div>
-				</Popup.Content>
-			</Popup>
+				Toggle
+			</button>
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
+				role="dialog"
+				label="Animated popover"
+				animate={animation}
+				placement={{ edge: 'end' }}
+			>
+				<div data-testid="popover-content" css={styles.content}>
+					Animated content
+				</div>
+			</Popover>
 		</div>
 	);
 }

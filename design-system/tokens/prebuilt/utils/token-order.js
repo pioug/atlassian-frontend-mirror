@@ -9,7 +9,7 @@ exports.tokenOrder = void 0;
  */
 var tokenOrder = exports.tokenOrder = [{
   path: 'color',
-  subpaths: ['text', 'link', 'icon', 'border', 'background', 'blanket', 'interaction', 'skeleton', 'chart',
+  subpaths: ['background', 'border', 'text', 'icon', 'link', 'interaction', 'skeleton', 'blanket', 'chart', 'rovo',
   // deleted ↓
   'accent', 'iconBorder', 'overlay']
 }, {

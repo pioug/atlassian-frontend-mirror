@@ -73,6 +73,16 @@ const getNodeDecoration = (pos: number, node: Node) => [
 	Decoration.node(pos, pos + node.nodeSize, { class: 'selected' }),
 ];
 
+const getDangerPreviewDecorations = (state: EditorState, positions: number[] | undefined) =>
+	positions?.flatMap((pos) => {
+		const node = state.doc.nodeAt(pos);
+		if (!node) {
+			return [];
+		}
+
+		return [Decoration.node(pos, pos + node.nodeSize, { class: 'layout-column-danger-preview' })];
+	}) ?? [];
+
 const getInitialPluginState = (options: LayoutPluginOptions, state: EditorState): LayoutState => {
 	const maybeLayoutSection = getMaybeLayoutSection(state);
 	const allowBreakout = options.allowBreakout || false;
@@ -91,8 +101,73 @@ const getInitialPluginState = (options: LayoutPluginOptions, state: EditorState)
 		allowSingleColumnLayout,
 		isResizing: false,
 		isLayoutColumnMenuOpen: false,
+		layoutColumnMenuOpenedViaKeyboard: false,
 		layoutColumnMenuAnchorPos: undefined,
+		dangerPreviewLayoutColumnPositions: undefined,
 	};
+};
+
+type ToggleLayoutColumnMenuMeta = {
+	anchorPos?: number;
+	isOpen?: boolean;
+	openedViaKeyboard?: boolean;
+};
+
+type LayoutColumnMenuStateAction =
+	| { meta: ToggleLayoutColumnMenuMeta; type: 'toggleLayoutColumnMenu' }
+	| { positions: number[] | undefined; type: 'setDangerPreview' }
+	| { type: 'clearDangerPreview' }
+	| { isResizing: boolean; type: 'setResizeState' }
+	| { state: EditorState; type: 'syncSelectionState' };
+
+const reduceLayoutColumnMenuState = (
+	pluginState: LayoutState,
+	action: LayoutColumnMenuStateAction,
+): LayoutState => {
+	switch (action.type) {
+		case 'toggleLayoutColumnMenu': {
+			const { anchorPos, isOpen, openedViaKeyboard } = action.meta;
+			const nextIsOpen = isOpen ?? !pluginState.isLayoutColumnMenuOpen;
+
+			return {
+				...pluginState,
+				isLayoutColumnMenuOpen: nextIsOpen,
+				layoutColumnMenuOpenedViaKeyboard: nextIsOpen ? (openedViaKeyboard ?? false) : false,
+				layoutColumnMenuAnchorPos: nextIsOpen ? anchorPos : undefined,
+				dangerPreviewLayoutColumnPositions: nextIsOpen
+					? pluginState.dangerPreviewLayoutColumnPositions
+					: undefined,
+			};
+		}
+		case 'setDangerPreview':
+			return {
+				...pluginState,
+				dangerPreviewLayoutColumnPositions: action.positions,
+			};
+		case 'clearDangerPreview':
+			return {
+				...pluginState,
+				dangerPreviewLayoutColumnPositions: undefined,
+			};
+		case 'setResizeState':
+			return {
+				...pluginState,
+				isResizing: action.isResizing,
+			};
+		case 'syncSelectionState': {
+			const maybeLayoutSection = getMaybeLayoutSection(action.state);
+			return {
+				...pluginState,
+				pos: maybeLayoutSection ? maybeLayoutSection.pos : null,
+				selectedLayout: getSelectedLayout(
+					maybeLayoutSection && maybeLayoutSection.node,
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					pluginState.selectedLayout!,
+				),
+			};
+		}
+	}
 };
 
 // To prevent a single-column layout,
@@ -163,39 +238,51 @@ export default (
 			init: (_, state): LayoutState => getInitialPluginState(options, state),
 
 			apply: (tr, pluginState, oldState, newState) => {
-				const columnMenuMeta = tr.getMeta('toggleLayoutColumnMenu');
-				const nextPluginState = columnMenuMeta
-					? {
-							...pluginState,
-							isLayoutColumnMenuOpen: columnMenuMeta.isOpen ?? !pluginState.isLayoutColumnMenuOpen,
-							layoutColumnMenuAnchorPos:
-								columnMenuMeta.isOpen === false ? undefined : columnMenuMeta.anchorPos,
-						}
-					: pluginState;
+				let nextPluginState = pluginState;
+				const columnMenuMeta = tr.getMeta('toggleLayoutColumnMenu') as
+					| ToggleLayoutColumnMenuMeta
+					| undefined;
+				const dangerPreviewMeta = tr.getMeta('layoutColumnDangerPreview') as
+					| number[]
+					| null
+					| undefined;
+
+				if (columnMenuMeta) {
+					nextPluginState = reduceLayoutColumnMenuState(nextPluginState, {
+						meta: columnMenuMeta,
+						type: 'toggleLayoutColumnMenu',
+					});
+				}
+
+				if (tr.getMeta('layoutColumnDangerPreview') !== undefined) {
+					nextPluginState = reduceLayoutColumnMenuState(nextPluginState, {
+						positions: dangerPreviewMeta ?? undefined,
+						type: 'setDangerPreview',
+					});
+				}
+
+				if (tr.docChanged) {
+					nextPluginState = reduceLayoutColumnMenuState(nextPluginState, {
+						type: 'clearDangerPreview',
+					});
+				}
 
 				const isResizing = editorExperiment('single_column_layouts', true)
 					? (tr.getMeta('is-resizer-resizing') ?? pluginKey.getState(oldState)?.isResizing)
 					: false;
-				if (tr.docChanged || tr.selectionSet) {
-					const maybeLayoutSection = getMaybeLayoutSection(newState);
-
-					const newPluginState = {
-						...nextPluginState,
-						pos: maybeLayoutSection ? maybeLayoutSection.pos : null,
-						isResizing,
-						selectedLayout: getSelectedLayout(
-							maybeLayoutSection && maybeLayoutSection.node,
-							// Ignored via go/ees005
-							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							pluginState.selectedLayout!,
-						),
-					};
-					return newPluginState;
-				}
-				return {
-					...nextPluginState,
+				nextPluginState = reduceLayoutColumnMenuState(nextPluginState, {
 					isResizing,
-				};
+					type: 'setResizeState',
+				});
+
+				if (tr.docChanged || tr.selectionSet) {
+					return reduceLayoutColumnMenuState(nextPluginState, {
+						state: newState,
+						type: 'syncSelectionState',
+					});
+				}
+
+				return nextPluginState;
 			},
 		},
 		props: {
@@ -214,18 +301,34 @@ export default (
 						layoutState.pos !== null
 							? getNodeDecoration(layoutState.pos, state.doc.nodeAt(layoutState.pos) as Node)
 							: [];
-					const allDecorations = [...selectedDecorations, ...dividerDecorations];
+					const dangerPreviewDecorations = getDangerPreviewDecorations(
+						state,
+						layoutState.dangerPreviewLayoutColumnPositions,
+					);
+					const allDecorations = [
+						...selectedDecorations,
+						...dividerDecorations,
+						...dangerPreviewDecorations,
+					];
 					if (allDecorations.length > 0) {
 						return DecorationSet.create(state.doc, allDecorations);
 					}
 					return undefined;
 				}
 
-				if (layoutState.pos !== null) {
-					return DecorationSet.create(
-						state.doc,
-						getNodeDecoration(layoutState.pos, state.doc.nodeAt(layoutState.pos) as Node),
-					);
+				const dangerPreviewDecorations = getDangerPreviewDecorations(
+					state,
+					layoutState.dangerPreviewLayoutColumnPositions,
+				);
+				if (layoutState.pos !== null || dangerPreviewDecorations.length > 0) {
+					const selectedDecorations =
+						layoutState.pos !== null
+							? getNodeDecoration(layoutState.pos, state.doc.nodeAt(layoutState.pos) as Node)
+							: [];
+					return DecorationSet.create(state.doc, [
+						...selectedDecorations,
+						...dangerPreviewDecorations,
+					]);
 				}
 				return undefined;
 			},
@@ -277,7 +380,6 @@ export default (
 				if (prevTr.getMeta(LAYOUT_COLUMN_INSERT_META)) {
 					return;
 				}
-
 
 				const change = fixColumnSizes(prevTr, newState);
 				if (change) {

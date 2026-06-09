@@ -195,7 +195,7 @@ assumptions):
 | `inline-dialog`      | `inline-dialog-parity.spec.tsx`         | 11          | ✅ new file                         |
 | `flag`               | `flag-top-layer-gaps.test.tsx`          | 11          | ✅ passing                          |
 | `modal-dialog`       | `modal-dialog-top-layer.test.tsx`       | 10          | ✅ passing                          |
-| `popup`              | `popup-top-layer-gaps.test.tsx`         | 8           | ✅ passing                          |
+| `popup`              | `popup-top-layer-adapter.test.tsx`      | 8           | ✅ passing                          |
 | `spotlight`          | `spotlight-top-layer.test.tsx`          | 8           | ✅ passing                          |
 | `menu`               | `menu.spec.tsx`                         | 3           | ✅ passing                          |
 | `datetime-picker`    | `date-picker-extended.spec.tsx`         | 1           | ✅ new file                         |

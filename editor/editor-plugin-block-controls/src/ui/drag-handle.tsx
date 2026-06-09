@@ -83,6 +83,7 @@ import {
 } from '../pm-plugins/utils/selection';
 
 import {
+	ACTIVE_DRAG_HANDLE_ATTR,
 	DRAG_HANDLE_BORDER_RADIUS,
 	DRAG_HANDLE_HEIGHT,
 	DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH,
@@ -579,6 +580,7 @@ export const DragHandle = ({
 					tr.setMeta('toggleLayoutColumnMenu', {
 						anchorPos: startPos,
 						isOpen: true,
+						openedViaKeyboard: false,
 					});
 				}
 
@@ -641,6 +643,7 @@ export const DragHandle = ({
 					tr.setMeta('toggleLayoutColumnMenu', {
 						anchorPos: startPos,
 						isOpen: true,
+						openedViaKeyboard: false,
 					});
 				}
 
@@ -743,6 +746,17 @@ export const DragHandle = ({
 					});
 
 					api?.blockControls?.commands.startPreservingSelection()({ tr });
+
+					if (
+						nodeType === 'layoutColumn' &&
+						expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)
+					) {
+						tr.setMeta('toggleLayoutColumnMenu', {
+							anchorPos: startPos,
+							isOpen: true,
+							openedViaKeyboard: true,
+						});
+					}
 
 					const rootPos = editorExperiment('platform_synced_block', true)
 						? tr.doc.resolve(startPos).before(1)
@@ -968,6 +982,16 @@ export const DragHandle = ({
 		const dom: HTMLElement | null = view.dom.querySelector(
 			`[${getAnchorAttrName()}="${safeAnchorName}"]`,
 		);
+
+		// Defence-in-depth guard: since the node decoration sets data-active-drag-handle on the
+		// active node, we check for it directly. This is a cheap DOM attribute read (no reflow,
+		// no style recalculation) and hides the control if the decoration hasn't been applied yet.
+		if (
+			expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true) &&
+			!dom?.hasAttribute(ACTIVE_DRAG_HANDLE_ATTR)
+		) {
+			return { display: 'none' };
+		}
 
 		const hasResizer = nodeType === 'table' || nodeType === 'mediaSingle';
 		const isExtension =

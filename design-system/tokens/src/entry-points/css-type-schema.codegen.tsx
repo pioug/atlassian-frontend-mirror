@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::84f11e137ffd220e1be3ae63fd7fe5fb>>
+ * @codegen <<SignedSource::385061141691039424c731ba496ba96a>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -72,6 +72,7 @@ export type BackgroundColorHovered =
 	| 'var(--ds-background-information-hovered)'
 	| 'var(--ds-background-information-subtler-hovered)'
 	| 'var(--ds-background-information-bold-hovered)'
+	| 'var(--ds-rovo-background-brand-bold-hovered)'
 	| 'var(--ds-surface-hovered)'
 	| 'var(--ds-surface-overlay-hovered)'
 	| 'var(--ds-surface-raised-hovered)';
@@ -141,6 +142,7 @@ export type BackgroundColorPressed =
 	| 'var(--ds-background-information-pressed)'
 	| 'var(--ds-background-information-subtler-pressed)'
 	| 'var(--ds-background-information-bold-pressed)'
+	| 'var(--ds-rovo-background-brand-bold-pressed)'
 	| 'var(--ds-surface-pressed)'
 	| 'var(--ds-surface-overlay-pressed)'
 	| 'var(--ds-surface-raised-pressed)';
@@ -222,6 +224,7 @@ export type BackgroundColor =
 	| 'var(--ds-background-information-bold)'
 	| 'var(--ds-skeleton)'
 	| 'var(--ds-skeleton-subtle)'
+	| 'var(--ds-rovo-background-brand-bold)'
 	| 'var(--ds-surface)'
 	| 'var(--ds-surface-overlay)'
 	| 'var(--ds-surface-raised)'
@@ -245,8 +248,6 @@ export type FontShorthand =
 export type IconColorPressed = 'var(--ds-link-pressed)' | 'var(--ds-link-visited-pressed)';
 export type IconColor =
 	| IconColorPressed
-	| 'var(--ds-link)'
-	| 'var(--ds-link-visited)'
 	| 'var(--ds-icon)'
 	| 'var(--ds-icon-accent-lime)'
 	| 'var(--ds-icon-accent-red)'
@@ -269,7 +270,13 @@ export type IconColor =
 	| 'var(--ds-icon-discovery)'
 	| 'var(--ds-icon-information)'
 	| 'var(--ds-icon-subtlest)'
-	| 'var(--ds-icon-subtle)';
+	| 'var(--ds-icon-subtle)'
+	| 'var(--ds-link)'
+	| 'var(--ds-link-visited)'
+	| 'var(--ds-rovo-icon-lime)'
+	| 'var(--ds-rovo-icon-saffron)'
+	| 'var(--ds-rovo-icon-blue)'
+	| 'var(--ds-rovo-icon-purple)';
 export type BorderColor =
 	| 'transparent'
 	| 'var(--ds-border)'
@@ -309,7 +316,11 @@ export type BorderColor =
 	| 'var(--ds-border-discovery-subtle)'
 	| 'var(--ds-border-information)'
 	| 'var(--ds-border-information-subtle)'
-	| 'var(--ds-border-bold)';
+	| 'var(--ds-border-bold)'
+	| 'var(--ds-rovo-border-lime)'
+	| 'var(--ds-rovo-border-saffron)'
+	| 'var(--ds-rovo-border-blue)'
+	| 'var(--ds-rovo-border-purple)';
 export type BorderRadius =
 	| 'var(--ds-radius-xsmall)'
 	| 'var(--ds-radius-small)'

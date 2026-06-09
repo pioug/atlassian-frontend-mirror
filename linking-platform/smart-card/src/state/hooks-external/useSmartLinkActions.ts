@@ -3,8 +3,10 @@ import { useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
+
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
@@ -17,6 +19,7 @@ import type { AnalyticsOrigin } from '../../utils/types';
 import type { CardActionOptions, CardInnerAppearance } from '../../view/Card/types';
 import useInvokeClientAction from '../hooks/use-invoke-client-action';
 import useResolve from '../hooks/use-resolve';
+import { useSmartLinkCrossProductUrlWrapperGated } from '../hooks/use-smart-link-cross-product-url-wrapper';
 import { useSmartCardState as useLinkState } from '../store';
 
 export interface LinkAction {
@@ -85,6 +88,10 @@ export function useSmartLinkActions({
 	const invokeClientAction = useInvokeClientAction({ fireEvent });
 	const resolve = useResolve();
 
+	const appendCrossProductAnalyticsParams = useSmartLinkCrossProductUrlWrapperGated({
+		details: linkState.details,
+	});
+
 	if (
 		expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') &&
 		prefetch &&
@@ -104,7 +111,12 @@ export function useSmartLinkActions({
 			);
 		}
 
-		const viewActionProps = extractInvokeViewAction(invokeParam);
+		const viewActionProps = fg('platform_smartlink_xpc_url_wrapping')
+			? extractInvokeViewAction({
+					...invokeParam,
+					transformUrl: (destinationUrl = url) => appendCrossProductAnalyticsParams(destinationUrl),
+				})
+			: extractInvokeViewAction(invokeParam);
 		if (viewActionProps) {
 			actions.push(toAction(viewActionProps, invokeClientAction, messages.view, 'view-content'));
 		}
@@ -115,6 +127,12 @@ export function useSmartLinkActions({
 			origin,
 			isPreviewPanelAvailable,
 			openPreviewPanel,
+			...(fg('platform_smartlink_xpc_url_wrapping')
+				? {
+						transformUrl: (destinationUrl = url) =>
+							appendCrossProductAnalyticsParams(destinationUrl),
+					}
+				: undefined),
 		});
 		if (previewActionProps) {
 			actions.push(

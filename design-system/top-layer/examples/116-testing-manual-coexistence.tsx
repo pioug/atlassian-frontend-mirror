@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useRef, useState } from 'react';
+import { type ReactNode, useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
@@ -31,7 +31,7 @@ const styles = cssMap({
  * Layout is vertical with large spacing to prevent popovers
  * from overlapping each other's triggers.
  */
-export default function TestingManualCoexistence(): JSX.Element {
+export default function TestingManualCoexistence(): ReactNode {
 	const [openA, setOpenA] = useState(false);
 	const [openB, setOpenB] = useState(false);
 	const refA = useRef<HTMLDivElement>(null);

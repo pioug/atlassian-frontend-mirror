@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 
 import { Label } from '@atlaskit/form';
 import Select, {
-	components,
 	type OptionProps,
 	type SingleValueProps,
 	type ValueType,
+	components,
 } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 

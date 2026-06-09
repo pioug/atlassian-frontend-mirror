@@ -1,4 +1,4 @@
-import { type ASTPath, type default as core, type JSXElement } from 'jscodeshift';
+import { type ASTPath, type JSXElement, type default as core } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 
 export function updateRenderProps(

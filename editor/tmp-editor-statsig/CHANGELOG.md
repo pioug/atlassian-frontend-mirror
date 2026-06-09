@@ -1,5 +1,26 @@
 # @atlaskit/editor-statsig-tmp
 
+## 90.0.0
+
+### Major Changes
+
+- [`54136b334c25a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54136b334c25a) -
+  Clean up experiment cc_editor_ttvc_release_bundle_one
+
+## 89.4.0
+
+### Minor Changes
+
+- [`aaf0bc9f036a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaf0bc9f036a7) -
+  [ux] Experiment change, update priority of link quick insert item
+
+## 89.3.0
+
+### Minor Changes
+
+- [`45b3cdde79f3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45b3cdde79f3f) -
+  added exp entry
+
 ## 89.2.0
 
 ### Minor Changes

@@ -97,7 +97,7 @@ function createToggleScheduler(): (args: { element: Element; newState: TToggleSt
 
 		pending.set(element, { oldState: oppositeState({ state: newState }), newState });
 
-		// Task queue (setTimeout) - browser fires toggle after microtasks drain, not during
+		// Task queue (setTimeout): browser fires toggle after microtasks drain, not during
 		setTimeout(() => {
 			const entry = pending.get(element);
 			if (!entry) {
@@ -499,8 +499,9 @@ if (typeof HTMLElement !== 'undefined') {
 					'InvalidStateError',
 				);
 			}
+			// No-op: already showing.
 			if (isPopoverOpen({ element: this })) {
-				return; // already showing - no-op
+				return;
 			}
 
 			// sync, cancelable on show only
@@ -662,8 +663,9 @@ if (typeof HTMLDialogElement !== 'undefined') {
 				);
 			}
 			if (this.hasAttribute('open')) {
+				// No-op: already modal.
 				if (this._isModal) {
-					return; // already modal - no-op
+					return;
 				}
 				throw new DOMException(
 					`Failed to execute 'showModal' on 'HTMLDialogElement': ${describeElement({ element: this })} already has an 'open' attribute, and therefore cannot be opened modally. The dialog was likely opened non-modally with .show(). Call .close() first, then .showModal().`,
@@ -687,7 +689,7 @@ if (typeof HTMLDialogElement !== 'undefined') {
 
 	if (typeof proto.show !== 'function') {
 		proto.show = function show(this: HTMLDialogElement & { _isModal?: boolean }) {
-			// Browser does not throw for disconnected elements on show - just no-op
+			// Browser does not throw for disconnected elements on show; no-op.
 			if (!this.isConnected || this.hasAttribute('open')) {
 				return;
 			}
@@ -711,11 +713,12 @@ if (typeof HTMLDialogElement !== 'undefined') {
 			this: HTMLDialogElement & { _isModal?: boolean; returnValue: string },
 			returnValue?: string,
 		) {
+			// No-op: already closed.
 			if (!this.hasAttribute('open')) {
-				return; // already closed - no-op
+				return;
 			}
 
-			// Sync beforetoggle (not cancelable) - matches browser behavior
+			// Sync beforetoggle (not cancelable); matches browser behavior.
 			fireToggleEvent({
 				element: this,
 				type: 'beforetoggle',

@@ -37,7 +37,7 @@ const expectedTokenResults: [string[], string[]][] = [
 			'color.chart.neutral',
 			'color.background.danger.subtle',
 			'color.background.information.subtle',
-			'color.background.warning.subtle',
+			'color.rovo.background.brand.bold',
 		],
 	],
 	[['color.text'], ['color.text', 'color.text.accent.lime']],

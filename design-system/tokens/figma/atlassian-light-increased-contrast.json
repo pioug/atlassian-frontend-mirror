@@ -1,933 +1,6 @@
 {
   "name": "Light increased-contrast",
   "tokens": {
-    "Light increased-contrast/color.text": {
-      "value": "#1E1F21",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for primary text, such as body copy, sentence case headers, and buttons."
-      }
-    },
-    "Light increased-contrast/color.text.accent.lime": {
-      "value": "#37471F",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "1.8.0",
-        "description": "Use for lime text on subtlest and subtler lime accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.lime.bolder": {
-      "value": "#28311B",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "1.8.0",
-        "description": "Use for lime text on subtle lime accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.red": {
-      "value": "#5D1F1A",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for red text on subtlest and subtler red accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.red.bolder": {
-      "value": "#42221F",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for red text on subtle red accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.orange": {
-      "value": "#693200",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for orange text on subtlest and subtler orange accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.orange.bolder": {
-      "value": "#3A2C1F",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for orange text on subtle orange accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.yellow": {
-      "value": "#533F04",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for yellow text on subtlest and subtler yellow accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.yellow.bolder": {
-      "value": "#332E1B",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for yellow text on subtle yellow accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.green": {
-      "value": "#164B35",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for green text on subtlest and subtler green accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.green.bolder": {
-      "value": "#1C3329",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for green text on subtle green accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.teal": {
-      "value": "#164555",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for teal text on subtlest and subtler teal accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.teal.bolder": {
-      "value": "#1E3137",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for teal text on subtle teal accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.blue": {
-      "value": "#123263",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for blue text on subtlest and subtler blue accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.blue.bolder": {
-      "value": "#1C2B42",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for blue text on subtle blue accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.purple": {
-      "value": "#48245D",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for purple text on subtlest and subtler purple accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.purple.bolder": {
-      "value": "#35243F",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for purple text on subtle purple accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.magenta": {
-      "value": "#50253F",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for magenta text on subtlest and subtler magenta accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.magenta.bolder": {
-      "value": "#3D2232",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for magenta text on subtle magenta accent backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.text.accent.gray": {
-      "value": "#3B3D42",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.10.5",
-        "description": "Use for text on non-bold gray accent backgrounds, such as colored tags."
-      }
-    },
-    "Light increased-contrast/color.text.accent.gray.bolder": {
-      "value": "#292A2E",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.10.5",
-        "description": "Use for text and icons on gray subtle accent backgrounds."
-      }
-    },
-    "Light increased-contrast/color.text.disabled": {
-      "value": "#080F214A",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.0.15",
-        "description": "Use for text in a disabled state."
-      }
-    },
-    "Light increased-contrast/color.text.inverse": {
-      "value": "#FFFFFF",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for text on bold backgrounds."
-      }
-    },
-    "Light increased-contrast/color.text.selected": {
-      "value": "#123263",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
-      }
-    },
-    "Light increased-contrast/color.text.brand": {
-      "value": "#123263",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for text that reinforces our brand."
-      }
-    },
-    "Light increased-contrast/color.text.danger": {
-      "value": "#5D1F1A",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.0.15",
-        "description": "Use for critical text, such as input field error messaging."
-      }
-    },
-    "Light increased-contrast/color.text.danger.bolder": {
-      "value": "#42221F",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "8.1.0",
-        "description": "Use for text on top of danger semantic labels to ensure accessibility and desired visual appearance."
-      }
-    },
-    "Light increased-contrast/color.text.warning": {
-      "value": "#693200",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.0.15",
-        "description": "Use for text to emphasize caution, such as in moved lozenges."
-      }
-    },
-    "Light increased-contrast/color.text.warning.inverse": {
-      "value": "#FFFFFF",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for text when on bold warning backgrounds."
-      }
-    },
-    "Light increased-contrast/color.text.warning.bolder": {
-      "value": "#3A2C1F",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "8.1.0",
-        "description": "Use for text on top of warning semantic labels to ensure accessibility and desired visual appearance."
-      }
-    },
-    "Light increased-contrast/color.text.success": {
-      "value": "#164B35",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.0.15",
-        "description": "Use for text to communicate a favorable outcome, such as input field success messaging."
-      }
-    },
-    "Light increased-contrast/color.text.success.bolder": {
-      "value": "#1C3329",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "8.1.0",
-        "description": "Use for text on top of success semantic labels to ensure accessibility and desired visual appearance."
-      }
-    },
-    "Light increased-contrast/color.text.discovery": {
-      "value": "#48245D",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.0.15",
-        "description": "Use for text to emphasize change or something new, such as in new lozenges."
-      }
-    },
-    "Light increased-contrast/color.text.discovery.bolder": {
-      "value": "#35243F",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "8.1.0",
-        "description": "Use for text on top of discovery semantic labels to ensure accessibility and desired visual appearance."
-      }
-    },
-    "Light increased-contrast/color.text.information": {
-      "value": "#123263",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for informative text or to communicate something is in progress, such as in-progress lozenges."
-      }
-    },
-    "Light increased-contrast/color.text.information.bolder": {
-      "value": "#1C2B42",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "8.1.0",
-        "description": "Use for text on top of information semantic labels to ensure accessibility and desired visual appearance."
-      }
-    },
-    "Light increased-contrast/color.text.subtlest": {
-      "value": "#3B3D42",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text."
-      }
-    },
-    "Light increased-contrast/color.text.subtle": {
-      "value": "#292A2E",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings."
-      }
-    },
-    "Light increased-contrast/color.link": {
-      "value": "#123263",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for links in a default or hovered state. Add an underline for hovered states."
-      }
-    },
-    "Light increased-contrast/color.link.pressed": {
-      "value": "#123263",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for links in a pressed state."
-      }
-    },
-    "Light increased-contrast/color.link.visited": {
-      "value": "#803FA5",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "1.23.0",
-        "description": "Use for visited links."
-      }
-    },
-    "Light increased-contrast/color.link.visited.pressed": {
-      "value": "#48245D",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "1.43.0",
-        "description": "Use for visited links in a pressed state."
-      }
-    },
-    "Light increased-contrast/color.icon": {
-      "value": "#292A2E",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for icon-only buttons, or icons paired with color.text"
-      }
-    },
-    "Light increased-contrast/color.icon.accent.lime": {
-      "value": "#4C6B1F",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "1.6.0",
-        "description": "Use for lime icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
-      }
-    },
-    "Light increased-contrast/color.icon.accent.red": {
-      "value": "#AE2E24",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for red icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
-      }
-    },
-    "Light increased-contrast/color.icon.accent.orange": {
-      "value": "#9E4C00",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for orange icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
-      }
-    },
-    "Light increased-contrast/color.icon.accent.yellow": {
-      "value": "#7F5F01",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for yellow icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
-      }
-    },
-    "Light increased-contrast/color.icon.accent.green": {
-      "value": "#216E4E",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for green icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
-      }
-    },
-    "Light increased-contrast/color.icon.accent.teal": {
-      "value": "#206A83",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for teal icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
-      }
-    },
-    "Light increased-contrast/color.icon.accent.blue": {
-      "value": "#1558BC",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for blue icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
-      }
-    },
-    "Light increased-contrast/color.icon.accent.purple": {
-      "value": "#803FA5",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for purple icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
-      }
-    },
-    "Light increased-contrast/color.icon.accent.magenta": {
-      "value": "#943D73",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for magenta icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
-      }
-    },
-    "Light increased-contrast/color.icon.accent.gray": {
-      "value": "#505258",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.10.5",
-        "description": "Use for icons on non-bold gray accent backgrounds, such as file type icons."
-      }
-    },
-    "Light increased-contrast/color.icon.disabled": {
-      "value": "#080F214A",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for icons in a disabled state."
-      }
-    },
-    "Light increased-contrast/color.icon.inverse": {
-      "value": "#FFFFFF",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for icons on bold backgrounds."
-      }
-    },
-    "Light increased-contrast/color.icon.selected": {
-      "value": "#1558BC",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.2",
-        "description": "Use for icons in selected or opened states, such as those used in dropdown buttons."
-      }
-    },
-    "Light increased-contrast/color.icon.brand": {
-      "value": "#1558BC",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for icons that reinforce our brand."
-      }
-    },
-    "Light increased-contrast/color.icon.danger": {
-      "value": "#C9372C",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for icons communicating critical information, such as those used in error handing."
-      }
-    },
-    "Light increased-contrast/color.icon.warning": {
-      "value": "#9E4C00",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for icons communicating caution, such as those used in warning section messages."
-      }
-    },
-    "Light increased-contrast/color.icon.warning.inverse": {
-      "value": "#FFFFFF",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for icons when on bold warning backgrounds."
-      }
-    },
-    "Light increased-contrast/color.icon.success": {
-      "value": "#216E4E",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for icons communicating a favorable outcome, such as those used in success section messaged."
-      }
-    },
-    "Light increased-contrast/color.icon.discovery": {
-      "value": "#964AC0",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for icons communicating change or something new, such as discovery section messages."
-      }
-    },
-    "Light increased-contrast/color.icon.information": {
-      "value": "#1558BC",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for icons communicating information or something in-progress, such as information section messages."
-      }
-    },
-    "Light increased-contrast/color.icon.subtlest": {
-      "value": "#3B3D42",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "1.54.0",
-        "description": "Use for icons paired with color.text.subtlest"
-      }
-    },
-    "Light increased-contrast/color.icon.subtle": {
-      "value": "#3B3D42",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for icons paired with color.text.subtle"
-      }
-    },
-    "Light increased-contrast/color.border": {
-      "value": "#E9F0FB5C",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use to visually group or separate UI elements, such as flat cards or side panel dividers."
-      }
-    },
-    "Light increased-contrast/color.border.accent.lime": {
-      "value": "#4C6B1F",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "1.6.0",
-        "description": "Use for lime borders on non-bold backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.border.accent.lime.subtle": {
-      "value": "#B3DF72",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "13.2.0",
-        "description": "Use for decorative lime borders that do not need to meet 3:1 contrast requirements."
-      }
-    },
-    "Light increased-contrast/color.border.accent.red": {
-      "value": "#AE2E24",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for red borders on non-bold backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.border.accent.red.subtle": {
-      "value": "#FD9891",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "13.2.0",
-        "description": "Use for decorative red borders that do not need to meet 3:1 contrast requirements."
-      }
-    },
-    "Light increased-contrast/color.border.accent.orange": {
-      "value": "#9E4C00",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for orange borders on non-bold backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.border.accent.orange.subtle": {
-      "value": "#FBC828",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "13.2.0",
-        "description": "Use for decorative orange borders that do not need to meet 3:1 contrast requirements."
-      }
-    },
-    "Light increased-contrast/color.border.accent.yellow": {
-      "value": "#7F5F01",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for yellow borders on non-bold backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.border.accent.yellow.subtle": {
-      "value": "#EED12B",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "13.2.0",
-        "description": "Use for decorative yellow borders that do not need to meet 3:1 contrast requirements."
-      }
-    },
-    "Light increased-contrast/color.border.accent.green": {
-      "value": "#216E4E",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for green borders on non-bold backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.border.accent.green.subtle": {
-      "value": "#7EE2B8",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "13.2.0",
-        "description": "Use for decorative green borders that do not need to meet 3:1 contrast requirements."
-      }
-    },
-    "Light increased-contrast/color.border.accent.teal": {
-      "value": "#206A83",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for teal borders on non-bold backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.border.accent.teal.subtle": {
-      "value": "#9DD9EE",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "13.2.0",
-        "description": "Use for decorative teal borders that do not need to meet 3:1 contrast requirements."
-      }
-    },
-    "Light increased-contrast/color.border.accent.blue": {
-      "value": "#1558BC",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.border.accent.blue.subtle": {
-      "value": "#8FB8F6",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "13.2.0",
-        "description": "Use for decorative blue borders that do not need to meet 3:1 contrast requirements."
-      }
-    },
-    "Light increased-contrast/color.border.accent.purple": {
-      "value": "#803FA5",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for purple borders on non-bold backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.border.accent.purple.subtle": {
-      "value": "#D8A0F7",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "13.2.0",
-        "description": "Use for decorative purple borders that do not need to meet 3:1 contrast requirements."
-      }
-    },
-    "Light increased-contrast/color.border.accent.magenta": {
-      "value": "#943D73",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for magenta borders on non-bold backgrounds when there is no meaning tied to the color."
-      }
-    },
-    "Light increased-contrast/color.border.accent.magenta.subtle": {
-      "value": "#F797D2",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "13.2.0",
-        "description": "Use for decorative magenta borders that do not need to meet 3:1 contrast requirements."
-      }
-    },
-    "Light increased-contrast/color.border.accent.gray": {
-      "value": "#505258",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.10.5",
-        "description": "Use for borders on non-bold gray accent backgrounds."
-      }
-    },
-    "Light increased-contrast/color.border.accent.gray.subtle": {
-      "value": "#DDDEE1",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "13.2.0",
-        "description": "Use for decorative gray borders that do not need to meet 3:1 contrast requirements."
-      }
-    },
-    "Light increased-contrast/color.border.disabled": {
-      "value": "#0B120E24",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for borders of elements in a disabled state."
-      }
-    },
-    "Light increased-contrast/color.border.focused": {
-      "value": "#1558BC",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for focus rings of elements in a focus state."
-      }
-    },
-    "Light increased-contrast/color.border.input": {
-      "value": "#505258",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
-      }
-    },
-    "Light increased-contrast/color.border.inverse": {
-      "value": "#FFFFFF",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for borders on bold backgrounds."
-      }
-    },
-    "Light increased-contrast/color.border.selected": {
-      "value": "#1558BC",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.2",
-        "description": "Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items."
-      }
-    },
-    "Light increased-contrast/color.border.brand": {
-      "value": "#1558BC",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons."
-      }
-    },
-    "Light increased-contrast/color.border.danger": {
-      "value": "#C9372C",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for borders communicating critical information, such as the borders on invalid text fields."
-      }
-    },
-    "Light increased-contrast/color.border.danger.subtle": {
-      "value": "#FD9891",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "13.2.0",
-        "description": "Use for decorative danger borders that do not need to meet 3:1 contrast requirements."
-      }
-    },
-    "Light increased-contrast/color.border.warning": {
-      "value": "#9E4C00",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for borders communicating caution."
-      }
-    },
-    "Light increased-contrast/color.border.warning.subtle": {
-      "value": "#FBC828",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "13.2.0",
-        "description": "Use for decorative warning borders that do not need to meet 3:1 contrast requirements."
-      }
-    },
-    "Light increased-contrast/color.border.success": {
-      "value": "#216E4E",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for borders communicating a favorable outcome, such as the borders on validated text fields."
-      }
-    },
-    "Light increased-contrast/color.border.success.subtle": {
-      "value": "#B3DF72",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "13.2.0",
-        "description": "Use for decorative success borders that do not need to meet 3:1 contrast requirements."
-      }
-    },
-    "Light increased-contrast/color.border.discovery": {
-      "value": "#964AC0",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for borders communicating change or something new, such as the borders in onboarding spotlights."
-      }
-    },
-    "Light increased-contrast/color.border.discovery.subtle": {
-      "value": "#D8A0F7",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "13.2.0",
-        "description": "Use for decorative discovery borders that do not need to meet 3:1 contrast requirements."
-      }
-    },
-    "Light increased-contrast/color.border.information": {
-      "value": "#1558BC",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.6.0",
-        "description": "Use for borders communicating information or something in-progress."
-      }
-    },
-    "Light increased-contrast/color.border.information.subtle": {
-      "value": "#8FB8F6",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "13.2.0",
-        "description": "Use for decorative information borders that do not need to meet 3:1 contrast requirements."
-      }
-    },
-    "Light increased-contrast/color.border.bold": {
-      "value": "#505258",
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.10.8",
-        "description": "A neutral border option that passes min 3:1 contrast ratios."
-      }
-    },
     "Light increased-contrast/color.background.accent.lime.subtlest": {
       "value": "#EFFFD6",
       "attributes": {
@@ -2437,7 +1510,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "13.2.0",
-        "description": "Background colour for non-interactive elements communicating caution (e.g. semantic badges, status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.warning.bold or color.background.warning.subtler for interactive states."
+        "description": "Background colour for non-interactive elements communicating caution (e.g. status pills, callout chips). Sits between subtler and bold in visual emphasis. Not for interactive surfaces — see color.background.warning.bold or color.background.warning.subtler for interactive states."
       }
     },
     "Light increased-contrast/color.background.warning.bold": {
@@ -2737,31 +1810,931 @@
         "description": "Pressed state of color.background.information.bold"
       }
     },
-    "Light increased-contrast/color.blanket": {
-      "value": "#050C1F75",
+    "Light increased-contrast/color.border": {
+      "value": "#E9F0FB5C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use to visually group or separate UI elements, such as flat cards or side panel dividers."
+      }
+    },
+    "Light increased-contrast/color.border.accent.lime": {
+      "value": "#4C6B1F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for lime borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.lime.subtle": {
+      "value": "#B3DF72",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative lime borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.border.accent.red": {
+      "value": "#AE2E24",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for red borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.red.subtle": {
+      "value": "#FD9891",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative red borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.border.accent.orange": {
+      "value": "#9E4C00",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for orange borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.orange.subtle": {
+      "value": "#FBC828",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative orange borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.border.accent.yellow": {
+      "value": "#7F5F01",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for yellow borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.yellow.subtle": {
+      "value": "#EED12B",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative yellow borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.border.accent.green": {
+      "value": "#216E4E",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for green borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.green.subtle": {
+      "value": "#7EE2B8",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative green borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.border.accent.teal": {
+      "value": "#206A83",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for teal borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.teal.subtle": {
+      "value": "#9DD9EE",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative teal borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.border.accent.blue": {
+      "value": "#1558BC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.blue.subtle": {
+      "value": "#8FB8F6",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative blue borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.border.accent.purple": {
+      "value": "#803FA5",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for purple borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.purple.subtle": {
+      "value": "#D8A0F7",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative purple borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.border.accent.magenta": {
+      "value": "#943D73",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for magenta borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.magenta.subtle": {
+      "value": "#F797D2",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative magenta borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.border.accent.gray": {
+      "value": "#505258",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.5",
+        "description": "Use for borders on non-bold gray accent backgrounds."
+      }
+    },
+    "Light increased-contrast/color.border.accent.gray.subtle": {
+      "value": "#B7B9BE",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative gray borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.border.disabled": {
+      "value": "#0B120E24",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders of elements in a disabled state."
+      }
+    },
+    "Light increased-contrast/color.border.focused": {
+      "value": "#1558BC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for focus rings of elements in a focus state."
+      }
+    },
+    "Light increased-contrast/color.border.input": {
+      "value": "#505258",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
+      }
+    },
+    "Light increased-contrast/color.border.inverse": {
+      "value": "#FFFFFF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders on bold backgrounds."
+      }
+    },
+    "Light increased-contrast/color.border.selected": {
+      "value": "#1558BC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items."
+      }
+    },
+    "Light increased-contrast/color.border.brand": {
+      "value": "#1558BC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons."
+      }
+    },
+    "Light increased-contrast/color.border.danger": {
+      "value": "#C9372C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating critical information, such as the borders on invalid text fields."
+      }
+    },
+    "Light increased-contrast/color.border.danger.subtle": {
+      "value": "#FD9891",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative danger borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.border.warning": {
+      "value": "#9E4C00",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating caution."
+      }
+    },
+    "Light increased-contrast/color.border.warning.subtle": {
+      "value": "#FBC828",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative warning borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.border.success": {
+      "value": "#216E4E",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating a favorable outcome, such as the borders on validated text fields."
+      }
+    },
+    "Light increased-contrast/color.border.success.subtle": {
+      "value": "#B3DF72",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative success borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.border.discovery": {
+      "value": "#964AC0",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating change or something new, such as the borders in onboarding spotlights."
+      }
+    },
+    "Light increased-contrast/color.border.discovery.subtle": {
+      "value": "#D8A0F7",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative discovery borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.border.information": {
+      "value": "#1558BC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating information or something in-progress."
+      }
+    },
+    "Light increased-contrast/color.border.information.subtle": {
+      "value": "#8FB8F6",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.2.0",
+        "description": "Use for decorative information borders that do not need to meet 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.border.bold": {
+      "value": "#505258",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.8",
+        "description": "A neutral border option that passes min 3:1 contrast ratios."
+      }
+    },
+    "Light increased-contrast/color.text": {
+      "value": "#1E1F21",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for primary text, such as body copy, sentence case headers, and buttons."
+      }
+    },
+    "Light increased-contrast/color.text.accent.lime": {
+      "value": "#37471F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.8.0",
+        "description": "Use for lime text on subtlest and subtler lime accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.lime.bolder": {
+      "value": "#28311B",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.8.0",
+        "description": "Use for lime text on subtle lime accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.red": {
+      "value": "#5D1F1A",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for red text on subtlest and subtler red accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.red.bolder": {
+      "value": "#42221F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for red text on subtle red accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.orange": {
+      "value": "#693200",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for orange text on subtlest and subtler orange accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.orange.bolder": {
+      "value": "#3A2C1F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for orange text on subtle orange accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.yellow": {
+      "value": "#533F04",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for yellow text on subtlest and subtler yellow accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.yellow.bolder": {
+      "value": "#332E1B",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for yellow text on subtle yellow accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.green": {
+      "value": "#164B35",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for green text on subtlest and subtler green accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.green.bolder": {
+      "value": "#1C3329",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for green text on subtle green accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.teal": {
+      "value": "#164555",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for teal text on subtlest and subtler teal accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.teal.bolder": {
+      "value": "#1E3137",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for teal text on subtle teal accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.blue": {
+      "value": "#123263",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for blue text on subtlest and subtler blue accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.blue.bolder": {
+      "value": "#1C2B42",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for blue text on subtle blue accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.purple": {
+      "value": "#48245D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for purple text on subtlest and subtler purple accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.purple.bolder": {
+      "value": "#35243F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for purple text on subtle purple accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.magenta": {
+      "value": "#50253F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for magenta text on subtlest and subtler magenta accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.magenta.bolder": {
+      "value": "#3D2232",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for magenta text on subtle magenta accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.gray": {
+      "value": "#3B3D42",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.5",
+        "description": "Use for text on non-bold gray accent backgrounds, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.text.accent.gray.bolder": {
+      "value": "#292A2E",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.5",
+        "description": "Use for text and icons on gray subtle accent backgrounds."
+      }
+    },
+    "Light increased-contrast/color.text.disabled": {
+      "value": "#080F214A",
       "attributes": {
         "group": "paint",
         "state": "active",
         "introduced": "0.0.15",
-        "description": "Use for the screen overlay that appears with modal dialogs"
+        "description": "Use for text in a disabled state."
       }
     },
-    "Light increased-contrast/color.blanket.selected": {
-      "value": "#388BFF14",
+    "Light increased-contrast/color.text.inverse": {
+      "value": "#FFFFFF",
       "attributes": {
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements"
+        "description": "Use for text on bold backgrounds."
       }
     },
-    "Light increased-contrast/color.blanket.danger": {
-      "value": "#EF5C4814",
+    "Light increased-contrast/color.text.selected": {
+      "value": "#123263",
       "attributes": {
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements"
+        "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
+      }
+    },
+    "Light increased-contrast/color.text.brand": {
+      "value": "#123263",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for text that reinforces our brand."
+      }
+    },
+    "Light increased-contrast/color.text.danger": {
+      "value": "#5D1F1A",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for critical text, such as input field error messaging."
+      }
+    },
+    "Light increased-contrast/color.text.danger.bolder": {
+      "value": "#42221F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of danger semantic labels to ensure accessibility and desired visual appearance."
+      }
+    },
+    "Light increased-contrast/color.text.warning": {
+      "value": "#693200",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for text to emphasize caution, such as in moved lozenges."
+      }
+    },
+    "Light increased-contrast/color.text.warning.inverse": {
+      "value": "#FFFFFF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for text when on bold warning backgrounds."
+      }
+    },
+    "Light increased-contrast/color.text.warning.bolder": {
+      "value": "#3A2C1F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of warning semantic labels to ensure accessibility and desired visual appearance."
+      }
+    },
+    "Light increased-contrast/color.text.success": {
+      "value": "#164B35",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for text to communicate a favorable outcome, such as input field success messaging."
+      }
+    },
+    "Light increased-contrast/color.text.success.bolder": {
+      "value": "#1C3329",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of success semantic labels to ensure accessibility and desired visual appearance."
+      }
+    },
+    "Light increased-contrast/color.text.discovery": {
+      "value": "#48245D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for text to emphasize change or something new, such as in new lozenges."
+      }
+    },
+    "Light increased-contrast/color.text.discovery.bolder": {
+      "value": "#35243F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of discovery semantic labels to ensure accessibility and desired visual appearance."
+      }
+    },
+    "Light increased-contrast/color.text.information": {
+      "value": "#123263",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for informative text or to communicate something is in progress, such as in-progress lozenges."
+      }
+    },
+    "Light increased-contrast/color.text.information.bolder": {
+      "value": "#1C2B42",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.1.0",
+        "description": "Use for text on top of information semantic labels to ensure accessibility and desired visual appearance."
+      }
+    },
+    "Light increased-contrast/color.text.subtlest": {
+      "value": "#3B3D42",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text."
+      }
+    },
+    "Light increased-contrast/color.text.subtle": {
+      "value": "#292A2E",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings."
+      }
+    },
+    "Light increased-contrast/color.icon": {
+      "value": "#292A2E",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icon-only buttons, or icons paired with color.text"
+      }
+    },
+    "Light increased-contrast/color.icon.accent.lime": {
+      "value": "#4C6B1F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for lime icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.red": {
+      "value": "#AE2E24",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for red icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.orange": {
+      "value": "#9E4C00",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for orange icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.yellow": {
+      "value": "#7F5F01",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for yellow icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.green": {
+      "value": "#216E4E",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for green icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.teal": {
+      "value": "#206A83",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for teal icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.blue": {
+      "value": "#1558BC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for blue icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.purple": {
+      "value": "#803FA5",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for purple icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.magenta": {
+      "value": "#943D73",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for magenta icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.gray": {
+      "value": "#505258",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.5",
+        "description": "Use for icons on non-bold gray accent backgrounds, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.disabled": {
+      "value": "#080F214A",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons in a disabled state."
+      }
+    },
+    "Light increased-contrast/color.icon.inverse": {
+      "value": "#FFFFFF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons on bold backgrounds."
+      }
+    },
+    "Light increased-contrast/color.icon.selected": {
+      "value": "#1558BC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Use for icons in selected or opened states, such as those used in dropdown buttons."
+      }
+    },
+    "Light increased-contrast/color.icon.brand": {
+      "value": "#1558BC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons that reinforce our brand."
+      }
+    },
+    "Light increased-contrast/color.icon.danger": {
+      "value": "#C9372C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons communicating critical information, such as those used in error handing."
+      }
+    },
+    "Light increased-contrast/color.icon.warning": {
+      "value": "#9E4C00",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons communicating caution, such as those used in warning section messages."
+      }
+    },
+    "Light increased-contrast/color.icon.warning.inverse": {
+      "value": "#FFFFFF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons when on bold warning backgrounds."
+      }
+    },
+    "Light increased-contrast/color.icon.success": {
+      "value": "#216E4E",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons communicating a favorable outcome, such as those used in success section messaged."
+      }
+    },
+    "Light increased-contrast/color.icon.discovery": {
+      "value": "#964AC0",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons communicating change or something new, such as discovery section messages."
+      }
+    },
+    "Light increased-contrast/color.icon.information": {
+      "value": "#1558BC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons communicating information or something in-progress, such as information section messages."
+      }
+    },
+    "Light increased-contrast/color.icon.subtlest": {
+      "value": "#3B3D42",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.54.0",
+        "description": "Use for icons paired with color.text.subtlest"
+      }
+    },
+    "Light increased-contrast/color.icon.subtle": {
+      "value": "#3B3D42",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons paired with color.text.subtle"
+      }
+    },
+    "Light increased-contrast/color.link": {
+      "value": "#123263",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for links in a default or hovered state. Add an underline for hovered states."
+      }
+    },
+    "Light increased-contrast/color.link.pressed": {
+      "value": "#123263",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for links in a pressed state."
+      }
+    },
+    "Light increased-contrast/color.link.visited": {
+      "value": "#803FA5",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.23.0",
+        "description": "Use for visited links."
+      }
+    },
+    "Light increased-contrast/color.link.visited.pressed": {
+      "value": "#48245D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.43.0",
+        "description": "Use for visited links in a pressed state."
       }
     },
     "Light increased-contrast/color.interaction.hovered": {
@@ -2798,6 +2771,33 @@
         "state": "active",
         "introduced": "0.8.0",
         "description": "Use for the pulse or shimmer effect in skeleton loading states"
+      }
+    },
+    "Light increased-contrast/color.blanket": {
+      "value": "#050C1F75",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for the screen overlay that appears with modal dialogs"
+      }
+    },
+    "Light increased-contrast/color.blanket.selected": {
+      "value": "#388BFF14",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements"
+      }
+    },
+    "Light increased-contrast/color.blanket.danger": {
+      "value": "#EF5C4814",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements"
       }
     },
     "Light increased-contrast/color.chart.categorical.1": {
@@ -3698,6 +3698,105 @@
         "state": "active",
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.information.bold."
+      }
+    },
+    "Light increased-contrast/color.rovo.background.brand.bold": {
+      "value": "#000000",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.2.0",
+        "description": "Background color for Rovo brand emphasis."
+      }
+    },
+    "Light increased-contrast/color.rovo.background.brand.bold.hovered": {
+      "value": "#1E1F21",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.2.0",
+        "description": "Hovered state of color.rovo.background.brand.bold."
+      }
+    },
+    "Light increased-contrast/color.rovo.background.brand.bold.pressed": {
+      "value": "#292A2E",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "8.2.0",
+        "description": "Pressed state of color.rovo.background.brand.bold."
+      }
+    },
+    "Light increased-contrast/color.rovo.border.lime": {
+      "value": "#6A9A23",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.1.1",
+        "description": "Use for Rovo lime borders."
+      }
+    },
+    "Light increased-contrast/color.rovo.border.saffron": {
+      "value": "#FCA700",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.1.1",
+        "description": "Use for Rovo saffron borders."
+      }
+    },
+    "Light increased-contrast/color.rovo.border.blue": {
+      "value": "#1868DB",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.1.1",
+        "description": "Use for Rovo blue borders."
+      }
+    },
+    "Light increased-contrast/color.rovo.border.purple": {
+      "value": "#AF59E1",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.1.1",
+        "description": "Use for Rovo purple borders."
+      }
+    },
+    "Light increased-contrast/color.rovo.icon.lime": {
+      "value": "#6A9A23",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.1.1",
+        "description": "Use for Rovo lime icons."
+      }
+    },
+    "Light increased-contrast/color.rovo.icon.saffron": {
+      "value": "#FCA700",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.1.1",
+        "description": "Use for Rovo saffron icons."
+      }
+    },
+    "Light increased-contrast/color.rovo.icon.blue": {
+      "value": "#1868DB",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.1.1",
+        "description": "Use for Rovo blue icons."
+      }
+    },
+    "Light increased-contrast/color.rovo.icon.purple": {
+      "value": "#AF59E1",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.1.1",
+        "description": "Use for Rovo purple icons."
       }
     },
     "Light increased-contrast/elevation.surface": {

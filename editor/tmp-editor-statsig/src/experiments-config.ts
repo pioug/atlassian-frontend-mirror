@@ -35,8 +35,8 @@ export const disallowsProductKeys: (keyof EditorExperimentsConfig)[] = [
  */
 export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-	? true // Boolean: only 'true' is allowed as expected value
-	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+		? true // Boolean: only 'true' is allowed as expected value
+		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * Extract valid default values.
@@ -45,8 +45,8 @@ export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimen
  */
 export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-	? false // Boolean: only 'false' is allowed as default value
-	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+		? false // Boolean: only 'false' is allowed as default value
+		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * When adding a new experiment, you need to add it here.
@@ -220,13 +220,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-09-23
-	cc_editor_ttvc_release_bundle_one: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2024-10-01
 	comment_on_bodied_extensions: {
 		defaultValue: boolean;
@@ -351,7 +344,14 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	platform_editor_layout_keywords:{
+	// Added 2026-06-05
+	confluence_quick_insert_embeds: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	platform_editor_layout_keywords: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -511,6 +511,12 @@ export const editorExperimentsConfig: {
 		values: ('control' | 'variant1')[];
 	};
 	platform_editor_clean_up_widget_mark_logic: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	platform_editor_controls_reliable_anchor: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1992,6 +1998,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-25
+	'a11y-fixes-week4-may-2026': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	}
 	// Added 2026-05-21
 	fix_free_gen_prompt_bar_position: {
 		defaultValue: boolean;
@@ -2029,6 +2042,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-06-01
 	platform_editor_lovability_text_bg_color: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-06-08
+	cc_ai_insert_to_page_rovo_chat_experiment: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2141,6 +2161,13 @@ export const editorExperimentsConfig: {
 	confluence_max_width_breakout_extension_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_max_width_breakout_extension_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	confluence_quick_insert_embeds: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_quick_insert_embeds',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2441,6 +2468,14 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_edit_response_in_preview: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_edit_response_in_preview',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-05-19
+	platform_editor_controls_reliable_anchor: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_controls_reliable_anchor',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2941,14 +2976,6 @@ export const editorExperimentsConfig: {
 	platform_use_llm_space_recommendations: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_use_llm_space_recommendations',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-09-23
-	cc_editor_ttvc_release_bundle_one: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_editor_ttvc_release_bundle_one',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -4316,6 +4343,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-05-25
+	'a11y-fixes-week4-may-2026': createBooleanExperiment({
+		productKeys: {
+			confluence: 'a11y-fixes-week4-may-2026',
+			jira: 'a11y-fixes-week4-may-2026',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-05-21
 	fix_free_gen_prompt_bar_position: createBooleanExperiment({
 		productKeys: {
@@ -4370,6 +4406,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_lovability_text_bg_color',
 			jira: 'platform_editor_lovability_text_bg_color',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-08
+	cc_ai_insert_to_page_rovo_chat_experiment: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_ai_insert_to_page_rovo_chat_experiment',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

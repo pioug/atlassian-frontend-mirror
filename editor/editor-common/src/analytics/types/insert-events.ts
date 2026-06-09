@@ -291,7 +291,7 @@ type InsertLayoutColumnAEP = InsertAEP<
 	{
 		columnCount: number;
 		endIndex: number;
-		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU;
+		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU | INPUT_METHOD.KEYBOARD;
 		selectedCount: number;
 		side: 'left' | 'right';
 		startIndex: number;

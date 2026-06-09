@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 115.7.1
+
+### Patch Changes
+
+- [`54136b334c25a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54136b334c25a) -
+  Clean up experiment cc_editor_ttvc_release_bundle_one
+- Updated dependencies
+
+## 115.7.0
+
+### Minor Changes
+
+- [`5182f0ffac22f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5182f0ffac22f) -
+  Add keyboard shortcuts and danger preview to layout column menu actions.
+
+  Fix keyboard navigation in the layout column menu.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 115.6.0
 
 ### Minor Changes

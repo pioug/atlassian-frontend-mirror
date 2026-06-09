@@ -3,12 +3,12 @@ import { type ReactNode } from 'react';
 import { type StrictXCSSProp } from '@atlaskit/css';
 
 import { type TAnimationPreset } from '../animations/types';
+import { type TPlacementOptions } from '../internal/resolve-placement';
 import {
 	type TAriaRoleRequired,
 	type TRoleRequiringAccessibleName,
 	type TRoleWithImplicitName,
 } from '../internal/role-types';
-import { type TPlacementOptions } from '../popup/types';
 
 /**
  * The reason a popover was closed.
@@ -39,6 +39,8 @@ export type TPopoverForwardedProps = TPopoverBaseProps & {
 	labelledBy?: string;
 };
 
+export type { TPlacementOptions };
+
 type TPopoverBaseProps = {
 	children: ReactNode;
 	/**
@@ -59,8 +61,9 @@ type TPopoverBaseProps = {
 	testId?: string;
 	/**
 	 * HTML `id` attribute for the popover element. When omitted, a unique ID
-	 * is generated automatically. The `<Popup>` compound passes its context ID
-	 * so that `Popup.Trigger` can reference it via `aria-controls` / `popovertarget`.
+	 * is generated automatically. Pair the trigger with this ID via `aria-controls`
+	 * and the popover with `popovertarget`. Use `usePopoverId()` to generate a
+	 * stable, CSS-safe id.
 	 */
 	id?: string;
 	/**
@@ -114,7 +117,7 @@ type TPopoverBaseProps = {
 	 * Called after the entry animation completes (or immediately on open when
 	 * there is no animation or reduced motion is active).
 	 *
-	 * Use this for external lifecycle coordination — e.g. notifying a manager
+	 * Use this for external lifecycle coordination - e.g. notifying a manager
 	 * that the show sequence is finished.
 	 */
 	onEnterFinish?: () => void;

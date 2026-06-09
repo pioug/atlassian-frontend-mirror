@@ -6,7 +6,7 @@ import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library
 
 import { Dialog } from '../../src/entry-points/dialog';
 
-// Observer test helpers
+// ── Observer test helpers ──
 
 /**
  * Renders the open layer count as text so tests can assert declaratively

@@ -1,4 +1,6 @@
-/* eslint-disable @atlaskit/ui-styling-standard/use-compiled */
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled,
+	@repo/internal/deprecations/deprecation-ticket-required,
+	@atlaskit/ui-styling-standard/no-exported-styles */
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
@@ -11,7 +13,12 @@ import { token } from '@atlaskit/tokens';
 /**
  * Base expand styles, always applied.
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const expandStylesBase: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ak-editor-expand__icon > div': {
@@ -267,7 +274,12 @@ export const expandStylesBase: SerializedStyles = css({
 });
 
 // Export the default styles with negative margins (original behavior)
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const expandStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror > .ak-editor-expand__type-expand, .fabric-editor-breakout-mark-dom > .ak-editor-expand__type-expand':
@@ -282,6 +294,12 @@ export const expandStyles: SerializedStyles = css({
  * If the base font size is not the default font size, we want the expand title font size to match the base font size.
  * @param baseFontSize - The base font size in pixels. (e.g., 16 for default, 13 for dense mode)
  * @returns SerializedStyles with expand title font size override if baseFontSize is provided and different from default.
+ */
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
 export const getDenseExpandTitleStyles = (baseFontSize?: number): SerializedStyles => {
 	if (!baseFontSize || baseFontSize === akEditorFullPageDefaultFontSize) {
@@ -301,8 +319,12 @@ export const getDenseExpandTitleStyles = (baseFontSize?: number): SerializedStyl
 		},
 	});
 };
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const expandStylesMixin_fg_platform_visual_refresh_icons: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ak-editor-expand__title-input': {
@@ -311,8 +333,12 @@ export const expandStylesMixin_fg_platform_visual_refresh_icons: SerializedStyle
 		fontFamily: token('font.family.body'),
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes: SerializedStyles = css(
 	{
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -339,8 +365,12 @@ export const expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes: Ser
 		},
 	},
 );
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const expandStylesMixin_experiment_platform_editor_chromeless_expand_fix: SerializedStyles =
 	css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -349,8 +379,12 @@ export const expandStylesMixin_experiment_platform_editor_chromeless_expand_fix:
 			marginRight: 0,
 		},
 	});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes: SerializedStyles =
 	css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

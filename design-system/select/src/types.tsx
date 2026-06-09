@@ -13,8 +13,6 @@ import {
 	type MultiValueProps,
 	type MultiValueRemoveProps,
 	type NoticeProps,
-	type OptionProps as ReactSelectOptionProps,
-	type Props as ReactSelectProps,
 	type ActionMeta as RSActionMeta,
 	type ControlProps as RSControlProps,
 	type GroupProps as RSGroupProps,
@@ -26,6 +24,8 @@ import {
 	type StylesConfig as RSStylesConfig,
 	type ValueContainerProps as RSValueContainerProps,
 	type OnChangeValue as RSValueType,
+	type OptionProps as ReactSelectOptionProps,
+	type Props as ReactSelectProps,
 	type SelectInstance,
 	type SingleValueProps,
 } from '@atlaskit/react-select';

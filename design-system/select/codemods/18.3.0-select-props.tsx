@@ -1,11 +1,11 @@
 import type {
 	API,
 	ASTPath,
-	default as core,
 	FileInfo,
 	ImportDeclaration,
 	ImportSpecifier,
 	Options,
+	default as core,
 } from 'jscodeshift';
 
 function getSpecifier(

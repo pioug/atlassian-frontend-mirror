@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import {
+	Fragment,
 	type KeyboardEventHandler,
 	type ReactNode,
 	useCallback,
@@ -18,9 +19,11 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { type GroupBase, mergeStyles } from '@atlaskit/react-select';
 import { token } from '@atlaskit/tokens';
 import { slideAndFade } from '@atlaskit/top-layer/animations';
-import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import { type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
-import { Popup } from '@atlaskit/top-layer/popup';
+import { type TLegacyPlacement, fromLegacyPlacement } from '@atlaskit/top-layer/placement-map';
+import { Popover, type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import Select from '../select';
 import {
@@ -38,7 +41,7 @@ import type { PopupSelectProps } from './popup-select';
 
 const animation = slideAndFade();
 
-// ── Styles ──
+// Styles.
 
 const menuDialogStyles = css({
 	backgroundColor: token('elevation.surface.overlay'),
@@ -64,7 +67,7 @@ export function PopupSelectTopLayer<
 	IsMulti extends boolean = false,
 	Modifiers = unknown,
 >({
-	// ── PopupSelect-specific props ──
+	// PopupSelect-specific props.
 	closeMenuOnSelect = true,
 	shouldCloseMenuOnTab = true,
 	footer,
@@ -86,7 +89,7 @@ export function PopupSelectTopLayer<
 	onChange,
 	onKeyDown,
 
-	// ── Lifecycle callbacks ──
+	// Lifecycle callbacks.
 	// @ts-ignore react-select unsupported props
 	onOpen,
 	// @ts-ignore react-select unsupported props
@@ -94,16 +97,16 @@ export function PopupSelectTopLayer<
 	onMenuOpen,
 	onMenuClose,
 
-	// ── No-op props in top-layer path ──
+	// No-op props in top-layer path.
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	popperProps,
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	shouldPreventEscapePropagation: _shouldPreventEscapePropagation,
 
-	// ── Remaining props spread to Select ──
+	// Remaining props spread to Select.
 	...selectProps
 }: PopupSelectProps<Option, IsMulti, Modifiers>): ReactNode {
-	// ── State ──
+	// State.
 	const isControlled = controlledIsOpen !== undefined;
 	const [internalIsOpen, setInternalIsOpen] = useState(
 		isControlled ? Boolean(controlledIsOpen) : Boolean(defaultIsOpen),
@@ -113,8 +116,11 @@ export function PopupSelectTopLayer<
 
 	const selectRef = useRef<AtlaskitSelectRefType | null>(null);
 	const triggerRef = useRef<HTMLElement | null>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
 
-	// ── Placement ──
+	const popoverId = usePopoverId();
+
+	// Placement.
 	const legacyPlacement = (popperProps?.placement ?? 'bottom-start') as string;
 	// `popup-select` historically defaulted to an `[along, away] = [0, 8]` popper offset
 	// modifier; consumers can override it via `popperProps.modifiers`. Honour both here so
@@ -138,13 +144,19 @@ export function PopupSelectTopLayer<
 		[legacyPlacement, legacyOffset],
 	);
 
-	// ── Merged components ──
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: topLayerPlacement,
+	});
+
+	// Merged components.
 	const mergedComponents = useMemo(
 		() => ({ ...defaultComponents, ...consumerComponents }),
 		[consumerComponents],
 	);
 
-	// ── Default styles ──
+	// Default styles.
 	const defaultStyles: StylesConfig<Option, IsMulti> = useMemo(
 		() => ({
 			groupHeading: (provided) => ({
@@ -155,17 +167,15 @@ export function PopupSelectTopLayer<
 		[],
 	);
 
-	// ── Utils ──
+	// Utils.
 	const getItemCount = useCallback((): number => {
-		let count = 0;
-		options.forEach((groupOrOption: Option | GroupBase<Option>) => {
-			if ((groupOrOption as GroupBase<Option>).options) {
-				(groupOrOption as GroupBase<Option>).options.forEach(() => count++);
-			} else {
-				count++;
+		return options.reduce((count, groupOrOption: Option | GroupBase<Option>) => {
+			const group = groupOrOption as GroupBase<Option>;
+			if (group.options) {
+				return count + group.options.length;
 			}
-		});
-		return count;
+			return count + 1;
+		}, 0);
 	}, [options]);
 
 	const showSearchControl = isSearchable && getItemCount() > searchThreshold;
@@ -189,7 +199,7 @@ export function PopupSelectTopLayer<
 		return undefined;
 	}, [label, placeholder]);
 
-	// ── Open / Close ──
+	// Open / Close.
 	const open = useCallback(() => {
 		if (!isControlled) {
 			setInternalIsOpen(true);
@@ -206,7 +216,7 @@ export function PopupSelectTopLayer<
 		onMenuClose?.();
 	}, [isControlled, onClose, onMenuClose]);
 
-	// ── Sync controlled isOpen ──
+	// Sync controlled isOpen.
 	useEffect(() => {
 		if (!isControlled) {
 			return;
@@ -222,14 +232,14 @@ export function PopupSelectTopLayer<
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [controlledIsOpen]);
 
-	// ── Open the react-select menu when isOpen becomes true ──
+	// Open the react-select menu when isOpen becomes true.
 	useEffect(() => {
 		if (isOpen && selectRef.current) {
 			selectRef.current.select?.openMenu('first');
 		}
 	}, [isOpen]);
 
-	// ── Event Handlers ──
+	// Event Handlers.
 	const handleTargetKeyDown: KeyboardEventHandler<HTMLElement> = useCallback(
 		(event) => {
 			if (event.key === 'ArrowDown') {
@@ -252,8 +262,8 @@ export function PopupSelectTopLayer<
 		}
 	}, [isOpen, open, close]);
 
-	// Focus restoration on close is handled automatically by top-layer's Popup
-	// based on the content role (role="dialog" → auto-restore).
+	// Focus restoration on close is handled automatically by Popover
+	// based on the content role (role="dialog" -> auto-restore).
 	const handleOnClose = useCallback(
 		({ reason: _reason }: { reason: TPopoverCloseReason }) => {
 			if (isControlled) {
@@ -287,7 +297,7 @@ export function PopupSelectTopLayer<
 				triggerRef.current?.focus();
 			}
 			// Escape closes the menu and returns focus to the trigger.
-			// Top-layer's Popup auto-restores focus on Escape, but we close
+			// The browser auto-restores focus on Escape, but we close
 			// explicitly here so isOpen state stays in sync with the popover.
 			if (event.key === 'Escape') {
 				close();
@@ -298,7 +308,7 @@ export function PopupSelectTopLayer<
 		[shouldCloseMenuOnTab, close, onKeyDown],
 	);
 
-	// ── Select components ──
+	// Select components.
 	// Type assertion needed because defaultComponents uses concrete OptionType/boolean
 	// but Select expects the generic Option/IsMulti parameters. The components are
 	// structurally compatible regardless of the generic parameters.
@@ -315,39 +325,40 @@ export function PopupSelectTopLayer<
 		selectRef.current = ref;
 	}, []);
 
-	return (
-		<Popup placement={topLayerPlacement} onClose={handleOnClose} testId={testId}>
-			<Popup.TriggerFunction>
-				{({ ref, ariaAttributes: _ariaAttributes, popoverId }) => {
-					const triggerProps = {
-						ref: (node: HTMLElement | null) => {
-							triggerRef.current = node;
-							if (typeof ref === 'function') {
-								ref(node);
-							}
-						},
-						onClick: handleTargetClick,
-						onKeyDown: handleTargetKeyDown,
-						// Maintain existing aria attribute format for backwards compatibility
-						// Should technically be 'dialog' instead of 'true', but preserving
-						// legacy behavior. See go/DSP-22283
-						'aria-haspopup': 'true' as const,
-						'aria-expanded': isOpen,
-						'aria-controls': isOpen ? popoverId : undefined,
-						isOpen,
-					};
+	const triggerProps = {
+		ref: (node: HTMLElement | null) => {
+			triggerRef.current = node;
+		},
+		onClick: handleTargetClick,
+		onKeyDown: handleTargetKeyDown,
+		// Maintain existing aria attribute format for backwards compatibility.
+		// Should technically be 'dialog' instead of 'true', but preserving
+		// legacy behavior. See go/DSP-22283
+		'aria-haspopup': 'true' as const,
+		'aria-expanded': isOpen,
+		// Always emit aria-controls referencing the controlled element.
+		// Matches the behavior of `getAriaForTrigger` (see
+		// `@atlaskit/top-layer/get-aria-for-trigger`) and aligns with the
+		// WAI-ARIA spec recommendation.
+		'aria-controls': popoverId,
+		isOpen,
+	};
 
-					return target?.(triggerProps);
-				}}
-			</Popup.TriggerFunction>
-			<Popup.Content
+	return (
+		<Fragment>
+			{target?.(triggerProps)}
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
 				role="dialog"
 				label={getLabel() ?? 'Popup select'}
 				isOpen={isOpen}
+				onClose={handleOnClose}
 				animate={animation}
+				placement={topLayerPlacement}
 				testId={testId && `${testId}--content`}
 			>
-				<Popup.Surface>
+				<PopoverSurface>
 					<div
 						css={[
 							menuDialogStyles,
@@ -382,8 +393,8 @@ export function PopupSelectTopLayer<
 						/>
 						{footer}
 					</div>
-				</Popup.Surface>
-			</Popup.Content>
-		</Popup>
+				</PopoverSurface>
+			</Popover>
+		</Fragment>
 	);
 }

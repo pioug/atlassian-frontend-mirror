@@ -2,11 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { Fragment, type ReactNode, useCallback, useRef, useState } from 'react';
+
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { Popup } from '@atlaskit/top-layer/popup';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
+import { Popover } from '@atlaskit/top-layer/popover';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 const styles = cssMap({
 	wrapper: {
@@ -15,36 +20,65 @@ const styles = cssMap({
 	},
 });
 
+type TSiblingPopoverProps = {
+	triggerTestId: string;
+	contentTestId: string;
+	label: string;
+	triggerLabel: string;
+};
+
+function SiblingPopover({
+	triggerTestId,
+	contentTestId,
+	label,
+	triggerLabel,
+}: TSiblingPopoverProps): ReactNode {
+	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: { edge: 'end' },
+	});
+
+	return (
+		<Fragment>
+			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid={triggerTestId}>
+				{triggerLabel}
+			</button>
+			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="dialog" label={label}>
+				<div data-testid={contentTestId}>{label} content</div>
+			</Popover>
+		</Fragment>
+	);
+}
+
 /**
  * Test fixture for popover="auto" sibling auto-close behavior.
  * WCAG 2.4.3: When a second sibling popover opens, the first should
  * auto-close. This is native popover="auto" behavior: only one
  * non-ancestor auto popover can be open at a time.
  */
-export default function TestingSiblingAutoClose(): JSX.Element {
+export default function TestingSiblingAutoClose(): ReactNode {
 	return (
 		<div css={styles.wrapper}>
-			<Popup placement={{ edge: 'end' }} onClose={() => {}}>
-				<Popup.Trigger>
-					<button type="button" data-testid="trigger-a">
-						Open A
-					</button>
-				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Popup A">
-					<div data-testid="popover-a">Popup A content</div>
-				</Popup.Content>
-			</Popup>
-
-			<Popup placement={{ edge: 'end' }} onClose={() => {}}>
-				<Popup.Trigger>
-					<button type="button" data-testid="trigger-b">
-						Open B
-					</button>
-				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Popup B">
-					<div data-testid="popover-b">Popup B content</div>
-				</Popup.Content>
-			</Popup>
+			<SiblingPopover
+				triggerTestId="trigger-a"
+				contentTestId="popover-a"
+				label="Popover A"
+				triggerLabel="Open A"
+			/>
+			<SiblingPopover
+				triggerTestId="trigger-b"
+				contentTestId="popover-b"
+				label="Popover B"
+				triggerLabel="Open B"
+			/>
 		</div>
 	);
 }

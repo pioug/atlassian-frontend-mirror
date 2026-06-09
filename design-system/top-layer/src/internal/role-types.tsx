@@ -82,3 +82,28 @@ export type TAriaRoleRequired =
 export type TAriaRoleOptional =
 	| ({ role: TRoleRequiringAccessibleName } & TAccessibleNameRequired)
 	| ({ role?: TRoleWithImplicitName } & TAccessibleNameOptional);
+
+const rolesThatMoveFocus = new Set<TRoleRequiringAccessibleName | TRoleWithImplicitName>([
+	'dialog',
+	'alertdialog',
+	'menu',
+	'listbox',
+	'tree',
+	'grid',
+]);
+
+/**
+ * Returns `true` when the given popover role moves focus into the popover
+ * on open, and `false` otherwise (including when `role` is `undefined`).
+ */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+export function shouldFocusIntoPopover({
+	role,
+}: {
+	role: TRoleRequiringAccessibleName | TRoleWithImplicitName | undefined;
+}): boolean {
+	if (!role) {
+		return false;
+	}
+	return rolesThatMoveFocus.has(role);
+}

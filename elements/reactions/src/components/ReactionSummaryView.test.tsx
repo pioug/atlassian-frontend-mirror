@@ -21,6 +21,10 @@ jest.mock('../hooks/useDelayedState', () => ({
 	useDelayedState: (defaultState: any) => useState(defaultState),
 }));
 
+jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
+	expValEquals: jest.fn(),
+}));
+
 const reactions: ReactionSummary[] = [
 	getReactionSummary(DefaultReactions[0].shortName, 5, false),
 	getReactionSummary(DefaultReactions[1].shortName, 4, true),
@@ -29,6 +33,18 @@ const reactions: ReactionSummary[] = [
 ];
 
 describe('ReactionSummaryView', () => {
+	let expValEqualsMock: jest.Mock;
+
+	beforeEach(() => {
+		const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+		expValEqualsMock = expValEquals as jest.Mock;
+		expValEqualsMock.mockReturnValue(false);
+	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
 	const renderComponent = (extraProps = {}) =>
 		render(
 			<IntlProvider locale="en">
@@ -154,6 +170,40 @@ describe('ReactionSummaryView', () => {
 		expect(pickerContainer).not.toBeInTheDocument();
 
 		await expect(document.body).toBeAccessible();
+	});
+
+	describe('a11y-fixes-week4-may-2026 experiment', () => {
+		it('should render popup in portal (shouldRenderToParent=false) when experiment is off', async () => {
+			expValEqualsMock.mockReturnValue(false);
+			renderComponent();
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+			await userEvent.click(reactionSummaryButton);
+
+			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
+			expect(summaryViewPopup).toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
+		});
+
+		it('should render popup inline (shouldRenderToParent=true) when experiment is on', async () => {
+			expValEqualsMock.mockReturnValue(true);
+			renderComponent();
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+			await userEvent.click(reactionSummaryButton);
+
+			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
+			expect(summaryViewPopup).toBeInTheDocument();
+		});
+
+		it('should show reactions list when experiment is on and popup is open', async () => {
+			expValEqualsMock.mockReturnValue(true);
+			renderComponent();
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+			await userEvent.click(reactionSummaryButton);
+
+			const reactionButtons = await screen.findAllByTestId(RENDER_REACTION_TESTID);
+			expect(reactionButtons.length).toEqual(reactions.length);
+		});
 	});
 
 	describe('hover functionality', () => {

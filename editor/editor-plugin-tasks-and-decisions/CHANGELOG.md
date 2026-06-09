@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 14.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.0
+
+### Minor Changes
+
+- [`1c50b36642fde`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c50b36642fde) -
+  Update toolbar indentation disabled states
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.1
 
 ### Patch Changes

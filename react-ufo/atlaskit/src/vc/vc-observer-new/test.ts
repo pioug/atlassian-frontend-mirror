@@ -250,13 +250,10 @@ describe('VCObserverNew', () => {
 			});
 		});
 
-		describe('platform_ufo_abort_event_target feature flag', () => {
+		describe('abort event target elementName', () => {
 			it.each(['scroll-container', 'scroll', 'wheel'] as const)(
-				'should add elementName for %s events when the flag is enabled',
+				'should add elementName for %s events',
 				(eventType) => {
-					(fg as jest.Mock).mockImplementation((flag: string) => {
-						return flag === 'platform_ufo_abort_event_target';
-					});
 					(getElementNameModule.default as jest.Mock).mockReturnValue('div[data-vc="scrollable"]');
 
 					new VCObserverNew({});
@@ -284,36 +281,7 @@ describe('VCObserverNew', () => {
 				},
 			);
 
-			it('should not add elementName when the flag is disabled', () => {
-				(fg as jest.Mock).mockReturnValue(false);
-
-				new VCObserverNew({});
-				const onEventCallback = (WindowEventObserver as jest.Mock).mock.calls[
-					(WindowEventObserver as jest.Mock).mock.calls.length - 1
-				][0].onEvent;
-				mockEntriesTimeline.push.mockClear();
-
-				onEventCallback({
-					time: 200,
-					type: 'scroll-container',
-					event: { target: document.createElement('div') } as unknown as Event,
-				});
-
-				expect(getElementNameModule.default).not.toHaveBeenCalled();
-				expect(mockEntriesTimeline.push).toHaveBeenCalledWith({
-					time: 200,
-					data: {
-						type: 'window:event',
-						eventType: 'scroll-container',
-					},
-				});
-			});
-
 			it('should not add elementName for unsupported abort events', () => {
-				(fg as jest.Mock).mockImplementation((flag: string) => {
-					return flag === 'platform_ufo_abort_event_target';
-				});
-
 				new VCObserverNew({});
 				const onEventCallback = (WindowEventObserver as jest.Mock).mock.calls[
 					(WindowEventObserver as jest.Mock).mock.calls.length - 1
@@ -337,9 +305,6 @@ describe('VCObserverNew', () => {
 			});
 
 			it('should use document scrolling element for document targets', () => {
-				(fg as jest.Mock).mockImplementation((flag: string) => {
-					return flag === 'platform_ufo_abort_event_target';
-				});
 				(getElementNameModule.default as jest.Mock).mockReturnValue('html');
 
 				new VCObserverNew({});

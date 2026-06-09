@@ -14,9 +14,8 @@ import { Stack, Text } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 import { fade, scaleAndFade, slideAndFade } from '@atlaskit/top-layer/animations';
-import { Popover } from '@atlaskit/top-layer/popover';
-import { type TPlacementOptions } from '@atlaskit/top-layer/popup';
-import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
+import { Popover, type TPlacementOptions } from '@atlaskit/top-layer/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 
 import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';
@@ -91,7 +90,7 @@ const edgeOptions = [
  * Each animation preset is rendered as a separate popover so you can compare
  * them side-by-side while toggling direction and axis.
  */
-export default function AnimatedPopoverRtlExample(): React.JSX.Element {
+export default function AnimatedPopoverRtlExample(): React.ReactNode {
 	const [direction, setDirection] = useState<'ltr' | 'rtl'>('ltr');
 	const [axis, setAxis] = useState<NonNullable<TPlacementOptions['axis']>>('inline');
 	const [edge, setEdge] = useState<NonNullable<TPlacementOptions['edge']>>('end');
@@ -224,11 +223,10 @@ function AnimatedPopoverDemo({
 				role="dialog"
 				label={`${label} popover`}
 				animate={preset}
-				placement={placement}
 				isOpen={isOpen}
 				onClose={handleClose}
 			>
-				<PopupSurface>
+				<PopoverSurface>
 					<Stack space="space.100">
 						<Heading size="xsmall">{label}</Heading>
 						<Text>
@@ -238,7 +236,7 @@ function AnimatedPopoverDemo({
 							Open in both LTR and RTL to verify the slide direction adapts to the writing mode.
 						</Text>
 					</Stack>
-				</PopupSurface>
+				</PopoverSurface>
 			</Popover>
 		</Fragment>
 	);

@@ -5,6 +5,9 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
+export const ACTIVE_DRAG_HANDLE_ATTR = 'data-active-drag-handle';
+export const ACTIVE_QUICK_INSERT_ATTR = 'data-active-quick-insert';
+
 export const DRAG_HANDLE_HEIGHT = 24;
 
 export const DRAG_HANDLE_BORDER_RADIUS = 4;

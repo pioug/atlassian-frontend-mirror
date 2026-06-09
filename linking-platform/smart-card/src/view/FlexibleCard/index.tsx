@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -11,6 +11,7 @@ import { FlexibleCardContext, type FlexibleCardContextType } from '../../state/f
 import { useAISummaryConfig } from '../../state/hooks/use-ai-summary-config';
 import useResolve from '../../state/hooks/use-resolve';
 import useRovoConfig from '../../state/hooks/use-rovo-config';
+import { useSmartLinkCrossProductUrlWrapperGated } from '../../state/hooks/use-smart-link-cross-product-url-wrapper';
 
 import Container from './components/container';
 import { type FlexibleCardProps } from './types';
@@ -59,6 +60,13 @@ const FlexibleCard = ({
 	const { status: cardType, details } = cardState;
 	const status = cardType as SmartLinkStatus;
 
+	const appendCrossProductAnalyticsParams = useSmartLinkCrossProductUrlWrapperGated({ details });
+	const transformUrlCallback = useCallback(
+		(destinationUrl = url) => appendCrossProductAnalyticsParams(destinationUrl),
+		[appendCrossProductAnalyticsParams, url],
+	);
+	const transformUrl = fg('platform_smartlink_xpc_url_wrapping') ? transformUrlCallback : undefined;
+
 	// if we have placeholder state it means we can internally use it
 	// as temporary resolved data until the actual data comes back as one of the final statuses
 	const placeholderCardState = useMemo(
@@ -95,6 +103,7 @@ const FlexibleCard = ({
 				url,
 				isPreviewPanelAvailable,
 				openPreviewPanel,
+				transformUrl,
 			}),
 		[
 			aiSummaryConfig,
@@ -116,6 +125,7 @@ const FlexibleCard = ({
 			resolve,
 			rovoConfig,
 			status,
+			transformUrl,
 			url,
 			fireEvent,
 		],

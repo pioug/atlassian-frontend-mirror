@@ -1,3 +1,6 @@
+import type { IntlShape } from 'react-intl';
+
+import { isSSR, isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -23,6 +26,34 @@ export const pluginKey: PluginKey = new PluginKey('layoutResizingPlugin');
  * (e.g. setting flex-basis to give real-time visual feedback without dispatching
  * PM transactions) are not "corrected" back by ProseMirror's DOM reconciliation.
  */
+const isLayoutElementLike = (element: unknown): element is HTMLElement => {
+	if (isSSR() && isSSRStreaming()) {
+		// In SSR environments, `HTMLElement` is undefined globally so a plain
+		// `instanceof HTMLElement` check is always `false`. That makes the
+		// `DOMSerializer.renderSpec(...)` result get rejected by the guard below and
+		// the NodeView falls back to a bare `<div>`, losing every schema-defined
+		// attribute (`data-layout-column`, `style="flex-basis:..."`,
+		// `data-column-width`, plus the inner `<div data-layout-content="true">`
+		// wrapper) and breaking the layout's flex sizing in SSR output.
+		//
+		// To unblock SSR streaming without changing CSR semantics, we gate the check:
+		// - In SSR (and only when `platform_editor_editor_ssr_streaming` is enabled),
+		//   use a duck-typed check that mirrors `safe-plugin`'s `isHTMLElement`.
+		// - Everywhere else, keep the original `instanceof HTMLElement` check exactly
+		//   as it was so we don't accidentally widen acceptance in CSR.
+		if (element === null || element === undefined) {
+			return false;
+		}
+		return (
+			typeof element === 'object' &&
+			'innerHTML' in element &&
+			'style' in element &&
+			'classList' in element
+		);
+	}
+	return element instanceof HTMLElement;
+};
+
 class LayoutColumnView implements NodeView {
 	dom: HTMLElement;
 	contentDOM: HTMLElement;
@@ -42,7 +73,7 @@ class LayoutColumnView implements NodeView {
 
 		const { dom, contentDOM } = DOMSerializer.renderSpec(document, nodeType.spec.toDOM(node));
 
-		if (!(dom instanceof HTMLElement) || !(contentDOM instanceof HTMLElement)) {
+		if (!isLayoutElementLike(dom) || !isLayoutElementLike(contentDOM)) {
 			const fallbackDiv = document.createElement('div');
 			this.dom = fallbackDiv;
 			this.contentDOM = fallbackDiv;
@@ -75,6 +106,7 @@ export default (
 	pluginInjectionApi: ExtractInjectionAPI<LayoutPlugin>,
 	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,
+	intl?: IntlShape,
 ): SafePlugin<undefined> =>
 	new SafePlugin<undefined>({
 		key: pluginKey,
@@ -89,16 +121,24 @@ export default (
 						eventDispatcher,
 						pluginInjectionApi,
 						options,
+						intl,
 					}).init();
 				},
-				// Only register the column node view when the resize handle experiment is on.
-				// It exists solely to suppress style-attribute MutationObserver callbacks
-				// during drag, allowing direct flex-basis writes without PM interference.
-				...(editorExperiment('platform_editor_layout_column_resize_handle', true)
+				// Register the column node view when EITHER:
+				// 1. The resize handle experiment is on (its original purpose:
+				//    suppress style-attribute MutationObserver callbacks during
+				//    drag, allowing direct flex-basis writes without PM
+				//    interference).
+				// 2. SSR streaming is enabled — the column node view stamps
+				//    `container-type: inline-size` inline on each column dom so
+				//    that the SSR-rendered table inside the column constrains
+				//    its width to the column (see comment in the constructor).
+				...(editorExperiment('platform_editor_layout_column_resize_handle', true) ||
+				(isSSR() && isSSRStreaming())
 					? {
 							layoutColumn: (node: PMNode, view: EditorView, getPos: () => number | undefined) =>
 								new LayoutColumnView(node, view, getPos),
-						}
+					  }
 					: {}),
 			},
 		},

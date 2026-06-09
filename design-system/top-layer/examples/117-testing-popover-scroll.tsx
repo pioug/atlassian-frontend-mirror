@@ -2,11 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { type ReactNode, useCallback, useRef, useState } from 'react';
+
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { Popup } from '@atlaskit/top-layer/popup';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
+import { Popover } from '@atlaskit/top-layer/popover';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 const styles = cssMap({
 	scrollContainer: {
@@ -30,25 +35,47 @@ const styles = cssMap({
 
 /**
  * Test fixture for scroll behavior.
- * The popup is inside a scrollable container.
+ * The popover is inside a scrollable container.
  * Scrolling should NOT close the popover.
  */
-export default function TestingPopoverScroll(): JSX.Element {
+export default function TestingPopoverScroll(): ReactNode {
+	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: { edge: 'end' },
+	});
+
 	return (
 		<div data-testid="scroll-container" css={styles.scrollContainer}>
 			<div css={styles.spacerSmall} />
-			<Popup placement={{ edge: 'end' }} onClose={() => {}}>
-				<Popup.Trigger>
-					<button type="button" data-testid="popover-trigger">
-						Open
-					</button>
-				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Scroll test">
-					<div data-testid="popover-content" css={styles.content}>
-						Popover content in scrollable container
-					</div>
-				</Popup.Content>
-			</Popup>
+			<button
+				ref={triggerRef}
+				type="button"
+				data-testid="popover-trigger"
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+			>
+				Open
+			</button>
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				role="dialog"
+				label="Scroll test"
+				isOpen={isOpen}
+				onClose={close}
+			>
+				<div data-testid="popover-content" css={styles.content}>
+					Popover content in scrollable container
+				</div>
+			</Popover>
 			<div css={styles.spacerLarge} />
 		</div>
 	);

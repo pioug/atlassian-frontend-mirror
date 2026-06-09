@@ -19,7 +19,7 @@ export interface BadgeProps {
 	/**
 	 * Affects the visual style of the badge.
 	 */
-	appearance?: ThemeAppearance;
+	appearance?: ThemeAppearance | NewAppearance;
 
 	/**
 	 * The value displayed within the badge. A `ReactNode` can be provided for
@@ -57,7 +57,12 @@ export type NewAppearance =
 	| 'information'
 	| 'inverse'
 	| 'warning'
-	| 'discovery';
+	| 'discovery'
+	| 'informationBold'
+	| 'successBold'
+	| 'dangerBold'
+	| 'warningBold'
+	| 'discoveryBold';
 
 /**
  * Props for BadgeNew component with new appearance names.

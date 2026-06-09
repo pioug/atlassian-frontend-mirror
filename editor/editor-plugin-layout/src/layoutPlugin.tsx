@@ -23,12 +23,10 @@ import {
 	TRANSFORM_STRUCTURE_MENU_SECTION,
 	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
 } from '@atlaskit/editor-common/block-menu';
-import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
 	layoutMessages,
 	toolbarInsertBlockMessages as messages,
 } from '@atlaskit/editor-common/messages';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import {
 	IconFiveColumnLayout,
@@ -59,9 +57,11 @@ import {
 	distributeLayoutColumns,
 	insertLayoutColumn,
 	insertLayoutColumnsWithAnalytics,
+	setLayoutColumnDangerPreview,
 	setLayoutColumnValign,
 	toggleLayoutColumnMenu,
 } from './pm-plugins/actions';
+import { default as createLayoutKeymapPlugin } from './pm-plugins/keymap';
 import { default as createLayoutPlugin } from './pm-plugins/main';
 import { pluginKey } from './pm-plugins/plugin-key';
 import { default as createLayoutResizingPlugin } from './pm-plugins/resizing';
@@ -144,18 +144,18 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 							? layoutSectionWithSingleColumnLocalId
 							: layoutSectionWithSingleColumn
 						: fg('platform_editor_adf_with_localid')
-							? layoutSectionWithLocalId
-							: layoutSection,
+						? layoutSectionWithLocalId
+						: layoutSection,
 				},
 				{
 					name: 'layoutColumn',
 					node: expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)
 						? // `layoutColumnStage0` includes both `valign` and `localId` attrs, so it remains
-							// compatible with `platform_editor_adf_with_localid` when both flags are enabled.
-							layoutColumnStage0
+						  // compatible with `platform_editor_adf_with_localid` when both flags are enabled.
+						  layoutColumnStage0
 						: fg('platform_editor_adf_with_localid')
-							? layoutColumnWithLocalId
-							: layoutColumn,
+						? layoutColumnWithLocalId
+						: layoutColumn,
 				},
 			];
 		},
@@ -168,6 +168,13 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 				},
 			] as Array<PMPlugin>;
 
+			if (expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
+				plugins.push({
+					name: 'layoutKeymap',
+					plugin: () => createLayoutKeymapPlugin({ api }),
+				});
+			}
+
 			if (
 				(options.editorAppearance === 'full-page' ||
 					options.editorAppearance === 'full-width' ||
@@ -178,13 +185,8 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 			) {
 				plugins.push({
 					name: 'layoutResizing',
-					plugin: ({
-						portalProviderAPI,
-						eventDispatcher,
-					}: {
-						eventDispatcher: EventDispatcher;
-						portalProviderAPI: PortalProviderAPI;
-					}) => createLayoutResizingPlugin(options, api, portalProviderAPI, eventDispatcher),
+					plugin: ({ portalProviderAPI, eventDispatcher, getIntl }) =>
+						createLayoutResizingPlugin(options, api, portalProviderAPI, eventDispatcher, getIntl()),
 				});
 			}
 			return plugins;
@@ -259,7 +261,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 										return tr;
 									},
 								},
-							]
+						  ]
 						: [];
 
 					if (expValEquals('platform_editor_layout_typeahead_reorder', 'isEnabled', true)) {
@@ -484,10 +486,13 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 			return pluginKey.getState(editorState);
 		},
 		commands: {
-			deleteLayoutColumn: deleteLayoutColumn(api?.analytics?.actions, api),
+			deleteLayoutColumn: (inputMethod) =>
+				deleteLayoutColumn(api?.analytics?.actions, api, inputMethod),
 			distributeLayoutColumns: (options) =>
 				distributeLayoutColumns(api?.analytics?.actions, api)(options),
-			insertLayoutColumn: (side) => insertLayoutColumn(side, api?.analytics?.actions, api),
+			insertLayoutColumn: (side, inputMethod) =>
+				insertLayoutColumn(side, api?.analytics?.actions, api, inputMethod),
+			setLayoutColumnDangerPreview,
 			setLayoutColumnValign: (valign) =>
 				setLayoutColumnValign(valign, api?.analytics?.actions, api),
 			toggleLayoutColumnMenu,

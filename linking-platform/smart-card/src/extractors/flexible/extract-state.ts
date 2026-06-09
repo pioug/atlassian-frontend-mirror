@@ -5,6 +5,7 @@ import {
 	type InvokeRequestAction,
 	type SmartLinkActionType,
 } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FireEventFunction } from '../../common/analytics/types';
 import { CardAction } from '../../constants';
@@ -21,6 +22,7 @@ import {
 	type CardInnerAppearance,
 } from '../../view/Card/types';
 import { extractInvokePreviewAction } from '../action/extract-invoke-preview-action';
+import { type TransformUrlFn } from '../action/types';
 import { extractLozenge } from '../common/lozenge';
 import { type LinkLozenge, type LinkLozengeInvokeActions } from '../common/lozenge/types';
 
@@ -62,6 +64,7 @@ const extractAction = (
 		panelData: { embedUrl?: string };
 		url: string;
 	}) => void,
+	transformUrl?: TransformUrlFn,
 ): LinkLozengeInvokeActions | undefined => {
 	const extensionKey = getExtensionKey(response);
 	const data = response?.data as JsonLd.Data.BaseData;
@@ -98,6 +101,7 @@ const extractAction = (
 				response,
 				isPreviewPanelAvailable,
 				openPreviewPanel,
+				...(fg('platform_smartlink_xpc_url_wrapping') ? { transformUrl } : undefined),
 			})?.invokeAction
 		: undefined;
 
@@ -133,6 +137,7 @@ const extractState = (
 		panelData: { embedUrl?: string };
 		url: string;
 	}) => void,
+	transformUrl?: TransformUrlFn,
 ): LinkLozenge | undefined => {
 	if (!response || !response.data) {
 		return;
@@ -158,6 +163,7 @@ const extractState = (
 		resolve,
 		isPreviewPanelAvailable,
 		openPreviewPanel,
+		fg('platform_smartlink_xpc_url_wrapping') ? transformUrl : undefined,
 	);
 	return { ...lozenge, action };
 };

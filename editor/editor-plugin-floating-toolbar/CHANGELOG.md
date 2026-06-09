@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 13.0.3
+
+### Patch Changes
+
+- [`7a682c6422bb3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a682c6422bb3) -
+  MAUI-590 hide floating toolbar after start remix
+
+## 13.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.1
 
 ### Patch Changes

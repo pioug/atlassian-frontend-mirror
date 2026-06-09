@@ -72,13 +72,13 @@ const messages = defineMessages({
 	},
 	addJiraProjectTitle: {
 		id: 'ptc-directory.team-profile-page.team-containers.create.add-jira-project-title',
-		defaultMessage: 'Jira project',
-		description: 'Title of the card to add a Jira project to a team',
+		defaultMessage: 'Jira space',
+		description: 'Title of the card to add a Jira space to a team',
 	},
 	jiraProjectDescription: {
 		id: 'ptc-directory.team-profile-page.team-containers.create.add-jira-project-description',
-		defaultMessage: 'Plan out project tasks',
-		description: 'Description of the card to add a Jira project to a team',
+		defaultMessage: 'Plan out tasks',
+		description: 'Description of the card to add a Jira space to a team',
 	},
 	addWebLinkTitle: {
 		id: 'ptc-directory.team-profile-page.team-containers.create.add-web-link-title',

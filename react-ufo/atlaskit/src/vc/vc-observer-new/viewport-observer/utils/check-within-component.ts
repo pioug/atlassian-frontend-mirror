@@ -41,19 +41,32 @@ export default function checkWithinComponent(
 	if (resultCache.has(node)) {
 		return { isWithin: resultCache.get(node) ?? false };
 	}
-	let fiber: any = null;
-	let checkedNodes: HTMLElement[] = [];
+	const checkedNodes: HTMLElement[] = [];
 
-	const DOM_WALK_MAX_LEVEL = fg('ufo-bump-walk-levels')
+	const shouldUseBumpedWalkLevels = fg('ufo-bump-walk-levels');
+
+	const DOM_WALK_MAX_LEVEL = shouldUseBumpedWalkLevels
 		? NEW_DOM_WALK_MAX_LEVEL
 		: OLD_DOM_WALK_MAX_LEVEL;
 
-	const FIBER_WALK_MAX_LEVEL = fg('ufo-bump-walk-levels')
+	const FIBER_WALK_MAX_LEVEL = shouldUseBumpedWalkLevels
 		? NEW_FIBER_WALK_MAX_LEVEL
 		: OLD_FIBER_WALK_MAX_LEVEL;
 
 	// Always use cached fiber strategy to handle non-React elements reliably
-	fiber = findFiberWithCache(node, DOM_WALK_MAX_LEVEL, checkedNodes);
+	const { fiber, cachedResult } = findFiberWithCache(
+		node,
+		DOM_WALK_MAX_LEVEL,
+		checkedNodes,
+		shouldUseBumpedWalkLevels ? resultCache : undefined,
+	);
+
+	if (cachedResult !== undefined) {
+		checkedNodes.forEach((checkedNode) => {
+			resultCache.set(checkedNode, cachedResult);
+		});
+		return { isWithin: cachedResult };
+	}
 
 	if (!fiber) {
 		checkedNodes.forEach((checkedNode) => {

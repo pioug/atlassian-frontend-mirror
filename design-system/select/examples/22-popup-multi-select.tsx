@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import DownIcon from '@atlaskit/icon/core/chevron-down';
-import { type OptionsType, type OptionType, PopupSelect } from '@atlaskit/select';
+import { type OptionType, type OptionsType, PopupSelect } from '@atlaskit/select';
 
 const options: OptionsType = [
 	{ label: 'Adelaide', value: 'adelaide' },

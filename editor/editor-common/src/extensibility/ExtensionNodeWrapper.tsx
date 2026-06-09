@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import classnames from 'classnames';
 import type { IntlShape } from 'react-intl';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { ZERO_WIDTH_SPACE } from '../whitespace';
@@ -104,11 +103,7 @@ export const ExtensionNodeWrapper = ({
 				data-testid="extension-node-wrapper"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				className={wrapperClassNames}
-				css={[
-					styles,
-					expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true) &&
-						hoverStyles,
-				]}
+				css={[styles, hoverStyles]}
 			>
 				{children}
 				{nodeType === 'inlineExtension' && ZERO_WIDTH_SPACE}

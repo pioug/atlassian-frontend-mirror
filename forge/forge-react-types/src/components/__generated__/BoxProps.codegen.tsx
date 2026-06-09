@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::232f22eaa26678368e01d032f1ef3405>>
+ * @codegen <<SignedSource::c6a23cb4ea0286f55b137d3e4f30ab86>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/index.tsx <<SignedSource::6b93e6d932cf03314cad0e426df1eff4>>
  */
@@ -40,6 +40,23 @@ type XCSSValidatorParam = {
         allowCSS: true;
     };
 };
+type SupportedPropKeys<U extends XCSSValidatorParam> = Extract<keyof U, keyof CSSProperties>;
+type RawCSSPropKeys<U extends XCSSValidatorParam> = Extract<{
+    [K in SupportedPropKeys<U>]: U[K] extends {
+        allowCSS: true;
+    } ? K : never;
+}[SupportedPropKeys<U>], SupportedPropKeys<U>>;
+type RestrictedPropKeys<U extends XCSSValidatorParam> = Extract<{
+    [K in SupportedPropKeys<U>]: U[K] extends {
+        supportedValues: Array<RestrictedPropsSpec[K]>;
+    } ? K : never;
+}[SupportedPropKeys<U>], SupportedPropKeys<U>>;
+type RestrictedProps<U extends XCSSValidatorParam> = {
+    [K in RestrictedPropKeys<U>]?: U[K] extends {
+        supportedValues: infer V;
+    } ? V extends ReadonlyArray<infer E> ? E : Exclude<V[keyof V], number | ((...args: any[]) => any)> : never;
+};
+type XCSSPropsValidator<U extends XCSSValidatorParam> = (styleObj: SafeCSSObject<keyof CSSProperties, keyof CSSProperties, RestrictedPropsSpec> | SafeCSSObject<SupportedPropKeys<U>, RawCSSPropKeys<U>, RestrictedProps<U>>) => SafeCSSObject<SupportedPropKeys<U>, RawCSSPropKeys<U>, RestrictedProps<U>>;
 /**
  *
  * @param supportedXCSSProps - the list of css props to be supported for the intended component.
@@ -50,19 +67,7 @@ type XCSSValidatorParam = {
  *    as specified in the supportedXCSSProps list. The props that are not supported will be removed from the
  *    returned style object and a warning will be logged in the console.
  */
-declare const makeXCSSValidator: <U extends XCSSValidatorParam>(supportedXCSSProps: U) => (styleObj: SafeCSSObject<keyof CSSProperties, keyof CSSProperties, RestrictedPropsSpec> | SafeCSSObject<Extract<keyof U, keyof CSSProperties>, Extract<{ [K in Extract<keyof U, keyof CSSProperties>]: U[K] extends {
-    allowCSS: true;
-} ? K : never; }[Extract<keyof U, keyof CSSProperties>], Extract<keyof U, keyof CSSProperties>>, { [K_2 in Extract<{ [K_1 in Extract<keyof U, keyof CSSProperties>]: U[K_1] extends {
-    supportedValues: RestrictedPropsSpec[K_1][];
-} ? K_1 : never; }[Extract<keyof U, keyof CSSProperties>], Extract<keyof U, keyof CSSProperties>>]?: (U[K_2] extends {
-    supportedValues: infer V;
-} ? V extends readonly (infer E)[] ? E : Exclude<V[keyof V], number | ((...args: any[]) => any)> : never) | undefined; }>) => SafeCSSObject<Extract<keyof U, keyof CSSProperties>, Extract<{ [K in Extract<keyof U, keyof CSSProperties>]: U[K] extends {
-    allowCSS: true;
-} ? K : never; }[Extract<keyof U, keyof CSSProperties>], Extract<keyof U, keyof CSSProperties>>, { [K_2 in Extract<{ [K_1 in Extract<keyof U, keyof CSSProperties>]: U[K_1] extends {
-    supportedValues: RestrictedPropsSpec[K_1][];
-} ? K_1 : never; }[Extract<keyof U, keyof CSSProperties>], Extract<keyof U, keyof CSSProperties>>]?: (U[K_2] extends {
-    supportedValues: infer V;
-} ? V extends readonly (infer E)[] ? E : Exclude<V[keyof V], number | ((...args: any[]) => any)> : never) | undefined; }>;
+declare const makeXCSSValidator: <U extends XCSSValidatorParam>(supportedXCSSProps: U) => XCSSPropsValidator<U>;
 export { makeXCSSValidator };
 export type { SafeCSSObject };
 /**

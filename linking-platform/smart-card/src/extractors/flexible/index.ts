@@ -71,6 +71,7 @@ const extractFlexibleUiContext = ({
 	aiSummaryConfig,
 	isPreviewPanelAvailable,
 	openPreviewPanel,
+	transformUrl,
 	...props
 }: Partial<ExtractFlexibleUiDataContextParams> = {}): FlexibleUiDataContext | undefined => {
 	if (!response) {
@@ -96,6 +97,7 @@ const extractFlexibleUiContext = ({
 			url: props.url, // Use the original URL in edge cases, such as short links for AI summary and copy link actions.
 			isPreviewPanelAvailable,
 			openPreviewPanel,
+			...(fg('platform_smartlink_xpc_url_wrapping') ? { transformUrl } : undefined),
 		}),
 		appliedToComponentsCount: extractAppliedToComponentsCount(data),
 		assignedToGroup: extractPersonAssignedToAsArray(
@@ -139,6 +141,7 @@ const extractFlexibleUiContext = ({
 			resolve,
 			isPreviewPanelAvailable,
 			openPreviewPanel,
+			fg('platform_smartlink_xpc_url_wrapping') ? transformUrl : undefined,
 		),
 		subscriberCount: extractSubscriberCount(data),
 		subTasksProgress: extractSubTasksProgress(data),

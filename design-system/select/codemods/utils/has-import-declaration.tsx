@@ -1,4 +1,4 @@
-import { type ASTPath, type default as core, type ImportDeclaration } from 'jscodeshift';
+import { type ASTPath, type ImportDeclaration, type default as core } from 'jscodeshift';
 
 export function hasImportDeclaration(
 	j: core.JSCodeshift,

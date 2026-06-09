@@ -125,10 +125,10 @@ export type AllSpace = keyof typeof allSpaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5181bd08725ac44b53e0ae9f914067c1>>
+ * @codegen <<SignedSource::6524c541d5294ec03cd1d164733db0ce>>
  * @codegenId inverse-colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::3c254494d015dde7566fc7c46750adf2>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::b9b97209317e10ecda0bca62c4191312>>
  */
 export const inverseColorMap: {
 	'color.background.neutral.bold': 'color.text.inverse';
@@ -158,6 +158,9 @@ export const inverseColorMap: {
 	'color.background.information.bold': 'color.text.inverse';
 	'color.background.information.bold.hovered': 'color.text.inverse';
 	'color.background.information.bold.pressed': 'color.text.inverse';
+	'color.rovo.background.brand.bold': 'color.text.inverse';
+	'color.rovo.background.brand.bold.hovered': 'color.text.inverse';
+	'color.rovo.background.brand.bold.pressed': 'color.text.inverse';
 } = {
 	'color.background.neutral.bold': 'color.text.inverse',
 	'color.background.neutral.bold.hovered': 'color.text.inverse',
@@ -186,6 +189,9 @@ export const inverseColorMap: {
 	'color.background.information.bold': 'color.text.inverse',
 	'color.background.information.bold.hovered': 'color.text.inverse',
 	'color.background.information.bold.pressed': 'color.text.inverse',
+	'color.rovo.background.brand.bold': 'color.text.inverse',
+	'color.rovo.background.brand.bold.hovered': 'color.text.inverse',
+	'color.rovo.background.brand.bold.pressed': 'color.text.inverse',
 } as const;
 
 /**
@@ -194,11 +200,11 @@ export const inverseColorMap: {
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::54e9dee77c5da7d77db6b6cb20970356>>
+ * @codegen <<SignedSource::94036d439d77871376e18679c1677546>>
  * @codegenId elevation
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["opacity", "shadow", "surface"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::3c254494d015dde7566fc7c46750adf2>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::b9b97209317e10ecda0bca62c4191312>>
  */
 export const opacityMap: {
 	'opacity.disabled': 'var(--ds-opacity-disabled)';
@@ -267,11 +273,11 @@ export type SurfaceColor = keyof typeof surfaceColorMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5fd7f92fbc474ab0beacc4e06dad8fca>>
+ * @codegen <<SignedSource::cc0212dd78868f08f12bd3ce7f767e82>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "text", "fill"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::3c254494d015dde7566fc7c46750adf2>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::b9b97209317e10ecda0bca62c4191312>>
  */
 export const borderColorMap: {
 	'color.border': 'var(--ds-border)';
@@ -333,7 +339,7 @@ export const borderColorMap: {
 	'color.border.accent.magenta': token('color.border.accent.magenta', '#CD519D'),
 	'color.border.accent.magenta.subtle': token('color.border.accent.magenta.subtle', '#F797D2'),
 	'color.border.accent.gray': token('color.border.accent.gray', '#7D818A'),
-	'color.border.accent.gray.subtle': token('color.border.accent.gray.subtle', '#DDDEE1'),
+	'color.border.accent.gray.subtle': token('color.border.accent.gray.subtle', '#B7B9BE'),
 	'color.border.disabled': token('color.border.disabled', '#0515240F'),
 	'color.border.focused': token('color.border.focused', '#4688EC'),
 	'color.border.input': token('color.border.input', '#8C8F97'),
@@ -557,11 +563,14 @@ export const backgroundColorMap: {
 	'color.background.information.bold': 'var(--ds-background-information-bold)';
 	'color.background.information.bold.hovered': 'var(--ds-background-information-bold-hovered)';
 	'color.background.information.bold.pressed': 'var(--ds-background-information-bold-pressed)';
+	'color.skeleton': 'var(--ds-skeleton)';
+	'color.skeleton.subtle': 'var(--ds-skeleton-subtle)';
 	'color.blanket': 'var(--ds-blanket)';
 	'color.blanket.selected': 'var(--ds-blanket-selected)';
 	'color.blanket.danger': 'var(--ds-blanket-danger)';
-	'color.skeleton': 'var(--ds-skeleton)';
-	'color.skeleton.subtle': 'var(--ds-skeleton-subtle)';
+	'color.rovo.background.brand.bold': 'var(--ds-rovo-background-brand-bold)';
+	'color.rovo.background.brand.bold.hovered': 'var(--ds-rovo-background-brand-bold-hovered)';
+	'color.rovo.background.brand.bold.pressed': 'var(--ds-rovo-background-brand-bold-pressed)';
 	'elevation.surface': 'var(--ds-surface)';
 	'elevation.surface.hovered': 'var(--ds-surface-hovered)';
 	'elevation.surface.pressed': 'var(--ds-surface-pressed)';
@@ -1171,11 +1180,20 @@ export const backgroundColorMap: {
 		'color.background.information.bold.pressed',
 		'#144794',
 	),
+	'color.skeleton': token('color.skeleton', '#0515240F'),
+	'color.skeleton.subtle': token('color.skeleton.subtle', '#17171708'),
 	'color.blanket': token('color.blanket', '#050C1F75'),
 	'color.blanket.selected': token('color.blanket.selected', '#388BFF14'),
 	'color.blanket.danger': token('color.blanket.danger', '#EF5C4814'),
-	'color.skeleton': token('color.skeleton', '#0515240F'),
-	'color.skeleton.subtle': token('color.skeleton.subtle', '#17171708'),
+	'color.rovo.background.brand.bold': token('color.rovo.background.brand.bold', '#000000'),
+	'color.rovo.background.brand.bold.hovered': token(
+		'color.rovo.background.brand.bold.hovered',
+		'#1E1F21',
+	),
+	'color.rovo.background.brand.bold.pressed': token(
+		'color.rovo.background.brand.bold.pressed',
+		'#292A2E',
+	),
 	'elevation.surface': token('elevation.surface', '#FFFFFF'),
 	'elevation.surface.hovered': token('elevation.surface.hovered', '#F0F1F2'),
 	'elevation.surface.pressed': token('elevation.surface.pressed', '#DDDEE1'),

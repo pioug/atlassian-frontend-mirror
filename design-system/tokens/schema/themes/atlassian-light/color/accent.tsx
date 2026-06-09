@@ -101,7 +101,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
 				},
 				gray: {
 					'[default]': { value: 'Neutral600' },
-					subtle: { value: 'Neutral300' },
+					subtle: { value: 'Neutral400' },
 				},
 			},
 		},

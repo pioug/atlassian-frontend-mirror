@@ -133,7 +133,7 @@ type DeletedLayoutColumnAEP = TrackAEP<
 	{
 		columnCount: number;
 		endIndex: number;
-		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU;
+		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU | INPUT_METHOD.KEYBOARD;
 		selectedCount: number;
 		startIndex: number;
 	},

@@ -228,6 +228,41 @@ export default function BadgeVisualUplifts(): JSX.Element {
 								<BadgeNew appearance="discovery">{40}</BadgeNew>
 							</td>
 						</tr>
+						<tr>
+							<td style={{ padding: '8px' }}>-</td>
+							<td style={{ padding: '8px' }}>informationBold</td>
+							<td style={{ padding: '8px' }}>
+								<BadgeNew appearance="informationBold">{45}</BadgeNew>
+							</td>
+						</tr>
+						<tr>
+							<td style={{ padding: '8px' }}>-</td>
+							<td style={{ padding: '8px' }}>successBold</td>
+							<td style={{ padding: '8px' }}>
+								<BadgeNew appearance="successBold">{50}</BadgeNew>
+							</td>
+						</tr>
+						<tr>
+							<td style={{ padding: '8px' }}>-</td>
+							<td style={{ padding: '8px' }}>dangerBold</td>
+							<td style={{ padding: '8px' }}>
+								<BadgeNew appearance="dangerBold">{55}</BadgeNew>
+							</td>
+						</tr>
+						<tr>
+							<td style={{ padding: '8px' }}>-</td>
+							<td style={{ padding: '8px' }}>warningBold</td>
+							<td style={{ padding: '8px' }}>
+								<BadgeNew appearance="warningBold">{60}</BadgeNew>
+							</td>
+						</tr>
+						<tr>
+							<td style={{ padding: '8px' }}>-</td>
+							<td style={{ padding: '8px' }}>discoveryBold</td>
+							<td style={{ padding: '8px' }}>
+								<BadgeNew appearance="discoveryBold">{65}</BadgeNew>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>

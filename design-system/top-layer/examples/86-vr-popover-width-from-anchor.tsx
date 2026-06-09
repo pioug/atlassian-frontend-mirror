@@ -11,7 +11,7 @@ import { cssMap } from '@atlaskit/css';
 import { Pressable, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover';
-import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';
 
@@ -74,35 +74,35 @@ function PopoverWidthFromAnchor({ mode }: { mode: 'none' | 'match-anchor' | 'min
 				label={`widthFromAnchor="${mode}"`}
 				onClose={() => setIsOpen(false)}
 			>
-				<PopupSurface>
+				<PopoverSurface>
 					<div css={styles.popupContentWrapper}>
 						<Text>widthFromAnchor=&quot;{mode}&quot;</Text>
 					</div>
-				</PopupSurface>
+				</PopoverSurface>
 			</Popover>
 		</>
 	);
 }
 
 /**
- * `widthFromAnchor="none"` - popover sizes to its own content, ignoring anchor width.
+ * `widthFromAnchor="none"` — popover sizes to its own content, ignoring anchor width.
  */
-export function VrPopoverWidthFromAnchorNone(): JSX.Element {
+export function VrPopoverWidthFromAnchorNone(): React.ReactNode {
 	return <PopoverWidthFromAnchor mode="none" />;
 }
 
 /**
- * `widthFromAnchor="match-anchor"` - popover width exactly matches the anchor width.
+ * `widthFromAnchor="match-anchor"` — popover width exactly matches the anchor width.
  */
-export function VrPopoverWidthFromAnchorMatchAnchor(): JSX.Element {
+export function VrPopoverWidthFromAnchorMatchAnchor(): React.ReactNode {
 	return <PopoverWidthFromAnchor mode="match-anchor" />;
 }
 
 /**
- * `widthFromAnchor="min-anchor"` - popover is at least as wide as the anchor, but
+ * `widthFromAnchor="min-anchor"` — popover is at least as wide as the anchor, but
  * can grow wider if its content requires it.
  */
-export function VrPopoverWidthFromAnchorMinAnchor(): JSX.Element {
+export function VrPopoverWidthFromAnchorMinAnchor(): React.ReactNode {
 	return <PopoverWidthFromAnchor mode="min-anchor" />;
 }
 

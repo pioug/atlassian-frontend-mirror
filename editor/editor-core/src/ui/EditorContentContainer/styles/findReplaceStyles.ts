@@ -1,11 +1,17 @@
-/* eslint-disable @atlaskit/ui-styling-standard/use-compiled */
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled,
+	@repo/internal/deprecations/deprecation-ticket-required,
+	@atlaskit/ui-styling-standard/no-exported-styles */
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { token } from '@atlaskit/tokens';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const findReplaceStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.search-match': {
@@ -19,8 +25,12 @@ export const findReplaceStyles: SerializedStyles = css({
 		backgroundColor: token('color.background.accent.teal.subtle'),
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const findReplaceStylesWithCodeblockColorContrastFix: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} .search-match.selected-search-match`]: {
@@ -32,8 +42,12 @@ export const findReplaceStylesWithCodeblockColorContrastFix: SerializedStyles = 
 		},
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const findReplaceStylesNewWithCodeblockColorContrastFix: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} .search-match-text.selected-search-match`]:
@@ -48,7 +62,12 @@ export const findReplaceStylesNewWithCodeblockColorContrastFix: SerializedStyles
 });
 
 // TODO: ED-28370 - during platform_editor_find_and_replace_improvements clean up, rename this css object to findReplaceStyles
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const findReplaceStylesNewWithA11Y: SerializedStyles = css({
 	// text - inactive match - light mode
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -322,8 +341,12 @@ export const findReplaceStylesNewWithA11Y: SerializedStyles = css({
 			backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
 		},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
 export const findReplaceStylesWithRefSyncBlock: SerializedStyles = css({
 	// sync block (reference) - inactive match - light mode - without node selection
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

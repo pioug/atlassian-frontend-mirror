@@ -4,22 +4,14 @@
  */
 import type { NewAppearance } from './types';
 
-export const appearanceMapping: Record<
-	| 'added'
-	| 'removed'
-	| 'default'
-	| 'primary'
-	| 'primaryInverted'
-	| 'important'
-	| 'warning'
-	| 'discovery'
-	| 'danger'
-	| 'success'
-	| 'information'
-	| 'inverse'
-	| 'neutral',
-	NewAppearance
-> = {
+export const appearanceMapping: Record<NewAppearance, NewAppearance> & {
+	added: NewAppearance;
+	removed: NewAppearance;
+	default: NewAppearance;
+	primary: NewAppearance;
+	primaryInverted: NewAppearance;
+	important: NewAppearance;
+} = {
 	added: 'success',
 	removed: 'danger',
 	default: 'neutral',
@@ -33,4 +25,9 @@ export const appearanceMapping: Record<
 	information: 'information',
 	inverse: 'inverse',
 	neutral: 'neutral',
+	informationBold: 'informationBold',
+	successBold: 'successBold',
+	dangerBold: 'dangerBold',
+	warningBold: 'warningBold',
+	discoveryBold: 'discoveryBold',
 };

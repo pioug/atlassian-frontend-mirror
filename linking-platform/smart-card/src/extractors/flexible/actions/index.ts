@@ -12,6 +12,7 @@ import {
 	type InternalCardActionOptions as CardActionOptions,
 	type CardInnerAppearance,
 } from '../../../view/Card/types';
+import { type TransformUrlFn } from '../../action/types';
 
 import { extractAISummaryAction } from './extract-ai-summary-action';
 import { extractAutomationAction } from './extract-automation-action';
@@ -40,6 +41,7 @@ export type ExtractActionsParam = {
 	product?: ProductType;
 	response: JsonLd.Response;
 	rovoConfig?: RovoConfig;
+	transformUrl?: TransformUrlFn;
 	url?: string;
 };
 
@@ -53,6 +55,7 @@ export const extractFlexibleCardActions = ({
 	product,
 	response,
 	rovoConfig,
+	transformUrl,
 	url,
 	isPreviewPanelAvailable,
 	openPreviewPanel,
@@ -80,6 +83,7 @@ export const extractFlexibleCardActions = ({
 			response,
 			isPreviewPanelAvailable,
 			openPreviewPanel,
+			...(fg('platform_smartlink_xpc_url_wrapping') ? { transformUrl } : undefined),
 		}),
 		[ActionName.AutomationAction]: extractAutomationAction(response),
 		[InternalActionName.AISummaryAction]: extractAISummaryAction(

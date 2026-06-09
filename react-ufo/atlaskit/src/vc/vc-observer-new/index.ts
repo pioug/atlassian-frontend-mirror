@@ -155,7 +155,7 @@ export default class VCObserverNew {
 				}
 
 				const abortEventTargetElement =
-					isAbortEventTargetSupported(type) && fg('platform_ufo_abort_event_target')
+					isAbortEventTargetSupported(type) && event
 						? getAbortEventTargetElement(event.target)
 						: null;
 				const elementName = abortEventTargetElement

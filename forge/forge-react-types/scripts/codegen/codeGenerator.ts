@@ -1093,7 +1093,24 @@ const handleXCSSProp: CodeConsolidator = ({
 		.getProject()
 		.addSourceFileAtPath(require.resolve('@atlassian/forge-ui/utils/xcssValidator'));
 	const xcssValidatorDeclaration = xcssValidatorfile.getVariableDeclarationOrThrow('xcssValidator');
-	const xcssValidator = xcssValidatorDeclaration.getText();
+	// Emit `xcssValidator = makeXCSSValidator({...})` from the initializer expression only —
+	// dropping the source's `: XCSSValidatorFn` annotation and its `as unknown as XCSSValidatorFn`
+	// cast. `XCSSValidatorFn` is local to xcssValidator.ts and is not carried into the generated
+	// file, and `XCSSProp` (derived via `ReturnType<typeof xcssValidator>`) must reflect
+	// makeXCSSValidator's precise inferred return rather than the hand-written `XCSSValidatorFn`.
+	// Strip any type-only / grouping wrappers (`as ...`, `satisfies ...`, parentheses) to reach the
+	// underlying `makeXCSSValidator({...})` call. Any such wrapper would otherwise leak a type name
+	// (e.g. `XCSSValidatorFn`) that is local to xcssValidator.ts and not carried into the generated
+	// file, breaking it with "Cannot find name ...".
+	let xcssValidatorInitializer = xcssValidatorDeclaration.getInitializerOrThrow();
+	while (
+		Node.isAsExpression(xcssValidatorInitializer) ||
+		Node.isSatisfiesExpression(xcssValidatorInitializer) ||
+		Node.isParenthesizedExpression(xcssValidatorInitializer)
+	) {
+		xcssValidatorInitializer = xcssValidatorInitializer.getExpression();
+	}
+	const xcssValidator = `${xcssValidatorDeclaration.getName()} = ${xcssValidatorInitializer.getText()}`;
 	const XCSSPropType = xcssValidatorfile
 		.getTypeAliasOrThrow('XCSSProp')
 		.setIsExported(false)

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useRef, useState } from 'react';
+import { type ReactNode, useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
@@ -31,7 +31,7 @@ const styles = cssMap({
  * A manual popover that uses the hook for Escape and click-outside dismiss.
  * Displays the close reason when dismissed.
  */
-export default function TestingSimpleLightDismiss(): JSX.Element {
+export default function TestingSimpleLightDismiss(): ReactNode {
 	const [isOpen, setIsOpen] = useState(false);
 	const [closeReason, setCloseReason] = useState<string | null>(null);
 	const [closeCount, setCloseCount] = useState(0);

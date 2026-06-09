@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 13.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.0
+
+### Minor Changes
+
+- [`aaf0bc9f036a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaf0bc9f036a7) -
+  [ux] Experiment change, update priority of link quick insert item
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.1
 
 ### Patch Changes

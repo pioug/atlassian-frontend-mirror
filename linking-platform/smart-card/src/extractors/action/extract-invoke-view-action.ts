@@ -1,5 +1,6 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { extractLink } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { CardAction } from '../../constants';
 import { getDefinitionId, getExtensionKey, getResourceType } from '../../state/helpers';
@@ -8,10 +9,13 @@ import { openUrl } from '../../utils';
 import { canShowAction } from '../../utils/actions/can-show-action';
 import { getActionsFromJsonLd } from '../common/actions/extractActions';
 
-import { type ExtractClientActionsParam } from './types';
+import { type ExtractClientActionsParam, type TransformUrlFn } from './types';
 
+export type ExtractInvokeViewActionParam = ExtractClientActionsParam & {
+	transformUrl?: TransformUrlFn;
+}
 export const extractInvokeViewAction = (
-	{ actionOptions, appearance, id, response }: ExtractClientActionsParam,
+	{ actionOptions, appearance, transformUrl, id, response }: ExtractInvokeViewActionParam,
 	force?: boolean,
 ): InvokeClientActionProps | undefined => {
 	if (!canShowAction(CardAction.ViewAction, actionOptions)) {
@@ -28,7 +32,13 @@ export const extractInvokeViewAction = (
 
 	if (url && (viewActionExists || force)) {
 		return {
-			actionFn: async () => openUrl(url),
+			actionFn: async () => {
+				if (fg('platform_smartlink_xpc_url_wrapping')) {
+					const destinationUrl = transformUrl?.(url) ?? url;
+					return openUrl(destinationUrl);
+				}
+				return openUrl(url);
+			},
 			actionSubjectId: 'shortcutGoToLink',
 			actionType: 'ViewAction',
 			definitionId: getDefinitionId(response),

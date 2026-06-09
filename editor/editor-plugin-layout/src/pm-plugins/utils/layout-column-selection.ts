@@ -35,8 +35,9 @@ export type SelectedLayoutColumns = {
 	startIndex: number;
 };
 
-export const getSelectedLayoutColumnsFromSelection = (
+const getSelectedLayoutColumns = (
 	selection: Selection,
+	isColumnSelected: (column: FoundNode, index: number) => boolean,
 ): SelectedLayoutColumns | undefined => {
 	const layoutSection = findLayoutSectionFromSelection(selection);
 
@@ -54,15 +55,15 @@ export const getSelectedLayoutColumnsFromSelection = (
 	let startIndex = -1;
 	let endIndex = -1;
 
-	const selectedLayoutColumns = allLayoutColumns.filter(({ node, pos }, index) => {
-		const isSelected = selection.from <= pos && selection.to >= pos + node.nodeSize;
-		if (isSelected) {
+	const selectedLayoutColumns = allLayoutColumns.filter((column, index) => {
+		if (isColumnSelected(column, index)) {
 			if (startIndex === -1) {
 				startIndex = index;
 			}
 			endIndex = index;
+			return true;
 		}
-		return isSelected;
+		return false;
 	});
 
 	return {
@@ -72,6 +73,37 @@ export const getSelectedLayoutColumnsFromSelection = (
 		startIndex,
 		endIndex,
 	};
+};
+
+export const getSelectedLayoutColumnsFromSelection = (
+	selection: Selection,
+): SelectedLayoutColumns | undefined => {
+	return getSelectedLayoutColumns(selection, ({ node, pos }) => {
+		// NodeSelection on a layout column is clearly selected.
+		if (selection instanceof NodeSelection && selection.node === node) {
+			return true;
+		}
+
+		// For TextSelection, only count columns that are fully contained within the selection
+		// (not partial text selections inside a column).
+		const nodeEndPos = pos + node.nodeSize;
+		return !selection.empty && selection.from <= pos && selection.to >= nodeEndPos;
+	});
+};
+
+export const getLayoutColumnsFromContentSelection = (
+	selection: Selection,
+): SelectedLayoutColumns | undefined => {
+	return getSelectedLayoutColumns(selection, ({ node, pos }) => {
+		if (selection instanceof NodeSelection && selection.node === node) {
+			return true;
+		}
+
+		const nodeEndPos = pos + node.nodeSize;
+		return selection.empty
+			? selection.from > pos && selection.from < nodeEndPos
+			: selection.from < nodeEndPos && selection.to > pos;
+	});
 };
 
 export const getAllLayoutColumnsFromSelection = (

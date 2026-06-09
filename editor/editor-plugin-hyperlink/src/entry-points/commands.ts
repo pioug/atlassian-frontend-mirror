@@ -5,3 +5,5 @@ export type {
 	InsertLink,
 	UpdateLink,
 } from '../editor-commands/commands';
+
+export { showLinkToolbar } from '../editor-commands/commands';

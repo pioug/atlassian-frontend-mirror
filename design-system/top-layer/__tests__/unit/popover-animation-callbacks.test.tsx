@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { act, render, screen } from '@atlassian/testing-library';
 
 import { slideAndFade } from '../../src/entry-points/animations';
+import { getAriaForTrigger } from '../../src/entry-points/get-aria-for-trigger';
 import { Popover } from '../../src/entry-points/popover';
-import { Popup } from '../../src/entry-points/popup';
+import { usePopoverId } from '../../src/entry-points/use-popover-id';
 
 // JSDOM does not implement CSS transitions, so `transitionend` never fires naturally.
 // When `animate` is set, the code falls back to a `setTimeout(fn, durationMs + 50)`.
@@ -42,52 +43,12 @@ function TestPopover({
 	);
 }
 
-/**
- * Minimal Popup compound fixture that exercises `onEnterFinish` and `onExitFinish`
- * on `Popup.Content` and exposes the trigger's `aria-expanded` for assertions.
- */
-function TestPopupCompound({
-	isDefaultOpen,
-	onEnterFinish,
-	onExitFinish,
-	animated = false,
-}: {
-	isDefaultOpen: boolean;
-	onEnterFinish?: () => void;
-	onExitFinish?: () => void;
-	animated?: boolean;
-}) {
-	const [isOpen, setIsOpen] = useState(isDefaultOpen);
-	return (
-		<Popup
-			placement={{ axis: 'block', edge: 'end', align: 'center' }}
-			onClose={() => setIsOpen(false)}
-		>
-			<Popup.Trigger>
-				<button type="button" data-testid="trigger" onClick={() => setIsOpen((prev) => !prev)}>
-					Toggle
-				</button>
-			</Popup.Trigger>
-			<Popup.Content
-				isOpen={isOpen}
-				onEnterFinish={onEnterFinish}
-				onExitFinish={onExitFinish}
-				animate={animated ? animation : undefined}
-				role="dialog"
-				label="popup-content"
-			>
-				<div data-testid="popup-body">body</div>
-			</Popup.Content>
-		</Popup>
-	);
-}
-
 it('should capture and report a11y violations', async () => {
-	const { container } = render(<TestPopupCompound isDefaultOpen={false} />);
+	const { container } = render(<TestPopover isOpen={false} />);
 	await expect(container).toBeAccessible();
 });
 
-describe('onEnterFinish — Popover with animate=false', () => {
+describe('onEnterFinish - Popover with animate=false', () => {
 	it('fires once after opening', () => {
 		const onEnterFinish = jest.fn();
 		const { rerender } = render(<TestPopover isOpen={false} onEnterFinish={onEnterFinish} />);
@@ -139,7 +100,7 @@ describe('onEnterFinish — Popover with animate=false', () => {
 
 // These tests are targeting the fallback timer path, which is only used when `animate` is set.
 // The fallback timer is used in case the 'transitionend' event never fires (which is the case in JSDOM)
-describe('onEnterFinish — Popover with animate=true', () => {
+describe('onEnterFinish - Popover with animate=true', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();
 	});
@@ -193,7 +154,7 @@ describe('onEnterFinish — Popover with animate=true', () => {
 
 		rerender(<TestPopover isOpen={true} onEnterFinish={onEnterFinish} animated />);
 
-		// Close before the fallback timeout fires — cancels the pending listener
+		// Close before the fallback timeout fires - cancels the pending listener
 		rerender(<TestPopover isOpen={false} onEnterFinish={onEnterFinish} animated />);
 
 		act(() => {
@@ -204,7 +165,7 @@ describe('onEnterFinish — Popover with animate=true', () => {
 	});
 });
 
-describe('onEnterFinish — StrictMode double-fire guard (Popover with animate=false)', () => {
+describe('onEnterFinish - StrictMode double-fire guard (Popover with animate=false)', () => {
 	it('does not double-fire during open', () => {
 		const onEnterFinish = jest.fn();
 
@@ -226,69 +187,7 @@ describe('onEnterFinish — StrictMode double-fire guard (Popover with animate=f
 	});
 });
 
-describe('onEnterFinish — Popup compound integration', () => {
-	it('fires when popup opens (animate=false)', () => {
-		const onEnterFinish = jest.fn();
-		render(<TestPopupCompound isDefaultOpen={false} onEnterFinish={onEnterFinish} />);
-
-		expect(onEnterFinish).not.toHaveBeenCalled();
-
-		act(() => {
-			screen.getByTestId('trigger').click();
-		});
-
-		expect(onEnterFinish).toHaveBeenCalledTimes(1);
-	});
-
-	it('fires via fallback timeout when animate=true', () => {
-		jest.useFakeTimers();
-		try {
-			const onEnterFinish = jest.fn();
-			render(<TestPopupCompound isDefaultOpen={false} onEnterFinish={onEnterFinish} animated />);
-
-			act(() => {
-				screen.getByTestId('trigger').click();
-			});
-
-			expect(onEnterFinish).not.toHaveBeenCalled();
-
-			act(() => {
-				jest.runAllTimers();
-			});
-
-			expect(onEnterFinish).toHaveBeenCalledTimes(1);
-		} finally {
-			jest.useRealTimers();
-		}
-	});
-
-	it('fires on initial mount when open by default (animate=false)', () => {
-		const onEnterFinish = jest.fn();
-		render(<TestPopupCompound isDefaultOpen={true} onEnterFinish={onEnterFinish} />);
-
-		expect(onEnterFinish).toHaveBeenCalledTimes(1);
-	});
-
-	it('fires on initial mount when open by default (animate=true)', () => {
-		jest.useFakeTimers();
-		try {
-			const onEnterFinish = jest.fn();
-			render(<TestPopupCompound isDefaultOpen={true} onEnterFinish={onEnterFinish} animated />);
-
-			expect(onEnterFinish).not.toHaveBeenCalled();
-
-			act(() => {
-				jest.runAllTimers();
-			});
-
-			expect(onEnterFinish).toHaveBeenCalledTimes(1);
-		} finally {
-			jest.useRealTimers();
-		}
-	});
-});
-
-describe('onExitFinish — Popover with animate=false', () => {
+describe('onExitFinish - Popover with animate=false', () => {
 	it('fires once after closing', () => {
 		const onExitFinish = jest.fn();
 		const { rerender } = render(<TestPopover isOpen={true} onExitFinish={onExitFinish} />);
@@ -339,7 +238,7 @@ describe('onExitFinish — Popover with animate=false', () => {
 	});
 });
 
-describe('onExitFinish — Popover with animate=true', () => {
+describe('onExitFinish - Popover with animate=true', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();
 	});
@@ -376,7 +275,7 @@ describe('onExitFinish — Popover with animate=true', () => {
 
 		rerender(<TestPopover isOpen={false} onExitFinish={onExitFinish} animated />);
 
-		// Reopen before the fallback timeout fires — cancels the pending listener
+		// Reopen before the fallback timeout fires - cancels the pending listener
 		rerender(<TestPopover isOpen={true} onExitFinish={onExitFinish} animated />);
 
 		act(() => {
@@ -387,7 +286,7 @@ describe('onExitFinish — Popover with animate=true', () => {
 	});
 });
 
-describe('onExitFinish — StrictMode double-fire guard (Popover with animate=false)', () => {
+describe('onExitFinish - StrictMode double-fire guard (Popover with animate=false)', () => {
 	it('does not double-fire during close', () => {
 		const onExitFinish = jest.fn();
 
@@ -409,53 +308,183 @@ describe('onExitFinish — StrictMode double-fire guard (Popover with animate=fa
 	});
 });
 
-describe('onExitFinish — Popup compound integration', () => {
-	it('fires when popup closes (animate=false)', () => {
-		const onExitFinish = jest.fn();
-		render(<TestPopupCompound isDefaultOpen={true} onExitFinish={onExitFinish} />);
+/**
+ * A controlled popover that wires aria-expanded correctly during exit animation.
+ *
+ * The consumer is responsible for keeping aria-expanded=true during the exit
+ * animation by not updating their isOpen state until onExitFinish fires.
+ * This component demonstrates and verifies the recommended pattern.
+ */
+function ControlledPopoverWithAriaExpanded({ animate }: { animate: boolean }) {
+	// isOpen drives both the Popover and getAriaForTrigger
+	const [isOpen, setIsOpen] = useState(false);
+	// isAnimatingClosed tracks the exit animation window:
+	// true after close is triggered, false once onExitFinish fires.
+	const [isAnimatingClosed, setIsAnimatingClosed] = useState(false);
+	const popoverId = usePopoverId();
 
-		expect(onExitFinish).not.toHaveBeenCalled();
+	// aria-expanded should stay true while the exit animation is running
+	const ariaForTrigger = getAriaForTrigger({
+		role: 'dialog',
+		isOpen: isOpen || isAnimatingClosed,
+		popoverId,
+	});
 
-		act(() => {
-			screen.getByTestId('trigger').click();
+	function handleOpen() {
+		setIsAnimatingClosed(false);
+		setIsOpen(true);
+	}
+
+	function handleClose() {
+		if (animate) {
+			// Start exit animation; keep aria-expanded=true until it finishes
+			setIsAnimatingClosed(true);
+			setIsOpen(false);
+		} else {
+			setIsOpen(false);
+		}
+	}
+
+	function handleExitFinish() {
+		setIsAnimatingClosed(false);
+	}
+
+	return (
+		<>
+			<button
+				type="button"
+				data-testid="trigger"
+				onClick={isOpen ? handleClose : handleOpen}
+				{...ariaForTrigger}
+			>
+				Toggle
+			</button>
+			<Popover
+				id={popoverId}
+				isOpen={isOpen}
+				onExitFinish={handleExitFinish}
+				animate={animate ? slideAndFade() : undefined}
+				role="dialog"
+				label="controlled-popover"
+			>
+				content
+			</Popover>
+		</>
+	);
+}
+
+describe('aria-expanded during exit animation', () => {
+	describe('without animation', () => {
+		it('is false when closed', () => {
+			render(<ControlledPopoverWithAriaExpanded animate={false} />);
+			const trigger = screen.getByTestId('trigger');
+
+			expect(trigger).toHaveAttribute('aria-expanded', 'false');
 		});
 
-		expect(onExitFinish).toHaveBeenCalledTimes(1);
+		it('is true when open', () => {
+			render(<ControlledPopoverWithAriaExpanded animate={false} />);
+			const trigger = screen.getByTestId('trigger');
+
+			act(() => {
+				trigger.click();
+			});
+
+			expect(trigger).toHaveAttribute('aria-expanded', 'true');
+		});
+
+		it('goes false immediately on close when there is no animation', () => {
+			render(<ControlledPopoverWithAriaExpanded animate={false} />);
+			const trigger = screen.getByTestId('trigger');
+
+			act(() => {
+				trigger.click();
+			});
+			expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+			act(() => {
+				trigger.click();
+			});
+			expect(trigger).toHaveAttribute('aria-expanded', 'false');
+		});
+
+		it('completes a full open+close cycle correctly', () => {
+			render(<ControlledPopoverWithAriaExpanded animate={false} />);
+			const trigger = screen.getByTestId('trigger');
+
+			act(() => { trigger.click(); });
+			expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+			act(() => { trigger.click(); });
+			expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+			act(() => { trigger.click(); });
+			expect(trigger).toHaveAttribute('aria-expanded', 'true');
+		});
 	});
 
-	it('fires via fallback timeout when animate=true', () => {
-		jest.useFakeTimers();
-		try {
-			const onExitFinish = jest.fn();
-			render(<TestPopupCompound isDefaultOpen={true} onExitFinish={onExitFinish} animated />);
+	describe('with animation (exit animation keeps aria-expanded=true until onExitFinish)', () => {
+		beforeEach(() => {
+			jest.useFakeTimers();
+		});
 
-			act(() => {
-				screen.getByTestId('trigger').click();
-			});
-
-			expect(onExitFinish).not.toHaveBeenCalled();
-
-			act(() => {
-				jest.runAllTimers();
-			});
-
-			expect(onExitFinish).toHaveBeenCalledTimes(1);
-		} finally {
+		afterEach(() => {
 			jest.useRealTimers();
-		}
-	});
+		});
 
-	it('does not fire on initial mount when isOpen is false (animate=false)', () => {
-		const onExitFinish = jest.fn();
-		render(<TestPopupCompound isDefaultOpen={false} onExitFinish={onExitFinish} />);
+		it('is true immediately after close is triggered (exit animation in progress)', () => {
+			render(<ControlledPopoverWithAriaExpanded animate={true} />);
+			const trigger = screen.getByTestId('trigger');
 
-		expect(onExitFinish).not.toHaveBeenCalled();
-	});
+			act(() => { trigger.click(); });
+			expect(trigger).toHaveAttribute('aria-expanded', 'true');
 
-	it('does not fire on initial mount when isOpen is false (animate=true)', () => {
-		const onExitFinish = jest.fn();
-		render(<TestPopupCompound isDefaultOpen={false} onExitFinish={onExitFinish} animated />);
+			// Trigger close — animation starts but has not finished
+			act(() => { trigger.click(); });
 
-		expect(onExitFinish).not.toHaveBeenCalled();
+			// aria-expanded must stay true while exit animation runs
+			expect(trigger).toHaveAttribute('aria-expanded', 'true');
+		});
+
+		it('goes false only after the exit animation completes (onExitFinish)', () => {
+			render(<ControlledPopoverWithAriaExpanded animate={true} />);
+			const trigger = screen.getByTestId('trigger');
+
+			act(() => { trigger.click(); });
+			act(() => { trigger.click(); });
+
+			// Still true during animation
+			expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+			// Let the fallback timeout fire (simulates transitionend completing)
+			act(() => { jest.runAllTimers(); });
+
+			// Now aria-expanded should be false
+			expect(trigger).toHaveAttribute('aria-expanded', 'false');
+		});
+
+		it('completes a full open+close cycle correctly with animation', () => {
+			render(<ControlledPopoverWithAriaExpanded animate={true} />);
+			const trigger = screen.getByTestId('trigger');
+
+			// Open
+			act(() => { trigger.click(); });
+			act(() => { jest.runAllTimers(); });
+			expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+			// Close — stays true during animation
+			act(() => { trigger.click(); });
+			expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+			// Animation completes
+			act(() => { jest.runAllTimers(); });
+			expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+			// Open again
+			act(() => { trigger.click(); });
+			act(() => { jest.runAllTimers(); });
+			expect(trigger).toHaveAttribute('aria-expanded', 'true');
+		});
 	});
 });
+

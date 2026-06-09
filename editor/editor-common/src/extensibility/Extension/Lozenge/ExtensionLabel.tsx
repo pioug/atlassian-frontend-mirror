@@ -153,7 +153,6 @@ type ExtensionLabelProps = {
 export const ExtensionLabel = ({
 	text,
 	extensionName,
-	isNodeHovered,
 	customContainerStyles,
 	isNodeNested,
 	setIsNodeHovered,
@@ -164,20 +163,7 @@ export const ExtensionLabel = ({
 	pluginInjectionApi: _pluginInjectionApi,
 }: ExtensionLabelProps): jsx.JSX.Element => {
 	const isInlineExtension = extensionName === 'inlineExtension';
-	const showDefaultBodiedStyles = expValEquals(
-		'cc_editor_ttvc_release_bundle_one',
-		'isEnabled',
-		true,
-	)
-		? isBodiedMacro
-		: isBodiedMacro && !isNodeHovered;
-	const shouldShowBodiedMacroLabel = getShouldShowBodiedMacroLabel(
-		isBodiedMacro,
-		isNodeHovered,
-		showLivePagesBodiedMacrosRendererView,
-		showBodiedExtensionRendererView,
-		showUpdatedLivePages1PBodiedExtensionUI,
-	);
+	const showDefaultBodiedStyles = isBodiedMacro;
 
 	const containerClassNames = classnames({
 		bodied: isBodiedMacro,
@@ -189,9 +175,6 @@ export const ExtensionLabel = ({
 		bodied: isBodiedMacro,
 		'bodied-border': showDefaultBodiedStyles,
 		'bodied-background': showDefaultBodiedStyles,
-		'show-label': expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true)
-			? false
-			: shouldShowBodiedMacroLabel,
 		'with-bodied-macro-live-page-styles': isBodiedMacro && showLivePagesBodiedMacrosRendererView,
 		'always-hide-label': isBodiedMacro && showBodiedExtensionRendererView, // Need this separate class since we don't ever want to show the label during view mode
 		'remove-left-margin': !isBodiedMacro && !isInlineExtension && !isNodeNested,
@@ -199,14 +182,7 @@ export const ExtensionLabel = ({
 	});
 
 	const iconClassNames = classnames({
-		'hide-icon': expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true)
-			? false
-			: isBodiedMacro && !isNodeHovered,
-		'extension-icon': expValEquals(
-			'cc_editor_ttvc_release_bundle_one',
-			'extensionHoverRefactor',
-			true,
-		),
+		'extension-icon': true,
 	});
 
 	const memoizedTooltipValues = useMemo(() => ({ macroName: text }), [text]);
@@ -260,12 +236,8 @@ export const ExtensionLabel = ({
 						{...tooltipProps}
 						css={[
 							labelStyles,
-							...(expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true)
-								? [
-										!showLivePagesBodiedMacrosRendererView && showLabelStyles,
-										(!isBodiedMacro || showUpdatedLivePages1PBodiedExtensionUI) && hideLabelStyles,
-									]
-								: []),
+							!showLivePagesBodiedMacrosRendererView && showLabelStyles,
+							(!isBodiedMacro || showUpdatedLivePages1PBodiedExtensionUI) && hideLabelStyles,
 						]}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={labelClassNames}
@@ -274,13 +246,7 @@ export const ExtensionLabel = ({
 						<span
 							css={[
 								iconStyles,
-								isBodiedMacro &&
-									expValEquals(
-										'cc_editor_ttvc_release_bundle_one',
-										'extensionHoverRefactor',
-										true,
-									) &&
-									bodiedMacroIconStyles,
+								isBodiedMacro && bodiedMacroIconStyles,
 							]}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={iconClassNames}

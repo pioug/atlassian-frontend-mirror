@@ -8,7 +8,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { EventDispatcher } from '../event-dispatcher';
 import { getExtensionModuleNodePrivateProps, getNodeRenderer } from '../extensions';
@@ -202,16 +201,6 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 					macroInteractionDesignFeatureFlags={macroInteractionDesignFeatureFlags}
 					isNodeSelected={selectedNode === node}
 					isNodeNested={isNodeNested}
-					isNodeHovered={
-						expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true)
-							? undefined
-							: this.state.isNodeHovered
-					}
-					setIsNodeHovered={
-						expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true)
-							? undefined
-							: this.setIsNodeHovered
-					}
 					isLivePageViewMode={isLivePageViewMode}
 					allowBodiedOverride={allowBodiedOverride}
 				/>
@@ -235,17 +224,7 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 						pluginInjectionApi={pluginInjectionApi}
 						macroInteractionDesignFeatureFlags={macroInteractionDesignFeatureFlags}
 						isNodeSelected={selectedNode === node}
-						isNodeHovered={
-							expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true)
-								? undefined
-								: this.state.isNodeHovered
-						}
 						isNodeNested={isNodeNested}
-						setIsNodeHovered={
-							expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true)
-								? undefined
-								: this.setIsNodeHovered
-						}
 						showLivePagesBodiedMacrosRendererView={
 							!!showLivePagesBodiedMacrosRendererView?.(nodeToJSON(node))
 						}
@@ -266,16 +245,6 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 						macroInteractionDesignFeatureFlags={macroInteractionDesignFeatureFlags}
 						isNodeSelected={selectedNode === node}
 						pluginInjectionApi={pluginInjectionApi}
-						isNodeHovered={
-							expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true)
-								? undefined
-								: this.state.isNodeHovered
-						}
-						setIsNodeHovered={
-							expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true)
-								? undefined
-								: this.setIsNodeHovered
-						}
 						isLivePageViewMode={isLivePageViewMode}
 					>
 						{extensionHandlerResult}

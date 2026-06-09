@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type FC, memo, type ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
+import { type FC, Fragment, memo, type ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
@@ -11,9 +11,11 @@ import noop from '@atlaskit/ds-lib/noop';
 import { token } from '@atlaskit/tokens';
 import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { createPopoverCloseEvent } from '@atlaskit/top-layer/create-close-event';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import { type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
-import { Popup, type TTriggerFunctionRenderProps } from '@atlaskit/top-layer/popup';
+import { Popover, type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import type { InlineDialogProps } from './types';
 
@@ -41,46 +43,49 @@ const styles = cssMap({
 
 const animation = slideAndFade();
 
+type TAriaAttributes = {
+	'aria-controls': string;
+	'aria-expanded': boolean;
+	'aria-haspopup': boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';
+};
+
 /**
- * Applies ARIA attributes from Popup.TriggerFunction directly to the
- * child trigger element via an effect, keeping them in sync with popup state.
+ * Applies ARIA attributes to the child trigger element via an effect,
+ * keeping them in sync with popup state.
  */
 function TriggerWrapper({
 	children,
 	triggerRef,
 	ariaAttributes,
-	anchorRef,
 }: {
 	children: ReactNode;
 	triggerRef: React.MutableRefObject<HTMLElement | null>;
-	anchorRef: React.RefCallback<HTMLElement>;
-	ariaAttributes: TTriggerFunctionRenderProps['ariaAttributes'];
+	ariaAttributes: TAriaAttributes;
 }) {
 	useEffect(() => {
 		const trigger = triggerRef.current;
 		if (!trigger) {
 			return;
 		}
-		for (const [key, value] of Object.entries(ariaAttributes)) {
+		Object.entries(ariaAttributes).forEach(([key, value]) => {
 			// Skip undefined entries (e.g. aria-haspopup may be undefined for non-popup roles).
 			if (value === undefined) {
-				continue;
+				return;
 			}
 			trigger.setAttribute(key, String(value));
-		}
+		});
 	}, [ariaAttributes, triggerRef]);
 
 	return (
 		// We wrap in a div with `display: contents` so it does not affect layout.
 		// We resolve the ref to `firstElementChild` because CSS Anchor Positioning
-		// needs a real rendered element to anchor to - `display: contents` elements
+		// needs a real rendered element to anchor to. `display: contents` elements
 		// do not generate a box and cannot serve as anchors.
 		<div
 			css={displayContentsStyles.root}
 			ref={(node: HTMLDivElement | null) => {
 				const firstElementChild = (node?.firstElementChild ?? null) as HTMLElement | null;
 				triggerRef.current = firstElementChild;
-				anchorRef(firstElementChild);
 			}}
 		>
 			{children}
@@ -107,9 +112,9 @@ const InlineDialogTopLayer: FC<InlineDialogProps> = memo(function InlineDialogTo
 	content,
 	children,
 
-	// ── No-op props ──
+	// No-op props.
 	// These props are accepted for API compatibility but have no effect
-	// in the top-layer path. Each is documented with why it's unnecessary.
+	// in the top-layer path. Each is documented with why it is unnecessary.
 
 	// top-layer: CSS Anchor Positioning replaces Popper strategy. No-op.
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -119,6 +124,9 @@ const InlineDialogTopLayer: FC<InlineDialogProps> = memo(function InlineDialogTo
 	fallbackPlacements: _fallbackPlacements,
 }) {
 	const triggerRef = useRef<HTMLElement | null>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+
+	const popoverId = usePopoverId();
 
 	const onClose = usePlatformLeafEventHandler<{ isOpen: boolean; event: Event }>({
 		fn: (event) => providedOnClose(event),
@@ -128,16 +136,22 @@ const InlineDialogTopLayer: FC<InlineDialogProps> = memo(function InlineDialogTo
 		packageVersion: process.env._PACKAGE_VERSION_ as string,
 	});
 
-	// ── Placement conversion ──
+	// Placement conversion.
 	const topLayerPlacement = useMemo(
 		() => fromLegacyPlacement({ legacy: placement as TLegacyPlacement }),
 		[placement],
 	);
 
-	// ── onClose bridge ──
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: topLayerPlacement,
+	});
+
+	// onClose bridge.
 	// Translates top-layer's { reason } into the legacy onClose({ isOpen, event }) shape.
-	// Focus restoration is handled automatically by top-layer's Popup
-	// based on the content role (role="dialog" → auto-restore).
+	// Focus restoration is handled automatically by the Popover based on the content role
+	// (role="dialog" -> auto-restore).
 	const handleOnClose = useCallback(
 		({ reason }: { reason: TPopoverCloseReason }) => {
 			const syntheticEvent = createPopoverCloseEvent({ reason });
@@ -146,27 +160,29 @@ const InlineDialogTopLayer: FC<InlineDialogProps> = memo(function InlineDialogTo
 		[onClose],
 	);
 
+	const ariaAttributes = getAriaForTrigger({ role: 'dialog', isOpen, popoverId });
+
 	return (
-		<Popup placement={topLayerPlacement} onClose={handleOnClose} testId={testId}>
-			<Popup.TriggerFunction>
-				{({ ref, ariaAttributes }) => (
-					<TriggerWrapper triggerRef={triggerRef} anchorRef={ref} ariaAttributes={ariaAttributes}>
-						{children}
-					</TriggerWrapper>
-				)}
-			</Popup.TriggerFunction>
-			<Popup.Content
+		<Fragment>
+			<TriggerWrapper triggerRef={triggerRef} ariaAttributes={ariaAttributes}>
+				{children}
+			</TriggerWrapper>
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
 				role="dialog"
-				// TODO: i18n - hardcoded label is not translatable.
+				// TODO: i18n. Hardcoded label is not translatable.
 				// Acceptable given this component is intent-to-deprecate.
 				label="Inline dialog"
 				isOpen={isOpen}
+				onClose={handleOnClose}
 				animate={animation}
+				placement={topLayerPlacement}
 				testId={testId}
 			>
 				{/*
 				 * This wrapper forwards legacy consumer callbacks (onContentBlur/onClick/onFocus).
-				 * role="presentation" hides it from AT since Popup.Content provides role="dialog".
+				 * role="presentation" hides it from AT since Popover provides role="dialog".
 				 * Same pattern as legacy inline-dialog-container.tsx (intent-to-deprecate).
 				 * Exempted from a11y ratchet in no-eslint-disable-a11y-rules.ts.
 				 */}
@@ -180,8 +196,8 @@ const InlineDialogTopLayer: FC<InlineDialogProps> = memo(function InlineDialogTo
 				>
 					{typeof content === 'function' ? content() : content}
 				</div>
-			</Popup.Content>
-		</Popup>
+			</Popover>
+		</Fragment>
 	);
 });
 

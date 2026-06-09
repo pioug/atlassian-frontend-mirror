@@ -1,7 +1,10 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from "react";
 
-import { Popup, type TTriggerFunctionRenderProps } from '@atlaskit/top-layer/popup';
-import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
+import { Popover } from '@atlaskit/top-layer/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 /**
  * Test fixture for verifying role-based initial focus in Popover.
@@ -13,39 +16,58 @@ import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
  * - role="dialog" → auto-focuses first focusable element
  * - role="dialog" with autofocus → respects autofocus attribute
  * - role="menu" → auto-focuses first menu item
- * - role="listbox" → auto-focuses first option
  * - role="tooltip" → does NOT move focus
  */
-
 function DialogPopup() {
 	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: {},
+	});
 
 	return (
-		<Popup placement={{}} onClose={() => setIsOpen(false)}>
-			<Popup.Trigger>
-				<button type="button" data-testid="dialog-trigger" onClick={() => setIsOpen(true)}>
-					Open dialog
-				</button>
-			</Popup.Trigger>
-			<Popup.Content role="dialog" label="Dialog initial focus test" isOpen={isOpen}>
-				<PopupSurface>
+		<>
+			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="dialog-trigger">
+				Open dialog
+			</button>
+			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="dialog" label="Dialog initial focus test">
+				<PopoverSurface>
 					<button type="button" data-testid="dialog-first-button">
 						First button
 					</button>
 					<button type="button" data-testid="dialog-second-button">
 						Second button
 					</button>
-				</PopupSurface>
-			</Popup.Content>
-		</Popup>
+				</PopoverSurface>
+			</Popover>
+		</>
 	);
 }
 
 function DialogWithAutofocusPopup() {
 	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: {},
+	});
+
 	// Set the native HTML autofocus attribute via a ref callback.
 	// React 18's autoFocus JSX prop does not set the HTML attribute or
-	// the DOM property - it only calls .focus() imperatively after mount,
+	// the DOM property — it only calls .focus() imperatively after mount,
 	// which has no effect on a hidden popover. Setting the attribute lets
 	// our useInitialFocus hook find and focus this element after the
 	// popover is shown.
@@ -56,19 +78,17 @@ function DialogWithAutofocusPopup() {
 	}, []);
 
 	return (
-		<Popup placement={{}} onClose={() => setIsOpen(false)}>
-			<Popup.Trigger>
-				<button type="button" data-testid="autofocus-trigger" onClick={() => setIsOpen(true)}>
-					Open dialog with autofocus
-				</button>
-			</Popup.Trigger>
-			<Popup.Content
+		<>
+			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="autofocus-trigger">
+				Open dialog with autofocus
+			</button>
+			<Popover
+				ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close}
 				role="dialog"
 				label="Dialog autofocus test"
-				isOpen={isOpen}
 				testId="autofocus-popup"
 			>
-				<PopupSurface>
+				<PopoverSurface>
 					<button type="button" data-testid="autofocus-first-button">
 						First button (not autofocused)
 					</button>
@@ -78,69 +98,88 @@ function DialogWithAutofocusPopup() {
 					<button type="button" data-testid="autofocus-third-button">
 						Third button
 					</button>
-				</PopupSurface>
-			</Popup.Content>
-		</Popup>
+				</PopoverSurface>
+			</Popover>
+		</>
 	);
 }
 
 function MenuPopup() {
 	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: {},
+	});
 
 	return (
-		<Popup placement={{}} onClose={() => setIsOpen(false)}>
-			<Popup.Trigger>
-				<button type="button" data-testid="menu-trigger" onClick={() => setIsOpen(true)}>
-					Open menu
-				</button>
-			</Popup.Trigger>
-			<Popup.Content role="menu" label="Menu initial focus test" isOpen={isOpen}>
-				<PopupSurface>
+		<>
+			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'menu', isOpen, popoverId: popoverId })} type="button" data-testid="menu-trigger">
+				Open menu
+			</button>
+			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="menu" label="Menu initial focus test">
+				<PopoverSurface>
 					<div role="menuitem" tabIndex={0} data-testid="menu-first-item">
 						First menu item
 					</div>
 					<div role="menuitem" tabIndex={0} data-testid="menu-second-item">
 						Second menu item
 					</div>
-				</PopupSurface>
-			</Popup.Content>
-		</Popup>
+				</PopoverSurface>
+			</Popover>
+		</>
 	);
 }
 
+// Tooltip stays hand-wired (no aria-haspopup, hover/focus driven).
 function TooltipPopup() {
-	const triggerRef = useRef<HTMLElement | null>(null);
 	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: {},
+	});
 
 	return (
-		<Popup placement={{}} onClose={() => setIsOpen(false)}>
-			<Popup.TriggerFunction>
-				{({ ref, ariaAttributes }: TTriggerFunctionRenderProps) => (
-					<button
-						type="button"
-						data-testid="tooltip-trigger"
-						ref={(node) => {
-							triggerRef.current = node;
-							ref(node);
-						}}
-						onMouseEnter={() => setIsOpen(true)}
-						onMouseLeave={() => setIsOpen(false)}
-						onFocus={() => setIsOpen(true)}
-						onBlur={() => setIsOpen(false)}
-						{...ariaAttributes}
-					>
-						Hover for tooltip
-					</button>
-				)}
-			</Popup.TriggerFunction>
-			<Popup.Content role="tooltip" label="Tooltip popup" isOpen={isOpen} testId="tooltip-popup">
+		<>
+			<button
+				ref={triggerRef}
+				type="button"
+				data-testid="tooltip-trigger"
+				aria-describedby={popoverId}
+				onMouseEnter={() => setIsOpen(true)}
+				onMouseLeave={() => setIsOpen(false)}
+				onFocus={() => setIsOpen(true)}
+				onBlur={() => setIsOpen(false)}
+			>
+				Hover for tooltip
+			</button>
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				role="tooltip"
+				label="Tooltip popup"
+				mode="manual"
+				testId="tooltip-popup"
+				isOpen={isOpen}
+			>
 				<div>Tooltip content</div>
-			</Popup.Content>
-		</Popup>
+			</Popover>
+		</>
 	);
 }
 
-export default function TestingPopoverInitialFocus(): React.JSX.Element {
+export default function TestingPopoverInitialFocus(): React.ReactNode {
 	return (
 		<div>
 			<input data-testid="external-input" placeholder="External focusable element" />

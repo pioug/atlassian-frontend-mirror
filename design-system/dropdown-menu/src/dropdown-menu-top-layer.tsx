@@ -18,9 +18,12 @@ import MenuGroup from '@atlaskit/menu/menu-group';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 import { slideAndFade } from '@atlaskit/top-layer/animations';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import { type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
-import { Popup } from '@atlaskit/top-layer/popup';
+import { Popover, type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
+import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';
 
 import SelectionStore from './internal/context/selection-store';
 import {
@@ -56,9 +59,9 @@ const animation = slideAndFade();
 /**
  * Event types produced by trigger interactions.
  *
- * - `React.MouseEvent<Element>` — from the trigger's `onClick` handler
- * - `React.KeyboardEvent<Element>` — from the trigger's `onClick` when activated via keyboard
- * - `KeyboardEvent` — native event from the ArrowDown `bind(window, ...)` listener
+ * - `React.MouseEvent<Element>`: from the trigger's `onClick` handler
+ * - `React.KeyboardEvent<Element>`: from the trigger's `onClick` when activated via keyboard
+ * - `KeyboardEvent`: native event from the ArrowDown `bind(window, ...)` listener
  */
 type TriggerEvent = React.MouseEvent<Element> | React.KeyboardEvent<Element> | KeyboardEvent;
 
@@ -104,9 +107,9 @@ function LoadingIndicator({
  * Top-layer implementation of DropdownMenu.
  *
  * Replaces the legacy `@atlaskit/popup` + `@atlaskit/portal` + `@atlaskit/layering` pipeline
- * with native Popover API via `@atlaskit/top-layer`.
+ * with the native Popover API via `@atlaskit/top-layer`.
  *
- * What's no longer needed:
+ * What is no longer needed:
  * - Portal: top layer handles stacking natively
  * - FocusLock / react-focus-lock: popover=auto provides light dismiss
  * - z-index: top layer is always above everything
@@ -135,23 +138,38 @@ function DropdownMenuTopLayer({
 }: DropdownMenuProps): React.JSX.Element {
 	const [isLocalOpen, setLocalIsOpen] = useControlledState(isOpenProp, () => defaultOpen);
 	const triggerRef = useRef<HTMLElement | null>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
 	const menuRef = useRef<HTMLDivElement>(null);
 	const [isTriggeredUsingKeyboard, setTriggeredUsingKeyboard] = useState(false);
+
+	const popoverId = usePopoverId();
 
 	const topLayerPlacement = useMemo(
 		() => fromLegacyPlacement({ legacy: placement as TLegacyPlacement }),
 		[placement],
 	);
 
-	// ── Close handling ──
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: topLayerPlacement,
+	});
+
+	useWidthFromAnchor({
+		mode: shouldFitContainer ? 'min-anchor' : 'none',
+		popoverRef,
+		anchorRef: triggerRef,
+	});
+
+	// Close handling.
 	// Focus restoration is handled natively by the Popover API:
-	//   - Escape → browser restores focus to the trigger automatically
-	//   - Click-outside → browser does NOT restore (correct behavior)
+	//   - Escape: browser restores focus to the trigger automatically
+	//   - Click-outside: browser does NOT restore (correct behavior)
 	//
 	// The only custom focus handling needed is `returnFocusRef`: when provided,
 	// we redirect focus to a different element than the trigger. We do this
 	// in the onClose callback via rAF, which runs after the browser's native
-	// restoration — effectively overriding it.
+	// restoration, effectively overriding it.
 	const handleOnClose = useCallback(
 		({ reason: _reason }: { reason: TPopoverCloseReason }) => {
 			if (returnFocusRef) {
@@ -166,7 +184,7 @@ function DropdownMenuTopLayer({
 		[onOpenChange, returnFocusRef, setLocalIsOpen],
 	);
 
-	// ── Trigger click handling ──
+	// Trigger click handling.
 	const handleTriggerClicked = useCallback(
 		(event: TriggerEvent) => {
 			const newValue = !isLocalOpen;
@@ -191,7 +209,7 @@ function DropdownMenuTopLayer({
 			return noop;
 		}
 
-		// Don't open on ArrowDown if this trigger is inside a parent menu.
+		// Do not open on ArrowDown if this trigger is inside a parent menu.
 		// Nested menus should only be opened via ArrowRight or Enter.
 		const isNestedTrigger = triggerRef.current?.closest('[role="menu"]') != null;
 
@@ -208,7 +226,7 @@ function DropdownMenuTopLayer({
 		});
 	}, [isFocused, isLocalOpen, handleTriggerClicked]);
 
-	// ── Arrow navigation ──
+	// Arrow navigation.
 	// useArrowNavigation handles ArrowUp/Down, Home/End, and Tab-to-close
 	// by querying focusable elements in the menu DOM container.
 	const handleArrowClose = useCallback(() => {
@@ -232,7 +250,7 @@ function DropdownMenuTopLayer({
 		filter: isAtCurrentMenuLevel,
 	});
 
-	// ── Auto-focus first item on open ──
+	// Auto-focus first item on open.
 	useEffect(() => {
 		if (!isLocalOpen || (!isTriggeredUsingKeyboard && !autoFocus)) {
 			return;
@@ -248,7 +266,7 @@ function DropdownMenuTopLayer({
 		});
 	}, [isLocalOpen, isTriggeredUsingKeyboard, autoFocus]);
 
-	// ── Close on menu item click ──
+	// Close on menu item click.
 	// Close when a regular menuitem is clicked, but not checkboxes/radios
 	// and not nested triggers (items with aria-haspopup).
 	const handleMenuClick = useCallback(
@@ -263,7 +281,7 @@ function DropdownMenuTopLayer({
 			const isCheckboxOrRadio =
 				menuItem.getAttribute('role') === 'menuitemcheckbox' ||
 				menuItem.getAttribute('role') === 'menuitemradio';
-			// Don't close the menu when clicking a nested trigger (aria-haspopup).
+			// Do not close the menu when clicking a nested trigger (aria-haspopup).
 			// The nested dropdown will handle its own open/close.
 			const isNestedTrigger = menuItem.hasAttribute('aria-haspopup');
 			if (!isCheckboxOrRadio && !isNestedTrigger) {
@@ -274,89 +292,90 @@ function DropdownMenuTopLayer({
 		[setLocalIsOpen, onOpenChange],
 	);
 
+	const ariaAttributes = getAriaForTrigger({ role: 'menu', isOpen: isLocalOpen, popoverId });
+
+	// FUDGE(top-layer-api): cast `aria-haspopup` to the narrow shape that adopter
+	// public types expect. `@atlaskit/top-layer` types `aria-haspopup` as the wider
+	// WAI-ARIA union, but the public `CustomTriggerProps` (extending `@atlaskit/popup`
+	// `TriggerProps`) is intentionally kept narrow (`boolean | 'dialog'`) because the
+	// top-layer API surface is not yet settled. The runtime value is unchanged; only
+	// the TypeScript-visible type is narrowed at this boundary.
+	const narrowAriaAttributes = ariaAttributes as {
+		'aria-controls': string;
+		'aria-expanded': boolean;
+		'aria-haspopup': boolean | 'dialog';
+	};
+
+	const renderTrigger = () => {
+		const setRef = (node: HTMLElement | null) => {
+			triggerRef.current = node;
+		};
+		const combinedRef = mergeRefs([setRef]);
+
+		if (typeof trigger === 'function') {
+			return trigger({
+				...narrowAriaAttributes,
+				...bindFocus,
+				triggerRef: combinedRef,
+				isSelected: isLocalOpen,
+				onClick: handleTriggerClicked,
+				testId: testId && `${testId}--trigger`,
+			});
+		}
+
+		return (
+			<Button
+				{...bindFocus}
+				ref={combinedRef}
+				{...narrowAriaAttributes}
+				isSelected={isLocalOpen}
+				iconAfter={(iconProps) => <ExpandIcon {...iconProps} size="small" />}
+				onClick={handleTriggerClicked}
+				testId={testId && `${testId}--trigger`}
+				aria-label={label}
+				interactionName={interactionName}
+			>
+				{trigger}
+			</Button>
+		);
+	};
+
 	return (
 		<SelectionStore>
-			<Popup placement={topLayerPlacement} onClose={handleOnClose}>
-				<Popup.TriggerFunction>
-					{({ ref, toggle: _toggle, ariaAttributes }) => {
-						const combinedRef = mergeRefs([ref, triggerRef]);
-
-						// FUDGE(top-layer-api): cast `ariaAttributes` to the narrow shape that adopter
-						// public types expect. `@atlaskit/top-layer` types `aria-haspopup` as the wider
-						// WAI-ARIA union (boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid'),
-						// but the public `CustomTriggerProps` (extending `@atlaskit/popup` `TriggerProps`)
-						// is intentionally kept narrow (boolean | 'dialog') because the top-layer API
-						// surface is not yet settled. The runtime value is unchanged; only the
-						// TypeScript-visible type is narrowed at this boundary.
-						// REMOVE WHEN: the top-layer public API is committed (see
-						// packages/design-system/top-layer/notes/decisions/migration-roadmap.md "Open API
-						// decisions deferred to a follow-up PR") and a follow-up `minor` PR widens
-						// `TriggerProps['aria-haspopup']` on `@atlaskit/popup` to match.
-						const narrowAriaAttributes = ariaAttributes as {
-							'aria-controls': string;
-							'aria-expanded': boolean;
-							'aria-haspopup': boolean | 'dialog';
-						};
-
-						if (typeof trigger === 'function') {
-							return trigger({
-								...narrowAriaAttributes,
-								...bindFocus,
-								triggerRef: combinedRef,
-								isSelected: isLocalOpen,
-								onClick: handleTriggerClicked,
-								testId: testId && `${testId}--trigger`,
-							});
-						}
-
-						return (
-							<Button
-								{...bindFocus}
-								ref={combinedRef}
-								{...narrowAriaAttributes}
-								isSelected={isLocalOpen}
-								iconAfter={(iconProps) => <ExpandIcon {...iconProps} size="small" />}
-								onClick={handleTriggerClicked}
-								testId={testId && `${testId}--trigger`}
-								aria-label={label}
-								interactionName={interactionName}
-							>
-								{trigger}
-							</Button>
-						);
-					}}
-				</Popup.TriggerFunction>
-				<Popup.Content
-					role="menu"
-					label={menuLabel ?? label ?? (typeof trigger === 'string' ? trigger : 'Menu')}
-					isOpen={isLocalOpen}
-					animate={animation}
-					widthFromAnchor={shouldFitContainer ? 'min-anchor' : 'none'}
-					testId={testId && `${testId}--content`}
-				>
-					<div css={styles.menuContent} ref={menuRef}>
-						<MenuGroup
-							isLoading={isLoading}
-							maxHeight={MAX_HEIGHT}
-							maxWidth={shouldFitContainer ? undefined : 800}
-							onClick={handleMenuClick}
-							role="menu"
-							spacing={spacing}
-							testId={testId && `${testId}--menu-wrapper--menu-group`}
-							menuLabel={menuLabel}
-						>
-							{isLoading ? (
-								<LoadingIndicator
-									statusLabel={statusLabel}
-									testId={testId && `${testId}--menu-wrapper--loading-indicator`}
-								/>
-							) : (
-								children
-							)}
-						</MenuGroup>
-					</div>
-				</Popup.Content>
-			</Popup>
+			{renderTrigger()}
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				role="menu"
+				label={menuLabel ?? label ?? (typeof trigger === 'string' ? trigger : 'Menu')}
+				isOpen={isLocalOpen}
+				onClose={handleOnClose}
+				animate={animation}
+				placement={topLayerPlacement}
+				testId={testId && `${testId}--content`}
+			>
+				<div css={styles.menuContent} ref={menuRef}>
+					<MenuGroup
+						isLoading={isLoading}
+						maxHeight={MAX_HEIGHT}
+						maxWidth={shouldFitContainer ? undefined : 800}
+						onClick={handleMenuClick}
+						role="menu"
+						spacing={spacing}
+						testId={testId && `${testId}--menu-wrapper--menu-group`}
+						menuLabel={menuLabel}
+					>
+						{isLoading ? (
+							<LoadingIndicator
+								statusLabel={statusLabel}
+								testId={testId && `${testId}--menu-wrapper--loading-indicator`}
+							/>
+						) : (
+							children
+						)}
+					</MenuGroup>
+				</div>
+			</Popover>
 		</SelectionStore>
 	);
 }

@@ -1,5 +1,25 @@
 # @atlaskit/tokens
 
+## 13.3.1
+
+### Patch Changes
+
+- [`e5eeed279b893`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5eeed279b893) -
+  Changed `color.border.accent.gray.subtle` in the light theme to map to `Neutral400` (`#B7B9BE`)
+  instead of `Neutral300` (`#DDDEE1`). The previous value was too light to read as a distinct border
+  — `Neutral400` provides the visual prominence expected from a decorative-border token while
+  staying noticeably softer than the default `color.border.accent.gray` (`Neutral600`). Dark theme
+  remains unchanged (`DarkNeutral400`).
+
+## 13.3.0
+
+### Minor Changes
+
+- [`93eb21bd8fb25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93eb21bd8fb25) -
+  Add Rovo color tokens for brand surfaces and supporting border/icon accents, including generated
+  token artifacts, CSS/token type metadata, and category-aware usage guidelines for downstream docs
+  and AI tooling.
+
 ## 13.2.0
 
 ### Minor Changes

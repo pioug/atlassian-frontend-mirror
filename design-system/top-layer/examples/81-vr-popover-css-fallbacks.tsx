@@ -2,15 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useRef } from 'react';
+import { Fragment, type ReactNode, useEffect, useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import { Popup, type TPlacementOptions } from '@atlaskit/top-layer/popup';
-import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
+import { Popover, type TPlacementOptions } from '@atlaskit/top-layer/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 
 const styles = cssMap({
 	container: {
@@ -21,22 +22,22 @@ const styles = cssMap({
 	inner: {
 		position: 'absolute',
 	},
-	// Trigger near bottom edge - block-end should flip to block-start
+	// Trigger near bottom edge — block-end should flip to block-start
 	flipBlockEnd: {
 		insetBlockEnd: token('space.200'),
 		insetInlineStart: '50%',
 	},
-	// Trigger near top edge - block-start should flip to block-end
+	// Trigger near top edge — block-start should flip to block-end
 	flipBlockStart: {
 		insetBlockStart: token('space.200'),
 		insetInlineStart: '50%',
 	},
-	// Trigger near right edge - inline-end should flip to inline-start
+	// Trigger near right edge — inline-end should flip to inline-start
 	flipInlineEnd: {
 		insetInlineEnd: token('space.200'),
 		insetBlockStart: '50%',
 	},
-	// Trigger near left edge - inline-start should flip to inline-end
+	// Trigger near left edge — inline-start should flip to inline-end
 	flipInlineStart: {
 		insetInlineStart: token('space.200'),
 		insetBlockStart: '50%',
@@ -70,37 +71,45 @@ function placementLabel(placement: TPlacementOptions): string {
 function PopupAtEdge({ placement }: { placement: TPlacementOptions }) {
 	const label = placementLabel(placement);
 	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const [isOpen, setIsOpen] = useState(false);
 
-	// Auto-open the popup on mount so the VR snapshot captures the
+	useAnchorPosition({ anchorRef: triggerRef, popoverRef, placement });
+
+	// Auto-open the popover on mount so the VR snapshot captures the
 	// positioned popover rather than just the closed trigger button.
 	useEffect(() => {
-		triggerRef.current?.click();
+		setIsOpen(true);
 	}, []);
 
 	return (
-		<Popup placement={placement} onClose={() => {}}>
-			<Popup.Trigger>
-				<button ref={triggerRef} type="button">
-					{label}
-				</button>
-			</Popup.Trigger>
-			<Popup.Content role="dialog" label={`Fallback ${label}`}>
-				<PopupSurface>
+		<Fragment>
+			<button ref={triggerRef} type="button">
+				{label}
+			</button>
+			<Popover
+				ref={popoverRef}
+				role="dialog"
+				label={`Fallback ${label}`}
+				isOpen={isOpen}
+				onClose={() => setIsOpen(false)}
+			>
+				<PopoverSurface>
 					<Box padding="space.200">
 						<Text>Flipped popover</Text>
 					</Box>
-				</PopupSurface>
-			</Popup.Content>
-		</Popup>
+				</PopoverSurface>
+			</Popover>
+		</Fragment>
 	);
 }
 
-// Single-axis flips
+// ── Single-axis flips ──
 
 /**
  * block-end near bottom → flips above
  */
-export function VrFlipBlockEnd(): JSX.Element {
+export function VrFlipBlockEnd(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipBlockEnd]}>
@@ -113,7 +122,7 @@ export function VrFlipBlockEnd(): JSX.Element {
 /**
  * block-start near top → flips below
  */
-export function VrFlipBlockStart(): JSX.Element {
+export function VrFlipBlockStart(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipBlockStart]}>
@@ -126,7 +135,7 @@ export function VrFlipBlockStart(): JSX.Element {
 /**
  * inline-end near right → flips left
  */
-export function VrFlipInlineEnd(): JSX.Element {
+export function VrFlipInlineEnd(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipInlineEnd]}>
@@ -139,7 +148,7 @@ export function VrFlipInlineEnd(): JSX.Element {
 /**
  * inline-start near left → flips right
  */
-export function VrFlipInlineStart(): JSX.Element {
+export function VrFlipInlineStart(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipInlineStart]}>
@@ -149,12 +158,12 @@ export function VrFlipInlineStart(): JSX.Element {
 	);
 }
 
-// Compound flips (corner positions)
+// ── Compound flips (corner positions) ──
 
 /**
  * block-end align-start in bottom-right corner
  */
-export function VrFlipBlockEndAlignStart(): JSX.Element {
+export function VrFlipBlockEndAlignStart(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipBottomRight]}>
@@ -167,7 +176,7 @@ export function VrFlipBlockEndAlignStart(): JSX.Element {
 /**
  * block-end align-end in bottom-left corner
  */
-export function VrFlipBlockEndAlignEnd(): JSX.Element {
+export function VrFlipBlockEndAlignEnd(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipBottomLeft]}>
@@ -180,7 +189,7 @@ export function VrFlipBlockEndAlignEnd(): JSX.Element {
 /**
  * block-start align-start in top-right corner
  */
-export function VrFlipBlockStartAlignStart(): JSX.Element {
+export function VrFlipBlockStartAlignStart(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipTopRight]}>
@@ -193,7 +202,7 @@ export function VrFlipBlockStartAlignStart(): JSX.Element {
 /**
  * block-start align-end in top-left corner
  */
-export function VrFlipBlockStartAlignEnd(): JSX.Element {
+export function VrFlipBlockStartAlignEnd(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipTopLeft]}>
@@ -206,7 +215,7 @@ export function VrFlipBlockStartAlignEnd(): JSX.Element {
 /**
  * inline-end align-start in bottom-right corner
  */
-export function VrFlipInlineEndAlignStart(): JSX.Element {
+export function VrFlipInlineEndAlignStart(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipBottomRight]}>
@@ -219,7 +228,7 @@ export function VrFlipInlineEndAlignStart(): JSX.Element {
 /**
  * inline-end align-end in top-right corner
  */
-export function VrFlipInlineEndAlignEnd(): JSX.Element {
+export function VrFlipInlineEndAlignEnd(): ReactNode {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipTopRight]}>
@@ -234,6 +243,6 @@ export const VrFlipBlock: typeof VrFlipBlockEnd = VrFlipBlockEnd;
 export const VrFlipInline: typeof VrFlipInlineEnd = VrFlipInlineEnd;
 export const VrFlipBoth: typeof VrFlipBlockEndAlignStart = VrFlipBlockEndAlignStart;
 
-export default function VrPopupCssFallbacks(): JSX.Element {
+export default function VrPopupCssFallbacks(): ReactNode {
 	return <VrFlipBlockEnd />;
 }

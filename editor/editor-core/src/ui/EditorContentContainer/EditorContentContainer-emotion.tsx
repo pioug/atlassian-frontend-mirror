@@ -467,8 +467,7 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 							fg('platform_editor_content_mode_button_mvp'))) &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					getDenseListStyles(baseFontSize),
-				expValEquals('cc_editor_ttvc_release_bundle_one', 'listLayoutShiftFix', true) &&
-					isFullPage &&
+				isFullPage &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					listsStylesMarginLayoutShiftFix,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

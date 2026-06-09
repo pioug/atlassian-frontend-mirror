@@ -1,5 +1,22 @@
 # @atlaskit/reactions
 
+## 34.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.3.0
+
+### Minor Changes
+
+- [`45b3cdde79f3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45b3cdde79f3f) -
+  fix reactions modal DOM position
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.2.8
 
 ### Patch Changes

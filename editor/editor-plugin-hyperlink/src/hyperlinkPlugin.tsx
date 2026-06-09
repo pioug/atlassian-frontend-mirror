@@ -25,6 +25,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import LinkIcon from '@atlaskit/icon/core/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import {
 	hideLinkToolbarSetMeta,
@@ -180,7 +181,7 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 					title: formatMessage(messages.link),
 					description: formatMessage(messages.linkDescription),
 					keywords: ['hyperlink', 'url'],
-					priority: 1200,
+					priority: expVal('confluence_quick_insert_embeds', 'isEnabled', false) ? -300 : 1200,
 					keyshortcut: tooltip(addLink),
 					icon: () => <IconLink />,
 					action(insert, state) {

@@ -6,9 +6,11 @@ export type LayoutState = {
 	addSidebarLayouts: boolean;
 	allowBreakout: boolean;
 	allowSingleColumnLayout: boolean;
+	dangerPreviewLayoutColumnPositions: number[] | undefined;
 	isLayoutColumnMenuOpen: boolean;
 	isResizing: boolean;
 	layoutColumnMenuAnchorPos: number | undefined;
+	layoutColumnMenuOpenedViaKeyboard: boolean;
 	pos: number | null;
 	selectedLayout: PresetLayout | undefined;
 };

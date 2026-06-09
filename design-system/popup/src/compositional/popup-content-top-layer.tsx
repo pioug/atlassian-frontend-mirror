@@ -23,7 +23,7 @@ import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { createPopoverCloseEvent } from '@atlaskit/top-layer/create-close-event';
 import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
 import { Popover, type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
-import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';
 
@@ -185,7 +185,7 @@ export function PopupContentTopLayer({
 					{children(contentProps)}
 				</Container>
 			) : (
-				<PopupSurface>
+				<PopoverSurface>
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 						className={ax([xcss as string])}
@@ -193,7 +193,7 @@ export function PopupContentTopLayer({
 					>
 						{children(contentProps)}
 					</div>
-				</PopupSurface>
+				</PopoverSurface>
 			)}
 		</Popover>
 	);

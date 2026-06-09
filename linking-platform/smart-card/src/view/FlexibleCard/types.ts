@@ -6,6 +6,7 @@ import { type SmartLinkResponse } from '@atlaskit/linking-types';
 
 import { type FireEventFunction } from '../../common/analytics/types';
 import { type SmartLinkSize, type SmartLinkStatus, type SmartLinkTheme } from '../../constants';
+import type { TransformUrlFn } from '../../extractors/action/types';
 import { type AISummaryConfig } from '../../state/hooks/use-ai-summary-config/types';
 import { type ResolveFunction } from '../../state/hooks/use-resolve';
 import type { RovoConfig } from '../../state/hooks/use-rovo-config';
@@ -240,6 +241,7 @@ export type ExtractFlexibleUiDataContextParams = Pick<
 	response?: SmartLinkResponse;
 	rovoConfig?: RovoConfig;
 	status?: SmartLinkStatus;
+	transformUrl?: TransformUrlFn;
 };
 
 /**

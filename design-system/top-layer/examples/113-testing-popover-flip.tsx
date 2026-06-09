@@ -2,11 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { type ReactNode, useCallback, useRef, useState } from 'react';
+
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { Popup } from '@atlaskit/top-layer/popup';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
+import { Popover } from '@atlaskit/top-layer/popover';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 const styles = cssMap({
 	tall: {
@@ -35,23 +40,32 @@ const styles = cssMap({
  * When the viewport is scrolled so the trigger is near the bottom edge,
  * the popover should flip to appear above the trigger.
  */
-export default function TestingPopoverFlip(): JSX.Element {
+export default function TestingPopoverFlip(): ReactNode {
+	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: { edge: 'end' },
+	});
+
 	return (
 		<div css={styles.tall}>
 			<div css={styles.spacer} />
 			<div data-testid="trigger-wrapper" css={styles.triggerWrapper}>
-				<Popup placement={{ edge: 'end' }} onClose={() => {}}>
-					<Popup.Trigger>
-						<button type="button" data-testid="popover-trigger">
-							Open
-						</button>
-					</Popup.Trigger>
-					<Popup.Content role="dialog" label="Flip test">
-						<div data-testid="popover-content" css={styles.content}>
-							Should flip above trigger when near bottom
-						</div>
-					</Popup.Content>
-				</Popup>
+				<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="popover-trigger">
+					Open
+				</button>
+				<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="dialog" label="Flip test">
+					<div data-testid="popover-content" css={styles.content}>
+						Should flip above trigger when near bottom
+					</div>
+				</Popover>
 			</div>
 		</div>
 	);

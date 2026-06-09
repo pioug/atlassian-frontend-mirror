@@ -2,77 +2,82 @@
 
 ## Components
 
-### `Popup` (compound)
-
-The most common pattern. A trigger button opens anchored content. The compound handles trigger
-management, `aria-expanded`, `togglePopover()`, and anchor positioning automatically.
-
-```tsx
-import { Popup } from '@atlaskit/top-layer/popup';
-import { slideAndFade } from '@atlaskit/top-layer/animations';
-
-function MyDropdown() {
-	return (
-		<Popup placement={{ edge: 'end' }} onClose={handleClose}>
-			<Popup.Trigger>
-				<button>Open menu</button>
-			</Popup.Trigger>
-			<Popup.Content role="menu" label="Actions" animate={slideAndFade()}>
-				<MenuItem>Edit</MenuItem>
-				<MenuItem>Delete</MenuItem>
-			</Popup.Content>
-		</Popup>
-	);
-}
-```
-
-The consumer never thinks about `isOpen`. The trigger calls `togglePopover()`, the browser manages
-visibility, and `aria-expanded` updates automatically.
-
 ### `Popover` (primitive)
 
-Low-level building block. Handles visibility (`isOpen`) and animation only. Unopinionated about
-positioning — compose with `useAnchorPosition` when anchor positioning is needed.
+The primary public surface. A `<div>` with the `popover` attribute, plus a small lifecycle:
+animations, role-based focus management, light-dismiss, and nested-popover focus restoration. It
+does **not** know about positioning — compose with `useAnchorPosition` when anchor positioning is
+needed.
 
-Use `Popover` directly when you have a custom trigger lifecycle (hover, timers, external state) or
-when there's no anchor element (flags, toasts).
+`Popover` covers three usage patterns:
+
+1. **Button opens anchored content** — pair with `useAnchorPosition` and own the
+   trigger yourself.
+2. **Custom trigger lifecycle** — hover, timers, external state (e.g. tooltip).
+3. **No anchor at all** — flags, toasts, fixed-position layers.
 
 ```tsx
+import { useRef, useState } from 'react';
+import { slideAndFade } from '@atlaskit/top-layer/animations';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 
-function MyTooltip() {
-	const [isVisible, setIsVisible] = useState(false);
-	const targetRef = useRef(null);
-	const popoverRef = useRef(null);
+function MyDropdown() {
+	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
 
 	useAnchorPosition({
-		anchorRef: targetRef,
+		anchorRef: triggerRef,
 		popoverRef,
-		placement: { edge: 'end' },
+		placement: { axis: 'block', edge: 'end', align: 'start' },
 	});
 
 	return (
 		<>
 			<button
-				ref={targetRef}
-				onMouseEnter={() => setIsVisible(true)}
-				onMouseLeave={() => setIsVisible(false)}
+				ref={triggerRef}
+				onClick={() => popoverRef.current?.togglePopover()}
+				{...getAriaForTrigger({ role: 'menu', isOpen, popoverId })}
 			>
-				Hover me
+				Open menu
 			</button>
 			<Popover
 				ref={popoverRef}
-				role="tooltip"
-				isOpen={isVisible}
-				mode="hint"
-				placement={{ edge: 'end' }}
+				id={popoverId}
+				role="menu"
+				label="Actions"
+				isOpen={isOpen}
+				animate={slideAndFade()}
+				onClose={() => setIsOpen(false)}
 			>
-				Tooltip content
+				<PopoverSurface>
+					<MenuItem>Edit</MenuItem>
+					<MenuItem>Delete</MenuItem>
+				</PopoverSurface>
 			</Popover>
 		</>
 	);
 }
+```
+
+Notes:
+
+- Focus restoration is automatic. The browser handles it for outermost popovers; for nested
+  popovers with focus-capturing roles (dialog, menu, listbox, tree, grid, alertdialog), `Popover`
+  snapshots `document.activeElement` on open (via `beforetoggle`) and restores it on close.
+  Consumers do not need to wire a ref or call `.focus()` themselves.
+- For trigger-less or custom-positioned UI, skip `useAnchorPosition` and write the trigger
+  lifecycle directly. Example:
+
+```tsx
+<Popover ref={popoverRef} role="tooltip" isOpen={isVisible} mode="hint">
+	Tooltip content
+</Popover>
 ```
 
 ### `Dialog`
@@ -140,9 +145,9 @@ how the animation system works.
 `@atlaskit/top-layer/create-close-event` exports a helper for bridging legacy `onClose` signatures
 during migration.
 
-### `PopupSurface`
+### `PopoverSurface`
 
-`@atlaskit/top-layer/popup-surface` exports a styled surface component with standard DS styling
+`@atlaskit/top-layer/popover-surface` exports a styled surface component with standard DS styling
 (background, border-radius, elevation).
 
 ### `placementMap`
@@ -161,22 +166,22 @@ a modal dialog is open.
 
 | Scenario                                               | Component                       | `isOpen`?              | Focus Management                |
 | ------------------------------------------------------ | ------------------------------- | ---------------------- | ------------------------------- |
-| Button opens dropdown/menu                             | `Popup`                         | No — browser manages   | All automatic (role-based)      |
+| Button opens dropdown/menu                             | `Popover` + `useAnchorPosition` | Yes — consumer manages | Automatic (role-based, browser Popover API) |
 | Hover/focus shows tooltip                              | `Popover` + `useAnchorPosition` | Yes — consumer manages | No focus changes (`tooltip`)    |
 | Toast/flag notification                                | `Popover`                       | Yes — `mode="manual"`  | No focus changes                |
 | Modal dialog                                           | `Dialog`                        | Yes — on `Dialog`      | Native `<dialog>` focus trap    |
 | Custom trigger (timer, external)                       | `Popover` + `useAnchorPosition` | Yes — consumer manages | Automatic (browser Popover API) |
-| Button opens anchored content with no custom lifecycle | `Popup`                         | No — browser manages   | All automatic (role-based)      |
+| Button opens anchored content with no custom lifecycle | `Popover` + `useAnchorPosition` | Yes — consumer manages | Automatic (role-based, browser Popover API) |
 
 ---
 
 ## Architecture
 
 ```
-Popover               = top layer + isOpen + animate + mode + ARIA
+Popover               = top layer + isOpen + animate + mode + ARIA + (optional) nested-focus restoration
+PopoverSurface        = presentational surface (background, radius, shadow)
 useAnchorPosition     = CSS anchor positioning (separate hook)
-Popup.Content         = Popover + useAnchorPosition + context glue
-Popup                 = compound (Trigger + Content)
+useWidthFromAnchor    = anchor-width sizing helper
 Dialog                = <dialog> element + isOpen + animate + onExitFinish
 ```
 
@@ -184,15 +189,15 @@ Dialog                = <dialog> element + isOpen + animate + onExitFinish
 
 | Entry Point                                    | Purpose                                          |
 | ---------------------------------------------- | ------------------------------------------------ |
-| `@atlaskit/top-layer/popup`                    | Compound component — trigger + content           |
-| `@atlaskit/top-layer/popover`                  | Low-level primitive — visibility + animation     |
+| `@atlaskit/top-layer/popover`                  | Top-layer primitive — visibility, animation, focus |
+| `@atlaskit/top-layer/popover-surface`          | Presentational surface (background, radius, shadow) |
 | `@atlaskit/top-layer/dialog`                   | Modal dialog — `<dialog>` with `showModal()`     |
 | `@atlaskit/top-layer/animations`               | Animation presets (`slideAndFade`, `fade`, etc.) |
 | `@atlaskit/top-layer/use-anchor-position`      | CSS anchor positioning hook                      |
+| `@atlaskit/top-layer/use-width-from-anchor`    | Match popover width to anchor                    |
 | `@atlaskit/top-layer/use-arrow-navigation`     | Arrow key navigation hook for composite widgets  |
 | `@atlaskit/top-layer/use-simple-light-dismiss` | Light dismiss for manual popovers                |
 | `@atlaskit/top-layer/create-close-event`       | Legacy `onClose` bridge                          |
-| `@atlaskit/top-layer/popup-surface`            | Styled popup surface component                   |
 | `@atlaskit/top-layer/placement-map`            | Legacy placement string conversion               |
 | `@atlaskit/top-layer/dialog-scroll-lock`       | Background scroll prevention for modals          |
 | `@atlaskit/top-layer/focus`                    | Focus utilities (focus wrapping, initial focus)  |

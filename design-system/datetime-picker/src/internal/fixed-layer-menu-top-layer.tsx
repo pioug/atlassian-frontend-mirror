@@ -9,7 +9,9 @@ import { jsx } from '@compiled/react';
 import { components, type MenuProps, type OptionType } from '@atlaskit/select';
 import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import { Popup } from '@atlaskit/top-layer/popup';
+import { Popover } from '@atlaskit/top-layer/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 
 const animation = slideAndFade();
 
@@ -22,10 +24,10 @@ const popupPlacement = fromLegacyPlacement({ legacy: 'bottom-start' });
 /**
  * Top-layer version of the fixed layer menu used in the time picker.
  *
- * Uses `@atlaskit/top-layer/popup` (Popup.Content + Popup.Surface) so the
- * time options list renders in the browser's top layer via the native Popover API
- * and is positioned via CSS Anchor Positioning. This avoids overflow clipping,
- * z-index wars, and portal-based layering.
+ * Uses `Popover` + `useAnchorPosition` so the time options list renders
+ * in the browser's top layer via the native Popover API and is positioned
+ * via CSS Anchor Positioning. This avoids overflow clipping, z-index wars,
+ * and portal-based layering.
  *
  * Gated behind the `platform-dst-top-layer` feature flag.
  */
@@ -84,8 +86,17 @@ export const FixedLayerMenuTopLayer: ({
 	// @ts-ignore -- fixedLayerRef is a custom prop passed through selectProps
 	triggerRef.current = selectProps.fixedLayerRef ?? null;
 
+	const popoverRef = useRef<HTMLDivElement>(null);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: popupPlacement,
+	});
+
 	return (
-		<Popup.Content
+		<Popover
+			ref={popoverRef}
 			role="listbox"
 			isOpen
 			// `mode="manual"` opts out of the native popover light-dismiss
@@ -97,12 +108,11 @@ export const FixedLayerMenuTopLayer: ({
 			// logic remains the single source of truth.
 			mode="manual"
 			placement={popupPlacement}
-			triggerRef={triggerRef}
 			animate={animation}
 			// @ts-ignore -- testId is a custom prop passed through selectProps
 			testId={selectProps.testId && `${selectProps.testId}--popup`}
 		>
-			<Popup.Surface>
+			<PopoverSurface>
 				<components.Menu
 					// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 					{...rest}
@@ -131,7 +141,7 @@ export const FixedLayerMenuTopLayer: ({
 				>
 					{children}
 				</components.Menu>
-			</Popup.Surface>
-		</Popup.Content>
+			</PopoverSurface>
+		</Popover>
 	);
 };

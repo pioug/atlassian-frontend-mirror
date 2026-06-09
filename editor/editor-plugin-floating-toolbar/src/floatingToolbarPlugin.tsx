@@ -43,6 +43,7 @@ import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state'
 import { AllSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type {
@@ -222,7 +223,7 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 
 			const configWithNodeInfo =
 				interactionState !== 'hasNotHadInteraction'
-					? (pluginKey.getState(editorState)?.getConfigWithNodeInfo?.(editorState) ?? undefined)
+					? pluginKey.getState(editorState)?.getConfigWithNodeInfo?.(editorState) ?? undefined
 					: undefined;
 
 			return {
@@ -302,7 +303,17 @@ export function ContentComponent({
 			'userIntent',
 		]);
 
-	const { configWithNodeInfo, floatingToolbarData } = floatingToolbarState ?? {};
+	const { configWithNodeInfo: configWithNodeInfoFromHook, floatingToolbarData } =
+		floatingToolbarState ?? {};
+
+	let configWithNodeInfo = configWithNodeInfoFromHook;
+	if (fg('platform_editor_ai_remix_toolbar')) {
+		// Read configWithNodeInfo live because the hook snapshot can lag behind the
+		// current editor selection and keep the floating toolbar rendered stale.
+		// for example, trigger remix on panel will not hide the floating toolbar
+		configWithNodeInfo =
+			pluginInjectionApi?.floatingToolbar?.sharedState.currentState()?.configWithNodeInfo;
+	}
 
 	if (isSSR()) {
 		return null;
@@ -680,7 +691,7 @@ export function floatingToolbarPluginFactory(options: {
 						};
 
 						return newPluginState;
-					}
+				  }
 				: apply,
 		},
 		view: expValEquals('platform_editor_lovability_suppress_toolbar_event', 'isEnabled', true)
@@ -700,7 +711,7 @@ export function floatingToolbarPluginFactory(options: {
 							}
 						},
 					};
-				}
+			  }
 			: undefined,
 	});
 }

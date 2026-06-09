@@ -4,36 +4,63 @@ Low-level top-layer primitives using the native
 [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) (`popover="auto"`) and
 [`<dialog>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) element.
 
-## Popup
-
-Compound component for rendering content in the browser's top layer with CSS Anchor Positioning.
-Placement is owned by this compound: root provides it via context, Content applies it (CSS Anchor
-Positioning or JS fallback).
-
-```tsx
-<Popup onClose={handleClose}>
-	<Popup.Trigger>
-		<button>Open</button>
-	</Popup.Trigger>
-	<Popup.Content role="dialog" label="My popup">
-		Content here
-	</Popup.Content>
-</Popup>
-```
-
-`placement` defaults to `{}` - "below trigger, centered, with `space.100` gap". Pass an explicit
-object to override (e.g. `placement={{ axis: 'inline', edge: 'end' }}` for a popover anchored to the
-trigger's right edge).
-
-For default overlay styling (background, shadow, border-radius), see `PopupSurface` in the package
-examples (not currently a public API; we may expose it in a future release).
-
 ## Popover
 
-Low-level primitive: a `<div>` with the `popover` attribute and show/hide lifecycle only. No
-placement, no trigger wiring — use it when you need top-layer rendering with **fixed or custom
-positioning** (e.g. Flag uses `Popover mode="manual"`). For anchor-positioned content next to a
-trigger, use **Popup** instead.
+The primary primitive: a `<div>` with the `popover` attribute, plus a small lifecycle (animations,
+role-based focus management, light-dismiss, nested-focus restoration). It does **not** know about
+placement — compose it with the `useAnchorPosition` hook when you need anchor-positioned content.
+
+```tsx
+import { useRef } from 'react';
+import { slideAndFade } from '@atlaskit/top-layer/animations';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
+import { Popover } from '@atlaskit/top-layer/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+
+function MyPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: { axis: 'block', edge: 'end', align: 'start' },
+	});
+
+	return (
+		<>
+			<button
+				ref={triggerRef}
+				onClick={() => popoverRef.current?.togglePopover()}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId })}
+			>
+				Open
+			</button>
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				role="dialog"
+				label="Settings"
+				isOpen={isOpen}
+				animate={slideAndFade()}
+				onClose={onClose}
+			>
+				<PopoverSurface>Content here</PopoverSurface>
+			</Popover>
+		</>
+	);
+}
+```
+
+- Focus restoration is automatic. The browser handles it for outermost popovers; `Popover`
+  snapshots `document.activeElement` on open and restores it on close for nested cases.
+- For default overlay styling (background, shadow, border-radius), wrap content in `PopoverSurface`
+  from `@atlaskit/top-layer/popover-surface`.
+- For trigger-less or custom-positioned UI (flag, tooltip, react-select menu portal), use `Popover`
+  on its own without `useAnchorPosition`.
 
 ## Dialog
 
@@ -60,8 +87,8 @@ Compound component for modal dialogs using the native `<dialog>` element with `.
 
 ## Animations
 
-Both Popup (and the low-level Popover) and Dialog support CSS-based entry/exit animations via the
-`animate` prop. Animations use
+Both `Popover` and `Dialog` support CSS-based entry/exit animations via the `animate` prop.
+Animations use
 [`@starting-style`](https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style) for entry and
 [`allow-discrete`](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior) on
 `display`/`overlay` for exit — no JavaScript animation coordination required.
@@ -80,23 +107,23 @@ import {
 } from '@atlaskit/top-layer/animations';
 ```
 
-### Popup animation
+### Popover animation
 
-Pass a preset to `Popup.Content` (or to `Popover` when using the low-level primitive without
-placement):
+Pass a preset to `Popover`:
 
 ```tsx
 import { slideAndFade } from '@atlaskit/top-layer/animations';
+import { Popover } from '@atlaskit/top-layer/popover';
 
 const animation = slideAndFade();
 
-<Popup.Content animate={animation} role="dialog" label="My popup">
+<Popover animate={animation} role="dialog" label="My popover">
 	Content
-</Popup.Content>;
+</Popover>;
 ```
 
-For overlay styling (background, shadow, border-radius), see the `PopupSurface` usage in the package
-examples.
+For overlay styling (background, shadow, border-radius), wrap children in `PopoverSurface` from
+`@atlaskit/top-layer/popover-surface`.
 
 Available popover presets:
 

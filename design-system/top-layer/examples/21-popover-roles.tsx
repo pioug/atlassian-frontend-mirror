@@ -1,17 +1,24 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { getFirstFocusable } from '@atlaskit/top-layer/focus';
-import { Popup, type TPopupRole } from '@atlaskit/top-layer/popup';
-import { PopupSurface } from '@atlaskit/top-layer/popup-surface';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
+import { Popover } from '@atlaskit/top-layer/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';
 
+// Roles supported by `getAriaForTrigger`. Tooltip-family roles are intentionally
+// excluded because their trigger wiring uses `aria-describedby`, not `aria-haspopup`.
+type TPopoverRole = 'dialog' | 'menu' | 'listbox';
+
 const roleDemos: Array<{
-	role: TPopupRole;
+	role: TPopoverRole;
 	label?: string;
 	description: string;
 	content: React.ReactNode;
@@ -20,7 +27,7 @@ const roleDemos: Array<{
 		role: 'dialog',
 		label: 'Settings dialog',
 		description: 'Requires an accessible name (label or labelledBy).',
-		content: <Text>This popup has role=&quot;dialog&quot; and requires a label.</Text>,
+		content: <Text>This popover has role="dialog" and requires a label.</Text>,
 	},
 	{
 		role: 'menu',
@@ -39,12 +46,6 @@ const roleDemos: Array<{
 				</button>
 			</Stack>
 		),
-	},
-	{
-		role: 'tooltip',
-		label: 'Helpful tooltip',
-		description: 'Does not require a label - the content IS the accessible name.',
-		content: <Text>Tooltip content is the name itself.</Text>,
 	},
 	{
 		role: 'listbox',
@@ -67,24 +68,22 @@ const roleDemos: Array<{
 ];
 
 /**
- * Popup with different ARIA roles.
+ * Popover with different ARIA roles.
  *
- * Demonstrates the typed role system on `Popup.Content`:
- * - `'dialog'`, `'alertdialog'`, `'menu'` - require `label` or `labelledBy`
- * - `'tooltip'`, `'listbox'`, `'tree'`, etc. - label is optional
+ * Demonstrates the typed role system on `Popover`:
+ * - `'dialog'`, `'menu'` - use with `getAriaForTrigger` for trigger ARIA
+ * - `'listbox'` - label provided by the associated combobox, not by the trigger
  */
-export default function PopoverRolesExample(): React.JSX.Element {
-	const handleClose = useCallback(() => {}, []);
-
+export default function PopoverRolesExample(): React.ReactNode {
 	return (
 		<ForceFallbackToggle>
 			{(forceFallbackPositioning) => (
 				<Box padding="space.400">
 					<Stack space="space.300">
 						<Stack space="space.100">
-							<Heading size="small">Popup roles</Heading>
+							<Heading size="small">Popover roles</Heading>
 							<Text>
-								Each popup below uses a different role prop. Roles that are ARIA landmarks require
+								Each popover below uses a different role prop. Roles that are ARIA landmarks require
 								an accessible name.
 							</Text>
 						</Stack>
@@ -96,7 +95,6 @@ export default function PopoverRolesExample(): React.JSX.Element {
 									label={label}
 									description={description}
 									content={content}
-									handleClose={handleClose}
 									forceFallbackPositioning={forceFallbackPositioning}
 								/>
 							))}
@@ -108,48 +106,63 @@ export default function PopoverRolesExample(): React.JSX.Element {
 	);
 }
 
-function handleOpenChange({ isOpen, element }: { isOpen: boolean; element: HTMLDivElement }) {
-	if (isOpen) {
-		getFirstFocusable({ container: element })?.focus();
-	}
-}
-
 function RoleDemo({
 	role,
 	label,
 	description,
 	content,
-	handleClose,
 	forceFallbackPositioning,
 }: {
-	role: TPopupRole;
+	role: TPopoverRole;
 	label?: string;
 	description: string;
 	content: React.ReactNode;
-	handleClose: () => void;
 	forceFallbackPositioning: boolean;
-}) {
+}): React.ReactNode {
+	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: { edge: 'end' },
+		forceFallbackPositioning,
+	});
+
 	return (
-		<Stack key={role} space="space.100">
+		<Stack space="space.100">
 			<Inline space="space.100" alignBlock="center">
 				<Lozenge appearance="new">{role}</Lozenge>
 				<Text size="small">{description}</Text>
 			</Inline>
 			<Box>
-				<Popup
-					placement={{ edge: 'end' }}
-					onClose={handleClose}
-					onOpenChange={handleOpenChange}
-					forceFallbackPositioning={forceFallbackPositioning}
+				<Button
+					ref={triggerRef}
+					onClick={toggle}
+					{...getAriaForTrigger({ role, isOpen, popoverId: popoverId })}
 				>
-					<Popup.Trigger>
-						<Button>Open {role} popup</Button>
-					</Popup.Trigger>
-					{/* @ts-expect-error -- demo iterates over multiple role variants */}
-					<Popup.Content role={role} label={label}>
-						<PopupSurface>{content}</PopupSurface>
-					</Popup.Content>
-				</Popup>
+					Open {role} popover
+				</Button>
+				<Popover
+					ref={popoverRef}
+					id={popoverId}
+					role={role}
+					label={label}
+					isOpen={isOpen}
+					onClose={close}
+					onOpenChange={({ isOpen: nextOpen, element }) => {
+						if (nextOpen) {
+							getFirstFocusable({ container: element })?.focus();
+						}
+					}}
+				>
+					<PopoverSurface>{content}</PopoverSurface>
+				</Popover>
 			</Box>
 		</Stack>
 	);
